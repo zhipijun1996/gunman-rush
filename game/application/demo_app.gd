@@ -138,6 +138,7 @@ func _ready() -> void:
 		set_process_input(false)
 		get_tree().call_deferred("change_scene_to_file", "res://experiments/platform/entries/cloud_preview.tscn")
 		return
+	add_child(RuntimeMapLibraryWarmup.new())
 	plains_environment_candidate_requested = plains_environment_candidate_requested or "--plains-environment-candidate" in OS.get_cmdline_user_args()
 	plains_places_candidate_requested = plains_places_candidate_requested or "--plains-places-candidate" in OS.get_cmdline_user_args()
 	plains_joint_recoil_candidate_requested = plains_joint_recoil_candidate_requested or "--plains-joint-recoil-candidate" in OS.get_cmdline_user_args()
@@ -1741,7 +1742,7 @@ func _layout_region_hud() -> void:
 		navigation_reserved.append_array(card_reservations)
 		var map := (stage as PlainsRegionStage).map_view
 		if is_instance_valid(map):
-			map.position = _clear_ui_edge(_region_ui_positions.get("map",map.position),map.size*map.scale,[map.position]+([Vector2(1098,78),Vector2(1098,142),Vector2(952,78)] if overlay.enabled else [Vector2(1098,14),Vector2(1098,674)]),blockers,critical_count,navigation_reserved)
+			map.position = _clear_ui_edge(_region_ui_positions.get("map",map.position),map.size*map.scale,[map.position]+([Vector2(viewport.end.x-map.size.x-16,78),Vector2(viewport.end.x-map.size.x-16,142),Vector2(952,78)] if overlay.enabled else [Vector2(viewport.end.x-map.size.x-16,14),Vector2(viewport.end.x-map.size.x-16,viewport.end.y-map.size.y-14)]),blockers,critical_count,navigation_reserved)
 			_region_ui_positions["map"]=map.position
 			touch_regions.append(map.get_global_rect())
 			navigation_reserved.append(map.get_global_rect())

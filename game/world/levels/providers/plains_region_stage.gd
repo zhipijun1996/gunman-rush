@@ -166,8 +166,8 @@ func _ready() -> void:
 	var map:=PlainsRegionMap.new()
 	map_view=map
 	map.stage=self
-	map.region_chip = true
-	map.position=Vector2(1098,14)
+	map.region_chip = not self is MapgenPlainsStage
+	map.position=Vector2(1024,14) if self is MapgenPlainsStage else Vector2(1098,14)
 	map_layer.add_child(map)
 	if generated.has("regional_art_plan"):
 		var joint := not (generated.regional_art_plan.get("joint_modules",[]) as Array).is_empty()

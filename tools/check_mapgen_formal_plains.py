@@ -20,6 +20,13 @@ def main():
     if not re.search(r"(?m)^MAPGEN FORMAL ROUTE: ticks=[1-9]\d* accepted_boss_damage=[1-9][\d.]* failures=0$", route):
         raise RuntimeError("Missing input-only start-to-Boss combat result")
 
+    seams = run_engine([
+        "--headless", "--audio-driver", "Dummy", "--fixed-fps", "60", "--path", ".",
+        "--script", "tests/mapgen_plains_vertical_runner.gd",
+    ], 180)
+    if not re.search(r"(?m)^MAPGEN NATIVE SEAMS: [1-9]\d* assertions, 0 failures$", seams):
+        raise RuntimeError("Missing native vertical / horizontal one-way seam result")
+
 
 if __name__ == "__main__":
     main()

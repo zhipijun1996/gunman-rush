@@ -7,6 +7,8 @@ const LATCH_KINDS := ["safe_lesson","remote","timed","ferry_bell","sequence","sh
 
 static func latch_error(content: Dictionary) -> String:
 	if not content.get("latches") is Array: return "latches must be an array"
+	for row: Variant in content.get("moving_platforms",[]):
+		if row is Dictionary and row.has("designState") and row.designState not in ["FROZEN_EXAMPLE","MOVING_EXAMPLE"]: return "unsupported moving platform design hint"
 	var seen := {}
 	for raw: Variant in content.latches:
 		if not raw is Dictionary: return "invalid latch record"
@@ -74,6 +76,9 @@ static func geometry_content(content: Dictionary) -> Dictionary:
 		if not row is Dictionary: continue
 		if not row.has("damage"): row["damage"]=defaults.damage
 		if not row.has("contact_interval"): row["contact_interval"]=defaults.contact_interval
+	for row: Variant in resolved.get("moving_platforms",[]):
+		if row is Dictionary and row.get("trajectory_kind")=="clockwise_ellipse/v1" and not row.has("ellipse_x_sign"):
+			row["ellipse_x_sign"]=RuntimeMapEllipseDefinition.new().x_sign
 	return resolved
 
 static func geometry_view(content: Dictionary) -> Dictionary:
@@ -81,6 +86,9 @@ static func geometry_view(content: Dictionary) -> Dictionary:
 	# the original geometry validator; the plan retains the complete source.
 	var view := geometry_content(content)
 	for key: String in ["enemies","reward_sites","thorns","latches"]: view[key]=[]
+	# Authored presentation hints remain in source metadata; native motion is
+	# defined exclusively by the retained trajectory fields.
+	for row: Dictionary in view.moving_platforms: row.erase("designState")
 	return view
 
 static func configure_definition(definition: PlatformingModuleDefinition, content: Dictionary) -> void:

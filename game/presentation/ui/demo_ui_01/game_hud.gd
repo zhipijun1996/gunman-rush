@@ -324,8 +324,13 @@ func present_navigation(map_button: Control, pause_button: Button, touch_menu_re
 	if is_instance_valid(map_button):
 		var map_factor := maxf(factor, 14.0 / (12.0 * pixel_scale))
 		map_button.scale = Vector2.ONE * map_factor
-		map_button.size = Vector2(160, maxf(32, 48.0 / pixel_scale / map_factor))
-		map_button.position = Vector2(viewport.x - right - 160 * map_factor, top)
+		if map_button is PlainsRegionMap and not map_button.region_chip:
+			map_factor=factor
+			map_button.scale=Vector2.ONE*map_factor
+			map_button.size=Vector2(240,156)
+		else:
+			map_button.size = Vector2(160, maxf(32, 48.0 / pixel_scale / map_factor))
+		map_button.position = Vector2(viewport.x - right - map_button.size.x * map_factor, top)
 		top += map_button.size.y * map_factor + 10.0 / pixel_scale
 	pause_button.scale = Vector2.ONE * factor
 	pause_button.custom_minimum_size = Vector2(108, maxf(48, 48.0 / pixel_scale / factor))

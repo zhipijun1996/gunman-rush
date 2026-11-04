@@ -25,11 +25,13 @@ func _world_rect() -> Rect2:
 	return Rect2(b[0],b[1],b[2],b[3])
 func _fit_scale() -> float:
 	var bounds:=_world_rect()
-	return minf(frame().size.x/bounds.size.x,frame().size.y/bounds.size.y)
+	var fitted:=minf(frame().size.x/bounds.size.x,frame().size.y/bounds.size.y)
+	return fitted if expanded else maxf(fitted,minf(frame().size.x/2200.0,frame().size.y/1100.0))
 func project(p: Array) -> Vector2:
 	return project_point(Vector2(p[0],p[1]))
 func project_point(p: Vector2) -> Vector2:
-	return frame().get_center()+(p-_world_rect().get_center())*_fit_scale()*zoom+pan
+	var center:=_world_rect().get_center() if expanded else stage.global_player_position()
+	return frame().get_center()+(p-center)*_fit_scale()*zoom+pan
 func visible_areas() -> Array[Dictionary]:
 	var found: Array[Dictionary]=[]
 	if not is_instance_valid(stage): return found
@@ -98,36 +100,49 @@ func _draw() -> void:
 		return
 	if not expanded:
 		draw_string(font,Vector2(10,18),"MAP %s/2 / CLICK TO EXPLORE" % stage.map_index,HORIZONTAL_ALIGNMENT_LEFT,-1,12,UnderworldUI.TEXT)
-		draw_string(font,Vector2(10,148),"Fog: unexplored   B Boss   C Camp",HORIZONTAL_ALIGNMENT_LEFT,-1,10,UnderworldUI.MUTED)
+		draw_string(font,Vector2(10,148),"B Boss   C Camp   * Cache",HORIZONTAL_ALIGNMENT_LEFT,-1,10,UnderworldUI.MUTED)
 	var bounds:=_world_rect()
 	# Only reveal tiles already visited physically; unknown land remains opaque.
 	for key: String in stage.region_state.explored:
 		var coords:=key.split(":")
 		var world_cell:=Rect2(Vector2(float(coords[0]),float(coords[1]))*PlainsMapExploration.CELL,Vector2.ONE*PlainsMapExploration.CELL).intersection(bounds)
-		if world_cell.has_area(): draw_rect(Rect2(project_point(world_cell.position),world_cell.size*_fit_scale()*zoom),Color("233329"))
-	var g:=PlainsRegionGenerator.new()
-	for e: Dictionary in stage.generated.manifest.connections:
-		var path: Array=e.get("path",[g._area(stage.generated.manifest,e.a).position,g._area(stage.generated.manifest,e.b).position])
-		var locked: bool=e.condition=="backside" and not stage.region_state.opened.has(e.id)
-		for i: int in path.size()-1:
-			var a:=Vector2(path[i][0],path[i][1]); var b:=Vector2(path[i+1][0],path[i+1][1])
-			var steps:=maxi(1,ceili(a.distance_to(b)/(PlainsMapExploration.CELL/4)))
-			for n: int in steps:
-				var start:=a.lerp(b,float(n)/steps); var end:=a.lerp(b,float(n+1)/steps)
-				if PlainsMapExploration.revealed(stage.region_state,start) and PlainsMapExploration.revealed(stage.region_state,end):
-					draw_line(project_point(start),project_point(end),UnderworldUI.BRASS if locked else UnderworldUI.MOSS,2 if expanded else 1)
+		if world_cell.has_area(): draw_rect(Rect2(project_point(world_cell.position),world_cell.size*_fit_scale()*zoom).intersection(frame()),Color("233329"))
+	# Draw the actual assembled terrain. Unused Ports are already sealed in
+	# each Definition, so openings are the same holes the player can traverse.
+	_draw_terrain()
 	for a: Dictionary in visible_areas():
+		if a.role not in ["merchant","boss","challenge_reward"]: continue
 		var p:=project(a.position)
-		var color:=Color("d2d9ac") if stage.region_state.visited.has(a.id) else Color("8aab8f")
-		if a.role=="boss": color=Color("e8b76c")
-		if a.role=="merchant": color=UnderworldUI.COOL
-		draw_circle(p,5 if expanded else 3,color)
-		if a.role in ["merchant","boss","challenge_reward"]:
-			draw_string(font,p+Vector2(7,-4),"B" if a.role=="boss" else "C" if a.role=="merchant" else "*",HORIZONTAL_ALIGNMENT_LEFT,-1,14 if expanded else 10,color)
-		if expanded:
-			draw_string(font,p+Vector2(8,18),stage.area_label(a),HORIZONTAL_ALIGNMENT_LEFT,180,11,color)
+		if not frame().has_point(p): continue
+		var color:=UnderworldUI.COOL if a.role=="merchant" else UnderworldUI.BRASS
+		draw_circle(p,4 if expanded else 3,color)
+		draw_string(font,p+Vector2(7,-4),"B" if a.role=="boss" else "C" if a.role=="merchant" else "*",HORIZONTAL_ALIGNMENT_LEFT,-1,14 if expanded else 10,color)
 	var player:=stage.global_player_position()
 	if player.is_finite(): draw_circle(project_point(player),5 if expanded else 3,Color("fff5ca"))
+func _draw_terrain() -> void:
+	if stage.level_plan==null: return
+	var scale_factor:=_fit_scale()*zoom
+	for placement: LevelModulePlacement in stage.level_plan.modules:
+		var definition:=placement.definition
+		for index: int in definition.platforms.size():
+			var terrain:=definition.platforms[index]
+			terrain.position+=placement.position
+			# Iterate only cells touched by this rectangle; explored is the sole
+			# fog authority shared by HUD and expanded map.
+			for y: int in range(floori(terrain.position.y/PlainsMapExploration.CELL),ceili(terrain.end.y/PlainsMapExploration.CELL)):
+				for x: int in range(floori(terrain.position.x/PlainsMapExploration.CELL),ceili(terrain.end.x/PlainsMapExploration.CELL)):
+					if not stage.region_state.explored.has("%s:%s" % [x,y]): continue
+					var cell:=Rect2(Vector2(x,y)*PlainsMapExploration.CELL,Vector2.ONE*PlainsMapExploration.CELL)
+					var part:=terrain.intersection(cell)
+					if not part.has_area(): continue
+					var screen:=Rect2(project_point(part.position),part.size*scale_factor).intersection(frame())
+					if not screen.has_area(): continue
+					if index in definition.one_way_platform_indices:
+						draw_line(screen.position,Vector2(screen.end.x,screen.position.y),Color("c9be86"),2 if expanded else 1)
+					else:
+						screen.size.y=maxf(screen.size.y,1)
+						draw_rect(screen,Color("91a68d"))
+
 func panel() -> StyleBoxFlat:
 	var material := preload("res://game/presentation/ui/demo_ui_01/clockwork_theme.gd")
 	var highlighted := not expanded and (has_focus() or Rect2(Vector2.ZERO, size).has_point(get_local_mouse_position()))

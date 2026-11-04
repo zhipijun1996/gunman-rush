@@ -96,7 +96,7 @@ static func _build_level(request: LevelRequest, map: Dictionary, content_store: 
 	for id: String in ids:
 		if not instances.has(id): return _reject("instances."+id+": selected instance missing")
 		var instance: Dictionary = instances[id]
-		var problem := _instance_error(instance)
+		var problem := _instance_error(instance,complete)
 		if not problem.is_empty(): return _reject("instances."+id+"."+problem)
 		var ref: String = instance.content_ref
 		if not generated and not _hash(source_record.files.get(ref)): return _reject("source_record.files: missing verified SHA256 for "+ref)
@@ -130,7 +130,7 @@ static func _build_level(request: LevelRequest, map: Dictionary, content_store: 
 		for endpoint: Dictionary in [raw.a,raw.b]:
 			if not _identity(endpoint.get("instance_id")) or not instances.has(endpoint.instance_id) or not _identity(endpoint.get("port_id")): return _reject("connections."+str(raw.id)+".endpoint: missing instance/port identity")
 		if not selected.has(raw.a.get("instance_id")) or not selected.has(raw.b.get("instance_id")): continue
-		var problem := _connection_error(raw,instances)
+		var problem := _connection_error(raw,instances,complete)
 		if not problem.is_empty(): return _reject("connections."+str(raw.id)+"."+problem)
 		var edge: Dictionary = raw.duplicate(true)
 		edge["condition"] = "open"
@@ -239,7 +239,7 @@ static func _digest(value: Variant) -> String:
 	# Existing Godot sorted-key JSON convention, with full numeric precision.
 	return JSON.stringify(value,"",true,true).sha256_text()
 
-static func _instance_error(row: Dictionary) -> String:
+static func _instance_error(row: Dictionary, complete: bool = false) -> String:
 	var extra := _unexpected(row,["id","module_id","content_version","role","origin_blocks","size_blocks","transform","content_ref","ports","connected_port_ids","seals","routes","required_services","source_scene_ref","source_compiled_ref"])
 	if not extra.is_empty(): return extra+": unsupported instance field"
 	if not _identity(row.get("role")) or not _identity(row.get("source_scene_ref")) or not _identity(row.get("source_compiled_ref")): return "role/source_scene_ref/source_compiled_ref: missing source metadata"
@@ -264,7 +264,7 @@ static func _instance_error(row: Dictionary) -> String:
 		extra = _unexpected(raw,["id","face","surface","permission","local_position_pixels"])
 		if not extra.is_empty(): return "ports."+str(raw.id)+"."+extra+": unsupported geometric port field"
 		if not raw.get("permission") is String or raw.permission not in PORT_PERMISSIONS: return "ports."+str(raw.id)+".permission: invalid protocol value; expected INPUT, OUTPUT or INOUT"
-		if raw.get("face") not in ["LEFT","RIGHT","TOP","BOTTOM"] or raw.get("surface") not in ["ROCK","ONE_WAY_PLATFORM"]: return "ports."+str(raw.id)+": unsupported face/surface"
+		if raw.get("face") not in ["LEFT","RIGHT","TOP","BOTTOM"] or raw.get("surface") not in (["ROCK","ONE_WAY_PLATFORM","AIR"] if complete else ["ROCK","ONE_WAY_PLATFORM"]): return "ports."+str(raw.id)+": unsupported face/surface"
 		var at := _point(raw.local_position_pixels)
 		var size := _point(row.size_blocks)*128.0
 		if at.x < 0 or at.y < 0 or at.x > size.x or at.y > size.y: return "ports."+str(raw.id)+": outside owned boundary"
@@ -442,11 +442,11 @@ static func _ellipse(raw: Dictionary) -> RuntimeMapEllipseDefinition:
 	result.initial_phase = float(raw.initial_phase)
 	return result
 
-static func _connection_error(edge: Dictionary, instances: Dictionary) -> String:
+static func _connection_error(edge: Dictionary, instances: Dictionary, complete: bool = false) -> String:
 	for field: Variant in edge:
 		if field not in ["id","a","b","position_pixels","surface","condition"]: return str(field)+": unsupported selected connection field"
 	if edge.a.instance_id == edge.b.instance_id: return "a/b: unsupported self-connection"
-	if not _pair(edge.get("position_pixels")) or edge.get("surface") != "ROCK": return "position_pixels/surface: unsupported selected seam"
+	if not _pair(edge.get("position_pixels")) or edge.get("surface") not in (["ROCK","ONE_WAY_PLATFORM","AIR"] if complete else ["ROCK"]): return "position_pixels/surface: unsupported selected seam"
 	if edge.has("condition") and edge.condition != "open": return "condition: unsupported selected connection"
 	var faces: Array[String] = []
 	for endpoint: Dictionary in [edge.a,edge.b]:
@@ -456,7 +456,7 @@ static func _connection_error(edge: Dictionary, instances: Dictionary) -> String
 		var matched := false
 		for port: Dictionary in row.ports:
 			if port.id != endpoint.get("port_id"): continue
-			if port.permission != "INOUT": return str(row.id)+".ports."+str(port.id)+".permission: host capability unsupported for legal "+str(port.permission)+"; selected seams require INOUT"
+			if not complete and port.permission != "INOUT": return str(row.id)+".ports."+str(port.id)+".permission: host capability unsupported for legal "+str(port.permission)+"; selected seams require INOUT"
 			faces.append(str(port.face))
 			if port.id not in row.connected_port_ids: return str(row.id)+".connected_port_ids: seam port is not connected"
 			if port.surface != edge.surface or _point(row.origin_blocks)*128.0+_point(port.local_position_pixels) != _point(edge.position_pixels): return str(row.id)+".ports."+str(port.id)+": seam surface/position mismatch"

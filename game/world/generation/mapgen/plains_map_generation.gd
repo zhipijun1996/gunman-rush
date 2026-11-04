@@ -1,7 +1,7 @@
 class_name PlainsMapGeneration
 extends RefCounted
-## One run's cooperative generation source and committed maps. No gameplay services.
-const VERSION := "plains-mapgen-v1"
+## One run's generation source and committed maps. No gameplay services.
+const VERSION := "plains-mapgen-v2"
 const CONFIG := "res://config/plains_mapgen.json"
 const REQUEST = preload("res://game/world/generation/mapgen/runtime_map_generation_request.gd")
 var generation := RuntimeMapGenerationJob.new()
@@ -10,7 +10,11 @@ var progress := ""
 var _maps: Dictionary = {}
 var _pending: LevelBuildResult
 var _pending_index := 0
+var _started_usec := 0
+var _ready_usec := 0
+var _attempt_metrics: Array[Dictionary]=[]
 
+# Keep the seed namespace stable across host profiles for comparable samples.
 static func seed_for(root_seed: String, map_index: int) -> int:
 	return (root_seed+"/plains/map_%s/mapgen-v1" % map_index).sha256_text().substr(0,13).hex_to_int()
 
@@ -31,6 +35,7 @@ var _failures: Array[String]=[]
 
 func begin_map(owner: Node, lifetime: DemoLifetime, original: LevelRequest, controller: PlayerController) -> void:
 	_result=null;error="";phase="loading";_attempt=0;_failures.clear()
+	_started_usec=Time.get_ticks_usec();_ready_usec=0;_attempt_metrics.clear()
 	_original=original;_owner=weakref(owner);_lifetime=lifetime;_early_reservation=false
 	if _maps.has(original.map_index):
 		var cached: LevelBuildResult=_maps[original.map_index]
@@ -52,9 +57,11 @@ func begin_map(owner: Node, lifetime: DemoLifetime, original: LevelRequest, cont
 	if not actual.ok: _fail(actual.error);return
 	_data=actual.request
 	_data.module_filter={"regions":["平原"],"include_ids":_rules.module_ids.duplicate(),"exclude_ids":[]}
-	_data.air_loop.enabled=false
+	_data.air_loop.enabled=true
 	_config=profile.config.duplicate(true)
 	_config.shape=_rules.shape.duplicate(true)
+	_config.scoring.merge(_rules.scoring,true)
+	_config.search.merge(_rules.search,true)
 	_config.search.reserve_from_growth_count=int(_rules.reserve_from_growth_count)
 	var goals: Dictionary=_rules.maps[original.map_index-1]
 	for key: String in ["growth_target","reward_target","main_paths_required"]: _config.goals[key]=goals[key]
@@ -83,7 +90,7 @@ func _start_attempt() -> void:
 	var seed := seed_for(_original.root_seed if _attempt==0 else _original.root_seed+"/attempt_%s" % _attempt,_original.map_index)
 	_data.seed=seed;_request.root_seed=str(seed)
 	_config.search.reserve_from_growth_count=int(_rules.retry_reserve_from_growth_count if _early_reservation else _rules.reserve_from_growth_count)
-	ticket=generation.begin(_owner.get_ref(),_lifetime,_request,_data,_config,_recipe,[],"formal",int(_rules.operation_budget))
+	ticket=generation.begin(_owner.get_ref(),_lifetime,_request,_data,_config,_recipe,[],"formal",int(_rules.operation_budget),bool(_rules.background_solve))
 	if ticket==null: _fail("Map generation request refused")
 
 func advance_map(lifetime: DemoLifetime) -> void:
@@ -93,6 +100,7 @@ func advance_map(lifetime: DemoLifetime) -> void:
 	if progress=="ready":
 		var built := generation.take_plan(ticket,lifetime)
 		if built==null: _fail("Generated map became stale");return
+		_ready_usec=Time.get_ticks_usec()
 		var result := generation.actual_result(ticket,lifetime)
 		var problem := _bind_gameplay(built,result,_original.root_seed,generation.resolved_bindings(ticket,lifetime))
 		if not problem.is_empty():
@@ -101,11 +109,11 @@ func advance_map(lifetime: DemoLifetime) -> void:
 	elif progress in ["failed","cancelled","stale",""]:
 		var problem := generation.error(ticket)
 		_failures.append(problem)
+		_attempt_metrics.append(generation.metrics(ticket))
 		if not lifetime.active or generation.metrics(ticket).get("generation_status")=="PASS":
 			_fail(problem);return
 		print("MAPGEN SEARCH attempt=",_attempt," seed=",_data.seed," reserve_from=",_config.search.reserve_from_growth_count," error=",problem)
-		# The smaller formal pool needs two SDK reservation schedules. Both
-		# keep identical goals/geometry contracts and use the same actual seed.
+		# Retry reservation placement with identical goals, abilities and seed.
 		if _early_reservation:
 			_attempt+=1
 			_early_reservation=false
@@ -123,9 +131,24 @@ func _fail(message: String) -> void:
 func commit(lifetime: DemoLifetime) -> bool:
 	if _pending==null: return true # Already committed map reloaded.
 	if not generation.commit(ticket,lifetime): return false
+	print("MAPGEN_TIMING "+JSON.stringify(timing_summary()))
 	_maps[_pending_index]=_pending
 	_pending=null
 	return true
+
+func timing_summary() -> Dictionary:
+	var attempts:=_attempt_metrics.duplicate()
+	attempts.append(generation.metrics(ticket))
+	var summary: Dictionary={"attempts":attempts.size(),"preload_ms":0.0,"solve_ms":0.0,"failed_solve_ms":0.0,"validate_ms":0.0,"bind_assemble_ms":float(Time.get_ticks_usec()-_ready_usec)/1000.0,"total_ms":float(Time.get_ticks_usec()-_started_usec)/1000.0}
+	for metrics: Dictionary in attempts:
+		summary.preload_ms+=float(metrics.get("preload_wall_ms",0))
+		summary.solve_ms+=float(metrics.get("generation_wall_ms",0))
+		summary.validate_ms+=float(metrics.get("validate_ms",0))
+		if metrics.get("generation_status")!="PASS":summary.failed_solve_ms+=float(metrics.get("generation_wall_ms",0))
+	var current: Dictionary=attempts[-1]
+	summary["backend"]=current.get("backend","cooperative")
+	summary["library_warmup_ms"]=current.get("verified_library_receipt",{}).get("warmup",{}).get("wall_ms",0)
+	return summary
 
 func close() -> void:
 	generation.close();_maps.clear();_pending=null;phase="cancelled";error="Map generation cancelled"

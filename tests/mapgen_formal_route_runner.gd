@@ -1,6 +1,6 @@
 extends SceneTree
 ## Fixed-seed, input-only start-to-Boss route. No position, HP or tuning writes.
-## Uses admitted banks and the high-perch source waypoints as driver guidance.
+## Uses actual admitted banks and original source route waypoints as guidance.
 const READY := preload("res://tests/formal_region_test_support.gd")
 var app: DemoApp
 var trace: Array=[]
@@ -79,8 +79,10 @@ func down_gap(goal: Vector2) -> float:
  if candidates.is_empty():return INF
  candidates.sort_custom(func(a:float,b:float):return absf(a-player.position.x)<absf(b-player.position.x))
  return candidates[0]
+func player_x() -> float: return app.player.position.x
 func go(point: Vector2, limit: int = 200, allow_above: bool = true) -> bool:
  var stale := 0;var before := app.player.position
+ var escape_x:=INF
  for i: int in limit:
   if not app.lifetime.active:return false
   var delta:=point-app.player.position
@@ -89,6 +91,7 @@ func go(point: Vector2, limit: int = 200, allow_above: bool = true) -> bool:
   var axis:=clampf(delta.x/20.0,-1,1)
   var descending:=delta.y>35 and app.player.is_on_floor()
   if descending:
+   app.controller.router.request_action(&"drop_through")
    var gap:=down_gap(point)
    if is_finite(gap):axis=clampf((gap-app.player.position.x)/5.0,-1,1)
   app.controller.router.set_source_axis(&"route_probe",axis,true)
@@ -96,15 +99,41 @@ func go(point: Vector2, limit: int = 200, allow_above: bool = true) -> bool:
   if app.player.position.distance_to(before)<1:stale+=1
   else:stale=0
   before=app.player.position
-  var ray:=PhysicsRayQueryParameters2D.create(app.player.global_position+Vector2(signf(axis)*35,12),app.player.global_position+Vector2(signf(axis)*65,80),1,[app.player.get_rid()])
+  var ray:=PhysicsRayQueryParameters2D.create(app.player.global_position+Vector2(signf(axis)*15,12),app.player.global_position+Vector2(signf(axis)*18,80),1,[app.player.get_rid()])
   var ledge:=app.player.get_world_2d().direct_space_state.intersect_ray(ray).is_empty()
-  if grounded and not descending and (delta.y < -30 or stale>4 or (ledge and absf(delta.x)>45)):
+  var ceiling_ray:=PhysicsRayQueryParameters2D.create(app.player.global_position+Vector2(0,-19),app.player.global_position+Vector2(0,minf(-20,delta.y-18)),1,[app.player.get_rid()])
+  var ceiling_hit:=app.player.get_world_2d().direct_space_state.intersect_ray(ceiling_ray)
+  var ceiling_blocked: bool=not ceiling_hit.is_empty() and not ceiling_hit.collider.is_in_group("one_way_platform")
+  if grounded and ceiling_blocked and delta.y < -30 and not is_finite(escape_x):
+   var collider: Node2D=ceiling_hit.collider
+   var shape:=collider.get_node_or_null("CollisionShape2D") as CollisionShape2D
+   if shape!=null and shape.shape is RectangleShape2D:
+    var half: Vector2=shape.shape.size*.5
+    var left: float=shape.global_position.x-half.x-15
+    var right: float=shape.global_position.x+half.x+15
+    var candidates: Array[float]=[left,right]
+    candidates.sort_custom(func(a:float,b:float):return absf(player_x()-a)<absf(player_x()-b))
+    for x: float in candidates:
+     var clear:=true
+     var module:=collider.get_parent() as PlatformingModule
+     var column:=Rect2(Vector2(x-12,point.y-98),Vector2(24,app.player.position.y+17-(point.y-98)))
+     if module!=null:
+      for index: int in module.definition.platforms.size():
+       if index in module.definition.one_way_platform_indices:continue
+       var obstacle: Rect2=module.definition.platforms[index];obstacle.position+=module.global_position
+       if obstacle.intersects(column):clear=false;break
+     if clear:escape_x=x;break
+  if is_finite(escape_x):
+   axis=clampf((escape_x-player_x())/5,-1,1)
+   app.controller.router.set_source_axis(&"route_probe",axis,true)
+   if absf(player_x()-escape_x)<2:escape_x=INF
+  if grounded and not is_finite(escape_x) and not descending and (not ceiling_blocked or ledge or absf(delta.x)<40) and (delta.y < -30 or stale>4 or (ledge and absf(delta.x)>45)):
    app.controller.router.request_action(&"jump");jump_ticks=0
   if not grounded:
    jump_ticks+=1
-   if jump_ticks==14:app.controller.router.request_action(&"jump_release")
-   if delta.y<=35 and (delta.y < -65 and app.player.velocity.y>-160 or absf(delta.x)>180 and ledge) and app.controller.shoot_ability.cooldown_remaining<=0 and app.controller.action_resources.shot_charges>0:
-    var direction: Vector2=Vector2(0,1) if delta.y < -65 else Vector2(-axis,.65).normalized()
+   if jump_ticks==26:app.controller.router.request_action(&"jump_release")
+   if not ceiling_blocked and delta.y<=35 and (delta.y < -65 and app.player.velocity.y>-160 or absf(delta.x)>180 and ledge) and app.controller.shoot_ability.cooldown_remaining<=0 and app.controller.action_resources.shot_charges>0:
+    var direction: Vector2=Vector2(-axis*clampf(absf(delta.x)/120.0,0,1),1).normalized() if delta.y < -65 else Vector2(-axis,.65).normalized()
     app.controller.router.request_action(&"shoot_release",direction)
   for latch: ShotLatch in app.stage.shot_latches:
    if latch.is_open:continue
@@ -117,7 +146,7 @@ func go(point: Vector2, limit: int = 200, allow_above: bool = true) -> bool:
 func run() -> void:
  app=load(ProjectSettings.get_setting("application/run/main_scene")).instantiate();app.meta_persistence_enabled=false;root.add_child(app)
  for i: int in 3:await process_frame
- app.menu._start_title_adventure();await frames(2);app.start_plains("ci-smoke")
+ app.menu._start_title_adventure();await frames(2);app.start_plains("formal-integration-1")
  if not await READY.ready(app,self):print("NOT READY");await finish();return
  var stage:=app.stage as MapgenPlainsStage
  var source: Dictionary=preload("res://addons/mapgen/data_json.gd").parse(stage.generated.manifest.mapgen.source_json).value
@@ -135,9 +164,10 @@ func run() -> void:
    var port: Dictionary={}
    for raw: Dictionary in step.instance.ports:
     if raw.id==step.route.to_port:port=raw;break
-   if step.instance.module_id=="game-plains-high-perches":
+   if step.route.has("author_path_pixels"):
     for raw: Array in step.route.author_path_pixels.slice(1,-1):
-     if not await go(origin+Vector2(raw[0],raw[1]),240,true):ok=false;break
+     print("WAYPOINT ",origin+Vector2(raw[0],raw[1]))
+     if not await go(origin+Vector2(raw[0],raw[1]),900,true):ok=false;break
    if ok and not await go(bank(str(step.instance.id),str(step.route.to_port)),900,false):ok=false
   else:
    var parts: PackedStringArray=str(step.target).split("/")
@@ -182,7 +212,7 @@ func run() -> void:
  await finish()
 func finish() -> void:
  DirAccess.make_dir_recursive_absolute("res://build/mapgen_formal")
- var f=FileAccess.open("res://build/mapgen_formal/route_trace.json",FileAccess.WRITE);f.store_string(JSON.stringify({"seed":"ci-smoke","input_only":true,"accepted_boss_damage":accepted_boss_damage,"failures":failures,"trace":trace}))
+ var f=FileAccess.open("res://build/mapgen_formal/route_trace.json",FileAccess.WRITE);f.store_string(JSON.stringify({"seed":"formal-integration-1","input_only":true,"accepted_boss_damage":accepted_boss_damage,"failures":failures,"trace":trace}))
  if app.lifetime.active:app.abandon_run()
  for i: int in 8:await process_frame
  await preload("res://tests/audio_teardown.gd").drain_world(app);app.queue_free()

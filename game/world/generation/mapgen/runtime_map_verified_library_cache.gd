@@ -1,12 +1,29 @@
 extends RefCounted
 ## Process-local, source-internal verified DATA cache, never a job/result cache.
 ## No archive getter or reset-on-exit API: only original SDK JOB.create sees it.
-## Main-thread cooperative callers only. Fresh browser contexts start cold.
+## Cache access is main-thread only; background jobs own their private SDK state.
 const PRELOAD_JOB := preload("res://addons/mapgen/preload_job.gd")
 const ARCHIVE := preload("res://addons/mapgen/module_archive.gd")
 const JOB := preload("res://addons/mapgen/generation_job.gd")
 static var _libraries: Dictionary = {}
 static var _receipts: Dictionary = {}
+static var _warmers: Dictionary = {}
+
+static func claim_warmup(lock: Dictionary, owner: Node) -> bool:
+	if has_verified(lock) or is_warming(lock): return false
+	_warmers[cache_key(lock)]=weakref(owner)
+	return true
+
+static func is_warming(lock: Dictionary) -> bool:
+	var owner: WeakRef=_warmers.get(cache_key(lock))
+	return owner!=null and is_instance_valid(owner.get_ref()) and not owner.get_ref().is_queued_for_deletion()
+
+static func release_warmup(lock: Dictionary, owner: Node) -> void:
+	var ref: WeakRef=_warmers.get(cache_key(lock))
+	if ref!=null and ref.get_ref()==owner: _warmers.erase(cache_key(lock))
+
+static func record_warmup(lock: Dictionary, metrics: Dictionary) -> void:
+	if has_verified(lock): _receipts[cache_key(lock)]["warmup"]=metrics.duplicate(true)
 
 static func cache_key(lock: Dictionary) -> String:
 	var package: Dictionary = lock.get("module_package",{})

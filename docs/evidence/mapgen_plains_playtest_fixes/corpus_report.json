@@ -1,0 +1,1787 @@
+{
+  "measurement": "Native headless fixed-fps=60, uncapped wall execution, same real base Pulse controller; map2 explicit fixture, not natural progression. Web wait measured separately. Structural paths are SDK claims, not whole-map Motor proof.",
+  "cases": {
+    "before": [
+      {
+        "seed": "ci-smoke",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "f79d89b9404dceb36fec6db8ea960f4f1f39d34abf904134e320a2e64f84b045",
+        "total_wait_ms": 3070.23,
+        "host_bind_and_assembly_ms": 596.828,
+        "modules": 34,
+        "unique_modules": 14,
+        "repeated_fraction": 0.5882352941176471,
+        "attempts": 1,
+        "preload_wall_ms": 740.44,
+        "preload_execution_ms": 687.6270000000001,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 1688.447,
+        "solve_execution_ms": 1575.272999999999,
+        "validation_ms": 86.32,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "quality": {
+          "aspect": 4.733333333333333,
+          "bounds_blocks": [
+            -21,
+            -6,
+            50,
+            9
+          ],
+          "effect_pass": true,
+          "height": 15,
+          "main_paths": 1,
+          "occupancy": 0.5605633802816902,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 4,
+          "targets_pass": true,
+          "width": 71
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            6
+          ],
+          [
+            "junction-j06-0",
+            6
+          ],
+          [
+            "idea-spec02-s13-001",
+            4
+          ],
+          [
+            "game-plains-micro-landing",
+            3
+          ],
+          [
+            "b31-n12-three-side-port-interface0",
+            2
+          ]
+        ],
+        "connector_fraction": 0.5294117647058824,
+        "vertical_seams": 0,
+        "goals": {
+          "growth_target": 20,
+          "main_paths_required": 1,
+          "reward_target": 4
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "ci-smoke",
+        "map_index": 2,
+        "accepted": true,
+        "hash": "6e73f4af4fc387d583fd3f644e83c830e255bfb0457d7a81fd9ca7752bada15d",
+        "total_wait_ms": 4405.362,
+        "host_bind_and_assembly_ms": 441.477,
+        "modules": 36,
+        "unique_modules": 19,
+        "repeated_fraction": 0.4722222222222222,
+        "attempts": 2,
+        "preload_wall_ms": 1.937,
+        "preload_execution_ms": 1.921,
+        "failed_solve_wall_ms": 2495.877,
+        "accepted_solve_wall_ms": 1448.207,
+        "solve_execution_ms": 3685.139,
+        "validation_ms": 61.426,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "quality": {
+          "aspect": 3.65,
+          "bounds_blocks": [
+            -24,
+            -17,
+            49,
+            3
+          ],
+          "effect_pass": true,
+          "height": 20,
+          "main_paths": 1,
+          "occupancy": 0.5205479452054794,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 4,
+          "targets_pass": true,
+          "width": 73
+        },
+        "top_modules": [
+          [
+            "junction-j06-0",
+            8
+          ],
+          [
+            "b31-n14-static-three-sideports",
+            4
+          ],
+          [
+            "game-route-junction",
+            4
+          ],
+          [
+            "idea-spec02-s13-001",
+            4
+          ],
+          [
+            "b31-n12-three-side-port-interface0",
+            2
+          ]
+        ],
+        "connector_fraction": 0.5555555555555556,
+        "vertical_seams": 0,
+        "goals": {
+          "growth_target": 24,
+          "main_paths_required": 1,
+          "reward_target": 4
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "formal-integration-1",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "23673520208fb36d6f084e938dc0624ff825e09a1cc5811751beee72fc793f73",
+        "total_wait_ms": 18516.075,
+        "host_bind_and_assembly_ms": 364.889,
+        "modules": 31,
+        "unique_modules": 16,
+        "repeated_fraction": 0.4838709677419355,
+        "attempts": 6,
+        "preload_wall_ms": 7.636,
+        "preload_execution_ms": 7.617,
+        "failed_solve_wall_ms": 15283.01,
+        "accepted_solve_wall_ms": 2703.181,
+        "solve_execution_ms": 16785.379000000004,
+        "validation_ms": 54.663,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "quality": {
+          "aspect": 1.8846153846153846,
+          "bounds_blocks": [
+            -11,
+            -15,
+            38,
+            11
+          ],
+          "effect_pass": true,
+          "height": 26,
+          "main_paths": 1,
+          "occupancy": 0.47566718995290425,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 4,
+          "targets_pass": true,
+          "width": 49
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            5
+          ],
+          [
+            "b31-n14-static-three-sideports",
+            4
+          ],
+          [
+            "idea-spec02-s13-001",
+            4
+          ],
+          [
+            "junction-j06-0",
+            4
+          ],
+          [
+            "b31-n12-three-side-port-interface0",
+            2
+          ]
+        ],
+        "connector_fraction": 0.5483870967741935,
+        "vertical_seams": 0,
+        "goals": {
+          "growth_target": 20,
+          "main_paths_required": 1,
+          "reward_target": 4
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "formal-integration-1",
+        "map_index": 2,
+        "accepted": true,
+        "hash": "41f7cf84c74294be8d3a02def31a892d66a04ddff4ce3177b8576552596351f8",
+        "total_wait_ms": 3696.817,
+        "host_bind_and_assembly_ms": 456.145,
+        "modules": 38,
+        "unique_modules": 19,
+        "repeated_fraction": 0.5,
+        "attempts": 1,
+        "preload_wall_ms": 0.913,
+        "preload_execution_ms": 0.909,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 3242.516,
+        "solve_execution_ms": 3025.261999999997,
+        "validation_ms": 69.563,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "quality": {
+          "aspect": 6.2,
+          "bounds_blocks": [
+            -35,
+            -10,
+            58,
+            5
+          ],
+          "effect_pass": true,
+          "height": 15,
+          "main_paths": 1,
+          "occupancy": 0.5082437275985663,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 4,
+          "targets_pass": true,
+          "width": 93
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            8
+          ],
+          [
+            "b31-n12-three-side-port-interface0",
+            4
+          ],
+          [
+            "idea-spec02-s13-001",
+            4
+          ],
+          [
+            "junction-j06-0",
+            4
+          ],
+          [
+            "b31-n14-static-three-sideports",
+            3
+          ]
+        ],
+        "connector_fraction": 0.5,
+        "vertical_seams": 0,
+        "goals": {
+          "growth_target": 24,
+          "main_paths_required": 1,
+          "reward_target": 4
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "mapgen-standard-2",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "8a4a239821e8eddabd59513132d7a0b66f52cb769641873a4a96b4ec9de89809",
+        "total_wait_ms": 1660.047,
+        "host_bind_and_assembly_ms": 397.835,
+        "modules": 33,
+        "unique_modules": 14,
+        "repeated_fraction": 0.5757575757575757,
+        "attempts": 1,
+        "preload_wall_ms": 0.985,
+        "preload_execution_ms": 0.983,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 1265.367,
+        "solve_execution_ms": 1178.3950000000007,
+        "validation_ms": 59.761,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "quality": {
+          "aspect": 4.6875,
+          "bounds_blocks": [
+            -10,
+            -9,
+            65,
+            7
+          ],
+          "effect_pass": true,
+          "height": 16,
+          "main_paths": 1,
+          "occupancy": 0.5383333333333333,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 4,
+          "targets_pass": true,
+          "width": 75
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            6
+          ],
+          [
+            "junction-j06-0",
+            5
+          ],
+          [
+            "b31-n14-static-three-sideports",
+            4
+          ],
+          [
+            "idea-spec02-s13-001",
+            4
+          ],
+          [
+            "b31-n12-three-side-port-interface0",
+            2
+          ]
+        ],
+        "connector_fraction": 0.5757575757575758,
+        "vertical_seams": 0,
+        "goals": {
+          "growth_target": 20,
+          "main_paths_required": 1,
+          "reward_target": 4
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "mapgen-standard-2",
+        "map_index": 2,
+        "accepted": true,
+        "hash": "e6ce1eabb235c27dd6a5e0c0ff3fb1e045ab2d4f0cad0071a75d554d1ec44fea",
+        "total_wait_ms": 1959.252,
+        "host_bind_and_assembly_ms": 448.317,
+        "modules": 38,
+        "unique_modules": 19,
+        "repeated_fraction": 0.5,
+        "attempts": 1,
+        "preload_wall_ms": 0.988,
+        "preload_execution_ms": 0.968,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 1519.793,
+        "solve_execution_ms": 1413.007,
+        "validation_ms": 61.079,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "quality": {
+          "aspect": 3.227272727272727,
+          "bounds_blocks": [
+            -16,
+            -13,
+            55,
+            9
+          ],
+          "effect_pass": true,
+          "height": 22,
+          "main_paths": 1,
+          "occupancy": 0.4231754161331626,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 4,
+          "targets_pass": true,
+          "width": 71
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            7
+          ],
+          [
+            "junction-j06-0",
+            5
+          ],
+          [
+            "game-plains-micro-rise",
+            4
+          ],
+          [
+            "idea-spec02-s13-001",
+            4
+          ],
+          [
+            "b31-n14-static-three-sideports",
+            3
+          ]
+        ],
+        "connector_fraction": 0.5,
+        "vertical_seams": 0,
+        "goals": {
+          "growth_target": 24,
+          "main_paths_required": 1,
+          "reward_target": 4
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "plains-review-04",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "d63cd4aeaa7d92e2d991bee5cc26b58eefa2df3642ee969cced3a42f8d356605",
+        "total_wait_ms": 2246.708,
+        "host_bind_and_assembly_ms": 424.208,
+        "modules": 31,
+        "unique_modules": 13,
+        "repeated_fraction": 0.5806451612903225,
+        "attempts": 1,
+        "preload_wall_ms": 0.97,
+        "preload_execution_ms": 0.966,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 1813.982,
+        "solve_execution_ms": 1694.6069999999995,
+        "validation_ms": 65.99,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "quality": {
+          "aspect": 4.125,
+          "bounds_blocks": [
+            -17,
+            -13,
+            49,
+            3
+          ],
+          "effect_pass": true,
+          "height": 16,
+          "main_paths": 1,
+          "occupancy": 0.5066287878787878,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 4,
+          "targets_pass": true,
+          "width": 66
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            10
+          ],
+          [
+            "idea-spec02-s13-001",
+            4
+          ],
+          [
+            "b31-n14-static-three-sideports",
+            3
+          ],
+          [
+            "junction-j06-0",
+            3
+          ],
+          [
+            "b31-n12-three-side-port-interface0",
+            2
+          ]
+        ],
+        "connector_fraction": 0.6451612903225806,
+        "vertical_seams": 0,
+        "goals": {
+          "growth_target": 20,
+          "main_paths_required": 1,
+          "reward_target": 4
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "plains-review-04",
+        "map_index": 2,
+        "accepted": false,
+        "hash": null,
+        "total_wait_ms": 47109.584,
+        "host_bind_and_assembly_ms": null,
+        "modules": null,
+        "unique_modules": null,
+        "repeated_fraction": null,
+        "attempts": 10,
+        "preload_wall_ms": 14.861,
+        "preload_execution_ms": 14.799,
+        "failed_solve_wall_ms": 46392.481,
+        "accepted_solve_wall_ms": 0,
+        "solve_execution_ms": 43293.19399999999,
+        "validation_ms": 3.717,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "error": "RUN ENDED / RETURNED HOME / GENERATION FAILED / 地图生成未完成，请返回家园后重新出发。"
+      },
+      {
+        "seed": "plains-review-05",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "04f69968d831f354f2d64a8827632a322093f315823bcc3bb1f1838104bed35a",
+        "total_wait_ms": 1517.234,
+        "host_bind_and_assembly_ms": 421.926,
+        "modules": 31,
+        "unique_modules": 15,
+        "repeated_fraction": 0.5161290322580645,
+        "attempts": 1,
+        "preload_wall_ms": 0.959,
+        "preload_execution_ms": 0.951,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 1070.549,
+        "solve_execution_ms": 985.0950000000007,
+        "validation_ms": 73.178,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "quality": {
+          "aspect": 2.7,
+          "bounds_blocks": [
+            -18,
+            -8,
+            36,
+            12
+          ],
+          "effect_pass": true,
+          "height": 20,
+          "main_paths": 1,
+          "occupancy": 0.5027777777777778,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 4,
+          "targets_pass": true,
+          "width": 54
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            7
+          ],
+          [
+            "idea-spec02-s13-001",
+            4
+          ],
+          [
+            "junction-j06-0",
+            4
+          ],
+          [
+            "b31-n14-static-three-sideports",
+            3
+          ],
+          [
+            "b31-n12-three-side-port-interface0",
+            2
+          ]
+        ],
+        "connector_fraction": 0.5806451612903226,
+        "vertical_seams": 0,
+        "goals": {
+          "growth_target": 20,
+          "main_paths_required": 1,
+          "reward_target": 4
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "plains-review-05",
+        "map_index": 2,
+        "accepted": false,
+        "hash": null,
+        "total_wait_ms": 34354.053,
+        "host_bind_and_assembly_ms": null,
+        "modules": null,
+        "unique_modules": null,
+        "repeated_fraction": null,
+        "attempts": 10,
+        "preload_wall_ms": 13.727,
+        "preload_execution_ms": 13.686,
+        "failed_solve_wall_ms": 33741.754,
+        "accepted_solve_wall_ms": 0,
+        "solve_execution_ms": 31524.926999999992,
+        "validation_ms": 2.721,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "error": "RUN ENDED / RETURNED HOME / GENERATION FAILED / 地图生成未完成，请返回家园后重新出发。"
+      },
+      {
+        "seed": "plains-review-06",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "083c01cbb07723cfe8a9746070d5f731cab4fd82a8fee93d3d919dfba45a0d54",
+        "total_wait_ms": 10790.153,
+        "host_bind_and_assembly_ms": 414.188,
+        "modules": 32,
+        "unique_modules": 16,
+        "repeated_fraction": 0.5,
+        "attempts": 4,
+        "preload_wall_ms": 5.199,
+        "preload_execution_ms": 5.1770000000000005,
+        "failed_solve_wall_ms": 7391.313,
+        "accepted_solve_wall_ms": 2872.07,
+        "solve_execution_ms": 9588.881,
+        "validation_ms": 75.538,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "quality": {
+          "aspect": 5.117647058823529,
+          "bounds_blocks": [
+            -43,
+            -14,
+            44,
+            3
+          ],
+          "effect_pass": true,
+          "height": 17,
+          "main_paths": 1,
+          "occupancy": 0.38066260987153483,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 4,
+          "targets_pass": true,
+          "width": 87
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            11
+          ],
+          [
+            "idea-spec02-s13-001",
+            4
+          ],
+          [
+            "b31-n14-static-three-sideports",
+            3
+          ],
+          [
+            "junction-j06-0",
+            2
+          ],
+          [
+            "b31-n12-three-side-port-interface0",
+            1
+          ]
+        ],
+        "connector_fraction": 0.625,
+        "vertical_seams": 0,
+        "goals": {
+          "growth_target": 20,
+          "main_paths_required": 1,
+          "reward_target": 4
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "plains-review-06",
+        "map_index": 2,
+        "accepted": true,
+        "hash": "d5813b34d2bc5c9852c0a903fa08f5cb9112b12f9c8d021204b2588739a5ac2a",
+        "total_wait_ms": 5321.225,
+        "host_bind_and_assembly_ms": 441.901,
+        "modules": 37,
+        "unique_modules": 18,
+        "repeated_fraction": 0.5135135135135135,
+        "attempts": 2,
+        "preload_wall_ms": 2.424,
+        "preload_execution_ms": 2.414,
+        "failed_solve_wall_ms": 3194.749,
+        "accepted_solve_wall_ms": 1661.518,
+        "solve_execution_ms": 4518.009999999998,
+        "validation_ms": 67.428,
+        "backends": [
+          "cooperative"
+        ],
+        "warmup": [],
+        "quality": {
+          "aspect": 3.3333333333333335,
+          "bounds_blocks": [
+            -8,
+            -8,
+            62,
+            13
+          ],
+          "effect_pass": true,
+          "height": 21,
+          "main_paths": 1,
+          "occupancy": 0.41564625850340137,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 4,
+          "targets_pass": true,
+          "width": 70
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            9
+          ],
+          [
+            "idea-spec02-s13-001",
+            4
+          ],
+          [
+            "junction-j06-0",
+            4
+          ],
+          [
+            "b31-n12-three-side-port-interface0",
+            2
+          ],
+          [
+            "b31-n14-static-three-sideports",
+            2
+          ]
+        ],
+        "connector_fraction": 0.5135135135135135,
+        "vertical_seams": 0,
+        "goals": {
+          "growth_target": 24,
+          "main_paths_required": 1,
+          "reward_target": 4
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      }
+    ],
+    "after": [
+      {
+        "seed": "ci-smoke",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "a335d5a005bceebf6e75acae509d5db059240e2dd6f59379b7a9def0424c19ab",
+        "total_wait_ms": 9121.962,
+        "host_bind_and_assembly_ms": 766.086,
+        "modules": 54,
+        "unique_modules": 24,
+        "repeated_fraction": 0.5555555555555556,
+        "attempts": 1,
+        "preload_wall_ms": 574.876,
+        "preload_execution_ms": 12.778000000000002,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 7774.203,
+        "solve_execution_ms": 7710.284999999935,
+        "validation_ms": 111.63,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 2.2,
+          "bounds_blocks": [
+            -41,
+            -32,
+            36,
+            3
+          ],
+          "effect_pass": true,
+          "height": 35,
+          "main_paths": 3,
+          "occupancy": 0.37365491651205934,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 77
+        },
+        "top_modules": [
+          [
+            "game-plains-fork-paths",
+            7
+          ],
+          [
+            "idea-spec02-s11-001",
+            7
+          ],
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "game-route-junction",
+            4
+          ],
+          [
+            "workshop-macro-gate-brake-return-0",
+            4
+          ]
+        ],
+        "connector_fraction": 0.24074074074074073,
+        "vertical_seams": 17,
+        "goals": {
+          "growth_target": 32,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "ci-smoke",
+        "map_index": 2,
+        "accepted": true,
+        "hash": "d2f3fa597d7e4f67e4756cba94470ae0c78155d51af114b4c77dd86ba0a5bc2e",
+        "total_wait_ms": 10115.07,
+        "host_bind_and_assembly_ms": 980.194,
+        "modules": 59,
+        "unique_modules": 24,
+        "repeated_fraction": 0.5932203389830508,
+        "attempts": 1,
+        "preload_wall_ms": 1.65,
+        "preload_execution_ms": 1.644,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 9026.597,
+        "solve_execution_ms": 8964.871999999938,
+        "validation_ms": 156.56,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 2.1025641025641026,
+          "bounds_blocks": [
+            -49,
+            -24,
+            33,
+            15
+          ],
+          "effect_pass": true,
+          "height": 39,
+          "main_paths": 3,
+          "occupancy": 0.34021263289555975,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 82
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            11
+          ],
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "workshop-macro-gate-brake-return-0",
+            6
+          ],
+          [
+            "idea-spec02-s11-001",
+            5
+          ],
+          [
+            "game-plains-fork-paths",
+            4
+          ]
+        ],
+        "connector_fraction": 0.3559322033898305,
+        "vertical_seams": 10,
+        "goals": {
+          "growth_target": 36,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "formal-integration-1",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "86af289e0cf5bd772babee28400c58cd0e2be13af7b1be78f1d5c1d77e7d4916",
+        "total_wait_ms": 4046.967,
+        "host_bind_and_assembly_ms": 648.519,
+        "modules": 55,
+        "unique_modules": 29,
+        "repeated_fraction": 0.4727272727272728,
+        "attempts": 1,
+        "preload_wall_ms": 1.272,
+        "preload_execution_ms": 1.268,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 3325.585,
+        "solve_execution_ms": 3299.193999999984,
+        "validation_ms": 109.758,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 2.303030303030303,
+          "bounds_blocks": [
+            -40,
+            -15,
+            36,
+            18
+          ],
+          "effect_pass": true,
+          "height": 33,
+          "main_paths": 3,
+          "occupancy": 0.39553429027113235,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 76
+        },
+        "top_modules": [
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "game-plains-fork-paths",
+            4
+          ],
+          [
+            "idea-plains-hq03-001",
+            4
+          ],
+          [
+            "workshop-macro-gate-brake-return-0",
+            4
+          ],
+          [
+            "batch30-n11-e-e-width96",
+            3
+          ]
+        ],
+        "connector_fraction": 0.2,
+        "vertical_seams": 15,
+        "goals": {
+          "growth_target": 32,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "formal-integration-1",
+        "map_index": 2,
+        "accepted": true,
+        "hash": "182873fe4c112bf0a8df676570ec3a4d60a70ee7becc02e3713c825874316dcc",
+        "total_wait_ms": 4966.128,
+        "host_bind_and_assembly_ms": 710.46,
+        "modules": 57,
+        "unique_modules": 24,
+        "repeated_fraction": 0.5789473684210527,
+        "attempts": 1,
+        "preload_wall_ms": 1.117,
+        "preload_execution_ms": 1.113,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 4219.647,
+        "solve_execution_ms": 4191.340000000036,
+        "validation_ms": 116.542,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 1.9130434782608696,
+          "bounds_blocks": [
+            -9,
+            -21,
+            79,
+            25
+          ],
+          "effect_pass": true,
+          "height": 46,
+          "main_paths": 3,
+          "occupancy": 0.2596343873517787,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 88
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            12
+          ],
+          [
+            "game-plains-fork-paths",
+            7
+          ],
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "workshop-macro-gate-brake-return-0",
+            6
+          ],
+          [
+            "b31-n14-static-three-sideports",
+            2
+          ]
+        ],
+        "connector_fraction": 0.3684210526315789,
+        "vertical_seams": 7,
+        "goals": {
+          "growth_target": 36,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "mapgen-standard-2",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "614a76e619b289d23bf80fbbe38bea988ebc7e1f2822ec60e2acbd10e93a1c05",
+        "total_wait_ms": 3867.835,
+        "host_bind_and_assembly_ms": 750.287,
+        "modules": 54,
+        "unique_modules": 26,
+        "repeated_fraction": 0.5185185185185186,
+        "attempts": 1,
+        "preload_wall_ms": 1.167,
+        "preload_execution_ms": 1.164,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 3039.402,
+        "solve_execution_ms": 3009.8240000000037,
+        "validation_ms": 114.086,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 1.8285714285714285,
+          "bounds_blocks": [
+            -31,
+            -13,
+            33,
+            22
+          ],
+          "effect_pass": true,
+          "height": 35,
+          "main_paths": 3,
+          "occupancy": 0.4236607142857143,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 64
+        },
+        "top_modules": [
+          [
+            "game-plains-fork-paths",
+            6
+          ],
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "game-route-junction",
+            4
+          ],
+          [
+            "idea-plains-hq03-001",
+            4
+          ],
+          [
+            "idea-spec02-s11-001",
+            4
+          ]
+        ],
+        "connector_fraction": 0.2222222222222222,
+        "vertical_seams": 16,
+        "goals": {
+          "growth_target": 32,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "mapgen-standard-2",
+        "map_index": 2,
+        "accepted": true,
+        "hash": "2719c2686679c11565a0ab17fb1168b665256b3d3603af3b96203c469055bd42",
+        "total_wait_ms": 37360.963,
+        "host_bind_and_assembly_ms": 919.618,
+        "modules": 56,
+        "unique_modules": 21,
+        "repeated_fraction": 0.625,
+        "attempts": 3,
+        "preload_wall_ms": 4.908,
+        "preload_execution_ms": 4.894,
+        "failed_solve_wall_ms": 26501.572,
+        "accepted_solve_wall_ms": 9729.724,
+        "solve_execution_ms": 35866.653000000035,
+        "validation_ms": 138.4,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          },
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          },
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 2.268292682926829,
+          "bounds_blocks": [
+            -35,
+            -10,
+            58,
+            31
+          ],
+          "effect_pass": true,
+          "height": 41,
+          "main_paths": 3,
+          "occupancy": 0.2504589562024653,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 93
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            14
+          ],
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "workshop-macro-gate-brake-return-0",
+            5
+          ],
+          [
+            "game-plains-fork-paths",
+            4
+          ],
+          [
+            "batch30-n11-e-e-width96",
+            3
+          ]
+        ],
+        "connector_fraction": 0.39285714285714285,
+        "vertical_seams": 11,
+        "goals": {
+          "growth_target": 36,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "plains-review-04",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "3284d08d7f97e178d63cb934af1c5f884b6b7af802edbc3818d6e4b710264906",
+        "total_wait_ms": 14697.035,
+        "host_bind_and_assembly_ms": 618.29,
+        "modules": 52,
+        "unique_modules": 19,
+        "repeated_fraction": 0.6346153846153846,
+        "attempts": 2,
+        "preload_wall_ms": 2.792,
+        "preload_execution_ms": 2.784,
+        "failed_solve_wall_ms": 9793.289,
+        "accepted_solve_wall_ms": 4124.823,
+        "solve_execution_ms": 13794.30799999995,
+        "validation_ms": 110.843,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          },
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 2.4473684210526314,
+          "bounds_blocks": [
+            -31,
+            -21,
+            62,
+            17
+          ],
+          "effect_pass": true,
+          "height": 38,
+          "main_paths": 3,
+          "occupancy": 0.267402376910017,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 93
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            11
+          ],
+          [
+            "idea-spec02-s11-001",
+            7
+          ],
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "workshop-macro-gate-brake-return-0",
+            5
+          ],
+          [
+            "game-plains-fork-paths",
+            4
+          ]
+        ],
+        "connector_fraction": 0.34615384615384615,
+        "vertical_seams": 12,
+        "goals": {
+          "growth_target": 32,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "plains-review-04",
+        "map_index": 2,
+        "accepted": true,
+        "hash": "6131e7dd03db9b0512c1116537096ffd8199166fc8ca52720c0472aa015fae40",
+        "total_wait_ms": 4959.624,
+        "host_bind_and_assembly_ms": 701.025,
+        "modules": 59,
+        "unique_modules": 28,
+        "repeated_fraction": 0.5254237288135593,
+        "attempts": 1,
+        "preload_wall_ms": 1.229,
+        "preload_execution_ms": 1.225,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 4183.306,
+        "solve_execution_ms": 4152.301000000016,
+        "validation_ms": 114.682,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 1.4871794871794872,
+          "bounds_blocks": [
+            -36,
+            -19,
+            22,
+            20
+          ],
+          "effect_pass": true,
+          "height": 39,
+          "main_paths": 3,
+          "occupancy": 0.493368700265252,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 58
+        },
+        "top_modules": [
+          [
+            "idea-spec02-s11-001",
+            7
+          ],
+          [
+            "game-plains-fork-paths",
+            6
+          ],
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "game-route-junction",
+            5
+          ],
+          [
+            "workshop-macro-gate-brake-return-0",
+            4
+          ]
+        ],
+        "connector_fraction": 0.23728813559322035,
+        "vertical_seams": 14,
+        "goals": {
+          "growth_target": 36,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "plains-review-05",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "55fd10891edbcb1f36b2350dbf21bc871d40707b37278b437e6bbabcba52e2ab",
+        "total_wait_ms": 4564.91,
+        "host_bind_and_assembly_ms": 691.826,
+        "modules": 53,
+        "unique_modules": 23,
+        "repeated_fraction": 0.5660377358490566,
+        "attempts": 1,
+        "preload_wall_ms": 1.161,
+        "preload_execution_ms": 1.156,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 3809.32,
+        "solve_execution_ms": 3783.336000000006,
+        "validation_ms": 111.294,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 2.3684210526315788,
+          "bounds_blocks": [
+            -69,
+            -12,
+            21,
+            26
+          ],
+          "effect_pass": true,
+          "height": 38,
+          "main_paths": 3,
+          "occupancy": 0.26842105263157895,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 90
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            11
+          ],
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "game-plains-fork-paths",
+            5
+          ],
+          [
+            "idea-spec02-s11-001",
+            4
+          ],
+          [
+            "workshop-macro-gate-brake-return-0",
+            4
+          ]
+        ],
+        "connector_fraction": 0.3584905660377358,
+        "vertical_seams": 9,
+        "goals": {
+          "growth_target": 32,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "plains-review-05",
+        "map_index": 2,
+        "accepted": true,
+        "hash": "03dc21bd005d135e1f98afa7d7e9e7a91815a7cbb3aefda24264c6226228983c",
+        "total_wait_ms": 27437.932,
+        "host_bind_and_assembly_ms": 680.783,
+        "modules": 54,
+        "unique_modules": 20,
+        "repeated_fraction": 0.6296296296296297,
+        "attempts": 3,
+        "preload_wall_ms": 4.686,
+        "preload_execution_ms": 4.6739999999999995,
+        "failed_solve_wall_ms": 22657.498,
+        "accepted_solve_wall_ms": 3883.811,
+        "solve_execution_ms": 26401.699000000004,
+        "validation_ms": 123.37299999999999,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          },
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          },
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 2.58974358974359,
+          "bounds_blocks": [
+            -61,
+            -18,
+            40,
+            21
+          ],
+          "effect_pass": true,
+          "height": 39,
+          "main_paths": 3,
+          "occupancy": 0.24701700939324703,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 101
+        },
+        "top_modules": [
+          [
+            "game-route-junction",
+            11
+          ],
+          [
+            "game-plains-fork-paths",
+            9
+          ],
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "idea-spec02-s11-001",
+            5
+          ],
+          [
+            "workshop-macro-gate-brake-return-0",
+            4
+          ]
+        ],
+        "connector_fraction": 0.3333333333333333,
+        "vertical_seams": 10,
+        "goals": {
+          "growth_target": 36,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "plains-review-06",
+        "map_index": 1,
+        "accepted": true,
+        "hash": "911f04230e644bd106a312c1023f070a903a7bee5beb6a8fe31a955bda780065",
+        "total_wait_ms": 13167.14,
+        "host_bind_and_assembly_ms": 688.153,
+        "modules": 55,
+        "unique_modules": 23,
+        "repeated_fraction": 0.5818181818181818,
+        "attempts": 2,
+        "preload_wall_ms": 3.085,
+        "preload_execution_ms": 3.078,
+        "failed_solve_wall_ms": 9238.76,
+        "accepted_solve_wall_ms": 3091.048,
+        "solve_execution_ms": 12255.576999999988,
+        "validation_ms": 109.899,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          },
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 2.1142857142857143,
+          "bounds_blocks": [
+            -18,
+            -12,
+            56,
+            23
+          ],
+          "effect_pass": true,
+          "height": 35,
+          "main_paths": 3,
+          "occupancy": 0.38996138996138996,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 74
+        },
+        "top_modules": [
+          [
+            "idea-spec02-s11-001",
+            6
+          ],
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "workshop-macro-gate-brake-return-0",
+            6
+          ],
+          [
+            "game-plains-fork-paths",
+            5
+          ],
+          [
+            "game-route-junction",
+            5
+          ]
+        ],
+        "connector_fraction": 0.2545454545454545,
+        "vertical_seams": 11,
+        "goals": {
+          "growth_target": 32,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      },
+      {
+        "seed": "plains-review-06",
+        "map_index": 2,
+        "accepted": true,
+        "hash": "57ace8fd409df8af55a4b8355275efeaa2bfca0ee65edb5899aa45be4730549f",
+        "total_wait_ms": 7172.924,
+        "host_bind_and_assembly_ms": 666.419,
+        "modules": 58,
+        "unique_modules": 30,
+        "repeated_fraction": 0.48275862068965514,
+        "attempts": 1,
+        "preload_wall_ms": 1.157,
+        "preload_execution_ms": 1.154,
+        "failed_solve_wall_ms": 0,
+        "accepted_solve_wall_ms": 6443.015,
+        "solve_execution_ms": 6401.699999999967,
+        "validation_ms": 118.137,
+        "backends": [
+          "thread"
+        ],
+        "warmup": [
+          {
+            "backend": "cooperative_preload",
+            "execution_ms": 490.5899999999999,
+            "wall_ms": 961.607
+          }
+        ],
+        "quality": {
+          "aspect": 1.875,
+          "bounds_blocks": [
+            -29,
+            -14,
+            46,
+            26
+          ],
+          "effect_pass": true,
+          "height": 40,
+          "main_paths": 3,
+          "occupancy": 0.36833333333333335,
+          "shape_pass": true,
+          "static_pass": true,
+          "target_rewards": 6,
+          "targets_pass": true,
+          "width": 75
+        },
+        "top_modules": [
+          [
+            "game-plains-fork-paths",
+            6
+          ],
+          [
+            "idea-spec02-s13-001",
+            6
+          ],
+          [
+            "idea-spec02-s11-001",
+            4
+          ],
+          [
+            "workshop-macro-gate-brake-return-0",
+            4
+          ],
+          [
+            "game-route-junction",
+            3
+          ]
+        ],
+        "connector_fraction": 0.20689655172413793,
+        "vertical_seams": 14,
+        "goals": {
+          "growth_target": 36,
+          "main_paths_required": 3,
+          "reward_target": 6
+        },
+        "abilities": [
+          "jump",
+          "shot_recoil"
+        ]
+      }
+    ]
+  },
+  "aggregate": {
+    "before": {
+      "accepted": 10,
+      "total": 12,
+      "wait_median_ms": 4051.0895,
+      "wait_max_ms": 47109.584,
+      "repeated_fraction_mean": 0.5230373766901281,
+      "connector_fraction_mean": 0.5573431957919623,
+      "unique_modules_mean": 16.3,
+      "vertical_seams_mean": 0,
+      "failed_attempts": 30
+    },
+    "after": {
+      "accepted": 12,
+      "total": 12,
+      "wait_median_ms": 8147.442999999999,
+      "wait_max_ms": 37360.963,
+      "repeated_fraction_mean": 0.5636876946350764,
+      "connector_fraction_mean": 0.2930734374357703,
+      "unique_modules_mean": 24.25,
+      "vertical_seams_mean": 12.166666666666666,
+      "failed_attempts": 6
+    }
+  }
+}

@@ -63,13 +63,13 @@ static func resolve_complete(definition: PlatformingModuleDefinition, content: D
 	var banks: Array[Dictionary] = []
 	for id: Variant in instance.connected_port_ids:
 		var port := _port(instance,str(id))
-		var problem := _link_error(instance,port,instances,connections)
+		var problem := _link_error(instance,port,instances,connections,true)
 		if not problem.is_empty(): return _reject(problem)
-		if port.get("face") not in ["LEFT","RIGHT"] or port.get("surface")!="ROCK": return _reject("formal pool requires supported horizontal ROCK seams")
-		var bank := _bank(definition,content,port,half)
+		if port.get("surface") not in ["ROCK","ONE_WAY_PLATFORM","AIR"]: return _reject("unsupported seam surface")
+		var bank := _bank(definition,content,port,half,true)
 		if not bank.ok: return _reject(str(id)+": "+str(bank.error))
-		banks.append({"port_id":id,"body_center_pixels":[bank.point.x,bank.point.y],"support_platform_index":bank.platform_index})
-		if bank.point not in anchors: anchors.append(bank.point)
+		banks.append({"port_id":id,"face":port.face,"surface":port.surface,"body_center_pixels":[bank.point.x,bank.point.y],"support_platform_index":bank.platform_index})
+		if bank.platform_index>=0 and bank.point not in anchors: anchors.append(bank.point)
 	var local_spawn := world_spawn-Vector2(instance.origin_blocks[0],instance.origin_blocks[1])*128.0
 	if _clear_standing(definition,content,local_spawn,half) and local_spawn not in anchors: anchors.push_front(local_spawn)
 	# A one-port reward room needs safe interior recovery witnesses, not a
@@ -91,16 +91,17 @@ static func resolve_complete(definition: PlatformingModuleDefinition, content: D
 	definition.set_meta("runtime_map_v2_port_admission",{"policy":POLICY,"used_ports":banks,"scope":"supported banks and recovery witnesses; route playability requires actual Motor"})
 	return {"ok":true,"error":""}
 
-static func _bank(definition: PlatformingModuleDefinition, content: Dictionary, port: Dictionary, half: Vector2) -> Dictionary:
-	var horizontal: bool = port.face in ["LEFT","RIGHT"] and port.surface == "ROCK"
-	var upper: bool = port.face == "TOP" and port.surface == "ONE_WAY_PLATFORM"
+static func _bank(definition: PlatformingModuleDefinition, content: Dictionary, port: Dictionary, half: Vector2, complete: bool = false) -> Dictionary:
+	if complete and port.surface=="AIR": return _air_aperture(definition,content,port,half)
+	var horizontal: bool = port.face in ["LEFT","RIGHT"] and (port.surface == "ROCK" or complete and port.surface=="ONE_WAY_PLATFORM")
+	var upper: bool = port.face in (["TOP","BOTTOM"] if complete else ["TOP"]) and port.surface == "ONE_WAY_PLATFORM"
 	if not horizontal and not upper: return _reject("host capability unsupported for used face/surface "+str(port.face)+"/"+str(port.surface))
 	var aperture := Vector2(port.local_position_pixels[0],port.local_position_pixels[1])
 	var candidates: Array[Dictionary] = []
 	for index: int in content.platforms.size():
 		var raw: Array = content.platforms[index]
 		var platform := Rect2(raw[0],raw[1],raw[2],raw[3])
-		if (index in content.one_way_platform_indices) != upper: continue
+		if (index in content.one_way_platform_indices) != (port.surface=="ONE_WAY_PLATFORM"): continue
 		if platform.size.x < half.x*2.0: continue
 		var point := Vector2(clampf(aperture.x,platform.position.x+half.x,platform.end.x-half.x),platform.position.y-half.y)
 		if horizontal:
@@ -111,36 +112,81 @@ static func _bank(definition: PlatformingModuleDefinition, content: Dictionary, 
 			# cell. This bounds the search; geometry supplies the floor height.
 			if point.y-half.y < aperture.y-64.0 or point.y+half.y > aperture.y+64.0: continue
 		else:
-			if point.x-half.x < aperture.x-64.0 or point.x+half.x > aperture.x+64.0 or point.y < half.y or point.y+half.y > 128.0: continue
-		if not _clear_standing(definition,content,point,half): continue
-		if not _approach_clear(definition,content,point,port,half): continue
-		# Prefer a retained authored helper only after it independently passes
-		# this exact used aperture and unchanged native collision validation.
+			if point.x-half.x < aperture.x-64.0 or point.x+half.x > aperture.x+64.0: continue
+			if complete:
+				if port.face=="TOP" and (point.y<0 or point.y+half.y>128.0): continue
+				if port.face=="BOTTOM" and (point.y+half.y<definition.world_bounds.end.y-128.0 or point.y+half.y>definition.world_bounds.end.y): continue
+			elif point.y < half.y or point.y+half.y > 128.0: continue
+		if not complete:
+			if not _clear_standing(definition,content,point,half): continue
+			if not _approach_clear(definition,content,point,port,half): continue
+			# Prefer a retained authored helper only after it independently passes
+			# this exact used aperture and unchanged native collision validation.
+			for key: String in ["entry_port","exit_port"]:
+				var authored: Array = content[key]
+				var helper := Vector2(authored[0],authored[1])
+				var near := absf(helper.x-aperture.x)<=128.0 and absf(helper.y-aperture.y)<=64.0 if horizontal else absf(helper.x-aperture.x)<=64.0 and helper.y<=128.0
+				if near and is_equal_approx(helper.y,point.y) and _clear_standing(definition,content,helper,half) and _approach_clear(definition,content,helper,port,half): point = helper
+			candidates.append({"point":point,"platform_index":index,"distance":point.distance_squared_to(aperture)})
+			continue
+		var points: Array[Vector2]=[point]
 		for key: String in ["entry_port","exit_port"]:
-			var authored: Array = content[key]
-			var helper := Vector2(authored[0],authored[1])
-			var near := absf(helper.x-aperture.x)<=128.0 and absf(helper.y-aperture.y)<=64.0 if horizontal else absf(helper.x-aperture.x)<=64.0 and helper.y<=128.0
-			if near and is_equal_approx(helper.y,point.y) and _clear_standing(definition,content,helper,half) and _approach_clear(definition,content,helper,port,half): point = helper
-		candidates.append({"point":point,"platform_index":index,"distance":point.distance_squared_to(aperture)})
+			var authored: Array=content[key]
+			var helper:=Vector2(authored[0],authored[1])
+			if is_equal_approx(helper.y,point.y): points.append(helper)
+		if complete and upper:
+			points.append(Vector2(maxf(platform.position.x+half.x,aperture.x-64+half.x),point.y))
+			points.append(Vector2(minf(platform.end.x-half.x,aperture.x+64-half.x),point.y))
+		for candidate: Vector2 in points:
+			if upper and (candidate.x-half.x<aperture.x-64 or candidate.x+half.x>aperture.x+64): continue
+			if horizontal and absf(candidate.x-point.x)>128: continue
+			if not _clear_standing(definition,content,candidate,half): continue
+			if not _approach_clear(definition,content,candidate,port,half,complete): continue
+			candidates.append({"point":candidate,"platform_index":index,"distance":candidate.distance_squared_to(aperture)})
 	if candidates.is_empty(): return _reject("no clear supported body landing at actual used aperture")
 	candidates.sort_custom(func(a: Dictionary,b: Dictionary) -> bool: return a.distance<b.distance if a.distance!=b.distance else a.platform_index<b.platform_index)
 	return {"ok":true,"error":"","point":candidates[0].point,"platform_index":candidates[0].platform_index}
+
+static func _air_aperture(definition: PlatformingModuleDefinition, content: Dictionary, port: Dictionary, half: Vector2) -> Dictionary:
+	var at := Vector2(port.local_position_pixels[0],port.local_position_pixels[1])
+	match str(port.face):
+		"TOP": at.y=half.y
+		"BOTTOM": at.y=definition.world_bounds.end.y-half.y
+		"LEFT": at.x=half.x
+		"RIGHT": at.x=definition.world_bounds.end.x-half.x
+	var body := Rect2(at-half,half*2)
+	for index: int in definition.platforms.size():
+		if index not in definition.one_way_platform_indices and definition.platforms[index].intersects(body): return _reject("AIR aperture intersects solid geometry")
+	for danger: Rect2 in definition.static_dangers():
+		if danger.intersects(body.grow(8)): return _reject("AIR aperture intersects danger")
+	for saw: ModuleSawDefinition in definition.saws:
+		if saw.envelope().intersects(body.grow(8)): return _reject("AIR aperture intersects saw envelope")
+	for ferry: ModuleMovingPlatformDefinition in definition.ferries:
+		if ferry.envelope().intersects(body.grow(8)): return _reject("AIR aperture intersects ferry envelope")
+	if not _gate_clear(body,content): return _reject("AIR aperture intersects gate")
+	# Flight witness, not a standing respawn anchor. Native routes retain their
+	# real jump/shot budgets and separate interior recovery landings.
+	return {"ok":true,"error":"","point":at,"platform_index":-1}
 
 static func _clear_standing(definition: PlatformingModuleDefinition, content: Dictionary, point: Vector2, half: Vector2) -> bool:
 	# Reuse the authoritative original module standing/body/danger/envelope
 	# checks. This does not redefine native geometry or player physics.
 	return definition._standing_point(point) and _gate_clear(Rect2(point-half,half*2.0),content)
 
-static func _approach_clear(definition: PlatformingModuleDefinition, content: Dictionary, point: Vector2, port: Dictionary, half: Vector2) -> bool:
+static func _approach_clear(definition: PlatformingModuleDefinition, content: Dictionary, point: Vector2, port: Dictionary, half: Vector2, complete: bool = false) -> bool:
 	var at := point
 	match str(port.face):
 		"LEFT": at.x = half.x
 		"RIGHT": at.x = definition.world_bounds.end.x-half.x
 		"TOP": at.y = half.y
+		"BOTTOM": at.y = definition.world_bounds.end.y-half.y
 		_: return false
 	var sweep := Rect2(point-half,half*2.0).merge(Rect2(at-half,half*2.0))
-	for platform: Rect2 in definition.platforms:
-		if platform.intersects(sweep): return false
+	for index: int in definition.platforms.size():
+		# A vertical one-way crossing uses the native upward pass / explicit
+		# drop action. Solid platforms and every danger remain blocking.
+		if complete and port.face in ["TOP","BOTTOM"] and index in definition.one_way_platform_indices: continue
+		if definition.platforms[index].intersects(sweep): return false
 	for danger: Rect2 in definition.static_dangers():
 		if danger.intersects(sweep.grow(8.0)): return false
 	for saw: ModuleSawDefinition in definition.saws:
@@ -155,7 +201,7 @@ static func _gate_clear(body: Rect2, content: Dictionary) -> bool:
 		if Rect2(raw[0],raw[1],raw[2],raw[3]).intersects(body): return false
 	return true
 
-static func _link_error(instance: Dictionary, port: Dictionary, instances: Dictionary, connections: Array) -> String:
+static func _link_error(instance: Dictionary, port: Dictionary, instances: Dictionary, connections: Array, complete: bool = false) -> String:
 	var matches: Array[Dictionary] = []
 	for raw: Variant in connections:
 		if not raw is Dictionary or not raw.get("a") is Dictionary or not raw.get("b") is Dictionary: return "connections: malformed endpoint"
@@ -173,7 +219,8 @@ static func _link_error(instance: Dictionary, port: Dictionary, instances: Dicti
 	var opposite := {"LEFT":"RIGHT","RIGHT":"LEFT","TOP":"BOTTOM","BOTTOM":"TOP"}
 	if other_port.is_empty() or other_port.get("face")!=opposite[port.face] or other_port.get("surface")!=port.surface or not LevelContentValidation.point(other_port.get("local_position_pixels")): return "ports."+str(port.id)+".connections: peer face/surface/aperture mismatch"
 	if other_port.get("permission") not in ["INPUT","OUTPUT","INOUT"]: return "ports."+str(port.id)+".connections: peer permission invalid protocol value"
-	if other_port.permission!="INOUT": return "ports."+str(port.id)+".connections: host capability unsupported for legal "+str(other_port.permission)+" peer permission"
+	if complete and port.permission==other_port.permission and port.permission!="INOUT": return "ports."+str(port.id)+".connections: incompatible peer permission"
+	if not complete and other_port.permission!="INOUT": return "ports."+str(port.id)+".connections: host capability unsupported for legal "+str(other_port.permission)+" peer permission"
 	if not other.get("connected_port_ids") is Array or other_port.id not in other.connected_port_ids: return "ports."+str(port.id)+".connections: peer port is not connected"
 	if Vector2(other.origin_blocks[0],other.origin_blocks[1])*128.0+Vector2(other_port.local_position_pixels[0],other_port.local_position_pixels[1])!=world: return "ports."+str(port.id)+".connections: peer world position differs"
 	return ""

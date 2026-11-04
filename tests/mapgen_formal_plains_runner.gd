@@ -48,6 +48,9 @@ func identity_contract() -> void:
 	var view: Dictionary=stage.generated.manifest
 	var source: Dictionary=preload("res://addons/mapgen/data_json.gd").parse(view.mapgen.source_json).value
 	check(plan.modules.size()==source.result.map.instances.size() and plan.connections.size()==source.result.map.connections.size(),"whole actual SDK map and every connection installed")
+	check(source.result.map.validation.source_quality.main_paths>=3 and source.result.map.validation.source_quality.target_rewards==6,"actual SDK map satisfies three main paths and six rewards")
+	app._demo_hud.present_navigation(stage.map_view,app._pause_button)
+	check(not stage.map_view.region_chip and stage.map_view.size==Vector2(240,156),"formal HUD uses an actual terrain thumbnail")
 	check(plan.modules.size()>10 and not stage.enemies.is_empty() and not stage.chests.is_empty(),"exploration world includes native enemies and reward sites")
 	check(plan.source_id==&"mapgen_runtime_v2" and view.version==PlainsMapGeneration.VERSION,"ordinary departure uses map-gen, not legacy or a slice")
 	check(source.result.map.module_package.version=="1.1.0" and source.result.map.generator.implementation=="mapgen/gdscript-candidate-0.4.1","installed SDK and module package identities retained")

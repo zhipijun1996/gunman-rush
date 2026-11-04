@@ -1,15 +1,14 @@
 class_name RuntimeMapGenerationJob
 extends RefCounted
-## Source-owned cooperative envelope. The entrance owns SceneTree and RunSession.
+## Source-owned cancellable envelope. The entrance owns SceneTree and RunSession.
 ## Every accepting operation receives the entrance's actual current lifetime.
 const JOB := preload("res://addons/mapgen/generation_job.gd")
 const PRELOAD_JOB := preload("res://addons/mapgen/preload_job.gd")
 const VERIFIED_LIBRARY := preload("res://game/world/generation/mapgen/runtime_map_verified_library_cache.gd")
 const WORK_GATE := preload("res://addons/mapgen/work_gate.gd")
 const SELECTION := preload("res://game/world/generation/mapgen/runtime_map_generated_selection.gd")
-# Original SDK Web host uses an 8ms yielding target. The first actual main-game
-# Web run with 4ms rejected the result after ~92.5s of generation; its package,
-# input/config and 90s search limit stay unchanged. This is no hard frame limit.
+# Cooperative fallback uses an 8ms soft target; SDK checkpoint units do not
+# guarantee a hard frame limit. Pure solving may run in its exclusive worker.
 const SOFT_TICK_MS := 8.0
 const PROTOCOL := preload("res://addons/mapgen/protocol.gd")
 const LOCK_PATH := "res://config/mapgen_candidate.json"
@@ -30,6 +29,8 @@ class Ticket extends RefCounted:
 	var ids: Array[String] = []
 	var binding_id := "seam"
 	var operation_budget := 128
+	var background_solve := false
+	var worker: RuntimeMapSolveWorker
 	var lock: Dictionary = {}
 	var preloader: Variant
 	var preload_started_usec := 0
@@ -52,7 +53,7 @@ var _current: Ticket
 var _closed := false
 var _ticking := false
 
-func begin(owner: Object, lifetime: DemoLifetime, level_request: LevelRequest, request_data: Dictionary, config: Dictionary, bindings: Dictionary, ids: Array[String], binding_id: String = "seam", operation_budget: int = 128) -> RefCounted:
+func begin(owner: Object, lifetime: DemoLifetime, level_request: LevelRequest, request_data: Dictionary, config: Dictionary, bindings: Dictionary, ids: Array[String], binding_id: String = "seam", operation_budget: int = 128, background_solve: bool = false) -> RefCounted:
 	if _closed or _ticking: return null
 	if _current != null: _cancel(_current,"replaced by a newer generation request")
 	_serial += 1
@@ -68,6 +69,8 @@ func begin(owner: Object, lifetime: DemoLifetime, level_request: LevelRequest, r
 	ticket.ids.assign(ids)
 	ticket.binding_id = binding_id
 	ticket.operation_budget = operation_budget
+	ticket.background_solve = background_solve
+	ticket.metrics["backend"] = "cooperative"
 	ticket.metrics["operation_budget"] = operation_budget
 	ticket.metrics["soft_tick_ms"] = SOFT_TICK_MS
 	ticket.metrics["configured_work_unit_cap"] = operation_budget
@@ -118,7 +121,8 @@ func tick(value: RefCounted, current_lifetime: DemoLifetime) -> bool:
 		ticket.metrics.preload_tick_ms.append(duration)
 		if ticket.phase=="generate": ticket.metrics["preload_wall_ms"] = _elapsed_ms(ticket.preload_started_usec)
 	elif phase_before=="generate":
-		_add_ms(ticket,"generation_execution_ms",duration)
+		if ticket.worker==null: _add_ms(ticket,"generation_execution_ms",duration)
+		else: _add_ms(ticket,"worker_poll_execution_ms",duration)
 		ticket.metrics.advance_tick_ms.append(duration)
 		ticket.metrics.advance_ticks = int(ticket.metrics.advance_ticks)+1
 		ticket.metrics.advance_tick_max_ms = maxf(float(ticket.metrics.advance_tick_max_ms),duration)
@@ -253,7 +257,7 @@ func _guard(ticket: Ticket, current_lifetime: DemoLifetime) -> bool:
 func _preload(ticket: Ticket) -> void:
 	var started := Time.get_ticks_usec()
 	if ticket.preloader == null:
-		ticket.preload_started_usec = started
+		if ticket.preload_started_usec==0: ticket.preload_started_usec = started
 		var value: Variant = JSON.parse_string(FileAccess.get_file_as_string(LOCK_PATH))
 		if not value is Dictionary:
 			_fail(ticket,"missing/invalid installed mapgen candidate lock")
@@ -269,6 +273,9 @@ func _preload(ticket: Ticket) -> void:
 		ticket.metrics["preload_cache_hit"] = hit
 		if hit:
 			_start_generation(ticket)
+			return
+		if ticket.background_solve and VERIFIED_LIBRARY.is_warming(ticket.lock):
+			ticket.progress={"phase":"warming_shared_library"}
 			return
 		ticket.preloader = PRELOAD_JOB.create(str(ticket.lock.module_package.path),str(ticket.lock.module_package.sha256))
 	var calls := 0
@@ -323,11 +330,21 @@ func _start_generation(ticket: Ticket) -> void:
 	if ticket.job == null:
 		_fail(ticket,"verified module library unavailable")
 		return
-	ticket.progress = ticket.job.progress()
+	if ticket.background_solve:
+		var worker := RuntimeMapSolveWorker.new()
+		if worker.start(ticket.job):
+			ticket.worker=worker
+			ticket.metrics["backend"]="thread"
+		else:
+			ticket.metrics["backend"]="cooperative_thread_unavailable"
+	ticket.progress = {} if ticket.worker!=null else ticket.job.progress()
 	ticket.progress_history.append(ticket.progress)
 	ticket.phase = "generate"
 
 func _advance(ticket: Ticket) -> void:
+	if ticket.worker!=null:
+		_advance_worker(ticket)
+		return
 	var started := Time.get_ticks_usec()
 	var calls := 0
 	while calls<ticket.operation_budget and not ticket.job.is_done():
@@ -361,6 +378,28 @@ func _advance(ticket: Ticket) -> void:
 		ticket.metrics["sdk_result_snapshot_execution_ms"] = _elapsed_ms(snapshot_started)
 		ticket.metrics["generation_wall_ms"] = _elapsed_ms(ticket.generation_started_usec)
 		ticket.phase = "validate"
+
+func _advance_worker(ticket: Ticket) -> void:
+	var snapshot := ticket.worker.poll()
+	var prior_phase: String=str(ticket.progress.get("phase",""))
+	ticket.progress=snapshot.get("progress",{})
+	if str(ticket.progress.get("phase",""))!=prior_phase:
+		ticket.progress_history.append(ticket.progress.duplicate(true))
+		print("MAPGEN_PHASE "+JSON.stringify(ticket.progress))
+	ticket.metrics["advance_calls"]=snapshot.get("advance_calls",0)
+	ticket.metrics["advance_max_ms"]=snapshot.get("advance_max_ms",0)
+	ticket.metrics["generation_execution_ms"]=snapshot.get("advance_total_ms",0)
+	ticket.metrics["worker_wall_ms"]=snapshot.get("worker_wall_ms",0)
+	ticket.metrics["operations"]=ticket.progress.get("operations",0)
+	ticket.metrics["microsteps"]=ticket.progress.get("microsteps",0)
+	if not snapshot.get("done",false):return
+	var done := ticket.worker.finish()
+	if done.is_empty():return
+	ticket.actual=done.result
+	ticket.metrics["generation_profile"]=done.profile
+	ticket.metrics["generation_wall_ms"]=_elapsed_ms(ticket.generation_started_usec)
+	if not str(snapshot.error).is_empty():_fail(ticket,str(snapshot.error));return
+	ticket.phase="validate"
 
 func _validate(ticket: Ticket) -> void:
 	var started := Time.get_ticks_usec()
@@ -469,6 +508,7 @@ func _capture_missing_profiles(ticket: Ticket) -> void:
 
 func _cancel(ticket: Ticket, reason: String) -> void:
 	var started := Time.get_ticks_usec()
+	if ticket.worker!=null:ticket.worker.close()
 	if ticket.preloader != null:
 		ticket.preloader.cancel()
 		ticket.progress = ticket.preloader.progress().duplicate(true)
@@ -490,6 +530,7 @@ func _cancel(ticket: Ticket, reason: String) -> void:
 
 func _fail(ticket: Ticket, message: String) -> void:
 	var started := Time.get_ticks_usec()
+	if ticket.worker!=null:ticket.worker.close()
 	if ticket.preloader != null:
 		ticket.preloader.cancel()
 		ticket.progress = ticket.preloader.progress().duplicate(true)
@@ -513,6 +554,7 @@ func _notification(what: int) -> void:
 	# self method dispatch is no longer valid: only unwind the owned pure job.
 	_closed = true
 	if _current != null:
+		if _current.worker != null: _current.worker.close()
 		if _current.preloader != null: _current.preloader.cancel()
 		_current.preloader = null
 		if _current.job != null: _current.job.cancel()
