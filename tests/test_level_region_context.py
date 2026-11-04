@@ -119,6 +119,10 @@ class RegionContextTests(unittest.TestCase):
         self.assertIn("one_current_weapon", context["weapon_context"]["selection"])
         self.assertEqual(context["weapon_context"]["rules"][2]["status"], "OPEN")
         self.assertIn("尚未定稿", context["weapon_context"]["rules"][1]["text"])
+        self.assertEqual(context['authority_order']['current_actions'], 'docs/design/player_actions/README.md')
+        self.assertTrue(all(rule['status'] == 'SOURCE_DIRECTION_CURRENT_CONTRACTS_APPLY'
+                            for rule in context['weapon_context']['rules'][:2]))
+        self.assertIn('射击不耗时间能量', '\n'.join(rule['text'] for rule in context['overrides']))
 
     def test_old_world_runtime_flag_does_not_disable_formal_plains(self):
         context = build_region_context("windchime_plains")

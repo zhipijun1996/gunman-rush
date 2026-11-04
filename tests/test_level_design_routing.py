@@ -131,7 +131,7 @@ class RoutingTests(unittest.TestCase):
         self.assertEqual(len(mission['tasks']),1)
         self.assertEqual(len(mission['production_plan']),9)
         task=mission['tasks'][0]
-        self.assertIn('forest-h-slice',task['checks'])
+        self.assertIn('forest-current-slice',task['checks'])
         self.assertEqual(task['required_gates'],['G0','G1'])
         self.assertEqual(task['region_proof']['allowed_capabilities'],['H'])
         self.assertEqual(task['region_proof']['scope'],'prototype')
@@ -314,20 +314,20 @@ class RoutingTests(unittest.TestCase):
             self.assertEqual(contract['scope'],expected)
         self.assertEqual(mission['scope'],'offline_production_plan_not_executed')
 
-    def test_mutable_design_registers_new_tasks_before_quality_profiles(self):
+    def test_mutable_design_registers_new_tasks_before_manual_checks(self):
         for request in ("优化风铃平原", "制作荆棘森林"):
             mission=level_design.content_plan(request,phase="production")
             prerequisite=mission["preparation"]["task_registration"]
             self.assertEqual(prerequisite["source"],"AGENTS.md")
             self.assertEqual(prerequisite["paths"],["docs/tasks.md","docs/quality/records/"])
             self.assertEqual(prerequisite["phase"],"design")
-            self.assertTrue(prerequisite["before_quality_profile"])
+            self.assertTrue(prerequisite["before_manual_checks"])
             self.assertIn("every new task ID",prerequisite["requirement"])
             design=mission["tasks"][1]
             self.assertFalse(design["read_only"])
             self.assertIn("docs/",design["allowed_paths"])
             self.assertIn("docs/tasks.md",design["goal"])
-            self.assertIn("再执行quality profile",design["goal"])
+            self.assertIn("再执行选定的手动检查",design["goal"])
 
     def test_existing_region_uses_shared_skills_and_checks(self):
         mission = level_design.content_plan("优化风铃平原，这里无聊且重复")
@@ -377,7 +377,7 @@ class RoutingTests(unittest.TestCase):
             path = level_design.ROOT / ".agents/skills" / name / "SKILL.md"
             text = path.read_text()
             self.assertIn("name: " + name, text)
-            for heading in ("触发与边界", "输入与依赖", "自动验收", "人工审查", "准入退出与返工", "完成与证据"):
+            for heading in ("适用任务", "操作", "验证与交付"):
                 self.assertIn("## " + heading, text)
 
     def test_unreceipted_json_is_not_a_fresh_motor_proof_and_bad_receipt_fails(self):

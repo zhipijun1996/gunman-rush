@@ -28,3 +28,5 @@ python3 tools/ci.py
 | 目录职责 | [项目结构](docs/project_structure.md) |
 | 跨会话协作与交付 | [生产规则](docs/cloud_production.md) |
 | 游戏与长期设计 | [游戏设计](docs/game_design.md)、[世界与故事](docs/world_and_story.md) |
+
+文档职责与权威边界见 [项目结构与文档分类](docs/project_structure.md)。

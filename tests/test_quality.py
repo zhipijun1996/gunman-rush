@@ -232,6 +232,11 @@ class QualityTests(unittest.TestCase):
         errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('Production change' in e for e in errors), errors)
         self.assertTrue(any('New done task' in e for e in errors), errors)
+        (self.root / 'docs/archive').mkdir()
+        (self.root / 'docs/archive/tasks.md').write_text('| TEST-01 | process | — | done | archived |\n')
+        (self.root / 'docs/tasks.md').write_text('Current work\n')
+        errors, _ = validate_diff(base, self.root)
+        self.assertTrue(any('New done task' in e for e in errors), errors)
 
     def test_diff_guard_rejects_reusing_old_completed_evidence(self):
         def run(*args):

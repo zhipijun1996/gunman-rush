@@ -540,8 +540,14 @@ def validate(base, root=ROOT):
                 reviewed = any(r['dimensions']['independent_review']['status'] == 'passed' and r.get('test_change_justification') for r in covering)
                 if not reviewed:
                     errors.append(f'Test/check deletion or changed guard needs independent review and test_change_justification: {name}; removed guards={weakened + removed}')
-    old_tasks = task_states(git(root, 'show', f'{sha}:docs/tasks.md'))
-    new_tasks = task_states((root / 'docs/tasks.md').read_text())
+    old_texts = []
+    for name in ('docs/tasks.md', 'docs/archive/tasks.md'):
+        prior = subprocess.run(['git', 'show', f'{sha}:{name}'], cwd=root, capture_output=True, text=True)
+        if prior.returncode == 0:
+            old_texts.append(prior.stdout)
+    old_tasks = task_states('\n'.join(old_texts))
+    from quality import task_index_lines
+    new_tasks = task_states('\n'.join(task_index_lines(root)))
     for task, state in new_tasks.items():
         if state == 'done' and old_tasks.get(task) != 'done':
             if not any(r['task_id'] == task and r['workflow'] == 'done' and validate_record(r, root)['task_complete'] for r in valid_records):

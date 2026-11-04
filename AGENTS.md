@@ -5,7 +5,7 @@ Godot 4.7.2 Standard、类型化 GDScript 动作肉鸽。正式入口：`project
 ## 按任务加载
 
 1. 检查 Git 分支、工作区和任务基线；读取 [当前状态](docs/current_state.md)。
-2. 在 [任务索引](docs/tasks.md) 搜索任务 ID；接续工作只读该任务的 `docs/worklines/<任务>/`。
+2. 在 [任务索引](docs/tasks.md) 定位当前议题；旧 ID 仅按需到归档搜索，接续工作只读该任务的 `docs/worklines/<任务>/`。
 3. 从 [模块导航](docs/module_map.md) 选具体代码、设计和验证入口；需要调用关系时再读 [架构](docs/architecture.md)。
 4. 按 `.agents/skills/*/SKILL.md` 的描述选择相关技能。专业细则只在该专业任务加载；共用质量规则见 [开发质量](docs/development_quality.md)。
 5. 默认在导航指定的代码目录检索。`docs/evidence/`、`docs/archive/` 和冻结来源仅按复现需要读取。

@@ -1196,7 +1196,7 @@ def compare_captures(before_path,after_path):
 
 
 def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2,call_timeout=1800,phase='full'):
-    """Build actual existing production_loop input, no separate AI scheduling or gate system."""
+    """Return a retired recipe for comparison; never an executable current mission."""
     import production_loop
     from level_region_context import build_region_context,resolve_region_id
     from level_experience import load_lessons
@@ -1370,7 +1370,7 @@ def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_call
                 # cannot certify this different actual candidate consumer.
                 task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c != 'visual-director-terrain'] + ['plains-places-contract', 'plains-places-capture-tests']))
                 task['goal'] += (' Read the current whole-volume place recipe and preserved PR82 REWORK evidence before choosing a method. Design the continuous multi-screen terrain, rooted construction, actor path and negative space jointly; never map independent images one-to-one onto collision rectangles. Use the explicit candidate consumer and capture adapter, preserving original core contracts. STOP the rejected PR82 shoulder-band/turned-end method. Inspect whole source volumes at equal axis scale, measured source ports and actual place transitions. Run bounded interface rejection and seeded structure checks; these checks cannot admit art. Retain source/prompt/reference and native before/after records. Independently judge the whole actual screen before local polish or expansion. A plan is not execution, a strict route pass is not art admission, and changing Seed phase is not structural variation.')
-    production_loop.validate(m)
+    m["historical_metadata_only"] = True
     return m
 
 

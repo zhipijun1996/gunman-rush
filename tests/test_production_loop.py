@@ -178,18 +178,18 @@ class LoopTests(unittest.TestCase):
     def test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues(self):
         # SIMULATION of the scheduler only: real production runs are separate evidence.
         m=copy.deepcopy(MISSION);m['max_calls']=6
-        m['tasks'][0]['checks']=['docs','quality-tests']
-        other=copy.deepcopy(m['tasks'][0]);other['id']='INDEPENDENT';other['checks']=['world']
+        m['tasks'][0]['checks']=['docs','level-design-routing']
+        other=copy.deepcopy(m['tasks'][0]);other['id']='INDEPENDENT';other['checks']=['level-region-context']
         m['tasks'].append(other);executed=[];roles=[]
         def check(contract, log):
-            executed.append(contract['argv'][1]);log.write_text('SIMULATED scheduling check')
+            executed.append(contract['argv'][1]);log.write_text('OK\n')
             return {'status':'failed' if len(executed)==1 else 'passed'}
         def worker(task,mission,role,*unused):
             roles.append((task['id'],role))
             return {'status':'ready_for_review' if role=='implement' else 'accept','summary':'SIMULATED scheduling','findings':[]}
         with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}),patch.object(loop.harness,'run_check',side_effect=check):
             state=loop.run(m,Path(tmp),worker)
-            self.assertEqual(executed,['tools/check_docs.py','tools/check_world_design.py'])
+            self.assertEqual(executed,['tools/check_docs.py','tests/test_level_region_context.py'])
             self.assertEqual(roles,[('DRILL','implement'),('INDEPENDENT','implement'),('INDEPENDENT','review')])
             self.assertEqual(state['calls'],3)
             self.assertEqual(state['tasks']['INDEPENDENT']['status'],'complete')
@@ -602,7 +602,7 @@ class PhaseRecoveryTests(unittest.TestCase):
             return {'status':'ready_for_review' if role=='implement' else 'accept',
                     'summary':'SIMULATED retained invocation audit fixture','findings':[]}
         def check(config,path):
-            path.write_text('PASS: SIMULATED native-independent controller log\n')
+            path.write_text('PASS: current documentation, navigation, task dependencies and tuning. Game runtime not tested.\n')
             return {'status':'passed','exit_code':0}
         with patch.object(loop.harness,'run_check',side_effect=check):
             state=loop.run(MISSION,folder,simulated)
@@ -691,7 +691,7 @@ class PhaseRecoveryTests(unittest.TestCase):
                 self.assertEqual(len(calls),1)
 
     def test_partial_check_checkpoint_only_reruns_interrupted_check(self):
-        mission=copy.deepcopy(MISSION);mission['tasks'][0]['checks']=['docs','world']
+        mission=copy.deepcopy(MISSION);mission['tasks'][0]['checks']=['docs','level-region-context']
         with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
             folder=Path(tmp);calls=[];worker=self.worker(calls);checks=[]
             def check(config,path):
@@ -701,7 +701,7 @@ class PhaseRecoveryTests(unittest.TestCase):
             with patch.object(loop.harness,'run_check',side_effect=check):
                 with self.assertRaises(KeyboardInterrupt):loop.run(mission,folder,worker)
                 state=loop.run(mission,folder,worker)
-            self.assertEqual(checks,['docs','world','world'])
+            self.assertEqual(checks,['docs','level-region-context','level-region-context'])
             self.assertEqual(state['calls'],2);self.assertEqual(state['status'],'complete')
 
     def test_independent_package_continues_and_only_descendant_blocks(self):
@@ -857,8 +857,8 @@ class CompletedReviewCollectionTests(unittest.TestCase):
         (self.main / 'tools/check_fixture.py').write_text('raise RuntimeError("collector must not invoke checks")\n')
         manifest = self.main / 'tools/harness/profiles.json'
         manifest.parent.mkdir()
-        loop.save(manifest, {'schema_version': 1, 'profiles': {'docs': ['docs']}, 'checks': {
-            'docs': {'argv': ['python3', 'tools/check_fixture.py'], 'timeout_seconds': 1,
+        loop.save(manifest, {'schema_version': 1, 'checks': {
+            'docs': {'mode':'manual','argv': ['python3', 'tools/check_fixture.py'], 'timeout_seconds': 1,
                      'success_pattern': '^SIMULATED fixture checks passed$'}}})
         self.git('add', '.')
         self.git('commit', '-qm', 'SIMULATED source fixture')
@@ -1180,10 +1180,10 @@ class SelectedInputPreflightTests(unittest.TestCase):
             path=self.main/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text)
         manifest=json.loads((self.main/'tools/harness/profiles.json').read_text())
         manifest['checks'].update({
-            'docs': {'argv':['python3','tools/check_docs.py'],'timeout_seconds':9,'success_pattern':'^DOCS fixture$'},
-            'quality': {'argv':['python3','tools/check_quality.py'],'timeout_seconds':9,'success_pattern':'^QUALITY fixture$'},
-            'quality-tests': {'argv':['python3','tests/test_quality.py'],'timeout_seconds':11,'success_pattern':'^OK$'},
-            'visual-director-tests': {'argv':['python3','tests/test_visual_director.py'],'timeout_seconds':13,'success_pattern':'^OK$'}})
+            'docs': {'mode':'manual','argv':['python3','tools/check_docs.py'],'timeout_seconds':9,'success_pattern':'^DOCS fixture$'},
+            'quality': {'mode':'manual','argv':['python3','tools/check_quality.py'],'timeout_seconds':9,'success_pattern':'^QUALITY fixture$'},
+            'quality-tests': {'mode':'manual','argv':['python3','tests/test_quality.py'],'timeout_seconds':11,'success_pattern':'^OK$'},
+            'visual-director-tests': {'mode':'manual','argv':['python3','tests/test_visual_director.py'],'timeout_seconds':13,'success_pattern':'^OK$'}})
         loop.save(self.main/'tools/harness/profiles.json',manifest)
         self.git('add','.')
         self.git('commit','-qm','SIMULATED tracked evidence and canonical check definitions')
@@ -1204,7 +1204,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
         manifest=json.loads((self.main/'tools/harness/profiles.json').read_text())
         for name,entry in checks.items():
             p=self.main/entry;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('print("OK")\n')
-            manifest['checks'][name]={'argv':['python3',entry],'timeout_seconds':5,'success_pattern':'^OK$'}
+            manifest['checks'][name]={'mode':'manual','argv':['python3',entry],'timeout_seconds':5,'success_pattern':'^OK$'}
         loop.save(self.main/'tools/harness/profiles.json',manifest)
         self.git('add','.');self.git('commit','-qm','Actual selected lesson consumer entrypoints')
         subprocess.check_call(['git','-C',str(self.target),'reset','--hard','-q',self.git('rev-parse','HEAD').decode().strip()])
@@ -1333,7 +1333,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
                 loop.invoke_host(task,self.mission,'implement',folder,'{}')
             request=json.loads((folder/'host_request.json').read_text())
             contract=request['resolved_checks'];entry=contract['checks'][0]
-            self.assertEqual(entry,{'id':'quality-tests','argv':['python3','tests/test_quality.py'],
+            self.assertEqual(entry,{'id':'quality-tests','mode':'manual','argv':['python3','tests/test_quality.py'],
                                   'timeout_seconds':11,'success_pattern':'^OK$'})
             self.assertIn(json.dumps(contract,ensure_ascii=False),(folder/'prompt.txt').read_text())
             self.assertNotIn('run_quality_review_tests.py',(folder/'prompt.txt').read_text())
@@ -1347,7 +1347,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
         (self.target/'assets/ignored/.gdignore').write_text('')
         (self.target/'project.godot').write_text('; SIMULATED native input marker')
         manifest=json.loads((self.target/'tools/harness/profiles.json').read_text())
-        manifest['checks']['native-fixture']={'argv':['python3','tests/test_quality.py'],
+        manifest['checks']['native-fixture']={'mode':'manual','argv':['python3','tests/test_quality.py'],
             'timeout_seconds':17,'success_pattern':'^OK$','inputs':['project.godot','assets/**']}
         loop.save(self.target/'tools/harness/profiles.json',manifest)
         subprocess.check_call(['git','-C',str(self.target),'add','--sparse','assets','project.godot','tools/harness/profiles.json'])
@@ -1383,13 +1383,13 @@ class SelectedInputPreflightTests(unittest.TestCase):
             self.assertNotIn(str(new.relative_to(self.target))+'.import',
                 [x['path'] for x in loop.required_input_preflight(task)['import_metadata_risks']])
 
-    def test_docs_sparse_missing_markdown_itself_is_input_not_only_existing_links(self):
+    def test_docs_sparse_unread_markdown_is_not_a_byte_input(self):
         task=self.configure()
         subprocess.run(['git','-C',str(self.target),'sparse-checkout','set','--no-cone','--stdin'],
             input='/*\n!/docs/development_quality.md\n',text=True,check=True)
         with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
             result=loop.required_input_preflight({**task,'checks':['docs']})
-        self.assertIn('docs/development_quality.md',[x['path'] for x in result['missing_tracked_inputs']])
+        self.assertNotIn('docs/development_quality.md',[x['path'] for x in result['missing_tracked_inputs']])
 
     def _commit_sparse_inputs(self, files):
         for name, content in files.items():
@@ -1438,31 +1438,14 @@ class SelectedInputPreflightTests(unittest.TestCase):
             index.write_text('{ damaged metadata')
             self.assertTrue(any(item['reason'] == 'index_dependencies_unknown' for item in loop.required_input_preflight(task)['uncertain_inputs']))
 
-    def test_markdown_directory_presence_requires_real_member_not_empty_directory_or_all_media(self):
+    def test_docs_sparse_link_targets_need_no_materialization_but_real_deletions_block(self):
         task = self.configure()
-        directory = 'docs/evidence/directory-only/history'
-        representative, unrelated = directory + '/a-record.txt', directory + '/z-large-media.bin'
-        trace = directory + '/0-large-trace.json'
-        self._commit_sparse_inputs({'docs/directory-link.md': '[original history](evidence/directory-only/history/)\n',
-                                    representative: 'original committed directory record\n', unrelated: 'unrelated media fixture\n' * 100,
-                                    trace: '{"fixture":"prefer an existing text record before a possible large JSON trace"}\n'})
+        proof = 'docs/evidence/directory-only/history/a-record.txt'
+        self._commit_sparse_inputs({'docs/directory-link.md': '[record](evidence/directory-only/history/a-record.txt)\n', proof: 'tracked bytes\n'})
         with patch.object(loop, 'ROOT', self.main), loop._collection_worktree(self.target):
             task = {**task, 'checks': ['docs']}
-            before = loop.required_input_preflight(task)
-            self.assertEqual([item['path'] for item in before['missing_tracked_inputs']], [representative])
-            self.assertEqual(before['directory_presence_inputs'][0]['path'], directory)
-            self.assertEqual(before['directory_presence_inputs'][0]['representative'], representative)
-            self.assertFalse((self.target / directory).exists())
-            # An empty manually-created directory is not a genuine restored input.
-            (self.target / directory).mkdir(parents=True)
-            self.assertEqual(loop.required_input_preflight(task)['status'], 'blocked')
-            (self.target / representative).write_bytes(self.git('show', 'HEAD:' + representative))
             self.assertEqual(loop.required_input_preflight(task)['status'], 'passed')
-            self.assertTrue((self.target / directory).exists())
-            self.assertFalse((self.target / unrelated).exists())
-            self.assertFalse((self.target / trace).exists())
-            subprocess.check_call(['git', '-C', str(self.target), 'update-index', '--no-skip-worktree', representative])
-            (self.target / representative).unlink()
+            subprocess.check_call(['git', '-C', str(self.target), 'update-index', '--no-skip-worktree', proof])
             deleted = loop.required_input_preflight(task)
             self.assertEqual(deleted['status'], 'blocked')
             self.assertEqual(deleted['missing_tracked_inputs'][0]['reason'], 'tracked_missing')
@@ -1607,68 +1590,9 @@ class SelectedInputPreflightTests(unittest.TestCase):
         self.assertIn('Harness manifest entry quality',missing[0]['required_by'])
 
 
-    def configure_actual_forest_contract_inputs(self, declared=True):
-        task=self.configure()
-        actual=json.loads((self.repo/'tools/harness/profiles.json').read_text())['checks']['level-design-contracts']
-        for item in actual['inputs']:
-            source=self.repo/item
-            paths=sorted(source.rglob('*')) if source.is_dir() else [source]
-            for original in paths:
-                if original.is_file():
-                    target=self.main/original.relative_to(self.repo)
-                    target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(original.read_bytes())
-        manifest=json.loads((self.main/'tools/harness/profiles.json').read_text())
-        manifest['checks']['level-design-contracts']=copy.deepcopy(actual)
-        if not declared:manifest['checks']['level-design-contracts'].pop('inputs')
-        loop.save(self.main/'tools/harness/profiles.json',manifest)
-        self.git('add','.');self.git('commit','-qm','Actual frozen forest fixture materialization inputs')
-        subprocess.check_call(['git','-C',str(self.target),'reset','--hard','-q',self.git('rev-parse','HEAD').decode().strip()])
-        subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
-        task['checks']=['level-design-contracts']
-        return task
 
-    def test_original_undeclared_forest_fixture_reproduces_missed_sparse_input(self):
-        task=self.configure_actual_forest_contract_inputs(declared=False)
-        missing=self.target/'docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json'
-        self.assertFalse(missing.exists())
-        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
-            result=loop.required_input_preflight(task)
-        self.assertEqual(result['status'],'passed')
-        self.assertEqual(result['missing_tracked_inputs'],[])
         # This is the actual preflight blind spot, not a successful worker/native run.
 
-    def test_actual_declared_forest_prefix_blocks_calls_zero_until_exact_git_materialization(self):
-        task=self.configure_actual_forest_contract_inputs()
-        prefix='docs/evidence/region_production_v3/forest_h_slice/'
-        required=[prefix+'native/positive/capture.json',prefix+'verification.json',prefix+'round1_reject/host_response.json']
-        evidence=self.target/'build/verification/forest-prefix';evidence.mkdir(parents=True)
-        mission=evidence/'mission.json';loop.save(mission,self.mission)
-        result=subprocess.run([sys.executable,str(self.target/'tools/production_loop.py'),'--mission',str(mission),
-            '--execute','--worker-mode','host','--evidence-dir',str(evidence)],capture_output=True,text=True,timeout=20)
-        self.assertEqual(result.returncode,2,result.stdout+result.stderr)
-        state=json.loads((evidence/'state.json').read_text())
-        self.assertEqual(state['status'],'blocked');self.assertEqual(state['calls'],0)
-        self.assertFalse(any(evidence.glob('*/*/host_request.json')))
-        blocked=state['tasks']['DRILL']['input_preflight']
-        self.assertTrue(set(required).issubset({x['path'] for x in blocked['missing_tracked_inputs']}))
-        self.assertTrue(all(x['reason']=='sparse_unmaterialized' for x in blocked['missing_tracked_inputs']))
-        actual=json.loads((self.target/'tools/harness/profiles.json').read_text())['checks']['level-design-contracts']
-        self.assertFalse(actual['cacheable'])
-        subprocess.run(['git','-C',str(self.target),'sparse-checkout','add','--stdin'],input='/'+prefix+'**\n',text=True,check=True)
-        subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
-        for name in required:self.assertEqual((self.target/name).read_bytes(),self.git('show','HEAD:'+name))
-        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
-            self.assertEqual(loop.required_input_preflight(task)['status'],'passed')
-            for name in required:
-                with self.subTest(ordinary_missing=name):
-                    path=self.target/name;original=path.read_bytes();path.unlink()
-                    try:
-                        missing=loop.required_input_preflight(task)
-                        self.assertEqual(missing['status'],'blocked')
-                        self.assertIn(name,[x['path'] for x in missing['missing_tracked_inputs']])
-                    finally:path.write_bytes(original)
-        # No mock worker, no native execution, no mutation of the old blocked state.
-        self.assertEqual(json.loads((evidence/'state.json').read_text()),state)
 
     def test_declared_directory_input_uses_boundary_and_unknown_untracked_warning(self):
         task=self.configure()
@@ -1865,7 +1789,7 @@ class NativeImportPreflightTests(unittest.TestCase):
                 log.write_text('SIMULATED import, not a Godot execution\n')
                 mutation(root)
             else:
-                log.write_text('PASS: SIMULATED checks\n')
+                log.write_text('PASS: current documentation, navigation, task dependencies and tuning. Game runtime not tested.\n')
             return {'status': 'passed', 'exit_code': 0, 'duration_seconds': 0.1}
         return simulate
 

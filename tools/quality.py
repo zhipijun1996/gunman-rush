@@ -10,6 +10,14 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def task_index_lines(root):
+    """Current work and historical evidence share one task-ID namespace."""
+    for relative in ('docs/tasks.md', 'docs/archive/tasks.md'):
+        path = root / relative
+        if path.is_file():
+            yield from path.read_text().splitlines()
+
+
 def unique_object(pairs):
     result = {}
     for key, value in pairs:

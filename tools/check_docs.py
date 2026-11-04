@@ -1,5 +1,6 @@
 """Validate project documentation without claiming game runtime coverage."""
 from pathlib import Path
+from quality import task_index_lines
 import json
 import os
 import re
@@ -50,7 +51,8 @@ def validate(root=ROOT):
         for base, directories, filenames in os.walk(root):
             directories[:] = [name for name in directories if name not in {'.git', '.godot', '__pycache__'}
                               and not (Path(base) == root and name in {'build', 'preview'})
-                              and not (Path(base) == root / 'docs' and name in {'evidence', 'archive'})]
+                              and not (Path(base) == root / 'docs' and name in {'evidence', 'archive'})
+                              and not (Path(base) == root / 'docs/creative_direction' and name == 'archive')]
             for name in sorted(filenames):
                 if name.endswith('.md'):
                     yield Path(base) / name
@@ -67,9 +69,9 @@ def validate(root=ROOT):
             if not document_target_exists(root, path, target, sparse_paths):
                 errors.append(f'Broken link {path.relative_to(root)}: {target}')
     tasks = {}
-    for line in (root / 'docs/tasks.md').read_text().splitlines():
+    for line in task_index_lines(root):
         cells = [cell.strip() for cell in line.split('|')[1:-1]]
-        if len(cells) == 5 and re.fullmatch(r'[A-Z][A-Z0-9]*(?:-[A-Z][A-Z0-9]*)*-\d+', cells[0]):
+        if len(cells) == 5 and re.fullmatch(r'[A-Z][A-Z0-9_-]*', cells[0]):
             if cells[0] in tasks:
                 errors.append(f'Duplicate task {cells[0]}')
             tasks[cells[0]] = cells

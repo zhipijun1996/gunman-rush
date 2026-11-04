@@ -42,6 +42,8 @@ def digest(value):
 
 
 def validate(m):
+    if m.get("historical_metadata_only"):
+        raise ValueError("Historical recipes are reference metadata; use the current route")
     if m.get("schema_version") != 1 or not m.get("objective") or not m.get("tasks"):
         raise ValueError("Mission needs schema_version=1, objective and tasks")
     if type(m.get("max_calls")) is not int or type(m.get("max_rounds")) is not int or not 1 <= m["max_calls"] <= 100 or not 1 <= m["max_rounds"] <= 10:
@@ -274,7 +276,7 @@ def save(path, data):
 
 
 def check_manifest_metadata():
-    """Validate profile metadata; preflight owns missing entry-file diagnostics.
+    """Validate selected manual-check metadata; preflight owns missing entry-file diagnostics.
 
     Harness still checks its normal file/command contract when checks execute.
     Keeping file existence separate lets sparse inputs stop with calls0 evidence.
@@ -284,12 +286,9 @@ def check_manifest_metadata():
         raise ValueError("Unsupported harness schema")
     checks = data["checks"]
     for name, check in checks.items():
-        if not check["argv"] or check["timeout_seconds"] <= 0:
+        if not check["argv"] or check["timeout_seconds"] <= 0 or check.get("mode") != "manual":
             raise ValueError(f"Invalid check: {name}")
         re.compile(check["success_pattern"])
-    for name, ids in data["profiles"].items():
-        if not ids or len(set(ids)) != len(ids) or any(i not in checks for i in ids):
-            raise ValueError(f"Invalid profile: {name}")
     return data
 
 
@@ -299,7 +298,7 @@ def resolved_check_contracts(task):
     return {"manifest": "tools/harness/profiles.json",
             "manifest_sha256": hashlib.sha256(harness.MANIFEST.read_bytes()).hexdigest(),
             "cwd": str(ROOT), "checks": [{"id": name, **{key: manifest["checks"][name][key]
-                for key in ("argv", "timeout_seconds", "success_pattern", "inputs", "artifact_paths")
+                for key in ("mode", "argv", "timeout_seconds", "success_pattern", "inputs", "artifact_paths")
                 if key in manifest["checks"][name]}} for name in task["checks"]]}
 
 
@@ -415,7 +414,7 @@ def required_input_preflight(task):
                 uncertain.append({"path": name, "reason": "index_dependencies_unknown", "error": str(error)})
             return {}
 
-    def markdown_links(name):
+    def markdown_links(name, *, existence_only=False):
         require(name, "selected Markdown consumer")
         if file_state(name) == "readable":
             try:
@@ -426,7 +425,13 @@ def required_input_preflight(task):
                 return
             for link in re.findall(r"\[[^\]]*\]\(([^)]+)\)", content):
                 if not link.startswith(("https:", "http:", "#", "mailto:")):
-                    require(str(Path(name).parent / link.split("#")[0]), name, directory_exists_only=True)
+                    target = str(Path(name).parent / link.split("#")[0])
+                    relative = os.path.relpath(os.path.abspath(ROOT / target), ROOT)
+                    # Navigation accepts explicit sparse index targets without reading bytes.
+                    if existence_only and (tracked.get(relative, "").upper() == "S" or
+                            (relative not in tracked and any(key.startswith(relative.rstrip("/") + "/") and state.upper() == "S" for key, state in tracked.items()))):
+                        continue
+                    require(target, name, directory_exists_only=True)
 
     commands = {item["argv"][1] for item in contracts["checks"] if len(item["argv"]) > 1}
     # The existing Harness loader checks every registered runner before running
@@ -481,8 +486,8 @@ def required_input_preflight(task):
                     if isinstance(ref, dict): require(ref.get("path"), name)
     if "tools/check_docs.py" in commands:
         for name in files:
-            if name.endswith(".md"):
-                markdown_links(name)
+            if name.endswith(".md") and not name.startswith(("docs/evidence/", "docs/archive/", "docs/creative_direction/archive/")) and file_state(name) != "missing":
+                markdown_links(name, existence_only=True)
     # These real registered consumers call route_request/load_lessons. Sparse
     # knowledge must stop before a worker, not during its downstream test.
     lesson_consumers = {"tests/test_visual_director.py", "tests/test_production_loop.py",

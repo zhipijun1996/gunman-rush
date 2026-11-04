@@ -1,4 +1,5 @@
 """Static skill/template/record checks. Does not invoke Codex or judge game quality."""
+from quality import task_index_lines
 from pathlib import Path
 import re
 import sys
@@ -57,7 +58,7 @@ def validate(root=ROOT):
     for path in (root / 'docs/quality/asset_records').glob('*.json'):
         errors.extend(f'{path.name}: {e}' for e in validate_asset(read_json(path), root))
     task_rows = {}
-    for line in (root / 'docs/tasks.md').read_text().splitlines():
+    for line in task_index_lines(root):
         cells = [c.strip() for c in line.split('|')[1:-1]]
         if len(cells) == 5:
             task_rows[cells[0]] = cells[3]

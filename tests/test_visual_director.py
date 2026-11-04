@@ -441,9 +441,26 @@ class VisualDirectorTests(unittest.TestCase):
         vd.write(other,changed)
         with self.assertRaisesRegex(ValueError,'generated route input'):vd.compare_captures(self.receipt,other)
 
-    def test_route_is_real_original_production_loop_input_not_worker_success(self):
+    def test_current_route_is_valid_bible_bound_manual_mission(self):
+        import production_loop
+        for phase in ('audit', 'golden', 'review', 'full'):
+            mission = vd.route('优化风铃平原画面', 'CURRENT-VISUAL',
+                               'docs/quality/records/CURRENT-VISUAL.json',
+                               ['game/presentation/world/'], phase=phase)
+            production_loop.validate(mission)
+            self.assertFalse(mission.get('historical_metadata_only'))
+            for task in mission['tasks']:
+                self.assertTrue(task.get('region_bible'))
+                for name in task['checks']:
+                    self.assertEqual(production_loop.check_manifest_metadata()['checks'][name]['mode'], 'manual')
+
+    def test_historical_recipe_is_metadata_and_cannot_execute(self):
         # Registration and policy are real; this test does not dispatch workers.
         mission=vd.historical_recipe_plan('优化风铃平原钟庭美术','unit-visual','docs/quality/records/unit-visual-golden.json',['docs/','scripts/art/','assets/'])
+        self.assertTrue(mission['historical_metadata_only'])
+        import production_loop
+        with self.assertRaisesRegex(ValueError, 'Historical recipes'):
+            production_loop.validate(mission)
         self.assertEqual(mission['scope'],'offline_production_plan_not_executed')
         self.assertTrue(any('rejected unrelated mother does not block' in item for item in mission['constraints']))
         self.assertEqual(mission['tasks'][1]['required_gates'],['G0','G1'])
