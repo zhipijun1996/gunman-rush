@@ -4,7 +4,7 @@
 
 ## 可恢复基线
 
-核实于2026-11-06，main为 `48cddb6a70983b0a0206304d18c98d274a9a7549`，与用户审计基线一致。初始工作区干净；工作分支 `feat/mv-migration-01`，本PR提交身份由Git记录。原型启动 project.godot → game/application/demo.tscn → DemoApp，普通出发仍是Plains/Forest Provider。
+核实于2026-11-06，main为 `48cddb6a70983b0a0206304d18c98d274a9a7549`，与用户审计基线一致。初始工作区干净；工作分支 `feat/mv-migration-01`，迁移实现提交 `6a6053c`，后续交接修订见本PR提交记录。原型启动 project.godot → game/application/demo.tscn → DemoApp，普通出发仍是Plains/Forest Provider。
 
 公开构建 `9c5a54c99d13` 对应源码 `7a49abda9092a2f63e63f32db7c8126e6ad5cfe6`，属于PR136工作线，不是main。实时读取的 [build-info快照](../../../data/world/live-build.json) 保留引擎、包与源码身份；可按SHA恢复分支源码，不只保存网页。本轮未部署或替换试玩。
 
@@ -106,7 +106,7 @@ FOREST-VARIETY-04（blocked）与MAPGEN-HOST-WINDCHIME-041（review）保留原�
 - `python3 tests/test_world_design.py`：9项通过，含坏门/分区/来源、局部提取、旧route拒绝、Bible迁移依据篡改反例、导出配置隔离。
 - `python3 tests/test_level_region_context.py`（8）、`python3 tests/test_level_design_routing.py`（11）、`python3 tests/test_context_navigation.py`（5）、`python3 tests/test_quality.py`（61）：通过。被替代的六层/两图/旧route正向断言迁为固定世界检查，快照/损坏/来源/权限等通用回归保留。
 - `python3 tools/ci.py`：project/import/smoke/contracts四项通过；CI SMOKE 9、CI CONTRACTS 239、META NOTES SAVE 39断言无失败。初次因缺锁定Godot拒绝，随后运行`tools/setup_environment.py --engine-only`安装并校验4.7.2 gunman-sd1后重跑成功，没有换用环境内4.6.3冒签。
-- 地区F及P-R03局部提取实际运行成功；`git diff --check`通过。确认export_presets排除docs/*，raw exporter不额外加入世界导入包；未导出新PCK。
+- 地区F及P-R03局部提取实际运行成功；自编改动的`git diff --check`通过；完整差异报告原包font-LICENSE.txt与atlas_utils.py末尾空行，按原字节导入要求保留，不清理来源。确认export_presets排除docs/*，raw exporter不额外加入世界导入包；未导出新PCK。
 
 数据图检查不等于Godot跳跃、战斗或镜头验收；CI仅保护当前旧原型。未验：新世界实机、手机、全世界运行路线、完整经济/装备、内容美术与战斗。本轮没有需要录屏的新游戏行为，也未发布构建。
 
