@@ -458,43 +458,35 @@ class LoopTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError,'previously implemented'):
                 loop.run(mission,Path(tmp),worker)
 
-    def test_explicit_content_plan_stage_and_final_content_are_distinct(self):
+    def test_retired_content_plan_refuses_before_executor(self):
         from level_design import content_plan
-        m=content_plan('优化风铃平原')
-        loop.validate(m)
-        self.assertEqual(m['tasks'][1]['completion'],'stage')
-        self.assertEqual(m['tasks'][1]['required_gates'],['G0'])
-        self.assertEqual(m['tasks'][-1]['completion'],'content')
-        self.assertEqual(m['tasks'][-1]['quality_task_id'],m['tasks'][-2]['id'])
+        with self.assertRaisesRegex(ValueError, 'retired'):
+            content_plan('优化风铃平原')
 
-    def test_route_prepares_registered_context_and_scoped_lessons(self):
-        from level_design import route_request
-        for request,region_id in [('优化风铃平原','windchime_plains'),('制作荆棘森林','thorn_forest')]:
-            with self.subTest(region=region_id),patch('level_experience.load_lessons',return_value=[{'source_kind':'design_review','limits':'SIMULATED scoped lesson, not player approval'}]) as loader:
-                mission=route_request(request)
-                self.assertEqual(mission['preparation']['region_context']['region_id'],region_id)
-                self.assertIsNone(mission['preparation']['region_context']['implementation']['runtime_available'])
-                loader.assert_called_once_with(region_id)
-                self.assertEqual(mission['preparation']['lessons'][0]['source_kind'],'design_review')
-                with tempfile.TemporaryDirectory() as tmp:
-                    prompt,*_=loop.prepare_call(mission['tasks'][0],mission,'implement',Path(tmp),'{}')
-                    self.assertIn('SIMULATED scoped lesson',prompt)
-                    self.assertIn(region_id,prompt)
+    def test_handwritten_mission_prepares_scoped_context_and_lessons(self):
+        from mission_fixtures import selected_mission
+        from level_region_context import build_region_context
+        for region in ('windchime_plains', 'thorn_forest'):
+            mission = selected_mission(region)
+            mission['preparation'] = {'region_context': build_region_context(region),
+                'lessons': [{'limits': 'SIMULATED scoped lesson, not player approval'}]}
+            loop.validate(mission)
+            with tempfile.TemporaryDirectory() as tmp:
+                prompt, *_ = loop.prepare_call(mission['tasks'][0], mission, 'implement', Path(tmp), '{}')
+                self.assertIn('SIMULATED scoped lesson', prompt)
+                self.assertIn(region, prompt)
 
     def test_unknown_region_never_inherits_plains(self):
-        from level_design import route_request
-        mission=route_request('制作未知的地下河地区')
-        context=mission['preparation']['region_context']
-        self.assertIsNone(context['region_id']);self.assertEqual(context['status'],'unregistered')
-        self.assertEqual(mission['preparation']['lessons'],[])
+        from level_region_context import build_region_context, ContextError
+        with self.assertRaises(ContextError):
+            build_region_context('unknown_underwater')
 
-    def test_invalid_lessons_and_ambiguous_regions_fail_closed(self):
+    def test_retired_routes_never_load_lessons_or_prepare_work(self):
         from level_design import route_request
-        with patch('level_experience.load_lessons',side_effect=ValueError('lesson evidence mismatch')):
-            with self.assertRaisesRegex(ValueError,'lesson evidence mismatch'):
-                route_request('优化风铃平原')
-        with self.assertRaises(ValueError):
-            route_request('制作荆棘森林和风铃平原')
+        with patch('level_experience.load_lessons', side_effect=AssertionError('must not load')):
+            for request in ('优化风铃平原', '制作荆棘森林和风铃平原', '制作未知地下河'):
+                with self.assertRaisesRegex(ValueError, 'retired'):
+                    route_request(request)
 
     def test_stage_quality_never_becomes_content_acceptance(self):
         task={'id':'STAGE','completion':'stage','quality_record':'fake','required_gates':['G0']}
@@ -1198,7 +1190,7 @@ class SelectedInputPreflightTests(unittest.TestCase):
         self.mission['tasks'][0]['checks']=['quality']
         return self.mission['tasks'][0]
 
-    def test_route_test_entrypoints_preflight_real_knowledge_dependencies_calls_zero(self):
+    def test_retired_route_tests_do_not_require_old_lessons_but_historical_recipe_does(self):
         task=self.configure()
         checks={"production-loop-tests":"tests/test_production_loop.py", "level-design-routing":"tests/test_level_design_routing.py"}
         manifest=json.loads((self.main/'tools/harness/profiles.json').read_text())
@@ -1206,20 +1198,23 @@ class SelectedInputPreflightTests(unittest.TestCase):
             p=self.main/entry;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('print("OK")\n')
             manifest['checks'][name]={'mode':'manual','argv':['python3',entry],'timeout_seconds':5,'success_pattern':'^OK$'}
         loop.save(self.main/'tools/harness/profiles.json',manifest)
-        self.git('add','.');self.git('commit','-qm','Actual selected lesson consumer entrypoints')
+        self.git('add','.');self.git('commit','-qm','Selected retired-route and executor test entrypoints')
         subprocess.check_call(['git','-C',str(self.target),'reset','--hard','-q',self.git('rev-parse','HEAD').decode().strip()])
         subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
         with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
             for name in checks:
                 with self.subTest(check=name):
                     task['checks']=[name]
-                    def forbidden(*unused):raise AssertionError('Missing actual knowledge must not dispatch a worker')
-                    state=loop.run(self.mission,self.target/('build/verification/'+name),forbidden)
-                    self.assertEqual(state['calls'],0)
-                    self.assertEqual([item['path'] for item in state['tasks']['DRILL']['input_preflight']['missing_tracked_inputs']],[self.proof])
+                    self.assertEqual(loop.required_input_preflight(task)['status'], 'passed')
+            task['checks'] = ['visual-director-tests']
+            def forbidden(*unused):
+                raise AssertionError('Historical recipe still requires actual lesson evidence')
+            state = loop.run(self.mission, self.target/'build/verification/historical-visual', forbidden)
+            self.assertEqual(state['calls'], 0)
+            self.assertEqual([item['path'] for item in state['tasks']['DRILL']['input_preflight']['missing_tracked_inputs']], [self.proof])
             (self.target/self.proof).parent.mkdir(parents=True,exist_ok=True)
             (self.target/self.proof).write_bytes(self.git('show','HEAD:'+self.proof))
-            for name in checks:
+            for name in [*checks, 'visual-director-tests']:
                 task['checks']=[name]
                 self.assertEqual(loop.required_input_preflight(task)['status'],'passed')
 

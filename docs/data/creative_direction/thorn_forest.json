@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v38-mv",
+  "version": "creative-v39-mv",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -99,8 +99,8 @@
     "source": "docs/bible/regions/thorn_forest.md",
     "contract": "按当前地区圣经与相关对象规范执行本次范围，结合真实消费者检查美术统一和玩家体验。",
     "consumer": "DemoApp._select_next_region / start_debug_region -> ThornForestRegionGenerator CURRENT_DEPTH_LAYOUT (read actual versioned producer) -> ThornForestRegionStage -> ThornForestRegionAssembler",
-    "status": "source_present_not_bible_v2_execution_proof",
-    "requirements": "先正式比例完整可玩艺术黄金，独立G2准入后第二空间、多Seed与整区推广；旧实证保留原源。"
+    "status": "legacy_consumer_reference_not_fixed_world_runtime",
+    "requirements": "先按任务范围制作固定房间/Section代表样房，验证真实门台、能力环境、状态与回程；结构灰盒只签结构可玩，完整美术/战斗另验。额外独审仅按任务约定，扩展以room_id、相邻连接和状态为单位。"
   },
   "exclusions": {
     "core": "保留PlayerMotor、合法能力、资源、RNG与保存合同；旧提案或失败实现不自动约束新地区，但正式平原仍用的Underworld tileset及共用像素家族是当前继承依据，不得整体抛弃。",

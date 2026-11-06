@@ -1831,6 +1831,24 @@
       ],
       "timeout_seconds": 300,
       "success_pattern": "^PASS: fresh A/B/C/D"
+    },
+    "forest-historical-slice": {
+      "mode": "manual",
+      "argv": [
+        "python3",
+        "tools/run_forest_h_slice_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: frozen historical H-only route positive and actual removed-anchor/no-H negatives; default short hook not covered$"
+    },
+    "forest-slice-fixture-tests": {
+      "mode": "manual",
+      "argv": [
+        "python3",
+        "tests/test_forest_slice_fixture.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$"
     }
   },
   "profiles": {}

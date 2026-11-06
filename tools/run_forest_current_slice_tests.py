@@ -1,7 +1,7 @@
 """Current default-H technical sample; actual Router/Motor and physical negatives.
 
 This is a development sample, never a complete forest, art approval or formal H grant.
-Historical forest_h tests remain separate and unchanged.
+Historical forest_h tests use a separate frozen traversal fixture.
 """
 from __future__ import annotations
 import argparse
@@ -16,7 +16,7 @@ import uuid
 
 import harness
 from level_design import engine_log_matches, source_files
-from level_region_context import build_region_context
+from forest_slice_fixture import load_fixture
 
 ROOT = Path(__file__).resolve().parents[1]
 ERRORS = r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR:|ObjectDB.*leaked|resources? still in use at exit|RID.*leaked"
@@ -70,9 +70,8 @@ def main():
                "art_acceptance": "unverified", "status": "running", "cases": []}
     started = time.monotonic()
     try:
-        context = build_region_context("thorn_forest")
-        if context["design"]["stage"]["value"] != "S2" or context["design"]["gate"]["alternatives"] != [["H"]]:
-            raise ValueError("Current forest authority is not S2 / H")
+        fixture = load_fixture("current", ROOT)
+        summary["regression_fixture"] = fixture
         summary["source_commit"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
         if not args.skip_import:
             summary["import"] = harness.run_check({"argv": ["bash", "tools/godot.sh", "--headless", "--path", ".", "--editor", "--quit"], "timeout_seconds": 90, "success_pattern": r"Godot Engine v4\.7\.2"}, folder / "import.log", ROOT)
@@ -81,7 +80,7 @@ def main():
             destination = folder / case; destination.mkdir()
             capture = destination / "capture.json"; log = destination / "capture.log"
             before = source_files(ROOT); case_start = time.monotonic()
-            command = ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", ".", "--script", "tests/forest_current_slice_runner.gd", "--", "--case=" + case, "--source-commit=" + summary["source_commit"], "--output=res://" + capture.relative_to(ROOT).as_posix()]
+            command = ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", ".", "--script", fixture["case"]["runner"], "--", "--case=" + case, "--source-commit=" + summary["source_commit"], "--output=res://" + capture.relative_to(ROOT).as_posix()]
             receipt = {"case": case, "status": "failed", "started_at_utc": datetime.now(timezone.utc).isoformat(), "command": command, "source_before": before}
             try:
                 result = harness.run_check({"argv": command, "timeout_seconds": 60, "success_pattern": r"^REGION PRODUCTION: [1-9]\d* assertions, 0 failures$"}, log, ROOT)

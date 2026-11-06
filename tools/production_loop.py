@@ -46,7 +46,7 @@ def validate(m):
            for t in m.get("tasks", [])):
         raise ValueError("Legacy random-region missions retired; use ordinary fixed-world tasks")
     if m.get("historical_metadata_only"):
-        raise ValueError("Historical recipes are reference metadata; use the current route")
+        raise ValueError("Historical recipes are reference metadata; use explicit fixed-world tasks")
     if m.get("schema_version") != 1 or not m.get("objective") or not m.get("tasks"):
         raise ValueError("Mission needs schema_version=1, objective and tasks")
     if type(m.get("max_calls")) is not int or type(m.get("max_rounds")) is not int or not 1 <= m["max_calls"] <= 100 or not 1 <= m["max_rounds"] <= 10:
@@ -520,10 +520,9 @@ def required_input_preflight(task):
         for name in files:
             if name.endswith(".md") and not name.startswith(("docs/evidence/", "docs/evidence/archive/", "docs/evidence/creative_direction/archive/")) and file_state(name) != "missing":
                 markdown_links(name, existence_only=True)
-    # These real registered consumers call route_request/load_lessons. Sparse
-    # knowledge must stop before a worker, not during its downstream test.
-    lesson_consumers = {"tests/test_visual_director.py", "tests/test_production_loop.py",
-                        "tests/test_level_design_routing.py"}
+    # Only the historical visual recipe still calls load_lessons. Retired route
+    # rejection tests and explicit executor fixtures do not consume this ledger.
+    lesson_consumers = {"tests/test_visual_director.py"}
     if commands & lesson_consumers:
         ledger = json_index("docs/evidence/quality/level_lessons.json")
         for lesson in ledger.get("lessons", []):

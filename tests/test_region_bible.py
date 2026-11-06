@@ -19,6 +19,7 @@ import region_style_history as history
 import level_design
 import production_loop as loop
 import visual_director
+from mission_fixtures import selected_mission, proposed_mission
 
 
 MERGED_BOSSES_STYLE = 'docs/evidence/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json'
@@ -108,6 +109,7 @@ class BibleTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         for name in ['docs/bible/regions/windchime_plains.md', 'docs/bible/regions/thorn_forest.md',
                      'docs/bible/world_regions.json', creative.BIBLE_REGISTRY,
+                     'docs/data/world/migration-authority.json', 'docs/data/world/metroidvania-migration-handoff.md',
                      'docs/evidence/creative_direction/bibles/user-request.json',
                      'docs/evidence/creative_direction/bibles/1-windchime_plains_region_bible_v2.md',
                      'docs/evidence/creative_direction/bibles/2-thorn_forest_region_bible_v2.md']:
@@ -264,14 +266,14 @@ class BibleTests(unittest.TestCase):
             self.assertEqual(ref['supplemental_authority_sha256'],style['sha256'])
 
     def test_future_proposed_worker_gets_shared_style_without_visual_gate(self):
-        mission = level_design.route_request('制作萤雾沼泽')
+        mission = proposed_mission()
         task = mission['tasks'][0]
         self.assertEqual(task['required_gates'],['G0'])
         registry=creative.load_bible_registry()
         missing=[row['region_id'] for row in registry['regions'] if row['current_bible'] is None]
         self.assertEqual(len(missing),14)
         for region in missing:
-            proposed=level_design.route_request('create '+region)['tasks'][0]
+            proposed=proposed_mission(region)['tasks'][0]
             self.assertEqual(proposed['shared_style_authority'],task['shared_style_authority'])
             self.assertEqual(proposed['required_gates'],['G0'])
         folder=self.root/'future-prompt';folder.mkdir()
@@ -304,7 +306,7 @@ class BibleTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError,'SHA changed'):
                     creative.validate_bible_binding(self.ref,root=self.root)
                 self.assertIn('BIBLE',loop.mission_bible_preflight({'objective':'Update the regional generator','tasks':[self.task()]}))
-                mission={'schema_version':1,'objective':'Update the regional generator','tasks':[self.task()], 'max_calls':2,'max_rounds':1,'call_timeout_seconds':10,'native_import_preflight':True}
+                mission={'schema_version':1,'content_domain':'fixed_world','objective':'Update the regional generator','tasks':[self.task()], 'max_calls':2,'max_rounds':1,'call_timeout_seconds':10,'native_import_preflight':True}
                 with patch.object(loop,'snapshot',side_effect=AssertionError('must not snapshot')),patch.object(loop,'native_import_preflight',side_effect=AssertionError('must not import')):
                     state=loop.run(mission,self.root/('style-drift-'+hashlib.sha256(name.encode()).hexdigest()[:12]),lambda *a:self.fail('must not invoke'))
                 self.assertEqual(state['calls'],0)
@@ -330,7 +332,7 @@ class BibleTests(unittest.TestCase):
         for skill_name in ('gameplay-reviewer','region-creative-director'):
             skill = self.root/('.agents/skills/'+skill_name+'/SKILL.md')
             skill.parent.mkdir(parents=True,exist_ok=True);skill.write_text('Synthetic isolated fixture')
-        proposed = level_design.route_request('create firefly_marsh')['tasks'][0]
+        proposed = proposed_mission()['tasks'][0]
 
         def mutation(path):
             raw = path.read_bytes()
@@ -361,7 +363,7 @@ class BibleTests(unittest.TestCase):
             path=self.root/path_name;original=path.read_bytes();changed=mutation(path)
             self.assertNotEqual(changed,original)
             for kind,task in [('production',self.task()),('proposed',proposed)]:
-                mission={'schema_version':1,'objective':'Inspect regional shared style','tasks':[copy.deepcopy(task)],
+                mission={'schema_version':1,'content_domain':'fixed_world','objective':'Inspect regional shared style','tasks':[copy.deepcopy(task)],
                          'max_calls':4,'max_rounds':1,'call_timeout_seconds':10}
                 task=mission['tasks'][0]
                 name=kind+'-'+path.stem
@@ -408,36 +410,28 @@ class BibleTests(unittest.TestCase):
                     self.assertEqual(script.read_bytes(),script_raw)
 
 
-    def test_default_current_bibles_skip_election(self):
-        for request, region in [('制作荆棘森林','thorn_forest'), ('优化风铃平原美术','windchime_plains')]:
-            mission = level_design.route_request(request)
-            self.assertEqual(mission['phase'], 'production')
-            self.assertNotIn('visual_recipe', mission['preparation'])
-            self.assertNotIn('continuation', mission)
-            for task in mission['tasks']:
-                self.assertEqual(task['region_bible'], mission['region_bible'])
-                self.assertEqual(task['region_id'], region)
-            data, _ = creative.load_direction('docs/data/creative_direction/'+region+'.json', region)
+    def test_selected_bibles_bind_explicit_fixed_world_tasks(self):
+        for region in ('thorn_forest', 'windchime_plains'):
+            mission = selected_mission(region)
+            loop.validate(mission)
+            self.assertEqual(mission['tasks'][0]['region_bible'], creative.bind_region_bible(region)[1])
+            data, _ = creative.load_direction('docs/data/creative_direction/' + region + '.json', region)
             self.assertEqual(data['selection_basis'], 'user_supplied_bible')
             self.assertEqual(data['candidates'], [])
             self.assertEqual(data['user_acceptance'], 'direction_only_not_art_gameplay_or_device')
 
-    def test_no_bible_proposal_only_and_explicit_production_rejected(self):
-        mission = level_design.route_request('制作萤雾沼泽')
-        task = mission['tasks'][0]
-        self.assertEqual(mission['creative_phase'], 'proposed_bible_only')
-        self.assertEqual(task['required_gates'], ['G0'])
-        self.assertTrue(all(name.startswith('docs/') for name in task['allowed_paths']))
+    def test_handwritten_proposal_is_document_only_and_routes_are_retired(self):
+        task = proposed_mission()['tasks'][0]
         self.assertIsNone(loop.region_bible_input(task))
         task['allowed_paths'].append('scripts/generation/')
         with self.assertRaisesRegex(ValueError, 'document-only'):
             loop.region_bible_input(task)
-        for phase in ('production','prototype'):
-            with self.assertRaisesRegex(ValueError, 'requires a registered current Bible'):
+        for phase in ('auto', 'preproduction', 'production', 'prototype'):
+            with self.assertRaisesRegex(ValueError, 'retired'):
                 level_design.route_request('制作萤雾沼泽', phase=phase)
 
     def test_handwritten_mission_omitting_task_region_blocks_before_import_and_calls(self):
-        m = {'schema_version':1,'objective':'制作荆棘森林','max_calls':2,'max_rounds':1,'call_timeout_seconds':10,
+        m = {'schema_version':1,'content_domain':'fixed_world','objective':'制作荆棘森林','max_calls':2,'max_rounds':1,'call_timeout_seconds':10,
              'native_import_preflight':True,'tasks':[{'id':'READ','goal':'inspect','skills':['gameplay-reviewer'],
                  'checks':['docs'],'read_only':True}]}
         with (patch.object(loop,'snapshot', side_effect=AssertionError('must not snapshot')),
@@ -458,7 +452,7 @@ class BibleTests(unittest.TestCase):
             task = {'id':'ANONYMOUS','goal':'Implement the updated regional layout',
                     'skills':['region-generator'],'checks':['docs'],'read_only':False,
                     'allowed_paths':[path],'quality_record':'docs/evidence/quality/records/ANONYMOUS.json'}
-            mission = {'schema_version':1,'objective':'Update the regional generator','max_calls':2,
+            mission = {'schema_version':1,'content_domain':'fixed_world','objective':'Update the regional generator','max_calls':2,
                        'max_rounds':1,'call_timeout_seconds':10,'native_import_preflight':True,'tasks':[task]}
             with self.subTest(path=path), patch.object(loop,'snapshot',side_effect=AssertionError('must not snapshot')), patch.object(loop,'native_import_preflight',side_effect=AssertionError('must not import')):
                 with self.assertRaises(ValueError): loop.region_bible_input(task)
@@ -518,7 +512,7 @@ class BibleTests(unittest.TestCase):
         def worker(*args):
             target.parent.mkdir(parents=True,exist_ok=True); target.write_text('cross-region temporary probe')
             return {'status':'ready_for_review','summary':'synthetic','findings':[]}
-        mission = {'schema_version':1,'objective':'Update the regional generator','max_calls':2,
+        mission = {'schema_version':1,'content_domain':'fixed_world','objective':'Update the regional generator','max_calls':2,
                    'max_rounds':1,'call_timeout_seconds':10,'tasks':[task]}
         with patch.object(loop,'ROOT',self.root), patch.object(loop,'snapshot',side_effect=snapshot), patch.object(loop,'required_input_preflight',return_value={'status':'passed'}):
             self.assertEqual(loop.region_bible_input(task)['binding']['region_id'],'thorn_forest')
@@ -540,7 +534,7 @@ class BibleTests(unittest.TestCase):
                 loop.region_bible_input(task)
 
     def test_worker_prompt_contains_current_canonical_bible_and_audio_scope(self):
-        mission = level_design.route_request('制作荆棘森林')
+        mission = selected_mission()
         task = mission['tasks'][0]
         folder = self.root/'prompt'; folder.mkdir()
         prompt, *_ = loop.prepare_call(task, mission, 'implement', folder, '{}', check_contracts={'checks':[]})
@@ -574,12 +568,10 @@ class BibleTests(unittest.TestCase):
                 loop.validate_restored_completion({'tasks':[task]}, {'tasks':{'BIBLE':{'status':'complete'}}},self.root/'run')
         self.assertEqual(state['calls'],0)
 
-    def test_visual_director_uses_current_bible_and_exact_caller_scope(self):
-        m = visual_director.route('优化风铃平原美术','current-art','docs/evidence/quality/records/current-art.json',['scripts/art/'],phase='golden')
-        self.assertNotIn('visual_recipe',m['preparation'])
-        self.assertEqual(m['tasks'][0]['allowed_paths'],['scripts/art/'])
-        self.assertEqual(m['tasks'][0]['required_gates'],['G0','G2'])
-        self.assertEqual(m['tasks'][0]['region_bible']['bible_id'],'windchime_plains_v2')
+    def test_visual_director_route_is_retired(self):
+        with self.assertRaisesRegex(ValueError, 'retired'):
+            visual_director.route('优化风铃平原美术', 'current-art',
+                                  'docs/evidence/quality/records/current-art.json', ['scripts/art/'], phase='golden')
 
 
     def test_bellstrider_audio_assets_are_literal17_real_wavs_with_strict_byte_custody(self):

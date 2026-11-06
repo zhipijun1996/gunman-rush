@@ -4,7 +4,7 @@
 
 ## 可恢复基线
 
-核实于2026-11-06，main为 `48cddb6a70983b0a0206304d18c98d274a9a7549`，与用户审计基线一致。初始工作区干净；工作分支 `feat/mv-migration-01`，迁移实现提交 `6a6053c`，后续交接修订见本PR提交记录。原型启动 project.godot → game/application/demo.tscn → DemoApp，普通出发仍是Plains/Forest Provider。
+核实于2026-11-06，main为 `48cddb6a70983b0a0206304d18c98d274a9a7549`，与用户审计基线一致。初始工作区干净；工作分支 `feat/mv-migration-01`，迁移实现提交 `6a6053c`，本次收尾从 `1284c01` 接续；同一 [PR137](https://github.com/zhipijun1996/gunman-rush/pull/137) 的后续提交记录收尾写集。原型启动 project.godot → game/application/demo.tscn → DemoApp，普通出发仍是Plains/Forest Provider。
 
 公开构建 `9c5a54c99d13` 对应源码 `7a49abda9092a2f63e63f32db7c8126e6ad5cfe6`，属于PR136工作线，不是main。实时读取的 [build-info快照](../../../data/world/live-build.json) 保留引擎、包与源码身份；可按SHA恢复分支源码，不只保存网页。本轮未部署或替换试玩。
 
@@ -76,7 +76,7 @@ README/AGENTS、现行project/bible/data正文、20个仓库skills、policy、�
 
 ## 实际结果与设计差距
 
-固定世界权威已替代旧六阶段/两图/禁止回路/禁灰盒约束。保留技能名称但一对一迁移职责，不增加同职责技能。随机地区route和直接content_plan停止，旧自动mission在执行器拒绝；普通Codex按当前交接实施。质量策略增加world_graybox适用项。地区正文SHA绑定新正文，原选型证据不改，新增本次转型确认依据。
+固定世界权威已替代旧六阶段/两图/禁止回路/禁灰盒约束。对象索引、玩家物理及两份creative_direction已统一永久H/W/D/Q、真实进入侧回退/最后休息点死亡恢复、固定房间扩展和按任务约定的审查；不再要求U1/U2、两图Boss或强制G2/多Seed。保留技能名称但一对一迁移职责，不增加同职责技能。随机地区route和直接content_plan停止，旧自动mission在执行器拒绝；普通Codex按当前交接实施。visual_director.route同步拒绝并清除不可达的旧计划组装；直接调用方只测试退役拒绝，通用执行器通过手写固定世界mission夹具验证。旧lessons仅为仍实际读取的历史visual recipe作前置，冻结配方仍不可执行。质量策略增加world_graybox适用项。地区正文SHA绑定新正文，原选型证据不改，新增本次转型确认依据。
 
 原型仍能调用旧生成与Run清空策略；新固定Provider、房间场景、Q、新存档和周期运行均未实现。导入合同的scene_ref是计划路径。48件装备效果、价格、部分技能消耗、金币死亡政策仍未定；死亡回血/新周期/刷新普通敌人为试制默认。
 
@@ -92,13 +92,14 @@ README/AGENTS、现行project/bible/data正文、20个仓库skills、policy、�
 | game/loadout、item_v5_* | 原型装备/effect/UI继续消费 | 逐件选型、NPC升级与周期语义接入，保留事务/容量/效果执行器 |
 | economy/rewards、MetaSaveService | 原型扣费/收据/备份校验仍使用 | 复用原子提交与存储可靠性，换新payload/schema/content版本，旧档隔离 |
 | world_context.gd | 历史死亡全重置夹具 | 不作为新世界状态核心；夹具消费者消失后再退役 |
+| 两份forest slice wrapper/runner | 独立H-only夹具绑定真实runner/traversal及SHA，不再读取已删除design.stage/gate；默认短钩和历史长钩分别回归 | 手动`forest-current-slice`/`forest-historical-slice`，夹具反例`forest-slice-fixture-tests`；旧`forest-h-slice`仅留冻结注册原件，均不签新世界房间 |
 | 附件source_inputs、migrate_world_v04.py | 合同/路线生成与一次ID相等审计仍读取v03 | 提取现行人工输入、回归路线并证明重建等价后退出日常链 |
 
 FOREST-VARIETY-04（blocked）与MAPGEN-HOST-WINDCHIME-041（review）保留原状态归档，因转型停止旧目标，分别由固定区域内容及MV-RUNTIME/WORLD承接；未标done。手机性能、死亡卡顿、音频、玩家、普通怪、Boss成果继续保留，新房夹具逐步复验。ITEM/STORY/PLAINS/FOREST原工作线重定向，历史卡不改签。
 
 ## 验证
 
-本轮实际执行（退出码均为0，初次环境阻塞另列）：
+迁移初验与本次PR137收尾的最终通过结果如下（保留初次阻塞及修正原因，不以历史结果签收新运行时）：
 
 - `python3 tools/world/verify_import.py`：52个实际文件（manifest列51项加自身）、大小/SHA256和文件集通过；24省略视图按轻量清单处理。
 - `python3 tools/world/validate_routes.py`：新跑A/B/C/D成功，55路线/状态反例、17合同、13跨文件检查通过；216房、288连接、576门/入口、310分区、188内部路线；重建合同及回放与导入语义等价。输出build/world/validation，不改源。
@@ -107,6 +108,14 @@ FOREST-VARIETY-04（blocked）与MAPGEN-HOST-WINDCHIME-041（review）保留原�
 - `python3 tests/test_level_region_context.py`（8）、`python3 tests/test_level_design_routing.py`（11）、`python3 tests/test_context_navigation.py`（5）、`python3 tests/test_quality.py`（61）：通过。被替代的六层/两图/旧route正向断言迁为固定世界检查，快照/损坏/来源/权限等通用回归保留。
 - `python3 tools/ci.py`：project/import/smoke/contracts四项通过；CI SMOKE 9、CI CONTRACTS 239、META NOTES SAVE 39断言无失败。初次因缺锁定Godot拒绝，随后运行`tools/setup_environment.py --engine-only`安装并校验4.7.2 gunman-sd1后重跑成功，没有换用环境内4.6.3冒签。
 - 地区F及P-R03局部提取实际运行成功；自编改动的`git diff --check`通过；完整差异报告原包font-LICENSE.txt与atlas_utils.py末尾空行，按原字节导入要求保留，不清理来源。确认export_presets排除docs/*，raw exporter不额外加入世界导入包；未导出新PCK。
+
+本次PR137收尾重新验证：
+
+- `tests/test_production_loop.py` 113项、`test_region_bible.py` 41项、`test_region_creative_direction.py` 12项、`test_visual_director.py` 25项、`test_lightweight_workflow.py` 6项通过。保留预算、检查顺序、恢复、权限、证据篡改和stage/content区分等通用回归；新手写mission仅用于测试，不恢复自动量产接口。
+- `tests/test_forest_slice_fixture.py` 5项（能力泄漏、资源缺失、消费者错配及摘要变更）、`test_harness.py` 13项、`test_level_design_contracts.py` 31项通过。历史合同测试只在内存重定位已移动文档路径并适配质量快照排除规则；历史JSON、日志、SHA和REJECT原件未改。
+- 手动Harness运行`forest-current-slice`、`forest-historical-slice`、`forest-slice-fixture-tests`均通过，日志在`build/verification/harness/20261106T053038.843356Z/`。两个真实控制器正例分别132/168物理tick；各自删除索点及禁H反例均480tick、原生退出1，wrapper确认预期失败，不把失败捕获当成功路线。摘要分别在`build/forest_current_slice/20261106T053038_444c42dc/summary.json`及`build/forest_h_slice/20261106T053051_6fb8d5f3/summary.json`。
+- 当前短钩首次实跑揭示旧时间能量消耗断言；现行射击消耗空中弹药，测试已按真实air_shots验证耗弹/落地补弹，并验证无瞄准射击不耗时间能量，未改游戏逻辑或资源参数。稀疏工作区缺的历史回归输入从同一HEAD精确恢复后重跑，没有伪造证据。
+- `test_world_design.py` 9项、`test_level_region_context.py` 8项、`test_level_design_routing.py` 11项、`test_context_navigation.py` 5项、`test_quality.py` 61项通过；上述Python套件共340项。文档、世界、质量/skills、导入完整性检查及新增改动`git diff --check`通过。日常`python3 tools/ci.py`四项重跑通过（9/239/39断言）。
 
 数据图检查不等于Godot跳跃、战斗或镜头验收；CI仅保护当前旧原型。未验：新世界实机、手机、全世界运行路线、完整经济/装备、内容美术与战斗。本轮没有需要录屏的新游戏行为，也未发布构建。
 

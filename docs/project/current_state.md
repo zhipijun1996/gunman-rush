@@ -11,7 +11,7 @@
 | 地图 | 平原由 PlainsLevelProvider 提供；森林默认 `forest-bible-world-v15`，生成器注册表仍支持显式版本选择 |
 | mapgen | SDK 0.4.1、模块库 1.1.0、runtime-map/v2 已接入开发入口；真实生成、M35／gears／完整起点风铃为有限切片，普通出发仍使用平原／森林 Provider |
 | 表现 | 共用细粒度像素风格、1wu 世界采样与 nearest；当前技术绑定通过 [Bible注册表](../data/creative_direction/bibles/registry.json) 解析 |
-| CI与交付 | 日常固定project／import／smoke／contracts四项，开发显式选手动专项；发布和试玩部署独立手动执行 |
+| CI与交付 | 日常固定project／import／smoke／contracts四项，开发显式选手动专项；森林H控制器回归绑定独立测试夹具，旧随机地区路由拒绝执行；发布和试玩部署独立手动执行 |
 | 工程 | 正式代码位于 `game/`；`scripts/`、`scenes/`、`resources/` 中仍有当前 Definition、Boss场景与森林布局实现 |
 
 目标是固定世界类银河恶魔城；世界源与导航已迁移，不表示新世界运行完成。2026-11-06线上 build `9c5a54c99d13` 对应 PR136 源码 `7a49abda9092a2f63e63f32db7c8126e6ad5cfe6`，不同于main；本轮不发布新构建。
