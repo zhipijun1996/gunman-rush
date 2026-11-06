@@ -9,12 +9,14 @@
 | 收集规则与来源映射 | [collections.json](../../../config/world/collections.json)；完整48件效果和价格仍待决定 |
 | 试制服务 | [demo_services.json](../../../config/world/demo_services.json)：用户授权的少量试制物品/价格/收入/委托；不改最终48件和正式商品槽。NPC身份/位置仍归world.json与手工场景 |
 | 新入口UI文本 | [ui_texts.json](../../../config/world/ui_texts.json)：稳定UI键；人物、物品、action文本仍随其定义，由WorldText/内容字段按任务读取 |
-| 起始攻击参数 | [player.json](../../../config/world/player.json)：当前仅普通枪首档试制值，不改变玩家运动参数 |
+| 起始攻击与基础回复 | [player.json](../../../config/world/player.json)：普通枪首档试制值、共鸣回复成本/蓄力/恢复量与默认输入，不改变玩家运动参数 |
 | 路线回归输入 | [routes.json](../../../config/world/routes.json)；与重新生成的路线报告分离 |
 | 合同与运行导出 | `python3 tools/world/build.py` → ignored build/world/contracts.json、runtime.json；不写手工场景 |
 | 导出消费者 | tools/build.py先生成；raw_exporter核输入及场景SHA后加入PCK。游戏只读runtime.json和实际场景，不读docs或config/world人工源 |
 
 已接入P-R03、P-R01、P-R08、P-R06、P-R14五个手工样房；其余仍为计划接口。P-R08是原拓扑的必要连接。P-R14按既有牧风者完整场地校准为1760wu宽，保留原门ID/分区并独立预留前庭；施工候选变化不改世界拓扑。
+
+运行探索地图由已施工的extent与成对门位以同一比例求解包络和共享接缝；导入polygon只供宏观草图/形状意图参考，不直接充当运行地图。构建拒绝房间重叠、闭环接缝冲突和同边拥挤出口，新增房间先校准施工几何。
 
 `python3 tools/world/room_context.py P-R03`按房提取，`--contract`读取目标房完整合同。生成器在工具目录独立运行，不再读v03、source_inputs或上次报告作为人工源。输入提取时全部216房合同与原包语义相等；此后实际样房的场景绑定和必要施工校准以当前construction为准。
 

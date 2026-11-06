@@ -9,9 +9,40 @@ import unittest
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
-from world.build import build, validate_services
+from world.build import build, validate_services, validate_player, navigation_geometry
 
 class BuildTests(unittest.TestCase):
+    def test_focus_heal_rejects_unusable_parameters(self):
+        data=json.loads((ROOT/'config/world/player.json').read_text())
+        validate_player(data)
+        for key,value in [('cost',-1),('heal',0),('charge_seconds',float('nan')),('charge_seconds',True),('keyboard_key',None),('gamepad_button',128)]:
+            invalid=copy.deepcopy(data);invalid['focus_heal'][key]=value
+            with self.subTest(key=key,value=value),self.assertRaisesRegex(ValueError,'focus heal'):
+                validate_player(invalid)
+
+    def test_navigation_map_uses_shared_physical_seams(self):
+        _, bundle=build()
+        rooms=bundle['rooms']
+        layouts=navigation_geometry(rooms,bundle['start']['room'])
+        for key,room in rooms.items():
+            for door in room['doors']:
+                if not door['target_implemented']: continue
+                target=door['target_room']
+                paired=next(d for d in rooms[target]['doors'] if d['id']==door['target_door_id'])
+                for axis in (0,1):
+                    self.assertAlmostEqual(layouts[key]['origin'][axis]+door['position_candidate']['local_world_units'][axis],layouts[target]['origin'][axis]+paired['position_candidate']['local_world_units'][axis])
+
+    def test_navigation_rejects_crowded_exits_and_conflicting_loops(self):
+        _,bundle=build();rooms=bundle['rooms']
+        crowded=copy.deepcopy(rooms)
+        door=copy.deepcopy(crowded['P-R01']['doors'][0]);door['id']='fixture_crowded'
+        crowded['P-R01']['doors'].append(door)
+        with self.assertRaisesRegex(ValueError,'Crowded'): navigation_geometry(crowded,'P-R03')
+        conflicting=copy.deepcopy(rooms)
+        for source,target,identity,pair,direction,point in [('P-R03','P-R06','fixture_a','fixture_b','up',[1408,0]),('P-R06','P-R03','fixture_b','fixture_a','right',[1520,100])]:
+            conflicting[source]['doors'].append({'id':identity,'target_room':target,'target_door_id':pair,'direction':direction,'position_candidate':{'local_world_units':point}})
+        with self.assertRaisesRegex(ValueError,'conflict'): navigation_geometry(conflicting,'P-R03')
+
     def test_build_without_imported_archive_preserves_authored_scenes(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder)

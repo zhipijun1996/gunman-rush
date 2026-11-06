@@ -66,6 +66,8 @@ flowchart TD
 
 当前正常链为 `project.godot → FixedWorldApp → FixedWorldProvider / FixedWorldState`。Provider只读build/world运行包，按LevelRequest的room/door/content身份解析；FixedWorldRoom消费合同并装配手工地形、既有敌人/Boss。App持有跨房共享玩家、相机与生命周期票据，WorldSaveService复用可靠IO保存同一世界修订。
 
+共鸣回复由WorldFocusHeal管理持有意图、蓄力与取消；HealthState/CombatEnergyState继续拥有实际资源。App在帧伤害裁决后复核并把回复后的HP/共鸣保存为同一修订，再同步应用资源事务；失败不扣费。蓄力进度不进入存档，UI和各房间不复制治疗规则。
+
 旧DemoApp → RunComposition/RunSession → Plains/Forest Provider → Stage/LevelRuntime仍供显式原型与回归。region/map/seed、clear_run_services/reset_maps及旧Run/Meta清空语义不进入新世界链；不将历史WorldContext或回放格式改名作为新核心。
 
 ## 系统职责与真实缺口

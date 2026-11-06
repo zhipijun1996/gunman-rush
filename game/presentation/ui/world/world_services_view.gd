@@ -45,18 +45,14 @@ func show_npc(npc: Dictionary,message: String="") -> void:
 	modal.focus_first()
 func show_inventory(message: String="") -> void:
 	var data:=services.ledger()
-	var modal:=ui.panel("inventory",WorldText.text("world_services_view.15"),WorldText.text("world_services_view.16")+message)
-	modal.text(WorldText.text("world_services_view.17") % [services.used_load(data.equipped),services.definitions.capacity,data.gold])
-	if data.owned.is_empty(): modal.text(WorldText.text("world_services_view.18"))
+	var items: Array=[]
 	for id: String in data.owned:
-		var item:=services.item(id)
+		var row:=services.item(id)
 		var owned: Dictionary=data.owned[id]
-		if item.is_empty():
-			modal.text(WorldText.text("world_services_view.19")+id+WorldText.text("world_services_view.20"))
-			if id in data.equipped: button(modal,WorldText.text("world_services_view.21"),"unequip",id)
-			continue
-		modal.text(WorldText.text("world_services_view.22") % [item.name,owned.level,item.load,item.description,WorldText.text("world_services_view.23") if owned.broken else WorldText.text("world_services_view.24"),WorldText.text("world_services_view.25") if id in data.equipped else WorldText.text("world_services_view.26")])
-		if item.get("effect","")=="heal" and id in data.equipped: button(modal,WorldText.text("world_services_view.27"),"use",id)
-		button(modal,WorldText.text("world_services_view.28") if id in data.equipped else WorldText.text("world_services_view.29"),"unequip" if id in data.equipped else "equip",id)
-	modal.button(WorldText.text("world_services_view.30"),func() -> void: ui.command.emit("close",""))
-	modal.focus_first()
+		var unavailable:=row.is_empty()
+		if unavailable: row={"name":id,"load":9999,"icon_key":"map","max_level":owned.level,"description":WorldText.text("equipment.unavailable"),"effect":""}
+		items.append({"instance_id":StringName(id),"unavailable":unavailable,"definition":ItemCatalogV5.get_item(&"G11"),"display_name":row.name,"gear_cost":row.load,"icon_key":row.icon_key,"level":int(owned.level),"max_level":row.max_level,"broken":owned.broken,"equipped":id in data.equipped,"locked":id in data.locked,"effect_text":row.description,"usable":row.effect=="heal","remaining_uses":int(row.get("uses_per_cycle",0))-int(data.cycle_uses.get(id,0))})
+	ui.close();ui.page="inventory"
+	ui.equipment.submit=submit
+	ui.equipment.show_build(WorldText.text("equipment.hp") % [services.state.value.hp,services.state.value.get("max_hp",5)])
+	ui.equipment.set_equipment_view({"lifetime":"world","rarity_label":WorldText.text("equipment.trial"),"items":items,"capacity":services.definitions.capacity,"used":services.used_load(data.equipped),"coins":data.gold,"revision":services.state.revision,"session":int(services.state.value.cycle),"message":message,"lock_text":WorldText.text("equipment.locked"),"growth_hint":WorldText.text("equipment.growth"),"upgrade":{"reason":WorldText.text("equipment.capacity")}})

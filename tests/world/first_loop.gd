@@ -59,6 +59,11 @@ func click_named(prefix: String,touch: bool=true) -> bool:
 		check(false,"missing visible UI button "+prefix)
 		return false
 	var scroll:=app.ui.shell.scroll if app.ui.shell!=null else null
+	if scroll==null:
+		var ancestor: Node=selected.get_parent()
+		while ancestor!=null:
+			if ancestor is ScrollContainer: scroll=ancestor as ScrollContainer;break
+			ancestor=ancestor.get_parent()
 	if scroll!=null: scroll.ensure_control_visible(selected)
 	await ticks(3)
 	var point:=selected.get_global_transform_with_canvas()*(selected.size/2)

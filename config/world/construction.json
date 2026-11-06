@@ -1608,10 +1608,10 @@
           "landing_contract": {
             "id": "landing:room-link-139:P-R06",
             "section": "main",
-            "incoming_mode": "settle_on_visible_entry_ledge",
+            "incoming_mode": "short_hop_to_near_side_ledge",
             "entry_position_world_units": [
               768,
-              811
+              830
             ],
             "safe_standing_position_world_units": [
               768,
@@ -1816,7 +1816,7 @@
           "section": "main",
           "position_candidate_world_units": [
             768,
-            811
+            830
           ],
           "eventual_standing_position_world_units": [
             768,
@@ -2125,10 +2125,10 @@
       "scene_ref": "res://game/world/regions/P/rooms/P-R08.tscn",
       "extent": [
         624,
-        1616
+        848
       ],
       "shape_class": "vertical_route",
-      "rationale": "按真实长宽比例与房间职责给工作包络；局部平台在固定角色参数下细化。",
+      "rationale": "竖井实际可玩包络：门口0到800，底部安全地面，不保留地下空白。",
       "camera": {
         "profile": "vertical_follow",
         "only_current_room_visible": true,
@@ -2168,7 +2168,7 @@
             ],
             "normalized_uv": [
               1.0,
-              0.49505
+              0.9434
             ],
             "opening_candidate_world_units": [
               64,
@@ -2278,7 +2278,7 @@
             ],
             "normalized_uv": [
               0.0,
-              0.49505
+              0.9434
             ],
             "opening_candidate_world_units": [
               64,

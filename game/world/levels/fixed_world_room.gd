@@ -17,6 +17,7 @@ extends Node2D
 @export var hook_points: Array[Vector2] = []
 @export var climbable_walls: Array[Rect2] = []
 @export var environment_zones: Array[Dictionary] = []
+var cycle_at_load := 0
 var door_open: Dictionary={}
 var services: WorldServices
 
@@ -29,6 +30,7 @@ var services: WorldServices
 @export var boss_position := Vector2.ZERO
 @export var arena_bounds := Rect2()
 @export var battle_entry_anchor := Vector2.ZERO
+@export var arena_door_height := 192.0
 var contract: Dictionary = {}
 var doors: Array = []
 var door_blocks: Dictionary = {}
@@ -60,6 +62,7 @@ func _ready() -> void:
 	for index: int in platforms.size():
 		var body := StaticBody2D.new()
 		body.position = platforms[index].get_center()
+		body.set_meta(&"world_ground",platforms[index])
 		body.collision_layer = 1
 		body.collision_mask = 0
 		var collision := CollisionShape2D.new()
@@ -94,7 +97,7 @@ func _ready() -> void:
 
 func configure(row: Dictionary) -> void:
 	contract = row
-	doors = row.doors
+	doors = row.doors.filter(func(door: Dictionary) -> bool: return door.get("target_implemented",false))
 	queue_redraw()
 
 func label_at(text: String, point: Vector2) -> void:
@@ -125,6 +128,11 @@ func _draw() -> void:
 		else:
 			draw_rect(rect.grow(4),Color(.85,.72,.42,.2))
 			draw_rect(rect,Color("d8b35d"),false,2)
+	if not boss_identity.is_empty():
+		for x: float in [arena_bounds.position.x,arena_bounds.end.x]:
+			var doorway:=Rect2(x-6,arena_bounds.end.y-arena_door_height,12,arena_door_height)
+			if battle_started and not battle_finished: draw_rect(doorway,Color("d8b35d"))
+			else: draw_rect(doorway,Color(.5,.62,.5,.3),false,2)
 	if rest_point != Vector2.ZERO:
 		draw_rect(Rect2(rest_point+Vector2(-28,8),Vector2(56,10)),Color("7dc1b0"))
 	if reward_point != Vector2.ZERO:
@@ -139,22 +147,29 @@ func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: 
 	for placement: Dictionary in enemy_placements:
 		var id := str(placement.id)
 		var saved: Dictionary = saved_enemies.get(id,{})
-		if saved.get("health",1.0)<=0: continue
 		var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
-		body.position = FixedWorldProvider.point(placement.point)
+		body.position = FixedWorldProvider.point(saved.get("position",placement.point))
 		var actor := body.get_node("Actor") as EnemyActor
+		actor.set_meta(&"world_persistent_corpse",true)
 		if placement.has("max_health"):
 			actor.definition=actor.definition.duplicate(true) as EnemyDefinition
 			actor.definition.health_definition.max_health=float(placement.max_health)
 			actor.definition.health_definition.initial_current=float(placement.max_health)
 		add_child(body)
-		if saved.has("health"): actor.restore_instance_health(float(saved.health))
+		EnemyPresentationBinding.replace(actor,&"underworld")
 		policy.bind_damageable(StringName(id),actor.damageable,actor.health)
 		actor.bind_encounter(controller,policy,lifetime,StringName(id),[entry_anchor])
-		if not saved.is_empty() and actor.attack_behavior != null:
+		if saved.has("direction"): actor.brain.direction=int(saved.direction)
+		if saved.has("health"): actor.restore_instance_health(float(saved.health))
+		if not saved.is_empty() and not actor.health.terminal and actor.attack_behavior != null:
 			actor.attack_behavior.restore_region_state(saved)
 		EnemyPresentationBinding.synchronize(actor)
-		DemoContactEmitter.attach(body,policy,controller,StringName(id+":contact"),DamageRequest.Kind.MONSTER,actor.definition.collision_size/2)
+		var contact:=DemoContactEmitter.attach(body,policy,controller,StringName(id+":contact"),DamageRequest.Kind.MONSTER,actor.definition.collision_size/2)
+		contact.enabled=not actor.health.terminal
+		actor.defeated.connect(func(_actor: EnemyActor) -> void: contact.enabled=false;contact.set_physics_process(false))
+		var remains:=EnemyPresentationBinding.remains(body.get_node("Presentation"))
+		if actor.health.terminal and remains!=null and saved.has("corpse"):
+			remains.restore_presentation(saved.corpse,_corpse_support(saved.corpse))
 		enemies[id] = actor
 	for index: int in hazards.size():
 		add_child(DemoContactEmitter.environment_rect(hazards[index],policy,controller,StringName(room_id+":terrain:"+str(index))))
@@ -169,11 +184,11 @@ func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: 
 	boss=installed.boss;encounter=installed.encounter;boss_contact=installed.contact
 	for x: float in [arena_bounds.position.x,arena_bounds.end.x]:
 		var seal := StaticBody2D.new()
-		seal.position = Vector2(x,arena_bounds.get_center().y)
+		seal.position = Vector2(x,arena_bounds.end.y-arena_door_height*.5)
 		seal.collision_layer = 0
 		var collision := CollisionShape2D.new()
 		var shape := RectangleShape2D.new()
-		shape.size = Vector2(12,arena_bounds.size.y)
+		shape.size = Vector2(12,arena_door_height)
 		collision.shape = shape
 		seal.add_child(collision)
 		add_child(seal)
@@ -181,21 +196,30 @@ func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: 
 
 func update_battle(player_position: Vector2) -> void:
 	if encounter == null or battle_finished: return
-	if not battle_started and arena_bounds.grow(-30).has_point(player_position):
+	if not battle_started and Rect2(arena_bounds.position+Vector2(8,0),arena_bounds.size-Vector2(16,0)).grow(.1).encloses(Rect2(player_position-Vector2(12,18),Vector2(24,36))):
 		battle_started = encounter.activate()
 		boss_contact.enabled = battle_started
 		for seal: StaticBody2D in seals: seal.set_deferred("collision_layer",1)
+		queue_redraw()
 	if encounter.health.terminal: boss_contact.enabled = false
 
 func finish_battle() -> void:
 	battle_finished = true
 	for seal: StaticBody2D in seals: seal.set_deferred("collision_layer",0)
+	queue_redraw()
 
 func snapshot() -> Dictionary:
 	var result := {}
 	for id: String in enemies:
 		var actor: EnemyActor = enemies[id]
 		result[id] = actor.region_snapshot()
+		var remains:=EnemyPresentationBinding.remains(actor.motor.get_node("Presentation"))
+		if actor.health.terminal and remains!=null:
+			var support:=remains.support_node()
+			if is_instance_valid(support) and support.has_meta(&"world_ground"):
+				var rect: Rect2=support.get_meta(&"world_ground")
+				var pose:=remains.presentation_snapshot({"kind":"ground","rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y]})
+				if not pose.is_empty(): result[id].corpse=pose
 	return result
 
 func refresh_doors(state: FixedWorldState, content: FixedWorldProvider) -> void:
@@ -216,3 +240,10 @@ func bind_services(value: WorldServices,controller: PlayerController,policy: Fra
 		fixture.controller=controller;fixture.policy=policy;fixture.lifetime=lifetime
 		add_child(fixture)
 	queue_redraw()
+
+func _corpse_support(pose: Dictionary) -> Node2D:
+	for body: Node in find_children("*","StaticBody2D",true,false):
+		if not body.has_meta(&"world_ground"): continue
+		var rect: Rect2=body.get_meta(&"world_ground")
+		if [rect.position.x,rect.position.y,rect.size.x,rect.size.y]==pose.get("support",{}).get("rect",[]): return body as Node2D
+	return null

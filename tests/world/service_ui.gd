@@ -3,8 +3,20 @@ extends "res://tests/world/first_loop.gd"
 func button_id(id: String) -> bool:
 	await ticks(3)
 	var button:=app.ui.root.find_child(id,true,false) as Button
+	if button==null and app.ui.page=="inventory":
+		var item_id:=id.substr(id.find("trial_"))
+		app.ui.equipment._select_equipment(StringName(item_id))
+		await ticks(3)
+		for candidate: Node in app.ui.equipment.find_children("*","Button",true,false):
+			if candidate.get_meta(&"world_service","")==id: button=candidate as Button;break
 	if button==null or not button.is_visible_in_tree(): check(false,"visible service button "+id);return false
+	button.grab_focus()
 	if app.ui.shell!=null: app.ui.shell.scroll.ensure_control_visible(button)
+	else:
+		var ancestor:=button.get_parent()
+		while ancestor!=null:
+			if ancestor is ScrollContainer: (ancestor as ScrollContainer).ensure_control_visible(button);break
+			ancestor=ancestor.get_parent()
 	await ticks(3)
 	var at:=button.get_global_transform_with_canvas()*(button.size/2)
 	for down: bool in [true,false]:

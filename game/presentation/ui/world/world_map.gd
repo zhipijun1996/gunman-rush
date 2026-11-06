@@ -23,7 +23,7 @@ func _world_rect() -> Rect2:
 	return bounds.grow(16) if bounds.has_area() else Rect2(0,0,100,100)
 func player_anchor() -> Vector2:
 	for row: Dictionary in rows():
-		if row.id==current_room: return project(row.map_centre)
+		if row.id==current_room: return project_point(FixedWorldProvider.point(row.origin)+local_player)
 	return frame().get_center()
 func focus_player() -> void:
 	zoom=1
@@ -41,13 +41,17 @@ func _draw() -> void:
 		draw_colored_polygon(polygon,Color("607b6b") if row.id==current_room else Color("354b49"))
 		polygon.append(polygon[0])
 		draw_polyline(polygon,UnderworldUI.BRASS if row.id==current_room else UnderworldUI.MOSS,2)
-		if expanded: draw_string(UnderworldUI.FONT,project(row.map_centre)+Vector2(8,0),row.name,HORIZONTAL_ALIGNMENT_LEFT,-1,text_size,UnderworldUI.TEXT)
-	# Connections are shown only when both actual rooms have been visited.
+		if expanded:
+			var label_size:=UnderworldUI.FONT.get_string_size(row.name,HORIZONTAL_ALIGNMENT_LEFT,-1,text_size)
+			draw_string(UnderworldUI.FONT,project(row.map_centre)-Vector2(label_size.x*.5,0),row.name,HORIZONTAL_ALIGNMENT_LEFT,-1,text_size,UnderworldUI.TEXT)
+	# Shared physical door seams are the map connections, with a short aperture.
 	for row: Dictionary in visible:
 		for door: Dictionary in content.room(row.id).get("doors",[]):
-			if door.target_room not in world.value.explored: continue
-			for target: Dictionary in visible:
-				if target.id==door.target_room: draw_line(project(row.map_centre),project(target.map_centre),Color("8dbda4"),2)
+			if door.target_room not in world.value.explored or row.id>door.target_room: continue
+			var at:=FixedWorldProvider.point(row.origin)+FixedWorldProvider.point(door.position_candidate.local_world_units)
+			var tangent:=Vector2(48,0) if door.direction in ["up","down"] else Vector2(0,48)
+			draw_line(project_point(at-tangent),project_point(at+tangent),Color("cce1c3"),5)
+
 	draw_circle(player_anchor(),5,Color("f5e3aa"))
 
 func _gui_input(event: InputEvent) -> void:

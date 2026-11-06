@@ -17,6 +17,9 @@ var curtain: ColorRect
 var _transition_tween: Tween
 var root: Control
 var page := ""
+var equipment: WorldEquipment
+var heal: Button
+var heal_host: ScrollContainer
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer=30
@@ -39,6 +42,12 @@ func _ready() -> void:
 	pause_button=Button.new();pause_button.text=WorldText.text("world_ui.00")
 	pause_button.pressed.connect(func() -> void: command.emit("pause",""))
 	pause_host=_touch_host(pause_button)
+	heal=Button.new();heal.name="FocusHeal";heal.focus_mode=Control.FOCUS_NONE
+	heal.button_down.connect(func() -> void: command.emit("heal_hold","1"))
+	heal.button_up.connect(func() -> void: command.emit("heal_hold","0"))
+	heal_host=_touch_host(heal)
+	heal_host.get_child(1).connect("forwarded",func(phase: StringName) -> void:
+		if phase not in [&"press",&"drag"]: command.emit("heal_hold","0"))
 	interact=Button.new();interact.name="ContextInteract"
 	interact.pressed.connect(func() -> void: command.emit("interact",""))
 	interact_host=_touch_host(interact)
@@ -51,6 +60,10 @@ func _ready() -> void:
 	curtain.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.add_child(curtain)
 	curtain.hide()
+	equipment=WorldEquipment.new()
+	root.add_child(equipment)
+	equipment.layer=31
+	equipment.requested_resume.connect(func() -> void: command.emit("close",""))
 	root.hide()
 func bind(actor: PlayerController) -> void:
 	title._hide()
@@ -70,6 +83,7 @@ func panel(kind: String,heading: String,detail: String) -> DemoUiModalShell:
 	shell.cancel_requested.connect(func() -> void: command.emit("close",""))
 	return shell
 func close() -> void:
+	if equipment!=null: equipment._hide()
 	if is_instance_valid(shell):
 		shell.restore_focus()
 		shell.hide();shell.queue_free()
@@ -85,6 +99,7 @@ func show_map() -> void:
 	var map:=FixedWorldMap.new()
 	map.expanded=true;map.world=world;map.content=content
 	map.current_room=mini.current_room
+	map.local_player=mini.local_player
 	var physical_factor:=clampf(1.0/DemoUiModalMetrics.ui_scale(get_viewport()),1,1.8)
 	map.custom_minimum_size=Vector2(320,clampf(get_viewport().get_visible_rect().size.y/physical_factor-300,120,280))
 	map.size_flags_horizontal=Control.SIZE_EXPAND_FILL
@@ -98,7 +113,7 @@ func show_map() -> void:
 		buttons.add_child(b)
 	modal.button(WorldText.text("world_ui.10"),func() -> void: command.emit("close",""))
 	modal.focus_first()
-func present(actor: PlayerController,room_id: String,location: String,status: String,context: String,gold: int,reduced: bool=false) -> void:
+func present(actor: PlayerController,room_id: String,location: String,status: String,context: String,gold: int,reduced: bool=false,healing_progress: float=0,heal_available: bool=false) -> void:
 	if actor==null:
 		return
 	mini.current_room=room_id
@@ -124,6 +139,17 @@ func present(actor: PlayerController,room_id: String,location: String,status: St
 	notice.visible=page.is_empty()
 	hud.present_context(location,gold,0,reduced)
 	hud._money.text=WorldText.text("hud.gold") % gold
+	hud._resonance_text.text=WorldText.text("heal.resonance") % [actor.combat_energy.current,actor.combat_energy.capacity()]
+	heal.custom_minimum_size=Vector2(180,60)*factor
+	heal_host.position=Vector2(safe.position.x+24*factor,safe.end.y-280*factor)
+	heal_host.size=heal.get_combined_minimum_size()
+	heal_host.visible=page.is_empty()
+	heal.disabled=not heal_available
+	heal.tooltip_text=WorldText.text("heal.controls")
+	var cost:=int(content.data.player.focus_heal.cost)
+	heal.text=WorldText.text("heal.progress") % int(healing_progress*100) if healing_progress>0 else WorldText.text("heal.control") % cost
+	if actor.actor_resources.health.current>=actor.actor_resources.health.capacity: heal.text=WorldText.text("heal.full")
+	elif actor.combat_energy.current<cost: heal.text=WorldText.text("heal.insufficient") % cost
 	hud._wallet_plate.position=Vector2(safe.end.x-hud._wallet_plate.size.x*hud._wallet_plate.scale.x-24*factor,pause_host.position.y+pause_host.size.y+8*factor)
 
 func _touch_host(button: Button) -> ScrollContainer:

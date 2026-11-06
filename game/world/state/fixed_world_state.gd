@@ -10,7 +10,7 @@ var value: Dictionary = {}
 
 func fresh(max_hp: float) -> Dictionary:
 	return {"services":WorldServices.empty_ledger(),"flags":["gun"],"receipts":{},"inventory":{},"cycle":1,"enemies":{},
-		"hp":max_hp,"rest":{"room":"P-R03","entry":"","point":[144,512]},
+		"hp":max_hp,"combat_energy":0.0,"rest":{"room":"P-R03","entry":"","point":[144,512]},
 		"room":"P-R03","entry":"","explored":[],"content_version":content.data.content_version}
 
 func restore() -> bool:
@@ -36,11 +36,14 @@ func restore() -> bool:
 		candidate.entry = ""
 	candidate.content_version = content.data.content_version
 	if not candidate.has("services"): candidate.services=WorldServices.empty_ledger()
+	if not candidate.has("combat_energy"): candidate.combat_energy=0.0
 	value = candidate
 	revision = int(loaded.revision)
 	return true
 
 func valid(candidate: Dictionary) -> bool:
+	if candidate.has("combat_energy"):
+		if not (candidate.combat_energy is int or candidate.combat_energy is float) or not is_finite(candidate.combat_energy) or candidate.combat_energy<0: return false
 	if candidate.has("services") and (not candidate.services is Dictionary or not WorldServices.valid_ledger(candidate.services)): return false
 	for key: String in ["flags","explored"]:
 		if not candidate.get(key) is Array: return false
@@ -66,6 +69,7 @@ func valid(candidate: Dictionary) -> bool:
 	for id: Variant in candidate.enemies:
 		var enemy: Variant = candidate.enemies[id]
 		if not id is String or not enemy is Dictionary: return false
+		if enemy.has("corpse") and not EnemyFeedback01Remains.valid_presentation_snapshot(enemy.corpse): return false
 		if not (enemy.get("health") is float or enemy.get("health") is int) or not is_finite(enemy.health) or enemy.health<0: return false
 		for key: String in ["position","home","locked_direction","attack_goal","attack_origin"]:
 			if not enemy.get(key) is Array or enemy[key].size()!=2: return false

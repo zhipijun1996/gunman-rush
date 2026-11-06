@@ -24,6 +24,7 @@ var _sequence := 0
 var tutorial: WorldTutorial
 var title: Control
 var q_guard: WorldRecoilGuard
+var focus_heal: WorldFocusHeal
 var music: GameMusic
 var ui: FixedWorldUI
 var overlay: TouchOverlay
@@ -133,6 +134,7 @@ func _create_player() -> void:
 	build_state.configure(controller,lifetime,&"fixed_world")
 	build_state.commit_equipment_sources(services.effect_sources())
 	_restore_hp(float(state.value.hp))
+	controller.combat_energy.grant("world_restore",minf(float(state.value.get("combat_energy",0)),controller.combat_energy.capacity()))
 	controller.actor_resources.health.changed.connect(func(result: ActorResourceResult) -> void:
 		if result.operation==&"damage" and result.amount_applied<0: _accepted_damage=true)
 	ui.bind(controller)
@@ -141,6 +143,10 @@ func _create_player() -> void:
 	q_guard.owned = state.has("Q")
 	q_guard.cooldown_seconds = float(content.data.runtime_rules.q.cooldown_seconds)
 	player.add_child(q_guard)
+	focus_heal=WorldFocusHeal.new()
+	focus_heal.controller=controller;focus_heal.settings=content.data.player.focus_heal
+	player.add_child(focus_heal)
+	focus_heal.ready_to_heal.connect(func() -> void: enqueue("focus_heal",""))
 	RunComposition.attach_player_guides(player,controller)
 	controller.interact_requested.connect(_interact)
 	tutorial=WorldTutorial.new()
@@ -251,6 +257,7 @@ func load_room(id: String, entry: String) -> void:
 		remove_child(previous_room)
 		previous_room.queue_free()
 	room = next
+	room.cycle_at_load=int(state.value.cycle)
 	room.visible=true
 	room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	entry_anchor = anchor
@@ -286,7 +293,24 @@ func load_room(id: String, entry: String) -> void:
 		status="入口缺少实际支撑，请返回标题后继续。"
 		busy=false
 		return
+	var upward_entry: bool=not resolved.entry.is_empty() and resolved.entry.direction=="down"
+	if upward_entry:
+		player.reset_at(FixedWorldProvider.point(resolved.entry.landing_contract.entry_position_world_units))
+		controller.jump_ability.on_landed()
+		controller.jump_ability.advance(get_physics_process_delta_time(),true)
+		controller.jump_ability.request_jump()
+		controller.jump_ability.try_jump(player)
+		controller.jump_ability.release_jump(player)
 	await ui.finish_transition()
+	if upward_entry:
+		for frame: int in 60:
+			await get_tree().physics_frame
+			if ticket!=_ticket or not is_instance_valid(player): return
+			controller.jump_ability.update_hold(get_physics_process_delta_time(),player)
+			player.step(0,get_physics_process_delta_time())
+			controller.jump_ability.after_move(player)
+			if frame>1 and player.is_on_floor(): break
+		controller.jump_ability.on_landed()
 	if ticket!=_ticket or not is_instance_valid(player): return
 	controller._was_grounded = false
 	controller.active = true
@@ -315,7 +339,8 @@ func _snapshot() -> Dictionary:
 	if controller != null:
 		candidate.hp = maxf(1,controller.actor_resources.health.current)
 		candidate.max_hp=controller.actor_resources.health.capacity
-	if room != null: candidate.enemies.merge(room.snapshot(),true)
+		candidate.combat_energy=controller.combat_energy.current
+	if room != null and room.cycle_at_load==int(state.value.cycle): candidate.enemies.merge(room.snapshot(),true)
 	return candidate
 
 func enqueue(kind: String,id: String) -> void:
@@ -369,20 +394,12 @@ func _physics_process(_delta: float) -> void:
 	if entering_battle and room.battle_started:
 		# Authored entering-side refuge remains supported after the central bridge breaks.
 		entry_anchor = room.battle_entry_anchor
-	if room.battle_started and not room.battle_finished:
-		camera.top_level = true
-		camera.global_position = room.arena_bounds.get_center()
-		camera.zoom = Vector2.ONE
-	elif camera.top_level:
-		camera.top_level = false
-		camera.position = Vector2.ZERO
-		camera.zoom = Vector2(1.6,1.6)
 	if room.encounter != null and room.encounter.health.terminal and not room.battle_finished:
 		enqueue("action",room.defeat_action)
 	for action: Dictionary in content.actions_in(room.room_id):
 		if action.room_id==room.room_id and action.type=="automatic_landmark" and not state.value.receipts.has(action.id): enqueue("action",action.id)
-	if player.position.y > float(room.contract.world_geometry.bounds_world_units[3])-64 and not _near_lower_door():
-		submit_damage(&"fall",DamageRequest.Kind.ENVIRONMENT,1,StringName("fall:"+str(Engine.get_physics_frames())))
+	if player.position.y > float(room.contract.world_geometry.bounds_world_units[3])+64:
+		_fail_terrain()
 	var near_door := false
 	for door: Dictionary in room.doors:
 		var point := FixedWorldProvider.point(door.position_candidate.local_world_units)
@@ -396,6 +413,7 @@ func _physics_process(_delta: float) -> void:
 	for request: Dictionary in pending:
 		if not lifetime.accepts(request.token) or busy: continue
 		if request.kind == "action": _commit_action(str(request.id))
+		elif request.kind == "focus_heal": _commit_focus_heal()
 		elif request.kind == "rest": _rest()
 		elif request.kind == "door": _cross(str(request.id))
 		elif request.kind == "npc": _open_npc(str(request.id))
@@ -409,7 +427,8 @@ func _commit_action(id: String) -> void:
 	var candidate := state.action_candidate(id,room.room_id)
 	if candidate.is_empty(): return
 	candidate.hp = controller.actor_resources.health.current
-	candidate.enemies.merge(room.snapshot(),true)
+	candidate.combat_energy=controller.combat_energy.current
+	if room.cycle_at_load==int(state.value.cycle): candidate.enemies.merge(room.snapshot(),true)
 	if id==room.defeat_action: candidate=services.earned_candidate(candidate,"boss:"+str(room.boss_identity),int(services.definitions.boss_gold))
 	if not state.commit(candidate,state.revision):
 		status = "保存失败，结果未提交："+state.error
@@ -436,13 +455,16 @@ func _rest() -> void:
 	candidate.cycle += 1
 	candidate.enemies = {}
 	candidate.hp = controller.actor_resources.health.capacity
+	candidate.entry=""
 	candidate.rest = {"room":room.room_id,"entry":"","point":[room.rest_point.x,room.rest_point.y]}
 	if not state.commit(candidate,state.revision):
 		status = state.error
 		return
 	_restore_hp(float(candidate.hp))
-	busy = true
-	load_room.call_deferred(room.room_id,"")
+	controller.router.clear("explicit_rest")
+	controller.shoot_ability.clear_projectiles()
+	q_guard.cancel()
+	status=WorldText.text("rest.completed")
 
 func _fail_terrain() -> void:
 	var safety := SegmentRespawn.new()
@@ -468,12 +490,14 @@ func _recover_death() -> void:
 	candidate.cycle += 1
 	candidate.enemies = {}
 	candidate.hp = controller.actor_resources.health.capacity
+	candidate.combat_energy=0.0
 	candidate.room = str(candidate.rest.room)
 	candidate.entry = ""
 	if not state.commit(candidate,state.revision):
 		status = "死亡恢复保存失败："+state.error
 		busy = false
 		return
+	controller.combat_energy.reset()
 	_restore_hp(float(candidate.hp))
 	controller.active = true
 	lifetime.active = true
@@ -546,6 +570,8 @@ func _ui_command(kind: String,_id: String) -> void:
 				_npc_id=""
 				service_view.submit=_submit_service.bind(_service_ticket)
 				service_view.show_inventory()
+		"heal_hold":
+			if controller!=null and (_id=="0" or (not busy and not paused)): controller.router.set_focus_heal_held(&"touch",_id=="1")
 		"settings": _show_settings()
 		"help":
 			var modal:=ui.panel("help","操作说明","A/D 移动，空格跳跃；鼠标瞄准，松开发射；W或场景交互按钮交谈/休息/拾取；M地图，I背包。手机使用摇杆/跳跃/HOOK和屏幕交互按钮。")
@@ -614,7 +640,7 @@ func _update_hud() -> void:
 	var target:=context_target()
 	var notice:=status
 	if room!=null and room.encounter!=null and not room.battle_finished: notice="%s · %d HP" % [room.encounter.definition.display_name,room.encounter.health.current]
-	ui.present(controller,str(state.value.room),str(content.room(state.value.room).get("name","")),notice,str(target.get("label","")),int(services.ledger().gold),bool(preferences.value.reduced))
+	ui.present(controller,str(state.value.room),str(content.room(state.value.room).get("name","")),notice,str(target.get("label","")),int(services.ledger().gold),bool(preferences.value.reduced),focus_heal.ratio(),focus_heal.available())
 
 func _exit_tree() -> void:
 	_ticket += 1
@@ -635,10 +661,25 @@ func _prepare_service_candidate(candidate: Dictionary) -> Dictionary:
 	if not preview.accepted: return {}
 	candidate.hp=minf(float(candidate.hp),float(preview.values[&"max_health"]))
 	candidate.max_hp=float(preview.values[&"max_health"])
-	if room!=null: candidate.enemies.merge(room.snapshot(),true)
+	candidate.combat_energy=controller.combat_energy.current
+	if room!=null and room.cycle_at_load==int(state.value.cycle): candidate.enemies.merge(room.snapshot(),true)
 	return candidate
 
-func _near_lower_door() -> bool:
-	for door: Dictionary in room.doors:
-		if door.direction=="down" and player.position.distance_to(FixedWorldProvider.point(door.landing_contract.safe_standing_position_world_units))<80: return true
-	return false
+func _commit_focus_heal() -> void:
+	if not focus_heal.pending: return
+	if busy or paused or not lifetime.active or not focus_heal.available() or not controller.router.focus_heal_held():
+		focus_heal.resolve(false);return
+	var settings: Dictionary=content.data.player.focus_heal
+	var health:=controller.actor_resources.health
+	var energy:=controller.combat_energy
+	var candidate:=_snapshot()
+	var event:="focus_heal:"+str(state.revision+1)
+	candidate.hp=minf(health.capacity,health.current+float(settings.heal))
+	candidate.combat_energy=energy.current-float(settings.cost)
+	if not state.commit(candidate,state.revision):
+		status=WorldText.text("heal.save_failed");focus_heal.resolve(false);return
+	var spent:=energy.consume(event,float(settings.cost))
+	var result:=health.heal(ActorResourceRequest.new(StringName(event),health.epoch,float(settings.heal),health.get_instance_id()))
+	assert(spent and result.accepted(),"Preflighted resource commit must remain synchronous")
+	focus_heal.resolve(true)
+	GameAudio.cue(self,&"confirm")
