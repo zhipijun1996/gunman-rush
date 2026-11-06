@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v37",
+  "version": "creative-v39-mv",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -11,7 +11,7 @@
   "selection_rationale": "按用户选择的地区方向制作；先完成森林，再优化平原。两区及后续区域沿项目共用像素画风，地区材料与生态表达各自身份；具体规则读取现行圣经与对象正文。",
   "region_bible": {
     "path": "docs/bible/regions/thorn_forest.md",
-    "sha256": "654e8dd0f24fe99fbd466d57585e9abf8c7a6189ad050152f42b6d90abb8dd5f",
+    "sha256": "c7faec8e74946f3d783be3b5d33ba9c8bbcc153354f3f2f559f46ac86f3889d2",
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
@@ -19,7 +19,7 @@
     "supplemental_authority_sha256": "a436ed365e7308ec8a57fa7c55e86dc39ef483fe54416366352e34a82eabc5f1",
     "region_id": "thorn_forest",
     "registry_path": "docs/data/creative_direction/bibles/registry.json",
-    "registry_sha256": "a29d6709fc0d10ed484fb0bdc7fec61f06c870ceefe9c558a24c99a8ca80f6e4",
+    "registry_sha256": "ed25a44d5dbead086acb0256d5d581fe58d767a0fd8d34416d80146e37aab47d",
     "selection_evidence_path": "docs/evidence/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -99,8 +99,8 @@
     "source": "docs/bible/regions/thorn_forest.md",
     "contract": "按当前地区圣经与相关对象规范执行本次范围，结合真实消费者检查美术统一和玩家体验。",
     "consumer": "DemoApp._select_next_region / start_debug_region -> ThornForestRegionGenerator CURRENT_DEPTH_LAYOUT (read actual versioned producer) -> ThornForestRegionStage -> ThornForestRegionAssembler",
-    "status": "source_present_not_bible_v2_execution_proof",
-    "requirements": "先正式比例完整可玩艺术黄金，独立G2准入后第二空间、多Seed与整区推广；旧实证保留原源。"
+    "status": "legacy_consumer_reference_not_fixed_world_runtime",
+    "requirements": "先按任务范围制作固定房间/Section代表样房，验证真实门台、能力环境、状态与回程；结构灰盒只签结构可玩，完整美术/战斗另验。额外独审仅按任务约定，扩展以room_id、相邻连接和状态为单位。"
   },
   "exclusions": {
     "core": "保留PlayerMotor、合法能力、资源、RNG与保存合同；旧提案或失败实现不自动约束新地区，但正式平原仍用的Underworld tileset及共用像素家族是当前继承依据，不得整体抛弃。",
@@ -110,11 +110,11 @@
   "authority_sources": [
     {
       "path": "docs/data/player_actions.md",
-      "sha256": "ec27d389f12c3be70d4dcee4302e23dbf6d25f5894782b7d5758ca5ee7a11dd6"
+      "sha256": "955a26ddf780702de7134df260b49a02b5fbb896795156fed9efabcabf2621af"
     },
     {
       "path": "docs/bible/world_regions.json",
-      "sha256": "da50e9d113b0fd903ab2788e128e7ca1bb38b9564f6e6fd5e0693f92b28bd58c"
+      "sha256": "5b439c9167bfa0589d0c1abe88761ed111d544572881f3f077472b712684c2c8"
     },
     {
       "path": "docs/bible/controls_contract.md",
@@ -134,11 +134,11 @@
     },
     {
       "path": "docs/bible/regions/thorn_forest.md",
-      "sha256": "654e8dd0f24fe99fbd466d57585e9abf8c7a6189ad050152f42b6d90abb8dd5f"
+      "sha256": "c7faec8e74946f3d783be3b5d33ba9c8bbcc153354f3f2f559f46ac86f3889d2"
     },
     {
       "path": "docs/bible/regions.md",
-      "sha256": "e391930a782081d6473fa4c3d69e9e28f2f9853ab482b18d186faeef136a270e"
+      "sha256": "cc2e8c3e71bc9c5e9c6c2b6a4f19bc26b1de81d82bef3b00517d2b8b076b6114"
     },
     {
       "path": "docs/bible/visual_bible.md",
@@ -146,11 +146,11 @@
     },
     {
       "path": "docs/data/weapons.md",
-      "sha256": "8d5ee752393bd3999c0d5a4ee7dd5f551eba28c3a11b4f73a03fc9120a3e58d7"
+      "sha256": "a7a3167e7fbef5fea961b7a4ba2f8d843bf41380ecb0e3a7feb014ba36ff1c91"
     },
     {
       "path": "docs/data/abilities.md",
-      "sha256": "8fbc08bee2b899b06dabebe00f5d4a6dadd70c2e39d7a4f44ee559398a274973"
+      "sha256": "2223f14a2f5fc9194f6c9fac4482ca1e4becb1715bd59faac445b553bf439a36"
     }
   ]
 }

@@ -112,10 +112,11 @@ class LightweightWorkflowTests(unittest.TestCase):
             self.assertEqual(binding['path'],'docs/bible/regions/test_region.md')
 
     def test_forest_creator_reads_canonical_and_only_relevant_object_specs(self):
-        mission=level_design.route_request('制作荆棘森林',phase='production')
+        from mission_fixtures import selected_mission
+        mission=selected_mission(skills=['enemy-creator'])
         self.assertTrue(all('G1' not in task.get('required_gates',[]) for task in mission['tasks']))
         self.assertFalse(any(task.get('requires_visual_admission') for task in mission['tasks']))
-        task=next(task for task in mission['tasks'] if 'enemy-creator' in task['skills'] and task['id'].endswith('-ecology'))
+        task=mission['tasks'][0]
         bible=loop.region_bible_input(task)
         self.assertEqual(bible['binding']['path'],'docs/bible/regions/thorn_forest.md')
         names={document['path'] for document in bible['object_documents']}

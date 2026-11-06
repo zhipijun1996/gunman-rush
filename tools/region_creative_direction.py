@@ -224,6 +224,16 @@ def bind_region_bible(region_id, root=ROOT):
                 or original.get('sha256') != expected_sha or original.get('bytes') != expected_bytes
                 or original.get('copied_verbatim') is not True):
             raise ValueError('Bible source must match its original/staged attachment identity and exact bytes')
+    migration = bible.get('migration_authority')
+    if migration:
+        raw_migration = files.read(migration['path'])
+        if hashlib.sha256(raw_migration).hexdigest() != migration['sha256']:
+            raise ValueError('Migration authority hash mismatch')
+        decision = json.loads(raw_migration)
+        if not decision.get('authorization_scope') or not decision.get('quote'):
+            raise ValueError('Migration authority needs explicit scope and quote')
+        if hashlib.sha256(files.read(decision['handoff'])).hexdigest() != decision['sha256']:
+            raise ValueError('Migration handoff source hash mismatch')
     supplement = _supplemental_authority(files, data)
     ref = {k:bible[k] for k in ('path', 'sha256', 'bible_id', 'version', 'status')}
     if supplement:

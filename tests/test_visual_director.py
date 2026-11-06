@@ -441,18 +441,12 @@ class VisualDirectorTests(unittest.TestCase):
         vd.write(other,changed)
         with self.assertRaisesRegex(ValueError,'generated route input'):vd.compare_captures(self.receipt,other)
 
-    def test_current_route_is_valid_bible_bound_manual_mission(self):
-        import production_loop
+    def test_current_route_is_retired_for_every_phase(self):
         for phase in ('audit', 'golden', 'review', 'full'):
-            mission = vd.route('优化风铃平原画面', 'CURRENT-VISUAL',
-                               'docs/evidence/quality/records/CURRENT-VISUAL.json',
-                               ['game/presentation/world/'], phase=phase)
-            production_loop.validate(mission)
-            self.assertFalse(mission.get('historical_metadata_only'))
-            for task in mission['tasks']:
-                self.assertTrue(task.get('region_bible'))
-                for name in task['checks']:
-                    self.assertEqual(production_loop.check_manifest_metadata()['checks'][name]['mode'], 'manual')
+            with self.subTest(phase=phase), self.assertRaisesRegex(ValueError, 'retired'):
+                vd.route('优化风铃平原画面', 'CURRENT-VISUAL',
+                         'docs/evidence/quality/records/CURRENT-VISUAL.json',
+                         ['game/presentation/world/'], phase=phase)
 
     def test_historical_recipe_is_metadata_and_cannot_execute(self):
         # Registration and policy are real; this test does not dispatch workers.

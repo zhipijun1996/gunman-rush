@@ -45,57 +45,9 @@ class RegionContextTests(unittest.TestCase):
         with self.assertRaisesRegex(ContextError, "Ambiguous"):
             resolve_region_id("比较森林与平原")
 
-    def test_all_catalog_regions_resolve_with_cited_inputs(self):
-        rows = json.loads((ROOT / WORLD).read_text())["regions"]
-        self.assertEqual(len(rows), 16, "Current reviewed design has sixteen regions")
-        stages = set()
-        for row in rows:
-            context = build_region_context(row["id"])
-            stages.add(context["design"]["stage"]["value"])
-            self.assertEqual(context["name"], row["working_name"])
-            self.assertTrue(context["design"]["learning"])
-            self.assertTrue(context["design"]["art"]["material_and_light"])
-            for source in context["sources"]:
-                raw = (ROOT / source["path"]).read_bytes()
-                self.assertEqual(source["sha256"], hashlib.sha256(raw).hexdigest())
-                self.assertGreaterEqual(source["line_start"], 1)
-                self.assertLessEqual(source["line_end"], len(raw.decode().splitlines()))
-        self.assertEqual(stages, {"S1", "S2", "S3", "S4", "S5", "S6"})
 
-    def test_forest_has_only_hook_gate_and_separate_runtime_scope(self):
-        context = build_region_context("荆棘森林")
-        self.assertEqual(context["region_id"], "thorn_forest")
-        self.assertEqual(context["design"]["gate"]["alternatives"], [["H"]])
-        self.assertIn("不得出现 W/D/U1/U2", context["design"]["optional_gate"]["text"])
-        self.assertEqual(context["implementation"]["formal_region"], "consumer_present_in_source")
-        self.assertIsNone(context["implementation"]["runtime_available"])
-        hook = context["implementation"]["abilities"]["H"]
-        self.assertEqual(hook["status"], "grant_handler_present")
-        self.assertTrue(hook["studio_grant_call_present"])
-        self.assertEqual(hook["formal_grant"], "not_inferred")
-        self.assertEqual(context["capability_ids"]["values"]["H"], "grapple")
 
-    def test_current_contracts_and_candidate_status_are_preserved(self):
-        context = build_region_context("thorn_forest")
-        override_text = "\n".join(item["text"] for item in context["overrides"])
-        self.assertIn("360°", override_text)
-        self.assertIn("同一时刻", override_text)
-        self.assertTrue(any("weapons.md" in s["path"] for s in context["sources"]))
-        self.assertTrue(context["design"]["gate"]["status"].startswith("PROPOSED"))
-        self.assertEqual(context["locked_principles"][0]["status"], "LOCKED")
-        self.assertTrue(all(item["status"] == "PROPOSED" for item in context["design"]["learning"]))
 
-    def test_missing_current_contract_section_rejects(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
-            for name in (REGIONS, WORLD, "docs/data/weapons.md", "docs/data/player_actions.md"):
-                target = root / name
-                target.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(ROOT / name, target)
-            entry = root / "docs/data/player_actions.md"
-            entry.write_text(entry.read_text().replace("## 动作合同", "## 过期任务"))
-            with self.assertRaisesRegex(ContextError, "authority section"):
-                build_region_context("thorn_forest", root)
 
     def test_current_direction_document_drift_is_still_rejected(self):
         from unittest.mock import patch
@@ -111,33 +63,8 @@ class RegionContextTests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, "Authority changed"):
                         creative.load_direction("docs/data/creative_direction/thorn_forest.json", "thorn_forest")
 
-    def test_real_single_weapon_inventory_and_lv3_candidates(self):
-        context = build_region_context("firefly_marsh")
-        weapons = context["weapon_context"]["source_inventory"]
-        self.assertEqual([sum(w["tier"] == tier for w in weapons) for tier in [1, 2, 3]], [3, 6, 6])
-        self.assertEqual(len({w["branch"] for w in weapons if w["tier"] == 2}), 6)
-        self.assertIn("one_current_weapon", context["weapon_context"]["selection"])
-        self.assertEqual(context["weapon_context"]["rules"][1]["status"], "CURRENT_DESIGN")
-        self.assertIn("数值", context["weapon_context"]["rules"][1]["text"])
-        self.assertEqual(context['authority_order']['current_actions'], 'docs/data/player_actions.md')
-        self.assertTrue(all(rule['status'] == 'CURRENT_DESIGN'
-                            for rule in context['weapon_context']['rules'][:2]))
-        self.assertIn('射击不耗时间能量', '\n'.join(rule['text'] for rule in context['overrides']))
 
-    def test_old_world_runtime_flag_does_not_disable_formal_plains(self):
-        context = build_region_context("windchime_plains")
-        self.assertFalse(context["implementation"]["catalog_runtime_available"])
-        self.assertFalse(context["implementation"]["catalog_flag_is_authoritative"])
-        self.assertEqual(context["implementation"]["formal_region"], "consumer_present_in_source")
-        self.assertEqual(context["implementation"]["validation_status"], "unverified")
 
-    def test_alternative_locks_are_parsed_without_asserting_reachability(self):
-        self.assertEqual(build_region_context("frostmirror_glacier")["design"]["gate"]["alternatives"], [["W"], ["D"]])
-        self.assertEqual(build_region_context("shattered_isles")["design"]["gate"]["alternatives"], [["H", "W"], ["H", "D"], ["W", "D"]])
-        self.assertEqual(build_region_context("root_sanctuary")["design"]["gate"]["alternatives"], [["H", "W", "U1"]])
-        for invalid in ["H OR teleport", "H+H", "W/H/W", "H+W/W+H", "", "H+(W/D)"]:
-            with self.assertRaises(ContextError):
-                parse_gate(invalid)
 
     def fixture(self):
         temporary = tempfile.TemporaryDirectory()
@@ -153,31 +80,8 @@ class RegionContextTests(unittest.TestCase):
             target = root/name; target.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(ROOT/name,target)
         return root
 
-    def test_document_edits_flow_through_instead_of_a_copied_table(self):
-        root = self.fixture()
-        path = root / REGIONS
-        path.write_text(path.read_text().replace("活锚点、牵引踢跳、高速树冠穿越", "测试用已修改身份"))
-        context = build_region_context("thorn_forest", root)
-        self.assertEqual(context["design"]["identity"]["text"], "测试用已修改身份")
-        self.assertEqual(context["design"]["identity"]["source"]["sha256"], hashlib.sha256(path.read_bytes()).hexdigest())
 
-    def test_conflicting_or_unknown_authorities_fail_closed(self):
-        with self.assertRaises(ContextError):
-            build_region_context("invented_region")
-        root = self.fixture()
-        path = root / WORLD
-        catalog = json.loads(path.read_text())
-        next(row for row in catalog["regions"] if row["id"] == "thorn_forest")["layer"] = 5
-        path.write_text(json.dumps(catalog, ensure_ascii=False))
-        with self.assertRaisesRegex(ContextError, "Stage conflict"):
-            build_region_context("thorn_forest", root)
 
-    def test_unrecognized_gate_does_not_silently_fall_back_to_plains(self):
-        root = self.fixture()
-        path = root / REGIONS
-        path.write_text(path.read_text().replace("| S2 | 荆棘森林 | H |", "| S2 | 荆棘森林 | TELEPORT |"))
-        with self.assertRaisesRegex(ContextError, "Unsupported"):
-            build_region_context("thorn_forest", root)
 
 
 # Finite source-chain negatives; no runtime or region authorization.
@@ -303,21 +207,6 @@ class ForestConsumerEdgeTests(unittest.TestCase):
         with self.assertRaises(FileNotFoundError):
             _forest_consumer_observed(root, Source(root, APP))
 
-    def test_chain_sources_are_cited_without_claiming_runtime_or_grants(self):
-        context = build_region_context('thorn_forest')
-        implementation = context['implementation']
-        self.assertEqual(implementation['formal_region'], 'consumer_present_in_source')
-        self.assertIsNone(implementation['runtime_available'])
-        self.assertEqual(implementation['validation_status'], 'unverified')
-        self.assertFalse(implementation['catalog_flag_is_authoritative'])
-        expected = {APP, PROVIDER, ADAPTER, CONFIGURED, STAGE, INHERITED, RUNTIME, ASSEMBLER, GENERATOR}
-        refs = {ref['path']: ref for ref in implementation['formal_consumer_sources']}
-        self.assertTrue(expected.issubset(refs))
-        for name in expected:
-            self.assertEqual(refs[name]['sha256'], hashlib.sha256((ROOT / name).read_bytes()).hexdigest())
-        import level_design
-        mission = level_design.route_request('制作荆棘森林')
-        self.assertFalse(mission['preparation']['production_boundary']['formal_opening_authorized'])
 
 
 if __name__ == "__main__":

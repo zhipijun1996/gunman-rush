@@ -4,7 +4,7 @@
 
 App通过Stage的伤害／Boss／取消命令及路线／HUD查询接入地图；地图内部解释归Stage。RuntimeMapV2Provider已接入mapgen开发来源，普通出发仍使用Plains／Forest Provider。
 
-## 正式运行路径
+## 当前旧原型运行路径
 
 ```mermaid
 flowchart TD
@@ -34,7 +34,13 @@ RunSession 复用原流程和 epoch 权威，不新增第二个 RunDirector。�
 
 地图的 Request/Plan 是暂态内容协议，不是新存档格式。Provider 包含旧生成器选择、Manifest 校验和有界回退；公共装配只消费已经解析的内容，不抽随机数。LevelRuntime 当前是装配入口，运行中的节点和恢复状态仍归 Stage、Assembler 与既有地图状态对象，不能把它误写成另一个持有全部服务的世界管理器。
 
-后续新模块库和新地图算法通过新 Provider 生成同一个 Plan。怪物、Boss、宝箱等用既有工厂/组件创建多个实例，但每个实例必须有稳定身份、独立状态与原领取收据；共享定义不等于共享生命值或 claimed 状态。旧地图实现留在旧 Provider 后面，直到真实新消费者完成迁移再删除。
+后续固定房间先评估现有 Request/Plan 能否表达房号、入口、分区与稳定身份，再扩展或提取薄房间装配。怪物、Boss、宝箱等用既有工厂/组件创建多个实例，但每个实例必须有稳定身份、独立状态与原领取收据；共享定义不等于共享生命值或 claimed 状态。旧地图实现留在旧 Provider 后面，直到真实新消费者完成迁移再删除。
+
+## 新世界目标边界（尚未实现）
+
+永久、休息周期、挑战尝试、动作瞬态按 [保存](../bible/home_and_save.md) 分开。LevelRuntime目前接受PlainsRegionState并选择旧Assembler；不能把WorldContext历史死亡全重置夹具当新世界核心。DemoApp._cleanup_run → RunSession.clear_run_services 会清Build和钱包，_select_next_region → reset_maps会清地图账本，必须在MV-RUNTIME-01切断这些重置时机。
+
+普通移动、战斗、Factory、表现、事务/收据和存储可靠性继续复用。新保存使用明确schema/content版本及旧档隔离；固定Provider、房间场景和运行数据导出尚未接入。
 
 ## 状态与操作的唯一权威
 

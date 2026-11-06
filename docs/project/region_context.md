@@ -1,14 +1,15 @@
-# 地区上下文
+# 地区与房间上下文
 
-`tools/level_region_context.py` 提取现行设计与实际消费者的带出处信息，不授予能力，也不证明生成可达或内容完成。
+`tools/level_region_context.py`按现行身份映射提取固定世界地区主题和房号；不授予能力，不推断运行可达或内容完成。世界空间源唯一见 [世界输入](../data/world/README.md)。
 
 ```sh
 python3 tools/level_region_context.py --region thorn_forest --output build/forest-context.json
+python3 tools/world/room_context.py F-R04
+python3 tools/world/room_context.py F-R04 --contract
 python3 tests/test_level_region_context.py
+python3 tests/test_world_design.py
 ```
 
-地区矩阵来自 `docs/bible/regions.md`，区域体验来自对应 `docs/bible/regions/` 正文，武器与能力来自当前对象规范和动作合同。原始附件不参与当前规则解析。世界目录提供候选连接，运行配置和真实代码分别说明参数与消费者；静态存在不代表角色已获能力。
+地区上下文含ID/code、主题、时间状态、修钟意图、房号以及来源身份。按房输出目标分区、内部能力路线、相邻门、永久动作与计划场景引用；只有施工需要时加--contract。未知ID拒绝，不默认落到平原。大JSON由脚本查询，不全文作为会话上下文。
 
-每条信息附段落、行号和SHA。未知／歧义地区、重复条目、阶段与能力锁冲突、失效链接明确失败。候选地块与拓扑不是已实现结论；真实路线、连续操作和体验另行验证。
-
-默认森林与实际选择见 [当前状态](current_state.md)，具体代码与检查见 [模块导航](module_map.md)。按任务读取对应对象，不通读旧报告和全部附件。
+运行时尚未实现新房间；scene_ref是计划路径。当前原型入口与代码见 [当前状态](current_state.md) 和 [模块导航](module_map.md)。取得来源不等于取得能力，静态图检查不证明真实身体能通过。

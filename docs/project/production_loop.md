@@ -1,22 +1,20 @@
 # 创作任务执行协议
 
+固定世界任务按 [当前交接](worklines/mv_migration/scope.md) 直接实施。本文旧随机地区自动流程仅供历史工具定位，route/content_plan已停止；冻结旧mission拒绝执行。地区上下文现在输出固定房号/主题，不再输出六层资格。显式新固定世界mission须声明`content_domain: fixed_world`并自行绑定适用检查；本阶段不要求使用执行器。
+
 本页是 `tools/production_loop.py` 的手动执行协议。创作设计从 [区域创作入口](content_pipeline.md) 开始，日常 CI 与手动检查见 [Harness](harness.md)。
 
 ## 规划与执行
 
-```sh
-python3 tools/level_design.py route --request '制作荆棘森林' --output build/creative/start.json
-python3 tools/production_loop.py --mission build/creative/start.json
-python3 tools/production_loop.py --mission build/creative/start.json --execute --worker-mode host --evidence-dir build/verification/creative-start
-```
+固定世界默认使用普通Codex任务，沿任务表及唯一交接推进。旧`level_design.py route/content_plan`停止，视觉route转交它时同样停止；历史capture/analyze/compare仍可显式用于旧原型回归。
 
-前两条只生成／显示计划。执行使用当前手动检查 ID；`tools/harness.py` 只负责 `--check`，不接收 mission。未选定地区 Bible 时先预制作；已选定时沿当前路由处理。prototype 仅验证声明的能力和切片，不能代表整区交付。
+仅显式调用执行器时，手工mission声明`content_domain: fixed_world`、真实写集、适用检查、预算和依赖；不继承旧随机量产mission。使用 `python3 tools/production_loop.py --mission <文件>` 查看已准备任务，再按实际授权使用`--execute`。Harness只负责`--check`，不接收mission。本文不授权多代理、合并或发布。
 
 codex 模式需要可用账户。host 模式需要活跃宿主实际接收请求、调用真实 worker 并提交响应；独立 Cloud 会话使用工作线交接，不能当作可实时唤醒的 worker。是否启动多代理由当前会话授权与可用能力决定，工具文档不自动授权。
 
 ## 调用和验收
 
-全局任务表只登记父议题，内部阶段 ID、质量记录和恢复状态留在该议题工作线；默认路由提供工作线路径，接续既有议题时沿实际工作线放置。逐阶段质量检查仍由执行器直接验证。
+全局任务表只登记父议题，内部阶段 ID、质量记录和恢复状态留在该议题工作线；手工mission显式绑定工作线路径，接续既有议题时沿实际工作线放置。逐阶段质量检查仍由执行器直接验证。
 
 普通写入任务可不绑定质量卡，沿现有 scope 模式交付本次范围；stage／content 模式才要求相应内容记录。scope 完成不代表内容品质通过。
 
@@ -42,4 +40,4 @@ codex 模式需要可用账户。host 模式需要活跃宿主实际接收请求
 
 证据目录位于 ignored `build/verification/`。同工作树按顺序写；独立会话用隔离分支／工作树和 [工作线模板](templates/cloud_workline.md) 交接分支、SHA、写集、证据、阻塞与下一命令。compact 反馈传递最近结果与证据路径，完整历史留在磁盘；字节数不是 token、成本或模型算力统计。
 
-日常验证为固定四项 CI。创作任务显式运行相关手动检查；执行器没有 full/profile/lane、缓存复用、release 或自动发布协议。计时只报告真实调用和日志中的耗时。历史配方由 `historical_recipe_plan` 返回参考元数据，不能提交执行；当前视觉任务使用 `visual_director.route`。
+日常验证为固定四项 CI。创作任务显式运行相关手动检查；执行器没有 full/profile/lane、缓存复用、release 或自动发布协议。计时只报告真实调用和日志中的耗时。历史配方由 `historical_recipe_plan` 返回参考元数据，不能提交执行；当前固定世界视觉任务直接按局部房间与镜头实施。

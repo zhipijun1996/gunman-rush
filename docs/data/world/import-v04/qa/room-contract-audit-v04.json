@@ -1,0 +1,43 @@
+{
+  "schema": "gunman-rush.contract-audit.v04",
+  "checks": {
+    "room_count_216": true,
+    "room_ids_match_canonical": true,
+    "two_doors_per_connection": true,
+    "unique_entry_spawn_ids": true,
+    "all_interaction_hosts_once": true,
+    "all_rest_points_match": true,
+    "all_rifts_match": true,
+    "all_bosses_have_distinct_design_briefs": true,
+    "all_shortcut_operators_bound_once": true,
+    "npc_stock_refs_match_registry": true,
+    "nonuniform_boss_working_envelopes": true,
+    "service_rooms_pressure_zero": true,
+    "all_interfaces_sections_actions_valid": true,
+    "ordinary_routes_have_no_T5": true,
+    "all_reserved_areas_inside_outer_bounds": true,
+    "boss_entry_reservations_outside_combat": true,
+    "first_visit_samples_match_canonical_version": true
+  },
+  "passed": true,
+  "issues": [],
+  "counts": {
+    "rooms": 216,
+    "connections": 288,
+    "doors": 576,
+    "entry_spawns": 576,
+    "sections": 310,
+    "internal_routes": 188,
+    "rest_points": 40,
+    "rifts": 16,
+    "boss_arenas": 22,
+    "npc_placements": 14,
+    "actions": 248,
+    "shortcut_operators": 26,
+    "challenge_approach_entries": 73,
+    "normalized_door_pairs": 69,
+    "rooms_with_route_first_visit_samples": 156,
+    "required_reserved_areas": 2626
+  },
+  "limits": "只验证合同字段、引用、方向成对、预留矩形在外框内及Boss入口/竞技区分离；不证明实际碰撞、跳跃、镜头、难度或人类回忆。"
+}

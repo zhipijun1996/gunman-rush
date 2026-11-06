@@ -1,0 +1,33 @@
+交接包的重建与验证
+
+环境
+Python 3.12。数据模拟与合同生成只使用标准库。地图/图册需要Pillow、numpy、matplotlib；PDF书签需要PyMuPDF，PDF阅读核对可用pypdf。字体随包提供。无需连接GitHub或其他服务。
+
+通常修改流程
+编辑world-room-layout-v04.json中的现行设计，再从本目录依次运行：
+python simulation/build_route_plans.py
+python simulation/simulate_world.py
+python simulation/audit_contracts.py
+python simulation/analyze_replays.py
+python design/build_room_contracts_v04.py
+python build_handoff.py
+python render_development_maps_v04.py
+python build_atlas_v07.py
+
+命令返回非零或handoff-status.json的ready_for_world_structure_graybox不是true时，应先解决对应数据问题，不继续宣称交接通过。检查报告属于静态/图状态验证，不替代Godot物理与人类试玩。
+
+仅迁移重现时
+migrate_world_v04.py由source_inputs的旧输入重现本次“门锁→房内分区”迁移。交接后人工调整现行设计时不要默认重跑它，以免覆盖后续有效改动。其输出证明及schema说明见qa和design中的迁移资料。
+
+坐标
+geometry-layout-v04.json与layouts供世界图绘制；逐房world_geometry、doors和entry_spawns供Godot施工。两套坐标职责不同，不能互相按统一比例代替。
+世界单位工作尺寸、门口落点、竞技区和相机意图都是起始值；真实碰撞外框须涵盖required_reserved_areas。各房的空间归属与能力阻隔仍必须符合canonical。
+
+检查数据来源
+simulation的source_world_sha256与逐房合同的canonical_sha256均为主JSON原始字节SHA256，必须一致。逐房合同另保留标准化JSON摘要供语义比较，不用它代替原始文件摘要。
+build_handoff.py核对主数据与派生件摘要，并保留qa/final-data-integrity-v04.json。
+
+出包
+保留文件相对路径。source_inputs是历史重建输入，不是生效规则。排除__pycache__、临时PDF、图册QA页面栅格图和过期顶层v03文件。
+完成图册检查后运行python package_handoff.py，生成本次MANIFEST.json和上一级world-graybox-kit-v04.zip，并核对压缩包内文件摘要。
+MANIFEST.json列出当前交付文件摘要；它用于这一次快照，开发修改后应重新生成。无需在每次小改动后重复全部玩法测试，只重验受影响部分与必要完整流程。

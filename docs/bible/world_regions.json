@@ -1,302 +1,183 @@
 {
-  "schema_version": 1,
-  "kind": "design_catalog_not_runtime_configuration",
-  "world_plan_status": "tentative",
-  "working_title": "失序之钟",
-  "title_status": "working_name",
-  "proposed_layer_count": 6,
-  "proposed_region_pool_count": 16,
-  "formal_stages_per_region": 2,
-  "formal_boss_stage": 2,
-  "first_region_id": "windchime_plains",
-  "terminal_region_id": "world_clockheart",
-  "source": {
-    "path": "docs/evidence/sources/references/recoil_roguelike_handoff_v02.md",
-    "version": "v0.2",
-    "sha256": "bd0c0d16b8368e4cf9951603b7557ff29211b2d1f131ac71a06b77d3b981897b"
-  },
+  "schema_version": 2,
+  "kind": "fixed_world_region_identity_mapping",
+  "canonical": "docs/data/world/import-v04/world-room-layout-v04.json",
   "regions": [
     {
       "id": "windchime_plains",
       "working_name": "风铃平原",
-      "layer": 1,
-      "next_region_ids": [
-        "thorn_forest",
-        "firefly_marsh",
-        "windswept_canyon"
-      ],
+      "code": "P",
+      "legacy_region_key": "plains",
       "runtime_available": false,
       "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "story_anchor": "初期只说王曾许诺人人长寿；灾前公告与普通人的感激让这个愿望有可信的善意。",
       "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
+      "art_brief_status": "direction_not_content_acceptance"
     },
     {
       "id": "thorn_forest",
       "working_name": "荆棘森林",
-      "layer": 2,
-      "next_region_ids": [
-        "mushroom_caverns",
-        "moon_crown_castle"
-      ],
+      "code": "F",
+      "legacy_region_key": "thorn_forest",
       "runtime_available": false,
       "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "story_anchor": "王最早用时间术救活枯林；后来只剩无止境生长，受益者也逐渐被森林吞没。",
       "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
-    },
-    {
-      "id": "firefly_marsh",
-      "working_name": "萤雾沼泽",
-      "layer": 2,
-      "next_region_ids": [
-        "sunken_ruins",
-        "moon_crown_castle"
-      ],
-      "runtime_available": false,
-      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
-      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
-    },
-    {
-      "id": "windswept_canyon",
-      "working_name": "风蚀峡谷",
-      "layer": 2,
-      "next_region_ids": [
-        "sunken_ruins",
-        "gear_city"
-      ],
-      "runtime_available": false,
-      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
-      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
+      "art_brief_status": "direction_not_content_acceptance"
     },
     {
       "id": "mushroom_caverns",
       "working_name": "蕈灯地穴",
-      "layer": 3,
-      "next_region_ids": [
-        "moonshadow_cemetery",
-        "ember_depths"
-      ],
+      "code": "M",
+      "legacy_region_key": "mushroom_caverns",
       "runtime_available": false,
       "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "story_anchor": "维持长生术的原料被过量采走；菌群记录着地表灾变发生前后的声音。",
       "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
+      "art_brief_status": "direction_not_content_acceptance"
     },
     {
-      "id": "sunken_ruins",
-      "working_name": "沉水遗迹",
-      "layer": 3,
-      "next_region_ids": [
-        "moonshadow_cemetery",
-        "frostmirror_glacier"
-      ],
+      "id": "firefly_marsh",
+      "working_name": "萤雾沼泽",
+      "code": "S",
+      "legacy_region_key": "firefly_marsh",
       "runtime_available": false,
       "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "story_anchor": "这里承受了王城工程的废液与失效药剂，呈现长生计划代价如何转嫁给普通地区。",
       "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
+      "art_brief_status": "direction_not_content_acceptance"
     },
     {
-      "id": "gear_city",
-      "working_name": "齿轮工城",
-      "layer": 3,
-      "next_region_ids": [
-        "ember_depths",
-        "shattered_isles"
-      ],
+      "id": "windswept_canyon",
+      "working_name": "风蚀峡谷",
+      "code": "Y",
+      "legacy_region_key": "windswept_canyon",
       "runtime_available": false,
       "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "story_anchor": "山体被献给钟心工程当作时间燃料，输送管道和断裂测量柱指向冰川。",
       "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
-    },
-    {
-      "id": "moon_crown_castle",
-      "working_name": "月冠古堡",
-      "layer": 3,
-      "next_region_ids": [
-        "moonshadow_cemetery",
-        "frostmirror_glacier",
-        "shattered_isles"
-      ],
-      "runtime_available": false,
-      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
-      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
-    },
-    {
-      "id": "moonshadow_cemetery",
-      "working_name": "月影墓园",
-      "layer": 4,
-      "next_region_ids": [
-        "root_sanctuary",
-        "reverse_clocktower"
-      ],
-      "runtime_available": false,
-      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
-      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
+      "art_brief_status": "direction_not_content_acceptance"
     },
     {
       "id": "frostmirror_glacier",
       "working_name": "霜镜冰川",
-      "layer": 4,
-      "next_region_ids": [
-        "reverse_clocktower",
-        "starbridge_gate"
-      ],
+      "code": "I",
+      "legacy_region_key": "frostmirror_glacier",
       "runtime_available": false,
       "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "story_anchor": "王的臣民并未得到正常的长生，而是在某些地方被固定成永不改变的瞬间。",
       "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
+      "art_brief_status": "direction_not_content_acceptance"
+    },
+    {
+      "id": "moonshadow_cemetery",
+      "working_name": "月影墓园",
+      "code": "C",
+      "legacy_region_key": "moonshadow_cemetery",
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "story_anchor": "登记簿证明试验早已出现代价；获得王室旧誓约或纹章，能解释古堡深层的剧情锁。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "direction_not_content_acceptance"
+    },
+    {
+      "id": "moon_crown_castle",
+      "working_name": "月冠古堡",
+      "code": "K",
+      "legacy_region_key": "moon_crown_castle",
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "story_anchor": "王先是想救人，之后被神提供的成功样本绑架，主动隐瞒了失败报告；保留其责任。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "direction_not_content_acceptance"
+    },
+    {
+      "id": "gear_city",
+      "working_name": "齿轮工城",
+      "code": "G",
+      "legacy_region_key": "gear_city",
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "story_anchor": "工程图标明所谓神谕是外来控制协议，工匠曾尝试加装保险装置却被叫停。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "direction_not_content_acceptance"
+    },
+    {
+      "id": "echo_mines",
+      "working_name": "回声矿井",
+      "code": "N",
+      "legacy_region_key": "新增，无旧key",
+      "runtime_available": false,
+      "visual_anchor": "弯曲矿道、大小矿腔与短竖井；延迟启动平台和可破碎障碍复用现有机关类型。",
+      "story_anchor": "矿工发现钟心材料开采过量会吞噬当地时间，但停工命令被王城撤回。",
+      "material_and_light": "待区域内容任务明确",
+      "art_brief_status": "direction_not_content_acceptance"
     },
     {
       "id": "ember_depths",
       "working_name": "熔火腹地",
-      "layer": 4,
-      "next_region_ids": [
-        "root_sanctuary",
-        "reverse_clocktower"
-      ],
+      "code": "E",
+      "legacy_region_key": "ember_depths",
       "runtime_available": false,
       "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "story_anchor": "长生计划实际把其他地区的时间当燃料，普通结局前即可得知这一关键代价。",
       "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
-    },
-    {
-      "id": "shattered_isles",
-      "working_name": "破碎浮岛",
-      "layer": 4,
-      "next_region_ids": [
-        "reverse_clocktower",
-        "starbridge_gate"
-      ],
-      "runtime_available": false,
-      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
-      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
+      "art_brief_status": "direction_not_content_acceptance"
     },
     {
       "id": "root_sanctuary",
       "working_name": "根脉圣殿",
-      "layer": 5,
-      "next_region_ids": [
-        "world_clockheart"
-      ],
+      "code": "T",
+      "legacy_region_key": "root_sanctuary",
       "runtime_available": false,
       "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "story_anchor": "守钟人曾反对把世界时间集中到一人手中；这里说明世界钟心本来承担协调而非统治。",
       "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
+      "art_brief_status": "direction_not_content_acceptance"
     },
     {
-      "id": "reverse_clocktower",
-      "working_name": "逆时钟塔",
-      "layer": 5,
-      "next_region_ids": [
-        "world_clockheart"
-      ],
+      "id": "sunken_ruins",
+      "working_name": "沉水遗迹",
+      "code": "R",
+      "legacy_region_key": "sunken_ruins",
       "runtime_available": false,
       "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "story_anchor": "疏散记录显示灾害不是同时发生，各地居民经历了不同长度的最后一天。",
       "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
+      "art_brief_status": "direction_not_content_acceptance"
+    },
+    {
+      "id": "shattered_isles",
+      "working_name": "破碎浮岛",
+      "code": "A",
+      "legacy_region_key": "shattered_isles",
+      "runtime_available": false,
+      "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
+      "story_anchor": "这里是王向神送出控制权的升天通道，断裂结构显示外来力量并非来自地底。",
+      "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
+      "art_brief_status": "direction_not_content_acceptance"
     },
     {
       "id": "starbridge_gate",
       "working_name": "星桥天门",
-      "layer": 5,
-      "next_region_ids": [
-        "world_clockheart"
-      ],
+      "code": "V",
+      "legacy_region_key": "starbridge_gate",
       "runtime_available": false,
       "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "story_anchor": "揭示神需要的并非让国民长生，而是将世界变成可控制的时间源；提供解除契约的方法。",
       "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
+      "art_brief_status": "direction_not_content_acceptance"
     },
     {
       "id": "world_clockheart",
       "working_name": "世界钟心",
-      "layer": 6,
-      "next_region_ids": [],
+      "code": "Z",
+      "legacy_region_key": "world_clockheart",
       "runtime_available": false,
       "visual_anchor": "地区材料与生态见 docs/data/story/regions.md 对应章节；平原与森林以 docs/bible/regions/ 对应正文为准。",
-      "mechanic_ideas": "主路能力锁与体验方向见 docs/bible/regions.md 对应行。",
-      "story_anchor": "当日事件与人物见 docs/data/story/regions.md；时间规则见 docs/bible/story.md。",
+      "story_anchor": "普通结局承认王的善意与责任，并阻止灾害继续扩大；真结局完成对长生承诺和控制关系的回应。",
       "material_and_light": "统一材质与光照语言见 docs/bible/visual_bible.md；区域差异见对应区域设计。",
-      "art_brief_status": "proposal_awaiting_visual_sample"
+      "art_brief_status": "direction_not_content_acceptance"
     }
-  ],
-  "example_routes": [
-    [
-      "windchime_plains",
-      "thorn_forest",
-      "mushroom_caverns",
-      "moonshadow_cemetery",
-      "root_sanctuary",
-      "world_clockheart"
-    ],
-    [
-      "windchime_plains",
-      "windswept_canyon",
-      "gear_city",
-      "ember_depths",
-      "reverse_clocktower",
-      "world_clockheart"
-    ],
-    [
-      "windchime_plains",
-      "firefly_marsh",
-      "sunken_ruins",
-      "frostmirror_glacier",
-      "starbridge_gate",
-      "world_clockheart"
-    ],
-    [
-      "windchime_plains",
-      "thorn_forest",
-      "moon_crown_castle",
-      "frostmirror_glacier",
-      "reverse_clocktower",
-      "world_clockheart"
-    ]
-  ],
-  "art_quality_status": "current_demo_skin_not_visually_approved",
-  "art_direction_version": "world_painterly_refinement_v1",
-  "formal_map_structure": "connected_region",
-  "formal_maps_per_region": 2,
-  "region_pool_count": 16,
-  "regions_per_run": 6,
-  "framework_status": "confirmed",
-  "framework_authority": {
-    "path": "docs/bible/regions.md",
-    "sha256": "e391930a782081d6473fa4c3d69e9e28f2f9853ab482b18d186faeef136a270e",
-    "scope": "six_stage_sixteen_region_framework_not_runtime_opening"
-  }
+  ]
 }

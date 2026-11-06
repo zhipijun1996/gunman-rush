@@ -33,7 +33,7 @@ def document_target_exists(root, source, target, sparse_paths):
 
 def validate(root=ROOT):
     errors = []
-    errors.extend(validate_world_design())
+    errors.extend(validate_world_design(root=root))
     required = ['README.md', 'AGENTS.md', 'docs/README.md', 'docs/bible/combat_and_recharge.md', 'docs/bible/controls_contract.md', 'docs/bible/damage_and_respawn.md', 'docs/bible/game_design.md', 'docs/bible/home_and_save.md', 'docs/bible/platforming_modules.md', 'docs/bible/player_mechanics.md', 'docs/bible/procedural_generation.md', 'docs/bible/rewards_and_builds.md', 'docs/bible/run_and_routes.md', 'docs/bible/story.md', 'docs/bible/visual_bible.md', 'docs/data/README.md', 'docs/data/abilities.md', 'docs/data/audio.md', 'docs/data/bosses/bellstrider.md', 'docs/data/bosses/rootbell_guardian.md', 'docs/data/bosses/thorn_queen_canopy.md', 'docs/data/bosses/thorn_queen_weave.md', 'docs/data/bosses/windkeeper.md', 'docs/data/enemies/forest.md', 'docs/data/enemies/plains.md', 'docs/data/enemies/plains_charger.md', 'docs/data/player_actions.md', 'docs/data/story/regions.md', 'docs/data/weapons.md', 'docs/data/world_objects.md', 'docs/project/architecture.md', 'docs/project/ci-test-inventory.md', 'docs/project/cloud_production.md', 'docs/project/content_pipeline.md', 'docs/project/current_state.md', 'docs/project/development.md', 'docs/project/enemy_completion.md', 'docs/project/environment.md', 'docs/project/foundry.md', 'docs/project/harness.md', 'docs/project/item_authoring.md', 'docs/project/level_design.md', 'docs/project/level_review.md', 'docs/project/module_map.md', 'docs/project/production_loop.md', 'docs/project/project_management.md', 'docs/project/region_context.md', 'docs/project/review_method.md', 'docs/project/tasks.md', 'docs/project/visual_capture.md', 'docs/project/web_loading.md']
     for name in required:
         if not (root / name).is_file():
@@ -89,52 +89,18 @@ def validate(root=ROOT):
         visit(task)
         if tasks[task][3] not in {'planned', 'ready', 'in_progress', 'review', 'awaiting-device', 'done', 'blocked'}:
             errors.append(f'Unknown status {task}')
-    # Design-only contract prevents the shortened test profile replacing release rules.
-    contract = {}
-    contract_path = root / 'docs/bible/design_contract.json'
-    if not contract_path.is_file():
-        errors.append('Missing docs/bible/design_contract.json')
-    else:
-        contract = json.loads(contract_path.read_text())
-        formal = contract.get('formal_run', {})
-        development = contract.get('development_run', {})
-        if contract.get('schema_version') != 1 or contract.get('kind') != 'design_contract_not_runtime_configuration':
-            errors.append('Invalid design contract version or scope')
-        if formal.get('stages_per_biome') != 2 or formal.get('boss_stage') != 2 or formal.get('maps_per_biome') != 2 or formal.get('map_structure') != 'connected_region':
-            errors.append('Formal region must have two connected exploration maps, with the region Boss on map 2')
-        if formal.get('profile_id') != 'formal_plains_region' or formal.get('definition_version') != 2:
-            errors.append('Connected-region migration identity and version must be explicit')
-        if development.get('stages_per_biome') != 3 or development.get('boss_stage') != 3 or development.get('development_only') is not True:
-            errors.append('Three-stage profile must remain explicitly development-only')
-        if formal.get('regions_per_run') != 6 or contract.get('world_design', {}).get('region_pool_count') != 16 or formal.get('major_ability_timing') != 'after_second_plains_map_boss' or formal.get('implemented_regions') != (['plains', 'thorn_forest'] if formal.get('runtime_contract_version', 1) == 2 else ['plains']):
-            errors.append('Six-stage run / sixteen-region design pool must distinguish Plains-only runtime and post-Boss major abilities')
-        expected_sets = {
-            'stage_types': {'combat', 'shop', 'coin_reward', 'health_reward', 'item_reward', 'boss'},
-            'item_rarities': {'BLUE', 'PURPLE', 'GOLD'},
-            'reward_kinds': {'RUN_COIN', 'HEAL_CURRENT', 'INCREASE_MAX_HEALTH', 'ITEM'},
-            'resource_types': {'Health', 'Stamina', 'ActionResources'},
-            'random_streams': {'map', 'route', 'reward', 'shop', 'boss_pattern'},
-        }
-        for field, expected in expected_sets.items():
-            actual = contract.get(field, [])
-            if not isinstance(actual, list) or len(actual) != len(set(actual)) or not expected.issubset(set(actual)):
-                errors.append(f'Missing or duplicate design definition: {field}')
-        for document in ('run_and_routes', 'rewards_and_builds', 'damage_and_respawn', 'home_and_save'):
-            if f'{document}.md)' not in (root / 'docs/project/module_map.md').read_text():
-                errors.append(f'Module navigation missing design authority: {document}')
-
-    # Check authored generation catalog and SVG structure; not physics validation.
-    modules = contract.get('generation_modules', [])
-    module_doc = (root / 'docs/bible/platforming_modules.md').read_text()
-    if len(modules) != 8 or len(set(modules)) != 8:
-        errors.append('Generation design must have eight unique starter modules')
-    for module_id in modules:
-        if len(re.findall(r'^## \d+\. `' + re.escape(module_id) + r'`', module_doc, re.MULTILINE)) != 1:
-            errors.append(f'Module blueprint missing or duplicated: {module_id}')
-    if not {'horizontal_chain', 'vertical_ascent', 'square_loop'}.issubset(contract.get('spatial_layouts', [])):
-        errors.append('Missing horizontal, vertical or square topology')
-    if set(contract.get('difficulty_axes', [])) != {'P', 'C', 'T', 'R'}:
-        errors.append('Difficulty design must separate P/C/T/R')
+    contract = json.loads((root / 'docs/bible/design_contract.json').read_text())
+    if contract.get('schema_version') != 2 or contract.get('target') != 'fixed_world_metroidvania':
+        errors.append('Expected fixed-world design contract')
+    if contract.get('implementation', {}).get('fixed_world_runtime') is not False:
+        errors.append('MV-MIGRATION-01 must not claim fixed-world runtime completion')
+    for document in ('world_structure', 'world_progression', 'room_authoring', 'home_and_save'):
+        if not (root / 'docs/bible' / (document + '.md')).is_file():
+            errors.append('Missing current design authority: ' + document)
+    for path in [root / 'AGENTS.md', root / 'docs/project/development.md',
+                 root / 'docs/project/content_pipeline.md', root / '.agents/skills/game-quality-gate/SKILL.md']:
+        if re.search(r'不设(?:置)?灰盒阶段', path.read_text()):
+            errors.append('Obsolete graybox prohibition: ' + str(path))
 
     tuning = json.loads((root / 'config/player_tuning.json').read_text())
     if tuning['physics_hz'] != 60 or tuning['max_air_shots'] != 1:

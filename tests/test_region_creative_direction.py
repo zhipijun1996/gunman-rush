@@ -35,7 +35,7 @@ class CreativeTests(unittest.TestCase):
         for region in ('windchime_plains', 'thorn_forest'):
             path = 'docs/data/creative_direction/' + region + '.json'
             data, binding = creative.load_direction(path, region)
-            self.assertEqual(data['version'], 'creative-v37')
+            self.assertEqual(data['version'], 'creative-v39-mv')
             self.assertEqual(data['region_bible'], creative.bind_region_bible(region)[1])
             self.assertEqual(data['user_acceptance'], 'direction_only_not_art_gameplay_or_device')
             sources = {row['path'] for row in data['authority_sources']}
@@ -79,41 +79,24 @@ class CreativeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Authority changed'):
                 creative.load_direction('direction.json', 'thorn_forest', root)
 
-    def test_short_prompt_starts_creative_work_before_assets_or_terrain(self):
-        mission = level_design.route_request('制作荆棘森林')
-        production_loop.validate(mission)
-        self.assertEqual(mission['phase'], 'production')
-        self.assertEqual(len(mission['tasks']), 9)
-        self.assertEqual(mission['region_bible']['bible_id'], 'thorn_forest_v2')
-        self.assertNotIn('continuation', mission)
-        self.assertEqual(mission['human_acceptance'], 'unverified')
-        proposed = level_design.route_request('制作萤雾沼泽')
-        self.assertEqual(proposed['phase'], 'preproduction')
-        self.assertEqual(proposed['tasks'][0]['skills'], ['region-creative-director'])
-        self.assertNotIn('scripts/', proposed['tasks'][0]['allowed_paths'])
-        self.assertEqual(len(proposed['production_plan']), 9)
+    def test_short_prompt_does_not_restart_retired_production(self):
+        for request in ('制作荆棘森林', '制作萤雾沼泽'):
+            with self.assertRaisesRegex(ValueError, 'retired'):
+                level_design.route_request(request)
 
-    def test_selected_direction_binds_every_specialist_and_retains_stage_gates(self):
-        mission = level_design.route_request('制作荆棘森林', direction=self.path)
+    def test_explicit_region_task_uses_current_binding_without_imposed_visual_gate(self):
+        from mission_fixtures import selected_mission
+        mission = selected_mission()
         production_loop.validate(mission)
-        self.assertEqual(mission['phase'], 'production')
-        for task in mission['tasks']:
-            self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v37')
-            self.assertEqual(task['feedback_context'], 'compact')
-        self.assertEqual(mission['tasks'][-1]['completion'], 'content')
-        self.assertIn('G2', mission['tasks'][-2]['required_gates'])
-        self.assertFalse(mission['preparation']['production_boundary']['formal_opening_authorized'])
+        task = mission['tasks'][0]
+        self.assertEqual(task['region_bible'], creative.bind_region_bible('thorn_forest')[1])
+        self.assertFalse(production_loop.needs_independent_review(task))
+        self.assertNotIn('G2', task.get('required_gates', []))
 
-    def test_engineering_prototype_stays_explicit_and_does_not_claim_region(self):
-        mission = level_design.route_request('制作荆棘森林', phase='prototype', direction=self.path)
-        self.assertEqual(mission['phase'], 'prototype')
-        self.assertIn('forest-current-slice', mission['tasks'][0]['checks'])
-        self.assertNotIn('forest-h-slice', mission['tasks'][0]['checks'])
-        self.assertEqual(mission['tasks'][0]['region_proof']['kind'], 'technical_sample')
-        self.assertEqual(mission['tasks'][0]['region_proof']['allowed_capabilities'], ['H'])
-        self.assertEqual(mission['tasks'][0]['required_gates'], ['G0'])
-        self.assertEqual(mission['tasks'][0]['region_proof']['scope'], 'prototype')
+    def test_retired_route_cannot_be_revived_by_prototype_flag(self):
+        for phase in ('auto', 'preproduction', 'production', 'prototype'):
+            with self.assertRaisesRegex(ValueError, 'retired'):
+                level_design.route_request('制作荆棘森林', phase=phase, direction=self.path)
 
     def test_shared_source_inventory_keeps_original_extra_dependencies_and_detects_changes(self):
         import level_formal
@@ -130,9 +113,9 @@ class CreativeTests(unittest.TestCase):
         with self.assertRaises(FileNotFoundError):
             level_formal.source_files(extra_paths=['missing_producer.py'])
 
-    def test_direction_cannot_bind_another_region_or_unregistered_request(self):
+    def test_direction_does_not_bypass_route_retirement(self):
         for request in ('优化风铃平原', '制作未知地下河'):
-            with self.assertRaises(ValueError):
+            with self.assertRaisesRegex(ValueError, 'retired'):
                 level_design.route_request(request, direction=self.path)
 
 

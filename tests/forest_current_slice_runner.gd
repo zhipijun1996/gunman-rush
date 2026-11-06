@@ -57,13 +57,16 @@ func run() -> void:
 	verify("accepted_recoil_shot" in kinds, "actual_accepted_shot_recoil_after_H_landing")
 	var spent := false
 	var recovered := false
-	var lowest: float = start.shot_energy.current
+	var lowest: int = start.air_shots
 	for sample: Dictionary in world.frames:
-		if float(sample.energy) < lowest:
-			lowest = sample.energy
+		if int(sample.air_shots) < lowest:
+			lowest = sample.air_shots
 			spent = true
-		if spent and sample.grounded and float(sample.energy) > lowest: recovered = true
-	verify(spent and recovered, "real_shot_consumption_and_ground_recovery")
+		if spent and sample.grounded and int(sample.air_shots) > lowest: recovered = true
+	verify(spent and recovered, "real_air_ammo_consumption_and_ground_recovery")
+	verify(not start.shot_energy.shooting_consumes_energy and world.frames.all(
+		func(frame: Dictionary): return is_equal_approx(float(frame.energy), float(start.shot_energy.current))),
+		"shot_without_aim_does_not_consume_time_energy")
 	verify(start.health.current == finish.health.current, "no_damage_or_health_injection")
 	verify(start.config_hashes == finish.config_hashes and start.tuning == finish.tuning, "configuration_unchanged_during_route")
 	verify(start.effective_max_jumps == 1 and finish.effective_max_jumps == 1, "no_extra_jump")

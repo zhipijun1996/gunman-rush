@@ -201,7 +201,12 @@ class DesignContractTests(unittest.TestCase):
                     invocation['command']=[arg if not arg.startswith('--output=') else '--output=res://'+str(capture.relative_to(ROOT)) for arg in invocation['command']]
                     capture.with_suffix('.invocation.json').write_text(json.dumps(invocation))
                     selected=copy.deepcopy(actual_record)
-                    selected['production_snapshot']=loop.digest({p:h for p,h in loop.snapshot().items() if not p.startswith('docs/evidence/quality/records/')})
+                    # Resolve the moved documentation path in this in-memory fixture;
+                    # retain original bytes/hashes and the historical rejection record.
+                    for evidence in selected['evidence']:
+                        if evidence['path'].startswith('docs/quality/'):
+                            evidence['path'] = evidence['path'].replace('docs/quality/', 'docs/evidence/quality/', 1)
+                    selected['production_snapshot']=loop.digest({p:h for p,h in loop.snapshot().items() if not (p.startswith('docs/evidence/quality/records/') or (p.startswith('docs/project/worklines/') and '/quality/' in p))})
                     selected['region_proofs']=[{'path':str(capture.relative_to(ROOT)),'sha256':checksum}]
                     with patch.object(loop.quality,'read_json',side_effect=lambda path:selected if Path(path)==record_path else original_read(path)):
                         result=loop.check_task_quality(contract)

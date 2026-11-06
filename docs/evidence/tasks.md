@@ -417,3 +417,12 @@
 | QUALITY-LOOP-01 | 质量迭代 | QUALITY-SYSTEM-01 | blocked | [记录](quality/records/QUALITY-LOOP-01.json) |
 | V3-SHARED-ENVIRONMENT-01 | 共享独立天空/远山与冠沿轻风 | PLAINS-PRODUCTION-V3-01 | ready | [记录](quality/records/V3-SHARED-ENVIRONMENT-01.json) |
 
+
+## 固定世界转型停止的旧目标
+
+保留最后状态；因转型停止推进，不代表完成。替代项与退役条件见 [迁移交接](../project/worklines/mv_migration/scope.md)。
+
+| 任务 | 目标 | 依赖 | 状态 | 入口 |
+| --- | --- | --- | --- | --- |
+| FOREST-VARIETY-04 | 确认v18探索场所与时长目标的采用范围 | FOREST-VARIETY-03 | blocked | [交接](../project/worklines/forest_variety_04/scope.md) |
+| MAPGEN-HOST-WINDCHIME-041 | 0.4.1真实生成/多端口准入/完整起点钟门与最终集成 | MAPGEN-GODOT-04 | review | [交接](../project/worklines/mapgen_host_windchime_041/scope.md) |

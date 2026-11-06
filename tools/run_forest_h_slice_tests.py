@@ -15,7 +15,7 @@ import uuid
 import harness
 from level_design import engine_log_matches, source_files
 from level_design_contracts import validate_forest_h_slice
-from level_region_context import build_region_context
+from forest_slice_fixture import load_fixture
 
 ROOT = Path(__file__).resolve().parents[1]
 DEV_UIDS = ("game/world/levels/providers/thorn_forest_h_slice.gd.uid", "tests/forest_h_slice_runner.gd.uid")
@@ -108,15 +108,14 @@ def main():
     uids_before = {p: (ROOT / p).exists() for p in DEV_UIDS}
     tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode().split("\0")
     args.engine_lock.parent.mkdir(parents=True, exist_ok=True)
-    context = build_region_context("thorn_forest")
-    assert context["design"]["stage"]["value"] == "S2" and context["design"]["gate"]["alternatives"] == [["H"]]
+    fixture = load_fixture("historical", ROOT)
     sources = source_files(ROOT)
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     summary = {"schema_version": 1, "scope": "actual_Godot_frozen_historical_H_only_route_not_formal_opening",
                "historical_fixture": "tests/fixtures/forest_h_legacy_traversal.tres",
                "default_short_hook_covered": False,
                "source_commit": commit, "engine_lock": str(args.engine_lock.resolve()), "started_at": stamp,
-               "region_authority": context["design"]["gate"], "cases": [], "status": "running"}
+               "regression_fixture": fixture, "cases": [], "status": "running"}
     write(folder / "summary.json", summary)
     started = time.monotonic()
     try:
@@ -135,7 +134,7 @@ def main():
                 capture = destination / "capture.json"
                 log = capture.with_suffix(".log")
                 command = ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", ".", "--script",
-                           "tests/forest_h_slice_runner.gd", "--", "--case=" + case, "--source-commit=" + commit,
+                           fixture["case"]["runner"], "--", "--case=" + case, "--source-commit=" + commit,
                            "--output=res://" + capture.relative_to(ROOT).as_posix()]
                 result = harness.run_check({"argv": command, "timeout_seconds": 60,
                                            "success_pattern": r"^REGION PRODUCTION: [1-9]\d* assertions, 0 failures$"}, log)
