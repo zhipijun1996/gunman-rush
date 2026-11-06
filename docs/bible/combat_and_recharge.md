@@ -21,6 +21,6 @@
 
 补射击次数、恢复HP、提高HP上限和补共鸣是不同效果。提高上限不隐式回血，卸下来源只钳制当前值，零血不复活。接地恢复不重置射击冷却。
 
-Run／Stage／Actor epoch及武器epoch限制弹体、持续攻击和延迟回调。暂停、菜单、失焦、死亡和切换取消旧射击及慢时。永久与本局资源边界见 [家园保存](home_and_save.md)。
+当前实现以Run／Stage／Actor epoch及武器epoch限制弹体、持续攻击和延迟回调。暂停、菜单、失焦、死亡和切换取消旧射击及慢时。新世界的永久、休息周期、挑战尝试与动作瞬态边界见 [保存与休息](home_and_save.md)。
 
 武器各分支设计从 [动作入口](../data/player_actions.md) 按需读取；实际数值以配置、Definition与Runtime为准。代码与验证见 [模块导航](../project/module_map.md)。

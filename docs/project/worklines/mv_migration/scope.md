@@ -80,6 +80,8 @@ README/AGENTS、现行project/bible/data正文、20个仓库skills、policy、�
 
 原型仍能调用旧生成与Run清空策略；新固定Provider、房间场景、Q、新存档和周期运行均未实现。导入合同的scene_ref是计划路径。48件装备效果、价格、部分技能消耗、金币死亡政策仍未定；死亡回血/新周期/刷新普通敌人为试制默认。
 
+新会话沿AGENTS → current_state → tasks → 本交接 → module_map/目标规范接续。PR137合入前必须基于`feat/mv-migration-01`，main仍没有本轮迁移；合入后从最新main开始MV-RUNTIME-01。关卡离线工具文档已移除退役route的成功示例，资源正文明确四种状态寿命，避免正文与入口声明矛盾。当前可开始代表样房运行时迁移，尚不能把旧Provider/RunSession直接用于216房量产。
+
 ## 消费者保留、适配与退役
 
 | 代码/数据 | 当前消费者与处理 | 退役/适配条件 |
