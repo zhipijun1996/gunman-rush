@@ -1,0 +1,182 @@
+{
+  "schema": 1,
+  "task": "MV-DEMO-04",
+  "build_id": "0a5567befbe5",
+  "runtime_source_commit": "46d2867af1c794249b936d9f1a92c89304631efd",
+  "ci": {
+    "result": "passed",
+    "run": "https://github.com/zhipijun1996/gunman-rush/actions/runs/42255972307"
+  },
+  "native": {
+    "world_state": 24,
+    "services": 30,
+    "traversal": 5,
+    "rooms": 29,
+    "ui": 16,
+    "presentation": 12,
+    "demo_regressions": 28,
+    "focus_heal": 24,
+    "lifecycle": 20,
+    "all_assertion_failures": 0,
+    "separate_successes": [
+      "normal first-loop inputs, real combat, H, thorn crossing and delivery",
+      "disk restart",
+      "real service UI",
+      "service restart",
+      "focus-heal restart"
+    ]
+  },
+  "related": {
+    "world_build_tests": 6,
+    "world_design_tests": 9,
+    "navigation_tests": 5,
+    "route_counterexamples": 55,
+    "studio_input_assertions": 37,
+    "foundry_phrases": 36,
+    "foundry_itineraries": 18,
+    "docs": "passed",
+    "actual_web_bundle": "passed",
+    "isolated_world_pack": "passed",
+    "web_cache_policy": "passed"
+  },
+  "browser": {
+    "desktop": "fresh new game, actual Up reads grounded sign, close/move/jump; inspected final images",
+    "mobile": "Chromium 960x540 touch emulation; actual neutral-to-Up joystick opens NPC dialogue; close then first movement and Up at charger heals HP 2 to 5, revision 28 to 29; reload/continue retains HP5 and resonance91 (revision30)",
+    "mobile_fixture": "earned native route save; identity and provenance in browser-fixture.json",
+    "props": "explicit P-R06 charging-station placement fixture; rendered charger, grounded support and native spikes inspected; material ledge lies beyond this frame, safe pickup proven by native presentation and route tests",
+    "console": "no script/page exceptions; known favicon404 and Emscripten main-thread blocking warning retained; performance not certified"
+  },
+  "limits": [
+    "physical mobile/gamepad not tested",
+    "five rooms and trial services only; final room design, complete item catalog/economy and story remain separate",
+    "robot identity and charger delivered; existing actor animation art reused",
+    "no claim of official Team Cherry camera source"
+  ],
+  "files": [
+    {
+      "path": "browser-fixture.json",
+      "bytes": 297,
+      "sha256": "d0a2fdf56290ed07fdfa16c34d5bf29cfef2be005224210d80c48ed9e08ffac2"
+    },
+    {
+      "path": "ci-source.log",
+      "bytes": 534927,
+      "sha256": "23fc7cbaf4e59f1ea35d58e89a235a0257888bdbe4094348f9277d8efb6b932b"
+    },
+    {
+      "path": "context.log",
+      "bytes": 103,
+      "sha256": "f96363f8d8dff4c4abed7197c63606ead0bd955ea4259bdcb5fb6f47dbe53992"
+    },
+    {
+      "path": "desktop-console.log",
+      "bytes": 532,
+      "sha256": "8624adcdfbe50fd3c2d93625eb68369ba9dafb4b438cd8580ca2e825965d2d59"
+    },
+    {
+      "path": "docs.log",
+      "bytes": 96,
+      "sha256": "f533366605c856f2cad6f54d8febb74531f5b87ca91cb383592128685e0c9939"
+    },
+    {
+      "path": "foundation4-desktop-sign.png",
+      "bytes": 131574,
+      "sha256": "3b8ba85277b1875f2e2444610b769349b027e51e2c6ecfe438b901040fec5429"
+    },
+    {
+      "path": "foundation4-desktop-start.png",
+      "bytes": 626254,
+      "sha256": "48229f78a9c4e658ee13dc29ea4903a924d71a8fb6314e549cdfd22ec0fec803"
+    },
+    {
+      "path": "foundation4-desktop-travel.png",
+      "bytes": 640401,
+      "sha256": "c2680f1c0e3bfab35fdf7edadfcee3c93b6078ca5281ecd849bc51e9878b7e7e"
+    },
+    {
+      "path": "foundation4-mobile-charge-result.png",
+      "bytes": 357615,
+      "sha256": "22b058e0fee5b5eedcb59daa7cde6a7b8183cdef872679fa181df8444358cd6b"
+    },
+    {
+      "path": "foundation4-mobile-continue.png",
+      "bytes": 361255,
+      "sha256": "72b3d6c8057b40a3f3d69f926984a10c0bdb50a78d4032c9b45672f51e55989b"
+    },
+    {
+      "path": "foundation4-mobile-npc-dialogue.png",
+      "bytes": 88811,
+      "sha256": "eb2e45e808268188538bfa9b70a406099c28159a01675fd05f19f131be9bb83b"
+    },
+    {
+      "path": "foundation4-thorns.png",
+      "bytes": 954421,
+      "sha256": "fbaecb09e4f66c36694968d64ff7fda0acef9d4fc548ae2ed3c7152f9bc2d19e"
+    },
+    {
+      "path": "foundry-stamp.log",
+      "bytes": 175,
+      "sha256": "e261b1ef84790d49bffde9dd6d0bedea53840253044b6a3e40052ac488909a32"
+    },
+    {
+      "path": "foundry.log",
+      "bytes": 4923,
+      "sha256": "32061e4f1b26d52745f04dcb4e4ad53e28a2af15f21a90fe47b7edee4945dc74"
+    },
+    {
+      "path": "mobile-console.log",
+      "bytes": 974,
+      "sha256": "8e38354194bb2b48b8f82e85a2a1431addf6b3d718bd09af178dbcd0f9cf4836"
+    },
+    {
+      "path": "prop-browser-fixture.json",
+      "bytes": 287,
+      "sha256": "f591cdc5743af1faa8d88eee422bc1fbdccae7e0e854351f76ce697fefa825cd"
+    },
+    {
+      "path": "props-console.log",
+      "bytes": 532,
+      "sha256": "8624adcdfbe50fd3c2d93625eb68369ba9dafb4b438cd8580ca2e825965d2d59"
+    },
+    {
+      "path": "routes.log",
+      "bytes": 2017,
+      "sha256": "270a0c1f3ea8da97ccc05f1c59e6097be883c7369981e0453a8eb5df2b450ae4"
+    },
+    {
+      "path": "studio-input.log",
+      "bytes": 1246,
+      "sha256": "55966f8b396b1f5c2ef8c352ed44bb25fdd4b546a52cbca77fa6ef399e61a603"
+    },
+    {
+      "path": "verified-loop.log",
+      "bytes": 14891,
+      "sha256": "c97516fff04ca5ebe2a167c84d5e1af164859749ff0366864ae488766590ade8"
+    },
+    {
+      "path": "web-bundle.log",
+      "bytes": 4961,
+      "sha256": "72e075a213bd2284f793321f54fb3b8c82b3854e0cbdf86bf991a36d75db9653"
+    },
+    {
+      "path": "web-cache.log",
+      "bytes": 85,
+      "sha256": "a3d52a87c57f305d7b6300f98f6d821fc738b5c7b0ecd48692760ffa0c15b6bc"
+    },
+    {
+      "path": "world-build.log",
+      "bytes": 104,
+      "sha256": "6117e48fdcedbab177b169b1e533b5fbfaab0353ce985adb6dbf7daaa67ade15"
+    },
+    {
+      "path": "world-design.log",
+      "bytes": 107,
+      "sha256": "214702349c547f034adaf44f20d3de26f79c64c5261f028c4efcb41965a83993"
+    },
+    {
+      "path": "world-pack.log",
+      "bytes": 668,
+      "sha256": "e972fb322f930b2d0f783e889f28e7e9e0758de8066a2c500b8adc17a83bca8f"
+    }
+  ]
+}
