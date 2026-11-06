@@ -2,9 +2,9 @@
 
 ## 基线与实际交付
 
-PR139已先合入并核验main，基线`7d73389feab22224d0f8bd7c09325420a7605980`；实施分支`feat/mv-first-loop`，实现提交`cbb4a358`，交付见 [PR140](https://github.com/zhipijun1996/gunman-rush/pull/140)。本轮按01B→01F完成首个五房结构灰盒。任务进度唯一见 [任务表](../../tasks.md)，入口/线上版本见 [当前状态](../../current_state.md)，职责只见 [架构](../../architecture.md)。不恢复旧PR或旧原型存档兼容，不将附件作为默认上下文。
+PR139已先合入并核验main，基线`7d73389feab22224d0f8bd7c09325420a7605980`；实施分支`feat/mv-first-loop`，实现提交`25edf7cf`，交付见 [PR140](https://github.com/zhipijun1996/gunman-rush/pull/140)。本轮按01B→01F完成首个五房结构灰盒。任务进度唯一见 [任务表](../../tasks.md)，入口/线上版本见 [当前状态](../../current_state.md)，职责只见 [架构](../../architecture.md)。不恢复旧PR或旧原型存档兼容，不将附件作为默认上下文。
 
-- 先提取独立construction/routes，在临时副本证明216合同语义等价，再切换config/world人工源；生成、room_context、校验、构建及PCK消费统一为tools/world → build/world。生成不写手工场景。
+- 先提取独立construction/routes，在临时副本证明216合同语义等价，再切换config/world人工源；生成、room_context、校验、构建及PCK消费统一为tools/world → build/world。生成不写手工场景；内容版本同时绑定编译结果，教学/自动地标/Boss触发语义按action类型输出。
 - 正常入口改为FixedWorldApp；复用PlayerMotor/Controller、输入、帧伤害、EnemyFactory、牧风者/场地、音画和可靠存储。新增薄Provider、共享Room装配、世界状态/独立槽、Q动作保护及五个独立房间场景；旧DemoApp/Provider继续显式回归。
 - 新游戏→实际教学→P-R01显式休息→P-R08→P-R06→P-R14真实牧风者战斗→唯一领取H→原路返回P-R01，保存退出后另起进程继续。首批不授予Q。
 - P-R14施工宽度校准为1760wu，容纳既有1120wu战场和返回台阶；ID/条件/奖励所在房间不变。基础枪用已规定首档试制5伤害，配置归config/world/player.json；未签收完整成长或Boss平衡。
@@ -50,9 +50,9 @@ PR139已先合入并核验main，基线`7d73389feab22224d0f8bd7c09325420a7605980
 
 已通过：日常四项CI（smoke12、contracts239、Meta保存39断言）；真实环路与独立进程继续；世界状态24断言、生命周期19断言，覆盖备份/坏档/冲突/写失败、同帧死亡优先、旧票据、普通过房不休息、进入侧失败、Q冷却/暂停/危险过滤和新游戏清教学瞬态。首环路脚本只驱动真实Router/Motor和战斗，不写玩家位置/HP、不伪造胜利或H；专项前置夹具单独声明。
 
-源与图检查通过：world-build、world-migration、world-routes、level-region-context；文档导航/质量检查与上下文5项通过。Web包79项检查与实际导出闭包通过；`world-pack`在空项目加载五房并实际启动落地，包内无docs/人工世界源。已验包`08d0ad7cf528`绑定实现提交cbb4a358，浏览器实测标题/移动跳跃/暂停、保存返回标题与刷新后继续，独立Web槽修订正确递增；无脚本错误（原模板主线程阻塞警告不作为性能通过）。远端[四项CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/42199868415)通过；既有Foundry依赖重新实跑36句段/18连续路线并更新现行开发资源绑定。
+源与图检查通过：world-build、world-migration、world-routes、level-region-context；文档导航/质量检查与上下文5项通过。Web包79项检查与实际导出闭包通过；`world-pack`在空项目加载五房并实际启动落地，包内无docs/人工世界源。已验包`43525971ba6d`绑定实现提交25edf7cf，浏览器实测标题/移动跳跃/暂停、保存返回标题与刷新后继续，独立Web槽修订正确递增；无脚本错误（原模板主线程阻塞警告不作为性能通过）。远端[四项CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/42200631016)通过；既有Foundry依赖重新实跑36句段/18连续路线并更新现行开发资源绑定。
 
-当前实现仅五房、按房到达知识和基础枪/H。其余211房、完整地图/分区探索、NPC/库存装备经济、任务/迁居/修钟/结局、独立设置/文本尚未接入。48件效果、服务价格及死亡金币政策仍待既有设计任务确认；不能从旧Run推导。实体手机/手柄、性能、最终美术/听感/平衡未签收。本轮不部署网站。
+当前实现仅五房、按房到达知识和基础枪/H。其余211房、完整地图/分区探索、NPC/库存装备经济、任务/迁居/修钟/结局、独立设置/文本尚未接入。48件效果、服务价格及死亡金币政策仍待既有设计任务确认；不能从旧Run推导。实体手机/手柄、性能、最终美术/听感/平衡未签收。本轮不部署网站。Web审查包见 [构建记录](https://github.com/zhipijun1996/gunman-rush/actions/runs/42200719300) 的gunman-rush-web-playtest产物，保留14天，绑定实现提交25edf7cf。
 
 下一步从01G接入一个真实NPC服务及已确认库存/成长闭环；按任务表依赖推进01H/I，再由01J扩展代表房。先明确本次真实消费者与确认参数，再改其领域与房间，不批量施工216房、不预建空框架。
 
