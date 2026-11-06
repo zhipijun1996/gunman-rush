@@ -141,7 +141,8 @@ func present(actor: PlayerController,room_id: String,location: String,status: St
 	hud._money.text=WorldText.text("hud.gold") % gold
 	hud._resonance_text.text=WorldText.text("heal.resonance") % [actor.combat_energy.current,actor.combat_energy.capacity()]
 	heal.custom_minimum_size=Vector2(180,60)*factor
-	heal_host.position=Vector2(safe.position.x+24*factor,safe.end.y-280*factor)
+	var heal_bottom:=280 if actor.router.touch_enabled else 100
+	heal_host.position=Vector2(safe.position.x+24*factor,safe.end.y-heal_bottom*factor)
 	heal_host.size=heal.get_combined_minimum_size()
 	heal_host.visible=page.is_empty()
 	heal.disabled=not heal_available
