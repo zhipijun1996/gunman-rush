@@ -5,6 +5,8 @@ extends Node
 signal forwarded(phase: StringName)
 
 var scroll: ScrollContainer
+# Child gesture owners receive raw touch; the surrounding panel still scrolls elsewhere.
+var touch_regions: Array[Control] = []
 var _finger := -1
 var _suppressed: Dictionary = {}
 var _position := Vector2.ZERO
@@ -35,6 +37,8 @@ func _available() -> bool:
 	return is_instance_valid(scroll) and scroll.is_inside_tree() and scroll.is_visible_in_tree()
 
 func _contains(point: Vector2) -> bool:
+	for region: Control in touch_regions:
+		if is_instance_valid(region) and region.is_visible_in_tree() and Rect2(Vector2.ZERO,region.size).has_point(region.get_global_transform_with_canvas().affine_inverse()*point): return false
 	return _available() and Rect2(Vector2.ZERO,scroll.size).has_point(scroll.get_global_transform_with_canvas().affine_inverse()*point)
 
 func _consume() -> void:

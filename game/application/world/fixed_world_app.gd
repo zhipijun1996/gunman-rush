@@ -74,12 +74,16 @@ func _make_ui() -> void:
 	service_view.ui=ui;service_view.services=services
 	settings_view.ui=ui;settings_view.settings=preferences
 	settings_view.applied=func() -> void:
-		preferences.apply(controller)
-		if overlay!=null: overlay.update_layout()
-		ui.title._reduced_effects=preferences.value.reduced
-		var backdrop:=ui.title._root.find_child("TitleBackdrop",true,false)
-		if backdrop!=null: backdrop.set("reduced_effects",preferences.value.reduced)
+		_apply_preferences()
 		_close_panel()
+	_apply_preferences()
+
+func _apply_preferences() -> void:
+	preferences.apply(controller)
+	if overlay!=null: overlay.update_layout()
+	ui.title._reduced_effects=preferences.value.reduced
+	var backdrop:=ui.title._root.find_child("TitleBackdrop",true,false)
+	if backdrop!=null: backdrop.set("reduced_effects",preferences.value.reduced)
 
 func start_new() -> bool:
 	if content.data.is_empty() or is_instance_valid(player): return false

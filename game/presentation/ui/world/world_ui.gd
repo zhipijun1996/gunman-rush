@@ -89,6 +89,8 @@ func show_map() -> void:
 	map.custom_minimum_size=Vector2(320,clampf(get_viewport().get_visible_rect().size.y/physical_factor-300,120,280))
 	map.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	modal.rows.add_child(map)
+	map.touch_clip=modal.scroll
+	modal.register_touch_region(map)
 	var buttons:=HBoxContainer.new();modal.rows.add_child(buttons)
 	for entry: Array in [["−",0.8],["＋",1.25]]:
 		var b:=Button.new();b.text=entry[0];b.custom_minimum_size=Vector2(80,54)

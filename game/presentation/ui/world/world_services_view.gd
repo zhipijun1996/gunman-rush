@@ -4,10 +4,11 @@ extends RefCounted
 var ui: FixedWorldUI
 var services: WorldServices
 var submit: Callable
-func button(modal: DemoUiModalShell,label: String,kind: String,id: String) -> void:
+func button(modal: DemoUiModalShell,label: String,kind: String,id: String) -> Button:
 	var revision:=services.state.revision
 	var control:=modal.button(label,func() -> void: submit.call(kind,id,revision))
 	control.name="Service_"+kind+"_"+id
+	return control
 func show_npc(npc: Dictionary,message: String="") -> void:
 	var data:=services.ledger()
 	var content: Dictionary=services.definitions.dialogues.get(npc.id,{})
@@ -37,8 +38,8 @@ func show_npc(npc: Dictionary,message: String="") -> void:
 			var owned: Dictionary=data.owned[id]
 			if definition.is_empty(): continue
 			modal.text("%s · Lv.%d · %s" % [definition.name,owned.level,WorldText.text("world_services_view.09") if owned.broken else WorldText.text("world_services_view.10")])
-			button(modal,WorldText.text("world_services_view.11") % definition.upgrade_price,"upgrade",id)
-			button(modal,WorldText.text("world_services_view.12") % definition.repair_price,"repair",id)
+			button(modal,WorldText.text("world_services_view.11") % definition.upgrade_price,"upgrade",id).disabled=owned.level>=definition.max_level
+			button(modal,WorldText.text("world_services_view.12") % definition.repair_price,"repair",id).disabled=not owned.broken
 	modal.button(WorldText.text("world_services_view.13"),func() -> void: ui.command.emit("inventory",""))
 	modal.button(WorldText.text("world_services_view.14"),func() -> void: ui.command.emit("close",""))
 	modal.focus_first()

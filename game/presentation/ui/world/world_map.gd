@@ -5,6 +5,7 @@ var world: FixedWorldState
 var content: FixedWorldProvider
 var current_room := ""
 var local_player := Vector2.ZERO
+var touch_clip: Control
 func frame() -> Rect2:
 	return Rect2(12,30,maxf(1,size.x-24),maxf(1,size.y-44))
 func rows() -> Array:
@@ -52,6 +53,9 @@ func _draw() -> void:
 func _input(event: InputEvent) -> void:
 	if not expanded or not is_visible_in_tree(): return
 	if not event is InputEventScreenTouch and not event is InputEventScreenDrag: return
+	if not _touches.has(event.index) and touch_clip!=null:
+		var clip_point: Vector2=touch_clip.get_global_transform_with_canvas().affine_inverse()*event.position
+		if not Rect2(Vector2.ZERO,touch_clip.size).has_point(clip_point): return
 	var local: Vector2=get_global_transform_with_canvas().affine_inverse()*event.position
 	if not Rect2(Vector2.ZERO,size).has_point(local) and not _touches.has(event.index): return
 	var mapped:=event.duplicate() as InputEvent

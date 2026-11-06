@@ -67,6 +67,22 @@ func run() -> void:
 	check(app.ui.page=="map" and app.state.revision==revision,"expanded map is read-only")
 	var maps:=app.ui.shell.find_children("*","FixedWorldMap",true,false)
 	check(maps.size()==1,"expanded and mini map share fixed world map view")
+	var map:=maps[0] as FixedWorldMap
+	for index: int in 2:
+		var finger:=InputEventScreenTouch.new()
+		finger.index=index;finger.pressed=true
+		finger.position=map.get_global_transform_with_canvas()*Vector2(map.size.x*(.4+.2*index),map.size.y*.5)
+		root.push_input(finger,true);await ticks(2)
+	for step: int in 2:
+		for index: int in 2:
+			var drag:=InputEventScreenDrag.new()
+			drag.index=index
+			drag.position=map.get_global_transform_with_canvas()*Vector2(map.size.x*((.3-.1*step) if index==0 else (.7+.1*step)),map.size.y*.5)
+			root.push_input(drag,true);await ticks(2)
+	check(map.zoom>1 and app.state.revision==revision,"raw two-finger map pinch zooms without revealing knowledge")
+	for index: int in 2:
+		var release:=InputEventScreenTouch.new();release.index=index;release.pressed=false
+		root.push_input(release,true);await ticks(2)
 	app._close_panel()
 	app.return_title()
 	await ticks(5)

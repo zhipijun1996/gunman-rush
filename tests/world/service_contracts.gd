@@ -24,6 +24,7 @@ func run() -> void:
 	service.request("meet","NPC_P_WEAVER","meet:weaver",state.revision)
 	check(service.request("buy","trial_lamp","buy:lamp",state.revision),"purchase atomically commits debit and ownership")
 	check(service.ledger().gold==95 and service.owns("trial_lamp") and not service.active("lamp"),"ownership alone does not activate tool")
+	check(not service.request("upgrade","trial_lamp","upgrade:fixed_lamp",state.revision) and service.error=="maximum_level" and service.ledger().gold==95,"fixed-level tool cannot charge a no-effect upgrade")
 	var revision:=state.revision
 	check(service.request("buy","trial_lamp","buy:lamp",state.revision) and state.revision==revision,"same request returns original without debit or revision")
 	check(not service.request("buy","trial_filter","buy:lamp",state.revision),"different payload with same request ID rejected")
