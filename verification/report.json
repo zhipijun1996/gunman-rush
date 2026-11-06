@@ -1,0 +1,68 @@
+{
+  "build_id": "f9052b52961b",
+  "source_commit": "48f98147a8cc2da379e13366b0538c55b9133b20",
+  "source_ci": "https://github.com/zhipijun1996/gunman-rush/actions/runs/42240707876",
+  "native_full_suite_source": "63273415aee1db9436992d7ed2832b9b0f46d19c",
+  "final_change": "Desktop healing button moved below playable view; final UI, healing, restart, daily CI and exported pack rechecked.",
+  "native_assertions": {
+    "state": 24,
+    "services": 30,
+    "traversal": 5,
+    "rooms": 29,
+    "ui": 16,
+    "demo_regressions": 28,
+    "focus_heal": 24,
+    "lifecycle": 20,
+    "shared_original_ui": 302
+  },
+  "native_flow": "Real Router/Motor combat, actual Boss victory, unique H, actual H return, NPC services, isolated disk restart; no position/HP/reward writes in the normal first loop.",
+  "browser": {
+    "desktop": "Fresh title/new game, movement/jump/pause; healing control below playable view.",
+    "mobile_heal": "Native accepted-damage/resource test save; real screen hold commits HP 4->5 and resonance 65->30, reload/continue retains HP 5 and resonance 30.",
+    "equipment_map": "Native genuine earned first-loop/service save; original inventory grid and actual connected five-room map inspected.",
+    "boss": "Declared native placement/damage regression save; actual input walks from outer approach into inner arena, ordinary following/scale retained.",
+    "console": "No script/page or gameplay-resource errors. Only verified favicon.ico 404 and existing Emscripten main-thread blocking warning; not a performance acceptance."
+  },
+  "logs": [
+    "review3-final-loop.log",
+    "review3-layout-heal.log",
+    "review3-layout-ci.log",
+    "review3-shared-ui.log",
+    "review3-build.log",
+    "review3-migration.log",
+    "review3-region-context.log",
+    "review3-context.log",
+    "review3-routes.log",
+    "review3-docs.log",
+    "review3-quality.log",
+    "review3-foundry.log",
+    "review3-stamp.log",
+    "review3-final-web-bundle.log",
+    "review3-final-world-pack.log",
+    "review3-final-web-cache.log",
+    "desktop-console.log",
+    "mobile-console.log"
+  ],
+  "screenshots": [
+    "title.png",
+    "final-desktop-start.png",
+    "final-desktop-pause.png",
+    "final-mobile-heal-before.png",
+    "final-mobile-heal-after.png",
+    "final-mobile-heal-reloaded.png",
+    "final-mobile-equipment.png",
+    "final-mobile-map.png",
+    "final-mobile-boss-approach.png",
+    "final-mobile-boss-inner.png"
+  ],
+  "not_accepted": [
+    "physical phone/gamepad hardware",
+    "target performance",
+    "final art/audio/balance",
+    "formal 48-item catalog and prices",
+    "all 216 rooms",
+    "complete NPC migration/clock restoration/endings",
+    "interior map sections"
+  ],
+  "next": "Validate current five-room continuous experience, then MV-RUNTIME-01J representative mechanisms/legitimate connections before room production."
+}

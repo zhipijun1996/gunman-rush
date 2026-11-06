@@ -1,0 +1,57 @@
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+UI CHECK true original title illustration is mounted
+UI CHECK true fractional heart rendering preserves the exact observed health value
+UI CHECK true context interaction has visible native control
+TOUCH 交谈 · 回收匠 (640.0, 662.0) rect=[P: (530.0, 630.0), S: (220.0, 64.0)] window=(1280, 720)
+UI CHECK true cancelled touch never opens interaction
+TOUCH 交谈 · 回收匠 (640.0, 662.0) rect=[P: (530.0, 630.0), S: (220.0, 64.0)] window=(1280, 720)
+UI CHECK true real station GUI touch opens NPC
+UI CHECK true NPC meeting persists
+TOUCH 告别 (637.0, 588.0) rect=[P: (300.0, 556.0), S: (674.0, 64.0)] window=(1280, 720)
+UI CHECK true closing service restores cancelled clean input
+UI CHECK true compatibility mouse after touch close cannot fire a ghost shot
+UI CHECK true expanded map is read-only
+UI CHECK true expanded and mini map share fixed world map view
+UI CHECK true raw two-finger map pinch zooms without revealing knowledge
+UI CHECK true focused map Escape closes and returns clean gameplay focus
+TOUCH 步行/跑动 (637.0, 465.0) rect=[P: (300.0, 433.0), S: (674.0, 64.0)] window=(1280, 720)
+UI CHECK true paused settings popup accepts actual touch selection
+TOUCH 应用并保存 (637.0, 545.0) rect=[P: (300.0, 513.0), S: (674.0, 64.0)] window=(1280, 720)
+UI CHECK true first save touch after popup selection commits independent settings
+UI CHECK true cancelled new-game confirmation must be asked again
+UI CHECK true cancelled new-game confirmation must be asked again
+WORLD UI: 16 assertions, 0 failures
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+HEAL CHECK true full health rejects without spending
+HEAL CHECK true accepted damage establishes missing health
+HEAL CHECK true release discards partial charge at no cost
+HEAL CHECK true real C hold heals one for exactly 35 resonance
+HEAL CHECK true health and energy commit in the same durable world revision
+HEAL CHECK true accepted hit cancels and requires a fresh press
+HEAL CHECK true pause cancels held intent and cannot heal in a menu
+HEAL CHECK true focus loss cancels without spending
+HEAL CHECK true movement cancels and does not resume while held
+HEAL CHECK true actual jump cancels charge
+HEAL CHECK true room change preserves currency and cancels action lifetime
+HEAL CHECK true failed durable write spends no health or resonance
+HEAL CHECK true ordinary healing policy cannot be bypassed
+HEAL CHECK true real gamepad B hold uses the same resource transaction
+HEAL CHECK true insufficient shared currency rejects
+HEAL CHECK true actual canceled touch releases capture without healing
+HEAL CHECK true actual mobile hold heals exactly once with no weapon shot
+HEAL CHECK true device ownership change cancels old held source
+HEAL CHECK true another accepted consumer prevents double spending the same resonance
+HEAL CHECK true rest heals without granting or resetting resonance
+HEAL CHECK true fatal fixture reaches the final charging frame
+HEAL CHECK true fatal arbitration wins near completion; death clears resonance
+HEAL CHECK true final accepted heal provides independent restart evidence
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/FixedWorld/@Node@2","played":{"click":1,"confirm":4,"hurt":6,"motion_jump":1,"motion_land":1},"service":"GameAudio"},{"node":"/root/FixedWorld/@Node@15","service":"GameMusic","starts":{"home":2,"plains":2},"track":"home"}],"released":true,"seconds":0.152}
+HEAL CHECK true existing audio lifecycle releases playback before process exit
+WORLD HEAL: 24 assertions, 0 failures
+Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
+
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/FixedWorld/@Node@2","played":{},"service":"GameAudio"},{"node":"/root/FixedWorld/@Node@15","service":"GameMusic","starts":{"home":1,"plains":1},"track":"home"}],"released":true,"seconds":0.05}
+WORLD HEAL RESTART: 0 failures
+PASS: final heal layout, real inputs, atomic resource save and restart
