@@ -3,7 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RETIRED = 'docs/' + 'evidence'
-SEARCH_EXCLUDES = ('/build/', '/.godot/', '/.local/', '/.toolchains/', '/.environment/', '/docs/data/world/import-v04/', '**/__pycache__/', '/docs/data/creative_direction/sources/', '/tests/fixtures/forest_h_trace/*.json', '/tests/fixtures/save_compat/*.json')
+SEARCH_EXCLUDES = ('/build/', '/.godot/', '/.local/', '/.toolchains/', '/.environment/', '/docs/data/world/import-v04/', '**/__pycache__/', '/docs/data/creative_direction/sources/', '/tests/fixtures/forest_h_trace/*.json')
 
 
 def validate(root=ROOT):

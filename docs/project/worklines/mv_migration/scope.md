@@ -18,7 +18,7 @@
 
 清理已通过最小CI四项、文档/Skill导航、世界导入与按房查询，以及森林两套控制器夹具、Root Bell当前准入和平原遭遇专项；通用执行器与受影响Python回归通过。具体命令、覆盖及清理结果见 [PR138](https://github.com/zhipijun1996/gunman-rush/pull/138)。日常使用 `python3 tools/ci.py`，文档使用 `python3 tools/check_docs.py`，专项按任务选择。所有新日志、截图、录屏及报告写入忽略的build/或构建产物，交接只留结论、源码身份和可访问链接；本地build路径不保证跨会话存在。音频清单已在清理提交实读523个文件并输出build/audio_inventory。
 
-已有兼容性缺口：`tests/aim_save_compat_data.gd` 的旧快照回放56项中7项失败；以main原始运行配置复验得到相同失败。输入独立保留在tests/fixtures/save_compat，只供该消费者按需读取；未改变运行时，也未把旧快照视为当前世界规范。
+保存验收保留当前版本的写入/读取、事务和损坏恢复；旧原型存档兼容不在目标内。
 
 运行时阻塞：固定Provider、门台/进入侧、保存schema/content版本、休息周期及Q尚未实现。48件装备效果、价格及死亡金币政策待定。图状态检查不签收Godot实机、设备或完整美术/战斗。
 
