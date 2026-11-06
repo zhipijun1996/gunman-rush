@@ -1,6 +1,6 @@
 # 活跃工作视图
 
-唯一开发基线为PR137合入后的main；本次收敛开始时的其他旧PR已放弃，不审计或择取。基线已有实现按实际消费者复用。已结束工作从本页移出，由Git／PR追溯。待验收、待决定和待排期没有自动开工。表内状态只表达工作进度，验收结果与缺口留在各任务交接。
+唯一开发基线为最新main，已包含PR138主线收敛成果；已放弃的旧PR不审计或择取。基线已有实现按实际消费者复用。已结束工作从本页移出，由Git／PR追溯。待验收、待决定和待排期没有自动开工。表内状态只表达工作进度，验收结果与缺口留在各任务交接。
 
 接续任务先读本行和下一动作，再读对应工作线和直接依赖；新内容审查按需读取质量卡；依赖只列当前任务，已完成的实现直接以main代码为准。新增缺陷只建一个明确范围的任务，更新本页和自己的工作线。运行事实见 [当前状态](current_state.md)，跨会话规则见 [生产规则](cloud_production.md)。
 
@@ -48,6 +48,15 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| MAINLINE-CONTEXT-01 | main收敛、删除历史证据、最小消费者与输出治理 | — | review | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01 | 共用状态与代表样房闭环，整理现行输入/派生链 | MAINLINE-CONTEXT-01 | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-WORLD-GRAYBOX-01 | 216房结构与真实运行路线，按消费者退役旧链 | MV-RUNTIME-01 | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01 | 全项目架构约定、共用状态与代表样房真实闭环；子任务01A—01J | — | in_progress | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01A | 全项目职责/契约、真实缺口与实施验收归位（本轮） | — | review | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01B | 提取人工施工与独立路线输入，证明生成等价 | MV-RUNTIME-01A | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01C | 切换config/world权威、运行导出及PCK消费者 | MV-RUNTIME-01B | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01D | 固定房间装载、真实入口/镜头与控制权/卸载 | MV-RUNTIME-01C | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01E | 四种寿命、统一事实/提交、新槽保存与恢复 | MV-RUNTIME-01D | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01F | 首批P房真实闭环，含必要连接P-R08 | MV-RUNTIME-01E | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01G | NPC服务、永久库存/装配与成长效果一致性 | MV-RUNTIME-01F, ITEM-V5-01 | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01H | NPC任务、迁居、修钟/演出及结局事实样板 | MV-RUNTIME-01F, STORY-DESIGN-03 | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01I | 独立设置、文本/多设备UI、视听切换与平台观测 | MV-RUNTIME-01F | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01J | 后续代表房集成与运行架构验收 | MV-RUNTIME-01G, MV-RUNTIME-01H, MV-RUNTIME-01I | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-WORLD-GRAYBOX-01 | 216房结构与真实运行路线，按消费者退役旧链 | MV-RUNTIME-01J | planned | [交接](worklines/mv_migration/scope.md) |
