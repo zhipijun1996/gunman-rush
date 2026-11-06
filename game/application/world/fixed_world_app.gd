@@ -508,6 +508,7 @@ func _close_panel() -> void:
 	_npc_id=""
 	ui.close()
 	if controller!=null:
+		get_viewport().gui_release_focus()
 		controller.router.clear("panel_close")
 		if overlay.enabled: controller.router.touch_mouse_guard_until_usec=Time.get_ticks_usec()+InputRouter.TOUCH_MOUSE_GUARD_USEC
 		paused=false;get_tree().paused=false

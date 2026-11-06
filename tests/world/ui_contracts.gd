@@ -83,7 +83,9 @@ func run() -> void:
 	for index: int in 2:
 		var release:=InputEventScreenTouch.new();release.index=index;release.pressed=false
 		root.push_input(release,true);await ticks(2)
-	app._close_panel()
+	var escape:=InputEventKey.new();escape.physical_keycode=KEY_ESCAPE;escape.keycode=KEY_ESCAPE;escape.pressed=true
+	root.push_input(escape,true);await ticks(3)
+	check(not app.paused and app.ui.page.is_empty() and root.gui_get_focus_owner()==null,"focused map Escape closes and returns clean gameplay focus")
 	app.return_title()
 	await ticks(5)
 	var saved_revision:=app.state.revision

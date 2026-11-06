@@ -50,6 +50,12 @@ func _draw() -> void:
 				if target.id==door.target_room: draw_line(project(row.map_centre),project(target.map_centre),Color("8dbda4"),2)
 	draw_circle(player_anchor(),5,Color("f5e3aa"))
 
+func _gui_input(event: InputEvent) -> void:
+	# Unused keys must reach modal cancel / gameplay commands, rather than being swallowed.
+	if event is InputEventKey or event is InputEventJoypadButton:
+		if expanded or not event.is_action_pressed("ui_accept"): return
+	super._gui_input(event)
+
 func _input(event: InputEvent) -> void:
 	if not expanded or not is_visible_in_tree(): return
 	if not event is InputEventScreenTouch and not event is InputEventScreenDrag: return
