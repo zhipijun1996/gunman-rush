@@ -18,7 +18,7 @@ import wave
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / "assets/forest_bible_v2/audio"
 RATE = 22050
-BIBLE = "docs/evidence/creative_direction/bibles/2-thorn_forest_region_bible_v2.md"
+BIBLE = "docs/data/creative_direction/sources/2-thorn_forest_region_bible_v2.md"
 SEEDS = {"forest_wind": 151103, "forest_fruit": 151107, "forest_web": 151109}
 
 

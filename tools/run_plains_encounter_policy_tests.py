@@ -25,224 +25,20 @@ import harness
 import level_formal as formal
 import level_experience as experience
 from level_design import ROOT, read, write
-from run_plains_action_golden_tests import frozen_project
 
 MARKER = r"^PLAINS ENCOUNTER POLICY: [1-9]\d* assertions, 0 failures, [1-9]\d* cases$"
 ERRORS = r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit"
 CASES = [("level-design-v2-baseline",1,"return"), ("level-design-v2-baseline",2,"fast"),
          ("level-design-v2-baseline",2,"growth"), ("level-design-v2-baseline/01",1,"fast")]
 
-# Audited immutable v9 -> current migration, not permission for future core drift.
-HISTORICAL_CORE_BOUNDARY = {
-    "res://project.godot": (
-        "7d43a5938001621a9af9280e8c5dced19f45c6bd93fb4d18321d7f876b9603f9",
-        "a030a1a30866efb861745dce9ae25a11c04dd0dc9f823bc3ee271f66285d9a5a"),
-    "res://scripts/run/run_manifest.gd": (
-        "0a1afd795890be411e1a689733ca5fd31548ec94d2ed2e9c7427b6f5013b83b5",
-        "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9"),
-}
-STRICT_POLICY_REJECTION = "Encounter/reward policy, transitive driver or core implementation changed"
-HISTORICAL_ENDPOINT = "50fb10c749871cb555f24fab84b3f539abde49fb"
-HISTORICAL_MANIFEST = "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json"
-HISTORICAL_MANIFEST_SHA256 = "955f6713bdcdb9ec298add02321923a6d5007b9f773f5f42fe0d2e611c7150bb"
-
-
-def restore_historical_endpoint(project, base_manifest, basis=None):
-    """Exact portable endpoint; never borrow a differently hashed current asset."""
-    basis = ROOT / Path(HISTORICAL_MANIFEST).parent if basis is None else Path(basis)
-    require(formal.file_hash(basis / "manifest.json") == HISTORICAL_MANIFEST_SHA256,
-            "historical endpoint manifest fingerprint changed")
-    manifest = read(basis / "manifest.json")
-    require(manifest.get("schema_version") == 1 and manifest.get("commit") == HISTORICAL_ENDPOINT,
-            "unknown historical endpoint version")
-    require(manifest.get("base_commit") == base_manifest["commit"] and
-            manifest.get("base_archive_sha256") == base_manifest["archive_sha256"], "historical base identity changed")
-    archive = basis / "delta.tar.gz"
-    require(formal.file_hash(archive) == manifest["delta_sha256"], "historical delta fingerprint changed")
-    names = set(manifest["members"])
-    for name in names | set(manifest["deleted"]) | set(manifest["delta_members"]) | set(manifest["reused_current_assets"]):
-        require(not Path(name).is_absolute() and ".." not in Path(name).parts and "\\" not in name,
-                "unsafe historical member")
-    with tarfile.open(archive, "r:gz") as bundle:
-        entries = bundle.getmembers()
-        require(all(e.isfile() for e in entries) and len(entries) == len({e.name for e in entries}) and
-                {e.name for e in entries} == set(manifest["delta_members"]), "historical delta members changed")
-        for entry in entries:
-            data = bundle.extractfile(entry).read()
-            require(hashlib.sha256(data).hexdigest() == manifest["members"].get(entry.name), "historical member fingerprint changed")
-            destination = project / entry.name
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            destination.write_bytes(data)
-    for name, expected in manifest["reused_current_assets"].items():
-        source = ROOT / name
-        require(source.is_file() and formal.file_hash(source) == expected == manifest["members"].get(name),
-                "missing/exact historical shared asset differs: " + name)
-        destination = project / name
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source, destination)
-    for name in manifest["deleted"]:
-        (project / name).unlink()
-    require(all((project / n).is_file() and formal.file_hash(project / n) == h
-                for n, h in manifest["members"].items()), "historical complete endpoint inventory differs")
-    core = {"res://" + n: h for n, h in manifest["members"].items()
-            if n in {"project.godot", "assets/characters/courier/courier_visual.gd"} or
-            (n.startswith(formal.LEGACY_CORE_FOLDERS) and Path(n).suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"})}
-    old_core = {n: base_manifest["members"].get(n.removeprefix("res://")) for n in core}
-    # courier_visual.gd is an exact asset blob, not a source archive member.
-    for n in old_core:
-        if old_core[n] is None:
-            expected = base_manifest["asset_blobs"].get(n.removeprefix("res://"))
-            data = (project / n.removeprefix("res://")).read_bytes()
-            require(hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest() == expected,
-                    "historical core asset changed outside audited boundary")
-            old_core[n] = hashlib.sha256(data).hexdigest()
-    require({n:(old_core[n], core[n]) for n in core if old_core[n] != core[n]} == HISTORICAL_CORE_BOUNDARY,
-            "historical endpoint exceeds audited core transition")
-    return manifest
-
-
 def require(ok, reason):
     if not ok: raise ValueError(reason)
 
 
-def historical_boundary_rejection(before_report, after_report):
-    """Retain an expected strict refusal; never infer old/new content improvement."""
-    experience.validate_report(before_report); experience.validate_report(after_report)
-    require(before_report.get("analysis_version") == after_report.get("analysis_version")
-            and before_report["policy"] == after_report["policy"], "historical observation policy changed")
-    expected = {(seed, index, strategy, 0) for seed, index, strategy in CASES}
-    def indexed(report):
-        rows = report["cases"]
-        result = {(r["case"]["root_seed"], r["case"]["map_index"],
-                   r["case"]["strategy"], r["case"]["phase_wait_ticks"]): r for r in rows}
-        require(len(rows) == len(expected) and set(result) == expected, "historical four-case matrix changed")
-        return result
-    left, right = indexed(before_report), indexed(after_report)
-    for key, a in left.items():
-        b = right[key]
-        for field in ("capture_contract_version", "capability_basis", "physics_hz", "captured_scope", "observer_basis"):
-            require(a.get(field) == b.get(field), "historical control basis changed: " + field)
-        old, new = a["policy_basis"], b["policy_basis"]
-        require({k:v for k,v in old.items() if k != "core_invariants"} ==
-                {k:v for k,v in new.items() if k != "core_invariants"}, "historical driver or encounter/reward policy changed")
-        old_core, new_core = old["core_invariants"], new["core_invariants"]
-        require(set(old_core) == set(new_core), "historical core closure changed")
-        actual = {p:(old_core[p],new_core[p]) for p in old_core if old_core[p] != new_core[p]}
-        require(actual == HISTORICAL_CORE_BOUNDARY, "unreviewed historical core transition")
-    try:
-        experience.compare(before_report, after_report)
-    except ValueError as error:
-        if str(error) != STRICT_POLICY_REJECTION:
-            raise
-        return {"schema_version":1, "artifact_kind":"historical_comparison_boundary",
-                "status":"not_comparable", "strict_rejection":str(error),
-                "before_fingerprint":before_report["fingerprint"], "after_fingerprint":after_report["fingerprint"],
-                "audited_core_transition":HISTORICAL_CORE_BOUNDARY,
-                "scope":"Four retained v9/current cases; expected strict rejection, no content-improvement inference"}
-    raise ValueError("historical core transition unexpectedly accepted by strict comparator")
 
 
-def historical_worker(before_project):
-    """Run strict validators under the explicit frozen133-core module root."""
-    before_project = Path(before_project)
-    folder = ROOT / "build/historical_encounter"
-    folder.mkdir(parents=True, exist_ok=True)
-    projects = {"before": before_project, "after": ROOT}
-    runtime = lambda project: {n: formal.file_hash(project / n) for n in
-        read(project / "historical_runtime_inventory.json")}
-    original = {side:runtime(project) for side,project in projects.items()}
-    driver = formal.driver_source_paths()
-    observers = lambda: {side:{n:formal.file_hash(project/n) for n in sorted(driver)}
-                         for side,project in projects.items()}
-    observer_before = observers()
-    require(observer_before["before"] == observer_before["after"], "historical observer/control bytes differ")
-    verifier = {n:formal.file_hash(ROOT / n) for n in
-                ["tools/run_plains_encounter_policy_tests.py", "tools/level_experience.py"]}
-    receipt = {"schema_version":1,"status":"failed","scope":"immutable_v9_to_50fb10c_four_case_history_not_current_source",
-               "identity_scope":"Raw capture source_commit is preserved and may name the enclosing checkout Git HEAD. Frozen content identity is the pinned v9/50fb manifests plus complete runtime inventories, not that Git label. Historical captures never prove current release source.",
-               "runtime_before":original,"observer_before":observer_before,"verifier_sources":verifier,"runs":[]}
-    try:
-        cohorts = {"before":[],"after":[]}
-        jobs=[(side,project,i,seed,index,strategy) for side,project in projects.items()
-              for i,(seed,index,strategy) in enumerate(CASES)]
-        require(len(jobs)==8 and len({(str(project),side,i) for side,project,i,*_ in jobs})==8,
-                "historical capture matrix/unique destinations changed")
-        receipt["capture_workers"]=2
-        def capture_job(job):
-            side,project,i,seed,index,strategy=job
-            target=project/"build/historical_encounter"/side/f"case_{i}/capture.json"
-            command=[sys.executable,"-c",
-                "import level_formal as f,sys,json; print(json.dumps(f.capture_one(sys.argv[1],int(sys.argv[2]),sys.argv[3],sys.argv[4],max_ticks=15000,encounter_policy='kill_from_bank_v1')))",
-                seed,str(index),strategy,str(target)]
-            env=dict(os.environ,PYTHONPATH=str(project/"tools"))
-            process=subprocess.run(command,cwd=project,env=env,capture_output=True,text=True,timeout=250)
-            log=folder/f"{side}_capture_{i}.log"
-            log.write_text(process.stdout+process.stderr)
-            return {"side":side,"case":i,"target":str(target),"argv":command,
-                    "producer_exit_code":process.returncode,"stdout":process.stdout,
-                    "producer_log_sha256":formal.file_hash(log)}
-        # Imports complete before these independent immutable captures. map()
-        # retains the exact before/after CASES order in receipts and reports.
-        with ThreadPoolExecutor(max_workers=2) as workers:
-            for observed in workers.map(capture_job,jobs):
-                side=observed["side"];i=observed["case"]
-                target=Path(observed.pop("target"));stdout=observed.pop("stdout")
-                receipt["runs"].append(observed)
-                require(observed["producer_exit_code"]==0,"historical producer failed: "+side+str(i))
-                result=json.loads(stdout.strip().splitlines()[-1]);observed["result"]=result
-                require(result["captured"],"historical actual capture rejected: "+str(result))
-                if side=="before":
-                    destination=folder/side/f"case_{i}"
-                    shutil.copytree(target.parent,destination)
-                    target=destination/"capture.json"
-                experience.validate_capture(read(target))
-                cohorts[side].append(target)
-        reports = {side:experience.report(paths) for side,paths in cohorts.items()}
-        for side,report in reports.items():write(folder / (side+"_report.json"),report)
-        write(folder / "historical_comparison_rejection.json",historical_boundary_rejection(reports["before"],reports["after"]))
-        require(original == {s:runtime(p) for s,p in projects.items()},"historical frozen runtime source drift")
-        require(observer_before == observers(),"historical observer/control source drift")
-        require(verifier == {n:formal.file_hash(ROOT/n) for n in verifier},"historical verifier drift")
-        receipt.update(status="passed",runtime_after={s:runtime(p) for s,p in projects.items()},observer_after=observers())
-        return 0
-    finally:
-        write(folder / "historical_receipt.json",receipt)
 
 
-def historical_checks(folder, env):
-    before_project, base = frozen_project(folder / "frozen_v9")
-    after_project, second_base = frozen_project(folder / "frozen_50fb10c")
-    endpoint = restore_historical_endpoint(after_project,second_base)
-    receipt = {"endpoint":HISTORICAL_ENDPOINT,"manifest_sha256":HISTORICAL_MANIFEST_SHA256,"imports":[],
-               "identity_scope":"Two immutable historical endpoints; raw capture Git labels remain original. Pinned manifests/full runtime inventories define content identity; this history is not current release evidence."}
-    driver = formal.driver_source_paths()
-    verifier_paths = {"tools/run_plains_encounter_policy_tests.py","tools/level_experience.py",
-                      "tools/run_plains_action_golden_tests.py","tools/run_tests.py","tools/harness.py"}
-    for project in (before_project,after_project):
-        runtime = {p:formal.file_hash(project/p) for p in
-                   (set(base["members"]) | set(base["asset_blobs"]) if project == before_project else set(endpoint["members"]))
-                   if p.startswith(("scripts/","game/","experiments/","scenes/","resources/","config/","shaders/","assets/")) or p=="project.godot"}
-        write(project / "historical_runtime_inventory.json",runtime)
-        for name in driver | verifier_paths:
-            destination = project/name
-            destination.parent.mkdir(parents=True,exist_ok=True)
-            shutil.copy2(ROOT/name,destination)
-        require(all(formal.file_hash(project/n)==formal.file_hash(ROOT/n) for n in driver|verifier_paths),"historical shared observer bytes differ")
-        require(runtime=={n:formal.file_hash(project/n) for n in runtime},"observer overlay changed historical runtime")
-        result=harness.run_check({"argv":["bash",str(ROOT/"tools/godot.sh"),"--headless","--path",str(project),"--editor","--quit"],"timeout_seconds":90,"success_pattern":r"^Godot Engine v4[.]7[.]2"},project.parent/"import.log",ROOT,env)
-        receipt["imports"].append(result)
-        require(result["status"]=="passed" and not re.search(ERRORS,(project.parent/"import.log").read_text()),"historical project import failed")
-    receipt["shared_driver_sources"]={n:formal.file_hash(ROOT/n) for n in sorted(driver)}
-    command=[sys.executable,str(after_project/"tools/run_plains_encounter_policy_tests.py"),"--historical-worker",str(before_project)]
-    # The outer original600s Harness remains the aggregate budget. Each producer
-    # above retains its original250s bound; no new unbounded native subprocess.
-    with (folder/"historical_worker.log").open("w") as stream:
-        process=subprocess.run(command,cwd=after_project,env=dict(env,PYTHONPATH=str(after_project/"tools")),stdout=stream,stderr=subprocess.STDOUT,timeout=600)
-    require(process.returncode==0,"frozen historical four-case comparison failed")
-    worker_receipt=after_project/"build/historical_encounter/historical_receipt.json"
-    require(read(worker_receipt)["status"]=="passed","historical worker lacks strict success")
-    receipt.update(status="passed",receipt=str(worker_receipt.relative_to(ROOT)),receipt_sha256=formal.file_hash(worker_receipt))
-    return receipt
 
 
 def validate_native(data, recovery=False, reward_resource=""):
@@ -832,16 +628,13 @@ def claim_tamper_checks(capture):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--with-legacy",action="store_true",help="Also run the original frozen historical comparison; default records it not_run")
     args=parser.parse_args()
     base=ROOT/"build/verification/plains-encounter";base.mkdir(parents=True,exist_ok=True)
     folder=Path(tempfile.mkdtemp(prefix="run_",dir=base));before=formal.source_files()
-    verifier_paths=["tools/run_plains_encounter_policy_tests.py","tools/level_experience.py","tests/test_plains_encounter_policy_boundary.py","tools/run_formal_trace_cancel_tests.py","tests/formal_trace_cancel_runner.gd"]
-    if args.with_legacy:verifier_paths.extend([HISTORICAL_MANIFEST,str(Path(HISTORICAL_MANIFEST).parent/"delta.tar.gz")])
+    verifier_paths=["tools/run_plains_encounter_policy_tests.py","tools/level_experience.py","tools/run_formal_trace_cancel_tests.py","tests/formal_trace_cancel_runner.gd"]
     verifier_sources={p:formal.file_hash(ROOT/p) for p in verifier_paths}
     receipt={"schema_version":1,"status":"failed","source_before":before,"source_commit":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip(),"scope":"technical actual-input fixtures/live recovery/paired old-new observation; not all routes, device or subjective acceptance","runs":[],"verifier_sources":verifier_sources}
     try:
-        subprocess.run([sys.executable,str(ROOT/"tests/test_plains_encounter_policy_boundary.py"),"-v"],cwd=ROOT,check=True)
         # Local import: the immutable historical worker does not need or invoke
         # current-only cancellation fixtures in its separately overlaid tools.
         from run_formal_trace_cancel_tests import run as run_cancel_tests
@@ -865,10 +658,6 @@ def main():
         receipt["native_tamper_rejected"]=rejected
         env=os.environ.copy()
         env["GUNMAN_TOOLCHAIN_ROOT"]=str(Path(os.environ.get("GUNMAN_TOOLCHAIN_ROOT",ROOT.parent/"toolchains")).resolve())
-        if args.with_legacy:
-            receipt["historical_boundary"]=historical_checks(folder,env)
-        else:
-            receipt["historical_boundary"]={"status":"not_run","scope":"optional immutable historical comparison; not current gameplay acceptance","reason":"not requested; use --with-legacy"}
         # These six real producers have independent destinations and read-only
         # sources. Bound concurrency only; retain each original240s producer
         # deadline and the outer original600s specialty budget.
@@ -906,7 +695,7 @@ def main():
                 write(folder/"same_source_after_report.json",same_source_after)
                 write(folder/"comparison.json",experience.compare(same_source_before,same_source_after))
                 receipt["same_source_repeat"]=repeated
-                receipt["comparison_scope"]=("Historical four-case transition strictly rejected; " if args.with_legacy else "Historical comparison not_run; ")+"four current-source cases plus independent current-source return replay compared, not content improvement"
+                receipt["comparison_scope"]="four current-source cases plus independent current-source return replay compared, not content improvement"
                 capture=next(read(ROOT/p) for p in cohorts["after"] if any(e["kind"]=="shot_accepted" for e in read(ROOT/p)["events"]))
                 receipt["causal_tamper_rejected"]=policy_tamper_checks(capture)
                 growth=next(read(ROOT/p) for p in cohorts["after"] if read(ROOT/p)["strategy"]=="growth")
@@ -925,13 +714,11 @@ def main():
         require(before==formal.source_files(),"source drift during actual specialty")
         require(verifier_sources=={p:formal.file_hash(ROOT/p) for p in verifier_sources},"verifier source drift")
         receipt.update(status="passed",source_after=formal.source_files())
-        print("PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated" if args.with_legacy else "PLAINS ENCOUNTER CURRENT POLICY: actual live input and causal counterexamples validated; historical comparison not_run")
+        print("PLAINS ENCOUNTER CURRENT POLICY: actual live input and causal counterexamples validated; historical comparison not_run")
         return 0
     finally:
         receipt.setdefault("source_after",formal.source_files());write(folder/"receipt.json",receipt)
         print("PLAINS ENCOUNTER RECEIPT: "+str((folder/"receipt.json").relative_to(ROOT)),flush=True)
 
 if __name__=="__main__":
-    if len(sys.argv)==3 and sys.argv[1]=="--historical-worker":
-        raise SystemExit(historical_worker(sys.argv[2]))
     raise SystemExit(main())

@@ -234,10 +234,9 @@ def spatial_experiment_input(task):
     if task.get("quality_task_id") in [task["id"], *task.get("depends_on", [])]:
         record_ids.add(task['quality_task_id'])
     record = task.get("quality_record", "")
-    expected_records = {f"docs/evidence/quality/records/{identifier}.json" for identifier in record_ids}
     scoped_record = any(re.fullmatch(r"docs/project/worklines/[A-Za-z0-9_-]+/quality/" + re.escape(identifier) + r"\.json", record)
                         for identifier in record_ids)
-    if record not in expected_records and not scoped_record:
+    if not scoped_record:
         raise ValueError("Spatial quality record must be an exact task-bound JSON in records or the topic workline")
     record_path = ROOT / task["quality_record"]
     if any(path.is_symlink() for path in [record_path, *record_path.parents] if path == ROOT or path.is_relative_to(ROOT)):
@@ -497,7 +496,7 @@ def required_input_preflight(task):
         for name in files:
             if name.startswith(".agents/skills/") and name.endswith("/SKILL.md"):
                 markdown_links(name)
-            if name.startswith(("docs/evidence/quality/records/", "docs/evidence/quality/asset_records/")) and name.endswith(".json"):
+            if (name.startswith("assets/provenance/records/") or (name.startswith("docs/project/worklines/") and "/quality/" in name)) and name.endswith(".json"):
                 data = json_index(name)
                 if not isinstance(data, dict):
                     continue
@@ -518,32 +517,8 @@ def required_input_preflight(task):
                     if isinstance(ref, dict): require(ref.get("path"), name)
     if "tools/check_docs.py" in commands:
         for name in files:
-            if name.endswith(".md") and not name.startswith(("docs/evidence/", "docs/evidence/archive/", "docs/evidence/creative_direction/archive/")) and file_state(name) != "missing":
+            if name.endswith(".md") and file_state(name) != "missing":
                 markdown_links(name, existence_only=True)
-    # Only the historical visual recipe still calls load_lessons. Retired route
-    # rejection tests and explicit executor fixtures do not consume this ledger.
-    lesson_consumers = {"tests/test_visual_director.py"}
-    if commands & lesson_consumers:
-        ledger = json_index("docs/evidence/quality/level_lessons.json")
-        for lesson in ledger.get("lessons", []):
-            for ref in lesson.get("evidence", []):
-                require(ref.get("path"), "docs/evidence/quality/level_lessons.json")
-    # Direction regression deliberately loads these preserved revision snapshots
-    # to reject them against current authority. Their dynamically assembled paths
-    # are real selected inputs even when docs/evidence stays sparse.
-    if "tests/test_region_creative_direction.py" in commands:
-        for region in ("windchime_plains", "thorn_forest"):
-            for revision in ("v10-before-hud-layout", "v12-before-foreground-cpu"):
-                require("docs/evidence/four_line_integration_20261023/direction-history/"
-                        + region + "-" + revision + ".json", "selected direction historical refusal")
-    # Both encounter modes run the unchanged boundary units before native work.
-    # Their portable restore guards need exactly these two endpoint files; this
-    # does not select the optional historical gameplay replay or its directory.
-    if commands & {"tools/run_plains_encounter_policy_tests.py",
-                   "tests/test_plains_encounter_policy_boundary.py"}:
-        for name in ("manifest.json", "delta.tar.gz"):
-            require("docs/evidence/plains_redesign/encounter/frozen_50fb10c/" + name,
-                    "selected encounter boundary portable restore")
     # Godot editor imports create repository-visible sidecars even when a worker
     # only intended to run a selected native check. Detect this before spending
     # a call, using an explicit native input contract rather than runner names.
@@ -1160,7 +1135,7 @@ def check_task_quality(task, *, reviewer_identity=None):
         acceptance["errors"].extend(problems)
         if problems:
             acceptance["task_complete"] = False
-    content_hash = digest({p: h for p, h in snapshot().items() if not (p.startswith("docs/evidence/quality/records/") or (p.startswith("docs/project/worklines/") and "/quality/" in p))})
+    content_hash = digest({p: h for p, h in snapshot().items() if not (p.startswith("docs/project/worklines/fixture/quality/") or (p.startswith("docs/project/worklines/") and "/quality/" in p))})
     expected_id = task.get("quality_task_id", task["id"])
     if record["task_id"] != expected_id or record.get("production_snapshot") != content_hash:
         acceptance["errors"].append("Quality record lacks current production_snapshot/task binding")

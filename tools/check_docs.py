@@ -32,14 +32,15 @@ def document_target_exists(root, source, target, sparse_paths):
 
 
 def validate(root=ROOT):
-    errors = []
+    from check_context_storage import validate as validate_storage
+    errors = validate_storage(root)
     errors.extend(validate_world_design(root=root))
     required = ['README.md', 'AGENTS.md', 'docs/README.md', 'docs/bible/combat_and_recharge.md', 'docs/bible/controls_contract.md', 'docs/bible/damage_and_respawn.md', 'docs/bible/game_design.md', 'docs/bible/home_and_save.md', 'docs/bible/platforming_modules.md', 'docs/bible/player_mechanics.md', 'docs/bible/procedural_generation.md', 'docs/bible/rewards_and_builds.md', 'docs/bible/run_and_routes.md', 'docs/bible/story.md', 'docs/bible/visual_bible.md', 'docs/data/README.md', 'docs/data/abilities.md', 'docs/data/audio.md', 'docs/data/bosses/bellstrider.md', 'docs/data/bosses/rootbell_guardian.md', 'docs/data/bosses/thorn_queen_canopy.md', 'docs/data/bosses/thorn_queen_weave.md', 'docs/data/bosses/windkeeper.md', 'docs/data/enemies/forest.md', 'docs/data/enemies/plains.md', 'docs/data/enemies/plains_charger.md', 'docs/data/player_actions.md', 'docs/data/story/regions.md', 'docs/data/weapons.md', 'docs/data/world_objects.md', 'docs/project/architecture.md', 'docs/project/ci-test-inventory.md', 'docs/project/cloud_production.md', 'docs/project/content_pipeline.md', 'docs/project/current_state.md', 'docs/project/development.md', 'docs/project/enemy_completion.md', 'docs/project/environment.md', 'docs/project/foundry.md', 'docs/project/harness.md', 'docs/project/item_authoring.md', 'docs/project/level_design.md', 'docs/project/level_review.md', 'docs/project/module_map.md', 'docs/project/production_loop.md', 'docs/project/project_management.md', 'docs/project/region_context.md', 'docs/project/review_method.md', 'docs/project/tasks.md', 'docs/project/visual_capture.md', 'docs/project/web_loading.md']
     for name in required:
         if not (root / name).is_file():
             errors.append(f'Missing {name}')
     def documentation_paths(root):
-        # Current navigation is checked here. Frozen evidence integrity is checked by quality/manifest consumers.
+        # Check current navigation; generated artifacts are outside the source context.
         for base, directories, filenames in os.walk(root):
             directories[:] = [name for name in directories if name not in {'.git', '.godot', '__pycache__'}
                               and not (Path(base) == root and name in {'build', 'preview'})

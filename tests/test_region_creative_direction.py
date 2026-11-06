@@ -13,6 +13,14 @@ import level_design
 import production_loop
 
 
+def candidate_direction():
+    data = json.loads((creative.ROOT / 'docs/data/creative_direction/thorn_forest.json').read_text())
+    data.update(selection_basis='test_candidates', acceptance='professional_recommendation', direction_id='a')
+    fields = ('experience', 'space', 'ecology_boss', 'art_emotion', 'originality', 'feasibility', 'player_appeal', 'risk')
+    data['candidates'] = [dict(id=key, **{field: 'SIMULATED ' + key + ' ' + field for field in fields}) for key in ('a', 'b')]
+    return data
+
+
 class CreativeTests(unittest.TestCase):
     def setUp(self):
         self.path = 'docs/data/creative_direction/thorn_forest.json'
@@ -43,10 +51,7 @@ class CreativeTests(unittest.TestCase):
             self.assertIn(registry['shared_style_authority']['path'], sources)
             self.assertFalse(any('/style-continuity-' in source and not source.startswith('docs/data/')
                                  for source in sources))
-            previous = 'docs/evidence/creative_direction/archive/death-runtime-before-style34/docs/creative_direction/' + region + '.json'
-            with self.assertRaisesRegex(ValueError, 'binding changed'):
-                creative.load_direction(previous, region)
-            stale = json.loads((creative.ROOT/previous).read_bytes())['region_bible']
+            stale = dict(data['region_bible'], sha256='0'*64)
             with self.assertRaisesRegex(ValueError, 'binding changed'):
                 creative.validate_bible_binding(stale)
 
@@ -56,7 +61,7 @@ class CreativeTests(unittest.TestCase):
             self.assertTrue(creative.validate_direction(bad), key)
 
     def test_candidate_comparison_cannot_be_empty_or_single_color_variant(self):
-        self.data = json.loads((creative.ROOT/'docs/evidence/creative_direction/archive/creative-v3/thorn_forest.json').read_text())
+        self.data = candidate_direction()
         for mutate in ('single', 'duplicate', 'missing_comparison', 'unselected'):
             bad = copy.deepcopy(self.data)
             if mutate == 'single': bad['candidates'] = bad['candidates'][:1]
@@ -69,7 +74,7 @@ class CreativeTests(unittest.TestCase):
     def test_authority_changes_and_region_mismatch_fail_closed(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder); (root/'authority.txt').write_text('old')
-            data = json.loads((creative.ROOT/'docs/evidence/creative_direction/archive/creative-v3/thorn_forest.json').read_text())
+            data = candidate_direction()
             data['authority_sources'] = [{'path':'authority.txt','sha256':hashlib.sha256(b'old').hexdigest()}]
             (root/'direction.json').write_text(json.dumps(data))
             creative.load_direction('direction.json', 'thorn_forest', root)

@@ -21,7 +21,7 @@ class LightweightWorkflowTests(unittest.TestCase):
     def test_current_card_scan_ignores_archived_broken_json_and_reads_active_card(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
-            archived = root/'docs/evidence/quality/records/old.json'
+            archived = root/'build/quality/old.json'
             archived.parent.mkdir(parents=True)
             archived.write_text('{ invalid historical fixture')
             active = root/'docs/project/worklines/current/quality/record.json'
@@ -30,7 +30,6 @@ class LightweightWorkflowTests(unittest.TestCase):
             policy = root/'docs/project/policy.json'
             policy.write_bytes((ROOT/'docs/project/policy.json').read_bytes())
             self.assertEqual(list(quality.task_record_paths(root)), [active])
-            self.assertEqual(set(quality.task_record_paths(root, include_archive=True)), {active, archived})
             with patch.object(quality, 'ROOT', root), patch.object(sys, 'argv', ['quality.py','check']), redirect_stdout(io.StringIO()):
                 self.assertEqual(quality.main(), 0)
                 phase=active.with_name('phase.json')
@@ -126,7 +125,7 @@ class LightweightWorkflowTests(unittest.TestCase):
             prompt,*_=loop.prepare_call(task,mission,'implement',Path(folder),'{}',check_contracts={'checks':[]})
         self.assertIn((ROOT/'docs/bible/regions/thorn_forest.md').read_text(),prompt)
         self.assertIn((ROOT/'docs/data/enemies/forest.md').read_text(),prompt)
-        original=(ROOT/'docs/evidence/creative_direction/bibles/2-thorn_forest_region_bible_v2.md').read_text()
+        original=(ROOT/'docs/data/creative_direction/sources/2-thorn_forest_region_bible_v2.md').read_text()
         self.assertNotIn(original,prompt)
         self.assertIn('docs/data/enemies/forest.md',{row['path'] for row in loop.bound_source_inputs(task)})
 

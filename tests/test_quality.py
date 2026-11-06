@@ -408,7 +408,7 @@ class QualityTests(unittest.TestCase):
         def run(*args):
             return subprocess.check_output(['git', *args], cwd=self.root, text=True)
         (self.root / 'docs/project/worklines/test/quality').mkdir(parents=True)
-        (self.root / 'docs/evidence/quality/asset_records').mkdir(parents=True)
+        (self.root / 'assets/provenance/records').mkdir(parents=True)
         (self.root / 'docs/project/tasks.md').write_text('| QUALITY-TEST-01 | art | — | review | candidate |\n')
         run('init', '-q')
         run('add', '.')
@@ -424,7 +424,7 @@ class QualityTests(unittest.TestCase):
 
     def test_diff_asset_associated_exact_paths_only_after_full_validation(self):
         base, asset = self.asset_diff_fixture()
-        record_path = self.root / 'docs/evidence/quality/asset_records/test.json'
+        record_path = self.root / 'assets/provenance/records/test.json'
         record_path.write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
         asset['associated_files'][0]['sha256'] = '0' * 64
@@ -435,7 +435,7 @@ class QualityTests(unittest.TestCase):
 
     def test_ordinary_game_fix_does_not_require_content_card(self):
         base, asset = self.asset_diff_fixture()
-        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'assets/provenance/records/test.json').write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
         name = 'game/combat/actor.gd'
         consumer = self.root / name
@@ -453,7 +453,7 @@ class QualityTests(unittest.TestCase):
 
     def test_ordinary_experiment_fix_does_not_require_content_card(self):
         base, asset = self.asset_diff_fixture()
-        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'assets/provenance/records/test.json').write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
         name = 'experiments/combat/actor.gd'
         consumer = self.root / name
@@ -501,7 +501,7 @@ class QualityTests(unittest.TestCase):
 
     def test_diff_asset_omitted_file_never_inherits_directory_coverage(self):
         base, asset = self.asset_diff_fixture()
-        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'assets/provenance/records/test.json').write_text(json.dumps(asset))
         omitted = self.root / 'assets/production/omitted.txt'
         omitted.write_text('not listed in associated files')
         errors, _ = validate_diff(base, self.root)
@@ -511,7 +511,7 @@ class QualityTests(unittest.TestCase):
     def test_diff_asset_unknown_associated_role_invalidates_all_coverage(self):
         base, asset = self.asset_diff_fixture()
         asset['associated_files'][0]['role'] = 'anything'
-        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'assets/provenance/records/test.json').write_text(json.dumps(asset))
         errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('provenance metadata: assets/source.png' in e for e in errors), errors)
         self.assertTrue(any('provenance metadata: assets/production/prompt.txt' in e for e in errors), errors)
@@ -521,7 +521,7 @@ class QualityTests(unittest.TestCase):
         base, asset = self.asset_diff_fixture()
         (self.root / 'scripts/consumer.gd').write_text('extends Node\nconst LIVE = preload("res://assets/source.png")\n')
         asset.update(disposition='rejected_evidence_only', runtime_paths=[], non_runtime_reason='False declaration under test')
-        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'assets/provenance/records/test.json').write_text(json.dumps(asset))
         errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('Known runtime asset lacks runtime provenance' in e and 'assets/source.png' in e for e in errors), errors)
 
@@ -534,11 +534,11 @@ class QualityTests(unittest.TestCase):
         record = json.loads(record_path.read_text())
         record['affected_paths'].append('assets/live.png')
         record_path.write_text(json.dumps(record))
-        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'assets/provenance/records/test.json').write_text(json.dumps(asset))
         errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('Known runtime asset lacks runtime provenance' in e and 'assets/live.png' in e for e in errors), errors)
         asset['runtime_paths'].append('assets/live.png')
-        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'assets/provenance/records/test.json').write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
 
     def test_diff_dynamic_semantic_family_cannot_claim_offline_source(self):
@@ -555,7 +555,7 @@ class QualityTests(unittest.TestCase):
         asset.update(source_path=source, source_sha256=hashlib.sha256((family / 'source.png').read_bytes()).hexdigest(),
                      disposition='production_record_only', runtime_paths=[], non_runtime_reason='False dynamic-consumer claim')
         asset['associated_files'].append({'path': family_json, 'sha256': hashlib.sha256((family / 'family.json').read_bytes()).hexdigest(), 'role': 'source_contract'})
-        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'assets/provenance/records/test.json').write_text(json.dumps(asset))
         errors, _ = validate_diff(base, self.root)
         self.assertTrue(any('Known runtime asset lacks runtime provenance' in e and source in e for e in errors), errors)
         self.assertTrue(any('Known runtime asset lacks runtime provenance' in e and family_json in e for e in errors), errors)
@@ -571,7 +571,7 @@ class QualityTests(unittest.TestCase):
         record = json.loads(record_path.read_text())
         record['affected_paths'].append(guide['path'])
         record_path.write_text(json.dumps(record))
-        (self.root / 'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root / 'assets/provenance/records/test.json').write_text(json.dumps(asset))
         self.assertEqual(validate_diff(base, self.root)[0], [])
         (self.root / 'scripts/consumer.gd').write_text('extends Node\nconst LIVE = preload("res://assets/missing.png")\n')
         errors, _ = validate_diff(base, self.root)
@@ -613,7 +613,7 @@ class QualityTests(unittest.TestCase):
         asset.update(source_path=source_name, source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
                      disposition='production_record_only', runtime_paths=[], non_runtime_reason='False connected-consumer claim')
         asset['associated_files'].append({'path':manifest_name,'sha256':hashlib.sha256(manifest.read_bytes()).hexdigest(),'role':'source_contract'})
-        (self.root/'docs/evidence/quality/asset_records/test.json').write_text(json.dumps(asset))
+        (self.root/'assets/provenance/records/test.json').write_text(json.dumps(asset))
         errors, _ = validate_diff(base, self.root)
         for name in [source_name, manifest_name]:
             self.assertTrue(any('Known runtime asset lacks runtime provenance' in error and name in error for error in errors), errors)

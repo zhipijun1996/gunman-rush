@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only, pinned-Git audio audit. No engine or asset mutation required.
-
-The Git tree (including sparse/excluded evidence) is authoritative. Historical
-media bytes are not fetched by default: their Git object IDs remain in the
-inventory and size/SHA256/media metadata are explicitly unknown. In a partial
-clone Git may fetch selected current source inputs. Runtime references
-are static evidence, never a claim that an event was heard in a play session.
-"""
+"""Audit committed audio bytes, source licenses and static references into build/."""
 from __future__ import annotations
 
 import argparse
@@ -23,7 +16,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 AUDIO = {".wav", ".ogg", ".mp3", ".flac", ".aiff", ".aif", ".opus", ".m4a"}
 SOURCE = {".gd", ".tscn", ".tres", ".godot", ".py", ".js", ".cfg"}
-BASELINE = "26e7f2a4459623f35613a857da8a75e89daa3e62"
 
 
 def git(*args: str) -> bytes:
@@ -102,10 +94,11 @@ def music_app_refs(texts, path, cue):
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--ref", default=BASELINE, help="Pinned source to audit; default is phase-one main baseline")
-    parser.add_argument("--output", type=Path, default=ROOT / "docs/audio_director")
-    parser.add_argument("--include-evidence-media", action="store_true", help="Fetch/read the three historical media blobs too")
+    parser.add_argument("--ref", default="HEAD", help="Committed source to audit; defaults to HEAD")
+    parser.add_argument("--output", type=Path, default=ROOT / "build/audio_inventory")
     args = parser.parse_args()
+    if args.output.resolve().is_relative_to(ROOT) and not args.output.resolve().is_relative_to(ROOT / "build"):
+        parser.error("Repository reports must be written under build/")
     ref = git("rev-parse", args.ref).decode().strip()
     tree = {}
     # Never use ls-tree -l here: obtaining omitted blob sizes in a partial clone
@@ -117,15 +110,15 @@ def main() -> None:
             tree[path] = {"git_oid": oid, "bytes": None}
     runtime_paths = resolve_source_paths(tree)
     code_paths = [p for p in tree if Path(p).suffix in SOURCE
-                  and not p.startswith(("docs/evidence/", "docs/evidence/archive/"))]
+                  and p.startswith(("game/", "scripts/", "scenes/", "resources/", "tests/", "tools/", "assets/", "config/"))]
     texts = {p: b.decode("utf-8", errors="replace") for p, b in blobs(ref, code_paths).items()}
     metadata_paths = [p for p in tree if p.endswith(".json") and
                       ("provenance" in p or p.endswith(("/sources.json", "/upstream.json")))
-                      and not p.startswith(("docs/evidence/", "docs/evidence/archive/"))]
+                      and p.startswith(("game/", "scripts/", "scenes/", "resources/", "tests/", "tools/", "assets/", "config/"))]
     metadata = {p: json.loads(b) for p, b in blobs(ref, metadata_paths).items()}
-    audio_paths = [p for p in tree if Path(p).suffix.lower() in AUDIO]
+    audio_paths = [p for p in tree if p.startswith("assets/") and Path(p).suffix.lower() in AUDIO]
     imports = {p: b.decode("utf-8",errors="replace") for p,b in blobs(ref,[p+".import" for p in audio_paths if p+".import" in tree]).items()}
-    measured_paths = [p for p in audio_paths if args.include_evidence_media or not p.startswith("docs/")]
+    measured_paths = audio_paths
     audio_bytes = blobs(ref, measured_paths)
     kenney = metadata["assets/audio/kenney/sources.json"]
     bgm = metadata["assets/audio/bgm/provenance.json"]
@@ -169,7 +162,7 @@ def main() -> None:
             row["source_sha256_matches"] = row["sha256"] == source["sha256"]
         elif "/feel_audio_v1/" in path or "/weapon_audio_v1/" in path:
             motion = "/feel_audio_v1/" in path
-            prov = "docs/evidence/worklines/PLAYER-PRESENTATION-01/" + ("feel-audio-provenance.json" if motion else "weapon-audio-provenance.json")
+            prov = "assets/player_presentation_01/provenance/" + ("feel-audio-provenance.json" if motion else "weapon-audio-provenance.json")
             row.update(source_url="derived_from_existing_Kenney_CC0_samples", author="Kenney; project processing", original_file="see recipe and sources in manifest",
                        license="CC0-1.0 source derivatives", commercial_use="allowed", attribution="not_required",
                        source_manifest=prov, classification="formal_motion" if motion else "dormant_parent_default_and_dev_bank",
@@ -189,7 +182,7 @@ def main() -> None:
             row.update(source_url="https://github.com/freedoom/freedoom/tree/3ac019628d70b812ffb722f7f2365771b76a9d29/sounds",
                        author="Freedoom contributors; per-sample attribution retained in CREDITS", original_file="see per-family recipe/upstream archive",
                        license="BSD-3-Clause", commercial_use="allowed_with_license_and_copyright_retention_no_endorsement",
-                       attribution="retain_COPYING_and_CREDITS_in_distribution", source_manifest="docs/evidence/worklines/PLAYER-PRESENTATION-01/weapon-audio-v2-provenance.json",
+                       attribution="retain_COPYING_and_CREDITS_in_distribution", source_manifest="assets/player_presentation_01/provenance/weapon-audio-v2-provenance.json",
                        classification="loaded_but_replaced_by_timer_v3" if "/mine_beep_" in path else "formal_weapon", family="weapon_v2")
             cue = Path(path).stem.rsplit("_", 1)[0]
             inputs = [layer[0] for layer in metadata[row["source_manifest"]]["recipes"][cue][2]]
@@ -217,7 +210,6 @@ def main() -> None:
                        license="CC0-1.0 source derivatives + original project synthesis", commercial_use="allowed_source_license",
                        attribution="not_required_for_CC0_sources", source_manifest="assets/audio/enemy_feedback_01/provenance.json",
                        classification="dormant_legacy_death_helper_not_default", family="enemy_death")
-            row["usage_evidence"] = "docs/evidence/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json: usage_scope/disposition; no configure consumer found in scripts/scenes/resources"
             row["source_sha256_matches"] = row["sha256"] == metadata[row["source_manifest"]]["asset_sha256"]
         elif path in {"assets/audio/windchime_open.wav", "assets/audio/plains_shot.wav", "assets/audio/plains_armour.wav", "assets/audio/plains_core.wav", "assets/audio/windkeeper_roar.wav"}:
             generator = "tools/generate_windchime_audio.py" if "windchime_open" in path else "tools/generate_plains_combat_audio.py"
@@ -226,10 +218,9 @@ def main() -> None:
                        attribution="no_external_attribution_claim", source_manifest=generator,
                        classification="retained_legacy_synthesis_no_runtime_reference", family="legacy_synthesis")
         else:
-            historical = path.startswith("docs/")
-            row.update(source_url="historical_project_evidence" if historical else "unknown_source_manifest_needed", author="unknown_see_original_workline", original_file=Path(path).name,
-                       license="unknown_not_a_runtime_source", commercial_use="unknown_do_not_promote", attribution="unknown",
-                       source_manifest="docs/evidence/enemy_feedback_01" if historical else "unknown", classification="historical_review_media" if historical else "unknown_requires_audit", family="evidence" if historical else "unknown")
+            row.update(source_url="unknown_source_manifest_needed", author="unknown", original_file=Path(path).name,
+                       license="unknown", commercial_use="unknown", attribution="unknown",
+                       source_manifest="unknown", classification="unknown_requires_audit", family="unknown")
         records.append(row)
     hashes = collections.defaultdict(list)
     for row in records:
@@ -302,10 +293,9 @@ def main() -> None:
                 {"event":"recoil","state":"accepted shot supplies feedback; no standalone recoil audio layer observed","references":line_refs(texts,'var cue: StringName',(runtime_paths['scripts/dev/player_presentation_01/weapon_feel.gd'],))},
                 {"event":"plains wind / gears / pendulum / material-specific footsteps / enemy species vocal identity","state":"no dedicated runtime event mapping found in audited source; not proof every future design requires one","references":[]}],
              "conflicts":["Nonlethal enemy HP hit may trigger shared hurt plus weapon.hit; this is observed static layering, not a claim of audible clipping", "All BaseButton pressed emits click; explicit confirm/denied can layer on the same interaction", "Shared global cue cooldown can suppress unrelated origins (e.g. player.hurt after enemy.hurt)", "motion and weapon serials cycle deterministically; no shuffle bag or per-family no-repeat policy", "Most SFX have no spatial attenuation; forest has binary 800wu gate and standalone bell has 2D attenuation", "Parent V1 bank and V2 timer files stay loaded although formal V2 replaces their playback mapping"]}
-    if ref != BASELINE:
-        scope = "Source paths/references are from the selected Git tree; descriptive behavior, conflicts and listening notes retain the original AUDIO-DIRECTOR-01 baseline interpretation and are not revalidated for this revision."
-        inventory["historical_annotation_scope"] = scope
-        catalog["historical_annotation_scope"] = scope
+    # Old phase-one prose is not current evidence; emit measured facts only.
+    catalog.pop("missing_or_collapsed_event_semantics", None)
+    catalog.pop("conflicts", None)
     args.output.mkdir(parents=True,exist_ok=True)
     (args.output/"inventory.json").write_text(json.dumps(inventory,ensure_ascii=False,indent=2)+"\n")
     (args.output/"event_catalog.json").write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+"\n")
@@ -315,47 +305,20 @@ def main() -> None:
 
 
 def render_inventory(out: Path, inventory: dict) -> None:
-    rows=["# Audio Inventory（基线审计）", "",f"任务 AUDIO-DIRECTOR-01；固定源码 `{inventory['source_commit']}`。由 `python3 tools/audio_inventory.py` 重建。", "",
-          "该报告是第一阶段改动前的事实快照。完整逐文件媒体格式、SHA256、来源/作者/许可/原文件、引用行、生成器和节点清单在 [inventory.json](inventory.json)。不跟随工作区变化覆盖基线；要审计后续提交请显式传 `--ref <sha>` 和新输出目录。", "",
-          "`verified` 只证明字节/静态代码；`subjective_pending` 是待用户听音；`unknown` 表示没有依据。静态正式接入不等于已听到该声音。", "",
-          f"共 {inventory['summary']['standalone_audio_files']} 个受Git跟踪的独立音频：已读取/ffprobe {inventory['summary']['measured_files']} 个，默认3个稀疏历史评审媒体只核Git对象（大小/媒体元数据未知）；另列Freedoom原始ZIP的 {inventory['summary']['archived_source_members']} 个声音成员。没有删除任何资源。", "",
-          "## 声部、混音与正式消费者", "",
-          "正式 `DemoApp` 在 `scripts/demo/demo_app.gd:111` 创建 `PlayerWeaponFeelAudioV2`，继承 `PlayerWeaponFeelAudio → PlayerMotionAudio → GameAudio`；`scripts/art/player_presentation_runtime.gd:55` 将新版动作和武器反馈接入真实角色。`scripts/dev/` 路径下这些组件是正式共享消费者，不能按目录判作测试。经典外观保留旧跳跃/落地回调。", "",
-          "`GameAudio` 12个非空间AudioStreamPlayer，默认volume=0.7；基础cue限流为55ms，step/denied/armour为160ms，按全局cue而非origin。基础声满池直接丢弃；Motion可抢占step/旧动作，Weapon可抢占step/动作/contact，V2最多8个weapon voice为其他声保留4槽。没有通用数值优先级。", "",
-          "`scripts/audio/game_audio.gd:78` 和继承组件定义暂停准入：UI click/confirm/denied在暂停中仍播放，世界声pausable；stop_motion/stop_weapon按owner清理，持续声随phase取消。shutdown用实际playback弱引用和1000ms墙钟等待。GameAudio非循环区域声随卸载停止。", "",
-          "没有受跟踪的专用Audio Bus Layout，也未发现SFX/Music/UI独立总线。默认音效走Master；`scripts/audio/game_music.gd:36`显式Master。主菜单静音直接mute Master。多数音效无距离/声像；`shot_latch.gd:54`后备铃为AudioStreamPlayer2D、-10dB、1200wu、1 polyphony；森林事件先做800wu门限但播放仍非空间。", "",
-          "基础衰减：step 18dB，shot/land/jump/click 10dB，其他7dB；forest_wind 16dB、其他regional 11dB。Motion jump12dB，land按strength从16到11dB，heavy9dB。Weapon通常profile shot12dB、sustained24dB，hit10dB、wall17dB、blast9dB等由实际调用给定。", "",
-          "GameMusic另有2个流式voice，900ms交叉淡化；原MP3文件不加工，MUSIC_GAIN=0.16再乘同一session volume，暂停增益0.5；Web等待真实用户gesture。音乐和转换用除以Engine.time_scale后的真实时间。五曲混音/掩蔽听感均待验。", "",
-          "## 资源家族与当前用途", "", "| 家族 | 文件数 | 当前结论 |", "| --- | ---: | --- |"]
-    notes={"central_sfx":"25 Kenney CC0原OGG；集中加载，部分被正式新表现委派为后备", "bgm":"用户提供5原MP3；作者/独立商业许可未知，只记录当前项目授权", "enemy_death":"Kenney加工+原合成；旧helper保留preload，当前默认没有配置它（legacy_fixture_only）", "legacy_synthesis":"旧纯模态WAV；未找到运行引用，仅保留生成器/历史", "regional":"森林3个噪声/模态合成；正式非循环区域事件，原听音状态unverified", "motion":"Kenney加工3×3；新版正式主角使用", "weapon_v1":"5家族Kenney加工及1纯合成beam，各3变体；父类默认/开发对照，V2正式映射覆盖", "weapon_v2":"Freedoom BSD-3-Clause 14×3；其中mine_beep映射被V3录音覆盖", "timer":"CC0录音HQ预览原MP3缓存+85ms加工WAV；后者正式地雷使用", "evidence":"3历史评审WAV；不是运行时素材库"}
-    for family,n in inventory["summary"]["families"].items(): rows.append(f"| {family} | {n} | {notes.get(family, '未识别家族；保持未知并补充来源审计')} |")
-    rows += ["", "## 来源与授权缺口", "", "Kenney保存原许可、原文件名和SHA；README记录2026-10-11下载。Feel/Weapon V1记录加工配方。Freedoom的COPYING、CREDITS、固定upstream commit及原ZIP齐备，商业使用须随分发保留BSD声明且不得暗示背书；不能称CC0。Timer是Freesound公开HQ MP3预览，并非原WAV，作者Rudmer_Rotteveel，CC0页面/法律原文均保留。旧记录未写下载日期的逐项维持unknown。", "", "五首BGM的SHA/原附件名/授权边界保留在原provenance；作者和超出本游戏/试玩的再分发许可未提供。本轮不生成、不替换、不加工它们。程序合成资源只能称项目脚本生成，无凭据不能补称外部CC0。", "", "## 重复与冗余", ""]
-    if inventory["duplicate_sha256_groups"]:
-        for g in inventory["duplicate_sha256_groups"]: rows.append("- 完全相同SHA256："+"、".join(f"`{p}`" for p in g["paths"]))
-    else: rows.append("已读取的独立音频没有完全相同的SHA256；这不排除近似音色、重复语义或未读取历史文件重复。")
-    rows += ["", "V1父类bank、V2旧mine_beep和5个旧纯合成WAV属于可追踪冗余候选；仍有父类加载、测试/历史消费者，不能仅凭本报告删除。确认语义重复与多层冲突见 [Audio Event Catalog](event_catalog.md)。", "", "## 逐文件可查清单", "", "| 文件 | 用途 | 来源/许可记录 |", "| --- | --- | --- |"]
-    for r in inventory["assets"]: rows.append(f"| `{r['path']}` | {r['classification']} | `{r['source_manifest']}` / {r['license']} |")
-    rows += ["", "## 生成和加工入口（静态扫描）", ""]
-    for g in inventory["generators"]: rows.append(f"- `{g['path']}`："+"、".join(refstr(r) for r in g["references"][:3]))
-    rows += ["", "## 未验证边界", ""]+["- "+x for x in inventory["unknowns"]]+[""]
-    if "historical_annotation_scope" in inventory:
-        rows[2:2] = [inventory["historical_annotation_scope"], ""]
-    (out/"inventory.md").write_text("\n".join(rows))
+    rows = ["# Audio inventory", "", f"Source commit: `{inventory['source_commit']}`.", "",
+            "Generated static audit; no listening or device acceptance. Details: [inventory.json](inventory.json).", "",
+            "| Asset | Classification | Source / license |", "| --- | --- | --- |"]
+    for row in inventory["assets"]:
+        rows.append(f"| `{row['path']}` | {row['classification']} | `{row['source_manifest']}` / {row['license']} |")
+    (out / "inventory.md").write_text("\n".join(rows) + "\n")
 
 
 def render_catalog(out: Path, catalog: dict) -> None:
-    rows=["# Audio Event Catalog（基线审计）", "", f"任务 AUDIO-DIRECTOR-01；固定源码 `{catalog['source_commit']}`。完整事件/路径/全部调用行见 [event_catalog.json](event_catalog.json)。", "", "以下为代码映射验证，不是听感或实际试玩覆盖声明。自动扫描包括条件表达式及动态中间接口；原始callsites全部保留。候选接入和新事件规范另见当前Audio Director文档，不能回写基线。", "", "## 事件映射", "", "| 事件ID | 实际语义 | 代码位置（基线） |", "| --- | --- | --- |"]
-    for e in catalog["events"]:
-        runtime=[r for r in e["references"] if r["path"].startswith(("scripts/", "game/", "experiments/"))]
-        refs=runtime if runtime else e["references"]
-        rows.append(f"| `{e['event_id']}` | {e['description']} | "+("、".join(refstr(r) for r in refs) if refs else "未发现直接常量调用；见动态接口与注册表")+" |")
-    rows += ["", "## 正式动作同步与生命周期", "", "- 新主角跳跃/落地：真实motor/controller事件→candidate visual的motion_jump/motion_land→PlayerMotionFeel；旧jump/land回调显式断开，退出时恢复。命中音只订阅接受后的weapon_damage_committed，物理接触只画火花，地形另走wall。", "- 同时齐射只发一枪声；机枪逐轮。持续ion/blackhole声随真实Runtime phase进入/退出，stop_weapon(owner,true)清理；地雷85ms录音依真实entity age/fuse排节奏，不用音轨驱动玩法。", "- 角色伤害/死亡/segment return清理Motion/Weapon表现，武器epoch/session变更清理旧声；GameAudio/音乐服务在App卸载时有shutdown。一般短cue由App池持有，不能据此宣称每个短voice都按actor epoch取消。", "- 默认敌人死亡仍使用Kenney enemy_defeat。EnemyFeedback01DeathAudio保留同cue的origin meta替换能力，但当前默认host没有配置该helper；现有legacy资产登记亦明确fixture_only。恢复已死亡实例不重放；基础override仅对enemy_defeat生效，不能假设所有事件已支持参数化override。", "", "## 缺失或折叠的语义", ""]
-    for e in catalog["missing_or_collapsed_event_semantics"]: rows.append(f"- `{e['event']}`：{e['state']}。")
-    rows += ["", "## 冲突与待试听判断", ""]+["- "+x for x in catalog["conflicts"]]
-    rows += ["", "上述冲突是静态行为与设计风险；响度是否不适、哪个层应去除、素材是否悦耳均保持subjective_pending，须在单声和同场景BGM中试听。不能用hash不同或有3个变体宣称避免疲劳。", "", "## 音频节点和事件边界", "", "全项目非历史代码的AudioStreamPlayer/AudioServer/bus引用及全部生成/加工代码入口已存入inventory.json；测试、工具调用保留scope标记。没有静态引用只说明本次未发现，不将资源直接判可删除。", ""]
-    if "historical_annotation_scope" in catalog:
-        rows[2:2] = [catalog["historical_annotation_scope"], ""]
-    (out/"event_catalog.md").write_text("\n".join(rows))
+    rows = ["# Audio event references", "", f"Source commit: `{catalog['source_commit']}`.", "",
+            "Static callsites only; dynamic routes require runtime verification. Details: [event_catalog.json](event_catalog.json).", ""]
+    for event in catalog["events"]:
+        rows.append(f"- `{event['event_id']}`: " + ", ".join(refstr(ref) for ref in event["references"]))
+    (out / "event_catalog.md").write_text("\n".join(rows) + "\n")
 
 
 if __name__ == "__main__":

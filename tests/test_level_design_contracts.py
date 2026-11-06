@@ -59,10 +59,10 @@ class DesignContractTests(unittest.TestCase):
 
     def test_actual_forest_native_trace_rejects_deleted_events_return_and_capability_leaks(self):
         # Byte-preserved native process artifact, not a fabricated successful fixture.
-        data=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json').read_text())
+        data=json.loads((ROOT/'tests/fixtures/forest_h_trace/positive.json').read_text())
         self.assertEqual(validate_forest_h_slice(data),[])
         for case in ('missing-anchor','no-hook'):
-            actual=json.loads((ROOT/f'docs/evidence/region_production_v3/forest_h_slice/native/{case}/capture.json').read_text())
+            actual=json.loads((ROOT/f'tests/fixtures/forest_h_trace/{case}.json').read_text())
             self.assertTrue(validate_forest_h_slice(actual),case)
         mutations={
             'remove_actual_landings':lambda d:d.update(events=[e for e in d['events'] if e['kind']!='landed']),
@@ -86,7 +86,7 @@ class DesignContractTests(unittest.TestCase):
 
     def test_forest_request_transition_and_resource_causal_rejections(self):
         # Actual captured positive; mutations are consumer tests, not native reruns.
-        data=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json').read_text())
+        data=json.loads((ROOT/'tests/fixtures/forest_h_trace/positive.json').read_text())
         changes={
             'hook_events_tick1':lambda d:[e.update(tick=1) for e in d['events'] if e['kind'].startswith('hook_')],
             'hook_events_outside_route':lambda d:[e.update(tick=len(d['observations'])+1) for e in d['events'] if e['kind'].startswith('hook_')],
@@ -115,7 +115,7 @@ class DesignContractTests(unittest.TestCase):
     def test_historical_fixture_fixed_post_motor_contact_and_resource_binding(self):
         # This is a semantic contract mutation of byte-preserved old native data,
         # not a new Motor run or proof that the default short hook clears it.
-        data=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json').read_text())
+        data=json.loads((ROOT/'tests/fixtures/forest_h_trace/positive.json').read_text())
         path='res://tests/fixtures/forest_h_legacy_traversal.tres'
         checksum=hashlib.sha256((ROOT/path.removeprefix('res://')).read_bytes()).hexdigest()
         definition={'resource_path':path,'sha256':checksum,'scope':'frozen_historical_H_only_route',
@@ -154,66 +154,6 @@ class DesignContractTests(unittest.TestCase):
         event['position']=candidate['observations'][event['tick']-2]['position'][:]
         self.assertTrue(validate_forest_h_slice(candidate))
 
-    def test_original_quality_consumer_rejects_coherent_causal_counterexamples(self):
-        # Simulated receipt-selection unit cases over byte-preserved actual native
-        # data/logs, not new native executions or worker responses.
-        import level_design
-        import production_loop as loop
-        folder=ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive'
-        original=json.loads((folder/'capture.json').read_text())
-        receipt=json.loads((folder/'capture.invocation.json').read_text())
-        record_path=ROOT/'docs/evidence/quality/records/V3-FOREST-STARTUP-01.json'
-        # A frozen pre-verdict metadata fixture selects the semantic unit input.
-        # Live V3-FOREST-STARTUP-01 is permanently blocked/REJECT after two rounds;
-        # unit acceptance must never alter or infer acceptance of that live task.
-        actual_record=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/child_final_quality_record.json').read_text())
-        contract={'id':'V3-FOREST-STARTUP-01','quality_record':str(record_path.relative_to(ROOT)),
-                  'completion':'stage','required_gates':['G0','G1'],
-                  'region_proof':{'region_id':'thorn_forest','kind':'golden','scope':'prototype',
-                                  'capability_gate':{'alternatives':[['H']]},'allowed_capabilities':['H']}}
-        changes={
-            'positive':lambda d:None,
-            'hook_events_tick1':lambda d:[e.update(tick=1) for e in d['events'] if e['kind'].startswith('hook_')],
-            'erase_states':lambda d:[f.update(traversal='idle',hook_used=False) for f in d['observations']],
-            'request_outside':lambda d:d['input_requests'][0].update(tick=1000000),
-            'energy_injection':lambda d:d['observations'][50].update(energy=99999),
-            'health_death':lambda d:d['observations'][50].update(health=0),
-        }
-        original_read=loop.quality.read_json
-        # These six semantic cases only mutate ignored capture bytes. Freeze the
-        # actual production tree once, then verify it again after the cases;
-        # repeatedly hashing multi-GB historical evidence adds no case coverage.
-        frozen_sources=loop.snapshot()
-        with tempfile.TemporaryDirectory(dir=ROOT/'build') as temp, patch.object(loop,'snapshot',return_value=frozen_sources):
-            capture=Path(temp)/'capture.json';log=capture.with_suffix('.log')
-            log.write_bytes((folder/'capture.log').read_bytes())
-            for name,change in changes.items():
-                with self.subTest(name=name):
-                    data=copy.deepcopy(original)
-                    # This existing simulated consistency fixture binds the
-                    # moved live consumer, not the retained historical capture.
-                    # Original native JSON/log/commit bytes remain untouched.
-                    data['consumer']='game/world/levels/providers/thorn_forest_h_slice.gd'
-                    change(data);capture.write_text(json.dumps(data))
-                    checksum=hashlib.sha256(capture.read_bytes()).hexdigest()
-                    invocation=copy.deepcopy(receipt)
-                    invocation.update(capture=str(capture.relative_to(ROOT)),capture_sha256=checksum,source_files=level_design.source_files())
-                    invocation['command']=[arg if not arg.startswith('--output=') else '--output=res://'+str(capture.relative_to(ROOT)) for arg in invocation['command']]
-                    capture.with_suffix('.invocation.json').write_text(json.dumps(invocation))
-                    selected=copy.deepcopy(actual_record)
-                    # Resolve the moved documentation path in this in-memory fixture;
-                    # retain original bytes/hashes and the historical rejection record.
-                    for evidence in selected['evidence']:
-                        if evidence['path'].startswith('docs/quality/'):
-                            evidence['path'] = evidence['path'].replace('docs/quality/', 'docs/evidence/quality/', 1)
-                    selected['production_snapshot']=loop.digest({p:h for p,h in loop.snapshot().items() if not (p.startswith('docs/evidence/quality/records/') or (p.startswith('docs/project/worklines/') and '/quality/' in p))})
-                    selected['region_proofs']=[{'path':str(capture.relative_to(ROOT)),'sha256':checksum}]
-                    with patch.object(loop.quality,'read_json',side_effect=lambda path:selected if Path(path)==record_path else original_read(path)):
-                        result=loop.check_task_quality(contract)
-                    self.assertEqual(result['scope_complete'],name=='positive',result)
-                    self.assertFalse(result['content_complete'])
-                    if name!='positive':self.assertTrue(any('Canopy' in error for error in result['quality']['errors']))
-        self.assertEqual(loop.snapshot(),frozen_sources,'semantic cases must not modify the actual production tree')
 
     def setUp(self):
         self.design = json.loads((FIXTURES / "plains_design.json").read_text())
@@ -421,7 +361,7 @@ class DesignContractTests(unittest.TestCase):
 
     def test_state_search_does_not_union_unconnected_branch_grants(self):
         catalog = self.design["capabilities"]["catalog"]
-        catalog.append({"id": "wall_jump", "implemented": True, "source": "docs/evidence/quality/actor_actions_spec.md"})
+        catalog.append({"id": "wall_jump", "implemented": True, "source": "docs/data/player_actions.md"})
         self.design["capabilities"]["optional"].append("wall_jump")
         for branch, ability in (("left", "hook"), ("right", "wall_jump")):
             node = copy.deepcopy(self.design["topology"]["nodes"][1])

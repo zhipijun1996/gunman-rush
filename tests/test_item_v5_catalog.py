@@ -47,7 +47,7 @@ class ItemV5CatalogTests(unittest.TestCase):
     def test_exact_original_attachment_and_deterministic_output(self):
         self.assertEqual("222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f", hashlib.sha256(self.archive.read_bytes()).hexdigest())
         self.assertEqual(107499, self.archive.stat().st_size)
-        self.assertEqual((ROOT / IMPORT.SNAPSHOT).read_bytes(), IMPORT.encoded(self.snapshot))
+        self.assertEqual(IMPORT.read_workbook(self.archive), self.snapshot)
         self.assertEqual((ROOT / IMPORT.CONFIG).read_bytes(), IMPORT.encoded(self.catalog))
         self.assertEqual((ROOT / IMPORT.SYNERGIES).read_bytes(), IMPORT.encoded(self.synergies))
 

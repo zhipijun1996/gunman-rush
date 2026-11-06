@@ -15,93 +15,12 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import region_creative_direction as creative
-import region_style_history as history
 import level_design
 import production_loop as loop
 import visual_director
 from mission_fixtures import selected_mission, proposed_mission
 
 
-MERGED_BOSSES_STYLE = 'docs/evidence/creative_direction/bibles/style-continuity-20261031-v25-merged-bosses.json'
-
-FEATURE_LAYOUT_STYLE = 'docs/evidence/creative_direction/bibles/style-continuity-20261031-v26-feature-layout.json'
-
-
-def layout_path(path):
-    """Only migrate live test consumers listed by the current finite authority."""
-    current = json.loads((ROOT/FEATURE_LAYOUT_STYLE).read_bytes())
-    return next((row['path'] for row in current['revision_impact']['changed_references']
-                 if row['previous_path'] == path), path)
-
-
-WINDKEEPER24_ARCHIVE = 'docs/evidence/creative_direction/archive/windkeeper-pressure-before-style24/'
-
-
-# Actual visual consumer additions; original36 stay in their original order.
-ITEM_V5_STYLE_REFERENCES = [
-    ('item_feedback_view', 'scripts/items/v5/item_effect_view.gd'),
-    ('item_feedback_config', 'config/item_v5_feedback.json'),
-    ('item_entity_view', 'scripts/items/v5/item_v5_entity.gd'),
-    ('item_entity_config', 'config/item_v5_entities.json'),
-    ('item_defense_glyphs', 'scripts/items/v5/item_defense_effects.gd'),
-    ('item_defense_visual_config', 'config/item_v5_defense.json'),
-    ('item_resource_hud', 'scripts/ui/actor_resources_hud.gd'),
-    ('item_pause_menu', 'scripts/ui/demo_menu.gd'),
-    ('item_description', 'scripts/ui/item_presentation.gd'),
-    ('item_card', 'scripts/ui/item_card.gd'),
-    ('item_toast', 'scripts/ui/item_acquired_toast.gd'),
-    ('item_shop_modal', 'scripts/ui/item_shop_modal.gd'),
-    ('item_reward_modal', 'scripts/ui/stage_reward_modal.gd'),
-    ('item_touch_control', 'scripts/ui/touch_overlay.gd'),
-    ('item_shop_presenter', 'scripts/items/v5/item_v5_shop_presenter.gd'),
-    ('item_weapon_runtime', 'scripts/combat/weapon_action_runtime.gd'),
-    ('item_weapon_feel', 'scripts/dev/player_presentation_01/weapon_feel.gd'),
-    ('item_weapon_vfx', 'scripts/dev/player_presentation_01/weapon_vfx_v2.gd'),
-]
-
-ITEM_ART_GOLDEN_REFERENCES = [
-    ('item_art_library', 'scripts/items/v5/item_art_library.gd'),
-    ('item_art_config', 'config/item_v5_art.json'),
-    ('item_icon_metadata', 'config/item_v5_authoring.json'),
-    ('item_icon_atlas_first8', 'assets/items/v5/icons/golden-02.source.png'),
-    ('item_vfx_p24_source', 'assets/items/v5/vfx/p24-01.source.png'),
-    ('item_vfx_p14_source', 'assets/items/v5/vfx/p14-01.source.png'),
-    ('item_vfx_g16_source', 'assets/items/v5/vfx/g16-01.source.png'),
-]
-
-ITEM_ART_EXPANSION_REFERENCES = [
-    ('item_icon_atlas_catalog01', 'assets/items/v5/icons/catalog-01.source.png'),
-    ('item_icon_atlas_catalog02', 'assets/items/v5/icons/catalog-02.source.png'),
-    ('item_icon_atlas_catalog03', 'assets/items/v5/icons/catalog-03.source.png'),
-    ('item_icon_atlas_catalog04', 'assets/items/v5/icons/catalog-04.source.png'),
-    ('item_vfx_static_entities_source', 'assets/items/v5/vfx/static-entities.source.png'),
-    ('item_vfx_static_procs_source', 'assets/items/v5/vfx/static-procs.source.png'),
-    ('item_world_sampler_shader', 'shaders/item_v5_world_sprite.gdshader'),
-]
-
-
-HOME_CODEX_REFERENCES = [
-    ('home_codex_ui', 'scripts/ui/home_item_codex.gd'),
-    ('home_codex_world', 'scripts/underworld_plains/underworld_home_world.gd'),
-    ('home_item_catalog_policy', 'scripts/meta/home_item_catalog.gd'),
-    ('home_item_policy_config', 'config/home_items.json'),
-    ('home_item_profile_presenter', 'scripts/meta/meta_progression.gd'),
-]
-
-
-CHEST_ART_REFERENCES = [
-    ('chest_art_library', 'scripts/art/chest_art_library.gd'),
-    ('chest_art_layer', 'scripts/art/chest_art_layer.gd'),
-    ('chest_formal_dispatch', 'scripts/underworld_plains/underworld_objects.gd'),
-    ('chest_forest_presentation', 'scripts/presentation/forest_bible_presentation.gd'),
-    ('chest_forest_stage', 'scripts/demo/thorn_forest_region_stage.gd'),
-    ('chest_cosmetic_boundary', 'scripts/art/p1_unity_props.gd'),
-    ('chest_art_config', 'config/chest_art.json'),
-    ('chest_source04_atlas', 'assets/objects/chests/chest-tiers-v1.source.png'),
-]
-
-
-# Finite reviewed current-test migrations; old AST identities always remain pinned.
 class BibleTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -110,9 +29,9 @@ class BibleTests(unittest.TestCase):
         for name in ['docs/bible/regions/windchime_plains.md', 'docs/bible/regions/thorn_forest.md',
                      'docs/bible/world_regions.json', creative.BIBLE_REGISTRY,
                      'docs/data/world/migration-authority.json', 'docs/data/world/metroidvania-migration-handoff.md',
-                     'docs/evidence/creative_direction/bibles/user-request.json',
-                     'docs/evidence/creative_direction/bibles/1-windchime_plains_region_bible_v2.md',
-                     'docs/evidence/creative_direction/bibles/2-thorn_forest_region_bible_v2.md']:
+                     'docs/data/creative_direction/sources/user-request.json',
+                     'docs/data/creative_direction/sources/1-windchime_plains_region_bible_v2.md',
+                     'docs/data/creative_direction/sources/2-thorn_forest_region_bible_v2.md']:
             target = self.root / name
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / name, target)
@@ -201,7 +120,7 @@ class BibleTests(unittest.TestCase):
 
     def test_hash_refresh_cannot_turn_another_attachment_into_forest(self):
         self.registry(lambda data,row:row['current_bible'].update(
-            path='docs/evidence/creative_direction/bibles/1-windchime_plains_region_bible_v2.md'))
+            path='docs/data/creative_direction/sources/1-windchime_plains_region_bible_v2.md'))
         with self.assertRaisesRegex(ValueError, 'version/region|source region'):
             creative.bind_region_bible('thorn_forest', self.root)
 
@@ -223,7 +142,7 @@ class BibleTests(unittest.TestCase):
     def test_cross_attachment_bytes_cannot_be_relabelled_with_refreshed_registry(self):
         # Exact reproduction of independent-review/cross-attachment-probe-first:
         # leave both original evidence attachment rows and their SHA untouched.
-        plains = self.root/'docs/evidence/creative_direction/bibles/1-windchime_plains_region_bible_v2.md'
+        plains = self.root/'docs/data/creative_direction/sources/1-windchime_plains_region_bible_v2.md'
         forest = self.root/self.ref['path']
         forest.write_bytes(plains.read_bytes())
         sha = hashlib.sha256(forest.read_bytes()).hexdigest()
@@ -289,19 +208,13 @@ class BibleTests(unittest.TestCase):
 
     def test_shared_reference_or_quote_drift_blocks_calls_and_restore(self):
         style=creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        paths=[style['path'],'shaders/formal_fine_boundary.gdshader','assets/underworld_plains/terrain/fine_32/terrain.png','assets/underworld_plains/terrain/fine_32/source.png','assets/underworld_plains/terrain/fine_32/terrain.tres',
-               'scripts/art/player_presentation_runtime.gd','assets/player_presentation_01/motion_v1/motion_source.png','resources/art/avatars.json','scripts/demo/demo_app.gd','scripts/underworld_plains/underworld_presentation.gd']
-        paths.extend(path for _,path in ITEM_V5_STYLE_REFERENCES)
-        paths.extend(path for _,path in ITEM_ART_GOLDEN_REFERENCES)
-        paths.extend(path for _,path in ITEM_ART_EXPANSION_REFERENCES)
-        paths.extend(path for _,path in HOME_CODEX_REFERENCES)
-        paths.extend(path for _,path in CHEST_ART_REFERENCES)
+        paths = [style['path'], *[r['path'] for r in style['content']['runtime_reference']['references']]]
         skill=self.root/'.agents/skills/gameplay-reviewer/SKILL.md';skill.parent.mkdir(parents=True,exist_ok=True);skill.write_text('Synthetic reviewer')
         stripped=self.task();stripped['region_bible']={k:v for k,v in self.ref.items() if not k.startswith('supplemental_authority_')}
         with patch.object(loop,'ROOT',self.root),self.assertRaisesRegex(ValueError,'binding changed'):
             loop.region_bible_input(stripped)
         for name in paths:
-            path=self.root/layout_path(name);raw=path.read_bytes();path.write_bytes(raw+b'changed')
+            path=self.root/name;raw=path.read_bytes();path.write_bytes(raw+b'changed')
             with self.subTest(path=name),patch.object(loop,'ROOT',self.root):
                 with self.assertRaisesRegex(ValueError,'SHA changed'):
                     creative.validate_bible_binding(self.ref,root=self.root)
@@ -327,7 +240,7 @@ class BibleTests(unittest.TestCase):
     def test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume(self):
         # Regresses style-body-closure-probe/report-first: changing real body
         # payloads alone leaves the UnderworldPlayer script byte-identical.
-        script = self.root/layout_path('scripts/underworld_plains/underworld_player.gd')
+        script = self.root/'game/presentation/actors/underworld_plains/underworld_player.gd'
         script_raw = script.read_bytes()
         for skill_name in ('gameplay-reviewer','region-creative-director'):
             skill = self.root/('.agents/skills/'+skill_name+'/SKILL.md')
@@ -451,7 +364,7 @@ class BibleTests(unittest.TestCase):
                      'resources/items/forest_old_badge.tres'):
             task = {'id':'ANONYMOUS','goal':'Implement the updated regional layout',
                     'skills':['region-generator'],'checks':['docs'],'read_only':False,
-                    'allowed_paths':[path],'quality_record':'docs/evidence/quality/records/ANONYMOUS.json'}
+                    'allowed_paths':[path],'quality_record':'docs/project/worklines/fixture/quality/ANONYMOUS.json'}
             mission = {'schema_version':1,'content_domain':'fixed_world','objective':'Update the regional generator','max_calls':2,
                        'max_rounds':1,'call_timeout_seconds':10,'native_import_preflight':True,'tasks':[task]}
             with self.subTest(path=path), patch.object(loop,'snapshot',side_effect=AssertionError('must not snapshot')), patch.object(loop,'native_import_preflight',side_effect=AssertionError('must not import')):
@@ -501,7 +414,7 @@ class BibleTests(unittest.TestCase):
 
     def test_broad_bound_scope_cannot_write_another_actual_region_consumer(self):
         task = {**self.task(), 'goal':'Implement the updated regional layout','read_only':False,
-                'allowed_paths':['scripts/generation/'],'quality_record':'docs/evidence/quality/records/BIBLE.json'}
+                'allowed_paths':['scripts/generation/'],'quality_record':'docs/project/worklines/fixture/quality/BIBLE.json'}
         # Simulate source snapshots of one real temporary file only; this never
         # calls the full repository snapshot or any engine/worker process.
         target = self.root/'scripts/generation/plains_region_generator.gd'
@@ -571,250 +484,12 @@ class BibleTests(unittest.TestCase):
     def test_visual_director_route_is_retired(self):
         with self.assertRaisesRegex(ValueError, 'retired'):
             visual_director.route('优化风铃平原美术', 'current-art',
-                                  'docs/evidence/quality/records/current-art.json', ['scripts/art/'], phase='golden')
+                                  'docs/project/worklines/fixture/quality/current-art.json', ['scripts/art/'], phase='golden')
 
 
-    def test_bellstrider_audio_assets_are_literal17_real_wavs_with_strict_byte_custody(self):
-        import re
-        import wave
-        from quality import validate_asset
-        record_path = 'docs/evidence/quality/asset_records/bellstrider-rework-01-material-audio.json'
-        record = json.loads((ROOT/record_path).read_bytes())
-        self.assertEqual(record['disposition'],'runtime_candidate')
-        self.assertEqual(record['visual_status'],'unverified')
-        self.assertEqual(record['audio_status'],'unverified')
-        self.assertEqual(record['user_acceptance_evidence'],[])
-        expected_ids = {'armour_hit','weak_hit','roll_warn','roll_warn_double','roll_start','brake','turn','ring_strike','lob_aim','lob_lock','lob_release','lob_impact','phase','death','death_jam','death_impact','death_final'}
-        consumer = (ROOT/layout_path('scripts/audio/bellstrider_audio.gd')).read_text()
-        literal = re.findall(r'preload\("res://(assets/audio/bellstrider_01/[^\"]+\.wav)"\)',consumer)
-        self.assertEqual(len(literal),17)
-        self.assertEqual({Path(p).stem for p in literal},expected_ids)
-        self.assertEqual(set(record['runtime_paths']),set(literal))
-        manifest = json.loads((ROOT/record['source_path']).read_bytes())
-        self.assertEqual({r['path'] for r in manifest['assets']},set(literal))
-        for row in manifest['assets']:
-            self.assertEqual(hashlib.sha256((ROOT/row['path']).read_bytes()).hexdigest(),row['sha256'])
-            with wave.open(str(ROOT/row['path']),'rb') as wav:
-                self.assertEqual((wav.getnchannels(),wav.getsampwidth(),wav.getframerate(),wav.getnframes()),(1,2,48000,row['frames']))
-        paths = [record['source_path'],*record['runtime_paths'],*(r['path'] for r in record['associated_files'])]
-        for relative in set(paths):
-            target = self.root/relative;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(history.style25_source(ROOT,relative))
-        self.assertEqual(validate_asset(record,self.root),[])
-        corrupted = self.root/literal[0];raw = corrupted.read_bytes();corrupted.write_bytes(raw+b'\x00\x00')
-        self.assertIn('Associated file hash mismatch',validate_asset(record,self.root))
-        corrupted.write_bytes(raw)
 
 
-    def test_windkeeper24_rejects_prior22_and_new_consumer_drift(self):
-        prior_registry = json.loads((ROOT/(WINDKEEPER24_ARCHIVE+'registry.json')).read_bytes())
-        stale = copy.deepcopy(self.ref)
-        stale.update(supplemental_authority_path=prior_registry['shared_style_authority']['path'],
-                     supplemental_authority_sha256=prior_registry['shared_style_authority']['sha256'])
-        with self.assertRaisesRegex(ValueError,'binding changed'):
-            creative.validate_bible_binding(stale,root=self.root)
-        # Every new actual source/asset is independently protected, not just
-        # the old App leaf. Mutate temp copies; never the production checkout.
-        current = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
-        for row in current['runtime_reference']['references'][83:]:
-            path = self.root/layout_path(row['path']);original = path.read_bytes()
-            path.write_bytes(original+b'\npressure source drift\n')
-            with self.subTest(path=row['path']):
-                with self.assertRaisesRegex(ValueError,'Shared Plains style reference SHA changed'):
-                    creative.bind_region_bible('thorn_forest',self.root)
-            path.write_bytes(original)
-        self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
 
 
-class Style25ArchiveTests(unittest.TestCase):
-    """The bounded old-source archive never substitutes for current validation."""
-    def manifest(self):
-        raw = (ROOT/history.STYLE25_ARCHIVE/'manifest.json').read_bytes()
-        self.assertEqual(hashlib.sha256(raw).hexdigest(), history.STYLE25_MANIFEST_SHA)
-        return json.loads(raw)
 
-
-    def fixture(self):
-        temporary = tempfile.TemporaryDirectory()
-        self.addCleanup(temporary.cleanup)
-        root = Path(temporary.name)
-        shutil.copytree(ROOT/history.STYLE25_ARCHIVE, root/history.STYLE25_ARCHIVE)
-        return root
-
-    def test_missing_frozen_source_rejects_even_when_live_path_exists(self):
-        root = self.fixture()
-        path = 'scripts/ui/item_card.gd'
-        (root/path).parent.mkdir(parents=True, exist_ok=True)
-        (root/path).write_bytes(history.style25_source(ROOT, path))
-        (root/history.STYLE25_ARCHIVE/('sources/'+path+'.txt')).unlink()
-        with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
-            history.style25_source(root, path)
-
-    def test_corrupt_frozen_source_rejects_even_when_live_path_exists(self):
-        root = self.fixture()
-        path = 'scripts/ui/item_card.gd'
-        (root/path).parent.mkdir(parents=True, exist_ok=True)
-        (root/path).write_bytes(history.style25_source(ROOT, path))
-        leaf = root/history.STYLE25_ARCHIVE/('sources/'+path+'.txt')
-        leaf.write_bytes(leaf.read_bytes()+b'\nsource-drift')
-        with self.assertRaisesRegex(AssertionError, 'Frozen combination parent source changed'):
-            history.style25_source(root, path)
-
-    def test_rehashing_mutated_archive_manifest_does_not_re_sign_history(self):
-        root = self.fixture()
-        path = root/history.STYLE25_ARCHIVE/'manifest.json'
-        data = json.loads(path.read_bytes())
-        data['sources'][0]['sha256'] = '0'*64
-        path.write_text(json.dumps(data))
-        with self.assertRaisesRegex(AssertionError, 'Frozen source manifest changed'):
-            history.style25_source(root, data['sources'][0]['path'])
-
-
-    def test_live_validator_still_rejects_changed_source_despite_available_archive(self):
-        BibleTests.setUp(self)
-        shutil.copytree(ROOT/history.STYLE25_ARCHIVE, self.root/history.STYLE25_ARCHIVE)
-        original = creative.bind_region_bible('thorn_forest', self.root)[1]
-        live = self.root/'game/application/demo_app.gd'
-        self.assertTrue(live.is_file())
-        live.write_bytes(live.read_bytes()+b'\ncurrent-source-drift')
-        with self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
-            creative.bind_region_bible('thorn_forest', self.root)
-        self.assertEqual(original, self.ref)
-
-
-class FeatureLayoutBindingTests(unittest.TestCase):
-    """Current206-source authority is validated separately from frozen25 replay."""
-    setUp = BibleTests.setUp
-
-
-    def test_new_delegates_drift_and_missing_current_source_cannot_fall_back_to_archive(self):
-        shutil.copytree(ROOT/history.STYLE25_ARCHIVE,self.root/history.STYLE25_ARCHIVE)
-        for name in ('game/application/run_session.gd','game/world/levels/level_runtime.gd',
-                     'game/loadout/effects/item_active_cast.gd','game/loadout/effects/item_time_context.gd',
-                     'game/bosses/encounter/boss_encounter.gd','game/bosses/thorn_forest/thorn_forest_encounter.gd',
-                     'game/bosses/windkeeper/windkeeper_encounter.gd'):
-            path=self.root/name;raw=path.read_bytes()
-            path.write_bytes(raw+b'\n# current consumer drift\n')
-            with self.subTest(path=name),self.assertRaisesRegex(ValueError,'Shared Plains style reference SHA changed'):
-                creative.bind_region_bible('thorn_forest',self.root)
-            path.unlink()
-            with self.subTest(missing=name),self.assertRaisesRegex(ValueError,'Missing/unsafe Bible source'):
-                creative.bind_region_bible('thorn_forest',self.root)
-            path.write_bytes(raw)
-        self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
-
-    def test_current_player_identity_rejects_former_path_even_after_refreshing_hashes(self):
-        registry_path=self.root/creative.BIBLE_REGISTRY
-        registry=json.loads(registry_path.read_bytes());style_path=self.root/registry['shared_style_authority']['path']
-        style=json.loads(style_path.read_bytes());player=next(row for row in style['runtime_reference']['references'] if row['role']=='player_style_reference')
-        old_path='scripts/underworld_plains/underworld_player.gd';target=self.root/old_path
-        target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes((self.root/player['path']).read_bytes())
-        player['path']=old_path;style_path.write_text(json.dumps(style));registry['shared_style_authority']['sha256']=hashlib.sha256(style_path.read_bytes()).hexdigest();registry_path.write_text(json.dumps(registry))
-        with self.assertRaisesRegex(ValueError,'Actual UnderworldPlayer body dependencies'):
-            creative.bind_region_bible('thorn_forest',self.root)
-
-
-class OwnershipBindingTests(unittest.TestCase):
-
-
-    def test_indexed26_leaf_never_falls_back_and_live27_never_uses_archive(self):
-        folder = tempfile.TemporaryDirectory()
-        self.addCleanup(folder.cleanup)
-        root = Path(folder.name)
-        shutil.copytree(ROOT/history.STYLE26_ARCHIVE,root/history.STYLE26_ARCHIVE)
-        rows = json.loads((root/history.STYLE26_ARCHIVE/'manifest.json').read_bytes())['sources']
-        for row in rows:
-            live = root/row['path']; live.parent.mkdir(parents=True,exist_ok=True)
-            live.write_bytes((ROOT/row['path']).read_bytes())
-            leaf = root/history.STYLE26_ARCHIVE/row['archive_path']; raw = leaf.read_bytes()
-            leaf.unlink()
-            with self.subTest(missing=row['path']), self.assertRaisesRegex(ValueError,'Missing/unsafe Bible source'):
-                history.style26_source(root,row['path'])
-            leaf.write_bytes(raw+b'\nsource drift')
-            with self.subTest(corrupt=row['path']), self.assertRaisesRegex(AssertionError,'Frozen combination parent source changed'):
-                history.style26_source(root,row['path'])
-            leaf.write_bytes(raw)
-        manifest_path = root/history.STYLE26_ARCHIVE/'manifest.json'; original = manifest_path.read_bytes()
-        manifest = json.loads(original);manifest['sources'][0]['sha256']='0'*64;manifest_path.write_text(json.dumps(manifest))
-        with self.assertRaisesRegex(AssertionError,'Frozen source manifest changed'):
-            history.style26_source(root,rows[0]['path'])
-        manifest_path.write_bytes(original)
-        BibleTests.setUp(self)  # Real current27 fixture, not the frozen26 fixture.
-        shutil.copytree(ROOT/history.STYLE26_ARCHIVE,self.root/history.STYLE26_ARCHIVE)
-        for row in rows:
-            live=self.root/row['path'];raw=live.read_bytes();live.write_bytes(history.style26_source(ROOT,row['path']))
-            with self.subTest(old_live=row['path']), self.assertRaisesRegex(ValueError,'Shared Plains style reference SHA changed'):
-                creative.bind_region_bible('thorn_forest',self.root)
-            live.unlink()
-            with self.subTest(missing_live=row['path']), self.assertRaisesRegex(ValueError,'Missing/unsafe Bible source'):
-                creative.bind_region_bible('thorn_forest',self.root)
-            live.write_bytes(raw)
-        self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
-
-
-CANVAS_PREPARATION_STYLE = 'docs/evidence/creative_direction/bibles/style-continuity-20261102-v33-canvas-preparation.json'
-
-class RuntimeOwnershipBindingTests(unittest.TestCase):
-    setUp = BibleTests.setUp
-
-
-    def test_current34_exact206_sources_roles_media_and_five_technical_changes(self):
-        previous = json.loads((ROOT/CANVAS_PREPARATION_STYLE).read_bytes())
-        current = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
-        before, after = previous['runtime_reference']['references'], current['runtime_reference']['references']
-        self.assertEqual(current['version'], '34')
-        self.assertEqual(len(after), 206)
-        self.assertEqual([(r['role'], r['path']) for r in after], [(r['role'], r['path']) for r in before])
-        changes = []
-        for old, new in zip(before, after):
-            self.assertEqual(hashlib.sha256((self.root/new['path']).read_bytes()).hexdigest(), new['sha256'])
-            self.assertEqual(hashlib.sha256(history.style33_source(ROOT, old['path'])).hexdigest(), old['sha256'])
-            if old != new:
-                self.assertEqual(Path(new['path']).suffix, '.gd')
-                changes.append(dict(role=new['role'], path=new['path'], previous_sha256=old['sha256'], sha256=new['sha256']))
-        self.assertEqual(len(changes), 5)
-        self.assertIn('no_inherited', current['runtime_reference']['status'])
-
-
-    def test_current34_rejects_old_missing_corrupt_sources_and_manifest_resigning(self):
-        shutil.copytree(ROOT/history.STYLE33_ARCHIVE, self.root/history.STYLE33_ARCHIVE)
-        style = creative.supplemental_authority(self.bible, 'thorn_forest', self.root)['content']
-        manifest_path = self.root/history.STYLE33_ARCHIVE/'manifest.json'
-        manifest_raw = manifest_path.read_bytes()
-        manifest = json.loads(manifest_raw)
-        self.assertEqual(len(manifest['sources']), 5)
-        changed = {row['path'] for row in manifest['sources']}
-        for row in (ref for ref in style['runtime_reference']['references'] if ref['path'] in changed):
-            path = self.root/row['path']; raw = path.read_bytes()
-            old = history.style33_source(ROOT, row['path'])
-            for bad in (old, raw+b'\n# current source drift\n'):
-                path.write_bytes(bad)
-                with self.subTest(path=row['path']), self.assertRaisesRegex(ValueError, 'Shared Plains style reference SHA changed'):
-                    creative.bind_region_bible('thorn_forest', self.root)
-            path.unlink()
-            with self.subTest(missing=row['path']), self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
-                creative.bind_region_bible('thorn_forest', self.root)
-            path.write_bytes(raw)
-            archived = next(r for r in manifest['sources'] if r['path']==row['path'])
-            leaf = self.root/history.STYLE33_ARCHIVE/archived['archive_path']; saved = leaf.read_bytes()
-            leaf.unlink()
-            with self.assertRaisesRegex(ValueError, 'Missing/unsafe Bible source'):
-                history.style33_source(self.root, row['path'])
-            leaf.write_bytes(saved+b'changed')
-            with self.assertRaisesRegex(AssertionError, 'Frozen combination parent source changed'):
-                history.style33_source(self.root, row['path'])
-            leaf.write_bytes(saved)
-        manifest['sources'][0]['sha256']='0'*64
-        manifest_path.write_text(json.dumps(manifest))
-        with self.assertRaisesRegex(AssertionError, 'Frozen source manifest changed'):
-            history.style33_source(self.root, manifest['sources'][0]['path'])
-        manifest_path.write_bytes(manifest_raw)
-        stale = copy.deepcopy(self.ref)
-        stale.update(supplemental_authority_path=CANVAS_PREPARATION_STYLE,
-                     supplemental_authority_sha256=hashlib.sha256((ROOT/CANVAS_PREPARATION_STYLE).read_bytes()).hexdigest())
-        with self.assertRaisesRegex(ValueError, 'binding changed'):
-            creative.validate_bible_binding(stale, root=self.root)
-        self.assertEqual(creative.bind_region_bible('thorn_forest', self.root)[1], self.ref)
-
-
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == '__main__': unittest.main()
