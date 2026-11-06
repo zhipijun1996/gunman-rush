@@ -68,5 +68,13 @@ func run() -> void:
 	var maps:=app.ui.shell.find_children("*","FixedWorldMap",true,false)
 	check(maps.size()==1,"expanded and mini map share fixed world map view")
 	app._close_panel()
+	app.return_title()
+	await ticks(5)
+	var saved_revision:=app.state.revision
+	for attempt: int in 2:
+		app._ui_command("new", "")
+		await ticks(3)
+		check(app.ui.page=="confirm" and app.state.revision==saved_revision,"cancelled new-game confirmation must be asked again")
+		app._close_panel()
 	app.queue_free();await ticks(5)
 	print("WORLD UI: %d assertions, %d failures" % [checks,failures]);quit(failures)

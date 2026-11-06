@@ -22,7 +22,6 @@ var _return := false
 var _door_ready := false
 var _sequence := 0
 var tutorial: WorldTutorial
-var _new_confirm := false
 var title: Control
 var q_guard: WorldRecoilGuard
 var music: GameMusic
@@ -110,7 +109,6 @@ func _create_player() -> void:
 	_fatal = false
 	_return = false
 	_queue.clear()
-	_new_confirm = false
 	_accepted_damage=false
 	player = preload("res://game/player/player.tscn").instantiate()
 	player.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -524,13 +522,13 @@ func show_map() -> void:
 func _ui_command(kind: String,_id: String) -> void:
 	match kind:
 		"new":
-			if state.storage._exists(false) and not _new_confirm:
-				_new_confirm=true
+			if state.storage._exists(false):
 				var modal:=ui.panel("confirm","开始新的旅途？","这会替换当前世界存档，用户设置保留。")
-				modal.button("确认新游戏",func() -> void: ui.close();start_new())
+				modal.button("确认新游戏",_start_from_title)
 				modal.button("取消",_close_panel)
-			else: start_new()
-		"continue": continue_world()
+			else: _start_from_title()
+		"continue":
+			if not continue_world(): ui.title.show_notice(status)
 		"pause": toggle_pause()
 		"close": _close_panel()
 		"map": show_map()
@@ -547,6 +545,12 @@ func _ui_command(kind: String,_id: String) -> void:
 		"help":
 			var modal:=ui.panel("help","操作说明","A/D 移动，空格跳跃；鼠标瞄准，松开发射；W或场景交互按钮交谈/休息/拾取；M地图，I背包。手机使用摇杆/跳跃/HOOK和屏幕交互按钮。")
 			modal.button("返回",_close_panel)
+func _start_from_title() -> void:
+	ui.close()
+	if not start_new():
+		ui.root.hide()
+		ui.title.show_notice(status)
+
 func _open_npc(id: String) -> void:
 	if not _pause_world(): return
 	_service_ticket+=1;_service_token=lifetime.token();_npc_id=id

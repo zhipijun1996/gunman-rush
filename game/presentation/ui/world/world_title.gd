@@ -2,6 +2,7 @@ class_name FixedWorldTitle
 extends DemoMenu
 ## Reuses the existing title composition, typography, input/focus and illustration.
 signal world_requested(kind: String)
+var _notice: Label
 func show_title() -> void:
 	_begin(&"title",false)
 	_title_label = _label(_content,WorldText.text("world_title.00"),36,TEXT)
@@ -15,4 +16,8 @@ func show_title() -> void:
 	proceed.custom_minimum_size.y = 62
 	_button(_content,WorldText.text("world_title.04"),func() -> void: world_requested.emit("settings"))
 	_button(_content,WorldText.text("world_title.05"),func() -> void: world_requested.emit("help"))
+	_notice=_label(_content,"",16,MUTED)
+	_notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	_focus_first()
+func show_notice(message: String) -> void:
+	_notice.text=message
