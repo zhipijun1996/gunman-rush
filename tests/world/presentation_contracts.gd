@@ -51,7 +51,7 @@ func run() -> void:
 	check(walk>=12 and walk<=36,"horizontal entry visibly walks approximately one body width after reveal")
 	var hop:=await visible_motion("P-R06","room-link-139:P-R06",1)
 	check(hop>12 and hop<100 and app.player.is_on_floor(),"upward entry is a visible small physical hop ending on support")
-	check(app.player.position.x<756 and app.player.position.x>732,"short upward hop lands beside the shaft on the authored safe ledge")
+	check(app.player.position.x>780 and app.player.position.x<804,"short upward hop lands beside the shaft on the authored safe ledge")
 	var drop:=await visible_motion("P-R08","room-link-139:P-R08",1)
 	check(drop>20 and drop<60 and app.player.is_on_floor(),"downward entry visibly falls onto safe support")
 	app.load_room("P-R06","room-link-139:P-R06");await settle()
