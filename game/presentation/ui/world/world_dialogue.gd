@@ -2,6 +2,7 @@ class_name WorldDialogue
 extends DemoUiModalShell
 ## Reuses modal focus/touch/scroll ownership; a readable, compact world conversation.
 var conversation:=true
+var _content_minimum:=Vector2.ZERO
 static var _readable_font: FontFile
 func _ready() -> void:
 	if _readable_font==null:
@@ -44,5 +45,14 @@ func _fit() -> void:
 	var width:=minf(1040/scale,safe.size.x-2*margin)
 	var padding:=_panel.get_theme_stylebox("panel").get_minimum_size()
 	scroll.custom_minimum_size=Vector2(width-padding.x,minf(safe.size.y*.65,maxf(160/scale,rows.get_combined_minimum_size().y)))
+	scroll.size=scroll.custom_minimum_size
 	_panel.size=scroll.custom_minimum_size+padding
 	_panel.position=Vector2(safe.get_center().x-_panel.size.x/2,safe.end.y-margin-_panel.size.y)
+
+func _process(delta: float) -> void:
+	super._process(delta)
+	if not conversation or rows==null: return
+	# Wrapped text is measured after Container layout; shrink short conversations then.
+	var minimum:=rows.get_combined_minimum_size()
+	if minimum!=_content_minimum:
+		_content_minimum=minimum;_fit()

@@ -68,6 +68,9 @@ func run() -> void:
 	check(app.paused and app.ui.page=="dialogue","real left joystick Up opens NPC response")
 	if app.ui.page!="dialogue":
 		app.queue_free();await ticks(4);print("WORLD UI: %d assertions, %d failures" % [checks,failures]);quit(failures);return
+	await ticks(5)
+	var dialogue:=app.ui.shell as WorldDialogue
+	check(dialogue._panel.size.y-dialogue.rows.get_combined_minimum_size().y<70,"short dialogue shrinks after text wrapping without a large empty lower panel")
 	await touch_button(find("查看服务"))
 	check("NPC_P_REC" in app.services.ledger().met,"NPC meeting persists")
 	await touch_button(find("告别"))
