@@ -59,7 +59,7 @@ UnderworldUI持有并复用图标AtlasTexture，避免临时引用释放造成�
 
 ## 验证、限制与下一动作
 
-最终运行源码`695847d7396318dfa9d7ed5bbfc0ebd8a4fc5692`，Web build `0613b26ff11d`；[同源CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/42268953443)四项成功，[部署](https://github.com/zhipijun1996/gunman-rush/actions/runs/42269986694)首次在Pages syncing_files阶段超时，正用同包重试；线上仍为0a5567befbe5，新包尚未签收发布。精确产物保留在`prepared/mv-demo2-0613b26ff11d`，验证日志、截图和夹具说明位于该分支verification/report.json，成功发布后由[试玩站验收入口](https://zhipijun1996.github.io/gunman-rush/verification/report.json)访问。
+最终运行源码`695847d7396318dfa9d7ed5bbfc0ebd8a4fc5692`，Web build `0613b26ff11d`；[同源CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/42268953443)四项成功，[部署](https://github.com/zhipijun1996/gunman-rush/actions/runs/42271908399)成功，公开build-info/HTML/完整PCK核实一致。精确产物保留在`prepared/mv-demo2-0613b26ff11d`，验证日志、截图和夹具说明位于该分支verification/report.json，成功发布后由[试玩站验收入口](https://zhipijun1996.github.io/gunman-rush/verification/report.json)访问。
 
 世界专项通过：状态24、服务30、金币8、移动能力5、房间29、UI17、表现16、体验反例28、共鸣回复24、生命周期20断言。真实五房路线完成战斗、实际拾取Boss金币、荆棘旁材料、H、返回交付与独立进程继续；服务UI/服务重启、回复重启、未拾取金币重启均通过。金币覆盖真实死亡/旧表现渲染、离房保留、写失败保留、真实靠近入账和重复拒绝；共用PlainsMotionLoot回归603断言通过。
 
