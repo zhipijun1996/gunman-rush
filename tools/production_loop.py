@@ -42,6 +42,9 @@ def digest(value):
 
 
 def validate(m):
+    if m.get("content_domain") != "fixed_world" and any(set(t.get("skills", [])) & {"region-generator", "level-module-creator"}
+           for t in m.get("tasks", [])):
+        raise ValueError("Legacy random-region missions retired; use ordinary fixed-world tasks")
     if m.get("historical_metadata_only"):
         raise ValueError("Historical recipes are reference metadata; use the current route")
     if m.get("schema_version") != 1 or not m.get("objective") or not m.get("tasks"):

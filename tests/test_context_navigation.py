@@ -48,8 +48,8 @@ class NavigationTests(unittest.TestCase):
         navigation = (ROOT / "docs/project/module_map.md").read_text()
         scenarios = {
             "时间能量／弹药／共鸣": ("time_energy_v2.tres", "combat_and_recharge.md", "core"),
-            "森林默认／版本／状态": ("thorn_forest_region_v2_v15.gd", "procedural_generation.md", "run_forest_bible_world_contract.py"),
-            "mapgen风铃／端口／机制": ("runtime_map_v2_provider.gd", "procedural_generation.md", "runtime-map-windchime"),
+            "森林默认／版本／状态": ("thorn_forest_region_v2_v15.gd", "room_authoring.md", "run_forest_bible_world_contract.py"),
+            "mapgen风铃／端口／机制": ("runtime_map_v2_provider.gd", "room_authoring.md", "runtime-map-windchime"),
         }
         for topic, required in scenarios.items():
             row = next(line for line in navigation.splitlines() if line.startswith("| " + topic + " |"))

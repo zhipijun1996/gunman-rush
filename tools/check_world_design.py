@@ -1,144 +1,121 @@
-"""Validate the proposed world design, not runtime generation or story delivery."""
+"""Validate fixed-world identities and interfaces, never claim engine playability."""
 import argparse
 import hashlib
 import json
-import re
 from pathlib import Path
-import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-CATALOG = ROOT / "docs/bible/world_regions.json"
+CATALOG = ROOT / 'docs/bible/world_regions.json'
+IMPORT = 'docs/data/world/import-v04'
 
 
-def validate_framework(data, contract):
-    """Six chosen stages and sixteen designed regions; current runtime list is versioned."""
+def validate_data(world, contracts, catalog):
     errors = []
-    formal = contract.get("formal_run", {})
-    design = contract.get("world_design", {})
-    if formal.get("regions_per_run") != 6 or data.get("regions_per_run") != 6 or design.get("stage_count") != 6:
-        errors.append("Confirmed run has six stages, not sixteen sequential regions")
-    if (design.get("region_pool_count") != 16 or data.get("region_pool_count") != 16
-            or len(data.get("regions", [])) != 16):
-        errors.append("Confirmed design pool must contain sixteen actual registry entries")
-    runtime_version = formal.get("runtime_contract_version", 1)
-    expected = ["plains", "thorn_forest"] if runtime_version == 2 else ["plains"]
-    if runtime_version not in [1, 2] or formal.get("implemented_regions") != expected or formal.get("profile_id") != "formal_plains_region":
-        errors.append("Only plains has the legacy runtime consumer" if runtime_version == 1 else "Only plains and thorn_forest have current runtime consumers")
-    if runtime_version == 2:
-        if formal.get("campaign_policy") != "TWO_REGION_CAMPAIGN_v1":
-            errors.append("Two-region runtime requires its actual versioned campaign policy")
-        for name in ["game/world/levels/providers/thorn_forest_region_stage.gd", "game/world/generation/thorn_forest_region_generator.gd", "game/application/run_campaign_progression.gd"]:
-            if not (ROOT / name).is_file(): errors.append("Declared forest runtime consumer missing: " + name)
-    if "biome_count" in formal or "formal_region_count" in data:
-        errors.append("Ambiguous legacy total-region fields must stay in historical provenance only")
-    if design.get("framework_status") != "confirmed" or data.get("framework_status") != "confirmed":
-        errors.append("Confirmed six-stage/sixteen-region framework cannot revert to an unspecified proposal")
-    authority = data.get("framework_authority", {})
-    if authority != design.get("authority") or authority.get("path") != "docs/bible/regions.md":
-        errors.append("Framework authorities must agree on the current region design source")
-    else:
-        source = ROOT / authority["path"]
-        if hashlib.sha256(source.read_bytes()).hexdigest() != authority.get("sha256"):
-            errors.append("Region framework authority hash changed; review the source migration")
-        matrix = []
-        for line in source.read_text().splitlines():
-            if re.match(r"\| S[1-6] \|", line):
-                cells = [cell.strip().replace("**", "") for cell in line.strip().strip("|").split("|")]
-                matrix.append((cells[1], int(cells[0][1:])))
-        actual = [(row.get("working_name"), row.get("layer")) for row in data.get("regions", [])]
-        if len(matrix) != 16 or sorted(matrix) != sorted(actual):
-            errors.append("Registry names/stages must match the sixteen-region authority matrix")
+    def unique(rows, key, label):
+        ids = [r[key] for r in rows]
+        if len(ids) != len(set(ids)):
+            errors.append('Duplicate ' + label)
+        return {r[key]: r for r in rows}
+    rooms = unique(world['rooms'], 'id', 'room IDs')
+    regions = unique(world['regions'], 'code', 'region codes')
+    unique(world['regions'], 'id', 'region IDs')
+    edges = unique(world['connections'], 'id', 'connection IDs')
+    actions = unique(world['actions'], 'id', 'action IDs')
+    sections = {}
+    for rid, room in rooms.items():
+        if room['region'] not in regions:
+            errors.append('Unknown region: ' + rid)
+        sections[rid] = unique(room['sections'], 'id', 'section IDs in ' + rid)
+        routes = unique(room['internal_routes'], 'id', 'internal route IDs in ' + rid)
+        for route in routes.values():
+            if route['from_section'] not in sections[rid] or route['to_section'] not in sections[rid]:
+                errors.append('Unknown internal section: ' + route['id'])
+    def location(room, section, label):
+        if section not in sections.get(room, {}):
+            errors.append('Unknown room/section: ' + label)
+    for edge in edges.values():
+        for side in ('a', 'b'):
+            location(edge[side], edge[side + '_section'], edge['id'])
+        if any(set(clause) & {'H','W','D','Q'} for clause in edge['requires']):
+            errors.append('Ability on physical door: ' + edge['id'])
+    receipts = []
+    for action in actions.values():
+        if not (action['room_id'] == action['section_id'] == '@current' and action.get('requires_rest_interaction') is True):
+            location(action['room_id'], action['section_id'], action['id'])
+        if action.get('receipt_id'):
+            receipts.append(action['receipt_id'])
+        if action.get('receipt_id') and action.get('repeat'):
+            errors.append('Repeatable permanent action: ' + action['id'])
+    if len(receipts) != len(set(receipts)):
+        errors.append('Duplicate permanent receipts')
+    for shortcut in world['shortcuts']:
+        action = actions.get(shortcut['open_action_id'])
+        if not action or action['room_id'] != shortcut['open_from_room'] or shortcut['open_token'] not in action['grants']:
+            errors.append('Invalid shortcut control side/token: ' + shortcut['id'])
+    planned = unique(contracts['rooms'], 'room_id', 'contract rooms')
+    if set(planned) != set(rooms):
+        errors.append('Contract/world room set differs')
+    doors = unique([d for r in planned.values() for d in r['doors']], 'id', 'door IDs')
+    spawns = unique([s for r in planned.values() for s in r['entry_spawns']], 'id', 'spawn IDs')
+    opposite = {'left':'right','right':'left','up':'down','down':'up'}
+    if len(doors) != 2 * len(edges):
+        errors.append('Expected two physical door endpoints per connection')
+    spawn_owners = {s['id']: r['room_id'] for r in planned.values() for s in r['entry_spawns']}
+    for door in doors.values():
+        edge = edges.get(door['edge_id'])
+        endpoints = {(door['room_id'], door['section']), (door['target_room'], door['target_section'])}
+        if not edge or endpoints != {(edge['a'], edge['a_section']), (edge['b'], edge['b_section'])}:
+            errors.append('Door differs from canonical connection: ' + door['id'])
+        if spawn_owners.get(door['target_spawn']) != door['target_room']:
+            errors.append('Spawn belongs to wrong target room: ' + door['id'])
+        target = doors.get(door['target_door_id'])
+        if not target or target['target_door_id'] != door['id'] or target['room_id'] != door['target_room'] or opposite.get(door['direction']) != target['direction']:
+            errors.append('Broken door pair: ' + door['id'])
+        if door['target_spawn'] not in spawns:
+            errors.append('Missing target spawn: ' + door['id'])
+        location(door['room_id'], door['section'], door['id'])
+        location(door['target_room'], door['target_section'], door['id'])
+    slots = catalog['equipment_sources']
+    unique(slots, 'reward_id', 'equipment reward IDs')
+    stock = unique(world['shop_inventory'], 'id', 'shop stock IDs')
+    for slot in slots:
+        if not (slot.get('action_ref') in actions if 'action_ref' in slot else slot.get('stock_ref') in stock):
+            errors.append('Invalid catalog source: ' + slot['reward_id'])
     return errors
 
 
-def validate(path=CATALOG, contract_path=None):
+def validate(path=None, contract_path=None, root=ROOT):
+    root = Path(root)
     errors = []
     try:
-        data = json.loads(Path(path).read_text())
-        if data.get("schema_version") != 1 or data.get("kind") != "design_catalog_not_runtime_configuration":
-            return ["World catalog must be explicitly design-only, schema 1"]
-        if data.get("world_plan_status") != "tentative" or data.get("title_status") != "working_name":
-            errors.append("Candidate connections/content and working names must not be silently finalized")
-        source = data["source"]
-        source_path = ROOT / source["path"]
-        if not source_path.resolve().is_relative_to((ROOT / "docs/evidence/sources/references").resolve()):
-            return ["World reference must be a repository-relative source document"]
-        text = source_path.read_text()
-        if hashlib.sha256(source_path.read_bytes()).hexdigest() != source["sha256"]:
-            errors.append("Imported user handoff hash changed")
-        if data.get("formal_stages_per_region") != 2 or data.get("formal_boss_stage") != 2 or data.get("formal_maps_per_region") != 2 or data.get("formal_map_structure") != "connected_region":
-            errors.append("Each formal region has two connected maps, mini Boss first and region Boss second")
-        contract = json.loads(Path(contract_path or ROOT / "docs/bible/design_contract.json").read_text())
-        errors.extend(validate_framework(data, contract))
-        regions = data["regions"]
-        by_id = {r["id"]: r for r in regions}
-        by_name = {r["working_name"]: r for r in regions}
-        if len(regions) != 16 or len(by_id) != 16 or len(by_name) != 16 or data.get("proposed_region_pool_count") != 16:
-            return errors + ["Expected sixteen unique design regions; content remains unimplemented"]
-        if data.get("proposed_layer_count") != 6:
-            errors.append("Current proposed network has six layers")
-        first, terminal = data["first_region_id"], data["terminal_region_id"]
-        if first != "windchime_plains" or terminal != "world_clockheart":
-            errors.append("World must begin in plains and converge on the proposed clockheart")
-        expected = {}
-        for line in text.split("### 3.1")[1].split("### 3.2")[0].splitlines():
-            cells = [c.strip() for c in line.split("|")[1:-1]]
-            if len(cells) == 3 and cells[1].isdigit():
-                expected[cells[0]] = (int(cells[1]), [] if cells[0] == "世界钟心" else cells[2].split("、"))
-        if set(expected) != set(by_name):
-            errors.append("Region names differ from the imported proposed network")
-        incoming = {key: 0 for key in by_id}
-        for region in regions:
-            layer = region["layer"]
-            if type(layer) is not int or not 1 <= layer <= 6:
-                errors.append("Invalid layer: " + region["id"])
-            if region.get("runtime_available") is not False:
-                errors.append("Unimplemented world regions must not become runtime-available")
-            destinations = region["next_region_ids"]
-            if len(destinations) != len(set(destinations)):
-                errors.append("Duplicate region edge: " + region["id"])
-            for target in destinations:
-                if target not in by_id:
-                    errors.append("Unknown region destination: " + str(target))
-                else:
-                    incoming[target] += 1
-                    if by_id[target]["layer"] != layer + 1:
-                        errors.append("Normal region edges cannot skip layers or cycle")
-            if region["working_name"] in expected:
-                expected_layer, next_names = expected[region["working_name"]]
-                actual_names = [by_id[t]["working_name"] for t in destinations if t in by_id]
-                if layer != expected_layer or actual_names != next_names:
-                    errors.append("Region whitelist differs from original proposal: " + region["id"])
-            if not destinations and region["id"] != terminal:
-                errors.append("Proposed region is a dead end: " + region["id"])
-        if by_id[terminal]["next_region_ids"] or by_id[first]["layer"] != 1 or by_id[terminal]["layer"] != 6:
-            errors.append("Invalid start/terminal layer or terminal exits")
-        if incoming[first] or any(not count for key, count in incoming.items() if key != first):
-            errors.append("Every non-start region must have an incoming connection")
-        def reaches_terminal(key, visiting):
-            if key == terminal:
-                return True
-            if key not in by_id or key in visiting:
-                return False
-            targets = by_id[key]["next_region_ids"]
-            return bool(targets) and all(reaches_terminal(t, visiting | {key}) for t in targets)
-        if any(not reaches_terminal(key, set()) for key in by_id):
-            errors.append("Every proposed path must lead to the terminal without cycles")
-        for route in data["example_routes"]:
-            if len(route) != 6 or route[0] != first or route[-1] != terminal:
-                errors.append("Invalid complete example route")
-            elif any(b not in by_id.get(a, {}).get("next_region_ids", []) for a, b in zip(route, route[1:])):
-                errors.append("Example route violates whitelist")
-    except (OSError, ValueError, KeyError, TypeError, IndexError, AttributeError) as error:
-        errors.append("Invalid world design: " + str(error))
+        mapping = json.loads(Path(path or root / 'docs/bible/world_regions.json').read_text())
+        contract = json.loads(Path(contract_path or root / 'docs/bible/design_contract.json').read_text())
+        if mapping.get('schema_version') != 2 or mapping.get('kind') != 'fixed_world_region_identity_mapping':
+            errors.append('Expected fixed-world identity mapping schema')
+        if any(r.get('runtime_available') is not False for r in mapping['regions']):
+            errors.append('Identity mapping must not claim fixed-world runtime availability')
+        source = root / mapping['canonical']
+        world = json.loads(source.read_text())
+        contracts = json.loads((root / IMPORT / 'design/room-graybox-contracts-v04.json').read_text())
+        catalog = json.loads((root / IMPORT / 'design/collection-catalog-v04.json').read_text())
+        errors.extend(validate_data(world, contracts, catalog))
+        sha = hashlib.sha256(source.read_bytes()).hexdigest()
+        if contracts['canonical_sha256'] != sha or catalog['canonical_reference']['sha256'] != sha:
+            errors.append('Stale source digest in contracts/catalog')
+        expected = {(r['id'], r['code'], r['name']) for r in world['regions']}
+        actual = {(r['id'], r['code'], r['working_name']) for r in mapping['regions']}
+        if actual != expected or len(actual) != len(mapping['regions']):
+            errors.append('Region identity mapping differs from canonical')
+        if contract.get('world_source') != mapping['canonical']:
+            errors.append('Multiple world authorities')
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        errors.append('Invalid world data: ' + str(error))
     return errors
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--catalog", type=Path, default=CATALOG)
-    problems = validate(parser.parse_args().catalog)
-    if problems:
-        print("\n".join(problems), file=sys.stderr)
-        sys.exit(1)
-    print("PASS: confirmed 16-region pool / six-stage framework, candidate 29 whitelist edges, source hashes and versioned runtime boundary. Runtime not tested.")
+    parser.add_argument('--catalog', type=Path)
+    errors = validate(parser.parse_args().catalog)
+    print('\n'.join(errors) if errors else 'PASS: fixed-world IDs, endpoints, sections, shortcuts, receipts, source digests and references; runtime not tested')
+    raise SystemExit(bool(errors))

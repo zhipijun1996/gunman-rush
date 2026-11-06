@@ -1,22 +1,22 @@
 ---
 name: level-module-creator
-description: 平台挑战模块的新增、端口／几何／机制修改及模块准入。
+description: 固定房间/Section内容制作与机关复用；名称保留兼容，不用于随机模块扩池。
 ---
 
 # level-module-creator
 
 ## 适用任务
 
-平台挑战模块的新增、端口／几何／机制修改及模块准入。
+固定房间/Section内容制作与机关复用；名称保留兼容，不用于随机模块扩池。
 
 ## 操作
 
-1. 读取目标模块的动作、碰撞与端口约束，先整理入口／出口、合法能力、机关、落点、恢复和视觉意图。
-2. 从 `game/world/components/` 和实际模块库修改定义、几何及配置，分别核对身体包络、机关相位与视觉锚点。
-3. 用真实 Motor 完成单模块的镜像、最差相位和连接验证，核对平台、刺面、支撑与装饰的实际关系。
+1. 按room_id提取局部合同、邻门与相关对象，先核真实控制器能力。
+2. 用既有世界组件制作入口/出口、平台、危险与恢复；能力阻隔由房内环境体现，入口预览可原路退回。
+3. 样房先核身体包络、相位、支撑、落点、失败进入侧和回程；场景人工内容不由重建覆盖。
 
 ## 验证与交付
 
-用模块对应Motor检查；runtime-map内容使用 `runtime-map-windchime` 或M35相关专项。交付模块卡、准入拒绝原因、真实输入轨迹、连接／恢复与合屏结果。
+用真实Motor验证出返程、上下门落脚、镜头及状态；按任务区分结构与完整美术/遭遇。
 
-模板：[现有设计卡](../../../docs/project/templates/design.md)。验收方法见 [开发质量](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。
+[世界输入](../../../docs/data/world/README.md) · [房间制作](../../../docs/bible/room_authoring.md) · [验收](../../../docs/project/development.md)

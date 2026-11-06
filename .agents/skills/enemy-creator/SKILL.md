@@ -9,6 +9,8 @@ description: 新怪物、实质行为改造或补齐已有物种。
 
 新怪物、实质行为改造或补齐已有物种。
 
+固定实例按休息周期刷新，普通切房和读档不重置。
+
 ## 操作
 
 1. 从 [对象索引](../../../docs/data/README.md) 读取相关地区圣经和物种规范，定位本次缺口；制作范围按 [开发手册](references/development_workflow.md) 与 [完成标准](../../../docs/project/enemy_completion.md) 选择。

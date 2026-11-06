@@ -1,22 +1,22 @@
 ---
 name: region-generator
-description: 随机地区拓扑、模块池、内容分布及探索节奏的新增或修改。
+description: 固定世界装配、房间连接与永久事件整合；名称保留兼容，不用于随机地区量产。
 ---
 
 # region-generator
 
 ## 适用任务
 
-随机地区拓扑、模块池、内容分布及探索节奏的新增或修改。
+固定世界装配、房间连接与永久事件整合；名称保留兼容，不用于随机地区量产。
 
 ## 操作
 
-1. 按目标地区读取选定 Bible、当前生成版本与相关能力约束，定位实际 Provider、代表／最差 Seed 及需保留的体验。
-2. 先更新主路、可选发现、捷径、营地、Boss 接近和返回的生成规则，再修改模块池、能力锁与空间配置；候选版本保持显式选择。
-3. 用一个黄金场所验证动作、敌人关系、空间和画面，再扩模块与种子。地图和奖励沿现有独立随机流，Manifest 记录实际选择与稳定实例。
+1. 按任务读取世界源的目标房与邻接、地区正文和当前实现。
+2. 沿现有Request/Plan/Provider/Stage边界装配固定房间，保持稳定ID、分区和永久事件，不重写PlayerMotor。
+3. 先代表样房验证真实门台、来侧、状态和回访，再按父任务扩展；源修改重跑受影响路线。
 
 ## 验证与交付
 
-使用 `level_design.py` 的validate／analyze／compare与相关 `region`／森林Motor／mapgen专项。交付版本、Seed矩阵、Manifest、真实出返程和空间差异；结构诊断与实际可达分别记录。
+验证连接端点、能力预览可退、授予无自锁与唯一收据；实机分别验证门台、镜头、失败/休息/保存。按结构灰盒范围交付，不签收完整战斗。
 
-模板：[现有设计卡](../../../docs/project/templates/design.md)。新内容的审查方法见 [开发与审查](../../../docs/project/development.md)，实现与检查入口见 [模块导航](../../../docs/project/module_map.md)。
+[世界输入](../../../docs/data/world/README.md) · [房间制作](../../../docs/bible/room_authoring.md) · [验收](../../../docs/project/development.md)

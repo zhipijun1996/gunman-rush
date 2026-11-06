@@ -1813,6 +1813,24 @@
       ],
       "timeout_seconds": 60,
       "success_pattern": "^PASS: current documentation, navigation, task dependencies and tuning\\. Game runtime not tested\\.$"
+    },
+    "world-migration": {
+      "mode": "manual",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$"
+    },
+    "world-routes": {
+      "mode": "manual",
+      "argv": [
+        "python3",
+        "tools/world/validate_routes.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: fresh A/B/C/D"
     }
   },
   "profiles": {}

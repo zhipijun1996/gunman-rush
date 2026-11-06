@@ -37,6 +37,11 @@ def validate(root=ROOT):
                 errors.append(f'Broken skill reference: {path}: {target}')
     if not set(p['core_skills']) <= names:
         errors.append('Missing core skills')
+    for task_type, rule in p['task_types'].items():
+        if not set(rule.get('skills', [])) <= names:
+            errors.append(f'Unknown task skill: {task_type}')
+    if p.get('production_routes') != {'random_region': 'retired', 'fixed_world': 'ordinary_task_current_handoff'}:
+        errors.append('Production routing must distinguish fixed-world tasks from retired random production')
     for name in p['templates']:
         path = root / name
         if not path.is_file():

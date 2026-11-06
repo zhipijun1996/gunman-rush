@@ -196,6 +196,23 @@
         "ability-creator",
         "gameplay-reviewer"
       ]
+    },
+    "world_graybox": {
+      "gates": [
+        "G0",
+        "G4"
+      ],
+      "dimensions": [
+        "design",
+        "technical",
+        "gameplay"
+      ],
+      "skills": [
+        "game-quality-gate",
+        "region-generator",
+        "level-module-creator",
+        "project-integration"
+      ]
     }
   },
   "gates": {
@@ -260,5 +277,9 @@
     "docs/project/templates/enemy_design.md",
     "docs/project/templates/review.md",
     "docs/project/templates/story.md"
-  ]
+  ],
+  "production_routes": {
+    "random_region": "retired",
+    "fixed_world": "ordinary_task_current_handoff"
+  }
 }

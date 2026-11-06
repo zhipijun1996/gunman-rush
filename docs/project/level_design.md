@@ -1,5 +1,7 @@
 # 关卡设计与体验验证
 
+固定世界任务按 [当前交接](worklines/mv_migration/scope.md) 直接实施。本文旧随机地区自动流程仅供历史工具定位，route/content_plan已停止；冻结旧mission拒绝执行。地区上下文现在输出固定房号/主题，不再输出六层资格。显式新固定世界mission须声明`content_domain: fixed_world`并自行绑定适用检查；本阶段不要求使用执行器。
+
 本页规定 `tools/level_design.py` 的离线设计和体验证据职责。创作任务从 [区域入口](content_pipeline.md) 加载选定 Bible，执行协议见 [生产循环](production_loop.md)，游戏状态与当前消费者见 [模块导航](module_map.md)。
 
 ## 数据与职责

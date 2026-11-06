@@ -1,36 +1,26 @@
-# 地区框架与能力锁
+# 地区身份与主题
 
-每局按 S1–S6 六阶段，从16地区设计池中每阶段选一个；S1固定风铃平原，S6固定世界钟心。每地区两张连通探索图，第一图小Boss、第二图地区Boss。实际开放范围见 [当前状态](../project/current_state.md)，候选连接见 [世界目录](world_regions.json)。
+16个地区属于同一固定世界，回访与回路合法。能力环境、门锁、主体探索与修钟规则见 [世界结构](world_structure.md) 和 [世界推进](world_progression.md)。下表只映射身份，不复制拓扑或房间条件；世界源为 [唯一输入](../data/world/README.md)。
 
-## 能力与授予
+| 原 region key | 新 ID | Code | 地区 |
+| --- | --- | --- | --- |
+| plains | windchime_plains | P | 风铃平原 |
+| thorn_forest | thorn_forest | F | 荆棘森林 |
+| mushroom_caverns | mushroom_caverns | M | 蕈灯地穴 |
+| firefly_marsh | firefly_marsh | S | 萤雾沼泽 |
+| windswept_canyon | windswept_canyon | Y | 风蚀峡谷 |
+| frostmirror_glacier | frostmirror_glacier | I | 霜镜冰川 |
+| moonshadow_cemetery | moonshadow_cemetery | C | 月影墓园 |
+| moon_crown_castle | moon_crown_castle | K | 月冠古堡 |
+| gear_city | gear_city | G | 齿轮工城 |
+| 新增，无旧key | echo_mines | N | 回声矿井 |
+| ember_depths | ember_depths | E | 熔火腹地 |
+| root_sanctuary | root_sanctuary | T | 根脉圣殿 |
+| sunken_ruins | sunken_ruins | R | 沉水遗迹 |
+| shattered_isles | shattered_isles | A | 破碎浮岛 |
+| starbridge_gate | starbridge_gate | V | 星桥天门 |
+| world_clockheart | world_clockheart | Z | 世界钟心 |
 
-H钩索、W墙面移动、D二段跳、U1首次武器进化、U2二次武器进化为五项核心能力。前五阶段完成后各获得一项，进入S6时拥有全部；U2须先有U1，U1选择当前武器的一条Lv.2分支，U2沿已选分支进化。具体动作见 [能力](../data/abilities.md) 与 [武器](../data/weapons.md)。
+区域基础操作一致，时间主题由环境、敌人、动画与BGM表达。地区主题细节与当前选中美术分别见区域正文和Bible注册表；新房间不得继承旧六层DAG与两图Boss位置。
 
-只展示剩余能力及后续完整路线都合法的选择；只剩一项就如实显示一项，不伪造三选一。核心能力权益与Boss原有道具奖励独立。已授予能力、各项资源恢复和永久进度分别遵守 [路线](run_and_routes.md)、[资源](combat_and_recharge.md) 与 [保存](home_and_save.md)。
-
-## 地区矩阵
-
-R指当前武器反冲，+表示同时要求，/表示替代解法。阶段与S2单能力、S4替代解法、S5双移动硬锁为约束；具体机关和未实现地区的解法需经实际场所验证。
-
-| 阶段 | 地区 | 主路硬锁 | 高阶／隐藏门槛 | 体验方向 |
-| --- | --- | --- | --- | --- |
-| S1 | 风铃平原 | 基础跳跃 + R | 仅基础跳跃 + R 的熟练应用 | 反冲方向、落点与制动教学 |
-| S2 | 荆棘森林 | H | H + R 的复杂连续应用，不得出现 W/D/U1/U2 门槛 | 活锚点、牵引踢跳、高速树冠穿越 |
-| S2 | 萤雾沼泽 | U1 | U1 + 该 Lv.2 武器反冲/攻击的复杂应用，不得出现 H/W/D/U2 门槛 | 六类 Lv.2 武器各具解法的共鸣水钟 |
-| S2 | 风蚀峡谷 | W | W + R 的复杂连续应用，不得出现 H/D/U1/U2 门槛 | 同墙循环攀升、双墙蹬跳、风区缓降 |
-| S3 | 蕈灯地穴 | H | H+D / H+W （若已拥有） | 弹力蘑菇、钩索中途修正轨迹 |
-| S3 | 月冠古堡 | U1 | U1+H / U1+D （若已拥有） | 移动吊灯、月镜、移动中精准射击 |
-| S3 | 沉水遗迹 | H+U1 | H+U1+D / H+U1+W （若已拥有） | 水位改变地图连通性 |
-| S3 | 齿轮工城 | W+D | W+D+H / W+D+U1 （若已拥有） | 动态墙面、活塞时序、双跳定位 |
-| S4 | 月影墓园 | U1 | U1+任一移动能力（若已拥有） | 钟声切换虚实平台 |
-| S4 | 霜镜冰川 | W / D | W+D 组合 | 低摩擦惯性、碎冰、冰壁制动 |
-| S4 | 熔火腹地 | H / W | H+W 组合 | 热流上升、喷发脉冲、炉道结构变化 |
-| S4 | 破碎浮岛 | 2/3移动 | H+W+D 三移动能力 | 高空长链、连续空中路线选择 |
-| S5 | 根脉圣殿 | H+W+U1 | H+W+D+U1 | 根系伸缩与环路重构 |
-| S5 | 逆时钟塔 | W+D+U1 | H+W+D+U1 | 旋转空间、精密节律与墙跳 |
-| S5 | 星桥天门 | H+D+U1 | H+W+D+U1 | 长距离空中导航与光桥 |
-| S6 | 世界钟心 | H+W+D+U1+U2 | 使用本局已学到的完整机制组合 | 全能力综合考试与终战 |
-
-S2包括隐藏路线在内只使用对应的一项新能力和基础跳跃／R。S4的替代条件必须各自有真实可通路线。S5主路要求指定的双移动能力和U1，第三种移动能力只用于自愿挑战。U1门槛覆盖全部合法Lv.2分支的不同解法。
-
-每区以材料、生态、地形关系、敌人压力和玩家动作建立身份。主路提供学习、尝试与恢复，高阶内容有相称收益和返程。先验证完整场所，再扩模块与拓扑；当前区域意图见 [平原](regions/windchime_plains.md) 与 [森林](regions/thorn_forest.md)。
+旧 reverse_clocktower／逆时钟塔退出当前目录；echo_mines／回声矿井 N 是新身份，两者没有已确认存档转换映射，不互相改名。

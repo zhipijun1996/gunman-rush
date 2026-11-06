@@ -1,51 +1,19 @@
-# 血量、伤害与回退
+# 伤害、地形失败与死亡
 
-## 资源与请求
+Health只持有生命状态；伤害请求保留稳定攻击/暴露ID、实例身份、时钟域与生命周期资格。正伤害、阵营、保护与去重检查成立后按帧统一提交。玩家零血优先于未提交Boss胜利、奖励、购买与转场；回调顺序不能改变结果。
 
-Health={current,max,alive}，max>0、0≤current≤max，零血为终态直到新局，不由回血/Modifier恢复。Stamina={current,capacity}、ActionResources={jump/shot counts,flight ledger}分别持有状态，资源接口grant/try_consume/clamp/get_snapshot发布类型化变更事件；策略决定消费来源。HealthDefinition、StaminaDefinition、ActionResourceDefinition存初值与上限/时间域，不保存运行状态。
+## 地形失败【已确认】
 
-DamageRequest={run_id/run_epoch,stage_id/stage_epoch,target_actor_id/actor_epoch,event_id,source_id,attack_id或exposure_id,physics_tick,kind MONSTER/ENVIRONMENT,amount,hit_direction}。正伤害、阵营、实例/token合法后收集到本tick批次；同攻击/接触暴露ID去重。Monster含接触、近战、敌弹；Environment含尖刺、齿轮、熔岩/越界。Health只扣血，不知道关卡、家园或传送位置。
+普通危险扣1HP，明确标记的特别危险如熔岩扣2HP。同一次失败仅扣一次。存活时返回本次挑战实际进入侧，不能按最近出口或地面选择，不能借失败穿越能力阻隔；HP<=0转死亡。合法向下连接不是坠落失败。
 
-## 两类行为
+回退不回血、不推进休息周期、不补发周期额度；仅复位必要的局部瞬态机关。安全定位通过唯一Motor执行，验证完整身体、真实支撑与危险包络。没有合法进入侧锚点应报告错误，不送到出口或循环扣血。
 
-| 情况 | 血量与位置 | 其他处理 |
-| --- | --- | --- |
-| 怪物伤害且存活 | 扣血，保留当前位置 | 短时怪物受击无敌，持续时间/时钟域可配置；击退尚未确定，默认不启用候选策略 |
-| 环境伤害且存活 | 扣血，回当前挑战段安全起点 | SegmentRespawn清运动、反冲、持续慢时与旧输入/请求；安全出生验证/短保护 |
-| 任意已接受伤害后current=0 | 结束run，返回家园 | 优先于环境回退/Boss胜利/未提交奖励；取消run token与回调，不回段起点 |
+## 伤害分类与动作
 
-DamagePolicy选择响应，SegmentRespawn通过唯一Motor提供安全定位/清运动入口，通过已接受回退命令定位，同tick不重复执行move_and_slide。玩家运动完成后统一结算碰撞伤害，再决定回退/终局，UI只消费DamageResult。
+怪物伤害存活保留位置；怪物受击保护不屏蔽实体环境。Q仅实际反冲位移期保护怪物与光幕，规则见 [能力](../data/abilities.md)。即使Boss制造，实体熔岩/齿轮仍按环境危险处理；滤芯抗毒按自身效果。
 
-## 帧事务与候选平衡
+旧actor请求、弹体及输入取消不得影响新实例。安全落地可恢复对应动作资格，射击与Q冷却保留；不以虚拟grounded替代实体接地。持续接触按exposure_id、攻击按attack_id去重；同帧批次用稳定排序，最高有效伤害与生命周期检查沿共用机制复用。
 
-以下策略已在运行消费者实现；无敌时长、排序与平衡仍是可调整的候选：
+## 死亡与恢复
 
-- 怪物受击无敌仅挡MONSTER，不能免疫ENVIRONMENT；环境回退出生保护单独计时，短时挡两类来源。持续时间须正且可配置；候选使用游戏物理时钟，受全场慢时影响，不使用渲染帧数。
-- 每目标每物理tick最多接受一次伤害。先过滤旧事件/阵营/保护/重复，再暂定环境优先，同类取最高amount，再稳定source_id、event_id升序打破平局。未选伤害不跨帧积压；策略可调整，但同批顺序不得影响结果。
-- 持续接触以exposure_id和可配置contact_interval防重；离开再进入产生新暴露。发动一次近战/一颗弹体用固定attack_id不能多碰撞形状重复伤害；环境回退递增actor_epoch，旧暴露/异步命中拒绝。
-- 对所有目标冻结帧开始资格并收集请求，统一提交各Health结果，再判玩家零血，再判Boss胜利，再提交奖励/购买/转场；不能因Boss先回调死亡而吞掉本tick已有合法攻击。
-- 非致命环境回退恢复可用跳跃/射击到配置上限（安全出生接地），保留已消耗精力和射击冷却；只清持续效果/运动/动作缓冲。
-- 回退保留敌人生命与AI状态、敌弹、机关clock/相位、补给消耗、商店库存、钱包、已领/未领奖励与BuildState。销毁旧actor_epoch的玩家弹体并拒绝旧玩家目标回调；敌弹仍属当前stage，新接触受出生保护检验。世界不整场景reset。
-
-零血后的RunDirector.end_run是一次性事务，取消RunLifetime、失效全部run/stage/actor请求，停止攻击/慢时/输入并撤销局内临时构筑，再进入HOME。返回家园不是恢复满血原场景；新局才按Character/Meta基础配置建立新Actor与资源。
-
-## 四种出生/存储概念
-
-SegmentAnchor={segment_id,stage_id,stable_spawn_id,safe_transform,safety_version}：同小关内可有多个，仅玩家存活且通过安全验证后激活。StageEntry：进入小关的初始安全点。HomeEntry：运行终态进入家园。PersistentSavePoint：可选保存交互，调用SaveService，不当作段回退锚点。
-
-安全出生必须校验人物完整碰撞体、可站立地面、危险运动包络与必要保护，不能靠无敌掩盖出生在熔岩。暂定当前anchor不可用时按已验证先前anchor→StageEntry有界回退，仍不可用则报告地图错误/安全停止，不死循环扣血或送到出口。具体保护时长和击退待决策，不锁数值。
-
-## reset范围与防刷
-
-| 操作 | epoch变化 | 重置范围 |
-| --- | --- | --- |
-| SegmentRespawn | 仅actor_epoch | 人物位置/运动/输入/玩家旧弹体；按上文资源策略，保留整关账本与世界状态 |
-| StageTransition | stage_epoch及actor_epoch | 卸载旧关对象/回调，保留RunState/BuildState/钱包与run奖励账本 |
-| RunEnd | run_epoch失效 | 取消所有本局回调/未结算奖励与交易；清局内临时状态，保留Meta |
-| NewRun | 新run_id与各epoch | 新局基础配置与空账本；永久进度由RunPolicy注入，不恢复上一局地图 |
-| LegacyTestRestart | 仅明确测试配置 | 允许旧全场景reset/相位归零；不能用于正式回退或真实死亡 |
-
-同帧Boss与玩家死亡暂定玩家失败优先、无金奖励/无下一大关，不由回调顺序决定。数值和策略的技术验证与用户认可分别记录。
-
-
-代码与验证入口见 [模块导航](../project/module_map.md)。
+死亡回最后实际休息点，永久能力、成长、唯一收据、Boss、修钟与捷径保留。复活恢复HP、开启新周期并刷新普通敌人属于试制默认；死亡金币政策待定。保存与休息权威见 [保存](home_and_save.md)。旧结束Run并清空回家园的实现尚在原型中，不能直接接入新世界死亡策略。

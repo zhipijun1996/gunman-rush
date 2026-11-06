@@ -1,6 +1,6 @@
 # 活跃工作视图
 
-本页是可继续工作的入口，不是历史流水账。本页保留13个当前议题，[归档](../evidence/tasks.md)保留369个旧任务；已完成工作从本页移出，由 Git／PR 追溯。待验收、待决定和待排期没有自动开工。表内状态只表达工作进度，验收结果与缺口留在各任务交接。
+本页是可继续工作的入口，不是历史流水账。旧方向任务保留真实最后状态并移入 [归档](../evidence/tasks.md)；已完成工作从本页移出，由 Git／PR 追溯。待验收、待决定和待排期没有自动开工。表内状态只表达工作进度，验收结果与缺口留在各任务交接。
 
 接续任务先读本行和下一动作，再读对应工作线和直接依赖；新内容审查按需读取质量卡；归档中的依赖用于追溯，不代表需要重跑旧架构。新增缺陷只建一个明确范围的任务，更新本页和自己的工作线。运行事实见 [当前状态](current_state.md)，跨会话规则见 [生产规则](cloud_production.md)。
 
@@ -11,7 +11,7 @@
 | DEATH-RUNTIME-01 | 复验已接入死亡优化的目标设备帧时间 | FIRST-USE-STUTTER-01 | blocked | [交接](worklines/death_runtime_01/scope.md) |
 | MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | MOBILE-WEB-AUDIO-FIX-03 | blocked | [交接](worklines/mobile_web_fps_04/scope.md) |
 | AUDIO-LAB-MATERIAL-01 | Lab 受伤 ABC 试听与七怪声音路由复核 | GAME-ARCH-CI-01 | in_progress | [交接](worklines/audio_lab_material_01/scope.md) |
-| WINDKEEPER-PRESSURE-01 | 60HP牧风者六招三阶段主动追压与连续原声审核 | — | review | [交接](worklines/windkeeper_pressure_01/scope.md) |
+| WINDKEEPER-PRESSURE-01 | 牧风者招式成果与新攻击档位适配审核 | — | review | [交接](worklines/windkeeper_pressure_01/scope.md) |
 | BELLSTRIDER-REWORK-01 | 鸣铃巡游机的唯一弱点、三招、回冲与奖励验收 | — | review | [交接](worklines/bellstrider_rework_01/scope.md) |
 | ENEMY-ALL-02 | 全现存怪物同体动作与实机审核 | ENEMY-WORKFLOW-01 | review | [交接](worklines/enemy_all_02/scope.md) |
 | PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | in_progress | [交接](worklines/player_presentation_01/scope.md) |
@@ -19,8 +19,8 @@
 - `DEATH-RUNTIME-01`：聚合首用／战斗／死亡性能链，在同版真实设备复验；技术合入不代签帧时间。
 - `MOBILE-WEB-FPS-04`：实体手机复验普通 Web 帧时间、供音与大图；承接 MOBILE-WEB-PERF/AUDIO 系列。
 - `AUDIO-LAB-MATERIAL-01`：按实际 Lab 入口复核 enemy_hurt ABC 与七怪材质路由，先确认当前缺陷是否仍可复现。
-- `WINDKEEPER-PRESSURE-01`：按当前 60HP 规范审核主动追压、六招三阶段与连续原声实战。
-- `BELLSTRIDER-REWORK-01`：按当前 40HP 规范审核唯一上端弱点、回冲／失效／奖励与连续原声实战。
+- `WINDKEEPER-PRESSURE-01`：保留旧60HP实现基线，按新攻击档位重新审核主动追压、六招三阶段与连续原声实战。
+- `BELLSTRIDER-REWORK-01`：保留旧40HP实现基线，按新攻击档位重新审核唯一上端弱点、回冲／失效／奖励与连续原声实战。
 - `ENEMY-ALL-02`：按物种卡逐一核真实同体动作、声音和遭遇；不从公共技术检查推定内容完成。
 - `PLAYER-PRESENTATION-01`：在当前共享人物消费者检查连续动作和画面；旧快照不代表当前外观已认可。
 
@@ -28,22 +28,26 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| ITEM-V5-01 | 确认P17移动与G19精英资格，同步规范与实现 | RUN-GEAR-01 | blocked | [交接](worklines/item_v5_01/scope.md) |
-| STORY-DESIGN-03 | 确认循环下的人物、日程和结局细案 | STORY-DESIGN-02 | blocked | [交接](worklines/story_design_03/scope.md) |
-| FOREST-VARIETY-04 | 确认v18探索场所与时长目标的采用范围 | FOREST-VARIETY-03 | blocked | [交接](worklines/forest_variety_04/scope.md) |
+| ITEM-V5-01 | 筛选永久装备并逐件迁移NPC升级/休息周期效果 | RUN-GEAR-01 | blocked | [交接](worklines/item_v5_01/scope.md) |
+| STORY-DESIGN-03 | 固定世界NPC任务、修钟与结局叙事 | STORY-DESIGN-02 | blocked | [交接](worklines/story_design_03/scope.md) |
 
-- `ITEM-V5-01`：确认 P17 蓄力移动与 G19 精英资格，再调整正式规则与验证。
-- `STORY-DESIGN-03`：确认森林现行 Boss 的叙事衔接、具体人物、日程与结局；叙事提案不替换已选战斗设计。
-- `FOREST-VARIETY-04`：确认是否采用显式 v18 体验方案；当前默认仍为 v15，先验实际默认地图。
+- `ITEM-V5-01`：先从旧候选选48件，逐件定义永久ID、NPC升级与周期额度；P17/G19仅在选中时解决。
+- `STORY-DESIGN-03`：以固定世界任务、修钟及结局条件重整人物与对白，不继承多Run前提。
 
 ## 待排期
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| MAPGEN-HOST-WINDCHIME-041 | 0.4.1真实生成/多端口准入/完整起点钟门与最终集成 | MAPGEN-GODOT-04 | review | [交接](worklines/mapgen_host_windchime_041/scope.md) |
-| FOREST-BIBLE-V2-01 | 按圣经完成荆棘森林空间、完整美术与环境演出 | REGION-BIBLE-WORKFLOW-01 | in_progress | [交接](worklines/forest_bible_v2_01/scope.md) |
-| PLAINS-BIBLE-V2-01 | 森林后按圣经优化风铃平原 | FOREST-BIBLE-V2-01 | planned | [交接](worklines/plains_bible_v2_01/scope.md) |
+| FOREST-BIBLE-V2-01 | 固定世界森林房间内容与环境演出 | REGION-BIBLE-WORKFLOW-01 | in_progress | [交接](worklines/forest_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 固定世界平原房间内容与环境演出 | FOREST-BIBLE-V2-01 | planned | [交接](worklines/plains_bible_v2_01/scope.md) |
 
-- `MAPGEN-HOST-WINDCHIME-041`：按 upstream_requirements 处理整图、邻模块与真实敌人／奖励消费者；0.4.1 切片已经集成。
-- `FOREST-BIBLE-V2-01`：依据选定圣经与当前 v15，先确认空间／环境演出差距；与候选 v18 分开验收。
-- `PLAINS-BIBLE-V2-01`：森林方向收口后确认平原内容生产范围；不恢复已暂停黄金切片旧任务。
+- `FOREST-BIBLE-V2-01`：待代表样房闭环后按F房间制作；保留v15动作/生态资产，不推进旧两图量产。
+- `PLAINS-BIBLE-V2-01`：待代表样房闭环后按P房间制作；复用主题/动作/美术，不推进随机扩池。
+
+## 固定世界迁移
+
+| 任务 | 目标 | 依赖 | 状态 | 入口 |
+| --- | --- | --- | --- | --- |
+| MV-MIGRATION-01 | 方向、源数据、规范、技能与检查/路由迁移 | — | review | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01 | 共用状态与代表样房闭环，整理现行输入/派生链 | MV-MIGRATION-01 | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-WORLD-GRAYBOX-01 | 216房结构与真实运行路线，按消费者退役旧链 | MV-RUNTIME-01 | planned | [交接](worklines/mv_migration/scope.md) |

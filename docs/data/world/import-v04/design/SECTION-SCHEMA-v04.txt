@@ -1,0 +1,174 @@
+世界结构数据 v04：门、房内分区、交互与验证接口
+================================================
+
+当前权威
+--------
+world-room-layout-v04.json 是本包当前世界结构数据。
+source_inputs/world-room-layout-v03.json 仅用于复现迁移，不是第二套施工依据。
+重建命令：在本目录执行 python migrate_world_v04.py。
+迁移静态审计：qa/section-migration-v04.json。
+路线与永久状态验证：simulation/ 下的 v04 报告；以报告记录的源 SHA 为准。
+门朝向、场景像素工作值、相机与入口落脚候选：以本包逐房施工合同为准。
+
+本数据的基本位置是 (room_id, section_id)，不再只有 room_id。
+门连接、房内路线与交互均绑定这个位置。单纯加载房间，不代表玩家已经到达
+该房主体、休息点、奖励、Boss 或修钟台。
+
+1. 条件表达格式
+---------------
+所有 requires 使用“外层 OR、内层 AND”的正逻辑析取范式：
+
+  [[]]                         无条件
+  [["H", "W", "Q"]]           H 且 W 且 Q
+  [["H","W","Q"],
+   ["H","D","Q"]]             H 且 Q 且（W 或 D）
+
+不得把最后一例改成同时要求 H/W/D/Q。迁移脚本会检查每条旧条件能否被精确
+分解为“能力环境”与“真实门/交互条件”；不能精确分解的混合 OR 将报错，
+而不是悄悄放宽或收紧条件。本次源数据全部可以精确分解。
+
+H/W/D/Q 在 internal_routes.requires 中是关卡设计与逻辑模拟约束。
+实际 Godot 实现必须用索点、墙面、高差、接续落点、相位光幕等地形完成，
+不能用检测玩家能力后生成的隐形墙，也不能在自动过门时直接把玩家送过阻隔。
+其他真实钥匙、装备、剧情或永久机关条件保留在门/交互 requires。
+
+2. 房间分区 rooms[].sections
+----------------------------
+section.id 只需在所在房间内唯一；完整位置必须同时带 room_id。
+
+  main                  本房主体，保留原房号与主体职责。
+  entry:<edge_id>        某扇普通门到达的入口预览与安全落脚区。
+  access:<ability_expr>  本房既有奖励/机关共用的环境支路可达区。
+
+entry 分区与 main 之间必须有明确的环境通路。入口侧应能看见有辨识度的
+地标、阻隔以及后方值得回来探索的方向。未通过挑战时，可在本入口侧安全
+转身并沿来门返回。这个返回不要求穿过深部环境阻隔。
+
+同一环境条件的多个奖励/机关共用 access 分区。本次 25 个 access 分区
+不是 25 个新增房间；也不是每个奖励再造一场独立能力考试。原有支路、后厅、
+高台或机关控制台可以承担这些分区。施工时可共享地形，但不能合并两个在
+状态图上应当不可互达的位置。
+
+map_anchor_candidate 是世界图上显示分区标记的位置，使用地图示意坐标。
+它不是 Godot 场景坐标、玩家出生点或真实安全平台的像素坐标。
+counts_as_room_main_visit 仅用于房间主体统计；地区“深入”另用第 7 节规则。
+
+3. 物理门 connections[]
+------------------------
+每条 connection 保留旧 id、a、b 与 direction，不新增房间或跨区边。
+
+  a / b                 门两端的 room_id
+  a_section / b_section 两端实际到达/离开的 section_id
+  requires              最终实际门条件；已经包括旧 room_guard 中真正门条件
+  effective_door_requires 与 requires 一致，供只读生成器使用
+  direction             原有双向/单向通行定义
+  environment_room_id   原能力门迁入的房间（如果有）
+  environment_route_id  该房入口至主体的环境通路（如果有）
+
+施工或模拟不要再叠加 v03 的 room_guard/internal_gate_overrides；它们已被
+迁移，重复应用会重新把普通预览门封起来。所有 connection.requires 均无
+H/W/D/Q。真实 royal_sigil、smith、clock_*、shortcut_* 等仍按当前值检查。
+
+普通门只有已确认的步行/向上/向下转换合同。两端朝向和转向接续廊由逐房
+合同给出；世界示意连接线的方向不直接等于场景门法线。向上自动接管仅把
+玩家放到入口侧安全台并交还控制，下落门下方必须有安全落脚台。
+交通门是玩家主动交互，不自动休息、补血、重置普通敌人或刷新 Q 冷却。
+
+4. 房内路线 rooms[].internal_routes
+----------------------------------
+每条路线是有向边：from_section -> to_section。
+返回路线单独记录并用 reverse_route_id 对应；不得假设返回条件总是相同。
+
+  id                    全世界唯一的房内路线 ID
+  requires              环境设计/逻辑模拟要求
+  physical_variants     OR 中每种解法与应出现的实体环境提示
+  source_refs           此段从哪条旧连接、前厅约束或行动可达条件迁来
+  failure_anchor_section 本挑战进入侧的失败返回区
+  implementation        环境施工要求
+  status                结构灰盒要求，尚未实机标定
+
+入口至主体例：
+  IR:F-R04:entry:L03         entry:L03 -> main，要求 H
+  IR:F-R04:entry:L03:return  main -> entry:L03，要求 H
+
+共享奖励支路例：
+  IR:F-R04:access:H_W:approach  main -> access:H_W，要求 H+W
+  IR:F-R04:access:H_W:return    access:H_W -> main，基础返回
+
+已到入口但没有 H 的玩家通过 L03 直接返回来房，不走上面的 main 返程路。
+基础返回表示需提供实际安全退路，不是传送、跳过死亡规则或自动送奖励。
+
+同条件多次经过不应被实现为不必要的新挑战。原来开过的捷径应当便利旧路；
+无法删除的自然高差可以保留，挑战长度和检查点仍按房间职责控制。
+
+Q 环境：只允许穿越相位光幕和敌人，不能穿过熔岩、毒水、荆棘、齿轮或
+实体墙；真实落地资格与 2 秒冷却同时满足。冷却不限制普通射击或反冲。
+地形失败普通扣 1HP、标明的特别危险扣 2HP；扣完血为 0 时进入死亡流程。
+
+5. 行动、奖励、NPC、休息点与交通
+--------------------------------
+actions[] 是完整的 248 项可执行交互权威。id、grants、唯一领取凭据与
+永久进度身份沿用旧版；迁移没有自动发放或增删奖励。
+
+  room_id + section_id      玩家必须实际到达的交互位置
+  requires                  剧情、装备、支付、前置动作等实际交互条件
+  authored_mobility_access  旧能力要求的设计依据，不是运行时领取拒绝条件
+  spatial_access_route_id   若交互处于 access 分区，对应真实进场环境路线
+  mobility_requirement_resolution
+                            已有到场路径保证，或共享可见房内环境分区
+
+room_id/section_id 为 @current 的换装动作在当前实际位置生效，仍须符合
+现有休息区换装条件。不能把 @current 当作可任意瞬移的地点。
+
+collectibles / quests / weapon_major_rewards / clock_repairs / service_actions
+等是 actions 的只读引用/展示；已同步具体分区。不要独立为它们再编一套
+奖励资格或重复写入存档。每个 NPC 有 section_id，所有 14 位目前在 main；
+NPC 可见/服务故事条件另保留，不能在入口预览中提前与深部 NPC 交互。
+
+rooms[].rest_section_id / rift_section_id 指定服务实际位置，当前全部 main。
+没有服务的房间为 null。入口预览被访问，不代表主区长凳或裂缝机器已发现
+或激活。传送只到已真实访问并解锁的机器；它不等于休息。
+
+6. Boss 与捷径
+--------------
+22 位 Boss 的 encounter_section_id 与 defeat_action.section_id 均为 main，
+arena_sections=["main"]。活 Boss 主体禁止被当作借道穿越的走廊；入口预览
+不授予击败旗标、Boss 后奖励或进入另一扇门的资格。
+
+encounter_requirements 只保留真实剧情/道具条件。
+combat_mobility_requirements 是到场环境与战斗动作所需能力，不是领奖励时
+的隐藏检查。到场能力已由拓扑保证的 21 场不加新门槛；V-R05 原来仅在
+遭遇条件里的 HWD 被落实为两个入口至 main 的真实环境接续。
+
+shortcut.open_action_id / open_section_id 指定实际操作侧。
+玩家必须到该处操作装置，获得永久开关旗标；不因走到另一端自动开门。
+requires_after_open 是开启后的当前门条件。
+21 条捷径删去重复 HWDQ 资格有显式证明：所有开关可执行分支都蕴含该
+能力路线，且能力永久持有。真实钥匙/剧情/装备/钟状态门条件没有删除。
+某条开关已有前路能力要求，不代表另一个独立房间主体要求可以随意删去。
+
+7. 地区发现、深入与记忆
+----------------------
+到达地区任一房间的入口区，只记“发现/预览”。
+到达 regions[].exploration_main_locations 中任一指定主体位置才记该区
+“主体深入”。这个名单避开森林林缘、冰川山麓、矿井上部中转等入口空间。
+工房 G0 的实际武器匠服务属于主体；地穴 M0 的入口引导不属于主体深入。
+普通结局的 12 区、真结局的 16 区目标由新模拟据此核对。
+修钟、记录、Boss、收集与结局旗标分别统计，不能用“发现地区”替代。
+
+memory_gates 记录玩家实际见到的阻隔：
+  preview_room + preview_section_id 为观察地点；
+  internal_route_id/observed_route 为看见的环境阻隔；
+  beyond_section_id 通常为 main；
+  真实物品/剧情锁仍引用物理门。
+得到新能力后只能提示之前确实看见的地点，不能自动揭露未知区域。
+
+8. 验证边界
+-----------
+迁移脚本验证 ID、端点、分区引用、奖励授予、门与交互无能力谓词、OR 等价、
+开关能力蕴含与地区主体锚点。路线模拟验证实际行动顺序、库存事务、Boss
+前置、休息/交通发现、唯一奖励和分岔折返。
+
+这些通过不等于真实跳跃能过、Q 冷却合适、镜头不出界、Boss战好玩或重试
+耗时已达标。先用代表房标定玩家/相机/门/失败回退，再按这些合同批量搭
+全世界结构灰盒；房内平台、战斗、装饰与细节可以继续迭代。
