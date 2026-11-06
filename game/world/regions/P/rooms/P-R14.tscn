@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 [ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
 [ext_resource type="Script" path="res://game/world/components/platforming_module.gd" id="2"]
 [ext_resource type="Resource" path="res://resources/generation/modules/plains_boss_arena.tres" id="3"]
+[ext_resource type="Script" path="res://game/bosses/windkeeper/windkeeper_world_binding.gd" id="4"]
 [node name="P-R14" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R14"
@@ -10,6 +11,11 @@ one_way_indices = Array[int]([1, 2, 4, 5])
 start_point = Vector2(1616, 462)
 enemy_placements = Array[Dictionary]([])
 signs = Array[Dictionary]([{"text": "↓ 进入庭地迎战牧风者；战后领取 H", "point": [900, 410]}, {"text": "W 领取钩索 H", "point": [1090, 620]}])
+boss_binding = ExtResource("4")
+defeat_action = "defeat_P_WINDKEEPER"
+defeat_flag = "boss_P_WINDKEEPER_defeated"
+reward_action = "get_H"
+reward_text = "领取钩索 H"
 boss_identity = &"windkeeper_storm"
 boss_position = Vector2(880, 607)
 arena_bounds = Rect2(320, 72, 1120, 600)

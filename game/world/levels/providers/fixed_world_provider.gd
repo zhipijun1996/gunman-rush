@@ -4,6 +4,7 @@ extends RefCounted
 const BUNDLE := "res://build/world/runtime.json"
 var data: Dictionary = {}
 var error := ""
+var _room_actions: Dictionary={}
 
 func open(path: String = BUNDLE) -> bool:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
@@ -11,10 +12,17 @@ func open(path: String = BUNDLE) -> bool:
 		error = "invalid_world_bundle"
 		return false
 	data = parsed
+	_room_actions.clear()
+	for action: Dictionary in data.actions:
+		if not _room_actions.has(action.room_id): _room_actions[action.room_id]=[]
+		_room_actions[action.room_id].append(action)
 	return true
 
 func room(id: String) -> Dictionary:
 	return data.get("rooms", {}).get(id, {})
+
+func actions_in(room_id: String) -> Array:
+	return _room_actions.get(room_id,[])
 
 func action(id: String) -> Dictionary:
 	for row: Dictionary in data.get("actions", []):

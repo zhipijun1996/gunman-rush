@@ -3,21 +3,23 @@ extends MetaSaveService
 ## Independent slot and envelope. Meta/Run payloads are never read or converted.
 const WORLD_SCHEMA := 1
 var content_version := ""
+var save_kind := "fixed_world"
+var key_prefix := "gunman_rush.fixed_world.v1."
 var payload_validator: Callable
 
 func make_envelope(payload: Dictionary, revision: int) -> Dictionary:
-	return {"schema_version":WORLD_SCHEMA,"kind":"fixed_world","content_version":content_version,
+	return {"schema_version":WORLD_SCHEMA,"kind":save_kind,"content_version":content_version,
 		"profile_id":profile_id,"profile_revision":revision,"payload":payload.duplicate(true)}
 
 func web_storage_key() -> String:
-	return "gunman_rush.fixed_world.v1." + profile_id
+	return key_prefix + profile_id
 
 func _decode(encoded: String) -> Dictionary:
 	var parser := JSON.new()
 	if parser.parse(encoded) != OK: return {"accepted":false,"reason":"invalid_save"}
 	var parsed: Variant = parser.data
 	if not parsed is Dictionary: return {"accepted":false,"reason":"invalid_save"}
-	if parsed.get("kind") != "fixed_world" or parsed.get("profile_id") != profile_id:
+	if parsed.get("kind") != save_kind or parsed.get("profile_id") != profile_id:
 		return {"accepted":false,"reason":"profile_mismatch"}
 	if parsed.get("schema_version") != WORLD_SCHEMA:
 		return {"accepted":false,"reason":"future_schema"}

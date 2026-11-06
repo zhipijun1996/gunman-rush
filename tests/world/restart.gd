@@ -19,6 +19,8 @@ func run() -> void:
 	check(candidate==app.state.value,"duplicate award remains unchanged after process restart")
 	check(app.state.value.explored.size()==5,"actual exploration retained")
 	check(app.player.is_on_floor() and app.controller.traversal.hook_enabled,"physical recovery and H restored")
+	check(app.services.ledger().quests.get("trial_station_repair","")=="completed" and app.state.has("trial_station_repaired"),"actual NPC quest and world presentation fact survive new process")
+	check(app.services.owns("trial_filter"),"purchased permanent item survives new process")
 	app.queue_free()
 	for i: int in 5: await physics_frame
 	print("WORLD RESTART: %d failures" % failures)

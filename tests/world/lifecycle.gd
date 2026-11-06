@@ -63,6 +63,10 @@ func run() -> void:
 	var light := DamageRequest.new()
 	light.kind=DamageRequest.Kind.ENVIRONMENT;light.hazard_category=&"phase_light"
 	check(app.q_guard.protects(monster) and app.q_guard.protects(light) and not app.q_guard.protects(solid),"Q filters enemy/light and never solid terrain")
+	var protected_hp:=app.controller.actor_resources.health.current
+	app.submit_damage(&"phase_fixture",DamageRequest.Kind.ENVIRONMENT,1,&"phase_once",&"phase_light")
+	await ticks(1)
+	check(app.controller.actor_resources.health.current==protected_hp,"real frame policy rejects light damage during qualified Q movement")
 	var cooldown := app.q_guard.cooldown
 	app.toggle_pause()
 	await ticks(15)
@@ -95,7 +99,7 @@ func run() -> void:
 	await ticks(3)
 	app.start_new()
 	await settle()
-	check(not app._tutorial_shot and not app._tutorial_recoil and not app._tutorial_move_landed,"new world clears prior tutorial proofs")
+	check(not app.tutorial.shot and not app.tutorial.recoil and not app.tutorial.move_landed,"new world clears prior tutorial proofs")
 	app.queue_free()
 	await ticks(5)
 	print("WORLD LIFECYCLE: %d assertions, %d failures" % [checks,failures])

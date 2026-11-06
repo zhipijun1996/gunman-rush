@@ -11,9 +11,15 @@ def main():
     build()
     for script,marker,timeout in [
         ('state_contracts.gd',r'WORLD STATE: \d+ assertions, 0 failures',30),
+        ('service_contracts.gd',r'WORLD SERVICES: \d+ assertions, 0 failures',60),
+        ('traversal_contracts.gd',r'WORLD TRAVERSAL: \d+ assertions, 0 failures',60),
+        ('room_contracts.gd',r'WORLD ROOMS: \d+ assertions, 0 failures',60),
+        ('ui_contracts.gd',r'WORLD UI: \d+ assertions, 0 failures',60),
         ('lifecycle.gd',r'WORLD LIFECYCLE: \d+ assertions, 0 failures',60),
         ('first_loop.gd',r'WORLD LOOP: 0 failures',240),
         ('restart.gd',r'WORLD RESTART: 0 failures',30),
+        ('service_ui.gd',r'WORLD SERVICE UI: 0 failures',120),
+        ('service_restart.gd',r'WORLD SERVICE RESTART: 0 failures',30),
     ]:
         output=run_engine(['--headless','--path','.', '--script','tests/world/'+script],timeout)
         if 'SCRIPT ERROR:' in output or re.search(r'^ERROR:',output,re.M) or not re.search(marker,output):

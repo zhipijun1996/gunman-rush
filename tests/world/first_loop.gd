@@ -49,7 +49,33 @@ func path(points: Array,room_id: String) -> bool:
 	for point: Vector2 in points:
 		if not await walk(point,room_id): return false
 	return true
+func click_named(prefix: String,touch: bool=true) -> bool:
+	await ticks(3)
+	var selected: Button
+	for node: Node in app.ui.root.find_children("*","Button",true,false):
+		var button:=node as Button
+		if button.is_visible_in_tree() and button.text.begins_with(prefix): selected=button;break
+	if selected==null:
+		check(false,"missing visible UI button "+prefix)
+		return false
+	var scroll:=app.ui.shell.scroll if app.ui.shell!=null else null
+	if scroll!=null: scroll.ensure_control_visible(selected)
+	await ticks(3)
+	var point:=selected.get_global_transform_with_canvas()*(selected.size/2)
+	for down: bool in [true,false]:
+		if touch:
+			var event:=InputEventScreenTouch.new()
+			event.index=7;event.position=point;event.pressed=down
+			root.push_input(event,true)
+		else:
+			var event:=InputEventMouseButton.new()
+			event.position=point;event.global_position=point
+			event.button_index=MOUSE_BUTTON_LEFT;event.pressed=down
+			root.push_input(event,true)
+		await ticks(2)
+	return true
 func run() -> void:
+	root.size=Vector2i(1280,720)
 	app = preload("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path = "user://world_route_test.json"
 	for suffix: String in ["",".backup",".tmp",".corrupt"]: DirAccess.remove_absolute(app.save_path+suffix)
@@ -64,9 +90,20 @@ func run() -> void:
 	if app.room.room_id!="P-R01":
 		await finish()
 		return
-	await walk(Vector2(448,286),"P-R01")
-	app.controller.router.request_action(&"interact")
+	await walk(Vector2(240,286),"P-R01")
 	await ticks(4)
+	check(app.ui.interact.visible and app.ui.interact.text.begins_with("交谈"),"nearby NPC exposes touch interaction")
+	await click_named("交谈")
+	check(app.paused and app.ui.page=="npc","actual touch opens NPC and pauses safely")
+	await click_named("购买 5金币 · 试制滤芯")
+	check(app.services.owns("trial_filter") and not app.services.active("filter"),"actual merchant purchase uses earned tutorial gold without auto-equipping")
+	await click_named("背包与装配")
+	await click_named("装配")
+	check(app.services.active("filter"),"actual inventory touch equips filter")
+	await click_named("关闭")
+	await walk(Vector2(448,286),"P-R01")
+	await ticks(4)
+	await click_named("休息")
 	await settle()
 	check(app.state.value.cycle==2,"explicit station rest advances cycle")
 	await walk(Vector2(905,286),"P-R01")
@@ -81,6 +118,10 @@ func run() -> void:
 	if app.room.room_id!="P-R06":
 		await finish()
 		return
+	check(await path([Vector2(624,702),Vector2(860,614),Vector2(950,614)],"P-R06"),"reach actual filtered pickup")
+	await ticks(4)
+	await click_named("拾取")
+	check(int(app.state.value.inventory.get("trial_part",0))==1,"actual placed quest material acquired once")
 	check(await path([Vector2(860,614),Vector2(624,526),Vector2(384,438),Vector2(160,398),Vector2(5,398)],"P-R06"),"junction to Boss")
 	await settle()
 	check(app.room.room_id=="P-R14","Boss room entered")
@@ -91,7 +132,8 @@ func run() -> void:
 		await finish()
 		return
 	await path([Vector2(1360,654),Vector2(1480,654)],"P-R14")
-	app.controller.router.request_action(&"interact")
+	await ticks(4)
+	await click_named("领取钩索 H")
 	await ticks(4)
 	check(app.state.has("H"),"real reward interaction grants H")
 	var receipts: int = app.state.value.receipts.size()
@@ -104,10 +146,25 @@ func run() -> void:
 	await path([Vector2(384,438),Vector2(624,526),Vector2(750,830)],"P-R06")
 	await settle()
 	check(app.room.room_id=="P-R08","actual down connection returns to corridor")
+	app.controller.router.request_action(&"grapple",Vector2.UP)
+	var attached:=false
+	for i: int in 65:
+		await physics_frame
+		if app.controller.traversal.state==&"hook_hang": attached=true;break
+	check(attached,"earned H attaches to real authored return anchor")
+	app.controller.router.set_jump_held(&"keyboard_mouse",true)
+	await ticks(10)
+	app.controller.router.set_jump_held(&"keyboard_mouse",false)
 	await path([Vector2(176,694),Vector2(144,782),Vector2(5,782)],"P-R08")
 	await settle()
 	check(app.room.room_id=="P-R01","first loop returns to station")
 	check(app.state.value.cycle==2,"ordinary return never rests or refreshes cycle")
+	await walk(Vector2(240,286),"P-R01")
+	await ticks(4)
+	await click_named("交谈")
+	await click_named("交付零件")
+	check(app.state.has("trial_station_repaired") and app.services.ledger().quests.trial_station_repair=="completed","actual return NPC commits material delivery and visible world result")
+	await click_named("告别")
 	check(not app.state.has("Q"),"normal route never grants Q early")
 	check(app.state.value.explored.size()==5,"only visited rooms recorded")
 	app.return_title()

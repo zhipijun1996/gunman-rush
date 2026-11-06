@@ -1,11 +1,31 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=4 format=3]
 [ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="2"]
+[ext_resource type="Script" path="res://game/world/components/world_flag_presentation.gd" id="3"]
 [node name="P-R01" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R01"
-platforms = Array[Rect2]([Rect2(0, 304, 912, 60)])
+platforms = Array[Rect2]([Rect2(0, 304, 912, 304)])
 one_way_indices = Array[int]([])
 start_point = Vector2(144, 286)
 rest_point = Vector2(448, 286)
 enemy_placements = Array[Dictionary]([])
 signs = Array[Dictionary]([{"text": "钟外小站 · W 明确休息并记录复活点", "point": [280, 235]}, {"text": "← 教学草坡       封井回廊 →", "point": [200, 185]}])
+
+[node name="Recycler" type="Node2D" parent="."]
+position = Vector2(240, 286)
+script = ExtResource("2")
+npc_id = "NPC_P_REC"
+visual_kind = "artisan"
+display_name = "回收匠"
+[node name="Weaver" type="Node2D" parent="."]
+position = Vector2(680, 286)
+script = ExtResource("2")
+npc_id = "NPC_P_WEAVER"
+visual_kind = "wardrobe"
+display_name = "织时匠"
+
+[node name="TrialStationBell" type="Node2D" parent="."]
+position = Vector2(350, 286)
+script = ExtResource("3")
+flag = "trial_station_repaired"

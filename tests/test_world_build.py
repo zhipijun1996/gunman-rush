@@ -9,7 +9,7 @@ import unittest
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
-from world.build import build
+from world.build import build, validate_services
 
 class BuildTests(unittest.TestCase):
     def test_build_without_imported_archive_preserves_authored_scenes(self):
@@ -28,6 +28,20 @@ class BuildTests(unittest.TestCase):
             self.assertEqual(before,{str(p.relative_to(root)):p.read_bytes() for p in (root/'game').rglob('*.tscn')})
             (root/'game/world/regions/P/rooms/P-R03.tscn').unlink()
             with self.assertRaisesRegex(ValueError,'scene missing'):build(root)
+
+    def test_invalid_content_refuses_runtime_bundle(self):
+        data=json.loads((ROOT/'config/world/demo_services.json').read_text())
+        npcs=[{'id':data['quest']['npc_id']}]
+        validate_services(data,{'P-R06'},npcs)
+        for change in ('negative_price','duplicate_item','bad_npc','unknown_effect','bad_pickup'):
+            with self.subTest(change=change):
+                invalid=copy.deepcopy(data)
+                if change=='negative_price': invalid['items'][0]['price']=-1
+                if change=='duplicate_item': invalid['items'].append(invalid['items'][0])
+                if change=='bad_npc': invalid['quest']['npc_id']='missing'
+                if change=='unknown_effect': invalid['items'][0]['effect']='unimplemented'
+                if change=='bad_pickup': invalid['pickups'][0]['room_id']='not_implemented'
+                with self.assertRaises(ValueError): validate_services(invalid,{'P-R06'},npcs)
 
     def test_changed_manual_geometry_is_consumed(self):
         with tempfile.TemporaryDirectory() as folder:
