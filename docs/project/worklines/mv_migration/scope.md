@@ -52,7 +52,7 @@ PR139已先合入并核验main，基线`7d73389feab22224d0f8bd7c09325420a7605980
 
 源与图检查通过：world-build、world-migration、world-routes、level-region-context；文档导航/质量检查与上下文5项通过。Web包79项检查与实际导出闭包通过；`world-pack`在空项目加载五房并实际启动落地，包内无docs/人工世界源。已验包`43525971ba6d`绑定实现提交25edf7cf，浏览器实测标题/移动跳跃/暂停、保存返回标题与刷新后继续，独立Web槽修订正确递增；无脚本错误（原模板主线程阻塞警告不作为性能通过）。远端[四项CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/42200631016)通过；既有Foundry依赖重新实跑36句段/18连续路线并更新现行开发资源绑定。
 
-当前实现仅五房、按房到达知识和基础枪/H。其余211房、完整地图/分区探索、NPC/库存装备经济、任务/迁居/修钟/结局、独立设置/文本尚未接入。48件效果、服务价格及死亡金币政策仍待既有设计任务确认；不能从旧Run推导。实体手机/手柄、性能、最终美术/听感/平衡未签收。本轮不部署网站。Web审查包见 [构建记录](https://github.com/zhipijun1996/gunman-rush/actions/runs/42200719300) 的gunman-rush-web-playtest产物，保留14天，绑定实现提交25edf7cf。
+当前实现仅五房、按房到达知识和基础枪/H。其余211房、完整地图/分区探索、NPC/库存装备经济、任务/迁居/修钟/结局、独立设置/文本尚未接入。48件效果、服务价格及死亡金币政策仍待既有设计任务确认；不能从旧Run推导。实体手机/手柄、性能、最终美术/听感/平衡未签收。已按用户授权通过prepared包发布[首环路试玩](https://zhipijun1996.github.io/gunman-rush/)，build43525971ba6d；公开元数据/HTML/完整PCK下载校验通过，公网浏览器新游戏/移动跳跃/暂停/保存后刷新继续通过；日志与截图在ignored build/architecture/public-*。Pages同步完成接近原10分钟作业上限，[发布工作流](https://github.com/zhipijun1996/gunman-rush/actions/runs/42202193513)被超时取消，但Pages API确认succeed且公网包一致；延长后续作业上限至20分钟，保留实际结果，不以该工作流退出状态代替线上核验。Web审查包见 [构建记录](https://github.com/zhipijun1996/gunman-rush/actions/runs/42200719300) 的gunman-rush-web-playtest产物，保留14天，绑定实现提交25edf7cf。
 
 下一步从01G接入一个真实NPC服务及已确认库存/成长闭环；按任务表依赖推进01H/I，再由01J扩展代表房。先明确本次真实消费者与确认参数，再改其领域与房间，不批量施工216房、不预建空框架。
 
