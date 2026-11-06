@@ -51,9 +51,10 @@ func run() -> void:
 	check(walk>=12 and walk<=36,"horizontal entry visibly walks approximately one body width after reveal")
 	var hop:=await visible_motion("P-R06","room-link-139:P-R06",1)
 	check(hop>12 and hop<100 and app.player.is_on_floor(),"upward entry is a visible small physical hop ending on support")
-	check(app.player.position.x>780 and app.player.position.x<804,"short upward hop lands beside the shaft on the authored safe ledge")
+	check(app.player.position.x>820 and app.player.position.x<844,"short upward hop lands beside the shaft on the authored safe ledge")
 	var drop:=await visible_motion("P-R08","room-link-139:P-R08",1)
-	check(drop>20 and drop<60 and app.player.is_on_floor(),"downward entry visibly falls onto safe support")
+	check(drop>40 and drop<160 and app.player.is_on_floor(),"downward entry visibly falls onto safe support")
+	check(app.player.position.distance_to(app.entry_anchor)<8,"downward entry finishes at its authored solid standing point")
 	app.load_room("P-R06","room-link-139:P-R06");await settle()
 	var enemy: EnemyActor=app.room.enemies["P-R06:charger:01"]
 	enemy.damageable.receive_damage({"event_id":"hazard_isolation","amount":99,"source_faction":&"player","source_actor_id":app.player.get_instance_id(),"target_actor_id":enemy.damageable.actor_id,"target_epoch":enemy.damageable.damage_epoch})
@@ -63,5 +64,18 @@ func run() -> void:
 	check(app.player.is_on_floor() and app.controller.actor_resources.health.current==hp and app.context_target().get("kind","")=="pickup","collectible stands on a supported safe ledge outside the thorn damage zone")
 	app.player.reset_at(Vector2(924,596));await ticks(40)
 	check(app.controller.actor_resources.health.current<hp,"visible thorn strip submits actual environmental damage")
+	var rid:=UnderworldUI.icon(&"coil").get_rid()
+	var stable:=true
+	for i: int in 100: stable=stable and UnderworldUI.icon(&"coil").get_rid()==rid
+	check(stable,"drawn atlas texture stays alive and is reused across redraws")
+	app.load_room("P-R01","");await settle()
+	var camera_before:=app.camera.position
+	app.controller.router.set_source_axis(&"keyboard_mouse",1);await ticks(25);app.controller.router.clear("camera_fixture")
+	check(app.camera.position.distance_to(camera_before)<2,"compact station does not pan during ordinary nearby walking")
+	app.load_room("P-R14","L02:P-R14");await settle()
+	app.room.boss.process_mode=Node.PROCESS_MODE_DISABLED
+	app.player.reset_at(Vector2(1380,654));await ticks(180)
+	var half:=root.get_visible_rect().size/(2*app.camera.zoom)
+	check(app.room.arena_bounds.grow(1).encloses(Rect2(app.camera.position-half,half*2)),"Boss inner room supplies the visible camera envelope after a smooth handoff")
 	app.queue_free();await ticks(5)
 	print("WORLD PRESENTATION: %d assertions, %d failures" % [checks,failures]);quit(failures)

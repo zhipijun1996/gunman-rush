@@ -11,13 +11,15 @@ PR139已合入并核验main，基线`7d73389feab22224d0f8bd7c09325420a7605980`�
 - WorldNpc拥有放置身份；WorldTutorial、环境区、攀爬墙、事实表现和Boss绑定各自独立，房间只放实例/参数。UI只读展示并发送带修订/寿命票据的请求；独立设置槽复用InputProfile/可靠IO，新增UI文本集中提取，内容对白归对象定义。旧DemoApp/Provider继续显式回归。
 - 房间缺失/非法入口/保存失败保留可操作原房；卸载冻结旧实例、清弹体和票据。P-R14施工宽1760wu适配既有战场；基础枪5伤害归试制配置，不代表最终平衡。
 
-## 当前交付：MV-DEMO-04
+## 当前交付：MV-DEMO-05
 
-WorldCamera独立于角色，以同一缓冲区/连续阻尼/房界约束跟随；Boss不切换缩放或镜头模式。数值和Motor入场参数归config/world/player.json。换房遮幕消失后，左右步入约一个身体宽度，上行小跳到旁侧安全台，下行落地后交还控制；开放门只留真实墙面缺口。
+金币复用EnemyDropService、PlainsLootMotion和PlainsStageVisual的喷散、弹跳、旋转与吸收；WorldCoinDrops只适配固定世界的权益、运动快照和拾取请求。WorldServices仍唯一拥有余额/库存/收据，App持久提交后才播放到账反馈；未拾取单位跨房/读档保留，失败和重复请求不能丢币或重复入账。试制金额归demo_services.json，正式经济政策仍待确认。
 
-左摇杆向上/W/↑是场内交互入口，不再显示额外按钮或悬浮正文。告示牌有贴图并落在支撑面，NPC先回应再选择服务，关闭后首次操作清理旧按键阻塞。充电站采用独立生成贴图，语义为时间齿轮机器人的充电/保存/周期复位；原角色动画轮廓继续复用，没有交付全新机器人动画组。材料与H核心各用不同等比图标；材料位于荆棘另一侧安全台，原生荆棘贴图对应独立伤害区，滤芯不免疫荆棘。新素材来源与采样区域归assets/world_interactions/manifest.json。
+UnderworldUI持有并复用图标AtlasTexture，避免临时引用释放造成不显示和每帧重建；房间/NPC/环境区只在表现变化时请求重绘。WorldDialogue复用ModalShell的控制权/焦点/触屏滚动，采用底部对话与可读中文字号。回廊试制暗区使用柔边遮罩，仍消费已装配灯的状态。
 
-尸体/周期、Boss内场、原装备网格和35共鸣蓄力修复沿用当前闭环；动作瞬态不保存，HP/共鸣由同一修订提交。公开参考仅借鉴控制思路：[空洞骑士式Cinemachine示例](https://github.com/letquit/Unity-Hollow-Knight-Camera-System)，不声称Team Cherry官方实现。本轮实现与验证已完成；线上版本、限制和下一动作见下文。
+竖门小跳/下落落到旁侧实体，不在洞口加单向承接平台；普通底面安全，只有显式危险区扣血。WorldCamera沿同一缩放与连续缓冲策略工作，Boss内场限制视野，封闭房间加大静止缓冲。控制参数归player.json，房间实体/入口/镜头意图归场景和construction。
+
+沿用向上交互、告示牌、时间齿轮机器人充电站、不同收集图标/原生荆棘、尸体周期、原装备网格及35共鸣蓄力修复。新互动素材来源归assets/world_interactions/manifest.json；角色仍复用原动画组。公开镜头参考仅借鉴控制思路：[Cinemachine示例](https://github.com/letquit/Unity-Hollow-Knight-Camera-System)，不声称Team Cherry官方实现。发布与最终验证见下文。
 
 ## 任务实施与验收
 

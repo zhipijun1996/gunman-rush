@@ -60,5 +60,6 @@
 | MV-RUNTIME-01H | 正式人物任务、迁居、主线修钟/演出与结局 | MV-RUNTIME-01F, STORY-DESIGN-03 | planned | [交接](worklines/mv_migration/scope.md) |
 | MV-RUNTIME-01I | 完整文本/多设备UI、视听与目标平台验收 | MV-RUNTIME-01F | planned | [交接](worklines/mv_migration/scope.md) |
 | MV-DEMO-04 | 统一镜头/入场动作、向上交互、机器人充电站与危险收集物可读性 | MV-DEMO-03 | review | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01J | 不同机制代表房、剩余基础流程与量产准入验收 | MV-DEMO-04 | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-DEMO-05 | 修复道具纹理卡顿、竖门实体落点、既有金币掉落接入、对话与分区镜头 | MV-DEMO-04 | in_progress | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01J | 不同机制代表房、剩余基础流程与量产准入验收 | MV-DEMO-05 | planned | [交接](worklines/mv_migration/scope.md) |
 | MV-WORLD-GRAYBOX-01 | 216房结构与真实运行路线，按消费者退役旧链 | MV-RUNTIME-01J | planned | [交接](worklines/mv_migration/scope.md) |

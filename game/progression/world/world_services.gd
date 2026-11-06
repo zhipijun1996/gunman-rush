@@ -8,7 +8,7 @@ var prepare_candidate: Callable
 static func required_service(kind: String) -> String:
 	return {"buy":"station_supply_shop","upgrade":"equipment_gold_upgrade","repair":"equipment_breakage_repair","deliver":"gear_delivery"}.get(kind,"")
 static func empty_ledger() -> Dictionary:
-	return {"version":1,"gold":0,"owned":{},"equipped":[],"locked":[],"met":[],"quests":{},"cycle_uses":{},"collected":[],"delivered":[]}
+	return {"version":1,"gold":0,"drops":{},"owned":{},"equipped":[],"locked":[],"met":[],"quests":{},"cycle_uses":{},"collected":[],"delivered":[]}
 static func valid_ledger(value: Dictionary) -> bool:
 	if value.get("version")!=1: return false
 	for key: String in ["gold"]:
@@ -31,6 +31,22 @@ static func valid_ledger(value: Dictionary) -> bool:
 		if not id is String or not (uses is int or uses is float) or not is_finite(uses) or uses<0 or floorf(uses)!=uses: return false
 	for id: Variant in value.quests:
 		if not id is String or value.quests[id] not in ["accepted","completed"]: return false
+	if not value.get("drops",{}) is Dictionary: return false
+	for id: Variant in value.get("drops",{}):
+		var drop: Variant=value.drops[id]
+		if not id is String or not drop is Dictionary or drop.get("id")!=id or drop.get("kind")!="coin" or not drop.get("room") is String: return false
+		if not (drop.get("amount") is int or drop.get("amount") is float) or not is_finite(drop.amount) or drop.amount<=0 or floorf(drop.amount)!=drop.amount: return false
+		for field: String in ["position","velocity","safe"]:
+			if not drop.get(field) is Array or drop[field].size()!=2: return false
+			for value_at: Variant in drop[field]:
+				if not (value_at is int or value_at is float) or not is_finite(value_at): return false
+		if not drop.get("source") is String: return false
+		for field: String in ["age","bounces","rotation"]:
+			if not (drop.get(field) is int or drop.get(field) is float) or not is_finite(drop[field]): return false
+		if drop.age<0 or drop.bounces<0 or floorf(drop.bounces)!=drop.bounces: return false
+		for field: String in ["claimed","settled","returning"]:
+			if not drop.get(field) is bool: return false
+		if drop.claimed: return false
 	for id: String in value.equipped:
 		if not value.owned.has(id): return false
 	for id: String in value.locked:
@@ -141,13 +157,28 @@ func earned_candidate(candidate: Dictionary,id: String,amount: int) -> Dictionar
 	candidate.services.gold+=amount
 	candidate.receipts[key]={"source":key,"source_hash":str(amount).sha256_text(),"revision":state.revision+1}
 	return candidate
+func drop_candidate(candidate: Dictionary,id: String,units: Array[Dictionary]) -> Dictionary:
+	var key:="income:"+id
+	if candidate.receipts.has(key): return {}
+	if not candidate.services.has("drops"): candidate.services.drops={}
+	var amount:=0
+	for unit: Dictionary in units:
+		candidate.services.drops[unit.id]=unit.duplicate(true);amount+=int(unit.amount)
+	candidate.receipts[key]={"source":key,"source_hash":str(amount).sha256_text(),"revision":state.revision+1}
+	return candidate
+func collect_coin_candidate(candidate: Dictionary,id: String) -> Dictionary:
+	if not candidate.services.get("drops",{}).has(id): return {}
+	var unit: Dictionary=candidate.services.drops[id]
+	candidate=earned_candidate(candidate,"pickup:"+id,int(unit.amount))
+	candidate.services.drops.erase(id)
+	return candidate
 func rest_candidate(candidate: Dictionary) -> Dictionary:
-	candidate.services=ledger().duplicate(true)
+	candidate.services=candidate.get("services",ledger()).duplicate(true)
 	candidate.services.locked=[]
 	candidate.services.cycle_uses={}
 	return candidate
 func damage_candidate(candidate: Dictionary) -> Dictionary:
-	candidate.services=ledger().duplicate(true)
+	candidate.services=candidate.get("services",ledger()).duplicate(true)
 	for id: String in candidate.services.equipped:
 		var owned: Dictionary=candidate.services.owned[id]
 		var definition:=item(id)

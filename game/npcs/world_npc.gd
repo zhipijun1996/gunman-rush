@@ -17,8 +17,10 @@ func _ready() -> void:
 	sprite.centered=false
 	sprite.scale=Vector2.ONE*UnderworldActors.HUMANOID_HEIGHT/float(asset.opaque_height)
 	sprite.position=Vector2(0,18)-FixedWorldProvider.point(asset.foot)*sprite.scale
-var highlighted:=false
-func _process(_delta: float) -> void: queue_redraw()
+var highlighted:=false:
+	set(value):
+		if highlighted==value: return
+		highlighted=value;queue_redraw()
 func _draw() -> void:
 	if highlighted:
 		draw_line(Vector2(-5,-55),Vector2(0,-61),DemoClockworkTheme.TEAL,2)

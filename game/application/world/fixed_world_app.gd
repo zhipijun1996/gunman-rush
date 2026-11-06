@@ -272,8 +272,10 @@ func load_room(id: String, entry: String) -> void:
 	policy.environment_return_requested.connect(func() -> void: _return = true)
 	room.install(controller,policy,lifetime,state.value.enemies,state.has(room.defeat_flag),entry_anchor)
 	room.bind_services(services,controller,policy,lifetime)
+	room.loot.pickup_requested.connect(func(id: String) -> void: enqueue("coin",id))
 	_apply_capabilities()
 	var bounds := FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units)
+	(camera as WorldCamera).room=room
 	(camera as WorldCamera).enter_room(bounds)
 	# Land at the authored near-side ledge; no automatic leap across the new room.
 	player.reset_at(anchor-Vector2(0,1))
@@ -302,13 +304,13 @@ func load_room(id: String, entry: String) -> void:
 			player.step(inward*float(motion.walk_axis),get_physics_process_delta_time())
 		player.reset_motion()
 	elif entry_direction=="up":
-		player.reset_at(anchor-Vector2(0,float(motion.fall_height)))
+		player.reset_at(FixedWorldProvider.point(resolved.entry.landing_contract.entry_position_world_units))
 		await ui.finish_transition()
 		for frame: int in ceili(float(motion.timeout_seconds)/get_physics_process_delta_time()):
 			await get_tree().physics_frame
 			if ticket!=_ticket: return
-			player.step(0,get_physics_process_delta_time())
-			if player.is_on_floor(): break
+			player.step(clampf((anchor.x-player.position.x)/float(motion.hop_steering_distance),-float(motion.hop_axis),float(motion.hop_axis)),get_physics_process_delta_time())
+			if player.is_on_floor() and absf(player.position.x-anchor.x)<4: break
 	var upward_entry: bool=not resolved.entry.is_empty() and resolved.entry.direction=="down"
 	if upward_entry:
 		player.reset_at(FixedWorldProvider.point(resolved.entry.landing_contract.entry_position_world_units))
@@ -326,10 +328,13 @@ func load_room(id: String, entry: String) -> void:
 			controller.jump_ability.update_hold(get_physics_process_delta_time(),player)
 			player.step(clampf((anchor.x-player.position.x)/float(motion.hop_steering_distance),-float(motion.hop_axis),float(motion.hop_axis)),get_physics_process_delta_time())
 			controller.jump_ability.after_move(player)
-			if frame>1 and player.is_on_floor(): break
+			if frame>1 and player.is_on_floor() and absf(player.position.x-anchor.x)<4: break
 		controller.jump_ability.on_landed()
 		player.reset_motion()
 	if ticket!=_ticket or not is_instance_valid(player): return
+	if entry_direction in ["up","down"] and (not player.is_on_floor() or player.position.distance_to(anchor)>8):
+		status="入口未抵达实体落脚面，请返回标题后继续。";busy=false;return
+	player.reset_motion()
 	controller._was_grounded = false
 	controller.active = true
 	busy = false
@@ -339,9 +344,6 @@ func load_room(id: String, entry: String) -> void:
 	status = room.arrival_text if not room.arrival_text.is_empty() else str(room.contract.name)
 	tutorial.enter(room,player.position)
 	_npc_id=""
-	for enemy_id: String in room.enemies:
-		var actor: EnemyActor=room.enemies[enemy_id]
-		actor.defeated.connect(func(_actor: EnemyActor) -> void: enqueue("income",enemy_id))
 
 func _apply_capabilities() -> void:
 	if build_state!=null: build_state.commit_equipment_sources(services.effect_sources())
@@ -359,6 +361,7 @@ func _snapshot() -> Dictionary:
 		candidate.max_hp=controller.actor_resources.health.capacity
 		candidate.combat_energy=controller.combat_energy.current
 	if room != null and room.cycle_at_load==int(state.value.cycle): candidate.enemies.merge(room.snapshot(),true)
+	if room!=null and room.loot!=null: room.loot.persist_into(candidate)
 	return candidate
 
 func enqueue(kind: String,id: String) -> void:
@@ -408,6 +411,9 @@ func _physics_process(_delta: float) -> void:
 		_fail_terrain()
 		return
 	if not lifetime.active: return
+	for enemy_id: String in room.enemies:
+		var key:="income:enemy:"+enemy_id+":cycle:"+str(room.cycle_at_load)
+		if room.enemies[enemy_id].health.terminal and not state.value.receipts.has(key): enqueue("income",enemy_id)
 	if _accepted_damage:
 		_accepted_damage=false
 		if state.commit(services.damage_candidate(_snapshot()),state.revision): _apply_capabilities()
@@ -450,7 +456,25 @@ func _physics_process(_delta: float) -> void:
 				GameAudio.cue(self,&"confirm")
 				room.queue_redraw()
 		elif request.kind == "income":
-			state.commit(services.earned_candidate(_snapshot(),"enemy:"+str(request.id)+":cycle:"+str(int(state.value.cycle)),int(services.definitions.enemy_gold)),state.revision)
+			var source:="enemy:"+str(request.id)+":cycle:"+str(room.cycle_at_load)
+			var actor: EnemyActor=room.enemies[str(request.id)]
+			var candidate:=_drop_candidate(_snapshot(),source,int(services.definitions.enemy_gold),actor.motor.position)
+			if not candidate.is_empty(): state.commit(candidate,state.revision)
+		elif request.kind == "coin":
+			if not room.loot.can_collect(str(request.id)): continue
+			var candidate:=services.collect_coin_candidate(_snapshot(),str(request.id))
+			if not candidate.is_empty() and state.commit(candidate,state.revision):
+				room.loot.sync();GameAudio.cue(self,&"coin")
+				var feedback:=player.get_node_or_null("PlayerFeedback") as PlayerFeedback
+				if feedback!=null: feedback.reward_received(player.global_position,false)
+
+func _drop_candidate(candidate: Dictionary,id: String,amount: int,origin: Vector2) -> Dictionary:
+	var safe:=entry_anchor
+	var ray:=PhysicsRayQueryParameters2D.create(origin,origin+Vector2(0,2048),1)
+	var hit:=get_world_2d().direct_space_state.intersect_ray(ray)
+	if not hit.is_empty() and (hit.normal as Vector2).dot(Vector2.UP)>.65: safe=(hit.position as Vector2)-Vector2(0,12)
+	if id.begins_with("boss:"): safe=room.battle_entry_anchor
+	return services.drop_candidate(candidate,id,WorldCoinDrops.create_units(id,amount,origin,safe,room.room_id))
 
 func _commit_action(id: String) -> void:
 	if state.value.receipts.has(id): return
@@ -459,7 +483,7 @@ func _commit_action(id: String) -> void:
 	candidate.hp = controller.actor_resources.health.current
 	candidate.combat_energy=controller.combat_energy.current
 	if room.cycle_at_load==int(state.value.cycle): candidate.enemies.merge(room.snapshot(),true)
-	if id==room.defeat_action: candidate=services.earned_candidate(candidate,"boss:"+str(room.boss_identity),int(services.definitions.boss_gold))
+	if id==room.defeat_action: candidate=_drop_candidate(candidate,"boss:"+str(room.boss_identity),int(services.definitions.boss_gold),room.boss.position)
 	if not state.commit(candidate,state.revision):
 		status = "保存失败，结果未提交："+state.error
 		return
@@ -676,15 +700,16 @@ func _update_hud() -> void:
 	if ui==null or controller==null: return
 	var target:=context_target()
 	if room!=null:
-		room.interaction_point=Vector2.INF
+		var highlight:=Vector2.INF
 		match target.get("kind",""):
-			"sign": room.interaction_point=room.signs[int(target.id)].interaction_point
-			"rest": room.interaction_point=room.rest_point
-			"action": room.interaction_point=room.reward_point
+			"sign": highlight=room.signs[int(target.id)].interaction_point
+			"rest": highlight=room.rest_point
+			"action": highlight=room.reward_point
 			"pickup":
 				for pickup: Dictionary in services.definitions.pickups:
-					if pickup.id==target.id: room.interaction_point=FixedWorldProvider.point(pickup.point)
-		room.queue_redraw()
+					if pickup.id==target.id: highlight=FixedWorldProvider.point(pickup.point)
+		if room.interaction_point!=highlight:
+			room.interaction_point=highlight;room.queue_redraw()
 		for npc: Node in room.find_children("*","WorldNpc",true,false):
 			npc.highlighted=target.get("kind","")=="npc" and target.get("id","")==npc.npc_id
 	var notice:=status

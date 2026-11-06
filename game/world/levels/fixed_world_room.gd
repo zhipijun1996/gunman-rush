@@ -25,6 +25,7 @@ func _process(delta: float) -> void:
 var cycle_at_load := 0
 var door_open: Dictionary={}
 var services: WorldServices
+var loot: WorldCoinDrops
 
 @export var boss_identity: StringName
 @export var boss_binding: Script
@@ -239,6 +240,8 @@ func refresh_doors(state: FixedWorldState, content: FixedWorldProvider) -> void:
 
 func bind_services(value: WorldServices,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> void:
 	services=value
+	loot=WorldCoinDrops.new();loot.services=value;loot.controller=controller;loot.room_id=room_id;loot.arena_bounds=arena_bounds
+	add_child(loot)
 	for presentation: Node in find_children("*","WorldFlagPresentation",true,false): presentation.bind(value.state.has)
 	for zone: Dictionary in environment_zones:
 		var fixture:=WorldEnvironmentZone.new()

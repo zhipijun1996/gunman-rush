@@ -1,26 +1,38 @@
 class_name WorldCamera
 extends Camera2D
-## One continuous camera policy; room handoff owns the only snap.
+## One follow policy with authored room/arena envelopes; never changes combat zoom.
 var target: PlayerMotor
+var room: FixedWorldRoom
 var bounds:=Rect2()
+var world_bounds:=Rect2()
 var settings: Dictionary
-var dead_zone: Vector2
 var lead:=0.0
 func _ready() -> void:
 	process_physics_priority=1250
 	zoom=Vector2.ONE*float(settings.zoom)
-	dead_zone=Vector2(settings.dead_zone[0],settings.dead_zone[1])
 	position_smoothing_enabled=false
+func enclosed() -> bool:
+	return is_instance_valid(room) and (bool(room.contract.camera.get("enclosed",false)) or arena_active())
+func arena_active() -> bool:
+	return is_instance_valid(room) and room.arena_bounds.has_area() and ((room.battle_started and not room.battle_finished) or room.arena_bounds.has_point(target.position))
 func bounded(value: Vector2) -> Vector2:
 	var half:=get_viewport_rect().size/(2*zoom)
-	return Vector2(bounds.get_center().x if bounds.size.x<half.x*2 else clampf(value.x,bounds.position.x+half.x,bounds.end.x-half.x),bounds.get_center().y if bounds.size.y<half.y*2 else clampf(value.y,bounds.position.y+half.y,bounds.end.y-half.y))
+	var factor:=float(settings.small_room_factor) if enclosed() else 1.0
+	return Vector2(bounds.get_center().x if bounds.size.x<half.x*2*factor else clampf(value.x,bounds.position.x+half.x,bounds.end.x-half.x),bounds.get_center().y if bounds.size.y<half.y*2*factor else clampf(value.y,bounds.position.y+half.y,bounds.end.y-half.y))
 func enter_room(value: Rect2) -> void:
-	bounds=value;lead=0
+	world_bounds=value;bounds=room.arena_bounds if arena_active() else value;lead=0
 	global_position=bounded(target.global_position+Vector2(0,float(settings.vertical_offset)))
 	reset_smoothing();force_update_scroll()
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(target) or not bounds.has_area(): return
-	lead=lerpf(lead,clampf(target.velocity.x/float(settings.lead_speed),-1,1)*float(settings.lead_distance),1-exp(-delta/float(settings.lead_seconds)))
+	var envelope:=room.arena_bounds if arena_active() else world_bounds
+	var weight:=1-exp(-delta/float(settings.zone_seconds))
+	bounds=Rect2(bounds.position.lerp(envelope.position,weight),bounds.size.lerp(envelope.size,weight))
+	if bounds.position.distance_to(envelope.position)+bounds.size.distance_to(envelope.size)<.05: bounds=envelope
+	var dead: Array=settings.enclosed_dead_zone if enclosed() else settings.dead_zone
+	var dead_zone:=Vector2(dead[0],dead[1])
+	var look:=float(settings.enclosed_lead_distance if enclosed() else settings.lead_distance)
+	lead=lerpf(lead,clampf(target.velocity.x/float(settings.lead_speed),-1,1)*look,1-exp(-delta/float(settings.lead_seconds)))
 	var desired:=target.global_position+Vector2(lead,float(settings.vertical_offset))
 	var error:=desired-global_position
 	var goal:=global_position+Vector2(signf(error.x)*maxf(0,absf(error.x)-dead_zone.x),signf(error.y)*maxf(0,absf(error.y)-dead_zone.y))

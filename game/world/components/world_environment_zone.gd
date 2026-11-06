@@ -9,8 +9,20 @@ var policy: FrameDamagePolicy
 var lifetime: DemoLifetime
 var serial:=0
 var clock:=0.0
+var _dark: ShaderMaterial
+var _lit:=false
+func _ready() -> void:
+	if mode!="dark": return
+	var shade:=ColorRect.new();shade.position=bounds.position;shade.size=bounds.size
+	shade.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	_dark=ShaderMaterial.new();_dark.shader=preload("res://game/world/components/world_darkness.gdshader")
+	shade.material=_dark;add_child(shade)
 func _physics_process(delta: float) -> void:
-	queue_redraw()
+	if mode=="dark":
+		var lit:=services.active("lamp")
+		if lit!=_lit:
+			_lit=lit;_dark.set_shader_parameter("darkness",.06 if lit else .38)
+		return
 	if mode not in ["gas","phase_light","thorns"] or not bounds.intersects(Rect2(controller.motor.position-Vector2(12,18),Vector2(24,36))): return
 	if mode=="gas" and services.active("filter"): return
 	clock-=delta
@@ -35,5 +47,3 @@ func _draw() -> void:
 	elif mode=="phase_light":
 		draw_rect(bounds,Color(.95,.78,.35,.35))
 		for y: int in range(int(bounds.position.y),int(bounds.end.y),8): draw_line(Vector2(bounds.position.x,y),Vector2(bounds.end.x,y),Color("f3d98c"),1)
-	else:
-		draw_rect(bounds,Color(0.02,.04,.06,.12 if services.active("lamp") else .7))

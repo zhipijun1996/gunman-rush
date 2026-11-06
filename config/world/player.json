@@ -22,7 +22,14 @@
     "horizontal_seconds": 0.18,
     "vertical_seconds": 0.28,
     "fall_seconds": 0.12,
-    "fall_speed": 600
+    "fall_speed": 600,
+    "zone_seconds": 0.28,
+    "enclosed_dead_zone": [
+      112,
+      100
+    ],
+    "enclosed_lead_distance": 0,
+    "small_room_factor": 1.25
   },
   "entry_motion": {
     "walk_distance": 24,
@@ -30,7 +37,7 @@
     "walk_axis": 0.25,
     "fall_height": 36,
     "hop_steering_distance": 12,
-    "hop_axis": 0.35,
+    "hop_axis": 1.0,
     "timeout_seconds": 1
   }
 }

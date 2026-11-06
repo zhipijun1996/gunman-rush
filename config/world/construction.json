@@ -28,7 +28,8 @@
         "short_recoil_must_not_flip_camera": true,
         "manual_look_not_required_for_main_route": true,
         "outside_room": "房间遮罩/背景覆盖，不显示相邻未加载房间。",
-        "wide_aspect_acceptance": "横竖比例变化不越界泄露相邻房，也不把必要落点裁出视野。"
+        "wide_aspect_acceptance": "横竖比例变化不越界泄露相邻房，也不把必要落点裁出视野。",
+        "enclosed": true
       },
       "doors": [
         {
@@ -1585,7 +1586,8 @@
         "short_recoil_must_not_flip_camera": true,
         "manual_look_not_required_for_main_route": true,
         "outside_room": "房间遮罩/背景覆盖，不显示相邻未加载房间。",
-        "wide_aspect_acceptance": "横竖比例变化不越界泄露相邻房，也不把必要落点裁出视野。"
+        "wide_aspect_acceptance": "横竖比例变化不越界泄露相邻房，也不把必要落点裁出视野。",
+        "enclosed": true
       },
       "doors": [
         {
@@ -1608,20 +1610,20 @@
           "landing_contract": {
             "id": "landing:room-link-139:P-R06",
             "section": "main",
-            "incoming_mode": "short_hop_to_near_side_ledge",
+            "incoming_mode": "short_hop_to_adjacent_solid",
             "entry_position_world_units": [
               768,
               830
             ],
             "safe_standing_position_world_units": [
-              792,
-              814
+              832,
+              798
             ],
             "platform_candidate_rect_world_units": [
-              720,
-              832,
-              96,
-              16
+              816,
+              816,
+              64,
+              32
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -1819,8 +1821,8 @@
             830
           ],
           "eventual_standing_position_world_units": [
-            792,
-            814
+            832,
+            798
           ],
           "landing_contract_ref": "landing:room-link-139:P-R06",
           "fake_grounded_reset_forbidden": true
@@ -2156,7 +2158,8 @@
         "short_recoil_must_not_flip_camera": true,
         "manual_look_not_required_for_main_route": true,
         "outside_room": "房间遮罩/背景覆盖，不显示相邻未加载房间。",
-        "wide_aspect_acceptance": "横竖比例变化不越界泄露相邻房，也不把必要落点裁出视野。"
+        "wide_aspect_acceptance": "横竖比例变化不越界泄露相邻房，也不把必要落点裁出视野。",
+        "enclosed": true
       },
       "doors": [
         {
@@ -2234,19 +2237,19 @@
           "landing_contract": {
             "id": "landing:room-link-139:P-R08",
             "section": "main",
-            "incoming_mode": "drop_onto_visible_safe_platform",
+            "incoming_mode": "fall_to_adjacent_solid",
             "entry_position_world_units": [
-              384,
-              64
+              352,
+              48
             ],
             "safe_standing_position_world_units": [
-              384,
-              174
+              304,
+              126
             ],
             "platform_candidate_rect_world_units": [
-              256,
-              192,
-              256,
+              80,
+              144,
+              240,
               32
             ],
             "platform_is_real_collision": true,
@@ -2416,12 +2419,12 @@
           "entry_door": "room-link-139:P-R08",
           "section": "main",
           "position_candidate_world_units": [
-            384,
-            64
+            352,
+            48
           ],
           "eventual_standing_position_world_units": [
-            384,
-            174
+            304,
+            126
           ],
           "landing_contract_ref": "landing:room-link-139:P-R08",
           "fake_grounded_reset_forbidden": true

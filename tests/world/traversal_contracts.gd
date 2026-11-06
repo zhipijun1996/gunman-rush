@@ -23,7 +23,10 @@ func run() -> void:
 	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(3)
 	check(app.controller.jump_ability.used_jumps==2 and app.player.velocity.y<0,"real second jump uses existing Motor/JumpAbility")
 	app.controller.router.set_jump_held(&"keyboard_mouse",false)
-	app.load_room("P-R06","room-link-139:P-R06");await ticks(15)
+	app.load_room("P-R06","room-link-139:P-R06")
+	for frame: int in 180:
+		await physics_frame
+		if not app.busy: break
 	# Qualified position fixture only, on the existing approach platform.
 	app.player.reset_at(Vector2(1030,614));await ticks(3)
 	app.controller.router.set_source_axis(&"keyboard_mouse",1)

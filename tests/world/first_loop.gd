@@ -123,7 +123,7 @@ func run() -> void:
 	if app.room.room_id!="P-R08":
 		await finish()
 		return
-	check(await path([Vector2(176,694),Vector2(420,606),Vector2(176,518),Vector2(420,430),Vector2(176,342),Vector2(420,254),Vector2(384,174),Vector2(176,94),Vector2(384,-15)],"P-R08"),"corridor physical ascent")
+	check(await path([Vector2(176,694),Vector2(420,606),Vector2(176,518),Vector2(420,430),Vector2(176,342),Vector2(420,254),Vector2(384,174),Vector2(304,126),Vector2(384,-15)],"P-R08"),"corridor physical ascent")
 	await settle()
 	check(app.room.room_id=="P-R06","vertical connection to junction")
 	if app.room.room_id!="P-R06":
@@ -142,7 +142,10 @@ func run() -> void:
 	if not app.state.has("boss_P_WINDKEEPER_defeated"):
 		await finish()
 		return
-	await path([Vector2(1360,654),Vector2(1480,654)],"P-R14")
+	await path([Vector2(1196,524),Vector2(1256,524),Vector2(1360,654)],"P-R14")
+	await ticks(120)
+	check(app.services.ledger().gold>=20,"physically collect the Boss coin shower before leaving")
+	await path([Vector2(1480,654)],"P-R14")
 	await ticks(4)
 	await click_named("领取钩索 H")
 	await ticks(4)
@@ -157,7 +160,7 @@ func run() -> void:
 	await path([Vector2(384,438),Vector2(624,526),Vector2(750,830)],"P-R06")
 	await settle()
 	check(app.room.room_id=="P-R08","actual down connection returns to corridor")
-	app.controller.router.request_action(&"grapple",Vector2.UP)
+	app.controller.router.request_action(&"grapple",(app.room.hook_points[0]-app.player.position).normalized())
 	var attached:=false
 	for i: int in 65:
 		await physics_frame
@@ -166,7 +169,7 @@ func run() -> void:
 	app.controller.router.set_jump_held(&"keyboard_mouse",true)
 	await ticks(10)
 	app.controller.router.set_jump_held(&"keyboard_mouse",false)
-	await path([Vector2(176,694),Vector2(144,782),Vector2(5,782)],"P-R08")
+	await path([Vector2(420,254),Vector2(420,606),Vector2(176,694),Vector2(144,782),Vector2(5,782)],"P-R08")
 	await settle()
 	check(app.room.room_id=="P-R01","first loop returns to station")
 	check(app.state.value.cycle==2,"ordinary return never rests or refreshes cycle")

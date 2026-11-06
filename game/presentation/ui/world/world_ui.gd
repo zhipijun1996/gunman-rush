@@ -76,7 +76,8 @@ func panel(kind: String,heading: String,detail: String) -> DemoUiModalShell:
 	close()
 	page=kind
 	interact_host.hide();pause_host.hide()
-	shell=DemoUiModalShell.new()
+	shell=WorldDialogue.new() if kind in ["dialogue","npc"] else DemoUiModalShell.new()
+	if shell is WorldDialogue: (shell as WorldDialogue).conversation=kind=="dialogue"
 	root.add_child(shell)
 	root.show()
 	shell.heading(heading,detail)
@@ -136,7 +137,7 @@ func present(actor: PlayerController,room_id: String,location: String,status: St
 	notice.text=status
 	notice.position=Vector2(safe.get_center().x-260*factor,safe.position.y+18*factor)
 	notice.size=Vector2(520,80)*factor
-	notice.visible=status.contains("失败") or status.contains("不可用") or status.contains("缺少实际支撑") or status.contains("暂不可通行")
+	notice.visible=status.contains("未抵达") or status.contains("失败") or status.contains("不可用") or status.contains("缺少实际支撑") or status.contains("暂不可通行")
 	hud.present_context(location,gold,0,reduced)
 	hud._money.text=WorldText.text("hud.gold") % gold
 	hud._resonance_text.text=WorldText.text("heal.resonance") % [actor.combat_energy.current,actor.combat_energy.capacity()]

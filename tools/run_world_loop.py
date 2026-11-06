@@ -12,6 +12,8 @@ def main():
     for script,marker,timeout in [
         ('state_contracts.gd',r'WORLD STATE: \d+ assertions, 0 failures',30),
         ('service_contracts.gd',r'WORLD SERVICES: \d+ assertions, 0 failures',60),
+        ('economy.gd',r'WORLD GOLD: \d+ assertions, 0 failures',60),
+        ('economy_restart.gd',r'WORLD GOLD RESTART: 0 failures',30),
         ('traversal_contracts.gd',r'WORLD TRAVERSAL: \d+ assertions, 0 failures',60),
         ('room_contracts.gd',r'WORLD ROOMS: \d+ assertions, 0 failures',60),
         ('ui_contracts.gd',r'WORLD UI: \d+ assertions, 0 failures',60),
