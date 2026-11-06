@@ -25,14 +25,16 @@ def build(root=ROOT):
             door['target_scene'] = scene_refs[door['target_room']]
     sources = {n:hashlib.sha256((source/n).read_bytes()).hexdigest() for n in ['world.json','construction.json','collections.json','player.json']}
     scene_sources = {r['scene_ref']:hashlib.sha256((root/r['scene_ref'].removeprefix('res://')).read_bytes()).hexdigest() for r in construction['rooms'] if r['room_id'] in implemented and (root/r['scene_ref'].removeprefix('res://')).is_file()}
-    version = hashlib.sha256(json.dumps({'inputs':sources,'scenes':scene_sources},sort_keys=True).encode()).hexdigest()
-    bundle = {'schema':1,'content_version':version,'sources':sources,
+    bundle = {'schema':1,'sources':sources,
               'start':contracts['initial_state'], 'actions':world['actions'], 'scene_sources':scene_sources,
               'player':json.loads((source/'player.json').read_text()), 'runtime_rules':world['runtime_rules'],
               'rooms':{r['room_id']:r for r in contracts['rooms'] if r['room_id'] in implemented}}
     for room in bundle['rooms'].values():
         if not (root / room['scene_ref'].removeprefix('res://')).is_file():
             raise ValueError('Implemented scene missing: '+room['scene_ref'])
+    # Bind the compiled semantics too: a compiler fix can change runtime data
+    # without changing any authored input or scene bytes.
+    bundle['content_version'] = hashlib.sha256(json.dumps(bundle,sort_keys=True,separators=(',',':')).encode()).hexdigest()
     write_json(root/'build/world/contracts.json', contracts)
     write_json(root/'build/world/runtime.json', bundle)
     return contracts, bundle
