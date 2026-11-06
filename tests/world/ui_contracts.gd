@@ -86,6 +86,19 @@ func run() -> void:
 	var escape:=InputEventKey.new();escape.physical_keycode=KEY_ESCAPE;escape.keycode=KEY_ESCAPE;escape.pressed=true
 	root.push_input(escape,true);await ticks(3)
 	check(not app.paused and app.ui.page.is_empty() and root.gui_get_focus_owner()==null,"focused map Escape closes and returns clean gameplay focus")
+	app._show_settings()
+	await ticks(4)
+	var movement:=app.ui.shell.find_children("*","OptionButton",true,false)[0] as OptionButton
+	await touch_button(movement)
+	var popup:=movement.get_popup()
+	var choice:=Vector2(popup.position)+Vector2(popup.size)*.5
+	for down: bool in [true,false]:
+		var finger:=InputEventScreenTouch.new();finger.index=4;finger.pressed=down;finger.position=choice
+		root.push_input(finger,true);await ticks(3)
+	check(movement.selected==1,"paused settings popup accepts actual touch selection")
+	var settings_revision:=app.preferences.revision
+	await touch_button(find("应用并保存"))
+	check(not app.paused and app.preferences.revision==settings_revision+1 and app.preferences.value.input.touch_move_mode=="digital","first save touch after popup selection commits independent settings")
 	app.return_title()
 	await ticks(5)
 	var saved_revision:=app.state.revision

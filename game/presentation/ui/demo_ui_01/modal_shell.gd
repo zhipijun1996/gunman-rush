@@ -100,6 +100,9 @@ func button(title: String, action: Callable) -> Button:
 	rows.add_child(result)
 	return result
 
+func cancel_touch(reason: StringName) -> void:
+	_touch_adapter.cancel(reason)
+
 func register_touch_region(region: Control) -> void:
 	_touch_adapter.touch_regions.append(region)
 

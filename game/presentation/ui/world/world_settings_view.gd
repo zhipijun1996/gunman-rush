@@ -15,6 +15,7 @@ func show() -> void:
 	var modes: Array=["two_step","digital","analog"]
 	movement.select(modes.find(settings.value.input.touch_move_mode))
 	modal.rows.add_child(movement)
+	movement.get_popup().about_to_popup.connect(func() -> void: modal.cancel_touch(&"popup_open"))
 	var popup_touch:=PopupTouchAdapter.new()
 	popup_touch.popup=movement.get_popup()
 	movement.get_popup().add_child(popup_touch)

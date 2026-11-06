@@ -75,7 +75,7 @@ async function checkPlaytestUpdate() {
         if (document.getElementById('playtest-update')) return;
         const button = document.createElement('button');
         button.id = 'playtest-update';
-        button.textContent = '新版本可用 · 返回家园后点击更新';
+        button.textContent = '新版本可用 · 返回标题后点击更新';
         button.style.cssText = 'position:fixed;right:8px;top:8px;z-index:100;font:12px sans-serif;padding:8px;background:#292f3e;color:#eee;border:1px solid #727d8f;border-radius:5px';
         button.onclick = () => {
             if (!confirm('更新将结束当前试玩；已保存的音符与永久升级保留。继续？')) return;
