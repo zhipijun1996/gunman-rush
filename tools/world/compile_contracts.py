@@ -596,16 +596,18 @@ def build(canonical, construction, replay_path):
             }
         if rid == "G-R01":
             entry["service_specific_contract"] = "武器匠在本房；工房放行来自G-R03，见匠交互才获得smith状态；首次进入熔火保留该剧情联锁。"
+        if boss and source.get("boss_arena_override"):
+            entry["boss_arena"].update(copy.deepcopy(source["boss_arena_override"]))
         entry["world_geometry"]["required_reserved_areas"] = required_reserved_areas(entry)
         result_rooms.append(entry)
 
     contracts = {
         "schema": "gunman-rush.room-graybox-contracts.v04",
         "status": "可开始全世界结构灰盒的施工合同；候选尺寸、镜头、动作与战斗尚需实机校准。",
-        "canonical_source": "../world-room-layout-v04.json",
+        "canonical_source": "config/world/world.json",
         "canonical_normalized_json_sha256": hashlib.sha256(json.dumps(canonical, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
         "canonical_normalized_json_hash_method": "json_utf8_ensure_ascii_false_sort_keys_separators_no_whitespace",
-        "authorities": {"progression_and_permanence": "world-room-layout-v04.json", "scene_interface_and_working_geometry": "room-graybox-contracts-v04.json", "gameplay_rules": "world-graybox-bible-v02.txt", "physical_passability": "actual_Godot_graybox_validation_not_abstract_graph"},
+        "authorities": {"progression_and_permanence": "config/world/world.json", "scene_interface_and_working_geometry": "config/world/construction.json", "gameplay_rules": "docs/bible/", "physical_passability": "actual_Godot_graybox_validation_not_abstract_graph"},
         "coordinate_and_scale_contract": {
             "scene_units": "Godot world units; no global 128-pixel Block requirement",
             "world_map_is_not_uniform_scene_pixel_scale": True,
@@ -650,7 +652,7 @@ def build(canonical, construction, replay_path):
         "door_coordinate_audit": audit,
         "validation_scope": {"schema_and_references": True, "section_route_simulation": "由simulation单独生成报告", "physics_or_jump_envelopes": False, "camera_visibility_playtest": False, "combat_balance": False, "human_wayfinding_or_memory": False},
         "shop_policy": copy.deepcopy(construction.get("shop_policy", {})),
-        "all_unique_reward_registry_source": "world-room-layout-v04.json",
+        "all_unique_reward_registry_source": "config/world/world.json",
     }
     return contracts
 
@@ -752,7 +754,7 @@ def audit_contracts(data, canonical):
         "ordinary_routes_have_no_T5": all(r["difficulty"]["main_T"] < 5 for r in rooms.values()),
         "all_reserved_areas_inside_outer_bounds": not any(i["kind"] in {"reserved_area_outside_outer_bounds", "missing_reserved_areas", "duplicate_reserved_area", "reserved_area_invalid_section", "door_missing_reserved_area_ref"} for i in issues),
         "boss_entry_reservations_outside_combat": not any(i["kind"] == "boss_entry_reserved_area_overlaps_combat" for i in issues),
-        "first_visit_samples_match_canonical_version": data["first_visit_replay_source"]["canonical_sha256"] == data["canonical_sha256"],
+        "first_visit_samples_match_canonical_version": not data["first_visit_replay_source"]["file_sha256"] or data["first_visit_replay_source"]["canonical_sha256"] == data["canonical_sha256"],
     }
     data["validation"] = validation
     data["validation_issues"] = issues

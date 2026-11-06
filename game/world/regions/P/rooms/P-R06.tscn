@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[node name="P-R06" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R06"
+platforms = Array[Rect2]([Rect2(528, 720, 192, 32), Rect2(776, 632, 192, 20), Rect2(528, 544, 192, 20), Rect2(296, 456, 176, 20), Rect2(0, 416, 240, 32), Rect2(0, 576, 240, 32), Rect2(0, 272, 240, 32)])
+one_way_indices = Array[int]([1, 2, 3, 4, 5, 6])
+start_point = Vector2(624, 702)
+rest_point = Vector2(624, 526)
+enemy_placements = Array[Dictionary]([{"id": "P-R06:charger:01", "behavior": "charger", "point": [880, 614]}])
+signs = Array[Dictionary]([{"text": "← 牧风者庭地", "point": [20, 350]}, {"text": "↓ 封井回廊；此处 W 可休息", "point": [520, 485]}])

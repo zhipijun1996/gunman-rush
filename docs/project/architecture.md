@@ -2,11 +2,11 @@
 
 保持 Godot Node／Scene／Resource 的模块化单体，按功能和内容归属演进。应用编排用例，业务模块拥有规则与状态，表现消费已接受结果；职责划分不要求每项新增类或管理器。本文规定系统边界；真实运行版本见 [当前状态](current_state.md)，文件与检查从 [模块导航](module_map.md) 按任务定位，实施依赖和验收见 [MV-RUNTIME-01工作线](worklines/mv_migration/scope.md)。
 
-**现有复用**表示已有真实消费者；**需要适配**表示机制已存在但寿命、身份或入口不符合固定世界；**需要新增**表示本基线尚无对应的新世界消费者。表中目标职责不是已实现声明。
+**现有复用**表示已有真实消费者；**需要适配**表示机制已存在但寿命、身份或入口不符合固定世界；**需要新增**表示当前仍无对应的新世界消费者；首批已落地部分标为**已接入**。表中目标职责不是已实现声明。
 
 ## 逐个打磨内容的目标结构
 
-系统模块提供稳定能力，内容对象拥有自己的差异。以下是新增内容逐步落位的目标示意，不是本轮已建目录，也不要求搬迁仍被使用的旧资源；01B/01C先核现有scene_ref并由施工源绑定实际场景路径。一个对象可以由场景、Definition、资源引用和少量专属脚本组成，不要求每个对象都写类或README。
+系统模块提供稳定能力，内容对象拥有自己的差异。以下是新增内容逐步落位的目标示意，不是本轮已建目录，也不要求搬迁仍被使用的旧资源；施工源绑定实际scene_ref，当前已落地五个独立手工房。一个对象可以由场景、Definition、资源引用和少量专属脚本组成，不要求每个对象都写类或README。
 
 ```text
 game/
@@ -26,7 +26,7 @@ game/
     regions/<区域>/                # 区域环境/音乐/视觉默认值及专属机制
       rooms/<房间ID>/              # 手工场景、实例放置、局部演出与资源引用
   presentation/ platform/          # 共用UI/音画基础能力、输入、存储和设备适配
-config/world/                      # 01C后的拓扑/施工/收集人工源，非第二份房间脚本
+config/world/                      # 当前拓扑/施工/收集人工源，非第二份房间脚本
 ```
 
 已有Boss场景/Definition仍在scenes/resources等路径时，沿工厂和对象规范找到真实资源；日常打磨不强制迁目录。素材保持单份并由内容引用，来源/许可随素材。生成合同、运行数据、临时预览进入build/；如何产出及导出见下文，不把生成文件当内容编辑入口。
@@ -64,9 +64,9 @@ flowchart TD
 
 业务模块不依赖 UI 或音画节点，Provider 不获得钱包、玩家或 RunSession 服务袋；解析内容不抽取新的随机结果、不提交奖励。装配层注入实际需要的服务。保存协调聚合各所有者的快照，不接管全部游戏规则；跨模块写操作经拥有该状态的业务入口，禁止读写同一事实的第二份账本。
 
-当前正式链是 `project.godot → DemoApp → RunComposition / RunSession`。地图请求经 Plains／Forest Provider、旧生成器与 LegacyRegionPlanAdapter 形成 LevelPlan，再由 Stage 调用 LevelRuntime 和旧 Assembler；mapgen另有开发入口。LevelRequest/Plan 仍使用 region/map/seed，LevelRuntime 接受 PlainsRegionState。它们是暂态内容协议和装配入口，尚非固定房间系统或世界保存格式。
+当前正常链为 `project.godot → FixedWorldApp → FixedWorldProvider / FixedWorldState`。Provider只读build/world运行包，按LevelRequest的room/door/content身份解析；FixedWorldRoom消费合同并装配手工地形、既有敌人/Boss。App持有跨房共享玩家、相机与生命周期票据，WorldSaveService复用可靠IO保存同一世界修订。
 
-RunSession 持有本局 Build、钱包、奖励、商店等引用，沿用 DemoRunDirector／DemoLifetime。`DemoApp._cleanup_run → clear_run_services` 清构筑和钱包，地区切换的 `reset_maps` 清地图账本。新世界不能直接沿用这些重置时机；`WorldContext.LEGACY_INSTANT_DEATH` 是历史全重置夹具，不能改名当新核心。
+旧DemoApp → RunComposition/RunSession → Plains/Forest Provider → Stage/LevelRuntime仍供显式原型与回归。region/map/seed、clear_run_services/reset_maps及旧Run/Meta清空语义不进入新世界链；不将历史WorldContext或回放格式改名作为新核心。
 
 ## 系统职责与真实缺口
 
@@ -74,19 +74,19 @@ RunSession 持有本局 Build、钱包、奖励、商店等引用，沿用 DemoR
 
 | 系统与目标所有者 | 现有复用：真实入口 | 需要适配／需要新增 | 归位任务 |
 | --- | --- | --- | --- |
-| 应用与全局流程：新游戏、继续、暂停、过房、死亡恢复、结束的编排 | [DemoApp](../../game/application/demo_app.gd)、[RunSession](../../game/application/run_session.gd)、[RunComposition](../../game/application/run_composition.gd) | **适配**旧Run终局、地图清空及玩家节点寿命；**新增**固定世界开始/继续、控制权交接、房间失败恢复与结局用例 | 01D／01E／01H |
-| 玩家、武器与战斗：运动、动作资源、攻击请求和帧伤害各有主人 | [PlayerController](../../game/player/player_controller.gd) → [PlayerMotor](../../game/player/player_motor.gd)；[WeaponActionRuntime](../../game/combat/weapons/weapon_action_runtime.gd)、[FrameDamagePolicy](../../game/combat/damage/frame_damage_policy.gd) | **适配**跨房取消与资源连续性；**新增**Q资格/保护和实际进入侧失败政策，保持唯一Motor及接受后命中/表现链 | 01D／01E／01F |
+| 应用与全局流程：新游戏、继续、暂停、过房、死亡恢复、结束的编排 | [DemoApp](../../game/application/demo_app.gd)、[RunSession](../../game/application/run_session.gd)、[RunComposition](../../game/application/run_composition.gd) | **已接入**FixedWorldApp开始/继续、共享玩家、暂停/过房/失败/死亡与保存返回标题；**需要新增**结局及完整对话/演出接管 | 01D／01E／01H |
+| 玩家、武器与战斗：运动、动作资源、攻击请求和帧伤害各有主人 | [PlayerController](../../game/player/player_controller.gd) → [PlayerMotor](../../game/player/player_motor.gd)；[WeaponActionRuntime](../../game/combat/weapons/weapon_action_runtime.gd)、[FrameDamagePolicy](../../game/combat/damage/frame_damage_policy.gd) | **已接入**跨房取消/资源连续性、WorldRecoilGuard与进入侧恢复；首批不授予Q，正式获取路线待扩展，保持唯一Motor及接受后命中/表现链 | 01D／01E／01F |
 | 成长、库存、装配与效果：永久解锁、实例所有权、当前装配、有效属性与触发额度分别拥有 | [MetaProgression](../../game/progression/meta_progression.gd)、[RunInventory](../../game/loadout/inventory/run_inventory.gd)、[EquipmentService](../../game/loadout/equipment/equipment_service.gd)、[BuildState](../../game/loadout/stats/build_state.gd)、[ItemRuntime](../../game/loadout/effects/item_runtime.gd) | **适配**局内清空、家园成长和效果重算为永久/周期边界；**新增**48件选型后的NPC升级、锁装/周期额度及统一能力/工具查询。所有权不等于已装备 | 01E／01G，依赖 ITEM-V5-01 |
-| 怪物与Boss：定义、实例战斗状态、专属决策/招式/阶段及表现 | [EnemyFactory](../../game/enemies/enemy_factory.gd)、EnemyBehaviorRegistry、EnemyActor/Behavior；[BossFactory](../../game/bosses/encounter/boss_factory.gd)、BossEncounter与专属Encounter | **适配**稳定放置ID、场地锚点、普通敌人周期恢复和Boss封场；**新增**固定世界永久胜利/奖励提交绑定。工厂不拥有永久进度，不统一专属招式状态机 | 01D／01F／01J；既有物种工作线继续打磨 |
+| 怪物与Boss：定义、实例战斗状态、专属决策/招式/阶段及表现 | [EnemyFactory](../../game/enemies/enemy_factory.gd)、EnemyBehaviorRegistry、EnemyActor/Behavior；[BossFactory](../../game/bosses/encounter/boss_factory.gd)、BossEncounter与专属Encounter | **已接入**首批稳定放置ID、敌人周期快照、牧风者场地/封场及永久胜利/H收据；后续对象仍逐个绑定，工厂不拥有永久进度 | 01D／01F／01J；既有物种工作线继续打磨 |
 | NPC、对话、任务与剧情：人物身份、任务阶段、条件和演出用例 | [HomeScene](../../game/progression/home/home_scene.gd)及App服务面板；[ForestBibleDiscoveries](../../game/world/components/forest_bible_discoveries.gd)是局部发现/阅读入口 | **适配**服务/阅读入口；**新增**NPC身份与放置解析、对话条件、任务快照、迁居及可取消演出。现有家园按钮和森林发现不等于任务系统 | 01G／01H，叙事依赖 STORY-DESIGN-03 |
-| 世界、区域、房间与机关：拓扑、解析、装载、放置、局部空间及机关实例 | [LevelRequest](../../game/world/levels/level_request.gd)、[LevelPlan](../../game/world/levels/level_plan.gd)、[LevelRuntime](../../game/world/levels/level_runtime.gd)、Stage/Assembler、现有世界组件 | **适配**协议与装配，保留有消费者的Provider；**新增**固定世界Provider、room/section/door身份、成对入口、手工场景和房间卸载边界。普通房间无需专属脚本 | 01B／01C／01D |
-| 探索地图：玩家知识及其只读展示 | [PlainsMapExploration](../../game/presentation/ui/plains_map_exploration.gd)、[PlainsRegionMap](../../game/presentation/ui/plains_region_map.gd)消费地图账本 | **适配**旧碰撞网格揭示为房间/分区知识；**新增**入口发现、主体深入与区域记录查询/持久化。浏览地图不提交探索，世界图坐标不作碰撞坐标 | 01E／01F／01I |
-| 经济、收集与奖励：报价、余额/材料、库存及唯一收据 | [RunWallet](../../game/economy/shops/run_wallet.gd)、[ShopService](../../game/economy/shops/shop_service.gd)、[RewardService](../../game/rewards/grants/reward_service.gd)、[MetaProgression._transaction](../../game/progression/meta_progression.gd) | **适配**局内报价/奖励与库存寿命；**新增**世界action/stock/reward ID绑定，以及扣费/授予/售出/收据同一持久修订的提交。当前会话收据不证明磁盘事务已覆盖 | 01E／01F／01G |
-| 世界进度与保存：各领域拥有事实，保存协调聚合快照与恢复 | [PlainsRegionState](../../game/world/state/plains_region_state.gd)、[RunCampaignProgression](../../game/application/run_campaign_progression.gd)、[MetaSaveService](../../game/platform/persistence/meta_save_service.gd) | **适配**可靠介质、校验和、备份及提交机制；**新增**四种寿命的世界payload、新schema/content版本、新槽、休息点/周期、任务/Boss/修钟事实与安全恢复。旧RunManifest回放不充当新世界存档 | 01E／01H |
+| 世界、区域、房间与机关：拓扑、解析、装载、放置、局部空间及机关实例 | [LevelRequest](../../game/world/levels/level_request.gd)、[LevelPlan](../../game/world/levels/level_plan.gd)、[LevelRuntime](../../game/world/levels/level_runtime.gd)、Stage/Assembler、现有世界组件 | **已接入**FixedWorldProvider、room/door/content请求、五房场景与卸载；当前动作只开放main分区，其他分区和211房待施工，保留有消费者的旧Provider | 01B／01C／01D |
+| 探索地图：玩家知识及其只读展示 | [PlainsMapExploration](../../game/presentation/ui/plains_map_exploration.gd)、[PlainsRegionMap](../../game/presentation/ui/plains_region_map.gd)消费地图账本 | **已接入**实际到达房间列表与持久化，查看不揭示；**需要新增**入口预览/分区深入和完整地图展示，世界图坐标不作碰撞坐标 | 01E／01F／01I |
+| 经济、收集与奖励：报价、余额/材料、库存及唯一收据 | [RunWallet](../../game/economy/shops/run_wallet.gd)、[ShopService](../../game/economy/shops/shop_service.gd)、[RewardService](../../game/rewards/grants/reward_service.gd)、[MetaProgression._transaction](../../game/progression/meta_progression.gd) | **已接入**世界action授予与唯一收据同修订保存；**需要适配**报价/库存寿命和真实购买扣费/售出，首批无经济消费者，不能宣称完整经济事务成立 | 01E／01F／01G |
+| 世界进度与保存：各领域拥有事实，保存协调聚合快照与恢复 | [PlainsRegionState](../../game/world/state/plains_region_state.gd)、[RunCampaignProgression](../../game/application/run_campaign_progression.gd)、[MetaSaveService](../../game/platform/persistence/meta_save_service.gd) | **已接入**FixedWorldState与WorldSaveService独立schema/槽/key、版本/校验/备份、能力/Boss/收据、休息周期/敌人、位置/探索及安全恢复；尝试和动作不存为永久事实。**需要新增**NPC库存任务/修钟领域快照 | 01E／01H |
 | UI、输入与设置：显示/焦点/取消、设备意图与独立用户偏好 | [InputRouter](../../game/platform/input/input_router.gd)、[InputSetup](../../game/platform/input/input_setup.gd)、DemoMenu、[ModalShell](../../game/presentation/ui/demo_ui_01/modal_shell.gd)、[GameTypography](../../game/presentation/ui/demo_ui_01/game_typography.gd) | **适配**互斥面板与控制权、触屏安全区/手柄焦点/长文本；**新增**独立于世界档的设置持久化及统一可提取文本入口。`_session_input`只是会话值，字体工具不是文本本地化系统 | 01D／01I |
 | 动画、VFX、音效、音乐与镜头：专属表现、事件时序和切换策略 | 武器/Encounter时序、[GameAudio](../../game/presentation/audio/game_audio.gd)、[GameMusic](../../game/presentation/audio/game_music.gd)、[StageCameraRig](../../game/world/generation/stage_camera_rig.gd) | **适配**房间镜头意图、场地/演出优先级及订阅释放；**新增**修钟状态驱动的区域画面/BGM刷新。保持每个动作唯一时序来源，表现不能重复结算伤害或奖励 | 01D／01H／01I |
-| 平台与资源生命周期：设备适配、资源释放、异步失效和观测 | 输入适配器、MetaSaveService、[WorldAudioLifecycle](../../game/presentation/audio/world_audio_lifecycle.gd)；[RuntimeMapGenerationJob](../../experiments/generation/runtime_map_generation_job.gd)已有票据/取消模式 | **适配**宿主退出与失败路径；**新增**固定房装载票据、资源所有权与错误定位。生成任务的取消方法可借鉴，不引入mapgen作为新房依赖；测量样板后再决定缓存/预加载 | 01D／01I |
-| 内容生产、验证与交付：人工源、派生数据、资源导出、版本身份和试玩 | [世界输入](../data/world/README.md)、room_context、现有工厂/注册表、[Harness](harness.md)、[构建](../../tools/build.py)及prepared部署流程 | **适配**输入生成链和导出白名单；**新增**人工施工源、独立路线输入、config/world切换及build/world运行包消费。导入图QA不等于可玩/PCK验收 | 01B／01C／01J |
+| 平台与资源生命周期：设备适配、资源释放、异步失效和观测 | 输入适配器、MetaSaveService、[WorldAudioLifecycle](../../game/presentation/audio/world_audio_lifecycle.gd)；[RuntimeMapGenerationJob](../../experiments/generation/runtime_map_generation_job.gd)已有票据/取消模式 | **已接入**固定房票据、过期请求拒绝、失败保留旧房和卸载；不依赖mapgen。**需要适配**完整平台观测与资源峰值，测量后再决定缓存/预加载 | 01D／01I |
+| 内容生产、验证与交付：人工源、派生数据、资源导出、版本身份和试玩 | [世界输入](../data/world/README.md)、room_context、现有工厂/注册表、[Harness](harness.md)、[构建](../../tools/build.py)及prepared部署流程 | **已接入**独立施工/路线输入、config/world权威、build/world编译与PCK显式消费；图QA、真实输入闭环与导出分别验收，后续按同一链扩房 | 01B／01C／01J |
 
 ## 状态、身份与内容归属
 
@@ -104,7 +104,7 @@ RunSession 持有本局 Build、钱包、奖励、商店等引用，沿用 DemoR
 
 ## 控制权、时间与资源寿命
 
-当前暂停/地图互斥与取消由 DemoApp、Router 和面板处理，规则引用 [输入合同](../bible/controls_contract.md)。固定世界要补统一的应用级控制权交接：菜单、对话、演出、过房、死亡用例声明接管原因、活动epoch及恢复条件；只能由当前持有者释放，死亡可使先前持有者失效。关闭旧面板或旧异步回调不能重新启用已死亡/正在装载的角色。接管时取消旧意图与未提交动作；恢复不伪造松手射击，也不靠暂停刷新资格。
+当前正常入口暂停/地图互斥与取消由FixedWorldApp和Router处理，旧DemoApp只供回归，规则引用 [输入合同](../bible/controls_contract.md)。固定世界当前由装载票据与活动epoch接管过房/死亡；后续对话/演出沿同一边界扩展：菜单、对话、演出、过房、死亡用例声明接管原因、活动epoch及恢复条件；只能由当前持有者释放，死亡可使先前持有者失效。关闭旧面板或旧异步回调不能重新启用已死亡/正在装载的角色。接管时取消旧意图与未提交动作；恢复不伪造松手射击，也不靠暂停刷新资格。
 
 | 时钟 | 当前消费者与目标约束 |
 | --- | --- |
@@ -140,17 +140,17 @@ RunSession 持有本局 Build、钱包、奖励、商店等引用，沿用 DemoR
 
 ## 数据权威、保存与导出
 
-当前权威和迁移顺序唯一见 [世界输入](../data/world/README.md)：先提取人工施工及独立路线输入并证明生成等价，再切换config/world；生成物进入build/world并纳入实际导出。手工场景不能被生成脚本覆盖。
+当前权威和生成关系唯一见 [世界输入](../data/world/README.md)：config/world拥有人工源，提取阶段已证明216合同等价；生成物只进入build/world并纳入实际导出。手工场景不能被生成脚本覆盖。
 
 | 内容 | 单一人工所有者 | 其他消费者的职责 |
 | --- | --- | --- |
-| 身份、连接、资格与交互所在room/section | 当前world-room-layout-v04源，等价迁移后world.json | 合同、UI、模拟和运行导出按ID引用，不另维护拓扑表 |
-| 尺寸、门台、镜头意图、场景绑定 | 01B提取的construction人工输入 | 合同生成；场景验实际包络和成对接口，不能将地图坐标当碰撞坐标 |
+| 身份、连接、资格与交互所在room/section | config/world/world.json | 合同、UI、模拟和运行导出按ID引用，不另维护拓扑表 |
+| 尺寸、门台、镜头意图、场景绑定 | config/world/construction.json | 合同生成；场景验实际包络和成对接口，不能将地图坐标当碰撞坐标 |
 | 地形、房内节点与专属表现 | 手工Godot场景及所引用Definition | 场景装配/校验消费稳定放置ID；重复的ID、门位、交互位置明确由源生成或校验，不双向随意改 |
 | 收集/库存映射与数值 | collections及实际目录、配置/Definition | 文档描述玩家行为并链接参数来源；不复制可编辑数值表 |
 | 路线回归输入 | 从当前路线提取的独立测试输入 | 模拟结果/报告重新生成，不能将上次生成结果当人工权威 |
 
-新世界使用独立原生槽位及Web key；旧Run／Meta兼容不在目标内，也不覆盖旧文件。MetaSaveService当前绑定Meta schema/content常量和Web key，必须适配存储边界，不能只换payload字段。schema解释结构，content版本解释稳定身份/内容引用；未来新世界升级分别处理身份映射、失效位置与缺失引用，保留有效永久结果，安全落点来自合法已登记位置。当前版本保存/读取、事务、备份及损坏恢复检查保留。会话重入和独立进程退出重启分别验收，只有后者通过才声明磁盘持久化。
+新世界使用独立原生槽位及Web key；旧Run／Meta兼容不在目标内，也不覆盖旧文件。WorldSaveService覆盖独立schema/content与Web key，复用MetaSaveService介质可靠性；默认Meta消费者保持原有格式。schema解释结构，content版本解释稳定身份/内容引用；未来新世界升级分别处理身份映射、失效位置与缺失引用，保留有效永久结果，安全落点来自合法已登记位置。当前版本保存/读取、事务、备份及损坏恢复检查保留。会话重入和独立进程退出重启分别验收，只有后者通过才声明磁盘持久化。
 
 ## 内容交付与维护
 
@@ -158,4 +158,4 @@ RunSession 持有本局 Build、钱包、奖励、商店等引用，沿用 DemoR
 
 共享接口/schema变更的生产者、消费者、版本和单写者见 [协作规则](cloud_production.md)。验证沿 [开发与审查](development.md) 与实际Harness：对象练习、正式场景、跨系统闭环、PCK/Web和目标设备分别证明自己的范围。错误定位至少包含对象/房间/连接ID、关键状态/修订/epoch、输入与时钟域、源码和构建身份。
 
-历史清理不重做。退役前核当前消费者、动态路径、UID、导出和实际支持的新世界版本；不恢复旧原型存档回放。来源/许可随最小数据和素材，回归输入随夹具；临时报告、音画和日志只写ignored build/或构建产物。新世界架构的运行验收取决于工作线的真实闭环，本文整理完成不等于运行接通。
+历史清理不重做。退役前核当前消费者、动态路径、UID、导出和实际支持的新世界版本；不恢复旧原型存档回放。来源/许可随最小数据和素材，回归输入随夹具；临时报告、音画和日志只写ignored build/或构建产物。新世界架构的运行验收取决于工作线的真实闭环，首批闭环不等于全部内容系统完成。

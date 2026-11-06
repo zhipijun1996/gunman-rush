@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/platforming_module.gd" id="2"]
+[ext_resource type="Resource" path="res://resources/generation/modules/plains_boss_arena.tres" id="3"]
+[node name="P-R14" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R14"
+platforms = Array[Rect2]([Rect2(0, 480, 290, 48), Rect2(1520, 480, 240, 48), Rect2(1440, 568, 320, 20), Rect2(1440, 672, 320, 48), Rect2(1120, 760, 240, 32), Rect2(128, 832, 192, 32)])
+one_way_indices = Array[int]([1, 2, 4, 5])
+start_point = Vector2(1616, 462)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"text": "↓ 进入庭地迎战牧风者；战后领取 H", "point": [900, 410]}, {"text": "W 领取钩索 H", "point": [1090, 620]}])
+boss_identity = &"windkeeper_storm"
+boss_position = Vector2(880, 607)
+arena_bounds = Rect2(320, 72, 1120, 600)
+reward_point = Vector2(1480, 654)
+battle_entry_anchor = Vector2(1380, 654)
+[node name="Arena" type="Node2D" parent="."]
+position = Vector2(320, 72)
+script = ExtResource("2")
+definition = ExtResource("3")
+authoring_debug = false

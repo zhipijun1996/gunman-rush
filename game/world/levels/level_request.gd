@@ -8,3 +8,7 @@ var tuning: PlayerTuning
 var expected_hash := ""
 var root_bell_mode := "legacy_v10"
 var capabilities: Dictionary = {}
+
+# Fixed-world identity; legacy providers continue to consume their existing fields.
+var room_id := ""
+var entry_door_id := ""

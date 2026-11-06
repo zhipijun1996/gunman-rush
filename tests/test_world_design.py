@@ -16,10 +16,11 @@ from production_loop import validate as validate_mission
 class WorldTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        p = ROOT / 'docs/data/world/import-v04'
-        cls.world = json.loads((p/'world-room-layout-v04.json').read_text())
-        cls.contracts = json.loads((p/'design/room-graybox-contracts-v04.json').read_text())
-        cls.catalog = json.loads((p/'design/collection-catalog-v04.json').read_text())
+        p = ROOT / 'config/world'
+        from world.build import build
+        cls.contracts, _ = build()
+        cls.world = json.loads((p/'world.json').read_text())
+        cls.catalog = json.loads((p/'collections.json').read_text())
 
     def test_current_graph_with_cycles_passes(self):
         self.assertEqual(validate(), [])
@@ -49,7 +50,7 @@ class WorldTests(unittest.TestCase):
         result = extract('P-R03')
         self.assertEqual(result['room']['id'], 'P-R03')
         self.assertTrue(all('P-R03' in (c['a'],c['b']) for c in result['connections']))
-        self.assertIn('planned', result['runtime_status'])
+        self.assertEqual('implemented_graybox', result['runtime_status'])
         with self.assertRaises(ValueError): extract('../../missing')
 
     def test_region_mapping_does_not_grant_runtime_or_invent_stages(self):

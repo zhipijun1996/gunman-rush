@@ -14,7 +14,18 @@ func check(condition: bool, message: String) -> void:
 
 func _run() -> void:
 	var scene_path: String = ProjectSettings.get_setting("application/run/main_scene")
-	var app: DemoApp = load(scene_path).instantiate()
+	var world := load(scene_path).instantiate() as FixedWorldApp
+	world.save_path = "user://ci_fixed_world.json"
+	for suffix: String in ["", ".backup", ".corrupt", ".tmp"]: DirAccess.remove_absolute(world.save_path+suffix)
+	root.add_child(world)
+	check(world.title.visible,"normal entry opens fixed-world title")
+	check(world.start_new(),"normal new-world entry accepted")
+	for i: int in 40: await physics_frame
+	check(world.room != null and world.room.room_id == "P-R03" and world.player.is_on_floor(),"new world loads actual tutorial with grounded player")
+	world.queue_free()
+	for i: int in 3: await process_frame
+	# Existing prototype remains an explicit regression fixture for shared consumers.
+	var app: DemoApp = preload("res://game/application/demo.tscn").instantiate()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	for unused: int in 3:

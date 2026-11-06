@@ -1,29 +1,23 @@
-"""Re-run supplied graph/state checks in build/, preserving the imported snapshot."""
+"""Re-run current graph/state checks in build/; no imported generator dependency."""
 import json
 from pathlib import Path
-import shutil
 import subprocess
 import sys
-
+from build import build
+from compile_contracts import compile_contracts, write_json
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = ROOT / 'docs/data/world/import-v04'
 OUT = ROOT / 'build/world/validation'
 
 
 def main():
-    shutil.copytree(SOURCE, OUT, dirs_exist_ok=True)
-    for script in ['simulation/simulate_world.py', 'simulation/audit_contracts.py',
-                   'simulation/analyze_replays.py', 'design/build_room_contracts_v04.py', 'build_handoff.py']:
-        subprocess.run([sys.executable, str(OUT / script)], cwd=OUT, check=True)
-    for name in ['simulation/contract-audit-v04.json', 'qa/room-contract-audit-v04.json', 'qa/final-data-integrity-v04.json']:
-        if json.loads((OUT / name).read_text()).get('passed') is not True:
-            raise ValueError('Failed generated audit: ' + name)
-    # Rebuilding the transitional contracts must not silently change the supplied interfaces.
-    for name in ['design/room-graybox-contracts-v04.json', 'simulation/route-replays-v04.json']:
-        if json.loads((OUT / name).read_text()) != json.loads((SOURCE / name).read_text()):
-            raise ValueError('Rebuild differs from imported snapshot: ' + name)
-    print('PASS: fresh A/B/C/D graph routes, counterfactuals, state receipts and equivalent transitional contracts; NOT Godot playability')
+    (OUT/'simulation').mkdir(parents=True, exist_ok=True)
+    for name in ['simulate_world.py','audit_contracts.py','analyze_replays.py']:
+        subprocess.run([sys.executable,str(ROOT/'tools/world'/name)],cwd=ROOT,check=True)
+    contracts, audit = compile_contracts(ROOT/'config/world/world.json',ROOT/'config/world/construction.json',OUT/'simulation/route-replays-v04.json')
+    write_json(OUT/'contracts.json',contracts)
+    if not audit['passed'] or not json.loads((OUT/'simulation/contract-audit-v04.json').read_text())['passed']:
+        raise ValueError('Route/contract audit failed')
+    build()
+    print('PASS: fresh A/B/C/D graph routes, counterfactuals, state receipts and current construction contracts; NOT Godot playability')
 
-
-if __name__ == '__main__':
-    main()
+if __name__ == '__main__':main()

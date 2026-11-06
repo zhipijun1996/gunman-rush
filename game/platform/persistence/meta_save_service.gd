@@ -45,7 +45,7 @@ func commit(payload: Dictionary, revision: int) -> bool:
 	if blocked or path.is_empty() or revision < 1:
 		status = "write_blocked"
 		return false
-	var envelope := {"schema_version": SCHEMA_VERSION, "content_version": CONTENT_VERSION, "profile_id": profile_id, "profile_revision": revision, "payload": payload.duplicate(true)}
+	var envelope := make_envelope(payload, revision)
 	envelope["checksum"] = canonical_json(envelope).sha256_text()
 	var encoded := JSON.stringify(envelope)
 	if web:
@@ -81,6 +81,10 @@ func commit(payload: Dictionary, revision: int) -> bool:
 			return false
 	status = "saved"
 	return true
+
+# Domain subclasses select their own envelope and storage key; reliable IO stays shared.
+func make_envelope(payload: Dictionary, revision: int) -> Dictionary:
+	return {"schema_version": SCHEMA_VERSION, "content_version": CONTENT_VERSION, "profile_id": profile_id, "profile_revision": revision, "payload": payload.duplicate(true)}
 
 func _read(backup: bool) -> String:
 	if web:

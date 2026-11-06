@@ -20,6 +20,7 @@ def main():
     ]
     if "web" in platforms:
         commands.append(([sys.executable, "tools/check_web_bundle.py"], 120))
+        commands.append(([sys.executable, "tools/check_world_pack.py"], 90))
     for command, timeout in commands:
         print(" ".join(command), flush=True)
         if not args.plan:

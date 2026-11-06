@@ -306,7 +306,7 @@ func _clear_attacks() -> void:
 	_cancel_projectiles()
 	core_open = false
 	if is_instance_valid(_core): _core.collision_layer = 0
-	if _target is PlayerMotor: (_target as PlayerMotor).clear_local_velocity()
+	if is_instance_valid(_target) and _target is PlayerMotor: (_target as PlayerMotor).clear_local_velocity()
 
 func cancel_pending_attacks() -> void:
 	_clear_attacks()

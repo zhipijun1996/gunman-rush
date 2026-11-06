@@ -3,7 +3,7 @@
   "rooms": [
     {
       "room_id": "P-R01",
-      "scene_ref": "res://world/regions/P/rooms/P-R01.tscn",
+      "scene_ref": "res://game/world/regions/P/rooms/P-R01.tscn",
       "extent": [
         912,
         608
@@ -215,7 +215,8 @@
         ],
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
-      }
+      },
+      "implemented": true
     },
     {
       "room_id": "P-R02",
@@ -502,7 +503,7 @@
     },
     {
       "room_id": "P-R03",
-      "scene_ref": "res://world/regions/P/rooms/P-R03.tscn",
+      "scene_ref": "res://game/world/regions/P/rooms/P-R03.tscn",
       "extent": [
         2816,
         640
@@ -846,7 +847,8 @@
         ],
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
-      }
+      },
+      "implemented": true
     },
     {
       "room_id": "P-R04",
@@ -1549,7 +1551,7 @@
     },
     {
       "room_id": "P-R06",
-      "scene_ref": "res://world/regions/P/rooms/P-R06.tscn",
+      "scene_ref": "res://game/world/regions/P/rooms/P-R06.tscn",
       "extent": [
         1520,
         848
@@ -1907,7 +1909,8 @@
         ],
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
-      }
+      },
+      "implemented": true
     },
     {
       "room_id": "P-R07",
@@ -2119,7 +2122,7 @@
     },
     {
       "room_id": "P-R08",
-      "scene_ref": "res://world/regions/P/rooms/P-R08.tscn",
+      "scene_ref": "res://game/world/regions/P/rooms/P-R08.tscn",
       "extent": [
         624,
         1616
@@ -2472,7 +2475,8 @@
         ],
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
-      }
+      },
+      "implemented": true
     },
     {
       "room_id": "P-R09",
@@ -3830,13 +3834,13 @@
     },
     {
       "room_id": "P-R14",
-      "scene_ref": "res://world/regions/P/rooms/P-R14.tscn",
+      "scene_ref": "res://game/world/regions/P/rooms/P-R14.tscn",
       "extent": [
-        1408,
+        1760,
         960
       ],
       "shape_class": "boss_combat_plus_foyers",
-      "rationale": "按本场主要招式的竞技区与入口/战后边带分别预留；左右320、上288、下288世界单位为工作前庭带，入口安全台不侵入战斗矩形；非统一Boss屏数。",
+      "rationale": "现有牧风者完整1120wu战场及独立入口前庭；保持原门ID/分区，以真实场地校准。",
       "camera": {
         "profile": "fixed_battle",
         "only_current_room_visible": true,
@@ -3927,11 +3931,11 @@
           "id": "L02:P-R14",
           "position_candidate": {
             "local_world_units": [
-              1408,
+              1760,
               480
             ],
             "normalized_uv": [
-              1.0,
+              1,
               0.5
             ],
             "opening_candidate_world_units": [
@@ -3945,15 +3949,15 @@
             "section": "main",
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
-              1344,
+              1696,
               462
             ],
             "safe_standing_position_world_units": [
-              1264,
+              1616,
               462
             ],
             "platform_candidate_rect_world_units": [
-              1168,
+              1520,
               480,
               192,
               32
@@ -4001,11 +4005,11 @@
           "entry_door": "L02:P-R14",
           "section": "main",
           "position_candidate_world_units": [
-            1344,
+            1696,
             462
           ],
           "eventual_standing_position_world_units": [
-            1264,
+            1616,
             462
           ],
           "landing_contract_ref": "landing:L02:P-R14",
@@ -4108,6 +4112,20 @@
         "arena_not_rest": true,
         "boss_does_not_reset_at_rest": true,
         "remote_reward_not_granted_on_defeat": false
+      },
+      "implemented": true,
+      "boss_arena_override": {
+        "combat_bounds_world_units": [
+          320,
+          72,
+          1120,
+          600
+        ],
+        "working_view_world_units": [
+          1280,
+          720
+        ],
+        "working_camera_zoom": 1.0
       }
     },
     {
