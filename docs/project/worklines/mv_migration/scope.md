@@ -2,7 +2,7 @@
 
 ## 本轮基线、范围与结果
 
-核对基线 `main@a5a48a24d01fc3d12680b9379fa3ed4656c427ee`，任务分支 `docs/mv-runtime-architecture`。PR138已合入；旧PR择取、历史证据清理与旧原型存档兼容均不再是前置。进度和依赖唯一见 [任务表](../../tasks.md)。
+核对基线 `main@a5a48a24d01fc3d12680b9379fa3ed4656c427ee`，任务分支 `docs/mv-runtime-architecture`，交付见 [PR139](https://github.com/zhipijun1996/gunman-rush/pull/139)。PR138已合入；旧PR择取、历史证据清理与旧原型存档兼容均不再是前置。进度和依赖唯一见 [任务表](../../tasks.md)。
 
 本轮属于MV-RUNTIME-01的01A：原地整合 [架构](../../architecture.md) 的内容目标结构、独立/共用边界、13项系统职责、复用/适配/新增缺口及关键契约，补 [导航](../../module_map.md) 和共享变更流程，整理以下可分别合入的实施任务。写集限相关规范、导航、任务、交接与引用它们的skill；不新增运行时框架、房间或索引包。附件要求已吸收进对应正文，不作为后续任务默认上下文。
 
