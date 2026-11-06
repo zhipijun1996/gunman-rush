@@ -18,7 +18,7 @@
 | CI与交付 | 日常固定project／import／smoke／contracts四项，开发显式选手动专项；森林H控制器回归绑定独立测试夹具，旧随机地区路由拒绝执行；发布和试玩部署独立手动执行 |
 | 工程 | 正式代码位于 `game/`；`scripts/`、`scenes/`、`resources/` 中仍有当前 Definition、Boss场景与森林布局实现 |
 
-目标是固定世界类银河恶魔城；当前交付五房和试制服务闭环，实施分支正在验证统一镜头/可见入场、告示牌/向上交互与机器人充电站，其余211房与正式内容尚未施工。[线上试玩](https://zhipijun1996.github.io/gunman-rush/) build `f9052b52961b` 对应源码 `48f98147a8cc2da379e13366b0538c55b9133b20`（PR140，尚未合入main）。同源发布、公开完整PCK与浏览器检查通过；验证和设备边界见 [当前交接](worklines/mv_migration/scope.md)，[验收产物](https://zhipijun1996.github.io/gunman-rush/verification/report.json)随该构建发布。
+目标是固定世界类银河恶魔城；当前交付五房和试制服务闭环，已接入统一镜头/可见入场、告示牌/向上交互与机器人充电站，其余211房与正式内容尚未施工。[线上试玩](https://zhipijun1996.github.io/gunman-rush/) build `0a5567befbe5` 对应源码 `46d2867af1c794249b936d9f1a92c89304631efd`（PR140，尚未合入main）。同源发布、公开完整PCK与浏览器检查通过；验证和设备边界见 [当前交接](worklines/mv_migration/scope.md)，[验收产物](https://zhipijun1996.github.io/gunman-rush/verification/report.json)随该构建发布。
 
 ## 当前缺口
 
