@@ -55,8 +55,8 @@
 | MV-RUNTIME-01E | 四种寿命、统一事实/提交、新槽保存与恢复 | MV-RUNTIME-01D | review | [交接](worklines/mv_migration/scope.md) |
 | MV-RUNTIME-01F | 首批P房真实闭环，含必要连接P-R08 | MV-RUNTIME-01E | review | [交接](worklines/mv_migration/scope.md) |
 | MV-DEMO-02 | 首环路体验整改、正式表现/UI/地图及NPC试制服务地基 | MV-RUNTIME-01F | review | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01G | NPC服务、永久库存/装配与成长效果一致性 | MV-RUNTIME-01F, ITEM-V5-01 | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01H | NPC任务、迁居、修钟/演出及结局事实样板 | MV-RUNTIME-01F, STORY-DESIGN-03 | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01I | 独立设置、文本/多设备UI、视听切换与平台观测 | MV-RUNTIME-01F | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01J | 后续代表房集成与运行架构验收 | MV-RUNTIME-01G, MV-RUNTIME-01H, MV-RUNTIME-01I | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01G | 正式48件与NPC库存/装配成长内容适配 | MV-RUNTIME-01F, ITEM-V5-01 | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01H | 正式人物任务、迁居、主线修钟/演出与结局 | MV-RUNTIME-01F, STORY-DESIGN-03 | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01I | 完整文本/多设备UI、视听与目标平台验收 | MV-RUNTIME-01F | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01J | 不同机制代表房、剩余基础流程与量产准入验收 | MV-DEMO-02 | planned | [交接](worklines/mv_migration/scope.md) |
 | MV-WORLD-GRAYBOX-01 | 216房结构与真实运行路线，按消费者退役旧链 | MV-RUNTIME-01J | planned | [交接](worklines/mv_migration/scope.md) |

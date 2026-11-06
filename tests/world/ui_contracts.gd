@@ -36,6 +36,13 @@ func run() -> void:
 		for suffix: String in ["",".backup",".tmp",".corrupt"]: DirAccess.remove_absolute(path+suffix)
 	root.add_child(app)
 	check(app.title.find_child("TitleBackdrop",true,false)!=null,"original title illustration is mounted")
+	# Explicit presentation edge fixture: a fading heart tip can collapse at float precision.
+	var heart:=DemoHeartStrip.new();root.add_child(heart)
+	var tiny:=0.00000001
+	heart.present(tiny,1);heart.set_process(false)
+	await ticks(3)
+	check(heart.current==tiny,"fractional heart rendering preserves the exact observed health value")
+	heart.queue_free()
 	app.start_new()
 	await ticks(15)
 	app.overlay.set_enabled(true)
