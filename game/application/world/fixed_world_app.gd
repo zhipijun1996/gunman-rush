@@ -568,8 +568,8 @@ func _npc(id: String) -> Dictionary:
 	return {}
 func _submit_service(kind: String,id: String,revision: int,ticket: int) -> void:
 	if not paused or busy or ticket!=_service_ticket or not lifetime.accepts(_service_token) or controller.actor_resources.health.terminal or policy.has_pending_player_damage(): return
-	if kind in ["buy","deliver"] and not "gear_delivery" in _npc(_npc_id).get("services",[]): return
-	if kind in ["upgrade","repair"] and not "equipment_gold_upgrade" in _npc(_npc_id).get("services",[]): return
+	var required_service:=WorldServices.required_service(kind)
+	if not required_service.is_empty() and required_service not in _npc(_npc_id).get("services",[]): return
 	_sequence+=1
 	var accepted:=services.request(kind,id,"%d:%d" % [state.revision,_sequence],revision)
 	if accepted:

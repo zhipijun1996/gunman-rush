@@ -5,6 +5,8 @@ var state: FixedWorldState
 var definitions: Dictionary
 var error := ""
 var prepare_candidate: Callable
+static func required_service(kind: String) -> String:
+	return {"buy":"station_supply_shop","upgrade":"equipment_gold_upgrade","repair":"equipment_breakage_repair","deliver":"gear_delivery"}.get(kind,"")
 static func empty_ledger() -> Dictionary:
 	return {"version":1,"gold":0,"owned":{},"equipped":[],"locked":[],"met":[],"quests":{},"cycle_uses":{},"collected":[],"delivered":[]}
 static func valid_ledger(value: Dictionary) -> bool:
@@ -63,7 +65,7 @@ func request(kind: String,id: String,request_id: String,revision: int) -> bool:
 	candidate.services=ledger().duplicate(true)
 	var data: Dictionary=candidate.services
 	var definition:=item(id)
-	var required_service: String={"buy":"station_supply_shop","upgrade":"equipment_gold_upgrade","repair":"equipment_breakage_repair","deliver":"gear_delivery"}.get(kind,"")
+	var required_service: String=WorldServices.required_service(kind)
 	if not required_service.is_empty():
 		var available:=false
 		for npc: Dictionary in state.content.data.get("npcs",[]):
