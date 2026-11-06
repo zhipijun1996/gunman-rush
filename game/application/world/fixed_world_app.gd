@@ -158,6 +158,7 @@ func _create_player() -> void:
 func _acquire() -> int:
 	_ticket += 1
 	busy = true
+	ui.begin_transition()
 	controller.active = false
 	controller.router.clear("world_handoff")
 	controller.shoot_ability.clear_projectiles()
@@ -186,6 +187,7 @@ func load_room(id: String, entry: String) -> void:
 	var ticket := _acquire()
 	next.process_mode = Node.PROCESS_MODE_PAUSABLE
 	next.configure(resolved.room)
+	next.visible=false
 	add_child(next)
 	next.refresh_doors(state,content)
 	# Prepare and validate physical support before destroying the old room.
@@ -217,6 +219,7 @@ func load_room(id: String, entry: String) -> void:
 			previous_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 			for node: Node in old_modes: node.process_mode = int(old_modes[node])
 			for body: CollisionObject2D in old_layers: body.collision_layer = int(old_layers[body])
+		await ui.finish_transition()
 		controller.active = true
 		busy = false
 		status = "入口没有完整身体净空或实际支撑：" + id + "/" + entry
@@ -232,6 +235,7 @@ func load_room(id: String, entry: String) -> void:
 			previous_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 			for node: Node in old_modes: node.process_mode = int(old_modes[node])
 			for body: CollisionObject2D in old_layers: body.collision_layer = int(old_layers[body])
+		await ui.finish_transition()
 		controller.active = true
 		busy = false
 		status = state.error
@@ -245,6 +249,7 @@ func load_room(id: String, entry: String) -> void:
 		remove_child(previous_room)
 		previous_room.queue_free()
 	room = next
+	room.visible=true
 	room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	entry_anchor = anchor
 	policy = FrameDamagePolicy.new()
@@ -275,16 +280,19 @@ func load_room(id: String, entry: String) -> void:
 			landed=true
 			break
 	if not landed:
+		await ui.finish_transition()
 		status="入口缺少实际支撑，请返回标题后继续。"
 		busy=false
 		return
+	await ui.finish_transition()
+	if ticket!=_ticket or not is_instance_valid(player): return
 	controller._was_grounded = false
 	controller.active = true
 	busy = false
 	_door_ready = false
 	_queue.clear()
 	music.request_track(&"home" if not room.find_children("*","WorldNpc",true,false).is_empty() else &"plains")
-	status = str(room.contract.name)
+	status = room.arrival_text if not room.arrival_text.is_empty() else str(room.contract.name)
 	tutorial.enter(room,player.position)
 	_npc_id=""
 	for enemy_id: String in room.enemies:

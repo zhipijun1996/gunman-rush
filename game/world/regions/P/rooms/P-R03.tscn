@@ -3,9 +3,10 @@
 [node name="P-R03" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R03"
+arrival_text = "向前走，用跳跃登上前方台阶。"
 tutorial_target = "P-R03:practice:01"
 platforms = Array[Rect2]([Rect2(0, 530, 720, 110), Rect2(720, 450, 400, 190), Rect2(1120, 370, 320, 270), Rect2(1540, 320, 1276, 320)])
 one_way_indices = Array[int]([])
 start_point = Vector2(144, 512)
 enemy_placements = Array[Dictionary]([{"id":"P-R03:practice:01","behavior":"patrol","max_health":5,"point":[1000,432]}])
-signs = Array[Dictionary]([{"text": "走过草坡，尝试移动", "point": [160, 470]}, {"text": "空格跳跃；按住/松开鼠标射击", "point": [740, 385]}, {"text": "在空中射击，感受反冲", "point": [1160, 305]}, {"text": "小站 →", "point": [2450, 255]}])
+signs = Array[Dictionary]([{"text": "初行草坡", "point": [160, 470]}, {"text": "练习目标", "point": [740, 385]}, {"text": "反冲断口", "point": [1160, 305]}, {"text": "小站 →", "point": [2450, 255]}])

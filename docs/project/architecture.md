@@ -17,7 +17,7 @@ game/
     species/<物种>/                # 该物种定义、专属行为和表现；复用Actor/Motor
   bosses/
     <Boss>/                        # 该Boss招式、阶段、场景及资源；复用Encounter
-  npcs/                            # 待真实消费者接入
+  npcs/                            # WorldNpc共用放置/身份；人物内容按需独立
     <人物ID>/                      # 人物定义、外观、对白内容、服务/剧情引用
   story/                           # 待真实消费者接入
     quests/<任务ID>/               # 跨人物/跨房的阶段、条件、结果和专属演出
@@ -76,14 +76,14 @@ flowchart TD
 | --- | --- | --- | --- |
 | 应用与全局流程：新游戏、继续、暂停、过房、死亡恢复、结束的编排 | [DemoApp](../../game/application/demo_app.gd)、[RunSession](../../game/application/run_session.gd)、[RunComposition](../../game/application/run_composition.gd) | **已接入**FixedWorldApp开始/继续、共享玩家、暂停/过房/失败/死亡与保存返回标题；**需要新增**结局及完整对话/演出接管 | 01D／01E／01H |
 | 玩家、武器与战斗：运动、动作资源、攻击请求和帧伤害各有主人 | [PlayerController](../../game/player/player_controller.gd) → [PlayerMotor](../../game/player/player_motor.gd)；[WeaponActionRuntime](../../game/combat/weapons/weapon_action_runtime.gd)、[FrameDamagePolicy](../../game/combat/damage/frame_damage_policy.gd) | **已接入**跨房取消/资源连续性、WorldRecoilGuard与进入侧恢复；首批不授予Q，正式获取路线待扩展，保持唯一Motor及接受后命中/表现链 | 01D／01E／01F |
-| 成长、库存、装配与效果：永久解锁、实例所有权、当前装配、有效属性与触发额度分别拥有 | [MetaProgression](../../game/progression/meta_progression.gd)、[RunInventory](../../game/loadout/inventory/run_inventory.gd)、[EquipmentService](../../game/loadout/equipment/equipment_service.gd)、[BuildState](../../game/loadout/stats/build_state.gd)、[ItemRuntime](../../game/loadout/effects/item_runtime.gd) | **适配**局内清空、家园成长和效果重算为永久/周期边界；**新增**48件选型后的NPC升级、锁装/周期额度及统一能力/工具查询。所有权不等于已装备 | 01E／01G，依赖 ITEM-V5-01 |
+| 成长、库存、装配与效果：永久解锁、实例所有权、当前装配、有效属性与触发额度分别拥有 | [MetaProgression](../../game/progression/meta_progression.gd)、[RunInventory](../../game/loadout/inventory/run_inventory.gd)、[EquipmentService](../../game/loadout/equipment/equipment_service.gd)、[BuildState](../../game/loadout/stats/build_state.gd)、[ItemRuntime](../../game/loadout/effects/item_runtime.gd) | **已接入**试制永久所有权/等级/破损、负荷装配/周期锁/使用额度与实际效果查询，统计复用BuildState；**需要适配**最终48件及正式成长配置。所有权不等于已装备 | 01E／01G，依赖 ITEM-V5-01 |
 | 怪物与Boss：定义、实例战斗状态、专属决策/招式/阶段及表现 | [EnemyFactory](../../game/enemies/enemy_factory.gd)、EnemyBehaviorRegistry、EnemyActor/Behavior；[BossFactory](../../game/bosses/encounter/boss_factory.gd)、BossEncounter与专属Encounter | **已接入**首批稳定放置ID、敌人周期快照、牧风者场地/封场及永久胜利/H收据；后续对象仍逐个绑定，工厂不拥有永久进度 | 01D／01F／01J；既有物种工作线继续打磨 |
-| NPC、对话、任务与剧情：人物身份、任务阶段、条件和演出用例 | [HomeScene](../../game/progression/home/home_scene.gd)及App服务面板；[ForestBibleDiscoveries](../../game/world/components/forest_bible_discoveries.gd)是局部发现/阅读入口 | **适配**服务/阅读入口；**新增**NPC身份与放置解析、对话条件、任务快照、迁居及可取消演出。现有家园按钮和森林发现不等于任务系统 | 01G／01H，叙事依赖 STORY-DESIGN-03 |
+| NPC、对话、任务与剧情：人物身份、任务阶段、条件和演出用例 | [HomeScene](../../game/progression/home/home_scene.gd)及App服务面板；[ForestBibleDiscoveries](../../game/world/components/forest_bible_discoveries.gd)是局部发现/阅读入口 | **已接入**WorldNpc场景身份、WorldServices的试制服务/有限委托/提交与回访结果；**需要新增**正式人物任务、迁居和演出内容。UI不拥有钱包或任务账本 | 01G／01H，叙事依赖 STORY-DESIGN-03 |
 | 世界、区域、房间与机关：拓扑、解析、装载、放置、局部空间及机关实例 | [LevelRequest](../../game/world/levels/level_request.gd)、[LevelPlan](../../game/world/levels/level_plan.gd)、[LevelRuntime](../../game/world/levels/level_runtime.gd)、Stage/Assembler、现有世界组件 | **已接入**FixedWorldProvider、room/door/content请求、五房场景与卸载；当前动作只开放main分区，其他分区和211房待施工，保留有消费者的旧Provider | 01B／01C／01D |
-| 探索地图：玩家知识及其只读展示 | [PlainsMapExploration](../../game/presentation/ui/plains_map_exploration.gd)、[PlainsRegionMap](../../game/presentation/ui/plains_region_map.gd)消费地图账本 | **已接入**实际到达房间列表与持久化，查看不揭示；**需要新增**入口预览/分区深入和完整地图展示，世界图坐标不作碰撞坐标 | 01E／01F／01I |
-| 经济、收集与奖励：报价、余额/材料、库存及唯一收据 | [RunWallet](../../game/economy/shops/run_wallet.gd)、[ShopService](../../game/economy/shops/shop_service.gd)、[RewardService](../../game/rewards/grants/reward_service.gd)、[MetaProgression._transaction](../../game/progression/meta_progression.gd) | **已接入**世界action授予与唯一收据同修订保存；**需要适配**报价/库存寿命和真实购买扣费/售出，首批无经济消费者，不能宣称完整经济事务成立 | 01E／01F／01G |
-| 世界进度与保存：各领域拥有事实，保存协调聚合快照与恢复 | [PlainsRegionState](../../game/world/state/plains_region_state.gd)、[RunCampaignProgression](../../game/application/run_campaign_progression.gd)、[MetaSaveService](../../game/platform/persistence/meta_save_service.gd) | **已接入**FixedWorldState与WorldSaveService独立schema/槽/key、版本/校验/备份、能力/Boss/收据、休息周期/敌人、位置/探索及安全恢复；尝试和动作不存为永久事实。**需要新增**NPC库存任务/修钟领域快照 | 01E／01H |
-| UI、输入与设置：显示/焦点/取消、设备意图与独立用户偏好 | [InputRouter](../../game/platform/input/input_router.gd)、[InputSetup](../../game/platform/input/input_setup.gd)、DemoMenu、[ModalShell](../../game/presentation/ui/demo_ui_01/modal_shell.gd)、[GameTypography](../../game/presentation/ui/demo_ui_01/game_typography.gd) | **适配**互斥面板与控制权、触屏安全区/手柄焦点/长文本；**新增**独立于世界档的设置持久化及统一可提取文本入口。`_session_input`只是会话值，字体工具不是文本本地化系统 | 01D／01I |
+| 探索地图：玩家知识及其只读展示 | [PlainsMapExploration](../../game/presentation/ui/plains_map_exploration.gd)、[PlainsRegionMap](../../game/presentation/ui/plains_region_map.gd)消费地图账本 | **已接入**实际到达知识持久化及同源大小地图、触控拖动/缩放，查看不揭示；**需要新增**入口预览/房内分区深入，世界图坐标不作碰撞坐标 | 01E／01F／01I |
+| 经济、收集与奖励：报价、余额/材料、库存及唯一收据 | [RunWallet](../../game/economy/shops/run_wallet.gd)、[ShopService](../../game/economy/shops/shop_service.gd)、[RewardService](../../game/rewards/grants/reward_service.gd)、[MetaProgression._transaction](../../game/progression/meta_progression.gd) | **已接入**世界action授予与唯一收据同修订保存；WorldServices已接入试制报价/余额/永久库存、实际购买/升级/维修和周期效果的原子提交；**需要适配**正式商品与48件配置及正式经济政策 | 01E／01F／01G |
+| 世界进度与保存：各领域拥有事实，保存协调聚合快照与恢复 | [PlainsRegionState](../../game/world/state/plains_region_state.gd)、[RunCampaignProgression](../../game/application/run_campaign_progression.gd)、[MetaSaveService](../../game/platform/persistence/meta_save_service.gd) | **已接入**FixedWorldState与WorldSaveService独立schema/槽/key、版本/校验/备份、能力/Boss/收据、休息周期/敌人、位置/探索及安全恢复；尝试和动作不存为永久事实。**已接入**试制库存/装备/有限委托快照；正式修钟/迁居/结局按内容消费者扩展 | 01E／01H |
+| UI、输入与设置：显示/焦点/取消、设备意图与独立用户偏好 | [InputRouter](../../game/platform/input/input_router.gd)、[InputSetup](../../game/platform/input/input_setup.gd)、DemoMenu、[ModalShell](../../game/presentation/ui/demo_ui_01/modal_shell.gd)、[GameTypography](../../game/presentation/ui/demo_ui_01/game_typography.gd) | **适配**互斥面板与控制权、触屏安全区/手柄焦点/长文本；**已接入**WorldSettings独立槽与WorldText新UI文本目录；完整旧UI文本迁移与设备验收按范围推进。`_session_input`只是会话值，字体工具不是文本本地化系统 | 01D／01I |
 | 动画、VFX、音效、音乐与镜头：专属表现、事件时序和切换策略 | 武器/Encounter时序、[GameAudio](../../game/presentation/audio/game_audio.gd)、[GameMusic](../../game/presentation/audio/game_music.gd)、[StageCameraRig](../../game/world/generation/stage_camera_rig.gd) | **适配**房间镜头意图、场地/演出优先级及订阅释放；**新增**修钟状态驱动的区域画面/BGM刷新。保持每个动作唯一时序来源，表现不能重复结算伤害或奖励 | 01D／01H／01I |
 | 平台与资源生命周期：设备适配、资源释放、异步失效和观测 | 输入适配器、MetaSaveService、[WorldAudioLifecycle](../../game/presentation/audio/world_audio_lifecycle.gd)；[RuntimeMapGenerationJob](../../experiments/generation/runtime_map_generation_job.gd)已有票据/取消模式 | **已接入**固定房票据、过期请求拒绝、失败保留旧房和卸载；不依赖mapgen。**需要适配**完整平台观测与资源峰值，测量后再决定缓存/预加载 | 01D／01I |
 | 内容生产、验证与交付：人工源、派生数据、资源导出、版本身份和试玩 | [世界输入](../data/world/README.md)、room_context、现有工厂/注册表、[Harness](harness.md)、[构建](../../tools/build.py)及prepared部署流程 | **已接入**独立施工/路线输入、config/world权威、build/world编译与PCK显式消费；图QA、真实输入闭环与导出分别验收，后续按同一链扩房 | 01B／01C／01J |
@@ -154,7 +154,7 @@ flowchart TD
 
 ## 内容交付与维护
 
-文本由内容定义持有稳定文本ID、统一可提取入口提供实际字符串；UI只展示和布局。该入口及独立设置尚待01I实现，具体语言、辅助选项和目标设备按发布范围确定。
+文本由内容定义持有稳定文本ID、统一可提取入口提供实际字符串；UI只展示和布局。新世界已接入WorldText/WorldSettings，既有共享组件沿原接口复用，具体语言、辅助选项和目标设备按发布范围确定。
 
 共享接口/schema变更的生产者、消费者、版本和单写者见 [协作规则](cloud_production.md)。验证沿 [开发与审查](development.md) 与实际Harness：对象练习、正式场景、跨系统闭环、PCK/Web和目标设备分别证明自己的范围。错误定位至少包含对象/房间/连接ID、关键状态/修订/epoch、输入与时钟域、源码和构建身份。
 

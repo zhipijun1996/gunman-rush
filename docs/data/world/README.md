@@ -7,6 +7,8 @@
 | 世界拓扑与动作 | config/world/world.json；保留原有稳定ID、条件和奖励所在房间 |
 | 人工施工 | [construction.json](../../../config/world/construction.json)：尺寸、门台/入口、场景绑定、镜头意图；手工场景拥有实际地形、休息/奖励锚点和局部放置；合同position_candidate仍是施工候选，不作为实际站位 |
 | 收集规则与来源映射 | [collections.json](../../../config/world/collections.json)；完整48件效果和价格仍待决定 |
+| 试制服务 | [demo_services.json](../../../config/world/demo_services.json)：用户授权的少量试制物品/价格/收入/委托；不改最终48件和正式商品槽。NPC身份/位置仍归world.json与手工场景 |
+| 新入口UI文本 | [ui_texts.json](../../../config/world/ui_texts.json)：稳定UI键；人物、物品、action文本仍随其定义，由WorldText/内容字段按任务读取 |
 | 起始攻击参数 | [player.json](../../../config/world/player.json)：当前仅普通枪首档试制值，不改变玩家运动参数 |
 | 路线回归输入 | [routes.json](../../../config/world/routes.json)；与重新生成的路线报告分离 |
 | 合同与运行导出 | `python3 tools/world/build.py` → ignored build/world/contracts.json、runtime.json；不写手工场景 |

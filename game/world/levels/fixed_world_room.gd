@@ -2,6 +2,7 @@ class_name FixedWorldRoom
 extends Node2D
 ## Authored geometry and placements. Reads contract interfaces; never grants progress.
 @export var room_id := ""
+@export var arrival_text: String
 @export var tutorial_target: String
 @export var tutorial_min_move:=100.0
 @export var tutorial_recoil_finish_x:=1540.0
@@ -97,12 +98,14 @@ func configure(row: Dictionary) -> void:
 	queue_redraw()
 
 func label_at(text: String, point: Vector2) -> void:
-	var label := Label.new()
-	label.text = text
-	label.position = point
-	label.add_theme_font_size_override("font_size",15)
-	label.modulate = Color("cee2b4")
-	add_child(label)
+	var plate:=PanelContainer.new()
+	plate.position=point
+	plate.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	plate.add_theme_stylebox_override("panel",DemoClockworkTheme.plate(Color(.07,.11,.12,.88),Color("887b58"),6))
+	var label:=DemoClockworkTheme.label(text,14,DemoClockworkTheme.PAPER)
+	label.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	plate.add_child(label)
+	add_child(plate)
 
 func _draw() -> void:
 	if contract.is_empty(): return

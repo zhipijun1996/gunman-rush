@@ -29,8 +29,9 @@ func focus_player() -> void:
 	pan=Vector2.ZERO
 func _draw() -> void:
 	if world==null or world.value.is_empty(): return
+	var text_size:=maxi(14,ceili(14.0/DemoUiModalMetrics.ui_scale(get_viewport()))) if expanded else 14
 	draw_style_box(panel(),Rect2(Vector2.ZERO,size))
-	draw_string(UnderworldUI.FONT,Vector2(12,20),WorldText.text("world_map.00") if expanded else WorldText.text("world_map.01"),HORIZONTAL_ALIGNMENT_LEFT,-1,14,UnderworldUI.TEXT)
+	draw_string(UnderworldUI.FONT,Vector2(12,20),WorldText.text("world_map.00") if expanded else WorldText.text("world_map.01"),HORIZONTAL_ALIGNMENT_LEFT,-1,text_size,UnderworldUI.TEXT)
 	var visible := rows()
 	for row: Dictionary in visible:
 		var polygon := PackedVector2Array()
@@ -39,7 +40,7 @@ func _draw() -> void:
 		draw_colored_polygon(polygon,Color("607b6b") if row.id==current_room else Color("354b49"))
 		polygon.append(polygon[0])
 		draw_polyline(polygon,UnderworldUI.BRASS if row.id==current_room else UnderworldUI.MOSS,2)
-		if expanded: draw_string(UnderworldUI.FONT,project(row.map_centre)+Vector2(8,0),row.name,HORIZONTAL_ALIGNMENT_LEFT,-1,14,UnderworldUI.TEXT)
+		if expanded: draw_string(UnderworldUI.FONT,project(row.map_centre)+Vector2(8,0),row.name,HORIZONTAL_ALIGNMENT_LEFT,-1,text_size,UnderworldUI.TEXT)
 	# Connections are shown only when both actual rooms have been visited.
 	for row: Dictionary in visible:
 		for door: Dictionary in content.room(row.id).get("doors",[]):

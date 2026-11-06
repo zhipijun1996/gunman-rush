@@ -54,6 +54,7 @@
 | MV-RUNTIME-01D | 固定房间装载、真实入口/镜头与控制权/卸载 | MV-RUNTIME-01C | review | [交接](worklines/mv_migration/scope.md) |
 | MV-RUNTIME-01E | 四种寿命、统一事实/提交、新槽保存与恢复 | MV-RUNTIME-01D | review | [交接](worklines/mv_migration/scope.md) |
 | MV-RUNTIME-01F | 首批P房真实闭环，含必要连接P-R08 | MV-RUNTIME-01E | review | [交接](worklines/mv_migration/scope.md) |
+| MV-DEMO-02 | 首环路体验整改、正式表现/UI/地图及NPC试制服务地基 | MV-RUNTIME-01F | review | [交接](worklines/mv_migration/scope.md) |
 | MV-RUNTIME-01G | NPC服务、永久库存/装配与成长效果一致性 | MV-RUNTIME-01F, ITEM-V5-01 | planned | [交接](worklines/mv_migration/scope.md) |
 | MV-RUNTIME-01H | NPC任务、迁居、修钟/演出及结局事实样板 | MV-RUNTIME-01F, STORY-DESIGN-03 | planned | [交接](worklines/mv_migration/scope.md) |
 | MV-RUNTIME-01I | 独立设置、文本/多设备UI、视听切换与平台观测 | MV-RUNTIME-01F | planned | [交接](worklines/mv_migration/scope.md) |

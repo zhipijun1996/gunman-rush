@@ -13,6 +13,8 @@ var pause_button: Button
 var interact_host: ScrollContainer
 var pause_host: ScrollContainer
 var notice: Label
+var curtain: ColorRect
+var _transition_tween: Tween
 var root: Control
 var page := ""
 func _ready() -> void:
@@ -44,6 +46,11 @@ func _ready() -> void:
 	notice.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	root.add_child(notice)
+	curtain=ColorRect.new()
+	curtain.color=Color.BLACK
+	curtain.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.add_child(curtain)
+	curtain.hide()
 	root.hide()
 func bind(actor: PlayerController) -> void:
 	title._hide()
@@ -78,7 +85,8 @@ func show_map() -> void:
 	var map:=FixedWorldMap.new()
 	map.expanded=true;map.world=world;map.content=content
 	map.current_room=mini.current_room
-	map.custom_minimum_size=Vector2(320,280)
+	var physical_factor:=clampf(1.0/DemoUiModalMetrics.ui_scale(get_viewport()),1,1.8)
+	map.custom_minimum_size=Vector2(320,clampf(get_viewport().get_visible_rect().size.y/physical_factor-300,120,280))
 	map.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	modal.rows.add_child(map)
 	var buttons:=HBoxContainer.new();modal.rows.add_child(buttons)
@@ -100,11 +108,11 @@ func present(actor: PlayerController,room_id: String,location: String,status: St
 	mini.position=Vector2(safe.end.x-210*factor,safe.position.y+16*factor)
 	pause_button.custom_minimum_size=Vector2(100,48)*factor
 	pause_host.position=Vector2(safe.end.x-110*factor,mini.position.y+145*factor)
-	pause_host.size=pause_button.custom_minimum_size
+	pause_host.size=pause_button.get_combined_minimum_size()
 	pause_host.visible=page.is_empty()
 	interact.custom_minimum_size=Vector2(220,54)*factor
 	interact_host.position=Vector2(safe.get_center().x-110*factor,safe.end.y-90*factor)
-	interact_host.size=interact.custom_minimum_size
+	interact_host.size=interact.get_combined_minimum_size()
 	interact.text=context
 	interact.visible=not context.is_empty() and page.is_empty()
 	interact_host.visible=interact.visible
@@ -113,6 +121,8 @@ func present(actor: PlayerController,room_id: String,location: String,status: St
 	notice.size=Vector2(520,80)*factor
 	notice.visible=page.is_empty()
 	hud.present_context(location,gold,0,reduced)
+	hud._money.text=WorldText.text("hud.gold") % gold
+	hud._wallet_plate.position=Vector2(safe.end.x-hud._wallet_plate.size.x*hud._wallet_plate.scale.x-24*factor,pause_host.position.y+pause_host.size.y+8*factor)
 
 func _touch_host(button: Button) -> ScrollContainer:
 	var host:=ScrollContainer.new()
@@ -124,3 +134,14 @@ func _touch_host(button: Button) -> ScrollContainer:
 	touch.scroll=host
 	host.add_child(touch)
 	return host
+
+func begin_transition() -> void:
+	if _transition_tween!=null and _transition_tween.is_valid(): _transition_tween.kill()
+	curtain.color=Color.BLACK
+	curtain.mouse_filter=Control.MOUSE_FILTER_STOP
+	curtain.show()
+func finish_transition() -> void:
+	_transition_tween=create_tween()
+	_transition_tween.tween_property(curtain,"color:a",0.0,.08)
+	await _transition_tween.finished
+	curtain.hide()

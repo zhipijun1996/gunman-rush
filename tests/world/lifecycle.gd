@@ -44,6 +44,7 @@ func run() -> void:
 	app.state.storage.blocked=true
 	app.load_room("P-R03","")
 	await ticks(8)
+	await settle()
 	check(app.room==stable_room and app.controller.active,"failed transition write restores previous room")
 	app.state.storage.blocked=false
 	# Explicit ability precondition: Q is not a reward anywhere on the normal loop.
