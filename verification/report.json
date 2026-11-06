@@ -1,0 +1,198 @@
+{
+  "schema": 1,
+  "task": "MV-DEMO-05",
+  "build_id": "0613b26ff11d",
+  "runtime_source_commit": "695847d7396318dfa9d7ed5bbfc0ebd8a4fc5692",
+  "ci": {
+    "result": "passed",
+    "run": "https://github.com/zhipijun1996/gunman-rush/actions/runs/42268953443"
+  },
+  "native": {
+    "world_state": 24,
+    "services": 30,
+    "gold": 8,
+    "traversal": 5,
+    "rooms": 29,
+    "ui": 17,
+    "presentation": 16,
+    "demo_regressions": 28,
+    "focus_heal": 24,
+    "lifecycle": 20,
+    "shared_loot": 603,
+    "all_assertion_failures": 0,
+    "separate_successes": [
+      "normal first-loop inputs, real combat, physical Boss coins, H, thorn crossing and delivery",
+      "disk restart",
+      "real service UI",
+      "service restart",
+      "focus-heal restart",
+      "unclaimed ground coins across process restart"
+    ]
+  },
+  "texture_probe": {
+    "scope": "40 calls to the same coil icon; CPU allocation/load microbenchmark, not gameplay FPS",
+    "before_ms": 880.014,
+    "before_unique_RIDs": 40,
+    "after_ms": 19.071,
+    "after_unique_RIDs": 1
+  },
+  "related": {
+    "world_build_tests": 6,
+    "world_design_tests": 9,
+    "navigation_tests": 5,
+    "route_counterexamples": 55,
+    "foundry_phrases": 36,
+    "foundry_itineraries": 18,
+    "docs": "passed",
+    "actual_web_bundle": "passed",
+    "isolated_world_pack": "passed",
+    "web_cache_policy": "passed"
+  },
+  "browser": {
+    "desktop": "final Web build renders material, native spikes, soft corridor darkness, physical Boss coins and H icon; placement/permanent victory fixtures declared in browser-fixtures.json; not normal browser combat proof",
+    "mobile": "Chromium 960x540 touch emulation; native earned route save, actual joystick Up opens compact readable NPC dialogue; actual touch opens services",
+    "console": "see retained exact logs; no script/page exception accepted"
+  },
+  "limits": [
+    "physical mobile/gamepad and target performance not certified",
+    "five rooms and trial services only; final rooms/items/economy/story remain separate",
+    "existing character animations reused"
+  ],
+  "files": [
+    {
+      "path": "browser-fixtures.json",
+      "bytes": 1085,
+      "sha256": "668baadb9fec1ba8bd48a190665aa988c23281469669b64b527fe7be485ea45f"
+    },
+    {
+      "path": "ci-source.json",
+      "bytes": 176,
+      "sha256": "104d39767bac300a597e7e3a678710cc545b38109dff554e4427616de6ad515d"
+    },
+    {
+      "path": "context.log",
+      "bytes": 103,
+      "sha256": "6299c61ecefc2c6e262ba2dccd92b35e4ade4e41b723fe2eac602dbd7b324b98"
+    },
+    {
+      "path": "desktop-console.log",
+      "bytes": 1416,
+      "sha256": "c7fd4b47682c545b57784e80c2dafa0cd0add673a092579982871bf1e16f6e00"
+    },
+    {
+      "path": "docs.log",
+      "bytes": 96,
+      "sha256": "f533366605c856f2cad6f54d8febb74531f5b87ca91cb383592128685e0c9939"
+    },
+    {
+      "path": "foundation5-boss-coins.png",
+      "bytes": 837951,
+      "sha256": "3a36f9a9e6050490205d3d7cfae4546b7d45408b6275e0af452aa46f2aae3ee4"
+    },
+    {
+      "path": "foundation5-boss-h.png",
+      "bytes": 918514,
+      "sha256": "207d692666eff893257cb81b695845e40b970e8c44633528219b2f90f93440ff"
+    },
+    {
+      "path": "foundation5-darkness.png",
+      "bytes": 780757,
+      "sha256": "a1043f169fbc1c04b665a1e4f47583adace2d303430c3d6bcaf7d649ccddfeda"
+    },
+    {
+      "path": "foundation5-material.png",
+      "bytes": 839394,
+      "sha256": "6ea579e67d3a14f9b57209963727da17ff72e25bb58a46d32c349a5a98af485e"
+    },
+    {
+      "path": "foundation5-mobile-dialogue.png",
+      "bytes": 167286,
+      "sha256": "c9f4b2ca39b83394baf970e06469c2a5268bc7a6feb5e83d08aad4fd1f56ae17"
+    },
+    {
+      "path": "foundation5-mobile-services.png",
+      "bytes": 170127,
+      "sha256": "66db933de2784e491c44eee03476a07e870deb53d26788783abd4bb68d187660"
+    },
+    {
+      "path": "foundry-stamp.log",
+      "bytes": 175,
+      "sha256": "f4b2a63f99560475ab6ef2d56f624eefd8085607c543b86284fa55d7cf33ebed"
+    },
+    {
+      "path": "foundry.log",
+      "bytes": 4570,
+      "sha256": "a6a0dc72335b41c879ae2b56913bdea43462be780a7cd7f9d535cb06d443b819"
+    },
+    {
+      "path": "icon-after.log",
+      "bytes": 133,
+      "sha256": "fca7bf0bdc892faa48ece9d698ca47cf9f37c535634816fd5a4a00acb6f4aa36"
+    },
+    {
+      "path": "icon-before.log",
+      "bytes": 135,
+      "sha256": "94f3745a236914decc9566ad41438dd02bb42ab20a51ae7df5dee77288037881"
+    },
+    {
+      "path": "mobile-console.log",
+      "bytes": 532,
+      "sha256": "8624adcdfbe50fd3c2d93625eb68369ba9dafb4b438cd8580ca2e825965d2d59"
+    },
+    {
+      "path": "quality.log",
+      "bytes": 85,
+      "sha256": "99b3d119a1491d586c075ba93f08f6645a67b6f33bbba2314ed85eb73a0b52f3"
+    },
+    {
+      "path": "routes.log",
+      "bytes": 2017,
+      "sha256": "270a0c1f3ea8da97ccc05f1c59e6097be883c7369981e0453a8eb5df2b450ae4"
+    },
+    {
+      "path": "shared-loot.log",
+      "bytes": 3820,
+      "sha256": "f25b1fbeec89b05f56064b0913004f458423868c6fa2ea3da26a2bd861d03208"
+    },
+    {
+      "path": "ui-layout.log",
+      "bytes": 1604,
+      "sha256": "7b44b87800392b415d0689e97158425c944bc16d969c9dc85f514c8106a5cd56"
+    },
+    {
+      "path": "verified-loop.log",
+      "bytes": 16589,
+      "sha256": "246458b7dac2a5a2f818fe89c50a27f4dd5cf7e42f0a8c74b5ad62b0474819c7"
+    },
+    {
+      "path": "visual-fixtures.log",
+      "bytes": 307,
+      "sha256": "125f5af22e6a4e2fe6d2b0fcbdbba7f5373b79d3628e79896bd5312a2bcbb415"
+    },
+    {
+      "path": "web-bundle.log",
+      "bytes": 4961,
+      "sha256": "b07e8a473fea2ae1d198c3a5e128ec0a025f7af0342f07d4b2e52dd7085ab167"
+    },
+    {
+      "path": "web-cache.log",
+      "bytes": 85,
+      "sha256": "a3d52a87c57f305d7b6300f98f6d821fc738b5c7b0ecd48692760ffa0c15b6bc"
+    },
+    {
+      "path": "world-build.log",
+      "bytes": 104,
+      "sha256": "1e1ffb3d7d2b50129a9c0c345813a97150f3fe241e42fd228a450d5d34e45d65"
+    },
+    {
+      "path": "world-design.log",
+      "bytes": 107,
+      "sha256": "dbef082bbac049b651cfa88c272809e037d3d21539ff812efc2baba1d30cd61e"
+    },
+    {
+      "path": "world-pack.log",
+      "bytes": 668,
+      "sha256": "e972fb322f930b2d0f783e889f28e7e9e0758de8066a2c500b8adc17a83bca8f"
+    }
+  ]
+}
