@@ -379,7 +379,7 @@ def build(canonical, construction, replay_path):
                 "coordinate_audit_ref": e["id"],
                 "connector_owner_room": rid if rid in pair["connector_owner_rooms"] else None,
                 "connector_intent": "在本房内设置可步行转角/楼层接续廊，承接旧图端点至新接口；相机区随通路过渡。" if rid in pair["connector_owner_rooms"] else None,
-                
+
             }
             doors_by_room[rid].append(door)
 
