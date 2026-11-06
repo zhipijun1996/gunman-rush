@@ -17,6 +17,11 @@ extends Node2D
 @export var hook_points: Array[Vector2] = []
 @export var climbable_walls: Array[Rect2] = []
 @export var environment_zones: Array[Dictionary] = []
+var station_feedback:=0.0
+var interaction_point:=Vector2.INF
+func _process(delta: float) -> void:
+	if station_feedback>0:
+		station_feedback=maxf(0,station_feedback-delta);queue_redraw()
 var cycle_at_load := 0
 var door_open: Dictionary={}
 var services: WorldServices
@@ -93,22 +98,23 @@ func _ready() -> void:
 	for point: Vector2 in hook_points:
 		var anchor:=GrappleAnchor.new();anchor.position=point;anchor.hang_enabled=true;add_child(anchor)
 	for sign: Dictionary in signs:
-		label_at(str(sign.text),FixedWorldProvider.point(sign.point))
+		var marker:=Sprite2D.new()
+		marker.texture=WorldProps.prop("notice_board")
+		marker.scale=Vector2.ONE*40/marker.texture.get_height()
+		var point:=FixedWorldProvider.point(sign.point)
+		var support:=INF
+		for platform: Rect2 in platforms:
+			if point.x>=platform.position.x and point.x<=platform.end.x and platform.position.y>=point.y:
+				support=minf(support,platform.position.y)
+		if is_inf(support): support=point.y+40
+		marker.position=Vector2(point.x,support-20)
+		sign["interaction_point"]=Vector2(point.x,support-18)
+		add_child(marker)
 
 func configure(row: Dictionary) -> void:
 	contract = row
 	doors = row.doors.filter(func(door: Dictionary) -> bool: return door.get("target_implemented",false))
 	queue_redraw()
-
-func label_at(text: String, point: Vector2) -> void:
-	var plate:=PanelContainer.new()
-	plate.position=point
-	plate.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	plate.add_theme_stylebox_override("panel",DemoClockworkTheme.plate(Color(.07,.11,.12,.88),Color("887b58"),6))
-	var label:=DemoClockworkTheme.label(text,14,DemoClockworkTheme.PAPER)
-	label.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	plate.add_child(label)
-	add_child(plate)
 
 func _draw() -> void:
 	if contract.is_empty(): return
@@ -125,23 +131,25 @@ func _draw() -> void:
 			draw_rect(rect,Color("9f8b67"),false,3)
 			draw_line(rect.position,rect.end,Color("9f8b67"),3)
 			draw_line(Vector2(rect.end.x,rect.position.y),Vector2(rect.position.x,rect.end.y),Color("9f8b67"),3)
-		else:
-			draw_rect(rect.grow(4),Color(.85,.72,.42,.2))
-			draw_rect(rect,Color("d8b35d"),false,2)
+
 	if not boss_identity.is_empty():
 		for x: float in [arena_bounds.position.x,arena_bounds.end.x]:
 			var doorway:=Rect2(x-6,arena_bounds.end.y-arena_door_height,12,arena_door_height)
 			if battle_started and not battle_finished: draw_rect(doorway,Color("d8b35d"))
-			else: draw_rect(doorway,Color(.5,.62,.5,.3),false,2)
+
+	if interaction_point.is_finite():
+		var tip:=interaction_point+Vector2(0,-55)
+		draw_polyline(PackedVector2Array([tip+Vector2(-5,5),tip,tip+Vector2(5,5)]),DemoClockworkTheme.PAPER,2)
 	if rest_point != Vector2.ZERO:
-		draw_rect(Rect2(rest_point+Vector2(-28,8),Vector2(56,10)),Color("7dc1b0"))
-	if reward_point != Vector2.ZERO:
-		draw_texture_rect(UnderworldActors.icon_texture(&"bell"),Rect2(reward_point-Vector2(14,28),Vector2(28,38)),false)
+		WorldProps.draw_station(self,rest_point)
+		if station_feedback>0: draw_arc(rest_point,30+(1-station_feedback)*14,0,TAU,32,Color(.4,.9,.8,station_feedback),2)
+	if reward_point != Vector2.ZERO and battle_finished and services!=null and not services.state.value.receipts.has(reward_action):
+		WorldProps.draw_icon(self,ItemPresentation.icon(&"echo"),reward_point,30)
 	if services!=null:
 		for pickup: Dictionary in services.definitions.get("pickups",[]):
 			if pickup.room_id!=room_id or pickup.id in services.ledger().collected: continue
 			var point:=FixedWorldProvider.point(pickup.point)
-			draw_texture_rect(UnderworldActors.icon_texture(&"chest"),Rect2(point-Vector2(12,10),Vector2(24,28)),false)
+			WorldProps.draw_icon(self,ItemPresentation.icon(StringName(pickup.get("icon_key","coil"))),point,24)
 
 func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime, saved_enemies: Dictionary, boss_defeated: bool, entry_anchor: Vector2) -> void:
 	for placement: Dictionary in enemy_placements:

@@ -119,6 +119,7 @@ func _create_player() -> void:
 	player.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
+	controller.router.set_meta(&"world_up_interaction",true)
 	HomeWeaponSelection.new().apply(controller)
 	overlay=InputSetup.attach_menu(player,controller.router,toggle_pause)
 	controller.enable_shot_energy()
@@ -153,10 +154,10 @@ func _create_player() -> void:
 	tutorial.controller=controller;tutorial.state=state
 	player.add_child(tutorial)
 	tutorial.action_requested.connect(func(id: String) -> void: enqueue("action",id))
-	camera = Camera2D.new()
-	camera.zoom = Vector2(1.6,1.6)
-	camera.position_smoothing_enabled = false
-	player.add_child(camera)
+	camera = WorldCamera.new()
+	(camera as WorldCamera).target=player
+	(camera as WorldCamera).settings=content.data.player.camera
+	add_child(camera)
 	parallax=UnderworldParallax.new()
 	parallax.configure(camera)
 	add_child(parallax)
@@ -273,11 +274,7 @@ func load_room(id: String, entry: String) -> void:
 	room.bind_services(services,controller,policy,lifetime)
 	_apply_capabilities()
 	var bounds := FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units)
-	camera.limit_left = 0
-	camera.limit_top = 0
-	camera.limit_right = int(bounds.end.x)
-	camera.limit_bottom = int(bounds.end.y)
-	camera.zoom = Vector2(1.6,1.6)
+	(camera as WorldCamera).enter_room(bounds)
 	# Land at the authored near-side ledge; no automatic leap across the new room.
 	player.reset_at(anchor-Vector2(0,1))
 	var landed := false
@@ -293,24 +290,45 @@ func load_room(id: String, entry: String) -> void:
 		status="入口缺少实际支撑，请返回标题后继续。"
 		busy=false
 		return
+	var motion: Dictionary=content.data.player.entry_motion
+	var entry_direction:=str(resolved.entry.get("direction",""))
+	if entry_direction in ["left","right"]:
+		var inward:=1.0 if entry_direction=="left" else -1.0
+		player.reset_at(anchor-Vector2(inward*float(motion.walk_distance),1))
+		await ui.finish_transition()
+		for frame: int in ceili(float(motion.walk_seconds)/get_physics_process_delta_time()):
+			await get_tree().physics_frame
+			if ticket!=_ticket: return
+			player.step(inward*float(motion.walk_axis),get_physics_process_delta_time())
+		player.reset_motion()
+	elif entry_direction=="up":
+		player.reset_at(anchor-Vector2(0,float(motion.fall_height)))
+		await ui.finish_transition()
+		for frame: int in ceili(float(motion.timeout_seconds)/get_physics_process_delta_time()):
+			await get_tree().physics_frame
+			if ticket!=_ticket: return
+			player.step(0,get_physics_process_delta_time())
+			if player.is_on_floor(): break
 	var upward_entry: bool=not resolved.entry.is_empty() and resolved.entry.direction=="down"
 	if upward_entry:
 		player.reset_at(FixedWorldProvider.point(resolved.entry.landing_contract.entry_position_world_units))
+		await ui.finish_transition()
 		controller.jump_ability.on_landed()
 		controller.jump_ability.advance(get_physics_process_delta_time(),true)
 		controller.jump_ability.request_jump()
 		controller.jump_ability.try_jump(player)
 		controller.jump_ability.release_jump(player)
-	await ui.finish_transition()
+	if entry_direction.is_empty(): await ui.finish_transition()
 	if upward_entry:
-		for frame: int in 60:
+		for frame: int in ceili(float(motion.timeout_seconds)/get_physics_process_delta_time()):
 			await get_tree().physics_frame
 			if ticket!=_ticket or not is_instance_valid(player): return
 			controller.jump_ability.update_hold(get_physics_process_delta_time(),player)
-			player.step(0,get_physics_process_delta_time())
+			player.step(clampf((anchor.x-player.position.x)/float(motion.hop_steering_distance),-float(motion.hop_axis),float(motion.hop_axis)),get_physics_process_delta_time())
 			controller.jump_ability.after_move(player)
 			if frame>1 and player.is_on_floor(): break
 		controller.jump_ability.on_landed()
+		player.reset_motion()
 	if ticket!=_ticket or not is_instance_valid(player): return
 	controller._was_grounded = false
 	controller.active = true
@@ -356,7 +374,7 @@ func context_target() -> Dictionary:
 		if d<distance: best={"kind":"npc","id":npc.npc_id,"label":"交谈 · "+npc.display_name};distance=d
 	if room.rest_point!=Vector2.ZERO:
 		var d:=player.position.distance_to(room.rest_point)
-		if d<70 and d<distance: best={"kind":"rest","id":room.room_id,"label":"休息 · 保存复活点"};distance=d
+		if d<70 and d<distance: best={"kind":"rest","id":room.room_id,"label":"充电 · 保存复位点"};distance=d
 	if room.reward_point!=Vector2.ZERO and room.battle_finished and not state.value.receipts.has(room.reward_action):
 		var d:=player.position.distance_to(room.reward_point)
 		if d<80 and d<distance: best={"kind":"action","id":room.reward_action,"label":room.reward_text};distance=d
@@ -364,6 +382,10 @@ func context_target() -> Dictionary:
 		if pickup.room_id!=room.room_id or pickup.id in services.ledger().collected: continue
 		var d:=player.position.distance_to(FixedWorldProvider.point(pickup.point))
 		if d<65 and d<distance: best={"kind":"pickup","id":pickup.id,"label":"拾取 · "+pickup.label};distance=d
+	if best.is_empty():
+		for i: int in room.signs.size():
+			if player.position.distance_to(room.signs[i].interaction_point)<90:
+				return {"kind":"sign","id":str(i),"label":"阅读"}
 	return best
 
 func _interact() -> void:
@@ -417,8 +439,16 @@ func _physics_process(_delta: float) -> void:
 		elif request.kind == "rest": _rest()
 		elif request.kind == "door": _cross(str(request.id))
 		elif request.kind == "npc": _open_npc(str(request.id))
+		elif request.kind == "sign":
+			if _pause_world():
+				GameAudio.cue(self,&"confirm")
+				var panel:=ui.panel("dialogue",WorldText.text("dialogue.sign"),str(room.signs[int(request.id)].text))
+				panel.button(WorldText.text("dialogue.close"),_close_panel);panel.focus_first()
 		elif request.kind == "pickup":
-			if services.request("collect",str(request.id),"pickup:"+str(request.id),state.revision): status="零件已收好，回小站交给回收匠。"
+			if services.request("collect",str(request.id),"pickup:"+str(request.id),state.revision):
+				status="零件已收好，回小站交给回收匠。"
+				GameAudio.cue(self,&"confirm")
+				room.queue_redraw()
 		elif request.kind == "income":
 			state.commit(services.earned_candidate(_snapshot(),"enemy:"+str(request.id)+":cycle:"+str(int(state.value.cycle)),int(services.definitions.enemy_gold)),state.revision)
 
@@ -434,6 +464,7 @@ func _commit_action(id: String) -> void:
 		status = "保存失败，结果未提交："+state.error
 		return
 	if id == room.defeat_action: room.finish_battle()
+	if id == room.reward_action: GameAudio.cue(self,&"confirm")
 	_apply_capabilities()
 	status=WorldText.text("action."+id,str(content.action(id).get("description","进度已保存")))
 
@@ -445,7 +476,7 @@ func _cross(id: String) -> void:
 			status = "通路尚未开启，请先完成本处教学或事件。"
 			return
 		if content.room(str(door.target_room)).is_empty():
-			status = "前方区域尚未施工，本次路线请循金色标记。"
+			status = "前方区域尚未施工，请循已开放的墙面缺口继续探索。"
 			return
 		busy = true
 		load_room.call_deferred(str(door.target_room),str(door.target_door_id))
@@ -464,6 +495,8 @@ func _rest() -> void:
 	controller.router.clear("explicit_rest")
 	controller.shoot_ability.clear_projectiles()
 	q_guard.cancel()
+	room.station_feedback=1.0
+	GameAudio.cue(self,&"confirm")
 	status=WorldText.text("rest.completed")
 
 func _fail_terrain() -> void:
@@ -534,6 +567,8 @@ func _close_panel() -> void:
 	if controller!=null:
 		get_viewport().gui_release_focus()
 		controller.router.clear("panel_close")
+		var keyboard:=player.get_node_or_null("KeyboardMouseAdapter") as KeyboardMouseAdapter
+		if keyboard!=null: keyboard.observe_current_key_neutral()
 		if overlay.enabled: controller.router.touch_mouse_guard_until_usec=Time.get_ticks_usec()+InputRouter.TOUCH_MOUSE_GUARD_USEC
 		paused=false;get_tree().paused=false
 	else:
@@ -574,7 +609,7 @@ func _ui_command(kind: String,_id: String) -> void:
 			if controller!=null and (_id=="0" or (not busy and not paused)): controller.router.set_focus_heal_held(&"touch",_id=="1")
 		"settings": _show_settings()
 		"help":
-			var modal:=ui.panel("help","操作说明","A/D 移动，空格跳跃；鼠标瞄准，松开发射；W或场景交互按钮交谈/休息/拾取；M地图，I背包。手机使用摇杆/跳跃/HOOK和屏幕交互按钮。")
+			var modal:=ui.panel("help","操作说明",WorldText.text("world.controls"))
 			modal.button("返回",_close_panel)
 func _start_from_title() -> void:
 	ui.close()
@@ -587,7 +622,8 @@ func _open_npc(id: String) -> void:
 	_service_ticket+=1;_service_token=lifetime.token();_npc_id=id
 	services.request("meet",id,"meet:"+id,state.revision)
 	service_view.submit=_submit_service.bind(_service_ticket)
-	service_view.show_npc(_npc(id))
+	GameAudio.cue(self,&"confirm")
+	service_view.show_greeting(_npc(id))
 func _npc(id: String) -> Dictionary:
 	for npc: Dictionary in content.data.get("npcs",[]):
 		if npc.id==id: return npc
@@ -632,12 +668,25 @@ func return_title() -> void:
 	policy = null
 	ui.unbind()
 	if is_instance_valid(parallax): parallax.queue_free()
+	if is_instance_valid(camera): camera.queue_free()
 	build_state=null
 	music.request_track(&"home")
 
 func _update_hud() -> void:
 	if ui==null or controller==null: return
 	var target:=context_target()
+	if room!=null:
+		room.interaction_point=Vector2.INF
+		match target.get("kind",""):
+			"sign": room.interaction_point=room.signs[int(target.id)].interaction_point
+			"rest": room.interaction_point=room.rest_point
+			"action": room.interaction_point=room.reward_point
+			"pickup":
+				for pickup: Dictionary in services.definitions.pickups:
+					if pickup.id==target.id: room.interaction_point=FixedWorldProvider.point(pickup.point)
+		room.queue_redraw()
+		for npc: Node in room.find_children("*","WorldNpc",true,false):
+			npc.highlighted=target.get("kind","")=="npc" and target.get("id","")==npc.npc_id
 	var notice:=status
 	if room!=null and room.encounter!=null and not room.battle_finished: notice="%s · %d HP" % [room.encounter.definition.display_name,room.encounter.health.current]
 	ui.present(controller,str(state.value.room),str(content.room(state.value.room).get("name","")),notice,str(target.get("label","")),int(services.ledger().gold),bool(preferences.value.reduced),focus_heal.ratio(),focus_heal.available())

@@ -29,7 +29,7 @@ func walk(point: Vector2,room_id: String,timeout: int = 800) -> bool:
 		if point.y>at.y+40 and absf(dx)<30 and app.player.is_on_floor():
 			app.controller.router.request_action(&"drop_through")
 		app.controller.router.set_source_axis(&"keyboard_mouse",signf(dx) if absf(dx)>10 else 0)
-		if app.player.is_on_floor() and above and absf(dx)<245:
+		if app.player.is_on_floor() and (above or (room_id=="P-R06" and ((at.x>820 and at.x<990 and point.x>990) or (at.x>990 and point.x<890)))) and absf(dx)<245:
 			app.controller.router.set_jump_held(&"keyboard_mouse",false)
 			app.controller.router.set_jump_held(&"keyboard_mouse",true)
 			held = 34
@@ -50,6 +50,12 @@ func path(points: Array,room_id: String) -> bool:
 		if not await walk(point,room_id): return false
 	return true
 func click_named(prefix: String,touch: bool=true) -> bool:
+	if prefix.begins_with("交谈") or prefix.begins_with("休息") or prefix.begins_with("拾取") or prefix.begins_with("领取"):
+		for down: bool in [true,false]:
+			var event:=InputEventKey.new();event.physical_keycode=KEY_UP;event.pressed=down
+			root.push_input(event,true);await ticks(3)
+		if app.ui.page=="dialogue" and app.context_target().get("kind","")=="npc": await click_named("查看服务",touch)
+		return true
 	await ticks(3)
 	var selected: Button
 	for node: Node in app.ui.root.find_children("*","Button",true,false):
@@ -97,7 +103,7 @@ func run() -> void:
 		return
 	await walk(Vector2(240,286),"P-R01")
 	await ticks(4)
-	check(app.ui.interact.visible and app.ui.interact.text.begins_with("交谈"),"nearby NPC exposes touch interaction")
+	check(not app.ui.interact.visible and app.context_target().get("kind","")=="npc","nearby NPC is eligible for Up interaction without a HUD button")
 	await click_named("交谈")
 	check(app.paused and app.ui.page=="npc","actual touch opens NPC and pauses safely")
 	await click_named("购买 5金币 · 试制滤芯")
@@ -123,7 +129,7 @@ func run() -> void:
 	if app.room.room_id!="P-R06":
 		await finish()
 		return
-	check(await path([Vector2(624,702),Vector2(860,614),Vector2(950,614)],"P-R06"),"reach actual filtered pickup")
+	check(await path([Vector2(624,702),Vector2(860,614),Vector2(1040,614)],"P-R06"),"jump across real thorns to the safe pickup ledge")
 	await ticks(4)
 	await click_named("拾取")
 	check(int(app.state.value.inventory.get("trial_part",0))==1,"actual placed quest material acquired once")

@@ -11,7 +11,7 @@ var serial:=0
 var clock:=0.0
 func _physics_process(delta: float) -> void:
 	queue_redraw()
-	if mode not in ["gas","phase_light"] or not bounds.has_point(controller.motor.position): return
+	if mode not in ["gas","phase_light","thorns"] or not bounds.intersects(Rect2(controller.motor.position-Vector2(12,18),Vector2(24,36))): return
 	if mode=="gas" and services.active("filter"): return
 	clock-=delta
 	if clock>0: return
@@ -26,7 +26,9 @@ func _physics_process(delta: float) -> void:
 	policy.submit(request)
 func _draw() -> void:
 	if services==null: return
-	if mode=="gas":
+	if mode=="thorns":
+		WorldProps.draw_thorns(self,bounds)
+	elif mode=="gas":
 		draw_rect(bounds,Color(.38,.58,.24,.35))
 		for x: int in range(int(bounds.position.x),int(bounds.end.x),12):
 			draw_line(Vector2(x,bounds.position.y),Vector2(x+6,bounds.end.y),Color(.55,.7,.3,.3),2)

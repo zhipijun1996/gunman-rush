@@ -15,6 +15,7 @@ def main():
         ('traversal_contracts.gd',r'WORLD TRAVERSAL: \d+ assertions, 0 failures',60),
         ('room_contracts.gd',r'WORLD ROOMS: \d+ assertions, 0 failures',60),
         ('ui_contracts.gd',r'WORLD UI: \d+ assertions, 0 failures',60),
+        ('presentation_contracts.gd',r'WORLD PRESENTATION: \d+ assertions, 0 failures',60),
         ('demo_regressions.gd',r'WORLD DEMO: \d+ assertions, 0 failures',60),
         ('focus_heal.gd',r'WORLD HEAL: \d+ assertions, 0 failures',90),
         ('focus_heal_restart.gd',r'WORLD HEAL RESTART: 0 failures',30),

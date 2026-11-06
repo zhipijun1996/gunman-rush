@@ -9,6 +9,13 @@ func button(modal: DemoUiModalShell,label: String,kind: String,id: String) -> Bu
 	var control:=modal.button(label,func() -> void: submit.call(kind,id,revision))
 	control.name="Service_"+kind+"_"+id
 	return control
+func show_greeting(npc: Dictionary) -> void:
+	var lines: Dictionary=services.definitions.dialogues.get(npc.id,{})
+	var line:=str(lines.get("after_quest" if services.state.has(str(services.definitions.quest.flag)) else "after_h" if services.state.has("H") else "greeting",npc.identity))
+	var modal:=ui.panel("dialogue",npc.display_name,line)
+	modal.button(WorldText.text("dialogue.services"),func() -> void: show_npc(npc))
+	modal.button(WorldText.text("dialogue.leave"),func() -> void: ui.command.emit("close",""))
+	modal.focus_first()
 func show_npc(npc: Dictionary,message: String="") -> void:
 	var data:=services.ledger()
 	var content: Dictionary=services.definitions.dialogues.get(npc.id,{})

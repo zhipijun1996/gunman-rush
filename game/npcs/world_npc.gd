@@ -17,7 +17,9 @@ func _ready() -> void:
 	sprite.centered=false
 	sprite.scale=Vector2.ONE*UnderworldActors.HUMANOID_HEIGHT/float(asset.opaque_height)
 	sprite.position=Vector2(0,18)-FixedWorldProvider.point(asset.foot)*sprite.scale
-	var label:=DemoClockworkTheme.label(display_name,13,DemoClockworkTheme.PAPER)
-	label.position=Vector2(-55,-56)
-	label.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	add_child(label)
+var highlighted:=false
+func _process(_delta: float) -> void: queue_redraw()
+func _draw() -> void:
+	if highlighted:
+		draw_line(Vector2(-5,-55),Vector2(0,-61),DemoClockworkTheme.TEAL,2)
+		draw_line(Vector2(0,-61),Vector2(5,-55),DemoClockworkTheme.TEAL,2)

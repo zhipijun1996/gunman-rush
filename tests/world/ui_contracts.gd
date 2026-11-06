@@ -47,18 +47,28 @@ func run() -> void:
 	await ticks(15)
 	app.overlay.set_enabled(true)
 	app.load_room("P-R01","START-P03-P01:P-R01")
-	await ticks(15)
+	for i: int in 180:
+		await physics_frame
+		if not app.busy: break
 	app.controller.router.set_source_axis(&"keyboard_mouse",1,true)
 	await ticks(14)
 	app.controller.router.set_source_axis(&"keyboard_mouse",0)
 	await ticks(3)
-	check(app.ui.interact.visible and app.ui.interact.text.begins_with("交谈"),"context interaction has visible native control")
-	await touch_button(app.ui.interact,true)
-	check(not app.paused and app.ui.page.is_empty(),"cancelled touch never opens interaction")
-	await touch_button(app.ui.interact)
-	check(app.paused and app.ui.page=="npc","real station GUI touch opens NPC")
-	if app.ui.page!="npc":
+	check(not app.ui.interact.visible and app.context_target().get("kind","")=="npc","Up interaction replaces extra HUD button")
+	var at:=app.overlay.left_center
+	var press:=InputEventScreenTouch.new();press.index=7;press.pressed=true;press.position=at
+	root.push_input(press,true);await ticks(2)
+	var cancel_touch:=InputEventScreenTouch.new();cancel_touch.index=7;cancel_touch.position=at;cancel_touch.canceled=true
+	root.push_input(cancel_touch,true);await ticks(2)
+	check(not app.paused,"canceled neutral joystick does not interact")
+	press=InputEventScreenTouch.new();press.index=8;press.pressed=true;press.position=at
+	root.push_input(press,true);await ticks(2)
+	var up_drag:=InputEventScreenDrag.new();up_drag.index=8;up_drag.position=at-Vector2(0,app.overlay.radius);up_drag.relative=Vector2(0,-app.overlay.radius)
+	root.push_input(up_drag,true);await ticks(4)
+	check(app.paused and app.ui.page=="dialogue","real left joystick Up opens NPC response")
+	if app.ui.page!="dialogue":
 		app.queue_free();await ticks(4);print("WORLD UI: %d assertions, %d failures" % [checks,failures]);quit(failures);return
+	await touch_button(find("查看服务"))
 	check("NPC_P_REC" in app.services.ledger().met,"NPC meeting persists")
 	await touch_button(find("告别"))
 	check(not app.paused and not app.controller.router.aim_engaged,"closing service restores cancelled clean input")

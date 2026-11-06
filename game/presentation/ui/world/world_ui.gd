@@ -131,12 +131,12 @@ func present(actor: PlayerController,room_id: String,location: String,status: St
 	interact_host.position=Vector2(safe.get_center().x-110*factor,safe.end.y-90*factor)
 	interact_host.size=interact.get_combined_minimum_size()
 	interact.text=context
-	interact.visible=not context.is_empty() and page.is_empty()
+	interact.visible=false
 	interact_host.visible=interact.visible
 	notice.text=status
 	notice.position=Vector2(safe.get_center().x-260*factor,safe.position.y+18*factor)
 	notice.size=Vector2(520,80)*factor
-	notice.visible=page.is_empty()
+	notice.visible=status.contains("失败") or status.contains("不可用") or status.contains("缺少实际支撑") or status.contains("暂不可通行")
 	hud.present_context(location,gold,0,reduced)
 	hud._money.text=WorldText.text("hud.gold") % gold
 	hud._resonance_text.text=WorldText.text("heal.resonance") % [actor.combat_energy.current,actor.combat_energy.capacity()]
