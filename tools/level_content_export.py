@@ -13,7 +13,6 @@ from level_content import sha, write, verified_result
 from level_content_contract import make_content, validate_bundle, PILOT_SCOPE
 
 ROOT = Path(__file__).resolve().parents[1]
-REVIEWS = 'docs/evidence/sources/ai_level_design_v1/library_reviews.json'
 PRODUCER = 'tools/level_pilot_validate.gd'
 PILOTS = ('plains_overlook_choice', 'plains_backlook_cache',
           'forest_crown_root_choice', 'forest_basin_homecoming')
@@ -57,23 +56,8 @@ def legacy_content(row):
     content['runtime'].update(consumer=consumer, format='source_' + kind,
                               binding=source_file, integration='unverified',
                               note='保留原消费者；旧接入签名已漂移。此sidecar不反写mapnote，也不声明新准入。')
-    content['provenance']['artifacts'].append(artifact(REVIEWS))
     content['provenance']['license_note'] = '原项目参考内容；原始mapnote文档SHA和旧提交保留在import_summary，未重新许可或授予准入。'
-    review = row.get('ai_design', {})
-    if review.get('status') == 'reviewed':
-        findings = [*review.get('strengths', []), *review.get('problems', []),
-                    *['待反证：' + t for t in review.get('counterfactual', [])],
-                    *['局限：' + t for t in review.get('uncertainty', [])]]
-        content['identity']['player_experience'] = review.get('role', '源码意图待核实')
-        content['design']['goals'] = [review.get('role', '待取证')]
-        content['design']['recovery'] = '源码设计初审，真实失败回收仍待匹配消费者取证。'
-        content['evidence']['ai'].update(status='reviewed', reviewer=review['reviewer'],
-                                        findings=findings, artifacts=[artifact(REVIEWS)])
-        decision = review['decision']
-        content['quality'].update(admission={'retain': 'review', 'improve': 'rework',
-                                            'reconstruct': 'rework', 'retire': 'discard',
-                                            'needs_evidence': 'candidate'}[decision],
-                                  reason='AI源码初审：' + decision + '；不授予物理、真人或正式池认可。')
+    content['quality']['reason'] = 'Current source extraction only; review and runtime remain unverified.'
     return content
 
 

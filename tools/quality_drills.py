@@ -19,8 +19,8 @@ def review(sample):
 
 def main():
     count = 0
-    for path in sorted((ROOT / 'docs/evidence/quality/drills').glob('*.json')):
-        sample = read_json(path)
+    for kind in RULES:
+        sample = {'id': kind, 'type': kind, 'observations': {}, 'expected_verdict': 'REJECT', 'expected_findings': len(RULES[kind])}
         result = review(sample)
         print(json.dumps(result, ensure_ascii=False))
         if result['verdict'] != sample['expected_verdict'] or len(result['findings']) != sample['expected_findings']:

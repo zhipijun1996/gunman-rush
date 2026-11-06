@@ -487,7 +487,7 @@ def validate(base, root=ROOT):
     errors.extend(f'Invalid content record {record.get("task_id")}: {error}' for record, result in checked_records for error in result['errors'])
     valid_records = [record for record, result in checked_records if not result['errors']]
     audit_assets = any(name.startswith(PRODUCTION) for name in changed)
-    assets = ([read_json(p) for p in (root / 'docs/evidence/quality/asset_records').glob('*.json')] if any(name.startswith('assets/') for name in changed) else [])
+    assets = ([read_json(p) for p in (root / 'assets/provenance/records').glob('*.json')] if any(name.startswith('assets/') for name in changed) else [])
     # Coverage is granted only after the entire record validates, including all
     # explicitly named offline production files and their actual byte hashes.
     valid_assets = [a for a in assets if not validate_asset(a, root)]
@@ -515,7 +515,7 @@ def validate(base, root=ROOT):
                 fresh |= (prior.stdout == current if prior.returncode == 0 else current is None)
             if not fresh:
                 errors.append(f'Completed record is stale for current implementation: {name}')
-        if name.startswith('assets/') and (root / name).is_file() and not name.endswith(('.import', '.uid')):
+        if name.startswith('assets/') and not name.startswith('assets/provenance/records/') and (root / name).is_file() and not name.endswith(('.import', '.uid')):
             if name not in provenance_paths:
                 errors.append(f'Changed asset lacks provenance metadata: {name}')
             if name in known_runtime_assets and name not in runtime_provenance_paths:

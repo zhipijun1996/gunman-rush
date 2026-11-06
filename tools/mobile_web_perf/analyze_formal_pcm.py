@@ -346,7 +346,7 @@ def supplement_action_capture(folder: Path, output: Path, run_self_test: bool) -
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=ROOT / "build/mobile_web_perf_01/formal-ab-01")
-    parser.add_argument("--output", type=Path, default=ROOT / "docs/evidence/mobile_web_perf_01/formal-audio-analysis.json")
+    parser.add_argument("--output", type=Path, default=ROOT / "build/mobile_web_perf/formal-audio-analysis.json")
     parser.add_argument("--self-test", action="store_true")
     parser.add_argument("--supplement-action", action="store_true", help="Append a clock-checked8second action-only follow-up while preserving initial analysis")
     args = parser.parse_args()

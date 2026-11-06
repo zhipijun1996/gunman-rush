@@ -9,7 +9,7 @@
     "resources/weapons/pulse_gun.tres",
     "scripts/player/player_motor.gd",
     "docs/project/current_state.md",
-    "docs/evidence/quality/action_budget_spec.md",
+    "docs/bible/combat_and_recharge.md",
     "config/platforming_foundry.json"
   ],
   "biome": {
@@ -288,7 +288,7 @@
       "capability": "shot_recoil",
       "implementation_ref": "scripts/player/player_motor.gd",
       "requires_grounded": false,
-      "resource_effect_ref": "docs/evidence/quality/action_budget_spec.md",
+      "resource_effect_ref": "docs/bible/combat_and_recharge.md",
       "input_intent": "aim down/back and commit shot through PlayerController",
       "dual_use": [
         "攻击或触发合法机关",
@@ -321,7 +321,7 @@
           "from": "jump",
           "to": "recoil",
           "condition": "离地后、具有合法射击余量与精力、瞄准方向可读",
-          "resource_rule_ref": "docs/evidence/quality/action_budget_spec.md"
+          "resource_rule_ref": "docs/bible/combat_and_recharge.md"
         },
         {
           "from": "recoil",

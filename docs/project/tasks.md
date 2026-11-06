@@ -1,20 +1,20 @@
 # 活跃工作视图
 
-本页是可继续工作的入口，不是历史流水账。旧方向任务保留真实最后状态并移入 [归档](../evidence/tasks.md)；已完成工作从本页移出，由 Git／PR 追溯。待验收、待决定和待排期没有自动开工。表内状态只表达工作进度，验收结果与缺口留在各任务交接。
+唯一开发基线为PR137合入后的main；本次收敛开始时的其他旧PR已放弃，不审计或择取。基线已有实现按实际消费者复用。已结束工作从本页移出，由Git／PR追溯。待验收、待决定和待排期没有自动开工。表内状态只表达工作进度，验收结果与缺口留在各任务交接。
 
-接续任务先读本行和下一动作，再读对应工作线和直接依赖；新内容审查按需读取质量卡；归档中的依赖用于追溯，不代表需要重跑旧架构。新增缺陷只建一个明确范围的任务，更新本页和自己的工作线。运行事实见 [当前状态](current_state.md)，跨会话规则见 [生产规则](cloud_production.md)。
+接续任务先读本行和下一动作，再读对应工作线和直接依赖；新内容审查按需读取质量卡；依赖只列当前任务，已完成的实现直接以main代码为准。新增缺陷只建一个明确范围的任务，更新本页和自己的工作线。运行事实见 [当前状态](current_state.md)，跨会话规则见 [生产规则](cloud_production.md)。
 
 ## 待验收
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| DEATH-RUNTIME-01 | 复验已接入死亡优化的目标设备帧时间 | FIRST-USE-STUTTER-01 | blocked | [交接](worklines/death_runtime_01/scope.md) |
-| MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | MOBILE-WEB-AUDIO-FIX-03 | blocked | [交接](worklines/mobile_web_fps_04/scope.md) |
-| AUDIO-LAB-MATERIAL-01 | Lab 受伤 ABC 试听与七怪声音路由复核 | GAME-ARCH-CI-01 | in_progress | [交接](worklines/audio_lab_material_01/scope.md) |
+| DEATH-RUNTIME-01 | 复验已接入死亡优化的目标设备帧时间 | — | blocked | [交接](worklines/death_runtime_01/scope.md) |
+| MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | — | blocked | [交接](worklines/mobile_web_fps_04/scope.md) |
+| AUDIO-LAB-MATERIAL-01 | Lab 受伤 ABC 试听与七怪声音路由复核 | — | in_progress | [交接](worklines/audio_lab_material_01/scope.md) |
 | WINDKEEPER-PRESSURE-01 | 牧风者招式成果与新攻击档位适配审核 | — | review | [交接](worklines/windkeeper_pressure_01/scope.md) |
 | BELLSTRIDER-REWORK-01 | 鸣铃巡游机的唯一弱点、三招、回冲与奖励验收 | — | review | [交接](worklines/bellstrider_rework_01/scope.md) |
-| ENEMY-ALL-02 | 全现存怪物同体动作与实机审核 | ENEMY-WORKFLOW-01 | review | [交接](worklines/enemy_all_02/scope.md) |
-| PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | in_progress | [交接](worklines/player_presentation_01/scope.md) |
+| ENEMY-ALL-02 | 全现存怪物同体动作与实机审核 | — | review | [交接](worklines/enemy_all_02/scope.md) |
+| PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | — | in_progress | [交接](worklines/player_presentation_01/scope.md) |
 
 - `DEATH-RUNTIME-01`：聚合首用／战斗／死亡性能链，在同版真实设备复验；技术合入不代签帧时间。
 - `MOBILE-WEB-FPS-04`：实体手机复验普通 Web 帧时间、供音与大图；承接 MOBILE-WEB-PERF/AUDIO 系列。
@@ -28,8 +28,8 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| ITEM-V5-01 | 筛选永久装备并逐件迁移NPC升级/休息周期效果 | RUN-GEAR-01 | blocked | [交接](worklines/item_v5_01/scope.md) |
-| STORY-DESIGN-03 | 固定世界NPC任务、修钟与结局叙事 | STORY-DESIGN-02 | blocked | [交接](worklines/story_design_03/scope.md) |
+| ITEM-V5-01 | 筛选永久装备并逐件迁移NPC升级/休息周期效果 | — | blocked | [交接](worklines/item_v5_01/scope.md) |
+| STORY-DESIGN-03 | 固定世界NPC任务、修钟与结局叙事 | — | blocked | [交接](worklines/story_design_03/scope.md) |
 
 - `ITEM-V5-01`：先从旧候选选48件，逐件定义永久ID、NPC升级与周期额度；P17/G19仅在选中时解决。
 - `STORY-DESIGN-03`：以固定世界任务、修钟及结局条件重整人物与对白，不继承多Run前提。
@@ -38,8 +38,8 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| FOREST-BIBLE-V2-01 | 固定世界森林房间内容与环境演出 | REGION-BIBLE-WORKFLOW-01 | in_progress | [交接](worklines/forest_bible_v2_01/scope.md) |
-| PLAINS-BIBLE-V2-01 | 固定世界平原房间内容与环境演出 | FOREST-BIBLE-V2-01 | planned | [交接](worklines/plains_bible_v2_01/scope.md) |
+| FOREST-BIBLE-V2-01 | 固定世界森林房间内容与环境演出 | MV-RUNTIME-01 | planned | [交接](worklines/forest_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 固定世界平原房间内容与环境演出 | MV-RUNTIME-01 | planned | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 - `FOREST-BIBLE-V2-01`：待代表样房闭环后按F房间制作；保留v15动作/生态资产，不推进旧两图量产。
 - `PLAINS-BIBLE-V2-01`：待代表样房闭环后按P房间制作；复用主题/动作/美术，不推进随机扩池。
@@ -48,6 +48,6 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| MV-MIGRATION-01 | 方向、源数据、规范、技能与检查/路由迁移 | — | review | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01 | 共用状态与代表样房闭环，整理现行输入/派生链 | MV-MIGRATION-01 | planned | [交接](worklines/mv_migration/scope.md) |
+| MAINLINE-CONTEXT-01 | main收敛、删除历史证据、最小消费者与输出治理 | — | review | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01 | 共用状态与代表样房闭环，整理现行输入/派生链 | MAINLINE-CONTEXT-01 | planned | [交接](worklines/mv_migration/scope.md) |
 | MV-WORLD-GRAYBOX-01 | 216房结构与真实运行路线，按消费者退役旧链 | MV-RUNTIME-01 | planned | [交接](worklines/mv_migration/scope.md) |

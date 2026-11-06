@@ -210,7 +210,7 @@ def load_spatial_experiment(path, region_id, root=ROOT):
         # Preserve the original generation/art/scene scope at its current homes.
         # World state and arbitrary experiments are not geometry permissions.
         permitted = (name.startswith(('scripts/generation/', 'scripts/art/', 'resources/generation/', 'resources/art/',
-                                      'scenes/', 'assets/', 'tests/', 'tools/', 'docs/evidence/',
+                                      'scenes/', 'assets/', 'tests/', 'tools/',
                                       'game/world/generation/', 'game/world/components/scenes/',
                                       'game/presentation/world/art/', 'game/presentation/actors/art/',
                                       'game/presentation/effects/art/', 'game/presentation/world/resources/art/',

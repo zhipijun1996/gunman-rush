@@ -6,15 +6,15 @@ ROOT=Path(__file__).resolve().parents[1]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--capture',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--proof',type=Path);a=p.parse_args();src=a.capture.resolve();dst=a.output.resolve();proof=a.proof or src/'report.json';r=json.loads(proof.read_text())
+ if dst.is_relative_to(ROOT) and not dst.is_relative_to(ROOT/'build'):raise ValueError('Repository reports must be written under build/')
  if dst.exists():raise ValueError('Use fresh output')
  if r.get('status')!='passed' or r['movie_sha256']!=sha(src/'selected.mp4') or r['trace_sha256']!=sha(src/'trace.json'):raise ValueError('No verified unchanged native media')
  dst.mkdir(parents=True)
  for name in ['selected.mp4','chapters.json']:shutil.copy(src/name,dst/name)
- # Keep the several-thousand-input proof in Git once. The listening player
- # needs a bounded summary; duplicating both full source maps here exceeds
- # the existing site's expanded static-archive limit.
+ shutil.copy(proof,dst/'validation.json')
+ shutil.copy(src/'report.json',dst/'raw-report.json')
  summary={key:r[key] for key in ['status','commit','scope','engine','frame_count','movie_sha256','movie_bytes','trace_sha256','capture_attempt_status','capture_attempt_error','postvalidator_commit','runtime_sources_unchanged'] if key in r}
- summary.update(record_kind='listening-summary',full_validation_sha256=sha(proof),full_validation_url='https://github.com/zhipijun1996/gunman-rush/blob/feature/audio-director-01/docs/evidence/audio_director_04/capture/'+proof.name,raw_capture_report_url='https://github.com/zhipijun1996/gunman-rush/blob/feature/audio-director-01/docs/evidence/audio_director_04/capture/report.json')
+ summary.update(record_kind='listening-summary',full_validation_sha256=sha(proof),full_validation_url='validation.json',raw_capture_report_url='raw-report.json')
  (dst/'report.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
  shutil.copy(ROOT/'tools/sound_lab/selected_index.html',dst/'index.html')
  for source,name in [('config/audio_director/selected/selected.json','selected.json'),('config/audio_director/selected/user-20261028.json','user-choices.json'),('config/audio_director/v3/sources.json','sources.json')]:shutil.copy(ROOT/source,dst/name)

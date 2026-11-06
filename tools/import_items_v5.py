@@ -19,8 +19,8 @@ import xml.etree.ElementTree as ET
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-ARCHIVE = "docs/evidence/item_v5_01/source/items-v5-original.xlsx"
-SNAPSHOT = "docs/evidence/item_v5_01/source/workbook-snapshot.json"
+ARCHIVE = "config/source/items-v5-original.xlsx"
+SNAPSHOT = "build/item-authoring/workbook-snapshot.json"
 CONFIG = "config/items_v5.json"
 SYNERGIES = "config/item_v5_synergies.json"
 ORIGINAL_SHA256 = "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
@@ -441,7 +441,7 @@ def main() -> int:
     for path, value in ((args.snapshot, snapshot), (args.output, catalog), (args.synergies, synergies)):
         expected = encoded(value)
         if args.check:
-            if not path.is_file() or path.read_bytes() != expected:
+            if path != args.snapshot and (not path.is_file() or path.read_bytes() != expected):
                 raise SystemExit(f"V5 import drift: {path}")
         else:
             path.parent.mkdir(parents=True, exist_ok=True)

@@ -29,7 +29,7 @@ python3 tools/quality.py check docs/project/worklines/<议题>/quality/record.js
 python3 tools/quality.py check
 ```
 
-默认 check 读取当前工作线的卡；归档记录仅显式指定时验证。check 检查记录与证据一致性，`--require-complete` 用于本次约定范围的完成声明，不代表整个游戏获用户认可。
+默认 check 只读取当前工作线的卡；临时结果由该任务按需引用。check 检查记录与证据一致性，`--require-complete` 用于本次约定范围的完成声明，不代表整个游戏获用户认可。
 
 ## 验证与证据
 

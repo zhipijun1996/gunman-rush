@@ -11,17 +11,15 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def task_index_lines(root):
-    """Current work and historical evidence share one task-ID namespace."""
-    for relative in ('docs/project/tasks.md', 'docs/evidence/tasks.md'):
+    """Only current tasks define active dependencies."""
+    for relative in ('docs/project/tasks.md',):
         path = root / relative
         if path.is_file():
             yield from path.read_text().splitlines()
 
 
-def task_record_paths(root, *, include_archive=False):
-    """Current content cards by default; archived evidence only when requested."""
-    if include_archive:
-        yield from sorted((root / 'docs/evidence/quality/records').glob('*.json'))
+def task_record_paths(root):
+    """Current workline content cards only."""
     yield from sorted((root / 'docs/project/worklines').glob('*/quality/*.json'))
 
 

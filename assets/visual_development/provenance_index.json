@@ -2,16 +2,10 @@
   "schema_version": 1,
   "scope": "Visual-language source lookup; not a build manifest or quality acceptance",
   "direction": {
-    "path": "resources/visual_development/style_master.json",
-    "sha256": "748ba6e8d21cd7d2076e79b5d3a3f3a466ac583e373876cbce3819c1804c8c72"
+    "path": "game/presentation/world/resources/visual_development/style_master.json",
+    "sha256": "12e39faffba71cf1ed6d7183d42137534db697ca0382ff2f270d713c6df4037c"
   },
   "direction_selection": "B user-confirmed; generated master/assets and runtime composition remain candidates, not user-approved final game art",
-  "worker_default_reads": [
-    "resources/visual_development/style_master.json",
-    "assets/visual_development/master/b1_master.png",
-    "assets/visual_development/proposals/b_board.png",
-    "docs/evidence/visual_language/recipes.md"
-  ],
   "reading_policy": "Read only the asset-specific prompt/record on demand. Do not preload all PR history or this entire index. No automatic promotion into the formal asset pool.",
   "provenance_limits": [
     "Raw matching bytes establishes carrier identity only; missing call timing/model/reference argument receipt stays unknown. No time inferred from filesystem mtime.",

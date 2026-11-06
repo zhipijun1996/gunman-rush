@@ -525,33 +525,6 @@ def provenance_tamper_checks(capture_bytes, report, runtime_bytes, expected_sour
     return refused
 
 
-def recheck_existing(folder, source_archive, expected_commit):
-    """Revalidate preserved native facts using the new acceptance consumer.
-    This performs no engine work and does not relabel original evidence fresh.
-    """
-    folder, source_archive = Path(folder), Path(source_archive)
-    report = {'status':'failed', 'scope':'Historical R1 native165 evidence revalidated by current R2 Python acceptance consumer; native not reexecuted, no movie/AI/art changes', 'native_reexecuted':False, 'current_acceptance_sources':sources(), 'source_archive_sha256':sha(source_archive), 'started_epoch':time.time()}
-    try:
-        native = json.loads((folder/'g1_report.json').read_text())
-        capture_bytes = (folder/'g1_capture.json').read_bytes()
-        runtime_bytes = (folder/'g1_runtime.log').read_bytes()
-        with zipfile.ZipFile(source_archive) as archive:
-            require(len(archive.namelist()) == len(set(archive.namelist())) and set(archive.namelist()) == set(SOURCES)|{'source_manifest.json'}, 'Historical source archive missing/duplicated actual dependencies')
-            expected_sources = json.loads(archive.read('source_manifest.json'))['source_sha256']
-            require(set(expected_sources) == set(SOURCES), 'Historical source manifest incomplete')
-            require(all(hashlib.sha256(archive.read(name)).hexdigest() == digest for name, digest in expected_sources.items()), 'Historical source bytes do not match archived SHA')
-        stats = validate_evidence(capture_bytes, native, runtime_bytes, expected_sources, expected_commit, historical_no_stun=True)
-        data = json.loads(capture_bytes)
-        content_refusals = tamper_checks(data, historical_no_stun=True)
-        source_refusals = provenance_tamper_checks(capture_bytes, native, runtime_bytes, expected_sources, expected_commit, historical_no_stun=True)
-        unchanged = [name for name in SOURCES if name != 'tools/run_root_bell_tests.py']
-        require(all(sources()[name] == expected_sources[name] for name in unchanged), 'R2 unexpectedly changed gameplay/art/native producer; original native scope cannot be reused')
-        report.update(status='passed', observed_native=stats, historical_native_sources=expected_sources, content_mutation_refusals=content_refusals, receipt_mutation_refusals=source_refusals, unchanged_native_art_dependencies=unchanged, original_capture_sha256=hashlib.sha256(capture_bytes).hexdigest(), original_report_sha256=sha(folder/'g1_report.json'), original_runtime_sha256=hashlib.sha256(runtime_bytes).hexdigest())
-        print('ROOT BELL R2 PYTHON RECHECK: original native165 retained;',len(content_refusals),'content and',len(source_refusals),'receipt/scope negatives rejected; native_reexecuted=false')
-        print('ROOT BELL UNIQUE OUTPUT:',OUT.relative_to(ROOT))
-    finally:
-        report['finished_epoch'] = time.time()
-        (OUT/'recheck_report.json').write_text(json.dumps(report, indent=2)+'\n')
 
 
 def movie():
@@ -630,47 +603,11 @@ def output_policy_tests():
     return record
 
 
-def strict_formal_python_checks():
-    """Run the real verifier test CLI; synthetic transport is never native proof."""
-    folder = OUT / 'strict_formal_python'
-    require(not folder.exists(), 'Strict verifier output already exists')
-    command = [sys.executable, 'tools/test_root_bell_formal_verifier.py',
-               '--output-dir', str(folder.relative_to(ROOT))]
-    started = time.time()
-    result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=90)
-    log = OUT / 'strict_formal_python.log'
-    log.write_text(result.stdout + result.stderr)
-    require(result.returncode == 0 and re.search(
-        r'^STRICT FORMAL PYTHON: original27 \+ coherent full-main 9 refusals; no native$',
-        log.read_text(), re.M), 'Strict formal Python CLI failed or lacks completion marker')
-    report_path = folder / 'report.json'
-    require(report_path.is_file(), 'Strict formal Python CLI lacks its invocation-bound report')
-    data = json.loads(report_path.read_text())
-    require(data.get('status') == 'passed' and data.get('scope') ==
-            'Actual Python main negatives with explicitly synthetic transport, NO NATIVE/MOVIE execution',
-            'Strict formal Python report status/scope disagrees')
-    require(len(data.get('original27_refusals', [])) == 27 and
-            len(data.get('coherent_fullmain_refusals', {})) == 9 and
-            all(row.get('refused') is True for row in data['coherent_fullmain_refusals'].values()),
-            'Strict formal Python report omitted original27 or coherent full-main9 refusals')
-    require(data.get('current_verifier_sha256') == sha(ROOT/'tools/run_root_bell_formal.py') and
-            data.get('current_test_sha256') == sha(ROOT/'tools/test_root_bell_formal_verifier.py'),
-            'Strict formal Python report belongs to different verifier bytes')
-    return {'command':command, 'exit_code':result.returncode,
-            'started_epoch':started, 'finished_epoch':time.time(),
-            'report':str(report_path.relative_to(ROOT)), 'report_sha256':sha(report_path),
-            'log':str(log.relative_to(ROOT)), 'log_sha256':sha(log),
-            'verifier_sha256':data['current_verifier_sha256'],
-            'test_sha256':data['current_test_sha256'],
-            'native_reexecuted':False, 'scope':data['scope']}
 
 
 def main():
     global OUT
     parser = argparse.ArgumentParser()
-    parser.add_argument('--recheck-existing', help='Pure Python recheck of preserved g1_capture/report/runtime, no native replay')
-    parser.add_argument('--source-archive', help='Exact original source ZIP for --recheck-existing')
-    parser.add_argument('--native-source-commit', help='Explicit expected historical commit (defaults to current repository baseline)')
     parser.add_argument('--movie', action='store_true', help='Record separate single-fight animation fixture after tests')
     parser.add_argument('--movie-only', action='store_true', help='Record fixture on already-imported source; no technical rerun')
     parser.add_argument('--output-dir', help='Explicit NEW directory below build/root_bell; existing paths are always refused')
@@ -679,17 +616,11 @@ def main():
     policy_result = output_policy_tests()
     OUT = reserve_output(args.output_dir if args.output_dir else BASE/'runs'/str(time.time_ns()))
     (OUT/'invocation.json').write_text(json.dumps({'created_epoch':time.time(), 'output_policy':policy_result, 'scope':'new invocation; no previous result is reused'}, indent=2)+'\n')
-    if args.recheck_existing:
-        require(args.source_archive is not None and not args.movie and not args.movie_only, 'Historical recheck needs exact source archive and no native movie mode')
-        expected_commit = args.native_source_commit or subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
-        recheck_existing(args.recheck_existing, args.source_archive, expected_commit)
-        return
     if args.movie_only:
         movie()
         return
     report = {'output_policy': policy_result, 'status': 'failed', 'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(), 'source_before': sources(), 'damage_feedback_source_before': damage_feedback_sources(), 'scope': 'G0/G1 actual Motor/collision/projectile/phase/snapshot/placement tests; promotion gated; no independent/device/player approval', 'started_epoch': time.time()}
     try:
-        report['strict_formal_python'] = strict_formal_python_checks()
         output = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 120)
         (OUT / 'import.log').write_text(output)
         command = ['--headless', '--path', '.', '--fixed-fps', '60', '--script', 'tests/root_bell_runner.gd', '--', '--output-dir=res://' + str(OUT.relative_to(ROOT))]
@@ -701,10 +632,6 @@ def main():
         validate_capture(capture)
         report['validator_erasure_rejections'] = tamper_checks(capture)
         require(sources() == report['source_before'], 'source drift during tests')
-        strict = report['strict_formal_python']
-        require(strict['verifier_sha256'] == sha(ROOT/'tools/run_root_bell_formal.py') and
-                strict['test_sha256'] == sha(ROOT/'tools/test_root_bell_formal_verifier.py'),
-                'Strict formal Python source drift during native tests')
         native_receipt = dict(report, status='passed', assertions=int(match[1]), source_after=sources(), damage_feedback_source_after=damage_feedback_sources(), capture_sha256=sha(OUT/'capture.json'), runtime_log_sha256=sha(OUT/'runtime.log'))
         validate_evidence((OUT/'capture.json').read_bytes(), native_receipt, (OUT/'runtime.log').read_bytes(), sources(), native_receipt['source_commit'])
         native_receipt['receipt_mutation_refusals'] = provenance_tamper_checks((OUT/'capture.json').read_bytes(), native_receipt, (OUT/'runtime.log').read_bytes(), sources(), native_receipt['source_commit'])

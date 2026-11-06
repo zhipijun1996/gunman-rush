@@ -30,7 +30,7 @@ func execute() -> void:
 func check(ok: bool,label: String) -> void:
 	checks.append({"passed":ok,"label":label})
 func run() -> Dictionary:
-	var archive := "res://docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json"
+	var archive := "res://tests/fixtures/save_compat/cross_region_manifest.json"
 	check(FileAccess.get_sha256(archive)=="82d6ef43b5f8bbd0f14cdff9468cdc7dae17c5c986d78a447935982c46475efa","original historical campaign bytes retained")
 	# The source's forest-v6 suffix is not in today's whitelist. Its two actual
 	# Plains outputs still reproduce the exact schema-1 prefix before transition.

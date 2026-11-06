@@ -9,9 +9,28 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 from check_docs import document_target_exists, sparse_document_targets
 from check_quality import skill_workflow_errors
+from check_context_storage import validate as validate_storage, SEARCH_EXCLUDES, RETIRED
 
 
 class NavigationTests(unittest.TestCase):
+    def test_storage_policy_rejects_retired_outputs_and_missing_search_exclusions(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / '.ignore').write_text('\n'.join(SEARCH_EXCLUDES) + '\n')
+            (root / '.gitignore').write_text('/' + RETIRED + '/\n')
+            (root / 'tools').mkdir()
+            producer = root / 'tools/capture.py'
+            producer.write_text("output = 'build/capture/report.json'\n")
+            self.assertEqual(validate_storage(root), [])
+            producer.write_text("output = '" + RETIRED + "/report.json'\n")
+            self.assertTrue(any('Tool still references' in e for e in validate_storage(root)))
+            producer.unlink()
+            (root / RETIRED).mkdir(parents=True)
+            (root / RETIRED / 'log.txt').write_text('generated')
+            self.assertTrue(any('nonempty' in e for e in validate_storage(root)))
+            (root / '.ignore').write_text('')
+            self.assertTrue(any('exclusion' in e for e in validate_storage(root)))
+
     def test_concise_skill_is_valid_but_missing_empty_and_duplicate_sections_fail(self):
         concise = '## 适用任务\n明确范围\n\n## 操作\n执行具体消费者\n\n## 验证与交付\n给实际命令和结果\n'
         self.assertEqual(skill_workflow_errors(concise), [])
@@ -64,26 +83,6 @@ class NavigationTests(unittest.TestCase):
         self.assertIn("docs/project/worklines/", entry)
         self.assertNotIn("docs/handoff.md", entry)
 
-    def test_retained_history_uses_exact_inputs_and_rejects_corruption_or_loss(self):
-        import shutil
-        import region_style_history as history
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
-            manifest = root / history.STYLE33_ARCHIVE / "manifest.json"
-            manifest.parent.mkdir(parents=True)
-            shutil.copy2(ROOT / history.STYLE33_ARCHIVE / "manifest.json", manifest)
-            for path, (frozen, _) in history.FROZEN_CONTEXT_INPUTS.items():
-                target = root / frozen
-                target.parent.mkdir(parents=True, exist_ok=True)
-                original = (ROOT / frozen).read_bytes()
-                target.write_bytes(original)
-                self.assertEqual(history.style33_source(root, path), original)
-                target.write_bytes(original + b"changed")
-                with self.assertRaisesRegex(AssertionError, "Frozen context input changed"):
-                    history.style33_source(root, path)
-                target.unlink()
-                with self.assertRaises(ValueError):
-                    history.style33_source(root, path)
 
 
 if __name__ == "__main__":

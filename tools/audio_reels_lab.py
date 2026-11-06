@@ -43,7 +43,7 @@ def original_sources():
  for event,cue in WEAPON_CUES.items():records['original/'+event]=copy.deepcopy(records['original_weapon/'+cue])
  for cue in ['jump','land','heavy']:
   paths=sorted((ROOT/'assets/player_presentation_01/feel_audio_v1').glob(cue+'_*.wav'))
-  records['original_motion/'+cue]={'author':'Kenney; existing project edits','license':'CC0-1.0','source_url':'https://kenney.nl/assets/impact-sounds','original_filename':cue+'_0/1/2.wav (retained feel-audio-v1)','commercial_use':True,'attribution_required':False,'download_date':'原项目已存，见feel-audio-provenance.json','original_files':{str(p.relative_to(ROOT)):sha(p) for p in paths},'processing_provenance':'docs/evidence/worklines/PLAYER-PRESENTATION-01/feel-audio-provenance.json'}
+  records['original_motion/'+cue]={'author':'Kenney; existing project edits','license':'CC0-1.0','source_url':'https://kenney.nl/assets/impact-sounds','original_filename':cue+'_0/1/2.wav (retained feel-audio-v1)','commercial_use':True,'attribution_required':False,'download_date':'原项目已存，见feel-audio-provenance.json','original_files':{str(p.relative_to(ROOT)):sha(p) for p in paths},'processing_provenance':'assets/player_presentation_01/provenance/feel-audio-provenance.json'}
  p=ROOT/'assets/audio/bgm/the_kindred_hearth.mp3'
  records['original/home_bgm']={'author':'用户提供；作者以原provenance为准','license':'User-provided for this game/audition; no general reuse grant','source_url':'https://github.com/zhipijun1996/gunman-rush/blob/main/assets/audio/bgm/provenance.json','original_filename':p.name,'commercial_use':'Only as authorized for this project, not a third-party sample library','attribution_required':None,'commercial_conditions':'Only this game and its audition; third-party reuse/attribution terms have not been granted or independently verified.','path':str(p.relative_to(ROOT)),'sha256':sha(p),'download_date':'用户原提供，见assets/audio/bgm/provenance.json'}
  return records
@@ -151,7 +151,7 @@ def build(capture:Path,output:Path,interactive_url:str):
   for path in option['variants']:
    p=ROOT/path.removeprefix('res://');shutil.copyfile(p,output/'audio'/p.name)
  # Preserve terms and page snapshots; selected raw materials stay in source cache.
- license_inputs=[ROOT/'docs/evidence/worklines/PLAYER-PRESENTATION-01/feel-audio-provenance.json',ROOT/'docs/evidence/worklines/PLAYER-PRESENTATION-01/weapon-audio-v2-provenance.json',ROOT/'assets/player_presentation_01/weapon_audio_v2/sources/COPYING.adoc',ROOT/'assets/audio/bgm/provenance.json',*ROOT.glob('assets/audio/kenney/*LICENSE*')]
+ license_inputs=[ROOT/'assets/player_presentation_01/provenance/feel-audio-provenance.json',ROOT/'assets/player_presentation_01/provenance/weapon-audio-v2-provenance.json',ROOT/'assets/player_presentation_01/weapon_audio_v2/sources/COPYING.adoc',ROOT/'assets/audio/bgm/provenance.json',*ROOT.glob('assets/audio/kenney/*LICENSE*')]
  for p in (ROOT/'assets/audio/director_v3/_sources').rglob('*'):
   if p.is_file() and p.suffix.lower() in ['.txt','.html','.md','.adoc']:license_inputs.append(p)
  for i,p in enumerate(license_inputs):

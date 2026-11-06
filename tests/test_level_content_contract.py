@@ -167,8 +167,6 @@ class ContentContractTests(unittest.TestCase):
             evidence.update(status="passed", method="real_motor", artifacts=[{"path": "native.json", "sha256": hashlib.sha256(target.read_bytes()).hexdigest()}])
             self.assertTrue(contract.validate_bundle(value, root))
 
-    def test_published_json_schema_is_same_machine_vocabulary(self):
-        self.assertEqual(contract.SCHEMA, json.loads((ROOT / "docs/evidence/sources/ai_level_design_v1/content.schema.json").read_text()))
 
     def test_native_receipt_identity_input_and_terminal_counterexamples(self):
         # Synthetic unit data exercises only the receipt reader. It is never a

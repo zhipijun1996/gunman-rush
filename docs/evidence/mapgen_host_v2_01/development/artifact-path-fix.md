@@ -1,7 +1,0 @@
-# MAPGEN-HOST-V2-01 artifact declaration correction
-
-Confirmed: my original candidate incorrectly declared `build/mapgen_host_v2_01/native.json` as an artifact root. `tools/harness.py:449–469` enumerates only `base.rglob("*")`; it does not include the base itself when it is a regular file. The before/after output scan therefore never discovered this JSON, and the collector could not archive it. The earlier 49 passing planner tests checked the same incorrect string; they did not test artifact discovery.
-
-The minimal fix is exactly the directory `build/mapgen_host_v2_01` in this new check, plus the matching expectation in its new planner test. Keep all old definitions, the runner, marker, serial flag, 180-second budget, inputs and profile order unchanged. No collector or workflow change is needed. Existing Harness tests already exercise real generated output collection and a custom directory root (`tests/test_harness.py:213`, `:327`).
-
-The previous native file was separately retained by root, not archived by that Harness declaration. Previous successful checks remain successful executions; their artifacts must not be retrospectively described as containing native.json. After the fresh rerun, inspect the actual artifact index/tree or compressed member and compare JSON bytes/SHA, in addition to the planner and Harness suite results. No tests or engine were run for this read-only confirmation, and no repository file was changed.
