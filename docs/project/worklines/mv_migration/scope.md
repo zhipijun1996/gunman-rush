@@ -59,13 +59,13 @@ UnderworldUI持有并复用图标AtlasTexture，避免临时引用释放造成�
 
 ## 验证、限制与下一动作
 
-最终运行源码`46d2867af1c794249b936d9f1a92c89304631efd`，Web build `0a5567befbe5`；[同源CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/42255972307)四项成功，[部署](https://github.com/zhipijun1996/gunman-rush/actions/runs/42257570932)成功。公开build-info/HTML/完整PCK核实一致；精确产物保留在`prepared/mv-demo2-0a5567befbe5`，本次[验收摘要、日志和截图](https://zhipijun1996.github.io/gunman-rush/verification/report.json)随包发布。
+最终运行源码`695847d7396318dfa9d7ed5bbfc0ebd8a4fc5692`，Web build `0613b26ff11d`；[同源CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/42268953443)四项成功，[部署](https://github.com/zhipijun1996/gunman-rush/actions/runs/42269986694)首次在Pages syncing_files阶段超时，正用同包重试；线上仍为0a5567befbe5，新包尚未签收发布。精确产物保留在`prepared/mv-demo2-0613b26ff11d`，验证日志、截图和夹具说明位于该分支verification/report.json，成功发布后由[试玩站验收入口](https://zhipijun1996.github.io/gunman-rush/verification/report.json)访问。
 
-世界专项通过：状态24、服务30、移动能力5、房间29、UI16、新表现12、体验反例28、共鸣回复24、生命周期20断言。真实五房战斗、越过荆棘到安全台拾取、领取H、返回交付与独立进程继续通过；服务UI/服务重启及回复重启通过。新表现覆盖遮幕后步入/侧跳/下落、小跳镜头缓冲、向上读告示牌、关闭后首次交互、实体安全台与荆棘伤害。
+世界专项通过：状态24、服务30、金币8、移动能力5、房间29、UI17、表现16、体验反例28、共鸣回复24、生命周期20断言。真实五房路线完成战斗、实际拾取Boss金币、荆棘旁材料、H、返回交付与独立进程继续；服务UI/服务重启、回复重启、未拾取金币重启均通过。金币覆盖真实死亡/旧表现渲染、离房保留、写失败保留、真实靠近入账和重复拒绝；共用PlainsMotionLoot回归603断言通过。
 
-world-build6、world-design9、上下文导航5、A/B/C/D路线与55反例通过；文档导航与质量记录一致性通过，质量记录一致不代签旧内容体验。共用输入37断言通过；Foundry实跑36句段/18连续路线并重建basis。最终Web闭包、隔离PCK五房与真实落地、缓存预算检查通过。临时原文/日志归ignored build/architecture/foundation4与demo2-visual，不新增持久报告目录。
+world-build6、world-design9、上下文导航5、A/B/C/D路线和55反例、文档导航及质量记录一致性通过。Foundry实跑36句段/18连续路线；最终Web闭包、隔离PCK五房/真实落地、缓存预算通过。纹理微测：同图标40次调用从880ms/40个RID降至19ms/1个RID，包含首次加载；这是资源创建测量，不等于整机帧率签收。原文归ignored build/architecture/foundation5与demo2-visual，不新增持久报告目录。
 
-最终包浏览器实测：桌面新游戏/告示牌/移动跳跃；手机布局用真实ScreenTouch上推左杆打开NPC回应，关闭后移动到充电站再上推，生命2→5、修订28→29，刷新继续仍为生命5/共鸣91。手机使用最终原生正常路线赚取的存档；P-R06贴图观察使用明确声明的充电站放置夹具，不冒充浏览器正常通关。充电站/告示牌实际落地、荆棘渲染已审视；安全拾取由原生真实路线及反例验证。无脚本/页面异常；favicon404及Emscripten模板主线程提示单列，不签收性能。
+最终包浏览器审视：P-R06材料/荆棘正常显示，P-R08暗区无硬边矩形，P-R14实体金币/H图标可见；这些使用明确声明的房间放置/胜利夹具，真实战斗由原生路线证明。手机960×540触屏模拟用正常路线赚取的存档，实际左杆向上打开底部NPC对话，再触屏进入可滚动服务；中文字号和短对话留白已核查。无脚本/页面异常；favicon404与Emscripten主线程提示保留单列，不签收目标性能。
 
 当前只签收五房及上述试制服务样板。其余211房、房内分区地图、最终48件/正式价格、正式人物任务/迁居/主线修钟/结局尚未完成；死亡金币政策仍待设计确认。实体手机/手柄、目标性能、最终美术/听感/平衡未签收，浏览器触屏模拟单列，不声称真机通过。
 

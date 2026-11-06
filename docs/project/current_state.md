@@ -4,7 +4,7 @@
 
 | 范围 | 当前行为与入口 |
 | --- | --- |
-| 正常游戏入口 | project.godot → FixedWorldApp；原标题展示/正式人物/HUD，标题新游戏/继续，五房环路、共用玩家、真实墙面缺口、可见步入/侧跳/下落、统一缓冲镜头、尸体/敌人周期、充电不原地刷怪及死亡恢复、牧风者胜利/H唯一领取；旧DemoApp保留为显式回归入口 |
+| 正常游戏入口 | project.godot → FixedWorldApp；原标题展示/正式人物/HUD，标题新游戏/继续，五房环路、共用玩家、真实墙面缺口、可见步入/侧跳/下落、房间/内场约束镜头、尸体/敌人周期、充电不原地刷怪及死亡恢复、牧风者胜利/H唯一领取；旧DemoApp保留为显式回归入口 |
 | 新世界状态/保存 | FixedWorldState按永久/周期/尝试职责提交，新schema及独立原生槽/Web key；WorldSaveService复用MetaSaveService可靠IO。基础枪首档试制5伤害；Q只在明确授予的专项夹具验收，正式首批不授予 |
 | 旧原型运行流程 | 标题 → 家园 → 平原两张连通探索图 → H／钩索 → 森林两图 → 开发边界；`RunCampaignProgression` 负责能力权益和地区准入 |
 | 角色资源 | 基础一跳、一发空中弹药；射击不耗时间能量，枪械／钩索共用AirFocus；共鸣蓄力回复复用HealthState/CombatEnergyState，数值与恢复/取消规则见 [资源合同](../bible/combat_and_recharge.md) |
@@ -19,7 +19,7 @@
 | CI与交付 | 日常固定project／import／smoke／contracts四项，开发显式选手动专项；森林H控制器回归绑定独立测试夹具，旧随机地区路由拒绝执行；发布和试玩部署独立手动执行 |
 | 工程 | 正式代码位于 `game/`；`scripts/`、`scenes/`、`resources/` 中仍有当前 Definition、Boss场景与森林布局实现 |
 
-目标是固定世界类银河恶魔城；当前交付五房和试制服务闭环，已接入统一镜头/可见入场、告示牌/向上交互与机器人充电站，其余211房与正式内容尚未施工。[线上试玩](https://zhipijun1996.github.io/gunman-rush/) build `0a5567befbe5` 对应源码 `46d2867af1c794249b936d9f1a92c89304631efd`（PR140，尚未合入main）。同源发布、公开完整PCK与浏览器检查通过；验证和设备边界见 [当前交接](worklines/mv_migration/scope.md)，[验收产物](https://zhipijun1996.github.io/gunman-rush/verification/report.json)随该构建发布。
+目标是固定世界类银河恶魔城；当前交付五房和试制服务闭环，已接入实体入场落点/内场镜头、向上交互/可读对话、机器人充电站与既有物理金币掉落，其余211房与正式内容尚未施工。[线上试玩](https://zhipijun1996.github.io/gunman-rush/) build `0a5567befbe5` 对应源码 `46d2867af1c794249b936d9f1a92c89304631efd`（PR140，尚未合入main）。同源发布、公开完整PCK与浏览器检查通过；验证和设备边界见 [当前交接](worklines/mv_migration/scope.md)，[验收产物](https://zhipijun1996.github.io/gunman-rush/verification/report.json)随该构建发布。
 
 ## 当前缺口
 
