@@ -1,0 +1,182 @@
+{
+  "schema": "godot-room-art-cloud-verification-v1",
+  "bundle_version": "1.0.0",
+  "status": "passed-with-explicit-visual-limitations",
+  "tested_in": "Fresh directory extracted from the delivery ZIP in the current managed Linux environment; not the user target repository/environment.",
+  "runtime_versions": {
+    "Python": "3.12.14",
+    "Node": "24.22.1",
+    "Godot": "4.6.3.stable.official.7d41c59c4",
+    "Pillow": "13.0.0",
+    "NumPy": "2.3.5",
+    "SciPy": "1.17.0",
+    "canvas": "0.1.100",
+    "sharp": "0.35.5"
+  },
+  "archive_restore": {
+    "passed": true,
+    "bundle_version": "1.0.0",
+    "files_checked": 603,
+    "hashes_checked": true,
+    "regions": 16,
+    "terrain47_regions": 16,
+    "used_assets_checked": 177,
+    "errors": [],
+    "warnings": [],
+    "scope": "Bundle integrity and asset/configuration checks; no aesthetic or gameplay approval.",
+    "elapsed_seconds": 0.101
+  },
+  "local_dependency_install": {
+    "passed": true,
+    "installed": [
+      {
+        "node": {
+          "canvas": "0.1.100",
+          "sharp": "0.35.5"
+        }
+      },
+      {
+        "python": {
+          "Pillow": "13.0.0"
+        },
+        "venv": ".venv-art"
+      }
+    ],
+    "elapsed_seconds": 9.471,
+    "host_node_module_fallbacks_removed": true
+  },
+  "godot_prepare": {
+    "passed": true,
+    "terrain_atlases_restored": 16,
+    "sprites": 540,
+    "regions": 16,
+    "point_lights": 50,
+    "occluders": 128,
+    "collision_bodies": 96
+  },
+  "canvas": {
+    "passed": true,
+    "renderer": "Canvas/Skia, not Godot",
+    "regions": [
+      "windchime_plains",
+      "thorn_forest"
+    ],
+    "checks": [
+      "all_selected_assets_loaded",
+      "windchime_plains:lighting_changes_pixels",
+      "windchime_plains:depth_changes_pixels",
+      "thorn_forest:lighting_changes_pixels",
+      "thorn_forest:depth_changes_pixels",
+      "integer_depth_placements_at_camera_minus32_zero_plus32"
+    ],
+    "frames": [
+      {
+        "region": "windchime_plains",
+        "sha256": "38f04121fec5bc3421cb8fc11377bc4509207d805ff82056ea8aee952f7af221",
+        "matches_packaged_reference": true
+      },
+      {
+        "region": "thorn_forest",
+        "sha256": "26971b55a1460fe5155f269ff8c89116e131d2b20a861099159062c1825599e1",
+        "matches_packaged_reference": true
+      }
+    ],
+    "scope": "Restore smoke test on the existing shared sample and ±32px horizontal camera offsets; no new room-layout or gameplay acceptance."
+  },
+  "offline_html": {
+    "passed": true,
+    "regions": 16,
+    "bytes": 11079420,
+    "inline_regions": [
+      "windchime_plains",
+      "thorn_forest"
+    ],
+    "inline_bytes": 930756,
+    "browser_ui_validation": "not performed in this handoff test"
+  },
+  "godot_headless": {
+    "version": "4.6.3.stable.official.7d41c59c4",
+    "passed": true,
+    "checks": 131,
+    "regions": 16,
+    "rendering": "headless dummy renderer; no GPU frame acceptance"
+  },
+  "source_rebake": {
+    "passed": true,
+    "commands": [
+      {
+        "script": "bake-v2-assets.py",
+        "exit_code": 0,
+        "elapsed_seconds": 14.074
+      },
+      {
+        "script": "autotile/bake_corners.py",
+        "exit_code": 0,
+        "elapsed_seconds": 0.905
+      },
+      {
+        "script": "build-autotiles.py",
+        "exit_code": 0,
+        "elapsed_seconds": 2.569
+      }
+    ],
+    "source_overlay": [
+      {
+        "archive": "godot-room-art-cloud-sources-terrain-backgrounds.zip",
+        "source_images": 6,
+        "crc": true,
+        "no_existing_files_overwritten": true
+      },
+      {
+        "archive": "godot-room-art-cloud-sources-props-depth.zip",
+        "source_images": 8,
+        "crc": true,
+        "no_existing_files_overwritten": true
+      }
+    ],
+    "native_png_files_checked": 413,
+    "changed_files": [],
+    "scope": "Actual rebake from the 14 supplied v2 source PNGs. Original v1 source images are not part of these optional packs."
+  },
+  "post_rebake_contract": {
+    "passed": true,
+    "bundle_version": "1.0.0",
+    "files_checked": 603,
+    "hashes_checked": false,
+    "regions": 16,
+    "terrain47_regions": 16,
+    "used_assets_checked": 177,
+    "errors": [],
+    "warnings": [],
+    "scope": "Bundle integrity and asset/configuration checks; no aesthetic or gameplay approval.",
+    "elapsed_seconds": 0.055
+  },
+  "fresh_session_trial": {
+    "passed": true,
+    "task": "Prepare a thorn_forest vertical room brief from this skill and local assets without prior conversation context.",
+    "result": "Resolved bundle/style/art versions, viewed relevant anchors and sprites, checked selected asset hashes, retained candidate statuses, identified vertical coverage/camera/masks/gameplay work.",
+    "output_sha256": "cf1019f92df741d77970463413e3b599ec60c77884908e3d168af1df1e0ed54d",
+    "scope": "Preparation/asset discovery only; no vertical room implementation or aesthetic approval."
+  },
+  "visual_limitations": {
+    "status": "blocked",
+    "godot_rendered_images": 0,
+    "godot_rendered_videos": 0,
+    "display": null,
+    "attempt": "Existing Xorg dummy display with Mesa software rendering",
+    "error": "Cannot establish any listening sockets",
+    "headless_driver": "dummy",
+    "notes": [
+      "Headless checks validate imported resources, nodes and behavior only.",
+      "No GPU or software-rendered Godot viewport was captured in this environment.",
+      "The existing study.gd capture path rejects the Dummy driver rather than returning a false screenshot."
+    ]
+  },
+  "not_claimed": [
+    "Deployment into the user game repository or target Codex Cloud environment.",
+    "Godot window/GPU visual acceptance.",
+    "New long-room, shaft, or low-ceiling layouts fully implemented and playtested.",
+    "New image-generation tools installed or available in every target environment."
+  ],
+  "delivery_checks": "Final ZIP CRC, safe member paths and manifest hashes checked after the reports were sealed."
+}

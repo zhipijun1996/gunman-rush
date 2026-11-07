@@ -1,12 +1,22 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=5 format=3]
 [ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
 [node name="P-R03" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R03"
-arrival_text = "向前走，用跳跃登上前方台阶。"
-tutorial_target = "P-R03:practice:01"
-platforms = Array[Rect2]([Rect2(0, 530, 720, 110), Rect2(720, 450, 400, 190), Rect2(1120, 370, 320, 270), Rect2(1540, 320, 1276, 320)])
-one_way_indices = Array[int]([])
-start_point = Vector2(144, 512)
-enemy_placements = Array[Dictionary]([{"id":"P-R03:practice:01","behavior":"patrol","max_health":5,"point":[1000,432]}])
-signs = Array[Dictionary]([{"text": "你是由时间齿轮驱动的机器人。左右移动，Space或跳跃键起跳；靠近告示牌、人物或充电站时，W、↑或左摇杆向上交互。", "point": [160, 470]}, {"text": "前方是练习目标。鼠标或右摇杆按住瞄准，正常松开发射。命中积累共鸣；静止按住C、手柄B或回复键可以蓄力修复。", "point": [740, 385]}, {"text": "前方断口需要空中反冲：起跳后向左下瞄准并松手射击，借反冲向右跃过。空中瞄准会放慢时间。", "point": [1160, 305]}, {"text": "前方钟外小站。向上与回收匠交谈，再到充电站向上充电，保存复位点。", "point": [2450, 255]}])
+art_profile = "meadow"
+arrival_text = "初行草坡"
+platforms = Array[Rect2]([Rect2(0, 512, 384, 128), Rect2(384, 464, 384, 176), Rect2(768, 416, 384, 224), Rect2(1152, 368, 384, 272), Rect2(832, 160, 192, 32), Rect2(656, 224, 160, 24), Rect2(832, 296, 160, 24), Rect2(656, 368, 160, 24)])
+one_way_indices = Array[int]([5, 6, 7])
+start_point = Vector2(144, 494)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point": [224, 464], "text": "左右移动，按住跳跃越过台阶。\n向上与人物、告示牌、充电站互动。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "windchime_plains_v2_chime_span", "point": [240, 512.0], "layer": -2}, {"asset": "world_clock_far", "point": [1328, 368], "layer": -14, "depth": 0.52}])
+tutorial_action = "tutorial_move"
+tutorial_recoil_finish_x = 960.0

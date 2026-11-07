@@ -1,0 +1,160 @@
+{
+  "schema": "world.station-network.v07",
+  "baseline": "source_inputs/station-network-before-v05.json",
+  "baseline_sha256": "569314a3a8ace57cb6ac869d822fdc035c1bbd0e16f04cdaa7942ed762b591a8",
+  "added_room_ids": [
+    "P-R31",
+    "P-R32",
+    "P-R33",
+    "P-R34",
+    "P-R35"
+  ],
+  "added_edge_ids": [
+    "HUB-P01-P31",
+    "HUB-P31-P08",
+    "HUB-P31-P32",
+    "HUB-P32-P33",
+    "HUB-P33-P35",
+    "HUB-P31-P34",
+    "HUB-P34-P35",
+    "HUB-P35-P12",
+    "HUB-P35-P19",
+    "HUB-P35-P18",
+    "HUB-P32-P35"
+  ],
+  "changed_edges": [
+    {
+      "id": "C07",
+      "before": {
+        "a": "Z-R01",
+        "b": "P-R12",
+        "requires": [
+          []
+        ]
+      },
+      "after": {
+        "a": "Z-R01",
+        "b": "P-R33",
+        "requires": [
+          []
+        ]
+      }
+    },
+    {
+      "id": "room-link-138",
+      "before": {
+        "a": "P-R20",
+        "b": "P-R08",
+        "requires": [
+          []
+        ]
+      },
+      "after": {
+        "a": "P-R20",
+        "b": "P-R34",
+        "requires": [
+          []
+        ]
+      }
+    },
+    {
+      "id": "SC-P01",
+      "before": {
+        "a": "P-R15",
+        "b": "P-R08",
+        "requires": [
+          [
+            "shortcut_p01",
+            "clock_P"
+          ]
+        ]
+      },
+      "after": {
+        "a": "P-R15",
+        "b": "P-R32",
+        "requires": [
+          [
+            "shortcut_p01",
+            "clock_P"
+          ]
+        ]
+      }
+    }
+  ],
+  "station_room": "P-R01",
+  "decision_room": "P-R31",
+  "pre_H_choices": [
+    {
+      "room_id": "P-R08",
+      "experience": "西侧首Boss/森林旧路"
+    },
+    {
+      "room_id": "P-R32",
+      "experience": "安全近端预览H索点，地面去塔脚"
+    },
+    {
+      "room_id": "P-R34",
+      "experience": "普通地面战斗，东田与水渠分岔"
+    }
+  ],
+  "basic_cycles": [
+    [
+      "P-R01",
+      "P-R08",
+      "P-R31",
+      "P-R01"
+    ],
+    [
+      "P-R34",
+      "P-R35",
+      "P-R19",
+      "P-R20",
+      "P-R34"
+    ],
+    [
+      "P-R32",
+      "P-R33",
+      "P-R35",
+      "P-R34",
+      "P-R31",
+      "P-R32"
+    ]
+  ],
+  "H_route": {
+    "room_id": "P-R32",
+    "from_section": "main",
+    "to_section": "high:H",
+    "internal_route_id": "IR:P-R32:high:H:approach",
+    "exit_edge": "HUB-P32-P35",
+    "target_room": "P-R35"
+  },
+  "repair_return": {
+    "edge_id": "SC-P01",
+    "arrival_room": "P-R32",
+    "arrival_section": "main",
+    "station_return_rooms": [
+      "P-R32",
+      "P-R31",
+      "P-R01"
+    ],
+    "safe_before_choice": true
+  },
+  "early_clock_approach": [
+    "P-R01",
+    "P-R31",
+    "P-R32",
+    "P-R33",
+    "Z-R01"
+  ],
+  "clock_approach_scope": "P33已经是平原所属塔脚近景；Z01既有安全门厅。保留Z04主体与主轴的能力、核心、剧情条件。",
+  "retained_rewards": [
+    "EQ_MAP_P02",
+    "TG04",
+    "TG03"
+  ],
+  "new_unique_rewards": 0,
+  "new_rest_points": 0,
+  "new_shops": 0,
+  "first_boss_minimum_door_crossings": 9,
+  "human_validation": "拓扑不预测真实玩家转向比例；灰盒测量出站选择、H后是否向东试路、回站目的与盲测记忆。"
+}

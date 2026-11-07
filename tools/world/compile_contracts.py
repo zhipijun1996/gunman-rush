@@ -505,7 +505,7 @@ def build(canonical, construction, replay_path):
         actual_boss_req = construction["boss_first_visit"].get(boss["id"]) if boss else None
         first = {
             "minimum_legal_state_dnf": actual_boss_req,
-            "minimum_legal_state_scope": "原Boss声明的可首访战斗配置，入口预览可更早；完整可达性以v04分区模拟为准。" if boss else "普通房不另造第二套能力门：合法抵达以canonical分区路线定义；下列是局部条件和已回放的具体首访样本。",
+            "minimum_legal_state_scope": "原Boss声明的可首访战斗配置，入口预览可更早；完整可达性以现行分区模拟为准。" if boss else "普通房不另造第二套能力门：合法抵达以canonical分区路线定义；下列是局部条件和已回放的具体首访样本。",
             "local_main_access_conditions_dnf": derive_local_main_conditions(room),
             "recommended_attack_range": BOSS_WORK[boss["id"]][5] if boss else REGION_DIFFICULTY[room["region"]]["attack"],
             "recommended_attack_is_not_a_gate": True,
@@ -524,7 +524,8 @@ def build(canonical, construction, replay_path):
                                     "use": "世界地图相对位置和形态意图；可调整场景局部形状，保留拓扑、门ID与分区绑定。"},
             "world_geometry": {"bounds_world_units": [0, 0, w, h], "shape_class": shape_class,
                                "outline_candidate_local": coarse_outline(room, extent),
-                               "status": "adjustable_construction_candidate_not_physics_validated",
+                               "map_origin": source.get("map_origin"),
+                               "status": "authored_room_envelope" if source.get("implemented") else "adjustable_construction_candidate_not_physics_validated",
                                "rationale": rationale, "authoring_grid_world_units": 16,
                                "grid_is_convenience_not_ability_envelope": True,
                                "screen_reference": {"viewport_px": VIEWPORT, "working_view_world_units": WORKING_VIEW, "working_zoom": 1.6, "zoom_status": "比较基线，非最终统一镜头"},
@@ -579,7 +580,7 @@ def build(canonical, construction, replay_path):
             b["encounter_section"] = actions.get(boss.get("defeat_action"), {}).get("section_id", "main")
             b["entry_flow"] = ["进入来向安全区并看见场地", "按房内路线真实到达战斗触发线", "跨线开战后关闭战闸", "实际胜利写永久Boss结果", "战后交互领取唯一奖励或修钟"]
             if b.get("retry_plan"):
-                b["retry_plan"]["qualification_scope"] = "旧房间数作定位参考；v04分区和实机秒数重新验收。"
+                b["retry_plan"]["qualification_scope"] = "旧房间数作定位参考；现行分区和实机秒数重新验收。"
                 b["retry_plan"]["retry_path_contract"] = "已实际休息点至战前触发线有安全熟路；物品门按状态，能力由真实已掌握路线通行。"
             entry["boss"] = b
             entry["boss_arena"] = {
@@ -604,7 +605,7 @@ def build(canonical, construction, replay_path):
         result_rooms.append(entry)
 
     contracts = {
-        "schema": "gunman-rush.room-graybox-contracts.v04",
+        "schema": "gunman-rush.room-graybox-contracts.v07",
         "status": "可开始全世界结构灰盒的施工合同；候选尺寸、镜头、动作与战斗尚需实机校准。",
         "canonical_source": "config/world/world.json",
         "canonical_normalized_json_sha256": hashlib.sha256(json.dumps(canonical, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
@@ -644,7 +645,7 @@ def build(canonical, construction, replay_path):
         "build_phases": [
             "创建共用房间基础场景、三种普通转场和交互式交通；保留玩家运动参数。",
             "首批样房校准镜头、门台、地形1/2HP与Q2秒/危险过滤，冻结可复用接口。",
-            "按本合同创建全216房结构，填入真实门与分区、能力挑战占位、休息/NPC/Boss/奖励事件占位；物理能力锁不能退化为隐藏布尔门。",
+            "按本合同创建全部当前房间结构，填入真实门与分区、能力挑战占位、休息/NPC/Boss/奖励事件占位；物理能力锁不能退化为隐藏布尔门。",
             "沿A/B/C/D路线验证本体探索、交互与永久存档，记录实际失败/重试成本。",
             "逐房完善具体平台、敌人、Boss动作、奖励袋、美术与声音；不因打磨重排永久ID。",
         ],
@@ -740,7 +741,7 @@ def audit_contracts(data, canonical):
         "required_reserved_areas": sum(len(r["world_geometry"]["required_reserved_areas"]) for r in rooms.values()),
     }
     validation = {
-        "room_count_216": len(rooms) == 216,
+        "room_count_matches_source": len(rooms) == len(canonical["rooms"]),
         "room_ids_match_canonical": set(rooms) == {r["id"] for r in canonical["rooms"]},
         "two_doors_per_connection": len(doors) == 2 * len(canonical["connections"]),
         "unique_entry_spawn_ids": len(spawns) == sum(len(r["entry_spawns"]) for r in rooms.values()),

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R23" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R23"
+traveler_point = Vector2(560, 494)
+art_profile = "shelter"
+arrival_text = "废弃候车棚"
+platforms = Array[Rect2]([Rect2(0, 608, 1152, 32), Rect2(0, 512, 1152, 128), Rect2(0, 512, 288, 32), Rect2(640, 160, 192, 32), Rect2(464, 160, 64, 24), Rect2(464, 296, 160, 24), Rect2(640, 368, 160, 24), Rect2(464, 440, 160, 24)])
+one_way_indices = Array[int]([4, 5, 6, 7])
+start_point = Vector2(144, 494)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point": [224, 464], "text": "奉王令：愿每位国民，都不再惧怕岁月。", "action_ref": "read_intro_obj_decree"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "waiting_shelter", "point": [576, 512.0], "layer": -2}, {"asset": "travel_bundle", "point": [480, 512.0], "layer": -2}, {"asset": "aqi_ribbon", "point": [912, 512.0], "layer": -2, "receipt": "story_aqi_t01"}])
+[node name="Npc0" type="Node2D" parent="."]
+script = ExtResource("npc")
+position = Vector2(560, 494)
+npc_id = "NPC_TRAVELER_AQI"
+display_name = "阿栖"

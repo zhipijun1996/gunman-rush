@@ -1,0 +1,96 @@
+{
+  "baseline_commit": "7d73389feab22224d0f8bd7c09325420a7605980",
+  "base_sample": "underworld-fusion",
+  "world_units_per_pixel": 1,
+  "new_regions": [
+    "mushroom_caverns",
+    "gear_city",
+    "ember_depths"
+  ],
+  "new_region_directions_status": "Candidate art directions; current project registry has no regional Bible for these three regions.",
+  "source_categories": {
+    "publisher_original": "references/asouris-underworld-original-tileset.png",
+    "unchanged_project_terrain": "assets/pixel/fine32-terrain.png",
+    "prior_generated_sources": [
+      "assets/source/shared-sprites.png",
+      "assets/source/paired-backgrounds.png"
+    ],
+    "new_generated_sources": [
+      "assets/source/regional-kit.png",
+      "assets/source/mushroom-background.png",
+      "assets/source/gear-background.png",
+      "assets/source/ember-background.png",
+      "assets/source/quiet-fill-materials.png"
+    ]
+  },
+  "source_hashes": {
+    "shared-sprites.png": {
+      "sha256": "4b236d846d9ad53345389d3e07ac84e2db57bf4fcf51154e7407b9a0b74952c9",
+      "width": 1086,
+      "height": 1448
+    },
+    "paired-backgrounds.png": {
+      "sha256": "84dc7fa46d6ba57130ca88bb1a92155a9e88ee5f4ad8e0570f1d5503b81a3cc6",
+      "width": 1058,
+      "height": 1487
+    },
+    "regional-kit.png": {
+      "sha256": "eb366ad43d8c586579d7e08cd4127226bb4283e2baa2f10363abf5ace2138371",
+      "width": 1086,
+      "height": 1448
+    },
+    "mushroom-background.png": {
+      "sha256": "251ebfa2dc57b2f6a075228fd464c8cef2ef85773e490cf2f207d022d02d2918",
+      "width": 1672,
+      "height": 941
+    },
+    "gear-background.png": {
+      "sha256": "21709856105e8373c9dd300f2dec9ccbe7869d5b96421d27727f5bda19c15f48",
+      "width": 1672,
+      "height": 941
+    },
+    "ember-background.png": {
+      "sha256": "315cb3e115f04189682b5c38e7ab3b4ef72bf5eeb59930c792196cb25e6b9fdb",
+      "width": 1672,
+      "height": 941
+    },
+    "quiet-fill-materials.png": {
+      "sha256": "bcde8d160c8a0a39183be8d00c19d4d639b65941ed7cf0141ff2166d8a2a9813",
+      "width": 1774,
+      "height": 887
+    }
+  },
+  "tile_materials": {
+    "plains": {
+      "asset": "fine32_terrain",
+      "tile_px": 32,
+      "surface_y": 8
+    },
+    "forest": {
+      "asset": "forest_terrain",
+      "tile_px": 32,
+      "surface_y": 8
+    },
+    "mushroom_caverns": {
+      "asset": "mushroom_terrain",
+      "tile_px": 32,
+      "surface_y": 7
+    },
+    "gear_city": {
+      "asset": "gear_terrain",
+      "tile_px": 32,
+      "surface_y": 0
+    },
+    "ember_depths": {
+      "asset": "ember_terrain",
+      "tile_px": 32,
+      "surface_y": 4
+    }
+  },
+  "processing": "Generated sources mechanically cropped and nearest baked; four terrain patches split into native32 tiles. Forest and mushroom center cells repacked from newly generated quiet material fills; other eight cells preserved. Lighting and particles are runtime scene rendering, not baked concept art.",
+  "unchanged_project_terrain_sha256": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de",
+  "hero_sha256": "925bbf53860edf7f7ff7892ee1f474493903d75bdd1a522b4a53fd4251d243c6",
+  "data_sha256": "84ac8df47bf8aa5d006b393f2878078bb66d0a8fff61a049f294fabcb11fd78b",
+  "manifest_sha256": "b5d462c3aadd8953292192c664ebb4673b28e6729e31152d13318e409a74c2fa",
+  "status": "Self-contained art study; no remote game repository or installed skill modifications."
+}

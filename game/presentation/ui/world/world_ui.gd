@@ -76,8 +76,10 @@ func panel(kind: String,heading: String,detail: String) -> DemoUiModalShell:
 	close()
 	page=kind
 	interact_host.hide();pause_host.hide()
-	shell=WorldDialogue.new() if kind in ["dialogue","npc"] else DemoUiModalShell.new()
-	if shell is WorldDialogue: (shell as WorldDialogue).conversation=kind=="dialogue"
+	shell=WorldDialogue.new()
+	if shell is WorldDialogue:
+		(shell as WorldDialogue).conversation=kind=="dialogue"
+		(shell as WorldDialogue).compact_actions=kind=="pause"
 	root.add_child(shell)
 	root.show()
 	shell.heading(heading,detail)
@@ -108,10 +110,12 @@ func show_map() -> void:
 	map.touch_clip=modal.scroll
 	modal.register_touch_region(map)
 	var buttons:=HBoxContainer.new();modal.rows.add_child(buttons)
-	for entry: Array in [["−",0.8],["＋",1.25]]:
+	for entry: Array in [["-",0.8],["+",1.25]]:
 		var b:=Button.new();b.text=entry[0];b.custom_minimum_size=Vector2(80,54)
 		b.pressed.connect(func() -> void: map.zoom_at(entry[1],map.size/2))
 		buttons.add_child(b)
+	var focus:=Button.new();focus.text="当前位置";focus.custom_minimum_size=Vector2(140,54)
+	focus.pressed.connect(map.focus_player);buttons.add_child(focus)
 	modal.button(WorldText.text("world_ui.10"),func() -> void: command.emit("close",""))
 	modal.focus_first()
 func present(actor: PlayerController,room_id: String,location: String,status: String,context: String,gold: int,reduced: bool=false,healing_progress: float=0,heal_available: bool=false) -> void:

@@ -1,0 +1,5054 @@
+{
+  "schema": "world.geometry-audit.v07",
+  "summary": {
+    "geometry_scope": "exact 2D illustration embedding; not Godot collision, pixels, camera or physics acceptance",
+    "rooms": 309,
+    "connections": 411,
+    "all_polygons_valid": true,
+    "room_overlap_pairs": [],
+    "uncovered_connection_endpoints": [],
+    "unrouted_connections": [],
+    "passage_crosses_unrelated_room": [],
+    "disconnected_passage_unions": [],
+    "unplaced_region_labels": [],
+    "shape_family_counts": {
+      "quiet_rectangle": 40,
+      "broad_shoulder": 24,
+      "long_bank": 34,
+      "purposeful_bend": 62,
+      "region_arena": 20,
+      "large_step": 18,
+      "single_wing": 4,
+      "v07_room": 13,
+      "v07_court": 4,
+      "v07_star_bridge": 4,
+      "v07_observatory": 2,
+      "v07_shaft": 3,
+      "v07_street": 3,
+      "v07_station": 2,
+      "v07_terrace": 3,
+      "v07_hall": 2,
+      "single_step": 1,
+      "v05_horizontal": 24,
+      "v05_layered": 12,
+      "v05_chamber": 15,
+      "v07_bridge": 1,
+      "v07_step": 3,
+      "v06_station_broad_shoulder": 5,
+      "v07_arch": 1,
+      "v07_balcony": 1,
+      "v07_pylon": 1,
+      "v07_channel": 2,
+      "v07_gallery": 2,
+      "v07_frame": 1,
+      "v07_roof": 1,
+      "v07_archive": 1
+    },
+    "region_counts": {
+      "P": 35,
+      "Z": 16,
+      "S": 16,
+      "R": 18,
+      "N": 18,
+      "I": 16,
+      "Y": 12,
+      "F": 24,
+      "C": 18,
+      "M": 18,
+      "T": 16,
+      "K": 24,
+      "A": 14,
+      "V": 14,
+      "G": 36,
+      "E": 14
+    },
+    "canonical_room_ids_match": true,
+    "canonical_connection_ids_match": true,
+    "all_old_room_ids_preserved": true,
+    "city_rooms_rebuilt": 36,
+    "sky_rooms_rebuilt": 14,
+    "translated_regions": {
+      "A": [
+        0,
+        -85
+      ],
+      "E": [
+        0,
+        160
+      ]
+    },
+    "unchanged_old_room_geometry_count": 231,
+    "rerouted_edges": [
+      "C15",
+      "C17",
+      "C34",
+      "C35",
+      "EXP-A_middle_islands-01",
+      "EXP-A_middle_islands-02",
+      "EXP-E_cooling_approach-01",
+      "EXP-E_cooling_approach-02",
+      "L13",
+      "L16",
+      "L33",
+      "L41",
+      "room-link-090",
+      "room-link-091",
+      "room-link-092",
+      "room-link-093",
+      "room-link-094",
+      "room-link-095",
+      "room-link-096",
+      "room-link-097",
+      "room-link-098",
+      "room-link-099",
+      "room-link-100",
+      "room-link-101",
+      "room-link-120",
+      "room-link-121",
+      "room-link-122",
+      "room-link-123",
+      "room-link-124",
+      "room-link-125",
+      "room-link-126",
+      "room-link-127",
+      "room-link-128",
+      "room-link-129",
+      "room-link-130",
+      "room-link-131",
+      "C16",
+      "C18",
+      "C19",
+      "C20",
+      "C21",
+      "C22",
+      "C25",
+      "EXP-G_inner_factory-01",
+      "EXP-G_inner_factory-02",
+      "EXP-G_workers_yard_reward-01",
+      "EXP-G_workers_yard_reward-02",
+      "EXP-G_workers_yard_reward-03",
+      "EXP-V_star_observation-01",
+      "EXP-V_star_observation-02",
+      "L11",
+      "L17",
+      "L35",
+      "room-link-102",
+      "room-link-103",
+      "room-link-104",
+      "room-link-106",
+      "room-link-107",
+      "room-link-108",
+      "room-link-109",
+      "room-link-110",
+      "room-link-111",
+      "room-link-112",
+      "room-link-114",
+      "room-link-116",
+      "room-link-118",
+      "CITY-E-G-RETURN",
+      "CITY-P-G-WEST",
+      "G-E04-E07",
+      "G-E07-E23",
+      "G-E20-E06",
+      "G-E20-E23",
+      "G-E21-E06",
+      "G-E21-E22",
+      "G-E22-E04",
+      "G-E23-E06",
+      "G-E24-E20",
+      "G-E24-E21",
+      "G-L25-E22",
+      "G-L25-L26",
+      "G-L26-L27",
+      "G-L27-L28",
+      "G-L28-L10",
+      "G-L28-U29",
+      "G-O08-O34",
+      "G-O34-O35",
+      "G-O35-O36",
+      "G-O36-U09",
+      "G-O36-U33",
+      "G-P14-P17",
+      "G-P14-P18",
+      "G-P17-P19",
+      "G-P18-L25",
+      "G-P18-P19",
+      "G-P19-P13",
+      "G-U29-U30",
+      "G-U30-U31",
+      "G-U30-U32",
+      "G-U31-U33",
+      "G-U32-U29",
+      "G-U33-U09",
+      "SC-G-BELL",
+      "SC-G-EAST",
+      "SC-V-LEFT",
+      "SC-V-RIGHT",
+      "V-EXTREME-11-12",
+      "V-EXTREME-12-13",
+      "V-EXTREME-13-14",
+      "V-EXTREME-ENTRY",
+      "V-RETURN-05-03",
+      "V-UPPER-ENTRY"
+    ],
+    "non_junction_crossing_pairs": 64,
+    "non_junction_crossing_marker_count": 66,
+    "city_sky_crossing_marker_count": 16,
+    "shared_unrelated_collinear_segments": [],
+    "crossing_display_contract": "All crossings have explicit over/under edge IDs. Draw the small gap/overpass; never render a crossing as an additional free junction.",
+    "highest_region": "Z",
+    "semantic_note": "Line crossings never introduce gameplay junctions; only canonical named room doors do. Paired lift endpoints are separately marked.",
+    "draft": false,
+    "passed": true
+  },
+  "baseline_sha256": "70433bab639092944809ca1f16891a03e20d232cf2fbd0de3c790013c3f703dc",
+  "per_room_anchor_transform": {
+    "P-R01": {
+      "old_centre": [
+        1328.87,
+        1269.86
+      ],
+      "new_centre": [
+        1328.87,
+        1269.86
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R02": {
+      "old_centre": [
+        1982.18,
+        1299.0
+      ],
+      "new_centre": [
+        1982.18,
+        1299.0
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R03": {
+      "old_centre": [
+        1230.59,
+        1285.15
+      ],
+      "new_centre": [
+        1230.59,
+        1285.15
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R04": {
+      "old_centre": [
+        1098.29,
+        1149.32
+      ],
+      "new_centre": [
+        1098.29,
+        1149.32
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R05": {
+      "old_centre": [
+        1289.18,
+        1082.87
+      ],
+      "new_centre": [
+        1289.18,
+        1082.87
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R06": {
+      "old_centre": [
+        1370.45,
+        1162.84
+      ],
+      "new_centre": [
+        1370.45,
+        1162.84
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R07": {
+      "old_centre": [
+        2058.41,
+        1153.8
+      ],
+      "new_centre": [
+        2058.41,
+        1153.8
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R08": {
+      "old_centre": [
+        1465.074,
+        1203.362
+      ],
+      "new_centre": [
+        1465.074,
+        1203.362
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R09": {
+      "old_centre": [
+        1981.55,
+        1341.01
+      ],
+      "new_centre": [
+        1981.55,
+        1341.01
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R10": {
+      "old_centre": [
+        2127.72,
+        1232.81
+      ],
+      "new_centre": [
+        2127.72,
+        1232.81
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R11": {
+      "old_centre": [
+        1921.92,
+        1229.84
+      ],
+      "new_centre": [
+        1921.92,
+        1229.84
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R12": {
+      "old_centre": [
+        1750.34,
+        1259.27
+      ],
+      "new_centre": [
+        1750.34,
+        1259.27
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R13": {
+      "old_centre": [
+        1266.5,
+        1145.79
+      ],
+      "new_centre": [
+        1266.5,
+        1145.79
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R14": {
+      "old_centre": [
+        1095.77,
+        1086.4
+      ],
+      "new_centre": [
+        1095.77,
+        1086.4
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R15": {
+      "old_centre": [
+        1396.91,
+        1085.81
+      ],
+      "new_centre": [
+        1396.91,
+        1085.81
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R16": {
+      "old_centre": [
+        1837.91,
+        1308.22
+      ],
+      "new_centre": [
+        1837.91,
+        1308.22
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R17": {
+      "old_centre": [
+        2089.91,
+        1319.84
+      ],
+      "new_centre": [
+        2089.91,
+        1319.84
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R18": {
+      "old_centre": [
+        1918.55,
+        1158.14
+      ],
+      "new_centre": [
+        1918.55,
+        1158.14
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R19": {
+      "old_centre": [
+        1674.74,
+        1315.72
+      ],
+      "new_centre": [
+        1674.74,
+        1315.72
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R20": {
+      "old_centre": [
+        1556.93,
+        1327.48
+      ],
+      "new_centre": [
+        1556.93,
+        1327.48
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R01": {
+      "old_centre": [
+        1596.79,
+        1120.95
+      ],
+      "new_centre": [
+        1596.79,
+        1120.95
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R03": {
+      "old_centre": [
+        1560.93,
+        1063.74
+      ],
+      "new_centre": [
+        1560.93,
+        1063.74
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R04": {
+      "old_centre": [
+        1542.67,
+        979.75
+      ],
+      "new_centre": [
+        1542.67,
+        979.75
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R05": {
+      "old_centre": [
+        1524.41,
+        889.68
+      ],
+      "new_centre": [
+        1524.41,
+        889.68
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R09": {
+      "old_centre": [
+        1654.83,
+        982.19
+      ],
+      "new_centre": [
+        1654.83,
+        982.19
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R10": {
+      "old_centre": [
+        1576.58,
+        775.26
+      ],
+      "new_centre": [
+        1576.58,
+        775.26
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R14": {
+      "old_centre": [
+        1705.69,
+        575.64
+      ],
+      "new_centre": [
+        1705.69,
+        575.64
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R06": {
+      "old_centre": [
+        1651.57,
+        684.58
+      ],
+      "new_centre": [
+        1651.57,
+        684.58
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R07": {
+      "old_centre": [
+        1528.98,
+        600.59
+      ],
+      "new_centre": [
+        1528.98,
+        600.59
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R08": {
+      "old_centre": [
+        1629.4,
+        589.67
+      ],
+      "new_centre": [
+        1629.4,
+        589.67
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R02": {
+      "old_centre": [
+        1557.02,
+        516.0
+      ],
+      "new_centre": [
+        1557.02,
+        516.0
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R11": {
+      "old_centre": [
+        1611.79,
+        450.27
+      ],
+      "new_centre": [
+        1611.79,
+        450.27
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R13": {
+      "old_centre": [
+        1588.32,
+        373.58
+      ],
+      "new_centre": [
+        1588.32,
+        373.58
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R12": {
+      "old_centre": [
+        1613.1,
+        303.59
+      ],
+      "new_centre": [
+        1613.1,
+        303.59
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R01": {
+      "old_centre": [
+        1231.9,
+        1456.9
+      ],
+      "new_centre": [
+        1231.9,
+        1456.9
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R02": {
+      "old_centre": [
+        1378.06,
+        1450.28
+      ],
+      "new_centre": [
+        1378.06,
+        1450.28
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R03": {
+      "old_centre": [
+        1586.59,
+        1452.63
+      ],
+      "new_centre": [
+        1586.59,
+        1452.63
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R04": {
+      "old_centre": [
+        1736.53,
+        1492.62
+      ],
+      "new_centre": [
+        1736.53,
+        1492.62
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R05": {
+      "old_centre": [
+        1828.07,
+        1458.05
+      ],
+      "new_centre": [
+        1828.07,
+        1458.05
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R06": {
+      "old_centre": [
+        1665.97,
+        1561.41
+      ],
+      "new_centre": [
+        1665.97,
+        1561.41
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R07": {
+      "old_centre": [
+        1935.61,
+        1460.86
+      ],
+      "new_centre": [
+        1935.61,
+        1460.86
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R08": {
+      "old_centre": [
+        1817.17,
+        1548.48
+      ],
+      "new_centre": [
+        1817.17,
+        1548.48
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R09": {
+      "old_centre": [
+        1392.55,
+        1557.3
+      ],
+      "new_centre": [
+        1392.55,
+        1557.3
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R10": {
+      "old_centre": [
+        1953.88,
+        1529.66
+      ],
+      "new_centre": [
+        1953.88,
+        1529.66
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R11": {
+      "old_centre": [
+        1556.35,
+        1535.54
+      ],
+      "new_centre": [
+        1556.35,
+        1535.54
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R12": {
+      "old_centre": [
+        1250.17,
+        1523.19
+      ],
+      "new_centre": [
+        1250.17,
+        1523.19
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R01": {
+      "old_centre": [
+        1363.79,
+        1671.09
+      ],
+      "new_centre": [
+        1363.79,
+        1671.09
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R02": {
+      "old_centre": [
+        1516.25,
+        1664.56
+      ],
+      "new_centre": [
+        1516.25,
+        1664.56
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R03": {
+      "old_centre": [
+        1402.22,
+        1735.18
+      ],
+      "new_centre": [
+        1402.22,
+        1735.18
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R04": {
+      "old_centre": [
+        1766.36,
+        1662.27
+      ],
+      "new_centre": [
+        1766.36,
+        1662.27
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R05": {
+      "old_centre": [
+        1882.28,
+        1666.39
+      ],
+      "new_centre": [
+        1882.28,
+        1666.39
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R06": {
+      "old_centre": [
+        1352.67,
+        1836.03
+      ],
+      "new_centre": [
+        1352.67,
+        1836.03
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R07": {
+      "old_centre": [
+        1491.68,
+        1842.3
+      ],
+      "new_centre": [
+        1491.68,
+        1842.3
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R08": {
+      "old_centre": [
+        1981.82,
+        1756.35
+      ],
+      "new_centre": [
+        1981.82,
+        1756.35
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R09": {
+      "old_centre": [
+        1836.92,
+        1766.35
+      ],
+      "new_centre": [
+        1836.92,
+        1766.35
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R10": {
+      "old_centre": [
+        2064.98,
+        1753.41
+      ],
+      "new_centre": [
+        2064.98,
+        1753.41
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R11": {
+      "old_centre": [
+        1678.16,
+        1843.37
+      ],
+      "new_centre": [
+        1678.16,
+        1843.37
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R12": {
+      "old_centre": [
+        1695.17,
+        1712.55
+      ],
+      "new_centre": [
+        1695.17,
+        1712.55
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R13": {
+      "old_centre": [
+        1537.67,
+        1719.89
+      ],
+      "new_centre": [
+        1537.67,
+        1719.89
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R14": {
+      "old_centre": [
+        1794.71,
+        1851.61
+      ],
+      "new_centre": [
+        1794.71,
+        1851.61
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R01": {
+      "old_centre": [
+        1885.07,
+        1410.67
+      ],
+      "new_centre": [
+        1885.07,
+        1410.67
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R02": {
+      "old_centre": [
+        2075.79,
+        1409.44
+      ],
+      "new_centre": [
+        2075.79,
+        1409.44
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R03": {
+      "old_centre": [
+        2079.06,
+        1514.04
+      ],
+      "new_centre": [
+        2079.06,
+        1514.04
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R04": {
+      "old_centre": [
+        2164.92,
+        1412.5
+      ],
+      "new_centre": [
+        2164.92,
+        1412.5
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R05": {
+      "old_centre": [
+        2242.91,
+        1607.01
+      ],
+      "new_centre": [
+        2242.91,
+        1607.01
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R06": {
+      "old_centre": [
+        2235.04,
+        1715.89
+      ],
+      "new_centre": [
+        2235.04,
+        1715.89
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R07": {
+      "old_centre": [
+        2238.97,
+        1870.04
+      ],
+      "new_centre": [
+        2238.97,
+        1870.04
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R08": {
+      "old_centre": [
+        2169.5,
+        1471.71
+      ],
+      "new_centre": [
+        2169.5,
+        1471.71
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R09": {
+      "old_centre": [
+        1977.48,
+        1889.61
+      ],
+      "new_centre": [
+        1977.48,
+        1889.61
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R10": {
+      "old_centre": [
+        2085.39,
+        1881.05
+      ],
+      "new_centre": [
+        2085.39,
+        1881.05
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R11": {
+      "old_centre": [
+        2142.63,
+        1534.22
+      ],
+      "new_centre": [
+        2142.63,
+        1534.22
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R12": {
+      "old_centre": [
+        2151.15,
+        1633.32
+      ],
+      "new_centre": [
+        2151.15,
+        1633.32
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R13": {
+      "old_centre": [
+        2078.41,
+        1638.82
+      ],
+      "new_centre": [
+        2078.41,
+        1638.82
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R14": {
+      "old_centre": [
+        2241.59,
+        1776.45
+      ],
+      "new_centre": [
+        2241.59,
+        1776.45
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R01": {
+      "old_centre": [
+        808.56,
+        698.68
+      ],
+      "new_centre": [
+        808.56,
+        698.68
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R02": {
+      "old_centre": [
+        692.92,
+        701.33
+      ],
+      "new_centre": [
+        692.92,
+        701.33
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R03": {
+      "old_centre": [
+        534.01,
+        649.02
+      ],
+      "new_centre": [
+        534.01,
+        649.02
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R04": {
+      "old_centre": [
+        376.52,
+        631.14
+      ],
+      "new_centre": [
+        376.52,
+        631.14
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R05": {
+      "old_centre": [
+        827.0,
+        619.22
+      ],
+      "new_centre": [
+        827.0,
+        619.22
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R06": {
+      "old_centre": [
+        712.08,
+        568.24
+      ],
+      "new_centre": [
+        712.08,
+        568.24
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R07": {
+      "old_centre": [
+        502.8,
+        701.99
+      ],
+      "new_centre": [
+        502.8,
+        701.99
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R08": {
+      "old_centre": [
+        519.83,
+        498.72
+      ],
+      "new_centre": [
+        519.83,
+        498.72
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R09": {
+      "old_centre": [
+        520.53,
+        560.96
+      ],
+      "new_centre": [
+        520.53,
+        560.96
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R10": {
+      "old_centre": [
+        565.23,
+        439.79
+      ],
+      "new_centre": [
+        565.23,
+        439.79
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R11": {
+      "old_centre": [
+        635.46,
+        604.66
+      ],
+      "new_centre": [
+        635.46,
+        604.66
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R12": {
+      "old_centre": [
+        382.2,
+        683.45
+      ],
+      "new_centre": [
+        382.2,
+        683.45
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R01": {
+      "old_centre": [
+        340.17,
+        1121.66
+      ],
+      "new_centre": [
+        340.17,
+        1121.66
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R02": {
+      "old_centre": [
+        353.78,
+        1044.28
+      ],
+      "new_centre": [
+        353.78,
+        1044.28
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R03": {
+      "old_centre": [
+        288.36,
+        895.56
+      ],
+      "new_centre": [
+        288.36,
+        895.56
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R04": {
+      "old_centre": [
+        533.84,
+        879.59
+      ],
+      "new_centre": [
+        533.84,
+        879.59
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R05": {
+      "old_centre": [
+        616.1,
+        791.58
+      ],
+      "new_centre": [
+        616.1,
+        791.58
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R06": {
+      "old_centre": [
+        359.61,
+        946.34
+      ],
+      "new_centre": [
+        359.61,
+        946.34
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R07": {
+      "old_centre": [
+        410.13,
+        791.58
+      ],
+      "new_centre": [
+        410.13,
+        791.58
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R08": {
+      "old_centre": [
+        625.01,
+        894.96
+      ],
+      "new_centre": [
+        625.01,
+        894.96
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R09": {
+      "old_centre": [
+        639.42,
+        988.66
+      ],
+      "new_centre": [
+        639.42,
+        988.66
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R10": {
+      "old_centre": [
+        443.81,
+        1000.15
+      ],
+      "new_centre": [
+        443.81,
+        1000.15
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R01": {
+      "old_centre": [
+        1036.15,
+        1221.83
+      ],
+      "new_centre": [
+        1036.15,
+        1221.83
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R02": {
+      "old_centre": [
+        910.5,
+        1223.01
+      ],
+      "new_centre": [
+        910.5,
+        1223.01
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R03": {
+      "old_centre": [
+        883.85,
+        1161.41
+      ],
+      "new_centre": [
+        883.85,
+        1161.41
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R04": {
+      "old_centre": [
+        793.38,
+        1146.85
+      ],
+      "new_centre": [
+        793.38,
+        1146.85
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R05": {
+      "old_centre": [
+        523.4,
+        1235.45
+      ],
+      "new_centre": [
+        523.4,
+        1235.45
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R06": {
+      "old_centre": [
+        505.0,
+        1086.2
+      ],
+      "new_centre": [
+        505.0,
+        1086.2
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R07": {
+      "old_centre": [
+        593.84,
+        1279.87
+      ],
+      "new_centre": [
+        593.84,
+        1279.87
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R08": {
+      "old_centre": [
+        916.21,
+        1292.31
+      ],
+      "new_centre": [
+        916.21,
+        1292.31
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R09": {
+      "old_centre": [
+        498.02,
+        1126.47
+      ],
+      "new_centre": [
+        498.02,
+        1126.47
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R10": {
+      "old_centre": [
+        867.72,
+        1074.94
+      ],
+      "new_centre": [
+        867.72,
+        1074.94
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R11": {
+      "old_centre": [
+        654.73,
+        1100.77
+      ],
+      "new_centre": [
+        654.73,
+        1100.77
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R12": {
+      "old_centre": [
+        760.1,
+        1305.93
+      ],
+      "new_centre": [
+        760.1,
+        1305.93
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R13": {
+      "old_centre": [
+        986.65,
+        1276.91
+      ],
+      "new_centre": [
+        986.65,
+        1276.91
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R14": {
+      "old_centre": [
+        643.97,
+        1162.6
+      ],
+      "new_centre": [
+        643.97,
+        1162.6
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R15": {
+      "old_centre": [
+        633.82,
+        1217.09
+      ],
+      "new_centre": [
+        633.82,
+        1217.09
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R16": {
+      "old_centre": [
+        772.79,
+        1269.21
+      ],
+      "new_centre": [
+        772.79,
+        1269.21
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R17": {
+      "old_centre": [
+        862.27,
+        1117.59
+      ],
+      "new_centre": [
+        862.27,
+        1117.59
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R18": {
+      "old_centre": [
+        552.59,
+        1161.41
+      ],
+      "new_centre": [
+        552.59,
+        1161.41
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R01": {
+      "old_centre": [
+        1042.43,
+        959.59
+      ],
+      "new_centre": [
+        1042.43,
+        959.59
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R02": {
+      "old_centre": [
+        1186.75,
+        966.65
+      ],
+      "new_centre": [
+        1186.75,
+        966.65
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R03": {
+      "old_centre": [
+        1215.68,
+        895.5
+      ],
+      "new_centre": [
+        1215.68,
+        895.5
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R04": {
+      "old_centre": [
+        1066.37,
+        814.95
+      ],
+      "new_centre": [
+        1066.37,
+        814.95
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R05": {
+      "old_centre": [
+        1181.66,
+        796.13
+      ],
+      "new_centre": [
+        1181.66,
+        796.13
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R06": {
+      "old_centre": [
+        1184.81,
+        694.41
+      ],
+      "new_centre": [
+        1184.81,
+        694.41
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R07": {
+      "old_centre": [
+        1366.25,
+        802.6
+      ],
+      "new_centre": [
+        1366.25,
+        802.6
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R08": {
+      "old_centre": [
+        999.59,
+        704.99
+      ],
+      "new_centre": [
+        999.59,
+        704.99
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R09": {
+      "old_centre": [
+        1087.79,
+        739.09
+      ],
+      "new_centre": [
+        1087.79,
+        739.09
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R10": {
+      "old_centre": [
+        1069.52,
+        642.07
+      ],
+      "new_centre": [
+        1069.52,
+        642.07
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R11": {
+      "old_centre": [
+        1249.07,
+        675.0
+      ],
+      "new_centre": [
+        1249.07,
+        675.0
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R12": {
+      "old_centre": [
+        1042.43,
+        769.67
+      ],
+      "new_centre": [
+        1042.43,
+        769.67
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R13": {
+      "old_centre": [
+        1400.9,
+        889.62
+      ],
+      "new_centre": [
+        1400.9,
+        889.62
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R14": {
+      "old_centre": [
+        1058.81,
+        894.91
+      ],
+      "new_centre": [
+        1058.81,
+        894.91
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R01": {
+      "old_centre": [
+        951.29,
+        1418.88
+      ],
+      "new_centre": [
+        951.29,
+        1418.88
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R02": {
+      "old_centre": [
+        1060.91,
+        1413.0
+      ],
+      "new_centre": [
+        1060.91,
+        1413.0
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R03": {
+      "old_centre": [
+        835.37,
+        1415.36
+      ],
+      "new_centre": [
+        835.37,
+        1415.36
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R04": {
+      "old_centre": [
+        951.92,
+        1468.86
+      ],
+      "new_centre": [
+        951.92,
+        1468.86
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R05": {
+      "old_centre": [
+        1011.14,
+        1627.04
+      ],
+      "new_centre": [
+        1011.14,
+        1627.04
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R06": {
+      "old_centre": [
+        746.54,
+        1427.7
+      ],
+      "new_centre": [
+        746.54,
+        1427.7
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R07": {
+      "old_centre": [
+        805.76,
+        1514.14
+      ],
+      "new_centre": [
+        805.76,
+        1514.14
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R08": {
+      "old_centre": [
+        893.96,
+        1522.96
+      ],
+      "new_centre": [
+        893.96,
+        1522.96
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R09": {
+      "old_centre": [
+        1006.1,
+        1522.96
+      ],
+      "new_centre": [
+        1006.1,
+        1522.96
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R10": {
+      "old_centre": [
+        832.85,
+        1617.04
+      ],
+      "new_centre": [
+        832.85,
+        1617.04
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R11": {
+      "old_centre": [
+        994.13,
+        1584.7
+      ],
+      "new_centre": [
+        994.13,
+        1584.7
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R12": {
+      "old_centre": [
+        822.14,
+        1563.53
+      ],
+      "new_centre": [
+        822.14,
+        1563.53
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R13": {
+      "old_centre": [
+        914.12,
+        1594.95
+      ],
+      "new_centre": [
+        914.12,
+        1594.95
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R14": {
+      "old_centre": [
+        870.65,
+        1462.4
+      ],
+      "new_centre": [
+        870.65,
+        1462.4
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R01": {
+      "old_centre": [
+        583.18,
+        1429.32
+      ],
+      "new_centre": [
+        583.18,
+        1429.32
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R02": {
+      "old_centre": [
+        531.18,
+        1506.02
+      ],
+      "new_centre": [
+        531.18,
+        1506.02
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R03": {
+      "old_centre": [
+        574.83,
+        1570.73
+      ],
+      "new_centre": [
+        574.83,
+        1570.73
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R04": {
+      "old_centre": [
+        559.96,
+        1699.55
+      ],
+      "new_centre": [
+        559.96,
+        1699.55
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R05": {
+      "old_centre": [
+        652.51,
+        1720.52
+      ],
+      "new_centre": [
+        652.51,
+        1720.52
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R06": {
+      "old_centre": [
+        604.36,
+        1831.99
+      ],
+      "new_centre": [
+        604.36,
+        1831.99
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R07": {
+      "old_centre": [
+        1125.0,
+        1726.51
+      ],
+      "new_centre": [
+        1125.0,
+        1726.51
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R08": {
+      "old_centre": [
+        927.27,
+        1808.6
+      ],
+      "new_centre": [
+        927.27,
+        1808.6
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R09": {
+      "old_centre": [
+        1107.67,
+        1822.98
+      ],
+      "new_centre": [
+        1107.67,
+        1822.98
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R10": {
+      "old_centre": [
+        753.3,
+        1838.56
+      ],
+      "new_centre": [
+        753.3,
+        1838.56
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R11": {
+      "old_centre": [
+        759.08,
+        1774.88
+      ],
+      "new_centre": [
+        759.08,
+        1774.88
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R12": {
+      "old_centre": [
+        596.02,
+        1626.94
+      ],
+      "new_centre": [
+        596.02,
+        1626.94
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R01": {
+      "old_centre": [
+        1850.03,
+        1029.56
+      ],
+      "new_centre": [
+        1850.03,
+        1029.56
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R02": {
+      "old_centre": [
+        1893.5,
+        953.12
+      ],
+      "new_centre": [
+        1893.5,
+        953.12
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R03": {
+      "old_centre": [
+        1951.46,
+        879.62
+      ],
+      "new_centre": [
+        1951.46,
+        879.62
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R04": {
+      "old_centre": [
+        2016.35,
+        944.88
+      ],
+      "new_centre": [
+        2016.35,
+        944.88
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R05": {
+      "old_centre": [
+        2134.16,
+        759.08
+      ],
+      "new_centre": [
+        2134.16,
+        759.08
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R06": {
+      "old_centre": [
+        2076.83,
+        764.37
+      ],
+      "new_centre": [
+        2076.83,
+        764.37
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R07": {
+      "old_centre": [
+        1862.0,
+        879.62
+      ],
+      "new_centre": [
+        1862.0,
+        879.62
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R08": {
+      "old_centre": [
+        2017.61,
+        880.2
+      ],
+      "new_centre": [
+        2017.61,
+        880.2
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R09": {
+      "old_centre": [
+        2152.43,
+        844.34
+      ],
+      "new_centre": [
+        2152.43,
+        844.34
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R10": {
+      "old_centre": [
+        1862.63,
+        808.82
+      ],
+      "new_centre": [
+        1862.63,
+        808.82
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R11": {
+      "old_centre": [
+        2011.62,
+        689.1
+      ],
+      "new_centre": [
+        2011.62,
+        689.1
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R12": {
+      "old_centre": [
+        2135.42,
+        1024.85
+      ],
+      "new_centre": [
+        2135.42,
+        1024.85
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R13": {
+      "old_centre": [
+        2157.43,
+        982.52
+      ],
+      "new_centre": [
+        2157.43,
+        982.52
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R14": {
+      "old_centre": [
+        2088.8,
+        899.02
+      ],
+      "new_centre": [
+        2088.8,
+        899.02
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R15": {
+      "old_centre": [
+        1983.96,
+        742.61
+      ],
+      "new_centre": [
+        1983.96,
+        742.61
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R16": {
+      "old_centre": [
+        2022.02,
+        800.82
+      ],
+      "new_centre": [
+        2022.02,
+        800.82
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R17": {
+      "old_centre": [
+        2150.86,
+        934.3
+      ],
+      "new_centre": [
+        2150.86,
+        934.3
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R18": {
+      "old_centre": [
+        1982.96,
+        1021.32
+      ],
+      "new_centre": [
+        1982.96,
+        1021.32
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R01": {
+      "old_centre": [
+        2324.54,
+        1009.73
+      ],
+      "new_centre": [
+        2324.54,
+        924.73
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R02": {
+      "old_centre": [
+        2488.34,
+        999.73
+      ],
+      "new_centre": [
+        2488.34,
+        914.73
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R03": {
+      "old_centre": [
+        2606.15,
+        1010.31
+      ],
+      "new_centre": [
+        2606.15,
+        925.31
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R04": {
+      "old_centre": [
+        2603.63,
+        917.44
+      ],
+      "new_centre": [
+        2603.63,
+        832.44
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R05": {
+      "old_centre": [
+        2700.65,
+        758.65
+      ],
+      "new_centre": [
+        2700.65,
+        673.65
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R06": {
+      "old_centre": [
+        2349.11,
+        948.57
+      ],
+      "new_centre": [
+        2349.11,
+        863.57
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R07": {
+      "old_centre": [
+        2353.52,
+        816.86
+      ],
+      "new_centre": [
+        2353.52,
+        731.86
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R08": {
+      "old_centre": [
+        2500.31,
+        767.47
+      ],
+      "new_centre": [
+        2500.31,
+        682.47
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R09": {
+      "old_centre": [
+        2686.16,
+        906.91
+      ],
+      "new_centre": [
+        2686.16,
+        821.91
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R10": {
+      "old_centre": [
+        2475.11,
+        922.11
+      ],
+      "new_centre": [
+        2475.11,
+        837.11
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R11": {
+      "old_centre": [
+        2701.75,
+        821.57
+      ],
+      "new_centre": [
+        2701.75,
+        736.57
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R12": {
+      "old_centre": [
+        2506.61,
+        826.69
+      ],
+      "new_centre": [
+        2506.61,
+        741.69
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "V-R01": {
+      "old_centre": [
+        2574.9,
+        647.88
+      ],
+      "new_centre": [
+        2500,
+        610
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.9920634920634903,
+        0.9320578857002703
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "V-R02": {
+      "old_centre": [
+        2477.97,
+        647.28
+      ],
+      "new_centre": [
+        2500,
+        540
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.2718233321771335,
+        1.254075746175069
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "V-R03": {
+      "old_centre": [
+        2120.61,
+        564.65
+      ],
+      "new_centre": [
+        2070,
+        460
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.5102040816326527,
+        1.2975778546712864
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "V-R04": {
+      "old_centre": [
+        2721.59,
+        628.58
+      ],
+      "new_centre": [
+        2330,
+        570
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        2.3047911719513996,
+        0.3911160776644781
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "V-R05": {
+      "old_centre": [
+        2492.18,
+        554.4
+      ],
+      "new_centre": [
+        2500,
+        365
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0611205432937205,
+        0.8771929824561409
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "V-R06": {
+      "old_centre": [
+        2529.02,
+        475.99
+      ],
+      "new_centre": [
+        2300,
+        370
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.8454872120059194,
+        1.2425868398757405
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "V-R07": {
+      "old_centre": [
+        2353.29,
+        571.29
+      ],
+      "new_centre": [
+        2660,
+        555
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.3671562082777032,
+        2.279981760145918
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "V-R08": {
+      "old_centre": [
+        2238.22,
+        480.81
+      ],
+      "new_centre": [
+        2500,
+        460
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.40622299049265326,
+        1.1223829052449807
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R01": {
+      "old_centre": [
+        2307.15,
+        1173.99
+      ],
+      "new_centre": [
+        2260,
+        1190
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.8570068243136011,
+        1.0638297872340408
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R02": {
+      "old_centre": [
+        2346.21,
+        1243.37
+      ],
+      "new_centre": [
+        2195,
+        1260
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.7540056550424118,
+        1.0135135135135123
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R03": {
+      "old_centre": [
+        2479.77,
+        1169.75
+      ],
+      "new_centre": [
+        2355,
+        1200
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.120448179271711,
+        0.8398320335932815
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R04": {
+      "old_centre": [
+        2538.36,
+        1234.44
+      ],
+      "new_centre": [
+        2860,
+        1380
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        2.736175115207389,
+        0.3333333333333333
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R05": {
+      "old_centre": [
+        2688.93,
+        1349.8
+      ],
+      "new_centre": [
+        2700,
+        1580
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.8615288220551389,
+        1.0688836104513044
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R06": {
+      "old_centre": [
+        2740.59,
+        1161.05
+      ],
+      "new_centre": [
+        2795,
+        1250
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.9979331725800757,
+        0.8556547619047621
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R07": {
+      "old_centre": [
+        2557.89,
+        1353.91
+      ],
+      "new_centre": [
+        2890,
+        1290
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.6377333770062126,
+        2.465483234713998
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R08": {
+      "old_centre": [
+        2616.48,
+        1165.17
+      ],
+      "new_centre": [
+        2510,
+        980
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.8595495960116888,
+        0.6972528238739364
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R09": {
+      "old_centre": [
+        2688.3,
+        1238.08
+      ],
+      "new_centre": [
+        2510,
+        1055
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.5385097056981831,
+        1.0947997014182618
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R10": {
+      "old_centre": [
+        2618.37,
+        1308.05
+      ],
+      "new_centre": [
+        2690,
+        1515
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.6530127634312857,
+        1.4880952380952321
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R11": {
+      "old_centre": [
+        2467.17,
+        1232.2
+      ],
+      "new_centre": [
+        2340,
+        1270
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.603992158260569,
+        0.8707173954192668
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R12": {
+      "old_centre": [
+        2442.73,
+        1317.46
+      ],
+      "new_centre": [
+        2330,
+        1340
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.8443271767810021,
+        0.7670521595468491
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R01": {
+      "old_centre": [
+        2398.29,
+        1486.63
+      ],
+      "new_centre": [
+        2398.29,
+        1646.63
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R02": {
+      "old_centre": [
+        2431.05,
+        1548.37
+      ],
+      "new_centre": [
+        2431.05,
+        1708.37
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R03": {
+      "old_centre": [
+        2643.36,
+        1549.66
+      ],
+      "new_centre": [
+        2643.36,
+        1709.66
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R04": {
+      "old_centre": [
+        2423.49,
+        1741.24
+      ],
+      "new_centre": [
+        2423.49,
+        1901.24
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R05": {
+      "old_centre": [
+        2569.02,
+        1737.12
+      ],
+      "new_centre": [
+        2569.02,
+        1897.12
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R06": {
+      "old_centre": [
+        2545.71,
+        1657.74
+      ],
+      "new_centre": [
+        2545.71,
+        1817.74
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R07": {
+      "old_centre": [
+        2673.61,
+        1665.97
+      ],
+      "new_centre": [
+        2673.61,
+        1825.97
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R08": {
+      "old_centre": [
+        2696.91,
+        1747.12
+      ],
+      "new_centre": [
+        2696.91,
+        1907.12
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R09": {
+      "old_centre": [
+        2714.55,
+        1576.01
+      ],
+      "new_centre": [
+        2714.55,
+        1736.01
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R10": {
+      "old_centre": [
+        2724.0,
+        1488.99
+      ],
+      "new_centre": [
+        2724.0,
+        1648.99
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R11": {
+      "old_centre": [
+        2492.16,
+        1817.09
+      ],
+      "new_centre": [
+        2492.16,
+        1977.09
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R12": {
+      "old_centre": [
+        2564.61,
+        1520.09
+      ],
+      "new_centre": [
+        2564.61,
+        1680.09
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R21": {
+      "old_centre": [
+        1282.25,
+        1333.36
+      ],
+      "new_centre": [
+        1282.25,
+        1333.36
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R22": {
+      "old_centre": [
+        1309.97,
+        1369.82
+      ],
+      "new_centre": [
+        1309.97,
+        1369.82
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R23": {
+      "old_centre": [
+        1399.43,
+        1372.17
+      ],
+      "new_centre": [
+        1399.43,
+        1372.17
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R24": {
+      "old_centre": [
+        1379.27,
+        1334.54
+      ],
+      "new_centre": [
+        1379.27,
+        1334.54
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R25": {
+      "old_centre": [
+        1194.05,
+        1199.3
+      ],
+      "new_centre": [
+        1194.05,
+        1199.3
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R26": {
+      "old_centre": [
+        1278.47,
+        1207.53
+      ],
+      "new_centre": [
+        1278.47,
+        1207.53
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R27": {
+      "old_centre": [
+        1328.87,
+        1138.15
+      ],
+      "new_centre": [
+        1328.87,
+        1138.15
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R28": {
+      "old_centre": [
+        1901.33,
+        1281.22
+      ],
+      "new_centre": [
+        1901.33,
+        1281.22
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R29": {
+      "old_centre": [
+        2054.73,
+        1243.57
+      ],
+      "new_centre": [
+        2054.73,
+        1243.57
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R30": {
+      "old_centre": [
+        2000.77,
+        1185.1
+      ],
+      "new_centre": [
+        2000.77,
+        1185.1
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R19": {
+      "old_centre": [
+        755.83,
+        1099.25
+      ],
+      "new_centre": [
+        755.83,
+        1099.25
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R20": {
+      "old_centre": [
+        809.44,
+        1051.66
+      ],
+      "new_centre": [
+        809.44,
+        1051.66
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R21": {
+      "old_centre": [
+        662.42,
+        1049.9
+      ],
+      "new_centre": [
+        662.42,
+        1049.9
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R22": {
+      "old_centre": [
+        591.26,
+        1056.9
+      ],
+      "new_centre": [
+        591.26,
+        1056.9
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R23": {
+      "old_centre": [
+        596.59,
+        1310.22
+      ],
+      "new_centre": [
+        596.59,
+        1310.22
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "F-R24": {
+      "old_centre": [
+        508.6,
+        1169.82
+      ],
+      "new_centre": [
+        508.6,
+        1169.82
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R15": {
+      "old_centre": [
+        907.82,
+        1494.79
+      ],
+      "new_centre": [
+        907.82,
+        1494.79
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R16": {
+      "old_centre": [
+        944.99,
+        1375.99
+      ],
+      "new_centre": [
+        944.99,
+        1375.99
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R17": {
+      "old_centre": [
+        936.38,
+        1668.63
+      ],
+      "new_centre": [
+        936.38,
+        1668.63
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "M-R18": {
+      "old_centre": [
+        1009.04,
+        1657.17
+      ],
+      "new_centre": [
+        1009.04,
+        1657.17
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R13": {
+      "old_centre": [
+        1237.99,
+        1419.59
+      ],
+      "new_centre": [
+        1237.99,
+        1419.59
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R14": {
+      "old_centre": [
+        1314.64,
+        1493.16
+      ],
+      "new_centre": [
+        1314.64,
+        1493.16
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R15": {
+      "old_centre": [
+        1782.54,
+        1431.63
+      ],
+      "new_centre": [
+        1782.54,
+        1431.63
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "S-R16": {
+      "old_centre": [
+        1869.25,
+        1492.07
+      ],
+      "new_centre": [
+        1869.25,
+        1492.07
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R11": {
+      "old_centre": [
+        563.58,
+        917.24
+      ],
+      "new_centre": [
+        563.58,
+        917.24
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Y-R12": {
+      "old_centre": [
+        594.29,
+        848.67
+      ],
+      "new_centre": [
+        594.29,
+        848.67
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R13": {
+      "old_centre": [
+        540.4,
+        601.44
+      ],
+      "new_centre": [
+        540.4,
+        601.44
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R14": {
+      "old_centre": [
+        604.25,
+        552.82
+      ],
+      "new_centre": [
+        604.25,
+        552.82
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R15": {
+      "old_centre": [
+        661.0,
+        637.92
+      ],
+      "new_centre": [
+        661.0,
+        637.92
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "I-R16": {
+      "old_centre": [
+        731.94,
+        637.13
+      ],
+      "new_centre": [
+        731.94,
+        637.13
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R15": {
+      "old_centre": [
+        1130.63,
+        1002.27
+      ],
+      "new_centre": [
+        1130.63,
+        1002.27
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R16": {
+      "old_centre": [
+        1147.58,
+        934.06
+      ],
+      "new_centre": [
+        1147.58,
+        934.06
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R17": {
+      "old_centre": [
+        1243.19,
+        752.26
+      ],
+      "new_centre": [
+        1243.19,
+        752.26
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "C-R18": {
+      "old_centre": [
+        1234.16,
+        718.11
+      ],
+      "new_centre": [
+        1234.16,
+        718.11
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R19": {
+      "old_centre": [
+        2009.89,
+        850.72
+      ],
+      "new_centre": [
+        2009.89,
+        850.72
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R20": {
+      "old_centre": [
+        1905.26,
+        751.04
+      ],
+      "new_centre": [
+        1905.26,
+        751.04
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R21": {
+      "old_centre": [
+        1854.12,
+        762.69
+      ],
+      "new_centre": [
+        1854.12,
+        762.69
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R22": {
+      "old_centre": [
+        1910.83,
+        695.99
+      ],
+      "new_centre": [
+        1910.83,
+        695.99
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R23": {
+      "old_centre": [
+        2081.29,
+        980.61
+      ],
+      "new_centre": [
+        2081.29,
+        980.61
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "K-R24": {
+      "old_centre": [
+        2218.88,
+        966.45
+      ],
+      "new_centre": [
+        2218.88,
+        966.45
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R13": {
+      "old_centre": [
+        2479.03,
+        1127.73
+      ],
+      "new_centre": [
+        2460,
+        1300
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0795454545454546,
+        1.7241379310344827
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R14": {
+      "old_centre": [
+        2549.18,
+        1115.12
+      ],
+      "new_centre": [
+        2545,
+        1238
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        3.5416666666666665,
+        0.4375
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R15": {
+      "old_centre": [
+        2344.55,
+        1281.75
+      ],
+      "new_centre": [
+        2220,
+        1360
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.9659090909090909,
+        1.103448275862069
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "G-R16": {
+      "old_centre": [
+        2333.26,
+        1319.4
+      ],
+      "new_centre": [
+        2165,
+        1320
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.2037037037037037,
+        1.0952380952380953
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R15": {
+      "old_centre": [
+        2154.21,
+        1596.76
+      ],
+      "new_centre": [
+        2154.21,
+        1596.76
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R16": {
+      "old_centre": [
+        2219.53,
+        1533.85
+      ],
+      "new_centre": [
+        2219.53,
+        1533.85
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R17": {
+      "old_centre": [
+        2130.84,
+        1834.62
+      ],
+      "new_centre": [
+        2130.84,
+        1834.62
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "N-R18": {
+      "old_centre": [
+        2032.11,
+        1841.14
+      ],
+      "new_centre": [
+        2032.11,
+        1841.14
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R13": {
+      "old_centre": [
+        2560.62,
+        1583.57
+      ],
+      "new_centre": [
+        2560.62,
+        1743.57
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "E-R14": {
+      "old_centre": [
+        2617.11,
+        1617.62
+      ],
+      "new_centre": [
+        2617.11,
+        1777.62
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R13": {
+      "old_centre": [
+        616.67,
+        1662.68
+      ],
+      "new_centre": [
+        616.67,
+        1662.68
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R14": {
+      "old_centre": [
+        521.55,
+        1677.89
+      ],
+      "new_centre": [
+        521.55,
+        1677.89
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R15": {
+      "old_centre": [
+        704.13,
+        1795.84
+      ],
+      "new_centre": [
+        704.13,
+        1795.84
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "T-R16": {
+      "old_centre": [
+        632.98,
+        1781.78
+      ],
+      "new_centre": [
+        632.98,
+        1781.78
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R15": {
+      "old_centre": [
+        1630.49,
+        1697.86
+      ],
+      "new_centre": [
+        1630.49,
+        1697.86
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R16": {
+      "old_centre": [
+        1612.43,
+        1752.95
+      ],
+      "new_centre": [
+        1612.43,
+        1752.95
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R17": {
+      "old_centre": [
+        1396.72,
+        1891.32
+      ],
+      "new_centre": [
+        1396.72,
+        1891.32
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "R-R18": {
+      "old_centre": [
+        1469.88,
+        1892.89
+      ],
+      "new_centre": [
+        1469.88,
+        1892.89
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R13": {
+      "old_centre": [
+        2638.23,
+        853.79
+      ],
+      "new_centre": [
+        2638.23,
+        768.79
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "A-R14": {
+      "old_centre": [
+        2658.65,
+        963.94
+      ],
+      "new_centre": [
+        2658.65,
+        878.94
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "V-R09": {
+      "old_centre": [
+        2252.82,
+        589.75
+      ],
+      "new_centre": [
+        2230,
+        505
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        0.8522727272727273,
+        2.6206896551724137
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "V-R10": {
+      "old_centre": [
+        2177.05,
+        597.88
+      ],
+      "new_centre": [
+        2790,
+        500
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        2.888888888888889,
+        0.7142857142857143
+      ],
+      "unchanged": false,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R15": {
+      "old_centre": [
+        1572.89,
+        649.31
+      ],
+      "new_centre": [
+        1572.89,
+        649.31
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "Z-R16": {
+      "old_centre": [
+        1648.09,
+        636.01
+      ],
+      "new_centre": [
+        1648.09,
+        636.01
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R31": {
+      "old_centre": [
+        1444.883,
+        1280.44
+      ],
+      "new_centre": [
+        1444.883,
+        1280.44
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R32": {
+      "old_centre": [
+        1531.079,
+        1206.963
+      ],
+      "new_centre": [
+        1531.079,
+        1206.963
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R33": {
+      "old_centre": [
+        1637.21,
+        1182.319
+      ],
+      "new_centre": [
+        1637.21,
+        1182.319
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R34": {
+      "old_centre": [
+        1573.444,
+        1278.438
+      ],
+      "new_centre": [
+        1573.444,
+        1278.438
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    },
+    "P-R35": {
+      "old_centre": [
+        1676.582,
+        1268.319
+      ],
+      "new_centre": [
+        1676.582,
+        1268.319
+      ],
+      "local_scale": 1.0,
+      "local_scale_xy": [
+        1.0,
+        1.0
+      ],
+      "unchanged": true,
+      "policy": "room-owned illustration anchors are affine mapped then clamped inside polygon"
+    }
+  },
+  "source_world_sha256": "107bb68424884b768bcbb5431ef7a56871aea11e91c9c3e635b39684117d7043",
+  "geometry_payload_sha256": "37050af436a12301387d6b02c204adc285967f4f3f0a9c3d1273a889f7c92fb8"
+}

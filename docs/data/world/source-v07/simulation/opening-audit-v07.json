@@ -1,0 +1,253 @@
+{
+  "schema": "world.opening-audit.v07",
+  "source_world_sha256": "b29dff3bdd2de5fce432dc2922334f31e7de3d40e36803410f9bed5b08303c17",
+  "passed": true,
+  "check_count": 12,
+  "checks": [
+    {
+      "id": "station_arrival_uses_all_five_tutorial_rooms",
+      "passed": true,
+      "evidence": {
+        "path": [
+          "P-R03",
+          "P-R21",
+          "P-R22",
+          "P-R23",
+          "P-R24",
+          "P-R01"
+        ],
+        "door_crossings": 5
+      }
+    },
+    {
+      "id": "optional_story_and_teaching_not_station_keys",
+      "passed": true,
+      "evidence": {
+        "initial_tokens": [
+          "gun"
+        ],
+        "optional_story_receipts_required": false
+      }
+    },
+    {
+      "id": "no_world_exit_before_first_station",
+      "passed": true,
+      "evidence": {
+        "reachable_rooms": [
+          "P-R01",
+          "P-R03",
+          "P-R21",
+          "P-R22",
+          "P-R23",
+          "P-R24"
+        ]
+      }
+    },
+    {
+      "id": "station_arrival_not_automatic_rest",
+      "passed": true,
+      "evidence": {
+        "arrival_tokens": [
+          "gun",
+          "intro_complete",
+          "station_briefed"
+        ],
+        "last_rest": null
+      }
+    },
+    {
+      "id": "first_boss_global_shortest_path_has_authored_exploration",
+      "passed": true,
+      "evidence": {
+        "path": [
+          "P-R01",
+          "P-R08",
+          "P-R06",
+          "P-R13",
+          "P-R04",
+          "P-R25",
+          "P-R26",
+          "P-R27",
+          "P-R05",
+          "P-R14"
+        ],
+        "doors": 9,
+        "scope": "全16区图搜索；状态为首次到站、尚无H/W/D/Q，未开远端捷径，无传送。"
+      }
+    },
+    {
+      "id": "other_regions_do_not_skip_new_west_circuit_before_H",
+      "passed": true,
+      "evidence": [
+        {
+          "blocked_room": "P-R25",
+          "alternative": null
+        },
+        {
+          "blocked_room": "P-R26",
+          "alternative": null
+        },
+        {
+          "blocked_room": "P-R27",
+          "alternative": null
+        }
+      ]
+    },
+    {
+      "id": "shortcut_controls_require_real_side_and_living_boss_blocks_return",
+      "passed": true,
+      "evidence": [
+        {
+          "action": "open_SC_P02",
+          "remote_unavailable": true,
+          "local_before_boss": true,
+          "local_when_eligible": true,
+          "edge": "room-link-144"
+        },
+        {
+          "action": "open_SC_P03",
+          "remote_unavailable": true,
+          "local_before_boss": false,
+          "local_when_eligible": true,
+          "edge": "L02"
+        }
+      ]
+    },
+    {
+      "id": "first_boss_actual_reachable_rest_two_doors",
+      "passed": true,
+      "evidence": {
+        "success": true,
+        "boss": "P_WINDKEEPER",
+        "boss_room": "P-R14",
+        "boss_section": "main",
+        "rest_room": "P-R27",
+        "rest_section": "main",
+        "reentry_transitions": 2,
+        "reentry_internal_routes": 0,
+        "reentry_path": [
+          {
+            "room": "P-R27",
+            "section": "main"
+          },
+          {
+            "room": "P-R05",
+            "section": "main"
+          },
+          {
+            "room": "P-R14",
+            "section": "main"
+          }
+        ],
+        "tokens_before_boss": [
+          "gun",
+          "intro_complete",
+          "station_briefed"
+        ],
+        "attack_value": 5,
+        "rest_action_step": 13,
+        "scope": "graph reachability; no timing or terrain difficulty assertion"
+      }
+    },
+    {
+      "id": "P06_rest_moved_to_P27_and_v07_world_total_54",
+      "passed": true,
+      "evidence": {
+        "rest_count": 54,
+        "new_room": "P-R27",
+        "removed_room": "P-R06"
+      }
+    },
+    {
+      "id": "multiple_pre_boss_optional_branches_have_actual_payoff_or_landmark",
+      "passed": true,
+      "evidence": [
+        {
+          "choice": "旧路肩侧台",
+          "existing_reward": "pickup_HP01",
+          "available_before_H": true,
+          "route": [
+            "P-R01",
+            "P-R08",
+            "P-R06",
+            "P-R13"
+          ]
+        },
+        {
+          "choice": "田垄齿轮",
+          "existing_reward": "pickup_TG01",
+          "available_before_H": true,
+          "route": [
+            "P-R01",
+            "P-R08",
+            "P-R06",
+            "P-R13",
+            "P-R04"
+          ]
+        },
+        {
+          "choice": "东部地窖",
+          "existing_reward": "pickup_EQ_MAP_P01",
+          "available_before_H": true,
+          "route": [
+            "P-R01",
+            "P-R31",
+            "P-R34",
+            "P-R35",
+            "P-R12"
+          ]
+        },
+        {
+          "choice": "林缘营地与悬挂风铃环预览",
+          "available_before_H": true,
+          "route": [
+            "P-R01",
+            "P-R08",
+            "P-R06",
+            "P-R13",
+            "P-R04",
+            "F-R01",
+            "F-R02",
+            "F-R03",
+            "F-R04"
+          ],
+          "reward": "安全据点/游侠/未来H回访地标"
+        }
+      ]
+    },
+    {
+      "id": "new_environmental_stories_grant_no_progression_or_unique_rewards",
+      "passed": true,
+      "evidence": {
+        "optional_action_ids": [
+          "read_intro_obj_ticket",
+          "read_intro_obj_sign",
+          "read_intro_obj_decree",
+          "read_intro_obj_ribbon"
+        ]
+      }
+    },
+    {
+      "id": "H_remains_windkeeper_unique_reward",
+      "passed": true,
+      "evidence": {
+        "reward_room": "P-R14",
+        "requires": [
+          [
+            "boss_P_WINDKEEPER_defeated"
+          ]
+        ]
+      }
+    }
+  ],
+  "not_proven": [
+    "到站6–9分钟",
+    "首Boss25–35分钟",
+    "开局是否有趣",
+    "人会记住被卡的位置",
+    "真实跳跃或反冲距离",
+    "剧情阅读率",
+    "战斗难度和疲劳"
+  ],
+  "timing_status": "design targets, not measurements"
+}

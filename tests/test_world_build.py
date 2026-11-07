@@ -20,28 +20,35 @@ class BuildTests(unittest.TestCase):
             with self.subTest(key=key,value=value),self.assertRaisesRegex(ValueError,'focus heal'):
                 validate_player(invalid)
 
-    def test_navigation_map_uses_shared_physical_seams(self):
-        _, bundle=build()
-        rooms=bundle['rooms']
+    def test_navigation_survey_preserves_physical_size_and_paired_interfaces(self):
+        _, bundle=build(); rooms=bundle['rooms']
         layouts=navigation_geometry(rooms,bundle['start']['room'])
+        opposites={'up':'down','down':'up','left':'right','right':'left'}
         for key,room in rooms.items():
+            layout=layouts[key]
+            self.assertEqual(layout['projection'],'survey_with_explicit_connections')
+            self.assertEqual(layout['origin'],room['world_geometry']['map_origin'])
+            self.assertEqual([layout['polygon'][2][i]-layout['polygon'][0][i] for i in (0,1)],room['world_geometry']['bounds_world_units'][2:])
             for door in room['doors']:
-                if not door['target_implemented']: continue
-                target=door['target_room']
-                paired=next(d for d in rooms[target]['doors'] if d['id']==door['target_door_id'])
-                for axis in (0,1):
-                    self.assertAlmostEqual(layouts[key]['origin'][axis]+door['position_candidate']['local_world_units'][axis],layouts[target]['origin'][axis]+paired['position_candidate']['local_world_units'][axis])
+                if not door['target_implemented']:continue
+                target=rooms[door['target_room']]
+                paired=next(d for d in target['doors'] if d['id']==door['target_door_id'])
+                self.assertEqual(paired['target_room'],key)
+                self.assertEqual(paired['target_door_id'],door['id'])
+                self.assertEqual(paired['direction'],opposites[door['direction']])
 
-    def test_navigation_rejects_crowded_exits_and_conflicting_loops(self):
+    def test_navigation_rejects_crowded_exits_and_overlapping_envelopes(self):
         _,bundle=build();rooms=bundle['rooms']
         crowded=copy.deepcopy(rooms)
         door=copy.deepcopy(crowded['P-R01']['doors'][0]);door['id']='fixture_crowded'
         crowded['P-R01']['doors'].append(door)
-        with self.assertRaisesRegex(ValueError,'Crowded'): navigation_geometry(crowded,'P-R03')
-        conflicting=copy.deepcopy(rooms)
-        for source,target,identity,pair,direction,point in [('P-R03','P-R06','fixture_a','fixture_b','up',[1408,0]),('P-R06','P-R03','fixture_b','fixture_a','right',[1520,100])]:
-            conflicting[source]['doors'].append({'id':identity,'target_room':target,'target_door_id':pair,'direction':direction,'position_candidate':{'local_world_units':point}})
-        with self.assertRaisesRegex(ValueError,'conflict'): navigation_geometry(conflicting,'P-R03')
+        with self.assertRaisesRegex(ValueError,'Crowded'):navigation_geometry(crowded,'P-R03')
+        overlap=copy.deepcopy(rooms)
+        overlap['P-R01']['world_geometry']['map_origin']=overlap['P-R03']['world_geometry']['map_origin']
+        with self.assertRaisesRegex(ValueError,'overlap'):navigation_geometry(overlap,'P-R03')
+        disconnected=copy.deepcopy(rooms)
+        for row in disconnected.values():row['doors']=[d for d in row['doors'] if d['target_room']!='P-R21']
+        with self.assertRaisesRegex(ValueError,'connected'):navigation_geometry(disconnected,'P-R03')
 
     def test_build_without_imported_archive_preserves_authored_scenes(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -50,12 +57,12 @@ class BuildTests(unittest.TestCase):
             shutil.copytree(ROOT/'game/world/regions',root/'game/world/regions')
             before={str(p.relative_to(root)):p.read_bytes() for p in (root/'game').rglob('*.tscn')}
             contracts,bundle=build(root)
-            self.assertEqual(len(contracts['rooms']),216)
+            self.assertEqual(len(contracts['rooms']),309)
             actions={a['action_ref']:a for r in contracts['rooms'] for a in r['interactions']}
             self.assertEqual(actions['tutorial_move']['trigger'],'accepted_player_action')
             self.assertEqual(actions['defeat_P_WINDKEEPER']['trigger'],'actual_boss_victory')
             self.assertFalse(actions['station_briefing']['arriving_does_not_grant'])
-            self.assertEqual(set(bundle['rooms']),{'P-R03','P-R01','P-R08','P-R06','P-R14'})
+            self.assertEqual(set(bundle['rooms']),{f'P-R{i:02}' for i in range(1,36)})
             self.assertEqual(before,{str(p.relative_to(root)):p.read_bytes() for p in (root/'game').rglob('*.tscn')})
             (root/'game/world/regions/P/rooms/P-R03.tscn').unlink()
             with self.assertRaisesRegex(ValueError,'scene missing'):build(root)

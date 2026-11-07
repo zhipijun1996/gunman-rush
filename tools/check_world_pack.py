@@ -16,8 +16,8 @@ def main():
     with tempfile.TemporaryDirectory(prefix='world-pack-') as isolated:
         probe = Path(isolated)/'probe.gd'
         shutil.copyfile(REPO/'tests/world/pack.gd', probe)
-        output = run_engine(['--headless','--path',isolated,'--main-pack',str(pack),'--script',str(probe)],60)
+        output = run_engine(['--headless','--path',isolated,'--main-pack',str(pack),'--script',str(probe),'--fixed-fps','60'],180)
         if re.search(r'^ERROR:',output,re.M) or 'WORLD PACK failures=0' not in output:
             raise RuntimeError('Isolated world PCK probe failed')
-    print('PASS: isolated fixed world PCK, five scenes, real start and no authoring sources')
+    print('PASS: isolated fixed world PCK, 35 scenes, real start and no authoring sources')
 if __name__=='__main__': main()

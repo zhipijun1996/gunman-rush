@@ -15,7 +15,8 @@ func run() -> void:
 	check(app.services.active("lamp") and app.services.active("filter"),"effective equipment state reconstructed")
 	check(app.services.ledger().cycle_uses.get("trial_flask",0)==1,"load does not refresh cycle quota")
 	check(app.controller.actor_resources.health.current==4 and app.controller.actor_resources.health.capacity==5,"HP and declarative stats agree after restart")
-	check(app.state.has("trial_station_repaired"),"NPC world result survives service save")
+	check("NPC_P_REC" in app.services.ledger().met and "NPC_P_WEAVER" in app.services.ledger().met,"both actual NPC meetings survive service save")
+	await WorldAudioLifecycle.drain_world(app)
 	app.queue_free()
 	for i: int in 5: await physics_frame
 	print("WORLD SERVICE RESTART: %d failures" % failures);quit(failures)

@@ -1,0 +1,513 @@
+{
+  "schema": "world.opening-pacing.v07",
+  "source_world_sha256": "c59bd40603624c57a7270e9b2f3233ae472a0a4895764f96fe94a0ea70d8e230",
+  "status": "已写入v07 canonical；图形与逐房活动待灰盒验证",
+  "new_rooms": [
+    {
+      "room_id": "P-R21",
+      "name": "倒时车厢",
+      "role": "射击与普通遭遇",
+      "purpose": "倒在路旁的客运车厢；射击练习、一个可绕开的小敌人和被打散的报时器形成第一次主动尝试。",
+      "beats": [
+        "稳定地面练一枪，靶有可见响应",
+        "一只9血基础敌人，射击/绕行皆可",
+        "可选查看停在七点的车票"
+      ],
+      "suggested_map_centre": [
+        795,
+        930
+      ],
+      "coordinate_scope": "illustration only"
+    },
+    {
+      "room_id": "P-R22",
+      "name": "风压引渠",
+      "role": "反冲与落地",
+      "purpose": "短反冲越过水渠；第一处低落差训练有下层地面可走回，不用深坑和扣血强迫玩家学会。",
+      "beats": [
+        "先看风吹草与近处落脚台",
+        "一次短反冲跨越；失误落低台原地回试",
+        "可选高台回望前方与疏散牌"
+      ],
+      "suggested_map_centre": [
+        815,
+        962
+      ],
+      "coordinate_scope": "illustration only"
+    },
+    {
+      "room_id": "P-R23",
+      "name": "废弃候车棚",
+      "role": "野外叙事与喘息",
+      "purpose": "安全候车棚遇见阿栖；她拿着坏报时器去小站，人物与环境共同说明仍有人生活在这个世界。",
+      "beats": [
+        "离开危险后短暂安全步行",
+        "阿栖在路边可见但不挡路；聊天可跳过",
+        "从铃声与灯火确定前进方向"
+      ],
+      "suggested_map_centre": [
+        888,
+        963
+      ],
+      "coordinate_scope": "illustration only"
+    },
+    {
+      "room_id": "P-R24",
+      "name": "望站坡",
+      "role": "目的地揭示",
+      "purpose": "从小坡同时看到近处钟外小站的灯火和背景最高的世界钟心；用稳定低压步行建立到达感与远方目标。",
+      "beats": [
+        "低压走跳与地面小绕行",
+        "小站暖灯和最高钟心塔同景，玩家自主抬头",
+        "沿布条进入小站南门，随后能辨认西、东两个外出门"
+      ],
+      "suggested_map_centre": [
+        872,
+        930
+      ],
+      "coordinate_scope": "illustration only"
+    },
+    {
+      "room_id": "P-R25",
+      "name": "倒铃果园",
+      "role": "普通战斗与近路选择",
+      "purpose": "宽地面果园中选择下层安全路或树干上层近路；两路共享出口，训练站位而非连续精确跳跃。",
+      "beats": [
+        "先看两条可走路线和敌人巡逻",
+        "两组错开的轻量敌人，普通枪可处理",
+        "高台路线回望田垄和钟心方向"
+      ],
+      "suggested_map_centre": [
+        725,
+        816
+      ],
+      "coordinate_scope": "illustration only"
+    },
+    {
+      "room_id": "P-R26",
+      "name": "旧风车内廊",
+      "role": "动作组合与路线判断",
+      "purpose": "风车内廊把已学反冲与慢平台组合一次；提供长一点的稳定地面路，熟练玩家可选上层捷线。",
+      "beats": [
+        "看清慢平台周期",
+        "安全下路或短反冲上路二选一",
+        "从检修灯和风声变化发现前方避风棚"
+      ],
+      "suggested_map_centre": [
+        792,
+        822
+      ],
+      "coordinate_scope": "illustration only"
+    },
+    {
+      "room_id": "P-R27",
+      "name": "背风检修棚",
+      "role": "首Boss前放松据点",
+      "purpose": "风车检修工留下的安全棚；可明确休息、整理装备、看见附近钟庭，阿栖在此可能展示修好的避风灯。",
+      "beats": [
+        "稳定安全地面和可见长椅",
+        "可选短交谈与远处Boss声音",
+        "休息后走两道门到牧风者"
+      ],
+      "suggested_map_centre": [
+        832,
+        765
+      ],
+      "coordinate_scope": "illustration only"
+    }
+  ],
+  "deleted_connection_ids": [
+    "START-P03-P01",
+    "room-link-141",
+    "room-link-145"
+  ],
+  "new_connections": [
+    {
+      "id": "INTRO-P03-P21",
+      "a": "P-R03",
+      "b": "P-R21"
+    },
+    {
+      "id": "INTRO-P21-P22",
+      "a": "P-R21",
+      "b": "P-R22"
+    },
+    {
+      "id": "INTRO-P22-P23",
+      "a": "P-R22",
+      "b": "P-R23"
+    },
+    {
+      "id": "INTRO-P23-P24",
+      "a": "P-R23",
+      "b": "P-R24"
+    },
+    {
+      "id": "INTRO-P24-P01",
+      "a": "P-R24",
+      "b": "P-R01"
+    },
+    {
+      "id": "WEST-P04-P25",
+      "a": "P-R04",
+      "b": "P-R25"
+    },
+    {
+      "id": "WEST-P25-P26",
+      "a": "P-R25",
+      "b": "P-R26"
+    },
+    {
+      "id": "WEST-P26-P27",
+      "a": "P-R26",
+      "b": "P-R27"
+    },
+    {
+      "id": "WEST-P27-P05",
+      "a": "P-R27",
+      "b": "P-R05"
+    },
+    {
+      "id": "APPROACH-P05-P14",
+      "a": "P-R05",
+      "b": "P-R14"
+    }
+  ],
+  "modified_connections": [
+    {
+      "id": "room-link-144",
+      "requirement": "shortcut_p02",
+      "control_room": "P-R05"
+    },
+    {
+      "id": "L02",
+      "requirement": "shortcut_p03",
+      "control_room": "P-R14",
+      "after": "boss_P_WINDKEEPER_defeated"
+    }
+  ],
+  "initial_tutorial_route": [
+    "P-R03",
+    "P-R21",
+    "P-R22",
+    "P-R23",
+    "P-R24",
+    "P-R01"
+  ],
+  "first_boss_beeline": [
+    "P-R01",
+    "P-R08",
+    "P-R06",
+    "P-R13",
+    "P-R04",
+    "P-R25",
+    "P-R26",
+    "P-R27",
+    "P-R05",
+    "P-R14"
+  ],
+  "first_boss_retry": [
+    "P-R27",
+    "P-R05",
+    "P-R14"
+  ],
+  "rest_relocation": {
+    "from": "P-R06",
+    "to": "P-R27",
+    "total_rest_points": 48,
+    "opening_phase_rest_points": 40,
+    "world_expansion_rest_additions": 8,
+    "explanation": "历史开局P06迁P27净增0；280房阶段另补8处达48。当前285房的中央5房不新增休息点，继续48处。"
+  },
+  "timing_policy": "所有时长均为设计假设，不是图遍历程序测量值；不以时间作为开门条件。",
+  "targets": {
+    "first_station_natural_first_visit_minutes": [
+      6,
+      9
+    ],
+    "first_station_competent_beeline_minutes": null,
+    "first_boss_natural_first_visit_from_new_save_minutes": [
+      25,
+      35
+    ],
+    "first_boss_competent_beeline_from_new_save_minutes": null,
+    "repeat_safe_approach_seconds": [
+      10,
+      25
+    ],
+    "status": "待实机标定。走速、场景尺寸、敌人和玩家观察行为会改变结果。",
+    "competent_beeline_policy": "不设耗时下限；5门到站/9门到Boss仅为拓扑，秒数留待真实尺寸实测。"
+  },
+  "tutorial_activity_budget_seconds": [
+    {
+      "room": "P-R03",
+      "total": [
+        50,
+        80
+      ],
+      "components": "走跳30–45；看环境10–20；尝试/辨向10–15",
+      "optional": "停看失序环境"
+    },
+    {
+      "room": "P-R21",
+      "total": [
+        80,
+        110
+      ],
+      "components": "移动20–25；射击练习和单敌35–50；车厢/车票25–35",
+      "optional": "车票、追加射击练习、绕行敌人"
+    },
+    {
+      "room": "P-R22",
+      "total": [
+        90,
+        130
+      ],
+      "components": "观察落点20–30；反冲尝试40–60；低台回返/高台支线30–40",
+      "optional": "高台与疏散牌；熟练可一次过"
+    },
+    {
+      "room": "P-R23",
+      "total": [
+        60,
+        90
+      ],
+      "components": "进入安全棚20–30；人物短聊20–35；停看20–25",
+      "optional": "全部对白与停看"
+    },
+    {
+      "room": "P-R24",
+      "total": [
+        55,
+        80
+      ],
+      "components": "低压通行35–50；望站、钟心剪影与布条20–30",
+      "optional": "停看小站、钟心远景与布条；不强制抬头或等待过场"
+    },
+    {
+      "room": "transitions",
+      "total": [
+        25,
+        50
+      ],
+      "components": "五次短过渡、输入重新交还和初见辨向",
+      "optional": "无强制加载停顿目标"
+    }
+  ],
+  "after_station_activity_budget_minutes": [
+    {
+      "segment": "P01第一次整备",
+      "range": [
+        1.5,
+        2.5
+      ],
+      "components": "明确休息、看商店/交付功能、可选短聊",
+      "optional": "购物与对白，不强制购买"
+    },
+    {
+      "segment": "P08-P06-P13-P04",
+      "range": [
+        3.5,
+        5.0
+      ],
+      "components": "岔路辨向、1–2次普通遭遇、可选HP01/TG01",
+      "optional": "绕取已有奖励"
+    },
+    {
+      "segment": "一次真实支路选择",
+      "range": [
+        3,
+        5
+      ],
+      "components": "森林营地与H地标，或东侧地窖/风棚的装备与城堡入口预览",
+      "optional": "整段可放弃，不是钥匙任务"
+    },
+    {
+      "segment": "P25-P26",
+      "range": [
+        4,
+        5.5
+      ],
+      "components": "两段正常战斗、选安全路/短反冲捷线、局部回望",
+      "optional": "高路线与额外观察"
+    },
+    {
+      "segment": "P27-P05",
+      "range": [
+        2,
+        3
+      ],
+      "components": "新避风处休息、开回桥、可选TG02/人物",
+      "optional": "聊天和TG02；Boss安全下路独立"
+    },
+    {
+      "segment": "短回环兑现/自然返回",
+      "range": [
+        2,
+        4
+      ],
+      "components": "开桥后回路口/小站，或回看一处入口，再回棚准备",
+      "optional": "可直接前往Boss，无强制回站"
+    },
+    {
+      "segment": "P14第一次主动入场",
+      "range": [
+        0.5,
+        1
+      ],
+      "components": "看清庭地与风向信号后进入",
+      "optional": "不设长演出锁"
+    }
+  ],
+  "budget_interpretation": "分段上下界相加可得到约22.5–35分钟；25–35是希望首见样本集中区间，不是保证每人落点。纯直行不应被拖到25分钟。",
+  "pre_boss_choices": [
+    {
+      "junction": "P-R13",
+      "optional": "HP01侧台；也可沿P03回看已开地下/湿地口",
+      "reward_or_landmark": "既有HP01或旧井的背侧闩",
+      "mandatory": false
+    },
+    {
+      "junction": "P-R04",
+      "optional": "F-R01林缘营地→F-R04 entry:L03",
+      "reward_or_landmark": "新的安全据点、游侠与可记住的悬挂H地标；TG01仍在田垄",
+      "mandatory": false
+    },
+    {
+      "junction": "P-R08",
+      "optional": "P08跨接P31站外铃场；可北经P32到P33塔脚，或东经P34/P35到旧田与地窖",
+      "reward_or_landmark": "P33钟心近景、P12既有EQ_MAP_P01、P20的H装备预览和东侧风车；进入相应房间才观察，不把H奖励当基础所得",
+      "mandatory": false
+    },
+    {
+      "junction": "P-R05",
+      "optional": "TG02慢平台侧路或C02墓园入口",
+      "reward_or_landmark": "既有齿轮与墓园入口气氛；正常Boss入口稳定可走",
+      "mandatory": false
+    },
+    {
+      "junction": "P-R31",
+      "optional": "P32安全主层通P33钟影前庭；P34普通下路通P35东行汇口；西向P08可回原探索圈",
+      "reward_or_landmark": "可早访的世界钟心塔脚与三个不同方向的地标；P32悬铃桥H预览",
+      "mandatory": false
+    }
+  ],
+  "graybox_test_protocol": {
+    "cohort": "首轮6–8位未见图玩家；另找2位熟悉动作游戏者测试直行和复访，不把小样本当精确统计。",
+    "log_events": [
+      "新档接管",
+      "首次进入P01",
+      "首次明确休息",
+      "选择与放弃支路",
+      "看见能力障碍",
+      "拾取已有奖励",
+      "P27休息",
+      "open_SC_P02",
+      "首次进入P14战斗区",
+      "每次地形失误"
+    ],
+    "measure_separately": [
+      "主动移动/战斗",
+      "自愿阅读/聊天",
+      "迷路与无目的往返",
+      "失败重试",
+      "加载和演出"
+    ],
+    "review_rules": [
+      "自然探索多数不足25分钟且内容体验薄时，补有职责遭遇/支路，不强制延时。",
+      "超过35分钟若主要是迷路/失败，则先改导视、落脚与重试，不再加房。",
+      "至少两处岔路被辨认；玩家可说出放弃的支路和将来回访理由。",
+      "到站前反复死亡者单独检查P22低层回收与初始HP压力。",
+      "P27到Boss不重做困难取物挑战，目标10–25秒待实测。"
+    ],
+    "not_validated_by_graph": [
+      "人类记忆",
+      "有趣程度",
+      "真实分钟数",
+      "敌人战斗与平台物理"
+    ]
+  },
+  "preserved": [
+    "牧风者P14与H奖励",
+    "全部既有唯一奖励身份和数量",
+    "工房武器匠→首次熔火必经规则",
+    "普通/真结局条件",
+    "统一玩家物理与休息边界"
+  ],
+  "story_objects_source": "design/sanctuaries-traveler-v07.json#/intro_story_objects",
+  "world_expansion_followup": "当前285房由保留280房基线加5房中央路网构成；历史280房阶段含7开局房与57区域扩容房。当前连接与48休息以world-room-layout-v07.json为准。",
+  "current_canonical": "world-room-layout-v07.json",
+  "current_world_rooms": 285,
+  "current_plains_rooms": 35,
+  "current_station_network_story_ref": "design/station-network-story-v07.json",
+  "migration_fields_scope": "new_rooms/new_connections/deleted_connection_ids/modified_connections describe the preserved seven-room opening migration from the historical baseline. The five current central-network rooms and connections are owned by the station-network integration, not recreated by this migration.",
+  "station_introduction": {
+    "room_id": "P-R01",
+    "section_id": "main",
+    "landmark_action_ref": "station_briefing",
+    "control_policy": "到站地标事件记录现有开局收据与主线日志，同时显示一次可立即关闭的非阻塞主目标短提示；玩家自由移动，所有对白可跳过，两个外出门无需聊天或休息解锁。",
+    "resident_lines": [
+      {
+        "npc_id": "NPC_P_REC",
+        "topic": "welcome",
+        "line": "先坐吧，赶路的人都把风带进来了。"
+      },
+      {
+        "npc_id": "NPC_P_REC",
+        "topic": "main_goal",
+        "line": "那座最高的塔是世界钟心。它失准以后，各地的时间就散了。"
+      },
+      {
+        "npc_id": "NPC_P_REC",
+        "topic": "time_disorder",
+        "line": "有的地方一天像一年，有的地方还停在同一刻。"
+      },
+      {
+        "npc_id": "NPC_P_WEAVER",
+        "topic": "main_goal",
+        "line": "先修各地的钟，找回三枚还能用的核心。钟心重新走起来，大家才有共同的明天。"
+      },
+      {
+        "npc_id": "NPC_P_REC",
+        "topic": "directions",
+        "line": "西边的主风铃还在乱响。往北能到塔脚，东边田路也还通着。"
+      },
+      {
+        "npc_id": "NPC_P_WEAVER",
+        "topic": "daily_life",
+        "line": "能修的先放这儿。你不用一次走很远。"
+      }
+    ],
+    "departure_guidance": "西门P08通首Boss与森林；东门P31分向北侧塔脚、东侧田路，并可跨接P08。H桥可预览，主目标记录不要求逐人对话。",
+    "new_reward_count": 0,
+    "not_rest": true,
+    "journal_entry_ref": "JOURNAL_MAIN_CLOCK_REPAIR",
+    "two_exit_composition": "来自P24时可辨认西门的田野风铃声与东门的开阔天光；服务前庭保持连贯安全地面。",
+    "initial_objective_hint": {
+      "trigger_action": "station_briefing",
+      "text": "世界钟心失准。修复地区时钟，寻找三枚核心。",
+      "show_once_on_first_arrival": true,
+      "once_scope": "existing station_briefing event; no additional gameplay action or token",
+      "blocking": false,
+      "input_lock": false,
+      "dismissible_immediately": true,
+      "requires_acknowledgement": false,
+      "repeat_on_reentry": false,
+      "record_remains_in_journal": true,
+      "presentation": "首次到站完成现有地标事件时，在画面边缘显示一次简短主目标提示。玩家可立即关闭或继续操作略过；目标记录始终留在日志中。"
+    }
+  },
+  "world_context_story_objects_source": "design/station-network-story-v07.json#/story_interactions",
+  "post_H_return": {
+    "source": "P-R15",
+    "shortcut_id": "SC-P01",
+    "landing": "P-R32:main",
+    "return_to_station": [
+      "P-R32",
+      "P-R31",
+      "P-R01"
+    ],
+    "new_choice": "本房可试H高桥到P35，也可去P33塔脚或回小站；P20既有H装备保留原房与条件。",
+    "story_ref": "design/station-network-story-v07.json"
+  }
+}

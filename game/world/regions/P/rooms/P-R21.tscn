@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R21" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R21"
+art_profile = "carriage"
+arrival_text = "倒时车厢"
+platforms = Array[Rect2]([Rect2(0, 736, 656, 32), Rect2(1008, 736, 400, 32), Rect2(0, 640, 656, 128), Rect2(1008, 640, 400, 128), Rect2(0, 640, 288, 32), Rect2(768, 688, 192, 32), Rect2(656, 736, 96, 32), Rect2(960, 688, 48, 32), Rect2(656, 688, 112, 24)])
+one_way_indices = Array[int]([8])
+start_point = Vector2(144, 622)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R21:encounter:01", "behavior": "patrol", "point": [528, 622], "max_health": 5}])
+signs = Array[Dictionary]([{"point": [224, 592], "text": "末班车七点开。背面又添了：明天。", "action_ref": "read_intro_obj_ticket"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "carriage", "point": [368, 640.0], "layer": -2}, {"asset": "storage_crates", "point": [576, 640.0], "layer": -2}])
+tutorial_action = "tutorial_shoot"
+tutorial_recoil_finish_x = 960.0
+tutorial_target = "P-R21:encounter:01"

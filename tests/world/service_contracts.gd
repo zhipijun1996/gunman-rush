@@ -48,8 +48,11 @@ func run() -> void:
 	check(service.request("upgrade","trial_filter","upgrade:filter",state.revision) and service.ledger().owned.trial_filter.level==2,"upgrade persists same item level")
 	service.request("buy","trial_heart","buy:heart",state.revision)
 	service.request("equip","trial_heart","equip:heart",state.revision)
+	var original_load: int=service.item("trial_lamp").load
+	service.item("trial_lamp").load=service.capacity()
 	before=state.value.duplicate(true)
 	check(not service.request("equip","trial_lamp","equip:overload",state.revision) and state.value==before,"over-capacity rejects entire proposal")
+	service.item("trial_lamp").load=original_load
 	candidate=service.rest_candidate(state.value.duplicate(true));state.commit(candidate,state.revision)
 	service.request("unequip","trial_heart","unequip:heart",state.revision)
 	service.request("buy","trial_flask","buy:flask",state.revision)

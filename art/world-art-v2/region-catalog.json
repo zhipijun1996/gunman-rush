@@ -1,0 +1,8306 @@
+{
+  "schema": "clock-world-art-catalog-v2",
+  "worldUnitsPerPixel": 1,
+  "terrainCell": 32,
+  "heroBodyHeight": 44,
+  "regions": [
+    {
+      "id": "windchime_plains",
+      "name": "风铃平原",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "windchime_plains_v2",
+      "terrain47": {
+        "name": "风铃平原",
+        "atlas": "assets/terrain47/windchime_plains.png",
+        "sha256": "d941f808d8bd7f1d60250f7e070da34c31e5be76c1e9af4dcbd28adb3ca881b5",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 8,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/windchime_plains.tres",
+        "godotTexture": "res://terrain47/textures/windchime_plains.png",
+        "originalAsset": "fine32_terrain",
+        "recipe": "autotile/recipes/windchime_plains.json"
+      },
+      "legacyTerrain": {
+        "asset": "fine32_terrain",
+        "tile": 32,
+        "surfaceY": 8,
+        "bank": 0,
+        "coords": {
+          "tl": [
+            2,
+            1
+          ],
+          "t": [
+            7,
+            3
+          ],
+          "tr": [
+            2,
+            3
+          ],
+          "l": [
+            4,
+            1
+          ],
+          "i": [
+            6,
+            5
+          ],
+          "r": [
+            2,
+            5
+          ],
+          "bl": [
+            4,
+            0
+          ],
+          "b": [
+            4,
+            4
+          ],
+          "br": [
+            2,
+            4
+          ]
+        }
+      },
+      "assets": [
+        "bell_post",
+        "plains_arch",
+        "plains_grass",
+        "seed_stems",
+        "windchime_plains_hazard",
+        "windchime_plains_mid_v2",
+        "windchime_plains_near_v2",
+        "windchime_plains_v2_bell_wheel",
+        "windchime_plains_v2_chime_span",
+        "windchime_plains_v2_road_marker",
+        "windchime_plains_v2_seed_relic"
+      ],
+      "newProps": [
+        "windchime_plains_v2_bell_wheel",
+        "windchime_plains_v2_chime_span",
+        "windchime_plains_v2_road_marker",
+        "windchime_plains_v2_seed_relic"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "plains_arch",
+          "x": 494,
+          "y": 262,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "bell",
+          "asset": "bell_post",
+          "x": 230,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "grass1",
+          "asset": "plains_grass",
+          "x": 80,
+          "y": 289,
+          "group": "attached",
+          "sway": 2,
+          "phase": 0
+        },
+        {
+          "id": "grass2",
+          "asset": "plains_grass",
+          "x": 176,
+          "y": 289,
+          "group": "attached",
+          "sway": 2,
+          "phase": 0.7
+        },
+        {
+          "id": "grass3",
+          "asset": "plains_grass",
+          "x": 352,
+          "y": 257,
+          "group": "attached",
+          "sway": 2,
+          "phase": 1.1
+        },
+        {
+          "id": "grass4",
+          "asset": "plains_grass",
+          "x": 582,
+          "y": 257,
+          "group": "attached",
+          "sway": 2,
+          "phase": 1.8
+        },
+        {
+          "id": "seed",
+          "asset": "seed_stems",
+          "x": 612,
+          "y": 258,
+          "group": "attached",
+          "sway": 2,
+          "phase": 2.1
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "windchime_plains_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "windchime_plains_v2_road_marker",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "windchime_plains_v2_seed_relic",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "windchime_plains_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "windchime_plains_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "windchime_plains_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "windchime_plains_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.62,
+          0.68,
+          0.78
+        ],
+        "backgroundAmbient": [
+          0.96,
+          0.95,
+          0.92
+        ],
+        "heroFill": 0.12,
+        "shadowInset": 10,
+        "lights": [
+          {
+            "id": "sun",
+            "x": 100,
+            "y": -45,
+            "radius": 580,
+            "color": [
+              1,
+              0.9,
+              0.71
+            ],
+            "energy": 0.95,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "sky-fill",
+            "x": 600,
+            "y": 15,
+            "radius": 600,
+            "color": [
+              0.61,
+              0.77,
+              1
+            ],
+            "energy": 0.3,
+            "shadow": false,
+            "visible": false
+          }
+        ],
+        "beams": [],
+        "shadowSideInset": 2
+      },
+      "particles": {
+        "color": [
+          1,
+          0.94,
+          0.68
+        ],
+        "count": 22,
+        "speed": 26,
+        "vertical": -2,
+        "kind": "dust"
+      },
+      "preview": "previews/windchime_plains-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "thorn_forest",
+      "name": "荆棘森林",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "thorn_forest_v2",
+      "terrain47": {
+        "name": "荆棘森林",
+        "atlas": "assets/terrain47/thorn_forest.png",
+        "sha256": "898f73443397a4cd2870d70853ab24109c67aa0f1a20da292b45f86297a53db0",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 8,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/thorn_forest.tres",
+        "godotTexture": "res://terrain47/textures/thorn_forest.png",
+        "originalAsset": "forest_terrain",
+        "recipe": "autotile/recipes/thorn_forest.json"
+      },
+      "legacyTerrain": {
+        "asset": "forest_terrain",
+        "tile": 32,
+        "surfaceY": 8,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        }
+      },
+      "assets": [
+        "forest_arch",
+        "forest_lamp",
+        "forest_plant",
+        "leaf_sprig",
+        "thorn_forest_hazard",
+        "thorn_forest_mid_v2",
+        "thorn_forest_near_v2",
+        "thorn_forest_v2_hook_root",
+        "thorn_forest_v2_root_bell",
+        "thorn_forest_v2_seed_pods",
+        "thorn_forest_v2_thorn_log",
+        "thorns"
+      ],
+      "newProps": [
+        "thorn_forest_v2_hook_root",
+        "thorn_forest_v2_thorn_log",
+        "thorn_forest_v2_seed_pods",
+        "thorn_forest_v2_root_bell"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "forest_arch",
+          "x": 494,
+          "y": 262,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "bell",
+          "asset": "forest_lamp",
+          "x": 230,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "plant1",
+          "asset": "forest_plant",
+          "x": 80,
+          "y": 289,
+          "group": "attached",
+          "sway": 2,
+          "phase": 0
+        },
+        {
+          "id": "plant2",
+          "asset": "forest_plant",
+          "x": 176,
+          "y": 289,
+          "group": "attached",
+          "sway": 2,
+          "phase": 0.7
+        },
+        {
+          "id": "plant3",
+          "asset": "forest_plant",
+          "x": 352,
+          "y": 257,
+          "group": "attached",
+          "sway": 2,
+          "phase": 1.1
+        },
+        {
+          "id": "plant4",
+          "asset": "forest_plant",
+          "x": 582,
+          "y": 257,
+          "group": "attached",
+          "sway": 2,
+          "phase": 1.8
+        },
+        {
+          "id": "sprig",
+          "asset": "leaf_sprig",
+          "x": 612,
+          "y": 258,
+          "group": "attached",
+          "sway": 2,
+          "phase": 2.1
+        },
+        {
+          "id": "thorns",
+          "asset": "thorns",
+          "x": 318,
+          "y": 356,
+          "group": "detail"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "thorn_forest_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "thorn_forest_v2_seed_pods",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "thorn_forest_v2_root_bell",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "thorn_forest_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "thorn_forest_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "thorn_forest_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "thorn_forest_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.43,
+          0.54,
+          0.56
+        ],
+        "backgroundAmbient": [
+          0.65,
+          0.74,
+          0.76
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "lights": [
+          {
+            "id": "canopy",
+            "x": 164,
+            "y": 12,
+            "radius": 390,
+            "color": [
+              0.74,
+              0.94,
+              0.86
+            ],
+            "energy": 1.05,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "seed-lantern",
+            "x": 235,
+            "y": 256,
+            "radius": 135,
+            "color": [
+              1,
+              0.66,
+              0.29
+            ],
+            "energy": 1.35,
+            "shadow": true,
+            "coreRadius": 2,
+            "visible": true,
+            "flicker": 0.025
+          }
+        ],
+        "beams": [
+          {
+            "points": [
+              [
+                122,
+                0
+              ],
+              [
+                153,
+                0
+              ],
+              [
+                350,
+                305
+              ],
+              [
+                262,
+                305
+              ]
+            ],
+            "color": [
+              0.69,
+              0.89,
+              0.77
+            ],
+            "alpha": 0.07
+          },
+          {
+            "points": [
+              [
+                191,
+                0
+              ],
+              [
+                204,
+                0
+              ],
+              [
+                373,
+                245
+              ],
+              [
+                338,
+                245
+              ]
+            ],
+            "color": [
+              0.76,
+              0.9,
+              0.79
+            ],
+            "alpha": 0.04
+          }
+        ],
+        "shadowSideInset": 2
+      },
+      "particles": {
+        "color": [
+          0.83,
+          1,
+          0.65
+        ],
+        "count": 24,
+        "speed": 22,
+        "vertical": 1,
+        "kind": "dust"
+      },
+      "preview": "previews/thorn_forest-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "mushroom_caverns",
+      "name": "蕈灯地穴",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "mushroom_caverns",
+      "terrain47": {
+        "name": "蕈灯地穴",
+        "atlas": "assets/terrain47/mushroom_caverns.png",
+        "sha256": "d4857fd032d2961b16b6027660fdcaa4234c9bec7d721894000078144f6484b4",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 7,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/mushroom_caverns.tres",
+        "godotTexture": "res://terrain47/textures/mushroom_caverns.png",
+        "originalAsset": "mushroom_terrain",
+        "recipe": "autotile/recipes/mushroom_caverns.json"
+      },
+      "legacyTerrain": {
+        "asset": "mushroom_terrain",
+        "tile": 32,
+        "surfaceY": 7,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        }
+      },
+      "assets": [
+        "mushroom_caverns_hazard",
+        "mushroom_caverns_mid_v2",
+        "mushroom_caverns_near_v2",
+        "mushroom_caverns_v2_hollow_cap",
+        "mushroom_caverns_v2_mycelium_span",
+        "mushroom_caverns_v2_shelf_cap",
+        "mushroom_caverns_v2_spore_pods",
+        "mushroom_lamp",
+        "mushroom_landmark"
+      ],
+      "newProps": [
+        "mushroom_caverns_v2_shelf_cap",
+        "mushroom_caverns_v2_spore_pods",
+        "mushroom_caverns_v2_mycelium_span",
+        "mushroom_caverns_v2_hollow_cap"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "mushroom_landmark",
+          "x": 494,
+          "y": 262,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "left-lamp",
+          "asset": "mushroom_lamp",
+          "x": 216,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "near-fungi",
+          "asset": "mushroom_lamp",
+          "x": 54,
+          "y": 289,
+          "group": "attached"
+        },
+        {
+          "id": "right-lamp",
+          "asset": "mushroom_lamp",
+          "x": 594,
+          "y": 257,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "mushroom_caverns_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "mushroom_caverns_v2_mycelium_span",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "mushroom_caverns_v2_hollow_cap",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "mushroom_caverns_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "mushroom_caverns_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "mushroom_caverns_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "mushroom_caverns_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.39,
+          0.44,
+          0.6
+        ],
+        "backgroundAmbient": [
+          0.82,
+          0.91,
+          0.98
+        ],
+        "heroFill": 0.23,
+        "shadowInset": 10,
+        "lights": [
+          {
+            "id": "great-gills",
+            "x": 495,
+            "y": 149,
+            "radius": 214,
+            "color": [
+              0.32,
+              1,
+              0.86
+            ],
+            "energy": 1.05,
+            "shadow": true,
+            "coreRadius": 2,
+            "visible": true,
+            "flicker": 0.025
+          },
+          {
+            "id": "left-fungi",
+            "x": 216,
+            "y": 233,
+            "radius": 170,
+            "color": [
+              0.4,
+              1,
+              0.88
+            ],
+            "energy": 1.15,
+            "shadow": true,
+            "coreRadius": 2,
+            "visible": true,
+            "flicker": 0.02
+          },
+          {
+            "id": "near-fungi",
+            "x": 54,
+            "y": 234,
+            "radius": 105,
+            "color": [
+              0.45,
+              0.94,
+              1
+            ],
+            "energy": 0.65,
+            "shadow": true,
+            "visible": true
+          },
+          {
+            "id": "right-fungi",
+            "x": 594,
+            "y": 202,
+            "radius": 110,
+            "color": [
+              0.35,
+              0.94,
+              1
+            ],
+            "energy": 0.55,
+            "shadow": true,
+            "visible": true
+          }
+        ],
+        "beams": [],
+        "shadowSideInset": 2
+      },
+      "particles": {
+        "color": [
+          0.65,
+          1,
+          0.93
+        ],
+        "count": 30,
+        "speed": 11,
+        "vertical": -6,
+        "kind": "spores"
+      },
+      "preview": "previews/mushroom_caverns-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "firefly_marsh",
+      "name": "萤雾沼泽",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "firefly_marsh",
+      "terrain47": {
+        "name": "萤雾沼泽",
+        "atlas": "assets/terrain47/firefly_marsh.png",
+        "sha256": "ecaf989a0853fe93500efda8f12fa8dd3e2d7b759d37b8a897df03519ef5a687",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 14,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/firefly_marsh.tres",
+        "godotTexture": "res://terrain47/textures/firefly_marsh.png",
+        "originalAsset": "firefly_marsh_terrain",
+        "recipe": "autotile/recipes/firefly_marsh.json"
+      },
+      "legacyTerrain": {
+        "asset": "firefly_marsh_terrain",
+        "tile": 32,
+        "surfaceY": 14,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        },
+        "surfaceYMethod": "Rounded median first opaque y in central top tile columns32..63 after alpha>=128 threshold",
+        "scope": "nine-slice-art-study"
+      },
+      "assets": [
+        "firefly_marsh_attached",
+        "firefly_marsh_hazard",
+        "firefly_marsh_lamp",
+        "firefly_marsh_landmark",
+        "firefly_marsh_mid_v2",
+        "firefly_marsh_near_v2",
+        "firefly_marsh_v2_fishing_frame",
+        "firefly_marsh_v2_reed_bridge",
+        "firefly_marsh_v2_sunken_relic",
+        "firefly_marsh_v2_swamp_pods"
+      ],
+      "newProps": [
+        "firefly_marsh_v2_reed_bridge",
+        "firefly_marsh_v2_fishing_frame",
+        "firefly_marsh_v2_swamp_pods",
+        "firefly_marsh_v2_sunken_relic"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "firefly_marsh_landmark",
+          "x": 485,
+          "y": 258,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "lamp-left",
+          "asset": "firefly_marsh_lamp",
+          "x": 228,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "lamp-right",
+          "asset": "firefly_marsh_lamp",
+          "x": 599,
+          "y": 256,
+          "group": "detail"
+        },
+        {
+          "id": "attached-left",
+          "asset": "firefly_marsh_attached",
+          "x": 43,
+          "y": 290,
+          "group": "attached"
+        },
+        {
+          "id": "attached-right",
+          "asset": "firefly_marsh_attached",
+          "x": 366,
+          "y": 258,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "firefly_marsh_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "firefly_marsh_v2_swamp_pods",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "firefly_marsh_v2_sunken_relic",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "firefly_marsh_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "firefly_marsh_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "firefly_marsh_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "firefly_marsh_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.39,
+          0.49,
+          0.53
+        ],
+        "backgroundAmbient": [
+          0.79,
+          0.86,
+          0.9
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "shadowSideInset": 3,
+        "lights": [
+          {
+            "id": "sky-key",
+            "x": 145,
+            "y": -5,
+            "radius": 500,
+            "color": [
+              0.57,
+              0.82,
+              0.91
+            ],
+            "energy": 0.65,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "practical-0",
+            "x": 237,
+            "y": 240,
+            "radius": 174,
+            "color": [
+              1,
+              0.83,
+              0.32
+            ],
+            "energy": 1.35,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "firefly_marsh_lamp",
+            "fixtureLocalCore": [
+              31,
+              23
+            ]
+          },
+          {
+            "id": "practical-1",
+            "x": 608,
+            "y": 208,
+            "radius": 140,
+            "color": [
+              1,
+              0.83,
+              0.32
+            ],
+            "energy": 1.08,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "firefly_marsh_lamp",
+            "fixtureLocalCore": [
+              31,
+              23
+            ]
+          }
+        ],
+        "beams": []
+      },
+      "particles": {
+        "color": [
+          1,
+          0.93,
+          0.43
+        ],
+        "count": 18,
+        "speed": 14,
+        "vertical": -1,
+        "kind": "dust"
+      },
+      "preview": "previews/firefly_marsh-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "windswept_canyon",
+      "name": "风蚀峡谷",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "windswept_canyon",
+      "terrain47": {
+        "name": "风蚀峡谷",
+        "atlas": "assets/terrain47/windswept_canyon.png",
+        "sha256": "2c0e9b6efc7742ec717300a3a26ed9528d84d971108d80b48bbb7f7a8f324c60",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 3,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/windswept_canyon.tres",
+        "godotTexture": "res://terrain47/textures/windswept_canyon.png",
+        "originalAsset": "windswept_canyon_terrain",
+        "recipe": "autotile/recipes/windswept_canyon.json"
+      },
+      "legacyTerrain": {
+        "asset": "windswept_canyon_terrain",
+        "tile": 32,
+        "surfaceY": 3,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        },
+        "surfaceYMethod": "Rounded median first opaque y in central top tile columns32..63 after alpha>=128 threshold",
+        "scope": "nine-slice-art-study"
+      },
+      "assets": [
+        "windswept_canyon_attached",
+        "windswept_canyon_hazard",
+        "windswept_canyon_lamp",
+        "windswept_canyon_landmark",
+        "windswept_canyon_mid_v2",
+        "windswept_canyon_near_v2",
+        "windswept_canyon_v2_bearing_stone",
+        "windswept_canyon_v2_bridge_fragment",
+        "windswept_canyon_v2_ragged_wheel",
+        "windswept_canyon_v2_weather_vane"
+      ],
+      "newProps": [
+        "windswept_canyon_v2_ragged_wheel",
+        "windswept_canyon_v2_bridge_fragment",
+        "windswept_canyon_v2_weather_vane",
+        "windswept_canyon_v2_bearing_stone"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "windswept_canyon_landmark",
+          "x": 485,
+          "y": 258,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "lamp-left",
+          "asset": "windswept_canyon_lamp",
+          "x": 228,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "lamp-right",
+          "asset": "windswept_canyon_lamp",
+          "x": 599,
+          "y": 256,
+          "group": "detail"
+        },
+        {
+          "id": "attached-left",
+          "asset": "windswept_canyon_attached",
+          "x": 43,
+          "y": 290,
+          "group": "attached"
+        },
+        {
+          "id": "attached-right",
+          "asset": "windswept_canyon_attached",
+          "x": 366,
+          "y": 258,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "windswept_canyon_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "windswept_canyon_v2_weather_vane",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "windswept_canyon_v2_bearing_stone",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "windswept_canyon_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "windswept_canyon_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "windswept_canyon_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "windswept_canyon_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.6,
+          0.53,
+          0.64
+        ],
+        "backgroundAmbient": [
+          0.97,
+          0.93,
+          0.92
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "shadowSideInset": 3,
+        "lights": [
+          {
+            "id": "sky-key",
+            "x": 115,
+            "y": -45,
+            "radius": 500,
+            "color": [
+              1,
+              0.85,
+              0.58
+            ],
+            "energy": 1.15,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "practical-0",
+            "x": 237,
+            "y": 242,
+            "radius": 174,
+            "color": [
+              1,
+              0.69,
+              0.33
+            ],
+            "energy": 0.85,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "windswept_canyon_lamp",
+            "fixtureLocalCore": [
+              31,
+              25
+            ]
+          },
+          {
+            "id": "practical-1",
+            "x": 608,
+            "y": 210,
+            "radius": 140,
+            "color": [
+              1,
+              0.69,
+              0.33
+            ],
+            "energy": 0.68,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "windswept_canyon_lamp",
+            "fixtureLocalCore": [
+              31,
+              25
+            ]
+          }
+        ],
+        "beams": []
+      },
+      "particles": {
+        "color": [
+          1,
+          0.91,
+          0.64
+        ],
+        "count": 22,
+        "speed": 35,
+        "vertical": 1,
+        "kind": "dust"
+      },
+      "preview": "previews/windswept_canyon-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "frostmirror_glacier",
+      "name": "霜镜冰川",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "frostmirror_glacier",
+      "terrain47": {
+        "name": "霜镜冰川",
+        "atlas": "assets/terrain47/frostmirror_glacier.png",
+        "sha256": "3918fd0cf9ae8a63d5f526ad4c8238f2c70b7f747386afdc182291ac281e4f40",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 2,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/frostmirror_glacier.tres",
+        "godotTexture": "res://terrain47/textures/frostmirror_glacier.png",
+        "originalAsset": "frostmirror_glacier_terrain",
+        "recipe": "autotile/recipes/frostmirror_glacier.json"
+      },
+      "legacyTerrain": {
+        "asset": "frostmirror_glacier_terrain",
+        "tile": 32,
+        "surfaceY": 2,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        },
+        "surfaceYMethod": "Rounded median first opaque y in central top tile columns32..63 after alpha>=128 threshold",
+        "scope": "nine-slice-art-study"
+      },
+      "assets": [
+        "frostmirror_glacier_attached",
+        "frostmirror_glacier_hazard",
+        "frostmirror_glacier_lamp",
+        "frostmirror_glacier_landmark",
+        "frostmirror_glacier_mid_v2",
+        "frostmirror_glacier_near_v2",
+        "frostmirror_glacier_v2_frozen_bell",
+        "frostmirror_glacier_v2_ice_column",
+        "frostmirror_glacier_v2_ice_span",
+        "frostmirror_glacier_v2_mirror_relic"
+      ],
+      "newProps": [
+        "frostmirror_glacier_v2_frozen_bell",
+        "frostmirror_glacier_v2_ice_span",
+        "frostmirror_glacier_v2_ice_column",
+        "frostmirror_glacier_v2_mirror_relic"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "frostmirror_glacier_landmark",
+          "x": 485,
+          "y": 258,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "lamp-left",
+          "asset": "frostmirror_glacier_lamp",
+          "x": 228,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "lamp-right",
+          "asset": "frostmirror_glacier_lamp",
+          "x": 599,
+          "y": 256,
+          "group": "detail"
+        },
+        {
+          "id": "attached-left",
+          "asset": "frostmirror_glacier_attached",
+          "x": 43,
+          "y": 290,
+          "group": "attached"
+        },
+        {
+          "id": "attached-right",
+          "asset": "frostmirror_glacier_attached",
+          "x": 366,
+          "y": 258,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "frostmirror_glacier_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "frostmirror_glacier_v2_ice_column",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "frostmirror_glacier_v2_mirror_relic",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "frostmirror_glacier_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "frostmirror_glacier_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "frostmirror_glacier_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "frostmirror_glacier_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.44,
+          0.55,
+          0.7
+        ],
+        "backgroundAmbient": [
+          0.89,
+          0.94,
+          1
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "shadowSideInset": 3,
+        "lights": [
+          {
+            "id": "sky-key",
+            "x": 100,
+            "y": -25,
+            "radius": 500,
+            "color": [
+              0.65,
+              0.84,
+              1
+            ],
+            "energy": 0.75,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "practical-0",
+            "x": 232,
+            "y": 256,
+            "radius": 174,
+            "color": [
+              1,
+              0.66,
+              0.31
+            ],
+            "energy": 0.72,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "frostmirror_glacier_lamp",
+            "fixtureLocalCore": [
+              26,
+              23
+            ]
+          },
+          {
+            "id": "practical-1",
+            "x": 603,
+            "y": 224,
+            "radius": 140,
+            "color": [
+              1,
+              0.66,
+              0.31
+            ],
+            "energy": 0.576,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "frostmirror_glacier_lamp",
+            "fixtureLocalCore": [
+              26,
+              23
+            ]
+          }
+        ],
+        "beams": []
+      },
+      "particles": {
+        "color": [
+          0.78,
+          0.91,
+          1
+        ],
+        "count": 26,
+        "speed": 27,
+        "vertical": 3,
+        "kind": "dust"
+      },
+      "preview": "previews/frostmirror_glacier-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "moonshadow_cemetery",
+      "name": "月影墓园",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "moonshadow_cemetery",
+      "terrain47": {
+        "name": "月影墓园",
+        "atlas": "assets/terrain47/moonshadow_cemetery.png",
+        "sha256": "82fffaf13e9a3474075f22400e93c1049482b231eef6a4825363d8e6e4ad62af",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 3,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/moonshadow_cemetery.tres",
+        "godotTexture": "res://terrain47/textures/moonshadow_cemetery.png",
+        "originalAsset": "moonshadow_cemetery_terrain",
+        "recipe": "autotile/recipes/moonshadow_cemetery.json"
+      },
+      "legacyTerrain": {
+        "asset": "moonshadow_cemetery_terrain",
+        "tile": 32,
+        "surfaceY": 3,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        },
+        "surfaceYMethod": "Rounded median first opaque y in central top tile columns32..63 after alpha>=128 threshold",
+        "scope": "nine-slice-art-study"
+      },
+      "assets": [
+        "moonshadow_cemetery_attached",
+        "moonshadow_cemetery_hazard",
+        "moonshadow_cemetery_lamp",
+        "moonshadow_cemetery_landmark",
+        "moonshadow_cemetery_mid_v2",
+        "moonshadow_cemetery_near_v2",
+        "moonshadow_cemetery_v2_bell_memorial",
+        "moonshadow_cemetery_v2_broken_gate",
+        "moonshadow_cemetery_v2_sarcophagus",
+        "moonshadow_cemetery_v2_urn_flowers"
+      ],
+      "newProps": [
+        "moonshadow_cemetery_v2_sarcophagus",
+        "moonshadow_cemetery_v2_broken_gate",
+        "moonshadow_cemetery_v2_bell_memorial",
+        "moonshadow_cemetery_v2_urn_flowers"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "moonshadow_cemetery_landmark",
+          "x": 485,
+          "y": 258,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "lamp-left",
+          "asset": "moonshadow_cemetery_lamp",
+          "x": 228,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "lamp-right",
+          "asset": "moonshadow_cemetery_lamp",
+          "x": 599,
+          "y": 256,
+          "group": "detail"
+        },
+        {
+          "id": "attached-left",
+          "asset": "moonshadow_cemetery_attached",
+          "x": 43,
+          "y": 290,
+          "group": "attached"
+        },
+        {
+          "id": "attached-right",
+          "asset": "moonshadow_cemetery_attached",
+          "x": 366,
+          "y": 258,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "moonshadow_cemetery_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "moonshadow_cemetery_v2_bell_memorial",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "moonshadow_cemetery_v2_urn_flowers",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "moonshadow_cemetery_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "moonshadow_cemetery_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "moonshadow_cemetery_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "moonshadow_cemetery_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.38,
+          0.45,
+          0.6
+        ],
+        "backgroundAmbient": [
+          0.73,
+          0.82,
+          0.92
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "shadowSideInset": 3,
+        "lights": [
+          {
+            "id": "sky-key",
+            "x": 500,
+            "y": 25,
+            "radius": 500,
+            "color": [
+              0.69,
+              0.79,
+              1
+            ],
+            "energy": 0.75,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "practical-0",
+            "x": 228,
+            "y": 248,
+            "radius": 174,
+            "color": [
+              1,
+              0.65,
+              0.29
+            ],
+            "energy": 1.7,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 1,
+            "flicker": 0.022,
+            "fixtureAsset": "moonshadow_cemetery_lamp",
+            "fixtureLocalCore": [
+              22,
+              14
+            ]
+          },
+          {
+            "id": "practical-1",
+            "x": 599,
+            "y": 216,
+            "radius": 140,
+            "color": [
+              1,
+              0.65,
+              0.29
+            ],
+            "energy": 1.36,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 1,
+            "flicker": 0.022,
+            "fixtureAsset": "moonshadow_cemetery_lamp",
+            "fixtureLocalCore": [
+              22,
+              14
+            ]
+          }
+        ],
+        "beams": []
+      },
+      "particles": {
+        "color": [
+          0.79,
+          0.87,
+          1
+        ],
+        "count": 18,
+        "speed": 15,
+        "vertical": -1,
+        "kind": "dust"
+      },
+      "preview": "previews/moonshadow_cemetery-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "moon_crown_castle",
+      "name": "月冠古堡",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "moon_crown_castle",
+      "terrain47": {
+        "name": "月冠古堡",
+        "atlas": "assets/terrain47/moon_crown_castle.png",
+        "sha256": "212313b629208104debf0773718d1996f7297002a951efdc787e969ec15c8d1b",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 0,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/moon_crown_castle.tres",
+        "godotTexture": "res://terrain47/textures/moon_crown_castle.png",
+        "originalAsset": "moon_crown_castle_terrain",
+        "recipe": "autotile/recipes/moon_crown_castle.json"
+      },
+      "legacyTerrain": {
+        "asset": "moon_crown_castle_terrain",
+        "tile": 32,
+        "surfaceY": 0,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        },
+        "surfaceYMethod": "Rounded median first opaque y in central top tile columns32..63 after alpha>=128 threshold",
+        "scope": "nine-slice-art-study"
+      },
+      "assets": [
+        "moon_crown_castle_attached",
+        "moon_crown_castle_hazard",
+        "moon_crown_castle_lamp",
+        "moon_crown_castle_landmark",
+        "moon_crown_castle_mid_v2",
+        "moon_crown_castle_near_v2",
+        "moon_crown_castle_v2_armor_pedestal",
+        "moon_crown_castle_v2_broken_balcony",
+        "moon_crown_castle_v2_glass_fragment",
+        "moon_crown_castle_v2_royal_banner"
+      ],
+      "newProps": [
+        "moon_crown_castle_v2_broken_balcony",
+        "moon_crown_castle_v2_royal_banner",
+        "moon_crown_castle_v2_armor_pedestal",
+        "moon_crown_castle_v2_glass_fragment"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "moon_crown_castle_landmark",
+          "x": 485,
+          "y": 258,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "lamp-left",
+          "asset": "moon_crown_castle_lamp",
+          "x": 228,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "lamp-right",
+          "asset": "moon_crown_castle_lamp",
+          "x": 599,
+          "y": 256,
+          "group": "detail"
+        },
+        {
+          "id": "attached-left",
+          "asset": "moon_crown_castle_attached",
+          "x": 43,
+          "y": 290,
+          "group": "attached"
+        },
+        {
+          "id": "attached-right",
+          "asset": "moon_crown_castle_attached",
+          "x": 366,
+          "y": 258,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "moon_crown_castle_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "moon_crown_castle_v2_armor_pedestal",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "moon_crown_castle_v2_glass_fragment",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "moon_crown_castle_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "moon_crown_castle_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "moon_crown_castle_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "moon_crown_castle_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.4,
+          0.46,
+          0.61
+        ],
+        "backgroundAmbient": [
+          0.83,
+          0.89,
+          0.98
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "shadowSideInset": 3,
+        "lights": [
+          {
+            "id": "sky-key",
+            "x": 70,
+            "y": 15,
+            "radius": 500,
+            "color": [
+              0.59,
+              0.76,
+              1
+            ],
+            "energy": 0.95,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "practical-0",
+            "x": 227,
+            "y": 224,
+            "radius": 174,
+            "color": [
+              1,
+              0.65,
+              0.31
+            ],
+            "energy": 1.65,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "moon_crown_castle_lamp",
+            "fixtureLocalCore": [
+              15,
+              12
+            ]
+          },
+          {
+            "id": "practical-1",
+            "x": 598,
+            "y": 192,
+            "radius": 140,
+            "color": [
+              1,
+              0.65,
+              0.31
+            ],
+            "energy": 1.32,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "moon_crown_castle_lamp",
+            "fixtureLocalCore": [
+              15,
+              12
+            ]
+          }
+        ],
+        "beams": [
+          {
+            "points": [
+              [
+                50,
+                0
+              ],
+              [
+                84,
+                0
+              ],
+              [
+                235,
+                290
+              ],
+              [
+                141,
+                290
+              ]
+            ],
+            "color": [
+              0.59,
+              0.76,
+              1
+            ],
+            "alpha": 0.045
+          }
+        ]
+      },
+      "particles": {
+        "color": [
+          0.83,
+          0.89,
+          1
+        ],
+        "count": 18,
+        "speed": 12,
+        "vertical": 0,
+        "kind": "dust"
+      },
+      "preview": "previews/moon_crown_castle-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "gear_city",
+      "name": "齿轮工城",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "gear_city",
+      "terrain47": {
+        "name": "齿轮工城",
+        "atlas": "assets/terrain47/gear_city.png",
+        "sha256": "bddf32a9d287cc45862795d28db79f2ab75443d94676089263a0d6fab8af3456",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 0,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/gear_city.tres",
+        "godotTexture": "res://terrain47/textures/gear_city.png",
+        "originalAsset": "gear_terrain",
+        "recipe": "autotile/recipes/gear_city.json"
+      },
+      "legacyTerrain": {
+        "asset": "gear_terrain",
+        "tile": 32,
+        "surfaceY": 0,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        }
+      },
+      "assets": [
+        "gear_city_hazard",
+        "gear_city_mid_v2",
+        "gear_city_near_v2",
+        "gear_city_v2_gear_conveyor",
+        "gear_city_v2_pipe_junction",
+        "gear_city_v2_piston_press",
+        "gear_city_v2_valve_panel",
+        "gear_lamp",
+        "gear_landmark"
+      ],
+      "newProps": [
+        "gear_city_v2_piston_press",
+        "gear_city_v2_gear_conveyor",
+        "gear_city_v2_valve_panel",
+        "gear_city_v2_pipe_junction"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "gear_landmark",
+          "x": 494,
+          "y": 262,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "left-lamp",
+          "asset": "gear_lamp",
+          "x": 226,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "right-lamp",
+          "asset": "gear_lamp",
+          "x": 604,
+          "y": 256,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "gear_city_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "gear_city_v2_valve_panel",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "gear_city_v2_pipe_junction",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "gear_city_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "gear_city_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "gear_city_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "gear_city_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.46,
+          0.52,
+          0.65
+        ],
+        "backgroundAmbient": [
+          0.88,
+          0.89,
+          0.96
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "lights": [
+          {
+            "id": "furnace",
+            "x": 560,
+            "y": 192,
+            "radius": 218,
+            "color": [
+              1,
+              0.56,
+              0.22
+            ],
+            "energy": 1.9,
+            "shadow": true,
+            "coreRadius": 3,
+            "visible": true,
+            "flicker": 0.045
+          },
+          {
+            "id": "oil-lamp",
+            "x": 231,
+            "y": 221,
+            "radius": 165,
+            "color": [
+              1,
+              0.72,
+              0.37
+            ],
+            "energy": 1.6,
+            "shadow": true,
+            "coreRadius": 2,
+            "visible": true,
+            "flicker": 0.025
+          },
+          {
+            "id": "right-lamp",
+            "x": 609,
+            "y": 189,
+            "radius": 105,
+            "color": [
+              1,
+              0.66,
+              0.28
+            ],
+            "energy": 0.85,
+            "shadow": true,
+            "coreRadius": 2,
+            "visible": true
+          },
+          {
+            "id": "high-window",
+            "x": 75,
+            "y": 25,
+            "radius": 330,
+            "color": [
+              0.54,
+              0.73,
+              1
+            ],
+            "energy": 0.75,
+            "shadow": true,
+            "visible": false
+          }
+        ],
+        "beams": [
+          {
+            "points": [
+              [
+                60,
+                0
+              ],
+              [
+                96,
+                0
+              ],
+              [
+                212,
+                289
+              ],
+              [
+                118,
+                289
+              ]
+            ],
+            "color": [
+              0.55,
+              0.74,
+              1
+            ],
+            "alpha": 0.055
+          }
+        ],
+        "shadowSideInset": 2
+      },
+      "particles": {
+        "color": [
+          1,
+          0.72,
+          0.35
+        ],
+        "count": 24,
+        "speed": 17,
+        "vertical": -8,
+        "kind": "embers"
+      },
+      "preview": "previews/gear_city-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "echo_mines",
+      "name": "回声矿井",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "echo_mines",
+      "terrain47": {
+        "name": "回声矿井",
+        "atlas": "assets/terrain47/echo_mines.png",
+        "sha256": "9f67d871935d79628756fc9d6f5e4bc57bc59a17931f7d7376df28076e4ace19",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 0,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/echo_mines.tres",
+        "godotTexture": "res://terrain47/textures/echo_mines.png",
+        "originalAsset": "echo_mines_terrain",
+        "recipe": "autotile/recipes/echo_mines.json"
+      },
+      "legacyTerrain": {
+        "asset": "echo_mines_terrain",
+        "tile": 32,
+        "surfaceY": 0,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        },
+        "surfaceYMethod": "Rounded median first opaque y in central top tile columns32..63 after alpha>=128 threshold",
+        "scope": "nine-slice-art-study"
+      },
+      "assets": [
+        "echo_mines_attached",
+        "echo_mines_hazard",
+        "echo_mines_lamp",
+        "echo_mines_landmark",
+        "echo_mines_mid_v2",
+        "echo_mines_near_v2",
+        "echo_mines_v2_lift_cage",
+        "echo_mines_v2_mine_cart",
+        "echo_mines_v2_ore_cluster",
+        "echo_mines_v2_rope_bridge"
+      ],
+      "newProps": [
+        "echo_mines_v2_mine_cart",
+        "echo_mines_v2_rope_bridge",
+        "echo_mines_v2_lift_cage",
+        "echo_mines_v2_ore_cluster"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "echo_mines_landmark",
+          "x": 485,
+          "y": 258,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "lamp-left",
+          "asset": "echo_mines_lamp",
+          "x": 228,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "lamp-right",
+          "asset": "echo_mines_lamp",
+          "x": 599,
+          "y": 256,
+          "group": "detail"
+        },
+        {
+          "id": "attached-left",
+          "asset": "echo_mines_attached",
+          "x": 43,
+          "y": 290,
+          "group": "attached"
+        },
+        {
+          "id": "attached-right",
+          "asset": "echo_mines_attached",
+          "x": 366,
+          "y": 258,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "echo_mines_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "echo_mines_v2_lift_cage",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "echo_mines_v2_ore_cluster",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "echo_mines_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "echo_mines_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "echo_mines_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "echo_mines_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.4,
+          0.44,
+          0.56
+        ],
+        "backgroundAmbient": [
+          0.8,
+          0.84,
+          0.95
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "shadowSideInset": 3,
+        "lights": [
+          {
+            "id": "sky-key",
+            "x": 360,
+            "y": -15,
+            "radius": 500,
+            "color": [
+              0.59,
+              0.76,
+              1
+            ],
+            "energy": 0.7,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "practical-0",
+            "x": 241,
+            "y": 246,
+            "radius": 174,
+            "color": [
+              1,
+              0.68,
+              0.31
+            ],
+            "energy": 1.9,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "echo_mines_lamp",
+            "fixtureLocalCore": [
+              34,
+              34
+            ]
+          },
+          {
+            "id": "practical-1",
+            "x": 612,
+            "y": 214,
+            "radius": 140,
+            "color": [
+              1,
+              0.68,
+              0.31
+            ],
+            "energy": 1.52,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "echo_mines_lamp",
+            "fixtureLocalCore": [
+              34,
+              34
+            ]
+          }
+        ],
+        "beams": [
+          {
+            "points": [
+              [
+                340,
+                0
+              ],
+              [
+                374,
+                0
+              ],
+              [
+                525,
+                290
+              ],
+              [
+                431,
+                290
+              ]
+            ],
+            "color": [
+              0.59,
+              0.76,
+              1
+            ],
+            "alpha": 0.045
+          }
+        ]
+      },
+      "particles": {
+        "color": [
+          1,
+          0.79,
+          0.43
+        ],
+        "count": 20,
+        "speed": 16,
+        "vertical": -4,
+        "kind": "dust"
+      },
+      "preview": "previews/echo_mines-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "ember_depths",
+      "name": "熔火腹地",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "ember_depths",
+      "terrain47": {
+        "name": "熔火腹地",
+        "atlas": "assets/terrain47/ember_depths.png",
+        "sha256": "919a99eb50de98d7db11128578af9535e98e7a6c4b5c7803f219eba0d404507a",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 4,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/ember_depths.tres",
+        "godotTexture": "res://terrain47/textures/ember_depths.png",
+        "originalAsset": "ember_terrain",
+        "recipe": "autotile/recipes/ember_depths.json"
+      },
+      "legacyTerrain": {
+        "asset": "ember_terrain",
+        "tile": 32,
+        "surfaceY": 4,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        }
+      },
+      "assets": [
+        "ember_depths_hazard",
+        "ember_depths_mid_v2",
+        "ember_depths_near_v2",
+        "ember_depths_v2_chain_stand",
+        "ember_depths_v2_fissure_vent",
+        "ember_depths_v2_obsidian_fangs",
+        "ember_depths_v2_stone_cauldron",
+        "ember_lamp",
+        "ember_landmark"
+      ],
+      "newProps": [
+        "ember_depths_v2_fissure_vent",
+        "ember_depths_v2_stone_cauldron",
+        "ember_depths_v2_chain_stand",
+        "ember_depths_v2_obsidian_fangs"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "ember_landmark",
+          "x": 494,
+          "y": 262,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "left-vent",
+          "asset": "ember_lamp",
+          "x": 216,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "right-vent",
+          "asset": "ember_lamp",
+          "x": 592,
+          "y": 256,
+          "group": "attached"
+        },
+        {
+          "id": "rift-vent",
+          "asset": "ember_lamp",
+          "x": 307,
+          "y": 357,
+          "group": "detail"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "ember_depths_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "ember_depths_v2_chain_stand",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "ember_depths_v2_obsidian_fangs",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "ember_depths_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "ember_depths_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "ember_depths_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "ember_depths_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.52,
+          0.57,
+          0.7
+        ],
+        "backgroundAmbient": [
+          0.9,
+          0.86,
+          0.88
+        ],
+        "heroFill": 0.18,
+        "shadowInset": 10,
+        "lights": [
+          {
+            "id": "rift",
+            "x": 305,
+            "y": 345,
+            "radius": 245,
+            "color": [
+              1,
+              0.3,
+              0.08
+            ],
+            "energy": 2.05,
+            "shadow": true,
+            "coreRadius": 3,
+            "visible": true,
+            "flicker": 0.06
+          },
+          {
+            "id": "left-vent",
+            "x": 214,
+            "y": 276,
+            "radius": 115,
+            "color": [
+              1,
+              0.56,
+              0.17
+            ],
+            "energy": 1.3,
+            "shadow": true,
+            "coreRadius": 2,
+            "visible": true,
+            "flicker": 0.05
+          },
+          {
+            "id": "right-vent",
+            "x": 590,
+            "y": 244,
+            "radius": 110,
+            "color": [
+              1,
+              0.45,
+              0.14
+            ],
+            "energy": 1.2,
+            "shadow": true,
+            "coreRadius": 2,
+            "visible": true,
+            "flicker": 0.055
+          },
+          {
+            "id": "cold-opening",
+            "x": 115,
+            "y": -20,
+            "radius": 430,
+            "color": [
+              0.51,
+              0.66,
+              1
+            ],
+            "energy": 0.48,
+            "shadow": true,
+            "visible": false
+          }
+        ],
+        "beams": [],
+        "shadowSideInset": 6
+      },
+      "particles": {
+        "color": [
+          1,
+          0.52,
+          0.17
+        ],
+        "count": 30,
+        "speed": 18,
+        "vertical": -20,
+        "kind": "embers"
+      },
+      "preview": "previews/ember_depths-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "root_sanctuary",
+      "name": "根脉圣殿",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "root_sanctuary",
+      "terrain47": {
+        "name": "根脉圣殿",
+        "atlas": "assets/terrain47/root_sanctuary.png",
+        "sha256": "75064ab0470cd6b5cf9de76d2767502f170f0830097c3ed0ed9ae71038c3b5a1",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 0,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/root_sanctuary.tres",
+        "godotTexture": "res://terrain47/textures/root_sanctuary.png",
+        "originalAsset": "root_sanctuary_terrain",
+        "recipe": "autotile/recipes/root_sanctuary.json"
+      },
+      "legacyTerrain": {
+        "asset": "root_sanctuary_terrain",
+        "tile": 32,
+        "surfaceY": 0,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        },
+        "surfaceYMethod": "Rounded median first opaque y in central top tile columns32..63 after alpha>=128 threshold",
+        "scope": "nine-slice-art-study"
+      },
+      "assets": [
+        "root_sanctuary_attached",
+        "root_sanctuary_hazard",
+        "root_sanctuary_lamp",
+        "root_sanctuary_landmark",
+        "root_sanctuary_mid_v2",
+        "root_sanctuary_near_v2",
+        "root_sanctuary_v2_broken_statue",
+        "root_sanctuary_v2_root_altar",
+        "root_sanctuary_v2_root_knot",
+        "root_sanctuary_v2_votive_bowl"
+      ],
+      "newProps": [
+        "root_sanctuary_v2_root_altar",
+        "root_sanctuary_v2_root_knot",
+        "root_sanctuary_v2_broken_statue",
+        "root_sanctuary_v2_votive_bowl"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "root_sanctuary_landmark",
+          "x": 485,
+          "y": 258,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "lamp-left",
+          "asset": "root_sanctuary_lamp",
+          "x": 228,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "lamp-right",
+          "asset": "root_sanctuary_lamp",
+          "x": 599,
+          "y": 256,
+          "group": "detail"
+        },
+        {
+          "id": "attached-left",
+          "asset": "root_sanctuary_attached",
+          "x": 43,
+          "y": 290,
+          "group": "attached"
+        },
+        {
+          "id": "attached-right",
+          "asset": "root_sanctuary_attached",
+          "x": 366,
+          "y": 258,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "root_sanctuary_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "root_sanctuary_v2_broken_statue",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "root_sanctuary_v2_votive_bowl",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "root_sanctuary_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "root_sanctuary_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "root_sanctuary_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "root_sanctuary_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.46,
+          0.56,
+          0.57
+        ],
+        "backgroundAmbient": [
+          0.88,
+          0.93,
+          0.87
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "shadowSideInset": 3,
+        "lights": [
+          {
+            "id": "sky-key",
+            "x": 105,
+            "y": -20,
+            "radius": 500,
+            "color": [
+              1,
+              0.91,
+              0.65
+            ],
+            "energy": 1.2,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "practical-0",
+            "x": 228,
+            "y": 230,
+            "radius": 174,
+            "color": [
+              1,
+              0.82,
+              0.41
+            ],
+            "energy": 0.9,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "root_sanctuary_lamp",
+            "fixtureLocalCore": [
+              22,
+              8
+            ]
+          },
+          {
+            "id": "practical-1",
+            "x": 599,
+            "y": 198,
+            "radius": 140,
+            "color": [
+              1,
+              0.82,
+              0.41
+            ],
+            "energy": 0.7200000000000001,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "root_sanctuary_lamp",
+            "fixtureLocalCore": [
+              22,
+              8
+            ]
+          }
+        ],
+        "beams": [
+          {
+            "points": [
+              [
+                85,
+                0
+              ],
+              [
+                119,
+                0
+              ],
+              [
+                270,
+                290
+              ],
+              [
+                176,
+                290
+              ]
+            ],
+            "color": [
+              1,
+              0.91,
+              0.65
+            ],
+            "alpha": 0.045
+          }
+        ]
+      },
+      "particles": {
+        "color": [
+          0.95,
+          0.98,
+          0.68
+        ],
+        "count": 23,
+        "speed": 17,
+        "vertical": -2,
+        "kind": "dust"
+      },
+      "preview": "previews/root_sanctuary-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "sunken_ruins",
+      "name": "沉水遗迹",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "sunken_ruins",
+      "terrain47": {
+        "name": "沉水遗迹",
+        "atlas": "assets/terrain47/sunken_ruins.png",
+        "sha256": "ff65d13412976d74b10e6f03840459d6a1503245071d2373377592ef326c0324",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 3,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/sunken_ruins.tres",
+        "godotTexture": "res://terrain47/textures/sunken_ruins.png",
+        "originalAsset": "sunken_ruins_terrain",
+        "recipe": "autotile/recipes/sunken_ruins.json"
+      },
+      "legacyTerrain": {
+        "asset": "sunken_ruins_terrain",
+        "tile": 32,
+        "surfaceY": 3,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        },
+        "surfaceYMethod": "Rounded median first opaque y in central top tile columns32..63 after alpha>=128 threshold",
+        "scope": "nine-slice-art-study"
+      },
+      "assets": [
+        "sunken_ruins_attached",
+        "sunken_ruins_hazard",
+        "sunken_ruins_lamp",
+        "sunken_ruins_landmark",
+        "sunken_ruins_mid_v2",
+        "sunken_ruins_near_v2",
+        "sunken_ruins_v2_air_bell",
+        "sunken_ruins_v2_fluted_column",
+        "sunken_ruins_v2_ruin_door",
+        "sunken_ruins_v2_shell_relic"
+      ],
+      "newProps": [
+        "sunken_ruins_v2_ruin_door",
+        "sunken_ruins_v2_fluted_column",
+        "sunken_ruins_v2_air_bell",
+        "sunken_ruins_v2_shell_relic"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "sunken_ruins_landmark",
+          "x": 485,
+          "y": 258,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "lamp-left",
+          "asset": "sunken_ruins_lamp",
+          "x": 228,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "lamp-right",
+          "asset": "sunken_ruins_lamp",
+          "x": 599,
+          "y": 256,
+          "group": "detail"
+        },
+        {
+          "id": "attached-left",
+          "asset": "sunken_ruins_attached",
+          "x": 43,
+          "y": 290,
+          "group": "attached"
+        },
+        {
+          "id": "attached-right",
+          "asset": "sunken_ruins_attached",
+          "x": 366,
+          "y": 258,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "sunken_ruins_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "sunken_ruins_v2_air_bell",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "sunken_ruins_v2_shell_relic",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "sunken_ruins_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "sunken_ruins_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "sunken_ruins_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "sunken_ruins_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.38,
+          0.53,
+          0.62
+        ],
+        "backgroundAmbient": [
+          0.78,
+          0.92,
+          0.98
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "shadowSideInset": 3,
+        "lights": [
+          {
+            "id": "sky-key",
+            "x": 370,
+            "y": -15,
+            "radius": 500,
+            "color": [
+              0.52,
+              0.88,
+              1
+            ],
+            "energy": 0.85,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "practical-0",
+            "x": 228,
+            "y": 246,
+            "radius": 174,
+            "color": [
+              1,
+              0.73,
+              0.34
+            ],
+            "energy": 1.55,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "sunken_ruins_lamp",
+            "fixtureLocalCore": [
+              22,
+              32
+            ]
+          },
+          {
+            "id": "practical-1",
+            "x": 599,
+            "y": 214,
+            "radius": 140,
+            "color": [
+              1,
+              0.73,
+              0.34
+            ],
+            "energy": 1.2400000000000002,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "sunken_ruins_lamp",
+            "fixtureLocalCore": [
+              22,
+              32
+            ]
+          }
+        ],
+        "beams": []
+      },
+      "particles": {
+        "color": [
+          0.63,
+          0.94,
+          1
+        ],
+        "count": 24,
+        "speed": 9,
+        "vertical": -9,
+        "kind": "spores"
+      },
+      "preview": "previews/sunken_ruins-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "shattered_isles",
+      "name": "破碎浮岛",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "shattered_isles",
+      "terrain47": {
+        "name": "破碎浮岛",
+        "atlas": "assets/terrain47/shattered_isles.png",
+        "sha256": "f5039004b52c3b234cd49b9eb31bf1684a902ee86cd808e941fa0765a1c91261",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 6,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/shattered_isles.tres",
+        "godotTexture": "res://terrain47/textures/shattered_isles.png",
+        "originalAsset": "shattered_isles_terrain",
+        "recipe": "autotile/recipes/shattered_isles.json"
+      },
+      "legacyTerrain": {
+        "asset": "shattered_isles_terrain",
+        "tile": 32,
+        "surfaceY": 6,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        },
+        "surfaceYMethod": "Rounded median first opaque y in central top tile columns32..63 after alpha>=128 threshold",
+        "scope": "nine-slice-art-study"
+      },
+      "assets": [
+        "shattered_isles_attached",
+        "shattered_isles_hazard",
+        "shattered_isles_lamp",
+        "shattered_isles_landmark",
+        "shattered_isles_mid_v2",
+        "shattered_isles_near_v2",
+        "shattered_isles_v2_island_bridge",
+        "shattered_isles_v2_rope_anchor",
+        "shattered_isles_v2_stone_cluster",
+        "shattered_isles_v2_wind_ribbon"
+      ],
+      "newProps": [
+        "shattered_isles_v2_island_bridge",
+        "shattered_isles_v2_rope_anchor",
+        "shattered_isles_v2_wind_ribbon",
+        "shattered_isles_v2_stone_cluster"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "shattered_isles_landmark",
+          "x": 485,
+          "y": 258,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "lamp-left",
+          "asset": "shattered_isles_lamp",
+          "x": 228,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "lamp-right",
+          "asset": "shattered_isles_lamp",
+          "x": 599,
+          "y": 256,
+          "group": "detail"
+        },
+        {
+          "id": "attached-left",
+          "asset": "shattered_isles_attached",
+          "x": 43,
+          "y": 290,
+          "group": "attached"
+        },
+        {
+          "id": "attached-right",
+          "asset": "shattered_isles_attached",
+          "x": 366,
+          "y": 258,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "shattered_isles_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "shattered_isles_v2_wind_ribbon",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "shattered_isles_v2_stone_cluster",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "shattered_isles_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "shattered_isles_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "shattered_isles_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "shattered_isles_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.58,
+          0.67,
+          0.76
+        ],
+        "backgroundAmbient": [
+          0.98,
+          0.99,
+          0.95
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "shadowSideInset": 3,
+        "lights": [
+          {
+            "id": "sky-key",
+            "x": 120,
+            "y": -35,
+            "radius": 500,
+            "color": [
+              1,
+              0.93,
+              0.74
+            ],
+            "energy": 1.05,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "practical-0",
+            "x": 231,
+            "y": 240,
+            "radius": 174,
+            "color": [
+              1,
+              0.78,
+              0.38
+            ],
+            "energy": 0.7,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "shattered_isles_lamp",
+            "fixtureLocalCore": [
+              25,
+              28
+            ]
+          },
+          {
+            "id": "practical-1",
+            "x": 602,
+            "y": 208,
+            "radius": 140,
+            "color": [
+              1,
+              0.78,
+              0.38
+            ],
+            "energy": 0.5599999999999999,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "shattered_isles_lamp",
+            "fixtureLocalCore": [
+              25,
+              28
+            ]
+          }
+        ],
+        "beams": []
+      },
+      "particles": {
+        "color": [
+          1,
+          0.96,
+          0.75
+        ],
+        "count": 23,
+        "speed": 38,
+        "vertical": -2,
+        "kind": "dust"
+      },
+      "preview": "previews/shattered_isles-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "starbridge_gate",
+      "name": "星桥天门",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "starbridge_gate",
+      "terrain47": {
+        "name": "星桥天门",
+        "atlas": "assets/terrain47/starbridge_gate.png",
+        "sha256": "51eaec7558c12e436adbeb54d2fdadc241be04e932273f9e9d3787a40bdab2d9",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 1,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/starbridge_gate.tres",
+        "godotTexture": "res://terrain47/textures/starbridge_gate.png",
+        "originalAsset": "starbridge_gate_terrain",
+        "recipe": "autotile/recipes/starbridge_gate.json"
+      },
+      "legacyTerrain": {
+        "asset": "starbridge_gate_terrain",
+        "tile": 32,
+        "surfaceY": 1,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        },
+        "surfaceYMethod": "Rounded median first opaque y in central top tile columns32..63 after alpha>=128 threshold",
+        "scope": "nine-slice-art-study"
+      },
+      "assets": [
+        "starbridge_gate_attached",
+        "starbridge_gate_hazard",
+        "starbridge_gate_lamp",
+        "starbridge_gate_landmark",
+        "starbridge_gate_mid_v2",
+        "starbridge_gate_near_v2",
+        "starbridge_gate_v2_glass_crystals",
+        "starbridge_gate_v2_inscribed_pier",
+        "starbridge_gate_v2_orbital_anchor",
+        "starbridge_gate_v2_star_lens"
+      ],
+      "newProps": [
+        "starbridge_gate_v2_orbital_anchor",
+        "starbridge_gate_v2_star_lens",
+        "starbridge_gate_v2_inscribed_pier",
+        "starbridge_gate_v2_glass_crystals"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "starbridge_gate_landmark",
+          "x": 485,
+          "y": 258,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "lamp-left",
+          "asset": "starbridge_gate_lamp",
+          "x": 228,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "lamp-right",
+          "asset": "starbridge_gate_lamp",
+          "x": 599,
+          "y": 256,
+          "group": "detail"
+        },
+        {
+          "id": "attached-left",
+          "asset": "starbridge_gate_attached",
+          "x": 43,
+          "y": 290,
+          "group": "attached"
+        },
+        {
+          "id": "attached-right",
+          "asset": "starbridge_gate_attached",
+          "x": 366,
+          "y": 258,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "starbridge_gate_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "starbridge_gate_v2_inscribed_pier",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "starbridge_gate_v2_glass_crystals",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "starbridge_gate_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "starbridge_gate_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "starbridge_gate_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "starbridge_gate_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.36,
+          0.42,
+          0.64
+        ],
+        "backgroundAmbient": [
+          0.8,
+          0.87,
+          1
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "shadowSideInset": 3,
+        "lights": [
+          {
+            "id": "sky-key",
+            "x": 350,
+            "y": -15,
+            "radius": 500,
+            "color": [
+              0.54,
+              0.65,
+              1
+            ],
+            "energy": 0.55,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "practical-0",
+            "x": 226,
+            "y": 233,
+            "radius": 174,
+            "color": [
+              0.69,
+              0.85,
+              1
+            ],
+            "energy": 1.55,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "starbridge_gate_lamp",
+            "fixtureLocalCore": [
+              12,
+              21
+            ]
+          },
+          {
+            "id": "practical-1",
+            "x": 597,
+            "y": 201,
+            "radius": 140,
+            "color": [
+              0.69,
+              0.85,
+              1
+            ],
+            "energy": 1.2400000000000002,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "starbridge_gate_lamp",
+            "fixtureLocalCore": [
+              12,
+              21
+            ]
+          }
+        ],
+        "beams": []
+      },
+      "particles": {
+        "color": [
+          0.75,
+          0.86,
+          1
+        ],
+        "count": 18,
+        "speed": 10,
+        "vertical": -3,
+        "kind": "spores"
+      },
+      "preview": "previews/starbridge_gate-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    },
+    {
+      "id": "world_clockheart",
+      "name": "世界钟心",
+      "status": "authored_v2_candidate_preserving_approved_material_family",
+      "background": "world_clockheart",
+      "terrain47": {
+        "name": "世界钟心",
+        "atlas": "assets/terrain47/world_clockheart.png",
+        "sha256": "f702062dfc3d58e0254db8dc3590ec787c7b1a09db39c27c8bb0b33615138712",
+        "tile": 32,
+        "columns": 8,
+        "rows": 6,
+        "count": 47,
+        "surfaceY": 1,
+        "maskToAtlas": {
+          "0": [
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0
+          ],
+          "4": [
+            2,
+            0
+          ],
+          "5": [
+            3,
+            0
+          ],
+          "7": [
+            4,
+            0
+          ],
+          "16": [
+            5,
+            0
+          ],
+          "17": [
+            6,
+            0
+          ],
+          "20": [
+            7,
+            0
+          ],
+          "21": [
+            0,
+            1
+          ],
+          "23": [
+            1,
+            1
+          ],
+          "28": [
+            2,
+            1
+          ],
+          "29": [
+            3,
+            1
+          ],
+          "31": [
+            4,
+            1
+          ],
+          "64": [
+            5,
+            1
+          ],
+          "65": [
+            6,
+            1
+          ],
+          "68": [
+            7,
+            1
+          ],
+          "69": [
+            0,
+            2
+          ],
+          "71": [
+            1,
+            2
+          ],
+          "80": [
+            2,
+            2
+          ],
+          "81": [
+            3,
+            2
+          ],
+          "84": [
+            4,
+            2
+          ],
+          "85": [
+            5,
+            2
+          ],
+          "87": [
+            6,
+            2
+          ],
+          "92": [
+            7,
+            2
+          ],
+          "93": [
+            0,
+            3
+          ],
+          "95": [
+            1,
+            3
+          ],
+          "112": [
+            2,
+            3
+          ],
+          "113": [
+            3,
+            3
+          ],
+          "116": [
+            4,
+            3
+          ],
+          "117": [
+            5,
+            3
+          ],
+          "119": [
+            6,
+            3
+          ],
+          "124": [
+            7,
+            3
+          ],
+          "125": [
+            0,
+            4
+          ],
+          "127": [
+            1,
+            4
+          ],
+          "193": [
+            2,
+            4
+          ],
+          "197": [
+            3,
+            4
+          ],
+          "199": [
+            4,
+            4
+          ],
+          "209": [
+            5,
+            4
+          ],
+          "213": [
+            6,
+            4
+          ],
+          "215": [
+            7,
+            4
+          ],
+          "221": [
+            0,
+            5
+          ],
+          "223": [
+            1,
+            5
+          ],
+          "241": [
+            2,
+            5
+          ],
+          "245": [
+            3,
+            5
+          ],
+          "247": [
+            4,
+            5
+          ],
+          "253": [
+            5,
+            5
+          ],
+          "255": [
+            6,
+            5
+          ]
+        },
+        "sourceId": 0,
+        "terrainSet": 0,
+        "terrain": 0,
+        "godotResource": "res://terrain47/world_clockheart.tres",
+        "godotTexture": "res://terrain47/textures/world_clockheart.png",
+        "originalAsset": "world_clockheart_terrain",
+        "recipe": "autotile/recipes/world_clockheart.json"
+      },
+      "legacyTerrain": {
+        "asset": "world_clockheart_terrain",
+        "tile": 32,
+        "surfaceY": 1,
+        "bank": 0,
+        "bankColumns": 3,
+        "coords": {
+          "tl": [
+            0,
+            0
+          ],
+          "t": [
+            1,
+            0
+          ],
+          "tr": [
+            2,
+            0
+          ],
+          "l": [
+            0,
+            1
+          ],
+          "i": [
+            1,
+            1
+          ],
+          "r": [
+            2,
+            1
+          ],
+          "bl": [
+            0,
+            2
+          ],
+          "b": [
+            1,
+            2
+          ],
+          "br": [
+            2,
+            2
+          ]
+        },
+        "surfaceYMethod": "Rounded median first opaque y in central top tile columns32..63 after alpha>=128 threshold",
+        "scope": "nine-slice-art-study"
+      },
+      "assets": [
+        "world_clockheart_attached",
+        "world_clockheart_hazard",
+        "world_clockheart_lamp",
+        "world_clockheart_landmark",
+        "world_clockheart_mid_v2",
+        "world_clockheart_near_v2",
+        "world_clockheart_v2_counterweights",
+        "world_clockheart_v2_escapement",
+        "world_clockheart_v2_porcelain_coil",
+        "world_clockheart_v2_regulator_panel"
+      ],
+      "newProps": [
+        "world_clockheart_v2_escapement",
+        "world_clockheart_v2_counterweights",
+        "world_clockheart_v2_porcelain_coil",
+        "world_clockheart_v2_regulator_panel"
+      ],
+      "instances": [
+        {
+          "id": "structure",
+          "asset": "world_clockheart_landmark",
+          "x": 485,
+          "y": 258,
+          "group": "structure",
+          "landmark": true
+        },
+        {
+          "id": "lamp-left",
+          "asset": "world_clockheart_lamp",
+          "x": 228,
+          "y": 288,
+          "group": "detail",
+          "landmark": true
+        },
+        {
+          "id": "lamp-right",
+          "asset": "world_clockheart_lamp",
+          "x": 599,
+          "y": 256,
+          "group": "detail"
+        },
+        {
+          "id": "attached-left",
+          "asset": "world_clockheart_attached",
+          "x": 43,
+          "y": 290,
+          "group": "attached"
+        },
+        {
+          "id": "attached-right",
+          "asset": "world_clockheart_attached",
+          "x": 366,
+          "y": 258,
+          "group": "attached"
+        },
+        {
+          "id": "gap-hazard",
+          "asset": "world_clockheart_hazard",
+          "x": 304,
+          "y": 359,
+          "group": "structure",
+          "hazard": true
+        },
+        {
+          "id": "v2-region-detail-left",
+          "asset": "world_clockheart_v2_porcelain_coil",
+          "x": 40,
+          "y": 288,
+          "group": "detail",
+          "newInV2": true
+        },
+        {
+          "id": "v2-region-detail-right",
+          "asset": "world_clockheart_v2_regulator_panel",
+          "x": 390,
+          "y": 256,
+          "group": "detail",
+          "newInV2": true
+        }
+      ],
+      "layers": [
+        {
+          "id": "mid-left-v2",
+          "asset": "world_clockheart_mid_v2",
+          "kind": "mid",
+          "x": 92,
+          "y": 310,
+          "parallax": 0.45,
+          "opacity": 0.62,
+          "tint": [
+            0.62,
+            0.68,
+            0.72
+          ]
+        },
+        {
+          "id": "mid-right-v2",
+          "asset": "world_clockheart_mid_v2",
+          "kind": "mid",
+          "x": 559,
+          "y": 294,
+          "parallax": 0.62,
+          "opacity": 0.46,
+          "tint": [
+            0.56,
+            0.62,
+            0.68
+          ]
+        },
+        {
+          "id": "near-left-v2",
+          "asset": "world_clockheart_near_v2",
+          "kind": "near",
+          "x": 155,
+          "y": 312,
+          "parallax": 1.08,
+          "opacity": 0.95,
+          "tint": [
+            0.46,
+            0.52,
+            0.59
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 288
+          }
+        },
+        {
+          "id": "near-right-v2",
+          "asset": "world_clockheart_near_v2",
+          "kind": "near",
+          "x": 540,
+          "y": 284,
+          "parallax": 1.12,
+          "opacity": 0.91,
+          "tint": [
+            0.48,
+            0.53,
+            0.6
+          ],
+          "mask": {
+            "type": "platform_band",
+            "above": 72,
+            "below": 72,
+            "edgeFade": 8,
+            "heroReveal": {
+              "radiusX": 30,
+              "radiusY": 48,
+              "minAlpha": 0.15
+            },
+            "surfaceY": 256
+          }
+        }
+      ],
+      "lighting": {
+        "ambient": [
+          0.4,
+          0.46,
+          0.6
+        ],
+        "backgroundAmbient": [
+          0.82,
+          0.87,
+          0.95
+        ],
+        "heroFill": 0.2,
+        "shadowInset": 10,
+        "shadowSideInset": 3,
+        "lights": [
+          {
+            "id": "sky-key",
+            "x": 105,
+            "y": 0,
+            "radius": 500,
+            "color": [
+              0.61,
+              0.76,
+              1
+            ],
+            "energy": 0.65,
+            "shadow": true,
+            "visible": false
+          },
+          {
+            "id": "practical-0",
+            "x": 228,
+            "y": 237,
+            "radius": 174,
+            "color": [
+              1,
+              0.71,
+              0.34
+            ],
+            "energy": 1.65,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "world_clockheart_lamp",
+            "fixtureLocalCore": [
+              21,
+              25
+            ]
+          },
+          {
+            "id": "practical-1",
+            "x": 599,
+            "y": 205,
+            "radius": 140,
+            "color": [
+              1,
+              0.71,
+              0.34
+            ],
+            "energy": 1.32,
+            "shadow": true,
+            "visible": true,
+            "coreRadius": 2,
+            "flicker": 0.022,
+            "fixtureAsset": "world_clockheart_lamp",
+            "fixtureLocalCore": [
+              21,
+              25
+            ]
+          }
+        ],
+        "beams": []
+      },
+      "particles": {
+        "color": [
+          1,
+          0.81,
+          0.47
+        ],
+        "count": 22,
+        "speed": 15,
+        "vertical": -5,
+        "kind": "dust"
+      },
+      "preview": "previews/world_clockheart-lit.png",
+      "hazardStatus": "visual_only_no_damage_logic"
+    }
+  ]
+}

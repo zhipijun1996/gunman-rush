@@ -1,0 +1,38 @@
+当前世界 v07 的核对与派生
+==========================
+在解压目录中运行；需要Python3、numpy、matplotlib、Pillow、shapely、PyMuPDF。绘图字体在assets。
+
+普通场景施工直接读取主JSON和逐房合同；不用重新跑迁移脚本。
+编辑收集获取设计后，先运行python3 design/sync_collection_authoring_v07.py绑定引用（不会修改拓扑或自动迁移奖励位置）。
+改主JSON逻辑后：
+  python3 simulation/simulate_world.py
+  python3 simulation/audit_contracts.py
+  python3 simulation/audit_opening_v07.py
+  python3 simulation/audit_station_network_v07.py
+  python3 simulation/audit_city_sky_v07.py
+  python3 simulation/analyze_replays.py
+  python3 simulation/summarize_routes_v07.py
+
+最终图面/语义合并后也要重跑上面步骤，保证回放hash当前。
+  python3 design/build_room_contracts_v07.py
+  python3 design/build_experience_spec_v07.py
+  python3 qa/review_experience_v07.py
+  python3 build_handoff_v07.py
+  python3 render_development_maps_v07.py
+  python3 render_station_network_v07.py
+  python3 render_city_sky_v07.py
+  python3 render_routes_v07.py
+  python3 build_collection_authoring_docs_v07.py
+  python3 render_collection_map_v07.py
+  python3 build_world_plan_v07.py
+  python3 build_atlas_v10.py
+  python3 package_handoff.py
+
+整轮设计重建（会覆盖当前主文件，已有局部施工修改后不要直接运行）：
+  python3 design/build_world_v07.py
+  python3 build_world_geometry_v07.py
+  python3 design/build_experience_spec_v07.py
+  python3 finalize_world_v07.py
+再执行逻辑、合同、图册派生步骤。冻结的v06基线在source_inputs中，仅用于可追溯迁移。
+
+所有报告只证明明确的结构条件。真实控制器跳距、Q冷却、门台、镜头、Boss战、玩家回访记忆和负担需在Godot灰盒中另外检查。

@@ -5,14 +5,18 @@ var world: FixedWorldState
 var content: FixedWorldProvider
 var current_room := ""
 var local_player := Vector2.ZERO
+var selected_room := ""
 var touch_clip: Control
 func frame() -> Rect2:
 	return Rect2(12,30,maxf(1,size.x-24),maxf(1,size.y-44))
 func rows() -> Array:
 	var result: Array = []
 	if world == null: return result
+	var nearby: Array[String]=[current_room]
+	if not expanded:
+		for door: Dictionary in content.room(current_room).get("doors",[]):nearby.append(str(door.target_room))
 	for row: Dictionary in content.data.get("map_rooms",[]):
-		if row.id in world.value.get("explored",[]): result.append(row)
+		if row.id in world.value.get("explored",[]) and (expanded or row.id in nearby): result.append(row)
 	return result
 func _world_rect() -> Rect2:
 	var bounds := Rect2()
@@ -26,14 +30,33 @@ func player_anchor() -> Vector2:
 		if row.id==current_room: return project_point(FixedWorldProvider.point(row.origin)+local_player)
 	return frame().get_center()
 func focus_player() -> void:
-	zoom=1
-	pan=Vector2.ZERO
+	zoom=2
+	for row: Dictionary in rows():
+		if row.id==current_room:
+			pan=-(FixedWorldProvider.point(row.origin)+local_player-_world_rect().get_center())*_fit_scale()*zoom
+	selected_room=current_room
+	_limit_pan();queue_redraw()
 func _draw() -> void:
 	if world==null or world.value.is_empty(): return
 	var text_size:=maxi(14,ceili(14.0/DemoUiModalMetrics.ui_scale(get_viewport()))) if expanded else 14
 	draw_style_box(panel(),Rect2(Vector2.ZERO,size))
 	draw_string(UnderworldUI.FONT,Vector2(12,20),WorldText.text("world_map.00") if expanded else WorldText.text("world_map.01"),HORIZONTAL_ALIGNMENT_LEFT,-1,text_size,UnderworldUI.TEXT)
 	var visible := rows()
+	# Shared physical door seams are the map connections, with a short aperture.
+	for row: Dictionary in visible:
+		for door: Dictionary in content.room(row.id).get("doors",[]):
+			if door.target_room not in world.value.explored or row.id>door.target_room: continue
+			var at:=FixedWorldProvider.point(row.origin)+FixedWorldProvider.point(door.position_candidate.local_world_units)
+			if row.get("projection","")=="survey_with_explicit_connections":
+				for target: Dictionary in visible:
+					if target.id!=door.target_room:continue
+					for paired: Dictionary in content.room(target.id).doors:
+						if paired.id!=door.target_door_id:continue
+						var end:=FixedWorldProvider.point(target.origin)+FixedWorldProvider.point(paired.position_candidate.local_world_units)
+						draw_line(project_point(at),project_point(end),Color("93ab94"),2)
+			var tangent:=Vector2(48,0) if door.direction in ["up","down"] else Vector2(0,48)
+			draw_line(project_point(at-tangent),project_point(at+tangent),Color("cce1c3"),5)
+
 	for row: Dictionary in visible:
 		var polygon := PackedVector2Array()
 		for p: Array in row.polygon: polygon.append(project(p))
@@ -43,18 +66,28 @@ func _draw() -> void:
 		draw_polyline(polygon,UnderworldUI.BRASS if row.id==current_room else UnderworldUI.MOSS,2)
 		if expanded:
 			var label_size:=UnderworldUI.FONT.get_string_size(row.name,HORIZONTAL_ALIGNMENT_LEFT,-1,text_size)
-			draw_string(UnderworldUI.FONT,project(row.map_centre)-Vector2(label_size.x*.5,0),row.name,HORIZONTAL_ALIGNMENT_LEFT,-1,text_size,UnderworldUI.TEXT)
-	# Shared physical door seams are the map connections, with a short aperture.
-	for row: Dictionary in visible:
-		for door: Dictionary in content.room(row.id).get("doors",[]):
-			if door.target_room not in world.value.explored or row.id>door.target_room: continue
-			var at:=FixedWorldProvider.point(row.origin)+FixedWorldProvider.point(door.position_candidate.local_world_units)
-			var tangent:=Vector2(48,0) if door.direction in ["up","down"] else Vector2(0,48)
-			draw_line(project_point(at-tangent),project_point(at+tangent),Color("cce1c3"),5)
+			var visual_width:=absf(polygon[1].x-polygon[0].x)
+			if visual_width>label_size.x+12 or row.id==selected_room:
+				var label_at:=project(row.map_centre)-Vector2(label_size.x*.5,0)
+				draw_style_box(panel(),Rect2(label_at-Vector2(5,text_size),label_size+Vector2(10,8)))
+				draw_string(UnderworldUI.FONT,label_at,row.name,HORIZONTAL_ALIGNMENT_LEFT,-1,text_size,UnderworldUI.TEXT)
+		var contract:=content.room(row.id)
+		if bool(contract.get("rest",{}).get("enabled",false)):
+			var at:=project(row.map_centre)
+			draw_rect(Rect2(at-Vector2(4,4),Vector2(8,8)),UnderworldUI.BRASS,false,2)
+			draw_line(at+Vector2(-6,5),at+Vector2(6,5),UnderworldUI.BRASS,2)
 
 	draw_circle(player_anchor(),5,Color("f5e3aa"))
 
+func select_at(at: Vector2) -> void:
+	selected_room=""
+	for row: Dictionary in rows():
+		var points:=PackedVector2Array()
+		for raw: Array in row.polygon:points.append(project(raw))
+		if Geometry2D.is_point_in_polygon(at,points):selected_room=str(row.id);break
+	queue_redraw()
 func _gui_input(event: InputEvent) -> void:
+	if expanded and (event is InputEventMouseMotion or (event is InputEventScreenTouch and event.pressed)):select_at(event.position)
 	# Unused keys must reach modal cancel / gameplay commands, rather than being swallowed.
 	if event is InputEventKey or event is InputEventJoypadButton:
 		if expanded or not event.is_action_pressed("ui_accept"): return

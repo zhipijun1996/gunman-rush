@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R22" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R22"
+art_profile = "canal"
+arrival_text = "风压引渠"
+platforms = Array[Rect2]([Rect2(0, 992, 2176, 32), Rect2(0, 736, 576, 288), Rect2(800, 736, 608, 288), Rect2(1632, 672, 544, 352), Rect2(576, 896, 224, 128), Rect2(1408, 928, 224, 96), Rect2(1888, 672, 288, 32), Rect2(256, 160, 192, 32), Rect2(80, 160, 64, 24), Rect2(80, 248, 64, 24), Rect2(256, 320, 160, 24), Rect2(80, 392, 160, 24), Rect2(256, 464, 160, 24), Rect2(80, 536, 160, 24), Rect2(256, 608, 160, 24), Rect2(80, 680, 160, 24), Rect2(256, 752, 160, 24), Rect2(80, 824, 160, 24)])
+one_way_indices = Array[int]([8, 9, 10, 11, 12, 13, 14, 15, 16, 17])
+start_point = Vector2(320, 718)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point": [224, 688], "text": "去钟外小站。旧箭头旁，有人画了新箭头。", "action_ref": "read_intro_obj_sign"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([{"bounds": [368, 676, 160, 60], "point": [432, 718], "section": "main"}, {"bounds": [1040, 676, 160, 60], "point": [1104, 718], "section": "main"}])
+art_placements = Array[Dictionary]([{"asset": "bridge_pier", "point": [352, 736.0], "layer": -2}, {"asset": "bridge_pier", "point": [1856, 672.0], "layer": -2}])
+tutorial_action = "tutorial_recoil"
+tutorial_recoil_finish_x = 800.0

@@ -3,9 +3,20 @@ extends Node2D
 ## Authored geometry and placements. Reads contract interfaces; never grants progress.
 @export var room_id := ""
 @export var arrival_text: String
+@export var traveler_point := Vector2(560,494)
+@export var tutorial_action: String
 @export var tutorial_target: String
 @export var tutorial_min_move:=100.0
 @export var tutorial_recoil_finish_x:=1540.0
+@export var section_volumes: Array[Dictionary] = []
+@export var retry_anchors: Array[Dictionary] = []
+@export var art_placements: Array[Dictionary] = []
+@export var art_profile := "meadow"
+@export var bell_mechanisms: Array[Dictionary] = []
+var mechanisms: Dictionary={}
+var station_animation: WorldSpriteAnimation
+var interaction_hosts: Array[WorldRoomInteraction] = []
+var service_pickup_sprites: Dictionary={}
 @export var platforms: Array[Rect2] = []
 @export var one_way_indices: Array[int] = []
 @export var start_point := Vector2(144,512)
@@ -57,7 +68,7 @@ func _ready() -> void:
 		for door: Dictionary in doors:
 			if door.direction != side: continue
 			var point := FixedWorldProvider.point(door.position_candidate.local_world_units)
-			gaps.append(Vector2(point.x-48,point.x+48) if side in ["up","down"] else Vector2(point.y-96,point.y))
+			gaps.append(Vector2(point.x-64,point.x+64) if side in ["up","down"] else Vector2(point.y-96,point.y))
 		gaps.sort_custom(func(a: Vector2,b: Vector2) -> bool: return a.x<b.x)
 		gaps.append(Vector2(size.x if side in ["up","down"] else size.y,0))
 		var start := 0.0
@@ -84,7 +95,7 @@ func _ready() -> void:
 		var blocker := StaticBody2D.new()
 		blocker.position = FixedWorldProvider.point(door.position_candidate.local_world_units)-Vector2(0,48)
 		var shape := RectangleShape2D.new()
-		shape.size = Vector2(32,96) if door.direction in ["left","right"] else Vector2(96,32)
+		shape.size = Vector2(32,96) if door.direction in ["left","right"] else Vector2(128,32)
 		var collision := CollisionShape2D.new()
 		collision.shape = shape
 		blocker.add_child(collision)
@@ -94,6 +105,7 @@ func _ready() -> void:
 	for i: int in platforms.size():
 		if i not in one_way_indices: solids.append(platforms[i])
 	add_child(UnderworldTerrain.build(solids))
+	var scenery:=PlainsRoomArt.new();scenery.room=self;add_child(scenery)
 	for rect: Rect2 in climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;add_child(wall)
 	for point: Vector2 in hook_points:
@@ -112,6 +124,36 @@ func _ready() -> void:
 		sign["interaction_point"]=Vector2(point.x,support-18)
 		add_child(marker)
 
+func section_at(point: Vector2) -> String:
+	for volume: Dictionary in section_volumes:
+		if FixedWorldProvider.rect(volume.bounds).has_point(point): return str(volume.id)
+	return "main"
+
+func physical_action(id: String) -> WorldRoomInteraction:
+	for host: WorldRoomInteraction in interaction_hosts:
+		if host.action_id==id: return host
+	return null
+
+func install_mechanisms(controller: PlayerController,lifetime: DemoLifetime,saved: Dictionary,submit: Callable) -> void:
+	for row: Dictionary in bell_mechanisms:
+		var latch:=WorldShotLatch.new();latch.stable_id=str(row.id)
+		latch.z_index=-2;add_child(latch)
+		if row.has("carrier"):
+			latch.motion_mode=true;latch.motion_target=get_node(str(row.carrier)) as WorldMovingPlatform
+			latch.motion_target.bind_bell_control();latch.gate_visual_enabled=false
+		latch.setup(controller,lifetime,FixedWorldProvider.point(row.bell),FixedWorldProvider.rect(row.get("gate",[0,0,1,1])))
+		if latch.motion_mode:latch.gate_body.collision_layer=0;latch.gate_shape.disabled=true
+		if saved.has(row.id):
+			latch.restore_region_state(saved[row.id]);latch.restore_region_opened(bool(saved[row.id].is_open))
+		latch.activation_requested.connect(submit)
+		controller.router.cancelled.connect(latch.on_router_cancelled)
+		mechanisms[row.id]=latch
+
+func mechanism_snapshot() -> Dictionary:
+	var result: Dictionary={}
+	for id: String in mechanisms:result[id]=(mechanisms[id] as WorldShotLatch).region_snapshot()
+	return result
+
 func configure(row: Dictionary) -> void:
 	contract = row
 	doors = row.doors.filter(func(door: Dictionary) -> bool: return door.get("target_implemented",false))
@@ -122,11 +164,9 @@ func _draw() -> void:
 	var bounds := FixedWorldProvider.rect(contract.world_geometry.bounds_world_units)
 	for i: int in platforms.size():
 		if i in one_way_indices: UnderworldTerrain.draw_one_way(self,platforms[i])
-	for hazard: Rect2 in hazards:
-		draw_rect(hazard,Color("b9504c"))
 	for door: Dictionary in doors:
 		var p := FixedWorldProvider.point(door.position_candidate.local_world_units)
-		var rect:=Rect2(p-Vector2(16,96),Vector2(32,96)) if door.direction in ["left","right"] else Rect2(p-Vector2(48,16),Vector2(96,32))
+		var rect:=Rect2(p-Vector2(16,96),Vector2(32,96)) if door.direction in ["left","right"] else Rect2(p-Vector2(64,16),Vector2(128,32))
 		if not door_open.get(door.id,false):
 			draw_rect(rect,Color("3c4b44"))
 			draw_rect(rect,Color("9f8b67"),false,3)
@@ -142,15 +182,10 @@ func _draw() -> void:
 		var tip:=interaction_point+Vector2(0,-55)
 		draw_polyline(PackedVector2Array([tip+Vector2(-5,5),tip,tip+Vector2(5,5)]),DemoClockworkTheme.PAPER,2)
 	if rest_point != Vector2.ZERO:
-		WorldProps.draw_station(self,rest_point)
+		pass # Native animated station is an independent presentation node.
 		if station_feedback>0: draw_arc(rest_point,30+(1-station_feedback)*14,0,TAU,32,Color(.4,.9,.8,station_feedback),2)
 	if reward_point != Vector2.ZERO and battle_finished and services!=null and not services.state.value.receipts.has(reward_action):
 		WorldProps.draw_icon(self,ItemPresentation.icon(&"echo"),reward_point,30)
-	if services!=null:
-		for pickup: Dictionary in services.definitions.get("pickups",[]):
-			if pickup.room_id!=room_id or pickup.id in services.ledger().collected: continue
-			var point:=FixedWorldProvider.point(pickup.point)
-			WorldProps.draw_icon(self,ItemPresentation.icon(StringName(pickup.get("icon_key","coil"))),point,24)
 
 func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime, saved_enemies: Dictionary, boss_defeated: bool, entry_anchor: Vector2) -> void:
 	for placement: Dictionary in enemy_placements:
@@ -240,6 +275,19 @@ func refresh_doors(state: FixedWorldState, content: FixedWorldProvider) -> void:
 
 func bind_services(value: WorldServices,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> void:
 	services=value
+	(get_node("RegionalArt") as PlainsRoomArt).player=controller.motor
+	for pickup: Dictionary in services.definitions.get("pickups",[]):
+		if pickup.room_id!=room_id:continue
+		var art:=WorldSpriteAnimation.new();art.asset_id="equipment"
+		art.position=FixedWorldProvider.point(pickup.point)+Vector2(0,18);add_child(art)
+		service_pickup_sprites[pickup.id]=art
+	services.state.committed.connect(_refresh_service_pickups);_refresh_service_pickups(0)
+	for node: Node in find_children("*","WorldRoomInteraction",true,false):
+		var host:=node as WorldRoomInteraction
+		host.bind(value.state);interaction_hosts.append(host)
+	if rest_point!=Vector2.ZERO:
+		station_animation=WorldSpriteAnimation.new();station_animation.asset_id="charging_station";station_animation.position=rest_point+Vector2(0,18);add_child(station_animation)
+	if art_profile not in ["cellar","secret","well"]:UnderworldForeground.attach(self,self,controller.motor)
 	loot=WorldCoinDrops.new();loot.services=value;loot.controller=controller;loot.room_id=room_id;loot.arena_bounds=arena_bounds
 	add_child(loot)
 	for presentation: Node in find_children("*","WorldFlagPresentation",true,false): presentation.bind(value.state.has)
@@ -251,6 +299,14 @@ func bind_services(value: WorldServices,controller: PlayerController,policy: Fra
 		fixture.controller=controller;fixture.policy=policy;fixture.lifetime=lifetime
 		add_child(fixture)
 	queue_redraw()
+
+func _refresh_service_pickups(_revision: int) -> void:
+	for id: String in service_pickup_sprites:service_pickup_sprites[id].visible=id not in services.ledger().collected
+
+func celebrate_service_pickup(id: String) -> void:
+	if not service_pickup_sprites.has(id):return
+	var art:=WorldSpriteAnimation.new();art.asset_id="collection_burst";art.disposable=true
+	art.position=service_pickup_sprites[id].position-Vector2(0,18);art.z_index=10;add_child(art)
 
 func _corpse_support(pose: Dictionary) -> Node2D:
 	for body: Node in find_children("*","StaticBody2D",true,false):

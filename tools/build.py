@@ -188,7 +188,9 @@ def main():
             files.append(destination)
         # Keep this feedback revision's exact CC0 source/processing history
         # beside its playable export; the original sources remain untouched.
-        for source, name in [(REPO / "config/audio_director/feedback_05/sources.json", "Audio-Feedback-05-sources.json"),
+        for source, name in [(REPO / "assets/plains_v07/SOURCES.md", "Plains-v07-SOURCES.md"),
+                             (REPO / "config/audio_director/v3/sources.json", "Audio-Director-v3-sources.json"),
+                             (REPO / "config/audio_director/feedback_05/sources.json", "Audio-Feedback-05-sources.json"),
                              (REPO / "config/audio_director/feedback_05/recipes.json", "Audio-Feedback-05-recipes.json"),
                              (REPO / "assets/audio/feedback_05/manifest.json", "Audio-Feedback-05-manifest.json"),
                              (REPO / "config/audio_director/feedback_06/sources.json", "Audio-Feedback-06-sources.json"),

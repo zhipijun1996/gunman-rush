@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
+[node name="P-R30" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R30"
+art_profile = "well"
+arrival_text = "田下回水洞"
+platforms = Array[Rect2]([Rect2(0, 992, 976, 32), Rect2(1328, 992, 720, 32), Rect2(0, 896, 976, 128), Rect2(1328, 896, 720, 128), Rect2(1536, 544, 416, 40), Rect2(0, 896, 288, 32), Rect2(1088, 944, 192, 32), Rect2(976, 992, 96, 32), Rect2(1536, 400, 448, 32), Rect2(1280, 944, 48, 32), Rect2(976, 944, 112, 24)])
+one_way_indices = Array[int]([10])
+start_point = Vector2(144, 878)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point": [224, 848], "text": "水面映出洞里的铜齿。最后一只索环靠近低顶，松手时得收住脚步。"}])
+hook_points = Array[Vector2]([Vector2(1152, 640), Vector2(1280, 496), Vector2(1456, 432)])
+section_volumes = Array[Dictionary]([{"id": "reward:TG03", "bounds": [1504, 0, 544, 560]}])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "sunken_well", "point": [1376, 896.0], "layer": -2}, {"asset": "hanging_chime", "point": [1808, 544.0], "layer": -2}])
+[node name="Interaction_0" type="Node2D" parent="."]
+script = ExtResource("interaction")
+position = Vector2(1696, 526)
+action_id = "pickup_TG03"
+section_id = "reward:TG03"
+label = "收取时间齿轮"
+visual = "time_gear"
+
+[node name="RewardReturn" type="Node2D" parent="."]
+script = ExtResource("return")
+position = Vector2(1824, 526)
+action_id = "reward_return_TG03_open"
+section_id = "reward:TG03"
+label = "放下返程折梯"
+visual = "pulley_switch"
+radius = 40.0
+return_steps = Array[Rect2]([Rect2(64, 114, 128, 16), Rect2(-64, 210, 128, 16), Rect2(64, 306, 128, 16)])
+closed_panels = Array[Rect2]([])

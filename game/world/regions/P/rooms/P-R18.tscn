@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R18" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R18"
+art_profile = "field"
+arrival_text = "东境旧田"
+platforms = Array[Rect2]([Rect2(0, 992, 2560, 32), Rect2(0, 896, 2560, 128), Rect2(1952, 224, 512, 40), Rect2(0, 896, 288, 32), Rect2(0, 672, 288, 32), Rect2(2272, 896, 288, 32), Rect2(2272, 672, 288, 32), Rect2(2272, 224, 288, 32), Rect2(1344, 160, 192, 32), Rect2(640, 800, 256, 32), Rect2(1280, 736, 320, 32), Rect2(1728, 800, 256, 32)])
+one_way_indices = Array[int]([])
+start_point = Vector2(144, 878)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R18:encounter:01", "behavior": "charger", "point": [1024, 878], "max_health": 10}, {"id": "P-R18:encounter:02", "behavior": "diver", "point": [1728, 878], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 848], "text": "东田的风很宽。铃架、谷仓与水岸各指向一条路。"}])
+hook_points = Array[Vector2]([Vector2(1664, 640), Vector2(1744, 560), Vector2(1824, 480), Vector2(1936, 336), Vector2(1888, 144)])
+section_volumes = Array[Dictionary]([{"id": "access:H", "bounds": [1920, 0, 640, 240]}])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "windchime_plains_v2_chime_span", "point": [672, 896.0], "layer": -2}, {"asset": "windchime_plains_v2_seed_relic", "point": [1888, 896.0], "layer": -2}])

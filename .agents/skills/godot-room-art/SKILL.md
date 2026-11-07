@@ -10,8 +10,9 @@ description: 为失序之钟的固定世界房间制作、扩充和复用 Underw
 ## 首先读取
 
 1. 读根 `AGENTS.md`，定位目标区域、房间ID和当前分支。按需查 `docs/bible/visual_bible.md`、目标区域 Bible 与实际房间上下文，不全文读取世界数据。
-2. 读 [风格与组装基准](references/style-and-assembly.md)。需要重建素材、导入完整16区包时再读 [Cloud素材接入](references/cloud-import.md)。
-3. 检查 `art/world-art-v2/assets/terrain47/manifest.json` 是否真的存在。不存在时须说明“素材尚未接入”，不可把参考参数写成已安装资产。
+2. 读 [版本与视觉证据](references/versioned-style-standard.md) 与 [组装方法](references/godot-assembly.md)。恢复素材读 [Cloud接续](references/cloud-portability.md)，区域选择读references/region-catalog.json；47邻接、补素材和复用验收分别见references/autotile-47.md、asset-contract.md、quality-and-reuse.md。
+3. 使用assets/approved-five-regions.png、approved-tiles-and-props.png与current-plains-forest-v2.png恢复同一参考；NPC/休息站/收集动画按同风格制作，状态时序沿项目animation-vfx技能，不由动画结算。
+4. 检查 `art/world-art-v2/assets/terrain47/manifest.json` 是否真的存在。不存在时须说明“素材尚未接入”，不可把参考参数写成已安装资产。
 
 ## 与关卡技能分工
 

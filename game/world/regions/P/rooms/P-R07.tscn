@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R07" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R07"
+art_profile = "overlook"
+arrival_text = "东缘眺望台"
+platforms = Array[Rect2]([Rect2(0, 736, 1040, 32), Rect2(1392, 736, 784, 32), Rect2(0, 640, 1040, 128), Rect2(1392, 640, 784, 128), Rect2(480, 544, 224, 32), Rect2(960, 480, 224, 32), Rect2(1440, 544, 224, 32), Rect2(0, 640, 288, 32), Rect2(1152, 688, 192, 32), Rect2(1040, 736, 96, 32), Rect2(704, 576, 64, 64), Rect2(1344, 688, 48, 32), Rect2(1040, 688, 112, 24)])
+one_way_indices = Array[int]([12])
+start_point = Vector2(144, 622)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R07:encounter:01", "behavior": "sentry", "point": [864, 622], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 592], "text": "从这里能望见田野尽头的城堡。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "world_clock_far", "point": [1856, 640], "layer": -14, "depth": 0.55}, {"asset": "bridge_pier", "point": [704, 576.0], "layer": -2}, {"asset": "storage_crates", "point": [1248, 688.0], "layer": -2}])

@@ -10,6 +10,7 @@ const MECHANISM_BELL_GAIN_DB := 12.0
 const CUE_STREAM_OVERRIDES_META := &"audio_cue_stream_overrides"
 const CUES := [&"focus_start", &"focus_end", &"enemy_defeat", &"door", &"warning", &"boss_impact", &"click", &"confirm", &"coin", &"note", &"victory", &"jump", &"land", &"step", &"hurt", &"shot", &"impact", &"armour", &"core", &"enemy_shot", &"heal", &"death", &"bell", &"denied", &"roar"]
 const REGIONAL_CUE_PATHS := {
+	&"plains_water_splash": "res://assets/plains_v07/audio/water_splash.ogg",
 	&"forest_wind": "res://assets/forest_bible_v2/audio/forest_wind.wav",
 	&"forest_fruit": "res://assets/forest_bible_v2/audio/forest_fruit.wav",
 	&"forest_web": "res://assets/forest_bible_v2/audio/forest_web.wav",

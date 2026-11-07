@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
+[node name="P-R13" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R13"
+art_profile = "terrace"
+arrival_text = "旧路肩高台"
+platforms = Array[Rect2]([Rect2(0, 864, 720, 32), Rect2(1072, 864, 464, 32), Rect2(0, 768, 720, 128), Rect2(1072, 768, 464, 128), Rect2(384, 656, 256, 32), Rect2(864, 544, 320, 32), Rect2(1280, 608, 192, 32), Rect2(0, 768, 288, 32), Rect2(1248, 768, 288, 32), Rect2(832, 816, 192, 32), Rect2(720, 864, 96, 32), Rect2(1024, 816, 48, 32), Rect2(720, 816, 112, 24)])
+one_way_indices = Array[int]([12])
+start_point = Vector2(144, 750)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R13:encounter:01", "behavior": "patrol", "point": [608, 750], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 720], "text": "田埂上有三条路。高处的微光与脚下的归途都看得见。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "bridge_pier", "point": [608, 656.0], "layer": -2}, {"asset": "windchime_plains_v2_road_marker", "point": [896, 544.0], "layer": -2}])
+[node name="Interaction_0" type="Node2D" parent="."]
+script = ExtResource("interaction")
+position = Vector2(1024, 526)
+action_id = "pickup_HP01"
+section_id = "main"
+label = "收取血量片"
+visual = "health_shard"
+
+[node name="RewardReturn" type="Node2D" parent="."]
+script = ExtResource("return")
+position = Vector2(1120, 526)
+action_id = "reward_return_HP01_open"
+section_id = "main"
+label = "放下返程折梯"
+visual = "pulley_switch"
+radius = 40.0
+return_steps = Array[Rect2]([Rect2(0, 114, 128, 16), Rect2(32, 210, 96, 16)])
+closed_panels = Array[Rect2]([])

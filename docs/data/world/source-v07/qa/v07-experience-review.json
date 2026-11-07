@@ -1,0 +1,554 @@
+{
+  "schema": "world.experience-review.v07",
+  "source_world_sha256": "b29dff3bdd2de5fce432dc2922334f31e7de3d40e36803410f9bed5b08303c17",
+  "scope": "Independent canonical/readable consistency and targeted logical replay review; no Godot physics, combat, camera, NPC performance or human recognition acceptance.",
+  "passed": true,
+  "checks": [
+    {
+      "id": "old_source_ids_preserved",
+      "passed": true,
+      "evidence": {
+        "old": 131,
+        "new": 131,
+        "added": [],
+        "missing": []
+      }
+    },
+    {
+      "id": "material_and_collection_budget",
+      "passed": true,
+      "evidence": {
+        "weapon": {
+          "attack_alloy": 8,
+          "branch_material": 6,
+          "skill_core": 2
+        },
+        "minor": {
+          "health_shard": 12,
+          "resonance_shard": 6,
+          "capacity_plus_one": 6
+        },
+        "equipment": 50,
+        "time_gears": 40
+      }
+    },
+    {
+      "id": "source_and_action_locations_agree",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "id": "no_existing_source_in_extreme",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "EQ_MAP_V01",
+          "room_id": "V-R04"
+        },
+        {
+          "id": "TG38",
+          "room_id": "V-R09"
+        },
+        {
+          "id": "TG39",
+          "room_id": "V-R03"
+        },
+        {
+          "id": "HP08",
+          "room_id": "V-R10"
+        },
+        {
+          "id": "EQ_QUEST_V01",
+          "room_id": "V-R01"
+        }
+      ]
+    },
+    {
+      "id": "critical_V_actions_main_path",
+      "passed": true,
+      "evidence": {
+        "repair_V": "V-R05",
+        "get_severance": "V-R06",
+        "defeat_V_GATEKEEPER": "V-R05"
+      }
+    },
+    {
+      "id": "shortcut_summaries_match_actual_controls",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "id": "no_visit_or_optional_traveler_count_gate",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "id": "four_replays_succeed",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "A_normal_w_first",
+          "success": true,
+          "failure": null,
+          "subject_rooms": 142,
+          "deep_regions": 12,
+          "extreme_subject_rooms": [],
+          "major_sources_claimed": [
+            "ATK01",
+            "ATK02",
+            "ATK03",
+            "ATK04",
+            "ATK05"
+          ]
+        },
+        {
+          "id": "B_normal_d_first",
+          "success": true,
+          "failure": null,
+          "subject_rooms": 166,
+          "deep_regions": 13,
+          "extreme_subject_rooms": [],
+          "major_sources_claimed": [
+            "ATK01",
+            "ATK02",
+            "ATK03",
+            "ATK04",
+            "ATK06",
+            "part_laser",
+            "part_magnetic",
+            "skill_core_root"
+          ]
+        },
+        {
+          "id": "C_true_16_regions",
+          "success": true,
+          "failure": null,
+          "subject_rooms": 205,
+          "deep_regions": 16,
+          "extreme_subject_rooms": [],
+          "major_sources_claimed": [
+            "ATK01",
+            "ATK02",
+            "ATK03",
+            "ATK04",
+            "ATK05",
+            "part_laser"
+          ]
+        },
+        {
+          "id": "D_all_unique_rewards",
+          "success": true,
+          "failure": null,
+          "subject_rooms": 254,
+          "deep_regions": 16,
+          "extreme_subject_rooms": [],
+          "major_sources_claimed": [
+            "ATK01",
+            "ATK02",
+            "ATK03",
+            "ATK04",
+            "ATK05",
+            "ATK06",
+            "ATK07",
+            "ATK08",
+            "part_triple",
+            "part_laser",
+            "part_fan",
+            "part_boomerang",
+            "part_magnetic",
+            "part_singularity",
+            "skill_core_root",
+            "skill_core_sky"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "two_distinct_actual_city_reentries",
+      "passed": true,
+      "evidence": {
+        "W_first": {
+          "step": 117,
+          "kind": "internal",
+          "transition_id": "internal:IR:G-R20:entry:C16",
+          "edge": "IR:G-R20:entry:C16",
+          "from": "G-R20",
+          "from_section": "entry:C16",
+          "to": "G-R20",
+          "to_section": "main",
+          "room": "G-R20",
+          "section": "main",
+          "abilities": [
+            "H",
+            "W"
+          ],
+          "weapon_flags": [
+            "gun"
+          ],
+          "attack_rank": 1,
+          "attack_value": 9,
+          "equipment": []
+        },
+        "D_first": {
+          "step": 194,
+          "kind": "internal",
+          "transition_id": "internal:IR:G-R22:entry:C20",
+          "edge": "IR:G-R22:entry:C20",
+          "from": "G-R22",
+          "from_section": "entry:C20",
+          "to": "G-R22",
+          "to_section": "main",
+          "room": "G-R22",
+          "section": "main",
+          "abilities": [
+            "H",
+            "D"
+          ],
+          "weapon_flags": [
+            "gun",
+            "bomb"
+          ],
+          "attack_rank": 1,
+          "attack_value": 9,
+          "equipment": [
+            "eq_lamp"
+          ]
+        }
+      }
+    },
+    {
+      "id": "D_first_E_and_upper_without_W",
+      "passed": true,
+      "evidence": {
+        "first_E": {
+          "step": 312,
+          "kind": "internal",
+          "transition_id": "internal:IR:E-R12:entry:C22",
+          "edge": "IR:E-R12:entry:C22",
+          "from": "E-R12",
+          "from_section": "entry:C22",
+          "to": "E-R12",
+          "to_section": "main",
+          "room": "E-R12",
+          "section": "main",
+          "abilities": [
+            "H",
+            "D",
+            "Q"
+          ],
+          "weapon_flags": [
+            "gun",
+            "bomb"
+          ],
+          "attack_rank": 1,
+          "attack_value": 9,
+          "equipment": [
+            "eq_lamp"
+          ]
+        },
+        "first_upper": {
+          "step": 329,
+          "kind": "internal",
+          "transition_id": "internal:IR:G-R29:entry:G-L28-U29",
+          "edge": "IR:G-R29:entry:G-L28-U29",
+          "from": "G-R29",
+          "from_section": "entry:G-L28-U29",
+          "to": "G-R29",
+          "to_section": "main",
+          "room": "G-R29",
+          "section": "main",
+          "abilities": [
+            "H",
+            "D",
+            "Q"
+          ],
+          "weapon_flags": [
+            "gun",
+            "bomb"
+          ],
+          "attack_rank": 1,
+          "attack_value": 9,
+          "equipment": [
+            "eq_lamp"
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q_and_laser_do_not_depend_on_late_city",
+      "passed": true,
+      "evidence": {
+        "Q": 293,
+        "laser": 213,
+        "repair_E": 321,
+        "first_upper": 329
+      }
+    },
+    {
+      "id": "true_route_excludes_extreme",
+      "passed": true,
+      "evidence": {
+        "C_excluded_rooms": [
+          "V-R11",
+          "V-R12",
+          "V-R13",
+          "V-R14"
+        ],
+        "C_extreme_visited": [],
+        "D_extreme_visited": []
+      }
+    },
+    {
+      "id": "ordinary_skips_V_and_need_not_repair_G",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "A_normal_w_first",
+          "clock_G": false,
+          "V_deep": false,
+          "normal": true
+        },
+        {
+          "id": "B_normal_d_first",
+          "clock_G": false,
+          "V_deep": false,
+          "normal": true
+        }
+      ]
+    },
+    {
+      "id": "opposite_wing_orders_valid",
+      "passed": true,
+      "evidence": {
+        "C": [
+          587,
+          595
+        ],
+        "D": [
+          595,
+          587
+        ]
+      }
+    },
+    {
+      "id": "city_reveals_12_26_36",
+      "passed": true,
+      "evidence": [
+        {
+          "milestone": "pickup_ATK01",
+          "route": "A_normal_w_first",
+          "city_subject_rooms_reachable": 12,
+          "expected": 12,
+          "abilities": [
+            "H"
+          ],
+          "rooms": [
+            "G-R01",
+            "G-R02",
+            "G-R03",
+            "G-R11",
+            "G-R12",
+            "G-R13",
+            "G-R14",
+            "G-R15",
+            "G-R16",
+            "G-R17",
+            "G-R18",
+            "G-R19"
+          ]
+        },
+        {
+          "milestone": "get_Q",
+          "route": "B_normal_d_first",
+          "city_subject_rooms_reachable": 26,
+          "expected": 26,
+          "abilities": [
+            "D",
+            "H",
+            "Q"
+          ],
+          "rooms": [
+            "G-R01",
+            "G-R02",
+            "G-R03",
+            "G-R04",
+            "G-R05",
+            "G-R06",
+            "G-R07",
+            "G-R10",
+            "G-R11",
+            "G-R12",
+            "G-R13",
+            "G-R14",
+            "G-R15",
+            "G-R16",
+            "G-R17",
+            "G-R18",
+            "G-R19",
+            "G-R20",
+            "G-R21",
+            "G-R22",
+            "G-R23",
+            "G-R24",
+            "G-R25",
+            "G-R26",
+            "G-R27",
+            "G-R28"
+          ]
+        },
+        {
+          "milestone": "repair_E",
+          "route": "B_normal_d_first",
+          "city_subject_rooms_reachable": 36,
+          "expected": 36,
+          "abilities": [
+            "D",
+            "H",
+            "Q"
+          ],
+          "rooms": [
+            "G-R01",
+            "G-R02",
+            "G-R03",
+            "G-R04",
+            "G-R05",
+            "G-R06",
+            "G-R07",
+            "G-R08",
+            "G-R09",
+            "G-R10",
+            "G-R11",
+            "G-R12",
+            "G-R13",
+            "G-R14",
+            "G-R15",
+            "G-R16",
+            "G-R17",
+            "G-R18",
+            "G-R19",
+            "G-R20",
+            "G-R21",
+            "G-R22",
+            "G-R23",
+            "G-R24",
+            "G-R25",
+            "G-R26",
+            "G-R27",
+            "G-R28",
+            "G-R29",
+            "G-R30",
+            "G-R31",
+            "G-R32",
+            "G-R33",
+            "G-R34",
+            "G-R35",
+            "G-R36"
+          ]
+        }
+      ]
+    }
+  ],
+  "changed_source_locations": [
+    {
+      "id": "EQ_MAP_G01",
+      "from": [
+        "G-R07",
+        "main"
+      ],
+      "to": [
+        "G-R21",
+        "main"
+      ]
+    },
+    {
+      "id": "TG11",
+      "from": [
+        "S-R09",
+        "main"
+      ],
+      "to": [
+        "S-R02",
+        "main"
+      ]
+    },
+    {
+      "id": "TG24",
+      "from": [
+        "G-R16",
+        "reward:TG24"
+      ],
+      "to": [
+        "G-R22",
+        "main"
+      ]
+    },
+    {
+      "id": "TG25",
+      "from": [
+        "G-R07",
+        "main"
+      ],
+      "to": [
+        "G-R30",
+        "reward:TG25"
+      ]
+    },
+    {
+      "id": "TG38",
+      "from": [
+        "V-R02",
+        "main"
+      ],
+      "to": [
+        "V-R09",
+        "main"
+      ]
+    },
+    {
+      "id": "TG39",
+      "from": [
+        "V-R03",
+        "access:H_W_D"
+      ],
+      "to": [
+        "V-R03",
+        "main"
+      ]
+    },
+    {
+      "id": "HP08",
+      "from": [
+        "V-R07",
+        "access:H_W_D"
+      ],
+      "to": [
+        "V-R10",
+        "main"
+      ]
+    }
+  ],
+  "unchanged_material_source_count": 16,
+  "human_playtest_questions": [
+    "玩家第二次从矿井/古堡进城时，是否能认出桥、灯号与对岸窗户？",
+    "新增市民街道是否形成放松与普通打怪节奏，而非延长无回报通勤？",
+    "G上层与V的Q后落地、2秒冷却和镜头是否支持稳定复读？",
+    "两条普通路线的强化/武器差异是否有趣；A较长时间持基础枪，B较早激光与炸弹。"
+  ],
+  "resolved_or_pending_findings": [
+    {
+      "id": "C21_OLD_SUMMARY",
+      "description": "旧捷径C21副本曾指向G07，与迁后G26真实开关不符；已交逻辑代理同步。",
+      "resolved": true
+    },
+    {
+      "id": "MAP_SHOP_MINOR_MARKERS",
+      "description": "G01的HP10属于待定价商店成长来源。施工占位与目录必须保留该来源，不能因为不是普通拾取action丢失。",
+      "source_retained": true
+    },
+    {
+      "id": "VISIT_WAYPOINTS",
+      "description": "城市approach已补全为实际相邻房序，不会把跨多房的地标数组误当直接连边。",
+      "resolved": true
+    }
+  ]
+}

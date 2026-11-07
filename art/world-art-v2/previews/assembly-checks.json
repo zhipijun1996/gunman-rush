@@ -1,0 +1,80 @@
+{
+  "renderer": "web/study.js executed in Canvas/Skia",
+  "passed": true,
+  "checks": [
+    "All required native assets loaded",
+    "Region selector changes the rendered room",
+    "Lighting controls visibly change the same frame",
+    "Depth control shows independent regional sprites",
+    "Camera and parallax offsets stay on the pixel grid through both ±32 views",
+    "47-neighbour records use normalized masks with 32px cells",
+    "Grid collision rectangles preserve occupied cells and empty openings",
+    "Foreground mask retains upper silhouettes and protects the hero locally",
+    "Foreground bases leave internal holes and platform gaps empty",
+    "Native terrain uses integer source and destination rectangles",
+    "Pause holds the displayed scene and play advances it"
+  ],
+  "embeddings": [
+    {
+      "file": "world-art-v2/world-art-preview.html",
+      "bytes": 11079420,
+      "regions": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart"
+      ],
+      "matchesSource": true,
+      "frameHashes": {
+        "windchime_plains": "38f04121fec5bc3421cb8fc11377bc4509207d805ff82056ea8aee952f7af221",
+        "thorn_forest": "26971b55a1460fe5155f269ff8c89116e131d2b20a861099159062c1825599e1",
+        "mushroom_caverns": "3ace4a1cb2952838981702327537d571ff6e0d1a4021569c83dc774cc4f68d9b",
+        "firefly_marsh": "2997878c4e708c07a77e7f936b94352441661b5c5d6ad2240d6d5dbab7450e8a",
+        "windswept_canyon": "9236bc6bd84cf116f7518135529cbfebfae94ed7ef89c96e66da18b7b7f9c987",
+        "frostmirror_glacier": "0abf1ed2b2c3e77b2fb324ec299a7292807a45ee7505577a597957b2d76b2a67",
+        "moonshadow_cemetery": "1a5a7af77706351e373ef3c8a067f7ddb9f40fc6ca9fab00433299372ca6669f",
+        "moon_crown_castle": "6a6f38b929b18440d54cd80e09fe8c563810da9fbfbdb7c0fe2a638439cf6a64",
+        "gear_city": "e57f369409ecc7c4e49df7ab4cb59b2b1920b4f7b532125cac38c7c9f07c4907",
+        "echo_mines": "8e577d6681583faf7ad3e0d88cc660a8d889a4a29a2c4877cac900842d96eb05",
+        "ember_depths": "6d9e5f28e15602e3b10978d4c2b072d9b56a204bd12eef1ff97e6f9f02cb7df0",
+        "root_sanctuary": "ba23e017303f0b2ad7b77ffdab507169b8410fd9cd0bc7af198463262dd2575c",
+        "sunken_ruins": "69a845a8eb13c5e06f2e6e523820878b778b0aa6a8069a7b95e72161e7de9483",
+        "shattered_isles": "567dea5f6b02f186715be2012c4fe5dc131ae04f53adbedaf7038d88051e1dc0",
+        "starbridge_gate": "3e2e5304edf49ab93d01b2d9a19ea705df45ba07d725b6aa27ff57c1cf9e40a5",
+        "world_clockheart": "21cadfce8d85e27d1402c7e984c21705457cc0886bee4f3b26601652ff862c6b"
+      }
+    },
+    {
+      "file": "/workspace/room-art-depth-v2.html",
+      "bytes": 930756,
+      "regions": [
+        "windchime_plains",
+        "thorn_forest"
+      ],
+      "matchesSource": true,
+      "frameHashes": {
+        "windchime_plains": "38f04121fec5bc3421cb8fc11377bc4509207d805ff82056ea8aee952f7af221",
+        "thorn_forest": "26971b55a1460fe5155f269ff8c89116e131d2b20a861099159062c1825599e1"
+      }
+    }
+  ],
+  "sceneHash": "faad926e667a8f853ae94550bfeb87cae96e0934dd242a65f92ba099d5b07598",
+  "limits": [
+    "This report executes the exact scene through Canvas/Skia; browser visual evidence is recorded separately",
+    "Godot rendering validated separately; these images are Canvas frames",
+    "Lighting is a 2D light-map approximation, not normal-mapped 3D material shading",
+    "No full gameplay regression"
+  ]
+}

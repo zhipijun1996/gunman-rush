@@ -1,0 +1,531 @@
+{
+  "schema": "world.handoff-integrity.v07",
+  "source_world_sha256": "b29dff3bdd2de5fce432dc2922334f31e7de3d40e36803410f9bed5b08303c17",
+  "passed": true,
+  "check_count": 24,
+  "checks": [
+    {
+      "id": "309_unique_rooms_and_16_budgets",
+      "passed": true,
+      "evidence": {
+        "N": 18,
+        "F": 24,
+        "M": 18,
+        "E": 14,
+        "T": 16,
+        "Z": 16,
+        "Y": 12,
+        "A": 14,
+        "G": 36,
+        "S": 16,
+        "I": 16,
+        "V": 14,
+        "C": 18,
+        "R": 18,
+        "P": 35,
+        "K": 24
+      }
+    },
+    {
+      "id": "previous_room_and_action_identities_retained",
+      "passed": true,
+      "evidence": {
+        "baseline_rooms": 285,
+        "rooms": 309,
+        "actions": 264
+      }
+    },
+    {
+      "id": "routes_audit",
+      "passed": true,
+      "evidence": {
+        "report": "simulation/contract-audit-v07.json",
+        "checks": 54
+      }
+    },
+    {
+      "id": "routes_current_hash",
+      "passed": true,
+      "evidence": "b29dff3bdd2de5fce432dc2922334f31e7de3d40e36803410f9bed5b08303c17"
+    },
+    {
+      "id": "opening_audit",
+      "passed": true,
+      "evidence": {
+        "report": "simulation/opening-audit-v07.json",
+        "checks": 12
+      }
+    },
+    {
+      "id": "opening_current_hash",
+      "passed": true,
+      "evidence": "b29dff3bdd2de5fce432dc2922334f31e7de3d40e36803410f9bed5b08303c17"
+    },
+    {
+      "id": "station_audit",
+      "passed": true,
+      "evidence": {
+        "report": "simulation/station-network-audit-v07.json",
+        "checks": 17
+      }
+    },
+    {
+      "id": "station_current_hash",
+      "passed": true,
+      "evidence": "b29dff3bdd2de5fce432dc2922334f31e7de3d40e36803410f9bed5b08303c17"
+    },
+    {
+      "id": "city_sky_audit",
+      "passed": true,
+      "evidence": {
+        "report": "simulation/city-sky-audit-v07.json",
+        "checks": 19
+      }
+    },
+    {
+      "id": "city_sky_current_hash",
+      "passed": true,
+      "evidence": "b29dff3bdd2de5fce432dc2922334f31e7de3d40e36803410f9bed5b08303c17"
+    },
+    {
+      "id": "replays_current_and_four_routes_complete",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "A_normal_w_first",
+          "success": true,
+          "subject_rooms": 142,
+          "deep_regions": [
+            "A",
+            "C",
+            "E",
+            "F",
+            "G",
+            "I",
+            "K",
+            "M",
+            "P",
+            "T",
+            "Y",
+            "Z"
+          ]
+        },
+        {
+          "id": "B_normal_d_first",
+          "success": true,
+          "subject_rooms": 166,
+          "deep_regions": [
+            "A",
+            "C",
+            "E",
+            "F",
+            "G",
+            "I",
+            "K",
+            "M",
+            "N",
+            "P",
+            "T",
+            "Y",
+            "Z"
+          ]
+        },
+        {
+          "id": "C_true_16_regions",
+          "success": true,
+          "subject_rooms": 205,
+          "deep_regions": [
+            "A",
+            "C",
+            "E",
+            "F",
+            "G",
+            "I",
+            "K",
+            "M",
+            "N",
+            "P",
+            "R",
+            "S",
+            "T",
+            "V",
+            "Y",
+            "Z"
+          ]
+        },
+        {
+          "id": "D_all_unique_rewards",
+          "success": true,
+          "subject_rooms": 254,
+          "deep_regions": [
+            "A",
+            "C",
+            "E",
+            "F",
+            "G",
+            "I",
+            "K",
+            "M",
+            "N",
+            "P",
+            "R",
+            "S",
+            "T",
+            "V",
+            "Y",
+            "Z"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "construction_contract_audit",
+      "passed": true,
+      "evidence": {
+        "checks": 31,
+        "issues": 0
+      }
+    },
+    {
+      "id": "map_matches_canonical_rooms_and_connections",
+      "passed": true,
+      "evidence": {
+        "rooms": 309,
+        "connections": 411
+      }
+    },
+    {
+      "id": "map_geometry_audit",
+      "passed": true,
+      "evidence": {
+        "geometry_scope": "exact 2D illustration embedding; not Godot collision, pixels, camera or physics acceptance",
+        "rooms": 309,
+        "connections": 411,
+        "all_polygons_valid": true,
+        "room_overlap_pairs": [],
+        "uncovered_connection_endpoints": [],
+        "unrouted_connections": [],
+        "passage_crosses_unrelated_room": [],
+        "disconnected_passage_unions": [],
+        "unplaced_region_labels": [],
+        "shape_family_counts": {
+          "quiet_rectangle": 40,
+          "broad_shoulder": 24,
+          "long_bank": 34,
+          "purposeful_bend": 62,
+          "region_arena": 20,
+          "large_step": 18,
+          "single_wing": 4,
+          "v07_room": 13,
+          "v07_court": 4,
+          "v07_star_bridge": 4,
+          "v07_observatory": 2,
+          "v07_shaft": 3,
+          "v07_street": 3,
+          "v07_station": 2,
+          "v07_terrace": 3,
+          "v07_hall": 2,
+          "single_step": 1,
+          "v05_horizontal": 24,
+          "v05_layered": 12,
+          "v05_chamber": 15,
+          "v07_bridge": 1,
+          "v07_step": 3,
+          "v06_station_broad_shoulder": 5,
+          "v07_arch": 1,
+          "v07_balcony": 1,
+          "v07_pylon": 1,
+          "v07_channel": 2,
+          "v07_gallery": 2,
+          "v07_frame": 1,
+          "v07_roof": 1,
+          "v07_archive": 1
+        },
+        "region_counts": {
+          "P": 35,
+          "Z": 16,
+          "S": 16,
+          "R": 18,
+          "N": 18,
+          "I": 16,
+          "Y": 12,
+          "F": 24,
+          "C": 18,
+          "M": 18,
+          "T": 16,
+          "K": 24,
+          "A": 14,
+          "V": 14,
+          "G": 36,
+          "E": 14
+        },
+        "canonical_room_ids_match": true,
+        "canonical_connection_ids_match": true,
+        "all_old_room_ids_preserved": true,
+        "city_rooms_rebuilt": 36,
+        "sky_rooms_rebuilt": 14,
+        "translated_regions": {
+          "A": [
+            0,
+            -85
+          ],
+          "E": [
+            0,
+            160
+          ]
+        },
+        "unchanged_old_room_geometry_count": 231,
+        "rerouted_edges": [
+          "C15",
+          "C17",
+          "C34",
+          "C35",
+          "EXP-A_middle_islands-01",
+          "EXP-A_middle_islands-02",
+          "EXP-E_cooling_approach-01",
+          "EXP-E_cooling_approach-02",
+          "L13",
+          "L16",
+          "L33",
+          "L41",
+          "room-link-090",
+          "room-link-091",
+          "room-link-092",
+          "room-link-093",
+          "room-link-094",
+          "room-link-095",
+          "room-link-096",
+          "room-link-097",
+          "room-link-098",
+          "room-link-099",
+          "room-link-100",
+          "room-link-101",
+          "room-link-120",
+          "room-link-121",
+          "room-link-122",
+          "room-link-123",
+          "room-link-124",
+          "room-link-125",
+          "room-link-126",
+          "room-link-127",
+          "room-link-128",
+          "room-link-129",
+          "room-link-130",
+          "room-link-131",
+          "C16",
+          "C18",
+          "C19",
+          "C20",
+          "C21",
+          "C22",
+          "C25",
+          "EXP-G_inner_factory-01",
+          "EXP-G_inner_factory-02",
+          "EXP-G_workers_yard_reward-01",
+          "EXP-G_workers_yard_reward-02",
+          "EXP-G_workers_yard_reward-03",
+          "EXP-V_star_observation-01",
+          "EXP-V_star_observation-02",
+          "L11",
+          "L17",
+          "L35",
+          "room-link-102",
+          "room-link-103",
+          "room-link-104",
+          "room-link-106",
+          "room-link-107",
+          "room-link-108",
+          "room-link-109",
+          "room-link-110",
+          "room-link-111",
+          "room-link-112",
+          "room-link-114",
+          "room-link-116",
+          "room-link-118",
+          "CITY-E-G-RETURN",
+          "CITY-P-G-WEST",
+          "G-E04-E07",
+          "G-E07-E23",
+          "G-E20-E06",
+          "G-E20-E23",
+          "G-E21-E06",
+          "G-E21-E22",
+          "G-E22-E04",
+          "G-E23-E06",
+          "G-E24-E20",
+          "G-E24-E21",
+          "G-L25-E22",
+          "G-L25-L26",
+          "G-L26-L27",
+          "G-L27-L28",
+          "G-L28-L10",
+          "G-L28-U29",
+          "G-O08-O34",
+          "G-O34-O35",
+          "G-O35-O36",
+          "G-O36-U09",
+          "G-O36-U33",
+          "G-P14-P17",
+          "G-P14-P18",
+          "G-P17-P19",
+          "G-P18-L25",
+          "G-P18-P19",
+          "G-P19-P13",
+          "G-U29-U30",
+          "G-U30-U31",
+          "G-U30-U32",
+          "G-U31-U33",
+          "G-U32-U29",
+          "G-U33-U09",
+          "SC-G-BELL",
+          "SC-G-EAST",
+          "SC-V-LEFT",
+          "SC-V-RIGHT",
+          "V-EXTREME-11-12",
+          "V-EXTREME-12-13",
+          "V-EXTREME-13-14",
+          "V-EXTREME-ENTRY",
+          "V-RETURN-05-03",
+          "V-UPPER-ENTRY"
+        ],
+        "non_junction_crossing_pairs": 64,
+        "non_junction_crossing_marker_count": 66,
+        "city_sky_crossing_marker_count": 16,
+        "shared_unrelated_collinear_segments": [],
+        "crossing_display_contract": "All crossings have explicit over/under edge IDs. Draw the small gap/overpass; never render a crossing as an additional free junction.",
+        "highest_region": "Z",
+        "semantic_note": "Line crossings never introduce gameplay junctions; only canonical named room doors do. Paired lift endpoints are separately marked.",
+        "draft": false,
+        "passed": true
+      }
+    },
+    {
+      "id": "all_door_spawn_interfaces_pair",
+      "passed": true,
+      "evidence": {
+        "doors": 822,
+        "spawns": 822,
+        "errors": []
+      }
+    },
+    {
+      "id": "abilities_only_inside_rooms",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "id": "all_action_locations_resolve",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "id": "growth_and_collection_budgets_preserved",
+      "passed": true,
+      "evidence": {
+        "weapon_sources": {
+          "attack_alloy": 8,
+          "branch_material": 6,
+          "skill_core": 2
+        },
+        "gears": 40,
+        "equipment_sources": 50
+      }
+    },
+    {
+      "id": "all_minor_collection_budgets_preserved",
+      "passed": true,
+      "evidence": {
+        "map_equipment_slots": 28,
+        "gear_sites": 40,
+        "growth_minor_sources": 24,
+        "quest_equipment_rewards": 6,
+        "gear_milestone_rewards": 5
+      }
+    },
+    {
+      "id": "five_city_and_five_sky_rests",
+      "passed": true,
+      "evidence": {
+        "city": [
+          "G-R01",
+          "G-R09",
+          "G-R19",
+          "G-R23",
+          "G-R28"
+        ],
+        "sky": [
+          "V-R01",
+          "V-R07",
+          "V-R08",
+          "V-R11",
+          "V-R13"
+        ]
+      }
+    },
+    {
+      "id": "npc_boss_rift_identity_counts",
+      "passed": true,
+      "evidence": {
+        "npcs": 15,
+        "bosses": 22,
+        "rifts": 16
+      }
+    },
+    {
+      "id": "all_growth_sources_have_acquisition_contracts",
+      "passed": true,
+      "evidence": {
+        "growth_sources": 130,
+        "map_pickups": 97,
+        "nonmap_sources": 33,
+        "map_pickup_host_rooms": 95,
+        "growth_host_rooms": 106,
+        "hidden_spaces": 29,
+        "full_hidden_rooms": 6,
+        "hidden_local_chambers": 18,
+        "hidden_internal_loops": 5,
+        "visible_discovery_teaching": 1,
+        "currency_cache_reservations": 4,
+        "existing_world_rooms": 309,
+        "existing_world_connections": 411,
+        "changed_growth_source_locations": 1,
+        "local_return_states_are_not_new_macro_shortcuts": true,
+        "authored_growth_sources": 130,
+        "map_acquisition_sources": 97,
+        "room_index_count": 309,
+        "secret_experiences": 29,
+        "secret_space_types": {
+          "local_chamber": 18,
+          "whole_room": 6,
+          "internal_loop": 5
+        },
+        "map_return_modes": {
+          "existing_approach_reverse": 42,
+          "reward_side_local_return": 10,
+          "physical_one_way_drop": 24,
+          "reward_side_open_permanent_local": 18,
+          "same_discovery_approach": 3
+        }
+      }
+    },
+    {
+      "id": "secret_spaces_and_currency_reservations_bound",
+      "passed": true,
+      "evidence": {
+        "hidden_spaces": 29,
+        "full_hidden_rooms": 6,
+        "cash_reservations": 4
+      }
+    },
+    {
+      "id": "all_room_contracts_include_collection_authoring",
+      "passed": true,
+      "evidence": {
+        "rooms": 309,
+        "source_contracts": 130,
+        "secret_contracts": 29
+      }
+    }
+  ],
+  "scope": "structure/IDs/conditions/geometry; not physical Godot playtest"
+}

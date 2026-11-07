@@ -40,10 +40,10 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | FOREST-BIBLE-V2-01 | 固定世界森林房间内容与环境演出 | MV-RUNTIME-01 | planned | [交接](worklines/forest_bible_v2_01/scope.md) |
-| PLAINS-BIBLE-V2-01 | 固定世界平原房间内容与环境演出 | MV-RUNTIME-01 | planned | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | v07.1世界迁移、35房完整平原与NPC/充电站/收集动画美术 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 - `FOREST-BIBLE-V2-01`：待代表样房闭环后按F房间制作；保留v15动作/生态资产，不推进旧两图量产。
-- `PLAINS-BIBLE-V2-01`：待代表样房闭环后按P房间制作；复用主题/动作/美术，不推进随机扩池。
+- `PLAINS-BIBLE-V2-01`：35房按最新v07.1整体设计实施，当前验证与内容边界见交接；不推进随机扩池。
 
 ## 固定世界迁移
 

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R33" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R33"
+art_profile = "clock"
+arrival_text = "钟影前庭"
+platforms = Array[Rect2]([Rect2(0, 992, 1104, 32), Rect2(1456, 992, 848, 32), Rect2(0, 896, 1104, 128), Rect2(1456, 896, 848, 128), Rect2(0, 896, 288, 32), Rect2(0, 672, 288, 32), Rect2(1216, 944, 192, 32), Rect2(1104, 992, 96, 32), Rect2(1408, 944, 48, 32), Rect2(352, 672, 272, 24), Rect2(240, 752, 160, 24), Rect2(128, 824, 160, 24), Rect2(1104, 944, 112, 24), Rect2(288, 672, 64, 24)])
+one_way_indices = Array[int]([9, 10, 11, 12, 13])
+start_point = Vector2(144, 878)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point": [224, 848], "text": "世界钟心停在最后一次报时。三处核心的钟声尚未回来。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "world_clock_close", "point": [1840, 896.0], "layer": -2}, {"asset": "plains_arch", "point": [528, 896.0], "layer": -2}])

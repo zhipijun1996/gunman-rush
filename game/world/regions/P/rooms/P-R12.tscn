@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
+[node name="P-R12" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R12"
+art_profile = "cellar"
+arrival_text = "春水地窖"
+platforms = Array[Rect2]([Rect2(0, 992, 1536, 32), Rect2(0, 896, 1536, 128), Rect2(64, 704, 416, 32), Rect2(832, 512, 352, 32), Rect2(0, 896, 288, 32), Rect2(0, 672, 288, 32), Rect2(1248, 896, 288, 32), Rect2(800, 384, 416, 32), Rect2(608, 416, 192, 32), Rect2(544, 640, 160, 24), Rect2(352, 680, 160, 24), Rect2(240, 752, 160, 24), Rect2(128, 824, 160, 24)])
+one_way_indices = Array[int]([9, 10, 11, 12])
+start_point = Vector2(144, 878)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R12:encounter:01", "behavior": "hopper", "point": [608, 878], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [480, 850], "text": "倒下的桶后透着光。拖痕拐进了低梁后面。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "storage_crates", "point": [896, 512.0], "layer": -2}, {"asset": "barrel", "point": [960, 512.0], "layer": -2}, {"asset": "tilted_barrel", "point": [1160, 896.0], "layer": -2, "fade_near": true}])
+[node name="Interaction_0" type="Node2D" parent="."]
+script = ExtResource("interaction")
+position = Vector2(1104, 494)
+action_id = "pickup_EQ_MAP_P01"
+section_id = "main"
+label = "收取地窖行装包"
+visual = "equipment"
+
+[node name="RewardReturn" type="Node2D" parent="."]
+script = ExtResource("return")
+position = Vector2(1152, 494)
+action_id = "reward_return_EQ_MAP_P01_open"
+section_id = "main"
+label = "放下返程折梯"
+visual = "pulley_switch"
+radius = 40.0
+return_steps = Array[Rect2]([Rect2(0, 114, 128, 16), Rect2(-64, 210, 128, 16), Rect2(0, 306, 128, 16)])
+closed_panels = Array[Rect2]([Rect2(32, -110, 32, 512)])

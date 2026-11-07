@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R27" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R27"
+traveler_point = Vector2(448, 494)
+art_profile = "shelter"
+arrival_text = "背风检修棚"
+platforms = Array[Rect2]([Rect2(0, 608, 528, 32), Rect2(880, 608, 272, 32), Rect2(0, 512, 528, 128), Rect2(880, 512, 272, 128), Rect2(880, 512, 272, 32), Rect2(640, 560, 192, 32), Rect2(528, 608, 96, 32), Rect2(832, 560, 48, 32), Rect2(528, 560, 112, 24)])
+one_way_indices = Array[int]([8])
+start_point = Vector2(144, 494)
+rest_point = Vector2(320, 494)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point": [224, 464], "text": "棚里避风。灯架旁的充电站仍然可用。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "waiting_shelter", "point": [352, 512.0], "layer": -2}, {"asset": "storage_crates", "point": [864, 512], "layer": -2}, {"asset": "aqi_bench", "point": [752, 560.0], "layer": -2, "receipt": "story_aqi_t03", "story_host": "AQI_T03"}])

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R09" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R09"
+art_profile = "trestle"
+arrival_text = "矿口旧栈道"
+platforms = Array[Rect2]([Rect2(0, 736, 2560, 32), Rect2(0, 640, 2560, 128), Rect2(480, 544, 224, 32), Rect2(960, 480, 224, 32), Rect2(1440, 544, 224, 32), Rect2(1920, 480, 224, 32), Rect2(0, 640, 288, 32), Rect2(1344, 160, 192, 32), Rect2(1568, 576, 64, 64), Rect2(1168, 160, 64, 24), Rect2(1168, 280, 160, 24), Rect2(1344, 352, 160, 24), Rect2(1168, 424, 160, 24), Rect2(1344, 496, 160, 24), Rect2(1168, 568, 160, 24)])
+one_way_indices = Array[int]([9, 10, 11, 12, 13, 14])
+start_point = Vector2(144, 622)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R09:encounter:01", "behavior": "patrol", "point": [1024, 622], "max_health": 10}, {"id": "P-R09:encounter:02", "behavior": "sentry", "point": [1728, 622], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 592], "text": "铁轨越过高地，向矿口延伸。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "bridge_pier", "point": [448, 640.0], "layer": -2}, {"asset": "bridge_pier", "point": [2048, 640.0], "layer": -2}, {"asset": "storage_crates", "point": [1520, 640.0], "layer": -2}])

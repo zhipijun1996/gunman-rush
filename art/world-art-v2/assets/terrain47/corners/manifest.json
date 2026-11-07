@@ -1,0 +1,2217 @@
+{
+  "version": "authored-concave-bake-v2",
+  "quadrants": [
+    "NW",
+    "NE",
+    "SE",
+    "SW"
+  ],
+  "nativeQuarter": 16,
+  "regions": {
+    "frostmirror_glacier": {
+      "file": "assets/terrain47/corners/frostmirror_glacier.png",
+      "sha256": "3a4bbf9664cf3b6c82182d1501b823356d2000ef2d776fd077c4c88700aad825",
+      "source": "assets/source/v2-inner-corners-2.png",
+      "sourceSha256": "edf087f3297ad4f2a33952f7abe0978e1d51fa8331f9884be41b716bf20f547e",
+      "coreSha256": "4ee0cfec1481e40d96e4dbf224b4cf85238a01b51f52c6e59e41b59a4c75db9e",
+      "donors": "assets/terrain47/corners/frostmirror_glacier_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            41,
+            46,
+            238,
+            235
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            238,
+            235
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/frostmirror_glacier_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 13
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            353,
+            46,
+            238,
+            235
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            238,
+            235
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/frostmirror_glacier_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 12
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            662,
+            46,
+            240,
+            235
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            240,
+            235
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/frostmirror_glacier_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 13
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            975,
+            46,
+            239,
+            235
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            239,
+            235
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/frostmirror_glacier_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 11
+        }
+      ]
+    },
+    "moonshadow_cemetery": {
+      "file": "assets/terrain47/corners/moonshadow_cemetery.png",
+      "sha256": "05b325524c9dddcabd12dc8f84a78ab134eff0795f68cef5f47e4ee2daffea69",
+      "source": "assets/source/v2-inner-corners-2.png",
+      "sourceSha256": "edf087f3297ad4f2a33952f7abe0978e1d51fa8331f9884be41b716bf20f547e",
+      "coreSha256": "0a585e419bd08a8c281678fc947c0381e64c576e0e004bb562da4d07f2c645cf",
+      "donors": "assets/terrain47/corners/moonshadow_cemetery_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            41,
+            353,
+            238,
+            241
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            238,
+            241
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/moonshadow_cemetery_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 13
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            353,
+            353,
+            237,
+            241
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            237,
+            241
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/moonshadow_cemetery_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 13
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            662,
+            353,
+            241,
+            241
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            241,
+            241
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/moonshadow_cemetery_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 11
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            975,
+            353,
+            239,
+            241
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            239,
+            241
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/moonshadow_cemetery_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 10
+        }
+      ]
+    },
+    "moon_crown_castle": {
+      "file": "assets/terrain47/corners/moon_crown_castle.png",
+      "sha256": "35233f151288fee7ee3cb6e7b48432429d5f818b48e0ad72ce371090734d78ba",
+      "source": "assets/source/v2-inner-corners-2.png",
+      "sourceSha256": "edf087f3297ad4f2a33952f7abe0978e1d51fa8331f9884be41b716bf20f547e",
+      "coreSha256": "c2570415cbf2d48f56b0678f2e3a27212a5bbb67eb460b7eeb0eca3cea228e0a",
+      "donors": "assets/terrain47/corners/moon_crown_castle_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            41,
+            662,
+            238,
+            240
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            238,
+            240
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/moon_crown_castle_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 14
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            353,
+            662,
+            237,
+            240
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            237,
+            240
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/moon_crown_castle_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 13
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            662,
+            662,
+            240,
+            240
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            240,
+            240
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/moon_crown_castle_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 11
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            975,
+            662,
+            239,
+            240
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            239,
+            240
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/moon_crown_castle_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 10
+        }
+      ]
+    },
+    "gear_city": {
+      "file": "assets/terrain47/corners/gear_city.png",
+      "sha256": "68c53fcad242c3175d064c3c0bcf4395f0eaae2af52eefb1a5fe4cac98a2027c",
+      "source": "assets/source/v2-inner-corners-2.png",
+      "sourceSha256": "edf087f3297ad4f2a33952f7abe0978e1d51fa8331f9884be41b716bf20f547e",
+      "coreSha256": "04a976cc130479fd18ebbdaed3791b4448704dccf21834ff9dd797a58f8123af",
+      "donors": "assets/terrain47/corners/gear_city_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            41,
+            972,
+            238,
+            241
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            238,
+            241
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/gear_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 14
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            353,
+            972,
+            237,
+            241
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            237,
+            241
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/gear_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 14
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            662,
+            972,
+            240,
+            241
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            240,
+            241
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/gear_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 12
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            975,
+            972,
+            239,
+            241
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            239,
+            241
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/gear_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 11
+        }
+      ]
+    },
+    "echo_mines": {
+      "file": "assets/terrain47/corners/echo_mines.png",
+      "sha256": "13fae195573be2ce93022f9b9cf48edb92a02f75e88210d9a1d1e3c132cdd8fc",
+      "source": "assets/source/v2-inner-corners-3.png",
+      "sourceSha256": "73b6a991159b6ba48f836f23f13a345ad30abe1ad15d06786f47cd57874e29e3",
+      "coreSha256": "3219e076c4872b9eb986154ff93e66653acfb5ca1d317188ec5be4721860147a",
+      "donors": "assets/terrain47/corners/echo_mines_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            45,
+            48,
+            236,
+            231
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            236,
+            231
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/echo_mines_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 18
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            354,
+            48,
+            237,
+            231
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            237,
+            231
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/echo_mines_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 12
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            664,
+            48,
+            236,
+            231
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            236,
+            231
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/echo_mines_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 9
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            974,
+            48,
+            237,
+            231
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            237,
+            231
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/echo_mines_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 8
+        }
+      ]
+    },
+    "ember_depths": {
+      "file": "assets/terrain47/corners/ember_depths.png",
+      "sha256": "a61335468eed992cd0aa26dfd5c833ba60346022ae237ca5f544fd744bd2acd7",
+      "source": "assets/source/v2-inner-corners-3.png",
+      "sourceSha256": "73b6a991159b6ba48f836f23f13a345ad30abe1ad15d06786f47cd57874e29e3",
+      "coreSha256": "3f649dadc270e2259ddbe949954a4ad7873c1f0a6f65a05d60d5c2b94e589b9e",
+      "donors": "assets/terrain47/corners/ember_depths_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            45,
+            355,
+            236,
+            234
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            236,
+            234
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/ember_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 18
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            354,
+            355,
+            237,
+            234
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            237,
+            234
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/ember_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 15
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            664,
+            355,
+            236,
+            234
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            236,
+            234
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/ember_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 9
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            974,
+            356,
+            237,
+            233
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            237,
+            233
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/ember_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 8
+        }
+      ]
+    },
+    "root_sanctuary": {
+      "file": "assets/terrain47/corners/root_sanctuary.png",
+      "sha256": "68f2663035ba93e0e593751a318d450e28f082abb91bf2fae6363ee528961030",
+      "source": "assets/source/v2-inner-corners-3.png",
+      "sourceSha256": "73b6a991159b6ba48f836f23f13a345ad30abe1ad15d06786f47cd57874e29e3",
+      "coreSha256": "d39473dec187169507d06e739a66eb297248ea5c540ed0dfe9c09aeedf6b793e",
+      "donors": "assets/terrain47/corners/root_sanctuary_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            45,
+            666,
+            236,
+            233
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            236,
+            233
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/root_sanctuary_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 18
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            354,
+            666,
+            237,
+            233
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            237,
+            233
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/root_sanctuary_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 15
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            664,
+            666,
+            236,
+            233
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            236,
+            233
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/root_sanctuary_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 9
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            974,
+            666,
+            237,
+            233
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            237,
+            233
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/root_sanctuary_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 9
+        }
+      ]
+    },
+    "sunken_ruins": {
+      "file": "assets/terrain47/corners/sunken_ruins.png",
+      "sha256": "7e26ad24cdf0660475921a544cc4ce7ba427b30ac89364d0498934bbca60d95f",
+      "source": "assets/source/v2-inner-corners-3.png",
+      "sourceSha256": "73b6a991159b6ba48f836f23f13a345ad30abe1ad15d06786f47cd57874e29e3",
+      "coreSha256": "a4769b3af106ec03e268f3628aa71c7a02eea1b5b18b027a6f505fec857cc4f0",
+      "donors": "assets/terrain47/corners/sunken_ruins_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            45,
+            976,
+            236,
+            234
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            236,
+            234
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/sunken_ruins_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 18
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            354,
+            976,
+            237,
+            234
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            237,
+            234
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/sunken_ruins_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 15
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            664,
+            976,
+            236,
+            234
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            236,
+            234
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/sunken_ruins_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 9
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            974,
+            976,
+            237,
+            234
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            237,
+            234
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/sunken_ruins_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 8
+        }
+      ]
+    },
+    "shattered_isles": {
+      "file": "assets/terrain47/corners/shattered_isles.png",
+      "sha256": "7ed46cb1f7a8ae4cc0bee62699174af06ab14ca24c924f95f7861f9dbc8116bc",
+      "source": "assets/source/v2-inner-corners-4.png",
+      "sourceSha256": "1f2f2150c0aa495775799d9b74f5702bc7b1f9a8b64589782e1cd4fc147abd77",
+      "coreSha256": "485427a4482f4c8de7b023d202715106d97a56dd6865905fbd056365640c13d8",
+      "donors": "assets/terrain47/corners/shattered_isles_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            52,
+            42,
+            256,
+            257
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            256,
+            257
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/shattered_isles_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 14
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            416,
+            42,
+            254,
+            257
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            254,
+            257
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/shattered_isles_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 12
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            778,
+            43,
+            256,
+            256
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/shattered_isles_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 11
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            1141,
+            42,
+            257,
+            257
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            257,
+            257
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/shattered_isles_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 10
+        }
+      ]
+    },
+    "starbridge_gate": {
+      "file": "assets/terrain47/corners/starbridge_gate.png",
+      "sha256": "6c31c1e4970a64a90a2876311ebaccec8450cd0b6cde952ea9ba58c6c7d39c7e",
+      "source": "assets/source/v2-inner-corners-4.png",
+      "sourceSha256": "1f2f2150c0aa495775799d9b74f5702bc7b1f9a8b64589782e1cd4fc147abd77",
+      "coreSha256": "db176e2b490319758b67428273960bbf4fc4d43744fc7e09a3828982faf5a8dd",
+      "donors": "assets/terrain47/corners/starbridge_gate_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            51,
+            407,
+            259,
+            254
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            259,
+            254
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/starbridge_gate_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 12
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            416,
+            407,
+            256,
+            254
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            256,
+            254
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/starbridge_gate_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 11
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            777,
+            407,
+            257,
+            255
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            257,
+            255
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/starbridge_gate_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 11
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            1141,
+            407,
+            257,
+            255
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            257,
+            255
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/starbridge_gate_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 11
+        }
+      ]
+    },
+    "world_clockheart": {
+      "file": "assets/terrain47/corners/world_clockheart.png",
+      "sha256": "55facb29a6d2e6e788c045164c248339251df25480d11f5022a3bf59fdf95b8e",
+      "source": "assets/source/v2-inner-corners-4.png",
+      "sourceSha256": "1f2f2150c0aa495775799d9b74f5702bc7b1f9a8b64589782e1cd4fc147abd77",
+      "coreSha256": "932f54830d9c2fb125b405b062215128d234d9a741081759274bcc3cf655e0d2",
+      "donors": "assets/terrain47/corners/world_clockheart_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            51,
+            771,
+            259,
+            255
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            259,
+            255
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/world_clockheart_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 12
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            416,
+            771,
+            256,
+            255
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            256,
+            255
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/world_clockheart_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 13
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            776,
+            771,
+            258,
+            255
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            258,
+            255
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/world_clockheart_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 10
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            1141,
+            771,
+            257,
+            255
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            257,
+            255
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/world_clockheart_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 10
+        }
+      ]
+    },
+    "thorn_forest": {
+      "file": "assets/terrain47/corners/thorn_forest.png",
+      "sha256": "7ebbfda43fb4adf9eb55a64c6f8f61f55991ae30ab45ba9d4a0b734b07aa5145",
+      "source": "assets/source/v2-inner-corners-1.png",
+      "sourceSha256": "e5651e83701d08bc24f2d030f38b307785723c266e68913333ba59478a08c569",
+      "coreSha256": "8220c281bfe7cc0c0f6204c2e95d74f0fc5d7d41a715c717b8f9f73bd409311d",
+      "donors": "assets/terrain47/corners/thorn_forest_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            50,
+            58,
+            224,
+            225
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            224,
+            225
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/forest_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 16
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            363,
+            58,
+            220,
+            225
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            220,
+            225
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/forest_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 18
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            670,
+            60,
+            222,
+            223
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            222,
+            223
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/forest_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 13
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            981,
+            59,
+            222,
+            224
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            222,
+            224
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/forest_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 13
+        }
+      ]
+    },
+    "mushroom_caverns": {
+      "file": "assets/terrain47/corners/mushroom_caverns.png",
+      "sha256": "4b3e0c5f26a6e10577b8602f3bb34f14a6cfdbf45d76d35521778a4467c1e2de",
+      "source": "assets/source/v2-inner-corners-1.png",
+      "sourceSha256": "e5651e83701d08bc24f2d030f38b307785723c266e68913333ba59478a08c569",
+      "coreSha256": "e3f0c8876a2cb98e98542cf7aceaa7df2248a9e5cdfd29cef57817918ee600e4",
+      "donors": "assets/terrain47/corners/mushroom_caverns_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            50,
+            361,
+            225,
+            225
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            225,
+            225
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/mushroom_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 15
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            363,
+            358,
+            220,
+            228
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            220,
+            228
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/mushroom_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 16
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            671,
+            361,
+            222,
+            225
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            222,
+            225
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/mushroom_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 14
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            981,
+            356,
+            224,
+            230
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            224,
+            230
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/mushroom_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 13
+        }
+      ]
+    },
+    "firefly_marsh": {
+      "file": "assets/terrain47/corners/firefly_marsh.png",
+      "sha256": "26d8b934ebfa8e7cd8f153e6816ddba41d4d702c7d9bd9eeac598f6fdc638e71",
+      "source": "assets/source/v2-inner-corners-1.png",
+      "sourceSha256": "e5651e83701d08bc24f2d030f38b307785723c266e68913333ba59478a08c569",
+      "coreSha256": "390844040fb1506f0454897baa1ad179b2c0d4c64b40bcc02cf938d29e5e40e0",
+      "donors": "assets/terrain47/corners/firefly_marsh_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            50,
+            662,
+            225,
+            225
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            225,
+            225
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/firefly_marsh_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 16
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            363,
+            660,
+            221,
+            227
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            221,
+            227
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/firefly_marsh_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 15
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            671,
+            660,
+            221,
+            227
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            221,
+            227
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/firefly_marsh_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 14
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            982,
+            660,
+            223,
+            227
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            223,
+            227
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/firefly_marsh_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 13
+        }
+      ]
+    },
+    "windswept_canyon": {
+      "file": "assets/terrain47/corners/windswept_canyon.png",
+      "sha256": "d850fa420317e8ee1497c589d256e4b4ead3b78760d79a2d4b2461653b977ba2",
+      "source": "assets/source/v2-inner-corners-1.png",
+      "sourceSha256": "e5651e83701d08bc24f2d030f38b307785723c266e68913333ba59478a08c569",
+      "coreSha256": "680a516fcfb0aff94ed2a58970a0869ebecd8d67b33095e01f8b3ed6ac3562cc",
+      "donors": "assets/terrain47/corners/windswept_canyon_donors.png",
+      "operations": "subject crop, nearest16 bake, binary alpha, geometric source-pixel selection over approved core",
+      "quarters": [
+        {
+          "quadrant": "NW",
+          "sourceRect": [
+            50,
+            964,
+            225,
+            228
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            225,
+            228
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/windswept_canyon_terrain.png",
+          "coreRect": [
+            32,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 16
+        },
+        {
+          "quadrant": "NE",
+          "sourceRect": [
+            363,
+            965,
+            220,
+            227
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            220,
+            227
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/windswept_canyon_terrain.png",
+          "coreRect": [
+            48,
+            32,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 15
+        },
+        {
+          "quadrant": "SE",
+          "sourceRect": [
+            669,
+            967,
+            224,
+            225
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            224,
+            225
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/windswept_canyon_terrain.png",
+          "coreRect": [
+            48,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 15
+        },
+        {
+          "quadrant": "SW",
+          "sourceRect": [
+            981,
+            965,
+            224,
+            227
+          ],
+          "subjectTrimRect": [
+            0,
+            0,
+            224,
+            227
+          ],
+          "nearestTarget": [
+            16,
+            16
+          ],
+          "alphaThreshold": 128,
+          "coreSource": "assets/pixel/windswept_canyon_terrain.png",
+          "coreRect": [
+            32,
+            48,
+            16,
+            16
+          ],
+          "selectionMask": {
+            "rule": "dx<=reach and dy<=reach and dx+dy<=reach+3; dx/dy measure from the named corner",
+            "reach": 8
+          },
+          "sourcePixelsCopied": 66,
+          "corePixelsCopied": 190,
+          "transparentPixels": 13
+        }
+      ]
+    }
+  }
+}

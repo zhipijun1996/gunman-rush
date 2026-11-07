@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R26" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R26"
+art_profile = "mill"
+bell_mechanisms = Array[Dictionary]([{"id": "P-R26:carrier_west", "bell": [560, 1096], "carrier": "Carrier0"}, {"id": "P-R26:carrier_east", "bell": [1184, 984], "carrier": "Carrier1"}])
+arrival_text = "旧风车内廊"
+platforms = Array[Rect2]([Rect2(0, 1376, 2048, 32), Rect2(0, 1280, 2048, 128), Rect2(416, 1168, 224, 32), Rect2(960, 1056, 288, 32), Rect2(1536, 928, 384, 32), Rect2(0, 1280, 288, 32), Rect2(1088, 160, 192, 32), Rect2(912, 208, 64, 24), Rect2(816, 280, 160, 24), Rect2(992, 352, 160, 24), Rect2(1168, 424, 160, 24), Rect2(992, 496, 160, 24), Rect2(816, 568, 160, 24), Rect2(992, 640, 160, 24), Rect2(1168, 712, 160, 24), Rect2(1344, 784, 160, 24), Rect2(1504, 856, 160, 24), Rect2(1920, 992, 96, 24), Rect2(1792, 1064, 160, 24), Rect2(1648, 1136, 160, 24), Rect2(224, 1168, 160, 24), Rect2(112, 1208, 112, 24), Rect2(1792, 1208, 160, 24)])
+one_way_indices = Array[int]([7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])
+start_point = Vector2(144, 1262)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R26:encounter:01", "behavior": "patrol", "point": [832, 1262], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 1232], "text": "铜铃连着吊台。敲一下起动，再敲一下停靠；停在哪里，都能重新出发。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "windmill_frame", "point": [1760, 928.0], "layer": -2}, {"asset": "windchime_plains_v2_bell_wheel", "point": [496, 1168.0], "layer": -2}])
+[node name="Carrier0" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(704, 1136)
+endpoint = Vector2(160, -96)
+period = 5.4
+[node name="Carrier1" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(1328, 1024)
+endpoint = Vector2(112, -64)
+period = 4.7

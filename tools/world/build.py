@@ -56,7 +56,30 @@ def validate_services(data, implemented, npcs):
 
 
 def navigation_geometry(rooms, anchor):
-    """One scale, actual room envelopes and paired door seams; never centre links."""
+    """Preserve actual room scale; survey links connect physical door endpoints."""
+    if rooms and all(r['world_geometry'].get('map_origin') is not None for r in rooms.values()):
+        # A survey chart: authored rooms retain their true scale, while explicit
+        # drawn links express transitions. The macro illustration is not collision.
+        result={}
+        for key, row in rooms.items():
+            x,y=row['world_geometry']['map_origin']; _,_,w,h=row['world_geometry']['bounds_world_units']
+            for i,a in enumerate(row['doors']):
+                for b in row['doors'][i+1:]:
+                    if a['direction']==b['direction'] and math.dist(a['position_candidate']['local_world_units'],b['position_candidate']['local_world_units'])<192:
+                        raise ValueError('Crowded physical exits: '+key)
+            result[key]={'origin':[x,y],'polygon':[[x,y],[x+w,y],[x+w,y+h],[x,y+h]],'map_centre':[x+w/2,y+h/2],'projection':'survey_with_explicit_connections'}
+        for a,first in result.items():
+            for b,second in result.items():
+                if a>=b:continue
+                x,y=first['origin'];xx,yy=second['origin'];w,h=rooms[a]['world_geometry']['bounds_world_units'][2:];ww,hh=rooms[b]['world_geometry']['bounds_world_units'][2:]
+                if min(x+w,xx+ww)>max(x,xx) and min(y+h,yy+hh)>max(y,yy):raise ValueError('Room map envelopes overlap: '+a+'/'+b)
+        reachable={anchor};pending=[anchor]
+        while pending:
+            for door in rooms[pending.pop()]['doors']:
+                target=door['target_room']
+                if target in rooms and target not in reachable:reachable.add(target);pending.append(target)
+        if reachable!=set(rooms):raise ValueError('Implemented rooms need a connected authored map')
+        return result
     origins = {anchor: (0.0, 0.0)}
     pending = [anchor]
     while pending:
@@ -97,6 +120,19 @@ def navigation_geometry(rooms, anchor):
     return result
 
 
+def local_returns(source, implemented):
+    """Compile stable IDs from the latest acquisition design, never from receipts."""
+    result=[]
+    for row in json.loads((source/'collection_design.json').read_text())['acquisition_contracts']:
+        flag=row.get('return_access_contract',{}).get('local_return_state_id')
+        if row['room_id'] not in implemented or not flag: continue
+        result.append({'id':flag,'room_id':row['room_id'],'section_id':row['section_id'],
+                       'type':'local_return','requires':[[]],'grants':[flag],
+                       'repeat':False,'persistent':True,'interaction_required':True,
+                       'description':'返程折梯已放下','source_ref':'ACQ_'+row['reward_id']})
+    return result
+
+
 def build(root=ROOT):
     root = Path(root)
     source = root / 'config/world'
@@ -113,14 +149,16 @@ def build(root=ROOT):
             door['target_scene'] = scene_refs[door['target_room']]
             door['target_implemented'] = door['target_room'] in implemented
     layouts = navigation_geometry({r['room_id']:r for r in contracts['rooms'] if r['room_id'] in implemented}, contracts['initial_state']['room'])
-    sources = {n:hashlib.sha256((source/n).read_bytes()).hexdigest() for n in ['world.json','construction.json','collections.json','player.json','demo_services.json','ui_texts.json']}
+    sources = {n:hashlib.sha256((source/n).read_bytes()).hexdigest() for n in ['world.json','construction.json','collections.json','player.json','demo_services.json','ui_texts.json','collection_design.json']}
     scene_sources = {r['scene_ref']:hashlib.sha256((root/r['scene_ref'].removeprefix('res://')).read_bytes()).hexdigest() for r in construction['rooms'] if r['room_id'] in implemented and (root/r['scene_ref'].removeprefix('res://')).is_file()}
     bundle = {'schema':1,'sources':sources,
-              'start':contracts['initial_state'], 'actions':world['actions'], 'scene_sources':scene_sources,
+              'start':contracts['initial_state'], 'actions':world['actions']+local_returns(source,implemented), 'scene_sources':scene_sources,
               'player':json.loads((source/'player.json').read_text()),
+              'collection_rules':json.loads((source/'collections.json').read_text())['trial_defaults'],
+              'gear_milestones':['pickup_'+r['reward_id'] for r in json.loads((source/'collection_design.json').read_text())['acquisition_contracts'] if r['source_channel']=='gear_delivery'],
               'demo_services':json.loads((source/'demo_services.json').read_text()),
               'ui_texts':json.loads((source/'ui_texts.json').read_text()),
-              'npcs':[r for r in world['npcs'] if r['room_id'] in implemented],
+              'npcs':[r for r in world['npcs'] if r['room_id'] in implemented], 'traveler_story':world.get('traveler_story',{}),
               'map_rooms':[{**{k:r[k] for k in ['id','name','region']}, **layouts[r['id']]} for r in world['rooms'] if r['id'] in implemented], 'runtime_rules':world['runtime_rules'],
               'rooms':{r['room_id']:r for r in contracts['rooms'] if r['room_id'] in implemented}}
     validate_player(bundle['player'])

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R34" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R34"
+art_profile = "market"
+arrival_text = "渠边旧集"
+platforms = Array[Rect2]([Rect2(0, 736, 2304, 32), Rect2(0, 640, 2304, 128), Rect2(480, 544, 224, 32), Rect2(960, 480, 224, 32), Rect2(1440, 544, 224, 32), Rect2(0, 640, 288, 32), Rect2(2016, 640, 288, 32), Rect2(2016, 416, 288, 32), Rect2(1680, 416, 272, 24), Rect2(1904, 496, 160, 24), Rect2(528, 544, 288, 24), Rect2(1360, 544, 320, 24), Rect2(2016, 568, 160, 24), Rect2(1952, 416, 64, 24)])
+one_way_indices = Array[int]([8, 9, 10, 11, 12, 13])
+start_point = Vector2(144, 622)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R34:encounter:01", "behavior": "patrol", "point": [928, 622], "max_health": 10}, {"id": "P-R34:encounter:02", "behavior": "hopper", "point": [1536, 622], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 592], "text": "旧摊架已空。水岸边仍留着通行的窄路。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "market_stalls", "point": [672, 640.0], "layer": -2}, {"asset": "market_stalls", "point": [1536, 640.0], "layer": -2}, {"asset": "storage_crates", "point": [1056, 640.0], "layer": -2}])

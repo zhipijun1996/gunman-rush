@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
+[node name="P-R20" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R20"
+art_profile = "water"
+arrival_text = "退潮渠畔"
+platforms = Array[Rect2]([Rect2(0, 992, 2304, 32), Rect2(0, 896, 1808, 128), Rect2(1984, 896, 320, 128), Rect2(1696, 448, 512, 40), Rect2(0, 896, 288, 32), Rect2(2016, 896, 288, 32)])
+one_way_indices = Array[int]([])
+start_point = Vector2(144, 878)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R20:encounter:01", "behavior": "patrol", "point": [928, 878], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 848], "text": "水岸上方的旧台架还留着一件行装。"}])
+hook_points = Array[Vector2]([Vector2(1408, 640), Vector2(1499, 539), Vector2(1589, 437), Vector2(1680, 336)])
+section_volumes = Array[Dictionary]([{"id": "access:H", "bounds": [1664, 0, 640, 464]}])
+retry_anchors = Array[Dictionary]([{"bounds":[1664,836,112,60],"point":[1728,878],"section":"main"},{"bounds":[2016,836,112,60],"point":[2048,878],"section":"main"}])
+environment_zones = Array[Dictionary]([{"id":"P20Water","mode":"water","bounds":[1808,936,176,56]}])
+art_placements = Array[Dictionary]([{"asset": "bridge_pier", "point": [1888, 448.0], "layer": -2}, {"asset": "windchime_plains_v2_chime_span", "point": [544, 896.0], "layer": -2}])
+[node name="Interaction_0" type="Node2D" parent="."]
+script = ExtResource("interaction")
+position = Vector2(1888, 430)
+action_id = "pickup_EQ_MAP_P02"
+section_id = "access:H"
+label = "收取水岸行装包"
+visual = "equipment"
+
+[node name="RewardReturn" type="Node2D" parent="."]
+script = ExtResource("return")
+position = Vector2(1984, 430)
+action_id = "reward_return_EQ_MAP_P02_open"
+section_id = "access:H"
+label = "放下返程折梯"
+visual = "pulley_switch"
+radius = 40.0
+return_steps = Array[Rect2]([Rect2(168, 114, 120, 16), Rect2(48, 210, 128, 16), Rect2(168, 306, 120, 16), Rect2(48, 402, 128, 16)])
+closed_panels = Array[Rect2]([])

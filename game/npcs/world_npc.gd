@@ -4,19 +4,19 @@ extends Node2D
 @export var npc_id := ""
 @export var visual_kind := "artisan"
 @export var display_name := ""
+var chapter := ""
+var animation: WorldSpriteAnimation
+static func visual_for(id: String,story: String="") -> String:
+	# Story-specific activities use the same traveler identity and native body scale.
+	if id=="NPC_TRAVELER_AQI":return {"AQI_T01":"aqi_clock","AQI_T02":"aqi_tea","AQI_T03":"aqi_lantern","AQI_T01_LOOKOUT":"aqi_lookout"}.get(story,"aqi")
+	return {"NPC_P_REC":"reclaimer","NPC_P_WEAVER":"weaver","NPC_TRAVELER_AQI":"aqi"}.get(id,"reclaimer")
 func _ready() -> void:
-	var spec: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(UnderworldHomeWorld.BUILD_PATH))
-	var asset: Dictionary=spec.assets[visual_kind]
-	var sprite:=Sprite2D.new()
-	var atlas:=AtlasTexture.new()
-	atlas.atlas=load(str(asset.image)) as Texture2D
-	atlas.region=FixedWorldProvider.rect(asset.region)
-	sprite.texture=atlas
-	sprite.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
-	add_child(sprite)
-	sprite.centered=false
-	sprite.scale=Vector2.ONE*UnderworldActors.HUMANOID_HEIGHT/float(asset.opaque_height)
-	sprite.position=Vector2(0,18)-FixedWorldProvider.point(asset.foot)*sprite.scale
+	animation=WorldSpriteAnimation.new()
+	animation.asset_id=visual_for(npc_id,chapter)
+	animation.position=Vector2(0,18)
+	add_child(animation)
+func greet() -> void:
+	if animation!=null: animation.play_event()
 var highlighted:=false:
 	set(value):
 		if highlighted==value: return

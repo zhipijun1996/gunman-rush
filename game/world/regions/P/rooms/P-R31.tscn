@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R31" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R31"
+art_profile = "junction"
+arrival_text = "站外铃场"
+platforms = Array[Rect2]([Rect2(0, 992, 2048, 32), Rect2(0, 896, 2048, 128), Rect2(0, 896, 288, 32), Rect2(1760, 896, 288, 32), Rect2(1760, 672, 288, 32), Rect2(1088, 160, 192, 32), Rect2(912, 160, 64, 24), Rect2(912, 248, 64, 24), Rect2(1088, 320, 160, 24), Rect2(912, 392, 160, 24), Rect2(1088, 464, 160, 24), Rect2(912, 536, 160, 24), Rect2(1088, 608, 160, 24), Rect2(1424, 672, 272, 24), Rect2(912, 680, 160, 24), Rect2(1088, 752, 160, 24), Rect2(1648, 752, 160, 24), Rect2(912, 824, 160, 24), Rect2(1760, 824, 160, 24)])
+one_way_indices = Array[int]([6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18])
+start_point = Vector2(144, 878)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point": [224, 848], "text": "旧路向西，长桥向北，田渠向东。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "world_clock_far", "point": [1536, 896], "layer": -14, "depth": 0.48}, {"asset": "bell_post", "point": [384, 896.0], "layer": -2, "light": true}, {"asset": "windchime_plains_v2_chime_span", "point": [1024, 896.0], "layer": -2}])

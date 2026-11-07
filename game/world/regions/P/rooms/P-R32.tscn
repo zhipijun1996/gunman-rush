@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R32" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R32"
+art_profile = "bridge"
+arrival_text = "悬铃长桥"
+platforms = Array[Rect2]([Rect2(0, 1248, 2560, 32), Rect2(0, 1152, 2560, 128), Rect2(0, 768, 640, 40), Rect2(1952, 768, 608, 40), Rect2(0, 1152, 288, 32), Rect2(2272, 1152, 288, 32), Rect2(2272, 768, 288, 32), Rect2(1344, 160, 192, 32), Rect2(576, 768, 272, 24), Rect2(464, 864, 160, 24), Rect2(352, 936, 160, 24), Rect2(240, 1008, 160, 24), Rect2(128, 1080, 160, 24)])
+one_way_indices = Array[int]([8, 9, 10, 11, 12])
+start_point = Vector2(144, 1134)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point": [224, 1104], "text": "桥下通向塔脚。高处的铃索越过整段断桥。"}])
+hook_points = Array[Vector2]([Vector2(784, 624), Vector2(976, 624), Vector2(1168, 624), Vector2(1360, 624), Vector2(1552, 624), Vector2(1744, 624), Vector2(1936, 624), Vector2(1280, 448), Vector2(1280, 256), Vector2(1280, 96)])
+section_volumes = Array[Dictionary]([{"id": "high:H", "bounds": [1888, 0, 672, 832]}])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "bridge_pier", "point": [640, 1152.0], "layer": -2}, {"asset": "bridge_pier", "point": [1984, 1152.0], "layer": -2}, {"asset": "world_clock_far", "point": [2240, 1152], "layer": -14, "depth": 0.55}])

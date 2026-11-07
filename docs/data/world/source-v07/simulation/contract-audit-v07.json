@@ -1,0 +1,786 @@
+{
+  "schema": "world.section-contract-audit.v07",
+  "source_world_sha256": "b29dff3bdd2de5fce432dc2922334f31e7de3d40e36803410f9bed5b08303c17",
+  "source_replays_sha256": "2489d4be29249c095139c4c9cf3e3842aa5c722fc50d67d55036173f82071ddd",
+  "passed": true,
+  "check_count": 54,
+  "checks": [
+    {
+      "id": "replays_match_current_canonical",
+      "passed": true,
+      "evidence": {
+        "world_sha256": "b29dff3bdd2de5fce432dc2922334f31e7de3d40e36803410f9bed5b08303c17"
+      }
+    },
+    {
+      "id": "physical_doors_do_not_check_HWDQ",
+      "passed": true,
+      "evidence": {
+        "door_connections": 411,
+        "violations": []
+      }
+    },
+    {
+      "id": "every_action_binds_a_real_section",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "id": "all_rest_and_rift_sections_exist",
+      "passed": true,
+      "evidence": {
+        "rests": 54,
+        "rifts": 16
+      }
+    },
+    {
+      "id": "every_preview_has_a_physical_return_door",
+      "passed": true,
+      "evidence": {
+        "previews": 81,
+        "without_return_door": [],
+        "scope": "topological return path; landing/platform physics not simulated"
+      }
+    },
+    {
+      "id": "before_station_only_five_part_tutorial_and_station",
+      "passed": true,
+      "evidence": {
+        "reachable": [
+          "P-R01",
+          "P-R03",
+          "P-R21",
+          "P-R22",
+          "P-R23",
+          "P-R24"
+        ],
+        "expected": [
+          "P-R01",
+          "P-R03",
+          "P-R21",
+          "P-R22",
+          "P-R23",
+          "P-R24"
+        ]
+      }
+    },
+    {
+      "id": "station_not_blocked_by_optional_tutorial_or_dialogue",
+      "passed": true,
+      "evidence": {
+        "doors": 5
+      }
+    },
+    {
+      "id": "station_arrival_records_progress_but_does_not_rest",
+      "passed": true,
+      "evidence": {
+        "location": [
+          "P-R01",
+          "main"
+        ],
+        "last_rest": null,
+        "note": "Arrival receipt is automatic; dialogue, buying and tutorial checklists are not passage requirements."
+      }
+    },
+    {
+      "id": "all_four_planned_replays_succeed",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "A_normal_w_first",
+          "success": true,
+          "failure": null
+        },
+        {
+          "id": "B_normal_d_first",
+          "success": true,
+          "failure": null
+        },
+        {
+          "id": "C_true_16_regions",
+          "success": true,
+          "failure": null
+        },
+        {
+          "id": "D_all_unique_rewards",
+          "success": true,
+          "failure": null
+        }
+      ]
+    },
+    {
+      "id": "actual_rest_section_before_every_boss_A_normal_w_first",
+      "passed": true,
+      "evidence": {
+        "bosses": 9,
+        "rests": 9,
+        "maximum_door_crossings": 2,
+        "maximum_internal_routes": 1,
+        "scope": "not a measured retry time or platform difficulty result"
+      }
+    },
+    {
+      "id": "teleports_use_actual_activated_sections_A_normal_w_first",
+      "passed": true,
+      "evidence": {
+        "teleports": 10,
+        "invalid": []
+      }
+    },
+    {
+      "id": "unique_actions_never_repeat_A_normal_w_first",
+      "passed": true,
+      "evidence": {
+        "duplicates": {}
+      }
+    },
+    {
+      "id": "actual_rest_section_before_every_boss_B_normal_d_first",
+      "passed": true,
+      "evidence": {
+        "bosses": 13,
+        "rests": 13,
+        "maximum_door_crossings": 2,
+        "maximum_internal_routes": 1,
+        "scope": "not a measured retry time or platform difficulty result"
+      }
+    },
+    {
+      "id": "teleports_use_actual_activated_sections_B_normal_d_first",
+      "passed": true,
+      "evidence": {
+        "teleports": 11,
+        "invalid": []
+      }
+    },
+    {
+      "id": "unique_actions_never_repeat_B_normal_d_first",
+      "passed": true,
+      "evidence": {
+        "duplicates": {}
+      }
+    },
+    {
+      "id": "actual_rest_section_before_every_boss_C_true_16_regions",
+      "passed": true,
+      "evidence": {
+        "bosses": 18,
+        "rests": 18,
+        "maximum_door_crossings": 2,
+        "maximum_internal_routes": 1,
+        "scope": "not a measured retry time or platform difficulty result"
+      }
+    },
+    {
+      "id": "teleports_use_actual_activated_sections_C_true_16_regions",
+      "passed": true,
+      "evidence": {
+        "teleports": 11,
+        "invalid": []
+      }
+    },
+    {
+      "id": "unique_actions_never_repeat_C_true_16_regions",
+      "passed": true,
+      "evidence": {
+        "duplicates": {}
+      }
+    },
+    {
+      "id": "actual_rest_section_before_every_boss_D_all_unique_rewards",
+      "passed": true,
+      "evidence": {
+        "bosses": 22,
+        "rests": 22,
+        "maximum_door_crossings": 2,
+        "maximum_internal_routes": 1,
+        "scope": "not a measured retry time or platform difficulty result"
+      }
+    },
+    {
+      "id": "teleports_use_actual_activated_sections_D_all_unique_rewards",
+      "passed": true,
+      "evidence": {
+        "teleports": 21,
+        "invalid": []
+      }
+    },
+    {
+      "id": "unique_actions_never_repeat_D_all_unique_rewards",
+      "passed": true,
+      "evidence": {
+        "duplicates": {}
+      }
+    },
+    {
+      "id": "normal_A_explores_twelve_main_regions",
+      "passed": true,
+      "evidence": {
+        "discovered": [
+          "A",
+          "C",
+          "E",
+          "F",
+          "G",
+          "I",
+          "K",
+          "M",
+          "P",
+          "T",
+          "Y",
+          "Z"
+        ],
+        "deep": [
+          "A",
+          "C",
+          "E",
+          "F",
+          "G",
+          "I",
+          "K",
+          "M",
+          "P",
+          "T",
+          "Y",
+          "Z"
+        ],
+        "definition": "explicit designated main-area locations, not merely entering a preview"
+      }
+    },
+    {
+      "id": "normal_B_explores_at_least_twelve_main_regions",
+      "passed": true,
+      "evidence": {
+        "discovered": [
+          "A",
+          "C",
+          "E",
+          "F",
+          "G",
+          "I",
+          "K",
+          "M",
+          "N",
+          "P",
+          "S",
+          "T",
+          "Y",
+          "Z"
+        ],
+        "deep": [
+          "A",
+          "C",
+          "E",
+          "F",
+          "G",
+          "I",
+          "K",
+          "M",
+          "N",
+          "P",
+          "T",
+          "Y",
+          "Z"
+        ]
+      }
+    },
+    {
+      "id": "true_route_explores_sixteen_main_regions",
+      "passed": true,
+      "evidence": {
+        "discovered": [
+          "A",
+          "C",
+          "E",
+          "F",
+          "G",
+          "I",
+          "K",
+          "M",
+          "N",
+          "P",
+          "R",
+          "S",
+          "T",
+          "V",
+          "Y",
+          "Z"
+        ],
+        "deep": [
+          "A",
+          "C",
+          "E",
+          "F",
+          "G",
+          "I",
+          "K",
+          "M",
+          "N",
+          "P",
+          "R",
+          "S",
+          "T",
+          "V",
+          "Y",
+          "Z"
+        ]
+      }
+    },
+    {
+      "id": "true_route_repairs_fifteen_and_collects_sixteen_records",
+      "passed": true,
+      "evidence": {
+        "local_clocks": [
+          "clock_A",
+          "clock_C",
+          "clock_E",
+          "clock_F",
+          "clock_G",
+          "clock_I",
+          "clock_K",
+          "clock_M",
+          "clock_N",
+          "clock_P",
+          "clock_R",
+          "clock_S",
+          "clock_T",
+          "clock_V",
+          "clock_Y"
+        ],
+        "records": [
+          "record_A",
+          "record_C",
+          "record_E",
+          "record_F",
+          "record_G",
+          "record_I",
+          "record_K",
+          "record_M",
+          "record_N",
+          "record_P",
+          "record_R",
+          "record_S",
+          "record_T",
+          "record_V",
+          "record_Y",
+          "record_Z"
+        ],
+        "bosses": 18
+      }
+    },
+    {
+      "id": "normal_and_true_boss_witness_counts",
+      "passed": true,
+      "evidence": {
+        "A": 9,
+        "B": 13,
+        "C": 18,
+        "note": "B optional boss choices may differ; no equalization of experience or attack ranks"
+      }
+    },
+    {
+      "id": "true_ending_has_no_prior_normal_ending_requirement",
+      "passed": true,
+      "evidence": {
+        "ending_tokens": [
+          "ending_true"
+        ]
+      }
+    },
+    {
+      "id": "forest_H_preview",
+      "passed": true,
+      "evidence": {
+        "actual_trace_step": 31,
+        "preview": [
+          "F-R04",
+          "entry:L03"
+        ],
+        "missing_ability": "H",
+        "main_reachable_without_it": false,
+        "legal_return_destinations": [
+          [
+            "F-R03",
+            "main"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "forest_H_preview_does_not_grant_other_sections_interactions",
+      "passed": true,
+      "evidence": {
+        "invalid_actions": []
+      }
+    },
+    {
+      "id": "glacier_D_preview",
+      "passed": true,
+      "evidence": {
+        "actual_trace_step": 184,
+        "preview": [
+          "I-R11",
+          "entry:L08"
+        ],
+        "missing_ability": "D",
+        "main_reachable_without_it": false,
+        "legal_return_destinations": [
+          [
+            "I-R05",
+            "main"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "glacier_D_preview_does_not_grant_other_sections_interactions",
+      "passed": true,
+      "evidence": {
+        "invalid_actions": []
+      }
+    },
+    {
+      "id": "furnace_Q_preview",
+      "passed": true,
+      "evidence": {
+        "actual_trace_step": 207,
+        "preview": [
+          "E-R12",
+          "entry:C22"
+        ],
+        "missing_ability": "Q",
+        "main_reachable_without_it": false,
+        "legal_return_destinations": [
+          [
+            "G-R05",
+            "main"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "furnace_Q_preview_does_not_grant_other_sections_interactions",
+      "passed": true,
+      "evidence": {
+        "invalid_actions": []
+      }
+    },
+    {
+      "id": "obtain_H_without_self_requirement",
+      "passed": true,
+      "evidence": {
+        "action": "get_H",
+        "before_location": [
+          "P-R14",
+          "main"
+        ],
+        "before_abilities": [],
+        "interaction_section": "main"
+      }
+    },
+    {
+      "id": "obtain_W_without_self_requirement",
+      "passed": true,
+      "evidence": {
+        "action": "get_W",
+        "before_location": [
+          "F-R10",
+          "main"
+        ],
+        "before_abilities": [
+          "H"
+        ],
+        "interaction_section": "main"
+      }
+    },
+    {
+      "id": "obtain_D_without_self_requirement",
+      "passed": true,
+      "evidence": {
+        "action": "get_D",
+        "before_location": [
+          "M-R09",
+          "main"
+        ],
+        "before_abilities": [
+          "H",
+          "W"
+        ],
+        "interaction_section": "main"
+      }
+    },
+    {
+      "id": "obtain_Q_without_self_requirement",
+      "passed": true,
+      "evidence": {
+        "action": "get_Q",
+        "before_location": [
+          "K-R10",
+          "main"
+        ],
+        "before_abilities": [
+          "H",
+          "W",
+          "D"
+        ],
+        "interaction_section": "main"
+      }
+    },
+    {
+      "id": "D_first_enters_furnace_with_HDQ_without_W",
+      "passed": true,
+      "evidence": {
+        "first_deep_entry": {
+          "step": 313,
+          "kind": "move",
+          "transition_id": "door:EXP-E_cooling_approach-01:ab",
+          "edge": "EXP-E_cooling_approach-01",
+          "from": "E-R12",
+          "from_section": "main",
+          "to": "E-R13",
+          "to_section": "main",
+          "room": "E-R13",
+          "section": "main",
+          "abilities": [
+            "H",
+            "D",
+            "Q"
+          ],
+          "weapon_flags": [
+            "gun",
+            "bomb"
+          ],
+          "attack_rank": 1,
+          "attack_value": 9,
+          "equipment": [
+            "eq_lamp"
+          ]
+        },
+        "release_step": 69,
+        "smith_step": 72,
+        "abilities": [
+          "H",
+          "D",
+          "Q"
+        ]
+      }
+    },
+    {
+      "id": "first_furnace_main_requires_Q",
+      "passed": true,
+      "evidence": {
+        "counterfactual_removed": "Q",
+        "start": [
+          "G-R05",
+          "main"
+        ],
+        "reachable_furnace_deep_locations": [],
+        "scope": "counterfactual based on actual pre-entry state; no new progress granted"
+      }
+    },
+    {
+      "id": "first_furnace_main_requires_smith",
+      "passed": true,
+      "evidence": {
+        "counterfactual_removed": "smith",
+        "start": [
+          "G-R05",
+          "main"
+        ],
+        "reachable_furnace_deep_locations": [],
+        "scope": "counterfactual based on actual pre-entry state; no new progress granted"
+      }
+    },
+    {
+      "id": "Q_pickup_cannot_skip_living_knight",
+      "passed": true,
+      "evidence": {
+        "location": [
+          "K-R10",
+          "main"
+        ],
+        "knight_defeated": false
+      }
+    },
+    {
+      "id": "loadout_change_requires_actual_bench_section",
+      "passed": true,
+      "evidence": {
+        "location": [
+          "M-R03",
+          "main"
+        ],
+        "owned": true
+      }
+    },
+    {
+      "id": "bench_arrival_is_not_rest",
+      "passed": true,
+      "evidence": {
+        "location": [
+          "M-R01",
+          "main"
+        ],
+        "loadout_ready": false
+      }
+    },
+    {
+      "id": "explicit_rest_permits_owned_tool_change",
+      "passed": true,
+      "evidence": {
+        "location": [
+          "M-R01",
+          "main"
+        ],
+        "loadout_ready": true
+      }
+    },
+    {
+      "id": "eight_attack_alloys_consumed_1_2_2_3",
+      "passed": true,
+      "evidence": {
+        "grants": 8,
+        "spend_order": [
+          1,
+          2,
+          2,
+          3
+        ],
+        "remaining": 0
+      }
+    },
+    {
+      "id": "two_shared_skill_cores_consumed",
+      "passed": true,
+      "evidence": {
+        "grants": 2,
+        "spent": 2,
+        "remaining": 0
+      }
+    },
+    {
+      "id": "six_branch_parts_forged",
+      "passed": true,
+      "evidence": {
+        "forge_actions": [
+          "forge_triple",
+          "forge_laser",
+          "forge_fan",
+          "forge_boomerang",
+          "forge_magnetic",
+          "forge_singularity"
+        ]
+      }
+    },
+    {
+      "id": "forty_gears_collected_and_delivered",
+      "passed": true,
+      "evidence": {
+        "collected": 40,
+        "delivered": 40,
+        "held": 0
+      }
+    },
+    {
+      "id": "ATK08_requires_delivery_not_inventory_only",
+      "passed": true,
+      "evidence": {
+        "location": [
+          "P-R01",
+          "main"
+        ],
+        "held": 40,
+        "delivered": 0
+      }
+    },
+    {
+      "id": "endgame_can_reach_all_current_room_subjects",
+      "passed": true,
+      "evidence": {
+        "subjects_reachable": 309,
+        "total": 309,
+        "missing_subjects": []
+      }
+    },
+    {
+      "id": "all_twenty_two_bosses_have_actual_route_receipts",
+      "passed": true,
+      "evidence": {
+        "bosses": [
+          "P_WINDKEEPER",
+          "P_BELLSTRIDER",
+          "F_RANGER",
+          "F_QUEEN",
+          "M_MOTHER",
+          "S_SNAIL",
+          "Y_HOWLER",
+          "I_MIRROR",
+          "C_DUELIST",
+          "C_FUNERAL",
+          "K_KNIGHT",
+          "G_OVERSEER",
+          "N_WAREHOUSE",
+          "N_DRILL",
+          "E_FURNACE",
+          "T_ROOT",
+          "T_TWINS",
+          "R_FERRYMAN",
+          "A_COLOSSUS",
+          "V_GATEKEEPER",
+          "Z_KING",
+          "Z_DEITY"
+        ]
+      }
+    },
+    {
+      "id": "core_installation_consumes_items_keeps_receipt",
+      "passed": true,
+      "evidence": {
+        "items": [
+          "core_root",
+          "core_ice",
+          "core_ember"
+        ],
+        "installation_receipt": true
+      }
+    },
+    {
+      "id": "one_missing_record_blocks_true_boss_approach",
+      "passed": true,
+      "evidence": {
+        "removed": "record_V",
+        "start": [
+          "Z-R11",
+          "main"
+        ]
+      }
+    },
+    {
+      "id": "no_shop_purchase_or_free_inventory_assumed",
+      "passed": true,
+      "evidence": {
+        "scope": "12 shop equipment placements/services exist; prices and purchases remain unmodelled."
+      }
+    }
+  ],
+  "verified": [
+    "section-level door/internal-route progression",
+    "real-location interactions",
+    "planned ending witnesses",
+    "weapon material consumption",
+    "40 unique gears and actual hand-in",
+    "bench/rift access and receipts"
+  ],
+  "not_simulated": [
+    "Godot movement and collision",
+    "Q two-second timing",
+    "damage/death HP dynamics",
+    "actual Boss victories or enemy combat",
+    "human memory/visibility",
+    "shop prices and purchases",
+    "all equipment effect balance",
+    "full 50-equipment acquisition",
+    "measured travel or retry seconds"
+  ]
+}

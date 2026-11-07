@@ -1,14 +1,20 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=5 format=3]
 [ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
 [node name="P-R06" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R06"
-platforms = Array[Rect2]([Rect2(528, 720, 192, 32), Rect2(776, 632, 192, 20), Rect2(528, 544, 192, 20), Rect2(296, 456, 176, 20), Rect2(0, 416, 240, 32), Rect2(0, 576, 240, 32), Rect2(0, 272, 240, 32), Rect2(1000, 632, 84, 20)])
-one_way_indices = Array[int]([1, 2, 3, 4, 5, 6])
-climbable_walls = Array[Rect2]([Rect2(1084, 312, 32, 320)])
-hook_points = Array[Vector2]([Vector2(720, 460)])
-environment_zones = Array[Dictionary]([{"id":"trial_thorns","mode":"thorns","bounds":[890,608,78,24]}])
-start_point = Vector2(624, 702)
-rest_point = Vector2(624, 526)
-enemy_placements = Array[Dictionary]([{"id": "P-R06:charger:01", "behavior": "charger", "point": [880, 614]}])
-signs = Array[Dictionary]([{"text": "← 牧风者庭地", "point": [20, 350]}, {"text": "↓ 回廊 · 充电站", "point": [520, 485]}])
+art_profile = "junction"
+arrival_text = "风铃岔路"
+platforms = Array[Rect2]([Rect2(0, 992, 720, 32), Rect2(1072, 992, 464, 32), Rect2(0, 896, 720, 128), Rect2(1072, 896, 464, 128), Rect2(0, 896, 288, 32), Rect2(0, 672, 288, 32), Rect2(0, 448, 288, 32), Rect2(832, 944, 192, 32), Rect2(720, 992, 96, 32), Rect2(1024, 944, 48, 32), Rect2(288, 448, 672, 24), Rect2(576, 536, 160, 24), Rect2(464, 608, 160, 24), Rect2(288, 672, 336, 24), Rect2(240, 752, 160, 24), Rect2(128, 824, 160, 24), Rect2(720, 944, 112, 24)])
+one_way_indices = Array[int]([10, 11, 12, 13, 14, 15, 16])
+start_point = Vector2(144, 878)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R06:encounter:01", "behavior": "patrol", "point": [608, 878], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 848], "text": "西边传来低沉的风声，东边是熟悉的井口。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "plains_arch", "point": [1216, 896.0], "layer": -2}, {"asset": "windchime_plains_v2_road_marker", "point": [384, 896.0], "layer": -2}])

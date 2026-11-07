@@ -1,0 +1,225 @@
+{
+  "schema": "world.handoff-readiness.v07",
+  "date": "2026-11-07",
+  "ready_for_world_structure_graybox": true,
+  "meaning": "可据309房主数据开始世界结构灰盒；先试制城市四视角回环与天门动作样段，再铺全区外框、门和条件占位。",
+  "canonical": "world-room-layout-v07.json",
+  "canonical_sha256": "b29dff3bdd2de5fce432dc2922334f31e7de3d40e36803410f9bed5b08303c17",
+  "authorities": {
+    "start": "START_HERE.txt",
+    "rules": "design/world-graybox-bible-v04.txt",
+    "world": "world-room-layout-v07.json",
+    "construction": "design/room-graybox-contracts-v07.json",
+    "readable": "world-development-atlas-v10.pdf"
+  },
+  "counts": {
+    "rooms": 309,
+    "regions": 16,
+    "bosses": 22,
+    "rest_points": 54,
+    "rifts": 16,
+    "npcs": 15,
+    "shops": 9,
+    "regional_clocks": 15,
+    "central_core_installation": 1,
+    "weapon_growth_sources": 16,
+    "attack_alloy": 8,
+    "branch_parts": 6,
+    "skill_cores": 2,
+    "shortcuts": 35,
+    "new_shortcuts": 24,
+    "original_macro_edges": 77,
+    "room_connections": 411,
+    "terrain_retry_anchor_candidates": 43,
+    "sections": 422,
+    "internal_directed_routes": 226,
+    "environment_connection_sites": 70,
+    "shared_action_access_sections": 32,
+    "connections": 411,
+    "rift_machines": 16,
+    "memory_gates": 17,
+    "new_shortcuts_v07": 7,
+    "new_shortcuts_scope": "new_shortcuts is since original design; new_shortcuts_v07 is this revision"
+  },
+  "route_summaries": [
+    {
+      "id": "A_normal_w_first",
+      "name": "A 先W普通结局",
+      "success": true,
+      "discovered_regions": 12,
+      "deep_regions": 12,
+      "subject_rooms": 142,
+      "bosses": 9,
+      "attack_rank": 3,
+      "attack_value": 17,
+      "door_crossings": 295,
+      "internal_segments": 63,
+      "teleports": 10,
+      "result": "先工房/森林，由古堡外侧再入东城，再推进圣殿；普通结局"
+    },
+    {
+      "id": "B_normal_d_first",
+      "name": "B 先D普通结局",
+      "success": true,
+      "discovered_regions": 14,
+      "deep_regions": 13,
+      "subject_rooms": 166,
+      "bosses": 13,
+      "attack_rank": 3,
+      "attack_value": 17,
+      "door_crossings": 323,
+      "internal_segments": 74,
+      "teleports": 11,
+      "result": "先地穴/矿井，从货站再入东城；首次熔火无W"
+    },
+    {
+      "id": "C_true_16_regions",
+      "name": "C 真结局",
+      "success": true,
+      "discovered_regions": 16,
+      "deep_regions": 16,
+      "subject_rooms": 205,
+      "bosses": 18,
+      "attack_rank": 3,
+      "attack_value": 17,
+      "door_crossings": 390,
+      "internal_segments": 98,
+      "teleports": 11,
+      "result": "16区主体、15地方钟、16记录；天门主线，不需极限"
+    },
+    {
+      "id": "D_all_unique_rewards",
+      "name": "D 成长与齿轮收集审计",
+      "success": true,
+      "discovered_regions": 16,
+      "deep_regions": 16,
+      "subject_rooms": 254,
+      "bosses": 22,
+      "attack_rank": 4,
+      "attack_value": 21,
+      "door_crossings": 623,
+      "internal_segments": 177,
+      "teleports": 21,
+      "result": "16武器来源、8合金消费、40齿轮交付；不等于50装备全部购买"
+    }
+  ],
+  "checks": [
+    {
+      "id": "01",
+      "name": "世界容量",
+      "status": "通过",
+      "evidence": "309房，16区；G36、V14，其他区域数量保留"
+    },
+    {
+      "id": "02",
+      "name": "城市开放",
+      "status": "通过",
+      "evidence": "西街12房、东城/下城14房、上层/授时院10房分层；不是造访次数锁"
+    },
+    {
+      "id": "03",
+      "name": "天门路线",
+      "status": "通过",
+      "evidence": "双翼两种顺序可完成；主10房与极限4房独立"
+    },
+    {
+      "id": "04",
+      "name": "成长预算",
+      "status": "通过",
+      "evidence": "8攻击+6分支+2共享技能；50装备来源、40齿轮与碎片预算保持"
+    },
+    {
+      "id": "05",
+      "name": "图与门接口",
+      "status": "通过",
+      "evidence": "411条连接，822对向门接口与入口落脚"
+    },
+    {
+      "id": "06",
+      "name": "状态与路线",
+      "status": "通过",
+      "evidence": "四条实际分区路径回放完成；预览与深入分别记录"
+    },
+    {
+      "id": "07",
+      "name": "规则边界",
+      "status": "通过",
+      "evidence": "Q只通光幕/怪物，真实落地+2秒；所有能力阻隔在房内"
+    },
+    {
+      "id": "08",
+      "name": "休息与交通",
+      "status": "通过",
+      "evidence": "54休息、16裂缝、6完整据点；交通不当休息"
+    }
+  ],
+  "machine_checks": {
+    "routes": 54,
+    "opening": 12,
+    "station": 17,
+    "city_sky": 19,
+    "construction": 31,
+    "cross_file_integrity": 24
+  },
+  "not_a_claim_of": [
+    "Godot已经实现309房",
+    "内部碰撞和跳距已验证",
+    "玩家自然认路与回访记忆通过",
+    "天门4-6动作/段难度已平衡",
+    "50装备效果与价格全部定稿",
+    "Boss战斗和视听已完成"
+  ],
+  "reports": [
+    "simulation/contract-audit-v07.json",
+    "simulation/opening-audit-v07.json",
+    "simulation/station-network-audit-v07.json",
+    "simulation/city-sky-audit-v07.json",
+    "simulation/route-replays-v07.json",
+    "simulation/route-evidence-v07.json",
+    "qa/room-contract-audit-v07.json",
+    "qa/shape-audit-v07.json",
+    "qa/final-data-integrity-v07.json"
+  ],
+  "first_graybox_tasks": [
+    "保留教程→小站→H首Boss与早期钟心目标",
+    "G13/G14/G20/G25/G28/G29四视角短环",
+    "工房服务与首次熔火单向回程",
+    "V左右翼各一段与Q光幕",
+    "真实跨房落脚/失败/休息/保存"
+  ],
+  "collection_authoring_revision": "v07.1",
+  "collection_authoring_summary": {
+    "growth_sources": 130,
+    "map_pickups": 97,
+    "nonmap_sources": 33,
+    "map_pickup_host_rooms": 95,
+    "growth_host_rooms": 106,
+    "hidden_spaces": 29,
+    "full_hidden_rooms": 6,
+    "hidden_local_chambers": 18,
+    "hidden_internal_loops": 5,
+    "visible_discovery_teaching": 1,
+    "currency_cache_reservations": 4,
+    "existing_world_rooms": 309,
+    "existing_world_connections": 411,
+    "changed_growth_source_locations": 1,
+    "local_return_states_are_not_new_macro_shortcuts": true,
+    "authored_growth_sources": 130,
+    "map_acquisition_sources": 97,
+    "room_index_count": 309,
+    "secret_experiences": 29,
+    "secret_space_types": {
+      "local_chamber": 18,
+      "whole_room": 6,
+      "internal_loop": 5
+    },
+    "map_return_modes": {
+      "existing_approach_reverse": 42,
+      "reward_side_local_return": 10,
+      "physical_one_way_drop": 24,
+      "reward_side_open_permanent_local": 18,
+      "same_discovery_approach": 3
+    }
+  },
+  "collection_authoring_scope": "130项获取设计与29处秘密空间已逐房绑定；具体碰撞、线索发现、局部回程和经济未实机验收。"
+}

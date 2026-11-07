@@ -36,5 +36,9 @@ func _physics_process(delta: float) -> void:
 	var desired:=target.global_position+Vector2(lead,float(settings.vertical_offset))
 	var error:=desired-global_position
 	var goal:=global_position+Vector2(signf(error.x)*maxf(0,absf(error.x)-dead_zone.x),signf(error.y)*maxf(0,absf(error.y)-dead_zone.y))
+	if arena_active():
+		# Keep the landing floor in view while the current viewport also fits the player.
+		var half_height:=get_viewport_rect().size.y/(2*zoom.y)
+		goal.y=minf(bounds.end.y-half_height,target.global_position.y+half_height-float(settings.arena_headroom))
 	var vertical_time:=lerpf(float(settings.vertical_seconds),float(settings.fall_seconds),clampf(target.velocity.y/float(settings.fall_speed),0,1))
 	global_position=bounded(Vector2(lerpf(global_position.x,goal.x,1-exp(-delta/float(settings.horizontal_seconds))),lerpf(global_position.y,goal.y,1-exp(-delta/vertical_time))))

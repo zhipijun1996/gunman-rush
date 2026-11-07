@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R28" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R28"
+art_profile = "field"
+arrival_text = "借风旧田"
+platforms = Array[Rect2]([Rect2(0, 736, 2048, 32), Rect2(0, 640, 2048, 128), Rect2(480, 544, 224, 32), Rect2(960, 480, 224, 32), Rect2(1440, 544, 224, 32), Rect2(1760, 640, 288, 32), Rect2(1088, 160, 192, 32), Rect2(544, 576, 64, 64), Rect2(1152, 544, 256, 32), Rect2(912, 160, 64, 24), Rect2(912, 280, 160, 24), Rect2(1088, 352, 160, 24), Rect2(912, 424, 160, 24), Rect2(1088, 496, 160, 24), Rect2(912, 568, 160, 24)])
+one_way_indices = Array[int]([9, 10, 11, 12, 13, 14])
+start_point = Vector2(144, 622)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R28:encounter:01", "behavior": "patrol", "point": [832, 622], "max_health": 10}, {"id": "P-R28:encounter:02", "behavior": "charger", "point": [1376, 622], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 592], "text": "风车在身后慢慢变小。草丛里的脚步声却近了。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "windchime_plains_v2_chime_span", "point": [512, 640.0], "layer": -2}, {"asset": "windchime_plains_v2_seed_relic", "point": [1536, 640.0], "layer": -2}])

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R04" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R04"
+art_profile = "bridge"
+arrival_text = "倒钟田垄"
+platforms = Array[Rect2]([Rect2(0, 736, 2048, 32), Rect2(0, 544, 480, 224), Rect2(704, 544, 576, 224), Rect2(1504, 480, 544, 288), Rect2(480, 672, 224, 96), Rect2(1280, 640, 224, 128), Rect2(1760, 480, 288, 32), Rect2(1760, 256, 288, 32), Rect2(1760, 264, 160, 24), Rect2(1584, 336, 160, 24), Rect2(1760, 408, 160, 24), Rect2(560, 600, 144, 24)])
+one_way_indices = Array[int]([8, 9, 10, 11])
+start_point = Vector2(144, 526)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R04:encounter:01", "behavior": "patrol", "point": [832, 526], "max_health": 10}, {"id": "P-R04:encounter:02", "behavior": "charger", "point": [1376, 622], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 496], "text": "旧桥断了。桥下的铜光仍在随风闪烁。"}])
+hazards = Array[Rect2]([Rect2(576, 648, 96, 24)])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([{"bounds": [464, 612, 80, 60], "point": [496, 654], "section": "main"}, {"bounds": [704, 490, 80, 60], "point": [744, 526], "section": "main"}])
+art_placements = Array[Dictionary]([{"asset": "bridge_pier", "point": [480, 672.0], "layer": -2}, {"asset": "tilted_barrel", "point": [864, 544.0], "layer": -2, "fade_near": true}])
+[node name="Interaction_0" type="Node2D" parent="."]
+script = ExtResource("interaction")
+position = Vector2(544, 654)
+action_id = "pickup_TG01"
+section_id = "main"
+label = "收取时间齿轮"
+visual = "time_gear"

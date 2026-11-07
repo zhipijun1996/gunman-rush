@@ -1,27 +1,14 @@
-extends SceneTree
-var failures := 0
-func _initialize() -> void: run.call_deferred()
-func check(ok: bool,label: String) -> void:
-	print("CHECK ",ok," ",label)
-	if not ok: failures += 1
+extends "res://tests/world/plains_intro.gd"
+## Separate process reads genuine intro and arena results, never fabricates their progress.
 func run() -> void:
-	# This is launched as a separate process after the real Router/Motor route.
-	var app := preload("res://game/application/world/fixed_world.tscn").instantiate() as FixedWorldApp
-	app.save_path = "user://world_route_test.json"
-	root.add_child(app)
-	check(app.continue_world(),"new process continues disk world")
-	for i: int in 60: await physics_frame
-	check(app.room!=null and app.room.room_id=="P-R01","restored room")
-	check(app.state.has("H") and app.state.has("boss_P_WINDKEEPER_defeated"),"real victory and reward persist")
-	check(app.state.value.receipts.has("get_H") and app.state.value.cycle==2,"unique receipt and cycle persist")
-	var revision := app.state.revision
-	var candidate := app.state.action_candidate("get_H","P-R14")
-	check(candidate==app.state.value,"duplicate award remains unchanged after process restart")
-	check(app.state.value.explored.size()==5,"actual exploration retained")
-	check(app.player.is_on_floor() and app.controller.traversal.hook_enabled,"physical recovery and H restored")
-	check(app.services.ledger().quests.get("trial_station_repair","")=="completed" and app.state.has("trial_station_repaired"),"actual NPC quest and world presentation fact survive new process")
-	check(app.services.owns("trial_filter"),"purchased permanent item survives new process")
-	app.queue_free()
-	for i: int in 5: await physics_frame
-	print("WORLD RESTART: %d failures" % failures)
-	quit(failures)
+	for slot: String in ["plains_intro_replay","plains_full_loop_replay","plains_boss_replay","plains_bellstrider_fixture","plains_returns_fixture"]:
+		app=preload("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://"+slot+".json";root.add_child(app)
+		check(app.continue_world(),"disk restore "+slot);await settle()
+		if slot=="plains_intro_replay":check(app.state.has("intro_complete") and app.state.value.rest.room=="P-R01" and app.state.value.cycle==2,"actual introduction and explicit rest persist")
+		if slot=="plains_full_loop_replay":check(app.state.has("H") and app.state.has("clock_P") and app.state.has("shortcut_p01") and app.state.has("shortcut_p02") and app.state.has("shortcut_p03") and app.state.value.rest.room=="P-R01" and app.state.value.cycle==4,"continuous first region loop persists")
+		if slot=="plains_boss_replay":check(app.state.has("H") and app.state.has("boss_P_WINDKEEPER_defeated") and app.controller.traversal.hook_enabled,"actual victory and claimed H persist")
+		if slot=="plains_bellstrider_fixture":check(app.state.has("boss_P_BELLSTRIDER_defeated") and app.state.value.receipts.has("pickup_part_triple"),"actual optional Boss and claimed part persist")
+		if slot=="plains_returns_fixture":check(app.state.has("reward_return_TG04_open") and not app.state.value.receipts.has("pickup_TG04"),"local return persists independently of unclaimed reward")
+		check(app.player.is_on_floor(),"physical supported recovery "+slot)
+		await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(8)
+	print("WORLD RESTART: ",failures," failures");quit(failures)

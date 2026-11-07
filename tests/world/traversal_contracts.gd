@@ -27,19 +27,20 @@ func run() -> void:
 	for frame: int in 180:
 		await physics_frame
 		if not app.busy: break
-	# Qualified position fixture only, on the existing approach platform.
-	app.player.reset_at(Vector2(1030,614));await ticks(3)
+	# Qualified W fixture: the plains has no mandatory W route.
+	var wall:=WorldClimbableWall.new();wall.bounds=Rect2(1300,656,32,240);app.room.add_child(wall)
+	app.player.reset_at(Vector2(1270,878));await ticks(3)
 	app.controller.router.set_source_axis(&"keyboard_mouse",1)
 	app.controller.router.set_jump_held(&"keyboard_mouse",true)
 	var attached:=false
 	for i: int in 45:
 		await physics_frame
 		if app.controller.traversal.state==&"wall_attach": attached=true;break
-	check(attached,"authored tagged wall accepts real wall adhesion")
+	check(attached,"explicit fixture tagged wall accepts real wall adhesion")
 	app.controller.router.set_jump_held(&"keyboard_mouse",false);await ticks(1)
 	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(1)
 	check(app.player.normal_velocity.x<0 and app.player.normal_velocity.y<0,"real wall kick separates from the wall")
 	app.controller.router.set_source_axis(&"keyboard_mouse",0)
 	app.controller.router.set_jump_held(&"keyboard_mouse",false)
-	app.queue_free();await ticks(5)
+	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)
 	print("WORLD TRAVERSAL: %d assertions, %d failures" % [checks,failures]);quit(failures)

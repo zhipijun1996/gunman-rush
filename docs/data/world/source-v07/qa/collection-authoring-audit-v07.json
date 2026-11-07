@@ -1,0 +1,161 @@
+{
+  "schema": "gunman-rush.collection-authoring-audit.v07.1",
+  "source_world_sha256": "b29dff3bdd2de5fce432dc2922334f31e7de3d40e36803410f9bed5b08303c17",
+  "passed": true,
+  "check_count": 22,
+  "checks": [
+    {
+      "id": "130_unique_growth_contracts",
+      "passed": true,
+      "detail": {
+        "npc_quest": 8,
+        "map": 97,
+        "gear_delivery": 9,
+        "shop": 15,
+        "npc_service": 1
+      }
+    },
+    {
+      "id": "97_map_pickups_and_33_nonmap",
+      "passed": true,
+      "detail": 130
+    },
+    {
+      "id": "all_sources_resolve_exact_room_and_section",
+      "passed": true,
+      "detail": "room/section checked against canonical"
+    },
+    {
+      "id": "object_eligibility_is_not_reauthored",
+      "passed": true,
+      "detail": "scene design may not add eligibility gates"
+    },
+    {
+      "id": "all_acquisition_fields_authored",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "id": "map_return_access_contracts_explicit",
+      "passed": true,
+      "detail": "safe return must not bypass first acquisition"
+    },
+    {
+      "id": "29_secrets_have_distinct_reward_sources",
+      "passed": true,
+      "detail": {
+        "local_chamber": 18,
+        "whole_room": 6,
+        "internal_loop": 5
+      }
+    },
+    {
+      "id": "six_hidden_rooms_are_real_optional_leaves",
+      "passed": true,
+      "detail": [
+        "P-R17",
+        "M-R07",
+        "Y-R07",
+        "K-R07",
+        "E-R06",
+        "R-R14"
+      ]
+    },
+    {
+      "id": "hidden_entrances_are_original_edges",
+      "passed": true,
+      "detail": "no new cross-room edges"
+    },
+    {
+      "id": "hidden_rooms_do_not_hold_essential_world_actions",
+      "passed": true,
+      "detail": "only the optional pickup actions reside in these rooms"
+    },
+    {
+      "id": "first_lamp_and_filter_are_not_hidden",
+      "passed": true,
+      "detail": [
+        "EQ_MAP_M01",
+        "EQ_MAP_S01"
+      ]
+    },
+    {
+      "id": "visible_teaching_is_not_secret",
+      "passed": true,
+      "detail": "P-R13 / HP01"
+    },
+    {
+      "id": "all_secrets_have_return_access_contract",
+      "passed": true,
+      "detail": "local physical and authored state checks remain for graybox"
+    },
+    {
+      "id": "tg11_moved_to_actual_dry_bank_endpoint",
+      "passed": true,
+      "detail": "S-R02"
+    },
+    {
+      "id": "tg11_clue_retained_in_s09",
+      "passed": true,
+      "detail": "S09 clue -> S02 pickup"
+    },
+    {
+      "id": "four_currency_reservations_outside_growth",
+      "passed": true,
+      "detail": [
+        "CASH_P18",
+        "CASH_G16",
+        "CASH_G35",
+        "CASH_A05"
+      ]
+    },
+    {
+      "id": "final_leaf_payoffs_assigned",
+      "passed": true,
+      "detail": 28
+    },
+    {
+      "id": "p18_h_pocket_has_reserved_payoff",
+      "passed": true,
+      "detail": "CASH_P18"
+    },
+    {
+      "id": "all_309_room_references_present",
+      "passed": true,
+      "detail": 309
+    },
+    {
+      "id": "construction_embeds_all_sources_and_secrets",
+      "passed": true,
+      "detail": {
+        "sources": 130,
+        "secrets": 29
+      }
+    },
+    {
+      "id": "both_double_reward_rooms_have_separate_routes",
+      "passed": true,
+      "detail": [
+        "N-R11",
+        "A-R12"
+      ]
+    },
+    {
+      "id": "world_counts_preserved",
+      "passed": true,
+      "detail": {
+        "rooms": 309,
+        "connections": 411,
+        "gears": 40,
+        "weapon_materials": 16
+      }
+    }
+  ],
+  "not_tested": [
+    "Godot collision and recoil reach",
+    "hidden cue fairness",
+    "local return reverse-climb prevention",
+    "combat",
+    "prices and gold payouts"
+  ]
+}

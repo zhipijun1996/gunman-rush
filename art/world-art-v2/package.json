@@ -1,0 +1,18 @@
+{
+  "name": "clock-world-art-library",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "bake": "python3 bake-v2-assets.py",
+    "build": "node build-preview.cjs",
+    "render": "node render-study.cjs --all --video --before-after --verify",
+    "godot": "python3 godot/build_scene.py",
+    "bake:corners": "python3 autotile/bake_corners.py",
+    "bake:terrain": "python3 build-autotiles.py",
+    "catalog": "python3 build-catalog-v2.py"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "0.1.100",
+    "sharp": "0.35.5"
+  }
+}

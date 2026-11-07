@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R25" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R25"
+art_profile = "orchard"
+arrival_text = "倒铃果园"
+platforms = Array[Rect2]([Rect2(0, 992, 2048, 32), Rect2(0, 896, 2048, 128), Rect2(256, 800, 224, 32), Rect2(640, 704, 256, 32), Rect2(1136, 640, 256, 32), Rect2(1600, 736, 256, 32), Rect2(0, 896, 288, 32), Rect2(1760, 896, 288, 32)])
+one_way_indices = Array[int]([])
+start_point = Vector2(144, 878)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id": "P-R25:encounter:01", "behavior": "charger", "point": [832, 878], "max_health": 10}, {"id": "P-R25:encounter:02", "behavior": "diver", "point": [1376, 878], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 848], "text": "果树间留着低路，树台上也有足够落脚的地方。"}])
+hazards = Array[Rect2]([Rect2(992, 872, 96, 24)])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([{"bounds": [880, 836, 80, 60], "point": [912, 878], "section": "main"}, {"bounds": [1120, 836, 80, 60], "point": [1160, 878], "section": "main"}])
+art_placements = Array[Dictionary]([{"asset": "windchime_plains_v2_seed_relic", "point": [480, 896.0], "layer": -2}, {"asset": "windchime_plains_v2_chime_span", "point": [1408, 896.0], "layer": -2}])

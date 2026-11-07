@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
+[node name="P-R05" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R05"
+art_profile = "mill"
+arrival_text = "慢风平台"
+platforms = Array[Rect2]([Rect2(0, 992, 2048, 32), Rect2(0, 896, 2048, 128), Rect2(416, 784, 224, 32), Rect2(960, 672, 288, 32), Rect2(1536, 544, 384, 32), Rect2(0, 896, 288, 32), Rect2(0, 672, 288, 32), Rect2(0, 448, 288, 32), Rect2(1760, 896, 288, 32), Rect2(288, 448, 512, 24), Rect2(576, 536, 160, 24), Rect2(464, 608, 160, 24), Rect2(288, 672, 336, 24), Rect2(240, 752, 160, 24), Rect2(128, 824, 160, 24)])
+one_way_indices = Array[int]([9, 10, 11, 12, 13, 14])
+start_point = Vector2(144, 878)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point": [224, 848], "text": "轮轴慢慢转动，吊桥的绞盘在这一侧。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset": "windchime_plains_v2_bell_wheel", "point": [480, 784.0], "layer": -2}, {"asset": "bridge_pier", "point": [1648, 544.0], "layer": -2}])
+[node name="Interaction_0" type="Node2D" parent="."]
+script = ExtResource("interaction")
+position = Vector2(1728, 526)
+action_id = "pickup_TG02"
+section_id = "main"
+label = "收取时间齿轮"
+visual = "time_gear"
+[node name="Interaction_1" type="Node2D" parent="."]
+script = ExtResource("interaction")
+position = Vector2(1683, 878)
+action_id = "open_SC_P02"
+section_id = "main"
+label = "开启回程机关"
+visual = "pulley_switch"
+[node name="Carrier0" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(704, 752)
+endpoint = Vector2(160, -96)
+period = 5.4
+[node name="Carrier1" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(1328, 640)
+endpoint = Vector2(112, -64)
+period = 4.7
+
+[node name="RewardReturn" type="Node2D" parent="."]
+script = ExtResource("return")
+position = Vector2(1824, 526)
+action_id = "reward_return_TG02_open"
+section_id = "main"
+label = "放下返程折梯"
+visual = "pulley_switch"
+radius = 40.0
+return_steps = Array[Rect2]([Rect2(0, 114, 160, 16), Rect2(-64, 210, 128, 16), Rect2(0, 306, 128, 16)])
+closed_panels = Array[Rect2]([])
