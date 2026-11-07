@@ -7,6 +7,7 @@ var event_id: StringName
 var source_id: StringName
 var target_id: StringName
 var kind := Kind.MONSTER
+var hazard_category: StringName = &"solid"
 var amount := 1.0
 var health_epoch := 0
 var actor_epoch := 0
@@ -33,6 +34,7 @@ func copy() -> DamageRequest:
 	value.source_id = source_id
 	value.target_id = target_id
 	value.kind = kind
+	value.hazard_category = hazard_category
 	value.amount = amount
 	value.health_epoch = health_epoch
 	value.actor_epoch = actor_epoch

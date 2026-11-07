@@ -105,6 +105,10 @@ func validate_sources(proposed: Dictionary) -> StringName:
 			if not _base.has(modifier.stat_id): return &"unsupported_effect"
 	return &"" if _valid_values(_resolve(proposed)) else &"invalid_stats"
 
+func preview_sources(proposed: Dictionary) -> Dictionary:
+	var reason:=validate_sources(proposed)
+	return {"accepted":reason.is_empty(),"reason":reason,"values":_resolve(proposed) if reason.is_empty() else {}}
+
 func commit_equipment_sources(proposed: Dictionary) -> bool:
 	return validate_sources(proposed).is_empty() and _commit(proposed)
 

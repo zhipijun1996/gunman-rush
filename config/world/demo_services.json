@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "status": "user_authorized_demo_trial_not_final_balance",
+  "capacity": 3,
+  "enemy_gold": 5,
+  "boss_gold": 20,
+  "items": [
+    {
+      "id": "trial_lamp",
+      "name": "试制探路灯",
+      "description": "装配后照亮暗处；拥有但未装配不生效。",
+      "price": 5,
+      "load": 1,
+      "max_level": 1,
+      "upgrade_price": 4,
+      "repair_price": 3,
+      "effect": "lamp",
+      "icon_key": "map"
+    },
+    {
+      "id": "trial_filter",
+      "name": "试制滤芯",
+      "description": "装配后抵御试制毒雾；初级受击三次破损，升级更耐用，休息不维修。",
+      "price": 5,
+      "load": 1,
+      "max_level": 2,
+      "upgrade_price": 4,
+      "repair_price": 3,
+      "effect": "filter",
+      "break_hits": 3,
+      "icon_key": "coil"
+    },
+    {
+      "id": "trial_heart",
+      "name": "试制心匣",
+      "description": "装配后提高生命上限；仅休息后允许重新装配。",
+      "catalog_id": "G11",
+      "price": 8,
+      "load": 2,
+      "max_level": 2,
+      "upgrade_price": 6,
+      "repair_price": 3,
+      "effect": "health",
+      "health_per_level": 3,
+      "icon_key": "heart"
+    },
+    {
+      "id": "trial_flask",
+      "name": "试制急救瓶",
+      "description": "装配后可从背包使用，每个休息周期一次；满生命不消耗次数。",
+      "price": 3,
+      "load": 1,
+      "max_level": 2,
+      "upgrade_price": 4,
+      "repair_price": 3,
+      "effect": "heal",
+      "heal_per_level": 2,
+      "uses_per_cycle": 1,
+      "icon_key": "bandage"
+    }
+  ],
+  "pickups": [
+    {
+      "id": "trial_part_01",
+      "room_id": "P-R06",
+      "point": [
+        1040,
+        614
+      ],
+      "item": "trial_part",
+      "quantity": 1,
+      "label": "遗失的试制零件",
+      "icon_key": "coil"
+    }
+  ],
+  "quest": {
+    "id": "trial_station_repair",
+    "npc_id": "NPC_P_REC",
+    "requires_item": "trial_part",
+    "quantity": 1,
+    "gold": 8,
+    "flag": "trial_station_repaired",
+    "description": "找回岔路上的试制零件，交给回收匠修复小站试鸣装置。"
+  },
+  "dialogues": {
+    "NPC_P_REC": {
+      "greeting": "你是靠时间齿轮运转的机器人吧。旁边的充电站可以补能、保存复位点。岔路地刺另一侧有安全平台，帮我找回那里的试制零件。",
+      "after_h": "牧风者的庭地重新安静了。试试钩索，回廊的高处会更好走。",
+      "after_quest": "听见了吗？小站的试鸣装置恢复了。多谢你带回零件。"
+    },
+    "NPC_P_WEAVER": {
+      "greeting": "我是织时匠。在这里检查随身装备；修理不会让你休息，也不会解除本周期的装配锁。",
+      "after_h": "钩索与随身装备各有自己的回路。先看清装配状态，再出发。"
+    }
+  },
+  "coin_pickup_radius": 46
+}

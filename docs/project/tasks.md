@@ -1,6 +1,6 @@
 # 活跃工作视图
 
-唯一开发基线为最新main，已包含PR138主线收敛成果；已放弃的旧PR不审计或择取。基线已有实现按实际消费者复用。已结束工作从本页移出，由Git／PR追溯。待验收、待决定和待排期没有自动开工。表内状态只表达工作进度，验收结果与缺口留在各任务交接。
+唯一开发基线为最新main，已包含PR139架构约定及PR138主线收敛成果；已放弃的旧PR不审计或择取。基线已有实现按实际消费者复用。已结束工作从本页移出，由Git／PR追溯。待验收、待决定和待排期没有自动开工。表内状态只表达工作进度，验收结果与缺口留在各任务交接。
 
 接续任务先读本行和下一动作，再读对应工作线和直接依赖；新内容审查按需读取质量卡；依赖只列当前任务，已完成的实现直接以main代码为准。新增缺陷只建一个明确范围的任务，更新本页和自己的工作线。运行事实见 [当前状态](current_state.md)，跨会话规则见 [生产规则](cloud_production.md)。
 
@@ -49,14 +49,17 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | MV-RUNTIME-01 | 全项目架构约定、共用状态与代表样房真实闭环；子任务01A—01J | — | in_progress | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01A | 全项目职责/契约、真实缺口与实施验收归位（本轮） | — | review | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01B | 提取人工施工与独立路线输入，证明生成等价 | MV-RUNTIME-01A | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01C | 切换config/world权威、运行导出及PCK消费者 | MV-RUNTIME-01B | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01D | 固定房间装载、真实入口/镜头与控制权/卸载 | MV-RUNTIME-01C | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01E | 四种寿命、统一事实/提交、新槽保存与恢复 | MV-RUNTIME-01D | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01F | 首批P房真实闭环，含必要连接P-R08 | MV-RUNTIME-01E | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01G | NPC服务、永久库存/装配与成长效果一致性 | MV-RUNTIME-01F, ITEM-V5-01 | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01H | NPC任务、迁居、修钟/演出及结局事实样板 | MV-RUNTIME-01F, STORY-DESIGN-03 | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01I | 独立设置、文本/多设备UI、视听切换与平台观测 | MV-RUNTIME-01F | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01J | 后续代表房集成与运行架构验收 | MV-RUNTIME-01G, MV-RUNTIME-01H, MV-RUNTIME-01I | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01B | 提取人工施工与独立路线输入，证明生成等价 | — | review | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01C | 切换config/world权威、运行导出及PCK消费者 | MV-RUNTIME-01B | review | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01D | 固定房间装载、真实入口/镜头与控制权/卸载 | MV-RUNTIME-01C | review | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01E | 四种寿命、统一事实/提交、新槽保存与恢复 | MV-RUNTIME-01D | review | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01F | 首批P房真实闭环，含必要连接P-R08 | MV-RUNTIME-01E | review | [交接](worklines/mv_migration/scope.md) |
+| MV-DEMO-02 | 首环路体验整改、正式表现/UI/地图及NPC试制服务地基 | MV-RUNTIME-01F | review | [交接](worklines/mv_migration/scope.md) |
+| MV-DEMO-03 | 首环路敌人周期、门台地图、Boss内场、装备页与共鸣回复 | MV-DEMO-02 | review | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01G | 正式48件与NPC库存/装配成长内容适配 | MV-RUNTIME-01F, ITEM-V5-01 | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01H | 正式人物任务、迁居、主线修钟/演出与结局 | MV-RUNTIME-01F, STORY-DESIGN-03 | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01I | 完整文本/多设备UI、视听与目标平台验收 | MV-RUNTIME-01F | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-DEMO-04 | 统一镜头/入场动作、向上交互、机器人充电站与危险收集物可读性 | MV-DEMO-03 | review | [交接](worklines/mv_migration/scope.md) |
+| MV-DEMO-05 | 修复道具纹理卡顿、竖门实体落点、既有金币掉落接入、对话与分区镜头 | MV-DEMO-04 | review | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01J | 不同机制代表房、剩余基础流程与量产准入验收 | MV-DEMO-05 | planned | [交接](worklines/mv_migration/scope.md) |
 | MV-WORLD-GRAYBOX-01 | 216房结构与真实运行路线，按消费者退役旧链 | MV-RUNTIME-01J | planned | [交接](worklines/mv_migration/scope.md) |

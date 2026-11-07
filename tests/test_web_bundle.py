@@ -11,6 +11,7 @@ from pathlib import Path
 import struct
 import tempfile
 import unittest
+from unittest.mock import patch
 
 SPEC = importlib.util.spec_from_file_location('bundle', Path(__file__).resolve().parents[1] / 'tools/check_web_bundle.py')
 bundle = importlib.util.module_from_spec(SPEC)
@@ -36,6 +37,24 @@ def write_pack(path, entries):
 
 
 class BundleTests(unittest.TestCase):
+    def test_fixed_world_pack_requires_exact_bundle_scene_and_no_authoring_sources(self):
+        expected = {'schema': 1, 'content_version': 'a'*64,
+                    'rooms': {'P-R03': {'scene_ref': 'res://game/room.tscn'}}}
+        good = [('build/world/runtime.json', json.dumps(expected).encode()),
+                ('game/room.tscn.remap', b'[remap]\npath="res://.godot/exported/room.scn"\n'),
+                ('.godot/exported/room.scn', b'packed-scene-fixture')]
+        with patch('world.build.build', return_value=({}, expected)):
+            write_pack(self.pack, good)
+            self.assertEqual(bundle.check_fixed_world_payload(bundle.Pack(self.pack), self.repo)['rooms'], ['P-R03'])
+            stale = dict(expected, content_version='b'*64)
+            for invalid in [good[1:], good[:-1],
+                            [(good[0][0], json.dumps(stale).encode()), *good[1:]],
+                            [*good, ('config/world/world.json', b'{}')]]:
+                with self.subTest(entries=[row[0] for row in invalid]):
+                    write_pack(self.pack, invalid)
+                    with self.assertRaises(ValueError):
+                        bundle.check_fixed_world_payload(bundle.Pack(self.pack), self.repo)
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

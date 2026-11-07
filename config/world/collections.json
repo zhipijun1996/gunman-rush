@@ -1,0 +1,1106 @@
+{
+  "schema": "gunman-rush.collection-nonspatial-catalog.v04",
+  "status": "nonspatial_system_handoff_and_50_source_slots; not_50_finished_equipment_effects",
+  "canonical_reference": {
+    "file": "../world-room-layout-v04.json",
+    "sha256": "c59bd40603624c57a7270e9b2f3233ae472a0a4895764f96fe94a0ea70d8e230",
+    "authoritative_for": [
+      "room_id",
+      "section_id",
+      "physical_door_conditions",
+      "internal_environment_routes",
+      "action_requirements",
+      "inventory_transactions",
+      "reward_identity",
+      "endings"
+    ]
+  },
+  "source_review": {
+    "file": "world-boss-v05/collection-system-v03.json",
+    "sha256": "111e8234ffa666869ecc8a65081a04a04bfca0d5ca761d7097a2e18e2427d56c",
+    "scope": "非位置系统及提案；旧地点、门锁、倍率示例、验证结论不复制"
+  },
+  "authority_rule": "最新用户确认优先；当前world canonical定义所有空间与交互；本文件明确区分confirmed/current_budget/trial_default/proposal。",
+  "confirmed_rules": [
+    {
+      "id": "COL-C01",
+      "rule": "8份攻击材料；升级消耗1/2/2/3；永久提高武器攻击力。"
+    },
+    {
+      "id": "COL-C02",
+      "rule": "6件分支材料与2枚共用技能材料独立于攻击合金；每武器可有2技能。"
+    },
+    {
+      "id": "COL-C03",
+      "rule": "约50装备，NPC购买、任务与地图取得；6次负荷扩容，每次+1；约40齿轮交给NPC兑奖。"
+    },
+    {
+      "id": "COL-C04",
+      "rule": "收集、成长与奖励永久保存且唯一；重复装备升级改向NPC支付金币。"
+    },
+    {
+      "id": "COL-C05",
+      "rule": "灯与抗毒道具可装卸；拥有与当前装配分开。"
+    },
+    {
+      "id": "COL-C06",
+      "rule": "本局/每图/锁装以明确休息为周期边界；休息恢复HP并重置普通敌人。"
+    },
+    {
+      "id": "COL-C07",
+      "rule": "死亡回休息点；地形失败回本次挑战入口；普通扣1HP、标记特别危险扣2HP。"
+    },
+    {
+      "id": "COL-C08",
+      "rule": "完整攻击就是一枪；三连/激光完整单目标命中1.5B；普通安全窗口2枪、3枪贪刀；最低普通敌人9HP。"
+    }
+  ],
+  "current_budget": {
+    "attack_alloy": 8,
+    "branch_parts": 6,
+    "shared_skill_cores": 2,
+    "new_base_weapons": 2,
+    "equipment": 50,
+    "capacity_pickups": 6,
+    "time_gears": 40,
+    "health_shards": 12,
+    "resonance_shards": 6
+  },
+  "trial_defaults": {
+    "attack": {
+      "base_damage_by_rank": [
+        5,
+        9,
+        13,
+        17,
+        21
+      ],
+      "material_cost_by_upgrade": [
+        1,
+        2,
+        2,
+        3
+      ],
+      "shared_rank_across_weapons": true,
+      "later_weapons_inherit_rank": true,
+      "current_attack_upgrade_gold_fee": 0,
+      "gold_fee_scope": "仅当前四次攻击升级工作值，不能推导其他未定价服务免费",
+      "automatic_enemy_scaling": false,
+      "normal_ending_requires_max_rank": false,
+      "status": "材料成本已确认；曲线与跨武器共享为当前工作方案"
+    },
+    "health": {
+      "initial_max": 5,
+      "shards": 12,
+      "shards_per_upgrade": 4,
+      "max_gain_each": 1,
+      "base_max_after_all": 8,
+      "instant_heal_on_upgrade": "未冻结；不能自动全恢复",
+      "status": "试制默认，非用户逐项确认"
+    },
+    "resonance": {
+      "initial_capacity": 100,
+      "shards": 6,
+      "shards_per_upgrade": 2,
+      "capacity_gain_each": 20,
+      "max_capacity_after_all": 160,
+      "pickup_or_equip_refills": false,
+      "adds_slow_time_budget": false,
+      "adds_air_actions": false,
+      "rest_refill_policy": "后续资源系统明确",
+      "status": "试制默认，非用户逐项确认"
+    },
+    "capacity": {
+      "initial": 8,
+      "increments": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum": 14,
+      "status": "六次+1已确认；初始8为工作默认"
+    },
+    "death_cycle": {
+      "revive_at_last_rest": "confirmed",
+      "restore_hp": "trial_default",
+      "start_new_cycle": "trial_default",
+      "reset_ordinary_enemies": "trial_default",
+      "gold_loss": "unresolved",
+      "permanent_progress_preserved": true
+    }
+  },
+  "equipment_design": {
+    "selection": {
+      "total": 50,
+      "fixed_environment_tools": 2,
+      "other_bindings_pending": 48,
+      "old_candidate_catalog_count": 72,
+      "old_candidate_upgradeable_count": 16,
+      "status": "48件尚未选定；旧候选计数不等于承诺全部保留"
+    },
+    "channel_budget": {
+      "map": 28,
+      "shop": 12,
+      "npc_quest": 6,
+      "gear_delivery": 4
+    },
+    "role_budget": [
+      {
+        "role": "普攻与武器差异",
+        "count": 8
+      },
+      {
+        "role": "反冲与空中作战",
+        "count": 8
+      },
+      {
+        "role": "技能与资源",
+        "count": 8
+      },
+      {
+        "role": "防御与容错",
+        "count": 8
+      },
+      {
+        "role": "探索与环境",
+        "count": 6
+      },
+      {
+        "role": "伴机与联动",
+        "count": 6
+      },
+      {
+        "role": "风险与经济",
+        "count": 6
+      }
+    ],
+    "load_distribution_proposal": {
+      "1": 8,
+      "2": 22,
+      "3": 12,
+      "4": 6,
+      "5": 2
+    },
+    "roles_and_loads_status": "proposal; 尚未逐槽绑定",
+    "ownership": "permanent_unique_equipment_id",
+    "upgrade_policy": "同一永久装备ID付金币升有限档位；不额外生成重复装备；并非每件都可升级",
+    "upgrade_catalog_prices_tiers": "pending_per_item_design",
+    "repair_policy": "若最终保留破损类装备，所有权与破损状态永久；维修不回血/刷新周期/解锁装。",
+    "run_effect_migration": "每局/每图额度改为休息周期；依赖随机补货/稀有度的装备逐件重做或移出首发。",
+    "npc_service_ref": "npcs:NPC_P_WEAVER",
+    "tools": [
+      {
+        "equipment_id": "lamp",
+        "reward_ref": "EQ_MAP_M01",
+        "action_ref": "get_lamp",
+        "effect": "可装卸发光环境工具；装备态eq_lamp才满足对应条件",
+        "current_load": 1,
+        "load_status": "current_trial_value",
+        "counted_in_50": true
+      },
+      {
+        "equipment_id": "filter",
+        "reward_ref": "EQ_MAP_S01",
+        "action_ref": "get_filter",
+        "effect": "可装卸抗毒环境工具；装备态eq_filter才满足对应条件",
+        "current_load": 1,
+        "load_status": "current_trial_value",
+        "counted_in_50": true
+      }
+    ]
+  },
+  "weapon_systems": {
+    "npc_service_ref": "npcs:NPC_G_SMITH",
+    "branch_service_refs": [
+      "forge_triple",
+      "forge_laser",
+      "forge_fan",
+      "forge_boomerang",
+      "forge_magnetic",
+      "forge_singularity"
+    ],
+    "skill_service_refs": [
+      "install_skill_core_1",
+      "install_skill_core_2"
+    ],
+    "attack_service_refs": [
+      "upgrade_attack_rank_1",
+      "upgrade_attack_rank_2",
+      "upgrade_attack_rank_3",
+      "upgrade_attack_rank_4"
+    ],
+    "skill_tier_contract": "两枚同类芯逐次安装为全局层1/2；每家族对应技能、后来武器继承；最终技能动作/资源/效果待设计。",
+    "pickup_does_not_install": true,
+    "growth_sources": [
+      {
+        "reward_id": "ATK01",
+        "kind": "attack_alloy",
+        "display_name": "恒时合金",
+        "quantity": 1,
+        "action_ref": "pickup_ATK01",
+        "canonical_ref": "weapon_major_rewards:ATK01"
+      },
+      {
+        "reward_id": "ATK02",
+        "kind": "attack_alloy",
+        "display_name": "恒时合金",
+        "quantity": 1,
+        "action_ref": "pickup_ATK02",
+        "canonical_ref": "weapon_major_rewards:ATK02"
+      },
+      {
+        "reward_id": "ATK03",
+        "kind": "attack_alloy",
+        "display_name": "恒时合金",
+        "quantity": 1,
+        "action_ref": "pickup_ATK03",
+        "canonical_ref": "weapon_major_rewards:ATK03"
+      },
+      {
+        "reward_id": "ATK04",
+        "kind": "attack_alloy",
+        "display_name": "恒时合金",
+        "quantity": 1,
+        "action_ref": "pickup_ATK04",
+        "canonical_ref": "weapon_major_rewards:ATK04"
+      },
+      {
+        "reward_id": "ATK05",
+        "kind": "attack_alloy",
+        "display_name": "恒时合金",
+        "quantity": 1,
+        "action_ref": "pickup_ATK05",
+        "canonical_ref": "weapon_major_rewards:ATK05"
+      },
+      {
+        "reward_id": "ATK06",
+        "kind": "attack_alloy",
+        "display_name": "恒时合金",
+        "quantity": 1,
+        "action_ref": "pickup_ATK06",
+        "canonical_ref": "weapon_major_rewards:ATK06"
+      },
+      {
+        "reward_id": "ATK07",
+        "kind": "attack_alloy",
+        "display_name": "恒时合金",
+        "quantity": 1,
+        "action_ref": "pickup_ATK07",
+        "canonical_ref": "weapon_major_rewards:ATK07"
+      },
+      {
+        "reward_id": "ATK08",
+        "kind": "attack_alloy",
+        "display_name": "恒时合金",
+        "quantity": 1,
+        "action_ref": "pickup_ATK08",
+        "canonical_ref": "weapon_major_rewards:ATK08"
+      },
+      {
+        "reward_id": "part_triple",
+        "kind": "branch_material",
+        "display_name": "三联机芯",
+        "quantity": 1,
+        "action_ref": "pickup_part_triple",
+        "canonical_ref": "weapon_major_rewards:part_triple"
+      },
+      {
+        "reward_id": "part_laser",
+        "kind": "branch_material",
+        "display_name": "恒流晶匣",
+        "quantity": 1,
+        "action_ref": "pickup_part_laser",
+        "canonical_ref": "weapon_major_rewards:part_laser"
+      },
+      {
+        "reward_id": "part_fan",
+        "kind": "branch_material",
+        "display_name": "散华刃胚",
+        "quantity": 1,
+        "action_ref": "pickup_part_fan",
+        "canonical_ref": "weapon_major_rewards:part_fan"
+      },
+      {
+        "reward_id": "part_boomerang",
+        "kind": "branch_material",
+        "display_name": "回旋轮轴",
+        "quantity": 1,
+        "action_ref": "pickup_part_boomerang",
+        "canonical_ref": "weapon_major_rewards:part_boomerang"
+      },
+      {
+        "reward_id": "part_magnetic",
+        "kind": "branch_material",
+        "display_name": "磁轨引信",
+        "quantity": 1,
+        "action_ref": "pickup_part_magnetic",
+        "canonical_ref": "weapon_major_rewards:part_magnetic"
+      },
+      {
+        "reward_id": "part_singularity",
+        "kind": "branch_material",
+        "display_name": "坍缩线圈",
+        "quantity": 1,
+        "action_ref": "pickup_part_singularity",
+        "canonical_ref": "weapon_major_rewards:part_singularity"
+      },
+      {
+        "reward_id": "skill_core_root",
+        "kind": "skill_core",
+        "display_name": "共鸣技能芯",
+        "quantity": 1,
+        "action_ref": "pickup_skill_core_root",
+        "canonical_ref": "weapon_major_rewards:skill_core_root"
+      },
+      {
+        "reward_id": "skill_core_sky",
+        "kind": "skill_core",
+        "display_name": "共鸣技能芯",
+        "quantity": 1,
+        "action_ref": "pickup_skill_core_sky",
+        "canonical_ref": "weapon_major_rewards:skill_core_sky"
+      }
+    ]
+  },
+  "gear_system": {
+    "quantity": 40,
+    "name": "失步齿轮",
+    "collector_npc_ref": "npcs:NPC_P_REC",
+    "delivery_action_ref": "deliver_time_gears",
+    "persistent_identity_sets": [
+      "collected_ids",
+      "delivered_ids",
+      "milestones_claimed"
+    ],
+    "cumulative_delivered_does_not_decrease_on_claim": true,
+    "regular_gold_per_gear": null,
+    "regular_gold_status": "提案，金额待收入校准",
+    "all_40_required_for_endings": false,
+    "collection_template_budget_proposal": {
+      "observation": 20,
+      "short_traversal": 8,
+      "combat_mechanism": 8,
+      "local_time_anomaly": 4
+    },
+    "feedback_proposal": "回收部分装置同时恢复安全机关/回程；交付逐渐修复小站万象钟视听，40枚为纪念尾声。",
+    "milestones": [
+      {
+        "threshold": 4,
+        "reward_id": "EQ_GEAR01",
+        "reward_type": "equipment",
+        "action_ref": "pickup_EQ_GEAR01",
+        "reward_counted_in_existing_budget": true,
+        "decorative_or_hint_details": null
+      },
+      {
+        "threshold": 8,
+        "reward_id": "CAP03",
+        "reward_type": "capacity",
+        "action_ref": "pickup_CAP03",
+        "reward_counted_in_existing_budget": true,
+        "decorative_or_hint_details": null
+      },
+      {
+        "threshold": 12,
+        "reward_id": "HP12",
+        "reward_type": "health_shard",
+        "action_ref": "pickup_HP12",
+        "reward_counted_in_existing_budget": true,
+        "decorative_or_hint_details": null
+      },
+      {
+        "threshold": 16,
+        "reward_id": "EQ_GEAR02",
+        "reward_type": "equipment",
+        "action_ref": "pickup_EQ_GEAR02",
+        "reward_counted_in_existing_budget": true,
+        "decorative_or_hint_details": null
+      },
+      {
+        "threshold": 20,
+        "reward_id": "ATK08",
+        "reward_type": "attack_alloy",
+        "action_ref": "pickup_ATK08",
+        "reward_counted_in_existing_budget": true,
+        "decorative_or_hint_details": null
+      },
+      {
+        "threshold": 24,
+        "reward_id": "CAP05",
+        "reward_type": "capacity",
+        "action_ref": "pickup_CAP05",
+        "reward_counted_in_existing_budget": true,
+        "decorative_or_hint_details": null
+      },
+      {
+        "threshold": 28,
+        "reward_id": "RES06",
+        "reward_type": "resonance_shard",
+        "action_ref": "pickup_RES06",
+        "reward_counted_in_existing_budget": true,
+        "decorative_or_hint_details": null
+      },
+      {
+        "threshold": 32,
+        "reward_id": "EQ_GEAR03",
+        "reward_type": "equipment",
+        "action_ref": "pickup_EQ_GEAR03",
+        "reward_counted_in_existing_budget": true,
+        "decorative_or_hint_details": "proposal"
+      },
+      {
+        "threshold": 36,
+        "reward_id": "EQ_GEAR04",
+        "reward_type": "equipment",
+        "action_ref": "pickup_EQ_GEAR04",
+        "reward_counted_in_existing_budget": true,
+        "decorative_or_hint_details": null
+      },
+      {
+        "threshold": 40,
+        "reward_id": "GEAR_EPILOGUE",
+        "reward_type": "cosmetic_story",
+        "action_ref": "pickup_GEAR_EPILOGUE",
+        "reward_counted_in_existing_budget": true,
+        "decorative_or_hint_details": "proposal"
+      }
+    ]
+  },
+  "rest_cycle_contract": {
+    "explicit_rest": [
+      "restore_hp",
+      "register_respawn",
+      "reset_ordinary_enemies",
+      "advance_cycle",
+      "allow_loadout_selection"
+    ],
+    "do_not_implicitly_rest": [
+      "room_transition",
+      "region_transition",
+      "transport",
+      "safe_room_entry",
+      "npc_dialogue",
+      "shop",
+      "forge",
+      "repair",
+      "gear_delivery",
+      "clock_repair",
+      "autosave",
+      "reload"
+    ],
+    "per_cycle_effects": "刷新额度，不保证立刻触发；满HP休息不白白消耗回血额度",
+    "lock_loadout": "旧本局锁装改至下一次明确休息边界；逐件重装备行为待实现",
+    "terrain_failure": "只扣当次1/2HP并返回真实进入侧；不回血或刷新周期；HP<=0执行死亡",
+    "permanent_bosses_and_rewards_reset": false
+  },
+  "save_layers": {
+    "permanent": [
+      "unique_receipts",
+      "inventory",
+      "equipment_ownership_level_breakage",
+      "ability_flags",
+      "bosses",
+      "clocks",
+      "npc_quests",
+      "shortcuts",
+      "rifts",
+      "seen_landmarks",
+      "sold_out_stock",
+      "collected_and_delivered_gear_ids"
+    ],
+    "rest_cycle": [
+      "cycle_id",
+      "loadout_locks",
+      "effect_charges",
+      "ordinary_enemy_cycle_state"
+    ],
+    "challenge_attempt": [
+      "current_room_section",
+      "actual_entry_side",
+      "challenge_return_anchor",
+      "local_resettable_mechanism_state"
+    ],
+    "transient_actions": [
+      "recoil_q_state_and_cooldown",
+      "finite_attack_budget",
+      "active_beam"
+    ]
+  },
+  "deferred_design": [
+    "48件普通装备最终选择与效果",
+    "逐件升级名单/档位/金币价格",
+    "维修与商店定价",
+    "技能资源与共鸣恢复",
+    "生命上限增加时的即时回血",
+    "死亡金币规则",
+    "死亡复活周期默认的实机校准"
+  ],
+  "verification_scope": "本补充只整理非位置规则和现有来源引用；不新增路线验证或实机通过声明。",
+  "equipment_sources": [
+    {
+      "reward_id": "EQ_GEAR01",
+      "channel": "gear_delivery",
+      "action_ref": "pickup_EQ_GEAR01",
+      "canonical_ref": "collectibles.gear_milestone_rewards[id=EQ_GEAR01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_GEAR02",
+      "channel": "gear_delivery",
+      "action_ref": "pickup_EQ_GEAR02",
+      "canonical_ref": "collectibles.gear_milestone_rewards[id=EQ_GEAR02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_GEAR03",
+      "channel": "gear_delivery",
+      "action_ref": "pickup_EQ_GEAR03",
+      "canonical_ref": "collectibles.gear_milestone_rewards[id=EQ_GEAR03]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_GEAR04",
+      "channel": "gear_delivery",
+      "action_ref": "pickup_EQ_GEAR04",
+      "canonical_ref": "collectibles.gear_milestone_rewards[id=EQ_GEAR04]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_A01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_A01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_A01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_A02",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_A02",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_A02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_C01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_C01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_C01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_C02",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_C02",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_C02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_E01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_E01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_E01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_F01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_F01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_F01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_F02",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_F02",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_F02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_F03",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_F03",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_F03]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_G01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_G01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_G01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_I01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_I01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_I01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_K01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_K01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_K01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_K02",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_K02",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_K02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_M01",
+      "channel": "map",
+      "action_ref": "get_lamp",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_M01]",
+      "catalog_equipment_id": "lamp",
+      "effect_status": "fixed_tool_contract",
+      "current_load": 1,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_M02",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_M02",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_M02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_N01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_N01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_N01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_N02",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_N02",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_N02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_P01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_P01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_P01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_P02",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_P02",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_P02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_P03",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_P03",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_P03]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_R01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_R01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_R01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_R02",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_R02",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_R02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_S01",
+      "channel": "map",
+      "action_ref": "get_filter",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_S01]",
+      "catalog_equipment_id": "filter",
+      "effect_status": "fixed_tool_contract",
+      "current_load": 1,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_S02",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_S02",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_S02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_T01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_T01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_T01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_T02",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_T02",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_T02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_V01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_V01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_V01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_Y01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_Y01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_Y01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_MAP_Z01",
+      "channel": "map",
+      "action_ref": "pickup_EQ_MAP_Z01",
+      "canonical_ref": "collectibles.map_equipment_slots[id=EQ_MAP_Z01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_QUEST_A01",
+      "channel": "npc_quest",
+      "action_ref": "pickup_EQ_QUEST_A01",
+      "canonical_ref": "collectibles.quest_equipment_rewards[id=EQ_QUEST_A01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_QUEST_C01",
+      "channel": "npc_quest",
+      "action_ref": "pickup_EQ_QUEST_C01",
+      "canonical_ref": "collectibles.quest_equipment_rewards[id=EQ_QUEST_C01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_QUEST_F01",
+      "channel": "npc_quest",
+      "action_ref": "pickup_EQ_QUEST_F01",
+      "canonical_ref": "collectibles.quest_equipment_rewards[id=EQ_QUEST_F01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_QUEST_G01",
+      "channel": "npc_quest",
+      "action_ref": "pickup_EQ_QUEST_G01",
+      "canonical_ref": "collectibles.quest_equipment_rewards[id=EQ_QUEST_G01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_QUEST_R01",
+      "channel": "npc_quest",
+      "action_ref": "pickup_EQ_QUEST_R01",
+      "canonical_ref": "collectibles.quest_equipment_rewards[id=EQ_QUEST_R01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_QUEST_V01",
+      "channel": "npc_quest",
+      "action_ref": "pickup_EQ_QUEST_V01",
+      "canonical_ref": "collectibles.quest_equipment_rewards[id=EQ_QUEST_V01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true
+    },
+    {
+      "reward_id": "EQ_SHOP_G01",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_G01",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_G01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    },
+    {
+      "reward_id": "EQ_SHOP_G02",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_G02",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_G02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    },
+    {
+      "reward_id": "EQ_SHOP_G03",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_G03",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_G03]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    },
+    {
+      "reward_id": "EQ_SHOP_G04",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_G04",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_G04]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    },
+    {
+      "reward_id": "EQ_SHOP_K01",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_K01",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_K01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    },
+    {
+      "reward_id": "EQ_SHOP_P01",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_P01",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_P01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    },
+    {
+      "reward_id": "EQ_SHOP_P02",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_P02",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_P02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    },
+    {
+      "reward_id": "EQ_SHOP_P03",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_P03",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_P03]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    },
+    {
+      "reward_id": "EQ_SHOP_P04",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_P04",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_P04]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    },
+    {
+      "reward_id": "EQ_SHOP_P05",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_P05",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_P05]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    },
+    {
+      "reward_id": "EQ_SHOP_S01",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_S01",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_S01]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    },
+    {
+      "reward_id": "EQ_SHOP_S02",
+      "channel": "shop",
+      "stock_ref": "EQ_SHOP_S02",
+      "canonical_ref": "shop_inventory[id=EQ_SHOP_S02]",
+      "catalog_equipment_id": null,
+      "effect_status": "pending_selection_and_effect_design",
+      "current_load": null,
+      "quantity": 1,
+      "permanent_unique": true,
+      "price_rule": "读取canonical报价；null不是免费"
+    }
+  ]
+}

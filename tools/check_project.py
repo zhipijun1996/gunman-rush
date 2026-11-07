@@ -10,6 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    from world.build import build
+    build()
     errors = inspect(ROOT)["errors"]
     project = (ROOT / "project.godot").read_text()
     main_scene = re.search(r'^run/main_scene="res://([^"]+)"$', project, re.MULTILINE)

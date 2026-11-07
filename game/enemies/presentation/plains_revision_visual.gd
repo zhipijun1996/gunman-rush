@@ -38,7 +38,7 @@ func remains_view() -> Dictionary:
 	# saved corpses from the authoritative brain while accepted deaths retain
 	# the last visible facing for a continuous lethal handoff.
 	var face := float(actor.brain.direction) if sample.restored_terminal else float(_face)
-	return {"rig":rig,"pose":pose.duplicate(true),"transform":global_transform,"contact_foot":actor.motor.global_position+Vector2(0,actor.definition.collision_size.y*.5),"face":face,"persistent":actor.definition.behavior_id==&"charger","death_seconds":1.1}
+	return {"rig":rig,"pose":pose.duplicate(true),"transform":global_transform,"contact_foot":actor.motor.global_position+Vector2(0,actor.definition.collision_size.y*.5),"face":face,"persistent":actor.definition.behavior_id==&"charger" or actor.get_meta(&"world_persistent_corpse",false),"death_seconds":1.1}
 
 func _exit_tree() -> void:
 	if is_instance_valid(remains): remains.dispose()

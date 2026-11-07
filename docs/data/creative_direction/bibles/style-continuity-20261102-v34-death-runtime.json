@@ -244,7 +244,7 @@
       {
         "role": "item_pause_menu",
         "path": "game/presentation/ui/demo_menu.gd",
-        "sha256": "35f27a52f675fd3227b16d5231b8f4ad6c6220a3a09f756f7deb7b8c4e85991f"
+        "sha256": "dd9e6a83b007757065ca206143263a22e71d56f4bb409010bb19fd23e11ac28d"
       },
       {
         "role": "item_description",
@@ -914,7 +914,7 @@
       {
         "role": "architecture_build_state",
         "path": "game/loadout/stats/build_state.gd",
-        "sha256": "fb480a08cafa9c41fc61e77f7359348a23998b40b415cbbd875694c3f7c8cabb"
+        "sha256": "8d118fadbb6e465c4d09f4385565adc4fc2fdcb0ea9368fe25f23f64eb217ca0"
       },
       {
         "role": "architecture_input_setup",
@@ -999,7 +999,7 @@
       {
         "role": "architecture_level_request",
         "path": "game/world/levels/level_request.gd",
-        "sha256": "eb26a26e91f8cbd0893bb27c6de63965edf02709dbed4cc618cdb5eceb206dcd"
+        "sha256": "58c26f60a01a248f12769783ba23eb6f8ac7f26e6e9274e409d3e1618f4ea72e"
       },
       {
         "role": "architecture_level_runtime",
@@ -1054,7 +1054,7 @@
       {
         "role": "architecture_windkeeper_encounter",
         "path": "game/bosses/windkeeper/windkeeper_encounter.gd",
-        "sha256": "e8d3fdca7ac86a1781e400b4cfb91b16065cbb1da548b3b838065a359912610a"
+        "sha256": "7b0f845fda2bd1f4837b1a975efe7b3eac839fc6bcaa8987dd155627700649f2"
       }
     ],
     "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."

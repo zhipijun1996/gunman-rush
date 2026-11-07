@@ -51,7 +51,8 @@ func _heart(origin: Vector2, amount: float, color: Color) -> void:
 		var b := points[(i + 1) % points.size()]
 		if a.y >= cut: clipped.append(a)
 		if (a.y >= cut) != (b.y >= cut): clipped.append(a.lerp(b, (cut - a.y) / (b.y - a.y)))
-	if clipped.size() >= 3: draw_colored_polygon(clipped, color)
+	if clipped.size() >= 3 and not Geometry2D.triangulate_polygon(clipped).is_empty():
+		draw_colored_polygon(clipped, color)
 
 func _draw() -> void:
 	for i: int in ceili(capacity):

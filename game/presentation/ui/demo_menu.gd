@@ -723,7 +723,7 @@ func _inventory_grid(parent: Node, node_name: String) -> GridContainer:
 	return grid
 
 func _equipment_icon(parent: Node, entry: Dictionary) -> void:
-	var definition := entry.get("definition") as ItemDefinition
+	var definition := entry.get("definition",entry.get("presentation_template")) as ItemDefinition
 	if definition == null: return
 	var id := StringName(entry.get("instance_id", &""))
 	var button := _equipment_button(parent, "", func() -> void: _select_equipment(id))
@@ -732,12 +732,12 @@ func _equipment_icon(parent: Node, entry: Dictionary) -> void:
 	button.set_meta(&"focus_key", "item:" + str(id))
 	button.set_meta(&"rarity_color", _rarity_color(definition))
 	button.set_meta(&"inventory_tile", true)
-	button.icon = ItemPresentation.icon(definition.icon_key)
+	button.icon = ItemPresentation.icon(StringName(entry.get("icon_key",definition.icon_key)))
 	button.expand_icon = true
 	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
 	button.add_theme_constant_override("icon_max_width", 52)
-	button.tooltip_text = "%s · %s齿轮" % [definition.display_name, definition.gear_cost]
+	button.tooltip_text = "%s · %s齿轮" % [entry.get("display_name",definition.display_name), entry.get("gear_cost",definition.gear_cost)]
 	if definition.catalog_version >= 5: button.tooltip_text += " · Lv%s" % int(entry.get("level",1))
 	if bool(entry.get("broken",false)):
 		button.tooltip_text += " · 已损坏"
@@ -745,7 +745,7 @@ func _equipment_icon(parent: Node, entry: Dictionary) -> void:
 	button.toggle_mode = true
 	button.focus_entered.connect(func() -> void: _select_equipment(id))
 	var cost := Label.new()
-	cost.text = str(definition.gear_cost)
+	cost.text = str(entry.get("gear_cost",definition.gear_cost))
 	cost.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	cost.position = Vector2(-22, -24)
 	cost.size = Vector2(18, 20)
@@ -810,20 +810,20 @@ func _render_equipment_detail() -> void:
 		if StringName(entry.get("instance_id", &"")) == _selected_instance_id:
 			selected = entry
 			break
-	var definition := selected.get("definition") as ItemDefinition
+	var definition := selected.get("definition",selected.get("presentation_template")) as ItemDefinition
 	if definition != null:
 		var level := int(selected.get("level",1))
 		var broken := bool(selected.get("broken",false))
-		var item_title := _label(_equipment_detail, definition.display_name, 26, TEXT)
+		var item_title := _label(_equipment_detail, str(selected.get("display_name",definition.display_name)), 26, TEXT)
 		item_title.name = "SelectedItemName"
-		var badge := _label(_equipment_detail, "%s  ·  %s 齿轮" % [["普通", "稀有", "顶级"][definition.rarity], definition.gear_cost], 17, _rarity_color(definition))
+		var badge := _label(_equipment_detail, "%s  ·  %s 齿轮" % [str(_equipment_view.get("rarity_label",["普通", "稀有", "顶级"][definition.rarity])), selected.get("gear_cost",definition.gear_cost)], 17, _rarity_color(definition))
 		badge.name = "SelectedItemCost"
 		if definition.catalog_version >= 5:
-			var level_text := _label(_equipment_detail,"Lv%s / Lv%s%s" % [level,int(selected.get("max_level",definition.max_level))," · 同名重复获得可升级，负荷不增加" if level < definition.max_level else " · 已达最高等级"],15,MUTED)
+			var level_text := _label(_equipment_detail,"Lv%s / Lv%s%s" % [level,int(selected.get("max_level",definition.max_level)),str(_equipment_view.get("growth_hint"," · 同名重复获得可升级，负荷不增加")) if level < int(selected.get("max_level",definition.max_level)) else " · 已达最高等级"],15,MUTED)
 			level_text.name = "SelectedItemLevel"
 		var image := TextureRect.new()
 		image.name = "SelectedItemIcon"
-		image.texture = ItemPresentation.icon(definition.icon_key)
+		image.texture = ItemPresentation.icon(StringName(selected.get("icon_key",definition.icon_key)))
 		image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		image.custom_minimum_size = Vector2(0, 90)
@@ -834,7 +834,7 @@ func _render_equipment_detail() -> void:
 			var broken_text := _label(_equipment_detail,"已损坏 · 当前不产生效果，仍占用装备负荷。",17,GOLD)
 			broken_text.name = "SelectedItemBroken"
 		var effect_state: Dictionary = selected.get("effect_state",{})
-		var effects := _label(_equipment_detail, ("修复后的效果：\n" if broken else "")+ItemPresentation.effects(definition,level,effect_state), 17, MUTED if broken else TEAL)
+		var effects := _label(_equipment_detail, ("修复后的效果：\n" if broken else "")+str(selected.get("effect_text",ItemPresentation.effects(definition,level,effect_state))), 17, MUTED if broken else TEAL)
 		effects.name = "SelectedItemEffects"
 		var equipped := bool(selected.get("equipped", false))
 		var id := _selected_instance_id
@@ -842,10 +842,10 @@ func _render_equipment_detail() -> void:
 		action.name = "UnequipItem" if equipped else "EquipItem"
 		action.set_meta(&"focus_key", ("unequip:" if equipped else "equip:") + str(id))
 		action.theme_type_variation = &"PrimaryButton"
-		var locked := equipped and (bool(selected.get("locked",false)) or bool(definition.parameters_for_level(level).get("locked_until_run_end",false)))
+		var locked: bool = equipped and (bool(selected.get("locked",false)) or (_equipment_view.get("lifetime","")!="world" and bool(definition.parameters_for_level(level).get("locked_until_run_end",false))))
 		if locked:
 			action.disabled = true
-			_label(_equipment_detail,"本局已锁定，结束本局后解除。",15,GOLD)
+			_label(_equipment_detail,str(_equipment_view.get("lock_text","本局已锁定，结束本局后解除。")),15,GOLD)
 		if equipped:
 			var replace := _detail_equipment_button(_equipment_detail, "取消替换对象" if _replacement_id == id else "选为替换对象", func() -> void:
 				_replacement_id = &"" if _replacement_id == id else id

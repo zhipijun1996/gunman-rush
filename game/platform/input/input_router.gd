@@ -30,6 +30,7 @@ var has_application_focus := true
 var profile: InputProfile = InputProfile.load_default()
 var _source_axes: Dictionary = {}
 var _jump_sources: Dictionary = {}
+var _focus_heal_sources: Dictionary = {}
 var epoch := 0
 var sequence := 0
 var _queue: Array[Dictionary] = []
@@ -47,6 +48,7 @@ func activate_device(source: StringName) -> void:
 	if not has_application_focus:
 		return
 	if source != current_device:
+		_focus_heal_sources.clear()
 		_source_axes.clear()
 		axis = 0.0
 		look_axis = 0.0
@@ -88,6 +90,16 @@ func reconfigure(candidate: Dictionary) -> bool:
 func load_profile(path: String) -> bool:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	return reconfigure(parsed) if parsed is Dictionary else false
+
+func focus_heal_held() -> bool:
+	return not _focus_heal_sources.is_empty()
+func set_focus_heal_held(source: StringName,held: bool) -> void:
+	if not held:
+		_focus_heal_sources.erase(source)
+		return
+	if not has_application_focus or (is_inside_tree() and get_tree().paused): return
+	activate_device(source)
+	_focus_heal_sources[source]=true
 
 func set_jump_held(source: StringName, held: bool) -> void:
 	if not has_application_focus or (is_inside_tree() and get_tree().paused):
@@ -168,6 +180,7 @@ func clear(reason: String) -> void:
 	aim_engaged = false
 	_source_axes.clear()
 	_jump_sources.clear()
+	_focus_heal_sources.clear()
 	_queue.clear()
 	epoch += 1
 	cancelled.emit(reason)

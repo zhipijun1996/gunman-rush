@@ -11,6 +11,7 @@ var clock := 0.0
 # Only player protection uses real activity during a world freeze. The legacy
 # world clock remains unchanged for attack/hazard simulation cadence.
 var _player_clock_offset := 0.0
+var transient_protection: Callable
 var _targets: Dictionary = {}
 var _queue: Array[DamageRequest] = []
 var _seen: Dictionary = {}
@@ -95,6 +96,7 @@ func submit(request: DamageRequest) -> bool:
 		return false
 	if health.terminal or request.health_epoch != health.epoch or request.actor_epoch != lifetime.actor_epoch:
 		return false
+	if target.player and transient_protection.is_valid() and bool(transient_protection.call(request)): return false
 	var key := "%s/%s" % [request.target_id, request.event_id]
 	if _seen.has(key):
 		return false

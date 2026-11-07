@@ -520,10 +520,33 @@ def check_recorded_enemy_resources(pack, repo):
     return sorted(contract)
 
 
+def check_fixed_world_payload(pack, repo):
+    """Current world bytes and authored scene closure, independent of docs in the pack."""
+    from world.build import build
+    _, expected = build(repo)
+    actual = json.loads(pack.read('build/world/runtime.json'))
+    if actual != expected:
+        raise ValueError('PCK fixed world differs from current source and scene hashes')
+    if any(name.startswith(('docs/','config/world/')) for name in pack.entries):
+        raise ValueError('PCK fixed world must not include docs or manual world sources')
+    for room in actual['rooms'].values():
+        name = resource_path(room['scene_ref'])
+        if name in pack.entries:
+            pack.read(name)
+        else:
+            remap = pack.read(name + '.remap').decode()
+            target = re.search(r'^path="res://([^"\n]+)"$', remap, re.M)
+            if target is None:
+                raise ValueError('PCK fixed world scene remap missing: ' + name)
+            pack.read(target[1])
+    return {'content_version': actual['content_version'], 'rooms': sorted(actual['rooms'])}
+
+
 def check_runtime_closure(path, repo=REPO):
     excluded = check_excluded_consumers(repo)
     pack = Pack(path)
     generated = check_mapgen_payload(pack, repo)
+    fixed_world = check_fixed_world_payload(pack, repo) if (Path(repo)/"config/world/world.json").is_file() else None
     for family in excluded:
         if any(name.startswith(family) for name in pack.entries):
             raise ValueError('PCK contains excluded evidence-only family: ' + family)
@@ -565,6 +588,7 @@ def check_runtime_closure(path, repo=REPO):
     return {'json': sorted(manifests), 'raw_png': sorted(n for n, t in textures.items() if t['raw']),
             'textures': sorted(textures), 'pending_consumers': pending,
             'recorded_enemy_definitions': recorded_definitions,
+            'fixed_world': fixed_world,
             'mapgen_generated_dependencies': generated,
             'excluded_evidence_families': list(excluded),
             'scope': 'Actual PCK closure for integrated consumers only; no rendering/device/content acceptance'}

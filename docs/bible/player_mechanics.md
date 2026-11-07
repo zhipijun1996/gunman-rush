@@ -1,5 +1,7 @@
 # 人物物理与动作
 
+主角是由时间齿轮驱动的机器人；生命表示机体完整度，共鸣用于驱动修复。充电站承担原休息点的恢复、保存和周期推进职责，仍须主动向上交互。
+
 ## 运动权威
 
 `PlayerController`读取动作意图，动作能力更新运动请求，`PlayerMotor`每物理帧执行至多一次`move_and_slide`。基础参数来自`config/player_tuning.json`；武器运动来自实际`WeaponMotionDefinition`。世界采样、美术尺寸与物理碰撞分别维护。

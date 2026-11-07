@@ -98,12 +98,18 @@ static func style_canvas(canvas: CanvasLayer) -> void:
 			child.add_theme_color_override("font_color", TEXT)
 			child.add_theme_color_override("font_shadow_color", INK)
 
+static var _icons: Dictionary={}
+static var _icon_spec: Dictionary={}
 static func icon(key: StringName) -> Texture2D:
-	var specification: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/ui/icon_regions.json"))
+	# Canvas draw commands retain a RID, not the temporary AtlasTexture owner.
+	if _icons.has(key): return _icons[key]
+	if _icon_spec.is_empty(): _icon_spec=JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/ui/icon_regions.json"))
+	var specification: Dictionary = _icon_spec
 	var region: Array = specification.regions.get(str(key), [])
 	if region.size() != 4: return null
 	var texture := AtlasTexture.new()
 	texture.atlas = load("res://" + str(specification.atlas))
 	texture.region = Rect2(region[0],region[1],region[2],region[3])
 	texture.filter_clip = true
+	_icons[key]=texture
 	return texture

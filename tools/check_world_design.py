@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / 'docs/bible/world_regions.json'
-IMPORT = 'docs/data/world/import-v04'
+from world.build import build as build_world
 
 
 def validate_data(world, contracts, catalog):
@@ -96,8 +96,8 @@ def validate(path=None, contract_path=None, root=ROOT):
             errors.append('Identity mapping must not claim fixed-world runtime availability')
         source = root / mapping['canonical']
         world = json.loads(source.read_text())
-        contracts = json.loads((root / IMPORT / 'design/room-graybox-contracts-v04.json').read_text())
-        catalog = json.loads((root / IMPORT / 'design/collection-catalog-v04.json').read_text())
+        contracts, _ = build_world(root)
+        catalog = json.loads((root / 'config/world/collections.json').read_text())
         errors.extend(validate_data(world, contracts, catalog))
         sha = hashlib.sha256(source.read_bytes()).hexdigest()
         if contracts['canonical_sha256'] != sha or catalog['canonical_reference']['sha256'] != sha:

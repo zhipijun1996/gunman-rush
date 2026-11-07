@@ -149,6 +149,24 @@ static func recorded_enemy_plan(includes: String, excludes: String, bindings: Va
 	return {"ok":true,"sources":sources}
 
 func _export_begin(_features: PackedStringArray, _is_debug: bool, _path: String, _flags: int) -> void:
+	var world_path := "res://build/world/runtime.json"
+	var world_bytes := FileAccess.get_file_as_bytes(world_path)
+	var world: Variant = JSON.parse_string(world_bytes.get_string_from_utf8())
+	if not world is Dictionary or world.get("schema") != 1:
+		push_error("Run tools/world/build.py before export")
+		editor_tree.quit(1)
+		return
+	for source: String in world.sources:
+		if FileAccess.get_sha256("res://config/world/" + source) != world.sources[source]:
+			push_error("Stale world build: " + source)
+			editor_tree.quit(1)
+			return
+	for scene: String in world.scene_sources:
+		if FileAccess.get_sha256(scene) != world.scene_sources[scene]:
+			push_error("Stale authored world scene: " + scene)
+			editor_tree.quit(1)
+			return
+	add_file(world_path, world_bytes, false)
 	var preset := get_export_preset()
 	var planned := source_plan(preset.get_include_filter(), preset.get_exclude_filter())
 	if not planned.ok:
