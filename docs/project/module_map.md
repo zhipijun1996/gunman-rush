@@ -5,6 +5,7 @@
 | 修改主题 | 真实代码入口／关键符号 | 设计 | 检查入口 |
 | --- | --- | --- | --- |
 | 固定世界入口／过房／失败恢复 | [FixedWorldApp](../../game/application/world/fixed_world_app.gd)、[FixedWorldProvider](../../game/world/levels/providers/fixed_world_provider.gd)、[FixedWorldRoom](../../game/world/levels/fixed_world_room.gd)、[首批手工房](../../game/world/regions/P/rooms/) | [架构](architecture.md)、[世界输入](../data/world/README.md) | `world-build`、`world-loop`；正常入口smoke |
+| 整区编排／反冲房间／遭遇 | `config/world/`、`tools/world/room_context.py`、`game/world/regions/`；方法入口为 [godot-recoil-level-design](../../.agents/skills/godot-recoil-level-design/SKILL.md) | [房间制作](../bible/room_authoring.md)、目标地区Bible、相关敌人/机关对象规范 | 按Skill选择真实Motor、正常镜头和正式跨房检查；代表房校准后完成全区职责表范围 |
 | 旧原型入口与一局装配 | [DemoApp](../../game/application/demo_app.gd)、[RunComposition](../../game/application/run_composition.gd)、[RunSession](../../game/application/run_session.gd) | [架构](architecture.md)、[流程](../bible/world_progression.md) | `core` |
 | 能力与地区推进 | [RunCampaignProgression](../../game/application/run_campaign_progression.gd)、`DemoApp._select_next_region` | [流程](../bible/world_progression.md)、[地区门槛](../bible/regions.md) | `core`、`level-region-context` |
 | 输入／菜单取消 | [InputRouter](../../game/platform/input/input_router.gd)、[InputSetup](../../game/platform/input/input_setup.gd) | [操作](../bible/controls_contract.md) | `core`、`studio-input` |

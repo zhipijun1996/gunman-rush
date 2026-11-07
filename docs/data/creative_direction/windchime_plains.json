@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v39-mv",
+  "version": "creative-v40-plains-method",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
   "acceptance": "user_confirmed",
   "user_acceptance": "direction_only_not_art_gameplay_or_device",
   "selection_basis": "user_supplied_bible",
-  "selection_rationale": "按用户选择的地区方向制作；先完成森林，再优化平原。两区及后续区域沿项目共用像素画风，地区材料与生态表达各自身份；具体规则读取现行圣经与对象正文。",
+  "selection_rationale": "沿用户选定的草海、铜铃、风车和共用像素画风制作固定世界。首区以基础反冲主导动作；普通穿越与探索安排有空间作用的敌人，复杂连续障碍控制叠加压力。整区职责与节奏先行，具体规则读取现行圣经与对象正文。",
   "region_bible": {
     "path": "docs/bible/regions/windchime_plains.md",
-    "sha256": "fab62d0f09edc3419a9ce1bd37878ef2dae7cb64ae250e77f988d1dafecc16f4",
+    "sha256": "28ee9d59e819b28e7bd7bb4c336132b8b3fa202c7f0f92ec2aba0f55df599865",
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
@@ -19,7 +19,7 @@
     "supplemental_authority_sha256": "1ab6abf26d7af77a1dca56fecd868a0e5220526bb9f01c67fe28ab0fb4bd2869",
     "region_id": "windchime_plains",
     "registry_path": "docs/data/creative_direction/bibles/registry.json",
-    "registry_sha256": "70624ff9a5634467edf9768510fea09e8e9dcc61f87bc991076cfc9824f93520",
+    "registry_sha256": "4dd122ec8fe4a202343188e186b12f2328afcb8e4436fa4c6b442cf55aa6c332",
     "selection_evidence_path": "docs/data/creative_direction/sources/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -41,15 +41,17 @@
   "player_behavior": {
     "source": "docs/bible/regions/windchime_plains.md",
     "contract": "按当前地区圣经与相关对象规范执行本次范围，结合真实消费者检查美术统一和玩家体验。",
-    "identity": "一段跳与定向射击反冲；发现落点、机关空间关系与多层探索。"
+    "identity": "基础跳跃与定向射击反冲；在穿越、轻遭遇、机关与多层探索中改变落点、站位和下一步机会。"
   },
   "space": {
     "source": "docs/bible/regions/windchime_plains.md",
-    "contract": "按当前地区圣经与相关对象规范执行本次范围，结合真实消费者检查美术统一和玩家体验。"
+    "contract": "按当前地区圣经与相关对象规范执行本次范围，结合真实消费者检查美术统一和玩家体验。",
+    "identity": "按全部现行P房、能力阶段与实际路线编排职责和节奏；体量服务观察、动作、后续机会与恢复。"
   },
   "ecology": {
     "source": "docs/bible/regions/windchime_plains.md",
-    "contract": "按当前地区圣经与相关对象规范执行本次范围，结合真实消费者检查美术统一和玩家体验。"
+    "contract": "按当前地区圣经与相关对象规范执行本次范围，结合真实消费者检查美术统一和玩家体验。",
+    "identity": "普通宽地与探索通道主动考虑轻遭遇；复杂连续障碍先保证可读，敌人承担逼近、封线、打断或落点争夺等具体作用。"
   },
   "boss": {
     "source": "docs/data/README.md",
@@ -83,9 +85,9 @@
   "slice": {
     "source": "docs/bible/regions/windchime_plains.md",
     "contract": "按当前地区圣经与相关对象规范执行本次范围，结合真实消费者检查美术统一和玩家体验。",
-    "consumer": "DemoApp.start_plains -> PlainsRegionGenerator -> PlainsRegionStage -> PlainsRegionAssembler",
-    "status": "legacy_consumer_reference_not_fixed_world_runtime",
-    "requirements": "先按任务范围制作固定房间/Section代表样房，验证真实门台、能力环境、状态与回程；结构灰盒只签结构可玩，完整美术/战斗另验。额外独审仅按任务约定，扩展以room_id、相邻连接和状态为单位。"
+    "consumer": "project.godot -> FixedWorldApp -> FixedWorldProvider -> FixedWorldRoom / game/world/regions/P/rooms",
+    "status": "current_room_interface_reference_not_full_region_completion",
+    "requirements": "全区职责表覆盖当前目标房；代表内容校准真实动作、遭遇、门台、状态和回程后，按连通片区继续完成授权范围。结构、可玩内容、美术、专业判断与用户/设备验收分别记录。"
   },
   "exclusions": {
     "core": "保留PlayerMotor、合法能力、资源、RNG与保存合同；旧提案或失败实现不自动约束新地区，但正式平原仍用的Underworld tileset及共用像素家族是当前继承依据，不得整体抛弃。",
@@ -123,7 +125,7 @@
     },
     {
       "path": "docs/bible/regions/windchime_plains.md",
-      "sha256": "fab62d0f09edc3419a9ce1bd37878ef2dae7cb64ae250e77f988d1dafecc16f4"
+      "sha256": "28ee9d59e819b28e7bd7bb4c336132b8b3fa202c7f0f92ec2aba0f55df599865"
     },
     {
       "path": "docs/bible/regions.md",
@@ -141,5 +143,10 @@
       "path": "docs/data/abilities.md",
       "sha256": "2d1ed2f5efa03c8bf089579128ee151942980b360657e433a0bd93be8af5916d"
     }
-  ]
+  ],
+  "refinement_evidence": {
+    "source": "Direct user message in this ChatGPT conversation, 2026-11-07; manually retained by /root, not an API export",
+    "quote": "这次实验还算可以。如果不是承担复杂连续且有障碍的跳跳乐的地方，可以加一些怪。然后这三个只是例子，我准备要给codex直接生成整个平原，所以需要的是规范和方法论skills。而不是简单的例子。",
+    "authorization_scope": "产出可供Codex生成完整平原的规范与方法Skill；本次不宣称整个地区已制作，三个实验的反馈不代签整区体验。"
+  }
 }
