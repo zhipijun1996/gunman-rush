@@ -83,5 +83,15 @@ func run() -> void:
 		lowest_floor_visibility=minf(lowest_floor_visibility,app.camera.position.y+half.y)
 	key(KEY_SPACE,false)
 	check(lowest_floor_visibility>=app.room.arena_bounds.end.y-8,"Boss jump keeps receiving floor visible without changing zoom")
+	await ticks(120)
+	key(KEY_SPACE,true)
+	var actor_in_frame:=true
+	for i: int in 90:
+		await physics_frame
+		if i==12:app.controller.router.request_action(&"shoot_release",Vector2.DOWN)
+		var screen_feet:=app.player.global_position.y-app.camera.get_screen_center_position().y+half.y
+		actor_in_frame=actor_in_frame and screen_feet>=float(app.camera.settings.arena_headroom)-2 and screen_feet<=half.y*2-float(app.camera.settings.arena_footroom)+2
+	key(KEY_SPACE,false)
+	check(actor_in_frame,"rapid arena jump plus downward recoil keeps the whole actor in the actual camera frame")
 	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)
 	print("WORLD PRESENTATION: %d assertions, %d failures" % [checks,failures]);quit(failures)

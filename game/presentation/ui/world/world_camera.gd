@@ -42,3 +42,10 @@ func _physics_process(delta: float) -> void:
 		goal.y=minf(bounds.end.y-half_height,target.global_position.y+half_height-float(settings.arena_headroom))
 	var vertical_time:=lerpf(float(settings.vertical_seconds),float(settings.fall_seconds),clampf(target.velocity.y/float(settings.fall_speed),0,1))
 	global_position=bounded(Vector2(lerpf(global_position.x,goal.x,1-exp(-delta/float(settings.horizontal_seconds))),lerpf(global_position.y,goal.y,1-exp(-delta/vertical_time))))
+	if arena_active():
+		# Recoil can outrun the smooth floor preference. Actor visibility wins at
+		# the arena edge, even when its sprite needs a little space above it.
+		var half_height:=get_viewport_rect().size.y/(2*zoom.y)
+		var margin:=float(settings.arena_headroom)
+		global_position.y=clampf(global_position.y,target.global_position.y-half_height+float(settings.arena_footroom),target.global_position.y+half_height-margin)
+		force_update_scroll()
