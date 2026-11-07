@@ -30,4 +30,6 @@ Godot 4.7.2 Standard、类型化 GDScript，目标为固定世界类银河恶魔
 
 输入提交意图，PlayerMotor 唯一执行玩家运动；表现消费已接受事件。生命周期、随机流、奖励／交易幂等、死亡优先与永久／休息周期／挑战尝试／动作瞬态边界按相关合同。
 
+房间美术、Underworld 地形、47 邻接、景深与光影制作使用 [godot-room-art](.agents/skills/godot-room-art/SKILL.md)；已认可标准仍以 Visual Bible 和区域 Bible 为准。素材包接入状态与导入方法见该 Skill 的 `references/cloud-import.md`。关卡与能力设计继续由 godot-recoil-level-design 负责。
+
 新代码归 `game/` 所属功能。`scripts/`、`scenes/`、`resources/` 仍有正式消费者，移动／删除须核引用、UID、动态加载、导出和版本。从最新 main 开主题分支，PR 面向 main；并行会话隔离写集与工作树，保护用户改动及密钥。合并、发布按本次授权，交接见 [协作规则](docs/project/cloud_production.md)。
