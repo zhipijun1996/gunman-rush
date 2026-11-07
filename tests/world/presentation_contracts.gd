@@ -93,5 +93,9 @@ func run() -> void:
 		actor_in_frame=actor_in_frame and screen_feet>=float(app.camera.settings.arena_headroom)-2 and screen_feet<=half.y*2-float(app.camera.settings.arena_footroom)+2
 	key(KEY_SPACE,false)
 	check(actor_in_frame,"rapid arena jump plus downward recoil keeps the whole actor in the actual camera frame")
+	app.player.reset_at(Vector2(1572,350));await ticks(5)
+	check(app.ui.mini.modulate.a<.2,"minimap yields contrast when the actual projected actor passes behind it")
+	app._pause_world();app.ui.show_pause();app._update_hud()
+	check(app.ui.mini.modulate.a==1,"paused UI restores full contrast without moving its input targets")
 	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)
 	print("WORLD PRESENTATION: %d assertions, %d failures" % [checks,failures]);quit(failures)

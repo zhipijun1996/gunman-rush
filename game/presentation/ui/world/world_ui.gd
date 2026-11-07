@@ -157,6 +157,12 @@ func present(actor: PlayerController,room_id: String,location: String,status: St
 	if actor.actor_resources.health.current>=actor.actor_resources.health.capacity: heal.text=WorldText.text("heal.full")
 	elif actor.combat_energy.current<cost: heal.text=WorldText.text("heal.insufficient") % cost
 	hud._wallet_plate.position=Vector2(safe.end.x-hud._wallet_plate.size.x*hud._wallet_plate.scale.x-24*factor,pause_host.position.y+pause_host.size.y+8*factor)
+	# Floating controls must not hide a high recoil or an edge landing. Keep
+	# their input regions intact, and restore full contrast in paused panels.
+	var pose:=actor.motor.get_global_transform_with_canvas()
+	var body:=Rect2(pose*Vector2(-28,-48),Vector2(56,56)*pose.get_scale().abs())
+	for overlay: Control in [mini,pause_host,heal_host,hud._wallet_plate]:
+		overlay.modulate.a=.12 if page.is_empty() and body.intersects(overlay.get_global_rect().grow(8)) else 1.0
 
 func _touch_host(button: Button) -> ScrollContainer:
 	var host:=ScrollContainer.new()
