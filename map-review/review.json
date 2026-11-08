@@ -1,9 +1,8 @@
 {
-  "id": "plains-map-review-02",
+  "id": "plains-map-review-03",
   "runtime_build": "f9e92d4a30ab",
-  "baseline_commit": "00f2a3c09e5fb352e6c450de7f1aaeaa30afc6b3",
+  "baseline_commit": "b027dcf1",
   "runtime_source_commit": "1acefe0315ab51d1f280e2c5a3e56b5c2a65fb55",
-  "exporter_sha256": "0a76bc7d9ae9be44cbe3b39576cfcd1dee1a1f7b7d7dd02483ff76681bd7613c",
   "status": "topology_approved_contours_in_review_not_runtime",
   "changes": [
     {
@@ -42,7 +41,7 @@
     {
       "id": "main",
       "name": "① 首访主线 · 基础动作 / 反冲",
-      "color": "#c46c2e",
+      "color": "#e4b36e",
       "rooms": [
         3,
         21,
@@ -64,7 +63,7 @@
     {
       "id": "return",
       "name": "② 钩索与修钟归途",
-      "color": "#318a88",
+      "color": "#79c9c5",
       "rooms": [
         14,
         15,
@@ -77,7 +76,7 @@
     {
       "id": "east",
       "name": "③ 钩索东行与可选Boss",
-      "color": "#626ba1",
+      "color": "#9cb7e2",
       "rooms": [
         32,
         35,
@@ -93,7 +92,7 @@
     {
       "id": "water",
       "name": "④ 下层探索回环",
-      "color": "#358579",
+      "color": "#b2c994",
       "rooms": [
         31,
         34,
@@ -110,7 +109,7 @@
     {
       "id": "preview",
       "name": "⑤ 初期可选 · 看见未来的路",
-      "color": "#9a5488",
+      "color": "#d3a7d6",
       "rooms": [
         1,
         31,
@@ -1502,12 +1501,18 @@
     "room_overlaps": 0,
     "unrelated_corridor_crossings": 0,
     "route_sequences_checked": 5,
-    "scope": "Draft geometry and graph only; no runtime or motor acceptance."
+    "scope": "Draft geometry and graph only; no runtime or motor acceptance.",
+    "connected_silhouette": true,
+    "room_labels_inside": 35,
+    "geometry_source": "Authored regional landforms; no clipping to runtime bounding boxes"
   },
   "source_hashes": {
     "config/world/world.json": "251ae99f8564ceb51e3e42a02ca004534e56d46f3c6d741b51055923310bb78d",
     "config/world/construction.json": "7df981a12c5bbeae5b36ef997498797524a35b3751263bf30d2518b05a37e1ae",
     "game/world/regions/P/room_design.json": "f868492a0472b03acd8ebd80c16fe68f0b16e6e54ac4be29de1641da0fc8295b",
-    "config/world/collection_design.json": "0a0eb0dbfb7353bcd7d6a9de97e8c9a53c99a9af9c3e31d6813c18a0656a723b"
+    "config/world/collection_design.json": "0a0eb0dbfb7353bcd7d6a9de97e8c9a53c99a9af9c3e31d6813c18a0656a723b",
+    "tools/world_review/plains_map.py": "99a66ac9bf76de9132a188760f95d5afb2649d8696c6b4cae50377fd7c316a66",
+    "tools/world_review/plains_layout.py": "e3afe4907b5fa4a1620ecd0dda4841bd023954dd86585675a1b420e09a6ffca5",
+    "tools/world_review/review.html": "32a5016ba0f8eb11c69638181d6a35b77fd9e22e2a7f746f44bd1d5c1d193d7f"
   }
 }
