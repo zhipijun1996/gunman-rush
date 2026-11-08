@@ -4,6 +4,9 @@ extends SceneTree
 const ART := "res://art/reviews/plains_enemies_pr142/static/"
 const DEST := "res://build/plains_enemies_pr142/color-c/context/"
 const BASELINE := "res://build/plains_enemies_pr142/color-c/baseline/"
+const SAMPLES := "res://art/reviews/plains_enemies_pr142/pixel_samples/static/"
+const SAMPLE_DEST := "res://build/plains_enemies_pr142/pixel-d/context/"
+var sample_mode := "sample-d" in OS.get_cmdline_user_args()
 var rejected_material: Shader
 var app: FixedWorldApp
 var records: Array[Dictionary] = []
@@ -45,9 +48,11 @@ func add_static(id: String, foot: Vector2) -> void:
 	sprites.append(sprite)
 
 func snap(id: String, variant: String) -> void:
-	note.text=current_title+"  |  "+("B 旧配色" if variant=="B" else "C 主色块重绘")+"\n正式TileSet / 原镜头与光照 / 静态试摆，非战斗或动画"
+	var titles := {"B":"B 旧配色", "C":"C 主色块重绘", "D":"D 收色与像素簇样板"}
+	note.text=current_title+"  |  "+titles[variant]+"\n正式TileSet / 原镜头与光照 / 静态试摆，非战斗或动画"
 	for sprite: Sprite2D in sprites:
-		var path: String=(BASELINE+"static/" if variant=="B" else ART)+String(sprite.name)+".png"
+		var folder: String = SAMPLES if variant=="D" else (BASELINE+"static/" if variant=="B" else ART)
+		var path: String=folder+String(sprite.name)+".png"
 		var im:=Image.load_from_file(path)
 		assert(im!=null and not im.is_empty(),"Prepare baseline with package_plains_enemy_context.py --prepare-baseline")
 		sprite.texture=ImageTexture.create_from_image(im)
@@ -57,7 +62,7 @@ func snap(id: String, variant: String) -> void:
 		else: sprite.material=null
 	await process_frame
 	await RenderingServer.frame_post_draw
-	var filename:=DEST+id+"-"+variant+".png"
+	var filename: String=(SAMPLE_DEST if sample_mode else DEST)+id+"-"+variant+".png"
 	assert(root.get_texture().get_image().save_png(filename)==OK)
 	var row: Dictionary={"case":id,"variant":variant,"room":app.room.room_id,"file":filename,"camera":str(app.camera.global_position),"zoom":str(app.camera.zoom),"player":str(app.player.global_position),"sprites":[]}
 	for sprite: Sprite2D in sprites:
@@ -67,10 +72,12 @@ func snap(id: String, variant: String) -> void:
 	print("STATIC CONTEXT ",id," ",variant," ",row.sprites)
 
 func run() -> void:
-	DirAccess.make_dir_recursive_absolute(DEST)
-	rejected_material=Shader.new()
-	rejected_material.code=FileAccess.get_file_as_string(BASELINE+"readability.gdshader")
-	assert(not rejected_material.code.is_empty(),"Prepare the rejected baseline first")
+	var destination: String = SAMPLE_DEST if sample_mode else DEST
+	DirAccess.make_dir_recursive_absolute(destination)
+	if not sample_mode:
+		rejected_material=Shader.new()
+		rejected_material.code=FileAccess.get_file_as_string(BASELINE+"readability.gdshader")
+		assert(not rejected_material.code.is_empty(),"Prepare the rejected baseline first")
 	root.size=Vector2i(1280,720)
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path="user://plains_enemy_static_context.json"
@@ -81,7 +88,9 @@ func run() -> void:
 	note=Label.new();note.position=Vector2(320,14);note.add_theme_font_size_override("font_size",16)
 	note.add_theme_color_override("font_outline_color",Color("142b2b"));note.add_theme_constant_override("outline_size",5);layer.add_child(note)
 	for shot: Dictionary in shots:
-		if not OS.get_cmdline_user_args().is_empty() and shot.id not in OS.get_cmdline_user_args()[0].split(","):continue
+		if sample_mode:
+			if shot.id not in ["02-junction","03-interior","06-keeper-two"]:continue
+		elif not OS.get_cmdline_user_args().is_empty() and shot.id not in OS.get_cmdline_user_args()[0].split(","):continue
 		app.process_mode=Node.PROCESS_MODE_INHERIT
 		app.load_room(shot.room,"");await settle()
 		app.set_physics_process(false);app.controller.active=false
@@ -97,9 +106,12 @@ func run() -> void:
 		await ticks(90)
 		app.process_mode=Node.PROCESS_MODE_DISABLED
 		sprites.clear()
-		for pose: Array in shot.poses:add_static(pose[0],pose[1])
-		await snap(shot.id,"B");await snap(shot.id,"C")
-	var file:=FileAccess.open(DEST+"capture.json",FileAccess.WRITE)
+		for pose: Array in shot.poses:
+			if sample_mode and pose[0] not in ["sentry","windkeeper_phase2"]:continue
+			add_static(pose[0],pose[1])
+		await snap(shot.id,"C" if sample_mode else "B")
+		await snap(shot.id,"D" if sample_mode else "C")
+	var file:=FileAccess.open(destination+"capture.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"scope":"PR142 actual runtime scenery with frozen static approval fixtures; no combat or motion acceptance","shots":records},"\t"));file.close()
 	app.process_mode=Node.PROCESS_MODE_INHERIT
 	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)

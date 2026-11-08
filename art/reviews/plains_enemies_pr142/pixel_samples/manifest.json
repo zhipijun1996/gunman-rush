@@ -1,0 +1,35 @@
+{
+  "status": "two static calibration samples; no user approval; remaining eight C candidates are not restyled",
+  "baseline": "PR142; previous C a5668a4",
+  "derivation": "alpha>=128, remove disconnected components<20 source pixels; tight crop; uniform nearest bake; no palette filter or code painting",
+  "assets": {
+    "sentry": {
+      "source_sha256": "2916f2bcf114940f2e3348702451057c45beb0fb37be2de64bacf72ffa125520",
+      "crop": [
+        59,
+        15,
+        1233,
+        1179
+      ],
+      "native_size": [
+        73,
+        72
+      ],
+      "sha256": "4f06fff398346f5077da6ecd914ae7dc4550f0db2c429fa3734fbad557fb90d5"
+    },
+    "windkeeper_phase2": {
+      "source_sha256": "42924a1e460221f8a035b7d82714149c202540e1b76f121ad3517b507516f531",
+      "crop": [
+        9,
+        8,
+        1275,
+        1214
+      ],
+      "native_size": [
+        376,
+        358
+      ],
+      "sha256": "ddb4a5b3a57c7d4be3e00d926b40e657d813b7f243296e63f00089c4fc145205"
+    }
+  }
+}
