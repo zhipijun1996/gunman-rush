@@ -83,8 +83,57 @@
   "published_bundle": {
     "build_id": "e767187d427f",
     "source_commit": "ac4ff02cab069bf862ef78cfba92919ef897cd72",
-    "pack_sha256": "e767187d427f9214ca518e5d1b8ce479a71acaa90951d2652c032ef9d1f29bfa",
-    "status": "verified locally; deployment pending"
+    "deploy_run": 42507934180,
+    "prepared_commit": "89bb85d",
+    "pack_bytes": 237144744,
+    "files": [
+      {
+        "file": "build-info.json",
+        "bytes": 986,
+        "sha256": "d296b01d6747781078be800cb4947d46e5f45191d163a0a764a14a81f47dc4d7"
+      },
+      {
+        "file": "map-review/index.html",
+        "bytes": 250168,
+        "sha256": "fbdf25012799ce4ad495d6157f15364f2440fabf8b81af94d4c74563571e080f"
+      },
+      {
+        "file": "map-review/review.json",
+        "bytes": 43789,
+        "sha256": "5f3ba8b310c6a8b37930a64923b8582a0f41001b797ea47b60bf1d99b48ef817"
+      },
+      {
+        "file": "map-review/map.svg",
+        "bytes": 194610,
+        "sha256": "7a2d3d9f326f97c448aeef5c87a052ab933b01e49af72f9448fd73119421d521"
+      },
+      {
+        "file": "replays/index.html",
+        "bytes": 4422,
+        "sha256": "82a60a48e0fb0a9b215bd7045c5d44f8ab51a9e6448bbe5c9224fcc6b075d250"
+      },
+      {
+        "file": "replays/clips.json",
+        "bytes": 1135,
+        "sha256": "59939d4c38660699c31ae86d582c9458f3e791feebde9e5d9435958bc59ec972"
+      },
+      {
+        "file": "replays/practice.mp4",
+        "bytes": 255151,
+        "sha256": "cbc9a48e85da8e7ad83bedb52bf6486676458f636241213ed959c085f560e830"
+      },
+      {
+        "file": "replays/shutter.mp4",
+        "bytes": 501927,
+        "sha256": "0bcfdfb1fd369654a6a8bb6e1c031d1600a29a92d6eec59ca1c31b4bb7a65b18"
+      },
+      {
+        "file": "replays/overlook.mp4",
+        "bytes": 1360360,
+        "sha256": "d82d41b626d35051529058bc15f963ad9582263150b6ef2935916b5789ceed77"
+      }
+    ],
+    "status": "deployed; public metadata/map/clips match exact local bytes; complete PCK length matches"
   },
   "native_clips": [
     {
@@ -121,5 +170,10 @@
     "room_cards": 6,
     "mobile_layout": "390x844",
     "scope": "Browser emulation, not physical phone or full Web playthrough."
+  },
+  "public_browser": {
+    "url": "https://zhipijun1996.github.io/gunman-rush/?v=e767187d427f",
+    "result": "Exported Godot started; ordinary new-game input, movement, map and small pause completed without engine/page/resource failures. Screenshots inspected.",
+    "scope": "Desktop Chromium, not full Web traversal or physical phone."
   }
 }
