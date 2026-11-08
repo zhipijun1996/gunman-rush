@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Package reproducible native atlases and a standalone animation inspector."""
+"""Package reproducible native atlases and an on-demand animation inspector."""
 from pathlib import Path
-import base64, hashlib, json, zipfile
+import hashlib, json, shutil, zipfile
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -9,8 +9,12 @@ ART = ROOT / 'assets/plains_actors_142'
 OUT = ROOT / 'build/plains_actors_142'
 LABELS = {'patrol':'巡逻怪','charger':'冲锋怪','hopper':'跳跃怪','sentry':'哨兵','fan_sentry':'扇射哨兵','root_bell':'根铃','diver':'俯冲怪','bellstrider':'鸣铃巡游机','windkeeper_phase1':'牧风者 · 一阶段','windkeeper_phase2':'牧风者 · 二阶段'}
 
-def data_url(path):
-    return 'data:image/png;base64,' + base64.b64encode(path.read_bytes()).decode()
+def review_asset(path):
+    relative = Path('review-assets') / path.parent.name / path.name
+    target = OUT / relative
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(path, target)
+    return relative.as_posix()
 
 
 def main():
@@ -36,16 +40,17 @@ def main():
             assert len(set(hashes)) >= 3, (name,row,'duplicated poses')
             frames.extend(hashes)
         poses += len(frames)
-        sheets[name] = dict(meta, image=data_url(atlas))
+        sheets[name] = {k: meta[k] for k in ('frame_size', 'pivot', 'columns', 'states')}
+        sheets[name]['image'] = review_asset(atlas)
         sources.append({'id':name, 'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(), 'atlas_sha256':hashlib.sha256(atlas.read_bytes()).hexdigest(), 'states':meta['states'],'frames':len(frames),'frame_sha256':frames})
     manifest = {'generator':'image_gen','approved_static_commit':'a5668a4','world_sampling':'1 native pixel / world unit, nearest','baking':'alpha threshold, fixed body scale, fixed registration, nearest sampling; no painted Python pixels','pose_count':poses,'static_count':10,'sheets':sources}
     (ART/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
-    payload = json.dumps({'sheets':sheets,'labels':LABELS,'static':{n:data_url(ART/'static'/f'{n}.png') for n in LABELS}},ensure_ascii=False)
+    payload = json.dumps({'sheets':sheets,'labels':LABELS,'static':{n:review_asset(ART/'static'/f'{n}.png') for n in LABELS}},ensure_ascii=False)
     template = '''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>平原怪物 · 动作检视</title><style>
     *{box-sizing:border-box}body{margin:0;background:#172324;color:#e9e4d4;font:16px system-ui,sans-serif}main{max-width:1180px;margin:auto;padding:24px}h1{font-size:25px;margin:0 0 8px}p{color:#b8c7c2;line-height:1.6}nav,.controls{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}button,select,input{font:inherit}button,select{padding:10px 13px;border:1px solid #647770;border-radius:7px;background:#263b3a;color:inherit;cursor:pointer}button.active{background:#4a6860;border-color:#dacb97}.viewport{overflow:auto;background:#263b3a;border:1px solid #52635d;border-radius:10px;min-height:420px;display:flex;justify-content:center;align-items:center}canvas{image-rendering:pixelated;max-width:100%;height:auto}label{display:flex;align-items:center;gap:8px}.info{font-variant-numeric:tabular-nums;color:#d2c4a1}a{color:#c5dba7}video{width:100%;border-radius:8px}details{margin:24px 0}summary{cursor:pointer;padding:12px;background:#263b3a;border-radius:7px}@media(max-width:600px){main{padding:16px}.viewport{min-height:300px}}
-    </style><main><h1>平原怪物 · 全动作检视</h1><p>B/C 造型 · 七类普通怪、两位 Boss 与牧风者头顶风车。这里查看逐帧素材原色；实际关卡的光照和明暗分离见下方录像。</p><nav id="actors"></nav><div class="controls"><label>招式 <select id="attack"></select></label><label>动作 <select id="clip"></select></label><button id="play">暂停</button><label>速度 <select id="speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><label>放大 <select id="zoom"><option value="1">1×</option><option value="2" selected>2×</option><option value="3">3×</option></select></label></div><div class="viewport"><canvas id="view" width="900" height="540"></canvas></div><div class="controls"><label>逐帧 <input id="frame" type="range" min="0" max="3" value="0"></label><span class="info" id="info"></span><a id="download" download>下载当前动作页 PNG</a></div><p>静态图保留批准稿；待机、移动、前摇、攻击、后摇、受伤、死亡使用独立姿势。定点怪的移动素材用于完整动作库，游戏中的定点行为保持原规则。</p><details open><summary>PR142 关卡合屏录像</summary><p>正式 TileSet、主角、相机与光照下的定点动作检视，包含死亡和风车展开；这是素材检视录像，不代表自然战斗流程。</p><div id="movies"></div></details><details><summary>正式 Boss 实战片段 · 正常速度</summary><p>自动玩家使用正常移动、跳跃、射击输入。开场位置为夹具；第三段额外使用二阶段生命阈值夹具。保留真实伤害、前后摇和场景相机，片段不代表自然通关。</p><p>巡游机</p><video controls preload="none" src="combat/bell.mp4"></video><p>牧风者一阶段与转换</p><video controls preload="none" src="combat/keeper.mp4"></video><p>牧风者二阶段</p><video controls preload="none" src="combat/windmill.mp4"></video></details></main><script>
-    const movies=[['context/01-meadow.mp4','草坡：巡逻、冲锋、跳跃'],['context/02-junction.mp4','岔路：哨兵、根铃、扇射、俯冲'],['context/03-interior.mp4','室内光照'],['context/04-bellstrider.mp4','鸣铃巡游机'],['context/05-keeper-one.mp4','牧风者一阶段'],['context/06-keeper-two.mp4','牧风者二阶段与风车展开']];for(const [src,title] of movies){const d=document.createElement('details');const label=document.createElement('summary');label.textContent=title;const v=document.createElement('video');v.controls=true;v.preload='none';v.src=src;d.append(label,v);document.getElementById('movies').append(d);}const data=PAYLOAD; const $=id=>document.getElementById(id);let actor='charger', sheetName='charger', clip='idle', elapsed=0, paused=false,last=performance.now(); const images={};
-    for(const [key,value] of Object.entries(data.sheets)){images[key]=new Image();images[key].src=value.image;}const staticImages={};for(const [key,value] of Object.entries(data.static)){staticImages[key]=new Image();staticImages[key].src=value;}
+    </style><main><h1>平原怪物 · 全动作检视</h1><p>B/C 造型 · 七类普通怪、两位 Boss 与牧风者头顶风车。每次只加载当前动作页。这里查看逐帧素材原色；实际关卡的光照和明暗分离见下方录像。</p><nav id="actors"></nav><div class="controls"><label>招式 <select id="attack"></select></label><label>动作 <select id="clip"></select></label><button id="play">暂停</button><label>速度 <select id="speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><label>放大 <select id="zoom"><option value="1">1×</option><option value="2" selected>2×</option><option value="3">3×</option></select></label></div><div class="viewport"><canvas id="view" width="900" height="540"></canvas></div><div class="controls"><label>逐帧 <input id="frame" type="range" min="0" max="3" value="0"></label><span class="info" id="info"></span><a id="download" download>下载当前动作页 PNG</a></div><p>静态图保留批准稿；待机、移动、前摇、攻击、后摇、受伤、死亡使用独立姿势。定点怪的移动素材用于完整动作库，游戏中的定点行为保持原规则。</p><details open><summary>PR142 关卡合屏录像</summary><p>正式 TileSet、主角、相机与光照下的定点动作检视，包含死亡和风车展开；这是素材检视录像，不代表自然战斗流程。</p><div id="movies"></div></details><details><summary>正式 Boss 实战片段 · 正常速度</summary><p>自动玩家使用正常移动、跳跃、射击输入。开场位置为夹具；第三段额外使用二阶段生命阈值夹具。保留真实伤害、前后摇和场景相机，片段不代表自然通关。</p><p>巡游机</p><video controls playsinline preload="none" src="combat/bell.mp4"></video><p>牧风者一阶段与转换</p><video controls playsinline preload="none" src="combat/keeper.mp4"></video><p>牧风者二阶段</p><video controls playsinline preload="none" src="combat/windmill.mp4"></video></details></main><script>
+    const movies=[['context/01-meadow.mp4','草坡：巡逻、冲锋、跳跃'],['context/02-junction.mp4','岔路：哨兵、根铃、扇射、俯冲'],['context/03-interior.mp4','室内光照'],['context/04-bellstrider.mp4','鸣铃巡游机'],['context/05-keeper-one.mp4','牧风者一阶段'],['context/06-keeper-two.mp4','牧风者二阶段与风车展开']];for(const [src,title] of movies){const d=document.createElement('details');const label=document.createElement('summary');label.textContent=title;const v=document.createElement('video');v.controls=true;v.playsInline=true;v.preload='none';v.src=src;d.append(label,v);document.getElementById('movies').append(d);}const data=PAYLOAD; const $=id=>document.getElementById(id);let actor='charger', sheetName='charger', clip='idle', elapsed=0, paused=false,last=performance.now(); let loadedURL="", loadedImage=null;
+    function imageFor(url){if(loadedURL!==url){if(loadedImage)loadedImage.removeAttribute('src');loadedURL=url;loadedImage=new Image();loadedImage.decoding='async';loadedImage.src=url;}return loadedImage;}
     const names={idle:'待机',move:'移动',anticipation:'攻击前摇',attack:'攻击',recovery:'后摇',hurt:'受伤',death:'死亡',transition_start:'风车生长',transition_finish:'风帆展开',static:'批准静态'};
     const attacks={base:'基础动作',roll:'滚轮冲锋',ring:'地面铃波',lob:'高抛铜铃',stomp:'踏击',lunge:'扑击',sweep:'横扫',gust:'风压',seeds:'种子弹',platform:'平台踏击',transition:'头顶风车转换'};
     function option(select,value,label){const o=document.createElement('option');o.value=value;o.textContent=label;select.append(o);}
@@ -54,7 +59,7 @@ def main():
     function changeAttack(){const a=$('attack').value;sheetName=a==='base'?actor:a==='transition'?'windkeeper_transition':actor+'_'+a;$('clip').replaceChildren();if(a==='base')option($('clip'),'static',names.static);data.sheets[sheetName].states.forEach(c=>option($('clip'),c,names[c]||c));$('clip').value=a==='base'?'idle':a==='transition'?'transition_start':'anticipation';changeClip();$('download').href=data.sheets[sheetName].image;$('download').download=sheetName+'.png';}
     function changeClip(){clip=$('clip').value;elapsed=0;$('frame').value=0;}
     $('attack').onchange=changeAttack;$('clip').onchange=changeClip;$('play').onclick=()=>{paused=!paused;$('play').textContent=paused?'播放':'暂停';};$('frame').oninput=()=>{paused=true;$('play').textContent='播放';elapsed=Number($('frame').value)/4;};
-    function draw(now){const dt=Math.min(.1,(now-last)/1000);last=now;const durations={idle:.84,move:.64,anticipation:.65,attack:.45,recovery:.7,hurt:.24,death:1.1,transition_start:.65,transition_finish:.65,static:1};if(!paused)elapsed=(elapsed+dt*Number($('speed').value)/durations[clip])%1;const index=Math.min(3,Math.floor(elapsed*4));$('frame').value=index;const meta=data.sheets[sheetName],ctx=$('view').getContext('2d'),z=Number($('zoom').value);const image=clip==='static'?staticImages[actor]:images[sheetName];const w=clip==='static'?image.width:meta.frame_size[0],h=clip==='static'?image.height:meta.frame_size[1];$('view').width=Math.max(600,w*z+60);$('view').height=Math.max(350,h*z+55);ctx.imageSmoothingEnabled=false;ctx.fillStyle='#263b3a';ctx.fillRect(0,0,$('view').width,$('view').height);const baseline=$('view').height-26;ctx.fillStyle='#475650';ctx.fillRect(20,baseline,$('view').width-40,1);if(image.complete){const pivot=clip==='static'?[w/2,h]:meta.pivot;const x=$('view').width/2-pivot[0]*z,y=baseline-pivot[1]*z;if(clip==='static')ctx.drawImage(image,x,y,w*z,h*z);else ctx.drawImage(image,index*w,meta.states.indexOf(clip)*h,w,h,x,y,w*z,h*z);} $('info').textContent=names[clip]+' · '+(index+1)+'/4 · '+w+' × '+h;requestAnimationFrame(draw);}setup();requestAnimationFrame(draw);
+    function draw(now){const dt=Math.min(.1,(now-last)/1000);last=now;const durations={idle:.84,move:.64,anticipation:.65,attack:.45,recovery:.7,hurt:.24,death:1.1,transition_start:.65,transition_finish:.65,static:1};if(!paused&&!document.hidden)elapsed=(elapsed+dt*Number($('speed').value)/durations[clip])%1;const index=Math.min(3,Math.floor(elapsed*4));$('frame').value=index;const meta=data.sheets[sheetName],ctx=$('view').getContext('2d'),z=Number($('zoom').value);const image=imageFor(clip==='static'?data.static[actor]:data.sheets[sheetName].image);const w=clip==='static'?image.width:meta.frame_size[0],h=clip==='static'?image.height:meta.frame_size[1];const cw=Math.max(600,w*z+60),ch=Math.max(350,h*z+55);if($('view').width!==cw)$('view').width=cw;if($('view').height!==ch)$('view').height=ch;ctx.imageSmoothingEnabled=false;ctx.fillStyle='#263b3a';ctx.fillRect(0,0,$('view').width,$('view').height);const baseline=$('view').height-26;ctx.fillStyle='#475650';ctx.fillRect(20,baseline,$('view').width-40,1);if(image.complete&&image.naturalWidth>0){const pivot=clip==='static'?[w/2,h]:meta.pivot;const x=$('view').width/2-pivot[0]*z,y=baseline-pivot[1]*z;if(clip==='static')ctx.drawImage(image,x,y,w*z,h*z);else ctx.drawImage(image,index*w,meta.states.indexOf(clip)*h,w,h,x,y,w*z,h*z);} $('info').textContent=names[clip]+' · '+(index+1)+'/4 · '+w+' × '+h;requestAnimationFrame(draw);}setup();requestAnimationFrame(draw);
     </script></html>'''
     (OUT/'review.html').write_text(template.replace('PAYLOAD',payload))
     with zipfile.ZipFile(OUT/'plains-animations-pr142.zip','w',zipfile.ZIP_DEFLATED) as archive:
@@ -65,6 +70,14 @@ def main():
             archive.write(p,p.relative_to(ROOT))
         archive.write(__file__, 'tools/art/package_plains_actor_animations.py')
         archive.write(ROOT/'tools/art/build_plains_actor_animations.py','tools/art/build_plains_actor_animations.py')
+    with zipfile.ZipFile(OUT/'animation-review.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+        archive.write(OUT/'review.html', 'review.html')
+        for p in (OUT/'review-assets').rglob('*.png'):
+            archive.write(p, p.relative_to(OUT))
+        for folder in ('context', 'combat'):
+            for p in (OUT/folder).glob('*.mp4'):
+                if p.name != 'motion.mp4':
+                    archive.write(p, p.relative_to(OUT))
     print(f'{len(sheets)} sheets; {poses} authored poses; 10 approved static images; gutters and distinct-pose checks passed')
 
 if __name__=='__main__': main()

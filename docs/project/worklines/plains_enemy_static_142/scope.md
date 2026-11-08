@@ -21,7 +21,7 @@
 ## 复现与查看
 
 - `python3 tools/art/build_plains_actor_animations.py` 从保存的源图生成图集、Godot Resource 和姿势坐标；可传单个图集 ID。
-- `python3 tools/art/package_plains_actor_animations.py` 检查图集尺寸／边距／姿势差异并生成 SHA256 清单、`build/plains_actors_142/review.html`、完整素材 ZIP。
+- `python3 tools/art/package_plains_actor_animations.py` 检查图集尺寸／边距／姿势差异并生成 SHA256 清单、`build/plains_actors_142/review.html`、完整素材 ZIP 和含外部图片的预览 ZIP。页面每次只加载当前图集，不嵌入全部 Base64 图像；离线查看需保留 `review-assets/` 相对目录。
 - `tools/art/capture_plains_actor_motion.gd` 在六组真实 PR142 房间／光照中播放素材，原主角作为尺度参照；是定点动作检视，不冒充自然战斗。
 - `tools/art/capture_plains_actor_combat.gd` 使用正式 Boss 与正常 Router 输入录制，开场位置和二阶段生命阈值属于显式夹具，其余 Encounter 时钟自然推进。不能据此声称自然通关或覆盖每个随机攻击组合。
 - 图形捕获使用 `DISPLAY=:98 bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 60 --write-movie build/plains_actors_142/<name>.avi --script <capture-script>`。母版及截图归 `build/`，查看入口按场景拆分录像，每段低于 3 MB。
@@ -33,6 +33,14 @@
 制作方观察：普通怪在亮天空和暗木墙前均能看到象牙色主体、铜色核心和青绿布料的轮廓；Boss 与主角有明显体量差，二阶段风车位于头顶。判断基于本次实际画面，不代替用户对最终审美的反馈。实际战斗中角色拉开距离时，现行跟随相机会裁到 Boss 远侧；本轮未更改相机规则，定点合屏不代表所有战斗位置都能显示完整 Boss。物理身体与攻击范围仍由原正式骨架／配置承担；装饰轮廓不等同于逐像素伤害范围。软件渲染 llvmpipe 的六场景录制平均 CPU 24.18 ms／GPU 24.63 ms、编码 20.09 ms／帧，含录制开销，不能作为目标设备帧率。未执行目标设备性能验收、自然通关、合并或部署。浏览器实测十个角色全部招式选择、六个视频 HTTP 加载、逐帧拖动、PNG 下载目标与 390px 布局，无页面脚本错误。
 
 三段正式 Boss 录制完成，无脚本／原生错误，退出时音频所有者全部释放。巡游机实际经过冲锋／双冲刹停转向、铃波、抛铃、阶段转换和死亡；牧风者片段经过踏击、扑击、种子、横扫、阶段转换及死亡。风压的实机画面也在前一次复核中看到；最终三段随机招式不覆盖平台踏击等全部组合，该部分由逐帧库和专项几何／组件检查覆盖。最终录制脚本修正了多案例之间复用已击败房间的测试夹具问题，为每个案例创建独立 App 和存档；不修改正式游戏的新游戏规则。
+
+## 手机交付
+
+用户在手机 ChatGPT 打开原链接时闪退。原逐帧 HTML 为 46 MB，脚本会同时创建全部图集的 Image，解码像素约 135.9 MiB，另有 Base64／DOM／Canvas 开销；这是已确认的资源负担，未取得手机崩溃日志，不能认定为唯一原因。窄屏布局检查不等于手机端内存验收。
+
+网页改为约 14 KB 的元数据与按需单图加载，移除每帧重复设置 Canvas 尺寸，视频不预载。默认手机交付为 `tools/art/package_plains_actor_mobile.py` 生成的三个独立 H.264 Baseline MP4：960×540、30fps、无声、faststart，普通怪 421 KB、巡游机 513 KB、牧风者两阶段 804 KB。原生素材和完整母版不变。
+
+三个小片段放在独立构建产物分支 `preview/plains-animations-mobile-a85bd24`，提交 `ac7fad88596c3211e80bdcc7e778eb637f6870c8`；该分支仅含预览构建产物，不合入游戏 main。直接访问 `https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ac7fad88596c3211e80bdcc7e778eb637f6870c8/<normal-enemies|bellstrider|windkeeper>.mp4`。公开下载状态及字节哈希已核对；尚未代替用户手机实测。
 
 ## 写集与后续
 
