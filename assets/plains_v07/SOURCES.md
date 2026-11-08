@@ -22,6 +22,6 @@
 
 场景材质与地形碰撞分开：普通建筑仅作构图；果园树拱由房间明确指定对应平台图像，按清单surface_height对齐枝面，树干在可穿行背景层；实际落脚面、遮弹掩体、铜铃吊台、折板与水面危险由对应组件拥有。动效只响应已接受的动作/持久化结果，不发放奖励。
 
-九个封闭室内与P-R04的明确桥体表面复用素材包`gear_city`原生32px地形，机械重排至现有47邻接和精确边界采样布局，不重画或缩放像素，不改变碰撞。`mill_masonry_atlas47/source`的源路径与哈希归清单；其余室外自然地形保持原草沿家族。返程金属翻板使用既有吊台材质，动画消费已提交的机关状态。裸齿轮按72px原生尺寸旋转，碰撞使用同中心34wu圆形扫掠，轨道显示完整运动范围；换向小火星与金属轻响只表现机械运动，实际接触沿统一环境伤害与恢复策略处理。换向声复用Kenney CC0的impactMetal_light_000（项目armour.ogg），由GameAudio现有声部池播放。
+九个封闭室内与田垄、岔路、旧路肩的明确桥体表面复用素材包`gear_city`原生32px地形，机械重排至现有47邻接和精确边界采样布局，不重画或缩放像素，不改变碰撞。`mill_masonry_atlas47/source`的源路径与哈希归清单；其余室外自然地形保持原草沿家族。返程金属翻板使用既有吊台材质，动画消费已提交的机关状态。裸齿轮按72px原生尺寸旋转，碰撞使用同中心34wu圆形扫掠，轨道显示完整运动范围；换向小火星与金属轻响只表现机械运动，实际接触沿统一环境伤害与恢复策略处理。换向声复用Kenney CC0的impactMetal_light_000（项目armour.ogg），由GameAudio现有声部池播放。
 
 `audio/water_splash.ogg` 复用项目已收录的 `assets/audio/director_v3/_sources/water/splash_09.ogg`，原来源为 [40 CC0 Water/Splash/Slime SFX](https://opengameart.org/content/40-cc0-water-splash-slime-sfx)。原作者和授权证据保留在 [v3 声音来源](../../config/audio_director/v3/sources.json)。落水声在实际扣血结果接受后，由现有 GameAudio 声部池播放；不新建独立声音服务。
