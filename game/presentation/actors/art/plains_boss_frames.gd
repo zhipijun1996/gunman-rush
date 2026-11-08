@@ -2,6 +2,26 @@ class_name PlainsBossFrames
 extends RefCounted
 ## Pure frame selection. Encounter state, accepted hit age and death own time.
 const SHEETS := {
+	&"bellstrider_flow": "res://assets/plains_actors_142/atlases/bellstrider_flow.tres",
+	&"bellstrider_lob_flow": "res://assets/plains_actors_142/atlases/bellstrider_lob_flow.tres",
+	&"bellstrider_ring_flow": "res://assets/plains_actors_142/atlases/bellstrider_ring_flow.tres",
+	&"bellstrider_roll_flow": "res://assets/plains_actors_142/atlases/bellstrider_roll_flow.tres",
+	&"windkeeper_phase1_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase1_flow.tres",
+	&"windkeeper_phase1_gust_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase1_gust_flow.tres",
+	&"windkeeper_phase1_lunge_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase1_lunge_flow.tres",
+	&"windkeeper_phase1_platform_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase1_platform_flow.tres",
+	&"windkeeper_phase1_seeds_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase1_seeds_flow.tres",
+	&"windkeeper_phase1_stomp_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase1_stomp_flow.tres",
+	&"windkeeper_phase1_sweep_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase1_sweep_flow.tres",
+	&"windkeeper_phase2_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase2_flow.tres",
+	&"windkeeper_phase2_gust_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase2_gust_flow.tres",
+	&"windkeeper_phase2_lunge_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase2_lunge_flow.tres",
+	&"windkeeper_phase2_platform_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase2_platform_flow.tres",
+	&"windkeeper_phase2_seeds_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase2_seeds_flow.tres",
+	&"windkeeper_phase2_stomp_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase2_stomp_flow.tres",
+	&"windkeeper_phase2_sweep_flow": "res://assets/plains_actors_142/atlases/windkeeper_phase2_sweep_flow.tres",
+	&"windkeeper_transition_flow": "res://assets/plains_actors_142/atlases/windkeeper_transition_flow.tres",
+
 	&"bellstrider_motion": "res://assets/plains_actors_142/atlases/bellstrider_motion.tres",
 	&"windkeeper_phase1_motion": "res://assets/plains_actors_142/atlases/windkeeper_phase1_motion.tres",
 	&"windkeeper_phase2_motion": "res://assets/plains_actors_142/atlases/windkeeper_phase2_motion.tres",
@@ -74,6 +94,11 @@ static func sample(kind: StringName, data: Dictionary, cache: Dictionary) -> Dic
 		clip = &"death"
 		progress = clampf(float(data.get("death_age", 0.0)) / maxf(.1, float(data.get("death_duration", 1.8))), 0.0, 1.0)
 	if clip in [&"idle", &"move"]: sheet = base + "_motion"
+	elif SHEETS.has(StringName(sheet+"_flow")):
+		sheet += "_flow"
+		# Finish the physical settling movement, then hold the final readable
+		# pose for the remainder of the combat recovery window.
+		if clip==&"recovery": progress=clampf(age/minf(duration,.72),0,1)
 	if cache.get("@family", "") != base:
 		cache.clear()
 		cache["@family"] = base

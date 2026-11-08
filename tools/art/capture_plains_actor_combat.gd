@@ -12,6 +12,7 @@ func run() -> void:
 	note.add_theme_color_override("font_outline_color",Color("142b2b"));note.add_theme_constant_override("outline_size",5);layer.add_child(note)
 	var timeline: Array[Dictionary]=[]
 	for test: Dictionary in [{"id":"bell","room":"P-R11","phase":1},{"id":"keeper","room":"P-R14","phase":1},{"id":"windmill","room":"P-R14","phase":2}]:
+		if not OS.get_cmdline_user_args().is_empty() and test.id not in OS.get_cmdline_user_args()[0].split(","):continue
 		app=preload("res://game/application/world/fixed_world.tscn").instantiate()
 		app.save_path="user://plains_actor_combat_"+test.id+".json"
 		app.settings_path="user://plains_actor_combat_review_settings.json"
@@ -36,7 +37,8 @@ func run() -> void:
 		var seen: Dictionary={}
 		var jump_until:=-1
 		var start_frame:=Engine.get_process_frames()
-		for frame: int in (1080 if test.id=="bell" else 1200):
+		var limit:=int(OS.get_cmdline_user_args()[1])*60 if OS.get_cmdline_user_args().size()>1 else (1080 if test.id=="bell" else 1200)
+		for frame: int in limit:
 			if app.busy or app.room.room_id!=test.room or app.controller.actor_resources.health.terminal:break
 			var dx: float=boss.global_position.x-app.player.global_position.x
 			var router: Node=app.controller.router

@@ -110,6 +110,15 @@ func run() -> void:
 				var frame:=PlainsBossFrames.sample(kind,data,{})
 				check(frame.clip==&"attack","%s phase%d %s has authored attack" % [kind,phase,action])
 				var animation: PlainsActorAnimation=frame.animation
+				check(animation.columns==9 and String(frame.sheet).ends_with("_flow"),"%s %s consumes nine-pose flow" % [kind,action])
+				var pixels:=animation.atlas.get_image()
+				for pair: Array in [[&"anticipation",&"attack"],[&"attack",&"recovery"]]:
+					check(pixels.get_region(animation.region(pair[0],1.0)).get_data()==pixels.get_region(animation.region(pair[1],0.0)).get_data(),"%s %s preserves exact action endpoint" % [kind,action])
+				var recovery_data:=data.duplicate()
+				recovery_data.mode=&"neck" if kind==&"bellstrider" else &"recover"
+				recovery_data.recovery_from=action.replace("rings","ring")
+				recovery_data.state_age=.8;recovery_data.state_duration=2.0
+				check(PlainsBossFrames.sample(kind,recovery_data,{}).progress==1.0,"long recovery settles then holds without stretching four poses")
 				var core:=PlainsBossFrames.core_transform(frame)
 				check(core.origin.is_equal_approx(frame.origin+animation.core_point(frame.clip,frame.progress)*Vector2(-1,1)),"core follows displayed mirrored frame")
 				if action in ["lob","seeds"]:

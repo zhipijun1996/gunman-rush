@@ -50,6 +50,16 @@ def main():
                     old = original.crop((col*w,row*h,(col+1)*w,(row+1)*h))
                     new = im.crop((col*2*w,row*h,(col*2+1)*w,(row+1)*h))
                     assert old.tobytes() == new.tobytes(), (name,row,col,'changed approved key')
+        if spec.get("flow_from"):
+            original = Image.open(ART/'atlases'/f'{spec["flow_from"]}.png').convert('RGBA')
+            old_meta = json.loads((ART/'atlases'/f'{spec["flow_from"]}.json').read_text())
+            for row, keys in enumerate(spec['entry_keys']):
+                for col, index in enumerate(keys):
+                    x, y = index % old_meta['columns'], index // old_meta['columns']
+                    old = original.crop((x*w,y*h,(x+1)*w,(y+1)*h))
+                    new = im.crop((col*2*w,row*h,(col*2+1)*w,(row+1)*h))
+                    assert old.tobytes() == new.tobytes(), (name,row,col,'changed endpoint/key')
+                    reused += 1
         sheets[name] = {k: meta[k] for k in ('frame_size', 'pivot', 'columns', 'states')}
         sheets[name]['image'] = review_asset(atlas)
         sources.append({'id':name, 'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(), 'atlas_sha256':hashlib.sha256(atlas.read_bytes()).hexdigest(), 'states':meta['states'],'frames':len(frames),'frame_sha256':frames})
@@ -65,9 +75,9 @@ def main():
     const attacks={base:'基础动作',roll:'滚轮冲锋',ring:'地面铃波',lob:'高抛铜铃',stomp:'踏击',lunge:'扑击',sweep:'横扫',gust:'风压',seeds:'种子弹',platform:'平台踏击',transition:'头顶风车转换'};
     function option(select,value,label){const o=document.createElement('option');o.value=value;o.textContent=label;select.append(o);}
     for(const [key,label] of Object.entries(data.labels)){const b=document.createElement('button');b.textContent=label;b.onclick=()=>{actor=key;setup();};b.dataset.actor=key;$('actors').append(b);}
-    function setup(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.actor===actor));$('attack').replaceChildren();option($('attack'),'base',attacks.base);for(const key of Object.keys(data.sheets)){if(key.startsWith(actor+'_')&&!key.endsWith('_motion')){const suffix=key.slice(actor.length+1);option($('attack'),suffix,attacks[suffix]||suffix);}}if(actor==='windkeeper_phase2')option($('attack'),'transition',attacks.transition);changeAttack();}
+    function setup(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.actor===actor));$('attack').replaceChildren();option($('attack'),'base',attacks.base);for(const key of Object.keys(data.sheets)){if(key.startsWith(actor+'_')&&!key.endsWith('_motion')&&!key.endsWith('_flow')){const suffix=key.slice(actor.length+1);option($('attack'),suffix,attacks[suffix]||suffix);}}if(actor==='windkeeper_phase2')option($('attack'),'transition',attacks.transition);changeAttack();}
     function changeAttack(){const a=$('attack').value;sheetName=a==='base'?actor:a==='transition'?'windkeeper_transition':actor+'_'+a;$('clip').replaceChildren();if(a==='base')option($('clip'),'static',names.static);data.sheets[sheetName].states.forEach(c=>option($('clip'),c,names[c]||c));$('clip').value=a==='base'?'idle':a==='transition'?'transition_start':'anticipation';changeClip();}
-    function activeSheet(){return sheetName===actor&&['idle','move'].includes(clip)?actor+'_motion':sheetName;}function changeClip(){clip=$('clip').value;elapsed=0;$('frame').value=0;const n=activeSheet();$('frame').max=data.sheets[n].columns-1;$('download').href=data.sheets[n].image;$('download').download=n+'.png';}
+    function activeSheet(){if(sheetName===actor&&['idle','move'].includes(clip))return actor+'_motion';const f=sheetName+'_flow';return data.sheets[f]?.states.includes(clip)?f:sheetName;}function changeClip(){clip=$('clip').value;elapsed=0;$('frame').value=0;const n=activeSheet();$('frame').max=data.sheets[n].columns-1;$('download').href=data.sheets[n].image;$('download').download=n+'.png';}
     $('attack').onchange=changeAttack;$('clip').onchange=changeClip;$('play').onclick=()=>{paused=!paused;$('play').textContent=paused?'播放':'暂停';};$('frame').oninput=()=>{paused=true;$('play').textContent='播放';elapsed=Number($('frame').value)/data.sheets[activeSheet()].columns;};
     function draw(now){const dt=Math.min(.1,(now-last)/1000);last=now;const durations={idle:.84,move:.64,anticipation:.65,attack:.45,recovery:.7,hurt:.24,death:1.1,transition_start:.65,transition_finish:.65,static:1};if(!paused&&!document.hidden)elapsed=(elapsed+dt*Number($('speed').value)/durations[clip])%1;const selected=activeSheet(),count=data.sheets[selected].columns;const index=Math.min(count-1,Math.floor(elapsed*count));$('frame').value=index;const meta=data.sheets[selected],ctx=$('view').getContext('2d'),z=Number($('zoom').value);const image=imageFor(clip==='static'?data.static[actor]:data.sheets[selected].image);const w=clip==='static'?image.width:meta.frame_size[0],h=clip==='static'?image.height:meta.frame_size[1];const cw=Math.max(600,w*z+60),ch=Math.max(350,h*z+55);if($('view').width!==cw)$('view').width=cw;if($('view').height!==ch)$('view').height=ch;ctx.imageSmoothingEnabled=false;ctx.fillStyle='#263b3a';ctx.fillRect(0,0,$('view').width,$('view').height);const baseline=$('view').height-26;ctx.fillStyle='#475650';ctx.fillRect(20,baseline,$('view').width-40,1);if(image.complete&&image.naturalWidth>0){const pivot=clip==='static'?[w/2,h]:meta.pivot;const x=$('view').width/2-pivot[0]*z,y=baseline-pivot[1]*z;if(clip==='static')ctx.drawImage(image,x,y,w*z,h*z);else ctx.drawImage(image,index*w,meta.states.indexOf(clip)*h,w,h,x,y,w*z,h*z);} $('info').textContent=names[clip]+' · '+(index+1)+'/'+count+' · '+w+' × '+h;requestAnimationFrame(draw);}setup();requestAnimationFrame(draw);
     </script></html>'''

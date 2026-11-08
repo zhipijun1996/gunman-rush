@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PlainsActorAnimation" load_steps=3 format=3]
+[ext_resource type="Script" path="res://game/presentation/actors/art/plains_actor_animation.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/plains_actors_142/atlases/bellstrider_roll_flow.png" id="2"]
+[resource]
+script = ExtResource("1")
+atlas = ExtResource("2")
+frame_size = Vector2i(336, 276)
+pivot = Vector2(168, 268)
+columns = 9
+clips = Array[String](["anticipation", "attack", "recovery"])
+core_points = PackedVector2Array(9.87, -149.81, 22.24, -151.91, 19.76, -152.25, 31.63, -156.43, 16.49, -154.16, 41.98, -153.38, 20.54, -155.5, 40.38, -160.14, 19.36, -158.68, 19.36, -158.68, 37.78, -158.85, 27.11, -158.74, 35.46, -158.57, 37.7, -152.62, 44.11, -149.29, 52.6, -144.99, 55.99, -142.95, 56.29, -139.16, 56.29, -139.16, 53.6, -142.29, 41.4, -144.59, 43.39, -151.89, 32.96, -149.26, 31.88, -149.41, 16.59, -149.81, 17.96, -152.58, 11.34, -150.56)

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PlainsActorAnimation" load_steps=3 format=3]
+[ext_resource type="Script" path="res://game/presentation/actors/art/plains_actor_animation.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/plains_actors_142/atlases/windkeeper_phase1_platform_flow.png" id="2"]
+[resource]
+script = ExtResource("1")
+atlas = ExtResource("2")
+frame_size = Vector2i(411, 271)
+pivot = Vector2(205, 263)
+columns = 9
+clips = Array[String](["anticipation", "attack", "recovery"])
+core_points = PackedVector2Array(39.39, -94.88, 43.59, -91.35, 36.46, -92.53, 48.09, -87.91, 27.83, -85.93, 34.51, -97.01, 18.28, -113.94, 15.31, -130.74, -11.42, -153.61, -11.42, -153.61, -1.18, -152.42, -3.88, -143.24, 9.71, -124.69, 17.94, -83.76, 24.64, -77.34, 24.4, -50.84, 34.99, -45.03, 43.09, -40.44, 43.09, -40.44, 47.14, -53.01, 40.93, -68.67, 38.48, -77.38, 41.43, -89.79, 38.58, -88.2, 43.85, -99.37, 36.95, -91.79, 39.36, -96.43)

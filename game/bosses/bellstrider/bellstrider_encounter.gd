@@ -146,7 +146,7 @@ func rig_pose() -> Dictionary:
 	var pose := BellstriderRigPose.sample(input)
 	pose["authored"] = PlainsBossFrames.sample(&"bellstrider", input, _authored_art_cache)
 	pose["bell_transform"] = PlainsBossFrames.core_transform(pose.authored)
-	if pose.authored.sheet == "bellstrider_lob":
+	if String(pose.authored.sheet).trim_suffix("_flow") == "bellstrider_lob":
 		var frame: Dictionary=pose.authored
 		var animation: PlainsActorAnimation=frame.animation
 		var index:=animation.frame_index(frame.clip,frame.progress)
@@ -986,13 +986,16 @@ func _restore_transition(data: Dictionary) -> void:
 
 func presentation_state() -> BossPresentationState:
 	var values := _presentation_values()
+	var rig_values := rig_pose()
+	# Public snapshots contain frame identifiers/geometry, never live Resources.
+	(rig_values.authored as Dictionary).erase("animation")
 	values.merge(
 		{
 			"phase": stage_phase,
 			"phase_axes": {"combat": stage_phase},
 			"damage_model": &"upper_bell_only",
 			"core_hint_visible": false,
-			"rig": rig_pose(),
+			"rig": rig_values,
 			"group": _group.duplicate(true)
 		},
 		true

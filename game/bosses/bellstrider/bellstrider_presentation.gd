@@ -66,7 +66,7 @@ func _draw() -> void:
 	var flash:=hit_template.sample.flash_strength()
 	var cutout:=Vector4.ZERO
 	mortar.visible=false
-	if pose.authored.sheet=="bellstrider_lob":
+	if String(pose.authored.sheet).trim_suffix("_flow")=="bellstrider_lob":
 		cutout=mortar.present(pose.authored,pose.barrel_angle,flash)
 	surface.set_shader_parameter("part_cutout",cutout)
 	PlainsBossFrames.draw(self, pose.authored)

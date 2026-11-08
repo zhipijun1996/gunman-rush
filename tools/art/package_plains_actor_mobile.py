@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Small, independently playable clips cut from actual 60 Hz combat captures."""
+import argparse
+import hashlib
 import json
 import subprocess
 from pathlib import Path
@@ -11,9 +13,16 @@ LABELS = {'patrol':'巡逻怪','charger':'冲锋怪','hopper':'跳跃怪','sentr
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--enemy-master', default='enemy-combat.avi')
+    parser.add_argument('--reuse-manifest', type=Path, help='Retain unchanged clips with their original source commit and hash')
+    args = parser.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
-    manifest = []
-    for folder, master in [('enemy-combat','enemy-combat.avi'),('combat','combat-revision.avi')]:
+    manifest = json.loads(args.reuse_manifest.read_text()) if args.reuse_manifest else []
+    for row in manifest:
+        assert row.get('source_commit') and (OUT/row['file']).is_file(), row
+        assert hashlib.sha256((OUT/row['file']).read_bytes()).hexdigest() == row['sha256'], row['file']
+    for folder, master in [('enemy-combat',args.enemy_master),('combat','combat-revision.avi')]:
         rows = json.loads((BASE / folder / 'timeline.json').read_text())
         for row in rows:
             name = row['scene']
@@ -29,6 +38,7 @@ def main():
                 '-movflags', '+faststart', str(target),
             ], check=True)
             assert target.stat().st_size < 3_000_000, target
+            manifest = [r for r in manifest if r['file'] != target.name]
             manifest.append({'file':target.name,'label':LABELS[name], 'bytes':target.stat().st_size,
                              'seconds':round(duration,2),'fps':60,'capture':master,'timeline':row})
             print(LABELS[name], target.stat().st_size, flush=True)

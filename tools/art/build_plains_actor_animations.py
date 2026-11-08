@@ -108,6 +108,66 @@ def bake_motion(name, spec, clean, rows):
     print(f'{name}: {len(frames)} registered frames; original even frames unchanged')
 
 
+def bake_flow(name, spec, clean, rows):
+    """Nine-pose one-shots: previous action endpoint + four old keys + four painted bridges."""
+    out = ASSETS / 'atlases'
+    base = spec['flow_from']
+    meta = json.loads((out/f'{base}.json').read_text())
+    original = Image.open(out/f'{base}.png').convert('RGBA')
+    cw,ch = meta['frame_size']; pivot=meta['pivot']; reference=meta['reference']
+    frames=[]; old_indices=[]; registrations=[]; geometry={k:[] for k in ('core_points','muzzle_points','barrel_pivots','barrel_regions')}
+    for row,(top,bottom) in enumerate(rows):
+        ids=spec['entry_keys'][row]
+        row_image=clean.crop((0,top,clean.width,bottom))
+        columns=bands(np.array(row_image)[:,:,3].T>0)
+        if len(columns)!=4:raise ValueError(f'{name} row {row}: expected four separated painted poses, got {columns}')
+        keys=[original.crop(((i%4)*cw,(i//4)*ch,(i%4+1)*cw,(i//4+1)*ch)) for i in ids]
+        for col,key in enumerate(keys):
+            frames.append(key);old_indices.append(ids[col])
+            for field,values in geometry.items():
+                if meta.get(field):values.append(meta[field][ids[col]])
+            if col==4:continue
+            x0,x1=columns[col]
+            cell=clean.crop((x0,top,x1,bottom))
+            a,b=key.getbbox(),keys[col+1].getbbox()
+            target=tuple(round((x+y)/2) for x,y in zip(a,b))
+            painted=cell.crop(cell.getbbox()).resize((target[2]-target[0],target[3]-target[1]),Image.Resampling.NEAREST)
+            f=Image.new('RGBA',(cw,ch));f.paste(painted,target[:2]);frames.append(f);old_indices.append(-1);registrations.append(target)
+            measured={'core_points':core_point(f,reference,pivot)}
+            if base=='bellstrider_lob':
+                mouth=mortar_point(f,pivot)
+                left,top,right,bottom=f.getbbox()
+                joint=[round(left+(right-left)*.26),round(top+(bottom-top)*.50)]
+                mx,my=mouth[0]+pivot[0],mouth[1]+pivot[1]
+                x0,y0=round(min(joint[0],mx)-12),round(my-12)
+                x1,y1=round(max(joint[0],mx)+12),joint[1]-3
+                measured.update(muzzle_points=mouth,barrel_pivots=[joint[0]-pivot[0],joint[1]-pivot[1]],barrel_regions=[x0,y0,x1-x0,y1-y0])
+            elif meta.get('muzzle_points'):
+                # Same authored release offset, now relative to this new pose's core.
+                offset=[a-b for a,b in zip(meta['muzzle_points'][ids[col]],meta['core_points'][ids[col]])]
+                measured['muzzle_points']=[round(a+b,2) for a,b in zip(measured['core_points'],offset)]
+            for field,values in geometry.items():
+                if meta.get(field):values.append(measured[field])
+    atlas=Image.new('RGBA',(cw*9,ch*len(rows)))
+    for i,f in enumerate(frames):atlas.paste(f,((i%9)*cw,(i//9)*ch))
+    atlas.save(out/f'{name}.png')
+    result=dict(frame_size=[cw,ch],pivot=pivot,columns=9,states=spec['states'],reference=reference,
+                flow_from=base,entry_keys=spec['entry_keys'],original_indices=old_indices,
+                registration_boxes=registrations,source_rows=rows,source_size=list(clean.size),**geometry)
+    (out/f'{name}.json').write_text(json.dumps(result,indent=2)+'\n')
+    resource='[gd_resource type="Resource" script_class="PlainsActorAnimation" load_steps=3 format=3]\n'
+    resource+='[ext_resource type="Script" path="res://game/presentation/actors/art/plains_actor_animation.gd" id="1"]\n'
+    resource+=f'[ext_resource type="Texture2D" path="res://assets/plains_actors_142/atlases/{name}.png" id="2"]\n'
+    resource+='[resource]\nscript = ExtResource("1")\natlas = ExtResource("2")\n'
+    resource+=f'frame_size = Vector2i({cw}, {ch})\npivot = Vector2({pivot[0]}, {pivot[1]})\ncolumns = 9\nclips = Array[String]({json.dumps(spec["states"])})\n'
+    for field,values in geometry.items():
+        if not values:continue
+        if field=='barrel_regions':resource+=field+' = Array[Rect2](['+', '.join('Rect2('+', '.join(map(str,r))+')' for r in values)+'])\n'
+        else:resource+=field+' = PackedVector2Array('+', '.join(str(v) for point in values for v in point)+')\n'
+    (out/f'{name}.tres').write_text(resource)
+    print(f'{name}: {len(frames)} frames, continuous endpoints, {len(registrations)} painted bridges')
+
+
 def bake(name):
     source = ASSETS / 'source' / f'{name}.png'
     spec_path = source.with_suffix('.json')
@@ -125,6 +185,9 @@ def bake(name):
     states = spec.get('states', STATES)
     if len(rows) != len(states):
         raise ValueError(f'{name}: expected {len(states)} pose bands, found {rows}')
+    if 'flow_from' in spec:
+        bake_flow(name, spec, clean, rows)
+        return
     if 'interleave_from' in spec:
         bake_motion(name, spec, clean, rows)
         return

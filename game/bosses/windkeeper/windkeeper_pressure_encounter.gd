@@ -680,7 +680,7 @@ func rig_pose() -> Dictionary:
 		"death_duration": _config().death_seconds, "recovery_from": previous_attack}, _authored_art_cache)
 	sampled["authored"] = frame
 	sampled["core_transform"] = PlainsBossFrames.core_transform(frame)
-	if String(frame.sheet).ends_with("_seeds"):
+	if String(frame.sheet).trim_suffix("_flow").ends_with("_seeds"):
 		sampled["seed_origin"] = PlainsBossFrames.muzzle_point(frame)
 	return sampled
 
