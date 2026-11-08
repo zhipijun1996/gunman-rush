@@ -41,7 +41,7 @@
               640
             ],
             "normalized_uv": [
-              1,
+              1.0,
               0.8333333333333334
             ],
             "opening_candidate_world_units": [
@@ -143,7 +143,7 @@
               416
             ],
             "normalized_uv": [
-              1,
+              1.0,
               0.5416666666666666
             ],
             "opening_candidate_world_units": [
@@ -368,11 +368,11 @@
           "id": "room-link-133:P-R02",
           "position_candidate": {
             "local_world_units": [
-              384,
+              544,
               0
             ],
             "normalized_uv": [
-              0.3333333333333333,
+              0.4722222222222222,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -386,11 +386,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              384,
+              544,
               48
             ],
             "safe_standing_position_world_units": [
-              528,
+              544,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -402,7 +402,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -492,14 +492,14 @@
               590
             ],
             "safe_standing_position_world_units": [
-              720,
-              542
+              736,
+              494
             ],
             "platform_candidate_rect_world_units": [
               640,
-              560,
-              192,
-              32
+              512,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -521,11 +521,11 @@
           "id": "EXP-P_field_return-01:P-R02",
           "position_candidate": {
             "local_world_units": [
-              768,
+              928,
               0
             ],
             "normalized_uv": [
-              0.6666666666666666,
+              0.8055555555555556,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -539,11 +539,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              768,
+              928,
               48
             ],
             "safe_standing_position_world_units": [
-              912,
+              928,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -555,7 +555,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -575,11 +575,11 @@
           "entry_door": "room-link-133:P-R02",
           "section": "main",
           "position_candidate_world_units": [
-            384,
+            544,
             48
           ],
           "eventual_standing_position_world_units": [
-            528,
+            544,
             142
           ],
           "landing_contract_ref": "landing:room-link-133:P-R02",
@@ -609,8 +609,8 @@
             590
           ],
           "eventual_standing_position_world_units": [
-            720,
-            542
+            736,
+            494
           ],
           "landing_contract_ref": "landing:EXP-P_east_fields-01:P-R02",
           "fake_grounded_reset_forbidden": true
@@ -620,11 +620,11 @@
           "entry_door": "EXP-P_field_return-01:P-R02",
           "section": "main",
           "position_candidate_world_units": [
-            768,
+            928,
             48
           ],
           "eventual_standing_position_world_units": [
-            912,
+            928,
             142
           ],
           "landing_contract_ref": "landing:EXP-P_field_return-01:P-R02",
@@ -762,11 +762,11 @@
           "id": "room-link-143:P-R03",
           "position_candidate": {
             "local_world_units": [
-              768,
+              928,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.6041666666666666,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -780,11 +780,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              768,
+              928,
               48
             ],
             "safe_standing_position_world_units": [
-              912,
+              928,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -796,7 +796,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -969,11 +969,11 @@
           "entry_door": "room-link-143:P-R03",
           "section": "main",
           "position_candidate_world_units": [
-            768,
+            928,
             48
           ],
           "eventual_standing_position_world_units": [
-            912,
+            928,
             142
           ],
           "landing_contract_ref": "landing:room-link-143:P-R03",
@@ -1059,8 +1059,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1408,
-              174
+              928,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -1085,8 +1085,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1200,
-              494
+              608,
+              542
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -1111,8 +1111,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1616,
-              494
+              1120,
+              542
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -1137,8 +1137,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              2672,
-              302
+              1392,
+              350
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -1487,8 +1487,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1728,
-              302
+              1904,
+              462
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -1513,8 +1513,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1072,
-              382
+              1120,
+              670
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -1539,8 +1539,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1728,
-              190
+              1904,
+              238
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -1967,8 +1967,8 @@
             "heavy_terrain_damage_hp": 2,
             "q_cooldown_reset": false,
             "position_candidate_world_units": [
-              1568,
-              270
+              1904,
+              878
             ]
           },
           {
@@ -1994,7 +1994,7 @@
             "q_cooldown_reset": false,
             "position_candidate_world_units": [
               144,
-              334
+              878
             ]
           },
           {
@@ -2020,7 +2020,7 @@
             "q_cooldown_reset": false,
             "position_candidate_world_units": [
               144,
-              206
+              654
             ]
           },
           {
@@ -2046,7 +2046,7 @@
             "q_cooldown_reset": false,
             "position_candidate_world_units": [
               144,
-              110
+              430
             ]
           }
         ],
@@ -2174,14 +2174,14 @@
               974
             ],
             "safe_standing_position_world_units": [
-              912,
-              926
+              928,
+              878
             ],
             "platform_candidate_rect_world_units": [
               832,
-              944,
-              192,
-              32
+              896,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -2363,8 +2363,8 @@
             974
           ],
           "eventual_standing_position_world_units": [
-            912,
-            926
+            928,
+            878
           ],
           "landing_contract_ref": "landing:room-link-139:P-R06",
           "fake_grounded_reset_forbidden": true
@@ -2449,8 +2449,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              624,
-              702
+              928,
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -2476,7 +2476,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              254
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -2502,7 +2502,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              558
+              654
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -2528,7 +2528,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              398
+              430
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -2668,14 +2668,14 @@
               718
             ],
             "safe_standing_position_world_units": [
-              1232,
-              670
+              1248,
+              622
             ],
             "platform_candidate_rect_world_units": [
               1152,
-              688,
-              192,
-              32
+              640,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -2755,8 +2755,8 @@
             718
           ],
           "eventual_standing_position_world_units": [
-            1232,
-            670
+            1248,
+            622
           ],
           "landing_contract_ref": "landing:room-link-133:P-R07",
           "fake_grounded_reset_forbidden": true
@@ -2811,8 +2811,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1072,
-              382
+              1248,
+              622
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -2838,7 +2838,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              238
+              622
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -2965,11 +2965,11 @@
           "id": "room-link-139:P-R08",
           "position_candidate": {
             "local_world_units": [
-              512,
+              672,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.65625,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -2983,11 +2983,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              512,
+              672,
               48
             ],
             "safe_standing_position_world_units": [
-              656,
+              672,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -2999,7 +2999,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -3020,7 +3020,7 @@
               1408
             ],
             "normalized_uv": [
-              0,
+              0.0,
               0.9166666666666666
             ],
             "opening_candidate_world_units": [
@@ -3089,14 +3089,14 @@
               1486
             ],
             "safe_standing_position_world_units": [
-              656,
-              1438
+              672,
+              1390
             ],
             "platform_candidate_rect_world_units": [
               576,
-              1456,
-              192,
-              32
+              1408,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -3121,11 +3121,11 @@
           "entry_door": "room-link-139:P-R08",
           "section": "main",
           "position_candidate_world_units": [
-            512,
+            672,
             48
           ],
           "eventual_standing_position_world_units": [
-            656,
+            672,
             142
           ],
           "landing_contract_ref": "landing:room-link-139:P-R08",
@@ -3155,8 +3155,8 @@
             1486
           ],
           "eventual_standing_position_world_units": [
-            656,
-            1438
+            672,
+            1390
           ],
           "landing_contract_ref": "landing:HUB-P31-P08:P-R08",
           "fake_grounded_reset_forbidden": true
@@ -3196,8 +3196,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              384,
-              174
+              672,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -3223,7 +3223,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              782
+              1390
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -3248,8 +3248,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              176,
-              1470
+              672,
+              1390
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -3418,11 +3418,11 @@
           "id": "room-link-132:P-R09",
           "position_candidate": {
             "local_world_units": [
-              1280,
+              1440,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.5625,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -3436,11 +3436,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              1280,
+              1440,
               48
             ],
             "safe_standing_position_world_units": [
-              1424,
+              1440,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -3452,7 +3452,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -3487,11 +3487,11 @@
           "entry_door": "room-link-132:P-R09",
           "section": "main",
           "position_candidate_world_units": [
-            1280,
+            1440,
             48
           ],
           "eventual_standing_position_world_units": [
-            1424,
+            1440,
             142
           ],
           "landing_contract_ref": "landing:room-link-132:P-R09",
@@ -3533,7 +3533,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              238
+              622
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -3558,8 +3558,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1024,
-              174
+              1440,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -3701,7 +3701,7 @@
             ],
             "normalized_uv": [
               0.8333333333333334,
-              1
+              1.0
             ],
             "opening_candidate_world_units": [
               128,
@@ -3718,14 +3718,14 @@
               1870
             ],
             "safe_standing_position_world_units": [
-              1424,
-              1822
+              1440,
+              1774
             ],
             "platform_candidate_rect_world_units": [
               1344,
-              1840,
+              1792,
               192,
-              32
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -3856,8 +3856,8 @@
             1870
           ],
           "eventual_standing_position_world_units": [
-            1424,
-            1822
+            1440,
+            1774
           ],
           "landing_contract_ref": "landing:room-link-146:P-R10",
           "fake_grounded_reset_forbidden": true
@@ -3927,8 +3927,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              176,
-              1470
+              1440,
+              1774
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -3953,8 +3953,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              480,
-              782
+              1392,
+              1326
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -3980,7 +3980,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              782
+              1774
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -4239,7 +4239,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              510
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -5012,8 +5012,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              624,
-              398
+              1392,
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -5039,7 +5039,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              510
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -5065,7 +5065,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              302
+              654
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -5307,14 +5307,14 @@
               846
             ],
             "safe_standing_position_world_units": [
-              912,
-              798
+              928,
+              750
             ],
             "platform_candidate_rect_world_units": [
               832,
-              816,
-              192,
-              32
+              768,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -5373,8 +5373,8 @@
             846
           ],
           "eventual_standing_position_world_units": [
-            912,
-            798
+            928,
+            750
           ],
           "landing_contract_ref": "landing:room-link-143:P-R13",
           "fake_grounded_reset_forbidden": true
@@ -5414,8 +5414,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              944,
-              270
+              1392,
+              750
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -5441,7 +5441,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              270
+              750
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -5466,8 +5466,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              688,
-              446
+              928,
+              750
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -5616,14 +5616,14 @@
               1230
             ],
             "safe_standing_position_world_units": [
-              1232,
-              1182
+              1248,
+              1134
             ],
             "platform_candidate_rect_world_units": [
               1152,
-              1200,
-              192,
-              32
+              1152,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -5757,8 +5757,8 @@
             1230
           ],
           "eventual_standing_position_world_units": [
-            1232,
-            1182
+            1248,
+            1134
           ],
           "landing_contract_ref": "landing:room-link-149:P-R14",
           "fake_grounded_reset_forbidden": true
@@ -5828,8 +5828,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              224,
-              814
+              1248,
+              1134
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -5854,8 +5854,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1264,
-              462
+              2032,
+              1134
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -5880,8 +5880,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1264,
-              574
+              2032,
+              910
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -6354,11 +6354,11 @@
           "id": "room-link-149:P-R15",
           "position_candidate": {
             "local_world_units": [
-              1024,
+              1184,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.578125,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -6372,11 +6372,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              1024,
+              1184,
               48
             ],
             "safe_standing_position_world_units": [
-              1168,
+              1184,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -6388,7 +6388,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -6427,14 +6427,14 @@
               1230
             ],
             "safe_standing_position_world_units": [
-              1168,
-              1182
+              1184,
+              1134
             ],
             "platform_candidate_rect_world_units": [
               1088,
-              1200,
-              192,
-              32
+              1152,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -6459,11 +6459,11 @@
           "entry_door": "room-link-149:P-R15",
           "section": "main",
           "position_candidate_world_units": [
-            1024,
+            1184,
             48
           ],
           "eventual_standing_position_world_units": [
-            1168,
+            1184,
             142
           ],
           "landing_contract_ref": "landing:room-link-149:P-R15",
@@ -6478,8 +6478,8 @@
             1230
           ],
           "eventual_standing_position_world_units": [
-            1168,
-            1182
+            1184,
+            1134
           ],
           "landing_contract_ref": "landing:SC-P01:P-R15",
           "fake_grounded_reset_forbidden": true
@@ -6519,8 +6519,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              736,
-              174
+              1184,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -6545,8 +6545,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              880,
-              526
+              1184,
+              1134
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -6851,7 +6851,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              222
+              750
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -6876,8 +6876,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1344,
-              222
+              1648,
+              750
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -6995,11 +6995,11 @@
           "id": "room-link-146:P-R17",
           "position_candidate": {
             "local_world_units": [
-              512,
+              672,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.65625,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -7013,11 +7013,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              512,
+              672,
               48
             ],
             "safe_standing_position_world_units": [
-              656,
+              672,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -7029,7 +7029,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -7049,11 +7049,11 @@
           "entry_door": "room-link-146:P-R17",
           "section": "main",
           "position_candidate_world_units": [
-            512,
+            672,
             48
           ],
           "eventual_standing_position_world_units": [
-            656,
+            672,
             142
           ],
           "landing_contract_ref": "landing:room-link-146:P-R17",
@@ -7094,8 +7094,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              448,
-              174
+              672,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -7324,11 +7324,11 @@
           "id": "C05:P-R18",
           "position_candidate": {
             "local_world_units": [
-              1280,
+              1440,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.5625,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -7342,11 +7342,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              1280,
+              1440,
               48
             ],
             "safe_standing_position_world_units": [
-              1424,
+              1440,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -7358,7 +7358,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -7561,11 +7561,11 @@
           "entry_door": "C05:P-R18",
           "section": "main",
           "position_candidate_world_units": [
-            1280,
+            1440,
             48
           ],
           "eventual_standing_position_world_units": [
-            1424,
+            1440,
             142
           ],
           "landing_contract_ref": "landing:C05:P-R18",
@@ -7651,8 +7651,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1536,
-              270
+              2416,
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -7678,7 +7678,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              270
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -7703,8 +7703,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              832,
-              174
+              1440,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -7729,8 +7729,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1536,
-              174
+              2416,
+              654
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -7756,7 +7756,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              366
+              654
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -7781,8 +7781,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1536,
-              382
+              2416,
+              206
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -8027,11 +8027,11 @@
           "id": "HUB-P35-P19:P-R19",
           "position_candidate": {
             "local_world_units": [
-              1024,
+              1184,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.578125,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -8045,11 +8045,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              1024,
+              1184,
               48
             ],
             "safe_standing_position_world_units": [
-              1168,
+              1184,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -8061,7 +8061,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -8111,11 +8111,11 @@
           "entry_door": "HUB-P35-P19:P-R19",
           "section": "main",
           "position_candidate_world_units": [
-            1024,
+            1184,
             48
           ],
           "eventual_standing_position_world_units": [
-            1168,
+            1184,
             142
           ],
           "landing_contract_ref": "landing:HUB-P35-P19:P-R19",
@@ -8156,8 +8156,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              928,
-              446
+              1904,
+              1134
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -8183,7 +8183,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              446
+              1134
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -8208,8 +8208,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              544,
-              174
+              1184,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -8517,8 +8517,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1312,
-              222
+              2160,
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -8544,7 +8544,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              222
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -96162,14 +96162,14 @@
               718
             ],
             "safe_standing_position_world_units": [
-              848,
-              670
+              864,
+              622
             ],
             "platform_candidate_rect_world_units": [
               768,
-              688,
-              192,
-              32
+              640,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -96213,8 +96213,8 @@
             718
           ],
           "eventual_standing_position_world_units": [
-            848,
-            670
+            864,
+            622
           ],
           "landing_contract_ref": "landing:INTRO-P21-P22:P-R21",
           "fake_grounded_reset_forbidden": true
@@ -96255,7 +96255,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              334
+              622
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -96280,8 +96280,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1040,
-              558
+              864,
+              622
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -96399,11 +96399,11 @@
           "id": "INTRO-P21-P22:P-R22",
           "position_candidate": {
             "local_world_units": [
-              192,
+              352,
               0
             ],
             "normalized_uv": [
-              0.08823529411764706,
+              0.16176470588235295,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -96417,11 +96417,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              192,
+              352,
               48
             ],
             "safe_standing_position_world_units": [
-              336,
+              352,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -96433,7 +96433,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -96504,11 +96504,11 @@
           "entry_door": "INTRO-P21-P22:P-R22",
           "section": "main",
           "position_candidate_world_units": [
-            192,
+            352,
             48
           ],
           "eventual_standing_position_world_units": [
-            336,
+            352,
             142
           ],
           "landing_contract_ref": "landing:INTRO-P21-P22:P-R22",
@@ -96564,8 +96564,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              896,
-              174
+              352,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -96590,8 +96590,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1648,
-              382
+              2032,
+              654
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -96760,11 +96760,11 @@
           "id": "INTRO-P23-P24:P-R23",
           "position_candidate": {
             "local_world_units": [
-              576,
+              736,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.6388888888888888,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -96778,23 +96778,23 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              576,
+              736,
               48
             ],
             "safe_standing_position_world_units": [
-              720,
+              736,
               142
             ],
             "platform_candidate_rect_world_units": [
-              640,
+              480,
               160,
-              192,
+              352,
               32
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -96829,11 +96829,11 @@
           "entry_door": "INTRO-P23-P24:P-R23",
           "section": "main",
           "position_candidate_world_units": [
-            576,
+            736,
             48
           ],
           "eventual_standing_position_world_units": [
-            720,
+            736,
             142
           ],
           "landing_contract_ref": "landing:INTRO-P23-P24:P-R23",
@@ -96988,14 +96988,14 @@
               718
             ],
             "safe_standing_position_world_units": [
-              912,
-              670
+              928,
+              622
             ],
             "platform_candidate_rect_world_units": [
               832,
-              688,
-              192,
-              32
+              640,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -97075,8 +97075,8 @@
             718
           ],
           "eventual_standing_position_world_units": [
-            912,
-            670
+            928,
+            622
           ],
           "landing_contract_ref": "landing:INTRO-P23-P24:P-R24",
           "fake_grounded_reset_forbidden": true
@@ -97131,7 +97131,7 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              784,
+              928,
               622
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
@@ -97157,8 +97157,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1136,
-              366
+              1392,
+              478
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -97442,7 +97442,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              430
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -97468,7 +97468,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               1904,
-              430
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -97637,11 +97637,11 @@
           "id": "WEST-P26-P27:P-R26",
           "position_candidate": {
             "local_world_units": [
-              1024,
+              1184,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.578125,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -97655,11 +97655,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              1024,
+              1184,
               48
             ],
             "safe_standing_position_world_units": [
-              1168,
+              1184,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -97671,7 +97671,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -97706,11 +97706,11 @@
           "entry_door": "WEST-P26-P27:P-R26",
           "section": "main",
           "position_candidate_world_units": [
-            1024,
+            1184,
             48
           ],
           "eventual_standing_position_world_units": [
-            1168,
+            1184,
             142
           ],
           "landing_contract_ref": "landing:WEST-P26-P27:P-R26",
@@ -97752,7 +97752,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              558
+              1262
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -97777,8 +97777,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              768,
-              174
+              1184,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -97918,14 +97918,14 @@
               590
             ],
             "safe_standing_position_world_units": [
-              720,
-              542
+              736,
+              494
             ],
             "platform_candidate_rect_world_units": [
               640,
-              560,
-              192,
-              32
+              512,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -98005,8 +98005,8 @@
             590
           ],
           "eventual_standing_position_world_units": [
-            720,
-            542
+            736,
+            494
           ],
           "landing_contract_ref": "landing:WEST-P26-P27:P-R27",
           "fake_grounded_reset_forbidden": true
@@ -98158,11 +98158,11 @@
           "id": "EXP-P_east_fields-01:P-R28",
           "position_candidate": {
             "local_world_units": [
-              1024,
+              1184,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.578125,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -98176,11 +98176,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              1024,
+              1184,
               48
             ],
             "safe_standing_position_world_units": [
-              1168,
+              1184,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -98192,7 +98192,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -98263,11 +98263,11 @@
           "entry_door": "EXP-P_east_fields-01:P-R28",
           "section": "main",
           "position_candidate_world_units": [
-            1024,
+            1184,
             48
           ],
           "eventual_standing_position_world_units": [
-            1168,
+            1184,
             142
           ],
           "landing_contract_ref": "landing:EXP-P_east_fields-01:P-R28",
@@ -98323,8 +98323,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              768,
-              174
+              1184,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -98349,8 +98349,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1392,
-              302
+              1904,
+              622
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -98541,14 +98541,14 @@
               1614
             ],
             "safe_standing_position_world_units": [
-              912,
-              1566
+              928,
+              1518
             ],
             "platform_candidate_rect_world_units": [
               832,
-              1584,
-              192,
-              32
+              1536,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -98592,8 +98592,8 @@
             1614
           ],
           "eventual_standing_position_world_units": [
-            912,
-            1566
+            928,
+            1518
           ],
           "landing_contract_ref": "landing:room-link-132:P-R29",
           "fake_grounded_reset_forbidden": true
@@ -98634,7 +98634,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              510
+              654
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -98659,8 +98659,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              656,
-              910
+              928,
+              1518
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -98809,14 +98809,14 @@
               974
             ],
             "safe_standing_position_world_units": [
-              1168,
-              926
+              1184,
+              878
             ],
             "platform_candidate_rect_world_units": [
               1088,
-              944,
-              192,
-              32
+              896,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -98896,8 +98896,8 @@
             974
           ],
           "eventual_standing_position_world_units": [
-            1168,
-            926
+            1184,
+            878
           ],
           "landing_contract_ref": "landing:EXP-P_field_return-01:P-R30",
           "fake_grounded_reset_forbidden": true
@@ -98952,8 +98952,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              912,
-              494
+              1184,
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -98979,7 +98979,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              302
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -115959,11 +115959,11 @@
           "id": "HUB-P31-P08:P-R31",
           "position_candidate": {
             "local_world_units": [
-              1024,
+              1184,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.578125,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -115977,11 +115977,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              1024,
+              1184,
               48
             ],
             "safe_standing_position_world_units": [
-              1168,
+              1184,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -115993,7 +115993,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -116130,11 +116130,11 @@
           "entry_door": "HUB-P31-P08:P-R31",
           "section": "main",
           "position_candidate_world_units": [
-            1024,
+            1184,
             48
           ],
           "eventual_standing_position_world_units": [
-            1168,
+            1184,
             142
           ],
           "landing_contract_ref": "landing:HUB-P31-P08:P-R31",
@@ -116206,7 +116206,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              382
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -116231,8 +116231,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              720,
-              174
+              1184,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -116257,8 +116257,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1296,
-              286
+              1904,
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -116283,8 +116283,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1296,
-              478
+              1904,
+              654
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -116412,11 +116412,11 @@
           "id": "SC-P01:P-R32",
           "position_candidate": {
             "local_world_units": [
-              1280,
+              1440,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.5625,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -116430,11 +116430,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              1280,
+              1440,
               48
             ],
             "safe_standing_position_world_units": [
-              1424,
+              1440,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -116446,7 +116446,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -116619,11 +116619,11 @@
           "entry_door": "SC-P01:P-R32",
           "section": "main",
           "position_candidate_world_units": [
-            1280,
+            1440,
             48
           ],
           "eventual_standing_position_world_units": [
-            1424,
+            1440,
             142
           ],
           "landing_contract_ref": "landing:SC-P01:P-R32",
@@ -116709,8 +116709,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              960,
-              174
+              1440,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -116736,7 +116736,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              430
+              1134
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -116761,8 +116761,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1776,
-              318
+              2416,
+              1134
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -116787,8 +116787,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1776,
-              542
+              2416,
+              750
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -117061,14 +117061,14 @@
               974
             ],
             "safe_standing_position_world_units": [
-              1296,
-              926
+              1312,
+              878
             ],
             "platform_candidate_rect_world_units": [
               1216,
-              944,
-              192,
-              32
+              896,
+              240,
+              128
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -117127,8 +117127,8 @@
             974
           ],
           "eventual_standing_position_world_units": [
-            1296,
-            926
+            1312,
+            878
           ],
           "landing_contract_ref": "landing:HUB-P33-P35:P-R33",
           "fake_grounded_reset_forbidden": true
@@ -117169,7 +117169,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              318
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -117195,7 +117195,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              542
+              654
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -117220,8 +117220,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              944,
-              750
+              1312,
+              878
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -117570,8 +117570,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1776,
-              254
+              2160,
+              622
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -117597,7 +117597,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              334
+              622
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -117622,8 +117622,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1776,
-              414
+              2160,
+              398
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -117865,13 +117865,13 @@
               1230
             ],
             "safe_standing_position_world_units": [
-              1424,
+              1440,
               1134
             ],
             "platform_candidate_rect_world_units": [
-              1328,
+              1344,
               1152,
-              192,
+              240,
               128
             ],
             "platform_is_real_collision": true,
@@ -117996,11 +117996,11 @@
           "id": "HUB-P33-P35:P-R35",
           "position_candidate": {
             "local_world_units": [
-              1280,
+              1440,
               0
             ],
             "normalized_uv": [
-              0.5,
+              0.5625,
               0.0
             ],
             "opening_candidate_world_units": [
@@ -118014,11 +118014,11 @@
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              1280,
+              1440,
               48
             ],
             "safe_standing_position_world_units": [
-              1424,
+              1440,
               142
             ],
             "platform_candidate_rect_world_units": [
@@ -118030,7 +118030,7 @@
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
             "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
+            "control_return_requires_actual_ground_contact": true,
             "q_rearm_requires_actual_ground_contact": true,
             "q_cooldown_reset": false,
             "safe_from": [
@@ -118084,7 +118084,7 @@
             1230
           ],
           "eventual_standing_position_world_units": [
-            1424,
+            1440,
             1134
           ],
           "landing_contract_ref": "landing:HUB-P35-P19:P-R35",
@@ -118125,11 +118125,11 @@
           "entry_door": "HUB-P33-P35:P-R35",
           "section": "main",
           "position_candidate_world_units": [
-            1280,
+            1440,
             48
           ],
           "eventual_standing_position_world_units": [
-            1424,
+            1440,
             142
           ],
           "landing_contract_ref": "landing:HUB-P33-P35:P-R35",
@@ -118171,7 +118171,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              318
+              1134
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -118196,8 +118196,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1392,
-              318
+              2416,
+              1134
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -118222,8 +118222,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              912,
-              718
+              1440,
+              1134
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -118248,8 +118248,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1392,
-              510
+              2416,
+              910
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -118275,7 +118275,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              510
+              910
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -118300,8 +118300,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              768,
-              174
+              1440,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,

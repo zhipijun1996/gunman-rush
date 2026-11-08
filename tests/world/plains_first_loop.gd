@@ -37,7 +37,11 @@ func route(points: Array,rid: String,target: String="") -> bool:
 	if app.room.room_id!=rid:check(false,"route expected "+rid+" got "+app.room.room_id);return false
 	if not await path(points,rid):check(false,"continuous path "+rid);return false
 	await settle()
-	if not target.is_empty():check(app.room.room_id==target,rid+" actual door to "+target)
+	if not target.is_empty():
+		var paired:=false
+		for entry: Dictionary in app.content.room(target).doors:
+			if entry.target_room==rid and entry.id==app.state.value.entry:paired=true
+		check(app.room.room_id==target and paired,rid+" actual paired door to "+target+" (not a death return)")
 	return failures==0
 func hop(at: Vector2,aim: Vector2,shot_frame: int=9) -> void:
 	app.controller.router.set_source_axis(&"keyboard_mouse",signf(at.x-app.player.position.x) if absf(at.x-app.player.position.x)>8 else 0)
@@ -69,7 +73,7 @@ func run() -> void:
 	if not await route([Vector2(352,1390)],"P-R08"):await done();return
 	await clear_enemies(96)
 	if not await route([Vector2(448,1390)],"P-R08"):await done();return
-	await full_jump(Vector2(672,1438))
+	await full_jump(Vector2(672,1390))
 	if not await route([Vector2(880,1390)],"P-R08"):await done();return
 	var bell:=app.room.mechanisms["P-R08:well_lift"] as WorldShotLatch
 	var lift:=bell.motion_target as WorldMovingPlatform
@@ -87,15 +91,17 @@ func run() -> void:
 		if app.player.position.y<180:break
 	print("TOP ",app.player.position," lift=",lift.position)
 	await hop(Vector2(672,142),Vector2(1,.2))
-	if not await route([Vector2(592,142),Vector2(512,-18)],"P-R08","P-R06"):await done();return
+	if not await route([Vector2(592,142),Vector2(672,-18)],"P-R08","P-R06"):await done();return
 	await clear_enemies(112)
-	await hop(Vector2(640,878),Vector2(1,.2))
+	await walk(Vector2(864,878),"P-R06")
+	await full_jump(Vector2(640,878))
 	if not await route([Vector2(600,878)],"P-R06"):await done();return
 	await full_jump(Vector2(368,878))
 	if not await route([Vector2(6,878)],"P-R06","P-R13"):await done();return
-	if not await route([Vector2(1120,750),Vector2(944,798)],"P-R13"):await done();return
+	if not await route([Vector2(1120,750),Vector2(944,750)],"P-R13"):await done();return
 	await clear_enemies(112)
-	await hop(Vector2(672,750),Vector2(1,.2))
+	await walk(Vector2(864,750),"P-R13")
+	await full_jump(Vector2(672,750))
 	if not await route([Vector2(600,750)],"P-R13"):await done();return
 	await clear_enemies(96)
 	if not await route([Vector2(6,750)],"P-R13","P-R04"):await done();return
@@ -108,15 +114,17 @@ func run() -> void:
 	if not await route([Vector2(1680,782),Vector2(1904,878),Vector2(2042,878)],"P-R25","P-R26"):await done();return
 	var mill_route:=preload("res://tests/world/plains_mill_route.gd").new()
 	if not await mill_route.run(app):check(false,"mill physical route "+mill_route.checkpoint);await done();return
-	if not await route([Vector2(1104,142),Vector2(1024,-18)],"P-R26","P-R27"):await done();return
-	if not await route([Vector2(688,542),Vector2(448,494)],"P-R27"):await done();return
+	if not await route([Vector2(1104,142),Vector2(1184,-18)],"P-R26","P-R27"):await done();return
+	if not await route([Vector2(672,494)],"P-R27"):await done();return
+	await full_jump(Vector2(464,494))
+	if not await route([Vector2(448,494)],"P-R27"):await done();return
 	await walk(Vector2(320,494),"P-R27");app.controller.router.request_action(&"interact");await ticks(8)
 	check(app.state.value.rest.room=="P-R27","explicit west shelter rest")
 	if not await route([Vector2(480,494)],"P-R27"):await done();return
 	app.controller.router.set_source_axis(&"keyboard_mouse",1)
 	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(24)
 	app.controller.router.set_jump_held(&"keyboard_mouse",false)
-	if not await route([Vector2(720,542),Vector2(1008,494),Vector2(1146,494)],"P-R27","P-R05"):await done();return
+	if not await route([Vector2(720,494),Vector2(1008,494),Vector2(1146,494)],"P-R27","P-R05"):await done();return
 	if not await route([Vector2(384,878),Vector2(1683,878)],"P-R05"):await done();return
 	app.controller.router.request_action(&"interact");await ticks(5);check(app.state.has("shortcut_p02"),"open slow-platform return from correct side")
 	if not await route([Vector2(336,782),Vector2(240,654),Vector2(400,526),Vector2(240,430),Vector2(6,430)],"P-R05","P-R14"):await done();return
@@ -151,8 +159,10 @@ func run() -> void:
 	if not won:await done();return
 	if not await route([Vector2(1928,1134)],"P-R14"):await done();return
 	app.controller.router.request_action(&"interact");await ticks(5);check(app.state.has("shortcut_p03"),"open defeated arena return gate")
-	if not await route([Vector2(1264,1182),Vector2(1088,1262)],"P-R14","P-R15"):await done();return
-	if not await route([Vector2(600,1134),Vector2(1016,1182),Vector2(1504,1134)],"P-R15"):await done();return
+	if not await route([Vector2(1264,1134),Vector2(1088,1262)],"P-R14","P-R15"):await done();return
+	if not await route([Vector2(600,1134),Vector2(944,1134)],"P-R15"):await done();return
+	await hop(Vector2(1184,1134),Vector2(-1,.1))
+	if not await route([Vector2(1504,1134)],"P-R15"):await done();return
 	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(8)
 	for anchor: Vector2 in app.room.hook_points:
 		check(await hook(anchor),"earned H climbs clock anchors")
@@ -162,7 +172,7 @@ func run() -> void:
 	app.controller.router.request_action(&"interact");await ticks(5);check(app.state.has("clock_P"),"repair clock with actually earned H")
 	if not await route([Vector2(1728,686)],"P-R15"):await done();return
 	app.controller.router.request_action(&"interact");await ticks(5);check(app.state.has("shortcut_p01"),"open real clock return")
-	if not await route([Vector2(1992,1134),Vector2(1504,1134),Vector2(1184,1182),Vector2(1024,1262)],"P-R15","P-R32"):await done();return
+	if not await route([Vector2(1992,1134),Vector2(1504,1134),Vector2(1184,1134),Vector2(1024,1262)],"P-R15","P-R32"):await done();return
 	if not await route([Vector2(1200,1134),Vector2(6,1134)],"P-R32","P-R31"):await done();return
 	if not await route([Vector2(6,878)],"P-R31","P-R01"):await done();return
 	if not await route([Vector2(320,622)],"P-R01"):await done();return

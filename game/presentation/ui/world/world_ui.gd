@@ -20,6 +20,10 @@ var page := ""
 var equipment: WorldEquipment
 var heal: Button
 var heal_host: ScrollContainer
+var review_mode := false
+var review_stage := ""
+var review_button: Button
+var review_host: ScrollContainer
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer=30
@@ -42,6 +46,10 @@ func _ready() -> void:
 	pause_button=Button.new();pause_button.text=WorldText.text("world_ui.00")
 	pause_button.pressed.connect(func() -> void: command.emit("pause",""))
 	pause_host=_touch_host(pause_button)
+	review_button=Button.new()
+	review_button.pressed.connect(func() -> void: command.emit("review",""))
+	review_host=_touch_host(review_button)
+	review_host.hide()
 	heal=Button.new();heal.name="FocusHeal";heal.focus_mode=Control.FOCUS_NONE
 	heal.button_down.connect(func() -> void: command.emit("heal_hold","1"))
 	heal.button_up.connect(func() -> void: command.emit("heal_hold","0"))
@@ -96,6 +104,7 @@ func show_pause() -> void:
 	var modal:=panel("pause",WorldText.text("world_ui.01"),WorldText.text("world_ui.02"))
 	for row: Array in [[WorldText.text("world_ui.03"),"close"],[WorldText.text("world_ui.04"),"map"],[WorldText.text("world_ui.05"),"inventory"],[WorldText.text("world_ui.06"),"settings"],[WorldText.text("world_ui.07"),"title"]]:
 		modal.button(row[0],func() -> void: command.emit(row[1],""))
+	modal.button(WorldText.text("review.open"),func() -> void: command.emit("review",""))
 	modal.focus_first()
 func show_map() -> void:
 	var modal:=panel("map",WorldText.text("world_ui.08"),WorldText.text("world_ui.09"))
@@ -125,6 +134,11 @@ func present(actor: PlayerController,room_id: String,location: String,status: St
 	mini.local_player=actor.motor.position
 	var safe:=DemoUiModalMetrics.safe_rect(get_viewport())
 	var factor:=clampf(1.0/DemoUiModalMetrics.ui_scale(get_viewport()),1,1.8)
+	review_button.text=WorldText.text("review.badge") % [room_id,review_stage]
+	review_button.custom_minimum_size=Vector2(250,42)*factor
+	review_host.position=Vector2(safe.get_center().x-125*factor,safe.position.y+8*factor)
+	review_host.size=review_button.get_combined_minimum_size()
+	review_host.visible=review_mode and page.is_empty()
 	mini.scale=Vector2.ONE*factor
 	mini.size=Vector2(184,112)
 	mini.position=Vector2(safe.end.x-200*factor,safe.position.y+16*factor)

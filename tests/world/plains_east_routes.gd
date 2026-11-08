@@ -39,16 +39,17 @@ func run() -> void:
 	await hop(Vector2(768,942),Vector2(-1,.1))
 	if not await route([Vector2(832,942)],"P-R29"):await finish_east();return
 	# Descend through the open lower cargo passage; shutter high route is checked separately.
-	if not await route([Vector2(920,1566),Vector2(1120,1518),Vector2(1248,1518)],"P-R29"):await finish_east();return
+	if not await route([Vector2(920,1518),Vector2(1120,1518),Vector2(1248,1518)],"P-R29"):await finish_east();return
 	await clear_enemies()
 	if not await route([Vector2(1440,1518),Vector2(1104,1518)],"P-R29"):await finish_east();return
-	if not await route([Vector2(896,1566),Vector2(768,1646)],"P-R29","P-R09"):await finish_east();return
+	if not await route([Vector2(896,1518),Vector2(768,1646)],"P-R29","P-R09"):await finish_east();return
 	if not await route([Vector2(1800,622)],"P-R09"):await finish_east();return
 	await clear_enemies()
 	await setup_at("P-R34")
 	if not await route([Vector2(640,526)],"P-R34"):await finish_east();return
 	await clear_enemies()
-	await walk(Vector2(688,526),"P-R34");await hop(Vector2(1040,462),Vector2(-1,.3))
+	await walk(Vector2(688,526),"P-R34");await ticks(30)
+	await hop(Vector2(1040,462),Vector2(-1,.3))
 	await walk(Vector2(1168,462),"P-R34");await full_jump(Vector2(1480,526));await clear_enemies()
 	if not await route([Vector2(2080,622),Vector2(1920,510),Vector2(1664,398)],"P-R34"):await finish_east();return
 	check(await market_cross(),"market ferry joins raised east doorway")
@@ -83,8 +84,9 @@ func run() -> void:
 	if not await route([Vector2(2554,878)],"P-R18","P-R07"):await finish_east();return
 	if not await route([Vector2(600,526),Vector2(688,526)],"P-R07"):await finish_east();return
 	await clear_enemies()
-	await full_jump(Vector2(960,622))
-	if not await route([Vector2(1216,670),Vector2(1088,750)],"P-R07","P-R02"):await finish_east();return
+	await ticks(30)
+	await hop(Vector2(1040,462),Vector2(-1,.3))
+	if not await route([Vector2(1216,622),Vector2(1088,750)],"P-R07","P-R02"):await finish_east();return
 
 	await setup_at("P-R35")
 	if not await route([Vector2(640,1134)],"P-R35"):await finish_east();return
@@ -92,11 +94,11 @@ func run() -> void:
 	if not await route([Vector2(1168,1134)],"P-R35"):await finish_east();return
 	check(await ride_up("JunctionLift","P-R35:JunctionLift",Vector2(1168,1072),180),"junction freight lift replaces twenty ladder rungs")
 	await full_jump(Vector2(1424,142))
-	if not await route([Vector2(1360,142),Vector2(1280,-18)],"P-R35","P-R33"):await finish_east();return
+	if not await route([Vector2(1360,142),Vector2(1440,-18)],"P-R35","P-R33"):await finish_east();return
 	if not await route([Vector2(1520,878),Vector2(1840,878)],"P-R33"):await finish_east();return
 	check(app.room.enemies.is_empty(),"world clock forecourt preserves quiet landmark")
-	if not await route([Vector2(1456,878)],"P-R33"):await finish_east();return
-	await hop(Vector2(976,878),Vector2(1,.1))
+	if not await route([Vector2(1248,878)],"P-R33"):await finish_east();return
+	await full_jump(Vector2(1056,878))
 	if not await route([Vector2(1000,878),Vector2(736,878),Vector2(656,766),Vector2(592,654),Vector2(6,654)],"P-R33","P-R32"):await finish_east();return
 	await finish_east()
 func finish_east() -> void:

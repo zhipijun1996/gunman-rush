@@ -22,6 +22,17 @@ def validate_player(data):
         if type(value) is not int or not 0 <= value < limit:
             raise ValueError('Invalid focus heal ' + key)
 
+    light = data.get('carry_light', {})
+    for key in ('radius', 'energy'):
+        value = light.get(key)
+        if type(value) not in (int, float) or not math.isfinite(value) or value <= 0:
+            raise ValueError('Invalid carry light ' + key)
+    if not re.fullmatch(r'[0-9a-fA-F]{6}', str(light.get('color', ''))):
+        raise ValueError('Invalid carry light color')
+    offset = light.get('offset')
+    if not isinstance(offset, list) or len(offset) != 2 or any(type(v) not in (int, float) or not math.isfinite(v) for v in offset):
+        raise ValueError('Invalid carry light offset')
+
 
 def validate_services(data, implemented, npcs):
     def whole(value, minimum=0):

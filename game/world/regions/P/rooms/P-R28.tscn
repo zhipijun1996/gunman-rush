@@ -7,14 +7,14 @@
 script = ExtResource("1")
 room_id = "P-R28"
 art_profile = "field"
-masonry_platform_indices = Array[int]([6, 7, 8, 9])
+masonry_platform_indices = Array[int]([6,7,8,9])
 spike_strips = Array[Dictionary]([{"id":"west_furrow","bounds":[736,614,64,26],"facing":"up"},{"id":"east_furrow","bounds":[1504,614,96,26],"facing":"up"}])
 arrival_text = "借风旧田"
 platforms = Array[Rect2]([Rect2(0,736,2048,32),Rect2(0,640,2048,128),Rect2(480,544,224,32),Rect2(960,480,224,32),Rect2(1440,544,224,32),Rect2(1760,640,288,32),Rect2(1088,160,192,32),Rect2(544,576,64,64),Rect2(1152,544,256,32),Rect2(736,320,192,48)])
 one_way_indices = Array[int]([])
 start_point = Vector2(144, 622)
 rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id": "P-R28:encounter:01", "behavior": "patrol", "point": [832, 622], "max_health": 10}, {"id": "P-R28:encounter:02", "behavior": "charger", "point": [1376, 622], "max_health": 10}])
+enemy_placements = Array[Dictionary]([{"id":"P-R28:encounter:01","behavior":"patrol","point":[832,622],"max_health":10},{"id":"P-R28:encounter:02","behavior":"charger","point":[1376,622],"max_health":10}])
 signs = Array[Dictionary]([{"point": [224, 592], "text": "风车在身后慢慢变小。草丛里的脚步声却近了。"}])
 hook_points = Array[Vector2]([])
 section_volumes = Array[Dictionary]([])

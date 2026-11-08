@@ -1,0 +1,36 @@
+extends "res://tests/world/plains_intro.gd"
+## Review fixtures must preserve the campaign save and use real world handoffs.
+func run() -> void:
+	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
+	app.save_path="user://room_review_campaign.json"
+	for suffix: String in ["",".backup",".tmp",".corrupt"]:DirAccess.remove_absolute(app.save_path+suffix)
+	root.add_child(app)
+	check(app.start_new(),"create independent campaign fixture")
+	await settle()
+	app.return_title();await ticks(2)
+	var original:=FileAccess.get_file_as_string(app.save_path)
+	var storage:=app.state.storage
+	check(not await app.review.begin("P-R99","","base"),"unknown room rejected before changing save")
+	check(not await app.review.begin("P-R01","not-a-door","h"),"unknown entry rejected")
+	check(await app.review.begin("P-R01","L01:P-R01","h"),"review arrives through chosen real entry")
+	check(app.state.has("H") and not app.state.has("D"),"explicit H stage")
+	check(app.player.is_on_floor() and app.player.position.distance_to(Vector2(1648,622))<10,"normal entry lands before handoff")
+	var lamp:=app.player.get_node("CarryLight") as PlayerCarryLight
+	check(lamp.global_position==app.player.global_position+FixedWorldProvider.point(lamp.settings.offset),"carry light is attached to actual body")
+	check(await walk(Vector2(1786,622),"P-R01"),"ordinary walking crosses east door")
+	await settle()
+	check(app.room.room_id=="P-R08" and app.player.is_on_floor(),"review preserves actual adjacent-room transition")
+	check(app.player.get_node("CarryLight")==lamp,"same light survives room handoff")
+	check(FileAccess.get_file_as_string(app.save_path)==original,"exploration and save commits cannot touch campaign bytes")
+	check(await app.review.begin("P-R24","","hd"),"reset into different room and return-stage fixture")
+	check(app.state.has("H") and app.state.has("D"),"H+D explicit fixture")
+	check(await app.review.begin("P-R24","","base"),"fresh retry removes previous fixture progress")
+	check(not app.state.has("H") and not app.state.has("D"),"base retry has no inherited abilities")
+	app.review.leave();await ticks(2)
+	check(app.state.storage==storage and not app.review.active,"leaving review restores campaign storage")
+	check(FileAccess.get_file_as_string(app.save_path)==original,"leaving review preserves campaign bytes")
+	check(app.continue_world(),"campaign continue remains available")
+	await settle()
+	check(app.room.room_id=="P-R03" and not app.state.has("H"),"campaign resumes its own room and abilities")
+	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(8)
+	print("WORLD ROOM REVIEW: ",failures," failures");quit(failures)

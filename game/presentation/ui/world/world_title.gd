@@ -16,6 +16,7 @@ func show_title() -> void:
 	proceed.custom_minimum_size.y = 62
 	_button(_content,WorldText.text("world_title.04"),func() -> void: world_requested.emit("settings"))
 	_button(_content,WorldText.text("world_title.05"),func() -> void: world_requested.emit("help"))
+	_button(_content,WorldText.text("review.open"),func() -> void: world_requested.emit("review"))
 	_notice=_label(_content,"",16,MUTED)
 	_notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	_focus_first()

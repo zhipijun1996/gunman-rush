@@ -29,7 +29,7 @@ func run() -> void:
 	check(await hook(app.room.hook_points[1]),"hidden mill back beam")
 	app.controller.router.set_source_axis(&"keyboard_mouse",1);app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(9);app.controller.router.request_action(&"shoot_release",Vector2.LEFT);await ticks(7);app.controller.router.set_jump_held(&"keyboard_mouse",false)
 	check(await walk(Vector2(928,430),"P-R17"),"release and recoil to tool bag");await collect("pickup_EQ_MAP_P03")
-	await start_at("P-R30",Vector2(1152,926));app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(8)
+	await start_at("P-R30",Vector2(1152,878));app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(8)
 	for anchor: Vector2 in app.room.hook_points:
 		check(await hook(anchor),"low ceiling cave ring "+str(anchor));app.controller.router.set_jump_held(&"keyboard_mouse",false)
 	app.controller.router.set_source_axis(&"keyboard_mouse",0);app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(1);app.controller.router.set_jump_held(&"keyboard_mouse",false)

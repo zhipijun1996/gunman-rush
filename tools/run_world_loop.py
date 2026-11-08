@@ -14,6 +14,7 @@ def main():
         ('economy_restart.gd',r'WORLD GOLD RESTART: 0 failures',30),
         ('traversal_contracts.gd',r'WORLD TRAVERSAL: \d+ assertions, 0 failures',60),
         ('room_contracts.gd',r'WORLD ROOMS: \d+ assertions, 0 failures',180),
+        ('room_review.gd',r'WORLD ROOM REVIEW: 0 failures',120),
         ('ui_contracts.gd',r'WORLD UI: \d+ assertions, 0 failures',60),
         ('presentation_contracts.gd',r'WORLD PRESENTATION: \d+ assertions, 0 failures',60),
         ('demo_regressions.gd',r'WORLD DEMO: \d+ assertions, 0 failures',60),

@@ -26,6 +26,7 @@ func sprite(id: String,at: Vector2,layer: int=-2) -> Sprite2D:
 		var spec: Dictionary=assets.sprites[id]
 		node.texture=load("res://art/world-art-v2/"+str(spec.file));node.offset=-Vector2(float(spec.pivotX),float(spec.pivotY))
 	node.position=at.round();node.z_index=layer
+	if props.has(id): node.position.y += float(props[id].get("ground_embed_world_units",0))
 	node.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST;add_child(node)
 	return node
 func _ready() -> void:
@@ -138,6 +139,10 @@ func _draw() -> void:
 			draw_rect(Rect2(at,Vector2(mote.size,1)),Color(1,.92,.68,mote.alpha*clampf(fade,0,1)))
 
 func _support(base: Vector2,height: float) -> void:
+	# Painted stone caps and grass have irregular alpha edges. Embed the footing
+	# and overlap the beam underside without changing the physical surfaces.
+	base.y += 3
+	height += 5
 	var texture: Texture2D=load("res://assets/plains_v07/native/plain_pier.png")
 	var width:=texture.get_width()
 	var top:=base.y-height

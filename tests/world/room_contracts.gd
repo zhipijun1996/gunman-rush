@@ -35,6 +35,19 @@ func run() -> void:
 			check(app.room.room_id==id and app.player.is_on_floor(),id+"/"+str(entry.id)+" physical entry supported: "+app.status)
 			check(app.player.position.distance_to(FixedWorldProvider.point(entry.landing_contract.safe_standing_position_world_units))<4,id+"/"+str(entry.id)+" local landing actual="+str(app.player.position)+" expected="+str(entry.landing_contract.safe_standing_position_world_units)+" status="+app.status)
 			check(app.player.get_instance_id()==player_id,"paired entry preserves player instance")
+			var portal:=FixedWorldProvider.point(entry.position_candidate.local_world_units)
+			if entry.direction=="up":
+				check(absf(app.player.position.x-portal.x)<4,id+" upper entrance falls straight onto its safe floor")
+				var solid_landing:=false
+				for index: int in app.room.platforms.size():
+					if index not in app.room.one_way_indices and app.room.platforms[index].has_point(app.player.position+Vector2(0,20)):solid_landing=true
+				check(solid_landing,id+" upper landing is solid, not a drop-through trap")
+			if entry.direction=="down":
+				var shaft:=Rect2(portal-Vector2(52,128),Vector2(104,128))
+				var clear:=true
+				for platform: Rect2 in app.room.platforms:
+					if platform.intersects(shaft):clear=false
+				check(clear,id+" downward exit is an unobstructed hole")
 			for blocked: Dictionary in app.room.doors:
 				if app.content.room(blocked.target_room).is_empty(): check(not app.room.door_open.get(blocked.id,true),"unbuilt target has visible closed barrier")
 		var safety:=SegmentRespawn.new();safety.configure(app.controller,app.lifetime)

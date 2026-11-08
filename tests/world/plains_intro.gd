@@ -76,9 +76,9 @@ func play_intro() -> void:
 	check(await walk(Vector2(2170,654),"P-R22"),"lift over second canal")
 	await settle();check(app.room.room_id=="P-R23","quiet shelter")
 	if failures>0:return
-	check(await path([Vector2(544,366),Vector2(560,254),Vector2(448,142),Vector2(720,142),Vector2(656,142),Vector2(576,-18)],"P-R23"),"shelter roof passage")
+	check(await path([Vector2(704,398),Vector2(848,302),Vector2(976,206),Vector2(784,142),Vector2(736,-18)],"P-R23"),"shelter roof passage")
 	await settle();check(app.room.room_id=="P-R24","overlook")
-	check(await path([Vector2(1040,598),Vector2(1104,526),Vector2(1264,478),Vector2(1530,478)],"P-R24"),"station slope")
+	check(await path([Vector2(1040,590),Vector2(1104,526),Vector2(1264,478),Vector2(1530,478)],"P-R24"),"station slope")
 	await settle();check(app.room.room_id=="P-R01" and app.state.has("station_briefed"),"reach station without forced NPC conversation")
 	if failures==0:
 		await path([Vector2(600,622),Vector2(320,622)],"P-R01");app.controller.router.request_action(&"interact");await ticks(8)

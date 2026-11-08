@@ -39,6 +39,7 @@ var _service_token: DemoToken
 var _npc_id:=""
 var _accepted_damage:=false
 var _last_notice:=""
+var review: WorldRoomReview
 
 
 func _ready() -> void:
@@ -64,6 +65,9 @@ func _ready() -> void:
 	preferences.apply(null)
 	WorldText.configure(content.data.get("ui_texts",{}))
 	_make_ui()
+	review = WorldRoomReview.new()
+	review.app = self
+	review.requested()
 
 func _make_ui() -> void:
 	ui=FixedWorldUI.new()
@@ -130,6 +134,9 @@ func _create_player() -> void:
 	player.get_node("PlayerFeedback").hide()
 	player.add_child(PlayerPresentationRuntime.make_body(player,controller,"PixelPlainsActor"))
 	PlayerPresentationRuntime.attach(player)
+	var carry_light := PlayerCarryLight.new()
+	carry_light.settings = content.data.player.carry_light
+	player.add_child(carry_light)
 	build_state=BuildState.new()
 	build_state.configure(controller,lifetime,&"fixed_world")
 	build_state.commit_equipment_sources(services.effect_sources())
@@ -308,7 +315,7 @@ func load_room(id: String, entry: String) -> void:
 		for frame: int in ceili(float(motion.timeout_seconds)/get_physics_process_delta_time()):
 			await get_tree().physics_frame
 			if ticket!=_ticket: return
-			player.step(clampf((anchor.x-player.position.x)/float(motion.hop_steering_distance),-float(motion.hop_axis),float(motion.hop_axis)),get_physics_process_delta_time())
+			player.step(0,get_physics_process_delta_time())
 			if player.is_on_floor() and absf(player.position.x-anchor.x)<4: break
 	var upward_entry: bool=not resolved.entry.is_empty() and resolved.entry.direction=="down"
 	if upward_entry:
@@ -663,7 +670,10 @@ func _ui_command(kind: String,_id: String) -> void:
 		"close": _close_panel()
 		"map": show_map()
 		"interact": _interact()
-		"title": return_title()
+		"title":
+			if review.active: review.leave()
+			else: return_title()
+		"review": review.show()
 		"inventory":
 			if controller!=null and (paused or _pause_world()):
 				_service_ticket+=1

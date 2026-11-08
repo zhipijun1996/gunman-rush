@@ -17,7 +17,7 @@ func run() -> void:
   check(await ride_up("FreightLift","P-R09:FreightLift",Vector2(1184,568),148),"mining freight carries actual player to upper storey")
   await full_jump(Vector2(1440,142))
   check(app.player.is_on_floor() and absf(app.player.position.y-142)<8,"mining freight exits on actual upper landing")
-  check(await route([Vector2(1360,142),Vector2(1280,-18)],"P-R09","P-R29"),"mining return crosses real paired doorway")
+  check(await route([Vector2(1360,142),Vector2(1440,-18)],"P-R09","P-R29"),"mining return crosses real paired doorway")
  if selected.is_empty() or selected=="P-R29":
   await begin("P-R29",Vector2(400,1518))
   check(await ride_up("GrainLift","P-R29:GrainLift",Vector2(400,1456),660),"grain lift returns to entry without repeated short rungs")
