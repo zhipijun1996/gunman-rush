@@ -39,6 +39,7 @@ def main():
         ('plains_cellar.gd',r'PLAINS CELLAR: 0 failures',120),
         ('plains_well.gd',r'PLAINS WELL: 0 failures',120),
         ('plains_return_galleries.gd',r'PLAINS RETURN GALLERIES: 0 failures',120),
+        ('plains_thresholds.gd',r'PLAINS THRESHOLDS: 0 failures',120),
         ('plains_mechanisms.gd',r'PLAINS MECHANISMS: 0 failures',120),
         ('plains_returns.gd',r'PLAINS RETURNS: 0 failures',180),
         ('plains_places.gd',r'PLAINS PLACES: 0 failures',120),
