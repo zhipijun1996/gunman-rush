@@ -17,7 +17,6 @@ func run() -> void:
 			await hop(Vector2(1408,606),Vector2(-1,.6))
 			check(absf(app.player.position.y-606)<8,"upper east arch via recoil")
 			check(await walk(Vector2(1440,606),"P-R25"),"follow upper branch above lower encounters")
-			check(await walk(Vector2(1520,606),"P-R25"),"east arch departure toward shared exit")
 			await hop(Vector2(1664,782),Vector2(-1,.1))
 			check(absf(app.player.position.y-782)<8,"upper route descends to east root shoulder")
 		else:

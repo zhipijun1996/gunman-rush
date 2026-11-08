@@ -17,14 +17,16 @@ func full_jump(at: Vector2,run_frames: int=0) -> Dictionary:
 	return {"landed":app.player.position,"furthest":furthest}
 
 func field_route() -> bool:
-	if not await path([Vector2(1840,462),Vector2(1408,622)],"P-R04"):return false
-	await clear_enemies()
+	if not await walk(Vector2(1536,462),"P-R04"):return false
+	await clear_enemies(180)
+	if not await walk(Vector2(1440,622),"P-R04"):return false
+	await clear_enemies(96)
 	if not await path([Vector2(1200,526),Vector2(1120,526)],"P-R04"):return false
 	await clear_enemies()
 	if not await walk(Vector2(736,526),"P-R04"):return false
 	await hop(Vector2(944,350),Vector2(-.4,1))
 	if absf(app.player.position.y-350)>8:return false
-	if not await path([Vector2(1024,350),Vector2(1168,238),Vector2(1296,238)],"P-R04"):return false
+	if not await path([Vector2(1024,350),Vector2(1168,238),Vector2(1232,238)],"P-R04"):return false
 	await full_jump(Vector2(1496,238))
 	if not await walk(Vector2(1504,238),"P-R04"):return false
 	await clear_enemies()
@@ -38,7 +40,7 @@ func route(points: Array,rid: String,target: String="") -> bool:
 	if not target.is_empty():check(app.room.room_id==target,rid+" actual door to "+target)
 	return failures==0
 func hop(at: Vector2,aim: Vector2) -> void:
-	app.controller.router.set_source_axis(&"keyboard_mouse",signf(at.x-app.player.position.x))
+	app.controller.router.set_source_axis(&"keyboard_mouse",signf(at.x-app.player.position.x) if absf(at.x-app.player.position.x)>8 else 0)
 	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(9)
 	app.controller.router.request_action(&"shoot_release",aim.normalized());await ticks(8)
 	app.controller.router.set_jump_held(&"keyboard_mouse",false)
@@ -110,9 +112,9 @@ func run() -> void:
 	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(24)
 	app.controller.router.set_jump_held(&"keyboard_mouse",false)
 	if not await route([Vector2(720,542),Vector2(1008,494),Vector2(1146,494)],"P-R27","P-R05"):await done();return
-	if not await route([Vector2(320,878),Vector2(1683,878)],"P-R05"):await done();return
+	if not await route([Vector2(384,878),Vector2(1683,878)],"P-R05"):await done();return
 	app.controller.router.request_action(&"interact");await ticks(5);check(app.state.has("shortcut_p02"),"open slow-platform return from correct side")
-	if not await route([Vector2(208,806),Vector2(320,734),Vector2(432,662),Vector2(544,590),Vector2(656,518),Vector2(752,430),Vector2(6,430)],"P-R05","P-R14"):await done();return
+	if not await route([Vector2(336,782),Vector2(240,654),Vector2(400,526),Vector2(240,430),Vector2(6,430)],"P-R05","P-R14"):await done();return
 	if not await route([Vector2(1776,846)],"P-R14"):await done();return
 	await hop(Vector2(1936,742),Vector2(-1,.6))
 	if not await route([Vector2(1572,742)],"P-R14"):await done();return

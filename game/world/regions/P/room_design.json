@@ -87,7 +87,7 @@
         "visual_read": "暖天、连贯草坡和单个挂铃架，不堆复杂机关。",
         "pressure": "只学习移动，跳空有低路恢复。",
         "failure_recovery": "入口与各台阶都有稳定支撑。",
-        "return_visit": "旧路肩下口回到熟悉开局，教学收据不重发。"
+        "return_visit": "旧路肩下口回到熟悉开局；错开的宽台连接上方回访口，教学收据不重发。"
       },
       "art_focal_assets": [
         "windchime_plains_v2_chime_span",
@@ -128,13 +128,13 @@
       "experience": {
         "player_decision": "从东侧低口沿田路向西看清断垄与巡逻，回身反冲登上断桥肩，再沿上层穿过石挡、地刺和冲锋守望到果园；桥下铜齿保留轻量观察偏路。",
         "visual_read": "上层旧桥和下层田路折返相望，石挡与地刺打断长直跑；桥下低台保留露铜线索。",
-        "pressure": "下层沟边冲锋与田路巡逻要求换位；上层石挡先改变射线，再从安全地面处理守望冲锋与刺床，压力分段出现。",
+        "pressure": "下层沟边冲锋与田路巡逻要求换位；局部沟刺缩小交战落脚；上层石挡迎面壁刺要求提前起跳，石挡改变射线，再从安全地面处理守望冲锋与刺床，压力分段出现。",
         "failure_recovery": "失手回桥下低台；局部危险两侧有实际到访重试点。",
         "return_visit": "去果园的高口和来旧路肩的低口在不同高度。"
       },
       "art_focal_assets": [
-        "bridge_pier",
-        "tilted_barrel"
+        "tilted_barrel",
+        "plain_pier"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -162,7 +162,7 @@
       "experience": {
         "player_decision": "Boss 重试走稳定下路；额外尝试慢吊台到齿轮岸。",
         "visual_read": "传动轮与两台慢平台指向齿轮岸，右侧石壁围出独立返程落槽；主路与收集路上下分区。",
-        "pressure": "首台与裸齿轮同周期传动；在承载左侧看清扫过走廊，选齿轮下行让出的窗口反冲离台。检修台落稳后转乘第二台，下层Boss重试路不受齿轮侵入。",
+        "pressure": "首吊台和裸齿轮由同一铃轴启停；可先启动，离台时空中向后击铃，借反冲上检修岸并停住传动。高岸另有同轴控制铃便于重新安排相位，第二台保持独立慢周期。",
         "failure_recovery": "可选吊台失误落回低地重试；齿轮侧开启狭窄落口，沿独立竖槽单向落到回岔路的主路，不能从下方提前登上奖励岸。",
         "return_visit": "从本侧开回岔路的桥，缩短牧风者重试。"
       },
@@ -202,8 +202,8 @@
         "return_visit": "开启回桥与回闸后，看见走过的路线缩短。"
       },
       "art_focal_assets": [
-        "plains_arch",
-        "windchime_plains_v2_road_marker"
+        "windchime_plains_v2_road_marker",
+        "plain_pier"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -233,7 +233,6 @@
       },
       "art_focal_assets": [
         "world_clock_far",
-        "bridge_pier",
         "storage_crates"
       ],
       "feedback": {
@@ -260,10 +259,10 @@
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "射击井铃起停提水吊台，或沿旧梁分段上井。",
-        "visual_read": "井壁、木梁、井台与贯穿上下的真实吊台轨迹。",
-        "pressure": "井下巡逻、侧梁跳怪分离，升降净空不穿实体台面。",
-        "failure_recovery": "吊台落下有井底岸台；井口木板可主动下穿，边缝封齐。",
+        "player_decision": "利用井底与侧廊控制铃安排提水吊台的运行和停靠，沿两段壁刺的净空搭乘，选择侧廊落脚后再登回承载。",
+        "visual_read": "封闭井壁、宽检修梁、侧铃与贯穿上下的吊台轨迹；壁刺分段限定乘台净空。",
+        "pressure": "井下巡逻与侧梁跳怪分离；壁刺限制右侧偏移，侧廊刺段限定安全落点，宽检修台支持观察与重试。",
+        "failure_recovery": "旧密集短梯退休，保留井底岸台、宽侧廊与可再次控制的吊台；上口沿实体侧岸进出。",
         "return_visit": "吊台停靠相位保存，旧回廊联通小站与铃场。"
       },
       "art_focal_assets": [
@@ -301,8 +300,6 @@
         "return_visit": "未来从矿区返回时仍落在基础安全通路。"
       },
       "art_focal_assets": [
-        "bridge_pier",
-        "bridge_pier",
         "storage_crates"
       ],
       "feedback": {
@@ -386,9 +383,9 @@
         }
       ],
       "experience": {
-        "player_decision": "从倒桶后的低梁线索进入侧室，侧向反冲后回身落到储物台。",
-        "visual_read": "地窖背墙、酒桶、储物箱和靠近淡出的倒桶。",
-        "pressure": "低梁与方向切换是压力，主路门始终可见。",
+        "player_decision": "由低层实体肩进入铃室准备位，腾空向后击中凹槽内的铃，同时借反冲穿过短时闸门，落稳储物岸后开折梯短返。",
+        "visual_read": "墙槽遮挡站地射线，铜线把铃与闸门相连；六格铜灯消退表示窗口，铃槽墙刺指向应落的安全岸。",
+        "pressure": "同一枪承担命中与位移，高差即使闸门已开仍排除普通满跳及边缘起跳；门外地刺限制失手落点，失败回实际到访准备位。",
         "failure_recovery": "失败回低层重组；返程封板仅从领奖侧抬闩。",
         "return_visit": "永久折板便于回到主路，三出口不被秘密遮住。"
       },
@@ -429,8 +426,8 @@
         "return_visit": "原门回草坡；奖励侧折梯只在实际打开后保留。"
       },
       "art_focal_assets": [
-        "bridge_pier",
-        "windchime_plains_v2_road_marker"
+        "windchime_plains_v2_road_marker",
+        "plain_pier"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -662,7 +659,6 @@
         "return_visit": "无 H 仍能完成基础回环；H 装备预览可记忆。"
       },
       "art_focal_assets": [
-        "bridge_pier",
         "windchime_plains_v2_chime_span"
       ],
       "feedback": {
@@ -714,12 +710,9 @@
         "visual_read": "断墩和两岸高度差直接给出起跳、落点。",
         "pressure": "无敌人干扰首次反冲，失败不扣血强迫学习。",
         "failure_recovery": "下层承接与返回台可重组；真实反冲加安全落地才记录。",
-        "return_visit": "熟练后连续通过，仍能使用低层恢复。"
+        "return_visit": "熟练后连续通过；西侧以错层宽岸和反冲抬升接上方回口，保留低层恢复，不再堆短梯台。"
       },
-      "art_focal_assets": [
-        "bridge_pier",
-        "bridge_pier"
-      ],
+      "art_focal_assets": [],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
@@ -798,7 +791,7 @@
       "experience": {
         "player_decision": "在果圃低路面对冲锋，或登上两段挂铃旧拱台用反冲越敌换边；两路在风车前重新汇合。",
         "visual_read": "两座盘根挂铃树拱托住上层短路，根间低路可穿行；枝上落脚和地面遭遇同时可读。",
-        "pressure": "上层两次反冲跨距排除满跳和晚起跳绕过；低层冲锋与一段可见地刺迫使选择清怪、短跳或改走树台，东侧俯冲争夺落点。",
+        "pressure": "上层两次反冲跨距排除满跳和晚起跳绕过，东枝末端荆棘要求提前离台；低层冲锋与一段可见地刺迫使选择清怪、短跳或改走树台，东侧俯冲争夺落点。",
         "failure_recovery": "上路失误落回果圃低路，仍可应对遭遇并继续；清怪后可重新登上高台。",
         "return_visit": "清怪后路仍完整，换边操作不依赖一次性敌人。"
       },
@@ -1006,8 +999,6 @@
         "return_visit": "修钟回程到近端，两次过门回站；H 可向东尝试。"
       },
       "art_focal_assets": [
-        "bridge_pier",
-        "bridge_pier",
         "world_clock_far"
       ],
       "feedback": {
@@ -1032,8 +1023,7 @@
         "return_visit": "钟心是全世界目标，平原修钟不误作全部钟心已修复。"
       },
       "art_focal_assets": [
-        "world_clock_close",
-        "plains_arch"
+        "world_clock_close"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1097,8 +1087,6 @@
         "return_visit": "地窖、根井、塔脚均为既有回环，不因奖励改变跨房图。"
       },
       "art_focal_assets": [
-        "plains_arch",
-        "bridge_pier",
         "world_clock_far"
       ],
       "feedback": {

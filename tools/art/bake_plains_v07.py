@@ -48,24 +48,26 @@ for i,(name,height) in enumerate([('barrel',48),('tilted_barrel',40),('storage_c
  props[name]={'image':str(dest.relative_to(ROOT)),'source':'assets/plains_v07/source/props-generated.png','source_rect':[x,y,512,512],'size':list(native.size),'bake_scale':factor,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
 # Large architecture remains individual editable scenery, never baked room pictures.
 for source,entries,columns,rows in [
- ('architecture-generated.png',[('carriage',160),('waiting_shelter',176),('windmill_frame',320),('bridge_pier',208),('market_stalls',144),('sunken_well',160)],3,2),
+ ('architecture-generated.png',[('carriage',160),('waiting_shelter',176),('windmill_frame',320),(None,208),('market_stalls',144),('sunken_well',160)],3,2),
  ('story-traces-generated.png',[('aqi_ribbon',64),('aqi_note',80),('aqi_bench',96)],3,1),
  ('clocktower-generated.png',[('world_clock_close',512),('world_clock_far',176)],1,1)]:
  image=Image.open(BASE/'source'/source).convert('RGBA');cw,ch=image.width//columns,image.height//rows
  for i,(name,height) in enumerate(entries):
+  if name is None:continue
   idx=i if columns>1 else 0;x=idx%columns*cw;y=idx//columns*ch
   tile=image.crop((x,y,x+cw,y+ch));alpha=tile.getchannel('A').point(lambda a:255 if a>=128 else 0);tile.putalpha(alpha)
   crop=tile.crop(alpha.getbbox());factor=height/crop.height
   native=crop.resize((round(crop.width*factor),height),Image.Resampling.NEAREST)
   dest=BASE/'native'/(name+'.png');native.save(dest)
   props[name]={'image':str(dest.relative_to(ROOT)),'source':'assets/plains_v07/source/'+source,'source_rect':[x,y,cw,ch],'size':list(native.size),'bake_scale':factor,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
-# The shoulder pier spans the lower bank; keep both feet grounded without stretching.
-tile=Image.open(BASE/'source/architecture-generated.png').convert('RGBA').crop((0,512,512,1024))
-alpha=tile.getchannel('A').point(lambda a:255 if a>=128 else 0);tile.putalpha(alpha)
-crop=tile.crop(alpha.getbbox());factor=256/crop.height
-native=crop.resize((round(crop.width*factor),256),Image.Resampling.NEAREST)
-dest=BASE/'native/bridge_pier_tall.png';native.save(dest)
-props['bridge_pier_tall']={'image':str(dest.relative_to(ROOT)),'source':'assets/plains_v07/source/architecture-generated.png','source_rect':[0,512,512,512],'size':list(native.size),'bake_scale':factor,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
+# Independently generated architectural parts; support column remains native-width.
+image=Image.open(BASE/'source/thresholds-generated.png').convert('RGBA')
+for name,box,height in [('plain_pier',[0,64,316,960],224),('building_threshold',[318,0,978,960],272),('well_threshold',[982,684,1536,960],72)]:
+ tile=image.crop(box);alpha=tile.getchannel('A').point(lambda a:255 if a>=128 else 0);tile.putalpha(alpha)
+ bounds=alpha.getbbox();crop=tile.crop(bounds);factor=height/crop.height
+ native=crop.resize((round(crop.width*factor),height),Image.Resampling.NEAREST)
+ dest=BASE/'native'/(name+'.png');native.save(dest)
+ props[name]={'image':str(dest.relative_to(ROOT)),'source':'assets/plains_v07/source/thresholds-generated.png','source_rect':box,'alpha_crop':list(bounds),'size':list(native.size),'bake_scale':factor,'generation':'assets/plains_v07/source/thresholds-generation.json','sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
 # Authored orchard surfaces: keep uniform source scaling and a measured top/base gap.
 image=Image.open(BASE/'source/orchard-arches-generated.png').convert('RGBA')
 for i,(name,surface_height) in enumerate([('orchard_arch_west',192),('orchard_arch_east',272)]):

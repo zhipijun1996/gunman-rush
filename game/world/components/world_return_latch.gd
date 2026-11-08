@@ -16,7 +16,10 @@ func bind(value: FixedWorldState) -> void:
 	for rect: Rect2 in return_steps: opened_bodies.append(_body(rect,true))
 	for rect: Rect2 in closed_panels: closed_bodies.append(_body(rect,false))
 	if not metal_hatch:
-		closed_terrain=UnderworldTerrain.build(closed_panels);add_child(closed_terrain)
+		closed_terrain=UnderworldTerrain.build(closed_panels)
+		var room:=get_parent() as FixedWorldRoom
+		if room!=null and not room.interior_material().is_empty():PlainsMillTerrainMaterial.install_on(closed_terrain)
+		add_child(closed_terrain)
 	_refresh(0)
 
 func _body(rect: Rect2,one_way: bool) -> StaticBody2D:

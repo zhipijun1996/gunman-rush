@@ -28,6 +28,7 @@ var service_pickup_sprites: Dictionary={}
 @export var enemy_placements: Array[Dictionary] = []
 @export var signs: Array[Dictionary] = []
 @export var hazards: Array[Rect2] = []
+@export var spike_strips: Array[Dictionary] = []
 @export var gear_obstacles: Array[Dictionary] = []
 @export var hook_points: Array[Vector2] = []
 @export var climbable_walls: Array[Rect2] = []
@@ -63,8 +64,10 @@ var seals: Array[StaticBody2D] = []
 var battle_started := false
 var battle_finished := false
 
+static func material_for_profile(profile: String) -> String:
+	return {"mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(profile,"")
 func interior_material() -> String:
-	return {"mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(art_profile,"")
+	return material_for_profile(art_profile)
 
 func _ready() -> void:
 	z_index = -1
@@ -152,13 +155,15 @@ func physical_action(id: String) -> WorldRoomInteraction:
 func install_mechanisms(controller: PlayerController,lifetime: DemoLifetime,saved: Dictionary,submit: Callable) -> void:
 	for row: Dictionary in bell_mechanisms:
 		var latch:=WorldShotLatch.new();latch.stable_id=str(row.id)
+		latch.open_seconds=float(row.get("open_seconds",0))
 		latch.z_index=-2;add_child(latch)
 		if row.has("carrier"):
 			latch.motion_mode=true;latch.motion_target=get_node(str(row.carrier)) as WorldMovingPlatform
 			latch.motion_target.bind_bell_control();latch.gate_visual_enabled=false
 		latch.setup(controller,lifetime,FixedWorldProvider.point(row.bell),FixedWorldProvider.rect(row.get("gate",[0,0,1,1])))
+		for point: Array in row.get("access_bells",[]):latch.add_access_bell(FixedWorldProvider.point(point))
 		if latch.motion_mode:latch.gate_body.collision_layer=0;latch.gate_shape.disabled=true
-		if saved.has(row.id):
+		if saved.has(row.id) and latch.open_seconds<=0:
 			latch.restore_region_state(saved[row.id]);latch.restore_region_opened(bool(saved[row.id].is_open))
 		latch.activation_requested.connect(submit)
 		controller.router.cancelled.connect(latch.on_router_cancelled)
@@ -166,7 +171,8 @@ func install_mechanisms(controller: PlayerController,lifetime: DemoLifetime,save
 
 func mechanism_snapshot() -> Dictionary:
 	var result: Dictionary={}
-	for id: String in mechanisms:result[id]=(mechanisms[id] as WorldShotLatch).region_snapshot()
+	for id: String in mechanisms:
+		if mechanisms[id].open_seconds<=0:result[id]=(mechanisms[id] as WorldShotLatch).region_snapshot()
 	return result
 
 func configure(row: Dictionary) -> void:
@@ -232,6 +238,8 @@ func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: 
 		enemies[id] = actor
 	for index: int in hazards.size():
 		add_child(DemoContactEmitter.environment_rect(hazards[index],policy,controller,StringName(room_id+":terrain:"+str(index))))
+	for strip: Dictionary in spike_strips:
+		add_child(DemoContactEmitter.environment_rect(FixedWorldProvider.rect(strip.bounds),policy,controller,StringName(room_id+":spikes:"+str(strip.id))))
 	for spec: Dictionary in gear_obstacles:
 		var gear:=WorldGearObstacle.new()
 		gear.name=str(spec.id);gear.definition=spec;gear.controller=controller;gear.policy=policy

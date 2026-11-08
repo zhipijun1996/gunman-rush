@@ -14,12 +14,14 @@ var period:=4.8
 var phase:=0.0
 var tooth_tick:=0
 var spark_remaining:=0.0
+var drive: WorldMovingPlatform
 
 func _ready() -> void:
 	process_physics_priority=100
 	origin=FixedWorldProvider.point(definition.point)
 	travel=FixedWorldProvider.point(definition.get("travel",[0,0]))
 	period=float(definition.get("period",4.8));phase=float(definition.get("phase",0.0))
+	if definition.has("drive"):drive=get_parent().get_node(str(definition.drive)) as WorldMovingPlatform
 	tooth_tick=floori(phase*2+.5)
 	wheel=Sprite2D.new();wheel.texture=TEXTURE;wheel.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 	wheel.position=origin+travel*sin(phase*TAU);add_child(wheel)
@@ -33,7 +35,7 @@ func _ready() -> void:
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
-	clock+=delta
+	clock=drive.motion_clock if drive!=null else clock+delta
 	spark_remaining=maxf(0,spark_remaining-delta)
 	wheel.position=(origin+travel*sin(TAU*(clock/period+phase))).round()
 	wheel.rotation=TAU*clock/2.4

@@ -5,6 +5,10 @@ signal activation_requested(id: String)
 var stable_id: String
 var pending_commit: Dictionary={}
 func _commit_open(request: Dictionary) -> void:
+	# A timed shutter is a local attempt, not a permanent world entitlement.
+	if open_seconds>0:
+		super._commit_open(request)
+		return
 	pending_commit=request
 	if can_commit():activation_requested.emit(stable_id)
 func can_commit() -> bool:
@@ -47,3 +51,16 @@ func _draw() -> void:
 		for ring: int in 2:
 			var t:=maxf(0,age-ring*.1)
 			draw_arc(bell_position,15+t*72,0,TAU,32,Color(.92,.78,.46,maxf(0,1-t/.55)),1)
+	if open_seconds>0:
+		var cable_y:=gate_rect.position.y+12
+		draw_polyline(PackedVector2Array([bell_position,bell_position+Vector2(56,0),Vector2(bell_position.x+56,cable_y),Vector2(gate_rect.get_center().x,cable_y)]),Color("75684d"),2)
+		var left:=clampf(1-age/open_seconds,0,1) if is_open else 0.0
+		for i: int in 6:
+			draw_rect(Rect2(gate_rect.position+Vector2(gate_rect.size.x+6,12+i*9),Vector2(6,4)),Color("efd78d") if left>float(i)/6 else Color("423e32"))
+
+func _physics_process(delta: float) -> void:
+	var was_open:=is_open
+	super._physics_process(delta)
+	if open_seconds>0:
+		if was_open and not is_open:GameAudio.cue(self,&"armour")
+		queue_redraw()

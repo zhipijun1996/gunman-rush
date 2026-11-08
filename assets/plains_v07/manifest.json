@@ -10,6 +10,7 @@
     "collectibles-generated.png": "39012315b9d73c1c29fb0b144f9d324679989ce98b6dcde67a0709223365d88d",
     "props-generated.png": "fccdc8e90851e97d6fe8217382fb0c9a253978af4b890fae873cd1ddfb2e1523",
     "mill-drive-generated.png": "42bd2ec13d55ec1d3f54c02e1babad05626de8e836fffc3b868d132f7bf86c58",
+    "thresholds-generated.png": "78f83f6408c638b40287d94f6412d9fb4b781618b4515b51577d5a0b68a3b934",
     "inhabitants-generated.png": "081dbf9a2ff5f1163b64a266b82d9848986b3ea23bb9a56e0d8dbe3d5a684c32",
     "mechanisms-generated.png": "e12df1bc1177034ce55e0fa5f5b6439d554f8f9d93fb672f6f504ac2602c3daa",
     "orchard-arches-generated.png": "9bc560d30550d6d5e606b27e09f6ba7635e2e4bc40fa7df7d4b295545d5ac0e9",
@@ -1158,22 +1159,6 @@
       "bake_scale": 0.6570841889117043,
       "sha256": "fb8987e20f0389ca6bf5175c6c20c52b29e6a56e2f6b42192597138e6d6ff3e4"
     },
-    "bridge_pier": {
-      "image": "assets/plains_v07/native/bridge_pier.png",
-      "source": "assets/plains_v07/source/architecture-generated.png",
-      "source_rect": [
-        0,
-        512,
-        512,
-        512
-      ],
-      "size": [
-        263,
-        208
-      ],
-      "bake_scale": 0.5333333333333333,
-      "sha256": "8e7f4a9f0c1bde73ba92a3f8694d549b093512ef313222ea81f5a56068541b8b"
-    },
     "market_stalls": {
       "image": "assets/plains_v07/native/market_stalls.png",
       "source": "assets/plains_v07/source/architecture-generated.png",
@@ -1286,21 +1271,74 @@
       "bake_scale": 0.11578947368421053,
       "sha256": "6409166b7d93b44b2bf6500263b170f575d3017e1fd9f60b0cc515d1902dad05"
     },
-    "bridge_pier_tall": {
-      "image": "assets/plains_v07/native/bridge_pier_tall.png",
-      "source": "assets/plains_v07/source/architecture-generated.png",
+    "plain_pier": {
+      "image": "assets/plains_v07/native/plain_pier.png",
+      "source": "assets/plains_v07/source/thresholds-generated.png",
       "source_rect": [
         0,
-        512,
-        512,
-        512
+        64,
+        316,
+        960
+      ],
+      "alpha_crop": [
+        49,
+        77,
+        291,
+        864
       ],
       "size": [
-        324,
-        256
+        69,
+        224
       ],
-      "bake_scale": 0.6564102564102564,
-      "sha256": "d446503d0472c70db2b6e3054076fce392940ba32fc56b02711f035acd8cf7f7"
+      "bake_scale": 0.2846251588310038,
+      "generation": "assets/plains_v07/source/thresholds-generation.json",
+      "sha256": "5cc018d1eda20c7900b93c8002ca661193dcbfcfc9d3bcd8e305edf0cde19053"
+    },
+    "building_threshold": {
+      "image": "assets/plains_v07/native/building_threshold.png",
+      "source": "assets/plains_v07/source/thresholds-generated.png",
+      "source_rect": [
+        318,
+        0,
+        978,
+        960
+      ],
+      "alpha_crop": [
+        16,
+        46,
+        641,
+        926
+      ],
+      "size": [
+        193,
+        272
+      ],
+      "bake_scale": 0.3090909090909091,
+      "generation": "assets/plains_v07/source/thresholds-generation.json",
+      "sha256": "9193556c1d77f8451ac095c3a63da63a3f516f14591810f180e5fe960fbd68cf"
+    },
+    "well_threshold": {
+      "image": "assets/plains_v07/native/well_threshold.png",
+      "source": "assets/plains_v07/source/thresholds-generated.png",
+      "source_rect": [
+        982,
+        684,
+        1536,
+        960
+      ],
+      "alpha_crop": [
+        18,
+        55,
+        522,
+        240
+      ],
+      "size": [
+        196,
+        72
+      ],
+      "bake_scale": 0.3891891891891892,
+      "generation": "assets/plains_v07/source/thresholds-generation.json",
+      "sha256": "c2699111d0e844b6e54ae4ebc371219122ba47ba5898f2483034d46fe589ec35"
     },
     "orchard_arch_west": {
       "image": "assets/plains_v07/native/orchard_arch_west.png",

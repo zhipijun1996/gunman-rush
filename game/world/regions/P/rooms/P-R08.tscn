@@ -7,18 +7,19 @@
 script = ExtResource("1")
 room_id = "P-R08"
 art_profile = "well"
-bell_mechanisms = Array[Dictionary]([{"id":"P-R08:well_lift","bell":[800,1336],"carrier":"WellLift"}])
+bell_mechanisms = Array[Dictionary]([{"id":"P-R08:well_lift","bell":[800,1336],"carrier":"WellLift","access_bells":[[800,1080],[800,784],[800,496],[800,112]]}])
 arrival_text = "封井回廊"
-platforms = Array[Rect2]([Rect2(0, 1504, 464, 32), Rect2(816, 1504, 208, 32), Rect2(0, 1408, 464, 128), Rect2(816, 1408, 208, 128), Rect2(160, 1264, 256, 32), Rect2(608, 1120, 256, 32), Rect2(160, 976, 256, 32), Rect2(608, 832, 256, 32), Rect2(160, 688, 256, 32), Rect2(608, 544, 256, 32), Rect2(160, 400, 256, 32), Rect2(0, 1408, 288, 32), Rect2(576, 160, 192, 32), Rect2(576, 1456, 192, 32), Rect2(464, 1504, 96, 32), Rect2(768, 1456, 48, 32), Rect2(400, 184, 64, 24), Rect2(576, 256, 160, 24), Rect2(400, 328, 160, 24), Rect2(576, 400, 160, 24), Rect2(400, 472, 160, 24), Rect2(240, 544, 160, 24), Rect2(576, 544, 160, 24), Rect2(400, 616, 160, 24), Rect2(240, 688, 160, 24), Rect2(576, 688, 160, 24), Rect2(400, 760, 160, 24), Rect2(240, 832, 160, 24), Rect2(576, 832, 160, 24), Rect2(400, 904, 160, 24), Rect2(240, 976, 160, 24), Rect2(576, 976, 160, 24), Rect2(400, 1048, 160, 24), Rect2(240, 1120, 160, 24), Rect2(576, 1120, 160, 24), Rect2(400, 1192, 160, 24), Rect2(240, 1264, 160, 24), Rect2(400, 1336, 64, 24), Rect2(464, 1456, 112, 24)])
-one_way_indices = Array[int]([16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38])
+platforms = Array[Rect2]([Rect2(0.0,1504.0,464.0,32.0),Rect2(816.0,1504.0,208.0,32.0),Rect2(0.0,1408.0,464.0,128.0),Rect2(816.0,1408.0,208.0,128.0),Rect2(160.0,1264.0,256.0,32.0),Rect2(608.0,1120.0,256.0,32.0),Rect2(160.0,976.0,256.0,32.0),Rect2(608.0,832.0,256.0,32.0),Rect2(160.0,688.0,256.0,32.0),Rect2(608.0,544.0,256.0,32.0),Rect2(160.0,400.0,256.0,32.0),Rect2(0.0,1408.0,288.0,32.0),Rect2(576.0,160.0,192.0,32.0),Rect2(576.0,1456.0,192.0,32.0),Rect2(464.0,1504.0,96.0,32.0),Rect2(768.0,1456.0,48.0,32.0)])
+one_way_indices = Array[int]([])
+spike_strips = Array[Dictionary]([{"id":"shaft_lower","bounds":[966,1008,26,144],"facing":"left"},{"id":"shaft_upper","bounds":[966,576,26,144],"facing":"left"},{"id":"beam_teeth","bounds":[320,950,96,26],"facing":"up"}])
 start_point = Vector2(144, 1390)
 rest_point = Vector2(0, 0)
 enemy_placements = Array[Dictionary]([{"id": "P-R08:encounter:01", "behavior": "patrol", "point": [416, 1390], "max_health": 10}, {"id": "P-R08:encounter:02", "behavior": "hopper", "point": [736, 1102], "max_health": 10}])
-signs = Array[Dictionary]([{"point": [224, 1360], "text": "旧井不再打水。射击井铃能起停提水吊台；旧木梁仍能攀回上方。"}])
+signs = Array[Dictionary]([{"point": [224, 1360], "text": "旧井不再打水。射击井铃能起停提水吊台；侧廊的铃也能停靠吊台，壁刺之间留着检修落点。"}])
 hook_points = Array[Vector2]([])
 section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset": "gear_city_v2_pipe_junction", "point": [672, 1456.0], "layer": -2}, {"asset": "hanging_chime", "point": [368, 1408.0], "layer": -2}])
+retry_anchors = Array[Dictionary]([{"bounds":[656,1060,128,60],"point":[720,1102],"section":"main"},{"bounds":[656,772,128,60],"point":[720,814],"section":"main"},{"bounds":[656,484,128,60],"point":[720,526],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"gear_city_v2_pipe_junction","point":[672,1456.0],"layer":-2},{"asset":"hanging_chime","point":[368,1408.0],"layer":-2}])
 
 [node name="WellLift" type="AnimatableBody2D" parent="."]
 script = ExtResource("moving")
