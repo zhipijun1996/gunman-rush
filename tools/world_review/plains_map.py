@@ -12,7 +12,7 @@ from shapely.ops import unary_union, nearest_points
 from plains_layout import build_layout, ANCHORS
 
 ROOT = Path(__file__).resolve().parents[2]
-PROPOSAL = 'plains-map-review-03'
+PROPOSAL = 'plains-map-review-04'
 # The user approved A/B/C; coordinated runtime geometry migration follows contour review.
 CHANGES = [
  dict(id='A', status='approved', remove='HUB-P31-P08', title='收敛小站旁三角回路',
@@ -167,7 +167,7 @@ def svg_map(rooms,edges,geometry,corridors,ends,paths,labels,outline=False):
     for r in ROUTES:out.append(f'<marker id="arrow-{r["id"]}" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0 0L5 2.5L0 5" fill="{r["color"]}"/></marker>')
     out.append('</defs>')
     out.append(f'<rect width="{WIDTH}" height="{HEIGHT}" fill="#101b20"/>')
-    out.append('<text x="160" y="83" font-size="18" letter-spacing="7" style="fill:#8eaaa5">GUNMAN RUSH  /  REGION P</text><text x="157" y="151" font-size="48" font-weight="600">风铃平原</text><text x="435" y="148" font-size="23" style="fill:#a8bcb5">地域轮廓与探索路线</text><text x="4340" y="101" text-anchor="end" font-size="22" style="fill:#cbb992">轮廓重绘 / 03</text><text x="4340" y="146" text-anchor="end" font-size="17" style="fill:#8eaaa5">35房 · 43条已确认连接 · 空间设计稿，尚未应用到游戏</text>')
+    out.append('<text x="160" y="83" font-size="18" letter-spacing="7" style="fill:#8eaaa5">GUNMAN RUSH  /  REGION P</text><text x="157" y="151" font-size="48" font-weight="600">风铃平原</text><text x="435" y="148" font-size="23" style="fill:#a8bcb5">地域轮廓与探索路线</text><text x="4340" y="101" text-anchor="end" font-size="22" style="fill:#cbb992">轮廓收敛 / 04</text><text x="4340" y="146" text-anchor="end" font-size="17" style="fill:#8eaaa5">35房 · 43条已确认连接 · 空间设计稿，尚未应用到游戏</text>')
     # The outside shore is drawn once around connected land, not around room cards.
     out.append(f'<path d="{path_poly(mass)}" fill="#34434b" fill-rule="evenodd"/>')
     out.append('<g id="corridor-bodies">')
@@ -191,7 +191,7 @@ def svg_map(rooms,edges,geometry,corridors,ends,paths,labels,outline=False):
                 if part.geom_type=='LineString' and not part.is_empty:out.append(f'<path d="{path_line(part.coords)}"/>')
     out.append('</g>')
     # Threshold ticks, not enclosing boxes, identify the real ownership transitions.
-    out.append('<g class="seams" stroke="#a7b9b0" stroke-width="1" opacity=".32">')
+    out.append('<g class="seams" stroke="#a7b9b0" stroke-width="1.3" opacity=".7">')
     for e in edges:
         a,b=ends[e['id']];mid=((a[0]+b[0])/2,(a[1]+b[1])/2)
         dx,dy=b[0]-a[0],b[1]-a[1]
@@ -243,7 +243,7 @@ def main():
     checks=validate(rooms,edges,geometry,corridors);labels=fit_labels(rooms,geometry);info=room_info(w,rooms)
     checks.update(connected_silhouette=True,room_labels_inside=35,geometry_source='Authored regional landforms; no clipping to runtime bounding boxes')
     svg=svg_map(rooms,edges,geometry,corridors,ends,paths,labels)
-    data=dict(id=PROPOSAL,runtime_build='f9e92d4a30ab',baseline_commit='b027dcf1',runtime_source_commit='1acefe0315ab51d1f280e2c5a3e56b5c2a65fb55',status='topology_approved_contours_in_review_not_runtime',changes=CHANGES,routes=ROUTES,rooms=info,edges=[{k:e[k] for k in ['id','a','b','requires','a_section','b_section'] if k in e} for e in edges],checks=checks,source_hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in ['config/world/world.json','config/world/construction.json','game/world/regions/P/room_design.json','config/world/collection_design.json','tools/world_review/plains_map.py','tools/world_review/plains_layout.py','tools/world_review/review.html']})
+    data=dict(id=PROPOSAL,runtime_build='f9e92d4a30ab',baseline_commit='00a8beb7',runtime_source_commit='1acefe0315ab51d1f280e2c5a3e56b5c2a65fb55',status='topology_approved_contours_in_review_not_runtime',changes=CHANGES,routes=ROUTES,rooms=info,edges=[{k:e[k] for k in ['id','a','b','requires','a_section','b_section'] if k in e} for e in edges],checks=checks,source_hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in ['config/world/world.json','config/world/construction.json','game/world/regions/P/room_design.json','config/world/collection_design.json','tools/world_review/plains_map.py','tools/world_review/plains_layout.py','tools/world_review/review.html']})
     (args.out/'map.svg').write_text(svg)
     (args.out/'outline.svg').write_text(svg_map(rooms,edges,geometry,corridors,ends,paths,labels,outline=True))
     (args.out/'review.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
