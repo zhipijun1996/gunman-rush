@@ -98,7 +98,7 @@ def caption(draw, at, text, size=13):
     draw.text(at, text, font=font(size), fill='#faf2da', stroke_width=2, stroke_fill='#243b38', anchor='mt')
 
 
-ordinary = board(360, 'PR #142 平原怪物｜静态审批 01', '七类普通怪 · 同一比例，主角身体高44px · 仅设计拼版，未接入游戏或制作动画')
+ordinary = board(360, 'PR #142 平原怪物｜C 主色块重绘', '七类普通怪 · 同一比例，主角身体高44px · 仅设计拼版，未接入游戏或制作动画')
 d = ImageDraw.Draw(ordinary)
 baseline = 296
 centers = [60, 185, 350, 510, 675, 850, 1020, 1180]
@@ -113,7 +113,7 @@ for i,(name,label,height) in enumerate(rows):
     caption(d,(centers[i+1],333),str(height)+'px',11)
 ordinary.convert('RGB').save(OUT/'review-ordinary.png')
 
-bosses = board(560, 'PR #142 平原Boss｜静态审批 02', '同一比例，主角身体高44px · 牧风者两阶段使用同一身体比例 · 头顶风车从二阶段展开')
+bosses = board(560, 'PR #142 平原Boss｜C 主色块重绘', '同一比例，主角身体高44px · 牧风者两阶段使用同一身体比例 · 头顶风车从二阶段展开')
 d = ImageDraw.Draw(bosses)
 baseline=490
 bosses.alpha_composite(hero,(45,baseline-hero.height))
@@ -129,6 +129,7 @@ references=[bg_path,hero_path,ROOT/'assets/plains_v07/source/architecture-genera
 manifest=dict(status='static proposal; awaiting explicit user approval; not runtime art',
     baseline='PR142@cc62d369d3cec2597db483f1137ff976e25863cf',
     generator='image_gen.imagegen',
+    style_revision='C: peacock-blue cloth, warm ivory masks, amber bells; rejected B retained only in Git comparison baseline',
     derivation='alpha>=128, discard isolated alpha components below20 source pixels, tight crop, aspect-preserving nearest bake; no code painting',
     phase_consistency='Windkeeper shares one uniform source-pixel scale across both states; animation registration remains pending approval',
     approval_required_for=['idle','move','attack','hurt','death','phase_transition','runtime replacement and collision/room-scale validation'],

@@ -2,8 +2,9 @@ extends SceneTree
 ## Actual PR142 rooms/camera/tiles/light/UI; only static art placement is a fixture.
 ## No combat, movement, collision or animation acceptance is implied.
 const ART := "res://art/reviews/plains_enemies_pr142/static/"
-const DEST := "res://build/plains_enemies_pr142/context/"
-const READABILITY := preload("res://tools/art/plains_enemy_readability.gdshader")
+const DEST := "res://build/plains_enemies_pr142/color-c/context/"
+const BASELINE := "res://build/plains_enemies_pr142/color-c/baseline/"
+var rejected_material: Shader
 var app: FixedWorldApp
 var records: Array[Dictionary] = []
 var sprites: Array[Sprite2D] = []
@@ -44,10 +45,15 @@ func add_static(id: String, foot: Vector2) -> void:
 	sprites.append(sprite)
 
 func snap(id: String, variant: String) -> void:
-	note.text=current_title+"  |  "+("A 原静态稿" if variant=="A" else "B 轻量轮廓 + 明暗分离")+"\n正式TileSet / 原镜头与光照 / 静态试摆，非战斗或动画"
+	note.text=current_title+"  |  "+("B 旧配色" if variant=="B" else "C 主色块重绘")+"\n正式TileSet / 原镜头与光照 / 静态试摆，非战斗或动画"
 	for sprite: Sprite2D in sprites:
+		var path: String=(BASELINE+"static/" if variant=="B" else ART)+String(sprite.name)+".png"
+		var im:=Image.load_from_file(path)
+		assert(im!=null and not im.is_empty(),"Prepare baseline with package_plains_enemy_context.py --prepare-baseline")
+		sprite.texture=ImageTexture.create_from_image(im)
+		sprite.offset=Vector2(-floorf(im.get_width()*.5),-im.get_height())
 		if variant=="B":
-			var mat:=ShaderMaterial.new();mat.shader=READABILITY;sprite.material=mat
+			var mat:=ShaderMaterial.new();mat.shader=rejected_material;sprite.material=mat
 		else: sprite.material=null
 	await process_frame
 	await RenderingServer.frame_post_draw
@@ -62,6 +68,9 @@ func snap(id: String, variant: String) -> void:
 
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(DEST)
+	rejected_material=Shader.new()
+	rejected_material.code=FileAccess.get_file_as_string(BASELINE+"readability.gdshader")
+	assert(not rejected_material.code.is_empty(),"Prepare the rejected baseline first")
 	root.size=Vector2i(1280,720)
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path="user://plains_enemy_static_context.json"
@@ -89,7 +98,7 @@ func run() -> void:
 		app.process_mode=Node.PROCESS_MODE_DISABLED
 		sprites.clear()
 		for pose: Array in shot.poses:add_static(pose[0],pose[1])
-		await snap(shot.id,"A");await snap(shot.id,"B")
+		await snap(shot.id,"B");await snap(shot.id,"C")
 	var file:=FileAccess.open(DEST+"capture.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"scope":"PR142 actual runtime scenery with frozen static approval fixtures; no combat or motion acceptance","shots":records},"\t"));file.close()
 	app.process_mode=Node.PROCESS_MODE_INHERIT
