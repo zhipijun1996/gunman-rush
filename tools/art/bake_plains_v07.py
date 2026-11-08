@@ -59,6 +59,13 @@ for source,entries,columns,rows in [
   native=crop.resize((round(crop.width*factor),height),Image.Resampling.NEAREST)
   dest=BASE/'native'/(name+'.png');native.save(dest)
   props[name]={'image':str(dest.relative_to(ROOT)),'source':'assets/plains_v07/source/'+source,'source_rect':[x,y,cw,ch],'size':list(native.size),'bake_scale':factor,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
+# The shoulder pier spans the lower bank; keep both feet grounded without stretching.
+tile=Image.open(BASE/'source/architecture-generated.png').convert('RGBA').crop((0,512,512,1024))
+alpha=tile.getchannel('A').point(lambda a:255 if a>=128 else 0);tile.putalpha(alpha)
+crop=tile.crop(alpha.getbbox());factor=256/crop.height
+native=crop.resize((round(crop.width*factor),256),Image.Resampling.NEAREST)
+dest=BASE/'native/bridge_pier_tall.png';native.save(dest)
+props['bridge_pier_tall']={'image':str(dest.relative_to(ROOT)),'source':'assets/plains_v07/source/architecture-generated.png','source_rect':[0,512,512,512],'size':list(native.size),'bake_scale':factor,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
 # Authored orchard surfaces: keep uniform source scaling and a measured top/base gap.
 image=Image.open(BASE/'source/orchard-arches-generated.png').convert('RGBA')
 for i,(name,surface_height) in enumerate([('orchard_arch_west',192),('orchard_arch_east',272)]):
