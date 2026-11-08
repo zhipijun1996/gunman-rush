@@ -1,42 +1,16 @@
 {
   "id": "plains-map-review-04",
-  "runtime_build": "f9e92d4a30ab",
-  "baseline_commit": "00a8beb7",
-  "runtime_source_commit": "1acefe0315ab51d1f280e2c5a3e56b5c2a65fb55",
-  "status": "topology_approved_contours_in_review_not_runtime",
-  "changes": [
-    {
-      "id": "A",
-      "status": "approved",
-      "remove": "HUB-P31-P08",
-      "title": "收敛小站旁三角回路",
-      "before": "01—08、01—31、31—08构成很短的重复环。",
-      "after": "取消31—08，保留小站东门01→08；铃场专注桥面与集市分流。",
-      "tradeoff": "减少重复出口；08回站须经过01，失去一条很短的旁路。"
-    },
-    {
-      "id": "B",
-      "status": "approved",
-      "remove": "HUB-P35-P12",
-      "title": "让地窖成为真正的支路",
-      "before": "汇口35可直达12，也可经18或19进入12，分支目的接近。",
-      "after": "取消35—12；地窖仍由18与19接入，保留下层水路回环。",
-      "tradeoff": "汇口少一个出口；地窖需要多走一房，奖励入口更有铺垫。"
-    },
-    {
-      "id": "C",
-      "status": "approved",
-      "remove": "APPROACH-P05-P14",
-      "add": [
-        "P-R27",
-        "P-R14"
-      ],
-      "title": "休息后直接接首Boss",
-      "before": "背风棚27→慢风平台05→牧风者14，重试需穿过收集房。",
-      "after": "改为27→14；27→05保留作TG02挑战支路，05→06开桥回环保留。",
-      "tradeoff": "Boss重试少过一房；TG02须在27出口预告，并校准05墓园接口与14封场。"
-    }
+  "baseline_commit": "66400937",
+  "playtest_url": "../?review=P-R03&stage=base",
+  "implemented_rooms": [
+    "P-R01",
+    "P-R03",
+    "P-R21",
+    "P-R22",
+    "P-R23",
+    "P-R24"
   ],
+  "status": "approved_04_under_construction",
   "routes": [
     {
       "id": "main",
@@ -857,9 +831,9 @@
     "P-R24": {
       "id": "P-R24",
       "name": "望站坡",
-      "caption": "看见站灯，缓坡引向小站",
+      "caption": "看见站灯，候风笼引向小站",
       "current_purpose": "缓坡看见小站灯火和世界钟心，抵站前舒缓。",
-      "spatial_intent": "",
+      "spatial_intent": "04总图的下口与上方站门形成高差；使用安全候风笼联系，保留宽草岸回望，不用密集浮台填满整坡。",
       "learning_sequence": [],
       "rest": false,
       "npcs": [],
@@ -1495,24 +1469,24 @@
   ],
   "checks": {
     "rooms": 35,
-    "current_internal_connections": 45,
+    "current_internal_connections": 43,
     "proposed_internal_connections": 43,
     "connected": true,
     "room_overlaps": 0,
     "unrelated_corridor_crossings": 0,
     "route_sequences_checked": 5,
-    "scope": "Draft geometry and graph only; no runtime or motor acceptance.",
+    "scope": "Physical construction geometry; gameplay acceptance is tracked separately.",
     "connected_silhouette": true,
     "room_labels_inside": 35,
-    "geometry_source": "Authored regional landforms; no clipping to runtime bounding boxes"
+    "geometry_source": "construction.json physical room union and paired doors"
   },
   "source_hashes": {
-    "config/world/world.json": "251ae99f8564ceb51e3e42a02ca004534e56d46f3c6d741b51055923310bb78d",
-    "config/world/construction.json": "7df981a12c5bbeae5b36ef997498797524a35b3751263bf30d2518b05a37e1ae",
-    "game/world/regions/P/room_design.json": "f868492a0472b03acd8ebd80c16fe68f0b16e6e54ac4be29de1641da0fc8295b",
-    "config/world/collection_design.json": "0a0eb0dbfb7353bcd7d6a9de97e8c9a53c99a9af9c3e31d6813c18a0656a723b",
-    "tools/world_review/plains_map.py": "40cebd38f9d3cee3c78d43755b2f7202c11babda4a40c900e2d027acd0f9cbcb",
-    "tools/world_review/plains_layout.py": "a232dde34e54147bea7937f97adf184b2633610b78046b79881f450af76c69f3",
-    "tools/world_review/review.html": "01a2e207960dac99ec4dbe51339ccb62c69331a135cdfe23ff5ba1a4232bd358"
+    "config/world/world.json": "5426b67bd08f2097b53ed0fe7203c701c84f010b68ed433350c9d5b4d2b43176",
+    "config/world/construction.json": "b46b3f168adeb7a22f339ec117e0382ddf114a8cfb3d5487e7d1b0da3a8cce10",
+    "game/world/regions/P/room_design.json": "6e9cf5aa2e23a3be0da49e538a41c8f11d69db5b67f053c9bd5127e2a265e8e2",
+    "config/world/collection_design.json": "307c1d3034e47a05fe8a182b677215553a979314de8ab11ac2d50a3b2f619c2b",
+    "tools/world_review/plains_map.py": "e65d73c26b5aeeb3343f958eb643e4eb230356d1837799bb0f72f5cb8efe3874",
+    "tools/world_review/plains_layout.py": "65b5fc2680a4b6513f24f5b5729918c236b4acc6510d77d89a66ee6ceb9352e3",
+    "tools/world_review/review.html": "11de02dc763b581859b6e91b9674ce9b7bf4710bbfb66274a2bc2216d7d8aebf"
   }
 }
