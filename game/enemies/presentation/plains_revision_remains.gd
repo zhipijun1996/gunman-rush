@@ -43,9 +43,10 @@ func _capture() -> void:
 	global_scale = Vector2.ONE
 	_face = float(packet.get("face", 1.0))
 	# Corpses retain the same 1wu sampling and material family as their live rig.
-	if not material is ShaderMaterial or (material as ShaderMaterial).shader != preload("res://game/enemies/presentation/plains_revision_skin.gdshader"):
+	var body_shader: Shader = packet.get("shader", preload("res://game/enemies/presentation/plains_revision_skin.gdshader"))
+	if not material is ShaderMaterial or (material as ShaderMaterial).shader != body_shader:
 		var rig_material := ShaderMaterial.new()
-		rig_material.shader = preload("res://game/enemies/presentation/plains_revision_skin.gdshader")
+		rig_material.shader = body_shader
 		material = rig_material
 	_frames = null
 	_support = null
@@ -92,7 +93,7 @@ func _restore_static() -> void:
 	queue_redraw()
 
 func presentation_snapshot(support_identity: Dictionary) -> Dictionary:
-	# Only the charger opts into the existing persistent corpse ledger.
+	# Persistence follows the species policy or the fixed-world owner override.
 	return super.presentation_snapshot(support_identity) if _persistent else {}
 
 func _physics_process(delta: float) -> void:

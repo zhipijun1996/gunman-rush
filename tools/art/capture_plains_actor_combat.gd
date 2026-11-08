@@ -1,0 +1,52 @@
+extends "res://tools/art/capture_plains_enemy_context.gd"
+## Actual encounters, normal Router inputs and clocks. Spawn/phase are disclosed fixtures.
+const OUT := "res://build/plains_actors_142/combat/"
+func run() -> void:
+	DirAccess.make_dir_recursive_absolute(OUT)
+	root.size=Vector2i(1280,720)
+	var layer:=CanvasLayer.new();layer.layer=200;root.add_child(layer)
+	note=Label.new();note.position=Vector2(320,14);note.add_theme_font_size_override("font_size",16)
+	note.add_theme_color_override("font_outline_color",Color("142b2b"));note.add_theme_constant_override("outline_size",5);layer.add_child(note)
+	var timeline: Array[Dictionary]=[]
+	for test: Dictionary in [{"id":"bell","room":"P-R11","phase":1},{"id":"keeper","room":"P-R14","phase":1},{"id":"windmill","room":"P-R14","phase":2}]:
+		app=preload("res://game/application/world/fixed_world.tscn").instantiate()
+		app.save_path="user://plains_actor_combat_"+test.id+".json"
+		app.settings_path="user://plains_actor_combat_review_settings.json"
+		root.add_child(app);app.start_new();await settle()
+		app.load_room(test.room,"");await settle()
+		var encounter: Node=app.room.encounter
+		var boss: Node2D=app.room.boss
+		if boss==null:
+			printerr("Missing review Boss: ",test.id);quit(1);return
+		var start:=Vector2(boss.position.x-250,boss.position.y+47)
+		app.player.reset_at(start)
+		note.text="实机动作复核 · 自动玩家输入 · 1×\n开场位置夹具"+(" / 二阶段生命阈值夹具" if test.phase==2 else "")
+		if test.phase==2:
+			encounter.health.apply_damage(ActorResourceRequest.new(&"review_phase_fixture",encounter.health.epoch,encounter.health.capacity*.45,encounter.health.get_instance_id()))
+		var seen: Dictionary={}
+		var jump_until:=-1
+		var start_frame:=Engine.get_process_frames()
+		for frame: int in 1080:
+			if app.busy or app.room.room_id!=test.room or app.controller.actor_resources.health.terminal:break
+			var dx: float=boss.global_position.x-app.player.global_position.x
+			var router: Node=app.controller.router
+			router.activate_device(&"keyboard_mouse")
+			var axis:=signf(dx) if absf(dx)>290 else -signf(dx) if absf(dx)<180 else 0.0
+			router.set_source_axis(&"keyboard_mouse",axis)
+			if frame%100==65 and app.player.is_on_floor():jump_until=frame+16
+			router.set_jump_held(&"keyboard_mouse",frame<jump_until)
+			if frame%80==0:
+				var aim: Vector2=boss.to_global(encounter.core_offset())-app.player.global_position
+				router.request_action(&"shoot_release",aim.normalized())
+			await physics_frame
+			var state:=str(encounter.mode)
+			if not seen.has(state):
+				seen[state]=frame
+				await RenderingServer.frame_post_draw
+				root.get_texture().get_image().save_png(OUT+test.id+"-"+state+".png")
+		print("LIVE_ACTOR_REVIEW ",test.id," states=",seen," player_HP=",app.controller.actor_resources.health.current)
+		timeline.append({"scene":test.id,"start_frame":start_frame,"end_frame":Engine.get_process_frames(),"states":seen})
+		await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)
+	var file:=FileAccess.open(OUT+"timeline.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify(timeline,"\t"));file.close()
+	quit()

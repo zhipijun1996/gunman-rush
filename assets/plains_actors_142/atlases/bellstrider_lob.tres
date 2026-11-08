@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PlainsActorAnimation" load_steps=3 format=3]
+[ext_resource type="Script" path="res://game/presentation/actors/art/plains_actor_animation.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/plains_actors_142/atlases/bellstrider_lob.png" id="2"]
+[resource]
+script = ExtResource("1")
+atlas = ExtResource("2")
+frame_size = Vector2i(406, 266)
+pivot = Vector2(203, 257)
+columns = 4
+clips = Array[String](["idle", "anticipation", "attack", "recovery"])
+core_points = PackedVector2Array(10.13, -150.07, 10.06, -149.49, 9.11, -150.31, 9.24, -150.98, 9.58, -149.41, 9.55, -150.37, 9.36, -149.48, 10.3, -149.18, 10.06, -149.46, 9.98, -146.14, 9.45, -149.02, 9.22, -150.44, 9.8, -147.86, 9.78, -148.73, 9.29, -149.79, 9.28, -148.58)
+muzzle_points = PackedVector2Array(-113.1, -143.97, -110.42, -145.99, -113.52, -144.06, -112.04, -145.81, -109.76, -160.51, -99.53, -170.25, -86.1, -174.85, -68.67, -181.4, -71.88, -186.36, -78.54, -170.08, -77.74, -180.09, -73.14, -182.62, -72.21, -179.64, -111.27, -160.54, -108.81, -163.11, -112.92, -147.21)
+barrel_pivots = PackedVector2Array(-79, -125, -78, -125, -79, -125, -79, -125, -80, -124, -78, -124, -79, -124, -78, -124, -91, -124, -89, -123, -87, -124, -85, -124, -79, -124, -78, -124, -79, -124, -79, -124)
+barrel_regions = Array[Rect2]([Rect2(78, 101, 58, 28), Rect2(81, 99, 56, 30), Rect2(77, 101, 59, 28), Rect2(79, 99, 57, 30), Rect2(81, 84, 54, 46), Rect2(91, 75, 46, 55), Rect2(105, 70, 31, 60), Rect2(113, 64, 33, 66), Rect2(100, 59, 43, 71), Rect2(102, 75, 34, 56), Rect2(104, 65, 33, 65), Rect2(106, 62, 36, 68), Rect2(112, 65, 31, 65), Rect2(80, 84, 57, 46), Rect2(82, 82, 54, 48), Rect2(78, 98, 58, 32)])

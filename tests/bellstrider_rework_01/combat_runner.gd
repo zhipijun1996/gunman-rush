@@ -226,6 +226,7 @@ func high_arc_case(side: int, elevated: bool) -> void:
 	)
 	var point: Vector2 = released.surface
 	var normal: Vector2 = released.normal
+	print("BELL_LOB_GEOMETRY ", {"side":side,"elevated":elevated,"origin":released.origin,"axis":released.axis,"velocity":released.velocity,"surface":point,"locked":locked})
 	check(
 		(
 			absf(point.y - landing.y) < 1.0

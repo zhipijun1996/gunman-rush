@@ -1,5 +1,6 @@
 class_name BellstriderEncounter
 extends WindkeeperEncounter
+var _authored_art_cache: Dictionary = {}
 ## Encounter-owned clock, immutable selected groups, and shared articulated rig.
 ## Damage statistics observe accepted Health transactions and never choose states.
 var pattern_index := 0  # Completed groups, retained for existing observers.
@@ -141,7 +142,25 @@ func core_offset() -> Vector2:
 
 
 func rig_pose() -> Dictionary:
-	return BellstriderRigPose.sample(_rig_inputs())
+	var input := _rig_inputs()
+	var pose := BellstriderRigPose.sample(input)
+	pose["authored"] = PlainsBossFrames.sample(&"bellstrider", input, _authored_art_cache)
+	pose["bell_transform"] = PlainsBossFrames.core_transform(pose.authored)
+	if pose.authored.sheet == "bellstrider_lob":
+		var frame: Dictionary=pose.authored
+		var animation: PlainsActorAnimation=frame.animation
+		var index:=animation.frame_index(frame.clip,frame.progress)
+		var joint:=animation.barrel_pivots[index]
+		var length: float=animation.muzzle_points[index].distance_to(joint)
+		var angle:=_launcher_aim
+		if frame.clip==&"recovery":
+			angle=lerp_angle(angle,(animation.muzzle_points[index]-joint).angle(),frame.progress)
+		var basis:=Transform2D(0,Vector2(frame.face,1),0,Vector2.ZERO)*Transform2D(angle,Vector2.ZERO)
+		var mouth: Vector2=frame.origin+joint*Vector2(frame.face,1)+basis.x*length
+		basis.origin=mouth-basis.basis_xform(Vector2(25,-3))
+		pose["launcher_transform"]=basis
+		pose["barrel_angle"]=angle
+	return pose
 
 
 func _rig_inputs() -> Dictionary:
@@ -262,6 +281,11 @@ func _enter(next: StringName, duration: float) -> void:
 	if not _transition_prepared:
 		_capture_transition()
 	_transition_prepared = false
+	if next == &"lob_aim" and is_instance_valid(_target):
+		# The approved carriage has a REAR mortar. Present that end toward the
+		# target before aiming, keeping the real muzzle on the near side of the
+		# hull and preserving the existing short, shelf-clearing ballistic arc.
+		direction = -1 if _target.global_position.x >= motor.global_position.x else 1
 	if not _state_history.is_empty():
 		_state_history[-1]["end"] = _fight_age
 	super._enter(next, duration)
@@ -610,17 +634,14 @@ func _landing_for_target() -> Vector2:
 
 
 func _aim_launcher(point: Vector2) -> void:
-	# Match the visible barrel to the actual ballistic launch velocity. Solve
-	# twice because the muzzle moves with the elevation; tracking stops at lock.
-	var body: Transform2D = rig_pose().body_transform
-	var duration := lob_duration_for(point)
-	for index: int in 2:
-		var mount := body * Transform2D(_launcher_aim, Vector2(43, 4))
-		var origin := motor.to_global(mount * Vector2(25, -3))
-		var initial := (
-			(point - origin) / duration - Vector2(0, _config().lob_gravity * duration * .5)
-		)
-		_launcher_aim = clampf(body.basis_xform_inv(initial).angle(), -PI + .18, -.18)
+	# The same authored barrel crop and its live elevation determine the actual
+	# launch tip. Tracking ends at lock; solve around that measured hinge.
+	var duration:=lob_duration_for(point)
+	for index: int in 3:
+		var mount: Transform2D=rig_pose().launcher_transform
+		var origin:=motor.to_global(mount*Vector2(25,-3))
+		var initial: Vector2=(point-origin)/duration-Vector2(0,_config().lob_gravity*duration*.5)
+		_launcher_aim=clampf((initial*Vector2(direction,1)).angle(),-PI+.18,-.18)
 
 
 func lob_duration_for(point: Vector2) -> float:

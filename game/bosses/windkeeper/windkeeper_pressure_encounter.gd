@@ -1,5 +1,6 @@
 class_name WindkeeperPressureEncounter
 extends WindkeeperEncounter
+var _authored_art_cache: Dictionary = {}
 ## Formal six-move Windkeeper. Randomness chooses an immutable attack group;
 ## clocks and actual geometry execute it. Statistics never drive the encounter.
 var locked_target := Vector2.ZERO
@@ -639,7 +640,21 @@ func rig_pose() -> Dictionary:
 		"double_stomp": bool(_group_plan.get("double_stomp", false)) and _attack_index == 0})
 	if not _pose_from.is_empty() and _state_age < .10:
 		sampled = WindkeeperPressureRig.blend(_pose_from, sampled, clampf(_state_age / .10, 0, 1))
-	return _supported_pose(sampled)
+	sampled = _supported_pose(sampled)
+	var attacks: Array = _group_plan.get("attacks", [])
+	var previous_attack := String(attacks[clampi(_attack_index - 1, 0, attacks.size() - 1)]) if not attacks.is_empty() else "stomp"
+	var frame := PlainsBossFrames.sample(&"windkeeper", {
+		"mode": rig_mode, "phase": stage_phase, "direction": direction,
+		"state_age": pose_age, "state_duration": pose_duration,
+		"fight_age": _fight_age, "travel": _travel,
+		"speed": motor.velocity.length() if is_instance_valid(motor) else 0.0,
+		"bell_hit_age": _bell_hit_age, "death_age": _death_age,
+		"death_duration": _config().death_seconds, "recovery_from": previous_attack}, _authored_art_cache)
+	sampled["authored"] = frame
+	sampled["core_transform"] = PlainsBossFrames.core_transform(frame)
+	if String(frame.sheet).ends_with("_seeds"):
+		sampled["seed_origin"] = PlainsBossFrames.muzzle_point(frame)
+	return sampled
 
 func _update_combat_shapes() -> void:
 	if not _rig_ready or not is_instance_valid(_core): return

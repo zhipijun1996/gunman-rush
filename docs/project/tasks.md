@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-ENEMY-STATIC-142 | 保留用户认可的B/C怪物造型，校准PR142关卡中的颜色与明暗分离；静态审批后制作动画 | PLAINS-BIBLE-V2-01 | review | [交接](worklines/plains_enemy_static_142/scope.md) |
+| PLAINS-ENEMY-STATIC-142 | 按已批准的B/C造型与明暗分离完成七怪、两Boss的全状态动画及正式接入 | PLAINS-BIBLE-V2-01 | done | [交接](worklines/plains_enemy_static_142/scope.md) |
 | PLAINS-BIBLE-V2-01 | 按v07.1返工35房平原的反冲/机关、收集支路与空间生态、连续地图、美术和UI | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 ## 待验收

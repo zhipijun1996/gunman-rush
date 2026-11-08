@@ -21,12 +21,10 @@ for source in m['sources']:
 # its Boss consumer with the articulated rig; do not require that old body live.
 assert m['mini_chassis']['source']=='chassis.png' and m['mini_chassis']['source_pixels_unchanged']
 bell_presentation=(ROOT/'game/bosses/bellstrider/bellstrider_presentation.gd').read_text()
-assert 'const MACHINE := preload("res://assets/underworld_plains/actors/bellstrider.png")' in bell_presentation
-assert 'const BELL := preload("res://assets/underworld_plains/actors/bell.png")' in bell_presentation
-assert 'var pose: Dictionary = encounter.rig_pose()' in bell_presentation
-assert 'draw_texture_rect_region(\n\t\tMACHINE,' in bell_presentation and 'draw_texture_rect_region(\n\t\tBELL,' in bell_presentation
-for asset in ('bellstrider.png','bell.png'):
-    assert (ROOT/'assets/underworld_plains/actors'/asset).is_file()
+assert 'PlainsBossFrames.draw(self, pose.authored)' in bell_presentation
+for name in ('bellstrider','bellstrider_roll','bellstrider_ring','bellstrider_lob'):
+    assert (ROOT/'assets/plains_actors_142/atlases'/f'{name}.tres').is_file()
+    assert (ROOT/'assets/plains_actors_142/atlases'/f'{name}.png').is_file()
 bell_scene=(ROOT/'scenes/bosses/bellstrider.tscn').read_text()
 assert '[ext_resource type="Script" path="res://game/bosses/bellstrider/bellstrider_presentation.gd" id="4"]' in bell_scene
 assert '[node name="Presentation" type="Node2D" parent="." node_paths=PackedStringArray("encounter")]\nscript = ExtResource("4")\nencounter = NodePath("../Encounter")' in bell_scene
