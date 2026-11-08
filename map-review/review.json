@@ -1,12 +1,14 @@
 {
-  "id": "plains-map-review-01",
+  "id": "plains-map-review-02",
   "runtime_build": "f9e92d4a30ab",
-  "baseline_commit": "7c74483fa32dae2eeffc2b46d327ebd95c37215d",
-  "exporter_sha256": "b544c3fe33fbd21beaae8b62232d7e8f9832db411ce20324eecf3ea536a33b83",
-  "status": "proposal_pending_user_review_not_runtime",
+  "baseline_commit": "00f2a3c09e5fb352e6c450de7f1aaeaa30afc6b3",
+  "runtime_source_commit": "1acefe0315ab51d1f280e2c5a3e56b5c2a65fb55",
+  "exporter_sha256": "08a2afd56201af69aa080c8957222930684cbc146b8ab1703cc3c07130efde0e",
+  "status": "topology_approved_contours_in_review_not_runtime",
   "changes": [
     {
       "id": "A",
+      "status": "approved",
       "remove": "HUB-P31-P08",
       "title": "收敛小站旁三角回路",
       "before": "01—08、01—31、31—08构成很短的重复环。",
@@ -15,6 +17,7 @@
     },
     {
       "id": "B",
+      "status": "approved",
       "remove": "HUB-P35-P12",
       "title": "让地窖成为真正的支路",
       "before": "汇口35可直达12，也可经18或19进入12，分支目的接近。",
@@ -23,6 +26,7 @@
     },
     {
       "id": "C",
+      "status": "approved",
       "remove": "APPROACH-P05-P14",
       "add": [
         "P-R27",
@@ -55,7 +59,7 @@
         27,
         14
       ],
-      "note": "首Boss前不要求H；26双吊台保持必经。27侧口可选05铜齿挑战。"
+      "note": "先在22完成综合实践再进站；01东门进井，06转西。26双吊台必经，27直达Boss。"
     },
     {
       "id": "return",
@@ -68,7 +72,7 @@
         31,
         1
       ],
-      "note": "14胜利领H → 15校时；从15侧开SC01，经32、31回小站。"
+      "note": "14领H → 15校时开S1 → 重见32铜环；31可回站、往东探桥，或下集入水路。"
     },
     {
       "id": "east",
@@ -104,14 +108,27 @@
         31
       ],
       "note": "主通路可探索；20奖励需H、19铜齿需H+D；12为独立射铃挑战。"
+    },
+    {
+      "id": "preview",
+      "name": "⑤ 初期可选 · 看见未来的路",
+      "color": "#9a5488",
+      "rooms": [
+        1,
+        31,
+        32
+      ],
+      "note": "初到站可选步入铃场，在32近桥头看见真实H断桥；下层路开放、预览可退，不代记探索。"
     }
   ],
   "rooms": {
     "P-R01": {
       "id": "P-R01",
       "name": "钟外小站",
-      "caption": "休息交易，辨认两条出站路",
-      "current_purpose": "整备与归途枢纽；低处西坡抵站，中层分流铃场，上层东口进入封井。",
+      "caption": "整备辨路，进井再西行",
+      "current_purpose": "整备与辨路枢纽；上层东门进封井后西行牧风高地，中层通铃场探索。",
+      "spatial_intent": "站内地图与井口路标连续提示“东门进井，上到岔路再向西循铃”；铃场路口保持可探索。",
+      "learning_sequence": [],
       "rest": true,
       "npcs": [
         "NPC_P_REC",
@@ -279,6 +296,8 @@
       "name": "东侧风棚",
       "caption": "东部整备，分流风车与旧田",
       "current_purpose": "东部回访休息；棚下旧田、低屋檐回水洞与上层眺望台/风车分流。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": true,
       "npcs": [],
       "reward_ids": [],
@@ -290,8 +309,10 @@
     "P-R03": {
       "id": "P-R03",
       "name": "初行草坡",
-      "caption": "学习走跳，回望起点",
-      "current_purpose": "连贯草坡上的首次走跳；独立上臂接旧路肩回访。",
+      "caption": "走跳初练，控制两种落点",
+      "current_purpose": "初行草坡学习控制走跳与两种落点；纵臂承担旧路肩回访。",
+      "spatial_intent": "宽坡首次试跳、略高台面再次应用；只改变落点，不叠敌人或复杂机制。",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -305,6 +326,8 @@
       "name": "倒钟田垄",
       "caption": "断田反冲，桥下寻找铜齿",
       "current_purpose": "断田、桥下铜齿与折返高路；反冲登上通果园的石肩。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [
@@ -330,6 +353,8 @@
       "name": "慢风平台",
       "caption": "移动落点挑战，取得铜齿",
       "current_purpose": "稳定下层道路通向Boss整备路线；独立承载挑战取得慢风齿轮。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [
@@ -353,8 +378,10 @@
     "P-R06": {
       "id": "P-R06",
       "name": "风铃岔路",
-      "caption": "辨认主线、回环与捷径",
-      "current_purpose": "井口、旧路肩、慢风平台与胜利回程的分层岔路。",
+      "caption": "循铃西行，分辨回环捷径",
+      "current_purpose": "封井上端的西行主线指引与分层回环；辨认胜利闸、慢风桥和旧路肩。",
+      "spatial_intent": "西下口以牧风铃声和风车地标引向13；两处关闭回环从开启侧解释用途，S3不标H能力锁。",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -368,6 +395,8 @@
       "name": "东缘眺望台",
       "caption": "登高辨路，掩体间接近",
       "current_purpose": "远眺地标后的掩体射线与低拱通路。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -381,6 +410,8 @@
       "name": "封井回廊",
       "caption": "乘笼升井，登西侧高地",
       "current_purpose": "提水井的纵向承载与检修侧廊。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -394,6 +425,8 @@
       "name": "矿口旧栈道",
       "caption": "矿口地标，预览外区通路",
       "current_purpose": "长栈道分段抬升，轨道与矿口地标预示远期出口。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -407,6 +440,8 @@
       "name": "高风车连台",
       "caption": "钩索穿风车，寻找暗栈",
       "current_purpose": "钩索贯穿高风车；机架转角接外沿廊。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -420,6 +455,8 @@
       "name": "风车机匣",
       "caption": "可选Boss，取得三联机芯",
       "current_purpose": "封闭风车机匣中的巡游机竞技场与战后部件。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [
@@ -509,6 +546,8 @@
       "name": "春水地窖",
       "caption": "空中射铃，领奖后开折板",
       "current_purpose": "地窖空中射铃挑战与通根井的下层排水道。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [
@@ -534,6 +573,8 @@
       "name": "旧路肩高台",
       "caption": "石崖折返，挑战生命片",
       "current_purpose": "转折石崖、旧路与草坡回环；路肩内侧藏反冲血量片挑战。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [
@@ -558,7 +599,9 @@
       "id": "P-R14",
       "name": "牧风者庭地",
       "caption": "首Boss与钩索首次试用",
-      "current_purpose": "牧风者战斗、钩索领取与首次安全的H回程。",
+      "current_purpose": "牧风者战斗、唯一H领取与安全首次运用；由背风棚直接重试。",
+      "spatial_intent": "27来向与竞技场封场分开；战后H廊引向15，胜利闸S3独立开启，不用H领取代替。",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -630,7 +673,9 @@
       "id": "P-R15",
       "name": "主风铃校时台",
       "caption": "钩索抵台，修钟开升降机",
-      "current_purpose": "主风铃校时与H回程轴线。",
+      "current_purpose": "钩索沿钟轴校时，开S1回到初见长桥，提示多条自愿探索。",
+      "spatial_intent": "钟轴下落接32熟悉桥头；指向铜环新路、旧集水路和回站，不把战后引导写成只有返程。",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -646,6 +691,8 @@
       "name": "风车外沿廊",
       "caption": "Boss前休息，观察机匣",
       "current_purpose": "机匣外廊先看到Boss轮廓，稳定前庭读预告。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": true,
       "npcs": [],
       "reward_ids": [],
@@ -659,6 +706,8 @@
       "name": "风车回铃栈",
       "caption": "藏栈取装备，放梯返回",
       "current_purpose": "风车背后单入口藏室；从轮轴缝隙发现装备。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [
@@ -684,6 +733,8 @@
       "name": "东境旧田",
       "caption": "旧田战斗，分流崖道与井",
       "current_purpose": "开放田路、隔开的崖道与下方灌溉井。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -697,6 +748,8 @@
       "name": "根井侧畦",
       "caption": "根井通行，预览双能力齿轮",
       "current_purpose": "根井主通路、上层回环与H+D铜齿预览。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [
@@ -722,6 +775,8 @@
       "name": "退潮渠畔",
       "caption": "曲折渠岸，钩索回访行装",
       "current_purpose": "退潮水岸的曲折主路与H行装支路。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [
@@ -745,8 +800,10 @@
     "P-R21": {
       "id": "P-R21",
       "name": "倒时车厢",
-      "caption": "试枪命中，理解反向位移",
-      "current_purpose": "倒时车厢旁试枪，命中可绕开的练习敌人。",
+      "caption": "掩体试枪，遇敌后撤换位",
+      "current_purpose": "车厢掩体中的试枪与后撤练习；完成命中、换角度与接近判断。",
+      "spatial_intent": "先宽地稳定射击，再让弱巡逻从断墙另一侧接近，观察反向位移；合法绕行保留。",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -758,8 +815,23 @@
     "P-R22": {
       "id": "P-R22",
       "name": "风压引渠",
-      "caption": "反冲越渠，失误可走回",
-      "current_purpose": "低代价反冲越渠，低层可走回；第二岸改变射向。",
+      "caption": "反冲初练→变式→综合实践",
+      "current_purpose": "反冲首练、错层变式与独立综合实践；失败分段恢复后才进入小站前静区。",
+      "spatial_intent": "三河湾以墙体与湾岸分区：安全首练、变式、空中命中铃闸同时反冲过口；稳定实践岸后再遇弱敌，完成侧放回程板。",
+      "learning_sequence": [
+        {
+          "stage": "learn",
+          "task": "宽岸看清反冲方向并安全落地"
+        },
+        {
+          "stage": "vary",
+          "task": "改变高差与射向后重复运用"
+        },
+        {
+          "stage": "apply",
+          "task": "撤掉操作提示，空中命中铃闸同时反冲过口，再在宽岸处理弱敌"
+        }
+      ],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -773,6 +845,8 @@
       "name": "废弃候车棚",
       "caption": "遇见阿栖，安静叙事停顿",
       "current_purpose": "安静候车棚遇见阿栖，不以对话锁门。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [
         "NPC_TRAVELER_AQI"
@@ -788,6 +862,8 @@
       "name": "望站坡",
       "caption": "看见站灯，缓坡引向小站",
       "current_purpose": "缓坡看见小站灯火和世界钟心，抵站前舒缓。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -801,6 +877,8 @@
       "name": "倒铃果园",
       "caption": "上下树台，越敌或地面战",
       "current_purpose": "果园下路应对逼近，上层树台提供越敌与捷线。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -814,6 +892,8 @@
       "name": "旧风车内廊",
       "caption": "双吊台换乘与反冲接续",
       "current_purpose": "西吊架送至断裂检修台，向右上反冲落稳，再转乘东吊架向左上接出口。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -826,7 +906,9 @@
       "id": "P-R27",
       "name": "背风检修棚",
       "caption": "Boss前整备，侧看铜齿支路",
-      "current_purpose": "背风棚明确休息，灯架和短回路缩短Boss重试。",
+      "current_purpose": "牧风者前休息与两路辨认；直达14，侧看05铜齿自愿挑战。",
+      "spatial_intent": "上行短颈直入Boss前庭；东侧慢风支路露出铜齿线索，不挡Boss重试。",
+      "learning_sequence": [],
       "rest": true,
       "npcs": [],
       "reward_ids": [],
@@ -840,6 +922,8 @@
       "name": "借风旧田",
       "caption": "地面遭遇，反冲登谷仓",
       "current_purpose": "旧田的地面遭遇与谷仓前反冲石肩。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -853,6 +937,8 @@
       "name": "旧谷仓通廊",
       "caption": "错层穿梁，换射线与落点",
       "current_purpose": "谷仓错层反冲，梁下射线与侧窗落点交替。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -866,6 +952,8 @@
       "name": "田下回水洞",
       "caption": "低檐水洞，钩索取铜齿",
       "current_purpose": "低顶回水洞与可预览的H铜齿。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [
@@ -889,8 +977,10 @@
     "P-R31": {
       "id": "P-R31",
       "name": "站外铃场",
-      "caption": "站外分流，选择桥或集市",
-      "current_purpose": "站外分流：上层承载通长桥，低路通渠边旧集。",
+      "caption": "三向大庭，观路再选出口",
+      "current_purpose": "站外三向大枢纽；回站、上桥、下集由地标辨路，战后再分流。",
+      "spatial_intent": "挑高中央庭院与回廊围绕钟柱展开，西端观察无压力；站灯、铜环和水车分别引向01、32、34，不保留封井直连。",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -902,8 +992,10 @@
     "P-R32": {
       "id": "P-R32",
       "name": "悬铃长桥",
-      "caption": "下桥通行，上桥钩索捷线",
-      "current_purpose": "桥下主路、上层H断桥与主风铃回环。",
+      "caption": "初见索环，得钩索再探桥",
+      "current_purpose": "初期可发现的H桥头预览、开放低路与修钟后的能力再识别。",
+      "spatial_intent": "近端铜环与对岸接收台构成可退的H预览；下层可探索，15回程落在熟悉近端，H得手后高路通35。",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -917,6 +1009,8 @@
       "name": "钟影前庭",
       "caption": "钟心地标，舒缓与回望",
       "current_purpose": "世界钟地标与东行回环前的舒缓前庭。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -930,6 +1024,8 @@
       "name": "渠边旧集",
       "caption": "屋顶货运与摊间低路",
       "current_purpose": "空集市的屋顶货运线、摊间低路与水岸转角。",
+      "spatial_intent": "",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -942,7 +1038,9 @@
       "id": "P-R35",
       "name": "东行汇口",
       "caption": "东行枢纽，田路与井道分流",
-      "current_purpose": "环绕钟影前庭的东部汇口；田路、配重井与下层拱廊相连。",
+      "current_purpose": "东行汇口连接旧集、钟庭、旧田与根井；去地窖经18或19。",
+      "spatial_intent": "横向田路与下行井道分流，钟庭另占上台地，不包围成C形；删除直达12的重复门。",
+      "learning_sequence": [],
       "rest": false,
       "npcs": [],
       "reward_ids": [],
@@ -1388,7 +1486,7 @@
       "b_section": "main"
     },
     {
-      "id": "REVIEW-P27-P14",
+      "id": "APPROACH-P27-P14",
       "a": "P-R27",
       "b": "P-R14",
       "requires": [
@@ -1405,13 +1503,13 @@
     "connected": true,
     "room_overlaps": 0,
     "unrelated_corridor_crossings": 0,
-    "route_sequences_checked": 4,
+    "route_sequences_checked": 5,
     "scope": "Draft geometry and graph only; no runtime or motor acceptance."
   },
   "source_hashes": {
     "config/world/world.json": "251ae99f8564ceb51e3e42a02ca004534e56d46f3c6d741b51055923310bb78d",
     "config/world/construction.json": "7df981a12c5bbeae5b36ef997498797524a35b3751263bf30d2518b05a37e1ae",
-    "game/world/regions/P/room_design.json": "d49f0f6caa169b3026b7bac9e2e1d1595de3624b0042ef7f6c02385d42d40df9",
+    "game/world/regions/P/room_design.json": "2bc5833a820539aa567099c4cb51600124606bc1e24593dcfe39b0f19c15bb94",
     "config/world/collection_design.json": "0a0eb0dbfb7353bcd7d6a9de97e8c9a53c99a9af9c3e31d6813c18a0656a723b"
   }
 }
