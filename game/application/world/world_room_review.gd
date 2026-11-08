@@ -100,6 +100,11 @@ func show() -> void:
 		)
 		modal.button(WorldText.text("review.leave"),leave)
 	modal.button(WorldText.text("review.back"),app._close_panel)
+	for picker: OptionButton in [rooms,entries,stages]:
+		picker.get_popup().about_to_popup.connect(func() -> void: modal.cancel_touch(&"popup_open"))
+		var touch := PopupTouchAdapter.new()
+		touch.popup = picker.get_popup()
+		picker.get_popup().add_child(touch)
 	modal.focus_first()
 
 func begin(id: String, entry: String, ability_stage: String) -> bool:
