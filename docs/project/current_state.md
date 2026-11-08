@@ -1,6 +1,6 @@
 # 当前实现
 
-本轮源码接续 PR141@0e742706c59e3409b23c4536ba74f89af6a2146b，分支 `feat/plains-v07-complete`。现行地图为 v07.1 的 309 房世界、35 房平原；旧地图退休。运行改动与验收覆盖见 [当前交接](worklines/plains_bible_v2_01/scope.md)。源码实施与网站发布分别核实，本轮尚未发布网站。
+本轮源码接续 PR141@0e742706c59e3409b23c4536ba74f89af6a2146b，分支 `feat/plains-v07-complete`。现行地图为 v07.1 的 309 房世界、35 房平原；旧地图退休。运行改动与验收覆盖见 [当前交接](worklines/plains_bible_v2_01/scope.md)。源码实施与网站发布分别核实；平原已按用户授权发布到试玩网页。
 
 | 范围 | 当前行为与入口 |
 | --- | --- |
@@ -19,7 +19,7 @@
 | CI与交付 | 日常固定project／import／smoke／contracts四项，开发显式选手动专项；森林H控制器回归绑定独立测试夹具，旧随机地区路由拒绝执行；发布和试玩部署独立手动执行 |
 | 工程 | 正式代码位于 `game/`；`scripts/`、`scenes/`、`resources/` 中仍有当前 Definition、Boss场景与森林布局实现 |
 
-目标是固定世界类银河恶魔城。35 房平原已接入正式装载、分区物件、动画人物与充电站、移动平台和新版动作；完整质量按本轮逐项证据判断，其余 274 房尚未施工。[线上试玩](https://zhipijun1996.github.io/gunman-rush/) build `0613b26ff11d` 对应源码 `695847d7396318dfa9d7ed5bbfc0ebd8a4fc5692`（PR140，尚未合入main）。同源发布、公开完整PCK与浏览器检查通过；验证和设备边界见 [当前交接](worklines/mv_migration/scope.md)，[验收产物](https://zhipijun1996.github.io/gunman-rush/verification/report.json)随该构建发布。
+目标是固定世界类银河恶魔城。35 房平原已接入正式装载、分区物件、动画人物与充电站、移动平台和新版动作；完整质量按本轮逐项证据判断，其余 274 房尚未施工。[线上试玩](https://zhipijun1996.github.io/gunman-rush/) build `be15b7410a8e` 对应运行源码 `a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b`（PR142，尚未合入main）。复用已验包发布，公开build-info、完整PCK与浏览器入口核对通过；验证和设备边界见 [当前交接](worklines/plains_bible_v2_01/scope.md)。[分段录像](https://zhipijun1996.github.io/gunman-rush/replays/)共8段，每段约17–20秒、1.2–1.9MB，按需播放。
 
 ## 当前缺口
 
