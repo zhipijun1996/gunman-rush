@@ -2,11 +2,11 @@
   "schema_version": 2,
   "task_id": "PLAINS-BIBLE-V2-01",
   "task_type": "region",
-  "baseline_commit": "0e742706c59e3409b23c4536ba74f89af6a2146b",
-  "reviewed_commit": "0ff7cde1aecb93e27605decbc252edb19121bdfe",
-  "content_version": "57d6a99e756bb6168e82efc18a5383014c866f2c9b8643bb481e7acecb97e574",
+  "baseline_commit": "66400937dcdce553b51f492adda47c3e32941aeb",
+  "reviewed_commit": "ac4ff02cab069bf862ef78cfba92919ef897cd72",
+  "content_version": "e8139c55ab7a5cfe4a27285e6dc4212b49b3e3ca792f17efd6fcfde95a3faa9c",
   "owner": "Codex",
-  "purpose": "按PR141附件v07.1制作完整35房平原，整合地图与美术来源并退休旧地图。",
+  "purpose": "按已确认04总图施工35房平原；本批落实全区实际空间与新档至小站六房。",
   "player_experience": "反冲主导的新档学习与西侧主循环，H能力取得后的修钟/回访和东侧探索；统一像素人物、地形、机关与UI反馈。",
   "constraints": [
     "PlayerMotor owns motion; FixedWorldState owns accepted progress.",
@@ -25,11 +25,14 @@
     "AGENTS.md"
   ],
   "deliverables": [
-    "35房连续整区、45条真实接缝与实际多房间路线已接入；全区表现和体验终审继续单独验收。"
+    "35房真实占地/43共享门缝与同源要素总图。",
+    "03→21→22→23→24→01六房真实输入抵站与休息保存；其余29内部场景待迁移。"
   ],
   "creative_decisions": [],
   "formal_impact": true,
   "required_dimensions": [
+    "visual",
+    "gameplay",
     "technical",
     "animation",
     "audio_vfx"
@@ -37,60 +40,60 @@
   "gates": {
     "G2": {
       "status": "failed",
-      "reason": "连续空间与主要跨房玩法路线已完成并通过专项；全区逐房视听与完整探索趣味尚未通过最终内容验收。",
+      "reason": "整区几何与六房操作片区已落实；其余29房内部迁移及整体视听与探索体验尚未完成。",
       "evidence": []
     }
   },
   "dimensions": {
     "visual": {
       "status": "failed",
-      "reason": "连续整区已落地，正常镜头审看35房取景及三段真实输入短片；角色暗化、明确贴地/层次与门口问题已修复。全区动态美术和逐房表现终审尚未完成，保留整体质量未通过结论。",
+      "reason": "已审看六房正常原生取景与三段短片；22机关窗体承重、24载具外观及整段空旷处仍需打磨。全区美术未验收。",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "新档主环自行取得H、修钟和三条捷径；东侧与地下回环、奖励挑战/单向返回、能力防绕过、失败及重启专项通过。全区初见引导、节奏和完整探索趣味尚未终审。",
+      "reason": "六房新档抵站、两湾跳跃反例、同枪过闸正反例、低路恢复、两处实际承载通过；其余29房内部迁移和全区探索节奏未完成。",
       "evidence": []
     },
     "technical": {
       "status": "passed",
-      "reason": "48项世界专项、505条房间断言、18项世界设计单测、日常CI四项及文档检查通过。",
+      "reason": "本批六项Godot专项、62条房间断言、18项世界设计单测、日常CI四项、文档与导出闭包检查通过；35房空间与43接缝已校验。旧48专项不计入本轮。",
       "evidence": [
-        "continuous-checks"
+        "construction-04-checks"
       ]
     },
     "animation": {
       "status": "unverified",
-      "reason": "本轮未完成全场景动作适配审查。",
+      "reason": "三段原生操作短片已审看；全区动作与载具表现尚未逐项验收。",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "角色身体保持原调色、随身局部光实际照亮场景并接受遮挡；同位置光影/底光对照及正常速度室内外短片已核对。全区动态效果、听感与实体设备仍未完整验收。",
+      "reason": "实际枪击、机关、落地与脚步事件随短片录制；全区听感、动画特效和实体设备未终审。",
       "evidence": []
     }
   },
   "criteria": [],
   "evidence": [
     {
-      "id": "continuous-checks",
+      "id": "construction-04-checks",
       "path": "docs/project/worklines/plains_bible_v2_01/quality/evidence/current-checks.json",
-      "sha256": "f6eaf7d82c6390d6c0c90e98a4f4255caa273c535e64a2d8fb3c0011b5a9cfdd",
+      "sha256": "c43dc9ac282930bc94d10e4ead83d96d42ee1357930d977139f3a0256f96b9e9",
       "kind": "command",
       "producer": "Codex",
-      "source_commit": "0ff7cde1aecb93e27605decbc252edb19121bdfe",
-      "content_version": "57d6a99e756bb6168e82efc18a5383014c866f2c9b8643bb481e7acecb97e574",
-      "method": "Production Godot controller input and explicitly declared approach/state fixtures, plus source/space checks; complete command outputs retained under build/plains_continuous.",
-      "observed": "All listed commands exited zero; 48 world scripts and 505 room assertions passed.",
-      "command": "python3 tools/run_world_loop.py; python3 tools/ci.py; python3 -m unittest discover -s tests -p test_world*.py; python3 tools/check_docs.py",
+      "source_commit": "ac4ff02cab069bf862ef78cfba92919ef897cd72",
+      "content_version": "e8139c55ab7a5cfe4a27285e6dc4212b49b3e3ca792f17efd6fcfde95a3faa9c",
+      "method": "Real Godot input and explicitly declared local counterexample fixtures, compiled geometry, source checks and actual Web PCK/browser. Logs under build/plains-layout-04.",
+      "observed": "All commands listed in current-checks exited zero. Scope is six built rooms plus full region geometry, not complete region acceptance.",
+      "command": "Six tests/world Godot scripts; tools/world/build.py; tools/ci.py; world Python unit tests; docs and Web bundle/browser checks.",
       "exit_code": 0,
-      "environment": "Godot 4.7.2 gunman-sd1, Linux headless, fixed 60 FPS; Python 3"
+      "environment": "Godot 4.7.2 gunman-sd1, Linux headless/native at fixed 60 FPS; Chromium browser emulation."
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "35房初见引导、整体节奏与完整探索趣味仍待终审。",
-    "正常镜头已审看35房取景和三段短片；全部动作、UI、音效及动态美术未逐项终审。",
-    "公开部署与浏览器证据在当前交接维护；完整Web通关及实体设备性能未验证。"
+    "其余29房内部内容、能力锁、收集返回与完整主环尚未迁移。",
+    "六房结构/操作成立，22构件根基与24载具外观等美术仍需打磨；整体节奏、剧情和视听未终审。",
+    "实体手机/手柄、完整Web流程与设备性能未验证。"
   ]
 }
