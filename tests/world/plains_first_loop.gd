@@ -58,18 +58,21 @@ func run() -> void:
 	await hop(Vector2(448,750),Vector2(1,.1));await clear_enemies()
 	if not await route([Vector2(6,750)],"P-R13","P-R04"):await done();return
 	if not await route([Vector2(1840,390),Vector2(1664,318),Vector2(1840,238),Vector2(1920,238),Vector2(2042,238)],"P-R04","P-R25"):await done();return
-	if not await route([Vector2(448,878)],"P-R25"):await done();return
+	if not await route([Vector2(432,782),Vector2(576,878)],"P-R25"):await done();return
 	await clear_enemies()
 	if not await route([Vector2(912,878)],"P-R25"):await done();return
 	await hop(Vector2(1200,878),Vector2(-1,.1));await clear_enemies()
-	if not await route([Vector2(2042,878)],"P-R25","P-R26"):await done();return
+	if not await route([Vector2(1680,782),Vector2(1904,878),Vector2(2042,878)],"P-R25","P-R26"):await done();return
 	var mill_route:=preload("res://tests/world/plains_mill_route.gd").new()
 	if not await mill_route.run(app):check(false,"mill physical route "+mill_route.checkpoint);await done();return
 	if not await route([Vector2(1104,142),Vector2(1024,-18)],"P-R26","P-R27"):await done();return
-	if not await route([Vector2(912,494)],"P-R27"):await done();return
-	await hop(Vector2(320,494),Vector2(1,.2))
+	if not await route([Vector2(688,542),Vector2(448,494)],"P-R27"):await done();return
 	await walk(Vector2(320,494),"P-R27");app.controller.router.request_action(&"interact");await ticks(8)
 	check(app.state.value.rest.room=="P-R27","explicit west shelter rest")
+	if not await route([Vector2(480,494)],"P-R27"):await done();return
+	app.controller.router.set_source_axis(&"keyboard_mouse",1)
+	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(24)
+	app.controller.router.set_jump_held(&"keyboard_mouse",false)
 	if not await route([Vector2(720,542),Vector2(1008,494),Vector2(1146,494)],"P-R27","P-R05"):await done();return
 	if not await route([Vector2(320,878),Vector2(1683,878)],"P-R05"):await done();return
 	app.controller.router.request_action(&"interact");await ticks(5);check(app.state.has("shortcut_p02"),"open slow-platform return from correct side")

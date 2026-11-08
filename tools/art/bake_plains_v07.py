@@ -59,4 +59,27 @@ for source,entries,columns,rows in [
   native=crop.resize((round(crop.width*factor),height),Image.Resampling.NEAREST)
   dest=BASE/'native'/(name+'.png');native.save(dest)
   props[name]={'image':str(dest.relative_to(ROOT)),'source':'assets/plains_v07/source/'+source,'source_rect':[x,y,cw,ch],'size':list(native.size),'bake_scale':factor,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
+# Authored orchard surfaces: keep uniform source scaling and a measured top/base gap.
+image=Image.open(BASE/'source/orchard-arches-generated.png').convert('RGBA')
+for i,(name,surface_height) in enumerate([('orchard_arch_west',192),('orchard_arch_east',208)]):
+ x=i*1024;tile=image.crop((x,0,x+1024,768))
+ alpha=tile.getchannel('A').point(lambda a:255 if a>=128 else 0);tile.putalpha(alpha)
+ bounds=alpha.getbbox();crop=tile.crop(bounds);factor=surface_height/(656-215)
+ native=crop.resize((round(crop.width*factor),round(crop.height*factor)),Image.Resampling.NEAREST)
+ clean=Image.new('RGBA',native.size);clean.paste(native,mask=native.getchannel('A'));native=clean
+ dest=BASE/'native'/(name+'.png');native.save(dest)
+ props[name]={'image':str(dest.relative_to(ROOT)),'source':'assets/plains_v07/source/orchard-arches-generated.png','source_rect':[x,0,1024,768],'alpha_crop':list(bounds),'alpha_threshold':128,'size':list(native.size),'bake_scale':factor,'surface_height':surface_height,'generation':'assets/plains_v07/source/orchard-arches-generation.json','sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
+# Repack the pack's native masonry pixels into the existing exact-boundary recipe.
+family=json.loads((ROOT/'art/world-art-v2/assets/terrain47/manifest.json').read_text())['regions']['gear_city']
+source_path=ROOT/'art/world-art-v2'/family['atlas'];masonry=Image.open(source_path).convert('RGBA')
+packed=Image.new('RGBA',(768,192));boundary=Image.new('RGBA',(1056,288))
+recipe={(32,0):28,(64,0):124,(96,0):112,(32,32):31,(64,32):255,(96,32):241,(32,64):7,(64,64):199,(96,64):193,(160,32):127,(128,32):253,(160,0):223,(128,0):247}
+for variant in range(3):
+ packed.paste(masonry,(variant*256,0))
+ for (x,y),mask in recipe.items():
+  sx,sy=family['maskToAtlas'][str(mask)];tile=masonry.crop((sx*32,sy*32,sx*32+32,sy*32+32))
+  boundary.paste(tile,(variant*352+x,y))
+for name,pixels in [('mill_masonry_atlas47',packed),('mill_masonry_source',boundary)]:
+ dest=BASE/'native'/(name+'.png');pixels.save(dest)
+ backgrounds[name]={'image':str(dest.relative_to(ROOT)),'source':str(source_path.relative_to(ROOT)),'source_sha256':hashlib.sha256(source_path.read_bytes()).hexdigest(),'size':list(pixels.size),'method':'native32 unchanged pixels; three shared variants; canonical exact-boundary mask repack','sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
 (BASE/'manifest.json').write_text(json.dumps({'schema':1,'style':'underworld-regional-v1','generator':'image_gen','sources':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (BASE/'source').glob('*.png')},'assets':records,'backgrounds':backgrounds,'props':props,'validation':'native assets require actual Godot composite and animation review'},ensure_ascii=False,indent=2)+'\n')

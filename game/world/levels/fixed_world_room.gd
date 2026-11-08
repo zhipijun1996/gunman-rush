@@ -19,6 +19,9 @@ var interaction_hosts: Array[WorldRoomInteraction] = []
 var service_pickup_sprites: Dictionary={}
 @export var platforms: Array[Rect2] = []
 @export var one_way_indices: Array[int] = []
+## Explicit scenery supplies the surface image; authored rectangles still collide.
+@export var illustrated_platform_indices: Array[int] = []
+@export var masonry_interior := false
 @export var start_point := Vector2(144,512)
 @export var rest_point := Vector2.ZERO
 @export var reward_point := Vector2.ZERO
@@ -103,8 +106,10 @@ func _ready() -> void:
 		door_blocks[door.id] = blocker
 	var solids: Array[Rect2]=[]
 	for i: int in platforms.size():
-		if i not in one_way_indices: solids.append(platforms[i])
-	add_child(UnderworldTerrain.build(solids))
+		if i not in one_way_indices and i not in illustrated_platform_indices: solids.append(platforms[i])
+	var terrain:=UnderworldTerrain.build(solids)
+	if masonry_interior:PlainsMillTerrainMaterial.install_on(terrain)
+	add_child(terrain)
 	var scenery:=PlainsRoomArt.new();scenery.room=self;add_child(scenery)
 	for rect: Rect2 in climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;add_child(wall)

@@ -157,9 +157,9 @@
       ],
       "experience": {
         "player_decision": "Boss 重试走稳定下路；额外尝试慢吊台到齿轮岸。",
-        "visual_read": "传动轮、两台慢平台与高处断桥墩显示工作设施。",
+        "visual_read": "传动轮与两台慢平台指向齿轮岸，右侧石壁围出独立返程落槽；主路与收集路上下分区。",
         "pressure": "可选平台段不叠远程怪；等待与起跳时机是压力。",
-        "failure_recovery": "下落回低地重新登台；领奖侧显式放下折梯。",
+        "failure_recovery": "可选吊台失误落回低地重试；齿轮侧开启狭窄落口，沿独立竖槽单向落到回岔路的主路，不能从下方提前登上奖励岸。",
         "return_visit": "从本侧开回岔路的桥，缩短牧风者重试。"
       },
       "art_focal_assets": [
@@ -787,15 +787,16 @@
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "选择下层果园路或树台上路，利用反冲越敌换边。",
-        "visual_read": "种荚遗物与挂铃树台区别于田垄断桥。",
-        "pressure": "冲锋与俯冲分开引入；局部荆棘之外有宽恢复地。",
-        "failure_recovery": "荆棘两侧只记录实际站稳的重试点。",
+        "player_decision": "在果圃低路面对冲锋，或登上两段挂铃旧拱台用反冲越敌换边；两路在风车前重新汇合。",
+        "visual_read": "两座盘根挂铃树拱托住上层短路，根间低路可穿行；枝上落脚和地面遭遇同时可读。",
+        "pressure": "下路冲锋和东段俯冲错开；上路短落点与射向选择，不以荆棘封死较稳的低路。",
+        "failure_recovery": "上路失误落回果圃低路，仍可应对遭遇并继续；清怪后可重新登上高台。",
         "return_visit": "清怪后路仍完整，换边操作不依赖一次性敌人。"
       },
       "art_focal_assets": [
-        "windchime_plains_v2_seed_relic",
-        "windchime_plains_v2_chime_span"
+        "orchard_arch_west",
+        "orchard_arch_east",
+        "windchime_plains_v2_seed_relic"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -845,7 +846,7 @@
         "player_decision": "明确休息、整理装备，然后去慢风平台与钟庭。",
         "visual_read": "背风棚、充电站、修好的灯凳形成安全停顿。",
         "pressure": "无战斗；阿栖修灯不新增休息权限或奖励。",
-        "failure_recovery": "落脚台与下口木板防误坠，进入不是自动休息。",
+        "failure_recovery": "风车入口收为地面中的96wu缺口；真实侧岸承接上行入场，短跳跨缺口到休息棚，不用横跨竖门的接人薄板。",
         "return_visit": "阿栖只在首个合法棚出现；完成后保留实际宿主灯凳。"
       },
       "art_focal_assets": [

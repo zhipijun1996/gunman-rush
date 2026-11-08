@@ -4,7 +4,7 @@
 
 | 所有权 | 当前入口 |
 | --- | --- |
-| 房间、分区、连接、资格、永久动作身份 | [world.json](../../../config/world/world.json)，与最新 ZIP 主数据一致 |
+| 房间、分区、连接、资格、永久动作身份 | [world.json](../../../config/world/world.json)，以最新 ZIP 主数据为基线，按用户确定的现行设计直接维护 |
 | 施工尺寸、门位、来向落脚、镜头与场景绑定 | [construction.json](../../../config/world/construction.json)；实际碰撞和对象放置由各房 `.tscn` 持有 |
 | 平原逐房用途与遭遇职责 | [room_design.json](../../../game/world/regions/P/room_design.json)，引用稳定房号和动作，不复制碰撞 |
 | 收集系统与来源槽 | [collections.json](../../../config/world/collections.json)、[collection_design.json](../../../config/world/collection_design.json)；新版为 50 件装备来源槽，原包未提供全部最终效果、价格与平衡 |

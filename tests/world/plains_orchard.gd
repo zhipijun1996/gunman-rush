@@ -1,0 +1,34 @@
+extends "res://tests/world/plains_first_loop.gd"
+## Declared west-entry fixtures. Both choices use the same live enemies and Motor.
+func run() -> void:
+	var choices: Array[bool]=[false,true]
+	if "--upper-only" in OS.get_cmdline_user_args():choices=[true]
+	if "--lower-only" in OS.get_cmdline_user_args():choices=[false]
+	for upper: bool in choices:
+		app=preload("res://game/application/world/fixed_world.tscn").instantiate()
+		app.save_path="user://plains_orchard_fixture.json"
+		for suffix: String in ["",".backup",".tmp",".corrupt"]:DirAccess.remove_absolute(app.save_path+suffix)
+		root.add_child(app);app.start_new();await settle();app.load_room("P-R25","");await settle()
+		check(await walk(Vector2(432,782),"P-R25"),"orchard root shoulder")
+		if upper:
+			await hop(Vector2(768,686),Vector2(-1,.6))
+			check(absf(app.player.position.y-686)<8,"upper west arch via recoil")
+			check(await walk(Vector2(848,686),"P-R25"),"read eastern landing from arch")
+			await hop(Vector2(1232,670),Vector2(-1,.15))
+			check(absf(app.player.position.y-670)<8,"upper east arch via recoil")
+			check(await walk(Vector2(1248,670),"P-R25"),"move inside branch before firing to leave recoil room")
+			await clear_enemies()
+			check(await walk(Vector2(1344,670),"P-R25"),"east arch departure after encounter")
+			await hop(Vector2(1664,782),Vector2(-1,.1))
+			check(absf(app.player.position.y-782)<8,"upper route descends to east root shoulder")
+		else:
+			check(await walk(Vector2(576,878),"P-R25"),"lower route enters orchard aisle")
+			await clear_enemies()
+			check(await walk(Vector2(1168,878),"P-R25"),"lower route passes below arches")
+			await clear_enemies()
+			check(await walk(Vector2(1680,782),"P-R25"),"east root shoulder after encounter")
+		check(app.room.room_id=="P-R25","route stays in orchard")
+		check(await walk(Vector2(1904,878),"P-R25"),"both routes merge at actual windmill approach")
+		check(app.controller.actor_resources.health.current>0,"route leaves player alive")
+		await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(8)
+	print("PLAINS ORCHARD: ",failures," failures");quit(failures)

@@ -7,6 +7,7 @@
 script = ExtResource("1")
 room_id = "P-R26"
 art_profile = "mill"
+masonry_interior = true
 bell_mechanisms = Array[Dictionary]([{"id": "P-R26:carrier_west", "bell": [416, 1168], "carrier": "Carrier0"}, {"id": "P-R26:carrier_east", "bell": [1040, 624], "carrier": "Carrier1"}])
 arrival_text = "旧风车内廊"
 platforms = Array[Rect2]([Rect2(0, 1280, 2048, 128), Rect2(928, 704, 416, 64), Rect2(1024, 768, 320, 64), Rect2(1088, 832, 256, 64), Rect2(1088, 160, 384, 160), Rect2(1472, 224, 160, 1056), Rect2(1344, 704, 128, 576)])
@@ -18,7 +19,7 @@ signs = Array[Dictionary]([{"point": [256, 1232], "text": "旧吊架仍听得见
 hook_points = Array[Vector2]([])
 section_volumes = Array[Dictionary]([])
 retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset": "windmill_frame", "point": [1568, 1280], "layer": -2}, {"asset": "windchime_plains_v2_bell_wheel", "point": [1152, 704], "layer": -2}])
+art_placements = Array[Dictionary]([{"asset": "windmill_frame", "point": [1568, 1280], "layer": -2}, {"asset": "windchime_plains_v2_bell_wheel", "point": [1152, 704], "layer": -2}, {"asset": "gear_lamp", "point": [320, 1280], "layer": -2, "light": true, "light_offset": [8, -67]}, {"asset": "gear_lamp", "point": [960, 704], "layer": -2, "light": true, "light_offset": [8, -67]}, {"asset": "gear_lamp", "point": [1392, 160], "layer": -2, "light": true, "light_offset": [8, -67]}])
 [node name="Carrier0" type="AnimatableBody2D" parent="."]
 script = ExtResource("moving")
 position = Vector2(512, 1224)

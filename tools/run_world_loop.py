@@ -31,6 +31,8 @@ def main():
         ('plains_acquisitions.gd',r'PLAINS ACQUISITIONS: 0 failures',180),
         ('plains_carriers.gd',r'PLAINS CARRIERS: 0 failures',120),
         ('plains_mill.gd',r'PLAINS MILL: 0 failures',120),
+        ('plains_orchard.gd',r'PLAINS ORCHARD: 0 failures',120),
+        ('plains_gear_route.gd',r'PLAINS GEAR ROUTE: 0 failures',120),
         ('plains_mechanisms.gd',r'PLAINS MECHANISMS: 0 failures',120),
         ('plains_returns.gd',r'PLAINS RETURNS: 0 failures',180),
         ('plains_places.gd',r'PLAINS PLACES: 0 failures',120),

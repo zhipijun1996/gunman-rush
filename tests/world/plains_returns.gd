@@ -17,7 +17,7 @@ func run() -> void:
 		check(app.state.value.inventory==inventory,"return independent of pickup "+rid)
 		for body: StaticBody2D in latch.opened_bodies:check(body.collision_layer==1,"real unfolded step "+rid)
 		var return_paths: Dictionary={
-			"P-R05":[Vector2(1968,622),Vector2(1824,718),Vector2(1904,814),Vector2(2000,878)],
+			"P-R05":[Vector2(1872,878),Vector2(2000,878)],
 			"P-R12":[Vector2(1230,590),Vector2(1136,686),Vector2(1230,782),Vector2(1230,878)],
 			"P-R13":[Vector2(1216,622),Vector2(1200,718),Vector2(1280,750)],
 			"P-R17":[Vector2(832,534),Vector2(816,630),Vector2(816,782),Vector2(640,750)],
@@ -27,5 +27,7 @@ func run() -> void:
 		check(await path(return_paths[rid],rid),"real unfolded return reaches low route "+rid)
 		app.load_room(rid,"");await settle();latch=app.room.get_node("RewardReturn") as WorldReturnLatch
 		check(latch.state.has(latch.action_id),"revisit retains return "+rid)
+		if latch.metal_hatch:
+			check(latch.hatch_opening==1 and latch.closed_bodies[0].collision_layer==0,"revisit restores open shaft and settled hinge "+rid)
 		for body: StaticBody2D in latch.opened_bodies:check(body.collision_layer==1,"restored collision "+rid)
 	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(8);print("PLAINS RETURNS: ",failures," failures");quit(failures)

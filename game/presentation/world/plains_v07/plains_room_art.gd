@@ -70,7 +70,8 @@ func _ready() -> void:
 			node.modulate=Color(.66,.77,.78,.8)
 			depths.append({"node":node,"origin":node.position,"ratio":float(placement.depth)})
 		if placement.get("light",false):
-			var glow:=add_lamp(Vector2(0,-node.texture.get_height()*.65))
+			var light_position:=FixedWorldProvider.point(placement.light_offset) if placement.has("light_offset") else Vector2(0,-node.texture.get_height()*.65)
+			var glow:=add_lamp(light_position)
 			glow.reparent(node,false)
 	set_process(true)
 func add_lamp(at: Vector2) -> PointLight2D:

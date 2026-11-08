@@ -8,9 +8,10 @@
 script = ExtResource("1")
 room_id = "P-R05"
 art_profile = "mill"
+masonry_interior = true
 arrival_text = "慢风平台"
-platforms = Array[Rect2]([Rect2(0, 992, 2048, 32), Rect2(0, 896, 2048, 128), Rect2(416, 784, 224, 32), Rect2(960, 672, 288, 32), Rect2(1536, 544, 384, 32), Rect2(0, 896, 288, 32), Rect2(0, 672, 288, 32), Rect2(0, 448, 288, 32), Rect2(1760, 896, 288, 32), Rect2(288, 448, 512, 24), Rect2(576, 536, 160, 24), Rect2(464, 608, 160, 24), Rect2(288, 672, 336, 24), Rect2(240, 752, 160, 24), Rect2(128, 824, 160, 24)])
-one_way_indices = Array[int]([9, 10, 11, 12, 13, 14])
+platforms = Array[Rect2]([Rect2(0, 896, 2048, 128), Rect2(416, 784, 224, 32), Rect2(960, 672, 288, 64), Rect2(1536, 544, 288, 64), Rect2(1728, 608, 96, 224), Rect2(1920, 0, 96, 832), Rect2(0, 672, 288, 32), Rect2(0, 448, 288, 32), Rect2(288, 448, 512, 24), Rect2(576, 536, 160, 24), Rect2(464, 608, 160, 24), Rect2(288, 672, 336, 24), Rect2(240, 752, 160, 24), Rect2(128, 824, 160, 24)])
+one_way_indices = Array[int]([8, 9, 10, 11, 12, 13])
 start_point = Vector2(144, 878)
 rest_point = Vector2(0, 0)
 enemy_placements = Array[Dictionary]([])
@@ -18,7 +19,7 @@ signs = Array[Dictionary]([{"point": [224, 848], "text": "轮轴慢慢转动，�
 hook_points = Array[Vector2]([])
 section_volumes = Array[Dictionary]([])
 retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset": "windchime_plains_v2_bell_wheel", "point": [480, 784.0], "layer": -2}, {"asset": "bridge_pier", "point": [1648, 544.0], "layer": -2}])
+art_placements = Array[Dictionary]([{"asset": "windchime_plains_v2_bell_wheel", "point": [480, 784], "layer": -2}, {"asset": "bridge_pier", "point": [1104, 880], "layer": -3}, {"asset": "bridge_pier", "point": [1664, 752], "layer": -3}, {"asset": "windmill_frame", "point": [1696, 896], "layer": -8}, {"asset": "gear_lamp", "point": [1600, 544], "layer": -2, "light": true, "light_offset": [8, -67]}])
 [node name="Interaction_0" type="Node2D" parent="."]
 script = ExtResource("interaction")
 position = Vector2(1728, 526)
@@ -46,11 +47,12 @@ period = 4.7
 
 [node name="RewardReturn" type="Node2D" parent="."]
 script = ExtResource("return")
-position = Vector2(1824, 526)
+position = Vector2(1800, 526)
 action_id = "reward_return_TG02_open"
 section_id = "main"
-label = "放下返程折梯"
+label = "打开回程落口"
 visual = "pulley_switch"
 radius = 40.0
-return_steps = Array[Rect2]([Rect2(0, 114, 160, 16), Rect2(-64, 210, 128, 16), Rect2(0, 306, 128, 16)])
-closed_panels = Array[Rect2]([])
+return_steps = Array[Rect2]([])
+closed_panels = Array[Rect2]([Rect2(24, 18, 96, 32)])
+metal_hatch = true

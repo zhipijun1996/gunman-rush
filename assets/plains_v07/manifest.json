@@ -11,6 +11,7 @@
     "props-generated.png": "fccdc8e90851e97d6fe8217382fb0c9a253978af4b890fae873cd1ddfb2e1523",
     "inhabitants-generated.png": "081dbf9a2ff5f1163b64a266b82d9848986b3ea23bb9a56e0d8dbe3d5a684c32",
     "mechanisms-generated.png": "e12df1bc1177034ce55e0fa5f5b6439d554f8f9d93fb672f6f504ac2602c3daa",
+    "orchard-arches-generated.png": "9bc560d30550d6d5e606b27e09f6ba7635e2e4bc40fa7df7d4b295545d5ac0e9",
     "clocktower-generated.png": "8b2393391b86ee55e38387efe53881213c4df5d8d91306bd11af439493056081"
   },
   "assets": {
@@ -987,6 +988,28 @@
         256
       ],
       "sha256": "1712887a8b9a09e0219e934d7ad0485c7f2ef950ec1dcb32f2d47e4c7d71a6dc"
+    },
+    "mill_masonry_atlas47": {
+      "image": "assets/plains_v07/native/mill_masonry_atlas47.png",
+      "source": "art/world-art-v2/assets/terrain47/gear_city.png",
+      "source_sha256": "bddf32a9d287cc45862795d28db79f2ab75443d94676089263a0d6fab8af3456",
+      "size": [
+        768,
+        192
+      ],
+      "method": "native32 unchanged pixels; three shared variants; canonical exact-boundary mask repack",
+      "sha256": "38d4ac886082637e15d3f4d834cb2aa5e6eb5dbeb3f469af5420812ed406a788"
+    },
+    "mill_masonry_source": {
+      "image": "assets/plains_v07/native/mill_masonry_source.png",
+      "source": "art/world-art-v2/assets/terrain47/gear_city.png",
+      "source_sha256": "bddf32a9d287cc45862795d28db79f2ab75443d94676089263a0d6fab8af3456",
+      "size": [
+        1056,
+        288
+      ],
+      "method": "native32 unchanged pixels; three shared variants; canonical exact-boundary mask repack",
+      "sha256": "4d6a8c6739e913dbbabfa0bf32bb30c874f03edc4e14ee32970854aa8c47ef7e"
     }
   },
   "props": {
@@ -1261,6 +1284,56 @@
       ],
       "bake_scale": 0.11578947368421053,
       "sha256": "6409166b7d93b44b2bf6500263b170f575d3017e1fd9f60b0cc515d1902dad05"
+    },
+    "orchard_arch_west": {
+      "image": "assets/plains_v07/native/orchard_arch_west.png",
+      "source": "assets/plains_v07/source/orchard-arches-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "alpha_crop": [
+        26,
+        97,
+        977,
+        656
+      ],
+      "alpha_threshold": 128,
+      "size": [
+        414,
+        243
+      ],
+      "bake_scale": 0.43537414965986393,
+      "surface_height": 192,
+      "generation": "assets/plains_v07/source/orchard-arches-generation.json",
+      "sha256": "b2b89356b38183dd9f6d036c60812d0042269be4ca8d1627fbd13c44d690506a"
+    },
+    "orchard_arch_east": {
+      "image": "assets/plains_v07/native/orchard_arch_east.png",
+      "source": "assets/plains_v07/source/orchard-arches-generated.png",
+      "source_rect": [
+        1024,
+        0,
+        1024,
+        768
+      ],
+      "alpha_crop": [
+        22,
+        104,
+        995,
+        656
+      ],
+      "alpha_threshold": 128,
+      "size": [
+        459,
+        260
+      ],
+      "bake_scale": 0.47165532879818595,
+      "surface_height": 208,
+      "generation": "assets/plains_v07/source/orchard-arches-generation.json",
+      "sha256": "259f2bae658f929e86bda03cf600c62c173f2997096faa8d16ad80e67192d7d3"
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

@@ -10,6 +10,7 @@
 | mechanisms-generated.png | 钩索装置、装备行囊、校时台、返程滑轮各六帧 |
 | interiors-generated.png | 风车、谷仓、地窖、井壁四片独立可平铺背墙 |
 | props-generated.png | 直桶、倒桶、储物箱、回收柜台、挂铃、旅途包 |
+| orchard-arches-generated.png | 两座独立挂铃果树拱架，树根接地、枝面匹配真实碰撞；生成记录见source/orchard-arches-generation.json |
 | architecture-generated.png | 倒时车厢、候车棚、风车架、断桥墩、旧摊架、井台 |
 | clocktower-generated.png | 世界钟塔独立剪影，分别烘焙远望与前庭原生尺寸 |
 | story-traces-generated.png | 布条桩、路线便笺板、修好的灯凳，显现只读取交谈收据与宿主房号 |
@@ -18,6 +19,8 @@
 
 正式房间的远景读取 `art/world-art-v2/assets/pixel/manifest.json` 中 `windchime_plains_v2`，不再从旧家园通用背景加载。远景按整数倍覆盖实际窗口并使用独立低速视差；实体仍保持1素材像素/1世界单位。室外环境底光参考技能中的认可光照配置，实际Godot方向光须以窗口光照对照审查；接入不代表最终视觉通过。植被由房间明确放置，不按碰撞矩形自动盖章。
 
-场景材质与地形碰撞分开：建筑仅作构图；实际落脚面、遮弹掩体、铜铃吊台、折板与水面危险由对应组件拥有。动效只响应已接受的动作/持久化结果，不发放奖励。
+场景材质与地形碰撞分开：普通建筑仅作构图；果园树拱由房间明确指定对应平台图像，按清单surface_height对齐枝面，树干在可穿行背景层；实际落脚面、遮弹掩体、铜铃吊台、折板与水面危险由对应组件拥有。动效只响应已接受的动作/持久化结果，不发放奖励。
+
+P-R05/P-R26的室内砌体复用素材包`gear_city`原生32px地形，机械重排至现有47邻接和精确边界采样布局，不重画或缩放像素，不改变碰撞。`mill_masonry_atlas47/source`的源路径与哈希归清单；室外草沿材质保持原族。返程金属翻板使用既有吊台材质，动画消费已提交的机关状态。
 
 `audio/water_splash.ogg` 复用项目已收录的 `assets/audio/director_v3/_sources/water/splash_09.ogg`，原来源为 [40 CC0 Water/Splash/Slime SFX](https://opengameart.org/content/40-cc0-water-splash-slime-sfx)。原作者和授权证据保留在 [v3 声音来源](../../config/audio_director/v3/sources.json)。落水声在实际扣血结果接受后，由现有 GameAudio 声部池播放；不新建独立声音服务。
