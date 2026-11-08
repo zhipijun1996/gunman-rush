@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | 先审核35房整区构图、短窄通道与A/B/C连接优化，再同步施工及相连片区打磨 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 按已确认A/B/C完善整区轮廓、教程实践与钩索前后辨路，随后同步空间施工 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 ## 待验收
 
