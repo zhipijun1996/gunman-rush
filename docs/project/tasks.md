@@ -4,6 +4,12 @@
 
 接续任务先读本行和下一动作，再读对应工作线和直接依赖；新内容审查按需读取质量卡；依赖只列当前任务，已完成的实现直接以main代码为准。新增缺陷只建一个明确范围的任务，更新本页和自己的工作线。运行事实见 [当前状态](current_state.md)，跨会话规则见 [生产规则](cloud_production.md)。
 
+## 制作与返工
+
+| 任务 | 目标 | 依赖 | 状态 | 入口 |
+| --- | --- | --- | --- | --- |
+| PLAINS-BIBLE-V2-01 | 按v07.1返工35房平原的反冲/机关、连续空间、美术氛围与UI比例 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
+
 ## 待验收
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
@@ -40,11 +46,9 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | FOREST-BIBLE-V2-01 | 固定世界森林房间内容与环境演出 | MV-RUNTIME-01 | planned | [交接](worklines/forest_bible_v2_01/scope.md) |
-| PLAINS-BIBLE-V2-01 | v07.1世界迁移、35房完整平原与NPC/充电站/收集动画美术 | — | done | [交接](worklines/plains_bible_v2_01/scope.md) |
-| PLAINS-PLAYTEST-01 | 发布已验平原试玩包与小体积分段录像 | PLAINS-BIBLE-V2-01 | done | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-PLAYTEST-01 | 发布平原试玩包与小体积分段录像（发布完成，内容质量被拒） | PLAINS-BIBLE-V2-01 | done | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 - `FOREST-BIBLE-V2-01`：待代表样房闭环后按F房间制作；保留v15动作/生态资产，不推进旧两图量产。
-- `PLAINS-BIBLE-V2-01`：35房按最新v07.1整体设计实施，当前验证与内容边界见交接；不推进随机扩池。
 
 ## 固定世界迁移
 
