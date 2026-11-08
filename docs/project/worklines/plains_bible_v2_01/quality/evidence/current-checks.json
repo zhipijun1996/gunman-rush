@@ -1,0 +1,240 @@
+{
+  "source_commit": "0ff7cde1aecb93e27605decbc252edb19121bdfe",
+  "content_version": "57d6a99e756bb6168e82efc18a5383014c866f2c9b8643bb481e7acecb97e574",
+  "scope": "Actual fixed-world inputs, qualified isolated fixtures, room space contracts and separate disk restart. Not full art, pacing, audio or physical-device acceptance.",
+  "commands": [
+    {
+      "command": "python3 tools/run_world_loop.py",
+      "exit_code": 0,
+      "results": [
+        {
+          "script": "tests/world/state_contracts.gd",
+          "result": "WORLD STATE: 24 assertions, 0 failures"
+        },
+        {
+          "script": "tests/world/service_contracts.gd",
+          "result": "WORLD SERVICES: 30 assertions, 0 failures"
+        },
+        {
+          "script": "tests/world/economy.gd",
+          "result": "WORLD GOLD: 8 assertions, 0 failures"
+        },
+        {
+          "script": "tests/world/economy_restart.gd",
+          "result": "WORLD GOLD RESTART: 0 failures"
+        },
+        {
+          "script": "tests/world/traversal_contracts.gd",
+          "result": "WORLD TRAVERSAL: 5 assertions, 0 failures"
+        },
+        {
+          "script": "tests/world/spatial_contracts.gd",
+          "result": "WORLD SPACE: 0 failures"
+        },
+        {
+          "script": "tests/world/room_contracts.gd",
+          "result": "WORLD ROOMS: 505 assertions, 0 failures"
+        },
+        {
+          "script": "tests/world/room_review.gd",
+          "result": "WORLD ROOM REVIEW: 0 failures"
+        },
+        {
+          "script": "tests/world/ui_contracts.gd",
+          "result": "WORLD UI: 17 assertions, 0 failures"
+        },
+        {
+          "script": "tests/world/presentation_contracts.gd",
+          "result": "WORLD PRESENTATION: 20 assertions, 0 failures"
+        },
+        {
+          "script": "tests/world/demo_regressions.gd",
+          "result": "WORLD DEMO: 28 assertions, 0 failures"
+        },
+        {
+          "script": "tests/world/focus_heal.gd",
+          "result": "WORLD HEAL: 24 assertions, 0 failures"
+        },
+        {
+          "script": "tests/world/focus_heal_restart.gd",
+          "result": "WORLD HEAL RESTART: 0 failures"
+        },
+        {
+          "script": "tests/world/lifecycle.gd",
+          "result": "WORLD LIFECYCLE: 20 assertions, 0 failures"
+        },
+        {
+          "script": "tests/world/plains_state_contracts.gd",
+          "result": "PLAINS STATE: 31 assertions, 0 failures"
+        },
+        {
+          "script": "tests/world/plains_motor.gd",
+          "result": "PLAINS MOTOR: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_intro.gd",
+          "result": "PLAINS INTRO: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_first_loop.gd",
+          "result": "PLAINS FIRST LOOP: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_clock_return.gd",
+          "result": "PLAINS CLOCK RETURN: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_boss.gd",
+          "result": "PLAINS BOSS: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_bellstrider.gd",
+          "result": "PLAINS BELLSTRIDER: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_gates.gd",
+          "result": "PLAINS GATES: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_gate_counterexamples.gd",
+          "result": "PLAINS COUNTEREXAMPLES: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_acquisitions.gd",
+          "result": "PLAINS ACQUISITIONS: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_carriers.gd",
+          "result": "PLAINS CARRIERS: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_mill.gd",
+          "result": "PLAINS MILL: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_orchard.gd",
+          "result": "PLAINS ORCHARD: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_recoil_edges.gd",
+          "result": "PLAINS RECOIL EDGES: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_west_pressure.gd",
+          "result": "PLAINS WEST PRESSURE: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_interiors.gd",
+          "result": "PLAINS INTERIORS: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_gear_route.gd",
+          "result": "PLAINS GEAR ROUTE: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_cellar.gd",
+          "result": "PLAINS CELLAR: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_well.gd",
+          "result": "PLAINS WELL: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_return_galleries.gd",
+          "result": "PLAINS RETURN GALLERIES: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_thresholds.gd",
+          "result": "PLAINS THRESHOLDS: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_mechanisms.gd",
+          "result": "PLAINS MECHANISMS: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_returns.gd",
+          "result": "PLAINS RETURNS: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_places.gd",
+          "result": "PLAINS PLACES: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_region_galleries.gd",
+          "result": "PLAINS REGION GALLERIES: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_freight.gd",
+          "result": "PLAINS FREIGHT: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_grain.gd",
+          "result": "PLAINS GRAIN: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_water_routes.gd",
+          "result": "PLAINS WATER ROUTES: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_east_routes.gd",
+          "result": "PLAINS EAST ROUTES: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_east_circuit.gd",
+          "result": "PLAINS EAST CIRCUIT: 0 failures"
+        },
+        {
+          "script": "tests/world/plains_lower_routes.gd",
+          "result": "PLAINS LOWER ROUTES: 0 failures"
+        },
+        {
+          "script": "tests/world/restart.gd",
+          "result": "WORLD RESTART: 0 failures"
+        },
+        {
+          "script": "tests/world/service_ui.gd",
+          "result": "WORLD SERVICE UI: 0 failures"
+        },
+        {
+          "script": "tests/world/service_restart.gd",
+          "result": "WORLD SERVICE RESTART: 0 failures"
+        }
+      ],
+      "log_sha256": "882649b44a7ca3a12c2b7b5b9df7a4123b76c37724ed47f46bf1bc712f575f03"
+    },
+    {
+      "command": "python3 tools/ci.py",
+      "exit_code": 0,
+      "result": "4 checks passed"
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p 'test_world*.py'",
+      "exit_code": 0,
+      "result": "18 tests passed"
+    },
+    {
+      "command": "python3 tools/check_docs.py",
+      "exit_code": 0,
+      "result": "current documentation and navigation passed"
+    }
+  ],
+  "published_bundle": {
+    "build_id": "f9e92d4a30ab",
+    "source_commit": "1acefe0315ab51d1f280e2c5a3e56b5c2a65fb55",
+    "public_pack_bytes": 238553416,
+    "public_pack_sha256": "f9e92d4a30abea00c12cfe637d28f07fbdde2b87718fcf086aa96c19ebf52ff3",
+    "clips_verified": 3,
+    "scope": "Public metadata, full PCK and three short clips match the checked local bundle."
+  },
+  "local_browser": {
+    "page_errors": [],
+    "formal_save_preserved": true,
+    "scope": "Actual canvas touch/keyboard input, direct link, selector, reset, return, and formal localStorage byte comparison; screenshots reviewed separately.",
+    "ordinary_entry": "Ordinary title/start/jump/map/pause input; inspect screenshots. Full Web route and physical mobile unverified."
+  },
+  "public_browser": {
+    "page_errors": [],
+    "formal_save_preserved": true,
+    "scope": "Actual canvas touch/keyboard input, direct link, selector, reset, return, and formal localStorage byte comparison; screenshots reviewed separately."
+  }
+}

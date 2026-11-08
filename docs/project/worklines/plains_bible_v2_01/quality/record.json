@@ -3,8 +3,8 @@
   "task_id": "PLAINS-BIBLE-V2-01",
   "task_type": "region",
   "baseline_commit": "0e742706c59e3409b23c4536ba74f89af6a2146b",
-  "reviewed_commit": "e797e7e2b9aef97faa900057a05227ff83d265f9",
-  "content_version": "f33dbbcab62153efc1072ed25b736acfca81f2fd5153807386eb5dd16087d681",
+  "reviewed_commit": "0ff7cde1aecb93e27605decbc252edb19121bdfe",
+  "content_version": "57d6a99e756bb6168e82efc18a5383014c866f2c9b8643bb481e7acecb97e574",
   "owner": "Codex",
   "purpose": "按PR141附件v07.1制作完整35房平原，整合地图与美术来源并退休旧地图。",
   "player_experience": "反冲主导的新档学习与西侧主循环，H能力取得后的修钟/回访和东侧探索；统一像素人物、地形、机关与UI反馈。",
@@ -25,7 +25,7 @@
     "AGENTS.md"
   ],
   "deliverables": [
-    "P-R01—P-R35完整关卡、连续空间和正式表现；当前返工未完成。"
+    "35房连续整区、45条真实接缝与实际多房间路线已接入；全区表现和体验终审继续单独验收。"
   ],
   "creative_decisions": [],
   "formal_impact": true,
@@ -37,25 +37,27 @@
   "gates": {
     "G2": {
       "status": "failed",
-      "reason": "本批修复随身光、竖向入口、部分贴地/层次与逐房试玩，但运行时仍为独立矩形连线，35房生态与连续探索未满足用户要求；整区验收保持失败，先总图再填内容。",
+      "reason": "连续空间与主要跨房玩法路线已完成并通过专项；全区逐房视听与完整探索趣味尚未通过最终内容验收。",
       "evidence": []
     }
   },
   "dimensions": {
     "visual": {
       "status": "failed",
-      "reason": "角色突兀暗化、P-R23长板、P-R24实体棚屋景深及明确贴地道具已修复并审看；全区空间与逐房美术终审尚未完成，不沿用此前漏检的定点质量判断。",
+      "reason": "连续整区已落地，正常镜头审看35房取景及三段真实输入短片；角色暗化、明确贴地/层次与门口问题已修复。全区动态美术和逐房表现终审尚未完成，保留整体质量未通过结论。",
       "evidence": []
     },
     "gameplay": {
-      "status": "failed",
-      "reason": "16个上口正下方落台、15个下口净空和实际双向路线已回归；整区物理空间未闭合，普通路线转角/障碍和有效遭遇仍不足，逐房及连续体验继续返工。",
+      "status": "unverified",
+      "reason": "新档主环自行取得H、修钟和三条捷径；东侧与地下回环、奖励挑战/单向返回、能力防绕过、失败及重启专项通过。全区初见引导、节奏和完整探索趣味尚未终审。",
       "evidence": []
     },
     "technical": {
-      "status": "unverified",
-      "reason": "CI四项及44项世界专项通过于e7515afc，包含35房479项门口断言、连续主环/分支/保存重启；其后仅逐房弹窗触屏适配变化，e797e7e2重新通过逐房专项与最终包Chromium触摸/重置/返回正式存档检查。范围及公开包核验见scope.md；完整Web通关与实体设备未验。",
-      "evidence": []
+      "status": "passed",
+      "reason": "48项世界专项、505条房间断言、18项世界设计单测、日常CI四项及文档检查通过。",
+      "evidence": [
+        "continuous-checks"
+      ]
     },
     "animation": {
       "status": "unverified",
@@ -69,12 +71,26 @@
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "continuous-checks",
+      "path": "docs/project/worklines/plains_bible_v2_01/quality/evidence/current-checks.json",
+      "sha256": "f6eaf7d82c6390d6c0c90e98a4f4255caa273c535e64a2d8fb3c0011b5a9cfdd",
+      "kind": "command",
+      "producer": "Codex",
+      "source_commit": "0ff7cde1aecb93e27605decbc252edb19121bdfe",
+      "content_version": "57d6a99e756bb6168e82efc18a5383014c866f2c9b8643bb481e7acecb97e574",
+      "method": "Production Godot controller input and explicitly declared approach/state fixtures, plus source/space checks; complete command outputs retained under build/plains_continuous.",
+      "observed": "All listed commands exited zero; 48 world scripts and 505 room assertions passed.",
+      "command": "python3 tools/run_world_loop.py; python3 tools/ci.py; python3 -m unittest discover -s tests -p test_world*.py; python3 tools/check_docs.py",
+      "exit_code": 0,
+      "environment": "Godot 4.7.2 gunman-sd1, Linux headless, fixed 60 FPS; Python 3"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "整区连续空间和成对物理接缝尚未重建；门口局部修复不代表世界布局完成。",
-    "35房玩法生态、逐房美术/动作/UI及完整连续探索仍未完成终审。",
-    "空间候选仅为保留45条连接与门向的闭合可行性结果，长廊职责、地形与相机区尚未落地。",
-    "完整Web通关、实体设备性能与听感没有新测量。"
+    "35房初见引导、整体节奏与完整探索趣味仍待终审。",
+    "正常镜头已审看35房取景和三段短片；全部动作、UI、音效及动态美术未逐项终审。",
+    "公开部署与浏览器证据在当前交接维护；完整Web通关及实体设备性能未验证。"
   ]
 }
