@@ -6,35 +6,30 @@
 [node name="P-R01" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R01"
-traveler_point = Vector2(1152, 622)
-art_profile = "station"
-masonry_platform_indices = Array[int]([5,6,7,8])
 arrival_text = "钟外小站"
-platforms = Array[Rect2]([Rect2(0,736,1376,32),Rect2(1728,736,64,32),Rect2(0,640,1376,128),Rect2(1728,640,64,128),Rect2(0,416,288,32),Rect2(288,528,256,48),Rect2(1504,528,256,48),Rect2(1536,416,256,48),Rect2(1184,1280,640,96),Rect2(1504,160,288,32),Rect2(1184,1280,288,32),Rect2(1536,928,288,32)])
-one_way_indices = Array[int]([])
-start_point = Vector2(144, 622)
-rest_point = Vector2(320, 622)
-enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([{"point": [224, 592], "text": "小站的灯一直亮着。充电站可以恢复生命，并保存归途。"}])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset":"waiting_shelter","point":[1056,640.0],"layer":-2},{"asset":"merchant_counter","point":[600,640.0],"layer":-2},{"asset":"storage_crates","point":[720,640.0],"layer":-2},{"asset":"hanging_chime","point":[856,640.0],"layer":-2},{"asset":"aqi_note","point":[1008,640.0],"layer":-2,"receipt":"story_aqi_t02"},{"asset":"plain_pier","point":[1584,640],"support_height":64},{"asset":"plain_pier","point":[1712,528],"support_height":64},{"asset":"gear_lamp","point":[1664,928],"layer":-2,"light":true}])
-illustrated_platform_indices = Array[int]([])
+art_profile = "station"
+platforms = Array[Rect2]([Rect2(0,1280,1408,64),Rect2(1664,1280,512,256),Rect2(1888,1216,288,64),Rect2(1888,384,288,64),Rect2(320,1696,192,32),Rect2(1888.0,384.0,288,32),Rect2(384.0,1696.0,128,32),Rect2(1888.0,1216.0,288,32)])
+start_point = Vector2(144,1262)
+rest_point = Vector2(320,1262)
+traveler_point = Vector2(1152,1262)
+signs = Array[Dictionary]([{"point":[224,1232],"text":"小站的灯一直亮着。充电站恢复生命，并保存归途。"},{"point":[1824,1168],"text":"向东进入旧井，上到岔路再向西循铃。"}])
+art_placements = Array[Dictionary]([{"asset":"waiting_shelter","point":[1056,1280],"layer":-2},{"asset":"merchant_counter","point":[600,1280],"layer":-2},{"asset":"storage_crates","point":[720,1280],"layer":-2},{"asset":"hanging_chime","point":[856,1280],"layer":-2},{"asset":"gear_lamp","point":[1984,1216],"layer":-2,"light":true}])
+
 [node name="Npc0" type="Node2D" parent="."]
 script = ExtResource("npc")
-position = Vector2(560, 622)
+position = Vector2(560,1262)
 npc_id = "NPC_P_REC"
 display_name = "小站回收匠"
+
 [node name="Npc1" type="Node2D" parent="."]
 script = ExtResource("npc")
-position = Vector2(816, 622)
+position = Vector2(816,1262)
 npc_id = "NPC_P_WEAVER"
 display_name = "织时匠"
 
 [node name="RiftStation" type="Node2D" parent="."]
 script = ExtResource("interaction")
-position = Vector2(448, 622)
+position = Vector2(448,1262)
 action_id = "activate_rift_P"
 section_id = "main"
 label = "连接归途"
@@ -42,9 +37,10 @@ visual = "clock_altar"
 
 [node name="StationLift" type="AnimatableBody2D" parent="."]
 script = ExtResource("moving")
-position = Vector2(1456,1232)
-endpoint = Vector2(0,-1008)
-platform_size = Vector2(96,20)
+position = Vector2(544,1744)
+endpoint = Vector2(1312,-1296)
+platform_size = Vector2(128,20)
 period = 12.0
 one_way = true
-route = Array[Vector2]([Vector2(0,-1008)])
+endpoint_dwell = 2.0
+route = Array[Vector2]([Vector2(0,-304),Vector2(992,-304),Vector2(992,-1296),Vector2(1312,-1296)])

@@ -3,8 +3,9 @@ extends Node2D
 ## Application use cases. Shared player/physics/services outlive each room.
 var content := FixedWorldProvider.new()
 var state := FixedWorldState.new()
-var save_path := "user://fixed_world_v1.json"
-var save_profile := "local"
+# The geometry migration preview has its own slot; never reinterpret old positions.
+var save_path := "user://fixed_world_plains04_construction.json"
+var save_profile := "plains04_construction"
 var player: PlayerMotor
 var controller: PlayerController
 var room: FixedWorldRoom

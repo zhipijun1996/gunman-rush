@@ -95,7 +95,11 @@ def build(root=ROOT):
         for door in room['doors']:
             door['target_scene'] = scene_refs[door['target_room']]
             door['target_implemented'] = door['target_room'] in implemented
-    layouts = navigation_geometry({r['room_id']:r for r in contracts['rooms'] if r['room_id'] in implemented}, contracts['initial_state']['room'])
+    # Calibrated construction phases share one physical region even while the
+    # internal scenes are being rebuilt in connected batches. Validate every
+    # adopted footprint; expose only completed scenes to the runtime loader.
+    laid_out = implemented | {r['room_id'] for r in construction['rooms'] if r.get('layout_revision')}
+    layouts = navigation_geometry({r['room_id']:r for r in contracts['rooms'] if r['room_id'] in laid_out}, contracts['initial_state']['room'])
     sources = {n:hashlib.sha256((source/n).read_bytes()).hexdigest() for n in ['world.json','construction.json','collections.json','player.json','demo_services.json','ui_texts.json','collection_design.json']}
     scene_sources = {r['scene_ref']:hashlib.sha256((root/r['scene_ref'].removeprefix('res://')).read_bytes()).hexdigest() for r in construction['rooms'] if r['room_id'] in implemented and (root/r['scene_ref'].removeprefix('res://')).is_file()}
     bundle = {'schema':1,'sources':sources,
@@ -109,6 +113,9 @@ def build(root=ROOT):
               'map_rooms':[{**{k:r[k] for k in ['id','name','region']}, **layouts[r['id']]} for r in world['rooms'] if r['id'] in implemented], 'runtime_rules':world['runtime_rules'],
               'rooms':{r['room_id']:r for r in contracts['rooms'] if r['room_id'] in implemented}}
     validate_player(bundle['player'])
+    # Unbuilt-room placements remain authored in the source, but must not be
+    # advertised as available in a staged construction playtest.
+    bundle['demo_services']['pickups'] = [p for p in bundle['demo_services']['pickups'] if p['room_id'] in implemented]
     validate_services(bundle['demo_services'],implemented,bundle['npcs'])
     texts=bundle['ui_texts'].get('strings')
     if not isinstance(texts,dict) or any(not isinstance(v,str) or not v for v in texts.values()):

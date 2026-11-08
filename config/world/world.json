@@ -18,12 +18,12 @@
       "parent_anchor": "P0",
       "route_class": "service",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "由西坡抵站；下层东门接封井左门，上层东廊去铃场，在安全小站整备与交谈。",
+      "purpose": "整备与辨路枢纽；上层东门进封井后西行牧风高地，中层通铃场探索。",
       "rest_point": true,
       "rift_machine": true,
       "rest_position": "独立安全房/服务区",
       "play_mode": "safe",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -327,12 +327,12 @@
       "parent_anchor": "P1",
       "route_class": "service",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "给古堡工城方向第二休息点，避免反复横穿平原",
+      "purpose": "东部回访休息；棚下旧田、低屋檐回水洞与上层眺望台/风车分流。",
       "rest_point": true,
       "rift_machine": false,
       "rest_position": "独立安全房/服务区",
       "play_mode": "safe",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -497,12 +497,12 @@
       "parent_anchor": "P1",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "开局只教走、跳、落地和观察；经P21射击、P22反冲、P23野外人际相遇、P24远望，再到钟外小站。",
+      "purpose": "初行草坡学习控制走跳与两种落点；纵臂承担旧路肩回访。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "intro_tutorial",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -709,12 +709,12 @@
       "parent_anchor": "P1",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "普通地面射击和可退回的短反冲教学",
+      "purpose": "断田、桥下铜齿与折返高路；反冲登上通果园的石肩。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -979,12 +979,12 @@
       "parent_anchor": "P1",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "风车检修圈的出口与牧风者前庭；从此侧放下回P06的桥。Boss重试走稳定下路，TG02慢平台挑战为旁侧可选路线。",
+      "purpose": "从背风棚进入的自愿慢风齿轮挑战，完成后可开桥回岔路；不承担牧风者必经路线。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "short_action_combination",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -1101,8 +1101,7 @@
           "entry_connection_candidates": [
             "room-link-144",
             "C02",
-            "WEST-P27-P05",
-            "APPROACH-P05-P14"
+            "WEST-P27-P05"
           ],
           "activation": "进入单段挑战前在实际来路的安全台自动记录；多入口各记录各自来路，不选最近点、不跨区域回收。",
           "segment_target_seconds": [
@@ -1278,12 +1277,12 @@
       "parent_anchor": "P1",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "可看见牧风者回程闸和慢风平台回桥的岔路；初访沿旧路肩、田垄和风车检修圈前进。",
+      "purpose": "封井上端的西行主线指引与分层回环；辨认胜利闸、慢风桥和旧路肩。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -1488,12 +1487,12 @@
       "parent_anchor": "P1",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "古堡外院及后期上矿道回口，保持横向腹地",
+      "purpose": "远眺地标后的掩体射线与低拱通路。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -1702,12 +1701,12 @@
       "parent_anchor": "P1",
       "route_class": "optional_shortcut_or_return",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "小站西门与站外铃场之间的旧回廊；继续接风铃岔路与首Boss完整初访路线，地穴回程可经中央环抵站。",
+      "purpose": "提水井的纵向承载与检修侧廊。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v06 local station-network silhouette; collision and camera separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -1928,12 +1927,12 @@
       "parent_anchor": "P1",
       "route_class": "optional_shortcut_or_return",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "接N0回路，不提前绕过矿井门槛",
+      "purpose": "长栈道分段抬升，轨道与矿口地标预示远期出口。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -2154,12 +2153,12 @@
       "parent_anchor": "P3",
       "route_class": "optional_shortcut_or_return",
       "gate_summary": "房内环境：H",
-      "purpose": "连接风车奖励与东侧风棚形成短环",
+      "purpose": "钩索贯穿高风车；机架转角接外沿廊。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -2549,12 +2548,12 @@
       "parent_anchor": "P3",
       "route_class": "optional_reward",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "独立世界Boss：巡游机；三联机芯 part_triple。正式奖励资格与唯一ID见Boss/动作表。",
+      "purpose": "封闭风车机匣中的巡游机竞技场与战后部件。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "boss",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -2778,12 +2777,12 @@
       "parent_anchor": "P1",
       "route_class": "optional_reward",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "东行汇口旁的可选地窖，保留既有基础装备；普通东行可直接经P35到P18，塔脚可经P35到P33，不强制穿过奖励房。",
+      "purpose": "地窖空中射铃挑战与通根井的下层排水道。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -3009,12 +3008,12 @@
       "parent_anchor": "P1",
       "route_class": "optional_reward",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "血量或装备收藏，不承担强制高难教学",
+      "purpose": "转折石崖、旧路与草坡回环；路肩内侧藏反冲血量片挑战。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -3225,12 +3224,12 @@
       "parent_anchor": "P2",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "独立世界Boss：牧风者；H 钩索。正式奖励资格与唯一ID见Boss/动作表。；首次从P05正式进入，胜后可开L02回程闸，不再允许从P06初见直切。",
+      "purpose": "牧风者战斗、唯一H领取与安全首次运用；由背风棚直接重试。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "boss",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -3444,12 +3443,12 @@
       "parent_anchor": "P2",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "房内环境：H",
-      "purpose": "用H修钟，开启回小站捷径和剧情记录",
+      "purpose": "钩索沿钟轴校时，开S1回到初见长桥，提示多条自愿探索。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "objective_or_encounter",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "preserved_v04_role_slot",
       "room_model": "independently_authored_room",
@@ -3736,7 +3735,7 @@
       "parent_anchor": "P3",
       "route_class": "optional_reward",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "把可选巡游机的入口从平原必经道分离，玩家提前看见机匣与回程方向。",
+      "purpose": "机匣外廊先看到Boss轮廓，稳定前庭读预告。",
       "player_choice_or_interaction": "选择进机匣战斗，或沿已知路去东侧风棚；不因路过触发封门。",
       "relationship_intent_room_ids": [
         "P-R10",
@@ -3747,7 +3746,7 @@
       "rift_machine": false,
       "rest_position": "现有房间内的安全前厅/凹台；与竞技场、困难平台及后段门分开。",
       "play_mode": "optional_exploration",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_role_reservation",
       "room_model": "independently_authored_room",
@@ -3985,7 +3984,7 @@
       "parent_anchor": "P3",
       "route_class": "optional",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "P10风车背面的单入口隐藏奖励栈；取得EQ_MAP_P03后在本房短回程并经原门回P10，不连接P11或构成跨房小回环。",
+      "purpose": "风车背后单入口藏室；从轮轴缝隙发现装备。",
       "player_choice_or_interaction": "从高处回看来路，选继续探索高台或回风棚；回程不用重做Boss。",
       "relationship_intent_room_ids": [
         "P-R10",
@@ -3997,7 +3996,7 @@
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "mixed",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_role_reservation",
       "room_model": "independently_authored_room",
@@ -4280,7 +4279,7 @@
       "parent_anchor": "P1",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "房内环境：H",
-      "purpose": "在平原东腹地提供低强度普通交战与路线分流，避免七个区域接口挤在小站旁。",
+      "purpose": "开放田路、隔开的崖道与下方灌溉井。",
       "player_choice_or_interaction": "地面通行与宽容高台两路会合，远处地标指向既有古堡/矿道方向。",
       "relationship_intent_room_ids": [
         "P-R02",
@@ -4291,7 +4290,7 @@
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_combat_or_exploration",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_role_reservation",
       "room_model": "independently_authored_room",
@@ -4606,7 +4605,7 @@
       "parent_anchor": "P1",
       "route_class": "optional_shortcut_or_return",
       "gate_summary": "房内环境：H+D",
-      "purpose": "根井侧畦与东行汇口、地窖、退潮渠畔形成低压回环；TG04仍在H+D环境支路。",
+      "purpose": "根井主通路、上层回环与H+D铜齿预览。",
       "player_choice_or_interaction": "捷径开后可走低田快返，或上田继续探索；开通前仅能看见反面门。",
       "relationship_intent_room_ids": [
         "P-R08",
@@ -4617,7 +4616,7 @@
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "return_or_application",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_role_reservation",
       "room_model": "independently_authored_room",
@@ -4928,7 +4927,7 @@
       "parent_anchor": "P1",
       "route_class": "optional_reward",
       "gate_summary": "房内环境：H",
-      "purpose": "渠边旧集下侧的可回访水岸；H装备可在本房看见，取得H后回来领取；保留经根井侧畦的基础回环。",
+      "purpose": "退潮水岸的曲折主路与H行装支路。",
       "player_choice_or_interaction": "可走稳定渠岸或短平台看既有收藏槽；不增加独立商店、NPC或大奖。",
       "relationship_intent_room_ids": [
         "P-R12",
@@ -4939,7 +4938,7 @@
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "optional_exploration",
-      "geometry_status": "v05 restrained illustration silhouette; collision separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_role_reservation",
       "room_model": "independently_authored_room",
@@ -61705,12 +61704,12 @@
       "parent_anchor": "P_INTRO",
       "route_class": "tutorial",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "倒在路旁的客运车厢；射击练习、一个可绕开的小敌人和被打散的报时器形成第一次主动尝试。",
+      "purpose": "车厢掩体中的试枪与后撤练习；完成命中、换角度与接近判断。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "short_action_combination",
-      "geometry_status": "v05 candidate illustration; canonical contracts provided separately",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_opening_role",
       "room_model": "independently_authored_room",
@@ -61830,12 +61829,12 @@
       "parent_anchor": "P_INTRO",
       "route_class": "tutorial",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "短反冲越过水渠；第一处低落差训练有下层地面可走回，不用深坑和扣血强迫玩家学会。",
+      "purpose": "反冲首练、错层变式与独立综合实践；失败分段恢复后才进入小站前静区。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "short_action_combination",
-      "geometry_status": "v05 candidate illustration; canonical contracts provided separately",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_opening_role",
       "room_model": "independently_authored_room",
@@ -61933,9 +61932,9 @@
       ],
       "graybox_activity_contract": {
         "beats": [
-          "先看风吹草与近处落脚台",
-          "一次短反冲跨越；失误落低台原地回试",
-          "可选高台回望前方与疏散牌"
+          "安全低渠练习反冲，失败走回本岸",
+          "抬高落点，改用斜向反冲；原地可重试",
+          "空中射铃同时反冲穿闸，落稳后处理轻遭遇，再抵达出口"
         ],
         "new_ability_required": false,
         "new_unique_reward_count": 0,
@@ -61971,12 +61970,12 @@
       "parent_anchor": "P_INTRO",
       "route_class": "tutorial",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "安全候车棚遇见阿栖；她拿着坏报时器去小站，人物与环境共同说明仍有人生活在这个世界。",
+      "purpose": "安静候车棚遇见阿栖，不以对话锁门。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "safe",
-      "geometry_status": "v05 candidate illustration; canonical contracts provided separately",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_opening_role",
       "room_model": "independently_authored_room",
@@ -62101,12 +62100,12 @@
       "parent_anchor": "P_INTRO",
       "route_class": "tutorial",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "从小坡首次完整看到钟外小站的灯火和烟气；用地标建立到达感，不再插入高压挑战。",
+      "purpose": "缓坡看见小站灯火和世界钟心，抵站前舒缓。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "short_action_combination",
-      "geometry_status": "v05 candidate illustration; canonical contracts provided separately",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_opening_role",
       "room_model": "independently_authored_room",
@@ -62246,12 +62245,12 @@
       "parent_anchor": "P_WEST",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "宽地面果园中选择下层安全路或树干上层近路；两路共享出口，训练站位而非连续精确跳跃。",
+      "purpose": "果园下路应对逼近，上层树台提供越敌与捷线。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "short_action_combination",
-      "geometry_status": "v05 candidate illustration; canonical contracts provided separately",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_opening_role",
       "room_model": "independently_authored_room",
@@ -62377,12 +62376,12 @@
       "parent_anchor": "P_WEST",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "西吊架送至断裂检修台，反冲换台落稳后转乘东吊架，向上反冲接通背风棚；下层是失败恢复地，不设绕过双吊台的地面主路。",
+      "purpose": "西吊架送至断裂检修台，向右上反冲落稳，再转乘东吊架向左上接出口。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "short_action_combination",
-      "geometry_status": "v05 candidate illustration; canonical contracts provided separately",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_opening_role",
       "room_model": "independently_authored_room",
@@ -62516,12 +62515,12 @@
       "parent_anchor": "P_WEST",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "风车检修工留下的安全棚；可明确休息、整理装备、看见附近钟庭，阿栖在此可能展示修好的避风灯。",
+      "purpose": "牧风者前休息与两路辨认；直达14，侧看05铜齿自愿挑战。",
       "rest_point": true,
       "rift_machine": false,
       "rest_position": "独立安全棚内明确休息的长椅",
       "play_mode": "safe",
-      "geometry_status": "v05 candidate illustration; canonical contracts provided separately",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_opening_role",
       "room_model": "independently_authored_room",
@@ -62656,12 +62655,12 @@
       "parent_anchor": "P1",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "普通地面交战与风车远景，东行时辨认矿口、工城与古堡的方向。",
+      "purpose": "旧田的地面遭遇与谷仓前反冲石肩。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v05 illustration placement; exact gameplay dimensions remain in canonical",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_world_expansion",
       "room_model": "independently_authored_room",
@@ -62796,12 +62795,12 @@
       "parent_anchor": "P1",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "上下错层的谷仓承担短反冲应用；上层能回看东侧风棚，下层接矿口旧栈道。",
+      "purpose": "谷仓错层反冲，梁下射线与侧窗落点交替。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v05 illustration placement; exact gameplay dimensions remain in canonical",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_world_expansion",
       "room_model": "independently_authored_room",
@@ -62936,12 +62935,12 @@
       "parent_anchor": "P1",
       "route_class": "optional_branch",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "干渠侧洞藏一枚既有时间齿轮，短穿行后回到东境旧田；不是新的强制地窖谜题。",
+      "purpose": "低顶回水洞与可预览的H铜齿。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "optional_exploration",
-      "geometry_status": "v05 illustration placement; exact gameplay dimensions remain in canonical",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "added_v06_world_expansion",
       "room_model": "independently_authored_room",
@@ -71892,12 +71891,12 @@
       "parent_anchor": "P1",
       "route_class": "station_neighbourhood_choice",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "小站东门外的一间可辨向广场；西去旧风铃岔路、北看悬铃桥与世界钟心、东走普通田渠路。站内服务保持在P01。",
+      "purpose": "站外三向大枢纽；回站、上桥、下集由地标辨路，战后再分流。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "safe_navigation",
-      "geometry_status": "v06 local station-network silhouette; collision and camera separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "station_network_v06",
       "room_model": "independently_authored_room",
@@ -72056,12 +72055,12 @@
       "parent_anchor": "P1",
       "route_class": "station_neighbourhood_choice",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "安全近端可步行向塔脚；高位索点跨越后直接到东行汇口。修钟回程梯落在近端，让玩家用新H向东尝试，返回小站仅两次过门。",
+      "purpose": "初期可发现的H桥头预览、开放低路与修钟后的能力再识别。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "low_pressure_mobility_choice",
-      "geometry_status": "v06 local station-network silhouette; collision and camera separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "station_network_v06",
       "room_model": "independently_authored_room",
@@ -72333,12 +72332,12 @@
       "parent_anchor": "P1",
       "route_class": "station_neighbourhood_choice",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "平原所属的塔脚前庭；早期近看停摆的世界钟心、地面校时管与残留告示。北门通既有钟心门厅，侧路回东行汇口；不增加剧情钥匙。",
+      "purpose": "世界钟地标与东行回环前的舒缓前庭。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "safe_navigation",
-      "geometry_status": "v06 local station-network silhouette; collision and camera separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "station_network_v06",
       "room_model": "independently_authored_room",
@@ -72497,12 +72496,12 @@
       "parent_anchor": "P1",
       "route_class": "station_neighbourhood_choice",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "宽地面、少量普通交战和旧摊架形成低压东行路线；下口回退潮渠畔的既有H装备预览，不在站外复制商店与休息功能。",
+      "purpose": "空集市的屋顶货运线、摊间低路与水岸转角。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v06 local station-network silhouette; collision and camera separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "station_network_v06",
       "room_model": "independently_authored_room",
@@ -72662,12 +72661,12 @@
       "parent_anchor": "P1",
       "route_class": "station_neighbourhood_choice",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "上层钩索桥与下层步行路线在这里相会；东门直达东境旧田，北侧地窖与下侧根井形成可选回环。",
+      "purpose": "东行汇口连接旧集、钟庭、旧田与根井；去地窖经18或19。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
       "play_mode": "ordinary_navigation_or_combat",
-      "geometry_status": "v06 local station-network silhouette; collision and camera separate",
+      "geometry_status": "实际占地、门缝与施工阶段统一读取construction.json；本字段下的导入图形仅属原包来源。",
       "collectible_status": "唯一奖励通过reward_id绑定具体section_id；进入入口预览区不等于取得主体奖励。",
       "origin": "station_network_v06",
       "room_model": "independently_authored_room",
@@ -103560,82 +103559,6 @@
       "length_map_units": 28.74
     },
     {
-      "id": "APPROACH-P05-P14",
-      "a": "P-R05",
-      "b": "P-R14",
-      "kind": "boss_approach",
-      "anchor_a": "P1",
-      "anchor_b": "P2",
-      "geometry_status": "room-boundary doorway anchors; all unrelated room bodies excluded",
-      "requires": [
-        []
-      ],
-      "condition_text": "基础通行；无教学清单或对白锁",
-      "external": false,
-      "route_status": "hand_authored_candidate",
-      "passage_profile": "v07 explicit doorway route; no room-skipping junction at line crossings",
-      "effective_door_requires": [
-        []
-      ],
-      "a_section": "main",
-      "b_section": "main",
-      "condition_format": "OR of AND groups",
-      "requirement_scope": "physical_item_story_switch_door",
-      "transition_contract": "左右步行；上口进入时直接落到正下方安全台；下口为净空洞口，向上抵达后落至洞旁安全岸；交通交互不休息。",
-      "ability_gate_in_door": false,
-      "direction": "both",
-      "description": "牧风者正式入口；P27重试经P05安全下路到此。",
-      "polyline": [
-        [
-          1228.14,
-          1083.99
-        ],
-        [
-          1188.73,
-          1084.16
-        ]
-      ],
-      "passage_polygons": [
-        [
-          [
-            1188.71,
-            1079.16
-          ],
-          [
-            1183.71,
-            1079.18
-          ],
-          [
-            1183.75,
-            1089.18
-          ],
-          [
-            1228.16,
-            1088.99
-          ],
-          [
-            1233.16,
-            1088.97
-          ],
-          [
-            1233.12,
-            1078.97
-          ]
-        ]
-      ],
-      "manual_polyline": [
-        [
-          1228.14,
-          1083.99
-        ],
-        [
-          1188.73,
-          1084.16
-        ]
-      ],
-      "length_map_units": 39.41
-    },
-    {
       "id": "EXP-P_east_fields-01",
       "a": "P-R02",
       "b": "P-R28",
@@ -111519,91 +111442,6 @@
       "length_map_units": 16.73
     },
     {
-      "id": "HUB-P31-P08",
-      "a": "P-R31",
-      "b": "P-R08",
-      "kind": "station_neighbourhood",
-      "anchor_a": "P1",
-      "anchor_b": "P1",
-      "geometry_status": "room-boundary doorway anchors; all unrelated room bodies excluded",
-      "requires": [
-        []
-      ],
-      "condition_text": "基础通行；能力挑战在房内",
-      "external": false,
-      "route_status": "hand_authored_station_network",
-      "passage_profile": "v07 explicit doorway route; no room-skipping junction at line crossings",
-      "effective_door_requires": [
-        []
-      ],
-      "a_section": "main",
-      "b_section": "main",
-      "condition_format": "OR of AND groups",
-      "requirement_scope": "physical_item_story_switch_door",
-      "transition_contract": "左右步行；上口进入时直接落到正下方安全台；下口为净空洞口，向上抵达后落至洞旁安全岸；交通交互不休息。",
-      "ability_gate_in_door": false,
-      "direction": "both",
-      "description": "广场西口接回既有风铃岔路与首Boss方向。",
-      "polyline": [
-        [
-          1460.0,
-          1260.0
-        ],
-        [
-          1460.0,
-          1253.0
-        ],
-        [
-          1460.0,
-          1246.0
-        ]
-      ],
-      "station_network": true,
-      "passage_polygons": [
-        [
-          [
-            1464.5,
-            1246.0
-          ],
-          [
-            1464.5,
-            1241.5
-          ],
-          [
-            1455.5,
-            1241.5
-          ],
-          [
-            1455.5,
-            1260.0
-          ],
-          [
-            1455.5,
-            1264.5
-          ],
-          [
-            1464.5,
-            1264.5
-          ]
-        ]
-      ],
-      "manual_polyline": [
-        [
-          1460.0,
-          1260.0
-        ],
-        [
-          1460.0,
-          1253.0
-        ],
-        [
-          1460.0,
-          1246.0
-        ]
-      ],
-      "length_map_units": 14.0
-    },
-    {
       "id": "HUB-P31-P32",
       "a": "P-R31",
       "b": "P-R32",
@@ -111982,91 +111820,6 @@
         ]
       ],
       "length_map_units": 18.0
-    },
-    {
-      "id": "HUB-P35-P12",
-      "a": "P-R35",
-      "b": "P-R12",
-      "kind": "station_neighbourhood",
-      "anchor_a": "P1",
-      "anchor_b": "P1",
-      "geometry_status": "room-boundary doorway anchors; all unrelated room bodies excluded",
-      "requires": [
-        []
-      ],
-      "condition_text": "基础通行；能力挑战在房内",
-      "external": false,
-      "route_status": "hand_authored_station_network",
-      "passage_profile": "v07 explicit doorway route; no room-skipping junction at line crossings",
-      "effective_door_requires": [
-        []
-      ],
-      "a_section": "main",
-      "b_section": "main",
-      "condition_format": "OR of AND groups",
-      "requirement_scope": "physical_item_story_switch_door",
-      "transition_contract": "左右步行；上口进入时直接落到正下方安全台；下口为净空洞口，向上抵达后落至洞旁安全岸；交通交互不休息。",
-      "ability_gate_in_door": false,
-      "direction": "both",
-      "description": "地窖为侧路与塔脚环；东行不强制经过其奖励空间。",
-      "polyline": [
-        [
-          1712.0,
-          1268.0
-        ],
-        [
-          1719.0,
-          1268.0
-        ],
-        [
-          1726.26,
-          1268.0
-        ]
-      ],
-      "station_network": true,
-      "passage_polygons": [
-        [
-          [
-            1726.26,
-            1272.5
-          ],
-          [
-            1730.76,
-            1272.5
-          ],
-          [
-            1730.76,
-            1263.5
-          ],
-          [
-            1712.0,
-            1263.5
-          ],
-          [
-            1707.5,
-            1263.5
-          ],
-          [
-            1707.5,
-            1272.5
-          ]
-        ]
-      ],
-      "manual_polyline": [
-        [
-          1712.0,
-          1268.0
-        ],
-        [
-          1719.0,
-          1268.0
-        ],
-        [
-          1726.26,
-          1268.0
-        ]
-      ],
-      "length_map_units": 14.26
     },
     {
       "id": "HUB-P35-P19",
@@ -118888,6 +118641,98 @@
       "passage_polygons": [],
       "passage_profile": "paired named passage/lift stops; no fictitious walkable corridor between them",
       "route_status": "schematic_shortcut_door_pair"
+    },
+    {
+      "id": "APPROACH-P27-P14",
+      "a": "P-R27",
+      "b": "P-R14",
+      "kind": "first_boss_exploration_route",
+      "anchor_a": "P_WEST",
+      "anchor_b": "P_WEST",
+      "geometry_status": "room-boundary doorway anchors; all unrelated room bodies excluded",
+      "requires": [
+        []
+      ],
+      "condition_text": "基础通行；无教学清单或对白锁",
+      "external": false,
+      "route_status": "hand_authored_candidate",
+      "passage_profile": "v07 explicit doorway route; no room-skipping junction at line crossings",
+      "effective_door_requires": [
+        []
+      ],
+      "a_section": "main",
+      "b_section": "main",
+      "condition_format": "OR of AND groups",
+      "requirement_scope": "physical_item_story_switch_door",
+      "transition_contract": "左右步行；上口进入时直接落到正下方安全台；下口为净空洞口，向上抵达后落至洞旁安全岸；交通交互不休息。",
+      "ability_gate_in_door": false,
+      "direction": "both",
+      "description": "背风棚整备后直接进入牧风者高台。",
+      "polyline": [
+        [
+          1293.03,
+          1194.09
+        ],
+        [
+          1328.87,
+          1193.42
+        ],
+        [
+          1328.87,
+          1151.59
+        ]
+      ],
+      "passage_polygons": [
+        [
+          [
+            1333.87,
+            1198.33
+          ],
+          [
+            1333.87,
+            1151.59
+          ],
+          [
+            1333.87,
+            1146.59
+          ],
+          [
+            1323.87,
+            1146.59
+          ],
+          [
+            1323.87,
+            1188.51
+          ],
+          [
+            1292.94,
+            1189.09
+          ],
+          [
+            1287.94,
+            1189.18
+          ],
+          [
+            1288.12,
+            1199.18
+          ]
+        ]
+      ],
+      "manual_polyline": [
+        [
+          1293.03,
+          1194.09
+        ],
+        [
+          1328.87,
+          1193.42
+        ],
+        [
+          1328.87,
+          1151.59
+        ]
+      ],
+      "length_map_units": 77.676
     }
   ],
   "source_macro_edges": [
@@ -121268,24 +121113,6 @@
       "environment_route_id": null,
       "scope": "图中能力符号绘在房内路线，道具/剧情符号绘在门上"
     },
-    "HUB-P31-P08": {
-      "door_endpoints": {
-        "a": {
-          "room_id": "P-R31",
-          "section_id": "main"
-        },
-        "b": {
-          "room_id": "P-R08",
-          "section_id": "main"
-        }
-      },
-      "door_requires": [
-        []
-      ],
-      "environment_room_id": null,
-      "environment_route_id": null,
-      "scope": "图中能力符号绘在房内路线，道具/剧情符号绘在门上"
-    },
     "HUB-P31-P32": {
       "door_endpoints": {
         "a": {
@@ -121348,24 +121175,6 @@
         },
         "b": {
           "room_id": "P-R35",
-          "section_id": "main"
-        }
-      },
-      "door_requires": [
-        []
-      ],
-      "environment_room_id": null,
-      "environment_route_id": null,
-      "scope": "图中能力符号绘在房内路线，道具/剧情符号绘在门上"
-    },
-    "HUB-P35-P12": {
-      "door_endpoints": {
-        "a": {
-          "room_id": "P-R35",
-          "section_id": "main"
-        },
-        "b": {
-          "room_id": "P-R12",
           "section_id": "main"
         }
       },
@@ -166073,7 +165882,7 @@
       540
     ],
     "timing_status": "首次自然观察/练习玩家的灰盒目标；未实机计时，不由门数推导",
-    "scope": "五间短教程房，射击/反冲/野外相遇/远望分别承担职责；可选互动不挡通路。",
+    "scope": "走跳与射击初练、反冲变式和独立机关实践，随后喘息抵站；可选阅读/对话不锁门。",
     "recommended_actions": [
       "tutorial_move",
       "tutorial_shoot",
@@ -186906,8 +186715,7 @@
         "entry_connection_candidates": [
           "room-link-144",
           "C02",
-          "WEST-P27-P05",
-          "APPROACH-P05-P14"
+          "WEST-P27-P05"
         ],
         "activation": "进入单段挑战前在实际来路的安全台自动记录；多入口各记录各自来路，不选最近点、不跨区域回收。",
         "segment_target_seconds": [
@@ -195649,13 +195457,13 @@
     "shortcuts": 35,
     "new_shortcuts": 24,
     "original_macro_edges": 77,
-    "room_connections": 411,
+    "room_connections": 409,
     "terrain_retry_anchor_candidates": 43,
     "sections": 422,
     "internal_directed_routes": 226,
     "environment_connection_sites": 70,
     "shared_action_access_sections": 32,
-    "connections": 411,
+    "connections": 409,
     "rift_machines": 16,
     "memory_gates": 17,
     "new_shortcuts_v07": 7,
@@ -197306,13 +197114,11 @@
     ],
     "added_edge_ids": [
       "HUB-P01-P31",
-      "HUB-P31-P08",
       "HUB-P31-P32",
       "HUB-P32-P33",
       "HUB-P33-P35",
       "HUB-P31-P34",
       "HUB-P34-P35",
-      "HUB-P35-P12",
       "HUB-P35-P19",
       "HUB-P35-P18",
       "HUB-P32-P35"
@@ -197380,25 +197186,19 @@
     "decision_room": "P-R31",
     "pre_H_choices": [
       {
-        "room_id": "P-R08",
-        "experience": "西侧首Boss/森林旧路"
+        "room_id": "P-R01",
+        "experience": "回站整备，东门进08、06再向西循铃。"
       },
       {
         "room_id": "P-R32",
-        "experience": "安全近端预览H索点，地面去塔脚"
+        "experience": "近桥头看见H断桥，下层路可探索并退回。"
       },
       {
         "room_id": "P-R34",
-        "experience": "普通地面战斗，东田与水渠分岔"
+        "experience": "摊间地面与屋顶货运，继续分流田路和水路。"
       }
     ],
     "basic_cycles": [
-      [
-        "P-R01",
-        "P-R08",
-        "P-R31",
-        "P-R01"
-      ],
       [
         "P-R34",
         "P-R35",
@@ -197450,7 +197250,7 @@
     "new_unique_rewards": 0,
     "new_rest_points": 0,
     "new_shops": 0,
-    "first_boss_minimum_door_crossings": 9,
+    "first_boss_minimum_door_crossings": 8,
     "human_validation": "拓扑不预测真实玩家转向比例；灰盒测量出站选择、H后是否向东试路、回站目的与盲测记忆。"
   },
   "station_network_story": {

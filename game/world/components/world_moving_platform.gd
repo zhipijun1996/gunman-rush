@@ -8,6 +8,9 @@ extends ModuleMovingPlatform
 @export var one_way := false
 ## Optional ordered offsets for a guided cage; ordinary shuttles keep endpoint.
 @export var route: Array[Vector2] = []
+## Transport cages may wait at both terminals so boarding is not a timing test.
+## Challenge carriers retain their existing continuous motion by default.
+@export_range(0.0, 10.0) var endpoint_dwell := 0.0
 var origin := Vector2.ZERO
 var route_length := 0.0
 func _ready() -> void:
@@ -34,8 +37,16 @@ func _physics_process(delta: float) -> void:
 func sample_position(clock: float) -> Vector2:
 	if route.is_empty() or route_length<=0:
 		return origin+endpoint*(.5-.5*cos(TAU*clock/period))
-	var phase:=fposmod(clock/period,1.0)
-	var remaining: float=(phase*2 if phase<.5 else (1-phase)*2)*route_length
+	var cycle := period + 2.0 * endpoint_dwell
+	var elapsed := fposmod(clock,cycle)
+	if elapsed < endpoint_dwell: return origin
+	var remaining: float
+	if elapsed < endpoint_dwell + period * .5:
+		remaining = (elapsed-endpoint_dwell) / (period*.5) * route_length
+	elif elapsed < 2.0*endpoint_dwell + period*.5:
+		return origin+route[-1]
+	else:
+		remaining = (cycle-elapsed) / (period*.5) * route_length
 	var previous:=Vector2.ZERO
 	for point: Vector2 in route:
 		var length:=previous.distance_to(point)

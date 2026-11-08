@@ -49,6 +49,11 @@ jobs:
           if [ -f prepared-web/perf-actions/build-info.json ]; then
             python3 delivery-source/tools/style_exploration_delivery.py reconstruct-pack --bundle prepared-web/perf-actions
           fi
+      - name: Reconstruct the optional plains construction preview
+        run: |
+          if [ -f prepared-web/construction-04/build-info.json ]; then
+            python3 delivery-source/tools/style_exploration_delivery.py reconstruct-pack --bundle prepared-web/construction-04
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: prepared-web

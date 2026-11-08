@@ -1,9 +1,7 @@
-"""Build the current plains spatial REVIEW proposal; never writes runtime inputs.
+"""Export the approved plains construction map from canonical physical geometry.
 
-Requires Shapely 2.1.2 for draft polygon/route checks. World identities, rewards,
-rests, bosses and current door graph are read from config/world. The constants
-below are the single spatial review design, not a second runtime world source.
-After approval, migrate adopted geometry to construction/scenes and retire them.
+Shapely verifies room unions and route diagrams. Playability is checked separately
+with the real controller; labels and route arrows are presentation only.
 """
 from pathlib import Path
 import argparse, hashlib, heapq, html, json, math
@@ -13,24 +11,10 @@ from plains_layout import build_layout, ANCHORS
 
 ROOT = Path(__file__).resolve().parents[2]
 PROPOSAL = 'plains-map-review-04'
-# The user approved A/B/C; coordinated runtime geometry migration follows contour review.
-CHANGES = [
- dict(id='A', status='approved', remove='HUB-P31-P08', title='收敛小站旁三角回路',
-      before='01—08、01—31、31—08构成很短的重复环。',
-      after='取消31—08，保留小站东门01→08；铃场专注桥面与集市分流。',
-      tradeoff='减少重复出口；08回站须经过01，失去一条很短的旁路。'),
- dict(id='B', status='approved', remove='HUB-P35-P12', title='让地窖成为真正的支路',
-      before='汇口35可直达12，也可经18或19进入12，分支目的接近。',
-      after='取消35—12；地窖仍由18与19接入，保留下层水路回环。',
-      tradeoff='汇口少一个出口；地窖需要多走一房，奖励入口更有铺垫。'),
- dict(id='C', status='approved', remove='APPROACH-P05-P14', add=['P-R27','P-R14'], title='休息后直接接首Boss',
-      before='背风棚27→慢风平台05→牧风者14，重试需穿过收集房。',
-      after='改为27→14；27→05保留作TG02挑战支路，05→06开桥回环保留。',
-      tradeoff='Boss重试少过一房；TG02须在27出口预告，并校准05墓园接口与14封场。'),
-]
+# Approved connectivity and geometry now live in world.json / construction.json.
 # One-line diagram captions. Full, current responsibilities remain room_design.json.
 CAPTIONS = {
-1:'整备辨路，进井再西行',2:'东部整备，分流风车与旧田',3:'走跳初练，控制两种落点',4:'断田反冲，桥下寻找铜齿',5:'移动落点挑战，取得铜齿',6:'循铃西行，分辨回环捷径',7:'登高辨路，掩体间接近',8:'乘笼升井，登西侧高地',9:'矿口地标，预览外区通路',10:'钩索穿风车，寻找暗栈',11:'可选Boss，取得三联机芯',12:'空中射铃，领奖后开折板',13:'石崖折返，挑战生命片',14:'首Boss与钩索首次试用',15:'钩索抵台，修钟开升降机',16:'Boss前休息，观察机匣',17:'藏栈取装备，放梯返回',18:'旧田战斗，分流崖道与井',19:'根井通行，预览双能力齿轮',20:'曲折渠岸，钩索回访行装',21:'掩体试枪，遇敌后撤换位',22:'反冲初练→变式→综合实践',23:'遇见阿栖，安静叙事停顿',24:'看见站灯，缓坡引向小站',25:'上下树台，越敌或地面战',26:'双吊台换乘与反冲接续',27:'Boss前整备，侧看铜齿支路',28:'地面遭遇，反冲登谷仓',29:'错层穿梁，换射线与落点',30:'低檐水洞，钩索取铜齿',31:'三向大庭，观路再选出口',32:'初见索环，得钩索再探桥',33:'钟心地标，舒缓与回望',34:'屋顶货运与摊间低路',35:'东行枢纽，田路与井道分流'}
+1:'整备辨路，进井再西行',2:'东部整备，分流风车与旧田',3:'走跳初练，控制两种落点',4:'断田反冲，桥下寻找铜齿',5:'移动落点挑战，取得铜齿',6:'循铃西行，分辨回环捷径',7:'登高辨路，掩体间接近',8:'乘笼升井，登西侧高地',9:'矿口地标，预览外区通路',10:'钩索穿风车，寻找暗栈',11:'可选Boss，取得三联机芯',12:'空中射铃，领奖后开折板',13:'石崖折返，挑战生命片',14:'首Boss与钩索首次试用',15:'钩索抵台，修钟开升降机',16:'Boss前休息，观察机匣',17:'藏栈取装备，放梯返回',18:'旧田战斗，分流崖道与井',19:'根井通行，预览双能力齿轮',20:'曲折渠岸，钩索回访行装',21:'掩体试枪，遇敌后撤换位',22:'反冲初练→变式→综合实践',23:'遇见阿栖，安静叙事停顿',24:'看见站灯，候风笼引向小站',25:'上下树台，越敌或地面战',26:'双吊台换乘与反冲接续',27:'Boss前整备，侧看铜齿支路',28:'地面遭遇，反冲登谷仓',29:'错层穿梁，换射线与落点',30:'低檐水洞，钩索取铜齿',31:'三向大庭，观路再选出口',32:'初见索环，得钩索再探桥',33:'钟心地标，舒缓与回望',34:'屋顶货运与摊间低路',35:'东行枢纽，田路与井道分流'}
 ZONES = {
  'start':dict(name='初风草坡',rooms=[3,21,22,23,24],fill='#2c4034',edge='#a9c1a3'),
  'west':dict(name='牧风高地',rooms=[4,5,6,8,13,14,15,25,26,27],fill='#423e30',edge='#c8bb92'),
@@ -52,12 +36,11 @@ def path_line(ps):return 'M '+' L '.join(f'{x:.2f} {y:.2f}' for x,y in ps)
 def sources():
     world=read('config/world/world.json')
     rooms={r['id']:r for r in world['rooms'] if r['region']=='P'}
-    edges=[dict(e) for e in world['connections'] if e['a'] in rooms and e['b'] in rooms and e['id'] not in {c['remove'] for c in CHANGES}]
-    edges.append(dict(id='APPROACH-P27-P14',a=rid(27),b=rid(14),requires=[[]],a_section='main',b_section='main'))
+    edges=[dict(e) for e in world['connections'] if e['a'] in rooms and e['b'] in rooms ]
     return world,rooms,edges
 
 def inside_path(poly,start,end):
-    """Visibility path through this draft footprint, not a playable motor proof."""
+    """Visibility path through this physical footprint, not a playable motor proof."""
     if Point(start).distance(poly)>1:start=nearest_points(poly,Point(start))[0].coords[0]
     if Point(end).distance(poly)>1:end=nearest_points(poly,Point(end))[0].coords[0]
     pts=[start,end,*list(poly.exterior.coords)[:-1],*[p for ring in poly.interiors for p in list(ring.coords)[:-1]]]
@@ -75,7 +58,7 @@ def inside_path(poly,start,end):
         seen.add(i);path=path+[i]
         if i==1:return [pts[j] for j in path]
         for j,d in adj[i]:heapq.heappush(q,(cost+d,j,path))
-    raise ValueError('Disconnected internal draft path')
+    raise ValueError('Disconnected internal diagram path')
 
 ROUTES=[
  dict(id='main',name='① 首访主线 · 基础动作 / 反冲',color='#e4b36e',rooms=[3,21,22,23,24,1,8,6,13,4,25,26,27,14],note='先在22完成综合实践再进站；01东门进井，06转西。26双吊台必经，27直达Boss。'),
@@ -118,7 +101,7 @@ def validate(rooms,edges,geometry,corridors):
     for e in edges:
         if e['id'] in source_edges:
             assert all(e.get(k)==source_edges[e['id']].get(k) for k in ['a','b','requires','a_section','b_section'])
-    return dict(rooms=35,current_internal_connections=45,proposed_internal_connections=43,connected=True,room_overlaps=0,unrelated_corridor_crossings=0,route_sequences_checked=len(ROUTES),scope='Draft geometry and graph only; no runtime or motor acceptance.')
+    return dict(rooms=35,current_internal_connections=43,proposed_internal_connections=43,connected=True,room_overlaps=0,unrelated_corridor_crossings=0,route_sequences_checked=len(ROUTES),scope='Physical construction geometry; gameplay acceptance is tracked separately.')
 
 
 def room_info(w,rooms):
@@ -167,7 +150,7 @@ def svg_map(rooms,edges,geometry,corridors,ends,paths,labels,outline=False):
     for r in ROUTES:out.append(f'<marker id="arrow-{r["id"]}" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0 0L5 2.5L0 5" fill="{r["color"]}"/></marker>')
     out.append('</defs>')
     out.append(f'<rect width="{WIDTH}" height="{HEIGHT}" fill="#101b20"/>')
-    out.append('<text x="160" y="83" font-size="18" letter-spacing="7" style="fill:#8eaaa5">GUNMAN RUSH  /  REGION P</text><text x="157" y="151" font-size="48" font-weight="600">风铃平原</text><text x="435" y="148" font-size="23" style="fill:#a8bcb5">地域轮廓与探索路线</text><text x="4340" y="101" text-anchor="end" font-size="22" style="fill:#cbb992">轮廓收敛 / 04</text><text x="4340" y="146" text-anchor="end" font-size="17" style="fill:#8eaaa5">35房 · 43条已确认连接 · 空间设计稿，尚未应用到游戏</text>')
+    out.append('<text x="160" y="83" font-size="18" letter-spacing="7" style="fill:#8eaaa5">GUNMAN RUSH  /  REGION P</text><text x="157" y="151" font-size="48" font-weight="600">风铃平原</text><text x="435" y="148" font-size="23" style="fill:#a8bcb5">地域轮廓与探索路线</text><text x="4340" y="101" text-anchor="end" font-size="22" style="fill:#cbb992">施工总图 / 04</text><text x="4340" y="146" text-anchor="end" font-size="17" style="fill:#8eaaa5">35房 · 43条已确认连接 · 实际施工空间，首段六房施工</text>')
     # The outside shore is drawn once around connected land, not around room cards.
     out.append(f'<path d="{path_poly(mass)}" fill="#34434b" fill-rule="evenodd"/>')
     out.append('<g id="corridor-bodies">')
@@ -214,8 +197,6 @@ def svg_map(rooms,edges,geometry,corridors,ends,paths,labels,outline=False):
     for eid,label in [('room-link-144','S2 · 05侧放桥'),('L02','S3 · 胜利侧开闸'),('SC-P01','S1 · 修钟后开启')]:
         a,b=ends[eid];x,y=(a[0]+b[0])/2,(a[1]+b[1])/2
         out.append(f'<g class="poi"><circle cx="{x}" cy="{y}" r="7" fill="#101b20" stroke="#81bfb3" stroke-width="1.5"/><text x="{x+13}" y="{y-13}" font-size="12" paint-order="stroke" stroke="#101b20" stroke-width="3" style="fill:#95c4b8">{label}</text></g>')
-    for letter,(x,y) in {'A':(1690,1320),'B':(2790,1640),'C':(1140,465)}.items():
-        out.append(f'<g class="change"><circle cx="{x}" cy="{y}" r="16" fill="#794e67"/><text x="{x}" y="{y+5}" text-anchor="middle" font-size="17">{letter}</text></g>')
     # No opaque cards behind text; all labels fit inside their authored place.
     for r,row in rooms.items():
         n=int(r[-2:]);x,y,scale,width=labels[n];bg=zone(n)['fill']
@@ -233,7 +214,7 @@ def svg_map(rooms,edges,geometry,corridors,ends,paths,labels,outline=False):
     for i,r in enumerate(ROUTES[:4]):
         x=160+(i%2)*2100;y=2350+(i//2)*65;seq=' → '.join(f'{n:02}' for n in r['rooms'])
         out.append(f'<circle cx="{x+5}" cy="{y-5}" r="4" fill="{r["color"]}"/><text x="{x+20}" y="{y}" font-size="16">{r["name"]}</text><text x="{x+20}" y="{y+24}" font-size="12" style="fill:#7f9b8d">{seq}</text>')
-    out.append('<text x="4340" y="2480" text-anchor="end" font-size="13" style="fill:#789387">H 钩索 · D 二段跳 · 返程 领奖侧返回 · 外区虚线仅示方向 · 绘图单位不是碰撞参数</text></g></svg>')
+    out.append('<text x="4340" y="2480" text-anchor="end" font-size="13" style="fill:#789387">H 钩索 · D 二段跳 · 返程 领奖侧返回 · 外区虚线仅示方向 · 占地与门缝来自实际施工源</text></g></svg>')
     return '\n'.join(out)
 
 
@@ -241,9 +222,9 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',type=Path,default=ROOT/'build/plains-map-review');args=parser.parse_args();args.out.mkdir(parents=True,exist_ok=True)
     w,rooms,edges=sources();geometry,corridors,ends,paths=build_layout(edges)
     checks=validate(rooms,edges,geometry,corridors);labels=fit_labels(rooms,geometry);info=room_info(w,rooms)
-    checks.update(connected_silhouette=True,room_labels_inside=35,geometry_source='Authored regional landforms; no clipping to runtime bounding boxes')
+    checks.update(connected_silhouette=True,room_labels_inside=35,geometry_source='construction.json physical room union and paired doors')
     svg=svg_map(rooms,edges,geometry,corridors,ends,paths,labels)
-    data=dict(id=PROPOSAL,runtime_build='f9e92d4a30ab',baseline_commit='00a8beb7',runtime_source_commit='1acefe0315ab51d1f280e2c5a3e56b5c2a65fb55',status='topology_approved_contours_in_review_not_runtime',changes=CHANGES,routes=ROUTES,rooms=info,edges=[{k:e[k] for k in ['id','a','b','requires','a_section','b_section'] if k in e} for e in edges],checks=checks,source_hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in ['config/world/world.json','config/world/construction.json','game/world/regions/P/room_design.json','config/world/collection_design.json','tools/world_review/plains_map.py','tools/world_review/plains_layout.py','tools/world_review/review.html']})
+    data=dict(id=PROPOSAL,baseline_commit='66400937',playtest_url='../construction-04/?review=P-R03&stage=base',implemented_rooms=[r['room_id'] for r in read('config/world/construction.json')['rooms'] if r.get('implemented')],status='approved_04_under_construction',routes=ROUTES,rooms=info,edges=[{k:e[k] for k in ['id','a','b','requires','a_section','b_section'] if k in e} for e in edges],checks=checks,source_hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in ['config/world/world.json','config/world/construction.json','game/world/regions/P/room_design.json','config/world/collection_design.json','tools/world_review/plains_map.py','tools/world_review/plains_layout.py','tools/world_review/review.html']})
     (args.out/'map.svg').write_text(svg)
     (args.out/'outline.svg').write_text(svg_map(rooms,edges,geometry,corridors,ends,paths,labels,outline=True))
     (args.out/'review.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')

@@ -6,23 +6,16 @@
 [node name="P-R23" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R23"
-traveler_point = Vector2(560, 494)
+arrival_text = "露车等候棚"
 art_profile = "shelter"
-arrival_text = "废弃候车棚"
-platforms = Array[Rect2]([Rect2(0,512,1152,128),Rect2(480,160,352,32),Rect2(672,416,480,96),Rect2(800,320,352,96),Rect2(928,224,224,96),Rect2(0,512,288,32),Rect2(640,160,192,32)])
-one_way_indices = Array[int]([])
-masonry_platform_indices = Array[int]([1])
-start_point = Vector2(144, 494)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([{"point": [224, 464], "text": "奉王令：愿每位国民，都不再惧怕岁月。", "action_ref": "read_intro_obj_decree"}])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset":"waiting_shelter","point":[448,512],"layer":-2},{"asset":"travel_bundle","point":[384,512],"layer":-2},{"asset":"aqi_ribbon","point":[624,512],"layer":-2,"receipt":"story_aqi_t01"},{"asset":"plain_pier","point":[720,416],"support_height":224}])
-illustrated_platform_indices = Array[int]([])
+platforms = Array[Rect2]([Rect2(0,640,384,128),Rect2(384,640,1408,256),Rect2(896,544,192,96),Rect2(1088,448,224,192),Rect2(1280,352,224,288),Rect2(1152,256,128,32),Rect2(0.0,640.0,288,32),Rect2(992.0,160.0,192,32)])
+start_point = Vector2(144,622)
+signs = Array[Dictionary]([{"point":[448,592],"text":"奉王令：愿每位国民，都不再惧怕岁月。","action_ref":"read_intro_obj_decree"}])
+traveler_point = Vector2(640,622)
+art_placements = Array[Dictionary]([{"asset":"waiting_shelter","point":[640,640],"layer":-2},{"asset":"plain_pier","point":[992,544],"layer":-2,"support_height":128},{"asset":"plain_pier","point":[1200,448],"layer":-2,"support_height":128}])
+
 [node name="Npc0" type="Node2D" parent="."]
 script = ExtResource("npc")
-position = Vector2(560, 494)
+position = Vector2(640,622)
 npc_id = "NPC_TRAVELER_AQI"
 display_name = "阿栖"

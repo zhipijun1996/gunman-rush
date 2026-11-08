@@ -6,20 +6,12 @@
 [node name="P-R21" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R21"
-art_profile = "carriage"
 arrival_text = "倒时车厢"
-platforms = Array[Rect2]([Rect2(0,736,640,32),Rect2(1008,736,400,32),Rect2(0,640,640,128),Rect2(1008,640,400,128),Rect2(0,640,288,32),Rect2(768,640,240,128),Rect2(0,640,288,32),Rect2(768,640,192,128)])
-one_way_indices = Array[int]([])
-start_point = Vector2(144, 622)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id":"P-R21:encounter:01","behavior":"patrol","point":[528,622],"max_health":5}])
-signs = Array[Dictionary]([{"point": [224, 592], "text": "末班车七点开。背面又添了：明天。", "action_ref": "read_intro_obj_ticket"}])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset":"carriage","point":[368,640.0],"layer":-2},{"asset":"storage_crates","point":[576,640.0],"layer":-2}])
+art_profile = "carriage"
+platforms = Array[Rect2]([Rect2(0,256,288,96),Rect2(128,544,640,96),Rect2(320,736,512,96),Rect2(768,864,576,288),Rect2(896,800,96,64),Rect2(1216,800,96,64),Rect2(1344,960,192,192),Rect2(1664,1056,640,96),Rect2(0.0,256.0,288,32),Rect2(1664.0,1056.0,128,32)])
+start_point = Vector2(144,238)
 tutorial_action = "tutorial_shoot"
-tutorial_recoil_finish_x = 960.0
 tutorial_target = "P-R21:encounter:01"
-masonry_platform_indices = Array[int]([])
-illustrated_platform_indices = Array[int]([])
+enemy_placements = Array[Dictionary]([{"id":"P-R21:encounter:01","behavior":"patrol","point":[1120,846],"max_health":5},{"id":"P-R21:encounter:02","behavior":"hopper","point":[1440,942],"max_health":5}])
+signs = Array[Dictionary]([{"point":[496,496],"text":"末班车七点开。背面又添了：明天。","action_ref":"read_intro_obj_ticket"}])
+art_placements = Array[Dictionary]([{"asset":"carriage","point":[512,544],"layer":-2},{"asset":"storage_crates","point":[944,800],"layer":-2},{"asset":"hanging_chime","point":[1744,1056],"layer":-2}])

@@ -6,18 +6,20 @@
 [node name="P-R24" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R24"
-art_profile = "overlook"
-traveler_point = Vector2(1328,494)
 arrival_text = "望站坡"
-platforms = Array[Rect2]([Rect2(0,736,672,32),Rect2(1072,736,464,32),Rect2(0,640,384,128),Rect2(384,592,336,48),Rect2(384,640,288,128),Rect2(1072,544,80,224),Rect2(1152,512,384,256),Rect2(1152,496,96,16),Rect2(1248,512,288,16),Rect2(960,608,160,32),Rect2(1072,640,48,48),Rect2(832,640,240,128),Rect2(800,640,192,128),Rect2(1248,512,288,32)])
-one_way_indices = Array[int]([])
-start_point = Vector2(144, 622)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([{"point": [224, 592], "text": "布条背面歪歪写着：有灯的地方能歇脚。", "action_ref": "read_intro_obj_ribbon"}])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset":"world_clock_far","point":[1408,512],"layer":-14,"depth":0.48},{"asset":"bell_post","point":[1280,512],"layer":-2,"light":true},{"asset":"waiting_shelter","point":[1376,512],"layer":-2}])
-masonry_platform_indices = Array[int]([])
-illustrated_platform_indices = Array[int]([])
+art_profile = "overlook"
+platforms = Array[Rect2]([Rect2(0,1120,1248,96),Rect2(1440,1120,320,96),Rect2(1952,1120,544,96),Rect2(1664,1376,128,64),Rect2(1920,1504,128,96),Rect2(1056,160,192,32),Rect2(1920.0,1504.0,128,32),Rect2(1056.0,160.0,192,32)])
+start_point = Vector2(1984,1486)
+traveler_point = Vector2(1536,1102)
+signs = Array[Dictionary]([{"point":[1584,1072],"text":"钟外小站的灯在坡顶。候风笼仍沿着旧轨道往返。"}])
+art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_road_marker","point":[1584,1120],"layer":-2},{"asset":"hanging_chime","point":[1184,1120],"layer":-2}])
+
+[node name="OverlookLift" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(1856,1456)
+endpoint = Vector2(-512,-1232)
+platform_size = Vector2(128,20)
+period = 12.0
+one_way = true
+endpoint_dwell = 2.0
+route = Array[Vector2]([Vector2(0,-400),Vector2(-512,-400),Vector2(-512,-1232)])

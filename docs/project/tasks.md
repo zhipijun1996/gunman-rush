@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | 收敛整区房形：规整主体与必要折角，完整房间图为主；保留已确认拓扑及教学/辨路设计 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 按用户确认的04总图施工：35房真实占地与43门缝；先完成入门五房至小站的连续可玩片区 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 ## 待验收
 
