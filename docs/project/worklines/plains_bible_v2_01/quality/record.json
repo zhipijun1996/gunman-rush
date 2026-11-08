@@ -3,14 +3,14 @@
   "task_id": "PLAINS-BIBLE-V2-01",
   "task_type": "region",
   "baseline_commit": "0e742706c59e3409b23c4536ba74f89af6a2146b",
-  "reviewed_commit": "52d008b7b3a116a732de6eccec336144181780f8",
-  "content_version": "20f0be2217e580dde9da04fd210e8711387ae64425a7e5475cfb9ed3aea72495",
+  "reviewed_commit": "5ab833a149150d0aec99981e7504bbbc07a0eb25",
+  "content_version": "0f230c9aa7c7214c31b55bf68281d0f3401aa69ccdcc37688bf73d6c7c705f87",
   "owner": "Codex",
   "purpose": "按PR141附件v07.1制作完整35房平原，整合地图与美术来源并退休旧地图。",
   "player_experience": "反冲主导的新档学习与西侧主循环，H能力取得后的修钟/回访和东侧探索；统一像素人物、地形、机关与UI反馈。",
   "constraints": [
     "PlayerMotor owns motion; FixedWorldState owns accepted progress.",
-    "Frozen v07.1 topology remains source authority.",
+    "Current config/world is authoritative: v07.1 baseline with user-decided revisions; frozen ZIPs preserve provenance.",
     "Equipment-source slots do not invent ITEM-V5-01 effects."
   ],
   "affected_paths": [
@@ -53,7 +53,7 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "CI与世界专项通过，具体范围见scope.md；本轮尚未重导出Web/PCK并验证发布产物，技术交付未完成。",
+      "reason": "本批日常CI、世界专项、实际Web/PCK资源检查与浏览器入口通过；这些检查不代签35房体验、完整浏览器通关或实体设备验收。具体发布和覆盖见scope.md。",
       "evidence": []
     },
     "animation": {
