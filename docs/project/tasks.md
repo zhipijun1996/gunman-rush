@@ -8,6 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
+| PLAINS-ENEMY-STATIC-142 | 按PR142重绘七怪与两Boss静态图，含牧风者头顶风车二阶段；审批后制作完整动画 | PLAINS-BIBLE-V2-01 | review | [交接](worklines/plains_enemy_static_142/scope.md) |
 | PLAINS-BIBLE-V2-01 | 按v07.1返工35房平原的反冲/机关、收集支路与空间生态、连续地图、美术和UI | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 ## 待验收

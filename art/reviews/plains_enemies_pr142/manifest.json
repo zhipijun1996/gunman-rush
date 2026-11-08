@@ -1,0 +1,272 @@
+{
+  "status": "static proposal; awaiting explicit user approval; not runtime art",
+  "baseline": "PR142@cc62d369d3cec2597db483f1137ff976e25863cf",
+  "generator": "image_gen.imagegen",
+  "derivation": "alpha>=128, discard isolated alpha components below20 source pixels, tight crop, aspect-preserving nearest bake; no code painting",
+  "phase_consistency": "Windkeeper shares one uniform source-pixel scale across both states; animation registration remains pending approval",
+  "approval_required_for": [
+    "idle",
+    "move",
+    "attack",
+    "hurt",
+    "death",
+    "phase_transition",
+    "runtime replacement and collision/room-scale validation"
+  ],
+  "reference_sha256": {
+    "art/world-art-v2/assets/pixel/v2/windchime_plains_v2.png": "a3f261361a31efe9d7c28d2bccfd55b99a451828370a156daa6eaae2083f092c",
+    "art/world-art-v2/assets/pixel/hero.png": "925bbf53860edf7f7ff7892ee1f474493903d75bdd1a522b4a53fd4251d243c6",
+    "assets/plains_v07/source/architecture-generated.png": "aa15252267099bd1119d44353141a0bf0f2718b79aba67a19e5596a9bcdff103"
+  },
+  "sources": {
+    "windkeeper.png": "2603225cb95da04a2d214bfa9d6696aea2b8459b167ee1dadfd2f24428a74a19",
+    "windkeeper.prompt.txt": "8ea3f10c180fcdf07a571e35599667de76424abe22c7d9fe89cf24cf6f5c1d77",
+    "bellstrider.prompt.txt": "648d3cf454c2e74ee0408eb9bf1a6912885e8dad5fae5289667f6e5005be9594",
+    "ordinary.png": "497fbd7e56151aaef89dc4f8b48cf78bffbb4b3550038803df543b4f125cb48f",
+    "bellstrider.png": "c4500e97f1428a3ab60049f784fd81ce18138014f67e7b69da8a2365d74f4bf0",
+    "ordinary.prompt.txt": "b9f6e6c0e7f3c5d6f72b05e95eaded5d28f700d68a9553b40beb143dbe75e9cb"
+  },
+  "assets": {
+    "patrol": {
+      "label": "01 巡逻体",
+      "source": "source/ordinary.png",
+      "crop_xyxy": [
+        73,
+        123,
+        363,
+        358
+      ],
+      "source_size": [
+        290,
+        235
+      ],
+      "scale": 0.18723404255319148,
+      "native_size": [
+        54,
+        44
+      ],
+      "anchor_px": [
+        27,
+        44
+      ],
+      "sha256": "37d93eb75400b76e0bc417bc7eb0b4a63f5746f5f966402a8f7ecefcbc051026"
+    },
+    "charger": {
+      "label": "02 冲锋体",
+      "source": "source/ordinary.png",
+      "crop_xyxy": [
+        463,
+        105,
+        879,
+        356
+      ],
+      "source_size": [
+        416,
+        251
+      ],
+      "scale": 0.20717131474103587,
+      "native_size": [
+        86,
+        52
+      ],
+      "anchor_px": [
+        43,
+        52
+      ],
+      "sha256": "cbb45f927db8c94e366781ca5a98f84755fa9be6e1a742d9f4864ebac4325de5"
+    },
+    "hopper": {
+      "label": "03 跃击体",
+      "source": "source/ordinary.png",
+      "crop_xyxy": [
+        980,
+        43,
+        1238,
+        364
+      ],
+      "source_size": [
+        258,
+        321
+      ],
+      "scale": 0.19937694704049844,
+      "native_size": [
+        51,
+        64
+      ],
+      "anchor_px": [
+        25,
+        64
+      ],
+      "sha256": "c1635a5b4a1d42233ba3068cabd062dcf8245ab1e54707a8dfb351e7b868caa4"
+    },
+    "sentry": {
+      "label": "04 单发哨兵",
+      "source": "source/ordinary.png",
+      "crop_xyxy": [
+        1385,
+        47,
+        1736,
+        360
+      ],
+      "source_size": [
+        351,
+        313
+      ],
+      "scale": 0.23003194888178913,
+      "native_size": [
+        81,
+        72
+      ],
+      "anchor_px": [
+        40,
+        72
+      ],
+      "sha256": "045ba21f2f5a886eba6d90243ef5a74b770cc9d1129005808d7176ad61c24471"
+    },
+    "fan_sentry": {
+      "label": "05 扇射哨兵",
+      "source": "source/ordinary.png",
+      "crop_xyxy": [
+        32,
+        497,
+        392,
+        828
+      ],
+      "source_size": [
+        360,
+        331
+      ],
+      "scale": 0.2054380664652568,
+      "native_size": [
+        74,
+        68
+      ],
+      "anchor_px": [
+        37,
+        68
+      ],
+      "sha256": "a1ac2bc25304213ae0c244c6b42c4658cef995fc1ff444c436b7f05e6949c4e7"
+    },
+    "root_bell": {
+      "label": "06 根铃",
+      "source": "source/ordinary.png",
+      "crop_xyxy": [
+        466,
+        442,
+        858,
+        856
+      ],
+      "source_size": [
+        392,
+        414
+      ],
+      "scale": 0.2463768115942029,
+      "native_size": [
+        97,
+        102
+      ],
+      "anchor_px": [
+        48,
+        102
+      ],
+      "sha256": "10be08b417655a61bfb598822aca32b6194a9b2f5b299a2a39c6868bdfb6fa3b"
+    },
+    "diver": {
+      "label": "07 俯冲体",
+      "source": "source/ordinary.png",
+      "crop_xyxy": [
+        937,
+        508,
+        1293,
+        791
+      ],
+      "source_size": [
+        356,
+        283
+      ],
+      "scale": 0.1625441696113074,
+      "native_size": [
+        58,
+        46
+      ],
+      "anchor_px": [
+        29,
+        46
+      ],
+      "sha256": "94a3ee4e0112d81ba5e8d8323787187727919f7f2e5b2f5ac6b6589587ee777d"
+    },
+    "bellstrider": {
+      "label": "08 鸣铃巡游机",
+      "source": "source/bellstrider.png",
+      "crop_xyxy": [
+        66,
+        16,
+        1439,
+        1013
+      ],
+      "source_size": [
+        1373,
+        997
+      ],
+      "scale": 0.22066198595787362,
+      "native_size": [
+        303,
+        220
+      ],
+      "anchor_px": [
+        151,
+        220
+      ],
+      "sha256": "cd26c9bab251b962c3ef078839955665125b6673cdfc1bb826da8ec6a672269e"
+    },
+    "windkeeper_phase1": {
+      "label": "09 牧风者 · 一阶段",
+      "source": "source/windkeeper.png",
+      "crop_xyxy": [
+        29,
+        374,
+        798,
+        859
+      ],
+      "source_size": [
+        769,
+        485
+      ],
+      "scale": 0.4329896907216495,
+      "native_size": [
+        333,
+        210
+      ],
+      "anchor_px": [
+        166,
+        210
+      ],
+      "sha256": "a9188e9983fc5ba43ddcf2b8464ce06caec8edf3d57de4ca90eaf05d2a0d5ccd"
+    },
+    "windkeeper_phase2": {
+      "label": "10 牧风者 · 二阶段",
+      "source": "source/windkeeper.png",
+      "crop_xyxy": [
+        856,
+        17,
+        1744,
+        859
+      ],
+      "source_size": [
+        888,
+        842
+      ],
+      "scale": 0.4329896907216495,
+      "native_size": [
+        384,
+        365
+      ],
+      "anchor_px": [
+        192,
+        365
+      ],
+      "sha256": "38270862a99009ad88b0a950e33c659106a9c755f6f560ce1128981b825bc77c"
+    }
+  },
+  "license": "New generated candidate artwork; tool provides no separate license identifier. Existing reference attribution remains unchanged."
+}
