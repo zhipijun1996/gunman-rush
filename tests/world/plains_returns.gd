@@ -18,7 +18,7 @@ func run() -> void:
 		for body: StaticBody2D in latch.opened_bodies:check(body.collision_layer==1,"real unfolded step "+rid)
 		var return_paths: Dictionary={
 			"P-R05":[Vector2(1872,878),Vector2(2000,878)],
-			"P-R12":[Vector2(1230,558),Vector2(1136,654),Vector2(1230,750),Vector2(1230,878)],
+			"P-R12":[Vector2(1230,558),Vector2(1200,654),Vector2(1230,750),Vector2(1230,878)],
 			"P-R13":[Vector2(1216,622),Vector2(1200,718),Vector2(1280,750)],
 			"P-R17":[Vector2(832,534),Vector2(816,630),Vector2(816,782),Vector2(640,750)],
 			"P-R19":[Vector2(1760,398),Vector2(1760,1134)],
