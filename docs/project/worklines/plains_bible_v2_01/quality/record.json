@@ -3,8 +3,8 @@
   "task_id": "PLAINS-BIBLE-V2-01",
   "task_type": "region",
   "baseline_commit": "0e742706c59e3409b23c4536ba74f89af6a2146b",
-  "reviewed_commit": "f0a3a18dee25cb81a31ea31562b0047bc7ee5448",
-  "content_version": "36f2cdbc2446bb68160c9df9fb69c7d595b7dfce4d61739a1236ca13e81f3156",
+  "reviewed_commit": "e797e7e2b9aef97faa900057a05227ff83d265f9",
+  "content_version": "f33dbbcab62153efc1072ed25b736acfca81f2fd5153807386eb5dd16087d681",
   "owner": "Codex",
   "purpose": "按PR141附件v07.1制作完整35房平原，整合地图与美术来源并退休旧地图。",
   "player_experience": "反冲主导的新档学习与西侧主循环，H能力取得后的修钟/回访和东侧探索；统一像素人物、地形、机关与UI反馈。",
@@ -19,6 +19,7 @@
     "game/application/world/",
     "game/presentation/ui/world/",
     "game/presentation/world/plains_v07/",
+    "game/player/presentation/player_carry_light.gd",
     "tests/world/",
     "docs/project/",
     "AGENTS.md"
@@ -36,24 +37,24 @@
   "gates": {
     "G2": {
       "status": "failed",
-      "reason": "用户试玩c559831ab7f4明确否决：连续地图、上下门口、贴地/层次、阴影与房间生态均有缺陷，停止扩房，先整区空间设计。",
+      "reason": "本批修复随身光、竖向入口、部分贴地/层次与逐房试玩，但运行时仍为独立矩形连线，35房生态与连续探索未满足用户要求；整区验收保持失败，先总图再填内容。",
       "evidence": []
     }
   },
   "dimensions": {
     "visual": {
       "status": "failed",
-      "reason": "用户截图显示悬空基座、无结构长板、实体棚屋误放后景和突兀角色暗化；此前35房定点审看漏检，不沿用其质量判断。",
+      "reason": "角色突兀暗化、P-R23长板、P-R24实体棚屋景深及明确贴地道具已修复并审看；全区空间与逐房美术终审尚未完成，不沿用此前漏检的定点质量判断。",
       "evidence": []
     },
     "gameplay": {
       "status": "failed",
-      "reason": "技术回放通过但全区空间未闭合，上口安全落台偏置、下口结构多余、普通路线转角/障碍和有效遭遇不足；逐房与连续体验返工。",
+      "reason": "16个上口正下方落台、15个下口净空和实际双向路线已回归；整区物理空间未闭合，普通路线转角/障碍和有效遭遇仍不足，逐房及连续体验继续返工。",
       "evidence": []
     },
     "technical": {
       "status": "unverified",
-      "reason": "CI四项、43项世界专项、35房门口合同、连续主环、东侧串联、收集返程和机关反例通过；最终美术支架另录五段原生输入回归。完整Web通关与实体设备未验，公开版本核验与精确范围见scope.md。",
+      "reason": "CI四项及44项世界专项通过于e7515afc，包含35房479项门口断言、连续主环/分支/保存重启；其后仅逐房弹窗触屏适配变化，e797e7e2重新通过逐房专项与最终包Chromium触摸/重置/返回正式存档检查。范围及公开包核验见scope.md；完整Web通关与实体设备未验。",
       "evidence": []
     },
     "animation": {
@@ -62,8 +63,8 @@
       "evidence": []
     },
     "audio_vfx": {
-      "status": "failed",
-      "reason": "角色与场景受光关系不一致，小站同位置投影开关显示明显角色明暗差；用户所述瞬时压黑边界及全区动态/听感未完整复现验收。",
+      "status": "unverified",
+      "reason": "角色身体保持原调色、随身局部光实际照亮场景并接受遮挡；同位置光影/底光对照及正常速度室内外短片已核对。全区动态效果、听感与实体设备仍未完整验收。",
       "evidence": []
     }
   },
@@ -71,9 +72,9 @@
   "evidence": [],
   "consumer_coverage": null,
   "unverified_items": [
-    "整区连续空间和成对门口尚未重建；先总图再填内容。",
-    "上下门口新规则、贴地基座、后景归属、阴影动态边界和逐房遭遇待返工验证。",
-    "逐房审查入口尚未实现；当前定点截图与局部输入回放不能替代初见及连续探索。",
+    "整区连续空间和成对物理接缝尚未重建；门口局部修复不代表世界布局完成。",
+    "35房玩法生态、逐房美术/动作/UI及完整连续探索仍未完成终审。",
+    "空间候选仅为保留45条连接与门向的闭合可行性结果，长廊职责、地形与相机区尚未落地。",
     "完整Web通关、实体设备性能与听感没有新测量。"
   ]
 }

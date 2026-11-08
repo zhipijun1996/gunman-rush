@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | 按v07.1先重建整区真实空间与逐房审查入口，再返工35房玩法、美术和UI | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 按v07.1重建整区真实空间，使用已实现逐房入口返工35房玩法、美术和UI | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 ## 待验收
 
@@ -46,7 +46,7 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | FOREST-BIBLE-V2-01 | 固定世界森林房间内容与环境演出 | MV-RUNTIME-01 | planned | [交接](worklines/forest_bible_v2_01/scope.md) |
-| PLAINS-PLAYTEST-01 | 发布c559831ab7f4与短片（已发布，用户否决内容质量） | PLAINS-BIBLE-V2-01 | done | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-PLAYTEST-01 | 发布5b0f9037ab49基础修复、逐房入口与三段短片（整区质量仍未通过） | PLAINS-BIBLE-V2-01 | done | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 - `FOREST-BIBLE-V2-01`：待代表样房闭环后按F房间制作；保留v15动作/生态资产，不推进旧两图量产。
 
