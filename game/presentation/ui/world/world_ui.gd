@@ -107,9 +107,10 @@ func show_pause() -> void:
 	modal.button(WorldText.text("review.open"),func() -> void: command.emit("review",""))
 	modal.focus_first()
 func show_map() -> void:
-	var modal:=panel("map",WorldText.text("world_ui.08"),WorldText.text("world_ui.09"))
+	var modal:=panel("map",WorldText.text("world_ui.08"),WorldText.text("review.map_detail") if review_mode else WorldText.text("world_ui.09"))
 	var map:=FixedWorldMap.new()
 	map.expanded=true;map.world=world;map.content=content
+	map.survey_visible=review_mode
 	map.current_room=mini.current_room
 	map.local_player=mini.local_player
 	var physical_factor:=clampf(1.0/DemoUiModalMetrics.ui_scale(get_viewport()),1,1.8)

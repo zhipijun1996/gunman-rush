@@ -46,6 +46,31 @@ func recoil_jump(direction: Vector2) -> void:
 		if app.player.is_on_floor():break
 	app.controller.router.clear("landing")
 	print("RECOIL LAND ",app.player.position)
+func station_hall() -> bool:
+	var lift:=app.room.get_node("StationLift") as WorldMovingPlatform
+	if not await walk(Vector2(1360,1262),"P-R01"):return false
+	for i: int in 900:
+		await physics_frame
+		if lift.position.y>1200:break
+	app.controller.router.set_source_axis(&"keyboard_mouse",1)
+	app.controller.router.set_jump_held(&"keyboard_mouse",true)
+	var boarded:=false
+	for i: int in 150:
+		await physics_frame
+		var dx:=lift.position.x-app.player.position.x
+		app.controller.router.set_source_axis(&"keyboard_mouse",signf(dx) if absf(dx)>3 else 0)
+		if i==32:app.controller.router.set_jump_held(&"keyboard_mouse",false)
+		if i>8 and app.player.is_on_floor() and absf(app.player.position.y-(lift.position.y-28))<6:
+			boarded=true;break
+	app.controller.router.clear("station_cage_boarded")
+	if not boarded:printerr("STATION BOARD FAILED ",app.player.position," carrier=",lift.position);return false
+	for i: int in 900:
+		await physics_frame
+		if lift.position.y<736:break
+	app.controller.router.set_source_axis(&"keyboard_mouse",-1)
+	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(32)
+	app.controller.router.set_jump_held(&"keyboard_mouse",false)
+	return await path([Vector2(1328,622),Vector2(600,622),Vector2(320,622)],"P-R01")
 func run() -> void:
 	await play_intro()
 	await finish()
@@ -53,7 +78,7 @@ func play_intro() -> void:
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate();app.save_path=replay_save_path
 	for suffix: String in ["",".backup",".tmp",".corrupt"]:DirAccess.remove_absolute(app.save_path+suffix)
 	root.add_child(app);check(app.start_new(),"new game");await settle()
-	check(await path([Vector2(350,494),Vector2(496,446),Vector2(880,398),Vector2(1264,350),Vector2(1530,350)],"P-R03"),"meadow steps")
+	check(await path([Vector2(350,1230),Vector2(496,1182),Vector2(880,1134),Vector2(1264,1086),Vector2(1530,1102)],"P-R03"),"meadow steps")
 	await settle();check(app.room.room_id=="P-R21" and app.state.has("intro_move"),"arrive carriage after actual move/jump")
 	if failures>0:return
 	await walk(Vector2(320,622),"P-R21")
@@ -78,10 +103,11 @@ func play_intro() -> void:
 	if failures>0:return
 	check(await path([Vector2(704,398),Vector2(848,302),Vector2(976,206),Vector2(784,142),Vector2(736,-18)],"P-R23"),"shelter roof passage")
 	await settle();check(app.room.room_id=="P-R24","overlook")
-	check(await path([Vector2(1040,590),Vector2(1104,526),Vector2(1264,478),Vector2(1530,478)],"P-R24"),"station slope")
+	check(await path([Vector2(1040,590),Vector2(1104,526),Vector2(1264,494),Vector2(1530,494)],"P-R24"),"station slope")
 	await settle();check(app.room.room_id=="P-R01" and app.state.has("station_briefed"),"reach station without forced NPC conversation")
 	if failures==0:
-		await path([Vector2(600,622),Vector2(320,622)],"P-R01");app.controller.router.request_action(&"interact");await ticks(8)
+		check(await station_hall(),"ride the real station cage into the service hall")
+		app.controller.router.request_action(&"interact");await ticks(8)
 		check(app.state.value.rest.room=="P-R01" and app.state.value.cycle==2,"explicit rest saves station")
 func finish() -> void:
 	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5);print("PLAINS INTRO: ",failures," failures");quit(failures)

@@ -61,7 +61,7 @@ func run() -> void:
 	check(app.player.is_on_floor() and app.controller.actor_resources.health.current==hp and app.context_target().get("kind","")=="action","collectible stands on its actual supported reward ledge")
 	app.load_room("P-R04","");await settle()
 	for actor: EnemyActor in app.room.enemies.values():actor.set_physics_process(false)
-	app.player.reset_at(Vector2(624,654));await ticks(40)
+	app.player.reset_at(Vector2(624,1166));await ticks(40)
 	check(app.controller.actor_resources.health.current<hp,"visible thorn strip submits actual environmental damage")
 	var rid:=UnderworldUI.icon(&"coil").get_rid()
 	var stable:=true

@@ -71,21 +71,7 @@ func interior_material() -> String:
 
 func _ready() -> void:
 	z_index = -1
-	# Visible room bounds stop recoil leaving the room; authored doors cut holes.
-	var size := FixedWorldProvider.rect(contract.world_geometry.bounds_world_units).size
-	for side: String in ["left","right","up","down"]:
-		var gaps: Array[Vector2] = []
-		for door: Dictionary in doors:
-			if door.direction != side: continue
-			var point := FixedWorldProvider.point(door.position_candidate.local_world_units)
-			gaps.append(Vector2(point.x-64,point.x+64) if side in ["up","down"] else Vector2(point.y-96,point.y))
-		gaps.sort_custom(func(a: Vector2,b: Vector2) -> bool: return a.x<b.x)
-		gaps.append(Vector2(size.x if side in ["up","down"] else size.y,0))
-		var start := 0.0
-		for gap: Vector2 in gaps:
-			if gap.x>start:
-				platforms.append(Rect2(start,0 if side=="up" else size.y-32,gap.x-start,32) if side in ["up","down"] else Rect2(0 if side=="left" else size.x-32,start,32,gap.x-start))
-			start = maxf(start,gap.y)
+	platforms.append_array(WorldRoomSpace.boundary_platforms(contract.world_geometry,doors))
 	for index: int in platforms.size():
 		var body := StaticBody2D.new()
 		body.position = platforms[index].get_center()
@@ -103,7 +89,8 @@ func _ready() -> void:
 		add_child(body)
 	for door: Dictionary in doors:
 		var blocker := StaticBody2D.new()
-		blocker.position = FixedWorldProvider.point(door.position_candidate.local_world_units)-Vector2(0,48)
+		blocker.position = FixedWorldProvider.point(door.position_candidate.local_world_units)
+		if door.direction in ["left","right"]: blocker.position.y -= 48
 		var shape := RectangleShape2D.new()
 		shape.size = Vector2(32,96) if door.direction in ["left","right"] else Vector2(128,32)
 		var collision := CollisionShape2D.new()

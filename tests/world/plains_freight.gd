@@ -28,9 +28,23 @@ func run() -> void:
   check(await market_cross(),"market ferry links high east route")
   check(await route([Vector2(2298,398)],"P-R34","P-R35"),"market high route enters junction")
  if selected.is_empty() or selected=="P-R35":
-  await begin("P-R35",Vector2(1168,1134))
-  check(await ride_up("JunctionLift","P-R35:JunctionLift",Vector2(1168,1072),180),"junction central carrier supplies upper navigation")
-  await full_jump(Vector2(1424,142))
-  check(app.player.is_on_floor() and absf(app.player.position.y-142)<8,"junction freight reaches clock approach landing")
+  await begin("P-R35",Vector2(2816,2670))
+  var cage:=app.room.get_node("JunctionLift") as WorldMovingPlatform
+  check(await board_carrier(cage),"board the parked counterweight cage before starting")
+  app.controller.router.request_action(&"shoot_release",(Vector2(2816,2528)-app.player.position).normalized());await ticks(8)
+  check(cage.motion_running,"overhead bell starts the occupied cage")
+  for i: int in 1100:
+   await ticks(1)
+   var dx:=2816-app.player.position.x
+   app.controller.router.set_source_axis(&"keyboard_mouse",signf(dx) if absf(dx)>3 else 0)
+   if app.player.position.y<1080 and app.player.is_on_floor():break
+  app.controller.router.clear("junction_upper_stop")
+  check(app.player.position.y<1080 and app.room.get_node("counterweight_cam").drive==cage,"coupled cam leaves the centre of the carrier as a readable safe position")
+  check(await walk(Vector2(2704,1134),"P-R35"),"step onto the actual upper shaft bank")
+  await full_jump(Vector2(2592,1022))
+  check(await walk(Vector2(2608,1022),"P-R35"),"shaft bank connects to the raised road")
+  await full_jump(Vector2(2752,910))
+  check(await route([Vector2(2938,910)],"P-R35","P-R18"),"counterweight route reaches the real east-field door")
+
  await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(8)
  print("PLAINS FREIGHT: ",failures," failures");quit(failures)

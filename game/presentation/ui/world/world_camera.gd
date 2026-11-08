@@ -5,6 +5,7 @@ var target: PlayerMotor
 var room: FixedWorldRoom
 var bounds:=Rect2()
 var world_bounds:=Rect2()
+var chamber_bounds:=Rect2()
 var settings: Dictionary
 var lead:=0.0
 func _ready() -> void:
@@ -20,12 +21,16 @@ func bounded(value: Vector2) -> Vector2:
 	var factor:=float(settings.small_room_factor) if enclosed() else 1.0
 	return Vector2(bounds.get_center().x if bounds.size.x<half.x*2*factor else clampf(value.x,bounds.position.x+half.x,bounds.end.x-half.x),bounds.get_center().y if bounds.size.y<half.y*2*factor else clampf(value.y,bounds.position.y+half.y,bounds.end.y-half.y))
 func enter_room(value: Rect2) -> void:
-	world_bounds=value;bounds=room.arena_bounds if arena_active() else value;lead=0
+	world_bounds=value
+	chamber_bounds=WorldRoomSpace.camera_envelope(room.contract.world_geometry,target.position,Rect2())
+	bounds=room.arena_bounds if arena_active() else chamber_bounds
+	lead=0
 	global_position=bounded(target.global_position+Vector2(0,float(settings.vertical_offset)))
 	reset_smoothing();force_update_scroll()
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(target) or not bounds.has_area(): return
-	var envelope:=room.arena_bounds if arena_active() else world_bounds
+	chamber_bounds=WorldRoomSpace.camera_envelope(room.contract.world_geometry,target.position,chamber_bounds)
+	var envelope:=room.arena_bounds if arena_active() else chamber_bounds
 	var weight:=1-exp(-delta/float(settings.zone_seconds))
 	bounds=Rect2(bounds.position.lerp(envelope.position,weight),bounds.size.lerp(envelope.size,weight))
 	if bounds.position.distance_to(envelope.position)+bounds.size.distance_to(envelope.size)<.05: bounds=envelope
@@ -42,6 +47,12 @@ func _physics_process(delta: float) -> void:
 		goal.y=minf(bounds.end.y-half_height,target.global_position.y+half_height-float(settings.arena_headroom))
 	var vertical_time:=lerpf(float(settings.vertical_seconds),float(settings.fall_seconds),clampf(target.velocity.y/float(settings.fall_speed),0,1))
 	global_position=bounded(Vector2(lerpf(global_position.x,goal.x,1-exp(-delta/float(settings.horizontal_seconds))),lerpf(global_position.y,goal.y,1-exp(-delta/vertical_time))))
+	# A concave chamber turn can move the envelope farther than one screen.
+	# Smooth the scenery, but never let that interpolation lose the actor.
+	var visible_half:=get_viewport_rect().size/(2*zoom)
+	if not arena_active():
+		global_position.x=clampf(global_position.x,target.global_position.x-visible_half.x+48,target.global_position.x+visible_half.x-48)
+		global_position.y=clampf(global_position.y,target.global_position.y-visible_half.y+48,target.global_position.y+visible_half.y-64)
 	if arena_active():
 		# Recoil can outrun the smooth floor preference. Actor visibility wins at
 		# the arena edge, even when its sprite needs a little space above it.

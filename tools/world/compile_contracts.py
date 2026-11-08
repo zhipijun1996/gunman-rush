@@ -15,6 +15,8 @@ import math
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from spatial import room_space, contains_rect
+
 ROOT = Path(__file__).resolve().parents[2]
 ABILITIES = {"H", "W", "D", "Q"}
 OPPOSITE = {"left": "right", "right": "left", "up": "down", "down": "up"}
@@ -197,16 +199,16 @@ def required_reserved_areas(entry):
         sx, sy = landing["entry_position_world_units"]
         tx, ty = landing["safe_standing_position_world_units"]
         if side == "left":
-            throat = [0, y - 96, 96, 128]
-            floor = [0, y, 96, 32]
+            throat = [x, y - 96, 96, 128]
+            floor = [x, y, 96, 32]
         elif side == "right":
-            throat = [width - 96, y - 96, 96, 128]
-            floor = [width - 96, y, 96, 32]
+            throat = [x - 96, y - 96, 96, 128]
+            floor = [x - 96, y, 96, 32]
         elif side == "up":
-            throat = [x - 48, 0, 96, 112]
+            throat = [x - 48, y, 96, 112]
             floor = None
         else:
-            throat = [x - 48, height - 112, 96, 112]
+            throat = [x - 48, y - 112, 96, 112]
             floor = None
         common = {
             "section": sid, "door_ref": did, "must_be_in_usable_room_envelope": True,
@@ -389,6 +391,7 @@ def build(canonical, construction, replay_path):
         boss = bosses.get(rid)
         extent, shape_class, rationale = source["extent"], source["shape_class"], source["rationale"]
         w, h = extent
+        space = room_space(source.get("space_rects", [] if source.get("implemented") else [[0, 0, w, h]]), extent)
         sections = sections_of(room)
         section_ids = {s["id"] for s in sections}
         doors = doors_by_room[rid]
@@ -523,13 +526,13 @@ def build(canonical, construction, replay_path):
             "footprint_reference": {"source_shape": room.get("shape"), "source_polygon": room["polygon"], "source_aspect_ratio": round(room_aspect(room), 4),
                                     "use": "世界地图相对位置和形态意图；可调整场景局部形状，保留拓扑、门ID与分区绑定。"},
             "world_geometry": {"bounds_world_units": [0, 0, w, h], "shape_class": shape_class,
-                               "outline_candidate_local": coarse_outline(room, extent),
-                               "map_origin": source.get("map_origin"),
+                               "outline_candidate_local": space["outline"] if source.get("implemented") else coarse_outline(room, extent),
+                               "space_rects": space["rects"], "boundary": space["boundary"],
                                "status": "authored_room_envelope" if source.get("implemented") else "adjustable_construction_candidate_not_physics_validated",
                                "rationale": rationale, "authoring_grid_world_units": 16,
                                "grid_is_convenience_not_ability_envelope": True,
                                "screen_reference": {"viewport_px": VIEWPORT, "working_view_world_units": WORKING_VIEW, "working_zoom": 1.6, "zoom_status": "比较基线，非最终统一镜头"},
-                               "collision_outline_status": "地图缩放粗轮廓仅作形态参考；禁止自动封闭成碰撞围墙后堵住门、入口台或Boss竞技区。",
+                               "collision_outline_status": "已施工房的实体外边界与地图共用space_rects并集，按实际门口切开；内部地形仍由手工场景拥有。" if source.get("implemented") else "未施工粗轮廓不是碰撞数据。",
                                "required_reserved_areas": [],
                                "usable_envelope_contract": "实际可用包络必须包含required_reserved_areas的全部矩形并按其collision_intent区分净空与实地；候选多边形不包含这些区域时扩展/重画轮廓，以真实内部前廊连接所属分区，不能瞬移或跨过能力阻隔。",
                                "minimum_scale_invariants": "保持当前玩家24×36碰撞体与运动参数；若读取仓库已有改动，以实际控制器校准并同步全部房，不逐房偷偷改玩家。"},
@@ -669,6 +672,7 @@ def audit_contracts(data, canonical):
         sec = {s["id"] for s in r["sections"]}
         bx, by, bw, bh = r["world_geometry"]["bounds_world_units"]
         reserved = r["world_geometry"]["required_reserved_areas"]
+        space = {"rects": r["world_geometry"]["space_rects"]}
         if not reserved:
             issues.append({"kind": "missing_reserved_areas", "room": rid})
         reserved_ids = {a["id"] for a in reserved}
@@ -678,6 +682,8 @@ def audit_contracts(data, canonical):
             x, y, w, h = area["rect_world_units"]
             if not (w > 0 and h > 0 and x >= bx and y >= by and x + w <= bx + bw and y + h <= by + bh):
                 issues.append({"kind": "reserved_area_outside_outer_bounds", "room": rid, "area": area["id"], "rect": area["rect_world_units"]})
+            if r["world_geometry"]["status"] == "authored_room_envelope" and not contains_rect(space, [x,y,w,h]):
+                issues.append({"kind":"reserved_area_outside_physical_space", "room":r["room_id"], "area":area["id"]})
             if area["section"] not in sec:
                 issues.append({"kind": "reserved_area_invalid_section", "room": rid, "area": area["id"]})
             if r.get("boss_arena") and area.get("door_ref"):

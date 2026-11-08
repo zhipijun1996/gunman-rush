@@ -13,12 +13,12 @@ func run() -> void:
 	for rid: String in ["P-R04","P-R13"]:
 		for delay: int in [0,6,10]:
 			await fixture(rid)
-			app.player.reset_at(Vector2(848,526) if rid=="P-R04" else Vector2(639,638));await ticks(3)
+			app.player.reset_at(Vector2(848,1038) if rid=="P-R04" else Vector2(639,2686));await ticks(3)
 			if rid=="P-R04":
-				await clear_enemies(96);await walk(Vector2(848,526),rid);await ticks(90)
-			var health:=app.controller.actor_resources.health.current
-			var result:=await full_jump(Vector2(944,350) if rid=="P-R04" else Vector2(1024,526),delay)
-			check(app.controller.actor_resources.health.current==health,"negative attempt is not blocked by damage")
+				await clear_enemies(96);await walk(Vector2(848,1038),rid);await ticks(90)
+			var serial:=app.controller.shoot_ability._shot_serial
+			var result:=await full_jump(Vector2(944,862) if rid=="P-R04" else Vector2(1024,2574),delay)
+			check(app.controller.shoot_ability._shot_serial==serial,"full/coyote attempt uses no recoil; lower recovery hazards remain active")
 			print("EXPANDED COUNTER ",rid," delay=",delay," ",result)
 			check(result.furthest+12<864,"new recoil approach requires more than full/coyote jump "+rid)
 			await release()

@@ -9,6 +9,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from compile_contracts import compile_contracts, write_json
+from spatial import navigation_geometry
 
 
 def validate_player(data):
@@ -64,71 +65,6 @@ def validate_services(data, implemented, npcs):
     quest=data.get('quest',{})
     if quest.get('npc_id') not in {r['id'] for r in npcs} or not whole(quest.get('quantity'),1) or not whole(quest.get('gold')):
         raise ValueError('Invalid quest NPC/material/reward')
-
-
-def navigation_geometry(rooms, anchor):
-    """Preserve actual room scale; survey links connect physical door endpoints."""
-    if rooms and all(r['world_geometry'].get('map_origin') is not None for r in rooms.values()):
-        # A survey chart: authored rooms retain their true scale, while explicit
-        # drawn links express transitions. The macro illustration is not collision.
-        result={}
-        for key, row in rooms.items():
-            x,y=row['world_geometry']['map_origin']; _,_,w,h=row['world_geometry']['bounds_world_units']
-            for i,a in enumerate(row['doors']):
-                for b in row['doors'][i+1:]:
-                    if a['direction']==b['direction'] and math.dist(a['position_candidate']['local_world_units'],b['position_candidate']['local_world_units'])<192:
-                        raise ValueError('Crowded physical exits: '+key)
-            result[key]={'origin':[x,y],'polygon':[[x,y],[x+w,y],[x+w,y+h],[x,y+h]],'map_centre':[x+w/2,y+h/2],'projection':'survey_with_explicit_connections'}
-        for a,first in result.items():
-            for b,second in result.items():
-                if a>=b:continue
-                x,y=first['origin'];xx,yy=second['origin'];w,h=rooms[a]['world_geometry']['bounds_world_units'][2:];ww,hh=rooms[b]['world_geometry']['bounds_world_units'][2:]
-                if min(x+w,xx+ww)>max(x,xx) and min(y+h,yy+hh)>max(y,yy):raise ValueError('Room map envelopes overlap: '+a+'/'+b)
-        reachable={anchor};pending=[anchor]
-        while pending:
-            for door in rooms[pending.pop()]['doors']:
-                target=door['target_room']
-                if target in rooms and target not in reachable:reachable.add(target);pending.append(target)
-        if reachable!=set(rooms):raise ValueError('Implemented rooms need a connected authored map')
-        return result
-    origins = {anchor: (0.0, 0.0)}
-    pending = [anchor]
-    while pending:
-        source = pending.pop(0)
-        row = rooms[source]
-        exposed = [d for d in row['doors'] if d['target_room'] in rooms]
-        for i, first in enumerate(exposed):
-            for second in exposed[i+1:]:
-                if first['direction'] == second['direction']:
-                    a, b = first['position_candidate']['local_world_units'], second['position_candidate']['local_world_units']
-                    if sum((a[n]-b[n])**2 for n in (0,1)) < 192**2:
-                        raise ValueError('Crowded physical exits: '+source)
-        for door in exposed:
-            target = door['target_room']
-            paired = next(d for d in rooms[target]['doors'] if d['id'] == door['target_door_id'])
-            a, b = door['position_candidate']['local_world_units'], paired['position_candidate']['local_world_units']
-            proposed = tuple(origins[source][n] + a[n] - b[n] for n in (0,1))
-            if target in origins:
-                if any(abs(proposed[n]-origins[target][n]) > .01 for n in (0,1)):
-                    raise ValueError('Room map seam conflicts: '+door['id'])
-            else:
-                origins[target] = proposed
-                pending.append(target)
-    if len(origins) != len(rooms):
-        raise ValueError('Implemented rooms need a connected authored map')
-    result = {}
-    for key, origin in origins.items():
-        _, _, w, h = rooms[key]['world_geometry']['bounds_world_units']
-        x, y = origin
-        result[key] = {'polygon': [[x,y],[x+w,y],[x+w,y+h],[x,y+h]], 'map_centre':[x+w/2,y+h/2], 'origin':[x,y]}
-    for a, first in result.items():
-        for b, second in result.items():
-            if a >= b: continue
-            x1,y1=first['origin']; x2,y2=second['origin']
-            _,_,w1,h1=rooms[a]['world_geometry']['bounds_world_units']; _,_,w2,h2=rooms[b]['world_geometry']['bounds_world_units']
-            if min(x1+w1,x2+w2)>max(x1,x2)+.01 and min(y1+h1,y2+h2)>max(y1,y2)+.01:
-                raise ValueError('Room map envelopes overlap: '+a+'/'+b)
-    return result
 
 
 def local_returns(source, implemented):

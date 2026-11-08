@@ -34,21 +34,6 @@ func market_cross() -> bool:
  await full_jump(Vector2(2200,398))
  return app.player.is_on_floor() and absf(app.player.position.y-398)<8
 
-func rise_then_cross(at: Vector2,use_recoil: bool=false) -> void:
- app.controller.router.set_source_axis(&"keyboard_mouse",0)
- app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(9)
- if use_recoil:
-  app.controller.router.request_action(&"shoot_release",Vector2.DOWN);await ticks(9)
- else:await ticks(9)
- for i: int in 120:
-  await ticks(1)
-  var dx:=at.x-app.player.position.x
-  app.controller.router.set_source_axis(&"keyboard_mouse",signf(dx) if absf(dx)>4 else 0)
-  if i==22:app.controller.router.set_jump_held(&"keyboard_mouse",false)
-  if i>5 and app.player.is_on_floor():break
- app.controller.router.clear("ledge_landed")
- print("LEDGE ",app.player.position," target=",at)
-
 func board_carrier(carrier: WorldMovingPlatform) -> bool:
  var room_id:=app.room.room_id
  app.controller.router.set_jump_held(&"keyboard_mouse",false)

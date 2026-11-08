@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "authority_id": "project_shared_regional_style",
-  "version": "36",
+  "version": "37",
   "source": {
     "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
     "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
@@ -29,12 +29,12 @@
       {
         "role": "formal_entry",
         "path": "game/application/world/fixed_world_app.gd",
-        "sha256": "e549e9e0c2648367a89b94ee137fb87818ac55fab67d3aa0e282d0103ecd2c67"
+        "sha256": "272d5db7778a47668cfa420de720ed2070f6e10d0e463635e2e2be22179c61db"
       },
       {
         "role": "terrain_consumer",
         "path": "game/world/levels/fixed_world_room.gd",
-        "sha256": "469b3bdb689d31bc6becbac68c5cdb5da75494922b82c96d236af174109f7120"
+        "sha256": "232fc0804fb707f01dd49af1237c4c8efa1c090b92524ac5d7d79ecda8813d2b"
       },
       {
         "role": "terrain_renderer",
@@ -1059,7 +1059,7 @@
       {
         "role": "plains_v07_art",
         "path": "game/presentation/world/plains_v07/plains_room_art.gd",
-        "sha256": "c5a7492d67db31e5eaba22c7f6bf96ded7672c11b81804d5a8b6c0ee196590e6"
+        "sha256": "3ac67511b0b846368dc71a39f290e24990b07022977c307e3c554f5ac5d324b2"
       },
       {
         "role": "plains_v07_animation",
@@ -1069,22 +1069,27 @@
       {
         "role": "plains_v07_assets",
         "path": "assets/plains_v07/manifest.json",
-        "sha256": "9f3eb99550f44782eeb165bb3225e56889cae16db11a40eb94bbce6ece37e2dd"
+        "sha256": "61b9d6444e3f6e6a208e43eddaf9ddd7ef388b955ab36fe58968b9bc9823f91d"
       },
       {
         "role": "plains_v07_provenance",
         "path": "assets/plains_v07/SOURCES.md",
-        "sha256": "bd0452b47472790760b8c2e68885ff5adb17a4d163d9c83097bf92920fb8550b"
+        "sha256": "8b210699cab864d79259c3462c0fc26346b6c80617d46d014a16dfb7ae09266e"
       },
       {
         "role": "fixed_world_camera",
         "path": "game/presentation/ui/world/world_camera.gd",
-        "sha256": "069069c8eb850ea314ac25607381e615867b452cca415d048b3bdb4c0f66716c"
+        "sha256": "1888798528c22382ee1019f397200e59324c483d059912bd0d4cbe05f6ba7055"
       },
       {
         "role": "fixed_world_camera_parameters",
         "path": "config/world/player.json",
-        "sha256": "ef3934932c4614de75817704523ec95bd8de323c1b3377b6f9ed0f74a88cabb0"
+        "sha256": "8158072f54252a236fcbc4bb40bc0b5c582ec17f8e862bcbf535fef18d991e84"
+      },
+      {
+        "role": "physical_room_space",
+        "path": "game/world/levels/world_room_space.gd",
+        "sha256": "5530edf681c392bf525715b6621cdd18d939329f0f8dc0b13075c462ad862247"
       }
     ],
     "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."
@@ -1097,9 +1102,9 @@
   ],
   "region_scope": "Every current catalog region and later new region; the two original Bible documents are unchanged.",
   "change_impact": {
-    "source": "Direct user instructions in this task, 2026-11-07; manually retained by Codex",
-    "quote": "将这两个zip的文件，关卡设计skills，美术skills。按照项目的格式和架构融入和整理好。然后开始按照最新的地图设计（旧地图设计退休，用最新的zip里面的最新整区设计），制作完整的平原关卡。",
-    "actual_changes": "Preserves the v35 plains source integration and art. Final camera containment keeps rapid recoil inside the visible arena frame after smooth floor preference, with unchanged zoom and player physics. Head and foot margins belong to config/world/player.json.",
-    "validation": "Native full-loop footage exposed upward recoil outrunning smoothing; presentation_contracts now observes the actual screen center over jump plus downward recoil. Ground-envelope and ordinary jump-floor assertions remain intact. Re-recorded native loop and current plains quality record provide final evidence; no new forest visual acceptance."
+    "source": "Direct user instructions in this task, 2026-11-08; manually retained by Codex",
+    "quote": "先完成连续整区地区和多房间玩法生态，这个优先级最高",
+    "actual_changes": "正式平原的地图、门口、边界与相机共用实际相连机腔；外边界由房形生成，场景内地形保留原生32px材质及精确边缘。原生角色调色与随身局部光沿用当前正式实现。试玩隔离存档与来源入口已纳入正式入口。共享角色图集、地形源像素及森林场景未改变。",
+    "validation": "35房实际场景取景、空间/门口合同和真实控制器路线检查；相机专项保留竞技场独立构图。当前工作线分别记录玩法、技术与视听验收边界；这些哈希不代表全区美术或森林重新获批。"
   }
 }

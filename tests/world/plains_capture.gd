@@ -26,7 +26,7 @@ func run() -> void:
 		var at:=app.room.start_point
 		if not app.room.interaction_hosts.is_empty():at=app.room.interaction_hosts[0].position
 		if id=="P-R01":at=Vector2(720,622)
-		var focal: Dictionary={"P-R09":Vector2(1200,622),"P-R08":Vector2(912,1332),"P-R10":Vector2(784,1326),"P-R14":Vector2(1452,742),"P-R18":Vector2(1664,878),"P-R24":Vector2(1328,478),"P-R26":Vector2(480,1262),"P-R29":Vector2(768,942),"P-R33":Vector2(1840,878),"P-R34":Vector2(1840,388),"P-R35":Vector2(1424,142)}
+		var focal: Dictionary={"P-R09":Vector2(1200,622),"P-R08":Vector2(528,1470),"P-R10":Vector2(1344,1518),"P-R14":Vector2(1452,742),"P-R18":Vector2(1664,878),"P-R24":Vector2(1328,478),"P-R26":Vector2(480,1262),"P-R29":Vector2(768,942),"P-R33":Vector2(1840,878),"P-R34":Vector2(1840,388),"P-R35":Vector2(1376,1006)}
 		if focal.has(id):at=focal[id]
 		if arguments.size()>2:at=Vector2(float(arguments[1]),float(arguments[2]))
 		app.player.reset_at(at)

@@ -11,7 +11,7 @@ masonry_platform_indices = Array[int]([12,13])
 bell_mechanisms = Array[Dictionary]([{"id":"P-R29:GrainLift","bell":[400,1456],"carrier":"GrainLift","access_bells":[[352,624]]},{"id":"P-R29:grain_shutter","bell":[832,864],"gate":[1056,640,32,448],"open_seconds":1.2}])
 spike_strips = Array[Dictionary]([{"id":"loft_wall","bounds":[1376,1088,26,128],"facing":"right"},{"id":"upper_beam","bounds":[288,790,96,26],"facing":"up"}])
 arrival_text = "旧谷仓通廊"
-platforms = Array[Rect2]([Rect2(0,1632,704,32),Rect2(1072,1632,464,32),Rect2(0,1536,704,128),Rect2(1072,1536,464,128),Rect2(160,1392,256,32),Rect2(1120,1248,256,32),Rect2(160,1104,256,32),Rect2(1120,960,256,32),Rect2(160,816,256,32),Rect2(1120,672,256,32),Rect2(160,528,256,32),Rect2(0,672,288,32),Rect2(640,960,256,32),Rect2(288,672,128,32),Rect2(1344,1088,32,192),Rect2(832,1536,240,128)])
+platforms = Array[Rect2]([Rect2(0,1632,704,32),Rect2(1072,1632,464,32),Rect2(0,1536,704,128),Rect2(1072,1536,464,128),Rect2(160,1392,256,32),Rect2(1120,1248,256,32),Rect2(160,1104,256,32),Rect2(1120,960,256,32),Rect2(160,816,256,32),Rect2(1120,672,256,32),Rect2(160,528,256,32),Rect2(0,672,288,32),Rect2(640,960,256,32),Rect2(288,672,128,32),Rect2(1344,1088,32,192),Rect2(832,1536,240,128),Rect2(0,672,288,32),Rect2(832,1536,192,128)])
 one_way_indices = Array[int]([])
 start_point = Vector2(144, 654)
 rest_point = Vector2(0, 0)
@@ -22,7 +22,7 @@ hook_points = Array[Vector2]([])
 section_volumes = Array[Dictionary]([])
 retry_anchors = Array[Dictionary]([{"bounds":[304,612,96,60],"point":[352,654],"section":"main"},{"bounds":[720,900,96,60],"point":[768,942],"section":"main"},{"bounds":[1200,1188,96,60],"point":[1248,1230],"section":"main"},{"bounds":[352,1476,96,60],"point":[400,1518],"section":"main"}])
 art_placements = Array[Dictionary]([{"asset":"storage_crates","point":[352,1536.0],"layer":-2},{"asset":"barrel","point":[1152,1536],"layer":-2},{"asset":"hanging_chime","point":[1248,1248.0],"layer":-2}])
-
+illustrated_platform_indices = Array[int]([])
 [node name="GrainLift" type="AnimatableBody2D" parent="."]
 script = ExtResource("moving")
 position = Vector2(512, 1488)

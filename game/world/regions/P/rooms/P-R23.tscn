@@ -9,7 +9,7 @@ room_id = "P-R23"
 traveler_point = Vector2(560, 494)
 art_profile = "shelter"
 arrival_text = "废弃候车棚"
-platforms = Array[Rect2]([Rect2(0,512,1152,128),Rect2(480,160,352,32),Rect2(672,416,480,96),Rect2(800,320,352,96),Rect2(928,224,224,96)])
+platforms = Array[Rect2]([Rect2(0,512,1152,128),Rect2(480,160,352,32),Rect2(672,416,480,96),Rect2(800,320,352,96),Rect2(928,224,224,96),Rect2(0,512,288,32),Rect2(640,160,192,32)])
 one_way_indices = Array[int]([])
 masonry_platform_indices = Array[int]([1])
 start_point = Vector2(144, 494)
@@ -20,6 +20,7 @@ hook_points = Array[Vector2]([])
 section_volumes = Array[Dictionary]([])
 retry_anchors = Array[Dictionary]([])
 art_placements = Array[Dictionary]([{"asset":"waiting_shelter","point":[448,512],"layer":-2},{"asset":"travel_bundle","point":[384,512],"layer":-2},{"asset":"aqi_ribbon","point":[624,512],"layer":-2,"receipt":"story_aqi_t01"},{"asset":"plain_pier","point":[720,416],"support_height":224}])
+illustrated_platform_indices = Array[int]([])
 [node name="Npc0" type="Node2D" parent="."]
 script = ExtResource("npc")
 position = Vector2(560, 494)

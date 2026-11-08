@@ -20,15 +20,16 @@ class BuildTests(unittest.TestCase):
             with self.subTest(key=key,value=value),self.assertRaisesRegex(ValueError,'focus heal'):
                 validate_player(invalid)
 
-    def test_navigation_survey_preserves_physical_size_and_paired_interfaces(self):
+    def test_navigation_is_one_physical_region_with_closed_door_seams(self):
         _, bundle=build(); rooms=bundle['rooms']
         layouts=navigation_geometry(rooms,bundle['start']['room'])
         opposites={'up':'down','down':'up','left':'right','right':'left'}
+        pairs=set()
+        self.assertTrue(any(len(v['polygon'])>4 for v in layouts.values()))
         for key,room in rooms.items():
             layout=layouts[key]
-            self.assertEqual(layout['projection'],'survey_with_explicit_connections')
-            self.assertEqual(layout['origin'],room['world_geometry']['map_origin'])
-            self.assertEqual([layout['polygon'][2][i]-layout['polygon'][0][i] for i in (0,1)],room['world_geometry']['bounds_world_units'][2:])
+            self.assertNotIn('projection',layout)
+            self.assertNotIn('map_origin',room['world_geometry'])
             for door in room['doors']:
                 if not door['target_implemented']:continue
                 target=rooms[door['target_room']]
@@ -36,16 +37,24 @@ class BuildTests(unittest.TestCase):
                 self.assertEqual(paired['target_room'],key)
                 self.assertEqual(paired['target_door_id'],door['id'])
                 self.assertEqual(paired['direction'],opposites[door['direction']])
+                self.assertEqual([layout['origin'][i]+door['position_candidate']['local_world_units'][i] for i in (0,1)],
+                                 [layouts[door['target_room']]['origin'][i]+paired['position_candidate']['local_world_units'][i] for i in (0,1)])
+                pairs.add(tuple(sorted([door['id'],paired['id']])))
+        self.assertEqual(len(pairs),45)
 
-    def test_navigation_rejects_crowded_exits_and_overlapping_envelopes(self):
+    def test_navigation_rejects_crowding_open_loops_and_old_projection(self):
         _,bundle=build();rooms=bundle['rooms']
         crowded=copy.deepcopy(rooms)
         door=copy.deepcopy(crowded['P-R01']['doors'][0]);door['id']='fixture_crowded'
         crowded['P-R01']['doors'].append(door)
         with self.assertRaisesRegex(ValueError,'Crowded'):navigation_geometry(crowded,'P-R03')
-        overlap=copy.deepcopy(rooms)
-        overlap['P-R01']['world_geometry']['map_origin']=overlap['P-R03']['world_geometry']['map_origin']
-        with self.assertRaisesRegex(ValueError,'overlap'):navigation_geometry(overlap,'P-R03')
+        displaced=copy.deepcopy(rooms)
+        door=next(d for d in displaced['P-R01']['doors'] if d['target_room']=='P-R08')
+        door['position_candidate']['local_world_units'][1]+=32
+        with self.assertRaisesRegex(ValueError,'seam'):navigation_geometry(displaced,'P-R03')
+        obsolete=copy.deepcopy(rooms)
+        obsolete['P-R01']['world_geometry']['map_origin']=[0,0]
+        with self.assertRaisesRegex(ValueError,'map_origin'):navigation_geometry(obsolete,'P-R03')
         disconnected=copy.deepcopy(rooms)
         for row in disconnected.values():row['doors']=[d for d in row['doors'] if d['target_room']!='P-R21']
         with self.assertRaisesRegex(ValueError,'connected'):navigation_geometry(disconnected,'P-R03')

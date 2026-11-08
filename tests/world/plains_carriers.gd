@@ -13,7 +13,7 @@ func run() -> void:
 		await physics_frame
 		if carrier.position.x>1410:break
 	await recoil_jump(Vector2(-1,.4).normalized())
-	check(await walk(Vector2(1728,526),"P-R05"),"timed carrier departure lands fixed reward bank")
+	check(await walk(Vector2(1728,782),"P-R05"),"timed carrier departure lands fixed reward bank")
 	app.controller.router.request_action(&"interact");await ticks(5);check(app.state.value.receipts.has("pickup_TG02"),"TG02 physical claim")
 	var candidate:=app.state.value.duplicate(true);candidate.flags.append("H");app.state.commit(candidate,app.state.revision);app._apply_capabilities()
 	app.load_room("P-R20","");await settle();app.player.reset_at(Vector2(1408,878));await ticks(4)
