@@ -9,9 +9,12 @@ func run() -> void:
 	check(await walk(Vector2(544,766),"P-R05"),"enter optional gear challenge from main ground")
 	var first:=app.room.get_node("Carrier0") as WorldMovingPlatform
 	check(await ride.board(first),"board first slow carrier")
-	for _i: int in 360:
+	for _i: int in 1000:
 		await ticks(1)
-		if first.position.x>830:break
+		var dx:=first.position.x-24-app.player.position.x
+		ride.axis(signf(dx) if absf(dx)>3 else 0)
+		var gear:=app.room.get_node("drive_gear") as WorldGearObstacle
+		if first.position.x>830 and gear.wheel.position.y>615:break
 	await hop(Vector2(1104,654),Vector2(-1,.4))
 	check(absf(app.player.position.y-654)<8,"first carrier to inspection pier")
 	check(await walk(Vector2(1200,654),"P-R05"),"prepare second carrier departure")

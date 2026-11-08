@@ -17,7 +17,7 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute("res://build/plains_rework/captures")
 	var arguments:=OS.get_cmdline_user_args()
 	for id: String in app.content.data.rooms:
-		if not arguments.is_empty() and arguments[0]!=id:continue
+		if not arguments.is_empty() and id not in arguments[0].split(","):continue
 		app.load_room(id,"");await settle()
 		if app.room.room_id!=id:printerr("CAPTURE LOAD FAILED ",id," ",app.status);quit(1);return
 		app.set_physics_process(false);app.controller.active=false

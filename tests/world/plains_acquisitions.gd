@@ -1,4 +1,4 @@
-extends "res://tests/world/plains_gates.gd"
+extends "res://tests/world/plains_first_loop.gd"
 ## Explicit approach fixtures. Every following displacement uses real player input.
 func ability(flags: Array[String]) -> void:
 	var candidate:=app.state.value.duplicate(true)
@@ -19,7 +19,7 @@ func run() -> void:
 	check(await path([Vector2(632,582),Vector2(744,526)],"P-R04"),"return above rooted thorn strip without resetting")
 	await start_at("P-R12",Vector2(672,622));await recoil_jump(Vector2(-1,.7).normalized())
 	check(await walk(Vector2(1104,494),"P-R12"),"low beam recoil enters hidden cellar storage");await collect("pickup_EQ_MAP_P01")
-	await start_at("P-R13",Vector2(612,638));await recoil_jump(Vector2(-1,.65).normalized())
+	await start_at("P-R13",Vector2(624,638));await hop(Vector2(1024,526),Vector2(-1,.25))
 	check(await walk(Vector2(1024,526),"P-R13"),"recoil crosses high shoulder gap");await collect("pickup_HP01")
 	ability(["H"])
 	await start_at("P-R17",Vector2(800,782));app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(8)

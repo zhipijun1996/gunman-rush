@@ -21,13 +21,14 @@ var service_pickup_sprites: Dictionary={}
 @export var one_way_indices: Array[int] = []
 ## Explicit scenery supplies the surface image; authored rectangles still collide.
 @export var illustrated_platform_indices: Array[int] = []
-@export var masonry_interior := false
+@export var masonry_platform_indices: Array[int] = []
 @export var start_point := Vector2(144,512)
 @export var rest_point := Vector2.ZERO
 @export var reward_point := Vector2.ZERO
 @export var enemy_placements: Array[Dictionary] = []
 @export var signs: Array[Dictionary] = []
 @export var hazards: Array[Rect2] = []
+@export var gear_obstacles: Array[Dictionary] = []
 @export var hook_points: Array[Vector2] = []
 @export var climbable_walls: Array[Rect2] = []
 @export var environment_zones: Array[Dictionary] = []
@@ -61,6 +62,9 @@ var boss_contact: DemoContactEmitter
 var seals: Array[StaticBody2D] = []
 var battle_started := false
 var battle_finished := false
+
+func interior_material() -> String:
+	return {"mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(art_profile,"")
 
 func _ready() -> void:
 	z_index = -1
@@ -105,11 +109,17 @@ func _ready() -> void:
 		add_child(blocker)
 		door_blocks[door.id] = blocker
 	var solids: Array[Rect2]=[]
+	var masonry: Array[Rect2]=[]
 	for i: int in platforms.size():
-		if i not in one_way_indices and i not in illustrated_platform_indices: solids.append(platforms[i])
+		if i in one_way_indices or i in illustrated_platform_indices:continue
+		if i in masonry_platform_indices:masonry.append(platforms[i])
+		else:solids.append(platforms[i])
 	var terrain:=UnderworldTerrain.build(solids)
-	if masonry_interior:PlainsMillTerrainMaterial.install_on(terrain)
+	if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
 	add_child(terrain)
+	if not masonry.is_empty():
+		var structure:=UnderworldTerrain.build(masonry)
+		PlainsMillTerrainMaterial.install_on(structure);add_child(structure)
 	var scenery:=PlainsRoomArt.new();scenery.room=self;add_child(scenery)
 	for rect: Rect2 in climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;add_child(wall)
@@ -222,6 +232,10 @@ func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: 
 		enemies[id] = actor
 	for index: int in hazards.size():
 		add_child(DemoContactEmitter.environment_rect(hazards[index],policy,controller,StringName(room_id+":terrain:"+str(index))))
+	for spec: Dictionary in gear_obstacles:
+		var gear:=WorldGearObstacle.new()
+		gear.name=str(spec.id);gear.definition=spec;gear.controller=controller;gear.policy=policy
+		add_child(gear)
 	if boss_identity.is_empty() or boss_defeated:
 		battle_finished = not boss_identity.is_empty()
 		return
@@ -292,7 +306,7 @@ func bind_services(value: WorldServices,controller: PlayerController,policy: Fra
 		host.bind(value.state);interaction_hosts.append(host)
 	if rest_point!=Vector2.ZERO:
 		station_animation=WorldSpriteAnimation.new();station_animation.asset_id="charging_station";station_animation.position=rest_point+Vector2(0,18);add_child(station_animation)
-	if art_profile not in ["cellar","secret","well"]:UnderworldForeground.attach(self,self,controller.motor)
+	if interior_material().is_empty():UnderworldForeground.attach(self,self,controller.motor)
 	loot=WorldCoinDrops.new();loot.services=value;loot.controller=controller;loot.room_id=room_id;loot.arena_bounds=arena_bounds
 	add_child(loot)
 	for presentation: Node in find_children("*","WorldFlagPresentation",true,false): presentation.bind(value.state.has)

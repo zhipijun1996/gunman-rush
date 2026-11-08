@@ -30,9 +30,9 @@ func _ready() -> void:
 	if props.is_empty():props=JSON.parse_string(FileAccess.get_file_as_string("res://assets/plains_v07/manifest.json")).props
 	name="RegionalArt"
 	depth_reference=Vector2(FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size.x*.5,room.start_point.y-100)
+	var interior:=room.interior_material()
 	for hazard: Rect2 in room.hazards:
-		for x: float in range(int(hazard.position.x),int(hazard.end.x),96):sprite("windchime_plains_hazard",Vector2(x+48,hazard.end.y),1)
-	var interior: String={"mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(room.art_profile,"")
+		for x: float in range(int(hazard.position.x),int(hazard.end.x),96):sprite("windchime_plains_hazard" if interior.is_empty() else "gear_city_hazard",Vector2(x+48,hazard.end.y),1)
 	if not interior.is_empty():
 		var wall:=Sprite2D.new();wall.texture=load("res://assets/plains_v07/native/interior_"+interior+".png");wall.centered=false;wall.region_enabled=true;wall.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
 		wall.region_rect=Rect2(Vector2.ZERO,FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size+Vector2(1024,512));wall.position=Vector2(-512,-256);wall.z_index=-40;wall.modulate=Color(.8,.86,.95);add_child(wall)

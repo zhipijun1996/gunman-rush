@@ -9,6 +9,7 @@
     "story-traces-generated.png": "a819edf775b6eda75d6931c79bd498fd9f004d65563829b2b06b9598fa378685",
     "collectibles-generated.png": "39012315b9d73c1c29fb0b144f9d324679989ce98b6dcde67a0709223365d88d",
     "props-generated.png": "fccdc8e90851e97d6fe8217382fb0c9a253978af4b890fae873cd1ddfb2e1523",
+    "mill-drive-generated.png": "42bd2ec13d55ec1d3f54c02e1babad05626de8e836fffc3b868d132f7bf86c58",
     "inhabitants-generated.png": "081dbf9a2ff5f1163b64a266b82d9848986b3ea23bb9a56e0d8dbe3d5a684c32",
     "mechanisms-generated.png": "e12df1bc1177034ce55e0fa5f5b6439d554f8f9d93fb672f6f504ac2602c3daa",
     "orchard-arches-generated.png": "9bc560d30550d6d5e606b27e09f6ba7635e2e4bc40fa7df7d4b295545d5ac0e9",
@@ -1327,13 +1328,61 @@
       ],
       "alpha_threshold": 128,
       "size": [
-        459,
-        260
+        600,
+        340
       ],
-      "bake_scale": 0.47165532879818595,
-      "surface_height": 208,
+      "bake_scale": 0.6167800453514739,
+      "surface_height": 272,
       "generation": "assets/plains_v07/source/orchard-arches-generation.json",
-      "sha256": "259f2bae658f929e86bda03cf600c62c173f2997096faa8d16ad80e67192d7d3"
+      "sha256": "50cfa0c7cfd2706aad6ce0d81cd3a6dcc0dbcb17f6498bb32001cbdd31e81f77"
+    },
+    "mill_gear": {
+      "image": "assets/plains_v07/native/mill_gear.png",
+      "source": "assets/plains_v07/source/mill-drive-generated.png",
+      "source_rect": [
+        0,
+        0,
+        800,
+        1024
+      ],
+      "alpha_crop": [
+        68,
+        157,
+        768,
+        866
+      ],
+      "alpha_threshold": 128,
+      "size": [
+        71,
+        72
+      ],
+      "bake_scale": 0.10155148095909731,
+      "generation": "assets/plains_v07/source/mill-drive-generation.json",
+      "sha256": "e892ec692dcf0a875b70e0c15d7b3dd353074b48002919325286e8ce3ad04043"
+    },
+    "mill_drive_frame": {
+      "image": "assets/plains_v07/native/mill_drive_frame.png",
+      "source": "assets/plains_v07/source/mill-drive-generated.png",
+      "source_rect": [
+        800,
+        0,
+        1536,
+        1024
+      ],
+      "alpha_crop": [
+        54,
+        78,
+        697,
+        944
+      ],
+      "alpha_threshold": 128,
+      "size": [
+        238,
+        320
+      ],
+      "bake_scale": 0.3695150115473441,
+      "generation": "assets/plains_v07/source/mill-drive-generation.json",
+      "sha256": "ce7080779d322539fd8e63a7656de85fb15efb0908b43c9304153ec0159fa705"
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

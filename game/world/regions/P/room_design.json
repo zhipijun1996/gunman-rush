@@ -113,6 +113,10 @@
         {
           "id": "P-R04:encounter:02",
           "behavior": "charger"
+        },
+        {
+          "id": "P-R04:encounter:03",
+          "behavior": "charger"
         }
       ],
       "interactions": [
@@ -122,9 +126,9 @@
         }
       ],
       "experience": {
-        "player_decision": "短反冲越垄，或下到旧桥下观察铜光，再回主路。",
-        "visual_read": "断桥墩与倒桶说明塌陷，齿轮位于可观察的低处。",
-        "pressure": "巡逻先教普通射击，后方冲锋怪教读预警与换边。",
+        "player_decision": "从东侧低口沿田路向西看清断垄与巡逻，回身反冲登上断桥肩，再沿上层穿过石挡、地刺和冲锋守望到果园；桥下铜齿保留轻量观察偏路。",
+        "visual_read": "上层旧桥和下层田路折返相望，石挡与地刺打断长直跑；桥下低台保留露铜线索。",
+        "pressure": "下层沟边冲锋与田路巡逻要求换位；上层石挡先改变射线，再从安全地面处理守望冲锋与刺床，压力分段出现。",
         "failure_recovery": "失手回桥下低台；局部危险两侧有实际到访重试点。",
         "return_visit": "去果园的高口和来旧路肩的低口在不同高度。"
       },
@@ -158,13 +162,14 @@
       "experience": {
         "player_decision": "Boss 重试走稳定下路；额外尝试慢吊台到齿轮岸。",
         "visual_read": "传动轮与两台慢平台指向齿轮岸，右侧石壁围出独立返程落槽；主路与收集路上下分区。",
-        "pressure": "可选平台段不叠远程怪；等待与起跳时机是压力。",
+        "pressure": "首台与裸齿轮同周期传动；在承载左侧看清扫过走廊，选齿轮下行让出的窗口反冲离台。检修台落稳后转乘第二台，下层Boss重试路不受齿轮侵入。",
         "failure_recovery": "可选吊台失误落回低地重试；齿轮侧开启狭窄落口，沿独立竖槽单向落到回岔路的主路，不能从下方提前登上奖励岸。",
         "return_visit": "从本侧开回岔路的桥，缩短牧风者重试。"
       },
       "art_focal_assets": [
-        "windchime_plains_v2_bell_wheel",
-        "bridge_pier"
+        "mill_drive_frame",
+        "mill_gear",
+        "gear_lamp"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -182,14 +187,18 @@
         {
           "id": "P-R06:encounter:01",
           "behavior": "patrol"
+        },
+        {
+          "id": "P-R06:encounter:02",
+          "behavior": "patrol"
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "读三层西口：旧路可通，慢风回桥与钟庭回闸从另一侧开启。",
-        "visual_read": "中央拱架、路标与不同高度的门形成方向记忆。",
-        "pressure": "一只巡逻怪不跨房追击；高层零件是可选绕行。",
-        "failure_recovery": "下行井口设可下穿木板，失误可回同房地面。",
+        "player_decision": "在井口侧岸辨认三层西口；沿错层石挡与短梯穿过巡逻，回桥/回闸开启后可选直接进入中上层。",
+        "visual_read": "下井只留小缺口；两段厚石台区分地面去田垄与上层回桥，路标各有实际落脚。",
+        "pressure": "地面巡逻压近时可翻过低石挡或上肩台换位，中层宽台另有一只守望巡逻，井口落脚与门口不受覆盖。",
+        "failure_recovery": "下行开口落在实际右岸，失误回井口侧岸或同层地面；不横放接人板。",
         "return_visit": "开启回桥与回闸后，看见走过的路线缩短。"
       },
       "art_focal_assets": [
@@ -258,7 +267,7 @@
         "return_visit": "吊台停靠相位保存，旧回廊联通小站与铃场。"
       },
       "art_focal_assets": [
-        "sunken_well",
+        "gear_city_v2_pipe_junction",
         "hanging_chime"
       ],
       "feedback": {
@@ -318,8 +327,8 @@
         "return_visit": "通向外沿廊和单入口回铃栈；奖励返程不改宏观连接。"
       },
       "art_focal_assets": [
-        "windmill_frame",
-        "windchime_plains_v2_bell_wheel",
+        "mill_drive_frame",
+        "gear_city_v2_valve_panel",
         "barrel"
       ],
       "feedback": {
@@ -414,9 +423,9 @@
       ],
       "experience": {
         "player_decision": "低路去田垄；愿意探索则从肩台反冲到收藏高台。",
-        "visual_read": "断墩托住旧肩路，奖励台单独可见。",
-        "pressure": "低路巡逻可越过换边；高台不叠怪压精确落地。",
-        "failure_recovery": "下行口的可下穿木板减少误掉；高台失手落回低路。",
+        "visual_read": "断墩与低顶分出主路、反冲支路和领奖侧；下行小缺口旁是实际低岸，奖励从两侧来向均能看见。",
+        "pressure": "地面巡逻争夺肩台；支路利用低顶限制抬头射向并在高台外保留观察和落稳空间，奖励侧不堆怪。",
+        "failure_recovery": "支路失手回主路或井口侧岸；收集侧开启折梯短返，低层不能提前借梯绕过。",
         "return_visit": "原门回草坡；奖励侧折梯只在实际打开后保留。"
       },
       "art_focal_assets": [
@@ -518,7 +527,7 @@
         "return_visit": "可选巡游机胜后仍能返回这个整备点。"
       },
       "art_focal_assets": [
-        "windmill_frame",
+        "mill_drive_frame",
         "storage_crates",
         "barrel"
       ],
@@ -550,7 +559,7 @@
       },
       "art_focal_assets": [
         "barrel",
-        "windchime_plains_v2_bell_wheel"
+        "gear_city_v2_valve_panel"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -789,7 +798,7 @@
       "experience": {
         "player_decision": "在果圃低路面对冲锋，或登上两段挂铃旧拱台用反冲越敌换边；两路在风车前重新汇合。",
         "visual_read": "两座盘根挂铃树拱托住上层短路，根间低路可穿行；枝上落脚和地面遭遇同时可读。",
-        "pressure": "下路冲锋和东段俯冲错开；上路短落点与射向选择，不以荆棘封死较稳的低路。",
+        "pressure": "上层两次反冲跨距排除满跳和晚起跳绕过；低层冲锋与一段可见地刺迫使选择清怪、短跳或改走树台，东侧俯冲争夺落点。",
         "failure_recovery": "上路失误落回果圃低路，仍可应对遭遇并继续；清怪后可重新登上高台。",
         "return_visit": "清怪后路仍完整，换边操作不依赖一次性敌人。"
       },
@@ -810,23 +819,19 @@
       "purpose": "西吊架送至断裂检修台，向右上反冲落稳，再转乘东吊架向左上接出口。",
       "profile": "mill",
       "scene": "res://game/world/regions/P/rooms/P-R26.tscn",
-      "encounters": [
-        {
-          "id": "P-R26:encounter:01",
-          "behavior": "patrol"
-        }
-      ],
+      "encounters": [],
       "interactions": [],
       "experience": {
         "player_decision": "从安全底层看清铃与吊台关系，选择上升阶段起跳反冲至右侧检修台；落稳回枪后启东台，改变射向向上接出口。",
-        "visual_read": "两条斜向吊索、厚实检修台与断开的工作廊显出往返运输用途；铜铃各自连到所属承载。",
-        "pressure": "承载相位与换台反冲；精密动作区无额外敌人。",
+        "visual_read": "室内梁架与传动轴支撑两条吊索，砌体检修台、阀门板和灯芯构成等待位；齿轮横轨在中层可见，铜铃各连到所属承载。",
+        "pressure": "西吊架收窄横向行程，平台边缘及顶端满跳仍需反冲补足横跨；东吊架旁横向传动齿轮要求观察扫过区和登台时机，检修台提供等待位。",
         "failure_recovery": "第一处失误回到无伤害底层，重搭循环承载；第二处可落回吊台或中层/底层支撑，仍需完成向上接续。低层不能直接通到上出口。",
         "return_visit": "吊台运行/停靠相位按正式状态保留；从上层可逐段下降，重入仍能用铃恢复运行。"
       },
       "art_focal_assets": [
-        "windmill_frame",
-        "windchime_plains_v2_bell_wheel"
+        "mill_drive_frame",
+        "gear_lamp",
+        "mill_gear"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -950,7 +955,7 @@
         "return_visit": "TG03 仍是原唯一奖励，领取和开梯分开。"
       },
       "art_focal_assets": [
-        "sunken_well",
+        "gear_city_v2_pipe_junction",
         "hanging_chime"
       ],
       "feedback": {

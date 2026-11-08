@@ -61,7 +61,7 @@ for source,entries,columns,rows in [
   props[name]={'image':str(dest.relative_to(ROOT)),'source':'assets/plains_v07/source/'+source,'source_rect':[x,y,cw,ch],'size':list(native.size),'bake_scale':factor,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
 # Authored orchard surfaces: keep uniform source scaling and a measured top/base gap.
 image=Image.open(BASE/'source/orchard-arches-generated.png').convert('RGBA')
-for i,(name,surface_height) in enumerate([('orchard_arch_west',192),('orchard_arch_east',208)]):
+for i,(name,surface_height) in enumerate([('orchard_arch_west',192),('orchard_arch_east',272)]):
  x=i*1024;tile=image.crop((x,0,x+1024,768))
  alpha=tile.getchannel('A').point(lambda a:255 if a>=128 else 0);tile.putalpha(alpha)
  bounds=alpha.getbbox();crop=tile.crop(bounds);factor=surface_height/(656-215)
@@ -69,6 +69,14 @@ for i,(name,surface_height) in enumerate([('orchard_arch_west',192),('orchard_ar
  clean=Image.new('RGBA',native.size);clean.paste(native,mask=native.getchannel('A'));native=clean
  dest=BASE/'native'/(name+'.png');native.save(dest)
  props[name]={'image':str(dest.relative_to(ROOT)),'source':'assets/plains_v07/source/orchard-arches-generated.png','source_rect':[x,0,1024,768],'alpha_crop':list(bounds),'alpha_threshold':128,'size':list(native.size),'bake_scale':factor,'surface_height':surface_height,'generation':'assets/plains_v07/source/orchard-arches-generation.json','sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
+# Independent interior machinery, generated as isolated sprites, mechanically baked.
+image=Image.open(BASE/'source/mill-drive-generated.png').convert('RGBA')
+for name,box,height in [('mill_gear',[0,0,800,1024],72),('mill_drive_frame',[800,0,1536,1024],320)]:
+ tile=image.crop(box);alpha=tile.getchannel('A').point(lambda a:255 if a>=128 else 0);tile.putalpha(alpha)
+ bounds=alpha.getbbox();crop=tile.crop(bounds);factor=height/crop.height
+ native=crop.resize((round(crop.width*factor),height),Image.Resampling.NEAREST)
+ dest=BASE/'native'/(name+'.png');native.save(dest)
+ props[name]={'image':str(dest.relative_to(ROOT)),'source':'assets/plains_v07/source/mill-drive-generated.png','source_rect':box,'alpha_crop':list(bounds),'alpha_threshold':128,'size':list(native.size),'bake_scale':factor,'generation':'assets/plains_v07/source/mill-drive-generation.json','sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
 # Repack the pack's native masonry pixels into the existing exact-boundary recipe.
 family=json.loads((ROOT/'art/world-art-v2/assets/terrain47/manifest.json').read_text())['regions']['gear_city']
 source_path=ROOT/'art/world-art-v2'/family['atlas'];masonry=Image.open(source_path).convert('RGBA')

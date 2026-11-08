@@ -67,10 +67,19 @@ func run(owner: FixedWorldApp) -> bool:
 	checkpoint="west_transfer"
 	for _i: int in 420:
 		await ticks(1)
+		var dx:=west.position.x+60-app.player.position.x
+		axis(signf(dx) if absf(dx)>3 else 0)
 		if west.position.y<west_departure_y:break
 	if not await transfer(Vector2(1040,686),Vector2(-.8,.6)):return false
 	checkpoint="east_board"
 	if not await walk_to(1184,686):return false
+	var gear:=app.room.get_node("shaft_gear") as WorldGearObstacle
+	var previous_x:=gear.wheel.position.x
+	for _i: int in 600:
+		await ticks(1)
+		var x:=gear.wheel.position.x
+		if x<940 and x<previous_x:break
+		previous_x=x
 	if not await shoot_bell("P-R26:carrier_east"):return false
 	var east:=app.room.get_node("Carrier1") as WorldMovingPlatform
 	if not await board(east):print("MILL BOARD EAST FAILED ",app.player.position," ",east.position);return false

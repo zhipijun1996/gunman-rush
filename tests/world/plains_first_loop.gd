@@ -1,6 +1,36 @@
 extends "res://tests/world/plains_gates.gd"
 ## Continuous new game → west circuit → earned H → clock → station. No fixture grants.
 var expected_final_cycle:=4
+func full_jump(at: Vector2,run_frames: int=0) -> Dictionary:
+	app.controller.router.set_source_axis(&"keyboard_mouse",signf(at.x-app.player.position.x))
+	await ticks(run_frames)
+	app.controller.router.set_jump_held(&"keyboard_mouse",true)
+	var furthest: float=app.player.position.x if app.player.position.y<=at.y else -INF
+	for i: int in 120:
+		await ticks(1)
+		if app.player.position.y<=at.y:furthest=maxf(furthest,app.player.position.x)
+		var dx:=at.x-app.player.position.x
+		app.controller.router.set_source_axis(&"keyboard_mouse",signf(dx) if absf(dx)>4 else 0)
+		if i>8 and app.player.is_on_floor():break
+	app.controller.router.clear("full_jump_landed")
+	print("FULL JUMP landed=",app.player.position," max_x_above_target=",furthest)
+	return {"landed":app.player.position,"furthest":furthest}
+
+func field_route() -> bool:
+	if not await path([Vector2(1840,462),Vector2(1408,622)],"P-R04"):return false
+	await clear_enemies()
+	if not await path([Vector2(1200,526),Vector2(1120,526)],"P-R04"):return false
+	await clear_enemies()
+	if not await walk(Vector2(736,526),"P-R04"):return false
+	await hop(Vector2(944,350),Vector2(-.4,1))
+	if absf(app.player.position.y-350)>8:return false
+	if not await path([Vector2(1024,350),Vector2(1168,238),Vector2(1296,238)],"P-R04"):return false
+	await full_jump(Vector2(1496,238))
+	if not await walk(Vector2(1504,238),"P-R04"):return false
+	await clear_enemies()
+	if not await walk(Vector2(1552,238),"P-R04"):return false
+	await full_jump(Vector2(1744,238))
+	return await path([Vector2(1920,238),Vector2(2042,238)],"P-R04")
 func route(points: Array,rid: String,target: String="") -> bool:
 	if app.room.room_id!=rid:check(false,"route expected "+rid+" got "+app.room.room_id);return false
 	if not await path(points,rid):check(false,"continuous path "+rid);return false
@@ -18,10 +48,10 @@ func hop(at: Vector2,aim: Vector2) -> void:
 		app.controller.router.set_source_axis(&"keyboard_mouse",signf(dx) if absf(dx)>5 else 0)
 		if app.player.is_on_floor():break
 	app.controller.router.clear("hop_landed");print("HOP ",app.player.position)
-func clear_enemies() -> void:
+func clear_enemies(max_vertical: float=INF) -> void:
 	var hold_x:=app.player.position.x
 	for actor: EnemyActor in app.room.enemies.values():
-		if actor.motor.position.distance_to(app.player.position)>500:continue
+		if actor.motor.position.distance_to(app.player.position)>500 or absf(actor.motor.position.y-app.player.position.y)>max_vertical:continue
 		for i: int in 240:
 			await physics_frame
 			if actor.health.terminal or app.busy:break
@@ -51,17 +81,23 @@ func run() -> void:
 	print("TOP ",app.player.position," lift=",lift.position)
 	await hop(Vector2(672,142),Vector2(1,.2))
 	if not await route([Vector2(592,142),Vector2(512,-18)],"P-R08","P-R06"):await done();return
-	await hop(Vector2(640,878),Vector2(1,.2));await clear_enemies()
+	await clear_enemies(112)
+	await hop(Vector2(640,878),Vector2(1,.2))
+	if not await route([Vector2(600,878)],"P-R06"):await done();return
+	await full_jump(Vector2(368,878))
 	if not await route([Vector2(6,878)],"P-R06","P-R13"):await done();return
 	if not await route([Vector2(1120,750),Vector2(944,798)],"P-R13"):await done();return
+	await clear_enemies(112)
 	await hop(Vector2(672,750),Vector2(1,.2))
-	await hop(Vector2(448,750),Vector2(1,.1));await clear_enemies()
+	if not await route([Vector2(600,750)],"P-R13"):await done();return
+	await clear_enemies(96)
 	if not await route([Vector2(6,750)],"P-R13","P-R04"):await done();return
-	if not await route([Vector2(1840,390),Vector2(1664,318),Vector2(1840,238),Vector2(1920,238),Vector2(2042,238)],"P-R04","P-R25"):await done();return
+	if not await field_route():check(false,"folded field with recoil shoulder, barricade and thorn encounter");await done();return
+	await settle();check(app.room.room_id=="P-R25","field actual upper exit to orchard")
 	if not await route([Vector2(432,782),Vector2(576,878)],"P-R25"):await done();return
 	await clear_enemies()
-	if not await route([Vector2(912,878)],"P-R25"):await done();return
-	await hop(Vector2(1200,878),Vector2(-1,.1));await clear_enemies()
+	if not await route([Vector2(1024,878)],"P-R25"):await done();return
+	await hop(Vector2(1232,878),Vector2(-1,.1))
 	if not await route([Vector2(1680,782),Vector2(1904,878),Vector2(2042,878)],"P-R25","P-R26"):await done();return
 	var mill_route:=preload("res://tests/world/plains_mill_route.gd").new()
 	if not await mill_route.run(app):check(false,"mill physical route "+mill_route.checkpoint);await done();return
