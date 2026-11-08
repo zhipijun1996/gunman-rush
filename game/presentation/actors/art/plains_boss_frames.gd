@@ -2,6 +2,9 @@ class_name PlainsBossFrames
 extends RefCounted
 ## Pure frame selection. Encounter state, accepted hit age and death own time.
 const SHEETS := {
+	&"windkeeper_phase1_turn": "res://assets/plains_actors_142/atlases/windkeeper_phase1_turn.tres",
+	&"windkeeper_phase2_turn": "res://assets/plains_actors_142/atlases/windkeeper_phase2_turn.tres",
+	&"bellstrider_turn": "res://assets/plains_actors_142/atlases/bellstrider_turn.tres",
 	&"bellstrider_flow": "res://assets/plains_actors_142/atlases/bellstrider_flow.tres",
 	&"bellstrider_lob_flow": "res://assets/plains_actors_142/atlases/bellstrider_lob_flow.tres",
 	&"bellstrider_ring_flow": "res://assets/plains_actors_142/atlases/bellstrider_ring_flow.tres",
@@ -99,13 +102,19 @@ static func sample(kind: StringName, data: Dictionary, cache: Dictionary) -> Dic
 		# Finish the physical settling movement, then hold the final readable
 		# pose for the remainder of the combat recovery window.
 		if clip==&"recovery": progress=clampf(age/minf(duration,.72),0,1)
+	var facing := -1.0 if float(data.get("direction", 1)) < 0 else 1.0
+	if mode in [&"turn", &"combo_turn"]:
+		sheet = base + "_turn"
+		clip = &"turn"
+		progress = clampf(age / duration, 0, 1)
+		facing = float(data.get("turn_from", data.get("direction", 1)))
 	if cache.get("@family", "") != base:
 		cache.clear()
 		cache["@family"] = base
 	if not cache.has(sheet): cache[sheet] = load(SHEETS[StringName(sheet)])
 	var animation: PlainsActorAnimation = cache[sheet]
 	return {"animation": animation, "sheet": sheet, "clip": clip, "progress": progress,
-		"origin": Vector2(0, 65), "face": -1.0 if float(data.get("direction", 1)) < 0 else 1.0}
+		"origin": Vector2(0, 65), "face": facing}
 
 static func core_transform(frame: Dictionary) -> Transform2D:
 	var animation: PlainsActorAnimation = frame.animation

@@ -28,6 +28,10 @@ var _recovery_from: StringName = &"observe"
 var _transition_from: Dictionary = {}
 var _transition_prepared := false
 var _launcher_aim := -0.82
+var _turn_from := 1
+var _turn_target := 1
+var _turn_resume: StringName = &"observe"
+var _turn_resume_duration := 0.0
 var _hull_rig_ready := false
 var _armour_wheels: Array[CollisionShape2D] = []
 var _contact_actor_box := RectangleShape2D.new()
@@ -185,7 +189,8 @@ func _rig_inputs() -> Dictionary:
 		"death_duration": _config().death_seconds if _config() != null else 1.8,
 		"transition_from": _transition_from,
 		"recovery_from": _recovery_from,
-		"launcher_aim": _launcher_aim
+		"launcher_aim": _launcher_aim,
+		"turn_from": _turn_from, "turn_target": _turn_target
 	}
 
 
@@ -277,15 +282,22 @@ func _capture_transition() -> void:
 	_transition_prepared = true
 
 
+func _face_then(next: StringName, duration: float, facing: int, turning: StringName = &"turn") -> void:
+	if facing == direction:
+		_enter(next, duration)
+		return
+	motor.stop()
+	_turn_from = direction
+	_turn_target = facing
+	_turn_resume = next
+	_turn_resume_duration = duration
+	_enter(turning, _config().combo_turn_seconds)
+
+
 func _enter(next: StringName, duration: float) -> void:
 	if not _transition_prepared:
 		_capture_transition()
 	_transition_prepared = false
-	if next == &"lob_aim" and is_instance_valid(_target):
-		# The approved carriage has a REAR mortar. Present that end toward the
-		# target before aiming, keeping the real muzzle on the near side of the
-		# hull and preserving the existing short, shelf-clearing ballistic arc.
-		direction = -1 if _target.global_position.x >= motor.global_position.x else 1
 	if not _state_history.is_empty():
 		_state_history[-1]["end"] = _fight_age
 	super._enter(next, duration)
@@ -309,7 +321,7 @@ func _enter(next: StringName, duration: float) -> void:
 			_event(&"bellstrider_roll_start")
 		&"combo_brake":
 			_event(&"bellstrider_brake", {"final": false})
-		&"combo_turn":
+		&"turn", &"combo_turn":
 			_event(&"bellstrider_turn")
 		&"lob_aim":
 			_event(&"bellstrider_lob_aim")
@@ -338,7 +350,7 @@ func physics_tick(delta: float) -> void:
 	clock -= delta
 	if stage_phase == 1 and health.current <= health.capacity * _config().phase_two_health:
 		_phase_pending = true
-	if _phase_pending and mode == &"approach" and _group.is_empty():
+	if _phase_pending and mode in [&"approach", &"turn"] and _group.is_empty():
 		_start_phase_two()
 	if _target.global_position.distance_to(_camp_anchor) > _config().camping_radius:
 		_camp_anchor = _target.global_position
@@ -398,13 +410,12 @@ func physics_tick(delta: float) -> void:
 					_cool_down()
 		&"combo_brake":
 			if clock <= 0.0:
-				_capture_transition()
-				direction *= -1
 				_group["roll_index"] = 1
-				_enter(&"combo_turn", _config().combo_turn_seconds)
-		&"combo_turn":
+				_face_then(&"combo_warning", _config().combo_warning_seconds, -direction, &"combo_turn")
+		&"turn", &"combo_turn":
 			if clock <= 0.0:
-				_enter(&"combo_warning", _config().combo_warning_seconds)
+				direction = _turn_target
+				_enter(_turn_resume, _turn_resume_duration)
 		&"ring_warning":
 			if clock <= 0.0:
 				_ring_pair()
@@ -438,7 +449,7 @@ func physics_tick(delta: float) -> void:
 		&"lob":
 			if clock <= 0.0:
 				if volley < int(_group.get("count", 1)):
-					_enter(&"lob_aim", _config().lob_aim_seconds)
+					_face_then(&"lob_aim", _config().lob_aim_seconds, -1 if _target.global_position.x >= motor.global_position.x else 1)
 				else:
 					_cool_down()
 		&"neck":
@@ -518,9 +529,8 @@ func _select_group() -> void:
 	# Close the distance before choosing a committed attack, regardless of which
 	# random group will follow. This prelude never spends RNG or an attack group.
 	if absf(_target.global_position.x - motor.global_position.x) > _config().approach_distance:
-		_capture_transition()
-		direction = 1 if _target.global_position.x >= motor.global_position.x else -1
-		_enter(&"approach", _config().approach_seconds)
+		var facing := 1 if _target.global_position.x >= motor.global_position.x else -1
+		_face_then(&"approach", _config().approach_seconds, facing)
 		return
 	var weights := selection_weights()
 	var total := float(weights[&"roll"]) + float(weights[&"ring"]) + float(weights[&"lob"])
@@ -531,13 +541,12 @@ func _select_group() -> void:
 		if pick < 0.0:
 			chosen = kind
 			break
-	_capture_transition()
-	direction = 1 if _target.global_position.x >= motor.global_position.x else -1
+	var facing := 1 if _target.global_position.x >= motor.global_position.x else -1
 	# Every random group property is fixed before any attack warning starts.
 	_group = {
 		"kind": chosen,
 		"phase": stage_phase,
-		"direction": direction,
+		"direction": facing,
 		"return_roll":
 		chosen == &"roll" and stage_phase == 2 and _rng.randf() < _config().return_roll_chance,
 		# Every random group property is fixed before any attack warning starts.
@@ -559,12 +568,12 @@ func _start_group_warning() -> void:
 	motor.stop()
 	match StringName(_group.get("kind", &"roll")):
 		&"roll":
-			_enter(&"roll_warning", _config().roll_warning_seconds)
+			_face_then(&"roll_warning", _config().roll_warning_seconds, int(_group.direction))
 		&"ring":
-			_enter(&"ring_warning", _config().ring_warning_seconds)
+			_face_then(&"ring_warning", _config().ring_warning_seconds, int(_group.direction))
 		&"lob":
 			locked_point = _landing_for_target()
-			_enter(&"lob_aim", _config().lob_aim_seconds)
+			_face_then(&"lob_aim", _config().lob_aim_seconds, -1 if _target.global_position.x >= motor.global_position.x else 1)
 
 
 func _cool_down() -> void:
@@ -876,6 +885,8 @@ func combat_snapshot() -> Dictionary:
 			"groups_completed": _groups_completed,
 			"recovery_from": String(_recovery_from),
 			"launcher_aim": _launcher_aim,
+			"turn_from": _turn_from, "turn_target": _turn_target,
+			"turn_resume": String(_turn_resume), "turn_resume_duration": _turn_resume_duration,
 			"transition_from": _transition_snapshot()
 		},
 		true
@@ -921,6 +932,10 @@ func restore_combat_state(data: Dictionary) -> void:
 	_groups_completed = int(data.get("groups_completed", 0))
 	_recovery_from = StringName(data.get("recovery_from", &"roll"))
 	_launcher_aim = float(data.get("launcher_aim", -.82))
+	_turn_from = int(data.get("turn_from", direction))
+	_turn_target = int(data.get("turn_target", direction))
+	_turn_resume = StringName(data.get("turn_resume", "observe"))
+	_turn_resume_duration = float(data.get("turn_resume_duration", _config().observe_seconds))
 	_restore_transition(data.get("transition_from", {}))
 	_transition_prepared = false
 	if mode == &"dead" or health.terminal:

@@ -22,6 +22,7 @@ var _lunge_start := Vector2.ZERO
 var _lunge_distance := 0.0
 var _lunge_distance_done := 0.0
 var _release_sent := false
+var _gust_volleys := 0
 var _pending_phase := 1
 var _groups_started := 0
 var _groups_completed := 0
@@ -167,6 +168,10 @@ func physics_tick(delta: float) -> void:
 			_advance_lunge(delta)
 		&"gust":
 			_apply_wind(delta)
+			# The windmill's two advertised volleys share the committed target.
+			if stage_phase >= 2 and _gust_volleys < _config().gust_volley_fractions.size() and _state_age >= _state_duration * _config().gust_volley_fractions[_gust_volleys]:
+				_gust_volleys += 1
+				_release_seeds()
 			if clock <= 0: _finish_attack()
 		&"stomp", &"platform":
 			if not _release_sent and _state_age >= _state_duration * .55:
@@ -200,6 +205,7 @@ func _enter(next: StringName, duration: float) -> void:
 	_motion_age = 0
 	core_open = next == &"recover"
 	_release_sent = false
+	_gust_volleys = 0
 	objective_changed.emit(objective())
 	_event(&"windkeeper_state", {"state": next})
 
@@ -227,9 +233,9 @@ func _selection_candidates() -> Array[Dictionary]:
 			{"attacks": [&"seeds"], "weight": 1.6 if elevated or camping else .4}]
 	elif stage_phase == 2:
 		candidates = [
-			{"attacks": [&"gust", &"sweep"], "weight": 2.8},
+			{"attacks": [&"gust", &"seeds"], "weight": 4.2 if dx > 190 or elevated else 2.8},
 			{"attacks": [&"lunge", &"sweep"], "weight": 3.2 if dx > 220 else 1.2},
-			{"attacks": [&"sweep", &"seeds"], "weight": 3.4 if elevated or camping else 2.0},
+			{"attacks": [&"sweep", &"gust"], "weight": 2.4 if elevated or camping else 2.0},
 			{"attacks": [&"stomp", &"seeds"], "weight": 1.1},
 			{"attacks": [&"stomp", &"stomp"], "weight": .7}]
 	else:
@@ -297,8 +303,10 @@ func _approach(delta: float) -> void:
 	var attacks: Array = _group_plan.get("attacks", [])
 	var wants_platform: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"platform"
 	var wants_sweep: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"sweep"
-	var desired := _config().sweep_approach_range if wants_sweep else 160.0 if wants_platform else _config().approach_range
+	var wants_stomp: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"stomp"
+	var desired := _config().sweep_approach_range if wants_sweep else _config().close_range if wants_stomp else 160.0 if wants_platform else _config().approach_range
 	if absf(dx) < desired or clock <= 0:
+		_guarded_attack_index = _attack_index
 		motor.stop()
 		_begin_attack()
 		return
@@ -329,7 +337,8 @@ func _begin_attack() -> void:
 	foot_index = _attack_index % 2
 	# The real leaf cannot reach a ground actor from the generic ranged
 	# distance. Close physically before its warning, keeping the chosen group.
-	if attack == &"sweep" and absf(dx) > _config().sweep_approach_range + 4.0 and _guarded_attack_index != _attack_index:
+	var melee_range := _config().sweep_approach_range if attack == &"sweep" else _config().close_range
+	if attack in [&"sweep", &"stomp"] and absf(dx) > melee_range + 4.0 and _guarded_attack_index != _attack_index:
 		_enter(&"approach", _config().approach_bound_seconds)
 		return
 	if attack == &"platform":
@@ -465,6 +474,8 @@ func _configure_attack(shot: BossProjectile, label: StringName, aim: Vector2) ->
 func _release_seeds() -> void:
 	var pose := rig_pose()
 	var origin: Vector2 = motor.to_global(pose.get("seed_origin", (pose.core_transform as Transform2D).origin))
+	if mode == &"gust" and stage_phase >= 2:
+		origin = motor.to_global(PlainsBossEffects.windmill_origin(pose.authored))
 	var aim := (locked_target - origin).normalized()
 	if aim.length_squared() < .001: aim = Vector2(locked_direction, 0)
 	for offset: float in [-_config().seed_spread, 0.0, _config().seed_spread]:
@@ -801,7 +812,7 @@ func combat_snapshot() -> Dictionary:
 		"groups_started": _groups_started, "groups_completed": _groups_completed,
 		"accepted_hits": _accepted_hits, "accepted_damage": _accepted_damage,
 		"locked_target": [locked_target.x, locked_target.y], "locked_direction": locked_direction,
-		"sweep_high": sweep_high, "foot_index": foot_index, "release_sent": _release_sent,
+		"sweep_high": sweep_high, "foot_index": foot_index, "release_sent": _release_sent, "gust_volleys": _gust_volleys,
 		"lunge_start": [_lunge_start.x, _lunge_start.y], "lunge_distance": _lunge_distance,
 		"camp_age": _camp_age, "camp_origin": [_camp_origin.x, _camp_origin.y]}
 	return result
@@ -837,6 +848,7 @@ func restore_combat_state(data: Dictionary) -> void:
 	sweep_high = bool(saved.get("sweep_high", false))
 	foot_index = int(saved.get("foot_index", 0))
 	_release_sent = bool(saved.get("release_sent", false))
+	_gust_volleys = int(saved.get("gust_volleys", 0))
 	point = saved.get("lunge_start", [motor.global_position.x, motor.global_position.y])
 	_lunge_start = Vector2(point[0], point[1])
 	_lunge_distance = float(saved.get("lunge_distance", 0))

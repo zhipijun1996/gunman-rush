@@ -20,7 +20,12 @@ func _ready() -> void:
 	hit_template = EnemyHitTemplate.install_boss(encounter,self)
 	encounter.health.changed.connect(_health_changed)
 	encounter.armour_hit.connect(_armour_hit)
+	encounter.presentation_event.connect(_attack_effect)
 
+
+func _attack_effect(event: Dictionary) -> void:
+	if event.get("event",&"") in [&"windkeeper_stomp_strike",&"windkeeper_platform_impact",&"windkeeper_lunge_land"]:
+		PlainsBossEffects.spawn(encounter.motor.get_parent(),encounter,event.get("point",encounter.motor.global_position+Vector2(0,65)),&"wind",2,.32,Vector2(1.6,.8))
 
 func _health_changed(result: ActorResourceResult) -> void:
 	if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED:
@@ -45,6 +50,9 @@ func _draw() -> void:
 	var pose: Dictionary = encounter.call("rig_pose")
 	if not pose.has("authored"): return
 	PlainsBossFrames.draw(self, pose.authored)
+	if encounter is WindkeeperPressureEncounter and encounter.mode == &"gust" and encounter.stage_phase >= 2:
+		var pressure := encounter as WindkeeperPressureEncounter
+		PlainsBossEffects.paint_gust(self,pose.authored,pressure._state_age,pressure._config().wind_pressure_range,pressure.locked_direction)
 	(material as ShaderMaterial).set_shader_parameter("hit_flash", hit_template.sample.flash_strength())
 	# The short ivory cutting trail follows the physical blade exactly; the
 	# authored forelimb supplies the body action, this is the active edge cue.

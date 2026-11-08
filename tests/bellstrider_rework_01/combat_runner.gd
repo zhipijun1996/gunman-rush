@@ -108,7 +108,9 @@ func high_arc_case(side: int, elevated: bool) -> void:
 	encounter.direction = side
 	encounter._group = {"kind": &"lob", "phase": 1, "return_roll": false, "count": 1}
 	encounter.volley = 0
-	encounter._enter(&"lob_aim", config.lob_aim_seconds)
+	encounter._face_then(&"lob_aim", config.lob_aim_seconds, -side)
+	check(encounter.mode == &"turn" and encounter.direction == side,"rear cannon first turns through physical facing poses")
+	encounter.physics_tick(config.combo_turn_seconds + .001)
 	var aim_started := encounter._fight_age
 	encounter.physics_tick(config.lob_aim_seconds - .02)
 	encounter.physics_tick(.03)
@@ -260,6 +262,8 @@ func far_approach_case() -> void:
 	var rng := str(encounter.combat_snapshot().rng_state)
 	var start := boss.position.x
 	encounter._select_group()
+	check(encounter.mode == &"turn" and boss.position.x == start,"far chase first turns without translating or snapping facing")
+	encounter.physics_tick(config.combo_turn_seconds + .001)
 	check(
 		(
 			encounter.mode == &"approach"
@@ -503,8 +507,8 @@ func run() -> void:
 	check(
 		(
 			definition.chase_speed == 180
-			and definition.charge_speed == 380
-			and definition.phase_two_charge_speed == 420
+			and definition.charge_speed == 600
+			and definition.phase_two_charge_speed == 680
 			and definition.ring_speed == 280
 		),
 		"actual resource owns movement and wave speeds"

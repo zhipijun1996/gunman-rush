@@ -9,12 +9,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 BASE = ROOT / 'build/plains_actors_142'
 OUT = BASE / 'mobile-combat'
-LABELS = {'patrol':'巡逻怪','charger':'冲锋怪','hopper':'跳跃怪','sentry':'哨兵','fan_sentry':'扇射哨兵','root_bell':'根铃','diver':'俯冲怪 · 空中死亡落地','bell':'鸣铃巡游机','keeper':'牧风者一阶段','windmill':'牧风者二阶段'}
+LABELS = {'patrol':'巡逻怪','charger':'冲锋怪','hopper':'跳跃怪','sentry':'哨兵','fan_sentry':'扇射哨兵','root_bell':'根铃','diver':'俯冲怪 · 空中死亡落地','bell':'鸣铃巡游机 · 快速冲锋与转向','bell_wave':'鸣铃巡游机 · 地波与抛铃','keeper':'牧风者一阶段','windmill':'牧风者二阶段'}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--enemy-master', default='enemy-combat.avi')
+    parser.add_argument('--boss-master', default='combat-revision.avi')
+    parser.add_argument('--skip-enemies', action='store_true')
     parser.add_argument('--reuse-manifest', type=Path, help='Retain unchanged clips with their original source commit and hash')
     args = parser.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -22,7 +24,9 @@ def main():
     for row in manifest:
         assert row.get('source_commit') and (OUT/row['file']).is_file(), row
         assert hashlib.sha256((OUT/row['file']).read_bytes()).hexdigest() == row['sha256'], row['file']
-    for folder, master in [('enemy-combat',args.enemy_master),('combat','combat-revision.avi')]:
+    captures=[] if args.skip_enemies else [('enemy-combat',args.enemy_master)]
+    captures.append(('combat',args.boss_master))
+    for folder, master in captures:
         rows = json.loads((BASE / folder / 'timeline.json').read_text())
         for row in rows:
             name = row['scene']

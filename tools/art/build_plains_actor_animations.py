@@ -168,6 +168,40 @@ def bake_flow(name, spec, clean, rows):
     print(f'{name}: {len(frames)} frames, continuous endpoints, {len(registrations)} painted bridges')
 
 
+def bake_turn(name, spec, clean, rows):
+    out=ASSETS/'atlases';base=spec['turn_from']
+    meta=json.loads((out/f'{base}.json').read_text());cw,ch=meta['frame_size'];pivot=meta['pivot']
+    key=Image.open(out/f'{base}.png').convert('RGBA').crop((0,0,cw,ch))
+    box=key.getbbox();frames=[]
+    assert len(rows)==3
+    for top,bottom in rows:
+        strip=clean.crop((0,top,clean.width,bottom))
+        columns=bands(np.array(strip)[:,:,3].T>0)
+        assert len(columns)==3,(name,columns)
+        for left,right in columns:
+            cell=strip.crop((left,0,right,bottom-top));cell=cell.crop(cell.getbbox())
+            height=box[3]-box[1];width=min(cw-4,round(cell.width*height/cell.height))
+            cell=cell.resize((width,height),Image.Resampling.NEAREST)
+            f=Image.new('RGBA',(cw,ch));f.paste(cell,(round(pivot[0]-width/2),box[1]));frames.append(f)
+    frames[0]=key;frames[-1]=key.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+    atlas=Image.new('RGBA',(cw*9,ch))
+    for i,f in enumerate(frames):atlas.paste(f,(i*cw,0))
+    atlas.save(out/f'{name}.png')
+    points=[core_point(f,base,pivot) for f in frames]
+    points[0]=meta['core_points'][0]
+    points[-1]=[cw-1-(points[0][0]+pivot[0])-pivot[0],points[0][1]]
+    result=dict(frame_size=[cw,ch],pivot=pivot,columns=9,states=['turn'],reference=base,turn_from=base,core_points=points,reused_pose_count=2)
+    (out/f'{name}.json').write_text(json.dumps(result,indent=2)+'\n')
+    resource='[gd_resource type="Resource" script_class="PlainsActorAnimation" load_steps=3 format=3]\n'
+    resource+='[ext_resource type="Script" path="res://game/presentation/actors/art/plains_actor_animation.gd" id="1"]\n'
+    resource+=f'[ext_resource type="Texture2D" path="res://assets/plains_actors_142/atlases/{name}.png" id="2"]\n'
+    resource+='[resource]\nscript = ExtResource("1")\natlas = ExtResource("2")\n'
+    resource+=f'frame_size = Vector2i({cw}, {ch})\npivot = Vector2({pivot[0]}, {pivot[1]})\ncolumns = 9\nclips = Array[String](["turn"])\n'
+    resource+='core_points = PackedVector2Array('+', '.join(str(v) for pt in points for v in pt)+')\n'
+    (out/f'{name}.tres').write_text(resource)
+    print(f'{name}: nine facing poses, seven new volume turns, exact mirrored endpoints')
+
+
 def bake(name):
     source = ASSETS / 'source' / f'{name}.png'
     spec_path = source.with_suffix('.json')
@@ -182,6 +216,9 @@ def bake(name):
     raw[~mask] = 0
     clean = Image.fromarray(raw)
     rows = bands(mask)
+    if 'turn_from' in spec:
+        bake_turn(name,spec,clean,rows)
+        return
     states = spec.get('states', STATES)
     if len(rows) != len(states):
         raise ValueError(f'{name}: expected {len(states)} pose bands, found {rows}')

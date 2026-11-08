@@ -9,6 +9,7 @@ var hit_template: EnemyHitTemplate
 var motion := BossMotionPresentation.new()
 var _armour_point := Vector2(44, 8)
 var mortar: PlainsMortarArt
+var _dust_travel := 0.0
 
 
 func _ready() -> void:
@@ -21,6 +22,7 @@ func _ready() -> void:
 	hit_template = EnemyHitTemplate.install_boss(encounter, self)
 	motion.bind(encounter)
 	encounter.armour_hit.connect(_armour_impact)
+	encounter.presentation_event.connect(_attack_effect)
 	encounter.objective_changed.connect(_objective_changed)
 	var service := AUDIO.new()
 	service.name = "BellstriderAudio"
@@ -45,6 +47,7 @@ func synchronize_presentation() -> void:
 	if not is_instance_valid(encounter):
 		return
 	motion.synchronize(encounter)
+	_dust_travel = encounter._travel
 	_objective_changed("")
 	var service := get_node_or_null("BellstriderAudio") as BellstriderAudio
 	if service != null:
@@ -56,6 +59,9 @@ func _process(delta: float) -> void:
 	if get_tree().paused or not is_instance_valid(encounter):
 		return
 	motion.sample(encounter, delta)
+	if encounter.mode == &"roll" and encounter._travel - _dust_travel >= 40:
+		_dust_travel = encounter._travel
+		_wheel_dust(.8)
 	queue_redraw()
 
 
@@ -75,6 +81,15 @@ func _draw() -> void:
 	else:
 		(material as ShaderMaterial).set_shader_parameter("hit_flash", 0.0)
 
+
+func _wheel_dust(size: float) -> void:
+	var point := encounter.motor.global_position + Vector2(-encounter.direction * 90, 64)
+	var fx := PlainsBossEffects.spawn(encounter.motor.get_parent(),encounter,point,&"bell",3,.3,Vector2.ONE*size)
+	if fx != null: fx.facing = encounter.direction
+
+func _attack_effect(event: Dictionary) -> void:
+	if event.get("event",&"") in [&"bellstrider_roll_start",&"bellstrider_brake",&"bellstrider_turn"]:
+		_wheel_dust(1.4)
 
 func _armour_impact(point: Vector2) -> void:
 	if is_instance_valid(encounter.motor):

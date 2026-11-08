@@ -22,6 +22,7 @@ extends WindkeeperDefinition
 @export var stomp_seconds := .28
 @export var sweep_seconds := .42
 @export var gust_seconds := .46
+@export var gust_volley_fractions: Array[float] = [.28, .66]
 @export var seeds_seconds := .22
 @export var platform_seconds := .38
 @export var seed_speed := 300.0
@@ -48,4 +49,8 @@ func is_valid() -> bool:
 		platform_seconds,seed_speed,seed_spread,wind_pressure_speed,wind_pressure_range,
 		wind_pressure_height,wave_radius,camping_seconds,camping_radius,death_seconds,death_impact_seconds,death_fall_gravity]:
 		if not is_finite(value) or value <= 0: return false
-	return sweep_approach_range < close_range and close_range < approach_range and wind_pressure_speed <= 80.0 and recent_group_penalty > 0.0 and recent_group_penalty <= 1.0 and maximum_group_repeats >= 1 and death_impact_seconds < death_seconds and reward_coin_total >= 0
+	var previous := 0.0
+	for fraction: float in gust_volley_fractions:
+		if not is_finite(fraction) or fraction <= previous or fraction >= 1.0: return false
+		previous = fraction
+	return not gust_volley_fractions.is_empty() and sweep_approach_range < close_range and close_range < approach_range and wind_pressure_speed <= 80.0 and recent_group_penalty > 0.0 and recent_group_penalty <= 1.0 and maximum_group_repeats >= 1 and death_impact_seconds < death_seconds and reward_coin_total >= 0

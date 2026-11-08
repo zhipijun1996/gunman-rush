@@ -13,6 +13,11 @@ var _shadow_point := Vector2.ZERO
 var _shadow_visible := false
 
 
+func _ready() -> void:
+	super._ready()
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+
+
 func bind_attack(owner: Node, epoch: int) -> void:
 	_attack_owner = weakref(owner)
 	_epoch = epoch
@@ -40,6 +45,7 @@ func advance(delta: float) -> void:
 	_visual_trail.append(global_position)
 	if _visual_trail.size() > 7:
 		_visual_trail.pop_front()
+	if not _visual_launched: _emit_visual(global_position,false)
 	_visual_launched = true
 	# At configured gravity,120Hz slices keep chord error below .02world units.
 	var slices := maxi(1, ceili(delta * 120.0))
@@ -97,6 +103,7 @@ func _sweep(motion: Vector2) -> bool:
 			terrain = true
 	global_position += motion * fraction
 	spent = true
+	_emit_visual(global_position,true)
 	if terrain or contacts.is_empty():
 		# Rest info reports actual geometry contact and surface normal, including
 		# high platforms, wall corners, and platform edges; never a fake floor.
@@ -127,14 +134,8 @@ func _draw() -> void:
 		draw_set_transform(to_local(_shadow_point) + Vector2(0, -2), 0, Vector2(1, .22))
 		draw_circle(Vector2.ZERO, 12, Color(.12, .11, .08, .4))
 		draw_set_transform(Vector2.ZERO)
-	# Readable independent copper projectile; the main weak bell stays on boss.
-	var angle := _visual_age * 7.0
-	draw_set_transform(Vector2.ZERO, angle)
-	draw_polygon(
-		PackedVector2Array([Vector2(-7, -8), Vector2(7, -8), Vector2(10, 7), Vector2(-10, 7)]),
-		PackedColorArray([Color("a67b43")])
-	)
-	draw_rect(Rect2(-10, 5, 20, 4), Color("e2ba72"))
-	draw_line(Vector2(-5, -6), Vector2(5, -6), Color("dbb06a"), 2)
-	draw_circle(Vector2(0, 10), 2.5, Color("483d2d"))
-	draw_set_transform(Vector2.ZERO)
+	PlainsBossEffects.paint(self,&"bell",1,fposmod(_visual_age*8,1),Vector2.ZERO,Vector2.ONE*radius/12.0)
+
+func _emit_visual(point: Vector2, impact: bool) -> void:
+	var owner := _attack_owner.get_ref() as Node if _attack_owner != null else null
+	PlainsBossEffects.spawn(get_parent(),owner,point,&"bell",2,.32,Vector2.ONE*(1.5 if impact else .6))
