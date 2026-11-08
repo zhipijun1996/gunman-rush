@@ -3,8 +3,8 @@
   "task_id": "PLAINS-BIBLE-V2-01",
   "task_type": "region",
   "baseline_commit": "0e742706c59e3409b23c4536ba74f89af6a2146b",
-  "reviewed_commit": "1437be701ccc2d960605ab0e4f47a308b9a4c8ee",
-  "content_version": "e5a608ca84341ba99853bb0c543743980320c56fa85e9fa68938857587ad243a",
+  "reviewed_commit": "f0a3a18dee25cb81a31ea31562b0047bc7ee5448",
+  "content_version": "36f2cdbc2446bb68160c9df9fb69c7d595b7dfce4d61739a1236ca13e81f3156",
   "owner": "Codex",
   "purpose": "按PR141附件v07.1制作完整35房平原，整合地图与美术来源并退休旧地图。",
   "player_experience": "反冲主导的新档学习与西侧主循环，H能力取得后的修钟/回访和东侧探索；统一像素人物、地形、机关与UI反馈。",
@@ -43,17 +43,17 @@
   "dimensions": {
     "visual": {
       "status": "failed",
-      "reason": "整区合屏、空间地图及最终显示尺寸尚未通过；局部真实窗口观察见scope.md。",
+      "reason": "35房定点合屏已审查，十室内使用对应材质，货运铃补支架；连续地区地图仍为矩形加连线，整区最终视觉验收未通过。",
       "evidence": []
     },
     "gameplay": {
       "status": "failed",
-      "reason": "已开始重做机关和反冲路线，但未完成35房职责与整区体验验收。",
+      "reason": "本轮完成23房扩展并回归其余12房，43项世界专项通过；连续地图三房接缝待用户取舍，整区体验验收尚未完成。",
       "evidence": []
     },
     "technical": {
       "status": "unverified",
-      "reason": "CI、全部世界专项检查项、同枪穿闸正反例/暂停/重入、联动传动、墙刺恢复、减台回口与双向入口、Web资源和公开入口检查通过。整区内容仍返工，完整Web通关与实体设备未验；精确覆盖见scope.md。",
+      "reason": "CI四项、43项世界专项、35房门口合同、连续主环、东侧串联、收集返程和机关反例通过；最终美术支架另录五段原生输入回归。完整Web通关与实体设备未验，公开版本核验与精确范围见scope.md。",
       "evidence": []
     },
     "animation": {
@@ -71,8 +71,8 @@
   "evidence": [],
   "consumer_coverage": null,
   "unverified_items": [
-    "35房逐房返工与整区连续验证尚未完成；本轮覆盖与恢复入口见scope.md。",
-    "视觉、反冲/机关职责、连续地图和UI比例仍需实际验证。",
-    "实体设备性能和听感没有新测量；不能由浏览器或原生窗口代签。"
+    "三房接缝的方向与房形取舍待用户决定；连续地图尚未完成。",
+    "35房路线覆盖与局部短片不替代全部剧情、动作、UI及整区探索趣味的最终验收。",
+    "完整Web通关、实体设备性能与听感没有新测量。"
   ]
 }

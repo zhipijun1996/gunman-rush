@@ -46,7 +46,7 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | FOREST-BIBLE-V2-01 | 固定世界森林房间内容与环境演出 | MV-RUNTIME-01 | planned | [交接](worklines/forest_bible_v2_01/scope.md) |
-| PLAINS-PLAYTEST-01 | 发布机关组合、刺床/壁刺、减台与入口改造试玩及5段短片（整区继续返工） | PLAINS-BIBLE-V2-01 | done | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-PLAYTEST-01 | 发布35房扩展试玩与小体积短片；连续地图另待设计取舍 | PLAINS-BIBLE-V2-01 | done | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 - `FOREST-BIBLE-V2-01`：待代表样房闭环后按F房间制作；保留v15动作/生态资产，不推进旧两图量产。
 
