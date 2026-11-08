@@ -2,6 +2,9 @@ class_name PlainsBossFrames
 extends RefCounted
 ## Pure frame selection. Encounter state, accepted hit age and death own time.
 const SHEETS := {
+	&"bellstrider_motion": "res://assets/plains_actors_142/atlases/bellstrider_motion.tres",
+	&"windkeeper_phase1_motion": "res://assets/plains_actors_142/atlases/windkeeper_phase1_motion.tres",
+	&"windkeeper_phase2_motion": "res://assets/plains_actors_142/atlases/windkeeper_phase2_motion.tres",
 	&"bellstrider": "res://assets/plains_actors_142/atlases/bellstrider.tres",
 	&"bellstrider_roll": "res://assets/plains_actors_142/atlases/bellstrider_roll.tres",
 	&"bellstrider_ring": "res://assets/plains_actors_142/atlases/bellstrider_ring.tres",
@@ -70,6 +73,7 @@ static func sample(kind: StringName, data: Dictionary, cache: Dictionary) -> Dic
 		sheet = base
 		clip = &"death"
 		progress = clampf(float(data.get("death_age", 0.0)) / maxf(.1, float(data.get("death_duration", 1.8))), 0.0, 1.0)
+	if clip in [&"idle", &"move"]: sheet = base + "_motion"
 	if cache.get("@family", "") != base:
 		cache.clear()
 		cache["@family"] = base

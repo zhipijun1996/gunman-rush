@@ -66,6 +66,48 @@ def mortar_point(frame, pivot):
     return [round(x-pivot[0], 2), round(y-pivot[1], 2)]
 
 
+def bake_motion(name, spec, clean, rows):
+    """Interleave painted in-betweens with untouched original keyframe pixels."""
+    base = spec['interleave_from']
+    out = ASSETS / 'atlases'
+    meta = json.loads((out / f'{base}.json').read_text())
+    original = Image.open(out / f'{base}.png').convert('RGBA')
+    cw, ch = meta['frame_size']
+    pivot = meta['pivot']
+    frames = []
+    registrations = []
+    for row, (top, bottom) in enumerate(rows):
+        keys = [original.crop((i*cw,row*ch,(i+1)*cw,(row+1)*ch)) for i in range(4)]
+        for col in range(4):
+            frames.append(keys[col])
+            cell = clean.crop((round(col*clean.width/4),top,round((col+1)*clean.width/4),bottom))
+            a, b = keys[col].getbbox(), keys[(col+1)%4].getbbox()
+            target = tuple(round((x+y)/2) for x,y in zip(a,b))
+            # Registration/resampling only; the image model painted all new pixels.
+            painted = cell.crop(cell.getbbox()).resize((target[2]-target[0],target[3]-target[1]),Image.Resampling.NEAREST)
+            frame = Image.new('RGBA',(cw,ch))
+            frame.paste(painted,target[:2])
+            frames.append(frame)
+            registrations.append(target)
+    atlas = Image.new('RGBA',(cw*8,ch*len(rows)))
+    for i, frame in enumerate(frames): atlas.paste(frame,((i%8)*cw,(i//8)*ch))
+    atlas.save(out / f'{name}.png')
+    points = [core_point(f,base,pivot) for f in frames] if base.startswith(('bellstrider','windkeeper')) else []
+    result = dict(frame_size=[cw,ch],pivot=pivot,columns=8,states=spec['states'],core_points=points,
+                  reference=base,interleave_from=base,registration_boxes=registrations,
+                  source_rows=rows,source_size=list(clean.size))
+    (out / f'{name}.json').write_text(json.dumps(result,indent=2)+'\n')
+    (out / f'{name}.tres').write_text(
+        '[gd_resource type="Resource" script_class="PlainsActorAnimation" load_steps=3 format=3]\n'
+        '[ext_resource type="Script" path="res://game/presentation/actors/art/plains_actor_animation.gd" id="1"]\n'
+        f'[ext_resource type="Texture2D" path="res://assets/plains_actors_142/atlases/{name}.png" id="2"]\n'
+        '[resource]\nscript = ExtResource("1")\natlas = ExtResource("2")\n'
+        f'frame_size = Vector2i({cw}, {ch})\npivot = Vector2({pivot[0]}, {pivot[1]})\ncolumns = 8\n'
+        f'clips = Array[String]({json.dumps(spec["states"])})\n'
+        + ('core_points = PackedVector2Array('+', '.join(str(v) for p in points for v in p)+')\n' if points else ''))
+    print(f'{name}: {len(frames)} registered frames; original even frames unchanged')
+
+
 def bake(name):
     source = ASSETS / 'source' / f'{name}.png'
     spec_path = source.with_suffix('.json')
@@ -83,6 +125,9 @@ def bake(name):
     states = spec.get('states', STATES)
     if len(rows) != len(states):
         raise ValueError(f'{name}: expected {len(states)} pose bands, found {rows}')
+    if 'interleave_from' in spec:
+        bake_motion(name, spec, clean, rows)
+        return
     width, height = clean.size
     columns = spec.get('columns', 4)
     cells = []

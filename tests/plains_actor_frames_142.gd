@@ -38,6 +38,7 @@ func run() -> void:
 		var visual := host.revision_visual
 		check(visual!=null and visual.authored_frames, "%s uses final authored renderer" % kind)
 		var skin := visual.rig as PlainsActorSkin
+		check(skin.motion_animation.columns==8,"%s has eight distinct painted idle/movement poses" % kind)
 		check(skin.animation.clips==["idle","move","anticipation","attack","recovery","hurt","death"], "%s owns every requested action" % kind)
 		if actor.attack_behavior!=null:
 			for phase: StringName in [&"telegraph",&"attack",&"recovery"]:
@@ -74,6 +75,33 @@ func run() -> void:
 		check(remains.accepted_starts==starts and remains.restored and host.feedback_sample.flash_strength()==0,"%s terminal restore has no fresh hurt or death" % kind)
 		body.queue_free();await ticks(3)
 		check(not is_instance_valid(remains),"%s room ownership releases remains" % kind)
+	# Initial airborne placement is explicit. Lethal damage, gravity, pause and
+	# collision queries are production components, never manually advanced.
+	for kind: StringName in [&"diver",&"hopper"]:
+		var body:=EnemyFactory.create_for_behavior(kind)
+		var actor:=body.get_node("Actor") as EnemyActor
+		actor.set_meta(&"world_persistent_corpse",true)
+		body.position=Vector2(1000,1100)
+		app.room.add_child(body)
+		EnemyPresentationBinding.replace(actor,&"underworld")
+		actor.bind_encounter(app.controller,app.policy,app.lifetime,StringName("fall_"+String(kind)),[])
+		actor.set_physics_process(false)
+		await ticks(2)
+		var host:=body.get_node("Presentation") as UnderworldEnemy
+		var remains:=host.revision_visual.remains
+		var hit:={"event_id":"air_death_"+String(kind),"amount":actor.health.current,"source_faction":&"player","source_actor_id":app.player.get_instance_id(),"target_actor_id":actor.damageable.actor_id,"target_epoch":actor.health.epoch,"hit_point":body.global_position}
+		check(actor.damageable.receive_damage(hit),"airborne %s accepts lethal damage" % kind)
+		var initial_y:=remains.global_position.y
+		await ticks(18)
+		check(remains.phase==&"falling" and remains.global_position.y>initial_y+5 and remains.frame_index==4,"airborne %s drops without playing grounded collapse" % kind)
+		paused=true
+		var stopped:=remains.global_position
+		await ticks(6)
+		check(remains.global_position==stopped,"airborne %s corpse freezes on pause" % kind)
+		paused=false
+		await ticks(140)
+		check(remains.settled and remains.support_node()!=null and absf(remains.global_position.y-1344)<2,"airborne %s lands on measured real room terrain" % kind)
+		body.queue_free();await ticks(2)
 	for kind: StringName in [&"bellstrider",&"windkeeper"]:
 		for phase: int in [1,2]:
 			var actions:= ["roll","rings","lob"] if kind==&"bellstrider" else ["stomp","lunge","sweep","gust","seeds","platform"]

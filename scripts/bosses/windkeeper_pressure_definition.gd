@@ -36,6 +36,7 @@ extends WindkeeperDefinition
 @export var maximum_group_repeats := 2
 @export var death_seconds := 1.9
 @export var death_impact_seconds := 1.05
+@export var death_fall_gravity := 900.0
 @export var reward_coin_total := 20
 
 func is_valid() -> bool:
@@ -45,6 +46,6 @@ func is_valid() -> bool:
 		sweep_warning_seconds,platform_warning_seconds,combo_link_seconds,group_recovery_seconds,
 		lunge_seconds,lunge_height,stomp_seconds,sweep_seconds,gust_seconds,seeds_seconds,
 		platform_seconds,seed_speed,seed_spread,wind_pressure_speed,wind_pressure_range,
-		wind_pressure_height,wave_radius,camping_seconds,camping_radius,death_seconds,death_impact_seconds]:
+		wind_pressure_height,wave_radius,camping_seconds,camping_radius,death_seconds,death_impact_seconds,death_fall_gravity]:
 		if not is_finite(value) or value <= 0: return false
 	return sweep_approach_range < close_range and close_range < approach_range and wind_pressure_speed <= 80.0 and recent_group_penalty > 0.0 and recent_group_penalty <= 1.0 and maximum_group_repeats >= 1 and death_impact_seconds < death_seconds and reward_coin_total >= 0

@@ -12,6 +12,7 @@ const ANIMATIONS := {
 }
 var kind: StringName
 var animation: PlainsActorAnimation
+var motion_animation: PlainsActorAnimation
 var texture: Texture2D
 var bounds: Rect2
 
@@ -21,6 +22,7 @@ static func supports(definition: EnemyDefinition) -> bool:
 func _init(behavior: StringName = &"patrol") -> void:
 	kind = behavior
 	animation = ANIMATIONS[kind]
+	motion_animation = load("res://assets/plains_actors_142/atlases/"+String(kind)+"_motion.tres")
 	texture = animation.atlas
 	bounds = Rect2(-animation.pivot, Vector2(animation.frame_size))
 
@@ -40,4 +42,5 @@ func frame_selection(pose: Dictionary) -> Dictionary:
 
 func draw_pose(canvas: CanvasItem, pose: Dictionary, tint: Color) -> void:
 	var selected := frame_selection(pose)
-	animation.draw_frame(canvas, selected.clip, selected.progress, tint)
+	var sheet := motion_animation if selected.clip in [&"idle",&"move"] else animation
+	sheet.draw_frame(canvas, selected.clip, selected.progress, tint)

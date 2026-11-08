@@ -15,6 +15,7 @@ var _state_age := 0.0
 var _state_duration := 0.0
 var _fight_age := 0.0
 var _death_age := 0.0
+var _death_fall_speed := 0.0
 var _travel := 0.0
 var _base_y := 0.0
 var _lunge_start := Vector2.ZERO
@@ -558,6 +559,7 @@ func _on_defeat() -> void:
 	motor.collision_mask = 0
 	_group_plan.clear()
 	_death_age = 0.0
+	_death_fall_speed = 0.0
 	_death_impact_sent = false
 	_death_final_sent = false
 	_enter(&"dead", _config().death_seconds)
@@ -567,9 +569,9 @@ func _on_defeat() -> void:
 func _advance_death(delta: float) -> void:
 	if mode != &"dead" or _death_final_sent: return
 	if _hop_active:
-		_advance_support_hop(delta)
-		# Flight belongs to the locked takeoff/landing, while the terminal body
-		# and wind are already harmless. Mechanical collapse starts on support.
+		_advance_terminal_fall(delta)
+		# The dead body drops under gravity; the live locked jump is cancelled.
+		# Mechanical collapse begins only after actual contact with terrain.
 		_death_age = 0.0
 		_state_age = 0.0
 		_update_combat_shapes()
@@ -586,6 +588,32 @@ func _advance_death(delta: float) -> void:
 		_event(&"windkeeper_death_final", {"point": motor.global_position})
 	_update_combat_shapes()
 	motor.queue_redraw()
+
+func _advance_terminal_fall(delta: float) -> void:
+	_death_fall_speed += _config().death_fall_gravity * delta
+	var before := motor.global_position
+	var next_y := before.y + _death_fall_speed * delta
+	var floor_y := INF
+	var excluded: Array[RID] = [motor.get_rid()]
+	if _target is CollisionObject2D: excluded.append((_target as CollisionObject2D).get_rid())
+	# The corpse may settle on any actual upward face beneath its body. It no
+	# longer steers horizontally toward the old attack's locked destination.
+	for offset: float in [-_stance_half_width()*.6, 0.0, _stance_half_width()*.6]:
+		var ray := PhysicsRayQueryParameters2D.create(Vector2(before.x+offset,before.y+63),Vector2(before.x+offset,next_y+66),1,excluded)
+		ray.collide_with_areas = false
+		var hit := motor.get_world_2d().direct_space_state.intersect_ray(ray)
+		if not hit.is_empty() and (hit.normal as Vector2).dot(Vector2.UP) >= .7:
+			floor_y = minf(floor_y,(hit.position as Vector2).y)
+	if is_finite(floor_y):
+		motor.global_position.y = floor_y - 65
+		_hop_active = false
+		_death_fall_speed = 0.0
+		_support_index = _nearest_support_index(before.x)
+		motor.stop()
+		_event(&"windkeeper_support_landed", {"point":motor.global_position,"terminal":true})
+	else:
+		motor.global_position.y = next_y
+		motor.velocity = Vector2(0,_death_fall_speed)
 
 func cancel_pending_attacks() -> void:
 	_clear_attacks()
@@ -762,7 +790,7 @@ func combat_snapshot() -> Dictionary:
 	var result := super.combat_snapshot()
 	result["pressure"] = {"group": _group_plan.duplicate(true), "index": _attack_index,
 		"age": _state_age, "duration": _state_duration, "fight_age": _fight_age, "travel": _travel,
-		"death_age": _death_age, "death_impact_sent": _death_impact_sent, "death_final_sent": _death_final_sent,
+		"death_age": _death_age, "death_fall_speed": _death_fall_speed, "death_impact_sent": _death_impact_sent, "death_final_sent": _death_final_sent,
 		"physical_reward_expected": physical_reward_expected, "bridge_released": _bridge_released,
 		"support_motion": {"index": _support_index, "active": _hop_active, "prepared": _hop_prepared,
 			"baseline": _hop_is_baseline, "start": [_hop_start.x, _hop_start.y], "target": [_hop_target.x, _hop_target.y],
@@ -794,6 +822,7 @@ func restore_combat_state(data: Dictionary) -> void:
 	_fight_age = float(saved.get("fight_age", 0))
 	_travel = float(saved.get("travel", 0))
 	_death_age = float(saved.get("death_age", 0))
+	_death_fall_speed = maxf(0,float(saved.get("death_fall_speed",0)))
 	_death_impact_sent = bool(saved.get("death_impact_sent", false))
 	_death_final_sent = bool(saved.get("death_final_sent", false))
 	_selection_rng.state = int(String(saved.get("rng", str(_selection_rng.state))))
@@ -849,6 +878,7 @@ func restore_combat_state(data: Dictionary) -> void:
 
 
 func _restore_legacy_combat_state() -> void:
+	_death_fall_speed = 0.0
 	# A v5 state has no immutable six-move group to continue. Preserve the
 	# authoritative HP/stage/position and current activation, cancel old
 	# transient attacks, then choose a new fully advertised group. Old charge,
