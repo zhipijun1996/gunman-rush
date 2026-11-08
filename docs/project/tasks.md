@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | 按已确认A/B/C完善整区轮廓、教程实践与钩索前后辨路，随后同步空间施工 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 重绘被否定的整区轮廓，按地域重新排布占地；保留已确认拓扑及教学/辨路设计 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 ## 待验收
 
