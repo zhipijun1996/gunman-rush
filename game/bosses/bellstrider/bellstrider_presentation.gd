@@ -1,15 +1,17 @@
 class_name BellstriderPresentation
 extends Node2D
 ## Articulated carriage; all production style branches use this actual rig.
-## Original PNGs are unchanged. No independent body/weakpoint animation clock.
-const MACHINE := preload("res://assets/underworld_plains/actors/bellstrider.png")
-const BELL := preload("res://assets/underworld_plains/actors/bell.png")
+## Native redraw parts share the existing body/weakpoint animation clocks.
+const HULL := preload("res://assets/plains_redraw_02/cart_hull.png")
+const CANOPY := preload("res://assets/plains_redraw_02/cart_canopy.png")
+const WHEEL := preload("res://assets/plains_redraw_02/cart_wheel.png")
+const BELL := preload("res://assets/plains_redraw_02/boss_bell.png")
 const AUDIO := preload("res://game/presentation/audio/bellstrider_audio.gd")
-const INK := Color("24231e")
-const SHADOW := Color("41372a")
-const BRASS := Color("786044")
+const INK := Color("1e2c38")
+const SHADOW := Color("34434c")
+const BRASS := Color("806e50")
 const EDGE := Color("a28456")
-const MOSS := Color("4b5640")
+const MOSS := Color("65745b")
 @export var encounter: BellstriderEncounter
 var pixel_style := false
 var hit_template: EnemyHitTemplate
@@ -98,16 +100,8 @@ func _draw_mast(pose: Dictionary) -> void:
 		_line(Vector2(x, -36), Vector2(side * 55, 15), BRASS, 3)
 		_bolt(Vector2(x, -38), 3)
 		_bolt(Vector2(x, -94), 2)
-	# Source canopy/moss retain the existing patina, excluding the old main bell.
-	draw_texture_rect_region(
-		MACHINE, Rect2(-40, -125, 80, 28), Rect2(24, 3, 80, 28), Color(0.83, 0.83, 0.78)
-	)
-	draw_texture_rect_region(
-		MACHINE, Rect2(-39, -99, 13, 34), Rect2(25, 34, 13, 34), Color(0.75, 0.83, 0.72)
-	)
-	draw_texture_rect_region(
-		MACHINE, Rect2(26, -96, 12, 28), Rect2(84, 39, 12, 28), Color(0.74, 0.81, 0.70)
-	)
+	# Native roof keeps the hollow cage and its sole weak bell readable.
+	draw_texture(CANOPY, Vector2(-40, -125))
 	_line(Vector2(-30, -106), Vector2(31, -106), INK, 6)
 	_line(Vector2(-30, -107), Vector2(31, -107), EDGE, 2)
 	_bolt(Vector2(0, -106), 4)
@@ -176,24 +170,8 @@ func _draw_hull(pose: Dictionary) -> void:
 	_line(Vector2(-59, 10), Vector2(59, 9), Color("b09a6b"), 1)
 	_line(Vector2(-54, 37), Vector2(52, 37), Color("302e25"), 3)
 	_line(Vector2(-52, 34), Vector2(51, 34), Color("8b7852"), 1)
-	# Native-sized source plate fragments, without the old bright central crest.
-	var body: Transform2D = pose.body_transform
-	var impact := body.affine_inverse() * _armour_point
-	var vibration: Vector2 = pose.armour_vibration
-	var left_jolt := vibration if impact.x < 0 else Vector2.ZERO
-	var right_jolt := vibration if impact.x >= 0 else Vector2.ZERO
-	draw_texture_rect_region(
-		MACHINE,
-		Rect2(Vector2(-53, 10) + left_jolt, Vector2(11, 24)),
-		Rect2(42, 70, 11, 24),
-		Color(0.79, 0.77, 0.69)
-	)
-	draw_texture_rect_region(
-		MACHINE,
-		Rect2(Vector2(39, 10) + right_jolt, Vector2(11, 24)),
-		Rect2(77, 70, 11, 24),
-		Color(0.73, 0.74, 0.68)
-	)
+	# Whole authored plate remains attached to the vibrating hull.
+	draw_texture(HULL, Vector2(-66, -3) + Vector2(pose.armour_vibration))
 	for x: int in [-28, -15, -2, 11, 24]:
 		draw_rect(Rect2(x, 17, 7, 9), Color("272b25"))
 		_line(Vector2(x, 17), Vector2(x + 7, 17), Color("8d7852"), 1)
@@ -226,84 +204,20 @@ func _draw_launcher(pose: Dictionary) -> void:
 	_line(Vector2(22, -8), Vector2(25, 7), Color("a38a59"), 3)
 	_line(Vector2(26, -7), Vector2(29, 6), Color("3c352b"), 3)
 	if pose.mode in [&"lob_aim", &"lob_lock", &"lob_warning"]:
-		draw_texture_rect_region(
-			BELL, Rect2(9, -19, 12, 18), Rect2(0, 12, 28, 32), Color(1.1, 1.0, 0.85)
-		)
+		draw_texture_rect(BELL, Rect2(9, -19, 12, 18), false)
 
 
-func _draw_wheel(at: Transform2D, right: bool) -> void:
+func _draw_wheel(at: Transform2D, _right: bool) -> void:
 	draw_set_transform_matrix(at)
-	_disk(Vector2.ZERO, 21, Color("242622"), 24)
-	_disk(Vector2.ZERO, 18.5, Color("413d31"), 24)
-	# Circular UVs exclude old cage/body pixels around the source wheel silhouette.
-	var vertices := PackedVector2Array()
-	var uvs := PackedVector2Array()
-	var source := Vector2(105, 91) if right else Vector2(22, 91)
-	for i: int in 32:
-		var axis := Vector2.from_angle(float(i) * TAU / 32.0)
-		vertices.append(axis * 19.5)
-		uvs.append((source + axis * 21.0) / MACHINE.get_size())
-	draw_polygon(vertices, PackedColorArray([Color(0.77, 0.75, 0.69)]), uvs, MACHINE)
-	for i: int in 10:
-		var axis := Vector2.from_angle(float(i) * TAU / 10.0)
-		_line(axis * 19, axis * 21, Color("4d4b3d"), 2)
-	_disk(Vector2.ZERO, 5, INK, 12)
-	_disk(Vector2(-1, -1), 3, Color("8c7850"), 10)
+	draw_texture(WHEEL, Vector2(-21, -21))
 	draw_set_transform_matrix(Transform2D.IDENTITY)
 
 
 func _draw_main_bell(pose: Dictionary) -> void:
 	var cold := smoothstep(0.5, 0.98, float(pose.death_progress))
 	var flash := float(pose.bell_flash)
-	var copper := Color("be8744").lerp(Color("67523a"), cold).lerp(Color("ffe3a0"), flash)
-	var lit := Color("ebba69").lerp(Color("8a7250"), cold).lerp(Color("fff1bd"), flash)
-	# Authored in the same30x36 rectangle as the weak shape, clear lip and clapper.
-	_poly(
-		[
-			Vector2(-8, -18),
-			Vector2(7, -18),
-			Vector2(10, -13),
-			Vector2(11, 7),
-			Vector2(15, 13),
-			Vector2(14, 17),
-			Vector2(-14, 17),
-			Vector2(-15, 13),
-			Vector2(-11, 7),
-			Vector2(-10, -13)
-		],
-		INK
-	)
-	_poly(
-		[
-			Vector2(-7, -16),
-			Vector2(6, -16),
-			Vector2(8, -12),
-			Vector2(9, 7),
-			Vector2(13, 12),
-			Vector2(12, 14),
-			Vector2(-12, 14),
-			Vector2(-13, 12),
-			Vector2(-9, 7),
-			Vector2(-8, -12)
-		],
-		copper
-	)
-	_poly(
-		[Vector2(-6, -14), Vector2(-1, -16), Vector2(-2, 6), Vector2(-8, 10), Vector2(-7, -10)], lit
-	)
-	_poly(
-		[Vector2(5, -13), Vector2(7, -10), Vector2(8, 7), Vector2(11, 10), Vector2(5, 8)],
-		Color("80522b").lerp(Color("4a3c2e"), cold)
-	)
-	draw_texture_rect_region(
-		BELL,
-		Rect2(-13, -17, 26, 32),
-		Rect2(1, 13, 26, 32),
-		Color(1.7, 1.5, 1.12, 0.48 * (1 - cold * 0.4))
-	)
-	_line(Vector2(-11, 10), Vector2(11, 10), lit, 1)
-	_poly([Vector2(-12, 14), Vector2(12, 14), Vector2(9, 17), Vector2(-9, 17)], Color("3b2c1e"))
-	_line(Vector2(-11, 13), Vector2(11, 13), lit, 2)
+	# Native30x36 artwork fills the existing weak shape; clapper stays articulated.
+	draw_texture(BELL, Vector2(-15, -18), Color.WHITE.lerp(Color("8a9192"), cold).lerp(Color(1.5,1.4,1.2),flash))
 	var clapper := Vector2(0, 10) + Vector2(0, 6).rotated(float(pose.clapper_angle))
 	_line(Vector2(0, 8), clapper, Color("d7a85e").lerp(Color("6f5b3d"), cold), 2)
 	_disk(clapper, 2.5, Color("e9b96b").lerp(Color("77603f"), cold), 8)

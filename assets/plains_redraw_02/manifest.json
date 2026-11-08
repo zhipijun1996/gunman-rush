@@ -1,0 +1,428 @@
+{
+  "version": 2,
+  "baseline": "d04912228d6f53f61bd6dde84b22876a5d444487",
+  "region_id": "windchime_plains",
+  "tool": "image_gen.imagegen",
+  "status": "candidate; user visual acceptance not asserted",
+  "derivation": "Alpha >=128, largest connected silhouettes, tight crop; nearest-neighbor bake at declared native dimensions. Diver uses one 1/8 scale for all frames. No code painting or color replacement.",
+  "license": "Generated artwork; tool did not expose a separate license identifier. Existing reference attribution retained in original asset directories.",
+  "sources": {
+    "boss_parts.png": "f443c8d83e849b7409d9e568753edf39f35a605c37bff549a3399934f2a473be",
+    "boss_parts.prompt.txt": "a4a8536d78baa9d8662f591423f41b0009f2976c64d76ade651da85acda1d215",
+    "diver.png": "d5e43b7a1c579c65f66144b4c9371f4f7d143ccad62808ada6f870270c554abc",
+    "diver.prompt.txt": "c1f7acc1b831e5b65754b07604e2421523bbe0225e3a78c926606c3e68b6439e",
+    "keeper_details.png": "85700600e89fbba37714098e83d7c87a1770053132076d9661b1155600bc95e6",
+    "keeper_details.prompt.txt": "cae0ed390a12d4e53992ba04662e56c4a8af351ae30da1a6fb5b0cfc0cbb3da0",
+    "ordinary.png": "a6a35159ac218bd462c5435b898862eb494244a8d4cf23662e6bc70a5a7ed795",
+    "ordinary.prompt.txt": "fbc8639d605635749eaa6a4071a7d9e97cf016c9b81606802e9ff8f9367f2fb8"
+  },
+  "assets": {
+    "patrol": {
+      "source": "source/ordinary.png",
+      "source_xywh": [
+        88,
+        121,
+        357,
+        345
+      ],
+      "native_size": [
+        41,
+        39
+      ],
+      "anchor_px": [
+        20.5,
+        39
+      ],
+      "sha256": "b9f0485bd6822b723040baa7edfa5bbf9946ef69168476b63d9d9d757187ae0a"
+    },
+    "charger": {
+      "source": "source/ordinary.png",
+      "source_xywh": [
+        522,
+        154,
+        475,
+        312
+      ],
+      "native_size": [
+        40,
+        30
+      ],
+      "anchor_px": [
+        20.0,
+        30
+      ],
+      "sha256": "335ef4b66eab1599a880b917801ca715793d36a04281be2b24bcd28c77ffe6db"
+    },
+    "hopper": {
+      "source": "source/ordinary.png",
+      "source_xywh": [
+        72,
+        639,
+        394,
+        295
+      ],
+      "native_size": [
+        41,
+        33
+      ],
+      "anchor_px": [
+        20.5,
+        33
+      ],
+      "sha256": "fad772f173ea0552f1df143e27e0578797cc625a631a54dfb2e77dbd23f60274"
+    },
+    "sentry": {
+      "source": "source/ordinary.png",
+      "source_xywh": [
+        539,
+        597,
+        445,
+        344
+      ],
+      "native_size": [
+        41,
+        42
+      ],
+      "anchor_px": [
+        20.5,
+        42
+      ],
+      "sha256": "28e14086651c8d786e8607474e83f57d4fd96ec5b8c0f47650c80b21116a0e14"
+    },
+    "fan_sentry": {
+      "source": "source/ordinary.png",
+      "source_xywh": [
+        21,
+        1058,
+        541,
+        361
+      ],
+      "native_size": [
+        41,
+        30
+      ],
+      "anchor_px": [
+        20.5,
+        30
+      ],
+      "sha256": "ff1ca1021dae43500e83804b65e2201a32f64f9139e0bfaa842b3afffc98932d"
+    },
+    "root_bell": {
+      "source": "source/ordinary.png",
+      "source_xywh": [
+        541,
+        1081,
+        452,
+        374
+      ],
+      "native_size": [
+        50,
+        60
+      ],
+      "anchor_px": [
+        25.0,
+        60
+      ],
+      "sha256": "93a74c310a54b3bb4b2306a001ac96ab6fd1e0ef234273c6a1995f5a83ac7a6c"
+    },
+    "cart_hull": {
+      "source": "source/boss_parts.png",
+      "source_xywh": [
+        44,
+        149,
+        475,
+        133
+      ],
+      "native_size": [
+        132,
+        44
+      ],
+      "anchor_px": [
+        66.0,
+        44
+      ],
+      "sha256": "8993260c34d0469ad15c05fabc276deb4df47dddc89324f968d9f11cb0082417"
+    },
+    "cart_canopy": {
+      "source": "source/boss_parts.png",
+      "source_xywh": [
+        589,
+        95,
+        450,
+        187
+      ],
+      "native_size": [
+        80,
+        28
+      ],
+      "anchor_px": [
+        40.0,
+        28
+      ],
+      "sha256": "00c18ab872e6c6d1bfc13acfb7ed50f1b877c64328f7dbc798beca39ddcf4950"
+    },
+    "cart_wheel": {
+      "source": "source/boss_parts.png",
+      "source_xywh": [
+        128,
+        377,
+        308,
+        302
+      ],
+      "native_size": [
+        42,
+        42
+      ],
+      "anchor_px": [
+        21.0,
+        42
+      ],
+      "sha256": "55295570161b3f9c7feac3d3d9cd1bc5c068bbe24164ec093097ceb6ad29f224"
+    },
+    "boss_bell": {
+      "source": "source/boss_parts.png",
+      "source_xywh": [
+        681,
+        382,
+        264,
+        286
+      ],
+      "native_size": [
+        30,
+        36
+      ],
+      "anchor_px": [
+        15.0,
+        36
+      ],
+      "sha256": "bd59a49da8190f8e5a3aa5dbdf7626b292da1c76deae847f0efc251759019261"
+    },
+    "keeper_torso": {
+      "source": "source/boss_parts.png",
+      "source_xywh": [
+        44,
+        729,
+        475,
+        304
+      ],
+      "native_size": [
+        144,
+        74
+      ],
+      "anchor_px": [
+        72.0,
+        74
+      ],
+      "sha256": "448d20e2a9e1fb04b91974227080e055a18e9bc9dd3f5b5a24761667c52c23b4"
+    },
+    "keeper_head": {
+      "source": "source/boss_parts.png",
+      "source_xywh": [
+        633,
+        758,
+        360,
+        233
+      ],
+      "native_size": [
+        53,
+        47
+      ],
+      "anchor_px": [
+        26.5,
+        47
+      ],
+      "sha256": "1c66ac1dfe2273f61f18f0b1ced9d002c5d1d8ceadf0d01d75d71287f9a011ec"
+    },
+    "keeper_leg": {
+      "source": "source/boss_parts.png",
+      "source_xywh": [
+        223,
+        1091,
+        117,
+        312
+      ],
+      "native_size": [
+        16,
+        44
+      ],
+      "anchor_px": [
+        8.0,
+        44
+      ],
+      "sha256": "2938107a271bacf6a34c943d7911ba8a02f031acebb8b3b5a74c05ccbcadb057"
+    },
+    "keeper_sail": {
+      "source": "source/boss_parts.png",
+      "source_xywh": [
+        593,
+        1100,
+        437,
+        301
+      ],
+      "native_size": [
+        70,
+        58
+      ],
+      "anchor_px": [
+        35.0,
+        58
+      ],
+      "sha256": "76162fba14597d4f2db9dfd734dbc7d01d400078fc58b7e9bb7c47fe96a1e76e"
+    },
+    "keeper_core": {
+      "source": "source/keeper_details.png",
+      "source_xywh": [
+        136,
+        95,
+        696,
+        711
+      ],
+      "native_size": [
+        36,
+        36
+      ],
+      "anchor_px": [
+        18.0,
+        36
+      ],
+      "sha256": "fe055b1347fcbfbc9241a9f238907fc770697665e6f8f9a16318e6d4acba6677"
+    },
+    "keeper_hoof": {
+      "source": "source/keeper_details.png",
+      "source_xywh": [
+        980,
+        322,
+        671,
+        313
+      ],
+      "native_size": [
+        24,
+        14
+      ],
+      "anchor_px": [
+        12.0,
+        14
+      ],
+      "sha256": "cbb8c0b610cc9f6a2d9bc3586927305487718079f71730831b5629753616cf99"
+    },
+    "diver_frames": {
+      "source": "source/diver.png",
+      "scale": 0.125,
+      "frames": [
+        {
+          "box": [
+            35,
+            29,
+            383,
+            422
+          ],
+          "native_size": [
+            44,
+            49
+          ]
+        },
+        {
+          "box": [
+            537,
+            20,
+            803,
+            423
+          ],
+          "native_size": [
+            33,
+            50
+          ]
+        },
+        {
+          "box": [
+            909,
+            108,
+            1291,
+            423
+          ],
+          "native_size": [
+            48,
+            39
+          ]
+        },
+        {
+          "box": [
+            1376,
+            108,
+            1749,
+            417
+          ],
+          "native_size": [
+            47,
+            39
+          ]
+        },
+        {
+          "box": [
+            35,
+            548,
+            338,
+            785
+          ],
+          "native_size": [
+            38,
+            30
+          ]
+        },
+        {
+          "box": [
+            541,
+            553,
+            796,
+            815
+          ],
+          "native_size": [
+            32,
+            33
+          ]
+        },
+        {
+          "box": [
+            919,
+            666,
+            1310,
+            836
+          ],
+          "native_size": [
+            49,
+            21
+          ]
+        },
+        {
+          "box": [
+            1359,
+            692,
+            1742,
+            830
+          ],
+          "native_size": [
+            48,
+            17
+          ]
+        }
+      ],
+      "sha256": "098d8135b97b9fb655bcaee727107542f84181a7febf8211bdc16eb675bc9481"
+    }
+  },
+  "references": {
+    "assets/underworld_plains/terrain/fine_32/terrain.png": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de",
+    "assets/underworld_plains/scenery_build.json": "d0a3a77e635a9d64e7306be6d5550f9482ddd26e01c8041c5ad890315ca942b2",
+    "assets/underworld_plains/actors/bellstrider.png": "8202472e8b2d829d1be88b6019e0a72475421bae4eae0d6e82b54289696d8af5",
+    "assets/underworld_plains/actors/windkeeper.png": "9566e7cca7b763af2d3f2d93f9eea6cdba0383fe726c541371cc3b6c50049446",
+    "assets/enemy_feedback_01/frames_v8/underworld_diver.png": "5b823e2381d60095378e1a6f8f10e809235a008747fd82eefa648aeb23827ae6",
+    "assets/plains_revision_01/patrol.png": "12269d5e2abeb78245d4d5a201f4cff7007fae7b23768da83816d25828315f45",
+    "assets/plains_revision_01/charger.png": "1e74096275fb4c492f9ec68983438eba39a9e90261dbcffa115c70912eaa662b",
+    "assets/plains_revision_01/hopper.png": "c8cbd2f86a93e0e1f4fe61c482c624ad018f5ec8e7dcc8423dba2e133cc3e79f",
+    "assets/plains_revision_01/sentry.png": "0203c8354d9f9d612ef60628d1fc5adddd70d5aab9f4aa5d3a6f4730018dee1b",
+    "assets/plains_revision_01/fan_sentry.png": "48ecaea34430a5a93d7a50d1cf91c077861165e01cfc3ec4a2e1a5166bcb619b",
+    "assets/plains_revision_01/root_bell.png": "f51e9794dfa005b12e98a0a1aacfcbf26a517f5124b851ceb1f358507c983696",
+    "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png": "4af64f48f9e91400f080432d490fe2490faf7fb24afdf5b6501ef6e023e45ad7",
+    "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png": "b1a45ca95353cc56a533d877a1055fb6dd6a1380fc8a284a3f7dac9905c6545e",
+    "assets/underworld_plains/backgrounds/near.png": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2"
+  }
+}

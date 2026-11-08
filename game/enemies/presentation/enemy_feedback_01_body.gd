@@ -14,7 +14,7 @@ func _init() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
 func configure_underworld_palette(aerial: bool) -> void:
-	flash_material.set_shader_parameter("readable_material", 1.0)
+	flash_material.set_shader_parameter("readable_material", 0.0 if aerial else 1.0)
 	flash_material.set_shader_parameter("copper_wings", 1.0 if aerial else 0.0)
 
 func configure_motion(motion: PlainsMotion02, owner_actor: EnemyActor) -> void:

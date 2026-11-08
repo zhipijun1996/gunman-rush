@@ -5,12 +5,12 @@ extends RefCounted
 ## Coordinates are in world units; source resolution never sets pixel size.
 const GRID := 24
 const TEXTURES := {
-	&"patrol": preload("res://assets/plains_revision_01/patrol.png"),
-	&"charger": preload("res://assets/plains_revision_01/charger.png"),
-	&"hopper": preload("res://assets/plains_revision_01/hopper.png"),
-	&"sentry": preload("res://assets/plains_revision_01/sentry.png"),
-	&"fan_sentry": preload("res://assets/plains_revision_01/fan_sentry.png"),
-	&"root_bell": preload("res://assets/plains_revision_01/root_bell.png")
+	&"patrol": preload("res://assets/plains_redraw_02/patrol.png"),
+	&"charger": preload("res://assets/plains_redraw_02/charger.png"),
+	&"hopper": preload("res://assets/plains_redraw_02/hopper.png"),
+	&"sentry": preload("res://assets/plains_redraw_02/sentry.png"),
+	&"fan_sentry": preload("res://assets/plains_redraw_02/fan_sentry.png"),
+	&"root_bell": preload("res://assets/plains_redraw_02/root_bell.png")
 }
 # Relative to the measured visible bodies, not the source PNG dimensions.
 const SIZES := {&"patrol":Vector2(41.4,39.33),&"charger":Vector2(40.5,30.375),&"hopper":Vector2(41.4,33.12),&"sentry":Vector2(41.4,42.46),&"fan_sentry":Vector2(41.4,30),&"root_bell":Vector2(49.5,60)}

@@ -104,7 +104,7 @@ func _remains_view() -> Dictionary:
 	var face := float(actor.brain.direction)
 	# Handoff uses the exact same locomotion clock and bob as the live body.
 	var flutter := body_motion.body_bob(actor.definition.behavior_id) if actor.definition.aerial else 0.0
-	return {"frames": feedback_frames, "contact_foot": global_transform * Vector2(0, actor.definition.collision_size.y*.5), "texture": feedback_frames.texture(4), "bounds": feedback_frames.bounds(4), "transform": global_transform * Transform2D(0, Vector2(face, 1), 0, Vector2(0, feedback_anchor.y+flutter)), "face": face, "angle": global_rotation, "readable_material": true}
+	return {"frames": feedback_frames, "contact_foot": global_transform * Vector2(0, actor.definition.collision_size.y*.5), "texture": feedback_frames.texture(4), "bounds": feedback_frames.bounds(4), "transform": global_transform * Transform2D(0, Vector2(face, 1), 0, Vector2(0, feedback_anchor.y+flutter)), "face": face, "angle": global_rotation, "readable_material": actor.definition.stable_id != &"plains_diver"}
 
 func _presentation_initialized() -> void:
 	super._presentation_initialized()

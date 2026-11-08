@@ -1,18 +1,23 @@
 class_name WindkeeperPressurePresentation
 extends Node2D
 ## Articulated old-brass guardian. Drawing never owns combat or actor motion.
-## The retained source torso/head are cut from the actual existing species page;
-## every new limb and the active blade use the encounter's physical pose.
+## Native authored parts follow the encounter's physical pose;
+## presentation owns no independent motion, weakpoint or combat state.
 @export var encounter: WindkeeperEncounter
-const BRASS := Color("8e783e")
-const LIT_BRASS := Color("c1a361")
-const DARK_BRASS := Color("554a30")
-const OUTLINE := Color("222b23")
-const MOSS := Color("687345")
-const CLOTH := Color("a59b73")
-const CLOTH_DARK := Color("666d52")
+const BRASS := Color("806e50")
+const LIT_BRASS := Color("b49a62")
+const DARK_BRASS := Color("34434c")
+const OUTLINE := Color("1e2c38")
+const MOSS := Color("65745b")
+const CLOTH := Color("b3b092")
+const CLOTH_DARK := Color("697565")
 const CORE := Color("e4be68")
-const SOURCE := preload("res://assets/underworld_plains/actors/windkeeper.png")
+const TORSO := preload("res://assets/plains_redraw_02/keeper_torso.png")
+const HEAD := preload("res://assets/plains_redraw_02/keeper_head.png")
+const LEG := preload("res://assets/plains_redraw_02/keeper_leg.png")
+const CORE_ART := preload("res://assets/plains_redraw_02/keeper_core.png")
+const HOOF := preload("res://assets/plains_redraw_02/keeper_hoof.png")
+const SAIL := preload("res://assets/plains_redraw_02/keeper_sail.png")
 var hit_template: EnemyHitTemplate
 var _hurt_remaining := 0.0
 var _armour_remaining := 0.0
@@ -98,6 +103,8 @@ func _draw_sails(pose: Dictionary, tint: Color) -> void:
 		var points := [Vector2(-25,-75),tip,lower,base]
 		_poly(points,body,CLOTH*tint if side>0 else CLOTH_DARK*tint)
 		_poly([base,lower,seam],body,CLOTH_DARK*tint)
+		var cloth_points := PackedVector2Array([body*Vector2(-25,-75),body*tip,body*lower,body*base])
+		draw_polygon(cloth_points,PackedColorArray([tint]),PackedVector2Array([Vector2(0,0),Vector2(1,.6),Vector2(1,1),Vector2(0,1)]),SAIL)
 		_cloth_detail(body,Vector2(-25,-75),tip,lower,base,side,tint)
 		_segment(mast,body*tip,2,LIT_BRASS*tint)
 		_segment(body*seam,body*tip,1,Color("d0bf8c")*tint)
@@ -110,38 +117,18 @@ func _draw_sails(pose: Dictionary, tint: Color) -> void:
 
 func _draw_body(pose: Dictionary, tint: Color) -> void:
 	var body: Transform2D = pose.body_transform
-	_poly(WindkeeperPressureRig.BODY_OUTLINE,body,OUTLINE*tint)
-	var inset := [Vector2(-66,-21),Vector2(-50,-33),Vector2(41,-32),Vector2(65,-18),Vector2(66,16),Vector2(47,30),Vector2(-47,29),Vector2(-67,12)]
-	_poly(inset,body,BRASS*tint)
-	_poly([Vector2(-62,8),Vector2(-44,24),Vector2(45,25),Vector2(61,12),Vector2(58,27),Vector2(46,32),Vector2(-49,30)],body,DARK_BRASS*tint)
+	# One authored shell covers the measured body; no flat polygon border.
 	draw_set_transform_matrix(body)
-	# Keep existing moss, patina and plated identity; no full-picture wobble or
-	# old source legs are retained inside this measured torso-only crop.
-	draw_texture_rect_region(SOURCE,Rect2(-57,-30,114,64),Rect2(37,36,64,38),tint)
+	draw_texture(TORSO,Vector2(-72,-38),tint)
 	draw_set_transform_matrix(Transform2D.IDENTITY)
-	_segment(body*Vector2(-47,-29),body*Vector2(40,-28),2,LIT_BRASS*tint)
-	for index: int in 5:
-		var x := -43+float(index)*19
-		var rivet := (body*Vector2(x,24)).round()
-		draw_rect(Rect2(rivet-Vector2(2,2),Vector2(4,4)),DARK_BRASS*tint)
-		draw_rect(Rect2(rivet-Vector2(1,1),Vector2(2,2)),LIT_BRASS*tint)
-	for index: int in 8:
-		var at := body*Vector2(-52+float(index)*13,-29-absf(sin(float(index)*2.7))*5)
-		_poly([Vector2(-4,0),Vector2(-2,-5),Vector2(1,-2),Vector2(4,-6),Vector2(5,2)],Transform2D(0,at),MOSS*tint)
 
 
 func _draw_head(pose: Dictionary, tint: Color) -> void:
 	var head: Transform2D = pose.head_transform
-	_poly(WindkeeperPressureRig.HEAD_OUTLINE,head,OUTLINE*tint)
-	_poly([Vector2(-23,-15),Vector2(-10,-24),Vector2(15,-20),Vector2(26,-6),Vector2(23,16),Vector2(5,22),Vector2(-20,14)],head,BRASS*tint)
-	var mirror := Transform2D(Vector2(-1,0),Vector2(0,1),Vector2.ZERO)
-	draw_set_transform_matrix(head*mirror)
-	draw_texture_rect_region(SOURCE,Rect2(-25,-22,53,47),Rect2(6,53,38,34),tint)
+	draw_set_transform_matrix(head)
+	draw_texture(HEAD,Vector2(-25,-22),tint)
 	draw_set_transform_matrix(Transform2D.IDENTITY)
-	_segment(head*Vector2(-15,-18),head*Vector2(-24,-35),7,DARK_BRASS*tint)
-	_segment(head*Vector2(-24,-35),head*Vector2(-8,-44),5,LIT_BRASS*tint)
-	_segment(head*Vector2(-8,-44),head*Vector2(0,-36),3,LIT_BRASS*tint)
-	var eye := head*Vector2(14,-7)
+	var eye := head*Vector2(14,5)
 	draw_rect(Rect2(eye.round()-Vector2(4,4),Vector2(8,8)),OUTLINE*tint)
 	var energy: float = pose.core_energy
 	draw_rect(Rect2(eye.round()-Vector2(2,2),Vector2(4,4)),Color("f2cf83").lerp(Color("514d36"),1-energy)*tint)
@@ -201,10 +188,18 @@ func _draw_leg(pose: Dictionary, index: int, tint: Color) -> void:
 	_segment(hip,knee,10,DARK_BRASS*tint)
 	_segment(hip+Vector2(1,0),knee+Vector2(1,0),6,BRASS*tint)
 	_segment(hip+Vector2(-1,-1),knee+Vector2(-1,-1),2,LIT_BRASS*tint)
+	var limb_axis := knee-hip
+	draw_set_transform_matrix(Transform2D(limb_axis.angle()-PI*.5,hip))
+	draw_texture_rect(LEG,Rect2(-8,-5,16,limb_axis.length()+10),false,tint)
+	draw_set_transform_matrix(Transform2D.IDENTITY)
 	_brass_detail(hip,knee,index*7,tint)
 	_segment(knee,foot,13,OUTLINE*tint)
 	_segment(knee,foot,8,BRASS*tint)
 	_segment(knee+Vector2(1,0),foot+Vector2(1,0),1,LIT_BRASS*tint)
+	var shin_axis := foot-knee
+	draw_set_transform_matrix(Transform2D(shin_axis.angle()-PI*.5,knee))
+	draw_texture_rect(LEG,Rect2(-6,-4,12,shin_axis.length()+8),false,tint)
+	draw_set_transform_matrix(Transform2D.IDENTITY)
 	_brass_detail(knee,foot,index*7+3,tint)
 	_disc(hip,9,OUTLINE*tint)
 	_disc(hip,6,DARK_BRASS*tint)
@@ -213,26 +208,18 @@ func _draw_leg(pose: Dictionary, index: int, tint: Color) -> void:
 	_socket_detail(hip,tint)
 	_socket_detail(knee,tint)
 	draw_rect(Rect2(knee.round()-Vector2(1,2),Vector2(2,4)),LIT_BRASS*tint)
-	# The drawn hoof has the same12wu radius used by actual contact admission.
-	_poly([Vector2(-12,-6),Vector2(-8,-12),Vector2(8,-11),Vector2(12,-4),Vector2(12,3),Vector2(-11,3)],Transform2D(0,foot),OUTLINE*tint)
-	_poly([Vector2(-9,-5),Vector2(-6,-9),Vector2(7,-8),Vector2(10,-3),Vector2(9,0),Vector2(-8,0)],Transform2D(0,foot),DARK_BRASS*tint)
-	_segment(foot+Vector2(-8,-5),foot+Vector2(7,-5),2,LIT_BRASS*tint)
+	# Sole remains on the12wu contact radius from the actual rig.
+	draw_texture(HOOF,foot.round()+Vector2(-12,-11),tint)
 
 
 func _draw_core(pose: Dictionary, tint: Color) -> void:
 	var core: Transform2D = pose.core_transform
 	var at := core.origin
 	var energy: float = pose.core_energy
-	_disc(at,18,OUTLINE*tint)
-	_disc(at,15,DARK_BRASS*tint)
-	_disc(at,12,LIT_BRASS*tint)
-	_disc(at,9,Color("685b35").lerp(CORE,energy)*tint)
-	var angle := float(pose.fight_age)*2.4
-	if pose.dead:
-		angle += minf(float(pose.death_age),.45)*1.4
-	for spoke: int in 4:
-		var axis := Vector2.from_angle(angle+float(spoke)*PI*.5)
-		_segment(at+axis*3,at+axis*9,2,DARK_BRASS*tint)
+	# Native inset clockwork follows the same core transform and energy state.
+	draw_set_transform_matrix(core)
+	draw_texture(CORE_ART,Vector2(-18,-18),tint.darkened((1-energy)*.22))
+	draw_set_transform_matrix(Transform2D.IDENTITY)
 	if _hurt_remaining>0 and not pose.dead:
 		_poly([Vector2(-9,-5),Vector2(4,-1),Vector2(10,2),Vector2(-3,7)],Transform2D(0,at),Color("fff2ca"))
 

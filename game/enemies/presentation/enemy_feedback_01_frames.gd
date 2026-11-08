@@ -8,7 +8,7 @@ const MANIFEST_PATH := "res://assets/enemy_feedback_01/frames_v8/manifest.json"
 # aligned with the same finite species/skin set used by the authored manifest.
 const TEXTURES := {
 	"underworld_charger.png": preload("res://assets/enemy_feedback_01/frames_v8/underworld_charger.png"),
-	"underworld_diver.png": preload("res://assets/enemy_feedback_01/frames_v8/underworld_diver.png"),
+	"underworld_diver.png": preload("res://assets/plains_redraw_02/diver_frames.png"),
 	"legacy_charger.png": preload("res://assets/enemy_feedback_01/frames_v8/legacy_charger.png"),
 	"legacy_diver.png": preload("res://assets/enemy_feedback_01/frames_v8/legacy_diver.png"),
 }
@@ -85,6 +85,8 @@ func _init(style: StringName, id: StringName, body_size: Vector2) -> void:
 	key = String(style) + ("_diver" if id == &"plains_diver" else "_charger")
 	var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(MANIFEST_PATH))
 	var data: Dictionary = manifest.frames[key]
+	if key == "underworld_diver":
+		data = JSON.parse_string(FileAccess.get_file_as_string("res://assets/plains_redraw_02/diver_frames.json"))
 	var atlas: Texture2D = TEXTURES.get(str(data.texture)) as Texture2D
 	if atlas == null:
 		push_error("Unknown enemy feedback frame texture: " + str(data.texture))
