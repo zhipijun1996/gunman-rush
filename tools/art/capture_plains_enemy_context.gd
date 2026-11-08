@@ -1,8 +1,9 @@
 extends SceneTree
 ## Actual PR142 rooms/camera/tiles/light/UI; only static art placement is a fixture.
 ## No combat, movement, collision or animation acceptance is implied.
-const ART := "res://art/reviews/plains_enemies_pr142_restart/static/"
-const DEST := "res://build/plains_enemies_pr142/restart/context/"
+const ART := "res://art/reviews/plains_enemies_pr142/static/"
+const DEST := "res://build/plains_enemies_pr142/separation/context/"
+const SEPARATION := preload("res://tools/art/plains_enemy_separation.gdshader")
 var app: FixedWorldApp
 var records: Array[Dictionary] = []
 var sprites: Array[Sprite2D] = []
@@ -42,13 +43,18 @@ func add_static(id: String, foot: Vector2) -> void:
 	app.room.add_child(sprite)
 	sprites.append(sprite)
 
-func snap(id: String) -> void:
-	note.text=current_title+"  |  全新设计静态稿\n正式TileSet / 原镜头与光照 / 静态试摆，非战斗或动画"
+func snap(id: String, separated: bool) -> void:
+	var variant := "separated" if separated else "original"
+	note.text=current_title+"  |  "+("同造型 · 明暗分离" if separated else "C 原图 · 原光照")+"\n相同 PNG / 相同像素与尺寸 / 静态试摆，非战斗或动画"
+	for sprite: Sprite2D in sprites:
+		if separated:
+			var material := ShaderMaterial.new(); material.shader=SEPARATION; sprite.material=material
+		else: sprite.material=null
 	await process_frame
 	await RenderingServer.frame_post_draw
-	var filename:=DEST+id+".png"
+	var filename:=DEST+id+"-"+variant+".png"
 	assert(root.get_texture().get_image().save_png(filename)==OK)
-	var row: Dictionary={"case":id,"variant":"restart","room":app.room.room_id,"file":filename,"camera":str(app.camera.global_position),"zoom":str(app.camera.zoom),"player":str(app.player.global_position),"sprites":[]}
+	var row: Dictionary={"case":id,"variant":variant,"room":app.room.room_id,"file":filename,"camera":str(app.camera.global_position),"zoom":str(app.camera.zoom),"player":str(app.player.global_position),"sprites":[]}
 	for sprite: Sprite2D in sprites:
 		var box: Rect2=sprite.get_global_transform_with_canvas()*sprite.get_rect()
 		row.sprites.append({"id":sprite.name,"feet":str(sprite.position),"native_size":str(sprite.texture.get_size()),"screen_bounds":str(box),"inside_viewport":root.get_visible_rect().grow(.5).encloses(box)})
@@ -84,7 +90,8 @@ func run() -> void:
 		app.process_mode=Node.PROCESS_MODE_DISABLED
 		sprites.clear()
 		for pose: Array in shot.poses:add_static(pose[0],pose[1])
-		await snap(shot.id)
+		await snap(shot.id,false)
+		await snap(shot.id,true)
 	var file:=FileAccess.open(DEST+"capture.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"scope":"PR142 actual runtime scenery with frozen static approval fixtures; no combat or motion acceptance","shots":records},"\t"));file.close()
 	app.process_mode=Node.PROCESS_MODE_INHERIT
