@@ -80,7 +80,7 @@ async def observe(url, output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--url')
-    parser.add_argument('--output', type=Path, default=ROOT / 'build/plains_v07/browser')
+    parser.add_argument('--output', type=Path, default=ROOT / 'build/world-browser')
     args = parser.parse_args()
     server = None
     try:

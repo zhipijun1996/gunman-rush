@@ -6,7 +6,8 @@ Godot 4.7.2 Standard、类型化 GDScript，目标为固定世界类银河恶魔
 
 1. 核对分支、工作区和基线，读 [当前状态](docs/project/current_state.md)。
 2. 从 [任务表](docs/project/tasks.md) 找本次父议题，只读其 `docs/project/worklines/<议题>/` 当前交接中本次子任务与直接依赖。
-3. 用 [模块导航](docs/project/module_map.md) 定位代码与验证，用 [文档索引](docs/README.md) 找相关设计圣经、对象规范和参数来源，按需选相关 Skill。
+3. 内容制作先执行 [开发流程的六项检查](docs/project/development.md)，只在现有工作线更新当前结果；过时报告和已被替代的无消费者实现删除，历史留Git。
+4. 用 [模块导航](docs/project/module_map.md) 定位代码与验证，用 [文档索引](docs/README.md) 找相关设计圣经、对象规范和参数来源，按需选相关 Skill。
 
 ## 文档与实现
 

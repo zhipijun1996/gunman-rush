@@ -30,7 +30,7 @@ func _ready() -> void:
 	root=Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	root.theme=DemoClockworkTheme.create_theme()
+	root.theme=UnderworldUI.create_theme()
 	add_child(root)
 	hud=DemoGameHud.new()
 	root.add_child(hud)
@@ -126,10 +126,10 @@ func present(actor: PlayerController,room_id: String,location: String,status: St
 	var safe:=DemoUiModalMetrics.safe_rect(get_viewport())
 	var factor:=clampf(1.0/DemoUiModalMetrics.ui_scale(get_viewport()),1,1.8)
 	mini.scale=Vector2.ONE*factor
-	mini.size=Vector2(200,135)
-	mini.position=Vector2(safe.end.x-210*factor,safe.position.y+16*factor)
+	mini.size=Vector2(184,112)
+	mini.position=Vector2(safe.end.x-200*factor,safe.position.y+16*factor)
 	pause_button.custom_minimum_size=Vector2(100,48)*factor
-	pause_host.position=Vector2(safe.end.x-110*factor,mini.position.y+145*factor)
+	pause_host.position=Vector2(safe.end.x-110*factor,mini.position.y+122*factor)
 	pause_host.size=pause_button.get_combined_minimum_size()
 	pause_host.visible=page.is_empty()
 	interact.custom_minimum_size=Vector2(220,54)*factor

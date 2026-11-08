@@ -11,6 +11,10 @@ static var assets: Dictionary={}
 static var props: Dictionary={}
 var occluders: Array[Sprite2D]=[]
 var story_props: Array[Dictionary]=[]
+var sky: Sprite2D
+var daylight: DirectionalLight2D
+var ambient: CanvasModulate
+var indoor := false
 func sprite(id: String,at: Vector2,layer: int=-2) -> Sprite2D:
 	var node:=Sprite2D.new();node.centered=false
 	if props.has(id):
@@ -28,38 +32,37 @@ func _ready() -> void:
 	depth_reference=Vector2(FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size.x*.5,room.start_point.y-100)
 	for hazard: Rect2 in room.hazards:
 		for x: float in range(int(hazard.position.x),int(hazard.end.x),96):sprite("windchime_plains_hazard",Vector2(x+48,hazard.end.y),1)
-	var indoor: String={"mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(room.art_profile,"")
-	if not indoor.is_empty():
-		var wall:=Sprite2D.new();wall.texture=load("res://assets/plains_v07/native/interior_"+indoor+".png");wall.centered=false;wall.region_enabled=true;wall.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
+	var interior: String={"mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(room.art_profile,"")
+	if not interior.is_empty():
+		var wall:=Sprite2D.new();wall.texture=load("res://assets/plains_v07/native/interior_"+interior+".png");wall.centered=false;wall.region_enabled=true;wall.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
 		wall.region_rect=Rect2(Vector2.ZERO,FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size+Vector2(1024,512));wall.position=Vector2(-512,-256);wall.z_index=-40;wall.modulate=Color(.8,.86,.95);add_child(wall)
 		depths.append({"node":wall,"origin":wall.position,"ratio":.92})
-	var ambient:=CanvasModulate.new();ambient.color=Color(.83,.89,.92) if not indoor.is_empty() else Color(.94,.97,1);add_child(ambient)
+	indoor=not interior.is_empty()
+	ambient=CanvasModulate.new()
+	ambient.color=Color(.66,.71,.80) if indoor else Color(.62,.68,.78)
+	add_child(ambient)
+	if not indoor:
+		sky=Sprite2D.new();sky.name="PlainsFarLandscape"
+		sky.texture=load("res://art/world-art-v2/"+str(assets.backgrounds.windchime_plains_v2.file))
+		sky.z_index=-100;sky.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+		var unlit:=CanvasItemMaterial.new();unlit.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;sky.material=unlit
+		add_child(sky)
+		daylight=DirectionalLight2D.new();daylight.color=Color("ffdfac");daylight.energy=.42
+		daylight.rotation=-.55;daylight.shadow_enabled=true;daylight.max_distance=1200
+		add_child(daylight)
 	for i: int in room.platforms.size():
 		if i in room.one_way_indices:continue
 		var platform: Rect2=room.platforms[i]
+		if not indoor and (platform.position.y==0 or platform.size.x<=32):continue
 		var blocker:=LightOccluder2D.new();var polygon:=OccluderPolygon2D.new()
 		polygon.polygon=PackedVector2Array([platform.position,Vector2(platform.end.x,platform.position.y),platform.end,Vector2(platform.position.x,platform.end.y)])
 		blocker.occluder=polygon;add_child(blocker)
 	if room.rest_point!=Vector2.ZERO:add_lamp(room.rest_point-Vector2(0,42))
-	var count:=0
-	# Only exposed surfaces receive attached vegetation. No plants inside solids.
-	for platform: Rect2 in room.platforms:
-		if not indoor.is_empty():continue
-		if platform.size.x<96 or platform.size.y<24 or platform.position.y<96:continue
-		for x: float in [platform.position.x+48,platform.end.x-48]:
-			var at:=Vector2(x,platform.position.y)
-			var buried:=false
-			for other: Rect2 in room.platforms:
-				if other!=platform and other.has_point(at-Vector2(0,8)):buried=true;break
-			for danger: Rect2 in room.hazards:
-				if danger.grow(40).has_point(at):buried=true
-			if buried:continue
-			if room.rest_point.distance_to(at)<100 or room.reward_point.distance_to(at)<80:continue
-			var grass:=sprite("plains_grass",at+Vector2(0,1),2)
-			var material:=ShaderMaterial.new();material.shader=preload("res://game/presentation/world/plains_v07/rooted_wind.gdshader");material.set_shader_parameter("height",float(grass.texture.get_height()));grass.material=material
-			swaying.append(material);count+=1
 	for placement: Dictionary in room.art_placements:
 		var node:=sprite(str(placement.asset),FixedWorldProvider.point(placement.point),int(placement.get("layer",-2)))
+		if placement.get("sway",false):
+			var material:=ShaderMaterial.new();material.shader=preload("res://game/presentation/world/plains_v07/rooted_wind.gdshader")
+			material.set_shader_parameter("height",float(node.texture.get_height()));node.material=material;swaying.append(material)
 		if placement.has("receipt"):
 			node.hide();story_props.append({"node":node,"receipt":placement.receipt,"host":placement.get("story_host","")})
 		if placement.get("fade_near",false):occluders.append(node)
@@ -86,6 +89,14 @@ func _process(delta: float) -> void:
 	for i: int in swaying.size():swaying[i].set_shader_parameter("phase",clock*1.7+i*.73)
 	var camera:=get_viewport().get_camera_2d()
 	if camera!=null:
+		if sky!=null:
+			var span:=get_viewport_rect().size/camera.zoom
+			var image_size:=sky.texture.get_size()
+			var magnification:=ceilf(maxf(span.x/image_size.x,span.y/image_size.y))
+			sky.scale=Vector2.ONE*magnification
+			var slack: Vector2=(image_size*magnification-span)*.5
+			var offset: Vector2=(camera.get_screen_center_position()-depth_reference)*.12
+			sky.position=(camera.get_screen_center_position()-offset.clamp(-slack,slack)).round()
 		for d: Dictionary in depths:d.node.position=(d.origin+(camera.global_position-depth_reference)*(1.0-float(d.ratio))).round()
 	queue_redraw()
 func _draw() -> void:
@@ -93,11 +104,20 @@ func _draw() -> void:
 	var camera:=get_viewport().get_camera_2d()
 	if camera==null:return
 	var center:=camera.get_screen_center_position();var span:=get_viewport_rect().size/camera.zoom
-	for i: int in 18:
-		var point:=Vector2(fposmod(i*137.0+clock*(19+i%3*6),span.x),fposmod(i*61.0+sin(clock+i)*4,span.y))+center-span/2
+	var particle_count:=clampi(int(span.x*span.y/13500),18,42)
+	for i: int in particle_count:
+		var speed:=8.0+i%3*3 if indoor else 32.0+i%3*11
+		var point:=Vector2(fposmod(i*137.0+clock*speed,span.x),fposmod(i*61.0+sin(clock+i)*4,span.y))+center-span/2
 		var blocked:=false
 		for solid: Rect2 in room.platforms:
 			if solid.has_point(point):blocked=true;break
 		if not blocked:
-			draw_rect(Rect2(point.round(),Vector2(2,1)),Color(1,.91,.64,.65))
-			draw_line(point.round()-Vector2(4,0),point.round(),Color(1,.88,.6,.2),1)
+			var at:=point.round()
+			if not indoor and i%3==0:
+				# Seed husks retain a dark edge against the bright sky at phone scale.
+				draw_line(at-Vector2(12,1),at,Color(.49,.44,.28,.42),1)
+				draw_rect(Rect2(at-Vector2(1,1),Vector2(5,3)),Color(.43,.38,.22,.78))
+				draw_rect(Rect2(at,Vector2(3,1)),Color(1,.94,.72,.95))
+			else:
+				draw_rect(Rect2(at,Vector2(2,1)),Color(1,.94,.72,.8))
+				if not indoor:draw_line(at-Vector2(7,1),at,Color(1,.91,.7,.3),1)

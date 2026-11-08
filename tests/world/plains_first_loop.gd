@@ -63,9 +63,9 @@ func run() -> void:
 	if not await route([Vector2(912,878)],"P-R25"):await done();return
 	await hop(Vector2(1200,878),Vector2(-1,.1));await clear_enemies()
 	if not await route([Vector2(2042,878)],"P-R25","P-R26"):await done();return
-	if not await route([Vector2(480,1262)],"P-R26"):await done();return
-	await clear_enemies()
-	if not await route([Vector2(1840,1262),Vector2(1872,1190),Vector2(1728,1118),Vector2(1872,1046),Vector2(1968,974),Vector2(1728,910),Vector2(1584,838),Vector2(1424,766),Vector2(1248,694),Vector2(1072,622),Vector2(896,550),Vector2(1072,478),Vector2(1248,406),Vector2(1072,334),Vector2(896,262),Vector2(944,190),Vector2(1168,142),Vector2(1104,142),Vector2(1024,-18)],"P-R26","P-R27"):await done();return
+	var mill_route:=preload("res://tests/world/plains_mill_route.gd").new()
+	if not await mill_route.run(app):check(false,"mill physical route "+mill_route.checkpoint);await done();return
+	if not await route([Vector2(1104,142),Vector2(1024,-18)],"P-R26","P-R27"):await done();return
 	if not await route([Vector2(912,494)],"P-R27"):await done();return
 	await hop(Vector2(320,494),Vector2(1,.2))
 	await walk(Vector2(320,494),"P-R27");app.controller.router.request_action(&"interact");await ticks(8)

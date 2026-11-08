@@ -4,7 +4,7 @@
   "task_type": "region",
   "baseline_commit": "0e742706c59e3409b23c4536ba74f89af6a2146b",
   "reviewed_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-  "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
+  "content_version": "20f0be2217e580dde9da04fd210e8711387ae64425a7e5475cfb9ed3aea72495",
   "owner": "Codex",
   "purpose": "按PR141附件v07.1制作完整35房平原，整合地图与美术来源并退休旧地图。",
   "player_experience": "反冲主导的新档学习与西侧主循环，H能力取得后的修钟/回访和东侧探索；统一像素人物、地形、机关与UI反馈。",
@@ -17,14 +17,14 @@
     "config/world/",
     "game/world/",
     "game/application/world/",
-    "assets/plains_v07/",
-    "art/world-art-v2/",
-    "tests/world/"
+    "game/presentation/ui/world/",
+    "game/presentation/world/plains_v07/",
+    "tests/world/",
+    "docs/project/",
+    "AGENTS.md"
   ],
   "deliverables": [
-    "35 editable Godot rooms and authored object placement",
-    "Integrated source packs, art and level skills, native pixel assets and animations",
-    "Actual controller replays, native captures, browser observation and review"
+    "P-R01—P-R35完整关卡、连续空间和正式表现；当前返工未完成。"
   ],
   "creative_decisions": [],
   "formal_impact": true,
@@ -36,310 +36,43 @@
   "gates": {
     "G2": {
       "status": "failed",
-      "reason": "用户拒绝当前视觉与关卡体验；源码复核确认结构、反冲/机关价值、空间连贯和氛围审查失效。",
-      "evidence": [
-        "user-feedback",
-        "review"
-      ]
+      "reason": "35房整体仍在返工；当前结果和缺口只见scope.md，历史报告不继承。",
+      "evidence": []
     }
   },
   "dimensions": {
     "visual": {
       "status": "failed",
-      "reason": "用户截图与源码复核确认UI比例、薄平台/草附着、背景光色及地图连续性未达要求。",
-      "evidence": [
-        "user-feedback",
-        "review"
-      ]
+      "reason": "整区合屏、空间地图及最终显示尺寸尚未通过；局部真实窗口观察见scope.md。",
+      "evidence": []
     },
     "gameplay": {
       "status": "failed",
-      "reason": "重复补台阶、低层前进旁路削弱反冲和机关；现有路线测试不能证明整区体验成立。",
-      "evidence": [
-        "user-feedback",
-        "review"
-      ]
+      "reason": "已开始重做机关和反冲路线，但未完成35房职责与整区体验验收。",
+      "evidence": []
     },
     "technical": {
-      "status": "passed",
-      "reason": "被审版本的既有CI、限定运行/状态/存档、PCK与网页资源检查通过；不代表美术或体验验收。",
-      "evidence": [
-        "checks"
-      ]
+      "status": "unverified",
+      "reason": "CI与世界专项通过，具体范围见scope.md；本轮尚未重导出Web/PCK并验证发布产物，技术交付未完成。",
+      "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "事件动画出现已记录，但全场景动作风格、衔接与适当性未充分审查，撤回整体通过。",
-      "evidence": [
-        "review"
-      ]
+      "reason": "本轮未完成全场景动作适配审查。",
+      "evidence": []
     },
     "audio_vfx": {
       "status": "failed",
-      "reason": "环境风向、粒子和光线未达到参考氛围；声音路由时序的技术证据保留，设备听感仍未验。",
-      "evidence": [
-        "user-feedback",
-        "review"
-      ]
+      "reason": "光色和风效开始替换，最终动态及设备听感尚未通过。",
+      "evidence": []
     }
   },
-  "criteria": [
-    {
-      "id": "plains-visual",
-      "scenario": "正常镜头合屏符合参考的尺度、根基、层次和光色；UI比例一致，区域空间连贯。",
-      "method": "对照用户反馈、两份Skill与实际消费者复核；当前限制及下一动作见review.md。",
-      "expected": "正常镜头合屏符合参考的尺度、根基、层次和光色；UI比例一致，区域空间连贯。",
-      "failure": "内容缺失、不可操作、错误状态写入或画面/反馈不符时不得通过。",
-      "gate": "G2",
-      "dimension": "visual",
-      "status": "failed",
-      "reason": "用户截图与源码复核确认UI比例、薄平台/草附着、背景光色及地图连续性未达要求。",
-      "evidence": [
-        "user-feedback",
-        "review"
-      ]
-    },
-    {
-      "id": "plains-gameplay",
-      "scenario": "各房实际决策符合职责，反冲和机关承担声明作用，恢复不绕过目标。",
-      "method": "对照用户反馈、两份Skill与实际消费者复核；当前限制及下一动作见review.md。",
-      "expected": "各房实际决策符合职责，反冲和机关承担声明作用，恢复不绕过目标。",
-      "failure": "内容缺失、不可操作、错误状态写入或画面/反馈不符时不得通过。",
-      "gate": "G2",
-      "dimension": "gameplay",
-      "status": "failed",
-      "reason": "重复补台阶、低层前进旁路削弱反冲和机关；现有路线测试不能证明整区体验成立。",
-      "evidence": [
-        "user-feedback",
-        "review"
-      ]
-    },
-    {
-      "id": "plains-technical",
-      "scenario": "锁定引擎CI、内容验证、实际PCK加载及网页资源检查通过。",
-      "method": "真实运行、明确夹具边界及当前实现审看，见对应证据。",
-      "expected": "在声明范围内通过；完整边界见审看记录。",
-      "failure": "内容缺失、不可操作、错误状态写入或画面/反馈不符时不得通过。",
-      "gate": "G2",
-      "dimension": "technical",
-      "status": "passed",
-      "reason": "被审版本的既有CI、限定运行/状态/存档、PCK与网页资源检查通过；不代表美术或体验验收。",
-      "evidence": [
-        "checks"
-      ]
-    },
-    {
-      "id": "plains-animation",
-      "scenario": "适用动作在连续操作中风格、衔接、时序与环境关系成立。",
-      "method": "对照用户反馈、两份Skill与实际消费者复核；当前限制及下一动作见review.md。",
-      "expected": "适用动作在连续操作中风格、衔接、时序与环境关系成立。",
-      "failure": "内容缺失、不可操作、错误状态写入或画面/反馈不符时不得通过。",
-      "gate": "G2",
-      "dimension": "animation",
-      "status": "unverified",
-      "reason": "事件动画出现已记录，但全场景动作风格、衔接与适当性未充分审查，撤回整体通过。",
-      "evidence": [
-        "review"
-      ]
-    },
-    {
-      "id": "plains-audio_vfx",
-      "scenario": "风向、光线与环境特效在实际显示尺寸可感知，反馈符合已接受事件；听感按实际设备覆盖记录。",
-      "method": "对照用户反馈、两份Skill与实际消费者复核；当前限制及下一动作见review.md。",
-      "expected": "风向、光线与环境特效在实际显示尺寸可感知，反馈符合已接受事件；听感按实际设备覆盖记录。",
-      "failure": "内容缺失、不可操作、错误状态写入或画面/反馈不符时不得通过。",
-      "gate": "G2",
-      "dimension": "audio_vfx",
-      "status": "failed",
-      "reason": "环境风向、粒子和光线未达到参考氛围；声音路由时序的技术证据保留，设备听感仍未验。",
-      "evidence": [
-        "user-feedback",
-        "review"
-      ]
-    }
-  ],
-  "evidence": [
-    {
-      "id": "rooms1",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/rooms-1.jpg",
-      "sha256": "018155010ce9195b3c012d4e1a6a476135f18c315ea4d58ad67bff64ed05a369",
-      "kind": "screenshot",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Native plains_capture.gd, declared focal positions; contact sheet only resized for review.",
-      "observed": "Actual runtime room rendering; no traversal claim from screenshots."
-    },
-    {
-      "id": "rooms2",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/rooms-2.jpg",
-      "sha256": "3da420790e1a811ecdbd3dbe477cb3ea9aca85a392981735b6d14a5fe2de9fbd",
-      "kind": "screenshot",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Native plains_capture.gd, declared focal positions; contact sheet only resized for review.",
-      "observed": "Actual runtime room rendering; no traversal claim from screenshots."
-    },
-    {
-      "id": "rooms3",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/rooms-3.jpg",
-      "sha256": "913bed986e1bcb2df2e2a238ef98245d0aa0a0388c8146ee4fc5bd37b0b63ba6",
-      "kind": "screenshot",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Native plains_capture.gd, declared focal positions; contact sheet only resized for review.",
-      "observed": "Actual runtime room rendering; no traversal claim from screenshots."
-    },
-    {
-      "id": "dialogue",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/ui-aqi-960.png",
-      "sha256": "7470a6fbb262e247ed714ebea2ccd943dcbe0096120ef1ff69048ec88caefbdd",
-      "kind": "screenshot",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Native UI fixture or ordinary browser input, as named.",
-      "observed": "Readable text and contained controls; full map uses explicitly explored presentation fixture."
-    },
-    {
-      "id": "pause",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/ui-pause-960.png",
-      "sha256": "ba337eff2d53e5f555d8dbbeeedf4ed26f21de657dd8015889251993bd305972",
-      "kind": "screenshot",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Native UI fixture or ordinary browser input, as named.",
-      "observed": "Readable text and contained controls; full map uses explicitly explored presentation fixture."
-    },
-    {
-      "id": "map",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/ui-map-survey.png",
-      "sha256": "25739c04c58a89b696b834c722a585abbaf29cf4b8e0996981f8f2741697c62d",
-      "kind": "screenshot",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Native UI fixture or ordinary browser input, as named.",
-      "observed": "Readable text and contained controls; full map uses explicitly explored presentation fixture."
-    },
-    {
-      "id": "web",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/web-pause-960.png",
-      "sha256": "fd78939d002750624410d4a3f1e4dc2723a43f07fac90e6877248cb35347fae5",
-      "kind": "screenshot",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Native UI fixture or ordinary browser input, as named.",
-      "observed": "Readable text and contained controls; full map uses explicitly explored presentation fixture."
-    },
-    {
-      "id": "arena",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/arena-recoil.png",
-      "sha256": "d89d28a66604497037b1ec94e6466a5236c601a0515ca86b314f3a00d6dff233",
-      "kind": "screenshot",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Frame at 115 seconds of the final native continuous first-loop recording.",
-      "observed": "Rapid arena recoil keeps the actor visible with unchanged zoom; floor preference yields when both cannot fit."
-    },
-    {
-      "id": "feedback",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/feedback.mp4",
-      "sha256": "0285bc8adf7baeda38ccb6714e3dce34fa6b8623caf8acb279c0f6b42da47510",
-      "kind": "video",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Native feedback fixture: declared room starts; real interact and movement inputs; 60fps source, 30fps review encoding.",
-      "observed": "NPC portrait, accepted rest, collection burst and unfolded return; encoded game audio."
-    },
-    {
-      "id": "main-video",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/first-loop-excerpt.mp4",
-      "sha256": "7d5572e7897ace4faaa2a59b6f2ffb39ed1d82608190a8bdcdf8a0e47de8910e",
-      "kind": "video",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Uninterrupted excerpt of the native full new-game recording; no progress writes or teleport in the producer.",
-      "observed": "Continuous movement, actual combat and environment; full 9414-frame video stays in build/plains_v07/video/first-loop.mp4."
-    },
-    {
-      "id": "runtime",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/runtime-trace.txt",
-      "sha256": "a81b48ae60e44dd222fa6e65b82954d3e0041f74ee29b07196edb817f8fe16f9",
-      "kind": "runtime_trace",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Selected literal output of completed tools/run_world_loop.py.",
-      "observed": "All producer/consumer scripts pass, including independent disk restart and qualified ability counterexamples."
-    },
-    {
-      "id": "checks",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/verification.json",
-      "sha256": "eb0bbd338aa897e657aef9809a11034c445b84b55016dcde8376ad572a6383cc",
-      "kind": "command",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Run named tools and retain checksums of full build logs plus exact result markers.",
-      "observed": "CI, design, source build, graph, runtime, independent PCK, Web resources and browser pass.",
-      "command": "Commands enumerated in verification.json",
-      "exit_code": 0,
-      "environment": "Linux; locked Godot 4.7.2 gunman_sd1; llvmpipe native, Chromium SwiftShader Web. Full movie requests a 960x540 window; project Movie Maker output is 1280x720."
-    },
-    {
-      "id": "review",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/review.md",
-      "sha256": "adab02c4d09cb8b312455c7e31d9212ec1c47ed4f3901c2993c904396edd1ec7",
-      "kind": "review",
-      "producer": "Codex",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "同一实施者对照本次用户截图与反馈、现行Skill和实际消费者复核；未重新录制运行。",
-      "observed": "撤回整体质量通过；关卡、视觉与环境特效失败；保留有限范围技术证据。",
-      "reviewer": "Codex",
-      "implementers": [
-        "Codex"
-      ],
-      "verdict": "REJECT",
-      "independent": false
-    },
-    {
-      "id": "user-feedback",
-      "path": "docs/project/worklines/plains_bible_v2_01/quality/review.md",
-      "sha256": "adab02c4d09cb8b312455c7e31d9212ec1c47ed4f3901c2993c904396edd1ec7",
-      "kind": "user_feedback",
-      "producer": "user",
-      "source_commit": "a5c4818c6f0e2fc7c8b8f55a32567c0cf350dd1b",
-      "content_version": "c583914dba6c6d793f3a0969a4ad61ea82e424ce9cf68370d3dce8903a3523b7",
-      "method": "Codex将当前会话用户反馈原文转录到review.md用户反馈节；原截图在会话，非原始消息导出或设备测量。",
-      "observed": "用户明确拒绝UI比例、出口/草、氛围、地图和关卡设计。",
-      "source": "2026-11-08 当前用户会话，六项反馈与两张附图；图1显示build be15b741。",
-      "quote": "5，关卡设计一塌糊涂（最大的问题！），房间里面的平台也丑到不行。之前的skilks根本没有发挥出来吗？也完全没有机关感，美感，也没有反冲特色。",
-      "covers": [
-        "visual",
-        "gameplay",
-        "audio_vfx"
-      ],
-      "accepted": false
-    }
-  ],
+  "criteria": [],
+  "evidence": [],
   "consumer_coverage": null,
   "unverified_items": [
-    "已知失败：UI比例、下行出口及植被支撑、参考氛围、地区连续地图、反冲/机关职责必须返工；具体证据和恢复动作见review.md。",
-    "整区保留弹丸/机关但关闭反冲位移的对照尚未执行；既有P-R22单点测试不能替代。",
-    "动作风格与衔接、风向可见性、同机位光照对照及浏览器尺寸矩阵未完成复核。",
-    "三处地图行装包的最终可装配效果仍待ITEM-V5-01；获取、收存和返程已实现。",
-    "其余274房、外区能力获取和全世界结局未施工。",
-    "实体手机/手柄、目标机性能与扬声器听感未验证。",
-    "同一实施者审看；未代签用户认可或独立审查。",
-    "浏览器检查覆盖标题、新档、输入、地图与960×540暂停；完整浏览器通关未验证。"
+    "35房逐房返工与整区连续验证尚未完成；本轮覆盖与恢复入口见scope.md。",
+    "视觉、反冲/机关职责、连续地图和UI比例仍需实际验证。",
+    "实体设备性能和听感没有新测量；不能由浏览器或原生窗口代签。"
   ]
 }

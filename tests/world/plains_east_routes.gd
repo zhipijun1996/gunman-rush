@@ -46,7 +46,12 @@ func run() -> void:
 	if not await route([Vector2(2298,398)],"P-R34","P-R35"):await finish_east();return
 	if not await route([Vector2(640,1134)],"P-R35"):await finish_east();return
 	await clear_enemies()
-	if not await route([Vector2(1440,1182),Vector2(1664,1134),Vector2(2208,1134),Vector2(2352,1062),Vector2(2240,990),Vector2(2080,910)],"P-R35"):await finish_east();return
+	if not await route([Vector2(1200,1134)],"P-R35"):await finish_east();return
+	# Cross the real narrow downward opening with an ordinary jump.
+	app.controller.router.set_source_axis(&"keyboard_mouse",1)
+	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(24)
+	app.controller.router.set_jump_held(&"keyboard_mouse",false)
+	if not await route([Vector2(1440,1134),Vector2(1664,1134),Vector2(2208,1134),Vector2(2352,1062),Vector2(2240,990),Vector2(2080,910)],"P-R35"):await finish_east();return
 	await hop(Vector2(2400,910),Vector2(-1,.1))
 	if not await route([Vector2(2554,910)],"P-R35","P-R18"):await finish_east();return
 	if not await route([Vector2(736,782)],"P-R18"):await finish_east();return

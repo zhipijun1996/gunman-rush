@@ -2,8 +2,9 @@ extends "res://tests/world/service_ui.gd"
 ## Explicit presentation fixtures, not a record of acquired exploration.
 func capture(label: String) -> void:
 	await ticks(12);await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("res://build/plains_v07/captures/"+label+".png")
+	root.get_texture().get_image().save_png("res://build/plains_rework/captures/"+label+".png")
 func run() -> void:
+	DirAccess.make_dir_recursive_absolute("res://build/plains_rework/captures")
 	root.size=Vector2i(1280,720)
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://plains_ui_capture.json"
 	for suffix: String in ["",".backup",".tmp",".corrupt"]:DirAccess.remove_absolute(app.save_path+suffix)

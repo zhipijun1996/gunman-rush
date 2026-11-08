@@ -34,7 +34,6 @@ var preferences:=WorldSettings.new()
 var settings_view:=WorldSettingsView.new()
 var settings_path:="user://player_settings_v1.json"
 var build_state: BuildState
-var parallax: UnderworldParallax
 var _service_ticket:=0
 var _service_token: DemoToken
 var _npc_id:=""
@@ -158,9 +157,6 @@ func _create_player() -> void:
 	(camera as WorldCamera).target=player
 	(camera as WorldCamera).settings=content.data.player.camera
 	add_child(camera)
-	parallax=UnderworldParallax.new()
-	parallax.configure(camera)
-	add_child(parallax)
 	title.hide()
 	music.request_track(&"plains")
 
@@ -758,7 +754,6 @@ func return_title() -> void:
 	policy.queue_free()
 	policy = null
 	ui.unbind()
-	if is_instance_valid(parallax): parallax.queue_free()
 	if is_instance_valid(camera): camera.queue_free()
 	build_state=null
 	music.request_track(&"home")
