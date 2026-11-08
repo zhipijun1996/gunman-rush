@@ -7,14 +7,25 @@
 script = ExtResource("1")
 room_id = "P-R34"
 art_profile = "market"
+masonry_platform_indices = Array[int]([2, 3, 4, 7, 8, 9])
+bell_mechanisms = Array[Dictionary]([{"id":"P-R34:MarketFerry","bell":[1696,360],"carrier":"MarketFerry","access_bells":[[2208,360]]}])
+spike_strips = Array[Dictionary]([{"id":"cart_lane","bounds":[1088,614,96,26],"facing":"up"}])
 arrival_text = "渠边旧集"
-platforms = Array[Rect2]([Rect2(0, 736, 2304, 32), Rect2(0, 640, 2304, 128), Rect2(480, 544, 224, 32), Rect2(960, 480, 224, 32), Rect2(1440, 544, 224, 32), Rect2(0, 640, 288, 32), Rect2(2016, 640, 288, 32), Rect2(2016, 416, 288, 32), Rect2(1680, 416, 272, 24), Rect2(1904, 496, 160, 24), Rect2(528, 544, 288, 24), Rect2(1360, 544, 320, 24), Rect2(2016, 568, 160, 24), Rect2(1952, 416, 64, 24)])
-one_way_indices = Array[int]([8, 9, 10, 11, 12, 13])
+platforms = Array[Rect2]([Rect2(0,736,2304,32),Rect2(0,640,2304,128),Rect2(480,544,224,32),Rect2(960,480,224,32),Rect2(1440,544,224,32),Rect2(0,640,288,32),Rect2(2016,640,288,32),Rect2(2144,416,160,48),Rect2(1536,416,224,48),Rect2(1760,528,224,48)])
+one_way_indices = Array[int]([])
 start_point = Vector2(144, 622)
 rest_point = Vector2(0, 0)
 enemy_placements = Array[Dictionary]([{"id": "P-R34:encounter:01", "behavior": "patrol", "point": [928, 622], "max_health": 10}, {"id": "P-R34:encounter:02", "behavior": "hopper", "point": [1536, 622], "max_health": 10}])
 signs = Array[Dictionary]([{"point": [224, 592], "text": "旧摊架已空。水岸边仍留着通行的窄路。"}])
 hook_points = Array[Vector2]([])
 section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset":"market_stalls","point":[672,640.0],"layer":-2},{"asset":"market_stalls","point":[1536,640.0],"layer":-2},{"asset":"storage_crates","point":[1056,640.0],"layer":-2}])
+retry_anchors = Array[Dictionary]([{"bounds":[592,484,96,60],"point":[640,526],"section":"main"},{"bounds":[1584,356,96,60],"point":[1632,398],"section":"main"},{"bounds":[2032,580,96,60],"point":[2080,622],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"market_stalls","point":[672,640.0],"layer":-2},{"asset":"market_stalls","point":[1536,640.0],"layer":-2},{"asset":"storage_crates","point":[1056,640.0],"layer":-2},{"asset":"plain_pier","point":[1600,640],"support_height":176},{"asset":"plain_pier","point":[2240,640],"support_height":176}])
+
+[node name="MarketFerry" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(1840, 416)
+endpoint = Vector2(224, 0)
+platform_size = Vector2(128, 20)
+period = 7.0
+one_way = true

@@ -4,7 +4,7 @@ func run() -> void:
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path="user://plains_interiors.json"
 	root.add_child(app);app.start_new();await settle()
-	for rid: String in ["P-R05","P-R08","P-R10","P-R12","P-R16","P-R17","P-R26","P-R29","P-R30"]:
+	for rid: String in ["P-R05","P-R08","P-R10","P-R11","P-R12","P-R16","P-R17","P-R26","P-R29","P-R30"]:
 		app.load_room(rid,"");await settle()
 		var art:=app.room.get_node("RegionalArt") as PlainsRoomArt
 		check(art.indoor and art.sky==null and art.daylight==null,"enclosed room uses its internal light/wall field: "+rid)

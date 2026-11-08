@@ -39,9 +39,9 @@ func route(points: Array,rid: String,target: String="") -> bool:
 	await settle()
 	if not target.is_empty():check(app.room.room_id==target,rid+" actual door to "+target)
 	return failures==0
-func hop(at: Vector2,aim: Vector2) -> void:
+func hop(at: Vector2,aim: Vector2,shot_frame: int=9) -> void:
 	app.controller.router.set_source_axis(&"keyboard_mouse",signf(at.x-app.player.position.x) if absf(at.x-app.player.position.x)>8 else 0)
-	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(9)
+	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(shot_frame)
 	app.controller.router.request_action(&"shoot_release",aim.normalized());await ticks(8)
 	app.controller.router.set_jump_held(&"keyboard_mouse",false)
 	for i: int in 120:
@@ -65,7 +65,12 @@ func run() -> void:
 	replay_save_path="user://plains_full_loop_replay.json"
 	await play_intro()
 	if failures>0:await done();return
-	if not await route([Vector2(6,622)],"P-R01","P-R08"):await done();return
+	if not await route([Vector2(1790,622)],"P-R01","P-R08"):await done();return
+	if not await route([Vector2(352,1390)],"P-R08"):await done();return
+	await clear_enemies(96)
+	if not await route([Vector2(448,1390)],"P-R08"):await done();return
+	await full_jump(Vector2(672,1438))
+	if not await route([Vector2(880,1390)],"P-R08"):await done();return
 	var bell:=app.room.mechanisms["P-R08:well_lift"] as WorldShotLatch
 	var lift:=bell.motion_target as WorldMovingPlatform
 	app.controller.router.request_action(&"shoot_release",(bell.bell_position-app.player.position).normalized());await ticks(8)
@@ -137,7 +142,7 @@ func run() -> void:
 	check(won,"real Windkeeper victory with base gun and no H")
 	if won:
 		app.controller.router.clear("victory")
-		check(await walk(Vector2(1800,1134),"P-R14"),"leave arena and descend reward forecourt")
+		check(await path([Vector2(1936,910),Vector2(1872,990),Vector2(1696,1134),Vector2(1800,1134)],"P-R14"),"leave arena and descend reward forecourt")
 		app.controller.router.request_action(&"interact");await ticks(5)
 		check(app.state.has("H") and app.state.value.receipts.has("get_H"),"physical H pickup")
 		var count: int=app.state.value.receipts.size()
@@ -147,7 +152,7 @@ func run() -> void:
 	if not await route([Vector2(1928,1134)],"P-R14"):await done();return
 	app.controller.router.request_action(&"interact");await ticks(5);check(app.state.has("shortcut_p03"),"open defeated arena return gate")
 	if not await route([Vector2(1264,1182),Vector2(1088,1262)],"P-R14","P-R15"):await done();return
-	if not await route([Vector2(1016,1182),Vector2(1504,1134)],"P-R15"):await done();return
+	if not await route([Vector2(600,1134),Vector2(1016,1182),Vector2(1504,1134)],"P-R15"):await done();return
 	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(8)
 	for anchor: Vector2 in app.room.hook_points:
 		check(await hook(anchor),"earned H climbs clock anchors")

@@ -8,8 +8,10 @@
 script = ExtResource("1")
 room_id = "P-R20"
 art_profile = "water"
+masonry_platform_indices = Array[int]([6, 7])
+spike_strips = Array[Dictionary]([{"id":"sluice_bed","bounds":[864,870,64,26],"facing":"up"}])
 arrival_text = "退潮渠畔"
-platforms = Array[Rect2]([Rect2(0, 992, 2304, 32), Rect2(0, 896, 1808, 128), Rect2(1984, 896, 320, 128), Rect2(1696, 448, 512, 40), Rect2(0, 896, 288, 32), Rect2(2016, 896, 288, 32)])
+platforms = Array[Rect2]([Rect2(0,992,2304,32),Rect2(0,896,1808,128),Rect2(1984,896,320,128),Rect2(1696,448,512,40),Rect2(0,896,288,32),Rect2(2016,896,288,32),Rect2(640,800,224,96),Rect2(1024,768,192,128)])
 one_way_indices = Array[int]([])
 start_point = Vector2(144, 878)
 rest_point = Vector2(0, 0)

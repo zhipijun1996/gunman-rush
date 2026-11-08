@@ -7,9 +7,12 @@
 script = ExtResource("1")
 room_id = "P-R29"
 art_profile = "barn"
+masonry_platform_indices = Array[int]([15, 16])
+bell_mechanisms = Array[Dictionary]([{"id":"P-R29:GrainLift","bell":[400,1456],"carrier":"GrainLift","access_bells":[[352,624]]},{"id":"P-R29:grain_shutter","bell":[832,864],"gate":[1056,640,32,448],"open_seconds":1.2}])
+spike_strips = Array[Dictionary]([{"id":"loft_wall","bounds":[1376,1088,26,128],"facing":"right"},{"id":"upper_beam","bounds":[288,790,96,26],"facing":"up"}])
 arrival_text = "旧谷仓通廊"
-platforms = Array[Rect2]([Rect2(0, 1632, 720, 32), Rect2(1072, 1632, 464, 32), Rect2(0, 1536, 720, 128), Rect2(1072, 1536, 464, 128), Rect2(160, 1392, 256, 32), Rect2(1120, 1248, 256, 32), Rect2(160, 1104, 256, 32), Rect2(1120, 960, 256, 32), Rect2(160, 816, 256, 32), Rect2(1120, 672, 256, 32), Rect2(160, 528, 256, 32), Rect2(0, 672, 288, 32), Rect2(832, 1584, 192, 32), Rect2(720, 1632, 96, 32), Rect2(1024, 1584, 48, 32), Rect2(400, 600, 160, 24), Rect2(240, 672, 160, 24), Rect2(400, 744, 160, 24), Rect2(240, 816, 160, 24), Rect2(400, 888, 160, 24), Rect2(240, 960, 160, 24), Rect2(400, 1032, 160, 24), Rect2(240, 1104, 160, 24), Rect2(400, 1176, 160, 24), Rect2(240, 1248, 160, 24), Rect2(400, 1320, 160, 24), Rect2(240, 1392, 160, 24), Rect2(400, 1464, 160, 24), Rect2(720, 1584, 112, 24), Rect2(640, 960, 256, 32)])
-one_way_indices = Array[int]([15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28])
+platforms = Array[Rect2]([Rect2(0,1632,720,32),Rect2(1072,1632,464,32),Rect2(0,1536,720,128),Rect2(1072,1536,464,128),Rect2(160,1392,256,32),Rect2(1120,1248,256,32),Rect2(160,1104,256,32),Rect2(1120,960,256,32),Rect2(160,816,256,32),Rect2(1120,672,256,32),Rect2(160,528,256,32),Rect2(0,672,288,32),Rect2(832,1584,192,32),Rect2(720,1632,96,32),Rect2(1024,1584,48,32),Rect2(640,960,256,32),Rect2(288,672,128,32),Rect2(1344,1088,32,192)])
+one_way_indices = Array[int]([])
 start_point = Vector2(144, 654)
 rest_point = Vector2(0, 0)
 enemy_placements = Array[Dictionary]([{"id": "P-R29:encounter:01", "behavior": "sentry", "point": [608, 1518], "max_health": 10}, {"id": "P-R29:encounter:02", "behavior": "hopper", "point": [1248, 1230], "max_health": 10}])
@@ -17,5 +20,13 @@ signs = Array[Dictionary]([{"point": [224, 1488], "text": "谷仓的梁架层层
 hazards = Array[Rect2]([Rect2(480, 1512, 96, 24)])
 hook_points = Array[Vector2]([])
 section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[352,1476,96,60],"point":[400,1518],"section":"main"},{"bounds":[600,1476,96,60],"point":[648,1518],"section":"main"}])
+retry_anchors = Array[Dictionary]([{"bounds":[304,612,96,60],"point":[352,654],"section":"main"},{"bounds":[720,900,96,60],"point":[768,942],"section":"main"},{"bounds":[1200,1188,96,60],"point":[1248,1230],"section":"main"},{"bounds":[352,1476,96,60],"point":[400,1518],"section":"main"}])
 art_placements = Array[Dictionary]([{"asset":"storage_crates","point":[352,1536.0],"layer":-2},{"asset":"barrel","point":[1152,1536],"layer":-2},{"asset":"hanging_chime","point":[1248,1248.0],"layer":-2}])
+
+[node name="GrainLift" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(512, 1488)
+endpoint = Vector2(0, -896)
+platform_size = Vector2(96, 20)
+period = 14.0
+one_way = true

@@ -7,9 +7,10 @@
 script = ExtResource("1")
 room_id = "P-R31"
 art_profile = "junction"
+masonry_platform_indices = Array[int]([6, 7, 8, 9, 10])
 arrival_text = "站外铃场"
-platforms = Array[Rect2]([Rect2(0, 992, 2048, 32), Rect2(0, 896, 2048, 128), Rect2(0, 896, 288, 32), Rect2(1760, 896, 288, 32), Rect2(1760, 672, 288, 32), Rect2(1088, 160, 192, 32), Rect2(912, 160, 64, 24), Rect2(912, 248, 64, 24), Rect2(1088, 320, 160, 24), Rect2(912, 392, 160, 24), Rect2(1088, 464, 160, 24), Rect2(912, 536, 160, 24), Rect2(1088, 608, 160, 24), Rect2(1424, 672, 272, 24), Rect2(912, 680, 160, 24), Rect2(1088, 752, 160, 24), Rect2(1648, 752, 160, 24), Rect2(912, 824, 160, 24), Rect2(1760, 824, 160, 24)])
-one_way_indices = Array[int]([6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18])
+platforms = Array[Rect2]([Rect2(0,992,2048,32),Rect2(0,896,2048,128),Rect2(0,896,288,32),Rect2(1760,896,288,32),Rect2(1760,672,288,32),Rect2(1088,160,192,32),Rect2(768,752,288,48),Rect2(1088,608,256,48),Rect2(768,464,288,48),Rect2(1088,320,256,48),Rect2(1440,768,256,48)])
+one_way_indices = Array[int]([])
 start_point = Vector2(144, 878)
 rest_point = Vector2(0, 0)
 enemy_placements = Array[Dictionary]([])

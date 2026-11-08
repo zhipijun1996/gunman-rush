@@ -24,7 +24,7 @@ func run() -> void:
 	check(won,"real Windkeeper victory with base gun and no H")
 	if won:
 		app.controller.router.clear("victory")
-		check(await walk(Vector2(1800,1134),"P-R14"),"leave arena and descend reward forecourt")
+		check(await path([Vector2(1936,910),Vector2(1872,990),Vector2(1696,1134),Vector2(1800,1134)],"P-R14"),"leave arena and descend reward forecourt")
 		app.controller.router.request_action(&"interact");await ticks(5)
 		check(app.state.has("H") and app.state.value.receipts.has("get_H"),"physical H pickup")
 		var count: int=app.state.value.receipts.size()

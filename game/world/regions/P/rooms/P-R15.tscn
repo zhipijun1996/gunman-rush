@@ -7,16 +7,18 @@
 script = ExtResource("1")
 room_id = "P-R15"
 art_profile = "clock"
+masonry_platform_indices = Array[int]([10, 11, 12, 13, 14, 15])
+spike_strips = Array[Dictionary]([{"id":"clock_rib","bounds":[1344,896,26,112],"facing":"right"}])
 arrival_text = "主风铃校时台"
-platforms = Array[Rect2]([Rect2(0, 1248, 976, 32), Rect2(1328, 1248, 720, 32), Rect2(0, 1152, 976, 128), Rect2(1328, 1152, 720, 128), Rect2(1440, 704, 512, 40), Rect2(1088, 160, 192, 32), Rect2(1088, 1200, 192, 32), Rect2(976, 1248, 96, 32), Rect2(1312, 0, 32, 1056), Rect2(1280, 1200, 48, 32), Rect2(912, 216, 64, 24), Rect2(1088, 288, 160, 24), Rect2(912, 360, 160, 24), Rect2(1088, 432, 160, 24), Rect2(912, 504, 160, 24), Rect2(1088, 576, 160, 24), Rect2(912, 648, 160, 24), Rect2(1088, 720, 160, 24), Rect2(912, 792, 160, 24), Rect2(1088, 864, 160, 24), Rect2(912, 936, 160, 24), Rect2(912, 1080, 64, 24), Rect2(976, 1200, 112, 24)])
-one_way_indices = Array[int]([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])
+platforms = Array[Rect2]([Rect2(0,1248,976,32),Rect2(1328,1248,720,32),Rect2(0,1152,976,128),Rect2(1328,1152,720,128),Rect2(1440,704,512,40),Rect2(1088,160,192,32),Rect2(1088,1200,192,32),Rect2(976,1248,96,32),Rect2(1312,0,32,1056),Rect2(1280,1200,48,32),Rect2(736,1008,288,48),Rect2(1056,864,256,48),Rect2(736,720,288,48),Rect2(1056,576,256,48),Rect2(736,432,288,48),Rect2(1056,288,256,48),Rect2(976,1200,112,24)])
+one_way_indices = Array[int]([16])
 start_point = Vector2(144, 1134)
 rest_point = Vector2(0, 0)
 enemy_placements = Array[Dictionary]([])
 signs = Array[Dictionary]([{"point": [224, 1104], "text": "主风铃停止了转动。校时台在高处等候。"}])
 hook_points = Array[Vector2]([Vector2(1504, 896), Vector2(1376, 784), Vector2(1376, 592)])
 section_volumes = Array[Dictionary]([{"id": "access:H", "bounds": [1408, 0, 640, 720]}])
-retry_anchors = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([{"bounds":[1456,1092,96,60],"point":[1504,1134],"section":"main"},{"bounds":[1584,644,96,60],"point":[1632,686],"section":"main"}])
 art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_bell_wheel","point":[1504,704.0],"layer":-2},{"asset":"world_clock_far","point":[1888,1152],"layer":-14,"depth":0.6}])
 [node name="Interaction_0" type="Node2D" parent="."]
 script = ExtResource("interaction")

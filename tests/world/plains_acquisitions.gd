@@ -35,7 +35,7 @@ func run() -> void:
 	app.controller.router.set_source_axis(&"keyboard_mouse",0);app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(1);app.controller.router.set_jump_held(&"keyboard_mouse",false)
 	for i: int in 70:
 		await physics_frame
-		if app.player.position.y>=464 and app.player.velocity.y>0:break
+		if app.player.position.y>=488 and app.player.velocity.y>0:break
 	app.controller.router.set_source_axis(&"keyboard_mouse",1);app.controller.router.request_action(&"shoot_release",Vector2.LEFT);await ticks(10)
 	check(await walk(Vector2(1696,526),"P-R30"),"release below ceiling to dry bank");await collect("pickup_TG03")
 	ability(["D"])
