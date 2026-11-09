@@ -223,8 +223,9 @@ def make_catalog(root: Path, scenes: dict, world: dict, rooms: dict, baseline: s
              "source": "art/world-art-v2/" + row["file"]} for key, row in pixels.items()
             if (key.startswith(("plains_", "windchime_plains_", "gear_city_")) or key in authored_assets) and key not in props]
     interactions = json.loads((root / "assets/plains_v07/manifest.json").read_text())
-    # The animation registry resolves these assets; only registered clip IDs are offered.
-    visual_rows = interactions.get("assets", interactions.get("animations", {}))
+    # Animated interactions use the clip registry; the chest host uses UnderworldObjects.
+    visual_rows = dict(interactions.get("assets", interactions.get("animations", {})))
+    visual_rows["chest"] = {"renderer": "WorldRoomInteraction / UnderworldObjects"}
     if not visual_rows:
         raise ValueError("Unknown world interaction manifest shape")
     flags = sorted({str(flag) for a in actions + returns for flag in a.get("grants", [])})
