@@ -9,7 +9,7 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
-| MOBILE-LEVEL-WORKBENCH-01 | 世界连接审核及V-R12快速灰盒；统一实体墙攀附与命中恢复，补齐路线指引并同步试玩包 | — | in_progress | [交接](worklines/mobile_level_workbench_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | 世界连接审核及V-R12快速灰盒；统一实体墙攀附与命中恢复，补齐路线指引并同步试玩包 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
 ## 待验收
