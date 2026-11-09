@@ -22,50 +22,6 @@ def bands(mask):
     return [(int(g[0]), int(g[-1]) + 1) for g in groups if len(g) > 12]
 
 
-def core_point(frame, reference, pivot):
-    """Locate the existing gold weakpoint; records geometry, edits no pixels."""
-    pixels = np.array(frame).astype(float)
-    bbox = frame.getbbox()
-    left, top, right, bottom = bbox
-    width, height = right - left, bottom - top
-    bell = reference == 'bellstrider'
-    phase2 = reference == 'windkeeper_phase2'
-    roi = (.34, .17, .72, .63) if bell else (.50, .48 if phase2 else .25, .97, .96)
-    mask = ((pixels[:,:,0] > 135) & (pixels[:,:,0] > pixels[:,:,1] * 1.12)
-            & (pixels[:,:,1] > pixels[:,:,2] * 1.8) & (pixels[:,:,3] > 128))
-    ys, xs = np.indices(mask.shape)
-    mask &= ((xs >= left + width * roi[0]) & (xs < left + width * roi[2])
-             & (ys >= top + height * roi[1]) & (ys < top + height * roi[3]))
-    labels, count = ndimage.label(mask)
-    areas = np.bincount(labels.ravel()); areas[0] = 0
-    if not count or areas.max() < 3:
-        return [round(left + width * (.52 if bell else .75) - pivot[0]),
-                round(top + height * (.42 if bell else .70 if phase2 else .58) - pivot[1])]
-    y, x = np.nonzero(labels == areas.argmax())
-    return [round(float(np.mean(x)) - pivot[0], 2), round(float(np.mean(y)) - pivot[1], 2)]
-
-
-def mortar_point(frame, pivot):
-    """Measure the dark opening inside the painted rear copper barrel."""
-    a = np.array(frame).astype(float)
-    left, top, right, bottom = frame.getbbox()
-    ys, xs = np.indices(a.shape[:2])
-    mask = ((a[:,:,3] > 128) & (a[:,:,0] < 100)
-            & (a[:,:,0] > a[:,:,1] * 1.05) & (a[:,:,1] > a[:,:,2] * 1.15)
-            & (xs > left + (right-left)*.05) & (xs < left + (right-left)*.35)
-            & (ys > top + (bottom-top)*.18) & (ys < top + (bottom-top)*.6))
-    labels, count = ndimage.label(mask)
-    areas = np.bincount(labels.ravel())
-    candidates = []
-    for k in range(1, count+1):
-        if areas[k] < 50: continue
-        y, x = np.nonzero(labels == k)
-        candidates.append((float(y.mean()), float(x.mean())))
-    if not candidates: raise ValueError('No painted mortar opening found')
-    y, x = min(candidates)
-    return [round(x-pivot[0], 2), round(y-pivot[1], 2)]
-
-
 def bake_motion(name, spec, clean, rows):
     """Interleave painted in-betweens with untouched original keyframe pixels."""
     base = spec['interleave_from']
@@ -92,7 +48,7 @@ def bake_motion(name, spec, clean, rows):
     atlas = Image.new('RGBA',(cw*8,ch*len(rows)))
     for i, frame in enumerate(frames): atlas.paste(frame,((i%8)*cw,(i//8)*ch))
     atlas.save(out / f'{name}.png')
-    points = [core_point(f,base,pivot) for f in frames] if base.startswith(('bellstrider','windkeeper')) else []
+    points = []
     result = dict(frame_size=[cw,ch],pivot=pivot,columns=8,states=spec['states'],core_points=points,
                   reference=base,interleave_from=base,registration_boxes=registrations,
                   source_rows=rows,source_size=list(clean.size))
@@ -106,100 +62,6 @@ def bake_motion(name, spec, clean, rows):
         f'clips = Array[String]({json.dumps(spec["states"])})\n'
         + ('core_points = PackedVector2Array('+', '.join(str(v) for p in points for v in p)+')\n' if points else ''))
     print(f'{name}: {len(frames)} registered frames; original even frames unchanged')
-
-
-def bake_flow(name, spec, clean, rows):
-    """Nine-pose one-shots: previous action endpoint + four old keys + four painted bridges."""
-    out = ASSETS / 'atlases'
-    base = spec['flow_from']
-    meta = json.loads((out/f'{base}.json').read_text())
-    original = Image.open(out/f'{base}.png').convert('RGBA')
-    cw,ch = meta['frame_size']; pivot=meta['pivot']; reference=meta['reference']
-    frames=[]; old_indices=[]; registrations=[]; geometry={k:[] for k in ('core_points','muzzle_points','barrel_pivots','barrel_regions')}
-    for row,(top,bottom) in enumerate(rows):
-        ids=spec['entry_keys'][row]
-        row_image=clean.crop((0,top,clean.width,bottom))
-        columns=bands(np.array(row_image)[:,:,3].T>0)
-        if len(columns)!=4:raise ValueError(f'{name} row {row}: expected four separated painted poses, got {columns}')
-        keys=[original.crop(((i%4)*cw,(i//4)*ch,(i%4+1)*cw,(i//4+1)*ch)) for i in ids]
-        for col,key in enumerate(keys):
-            frames.append(key);old_indices.append(ids[col])
-            for field,values in geometry.items():
-                if meta.get(field):values.append(meta[field][ids[col]])
-            if col==4:continue
-            x0,x1=columns[col]
-            cell=clean.crop((x0,top,x1,bottom))
-            a,b=key.getbbox(),keys[col+1].getbbox()
-            target=tuple(round((x+y)/2) for x,y in zip(a,b))
-            painted=cell.crop(cell.getbbox()).resize((target[2]-target[0],target[3]-target[1]),Image.Resampling.NEAREST)
-            f=Image.new('RGBA',(cw,ch));f.paste(painted,target[:2]);frames.append(f);old_indices.append(-1);registrations.append(target)
-            measured={'core_points':core_point(f,reference,pivot)}
-            if base=='bellstrider_lob':
-                mouth=mortar_point(f,pivot)
-                left,top,right,bottom=f.getbbox()
-                joint=[round(left+(right-left)*.26),round(top+(bottom-top)*.50)]
-                mx,my=mouth[0]+pivot[0],mouth[1]+pivot[1]
-                x0,y0=round(min(joint[0],mx)-12),round(my-12)
-                x1,y1=round(max(joint[0],mx)+12),joint[1]-3
-                measured.update(muzzle_points=mouth,barrel_pivots=[joint[0]-pivot[0],joint[1]-pivot[1]],barrel_regions=[x0,y0,x1-x0,y1-y0])
-            elif meta.get('muzzle_points'):
-                # Same authored release offset, now relative to this new pose's core.
-                offset=[a-b for a,b in zip(meta['muzzle_points'][ids[col]],meta['core_points'][ids[col]])]
-                measured['muzzle_points']=[round(a+b,2) for a,b in zip(measured['core_points'],offset)]
-            for field,values in geometry.items():
-                if meta.get(field):values.append(measured[field])
-    atlas=Image.new('RGBA',(cw*9,ch*len(rows)))
-    for i,f in enumerate(frames):atlas.paste(f,((i%9)*cw,(i//9)*ch))
-    atlas.save(out/f'{name}.png')
-    result=dict(frame_size=[cw,ch],pivot=pivot,columns=9,states=spec['states'],reference=reference,
-                flow_from=base,entry_keys=spec['entry_keys'],original_indices=old_indices,
-                registration_boxes=registrations,source_rows=rows,source_size=list(clean.size),**geometry)
-    (out/f'{name}.json').write_text(json.dumps(result,indent=2)+'\n')
-    resource='[gd_resource type="Resource" script_class="PlainsActorAnimation" load_steps=3 format=3]\n'
-    resource+='[ext_resource type="Script" path="res://game/presentation/actors/art/plains_actor_animation.gd" id="1"]\n'
-    resource+=f'[ext_resource type="Texture2D" path="res://assets/plains_actors_142/atlases/{name}.png" id="2"]\n'
-    resource+='[resource]\nscript = ExtResource("1")\natlas = ExtResource("2")\n'
-    resource+=f'frame_size = Vector2i({cw}, {ch})\npivot = Vector2({pivot[0]}, {pivot[1]})\ncolumns = 9\nclips = Array[String]({json.dumps(spec["states"])})\n'
-    for field,values in geometry.items():
-        if not values:continue
-        if field=='barrel_regions':resource+=field+' = Array[Rect2](['+', '.join('Rect2('+', '.join(map(str,r))+')' for r in values)+'])\n'
-        else:resource+=field+' = PackedVector2Array('+', '.join(str(v) for point in values for v in point)+')\n'
-    (out/f'{name}.tres').write_text(resource)
-    print(f'{name}: {len(frames)} frames, continuous endpoints, {len(registrations)} painted bridges')
-
-
-def bake_turn(name, spec, clean, rows):
-    out=ASSETS/'atlases';base=spec['turn_from']
-    meta=json.loads((out/f'{base}.json').read_text());cw,ch=meta['frame_size'];pivot=meta['pivot']
-    key=Image.open(out/f'{base}.png').convert('RGBA').crop((0,0,cw,ch))
-    box=key.getbbox();frames=[]
-    assert len(rows)==3
-    for top,bottom in rows:
-        strip=clean.crop((0,top,clean.width,bottom))
-        columns=bands(np.array(strip)[:,:,3].T>0)
-        assert len(columns)==3,(name,columns)
-        for left,right in columns:
-            cell=strip.crop((left,0,right,bottom-top));cell=cell.crop(cell.getbbox())
-            height=box[3]-box[1];width=min(cw-4,round(cell.width*height/cell.height))
-            cell=cell.resize((width,height),Image.Resampling.NEAREST)
-            f=Image.new('RGBA',(cw,ch));f.paste(cell,(round(pivot[0]-width/2),box[1]));frames.append(f)
-    frames[0]=key;frames[-1]=key.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
-    atlas=Image.new('RGBA',(cw*9,ch))
-    for i,f in enumerate(frames):atlas.paste(f,(i*cw,0))
-    atlas.save(out/f'{name}.png')
-    points=[core_point(f,base,pivot) for f in frames]
-    points[0]=meta['core_points'][0]
-    points[-1]=[cw-1-(points[0][0]+pivot[0])-pivot[0],points[0][1]]
-    result=dict(frame_size=[cw,ch],pivot=pivot,columns=9,states=['turn'],reference=base,turn_from=base,core_points=points,reused_pose_count=2)
-    (out/f'{name}.json').write_text(json.dumps(result,indent=2)+'\n')
-    resource='[gd_resource type="Resource" script_class="PlainsActorAnimation" load_steps=3 format=3]\n'
-    resource+='[ext_resource type="Script" path="res://game/presentation/actors/art/plains_actor_animation.gd" id="1"]\n'
-    resource+=f'[ext_resource type="Texture2D" path="res://assets/plains_actors_142/atlases/{name}.png" id="2"]\n'
-    resource+='[resource]\nscript = ExtResource("1")\natlas = ExtResource("2")\n'
-    resource+=f'frame_size = Vector2i({cw}, {ch})\npivot = Vector2({pivot[0]}, {pivot[1]})\ncolumns = 9\nclips = Array[String](["turn"])\n'
-    resource+='core_points = PackedVector2Array('+', '.join(str(v) for pt in points for v in pt)+')\n'
-    (out/f'{name}.tres').write_text(resource)
-    print(f'{name}: nine facing poses, seven new volume turns, exact mirrored endpoints')
 
 
 def bake(name):
@@ -216,15 +78,9 @@ def bake(name):
     raw[~mask] = 0
     clean = Image.fromarray(raw)
     rows = bands(mask)
-    if 'turn_from' in spec:
-        bake_turn(name,spec,clean,rows)
-        return
     states = spec.get('states', STATES)
     if len(rows) != len(states):
         raise ValueError(f'{name}: expected {len(states)} pose bands, found {rows}')
-    if 'flow_from' in spec:
-        bake_flow(name, spec, clean, rows)
-        return
     if 'interleave_from' in spec:
         bake_motion(name, spec, clean, rows)
         return
@@ -249,18 +105,7 @@ def bake(name):
     native = Image.open(ASSETS / 'static' / f'{reference}.png')
     calibration = spec.get('calibration_row', 0)
     scale = spec.get('scale', native.height / (rows[calibration][1] - rows[calibration][0]))
-    boss = reference.startswith(('bellstrider', 'windkeeper'))
     registration_x = 0
-    if boss:
-        # Calibrate physical body size, not the changing height of rotating
-        # sails. One chest/bell-to-floor distance is shared by every sheet.
-        first, floor = cells[0]
-        calibration_reference = 'windkeeper_phase1' if name == 'windkeeper_transition' else reference
-        core = core_point(first, calibration_reference, [first.width / 2, floor])
-        target_y = 150 if reference == 'bellstrider' else 95
-        scale = spec.get('scale', target_y / abs(core[1]))
-        target_x = 10 if reference == 'bellstrider' else 39
-        registration_x = round(target_x - core[0] * scale)
     cw = int(np.ceil(width / columns * scale)) + 8 + abs(registration_x) * 2
     above = int(np.ceil(max(floor for cell, floor in cells) * scale))
     below = int(np.ceil(max(cell.height - floor for cell, floor in cells) * scale))
@@ -283,24 +128,7 @@ def bake(name):
     out = ASSETS / 'atlases'
     out.mkdir(exist_ok=True)
     atlas.save(out / f'{name}.png')
-    core_points = [core_point(f, reference, pivot) for f in frames] if reference.startswith(('bellstrider', 'windkeeper')) else []
-    muzzle_points = [mortar_point(f, pivot) for f in frames] if name == 'bellstrider_lob' else []
-    barrel_pivots, barrel_regions = [], []
-    if name == 'bellstrider_lob':
-        for f, mouth in zip(frames, muzzle_points):
-            left, top, right, bottom = f.getbbox()
-            joint = [round(left+(right-left)*.26), round(top+(bottom-top)*.50)]
-            mouth_xy = [mouth[0]+pivot[0],mouth[1]+pivot[1]]
-            margin = 12
-            x0 = round(min(joint[0],mouth_xy[0])-margin)
-            y0 = round(mouth_xy[1]-margin)
-            x1 = round(max(joint[0],mouth_xy[0])+margin)
-            y1 = joint[1]-3
-            barrel_regions.append([x0,y0,x1-x0,y1-y0])
-            barrel_pivots.append([joint[0]-pivot[0],joint[1]-pivot[1]])
-    if 'release_offset_from_core_source' in spec:
-        offset = spec['release_offset_from_core_source']
-        muzzle_points = [[round(p[0]+offset[0]*scale,2),round(p[1]+offset[1]*scale,2)] for p in core_points]
+    core_points, muzzle_points, barrel_pivots, barrel_regions = [], [], [], []
     meta = dict(frame_size=[cw, ch], pivot=pivot, columns=columns, states=states, core_points=core_points, muzzle_points=muzzle_points, barrel_pivots=barrel_pivots, barrel_regions=barrel_regions,
                 scale=scale, registration_x=registration_x, source_size=[width, height], source_rows=rows,
                 source_floors=anchors, reference=reference)

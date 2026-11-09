@@ -4,25 +4,21 @@ extends Node2D
 const AUDIO := preload("res://game/presentation/audio/bellstrider_audio.gd")
 @export var encounter: BellstriderEncounter
 var pixel_style := false
-var body: PlainsBossBody
+var body: PlainsBossRig
 var hit_template: EnemyHitTemplate
 # Preserve accepted-event lifecycle; the old mesh deformation is never drawn.
 var motion := BossMotionPresentation.new()
 var _armour_point := Vector2(44, 8)
-var mortar: PlainsMortarArt
 var _dust_travel := 0.0
 
 
 func _ready() -> void:
-	PlainsBossTween.warm("bellstrider")
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	var surface := ShaderMaterial.new()
 	surface.shader = preload("res://game/presentation/actors/art/plains_actor_separation.gdshader")
 	material = surface
-	body=PlainsBossBody.new()
+	body=preload("res://game/presentation/actors/art/bellstrider_rig.tscn").instantiate()
 	add_child(body)
-	mortar=PlainsMortarArt.new()
-	add_child(mortar)
 	hit_template = EnemyHitTemplate.install_boss(encounter, self)
 	motion.bind(encounter)
 	encounter.armour_hit.connect(_armour_impact)
@@ -63,7 +59,7 @@ func _process(delta: float) -> void:
 	if get_tree().paused or not is_instance_valid(encounter):
 		return
 	motion.sample(encounter, delta)
-	if encounter.mode == &"roll" and encounter._travel - _dust_travel >= 40:
+	if encounter.mode == &"roll" and absf(encounter._travel - _dust_travel) >= 40:
 		_dust_travel = encounter._travel
 		_wheel_dust(.8)
 	queue_redraw()
@@ -72,16 +68,7 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if not is_instance_valid(encounter): return
 	var pose := encounter.rig_pose()
-	var surface:=material as ShaderMaterial
-	var flash:=hit_template.sample.flash_strength()
-	mortar.visible=false
-	if String(pose.authored.sheet).trim_suffix("_flow")=="bellstrider_lob":
-		mortar.present(pose.authored,pose.barrel_angle,flash)
-	body.present(pose.authored,hit_template.sample.flash_strength())
-	if motion.hurt > 0.0:
-		(material as ShaderMaterial).set_shader_parameter("hit_flash", motion.hurt * .45)
-	else:
-		(material as ShaderMaterial).set_shader_parameter("hit_flash", 0.0)
+	body.present(pose,hit_template.sample.flash_strength())
 
 
 func _wheel_dust(size: float) -> void:

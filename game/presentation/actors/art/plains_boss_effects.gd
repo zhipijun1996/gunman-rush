@@ -3,7 +3,6 @@ extends Node2D
 ## Painted effects consume accepted attack clocks/contacts; no damage or movement.
 const BELL := preload("res://assets/plains_boss_fx_142/bellstrider_fx.png")
 const WIND := preload("res://assets/plains_boss_fx_142/windkeeper_fx.png")
-const HUB := preload("res://game/presentation/actors/art/plains_windmill_anchors.gd")
 var family := &"bell"
 var row := 2
 var age := 0.0
@@ -49,7 +48,3 @@ static func paint(canvas: Node2D, kind: StringName, clip: int, progress: float, 
 	canvas.draw_set_transform(at.round(), angle, size)
 	canvas.draw_texture_rect_region(WIND if kind == &"wind" else BELL, Rect2(-80,-32,160,64), Rect2(frame*160,clip*64,160,64),tint)
 	canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
-
-static func windmill_origin(frame: Dictionary) -> Vector2:
-	var points:=PackedVector2Array(HUB.POINTS)
-	return frame.origin+PlainsBossTween.anchor(frame,points)*Vector2(frame.face,1)

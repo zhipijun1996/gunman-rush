@@ -2,7 +2,7 @@ class_name WindkeeperPressurePresentation
 extends Node2D
 ## PR142 authored guardian; all attack/death/phase clocks belong to encounter.
 @export var encounter: WindkeeperEncounter
-var body: PlainsBossBody
+var body: PlainsBossRig
 var hit_template: EnemyHitTemplate
 var _hurt_remaining := 0.0
 var _armour_remaining := 0.0
@@ -10,12 +10,11 @@ var _armour_point := Vector2.ZERO
 
 
 func _ready() -> void:
-	PlainsBossTween.warm("windkeeper")
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	var surface := ShaderMaterial.new()
 	surface.shader = preload("res://game/presentation/actors/art/plains_actor_separation.gdshader")
 	material = surface
-	body=PlainsBossBody.new()
+	body=preload("res://game/presentation/actors/art/windkeeper_rig.tscn").instantiate()
 	add_child(body)
 	if encounter == null:
 		encounter = get_parent().get_node_or_null("Encounter") as WindkeeperEncounter
@@ -56,8 +55,7 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if not is_instance_valid(encounter) or not encounter.has_method("rig_pose"): return
 	var pose: Dictionary = encounter.call("rig_pose")
-	if not pose.has("authored"): return
-	body.present(pose.authored,hit_template.sample.flash_strength())
+	body.present(pose,hit_template.sample.flash_strength())
 	(material as ShaderMaterial).set_shader_parameter("hit_flash", hit_template.sample.flash_strength())
 	# The short ivory cutting trail follows the physical blade exactly; the
 	# authored forelimb supplies the body action, this is the active edge cue.

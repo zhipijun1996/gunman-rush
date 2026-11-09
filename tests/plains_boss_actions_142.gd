@@ -19,14 +19,14 @@ func run() -> void:
 	var observed: Dictionary={}
 	for i: int in 10:
 		bell.physics_tick(bell._config().combo_turn_seconds/20)
-		var pose:=bell.rig_pose().authored as Dictionary
-		observed[(pose.animation as PlainsActorAnimation).frame_index(pose.clip,pose.progress)]=true
-		check(pose.clip==&"turn" and pose.face==1,"turn consumes authored front/quarter-view poses in original basis")
+		var pose:=bell.rig_pose()
+		observed[snappedf(pose.turn_yaw,.01)]=true
+		check(pose.mode==&"turn" and pose.direction==1 and pose.turn_yaw<1.0,"turn advances continuous articulated yaw in the original facing basis")
 	var saved: Dictionary=JSON.parse_string(JSON.stringify(bell.combat_snapshot()))
-	var before:=bell.rig_pose().authored as Dictionary
+	var before:=bell.rig_pose()
 	bell.restore_combat_state(saved)
-	var after:=bell.rig_pose().authored as Dictionary
-	check(after.sheet==before.sheet and is_equal_approx(after.progress,before.progress) and after.face==before.face,"mid-turn JSON restore preserves pose and facing")
+	var after:=bell.rig_pose()
+	check(is_equal_approx(after.turn_yaw,before.turn_yaw) and after.body_transform.is_equal_approx(before.body_transform),"mid-turn JSON restore preserves pose and facing")
 	bell.physics_tick(bell.clock+.001)
 	print("TURN END ",bell.mode," face=",bell.direction," observations=",observed," active=",bell.active)
 	check(bell.direction==-1 and bell.mode==&"roll_warning" and observed.size()>=4,"turn completes before the committed warning, with multiple distinct volume poses")
@@ -70,8 +70,8 @@ func run() -> void:
 	for i: int in 21:
 		keeper.physics_tick(1.0/60);await physics_frame
 	check(volleys.size()==1 and keeper._gust_volleys==1,"windmill first volley occurs during active gust")
-	var frame:=keeper.rig_pose().authored as Dictionary
-	var hub:=keeper.motor.to_global(PlainsBossEffects.windmill_origin(frame))
+	var frame:=keeper.rig_pose()
+	var hub:=keeper.motor.to_global(PlainsBossRig.windmill_origin(frame))
 	check((volleys[0].point as Vector2).distance_to(hub)<50,"gust projectiles leave the measured head windmill")
 	var wind_saved:=keeper.combat_snapshot()
 	keeper.restore_combat_state(wind_saved)

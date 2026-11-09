@@ -1,6 +1,5 @@
 class_name WindkeeperPressureEncounter
 extends WindkeeperEncounter
-var _authored_art_cache: Dictionary = {}
 ## Formal six-move Windkeeper. Randomness chooses an immutable attack group;
 ## clocks and actual geometry execute it. Statistics never drive the encounter.
 var locked_target := Vector2.ZERO
@@ -310,7 +309,12 @@ func _approach(delta: float) -> void:
 		motor.stop()
 		_begin_attack()
 		return
-	direction = -1 if dx < 0 else 1
+	var wanted_direction := -1 if dx < 0 else 1
+	if wanted_direction != direction:
+		motor.stop()
+		locked_direction = wanted_direction
+		_enter(&"turn", _config().turn_seconds)
+		return
 	locked_direction = direction
 	var before := motor.global_position
 	motor.speed = _config().final_chase_speed if stage_phase == 3 else _config().approach_speed
@@ -475,7 +479,7 @@ func _release_seeds() -> void:
 	var pose := rig_pose()
 	var origin: Vector2 = motor.to_global(pose.get("seed_origin", (pose.core_transform as Transform2D).origin))
 	if mode == &"gust" and stage_phase >= 2:
-		origin = motor.to_global(PlainsBossEffects.windmill_origin(pose.authored))
+		origin = motor.to_global(PlainsBossViewPose.windmill_origin(pose))
 	var aim := (locked_target - origin).normalized()
 	if aim.length_squared() < .001: aim = Vector2(locked_direction, 0)
 	for offset: float in [-_config().seed_spread, 0.0, _config().seed_spread]:
@@ -684,19 +688,18 @@ func rig_pose() -> Dictionary:
 	if not _pose_from.is_empty() and _state_age < .10:
 		sampled = WindkeeperPressureRig.blend(_pose_from, sampled, clampf(_state_age / .10, 0, 1))
 	sampled = _supported_pose(sampled)
-	var attacks: Array = _group_plan.get("attacks", [])
-	var previous_attack := String(attacks[clampi(_attack_index - 1, 0, attacks.size() - 1)]) if not attacks.is_empty() else "stomp"
-	var frame := PlainsBossFrames.sample(&"windkeeper", {
-		"mode": rig_mode, "phase": stage_phase, "direction": direction,
-		"state_age": pose_age, "state_duration": pose_duration,
-		"fight_age": _fight_age, "travel": _travel,
-		"speed": motor.velocity.length() if is_instance_valid(motor) else 0.0,
-		"bell_hit_age": _bell_hit_age, "death_age": _death_age,
-		"death_duration": _config().death_seconds, "recovery_from": previous_attack}, _authored_art_cache)
-	sampled["authored"] = frame
-	sampled["core_transform"] = PlainsBossFrames.core_transform(frame)
-	if String(frame.sheet).trim_suffix("_flow").ends_with("_seeds"):
-		sampled["seed_origin"] = PlainsBossFrames.muzzle_point(frame)
+	sampled["turn_yaw"] = cos(PI * smoothstep(0.0,1.0,_state_age/maxf(.001,_state_duration))) if mode==&"turn" and direction!=locked_direction else 1.0
+	sampled["core_transform"] = (sampled.body_transform as Transform2D)*Transform2D(0,Vector2(74,22))
+	sampled = PlainsBossViewPose.turn(sampled,false)
+	# Solve fixed-length joints after support correction and state blending.
+	# The same knees drive the actual damaging capsules and the painted bones.
+	for i: int in 4:
+		var hip: Vector2=sampled.hips[i]
+		var foot: Vector2=sampled.feet[i]
+		var axis: Vector2=(foot-hip).normalized()
+		var distance:=minf(111.9,hip.distance_to(foot))
+		var bend:=sqrt(maxf(0.0,56.0*56.0-distance*distance*.25))
+		sampled.knees[i]=hip+axis*distance*.5+Vector2(axis.y,-axis.x)*bend*float(direction)*(1.0 if i<2 else -1.0)*float(sampled.get("turn_yaw",1.0))
 	return sampled
 
 func _update_combat_shapes() -> void:

@@ -102,26 +102,5 @@ func run() -> void:
 		await ticks(140)
 		check(remains.settled and remains.support_node()!=null and absf(remains.global_position.y-1344)<2,"airborne %s lands on measured real room terrain" % kind)
 		body.queue_free();await ticks(2)
-	for kind: StringName in [&"bellstrider",&"windkeeper"]:
-		for phase: int in [1,2]:
-			var actions:= ["roll","rings","lob"] if kind==&"bellstrider" else ["stomp","lunge","sweep","gust","seeds","platform"]
-			for action: String in actions:
-				var data: Dictionary={"mode":StringName(action),"phase":phase,"state_age":.1,"state_duration":1.0,"direction":-1,"death_age":0.0,"bell_hit_age":99.0}
-				var frame:=PlainsBossFrames.sample(kind,data,{})
-				check(frame.clip==&"attack","%s phase%d %s has authored attack" % [kind,phase,action])
-				var animation: PlainsActorAnimation=frame.animation
-				check(animation.columns==9 and String(frame.sheet).ends_with("_flow"),"%s %s loads the authored key family" % [kind,action])
-				var pixels:=animation.atlas.get_image()
-				for pair: Array in [[&"anticipation",&"attack"],[&"attack",&"recovery"]]:
-					check(pixels.get_region(animation.region(pair[0],1.0)).get_data()==pixels.get_region(animation.region(pair[1],0.0)).get_data(),"%s %s preserves exact action endpoint" % [kind,action])
-				var recovery_data:=data.duplicate()
-				recovery_data.mode=&"neck" if kind==&"bellstrider" else &"recover"
-				recovery_data.recovery_from=action.replace("rings","ring")
-				recovery_data.state_age=.8;recovery_data.state_duration=2.0
-				check(PlainsBossFrames.sample(kind,recovery_data,{}).progress==1.0,"long recovery settles then holds without stretching four poses")
-				var core:=PlainsBossFrames.core_transform(frame)
-				check(core.origin.is_equal_approx(frame.origin+PlainsBossTween.anchor(frame,animation.core_points)*Vector2(-1,1)),"core follows continuous mirrored visual pose")
-				if action in ["lob","seeds"]:
-					check(animation.muzzle_points.size()==animation.columns*animation.clips.size(),"projectile releases have measured mouth anchors")
 	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)
 	print("PLAINS ACTOR FRAMES142: %d checks, %d failures" % [checks,failures]);quit(0 if failures==0 else 1)

@@ -2,47 +2,35 @@
 
 ## 目标与输入
 
-七类小怪已获用户确认。本轮接续PR144，修巡游机钟架内腔黑白闪烁、抛铃炮管／弹体贴图，牧风者二阶段身前大范围风场，以及两Boss逐帧跳换造成的顿挫。上一轮结果不能继续作为Boss连续性已通过的结论。
+七类小怪已获用户确认。本轮接续 PR144，处理巡游机铃体附近异常白色、冲锋缺少轮子滚动、牧风者切招突然变大变小。整身图像插值方法被用户实际观察否定，不能继续沿用上一轮“连续性通过”的结论。
 
-采用PR142 `cc62d369d3cec2597db483f1137ff976e25863cf` 的地形和背景，分支 `art/plains-enemy-static-pr142`，PR144面向main。本轮基线 `73732e247a7e956040b0b940fdc579c1054a3f41`；运行源码与素材提交 `347d251ecaac4b223a5ca3e441165aa363e0d9c8`；后续交接提交仅更新文档和测试UID。十张 `a5668a4` 批准静态保留原字节。用户批准B/C形体、象牙白／青绿／铜色明暗分离和小怪结果；本轮Boss视觉仍由用户反馈判断。
+沿用 PR142 地形背景和批准 B/C 的象牙白、青绿、铜色身份。分支 `art/plains-enemy-static-pr142`，本轮基线 `2df378be53b6c827ea46b628d901c85ffeec2609`，PR144 面向 main。十张 `a5668a4` 批准静态保留原字节；普通怪运行图集、AI、俯冲方向、死亡落地及原视频不变。
 
-## 原因与当前实现
+## 当前制作方法
 
-巡游机源关键帧的钟架内腔透明，另一批补帧却带近黑不透明底；交替播放把天空亮色与黑底切换。炮管旧矩形裁片带起布料／车身碎片，弹体的四个旋转图也被高速循环。身体补帧与原关键帧在局部体积和核心位置上交替偏移；巡游机还按每110wu重播整套冲锋姿势，600wu/s时每秒重播约5.45次。视频编码60fps不等于这些动作本身连续。
+两位 Boss 改为固定分层素材、真实 Skeleton2D／Bone2D 层级和战斗时钟驱动的关节姿势。主动作由既有 Encounter／Rig 的进入、持续、退出和受伤／死亡时钟采样；可编辑骨骼场景保留休止姿势，AnimationPlayer 内的布料曲线只增加附件摆动。表现不启动另一套招式或累计计时器。旋转部件连续转动，原生像素 nearest 采样。
 
-本轮保留原美术身份，改变Boss运行采样方法：同一批原关键姿势构成动作轨迹，不再交替播放另一批偏移的中间姿势。`*_flow`选原关键列0／2／4／6／8，待机／移动选0／2／4／6，转身采用同批九姿势。离线只测量相邻姿势双向位移，运行时将两姿势对齐到同一中间形体后nearest采样，透明轮廓保持硬边；不是直接叠两张错位半透明整图，也不做RGB模糊。核心、炮管铰点和风车发射点同步连续采样，命中与表现共用时钟。新数据25组，进入房间预载，攻击切换不再首次读贴图。原58张图集／1156素材帧／805绘制姿势仍是可追溯源素材库，不将未参与运行的补帧数量当成流畅度证据。
+巡游机车体、悬架、钟架、铃体、后置炮管、披布和两轮分别绑定铰点。钟架内使用固定深色遮挡底，铃体独立摆动，不再从天空透明孔洞与黑底的不同整身图之间插值。车轮角度直接取有符号行程／21wu 半径，停车停止，反向行驶反转；不再重播整身冲锋循环。炮管口和实际弹体出射点对齐；原独立铜铃弹、地波与命中特效保留。
 
-巡游机运行副本仅做钟架内大块近黑底的alpha清理，保留RGB原色与批准静态。炮管按铜色连通形状隔离，排除布料和石架；同一完整炮管围绕铰点连续瞄准，原炮管从本体alpha中移除，真实炮口和弹道由同一几何计算。抛铃固定使用一个清晰铜铃主体贴图连续旋转。冲锋身体在起冲时前倾一次，随后保持高速姿态，保留600／680的真实运动、预告、加速、碰撞和收势。转向仍先刹停、经正面回身，结束后切逻辑方向。
+牧风者两个阶段、待机／行走／预备／攻击／收势／受伤／死亡共享躯干、头部和四肢部件。四足目标沿真实行程与支撑面驱动关节，核心与攻击肢体使用同一姿势计算碰撞。二阶段只展开头顶支架和独立旋转风车；风车发射点取同一轴心。主动接近、连招节奏、身前上中下宽风场、两次风籽齐射继续沿原实际规则。金币从倒地承重躯干中心弹出，避免新胸口位置越过窄平台边缘而将掉落带入空洞；没有改金币数量、拾取、幂等或安全返回机制。
 
-牧风者二阶段的视觉风场与推力共用 `wind_field_rect()`，覆盖身前宽区域的上、中、下层，六层错开风痕横向持续流动；按前摇锁定朝向，不画成轴心到玩家的细线。一阶段风区高度保持原配置；二阶段高度单独配置到风车附近。风场独立CanvasItem避免身体形变shader错误采样特效；暂停冻结，死亡／取消立即关闭。原风压内两轮风籽与后续远程组合保留，实际推力继续由PlayerMotor执行。
+转身补充正面车壳／轮胎、巨兽躯干／头部视图；骨架转向位置投影和正面深度共同保持体积。只有转身视角的部件宽度变化，切招与阶段转换不缩放身体。弱点、炮口与转身绘制共用纯姿势计算；巡游机完成换向前捕获已显示姿势，防止逻辑方向改变后重复镜像。
 
-原快速回身、主动接近、近战准备、风车齐射、两套32帧地波／弹体／冲击素材及接受事件生命周期继续保留。小怪行为与美术不变：俯冲预告锁玩家实际XY后直冲，躲开不追踪；空中死亡先落到真实支撑再坍塌。Boss腾空死亡、奖励和快照沿原主人执行。
+旧 Boss 整身动作图集、源补帧、光流数据、形变 shader、旧采样器、旧炮管矩形裁片与无消费者锚点生成代码已删除。历史留 Git；批准静态与普通怪完整保留。
 
-## 来源与复现
+## 素材与复现
 
-身体与VFX源图、提示词和参考提交保存在原素材的 `source/`；`.gdignore`阻止原图导入运行。本轮没有用程序绘制新人物像素。`assets/plains_boss_motion_142/` 保存alpha修复副本、隔离炮管和位移数据；位移PNG是四通道数值数据，必须保留通道，禁用alpha边缘修色。清单记录原图与输出SHA256。炮管几何生成到 `plains_mortar_geometry.gd`，导出不依赖未列入导出白名单的JSON。
+`assets/plains_boss_rigs_142/` 含 25 张原生部件、清单，以及 `source/` 中三张 image_gen 原图、完整提示词和参考。源图由 `.gdignore` 隔离。脚本只做透明分割、外部连通背景边缘清理、裁切与一次 nearest 尺寸校准，不绘制角色像素；封闭的金色高光不按背景颜色误删。清单记录源与输出 SHA256。
 
-- 依赖：`tools/requirements_art.txt`，OpenCV只用于离线测量，无运行依赖。
-- 原图集：`python tools/art/build_plains_actor_animations.py`；VFX：`python tools/art/build_plains_boss_fx.py`。
-- 连续动作数据：`python tools/art/build_plains_boss_tweens.py`，可传单个图集ID；重烘焙原图后须重跑此步。
-- 检视／ZIP：`python tools/art/package_plains_actor_animations.py`。网页标明源素材逐张检视与游戏连续采样的区别；最终表现看实战录像。ZIP包含新运行副本、数据、shader与烘焙工具。
-- 实战：`DISPLAY=:96 bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 60 --write-movie build/plains_actors_142/combat-continuity.avi --script tools/art/capture_plains_actor_combat.gd`。
-- 手机短片：先以 `combat-continuity.avi` 编码四Boss；最终巡游机裁片清理后用相同捕获命令增加 `-- bell,bell_wave`，母版为 `combat-cannon-final.avi`，再执行 `python tools/art/package_plains_actor_mobile.py --skip-enemies --boss-master combat-cannon-final.avi --reuse-manifest build/plains_actors_142/retained-continuity-clips.json`。七段小怪保留原源提交／哈希；两段牧风者为本轮新录，采集后仅巡游机裁片改变，清单注明其运行／渲染依赖未变。四段Boss都对应本轮运行源码。
+- 部件重建：`python tools/art/build_plains_boss_rigs.py`。
+- 骨骼场景：`game/presentation/actors/art/bellstrider_rig.tscn`、`windkeeper_rig.tscn`。
+- 共同姿势／视角／发射轴心：`game/bosses/encounter/plains_boss_view_pose.gd`；动作主采样仍在两 Boss 的 Rig／Encounter。
+- 小怪素材检视与完整 ZIP：`python tools/art/package_plains_actor_animations.py`。网页的小怪动作不变，Boss 入口指向实战；不再把废弃图集作为当前动画。
+- 实战录制：`DISPLAY=:96 bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --resolution 1280x720 --fixed-fps 60 --write-movie build/plains_actors_142/combat-skeleton-delivery.avi --script tools/art/capture_plains_actor_combat.gd`。
+- 手机编码：`python tools/art/package_plains_actor_mobile.py --skip-enemies --boss-master combat-skeleton-delivery.avi --reuse-manifest build/plains_actors_142/unchanged-enemies.json`。
 
-## 验证与边界
+## 检查与交付
 
-本轮专项入口：`tests/plains_boss_continuity_142.gd` 验连续核心锚点、冲锋不重播预备、位移贴图四通道导入原值、左右身前多高度的真实PlayerMotor受风与外部排除；`plains_actor_frames_142.gd`、`plains_boss_actions_142.gd`、巡游机战斗／武器、牧风者时钟／几何／支撑／正式App／奖励／音频与CI四项。本轮CI四项通过，连续性／数据／风场47项、帧绑定277项、Boss行为25项、巡游机战斗281项／武器88项、牧风者时钟1198项／几何97项／支撑76项／正式App63项／奖励139项／音频130项全部通过。25组位移数据源／输出哈希有效；运行副本只删alpha，剩余像素RGB未改，十张批准静态与a5668a4原文件逐字节一致。四段新Boss视频已在浏览器1×完整播放，检视页136个动作选择／11个视频入口无脚本错误；11段MP4均核H.264 Baseline／AAC、60fps、faststart、体积及复用哈希，公网下载HTTP与SHA256逐段一致。四段分别约2.23、1.94、2.24、1.72MB。浏览器解码在软件环境有少量丢帧，完成播放不等于手机帧率验收。
+技术检查覆盖固定部件、恒定躯干尺寸、按位移转轮、正面转身体积、真实弱点／炮口／风车轴心、前方宽风场、实际战斗与暂停／快照／死亡／奖励。正常速度实战另核动作接合、透明边缘、脚底与关节遮挡。最终检查和四段手机视频正在收尾，不能将中间样板或先前录像当作当前交付。
 
-样板在真实P-R11／P-R14检查透明钟腔、炮管裁片、风场高度与姿势间形体。最终四段实战沿正式AI、Router输入、伤害、投射物和地形；仅开场位置、二阶段生命阈值和标注的审查宽镜头为夹具，不改正式相机，不代表自然通关或全部随机招组覆盖。动作连续性与设备帧率分别判断：软件渲染和离线编码耗时不是目标设备帧率，没有手机真机性能验收。
-
-旧生成渡船路线零伤害测试在之前及基线俯冲策略下均为HP 5→4，路径与到站通过；本轮不修改该路线，也不宣称其无伤通过。
-
-## 交付
-
-沿PR144交付代码、素材副本、位移数据、规范、制作与录制工具、专项检查。默认给独立540p60／原声／H.264 Baseline／faststart的MP4，每段小于3MB；产物分支仅存视频和清单，不合入main。本轮产物分支为 `preview/plains-boss-continuity-20261109`，不可变产物提交 `76a7bf8b6835c35abb4b86ab1d4bd08f4596eed8`，源码身份／公网哈希／播放已核对；没有合并或游戏部署。
-
-
-- [巡游机：转身与冲锋连续动作](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/76a7bf8b6835c35abb4b86ab1d4bd08f4596eed8/bell.mp4)
-- [巡游机：钟腔、炮管、弹体和地波](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/76a7bf8b6835c35abb4b86ab1d4bd08f4596eed8/bell_wave.mp4)
-- [牧风者一阶段连续动作](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/76a7bf8b6835c35abb4b86ab1d4bd08f4596eed8/keeper.mp4)
-- [牧风者二阶段大范围风场与齐射](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/76a7bf8b6835c35abb4b86ab1d4bd08f4596eed8/windmill.mp4)
+录像沿 P-R11／P-R14 正式 AI、Router 输入、投射物、伤害与地形。仅开场站位、二阶段生命阈值和标注的固定倍率审查镜头为夹具；四段使用相同的固定倍率与画布缩放，只平移取景，不随招式／阶段缩放，避免镜头造成体量变化错觉。不代表自然通关或全部随机招组覆盖。软件渲染录制耗时不等于目标手机帧率，没有真机性能结论。交付到 PR144 与只存视频／清单的预览分支；不合并、不部署游戏。

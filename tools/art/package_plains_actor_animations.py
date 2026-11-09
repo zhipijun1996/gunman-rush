@@ -19,6 +19,7 @@ def review_asset(path):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
+    shutil.rmtree(OUT/'review-assets', ignore_errors=True)
     sheets, sources = {}, []
     poses = 0
     reused = 0
@@ -51,31 +52,15 @@ def main():
                     old = original.crop((col*w,row*h,(col+1)*w,(row+1)*h))
                     new = im.crop((col*2*w,row*h,(col*2+1)*w,(row+1)*h))
                     assert old.tobytes() == new.tobytes(), (name,row,col,'changed approved key')
-        if spec.get("flow_from"):
-            original = Image.open(ART/'atlases'/f'{spec["flow_from"]}.png').convert('RGBA')
-            old_meta = json.loads((ART/'atlases'/f'{spec["flow_from"]}.json').read_text())
-            for row, keys in enumerate(spec['entry_keys']):
-                for col, index in enumerate(keys):
-                    x, y = index % old_meta['columns'], index // old_meta['columns']
-                    old = original.crop((x*w,y*h,(x+1)*w,(y+1)*h))
-                    new = im.crop((col*2*w,row*h,(col*2+1)*w,(row+1)*h))
-                    assert old.tobytes() == new.tobytes(), (name,row,col,'changed endpoint/key')
-                    reused += 1
-        if spec.get("turn_from"):
-            original_meta=json.loads((ART/'atlases'/f'{spec["turn_from"]}.json').read_text())
-            ow,oh=original_meta['frame_size']
-            key=Image.open(ART/'atlases'/f'{spec["turn_from"]}.png').convert('RGBA').crop((0,0,ow,oh))
-            assert im.crop((0,0,w,h)).tobytes()==key.tobytes(),name
-            assert im.crop((8*w,0,9*w,h)).tobytes()==key.transpose(Image.Transpose.FLIP_LEFT_RIGHT).tobytes(),name
         sheets[name] = {k: meta[k] for k in ('frame_size', 'pivot', 'columns', 'states')}
         sheets[name]['image'] = review_asset(atlas)
         sources.append({'id':name, 'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(), 'atlas_sha256':hashlib.sha256(atlas.read_bytes()).hexdigest(), 'states':meta['states'],'frames':len(frames),'frame_sha256':frames})
     manifest = {'generator':'image_gen','approved_static_commit':'a5668a4','world_sampling':'1 native pixel / world unit, nearest','baking':'alpha threshold, fixed body scale, fixed registration, nearest sampling; no painted Python pixels','pose_count':poses,'unique_authored_pose_count':poses-reused,'static_count':10,'sheets':sources}
     (ART/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
-    payload = json.dumps({'sheets':sheets,'labels':LABELS,'static':{n:review_asset(ART/'static'/f'{n}.png') for n in LABELS}},ensure_ascii=False)
+    payload = json.dumps({'sheets':sheets,'labels':{n:label for n,label in LABELS.items() if n in sheets},'static':{n:review_asset(ART/'static'/f'{n}.png') for n in LABELS}},ensure_ascii=False)
     template = '''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>平原怪物 · 动作检视</title><style>
     *{box-sizing:border-box}body{margin:0;background:#172324;color:#e9e4d4;font:16px system-ui,sans-serif}main{max-width:1180px;margin:auto;padding:24px}h1{font-size:25px;margin:0 0 8px}p{color:#b8c7c2;line-height:1.6}nav,.controls{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}button,select,input{font:inherit}button,select{padding:10px 13px;border:1px solid #647770;border-radius:7px;background:#263b3a;color:inherit;cursor:pointer}button.active{background:#4a6860;border-color:#dacb97}.viewport{overflow:auto;background:#263b3a;border:1px solid #52635d;border-radius:10px;min-height:420px;display:flex;justify-content:center;align-items:center}canvas{image-rendering:pixelated;max-width:100%;height:auto}label{display:flex;align-items:center;gap:8px}.info{font-variant-numeric:tabular-nums;color:#d2c4a1}a{color:#c5dba7}video{width:100%;border-radius:8px}details{margin:24px 0}summary{cursor:pointer;padding:12px;background:#263b3a;border-radius:7px}@media(max-width:600px){main{padding:16px}.viewport{min-height:300px}}
-    </style><main><h1>平原怪物 · 全动作检视</h1><p>B/C 造型 · 七类普通怪、两位 Boss 与牧风者头顶风车。每次只加载当前动作页。这里逐张查看源素材；Boss 在游戏中使用连续姿势采样，最终动画、透明修复和独立炮管见下方实战录像，源素材逐帧播放不代表游戏效果。</p><nav id="actors"></nav><div class="controls"><label>招式 <select id="attack"></select></label><label>动作 <select id="clip"></select></label><button id="play">暂停</button><label>速度 <select id="speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><label>放大 <select id="zoom"><option value="1">1×</option><option value="2" selected>2×</option><option value="3">3×</option></select></label></div><div class="viewport"><canvas id="view" width="900" height="540"></canvas></div><div class="controls"><label>逐帧 <input id="frame" type="range" min="0" max="3" value="0"></label><span class="info" id="info"></span><a id="download" download>下载当前动作页 PNG</a></div><p>静态图保留批准稿；待机、移动、前摇、攻击、后摇、受伤、死亡使用独立姿势。定点怪的移动素材用于完整动作库，游戏中的定点行为保持原规则。</p><details open><summary>实际战斗 · 正常速度 · 独立短片</summary><p>正式 TileSet、角色、AI、移动、攻击、伤害与尸体落地。普通怪为单怪布置；Boss 设置开场位置，二阶段另设置生命阈值，并使用标注的审查宽镜头保留双方与地面。自动操作片段不代表自然通关。</p><div id="movies"></div></details></main><script>
+    </style><main><h1>平原怪物 · 全动作检视</h1><p>B/C 造型 · 七类普通怪、两位 Boss 与牧风者头顶风车。每次只加载当前动作页。这里逐张查看已认可的小怪素材；Boss 已改用固定分层素材和骨骼，动作见下方实战录像，可编辑骨骼场景随工程提供。</p><nav id="actors"></nav><div class="controls"><label>招式 <select id="attack"></select></label><label>动作 <select id="clip"></select></label><button id="play">暂停</button><label>速度 <select id="speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><label>放大 <select id="zoom"><option value="1">1×</option><option value="2" selected>2×</option><option value="3">3×</option></select></label></div><div class="viewport"><canvas id="view" width="900" height="540"></canvas></div><div class="controls"><label>逐帧 <input id="frame" type="range" min="0" max="3" value="0"></label><span class="info" id="info"></span><a id="download" download>下载当前动作页 PNG</a></div><p>静态图保留批准稿；待机、移动、前摇、攻击、后摇、受伤、死亡使用独立姿势。定点怪的移动素材用于完整动作库，游戏中的定点行为保持原规则。</p><details open><summary>实际战斗 · 正常速度 · 独立短片</summary><p>正式 TileSet、角色、AI、移动、攻击、伤害与尸体落地。普通怪为单怪布置；Boss 设置开场位置，二阶段另设置生命阈值，并使用标注的审查宽镜头保留双方与地面。自动操作片段不代表自然通关。</p><div id="movies"></div></details></main><script>
     const movies=MOVIES;for(const [src,title] of movies){const d=document.createElement('details');const label=document.createElement('summary');label.textContent=title;const v=document.createElement('video');v.controls=true;v.playsInline=true;v.preload='none';v.src=src;d.append(label,v);document.getElementById('movies').append(d);}const data=PAYLOAD; const $=id=>document.getElementById(id);let actor='charger', sheetName='charger', clip='idle', elapsed=0, paused=false,last=performance.now(); let loadedURL="", loadedImage=null;
     function imageFor(url){if(loadedURL!==url){if(loadedImage)loadedImage.removeAttribute('src');loadedURL=url;loadedImage=new Image();loadedImage.decoding='async';loadedImage.src=url;}return loadedImage;}
     const names={idle:'待机',move:'移动',anticipation:'攻击前摇',attack:'攻击',recovery:'后摇',hurt:'受伤',death:'死亡',transition_start:'风车生长',transition_finish:'风帆展开',static:'批准静态',turn:'转向'};
@@ -99,12 +84,15 @@ def main():
         for p in (ROOT/'assets/plains_boss_fx_142').rglob('*'):
             if p.is_file() and not p.name.endswith('.import'): archive.write(p,p.relative_to(ROOT))
         archive.write(ROOT/'tools/art/build_plains_boss_fx.py','tools/art/build_plains_boss_fx.py')
-        archive.write(ROOT/'tools/art/build_plains_boss_tweens.py','tools/art/build_plains_boss_tweens.py')
+        archive.write(ROOT/'tools/art/build_plains_boss_rigs.py','tools/art/build_plains_boss_rigs.py')
         archive.write(ROOT/'tools/requirements_art.txt','tools/requirements_art.txt')
-        for p in (ROOT/'assets/plains_boss_motion_142').rglob('*'):
+        for p in (ROOT/'assets/plains_boss_rigs_142').rglob('*'):
             if p.is_file():archive.write(p,p.relative_to(ROOT))
-        for p in (ROOT/'game/presentation/actors/art').glob('plains_*'):
+        for p in (ROOT/'game/presentation/actors/art').glob('*'):
             archive.write(p,p.relative_to(ROOT))
+        for folder in ('bellstrider','windkeeper'):
+            for p in (ROOT/'game/bosses'/folder).glob('*.gd*'): archive.write(p,p.relative_to(ROOT))
+        p=ROOT/'game/bosses/encounter/plains_boss_view_pose.gd';archive.write(p,p.relative_to(ROOT))
         archive.write(__file__, 'tools/art/package_plains_actor_animations.py')
         archive.write(ROOT/'tools/art/build_plains_actor_animations.py','tools/art/build_plains_actor_animations.py')
     with zipfile.ZipFile(OUT/'animation-review.zip', 'w', zipfile.ZIP_DEFLATED) as archive:

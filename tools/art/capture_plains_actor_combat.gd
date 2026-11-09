@@ -6,6 +6,7 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(OUT)
 	for old: String in DirAccess.get_files_at(OUT):
 		if old.ends_with(".png") or old=="timeline.json":DirAccess.remove_absolute(OUT+old)
+	root.content_scale_size=Vector2i(1280,720)
 	root.size=Vector2i(1280,720)
 	var layer:=CanvasLayer.new();layer.layer=200;root.add_child(layer)
 	note=Label.new();note.position=Vector2(320,14);note.add_theme_font_size_override("font_size",16)
@@ -27,7 +28,7 @@ func run() -> void:
 		# Review-only framing shows both actors, their feet and real terrain.
 		# No production camera, Actor, movement or damage settings are changed.
 		app.camera.set_physics_process(false)
-		app.camera.zoom=Vector2.ONE*1.5
+		app.camera.zoom=Vector2.ONE*(4.0/3.0)
 		var floor_y: float=boss.global_position.y+65
 		app.camera.global_position=Vector2((boss.global_position.x+start.x)*.5,floor_y-160)
 		app.camera.force_update_scroll()
@@ -76,7 +77,8 @@ func _frame_combat(boss: Node2D, encounter: Node, floor_y: float) -> void:
 	var right:=maxf(app.player.global_position.x+70,boss.global_position.x+235)
 	var top:=minf(app.player.global_position.y-70,boss.global_position.y-height)
 	var bottom:=maxf(floor_y+80,maxf(app.player.global_position.y+50,boss.global_position.y+90))
-	var magnification:=minf(1.5,minf((root.size.x-120)/(right-left),(root.size.y-100)/(bottom-top)))
-	app.camera.zoom=Vector2.ONE*magnification
+	# A fixed review magnification lets the user compare body dimensions.
+	# Reframing may pan, but never changes actor scale between moves/phases.
+	app.camera.zoom=Vector2.ONE*(4.0/3.0)
 	app.camera.global_position=Vector2((left+right)*.5,(top+bottom)*.5)
 	app.camera.force_update_scroll()

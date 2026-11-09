@@ -1,6 +1,5 @@
 class_name BellstriderEncounter
 extends WindkeeperEncounter
-var _authored_art_cache: Dictionary = {}
 ## Encounter-owned clock, immutable selected groups, and shared articulated rig.
 ## Damage statistics observe accepted Health transactions and never choose states.
 var pattern_index := 0  # Completed groups, retained for existing observers.
@@ -148,23 +147,7 @@ func core_offset() -> Vector2:
 func rig_pose() -> Dictionary:
 	var input := _rig_inputs()
 	var pose := BellstriderRigPose.sample(input)
-	pose["authored"] = PlainsBossFrames.sample(&"bellstrider", input, _authored_art_cache)
-	pose["bell_transform"] = PlainsBossFrames.core_transform(pose.authored)
-	if String(pose.authored.sheet).trim_suffix("_flow") == "bellstrider_lob":
-		var frame: Dictionary=pose.authored
-		var animation: PlainsActorAnimation=frame.animation
-		var index:=animation.frame_index(frame.clip,frame.progress)
-		var joint:=PlainsBossTween.anchor(frame,animation.barrel_pivots)
-		var length: float=PlainsMortarArt.barrel_length()
-		var angle:=_launcher_aim
-		if frame.clip==&"recovery":
-			angle=lerp_angle(angle,PlainsMortarArt.painted_axis().angle(),frame.progress)
-		var basis:=Transform2D(0,Vector2(frame.face,1),0,Vector2.ZERO)*Transform2D(angle,Vector2.ZERO)
-		var mouth: Vector2=frame.origin+joint*Vector2(frame.face,1)+basis.x*length
-		basis.origin=mouth-basis.basis_xform(Vector2(25,-3))
-		pose["launcher_transform"]=basis
-		pose["barrel_angle"]=angle
-	return pose
+	return PlainsBossViewPose.turn(pose,true)
 
 
 func _rig_inputs() -> Dictionary:
@@ -414,6 +397,7 @@ func physics_tick(delta: float) -> void:
 				_face_then(&"combo_warning", _config().combo_warning_seconds, -direction, &"combo_turn")
 		&"turn", &"combo_turn":
 			if clock <= 0.0:
+				_capture_transition()
 				direction = _turn_target
 				_enter(_turn_resume, _turn_resume_duration)
 		&"ring_warning":
@@ -1002,8 +986,7 @@ func _restore_transition(data: Dictionary) -> void:
 func presentation_state() -> BossPresentationState:
 	var values := _presentation_values()
 	var rig_values := rig_pose()
-	# Public snapshots contain frame identifiers/geometry, never live Resources.
-	(rig_values.authored as Dictionary).erase("animation")
+	# The public rig contains only deterministic geometry, never live Resources.
 	values.merge(
 		{
 			"phase": stage_phase,
