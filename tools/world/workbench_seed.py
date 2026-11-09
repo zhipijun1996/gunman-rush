@@ -13,8 +13,9 @@ import json
 import subprocess
 from pathlib import Path
 
-from spatial import navigation_geometry
 from workbench_catalog import make_catalog
+from workbench_review import make_review_context
+from workbench_scope import SCOPE_PATH, editable_room_ids, preview_navigation_geometry
 
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG_FILES = (
@@ -141,7 +142,7 @@ def reward_view(world: dict, design: dict, rooms: dict) -> list[dict]:
     return result
 
 
-def make_seed(root: Path, scenes: dict, *, runtime_available=False, baseline=None) -> dict:
+def make_seed(root: Path, scenes: dict, *, runtime_available=False, baseline=None, review_base=None) -> dict:
     root = root.resolve()
     source = root / "config/world"
     world, construction, design = (load(source / n) for n in ("world.json", "construction.json", "collection_design.json"))
@@ -149,13 +150,16 @@ def make_seed(root: Path, scenes: dict, *, runtime_available=False, baseline=Non
     if scenes.get("base_content_version") != runtime["content_version"]:
         raise ValueError("Scene dump and compiled runtime have different content versions; export scenes again")
     names = {r["id"]: r for r in world["rooms"]}
-    source_rooms = {r["room_id"]: r for r in construction["rooms"] if r["room_id"].startswith("P-R")}
+    scope = editable_room_ids(root, construction)
+    source_rooms = {r["room_id"]: r for r in construction["rooms"] if r["room_id"] in scope}
     room_contracts = {r["room_id"]: r for r in contracts["rooms"] if r["room_id"] in source_rooms}
     if set(scenes["rooms"]) != set(source_rooms):
-        raise ValueError("Scene export must cover the complete current plains room set")
-    origins = navigation_geometry(room_contracts, contracts["initial_state"]["room"])
+        raise ValueError("Scene export must cover the complete plains and explicitly registered review room set")
+    origins = preview_navigation_geometry(room_contracts, contracts["initial_state"]["room"])
     rooms = {}
     hashes = {"config/world/" + name: digest(source / name) for name in CONFIG_FILES}
+    if (root / SCOPE_PATH).exists():
+        hashes[SCOPE_PATH] = digest(root / SCOPE_PATH)
     for room_id, row in source_rooms.items():
         scene = copy.deepcopy(scenes["rooms"][room_id])
         path = row["scene_ref"].removeprefix("res://")
@@ -163,10 +167,11 @@ def make_seed(root: Path, scenes: dict, *, runtime_available=False, baseline=Non
             raise ValueError("Scene changed after export: " + room_id)
         contract = room_contracts[room_id]
         rooms[room_id] = {
-            **scene, "id": room_id, "name": names[room_id]["name"],
+            **scene, "id": room_id, "name": names[room_id]["name"], "region": names[room_id]["region"],
             "implemented": bool(row.get("implemented")),
             "bounds": [0, 0, *row["extent"]], "space_rects": copy.deepcopy(row["space_rects"]),
             "map_position": origins[room_id]["origin"],
+            "map_component": origins[room_id]["map_component"],
             "doors": copy.deepcopy(contract["doors"]),
         }
         hashes[path] = scene["source_hash"]
@@ -179,6 +184,7 @@ def make_seed(root: Path, scenes: dict, *, runtime_available=False, baseline=Non
         "schema": 1, "baseline": baseline, "content_version": runtime["content_version"],
         "source_hashes": hashes, "node_types": catalog["node_types"], "catalog": catalog,
         "rooms": rooms,
+        "review_context": make_review_context(root, world, construction, contracts, runtime, rooms, baseline, review_base),
         "connections": [dict(copy.deepcopy(c), external=c["a"] not in rooms or c["b"] not in rooms)
                         for c in world["connections"] if c["a"] in rooms or c["b"] in rooms],
         "rewards": reward_view(world, design, rooms),
@@ -195,17 +201,22 @@ def preview_catalog(root: Path) -> dict:
 
     source = root / "config/world"
     world = load(source / "world.json")
+    construction = load(source / "construction.json")
+    scope = editable_room_ids(root, construction)
     contracts, runtime = (load(root / "build/world" / name) for name in ("contracts.json", "runtime.json"))
-    rooms = {r["room_id"]: copy.deepcopy(r) for r in contracts["rooms"] if r["room_id"].startswith("P-R")}
+    rooms = {r["room_id"]: copy.deepcopy(r) for r in contracts["rooms"] if r["room_id"] in scope}
     for room_id, room in rooms.items():
         room["preview_only"] = room_id not in runtime["rooms"]
         for door in room["doors"]:
             door["target_implemented"] = door["target_room"] in rooms
-    geometry = navigation_geometry(rooms, contracts["initial_state"]["room"])
+    geometry = preview_navigation_geometry(rooms, contracts["initial_state"]["room"])
     services = load(source / "demo_services.json")
     services["pickups"] = [p for p in services.get("pickups", []) if p["room_id"] in rooms]
     return {
         "schema": 1, "base_content_version": runtime["content_version"],
+        "construction_sha256": digest(source / "construction.json"),
+        "scope_sha256": digest(root / SCOPE_PATH) if (root / SCOPE_PATH).exists() else "",
+        "construction_scene_bindings": {row["room_id"]: row["scene_ref"] for row in construction["rooms"] if row["room_id"] in scope},
         "rooms": rooms,
         "actions": copy.deepcopy(world["actions"]) + local_returns(source, set(rooms)),
         "demo_services": services,
@@ -221,14 +232,20 @@ def main():
     parser.add_argument("--scenes", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--runtime-available", action="store_true")
-    parser.add_argument("--preview-output", type=Path, help="Optional isolated 35-room preview catalog; never changes formal implementation status")
+    parser.add_argument("--preview-output", type=Path, help="Isolated plains and registered review rooms; never changes formal implementation status")
+    parser.add_argument("--review-output", type=Path, help="Optional standalone world review context, identical to the seed view")
+    parser.add_argument("--review-base", type=Path, help="Preserve existing controller measurements only when their source hashes match")
     args = parser.parse_args()
-    result = make_seed(args.root, load(args.scenes), runtime_available=args.runtime_available)
+    result = make_seed(args.root, load(args.scenes), runtime_available=args.runtime_available,
+                       review_base=load(args.review_base) if args.review_base else None)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     if args.preview_output:
         args.preview_output.parent.mkdir(parents=True, exist_ok=True)
         args.preview_output.write_text(json.dumps(preview_catalog(args.root), ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    if args.review_output:
+        args.review_output.parent.mkdir(parents=True, exist_ok=True)
+        args.review_output.write_text(json.dumps(result["review_context"], ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(json.dumps({"output": str(args.output), "rooms": len(result["rooms"]),
                       "implemented": sum(r["implemented"] for r in result["rooms"].values()),
                       "rewards": len(result["rewards"]), "bytes": args.output.stat().st_size,

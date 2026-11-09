@@ -34,9 +34,14 @@ func _physics_process(delta: float) -> void:
 		return
 	if mode not in ["gas","phase_light","thorns","water"] or not bounds.intersects(Rect2(controller.motor.position-Vector2(12,18),Vector2(24,36))): return
 	if mode=="gas" and services.active("filter"): return
-	clock-=delta
-	if clock>0: return
-	clock=.5;serial+=1
+	# A light curtain is solid danger whenever actual recoil protection is absent.
+	# A rejected protected request must not leave a half-second pass for the next
+	# unprotected overlap, including an ended recoil still inside the curtain.
+	if mode!="phase_light":
+		clock-=delta
+		if clock>0: return
+		clock=.5
+	serial+=1
 	var request:=DamageRequest.new()
 	request.target_id=&"player";request.source_id=StringName(name)
 	request.event_id=StringName(str(name)+":"+str(serial))

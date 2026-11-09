@@ -121920,12 +121920,78 @@
         1024,
         2048
       ],
-      "shape_class": "vertical_route",
-      "rationale": "v07按房间职责预留工作尺寸：可选连锁反冲长段；沿用已有能力与固定锚点，允许更长组合，不增加运动物理。 尺寸是首轮施工候选，不能从世界图比例或分钟目标反推验收。",
+      "shape_class": "folded_vertical_route",
+      "rationale": "1024×2048的两段空中折返挑战：钩索、墙跳、二段跳与反冲接续，Q各段一次；中段真实安全台恢复资格，终台交互放下返程桥。不改变运动物理，正式相邻外区尚未施工。",
       "camera": {
-        "profile": "vertical_follow",
+        "profile": "bounded_follow",
         "transition": "occluded",
-        "zones": [],
+        "zones": [
+          {
+            "id": "trial_main",
+            "trigger": [
+              0,
+              0,
+              1024,
+              2048
+            ],
+            "display": [
+              0,
+              0,
+              1024,
+              2048
+            ],
+            "profile": "bounded_follow",
+            "priority": 0,
+            "look_up": true,
+            "look_down": true
+          },
+          {
+            "id": "east_wall_read",
+            "trigger": [
+              832,
+              1152,
+              192,
+              544
+            ],
+            "display": [
+              0,
+              0,
+              1024,
+              2048
+            ],
+            "profile": "bounded_follow",
+            "priority": 10,
+            "offset": [
+              0,
+              -180
+            ],
+            "look_up": true,
+            "look_down": true
+          },
+          {
+            "id": "west_wall_read",
+            "trigger": [
+              160,
+              432,
+              288,
+              512
+            ],
+            "display": [
+              0,
+              0,
+              1024,
+              2048
+            ],
+            "profile": "bounded_follow",
+            "priority": 10,
+            "offset": [
+              0,
+              -180
+            ],
+            "look_up": true,
+            "look_down": true
+          }
+        ],
         "links": []
       },
       "doors": [
@@ -121934,17 +122000,17 @@
           "position_candidate": {
             "local_world_units": [
               0,
-              1024
+              1856
             ],
             "normalized_uv": [
-              0.0,
-              0.5
+              0,
+              0.90625
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "V-R12灰盒已施工门台；相邻房未施工，隔离试玩不打开外区边界。"
           },
           "landing_contract": {
             "id": "landing:V-EXTREME-11-12:V-R12",
@@ -121952,17 +122018,17 @@
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
               64,
-              1006
+              1838
             ],
             "safe_standing_position_world_units": [
               144,
-              1006
+              1838
             ],
             "platform_candidate_rect_world_units": [
-              48,
-              1024,
-              192,
-              32
+              0,
+              1856,
+              256,
+              192
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -121977,7 +122043,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
@@ -121985,17 +122051,17 @@
           "position_candidate": {
             "local_world_units": [
               1024,
-              1024
+              320
             ],
             "normalized_uv": [
-              1.0,
-              0.5
+              1,
+              0.15625
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "V-R12灰盒已施工门台；相邻房未施工，隔离试玩不打开外区边界。"
           },
           "landing_contract": {
             "id": "landing:V-EXTREME-12-13:V-R12",
@@ -122003,17 +122069,17 @@
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
               960,
-              1006
+              302
             ],
             "safe_standing_position_world_units": [
               880,
-              1006
+              302
             ],
             "platform_candidate_rect_world_units": [
               784,
-              1024,
-              192,
-              32
+              320,
+              240,
+              96
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -122028,7 +122094,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         }
       ],
@@ -122039,11 +122105,11 @@
           "section": "entry:V-EXTREME-11-12",
           "position_candidate_world_units": [
             64,
-            1006
+            1838
           ],
           "eventual_standing_position_world_units": [
             144,
-            1006
+            1838
           ],
           "landing_contract_ref": "landing:V-EXTREME-11-12:V-R12",
           "fake_grounded_reset_forbidden": true
@@ -122054,11 +122120,11 @@
           "section": "main",
           "position_candidate_world_units": [
             960,
-            1006
+            302
           ],
           "eventual_standing_position_world_units": [
             880,
-            1006
+            302
           ],
           "landing_contract_ref": "landing:V-EXTREME-12-13:V-R12",
           "fake_grounded_reset_forbidden": true
@@ -122099,7 +122165,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              1006
+              1838
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -122125,7 +122191,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               880,
-              1006
+              302
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -122176,7 +122242,7 @@
             "target_section": "main",
             "position_candidate_world_units": [
               144,
-              1006
+              1838
             ],
             "binding": "在实际环境挑战前稳定台激活；锚点占位不授权跨过隔断",
             "cannot_activate_from_other_section": true,
@@ -122218,7 +122284,15 @@
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
       },
-      "implemented": false
+      "implemented": false,
+      "space_rects": [
+        [
+          0,
+          0,
+          1024,
+          2048
+        ]
+      ]
     },
     {
       "room_id": "V-R13",

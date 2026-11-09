@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "source_revision": "v08-stargate-greybox",
+  "geometry_owner": "各 room.scene 的实际碰撞、承载与放置；本文件只维护职责，不复制数值。",
+  "rooms": [
+    {
+      "room_id": "V-R12",
+      "name": "连锁反冲井",
+      "purpose": "星桥天门的可选后期极限灰盒；用真实 H/W/D/Q 的连续组合检验多方向空中移动，不承担主线、真结局或成长材料门槛。",
+      "profile": "starbridge_graybox",
+      "scene": "res://game/world/regions/V/rooms/V-R12.tscn",
+      "encounters": [],
+      "interactions": [
+        {"action": "starbridge_v12_return_open", "section": "main"}
+      ],
+      "experience": {
+        "player_decision": "下段先上→右→下，抓住低环读清右侧光幕，再反冲右行、D 接高墙、W 弹出后 H 向左上收束；真正落在中继台后，上段反向穿幕并重复 H/D/W，最后折向右侧终台。顺序由空间与现有能力恢复规则形成，允许熟练玩家优化路径。",
+        "visual_read": "深蓝星环灰盒、少量厚实体和大块留白；金色相位光幕、亮青色攀附墙、粉红尖刺分开辨认。锚环可暂挂观察，但不是恢复 Q 的地面。两道光幕与厚岩肋首尾连接，不能从幕底绕过。",
+        "pressure": "持续空中换向、一次空弹的规划、D 到高墙及 W 后的钩索交接；每段只给一次合法 Q 穿幕。两处可见运动轨道的齿轮限制失误空间，不用大量敌人掩盖动作问题。",
+        "failure_recovery": "普通地形失误扣一格生命，回到本次真实到达的入口或中继实体台；不回血、不重置休息周期、不清 Q 冷却。HP 为零仍遵循正式死亡。工作台可重开隔离试玩，不写正式存档。",
+        "return_visit": "终台真实交互放下返程桥，可在无 H/W/D/Q 的情况下向左走入安全落井回入口。V-R11 与 V-R13 的接口保留，邻房仍明确显示尚未施工。"
+      },
+      "art_focal_assets": [],
+      "feedback": {
+        "locomotion": "完全使用当前 PlayerMotor、普通镜头和现有动作反馈；不改全局物理、不按按钮计数开门、不在空中补资源。",
+        "interaction": "终台手柄只在正常 local_return 状态提交后生成返程桥；没有新的永久奖励。",
+        "encounter": "本房聚焦移动精度与节奏，不新增敌人种类。"
+      },
+      "spatial_intent": "下环顺向折返、上环逆向折返，在同一根实体与光幕组成的中轴两侧往复；实体中继把长挑战拆成两段，挂环保留手机瞄准和观察时间。自动输入通过只证明当前规则下可完成，手机首见容错、等待节奏与成就感仍需试玩反馈。"
+    }
+  ]
+}

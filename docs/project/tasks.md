@@ -9,13 +9,13 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | 同步最新工作台，增加全世界跨区连接审核、平原外接门定位及星桥天门V-R12全能力挑战灰盒 | — | in_progress | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
 ## 待验收
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| MOBILE-LEVEL-WORKBENCH-01 | 已发布手机编辑器；外部下载恢复后复验自动发行与远端更新 | — | blocked | [交接](worklines/mobile_level_workbench_01/scope.md) |
 | DEATH-RUNTIME-01 | 复验已接入死亡优化的目标设备帧时间 | — | blocked | [交接](worklines/death_runtime_01/scope.md) |
 | MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | — | blocked | [交接](worklines/mobile_web_fps_04/scope.md) |
 | AUDIO-LAB-MATERIAL-01 | Lab 受伤 ABC 试听与七怪声音路由复核 | — | in_progress | [交接](worklines/audio_lab_material_01/scope.md) |

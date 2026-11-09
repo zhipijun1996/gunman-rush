@@ -19,6 +19,8 @@ import subprocess
 import sys
 import tempfile
 
+from world.workbench_scope import SCOPE_PATH, editable_room_ids
+
 ROOT = Path(__file__).resolve().parents[1]
 NAME = "Web Workbench"
 ENTRY = "game/application/world/fixed_world.tscn"
@@ -60,7 +62,8 @@ def ignored(path: Path) -> bool:
 def manifest() -> dict:
     world = json.loads((ROOT / "build/world/runtime.json").read_text())
     construction = json.loads((ROOT / "config/world/construction.json").read_text())
-    editable = {row["room_id"]: row for row in construction["rooms"] if row["room_id"].startswith("P-R")}
+    scope = editable_room_ids(ROOT, construction)
+    editable = {row["room_id"]: row for row in construction["rooms"] if row["room_id"] in scope}
     presets = (ROOT / "export_presets.cfg").read_text()
     base = re.search(r'\[preset\.2\]\n(.*?)\[preset\.2.options\]', presets, re.S)[1]
     exclusions = json.loads(re.search(r'^exclude_filter=(.*)$', base, re.M)[1]).split(",")
@@ -82,6 +85,7 @@ def manifest() -> dict:
             if found:
                 classes[found[1]] = path.relative_to(ROOT).as_posix()
     pending = [ENTRY, "game/presentation/ui/demo_ui_01/game_typography.gd", *COMPONENTS, *MANIFESTS]
+    if (ROOT / SCOPE_PATH).exists(): pending.append(SCOPE_PATH)
     pending += [row["scene_ref"].removeprefix("res://") for row in editable.values()]
     art = json.loads((ROOT / "art/world-art-v2/assets/pixel/manifest.json").read_text())
     props = json.loads((ROOT / "assets/plains_v07/manifest.json").read_text())["props"]

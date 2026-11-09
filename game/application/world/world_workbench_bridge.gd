@@ -111,7 +111,7 @@ func _load(message: Dictionary) -> void:
 	if app.controller != null and not app.review.active:
 		_error(message, "formal_game_active", "Enter the workbench from its dedicated page.");return
 	var stage := str(message.get("stage", "base"))
-	if stage not in ["base", "h", "hd"]: _error(message, "stage_invalid");return
+	if stage not in ["base", "h", "hd", "hwdq"]: _error(message, "stage_invalid");return
 	var old_room := app.review.selected_room
 	var old_entry := app.review.selected_entry
 	var old_stage := app.review.stage

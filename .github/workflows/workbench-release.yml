@@ -1,7 +1,7 @@
 name: Workbench game update
 on:
   push:
-    branches: [main, feat/mobile-level-workbench]
+    branches: [main, feat/mobile-level-workbench, feat/world-review-stargate]
     paths:
       - 'game/**'
       - 'scripts/**'
@@ -54,6 +54,42 @@ jobs:
         run: |
           bash tools/godot.sh --headless --path . --script tools/world/workbench_scene_io.gd -- --export="$PWD/build/workbench/release-scenes.json"
           python3 tools/world/workbench_seed.py --scenes build/workbench/release-scenes.json --output build/workbench/release-seed.json --runtime-available
+      - name: Verify Starbridge recovery and capability counterexamples
+        if: github.ref_name == 'feat/world-review-stargate'
+        run: |
+          mkdir -p build/stargate_recovery build/stargate_without_w build/stargate_without_d
+          set -o pipefail
+          bash tools/godot.sh --headless --path . --script tests/world/stargate_recovery.gd 2>&1 | tee build/stargate_recovery/check.log
+          bash tools/godot.sh --headless --path . --script tests/world/stargate_gate_probes.gd -- --without=W 2>&1 | tee build/stargate_without_w/check.log
+          bash tools/godot.sh --headless --path . --script tests/world/stargate_gate_probes.gd -- --without=D 2>&1 | tee build/stargate_without_d/check.log
+      - name: Verify Starbridge continuous inputs with the real renderer
+        if: github.ref_name == 'feat/world-review-stargate'
+        run: |
+          mkdir -p build/stargate_trial
+          command -v xvfb-run || { sudo apt-get update && sudo apt-get install -y xvfb; }
+          set -o pipefail
+          timeout 240 xvfb-run -a bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --write-movie build/stargate_trial/continuous.avi --fixed-fps 60 --script tests/world/stargate_trial.gd -- --capture 2>&1 | tee build/stargate_trial/render.log
+          ffmpeg -y -i build/stargate_trial/continuous.avi -c:v libx264 -crf 23 -pix_fmt yuv420p -c:a aac -movflags +faststart build/stargate_trial/continuous.mp4
+          git rev-parse HEAD > build/stargate_trial/source-commit.txt
+      - name: Preserve Starbridge normal-camera evidence
+        if: always() && github.ref_name == 'feat/world-review-stargate'
+        uses: actions/upload-artifact@v4
+        with:
+          name: starbridge-normal-camera-${{ github.sha }}
+          path: |
+            build/stargate_trial/*.png
+            build/stargate_trial/*.mp4
+            build/stargate_trial/*.json
+            build/stargate_trial/*.txt
+            build/stargate_trial/*.log
+            build/stargate_recovery/*.json
+            build/stargate_recovery/*.log
+            build/stargate_without_w/*.json
+            build/stargate_without_w/*.log
+            build/stargate_without_d/*.json
+            build/stargate_without_d/*.log
+          if-no-files-found: warn
+          retention-days: 14
       - name: Package and publish a matching immutable game version
         env:
           GH_TOKEN: ${{ github.token }}

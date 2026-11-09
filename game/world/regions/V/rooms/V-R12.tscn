@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://game/world/regions/V/starbridge_trial_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
+
+[node name="V-R12" type="Node2D"]
+script = ExtResource("1")
+room_id = "V-R12"
+arrival_text = "星桥天门 · 连锁反冲井（可选极限灰盒）"
+art_profile = "starbridge_graybox"
+start_point = Vector2(144, 1838)
+platforms = Array[Rect2]([Rect2(0,1856,256,192),Rect2(624,1216,208,64),Rect2(784,320,240,96),Rect2(560,1280,96,344),Rect2(592,672,64,288)])
+climbable_walls = Array[Rect2]([Rect2(944,1184,48,240),Rect2(192,464,48,208)])
+hook_points = Array[Vector2]([Vector2(320,1656),Vector2(480,1544),Vector2(560,1744),Vector2(768,1712),Vector2(880,1584),Vector2(800,1024),Vector2(704,1024),Vector2(496,1024),Vector2(352,864),Vector2(448,304),Vector2(640,400),Vector2(824,256)])
+spike_strips = Array[Dictionary]([{"id":"lower_rib_crown","bounds":[560,1254,96,26],"facing":"up"},{"id":"upper_rib_crown","bounds":[592,646,64,26],"facing":"up"}])
+gear_obstacles = Array[Dictionary]([{"id":"lower_orbit_gear","point":[736,1536],"travel":[0,48],"period":3.8,"phase":0.15},{"id":"upper_orbit_gear","point":[512,784],"travel":[24,0],"period":4.4,"phase":0.4}])
+environment_zones = Array[Dictionary]([{"id":"LowerPhaseCurtain","mode":"phase_light","bounds":[592,1624,24,232]},{"id":"UpperPhaseCurtain","mode":"phase_light","bounds":[592,960,24,320]},{"id":"VisibleFailureBed","mode":"thorns","bounds":[256,1856,768,192]}])
+section_volumes = Array[Dictionary]([{"id":"entry:V-EXTREME-11-12","bounds":[0,1792,256,256]}])
+retry_anchors = Array[Dictionary]([{"bounds":[32,1792,208,64],"point":[144,1838],"section":"entry:V-EXTREME-11-12"},{"bounds":[640,1152,176,64],"point":[720,1198],"section":"main"},{"bounds":[800,256,208,64],"point":[880,302],"section":"main"}])
+signs = Array[Dictionary]([{"point":[192,1814],"text":"可选极限灰盒 · 建议 H/W/D/Q。先向上再折回低环；金色光幕只在真正反冲时可穿过。挂环不会恢复空中弹药，也不会重新获得 Q。"},{"point":[672,1174],"text":"中继实体台：此处实际落地后记录本段复位点。等待 Q 冷却，再由上方环向左穿幕。亮青色竖肋可墙跳，粉红尖刺不能用 Q 穿过。"},{"point":[960,278],"text":"已抵达连锁井终台。右侧为 V-R13 预留接口，邻房尚未施工。拉下手柄放出返程桥；向左走到安全落井，下落回入口。"}])
+workbench_entity_ids = {"platforms":["V12:entry_mass","V12:relay_mass","V12:finish_mass","V12:lower_rib","V12:upper_rib"],"climbable_walls":["V12:east_climb_rib","V12:west_climb_rib"],"hook_points":["V12:lower_rise","V12:lower_crown","V12:lower_fold","V12:lower_recover","V12:east_launch","V12:relay_catch","V12:upper_launch","V12:upper_recover","V12:west_launch","V12:high_catch","V12:high_fold","V12:finish_catch"],"retry_anchors":["V12:entry_retry","V12:relay_retry","V12:finish_retry"],"signs":["V12:entry_sign","V12:relay_sign","V12:finish_sign"],"hazards":[],"art_placements":[]}
+
+[node name="FinishReturn" type="Node2D" parent="."]
+script = ExtResource("return")
+position = Vector2(864,302)
+action_id = "starbridge_v12_return_open"
+section_id = "main"
+label = "放下连锁井返程桥"
+visual = "pulley_switch"
+radius = 48.0
+return_steps = Array[Rect2]([Rect2(-864,18,784,16)])
+closed_panels = Array[Rect2]([])

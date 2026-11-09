@@ -182,7 +182,8 @@ def make_catalog(root: Path, scenes: dict, world: dict, rooms: dict, baseline: s
     for row in enemies:
         row.update(label=ENEMY_LABELS.get(row["id"], row["id"]), value=row["id"])
     actions = [copy.deepcopy(a) for a in world["actions"] if a["room_id"] in rooms]
-    returns = local_returns(root / "config/world", set(rooms))
+    returns = [copy.deepcopy(a) for a in actions if a.get("type") == "local_return"]
+    returns += local_returns(root / "config/world", set(rooms))
     def authored_defaults(key, value):
         hosts = [node for room in rooms.values() for node in room.get("nodes", []) if node.get("properties", {}).get(key) == value]
         if len(hosts) != 1:

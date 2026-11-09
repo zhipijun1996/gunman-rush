@@ -27,7 +27,16 @@ func run() -> void:
 	var catalog: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://build/workbench/preview-world.json"))
 	if not catalog is Dictionary or not catalog.get("rooms") is Dictionary:
 		check(false, "compiled preview catalog missing");quit(1);return
-	check(catalog.rooms.size() == 35, "35 preview scene contracts")
+	var expected: Dictionary = {}
+	for index: int in range(1, 36): expected["P-R%02d" % index] = true
+	var scope_path := "res://config/workbench/rooms.json"
+	if FileAccess.file_exists(scope_path):
+		var scope: Variant = JSON.parse_string(FileAccess.get_file_as_string(scope_path))
+		if not scope is Dictionary or scope.get("schema") != 1 or not scope.get("additional_room_ids") is Array:
+			check(false, "registered preview room scope invalid");quit(1);return
+		for id: String in scope.additional_room_ids: expected[id] = true
+	check(catalog.rooms.size() == expected.size(), "complete plains and registered preview scene contracts")
+	for id: String in expected: check(catalog.rooms.has(id), "registered preview scene " + id)
 	var plains: Dictionary = {}
 	for id: String in catalog.rooms:
 		var row: Dictionary = catalog.rooms[id]

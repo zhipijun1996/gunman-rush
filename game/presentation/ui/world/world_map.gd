@@ -13,10 +13,15 @@ func frame() -> Rect2:
 func rows() -> Array:
 	var result: Array = []
 	if world == null: return result
+	var component := ""
+	if bool(content.data.get("workbench_preview",false)):
+		for row: Dictionary in content.data.get("map_rooms",[]):
+			if row.id == current_room: component = str(row.get("map_component",""));break
 	var nearby: Array[String]=[current_room]
 	if not expanded:
 		for door: Dictionary in content.room(current_room).get("doors",[]):nearby.append(str(door.target_room))
 	for row: Dictionary in content.data.get("map_rooms",[]):
+		if not component.is_empty() and str(row.get("map_component","")) != component: continue
 		if (survey_visible or row.id in world.value.get("explored",[])) and (expanded or row.id in nearby): result.append(row)
 	return result
 func _world_rect() -> Rect2:

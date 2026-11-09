@@ -19,8 +19,8 @@ import tempfile
 from pathlib import Path
 
 from build import build
-from spatial import navigation_geometry
 from workbench_seed import CONFIG_FILES, ROOT, digest, load, make_seed, walk_rows
+from workbench_scope import SCOPE_PATH, editable_room_ids, preview_navigation_geometry
 
 SCHEMA = "gunman-workbench-change/v1"
 CONNECTION_FIELDS = ("a", "b", "requires", "condition_text", "kind", "a_section", "b_section", "direction")
@@ -71,9 +71,12 @@ def verify_baseline(root: Path, package: dict, construction: dict):
     if not isinstance(hashes, dict):
         reject("Source hashes must be an object")
     required = {"config/world/" + name for name in CONFIG_FILES}
+    scope = editable_room_ids(root, construction)
+    if (root / SCOPE_PATH).exists():
+        required.add(SCOPE_PATH)
     bindings = {r["room_id"]: r["scene_ref"].removeprefix("res://") for r in construction["rooms"]}
     for room_id, draft in package["rooms"].items():
-        if room_id not in bindings or not room_id.startswith("P-R"):
+        if room_id not in bindings or room_id not in scope:
             reject("Unknown or out-of-scope room: " + room_id)
         required.add(bindings[room_id])
         if not isinstance(draft, dict) or draft.get("schema") != 1 or draft.get("room_id") != room_id:
@@ -161,12 +164,14 @@ def update_geometry(construction: dict, package: dict, base_seed: dict):
 
 
 
-def update_connections(world: dict, construction: dict, package: dict):
+def update_connections(world: dict, construction: dict, package: dict, review_room_ids=None):
     sources = {c["id"]: c for c in world["connections"]}
     rows = package.get("connections")
     if not isinstance(rows, list):
         reject("Connection view is missing")
-    expected = {c["id"] for c in sources.values() if c["a"].startswith("P-R") or c["b"].startswith("P-R")}
+    scope = set(review_room_ids) if review_room_ids is not None else {
+        room["room_id"] for room in construction["rooms"] if room["room_id"].startswith("P-R")}
+    expected = {c["id"] for c in sources.values() if c["a"] in scope or c["b"] in scope}
     if {c.get("id") for c in rows} != expected or len(rows) != len(expected):
         reject("Connections must preserve source identities; topology expansion needs an explicit source edit")
     for proposed in rows:
@@ -182,10 +187,12 @@ def update_connections(world: dict, construction: dict, package: dict):
                     row["effective_door_requires"] = copy.deepcopy(proposed[key])
 
 
-def verify_map_positions(contracts: dict, package: dict):
+def verify_map_positions(contracts: dict, package: dict, review_room_ids=None):
     """Map coordinates are consequences of door seams, never another editable layout."""
-    rooms = {r["room_id"]: r for r in contracts["rooms"] if r["room_id"].startswith("P-R")}
-    geometry = navigation_geometry(rooms, contracts["initial_state"]["room"])
+    scope = set(review_room_ids) if review_room_ids is not None else {
+        room["room_id"] for room in contracts["rooms"] if room["room_id"].startswith("P-R")}
+    rooms = {r["room_id"]: r for r in contracts["rooms"] if r["room_id"] in scope}
+    geometry = preview_navigation_geometry(rooms, contracts["initial_state"]["room"])
     for room_id, draft in package["rooms"].items():
         declared = draft.get("geometry", {}).get("map_position")
         if not point(declared) or any(abs(a - b) > 0.001 for a, b in zip(declared, geometry[room_id]["origin"])):
@@ -320,7 +327,7 @@ def prepare(root: Path, package: dict, output: Path, *, godot=None):
     if package.get("editor_catalog_hash") and package["editor_catalog_hash"] != base_seed.get("catalog", {}).get("source_hash"):
         reject("Game component definitions changed since this draft; update the workbench game version before importing")
     update_geometry(construction, package, base_seed)
-    update_connections(world, construction, package)
+    update_connections(world, construction, package, base_seed["rooms"])
     update_rewards(world, design, package, base_seed)
     stage = output / "candidate"
     shutil.copytree(source, stage / "config/world")
@@ -352,7 +359,7 @@ def prepare(root: Path, package: dict, output: Path, *, godot=None):
         changed_sources[relative] = stage / relative
     try:
         contracts, runtime = build(stage)
-        verify_map_positions(contracts, package)
+        verify_map_positions(contracts, package, base_seed["rooms"])
     except Exception as error:
         reject("Original world compiler rejected the candidate: " + str(error))
     receipt = {
