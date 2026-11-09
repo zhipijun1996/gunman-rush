@@ -1,166 +1,123 @@
 {
-  "source_commit": "f56f7eda5d6b9d98809a7eeaf6ed25650c32cc19",
-  "baseline_commit": "e0cdd1f0",
-  "content_version": "9560f1298d13480021d3b81e00309d903a854900d06ae933ca7f7346fc093a2e",
-  "scope": "Fixed Boss zoom and subtle phase offset in sole formal camera; real-input stationary jump, ascent, descent and arena comparison.",
-  "root_cause": "Previous task incorrectly equated broad arena framing with auto zoom; animated authored room composition and switched follow anchors during jump phases, producing excessive swing. In-place-only phase checks did not cover climbs and drops. User rejected those results; current tests preserve composition, cap phase bias and add continuous three-level up/down paths.",
+  "source_commit": "db4635dfb5af9f40d9c722f6cffc89739ee28555",
+  "baseline_commit": "f773c45d",
+  "content_version": "cf78f3d342f3f7ea446adfd297ee70dc97e30d71c93a49e9a99e53e192e8a9ed",
+  "scope": "Boss horizontal camera display bounds equal actual seal/wall planes; vertical-only padding. No controller, physics or layout changes.",
+  "root_cause": "Arena display uniformly grew all four sides by 48wu. Prior assertions only checked this expanded camera-authored range rather than independently comparing real wall positions. New wall tests use actual seal nodes and final viewport edges.",
   "camera_sha256": "4309434c5debef88c36a0b1897a571825f3ba42d9a4e8a01cac1b9933306ed30",
   "clips": [
     {
       "id": "arena-entry",
-      "title": "Boss入场：恒定缩放，缓慢平移",
-      "scope": "既有P14隔离测试场地；保持探索1.6缩放与原战场尺寸。",
+      "title": "Boss入场：保持缩放，向战场边界平移",
+      "scope": "P14既有场地沿正式应用隔离装载；实际激活与入场。",
       "files": {
         "before": {
           "file": "arena-entry-before.mp4",
-          "bytes": 1451607,
-          "sha256": "458a7dc43d09215640a9d826f9b044d3bc15b5236744fe8dd4dad65251ba4a8b",
-          "seconds": 4.88
+          "bytes": 1320892,
+          "sha256": "f71695df738b6c73675669cacb2cf44b0f907720648f37d95a97230d6d6ea73d",
+          "seconds": 4.58
         },
         "after": {
           "file": "arena-entry-after.mp4",
-          "bytes": 1477739,
-          "sha256": "4cc29cbb2c934295d14c24217ae47295e5c6d9ba4733d69907be10f769cd1c66",
-          "seconds": 4.88
+          "bytes": 1391137,
+          "sha256": "d8d08b9929a1c91afe61ce4da9f2a6322d4448f65d940dc458991aa22fbd7e96",
+          "seconds": 4.58
         },
         "compare": {
           "file": "arena-entry-compare.mp4",
-          "bytes": 1669650,
-          "sha256": "5d2ab9d06be8f675d643c2b6361bceca0e330b2b30560180f21bb28730a16049"
+          "bytes": 1576398,
+          "sha256": "442ac0f5e9e5ea7c1f1eaa2c35f7ecb68e4063bc812f24284ec1b6bc4d0bdae1"
         }
       },
-      "baseline_commit": "e0cdd1f0"
+      "baseline_commit": "f773c45d"
     },
     {
-      "id": "vertical-cycle",
-      "title": "原地短跳与满跳",
-      "scope": "P23实际跳跃输入；保留基础构图，动作仅作微幅偏移。",
+      "id": "left-wall",
+      "title": "左墙贴屏幕边缘与震动",
+      "scope": "独立边界夹具：进入战斗后暂停Boss AI；实际封墙碰撞和角色行走输入不变。",
       "files": {
         "before": {
-          "file": "vertical-cycle-before.mp4",
-          "bytes": 767291,
-          "sha256": "a6a1b7f3474abc6fc0ed383b15c381b81edb4664831fd38f45bddfba08434302",
-          "seconds": 4.73
+          "file": "left-wall-before.mp4",
+          "bytes": 274891,
+          "sha256": "07e6d30bdaf26f82809d5f229eec34b3e3a14fc0c3c5db3c8fb69e89cbb11819",
+          "seconds": 3.83
         },
         "after": {
-          "file": "vertical-cycle-after.mp4",
-          "bytes": 667242,
-          "sha256": "bf6f964e000011a47cb7165ee69f2875cc68c80a8eccc56afa79e27eaa94bbeb",
-          "seconds": 4.73
+          "file": "left-wall-after.mp4",
+          "bytes": 203661,
+          "sha256": "5751b980ffc5c23c25d191dd06b3bdf78ba04df17e88335152ef30305c401a9d",
+          "seconds": 3.83
         },
         "compare": {
-          "file": "vertical-cycle-compare.mp4",
-          "bytes": 843896,
-          "sha256": "514050c3ee2d09b9de5ad7de42ca21ceeeca729b05ea00f5de1f497a67ea9884"
+          "file": "left-wall-compare.mp4",
+          "bytes": 272964,
+          "sha256": "6bc2b8824d2b6ed01852742caf9ecc5970f0aaf8c932bd50df88fccb699b836d"
         }
       },
-      "baseline_commit": "e0cdd1f0"
+      "baseline_commit": "f773c45d"
     },
     {
-      "id": "ascending",
-      "title": "连续跳上三级高台",
-      "scope": "P23既有石阶；实际控制器连续上行，观察起跳、跟随与高处落地。",
+      "id": "right-wall",
+      "title": "右墙贴屏幕边缘与震动",
+      "scope": "独立边界夹具：进入战斗后暂停Boss AI；实际封墙碰撞和角色行走输入不变。",
       "files": {
         "before": {
-          "file": "ascending-before.mp4",
-          "bytes": 680003,
-          "sha256": "c3583c9fc78b373e432672e1c0df3655593e9d9b041a831fef961e4b81d369f9",
-          "seconds": 3.42
+          "file": "right-wall-before.mp4",
+          "bytes": 229933,
+          "sha256": "52c9329b43f3cbfe81a38393ab7dc52a69b54f14fdf6137c8017e8fed82f9c66",
+          "seconds": 3.83
         },
         "after": {
-          "file": "ascending-after.mp4",
-          "bytes": 658566,
-          "sha256": "8915a39f16f265dff2a87ac3190ccfeef7959adbe612520495a3a6c9f771b83b",
-          "seconds": 3.42
+          "file": "right-wall-after.mp4",
+          "bytes": 192817,
+          "sha256": "4b4d7ba3dc2c1b1fdc9daa93a75e4aaa8a88ec5cc1d52acdb9935905fa261ceb",
+          "seconds": 3.83
         },
         "compare": {
-          "file": "ascending-compare.mp4",
-          "bytes": 822455,
-          "sha256": "0c6fdbff2428c07b14a7120ecdf3afcbd327f415bffb7a816bfa0e1dee781ab0"
+          "file": "right-wall-compare.mp4",
+          "bytes": 247186,
+          "sha256": "8397cd091c29a27f24acb06c6f0ce17aecdd424edbccd186b6be4be57045e1f1"
         }
       },
-      "baseline_commit": "e0cdd1f0"
-    },
-    {
-      "id": "descending",
-      "title": "连续走落三级低台",
-      "scope": "沿同一石阶返回；实际走落与落地，观察下降预读和落地恢复。",
-      "files": {
-        "before": {
-          "file": "descending-before.mp4",
-          "bytes": 834159,
-          "sha256": "4ee65329c1a5a4b17e0a099e5dbf4f068fe60b49aeac0fb6d06b0bea81212b86",
-          "seconds": 3.52
-        },
-        "after": {
-          "file": "descending-after.mp4",
-          "bytes": 721683,
-          "sha256": "4d9c98c4614ed19b87d312f180b0dfa09005894373efa1fb7c96ba6191db640e",
-          "seconds": 3.52
-        },
-        "compare": {
-          "file": "descending-compare.mp4",
-          "bytes": 948095,
-          "sha256": "a0c9af67303f8c421de215bafe6f5212ca187676f819d9b4f07ec2a0aede2ba9"
-        }
-      },
-      "baseline_commit": "e0cdd1f0"
+      "baseline_commit": "f773c45d"
     }
   ],
   "commands": [
     {
-      "check": "vertical",
-      "result": "37 actual short/full jumps, three-level ascent/descent, shaft and fixed-scale arena checks",
+      "check": "arena",
+      "result": "36 checks: P11/P14, two viewports, real-input wall contact, final edge equals actual wall, bounded shake, fixed zoom",
       "exit_code": 0,
-      "log_sha256": "c8201342c00b477fd869663a25c77f6b052bf0b6bbebc300f0b62026d60af26d"
+      "log_sha256": "66e296c58c81d8b102d2dfa239e9bd257653b1d90481abc0831e0dcba198eb41"
+    },
+    {
+      "check": "vertical",
+      "result": "37 jump/ascent/descent/shaft/arena regression checks",
+      "exit_code": 0,
+      "log_sha256": "520c0a458bd1d8e4cbc3ab83fd140e90a4c889110bd1ac16b957b82bcf368d49"
     },
     {
       "check": "motion",
-      "result": "10 Boss/H/fall/recovery checks",
+      "result": "10 actual Boss/H/fall/recovery checks",
       "exit_code": 0,
-      "log_sha256": "c90f410414495404eff85c9315965e152fece4caf3f8c62fbf4aa9f8e47581a0"
-    },
-    {
-      "check": "controller",
-      "result": "36 input/direction/inspection/lifecycle checks",
-      "exit_code": 0,
-      "log_sha256": "ae4b490805eb127d14bfe0dcd6dac7f9a1eb558b3fbaf2955073ecde90f4d713"
-    },
-    {
-      "check": "zones",
-      "result": "118 zone/secret/aspect checks",
-      "exit_code": 0,
-      "log_sha256": "bbd414a6e3ca997d27eda0dc8f9ef6d37361c792ff6f7ce85aa49c6afceacc82"
-    },
-    {
-      "check": "intro",
-      "result": "65 continuous six-room tutorial checks",
-      "exit_code": 0,
-      "log_sha256": "c4a10ec22ecfc0626198214f982c845f33cbe164744c9e7f2dc592067d5c52b6"
-    },
-    {
-      "check": "readability",
-      "result": "111 preparation and recovery checks",
-      "exit_code": 0,
-      "log_sha256": "cd5b7cc44b884453a3547d2d0a989f081758fa82a050bd72b975ac8c0109a358"
+      "log_sha256": "7aa43a077b2f8c189189bd449ded70f07e14c341d4a3985bb7edc1c15fa8ef45"
     },
     {
       "check": "ci",
       "result": "4 daily checks",
       "exit_code": 0,
-      "log_sha256": "d7fba2eb268398fd15afdd861424e63790b119dac53952589612da9db6f7eee4"
+      "log_sha256": "c20e4b025c1d69b5d8a672f363745d0eda7b5b8c2596102443bc2ea04af2d445"
     },
     {
       "check": "world-tests",
       "result": "24 world/config unit tests",
       "exit_code": 0,
-      "log_sha256": "2f425196f5fb207807b3b030057d50dc9e5286df37cca45a59b05e91f2c76d25"
+      "log_sha256": "fc45867e5be1fa945f5faa070b078b873803da19932fe2adbc96a61b71ff9e1a"
     },
     {
       "check": "bundle",
       "result": "Final PCK resource closure",
       "exit_code": 0,
-      "log_sha256": "b3d997fda80ebf950767304316e90451e193e3c2aa3015d25260080ef812d94b"
+      "log_sha256": "e9dffa77520a05c55846f264e6241e54bd7fc610229a235978a37a34c6ea78ec"
     },
     {
       "check": "browser",
@@ -170,15 +127,15 @@
     },
     {
       "check": "review-browser",
-      "result": "Touch look/cancel, save isolation, four clips and exact ZIP download",
+      "result": "Touch look/cancel, save isolation, three clips and exact ZIP download",
       "exit_code": 0,
       "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "check": "public",
-      "result": "19 exact public page/media/map files plus build identity",
+      "result": "16 exact public page/media/map files plus build identity",
       "exit_code": 0,
-      "log_sha256": "658e1242f4090e30444cf9ab562146469d3bbe1e443c47fcdf0622394695a989"
+      "log_sha256": "09300bd80f37ce70a89bc2b8a36a7b902de5720f80fcf538ddf119adea62b17a"
     },
     {
       "check": "public-browser",
@@ -188,17 +145,17 @@
     }
   ],
   "layout_invariants": {
-    "baseline": "e0cdd1f0",
-    "proof": "git diff e0cdd1f0 -- game/player config/player_tuning.json game/world/regions/P/rooms config/world/construction.json is empty",
+    "baseline": "f773c45d",
+    "proof": "git diff f773c45d -- game/player config/player_tuning.json game/world/regions/P/rooms config/world/construction.json game/presentation/ui/world/world_camera.gd is empty",
     "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
-  "visual_review": "Native normal-speed clips recorded from actual accepted controller inputs. Reviewed chronological frame sequences for stationary short/full jump, three higher and lower landings, and fixed-scale Boss entry. Small phase contribution <=8wu each way; basis composition remains authored. Automatic visibility/continuity bounds are technical evidence, not user feel approval or physical-device performance.",
+  "visual_review": "Reviewed native left/right wall frames: each wall meets the corresponding screen edge; former outer margin removed. Matched input native clips cover actual Boss entry plus independent left/right wall and shake probes. Wall fixtures pause encounter AI after actual activation and explicitly place the starting position; collisions and movement input remain real. Not a full Boss fight or physical-device review.",
   "browser": {
     "errors": [],
     "review_entry": "P-R23/base",
     "legacy_save_preserved": true,
     "review_wrote_no_formal_progress": true,
-    "clips": 4,
+    "clips": 3,
     "room_cards": 6,
     "comparison_played": true,
     "zip_download_exact": true,
@@ -206,28 +163,21 @@
     "mobile_layout": "390x844",
     "scope": "Browser emulation, not physical phone or full Web playthrough."
   },
-  "touch_pixels": {
-    "baseline_ground_y": 400,
-    "look_up_ground_y": 503,
-    "release_ground_y": 400,
-    "look_down_ground_y": 249,
-    "passed": true,
-    "scope": "Browser screenshot ground translation; same fixed column, actual touch gesture. Not hardware latency."
-  },
   "deployment": {
-    "build_id": "d4e11d5d3f96",
-    "source_commit": "f56f7eda5d6b9d98809a7eeaf6ed25650c32cc19",
-    "prepared_commit": "91504c91b636a8faadad48788e800b60377e8e0f",
-    "run_id": "42569096442",
-    "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/42569096442",
-    "playtest": "https://zhipijun1996.github.io/gunman-rush/?v=d4e11d5d3f96",
-    "clips_url": "https://zhipijun1996.github.io/gunman-rush/camera-review/?v=d4e11d5d3f96",
-    "zip_bytes": 3529664,
-    "zip_sha256": "b5195a7010d0c0fbf5b19f1c3947c6626242cd1c507af509cbc33f42882f9f10"
+    "build_id": "c9a4725df221",
+    "source_commit": "db4635dfb5af9f40d9c722f6cffc89739ee28555",
+    "prepared_commit": "9e63f9ae969f5f7610af5b78ed1ff6f30b7fd774",
+    "run_id": "42570535122",
+    "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/42570535122",
+    "playtest": "https://zhipijun1996.github.io/gunman-rush/?v=c9a4725df221",
+    "clips_url": "https://zhipijun1996.github.io/gunman-rush/camera-review/?v=c9a4725df221",
+    "zip_bytes": 1791107,
+    "zip_sha256": "476274fd0d04ac06adb606fba1dfbb47a529977e83cb440a1d21549f380ca50e"
   },
   "limits": [
-    "Six formal rooms only; P14 Boss is existing isolated fixture, not campaign-reachable.",
-    "Physical phone/controller and complete Web playthrough unverified.",
-    "Global region gameplay/art/animation/audio still not accepted."
+    "Six formal rooms; Boss scenes remain isolated pre-migration fixtures.",
+    "Wall probes pause Boss AI, do not certify combat behavior or balancing.",
+    "Physical phone/controller and complete Web route unverified.",
+    "Full region gameplay/art/animation/audio not accepted."
   ]
 }

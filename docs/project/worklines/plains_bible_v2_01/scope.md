@@ -12,7 +12,14 @@ Boss左右展示边界取arena_bounds的左右墙/封门坐标；相机中心范
 
 ## 验证与交付
 
-本轮日志/短片归 `build/camera-walls/`。camera_arena.gd在P11/P14两种既有场地和1280×720/960×540视口下，使用实际输入走到两侧碰撞封墙；独立量测最终画面边缘等于封墙坐标，并检查震动不越界、缩放不变，共36项通过。边界夹具在真实激活后暂停Boss AI，起点定位显式隔离；不代表完整Boss战或主线可达。原37纵向/场地和10实际Boss/H/恢复回归已运行，结果见日志。正在整理正常速度前后短片并发布Web包。
+本轮日志/短片归 `build/camera-walls/`。camera_arena.gd在P11/P14两种既有场地和1280×720/960×540视口下，使用实际输入走到两侧碰撞封墙；独立量测最终画面边缘等于封墙坐标，并检查震动不越界、缩放不变，共36项通过。边界夹具在真实激活后暂停Boss AI，起点定位显式隔离；不代表完整Boss战或主线可达。原37纵向/场地和10实际Boss/H/恢复回归、CI四项、24世界单测、文档检查通过。已审看左右贴墙画面；Web启动/移动跳跃/地图/暂停、触屏查看及取消、逐房存档隔离、短片播放/下载已复验。
+
+公开build `c9a4725df221`，导出源码 `db4635dfb5af9f40d9c722f6cffc89739ee28555`，prepared `9e63f9ae969f5f7610af5b78ed1ff6f30b7fd774`；[部署42570535122](https://github.com/zhipijun1996/gunman-rush/actions/runs/42570535122)成功。线上版本及16份页面/短片/ZIP/总图与本地一致。
+
+- [连续试玩](https://zhipijun1996.github.io/gunman-rush/?v=c9a4725df221) / [六房入口](https://zhipijun1996.github.io/gunman-rush/replays/?v=c9a4725df221)。
+- [三段前后短片](https://zhipijun1996.github.io/gunman-rush/camera-review/?v=c9a4725df221)：入场、左墙、右墙，每段约4秒。
+- [新版短片下载，约1.7MiB](https://zhipijun1996.github.io/gunman-rush/camera-review/camera-after-clips.zip?v=c9a4725df221)。
+- [35房路线/职责/收集/Boss/休息站总图](https://zhipijun1996.github.io/gunman-rush/map-review/?v=c9a4725df221)，本轮未改。
 
 ## 剩余工作
 

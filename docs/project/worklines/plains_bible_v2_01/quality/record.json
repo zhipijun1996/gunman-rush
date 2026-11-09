@@ -3,10 +3,10 @@
   "task_id": "PLAINS-BIBLE-V2-01",
   "task_type": "region",
   "baseline_commit": "66400937dcdce553b51f492adda47c3e32941aeb",
-  "reviewed_commit": "f56f7eda5d6b9d98809a7eeaf6ed25650c32cc19",
-  "content_version": "9560f1298d13480021d3b81e00309d903a854900d06ae933ca7f7346fc093a2e",
+  "reviewed_commit": "db4635dfb5af9f40d9c722f6cffc89739ee28555",
+  "content_version": "cf78f3d342f3f7ea446adfd297ee70dc97e30d71c93a49e9a99e53e192e8a9ed",
   "owner": "Codex",
-  "purpose": "按04总图推进连续平原；当前修正Boss恒定缩放缓慢平移和微幅动作观察，保留物理、输入及地形。",
+  "purpose": "按04总图推进连续平原；当前修正Boss左右镜头边界，取实际封墙坐标，保留探索缩放、微幅动作、物理和布局。",
   "player_experience": "反冲主导的新档学习与西侧主循环，H能力取得后的修钟/回访和东侧探索；统一像素人物、地形、机关与UI反馈。",
   "constraints": [
     "PlayerMotor owns motion; FixedWorldState owns accepted progress.",
@@ -26,7 +26,7 @@
   ],
   "deliverables": [
     "35房/43接缝与同源审核图保留；正式六房已有施工，其余29内部未迁移。",
-    "唯一正式镜头：Boss恒定缩放、受边界约束缓慢平移；微幅跳跃偏移保留基础构图；原地跳/登高/下降/Boss四段正常速度同输入对比。"
+    "唯一正式镜头；Boss左右边界贴实际战场墙，仅上下保留构图余量。三段正常速度同输入对比：入场、左墙、右墙。"
   ],
   "creative_decisions": [],
   "formal_impact": true,
@@ -57,14 +57,14 @@
     },
     "technical": {
       "status": "passed",
-      "reason": "37专项、36镜头输入、118镜头区、10真实动作、65连续教程与111预读恢复检查通过；CI四项、世界单测24项及实际Web包/线上交付复验。技术结果不代表用户体验认可。",
+      "reason": "36双场地/双视口墙位与震动专项、37纵向/场地及10实际动作回归通过；CI四项、世界单测24项、Web及线上交付复验。独立量测真实封墙，不用相机自身范围代替墙位验收。",
       "evidence": [
         "construction-04-checks"
       ]
     },
     "animation": {
       "status": "unverified",
-      "reason": "四段正常速度录制用于观察镜头微调和Boss平移；全区动作/载具未终审。",
+      "reason": "三段正常速度短片用于Boss入场与左右贴墙检查；边界夹具暂停Boss AI，全区动作表现未终审。",
       "evidence": []
     },
     "audio_vfx": {
@@ -78,16 +78,16 @@
     {
       "id": "construction-04-checks",
       "path": "docs/project/worklines/plains_bible_v2_01/quality/evidence/current-checks.json",
-      "sha256": "d7329b2f4b7bce5b5344d75b245fa1d3ad70c5ea6489752fdccb5a1f4e5a2121",
+      "sha256": "29a6d3cb32fc199ac92b55dc447abef6a68af52758e345f37fd469409d481b83",
       "kind": "command",
       "producer": "Codex",
-      "source_commit": "f56f7eda5d6b9d98809a7eeaf6ed25650c32cc19",
-      "content_version": "9560f1298d13480021d3b81e00309d903a854900d06ae933ca7f7346fc093a2e",
-      "method": "Formal runtime and real input; native matched four-scenario comparison; Web and public bundle. build/camera-subtle.",
-      "observed": "Current bounded camera checks passed; user rejected prior excessive amplitude/zoom. No user feel, region or physical-device acceptance claimed.",
-      "command": "Camera/zone/motion/intro/readability suites, CI, world tests, PCK, browser and public file checks.",
+      "source_commit": "db4635dfb5af9f40d9c722f6cffc89739ee28555",
+      "content_version": "cf78f3d342f3f7ea446adfd297ee70dc97e30d71c93a49e9a99e53e192e8a9ed",
+      "method": "Real formal camera/viewport/seals/input, independent P11/P14 wall fixtures, native matched clips; Web/public validation. build/camera-walls.",
+      "observed": "Final screen edges coincide with corresponding actual wall planes in tested viewports; shake bounded; no zoom or physics change. Not complete Boss/region/device acceptance.",
+      "command": "Arena, vertical and motion suites, CI, world tests, PCK, browser and public bytes.",
       "exit_code": 0,
-      "environment": "Godot 4.7.2 gunman-sd1 native/headless; Chromium SwiftShader touch emulation."
+      "environment": "Godot 4.7.2 gunman-sd1 native/headless; Chromium SwiftShader."
     }
   ],
   "consumer_coverage": null,
