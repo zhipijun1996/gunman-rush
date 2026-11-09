@@ -14,13 +14,13 @@ import subprocess
 from pathlib import Path
 
 from spatial import navigation_geometry
+from workbench_catalog import make_catalog
 
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG_FILES = (
     "world.json", "construction.json", "collections.json", "collection_design.json",
     "player.json", "demo_services.json", "ui_texts.json",
 )
-NODE_TYPES = ["WorldMovingPlatform", "WorldRoomInteraction", "WorldReturnLatch", "WorldNpc", "WorldFlagPresentation"]
 
 
 def load(path: Path):
@@ -174,9 +174,10 @@ def make_seed(root: Path, scenes: dict, *, runtime_available=False, baseline=Non
     hashes["config/player_tuning.json"] = digest(root / "config/player_tuning.json")
     if baseline is None:
         baseline = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
+    catalog = make_catalog(root, scenes, world, rooms, baseline)
     return {
         "schema": 1, "baseline": baseline, "content_version": runtime["content_version"],
-        "source_hashes": hashes, "node_types": NODE_TYPES,
+        "source_hashes": hashes, "node_types": catalog["node_types"], "catalog": catalog,
         "rooms": rooms,
         "connections": [dict(copy.deepcopy(c), external=c["a"] not in rooms or c["b"] not in rooms)
                         for c in world["connections"] if c["a"] in rooms or c["b"] in rooms],

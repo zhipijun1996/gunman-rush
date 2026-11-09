@@ -60,7 +60,8 @@ func run() -> void:
 	plains.base_content_version = app.content.workbench_base_version()
 	plains.revision = 1
 	plains.properties.enemy_placements = []
-	var species := ["patrol", "charger", "diver", "hopper", "sentry", "fan_sentry", "root_bell"]
+	var species: Array[String] = []
+	for behavior: StringName in EnemyBehaviorRegistry.behavior_ids(): species.append(str(behavior))
 	for index: int in species.size():
 		plains.properties.enemy_placements.append({"id":"pack_" + species[index], "behavior":species[index], "point":[560 + index*48, 1750]})
 	await app.workbench._handle({"channel":"gunman-workbench", "type":"load_draft", "request_id":"pack_species", "revision":1, "draft":plains, "paused":true})

@@ -323,6 +323,8 @@ def prepare(root: Path, package: dict, output: Path, *, godot=None):
     base_dump = output / "base-scenes.json"
     run_codec(root, base_dump, godot=godot)
     base_seed = make_seed(root, load(base_dump), baseline=package["baseline"])
+    if package.get("editor_catalog_hash") and package["editor_catalog_hash"] != base_seed.get("catalog", {}).get("source_hash"):
+        reject("Game component definitions changed since this draft; update the workbench game version before importing")
     update_geometry(construction, package, base_seed)
     update_connections(world, construction, package)
     update_rewards(world, design, package, base_seed)

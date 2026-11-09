@@ -36,18 +36,53 @@ func _export(output: String) -> int:
 			printerr("Not a FixedWorldRoom: "+path)
 			return 1
 		var data := WorldRoomDraft.extract(room)
+		var error := WorldRoomDraft.validate(room, data)
+		if not error.is_empty():
+			room.free()
+			printerr("Invalid authored room "+id+": "+error)
+			return 1
 		data["id"] = id
 		data["scene_ref"] = path
 		data["source_hash"] = FileAccess.get_sha256(path)
 		data["implemented"] = bool(row.get("implemented", false))
+		var provenance: Dictionary = {}
+		for field: String in WorldRoomDraft.INDEXED_FIELDS:
+			var authored: Variant = room.workbench_entity_ids.get(field)
+			provenance[field] = "authored" if authored is Array and authored.size() == room.get(field).size() else "derived_index"
+		data["identity_provenance"] = provenance
 		rows[id] = data
 		room.free()
 	var version := ""
 	if FileAccess.file_exists(FixedWorldProvider.BUNDLE):
 		var runtime: Variant = JSON.parse_string(FileAccess.get_file_as_string(FixedWorldProvider.BUNDLE))
 		if runtime is Dictionary: version = str(runtime.get("content_version", ""))
-	var result := {"schema":1, "base_content_version":version, "rooms":rows}
+	var result := {"schema":1, "base_content_version":version, "rooms":rows, "catalog_runtime":_catalog_runtime()}
 	return _write_json(output, result)
+
+func _catalog_runtime() -> Dictionary:
+	# Read the same registry and real Resource defaults used by gameplay. The
+	# browser never owns a second list of enemy species or component scripts.
+	var enemies: Array[Dictionary] = []
+	for id: StringName in EnemyBehaviorRegistry.behavior_ids():
+		var definition := EnemyFactory.definition_for_behavior(id)
+		if definition == null:
+			push_error("Workbench catalog cannot load registered enemy: "+str(id))
+			continue
+		enemies.append({"id":str(id), "definition":EnemyFactory.definition_path_for_behavior(id),
+			"scene":EnemyFactory.scene_path_for_behavior(id), "size":WorldRoomDraft.encode(definition.collision_size),
+			"default_health":definition.health_definition.max_health, "aerial":definition.aerial,
+			"definition_version":definition.definition_version, "defaults":{"behavior":str(id)}, "switch_fields":["behavior"]})
+	var node_defaults: Dictionary = {}
+	for kind: String in WorldRoomDraft.NODE_SCRIPTS:
+		var node: Node = (load(WorldRoomDraft.NODE_SCRIPTS[kind]) as Script).new()
+		var values: Dictionary = {}
+		for field: String in WorldRoomDraft.NODE_FIELDS[kind]: values[field] = WorldRoomDraft.encode(node.get(field))
+		node_defaults[kind] = values
+		node.free()
+	return {"enemies":enemies, "node_types":WorldRoomDraft.NODE_SCRIPTS.keys(),
+		"node_scripts":WorldRoomDraft.NODE_SCRIPTS, "node_fields":WorldRoomDraft.NODE_FIELDS,
+		"node_defaults":node_defaults, "room_fields":WorldRoomDraft.ROOM_FIELDS,
+		"indexed_fields":WorldRoomDraft.INDEXED_FIELDS}
 
 func _apply(input: String, output_dir: String) -> int:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(input))

@@ -25,7 +25,6 @@ ENTRY = "game/application/world/fixed_world.tscn"
 TEXT = {".gd", ".tscn", ".tres", ".json", ".gdshader", ".gdshaderinc"}
 RESOURCE = {".gd", ".tscn", ".tres", ".png", ".svg", ".webp", ".jpg", ".jpeg",
             ".wav", ".ogg", ".mp3", ".otf", ".ttf", ".gdshader", ".gdshaderinc"}
-ENEMIES = {"patrol", "charger", "diver", "hopper", "sentry", "fan_sentry", "root_bell"}
 COMPONENTS = ["game/world/components/world_moving_platform.gd",
               "game/world/components/world_room_interaction.gd",
               "game/world/components/world_return_latch.gd",
@@ -101,13 +100,18 @@ def manifest() -> dict:
             raise ValueError("Missing admitted dynamic family: " + folder)
         pending += [p.relative_to(ROOT).as_posix() for p in parent.rglob("*")
                     if p.is_file() and p.suffix in RESOURCE | {".json"} and not ignored(p)]
-    # The finite gameplay registry owns these IDs and paths; do not duplicate its
-    # Definitions or strategies. Non-plains species remain outside this preset.
+    # The finite gameplay registry owns these IDs and paths. Every registered
+    # species offered by the game-derived editor catalog must exist in this pack.
     registry = (ROOT / "game/enemies/enemy_behavior_registry.gd").read_text()
-    for line in registry.splitlines():
+    enemies = set()
+    behavior_table = registry.split("const BEHAVIORS := {", 1)[1].split("\n}", 1)[0]
+    for line in behavior_table.splitlines():
         match = re.match(r'\s*&"([a-z_]+)":', line)
-        if match and match[1] in ENEMIES:
+        if match:
+            enemies.add(match[1])
             pending += [p.removeprefix("res://") for p in RES_PATH.findall(line)]
+    if not enemies:
+        raise ValueError("Gameplay enemy registry is empty or changed its declaration format")
     seen, unresolved = set(), set()
     while pending:
         name = pending.pop()
@@ -129,8 +133,8 @@ def manifest() -> dict:
             pending += [classes[token] for token in set(re.findall(r"\b[A-Za-z_]\w*\b", code))
                         if token in classes and classes[token] not in seen]
         if name == "game/enemies/enemy_behavior_registry.gd":
-            # Its data table deliberately includes other biomes. The selected
-            # rows above and the shared fallback strategy are the editable kit.
+            # Registered rows above are complete; development-only candidate
+            # recipes remain outside the editing catalog.
             pending.append("game/enemies/behaviors/enemy_attack_strategy.gd")
             continue
         for resource in RES_PATH.findall(source):
@@ -166,7 +170,7 @@ def manifest() -> dict:
             for name in sorted(seen)]
     identity = hashlib.sha256(json.dumps(rows, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     return {"schema": 1, "entry": "res://" + ENTRY, "content_version": world["content_version"],
-            "source_tree_sha256": identity, "rooms": sorted(editable), "formal_rooms": sorted(world["rooms"]), "enemy_ids": sorted(ENEMIES),
+            "source_tree_sha256": identity, "rooms": sorted(editable), "formal_rooms": sorted(world["rooms"]), "enemy_ids": sorted(enemies),
             "files": rows, "raw_files": sorted(raw), "dynamic_prefixes": sorted(unresolved), "exclusions": exclusions}
 
 

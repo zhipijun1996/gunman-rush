@@ -14,7 +14,7 @@ const ROOM_FIELDS := [
 	"arena_bounds", "battle_entry_anchor", "arena_door_height", "terrain_polygons",
 	"workbench_entity_ids"
 ]
-const INDEXED_FIELDS := ["platforms", "hazards", "climbable_walls", "hook_points", "signs"]
+const INDEXED_FIELDS := ["platforms", "hazards", "climbable_walls", "hook_points", "signs", "art_placements", "retry_anchors", "camera_interests"]
 const NODE_SCRIPTS := {
 	"WorldMovingPlatform": "res://game/world/components/world_moving_platform.gd",
 	"WorldRoomInteraction": "res://game/world/components/world_room_interaction.gd",
@@ -200,7 +200,28 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 				if not vector(row.get("bell")): return "bell_point_invalid"
 				if row.has("gate") and not rectangle(row.gate): return "bell_gate_invalid"
 				if row.has("open_seconds") and (not number(row.open_seconds) or float(row.open_seconds) < 0): return "bell_time_invalid"
+				if row.has("access_bells") and not row.access_bells is Array: return "bell_access_points_invalid"
+				for point: Variant in row.get("access_bells", []):
+					if not vector(point): return "bell_access_point_invalid"
 			if key in ["spike_strips", "environment_zones"] and not rectangle(row.get("bounds")): return "bounds_invalid:"+key
+			if key == "spike_strips" and str(row.get("facing", "up")) not in ["up", "down", "left", "right"]: return "spike_facing_invalid"
+			if key == "environment_zones" and str(row.get("mode", "")) not in ["gas", "dark", "phase_light", "thorns", "water"]: return "environment_mode_invalid"
+			if key == "gear_obstacles":
+				if not vector(row.get("point")) or not vector(row.get("travel", [0, 0])): return "gear_point_invalid"
+				if not number(row.get("period", 4.8)) or float(row.get("period", 4.8)) <= 0.05: return "gear_period_invalid"
+				if not number(row.get("phase", 0)): return "gear_phase_invalid"
+	for key: String in ["retry_anchors", "camera_interests", "section_volumes"]:
+		for row: Dictionary in properties.get(key, room.get(key)):
+			if not rectangle(row.get("bounds")): return "bounds_invalid:"+key
+			if key != "section_volumes" and not vector(row.get("point")): return "point_invalid:"+key
+			if key == "section_volumes" and str(row.get("id", "")).is_empty(): return "section_id_missing"
+	for row: Dictionary in properties.get("signs", room.signs):
+		if not vector(row.get("point")) or not row.get("text") is String: return "sign_invalid"
+	for row: Dictionary in properties.get("art_placements", room.art_placements):
+		if not vector(row.get("point")): return "art_point_invalid"
+		if row.has("support_height"):
+			if not number(row.support_height) or float(row.support_height) <= 0: return "art_support_invalid"
+		elif not row.get("asset") is String or str(row.asset).is_empty(): return "art_asset_missing"
 	var entity_ids: Dictionary = properties.get("workbench_entity_ids", room.workbench_entity_ids)
 	for key: String in entity_ids:
 		if key not in INDEXED_FIELDS or not entity_ids[key] is Array: return "indexed_ids_invalid"
@@ -245,6 +266,15 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 			var carrier_node := room.get_node_or_null(NodePath(carrier_path))
 			if carrier_node != null: carrier_type = node_kind(carrier_node)
 		if carrier_type != "WorldMovingPlatform": return "bell_carrier_missing:"+carrier_path
+	for row: Dictionary in properties.get("gear_obstacles", room.gear_obstacles):
+		if not row.has("drive"): continue
+		var drive_path := str(row.drive)
+		var available := false
+		for node_row: Dictionary in draft.get("nodes", []):
+			if str(node_row.path) == drive_path and str(node_row.type) == "WorldMovingPlatform": available = true
+		if not draft.has("nodes"):
+			available = room.get_node_or_null(NodePath(drive_path)) is WorldMovingPlatform
+		if not available: return "gear_drive_missing:"+drive_path
 	return ""
 
 static func valid_path(value: String) -> bool:
