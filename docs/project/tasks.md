@@ -9,7 +9,7 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | PLAINS-BIBLE-V2-01 | 35房灰盒续作；保留九房、迁移26房，复核门台、反冲与承载，继续连续路线和能力门验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
-| MOBILE-LEVEL-WORKBENCH-01 | 整合PR148的26房并发布35房灰盒审核；加入森林整区初稿入口 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | 平原35房灰盒已发布r50；Site V15提供森林24房初稿与及时更新索引 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
 ## 待验收
