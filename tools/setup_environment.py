@@ -6,12 +6,15 @@ import hashlib
 import json
 import os
 import platform
+import re
 import shutil
 import subprocess
 import tarfile
 import tempfile
 import time
+import urllib.error
 import urllib.parse
+import urllib.request
 import zipfile
 from pathlib import Path
 
@@ -33,6 +36,59 @@ def sha256(path):
         for block in iter(lambda: source.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def github_locked_asset_url(spec):
+    """Resolve the same locked Godot release asset through the public API only."""
+    locked = CONFIG.get("godot", {})
+    if not any(spec.get("url") == locked.get(key, {}).get("url")
+               and spec.get("sha256") == locked.get(key, {}).get("sha256")
+               for key in ("provenance", "linux_x86_64", "templates")):
+        return None
+    parsed = urllib.parse.urlsplit(spec["url"])
+    parts = parsed.path.strip("/").split("/")
+    if (parsed.scheme != "https" or parsed.netloc != "github.com" or parsed.query or parsed.fragment
+            or len(parts) != 6 or parts[2:4] != ["releases", "download"]
+            or any(not re.fullmatch(r"[A-Za-z0-9_.-]+", p) for p in parts[:2])):
+        return None
+    owner, repo = parts[:2]
+    tag, name = (urllib.parse.unquote(p) for p in parts[4:])
+    if any(not p or p in (".", "..") or "/" in p or "\\" in p for p in (tag, name)):
+        raise RuntimeError("Unsafe locked GitHub release identity")
+    api = f"https://api.github.com/repos/{owner}/{repo}"
+    request = urllib.request.Request(api + "/releases/tags/" + urllib.parse.quote(tag, safe=""),
+        headers={"Accept": "application/vnd.github+json", "User-Agent": "gunman-toolchain",
+                 "X-GitHub-Api-Version": "2022-11-28"})
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            raw = response.read(2 * 1024 * 1024 + 1)
+    except urllib.error.HTTPError as error:
+        raise RuntimeError(f"Locked GitHub asset lookup HTTP={error.code}; no alternate source selected") from error
+    except (urllib.error.URLError, TimeoutError) as error:
+        raise RuntimeError("Locked GitHub asset lookup failed; no alternate source selected") from error
+    if len(raw) > 2 * 1024 * 1024:
+        raise RuntimeError("Locked GitHub release metadata exceeds the size limit")
+    try:
+        release = json.loads(raw)
+    except (ValueError, UnicodeError) as error:
+        raise RuntimeError("Invalid locked GitHub release metadata") from error
+    if (not isinstance(release, dict) or release.get("tag_name") != tag or release.get("draft")
+            or type(release.get("id")) is not int or release["id"] <= 0
+            or release.get("url") != api + "/releases/" + str(release["id"])
+            or not isinstance(release.get("assets"), list)):
+        raise RuntimeError("Locked GitHub release identity mismatch")
+    matches = [a for a in release["assets"] if isinstance(a, dict) and a.get("name") == name]
+    if len(matches) != 1:
+        raise RuntimeError("Locked GitHub asset is missing or ambiguous")
+    asset = matches[0]
+    if (asset.get("state") != "uploaded" or type(asset.get("id")) is not int or asset["id"] <= 0
+            or type(asset.get("size")) is not int or asset["size"] <= 0
+            or asset.get("browser_download_url") != spec["url"]
+            or asset.get("url") != api + "/releases/assets/" + str(asset["id"])):
+        raise RuntimeError("Locked GitHub asset identity mismatch")
+    if asset.get("digest") not in (None, "sha256:" + spec["sha256"]):
+        raise RuntimeError("Locked GitHub asset SHA256 metadata mismatch")
+    return asset["url"]
 
 
 def download(spec, name):
@@ -64,7 +120,10 @@ def download(spec, name):
             partial.unlink(missing_ok=True)
         identity.write_text(spec["sha256"] + "\n")
         transient = {5, 6, 7, 18, 28, 35, 52, 55, 56, 92}
-        for attempt in range(1, 4):
+        url, api_fallback = spec["url"], False
+        attempt, attempts = 0, 3
+        while attempt < attempts:
+            attempt += 1
             if partial.is_file() and sha256(partial) == spec["sha256"]:
                 partial.replace(target)
                 identity.unlink(missing_ok=True)
@@ -76,7 +135,11 @@ def download(spec, name):
                        "--write-out", "%{http_code}", "--output", str(partial)]
             if offset:
                 command += ["--continue-at", "-"]
-            command.append(spec["url"])
+            if api_fallback:
+                command += ["--header", "Accept: application/octet-stream",
+                            "--header", "X-GitHub-Api-Version: 2022-11-28",
+                            "--user-agent", "gunman-toolchain"]
+            command.append(url)
             started = time.monotonic()
             try:
                 result = subprocess.run(command, env=environment(), capture_output=True, text=True, timeout=195)
@@ -89,7 +152,8 @@ def download(spec, name):
             error = result.stderr[-2000:]
             entry = dict(attempt=attempt, exit_code=result.returncode, http_status=http,
                          resume_bytes=offset, bytes=partial.stat().st_size if partial.exists() else 0,
-                         seconds=time.monotonic() - started, diagnostic=error)
+                         seconds=time.monotonic() - started, diagnostic=error,
+                         transport="github_asset_api" if api_fallback else "locked_url")
             if result.returncode == 0:
                 digest = sha256(partial)
                 if digest != spec["sha256"]:
@@ -101,15 +165,31 @@ def download(spec, name):
                 record(status="verified_download", **entry)
                 return target
             retryable = result.returncode in transient or (result.returncode == 22 and (http == "429" or http.startswith("5")))
+            if api_fallback and http in ("401", "403", "404", "429"):
+                retryable = False
             # Servers without byte-range support need one clean retry, not an
             # endless -C loop. The discarded partial is never installed.
             if result.returncode == 33 or http == "416":
                 partial.unlink(missing_ok=True)
                 retryable = True
             record(status="transient_failure" if retryable else "terminal_failure", **entry)
-            print(f"Download {name}: attempt {attempt}/3 curl={result.returncode} HTTP={http}; "
+            print(f"Download {name}: attempt {attempt}/{attempts} curl={result.returncode} HTTP={http}; "
                   f"{'retryable' if retryable else 'terminal'}; diagnostic ledger={ledger}", flush=True)
-            if not retryable or attempt == 3:
+            if not api_fallback and result.returncode == 22 and http in ("502", "503", "504"):
+                try:
+                    fallback = github_locked_asset_url(spec)
+                except RuntimeError as error:
+                    record(status="api_fallback_rejected", attempt=attempt, diagnostic=str(error))
+                    raise
+                if fallback:
+                    url, api_fallback = fallback, True
+                    # Even a gateway error on the last normal attempt gets one
+                    # API transfer, while the total remains bounded at four.
+                    attempts = max(attempts, attempt + 1)
+                    record(status="api_fallback_selected", attempt=attempt, api_url=url)
+                    print(f"Download {name}: using the same locked release asset through the public GitHub API", flush=True)
+                    continue
+            if not retryable or attempt == attempts:
                 raise RuntimeError(f"Download failed for {name}; curl={result.returncode} HTTP={http}; "
                                    f"verified install unchanged; resumable partial and diagnostics at {ledger}")
             time.sleep(2 ** attempt)
