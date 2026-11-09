@@ -3,10 +3,10 @@
   "task_id": "PLAINS-BIBLE-V2-01",
   "task_type": "region",
   "baseline_commit": "66400937dcdce553b51f492adda47c3e32941aeb",
-  "reviewed_commit": "bb9613cc4f624e4864670e6d72eb0b4c99ef9f2f",
-  "content_version": "d8638927ebc7cd36554816ca817a86684a0964c6b4efbe2031ea93c0158e2b23",
+  "reviewed_commit": "f56f7eda5d6b9d98809a7eeaf6ed25650c32cc19",
+  "content_version": "9560f1298d13480021d3b81e00309d903a854900d06ae933ca7f7346fc093a2e",
   "owner": "Codex",
-  "purpose": "按04总图推进连续平原；当前微调Boss全场构图与普通跳跃观察节奏，保持已认可的镜头其余规则、输入、物理和关卡布局。",
+  "purpose": "按04总图推进连续平原；当前修正Boss恒定缩放缓慢平移和微幅动作观察，保留物理、输入及地形。",
   "player_experience": "反冲主导的新档学习与西侧主循环，H能力取得后的修钟/回访和东侧探索；统一像素人物、地形、机关与UI反馈。",
   "constraints": [
     "PlayerMotor owns motion; FixedWorldState owns accepted progress.",
@@ -26,7 +26,7 @@
   ],
   "deliverables": [
     "35房/43接缝与同源审核图保留；正式六房已有施工，其余29内部未迁移。",
-    "唯一正式镜头：四模板、稳定前瞻/追赶、左杆查看、隐藏交接与生命周期；新增Boss平滑合屏与跳跃阶段观察，13段正常速度前后对比。"
+    "唯一正式镜头：Boss恒定缩放、受边界约束缓慢平移；微幅跳跃偏移保留基础构图；原地跳/登高/下降/Boss四段正常速度同输入对比。"
   ],
   "creative_decisions": [],
   "formal_impact": true,
@@ -57,14 +57,14 @@
     },
     "technical": {
       "status": "passed",
-      "reason": "新增18项实际短跳/满跳阶段与Boss合屏检查，原36镜头/输入、118区/边界、10真实动作、连续教程/111预读恢复回归，CI四项、世界单测24项和实际Web/线上文件验证通过；范围见当前证据。",
+      "reason": "37专项、36镜头输入、118镜头区、10真实动作、65连续教程与111预读恢复检查通过；CI四项、世界单测24项及实际Web包/线上交付复验。技术结果不代表用户体验认可。",
       "evidence": [
         "construction-04-checks"
       ]
     },
     "animation": {
       "status": "unverified",
-      "reason": "13段正常速度录制用于相机验收，其中两段重点对比Boss入场与跳跃节奏；全区载具和动作表现未终审。",
+      "reason": "四段正常速度录制用于观察镜头微调和Boss平移；全区动作/载具未终审。",
       "evidence": []
     },
     "audio_vfx": {
@@ -78,16 +78,16 @@
     {
       "id": "construction-04-checks",
       "path": "docs/project/worklines/plains_bible_v2_01/quality/evidence/current-checks.json",
-      "sha256": "ae82d76979c7325795252e8501a1e6efa9a3ae714d91e937c7e72f76b35172fd",
+      "sha256": "d7329b2f4b7bce5b5344d75b245fa1d3ad70c5ea6489752fdccb5a1f4e5a2121",
       "kind": "command",
       "producer": "Codex",
-      "source_commit": "bb9613cc4f624e4864670e6d72eb0b4c99ef9f2f",
-      "content_version": "d8638927ebc7cd36554816ca817a86684a0964c6b4efbe2031ea93c0158e2b23",
-      "method": "Actual formal jump inputs, existing P14 isolated Boss fixture, native matched before/after; regression of six-room route and Web/touch/public bytes. build/camera-refinement.",
-      "observed": "New phase/arena tests and existing camera/input/visibility regressions passed. No full-region or physical-device claim.",
-      "command": "Camera/zone/motion/intro/readability/review/space suites, CI, world unit tests, PCK, browser and public bytes.",
+      "source_commit": "f56f7eda5d6b9d98809a7eeaf6ed25650c32cc19",
+      "content_version": "9560f1298d13480021d3b81e00309d903a854900d06ae933ca7f7346fc093a2e",
+      "method": "Formal runtime and real input; native matched four-scenario comparison; Web and public bundle. build/camera-subtle.",
+      "observed": "Current bounded camera checks passed; user rejected prior excessive amplitude/zoom. No user feel, region or physical-device acceptance claimed.",
+      "command": "Camera/zone/motion/intro/readability suites, CI, world tests, PCK, browser and public file checks.",
       "exit_code": 0,
-      "environment": "Godot 4.7.2 gunman-sd1, Linux native/headless; Chromium SwiftShader touch emulation."
+      "environment": "Godot 4.7.2 gunman-sd1 native/headless; Chromium SwiftShader touch emulation."
     }
   ],
   "consumer_coverage": null,

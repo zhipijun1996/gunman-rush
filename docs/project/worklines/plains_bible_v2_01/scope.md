@@ -12,7 +12,14 @@ WorldCamera仍是唯一正式控制器。删除Boss合屏缩放，战斗保持�
 
 ## 验证与交付
 
-本轮日志/正常速度短片归 `build/camera-subtle/`。37项实际输入覆盖原地短跳/满跳、连续三级登高与下台、竖井下降、Boss入场恒定缩放和边界；原36输入/镜头、118区/隐藏/比例、10实际动作、六房连续教程及预读/恢复回归通过。CI四项和24世界单测通过。正在更新同输入前后对比短片与Web包；最终版本/发布证据在完成后替换本段。
+本轮日志/正常速度短片归 `build/camera-subtle/`。37项实际输入覆盖原地短跳/满跳、连续三级登高与下台、竖井下降、Boss入场恒定缩放和边界；原36输入/镜头、118区/隐藏/比例、10实际动作、六房连续教程及预读/恢复回归通过。CI四项和24世界单测通过。已审看原地跳、三级登高、三级下台和Boss入场的连续抽帧。四段正常速度视频使用e0cdd1f0前版与当前同组输入；Boss仍为P14隔离夹具。Web启动/移动跳跃/地图/暂停、触屏查看及取消、逐房存档隔离、短片播放和下载已复验。自动通过不等于用户对手感认可。
+
+公开build `d4e11d5d3f96`，导出源码 `f56f7eda5d6b9d98809a7eeaf6ed25650c32cc19`，prepared `91504c91b636a8faadad48788e800b60377e8e0f`；[部署42569096442](https://github.com/zhipijun1996/gunman-rush/actions/runs/42569096442)成功。线上版本及19份页面/短片/ZIP/总图与本地一致。
+
+- [连续试玩](https://zhipijun1996.github.io/gunman-rush/?v=d4e11d5d3f96) / [六房入口](https://zhipijun1996.github.io/gunman-rush/replays/?v=d4e11d5d3f96)。
+- [四段前后短片](https://zhipijun1996.github.io/gunman-rush/camera-review/?v=d4e11d5d3f96)：Boss、原地跳、登高、下降，每段3～5秒。
+- [新版短片下载，约3.4MiB](https://zhipijun1996.github.io/gunman-rush/camera-review/camera-after-clips.zip?v=d4e11d5d3f96)。
+- [35房路线/职责/收集/Boss/休息站总图](https://zhipijun1996.github.io/gunman-rush/map-review/?v=d4e11d5d3f96)，本轮未改。
 
 ## 剩余工作
 

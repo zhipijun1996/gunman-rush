@@ -10,7 +10,6 @@
 | --- | --- | --- | --- | --- |
 | PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
-| WORLD-CAMERA-03 | Boss保持缩放、入场缓慢平移；缩小动作偏移，验证原地跳/登高/下降 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 ## 待验收
 
