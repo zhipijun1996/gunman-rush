@@ -40,3 +40,9 @@ Sites D1持有用户草稿与不可变编辑记录，R2持有真实截图；修�
 新拓扑、增删门、复杂剧情/能力/返程奖励须由AI在原世界源成组修改和编译，当前手机编辑器拒绝不完整的端点重连。现有门台只有唯一独立支撑矩形时允许简单移动，其余交给完整地形修改。
 
 本机证据位于`build/workbench/logs/runtime-test.log`、`daily-ci.log`、`apply-p22/receipt.json`、`apply-tg01/receipt.json`、`publication-test.json`、`web/workbench-build.json`。构建命令为`python3 tools/export_workbench.py`；Site发行使用`python3 tools/export_workbench.py --site-copy-only --site-copy <Site/public/play绝对路径>`，不能直接删除完整Web包的raw文件。
+
+## 发布与接续
+
+工作台V1已发布到 https://windchime-level-workbench.zhipijun1996.chatgpt.site ，保持账号私有。Site项目ID为 `appgprj_6af13acbb3b08191a12eb75431cef156`，独立网页源码提交为 `618a30bf28224efe4b3626a3910477ca5001b1b2`，由Sites源码仓库持久保存；通过Sites技能打开该项目继续修改。平台已创建并自动安装同名MCP插件，本轮静态工具清单尚未载入新工具，因此未声称本对话已完成生产MCP调用。下一轮先调用 `get_level_context` 核当前选区和修订，再修改。
+
+主项目交付为PR #145，依赖PR #142、面向main并保留草稿。工作台网页本地浏览器的数据操作已验；公开入口已核私有登录跳转，云端浏览器没有用户登录态且缺WebGL2，生产登录后的CRUD与安卓实际试玩/截图仍待目标设备核验。下一动作是从P22的一处真实修改开始，检查手机首载、再次换稿、触控及截图回传，再继续关卡迭代。

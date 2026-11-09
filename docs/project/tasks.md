@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| MOBILE-LEVEL-WORKBENCH-01 | 手机编辑、ChatGPT草稿、真实Godot重载与正式源写回；缩短首次加载及逐次修改等待 | — | in_progress | [交接](worklines/mobile_level_workbench_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | 手机编辑、ChatGPT草稿、真实Godot重载与正式源写回；缩短首次加载及逐次修改等待 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 | PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 ## 待验收
