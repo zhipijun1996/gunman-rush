@@ -1,4 +1,4 @@
-extends "res://tools/art/capture_plains_enemy_context.gd"
+extends "res://tools/art/plains_actor_capture_base.gd"
 ## Actual Actor, AI, Router, projectile and corpse owners on formal PR142 terrain.
 ## One review enemy and the opening player position are explicit fixtures.
 const OUT := "res://build/plains_actors_142/enemy-combat/"

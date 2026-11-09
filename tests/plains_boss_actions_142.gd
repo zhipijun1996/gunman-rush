@@ -1,4 +1,4 @@
-extends "res://tools/art/capture_plains_enemy_context.gd"
+extends "res://tools/art/plains_actor_capture_base.gd"
 ## Formal rooms/components; positions, selected attacks and owner ticks are explicit fixtures.
 var checks := 0
 var failures := 0

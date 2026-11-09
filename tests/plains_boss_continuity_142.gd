@@ -1,4 +1,4 @@
-extends "res://tools/art/capture_plains_enemy_context.gd"
+extends "res://tools/art/plains_actor_capture_base.gd"
 ## Fixed-part/bone invariants, signed rolling, actual anchors and broad wind admission.
 var checks:=0
 var failures:=0

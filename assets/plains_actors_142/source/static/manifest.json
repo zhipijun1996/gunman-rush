@@ -1,19 +1,7 @@
 {
-  "status": "static proposal; awaiting explicit user approval; not runtime art",
   "baseline": "PR142@cc62d369d3cec2597db483f1137ff976e25863cf",
   "generator": "image_gen.imagegen",
-  "style_revision": "C: peacock-blue cloth, warm ivory masks, amber bells; rejected B retained only in Git comparison baseline",
   "derivation": "alpha>=128, discard isolated alpha components below20 source pixels, tight crop, aspect-preserving nearest bake; no code painting",
-  "phase_consistency": "Windkeeper shares one uniform source-pixel scale across both states; animation registration remains pending approval",
-  "approval_required_for": [
-    "idle",
-    "move",
-    "attack",
-    "hurt",
-    "death",
-    "phase_transition",
-    "runtime replacement and collision/room-scale validation"
-  ],
   "reference_sha256": {
     "art/world-art-v2/assets/pixel/v2/windchime_plains_v2.png": "a3f261361a31efe9d7c28d2bccfd55b99a451828370a156daa6eaae2083f092c",
     "art/world-art-v2/assets/pixel/hero.png": "925bbf53860edf7f7ff7892ee1f474493903d75bdd1a522b4a53fd4251d243c6",
@@ -28,7 +16,7 @@
   "assets": {
     "patrol": {
       "label": "01 巡逻体",
-      "source": "source/ordinary.png",
+      "source": "ordinary.png",
       "crop_xyxy": [
         67,
         121,
@@ -48,11 +36,12 @@
         27,
         44
       ],
-      "sha256": "007db05153122755b2883384942e3f1355664bbda6c5c4d2cd02301e566c7420"
+      "sha256": "007db05153122755b2883384942e3f1355664bbda6c5c4d2cd02301e566c7420",
+      "output": "assets/plains_actors_142/static/patrol.png"
     },
     "charger": {
       "label": "02 冲锋体",
-      "source": "source/ordinary.png",
+      "source": "ordinary.png",
       "crop_xyxy": [
         465,
         99,
@@ -72,11 +61,12 @@
         42,
         52
       ],
-      "sha256": "963b6479d345d1d8637b3a9e81184ccf678284ec7e234a93a59b695a583769e8"
+      "sha256": "963b6479d345d1d8637b3a9e81184ccf678284ec7e234a93a59b695a583769e8",
+      "output": "assets/plains_actors_142/static/charger.png"
     },
     "hopper": {
       "label": "03 跃击体",
-      "source": "source/ordinary.png",
+      "source": "ordinary.png",
       "crop_xyxy": [
         976,
         40,
@@ -96,11 +86,12 @@
         25,
         64
       ],
-      "sha256": "b75dbff836fe3a8f616214b8f50d7513a115b6b8201fb0d7eb59b4f112fb99e6"
+      "sha256": "b75dbff836fe3a8f616214b8f50d7513a115b6b8201fb0d7eb59b4f112fb99e6",
+      "output": "assets/plains_actors_142/static/hopper.png"
     },
     "sentry": {
       "label": "04 单发哨兵",
-      "source": "source/ordinary.png",
+      "source": "ordinary.png",
       "crop_xyxy": [
         1382,
         41,
@@ -120,11 +111,12 @@
         39,
         72
       ],
-      "sha256": "50ab033a22e2e098eacb0b3dd6489243518c568a592ad63e34c4a56f8cd39cb2"
+      "sha256": "50ab033a22e2e098eacb0b3dd6489243518c568a592ad63e34c4a56f8cd39cb2",
+      "output": "assets/plains_actors_142/static/sentry.png"
     },
     "fan_sentry": {
       "label": "05 扇射哨兵",
-      "source": "source/ordinary.png",
+      "source": "ordinary.png",
       "crop_xyxy": [
         33,
         495,
@@ -144,11 +136,12 @@
         36,
         68
       ],
-      "sha256": "a3936c64d2f9a998913bb9d2a60018e7c18a8b62ffa38afecef9121fce91e457"
+      "sha256": "a3936c64d2f9a998913bb9d2a60018e7c18a8b62ffa38afecef9121fce91e457",
+      "output": "assets/plains_actors_142/static/fan_sentry.png"
     },
     "root_bell": {
       "label": "06 根铃",
-      "source": "source/ordinary.png",
+      "source": "ordinary.png",
       "crop_xyxy": [
         464,
         440,
@@ -168,11 +161,12 @@
         49,
         102
       ],
-      "sha256": "e51afbf93d3d129909023c93d7b9e8c879d93802d383d8304af5ea5dd0f216fb"
+      "sha256": "e51afbf93d3d129909023c93d7b9e8c879d93802d383d8304af5ea5dd0f216fb",
+      "output": "assets/plains_actors_142/static/root_bell.png"
     },
     "diver": {
       "label": "07 俯冲体",
-      "source": "source/ordinary.png",
+      "source": "ordinary.png",
       "crop_xyxy": [
         937,
         505,
@@ -192,11 +186,12 @@
         28,
         46
       ],
-      "sha256": "801797986df37e90edec4dd1b37a3fefc5562ad92985fbc490693741d9ef8101"
+      "sha256": "801797986df37e90edec4dd1b37a3fefc5562ad92985fbc490693741d9ef8101",
+      "output": "assets/plains_actors_142/static/diver.png"
     },
     "bellstrider": {
       "label": "08 鸣铃巡游机",
-      "source": "source/bellstrider.png",
+      "source": "bellstrider.png",
       "crop_xyxy": [
         62,
         8,
@@ -216,11 +211,12 @@
         150,
         220
       ],
-      "sha256": "379ed87894702c120b499e79cdc40e672d0a00300881d724bab2f6b5a0930dc8"
+      "sha256": "379ed87894702c120b499e79cdc40e672d0a00300881d724bab2f6b5a0930dc8",
+      "output": "assets/plains_actors_142/static/bellstrider.png"
     },
     "windkeeper_phase1": {
       "label": "09 牧风者 · 一阶段",
-      "source": "source/windkeeper.png",
+      "source": "windkeeper.png",
       "crop_xyxy": [
         30,
         364,
@@ -240,11 +236,12 @@
         163,
         210
       ],
-      "sha256": "94c338174a6d168b8a7c51e5f73e8faa340b5b015ba2f60d2311b82a4953a969"
+      "sha256": "94c338174a6d168b8a7c51e5f73e8faa340b5b015ba2f60d2311b82a4953a969",
+      "output": "assets/plains_actors_142/static/windkeeper_phase1.png"
     },
     "windkeeper_phase2": {
       "label": "10 牧风者 · 二阶段",
-      "source": "source/windkeeper.png",
+      "source": "windkeeper.png",
       "crop_xyxy": [
         856,
         14,
@@ -264,8 +261,11 @@
         188,
         358
       ],
-      "sha256": "de2ea39093acd21df4a269c62f4e5e046264eeedf59764d2a07d8df0c657823e"
+      "sha256": "de2ea39093acd21df4a269c62f4e5e046264eeedf59764d2a07d8df0c657823e",
+      "output": "assets/plains_actors_142/static/windkeeper_phase2.png"
     }
   },
-  "license": "New generated candidate artwork; tool provides no separate license identifier. Existing reference attribution remains unchanged."
+  "license": "New generated candidate artwork; tool provides no separate license identifier. Existing reference attribution remains unchanged.",
+  "purpose": "Approved static references for the final generated enemy atlases and skeletal Boss parts.",
+  "approved_static_commit": "a5668a4"
 }

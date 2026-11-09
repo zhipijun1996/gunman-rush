@@ -1,4 +1,4 @@
-extends "res://tools/art/capture_plains_enemy_context.gd"
+extends "res://tools/art/plains_actor_capture_base.gd"
 ## Actual encounters, normal Router inputs and clocks. Spawn/phase and wider review camera are disclosed fixtures.
 const ACTIONS := {"intro":"入场","observe":"观察","approach":"接近","turn":"转向","ring_warning":"铃波前摇","rings":"敲铃攻击","neck":"收招","lob_aim":"瞄准前摇","lob_lock":"锁定落点","lob":"抛铃","roll_warning":"冲锋前摇","roll":"冲锋","combo_brake":"刹停","combo_turn":"回身","combo_warning":"回冲前摇","phase_transition":"阶段转换","stomp_warning":"踏击前摇","stomp":"踏击","lunge_warning":"扑击前摇","lunge":"扑击","sweep_warning":"横扫前摇","sweep":"横扫","seeds_warning":"种子前摇","seeds":"发射种子","gust_warning":"风压前摇","gust":"风压","platform_warning":"踏台前摇","platform":"踏台","recover":"收招","link":"连招间歇","traverse_warning":"跨台前摇","traverse":"跨台","retreat_warning":"后跳蓄力","retreat":"后跳脱身","dead":"死亡"}
 const OUT := "res://build/plains_actors_142/combat/"

@@ -15,7 +15,7 @@ LABELS = {'patrol':'巡逻怪','charger':'冲锋怪','hopper':'跳跃怪','sentr
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--enemy-master', default='enemy-combat.avi')
-    parser.add_argument('--boss-master', default='combat-revision.avi')
+    parser.add_argument('--boss-master', default='boss-combat.avi')
     parser.add_argument('--skip-enemies', action='store_true')
     parser.add_argument('--pounce-master', help='Optional grounded-underpass comparison capture')
     parser.add_argument('--reuse-manifest', type=Path, help='Retain unchanged clips with their original source commit and hash')

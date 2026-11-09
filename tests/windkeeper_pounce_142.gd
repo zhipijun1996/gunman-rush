@@ -1,4 +1,4 @@
-extends "res://tools/art/capture_plains_enemy_context.gd"
+extends "res://tools/art/plains_actor_capture_base.gd"
 ## Formal P-R14, real PlayerMotor/Router/contact policy. Only initial placement
 ## and selected one-move group are fixtures; no immunity or collision overrides.
 var checks := 0

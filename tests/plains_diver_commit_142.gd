@@ -1,4 +1,4 @@
-extends "res://tools/art/capture_plains_enemy_context.gd"
+extends "res://tools/art/plains_actor_capture_base.gd"
 ## Real formal Actor AI/physics. Target positions/frozen player and late wall are explicit fixtures.
 var checks:=0
 var failures:=0
