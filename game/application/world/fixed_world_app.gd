@@ -163,6 +163,7 @@ func _create_player() -> void:
 	tutorial.action_requested.connect(func(id: String) -> void: enqueue("action",id))
 	camera = WorldCamera.new()
 	(camera as WorldCamera).target=player
+	(camera as WorldCamera).controller=controller
 	(camera as WorldCamera).settings=content.data.player.camera
 	add_child(camera)
 	title.hide()
@@ -412,7 +413,10 @@ func context_target() -> Dictionary:
 func _interact() -> void:
 	if busy or paused or room==null: return
 	var target:=context_target()
-	if not target.is_empty(): enqueue(target.kind,target.id)
+	if not target.is_empty():
+		# A real interaction consumes this shared up gesture, including non-modal pickups.
+		controller.router.camera_activity_serial += 1
+		enqueue(target.kind,target.id)
 
 func _physics_process(_delta: float) -> void:
 	_update_hud()
@@ -579,7 +583,10 @@ func _fail_terrain() -> void:
 		return
 	controller.router.clear("terrain_return")
 	controller.shoot_ability.clear_projectiles()
+	ui.begin_transition()
 	player.reset_at(entry_anchor-Vector2(0,1))
+	(camera as WorldCamera).reset_view()
+	ui.finish_transition()
 	lifetime.invalidate_actor()
 	controller.session_id += 1
 	q_guard.cancel()

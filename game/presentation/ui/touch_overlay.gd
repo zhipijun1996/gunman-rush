@@ -35,6 +35,7 @@ var _left_offset := Vector2.ZERO
 var _right_offset := Vector2.ZERO
 var _direction := Vector2.ZERO
 var _vertical_ready := true
+var _camera_blocked := false
 var _layout_size := Vector2.ZERO
 var _pause_rect := Rect2()
 var _reset_rect := Rect2()
@@ -220,6 +221,8 @@ func handle_touch(event: InputEvent) -> bool:
 				_left_offset = Vector2.ZERO
 				router.set_source_axis(&"touch", 0.0)
 				router.set_look_axis(&"touch", 0.0)
+				router.set_camera_look(&"touch", 0.0)
+				_camera_blocked = false
 				_move_direction = 0.0
 				_move_running = false
 				_vertical_ready = true
@@ -254,6 +257,8 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 		var axis := router.profile.axis(_left_offset / radius, "left_sensitivity")
 		router.set_source_axis(&"touch", _movement_axis(axis.x))
 		router.set_look_axis(&"touch", axis.y)
+		if absf(axis.y)<.35: _camera_blocked=false
+		router.set_camera_look(&"touch", signf(axis.y) if absf(axis.y)>=0.65 and not _camera_blocked else 0.0)
 		if absf(axis.y) < 0.35:
 			_vertical_ready = true
 		elif absf(axis.y) >= 0.65 and _vertical_ready:
@@ -289,6 +294,7 @@ func _restore_other_aim(released: StringName) -> void:
 
 func _device_changed(source: StringName) -> void:
 	if source == &"touch": return
+	_camera_blocked = _captures.values().has(&"left")
 	# Only aim captures are revoked; an independently held jump can release.
 	for index: int in _captures.keys():
 		if _captures[index] in [&"hook", &"right"]: _captures.erase(index)
@@ -325,6 +331,7 @@ func _movement_axis(value: float) -> float:
 	return direction * (1.0 if _move_running else float(p.touch_walk_ratio))
 
 func _cancel(_reason: String) -> void:
+	_camera_blocked=false
 	_captures.clear()
 	_move_direction = 0.0
 	_move_running = false

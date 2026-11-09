@@ -35,6 +35,34 @@ def validate_player(data):
         raise ValueError('Invalid carry light offset')
 
 
+def validate_cameras(construction, settings):
+    profiles = {'bounded_follow','horizontal_follow','vertical_follow','fixed_arena'}
+    if set(settings.get('templates', {})) != profiles:
+        raise ValueError('Camera must define exactly four templates')
+    for key in ('zoom','horizontal_seconds','vertical_seconds','zone_seconds','look_delay_seconds','look_seconds','trend_confirm_seconds','fall_seconds'):
+        if type(settings.get(key)) not in (float,int) or not math.isfinite(settings[key]) or settings[key] <= 0:
+            raise ValueError('Invalid camera parameter '+key)
+    if not 0 <= settings['fall_exit_speed'] < settings['fall_enter_speed']:
+        raise ValueError('Camera fall hysteresis must be ordered')
+    def rect(value):
+        return isinstance(value,list) and len(value)==4 and all(type(v) in (float,int) and math.isfinite(v) for v in value) and value[2]>0 and value[3]>0
+    for room in construction['rooms']:
+        camera=room['camera']; ids=set()
+        if camera.get('profile') not in profiles or camera.get('transition')!='occluded':
+            raise ValueError('Invalid camera room template/scene handoff: '+room['room_id'])
+        for zone in camera.get('zones',[]):
+            if not zone.get('id') or zone['id'] in ids or zone.get('profile') not in profiles or not rect(zone.get('trigger')) or not rect(zone.get('display')):
+                raise ValueError('Invalid camera zone: '+room['room_id'])
+            ids.add(zone['id'])
+            if 'zoom' in zone and (type(zone['zoom']) not in (int,float) or not math.isfinite(zone['zoom']) or zone['zoom']<=0):
+                raise ValueError('Invalid explicit camera zoom')
+            for mask in zone.get('conceal',[]):
+                if not rect(mask): raise ValueError('Invalid camera concealment')
+        for link in camera.get('links',[]):
+            if link.get('a') not in ids or link.get('b') not in ids or link['a']==link['b'] or link.get('axis') not in ('x','y') or not rect(link.get('band')) or not rect(link.get('display')):
+                raise ValueError('Invalid camera connection: '+room['room_id'])
+
+
 def validate_services(data, implemented, npcs):
     def whole(value, minimum=0):
         return type(value) is int and value >= minimum
@@ -113,6 +141,7 @@ def build(root=ROOT):
               'map_rooms':[{**{k:r[k] for k in ['id','name','region']}, **layouts[r['id']]} for r in world['rooms'] if r['id'] in implemented], 'runtime_rules':world['runtime_rules'],
               'rooms':{r['room_id']:r for r in contracts['rooms'] if r['room_id'] in implemented}}
     validate_player(bundle['player'])
+    validate_cameras(construction,bundle['player']['camera'])
     # Unbuilt-room placements remain authored in the source, but must not be
     # advertised as available in a staged construction playtest.
     bundle['demo_services']['pickups'] = [p for p in bundle['demo_services']['pickups'] if p['room_id'] in implemented]

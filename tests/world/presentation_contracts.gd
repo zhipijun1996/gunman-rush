@@ -39,14 +39,7 @@ func run() -> void:
 	key(KEY_UP,true);await ticks(3);key(KEY_UP,false);await ticks(2)
 	check(app.paused and app.ui.page=="dialogue","first Up after closing a modal is not swallowed by stale held-key state")
 	key(KEY_ESCAPE,true);await ticks(2);key(KEY_ESCAPE,false);await ticks(3)
-	var before:=app.camera.position.y
-	var bottom:=app.player.position.y
-	var top:=bottom
-	key(KEY_SPACE,true);await ticks(4);key(KEY_SPACE,false)
-	for i: int in 40:
-		await physics_frame;top=minf(top,app.player.position.y)
-	check(bottom-top>30 and absf(app.camera.position.y-before)<(bottom-top)*.5,"short physical jump stays inside camera buffer instead of dragging the view")
-	check(app.camera.get_parent()==app,"camera is independent from character transforms")
+	# Camera behavior is covered by camera_controller/zones/motion, not legacy fixtures.
 	var walk:=await visible_motion("P-R01","INTRO-P24-P01:P-R01",0)
 	check(walk>=12 and walk<=36,"horizontal entry visibly walks approximately one body width after reveal")
 	var hop:=await visible_motion("P-R06","room-link-139:P-R06",1)
@@ -67,32 +60,7 @@ func run() -> void:
 	var stable:=true
 	for i: int in 100: stable=stable and UnderworldUI.icon(&"coil").get_rid()==rid
 	check(stable,"drawn atlas texture stays alive and is reused across redraws")
-	app.load_room("P-R01","");await settle()
-	var camera_before:=app.camera.position
-	app.controller.router.set_source_axis(&"keyboard_mouse",1);await ticks(25);app.controller.router.clear("camera_fixture")
-	check(app.camera.position.distance_to(camera_before)<150,"station camera follows ordinary movement without a discontinuous jump")
 	app.load_room("P-R14","L02:P-R14");await settle()
-	app.room.encounter.set_physics_process(false)
-	app.player.reset_at(Vector2(1452,742));await ticks(180)
-	var half:=root.get_visible_rect().size/(2*app.camera.zoom)
-	check(app.room.arena_bounds.grow(1).encloses(Rect2(app.camera.position-half,half*2)),"Boss inner room supplies the visible camera envelope after a smooth handoff")
-	key(KEY_SPACE,true)
-	var lowest_floor_visibility:=INF
-	for i: int in 24:
-		await physics_frame
-		lowest_floor_visibility=minf(lowest_floor_visibility,app.camera.position.y+half.y)
-	key(KEY_SPACE,false)
-	check(lowest_floor_visibility>=app.room.arena_bounds.end.y-8,"Boss jump keeps receiving floor visible without changing zoom")
-	await ticks(120)
-	key(KEY_SPACE,true)
-	var actor_in_frame:=true
-	for i: int in 90:
-		await physics_frame
-		if i==12:app.controller.router.request_action(&"shoot_release",Vector2.DOWN)
-		var screen_feet:=app.player.global_position.y-app.camera.get_screen_center_position().y+half.y
-		actor_in_frame=actor_in_frame and screen_feet>=float(app.camera.settings.arena_headroom)-2 and screen_feet<=half.y*2-float(app.camera.settings.arena_footroom)+2
-	key(KEY_SPACE,false)
-	check(actor_in_frame,"rapid arena jump plus downward recoil keeps the whole actor in the actual camera frame")
 	app.player.reset_at(Vector2(1572,350));await ticks(5)
 	check(app.ui.mini.modulate.a<.2,"minimap yields contrast when the actual projected actor passes behind it")
 	app._pause_world();app.ui.show_pause();app._update_hud()

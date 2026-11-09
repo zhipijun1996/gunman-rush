@@ -16,8 +16,6 @@ func _initialize() -> void:
 			var point := FixedWorldProvider.point(door.position_candidate.local_world_units)
 			var aperture := Rect2(point+Vector2(-12,-90),Vector2(24,84)) if door.direction in ["left","right"] else Rect2(point-Vector2(58,12),Vector2(116,24))
 			for solid: Rect2 in solids: check(not solid.intersects(aperture),id+" open physical aperture "+door.id)
-		for raw: Array in room.world_geometry.space_rects:
-			var chamber := FixedWorldProvider.rect(raw)
-			check(WorldRoomSpace.camera_envelope(room.world_geometry,chamber.get_center(),Rect2()).has_point(chamber.get_center()),id+" chamber camera includes its player")
+		check(room.camera.profile in ["bounded_follow","horizontal_follow","vertical_follow","fixed_arena"],id+" formal camera template")
 	print("WORLD SPACE: ",failures," failures")
 	quit(failures)

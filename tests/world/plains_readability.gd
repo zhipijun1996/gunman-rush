@@ -38,7 +38,7 @@ func run() -> void:
   ["P-R23",Vector2(1232,238),[Vector2(1088,160)]],
   ["P-R24",Vector2(1984,1486),[Vector2(1856,1456)]],
   ["P-R01",Vector2(448,1678),[Vector2(544,1744)]]]:
-  await app.review.begin(fixture[0],"","base");app.player.reset_at(fixture[1]);await ticks(70)
+  await app.review.begin(fixture[0],"","base");app.player.reset_at(fixture[1]);(app.camera as WorldCamera).reset_view();await ticks(70)
   var half:=Vector2(root.size)/2.0/app.camera.zoom
   var view:=Rect2(app.camera.get_screen_center_position()-half,half*2).grow(-12)
   check(app.player.is_on_floor(),fixture[0]+" real preparation support "+str(fixture[1]))
@@ -54,12 +54,12 @@ func run() -> void:
   ["P-R23",Vector2(1600,334),[Vector2(1380,334),Vector2(1232,238)]],
   ["P-R24",Vector2(1280,1166),[Vector2(1152,1102)]],
   ["P-R24",Vector2(1728,1550),[Vector2(1984,1486)]]]:
-  await app.review.begin(fixture[0],"","base");app.player.reset_at(fixture[1]);await ticks(3)
+  await app.review.begin(fixture[0],"","base");app.player.reset_at(fixture[1]);(app.camera as WorldCamera).reset_view();await ticks(3)
   var hp:=app.controller.actor_resources.health.current
   check(app.player.is_on_floor(),"legal low floor "+str(fixture[1]))
   check(await path(fixture[2],fixture[0]),fixture[0]+" recover with current base abilities "+str(fixture[1]))
   check(app.controller.actor_resources.health.current==hp,"safe recovery does not charge hidden height damage")
- await app.review.begin("P-R01","","base");app.player.reset_at(Vector2(1008,1454));await ticks(3)
+ await app.review.begin("P-R01","","base");app.player.reset_at(Vector2(1008,1454));(app.camera as WorldCamera).reset_view();await ticks(3)
  check(await walk(Vector2(1536,1486),"P-R01"),"station missed lift follows maintenance floor to shaft")
  check(await ride("StationLift",Vector2(1536,1440),1344,Vector2(1328,1262)),"station lower corridor can reboard and return to service hall")
  await finish()

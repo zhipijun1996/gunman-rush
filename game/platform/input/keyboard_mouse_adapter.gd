@@ -68,6 +68,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		router.set_source_axis(&"keyboard_mouse", float(_action_held("right")) - float(_action_held("left")))
 		var vertical := int(_action_held("down")) - int(_action_held("up"))
 		router.set_look_axis(&"keyboard_mouse", vertical)
+		router.set_camera_look(&"keyboard_mouse", vertical)
 		if vertical == 0:
 			_vertical_ready = true
 		elif _vertical_ready:

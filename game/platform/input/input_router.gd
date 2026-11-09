@@ -11,6 +11,9 @@ const TOUCH_MOUSE_GUARD_USEC := 400000
 const MAX_AGE_SECONDS := 0.1
 var axis := 0.0
 var look_axis := 0.0
+## Low-priority inspection from the movement vertical axis; aim never drives it.
+var camera_look_axis := 0.0
+var camera_activity_serial := 0
 var aim_direction := Vector2.ZERO
 var aim_engaged := false
 var last_aim_direction := Vector2.ZERO
@@ -52,6 +55,7 @@ func activate_device(source: StringName) -> void:
 		_source_axes.clear()
 		axis = 0.0
 		look_axis = 0.0
+		camera_look_axis = 0.0
 		aim_direction = Vector2.ZERO
 		aim_engaged = false
 		last_aim_direction=Vector2.ZERO;_skill_primary_suppressed=false
@@ -70,6 +74,10 @@ func set_source_axis(source: StringName, value: float, meaningful: bool = false)
 func set_look_axis(source: StringName, value: float) -> void:
 	if has_application_focus and source == current_device:
 		look_axis = clampf(value, -1.0, 1.0) if is_finite(value) else 0.0
+
+func set_camera_look(source: StringName, value: float) -> void:
+	if has_application_focus and source == current_device:
+		camera_look_axis = clampf(value, -1.0, 1.0) if is_finite(value) else 0.0
 
 func set_aim(source: StringName, direction: Vector2, engaged: bool = false) -> void:
 	if not has_application_focus:
@@ -138,6 +146,8 @@ func request_action(type: StringName, direction: Vector2 = Vector2.ZERO) -> bool
 		if direction.is_zero_approx():direction=skill_direction()
 		_skill_primary_suppressed=aim_engaged
 		cancel_actions_for(&"shoot_release")
+	if type in [&"jump", &"shoot_release", &"grapple", &"weapon_context", &"weapon_skill", &"item_skill"]:
+		camera_activity_serial += 1
 	sequence += 1
 	_queue.append({"type": type, "sequence": sequence, "epoch": epoch, "timestamp": Time.get_ticks_usec() / 1000000.0, "direction": direction.normalized()})
 	return true
@@ -176,6 +186,7 @@ func clear(reason: String) -> void:
 	aim_mode = &"attack"
 	axis = 0.0
 	look_axis = 0.0
+	camera_look_axis = 0.0
 	aim_direction = Vector2.ZERO
 	aim_engaged = false
 	_source_axes.clear()

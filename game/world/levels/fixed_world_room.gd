@@ -10,8 +10,7 @@ extends Node2D
 @export var tutorial_recoil_finish_x:=1540.0
 @export var section_volumes: Array[Dictionary] = []
 @export var retry_anchors: Array[Dictionary] = []
-## Visible next landing/turn, selected before committing to a move. No input steering.
-@export var camera_interests: Array[Dictionary] = []
+var camera_concealers: Dictionary = {}
 @export var art_placements: Array[Dictionary] = []
 @export var art_profile := "meadow"
 @export var bell_mechanisms: Array[Dictionary] = []
@@ -107,6 +106,21 @@ func _ready() -> void:
 		if i in one_way_indices or i in illustrated_platform_indices:continue
 		if i in masonry_platform_indices:masonry.append(platforms[i])
 		else:solids.append(platforms[i])
+	for zone: Dictionary in contract.camera.get("zones",[]):
+		var conceal: Array[Rect2] = []
+		for raw: Array in zone.get("conceal",[]):conceal.append(FixedWorldProvider.rect(raw))
+		if conceal.is_empty():continue
+		var mask:=UnderworldTerrain.build(conceal)
+		mask.z_index=2000
+		if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(mask)
+		add_child(mask);camera_concealers[str(zone.id)]=mask
+	# Existing textured rock covers the near exterior. Deep opaque rock continues
+	# past it at extreme aspect ratios without allocating an unbounded tile field.
+	var exterior:=FixedWorldProvider.rect(contract.world_geometry.bounds_world_units).grow(512)
+	for fill: Rect2 in [Rect2(-100000,-100000,200000,exterior.position.y+100000),Rect2(-100000,exterior.end.y,200000,100000),Rect2(-100000,exterior.position.y,exterior.position.x+100000,exterior.size.y),Rect2(exterior.end.x,exterior.position.y,100000,exterior.size.y)]:
+		var backing:=Polygon2D.new()
+		backing.polygon=PackedVector2Array([fill.position,Vector2(fill.end.x,fill.position.y),fill.end,Vector2(fill.position.x,fill.end.y)])
+		backing.color=Color("0d101e");backing.z_index=1000;add_child(backing)
 	var terrain:=UnderworldTerrain.build(solids)
 	if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
 	add_child(terrain)
@@ -331,3 +345,8 @@ func _corpse_support(pose: Dictionary) -> Node2D:
 		var rect: Rect2=body.get_meta(&"world_ground")
 		if [rect.position.x,rect.position.y,rect.size.x,rect.size.y]==pose.get("support",{}).get("rect",[]): return body as Node2D
 	return null
+
+func update_camera_concealment(active: String, frame: Dictionary) -> void:
+	for id: String in camera_concealers:
+		var entering: bool=not frame.get("portal",{}).is_empty() and id in [str(frame.a.id),str(frame.b.id)]
+		camera_concealers[id].visible = id!=active and not entering

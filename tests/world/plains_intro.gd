@@ -23,6 +23,7 @@ func visible_before_action(point: Vector2,label: String) -> void:
 		var portal:=FixedWorldProvider.point(door.position_candidate.local_world_units)
 		if door.direction in ["up","down"] and portal.distance_to(visible_point)<40:
 			var edge:=app.camera.get_screen_center_position().y+half.y*(1 if door.direction=="down" else -1)
+			print("DOOR PREVIEW ",label," player=",app.player.position," camera=",app.camera.position," edge=",edge," portal=",portal)
 			check(absf(edge-portal.y)<2,"continuous approach sees edge-aligned doorway "+label);return
 	check(view.has_point(visible_point),"continuous approach sees "+label+" "+str(point))
 
