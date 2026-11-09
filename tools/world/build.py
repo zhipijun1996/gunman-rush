@@ -39,11 +39,13 @@ def validate_cameras(construction, settings):
     profiles = {'bounded_follow','horizontal_follow','vertical_follow','fixed_arena'}
     if set(settings.get('templates', {})) != profiles:
         raise ValueError('Camera must define exactly four templates')
-    for key in ('zoom','horizontal_seconds','vertical_seconds','zone_seconds','look_delay_seconds','look_seconds','trend_confirm_seconds','fall_seconds','zoom_seconds','vertical_focus_seconds','landing_focus_seconds','arena_min_zoom'):
+    for key in ('zoom','horizontal_seconds','vertical_seconds','zone_seconds','look_delay_seconds','look_seconds','trend_confirm_seconds','fall_seconds','zoom_seconds','vertical_focus_seconds','landing_focus_seconds','arena_seconds','vertical_focus_max'):
         if type(settings.get(key)) not in (float,int) or not math.isfinite(settings[key]) or settings[key] <= 0:
             raise ValueError('Invalid camera parameter '+key)
-    if settings['arena_min_zoom'] > settings['zoom'] or type(settings.get('arena_padding')) not in (int,float) or not math.isfinite(settings['arena_padding']) or settings['arena_padding'] < 0:
-        raise ValueError('Invalid explicit arena fitting limits')
+    if type(settings.get('arena_padding')) not in (int,float) or not math.isfinite(settings['arena_padding']) or settings['arena_padding'] < 0:
+        raise ValueError('Invalid arena display padding')
+    if type(settings.get('vertical_focus_height')) not in (int,float) or not math.isfinite(settings['vertical_focus_height']) or not 0 <= settings['vertical_focus_height'] <= .05:
+        raise ValueError('Vertical phase focus must remain a small fraction of the view')
     if not 0 <= settings['fall_exit_speed'] < settings['fall_enter_speed']:
         raise ValueError('Camera fall hysteresis must be ordered')
     def rect(value):

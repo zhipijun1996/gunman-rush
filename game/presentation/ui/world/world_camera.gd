@@ -16,7 +16,6 @@ var action_offset := Vector2.ZERO
 var look_offset := 0.0
 var vertical_focus := 0.0
 var _rise_speed := 1.0
-var _air_blend := 0.0
 var looking := false
 var fall_catchup := false
 var legal_centers := Rect2()
@@ -66,7 +65,7 @@ func reset_view() -> void:
 	follow_anchor=target.global_position
 	frame=zones.update(target.global_position,0)
 	_composition=_zone_offset(frame.a)
-	vertical_focus=_composition.y;_rise_speed=1;_air_blend=0
+	vertical_focus=0;_rise_speed=1
 	base_center=target.global_position+_composition
 	_last_zone="";_zone_bias=Vector2.ZERO
 	_display_current=Rect2()
@@ -95,7 +94,7 @@ func _step(delta: float, snap: bool) -> void:
 	var t:=float(frame.blend)
 	var a: Dictionary=frame.a
 	var b: Dictionary=frame.b
-	var custom_zoom:=lerpf(_zone_zoom(a),_zone_zoom(b),t)
+	var custom_zoom:=lerpf(float(a.get("zoom",settings.zoom)),float(b.get("zoom",settings.zoom)),t)
 	zoom=Vector2.ONE*(custom_zoom if snap else lerpf(zoom.x,custom_zoom,_weight(delta,float(settings.zoom_seconds))))
 	var half:=get_viewport_rect().size/(2*zoom)
 	if not snap:_advance_observation(delta,half)
@@ -105,8 +104,7 @@ func _step(delta: float, snap: bool) -> void:
 	var composition:=_zone_offset(a).lerp(_zone_offset(b),t)
 	_composition=composition if snap else _composition.lerp(composition,_weight(delta,float(settings.zone_seconds)))
 	_advance_vertical_focus(delta,half,snap)
-	var neutral:=follow_anchor+_composition+Vector2(lead,0)+action_offset
-	neutral.y=lerpf(follow_anchor.y,target.global_position.y,_air_blend)+vertical_focus
+	var neutral:=follow_anchor+_composition+Vector2(lead,vertical_focus)+action_offset
 	var ordinary:=_compose(a,neutral,half).lerp(_compose(b,neutral,half),t)
 	var display_a:=_display(a,half)
 	var display_b:=_display(b,half)
@@ -118,7 +116,7 @@ func _step(delta: float, snap: bool) -> void:
 		bounds=Rect2(bounds.position.lerp(passage.position,expansion),bounds.size.lerp(passage.size,expansion))
 	if snap or not _display_current.has_area():_display_current=bounds
 	else:
-		var ease:=_weight(delta,float(settings.zone_seconds))
+		var ease:=_weight(delta,float(settings.arena_seconds if a.get("arena",false) else settings.zone_seconds))
 		_display_current=Rect2(_display_current.position.lerp(bounds.position,ease),_display_current.size.lerp(bounds.size,ease))
 	bounds=_display_current
 	var zone_key:=str(frame.a.id)+":"+str(frame.b.id)
@@ -140,6 +138,7 @@ func _step(delta: float, snap: bool) -> void:
 	proposed=proposed.clamp(legal_centers.position,legal_centers.end)
 	var tx:=float(settings.horizontal_seconds)
 	var ty:=lerpf(float(settings.vertical_seconds),float(settings.fall_seconds),_fall_blend)
+	if a.get("arena",false):tx=float(settings.arena_seconds);ty=tx
 	if takeover_seconds>0:tx=takeover_seconds;ty=takeover_seconds
 	if snap:base_center=proposed
 	else:base_center=Vector2(lerpf(base_center.x,proposed.x,_weight(delta,tx)),lerpf(base_center.y,proposed.y,_weight(delta,ty)))
@@ -175,35 +174,26 @@ func _advance_observation(delta: float, half: Vector2) -> void:
 	_fall_blend=lerpf(_fall_blend,1.0 if fall_catchup else 0.0,_weight(delta,float(settings.fall_blend_seconds)))
 	action_offset=action_offset.lerp(wanted,_weight(delta,float(settings.action_blend_seconds)))
 
-func _zone_zoom(zone: Dictionary) -> float:
-	var result:=float(zone.get("zoom",settings.zoom))
-	if bool(zone.get("fit_arena",false)):
-		var extent:=FixedWorldProvider.rect(zone.display).size
-		var viewport:=get_viewport_rect().size
-		result=clampf(minf(viewport.x/extent.x,viewport.y/extent.y),float(settings.arena_min_zoom),result)
-	return result
-
 func _advance_vertical_focus(delta: float, half: Vector2, snap: bool) -> void:
 	var grounded:=target.is_on_floor()
-	var ground_focus:=_composition.y
-	var wanted:=ground_focus
-	# Authored downward survey zones keep their accepted landing preview.
-	# The ordinary jump arc yields to that explicit composition, as to an arena.
-	if ground_focus>0:
-		wanted+=_fall_blend*half.y*2*float(settings.fall_look_height)
-		vertical_focus=wanted if snap else lerpf(vertical_focus,wanted,_weight(delta,float(settings.action_blend_seconds)))
-		_air_blend=0
-		return
-	if grounded:_rise_speed=1
-	else:
-		_rise_speed=maxf(_rise_speed,-target.velocity.y)
-		if target.velocity.y<0:
-			wanted=ground_focus*smoothstep(0,1,clampf(-target.velocity.y/_rise_speed,0,1))
-		else:
-			wanted=half.y*2*float(settings.fall_look_height)*smoothstep(0,1,clampf(target.velocity.y/float(settings.fall_enter_speed),0,1))
+	# Authored composition and the follow anchor are never animated by jump phases.
+	var amplitude:=minf(float(settings.vertical_focus_max),half.y*2*float(settings.vertical_focus_height))
+	var wanted:=-amplitude
 	var seconds:=float(settings.landing_focus_seconds if grounded else settings.vertical_focus_seconds)
+	if _composition.y>0:
+		# Explicit descent surveys retain their established fast-fall landing preview.
+		wanted=_fall_blend*half.y*2*float(settings.fall_look_height)
+		seconds=float(settings.action_blend_seconds)
+	else:
+		if grounded:_rise_speed=1
+		else:
+			_rise_speed=maxf(_rise_speed,-target.velocity.y)
+			if target.velocity.y<0:
+				wanted=-amplitude*smoothstep(0,1,clampf(-target.velocity.y/_rise_speed,0,1))
+			else:
+				wanted=amplitude*smoothstep(0,1,clampf(target.velocity.y/float(settings.fall_enter_speed),0,1))
+	if frame.a.get("arena",false):wanted=0
 	vertical_focus=wanted if snap else lerpf(vertical_focus,wanted,_weight(delta,seconds))
-	_air_blend=(0.0 if grounded else 1.0) if snap else lerpf(_air_blend,0.0 if grounded else 1.0,_weight(delta,float(settings.vertical_focus_seconds)))
 
 func _compose(zone: Dictionary, neutral: Vector2, half: Vector2) -> Vector2:
 	var profile:=str(zone.get("profile","bounded_follow"))

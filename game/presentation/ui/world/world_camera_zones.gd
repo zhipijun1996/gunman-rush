@@ -23,7 +23,7 @@ func configure(value: FixedWorldRoom, settings: Dictionary) -> void:
 	for raw: Dictionary in config.get("links",[]): links.append(raw.duplicate(true))
 	# A real arena is a bounded composition, not a second camera controller.
 	if room.arena_bounds.has_area():
-		zones.append({"id":"arena","profile":"fixed_arena","trigger":pack(room.arena_bounds),"display":pack(room.arena_bounds.grow(float(settings.arena_padding))),"priority":100,"arena":true,"fit_arena":true,"look_up":false,"look_down":false})
+		zones.append({"id":"arena","profile":"fixed_arena","trigger":pack(room.arena_bounds),"display":pack(room.arena_bounds.grow(float(settings.arena_padding))),"priority":100,"arena":true,"look_up":false,"look_down":false})
 	active_id=""
 
 static func pack(rect: Rect2) -> Array:
