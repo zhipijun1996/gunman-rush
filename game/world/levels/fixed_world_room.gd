@@ -247,6 +247,14 @@ func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: Fram
 		actor.definition=actor.definition.duplicate(true) as EnemyDefinition
 		actor.definition.health_definition.max_health=float(placement.max_health)
 		actor.definition.health_definition.initial_current=float(placement.max_health)
+	# Authored points use player-height references; settle the actual enemy sole
+	# onto its nearby authored platform before home/AI/visual anchors are bound.
+	if saved.is_empty() and not actor.definition.aerial:
+		var sole := body.position.y + actor.definition.collision_size.y*.5
+		for surface: Rect2 in platforms:
+			if absf(surface.position.y-sole)<=8 and body.position.x>=surface.position.x and body.position.x<=surface.end.x:
+				body.position.y=surface.position.y-actor.definition.collision_size.y*.5
+				break
 	add_child(body)
 	EnemyPresentationBinding.replace(actor,&"underworld")
 	policy.bind_damageable(StringName(id),actor.damageable,actor.health)

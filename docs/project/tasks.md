@@ -9,7 +9,7 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
-| MOBILE-LEVEL-WORKBENCH-01 | 08封井、06岔路、13旧路肩灰盒已发布r47；局部动作通过，整段首通待评审 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | 修复地面怪平台支撑、连续地刺与22风铃门的反冲净空 | — | in_progress | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
 ## 待验收

@@ -92,7 +92,10 @@ func _ready() -> void:
 			var glow:=add_lamp(light_position)
 			glow.reparent(node,false)
 	_thresholds()
-	for strip: Dictionary in room.spike_strips:_spikes(strip)
+	var spikes:=WorldSpikeArt.new()
+	spikes.name="ContinuousSpikes"
+	add_child(spikes)
+	spikes.setup(room.spike_strips,room.platforms)
 	set_process(true)
 func add_lamp(at: Vector2) -> PointLight2D:
 	var gradient:=Gradient.new();gradient.colors=PackedColorArray([Color.WHITE,Color(1,1,1,0)])
@@ -207,22 +210,3 @@ func _thresholds() -> void:
 			else:beam.polygon=PackedVector2Array([at-Vector2(64,0),at+Vector2(64,0),at+Vector2(90,0)+into*160,at-Vector2(90,0)+into*160])
 			beam.vertex_colors=PackedColorArray([Color(.74,.85,.75,.3),Color(.74,.85,.75,.3),Color(.74,.85,.75,0),Color(.74,.85,.75,0)])
 			add_child(beam)
-
-func _spikes(strip: Dictionary) -> void:
-	var rect:=FixedWorldProvider.rect(strip.bounds)
-	var facing: String=strip.get("facing","up")
-	var vertical:=facing in ["left","right"]
-	var texture: Texture2D=load("res://art/world-art-v2/assets/pixel/"+("gear_city_hazard" if indoor else "windchime_plains_hazard")+".png")
-	var length:=rect.size.y if vertical else rect.size.x
-	var depth:=rect.size.x if vertical else rect.size.y
-	var offset:=0.0
-	while offset<length:
-		var width:=minf(texture.get_width(),length-offset)
-		var piece:=Sprite2D.new();var atlas:=AtlasTexture.new();atlas.atlas=texture;atlas.region=Rect2(0,maxf(0,texture.get_height()-depth),width,minf(depth,texture.get_height()))
-		piece.texture=atlas;piece.centered=false;piece.z_index=1;piece.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
-		match facing:
-			"left":piece.position=Vector2(rect.position.x,rect.end.y-offset);piece.rotation=-PI/2
-			"right":piece.position=Vector2(rect.end.x,rect.position.y+offset);piece.rotation=PI/2
-			"down":piece.position=Vector2(rect.end.x-offset,rect.end.y);piece.rotation=PI
-			_:piece.position=rect.position+Vector2(offset,0)
-		add_child(piece);offset+=width

@@ -3,7 +3,8 @@ extends EnemyAttackStrategy
 
 func attack_goal(context: EnemyAttackBehavior) -> Vector2:
 	var definition := context.actor.definition
-	return Vector2(clampf(context.controller.motor.global_position.x,context.home.x-definition.patrol_half_width,context.home.x+definition.patrol_half_width),context.home.y)
+	var wanted := Vector2(clampf(context.controller.motor.global_position.x,context.home.x-definition.patrol_half_width,context.home.x+definition.patrol_half_width),context.home.y)
+	return context.actor.motor.supported_ground_goal(context.actor.motor.global_position,wanted)
 
 func attack_step(context: EnemyAttackBehavior, delta: float) -> void:
 	var t := clampf(context.state_time/context.actor.definition.attack_duration,0,1)
