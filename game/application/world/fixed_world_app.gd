@@ -41,6 +41,7 @@ var _npc_id:=""
 var _accepted_damage:=false
 var _last_notice:=""
 var review: WorldRoomReview
+var workbench: WorldWorkbenchBridge
 
 
 func _ready() -> void:
@@ -68,7 +69,9 @@ func _ready() -> void:
 	_make_ui()
 	review = WorldRoomReview.new()
 	review.app = self
-	review.requested()
+	workbench = WorldWorkbenchBridge.new()
+	workbench.setup(self)
+	if not workbench.enabled: review.requested()
 
 func _make_ui() -> void:
 	ui=FixedWorldUI.new()
@@ -195,11 +198,19 @@ func load_room(id: String, entry: String) -> void:
 		busy = false
 		status = "房间身份不匹配"
 		return
+	next.configure(resolved.room)
+	var draft: Dictionary = resolved.get("draft", {})
+	if not draft.is_empty():
+		var draft_error := WorldRoomDraft.apply(next, draft)
+		if not draft_error.is_empty():
+			next.free()
+			busy = false
+			status = "草稿无法装载："+draft_error
+			return
 	var previous_room := room
 	var previous_position := player.position
 	var ticket := _acquire()
 	next.process_mode = Node.PROCESS_MODE_PAUSABLE
-	next.configure(resolved.room)
 	next.visible=false
 	add_child(next)
 	next.refresh_doors(state,content)
@@ -760,9 +771,9 @@ func return_title() -> void:
 	player.queue_free()
 	player = null
 	controller = null
-	room.queue_free()
+	if room != null: room.queue_free()
 	room = null
-	policy.queue_free()
+	if policy != null: policy.queue_free()
 	policy = null
 	ui.unbind()
 	if is_instance_valid(camera): camera.queue_free()
@@ -830,3 +841,4 @@ func _commit_focus_heal() -> void:
 	assert(spent and result.accepted(),"Preflighted resource commit must remain synchronous")
 	focus_heal.resolve(true)
 	GameAudio.cue(self,&"confirm")
+

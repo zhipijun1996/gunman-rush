@@ -10,6 +10,7 @@ var depths: Array[Dictionary]=[]
 static var assets: Dictionary={}
 static var props: Dictionary={}
 var occluders: Array[Sprite2D]=[]
+var terrain_polygons: Array[PackedVector2Array] = []
 var story_props: Array[Dictionary]=[]
 var sky: Sprite2D
 var daylight: DirectionalLight2D
@@ -63,6 +64,15 @@ func _ready() -> void:
 		var blocker:=LightOccluder2D.new();var polygon:=OccluderPolygon2D.new()
 		polygon.polygon=PackedVector2Array([platform.position,Vector2(platform.end.x,platform.position.y),platform.end,Vector2(platform.position.x,platform.end.y)])
 		blocker.occluder=polygon;add_child(blocker)
+	for row: Dictionary in room.terrain_polygons:
+		var points := PackedVector2Array()
+		for pair: Array in row.points: points.append(FixedWorldProvider.point(pair))
+		terrain_polygons.append(points)
+		var blocker := LightOccluder2D.new()
+		var polygon := OccluderPolygon2D.new()
+		polygon.polygon = points
+		blocker.occluder = polygon
+		add_child(blocker)
 	if room.rest_point!=Vector2.ZERO:add_lamp(room.rest_point-Vector2(0,42))
 	for placement: Dictionary in room.art_placements:
 		if placement.has("support_height"):
@@ -135,6 +145,9 @@ func _draw() -> void:
 		var blocked:=false
 		for solid: Rect2 in room.platforms:
 			if solid.has_point(at):blocked=true;break
+		if not blocked:
+			for polygon: PackedVector2Array in terrain_polygons:
+				if Geometry2D.is_point_in_polygon(at, polygon): blocked=true;break
 		if not blocked:
 			draw_rect(Rect2(at,Vector2(mote.size,1)),Color(1,.92,.68,mote.alpha*clampf(fade,0,1)))
 
