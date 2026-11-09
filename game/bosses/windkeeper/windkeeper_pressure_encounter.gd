@@ -529,11 +529,15 @@ func _update_strike(delta: float) -> void:
 	_update_strike_segment()
 	_active_strike.advance(delta)
 
+func wind_field_rect() -> Rect2:
+	var reach:=_config().wind_pressure_range
+	var height:=_config().wind_pressure_phase_two_height if stage_phase>=2 else _config().wind_pressure_height
+	return Rect2(Vector2(-35 if locked_direction>0 else -reach,-height),Vector2(reach+35,height+100))
+
 func _apply_wind(delta: float) -> void:
 	if not _target is PlayerMotor: return
-	var local := _target.global_position - motor.global_position
-	if local.x * locked_direction >= -35 and absf(local.x) <= _config().wind_pressure_range and local.y > -_config().wind_pressure_height and local.y < 100:
-		(_target as PlayerMotor).queue_local_velocity(Vector2(locked_direction * _config().wind_pressure_speed, 0), delta)
+	if wind_field_rect().has_point(_target.global_position-motor.global_position):
+		(_target as PlayerMotor).queue_local_velocity(Vector2(locked_direction*_config().wind_pressure_speed,0),delta)
 
 func _finish_attack() -> void:
 	if is_instance_valid(_active_strike): _active_strike.dispose()

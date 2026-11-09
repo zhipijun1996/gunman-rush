@@ -30,6 +30,7 @@ extends WindkeeperDefinition
 @export var wind_pressure_speed := 76.0
 @export var wind_pressure_range := 410.0
 @export var wind_pressure_height := 210.0
+@export var wind_pressure_phase_two_height := 300.0
 @export var wave_radius := 9.0
 @export var camping_seconds := 1.6
 @export var camping_radius := 42.0
@@ -47,7 +48,7 @@ func is_valid() -> bool:
 		sweep_warning_seconds,platform_warning_seconds,combo_link_seconds,group_recovery_seconds,
 		lunge_seconds,lunge_height,stomp_seconds,sweep_seconds,gust_seconds,seeds_seconds,
 		platform_seconds,seed_speed,seed_spread,wind_pressure_speed,wind_pressure_range,
-		wind_pressure_height,wave_radius,camping_seconds,camping_radius,death_seconds,death_impact_seconds,death_fall_gravity]:
+		wind_pressure_height,wind_pressure_phase_two_height,wave_radius,camping_seconds,camping_radius,death_seconds,death_impact_seconds,death_fall_gravity]:
 		if not is_finite(value) or value <= 0: return false
 	var previous := 0.0
 	for fraction: float in gust_volley_fractions:

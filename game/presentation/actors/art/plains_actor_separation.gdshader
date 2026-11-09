@@ -6,12 +6,10 @@ uniform float saturation : hint_range(0.0,1.0) = 0.82;
 uniform float midtone_lift : hint_range(0.0,0.3) = 0.14;
 uniform float contour_strength : hint_range(0.0,1.0) = 0.78;
 uniform float hit_flash : hint_range(0.0,1.0) = 0.0;
-uniform vec4 part_cutout = vec4(0.0);
 varying vec4 modulation;
 void vertex() { modulation = COLOR; }
 void fragment() {
 	vec4 tex = texture(TEXTURE, UV);
-	if (part_cutout.z > 0.0 && UV.x >= part_cutout.x && UV.y >= part_cutout.y && UV.x < part_cutout.x+part_cutout.z && UV.y < part_cutout.y+part_cutout.w) { tex.a = 0.0; }
 	vec2 p = TEXTURE_PIXEL_SIZE;
 	float top = texture(TEXTURE, UV-vec2(0.0,p.y)).a;
 	float left = texture(TEXTURE, UV-vec2(p.x,0.0)).a;

@@ -44,23 +44,12 @@ func _physics_process(delta: float) -> void:
 func _draw() -> void:
 	paint(self, family, row, age / seconds, Vector2.ZERO, effect_scale * Vector2(facing, 1))
 
-static func paint(canvas: Node2D, kind: StringName, clip: int, progress: float, at := Vector2.ZERO, size := Vector2.ONE, angle := 0.0) -> void:
+static func paint(canvas: Node2D, kind: StringName, clip: int, progress: float, at := Vector2.ZERO, size := Vector2.ONE, angle := 0.0, tint := Color.WHITE) -> void:
 	var frame := clampi(int(progress * 4), 0, 3)
 	canvas.draw_set_transform(at.round(), angle, size)
-	canvas.draw_texture_rect_region(WIND if kind == &"wind" else BELL, Rect2(-80,-32,160,64), Rect2(frame*160,clip*64,160,64))
+	canvas.draw_texture_rect_region(WIND if kind == &"wind" else BELL, Rect2(-80,-32,160,64), Rect2(frame*160,clip*64,160,64),tint)
 	canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
 
 static func windmill_origin(frame: Dictionary) -> Vector2:
-	var animation: PlainsActorAnimation = frame.animation
-	var index := animation.frame_index(frame.clip, frame.progress)
-	return frame.origin + HUB.POINTS[clampi(index,0,26)] * Vector2(frame.face,1)
-
-static func paint_gust(canvas: Node2D, frame: Dictionary, age_seconds: float, reach: float, side: float) -> void:
-	var origin := windmill_origin(frame)
-	# Draw a connected head-to-wind-zone stream; gaps keep the player readable.
-	var end := Vector2(side * reach * .82, -55)
-	var axis := end-origin
-	for index: int in 3:
-		var t := float(index)/3.0
-		var point := origin.lerp(end,t)
-		paint(canvas,&"wind",3,fposmod(age_seconds*12+index*.25,1),point,Vector2(.95,.75),axis.angle())
+	var points:=PackedVector2Array(HUB.POINTS)
+	return frame.origin+PlainsBossTween.anchor(frame,points)*Vector2(frame.face,1)

@@ -4,6 +4,7 @@ extends Node2D
 const AUDIO := preload("res://game/presentation/audio/bellstrider_audio.gd")
 @export var encounter: BellstriderEncounter
 var pixel_style := false
+var body: PlainsBossBody
 var hit_template: EnemyHitTemplate
 # Preserve accepted-event lifecycle; the old mesh deformation is never drawn.
 var motion := BossMotionPresentation.new()
@@ -13,10 +14,13 @@ var _dust_travel := 0.0
 
 
 func _ready() -> void:
+	PlainsBossTween.warm("bellstrider")
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	var surface := ShaderMaterial.new()
 	surface.shader = preload("res://game/presentation/actors/art/plains_actor_separation.gdshader")
 	material = surface
+	body=PlainsBossBody.new()
+	add_child(body)
 	mortar=PlainsMortarArt.new()
 	add_child(mortar)
 	hit_template = EnemyHitTemplate.install_boss(encounter, self)
@@ -70,12 +74,10 @@ func _draw() -> void:
 	var pose := encounter.rig_pose()
 	var surface:=material as ShaderMaterial
 	var flash:=hit_template.sample.flash_strength()
-	var cutout:=Vector4.ZERO
 	mortar.visible=false
 	if String(pose.authored.sheet).trim_suffix("_flow")=="bellstrider_lob":
-		cutout=mortar.present(pose.authored,pose.barrel_angle,flash)
-	surface.set_shader_parameter("part_cutout",cutout)
-	PlainsBossFrames.draw(self, pose.authored)
+		mortar.present(pose.authored,pose.barrel_angle,flash)
+	body.present(pose.authored,hit_template.sample.flash_strength())
 	if motion.hurt > 0.0:
 		(material as ShaderMaterial).set_shader_parameter("hit_flash", motion.hurt * .45)
 	else:

@@ -154,11 +154,11 @@ func rig_pose() -> Dictionary:
 		var frame: Dictionary=pose.authored
 		var animation: PlainsActorAnimation=frame.animation
 		var index:=animation.frame_index(frame.clip,frame.progress)
-		var joint:=animation.barrel_pivots[index]
-		var length: float=animation.muzzle_points[index].distance_to(joint)
+		var joint:=PlainsBossTween.anchor(frame,animation.barrel_pivots)
+		var length: float=PlainsMortarArt.barrel_length()
 		var angle:=_launcher_aim
 		if frame.clip==&"recovery":
-			angle=lerp_angle(angle,(animation.muzzle_points[index]-joint).angle(),frame.progress)
+			angle=lerp_angle(angle,PlainsMortarArt.painted_axis().angle(),frame.progress)
 		var basis:=Transform2D(0,Vector2(frame.face,1),0,Vector2.ZERO)*Transform2D(angle,Vector2.ZERO)
 		var mouth: Vector2=frame.origin+joint*Vector2(frame.face,1)+basis.x*length
 		basis.origin=mouth-basis.basis_xform(Vector2(25,-3))

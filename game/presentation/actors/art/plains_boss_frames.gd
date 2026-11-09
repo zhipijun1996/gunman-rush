@@ -73,7 +73,7 @@ static func sample(kind: StringName, data: Dictionary, cache: Dictionary) -> Dic
 		clip = &"recovery" if mode in [&"recover", &"link", &"neck", &"combo_brake", &"combo_turn"] else &"anticipation" if String(mode).ends_with("warning") or mode in [&"lob_aim", &"lob_lock", &"phase_transition"] else &"attack"
 		if mode == &"lob_aim": progress *= .6
 		elif mode == &"lob_lock": progress = .6 + progress * .4
-		elif mode == &"roll": progress = fposmod(float(data.get("travel", 0.0)) / 110.0, 1.0)
+		elif mode == &"roll": progress = clampf(age / .32, 0.0, 1.0)
 		elif mode == &"rings": progress = clampf(float(data.get("ring_strike_age", 0.0)) / .36, 0.0, 1.0)
 	else:
 		progress = fposmod(float(data.get("fight_age", 0.0)) / 1.0, 1.0)
@@ -118,16 +118,12 @@ static func sample(kind: StringName, data: Dictionary, cache: Dictionary) -> Dic
 
 static func core_transform(frame: Dictionary) -> Transform2D:
 	var animation: PlainsActorAnimation = frame.animation
-	var point := animation.core_point(frame.clip, frame.progress)
+	var point := PlainsBossTween.anchor(frame,animation.core_points)
 	return Transform2D(0.0, frame.origin + point * Vector2(frame.face, 1.0))
 
 static func muzzle_point(frame: Dictionary) -> Vector2:
 	var animation: PlainsActorAnimation = frame.animation
-	var index := animation.frame_index(frame.clip, frame.progress)
-	return frame.origin + animation.muzzle_points[index] * Vector2(frame.face, 1.0)
+	return frame.origin + PlainsBossTween.anchor(frame,animation.muzzle_points) * Vector2(frame.face, 1.0)
 
 static func draw(canvas: Node2D, frame: Dictionary, tint := Color.WHITE) -> void:
-	var animation: PlainsActorAnimation = frame.animation
-	canvas.draw_set_transform(frame.origin, 0.0, Vector2(frame.face, 1.0))
-	animation.draw_frame(canvas, frame.clip, frame.progress, tint)
-	canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
+	PlainsBossTween.draw(canvas,frame,tint)

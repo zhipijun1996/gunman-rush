@@ -134,7 +134,7 @@ func _draw() -> void:
 		draw_set_transform(to_local(_shadow_point) + Vector2(0, -2), 0, Vector2(1, .22))
 		draw_circle(Vector2.ZERO, 12, Color(.12, .11, .08, .4))
 		draw_set_transform(Vector2.ZERO)
-	PlainsBossEffects.paint(self,&"bell",1,fposmod(_visual_age*8,1),Vector2.ZERO,Vector2.ONE*radius/12.0)
+	PlainsBossEffects.paint(self,&"bell",1,0.0,Vector2.ZERO,Vector2.ONE*radius/12.0,_visual_age*TAU*1.25)
 
 func _emit_visual(point: Vector2, impact: bool) -> void:
 	var owner := _attack_owner.get_ref() as Node if _attack_owner != null else null
