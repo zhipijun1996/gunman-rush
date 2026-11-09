@@ -78,6 +78,11 @@ func _ready() -> void:
 		if placement.has("support_height"):
 			_support(FixedWorldProvider.point(placement.point),float(placement.support_height));continue
 		var node:=sprite(str(placement.asset),FixedWorldProvider.point(placement.point),int(placement.get("layer",-2)))
+		if placement.has("tile_rect"):
+			var area:=FixedWorldProvider.rect(placement.tile_rect)
+			node.position=area.position;node.offset=Vector2.ZERO
+			node.region_enabled=true;node.region_rect=Rect2(Vector2.ZERO,area.size)
+			node.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
 		if placement.get("sway",false):
 			var material:=ShaderMaterial.new();material.shader=preload("res://game/presentation/world/plains_v07/rooted_wind.gdshader")
 			material.set_shader_parameter("height",float(node.texture.get_height()));node.material=material;swaying.append(material)
