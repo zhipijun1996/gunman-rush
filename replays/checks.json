@@ -1,0 +1,200 @@
+{
+  "source_commit": "ae5c1cca26192788733bb733f5ba19e0ad48c5fb",
+  "content_version": "71064acdd951d2bf4f6a74c51edbacdd4d1e0b0383e7bdeaecfaab562feb8d7a",
+  "scope": "First six-room readability/recovery repair; 29 interiors, full return convenience, full-region art/gameplay and physical devices not accepted.",
+  "root_cause": "Previous success-path replay and geometric support checks did not cover pre-action camera visibility or actual recovery floors. No evidence establishes context compaction as the cause.",
+  "commands": [
+    {
+      "command": "Godot --headless --fixed-fps 60 --script tests/world/plains_intro.gd",
+      "exit_code": 0,
+      "result": "65 checks; real new-game route through six rooms, pre-action view checks and rest save, no mid-route position/progress writes.",
+      "log_sha256": "89f9df1fbbf47c24715b09bd1100d75ddf7e161511f8901682a966d255377e4a"
+    },
+    {
+      "command": "Godot --headless --fixed-fps 60 --script tests/world/plains_readability.gd",
+      "exit_code": 0,
+      "result": "111 checks; ten entry axes, 18 preparation fixtures, eight low floor returns and station carrier reboarding.",
+      "log_sha256": "f2f81da03365efcea882f6da304fad791eaaa3b184fc30bf120dbc50a33cd3cb"
+    },
+    {
+      "command": "Godot --headless --fixed-fps 60 --script tests/world/plains_intro_practice.gd",
+      "exit_code": 0,
+      "result": "27 checks; three gate cases and eight main/recovery-ledge full/coyote approaches.",
+      "log_sha256": "9eea2f49f976c15e78c598338c7b3a2a2d02e79280e36553dae928b97be54b54"
+    },
+    {
+      "command": "Godot --headless --fixed-fps 60 --script tests/world/room_contracts.gd",
+      "exit_code": 0,
+      "result": "62 supported entry/interaction assertions.",
+      "log_sha256": "34fa04e489ac7c0d11c508dbdfdc7ffa824dc3b26bb1b21b3b6ad985eaec3ec7"
+    },
+    {
+      "command": "Godot --headless --fixed-fps 60 --script tests/world/spatial_contracts.gd",
+      "exit_code": 0,
+      "result": "Built-room boundary, aperture and union camera checks.",
+      "log_sha256": "8548dfbd4940c1d337816eea3a17d553eb991effc380e55613644e945c9431c1"
+    },
+    {
+      "command": "Godot --headless --fixed-fps 60 --script tests/world/room_review.gd",
+      "exit_code": 0,
+      "result": "24 checks; declared entry/stage, reset and campaign save isolation.",
+      "log_sha256": "12a0bbf2fbe67bb2ae957887113ee0fb896a3ecc15aaa062470a670cbbb6a56e"
+    },
+    {
+      "command": "Godot --headless --fixed-fps 60 --script tests/world/platform_dwell.gd",
+      "exit_code": 0,
+      "result": "Carrier dwell, pause and restore.",
+      "log_sha256": "4b597002c46da9a3266d9f2817cb96920787768483cdefd7b7cb040d883fad08"
+    },
+    {
+      "command": "python3 tools/ci.py",
+      "exit_code": 0,
+      "result": "Four daily checks passed.",
+      "log_sha256": "d71ebdd98a97c044c407082ab09da59dbc8d55777c27eeb9ad7bc5f3130a628b"
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p 'test_world*.py'",
+      "exit_code": 0,
+      "result": "18 tests passed; shared style consumer impact rebound after native review.",
+      "log_sha256": "95f425b80ef9edc10772f0fcf8e6b61ac0517474a97b4035280133aa2e26133f"
+    },
+    {
+      "command": "python3 tools/check_docs.py",
+      "exit_code": 0,
+      "result": "Current documentation and links passed.",
+      "log_sha256": "f533366605c856f2cad6f54d8febb74531f5b87ca91cb383592128685e0c9939"
+    },
+    {
+      "command": "build/map-review-venv/bin/python tools/world_review/plains_map.py --out build/plains-readability/map",
+      "exit_code": 0,
+      "result": "35 rooms, 43 shared seams, five routes, zero room overlap.",
+      "log_sha256": "d2266738b49f70e809e2f5ad232c089ea95ab332af2e7d59595d1d2687f18fc9"
+    },
+    {
+      "command": "python3 build/plains-readability/check_map.py",
+      "exit_code": 0,
+      "result": "Desktop/mobile map, 35 labels, 12 collection rows, controls passed.",
+      "log_sha256": "cc148f7ba86ae29f4586000157e553c488835d0253219e73563a0944d1c81892"
+    },
+    {
+      "command": "python3 tools/foundry.py build --count 24 --promote",
+      "exit_code": 0,
+      "result": "36 development phrases and 18 itineraries; export provenance only, not fixed-world gameplay acceptance.",
+      "log_sha256": "2b85a6c543577057060fe07a7d61699519b07175b4317af2ff534730d1ef7436"
+    },
+    {
+      "command": "python3 tools/check_web_bundle.py build/web",
+      "exit_code": 0,
+      "result": "Actual PCK runtime closure and six implemented room resources passed.",
+      "log_sha256": "d118437a78bb9e23ac2494ad2f87b72c6823926b955a02fbe58f5239ab89f19c"
+    },
+    {
+      "command": "python3 tools/verify_fixed_world_browser.py --output build/plains-readability/web-browser",
+      "exit_code": 0,
+      "result": "Title, new game, movement/jump, map and 960x540 pause; zero script/page/resource errors.",
+      "log_sha256": "bf2650dde7e78295271bc4384adab0a8bf1bb1b89f1cc370b43be03156da2396"
+    },
+    {
+      "command": "python3 build/plains-readability/verify_review.py",
+      "exit_code": 0,
+      "result": "Touch-size P22 review, old save preserved, no formal progress writes; six room cards and four clips, 390x844 landing layout.",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "native_clips": [
+    {
+      "title": "倒时车厢：落点预读与连续下行",
+      "file": "carriage.mp4",
+      "duration": 5.23,
+      "bytes": 1096457,
+      "sha256": "6c12bacf508538529011b406fc7d8082666c326740503b65f7319334a5900ea2",
+      "scope": "Declared local room-review approach; actual controller input and normal camera, native Godot."
+    },
+    {
+      "title": "引渠：跳跃落空、回岸、反冲重试",
+      "file": "recovery.mp4",
+      "duration": 4.63,
+      "bytes": 644210,
+      "sha256": "8573a205facd565056870234865b59250830a0eda13ef1cb9043cf554ea1753d",
+      "scope": "Declared local room-review approach; actual controller input and normal camera, native Godot."
+    },
+    {
+      "title": "候车棚：正常镜头看清转折与上口",
+      "file": "shelter.mp4",
+      "duration": 5.53,
+      "bytes": 879277,
+      "sha256": "d4acfbca7b65f136092feebe0350ff5e901bfc45927e6708dce2c7202c75ed38",
+      "scope": "Declared local room-review approach; actual controller input and normal camera, native Godot."
+    },
+    {
+      "title": "小站：从低层维修道重新搭乘回大厅",
+      "file": "station.mp4",
+      "duration": 5.7,
+      "bytes": 1128872,
+      "sha256": "61f5aa47f12f5686501f60f73fac6a6a8301ae60bd42e196ee0c03c0cb7d9998",
+      "scope": "Declared local room-review approach; actual controller input and normal camera, native Godot."
+    }
+  ],
+  "visual_review": "Reviewed six ordinary room views and sequential frames of four normal-speed input clips. Character palette/zoom retained. Low landing, exit and return readability improved; broad material composition and carrier appearance still not final. Web new-game, small pause and P22 touch-size screenshots also inspected; no full Web traversal or physical-device claim.",
+  "unverified": [
+    "Remaining 29 interiors and complete exploration loop",
+    "P22 completion-side return board and full reverse journey",
+    "Full regional art/audio polish",
+    "Physical phone/controller, complete Web traversal and target-device performance"
+  ],
+  "runtime_fix_commit": "1b768a34ef99afdb474ba9427791a7671c4601e7",
+  "source_note": "Export source adds validated development batch provenance only after the runtime repair commit; gameplay source is unchanged.",
+  "web_build": {
+    "build_id": "e0da5f93cf15",
+    "pack": "index.e0da5f93cf15.pck",
+    "godot_toolchain": {
+      "version": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf",
+      "binary_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+      "bytes": 171575448,
+      "build_id": "godot-4.7.2-gunman-sd1",
+      "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "template_archive_sha256": "5acfd7377c2cd5967a3fa8267c8eb4d6a02a1cfd0ad88a56dd8ce165ad142670",
+      "provenance_sha256": "3671f8cb38e0ed66fa25a06ecbf4b0ea8672a45fd4ba8af99cd55d79044bd225"
+    },
+    "engine_id": "c410089b390c",
+    "cache_schema": 2,
+    "loader_id": "a717fe08f296",
+    "threads_enabled": true,
+    "audio_supply": "dedicated_thread",
+    "pack_bytes": 237153000,
+    "download_bytes": 230691941,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 51222107,
+    "wasm_gzip_bytes": 11496269,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "ae5c1cca26192788733bb733f5ba19e0ad48c5fb"
+  },
+  "browser_reports": {
+    "web-browser": {
+      "build_id": "e0da5f93cf15",
+      "browser": "Chromium SwiftShader, desktop viewport 1280x720 then 960x540",
+      "scope": "Ordinary title/start/jump/map/pause input; inspect screenshots. Full Web route and physical mobile unverified.",
+      "logs": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, multi-threaded, no GDExtension support.",
+        "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread"
+      ],
+      "page_errors": [],
+      "http_errors": []
+    },
+    "web-review": {
+      "errors": [],
+      "review_entry": "P-R22/base",
+      "legacy_save_preserved": true,
+      "review_wrote_no_formal_progress": true,
+      "clips": 4,
+      "room_cards": 6,
+      "mobile_layout": "390x844",
+      "scope": "Browser emulation, not physical phone or full Web playthrough."
+    }
+  }
+}
