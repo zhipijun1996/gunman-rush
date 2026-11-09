@@ -65,10 +65,10 @@ func inventory() -> void:
 	await click_named("菜单")
 	await click_named("背包与装配")
 func talk(at: float) -> void:
-	await walk(Vector2(at,622),"P-R01")
+	await walk(Vector2(at,app.room.rest_point.y),"P-R01")
 	await ticks(4);await click_named("交谈")
 func rest() -> void:
-	await walk(Vector2(320,622),"P-R01")
+	await walk(app.room.rest_point,"P-R01")
 	await ticks(4);await click_named("休息");await settle();await ticks(4)
 func run() -> void:
 	root.size=Vector2i(1280,720)

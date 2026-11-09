@@ -19,3 +19,7 @@ func settle() -> void:
 func run() -> void:
 	push_error("Use a concrete combat capture or test script.")
 	quit(1)
+
+func load_fixture(rid: String, entry := "") -> void:
+	preload("res://tests/world/authored_room_fixture.gd").install(app, rid)
+	app.load_room(rid, entry)

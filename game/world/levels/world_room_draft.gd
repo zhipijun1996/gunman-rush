@@ -6,7 +6,7 @@ const SCHEMA := 1
 const ROOM_FIELDS := [
 	"arrival_text", "traveler_point", "tutorial_action", "tutorial_target",
 	"tutorial_min_move", "tutorial_recoil_finish_x", "section_volumes",
-	"retry_anchors", "camera_interests", "art_placements", "art_profile",
+	"retry_anchors", "art_placements", "art_profile",
 	"bell_mechanisms", "platforms", "one_way_indices", "illustrated_platform_indices",
 	"masonry_platform_indices", "start_point", "rest_point", "reward_point",
 	"enemy_placements", "signs", "hazards", "spike_strips", "gear_obstacles",
@@ -14,7 +14,7 @@ const ROOM_FIELDS := [
 	"arena_bounds", "battle_entry_anchor", "arena_door_height", "terrain_polygons",
 	"workbench_entity_ids"
 ]
-const INDEXED_FIELDS := ["platforms", "hazards", "climbable_walls", "hook_points", "signs", "art_placements", "retry_anchors", "camera_interests"]
+const INDEXED_FIELDS := ["platforms", "hazards", "climbable_walls", "hook_points", "signs", "art_placements", "retry_anchors"]
 const NODE_SCRIPTS := {
 	"WorldMovingPlatform": "res://game/world/components/world_moving_platform.gd",
 	"WorldRoomInteraction": "res://game/world/components/world_room_interaction.gd",
@@ -210,7 +210,7 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 				if not vector(row.get("point")) or not vector(row.get("travel", [0, 0])): return "gear_point_invalid"
 				if not number(row.get("period", 4.8)) or float(row.get("period", 4.8)) <= 0.05: return "gear_period_invalid"
 				if not number(row.get("phase", 0)): return "gear_phase_invalid"
-	for key: String in ["retry_anchors", "camera_interests", "section_volumes"]:
+	for key: String in ["retry_anchors", "section_volumes"]:
 		for row: Dictionary in properties.get(key, room.get(key)):
 			if not rectangle(row.get("bounds")): return "bounds_invalid:"+key
 			if key != "section_volumes" and not vector(row.get("point")): return "point_invalid:"+key

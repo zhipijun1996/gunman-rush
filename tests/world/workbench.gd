@@ -32,7 +32,7 @@ func _codec_checks() -> void:
 	check(WorldRoomDraft.apply(fresh, malformed) == "environment_mode_invalid", "unknown environment cannot silently become harmless")
 	malformed = baseline_draft.duplicate(true)
 	malformed.properties.camera_interests = [{"bounds":[0,0,200,100], "point":[100]}]
-	check(WorldRoomDraft.apply(fresh, malformed) == "point_invalid:camera_interests", "malformed camera target rejected before entering the room")
+	check(WorldRoomDraft.apply(fresh, malformed) == "property_not_editable:camera_interests", "retired camera interface rejected before entering the room")
 	fresh.free()
 	for behavior: StringName in EnemyBehaviorRegistry.behavior_ids():
 		var motor := EnemyFactory.create_for_behavior(behavior)
@@ -45,11 +45,10 @@ func _catalog_roundtrip() -> void:
 	draft.properties.gear_obstacles.append({"id":"catalog_gear", "point":[704,1056], "travel":[0,128], "period":4.8, "phase":0.25})
 	draft.properties.environment_zones.append({"id":"catalog_water", "bounds":[512,1440,256,128], "mode":"water"})
 	draft.properties.bell_mechanisms.append({"id":"catalog_bell", "bell":[400,1200], "gate":[704,1152,32,128], "open_seconds":3.0, "access_bells":[[800,1200]]})
-	draft.properties.camera_interests = [{"bounds":[320,1152,256,128], "point":[672,1088]}]
 	draft.properties.retry_anchors = [{"bounds":[256,1152,128,128], "point":[320,1200], "section":"main"}]
 	draft.properties.art_placements = [{"point":[448,1280], "asset":"barrel", "layer":-2}]
 	draft.nodes.append({"path":"TestCarrier", "type":"WorldMovingPlatform", "properties":{"position":[1700,1450], "endpoint":[192,0], "platform_size":[128,24], "period":5.0, "endpoint_dwell":0.0}})
-	for field: String in ["camera_interests", "retry_anchors", "art_placements"]:
+	for field: String in ["retry_anchors", "art_placements"]:
 		draft.properties.workbench_entity_ids[field] = ["catalog:"+field]
 	_roundtrip(draft)
 
@@ -67,11 +66,10 @@ func _fixture() -> Dictionary:
 	props.enemy_placements = []
 	props.spike_strips = []
 	props.retry_anchors = []
-	props.camera_interests = []
 	props.signs = []
 	props.workbench_entity_ids.signs = []
 	props.art_placements = []
-	for field: String in ["camera_interests", "retry_anchors", "art_placements"]:
+	for field: String in ["retry_anchors", "art_placements"]:
 		props.workbench_entity_ids[field] = []
 	result.nodes = [{"path":"TestCarrier", "type":"WorldMovingPlatform", "properties":{"position":[1700,1450], "endpoint":[192,0], "platform_size":[128,24], "period":5.0, "endpoint_dwell":0.0}}]
 	return result

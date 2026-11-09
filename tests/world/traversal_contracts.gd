@@ -23,7 +23,8 @@ func run() -> void:
 	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(3)
 	check(app.controller.jump_ability.used_jumps==2 and app.player.velocity.y<0,"real second jump uses existing Motor/JumpAbility")
 	app.controller.router.set_jump_held(&"keyboard_mouse",false)
-	app.load_room("P-R06","room-link-139:P-R06")
+	preload("res://tests/world/authored_room_fixture.gd").install(app,"P-R06")
+	app.load_room("P-R06","")
 	for frame: int in 180:
 		await physics_frame
 		if not app.busy: break

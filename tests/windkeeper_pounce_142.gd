@@ -32,7 +32,7 @@ func run() -> void:
 		timeline.store_string(JSON.stringify([{"scene":"pounce","start_frame":capture_start,"end_frame":Engine.get_process_frames(),"states":{},"fixture":"selected lunge group and initial placement; real Router/player/contact; ordinary grounded underpass versus stationary landing"}],"	"))
 	print("WINDKEEPER POUNCE142: %d checks, %d failures"%[checks,failures]);quit(1 if failures else 0)
 func crossing(direction: int, move_under: bool) -> void:
-	app.load_room("P-R14","");await settle()
+	load_fixture("P-R14","");await settle()
 	var boss:=app.room.encounter as WindkeeperPressureEncounter
 	boss.set_physics_process(false)
 	if capture:

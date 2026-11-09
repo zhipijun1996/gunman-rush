@@ -1,6 +1,6 @@
 # 工作台数据导出与正式接入
 
-本页说明 [手机关卡工作台](scope.md) 的源码边界和命令。正式数据所有权沿用 [世界输入](../../../data/world/README.md)：房间布置由 `.tscn` 持有，世界身份和连接归 `world.json`，门位、落脚和房形归 `construction.json`，收集设计归 `collection_design.json`。网页草稿是这些源的编辑视图，不能成为另一份游戏世界。
+本页说明 [手机关卡工作台](scope.md) 的源码边界和命令。正式镜头由 `construction.json` 的 `camera.zones/links` 持有；旧 `camera_interests` 字段不再导出或接受，旧草稿须先与新版目录比较迁移。正式数据所有权沿用 [世界输入](../../../data/world/README.md)：房间布置由 `.tscn` 持有，世界身份和连接归 `world.json`，门位、落脚和房形归 `construction.json`，收集设计归 `collection_design.json`。网页草稿是这些源的编辑视图，不能成为另一份游戏世界。
 
 ## 数据来源与精确对应
 
@@ -79,7 +79,7 @@ python3 tools/world/workbench_apply.py accepted-change.json --output-dir build/w
 | --- | --- |
 | 平台、怪物、已登记机关及场景表现参数 | 传递共享 codec 的明确字段；保存后的同 codec 回读必须相等。未知节点、身份冲突或不支持的字段由 codec 拒绝 |
 | 房形和已有门位 | 写入明确 `bounds/space_rects` 及完整门位、落脚合同；原编译器拒绝不一致的占地、接缝和回路 |
-| 门位联动 | 门的 `position_candidate`、`landing_contract`、方向由包明确提供。`entry_spawns` 的出生点、最终站位、分区、落脚引用同步到同一显式合同；该门的来向恢复锚点使用显式安全站位；`camera:space:*` 使用显式房形。实际支撑平台必须已随 `rooms.properties` 提交，CLI 不替作者移动或猜测平台 |
+| 门位联动 | 门的 `position_candidate`、`landing_contract`、方向由包明确提供。`entry_spawns` 的出生点、最终站位、分区、落脚引用同步到同一显式合同；该门的来向恢复锚点使用显式安全站位；镜头区与入口连接保留主游戏现行配置，不再按每块房形生成镜头区。实际支撑平台必须已随 `rooms.properties` 提交，CLI 不替作者移动或猜测平台 |
 | 连接条件及已有连接属性 | 更新已有稳定连接身份；`requires` 同步原编译器消费的 `effective_door_requires`。资格变化需要重编世界运行包，不能用旧包宣称条件已生效 |
 | 连接端点、增加或删除门 | 当前明确拒绝。端点变化需要新门、来向恢复、分区路线等完整源合同；复杂拓扑继续由 AI 在现行世界源上成组编辑、编译并重新导出，不能只改网页线段 |
 | 普通收集物跨房 | 包必须同时从旧房删除、向新房加入唯一同 `action_id` 的物理宿主，目标房、分区和坐标必须一致。CLI 同步永久动作、来源、宏观锚点绑定、房间奖励索引、收集设计及其房间索引，不自行搬节点 |

@@ -1,6 +1,6 @@
 extends SceneTree
 ## Explicit placement/damage fixtures isolate the user's lifetime and geometry counterexamples.
-## The separate first_loop suite still drives the unmodified real route and Boss combat.
+## The current plains_intro suite drives the real six-room route; Boss probes use explicit isolated fixtures.
 var app: FixedWorldApp
 var failures:=0
 var checks:=0
@@ -35,29 +35,20 @@ func run() -> void:
 	enemy=app.room.enemies[id]
 	remains=EnemyPresentationBinding.remains(enemy.motor.get_node("Presentation"))
 	check(enemy.health.terminal and remains.visible,"ordinary revisit restores the corpse without resurrecting the actor")
-	app.load_room("P-R06","room-link-139:P-R06");await settle()
-	id="P-R06:encounter:01";enemy=app.room.enemies[id]
+	app.load_room("P-R21","");await settle()
+	id="P-R21:encounter:02";enemy=app.room.enemies[id]
 	enemy.damageable.receive_damage({"event_id":"rest_fixture_defeat","amount":99,"source_faction":&"player","source_actor_id":app.player.get_instance_id(),"target_actor_id":enemy.damageable.actor_id,"target_epoch":enemy.damageable.damage_epoch})
 	await ticks(180)
 	remains=EnemyPresentationBinding.remains(enemy.motor.get_node("Presentation"))
 	var old_room:=app.room
 	# Test-only rest anchor isolates deferred refresh in an occupied room.
-	app.room.rest_point=Vector2(400,878)
+	app.room.rest_point=app.room.start_point
 	app.player.reset_at(app.room.rest_point);await ticks(3)
 	app._interact();await ticks(4)
 	check(app.room==old_room and enemy.health.terminal and remains.visible,"real rest interaction does not spawn a new enemy in the active room")
-	app.load_room("P-R08","room-link-139:P-R08");await settle()
-	app.load_room("P-R06","room-link-139:P-R06");await settle()
+	app.load_room("P-R01","");await settle()
+	app.load_room("P-R21","");await settle()
 	check(not app.room.enemies[id].health.terminal,"leaving and re-entering applies the deferred new-cycle refresh")
-	app.load_room("P-R06","room-link-139:P-R06")
-	var low:=INF;var high:=-INF
-	while app.busy:
-		await physics_frame
-		if app.room!=null and app.room.room_id=="P-R06": low=minf(low,app.player.position.y);high=maxf(high,app.player.position.y)
-	check(app.player.is_on_floor() and high-low>12 and high-low<180,"upward passage uses a short physical hop onto the nearby support")
-	hp=app.controller.actor_resources.health.current
-	app.player.reset_at(Vector2(1200,878));await ticks(100)
-	check(app.player.is_on_floor() and app.controller.actor_resources.health.current==hp,"ordinary bottom floor is safe away from the doorway")
 	for room_id: String in app.content.data.rooms:
 		app.load_room(room_id,"");await settle()
 		for door: Dictionary in app.room.contract.doors:
@@ -67,7 +58,8 @@ func run() -> void:
 			p+=Vector2(16,-48) if door.direction=="left" else Vector2(-16,-48) if door.direction=="right" else Vector2(0,16) if door.direction=="up" else Vector2(0,-16)
 			var query:=PhysicsPointQueryParameters2D.new();query.position=p;query.collision_mask=1
 			check(not app.get_world_2d().direct_space_state.intersect_point(query).is_empty(),"unbuilt exit is continuous physical wall/floor")
-	app.load_room("P-R14","L02:P-R14");await settle()
+	preload("res://tests/world/authored_room_fixture.gd").install(app,"P-R14")
+	app.load_room("P-R14","");await settle()
 	var zoom:=app.camera.zoom
 	app.player.reset_at(Vector2(1572,742));await ticks(6)
 	check(app.room.battle_started and app.room.seals.all(func(s: StaticBody2D) -> bool: return s.collision_layer==1),"whole body entering the inner arena seals both entrances")

@@ -9,7 +9,7 @@ func check(ok: bool, label: String) -> void:
 func run() -> void:
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path="user://boss_actions_142.json";app.settings_path="user://boss_actions_142_settings.json"
-	root.add_child(app);app.start_new();await settle();app.load_room("P-R11","");await settle()
+	root.add_child(app);app.start_new();await settle();load_fixture("P-R11","");await settle()
 	app.player.set_physics_process(false);app.controller.set_physics_process(false)
 	var bell := app.room.encounter as BellstriderEncounter
 	bell.activate();app.room.battle_started=true;bell.set_physics_process(false)
@@ -42,7 +42,7 @@ func run() -> void:
 		await physics_frame
 	print("CHARGE peak=",peak," distance=",bell.motor.global_position.distance_to(start)," mode=",bell.mode)
 	check(peak>=590 and bell.motor.global_position.distance_to(start)>180,"fast charge reaches configured speed and physically crosses the arena")
-	app.load_room("P-R14","");await settle()
+	load_fixture("P-R14","");await settle()
 	app.player.set_physics_process(false);app.controller.set_physics_process(false)
 	var keeper:=app.room.encounter as WindkeeperPressureEncounter
 	keeper.activate();app.room.battle_started=true;keeper.set_physics_process(false);keeper.stage_phase=1;keeper.direction=-1

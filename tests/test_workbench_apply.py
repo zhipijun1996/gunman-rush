@@ -22,6 +22,20 @@ class WorkbenchApplyTests(unittest.TestCase):
         cls.design = json.loads((source / "collection_design.json").read_text())
         cls.construction = json.loads((source / "construction.json").read_text())
 
+    def test_geometry_update_preserves_authored_camera_zones_and_links(self):
+        construction = copy.deepcopy(self.construction)
+        row = next(r for r in construction["rooms"] if r["room_id"] == "P-R22")
+        camera = copy.deepcopy(row["camera"])
+        # Door-free fixture isolates geometry ownership from door relocation.
+        row["doors"] = []
+        row["entry_spawns"] = []
+        row["terrain_failure"]["challenge_entries"] = []
+        package = {"rooms": {"P-R22": {"geometry": {
+            "bounds": [0, 0, *row["extent"]], "space_rects": row["space_rects"], "doors": []}}}}
+        importer.update_geometry(construction, package, {"rooms": {"P-R22": {"doors": []}}})
+        self.assertEqual(camera, row["camera"])
+        self.assertNotIn("zone_intents", row["camera"])
+
     def reward_fixture(self, reward_id="TG01"):
         world, design = copy.deepcopy(self.world), copy.deepcopy(self.design)
         acquisition = next(r for r in design["acquisition_contracts"] if r["reward_id"] == reward_id)

@@ -18,7 +18,7 @@ func run() -> void:
 		app.save_path="user://plains_actor_combat_"+test.id+".json"
 		app.settings_path="user://plains_actor_combat_review_settings.json"
 		root.add_child(app);app.start_new();await settle()
-		app.load_room(test.room,"");await settle()
+		load_fixture(test.room,"");await settle()
 		var encounter: Node=app.room.encounter
 		var boss: Node2D=app.room.boss
 		if boss==null:

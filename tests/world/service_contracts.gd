@@ -65,7 +65,12 @@ func run() -> void:
 	state.commit(candidate,state.revision)
 	check(service.ledger().cycle_uses.is_empty() and service.owns("trial_flask"),"rest refreshes allowance and preserves ownership")
 	check(not service.request("deliver","trial_station_repair","deliver:empty",state.revision),"quest requires actual material")
-	candidate=state.value.duplicate(true);candidate.room="P-R06";state.commit(candidate,state.revision)
+	# Explicit service-only fixture: P-R06 is not an open formal room yet.
+	candidate=state.value.duplicate(true);candidate.room="P-R01"
+	var pickup: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/world/demo_services.json")).pickups[0]
+	pickup.room_id = "P-R01"
+	service.definitions.pickups.append(pickup)
+	state.commit(candidate,state.revision)
 	check(service.request("collect","trial_part_01","collect:part",state.revision),"stable placed pickup grants one counted material")
 	check(not service.request("collect","trial_part_01","collect:duplicate",state.revision),"different request cannot duplicate unique pickup")
 	candidate=state.value.duplicate(true);candidate.room="P-R01";state.commit(candidate,state.revision)

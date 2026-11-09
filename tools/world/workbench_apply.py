@@ -156,15 +156,9 @@ def update_geometry(construction: dict, package: dict, base_seed: dict):
             pairs[edge_id]["construction_sides"][room_id] = door["direction"]
         row["doors"], row["entry_spawns"] = next_doors, spawns
         row["terrain_failure"]["challenge_entries"] = recovery
-        intents = row.get("camera", {}).get("zone_intents", [])
-        authored_intents = [x for x in intents if not str(x.get("id", "")).startswith("camera:space:")]
-        for i, space in enumerate(spaces):
-            previous = next((x for x in intents if x.get("id") == "camera:space:" + str(i)), {})
-            authored_intents.append({**copy.deepcopy(previous), "id": "camera:space:" + str(i),
-                                     "section_refs": previous.get("section_refs", []),
-                                     "role": previous.get("role", "主体" if i == 0 else "相连空间"),
-                                     "bounds_world_units": copy.deepcopy(space)})
-        row["camera"]["zone_intents"] = authored_intents
+        # Camera zones and links remain authored by the main game; geometry edits
+        # must not recreate the retired per-space camera system.
+
 
 
 def update_connections(world: dict, construction: dict, package: dict):

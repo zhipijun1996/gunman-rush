@@ -33,6 +33,7 @@ COMPONENTS = ["game/world/components/world_moving_platform.gd",
 # These current consumers form filenames from manifests/IDs. Keep their admitted
 # resource families, not the project's historical all_resources export.
 DYNAMIC_FAMILIES = ["assets/underworld_plains", "assets/plains_v07/native",
+                    "assets/plains_actors_142/atlases",
                     "assets/player_presentation_01/motion_v1",
                     "assets/enemy_feedback_01/frames_v8", "assets/actor_actions",
                     "assets/world_interactions", "assets/items/v5",

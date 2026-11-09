@@ -88,7 +88,8 @@ func run() -> void:
 	check(app.state.has("Q") and app.state.value.cycle==cycle+1,"death keeps permanent facts and advances cycle")
 	check(app.room.room_id=="P-R03" and app.player.is_on_floor(),"death recovers at registered initial rest before first station rest")
 	# Declared Boss-terrain fixture, separate from the unmodified normal input route.
-	app.load_room("P-R14","L02:P-R14")
+	preload("res://tests/world/authored_room_fixture.gd").install(app,"P-R14")
+	app.load_room("P-R14","")
 	await settle()
 	app.player.reset_at(Vector2(1380,620))
 	await ticks(3)

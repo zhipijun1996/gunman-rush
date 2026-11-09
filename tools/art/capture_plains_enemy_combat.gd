@@ -19,7 +19,7 @@ func run() -> void:
 		app.save_path="user://plains_enemy_combat_"+kind+".json"
 		app.settings_path="user://plains_enemy_combat_settings.json"
 		root.add_child(app);app.start_new();await settle()
-		app.load_room("P-R06","");await settle()
+		load_fixture("P-R06","");await settle()
 		app.player.reset_at(Vector2(1170,878))
 		var body:=EnemyFactory.create_for_behavior(StringName(kind))
 		var actor:=body.get_node("Actor") as EnemyActor

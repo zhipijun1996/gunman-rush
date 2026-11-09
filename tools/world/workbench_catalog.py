@@ -106,9 +106,8 @@ def descriptors(runtime):
                             [point, field("support_height", "支柱高度", "number", min=1, step=8)],
                             field="art_placements", kind="art", identity="indexed", point_key="point", anchor="foot", size=[24, 64],
                             match={"key": "support_height", "exists": True}, translation_fields=translated(("point", "point"))))
-    for name, label, prop, category in [("camera_interest", "镜头关注区", "camera_interests", "镜头"),
-                                       ("retry_anchor", "挑战恢复区", "retry_anchors", "流程")]:
-        fields = [bounds, field("point", "关注位置" if name == "camera_interest" else "恢复落点", "point")]
+    for name, label, prop, category in [("retry_anchor", "挑战恢复区", "retry_anchors", "流程")]:
+        fields = [bounds, field("point", "恢复落点", "point")]
         default = {"bounds": [0, 0, 256, 128], "point": [128, 64]}
         if name == "retry_anchor":
             default["section"] = "main"

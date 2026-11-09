@@ -8,7 +8,7 @@ func check(ok: bool, label: String) -> void:
 func run() -> void:
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path="user://diver_commit_142.json";app.settings_path="user://diver_commit_settings.json"
-	root.add_child(app);app.start_new();await settle();app.load_room("P-R06","");await settle()
+	root.add_child(app);app.start_new();await settle();load_fixture("P-R06","");await settle()
 	app.player.set_physics_process(false)
 	app.controller.set_physics_process(false)
 	for scenario: Dictionary in [

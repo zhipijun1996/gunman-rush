@@ -38,7 +38,7 @@ func run() -> void:
 	bell_visual.queue_free();await ticks(1)
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path="user://boss_continuity_142.json";app.settings_path="user://boss_continuity_142_settings.json"
-	root.add_child(app);app.start_new();await settle();app.load_room("P-R14","");await settle()
+	root.add_child(app);app.start_new();await settle();load_fixture("P-R14","");await settle()
 	var encounter:=app.room.encounter as WindkeeperPressureEncounter
 	encounter.activate();app.room.battle_started=true;encounter.set_physics_process(false)
 	var wind_visual:=preload("res://game/presentation/actors/art/windkeeper_rig.tscn").instantiate() as PlainsBossRig

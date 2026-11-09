@@ -22,14 +22,21 @@ func run() -> void:
 	app.save_path="user://plains_actor_frames_142_test.json"
 	app.settings_path="user://plains_actor_frames_142_settings.json"
 	root.add_child(app);app.start_new();await settle()
+	preload("res://tests/world/authored_room_fixture.gd").install(app, "P-R10")
 	app.load_room("P-R10", "");await settle()
 	app.controller.active=false;app.set_physics_process(false)
+	# Measure a current authored ledge; old P-R10 coordinates no longer apply.
+	var support: Rect2 = app.room.platforms[0]
+	for platform: Rect2 in app.room.platforms:
+		if platform.size.x > support.size.x: support = platform
+	var floor_point := Vector2(support.get_center().x, support.position.y)
+
 	for actor: EnemyActor in app.room.enemies.values(): actor.set_physics_process(false)
 	for kind: StringName in [&"patrol",&"charger",&"hopper",&"sentry",&"fan_sentry",&"root_bell",&"diver"]:
 		var body := EnemyFactory.create_for_behavior(kind)
 		var actor := body.get_node("Actor") as EnemyActor
 		actor.set_meta(&"world_persistent_corpse",true)
-		body.position=Vector2(1000,1344-actor.definition.collision_size.y*.5)
+		body.position=floor_point-Vector2(0,actor.definition.collision_size.y*.5)
 		app.room.add_child(body)
 		EnemyPresentationBinding.replace(actor,&"underworld")
 		actor.bind_encounter(app.controller,app.policy,app.lifetime,StringName("animation_"+String(kind)),[])
@@ -81,7 +88,7 @@ func run() -> void:
 		var body:=EnemyFactory.create_for_behavior(kind)
 		var actor:=body.get_node("Actor") as EnemyActor
 		actor.set_meta(&"world_persistent_corpse",true)
-		body.position=Vector2(1000,1100)
+		body.position=floor_point-Vector2(0,244)
 		app.room.add_child(body)
 		EnemyPresentationBinding.replace(actor,&"underworld")
 		actor.bind_encounter(app.controller,app.policy,app.lifetime,StringName("fall_"+String(kind)),[])
@@ -100,7 +107,7 @@ func run() -> void:
 		check(remains.global_position==stopped,"airborne %s corpse freezes on pause" % kind)
 		paused=false
 		await ticks(140)
-		check(remains.settled and remains.support_node()!=null and absf(remains.global_position.y-1344)<2,"airborne %s lands on measured real room terrain" % kind)
+		check(remains.settled and remains.support_node()!=null and absf(remains.global_position.y-floor_point.y)<2,"airborne %s lands on measured real room terrain" % kind)
 		body.queue_free();await ticks(2)
 	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)
 	print("PLAINS ACTOR FRAMES142: %d checks, %d failures" % [checks,failures]);quit(0 if failures==0 else 1)

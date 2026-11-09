@@ -50,7 +50,7 @@ func run() -> void:
 	for i: int in 180:
 		await physics_frame
 		if not app.busy: break
-	app.player.reset_at(Vector2(560,622))
+	app.player.reset_at(app.room.get_node("Npc0").position)
 	app.controller.router.set_source_axis(&"keyboard_mouse",0,true)
 	await ticks(14)
 	app.controller.router.set_source_axis(&"keyboard_mouse",0)

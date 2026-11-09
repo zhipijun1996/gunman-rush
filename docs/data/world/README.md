@@ -11,13 +11,13 @@
 | 已有试制服务 | [demo_services.json](../../../config/world/demo_services.json)，独立保留试制物品、委托、价格；不冒充完整 50 件装备 |
 | 玩家参数与文本 | [player.json](../../../config/world/player.json)、[ui_texts.json](../../../config/world/ui_texts.json)；运动参数仍归共用 PlayerMotor 配置 |
 | 世界路线回归输入 | [routes.json](../../../config/world/routes.json) |
-| 冻结附件资料 | [source-v07](source-v07/README_LIGHT.txt)，只供设计与来源查询，运行不读取此目录 |
+| 附件设计参考 | `source-v07/design/` 仅保留未重复的世界设计参考；运行不读取，施工以本表现行源为准 |
 | 编译与正式运行 | `python3 tools/world/build.py` → `build/world/contracts.json`、`runtime.json`；FixedWorldProvider 只读派生包并装载手工场景 |
 
 平原35房已有04版真实占地与门位，首批六房按新几何接入；其余29房继续迁移，旧内部场景暂不装载。其它274房保留接口，未声明可玩。外区未施工入口使用连续实体边界。不能把 309 房合同的通过等同于 309 房实现。
 
 地图接缝、房间形态与真实通行的要求统一见 [房间制作](../../bible/room_authoring.md)。宏观图提供空间意图，施工门位、落脚和地图须共同校准；构建检查不能替代连续地区的实际体验审查。
 
-按房查询：`python3 tools/world/room_context.py P-R15 --contract`。`tools/world/import_v07.py` 是一次性迁移工具，导入前核 ZIP 清单，现行编辑不再次覆盖施工。原始附件的手册、地图及复现资料被冻结保存，不产生第二套可编辑拓扑。
+按房查询：`python3 tools/world/room_context.py P-R15 --contract`。附件中的世界、收集与路线数据已融入本表现行文件。一次性导入器、旧地图快照、重复施工合同、模拟回放和过程报告已退役；原包通过来源评论和哈希追溯。后续直接维护现行源，不重新导入覆盖已确认的设计。
 
 验证入口由 [模块导航](../../project/module_map.md) 和 `tools/harness.py --list` 查找。图路线只验证资格和状态；真实动作、所有来向落脚、Boss、保存恢复及原生画面分别验证。当前覆盖和未决内容只写 [本轮交接](../../project/worklines/plains_bible_v2_01/scope.md)，临时日志、截图及录像在 `build/`。
