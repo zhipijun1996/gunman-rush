@@ -3,10 +3,10 @@
   "task_id": "PLAINS-BIBLE-V2-01",
   "task_type": "region",
   "baseline_commit": "66400937dcdce553b51f492adda47c3e32941aeb",
-  "reviewed_commit": "ac4ff02cab069bf862ef78cfba92919ef897cd72",
-  "content_version": "e8139c55ab7a5cfe4a27285e6dc4212b49b3e3ca792f17efd6fcfde95a3faa9c",
+  "reviewed_commit": "ae5c1cca26192788733bb733f5ba19e0ad48c5fb",
+  "content_version": "71064acdd951d2bf4f6a74c51edbacdd4d1e0b0383e7bdeaecfaab562feb8d7a",
   "owner": "Codex",
-  "purpose": "按已确认04总图施工35房平原；本批落实全区实际空间与新档至小站六房。",
+  "purpose": "按已确认04总图施工连续平原；当前修复首段六房的动作前视野、入口环境、有效空间和失败恢复。",
   "player_experience": "反冲主导的新档学习与西侧主循环，H能力取得后的修钟/回访和东侧探索；统一像素人物、地形、机关与UI反馈。",
   "constraints": [
     "PlayerMotor owns motion; FixedWorldState owns accepted progress.",
@@ -26,7 +26,7 @@
   ],
   "deliverables": [
     "35房真实占地/43共享门缝与同源要素总图。",
-    "03→21→22→23→24→01六房真实输入抵站与休息保存；其余29内部场景待迁移。"
+    "03→21→22→23→24→01六房连续真实输入、动作前预读、低层返回与休息保存；其余29内部场景待迁移。"
   ],
   "creative_decisions": [],
   "formal_impact": true,
@@ -47,24 +47,24 @@
   "dimensions": {
     "visual": {
       "status": "failed",
-      "reason": "已审看六房正常原生取景，录制三段实际输入短片；22机关窗体承重、24载具外观及整段空旷处仍需打磨。全区美术未验收。",
+      "reason": "审看六房正常原生取景、四段实际输入短片及Web新档/窄井/小尺寸菜单；入口环境填充和落点可读性已修复，整体材料层次、机关根基及载具外观仍未终审。",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "六房新档抵站、两湾跳跃反例、同枪过闸正反例、低路恢复、两处实际承载通过；其余29房内部迁移和全区探索节奏未完成。",
+      "reason": "首段新档抵站65检查、视野/恢复111检查、反冲及铃闸正反例27检查通过；仍需完成22完成侧回程板与完整回访，其余29房及整区节奏未完成。",
       "evidence": []
     },
     "technical": {
       "status": "passed",
-      "reason": "本批六项Godot专项、62条房间断言、18项世界设计单测、日常CI四项、文档与导出闭包检查通过；35房空间与43接缝已校验。旧48专项不计入本轮。",
+      "reason": "七项Godot专项（含62条房间断言）、18项世界设计单测、日常CI四项、文档、实际Web PCK闭包与浏览器启动/逐房存档隔离通过；35房/43接缝及地图控件检查通过。仅覆盖声明的首段与整区几何。",
       "evidence": [
         "construction-04-checks"
       ]
     },
     "animation": {
       "status": "unverified",
-      "reason": "已录制三段原生操作短片；全区动作与载具表现尚未逐项验收。",
+      "reason": "四段正常速度原生实际输入片段已审看；全区动作与载具表现未逐项验收。",
       "evidence": []
     },
     "audio_vfx": {
@@ -78,14 +78,14 @@
     {
       "id": "construction-04-checks",
       "path": "docs/project/worklines/plains_bible_v2_01/quality/evidence/current-checks.json",
-      "sha256": "d7246949ea68343a9259fc75deaf5b891a38e4d31ee6a2c3a5c26682e54ce348",
+      "sha256": "c3e044fb86c791ef54527f47d663358caa1b825074bf43bb82bab5fa2d8a5e4c",
       "kind": "command",
       "producer": "Codex",
-      "source_commit": "ac4ff02cab069bf862ef78cfba92919ef897cd72",
-      "content_version": "e8139c55ab7a5cfe4a27285e6dc4212b49b3e3ca792f17efd6fcfde95a3faa9c",
-      "method": "Real Godot input and explicitly declared local counterexample fixtures, compiled geometry, source checks and actual Web PCK/browser. Logs under build/plains-layout-04.",
-      "observed": "All commands listed in current-checks exited zero. Scope is six built rooms plus full region geometry, not complete region acceptance.",
-      "command": "Six tests/world Godot scripts; tools/world/build.py; tools/ci.py; world Python unit tests; docs and Web bundle/browser checks.",
+      "source_commit": "ae5c1cca26192788733bb733f5ba19e0ad48c5fb",
+      "content_version": "71064acdd951d2bf4f6a74c51edbacdd4d1e0b0383e7bdeaecfaab562feb8d7a",
+      "method": "Real input new-game route plus declared local failure/recovery fixtures, pre-action Camera2D checks, normal native clip review and actual PCK/browser. Logs under build/plains-readability.",
+      "observed": "Listed commands exited zero. First-six-room readability/recovery repair verified within fixtures; no full-region or human blind-play acceptance.",
+      "command": "Seven tests/world Godot scripts; tools/ci.py; world unit tests; docs, map, actual Web bundle and browser checks.",
       "exit_code": 0,
       "environment": "Godot 4.7.2 gunman-sd1, Linux headless/native at fixed 60 FPS; Chromium browser emulation."
     }
@@ -93,7 +93,7 @@
   "consumer_coverage": null,
   "unverified_items": [
     "其余29房内部内容、能力锁、收集返回与完整主环尚未迁移。",
-    "六房结构/操作成立，22构件根基与24载具外观等美术仍需打磨；整体节奏、剧情和视听未终审。",
+    "22完成侧回程板与完整回访、机关根基、24载具外观、整段环境层次及整体节奏/剧情/视听尚未终审。",
     "实体手机/手柄、完整Web流程与设备性能未验证。"
   ]
 }

@@ -28,6 +28,12 @@
 
 ## 公开与下一动作
 
-本轮源码正在完成导出和浏览器验证，尚未替换公开站。当前线上仍是 build `e767187d427f`，运行源码 `ac4ff02cab069bf862ef78cfba92919ef897cd72`，prepared `89bb85d`，部署42507934180；用户已指出其体验退步，不能作为本轮修复证据。验证新包后更新本节及质量证据，不混用旧截图/短片。
+当前公开 build `e0da5f93cf15`，运行修复 `1b768a34`，导出源码 `ae5c1cca26192788733bb733f5ba19e0ad48c5fb`，prepared `7cbfd416db2163f47401f04ab295263816fcd9ab`，部署[42545696866](https://github.com/zhipijun1996/gunman-rush/actions/runs/42545696866)成功。该源码比运行修复仅增加同基线的开发批次验证来源刷新。旧网页包和旧三段短片已替换，不再作为当前交付。公开网址已实测启动、新档、移动跳跃、地图与小尺寸暂停；线上整区图及四段短片的字节/哈希与本地交付一致。
+
+- [连续试玩](https://zhipijun1996.github.io/gunman-rush/?v=e0da5f93cf15)：当前首段六房。
+- [逐房入口与四段短片](https://zhipijun1996.github.io/gunman-rush/replays/?v=e0da5f93cf15)：每段4.6～5.7秒、0.6～1.1MB；从指定房间、来向和能力阶段快速重复检查。
+- [同源35房总图](https://zhipijun1996.github.io/gunman-rush/map-review/?v=e0da5f93cf15)：房内一行职责，分层查看路线、收集、Boss、休息点和外区去向。总图完整不代表29房内部已完成。
+
+后续先补齐首段完成侧回程便利与环境/载具表现，再按相连片区扩展多房间生态；仍按连续体验验收，不能以房数或对象数量代替质量。
 
 继续使用原生槽 `fixed_world_plains04_construction.json` / Web profile `plains04_construction`；逐房模式用独立内存，不写正式进度。实体手机/手柄、完整Web连续路线与设备性能尚未验证。PR142保持草稿，不合并。
