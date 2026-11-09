@@ -2,33 +2,39 @@
   "schema_version": 2,
   "task_id": "FOREST-BIBLE-V2-01",
   "task_type": "region",
-  "baseline_commit": "83a149558e670fc78a177d8f4662a0ec079b4cbf",
-  "reviewed_commit": "83a149558e670fc78a177d8f4662a0ec079b4cbf",
-  "content_version": "current-content-review",
+  "baseline_commit": "d2a75c6a03572b6cdf0d39033faa75f55e36f275",
+  "reviewed_commit": "d2a75c6a03572b6cdf0d39033faa75f55e36f275",
+  "content_version": "forest-region-proposal",
   "owner": "Codex接续会话",
-  "purpose": "按圣经完成荆棘森林空间、完整美术与环境演出。",
+  "purpose": "24房森林整区候选与手机审核；本轮不施工关卡、不终审美术。",
   "player_experience": "A connected living giant-tree exploration network with rooted fruit targets, meaningful rewards and return routes, clear ecology and readable forest depth",
   "constraints": [],
-  "affected_paths": [],
-  "deliverables": [],
+  "affected_paths": [
+    "game/world/regions/F/room_design.json",
+    "tools/world/forest_review.py",
+    "tools/world/forest_review.html"
+  ],
+  "deliverables": [
+    "同世界坐标的24房连续轮廓、30区内连接、5外区接口，五条路线与逐房职责/恢复/奖励方案。"
+  ],
   "creative_decisions": [],
   "formal_impact": false,
   "gates": {
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮仅整区规划，真实控制器与视听待灰盒施工。",
       "evidence": []
     }
   },
   "dimensions": {
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "规划SVG可审核，正式房间美术未制作。",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "身份、连接、占地与路线结构检查不证明动作、难度或趣味；等待相连灰盒。",
       "evidence": []
     }
   },

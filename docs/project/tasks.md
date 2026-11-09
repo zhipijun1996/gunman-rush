@@ -9,7 +9,7 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | PLAINS-BIBLE-V2-01 | 35房灰盒续作；保留九房、迁移26房，复核门台、反冲与承载，继续连续路线和能力门验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
-| MOBILE-LEVEL-WORKBENCH-01 | 08/06/13/24新灰盒与隐藏宝箱已发布r49；审核状态同步，旅人剧情延后 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | 整合PR148的26房并发布35房灰盒审核；加入森林整区初稿入口 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
 ## 待验收
@@ -46,9 +46,9 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| FOREST-BIBLE-V2-01 | 固定世界森林房间内容与环境演出 | MV-RUNTIME-01 | planned | [交接](worklines/forest_bible_v2_01/scope.md) |
+| FOREST-BIBLE-V2-01 | 24房整区坐标、连接与初版玩法方案；手机审核后进入相连灰盒 | — | review | [交接](worklines/forest_bible_v2_01/scope.md) |
 
-- `FOREST-BIBLE-V2-01`：待代表样房闭环后按F房间制作；保留v15动作/生态资产，不推进旧两图量产。
+- `FOREST-BIBLE-V2-01`：整区候选先审房形、主支路与收集回程，再选03/04/19/20相连灰盒；保留现有H/W/生态资产。
 
 ## 固定世界迁移
 

@@ -7,6 +7,7 @@
 | 正常游戏入口 | project.godot → FixedWorldApp；原标题展示/正式人物/HUD，标题新游戏/继续，04首段6房施工、共用玩家、真实墙面缺口、可见步入/侧跳/下落、房间/内场约束镜头、尸体/敌人周期、充电不原地刷怪及死亡恢复、后续29房暂不装载；旧DemoApp保留为显式回归入口 |
 | 逐房试玩 | 标题/暂停/试玩顶栏选择已施工房号、真实来向与base/H/H+D；重置和直达链接复用正式控制器，独立内存保存不写正式进度，退出恢复正式继续 |
 | 手机关卡工作台 | 独立浏览器编辑器与ChatGPT MCP共享带版本草稿；16区/38条跨区连接和8个平原外接接口可审核，35个平原房与显式登记的V-R12共36房可临时预览，不改变正式6房施工状态。V-R12提供隔离H/W/D/Q连续空中挑战；源接入使用同一场景codec与原世界编译器，专用包/缓存及实际验证边界见[工作台交接](worklines/mobile_level_workbench_01/scope.md) |
+| 森林规划 | 24房连续占地与五条路线待审核，30区内连接/5外区接口身份保持；同平原坐标并检查C01接缝，不开放运行场景。逐房职责与手机审核见[森林交接](worklines/forest_bible_v2_01/scope.md) |
 | 新世界状态/保存 | FixedWorldState按永久/周期/尝试职责提交，独立原生槽 `fixed_world_plains04_construction.json` / Web profile `plains04_construction`，保留旧版存档；WorldSaveService复用MetaSaveService可靠IO。基础枪首档试制5伤害；Q只在明确授予的专项夹具验收，平原不授予 |
 | 旧原型运行流程 | 标题 → 家园 → 平原两张连通探索图 → H／钩索 → 森林两图 → 开发边界；`RunCampaignProgression` 负责能力权益和地区准入 |
 | 角色资源 | 基础一跳、一发空中弹药；H合法命中与有效新攀墙接触补回空弹和已拥有D/H、Q资格，Q冷却保留；射击不耗时间能量，枪械／钩索共用AirFocus；共鸣蓄力回复复用HealthState/CombatEnergyState，数值与恢复/取消规则见 [资源合同](../bible/combat_and_recharge.md) |
