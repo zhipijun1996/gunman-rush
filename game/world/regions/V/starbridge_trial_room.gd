@@ -40,10 +40,8 @@ func _draw() -> void:
 		for x: int in range(int(platform.position.x)+32,int(platform.end.x),64):
 			draw_line(Vector2(x,platform.position.y+12),Vector2(x,minf(platform.end.y-6,platform.position.y+40)),Color("344b62"),1)
 	for wall: Rect2 in climbable_walls:
-		draw_rect(wall,Color("254a55"))
-		draw_rect(wall,Color("81e0ce"),false,3)
-		for y: int in range(int(wall.position.y)+8,int(wall.end.y)-4,16):
-			draw_line(Vector2(wall.position.x+5,y),Vector2(wall.end.x-5,y),Color("81e0ce"),2)
+		draw_rect(wall,TRIAL_STONE)
+		draw_rect(wall,TRIAL_INK,false,2)
 	for strip: Dictionary in spike_strips:
 		var rect := FixedWorldProvider.rect(strip.bounds)
 		var facing := str(strip.get("facing","up"))
@@ -67,4 +65,32 @@ func _draw() -> void:
 		draw_arc(emblem,36,0,TAU,48,Color("e2c77e"),3)
 		draw_line(emblem+Vector2(-16,0),emblem+Vector2(-4,12),Color("e2c77e"),4)
 		draw_line(emblem+Vector2(-4,12),emblem+Vector2(18,-15),Color("e2c77e"),4)
+	_draw_route_guide()
 	super._draw()
+
+func _draw_route_guide() -> void:
+	# The editor and the playable greybox consume the same authored guide.
+	var ink := Color("b7c9e2")
+	for sign: Dictionary in signs:
+		var guide: Dictionary = sign.get("route_guide",{})
+		if int(guide.get("schema",0)) != 1: continue
+		for step: Dictionary in guide.get("steps",[]):
+			var path: Array = step.get("path",[])
+			for i: int in range(1,path.size()):
+				var start := FixedWorldProvider.point(path[i-1])
+				var end := FixedWorldProvider.point(path[i])
+				draw_dashed_line(start,end,Color(ink,0.32),1.5,8)
+				if i == path.size()-1 and start.distance_to(end)>16:
+					var direction := (end-start).normalized()
+					draw_line(end,end-direction.rotated(0.55)*12,Color(ink,0.6),2)
+					draw_line(end,end-direction.rotated(-0.55)*12,Color(ink,0.6),2)
+			var point := FixedWorldProvider.point(step.point)
+			draw_circle(point,13,Color("15243b"))
+			draw_arc(point,13,0,TAU,24,ink,1.5)
+			var number := str(step.number)
+			draw_string(GameTypography.FONT,point+Vector2(-4*number.length(),5),number,HORIZONTAL_ALIGNMENT_LEFT,-1,12,ink)
+	for zone: Dictionary in environment_zones:
+		if zone.get("mode") != "phase_light": continue
+		var rect := FixedWorldProvider.rect(zone.bounds)
+		var label := rect.position+Vector2(-4,-16)
+		draw_string(GameTypography.FONT,label,"反冲穿幕 · Q就绪",HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("f2c96f"))

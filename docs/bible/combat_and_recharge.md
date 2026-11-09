@@ -11,7 +11,7 @@
 
 基础射击本身不消费或返还时间能量；[道具](../data/items.md)可以在满足自身条件时返还，不能延长同次腾空的慢时预算。默认资源Definition是`game/player/resources/demo_ui_01/time_energy_v2.tres`。成功命中按会话、攻击包、目标和动作收据去重；空中实际伤害可补弹，并恢复已授予的H／D资格。
 
-H本体到达与首次有效W贴墙由TraversalAbility发出一次资源恢复事件，ActionResources补满当前空中弹药上限，已拥有的H／D恢复，WorldRecoilGuard获得Q触发资格但保留剩余冷却。持续停留和同墙射击后的姿态切换不重复补给；事件边界见 [能力合同](../data/abilities.md)。通用H／D恢复接口不补弹或Q，时间能量、共鸣及射击冷却也不受影响。
+H合法命中与首次有效W贴墙由TraversalAbility发出一次资源恢复事件，ActionResources补满当前空中弹药上限，已拥有的H／D恢复，WorldRecoilGuard获得Q触发资格但保留剩余冷却。持续停留和同墙射击后的姿态切换不重复补给；事件边界见 [能力合同](../data/abilities.md)。通用H／D恢复接口不补弹或Q，时间能量、共鸣及射击冷却也不受影响。
 
 ## 发射事务
 

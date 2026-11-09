@@ -49,7 +49,7 @@ def descriptors(runtime):
                                 field="platforms", kind="ground", identity="indexed", anchor="top_left", flags={"one_way": one_way}))
     for name, label, prop, kind, default in [
         ("hazard", "地形危险区", "hazards", "hazard", [0, 0, 160, 32]),
-        ("climbable_wall", "可攀爬墙", "climbable_walls", "climbable", [0, 0, 24, 256]),
+        ("climbable_wall", "实体墙", "climbable_walls", "climbable", [0, 0, 24, 256]),
     ]:
         result.append(component(name, label, "地形", "property_array", "rect", default,
                                 field=prop, kind=kind, identity="indexed", anchor="top_left"))

@@ -57,12 +57,12 @@ func run() -> void:
 	anchor.hang_enabled = true
 	fixture.world.add_child(anchor)
 	actor.traversal.hook_contact.connect(func(_point: Vector2) -> void:
-		check(actor.action_resources.shot_charges==0 and not guard.landing_ready,"remote hook-head contact cannot refill"))
+		check(actor.action_resources.shot_charges==2 and guard.landing_ready and actor.motor.position.distance_to(anchor.position)>actor.traversal.definition.hook_stop_distance,"confirmed hook hit restores charges before body arrival"))
 	await physics_frame
 	actor.router.request_action(&"grapple",(anchor.position-actor.motor.position-Vector2(0,-6)).normalized())
 	check(await wait_state(&"hook_hang"),"body reaches the hanging target through real Motor movement")
-	check(actor.action_resources.shot_charges==2 and not actor.traversal.hook_used and actor.jump_ability.used_jumps==1,"H arrival restores current cap and owned D/H")
-	check(guard.landing_ready and is_equal_approx(guard.cooldown,1.25) and refill_sources==[&"hook_arrival"],"H rearms Q once without clearing cooldown")
+	check(actor.action_resources.shot_charges==2 and not actor.traversal.hook_used and actor.jump_ability.used_jumps==1,"H hit restores current cap and owned D/H")
+	check(guard.landing_ready and is_equal_approx(guard.cooldown,1.25) and refill_sources==[&"hook_hit"],"H rearms Q once without clearing cooldown")
 	deplete()
 	await fixture.ticks(8)
 	check(actor.action_resources.shot_charges==0 and not guard.landing_ready and refill_sources.size()==1,"staying on one hook cannot refill each frame")
@@ -72,7 +72,6 @@ func run() -> void:
 	actor.traversal.grant(&"double_jump")
 	actor.traversal.grant(&"grapple")
 	var wall: StaticBody2D = fixture.body(Rect2(100,-600,24,1800))
-	wall.add_to_group(&"wall_climbable")
 	deplete()
 	actor.router.set_move_axis(1)
 	check(await wait_state(&"wall_attach"),"actual collision and inward input attach to a climbable wall")
@@ -102,8 +101,10 @@ func run() -> void:
 	deplete()
 	actor.router.set_move_axis(1)
 	await fixture.ticks(10)
-	check(actor.motor.is_on_wall() and actor.traversal.state!=&"wall_attach" and actor.action_resources.shot_charges==0 and not guard.landing_ready,"ordinary wall collision gives no refill")
+	check(actor.motor.is_on_wall() and actor.traversal.state==&"wall_attach" and actor.action_resources.shot_charges==2 and guard.landing_ready,"ordinary untagged terrain wall attaches and restores charges")
 	actor.router.set_move_axis(0)
+	deplete()
+	refill_sources.clear()
 	actor.traversal.grant(&"grapple")
 	actor.traversal.hook_used = false
 	actor.router.request_action(&"grapple",Vector2.LEFT)

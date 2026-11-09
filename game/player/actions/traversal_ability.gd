@@ -192,6 +192,8 @@ func advance(delta: float) -> void:
 				hook_local = node.to_local(hook_tip)
 				controller.jump_ability.cancel_ascent()
 				motor.clear_recoil()
+				# A confirmed hook hit restores charges immediately; arrival does not refill again.
+				_refill_traversal_resources(&"hook_hit")
 				hook_contact.emit(hook_tip)
 				_set_state(&"hook_pull")
 			else: _set_state(&"hook_miss")
@@ -225,7 +227,7 @@ func advance(delta: float) -> void:
 			for index: int in motor.get_slide_collision_count():
 				var hit := motor.get_slide_collision(index)
 				var surface := hit.get_collider() as Node
-				if absf(hit.get_normal().x) > .7 and surface != null and surface.is_in_group(&"wall_climbable"):
+				if absf(hit.get_normal().x) > .7 and surface != null and (surface is StaticBody2D or surface is AnimatableBody2D or surface is TileMapLayer):
 					normal = hit.get_normal().x
 					wall_point = hit.get_position()
 					surface_id = surface.get_instance_id()
@@ -260,8 +262,6 @@ func after_move() -> void:
 		motor.clear_recoil()
 		controller.jump_ability.cancel_requests()
 		motor.normal_velocity = Vector2.ZERO
-		# Only the real Motor arrival restores resources, never hook-head contact.
-		_refill_traversal_resources(&"hook_arrival")
 		if receiver != null:
 			receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction,"on_committed":controller.on_grapple_damage.bind(_session,_serial,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0,receiver)})
 		if hook_target is GrappleAnchor and (hook_target as GrappleAnchor).hang_enabled:
