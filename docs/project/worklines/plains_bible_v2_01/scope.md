@@ -23,7 +23,14 @@ WorldCamera唯一拥有正式游戏镜头；WorldCameraZones只解析玩家所�
 
 前后短片使用基线29bd6b58与当前相同地形、同组实际输入，正常速度，按场景拆分；声明起始夹具。隐藏区在P23既有地形上验证同场景交接，Boss/H装载P14既有内容到隔离施工合同，不冒称当前六房主线可达。小房检查同时覆盖多宽高比固定轴，窄入口片段使用P03实际落台。人工审看抽帧与自动帧间/玩家可见性检查分别记录，不等于真人盲玩或实体设备测试。
 
-新Web包与逐段对比/下载页正在准备；发布前以当前分支专项和实际包验证为准，不把上一版公开页面当作本次完成证据。发布后直接替换本段为确切build/source/prepared/run。
+公开 build `e58793233e8e`，导出源码 `fa4fb9aa10238b080a8d149da19c1e918483cf95`，prepared `b329352b810c7eeb408355cba65f39b990438fe4`；部署[42564212113](https://github.com/zhipijun1996/gunman-rush/actions/runs/42564212113)成功。最终包已复验启动/新档/移动跳跃/地图/暂停、触屏左杆上下查看及跨UI拖动；实际地面屏幕Y由390→503→391验证上看与松手恢复。逐房未写正式进度。线上源码标识、11段短片与下载合集、整区图字节均与本地一致。
+
+- [连续试玩](https://zhipijun1996.github.io/gunman-rush/?v=e58793233e8e) / [六房快速入口](https://zhipijun1996.github.io/gunman-rush/replays/?v=e58793233e8e)。
+- [11段正常速度前后对比](https://zhipijun1996.github.io/gunman-rush/camera-review/?v=e58793233e8e)：每段约3～7秒，单独播放/下载。
+- [新版短片合集，约7.9 MiB](https://zhipijun1996.github.io/gunman-rush/camera-review/camera-after-clips.zip)。
+- [35房路线/职责/收集/Boss/休息站总图](https://zhipijun1996.github.io/gunman-rush/map-review/?v=e58793233e8e)：轮廓与连接保持已确认版本。
+
+旧镜头运行实现、旧相关正文与上一批公开短片已替换；改造前视频只作为本次明确要求的对比证据保留。临时旧源码快照与大型原始AVI在交付后清理。
 
 ## 剩余工作
 

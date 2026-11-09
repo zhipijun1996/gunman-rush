@@ -3,10 +3,10 @@
   "task_id": "PLAINS-BIBLE-V2-01",
   "task_type": "region",
   "baseline_commit": "66400937dcdce553b51f492adda47c3e32941aeb",
-  "reviewed_commit": "ae5c1cca26192788733bb733f5ba19e0ad48c5fb",
-  "content_version": "71064acdd951d2bf4f6a74c51edbacdd4d1e0b0383e7bdeaecfaab562feb8d7a",
+  "reviewed_commit": "fa4fb9aa10238b080a8d149da19c1e918483cf95",
+  "content_version": "15116f0c288a45b1acaa52630fd6a43cc746beebc8ebb66aace0c1645134c330",
   "owner": "Codex",
-  "purpose": "按已确认04总图施工连续平原；当前修复首段六房的动作前视野、入口环境、有效空间和失败恢复。",
+  "purpose": "按04总图推进连续平原；当前重整正式镜头、少量镜头区和低优先级左杆查看，保留首段六房角色物理与关卡布局。",
   "player_experience": "反冲主导的新档学习与西侧主循环，H能力取得后的修钟/回访和东侧探索；统一像素人物、地形、机关与UI反馈。",
   "constraints": [
     "PlayerMotor owns motion; FixedWorldState owns accepted progress.",
@@ -25,8 +25,8 @@
     "AGENTS.md"
   ],
   "deliverables": [
-    "35房真实占地/43共享门缝与同源要素总图。",
-    "03→21→22→23→24→01六房连续真实输入、动作前预读、低层返回与休息保存；其余29内部场景待迁移。"
+    "35房/43接缝与同源审核图保留；正式六房已有施工，其余29内部未迁移。",
+    "唯一正式镜头、四模板、稳定前瞻/追赶、左杆查看、隐藏交接、生命周期；11段正常速度前后对比及下载。"
   ],
   "creative_decisions": [],
   "formal_impact": true,
@@ -47,29 +47,29 @@
   "dimensions": {
     "visual": {
       "status": "failed",
-      "reason": "审看六房正常原生取景、四段实际输入短片及Web新档/窄井/小尺寸菜单；入口环境填充和落点可读性已修复，整体材料层次、机关根基及载具外观仍未终审。",
+      "reason": "审看原生短片抽帧及真实Web画面，统一镜头和边界填充；整体材质/机关根基/24载具和其余29房未终审，维持区域视觉未通过。",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "首段新档抵站65检查、视野/恢复111检查、反冲及铃闸正反例27检查通过；仍需完成22完成侧回程板与完整回访，其余29房及整区节奏未完成。",
+      "reason": "既有六房连续教程、预读和恢复回归通过，镜头测试未改布局；22完成侧回程、其余29房与完整地区节奏仍未完成。",
       "evidence": []
     },
     "technical": {
       "status": "passed",
-      "reason": "七项Godot专项（含62条房间断言）、18项世界设计单测、日常CI四项、文档、实际Web PCK闭包与浏览器启动/逐房存档隔离通过；35房/43接缝及地图控件检查通过。仅覆盖声明的首段与整区几何。",
+      "reason": "本轮36项镜头/输入、118项区/边界、10项真实动作，连续教程/111项预读恢复，逐房隔离/空间合同，日常CI四项、世界单测23项、实际Web包/浏览器与线上交付核验通过；范围见现行证据。",
       "evidence": [
         "construction-04-checks"
       ]
     },
     "animation": {
       "status": "unverified",
-      "reason": "四段正常速度原生实际输入片段已审看；全区动作与载具表现未逐项验收。",
+      "reason": "11段正常速度原生录制及抽帧用于镜头验收；全区动作和载具表现未终审。",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "实际枪击、机关、落地与脚步事件随短片录制；全区听感、动画特效和实体设备未终审。",
+      "reason": "短片保留原动作声音和特效；本次未调整或终审全区听感、特效与设备表现。",
       "evidence": []
     }
   },
@@ -78,16 +78,16 @@
     {
       "id": "construction-04-checks",
       "path": "docs/project/worklines/plains_bible_v2_01/quality/evidence/current-checks.json",
-      "sha256": "c3e044fb86c791ef54527f47d663358caa1b825074bf43bb82bab5fa2d8a5e4c",
+      "sha256": "d42d09eae19266a06a7ca1150d384aa4461bc6a4d3565644bc9843fb80342e84",
       "kind": "command",
       "producer": "Codex",
-      "source_commit": "ae5c1cca26192788733bb733f5ba19e0ad48c5fb",
-      "content_version": "71064acdd951d2bf4f6a74c51edbacdd4d1e0b0383e7bdeaecfaab562feb8d7a",
-      "method": "Real input new-game route plus declared local failure/recovery fixtures, pre-action Camera2D checks, normal native clip review and actual PCK/browser. Logs under build/plains-readability.",
-      "observed": "Listed commands exited zero. First-six-room readability/recovery repair verified within fixtures; no full-region or human blind-play acceptance.",
-      "command": "Seven tests/world Godot scripts; tools/ci.py; world unit tests; docs, map, actual Web bundle and browser checks.",
+      "source_commit": "fa4fb9aa10238b080a8d149da19c1e918483cf95",
+      "content_version": "15116f0c288a45b1acaa52630fd6a43cc746beebc8ebb66aace0c1645134c330",
+      "method": "Formal app and real input, explicit isolated portal/Boss/H fixtures, normal native clips, actual browser touch and public bundle; build/camera-rework.",
+      "observed": "Listed current checks passed; preserve declared fixture/device limits. Actual browser GUI-capture failure fixed and retested.",
+      "command": "Camera/zone/motion/intro/readability/review/space suites, CI, world unit tests, PCK, browser and public bytes.",
       "exit_code": 0,
-      "environment": "Godot 4.7.2 gunman-sd1, Linux headless/native at fixed 60 FPS; Chromium browser emulation."
+      "environment": "Godot 4.7.2 gunman-sd1, Linux native/headless; Chromium SwiftShader touch emulation."
     }
   ],
   "consumer_coverage": null,
