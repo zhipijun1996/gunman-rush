@@ -4,7 +4,7 @@
 
 七类小怪已获用户确认。本轮接续PR144，修巡游机钟架内腔黑白闪烁、抛铃炮管／弹体贴图，牧风者二阶段身前大范围风场，以及两Boss逐帧跳换造成的顿挫。上一轮结果不能继续作为Boss连续性已通过的结论。
 
-采用PR142 `cc62d369d3cec2597db483f1137ff976e25863cf` 的地形和背景，分支 `art/plains-enemy-static-pr142`，PR144面向main。本轮基线 `73732e247a7e956040b0b940fdc579c1054a3f41`；交付提交由Git／PR追溯。十张 `a5668a4` 批准静态保留原字节。用户批准B/C形体、象牙白／青绿／铜色明暗分离和小怪结果；本轮Boss视觉仍由用户反馈判断。
+采用PR142 `cc62d369d3cec2597db483f1137ff976e25863cf` 的地形和背景，分支 `art/plains-enemy-static-pr142`，PR144面向main。本轮基线 `73732e247a7e956040b0b940fdc579c1054a3f41`；运行源码与素材提交 `347d251ecaac4b223a5ca3e441165aa363e0d9c8`；后续交接提交仅更新文档和测试UID。十张 `a5668a4` 批准静态保留原字节。用户批准B/C形体、象牙白／青绿／铜色明暗分离和小怪结果；本轮Boss视觉仍由用户反馈判断。
 
 ## 原因与当前实现
 
@@ -27,11 +27,11 @@
 - 连续动作数据：`python tools/art/build_plains_boss_tweens.py`，可传单个图集ID；重烘焙原图后须重跑此步。
 - 检视／ZIP：`python tools/art/package_plains_actor_animations.py`。网页标明源素材逐张检视与游戏连续采样的区别；最终表现看实战录像。ZIP包含新运行副本、数据、shader与烘焙工具。
 - 实战：`DISPLAY=:96 bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 60 --write-movie build/plains_actors_142/combat-continuity.avi --script tools/art/capture_plains_actor_combat.gd`。
-- 手机短片：`python tools/art/package_plains_actor_mobile.py --skip-enemies --boss-master combat-continuity.avi --reuse-manifest build/plains_actors_142/unchanged-enemies.json`。七段已确认小怪保留原源提交／哈希，四段Boss重录。
+- 手机短片：先以 `combat-continuity.avi` 编码四Boss；最终巡游机裁片清理后用相同捕获命令增加 `-- bell,bell_wave`，母版为 `combat-cannon-final.avi`，再执行 `python tools/art/package_plains_actor_mobile.py --skip-enemies --boss-master combat-cannon-final.avi --reuse-manifest build/plains_actors_142/retained-continuity-clips.json`。七段小怪保留原源提交／哈希；两段牧风者为本轮新录，采集后仅巡游机裁片改变，清单注明其运行／渲染依赖未变。四段Boss都对应本轮运行源码。
 
 ## 验证与边界
 
-本轮专项入口：`tests/plains_boss_continuity_142.gd` 验连续核心锚点、冲锋不重播预备、位移贴图四通道导入原值、左右身前多高度的真实PlayerMotor受风与外部排除；`plains_actor_frames_142.gd`、`plains_boss_actions_142.gd`、巡游机战斗／武器、牧风者时钟／几何／支撑／正式App／奖励／音频与CI四项。本轮CI四项通过，连续性／数据／风场47项、帧绑定277项、Boss行为25项、巡游机战斗281项／武器88项、牧风者时钟1198项／几何97项／支撑76项／正式App63项／奖励139项／音频130项全部通过。25组位移数据源／输出哈希有效；运行副本只删alpha，剩余像素RGB未改，十张批准静态与a5668a4原文件逐字节一致。最终视频与公网验收仍待完成。
+本轮专项入口：`tests/plains_boss_continuity_142.gd` 验连续核心锚点、冲锋不重播预备、位移贴图四通道导入原值、左右身前多高度的真实PlayerMotor受风与外部排除；`plains_actor_frames_142.gd`、`plains_boss_actions_142.gd`、巡游机战斗／武器、牧风者时钟／几何／支撑／正式App／奖励／音频与CI四项。本轮CI四项通过，连续性／数据／风场47项、帧绑定277项、Boss行为25项、巡游机战斗281项／武器88项、牧风者时钟1198项／几何97项／支撑76项／正式App63项／奖励139项／音频130项全部通过。25组位移数据源／输出哈希有效；运行副本只删alpha，剩余像素RGB未改，十张批准静态与a5668a4原文件逐字节一致。四段新Boss视频已在浏览器1×完整播放，检视页136个动作选择／11个视频入口无脚本错误；11段MP4均核H.264 Baseline／AAC、60fps、faststart、体积及复用哈希，公网下载HTTP与SHA256逐段一致。四段分别约2.23、1.94、2.24、1.72MB。浏览器解码在软件环境有少量丢帧，完成播放不等于手机帧率验收。
 
 样板在真实P-R11／P-R14检查透明钟腔、炮管裁片、风场高度与姿势间形体。最终四段实战沿正式AI、Router输入、伤害、投射物和地形；仅开场位置、二阶段生命阈值和标注的审查宽镜头为夹具，不改正式相机，不代表自然通关或全部随机招组覆盖。动作连续性与设备帧率分别判断：软件渲染和离线编码耗时不是目标设备帧率，没有手机真机性能验收。
 
@@ -39,4 +39,10 @@
 
 ## 交付
 
-沿PR144交付代码、素材副本、位移数据、规范、制作与录制工具、专项检查。默认给独立540p60／原声／H.264 Baseline／faststart的MP4，每段小于3MB；产物分支仅存视频和清单，不合入main。本轮产物分支计划为 `preview/plains-boss-continuity-20261109`。完成后核源码身份、逐段公网下载SHA256与播放；没有合并或游戏部署。
+沿PR144交付代码、素材副本、位移数据、规范、制作与录制工具、专项检查。默认给独立540p60／原声／H.264 Baseline／faststart的MP4，每段小于3MB；产物分支仅存视频和清单，不合入main。本轮产物分支为 `preview/plains-boss-continuity-20261109`，不可变产物提交 `76a7bf8b6835c35abb4b86ab1d4bd08f4596eed8`，源码身份／公网哈希／播放已核对；没有合并或游戏部署。
+
+
+- [巡游机：转身与冲锋连续动作](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/76a7bf8b6835c35abb4b86ab1d4bd08f4596eed8/bell.mp4)
+- [巡游机：钟腔、炮管、弹体和地波](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/76a7bf8b6835c35abb4b86ab1d4bd08f4596eed8/bell_wave.mp4)
+- [牧风者一阶段连续动作](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/76a7bf8b6835c35abb4b86ab1d4bd08f4596eed8/keeper.mp4)
+- [牧风者二阶段大范围风场与齐射](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/76a7bf8b6835c35abb4b86ab1d4bd08f4596eed8/windmill.mp4)
