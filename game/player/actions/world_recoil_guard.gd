@@ -3,6 +3,7 @@ extends Node
 ## Q is a permission on real recoil movement, never a global invulnerability flag.
 var controller: PlayerController
 var owned := false
+# Kept as the existing public field; landing and real traversal refills rearm it.
 var landing_ready := false
 var cooldown_seconds := 2.0
 var cooldown := 0.0
@@ -15,6 +16,7 @@ func _ready() -> void:
 	process_physics_priority = 500
 	_last_position = controller.motor.position
 	controller.landed.connect(func() -> void: landing_ready = true)
+	controller.traversal.traversal_resources_refilled.connect(func(_source: StringName) -> void: landing_ready = true)
 	controller.router.cancelled.connect(func(_reason: String) -> void: cancel())
 	controller.shoot_ability.shot_fired.connect(_shot)
 

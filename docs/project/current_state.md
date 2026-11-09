@@ -9,7 +9,7 @@
 | 手机关卡工作台 | 独立浏览器编辑器与ChatGPT MCP共享带版本草稿；16区/38条跨区连接和8个平原外接接口可审核，35个平原房与显式登记的V-R12共36房可临时预览，不改变正式6房施工状态。V-R12提供隔离H/W/D/Q连续空中挑战；源接入使用同一场景codec与原世界编译器，专用包/缓存及实际验证边界见[工作台交接](worklines/mobile_level_workbench_01/scope.md) |
 | 新世界状态/保存 | FixedWorldState按永久/周期/尝试职责提交，独立原生槽 `fixed_world_plains04_construction.json` / Web profile `plains04_construction`，保留旧版存档；WorldSaveService复用MetaSaveService可靠IO。基础枪首档试制5伤害；Q只在明确授予的专项夹具验收，平原不授予 |
 | 旧原型运行流程 | 标题 → 家园 → 平原两张连通探索图 → H／钩索 → 森林两图 → 开发边界；`RunCampaignProgression` 负责能力权益和地区准入 |
-| 角色资源 | 基础一跳、一发空中弹药；射击不耗时间能量，枪械／钩索共用AirFocus；共鸣蓄力回复复用HealthState/CombatEnergyState，数值与恢复/取消规则见 [资源合同](../bible/combat_and_recharge.md) |
+| 角色资源 | 基础一跳、一发空中弹药；真实H抵达与有效新攀墙接触补回空弹和已拥有D/H、Q资格，Q冷却保留；射击不耗时间能量，枪械／钩索共用AirFocus；共鸣蓄力回复复用HealthState/CombatEnergyState，数值与恢复/取消规则见 [资源合同](../bible/combat_and_recharge.md) |
 | 武器与动作 | 新世界使用基础枪与胜利后H；旧原型家园三种Lv.1武器和完整动作候选仍由显式开发入口回归 |
 | 背包与成长 | 原DemoMenu装备网格/负荷槽/详情已接回新世界；WorldServices拥有试制永久所有权/等级/破损、周期装配锁、购买/升级/维修及周期使用；统计复用ItemCatalog/BuildState。正式48件/价格待确认 |
 | 金币 | 共用原喷散/弹跳/旋转/吸收表现；WorldCoinDrops适配世界账本，靠近拾取后入账，未拾取金币跨房/读档保留；试制敌人/Boss掉落值归demo_services.json |

@@ -6,19 +6,19 @@
 [node name="V-R12" type="Node2D"]
 script = ExtResource("1")
 room_id = "V-R12"
-arrival_text = "星桥天门 · 连锁反冲井（可选极限灰盒）"
+arrival_text = "星桥天门 · 折星回路（反冲＋二段跳灰盒）"
 art_profile = "starbridge_graybox"
 start_point = Vector2(144, 1838)
-platforms = Array[Rect2]([Rect2(0,1856,256,192),Rect2(624,1216,208,64),Rect2(784,320,240,96),Rect2(560,1280,96,344),Rect2(592,672,64,288)])
-climbable_walls = Array[Rect2]([Rect2(944,1184,48,240),Rect2(192,464,48,208)])
-hook_points = Array[Vector2]([Vector2(320,1656),Vector2(480,1544),Vector2(560,1744),Vector2(768,1712),Vector2(880,1584),Vector2(800,1024),Vector2(704,1024),Vector2(496,1024),Vector2(352,864),Vector2(448,304),Vector2(640,400),Vector2(824,256)])
-spike_strips = Array[Dictionary]([{"id":"lower_rib_crown","bounds":[560,1254,96,26],"facing":"up"},{"id":"upper_rib_crown","bounds":[592,646,64,26],"facing":"up"}])
-gear_obstacles = Array[Dictionary]([{"id":"lower_orbit_gear","point":[736,1536],"travel":[0,48],"period":3.8,"phase":0.15},{"id":"upper_orbit_gear","point":[512,784],"travel":[24,0],"period":4.4,"phase":0.4}])
-environment_zones = Array[Dictionary]([{"id":"LowerPhaseCurtain","mode":"phase_light","bounds":[592,1624,24,232]},{"id":"UpperPhaseCurtain","mode":"phase_light","bounds":[592,960,24,320]},{"id":"VisibleFailureBed","mode":"thorns","bounds":[256,1856,768,192]}])
+platforms = Array[Rect2]([Rect2(0,1856,256,192),Rect2(624,1216,208,64),Rect2(784,320,240,96),Rect2(320,1280,144,96),Rect2(400,1376,64,160),Rect2(608,1504,64,240),Rect2(720,672,64,160)])
+climbable_walls = Array[Rect2]([Rect2(352,1504,48,272),Rect2(144,1296,48,224),Rect2(608,1280,48,192),Rect2(912,864,48,224),Rect2(352,768,48,272),Rect2(672,432,48,240)])
+hook_points = Array[Vector2]([Vector2(544,1648),Vector2(624,704)])
+spike_strips = Array[Dictionary]([{"id":"tongue_face","bounds":[464,1376,22,128],"facing":"right"},{"id":"lift_channel_face","bounds":[584,1504,24,240],"facing":"left"},{"id":"canopy_crown","bounds":[320,1254,144,26],"facing":"up"},{"id":"canopy_teeth","bounds":[320,1376,80,24],"facing":"down"},{"id":"first_wall_cap","bounds":[352,1478,48,26],"facing":"up"},{"id":"west_wall_cap","bounds":[144,1270,48,26],"facing":"up"},{"id":"upper_fold_cap","bounds":[352,742,48,26],"facing":"up"},{"id":"high_wall_cap","bounds":[672,406,48,26],"facing":"up"}])
+gear_obstacles = Array[Dictionary]([{"id":"low_orbit_gear","point":[720,1776],"travel":[64,0],"period":4.2,"phase":0.1},{"id":"upper_orbit_gear","point":[496,608],"travel":[40,0],"period":4.8,"phase":0.4}])
+environment_zones = Array[Dictionary]([{"id":"LowerLiftCurtain","mode":"phase_light","bounds":[464,1536,120,24]},{"id":"UpperFoldCurtain","mode":"phase_light","bounds":[516,720,16,80]},{"id":"VisibleFailureBed","mode":"thorns","bounds":[256,1856,768,192]}])
 section_volumes = Array[Dictionary]([{"id":"entry:V-EXTREME-11-12","bounds":[0,1792,256,256]}])
 retry_anchors = Array[Dictionary]([{"bounds":[32,1792,208,64],"point":[144,1838],"section":"entry:V-EXTREME-11-12"},{"bounds":[640,1152,176,64],"point":[720,1198],"section":"main"},{"bounds":[800,256,208,64],"point":[880,302],"section":"main"}])
-signs = Array[Dictionary]([{"point":[192,1814],"text":"可选极限灰盒 · 建议 H/W/D/Q。先向上再折回低环；金色光幕只在真正反冲时可穿过。挂环不会恢复空中弹药，也不会重新获得 Q。"},{"point":[672,1174],"text":"中继实体台：此处实际落地后记录本段复位点。等待 Q 冷却，再由上方环向左穿幕。亮青色竖肋可墙跳，粉红尖刺不能用 Q 穿过。"},{"point":[960,278],"text":"已抵达连锁井终台。右侧为 V-R13 预留接口，邻房尚未施工。拉下手柄放出返程桥；向左走到安全落井，下落回入口。"}])
-workbench_entity_ids = {"platforms":["V12:entry_mass","V12:relay_mass","V12:finish_mass","V12:lower_rib","V12:upper_rib"],"climbable_walls":["V12:east_climb_rib","V12:west_climb_rib"],"hook_points":["V12:lower_rise","V12:lower_crown","V12:lower_fold","V12:lower_recover","V12:east_launch","V12:relay_catch","V12:upper_launch","V12:upper_recover","V12:west_launch","V12:high_catch","V12:high_fold","V12:finish_catch"],"retry_anchors":["V12:entry_retry","V12:relay_retry","V12:finish_retry"],"signs":["V12:entry_sign","V12:relay_sign","V12:finish_sign"],"hazards":[],"art_placements":[]}
+signs = Array[Dictionary]([{"point":[192,1814],"text":"反冲＋二段跳挑战。向右上出发，以青色墙面接续次数。首次有效贴墙、玩家真正到达钩点会恢复空弹、D/H 与 Q 资格；停留不会持续补充。"},{"point":[672,1174],"text":"中继台：失误回到此处。上方是宽腔斜冲与绕墙折返；先下落再向上抓关键环。Q 的 2 秒冷却不会被墙、钩点或落地清零，过金色光幕前看冷却；粉红尖刺始终危险。"},{"point":[960,278],"text":"折星回路终台。拉下手柄放出返程桥，向左走到安全落井，下落回入口。右侧 V-R13 是未施工接口。本轮为快速灰盒，完整节奏和容错等你试玩反馈。"}])
+workbench_entity_ids = {"platforms":["V12:entry_mass","V12:relay_mass","V12:finish_mass","V12:low_canopy","V12:drop_tongue","V12:lift_pier","V12:upper_fold_baffle"],"climbable_walls":["V12:launch_wall","V12:west_fold_wall","V12:inner_lift_wall","V12:outer_span_wall","V12:inner_return_wall","V12:finish_launch_wall"],"hook_points":["V12:low_turn_refill","V12:upper_turn_refill"],"retry_anchors":["V12:entry_retry","V12:relay_retry","V12:finish_retry"],"signs":["V12:entry_sign","V12:relay_sign","V12:finish_sign"],"hazards":[],"art_placements":[]}
 
 [node name="FinishReturn" type="Node2D" parent="."]
 script = ExtResource("return")

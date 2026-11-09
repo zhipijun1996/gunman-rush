@@ -26,9 +26,7 @@ func _ready() -> void:
 func _draw() -> void:
 	if contract.is_empty(): return
 	# Faint large rings establish depth without disguising collision edges.
-	for index: int in [1,6,9]:
-		if index>=hook_points.size(): continue
-		var center := hook_points[index]
+	for center: Vector2 in hook_points:
 		draw_arc(center,240,-2.9,2.2,64,Color("23324a"),2)
 		draw_arc(center,218,-1.8,1.5,48,Color("192c42"),1)
 	var bounds := FixedWorldProvider.rect(contract.world_geometry.bounds_world_units)
