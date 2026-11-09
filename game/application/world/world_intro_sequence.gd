@@ -22,7 +22,7 @@ func enter() -> void:
 	queue_redraw()
 
 func _physics_process(_delta: float) -> void:
-	if app==null or app.busy or app.paused or not is_instance_valid(app.room):return
+	if app==null or not is_instance_valid(app.player) or not is_instance_valid(app.controller) or app.busy or app.paused or not is_instance_valid(app.room):return
 	if phase=="pending":
 		phase="waking"
 		_wake()

@@ -36,7 +36,11 @@ func _shot(_direction: Vector2,_id: int) -> void:
 	air_recoil_pending=not controller._was_grounded
 	recoil_origin=controller.motor.position;recoil_moved=false
 func _hit(_packet: int,_shot_id: int,receiver: Damageable,_session: int,_epoch: int) -> void:
-	if _enabled() and room.enemies.has(room.tutorial_target) and receiver==(room.enemies[room.tutorial_target] as EnemyActor).damageable: shot=true
+	if not _enabled():return
+	if room.tutorial_action=="tutorial_opening":
+		for enemy: EnemyActor in room.enemies.values():
+			if is_instance_valid(enemy) and receiver==enemy.damageable:shot=true;return
+	elif room.enemies.has(room.tutorial_target) and receiver==(room.enemies[room.tutorial_target] as EnemyActor).damageable:shot=true
 func _physics_process(_delta: float) -> void:
 	if not _enabled() or not controller.active: return
 	var player:=controller.motor

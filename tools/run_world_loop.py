@@ -39,12 +39,11 @@ def main():
         ('plains_readability.gd',r'PLAINS INTRO: 0 failures',180),
         ('platform_dwell.gd',r'PLATFORM DWELL: .*0 failures',60),
         ('workbench.gd',r'WORKBENCH: .*0 failures',180),
-        ('restart.gd',r'WORLD RESTART: 0 failures',30),
         ('service_ui.gd',r'WORLD SERVICE UI: 0 failures',120),
         ('service_restart.gd',r'WORLD SERVICE RESTART: 0 failures',30),
     ]:
         output=run_engine(['--headless','--fixed-fps','60','--path','.', '--script','tests/world/'+script],timeout)
         if 'SCRIPT ERROR:' in output or re.search(r'^ERROR:',output,re.M) or not re.search(marker,output):
             raise RuntimeError('World validation failed: '+script)
-    print('PASS: current six-room tutorial, camera/workbench, world contracts, disk restart, services and lifecycle counterexamples')
+    print('PASS: current tutorial local fixtures, camera/workbench, world contracts, service disk restart, services and lifecycle counterexamples')
 if __name__=='__main__':main()

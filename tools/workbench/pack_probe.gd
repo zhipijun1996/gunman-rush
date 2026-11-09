@@ -61,6 +61,9 @@ func run() -> void:
 	for id: String in formal_ids:
 		app.load_room(id, "")
 		await settle()
+		if is_instance_valid(app.introduction) and app.introduction.phase in ["pending","waking"]:
+			await ticks(100)
+			while app.introduction.dialogue_active:app.introduction.advance()
 		check(app.room != null and app.room.room_id == id and app.controller.active, "actual room and native presentation " + id + ": " + app.status)
 		print("WORKBENCH PACK room=", id)
 	app.return_title()
