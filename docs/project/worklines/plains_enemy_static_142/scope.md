@@ -4,7 +4,7 @@
 
 用户已批准整体风格及七类小怪。本轮接续草稿 PR144，保留 PR142 背景、批准 B/C 造型和现有固定骨骼部件，处理巡游机转向、牧风者转身与后跳脱身、二阶段展开演出、身体与边界墙重叠。
 
-分支 `art/plains-enemy-static-pr142`，本轮基线 `937454930d74cfc2ed217d63dba5e07589ae8d4f`，面向 main。运行源码为本提交；后续交接提交补入源码与预览的完整 SHA。`assets/` 与十张批准静态相对基线无改动；七类小怪图集、AI、死亡落地与既有视频保留。
+分支 `art/plains-enemy-static-pr142`，本轮基线 `937454930d74cfc2ed217d63dba5e07589ae8d4f`，面向 main。运行源码为 `0810d955ebed0b3905baf491673af82529d4ae01`，后续提交只更新交接和任务状态。`assets/` 与十张批准静态相对基线无改动；七类小怪图集、AI、死亡落地与既有视频保留。
 
 ## 当前实现
 
@@ -28,4 +28,11 @@ CI 四项与文档检查通过；本轮新增转身／后跳／墙体／展开�
 
 `tools/art/capture_plains_actor_combat.gd` 在 P-R11／P-R14 运行真实 AI、Router 输入、伤害、投射物及地形。一阶段自动玩家通过普通移动／跳跃绕背并贴近，实际触发转身和后跳；二阶段设生命阈值以观察展开与吹风。开场站位、生命阈值及固定倍率宽镜头均在片内标注；镜头只平移，不改变角色倍率。该覆盖不代表自然通关或全随机招组。
 
-本轮完整实战已生成四段独立 MP4，540p60、原声、H.264 Baseline／AAC、faststart，约1.9–2.6MB；关键帧已检查转身、后跳与完整展开，浏览器完整播放与公网链接由后续交接提交补齐。用户风格批准与本轮技术验证分开记录；没有手机真机帧率结论。只更新 PR144 和视频预览分支，不合并、不部署游戏。
+四段独立 MP4 为540p60、原声、H.264 Baseline／AAC、faststart，约1.9–2.6MB：
+
+- [巡游机转身与冲锋](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/aeb25ba07742ef877c2e381c8f29458c6a06da25/bell.mp4)
+- [巡游机抛铃与地波](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/aeb25ba07742ef877c2e381c8f29458c6a06da25/bell_wave.mp4)
+- [牧风者转身、后跳与攻击](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/aeb25ba07742ef877c2e381c8f29458c6a06da25/keeper.mp4)
+- [牧风者阶段展开与广域吹风](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/aeb25ba07742ef877c2e381c8f29458c6a06da25/windmill.mp4)
+
+关键帧已检查转身、后跳与完整展开；四段新片在浏览器1×完整播放，检视页56个动作选择和11个视频入口无脚本错误，11段公网HTTP与SHA256核对通过。软件浏览器四片有1–51帧解码丢帧，不能把编码60fps当成目标手机性能。预览分支 `preview/plains-boss-turn-20261109`，仅含视频、清单与说明；产物提交 `aeb25ba07742ef877c2e381c8f29458c6a06da25`。用户风格批准与本轮技术验证分开记录；没有手机真机帧率结论。只更新 PR144 和视频预览分支，不合并、不部署游戏。
