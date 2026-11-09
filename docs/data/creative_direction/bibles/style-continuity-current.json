@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "authority_id": "project_shared_regional_style",
-  "version": "37",
+  "version": "38",
   "source": {
     "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
     "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
@@ -34,7 +34,7 @@
       {
         "role": "terrain_consumer",
         "path": "game/world/levels/fixed_world_room.gd",
-        "sha256": "232fc0804fb707f01dd49af1237c4c8efa1c090b92524ac5d7d79ecda8813d2b"
+        "sha256": "52c47b82c700d3aa5e852395468b3c669b39b42b3be8bc74c8e4d1b338ce9a97"
       },
       {
         "role": "terrain_renderer",
@@ -1079,7 +1079,7 @@
       {
         "role": "fixed_world_camera",
         "path": "game/presentation/ui/world/world_camera.gd",
-        "sha256": "1888798528c22382ee1019f397200e59324c483d059912bd0d4cbe05f6ba7055"
+        "sha256": "b9f32efa2ea9ca9b6bb4d234fc4fdde65fcc195986a94300d883e48f00e001d0"
       },
       {
         "role": "fixed_world_camera_parameters",
@@ -1089,7 +1089,7 @@
       {
         "role": "physical_room_space",
         "path": "game/world/levels/world_room_space.gd",
-        "sha256": "5530edf681c392bf525715b6621cdd18d939329f0f8dc0b13075c462ad862247"
+        "sha256": "d404c3c1d57e517f3c922c8fad6b51c3ed8d1675c8ca7a098ed648dee10dfa85"
       }
     ],
     "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."
@@ -1102,9 +1102,9 @@
   ],
   "region_scope": "Every current catalog region and later new region; the two original Bible documents are unchanged.",
   "change_impact": {
-    "source": "Direct user instructions in this task, 2026-11-08; manually retained by Codex",
-    "quote": "先完成连续整区地区和多房间玩法生态，这个优先级最高",
-    "actual_changes": "正式平原的地图、门口、边界与相机共用实际相连机腔；外边界由房形生成，场景内地形保留原生32px材质及精确边缘。原生角色调色与随身局部光沿用当前正式实现。试玩隔离存档与来源入口已纳入正式入口。共享角色图集、地形源像素及森林场景未改变。",
-    "validation": "35房实际场景取景、空间/门口合同和真实控制器路线检查；相机专项保留竞技场独立构图。当前工作线分别记录玩法、技术与视听验收边界；这些哈希不代表全区美术或森林重新获批。"
+    "source": "Direct user corrections in this task, 2026-11-09; manually retained by Codex",
+    "quote": "最重要的是玩家体验；每个空间都有内容，内容合理，不要乱塞。出入口侧必须贴边界，窄处优先使用环境。",
+    "actual_changes": "首段六房的外缘体量复用现有47邻接材质，房形并集导出连续相机范围，场景预读焦点与出口轴边界共同取景。21与23仅校准局部净空；六房地形/恢复更新，角色调色、随身光、像素尺寸、Zoom和基础物理沿用。",
+    "validation": "六房新档连续真实操作的离台/起跳前视野；10个来向门轴、18个准备位、9组低层恢复；11组反冲正反例、62条落脚合同、原生短片与正常截图。整区其余29房、旧区域与Boss内场未作为本轮视觉验收；共享绑定更新不代表审美或设备通过。"
   }
 }

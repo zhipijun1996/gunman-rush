@@ -8,10 +8,11 @@ script = ExtResource("1")
 room_id = "P-R24"
 arrival_text = "望站坡"
 art_profile = "overlook"
-platforms = Array[Rect2]([Rect2(0,1120,1248,96),Rect2(1440,1120,320,96),Rect2(1952,1120,544,96),Rect2(1664,1376,128,64),Rect2(1920,1504,128,96),Rect2(1056,160,192,32),Rect2(1920.0,1504.0,128,32),Rect2(1056.0,160.0,192,32)])
+platforms = Array[Rect2]([Rect2(1024,1120,224,96),Rect2(1440,1120,320,96),Rect2(1952,1120,544,96),Rect2(1664,1376,128,64),Rect2(1920,1504,128,96),Rect2(1056,160,192,32),Rect2(1920.0,1504.0,128,32),Rect2(1056.0,160.0,192,32),Rect2(0,320,1024,896)])
+camera_interests = Array[Dictionary]([{"bounds":[1664,1344,384,192],"point":[1856,1428]},{"bounds":[1280,192,160,160],"point":[1152,142]}])
 start_point = Vector2(1984,1486)
 traveler_point = Vector2(1536,1102)
-signs = Array[Dictionary]([{"point":[1584,1072],"text":"钟外小站的灯在坡顶。候风笼仍沿着旧轨道往返。"}])
+signs = Array[Dictionary]([{"point":[1584,1072],"text":"钟外小站的灯在坡顶。候风笼仍沿着旧轨道往返。"},{"point":[1120,1072],"text":"褪色的布条仍指向山上。有人在下面打了一个新结。","action_ref":"read_intro_obj_ribbon"}])
 art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_road_marker","point":[1584,1120],"layer":-2},{"asset":"hanging_chime","point":[1184,1120],"layer":-2}])
 
 [node name="OverlookLift" type="AnimatableBody2D" parent="."]

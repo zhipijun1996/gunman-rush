@@ -10,6 +10,8 @@ extends Node2D
 @export var tutorial_recoil_finish_x:=1540.0
 @export var section_volumes: Array[Dictionary] = []
 @export var retry_anchors: Array[Dictionary] = []
+## Visible next landing/turn, selected before committing to a move. No input steering.
+@export var camera_interests: Array[Dictionary] = []
 @export var art_placements: Array[Dictionary] = []
 @export var art_profile := "meadow"
 @export var bell_mechanisms: Array[Dictionary] = []
@@ -99,6 +101,7 @@ func _ready() -> void:
 		add_child(blocker)
 		door_blocks[door.id] = blocker
 	var solids: Array[Rect2]=[]
+	solids.append_array(WorldRoomSpace.exterior_fill(contract.world_geometry,doors))
 	var masonry: Array[Rect2]=[]
 	for i: int in platforms.size():
 		if i in one_way_indices or i in illustrated_platform_indices:continue

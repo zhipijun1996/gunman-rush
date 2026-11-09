@@ -2,6 +2,7 @@ extends SceneTree
 ## New game to station, real input only. No position, health, ability or progress writes.
 var app: FixedWorldApp
 var failures:=0
+var require_preview:=false
 var replay_save_path:="user://plains_intro_replay.json"
 func _initialize() -> void:run.call_deferred()
 func ticks(n: int) -> void:
@@ -13,8 +14,21 @@ func settle() -> void:
 func check(ok: bool,label: String) -> void:
 	print("INTRO ",ok," ",label)
 	if not ok:failures+=1
+func visible_before_action(point: Vector2,label: String) -> void:
+	if not require_preview:return
+	var half:=app.camera.get_viewport_rect().size/(2*app.camera.zoom)
+	var view:=Rect2(app.camera.get_screen_center_position()-half,half*2).grow(-8)
+	var visible_point:=point+Vector2(0,18)
+	for door: Dictionary in app.room.doors:
+		var portal:=FixedWorldProvider.point(door.position_candidate.local_world_units)
+		if door.direction in ["up","down"] and portal.distance_to(visible_point)<40:
+			var edge:=app.camera.get_screen_center_position().y+half.y*(1 if door.direction=="down" else -1)
+			check(absf(edge-portal.y)<2,"continuous approach sees edge-aligned doorway "+label);return
+	check(view.has_point(visible_point),"continuous approach sees "+label+" "+str(point))
+
 func walk(point: Vector2,rid: String) -> bool:
 	var held:=0
+	var preview_checked:=false
 	for i: int in 700:
 		await physics_frame
 		if app.busy:continue
@@ -24,9 +38,15 @@ func walk(point: Vector2,rid: String) -> bool:
 		if absf(at.x-point.x)<8 and absf(at.y-point.y)<12 and app.player.is_on_floor():
 			app.controller.router.clear("waypoint");return true
 		var dx:=point.x-at.x
+		if require_preview and not preview_checked and app.player.is_on_floor() and point.y>at.y+100:
+			var ahead:=at+Vector2(signf(dx)*32,0)
+			var ray:=PhysicsRayQueryParameters2D.create(ahead,ahead+Vector2(0,24),1)
+			if app.player.get_world_2d().direct_space_state.intersect_ray(ray).is_empty():
+				visible_before_action(point,rid+" next descent at last safe edge");preview_checked=true
 		app.controller.router.set_source_axis(&"keyboard_mouse",signf(dx) if absf(dx)>3 else 0)
 		if point.y>at.y+40 and absf(dx)<30 and app.player.is_on_floor():app.controller.router.request_action(&"drop_through")
 		if app.player.is_on_floor() and point.y<at.y-30 and absf(dx)<300:
+			if not preview_checked:visible_before_action(point,rid+" next ascent");preview_checked=true
 			app.controller.router.set_jump_held(&"keyboard_mouse",false);app.controller.router.set_jump_held(&"keyboard_mouse",true);held=32
 		elif held>0:
 			held-=1
@@ -47,6 +67,7 @@ func recoil_jump(direction: Vector2) -> void:
 	app.controller.router.clear("landing")
 	print("RECOIL LAND ",app.player.position)
 func cross(at: Vector2,aim: Vector2=Vector2.ZERO,shot_frame: int=9) -> bool:
+	visible_before_action(at,app.room.room_id+" next jump landing")
 	app.controller.router.clear("approach")
 	app.controller.router.set_source_axis(&"keyboard_mouse",signf(at.x-app.player.position.x))
 	app.controller.router.set_jump_held(&"keyboard_mouse",true)
@@ -94,6 +115,7 @@ func run() -> void:
 	await play_intro()
 	await finish()
 func play_intro() -> void:
+	require_preview=true
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate();app.save_path=replay_save_path
 	for suffix: String in ["",".backup",".tmp",".corrupt"]:DirAccess.remove_absolute(app.save_path+suffix)
 	root.add_child(app);check(app.start_new(),"new game");await settle()
@@ -104,7 +126,7 @@ func play_intro() -> void:
 	check(await walk(Vector2(2310,1582),"P-R03"),"walk into carriage")
 	await settle();check(app.room.room_id=="P-R21" and app.state.has("intro_move"),"learned move/jump before carriage")
 	if failures>0:return
-	check(await path([Vector2(352,526),Vector2(736,526),Vector2(848,846)],"P-R21"),"descend beside carriage into cover aisle")
+	check(await path([Vector2(352,526),Vector2(736,526),Vector2(848,686),Vector2(1008,846)],"P-R21"),"descend beside carriage into cover aisle")
 	for i: int in 240:
 		await physics_frame
 		if i%24==0:
@@ -126,16 +148,11 @@ func play_intro() -> void:
 	check(await path([Vector2(1264,782),Vector2(1440,942),Vector2(1600,1134)],"P-R21"),"drop through an open lower exit")
 	await settle();check(app.room.room_id=="P-R22","enter canal from above")
 	if failures>0:return
-	check(await path([Vector2(912,334),Vector2(736,526),Vector2(544,1038),Vector2(352,1486),Vector2(800,1486)],"P-R22"),"safe descent and first preparation bank")
+	check(await path([Vector2(912,334),Vector2(736,526),Vector2(416,782),Vector2(544,1038),Vector2(256,1262),Vector2(544,1486),Vector2(800,1486)],"P-R22"),"safe descent and first preparation bank")
 	if failures>0:return
 	check(await cross(Vector2(1168,1390),Vector2(-1,.6)),"first recoil reaches a raised bank")
 	check(not app.state.has("intro_complete"),"first success is practice, not tutorial completion")
-	for i: int in 100:
-		await physics_frame
-		if i%24==0:
-			var enemy: EnemyActor=app.room.enemies["P-R22:encounter:bank_guard"]
-			if not enemy.health.terminal:app.controller.router.request_action(&"shoot_release",(enemy.motor.position-app.player.position).normalized())
-	check(await walk(Vector2(1824,1390),"P-R22"),"cross middle bank after light pressure")
+	check(await walk(Vector2(1824,1390),"P-R22"),"cross quiet preparation bank")
 	check(await cross(Vector2(2224,1326),Vector2(-1,.45)),"second recoil varies the gap and height")
 	check(await path([Vector2(2304,1326),Vector2(2608,1422),Vector2(2528,1294)],"P-R22"),"reach the shutter observation ledge")
 	if failures>0:return
@@ -155,6 +172,11 @@ func play_intro() -> void:
 	check(latch.open_count==1 and app.player.position.y<1200,"same airborne shot opens gate and recoils onto final bank")
 	check(await walk(Vector2(2864,1134),"P-R22"),"reach the completed practice landing")
 	check(app.state.has("intro_complete"),"receipt follows the final real recoil landing")
+	for i: int in 100:
+		await physics_frame
+		if i%24==0:
+			var enemy: EnemyActor=app.room.enemies["P-R22:encounter:bank_guard"]
+			if not enemy.health.terminal:app.controller.router.request_action(&"shoot_release",(enemy.motor.position-app.player.position).normalized())
 	check(await walk(Vector2(3270,1134),"P-R22"),"leave completed canal")
 	await settle();check(app.room.room_id=="P-R23","quiet shelter after practice")
 	if failures>0:return

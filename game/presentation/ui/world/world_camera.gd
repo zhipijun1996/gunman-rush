@@ -8,6 +8,11 @@ var world_bounds:=Rect2()
 var chamber_bounds:=Rect2()
 var settings: Dictionary
 var lead:=0.0
+var regions: Array[Rect2]=[]
+func interest_point() -> Vector2:
+	for guide: Dictionary in room.camera_interests:
+		if FixedWorldProvider.rect(guide.bounds).has_point(target.position):return FixedWorldProvider.point(guide.point)
+	return Vector2.INF
 func _ready() -> void:
 	process_physics_priority=1250
 	zoom=Vector2.ONE*float(settings.zoom)
@@ -20,16 +25,40 @@ func bounded(value: Vector2) -> Vector2:
 	var half:=get_viewport_rect().size/(2*zoom)
 	var factor:=float(settings.small_room_factor) if enclosed() else 1.0
 	return Vector2(bounds.get_center().x if bounds.size.x<half.x*2*factor else clampf(value.x,bounds.position.x+half.x,bounds.end.x-half.x),bounds.get_center().y if bounds.size.y<half.y*2*factor else clampf(value.y,bounds.position.y+half.y,bounds.end.y-half.y))
+func doorway_frame(value: Vector2) -> Vector2:
+	if arena_active():return value
+	var half:=get_viewport_rect().size/(2*zoom)
+	var result:=value
+	var nearest:=INF
+	for door: Dictionary in room.doors:
+		var p:=FixedWorldProvider.point(door.position_candidate.local_world_units)
+		var vertical:=str(door.direction) in ["up","down"]
+		var across:=absf(target.position.x-p.x) if vertical else absf(target.position.y-(p.y-48))
+		var depth:=absf(target.position.y-p.y) if vertical else absf(target.position.x-p.x)
+		var reach:=half.y if vertical else half.x
+		if across>(minf(half.x-48,192) if vertical else 112) or depth>reach-24:continue
+		if depth>=nearest:continue
+		nearest=depth;result=value
+		match str(door.direction):
+			"up":result.y=p.y+half.y
+			"down":result.y=p.y-half.y
+			"left":result.x=p.x+half.x
+			"right":result.x=p.x-half.x
+	return result
 func enter_room(value: Rect2) -> void:
 	world_bounds=value
-	chamber_bounds=WorldRoomSpace.camera_envelope(room.contract.world_geometry,target.position,Rect2())
+	regions=WorldRoomSpace.camera_regions(room.contract.world_geometry)
+	chamber_bounds=WorldRoomSpace.camera_envelope(room.contract.world_geometry,target.position,Rect2(),regions,get_viewport_rect().size/zoom,interest_point())
 	bounds=room.arena_bounds if arena_active() else chamber_bounds
 	lead=0
-	global_position=bounded(target.global_position+Vector2(0,float(settings.vertical_offset)))
+	var interest:=interest_point()
+	var initial:=target.global_position.lerp(interest,.5) if interest.is_finite() else target.global_position+Vector2(0,float(settings.vertical_offset))
+	global_position=doorway_frame(bounded(initial))
 	reset_smoothing();force_update_scroll()
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(target) or not bounds.has_area(): return
-	chamber_bounds=WorldRoomSpace.camera_envelope(room.contract.world_geometry,target.position,chamber_bounds)
+	var interest:=interest_point()
+	chamber_bounds=WorldRoomSpace.camera_envelope(room.contract.world_geometry,target.position,chamber_bounds,regions,get_viewport_rect().size/zoom,interest)
 	var envelope:=room.arena_bounds if arena_active() else chamber_bounds
 	var weight:=1-exp(-delta/float(settings.zone_seconds))
 	bounds=Rect2(bounds.position.lerp(envelope.position,weight),bounds.size.lerp(envelope.size,weight))
@@ -39,8 +68,10 @@ func _physics_process(delta: float) -> void:
 	var look:=float(settings.enclosed_lead_distance if enclosed() else settings.lead_distance)
 	lead=lerpf(lead,clampf(target.velocity.x/float(settings.lead_speed),-1,1)*look,1-exp(-delta/float(settings.lead_seconds)))
 	var desired:=target.global_position+Vector2(lead,float(settings.vertical_offset))
+	if interest.is_finite():desired=target.global_position.lerp(interest,.5)
 	var error:=desired-global_position
 	var goal:=global_position+Vector2(signf(error.x)*maxf(0,absf(error.x)-dead_zone.x),signf(error.y)*maxf(0,absf(error.y)-dead_zone.y))
+	if interest.is_finite():goal=desired
 	if arena_active():
 		# Keep the landing floor in view while the current viewport also fits the player.
 		var half_height:=get_viewport_rect().size.y/(2*zoom.y)
@@ -53,6 +84,7 @@ func _physics_process(delta: float) -> void:
 	if not arena_active():
 		global_position.x=clampf(global_position.x,target.global_position.x-visible_half.x+48,target.global_position.x+visible_half.x-48)
 		global_position.y=clampf(global_position.y,target.global_position.y-visible_half.y+48,target.global_position.y+visible_half.y-64)
+		global_position=doorway_frame(global_position)
 	if arena_active():
 		# Recoil can outrun the smooth floor preference. Actor visibility wins at
 		# the arena edge, even when its sprite needs a little space above it.
