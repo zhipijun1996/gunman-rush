@@ -34,3 +34,8 @@ class CameraContracts(unittest.TestCase):
     def test_no_fifth_template(self):
         self.settings['templates']['air_lock'] = [0,0]
         with self.assertRaises(ValueError): validate_cameras(self.rooms, self.settings)
+
+    def test_arena_fit_limits_rejected(self):
+        for key,value in [('arena_min_zoom',2),('arena_padding',float('nan'))]:
+            settings=copy.deepcopy(self.settings);settings[key]=value
+            with self.assertRaises(ValueError):validate_cameras(self.rooms,settings)

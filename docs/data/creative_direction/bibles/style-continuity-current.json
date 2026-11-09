@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "authority_id": "project_shared_regional_style",
-  "version": "39",
+  "version": "40",
   "source": {
     "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
     "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
@@ -274,7 +274,7 @@
       {
         "role": "item_touch_control",
         "path": "game/presentation/ui/touch_overlay.gd",
-        "sha256": "dd5e9a6cef2884e0bb20984475c8be9dc15b1f1148f1c9bd91f5168a641b2063"
+        "sha256": "8175143b367826323e7c9e8fd4096d32f85f4f134ae5d4996b5b8deda5ba16af"
       },
       {
         "role": "item_shop_presenter",
@@ -1079,12 +1079,12 @@
       {
         "role": "fixed_world_camera",
         "path": "game/presentation/ui/world/world_camera.gd",
-        "sha256": "2005c56eb6a2a5588a70819e5733e95821b578cd2a4cf7a89c799879b18831eb"
+        "sha256": "5cf2bdd1d92c444fd344e71fbd0f648771df5080ec194382321599a911e2349e"
       },
       {
         "role": "fixed_world_camera_parameters",
         "path": "config/world/player.json",
-        "sha256": "a9c161bf80bb53744670eb6b4791f0f5f1871cd9213d6f3e5e7d33a5bb059d0b"
+        "sha256": "6aeb9f7bff9aa913c01410e58b899e6677d0c1c08a2645a9dd0477db20d65172"
       },
       {
         "role": "physical_room_space",
@@ -1094,7 +1094,7 @@
       {
         "role": "fixed_world_camera_zones",
         "path": "game/presentation/ui/world/world_camera_zones.gd",
-        "sha256": "3be4981ea641883fa08ffd5601493165966c83aadd16440210d22dbf5e629fce"
+        "sha256": "e559e8199c5582c4b8e5d13fde0ead65c19a9434ff50d25bd8daaf06650c5601"
       }
     ],
     "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."
@@ -1107,9 +1107,9 @@
   ],
   "region_scope": "Every current catalog region and later new region; the two original Bible documents are unchanged.",
   "change_impact": {
-    "source": "Direct user camera reconstruction and left-stick inspection correction, 2026-11-09; manually retained by Codex",
-    "quote": "稳定跟随＋镜头区构图＋动作响应；保持角色物理和关卡布局不变。上看下看用左摇杆上下，有冲突时优先级低，不用新建按钮。",
-    "actual_changes": "WorldCamera唯一拥有正式构图；WorldCameraZones以玩家位置和已提交通路状态解析少量区/入口带。去除几何条带选框和场景camera_interests；门口约束、前瞻、查看、动作响应与震动统一计算。四模板统一1.6缩放；窄区用原地形外缘和画外不透明岩体填充。六房明确区配置，其余现存合同提供默认模板。沿用角色像素/调色/随身光、地形贴图和碰撞。",
-    "validation": "相对29bd6b58，309合同除camera外不变，35场景仅删除旧camera_interests，PlayerMotor/Controller/Traversal/tuning字节不变。原生匹配输入短片与抽帧复查覆盖正式六房；隐藏交接与P14 Boss/H为明确隔离夹具。三设备查看冲突、区/边界、实际高速动作与恢复由专项验证。不是其余29房正式通关、美术整体或实体设备验收。"
+    "source": "Direct user camera refinement, 2026-11-09; manually retained by Codex",
+    "quote": "Boss场地不大时平滑拉到尽量全场看到；地面看头上方，上升逐步下移至顶点居中，下落平滑转到下方，落地轻微上移。其他没有问题。",
+    "actual_changes": "同一WorldCamera增加显式Boss战斗区合屏缩放和连续纵向观察目标；普通房间1.6与水平前瞻/输入/边界规则不变，已设计下行区的落点预读优先。角色物理、关卡布局、材质与光影不变。",
+    "validation": "正式P23实际跳跃顶点相对角色约3.4wu，落地缓升；既有P14场地沿正式应用隔离装载，平滑拉远后覆盖完整战斗边界。首段连续入站及预读/恢复回归；原生前后短片审看。不是其余29房或实体设备验收。"
   }
 }

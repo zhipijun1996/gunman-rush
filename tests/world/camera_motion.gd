@@ -54,7 +54,7 @@ func run() -> void:
   visible=visible and view().grow(-16).has_point(app.player.position)
  expect(received>0 and app.player.position.distance_to(start)>280,"real H cast/contact produces long traversal")
  expect(visible,"high-speed H never loses the actor")
- expect(camera.zoom==Vector2(1.6,1.6),"Boss and H retain base scale")
+ expect(camera.zoom==Vector2(1.6,1.6),"H traversal restores the ordinary base scale")
  camera=await fixture("P-R22",Vector2(880,334))
  var pursuit_ticks:=0
  visible=true
