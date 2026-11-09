@@ -8,7 +8,6 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PR-INTEGRATION-141-145 | 整合141/142/144/145最终实现、清理旧迭代并合入main | — | in_progress | [交接](worklines/pr_integration_141_145/scope.md) |
 | PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 

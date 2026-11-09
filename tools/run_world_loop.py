@@ -37,7 +37,7 @@ def main():
         ('plains_state_contracts.gd',r'PLAINS STATE: \d+ assertions, 0 failures',60),
         ('plains_intro.gd',r'PLAINS INTRO: 0 failures',180),
         ('plains_intro_practice.gd',r'PLAINS INTRO PRACTICE: 0 failures',180),
-        ('plains_readability.gd',r'PLAINS READABILITY: 0 failures',180),
+        ('plains_readability.gd',r'PLAINS INTRO: 0 failures',180),
         ('platform_dwell.gd',r'PLATFORM DWELL: .*0 failures',60),
         ('workbench.gd',r'WORKBENCH: .*0 failures',180),
         ('restart.gd',r'WORLD RESTART: 0 failures',30),
