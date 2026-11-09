@@ -8,13 +8,13 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| MOBILE-LEVEL-WORKBENCH-01 | 手机审核与微调、主游戏组件目录、保留草稿更新、按范围定稿与真实试玩 | — | in_progress | [交接](worklines/mobile_level_workbench_01/scope.md) |
 | PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 ## 待验收
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
+| MOBILE-LEVEL-WORKBENCH-01 | 已发布手机编辑器；外部下载恢复后复验自动发行与远端更新 | — | blocked | [交接](worklines/mobile_level_workbench_01/scope.md) |
 | PLAINS-LEVEL-SKILL-01 | 固化平原反冲主导与后续区域多能力组合的方法、布怪规范及共用Skill | — | review | [交接](worklines/plains_level_skill_01/scope.md) |
 | DEATH-RUNTIME-01 | 复验已接入死亡优化的目标设备帧时间 | — | blocked | [交接](worklines/death_runtime_01/scope.md) |
 | MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | — | blocked | [交接](worklines/mobile_web_fps_04/scope.md) |
