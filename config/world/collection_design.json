@@ -4750,7 +4750,7 @@
       "source_channel": "map",
       "canonical_source_ref": "collectibles.growth_minor_sources[id=HP01]",
       "local_route_refs": [],
-      "status": "acquisition_design_intent_pending_graybox",
+      "status": "authored_graybox; local_checks_passed; continuous_player_experience_pending",
       "source_path": "world-room-layout-v07.json#collectibles.growth_minor_sources[id=HP01]",
       "approach_cue": "大概率从06进入13：入口一侧辨认荆棘密集的上廊和普通平台小怪的下路。走下路到04附近才直接看见上层HP01，明白入口的高压支路通向它。",
       "approach_route": "自主选择上廊，或从下路出口观察到奖励后回入口挑战；不得在04附近直接跳上奖励岸。",
@@ -4759,7 +4759,7 @@
       "failure_return": "碰到明示荆棘返回本段已到达的安全台，不清怪、不刷新冷却；可退回入口选择下路。",
       "claim_placement": "靠近04出口的上层实体路肩。",
       "return_path": "领奖侧打开封住地面的单向返程折板，落回04前的普通主路；未开时连续实体底板和末端立壁阻止从下路逆登。",
-      "challenge_budget": "中；早期一组可选基础反冲。",
+      "challenge_budget": "高；自愿的荆棘上廊，分段准备与恢复；下路保持普通平台和小怪的较低压力。",
       "capability_boundary": "基础枪和移动即可，不添加H/W/D。",
       "return_access_contract": {
         "mode": "reward_side_open_permanent_local",
@@ -11873,7 +11873,7 @@
       "reward_identity_or_room_change": false,
       "new_macro_connection_count": 0,
       "new_required_ability_or_item": false,
-      "status": "authored_acquisition_and_secret_space; pending_Godot_geometry_and_player_discovery_validation",
+      "status": "authored_graybox; split_route_and_reward_return; continuous_player_experience_pending",
       "local_return_state_id": "reward_return_HP01_open",
       "return_contract": {
         "mode": "reward_side_open_permanent_local",
