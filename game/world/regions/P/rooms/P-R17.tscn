@@ -7,24 +7,31 @@
 [node name="P-R17" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R17"
+route_guide = {"schema": 1, "steps": [{"number": 1, "label": "风车背后", "action": "从轮轴缝隙下降到宽底层，沿检修梁与铜环折回隐藏机芯。", "point": [320, 142], "path": [[320, 142], [272, 398], [320, 1070], [640, 846], [448, 624], [752, 304], [928, 398]]}]}
+traveler_point = Vector2(0,0)
+climbable_walls = Array[Rect2]([])
+environment_zones = Array[Dictionary]([])
+bell_mechanisms = Array[Dictionary]([])
+gear_obstacles = Array[Dictionary]([])
+hazards = Array[Rect2]([])
 art_profile = "secret"
-masonry_platform_indices = Array[int]([6,7,8,9,10,11])
-spike_strips = Array[Dictionary]([{"id":"release_wall","bounds":[768,416,26,96],"facing":"right"}])
+masonry_platform_indices = Array[int]([])
+spike_strips = Array[Dictionary]([])
 arrival_text = "风车回铃栈"
-platforms = Array[Rect2]([Rect2(704,800,320,96),Rect2(0,864,704,32),Rect2(0,768,704,128),Rect2(736,0,32,624),Rect2(864,448,128,32),Rect2(848,304,144,32),Rect2(576,160,128,32),Rect2(352,640,256,48),Rect2(64,496,256,48),Rect2(352,352,256,48),Rect2(64,208,256,48),Rect2(352,160,224,32),Rect2(576,160,192,32),Rect2(576,160,192,32)])
-one_way_indices = Array[int]([])
-start_point = Vector2(144, 750)
+platforms = Array[Rect2]([Rect2(128,160,288,256),Rect2(128.0,416.0,288.0,32.0),Rect2(0.0,1280.0,1216.0,64.0),Rect2(192.0,1088.0,256.0,32.0),Rect2(512.0,864.0,288.0,32.0),Rect2(768.0,608.0,320.0,32.0),Rect2(832.0,416.0,256.0,32.0)])
+one_way_indices = Array[int]([1,3,4,5,6])
+start_point = Vector2(320,142)
 rest_point = Vector2(0, 0)
 enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([{"point": [224, 720], "text": "挂铃在支座背后轻碰。索环通向停下的风叶，梯链垂在里面。"}])
-hook_points = Array[Vector2]([Vector2(824, 560), Vector2(824, 368)])
+signs = Array[Dictionary]([])
+hook_points = Array[Vector2]([Vector2(448,624),Vector2(592,464),Vector2(752,304)])
 section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[752,740,96,60],"point":[800,782],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"barrel","point":[880,448.0],"layer":-2},{"asset":"gear_city_v2_valve_panel","point":[432,768.0],"layer":-2}])
+retry_anchors = Array[Dictionary]([{"bounds":[592,804,96,60],"point":[640,846],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"barrel","point":[960,416],"layer":-2},{"asset":"gear_city_v2_valve_panel","point":[640,864],"layer":-2},{"asset":"windchime_plains_near_v2","point":[912,608],"layer":-2,"fade_near":true}])
 illustrated_platform_indices = Array[int]([])
 [node name="Interaction_0" type="Node2D" parent="."]
 script = ExtResource("interaction")
-position = Vector2(928, 430)
+position = Vector2(928,398)
 action_id = "pickup_EQ_MAP_P03"
 section_id = "main"
 label = "收取风车行装包"
@@ -32,11 +39,11 @@ visual = "equipment"
 
 [node name="RewardReturn" type="Node2D" parent="."]
 script = ExtResource("return")
-position = Vector2(976, 430)
+position = Vector2(1024,398)
 action_id = "reward_return_EQ_MAP_P03_open"
 section_id = "main"
 label = "放下返程折梯"
 visual = "pulley_switch"
 radius = 40.0
-return_steps = Array[Rect2]([Rect2(-176, 122, 96, 16), Rect2(-192, 218, 96, 16)])
+return_steps = Array[Rect2]([Rect2(0,146,128,16),Rect2(-128,338,128,16)])
 closed_panels = Array[Rect2]([])

@@ -58,18 +58,16 @@
       "encounters": [],
       "interactions": [],
       "experience": {
-        "player_decision": "先在棚屋整备，再从独立屋檐通道或升降井选择出口。",
-        "visual_read": "居住棚屋在下层；屋顶绞盘连接高处两路，低井口接旧田。",
-        "pressure": "人物与休息区域安静；升降井的中途停靠面提供可退回的观察位置。",
-        "failure_recovery": "有支撑的站台与可下穿井口；返回不刷新奖励。",
-        "return_visit": "阿栖修灯章节只在首次实际承接的一个棚出现。"
+        "player_decision": "先在宽棚整备，再选低井去旧田、侧门去回水洞或升降笼去上层。",
+        "visual_read": "棚内暖灯与竖直导轨区分休息和交通。",
+        "pressure": "无敌人；停靠等待不承担精密跳跃。",
+        "failure_recovery": "落到棚底可返回两侧岸；上层经原笼回棚。",
+        "return_visit": "休息与房间状态沿正式存档；旅人章节暂缓，本轮不新增NPC宿主。"
       },
       "art_focal_assets": [
         "waiting_shelter",
-        "windmill_frame",
-        "aqi_bench",
-        "mill_drive_frame",
-        "plain_pier"
+        "storage_crates",
+        "windmill_frame"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -133,21 +131,27 @@
     {
       "room_id": "P-R04",
       "name": "倒钟田垄",
-      "purpose": "断田、桥下铜齿与折返高路；反冲登上通果园的石肩。",
+      "purpose": "断桥换边与桥下齿轮探索，折返反冲登上果园石肩。",
       "profile": "bridge",
       "scene": "res://game/world/regions/P/rooms/P-R04.tscn",
       "encounters": [
         {
-          "id": "P-R04:encounter:01",
-          "behavior": "patrol"
+          "behavior": "patrol",
+          "id": "P-R04:bridge_guard",
+          "max_health": 5,
+          "point": [
+            1600,
+            910
+          ]
         },
         {
-          "id": "P-R04:encounter:02",
-          "behavior": "charger"
-        },
-        {
-          "id": "P-R04:encounter:03",
-          "behavior": "charger"
+          "behavior": "hopper",
+          "id": "P-R04:field_hopper",
+          "max_health": 9,
+          "point": [
+            800,
+            1198
+          ]
         }
       ],
       "interactions": [
@@ -157,15 +161,16 @@
         }
       ],
       "experience": {
-        "player_decision": "由东侧低口选择田路或旧桥；处理巡逻与冲锋后，回身反冲登上西北石肩。",
+        "player_decision": "从东岸先看见断桥和桥下铜齿；选择继续登桥或绕入桥下，再向左上折回井口。",
         "visual_read": "下层田垄、上层断桥和转向果园的附墙石肩上下相望。",
         "pressure": "地刺缩小低路站位；桥上石挡改变射线，出口前的高差需要反冲，壁刺限制落点。",
-        "failure_recovery": "失手回桥下低台；局部危险两侧有实际到访重试点。",
+        "failure_recovery": "落到下层实地后可重新上路；领取沿原唯一收据，返程不重复发奖。",
         "return_visit": "去果园的高口和来旧路肩的低口在不同高度。"
       },
       "art_focal_assets": [
+        "plain_pier",
         "tilted_barrel",
-        "plain_pier"
+        "hanging_chime"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -176,7 +181,7 @@
     {
       "room_id": "P-R05",
       "name": "慢风平台",
-      "purpose": "从背风棚进入的自愿慢风齿轮挑战，完成后可开桥回岔路；不承担牧风者必经路线。",
+      "purpose": "自愿慢台与断桥铜齿挑战；奖励侧落口接岔路捷径，失败沿下层回到起点。",
       "profile": "mill",
       "scene": "res://game/world/regions/P/rooms/P-R05.tscn",
       "encounters": [],
@@ -191,14 +196,13 @@
         }
       ],
       "experience": {
-        "player_decision": "从27看见铜齿线索后自主进入，沿检修道接近双承载挑战，或退出回27直接挑战牧风者。",
-        "visual_read": "检修通道与奖励机腔由实体壁分开，导轨交代笼子的转向与停靠层。",
-        "pressure": "检修道可观察和等待；齿轮路要求启停、反冲换台与避开相联锯轮。",
-        "failure_recovery": "可选吊台失误落回低地重试；齿轮侧开启狭窄落口，沿独立竖槽单向落到回岔路的主路，不能从下方提前登上奖励岸。",
+        "player_decision": "用铃启动慢台，反冲接断桥铜齿；领取后从奖励侧放开落口回岔路。",
+        "visual_read": "上层断岸、慢台导轨和下方重试地面上下相望。",
+        "pressure": "自愿平台挑战；奖励侧隔板防止从捷径提前爬入。",
+        "failure_recovery": "失手落到下层，沿左端两级岸回起点；领奖侧单向落槽接捷径。",
         "return_visit": "从本侧开回06的桥，缩短收集回程；Boss重试直接由27接14。"
       },
       "art_focal_assets": [
-        "gear_city_v2_valve_panel",
         "mill_drive_frame",
         "gear_lamp"
       ],
@@ -301,26 +305,36 @@
       "scene": "res://game/world/regions/P/rooms/P-R07.tscn",
       "encounters": [
         {
-          "id": "P-R07:encounter:01",
-          "behavior": "sentry"
+          "behavior": "sentry",
+          "id": "P-R07:lookout_sentry",
+          "max_health": 14,
+          "point": [
+            1408,
+            1006
+          ]
         },
         {
-          "id": "P-R07:encounter:arch_hopper",
-          "behavior": "hopper"
+          "behavior": "patrol",
+          "id": "P-R07:arch_patrol",
+          "max_health": 9,
+          "point": [
+            1024,
+            1006
+          ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "先利用观测台处理守线敌人，再从低拱下绕到外侧井缘。",
-        "visual_read": "有支撑的高低台、窄拱和外侧石肩组织视线；下行洞口保持清楚。",
-        "pressure": "岗哨压制长射线，后段跳跃敌人占据拱外宽地；地刺只限制部分落点。",
-        "failure_recovery": "宽下路容纳后撤；未施工的外区保留实体边界。",
+        "player_decision": "利用高低石挡改变对哨兵的射线，再沿东侧石肩下井。",
+        "visual_read": "观测地标、稳定上岸与东侧下行井分区。",
+        "pressure": "哨兵与巡逻守不同宽地；入口留观察距离。",
+        "failure_recovery": "掉入下层可沿岸反冲回路，未施工外区保持封闭。",
         "return_visit": "未来区域回口返回同一腹地，不新增绕过门槛的出口。"
       },
       "art_focal_assets": [
-        "world_clock_far",
-        "storage_crates",
-        "plain_pier"
+        "windmill_frame",
+        "plain_pier",
+        "storage_crates"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -376,26 +390,45 @@
       "scene": "res://game/world/regions/P/rooms/P-R09.tscn",
       "encounters": [
         {
-          "id": "P-R09:encounter:01",
-          "behavior": "patrol"
+          "behavior": "patrol",
+          "id": "P-R09:old_track_patrol",
+          "max_health": 9,
+          "point": [
+            1344,
+            1070
+          ]
         },
         {
-          "id": "P-R09:encounter:02",
-          "behavior": "sentry"
+          "behavior": "charger",
+          "id": "P-R09:mine_charger",
+          "max_health": 14,
+          "point": [
+            2144,
+            1198
+          ]
+        },
+        {
+          "behavior": "sentry",
+          "id": "P-R09:mine_sentry",
+          "max_health": 14,
+          "point": [
+            2960,
+            878
+          ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "在矿口木栈中借货架遮弹，启动货运吊台回到谷仓口；地面与高位栈桥交替接近哨兵。",
-        "visual_read": "轨道、承重栈架、货运吊台与封闭矿口形成明确去向。",
-        "pressure": "地刺分开射击站位，宽货台可读预警；吊台停靠不依赖敌人存活。",
-        "failure_recovery": "入口梁和返程井口有支撑；矿区未施工门保持封闭。",
+        "player_decision": "沿矿口货架反冲换高低射线，回程乘货梯接上口。",
+        "visual_read": "货架、矿口地标和货梯轨道指向不同高度。",
+        "pressure": "巡逻、哨兵与俯冲分散在宽货台，窄上口不放敌人。",
+        "failure_recovery": "下层连续地面容纳失手；回上口依靠货梯，不靠敌人补枪。",
         "return_visit": "未来从矿区返回时仍落在基础安全通路。"
       },
       "art_focal_assets": [
         "storage_crates",
-        "plain_pier",
-        "mill_drive_frame"
+        "gear_city_v2_pipe_junction",
+        "plain_pier"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -409,19 +442,27 @@
       "purpose": "钩索贯穿高风车；机架转角接外沿廊。",
       "profile": "mill",
       "scene": "res://game/world/regions/P/rooms/P-R10.tscn",
-      "encounters": [],
+      "encounters": [
+        {
+          "behavior": "patrol",
+          "id": "P-R10:lower_guard",
+          "max_health": 9,
+          "point": [
+            480,
+            2414
+          ]
+        }
+      ],
       "interactions": [],
       "experience": {
-        "player_decision": "先用H离开低处入口，再在实体机肋之间换索点，穿上层机廊。",
-        "visual_read": "高低机腔与折角外廊共用真实墙体；机肋与锯轮位置提前可见。",
-        "pressure": "首次攀升保持能力锁；后段机肋改变拉索方向，间隔的宽维修台提供恢复。",
-        "failure_recovery": "未有 H 可退回风棚；高低分区实体墙阻止从入口抄近路。",
+        "player_decision": "从风棚来向进入低机腔，借H上升后选择外沿廊或回铃藏室。",
+        "visual_read": "长机架中的铜环链与少量维修台交代上升方向。",
+        "pressure": "能力主导攀升，无战斗追击。",
+        "failure_recovery": "无H可退回风棚；维修台供分段重组，低处保持实地。",
         "return_visit": "通向外沿廊和单入口回铃栈；奖励返程不改宏观连接。"
       },
       "art_focal_assets": [
         "mill_drive_frame",
-        "gear_city_v2_valve_panel",
-        "barrel",
         "gear_lamp"
       ],
       "feedback": {
@@ -444,10 +485,10 @@
         }
       ],
       "experience": {
-        "player_decision": "从机匣外廊主动进入巡游机竞技场，借两侧支台和地面净空读招、反冲换位。",
-        "visual_read": "机匣是封闭风车内部，背墙、传动架与局部灯光一致；奖励在战后出口侧。",
-        "pressure": "压力来自Boss招式，不在竞技场添加无预告地刺；前庭与领奖处保持安全。",
-        "failure_recovery": "败退回最近明确休息点；胜利才解封，并显式拾取机芯。",
+        "player_decision": "从外廊进入巡游机战场，读招、越敌换位，胜利后到东侧取部件。",
+        "visual_read": "战场与整备来向、领奖侧分别留净空。",
+        "pressure": "沿用批准的巡游机招式和数值；不加额外地形危险。",
+        "failure_recovery": "战败沿正式休息恢复；胜利解封与奖励收据仍由原所有者处理。",
         "return_visit": "胜后不重生唯一奖励，场地可通行。"
       },
       "art_focal_assets": [
@@ -468,12 +509,13 @@
       "scene": "res://game/world/regions/P/rooms/P-R12.tscn",
       "encounters": [
         {
-          "id": "P-R12:encounter:01",
-          "behavior": "hopper"
-        },
-        {
-          "id": "P-R12:encounter:drain_guard",
-          "behavior": "sentry"
+          "behavior": "hopper",
+          "id": "P-R12:cellar_hopper",
+          "max_health": 9,
+          "point": [
+            1440,
+            878
+          ]
         }
       ],
       "interactions": [
@@ -483,16 +525,15 @@
         }
       ],
       "experience": {
-        "player_decision": "主路选择旧田或排水道；行装包要求在低梁旁命中铃锁并反冲穿过限时闸。",
-        "visual_read": "奖励隔间和返程折梯保持独立；下方排水笼与侧廊连接另一条主通路。",
-        "pressure": "奖励挑战考验一次组合动作；排水侧廊的守线敌人和壁刺分开施压，避免整段重复精跳。",
-        "failure_recovery": "失败回低层重组；返程封板仅从领奖侧抬闩。",
+        "player_decision": "主路在旧田与根井间选择，支路空中射铃并反冲穿限时闸取行装。",
+        "visual_read": "上层闸窗与下层长排水笼各自有可见导轨或落点。",
+        "pressure": "支路考验射铃与位移的组合；长井承担连接。",
+        "failure_recovery": "上层失手可重组，奖励侧显式放梯；下井可搭排水笼回上层。",
         "return_visit": "永久折板便于回主路；对外通旧田18和根井19，不再直通35。"
       },
       "art_focal_assets": [
         "storage_crates",
         "barrel",
-        "tilted_barrel",
         "gear_city_v2_pipe_junction",
         "gear_lamp"
       ],
@@ -577,7 +618,7 @@
     {
       "room_id": "P-R14",
       "name": "牧风者庭地",
-      "purpose": "牧风者战斗、唯一H领取与安全首次运用；由背风棚直接重试。",
+      "purpose": "保留正式牧风者竞技场；棚口整备、胜利领取H、上层铜环首次运用与低层胜利侧闸。",
       "profile": "boss",
       "scene": "res://game/world/regions/P/rooms/P-R14.tscn",
       "encounters": [],
@@ -592,14 +633,13 @@
         }
       ],
       "experience": {
-        "player_decision": "从庭地侧口抵达战斗场；胜利后领取H，沿上方维修廊去主风铃。",
+        "player_decision": "保留正式牧风者竞技场；棚口整备、胜利领取H、上层铜环首次运用与低层胜利侧闸。",
         "visual_read": "竞技场体量保持独立，胜利廊道的索点与钟灯引向真正的下行接口。",
         "pressure": "战斗压力集中在竞技场；胜利后的索点间保留安全下层，不再叠加敌人追击。",
         "failure_recovery": "只从真实接近侧恢复；战后下降到独立奖励前庭。",
         "return_visit": "H 与回岔路闸分别交互，胜利不代替领取与开闸。"
       },
       "art_focal_assets": [
-        "windchime_plains_v2_chime_span",
         "windmill_frame",
         "bell_post"
       ],
@@ -613,7 +653,7 @@
     {
       "room_id": "P-R15",
       "name": "主风铃校时台",
-      "purpose": "钩索沿钟轴校时，开S1回到初见长桥，提示多条自愿探索。",
+      "purpose": "沿钟轴错侧检修台下降，H横越校时台断口；修钟后下行开S1接回长桥。",
       "profile": "clock",
       "scene": "res://game/world/regions/P/rooms/P-R15.tscn",
       "encounters": [],
@@ -628,15 +668,15 @@
         }
       ],
       "experience": {
-        "player_decision": "沿钟轴宽停靠台下到校时机腔；修钟后选择长桥捷径，或用已获得的H沿横梁两侧的连续索链返回庭地。",
-        "visual_read": "两处实体横梁改变钟轴的通行方向；机腔中的高台仍由能力隔断保护。",
-        "pressure": "安静的胜利后探索；横梁要求换侧，校时台前的壁刺提示保持间距。",
-        "failure_recovery": "失败落回低地；完成后下口接长桥，再经铃场回站。",
+        "player_decision": "沿钟轴错侧下降，再用H横越校时断口；修钟后开S1回长桥。",
+        "visual_read": "轴井铜环、间隔检修台和底部独立钟台明确去向。",
+        "pressure": "安静的胜利后H运用；不叠加敌人追击。",
+        "failure_recovery": "轴井有分段维修台，底部可借回程铜环接近钟台；捷径另行开启。",
         "return_visit": "钟台保持已校时姿态，捷径独立保存。"
       },
       "art_focal_assets": [
-        "windchime_plains_v2_bell_wheel",
         "world_clock_far",
+        "windchime_plains_v2_bell_wheel",
         "gear_lamp"
       ],
       "feedback": {
@@ -652,24 +692,19 @@
       "purpose": "机匣外廊先看到Boss轮廓，稳定前庭读预告。",
       "profile": "mill",
       "scene": "res://game/world/regions/P/rooms/P-R16.tscn",
-      "encounters": [
-        {
-          "id": "P-R16:encounter:01",
-          "behavior": "charger"
-        }
-      ],
+      "encounters": [],
       "interactions": [],
       "experience": {
-        "player_decision": "在隔开的入口休息位读机匣预告，越过检修台选择从上方换边或沿地面应对冲锋，再进入Boss。",
-        "visual_read": "入口灯棚与传动检修台分开，危险只出现在检修区。",
-        "pressure": "短刺段限制冲锋走廊站位，宽台是观察/射击位；休息点不被追击直接覆盖。",
-        "failure_recovery": "休息点与 Boss Arena 分离，保留明确退出方向。",
+        "player_decision": "在入口上方宽岸休息，沿机架反冲上行到巡游机门口。",
+        "visual_read": "休息灯与三段机架高差引向东门。",
+        "pressure": "整备空间无敌人和地刺。",
+        "failure_recovery": "低口保留实地和可向上穿越的检修板；能返回风车来向。",
         "return_visit": "可选巡游机胜后仍能返回这个整备点。"
       },
       "art_focal_assets": [
         "mill_drive_frame",
-        "storage_crates",
-        "barrel"
+        "gear_lamp",
+        "storage_crates"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -691,15 +726,16 @@
         }
       ],
       "experience": {
-        "player_decision": "从回铃栈入口宽廊下探支座背后，用H进入狭轴，再放手横向反冲取得行装。",
-        "visual_read": "挂铃、背梁裂隙和暖光揭示单入口藏室；宽廊保留实际退出路线。",
-        "pressure": "壁刺限定钩索释放的偏移，领奖面保持安全；返程折梯从领奖侧放下。",
-        "failure_recovery": "入口低地可重试；在领奖侧解开梯链才出现返程梯。",
+        "player_decision": "从单入口下探，借H折向藏室高岸取装备，再放返程梯。",
+        "visual_read": "挂铃和背梁灯光标记上层奖励岸。",
+        "pressure": "自愿钩索支路，无敌人追击。",
+        "failure_recovery": "失败落入低地可重组；领奖侧独立放梯，仍由原门回风车。",
         "return_visit": "仍经同一门回 P10，不把秘密房改成绕关近路。"
       },
       "art_focal_assets": [
         "barrel",
-        "gear_city_v2_valve_panel"
+        "gear_city_v2_valve_panel",
+        "windchime_plains_near_v2"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -715,36 +751,45 @@
       "scene": "res://game/world/regions/P/rooms/P-R18.tscn",
       "encounters": [
         {
-          "id": "P-R18:encounter:01",
-          "behavior": "charger"
+          "behavior": "charger",
+          "id": "P-R18:old_field_charger",
+          "max_health": 14,
+          "point": [
+            688,
+            1134
+          ]
         },
         {
-          "id": "P-R18:encounter:02",
-          "behavior": "diver"
+          "behavior": "hopper",
+          "id": "P-R18:middle_hopper",
+          "max_health": 9,
+          "point": [
+            1616,
+            1134
+          ]
         },
         {
-          "id": "P-R18:encounter:ridge_diver",
-          "behavior": "diver"
-        },
-        {
-          "id": "P-R18:encounter:culvert_guard",
-          "behavior": "patrol"
+          "behavior": "sentry",
+          "id": "P-R18:bank_sentry",
+          "max_health": 14,
+          "point": [
+            2640,
+            1134
+          ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "在宽田路选择眺望台、回水洞、东行汇口或灌溉井；抬头预览独立的高处索路。",
-        "visual_read": "石脊隔开主路上坡与高处H支路，井道向下接地窖；各出口有不同地貌。",
-        "pressure": "冲锋、空中逼近、壁刺和井廊守望分段使用；转角和宽落点允许先观察再选择。",
-        "failure_recovery": "宽低路可撤退，不以连续精确跳跃阻断普通东行。",
+        "player_decision": "宽田处理冲锋和守线，选择下井、东侧回环或乘笼上眺望台。",
+        "visual_read": "田垄断沟、灌溉石岸和竖直笼轨区分不同高度。",
+        "pressure": "三类敌人在宽岸分段出现，低处短刺限制落点。",
+        "failure_recovery": "低岸可重组，灌溉笼贯通上层；窄井口两侧保持真实净空。",
         "return_visit": "未来跨区能力预览保留原入口与可退回地面。"
       },
       "art_focal_assets": [
-        "windchime_plains_v2_chime_span",
-        "windchime_plains_v2_seed_relic",
-        "plain_pier",
         "sunken_well",
-        "gear_city_v2_pipe_junction"
+        "plain_pier",
+        "windchime_plains_near_v2"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -760,8 +805,22 @@
       "scene": "res://game/world/regions/P/rooms/P-R19.tscn",
       "encounters": [
         {
-          "id": "P-R19:encounter:01",
-          "behavior": "hopper"
+          "behavior": "hopper",
+          "id": "P-R19:root_hopper",
+          "max_health": 9,
+          "point": [
+            896,
+            2286
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R19:deep_patrol",
+          "max_health": 9,
+          "point": [
+            2208,
+            2414
+          ]
         }
       ],
       "interactions": [
@@ -771,16 +830,16 @@
         }
       ],
       "experience": {
-        "player_decision": "沿左侧主路和石沿往返上口；看到隔壁高处铜齿后判断是否已有H+D。",
-        "visual_read": "实体竖壁把回环梯道与奖励机腔分开，所有主入口留在奖励之外。",
-        "pressure": "入口转角与根部地刺限制直跑；高处断沿要求能力组合，领取后有单向返程。",
-        "failure_recovery": "无D可沿低路返回或走西侧宽检修廊；领奖侧独立折梯，不因拾取自动开启。",
+        "player_decision": "低路往返地窖与水岸，乘根井笼回汇口；上层铜齿留给H+D回访。",
+        "visual_read": "导轨连通主路，远处独立石沿承载铜齿。",
+        "pressure": "主路轻遭遇；奖励段要求从末环抬升到高岸。",
+        "failure_recovery": "底部保留实地，升降笼承担上返；奖励岸显式放梯。",
         "return_visit": "带 D 重访完成已有 TG04，不增新奖励或替代入口。"
       },
       "art_focal_assets": [
         "sunken_well",
         "windchime_plains_v2_seed_relic",
-        "plain_pier"
+        "gear_lamp"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -796,12 +855,22 @@
       "scene": "res://game/world/regions/P/rooms/P-R20.tscn",
       "encounters": [
         {
-          "id": "P-R20:encounter:01",
-          "behavior": "patrol"
+          "behavior": "patrol",
+          "id": "P-R20:bank_patrol",
+          "max_health": 9,
+          "point": [
+            2448,
+            942
+          ]
         },
         {
-          "id": "P-R20:encounter:bank_hopper",
-          "behavior": "hopper"
+          "behavior": "hopper",
+          "id": "P-R20:water_hopper",
+          "max_health": 9,
+          "point": [
+            960,
+            942
+          ]
         }
       ],
       "interactions": [
@@ -811,10 +880,10 @@
         }
       ],
       "experience": {
-        "player_decision": "从西侧高岸下行，绕过石肋后选择继续根井或借索点去水岸行装台。",
-        "visual_read": "连续岸阶落到低通道，石肋遮断高入口到奖励的直线；奖励台仍在远岸高处。",
-        "pressure": "岸边怪物、地刺与浅水改变落脚；高处入口不能直接送到奖励台。",
-        "failure_recovery": "两岸独立安全重试点，领取后显式放梯返回。",
+        "player_decision": "沿退潮岸线往返根井与集市，再选择借H登远岸装备台。",
+        "visual_read": "石肋隔开集市高口与奖励高台，岸笼连接基础回环。",
+        "pressure": "岸边轻遭遇与局部浅水危险分开布置。",
+        "failure_recovery": "失手回低岸重组，领奖侧独立放梯；基础回环不要求H。",
         "return_visit": "无 H 仍能完成基础回环；H 装备预览可记忆。"
       },
       "art_focal_assets": [
@@ -1128,28 +1197,55 @@
       "scene": "res://game/world/regions/P/rooms/P-R25.tscn",
       "encounters": [
         {
-          "id": "P-R25:encounter:01",
-          "behavior": "charger"
+          "behavior": "patrol",
+          "id": "P-R25:approach_patrol",
+          "max_health": 9,
+          "point": [
+            624,
+            846
+          ]
         },
         {
-          "id": "P-R25:encounter:02",
-          "behavior": "diver"
+          "behavior": "charger",
+          "id": "P-R25:orchard_charger",
+          "max_health": 14,
+          "point": [
+            1136,
+            846
+          ]
+        },
+        {
+          "behavior": "diver",
+          "id": "P-R25:crown_diver",
+          "max_health": 9,
+          "point": [
+            1888,
+            608
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R25:exit_patrol",
+          "max_health": 9,
+          "point": [
+            2656,
+            558
+          ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "在果圃低路面对冲锋，或登上两段挂铃旧拱台用反冲越敌换边；两路在风车前重新汇合。",
+        "player_decision": "先从低口抬升到果园；用树根高差隔开冲锋，选择稳走下路或反冲走树冠。",
         "visual_read": "两座盘根挂铃树拱托住上层短路，根间低路可穿行；枝上落脚和地面遭遇同时可读。",
-        "pressure": "上层两次反冲跨距排除满跳和晚起跳绕过，东枝末端荆棘要求提前离台；低层冲锋与一段可见地刺迫使选择清怪、短跳或改走树台，东侧俯冲争夺落点。",
-        "failure_recovery": "上路失误落回果圃低路，仍可应对遭遇并继续；清怪后可重新登上高台。",
+        "pressure": "上层反冲跨越树台，末端荆棘要求提前离台；低层冲锋与局部地刺迫使选择清怪、短跳或改走上层，东侧俯冲争夺落点。",
+        "failure_recovery": "上层失手落回果园下路，可重新借树根登高；清怪后通路仍成立。",
         "return_visit": "清怪后路仍完整，换边操作不依赖一次性敌人。"
       },
       "art_focal_assets": [
         "orchard_arch_west",
         "orchard_arch_east",
-        "windchime_plains_v2_seed_relic",
-        "windchime_plains_v2_chime_span",
-        "windchime_plains_near_v2"
+        "windchime_plains_near_v2",
+        "windchime_plains_v2_chime_span"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1160,21 +1256,20 @@
     {
       "room_id": "P-R26",
       "name": "旧风车内廊",
-      "purpose": "西吊架送至断裂检修台，向右上反冲落稳，再转乘东吊架向左上接出口。",
+      "purpose": "射铃乘西台，右上反冲接检修岸；东台斜升后左上反冲接棚口。",
       "profile": "mill",
       "scene": "res://game/world/regions/P/rooms/P-R26.tscn",
       "encounters": [],
       "interactions": [],
       "experience": {
-        "player_decision": "从安全底层看清铃与吊台关系，选择上升阶段起跳反冲至右侧检修台；落稳回枪后启东台，改变射向向上接出口。",
+        "player_decision": "先观察两条导轨和宽检修岸，分两次决定射铃与换乘时机；中间落稳可重新准备。",
         "visual_read": "室内梁架与传动轴支撑两条吊索，砌体检修台、阀门板和灯芯构成等待位；齿轮横轨在中层可见，铜铃各连到所属承载。",
-        "pressure": "西吊架收窄横向行程，平台边缘及顶端满跳仍需反冲补足横跨；东吊架旁横向传动齿轮要求观察扫过区和登台时机，检修台提供等待位。",
-        "failure_recovery": "第一处失误回到无伤害底层，重搭循环承载；第二处可落回吊台或中层/底层支撑，仍需完成向上接续。低层不能直接通到上出口。",
+        "pressure": "西台垂直抬升后反冲接右侧检修岸；东台斜升接出口。中层传动齿轮要求观察扫过区，宽岸提供等待位。",
+        "failure_recovery": "沿宽岸或下层实地返回本段；承载可用两端铃召回，沿用原永久机关与收集收据。",
         "return_visit": "吊台运行/停靠相位按正式状态保留；从上层可逐段下降，重入仍能用铃恢复运行。"
       },
       "art_focal_assets": [
         "mill_drive_frame",
-        "gear_city_v2_valve_panel",
         "gear_lamp"
       ],
       "feedback": {
@@ -1186,23 +1281,21 @@
     {
       "room_id": "P-R27",
       "name": "背风检修棚",
-      "purpose": "牧风者前休息与两路辨认；直达14，侧看05铜齿自愿挑战。",
+      "purpose": "牧风者前的宽棚休息与两路辨认，上行庭地、东行铜齿支路。",
       "profile": "shelter",
       "scene": "res://game/world/regions/P/rooms/P-R27.tscn",
       "encounters": [],
       "interactions": [],
       "experience": {
-        "player_decision": "明确休息、整理装备，沿短颈直接进入牧风者前庭；东侧05为可选铜齿挑战。",
+        "player_decision": "在棚内休息后选择挑战牧风者或先探索慢风平台；宽阶保留返程与辨路。",
         "visual_read": "背风棚、充电站、修好的灯凳形成安全停顿。",
         "pressure": "无战斗；阿栖修灯不新增休息权限或奖励。",
-        "failure_recovery": "风车入口收为地面中的96wu缺口；真实侧岸承接上行入场，短跳跨缺口到休息棚，不用横跨竖门的接人薄板。",
-        "return_visit": "阿栖只在首个合法棚出现；完成后保留实际宿主灯凳。"
+        "failure_recovery": "棚下入口有实地，沿宽岸反冲回休息大厅；休息后可重试牧风者。",
+        "return_visit": "休息与房间状态沿正式存档；旅人章节暂缓，本轮不新增NPC宿主。"
       },
       "art_focal_assets": [
         "waiting_shelter",
         "storage_crates",
-        "aqi_bench",
-        "windchime_plains_near_v2",
         "windchime_plains_v2_chime_span"
       ],
       "feedback": {
@@ -1220,26 +1313,45 @@
       "scene": "res://game/world/regions/P/rooms/P-R28.tscn",
       "encounters": [
         {
-          "id": "P-R28:encounter:01",
-          "behavior": "patrol"
+          "behavior": "charger",
+          "id": "P-R28:barn_charger",
+          "max_health": 14,
+          "point": [
+            1280,
+            1646
+          ]
         },
         {
-          "id": "P-R28:encounter:02",
-          "behavior": "charger"
+          "behavior": "patrol",
+          "id": "P-R28:fields_patrol",
+          "max_health": 9,
+          "point": [
+            448,
+            1518
+          ]
+        },
+        {
+          "behavior": "hopper",
+          "id": "P-R28:exit_hopper",
+          "max_health": 9,
+          "point": [
+            960,
+            1390
+          ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "从屋顶落点选择快线或落田处理巡逻；在谷仓入口前反冲越上高石肩。",
-        "visual_read": "两层田路和末端整块石肩构成路线，不以连续小平台填空。",
-        "pressure": "地面冲锋与刺畦限制站射；出口高差与壁刺共同要求控制上升和落点。",
-        "failure_recovery": "低路持续可走，未施工外区维持封闭预览。",
+        "player_decision": "从棚口下降到旧田，清理宽岸敌人或反冲跨沟去谷仓。",
+        "visual_read": "高口石肩、田垄与谷仓入口分层。",
+        "pressure": "冲锋、巡逻与跳怪守各自宽岸，安全门台不摆怪。",
+        "failure_recovery": "低田可重新起跳；原高口石肩提供回访路线。",
         "return_visit": "经中层石肩反冲接上方风棚回口；低路与谷仓入口保留，返程不靠密集短台。"
       },
       "art_focal_assets": [
-        "windchime_plains_v2_chime_span",
-        "windchime_plains_v2_seed_relic",
-        "plain_pier"
+        "storage_crates",
+        "orchard_arch_west",
+        "tilted_barrel"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1255,26 +1367,36 @@
       "scene": "res://game/world/regions/P/rooms/P-R29.tscn",
       "encounters": [
         {
-          "id": "P-R29:encounter:01",
-          "behavior": "sentry"
+          "behavior": "patrol",
+          "id": "P-R29:beam_patrol",
+          "max_health": 9,
+          "point": [
+            1504,
+            622
+          ]
         },
         {
-          "id": "P-R29:encounter:02",
-          "behavior": "hopper"
+          "behavior": "hopper",
+          "id": "P-R29:lower_hopper",
+          "max_health": 9,
+          "point": [
+            688,
+            1038
+          ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "从谷仓上廊下降到中间卸粮台，腾空向后击铃并反冲穿过闸窗，接上右层检修岸；也可沿下层落槽直下，返程搭独立货梯。",
-        "visual_read": "谷仓木梁、卸粮闸与货梯分工清楚，窗口灯和铃线能在动作前看见。",
-        "pressure": "向后击铃与向前反冲接右层落点；铃到门留出子弹命中时间。开门后普通晚跳仍落入下层；壁刺限制右岸贴壁下落，左下哨兵和右下跳怪分守不同空间。",
-        "failure_recovery": "荆棘两侧有局部重试，矿口下口主动下穿。",
+        "player_decision": "上层反冲越仓顶断口，或落到卸粮地面，再借货梯返回。",
+        "visual_read": "仓顶梁、卸粮面与独立货梯轴线分工。",
+        "pressure": "哨兵和跳怪分守低层；上层跨距不靠敌人存活。",
+        "failure_recovery": "失手落到低层实地；下口有货梯，返程不重复走屋顶断口。",
         "return_visit": "上层回看风棚，下层通矿口旧栈道。"
       },
       "art_focal_assets": [
         "storage_crates",
         "barrel",
-        "hanging_chime"
+        "gear_lamp"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1290,8 +1412,13 @@
       "scene": "res://game/world/regions/P/rooms/P-R30.tscn",
       "encounters": [
         {
-          "id": "P-R30:encounter:water_hopper",
-          "behavior": "hopper"
+          "behavior": "hopper",
+          "id": "P-R30:water_hopper",
+          "max_health": 9,
+          "point": [
+            576,
+            878
+          ]
         }
       ],
       "interactions": [
@@ -1301,10 +1428,10 @@
         }
       ],
       "experience": {
-        "player_decision": "从西侧阶岸落入低通道，再决定下行回风棚或去钩索奖励支路。",
-        "visual_read": "洞顶石肋阻断高来向的直接跨越，奖励低顶与索环保持清楚的空间关系。",
-        "pressure": "主通路跳跃敌人改变落脚；奖励末段的顶刺要求收住钩索退出后的速度。",
-        "failure_recovery": "失误落回洞底；高处滑轮需本人到台才放返程梯。",
+        "player_decision": "沿低顶主路去风棚，或下探索环支路领取铜齿。",
+        "visual_read": "石肋阻断从上层直接落进奖励台；索环提示低处接近。",
+        "pressure": "主路轻遭遇，奖励要求在低顶中控制钩索和落点。",
+        "failure_recovery": "洞底可沿岸回主路；到奖励侧后显式放返程梯。",
         "return_visit": "TG03 仍是原唯一奖励，领取和开梯分开。"
       },
       "art_focal_assets": [
@@ -1325,25 +1452,36 @@
       "scene": "res://game/world/regions/P/rooms/P-R31.tscn",
       "encounters": [
         {
-          "id": "P-R31:encounter:arch_hopper",
-          "behavior": "hopper"
+          "behavior": "patrol",
+          "id": "P-R31:far_bank_patrol",
+          "max_health": 9,
+          "point": [
+            2608,
+            878
+          ]
         },
         {
-          "id": "P-R31:encounter:bridge_sentry",
-          "behavior": "sentry"
+          "behavior": "hopper",
+          "id": "P-R31:lower_refuge_hopper",
+          "max_health": 9,
+          "point": [
+            1744,
+            1390
+          ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "在西侧安全观察台辨认站灯、上桥铜环与下集水车，再选择路线；得H后回来比较旧锁与新路。",
-        "visual_read": "中央钟柱、错层回廊和三个分层入口形成一个大枢纽，不把出口排成同一层门列。",
-        "pressure": "首次观察和地图辨认不受攻击；离开观察区后，高路承载射线与低路路障遭遇各自承担压力。",
-        "failure_recovery": "底层持续连通；高口有逐级落台。",
+        "player_decision": "从小站出来辨认上桥与下集市，选择田面反冲或乘笼换层。",
+        "visual_read": "上口灯、分层宽岸与斜升笼轨指向三个来向。",
+        "pressure": "入口安静；右侧宽岸与下层分配轻遭遇。",
+        "failure_recovery": "宽底地面可重组，笼子与停靠岸负责高低返程。",
         "return_visit": "修钟回站经过此处，再带 H 上长桥看新路。"
       },
       "art_focal_assets": [
         "bell_post",
-        "mill_drive_frame"
+        "windchime_plains_v2_chime_span",
+        "storage_crates"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1360,25 +1498,35 @@
       "scene": "res://game/world/regions/P/rooms/P-R32.tscn",
       "encounters": [
         {
-          "id": "P-R32:encounter:01",
-          "behavior": "patrol"
+          "behavior": "patrol",
+          "id": "P-R32:under_bridge_patrol",
+          "max_health": 9,
+          "point": [
+            1744,
+            1006
+          ]
         },
         {
-          "id": "P-R32:encounter:underbridge_diver",
-          "behavior": "diver"
+          "behavior": "diver",
+          "id": "P-R32:under_bridge_diver",
+          "max_health": 9,
+          "point": [
+            2240,
+            832
+          ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "沿桥下推进钟影前庭，或取得H后越过整段断桥去东行汇口。",
-        "visual_read": "主路与高桥之间保留明确间距；高处索链另接主风铃回程口。",
-        "pressure": "桥下石墩、地刺、巡逻与空中逼近改变接近角度；上层H路线保留连续的安全接收岸。",
-        "failure_recovery": "掉落进入稳定低路；校时捷径上口有落台与返向索点。",
+        "player_decision": "沿桥下去钟庭，取得H后尝试长断桥；修钟捷径落回西桥头。",
+        "visual_read": "上层索链与低层石路明确分层，南井口接汇口。",
+        "pressure": "桥下巡逻与俯冲改变射线；上桥主压力为连续H。",
+        "failure_recovery": "落下可回低路，南井两侧留实地；上口保留返向铜环。",
         "return_visit": "15修钟后落回熟悉桥头，铜环响应H；可试上桥、走低路向东，或经31回站/下集入水路。"
       },
       "art_focal_assets": [
-        "world_clock_far",
-        "plain_pier"
+        "plain_pier",
+        "world_clock_far"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1396,14 +1544,15 @@
       "encounters": [],
       "interactions": [],
       "experience": {
-        "player_decision": "沿宽石阶下到钟心前庭，读地标和回访线索，再从真实下口进入汇口。",
-        "visual_read": "钟体落在前庭实体地基，台地从桥口逐层展开；不使用长空中细板。",
-        "pressure": "不增加战斗；这里承担路线观察、世界目标预览与恢复节奏。",
-        "failure_recovery": "北向未施工边界可见；侧路持续可退。",
+        "player_decision": "在钟影宽庭辨认世界地标，再从南井接东行汇口。",
+        "visual_read": "世界钟与宽庭地基构成安静地标，井口两侧岸明确。",
+        "pressure": "无战斗。",
+        "failure_recovery": "南井的中继板接回宽庭，外区未施工边界保持封闭。",
         "return_visit": "钟心是全世界目标，平原修钟不误作全部钟心已修复。"
       },
       "art_focal_assets": [
-        "world_clock_close",
+        "world_clock_far",
+        "windchime_plains_v2_bell_wheel",
         "bell_post"
       ],
       "feedback": {
@@ -1420,27 +1569,46 @@
       "scene": "res://game/world/regions/P/rooms/P-R34.tscn",
       "encounters": [
         {
-          "id": "P-R34:encounter:01",
-          "behavior": "patrol"
+          "behavior": "patrol",
+          "id": "P-R34:stalls_patrol",
+          "max_health": 9,
+          "point": [
+            912,
+            366
+          ]
         },
         {
-          "id": "P-R34:encounter:02",
-          "behavior": "hopper"
+          "behavior": "hopper",
+          "id": "P-R34:under_stalls_hopper",
+          "max_health": 9,
+          "point": [
+            1696,
+            1070
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R34:east_roof_patrol",
+          "max_health": 9,
+          "point": [
+            2608,
+            366
+          ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "从屋檐选择货运吊台或摊间道路；在下层拐入水岸，而非沿同一直线跑完。",
-        "visual_read": "摊架、石肋和下层通道分割空间；上方承载的两岸能看清。",
-        "pressure": "巡逻与跳跃敌人占据摊间，地刺约束窄车道；机关路线提供不同射线与落点。",
-        "failure_recovery": "宽地面接住失手，两个出口高度不同且可见。",
+        "player_decision": "选择屋顶短驳或落到摊间低路，再从下方转进水岸。",
+        "visual_read": "屋檐、摊间地面和下行出口形成三层关系。",
+        "pressure": "低路巡逻与跳怪分段；上层跨距和承载提供不同路线。",
+        "failure_recovery": "低路接住失手，可沿侧向石肩重组。",
         "return_visit": "市集保留生活痕迹，不复制 NPC 商店和休息站。"
       },
       "art_focal_assets": [
-        "market_stalls",
         "storage_crates",
-        "plain_pier",
-        "gear_lamp"
+        "merchant_counter",
+        "barrel",
+        "plain_pier"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1456,35 +1624,45 @@
       "scene": "res://game/world/regions/P/rooms/P-R35.tscn",
       "encounters": [
         {
-          "id": "P-R35:encounter:01",
-          "behavior": "patrol"
+          "behavior": "patrol",
+          "id": "P-R35:middle_patrol",
+          "max_health": 9,
+          "point": [
+            1008,
+            1614
+          ]
         },
         {
-          "id": "P-R35:encounter:road_charger",
-          "behavior": "charger"
+          "behavior": "sentry",
+          "id": "P-R35:east_guard",
+          "max_health": 14,
+          "point": [
+            2464,
+            1006
+          ]
         },
         {
-          "id": "P-R35:encounter:arcade_patrol",
-          "behavior": "patrol"
-        },
-        {
-          "id": "P-R35:encounter:arcade_hopper",
-          "behavior": "hopper"
+          "behavior": "hopper",
+          "id": "P-R35:lower_hopper",
+          "max_health": 9,
+          "point": [
+            1680,
+            1806
+          ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "在高低路交会处选择东侧旧田、上方钟庭或下方旧集/根井；地窖通过18或19接近。",
-        "visual_read": "道路、竖井与拱廊有不同的宽度和高差，五个出口分层可辨；钟影前庭独立位于上台地。",
-        "pressure": "核心道路与下层拱廊各有独立遭遇；井笼与侧向锯轮共用启停传动，站在笼心可避开轮缘，侧廊提供换层观察和恢复。",
-        "failure_recovery": "低路两岸与多层实体台面允许撤退；中央吊台在狭窄下口中起停，不用横跨出口的接人木板。",
+        "player_decision": "在交会处选择旧田、钟庭、长桥、集市或根井。",
+        "visual_read": "上下分层的实体岸与中央升降笼明确各路高度。",
+        "pressure": "宽岸轻遭遇，交通笼不绑定精密战斗挑战。",
+        "failure_recovery": "低处有回程石肩和升降笼；地窖仍经18或19抵达。",
         "return_visit": "旧田—地窖—根井形成下层回环，经18或19抵达地窖，不保留35—12重复直连。"
       },
       "art_focal_assets": [
-        "plain_pier",
-        "mill_drive_frame",
         "bell_post",
-        "windchime_plains_v2_road_marker"
+        "storage_crates",
+        "plain_pier"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",

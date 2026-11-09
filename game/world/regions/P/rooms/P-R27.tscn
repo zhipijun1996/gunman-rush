@@ -1,23 +1,22 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=4 format=3]
 [ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
 [ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
 [node name="P-R27" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R27"
-traveler_point = Vector2(448, 494)
 art_profile = "shelter"
 arrival_text = "背风检修棚"
-platforms = Array[Rect2]([Rect2(0,512,512,128),Rect2(960,512,192,128),Rect2(640,512,192,128),Rect2(0,512,832,128),Rect2(960,512,192,128),Rect2(512,400,288,64),Rect2(864,288,288,32),Rect2(960,512,192,128),Rect2(864,288,288,32)])
-one_way_indices = Array[int]([])
-start_point = Vector2(144, 494)
-rest_point = Vector2(320, 494)
+start_point = Vector2(640,718)
+rest_point = Vector2(960,558)
+traveler_point = Vector2(0,0)
+platforms = Array[Rect2]([Rect2(256,736,192,96),Rect2(576,736,1088,96),Rect2(800,576,864,160),Rect2(352,448,288,64),Rect2(512,288,224,64),Rect2(672,160,192,32)])
+one_way_indices = Array[int]([3,4,5])
+masonry_platform_indices = Array[int]([])
+hazards = Array[Rect2]([])
+spike_strips = Array[Dictionary]([])
 enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([{"point": [224, 464], "text": "棚里避风。灯架旁的充电站仍然可用。"}])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
 retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset":"waiting_shelter","point":[336,512],"layer":-2},{"asset":"storage_crates","point":[992,512],"layer":-2},{"asset":"aqi_bench","point":[752,512],"layer":-2,"receipt":"story_aqi_t03","story_host":"AQI_T03"},{"asset":"windchime_plains_near_v2","point":[144,512],"layer":-2,"sway":true},{"asset":"windchime_plains_v2_chime_span","point":[960,512],"layer":-3}])
-masonry_platform_indices = Array[int]([5,6])
-illustrated_platform_indices = Array[int]([])
+signs = Array[Dictionary]([{"point":[1120,528],"text":"上行是牧风者庭地。向东的慢风平台有铜齿，可稍后再去。"}])
+art_placements = Array[Dictionary]([{"asset":"waiting_shelter","point":[960,576],"layer":-2},{"asset":"storage_crates","point":[1328,576],"layer":-2},{"asset":"windchime_plains_v2_chime_span","point":[768,160],"layer":-2}])
+route_guide = {"schema": 1, "steps": [{"number": 1, "label": "棚内整备", "action": "从检修口进棚休息，东边为自愿铜齿支路。", "point": [640, 718], "path": [[640, 718], [800, 558], [1520, 558]]}, {"number": 2, "label": "庭地入口", "action": "从棚左侧宽石阶向上，抵达牧风者庭地。", "point": [800, 558], "path": [[800, 558], [512, 430], [624, 270], [768, 142]]}]}

@@ -9,19 +9,21 @@
 [node name="P-R14" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R14"
+route_guide = {"schema": 1, "steps": [{"number": 1, "label": "庭地整备", "action": "从棚口沿宽石肩进入正式战场，完整入场后封门。", "point": [512, 1230], "path": [[512, 1230], [352, 1102], [384, 942], [400, 742], [592, 742]]}, {"number": 2, "label": "领取与回环", "action": "胜利后领取H，低路可开侧闸回岔路；上层铜环通向校时台。", "point": [1800, 742], "path": [[1800, 742], [1984, 558], [2080, 366], [2560, 366], [3200, 366], [4064, 366], [4736, 398]]}]}
+hazards = Array[Rect2]([])
 art_profile = "boss"
-masonry_platform_indices = Array[int]([11,12,13,14,18,19,20,21])
+masonry_platform_indices = Array[int]([3,6,7,8,10,12,13,14,15,16])
 arrival_text = "牧风者庭地"
-platforms = Array[Rect2]([Rect2(0,1152,1024,128),Rect2(1392,1184,784,96),Rect2(1392,1152,496,32),Rect2(0,480,320,48),Rect2(1856,480,320,48),Rect2(1888,928,288,32),Rect2(500,160,24,408),Rect2(1620,160,24,408),Rect2(512,160,1120,24),Rect2(0,760,512,40),Rect2(1632,760,544,40),Rect2(128,1008,288,48),Rect2(1728,1008,288,48),Rect2(288,864,224,48),Rect2(1632,864,192,48),Rect2(1152,1152,240,128),Rect2(0,1184,2176,96),Rect2(0,1152,1888,32),Rect2(2176,384,640,128),Rect2(3104,384,640,128),Rect2(4096,384,352,128),Rect2(4576,384,192,128),Rect2(4576,384,192,128),Rect2(1888,928,288,32),Rect2(1888,1184,288,32)])
-one_way_indices = Array[int]([9,10])
-start_point = Vector2(144, 1134)
+platforms = Array[Rect2]([Rect2(192,1312,128,32),Rect2(448,1248,128,96),Rect2(256,1120,192,32),Rect2(0,960,512,64),Rect2(0,760,512,40),Rect2(1632,760,544,40),Rect2(500,160,24,408),Rect2(1620,160,24,408),Rect2(512,160,1120,24),Rect2(0,992,3904,32),Rect2(3520,1120,384,96),Rect2(1856,576,256,32),Rect2(1920,384,320,64),Rect2(2432,384,288,64),Rect2(3072,384,352,64),Rect2(3904,384,320,64),Rect2(4672,416,128,96)])
+one_way_indices = Array[int]([2,3,4,5,9,11])
+start_point = Vector2(512,1230)
 rest_point = Vector2(0, 0)
 enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([{"point": [224, 1104], "text": "风声掠过空庭。前面的石台，曾是报时的地方。"}])
-hook_points = Array[Vector2]([Vector2(1760,568),Vector2(1760,376),Vector2(1880,240),Vector2(2096,240),Vector2(2272,240),Vector2(2448,240),Vector2(2624,240),Vector2(2800,240),Vector2(2976,240),Vector2(3152,240),Vector2(3328,240),Vector2(3504,240),Vector2(3680,240),Vector2(3856,240),Vector2(4032,240),Vector2(4208,240),Vector2(4384,240)])
+signs = Array[Dictionary]([])
+hook_points = Array[Vector2]([Vector2(1984,408),Vector2(2112,240),Vector2(2304,240),Vector2(2496,240),Vector2(2688,240),Vector2(2880,240),Vector2(3072,240),Vector2(3264,240),Vector2(3456,240),Vector2(3648,240),Vector2(3840,240),Vector2(4032,240),Vector2(4224,240),Vector2(4416,240),Vector2(4608,240)])
 section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_chime_span","point":[832,1152.0],"layer":-2},{"asset":"windmill_frame","point":[1568,1152],"layer":-14,"depth":0.75},{"asset":"bell_post","point":[2448,384],"layer":-2,"light":true},{"asset":"bell_post","point":[3488,384],"layer":-2,"light":true}])
+retry_anchors = Array[Dictionary]([{"bounds":[336,900,96,60],"point":[384,942],"section":"main"},{"bounds":[1752,700,96,60],"point":[1800,742],"section":"main"},{"bounds":[2032,324,96,60],"point":[2080,366],"section":"main"},{"bounds":[3152,324,96,60],"point":[3200,366],"section":"main"},{"bounds":[4016,324,96,60],"point":[4064,366],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"windmill_frame","point":[192,960],"layer":-2,"depth":0.75},{"asset":"bell_post","point":[2560,384],"layer":-2,"light":true},{"asset":"bell_post","point":[3200,384],"layer":-2,"light":true},{"asset":"bell_post","point":[4064,384],"layer":-2,"light":true}])
 boss_binding = ExtResource("boss")
 boss_identity = &"windkeeper_storm"
 defeat_action = "defeat_P_WINDKEEPER"
@@ -37,14 +39,14 @@ definition = ExtResource("arena")
 authoring_debug = false
 [node name="Interaction_0" type="Node2D" parent="."]
 script = ExtResource("interaction")
-position = Vector2(1800, 1134)
+position = Vector2(1800,742)
 action_id = "get_H"
 section_id = "main"
 label = "领取钩索"
 visual = "grapple_device"
 [node name="Interaction_1" type="Node2D" parent="."]
 script = ExtResource("interaction")
-position = Vector2(1928, 1166)
+position = Vector2(3712,974)
 action_id = "open_SC_P03"
 section_id = "main"
 label = "开启回程机关"

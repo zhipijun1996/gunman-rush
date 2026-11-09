@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 35房灰盒续作；保留九房、迁移26房，复核门台、反冲与承载，继续连续路线和能力门验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 | MOBILE-LEVEL-WORKBENCH-01 | 08/06/13/24新灰盒与隐藏宝箱已发布r49；审核状态同步，旅人剧情延后 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 

@@ -30,13 +30,13 @@ class WorldReviewTests(unittest.TestCase):
     @classmethod
     def make_review(cls, **overrides):
         args = dict(root=ROOT, world=cls.world, construction=cls.construction,
-                    contracts=cls.contracts, runtime=cls.runtime, editable_rooms=cls.plains,
+                    contracts=cls.contracts, runtime=cls.runtime, editable_rooms=editable_room_ids(ROOT, cls.construction),
                     baseline="a" * 40)
         return make_review_context(**(args | overrides))
 
     def test_complete_authoritative_region_graph_is_only_a_summary(self):
         review = self.review
-        self.assertEqual((16, 309, 38, 35, 6), tuple(review["counts"][key] for key in (
+        self.assertEqual((16, 309, 38, 36, 6), tuple(review["counts"][key] for key in (
             "regions", "rooms", "region_connections", "editable_rooms", "implemented_rooms")))
         expected = {row["id"] for row in self.world["connections"]
                     if review["rooms"][row["a"]]["region"] != review["rooms"][row["b"]]["region"]}
@@ -68,7 +68,7 @@ class WorldReviewTests(unittest.TestCase):
 
     def test_unknown_room_or_broken_pair_fails_closed(self):
         with self.assertRaisesRegex(ValueError, "unknown editable"):
-            self.make_review(editable_rooms=self.plains | {"V-R999"})
+            self.make_review(editable_rooms=editable_room_ids(ROOT, self.construction) | {"V-R999"})
         contracts = copy.deepcopy(self.contracts)
         room = next(row for row in contracts["rooms"] if row["room_id"] == "P-R04")
         door = next(row for row in room["doors"] if row["edge_id"] == "C01")
@@ -76,7 +76,7 @@ class WorldReviewTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "door pair disagrees"):
             self.make_review(contracts=contracts)
 
-    def test_adding_one_trial_does_not_mark_its_neighbors_playable(self):
+    def test_registered_trial_does_not_mark_its_neighbors_playable(self):
         review = self.make_review(editable_rooms=self.plains | {"V-R12"})
         self.assertEqual(36, review["counts"]["editable_rooms"])
         self.assertTrue(review["rooms"]["V-R12"]["preview_available"])

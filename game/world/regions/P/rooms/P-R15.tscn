@@ -6,31 +6,32 @@
 [node name="P-R15" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R15"
+route_guide = {"schema": 1, "steps": [{"number": 1, "label": "钟轴下降", "action": "沿错侧检修台下降，铜环保留H上返路线。", "point": [192, 142], "path": [[192, 142], [864, 366], [864, 1440], [864, 2592], [864, 3758]]}, {"number": 2, "label": "横越校时台", "action": "从井底侧岸钩住连续铜环横越断口，到台上修钟并开回桥捷径。", "point": [864, 3758], "path": [[864, 3758], [1136, 3840], [1520, 3840], [1952, 3918], [2304, 4686]]}]}
 art_profile = "clock"
-masonry_platform_indices = Array[int]([8,9,10,11,12,13,17,18,19,20,21,22,23])
-spike_strips = Array[Dictionary]([{"id":"clock_rib","bounds":[1344,2944,26,112],"facing":"right"}])
+masonry_platform_indices = Array[int]([12])
+spike_strips = Array[Dictionary]([])
 arrival_text = "主风铃校时台"
-platforms = Array[Rect2]([Rect2(0,3296,960,32),Rect2(1328,3296,400,32),Rect2(1856,3296,192,32),Rect2(0,3200,960,128),Rect2(1328,3200,400,128),Rect2(1856,3200,192,128),Rect2(1440,2752,512,40),Rect2(1312,2048,32,1056),Rect2(736,3056,288,48),Rect2(1056,2912,256,48),Rect2(736,2768,288,48),Rect2(1056,2624,256,48),Rect2(736,2480,288,48),Rect2(1056,2336,256,48),Rect2(1088,3200,240,128),Rect2(0,3200,1728,128),Rect2(1856,3200,192,128),Rect2(512,640,288,64),Rect2(864,1152,288,64),Rect2(512,1664,288,64),Rect2(864,2176,288,32),Rect2(864,2208,224,32),Rect2(512,864,448,64),Rect2(704,1376,448,64),Rect2(576,160,192,32),Rect2(1856,3200,192,128)])
-one_way_indices = Array[int]([])
-start_point = Vector2(144,3182)
+platforms = Array[Rect2]([Rect2(0,160,352,224),Rect2(704.0,544.0,128.0,24.0),Rect2(960.0,928.0,128.0,24.0),Rect2(704.0,1312.0,128.0,24.0),Rect2(960.0,1696.0,128.0,24.0),Rect2(704.0,2080.0,128.0,24.0),Rect2(960.0,2464.0,128.0,24.0),Rect2(704.0,2848.0,128.0,24.0),Rect2(960.0,3232.0,128.0,24.0),Rect2(704.0,3616.0,128.0,24.0),Rect2(512.0,4704.0,1600.0,96.0),Rect2(2240.0,4704.0,192.0,96.0),Rect2(1536.0,3936.0,704.0,64.0),Rect2(704.0,3776.0,288.0,48.0)])
+one_way_indices = Array[int]([1,2,3,4,5,6,7,8,9])
+start_point = Vector2(192,142)
 rest_point = Vector2(0, 0)
 enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([{"point":[224,3152],"text":"主风铃停止了转动。校时台在高处等候。"}])
-hook_points = Array[Vector2]([Vector2(1504,2944),Vector2(1376,2832),Vector2(1376,2640),Vector2(992,1984),Vector2(992,1808),Vector2(832,1680),Vector2(832,1504),Vector2(640,1504),Vector2(608,1328),Vector2(608,1152),Vector2(784,1056),Vector2(960,1024),Vector2(1056,864),Vector2(1056,688),Vector2(880,592),Vector2(880,416),Vector2(880,240),Vector2(880,64),Vector2(704,64)])
-section_volumes = Array[Dictionary]([{"id":"access:H","bounds":[1408,2048,640,720]}])
-retry_anchors = Array[Dictionary]([{"bounds":[1456,3140,96,60],"point":[1504,3182],"section":"main"},{"bounds":[1584,2692,96,60],"point":[1632,2734],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_bell_wheel","point":[1504,2752.0],"layer":-2},{"asset":"world_clock_far","point":[1888,3200],"layer":-14,"depth":0.6},{"asset":"gear_lamp","point":[704,640],"layer":-2,"light":true},{"asset":"gear_lamp","point":[1056,1152],"layer":-2,"light":true},{"asset":"gear_lamp","point":[704,1664],"layer":-2,"light":true}])
+signs = Array[Dictionary]([])
+hook_points = Array[Vector2]([Vector2(896,288),Vector2(896,480),Vector2(896,672),Vector2(896,864),Vector2(896,1056),Vector2(896,1248),Vector2(896,1440),Vector2(896,1632),Vector2(896,1824),Vector2(896,2016),Vector2(896,2208),Vector2(896,2400),Vector2(896,2592),Vector2(896,2784),Vector2(896,2976),Vector2(896,3168),Vector2(896,3360),Vector2(896,3552),Vector2(896,3744),Vector2(1136,3840),Vector2(1328,3840),Vector2(1520,3840),Vector2(1728,3840),Vector2(1920,3840),Vector2(1248,4512),Vector2(1376,4352),Vector2(1504,4192),Vector2(1632,4032)])
+section_volumes = Array[Dictionary]([{"id":"access:H","bounds":[1504,3712,896,544]}])
+retry_anchors = Array[Dictionary]([{"bounds":[816,3716,96,60],"point":[864,3758],"section":"main"},{"bounds":[1904,3876,96,60],"point":[1952,3918],"section":"main"},{"bounds":[2256,4644,96,60],"point":[2304,4686],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"world_clock_far","point":[1920,4704],"layer":-2,"depth":0.6},{"asset":"windchime_plains_v2_bell_wheel","point":[1952,3936],"layer":-2},{"asset":"gear_lamp","point":[768,544],"layer":-2,"light":true},{"asset":"gear_lamp","point":[1024,1696],"layer":-2,"light":true},{"asset":"gear_lamp","point":[768,2848],"layer":-2,"light":true}])
 illustrated_platform_indices = Array[int]([])
 [node name="Interaction_0" type="Node2D" parent="."]
 script = ExtResource("interaction")
-position = Vector2(1632,2734)
+position = Vector2(1952,3918)
 action_id = "repair_P"
 section_id = "access:H"
 label = "修复主风铃"
 visual = "clock_altar"
 [node name="Interaction_1" type="Node2D" parent="."]
 script = ExtResource("interaction")
-position = Vector2(1728,2734)
+position = Vector2(2112,3918)
 action_id = "open_SC_P01"
 section_id = "access:H"
 label = "开启回程机关"

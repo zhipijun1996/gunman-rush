@@ -1,24 +1,20 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=4 format=3]
 [ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
 [ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
 [node name="P-R25" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R25"
 art_profile = "orchard"
 arrival_text = "倒铃果园"
-platforms = Array[Rect2]([Rect2(0,896,2048,128),Rect2(288,800,192,96),Rect2(736,704,256,24),Rect2(1248,624,336,24),Rect2(1600,800,160,96),Rect2(0,896,288,32),Rect2(1760,896,288,32)])
-one_way_indices = Array[int]([])
-illustrated_platform_indices = Array[int]([2,3])
-spike_strips = Array[Dictionary]([{"id":"branch_tip","bounds":[1504,598,64,26],"facing":"up"}])
-start_point = Vector2(144, 878)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id": "P-R25:encounter:01", "behavior": "charger", "point": [832, 878], "max_health": 10}, {"id": "P-R25:encounter:02", "behavior": "diver", "point": [1456, 760], "max_health": 10}])
-signs = Array[Dictionary]([{"point": [224, 848], "text": "低处穿过旧果圃，上方沿挂铃的树台换边。风车的声音从东边来。"}])
-hazards = Array[Rect2]([Rect2(1088, 872, 96, 24)])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[976,840,96,56],"point":[1024,878],"section":"main"},{"bounds":[1200,840,96,56],"point":[1248,878],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"orchard_arch_west","point":[864,896],"layer":-3,"sway":true},{"asset":"orchard_arch_east","point":[1416,896],"layer":-3,"sway":true},{"asset":"windchime_plains_v2_seed_relic","point":[368,800],"layer":-2},{"asset":"windchime_plains_v2_chime_span","point":[1376,624],"layer":-2},{"asset":"windchime_plains_near_v2","point":[208,896],"layer":-2,"sway":true},{"asset":"windchime_plains_near_v2","point":[592,896],"layer":-2,"sway":true},{"asset":"windchime_plains_near_v2","point":[1536,896],"layer":-2,"sway":true},{"asset":"windchime_plains_near_v2","point":[1856,896],"layer":-2,"sway":true},{"asset":"windchime_plains_mid_v2","point":[1096,1000],"layer":-18,"depth":0.62}])
-masonry_platform_indices = Array[int]([])
+start_point = Vector2(320,1102)
+platforms = Array[Rect2]([Rect2(0,1184,128,32),Rect2(256,1120,128,96),Rect2(384,864,2496,32),Rect2(256,960,128,64),Rect2(640,768,288,96),Rect2(1312,736,320,128),Rect2(2048,768,256,96),Rect2(2496,576,384,320),Rect2(1024,576,256,24),Rect2(1728,512,256,24),Rect2(2320,672,176,32)])
+one_way_indices = Array[int]([3,8,9])
+masonry_platform_indices = Array[int]([10])
+hazards = Array[Rect2]([])
+signs = Array[Dictionary]([])
+enemy_placements = Array[Dictionary]([{"id":"P-R25:approach_patrol","behavior":"patrol","point":[624,846],"max_health":9},{"id":"P-R25:orchard_charger","behavior":"charger","point":[1136,846],"max_health":14},{"id":"P-R25:crown_diver","behavior":"diver","point":[1888,608],"max_health":9},{"id":"P-R25:exit_patrol","behavior":"patrol","point":[2656,558],"max_health":9}])
+spike_strips = Array[Dictionary]([{"id":"P25:low_thorns","bounds":[1632,840,224,24],"facing":"up"}])
+retry_anchors = Array[Dictionary]([{"bounds":[272,1060,96,60],"point":[320,1102],"section":"main"},{"bounds":[1408,676,96,60],"point":[1456,718],"section":"main"},{"bounds":[2096,708,96,60],"point":[2144,750],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"orchard_arch_west","point":[784,864],"layer":-2,"sway":true},{"asset":"orchard_arch_east","point":[1504,864],"layer":-2,"sway":true},{"asset":"windchime_plains_near_v2","point":[2080,864],"layer":-2,"sway":true},{"asset":"windchime_plains_v2_chime_span","point":[2640,576],"layer":-2}])
+route_guide = {"schema": 1, "steps": [{"number": 1, "label": "果园下路", "action": "沿宽岸处理逼近的怪物，矮树台提供越敌换边。", "point": [320, 1102], "path": [[320, 1102], [320, 942], [544, 846], [784, 750], [1456, 718], [2144, 750], [2400, 654], [2736, 558]]}, {"number": 2, "label": "树冠捷线", "action": "上层树台是熟练反冲与命中续枪路线；落下后仍可走下路。", "point": [784, 750], "path": [[784, 750], [1152, 558], [1856, 494], [2656, 558]]}]}
