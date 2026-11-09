@@ -1,124 +1,158 @@
 {
-  "source_commit": "fa4fb9aa10238b080a8d149da19c1e918483cf95",
-  "content_version": "15116f0c288a45b1acaa52630fd6a43cc746beebc8ebb66aace0c1645134c330",
-  "baseline_commit": "29bd6b58",
-  "scope": "Unified formal camera plus necessary input/display configuration; six calibrated campaign rooms. No physics/layout changes; remaining 29 interiors not enabled.",
-  "root_cause": "Old formal camera combined geometry-derived ranges, interest corrections and late doorway clamps. Adapter-only touch tests also missed GUI interception of captured drags; real browser screenshot review exposed it and an actual Viewport dispatch regression now covers the fix. No evidence attributes these defects to context compression.",
+  "source_commit": "bb9613cc4f624e4864670e6d72eb0b4c99ef9f2f",
+  "content_version": "d8638927ebc7cd36554816ca817a86684a0964c6b4efbe2031ea93c0158e2b23",
+  "baseline_commit": "beb8dab8",
+  "scope": "Boss full-field framing and ordinary vertical jump focus in the existing sole camera. All physics/layout/input unchanged; six formal rooms, isolated existing P14 arena.",
+  "root_cause": "The prior arena template limited following at exploration scale rather than aiming for the whole compact field. Ordinary vertical anticipation did not distinguish rising/apex/falling/landing. The refinement retains explicitly authored descent previews after a continuous-route regression exposed their necessity.",
   "commands": [
     {
-      "command": "Godot --headless --fixed-fps 60 --script tests/world/camera_controller.gd",
+      "check": "vertical",
+      "result": "18 actual short/full jump/landing and compact arena fit assertions",
       "exit_code": 0,
-      "result": "36 checks: real formal camera, keyboard/pad/touch arbitration, actual Viewport drag through GUI, direction/impulse response, shake/takeover/lifecycle",
-      "log_sha256": "47485a08274959b8c1833fc487e7441011eade0a87fba953dbaf6a3afecc4e9c"
+      "log_sha256": "013ffa64c1333bbea7e9bf743539f600e74728670fc79efaaa0af6b44f04719c"
     },
     {
-      "command": "Godot --headless --script tests/world/camera_zones.gd",
+      "check": "motion",
+      "result": "10 actual Boss/H/fall/recovery assertions",
       "exit_code": 0,
-      "result": "118 checks: hidden opening/entry/reversal/return/save, bounded shake, 4:3/16:9/8:3 small-room axes",
-      "log_sha256": "624f01e126d7a4040adab3f6688ae24ba84ce912d574d94ba6c01853992f22c7"
+      "log_sha256": "007e43045411debd6516ab3099b05e127baca6aa951c7f8bb016e45229c764d7"
     },
     {
-      "command": "Godot --headless --script tests/world/camera_motion.gd",
+      "check": "controller",
+      "result": "36 input/direction/manual inspection/shake/lifecycle assertions",
       "exit_code": 0,
-      "result": "10 checks: actual Boss/H isolated fixture, fast shaft fall and terrain/death reset",
-      "log_sha256": "64c8b3842b058d25c74d02fa71916985e71a75b3ae4aa37628942de81a2045e9"
+      "log_sha256": "086e1473d03c2f4bf8b3d9e6aacbdaa806655c5455e7eec431e7866987cf6931"
     },
     {
-      "command": "Godot --headless --script tests/world/plains_intro.gd",
+      "check": "zones",
+      "result": "118 portal/secret/aspect assertions",
       "exit_code": 0,
-      "result": "Continuous new-game six-room route to rest/save; actual pre-action view and portal edge checks",
-      "log_sha256": "987538f9c89b36b7ae76658f73905d9d8edd9828bea3786e4f991f78ff6ad856"
+      "log_sha256": "021db1131d79493eaf1da6d5c07bdef2bc6ea18cac9e646a48c14d7a281fabf3"
     },
     {
-      "command": "Godot --headless --script tests/world/plains_readability.gd",
+      "check": "intro",
+      "result": "Continuous six-room tutorial to station, pre-action visibility and doorway edges",
       "exit_code": 0,
-      "result": "111 checks: preparation views, ten approach axes, low recovery paths and station carrier",
-      "log_sha256": "811df75b58a56db7feff9d983dfb3b45f5c6f7e1232c10188e09071447c85063"
+      "log_sha256": "f2d7beba4b2a868b5d7c4f0a64f2f3269d67af186d01ce8a90d831872fad32ee"
     },
     {
-      "command": "Godot --headless --script tests/world/room_review.gd",
+      "check": "readability",
+      "result": "111 preparation/recovery checks",
       "exit_code": 0,
-      "result": "Temporary room review does not alter campaign progress; reset/stage/entry and return to continue",
-      "log_sha256": "fca866132c66e5275810859f3e9c20edfa2fd2dcbdfd13d8607eaa54efc715e7"
+      "log_sha256": "b338c7e0fa8ad4e3418582989cc4ef2e61b00ccc723c93fbac74fb7f8c47560a"
     },
     {
-      "command": "Godot --headless --script tests/world/spatial_contracts.gd",
+      "check": "ci",
+      "result": "4 daily checks, 239 input and 39 save assertions",
       "exit_code": 0,
-      "result": "Physical boundary/aperture contracts and four camera template profiles",
-      "log_sha256": "8548dfbd4940c1d337816eea3a17d553eb991effc380e55613644e945c9431c1"
+      "log_sha256": "f1516de7f6bb9c93414d996278db938b8483f2b0acddd56e914f25d2096be7d0"
     },
     {
-      "command": "python3 tools/ci.py",
+      "check": "world-tests",
+      "result": "24 world/configuration tests",
       "exit_code": 0,
-      "result": "4 daily checks; 239 input contracts plus 39 save assertions",
-      "log_sha256": "f3804968bf0818797396e703987cfb7bcc264696cdc40cd6082b76da1dfc99c3"
+      "log_sha256": "2f1d5a8caff3a54daab39becf8d66554026e9e715e30ba232fb9150791cc6c1c"
     },
     {
-      "command": "python3 -m unittest discover -s tests -p 'test_world*.py'",
+      "check": "bundle",
+      "result": "Actual exported PCK resource closure",
       "exit_code": 0,
-      "result": "23 tests; authored camera contract validation and current style/source bindings",
-      "log_sha256": "e37d94e1d1ef636ef5de168e0dc39a6ee28091ef0b27ad1eff27a65654160f92"
+      "log_sha256": "3df0d7d5b4d8f76044f6c146a34c8f3de7575696e04c076cfeae644fe7c7103f"
     },
     {
-      "command": "python3 tools/foundry.py build --count 24 --promote",
+      "check": "browser",
+      "result": "Actual final Web title/start/jump/map/pause",
       "exit_code": 0,
-      "result": "36 development phrases / 18 itineraries; export provenance only",
-      "log_sha256": "2b85a6c543577057060fe07a7d61699519b07175b4317af2ff534730d1ef7436"
-    },
-    {
-      "command": "python3 tools/check_web_bundle.py build/web",
-      "exit_code": 0,
-      "result": "Actual PCK closure and export resources",
-      "log_sha256": "686b4c9d45abf7d23535dc77c2688bf43018d59e9e273ab0472b81a88f8c2654"
-    },
-    {
-      "command": "python3 tools/verify_fixed_world_browser.py --output build/camera-rework/web-browser",
-      "exit_code": 0,
-      "result": "Actual final build title/new-game/move/jump/map/pause; zero engine or page errors",
       "log_sha256": "bf2650dde7e78295271bc4384adab0a8bf1bb1b89f1cc370b43be03156da2396"
     },
     {
-      "command": "python3 build/camera-rework/verify_review.py",
+      "check": "review-browser",
+      "result": "Actual touch up/down/release, save isolation, 13-clip page/playback and exact ZIP download",
       "exit_code": 0,
-      "result": "Actual browser touch gesture, review save isolation, 11 clips/6 cards, mobile layout, comparison playback and exact ZIP download",
       "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
-      "command": "tools/world_review/plains_map.py --out build/camera-rework/map",
+      "check": "public",
+      "result": "46 exact online files match prepared bytes",
       "exit_code": 0,
-      "result": "35 connected room outlines, 43 seams, 5 routes, no overlaps; same SVG bytes as accepted map",
-      "log_sha256": "d2266738b49f70e809e2f5ad232c089ea95ab332af2e7d59595d1d2687f18fc9"
+      "log_sha256": "ab706340560abb44587db6e98d05f8d64834eb4f451dff8ac945a8ddf85240c0"
     },
     {
-      "command": "python3 build/camera-rework/check_public.py",
+      "check": "public-browser",
+      "result": "Final public engine startup/start/jump/map/pause",
       "exit_code": 0,
-      "result": "Public build/source, exact clip/ZIP/map bytes match prepared delivery",
-      "log_sha256": "c4d09bc63f2c14c6e2f12417b6c3b9f09fec5fc97478f860ca7871c7a2cf9ae4"
-    },
-    {
-      "command": "tools/verify_fixed_world_browser.py --url public build",
-      "exit_code": 0,
-      "result": "Public engine startup/new game/move/jump/map/pause; explicit short browser scope",
       "log_sha256": "bf2650dde7e78295271bc4384adab0a8bf1bb1b89f1cc370b43be03156da2396"
     }
   ],
   "layout_invariants": {
-    "baseline": "29bd6b58",
-    "construction_geometry_unchanged_rooms": 309,
-    "plains_scene_geometry_unchanged_rooms": 35,
-    "motor_controller_traversal_tuning_unchanged": true
+    "baseline": "beb8dab8",
+    "construction_contracts_unchanged": true,
+    "plains_scene_geometry_unchanged": true,
+    "player_physics_unchanged": true,
+    "proof": "git diff beb8dab8 -- game/player config/player_tuning.json game/world/regions/P/rooms config/world/construction.json is empty",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "input_rules": "Left movement stick up/down; keyboard W/S or arrows. Effective interaction, drop, aim, recovery, movement, jump and attack win. Fresh neutral required after consumption. No additional view controls.",
   "touch_browser": {
     "baseline_ground_y": 390,
     "look_up_ground_y": 503,
-    "release_ground_y": 391,
+    "release_ground_y": 392,
     "look_down_ground_y": 242,
     "passed": true,
     "scope": "Browser screenshot ground translation; same fixed column, actual touch gesture. Not hardware latency."
   },
-  "visual_review": "Native sequence frames checked for turn/fire, recoil, shaft, L turn, secret concealment/return, H, Boss, small entrance and up/down look. Browser new-game/pause and actual touch-held/release images checked. Full native recordings rendered at 60 FPS normal playback, not real-device performance. Remaining regional aesthetics and complete encounters not accepted.",
+  "visual_review": "Reviewed compact Boss arena full-field frame, jump/apex/landing clip frames, refreshed native comparison videos and final Web screenshots. Automatic phase test measures apex camera center within 6.5 world units across short/full jumps of actor center; no physics or geometry edits. Full regional aesthetics and physical-device performance remain outside this camera correction.",
   "clips": [
+    {
+      "id": "arena-entry",
+      "title": "Boss入场平滑拉至全场",
+      "scope": "既有P14场地沿正式应用隔离装载；没有改变战场尺寸或角色物理。",
+      "files": {
+        "before": {
+          "file": "arena-entry-before.mp4",
+          "bytes": 1177104,
+          "sha256": "bc20f79cd932311a160eac61cd92badb96ea9897329c1709bfed4c46951c39fb",
+          "seconds": 4.3
+        },
+        "after": {
+          "file": "arena-entry-after.mp4",
+          "bytes": 1393904,
+          "sha256": "7e346950cd883d84dc9a05717e954e6141a9440741c1b3021d9b5e2e2ed6b47c",
+          "seconds": 4.3
+        },
+        "compare": {
+          "file": "arena-entry-compare.mp4",
+          "bytes": 1450253,
+          "sha256": "7c6e970537f6d13999a07f94a89ca4d83ce90a810e979430ec00036b22591188"
+        }
+      },
+      "baseline_commit": "beb8dab8"
+    },
+    {
+      "id": "vertical-cycle",
+      "title": "起跳、顶点居中、下落与落地回升",
+      "scope": "P23实际跳跃输入；对比两版观察节奏，地形和角色物理相同。",
+      "files": {
+        "before": {
+          "file": "vertical-cycle-before.mp4",
+          "bytes": 396535,
+          "sha256": "e0f2ee4903daadb283465c1d4121dbd0c6932f13dd8ba5f034060f077a9f7263",
+          "seconds": 2.9
+        },
+        "after": {
+          "file": "vertical-cycle-after.mp4",
+          "bytes": 437205,
+          "sha256": "e0fab1c2a8f853a90bb29ce286f4e75615188696b5bf3cee635e626c7799438f",
+          "seconds": 2.9
+        },
+        "compare": {
+          "file": "vertical-cycle-compare.mp4",
+          "bytes": 493924,
+          "sha256": "310a0729ae0ca4ea84dadb5a9f58fde923a97a06a43dbe3121d3c626228d0c33"
+        }
+      },
+      "baseline_commit": "beb8dab8"
+    },
     {
       "id": "turn-fire",
       "title": "平路转向与反向射击",
@@ -137,11 +171,12 @@
         },
         "compare": {
           "file": "turn-fire-compare.mp4",
-          "bytes": 606070,
-          "sha256": "26252fd5b14ae8ac93a47f17c53f1972024940285de765a56e78b2970243bd5d"
+          "bytes": 605743,
+          "sha256": "edc58993653ad065826e0e4b4391896f2222a9268eeec470812467714ab41e22"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "recoil",
@@ -155,17 +190,18 @@
         },
         "after": {
           "file": "recoil-after.mp4",
-          "bytes": 933309,
-          "sha256": "277ca0934dfd37c433702269b6b54ecfc70cc25843500187b0acc8805a30cccf",
+          "bytes": 923131,
+          "sha256": "60ffc95ba62bf9d3e9c1f82b6c0525329b5f6bfdf9aff3634f2a3a3a0dcac7dc",
           "seconds": 5.25
         },
         "compare": {
           "file": "recoil-compare.mp4",
-          "bytes": 1075124,
-          "sha256": "1bc179a44b089705d7e48d8e19f1cb2fc3b47a0c2a7a52daff6f02374a500c5f"
+          "bytes": 1061415,
+          "sha256": "1232254ee75be2581492a04a662f8549058d0e9a0fcfe087d172b26afd525f23"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "shaft",
@@ -179,17 +215,18 @@
         },
         "after": {
           "file": "shaft-after.mp4",
-          "bytes": 1144279,
-          "sha256": "7a5efac6b07ac0e81ffb74b86d0ec7fc1ba8ad47f412e25a8e24875941f54616",
+          "bytes": 1149346,
+          "sha256": "5ec662dcdc498ebc9cac31ad75fea2e67cb079a6f01753cc952b8095c7b00aa0",
           "seconds": 5.8
         },
         "compare": {
           "file": "shaft-compare.mp4",
-          "bytes": 1325665,
-          "sha256": "ae7eff0a5670cb6dba0a640b5ac54cc41d97fa8b3d3fd0121f0166feb0b3d3d9"
+          "bytes": 1329358,
+          "sha256": "db92d7f9b0e76f4801d81f2449a4224f3b5a8deec2ac5065b03b9cb808e377d5"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "look",
@@ -203,17 +240,18 @@
         },
         "after": {
           "file": "look-after.mp4",
-          "bytes": 1063125,
-          "sha256": "05f452176870b5cad34568ff0aa2a25d3762efb2c6de811aaefd00a0d75492f4",
+          "bytes": 1085518,
+          "sha256": "aabe370a7b879a23e4de98d11ba9028f728d89b4540da4d4ecbfb11606a7ffef",
           "seconds": 6.67
         },
         "compare": {
           "file": "look-compare.mp4",
-          "bytes": 846932,
-          "sha256": "5ede4272899fb774cd8488f195639676a25949c5f2b470e79a87f6c649ec8907"
+          "bytes": 865771,
+          "sha256": "36cd0d0a947aa29e789281286e773ea223f0ddeaa28d11dc04e0398611103d32"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "corner",
@@ -227,17 +265,18 @@
         },
         "after": {
           "file": "corner-after.mp4",
-          "bytes": 669479,
-          "sha256": "fa65a59393a68bb1272477041d4f440481561ef612e24ff1d8baf781bbdd185a",
+          "bytes": 692016,
+          "sha256": "0c025c8799d297607494f3c76432dfbab6ba4d4fecccaa1d390eef433e9b8783",
           "seconds": 3.88
         },
         "compare": {
           "file": "corner-compare.mp4",
-          "bytes": 694279,
-          "sha256": "8188961dfc51f0f97ad9a1c4cdaca027bec6704f0e2a22973a47a4cc7db0d983"
+          "bytes": 713091,
+          "sha256": "1441dfc0eaedcc27becd6cf1cf6e78a04eb455a13c5a1f596ddd4b09889524e3"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "door",
@@ -257,11 +296,12 @@
         },
         "compare": {
           "file": "door-compare.mp4",
-          "bytes": 495095,
-          "sha256": "4a00a12c4a7293309d9dd2264b8f56aa3efe1ff2aacfa084293aaa8407b65955"
+          "bytes": 493807,
+          "sha256": "878fbd03943d059497d15f1dca0260b2a9b5d18e4c571ad335f3d2267b5f7dfc"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "secret-turnback",
@@ -281,11 +321,12 @@
         },
         "compare": {
           "file": "secret-turnback-compare.mp4",
-          "bytes": 388273,
-          "sha256": "bd215e4408ce55acf4fa9a7179f98bd68ef20e7e45f22e8d2c02e7e63f6bdcd8"
+          "bytes": 389025,
+          "sha256": "08981f2f0a1e804067172196a15bd295e7c46f8d02195e8659d6ced5564eb39e"
         }
       },
-      "scope": "隔离夹具：沿正式应用/状态/控制器，在P23现有地形上配置同场景隐藏连接；非新增正式隐藏房。"
+      "scope": "隔离夹具：沿正式应用/状态/控制器，在P23现有地形上配置同场景隐藏连接；非新增正式隐藏房。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "secret-return",
@@ -299,17 +340,18 @@
         },
         "after": {
           "file": "secret-return-after.mp4",
-          "bytes": 1377080,
-          "sha256": "1a538c43c90025ba519bce3fb2862083e55402c740a04a0baeaa55b3147c1f39",
+          "bytes": 1468829,
+          "sha256": "8cefd54e0b5db920384867318e2f7c14ad97ff3077f567c1cb30565fe7411a0e",
           "seconds": 6.3
         },
         "compare": {
           "file": "secret-return-compare.mp4",
-          "bytes": 1393413,
-          "sha256": "d0d66cdb4bd138f8f411d53dd6043e53e021d048b0b66582bc2da301a96da0d1"
+          "bytes": 1474302,
+          "sha256": "d59abd21d7c2a41688477c3bf1dfde372289769250694e83c370dd7165f2eda5"
         }
       },
-      "scope": "隔离夹具：沿正式应用/状态/控制器，在P23现有地形上配置同场景隐藏连接；非新增正式隐藏房。"
+      "scope": "隔离夹具：沿正式应用/状态/控制器，在P23现有地形上配置同场景隐藏连接；非新增正式隐藏房。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "hook",
@@ -323,17 +365,18 @@
         },
         "after": {
           "file": "hook-after.mp4",
-          "bytes": 576882,
-          "sha256": "1d548d2816ef2b80b2d8e6a551b1fbc5cd06b42d673746ced602c80bedd46b38",
+          "bytes": 638960,
+          "sha256": "e5a83ac2a09d93145de59bf10f1f2066c2611cb64bc632f66ddacacc5b1aab96",
           "seconds": 3.08
         },
         "compare": {
           "file": "hook-compare.mp4",
-          "bytes": 659929,
-          "sha256": "9860769ad2ccab5d2f092484b5fcee31cff6ba0c281d0adbb50f614ce456b46f"
+          "bytes": 707369,
+          "sha256": "14d78eed8546f9f467e6fa52579f54b701172673314936ec7cdb80ece3ae56c6"
         }
       },
-      "scope": "既有P14 Boss/H场景，由正式应用装载到隔离施工合同；未声明在当前六房流程可达。"
+      "scope": "既有P14 Boss/H场景，由正式应用装载到隔离施工合同；未声明在当前六房流程可达。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "boss-respawn",
@@ -347,17 +390,18 @@
         },
         "after": {
           "file": "boss-respawn-after.mp4",
-          "bytes": 908273,
-          "sha256": "13a6cec6b440882430f306e5af4bf8433fb9c9ccd4334f8da8189581f4e9d87e",
+          "bytes": 1172847,
+          "sha256": "5e28cfa2353a3264b9f25e33c5a5a5855f17cfd178968e9e419518e5cf3c5072",
           "seconds": 3.85
         },
         "compare": {
           "file": "boss-respawn-compare.mp4",
-          "bytes": 1007699,
-          "sha256": "9f4af883b692ad0c756499d4952a9d61ba01dbe5c9f2dc04731ed0d989a4487c"
+          "bytes": 1115533,
+          "sha256": "f0006f989c3bf544e4ab47b1b9aebc9be0b0796fefb71e825f8b77960396f238"
         }
       },
-      "scope": "既有P14 Boss/H场景，由正式应用装载到隔离施工合同；未声明在当前六房流程可达。"
+      "scope": "既有P14 Boss/H场景，由正式应用装载到隔离施工合同；未声明在当前六房流程可达。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "small-room",
@@ -377,28 +421,29 @@
         },
         "compare": {
           "file": "small-room-compare.mp4",
-          "bytes": 93239,
-          "sha256": "4ce05b691d4505799702ae7026b39c8e1875ecc38b6a67d88754dad7dcc332db"
+          "bytes": 93794,
+          "sha256": "f44f46ba8b4e505703631fbff93b240951db5c6ecad175fb277666b057f49896"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     }
   ],
-  "camera_sha256": "2005c56eb6a2a5588a70819e5733e95821b578cd2a4cf7a89c799879b18831eb",
+  "camera_sha256": "5cf2bdd1d92c444fd344e71fbd0f648771df5080ec194382321599a911e2349e",
   "unverified": [
     "Remaining 29 room interior migration and authored calibration against final geometry.",
     "Boss/H and hidden transitions use isolated existing-scene fixtures, not current six-room campaign reachability.",
     "Physical phone/controller, full Web campaign traversal, device latency/performance and human blind play."
   ],
   "deployment": {
-    "build_id": "e58793233e8e",
-    "source_commit": "fa4fb9aa10238b080a8d149da19c1e918483cf95",
-    "prepared_commit": "b329352b810c7eeb408355cba65f39b990438fe4",
-    "run_id": "42564212113",
-    "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/42564212113",
-    "playtest": "https://zhipijun1996.github.io/gunman-rush/?v=e58793233e8e",
-    "clips_url": "https://zhipijun1996.github.io/gunman-rush/camera-review/?v=e58793233e8e",
-    "zip_bytes": 8309017,
-    "zip_sha256": "3ab0a7c84bfe6ca17fd9e6b479618d2f37afd965eebf5d73c6d68cf386959825"
+    "build_id": "cdbd68be4e70",
+    "source_commit": "bb9613cc4f624e4864670e6d72eb0b4c99ef9f2f",
+    "prepared_commit": "ffc6ddbf7debb408554b8b3990c7336ac19c01ab",
+    "run_id": "42566878336",
+    "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/42566878336",
+    "playtest": "https://zhipijun1996.github.io/gunman-rush/?v=cdbd68be4e70",
+    "clips_url": "https://zhipijun1996.github.io/gunman-rush/camera-review/?v=cdbd68be4e70",
+    "zip_bytes": 10600712,
+    "zip_sha256": "6fe80aac8ea36531abfd25637e153c6f1b59aa4b1f720496b8107ec57f5a2335"
   }
 }
