@@ -166992,9 +166992,12 @@
     ],
     "completion_token": "station_briefed",
     "ordered_actions": [
+      "intro_pickup_gun",
       "tutorial_move",
       "tutorial_shoot",
+      "intro_meet_traveler",
       "tutorial_recoil",
+      "intro_clear_waves",
       "station_briefing"
     ],
     "initial_respawn_room": "P-R03",
@@ -167005,14 +167008,14 @@
       540
     ],
     "timing_status": "首次自然观察/练习玩家的灰盒目标；未实机计时，不由门数推导",
-    "scope": "走跳与射击初练、反冲变式和独立机关实践，随后喘息抵站；可选阅读/对话不锁门。",
+    "scope": "苏醒拾枪与射铃、逐阶射击、旅人强制说明反冲、满刺坑和明示铃闸、交错平台复习、三波守卫后乘升降台抵站。",
     "recommended_actions": [
       "tutorial_move",
       "tutorial_shoot",
       "tutorial_recoil"
     ],
-    "mandatory_dialogue_count": 0,
-    "mandatory_collectible_count": 0,
+    "mandatory_dialogue_count": 2,
+    "mandatory_collectible_count": 1,
     "short_route_door_crossings": 5,
     "arrival_is_not_rest": true
   },
@@ -197428,11 +197431,11 @@
           "世界钟心不知道为什么坏了，世界靠你了！"
         ],
         "first_contact_line": "",
-        "growth_visible_change": "还只是给自己找同路人，脚尖朝出口，身体仍贴着棚柱。",
+        "growth_visible_change": "旅人从车厢边的犹疑，转向对修钟者的期待。",
         "after_encounter_trace": {
           "id": "aqi_ribbon_intro",
           "kind": "cosmetic",
-          "description": "候车棚外留下与望站坡同色的一小段布条。"
+          "description": "旅人在倒时车厢留下的一小段布条。"
         },
         "duration_target_seconds": [
           15,
