@@ -155,15 +155,17 @@ def publish(output: Path):
         subprocess.run(["gh", "release", "upload", tag, "--repo", REPO, *assets[start:start + 25]], check=True)
     # Publish the small channel pointer only after every immutable asset exists.
     branch = "workbench-feed"
+    name = "main" if channel["channel"] == "main" else "preview"
     try:
         api("git/ref/heads/" + branch)
     except urllib.error.HTTPError as error:
         if error.code != 404:
             raise
-        tree = api("git/trees", {"tree": []})
+        tree = api("git/trees", {"tree": [{"path": "channels/" + name + ".json",
+                    "mode": "100644", "type": "blob", "content": encoded(channel).decode("utf-8")}]})
         first = api("git/commits", {"message": "Initialize workbench release feed", "tree": tree["sha"], "parents": []})
         api("git/refs", {"ref": "refs/heads/" + branch, "sha": first["sha"]})
-    name = "main" if channel["channel"] == "main" else "preview"
+        return
     path = "contents/channels/" + name + ".json"
     try:
         old = api(path + "?ref=" + branch)
