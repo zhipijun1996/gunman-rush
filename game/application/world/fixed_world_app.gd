@@ -557,6 +557,8 @@ func _commit_action(id: String) -> void:
 	candidate.hp = controller.actor_resources.health.current
 	candidate.combat_energy=controller.combat_energy.current
 	if room.cycle_at_load==int(state.value.cycle): candidate.enemies.merge(room.snapshot(),true)
+	if host!=null and action.get("type","")=="chest" and int(action.get("coin_drop_amount",0))>0:
+		candidate=_drop_candidate(candidate,"chest:"+id,int(action.coin_drop_amount),host.position)
 	if id==room.defeat_action: candidate=_drop_candidate(candidate,"boss:"+str(room.boss_identity),int(services.definitions.boss_gold),room.boss.position)
 	if not state.commit(candidate,state.revision):
 		status = "保存失败，结果未提交："+state.error

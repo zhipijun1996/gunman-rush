@@ -6,12 +6,14 @@
 [node name="P-R06" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R06"
+route_guide = {"schema":1,"steps":[{"number":1,"label":"西行主线","action":"从井口登上开阔低层，向西去旧路肩；可从空中或平台清理守路怪。","point":[1216,1934],"path":[[1216,1934],[1088,1806],[1152,1678],[880,1454],[656,1678],[144,1678]]},{"number":2,"label":"高处选路","action":"穿透平台构成两条交错上行线，飞怪守空域、地面怪守停靠点；上方出口保留原回环条件。","point":[880,1454],"path":[[880,1454],[1232,1294],[752,1134],[352,942],[560,814],[976,654],[752,494],[928,318],[704,142]]}]}
+one_way_indices = Array[int]([2, 5, 6, 7, 9, 10, 11, 13])
 art_profile = "junction"
-platforms = Array[Rect2]([Rect2(1152,1952,128,32),Rect2(928,1824,256,48),Rect2(1088,1600,192,64),Rect2(768,1472,192,48),Rect2(0,1696,768,160),Rect2(480,1600,64,96),Rect2(576,448,768,896),Rect2(192,960,288,32),Rect2(608,160,192,32),Rect2(1344,1344,320,48)])
+platforms = Array[Rect2]([Rect2(1152,1952,128,32),Rect2(896,1824,384,48),Rect2(1024,1696,256,32),Rect2(0,1696,768,160),Rect2(480,1600,96,96),Rect2(768,1472,256,24),Rect2(1088,1312,288,24),Rect2(640,1152,256,24),Rect2(192,960,288,32),Rect2(448,832,224,24),Rect2(864,672,288,24),Rect2(640,512,224,24),Rect2(608,160,192,32),Rect2(832,336,192,24),Rect2(1344,1344,320,48)])
 start_point = Vector2(1216,1934)
 arrival_text = "风铃岔路"
-enemy_placements = Array[Dictionary]([{"id":"P-R06:road_patrol","behavior":"patrol","point":[656,1678],"max_health":5},{"id":"P-R06:upper_sentry","behavior":"sentry","point":[1408,1326],"max_health":10}])
-spike_strips = Array[Dictionary]([{"id":"P-R06:stem_wall","bounds":[1256,1728,24,96],"facing":"left"}])
-retry_anchors = Array[Dictionary]([{"bounds":[960.0,1764,160,60],"point":[1040,1806],"section":"main"},{"bounds":[1096.0,1540,112,60],"point":[1152,1582],"section":"main"},{"bounds":[592.0,1636,128,60],"point":[656,1678],"section":"main"}])
+enemy_placements = Array[Dictionary]([{"id":"P-R06:west_guard","behavior":"patrol","point":[336,1678],"max_health":5},{"id":"P-R06:mid_hopper","behavior":"hopper","point":[720,1134],"max_health":5},{"id":"P-R06:east_guard","behavior":"sentry","point":[1488,1326],"max_health":10},{"id":"P-R06:low_flight","behavior":"diver","point":[792,1344],"max_health":5},{"id":"P-R06:west_flight","behavior":"fan_sentry","point":[448,1152],"max_health":5},{"id":"P-R06:east_flight","behavior":"diver","point":[1248,960],"max_health":5},{"id":"P-R06:high_flight","behavior":"fan_sentry","point":[752,560],"max_health":5}])
+spike_strips = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([{"bounds":[1040,1764,96,60],"point":[1088,1806],"section":"main"},{"bounds":[608,1636,96,60],"point":[656,1678],"section":"main"},{"bounds":[240,900,96,60],"point":[288,942],"section":"main"}])
 art_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([{"point":[1136,1888],"text":"西行的风铃声通向牧风高地。上方两条回环尚未开启。","route_guide":{"schema":1,"steps":[{"number":1,"point":[1056,1776],"label":"反冲抬升","action":"在左台跳起朝下开枪，上升后向右落到高岸。","path":[[1216,1934],[1040,1806],[1008,1500],[1152,1582]]},{"number":2,"point":[800,1440],"label":"向西辨路","action":"左侧低路通旧路肩；上方实体山体隔开两条后续返回廊。","path":[[1152,1582],[832,1454],[640,1678],[144,1678]]}]}},{"point":[352,912],"text":"旧集侧的回环闸，从另一边开启。"},{"point":[704,112],"text":"高地胜利后可打开这条近路。"}])
+signs = Array[Dictionary]([])

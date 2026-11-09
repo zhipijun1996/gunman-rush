@@ -3,6 +3,7 @@ extends RefCounted
 ## The newest eligible chapter owns a single saved host; walking past is not a conversation.
 const ID := "NPC_TRAVELER_AQI"
 static func chapter(state: FixedWorldState, room_id: String) -> Dictionary:
+	if not state.content.data.get("traveler_story",{}).get("enabled",true): return {}
 	var selected: Dictionary={}
 	var latest_claimed:=0
 	for entry: Dictionary in state.content.data.get("traveler_story",{}).get("chapters",[]):

@@ -1275,7 +1275,7 @@
       "parent_anchor": "P1",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "下部反冲抬升后西行；中央实体山体分隔主路和两条永久闸后的返回廊。",
+      "purpose": "开阔选路中庭；穿透平台和普通平台形成多层路线，飞怪守空域、地面怪守停靠点。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -1699,7 +1699,7 @@
       "parent_anchor": "P1",
       "route_class": "optional_shortcut_or_return",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "分段提水与检修换乘；射铃启停、绕梁反冲和停靠避齿轮，接风铃岔路。",
+      "purpose": "射铃启动三段吊台，分别向左上和右上反冲换乘，清楚看见接收台与井口。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -3016,7 +3016,7 @@
       "parent_anchor": "P1",
       "route_class": "optional_reward",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "06来向辨认荆棘上廊与普通下路；04前看见上层HP01，回入口挑战并从奖励侧单向返回。",
+      "purpose": "荆棘曲折窄道与普通下路分流；向左反冲穿上下刺，再交替上升、下降换层，西端取HP01并单向回主路。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -63014,7 +63014,7 @@
       "parent_anchor": "P_INTRO",
       "route_class": "tutorial",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "封门三波战斗2/2/3，清场开门；安静小室射铃启动升降台进入钟外小站。",
+      "purpose": "紧凑守望场三波3/4/5只，弱怪9血、中等14血；恒定缩放的战场构图。清场后探索左墙植物暗室宝箱，或射铃乘右移升降台到小站。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -175466,6 +175466,23 @@
       "ability_qualification_at_interaction": false,
       "progression_gate": true,
       "interaction_scope": "实际剧情或战斗完成，由对应运行组件提交"
+    },
+    {
+      "id": "open_P24_hidden_chest",
+      "room_id": "P-R24",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开植物暗室的宝箱，20金币散落在小室中。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false,
+      "interaction_scope": "隐藏室内实体宝箱交互；领取与掉落原子保存"
     }
   ],
   "npcs": [
@@ -198088,7 +198105,8 @@
       "new_combat_or_shop_system": false
     },
     "v07_host_selection_contract": "每幕首次实际到访锁定一个宿主；已完成幕不重演，高阶已见后不倒退人设。T04现在可早访工房承接，T05在W/D后工房或会馆承接，T06修炉后可在城市回访承接。",
-    "v07_host_access_contract": "rift_G只代表G01已激活；G23必须本人实际到达且当前路径可达。NPC不得因已有rift_G提前出现在未进入的东城区。"
+    "v07_host_access_contract": "rift_G只代表G01已激活；G23必须本人实际到达且当前路径可达。NPC不得因已有rift_G提前出现在未进入的东城区。",
+    "enabled": false
   },
   "intro_story_objects": [
     {

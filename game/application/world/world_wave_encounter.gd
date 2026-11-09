@@ -11,6 +11,8 @@ var active_ids: Array[String] = []
 var _launch_pending := false
 var _exit_gate: StaticBody2D
 var _entry_gate: StaticBody2D
+var _exit_visibility:=1.0
+var _entry_visibility:=0.0
 
 func setup(application: FixedWorldApp) -> void:
 	app=application;settings=app.room.wave_encounter
@@ -18,7 +20,7 @@ func setup(application: FixedWorldApp) -> void:
 	_entry_gate=_gate(FixedWorldProvider.rect(settings.entry_gate))
 	_entry_gate.collision_layer=0
 	finished=app.state.value.receipts.has(str(settings.completion_action))
-	if finished:_exit_gate.collision_layer=0
+	if finished:_exit_gate.collision_layer=0;_exit_visibility=0
 	queue_redraw()
 
 func _gate(rect: Rect2) -> StaticBody2D:
@@ -71,11 +73,26 @@ func _spawn() -> void:
 	_launch_pending=false
 	queue_redraw()
 
+func _process(delta:float) -> void:
+	var exit_target:=0.0 if finished else 1.0
+	var entry_target:=1.0 if started and not finished else 0.0
+	if _exit_visibility==exit_target and _entry_visibility==entry_target:return
+	_exit_visibility=move_toward(_exit_visibility,exit_target,delta*2.5)
+	_entry_visibility=move_toward(_entry_visibility,entry_target,delta*4)
+	queue_redraw()
+func _draw_seal(rect:Rect2,amount:float) -> void:
+	if amount<=0:return
+	var visible_rect:=rect
+	if rect.size.y>rect.size.x:
+		visible_rect.size.y*=amount
+		UnderworldTerrain.draw_mechanism_beam(self,visible_rect)
+	else:
+		visible_rect.size.x*=amount
+		UnderworldTerrain.draw_moving(self,visible_rect)
 func _draw() -> void:
 	if settings.is_empty():return
-	if not finished:
-		draw_rect(FixedWorldProvider.rect(settings.exit_gate),Color("8d7854"))
-		if started:draw_rect(FixedWorldProvider.rect(settings.entry_gate),Color("8d7854"))
+	_draw_seal(FixedWorldProvider.rect(settings.exit_gate),_exit_visibility)
+	_draw_seal(FixedWorldProvider.rect(settings.entry_gate),_entry_visibility)
 	if started and not finished:
 		var at:=FixedWorldProvider.point(settings.label_point)
 		draw_string(GameTypography.FONT,at,"守望试炼 · %d / %d" % [wave+1,settings.waves.size()],HORIZONTAL_ALIGNMENT_CENTER,-1,18,Color("e8d7b0"))

@@ -4,7 +4,7 @@ extends RefCounted
 ## Apply only to a fresh scene instance, before _ready creates any physics.
 const SCHEMA := 1
 const ROOM_FIELDS := [
-	"intro_sequence", "wave_encounter", "arrival_text", "traveler_point", "tutorial_action", "tutorial_target",
+	"intro_sequence", "wave_encounter", "route_guide", "arrival_text", "traveler_point", "tutorial_action", "tutorial_target",
 	"tutorial_min_move", "tutorial_recoil_finish_x", "section_volumes",
 	"retry_anchors", "art_placements", "art_profile",
 	"bell_mechanisms", "platforms", "one_way_indices", "illustrated_platform_indices",

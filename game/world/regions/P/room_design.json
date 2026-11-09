@@ -211,34 +211,79 @@
     {
       "room_id": "P-R06",
       "name": "风铃岔路",
-      "purpose": "下部反冲抬升后西行；中央实体山体分隔主路和两条永久闸后的返回廊。",
+      "purpose": "开阔选路中庭；穿透平台和普通平台形成多层路线，飞怪守空域、地面怪守停靠点。",
       "profile": "junction",
       "scene": "res://game/world/regions/P/rooms/P-R06.tscn",
       "encounters": [
         {
-          "id": "P-R06:road_patrol",
+          "id": "P-R06:west_guard",
           "behavior": "patrol",
           "point": [
-            656,
+            336,
             1678
           ],
           "max_health": 5
         },
         {
-          "id": "P-R06:upper_sentry",
+          "id": "P-R06:mid_hopper",
+          "behavior": "hopper",
+          "point": [
+            720,
+            1134
+          ],
+          "max_health": 5
+        },
+        {
+          "id": "P-R06:east_guard",
           "behavior": "sentry",
           "point": [
-            1408,
+            1488,
             1326
           ],
           "max_health": 10
+        },
+        {
+          "id": "P-R06:low_flight",
+          "behavior": "diver",
+          "point": [
+            792,
+            1344
+          ],
+          "max_health": 5
+        },
+        {
+          "id": "P-R06:west_flight",
+          "behavior": "fan_sentry",
+          "point": [
+            448,
+            1152
+          ],
+          "max_health": 5
+        },
+        {
+          "id": "P-R06:east_flight",
+          "behavior": "diver",
+          "point": [
+            1248,
+            960
+          ],
+          "max_health": 5
+        },
+        {
+          "id": "P-R06:high_flight",
+          "behavior": "fan_sentry",
+          "point": [
+            752,
+            560
+          ],
+          "max_health": 5
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "下部反冲抬升后西行；中央实体山体分隔主路和两条永久闸后的返回廊。",
-        "failure_recovery": "实际踏上宽岸后登记本段重试；机关停靠岸可召回载台，不修改冷却或角色物理。",
-        "visual_read": "路线告示标记主支路、换乘与危险；每个平台承担准备、观察、换层或落地。"
+        "player_decision": "开阔选路中庭；穿透平台和普通平台形成多层路线，飞怪守空域、地面怪守停靠点。",
+        "failure_recovery": "转折或检修岸实际落地后可重试，支撑与入口保留安全净空。",
+        "visual_read": "以实体轮廓、移动轨迹、刺道和敌人呈现选择；审核路线独立于场景告示，不放占位旅人。"
       },
       "art_focal_assets": [],
       "feedback": {
@@ -246,7 +291,7 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
       },
-      "spatial_intent": "下部反冲抬升后西行；中央实体山体分隔主路和两条永久闸后的返回廊。"
+      "spatial_intent": "开阔选路中庭；穿透平台和普通平台形成多层路线，飞怪守空域、地面怪守停靠点。"
     },
     {
       "room_id": "P-R07",
@@ -286,7 +331,7 @@
     {
       "room_id": "P-R08",
       "name": "封井回廊",
-      "purpose": "分段提水与检修换乘；射铃启停、绕梁反冲和停靠避齿轮，接风铃岔路。",
+      "purpose": "射铃启动三段吊台，分别向左上和右上反冲换乘，清楚看见接收台与井口。",
       "profile": "well",
       "scene": "res://game/world/regions/P/rooms/P-R08.tscn",
       "encounters": [
@@ -294,26 +339,26 @@
           "id": "P-R08:floor_patrol",
           "behavior": "patrol",
           "point": [
-            560,
+            544,
             2926
           ],
-          "max_health": 10
+          "max_health": 5
         },
         {
-          "id": "P-R08:maintenance_hopper",
-          "behavior": "hopper",
+          "id": "P-R08:landing_guard",
+          "behavior": "patrol",
           "point": [
-            512,
-            1262
+            976,
+            1438
           ],
           "max_health": 5
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "分段提水与检修换乘；射铃启停、绕梁反冲和停靠避齿轮，接风铃岔路。",
-        "failure_recovery": "实际踏上宽岸后登记本段重试；机关停靠岸可召回载台，不修改冷却或角色物理。",
-        "visual_read": "路线告示标记主支路、换乘与危险；每个平台承担准备、观察、换层或落地。"
+        "player_decision": "射铃启动三段吊台，分别向左上和右上反冲换乘，清楚看见接收台与井口。",
+        "failure_recovery": "转折或检修岸实际落地后可重试，支撑与入口保留安全净空。",
+        "visual_read": "以实体轮廓、移动轨迹、刺道和敌人呈现选择；审核路线独立于场景告示，不放占位旅人。"
       },
       "art_focal_assets": [],
       "feedback": {
@@ -321,7 +366,7 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
       },
-      "spatial_intent": "分段提水与检修换乘；射铃启停、绕梁反冲和停靠避齿轮，接风铃岔路。"
+      "spatial_intent": "射铃启动三段吊台，分别向左上和右上反冲换乘，清楚看见接收台与井口。"
     },
     {
       "room_id": "P-R09",
@@ -460,7 +505,7 @@
     {
       "room_id": "P-R13",
       "name": "旧路肩高台",
-      "purpose": "06来向辨认荆棘上廊与普通下路；04前看见上层HP01，回入口挑战并从奖励侧单向返回。",
+      "purpose": "荆棘曲折窄道与普通下路分流；向左反冲穿上下刺，再交替上升、下降换层，西端取HP01并单向回主路。",
       "profile": "terrace",
       "scene": "res://game/world/regions/P/rooms/P-R13.tscn",
       "encounters": [
@@ -483,16 +528,16 @@
           "max_health": 10
         },
         {
-          "id": "P-R13:upper_patrol",
+          "id": "P-R13:road_perch",
           "behavior": "patrol",
           "point": [
             4128,
-            2286
+            2350
           ],
           "max_health": 5
         },
         {
-          "id": "P-R13:under_beam_patrol",
+          "id": "P-R13:road_guard",
           "behavior": "patrol",
           "point": [
             2800,
@@ -517,9 +562,9 @@
         }
       ],
       "experience": {
-        "player_decision": "06来向辨认荆棘上廊与普通下路；04前看见上层HP01，回入口挑战并从奖励侧单向返回。",
-        "failure_recovery": "实际踏上宽岸后登记本段重试；机关停靠岸可召回载台，不修改冷却或角色物理。",
-        "visual_read": "路线告示标记主支路、换乘与危险；每个平台承担准备、观察、换层或落地。"
+        "player_decision": "荆棘曲折窄道与普通下路分流；向左反冲穿上下刺，再交替上升、下降换层，西端取HP01并单向回主路。",
+        "failure_recovery": "转折或检修岸实际落地后可重试，支撑与入口保留安全净空。",
+        "visual_read": "以实体轮廓、移动轨迹、刺道和敌人呈现选择；审核路线独立于场景告示，不放占位旅人。"
       },
       "art_focal_assets": [],
       "feedback": {
@@ -527,7 +572,7 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
       },
-      "spatial_intent": "06来向辨认荆棘上廊与普通下路；04前看见上层HP01，回入口挑战并从奖励侧单向返回。"
+      "spatial_intent": "荆棘曲折窄道与普通下路分流；向左反冲穿上下刺，再交替上升、下降换层，西端取HP01并单向回主路。"
     },
     {
       "room_id": "P-R14",
@@ -810,7 +855,7 @@
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "首次强制旅人对话，说明修钟身份与反冲；下口左刺右敌形成落点选择。",
+        "player_decision": "沿车厢路线射击与跳跃，旅人剧情延后，不强制对话。",
         "failure_recovery": "已到达的安全岸重试；入口和出口保留实际支持与完整身体净空。",
         "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
       },
@@ -926,7 +971,7 @@
     {
       "room_id": "P-R24",
       "name": "望站坡",
-      "purpose": "封门三波战斗2/2/3，清场开门；安静小室射铃启动升降台进入钟外小站。",
+      "purpose": "紧凑守望场三波3/4/5只，弱怪9血、中等14血；恒定缩放的战场构图。清场后探索左墙植物暗室宝箱，或射铃乘右移升降台到小站。",
       "profile": "overlook",
       "scene": "res://game/world/regions/P/rooms/P-R24.tscn",
       "encounters": [
@@ -934,22 +979,31 @@
           "wave": 1,
           "enemies": [
             {
-              "id": "P-R24:wave1:patrol",
+              "id": "P-R24:wave1:left",
               "behavior": "patrol",
               "point": [
-                1552,
+                1600,
                 1102
               ],
-              "max_health": 5
+              "max_health": 9
+            },
+            {
+              "id": "P-R24:wave1:right",
+              "behavior": "patrol",
+              "point": [
+                2240,
+                1102
+              ],
+              "max_health": 9
             },
             {
               "id": "P-R24:wave1:hopper",
               "behavior": "hopper",
               "point": [
-                2352,
+                2112,
                 1102
               ],
-              "max_health": 5
+              "max_health": 9
             }
           ]
         },
@@ -960,19 +1014,37 @@
               "id": "P-R24:wave2:charger",
               "behavior": "charger",
               "point": [
-                1520,
+                1616,
                 1102
               ],
-              "max_health": 10
+              "max_health": 14
             },
             {
               "id": "P-R24:wave2:sentry",
               "behavior": "sentry",
               "point": [
-                2384,
+                2256,
                 1102
               ],
-              "max_health": 10
+              "max_health": 14
+            },
+            {
+              "id": "P-R24:wave2:patrol",
+              "behavior": "patrol",
+              "point": [
+                2160,
+                1102
+              ],
+              "max_health": 9
+            },
+            {
+              "id": "P-R24:wave2:diver",
+              "behavior": "diver",
+              "point": [
+                1808,
+                832
+              ],
+              "max_health": 9
             }
           ]
         },
@@ -980,38 +1052,61 @@
           "wave": 3,
           "enemies": [
             {
-              "id": "P-R24:wave3:patrol",
-              "behavior": "patrol",
+              "id": "P-R24:wave3:charger",
+              "behavior": "charger",
               "point": [
-                1536,
+                1616,
                 1102
               ],
-              "max_health": 5
+              "max_health": 14
             },
             {
               "id": "P-R24:wave3:hopper",
               "behavior": "hopper",
               "point": [
-                2352,
+                2224,
                 1102
               ],
-              "max_health": 10
+              "max_health": 14
+            },
+            {
+              "id": "P-R24:wave3:patrol",
+              "behavior": "patrol",
+              "point": [
+                2128,
+                1102
+              ],
+              "max_health": 9
             },
             {
               "id": "P-R24:wave3:diver",
               "behavior": "diver",
               "point": [
-                2072,
-                864
+                1808,
+                832
               ],
-              "max_health": 10
+              "max_health": 9
+            },
+            {
+              "id": "P-R24:wave3:fan",
+              "behavior": "fan_sentry",
+              "point": [
+                2152,
+                848
+              ],
+              "max_health": 14
             }
           ]
         }
       ],
-      "interactions": [],
+      "interactions": [
+        {
+          "action_id": "open_P24_hidden_chest",
+          "role": "植物遮挡的左墙暗室，首次开箱喷出20金币"
+        }
+      ],
       "experience": {
-        "player_decision": "封门三波战斗2/2/3，清场开门；安静小室射铃启动升降台进入钟外小站。",
+        "player_decision": "紧凑守望场三波3/4/5只，弱怪9血、中等14血；恒定缩放的战场构图。清场后探索左墙植物暗室宝箱，或射铃乘右移升降台到小站。",
         "failure_recovery": "已到达的安全岸重试；入口和出口保留实际支持与完整身体净空。",
         "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
       },
@@ -1023,7 +1118,7 @@
         "interaction": "拾枪、对话和清场进度持久提交；风铃命中反馈与门、载台的实际状态一致。",
         "encounter": "复用真实敌人的预警、命中、受击与击败反馈；刺坑接触后回到已触达的安全岸。"
       },
-      "spatial_intent": "封门三波战斗2/2/3，清场开门；安静小室射铃启动升降台进入钟外小站。"
+      "spatial_intent": "紧凑守望场三波3/4/5只，弱怪9血、中等14血；恒定缩放的战场构图。清场后探索左墙植物暗室宝箱，或射铃乘右移升降台到小站。"
     },
     {
       "room_id": "P-R25",

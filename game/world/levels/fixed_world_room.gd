@@ -3,7 +3,8 @@ extends Node2D
 ## Authored geometry and placements. Reads contract interfaces; never grants progress.
 @export var room_id := ""
 @export var arrival_text: String
-@export var traveler_point := Vector2(560,494)
+@export var traveler_point := Vector2.ZERO
+@export var route_guide: Dictionary = {}
 @export var intro_sequence: Dictionary = {}
 @export var wave_encounter: Dictionary = {}
 @export var tutorial_action: String

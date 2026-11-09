@@ -26,7 +26,10 @@ def make_review_context(root: Path, world: dict, construction: dict, contracts: 
                         runtime: dict, editable_rooms, baseline: str, previous=None) -> dict:
     editable = set(editable_rooms)
     implemented = set(runtime["rooms"])
-    sources = {"config/world/world.json", "config/world/construction.json"}
+    scope_path = "config/workbench/rooms.json"
+    graybox = set(json.loads((root / scope_path).read_text()).get("graybox_room_ids", []))
+    if not graybox <= editable: raise ValueError("Graybox status must refer to an editable room")
+    sources = {"config/world/world.json", "config/world/construction.json", scope_path}
     designs = {}
     for region in world["regions"]:
         relative = f"game/world/regions/{region['code']}/room_design.json"
@@ -54,6 +57,7 @@ def make_review_context(root: Path, world: dict, construction: dict, contracts: 
             "spatial_intent": design.get("spatial_intent", ""),
             "extent": copy.deepcopy(authored[room_id]["extent"]),
             "implemented": room_id in implemented,
+            "authoring_status": "graybox_review" if room_id in graybox else "unbuilt",
             "editor_available": room_id in editable, "preview_available": room_id in editable,
             "boundary_connection_ids": [],
         }
@@ -115,6 +119,7 @@ def make_review_context(root: Path, world: dict, construction: dict, contracts: 
             **{key: copy.deepcopy(region[key]) for key in ("id", "code", "name", "play", "reward_role", "pos", "color", "fill") if key in region},
             "room_count": len(ids), "implemented_room_count": sum(room_id in implemented for room_id in ids),
             "preview_room_count": sum(room_id in editable for room_id in ids),
+            "graybox_room_count": sum(room_id in graybox for room_id in ids),
         })
 
     result = {

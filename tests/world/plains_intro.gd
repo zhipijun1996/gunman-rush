@@ -139,11 +139,7 @@ func run() -> void:
 	while app.introduction.dialogue_active:app.introduction.advance()
 	await load_review("P-R21")
 	await fixture(Vector2(560,526));await ticks(10)
-	check(app.introduction.dialogue_active,"traveler auto conversation")
-	app._ui_command("inventory","")
-	check(app.introduction.dialogue_active,"inventory cannot replace mandatory dialogue")
-	while app.introduction.dialogue_active:app.introduction.advance()
-	check(app.state.has("intro_traveler"),"all three lines completed")
+	check(not app.introduction.dialogue_active and WorldTraveler.chapter(app.state,"P-R21").is_empty(),"traveler content deferred without blocking tutorial")
 	await load_review("P-R22")
 	# Remove incidental encounters only for repeatable traversal measurement.
 	for enemy: EnemyActor in app.room.enemies.values():enemy.queue_free()
@@ -182,20 +178,20 @@ func run() -> void:
 		if app.player.is_on_floor() and app.player.position.y<340:landed=true;break
 	check(landed,"P23 down-right shot lands on upper-left platform "+str(app.player.position))
 	await load_review("P-R24")
-	await fixture(Vector2(2240,1102));await ticks(75)
+	await fixture(Vector2(1984,1102));await ticks(75)
 	for index: int in 3:
 		var encounter:=app.wave_encounter
-		check(encounter.wave==index and encounter.active_ids.size()==([2,2,3][index]),"wave count "+str(index+1))
+		check(encounter.wave==index and encounter.active_ids.size()==([3,4,5][index]),"wave count "+str(index+1))
 		for id: String in encounter.active_ids:
 			var enemy:=app.room.enemies[id] as EnemyActor
 			enemy.damageable.receive_damage({"amount":1000.0,"source_actor_id":app.player.get_instance_id(),"event_id":StringName(id+":test"),"source_faction":&"player","target_actor_id":enemy.damageable.actor_id,"target_epoch":enemy.damageable.damage_epoch})
 		await ticks(80)
 	check(app.state.has("intro_arena_cleared") and app.wave_encounter.finished,"three waves open exit")
-	await fixture(Vector2(1240,1102))
+	await fixture(Vector2(1456,1102))
 	var lift:=app.room.get_node("OverlookLift") as WorldMovingPlatform
 	var bell:=app.room.mechanisms["P-R24:station_lift"] as WorldShotLatch
 	check(not lift.motion_running,"lift waits for bell after arena")
-	app.controller.router.request_action(&"shoot_release",(bell.bell_position-app.player.position).normalized())
+	app.controller.router.request_action(&"shoot_release",(Vector2(1440,1080)-app.player.position).normalized())
 	await ticks(30)
 	check(lift.motion_running,"real shot starts station lift")
 	var height:=lift.position.y;await ticks(180)
