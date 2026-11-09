@@ -61,7 +61,7 @@ func run() -> void:
  app.controller.router.set_source_axis(&"keyboard_mouse",1);await ticks(60)
  app.controller.router.set_source_axis(&"keyboard_mouse",0);await ticks(240)
  expect(app.room.battle_started and camera.zones.active_id=="arena","Boss entry selects bounded arena composition")
- var display:=app.room.arena_bounds.grow(float(camera.settings.arena_padding))
+ var display:=app.room.arena_bounds.grow_individual(0,float(camera.settings.arena_vertical_padding),0,float(camera.settings.arena_vertical_padding))
  print("ARENA VIEW ",view()," expected ",display," base ",camera.base_center)
  expect(display.grow(2).encloses(view()),"settled Boss view respects combat display boundaries at exploration scale")
  end_sample("Boss entry")

@@ -42,8 +42,8 @@ def validate_cameras(construction, settings):
     for key in ('zoom','horizontal_seconds','vertical_seconds','zone_seconds','look_delay_seconds','look_seconds','trend_confirm_seconds','fall_seconds','zoom_seconds','vertical_focus_seconds','landing_focus_seconds','arena_seconds','vertical_focus_max'):
         if type(settings.get(key)) not in (float,int) or not math.isfinite(settings[key]) or settings[key] <= 0:
             raise ValueError('Invalid camera parameter '+key)
-    if type(settings.get('arena_padding')) not in (int,float) or not math.isfinite(settings['arena_padding']) or settings['arena_padding'] < 0:
-        raise ValueError('Invalid arena display padding')
+    if type(settings.get('arena_vertical_padding')) not in (int,float) or not math.isfinite(settings['arena_vertical_padding']) or settings['arena_vertical_padding'] < 0:
+        raise ValueError('Invalid arena vertical display padding')
     if type(settings.get('vertical_focus_height')) not in (int,float) or not math.isfinite(settings['vertical_focus_height']) or not 0 <= settings['vertical_focus_height'] <= .05:
         raise ValueError('Vertical phase focus must remain a small fraction of the view')
     if not 0 <= settings['fall_exit_speed'] < settings['fall_enter_speed']:

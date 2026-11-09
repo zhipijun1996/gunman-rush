@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "authority_id": "project_shared_regional_style",
-  "version": "41",
+  "version": "42",
   "source": {
     "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
     "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
@@ -1084,7 +1084,7 @@
       {
         "role": "fixed_world_camera_parameters",
         "path": "config/world/player.json",
-        "sha256": "3e6a5ae037774591866508176238ffc33b511b7ac82c3ae52126da61a1af3774"
+        "sha256": "84138dcad6395019cfd781a69fe35981889d42d9a720e51b6ef8918962abd231"
       },
       {
         "role": "physical_room_space",
@@ -1094,7 +1094,7 @@
       {
         "role": "fixed_world_camera_zones",
         "path": "game/presentation/ui/world/world_camera_zones.gd",
-        "sha256": "521e207f58e1d3c67fa0dfbc25c62b993eb06be650a6ceb75e27d446cafd9ab9"
+        "sha256": "4bc705a27ca2fff03e2a9403209b2817e366ec9a40302403bc1a8ba48b65e245"
       }
     ],
     "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."
@@ -1108,8 +1108,8 @@
   "region_scope": "Every current catalog region and later new region; the two original Bible documents are unchanged.",
   "change_impact": {
     "source": "Direct user correction, 2026-11-09; manually retained by Codex",
-    "quote": "boss战不改变镜头缩放，仅仅缓慢移动到boss房边界；偏上偏下幅度太大，只是微调，须看原地起跳、往上跳、往下掉三种实机感觉。",
-    "actual_changes": "删除Boss自动合屏缩放；保持1.6，入场受战场边界约束缓慢平移。保留基础跟随锚点和房间构图，只叠加封顶8wu的微幅跳跃偏移。既有下降预读/输入/物理/地形不变。",
-    "validation": "沿正式控制器检查原地短跳/满跳、连续登高、连续下台、竖井下降与Boss入场，正常速度同输入对比；技术及观察结果归平原现行交接，不代签用户体验或实体设备。"
+    "quote": "boss那里还不行，左右边界得贴着墙壁，类似大房间的镜头边界。",
+    "actual_changes": "Boss展示范围左右直接取真实战场封墙坐标，删除水平48wu外扩；仅上下保留48wu构图余量。缩放、微幅跳跃、角色物理和关卡布局不变。",
+    "validation": "独立对照P11/P14实际封墙，双端真实输入抵墙后量测最终画面边缘，复验两种视口及震动；入场正常速度对比。技术结果不代签用户或实体设备手感。"
   }
 }

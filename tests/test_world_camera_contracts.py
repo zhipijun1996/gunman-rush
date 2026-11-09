@@ -36,6 +36,6 @@ class CameraContracts(unittest.TestCase):
         with self.assertRaises(ValueError): validate_cameras(self.rooms, self.settings)
 
     def test_arena_and_small_focus_limits_rejected(self):
-        for key,value in [('vertical_focus_height',.2),('arena_padding',float('nan'))]:
+        for key,value in [('vertical_focus_height',.2),('arena_vertical_padding',float('nan'))]:
             settings=copy.deepcopy(self.settings);settings[key]=value
             with self.assertRaises(ValueError):validate_cameras(self.rooms,settings)

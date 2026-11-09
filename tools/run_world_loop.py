@@ -20,6 +20,7 @@ def main():
         ('camera_controller.gd',r'CAMERA CONTROLLER: \d+ checks; 0 failures',90),
         ('camera_zones.gd',r'CAMERA ZONES: \d+ checks; 0 failures',90),
         ('camera_vertical.gd',r'CAMERA VERTICAL/ARENA: \d+ checks; 0 failures',90),
+        ('camera_arena.gd',r'CAMERA ARENA: \d+ checks; 0 failures',90),
         ('camera_motion.gd',r'CAMERA MOTION: \d+ checks; 0 failures',90),
         ('presentation_contracts.gd',r'WORLD PRESENTATION: \d+ assertions, 0 failures',60),
         ('demo_regressions.gd',r'WORLD DEMO: \d+ assertions, 0 failures',60),

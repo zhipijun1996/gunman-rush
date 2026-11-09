@@ -10,6 +10,7 @@
 | --- | --- | --- | --- | --- |
 | PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
+| WORLD-CAMERA-04 | Boss左右镜头边界贴实际战场墙，复验双端、入场与震动 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 ## 待验收
 
