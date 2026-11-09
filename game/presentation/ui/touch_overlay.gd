@@ -120,6 +120,13 @@ func _process(_delta: float) -> void:
 		_last_item_skill_label = router.item_skill_label
 		queue_redraw()
 
+func _input(event: InputEvent) -> void:
+	# GUI owns new contacts; an already captured stick owns its drags/releases,
+	# even when the finger crosses another Control on the way up or down.
+	if not enabled: return
+	if (event is InputEventScreenDrag or (event is InputEventScreenTouch and not event.pressed)) and _captures.has(event.index):
+		if handle_touch(event): get_viewport().set_input_as_handled()
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not enabled:
 		return

@@ -19,7 +19,7 @@ WorldCamera唯一拥有正式游戏镜头；WorldCameraZones只解析玩家所�
 
 ## 验证与交付
 
-当前专项日志、正常速度短片、原生截图与临时构建归 `build/camera-rework/`；核心复验为camera_controller、camera_zones、camera_motion、camera_compare、camera_small_room、plains_intro、plains_readability和room_review。已有日常CI四项及23项世界配置单测通过；三设备查看与优先级34项、区/隐藏/比例118项、实际Boss/H/下落/恢复10项通过。连续教程与预读/恢复维持通过。最终源码/公开构建和证据由本工作线现行质量记录绑定。
+当前专项日志、正常速度短片、原生截图与临时构建归 `build/camera-rework/`；核心复验为camera_controller、camera_zones、camera_motion、camera_compare、camera_small_room、plains_intro、plains_readability和room_review。已有日常CI四项及23项世界配置单测通过；三设备查看、跨UI拖动捕获与优先级36项、区/隐藏/比例118项、实际Boss/H/下落/恢复10项通过。连续教程与预读/恢复维持通过。最终源码/公开构建和证据由本工作线现行质量记录绑定。
 
 前后短片使用基线29bd6b58与当前相同地形、同组实际输入，正常速度，按场景拆分；声明起始夹具。隐藏区在P23既有地形上验证同场景交接，Boss/H装载P14既有内容到隔离施工合同，不冒称当前六房主线可达。小房检查同时覆盖多宽高比固定轴，窄入口片段使用P03实际落台。人工审看抽帧与自动帧间/玩家可见性检查分别记录，不等于真人盲玩或实体设备测试。
 

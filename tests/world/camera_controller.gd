@@ -93,6 +93,15 @@ func run() -> void:
  expect(camera.looking,"touch neutral then up re-arms inspection")
  touch.pressed=false;app.overlay.handle_touch(touch);await ticks(50)
  expect(not camera.looking and is_zero_approx(router.camera_look_axis),"touch release has no shot or interaction")
+ # Route through Godot's real input dispatch, across a consuming GUI Control.
+ var blocker:=Control.new();blocker.position=Vector2(50,300);blocker.size=Vector2(200,100);blocker.mouse_filter=Control.MOUSE_FILTER_STOP
+ app.overlay.add_child(blocker)
+ touch.index=9;touch.position=app.overlay.left_center;touch.pressed=true;root.push_input(touch,true);await ticks(2)
+ drag.index=9;drag.position=Vector2(114,340);drag.relative=Vector2(0,-140);root.push_input(drag,true);await ticks(50)
+ expect(camera.looking and router.camera_look_axis<0,"captured left stick drag survives crossing a consuming GUI")
+ touch.pressed=false;touch.position=drag.position;root.push_input(touch,true);await ticks(2)
+ expect(is_zero_approx(router.camera_look_axis),"captured release over GUI clears inspection")
+ blocker.queue_free()
  app.overlay.set_enabled(false)
  # Controlled state probe isolates impulse duration from human input direction.
  camera=await fixture("P-R23",Vector2(600,622));app.controller.active=false
