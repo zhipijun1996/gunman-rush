@@ -164,16 +164,16 @@ func locked_lunge_and_actual_rise() -> void:
 	target.position = Vector2(300,452) # Explicit moving-target lock adversary.
 	encounter._release_attack()
 	var minimum_y := start.y
-	for index: int in 40:
+	for index: int in 120:
 		encounter.physics_tick(1.0 / 60)
 		minimum_y = minf(minimum_y, boss.global_position.y)
 		if encounter.mode != &"lunge": break
-	check(encounter.locked_direction == locked and locked == 1, "short pounce never retargets direction after takeoff")
+	check(encounter.locked_direction == locked and locked == 1, "high pounce never retargets direction after takeoff")
 	check(boss.global_position.x > start.x + 50, "pounce creates real forward BossMotor displacement")
 	check(minimum_y < start.y - encounter._config().lunge_height * .7, "actual BossMotor rises off the support plane")
 	check(absf(boss.global_position.y - start.y) < .1, "real pounce returns to its actual takeoff support height")
 	check(encounter.mode == &"recover" and encounter._group_plan == frozen, "last pounce ends in real group recovery without rewriting chosen plan")
-	observations.append({"case": "actual short-pounce movement", "start": start, "end": boss.global_position, "highest_y": minimum_y, "direction": locked})
+	observations.append({"case": "actual high-pounce movement", "start": start, "end": boss.global_position, "highest_y": minimum_y, "direction": locked})
 
 func platform_approach_and_lock() -> void:
 	if not await fixture(Vector2(870,452)): return

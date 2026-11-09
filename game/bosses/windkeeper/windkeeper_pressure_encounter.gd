@@ -55,6 +55,7 @@ var _hop_duration := 0.0
 var _hop_height := 0.0
 var _hop_prepared := false
 var _hop_is_baseline := false
+var _hop_ballistic := true
 var _hop_resume: StringName = &"approach"
 var _preparation_index := -1
 var _preparation_hops := 0
@@ -390,6 +391,7 @@ func _try_retreat() -> bool:
 		_hop_duration = _config().retreat_seconds
 		_hop_height = _config().retreat_height
 		_hop_is_baseline = true
+		_hop_ballistic = true
 		_hop_prepared = true
 	_retreat_ready_age = _fight_age + _config().retreat_cooldown_seconds
 	_blocked_age = 0.0
@@ -474,6 +476,7 @@ func _prepare_ground_lunge() -> bool:
 	_hop_duration = _config().lunge_seconds
 	_hop_height = _config().lunge_height
 	_hop_is_baseline = true
+	_hop_ballistic = true
 	_hop_prepared = true
 	_hop_active = false
 	_lunge_start = _hop_start
@@ -762,9 +765,9 @@ func _event(id: StringName, extra: Dictionary = {}) -> void:
 	presentation_event.emit(row)
 
 func rig_pose() -> Dictionary:
-	var rig_mode: StringName = &"lunge_warning" if mode in [&"traverse_warning", &"retreat_warning"] else &"lunge" if mode in [&"traverse", &"retreat"] else mode
+	var rig_mode: StringName = &"lunge_warning" if mode == &"traverse_warning" else &"lunge" if mode == &"traverse" else mode
 	var flight_pose: bool = _hop_active and mode in [&"phase_transition", &"traverse", &"lunge", &"retreat"]
-	if flight_pose: rig_mode = &"lunge"
+	if flight_pose: rig_mode = &"retreat" if mode == &"retreat" else &"lunge"
 	var pose_age := _hop_age if flight_pose else _state_age
 	var pose_duration := _hop_duration if flight_pose else _state_duration
 	var sampled := WindkeeperPressureRig.sample({"mode": rig_mode, "phase": stage_phase, "direction": direction,
@@ -783,7 +786,8 @@ func rig_pose() -> Dictionary:
 	sampled = _supported_pose(sampled)
 	sampled["mill_age"] = maxf(0,_fight_age-_mill_start_age)
 	sampled["deployment_seconds"] = _config().phase_warning_seconds
-	sampled["turn_yaw"] = cos(PI * smoothstep(0.0,1.0,_state_age/maxf(.001,_state_duration))) if mode==&"turn" and direction!=locked_direction else 1.0
+	sampled["turn_active"] = mode==&"turn" and direction!=locked_direction
+	sampled["turn_yaw"] = cos(PI * smoothstep(.12,.92,_state_age/maxf(.001,_state_duration))) if mode==&"turn" and direction!=locked_direction else 1.0
 	sampled["core_transform"] = (sampled.body_transform as Transform2D)*Transform2D(0,Vector2(74,22))
 	sampled = PlainsBossViewPose.turn(sampled,false)
 	# Solve fixed-length joints after support correction and state blending.
@@ -791,10 +795,12 @@ func rig_pose() -> Dictionary:
 	for i: int in 4:
 		var hip: Vector2=sampled.hips[i]
 		var foot: Vector2=sampled.feet[i]
-		var axis: Vector2=(foot-hip).normalized()
-		var distance:=minf(111.9,hip.distance_to(foot))
-		var bend:=sqrt(maxf(0.0,56.0*56.0-distance*distance*.25))
-		sampled.knees[i]=hip+axis*distance*.5+Vector2(axis.y,-axis.x)*bend*float(direction)*(1.0 if i<2 else -1.0)*float(sampled.get("turn_yaw",1.0))
+		var ankle := foot-Vector2(0,20)
+		var axis: Vector2=(ankle-hip).normalized()
+		var distance:=clampf(hip.distance_to(ankle),20.1,91.9)
+		var along: float=(56.0*56.0-36.0*36.0+distance*distance)/(2.0*distance)
+		var bend:=sqrt(maxf(0.0,56.0*56.0-along*along))
+		sampled.knees[i]=hip+axis*along+Vector2(axis.y,-axis.x)*bend*float(direction)*(1.0 if i<2 else -1.0)*float(sampled.get("turn_yaw",1.0))
 	return sampled
 
 func _update_combat_shapes() -> void:
@@ -907,7 +913,7 @@ func combat_snapshot() -> Dictionary:
 		"death_age": _death_age, "death_fall_speed": _death_fall_speed, "death_impact_sent": _death_impact_sent, "death_final_sent": _death_final_sent,
 		"physical_reward_expected": physical_reward_expected, "bridge_released": _bridge_released,
 		"support_motion": {"index": _support_index, "active": _hop_active, "prepared": _hop_prepared,
-			"baseline": _hop_is_baseline, "start": [_hop_start.x, _hop_start.y], "target": [_hop_target.x, _hop_target.y],
+			"baseline": _hop_is_baseline, "ballistic": _hop_ballistic, "start": [_hop_start.x, _hop_start.y], "target": [_hop_target.x, _hop_target.y],
 			"target_index": _hop_target_index, "age": _hop_age, "duration": _hop_duration, "height": _hop_height,
 			"resume": String(_hop_resume), "preparation_index": _preparation_index,
 			"preparation_hops": _preparation_hops, "guarded_attack_index": _guarded_attack_index},
@@ -968,6 +974,7 @@ func restore_combat_state(data: Dictionary) -> void:
 	_hop_active = bool(motion.get("active", false))
 	_hop_prepared = bool(motion.get("prepared", false))
 	_hop_is_baseline = bool(motion.get("baseline", false))
+	_hop_ballistic = bool(motion.get("ballistic",not _hop_is_baseline))
 	point = motion.get("start", [_lunge_start.x, _lunge_start.y])
 	_hop_start = Vector2(point[0], point[1])
 	point = motion.get("target", [_lunge_start.x + locked_direction * _lunge_distance, _lunge_start.y])
@@ -985,6 +992,7 @@ func restore_combat_state(data: Dictionary) -> void:
 	if motion.is_empty() and mode == &"lunge" and stage_phase < 3:
 		_hop_active = true
 		_hop_is_baseline = true
+		_hop_ballistic = false
 	if stage_phase == 3 and _supports_bound and not _bridge_released and motion.is_empty() and not health.terminal:
 		mode = &"phase_transition"
 		_state_age = 0.0
@@ -1010,6 +1018,7 @@ func _restore_legacy_combat_state() -> void:
 	_hop_active = false
 	_hop_prepared = false
 	_hop_is_baseline = false
+	_hop_ballistic = true
 	_bridge_released = false
 	_support_index = -1
 	_attack_index = 0
@@ -1154,7 +1163,10 @@ func _lock_support_hop(index: int, speed_limit: float, start_immediately: bool =
 	# the maximum vector speed is exactly bounded by the two endpoint norms.
 	var peak := maxf((displacement + Vector2(0, -4 * _hop_height)).length(), (displacement + Vector2(0, 4 * _hop_height)).length())
 	_hop_duration = maxf(.25, peak / maxf(1, speed_limit))
+	if arc_height >= 0:
+		_hop_duration = maxf(_hop_duration, _config().lunge_seconds if arc_height >= _config().lunge_height else _config().retreat_seconds)
 	_hop_is_baseline = false
+	_hop_ballistic = true
 	_hop_prepared = true
 	_hop_active = false
 	if start_immediately: _start_prepared_hop()
@@ -1171,9 +1183,10 @@ func _advance_support_hop(delta: float) -> bool:
 	_hop_age = minf(_hop_duration, _hop_age + delta)
 	var progress := clampf(_hop_age / maxf(.01, _hop_duration), 0, 1)
 	var desired := _hop_start.lerp(_hop_target, progress) + Vector2(0, -4 * _hop_height * progress * (1 - progress))
-	if _hop_is_baseline:
-		var eased := progress * progress * (3 - 2 * progress)
-		desired = _hop_start.lerp(_hop_target, eased) + Vector2(0, -sin(progress * PI) * _hop_height)
+	if _hop_is_baseline and not _hop_ballistic:
+		# Finish an already-saved pre-v11 flight on its original curve.
+		var eased := progress*progress*(3-2*progress)
+		desired = _hop_start.lerp(_hop_target,eased)+Vector2(0,-sin(progress*PI)*_hop_height)
 	var before := motor.global_position
 	motor.move_and_collide(desired - before)
 	motor.velocity = (motor.global_position - before) / delta

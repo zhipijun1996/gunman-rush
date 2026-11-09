@@ -37,10 +37,10 @@ func crossing(direction: int, move_under: bool) -> void:
 	boss.set_physics_process(false)
 	if capture:
 		app.camera.set_physics_process(false);app.camera.zoom=Vector2.ONE
-		note.text="牧风者 · 510 HP · "+("迎向 Boss，从身下穿过" if move_under else "对照：停在落点")+"\n指定扑击／初始站位夹具 · 真实移动与伤害 · 1×"
+		note.text="牧风者 · 转身与扑击 · "+("迎向 Boss，从身下穿过" if move_under else "对照：停在落点")+"\n指定扑击／初始站位夹具 · 真实移动与伤害 · 1×"
 	var start:=boss.motor.global_position
 	start.x=(boss.arena.left_x+boss.arena.right_x)*.5
-	boss.motor.global_position=start;boss.direction=direction;boss._pose_from.clear()
+	boss.motor.global_position=start;boss.direction=-direction;boss._pose_from.clear()
 	if capture:
 		app.camera.global_position=start+Vector2(direction*130,-170);app.camera.force_update_scroll()
 	app.player.reset_at(start+Vector2(direction*205,47))
@@ -55,6 +55,14 @@ func crossing(direction: int, move_under: bool) -> void:
 	check(boss.health.capacity==510 and boss.health.current==510,"formal Windkeeper starts at requested 510 HP")
 	boss._group_plan={"attacks":[&"lunge"],"double_stomp":false,"sweep_high":false};boss._attack_index=0;boss._preparation_index=-1
 	boss._begin_attack()
+	check(boss.mode==&"turn","backside target first receives a real committed turn")
+	for frame: int in 90:
+		if boss.mode!=&"turn":break
+		boss.physics_tick(1.0/60);await physics_frame
+		if capture and frame%5==0:
+			await RenderingServer.frame_post_draw
+			DirAccess.make_dir_recursive_absolute("res://build/plains_actors_142/motion-refine")
+			root.get_texture().get_image().save_png("res://build/plains_actors_142/motion-refine/turn-%d-%s-%02d.png"%[direction,str(move_under),frame])
 	check(boss.mode==&"lunge_warning" and boss._hop_prepared,"high pounce commits landing before warning")
 	var landing:=boss._hop_target
 	var hp:=app.controller.actor_resources.health.current

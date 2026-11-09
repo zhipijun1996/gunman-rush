@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 BASE = ROOT / 'build/plains_actors_142'
 OUT = BASE / 'mobile-combat'
-LABELS = {'patrol':'巡逻怪','charger':'冲锋怪','hopper':'跳跃怪','sentry':'哨兵','fan_sentry':'扇射哨兵','root_bell':'根铃','diver':'俯冲怪 · 空中死亡落地','bell':'鸣铃巡游机 · 快速冲锋与转向','bell_wave':'鸣铃巡游机 · 地波与抛铃','keeper':'牧风者一阶段','windmill':'牧风者二阶段','pounce':'牧风者扑击 · 穿身与停留对照'}
+LABELS = {'patrol':'巡逻怪','charger':'冲锋怪','hopper':'跳跃怪','sentry':'哨兵','fan_sentry':'扇射哨兵','root_bell':'根铃','diver':'俯冲怪 · 空中死亡落地','bell':'鸣铃巡游机 · 快速冲锋与转向','bell_wave':'鸣铃巡游机 · 地波与抛铃','keeper':'牧风者一阶段','windmill':'牧风者二阶段','pounce':'牧风者转身与扑击 · 穿身对照'}
 
 
 def main():

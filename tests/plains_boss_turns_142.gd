@@ -17,6 +17,7 @@ func run() -> void:
 	keeper._group_plan={"attacks":[&"seeds"],"double_stomp":false,"sweep_high":false}
 	keeper._attack_index=0;keeper._begin_attack()
 	check(keeper.mode==&"turn" and keeper.direction==1,"backside target enters visible turn")
+	verify_turn_articulation(keeper)
 	keeper.physics_tick(keeper.clock-.001)
 	var before:=keeper.rig_pose()
 	keeper.physics_tick(.0011)
@@ -100,3 +101,45 @@ func run() -> void:
 	visual.queue_free()
 	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(4)
 	print("PLAINS BOSS TURN142: %d checks, %d failures"%[checks,failures]);quit(1 if failures else 0)
+
+func verify_turn_articulation(keeper: WindkeeperPressureEncounter) -> void:
+	var visual:=preload("res://game/presentation/actors/art/windkeeper_rig.tscn").instantiate() as PlainsBossRig
+	root.add_child(visual)
+	var old_age:=keeper._state_age
+	var old_from:=keeper._pose_from
+	keeper._pose_from={}
+	var connected:=true
+	var level_toes:=true
+	var solid_skins:=true
+	var rotor_continuous:=true
+	var prior_angle:=0.0
+	for step: int in 41:
+		keeper._state_age=keeper._state_duration*float(step)/40
+		var pose:=keeper.rig_pose()
+		pose.phase=2;pose.mill_age=2.0+float(step)/60
+		visual.present(pose)
+		for i: int in 4:
+			var shin: Bone2D=visual.bones["Lower%d"%i]
+			var toe: Bone2D=visual.bones["Foot%d"%i]
+			connected=connected and (shin.global_transform*Vector2(0,36)).distance_to(pose.feet[i]-Vector2(0,20))<.01
+			level_toes=level_toes and absf(toe.global_transform.y.x)<.001 and toe.global_position.distance_to(pose.feet[i])<.01
+		for key: String in ["Torso","Head"]:
+			var side:=visual.bones[key].get_node("Art") as Sprite2D
+			var front:=visual.bones[key].get_node("Front") as Sprite2D
+			solid_skins=solid_skins and side.visible!=front.visible and side.modulate.a==1.0 and front.modulate.a==1.0
+		var angle: float=visual.bones.Rotor.global_rotation
+		if step>0:rotor_continuous=rotor_continuous and absf(angle_difference(prior_angle,angle))<.35
+		prior_angle=angle
+	check(connected,"shin ends remain joined to independent ankles throughout actual turn poses")
+	check(level_toes,"turning feet remain level and registered with physical foot anchors")
+	check(solid_skins,"turn uses one opaque torso/head orientation without transparent ghost bodies")
+	check(rotor_continuous,"head turn cannot reflect or reverse accumulated rotor phase")
+	keeper._state_age=keeper._state_duration*.49
+	var a:=keeper.rig_pose()
+	keeper._state_age=keeper._state_duration*.51
+	var b:=keeper.rig_pose()
+	var planted:=true
+	for i: int in 4:planted=planted and (a.feet[i] as Vector2).distance_to(b.feet[i])<.01
+	check(planted,"all four planted front-view feet stay fixed while the torso continues its pivot")
+	keeper._state_age=old_age;keeper._pose_from=old_from
+	visual.queue_free()

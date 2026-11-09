@@ -170,6 +170,9 @@ material = SubResource("surface")
 centered = false
 position = Vector2(-22, -8)
 
+region_enabled = true
+region_rect = Rect2(0, 0, 44, 44)
+
 [node name="Upper1" type="Bone2D" parent="Skeleton/Torso"]
 position = Vector2(45, 20)
 rest = Transform2D(1, 0, 0, 1, 45, 20)
@@ -200,6 +203,9 @@ centered = false
 position = Vector2(-22, -8)
 modulate = Color(0.70, 0.76, 0.77, 1)
 
+region_enabled = true
+region_rect = Rect2(0, 0, 44, 44)
+
 [node name="Upper2" type="Bone2D" parent="Skeleton/Torso"]
 position = Vector2(-46, 20)
 rest = Transform2D(1, 0, 0, 1, -46, 20)
@@ -227,6 +233,9 @@ texture = ExtResource("13")
 material = SubResource("surface")
 centered = false
 position = Vector2(-22, -8)
+
+region_enabled = true
+region_rect = Rect2(0, 0, 44, 44)
 
 [node name="Upper3" type="Bone2D" parent="Skeleton/Torso"]
 position = Vector2(-46, 20)
@@ -258,6 +267,9 @@ centered = false
 position = Vector2(-22, -8)
 modulate = Color(0.70, 0.76, 0.77, 1)
 
+region_enabled = true
+region_rect = Rect2(0, 0, 44, 44)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 callback_mode_process = 2
 libraries = {&"": SubResource("library")}
@@ -288,3 +300,69 @@ material = SubResource("surface")
 centered = false
 position = Vector2(-39, -78)
 modulate = Color(1,1,1,0)
+
+[node name="Foot0" type="Bone2D" parent="Skeleton/Torso/Upper0/Lower0"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 20.0
+z_index = 4
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper0/Lower0/Foot0"]
+texture = ExtResource("11")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -20)
+region_enabled = true
+region_rect = Rect2(0, 44, 44, 20)
+
+[node name="Foot1" type="Bone2D" parent="Skeleton/Torso/Upper1/Lower1"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 20.0
+z_index = 0
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper1/Lower1/Foot1"]
+texture = ExtResource("11")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -20)
+region_enabled = true
+region_rect = Rect2(0, 44, 44, 20)
+modulate = Color(0.70, 0.76, 0.77, 1)
+
+[node name="Foot2" type="Bone2D" parent="Skeleton/Torso/Upper2/Lower2"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 20.0
+z_index = 4
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper2/Lower2/Foot2"]
+texture = ExtResource("13")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -20)
+region_enabled = true
+region_rect = Rect2(0, 44, 44, 20)
+
+[node name="Foot3" type="Bone2D" parent="Skeleton/Torso/Upper3/Lower3"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 20.0
+z_index = 0
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper3/Lower3/Foot3"]
+texture = ExtResource("13")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -20)
+region_enabled = true
+region_rect = Rect2(0, 44, 44, 20)
+modulate = Color(0.70, 0.76, 0.77, 1)

@@ -1,8 +1,8 @@
 class_name PlainsBossRig
 extends Node2D
-## Rigid painted parts on a real editable bone hierarchy. No body-frame swap,
-## optical flow or accumulated presentation time. Only view projection changes
-## part width during a turn; attacks and phases retain their native dimensions.
+## Fixed painted parts on editable bones, with explicit turn orientation skins.
+## Independent ankles keep soles level; projected joints stay connected.
+## The accepted pose owns timing, body dimensions and physical anchors.
 @export_enum("bellstrider", "windkeeper") var family := "bellstrider"
 @onready var skeleton: Skeleton2D = $Skeleton
 @onready var animation: AnimationPlayer = $AnimationPlayer
@@ -46,12 +46,27 @@ func present(pose: Dictionary, flash: float = 0.0) -> void:
 		_place("Head", pose.head_transform)
 		for i: int in 4:
 			var upper: Vector2 = pose.knees[i]-pose.hips[i]
-			var lower: Vector2 = pose.feet[i]-pose.knees[i]
-			_place("Upper%d"%i, Transform2D(upper.angle()-PI*.5,Vector2(face,1),0,pose.hips[i]))
-			_place("Lower%d"%i, Transform2D(lower.angle()-PI*.5,Vector2(face,1),0,pose.knees[i]))
+			var lower: Vector2 = pose.feet[i]-Vector2(0,20)-pose.knees[i]
+			var projected := bool(pose.get("projected_limbs",false))
+			_place("Upper%d"%i, Transform2D(upper.angle()-PI*.5,Vector2(face,upper.length()/56.0 if projected else 1.0),0,pose.hips[i]))
+			_place("Lower%d"%i, Transform2D(lower.angle()-PI*.5,Vector2(face,lower.length()/36.0),0,pose.knees[i]))
+			var air: bool = pose.mode in [&"lunge",&"retreat"]
+			var toe_angle := sin(float(pose.progress)*PI)*(.12 if i<2 else -.10)*face if air else 0.0
+			_place("Foot%d"%i,Transform2D(toe_angle,Vector2(face,1),0,pose.feet[i]))
+			var front_legs := float(pose.get("view_front",0.0))>.5
+			for prefix: String in ["Upper","Lower","Foot"]:
+				bones[prefix+str(i)].z_index = (4 if i<2 else 0) if front_legs else (4 if i%2==0 else 0)
 		_place("Cape", body * Transform2D(sway+float(pose.bell_swing)*.30, Vector2(-35,-45)))
 		_place("Banner", body * Transform2D(float(pose.bell_swing), Vector2(57,0)))
 		_place("Tail", body * Transform2D(sway*.8, Vector2(-76,4)))
+		if bool(pose.get("turn_active",false)):
+			var yaw := float(pose.turn_yaw)
+			for item: Array in [["Cape",-35.0,-45.0],["Tail",-76.0,4.0],["Banner",57.0,0.0]]:
+				var attachment := body*Transform2D(sway,Vector2.ZERO)
+				attachment.x *= maxf(.25,absf(yaw))
+				attachment.origin = body.origin+Vector2(float(item[1])*float(pose.direction)*yaw,float(item[2]))
+				_place(item[0],attachment)
+		bones.Cape.z_index=1 if float(pose.get("view_front",0.0))>.3 else 3
 		var visible_mill := int(pose.phase)>=2
 		bones.Pole.visible = visible_mill
 		_place("Core",pose.core_transform)
@@ -74,13 +89,20 @@ func present(pose: Dictionary, flash: float = 0.0) -> void:
 		if sprite != null:
 			var front_sprite:=bones[key].get_node_or_null("Front") as Sprite2D
 			if front_sprite!=null:
-				sprite.modulate.a=1.0-front
-				front_sprite.modulate.a=front
+				var part_front := float(pose.get("view_front_head",front)) if key=="Head" else front
+				if family=="windkeeper":
+					# Solid orientation drawings, never two translucent bodies.
+					front_sprite.visible=part_front>.5
+					sprite.visible=not front_sprite.visible
+					sprite.modulate.a=1.0;front_sprite.modulate.a=1.0
+				else:
+					sprite.modulate.a=1.0-front
+					front_sprite.modulate.a=front
 				front_sprite.scale.x=1.0/maxf(.01,(bones[key] as Bone2D).global_transform.x.length())
 				if key in ["RearWheel","FrontWheel"]:
 					# Edge-on tire skin must not inherit spinning side-wheel axes.
 					front_sprite.transform=(bones[key] as Bone2D).global_transform.affine_inverse()*Transform2D(0,(bones[key] as Bone2D).global_position+global_transform.basis_xform(Vector2(-6,-21)))
-			if key in ["Cape","Cloth","Tail","Banner","Cannon","Mount"]: sprite.modulate.a=1.0-front
+			if key in ["Cape","Cloth","Tail","Banner","Cannon","Mount"]: sprite.modulate.a=1.0 if family=="windkeeper" else 1.0-front
 			var surface := sprite.material as ShaderMaterial
 			if surface != null: surface.set_shader_parameter("hit_flash",flash)
 
