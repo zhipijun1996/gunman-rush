@@ -180,7 +180,13 @@ def run(command: list[str], log: Path, timeout=300) -> str:
                             text=True, timeout=timeout)
     log.write_text(result.stdout)
     if result.returncode or re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:", result.stdout, re.I | re.M):
-        raise RuntimeError("Command failed; see " + str(log))
+        lines = result.stdout.splitlines()
+        errors = [line for line in lines if re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:", line, re.I)]
+        summary = "\n".join(errors[:12])[:6000]
+        tail = "\n".join(lines[-80:])[-12000:]
+        raise RuntimeError(f"Command failed (exit {result.returncode}); full log: {log}\n"
+                           + ("First errors:\n" + summary + "\n" if summary else "")
+                           + "Log tail:\n" + tail)
     return result.stdout
 
 
