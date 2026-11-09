@@ -9,7 +9,7 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
-| MOBILE-LEVEL-WORKBENCH-01 | 手机试玩性能、Q图标与护光；平原03/21/22/23/24教学链已发布r46，等待本轮手机反馈 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | 08封井、06岔路、13旧路肩连续灰盒；每个平台有职责，压缩无用空间并发布手机试玩 | — | in_progress | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
 ## 待验收

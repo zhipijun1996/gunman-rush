@@ -62,6 +62,7 @@ jobs:
           bash tools/godot.sh --headless --path . --script tests/traversal_resource_refill.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/resources.log
           bash tools/godot.sh --headless --path . --script tests/world/stargate_basic.gd 2>&1 | tee build/stargate_basic/check.log
           bash tools/godot.sh --headless --path . --script tests/world/plains_intro.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains.log
+          bash tools/godot.sh --headless --path . --script tests/world/plains_next_batch.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains-next.log
       - name: Preserve basic greybox diagnostics
         if: always() && github.ref_name == 'feat/world-review-stargate'
         uses: actions/upload-artifact@v4

@@ -1,22 +1,17 @@
 [gd_scene load_steps=5 format=3]
 [ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
 [ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
 [node name="P-R06" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R06"
 art_profile = "junction"
+platforms = Array[Rect2]([Rect2(1152,1952,128,32),Rect2(928,1824,256,48),Rect2(1088,1600,192,64),Rect2(768,1472,192,48),Rect2(0,1696,768,160),Rect2(480,1600,64,96),Rect2(576,448,768,896),Rect2(192,960,288,32),Rect2(608,160,192,32),Rect2(1344,1344,320,48)])
+start_point = Vector2(1216,1934)
 arrival_text = "风铃岔路"
-platforms = Array[Rect2]([Rect2(640,1440,608,96),Rect2(928,1408,320,32),Rect2(1376,1408,800,128),Rect2(640,1184,192,64),Rect2(960,1184,416,64),Rect2(1024,1248,96,160),Rect2(1536,1184,384,64),Rect2(1920,1280,128,128),Rect2(640,512,320,64),Rect2(1376,1408,192,128),Rect2(640,1440,288,32),Rect2(640,1184,192,32),Rect2(0,416,288,32)])
-one_way_indices = Array[int]([])
-masonry_platform_indices = Array[int]([0,1,2,3,4,5,6,7,8])
-start_point = Vector2(784,1422)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id":"P-R06:encounter:01","behavior":"patrol","point":[1792,1390],"max_health":10},{"id":"P-R06:encounter:02","behavior":"patrol","point":[1104,1166],"max_health":10}])
-signs = Array[Dictionary]([{"point":[864,1360],"text":"西边传来低沉的风声，东边是熟悉的井口。"}])
-hook_points = Array[Vector2]([Vector2(1152,960),Vector2(1008,800),Vector2(896,608),Vector2(736,448),Vector2(544,352),Vector2(352,288)])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[1424,1348,96,60],"point":[1472,1390],"section":"main"},{"bounds":[1216,1124,96,60],"point":[1264,1166],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_road_marker","point":[1472,1408],"layer":-2},{"asset":"plain_pier","point":[1072,1408],"support_height":128}])
-illustrated_platform_indices = Array[int]([])
+enemy_placements = Array[Dictionary]([{"id":"P-R06:road_patrol","behavior":"patrol","point":[656,1678],"max_health":5},{"id":"P-R06:upper_sentry","behavior":"sentry","point":[1408,1326],"max_health":10}])
+spike_strips = Array[Dictionary]([{"id":"P-R06:stem_wall","bounds":[1256,1728,24,96],"facing":"left"}])
+retry_anchors = Array[Dictionary]([{"bounds":[960.0,1764,160,60],"point":[1040,1806],"section":"main"},{"bounds":[1096.0,1540,112,60],"point":[1152,1582],"section":"main"},{"bounds":[592.0,1636,128,60],"point":[656,1678],"section":"main"}])
+art_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point":[1136,1888],"text":"西行的风铃声通向牧风高地。上方两条回环尚未开启。","route_guide":{"schema":1,"steps":[{"number":1,"point":[1056,1776],"label":"反冲抬升","action":"在左台跳起朝下开枪，上升后向右落到高岸。","path":[[1216,1934],[1040,1806],[1008,1500],[1152,1582]]},{"number":2,"point":[800,1440],"label":"向西辨路","action":"左侧低路通旧路肩；上方实体山体隔开两条后续返回廊。","path":[[1152,1582],[832,1454],[640,1678],[144,1678]]}]}},{"point":[352,912],"text":"旧集侧的回环闸，从另一边开启。"},{"point":[704,112],"text":"高地胜利后可打开这条近路。"}])

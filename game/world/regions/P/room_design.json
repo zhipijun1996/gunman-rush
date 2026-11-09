@@ -211,37 +211,42 @@
     {
       "room_id": "P-R06",
       "name": "风铃岔路",
-      "purpose": "封井上端的西行主线指引与分层回环；辨认胜利闸、慢风桥和旧路肩。",
+      "purpose": "下部反冲抬升后西行；中央实体山体分隔主路和两条永久闸后的返回廊。",
       "profile": "junction",
       "scene": "res://game/world/regions/P/rooms/P-R06.tscn",
       "encounters": [
         {
-          "id": "P-R06:encounter:01",
-          "behavior": "patrol"
+          "id": "P-R06:road_patrol",
+          "behavior": "patrol",
+          "point": [
+            656,
+            1678
+          ],
+          "max_health": 5
         },
         {
-          "id": "P-R06:encounter:02",
-          "behavior": "patrol"
+          "id": "P-R06:upper_sentry",
+          "behavior": "sentry",
+          "point": [
+            1408,
+            1326
+          ],
+          "max_health": 10
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "在井口宽岸判断去旧路肩还是中层旧桥；取得钩索后沿上方索点回望庭地出口。",
-        "visual_read": "桥墩把低通道与中层路分开，高处索点连接庭地回程口。",
-        "pressure": "巡逻分别占据桥面和东侧宽地；登桥时的反冲与换层改变接近角度。",
-        "failure_recovery": "下行开口落在实际右岸，失误回井口侧岸或同层地面；不横放接人板。",
-        "return_visit": "开启回桥与回闸后，看见走过的路线缩短。"
+        "player_decision": "下部反冲抬升后西行；中央实体山体分隔主路和两条永久闸后的返回廊。",
+        "failure_recovery": "实际踏上宽岸后登记本段重试；机关停靠岸可召回载台，不修改冷却或角色物理。",
+        "visual_read": "路线告示标记主支路、换乘与危险；每个平台承担准备、观察、换层或落地。"
       },
-      "art_focal_assets": [
-        "windchime_plains_v2_road_marker",
-        "plain_pier"
-      ],
+      "art_focal_assets": [],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
       },
-      "spatial_intent": "西下口以牧风铃声和风车地标引向13；两处关闭回环从开启侧解释用途，S3不标H能力锁。"
+      "spatial_intent": "下部反冲抬升后西行；中央实体山体分隔主路和两条永久闸后的返回廊。"
     },
     {
       "room_id": "P-R07",
@@ -281,36 +286,42 @@
     {
       "room_id": "P-R08",
       "name": "封井回廊",
-      "purpose": "提水井的纵向承载与检修侧廊。",
+      "purpose": "分段提水与检修换乘；射铃启停、绕梁反冲和停靠避齿轮，接风铃岔路。",
       "profile": "well",
       "scene": "res://game/world/regions/P/rooms/P-R08.tscn",
       "encounters": [
         {
-          "id": "P-R08:encounter:01",
-          "behavior": "patrol"
+          "id": "P-R08:floor_patrol",
+          "behavior": "patrol",
+          "point": [
+            560,
+            2926
+          ],
+          "max_health": 10
         },
         {
-          "id": "P-R08:encounter:02",
-          "behavior": "hopper"
+          "id": "P-R08:maintenance_hopper",
+          "behavior": "hopper",
+          "point": [
+            512,
+            1262
+          ],
+          "max_health": 5
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "射铃启停井笼，选侧廊落脚再登台；在上部横穿锯轮前决定等待或避让。",
-        "visual_read": "长轨、宽检修凹室与少量壁刺分出井道层次，不堆满短踏板。",
-        "pressure": "底部巡逻、侧廊跳跃敌人与上部锯轮分段出现；侧廊是实际可停靠和恢复的位置。",
-        "failure_recovery": "旧密集短梯退休，保留井底岸台、宽侧廊与可再次控制的吊台；上口沿实体侧岸进出。",
-        "return_visit": "吊台停靠相位保存；下端回小站01，上端接06，不再直通铃场。"
+        "player_decision": "分段提水与检修换乘；射铃启停、绕梁反冲和停靠避齿轮，接风铃岔路。",
+        "failure_recovery": "实际踏上宽岸后登记本段重试；机关停靠岸可召回载台，不修改冷却或角色物理。",
+        "visual_read": "路线告示标记主支路、换乘与危险；每个平台承担准备、观察、换层或落地。"
       },
-      "art_focal_assets": [
-        "gear_city_v2_pipe_junction",
-        "gear_lamp"
-      ],
+      "art_focal_assets": [],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
-      }
+      },
+      "spatial_intent": "分段提水与检修换乘；射铃启停、绕梁反冲和停靠避齿轮，接风铃岔路。"
     },
     {
       "room_id": "P-R09",
@@ -449,25 +460,54 @@
     {
       "room_id": "P-R13",
       "name": "旧路肩高台",
-      "purpose": "转折石崖、旧路与草坡回环；路肩内侧藏反冲血量片挑战。",
+      "purpose": "06来向辨认荆棘上廊与普通下路；04前看见上层HP01，回入口挑战并从奖励侧单向返回。",
       "profile": "terrace",
       "scene": "res://game/world/regions/P/rooms/P-R13.tscn",
       "encounters": [
         {
-          "id": "P-R13:encounter:pocket_patrol",
-          "behavior": "patrol"
+          "id": "P-R13:cliff_patrol",
+          "behavior": "patrol",
+          "point": [
+            6880,
+            942
+          ],
+          "max_health": 5
         },
         {
-          "id": "P-R13:encounter:road_charger",
-          "behavior": "charger"
+          "id": "P-R13:road_charger",
+          "behavior": "charger",
+          "point": [
+            5040,
+            2478
+          ],
+          "max_health": 10
         },
         {
-          "id": "P-R13:encounter:road_patrol",
-          "behavior": "patrol"
+          "id": "P-R13:upper_patrol",
+          "behavior": "patrol",
+          "point": [
+            4128,
+            2286
+          ],
+          "max_health": 5
         },
         {
-          "id": "P-R13:encounter:cliff_diver",
-          "behavior": "diver"
+          "id": "P-R13:under_beam_patrol",
+          "behavior": "patrol",
+          "point": [
+            2800,
+            2478
+          ],
+          "max_health": 5
+        },
+        {
+          "id": "P-R13:west_hopper",
+          "behavior": "hopper",
+          "point": [
+            1104,
+            2478
+          ],
+          "max_health": 5
         }
       ],
       "interactions": [
@@ -477,21 +517,17 @@
         }
       ],
       "experience": {
-        "player_decision": "从崖顶沿转折落点下降，横穿旧路后选择田垄、草坡回环或内侧铜光。",
-        "visual_read": "附壁台阶与横向路肩构成同一地形；奖励壁将高来向与收集落点隔开。",
-        "pressure": "崖道横梁迫使改变下落方向，旧路掩体与怪物改变射线；奖励取得后打开直接落回主路的底闸。",
-        "failure_recovery": "支路失手回主路或井口侧岸；收集侧开启折梯短返，低层不能提前借梯绕过。",
-        "return_visit": "原门回草坡；奖励侧折梯只在实际打开后保留。"
+        "player_decision": "06来向辨认荆棘上廊与普通下路；04前看见上层HP01，回入口挑战并从奖励侧单向返回。",
+        "failure_recovery": "实际踏上宽岸后登记本段重试；机关停靠岸可召回载台，不修改冷却或角色物理。",
+        "visual_read": "路线告示标记主支路、换乘与危险；每个平台承担准备、观察、换层或落地。"
       },
-      "art_focal_assets": [
-        "windchime_plains_v2_road_marker",
-        "plain_pier"
-      ],
+      "art_focal_assets": [],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
-      }
+      },
+      "spatial_intent": "06来向辨认荆棘上廊与普通下路；04前看见上层HP01，回入口挑战并从奖励侧单向返回。"
     },
     {
       "room_id": "P-R14",
