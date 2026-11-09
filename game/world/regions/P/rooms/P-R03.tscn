@@ -10,7 +10,17 @@ arrival_text = "初行草坡"
 art_profile = "meadow"
 platforms = Array[Rect2]([Rect2(0,1792,640,128),Rect2(640,1728,384,192),Rect2(1024,1824,128,96),Rect2(1152,1664,512,256),Rect2(1664,1792,128,128),Rect2(1792,1600,512,320),Rect2(1504.0,160.0,192,32),Rect2(576,1824,128,32),Rect2(1088,1824,128,32),Rect2(2016.0,1600.0,288,32)])
 start_point = Vector2(144,1774)
-tutorial_action = "tutorial_move"
-tutorial_min_move = 700.0
-signs = Array[Dictionary]([{"point":[288,1744],"text":"轻按跳跃越过矮坡，按住跳跃越过断岸。"}])
+tutorial_action = "tutorial_opening"
+tutorial_min_move = 220
+signs = Array[Dictionary]([{"point":[384,1744],"text":"射击风铃开门。上台阶前，先瞄准守在台上的怪。"}])
 art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_chime_span","point":[240,1792],"layer":-2},{"asset":"windchime_plains_v2_road_marker","point":[1440,1664],"layer":-2}])
+
+intro_sequence = {"kind":"wake","pickup_point":[288,1774]}
+
+tutorial_target = "P-R03:lesson:step1"
+
+bell_mechanisms = Array[Dictionary]([{"id":"P-R03:first_bell","bell":[464,1736],"gate":[576,1536,32,256],"open_seconds":0}])
+
+enemy_placements = Array[Dictionary]([{"id":"P-R03:lesson:step1","behavior":"patrol","point":[832,1710],"max_health":5},{"id":"P-R03:lesson:step2","behavior":"patrol","point":[1408,1646],"max_health":5},{"id":"P-R03:lesson:step3","behavior":"hopper","point":[2016,1582],"max_health":5}])
+
+retry_anchors = Array[Dictionary]([{"bounds":[736,1668,192,60],"point":[736,1710],"section":"main"},{"bounds":[1216,1604,192,60],"point":[1216,1646],"section":"main"}])

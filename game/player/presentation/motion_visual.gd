@@ -175,6 +175,7 @@ func _draw() -> void:
 			var direction := Vector2.from_angle(i * TAU / 8 + .2)
 			var point := to_local(_hurt_origin) + direction * (5 + age * 65)
 			draw_line(point,point + direction * 3,Color("ead8a3",1 - age / feedback.hurt_seconds),2,false)
+	if not controller.shoot_ability.enabled:return
 	var anchor := motor.get_node("CourierVisual") as CourierVisual
 	var muzzle := to_local(anchor.visible_muzzle_position())
 	var aim := controller.router.aim_direction.normalized()

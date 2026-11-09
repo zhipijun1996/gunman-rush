@@ -8,18 +8,24 @@ script = ExtResource("1")
 room_id = "P-R24"
 arrival_text = "望站坡"
 art_profile = "overlook"
-platforms = Array[Rect2]([Rect2(1024,1120,224,96),Rect2(1440,1120,320,96),Rect2(1952,1120,544,96),Rect2(1664,1376,128,64),Rect2(1920,1504,128,96),Rect2(1056,160,192,32),Rect2(1920.0,1504.0,128,32),Rect2(1056.0,160.0,192,32),Rect2(0,320,1024,896)])
+platforms = Array[Rect2]([Rect2(1024,1120,352,96),Rect2(1376,1120,384,96),Rect2(1952,1120,544,96),Rect2(1664,1376,128,64),Rect2(1920,1504,128,96),Rect2(1056,160,192,32),Rect2(1792,1248,128,32),Rect2(0,320,1024,896)])
 start_point = Vector2(1984,1486)
 traveler_point = Vector2(1536,1102)
-signs = Array[Dictionary]([{"point":[1584,1072],"text":"钟外小站的灯在坡顶。候风笼仍沿着旧轨道往返。"},{"point":[1120,1072],"text":"褪色的布条仍指向山上。有人在下面打了一个新结。","action_ref":"read_intro_obj_ribbon"}])
-art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_road_marker","point":[1584,1120],"layer":-2},{"asset":"hanging_chime","point":[1184,1120],"layer":-2}])
+signs = Array[Dictionary]([{"point":[2304,1072],"text":"守望试炼：三波守卫，清完后左侧门开启。"},{"point":[1088,1072],"text":"击响风铃，升降台便会启动。跟着轨道向上，就是钟外小站。"}])
+art_placements = Array[Dictionary]([{"asset":"hanging_chime","point":[1168,1120],"layer":-2}])
+
+wave_encounter = {"trigger":[1440,944,992,176],"exit_gate":[1360,320,24,800],"entry_gate":[1760,1120,192,32],"recovery_point":[2240,1102],"label_point":[1808,824],"completion_action":"intro_clear_waves","waves":[[{"id":"P-R24:wave1:patrol","behavior":"patrol","point":[1552,1102],"max_health":5},{"id":"P-R24:wave1:hopper","behavior":"hopper","point":[2352,1102],"max_health":5}],[{"id":"P-R24:wave2:charger","behavior":"charger","point":[1520,1102],"max_health":10},{"id":"P-R24:wave2:sentry","behavior":"sentry","point":[2384,1102],"max_health":10}],[{"id":"P-R24:wave3:patrol","behavior":"patrol","point":[1536,1102],"max_health":5},{"id":"P-R24:wave3:hopper","behavior":"hopper","point":[2352,1102],"max_health":10},{"id":"P-R24:wave3:diver","behavior":"diver","point":[2072,864],"max_health":10}]]}
+
+bell_mechanisms = Array[Dictionary]([{"id":"P-R24:station_lift","bell":[1104,1088],"carrier":"OverlookLift","open_seconds":0}])
+
+retry_anchors = Array[Dictionary]([{"bounds":[2128,1060,288,60],"point":[2240,1102],"section":"main"},{"bounds":[1056,1060,224,60],"point":[1136,1102],"section":"main"}])
 
 [node name="OverlookLift" type="AnimatableBody2D" parent="."]
 script = ExtResource("moving")
-position = Vector2(1856,1456)
-endpoint = Vector2(-512,-1232)
+position = Vector2(1200,1072)
+endpoint = Vector2(0,-864)
 platform_size = Vector2(128,20)
-period = 12.0
+period = 10.0
 one_way = true
 endpoint_dwell = 2.0
-route = Array[Vector2]([Vector2(0,-400),Vector2(-512,-400),Vector2(-512,-1232)])
+route = Array[Vector2]([Vector2(0,-864)])

@@ -42,6 +42,6 @@ func _physics_process(_delta: float) -> void:
 	var player:=controller.motor
 	moved=maxf(moved,absf(player.position.x-initial_x))
 	if air_recoil_pending and player.recoil_burst_remaining>0 and player.position.distance_to(recoil_origin)>20: recoil_moved=true
-	if room.tutorial_action=="tutorial_move" and moved>room.tutorial_min_move and move_landed and not state.has("intro_move"): action_requested.emit("tutorial_move")
-	elif room.tutorial_action=="tutorial_shoot" and shot and state.has("intro_move") and not state.has("intro_shoot"): action_requested.emit("tutorial_shoot")
+	if room.tutorial_action in ["tutorial_move","tutorial_opening"] and moved>room.tutorial_min_move and move_landed and not state.has("intro_move"): action_requested.emit("tutorial_move")
+	elif room.tutorial_action in ["tutorial_shoot","tutorial_opening"] and shot and state.has("intro_move") and not state.has("intro_shoot"): action_requested.emit("tutorial_shoot")
 	elif room.tutorial_action=="tutorial_recoil" and recoil and state.has("intro_shoot") and not state.has("intro_complete"): action_requested.emit("tutorial_recoil")

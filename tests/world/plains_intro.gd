@@ -1,5 +1,5 @@
 extends SceneTree
-## New game to station, real input only. No position, health, ability or progress writes.
+## Shared fixtures and current tutorial checks. Declared local starts, not a continuous first-visit proof.
 var app: FixedWorldApp
 var failures:=0
 var require_preview:=false
@@ -112,85 +112,93 @@ func ride(name: String,origin: Vector2,leave_y: float,destination: Vector2) -> b
 	return await cross(destination)
 func station_hall() -> bool:
 	return await ride("StationLift",Vector2(544,1744),1344,Vector2(1328,1262))
-func run() -> void:
-	await play_intro()
-	await finish()
-func play_intro() -> void:
-	require_preview=true
-	app=preload("res://game/application/world/fixed_world.tscn").instantiate();app.save_path=replay_save_path
-	for suffix: String in ["",".backup",".tmp",".corrupt"]:DirAccess.remove_absolute(app.save_path+suffix)
-	root.add_child(app);check(app.start_new(),"new game");await settle()
-	check(await path([Vector2(600,1774),Vector2(880,1710),Vector2(992,1710)],"P-R03"),"meadow short rise")
-	check(await cross(Vector2(1232,1646)),"first held jump across a visible low recovery notch")
-	check(await walk(Vector2(1632,1646),"P-R03"),"approach second grass bank")
-	check(await cross(Vector2(1888,1582)),"repeat with raised landing")
-	check(await walk(Vector2(2310,1582),"P-R03"),"walk into carriage")
-	await settle();check(app.room.room_id=="P-R21" and app.state.has("intro_move"),"learned move/jump before carriage")
-	if failures>0:return
-	check(await path([Vector2(352,526),Vector2(736,526),Vector2(848,686),Vector2(1008,846)],"P-R21"),"descend beside carriage into cover aisle")
-	for i: int in 240:
-		await physics_frame
-		if i%24==0:
-			for enemy: EnemyActor in app.room.enemies.values():
-				if not enemy.health.terminal:app.controller.router.request_action(&"shoot_release",(enemy.motor.position-app.player.position).normalized());break
-	check(await path([Vector2(944,782),Vector2(1120,846)],"P-R21"),"change firing angle over cover")
-	for i: int in 180:
-		await physics_frame
-		if i%24==0:
-			for enemy: EnemyActor in app.room.enemies.values():
-				if not enemy.health.terminal:app.controller.router.request_action(&"shoot_release",(enemy.motor.position-app.player.position).normalized());break
-	check(app.state.has("intro_shoot"),"real accepted hit records shooting")
-	check(await walk(Vector2(1264,782),"P-R21"),"upper cover gives a firing angle")
-	for i: int in 100:
-		await physics_frame
-		if i%24==0:
-			var enemy: EnemyActor=app.room.enemies["P-R21:encounter:02"]
-			if not enemy.health.terminal:app.controller.router.request_action(&"shoot_release",(enemy.motor.position-app.player.position).normalized())
-	check(await path([Vector2(1264,782),Vector2(1440,942),Vector2(1600,1134)],"P-R21"),"drop through an open lower exit")
-	await settle();check(app.room.room_id=="P-R22","enter canal from above")
-	if failures>0:return
-	check(await path([Vector2(912,334),Vector2(736,526),Vector2(416,782),Vector2(544,1038),Vector2(256,1262),Vector2(544,1486),Vector2(800,1486)],"P-R22"),"safe descent and first preparation bank")
-	if failures>0:return
-	check(await cross(Vector2(1168,1390),Vector2(-1,.6)),"first recoil reaches a raised bank")
-	check(not app.state.has("intro_complete"),"first success is practice, not tutorial completion")
-	check(await walk(Vector2(1824,1390),"P-R22"),"cross quiet preparation bank")
-	check(await cross(Vector2(2224,1326),Vector2(-1,.45)),"second recoil varies the gap and height")
-	check(await path([Vector2(2304,1326),Vector2(2608,1422),Vector2(2528,1294)],"P-R22"),"reach the shutter observation ledge")
-	if failures>0:return
-	var latch:=app.room.mechanisms["P-R22:practice_shutter"] as WorldShotLatch
-	app.controller.router.request_action(&"shoot_release",(latch.bell_position-app.player.position).normalized());await ticks(24)
-	check(latch.open_count==0,"stone lip blocks a standing shot")
-	check(await path([Vector2(2608,1422),Vector2(2528,1294)],"P-R22"),"missed ground shot recovers through lower step")
-	if failures>0:return
-	app.controller.router.set_source_axis(&"keyboard_mouse",1);app.controller.router.set_jump_held(&"keyboard_mouse",true)
-	await ticks(11);app.controller.router.request_action(&"shoot_release",(latch.bell_position-app.player.position).normalized())
-	await ticks(21);app.controller.router.set_jump_held(&"keyboard_mouse",false)
-	for i: int in 120:
-		await physics_frame
-		if app.player.is_on_floor():break
-	app.controller.router.clear("practice_landing")
-	print("SHUTTER LAND ",app.player.position," opens=",latch.open_count)
-	check(latch.open_count==1 and app.player.position.y<1200,"same airborne shot opens gate and recoils onto final bank")
-	check(await walk(Vector2(2864,1134),"P-R22"),"reach the completed practice landing")
-	check(app.state.has("intro_complete"),"receipt follows the final real recoil landing")
-	for i: int in 100:
-		await physics_frame
-		if i%24==0:
-			var enemy: EnemyActor=app.room.enemies["P-R22:encounter:bank_guard"]
-			if not enemy.health.terminal:app.controller.router.request_action(&"shoot_release",(enemy.motor.position-app.player.position).normalized())
-	check(await walk(Vector2(3270,1134),"P-R22"),"leave completed canal")
-	await settle();check(app.room.room_id=="P-R23","quiet shelter after practice")
-	if failures>0:return
-	check(await path([Vector2(992,526),Vector2(1190,430),Vector2(1380,334),Vector2(1308,334),Vector2(1232,238),Vector2(1088,142),Vector2(1088,-18)],"P-R23"),"shelter roof route")
-	await settle();check(app.room.room_id=="P-R24","reach overlook")
-	if failures>0:return
-	check(await ride("OverlookLift",Vector2(1856,1456),256,Vector2(1152,142)),"ride visible guided cage toward station lights")
-	check(await walk(Vector2(1152,-18),"P-R24"),"climb into station entrance")
-	await settle();check(app.room.room_id=="P-R01" and app.state.has("station_briefed"),"station arrival is not forced conversation")
-	if failures>0:return
-	check(await station_hall(),"station cage reaches service hall")
-	check(await walk(Vector2(320,1262),"P-R01"),"approach rest station")
-	app.controller.router.request_action(&"interact");await ticks(8)
-	check(app.state.value.rest.room=="P-R01" and app.state.value.cycle==2,"explicit rest saves arrival")
 func finish() -> void:
 	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5);print("PLAINS INTRO: ",failures," failures");quit(failures)
+
+func load_review(id: String) -> void:
+	await app.review.begin(id,"","base")
+	await ticks(3)
+func fixture(at: Vector2) -> void:
+	app.controller.router.clear("declared local fixture")
+	app.player.reset_at(at)
+	await ticks(3)
+func run() -> void:
+	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
+	app.save_path="user://plains_revision_isolated.json";root.add_child(app)
+	for id: String in ["P-R03","P-R21","P-R22","P-R23","P-R24"]:
+		var room:=load("res://game/world/regions/P/rooms/"+id+".tscn").instantiate() as FixedWorldRoom
+		var errors:=WorldRoomDraft.validate(room,WorldRoomDraft.extract(room))
+		check(errors.is_empty(),id+" editable codec "+str(errors));room.free()
+	await load_review("P-R03")
+	await ticks(100)
+	check(app.introduction.dialogue_active and not app.controller.shoot_ability.enabled,"wake blocks shooting before gun pickup")
+	app.introduction.advance();await ticks(3)
+	await fixture(Vector2(288,1774))
+	app.introduction.pickup()
+	check(app.state.has("intro_gun") and app.controller.shoot_ability.enabled,"ground pickup grants gun")
+	while app.introduction.dialogue_active:app.introduction.advance()
+	await load_review("P-R21")
+	await fixture(Vector2(560,526));await ticks(10)
+	check(app.introduction.dialogue_active,"traveler auto conversation")
+	app._ui_command("inventory","")
+	check(app.introduction.dialogue_active,"inventory cannot replace mandatory dialogue")
+	while app.introduction.dialogue_active:app.introduction.advance()
+	check(app.state.has("intro_traveler"),"all three lines completed")
+	await load_review("P-R22")
+	# Remove incidental encounters only for repeatable traversal measurement.
+	for enemy: EnemyActor in app.room.enemies.values():enemy.queue_free()
+	app.room.enemies.clear();await ticks(2)
+	for bay: Array in [[Vector2(830,1486),1024,1408],[Vector2(1854,1390),2080,1344]]:
+		for recoil: bool in [false,true]:
+			await fixture(bay[0])
+			app.controller.router.set_source_axis(&"keyboard_mouse",1)
+			app.controller.router.set_jump_held(&"keyboard_mouse",true)
+			var reached:=false
+			var best:=0.0
+			for i: int in 70:
+				if i==8 and recoil:app.controller.router.request_action(&"shoot_release",Vector2(-.94,.34))
+				await ticks(1)
+				if app.player.position.y+18<=float(bay[2])+2:
+					best=maxf(best,app.player.position.x)
+					if best>=float(bay[1])-8:reached=true
+			app.controller.router.clear("fixture finished")
+			print("PIT ",bay[1]," recoil=",recoil," best=",best," end=",app.player.position)
+			check(reached==recoil,"pit crosses with recoil only")
+	await fixture(Vector2(2528,1294))
+	var shutter:=app.room.mechanisms["P-R22:practice_shutter"] as WorldShotLatch
+	app.controller.router.set_source_axis(&"keyboard_mouse",1)
+	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(11)
+	app.controller.router.request_action(&"shoot_release",(shutter.bell_position-app.player.position).normalized())
+	await ticks(32);app.controller.router.clear("shutter landing");await ticks(25)
+	check(shutter.open_count==1 and app.player.position.y<1200,"P22 exposed bell and recoil clear tutorial shutter "+str(app.player.position))
+	await load_review("P-R23")
+	await fixture(Vector2(1584,526))
+	app.controller.router.set_jump_held(&"keyboard_mouse",true)
+	await ticks(11)
+	app.controller.router.request_action(&"shoot_release",Vector2(.6,.8))
+	var landed:=false
+	for i: int in 90:
+		await ticks(1)
+		if app.player.is_on_floor() and app.player.position.y<340:landed=true;break
+	check(landed,"P23 down-right shot lands on upper-left platform "+str(app.player.position))
+	await load_review("P-R24")
+	await fixture(Vector2(2240,1102));await ticks(75)
+	for index: int in 3:
+		var encounter:=app.wave_encounter
+		check(encounter.wave==index and encounter.active_ids.size()==([2,2,3][index]),"wave count "+str(index+1))
+		for id: String in encounter.active_ids:
+			var enemy:=app.room.enemies[id] as EnemyActor
+			enemy.damageable.receive_damage({"amount":1000.0,"source_actor_id":app.player.get_instance_id(),"event_id":StringName(id+":test"),"source_faction":&"player","target_actor_id":enemy.damageable.actor_id,"target_epoch":enemy.damageable.damage_epoch})
+		await ticks(80)
+	check(app.state.has("intro_arena_cleared") and app.wave_encounter.finished,"three waves open exit")
+	await fixture(Vector2(1240,1102))
+	var lift:=app.room.get_node("OverlookLift") as WorldMovingPlatform
+	var bell:=app.room.mechanisms["P-R24:station_lift"] as WorldShotLatch
+	check(not lift.motion_running,"lift waits for bell after arena")
+	app.controller.router.request_action(&"shoot_release",(bell.bell_position-app.player.position).normalized())
+	await ticks(30)
+	check(lift.motion_running,"real shot starts station lift")
+	var height:=lift.position.y;await ticks(180)
+	check(lift.position.y<height-100,"activated lift ascends")
+	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(2)
+	print("PLAINS REVISION: ",failures," failures");quit(failures)

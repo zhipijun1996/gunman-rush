@@ -80,17 +80,43 @@
     {
       "room_id": "P-R03",
       "name": "初行草坡",
-      "purpose": "初行草坡学习控制走跳与两种落点；纵臂承担旧路肩回访。",
+      "purpose": "苏醒、地面拾枪、按设备提示射击，射铃开门后逐阶处理弱敌。",
       "profile": "meadow",
       "scene": "res://game/world/regions/P/rooms/P-R03.tscn",
-      "encounters": [],
+      "encounters": [
+        {
+          "id": "P-R03:lesson:step1",
+          "behavior": "patrol",
+          "point": [
+            832,
+            1710
+          ],
+          "max_health": 5
+        },
+        {
+          "id": "P-R03:lesson:step2",
+          "behavior": "patrol",
+          "point": [
+            1408,
+            1646
+          ],
+          "max_health": 5
+        },
+        {
+          "id": "P-R03:lesson:step3",
+          "behavior": "hopper",
+          "point": [
+            2016,
+            1582
+          ],
+          "max_health": 5
+        }
+      ],
       "interactions": [],
       "experience": {
-        "player_decision": "沿缓坡走向车厢；回访时沿附墙宽台回到上方旧路。",
-        "visual_read": "主坡连续向东抬升；旧路入口在单独的纵向坡肩，不与第一次走跳争抢视线。",
-        "pressure": "首访只教走跳，留稳定地面和明显下一落点；回访坡肩无外来追压。",
-        "failure_recovery": "入口与各台阶都有稳定支撑。",
-        "return_visit": "旧路肩下口回到熟悉开局；错开的宽台连接上方回访口，教学收据不重发。"
+        "player_decision": "苏醒、地面拾枪、按设备提示射击，射铃开门后逐阶处理弱敌。",
+        "failure_recovery": "已到达的安全岸重试；入口和出口保留实际支持与完整身体净空。",
+        "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
       },
       "art_focal_assets": [
         "windchime_plains_v2_chime_span",
@@ -99,10 +125,10 @@
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
-        "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
-        "encounter": "本房不新增战斗压力。"
+        "interaction": "拾枪、对话和清场进度持久提交；风铃命中反馈与门、载台的实际状态一致。",
+        "encounter": "复用真实敌人的预警、命中、受击与击败反馈；刺坑接触后回到已触达的安全岸。"
       },
-      "spatial_intent": "宽坡首次试跳、略高台面再次应用；只改变落点，不叠敌人或复杂机制。"
+      "spatial_intent": "苏醒、地面拾枪、按设备提示射击，射铃开门后逐阶处理弱敌。"
     },
     {
       "room_id": "P-R04",
@@ -723,22 +749,34 @@
     {
       "room_id": "P-R21",
       "name": "倒时车厢",
-      "purpose": "车厢掩体中的试枪与后撤练习；完成命中、换角度与接近判断。",
+      "purpose": "首次强制旅人对话，说明修钟身份与反冲；下口左刺右敌形成落点选择。",
       "profile": "carriage",
       "scene": "res://game/world/regions/P/rooms/P-R21.tscn",
       "encounters": [
         {
           "id": "P-R21:encounter:01",
-          "behavior": "patrol"
+          "behavior": "patrol",
+          "point": [
+            1120,
+            846
+          ],
+          "max_health": 5
+        },
+        {
+          "id": "P-R21:exit_right_guard",
+          "behavior": "patrol",
+          "point": [
+            1904,
+            1038
+          ],
+          "max_health": 5
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "先在宽地命中目标，再借车厢遮挡改变射角；弱巡逻逼近时选择后撤射击或绕行。",
-        "visual_read": "车厢所在岸留完整车顶与转身净空；完整倾斜客运车厢与散落储箱解释这里曾经通车。",
-        "pressure": "首个弱巡逻目标，击中事实才记录射击教学。",
-        "failure_recovery": "车厢下方为连续实心岸体，取消无用途夹层；沿右侧两次可预读下阶进入射击宽岸。低处都能回到本层或明确进入下口，不留下安全死坑。",
-        "return_visit": "重访不重复教学奖励，也不必再看对白。"
+        "player_decision": "首次强制旅人对话，说明修钟身份与反冲；下口左刺右敌形成落点选择。",
+        "failure_recovery": "已到达的安全岸重试；入口和出口保留实际支持与完整身体净空。",
+        "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
       },
       "art_focal_assets": [
         "carriage",
@@ -746,106 +784,210 @@
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
-        "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
-        "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
+        "interaction": "拾枪、对话和清场进度持久提交；风铃命中反馈与门、载台的实际状态一致。",
+        "encounter": "复用真实敌人的预警、命中、受击与击败反馈；刺坑接触后回到已触达的安全岸。"
       },
-      "spatial_intent": "入口与车厢宽岸、右侧下阶、掩体射击岸、下口构成可预读的连续路线；用完整岸体支撑车厢，不再以层叠悬浮长板制造无用途空间。"
+      "spatial_intent": "首次强制旅人对话，说明修钟身份与反冲；下口左刺右敌形成落点选择。"
     },
     {
       "room_id": "P-R22",
       "name": "风压引渠",
-      "purpose": "反冲首练、错层变式与独立综合实践；失败分段恢复后才进入小站前静区。",
+      "purpose": "两道单跳刚好不够的满刺坑训练反冲；明示射铃教程，沿路弱敌检验射击。",
       "profile": "canal",
       "scene": "res://game/world/regions/P/rooms/P-R22.tscn",
       "encounters": [
         {
+          "id": "P-R22:lesson:terrain4",
+          "behavior": "patrol",
+          "point": [
+            256,
+            782
+          ],
+          "max_health": 5
+        },
+        {
+          "id": "P-R22:lesson:terrain7",
+          "behavior": "patrol",
+          "point": [
+            480,
+            1486
+          ],
+          "max_health": 5
+        },
+        {
+          "id": "P-R22:lesson:terrain10",
+          "behavior": "hopper",
+          "point": [
+            1328,
+            1390
+          ],
+          "max_health": 5
+        },
+        {
           "id": "P-R22:encounter:bank_guard",
           "behavior": "patrol",
-          "role": "综合实践成功后的宽岸轻遭遇；不覆盖首次射铃窗口和重试岸。"
+          "point": [
+            3056,
+            1134
+          ],
+          "max_health": 5
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "依次观察并练习反冲、高差变式；在无操作提示的第三湾自行完成空中命中与位移组合。",
-        "visual_read": "入口沿附着两侧岩体的渠岸下降，落点在离台前同屏；上层没有用途的空白收为完整岩体。下层三湾分别观察反冲、高差与铃闸，准备岸、危险和接收台同屏。",
-        "pressure": "第一湾无外来压力；变式只改变一个关系；综合湾以地形和机关为主，落稳后才接轻遭遇。",
-        "failure_recovery": "入口各岸失足仍落向下层安全岸；各湾低渠回到本湾准备岸。逐个坑底验证重试，恢复路不绕过主要反冲。",
-        "return_visit": "熟练后连续通过；西侧以错层宽岸和反冲抬升接上方回口，保留低层恢复，不再堆短梯台。"
+        "player_decision": "两道单跳刚好不够的满刺坑训练反冲；明示射铃教程，沿路弱敌检验射击。",
+        "failure_recovery": "已到达的安全岸重试；入口和出口保留实际支持与完整身体净空。",
+        "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
       },
       "art_focal_assets": [],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
-        "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
-        "encounter": "实践后的弱巡逻沿既有同体预警、命中与死亡反馈；第一湾与机关精密窗口保持安静。"
+        "interaction": "拾枪、对话和清场进度持久提交；风铃命中反馈与门、载台的实际状态一致。",
+        "encounter": "复用真实敌人的预警、命中、受击与击败反馈；刺坑接触后回到已触达的安全岸。"
       },
-      "spatial_intent": "三河湾以墙体与湾岸分区：安全首练、变式、空中命中铃闸同时反冲过口；稳定实践岸后再遇弱敌，完成侧放回程板。",
-      "learning_sequence": [
-        {
-          "stage": "learn",
-          "task": "宽岸看清反冲方向并安全落地"
-        },
-        {
-          "stage": "vary",
-          "task": "改变高差与射向后重复运用"
-        },
-        {
-          "stage": "apply",
-          "task": "撤掉操作提示，空中命中铃闸同时反冲过口，再在宽岸处理弱敌"
-        }
-      ]
+      "spatial_intent": "两道单跳刚好不够的满刺坑训练反冲；明示射铃教程，沿路弱敌检验射击。"
     },
     {
       "room_id": "P-R23",
       "name": "废弃候车棚",
-      "purpose": "安静候车棚遇见阿栖，不以对话锁门。",
+      "purpose": "教学复习：交错高低悬台、连续刺床、两处平台敌人、末端右下射击反冲向左上。",
       "profile": "shelter",
       "scene": "res://game/world/regions/P/rooms/P-R23.tscn",
-      "encounters": [],
+      "encounters": [
+        {
+          "id": "P-R23:review:low_guard",
+          "behavior": "patrol",
+          "point": [
+            800,
+            622
+          ],
+          "max_health": 5
+        },
+        {
+          "id": "P-R23:review:high_guard",
+          "behavior": "patrol",
+          "point": [
+            1392,
+            606
+          ],
+          "max_health": 5
+        }
+      ],
       "interactions": [],
       "experience": {
-        "player_decision": "可在棚前与阿栖交谈，也可从右侧草坡上行，折返旧高台进入望站坡；安全喘息房不安排战斗或能力锁。",
-        "visual_read": "候车棚与行装贴地，右侧连续草岸折返有实体承重的石梁；移除误示碰撞的独立装饰柱，转角能看见上层落点。",
-        "pressure": "完整安静段，不加敌人、刺或强制对话。",
-        "failure_recovery": "右侧深凹并入连续岸体，失足落回可上行的宽岸；折返梁留正常起跳净空，不要求贴某个像素点才能上去。",
-        "return_visit": "完成可选相遇留下布条；旧宿主卸载后才能去坡上。"
+        "player_decision": "教学复习：交错高低悬台、连续刺床、两处平台敌人、末端右下射击反冲向左上。",
+        "failure_recovery": "已到达的安全岸重试；入口和出口保留实际支持与完整身体净空。",
+        "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
       },
-      "art_focal_assets": [
-        "waiting_shelter",
-        "travel_bundle",
-        "aqi_ribbon"
-      ],
+      "art_focal_assets": [],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
-        "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
-        "encounter": "本房不新增战斗压力。"
-      }
+        "interaction": "拾枪、对话和清场进度持久提交；风铃命中反馈与门、载台的实际状态一致。",
+        "encounter": "复用真实敌人的预警、命中、受击与击败反馈；刺坑接触后回到已触达的安全岸。"
+      },
+      "spatial_intent": "教学复习：交错高低悬台、连续刺床、两处平台敌人、末端右下射击反冲向左上。"
     },
     {
       "room_id": "P-R24",
       "name": "望站坡",
-      "purpose": "缓坡看见小站灯火和世界钟心，抵站前舒缓。",
+      "purpose": "封门三波战斗2/2/3，清场开门；安静小室射铃启动升降台进入钟外小站。",
       "profile": "overlook",
       "scene": "res://game/world/regions/P/rooms/P-R24.tscn",
-      "encounters": [],
+      "encounters": [
+        {
+          "wave": 1,
+          "enemies": [
+            {
+              "id": "P-R24:wave1:patrol",
+              "behavior": "patrol",
+              "point": [
+                1552,
+                1102
+              ],
+              "max_health": 5
+            },
+            {
+              "id": "P-R24:wave1:hopper",
+              "behavior": "hopper",
+              "point": [
+                2352,
+                1102
+              ],
+              "max_health": 5
+            }
+          ]
+        },
+        {
+          "wave": 2,
+          "enemies": [
+            {
+              "id": "P-R24:wave2:charger",
+              "behavior": "charger",
+              "point": [
+                1520,
+                1102
+              ],
+              "max_health": 10
+            },
+            {
+              "id": "P-R24:wave2:sentry",
+              "behavior": "sentry",
+              "point": [
+                2384,
+                1102
+              ],
+              "max_health": 10
+            }
+          ]
+        },
+        {
+          "wave": 3,
+          "enemies": [
+            {
+              "id": "P-R24:wave3:patrol",
+              "behavior": "patrol",
+              "point": [
+                1536,
+                1102
+              ],
+              "max_health": 5
+            },
+            {
+              "id": "P-R24:wave3:hopper",
+              "behavior": "hopper",
+              "point": [
+                2352,
+                1102
+              ],
+              "max_health": 10
+            },
+            {
+              "id": "P-R24:wave3:diver",
+              "behavior": "diver",
+              "point": [
+                2072,
+                864
+              ],
+              "max_health": 10
+            }
+          ]
+        }
+      ],
       "interactions": [],
       "experience": {
-        "player_decision": "由下缘井口进入望站坡，辨认站灯和候风笼的轨道，乘笼抵达上方小站门。",
-        "visual_read": "站灯与轨道引导上行；西侧无用途长岸收为岩体，留下能停步回望、阅读旧布条的短岸。",
-        "pressure": "教学之后的舒缓辨路段，回口使用实体岸肩；不另设动作考试。",
-        "failure_recovery": "落到草岸可重新上笼；井底侧岸可以跳回入场岸，明确下口只返回候车棚，不产生无提示伤害。",
-        "return_visit": "布条提示与可选一句近况，不自动补播旧对白。"
+        "player_decision": "封门三波战斗2/2/3，清场开门；安静小室射铃启动升降台进入钟外小站。",
+        "failure_recovery": "已到达的安全岸重试；入口和出口保留实际支持与完整身体净空。",
+        "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
       },
       "art_focal_assets": [
-        "world_clock_far",
-        "bell_post",
-        "waiting_shelter"
+        "hanging_chime"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
-        "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
-        "encounter": "本房不新增战斗压力。"
+        "interaction": "拾枪、对话和清场进度持久提交；风铃命中反馈与门、载台的实际状态一致。",
+        "encounter": "复用真实敌人的预警、命中、受击与击败反馈；刺坑接触后回到已触达的安全岸。"
       },
-      "spatial_intent": "04总图的下口与上方站门形成高差；使用安全候风笼联系，保留宽草岸回望，不用密集浮台填满整坡。"
+      "spatial_intent": "封门三波战斗2/2/3，清场开门；安静小室射铃启动升降台进入钟外小站。"
     },
     {
       "room_id": "P-R25",

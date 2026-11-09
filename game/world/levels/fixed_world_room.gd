@@ -4,6 +4,8 @@ extends Node2D
 @export var room_id := ""
 @export var arrival_text: String
 @export var traveler_point := Vector2(560,494)
+@export var intro_sequence: Dictionary = {}
+@export var wave_encounter: Dictionary = {}
 @export var tutorial_action: String
 @export var tutorial_target: String
 @export var tutorial_min_move:=100.0
@@ -235,34 +237,37 @@ func _draw() -> void:
 	if reward_point != Vector2.ZERO and battle_finished and services!=null and not services.state.value.receipts.has(reward_action):
 		WorldProps.draw_icon(self,ItemPresentation.icon(&"echo"),reward_point,30)
 
+func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime,saved: Dictionary,entry_anchor: Vector2) -> EnemyActor:
+	var id := str(placement.id)
+	var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
+	body.position = FixedWorldProvider.point(saved.get("position",placement.point))
+	var actor := body.get_node("Actor") as EnemyActor
+	actor.set_meta(&"world_persistent_corpse",true)
+	if placement.has("max_health"):
+		actor.definition=actor.definition.duplicate(true) as EnemyDefinition
+		actor.definition.health_definition.max_health=float(placement.max_health)
+		actor.definition.health_definition.initial_current=float(placement.max_health)
+	add_child(body)
+	EnemyPresentationBinding.replace(actor,&"underworld")
+	policy.bind_damageable(StringName(id),actor.damageable,actor.health)
+	actor.bind_encounter(controller,policy,lifetime,StringName(id),[entry_anchor])
+	if saved.has("direction"): actor.brain.direction=int(saved.direction)
+	if saved.has("health"): actor.restore_instance_health(float(saved.health))
+	if not saved.is_empty() and not actor.health.terminal and actor.attack_behavior != null:
+		actor.attack_behavior.restore_region_state(saved)
+	EnemyPresentationBinding.synchronize(actor)
+	var contact:=DemoContactEmitter.attach(body,policy,controller,StringName(id+":contact"),DamageRequest.Kind.MONSTER,actor.definition.collision_size/2)
+	contact.enabled=not actor.health.terminal
+	actor.defeated.connect(func(_actor: EnemyActor) -> void: contact.enabled=false;contact.set_physics_process(false))
+	var remains:=EnemyPresentationBinding.remains(body.get_node("Presentation"))
+	if actor.health.terminal and remains!=null and saved.has("corpse"):
+		remains.restore_presentation(saved.corpse,_corpse_support(saved.corpse))
+	enemies[id] = actor
+	return actor
+
 func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime, saved_enemies: Dictionary, boss_defeated: bool, entry_anchor: Vector2) -> void:
 	for placement: Dictionary in enemy_placements:
-		var id := str(placement.id)
-		var saved: Dictionary = saved_enemies.get(id,{})
-		var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
-		body.position = FixedWorldProvider.point(saved.get("position",placement.point))
-		var actor := body.get_node("Actor") as EnemyActor
-		actor.set_meta(&"world_persistent_corpse",true)
-		if placement.has("max_health"):
-			actor.definition=actor.definition.duplicate(true) as EnemyDefinition
-			actor.definition.health_definition.max_health=float(placement.max_health)
-			actor.definition.health_definition.initial_current=float(placement.max_health)
-		add_child(body)
-		EnemyPresentationBinding.replace(actor,&"underworld")
-		policy.bind_damageable(StringName(id),actor.damageable,actor.health)
-		actor.bind_encounter(controller,policy,lifetime,StringName(id),[entry_anchor])
-		if saved.has("direction"): actor.brain.direction=int(saved.direction)
-		if saved.has("health"): actor.restore_instance_health(float(saved.health))
-		if not saved.is_empty() and not actor.health.terminal and actor.attack_behavior != null:
-			actor.attack_behavior.restore_region_state(saved)
-		EnemyPresentationBinding.synchronize(actor)
-		var contact:=DemoContactEmitter.attach(body,policy,controller,StringName(id+":contact"),DamageRequest.Kind.MONSTER,actor.definition.collision_size/2)
-		contact.enabled=not actor.health.terminal
-		actor.defeated.connect(func(_actor: EnemyActor) -> void: contact.enabled=false;contact.set_physics_process(false))
-		var remains:=EnemyPresentationBinding.remains(body.get_node("Presentation"))
-		if actor.health.terminal and remains!=null and saved.has("corpse"):
-			remains.restore_presentation(saved.corpse,_corpse_support(saved.corpse))
-		enemies[id] = actor
+		spawn_enemy(placement,controller,policy,lifetime,saved_enemies.get(str(placement.id),{}),entry_anchor)
 	for index: int in hazards.size():
 		add_child(DemoContactEmitter.environment_rect(hazards[index],policy,controller,StringName(room_id+":terrain:"+str(index))))
 	for strip: Dictionary in spike_strips:
@@ -310,6 +315,7 @@ func snapshot() -> Dictionary:
 	var result := {}
 	for id: String in enemies:
 		var actor: EnemyActor = enemies[id]
+		if actor.get_meta("wave_attempt",false):continue
 		result[id] = actor.region_snapshot()
 		var remains:=EnemyPresentationBinding.remains(actor.motor.get_node("Presentation"))
 		if actor.health.terminal and remains!=null:

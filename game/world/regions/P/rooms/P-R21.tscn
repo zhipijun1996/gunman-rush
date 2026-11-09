@@ -10,8 +10,14 @@ arrival_text = "倒时车厢"
 art_profile = "carriage"
 platforms = Array[Rect2]([Rect2(0,256,288,384),Rect2(128,544,640,288),Rect2(320,832,448,320),Rect2(768,704,160,448),Rect2(768,864,576,288),Rect2(896,800,96,64),Rect2(1216,800,96,64),Rect2(1344,960,192,192),Rect2(1664,1056,640,96),Rect2(0.0,256.0,288,32),Rect2(1664.0,1056.0,128,32)])
 start_point = Vector2(144,238)
-tutorial_action = "tutorial_shoot"
+tutorial_action = ""
 tutorial_target = "P-R21:encounter:01"
-enemy_placements = Array[Dictionary]([{"id":"P-R21:encounter:01","behavior":"patrol","point":[1120,846],"max_health":5},{"id":"P-R21:encounter:02","behavior":"hopper","point":[1440,942],"max_health":5}])
+enemy_placements = Array[Dictionary]([{"id":"P-R21:encounter:01","behavior":"patrol","point":[1120,846],"max_health":5},{"id":"P-R21:exit_right_guard","behavior":"patrol","point":[1904,1038],"max_health":5}])
 signs = Array[Dictionary]([{"point":[496,496],"text":"末班车七点开。背面又添了：明天。","action_ref":"read_intro_obj_ticket"}])
 art_placements = Array[Dictionary]([{"asset":"carriage","point":[512,544],"layer":-2},{"asset":"storage_crates","point":[944,800],"layer":-2},{"asset":"hanging_chime","point":[1744,1056],"layer":-2}])
+
+intro_sequence = {"kind":"traveler","trigger":[360,448,384,112],"lines":["这枪的纹章，你就是传说中的修钟者？","这枪可厉害了，听说后坐力猛到能让人飞起来！","世界钟心不知道为什么坏了，世界靠你了！"]}
+
+traveler_point = Vector2(560,526)
+
+spike_strips = Array[Dictionary]([{"id":"P-R21:exit_left_spikes","bounds":[1344,936,192,24],"facing":"up"}])

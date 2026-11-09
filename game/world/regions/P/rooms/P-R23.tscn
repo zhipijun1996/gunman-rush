@@ -8,15 +8,15 @@ script = ExtResource("1")
 room_id = "P-R23"
 arrival_text = "废弃候车棚"
 art_profile = "shelter"
-platforms = Array[Rect2]([Rect2(0,640,384,128),Rect2(384,640,1408,256),Rect2(896,544,192,96),Rect2(1088,448,224,192),Rect2(1280,352,224,288),Rect2(1088,256,192,32),Rect2(0.0,640.0,288,32),Rect2(832,160,352,32),Rect2(1088,192,32,64),Rect2(1504,352,288,544)])
-masonry_platform_indices = Array[int]([5,7,8])
+platforms = Array[Rect2]([Rect2(0,640,288,128),Rect2(400,576,176,40),Rect2(688,640,160,40),Rect2(960,552,176,40),Rect2(1248,624,192,40),Rect2(1536,544,192,40),Rect2(1280,336,208,48),Rect2(1088,256,192,32),Rect2(992,160,192,32),Rect2(288,768,1504,128)])
+masonry_platform_indices = Array[int]([1, 2, 3, 4, 5, 6, 7, 8])
 start_point = Vector2(144,622)
-signs = Array[Dictionary]([{"point":[448,592],"text":"奉王令：愿每位国民，都不再惧怕岁月。","action_ref":"read_intro_obj_decree"}])
+signs = Array[Dictionary]([{"point":[192,592],"text":"先看落脚处，再决定跳跃和射击方向。"},{"point":[1656,496],"text":"上方落点在左边：先跳，再朝右下开枪，反冲会将你推向左上。"}])
 traveler_point = Vector2(640,622)
-art_placements = Array[Dictionary]([{"asset":"waiting_shelter","point":[640,640],"layer":-2}])
+art_placements = Array[Dictionary]([])
 
-[node name="Npc0" type="Node2D" parent="."]
-script = ExtResource("npc")
-position = Vector2(640,622)
-npc_id = "NPC_TRAVELER_AQI"
-display_name = "阿栖"
+spike_strips = Array[Dictionary]([{"id":"P-R23:review_spikebed","bounds":[288,744,1504,24],"facing":"up"}])
+
+enemy_placements = Array[Dictionary]([{"id":"P-R23:review:low_guard","behavior":"patrol","point":[800,622],"max_health":5},{"id":"P-R23:review:high_guard","behavior":"patrol","point":[1392,606],"max_health":5}])
+
+retry_anchors = Array[Dictionary]([{"bounds":[704,580,128,60],"point":[720,622],"section":"main"},{"bounds":[1552,484,160,60],"point":[1584,526],"section":"main"}])

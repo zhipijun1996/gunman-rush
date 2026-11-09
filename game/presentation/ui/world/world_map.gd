@@ -8,9 +8,13 @@ var local_player := Vector2.ZERO
 var selected_room := ""
 var touch_clip: Control
 var survey_visible := false
+var _drawing := false
+var _draw_rows: Array = []
+var _draw_bounds := Rect2()
 func frame() -> Rect2:
 	return Rect2(12,30,maxf(1,size.x-24),maxf(1,size.y-44))
 func rows() -> Array:
+	if _drawing:return _draw_rows
 	var result: Array = []
 	if world == null: return result
 	var component := ""
@@ -25,6 +29,7 @@ func rows() -> Array:
 		if (survey_visible or row.id in world.value.get("explored",[])) and (expanded or row.id in nearby): result.append(row)
 	return result
 func _world_rect() -> Rect2:
+	if _drawing:return _draw_bounds
 	var bounds := Rect2()
 	for row: Dictionary in rows():
 		for raw: Array in row.polygon:
@@ -44,6 +49,10 @@ func focus_player() -> void:
 	_limit_pan();queue_redraw()
 func _draw() -> void:
 	if world==null or world.value.is_empty(): return
+	# Projection used to rescan all room polygons for every individual vertex.
+	_draw_rows=rows()
+	_draw_bounds=_world_rect()
+	_drawing=true
 	var text_size:=maxi(14,ceili(14.0/DemoUiModalMetrics.ui_scale(get_viewport()))) if expanded else 14
 	draw_style_box(panel(),Rect2(Vector2.ZERO,size))
 	draw_string(UnderworldUI.FONT,Vector2(12,20),WorldText.text("review.map_title") if survey_visible else WorldText.text("world_map.00") if expanded else WorldText.text("world_map.01"),HORIZONTAL_ALIGNMENT_LEFT,-1,text_size,UnderworldUI.TEXT)
@@ -80,6 +89,7 @@ func _draw() -> void:
 			draw_line(project_point(at-tangent),project_point(at+tangent),Color("cce1c3"),4)
 
 	draw_circle(player_anchor(),5,Color("f5e3aa"))
+	_drawing=false
 
 func select_at(at: Vector2) -> void:
 	selected_room=""

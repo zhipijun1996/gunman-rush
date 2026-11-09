@@ -11,6 +11,7 @@ var time_ring: DemoTimeEnergyRing
 var portrait: TextureRect
 var double_jump_icon: DemoAbilityIcon
 var hook_icon: DemoAbilityIcon
+var recoil_guard_icon: DemoAbilityIcon
 var _rows: VBoxContainer
 var _health_text: Label
 var _energy_text: Label
@@ -134,6 +135,11 @@ func _ready() -> void:
 	hook_icon.kind = &"grapple"
 	hook_icon.tooltip_text = "钩索可用"
 	availability.add_child(hook_icon)
+	recoil_guard_icon = preload("res://game/presentation/ui/demo_ui_01/r3_ability_icon.gd").new()
+	recoil_guard_icon.name="RecoilGuard"
+	recoil_guard_icon.kind=&"recoil_guard"
+	recoil_guard_icon.hide()
+	availability.add_child(recoil_guard_icon)
 	# Keep the old diagnostic fields bound to official data, without rendering
 	# removed energy/weapon/focus widgets or creating another resource ledger.
 	energy = DemoResourceTrack.new()
@@ -296,7 +302,7 @@ func status_draw_controls() -> Array[Control]:
 	# Containers reserve layout space but paint nothing. Navigation protection
 	# and actual-scene observation use the widgets that really draw the status.
 	var controls: Array[Control] = []
-	for widget: Control in [portrait, hearts, _health_text, _resonance_text, resonance, double_jump_icon, hook_icon]:
+	for widget: Control in [portrait, hearts, _health_text, _resonance_text, resonance, double_jump_icon, hook_icon, recoil_guard_icon]:
 		if widget.is_visible_in_tree(): controls.append(widget)
 	for cell: Label in _shot_cells:
 		if cell.is_visible_in_tree(): controls.append(cell)
@@ -377,3 +383,10 @@ func _process(delta: float) -> void:
 
 func _exit_tree() -> void:
 	unbind()
+
+func present_recoil_guard(owned: bool, ready: bool, active: bool, cooldown: float, duration: float) -> void:
+	if recoil_guard_icon==null:return
+	recoil_guard_icon.visible=owned
+	if not owned:return
+	recoil_guard_icon.present_guard(ready,active,cooldown,clampf(cooldown/maxf(.01,duration),0,1))
+	recoil_guard_icon.tooltip_text="无敌反冲 · 生效中" if active else "无敌反冲 · 可用" if ready else "无敌反冲 · %.1f秒" % cooldown if cooldown>0 else "无敌反冲 · 需要落地、攀墙或钩索命中"

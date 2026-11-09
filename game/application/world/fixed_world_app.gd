@@ -23,6 +23,8 @@ var _return := false
 var _door_ready := false
 var _sequence := 0
 var tutorial: WorldTutorial
+var introduction: WorldIntroSequence
+var wave_encounter: WorldWaveEncounter
 var title: Control
 var q_guard: WorldRecoilGuard
 var focus_heal: WorldFocusHeal
@@ -154,6 +156,9 @@ func _create_player() -> void:
 	q_guard.owned = state.has("Q")
 	q_guard.cooldown_seconds = float(content.data.runtime_rules.q.cooldown_seconds)
 	player.add_child(q_guard)
+	var guard_visual:=WorldRecoilGuardVisual.new()
+	guard_visual.guard=q_guard
+	player.add_child(guard_visual)
 	focus_heal=WorldFocusHeal.new()
 	focus_heal.controller=controller;focus_heal.settings=content.data.player.focus_heal
 	player.add_child(focus_heal)
@@ -362,6 +367,14 @@ func load_room(id: String, entry: String) -> void:
 	music.request_track(&"home" if room.rest_point!=Vector2.ZERO or not room.find_children("*","WorldNpc",true,false).is_empty() else &"plains")
 	status = room.arrival_text if not room.arrival_text.is_empty() else str(room.contract.name)
 	tutorial.enter(room,player.position)
+	introduction=WorldIntroSequence.new();introduction.app=self
+	room.add_child(introduction);introduction.enter()
+	wave_encounter=null
+	if not room.wave_encounter.is_empty():
+		wave_encounter=WorldWaveEncounter.new()
+		room.add_child(wave_encounter);wave_encounter.setup(self)
+	var carry:=player.get_node_or_null("CarryLight") as PointLight2D
+	if carry!=null:carry.enabled=room.art_profile!="starbridge_graybox"
 	_npc_id=""
 
 func _apply_capabilities() -> void:
@@ -396,6 +409,9 @@ func enqueue(kind: String,id: String) -> void:
 
 func context_target() -> Dictionary:
 	if room==null or player==null: return {}
+	if is_instance_valid(introduction):
+		var intro_target:=introduction.target()
+		if not intro_target.is_empty():return intro_target
 	var best: Dictionary={}
 	var distance:=82.0
 	for npc: Node in room.find_children("*","WorldNpc",true,false):
@@ -482,6 +498,7 @@ func _physics_process(_delta: float) -> void:
 		elif request.kind == "focus_heal": _commit_focus_heal()
 		elif request.kind == "rest": _rest()
 		elif request.kind == "door": _cross(str(request.id))
+		elif request.kind == "intro_pickup" and is_instance_valid(introduction):introduction.pickup()
 		elif request.kind == "npc": _open_npc(str(request.id))
 		elif request.kind == "sign":
 			if _pause_world():
@@ -653,6 +670,8 @@ func toggle_pause() -> void:
 	if paused: _close_panel()
 	elif _pause_world(): ui.show_pause()
 func _close_panel() -> void:
+	if is_instance_valid(introduction) and introduction.dialogue_active:
+		introduction.advance();return
 	_service_ticket+=1
 	_npc_id=""
 	ui.close()
@@ -674,8 +693,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.physical_keycode==KEY_M: show_map()
 		elif event.physical_keycode==KEY_I: _ui_command("inventory","")
 func show_map() -> void:
+	if is_instance_valid(introduction) and introduction.dialogue_active:return
 	if controller!=null and (paused or _pause_world()): ui.show_map()
 func _ui_command(kind: String,_id: String) -> void:
+	if is_instance_valid(introduction) and introduction.dialogue_active and kind not in ["close","title"]:return
 	match kind:
 		"new":
 			if state.storage._exists(false):
@@ -789,6 +810,7 @@ func return_title() -> void:
 
 func _update_hud() -> void:
 	if ui==null or controller==null: return
+	ui.hud.present_recoil_guard(q_guard.owned,q_guard.landing_ready and q_guard.cooldown<=0,q_guard.is_protecting(),q_guard.cooldown,q_guard.cooldown_seconds)
 	var target:=context_target()
 	if room!=null:
 		var highlight:=Vector2.INF

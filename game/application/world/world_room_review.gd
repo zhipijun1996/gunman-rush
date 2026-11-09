@@ -124,7 +124,9 @@ func begin(id: String, entry: String, ability_stage: String) -> bool:
 	app.state.storage = storage
 	var health := preload("res://resources/actors/prototype_health.tres") as HealthDefinition
 	var candidate := app.state.fresh(health.max_health)
-	candidate.flags.append_array(["intro_move","intro_shoot","intro_complete","station_briefed"])
+	if id!="P-R03":candidate.flags.append_array(["intro_gun","intro_move","intro_shoot"])
+	if id not in ["P-R03","P-R21","P-R22"]:candidate.flags.append("intro_complete")
+	if id not in ["P-R03","P-R21","P-R22","P-R23","P-R24"]:candidate.flags.append("station_briefed")
 	if ability_stage in ["h","hd","hwdq"]: candidate.flags.append("H")
 	if ability_stage in ["hd","hwdq"]: candidate.flags.append("D")
 	if ability_stage == "hwdq": candidate.flags.append_array(["W","Q"])

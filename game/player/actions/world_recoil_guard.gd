@@ -36,8 +36,11 @@ func _physics_process(delta: float) -> void:
 	_last_position = motor.position
 	if active and not _moving: cancel()
 
+func is_protecting() -> bool:
+	return owned and active and _moving
+
 func protects(request: DamageRequest) -> bool:
-	return owned and active and _moving and (request.kind==DamageRequest.Kind.MONSTER or request.hazard_category==&"phase_light")
+	return is_protecting() and (request.kind==DamageRequest.Kind.MONSTER or request.hazard_category==&"phase_light")
 
 func cancel() -> void:
 	active = false
