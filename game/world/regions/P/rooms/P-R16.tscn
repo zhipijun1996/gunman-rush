@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R16" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R16"
+art_profile = "mill"
+spike_strips = Array[Dictionary]([{"id":"inspection_bed","bounds":[1120,742,96,26],"facing":"up"}])
+arrival_text = "风车外沿廊"
+platforms = Array[Rect2]([Rect2(0,864,1792,32),Rect2(0,768,1792,128),Rect2(480,672,224,32),Rect2(960,608,224,32),Rect2(1440,672,64,32),Rect2(0,768,288,32),Rect2(1504,768,288,32),Rect2(432,704,48,64),Rect2(0,768,288,32),Rect2(1504,768,288,32)])
+one_way_indices = Array[int]([])
+start_point = Vector2(144, 750)
+rest_point = Vector2(320, 750)
+enemy_placements = Array[Dictionary]([{"id": "P-R16:encounter:01", "behavior": "charger", "point": [704, 750], "max_health": 10}])
+signs = Array[Dictionary]([{"point": [224, 720], "text": "机匣里传来齿轮咬合的声音。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([{"bounds":[528,612,96,60],"point":[576,654],"section":"main"},{"bounds":[1328,708,96,60],"point":[1376,750],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"mill_drive_frame","point":[1056,768.0],"layer":-2},{"asset":"storage_crates","point":[512,768.0],"layer":-2},{"asset":"barrel","point":[1456,768.0],"layer":-2}])
+masonry_platform_indices = Array[int]([])
+illustrated_platform_indices = Array[int]([])

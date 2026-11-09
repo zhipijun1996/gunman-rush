@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R31" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R31"
+art_profile = "junction"
+masonry_platform_indices = Array[int]([0,1,2,3,4,5,6,7,8,9,10])
+arrival_text = "站外铃场"
+platforms = Array[Rect2]([Rect2(0,896,2048,128),Rect2(0,672,448,64),Rect2(384,784,256,112),Rect2(0,544,192,64),Rect2(320,416,288,64),Rect2(32,288,192,64),Rect2(736,160,448,96),Rect2(1472,160,576,96),Rect2(960,768,96,128),Rect2(1440,800,256,96),Rect2(1760,768,288,128),Rect2(0,672,288,32),Rect2(384,160,192,32),Rect2(1760,160,288,32),Rect2(1760,768,288,32)])
+one_way_indices = Array[int]([])
+start_point = Vector2(144, 878)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id":"P-R31:encounter:arch_hopper","behavior":"hopper","point":[1344,878],"max_health":10},{"id":"P-R31:encounter:bridge_sentry","behavior":"sentry","point":[1600,142],"max_health":10}])
+signs = Array[Dictionary]([{"point":[224,624],"text":"井口在左上，吊台通长桥；穿过拱下，东边是渠边旧集。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([{"bounds":[752,836,96,60],"point":[800,878],"section":"main"},{"bounds":[1504,740,96,60],"point":[1552,782],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"bell_post","point":[384,672],"layer":-2,"light":true},{"asset":"mill_drive_frame","point":[1328,896],"layer":-6}])
+bell_mechanisms = Array[Dictionary]([{"id":"P-R31:BellFieldCarrier","bell":[1120,104],"carrier":"BellFieldCarrier","access_bells":[[1568,104]]}])
+spike_strips = Array[Dictionary]([{"id":"arch_landing","bounds":[1168,870,96,26],"facing":"up"}])
+illustrated_platform_indices = Array[int]([])
+[node name="BellFieldCarrier" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(1256,160)
+endpoint = Vector2(256,0)
+platform_size = Vector2(128,20)
+period = 6.0
+one_way = true

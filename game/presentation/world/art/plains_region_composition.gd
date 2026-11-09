@@ -50,7 +50,8 @@ func _ready() -> void:
 		observer.name = "ActualLandscapeObserver"
 		observer.configure(stage, landscape)
 		add_child(observer)
-		var app := stage.get_parent() as DemoApp
+		# Presentation only needs the sibling background, not the legacy App graph.
+		var app := stage.get_parent()
 		if app != null:
 			var background := app.get_node_or_null("PlainsBackground") as PlainsBackground
 			if background != null: background.use_region_layers()

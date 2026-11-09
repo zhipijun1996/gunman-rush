@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>失序之钟 · 16 区域素材与景深</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#101a23;color:#e6e5d9;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}body{padding:26px 18px}.study-shell{max-width:1040px;margin:auto}header{margin-bottom:22px}h1{font-size:24px;font-weight:500;margin:0 0 7px}header p{font-size:14px;color:#a5b7b9;margin:0}.region-controls{display:flex;gap:12px;align-items:end;flex-wrap:wrap}.region-select-wrap{flex:1 1 190px;max-width:300px}label{display:block;font-size:13px;color:#a5b7b9;margin-bottom:7px}select,button{font:inherit;font-size:14px;min-height:44px;border:1px solid #3c535e;border-radius:5px;background:#172833;color:#e6e5d9}select{width:100%;padding:0 12px}button{padding:0 15px;cursor:pointer}button:hover{background:#263e49}button[aria-pressed="true"]{background:#d7d6ba;color:#19313d;border-color:#d7d6ba}.button-row{display:flex;gap:7px;flex-wrap:wrap}button:focus-visible,select:focus-visible{outline:2px solid #e3bf76;outline-offset:3px}figure{margin:18px 0 0;min-width:0}figcaption{font-size:15px;font-weight:500;margin-bottom:9px}canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;image-rendering:pixelated}#region-status{font-size:13px;color:#a5b7b9;margin-top:13px}#region-loading{font-size:14px;margin-top:14px}#region-loading[hidden]{display:none}@media(max-width:600px){body{padding:18px 10px}h1{font-size:21px}.region-controls{gap:10px}.region-select-wrap{max-width:none;flex-basis:100%}.button-row{width:100%}.button-row button{flex:1 1 auto;padding:0 10px}figure{margin-top:16px}}
+</style>
+</head>
+<body>
+<main id="region-lighting-study" class="study-shell">
+  <header><h1>失序之钟 · 16 区域素材与景深</h1><p>独立远中近景、区域材质与灯光，共用同一角色与像素尺度</p></header>
+  <div class="region-controls">
+    <div class="region-select-wrap"><label for="region-select">区域</label><select id="region-select"><!-- REGION_OPTIONS --></select></div>
+    <div class="button-row" aria-label="光影对照">
+      <button type="button" data-lighting="on" aria-pressed="true">场景光照</button>
+      <button type="button" data-lighting="off" aria-pressed="false">素材原色</button>
+      <button type="button" id="region-depth" aria-pressed="true">景深层：开</button>
+      <button type="button" id="region-protection" aria-pressed="true">角色避让：开</button>
+      <button type="button" id="region-motion" aria-pressed="false">播放环境</button>
+    </div>
+  </div>
+  <div class="button-row" aria-label="镜头位置">
+    <button type="button" id="region-camera-left">镜头左移</button>
+    <button type="button" id="region-camera-center">镜头居中</button>
+    <button type="button" id="region-camera-right">镜头右移</button>
+  </div>
+  <figure><figcaption id="region-caption">区域小样</figcaption><canvas id="region-scene" width="640" height="360" role="img" aria-label="区域地形、局部光照、阴影与环境粒子">16 区域素材与景深小样</canvas></figure>
+  <div id="region-loading" role="status">正在拼装区域…</div>
+  <div id="region-status" aria-live="polite"></div>
+</main>
+<!-- STUDY_BOOTSTRAP -->
+</body>
+</html>

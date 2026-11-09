@@ -111,7 +111,7 @@ func resource_and_selection() -> void:
 	if not await fixture(): return
 	var config := encounter._config()
 	check(config != null and config.is_valid(), "actual pressure Definition validates")
-	check(encounter.health.capacity == 60 and encounter.health.current == 60, "requested60HP is actual resource state")
+	check(encounter.health.capacity == 510 and encounter.health.current == 510, "requested510HP is actual resource state")
 	check(config.phase_three_health < config.phase_two_health, "three authoritative health bands remain ordered")
 	for phase: int in [1, 2, 3]:
 		encounter.stage_phase = phase
@@ -164,16 +164,16 @@ func locked_lunge_and_actual_rise() -> void:
 	target.position = Vector2(300,452) # Explicit moving-target lock adversary.
 	encounter._release_attack()
 	var minimum_y := start.y
-	for index: int in 40:
+	for index: int in 120:
 		encounter.physics_tick(1.0 / 60)
 		minimum_y = minf(minimum_y, boss.global_position.y)
 		if encounter.mode != &"lunge": break
-	check(encounter.locked_direction == locked and locked == 1, "short pounce never retargets direction after takeoff")
+	check(encounter.locked_direction == locked and locked == 1, "high pounce never retargets direction after takeoff")
 	check(boss.global_position.x > start.x + 50, "pounce creates real forward BossMotor displacement")
 	check(minimum_y < start.y - encounter._config().lunge_height * .7, "actual BossMotor rises off the support plane")
 	check(absf(boss.global_position.y - start.y) < .1, "real pounce returns to its actual takeoff support height")
 	check(encounter.mode == &"recover" and encounter._group_plan == frozen, "last pounce ends in real group recovery without rewriting chosen plan")
-	observations.append({"case": "actual short-pounce movement", "start": start, "end": boss.global_position, "highest_y": minimum_y, "direction": locked})
+	observations.append({"case": "actual high-pounce movement", "start": start, "end": boss.global_position, "highest_y": minimum_y, "direction": locked})
 
 func platform_approach_and_lock() -> void:
 	if not await fixture(Vector2(870,452)): return
@@ -321,7 +321,7 @@ func frozen_group_snapshot_and_phase() -> void:
 	if not advance_to_warning(&"stomp_warning"): return
 	var frozen: Dictionary = encounter._group_plan.duplicate(true)
 	var direction := encounter.locked_direction
-	var request := ActorResourceRequest.new(&"explicit-half-band-fixture", encounter.health.epoch, 20, encounter.health.get_instance_id())
+	var request := ActorResourceRequest.new(&"explicit-half-band-fixture", encounter.health.epoch, encounter.health.current-encounter.health.capacity*encounter._config().phase_two_health+1, encounter.health.get_instance_id())
 	check(encounter.health.apply_damage(request).accepted(), "explicit stage threshold fixture uses authoritative Boss resource transaction")
 	target.position = Vector2(350,452)
 	encounter.physics_tick(.05)

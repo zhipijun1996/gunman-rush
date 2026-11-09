@@ -11,6 +11,15 @@ var serial:=0
 var clock:=0.0
 var _dark: ShaderMaterial
 var _lit:=false
+var water_time:=0.0
+var splash_age:=9.0
+var splash_point:=Vector2.ZERO
+func _process(delta: float) -> void:
+	if mode!="water":return
+	water_time+=delta;splash_age+=delta;queue_redraw()
+func _water_accepted() -> void:
+	splash_age=0;splash_point=Vector2(controller.motor.position.x,bounds.position.y)
+	GameAudio.cue(self,&"plains_water_splash")
 func _ready() -> void:
 	if mode!="dark": return
 	var shade:=ColorRect.new();shade.position=bounds.position;shade.size=bounds.size
@@ -23,7 +32,7 @@ func _physics_process(delta: float) -> void:
 		if lit!=_lit:
 			_lit=lit;_dark.set_shader_parameter("darkness",.06 if lit else .38)
 		return
-	if mode not in ["gas","phase_light","thorns"] or not bounds.intersects(Rect2(controller.motor.position-Vector2(12,18),Vector2(24,36))): return
+	if mode not in ["gas","phase_light","thorns","water"] or not bounds.intersects(Rect2(controller.motor.position-Vector2(12,18),Vector2(24,36))): return
 	if mode=="gas" and services.active("filter"): return
 	clock-=delta
 	if clock>0: return
@@ -35,10 +44,22 @@ func _physics_process(delta: float) -> void:
 	request.health_epoch=controller.actor_resources.health.epoch
 	request.kind=DamageRequest.Kind.ENVIRONMENT;request.amount=1
 	request.hazard_category=&"phase_light" if mode=="phase_light" else &"solid"
+	if mode=="water":request.on_damage_applied=_water_accepted
 	policy.submit(request)
 func _draw() -> void:
 	if services==null: return
-	if mode=="thorns":
+	if mode=="water":
+		draw_rect(bounds,Color("244c54"))
+		for row: int in 5:
+			for x: int in range(int(bounds.position.x)+8,int(bounds.end.x)-24,32):
+				var y:=bounds.position.y+row*9+roundf(sin(water_time*2+x*.04+row)*2)
+				draw_rect(Rect2(Vector2(x,y),Vector2(18,2)),Color(.48,.72,.66,.8-row*.1))
+		if splash_age<.65:
+			for i: int in 9:
+				var v:=Vector2((i-4)*26,-100-absf(i-4)*8)
+				var at:=splash_point+v*splash_age+Vector2(0,180*splash_age*splash_age)
+				draw_rect(Rect2(at.round(),Vector2(3,3)),Color(.68,.88,.86,1-splash_age/.65))
+	elif mode=="thorns":
 		WorldProps.draw_thorns(self,bounds)
 	elif mode=="gas":
 		draw_rect(bounds,Color(.38,.58,.24,.35))

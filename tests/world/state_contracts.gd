@@ -20,7 +20,7 @@ func run() -> void:
 	check(state.commit(state.fresh(5),0),"initial revision persisted")
 	check(state.value.cycle==1 and state.value.flags==["gun"],"no early Q/H grant")
 	check(state.action_candidate("get_H","P-R14").is_empty(),"H requires real committed victory")
-	check(state.action_candidate("tutorial_shoot","P-R03").is_empty(),"ordered tutorial facts")
+	check(state.action_candidate("tutorial_shoot","P-R21").is_empty(),"ordered tutorial facts")
 	var candidate := state.action_candidate("tutorial_move","P-R03")
 	check(state.commit(candidate,state.revision),"first tutorial transaction")
 	check(not state.commit(candidate,1),"stale revision refused")
@@ -40,10 +40,10 @@ func run() -> void:
 	check(state.commit(moved,state.revision) and state.restore() and state.value.room=="P-R03" and state.value.rest.room=="P-R03","content removal repairs both current location and later death destination")
 	var before := state.value.duplicate(true)
 	state.storage.blocked = true
-	check(not state.commit(state.action_candidate("tutorial_shoot","P-R03"),state.revision),"write failure rejected")
+	check(not state.commit(state.action_candidate("tutorial_shoot","P-R21"),state.revision),"write failure rejected")
 	check(state.value==before,"failed transaction publishes no new state")
 	state.storage.blocked = false
-	check(state.commit(state.action_candidate("tutorial_shoot","P-R03"),state.revision),"retry commits")
+	check(state.commit(state.action_candidate("tutorial_shoot","P-R21"),state.revision),"retry commits")
 	var primary := FileAccess.open(state.storage.path,FileAccess.WRITE)
 	primary.store_string("corrupt"); primary.close()
 	check(state.restore() and state.storage.status=="recovered_backup","bad main falls back to valid backup")

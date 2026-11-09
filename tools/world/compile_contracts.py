@@ -15,32 +15,18 @@ import math
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from spatial import room_space, contains_rect
+
 ROOT = Path(__file__).resolve().parents[2]
 ABILITIES = {"H", "W", "D", "Q"}
 OPPOSITE = {"left": "right", "right": "left", "up": "down", "down": "up"}
 VIEWPORT = [1280, 720]
 WORKING_VIEW = [800, 450]
 CAMERA_PROFILES = {
-    "horizontal_follow": {
-        "name": "普通横向跟随",
-        "behavior": "依据真实移动趋势与房间目标前瞻，小跳保持稳定纵向构图；不跟随枪口/鼠标反向摆镜头。",
-        "zoom_policy": "统一普通房基准；当前1.60仅为工作比较值，样房后冻结。",
-    },
-    "vertical_follow": {
-        "name": "纵向空间跟随",
-        "behavior": "上升提前展示下一索点/落脚层，长下落保证下方平台可见；落脚层与转角构成连续相机区。",
-        "zoom_policy": "优先保持普通房基准，通过相机区移动解决构图；确需例外时显式声明。",
-    },
-    "fixed_battle": {
-        "name": "固定战斗构图",
-        "behavior": "战斗激活后固定构图；关键预警、敌我与主要退避区可见，不随每次反冲或攻击摆动。",
-        "zoom_policy": "竞技场定义专用工作视野；只在战前/战后切换，数值须经战斗灰盒校准。",
-    },
-    "bounded_battle": {
-        "name": "有限移动战斗构图",
-        "behavior": "在竞技空间内受限跟随，分层/阶段切换明确；不靠反复动态拉远补救场地。",
-        "zoom_policy": "每场固定一组少量构图区；阶段间可切换，战中逐击变焦不作为默认。",
-    },
+    "bounded_follow": {"name": "双轴范围跟随", "behavior": "分轴缓冲与动作响应；相机中心约束独立于物理碰撞。"},
+    "horizontal_follow": {"name": "横向跟随", "behavior": "限制普通Y，手动查看许可独立。"},
+    "vertical_follow": {"name": "纵向跟随", "behavior": "限制普通X，持续爬升和快速下落及时跟随。"},
+    "fixed_arena": {"name": "固定场地", "behavior": "固定或有限跟随，不自动缩放；Boss默认禁用查看。"},
 }
 
 # C/T are construction ceilings on ordinary routes, not compulsory pressure in
@@ -69,28 +55,28 @@ REGION_DIFFICULTY = {
 # combat width/height, working view width, camera, pressure peak, attack range,
 # and specific geometry constraint.
 BOSS_WORK = {
-    "P_WINDKEEPER": (768, 384, 896, "fixed_battle", 2, [5, 5], "ground_duel", "基础移动可避开全部强制招式；H在胜利后才取得。"),
-    "P_BELLSTRIDER": (1280, 480, 1024, "bounded_battle", 3, [5, 9], "patrol_high_weakpoint", "上方风铃弱点需留可读射击高度，巡行/转身距离与两枪窗口共同标定。"),
-    "F_RANGER": (896, 432, 1024, "fixed_battle", 3, [5, 9], "ranged_duel", "飞刃去回程均可读；基础枪和H成立，不要求W或手里剑。"),
-    "F_QUEEN": (960, 704, 1120, "bounded_battle", 4, [5, 13], "wall_layer_arena", "树冠墙面换边与地面缓冲共存，HW成立，不要求D/Q。"),
-    "M_MOTHER": (896, 576, 1152, "fixed_battle", 3, [5, 9], "bounce_spore_arena", "弹菇和孢子落点先可视，H与一次跳足够，不能以D进场。"),
-    "S_SNAIL": (1120, 560, 1152, "bounded_battle", 3, [9, 13], "dry_islands_arena", "高台与排液口均有稳定落点；HW或HD两种首访均可战。"),
-    "Y_HOWLER": (1280, 544, 1024, "bounded_battle", 3, [5, 13], "wind_charge_arena", "低中两层避冲，换风方向提前读，HW即可战。"),
-    "I_MIRROR": (960, 704, 1120, "bounded_battle", 4, [9, 13], "delayed_layer_arena", "延迟挥击和安全层同时能观察，HWD换层有固定台。"),
-    "C_DUELIST": (768, 400, 896, "fixed_battle", 4, [5, 13], "compact_blade_duel", "短安全区与回刃路径清楚，HW或HD成立，不用Q。"),
-    "C_FUNERAL": (960, 480, 1056, "fixed_battle", 3, [5, 9], "pendulum_court", "丧钟扫击与地面站位互相配合；灯装读纹，不用Q破盾。"),
-    "K_KNIGHT": (960, 448, 1056, "fixed_battle", 3, [9, 13], "gunline_duel", "Q获得前的普通反冲可避全部招式；W/D两路线分别检查。"),
-    "G_OVERSEER": (1152, 704, 1152, "bounded_battle", 4, [9, 13], "two_lane_factory", "错相生产线各有稳定地面；W或D均可换层，不要求Q。"),
-    "N_WAREHOUSE": (896, 432, 1024, "fixed_battle", 3, [5, 9], "bomb_marker_court", "地面爆点可预读，基础枪/H可战，炸弹与D均非前置。"),
-    "N_DRILL": (704, 1280, 896, "bounded_battle", 4, [5, 13], "bent_vertical_rail", "分层支台承接钻机出入，炸弹岩壳窗口与普通枪露芯分开。"),
-    "E_FURNACE": (1152, 640, 1152, "bounded_battle", 4, [9, 13], "two_level_phase_furnace", "Q只处理相位光幕；熔岩仍伤害。HDQ无W成立，连续Q间有2秒节奏/等待台。"),
-    "T_ROOT": (960, 640, 1120, "bounded_battle", 3, [5, 13], "root_wall_court", "HW可早访，根索和平台节拍后有两枪窗口，不用D/Q。"),
-    "T_TWINS": (960, 448, 1056, "fixed_battle", 4, [9, 17], "alternating_pair_court", "双卫严格交错；两敌算一场，避免同步随机封全部站位。"),
-    "R_FERRYMAN": (1120, 608, 1152, "bounded_battle", 3, [9, 13], "slow_floating_platforms", "HD跨固定安全台，移动平台变化不改变玩家物理。"),
-    "A_COLOSSUS": (1536, 768, 1280, "bounded_battle", 4, [13, 17], "bridge_chain_platforms", "换台后能稳定输出/等待Q，失败回本段，不连续掉层。"),
-    "V_GATEKEEPER": (1024, 512, 1120, "fixed_battle", 4, [13, 17], "star_track_court", "星轨次序预演，HWD处理；不要求奖励断契棱针。"),
-    "Z_KING": (1280, 608, 1280, "fixed_battle", 4, [17, 21], "final_gun_pendulum_court", "枪线/钟摆/相位交替，王战与神战独立，稳定落点供Q节奏。"),
-    "Z_DEITY": (1536, 960, 1280, "bounded_battle", 5, [17, 21], "phase_constellation_arena", "阶段化平台和可视轨迹时间异象，不改变玩家基础物理；每段独立回落区。"),
+    "P_WINDKEEPER": (768, 384, 896, "fixed_arena", 2, [5, 5], "ground_duel", "基础移动可避开全部强制招式；H在胜利后才取得。"),
+    "P_BELLSTRIDER": (1280, 480, 1024, "bounded_follow", 3, [5, 9], "patrol_high_weakpoint", "上方风铃弱点需留可读射击高度，巡行/转身距离与两枪窗口共同标定。"),
+    "F_RANGER": (896, 432, 1024, "fixed_arena", 3, [5, 9], "ranged_duel", "飞刃去回程均可读；基础枪和H成立，不要求W或手里剑。"),
+    "F_QUEEN": (960, 704, 1120, "bounded_follow", 4, [5, 13], "wall_layer_arena", "树冠墙面换边与地面缓冲共存，HW成立，不要求D/Q。"),
+    "M_MOTHER": (896, 576, 1152, "fixed_arena", 3, [5, 9], "bounce_spore_arena", "弹菇和孢子落点先可视，H与一次跳足够，不能以D进场。"),
+    "S_SNAIL": (1120, 560, 1152, "bounded_follow", 3, [9, 13], "dry_islands_arena", "高台与排液口均有稳定落点；HW或HD两种首访均可战。"),
+    "Y_HOWLER": (1280, 544, 1024, "bounded_follow", 3, [5, 13], "wind_charge_arena", "低中两层避冲，换风方向提前读，HW即可战。"),
+    "I_MIRROR": (960, 704, 1120, "bounded_follow", 4, [9, 13], "delayed_layer_arena", "延迟挥击和安全层同时能观察，HWD换层有固定台。"),
+    "C_DUELIST": (768, 400, 896, "fixed_arena", 4, [5, 13], "compact_blade_duel", "短安全区与回刃路径清楚，HW或HD成立，不用Q。"),
+    "C_FUNERAL": (960, 480, 1056, "fixed_arena", 3, [5, 9], "pendulum_court", "丧钟扫击与地面站位互相配合；灯装读纹，不用Q破盾。"),
+    "K_KNIGHT": (960, 448, 1056, "fixed_arena", 3, [9, 13], "gunline_duel", "Q获得前的普通反冲可避全部招式；W/D两路线分别检查。"),
+    "G_OVERSEER": (1152, 704, 1152, "bounded_follow", 4, [9, 13], "two_lane_factory", "错相生产线各有稳定地面；W或D均可换层，不要求Q。"),
+    "N_WAREHOUSE": (896, 432, 1024, "fixed_arena", 3, [5, 9], "bomb_marker_court", "地面爆点可预读，基础枪/H可战，炸弹与D均非前置。"),
+    "N_DRILL": (704, 1280, 896, "bounded_follow", 4, [5, 13], "bent_vertical_rail", "分层支台承接钻机出入，炸弹岩壳窗口与普通枪露芯分开。"),
+    "E_FURNACE": (1152, 640, 1152, "bounded_follow", 4, [9, 13], "two_level_phase_furnace", "Q只处理相位光幕；熔岩仍伤害。HDQ无W成立，连续Q间有2秒节奏/等待台。"),
+    "T_ROOT": (960, 640, 1120, "bounded_follow", 3, [5, 13], "root_wall_court", "HW可早访，根索和平台节拍后有两枪窗口，不用D/Q。"),
+    "T_TWINS": (960, 448, 1056, "fixed_arena", 4, [9, 17], "alternating_pair_court", "双卫严格交错；两敌算一场，避免同步随机封全部站位。"),
+    "R_FERRYMAN": (1120, 608, 1152, "bounded_follow", 3, [9, 13], "slow_floating_platforms", "HD跨固定安全台，移动平台变化不改变玩家物理。"),
+    "A_COLOSSUS": (1536, 768, 1280, "bounded_follow", 4, [13, 17], "bridge_chain_platforms", "换台后能稳定输出/等待Q，失败回本段，不连续掉层。"),
+    "V_GATEKEEPER": (1024, 512, 1120, "fixed_arena", 4, [13, 17], "star_track_court", "星轨次序预演，HWD处理；不要求奖励断契棱针。"),
+    "Z_KING": (1280, 608, 1280, "fixed_arena", 4, [17, 21], "final_gun_pendulum_court", "枪线/钟摆/相位交替，王战与神战独立，稳定落点供Q节奏。"),
+    "Z_DEITY": (1536, 960, 1280, "bounded_follow", 5, [17, 21], "phase_constellation_arena", "阶段化平台和可视轨迹时间异象，不改变玩家基础物理；每段独立回落区。"),
 }
 
 
@@ -166,17 +152,6 @@ def sections_of(room):
     return copy.deepcopy(list(value.values()) if isinstance(value, dict) else value)
 
 
-def camera_zone_intents(room, profile, section_list, is_boss):
-    result = [{"id": "camera:main", "section_refs": ["main"], "role": "主要构图", "bounds_status": "施工包络内按实际通路设相机区；待样房后写入精确矩形/多边形。"}]
-    for s in section_list:
-        if s["id"] != "main":
-            result.append({"id": "camera:" + s["id"], "section_refs": [s["id"]], "role": "入口预览" if s.get("kind") == "entrance_preview" else "支路/互动构图", "show_before_commit": "入口安全台、环境障碍地标与一处远侧目标同时可读。", "bounds_status": "锚点意图；镜头边界待场景灰盒细化。"})
-    if profile == "vertical_follow" or room.get("shape") in {"deep_l", "deep_J", "long_L", "step_S", "cranked_shaft", "split_gallery", "crypt_cross"}:
-        result.append({"id": "camera:route_turns", "section_refs": [s["id"] for s in section_list], "role": "转角/楼层连续构图", "split_trigger": "稳定落脚层、楼梯拐角或窄通道；不等同新增房间。", "bounds_status": "需要多个相机区，具体边界按内部路线占位设定。"})
-    if is_boss:
-        result.append({"id": "camera:battle", "section_refs": [s["id"] for s in section_list if s.get("kind") != "entrance_preview"], "role": "战斗构图", "activate": "明确战斗触发后；入口落地/返程不误开战", "bounds_status": "参照本场combat_bounds_world_units与working_view_world_units。"})
-    return result
-
 
 def required_reserved_areas(entry):
     """Reserve interface volumes independently of the decorative map outline.
@@ -197,16 +172,16 @@ def required_reserved_areas(entry):
         sx, sy = landing["entry_position_world_units"]
         tx, ty = landing["safe_standing_position_world_units"]
         if side == "left":
-            throat = [0, y - 96, 96, 128]
-            floor = [0, y, 96, 32]
+            throat = [x, y - 96, 96, 128]
+            floor = [x, y, 96, 32]
         elif side == "right":
-            throat = [width - 96, y - 96, 96, 128]
-            floor = [width - 96, y, 96, 32]
+            throat = [x - 96, y - 96, 96, 128]
+            floor = [x - 96, y, 96, 32]
         elif side == "up":
-            throat = [x - 48, 0, 96, 112]
+            throat = [x - 48, y, 96, 112]
             floor = None
         else:
-            throat = [x - 48, height - 112, 96, 112]
+            throat = [x - 48, y - 112, 96, 112]
             floor = None
         common = {
             "section": sid, "door_ref": did, "must_be_in_usable_room_envelope": True,
@@ -389,6 +364,7 @@ def build(canonical, construction, replay_path):
         boss = bosses.get(rid)
         extent, shape_class, rationale = source["extent"], source["shape_class"], source["rationale"]
         w, h = extent
+        space = room_space(source.get("space_rects", [] if source.get("implemented") else [[0, 0, w, h]]), extent)
         sections = sections_of(room)
         section_ids = {s["id"] for s in sections}
         doors = doors_by_room[rid]
@@ -409,7 +385,7 @@ def build(canonical, construction, replay_path):
                 anchor = [snap(w * (.3 + .12 * (i % 4))), snap(h * (.3 + .1 * (i % 3)))]
             item["construction_anchor_world_units"] = anchor
             item["construction_geometry_status"] = "分区锚点工作值；精确可走多边形与隔断形状在该房灰盒实现。"
-            item["camera_zone_ref"] = "camera:main" if s["id"] == "main" else "camera:" + s["id"]
+            item["camera_zone_ref"] = None  # Gameplay sections do not imply camera zones.
             item["interface_refs"] = [d["id"] for d in doors if d["section"] == s["id"]]
             local_sections.append(item)
         section_lookup = {s["id"]: s for s in local_sections}
@@ -505,7 +481,7 @@ def build(canonical, construction, replay_path):
         actual_boss_req = construction["boss_first_visit"].get(boss["id"]) if boss else None
         first = {
             "minimum_legal_state_dnf": actual_boss_req,
-            "minimum_legal_state_scope": "原Boss声明的可首访战斗配置，入口预览可更早；完整可达性以v04分区模拟为准。" if boss else "普通房不另造第二套能力门：合法抵达以canonical分区路线定义；下列是局部条件和已回放的具体首访样本。",
+            "minimum_legal_state_scope": "原Boss声明的可首访战斗配置，入口预览可更早；完整可达性以现行分区模拟为准。" if boss else "普通房不另造第二套能力门：合法抵达以canonical分区路线定义；下列是局部条件和已回放的具体首访样本。",
             "local_main_access_conditions_dnf": derive_local_main_conditions(room),
             "recommended_attack_range": BOSS_WORK[boss["id"]][5] if boss else REGION_DIFFICULTY[room["region"]]["attack"],
             "recommended_attack_is_not_a_gate": True,
@@ -523,12 +499,13 @@ def build(canonical, construction, replay_path):
             "footprint_reference": {"source_shape": room.get("shape"), "source_polygon": room["polygon"], "source_aspect_ratio": round(room_aspect(room), 4),
                                     "use": "世界地图相对位置和形态意图；可调整场景局部形状，保留拓扑、门ID与分区绑定。"},
             "world_geometry": {"bounds_world_units": [0, 0, w, h], "shape_class": shape_class,
-                               "outline_candidate_local": coarse_outline(room, extent),
-                               "status": "adjustable_construction_candidate_not_physics_validated",
+                               "outline_candidate_local": space["outline"] if source.get("implemented") else coarse_outline(room, extent),
+                               "space_rects": space["rects"], "boundary": space["boundary"],
+                               "status": "authored_room_envelope" if source.get("implemented") else "adjustable_construction_candidate_not_physics_validated",
                                "rationale": rationale, "authoring_grid_world_units": 16,
                                "grid_is_convenience_not_ability_envelope": True,
-                               "screen_reference": {"viewport_px": VIEWPORT, "working_view_world_units": WORKING_VIEW, "working_zoom": 1.6, "zoom_status": "比较基线，非最终统一镜头"},
-                               "collision_outline_status": "地图缩放粗轮廓仅作形态参考；禁止自动封闭成碰撞围墙后堵住门、入口台或Boss竞技区。",
+                               "screen_reference": {"viewport_px": VIEWPORT, "working_view_world_units": WORKING_VIEW, "working_zoom": 1.6, "zoom_status": "正式基准；特殊场景仅显式配置"},
+                               "collision_outline_status": "已施工房的实体外边界与地图共用space_rects并集，按实际门口切开；内部地形仍由手工场景拥有。" if source.get("implemented") else "未施工粗轮廓不是碰撞数据。",
                                "required_reserved_areas": [],
                                "usable_envelope_contract": "实际可用包络必须包含required_reserved_areas的全部矩形并按其collision_intent区分净空与实地；候选多边形不包含这些区域时扩展/重画轮廓，以真实内部前廊连接所属分区，不能瞬移或跨过能力阻隔。",
                                "minimum_scale_invariants": "保持当前玩家24×36碰撞体与运动参数；若读取仓库已有改动，以实际控制器校准并同步全部房，不逐房偷偷改玩家。"},
@@ -579,7 +556,7 @@ def build(canonical, construction, replay_path):
             b["encounter_section"] = actions.get(boss.get("defeat_action"), {}).get("section_id", "main")
             b["entry_flow"] = ["进入来向安全区并看见场地", "按房内路线真实到达战斗触发线", "跨线开战后关闭战闸", "实际胜利写永久Boss结果", "战后交互领取唯一奖励或修钟"]
             if b.get("retry_plan"):
-                b["retry_plan"]["qualification_scope"] = "旧房间数作定位参考；v04分区和实机秒数重新验收。"
+                b["retry_plan"]["qualification_scope"] = "旧房间数作定位参考；现行分区和实机秒数重新验收。"
                 b["retry_plan"]["retry_path_contract"] = "已实际休息点至战前触发线有安全熟路；物品门按状态，能力由真实已掌握路线通行。"
             entry["boss"] = b
             entry["boss_arena"] = {
@@ -604,7 +581,7 @@ def build(canonical, construction, replay_path):
         result_rooms.append(entry)
 
     contracts = {
-        "schema": "gunman-rush.room-graybox-contracts.v04",
+        "schema": "gunman-rush.room-graybox-contracts.v07",
         "status": "可开始全世界结构灰盒的施工合同；候选尺寸、镜头、动作与战斗尚需实机校准。",
         "canonical_source": "config/world/world.json",
         "canonical_normalized_json_sha256": hashlib.sha256(json.dumps(canonical, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
@@ -616,7 +593,7 @@ def build(canonical, construction, replay_path):
             "world_geometry_values_are_adjustable_working_values": True,
             "current_player_baseline": {"collision_world_units": [24, 36], "ground_speed_world_units_per_second": 260, "viewport_px": VIEWPORT,
                                         "reference": "main基础参数2026-11-06审阅；施工从仓库实际控制器读取，不在房间内重定义。"},
-            "ordinary_camera_zoom": {"working_comparison": 1.6, "final_value": None, "selection_gate": "首批教程/竖井/战斗样房确定统一普通视野。"},
+            "ordinary_camera_zoom": {"config": "config/world/player.json:camera.zoom", "policy": "统一基准，显式例外，不自动适配房间大小。"},
             "door_orientation_authority": "本合同direction/target_direction成对；地图接廊端点为示意，归一转向由connector_owner_room承担。",
             "camera_room_boundary_policy": "仅当前房可见；多边形使用多个相机区，不机械套整房外接矩形。",
         },
@@ -644,7 +621,7 @@ def build(canonical, construction, replay_path):
         "build_phases": [
             "创建共用房间基础场景、三种普通转场和交互式交通；保留玩家运动参数。",
             "首批样房校准镜头、门台、地形1/2HP与Q2秒/危险过滤，冻结可复用接口。",
-            "按本合同创建全216房结构，填入真实门与分区、能力挑战占位、休息/NPC/Boss/奖励事件占位；物理能力锁不能退化为隐藏布尔门。",
+            "按本合同创建全部当前房间结构，填入真实门与分区、能力挑战占位、休息/NPC/Boss/奖励事件占位；物理能力锁不能退化为隐藏布尔门。",
             "沿A/B/C/D路线验证本体探索、交互与永久存档，记录实际失败/重试成本。",
             "逐房完善具体平台、敌人、Boss动作、奖励袋、美术与声音；不因打磨重排永久ID。",
         ],
@@ -668,6 +645,7 @@ def audit_contracts(data, canonical):
         sec = {s["id"] for s in r["sections"]}
         bx, by, bw, bh = r["world_geometry"]["bounds_world_units"]
         reserved = r["world_geometry"]["required_reserved_areas"]
+        space = {"rects": r["world_geometry"]["space_rects"]}
         if not reserved:
             issues.append({"kind": "missing_reserved_areas", "room": rid})
         reserved_ids = {a["id"] for a in reserved}
@@ -677,6 +655,8 @@ def audit_contracts(data, canonical):
             x, y, w, h = area["rect_world_units"]
             if not (w > 0 and h > 0 and x >= bx and y >= by and x + w <= bx + bw and y + h <= by + bh):
                 issues.append({"kind": "reserved_area_outside_outer_bounds", "room": rid, "area": area["id"], "rect": area["rect_world_units"]})
+            if r["world_geometry"]["status"] == "authored_room_envelope" and not contains_rect(space, [x,y,w,h]):
+                issues.append({"kind":"reserved_area_outside_physical_space", "room":r["room_id"], "area":area["id"]})
             if area["section"] not in sec:
                 issues.append({"kind": "reserved_area_invalid_section", "room": rid, "area": area["id"]})
             if r.get("boss_arena") and area.get("door_ref"):
@@ -740,7 +720,7 @@ def audit_contracts(data, canonical):
         "required_reserved_areas": sum(len(r["world_geometry"]["required_reserved_areas"]) for r in rooms.values()),
     }
     validation = {
-        "room_count_216": len(rooms) == 216,
+        "room_count_matches_source": len(rooms) == len(canonical["rooms"]),
         "room_ids_match_canonical": set(rooms) == {r["id"] for r in canonical["rooms"]},
         "two_doors_per_connection": len(doors) == 2 * len(canonical["connections"]),
         "unique_entry_spawn_ids": len(spawns) == sum(len(r["entry_spawns"]) for r in rooms.values()),

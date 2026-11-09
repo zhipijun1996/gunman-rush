@@ -2,41 +2,98 @@
   "schema_version": 2,
   "task_id": "PLAINS-BIBLE-V2-01",
   "task_type": "region",
-  "baseline_commit": "83a149558e670fc78a177d8f4662a0ec079b4cbf",
-  "reviewed_commit": "83a149558e670fc78a177d8f4662a0ec079b4cbf",
-  "content_version": "current-content-review",
-  "owner": "Codex接续会话",
-  "purpose": "森林后按圣经优化风铃平原。",
-  "player_experience": "Bright morning limestone grasslands, recoil exploration, windmill hubs, meaningful shortcuts and existing Boss mechanics with coherent complete-screen presentation",
-  "constraints": [],
-  "affected_paths": [],
-  "deliverables": [],
+  "baseline_commit": "66400937dcdce553b51f492adda47c3e32941aeb",
+  "reviewed_commit": "db4635dfb5af9f40d9c722f6cffc89739ee28555",
+  "content_version": "cf78f3d342f3f7ea446adfd297ee70dc97e30d71c93a49e9a99e53e192e8a9ed",
+  "owner": "Codex",
+  "purpose": "按04总图推进连续平原；当前修正Boss左右镜头边界，取实际封墙坐标，保留探索缩放、微幅动作、物理和布局。",
+  "player_experience": "反冲主导的新档学习与西侧主循环，H能力取得后的修钟/回访和东侧探索；统一像素人物、地形、机关与UI反馈。",
+  "constraints": [
+    "PlayerMotor owns motion; FixedWorldState owns accepted progress.",
+    "Current config/world is authoritative: v07.1 baseline with user-decided revisions; frozen ZIPs preserve provenance.",
+    "Equipment-source slots do not invent ITEM-V5-01 effects."
+  ],
+  "affected_paths": [
+    "config/world/",
+    "game/world/",
+    "game/application/world/",
+    "game/presentation/ui/world/",
+    "game/presentation/world/plains_v07/",
+    "game/player/presentation/player_carry_light.gd",
+    "tests/world/",
+    "docs/project/",
+    "AGENTS.md"
+  ],
+  "deliverables": [
+    "35房/43接缝与同源审核图保留；正式六房已有施工，其余29内部未迁移。",
+    "唯一正式镜头；Boss左右边界贴实际战场墙，仅上下保留构图余量。三段正常速度同输入对比：入场、左墙、右墙。"
+  ],
   "creative_decisions": [],
-  "formal_impact": false,
+  "formal_impact": true,
+  "required_dimensions": [
+    "visual",
+    "gameplay",
+    "technical",
+    "animation",
+    "audio_vfx"
+  ],
   "gates": {
     "G2": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "failed",
+      "reason": "整区几何与六房操作片区已落实；其余29房内部迁移及整体视听与探索体验尚未完成。",
       "evidence": []
     }
   },
   "dimensions": {
     "visual": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "failed",
+      "reason": "审看原生短片抽帧及真实Web画面，统一镜头和边界填充；整体材质/机关根基/24载具和其余29房未终审，维持区域视觉未通过。",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "既有六房连续教程、预读和恢复回归通过，镜头测试未改布局；22完成侧回程、其余29房与完整地区节奏仍未完成。",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "36双场地/双视口墙位与震动专项、37纵向/场地及10实际动作回归通过；CI四项、世界单测24项、Web及线上交付复验。独立量测真实封墙，不用相机自身范围代替墙位验收。",
+      "evidence": [
+        "construction-04-checks"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "三段正常速度短片用于Boss入场与左右贴墙检查；边界夹具暂停Boss AI，全区动作表现未终审。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "短片保留原动作声音和特效；本次未调整或终审全区听感、特效与设备表现。",
       "evidence": []
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "construction-04-checks",
+      "path": "docs/project/worklines/plains_bible_v2_01/quality/evidence/current-checks.json",
+      "sha256": "29a6d3cb32fc199ac92b55dc447abef6a68af52758e345f37fd469409d481b83",
+      "kind": "command",
+      "producer": "Codex",
+      "source_commit": "db4635dfb5af9f40d9c722f6cffc89739ee28555",
+      "content_version": "cf78f3d342f3f7ea446adfd297ee70dc97e30d71c93a49e9a99e53e192e8a9ed",
+      "method": "Real formal camera/viewport/seals/input, independent P11/P14 wall fixtures, native matched clips; Web/public validation. build/camera-walls.",
+      "observed": "Final screen edges coincide with corresponding actual wall planes in tested viewports; shake bounded; no zoom or physics change. Not complete Boss/region/device acceptance.",
+      "command": "Arena, vertical and motion suites, CI, world tests, PCK, browser and public bytes.",
+      "exit_code": 0,
+      "environment": "Godot 4.7.2 gunman-sd1 native/headless; Chromium SwiftShader."
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "visual：待实际运行、音画观察与体验审查",
-    "gameplay：待实际运行、音画观察与体验审查"
+    "其余29房内部内容、能力锁、收集返回与完整主环尚未迁移。",
+    "22完成侧回程板与完整回访、机关根基、24载具外观、整段环境层次及整体节奏/剧情/视听尚未终审。",
+    "实体手机/手柄、完整Web流程与设备性能未验证。"
   ]
 }

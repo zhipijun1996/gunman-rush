@@ -1,0 +1,196 @@
+[gd_scene load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://game/presentation/actors/art/plains_boss_rig.gd" id="1"]
+[ext_resource type="Shader" path="res://game/presentation/actors/art/plains_actor_separation.gdshader" id="2"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/bellstrider_chassis.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/bellstrider_arch.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/bellstrider_bell.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/bellstrider_mount.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/bellstrider_cannon.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/bellstrider_cloth.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/bellstrider_axle.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/bellstrider_rear_wheel.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/bellstrider_front_wheel.png" id="11"]
+
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/front_bell_chassis.png" id="front0"]
+
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/front_wheel.png" id="front1"]
+
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/front_wheel.png" id="front2"]
+
+[sub_resource type="ShaderMaterial" id="surface"]
+resource_local_to_scene = true
+shader = ExtResource("2")
+
+[sub_resource type="Animation" id="cloth"]
+resource_name = "cloth"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Skeleton/Chassis/Cloth:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6), "transitions": PackedFloat32Array(1,1,1,1,1), "update": 0, "values": [0.0, 0.035, 0.0, -0.035, 0.0]}
+
+[sub_resource type="AnimationLibrary" id="library"]
+_data = {&"cloth": SubResource("cloth")}
+
+[node name="bellstrider" type="Node2D"]
+script = ExtResource("1")
+family = "bellstrider"
+texture_filter = 1
+
+[node name="Skeleton" type="Skeleton2D" parent="."]
+
+[node name="Chassis" type="Bone2D" parent="Skeleton"]
+position = Vector2(0, 0)
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 2
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Chassis"]
+texture = ExtResource("3")
+material = SubResource("surface")
+centered = false
+position = Vector2(-98, -40)
+
+[node name="Arch" type="Bone2D" parent="Skeleton/Chassis"]
+position = Vector2(-7, -2)
+rest = Transform2D(1, 0, 0, 1, -7, -2)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 1
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Chassis/Arch"]
+texture = ExtResource("4")
+material = SubResource("surface")
+centered = false
+position = Vector2(-59, -138)
+
+[node name="Bell" type="Bone2D" parent="Skeleton/Chassis/Arch"]
+position = Vector2(0, -82)
+rest = Transform2D(1, 0, 0, 1, 0, -82)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 2
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Chassis/Arch/Bell"]
+texture = ExtResource("5")
+material = SubResource("surface")
+centered = false
+position = Vector2(-24, -30)
+
+[node name="Mount" type="Bone2D" parent="Skeleton/Chassis"]
+position = Vector2(-45, -15)
+rest = Transform2D(1, 0, 0, 1, -45, -15)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 3
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Chassis/Mount"]
+texture = ExtResource("6")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -15)
+
+[node name="Cannon" type="Bone2D" parent="Skeleton/Chassis"]
+position = Vector2(43, 4)
+rest = Transform2D(1, 0, 0, 1, 43, 4)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 4
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Chassis/Cannon"]
+texture = ExtResource("7")
+material = SubResource("surface")
+centered = false
+position = Vector2(-28, -3)
+offset = Vector2(-60, -37)
+rotation = 2.669
+
+[node name="Cloth" type="Bone2D" parent="Skeleton/Chassis"]
+position = Vector2(-67, -5)
+rest = Transform2D(1, 0, 0, 1, -67, -5)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 3
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Chassis/Cloth"]
+texture = ExtResource("8")
+material = SubResource("surface")
+centered = false
+position = Vector2(-60, -30)
+
+[node name="Axle" type="Bone2D" parent="Skeleton/Chassis"]
+position = Vector2(0, 23)
+rest = Transform2D(1, 0, 0, 1, 0, 23)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 3
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Chassis/Axle"]
+texture = ExtResource("9")
+material = SubResource("surface")
+centered = false
+position = Vector2(-75, -22)
+
+[node name="RearWheel" type="Bone2D" parent="Skeleton"]
+position = Vector2(-49, 44)
+rest = Transform2D(1, 0, 0, 1, -49, 44)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 5
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/RearWheel"]
+texture = ExtResource("10")
+material = SubResource("surface")
+centered = false
+position = Vector2(-21, -21)
+
+[node name="FrontWheel" type="Bone2D" parent="Skeleton"]
+position = Vector2(49, 44)
+rest = Transform2D(1, 0, 0, 1, 49, 44)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 5
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/FrontWheel"]
+texture = ExtResource("11")
+material = SubResource("surface")
+centered = false
+position = Vector2(-21, -21)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_process = 2
+libraries = {&"": SubResource("library")}
+
+[node name="Front" type="Sprite2D" parent="Skeleton/Chassis"]
+texture = ExtResource("front0")
+material = SubResource("surface")
+centered = false
+position = Vector2(-65, -40)
+modulate = Color(1,1,1,0)
+
+[node name="Front" type="Sprite2D" parent="Skeleton/RearWheel"]
+texture = ExtResource("front1")
+material = SubResource("surface")
+centered = false
+position = Vector2(-6, -21)
+modulate = Color(1,1,1,0)
+
+[node name="Front" type="Sprite2D" parent="Skeleton/FrontWheel"]
+texture = ExtResource("front2")
+material = SubResource("surface")
+centered = false
+position = Vector2(-6, -21)
+modulate = Color(1,1,1,0)

@@ -20,6 +20,10 @@ var page := ""
 var equipment: WorldEquipment
 var heal: Button
 var heal_host: ScrollContainer
+var review_mode := false
+var review_stage := ""
+var review_button: Button
+var review_host: ScrollContainer
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer=30
@@ -30,7 +34,7 @@ func _ready() -> void:
 	root=Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	root.theme=DemoClockworkTheme.create_theme()
+	root.theme=UnderworldUI.create_theme()
 	add_child(root)
 	hud=DemoGameHud.new()
 	root.add_child(hud)
@@ -42,6 +46,10 @@ func _ready() -> void:
 	pause_button=Button.new();pause_button.text=WorldText.text("world_ui.00")
 	pause_button.pressed.connect(func() -> void: command.emit("pause",""))
 	pause_host=_touch_host(pause_button)
+	review_button=Button.new()
+	review_button.pressed.connect(func() -> void: command.emit("review",""))
+	review_host=_touch_host(review_button)
+	review_host.hide()
 	heal=Button.new();heal.name="FocusHeal";heal.focus_mode=Control.FOCUS_NONE
 	heal.button_down.connect(func() -> void: command.emit("heal_hold","1"))
 	heal.button_up.connect(func() -> void: command.emit("heal_hold","0"))
@@ -76,8 +84,10 @@ func panel(kind: String,heading: String,detail: String) -> DemoUiModalShell:
 	close()
 	page=kind
 	interact_host.hide();pause_host.hide()
-	shell=WorldDialogue.new() if kind in ["dialogue","npc"] else DemoUiModalShell.new()
-	if shell is WorldDialogue: (shell as WorldDialogue).conversation=kind=="dialogue"
+	shell=WorldDialogue.new()
+	if shell is WorldDialogue:
+		(shell as WorldDialogue).conversation=kind=="dialogue"
+		(shell as WorldDialogue).compact_actions=kind=="pause"
 	root.add_child(shell)
 	root.show()
 	shell.heading(heading,detail)
@@ -94,11 +104,13 @@ func show_pause() -> void:
 	var modal:=panel("pause",WorldText.text("world_ui.01"),WorldText.text("world_ui.02"))
 	for row: Array in [[WorldText.text("world_ui.03"),"close"],[WorldText.text("world_ui.04"),"map"],[WorldText.text("world_ui.05"),"inventory"],[WorldText.text("world_ui.06"),"settings"],[WorldText.text("world_ui.07"),"title"]]:
 		modal.button(row[0],func() -> void: command.emit(row[1],""))
+	modal.button(WorldText.text("review.open"),func() -> void: command.emit("review",""))
 	modal.focus_first()
 func show_map() -> void:
-	var modal:=panel("map",WorldText.text("world_ui.08"),WorldText.text("world_ui.09"))
+	var modal:=panel("map",WorldText.text("world_ui.08"),WorldText.text("review.map_detail") if review_mode else WorldText.text("world_ui.09"))
 	var map:=FixedWorldMap.new()
 	map.expanded=true;map.world=world;map.content=content
+	map.survey_visible=review_mode
 	map.current_room=mini.current_room
 	map.local_player=mini.local_player
 	var physical_factor:=clampf(1.0/DemoUiModalMetrics.ui_scale(get_viewport()),1,1.8)
@@ -108,10 +120,12 @@ func show_map() -> void:
 	map.touch_clip=modal.scroll
 	modal.register_touch_region(map)
 	var buttons:=HBoxContainer.new();modal.rows.add_child(buttons)
-	for entry: Array in [["−",0.8],["＋",1.25]]:
+	for entry: Array in [["-",0.8],["+",1.25]]:
 		var b:=Button.new();b.text=entry[0];b.custom_minimum_size=Vector2(80,54)
 		b.pressed.connect(func() -> void: map.zoom_at(entry[1],map.size/2))
 		buttons.add_child(b)
+	var focus:=Button.new();focus.text="当前位置";focus.custom_minimum_size=Vector2(140,54)
+	focus.pressed.connect(map.focus_player);buttons.add_child(focus)
 	modal.button(WorldText.text("world_ui.10"),func() -> void: command.emit("close",""))
 	modal.focus_first()
 func present(actor: PlayerController,room_id: String,location: String,status: String,context: String,gold: int,reduced: bool=false,healing_progress: float=0,heal_available: bool=false) -> void:
@@ -121,11 +135,16 @@ func present(actor: PlayerController,room_id: String,location: String,status: St
 	mini.local_player=actor.motor.position
 	var safe:=DemoUiModalMetrics.safe_rect(get_viewport())
 	var factor:=clampf(1.0/DemoUiModalMetrics.ui_scale(get_viewport()),1,1.8)
+	review_button.text=WorldText.text("review.badge") % [room_id,review_stage]
+	review_button.custom_minimum_size=Vector2(250,42)*factor
+	review_host.position=Vector2(safe.get_center().x-125*factor,safe.position.y+8*factor)
+	review_host.size=review_button.get_combined_minimum_size()
+	review_host.visible=review_mode and page.is_empty()
 	mini.scale=Vector2.ONE*factor
-	mini.size=Vector2(200,135)
-	mini.position=Vector2(safe.end.x-210*factor,safe.position.y+16*factor)
+	mini.size=Vector2(184,112)
+	mini.position=Vector2(safe.end.x-200*factor,safe.position.y+16*factor)
 	pause_button.custom_minimum_size=Vector2(100,48)*factor
-	pause_host.position=Vector2(safe.end.x-110*factor,mini.position.y+145*factor)
+	pause_host.position=Vector2(safe.end.x-110*factor,mini.position.y+122*factor)
 	pause_host.size=pause_button.get_combined_minimum_size()
 	pause_host.visible=page.is_empty()
 	interact.custom_minimum_size=Vector2(220,54)*factor
@@ -153,6 +172,12 @@ func present(actor: PlayerController,room_id: String,location: String,status: St
 	if actor.actor_resources.health.current>=actor.actor_resources.health.capacity: heal.text=WorldText.text("heal.full")
 	elif actor.combat_energy.current<cost: heal.text=WorldText.text("heal.insufficient") % cost
 	hud._wallet_plate.position=Vector2(safe.end.x-hud._wallet_plate.size.x*hud._wallet_plate.scale.x-24*factor,pause_host.position.y+pause_host.size.y+8*factor)
+	# Floating controls must not hide a high recoil or an edge landing. Keep
+	# their input regions intact, and restore full contrast in paused panels.
+	var pose:=actor.motor.get_global_transform_with_canvas()
+	var body:=Rect2(pose*Vector2(-28,-48),Vector2(56,56)*pose.get_scale().abs())
+	for overlay: Control in [mini,pause_host,heal_host,hud._wallet_plate]:
+		overlay.modulate.a=.12 if page.is_empty() and body.intersects(overlay.get_global_rect().grow(8)) else 1.0
 
 func _touch_host(button: Button) -> ScrollContainer:
 	var host:=ScrollContainer.new()

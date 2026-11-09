@@ -1,0 +1,41 @@
+{
+  "kind": "authoring_brief_not_runtime_schema",
+  "region": "填写正式区域ID，例如 echo_mines",
+  "room": "填写房间名称或编号",
+  "purpose": "穿越、枢纽、奖励、挑战或剧情",
+  "existing_inputs": {
+    "region_rules": "现有区域规则文件路径",
+    "room_layout": "现有灰盒或房间数据路径",
+    "approved_reference": "填写对应基准画面及素材版本；区分已认可方向与本次扩展",
+    "godot_version": "实际项目版本",
+    "asset_pack": "填写可恢复的素材包身份或用户给出的解压路径",
+    "terrain_consumer": "填写当前实际地形加载入口"
+  },
+  "space": {
+    "route_and_exits": "说明路线和出入口",
+    "required_abilities": [],
+    "hazards_and_safe_landings": "说明危险与安全落脚区",
+    "camera_coverage": "说明水平或竖向镜头范围",
+    "pixel_scale": "基准为32px地形/32wu、1wu每素材像素、角色身体约44wu；以当前项目核对"
+  },
+  "art": {
+    "main_shape": "大结构与轮廓",
+    "focal_landmark": "本房间的识别物或视线终点",
+    "material_family": "沿用的区域材质",
+    "foreground_attachments": "平台、墙面或悬挂附着点",
+    "light_and_motion": "光源发光面、光场作用层、地形遮挡、接触影、主风向与保护范围",
+    "reused_assets": [],
+    "missing_structure_pieces": [],
+    "independent_layers": "远景底板、中景构件、独立近景的资产与视差；按实际已有文件填写",
+    "boundary_coverage": "实际已补的边/角/接续；九区域与47邻接分别记录"
+  },
+  "acceptance": {
+    "target_display": "项目实际游戏尺寸；手机审核可追加 360 px 宽预览",
+    "key_camera_positions": [],
+    "checks_for_this_change": [],
+    "preview_type": "概念、Canvas、Godot 无窗口或 Godot 实机",
+    "remaining_limits": [],
+    "user_approval_scope": "填写被认可的具体画面、区域、版本；新增候选另记"
+  },
+  "style_standard": "underworld-regional-v1"
+}

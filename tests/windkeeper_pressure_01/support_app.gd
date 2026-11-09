@@ -67,6 +67,14 @@ func phase3_support() -> void:
 		var slab: Rect2 = support_arena.module.definition.platforms[index]
 		var world_rect := Rect2(support_arena.module.to_global(slab.position), slab.size)
 		authored_supports.append(world_rect)
+		# Initial-position fixture must select a shelf the approved larger body
+		# can occupy. The old rightmost target overlapped the actual seal wall.
+		# Keep that player shelf intact and verify its rejection independently.
+		var landing := Vector2(world_rect.get_center().x,world_rect.position.y-65)
+		if not encounter._landing_body_clear(landing):
+			check(not encounter._support_valid(index-1), "actual wall-overlapping shelf is rejected as a Boss landing without removing player terrain")
+			observations.append({"fixture_rejected": "Boss body overlaps actual solid wall", "player_shelf_unchanged": rect_values(world_rect)})
+			continue
 		var distance: float = absf(world_rect.get_center().x - app.stage.boss.global_position.x)
 		if distance > farthest:
 			farthest = distance
@@ -161,6 +169,12 @@ func locked_traverse_snapshot() -> bool:
 	var before_metrics: Dictionary = encounter.combat_metrics()
 	var old_support: Rect2 = before_metrics.get("support_rect", Rect2())
 	var start: Vector2 = app.stage.boss.global_position
+	# With the faster traversal, begin the adversary near its shelf's inner
+	# edge, reached by ordinary ground input before the locked warning.
+	app.controller.router.set_source_axis(&"keyboard_mouse", signf(old_support.get_center().x - app.player.global_position.x))
+	await ticks(12)
+	app.controller.router.set_source_axis(&"keyboard_mouse", 0)
+	check(app.player.is_on_floor(), "retarget adversary reaches inner shelf stance through real grounded movement")
 	begin_controlled_group(&"sweep") # Its real out-of-range preparation must traverse.
 	var warning_target := Vector2.INF
 	var target_rect := Rect2()
@@ -174,6 +188,9 @@ func locked_traverse_snapshot() -> bool:
 		if encounter.mode == &"traverse_warning":
 			warning_target = metrics.get("locked_hop_target", Vector2.INF)
 			target_rect = metrics.get("hop_target_rect", Rect2())
+			# React to the committed warning through normal input.
+			app.controller.router.set_source_axis(&"keyboard_mouse", signf(old_support.get_center().x - app.player.global_position.x))
+			app.controller.router.set_jump_held(&"keyboard_mouse", true)
 		if bool(metrics.get("airborne", false)):
 			took_off = true
 			break
@@ -272,11 +289,13 @@ func airborne_lunge_terminal() -> void:
 			break
 	check(took_off and warned.is_finite(), "phase3 attacking lunge locks a real platform before physical takeoff")
 	if not took_off: return
+	await ticks(6) # Let the live jump gain visible clearance before the fatal transaction.
 	var locked: Vector2 = encounter.combat_metrics().locked_hop_target
 	check(locked == warned, "actual attacking lunge uses its warned platform landing")
 	var player_hp: float = app.controller.actor_resources.health.current
 	var wind_before: Vector2 = app.player._local_velocity
 	var event_start: int = encounter._event_history.size()
+	var fatal_position: Vector2 = app.stage.boss.global_position
 	var defeats := [0]
 	encounter.defeated.connect(func(_owner: BossEncounter) -> void: defeats[0] += 1)
 	var request := ActorResourceRequest.new(&"explicit-real-airborne-terminal-fixture", encounter.health.epoch,
@@ -286,8 +305,22 @@ func airborne_lunge_terminal() -> void:
 		"airborne fatal immediately disables new attacks, physical contact and old projectiles")
 	check(app.player._local_velocity.is_zero_approx() and app.player._local_duration<=0,
 		"airborne terminal leaves no residual active local wind on actual player")
+	await ticks(1)
+	var falling_position: Vector2=app.stage.boss.global_position
+	var saved_fall: Dictionary=encounter.combat_snapshot()
+	check(float(saved_fall.pressure.death_fall_speed)>0,"terminal snapshot records accumulated gravity speed")
+	encounter.restore_combat_state(saved_fall)
+	check(app.stage.boss.global_position==falling_position and is_equal_approx(encounter._death_fall_speed,float(saved_fall.pressure.death_fall_speed)),
+		"same-instance terminal restore preserves body position and falling speed")
+	paused=true
+	await process_frame
+	await process_frame
+	check(app.stage.boss.global_position==falling_position,"tree pause freezes airborne terminal body")
+	paused=false
 	var delayed_clock := true
 	var landed := false
+	var falling_down := true
+	var previous_y := fatal_position.y
 	var trace: Array[Dictionary] = []
 	for index: int in 360:
 		await ticks(1)
@@ -296,13 +329,22 @@ func airborne_lunge_terminal() -> void:
 			return
 		var metrics: Dictionary = encounter.combat_metrics()
 		var airborne: bool = bool(metrics.get("airborne",false))
+		falling_down = falling_down and app.stage.boss.global_position.y >= previous_y - .01
+		previous_y = app.stage.boss.global_position.y
 		if airborne and float(metrics.death_age)>0: delayed_clock=false
 		if not airborne: landed=true
 		trace.append({"tick":Engine.get_physics_frames(),"Boss":app.stage.boss.global_position,
 			"airborne":airborne,"death_age":metrics.death_age,"player_HP":app.controller.actor_resources.health.current,"paused":paused})
 		if bool(encounter._death_final_sent): break
-	check(delayed_clock and landed and app.stage.boss.global_position.distance_to(locked)<1,
-		"fatal body completes actual locked landing before advancing mechanical collapse clock")
+	check(delayed_clock and landed and falling_down and absf(app.stage.boss.global_position.x-fatal_position.x)<.1,
+		"fatal body drops vertically under gravity before advancing mechanical collapse, without continuing the locked attack flight")
+	var real_floor := false
+	for offset: float in [-encounter._stance_half_width()*.6,0.0,encounter._stance_half_width()*.6]:
+		var foot: Vector2=app.stage.boss.global_position+Vector2(offset,65)
+		var query:=PhysicsRayQueryParameters2D.create(foot-Vector2(0,2),foot+Vector2(0,2),1,[app.stage.boss.get_rid(),app.player.get_rid()])
+		var hit: Dictionary=app.stage.boss.get_world_2d().direct_space_state.intersect_ray(query)
+		real_floor=real_floor or (not hit.is_empty() and (hit.normal as Vector2).dot(Vector2.UP)>.7)
+	check(real_floor,"terminal body settles on an independently measured real upward terrain surface")
 	var events: Array = encounter._event_history.slice(event_start)
 	var impacts := events.filter(func(row:Dictionary)->bool:return row.event==&"windkeeper_death_impact")
 	var finals := events.filter(func(row:Dictionary)->bool:return row.event==&"windkeeper_death_final")

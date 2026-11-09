@@ -21,12 +21,12 @@ func _ready() -> void:
 	controller.shoot_ability.shot_fired.connect(_shot)
 	controller.weapon_damage_committed.connect(_hit)
 func enter(value: FixedWorldRoom,origin: Vector2) -> void:
-	room=value;initial_x=origin.x
+	reset_proof();room=value;initial_x=origin.x
 func reset_proof() -> void:
 	moved=0;shot=false;recoil=false;jumped=false;move_landed=false
 	recoil_moved=false;air_recoil_pending=false
 func _enabled() -> bool:
-	return is_instance_valid(room) and not room.tutorial_target.is_empty()
+	return is_instance_valid(room) and not room.tutorial_action.is_empty()
 func _landed() -> void:
 	if not _enabled(): return
 	move_landed=jumped
@@ -42,6 +42,6 @@ func _physics_process(_delta: float) -> void:
 	var player:=controller.motor
 	moved=maxf(moved,absf(player.position.x-initial_x))
 	if air_recoil_pending and player.recoil_burst_remaining>0 and player.position.distance_to(recoil_origin)>20: recoil_moved=true
-	if moved>room.tutorial_min_move and move_landed and not state.has("intro_move"): action_requested.emit("tutorial_move")
-	elif shot and state.has("intro_move") and not state.has("intro_shoot"): action_requested.emit("tutorial_shoot")
-	elif recoil and state.has("intro_shoot") and not state.has("intro_complete"): action_requested.emit("tutorial_recoil")
+	if room.tutorial_action=="tutorial_move" and moved>room.tutorial_min_move and move_landed and not state.has("intro_move"): action_requested.emit("tutorial_move")
+	elif room.tutorial_action=="tutorial_shoot" and shot and state.has("intro_move") and not state.has("intro_shoot"): action_requested.emit("tutorial_shoot")
+	elif room.tutorial_action=="tutorial_recoil" and recoil and state.has("intro_shoot") and not state.has("intro_complete"): action_requested.emit("tutorial_recoil")

@@ -11,25 +11,67 @@
   },
   "camera": {
     "zoom": 1.6,
-    "dead_zone": [
-      32,
-      60
+    "templates": {
+      "bounded_follow": [
+        -1,
+        -1
+      ],
+      "horizontal_follow": [
+        -1,
+        0
+      ],
+      "vertical_follow": [
+        0,
+        -1
+      ],
+      "fixed_arena": [
+        0,
+        0
+      ]
+    },
+    "dead_zone_width": 0.025,
+    "dead_zone_height": 0.09,
+    "composition_offset": [
+      0,
+      -36
     ],
-    "vertical_offset": -48,
-    "lead_distance": 32,
-    "lead_speed": 200,
+    "lookahead_width": 0.12,
+    "direction_input_threshold": 0.25,
+    "trend_speed": 170,
+    "trend_confirm_seconds": 0.55,
     "lead_seconds": 0.3,
-    "horizontal_seconds": 0.18,
-    "vertical_seconds": 0.28,
-    "fall_seconds": 0.12,
-    "fall_speed": 600,
-    "zone_seconds": 0.28,
-    "enclosed_dead_zone": [
-      112,
-      100
+    "horizontal_seconds": 0.16,
+    "vertical_seconds": 0.19,
+    "zone_seconds": 0.32,
+    "zone_enter_seconds": 0.1,
+    "zone_exit_margin": 24,
+    "action_speed_threshold": 430,
+    "action_seconds": 0.1,
+    "action_max_half_width": 0.25,
+    "action_blend_seconds": 0.2,
+    "fall_enter_speed": 490,
+    "fall_exit_speed": 220,
+    "fall_seconds": 0.07,
+    "fall_blend_seconds": 0.15,
+    "fall_look_height": 0.16,
+    "look_stationary_speed": 14,
+    "look_delay_seconds": 0.3,
+    "look_height": 0.28,
+    "look_seconds": 0.18,
+    "player_margin": [
+      48,
+      56
     ],
-    "enclosed_lead_distance": 0,
-    "small_room_factor": 1.25
+    "door_across": 224,
+    "door_approach": 1.5,
+    "shake_max": 7,
+    "zoom_seconds": 0.45,
+    "vertical_focus_seconds": 0.16,
+    "landing_focus_seconds": 0.3,
+    "arena_seconds": 0.65,
+    "vertical_focus_height": 0.018,
+    "vertical_focus_max": 8,
+    "arena_vertical_padding": 48
   },
   "entry_motion": {
     "walk_distance": 24,
@@ -38,6 +80,16 @@
     "fall_height": 36,
     "hop_steering_distance": 12,
     "hop_axis": 1.0,
-    "timeout_seconds": 1
+    "timeout_seconds": 1,
+    "hop_hold_seconds": 0.2
+  },
+  "carry_light": {
+    "radius": 128.0,
+    "energy": 0.25,
+    "color": "ffedcf",
+    "offset": [
+      0,
+      -6
+    ]
   }
 }

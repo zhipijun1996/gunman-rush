@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R26" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R26"
+art_profile = "mill"
+bell_mechanisms = Array[Dictionary]([{"id": "P-R26:carrier_west", "bell": [416, 1168], "carrier": "Carrier0"}, {"id": "P-R26:carrier_east", "bell": [1040, 624], "carrier": "Carrier1"}])
+arrival_text = "旧风车内廊"
+platforms = Array[Rect2]([Rect2(0,1280,2048,128),Rect2(896,704,448,64),Rect2(1024,768,320,64),Rect2(1088,832,256,64),Rect2(1088,160,384,160),Rect2(1472,224,160,1056),Rect2(1344,704,128,576),Rect2(1088,160,192,32),Rect2(0,1280,288,32),Rect2(1088,160,192,32)])
+one_way_indices = Array[int]([])
+start_point = Vector2(144, 1262)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([])
+gear_obstacles = Array[Dictionary]([{"id":"shaft_gear","point":[1024,560],"travel":[112,0],"period":6.8}])
+signs = Array[Dictionary]([{"point": [256, 1232], "text": "旧吊架仍听得见铃声。先搭西台；断开的检修口在右上方。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([{"bounds":[960,650,160,54],"point":[1040,686],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"mill_drive_frame","point":[1568,1280],"layer":-2},{"asset":"gear_city_v2_valve_panel","point":[1152,704],"layer":-2},{"asset":"gear_lamp","point":[320,1280],"layer":-2,"light":true,"light_offset":[8,-67]},{"asset":"gear_lamp","point":[960,704],"layer":-2,"light":true,"light_offset":[8,-67]},{"asset":"gear_lamp","point":[1392,160],"layer":-2,"light":true,"light_offset":[8,-67]}])
+masonry_platform_indices = Array[int]([])
+illustrated_platform_indices = Array[int]([])
+[node name="Carrier0" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(512, 1224)
+endpoint = Vector2(96, -400)
+platform_size = Vector2(160, 24)
+one_way = true
+period = 6.0
+[node name="Carrier1" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(1184, 624)
+endpoint = Vector2(-192, -256)
+platform_size = Vector2(160, 24)
+one_way = true
+period = 5.6

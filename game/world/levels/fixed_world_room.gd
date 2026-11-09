@@ -3,17 +3,38 @@ extends Node2D
 ## Authored geometry and placements. Reads contract interfaces; never grants progress.
 @export var room_id := ""
 @export var arrival_text: String
+@export var traveler_point := Vector2(560,494)
+@export var tutorial_action: String
 @export var tutorial_target: String
 @export var tutorial_min_move:=100.0
 @export var tutorial_recoil_finish_x:=1540.0
+@export var section_volumes: Array[Dictionary] = []
+@export var retry_anchors: Array[Dictionary] = []
+var camera_concealers: Dictionary = {}
+@export var art_placements: Array[Dictionary] = []
+@export var art_profile := "meadow"
+@export var bell_mechanisms: Array[Dictionary] = []
+var mechanisms: Dictionary={}
+var station_animation: WorldSpriteAnimation
+var interaction_hosts: Array[WorldRoomInteraction] = []
+var service_pickup_sprites: Dictionary={}
 @export var platforms: Array[Rect2] = []
+## Authored polygon geometry; the same vertices feed physics and presentation.
+@export var terrain_polygons: Array[Dictionary] = []
+## Stable authoring identities for legacy indexed arrays. Never used as progress.
+@export var workbench_entity_ids: Dictionary = {}
 @export var one_way_indices: Array[int] = []
+## Explicit scenery supplies the surface image; authored rectangles still collide.
+@export var illustrated_platform_indices: Array[int] = []
+@export var masonry_platform_indices: Array[int] = []
 @export var start_point := Vector2(144,512)
 @export var rest_point := Vector2.ZERO
 @export var reward_point := Vector2.ZERO
 @export var enemy_placements: Array[Dictionary] = []
 @export var signs: Array[Dictionary] = []
 @export var hazards: Array[Rect2] = []
+@export var spike_strips: Array[Dictionary] = []
+@export var gear_obstacles: Array[Dictionary] = []
 @export var hook_points: Array[Vector2] = []
 @export var climbable_walls: Array[Rect2] = []
 @export var environment_zones: Array[Dictionary] = []
@@ -48,23 +69,14 @@ var seals: Array[StaticBody2D] = []
 var battle_started := false
 var battle_finished := false
 
+static func material_for_profile(profile: String) -> String:
+	return {"mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(profile,"")
+func interior_material() -> String:
+	return material_for_profile(art_profile)
+
 func _ready() -> void:
 	z_index = -1
-	# Visible room bounds stop recoil leaving the room; authored doors cut holes.
-	var size := FixedWorldProvider.rect(contract.world_geometry.bounds_world_units).size
-	for side: String in ["left","right","up","down"]:
-		var gaps: Array[Vector2] = []
-		for door: Dictionary in doors:
-			if door.direction != side: continue
-			var point := FixedWorldProvider.point(door.position_candidate.local_world_units)
-			gaps.append(Vector2(point.x-48,point.x+48) if side in ["up","down"] else Vector2(point.y-96,point.y))
-		gaps.sort_custom(func(a: Vector2,b: Vector2) -> bool: return a.x<b.x)
-		gaps.append(Vector2(size.x if side in ["up","down"] else size.y,0))
-		var start := 0.0
-		for gap: Vector2 in gaps:
-			if gap.x>start:
-				platforms.append(Rect2(start,0 if side=="up" else size.y-32,gap.x-start,32) if side in ["up","down"] else Rect2(0 if side=="left" else size.x-32,start,32,gap.x-start))
-			start = maxf(start,gap.y)
+	platforms.append_array(WorldRoomSpace.boundary_platforms(contract.world_geometry,doors))
 	for index: int in platforms.size():
 		var body := StaticBody2D.new()
 		body.position = platforms[index].get_center()
@@ -80,20 +92,63 @@ func _ready() -> void:
 		if collision.one_way_collision: body.add_to_group("one_way_platform")
 		body.add_child(collision)
 		add_child(body)
+	for polygon: Dictionary in terrain_polygons:
+		var body := StaticBody2D.new()
+		body.name = "Polygon_"+str(polygon.id).replace(":", "_")
+		body.collision_layer = 1
+		body.collision_mask = 0
+		body.set_meta(&"world_ground_polygon", str(polygon.id))
+		var shape := CollisionPolygon2D.new()
+		var points := PackedVector2Array()
+		for pair: Array in polygon.points: points.append(FixedWorldProvider.point(pair))
+		shape.polygon = points
+		body.add_child(shape)
+		add_child(body)
 	for door: Dictionary in doors:
 		var blocker := StaticBody2D.new()
-		blocker.position = FixedWorldProvider.point(door.position_candidate.local_world_units)-Vector2(0,48)
+		blocker.position = FixedWorldProvider.point(door.position_candidate.local_world_units)
+		if door.direction in ["left","right"]: blocker.position.y -= 48
 		var shape := RectangleShape2D.new()
-		shape.size = Vector2(32,96) if door.direction in ["left","right"] else Vector2(96,32)
+		shape.size = Vector2(32,96) if door.direction in ["left","right"] else Vector2(128,32)
 		var collision := CollisionShape2D.new()
 		collision.shape = shape
 		blocker.add_child(collision)
 		add_child(blocker)
 		door_blocks[door.id] = blocker
 	var solids: Array[Rect2]=[]
+	solids.append_array(WorldRoomSpace.exterior_fill(contract.world_geometry,doors))
+	var masonry: Array[Rect2]=[]
 	for i: int in platforms.size():
-		if i not in one_way_indices: solids.append(platforms[i])
-	add_child(UnderworldTerrain.build(solids))
+		if i in one_way_indices or i in illustrated_platform_indices:continue
+		if i in masonry_platform_indices:masonry.append(platforms[i])
+		else:solids.append(platforms[i])
+	for zone: Dictionary in contract.camera.get("zones",[]):
+		var conceal: Array[Rect2] = []
+		for raw: Array in zone.get("conceal",[]):conceal.append(FixedWorldProvider.rect(raw))
+		if conceal.is_empty():continue
+		var mask:=UnderworldTerrain.build(conceal)
+		mask.z_index=2000
+		if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(mask)
+		add_child(mask);camera_concealers[str(zone.id)]=mask
+	# Existing textured rock covers the near exterior. Deep opaque rock continues
+	# past it at extreme aspect ratios without allocating an unbounded tile field.
+	var exterior:=FixedWorldProvider.rect(contract.world_geometry.bounds_world_units).grow(512)
+	for fill: Rect2 in [Rect2(-100000,-100000,200000,exterior.position.y+100000),Rect2(-100000,exterior.end.y,200000,100000),Rect2(-100000,exterior.position.y,exterior.position.x+100000,exterior.size.y),Rect2(exterior.end.x,exterior.position.y,100000,exterior.size.y)]:
+		var backing:=Polygon2D.new()
+		backing.polygon=PackedVector2Array([fill.position,Vector2(fill.end.x,fill.position.y),fill.end,Vector2(fill.position.x,fill.end.y)])
+		backing.color=Color("0d101e");backing.z_index=1000;add_child(backing)
+	var ground_polygons: Array[Dictionary] = []
+	var masonry_polygons: Array[Dictionary] = []
+	for polygon: Dictionary in terrain_polygons:
+		if str(polygon.get("material", "ground")) == "masonry": masonry_polygons.append(polygon)
+		else: ground_polygons.append(polygon)
+	var terrain:=UnderworldTerrain.build_with_polygons(solids, ground_polygons)
+	if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
+	add_child(terrain)
+	if not masonry.is_empty() or not masonry_polygons.is_empty():
+		var structure:=UnderworldTerrain.build_with_polygons(masonry, masonry_polygons)
+		PlainsMillTerrainMaterial.install_on(structure);add_child(structure)
+	var scenery:=PlainsRoomArt.new();scenery.room=self;add_child(scenery)
 	for rect: Rect2 in climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;add_child(wall)
 	for point: Vector2 in hook_points:
@@ -107,10 +162,45 @@ func _ready() -> void:
 		for platform: Rect2 in platforms:
 			if point.x>=platform.position.x and point.x<=platform.end.x and platform.position.y>=point.y:
 				support=minf(support,platform.position.y)
+		for polygon: Dictionary in terrain_polygons:
+			support = minf(support, UnderworldPolygonTerrain.surface_below(polygon.points, point))
 		if is_inf(support): support=point.y+40
 		marker.position=Vector2(point.x,support-20)
 		sign["interaction_point"]=Vector2(point.x,support-18)
 		add_child(marker)
+
+func section_at(point: Vector2) -> String:
+	for volume: Dictionary in section_volumes:
+		if FixedWorldProvider.rect(volume.bounds).has_point(point): return str(volume.id)
+	return "main"
+
+func physical_action(id: String) -> WorldRoomInteraction:
+	for host: WorldRoomInteraction in interaction_hosts:
+		if host.action_id==id: return host
+	return null
+
+func install_mechanisms(controller: PlayerController,lifetime: DemoLifetime,saved: Dictionary,submit: Callable) -> void:
+	for row: Dictionary in bell_mechanisms:
+		var latch:=WorldShotLatch.new();latch.stable_id=str(row.id)
+		latch.open_seconds=float(row.get("open_seconds",0))
+		latch.z_index=-2;add_child(latch)
+		if row.has("carrier"):
+			latch.motion_mode=true;latch.motion_target=get_node(str(row.carrier)) as WorldMovingPlatform
+			latch.motion_target.bind_bell_control();latch.gate_visual_enabled=false
+		latch.setup(controller,lifetime,FixedWorldProvider.point(row.bell),FixedWorldProvider.rect(row.get("gate",[0,0,1,1])))
+		for point: Array in row.get("access_bells",[]):latch.add_access_bell(FixedWorldProvider.point(point))
+		if latch.motion_mode:latch.gate_body.collision_layer=0;latch.gate_shape.disabled=true
+		if saved.has(row.id) and latch.open_seconds<=0:
+			latch.restore_region_state(saved[row.id]);latch.restore_region_opened(bool(saved[row.id].is_open))
+		latch.activation_requested.connect(submit)
+		controller.router.cancelled.connect(latch.on_router_cancelled)
+		mechanisms[row.id]=latch
+
+func mechanism_snapshot() -> Dictionary:
+	var result: Dictionary={}
+	for id: String in mechanisms:
+		if mechanisms[id].open_seconds<=0:result[id]=(mechanisms[id] as WorldShotLatch).region_snapshot()
+	return result
 
 func configure(row: Dictionary) -> void:
 	contract = row
@@ -122,11 +212,9 @@ func _draw() -> void:
 	var bounds := FixedWorldProvider.rect(contract.world_geometry.bounds_world_units)
 	for i: int in platforms.size():
 		if i in one_way_indices: UnderworldTerrain.draw_one_way(self,platforms[i])
-	for hazard: Rect2 in hazards:
-		draw_rect(hazard,Color("b9504c"))
 	for door: Dictionary in doors:
 		var p := FixedWorldProvider.point(door.position_candidate.local_world_units)
-		var rect:=Rect2(p-Vector2(16,96),Vector2(32,96)) if door.direction in ["left","right"] else Rect2(p-Vector2(48,16),Vector2(96,32))
+		var rect:=Rect2(p-Vector2(16,96),Vector2(32,96)) if door.direction in ["left","right"] else Rect2(p-Vector2(64,16),Vector2(128,32))
 		if not door_open.get(door.id,false):
 			draw_rect(rect,Color("3c4b44"))
 			draw_rect(rect,Color("9f8b67"),false,3)
@@ -142,15 +230,10 @@ func _draw() -> void:
 		var tip:=interaction_point+Vector2(0,-55)
 		draw_polyline(PackedVector2Array([tip+Vector2(-5,5),tip,tip+Vector2(5,5)]),DemoClockworkTheme.PAPER,2)
 	if rest_point != Vector2.ZERO:
-		WorldProps.draw_station(self,rest_point)
+		pass # Native animated station is an independent presentation node.
 		if station_feedback>0: draw_arc(rest_point,30+(1-station_feedback)*14,0,TAU,32,Color(.4,.9,.8,station_feedback),2)
 	if reward_point != Vector2.ZERO and battle_finished and services!=null and not services.state.value.receipts.has(reward_action):
 		WorldProps.draw_icon(self,ItemPresentation.icon(&"echo"),reward_point,30)
-	if services!=null:
-		for pickup: Dictionary in services.definitions.get("pickups",[]):
-			if pickup.room_id!=room_id or pickup.id in services.ledger().collected: continue
-			var point:=FixedWorldProvider.point(pickup.point)
-			WorldProps.draw_icon(self,ItemPresentation.icon(StringName(pickup.get("icon_key","coil"))),point,24)
 
 func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime, saved_enemies: Dictionary, boss_defeated: bool, entry_anchor: Vector2) -> void:
 	for placement: Dictionary in enemy_placements:
@@ -182,6 +265,12 @@ func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: 
 		enemies[id] = actor
 	for index: int in hazards.size():
 		add_child(DemoContactEmitter.environment_rect(hazards[index],policy,controller,StringName(room_id+":terrain:"+str(index))))
+	for strip: Dictionary in spike_strips:
+		add_child(DemoContactEmitter.environment_rect(FixedWorldProvider.rect(strip.bounds),policy,controller,StringName(room_id+":spikes:"+str(strip.id))))
+	for spec: Dictionary in gear_obstacles:
+		var gear:=WorldGearObstacle.new()
+		gear.name=str(spec.id);gear.definition=spec;gear.controller=controller;gear.policy=policy
+		add_child(gear)
 	if boss_identity.is_empty() or boss_defeated:
 		battle_finished = not boss_identity.is_empty()
 		return
@@ -229,6 +318,9 @@ func snapshot() -> Dictionary:
 				var rect: Rect2=support.get_meta(&"world_ground")
 				var pose:=remains.presentation_snapshot({"kind":"ground","rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y]})
 				if not pose.is_empty(): result[id].corpse=pose
+			elif is_instance_valid(support) and support.has_meta(&"world_ground_polygon"):
+				var pose:=remains.presentation_snapshot({"kind":"ground_polygon","id":str(support.get_meta(&"world_ground_polygon"))})
+				if not pose.is_empty(): result[id].corpse=pose
 	return result
 
 func refresh_doors(state: FixedWorldState, content: FixedWorldProvider) -> void:
@@ -240,6 +332,19 @@ func refresh_doors(state: FixedWorldState, content: FixedWorldProvider) -> void:
 
 func bind_services(value: WorldServices,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> void:
 	services=value
+	(get_node("RegionalArt") as PlainsRoomArt).player=controller.motor
+	for pickup: Dictionary in services.definitions.get("pickups",[]):
+		if pickup.room_id!=room_id:continue
+		var art:=WorldSpriteAnimation.new();art.asset_id="equipment"
+		art.position=FixedWorldProvider.point(pickup.point)+Vector2(0,18);add_child(art)
+		service_pickup_sprites[pickup.id]=art
+	services.state.committed.connect(_refresh_service_pickups);_refresh_service_pickups(0)
+	for node: Node in find_children("*","WorldRoomInteraction",true,false):
+		var host:=node as WorldRoomInteraction
+		host.bind(value.state);interaction_hosts.append(host)
+	if rest_point!=Vector2.ZERO:
+		station_animation=WorldSpriteAnimation.new();station_animation.asset_id="charging_station";station_animation.position=rest_point+Vector2(0,18);add_child(station_animation)
+	if interior_material().is_empty():UnderworldForeground.attach(self,self,controller.motor)
 	loot=WorldCoinDrops.new();loot.services=value;loot.controller=controller;loot.room_id=room_id;loot.arena_bounds=arena_bounds
 	add_child(loot)
 	for presentation: Node in find_children("*","WorldFlagPresentation",true,false): presentation.bind(value.state.has)
@@ -252,9 +357,24 @@ func bind_services(value: WorldServices,controller: PlayerController,policy: Fra
 		add_child(fixture)
 	queue_redraw()
 
+func _refresh_service_pickups(_revision: int) -> void:
+	for id: String in service_pickup_sprites:service_pickup_sprites[id].visible=id not in services.ledger().collected
+
+func celebrate_service_pickup(id: String) -> void:
+	if not service_pickup_sprites.has(id):return
+	var art:=WorldSpriteAnimation.new();art.asset_id="collection_burst";art.disposable=true
+	art.position=service_pickup_sprites[id].position-Vector2(0,18);art.z_index=10;add_child(art)
+
 func _corpse_support(pose: Dictionary) -> Node2D:
 	for body: Node in find_children("*","StaticBody2D",true,false):
+		if body.has_meta(&"world_ground_polygon") and pose.get("support", {}).get("kind") == "ground_polygon":
+			if str(body.get_meta(&"world_ground_polygon")) == str(pose.support.get("id", "")): return body as Node2D
 		if not body.has_meta(&"world_ground"): continue
 		var rect: Rect2=body.get_meta(&"world_ground")
 		if [rect.position.x,rect.position.y,rect.size.x,rect.size.y]==pose.get("support",{}).get("rect",[]): return body as Node2D
 	return null
+
+func update_camera_concealment(active: String, frame: Dictionary) -> void:
+	for id: String in camera_concealers:
+		var entering: bool=not frame.get("portal",{}).is_empty() and id in [str(frame.a.id),str(frame.b.id)]
+		camera_concealers[id].visible = id!=active and not entering

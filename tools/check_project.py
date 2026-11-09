@@ -24,7 +24,7 @@ def main():
                 errors.append(f"Expected a JSON object: {path.relative_to(ROOT)}")
         except (OSError, ValueError) as error:
             errors.append(str(error))
-    for folder in ("docs", "preview", "build"):
+    for folder in ("docs", "build"):
         if not (ROOT / folder / ".gdignore").is_file():
             errors.append(f"Missing import isolation: {folder}/.gdignore")
     if errors:

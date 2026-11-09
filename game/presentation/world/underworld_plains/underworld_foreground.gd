@@ -148,7 +148,13 @@ func _collect_edges(node: Node) -> void:
 		for edge: Vector4 in terrain.union_edges:
 			var a:=terrain.to_global(Vector2(edge.x,edge.y))
 			var b:=terrain.to_global(Vector2(edge.z,edge.w))
-			_fixed_world.append(Rect2(a.min(b),a.max(b)-a.min(b)).grow(9))
+			# A diagonal edge protects a narrow landing ribbon, not the whole
+			# bounding box between the slope's low and high ends.
+			var pieces:=maxi(1,ceili(a.distance_to(b)/32.0)) if a.x!=b.x and a.y!=b.y else 1
+			for index: int in pieces:
+				var start:=a.lerp(b,float(index)/pieces)
+				var finish:=a.lerp(b,float(index+1)/pieces)
+				_fixed_world.append(Rect2(start.min(finish),start.max(finish)-start.min(finish)).grow(9))
 	for child: Node in node.get_children():_collect_edges(child)
 
 func _visible(item: CanvasItem) -> bool:

@@ -46,11 +46,12 @@ func run() -> void:
 	app.start_new()
 	await ticks(15)
 	app.overlay.set_enabled(true)
-	app.load_room("P-R01","START-P03-P01:P-R01")
+	app.load_room("P-R01","INTRO-P24-P01:P-R01")
 	for i: int in 180:
 		await physics_frame
 		if not app.busy: break
-	app.controller.router.set_source_axis(&"keyboard_mouse",1,true)
+	app.player.reset_at(app.room.get_node("Npc0").position)
+	app.controller.router.set_source_axis(&"keyboard_mouse",0,true)
 	await ticks(14)
 	app.controller.router.set_source_axis(&"keyboard_mouse",0)
 	await ticks(3)
@@ -67,7 +68,7 @@ func run() -> void:
 	root.push_input(up_drag,true);await ticks(4)
 	check(app.paused and app.ui.page=="dialogue","real left joystick Up opens NPC response")
 	if app.ui.page!="dialogue":
-		app.queue_free();await ticks(4);print("WORLD UI: %d assertions, %d failures" % [checks,failures]);quit(failures);return
+		await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(4);print("WORLD UI: %d assertions, %d failures" % [checks,failures]);quit(failures);return
 	await ticks(5)
 	var dialogue:=app.ui.shell as WorldDialogue
 	check(dialogue._panel.size.y-dialogue.rows.get_combined_minimum_size().y<70,"short dialogue shrinks after text wrapping without a large empty lower panel")
@@ -127,5 +128,5 @@ func run() -> void:
 		await ticks(3)
 		check(app.ui.page=="confirm" and app.state.revision==saved_revision,"cancelled new-game confirmation must be asked again")
 		app._close_panel()
-	app.queue_free();await ticks(5)
+	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)
 	print("WORLD UI: %d assertions, %d failures" % [checks,failures]);quit(failures)

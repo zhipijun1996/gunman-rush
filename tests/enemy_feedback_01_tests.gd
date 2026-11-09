@@ -104,6 +104,9 @@ func verify_retained_frame_resources() -> void:
 			check(unique.size()==8,"retained %s/%s still has eight distinct authored payloads" % [style,species])
 			check(frames.canonical_live_texture()==frames.texture(3) and frames.canonical_live_bounds()==frames.bounds(3),"retained %s/%s H3 source and anchor contract" % [style,species])
 
+func expected_body_source(body: PlainsRevisionVisual) -> String:
+	return "res://assets/plains_actors_142/atlases/%s.png" % actor.definition.behavior_id if body.authored_frames else "res://assets/plains_revision_01/charger.png"
+
 func observe_authored_frames() -> void:
 	if not is_instance_valid(art): return
 	var rig_body := revision_body()
@@ -114,11 +117,22 @@ func observe_authored_frames() -> void:
 			var neutral: Dictionary = pose.duplicate(true)
 			neutral.hurt = 0.0
 			var deformation := 0.0
-			for unit: Vector2 in [Vector2(.2,.8),Vector2(.7,.8),Vector2(.4,.4),Vector2(.85,.45)]:
-				var point := rig_body.rig.bounds.position+unit*rig_body.rig.bounds.size
-				deformation += rig_body.rig.deform(point,unit,pose).distance_to(rig_body.rig.deform(point,unit,neutral))
+			if rig_body.authored_frames:
+				var skin := rig_body.rig as PlainsActorSkin
+				var selected := skin.frame_selection(pose)
+				var index := skin.animation.frame_index(selected.clip, selected.progress) % 4
+				if not hurt_frames_seen.has(index): hurt_frames_seen.append(index)
+				var hurt_pixels := skin.texture.get_image().get_region(skin.animation.region(selected.clip, selected.progress))
+				var live := skin.frame_selection(neutral)
+				var live_pixels := skin.texture.get_image().get_region(skin.animation.region(live.clip, live.progress))
+				deformation = 1.0 if hurt_pixels.get_data() != live_pixels.get_data() else 0.0
+				if selected.clip != &"hurt": frame_source_errors.append("accepted_hit_missing_hurt_clip")
+			else:
+				for unit: Vector2 in [Vector2(.2,.8),Vector2(.7,.8),Vector2(.4,.4),Vector2(.85,.45)]:
+					var point: Vector2 = rig_body.rig.bounds.position+unit*rig_body.rig.bounds.size
+					deformation += rig_body.rig.deform(point,unit,pose).distance_to(rig_body.rig.deform(point,unit,neutral))
 			rig_hurt_samples.append({"hurt":sample.hurt_remaining,"pose_hurt":float(pose.get("hurt",0.0)),"deformation":deformation,"source":str(rig_body.rig.texture.get_rid()),"bounds":rig_body.rig.bounds})
-			if rig_body.rig.texture.resource_path!="res://assets/plains_revision_01/charger.png" or not rig_body.visible: frame_source_errors.append("rig_hurt_source")
+			if rig_body.rig.texture.resource_path!=expected_body_source(rig_body) or not rig_body.visible: frame_source_errors.append("rig_hurt_source")
 		var rig_remains := art.get("feedback_remains") as EnemyFeedback01Remains
 		if rig_remains.active and not rig_remains.restored:
 			var report_index := rig_remains.frame_index
@@ -145,7 +159,7 @@ func verify_frame_profile() -> void:
 	var rig_body := revision_body()
 	if rig_body != null:
 		check(rig_body.rig.kind==actor.definition.behavior_id and rig_body.sample==art.get("feedback_sample"),"actual new body uses this species and the shared accepted sample")
-		check(rig_body.rig.texture.resource_path=="res://assets/plains_revision_01/charger.png" and not rig_body.rig.texture.get_image().is_empty() and rig_body.rig.bounds.has_area(),"actual charger rig consumes its recorded mother source and fixed world bounds")
+		check(rig_body.rig.texture.resource_path==expected_body_source(rig_body) and not rig_body.rig.texture.get_image().is_empty() and rig_body.rig.bounds.has_area(),"actual charger rig consumes its recorded mother source and fixed world bounds")
 		frame_profile = {"kind":"continuous_rig","key":"plains_revision_01/charger","source":rig_body.rig.texture.resource_path,"pixel_sha256":texture_digest(rig_body.rig.texture),"bounds":rig_body.rig.bounds}
 		return
 	var frames := art.get("feedback_frames") as EnemyFeedback01Frames
@@ -498,7 +512,7 @@ func one_case(path: String, underworld: bool) -> void:
 	if revision_body()!=null:
 		var max_deformation := 0.0
 		for observation: Dictionary in rig_hurt_samples: max_deformation = maxf(max_deformation,float(observation.deformation))
-		check(rig_hurt_samples.size()>1 and float(rig_hurt_samples.front().hurt)>float(rig_hurt_samples.back().hurt) and max_deformation>0.0,"real accepted projectile traverses distinct continuous hurt joints and recovers monotonically")
+		check(rig_hurt_samples.size()>1 and float(rig_hurt_samples.front().hurt)>float(rig_hurt_samples.back().hurt) and max_deformation>0.0,"real accepted projectile traverses distinct hurt pixels or joints and recovers monotonically")
 	else:
 		check(hurt_frames_seen == [0, 1, 2, 3], "a real accepted nonlethal projectile traverses all four authored hurt poses in order")
 	if revision_body()!=null:
@@ -515,11 +529,16 @@ func one_case(path: String, underworld: bool) -> void:
 		check(is_zero_approx(float(actual_pose.get("hurt",-1.0))) and uses_current_phase,"bounded hurt exits into actual current locomotion/load/release/recovery pose without cached pre-hit phase")
 		check(texture_digest(recovered.rig.texture)==frame_profile.pixel_sha256 and recovered.rig.bounds==frame_profile.bounds,"recovered current pose retains the same mother pixels and fixed world anchor")
 		var current_geometry := true
-		for y: int in 7:
-			for x: int in 7:
-				var unit := Vector2(float(x)/6,float(y)/6)
-				var point := recovered.rig.bounds.position+unit*recovered.rig.bounds.size
-				current_geometry = current_geometry and recovered.rig.deform(point,unit,actual_pose).is_equal_approx(recovered.rig.deform(point,unit,current_pose))
+		if recovered.authored_frames:
+			var skin := recovered.rig as PlainsActorSkin
+			current_geometry = skin.frame_selection(actual_pose) == skin.frame_selection(current_pose)
+			check(hurt_frames_seen == [0, 1, 2, 3], "accepted hit traverses every authored hurt frame before returning to current state")
+		else:
+			for y: int in 7:
+				for x: int in 7:
+					var unit := Vector2(float(x)/6,float(y)/6)
+					var point: Vector2 = recovered.rig.bounds.position+unit*recovered.rig.bounds.size
+					current_geometry = current_geometry and recovered.rig.deform(point,unit,actual_pose).is_equal_approx(recovered.rig.deform(point,unit,current_pose))
 		check(current_geometry,"actual recovered rig vertices equal current-phase geometry with hurt explicitly zero")
 	else:
 		check(int(art.get("feedback_frame_index"))==-1,"bounded authored hurt returns to the original live frame presentation")

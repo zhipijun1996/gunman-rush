@@ -4,10 +4,18 @@
 
 接续任务先读本行和下一动作，再读对应工作线和直接依赖；新内容审查按需读取质量卡；依赖只列当前任务，已完成的实现直接以main代码为准。新增缺陷只建一个明确范围的任务，更新本页和自己的工作线。运行事实见 [当前状态](current_state.md)，跨会话规则见 [生产规则](cloud_production.md)。
 
+## 制作与返工
+
+| 任务 | 目标 | 依赖 | 状态 | 入口 |
+| --- | --- | --- | --- | --- |
+| PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
+
+
 ## 待验收
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
+| MOBILE-LEVEL-WORKBENCH-01 | 已发布手机编辑器；外部下载恢复后复验自动发行与远端更新 | — | blocked | [交接](worklines/mobile_level_workbench_01/scope.md) |
 | DEATH-RUNTIME-01 | 复验已接入死亡优化的目标设备帧时间 | — | blocked | [交接](worklines/death_runtime_01/scope.md) |
 | MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | — | blocked | [交接](worklines/mobile_web_fps_04/scope.md) |
 | AUDIO-LAB-MATERIAL-01 | Lab 受伤 ABC 试听与七怪声音路由复核 | — | in_progress | [交接](worklines/audio_lab_material_01/scope.md) |
@@ -19,8 +27,8 @@
 - `DEATH-RUNTIME-01`：聚合首用／战斗／死亡性能链，在同版真实设备复验；技术合入不代签帧时间。
 - `MOBILE-WEB-FPS-04`：实体手机复验普通 Web 帧时间、供音与大图；承接 MOBILE-WEB-PERF/AUDIO 系列。
 - `AUDIO-LAB-MATERIAL-01`：按实际 Lab 入口复核 enemy_hurt ABC 与七怪材质路由，先确认当前缺陷是否仍可复现。
-- `WINDKEEPER-PRESSURE-01`：保留旧60HP实现基线，按新攻击档位重新审核主动追压、六招三阶段与连续原声实战。
-- `BELLSTRIDER-REWORK-01`：保留旧40HP实现基线，按新攻击档位重新审核唯一上端弱点、回冲／失效／奖励与连续原声实战。
+- `WINDKEEPER-PRESSURE-01`：以现行510HP三阶段实现审核主动追压、六招三阶段与连续原声实战。
+- `BELLSTRIDER-REWORK-01`：按现行Definition和最新分体动作审核唯一上端弱点、回冲／失效／奖励与连续原声实战。
 - `ENEMY-ALL-02`：按物种卡逐一核真实同体动作、声音和遭遇；不从公共技术检查推定内容完成。
 - `PLAYER-PRESENTATION-01`：在当前共享人物消费者检查连续动作和画面；旧快照不代表当前外观已认可。
 
@@ -39,10 +47,8 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | FOREST-BIBLE-V2-01 | 固定世界森林房间内容与环境演出 | MV-RUNTIME-01 | planned | [交接](worklines/forest_bible_v2_01/scope.md) |
-| PLAINS-BIBLE-V2-01 | 固定世界平原房间内容与环境演出 | MV-RUNTIME-01 | planned | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 - `FOREST-BIBLE-V2-01`：待代表样房闭环后按F房间制作；保留v15动作/生态资产，不推进旧两图量产。
-- `PLAINS-BIBLE-V2-01`：待代表样房闭环后按P房间制作；复用主题/动作/美术，不推进随机扩池。
 
 ## 固定世界迁移
 
@@ -62,4 +68,4 @@
 | MV-DEMO-04 | 统一镜头/入场动作、向上交互、机器人充电站与危险收集物可读性 | MV-DEMO-03 | review | [交接](worklines/mv_migration/scope.md) |
 | MV-DEMO-05 | 修复道具纹理卡顿、竖门实体落点、既有金币掉落接入、对话与分区镜头 | MV-DEMO-04 | review | [交接](worklines/mv_migration/scope.md) |
 | MV-RUNTIME-01J | 不同机制代表房、剩余基础流程与量产准入验收 | MV-DEMO-05 | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-WORLD-GRAYBOX-01 | 216房结构与真实运行路线，按消费者退役旧链 | MV-RUNTIME-01J | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-WORLD-GRAYBOX-01 | 309房结构与真实运行路线，按消费者退役旧链 | MV-RUNTIME-01J | planned | [交接](worklines/mv_migration/scope.md) |

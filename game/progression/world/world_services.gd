@@ -6,7 +6,7 @@ var definitions: Dictionary
 var error := ""
 var prepare_candidate: Callable
 static func required_service(kind: String) -> String:
-	return {"buy":"station_supply_shop","upgrade":"equipment_gold_upgrade","repair":"equipment_breakage_repair","deliver":"gear_delivery"}.get(kind,"")
+	return {"buy":"station_supply_shop","upgrade":"equipment_gold_upgrade","repair":"equipment_breakage_repair","deliver":"gear_delivery","deliver_gears":"gear_delivery","claim_milestone":"gear_delivery"}.get(kind,"")
 static func empty_ledger() -> Dictionary:
 	return {"version":1,"gold":0,"drops":{},"owned":{},"equipped":[],"locked":[],"met":[],"quests":{},"cycle_uses":{},"collected":[],"delivered":[]}
 static func valid_ledger(value: Dictionary) -> bool:
@@ -63,6 +63,8 @@ func active(effect: String) -> bool:
 	for id: String in ledger().equipped:
 		if item(id).get("effect","")==effect and not ledger().owned[id].broken: return true
 	return false
+func capacity() -> int:
+	return int(state.content.data.collection_rules.capacity.initial)+int(state.value.inventory.get("capacity_upgrades",0))
 func used_load(proposed: Array) -> int:
 	var used:=0
 	for id: String in proposed: used+=int(item(id).get("load",9999))
@@ -87,6 +89,11 @@ func request(kind: String,id: String,request_id: String,revision: int) -> bool:
 		for npc: Dictionary in state.content.data.get("npcs",[]):
 			if npc.room_id==candidate.room and npc.id in data.met and required_service in npc.services: available=true
 		if not available: error="npc_unavailable";return false
+	if kind in ["deliver_gears","claim_milestone"]:
+		if kind=="claim_milestone" and id not in state.content.data.gear_milestones:error="action_not_eligible";return false
+		candidate=state.action_candidate("deliver_time_gears" if kind=="deliver_gears" else id,str(state.value.room))
+		if candidate.is_empty():error=state.error;return false
+		return state.commit(candidate,revision)
 	match kind:
 		"meet":
 			var found:=false
@@ -106,7 +113,7 @@ func request(kind: String,id: String,request_id: String,revision: int) -> bool:
 			if kind=="equip":
 				if id in data.equipped: error="already_equipped";return false
 				data.equipped.append(id)
-				if used_load(data.equipped)>int(definitions.capacity): error="capacity_exceeded";return false
+				if used_load(data.equipped)>capacity(): error="capacity_exceeded";return false
 				data.locked.append(id)
 			else: data.equipped.erase(id)
 		"use":
@@ -198,6 +205,12 @@ func effect_sources(proposed: Dictionary={}) -> Dictionary:
 			# Existing item/stat resolution; prototype level policy is explicit data.
 			copy.effect_parameters.max_hp_add=float(data.owned[id].level)*float(definition.health_per_level)
 			result[StringName(id)]=copy
+	var rules: Dictionary=state.content.data.collection_rules.health
+	var bonus:=floorf(float(state.value.inventory.get("health_shard",0))/float(rules.shards_per_upgrade))*float(rules.max_gain_each)
+	if bonus>0:
+		var permanent:=ItemDefinition.new();permanent.stable_id=&"world_health_shards"
+		var modifier:=BuildModifier.new();modifier.stat_id=&"max_health";modifier.operation=BuildModifier.Operation.ADD;modifier.value=bonus
+		permanent.modifiers.append(modifier);result[&"world_health_shards"]=permanent
 	return result
 
 func reason() -> String:

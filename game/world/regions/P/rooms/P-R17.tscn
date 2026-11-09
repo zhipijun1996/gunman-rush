@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
+[node name="P-R17" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R17"
+art_profile = "secret"
+masonry_platform_indices = Array[int]([6,7,8,9,10,11])
+spike_strips = Array[Dictionary]([{"id":"release_wall","bounds":[768,416,26,96],"facing":"right"}])
+arrival_text = "风车回铃栈"
+platforms = Array[Rect2]([Rect2(704,800,320,96),Rect2(0,864,704,32),Rect2(0,768,704,128),Rect2(736,0,32,624),Rect2(864,448,128,32),Rect2(848,304,144,32),Rect2(576,160,128,32),Rect2(352,640,256,48),Rect2(64,496,256,48),Rect2(352,352,256,48),Rect2(64,208,256,48),Rect2(352,160,224,32),Rect2(576,160,192,32),Rect2(576,160,192,32)])
+one_way_indices = Array[int]([])
+start_point = Vector2(144, 750)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point": [224, 720], "text": "挂铃在支座背后轻碰。索环通向停下的风叶，梯链垂在里面。"}])
+hook_points = Array[Vector2]([Vector2(824, 560), Vector2(824, 368)])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([{"bounds":[752,740,96,60],"point":[800,782],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"barrel","point":[880,448.0],"layer":-2},{"asset":"gear_city_v2_valve_panel","point":[432,768.0],"layer":-2}])
+illustrated_platform_indices = Array[int]([])
+[node name="Interaction_0" type="Node2D" parent="."]
+script = ExtResource("interaction")
+position = Vector2(928, 430)
+action_id = "pickup_EQ_MAP_P03"
+section_id = "main"
+label = "收取风车行装包"
+visual = "equipment"
+
+[node name="RewardReturn" type="Node2D" parent="."]
+script = ExtResource("return")
+position = Vector2(976, 430)
+action_id = "reward_return_EQ_MAP_P03_open"
+section_id = "main"
+label = "放下返程折梯"
+visual = "pulley_switch"
+radius = 40.0
+return_steps = Array[Rect2]([Rect2(-176, 122, 96, 16), Rect2(-192, 218, 96, 16)])
+closed_panels = Array[Rect2]([])

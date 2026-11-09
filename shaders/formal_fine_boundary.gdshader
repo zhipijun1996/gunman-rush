@@ -33,6 +33,24 @@ void fragment(){
    if(b.y<a.y && p.x>=a.x){distance_to_face=p.x-a.x;candidate_region=vec2(16.0,16.0);candidate_at.x=distance_to_face/2.0;}
    if(b.y>a.y && p.x<=a.x){distance_to_face=a.x-p.x;candidate_region=vec2(48.0,16.0);candidate_at.x=16.0-distance_to_face/2.0;}
   }
+  // Polygon edges share the same source bank and 1wu pixel sampling. Their
+  // orientation determines grass/side/underside; collision uses these vertices.
+  if(a.x!=b.x && a.y!=b.y){
+   vec2 direction=normalize(b-a);
+   vec2 pixel_p=floor(p)+vec2(.5);
+   float along=dot(pixel_p-a,direction);
+   float inward=dot(pixel_p-a,vec2(-direction.y,direction.x));
+   if(along>=0.0 && along<length(b-a) && inward>=0.0){
+    distance_to_face=inward;
+    if(abs(direction.x)>=abs(direction.y)){
+     candidate_region=vec2(32.0,direction.x>0.0?0.0:32.0);
+     candidate_at.y=direction.x>0.0?inward/2.0:16.0-inward/2.0;
+    }else{
+     candidate_region=vec2(direction.y<0.0?16.0:48.0,16.0);
+     candidate_at.x=direction.y<0.0?inward/2.0:16.0-inward/2.0;
+    }
+   }
+  }
   if(distance_to_face<best){best=distance_to_face;region=candidate_region;sample_at=candidate_at;}
  }
  // Source-native convex AND concave quarter pixels replace both adjacent strips.
@@ -64,3 +82,4 @@ void light() {
 	vec3 response = min(COLOR.rgb * .4 + vec3(.045), vec3(.16));
 	LIGHT = vec4(LIGHT_COLOR.rgb * LIGHT_ENERGY * response, LIGHT_COLOR.a);
 }
+

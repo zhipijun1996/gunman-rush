@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R18" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R18"
+art_profile = "field"
+spike_strips = Array[Dictionary]([{"id":"west_furrow","bounds":[1120,870,96,26],"facing":"up"},{"id":"east_furrow","bounds":[2016,870,64,26],"facing":"up"},{"id":"ridge_face","bounds":[1952,544,26,96],"facing":"right"},{"id":"outer_ridge","bounds":[2502,384,26,96],"facing":"left"}])
+arrival_text = "东境旧田"
+platforms = Array[Rect2]([Rect2(0,992,2224,32),Rect2(2352,992,208,32),Rect2(0,896,2224,128),Rect2(2352,896,208,128),Rect2(0,896,288,32),Rect2(2352,896,208,32),Rect2(2272,672,288,32),Rect2(1344,160,192,32),Rect2(640,800,256,32),Rect2(1280,736,320,32),Rect2(1728,800,160,96),Rect2(288,800,256,96),Rect2(1920,0,32,768),Rect2(1920,736,256,64),Rect2(1920,448,256,64),Rect2(2272,304,288,64),Rect2(1920,160,256,32),Rect2(1920,192,32,32),Rect2(1280,224,512,48),Rect2(1792,1472,288,64),Rect2(1792,1920,640,96),Rect2(2272,160,288,32),Rect2(1792,1920,288,32),Rect2(2272,672,288,32),Rect2(0,704,288,32)])
+one_way_indices = Array[int]([])
+start_point = Vector2(144, 878)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id":"P-R18:encounter:01","behavior":"charger","point":[1024,878],"max_health":10},{"id":"P-R18:encounter:02","behavior":"diver","point":[1728,878],"max_health":10},{"id":"P-R18:encounter:ridge_diver","behavior":"diver","point":[2368,478],"max_health":10},{"id":"P-R18:encounter:culvert_guard","behavior":"patrol","point":[1936,1454],"max_health":10}])
+signs = Array[Dictionary]([{"point": [224, 848], "text": "东田的风很宽。铃架、谷仓与水岸各指向一条路。"}])
+hook_points = Array[Vector2]([Vector2(1344,640),Vector2(1456,528),Vector2(1568,416),Vector2(1680,304),Vector2(1840,288),Vector2(1840,96),Vector2(1664,96)])
+section_volumes = Array[Dictionary]([{"id":"access:H","bounds":[1280,0,640,240]}])
+retry_anchors = Array[Dictionary]([{"bounds":[688,740,96,60],"point":[736,782],"section":"main"},{"bounds":[1408,836,96,60],"point":[1456,878],"section":"main"},{"bounds":[2072,836,96,60],"point":[2120,878],"section":"main"},{"bounds":[1888,1412,96,60],"point":[1936,1454],"section":"main"},{"bounds":[2032,676,96,60],"point":[2080,718],"section":"main"},{"bounds":[2320,612,96,60],"point":[2368,654],"section":"main"},{"bounds":[2032,388,96,60],"point":[2080,430],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_chime_span","point":[672,896.0],"layer":-2},{"asset":"windchime_plains_v2_seed_relic","point":[1888,896.0],"layer":-2},{"asset":"plain_pier","point":[704,896],"support_height":64},{"asset":"plain_pier","point":[1504,896],"support_height":128},{"asset":"plain_pier","point":[1888,896],"support_height":64},{"asset":"sunken_well","point":[2080,896],"layer":-2},{"asset":"gear_city_v2_pipe_junction","point":[1936,1920],"layer":-2}])
+bell_mechanisms = Array[Dictionary]([{"id":"P-R18:IrrigationCage","bell":[2160,1848],"carrier":"IrrigationCage","access_bells":[[2160,824],[2032,1416]]}])
+masonry_platform_indices = Array[int]([18])
+illustrated_platform_indices = Array[int]([])
+[node name="IrrigationCage" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(2288,1872)
+endpoint = Vector2(0,-1024)
+platform_size = Vector2(112,20)
+period = 12.0
+one_way = true

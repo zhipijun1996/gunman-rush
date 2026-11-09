@@ -139,7 +139,7 @@ static func sample(data: Dictionary) -> Dictionary:
 	var bell_local := (
 		mast_local * Transform2D(bell_angle, Vector2(0, -106)) * Transform2D(0.0, Vector2(0, 24))
 	)
-	var launcher_local := body_local * Transform2D(launcher_angle, Vector2(43, 4))
+	var launcher_local := body_local * Transform2D(launcher_angle, Vector2(-48, -28))
 	var wheel_angle := travel / WHEEL_RADIUS
 	var left_wheel := face * Transform2D(wheel_angle * direction, Vector2(-49, 44))
 	var right_wheel := face * Transform2D(wheel_angle * direction, Vector2(49, 44))
@@ -153,7 +153,7 @@ static func sample(data: Dictionary) -> Dictionary:
 			loosen * 1.14, Vector2(lerpf(-7, 44, loosen), lerpf(-84, 44, loosen))
 		)
 		launcher_local = (
-			body_local * Transform2D(-0.10 + loosen * 0.62, Vector2(43, 4 + loosen * 13))
+			body_local * Transform2D(-0.10 + loosen * 0.62, Vector2(-48, -28 + loosen * 13))
 		)
 		left_wheel = face * Transform2D(wheel_angle * direction, Vector2(-49, 44))
 		right_wheel = (
@@ -183,6 +183,7 @@ static func sample(data: Dictionary) -> Dictionary:
 		"wheel_radius": WHEEL_RADIUS,
 		"weak_size": WEAK_SIZE,
 		"wheel_angle": wheel_angle,
+		"turn_yaw": cos(PI * smoothstep(0.0,1.0,age/duration)) if mode in [&"turn",&"combo_turn"] and int(data.get("turn_from",direction)) != int(data.get("turn_target",direction)) else 1.0,
 		"panel_angle": panel_angle,
 		"clapper_angle": clapper_angle,
 		"bell_flash": bell_hit,

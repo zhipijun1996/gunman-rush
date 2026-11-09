@@ -1,0 +1,183 @@
+{
+  "source_commit": "db4635dfb5af9f40d9c722f6cffc89739ee28555",
+  "baseline_commit": "f773c45d",
+  "content_version": "cf78f3d342f3f7ea446adfd297ee70dc97e30d71c93a49e9a99e53e192e8a9ed",
+  "scope": "Boss horizontal camera display bounds equal actual seal/wall planes; vertical-only padding. No controller, physics or layout changes.",
+  "root_cause": "Arena display uniformly grew all four sides by 48wu. Prior assertions only checked this expanded camera-authored range rather than independently comparing real wall positions. New wall tests use actual seal nodes and final viewport edges.",
+  "camera_sha256": "4309434c5debef88c36a0b1897a571825f3ba42d9a4e8a01cac1b9933306ed30",
+  "clips": [
+    {
+      "id": "arena-entry",
+      "title": "Boss入场：保持缩放，向战场边界平移",
+      "scope": "P14既有场地沿正式应用隔离装载；实际激活与入场。",
+      "files": {
+        "before": {
+          "file": "arena-entry-before.mp4",
+          "bytes": 1320892,
+          "sha256": "f71695df738b6c73675669cacb2cf44b0f907720648f37d95a97230d6d6ea73d",
+          "seconds": 4.58
+        },
+        "after": {
+          "file": "arena-entry-after.mp4",
+          "bytes": 1391137,
+          "sha256": "d8d08b9929a1c91afe61ce4da9f2a6322d4448f65d940dc458991aa22fbd7e96",
+          "seconds": 4.58
+        },
+        "compare": {
+          "file": "arena-entry-compare.mp4",
+          "bytes": 1576398,
+          "sha256": "442ac0f5e9e5ea7c1f1eaa2c35f7ecb68e4063bc812f24284ec1b6bc4d0bdae1"
+        }
+      },
+      "baseline_commit": "f773c45d"
+    },
+    {
+      "id": "left-wall",
+      "title": "左墙贴屏幕边缘与震动",
+      "scope": "独立边界夹具：进入战斗后暂停Boss AI；实际封墙碰撞和角色行走输入不变。",
+      "files": {
+        "before": {
+          "file": "left-wall-before.mp4",
+          "bytes": 274891,
+          "sha256": "07e6d30bdaf26f82809d5f229eec34b3e3a14fc0c3c5db3c8fb69e89cbb11819",
+          "seconds": 3.83
+        },
+        "after": {
+          "file": "left-wall-after.mp4",
+          "bytes": 203661,
+          "sha256": "5751b980ffc5c23c25d191dd06b3bdf78ba04df17e88335152ef30305c401a9d",
+          "seconds": 3.83
+        },
+        "compare": {
+          "file": "left-wall-compare.mp4",
+          "bytes": 272964,
+          "sha256": "6bc2b8824d2b6ed01852742caf9ecc5970f0aaf8c932bd50df88fccb699b836d"
+        }
+      },
+      "baseline_commit": "f773c45d"
+    },
+    {
+      "id": "right-wall",
+      "title": "右墙贴屏幕边缘与震动",
+      "scope": "独立边界夹具：进入战斗后暂停Boss AI；实际封墙碰撞和角色行走输入不变。",
+      "files": {
+        "before": {
+          "file": "right-wall-before.mp4",
+          "bytes": 229933,
+          "sha256": "52c9329b43f3cbfe81a38393ab7dc52a69b54f14fdf6137c8017e8fed82f9c66",
+          "seconds": 3.83
+        },
+        "after": {
+          "file": "right-wall-after.mp4",
+          "bytes": 192817,
+          "sha256": "4b4d7ba3dc2c1b1fdc9daa93a75e4aaa8a88ec5cc1d52acdb9935905fa261ceb",
+          "seconds": 3.83
+        },
+        "compare": {
+          "file": "right-wall-compare.mp4",
+          "bytes": 247186,
+          "sha256": "8397cd091c29a27f24acb06c6f0ce17aecdd424edbccd186b6be4be57045e1f1"
+        }
+      },
+      "baseline_commit": "f773c45d"
+    }
+  ],
+  "commands": [
+    {
+      "check": "arena",
+      "result": "36 checks: P11/P14, two viewports, real-input wall contact, final edge equals actual wall, bounded shake, fixed zoom",
+      "exit_code": 0,
+      "log_sha256": "66e296c58c81d8b102d2dfa239e9bd257653b1d90481abc0831e0dcba198eb41"
+    },
+    {
+      "check": "vertical",
+      "result": "37 jump/ascent/descent/shaft/arena regression checks",
+      "exit_code": 0,
+      "log_sha256": "520c0a458bd1d8e4cbc3ab83fd140e90a4c889110bd1ac16b957b82bcf368d49"
+    },
+    {
+      "check": "motion",
+      "result": "10 actual Boss/H/fall/recovery checks",
+      "exit_code": 0,
+      "log_sha256": "7aa43a077b2f8c189189bd449ded70f07e14c341d4a3985bb7edc1c15fa8ef45"
+    },
+    {
+      "check": "ci",
+      "result": "4 daily checks",
+      "exit_code": 0,
+      "log_sha256": "c20e4b025c1d69b5d8a672f363745d0eda7b5b8c2596102443bc2ea04af2d445"
+    },
+    {
+      "check": "world-tests",
+      "result": "24 world/config unit tests",
+      "exit_code": 0,
+      "log_sha256": "fc45867e5be1fa945f5faa070b078b873803da19932fe2adbc96a61b71ff9e1a"
+    },
+    {
+      "check": "bundle",
+      "result": "Final PCK resource closure",
+      "exit_code": 0,
+      "log_sha256": "e9dffa77520a05c55846f264e6241e54bd7fc610229a235978a37a34c6ea78ec"
+    },
+    {
+      "check": "browser",
+      "result": "Final Web title/start/jump/map/pause",
+      "exit_code": 0,
+      "log_sha256": "bf2650dde7e78295271bc4384adab0a8bf1bb1b89f1cc370b43be03156da2396"
+    },
+    {
+      "check": "review-browser",
+      "result": "Touch look/cancel, save isolation, three clips and exact ZIP download",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "public",
+      "result": "16 exact public page/media/map files plus build identity",
+      "exit_code": 0,
+      "log_sha256": "09300bd80f37ce70a89bc2b8a36a7b902de5720f80fcf538ddf119adea62b17a"
+    },
+    {
+      "check": "public-browser",
+      "result": "Public final build start/jump/map/pause",
+      "exit_code": 0,
+      "log_sha256": "bf2650dde7e78295271bc4384adab0a8bf1bb1b89f1cc370b43be03156da2396"
+    }
+  ],
+  "layout_invariants": {
+    "baseline": "f773c45d",
+    "proof": "git diff f773c45d -- game/player config/player_tuning.json game/world/regions/P/rooms config/world/construction.json game/presentation/ui/world/world_camera.gd is empty",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "visual_review": "Reviewed native left/right wall frames: each wall meets the corresponding screen edge; former outer margin removed. Matched input native clips cover actual Boss entry plus independent left/right wall and shake probes. Wall fixtures pause encounter AI after actual activation and explicitly place the starting position; collisions and movement input remain real. Not a full Boss fight or physical-device review.",
+  "browser": {
+    "errors": [],
+    "review_entry": "P-R23/base",
+    "legacy_save_preserved": true,
+    "review_wrote_no_formal_progress": true,
+    "clips": 3,
+    "room_cards": 6,
+    "comparison_played": true,
+    "zip_download_exact": true,
+    "touch_gesture": "left stick up and release; screenshot review",
+    "mobile_layout": "390x844",
+    "scope": "Browser emulation, not physical phone or full Web playthrough."
+  },
+  "deployment": {
+    "build_id": "c9a4725df221",
+    "source_commit": "db4635dfb5af9f40d9c722f6cffc89739ee28555",
+    "prepared_commit": "9e63f9ae969f5f7610af5b78ed1ff6f30b7fd774",
+    "run_id": "42570535122",
+    "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/42570535122",
+    "playtest": "https://zhipijun1996.github.io/gunman-rush/?v=c9a4725df221",
+    "clips_url": "https://zhipijun1996.github.io/gunman-rush/camera-review/?v=c9a4725df221",
+    "zip_bytes": 1791107,
+    "zip_sha256": "476274fd0d04ac06adb606fba1dfbb47a529977e83cb440a1d21549f380ca50e"
+  },
+  "limits": [
+    "Six formal rooms; Boss scenes remain isolated pre-migration fixtures.",
+    "Wall probes pause Boss AI, do not certify combat behavior or balancing.",
+    "Physical phone/controller and complete Web route unverified.",
+    "Full region gameplay/art/animation/audio not accepted."
+  ]
+}

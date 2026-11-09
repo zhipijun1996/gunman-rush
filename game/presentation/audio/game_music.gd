@@ -2,11 +2,11 @@ class_name GameMusic
 extends Node
 ## App-local music only. It observes accepted game state; it owns no gameplay.
 const TRACKS := {
-	&"home": preload("res://assets/audio/bgm/the_kindred_hearth.mp3"),
-	&"plains": preload("res://assets/audio/bgm/where_the_path_bends.mp3"),
-	&"plains_boss": preload("res://assets/audio/bgm/across_the_wooden_sails.mp3"),
-	&"forest": preload("res://assets/audio/bgm/vines_beneath_the_canopy.mp3"),
-	&"forest_boss": preload("res://assets/audio/bgm/beyond_the_knotted_vines.mp3"),
+	&"home": "res://assets/audio/bgm/the_kindred_hearth.mp3",
+	&"plains": "res://assets/audio/bgm/where_the_path_bends.mp3",
+	&"plains_boss": "res://assets/audio/bgm/across_the_wooden_sails.mp3",
+	&"forest": "res://assets/audio/bgm/vines_beneath_the_canopy.mp3",
+	&"forest_boss": "res://assets/audio/bgm/beyond_the_knotted_vines.mp3",
 }
 const CROSSFADE_SECONDS := 0.9
 const MUSIC_GAIN := 0.16 # About -16 dB before the existing session volume.
@@ -72,7 +72,9 @@ func _transition(id: StringName) -> void:
 			chosen = 0 if _gains[0] <= _gains[1] else 1
 			var voice := _voices[chosen]
 			voice.stop()
-			voice.stream = TRACKS[id] as AudioStreamMP3
+			# Region music loads only when requested; entering the plains no longer
+			# eagerly retains every future-region track. Voices own active streams.
+			voice.stream = load(TRACKS[id]) as AudioStreamMP3
 			var initial_gain := MUSIC_GAIN * (volume_source.volume if is_instance_valid(volume_source) else 0.7)
 			voice.volume_db = linear_to_db(maxf(0.00001, initial_gain)) if initial_start else -80.0
 			_ids[chosen] = id

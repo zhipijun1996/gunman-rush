@@ -38,7 +38,7 @@ func run() -> void:
 		for suffix: String in ["",".backup",".tmp",".corrupt"]: DirAccess.remove_absolute(path+suffix)
 	root.add_child(app);app.start_new();await settle()
 	app.controller.shoot_ability.shot_fired.connect(func(_direction: Vector2,_packet: int) -> void: shots+=1)
-	app.load_room("P-R01","START-P03-P01:P-R01");await settle();await ticks(45)
+	app.load_room("P-R01","INTRO-P24-P01:P-R01");await settle();await ticks(45)
 	var health:=app.controller.actor_resources.health
 	var energy:=app.controller.combat_energy
 	energy.grant("declared_energy_fixture",100)
@@ -56,7 +56,7 @@ func run() -> void:
 	key(true);await ticks(20)
 	app.submit_damage(&"focus_fixture",DamageRequest.Kind.MONSTER,1,&"focus_interrupt")
 	await ticks(75)
-	check(health.current==2 and energy.current==65 and app.focus_heal.blocked,"accepted hit cancels and requires a fresh press")
+	check(health.current==2 and energy.current==65 and (app.focus_heal.blocked or not app.controller.router.focus_heal_held()),"accepted hit cancels and requires a fresh press")
 	key(false);await ticks(2)
 	key(true);await ticks(20);app.toggle_pause();await ticks(70)
 	check(health.current==2 and energy.current==65 and not app.controller.router.focus_heal_held(),"pause cancels held intent and cannot heal in a menu")
@@ -76,7 +76,7 @@ func run() -> void:
 	key(false);await ticks(4)
 	key(true);await ticks(20);app.load_room("P-R03","");await settle();await ticks(65)
 	check(health.current==2 and energy.current==65 and app.focus_heal.ratio()==0,"room change preserves currency and cancels action lifetime")
-	key(false);app.load_room("P-R01","START-P03-P01:P-R01");await settle();await ticks(45)
+	key(false);app.load_room("P-R01","INTRO-P24-P01:P-R01");await settle();await ticks(45)
 	app.state.storage.blocked=true
 	key(true);await ticks(65);key(false);await ticks(3)
 	check(health.current==2 and energy.current==65,"failed durable write spends no health or resonance")

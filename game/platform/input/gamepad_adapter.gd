@@ -10,6 +10,8 @@ var connected_device := -1
 var _arm_ticks := 0
 var _center_ticks := 0
 var _vertical_ready := true
+var _camera_held := false
+var _camera_blocked := false
 var _jump_held := false
 var _jump_blocked := false
 var _context_held := false
@@ -55,6 +57,9 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 		router.activate_device(&"gamepad")
 	router.set_source_axis(&"gamepad", left.x if active_left else 0.0)
 	router.set_look_axis(&"gamepad", left.y if active_left else 0.0)
+	if absf(left.y)<0.35: _camera_blocked=false
+	_camera_held=absf(left.y)>=0.35
+	router.set_camera_look(&"gamepad", signf(left.y) if absf(left.y)>=0.65 and not _camera_blocked else 0.0)
 	if absf(left.y) < 0.35:
 		_vertical_ready = true
 	elif absf(left.y) >= 0.65 and _vertical_ready:
@@ -163,6 +168,8 @@ func _world_direction(axis: Vector2) -> Vector2:
 	return ((inverse * axis) - (inverse * Vector2.ZERO)).normalized()
 
 func _cancel(_reason: String) -> void:
+	_camera_blocked = _camera_blocked or _camera_held
+	_camera_held = false
 	_context_blocked=_context_blocked or _context_held
 	_skill_blocked=_skill_blocked or _skill_held
 	_item_skill_blocked = _item_skill_blocked or _item_skill_held or (connected_device >= 0 and Input.is_joy_button_pressed(connected_device,JOY_BUTTON_RIGHT_SHOULDER))
@@ -184,6 +191,8 @@ func _connection_changed(device: int, connected: bool) -> void:
 
 func _device_changed(source: StringName) -> void:
 	if source == &"gamepad": return
+	_camera_blocked = _camera_blocked or _camera_held
+	_camera_held = false
 	# Device ownership cancels aiming but leaves independent jump holds intact.
 	_hook_blocked = _hook_blocked or _hook_held
 	_hook_held = false

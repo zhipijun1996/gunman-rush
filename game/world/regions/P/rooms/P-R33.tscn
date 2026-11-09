@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
+[node name="P-R33" type="Node2D"]
+script = ExtResource("1")
+room_id = "P-R33"
+art_profile = "clock"
+masonry_platform_indices = Array[int]([0,1,2,3,4,5])
+arrival_text = "钟影前庭"
+platforms = Array[Rect2]([Rect2(0,288,256,736),Rect2(256,416,224,608),Rect2(480,544,224,480),Rect2(704,672,224,352),Rect2(928,784,160,240),Rect2(1216,896,1088,128)])
+one_way_indices = Array[int]([])
+start_point = Vector2(144,270)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([])
+signs = Array[Dictionary]([{"point":[224,240],"text":"世界钟心停在最后一次报时。三处核心的钟声尚未回来。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([])
+art_placements = Array[Dictionary]([{"asset":"world_clock_close","point":[1840,896],"layer":-2},{"asset":"bell_post","point":[512,544],"layer":-2,"light":true}])
+illustrated_platform_indices = Array[int]([])

@@ -9,8 +9,17 @@ func idle_step(context: EnemyAttackBehavior, delta: float) -> bool:
 	context.actor.motor.move_attack(motion,false,delta)
 	return true
 
+func attack_goal(context: EnemyAttackBehavior) -> Vector2:
+	# Lock the actual player position when the warning begins, not a fixed
+	# depth beneath the nest. The committed line remains dodgeable.
+	return context.controller.motor.global_position
+
 func attack_step(context: EnemyAttackBehavior, delta: float) -> void:
-	context.actor.motor.move_attack((context.attack_goal-context.actor.motor.global_position).limit_length(context.actor.definition.attack_speed*delta),false,delta)
+	var definition := context.actor.definition
+	var speed := maxf(definition.attack_speed,context.attack_origin.distance_to(context.attack_goal)/definition.attack_duration)
+	var motion := (context.attack_goal-context.actor.motor.global_position).limit_length(speed*delta)
+	if not context.actor.motor.move_attack(motion,false,delta):
+		context._begin_recovery()
 
 func requires_home_return() -> bool:
 	return true

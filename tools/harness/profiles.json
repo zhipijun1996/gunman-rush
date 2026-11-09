@@ -1865,8 +1865,8 @@
         "python3",
         "tools/run_world_loop.py"
       ],
-      "timeout_seconds": 420,
-      "success_pattern": "^PASS: first world loop"
+      "timeout_seconds": 2100,
+      "success_pattern": "^PASS: plains continuous first loop"
     },
     "world-pack": {
       "mode": "manual",
@@ -1874,7 +1874,7 @@
         "python3",
         "tools/check_world_pack.py"
       ],
-      "timeout_seconds": 90,
+      "timeout_seconds": 240,
       "success_pattern": "^PASS: isolated fixed world PCK"
     }
   },

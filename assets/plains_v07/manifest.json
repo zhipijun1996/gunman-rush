@@ -1,0 +1,1449 @@
+{
+  "schema": 1,
+  "style": "underworld-regional-v1",
+  "generator": "image_gen",
+  "sources": {
+    "architecture-generated.png": "aa15252267099bd1119d44353141a0bf0f2718b79aba67a19e5596a9bcdff103",
+    "interiors-generated.png": "a2cf0c7a76e8c4eb6618b7c9a6c2ba0eaeca1f2562f8e509c1e0a2ac8131e84a",
+    "aqi-story-generated.png": "b8969f9132506104aacea2321178f7aa6ff3087bf004cb5a6b8898e116cb6286",
+    "story-traces-generated.png": "a819edf775b6eda75d6931c79bd498fd9f004d65563829b2b06b9598fa378685",
+    "collectibles-generated.png": "39012315b9d73c1c29fb0b144f9d324679989ce98b6dcde67a0709223365d88d",
+    "props-generated.png": "fccdc8e90851e97d6fe8217382fb0c9a253978af4b890fae873cd1ddfb2e1523",
+    "mill-drive-generated.png": "42bd2ec13d55ec1d3f54c02e1babad05626de8e836fffc3b868d132f7bf86c58",
+    "thresholds-generated.png": "78f83f6408c638b40287d94f6412d9fb4b781618b4515b51577d5a0b68a3b934",
+    "inhabitants-generated.png": "081dbf9a2ff5f1163b64a266b82d9848986b3ea23bb9a56e0d8dbe3d5a684c32",
+    "mechanisms-generated.png": "e12df1bc1177034ce55e0fa5f5b6439d554f8f9d93fb672f6f504ac2602c3daa",
+    "orchard-arches-generated.png": "9bc560d30550d6d5e606b27e09f6ba7635e2e4bc40fa7df7d4b295545d5ac0e9",
+    "clocktower-generated.png": "8b2393391b86ee55e38387efe53881213c4df5d8d91306bd11af439493056081"
+  },
+  "assets": {
+    "reclaimer": {
+      "image": "assets/plains_v07/native/reclaimer.png",
+      "cell": [
+        64,
+        64
+      ],
+      "frames": 6,
+      "anchor": [
+        32,
+        60
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/inhabitants-generated.png",
+      "source_cells": [
+        [
+          0,
+          0,
+          256,
+          256
+        ],
+        [
+          256,
+          0,
+          256,
+          256
+        ],
+        [
+          512,
+          0,
+          256,
+          256
+        ],
+        [
+          768,
+          0,
+          256,
+          256
+        ],
+        [
+          1024,
+          0,
+          256,
+          256
+        ],
+        [
+          1280,
+          0,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.26666666666666666,
+      "native_body_height": 44,
+      "alpha_threshold": 128,
+      "kind": "npc",
+      "sha256": "7a826121699093c9e36f6d5f63e140eeb4f90e5208dbcbe150303d65b7e942d1"
+    },
+    "weaver": {
+      "image": "assets/plains_v07/native/weaver.png",
+      "cell": [
+        64,
+        64
+      ],
+      "frames": 6,
+      "anchor": [
+        32,
+        60
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/inhabitants-generated.png",
+      "source_cells": [
+        [
+          0,
+          256,
+          256,
+          256
+        ],
+        [
+          256,
+          256,
+          256,
+          256
+        ],
+        [
+          512,
+          256,
+          256,
+          256
+        ],
+        [
+          768,
+          256,
+          256,
+          256
+        ],
+        [
+          1024,
+          256,
+          256,
+          256
+        ],
+        [
+          1280,
+          256,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.2603550295857988,
+      "native_body_height": 44,
+      "alpha_threshold": 128,
+      "kind": "npc",
+      "sha256": "4f55f647cf632e12a9822a134b0bb818128c8d2776b9c5a4e8dd8a7c08fb7a53"
+    },
+    "aqi": {
+      "image": "assets/plains_v07/native/aqi.png",
+      "cell": [
+        64,
+        64
+      ],
+      "frames": 6,
+      "anchor": [
+        32,
+        60
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/inhabitants-generated.png",
+      "source_cells": [
+        [
+          0,
+          512,
+          256,
+          256
+        ],
+        [
+          256,
+          512,
+          256,
+          256
+        ],
+        [
+          512,
+          512,
+          256,
+          256
+        ],
+        [
+          768,
+          512,
+          256,
+          256
+        ],
+        [
+          1024,
+          512,
+          256,
+          256
+        ],
+        [
+          1280,
+          512,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.25925925925925924,
+      "native_body_height": 42,
+      "alpha_threshold": 128,
+      "kind": "npc",
+      "sha256": "06f100f9d6bd461c86f48a991b4105e215c00d75a1ef8acfc8a9a57716178b10"
+    },
+    "charging_station": {
+      "image": "assets/plains_v07/native/charging_station.png",
+      "cell": [
+        96,
+        96
+      ],
+      "frames": 6,
+      "anchor": [
+        48,
+        92
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/inhabitants-generated.png",
+      "source_cells": [
+        [
+          0,
+          768,
+          256,
+          256
+        ],
+        [
+          256,
+          768,
+          256,
+          256
+        ],
+        [
+          512,
+          768,
+          256,
+          256
+        ],
+        [
+          768,
+          768,
+          256,
+          256
+        ],
+        [
+          1024,
+          768,
+          256,
+          256
+        ],
+        [
+          1280,
+          768,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.391304347826087,
+      "native_body_height": 72,
+      "alpha_threshold": 128,
+      "kind": "station",
+      "sha256": "db7256b0d014d56bcbd81b7fc0624c21f4ba0c0ba66e30f5c6fc3ee15ae32929"
+    },
+    "time_gear": {
+      "image": "assets/plains_v07/native/time_gear.png",
+      "cell": [
+        48,
+        48
+      ],
+      "frames": 6,
+      "anchor": [
+        24,
+        44
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/collectibles-generated.png",
+      "source_cells": [
+        [
+          0,
+          0,
+          256,
+          256
+        ],
+        [
+          256,
+          0,
+          256,
+          256
+        ],
+        [
+          512,
+          0,
+          256,
+          256
+        ],
+        [
+          768,
+          0,
+          256,
+          256
+        ],
+        [
+          1024,
+          0,
+          256,
+          256
+        ],
+        [
+          1280,
+          0,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.17777777777777778,
+      "native_body_height": 32,
+      "alpha_threshold": 128,
+      "kind": "pickup",
+      "sha256": "03c42db49c36eb7fba13e30a38488683c011a62f7a1f486f43dd7c8987bb8ae4"
+    },
+    "health_shard": {
+      "image": "assets/plains_v07/native/health_shard.png",
+      "cell": [
+        48,
+        48
+      ],
+      "frames": 6,
+      "anchor": [
+        24,
+        44
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/collectibles-generated.png",
+      "source_cells": [
+        [
+          0,
+          256,
+          256,
+          256
+        ],
+        [
+          256,
+          256,
+          256,
+          256
+        ],
+        [
+          512,
+          256,
+          256,
+          256
+        ],
+        [
+          768,
+          256,
+          256,
+          256
+        ],
+        [
+          1024,
+          256,
+          256,
+          256
+        ],
+        [
+          1280,
+          256,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.1891891891891892,
+      "native_body_height": 28,
+      "alpha_threshold": 128,
+      "kind": "pickup",
+      "sha256": "22ff2924d1cbbaa59c933c1502ea30b9ffd5f321b5385b80564b0092383f83ea"
+    },
+    "resonance_shard": {
+      "image": "assets/plains_v07/native/resonance_shard.png",
+      "cell": [
+        48,
+        48
+      ],
+      "frames": 6,
+      "anchor": [
+        24,
+        44
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/collectibles-generated.png",
+      "source_cells": [
+        [
+          0,
+          512,
+          256,
+          256
+        ],
+        [
+          256,
+          512,
+          256,
+          256
+        ],
+        [
+          512,
+          512,
+          256,
+          256
+        ],
+        [
+          768,
+          512,
+          256,
+          256
+        ],
+        [
+          1024,
+          512,
+          256,
+          256
+        ],
+        [
+          1280,
+          512,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.18604651162790697,
+      "native_body_height": 32,
+      "alpha_threshold": 128,
+      "kind": "pickup",
+      "sha256": "8ba5d346d69809c2f92bd0b9bc09be98fd8f160671e00a399c046a4342f1f6b8"
+    },
+    "collection_burst": {
+      "image": "assets/plains_v07/native/collection_burst.png",
+      "cell": [
+        72,
+        72
+      ],
+      "frames": 6,
+      "anchor": [
+        36,
+        36
+      ],
+      "fps": 15,
+      "source": "assets/plains_v07/source/collectibles-generated.png",
+      "source_cells": [
+        [
+          0,
+          768,
+          256,
+          256
+        ],
+        [
+          256,
+          768,
+          256,
+          256
+        ],
+        [
+          512,
+          768,
+          256,
+          256
+        ],
+        [
+          768,
+          768,
+          256,
+          256
+        ],
+        [
+          1024,
+          768,
+          256,
+          256
+        ],
+        [
+          1280,
+          768,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.3111111111111111,
+      "native_body_height": 56,
+      "alpha_threshold": 128,
+      "kind": "burst",
+      "sha256": "3cce9ae860b056c4f78c86ff2ab2b6d58d96e3a8a7133d732c3a467b7d3e8a7b"
+    },
+    "grapple_device": {
+      "image": "assets/plains_v07/native/grapple_device.png",
+      "cell": [
+        48,
+        48
+      ],
+      "frames": 6,
+      "anchor": [
+        24,
+        44
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/mechanisms-generated.png",
+      "source_cells": [
+        [
+          0,
+          0,
+          256,
+          256
+        ],
+        [
+          256,
+          0,
+          256,
+          256
+        ],
+        [
+          512,
+          0,
+          256,
+          256
+        ],
+        [
+          768,
+          0,
+          256,
+          256
+        ],
+        [
+          1024,
+          0,
+          256,
+          256
+        ],
+        [
+          1280,
+          0,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.16243654822335024,
+      "native_body_height": 32,
+      "alpha_threshold": 128,
+      "kind": "pickup",
+      "sha256": "48940dee162e7a57b29ca2172bde3aa19c111d0fa2df8b7568bc883c331c66da"
+    },
+    "equipment": {
+      "image": "assets/plains_v07/native/equipment.png",
+      "cell": [
+        48,
+        48
+      ],
+      "frames": 6,
+      "anchor": [
+        24,
+        44
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/mechanisms-generated.png",
+      "source_cells": [
+        [
+          0,
+          256,
+          256,
+          256
+        ],
+        [
+          256,
+          256,
+          256,
+          256
+        ],
+        [
+          512,
+          256,
+          256,
+          256
+        ],
+        [
+          768,
+          256,
+          256,
+          256
+        ],
+        [
+          1024,
+          256,
+          256,
+          256
+        ],
+        [
+          1280,
+          256,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.16494845360824742,
+      "native_body_height": 32,
+      "alpha_threshold": 128,
+      "kind": "pickup",
+      "sha256": "ee0addaff963d55e7d91416b089d01a13b4805e0b195edd6c32c84381a5bb547"
+    },
+    "clock_altar": {
+      "image": "assets/plains_v07/native/clock_altar.png",
+      "cell": [
+        112,
+        112
+      ],
+      "frames": 6,
+      "anchor": [
+        56,
+        108
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/mechanisms-generated.png",
+      "source_cells": [
+        [
+          0,
+          512,
+          256,
+          256
+        ],
+        [
+          256,
+          512,
+          256,
+          256
+        ],
+        [
+          512,
+          512,
+          256,
+          256
+        ],
+        [
+          768,
+          512,
+          256,
+          256
+        ],
+        [
+          1024,
+          512,
+          256,
+          256
+        ],
+        [
+          1280,
+          512,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.3793103448275862,
+      "native_body_height": 88,
+      "alpha_threshold": 128,
+      "kind": "mechanism",
+      "sha256": "04572085301308f04cda130756d39f14f8b7e8ecc707bf2445881b09851bbc78"
+    },
+    "pulley_switch": {
+      "image": "assets/plains_v07/native/pulley_switch.png",
+      "cell": [
+        64,
+        64
+      ],
+      "frames": 6,
+      "anchor": [
+        32,
+        60
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/mechanisms-generated.png",
+      "source_cells": [
+        [
+          0,
+          768,
+          256,
+          256
+        ],
+        [
+          256,
+          768,
+          256,
+          256
+        ],
+        [
+          512,
+          768,
+          256,
+          256
+        ],
+        [
+          768,
+          768,
+          256,
+          256
+        ],
+        [
+          1024,
+          768,
+          256,
+          256
+        ],
+        [
+          1280,
+          768,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.22857142857142856,
+      "native_body_height": 48,
+      "alpha_threshold": 128,
+      "kind": "mechanism",
+      "sha256": "471bcc941c3d353ec27170a21127b230d197c1085b9dd5aa4a8fd77b372e8461"
+    },
+    "aqi_clock": {
+      "image": "assets/plains_v07/native/aqi_clock.png",
+      "cell": [
+        64,
+        64
+      ],
+      "frames": 6,
+      "anchor": [
+        32,
+        60
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/aqi-story-generated.png",
+      "source_cells": [
+        [
+          0,
+          0,
+          256,
+          256
+        ],
+        [
+          256,
+          0,
+          256,
+          256
+        ],
+        [
+          512,
+          0,
+          256,
+          256
+        ],
+        [
+          768,
+          0,
+          256,
+          256
+        ],
+        [
+          1024,
+          0,
+          256,
+          256
+        ],
+        [
+          1280,
+          0,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.23728813559322035,
+      "native_body_height": 42,
+      "alpha_threshold": 128,
+      "kind": "npc",
+      "sha256": "a5db3d86ee53d4ad062ad0c67c2fcf5e1abc6ea19fa24726547981cd38a01441"
+    },
+    "aqi_tea": {
+      "image": "assets/plains_v07/native/aqi_tea.png",
+      "cell": [
+        64,
+        64
+      ],
+      "frames": 6,
+      "anchor": [
+        32,
+        60
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/aqi-story-generated.png",
+      "source_cells": [
+        [
+          0,
+          256,
+          256,
+          256
+        ],
+        [
+          256,
+          256,
+          256,
+          256
+        ],
+        [
+          512,
+          256,
+          256,
+          256
+        ],
+        [
+          768,
+          256,
+          256,
+          256
+        ],
+        [
+          1024,
+          256,
+          256,
+          256
+        ],
+        [
+          1280,
+          256,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.23863636363636365,
+      "native_body_height": 42,
+      "alpha_threshold": 128,
+      "kind": "npc",
+      "sha256": "735831c3e256b418efbab47ecb716d1def6e15e04294413f54f870e10c736fb3"
+    },
+    "aqi_lantern": {
+      "image": "assets/plains_v07/native/aqi_lantern.png",
+      "cell": [
+        64,
+        64
+      ],
+      "frames": 6,
+      "anchor": [
+        32,
+        60
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/aqi-story-generated.png",
+      "source_cells": [
+        [
+          0,
+          512,
+          256,
+          256
+        ],
+        [
+          256,
+          512,
+          256,
+          256
+        ],
+        [
+          512,
+          512,
+          256,
+          256
+        ],
+        [
+          768,
+          512,
+          256,
+          256
+        ],
+        [
+          1024,
+          512,
+          256,
+          256
+        ],
+        [
+          1280,
+          512,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.2413793103448276,
+      "native_body_height": 42,
+      "alpha_threshold": 128,
+      "kind": "npc",
+      "sha256": "d8c892957102b843c2e3b64b2ecc8de8f3b41d50b02c43c38228955a345ecd37"
+    },
+    "aqi_lookout": {
+      "image": "assets/plains_v07/native/aqi_lookout.png",
+      "cell": [
+        64,
+        64
+      ],
+      "frames": 6,
+      "anchor": [
+        32,
+        60
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/aqi-story-generated.png",
+      "source_cells": [
+        [
+          0,
+          768,
+          256,
+          256
+        ],
+        [
+          256,
+          768,
+          256,
+          256
+        ],
+        [
+          512,
+          768,
+          256,
+          256
+        ],
+        [
+          768,
+          768,
+          256,
+          256
+        ],
+        [
+          1024,
+          768,
+          256,
+          256
+        ],
+        [
+          1280,
+          768,
+          256,
+          256
+        ]
+      ],
+      "bake_scale": 0.23728813559322035,
+      "native_body_height": 42,
+      "alpha_threshold": 128,
+      "kind": "npc",
+      "sha256": "015de36369ede1f75d94e1755ae2a9a1fae2bedac55f478e276635419c0b1450"
+    }
+  },
+  "backgrounds": {
+    "mill": {
+      "image": "assets/plains_v07/native/interior_mill.png",
+      "source": "assets/plains_v07/source/interiors-generated.png",
+      "source_rect": [
+        0,
+        0,
+        768,
+        512
+      ],
+      "size": [
+        384,
+        256
+      ],
+      "sha256": "ff932685f03df4df41db43af2fb245425b2b3e64eb4c92526d8c2950471a1c48"
+    },
+    "barn": {
+      "image": "assets/plains_v07/native/interior_barn.png",
+      "source": "assets/plains_v07/source/interiors-generated.png",
+      "source_rect": [
+        768,
+        0,
+        768,
+        512
+      ],
+      "size": [
+        384,
+        256
+      ],
+      "sha256": "b4c0184c9eca6a7e42d385d57b2e2d78311281f7c5861447d792fa074dae3992"
+    },
+    "cellar": {
+      "image": "assets/plains_v07/native/interior_cellar.png",
+      "source": "assets/plains_v07/source/interiors-generated.png",
+      "source_rect": [
+        0,
+        512,
+        768,
+        512
+      ],
+      "size": [
+        384,
+        256
+      ],
+      "sha256": "3b4d974d731a1f20a18feb15fff6692e3190b3da8cf72667df0951e40deeb5d2"
+    },
+    "well": {
+      "image": "assets/plains_v07/native/interior_well.png",
+      "source": "assets/plains_v07/source/interiors-generated.png",
+      "source_rect": [
+        768,
+        512,
+        768,
+        512
+      ],
+      "size": [
+        384,
+        256
+      ],
+      "sha256": "1712887a8b9a09e0219e934d7ad0485c7f2ef950ec1dcb32f2d47e4c7d71a6dc"
+    },
+    "mill_masonry_atlas47": {
+      "image": "assets/plains_v07/native/mill_masonry_atlas47.png",
+      "source": "art/world-art-v2/assets/terrain47/gear_city.png",
+      "source_sha256": "bddf32a9d287cc45862795d28db79f2ab75443d94676089263a0d6fab8af3456",
+      "size": [
+        768,
+        192
+      ],
+      "method": "native32 unchanged pixels; three shared variants; canonical exact-boundary mask repack",
+      "sha256": "38d4ac886082637e15d3f4d834cb2aa5e6eb5dbeb3f469af5420812ed406a788"
+    },
+    "mill_masonry_source": {
+      "image": "assets/plains_v07/native/mill_masonry_source.png",
+      "source": "art/world-art-v2/assets/terrain47/gear_city.png",
+      "source_sha256": "bddf32a9d287cc45862795d28db79f2ab75443d94676089263a0d6fab8af3456",
+      "size": [
+        1056,
+        288
+      ],
+      "method": "native32 unchanged pixels; three shared variants; canonical exact-boundary mask repack",
+      "sha256": "4d6a8c6739e913dbbabfa0bf32bb30c874f03edc4e14ee32970854aa8c47ef7e"
+    }
+  },
+  "props": {
+    "barrel": {
+      "image": "assets/plains_v07/native/barrel.png",
+      "source": "assets/plains_v07/source/props-generated.png",
+      "source_rect": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "size": [
+        50,
+        48
+      ],
+      "bake_scale": 0.147239263803681,
+      "sha256": "7a97e9e0a039dd3f04e9b4ab0f2a37b04540f36b1fdbce14ec14fb0f25346d82"
+    },
+    "tilted_barrel": {
+      "image": "assets/plains_v07/native/tilted_barrel.png",
+      "source": "assets/plains_v07/source/props-generated.png",
+      "source_rect": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "size": [
+        63,
+        40
+      ],
+      "bake_scale": 0.14760147601476015,
+      "sha256": "5c794184d968a4e0ea169890d07ddf1a63b1bbd69bfb233a74c4e501caaba407"
+    },
+    "storage_crates": {
+      "image": "assets/plains_v07/native/storage_crates.png",
+      "source": "assets/plains_v07/source/props-generated.png",
+      "source_rect": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "size": [
+        83,
+        64
+      ],
+      "bake_scale": 0.1951219512195122,
+      "sha256": "073d7cc551db12c77132cb33ae792bc9c6273e1a2e48fa785c19dbf39146851a",
+      "ground_embed_world_units": 3
+    },
+    "merchant_counter": {
+      "image": "assets/plains_v07/native/merchant_counter.png",
+      "source": "assets/plains_v07/source/props-generated.png",
+      "source_rect": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "size": [
+        87,
+        80
+      ],
+      "bake_scale": 0.1927710843373494,
+      "sha256": "7c070eec7778b1a232e07441627e5ac76bf29a3ba4c7802e19d1f305b4689aed",
+      "ground_embed_world_units": 3
+    },
+    "hanging_chime": {
+      "image": "assets/plains_v07/native/hanging_chime.png",
+      "source": "assets/plains_v07/source/props-generated.png",
+      "source_rect": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "size": [
+        73,
+        72
+      ],
+      "bake_scale": 0.1643835616438356,
+      "sha256": "26aea5a940cff96a5c6f9d1e042b6020107584277a8870d6b8bac274bfaec687"
+    },
+    "travel_bundle": {
+      "image": "assets/plains_v07/native/travel_bundle.png",
+      "source": "assets/plains_v07/source/props-generated.png",
+      "source_rect": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "size": [
+        63,
+        24
+      ],
+      "bake_scale": 0.13186813186813187,
+      "sha256": "45ad2b6855ae25e201f3b8141067d2f510ba27e43bf42a45a126a9f02db77851",
+      "ground_embed_world_units": 3
+    },
+    "carriage": {
+      "image": "assets/plains_v07/native/carriage.png",
+      "source": "assets/plains_v07/source/architecture-generated.png",
+      "source_rect": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "size": [
+        233,
+        160
+      ],
+      "bake_scale": 0.4819277108433735,
+      "sha256": "59aca16922369a1fadf598e270481915259d16a5920f489713d0053083ab0324",
+      "ground_embed_world_units": 3
+    },
+    "waiting_shelter": {
+      "image": "assets/plains_v07/native/waiting_shelter.png",
+      "source": "assets/plains_v07/source/architecture-generated.png",
+      "source_rect": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "size": [
+        227,
+        176
+      ],
+      "bake_scale": 0.4743935309973046,
+      "sha256": "fcfd716a8ebfb60f737fea54e8c90d64da9b7f7550991d504c40ebbda45bf776",
+      "ground_embed_world_units": 3
+    },
+    "windmill_frame": {
+      "image": "assets/plains_v07/native/windmill_frame.png",
+      "source": "assets/plains_v07/source/architecture-generated.png",
+      "source_rect": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "size": [
+        264,
+        320
+      ],
+      "bake_scale": 0.6570841889117043,
+      "sha256": "fb8987e20f0389ca6bf5175c6c20c52b29e6a56e2f6b42192597138e6d6ff3e4"
+    },
+    "market_stalls": {
+      "image": "assets/plains_v07/native/market_stalls.png",
+      "source": "assets/plains_v07/source/architecture-generated.png",
+      "source_rect": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "size": [
+        216,
+        144
+      ],
+      "bake_scale": 0.4222873900293255,
+      "sha256": "2f79963bac103f477e3afd8f99026ff4903f9ca782773c445a48bc953d0a9a40"
+    },
+    "sunken_well": {
+      "image": "assets/plains_v07/native/sunken_well.png",
+      "source": "assets/plains_v07/source/architecture-generated.png",
+      "source_rect": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "size": [
+        215,
+        160
+      ],
+      "bake_scale": 0.4244031830238727,
+      "sha256": "fb95fcc724d520c1a6ca6a1e97c80c0e125e7f2769c406aa34f42d43b600534f"
+    },
+    "aqi_ribbon": {
+      "image": "assets/plains_v07/native/aqi_ribbon.png",
+      "source": "assets/plains_v07/source/story-traces-generated.png",
+      "source_rect": [
+        0,
+        0,
+        724,
+        724
+      ],
+      "size": [
+        38,
+        64
+      ],
+      "bake_scale": 0.14883720930232558,
+      "sha256": "809918dc7b7e264660e9d5af6c5e29e2ec0b77ecc2beaf8069172a502c90b039"
+    },
+    "aqi_note": {
+      "image": "assets/plains_v07/native/aqi_note.png",
+      "source": "assets/plains_v07/source/story-traces-generated.png",
+      "source_rect": [
+        724,
+        0,
+        724,
+        724
+      ],
+      "size": [
+        82,
+        80
+      ],
+      "bake_scale": 0.14260249554367202,
+      "sha256": "fc5623a77aef386ef05efc3082983c1188049a08a9a449a555ecf6d0a8892165"
+    },
+    "aqi_bench": {
+      "image": "assets/plains_v07/native/aqi_bench.png",
+      "source": "assets/plains_v07/source/story-traces-generated.png",
+      "source_rect": [
+        1448,
+        0,
+        724,
+        724
+      ],
+      "size": [
+        113,
+        96
+      ],
+      "bake_scale": 0.18568665377176016,
+      "sha256": "f4dc87760817897ebfb9b987b17d12ee9d36208cec9508088ea31f5dab1f11f2",
+      "ground_embed_world_units": 3
+    },
+    "world_clock_close": {
+      "image": "assets/plains_v07/native/world_clock_close.png",
+      "source": "assets/plains_v07/source/clocktower-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "size": [
+        342,
+        512
+      ],
+      "bake_scale": 0.3368421052631579,
+      "sha256": "27781aec01aea246785b018786c822be22822cc1a1cf41d03da112134df43394"
+    },
+    "world_clock_far": {
+      "image": "assets/plains_v07/native/world_clock_far.png",
+      "source": "assets/plains_v07/source/clocktower-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "size": [
+        117,
+        176
+      ],
+      "bake_scale": 0.11578947368421053,
+      "sha256": "6409166b7d93b44b2bf6500263b170f575d3017e1fd9f60b0cc515d1902dad05"
+    },
+    "plain_pier": {
+      "image": "assets/plains_v07/native/plain_pier.png",
+      "source": "assets/plains_v07/source/thresholds-generated.png",
+      "source_rect": [
+        0,
+        64,
+        316,
+        960
+      ],
+      "alpha_crop": [
+        49,
+        77,
+        291,
+        864
+      ],
+      "size": [
+        69,
+        224
+      ],
+      "bake_scale": 0.2846251588310038,
+      "generation": "assets/plains_v07/source/thresholds-generation.json",
+      "sha256": "5cc018d1eda20c7900b93c8002ca661193dcbfcfc9d3bcd8e305edf0cde19053"
+    },
+    "building_threshold": {
+      "image": "assets/plains_v07/native/building_threshold.png",
+      "source": "assets/plains_v07/source/thresholds-generated.png",
+      "source_rect": [
+        318,
+        0,
+        978,
+        960
+      ],
+      "alpha_crop": [
+        16,
+        46,
+        641,
+        926
+      ],
+      "size": [
+        193,
+        272
+      ],
+      "bake_scale": 0.3090909090909091,
+      "generation": "assets/plains_v07/source/thresholds-generation.json",
+      "sha256": "9193556c1d77f8451ac095c3a63da63a3f516f14591810f180e5fe960fbd68cf"
+    },
+    "well_threshold": {
+      "image": "assets/plains_v07/native/well_threshold.png",
+      "source": "assets/plains_v07/source/thresholds-generated.png",
+      "source_rect": [
+        982,
+        684,
+        1536,
+        960
+      ],
+      "alpha_crop": [
+        18,
+        55,
+        522,
+        240
+      ],
+      "size": [
+        196,
+        72
+      ],
+      "bake_scale": 0.3891891891891892,
+      "generation": "assets/plains_v07/source/thresholds-generation.json",
+      "sha256": "c2699111d0e844b6e54ae4ebc371219122ba47ba5898f2483034d46fe589ec35"
+    },
+    "orchard_arch_west": {
+      "image": "assets/plains_v07/native/orchard_arch_west.png",
+      "source": "assets/plains_v07/source/orchard-arches-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "alpha_crop": [
+        26,
+        97,
+        977,
+        656
+      ],
+      "alpha_threshold": 128,
+      "size": [
+        414,
+        243
+      ],
+      "bake_scale": 0.43537414965986393,
+      "surface_height": 192,
+      "generation": "assets/plains_v07/source/orchard-arches-generation.json",
+      "sha256": "b2b89356b38183dd9f6d036c60812d0042269be4ca8d1627fbd13c44d690506a"
+    },
+    "orchard_arch_east": {
+      "image": "assets/plains_v07/native/orchard_arch_east.png",
+      "source": "assets/plains_v07/source/orchard-arches-generated.png",
+      "source_rect": [
+        1024,
+        0,
+        1024,
+        768
+      ],
+      "alpha_crop": [
+        22,
+        104,
+        995,
+        656
+      ],
+      "alpha_threshold": 128,
+      "size": [
+        600,
+        340
+      ],
+      "bake_scale": 0.6167800453514739,
+      "surface_height": 272,
+      "generation": "assets/plains_v07/source/orchard-arches-generation.json",
+      "sha256": "50cfa0c7cfd2706aad6ce0d81cd3a6dcc0dbcb17f6498bb32001cbdd31e81f77"
+    },
+    "mill_gear": {
+      "image": "assets/plains_v07/native/mill_gear.png",
+      "source": "assets/plains_v07/source/mill-drive-generated.png",
+      "source_rect": [
+        0,
+        0,
+        800,
+        1024
+      ],
+      "alpha_crop": [
+        68,
+        157,
+        768,
+        866
+      ],
+      "alpha_threshold": 128,
+      "size": [
+        71,
+        72
+      ],
+      "bake_scale": 0.10155148095909731,
+      "generation": "assets/plains_v07/source/mill-drive-generation.json",
+      "sha256": "e892ec692dcf0a875b70e0c15d7b3dd353074b48002919325286e8ce3ad04043"
+    },
+    "mill_drive_frame": {
+      "image": "assets/plains_v07/native/mill_drive_frame.png",
+      "source": "assets/plains_v07/source/mill-drive-generated.png",
+      "source_rect": [
+        800,
+        0,
+        1536,
+        1024
+      ],
+      "alpha_crop": [
+        54,
+        78,
+        697,
+        944
+      ],
+      "alpha_threshold": 128,
+      "size": [
+        238,
+        320
+      ],
+      "bake_scale": 0.3695150115473441,
+      "generation": "assets/plains_v07/source/mill-drive-generation.json",
+      "sha256": "ce7080779d322539fd8e63a7656de85fb15efb0908b43c9304153ec0159fa705"
+    }
+  },
+  "validation": "native assets require actual Godot composite and animation review"
+}

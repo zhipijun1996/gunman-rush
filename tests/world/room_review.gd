@@ -1,0 +1,60 @@
+extends "res://tests/world/plains_intro.gd"
+## Review fixtures must preserve the campaign save and use real world handoffs.
+func tap(point: Vector2) -> void:
+	for down: bool in [true,false]:
+		var event:=InputEventScreenTouch.new()
+		event.index=4;event.pressed=down;event.position=point
+		root.push_input(event,true);await ticks(3)
+func run() -> void:
+	root.size=Vector2i(1280,720)
+	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
+	app.save_path="user://room_review_campaign.json"
+	for suffix: String in ["",".backup",".tmp",".corrupt"]:DirAccess.remove_absolute(app.save_path+suffix)
+	root.add_child(app)
+	check(app.start_new(),"create independent campaign fixture")
+	await settle()
+	app.return_title();await ticks(2)
+	var original:=FileAccess.get_file_as_string(app.save_path)
+	var storage:=app.state.storage
+	app.review.show();await ticks(3)
+	var stages:=app.ui.shell.find_child("ReviewStage",true,false) as OptionButton
+	await tap(stages.get_global_transform_with_canvas()*(stages.size/2))
+	var popup:=stages.get_popup()
+	check(popup.visible,"real touch opens capability picker")
+	var row_height:=popup.get_theme_font("font").get_height(popup.get_theme_font_size("font_size"))+popup.get_theme_constant("v_separation")
+	var top:=popup.get_theme_stylebox("panel").get_margin(SIDE_TOP)
+	await tap(Vector2(popup.position)+Vector2(120,top+row_height*1.5))
+	check(not popup.visible and stages.get_selected_metadata()=="h","real popup touch selects H and closes")
+	app._close_panel();await ticks(2)
+	check(not await app.review.begin("P-R08","","base"),"planned room cannot be loaded as completed content")
+	check(not await app.review.begin("P-R99","","base"),"unknown room rejected before changing save")
+	check(not await app.review.begin("P-R01","not-a-door","h"),"unknown entry rejected")
+	check(await app.review.begin("P-R22","INTRO-P22-P23:P-R22","h"),"review arrives through chosen real entry")
+	check(app.state.has("H") and not app.state.has("D"),"explicit H stage")
+	var east: Dictionary=app.room.doors.filter(func(d: Dictionary) -> bool: return d.id=="INTRO-P22-P23:P-R22")[0]
+	check(app.player.is_on_floor() and app.player.position.distance_to(FixedWorldProvider.point(east.landing_contract.safe_standing_position_world_units))<10,"normal entry lands before handoff")
+	var explored: Array=app.state.value.explored.duplicate()
+	app.ui.show_map();await ticks(3)
+	var maps:=app.ui.shell.find_children("*","FixedWorldMap",true,false)
+	check(maps.size()==1 and (maps[0] as FixedWorldMap).rows().size()==6,"review map exposes only the six built physical rooms")
+	check(app.state.value.explored==explored,"full review map does not grant campaign exploration")
+	app._close_panel();await ticks(2)
+	var lamp:=app.player.get_node("CarryLight") as PlayerCarryLight
+	check(lamp.global_position==app.player.global_position+FixedWorldProvider.point(lamp.settings.offset),"carry light is attached to actual body")
+	check(await walk(FixedWorldProvider.point(east.position_candidate.local_world_units)-Vector2(-6,18),"P-R22"),"ordinary walking crosses east door")
+	await settle()
+	check(app.room.room_id=="P-R23" and app.player.is_on_floor(),"review preserves actual adjacent-room transition")
+	check(app.player.get_node("CarryLight")==lamp,"same light survives room handoff")
+	check(FileAccess.get_file_as_string(app.save_path)==original,"exploration and save commits cannot touch campaign bytes")
+	check(await app.review.begin("P-R24","","hd"),"reset into different room and return-stage fixture")
+	check(app.state.has("H") and app.state.has("D"),"H+D explicit fixture")
+	check(await app.review.begin("P-R24","","base"),"fresh retry removes previous fixture progress")
+	check(not app.state.has("H") and not app.state.has("D"),"base retry has no inherited abilities")
+	app.review.leave();await ticks(2)
+	check(app.state.storage==storage and not app.review.active,"leaving review restores campaign storage")
+	check(FileAccess.get_file_as_string(app.save_path)==original,"leaving review preserves campaign bytes")
+	check(app.continue_world(),"campaign continue remains available")
+	await settle()
+	check(app.room.room_id=="P-R03" and not app.state.has("H"),"campaign resumes its own room and abilities")
+	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(8)
+	print("WORLD ROOM REVIEW: ",failures," failures");quit(failures)

@@ -13,7 +13,7 @@ func run() -> void:
 	app.save_path = "user://world_pack_test.json"
 	for suffix: String in ["",".backup",".tmp",".corrupt"]: DirAccess.remove_absolute(app.save_path+suffix)
 	root.add_child(app)
-	check(app.content.data.rooms.size()==5,"all five room contracts load from exported bundle")
+	check(app.content.data.rooms.size()==35,"all 35 room contracts load from exported bundle")
 	for id: String in app.content.data.rooms:
 		var request := LevelRequest.new()
 		request.room_id = id
@@ -25,6 +25,13 @@ func run() -> void:
 	if app.room != null:
 		check(app.room.room_id=="P-R03" and app.player.is_on_floor(),"normal start grounded")
 		print("PLAYER ",app.player.position," HP ",app.controller.actor_resources.health.current)
+	for id: String in app.content.data.rooms:
+		app.load_room(id,"")
+		for i: int in 240:
+			await physics_frame
+			if not app.busy:break
+		check(app.room!=null and app.room.room_id==id and app.controller.active,"packed room instantiates with native assets: "+id)
+	await WorldAudioLifecycle.drain_world(app)
 	app.queue_free()
 	await ticks(4)
 	print("WORLD PACK failures=",failed)

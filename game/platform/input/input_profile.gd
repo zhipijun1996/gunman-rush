@@ -39,6 +39,9 @@ func configure(candidate: Dictionary) -> bool:
 		return false
 	if not merged.keyboard is Dictionary:
 		return false
+	# Repair the shipped arrow-key typo when loading that exact older default pair.
+	if merged.keyboard.get("left",[]) == [65,4194321] and merged.keyboard.get("right",[]) == [68,4194323]:
+		merged.keyboard.left=[65,4194319];merged.keyboard.right=[68,4194321]
 	var used: Dictionary = {}
 	for action: String in ["left", "right", "up", "down", "jump", "shoot"]:
 		if not merged.keyboard.get(action) is Array:

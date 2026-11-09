@@ -53,18 +53,18 @@ def main():
          'without_return_door': unsupported,
          'scope': 'topological return path; landing/platform physics not simulated'})
     initial = model.initial()
-    reach = model.search(initial)['locations']
-    add('start_is_only_tutorial_before_actions', reach == {model.start_location},
-        {'start': list(model.start_location), 'reachable': [list(x) for x in sorted(reach)]})
-    for aid in ['tutorial_move', 'tutorial_shoot']:
-        model.perform(model.actions[aid], initial)
-    reach = model.search(initial)['locations']
-    add('unfinished_tutorial_does_not_open_station', reach == {model.start_location},
-        {'reachable': [list(x) for x in sorted(reach)]})
-    model.perform(model.actions['tutorial_recoil'], initial)
     reach = model.search(initial)['rooms']
-    add('tutorial_completion_leads_only_to_station_before_briefing',
-        reach == {'P-R03', 'P-R01'}, {'reachable_rooms': sorted(reach)})
+    intro = {'P-R03','P-R21','P-R22','P-R23','P-R24','P-R01'}
+    add('optional_tutorial_never_locks_the_station', intro <= reach and not initial.done,
+        {'reachable_rooms': sorted(reach), 'tutorial_route': sorted(intro)})
+    for aid in ['tutorial_move','tutorial_shoot','tutorial_recoil']:
+        action=model.actions[aid]
+        path=model.search(initial,[(action['room_id'],action.get('section_id','main'))])
+        if path: model.traverse(initial,path)
+        model.perform(action,initial)
+    add('tutorial_receipts_bind_three_distinct_physical_rooms',
+        {model.actions[a]['room_id'] for a in ['tutorial_move','tutorial_shoot','tutorial_recoil']}=={'P-R03','P-R21','P-R22'},
+        {'completed':sorted(initial.done)})
     station_path = model.search(initial, [('P-R01', 'main')])
     if station_path:
         model.traverse(initial, station_path)
@@ -253,7 +253,7 @@ def main():
     last = D[-1][1]
     model.allowed_regions = None
     reachable = model.search(last)
-    add('endgame_can_reach_all_216_room_subjects', set(model.rooms) == reachable['subject_rooms'],
+    add('endgame_can_reach_all_current_room_subjects', set(model.rooms) == reachable['subject_rooms'],
         {'subjects_reachable': len(reachable['subject_rooms']), 'total': len(model.rooms),
          'missing_subjects': sorted(set(model.rooms) - reachable['subject_rooms'])})
     add('all_twenty_two_bosses_have_actual_route_receipts', len(d['bosses_defeated']) == 22,

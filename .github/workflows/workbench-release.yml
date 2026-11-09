@@ -1,0 +1,74 @@
+name: Workbench game update
+on:
+  push:
+    branches: [main, feat/mobile-level-workbench]
+    paths:
+      - 'game/**'
+      - 'scripts/**'
+      - 'scenes/**'
+      - 'addons/**'
+      - 'resources/**'
+      - 'assets/**'
+      - 'art/**'
+      - 'config/**'
+      - 'tools/world/**'
+      - 'tools/workbench/**'
+      - 'tools/export_workbench.py'
+      - 'tools/setup_environment.py'
+      - 'tools/cloud_setup.sh'
+      - 'tools/build.py'
+      - 'tools/web/**'
+      - 'project.godot'
+      - 'export_presets.cfg'
+      - '.github/workflows/workbench-release.yml'
+      - '!tools/workbench/site-project.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: workbench-release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      GUNMAN_TOOLCHAIN_ROOT: /tmp/gunman-toolchains
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: config/ci_python_version.txt
+      - name: Install locked game engine and templates
+        run: bash tools/cloud_setup.sh --godot-only
+      - name: Validate clean-checkout imports
+        run: |
+          mkdir -p build/workbench/logs
+          set -o pipefail
+          python3 tools/ci.py --check import 2>&1 | tee build/workbench/logs/clean-import.log
+      - name: Build and verify the real workbench runtime
+        run: python3 tools/export_workbench.py --site-copy build/workbench/release-runtime
+      - name: Export game-authoritative rooms and component catalog
+        run: |
+          bash tools/godot.sh --headless --path . --script tools/world/workbench_scene_io.gd -- --export="$PWD/build/workbench/release-scenes.json"
+          python3 tools/world/workbench_seed.py --scenes build/workbench/release-scenes.json --output build/workbench/release-seed.json --runtime-available
+      - name: Package and publish a matching immutable game version
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WORKBENCH_CHANNEL: ${{ github.ref_name }}
+        run: |
+          python3 tools/workbench/release.py prepare --seed build/workbench/release-seed.json --runtime build/workbench/release-runtime --output build/workbench/release-assets --channel "$WORKBENCH_CHANNEL"
+          python3 tools/workbench/release.py publish --output build/workbench/release-assets
+      - name: Preserve build failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workbench-build-failure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            build/workbench/logs/
+            build/workbench/export-closure.json
+            build/verification/environment/setup-report.json
+          if-no-files-found: warn
+          retention-days: 7

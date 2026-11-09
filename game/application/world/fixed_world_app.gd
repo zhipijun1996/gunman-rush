@@ -3,8 +3,9 @@ extends Node2D
 ## Application use cases. Shared player/physics/services outlive each room.
 var content := FixedWorldProvider.new()
 var state := FixedWorldState.new()
-var save_path := "user://fixed_world_v1.json"
-var save_profile := "local"
+# The geometry migration preview has its own slot; never reinterpret old positions.
+var save_path := "user://fixed_world_plains04_construction.json"
+var save_profile := "plains04_construction"
 var player: PlayerMotor
 var controller: PlayerController
 var room: FixedWorldRoom
@@ -34,12 +35,13 @@ var preferences:=WorldSettings.new()
 var settings_view:=WorldSettingsView.new()
 var settings_path:="user://player_settings_v1.json"
 var build_state: BuildState
-var parallax: UnderworldParallax
 var _service_ticket:=0
 var _service_token: DemoToken
 var _npc_id:=""
 var _accepted_damage:=false
 var _last_notice:=""
+var review: WorldRoomReview
+var workbench: WorldWorkbenchBridge
 
 
 func _ready() -> void:
@@ -65,6 +67,11 @@ func _ready() -> void:
 	preferences.apply(null)
 	WorldText.configure(content.data.get("ui_texts",{}))
 	_make_ui()
+	review = WorldRoomReview.new()
+	review.app = self
+	workbench = WorldWorkbenchBridge.new()
+	workbench.setup(self)
+	if not workbench.enabled: review.requested()
 
 func _make_ui() -> void:
 	ui=FixedWorldUI.new()
@@ -131,6 +138,9 @@ func _create_player() -> void:
 	player.get_node("PlayerFeedback").hide()
 	player.add_child(PlayerPresentationRuntime.make_body(player,controller,"PixelPlainsActor"))
 	PlayerPresentationRuntime.attach(player)
+	var carry_light := PlayerCarryLight.new()
+	carry_light.settings = content.data.player.carry_light
+	player.add_child(carry_light)
 	build_state=BuildState.new()
 	build_state.configure(controller,lifetime,&"fixed_world")
 	build_state.commit_equipment_sources(services.effect_sources())
@@ -156,11 +166,9 @@ func _create_player() -> void:
 	tutorial.action_requested.connect(func(id: String) -> void: enqueue("action",id))
 	camera = WorldCamera.new()
 	(camera as WorldCamera).target=player
+	(camera as WorldCamera).controller=controller
 	(camera as WorldCamera).settings=content.data.player.camera
 	add_child(camera)
-	parallax=UnderworldParallax.new()
-	parallax.configure(camera)
-	add_child(parallax)
 	title.hide()
 	music.request_track(&"plains")
 
@@ -191,11 +199,19 @@ func load_room(id: String, entry: String) -> void:
 		busy = false
 		status = "房间身份不匹配"
 		return
+	next.configure(resolved.room)
+	var draft: Dictionary = resolved.get("draft", {})
+	if not draft.is_empty():
+		var draft_error := WorldRoomDraft.apply(next, draft)
+		if not draft_error.is_empty():
+			next.free()
+			busy = false
+			status = "草稿无法装载："+draft_error
+			return
 	var previous_room := room
 	var previous_position := player.position
 	var ticket := _acquire()
 	next.process_mode = Node.PROCESS_MODE_PAUSABLE
-	next.configure(resolved.room)
 	next.visible=false
 	add_child(next)
 	next.refresh_doors(state,content)
@@ -234,6 +250,7 @@ func load_room(id: String, entry: String) -> void:
 		status = "入口没有完整身体净空或实际支撑：" + id + "/" + entry
 		return
 	var candidate := _snapshot()
+	candidate=WorldTraveler.prepare(state,candidate,id)
 	candidate.room = id
 	candidate.entry = entry
 	if id not in candidate.explored: candidate.explored.append(id)
@@ -272,6 +289,8 @@ func load_room(id: String, entry: String) -> void:
 	policy.environment_return_requested.connect(func() -> void: _return = true)
 	room.install(controller,policy,lifetime,state.value.enemies,state.has(room.defeat_flag),entry_anchor)
 	room.bind_services(services,controller,policy,lifetime)
+	room.install_mechanisms(controller,lifetime,state.value.get("mechanisms",{}),func(id: String) -> void:enqueue("mechanism",id))
+	_refresh_traveler()
 	room.loot.pickup_requested.connect(func(id: String) -> void: enqueue("coin",id))
 	_apply_capabilities()
 	var bounds := FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units)
@@ -309,7 +328,7 @@ func load_room(id: String, entry: String) -> void:
 		for frame: int in ceili(float(motion.timeout_seconds)/get_physics_process_delta_time()):
 			await get_tree().physics_frame
 			if ticket!=_ticket: return
-			player.step(clampf((anchor.x-player.position.x)/float(motion.hop_steering_distance),-float(motion.hop_axis),float(motion.hop_axis)),get_physics_process_delta_time())
+			player.step(0,get_physics_process_delta_time())
 			if player.is_on_floor() and absf(player.position.x-anchor.x)<4: break
 	var upward_entry: bool=not resolved.entry.is_empty() and resolved.entry.direction=="down"
 	if upward_entry:
@@ -319,12 +338,12 @@ func load_room(id: String, entry: String) -> void:
 		controller.jump_ability.advance(get_physics_process_delta_time(),true)
 		controller.jump_ability.request_jump()
 		controller.jump_ability.try_jump(player)
-		controller.jump_ability.release_jump(player)
 	if entry_direction.is_empty(): await ui.finish_transition()
 	if upward_entry:
 		for frame: int in ceili(float(motion.timeout_seconds)/get_physics_process_delta_time()):
 			await get_tree().physics_frame
 			if ticket!=_ticket or not is_instance_valid(player): return
+			if frame==ceili(float(motion.hop_hold_seconds)/get_physics_process_delta_time()):controller.jump_ability.release_jump(player)
 			controller.jump_ability.update_hold(get_physics_process_delta_time(),player)
 			player.step(clampf((anchor.x-player.position.x)/float(motion.hop_steering_distance),-float(motion.hop_axis),float(motion.hop_axis)),get_physics_process_delta_time())
 			controller.jump_ability.after_move(player)
@@ -340,19 +359,23 @@ func load_room(id: String, entry: String) -> void:
 	busy = false
 	_door_ready = false
 	_queue.clear()
-	music.request_track(&"home" if not room.find_children("*","WorldNpc",true,false).is_empty() else &"plains")
+	music.request_track(&"home" if room.rest_point!=Vector2.ZERO or not room.find_children("*","WorldNpc",true,false).is_empty() else &"plains")
 	status = room.arrival_text if not room.arrival_text.is_empty() else str(room.contract.name)
 	tutorial.enter(room,player.position)
 	_npc_id=""
 
 func _apply_capabilities() -> void:
+	var resonance: Dictionary=content.data.collection_rules.resonance
+	controller.combat_energy.set_capacity_bonus(floorf(float(state.value.inventory.get("resonance_shard",0))/float(resonance.shards_per_upgrade))*float(resonance.capacity_gain_each))
 	if build_state!=null: build_state.commit_equipment_sources(services.effect_sources())
 	var rights: Dictionary={&"grapple":"H",&"double_jump":"D",&"wall_climb":"W"}
 	for id: StringName in rights:
 		var owned:=state.has(rights[id])
 		if controller.traversal.has_capability(id)!=owned: controller.traversal.grant(id,owned)
 	q_guard.owned = state.has("Q")
-	if room != null: room.refresh_doors(state,content)
+	if room != null:
+		room.refresh_doors(state,content)
+		_refresh_traveler()
 
 func _snapshot() -> Dictionary:
 	var candidate := state.value.duplicate(true)
@@ -362,6 +385,9 @@ func _snapshot() -> Dictionary:
 		candidate.combat_energy=controller.combat_energy.current
 	if room != null and room.cycle_at_load==int(state.value.cycle): candidate.enemies.merge(room.snapshot(),true)
 	if room!=null and room.loot!=null: room.loot.persist_into(candidate)
+	if room!=null:
+		if not candidate.has("mechanisms"):candidate.mechanisms={}
+		candidate.mechanisms.merge(room.mechanism_snapshot(),true)
 	return candidate
 
 func enqueue(kind: String,id: String) -> void:
@@ -381,6 +407,10 @@ func context_target() -> Dictionary:
 	if room.reward_point!=Vector2.ZERO and room.battle_finished and not state.value.receipts.has(room.reward_action):
 		var d:=player.position.distance_to(room.reward_point)
 		if d<80 and d<distance: best={"kind":"action","id":room.reward_action,"label":room.reward_text};distance=d
+	for host: WorldRoomInteraction in room.interaction_hosts:
+		var d:=player.position.distance_to(host.position)
+		if d<distance and host.available(player.position,room.section_at(player.position)):
+			best={"kind":"action","id":host.action_id,"label":host.label};distance=d
 	for pickup: Dictionary in services.definitions.get("pickups",[]):
 		if pickup.room_id!=room.room_id or pickup.id in services.ledger().collected: continue
 		var d:=player.position.distance_to(FixedWorldProvider.point(pickup.point))
@@ -394,7 +424,10 @@ func context_target() -> Dictionary:
 func _interact() -> void:
 	if busy or paused or room==null: return
 	var target:=context_target()
-	if not target.is_empty(): enqueue(target.kind,target.id)
+	if not target.is_empty():
+		# A real interaction consumes this shared up gesture, including non-modal pickups.
+		controller.router.camera_activity_serial += 1
+		enqueue(target.kind,target.id)
 
 func _physics_process(_delta: float) -> void:
 	_update_hud()
@@ -411,6 +444,10 @@ func _physics_process(_delta: float) -> void:
 		_fail_terrain()
 		return
 	if not lifetime.active: return
+	if player.is_on_floor():
+		for retry: Dictionary in room.retry_anchors:
+			if FixedWorldProvider.rect(retry.bounds).has_point(player.position) and room.section_at(player.position)==str(retry.get("section","main")):
+				entry_anchor=FixedWorldProvider.point(retry.point)
 	for enemy_id: String in room.enemies:
 		var key:="income:enemy:"+enemy_id+":cycle:"+str(room.cycle_at_load)
 		if room.enemies[enemy_id].health.terminal and not state.value.receipts.has(key): enqueue("income",enemy_id)
@@ -425,7 +462,7 @@ func _physics_process(_delta: float) -> void:
 	if room.encounter != null and room.encounter.health.terminal and not room.battle_finished:
 		enqueue("action",room.defeat_action)
 	for action: Dictionary in content.actions_in(room.room_id):
-		if action.room_id==room.room_id and action.type=="automatic_landmark" and not state.value.receipts.has(action.id): enqueue("action",action.id)
+		if action.room_id==room.room_id and str(action.get("section_id","main"))==room.section_at(player.position) and action.type=="automatic_landmark" and not state.value.receipts.has(action.id): enqueue("action",action.id)
 	if player.position.y > float(room.contract.world_geometry.bounds_world_units[3])+64:
 		_fail_terrain()
 	var near_door := false
@@ -441,12 +478,18 @@ func _physics_process(_delta: float) -> void:
 	for request: Dictionary in pending:
 		if not lifetime.accepts(request.token) or busy: continue
 		if request.kind == "action": _commit_action(str(request.id))
+		elif request.kind == "mechanism":_commit_mechanism(str(request.id))
 		elif request.kind == "focus_heal": _commit_focus_heal()
 		elif request.kind == "rest": _rest()
 		elif request.kind == "door": _cross(str(request.id))
 		elif request.kind == "npc": _open_npc(str(request.id))
 		elif request.kind == "sign":
 			if _pause_world():
+				var sign: Dictionary=room.signs[int(request.id)]
+				var action_id:=str(sign.get("action_ref",""))
+				if not action_id.is_empty() and not state.value.receipts.has(action_id):
+					var candidate:=state.action_candidate(action_id,room.room_id,room.section_at(player.position))
+					if not candidate.is_empty():state.commit(candidate,state.revision)
 				GameAudio.cue(self,&"confirm")
 				var panel:=ui.panel("dialogue",WorldText.text("dialogue.sign"),str(room.signs[int(request.id)].text))
 				panel.button(WorldText.text("dialogue.close"),_close_panel);panel.focus_first()
@@ -454,7 +497,7 @@ func _physics_process(_delta: float) -> void:
 			if services.request("collect",str(request.id),"pickup:"+str(request.id),state.revision):
 				status="零件已收好，回小站交给回收匠。"
 				GameAudio.cue(self,&"confirm")
-				room.queue_redraw()
+				room.celebrate_service_pickup(str(request.id));room.queue_redraw()
 		elif request.kind == "income":
 			var source:="enemy:"+str(request.id)+":cycle:"+str(room.cycle_at_load)
 			var actor: EnemyActor=room.enemies[str(request.id)]
@@ -476,9 +519,23 @@ func _drop_candidate(candidate: Dictionary,id: String,amount: int,origin: Vector
 	if id.begins_with("boss:"): safe=room.battle_entry_anchor
 	return services.drop_candidate(candidate,id,WorldCoinDrops.create_units(id,amount,origin,safe,room.room_id))
 
+func _commit_mechanism(id: String) -> void:
+	var latch:=room.mechanisms.get(id) as WorldShotLatch
+	if latch==null or not latch.can_commit():return
+	var candidate:=_snapshot();candidate.mechanisms[id]=latch.proposed_state()
+	if not state.commit(candidate,state.revision):
+		status="机关尚未保存，请再敲一次铃。";latch.cancel_pending();return
+	latch.accept_committed()
+
 func _commit_action(id: String) -> void:
-	if state.value.receipts.has(id): return
-	var candidate := state.action_candidate(id,room.room_id)
+	var action:=content.action(id)
+	if state.value.receipts.has(id) and not bool(action.get("repeat",false)): return
+	var host:=room.physical_action(id)
+	var section:=room.section_at(player.position)
+	if host!=null and not host.available(player.position,section):return
+	if host==null and action.get("type","") not in ["tutorial","automatic_landmark","boss_defeat"] and id!=room.reward_action:return
+	if action.get("type","")=="boss_defeat" and (room.encounter==null or not room.encounter.health.terminal):return
+	var candidate := state.action_candidate(id,room.room_id,section)
 	if candidate.is_empty(): return
 	candidate.hp = controller.actor_resources.health.current
 	candidate.combat_energy=controller.combat_energy.current
@@ -488,6 +545,10 @@ func _commit_action(id: String) -> void:
 		status = "保存失败，结果未提交："+state.error
 		return
 	if id == room.defeat_action: room.finish_battle()
+	if host!=null:
+		host.celebrate()
+		if content.action(id).type=="local_return":GameAudio.cue(self,&"bell")
+		else:GameAudio.cue_committed_reward(self,&"item_get",&"confirm")
 	if id == room.reward_action: GameAudio.cue(self,&"confirm")
 	_apply_capabilities()
 	status=WorldText.text("action."+id,str(content.action(id).get("description","进度已保存")))
@@ -520,7 +581,8 @@ func _rest() -> void:
 	controller.shoot_ability.clear_projectiles()
 	q_guard.cancel()
 	room.station_feedback=1.0
-	GameAudio.cue(self,&"confirm")
+	if room.station_animation!=null: room.station_animation.play_event()
+	GameAudio.cue(self,&"heal")
 	status=WorldText.text("rest.completed")
 
 func _fail_terrain() -> void:
@@ -532,7 +594,10 @@ func _fail_terrain() -> void:
 		return
 	controller.router.clear("terrain_return")
 	controller.shoot_ability.clear_projectiles()
+	ui.begin_transition()
 	player.reset_at(entry_anchor-Vector2(0,1))
+	(camera as WorldCamera).reset_view()
+	ui.finish_transition()
 	lifetime.invalidate_actor()
 	controller.session_id += 1
 	q_guard.cancel()
@@ -542,6 +607,9 @@ func _fail_terrain() -> void:
 func _recover_death() -> void:
 	tutorial.reset_proof()
 	var death_snapshot:=services.damage_candidate(state.value.duplicate(true)) if _accepted_damage else state.value.duplicate(true)
+	if room!=null:
+		if not death_snapshot.has("mechanisms"):death_snapshot.mechanisms={}
+		death_snapshot.mechanisms.merge(room.mechanism_snapshot(),true)
 	_accepted_damage=false
 	var candidate := services.rest_candidate(death_snapshot)
 	candidate.cycle += 1
@@ -621,7 +689,10 @@ func _ui_command(kind: String,_id: String) -> void:
 		"close": _close_panel()
 		"map": show_map()
 		"interact": _interact()
-		"title": return_title()
+		"title":
+			if review.active: review.leave()
+			else: return_title()
+		"review": review.show()
 		"inventory":
 			if controller!=null and (paused or _pause_world()):
 				_service_ticket+=1
@@ -642,13 +713,34 @@ func _start_from_title() -> void:
 		ui.title.show_notice(status)
 
 func _open_npc(id: String) -> void:
+	for node: Node in room.find_children("*","WorldNpc",true,false):
+		if node.npc_id==id: node.greet()
 	if not _pause_world(): return
 	_service_ticket+=1;_service_token=lifetime.token();_npc_id=id
-	services.request("meet",id,"meet:"+id,state.revision)
+	var identity:=_npc(id)
+	if id==WorldTraveler.ID:
+		var candidate:=WorldTraveler.talk_candidate(state,room.room_id)
+		if not candidate.is_empty():state.commit(candidate,state.revision)
+	else: services.request("meet",id,"meet:"+id,state.revision)
 	service_view.submit=_submit_service.bind(_service_ticket)
 	GameAudio.cue(self,&"confirm")
-	service_view.show_greeting(_npc(id))
+	service_view.show_greeting(identity)
+func _refresh_traveler() -> void:
+	var eligible:=not WorldTraveler.chapter(state,room.room_id).is_empty()
+	var existing: WorldNpc
+	for node: Node in room.find_children("*","WorldNpc",true,false):
+		if node.npc_id==WorldTraveler.ID:existing=node
+	if not eligible:
+		if existing!=null:room.remove_child(existing);existing.queue_free()
+		return
+	if existing!=null:return
+	var npc:=WorldNpc.new();npc.npc_id=WorldTraveler.ID;npc.display_name="阿栖"
+	var story:=WorldTraveler.chapter(state,room.room_id)
+	npc.chapter=str(story.get("visual_chapter",story.get("id","")))
+	npc.position=room.traveler_point
+	room.add_child(npc)
 func _npc(id: String) -> Dictionary:
+	if id==WorldTraveler.ID:return WorldTraveler.identity(state,room.room_id)
 	for npc: Dictionary in content.data.get("npcs",[]):
 		if npc.id==id: return npc
 	return {}
@@ -686,12 +778,11 @@ func return_title() -> void:
 	player.queue_free()
 	player = null
 	controller = null
-	room.queue_free()
+	if room != null: room.queue_free()
 	room = null
-	policy.queue_free()
+	if policy != null: policy.queue_free()
 	policy = null
 	ui.unbind()
-	if is_instance_valid(parallax): parallax.queue_free()
 	if is_instance_valid(camera): camera.queue_free()
 	build_state=null
 	music.request_track(&"home")
@@ -757,3 +848,4 @@ func _commit_focus_heal() -> void:
 	assert(spent and result.accepted(),"Preflighted resource commit must remain synchronous")
 	focus_heal.resolve(true)
 	GameAudio.cue(self,&"confirm")
+

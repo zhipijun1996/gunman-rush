@@ -4,7 +4,8 @@ extends Node2D
 var actor: EnemyActor
 var motion: PlainsMotion02
 var sample: EnemyFeedback01
-var rig: PlainsRevisionSkin
+var rig: RefCounted
+var authored_frames := false
 var pose: Dictionary = {}
 var _face := 1
 var _requested_face := 1
@@ -12,9 +13,10 @@ var _turn_age := 1.0
 var remains: PlainsRevisionRemains
 var particles: EnemyFeedback01Particles
 
-static func install(host: Node2D, owner_actor: EnemyActor, body_motion: PlainsMotion02) -> PlainsRevisionVisual:
+static func install(host: Node2D, owner_actor: EnemyActor, body_motion: PlainsMotion02, use_authored_frames := false) -> PlainsRevisionVisual:
 	var visual := PlainsRevisionVisual.new()
 	visual.name = "ArticulatedBody"
+	visual.authored_frames = use_authored_frames
 	var accepted := EnemyFeedback01.new(owner_actor.health,owner_actor.definition)
 	body_motion.sample = accepted
 	host.add_child(visual)
@@ -38,7 +40,7 @@ func remains_view() -> Dictionary:
 	# saved corpses from the authoritative brain while accepted deaths retain
 	# the last visible facing for a continuous lethal handoff.
 	var face := float(actor.brain.direction) if sample.restored_terminal else float(_face)
-	return {"rig":rig,"pose":pose.duplicate(true),"transform":global_transform,"contact_foot":actor.motor.global_position+Vector2(0,actor.definition.collision_size.y*.5),"face":face,"persistent":actor.definition.behavior_id==&"charger" or actor.get_meta(&"world_persistent_corpse",false),"death_seconds":1.1}
+	return {"rig":rig,"pose":pose.duplicate(true),"shader":(material as ShaderMaterial).shader,"transform":global_transform,"contact_foot":actor.motor.global_position+Vector2(0,actor.definition.collision_size.y*.5),"face":face,"persistent":actor.definition.behavior_id in [&"charger", &"diver"] or actor.get_meta(&"world_persistent_corpse",false),"death_seconds":1.1}
 
 func _exit_tree() -> void:
 	if is_instance_valid(remains): remains.dispose()
@@ -47,10 +49,10 @@ func configure(owner_actor: EnemyActor, body_motion: PlainsMotion02, accepted: E
 	actor = owner_actor
 	motion = body_motion
 	sample = accepted
-	rig = PlainsRevisionSkin.new(actor.definition.behavior_id)
+	rig = PlainsActorSkin.new(actor.definition.behavior_id) if authored_frames else PlainsRevisionSkin.new(actor.definition.behavior_id)
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	var shader_material := ShaderMaterial.new()
-	shader_material.shader = preload("res://game/enemies/presentation/plains_revision_skin.gdshader")
+	shader_material.shader = preload("res://game/presentation/actors/art/plains_actor_separation.gdshader") if authored_frames else preload("res://game/enemies/presentation/plains_revision_skin.gdshader")
 	material = shader_material
 	_face = actor.brain.direction
 	_requested_face = _face
@@ -78,6 +80,9 @@ func refresh(delta: float, state: Dictionary = {}) -> void:
 		air = get_world_2d().direct_space_state.intersect_ray(query).is_empty()
 	pose = {"clock":motion.clock,"stride":motion.stride,"travel":motion.travel,"load":motion.tension,"strike":motion.release,"recovery":motion.recovery,"hurt":sample.hurt_remaining/maxf(sample.tuning.hurt_seconds,.001),"turn":1.0-smoothstep(0,.18,_turn_age),"air":air,"vertical":(state.velocity as Vector2).y,"dead":false,"death":0.0}
 	pose["drive"] = motion.drive
+	pose["state"] = state.get("state", &"idle")
+	pose["state_time"] = state.get("state_time", 0.0)
+	pose["phase_duration"] = state.get("phase_duration", 1.0)
 	pose["body_follow"] = motion.body_follow
 	pose["appendage_follow"] = motion.appendage_follow
 	if _face!=_requested_face: pose["turn"] = -float(pose.turn)
@@ -89,4 +94,4 @@ func refresh(delta: float, state: Dictionary = {}) -> void:
 
 func _draw() -> void:
 	if rig == null or not visible: return
-	rig.draw_pose(self,pose,Color.WHITE)
+	rig.call("draw_pose",self,pose,Color.WHITE)

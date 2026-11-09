@@ -20,28 +20,45 @@ class BuildTests(unittest.TestCase):
             with self.subTest(key=key,value=value),self.assertRaisesRegex(ValueError,'focus heal'):
                 validate_player(invalid)
 
-    def test_navigation_map_uses_shared_physical_seams(self):
-        _, bundle=build()
-        rooms=bundle['rooms']
+    def test_navigation_is_one_physical_region_with_closed_door_seams(self):
+        contracts, bundle=build(); rooms={r['room_id']:r for r in contracts['rooms'] if r['room_id'].startswith('P-')}
         layouts=navigation_geometry(rooms,bundle['start']['room'])
+        opposites={'up':'down','down':'up','left':'right','right':'left'}
+        pairs=set()
+        self.assertTrue(any(len(v['polygon'])>4 for v in layouts.values()))
         for key,room in rooms.items():
+            layout=layouts[key]
+            self.assertNotIn('projection',layout)
+            self.assertNotIn('map_origin',room['world_geometry'])
             for door in room['doors']:
-                if not door['target_implemented']: continue
-                target=door['target_room']
-                paired=next(d for d in rooms[target]['doors'] if d['id']==door['target_door_id'])
-                for axis in (0,1):
-                    self.assertAlmostEqual(layouts[key]['origin'][axis]+door['position_candidate']['local_world_units'][axis],layouts[target]['origin'][axis]+paired['position_candidate']['local_world_units'][axis])
+                if door['target_room'] not in rooms:continue
+                target=rooms[door['target_room']]
+                paired=next(d for d in target['doors'] if d['id']==door['target_door_id'])
+                self.assertEqual(paired['target_room'],key)
+                self.assertEqual(paired['target_door_id'],door['id'])
+                self.assertEqual(paired['direction'],opposites[door['direction']])
+                self.assertEqual([layout['origin'][i]+door['position_candidate']['local_world_units'][i] for i in (0,1)],
+                                 [layouts[door['target_room']]['origin'][i]+paired['position_candidate']['local_world_units'][i] for i in (0,1)])
+                pairs.add(tuple(sorted([door['id'],paired['id']])))
+        self.assertEqual(len(rooms),35)
+        self.assertEqual(len(pairs),43)
 
-    def test_navigation_rejects_crowded_exits_and_conflicting_loops(self):
-        _,bundle=build();rooms=bundle['rooms']
+    def test_navigation_rejects_crowding_open_loops_and_old_projection(self):
+        contracts,bundle=build();rooms={r['room_id']:r for r in contracts['rooms'] if r['room_id'].startswith('P-')}
         crowded=copy.deepcopy(rooms)
         door=copy.deepcopy(crowded['P-R01']['doors'][0]);door['id']='fixture_crowded'
         crowded['P-R01']['doors'].append(door)
-        with self.assertRaisesRegex(ValueError,'Crowded'): navigation_geometry(crowded,'P-R03')
-        conflicting=copy.deepcopy(rooms)
-        for source,target,identity,pair,direction,point in [('P-R03','P-R06','fixture_a','fixture_b','up',[1408,0]),('P-R06','P-R03','fixture_b','fixture_a','right',[1520,100])]:
-            conflicting[source]['doors'].append({'id':identity,'target_room':target,'target_door_id':pair,'direction':direction,'position_candidate':{'local_world_units':point}})
-        with self.assertRaisesRegex(ValueError,'conflict'): navigation_geometry(conflicting,'P-R03')
+        with self.assertRaisesRegex(ValueError,'Crowded'):navigation_geometry(crowded,'P-R03')
+        displaced=copy.deepcopy(rooms)
+        door=next(d for d in displaced['P-R01']['doors'] if d['target_room']=='P-R08')
+        door['position_candidate']['local_world_units'][1]+=32
+        with self.assertRaisesRegex(ValueError,'seam'):navigation_geometry(displaced,'P-R03')
+        obsolete=copy.deepcopy(rooms)
+        obsolete['P-R01']['world_geometry']['map_origin']=[0,0]
+        with self.assertRaisesRegex(ValueError,'map_origin'):navigation_geometry(obsolete,'P-R03')
+        disconnected=copy.deepcopy(rooms)
+        for row in disconnected.values():row['doors']=[d for d in row['doors'] if d['target_room']!='P-R21']
+        with self.assertRaisesRegex(ValueError,'connected'):navigation_geometry(disconnected,'P-R03')
 
     def test_build_without_imported_archive_preserves_authored_scenes(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -50,12 +67,12 @@ class BuildTests(unittest.TestCase):
             shutil.copytree(ROOT/'game/world/regions',root/'game/world/regions')
             before={str(p.relative_to(root)):p.read_bytes() for p in (root/'game').rglob('*.tscn')}
             contracts,bundle=build(root)
-            self.assertEqual(len(contracts['rooms']),216)
+            self.assertEqual(len(contracts['rooms']),309)
             actions={a['action_ref']:a for r in contracts['rooms'] for a in r['interactions']}
             self.assertEqual(actions['tutorial_move']['trigger'],'accepted_player_action')
             self.assertEqual(actions['defeat_P_WINDKEEPER']['trigger'],'actual_boss_victory')
             self.assertFalse(actions['station_briefing']['arriving_does_not_grant'])
-            self.assertEqual(set(bundle['rooms']),{'P-R03','P-R01','P-R08','P-R06','P-R14'})
+            self.assertEqual(set(bundle['rooms']),{f'P-R{i:02}' for i in (1,3,21,22,23,24)})
             self.assertEqual(before,{str(p.relative_to(root)):p.read_bytes() for p in (root/'game').rglob('*.tscn')})
             (root/'game/world/regions/P/rooms/P-R03.tscn').unlink()
             with self.assertRaisesRegex(ValueError,'scene missing'):build(root)

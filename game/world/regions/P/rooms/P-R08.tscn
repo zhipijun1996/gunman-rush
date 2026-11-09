@@ -1,12 +1,32 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=5 format=3]
 [ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
 [node name="P-R08" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R08"
-platforms = Array[Rect2]([Rect2(0, 800, 624, 50), Rect2(96, 712, 160, 20), Rect2(336, 624, 192, 20), Rect2(96, 536, 160, 20), Rect2(336, 448, 192, 20), Rect2(96, 360, 160, 20), Rect2(336, 272, 192, 20), Rect2(256, 192, 256, 24), Rect2(80, 144, 240, 32)])
-one_way_indices = Array[int]([1, 2, 3, 4, 5, 6, 7])
-hook_points = Array[Vector2]([Vector2(384, 112), Vector2(260, 510)])
-environment_zones = Array[Dictionary]([{"id":"trial_dark","mode":"dark","bounds":[32,620,560,190]}])
-start_point = Vector2(144, 782)
-enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([{"text": "↑ 风铃岔路", "point": [64, 700]}, {"text": "← 小站", "point": [24, 760]}])
+art_profile = "well"
+bell_mechanisms = Array[Dictionary]([{"id":"P-R08:well_lift","bell":[704,2616],"carrier":"WellLift","access_bells":[[832,1360],[960,1480],[592,2200],[592,1816],[592,1432],[592,1048],[592,664],[672,104]]}])
+arrival_text = "封井回廊"
+platforms = Array[Rect2]([Rect2(0,2720,448,96),Rect2(288,2688,160,32),Rect2(576,2688,448,128),Rect2(32,2256,608,64),Rect2(32,1872,608,64),Rect2(32,1488,608,64),Rect2(288,1104,352,64),Rect2(288,720,352,64),Rect2(288,336,256,64),Rect2(576,160,192,32),Rect2(0,2720,288,32),Rect2(576,2688,192,128)])
+one_way_indices = Array[int]([])
+spike_strips = Array[Dictionary]([{"id":"lower_wall","bounds":[966,1968,26,160],"facing":"left"},{"id":"upper_wall","bounds":[870,448,26,160],"facing":"left"}])
+start_point = Vector2(144,2702)
+rest_point = Vector2(0, 0)
+enemy_placements = Array[Dictionary]([{"id":"P-R08:encounter:01","behavior":"patrol","point":[416,2670],"max_health":10},{"id":"P-R08:encounter:02","behavior":"hopper","point":[520,2238],"max_health":10}])
+signs = Array[Dictionary]([{"point":[224,2640],"text":"旧井不再打水。射击井铃能起停提水吊台；侧廊的铃也能停靠吊台，壁刺之间留着检修落点。"}])
+hook_points = Array[Vector2]([])
+section_volumes = Array[Dictionary]([])
+retry_anchors = Array[Dictionary]([{"bounds":[480,2196,96,60],"point":[528,2238],"section":"main"},{"bounds":[480,1812,96,60],"point":[528,1854],"section":"main"},{"bounds":[480,1428,96,60],"point":[528,1470],"section":"main"},{"bounds":[480,1044,96,60],"point":[528,1086],"section":"main"},{"bounds":[480,660,96,60],"point":[528,702],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"gear_city_v2_pipe_junction","point":[224,2688],"layer":-2},{"asset":"gear_lamp","point":[480,1488],"layer":-2,"light":true},{"asset":"gear_lamp","point":[480,720],"layer":-2,"light":true}])
+gear_obstacles = Array[Dictionary]([{"id":"well_cam","point":[832,1232],"travel":[-128,0],"period":4.8,"phase":0.6}])
+masonry_platform_indices = Array[int]([0,1,2,3,4,5,6,7,8])
+illustrated_platform_indices = Array[int]([])
+[node name="WellLift" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(832,2640)
+endpoint = Vector2(0, -2480)
+platform_size = Vector2(80, 20)
+period = 25.0
+one_way = true

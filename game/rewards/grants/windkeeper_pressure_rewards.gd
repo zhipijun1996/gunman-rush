@@ -17,7 +17,9 @@ static func spawn(stage: PlainsRegionStage, encounter: WindkeeperPressureEncount
 	if hit.is_empty() or (hit.normal as Vector2).dot(Vector2.UP) < .7: return false
 	var safe := stage.to_local(hit.position) - Vector2(0, 12)
 	var pose := encounter.rig_pose()
-	var origin_world := encounter.motor.to_global((pose.core_transform as Transform2D).origin)
+	# Coins emerge from the collapsed load-bearing torso. The protruding chest
+	# medallion can overhang a narrow shelf; it must not move the loot into a pit.
+	var origin_world := encounter.motor.to_global((pose.body_transform as Transform2D).origin)
 	var origin := stage.to_local(origin_world)
 	var output := {"kind":"coin", "amount":definition.reward_coin_total,
 		"coin_total":definition.reward_coin_total, "content_version":"windkeeper-pressure-coins-v1",
