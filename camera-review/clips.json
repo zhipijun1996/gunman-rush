@@ -7,105 +7,80 @@
   "clips": [
     {
       "id": "arena-entry",
-      "title": "Boss入场：恒定缩放，缓慢平移",
-      "scope": "既有P14隔离测试场地；保持探索1.6缩放与原战场尺寸。",
+      "title": "Boss入场：保持缩放，向战场边界平移",
+      "scope": "P14既有场地沿正式应用隔离装载；实际激活与入场。",
       "files": {
         "before": {
           "file": "arena-entry-before.mp4",
-          "bytes": 1451607,
-          "sha256": "458a7dc43d09215640a9d826f9b044d3bc15b5236744fe8dd4dad65251ba4a8b",
-          "seconds": 4.88
+          "bytes": 1320892,
+          "sha256": "f71695df738b6c73675669cacb2cf44b0f907720648f37d95a97230d6d6ea73d",
+          "seconds": 4.58
         },
         "after": {
           "file": "arena-entry-after.mp4",
-          "bytes": 1477739,
-          "sha256": "4cc29cbb2c934295d14c24217ae47295e5c6d9ba4733d69907be10f769cd1c66",
-          "seconds": 4.88
+          "bytes": 1391137,
+          "sha256": "d8d08b9929a1c91afe61ce4da9f2a6322d4448f65d940dc458991aa22fbd7e96",
+          "seconds": 4.58
         },
         "compare": {
           "file": "arena-entry-compare.mp4",
-          "bytes": 1669650,
-          "sha256": "5d2ab9d06be8f675d643c2b6361bceca0e330b2b30560180f21bb28730a16049"
+          "bytes": 1576398,
+          "sha256": "442ac0f5e9e5ea7c1f1eaa2c35f7ecb68e4063bc812f24284ec1b6bc4d0bdae1"
         }
       },
-      "baseline_commit": "e0cdd1f0"
+      "baseline_commit": "f773c45d"
     },
     {
-      "id": "vertical-cycle",
-      "title": "原地短跳与满跳",
-      "scope": "P23实际跳跃输入；保留基础构图，动作仅作微幅偏移。",
+      "id": "left-wall",
+      "title": "左墙贴屏幕边缘与震动",
+      "scope": "独立边界夹具：进入战斗后暂停Boss AI；实际封墙碰撞和角色行走输入不变。",
       "files": {
         "before": {
-          "file": "vertical-cycle-before.mp4",
-          "bytes": 767291,
-          "sha256": "a6a1b7f3474abc6fc0ed383b15c381b81edb4664831fd38f45bddfba08434302",
-          "seconds": 4.73
+          "file": "left-wall-before.mp4",
+          "bytes": 274891,
+          "sha256": "07e6d30bdaf26f82809d5f229eec34b3e3a14fc0c3c5db3c8fb69e89cbb11819",
+          "seconds": 3.83
         },
         "after": {
-          "file": "vertical-cycle-after.mp4",
-          "bytes": 667242,
-          "sha256": "bf6f964e000011a47cb7165ee69f2875cc68c80a8eccc56afa79e27eaa94bbeb",
-          "seconds": 4.73
+          "file": "left-wall-after.mp4",
+          "bytes": 203661,
+          "sha256": "5751b980ffc5c23c25d191dd06b3bdf78ba04df17e88335152ef30305c401a9d",
+          "seconds": 3.83
         },
         "compare": {
-          "file": "vertical-cycle-compare.mp4",
-          "bytes": 843896,
-          "sha256": "514050c3ee2d09b9de5ad7de42ca21ceeeca729b05ea00f5de1f497a67ea9884"
+          "file": "left-wall-compare.mp4",
+          "bytes": 272964,
+          "sha256": "6bc2b8824d2b6ed01852742caf9ecc5970f0aaf8c932bd50df88fccb699b836d"
         }
       },
-      "baseline_commit": "e0cdd1f0"
+      "baseline_commit": "f773c45d"
     },
     {
-      "id": "ascending",
-      "title": "连续跳上三级高台",
-      "scope": "P23既有石阶；实际控制器连续上行，观察起跳、跟随与高处落地。",
+      "id": "right-wall",
+      "title": "右墙贴屏幕边缘与震动",
+      "scope": "独立边界夹具：进入战斗后暂停Boss AI；实际封墙碰撞和角色行走输入不变。",
       "files": {
         "before": {
-          "file": "ascending-before.mp4",
-          "bytes": 680003,
-          "sha256": "c3583c9fc78b373e432672e1c0df3655593e9d9b041a831fef961e4b81d369f9",
-          "seconds": 3.42
+          "file": "right-wall-before.mp4",
+          "bytes": 229933,
+          "sha256": "52c9329b43f3cbfe81a38393ab7dc52a69b54f14fdf6137c8017e8fed82f9c66",
+          "seconds": 3.83
         },
         "after": {
-          "file": "ascending-after.mp4",
-          "bytes": 658566,
-          "sha256": "8915a39f16f265dff2a87ac3190ccfeef7959adbe612520495a3a6c9f771b83b",
-          "seconds": 3.42
+          "file": "right-wall-after.mp4",
+          "bytes": 192817,
+          "sha256": "4b4d7ba3dc2c1b1fdc9daa93a75e4aaa8a88ec5cc1d52acdb9935905fa261ceb",
+          "seconds": 3.83
         },
         "compare": {
-          "file": "ascending-compare.mp4",
-          "bytes": 822455,
-          "sha256": "0c6fdbff2428c07b14a7120ecdf3afcbd327f415bffb7a816bfa0e1dee781ab0"
+          "file": "right-wall-compare.mp4",
+          "bytes": 247186,
+          "sha256": "8397cd091c29a27f24acb06c6f0ce17aecdd424edbccd186b6be4be57045e1f1"
         }
       },
-      "baseline_commit": "e0cdd1f0"
-    },
-    {
-      "id": "descending",
-      "title": "连续走落三级低台",
-      "scope": "沿同一石阶返回；实际走落与落地，观察下降预读和落地恢复。",
-      "files": {
-        "before": {
-          "file": "descending-before.mp4",
-          "bytes": 834159,
-          "sha256": "4ee65329c1a5a4b17e0a099e5dbf4f068fe60b49aeac0fb6d06b0bea81212b86",
-          "seconds": 3.52
-        },
-        "after": {
-          "file": "descending-after.mp4",
-          "bytes": 721683,
-          "sha256": "4d9c98c4614ed19b87d312f180b0dfa09005894373efa1fb7c96ba6191db640e",
-          "seconds": 3.52
-        },
-        "compare": {
-          "file": "descending-compare.mp4",
-          "bytes": 948095,
-          "sha256": "a0c9af67303f8c421de215bafe6f5212ca187676f819d9b4f07ec2a0aede2ba9"
-        }
-      },
-      "baseline_commit": "e0cdd1f0"
+      "baseline_commit": "f773c45d"
     }
   ],
-  "web_build": "d4e11d5d3f96",
-  "source_commit": "f56f7eda5d6b9d98809a7eeaf6ed25650c32cc19"
+  "web_build": "c9a4725df221",
+  "source_commit": "db4635dfb5af9f40d9c722f6cffc89739ee28555"
 }
