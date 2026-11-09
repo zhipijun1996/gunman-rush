@@ -169,6 +169,12 @@ func locked_traverse_snapshot() -> bool:
 	var before_metrics: Dictionary = encounter.combat_metrics()
 	var old_support: Rect2 = before_metrics.get("support_rect", Rect2())
 	var start: Vector2 = app.stage.boss.global_position
+	# With the faster traversal, begin the adversary near its shelf's inner
+	# edge, reached by ordinary ground input before the locked warning.
+	app.controller.router.set_source_axis(&"keyboard_mouse", signf(old_support.get_center().x - app.player.global_position.x))
+	await ticks(12)
+	app.controller.router.set_source_axis(&"keyboard_mouse", 0)
+	check(app.player.is_on_floor(), "retarget adversary reaches inner shelf stance through real grounded movement")
 	begin_controlled_group(&"sweep") # Its real out-of-range preparation must traverse.
 	var warning_target := Vector2.INF
 	var target_rect := Rect2()
@@ -182,6 +188,9 @@ func locked_traverse_snapshot() -> bool:
 		if encounter.mode == &"traverse_warning":
 			warning_target = metrics.get("locked_hop_target", Vector2.INF)
 			target_rect = metrics.get("hop_target_rect", Rect2())
+			# React to the committed warning through normal input.
+			app.controller.router.set_source_axis(&"keyboard_mouse", signf(old_support.get_center().x - app.player.global_position.x))
+			app.controller.router.set_jump_held(&"keyboard_mouse", true)
 		if bool(metrics.get("airborne", false)):
 			took_off = true
 			break

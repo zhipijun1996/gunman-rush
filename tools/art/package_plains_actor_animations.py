@@ -76,6 +76,7 @@ def main():
     movie_ids = {'bellstrider':'bell','windkeeper_phase1':'keeper','windkeeper_phase2':'windmill'}
     movies = [[f"mobile-combat/{movie_ids.get(name,name)}.mp4",label] for name,label in LABELS.items()]
     if (OUT/'mobile-combat/bell_wave.mp4').exists():movies.insert(8,['mobile-combat/bell_wave.mp4','鸣铃巡游机 · 地波与抛铃'])
+    if (OUT/'mobile-combat/pounce.mp4').exists():movies.append(['mobile-combat/pounce.mp4','牧风者扑击 · 穿身与停留对照'])
     (OUT/'review.html').write_text(template.replace('PAYLOAD',payload).replace('MOVIES',json.dumps(movies,ensure_ascii=False)))
     with zipfile.ZipFile(OUT/'plains-animations-pr142.zip','w',zipfile.ZIP_DEFLATED) as archive:
         for p in ART.rglob('*'):

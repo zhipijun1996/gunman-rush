@@ -70,7 +70,7 @@ func setup() -> bool:
 	encounter = app.stage.boss.get_node("Encounter")
 	check(encounter.get_script().resource_path == "res://game/bosses/windkeeper/windkeeper_pressure_encounter.gd", "formal BossFactory route instantiates current pressure encounter")
 	check(encounter.definition.resource_path == "res://resources/bosses/windkeeper_storm.tres", "formal consumer retains authoritative storm Definition entry")
-	check(encounter.health.capacity == 60 and encounter.health.current == 60, "formal current resource starts requested60HP")
+	check(encounter.health.capacity == 510 and encounter.health.current == 510, "formal current resource starts requested510HP")
 	var boss: BossMotor = app.stage.boss
 	var x := boss.global_position.x - 230.0
 	var query := PhysicsRayQueryParameters2D.create(Vector2(x, boss.global_position.y + 25), Vector2(x, boss.global_position.y + 230), 1, [app.player.get_rid()])

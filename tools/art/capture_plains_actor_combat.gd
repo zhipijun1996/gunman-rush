@@ -28,7 +28,7 @@ func run() -> void:
 		# Review-only framing shows both actors, their feet and real terrain.
 		# No production camera, Actor, movement or damage settings are changed.
 		app.camera.set_physics_process(false)
-		app.camera.zoom=Vector2.ONE*(4.0/3.0)
+		app.camera.zoom=Vector2.ONE*(1.0 if encounter is WindkeeperPressureEncounter else 4.0/3.0)
 		var floor_y: float=boss.global_position.y+65
 		app.camera.global_position=Vector2((boss.global_position.x+start.x)*.5,floor_y-160)
 		app.camera.force_update_scroll()
@@ -52,6 +52,9 @@ func run() -> void:
 			if test.id=="keeper" and frame>120 and frame<720:
 				axis=1.0 if frame<360 else -1.0
 				if app.player.is_on_floor() and absf(dx)<240:jump_until=frame+28
+			if encounter is WindkeeperPressureEncounter and encounter.mode==&"lunge":
+				axis=-float(encounter.locked_direction)
+				jump_until=-1
 			router.set_source_axis(&"keyboard_mouse",axis)
 			var danger:bool=(encounter.mode==&"roll" and absf(dx)<250) or encounter.mode in [&"rings",&"stomp",&"sweep",&"seeds",&"gust"]
 			if danger and app.player.is_on_floor():jump_until=frame+22
@@ -84,6 +87,6 @@ func _frame_combat(boss: Node2D, encounter: Node, floor_y: float) -> void:
 	var bottom:=maxf(floor_y+80,maxf(app.player.global_position.y+50,boss.global_position.y+90))
 	# A fixed review magnification lets the user compare body dimensions.
 	# Reframing may pan, but never changes actor scale between moves/phases.
-	app.camera.zoom=Vector2.ONE*(4.0/3.0)
+	app.camera.zoom=Vector2.ONE*(1.0 if encounter is WindkeeperPressureEncounter else 4.0/3.0)
 	app.camera.global_position=Vector2((left+right)*.5,(top+bottom)*.5)
 	app.camera.force_update_scroll()

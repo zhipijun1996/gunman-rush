@@ -272,6 +272,9 @@ func _selection_candidates() -> Array[Dictionary]:
 			{"attacks": [&"sweep", &"seeds"], "weight": 1.1},
 			{"attacks": [&"stomp", &"sweep"], "weight": .8}]
 	for candidate: Dictionary in candidates:
+		var toward := -1 if _target.global_position.x < motor.global_position.x else 1
+		if stage_phase < 3 and &"lunge" in candidate.attacks and arena.travel_limit(motor.global_position.x,toward)<_config().lunge_min_distance:
+			candidate.weight = 0.0
 		var key := _group_key(candidate.attacks)
 		var repeats := 0
 		for index: int in range(_recent_groups.size() - 1, -1, -1):
@@ -364,7 +367,7 @@ func _try_retreat() -> bool:
 	if stage_phase == 3 and _supports_bound:
 		var next := _next_support_index(motor.global_position.x, away)
 		if next < 0 or next == _support_index: return false
-		if not _lock_support_hop(next, _config().lunge_peak_speed, false): return false
+		if not _lock_support_hop(next, _config().lunge_peak_speed, false, _config().retreat_height): return false
 	else:
 		var distance := minf(_config().retreat_distance, arena.travel_limit(motor.global_position.x, away))
 		if distance < 48.0: return false
@@ -445,13 +448,38 @@ func _begin_attack(facing_committed: bool = false) -> void:
 				if distance < nearest: nearest = distance; chase_segment = index
 	if attack == &"lunge" and stage_phase == 3 and _supports_bound:
 		var destination := _next_support_index(_target.global_position.x, locked_direction)
-		if destination < 0 or not _lock_support_hop(destination, _config().lunge_peak_speed, false):
+		if destination < 0 or not _lock_support_hop(destination, _config().lunge_peak_speed, false, _config().lunge_height):
 			_event(&"windkeeper_support_unavailable")
 			_finish_attack()
 			return
-	var duration := _config().sweep_warning_seconds if attack == &"sweep" else _config().platform_warning_seconds if attack == &"platform" else _config().normal_warning_seconds
+	# Ground pounce targets are locked before the readable warning; walking
+	# underneath works because the real body rises, not because contact is off.
+	if attack == &"lunge" and not (stage_phase == 3 and _supports_bound):
+		if not _prepare_ground_lunge():
+			_finish_attack()
+			return
+	var duration := _config().lunge_warning_seconds if attack == &"lunge" else _config().sweep_warning_seconds if attack == &"sweep" else _config().platform_warning_seconds if attack == &"platform" else _config().normal_warning_seconds
 	_enter(StringName("%s_warning" % attack), duration)
 	_event(StringName("windkeeper_%s_warning" % attack), {"attack": attack, "point": locked_target, "direction": locked_direction, "double_stomp": bool(_group_plan.double_stomp)})
+
+func _prepare_ground_lunge() -> bool:
+	var distance := clampf((locked_target.x-motor.global_position.x)*locked_direction+_config().lunge_landing_offset, _config().lunge_min_distance, _config().lunge_max_distance)
+	distance = minf(distance, arena.travel_limit(motor.global_position.x,locked_direction))
+	# Do not turn a high crossing attack into a point-blank hop at the wall.
+	if distance < _config().lunge_min_distance: return false
+	_hop_start = motor.global_position
+	_hop_target = _hop_start+Vector2(locked_direction*distance,0)
+	_hop_target_index = -1
+	_hop_age = 0.0
+	_hop_duration = _config().lunge_seconds
+	_hop_height = _config().lunge_height
+	_hop_is_baseline = true
+	_hop_prepared = true
+	_hop_active = false
+	_lunge_start = _hop_start
+	_lunge_distance = distance
+	_lunge_distance_done = 0.0
+	return true
 
 func _platform_for_target() -> Vector2:
 	var feet := _target.global_position + Vector2(0, 18)
@@ -505,25 +533,15 @@ func _release_attack() -> void:
 	_enter(attack, duration)
 	_event(&"windkeeper_attack", {"attack": attack, "point": locked_target})
 	if attack == &"lunge":
-		if stage_phase == 3 and _supports_bound and _hop_prepared:
-			_start_prepared_hop()
-			_lunge_start = _hop_start
-			_lunge_distance = absf(_hop_target.x - _hop_start.x)
-			_event(&"windkeeper_lunge_start", {"point": _hop_target})
+		# Normal paths already prepared the endpoint before the warning. The
+		# fallback also supports old saves/test entry directly into a warning.
+		if not _hop_prepared and not _prepare_ground_lunge():
+			_finish_attack()
 			return
-		_lunge_start = motor.global_position
-		_lunge_distance_done = 0.0
-		_lunge_distance = minf(_config().lunge_peak_speed * duration * (2.0 / 3.0), arena.travel_limit(motor.global_position.x, locked_direction))
-		_hop_start = _lunge_start
-		_hop_target = _lunge_start + Vector2(locked_direction * _lunge_distance, 0)
-		_hop_target_index = -1
-		_hop_age = 0.0
-		_hop_duration = duration
-		_hop_height = _config().lunge_height
-		_hop_is_baseline = true
-		_hop_prepared = false
-		_hop_active = true
-		_event(&"windkeeper_lunge_start")
+		_start_prepared_hop()
+		_lunge_start = _hop_start
+		_lunge_distance = absf(_hop_target.x-_hop_start.x)
+		_event(&"windkeeper_lunge_start", {"point": _hop_target})
 	elif attack == &"seeds":
 		_release_seeds()
 	elif attack == &"sweep":
@@ -1123,7 +1141,7 @@ func _standing_on_support() -> bool:
 	var stance := _stance_half_width()
 	return absf(motor.global_position.y + 65 - slab.position.y) <= .75 and motor.global_position.x - stance >= slab.position.x - .5 and motor.global_position.x + stance <= slab.end.x + .5
 
-func _lock_support_hop(index: int, speed_limit: float, start_immediately: bool = true) -> bool:
+func _lock_support_hop(index: int, speed_limit: float, start_immediately: bool = true, arc_height: float = -1.0) -> bool:
 	if not _support_valid(index): return false
 	var slab := _support_rects[index]
 	_hop_start = motor.global_position
@@ -1131,7 +1149,7 @@ func _lock_support_hop(index: int, speed_limit: float, start_immediately: bool =
 	_hop_target_index = index
 	_hop_age = 0.0
 	var displacement := _hop_target - _hop_start
-	_hop_height = maxf(_config().lunge_height, absf(displacement.y) * .55)
+	_hop_height = maxf(_config().support_hop_height if arc_height < 0 else arc_height, absf(displacement.y) * .55)
 	# P(p)=start+D*p+(0,-4h*p*(1-p)). Its derivative is affine;
 	# the maximum vector speed is exactly bounded by the two endpoint norms.
 	var peak := maxf((displacement + Vector2(0, -4 * _hop_height)).length(), (displacement + Vector2(0, 4 * _hop_height)).length())
