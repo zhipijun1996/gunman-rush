@@ -1,11 +1,60 @@
 {
-  "baseline_commit": "29bd6b58",
   "fps": 60,
   "playback": "normal speed",
-  "capture": "Godot native movie; matched input/geometry; matched main captures 3662 frames; separate narrow-room capture. Not target-device performance.",
+  "capture": "Native Godot matched input; per-clip baseline explicit. Current after clips all re-recorded. Not device performance.",
+  "camera_sha256": "5cf2bdd1d92c444fd344e71fbd0f648771df5080ec194382321599a911e2349e",
   "input_profile_sha256": "2e84e1f7e54338d25eea07bb86d94cbbe00bfa7b22160570f93f3764ac56b5f5",
-  "camera_sha256": "2005c56eb6a2a5588a70819e5733e95821b578cd2a4cf7a89c799879b18831eb",
   "clips": [
+    {
+      "id": "arena-entry",
+      "title": "Boss入场平滑拉至全场",
+      "scope": "既有P14场地沿正式应用隔离装载；没有改变战场尺寸或角色物理。",
+      "files": {
+        "before": {
+          "file": "arena-entry-before.mp4",
+          "bytes": 1177104,
+          "sha256": "bc20f79cd932311a160eac61cd92badb96ea9897329c1709bfed4c46951c39fb",
+          "seconds": 4.3
+        },
+        "after": {
+          "file": "arena-entry-after.mp4",
+          "bytes": 1393904,
+          "sha256": "7e346950cd883d84dc9a05717e954e6141a9440741c1b3021d9b5e2e2ed6b47c",
+          "seconds": 4.3
+        },
+        "compare": {
+          "file": "arena-entry-compare.mp4",
+          "bytes": 1450253,
+          "sha256": "7c6e970537f6d13999a07f94a89ca4d83ce90a810e979430ec00036b22591188"
+        }
+      },
+      "baseline_commit": "beb8dab8"
+    },
+    {
+      "id": "vertical-cycle",
+      "title": "起跳、顶点居中、下落与落地回升",
+      "scope": "P23实际跳跃输入；对比两版观察节奏，地形和角色物理相同。",
+      "files": {
+        "before": {
+          "file": "vertical-cycle-before.mp4",
+          "bytes": 396535,
+          "sha256": "e0f2ee4903daadb283465c1d4121dbd0c6932f13dd8ba5f034060f077a9f7263",
+          "seconds": 2.9
+        },
+        "after": {
+          "file": "vertical-cycle-after.mp4",
+          "bytes": 437205,
+          "sha256": "e0fab1c2a8f853a90bb29ce286f4e75615188696b5bf3cee635e626c7799438f",
+          "seconds": 2.9
+        },
+        "compare": {
+          "file": "vertical-cycle-compare.mp4",
+          "bytes": 493924,
+          "sha256": "310a0729ae0ca4ea84dadb5a9f58fde923a97a06a43dbe3121d3c626228d0c33"
+        }
+      },
+      "baseline_commit": "beb8dab8"
+    },
     {
       "id": "turn-fire",
       "title": "平路转向与反向射击",
@@ -24,11 +73,12 @@
         },
         "compare": {
           "file": "turn-fire-compare.mp4",
-          "bytes": 606070,
-          "sha256": "26252fd5b14ae8ac93a47f17c53f1972024940285de765a56e78b2970243bd5d"
+          "bytes": 605743,
+          "sha256": "edc58993653ad065826e0e4b4391896f2222a9268eeec470812467714ab41e22"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "recoil",
@@ -42,17 +92,18 @@
         },
         "after": {
           "file": "recoil-after.mp4",
-          "bytes": 933309,
-          "sha256": "277ca0934dfd37c433702269b6b54ecfc70cc25843500187b0acc8805a30cccf",
+          "bytes": 923131,
+          "sha256": "60ffc95ba62bf9d3e9c1f82b6c0525329b5f6bfdf9aff3634f2a3a3a0dcac7dc",
           "seconds": 5.25
         },
         "compare": {
           "file": "recoil-compare.mp4",
-          "bytes": 1075124,
-          "sha256": "1bc179a44b089705d7e48d8e19f1cb2fc3b47a0c2a7a52daff6f02374a500c5f"
+          "bytes": 1061415,
+          "sha256": "1232254ee75be2581492a04a662f8549058d0e9a0fcfe087d172b26afd525f23"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "shaft",
@@ -66,17 +117,18 @@
         },
         "after": {
           "file": "shaft-after.mp4",
-          "bytes": 1144279,
-          "sha256": "7a5efac6b07ac0e81ffb74b86d0ec7fc1ba8ad47f412e25a8e24875941f54616",
+          "bytes": 1149346,
+          "sha256": "5ec662dcdc498ebc9cac31ad75fea2e67cb079a6f01753cc952b8095c7b00aa0",
           "seconds": 5.8
         },
         "compare": {
           "file": "shaft-compare.mp4",
-          "bytes": 1325665,
-          "sha256": "ae7eff0a5670cb6dba0a640b5ac54cc41d97fa8b3d3fd0121f0166feb0b3d3d9"
+          "bytes": 1329358,
+          "sha256": "db92d7f9b0e76f4801d81f2449a4224f3b5a8deec2ac5065b03b9cb808e377d5"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "look",
@@ -90,17 +142,18 @@
         },
         "after": {
           "file": "look-after.mp4",
-          "bytes": 1063125,
-          "sha256": "05f452176870b5cad34568ff0aa2a25d3762efb2c6de811aaefd00a0d75492f4",
+          "bytes": 1085518,
+          "sha256": "aabe370a7b879a23e4de98d11ba9028f728d89b4540da4d4ecbfb11606a7ffef",
           "seconds": 6.67
         },
         "compare": {
           "file": "look-compare.mp4",
-          "bytes": 846932,
-          "sha256": "5ede4272899fb774cd8488f195639676a25949c5f2b470e79a87f6c649ec8907"
+          "bytes": 865771,
+          "sha256": "36cd0d0a947aa29e789281286e773ea223f0ddeaa28d11dc04e0398611103d32"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "corner",
@@ -114,17 +167,18 @@
         },
         "after": {
           "file": "corner-after.mp4",
-          "bytes": 669479,
-          "sha256": "fa65a59393a68bb1272477041d4f440481561ef612e24ff1d8baf781bbdd185a",
+          "bytes": 692016,
+          "sha256": "0c025c8799d297607494f3c76432dfbab6ba4d4fecccaa1d390eef433e9b8783",
           "seconds": 3.88
         },
         "compare": {
           "file": "corner-compare.mp4",
-          "bytes": 694279,
-          "sha256": "8188961dfc51f0f97ad9a1c4cdaca027bec6704f0e2a22973a47a4cc7db0d983"
+          "bytes": 713091,
+          "sha256": "1441dfc0eaedcc27becd6cf1cf6e78a04eb455a13c5a1f596ddd4b09889524e3"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "door",
@@ -144,11 +198,12 @@
         },
         "compare": {
           "file": "door-compare.mp4",
-          "bytes": 495095,
-          "sha256": "4a00a12c4a7293309d9dd2264b8f56aa3efe1ff2aacfa084293aaa8407b65955"
+          "bytes": 493807,
+          "sha256": "878fbd03943d059497d15f1dca0260b2a9b5d18e4c571ad335f3d2267b5f7dfc"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "secret-turnback",
@@ -168,11 +223,12 @@
         },
         "compare": {
           "file": "secret-turnback-compare.mp4",
-          "bytes": 388273,
-          "sha256": "bd215e4408ce55acf4fa9a7179f98bd68ef20e7e45f22e8d2c02e7e63f6bdcd8"
+          "bytes": 389025,
+          "sha256": "08981f2f0a1e804067172196a15bd295e7c46f8d02195e8659d6ced5564eb39e"
         }
       },
-      "scope": "隔离夹具：沿正式应用/状态/控制器，在P23现有地形上配置同场景隐藏连接；非新增正式隐藏房。"
+      "scope": "隔离夹具：沿正式应用/状态/控制器，在P23现有地形上配置同场景隐藏连接；非新增正式隐藏房。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "secret-return",
@@ -186,17 +242,18 @@
         },
         "after": {
           "file": "secret-return-after.mp4",
-          "bytes": 1377080,
-          "sha256": "1a538c43c90025ba519bce3fb2862083e55402c740a04a0baeaa55b3147c1f39",
+          "bytes": 1468829,
+          "sha256": "8cefd54e0b5db920384867318e2f7c14ad97ff3077f567c1cb30565fe7411a0e",
           "seconds": 6.3
         },
         "compare": {
           "file": "secret-return-compare.mp4",
-          "bytes": 1393413,
-          "sha256": "d0d66cdb4bd138f8f411d53dd6043e53e021d048b0b66582bc2da301a96da0d1"
+          "bytes": 1474302,
+          "sha256": "d59abd21d7c2a41688477c3bf1dfde372289769250694e83c370dd7165f2eda5"
         }
       },
-      "scope": "隔离夹具：沿正式应用/状态/控制器，在P23现有地形上配置同场景隐藏连接；非新增正式隐藏房。"
+      "scope": "隔离夹具：沿正式应用/状态/控制器，在P23现有地形上配置同场景隐藏连接；非新增正式隐藏房。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "hook",
@@ -210,17 +267,18 @@
         },
         "after": {
           "file": "hook-after.mp4",
-          "bytes": 576882,
-          "sha256": "1d548d2816ef2b80b2d8e6a551b1fbc5cd06b42d673746ced602c80bedd46b38",
+          "bytes": 638960,
+          "sha256": "e5a83ac2a09d93145de59bf10f1f2066c2611cb64bc632f66ddacacc5b1aab96",
           "seconds": 3.08
         },
         "compare": {
           "file": "hook-compare.mp4",
-          "bytes": 659929,
-          "sha256": "9860769ad2ccab5d2f092484b5fcee31cff6ba0c281d0adbb50f614ce456b46f"
+          "bytes": 707369,
+          "sha256": "14d78eed8546f9f467e6fa52579f54b701172673314936ec7cdb80ece3ae56c6"
         }
       },
-      "scope": "既有P14 Boss/H场景，由正式应用装载到隔离施工合同；未声明在当前六房流程可达。"
+      "scope": "既有P14 Boss/H场景，由正式应用装载到隔离施工合同；未声明在当前六房流程可达。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "boss-respawn",
@@ -234,17 +292,18 @@
         },
         "after": {
           "file": "boss-respawn-after.mp4",
-          "bytes": 908273,
-          "sha256": "13a6cec6b440882430f306e5af4bf8433fb9c9ccd4334f8da8189581f4e9d87e",
+          "bytes": 1172847,
+          "sha256": "5e28cfa2353a3264b9f25e33c5a5a5855f17cfd178968e9e419518e5cf3c5072",
           "seconds": 3.85
         },
         "compare": {
           "file": "boss-respawn-compare.mp4",
-          "bytes": 1007699,
-          "sha256": "9f4af883b692ad0c756499d4952a9d61ba01dbe5c9f2dc04731ed0d989a4487c"
+          "bytes": 1115533,
+          "sha256": "f0006f989c3bf544e4ab47b1b9aebc9be0b0796fefb71e825f8b77960396f238"
         }
       },
-      "scope": "既有P14 Boss/H场景，由正式应用装载到隔离施工合同；未声明在当前六房流程可达。"
+      "scope": "既有P14 Boss/H场景，由正式应用装载到隔离施工合同；未声明在当前六房流程可达。",
+      "baseline_commit": "29bd6b58"
     },
     {
       "id": "small-room",
@@ -264,13 +323,14 @@
         },
         "compare": {
           "file": "small-room-compare.mp4",
-          "bytes": 93239,
-          "sha256": "4ce05b691d4505799702ae7026b39c8e1875ecc38b6a67d88754dad7dcc332db"
+          "bytes": 93794,
+          "sha256": "f44f46ba8b4e505703631fbff93b240951db5c6ecad175fb277666b057f49896"
         }
       },
-      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。"
+      "scope": "当前六房正式场景；起点为声明的逐房夹具，片段内使用实际输入。",
+      "baseline_commit": "29bd6b58"
     }
   ],
-  "web_build": "e58793233e8e",
-  "source_commit": "fa4fb9aa10238b080a8d149da19c1e918483cf95"
+  "web_build": "cdbd68be4e70",
+  "source_commit": "bb9613cc4f624e4864670e6d72eb0b4c99ef9f2f"
 }
