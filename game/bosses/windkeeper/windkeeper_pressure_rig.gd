@@ -66,8 +66,6 @@ static func sample(data: Dictionary) -> Dictionary:
 	if mode == &"turn":
 		body_angle -= sin(progress * PI) * .07
 		head_angle += sin(progress * PI) * .14
-		feet[0].x += sin(progress * PI) * 12
-		feet[2].x -= sin(progress * PI) * 9
 	if mode == &"stomp_warning":
 		var load := smoothstep(0, .82, progress)
 		body_shift += Vector2(-11, -3) * load
@@ -90,29 +88,38 @@ static func sample(data: Dictionary) -> Dictionary:
 			feet[1-foot_index] += Vector2(13,-22)
 		bell_swing -= sin(progress*PI) * .32
 		sail_tension = .45
-	elif mode == &"lunge_warning":
-		var load := smoothstep(0,.85,progress)
-		body_shift += Vector2(-10,18)*load
-		body_angle += .10*load
-		feet[0].x += 13*load
-		feet[1].x += 8*load
-		feet[2].x -= 16*load
-		feet[3].x -= 12*load
-		head_angle += .17*load
-		sail_open *= 1-.35*load
-		bell_swing += .27*load
-	elif mode == &"lunge":
-		# Motor owns the real rise/fall. Only articulation is changed here.
-		var launch := smoothstep(0,.22,progress)
-		var landing := smoothstep(.72,1,progress)
-		body_shift.y += lerpf(18,-2,launch)+landing*15
-		body_angle += lerpf(.10,-.035,launch)-landing*.055
-		feet[0] += Vector2(lerpf(13,28,launch),-34*sin(progress*PI))
-		feet[1] += Vector2(lerpf(8,19,launch),-26*sin(progress*PI))
-		feet[2] += Vector2(-30*sin(progress*PI),-12*sin(progress*PI))
-		feet[3] += Vector2(-22*sin(progress*PI),-21*sin(progress*PI))
-		sail_open *= .65 + landing*.35
-		bell_swing += sin(progress*PI)*.38
+	elif mode in [&"lunge_warning", &"retreat_warning"]:
+		# Load and HOLD on planted feet. Forward and backward takeoffs have
+		# opposite weight shifts; the owner does not move during this tell.
+		var backward := mode == &"retreat_warning"
+		var load := smoothstep(0,.68,progress)
+		body_shift += Vector2(12 if backward else -13,23)*load
+		body_angle += (-.08 if backward else .09)*load
+		head_angle += (.08 if backward else .17)*load
+		sail_open *= 1-.25*load
+		bell_swing += (-.10 if backward else .15)*load
+	elif mode in [&"lunge", &"retreat"]:
+		# Real ballistic motion belongs to Motor. Articulation follows three
+		# readable beats: push off, compact flight, then extend toward landing.
+		var backward := mode == &"retreat"
+		var extend := smoothstep(0,.16,progress)
+		var tuck := smoothstep(.12,.40,progress)
+		var reach := smoothstep(.65,.96,progress)
+		body_shift += Vector2(lerpf(12 if backward else -13,0,extend),lerpf(23,-4,extend))
+		body_angle += lerpf(-.08 if backward else .09,.045 if backward else -.065,extend)*(1-reach)
+		head_angle += lerpf(.08 if backward else .17,-.04,extend)*(1-reach)
+		for index: int in 4:
+			var front := index < 2
+			var pushing := front if backward else not front
+			var stretch: Vector2 = FOOT_ANCHORS[index]+Vector2(14 if backward else -14,8 if pushing else -8)
+			var folded := Vector2(35 if front else -32,18 if front else 28)
+			folded += Vector2(-7 if backward else 7,5 if index%2 else 0)
+			var foot: Vector2 = FOOT_ANCHORS[index].lerp(stretch,extend).lerp(folded,tuck)
+			# The leading landing pair reaches first, the other pair follows.
+			var pair_reach := smoothstep(.70 if pushing else .62,.99 if pushing else .94,progress)
+			feet[index] = foot.lerp(FOOT_ANCHORS[index],pair_reach)
+		sail_open *= .75+reach*.25
+		bell_swing += sin(progress*PI)*(.12 if backward else -.18)
 	elif mode in [&"sweep_warning", &"sweep"]:
 		var preparing := mode == &"sweep_warning"
 		var load := smoothstep(0,.84,progress) if preparing else 1.0

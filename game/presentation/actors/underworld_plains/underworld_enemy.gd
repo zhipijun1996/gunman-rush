@@ -17,8 +17,8 @@ var revision_visual: PlainsRevisionVisual
 func _ready() -> void:
 	if EnemyPresentationBinding.bind_existing(actor,self,&"underworld").is_empty(): return
 	if actor.definition.behavior_id==&"root_bell": RootBellPulseArt.configure(self)
-	if PlainsRevisionSkin.supports(actor.definition):
-		revision_visual = PlainsRevisionVisual.install(self,actor,body_motion)
+	if PlainsActorSkin.supports(actor.definition):
+		revision_visual = PlainsRevisionVisual.install(self,actor,body_motion,true)
 		feedback_sample = revision_visual.sample
 		feedback_particles = revision_visual.particles
 		feedback_remains = revision_visual.remains
@@ -125,7 +125,11 @@ func _exit_tree() -> void:
 	lifecycle.dispose()
 
 func _presentation_health_changed(result: ActorResourceResult) -> void:
-	if feedback_sample != null: return
+	if feedback_sample != null:
+		# Accepted health already updated the shared sample. Publish the first
+		# authored hurt/death pose now, before this physics tick can be drawn.
+		if revision_visual != null: revision_visual.refresh(0.0)
+		return
 	if result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0 or result.snapshot.terminal: return
 	_hurt = feedback.hurt_seconds
 	accepted_hurt_count += 1

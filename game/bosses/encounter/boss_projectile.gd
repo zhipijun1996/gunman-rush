@@ -59,7 +59,7 @@ func advance(delta: float) -> void:
 	if _visual_trail.size() > 7: _visual_trail.pop_front()
 	if not _visual_launched:
 		_visual_launched = true
-		if _visible_attack(): UnderworldProjectileVisual.emit(self,global_position,direction,false,false)
+		if _visible_attack(): _emit_visual(global_position,false)
 	queue_redraw()
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
@@ -83,7 +83,7 @@ func advance(delta: float) -> void:
 		query.motion = Vector2.ZERO
 		query.transform.origin = contact_point + direction * 0.1
 		var collisions := initial if not initial.is_empty() else space.intersect_shape(query, 8)
-		if _visible_attack(): UnderworldProjectileVisual.emit(self,contact_point,direction,false,true)
+		if _visible_attack(): _emit_visual(contact_point,true)
 		spent = true
 		# Terrain occludes simultaneous wall/actor contacts, independent of query order.
 		for contact: Dictionary in collisions:
@@ -116,7 +116,7 @@ func advance_frozen_contact() -> void:
 		dispose()
 		return
 	spent = true
-	if _visible_attack(): UnderworldProjectileVisual.emit(self,global_position,direction,false,true)
+	if _visible_attack(): _emit_visual(global_position,true)
 	hit.emit(_target,event_id,amount)
 	queue_free()
 
@@ -125,6 +125,9 @@ func dispose() -> void:
 		return
 	spent = true
 	queue_free()
+
+func _emit_visual(point: Vector2, impact: bool) -> void:
+	UnderworldProjectileVisual.emit(self,point,direction,false,impact)
 
 func _visible_attack() -> bool:
 	return not (str(event_id).begins_with("windblade") or str(event_id).begins_with("pier-"))

@@ -5,6 +5,11 @@ var wave := false
 var _attack_owner: WeakRef
 var _owner_epoch := -1
 
+func _ready() -> void:
+	super._ready()
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+
+
 func bind_attack(owner: Node, epoch: int) -> void:
 	_attack_owner = weakref(owner)
 	_owner_epoch = epoch
@@ -36,16 +41,12 @@ func advance_frozen_contact() -> void:
 		return
 	super.advance_frozen_contact()
 
+func _emit_visual(point: Vector2, impact: bool) -> void:
+	var owner := _attack_owner.get_ref() as Node if _attack_owner != null else null
+	PlainsBossEffects.spawn(get_parent(),owner,point,&"wind",2,.28,Vector2.ONE*(1.0 if impact else .45))
+
 func _draw() -> void:
 	if wave:
-		var color := Color("d2c386")
-		# Paint the full real circle: no invisible upper half above a low arc.
-		draw_circle(Vector2.ZERO, radius, Color(color, .12))
-		draw_arc(Vector2.ZERO, radius, PI, TAU, 12, color, 1.5, false)
-		draw_arc(Vector2.ZERO, radius, 0, PI, 12, Color("8d9979"), 1.5, false)
+		PlainsBossEffects.paint(self,&"wind",1,fposmod(_visual_age*10,1),Vector2.ZERO,Vector2(signf(direction.x),1)*radius/12.0)
 	else:
-		var angle := direction.angle()
-		draw_set_transform(Vector2.ZERO, angle, Vector2.ONE * maxf(1, radius) / 9.0)
-		draw_colored_polygon(PackedVector2Array([Vector2(9,0),Vector2(-3,-5),Vector2(-8,0),Vector2(-3,5)]), Color("b0b585"))
-		draw_line(Vector2(-5,0),Vector2(6,0),Color("e0c789"),2)
-		draw_set_transform(Vector2.ZERO)
+		PlainsBossEffects.paint(self,&"wind",0,fposmod(_visual_age*10,1),Vector2.ZERO,Vector2.ONE,direction.angle())

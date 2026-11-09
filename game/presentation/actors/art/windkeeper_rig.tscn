@@ -1,0 +1,368 @@
+[gd_scene load_steps=20 format=3]
+
+[ext_resource type="Script" path="res://game/presentation/actors/art/plains_boss_rig.gd" id="1"]
+[ext_resource type="Shader" path="res://game/presentation/actors/art/plains_actor_separation.gdshader" id="2"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_torso.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_head.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_cape.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_banner.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_tail.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_pole.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_rotor.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_front_upper.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_front_lower.png" id="11"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_rear_upper.png" id="12"]
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_rear_lower.png" id="13"]
+
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/windkeeper_medallion.png" id="medallion"]
+
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/front_wind_torso.png" id="front0"]
+
+[ext_resource type="Texture2D" path="res://assets/plains_boss_rigs_142/front_wind_head.png" id="front1"]
+
+[sub_resource type="ShaderMaterial" id="surface"]
+resource_local_to_scene = true
+shader = ExtResource("2")
+
+[sub_resource type="Animation" id="cloth"]
+resource_name = "cloth"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Skeleton/Torso/Cape:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6), "transitions": PackedFloat32Array(1,1,1,1,1), "update": 0, "values": [0.0, 0.035, 0.0, -0.035, 0.0]}
+
+[sub_resource type="AnimationLibrary" id="library"]
+_data = {&"cloth": SubResource("cloth")}
+
+[node name="windkeeper" type="Node2D"]
+script = ExtResource("1")
+family = "windkeeper"
+texture_filter = 1
+
+[node name="Skeleton" type="Skeleton2D" parent="."]
+
+[node name="Torso" type="Bone2D" parent="Skeleton"]
+position = Vector2(0, -55)
+rest = Transform2D(1, 0, 0, 1, 0, -55)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 2
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso"]
+texture = ExtResource("3")
+material = SubResource("surface")
+centered = false
+position = Vector2(-89, -62)
+
+[node name="Head" type="Bone2D" parent="Skeleton/Torso"]
+position = Vector2(64, -12)
+rest = Transform2D(1, 0, 0, 1, 64, -12)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 4
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Head"]
+texture = ExtResource("4")
+material = SubResource("surface")
+centered = false
+position = Vector2(-33, -78)
+
+[node name="Cape" type="Bone2D" parent="Skeleton/Torso"]
+position = Vector2(-35, -45)
+rest = Transform2D(1, 0, 0, 1, -35, -45)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 3
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Cape"]
+texture = ExtResource("5")
+material = SubResource("surface")
+centered = false
+position = Vector2(-118, -5)
+
+[node name="Banner" type="Bone2D" parent="Skeleton/Torso"]
+position = Vector2(57, 0)
+rest = Transform2D(1, 0, 0, 1, 57, 0)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 3
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Banner"]
+texture = ExtResource("6")
+material = SubResource("surface")
+centered = false
+position = Vector2(-19, -6)
+
+[node name="Tail" type="Bone2D" parent="Skeleton/Torso"]
+position = Vector2(-76, 4)
+rest = Transform2D(1, 0, 0, 1, -76, 4)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 1
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Tail"]
+texture = ExtResource("7")
+material = SubResource("surface")
+centered = false
+position = Vector2(-60, -20)
+
+[node name="Pole" type="Bone2D" parent="Skeleton/Torso/Head"]
+position = Vector2(-12, -42)
+rest = Transform2D(1, 0, 0, 1, -12, -42)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 3
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Head/Pole"]
+texture = ExtResource("8")
+material = SubResource("surface")
+centered = false
+position = Vector2(-24, -100)
+
+[node name="Rotor" type="Bone2D" parent="Skeleton/Torso/Head/Pole"]
+position = Vector2(8, -88)
+rest = Transform2D(1, 0, 0, 1, 8, -88)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 4
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Head/Pole/Rotor"]
+texture = ExtResource("9")
+material = SubResource("surface")
+centered = false
+position = Vector2(-65, -65)
+
+[node name="Upper0" type="Bone2D" parent="Skeleton/Torso"]
+position = Vector2(45, 20)
+rest = Transform2D(1, 0, 0, 1, 45, 20)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 4
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper0"]
+texture = ExtResource("10")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -10)
+
+[node name="Lower0" type="Bone2D" parent="Skeleton/Torso/Upper0"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 4
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper0/Lower0"]
+texture = ExtResource("11")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -8)
+
+region_enabled = true
+region_rect = Rect2(0, 0, 44, 44)
+
+[node name="Upper1" type="Bone2D" parent="Skeleton/Torso"]
+position = Vector2(45, 20)
+rest = Transform2D(1, 0, 0, 1, 45, 20)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 0
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper1"]
+texture = ExtResource("10")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -10)
+modulate = Color(0.70, 0.76, 0.77, 1)
+
+[node name="Lower1" type="Bone2D" parent="Skeleton/Torso/Upper1"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 0
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper1/Lower1"]
+texture = ExtResource("11")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -8)
+modulate = Color(0.70, 0.76, 0.77, 1)
+
+region_enabled = true
+region_rect = Rect2(0, 0, 44, 44)
+
+[node name="Upper2" type="Bone2D" parent="Skeleton/Torso"]
+position = Vector2(-46, 20)
+rest = Transform2D(1, 0, 0, 1, -46, 20)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 4
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper2"]
+texture = ExtResource("12")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -10)
+
+[node name="Lower2" type="Bone2D" parent="Skeleton/Torso/Upper2"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 4
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper2/Lower2"]
+texture = ExtResource("13")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -8)
+
+region_enabled = true
+region_rect = Rect2(0, 0, 44, 44)
+
+[node name="Upper3" type="Bone2D" parent="Skeleton/Torso"]
+position = Vector2(-46, 20)
+rest = Transform2D(1, 0, 0, 1, -46, 20)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 0
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper3"]
+texture = ExtResource("12")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -10)
+modulate = Color(0.70, 0.76, 0.77, 1)
+
+[node name="Lower3" type="Bone2D" parent="Skeleton/Torso/Upper3"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 56.0
+z_index = 0
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper3/Lower3"]
+texture = ExtResource("13")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -8)
+modulate = Color(0.70, 0.76, 0.77, 1)
+
+region_enabled = true
+region_rect = Rect2(0, 0, 44, 44)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_process = 2
+libraries = {&"": SubResource("library")}
+
+[node name="Core" type="Bone2D" parent="Skeleton/Torso"]
+position = Vector2(74, 22)
+rest = Transform2D(1,0,0,1,74,22)
+auto_calculate_length_and_angle = false
+length = 10.0
+z_index = 6
+z_as_relative = false
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Core"]
+texture = ExtResource("medallion")
+material = SubResource("surface")
+centered = false
+position = Vector2(-16,-20)
+
+[node name="Front" type="Sprite2D" parent="Skeleton/Torso"]
+texture = ExtResource("front0")
+material = SubResource("surface")
+centered = false
+position = Vector2(-65, -62)
+modulate = Color(1,1,1,0)
+
+[node name="Front" type="Sprite2D" parent="Skeleton/Torso/Head"]
+texture = ExtResource("front1")
+material = SubResource("surface")
+centered = false
+position = Vector2(-39, -78)
+modulate = Color(1,1,1,0)
+
+[node name="Foot0" type="Bone2D" parent="Skeleton/Torso/Upper0/Lower0"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 20.0
+z_index = 4
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper0/Lower0/Foot0"]
+texture = ExtResource("11")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -20)
+region_enabled = true
+region_rect = Rect2(0, 44, 44, 20)
+
+[node name="Foot1" type="Bone2D" parent="Skeleton/Torso/Upper1/Lower1"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 20.0
+z_index = 0
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper1/Lower1/Foot1"]
+texture = ExtResource("11")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -20)
+region_enabled = true
+region_rect = Rect2(0, 44, 44, 20)
+modulate = Color(0.70, 0.76, 0.77, 1)
+
+[node name="Foot2" type="Bone2D" parent="Skeleton/Torso/Upper2/Lower2"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 20.0
+z_index = 4
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper2/Lower2/Foot2"]
+texture = ExtResource("13")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -20)
+region_enabled = true
+region_rect = Rect2(0, 44, 44, 20)
+
+[node name="Foot3" type="Bone2D" parent="Skeleton/Torso/Upper3/Lower3"]
+position = Vector2(0, 56)
+rest = Transform2D(1, 0, 0, 1, 0, 56)
+auto_calculate_length_and_angle = false
+length = 20.0
+z_index = 0
+z_as_relative = false
+
+[node name="Art" type="Sprite2D" parent="Skeleton/Torso/Upper3/Lower3/Foot3"]
+texture = ExtResource("13")
+material = SubResource("surface")
+centered = false
+position = Vector2(-22, -20)
+region_enabled = true
+region_rect = Rect2(0, 44, 44, 20)
+modulate = Color(0.70, 0.76, 0.77, 1)

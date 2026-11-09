@@ -8,6 +8,11 @@ var _epoch := -1
 var _local_shape: RectangleShape2D
 
 
+func _ready() -> void:
+	super._ready()
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+
+
 func bind_attack(owner: Node, epoch: int) -> void:
 	_attack_owner = weakref(owner)
 	_epoch = epoch
@@ -95,21 +100,12 @@ func advance_frozen_contact() -> void:
 		super.advance_frozen_contact()
 
 
+func _emit_visual(point: Vector2, impact: bool) -> void:
+	var owner := _attack_owner.get_ref() as Node if _attack_owner != null else null
+	PlainsBossEffects.spawn(get_parent(),owner,point,&"bell",2,.28,Vector2.ONE*(1.0 if impact else .45))
+
 func _draw() -> void:
-	if not local_surface:
-		super._draw()
-		return
-	var progress := clampf(_visual_age / .2, 0.0, 1.0)
-	draw_set_transform(Vector2.ZERO, surface_normal.angle() + PI * .5)
-	var color := Color("d8bd76")
-	color.a = 1.0 - progress
-	# The local damage slab is 2*radius wide and14 high. Show its complete
-	# boundary immediately; an expanding40-high semicircle overstated its reach.
-	var outline := PackedVector2Array()
-	for index: int in 9:
-		var x := lerpf(-radius, radius, float(index) / 8.0)
-		outline.append(Vector2(x, -6.0 * sin(float(index) / 8.0 * PI)).round())
-	draw_rect(Rect2(-radius, -7, radius * 2.0, 14), Color(color, .08 * color.a))
-	draw_polyline(outline, color, 2.0, false)
-	draw_line(Vector2(-radius, 0), Vector2(radius, 0), Color(color, .4 * color.a), 2.0)
-	draw_set_transform(Vector2.ZERO)
+	if local_surface:
+		PlainsBossEffects.paint(self,&"bell",2,clampf(_visual_age/.2,0,1),Vector2.ZERO,Vector2(radius*2/58.0,14.0/52.0),surface_normal.angle()+PI*.5)
+	else:
+		PlainsBossEffects.paint(self,&"bell",0,fposmod(_visual_age*10,1),Vector2.ZERO,Vector2(signf(direction.x),1)*radius/12.0)

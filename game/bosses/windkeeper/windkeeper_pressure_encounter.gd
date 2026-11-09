@@ -14,12 +14,14 @@ var _state_age := 0.0
 var _state_duration := 0.0
 var _fight_age := 0.0
 var _death_age := 0.0
+var _death_fall_speed := 0.0
 var _travel := 0.0
 var _base_y := 0.0
 var _lunge_start := Vector2.ZERO
 var _lunge_distance := 0.0
 var _lunge_distance_done := 0.0
 var _release_sent := false
+var _gust_volleys := 0
 var _pending_phase := 1
 var _groups_started := 0
 var _groups_completed := 0
@@ -53,10 +55,15 @@ var _hop_duration := 0.0
 var _hop_height := 0.0
 var _hop_prepared := false
 var _hop_is_baseline := false
+var _hop_ballistic := true
 var _hop_resume: StringName = &"approach"
 var _preparation_index := -1
 var _preparation_hops := 0
 var _guarded_attack_index := -1
+var _retreat_ready_age := 0.0
+var _blocked_age := 0.0
+var _turn_resume: StringName = &"attack"
+var _mill_start_age := 0.0
 
 func _config() -> WindkeeperPressureDefinition:
 	return definition as WindkeeperPressureDefinition
@@ -92,6 +99,7 @@ func _install_rig() -> void:
 
 func configure_arena(left: float, right: float, target: Node2D) -> bool:
 	if not super.configure_arena(left, right, target): return false
+	if not arena.configure(left, right, _config().wall_clearance): return false
 	_base_y = motor.global_position.y
 	_camp_origin = target.global_position
 	return true
@@ -146,7 +154,23 @@ func physics_tick(delta: float) -> void:
 			_approach(delta)
 		&"turn":
 			if clock <= 0:
+				var completed_pose := rig_pose()
 				direction = locked_direction
+				if _turn_resume == &"traverse_warning":
+					_enter(&"traverse_warning", _config().traverse_warning_seconds)
+				elif _turn_resume == &"approach":
+					_enter(&"approach", _config().approach_bound_seconds)
+				else:
+					_begin_attack(true)
+				# Capture the displayed end pose before accepting the new facing.
+				_pose_from = completed_pose
+		&"retreat_warning":
+			if clock <= 0:
+				_start_prepared_hop()
+				_enter(&"retreat", _hop_duration)
+		&"retreat":
+			if _advance_support_hop(delta):
+				_event(&"windkeeper_lunge_land", {"movement_only": true})
 				_begin_attack()
 		&"traverse_warning":
 			if clock <= 0:
@@ -165,6 +189,10 @@ func physics_tick(delta: float) -> void:
 			_advance_lunge(delta)
 		&"gust":
 			_apply_wind(delta)
+			# The windmill's two advertised volleys share the committed target.
+			if stage_phase >= 2 and _gust_volleys < _config().gust_volley_fractions.size() and _state_age >= _state_duration * _config().gust_volley_fractions[_gust_volleys]:
+				_gust_volleys += 1
+				_release_seeds()
 			if clock <= 0: _finish_attack()
 		&"stomp", &"platform":
 			if not _release_sent and _state_age >= _state_duration * .55:
@@ -186,6 +214,10 @@ func physics_tick(delta: float) -> void:
 				_group_plan.clear()
 				if _pending_phase > stage_phase: _start_phase_transition()
 				else: _select_group()
+	# Raised phase-three shelves can extend beyond the old ground patrol span.
+	# Their landing admits the whole body against actual solid terrain instead.
+	if stage_phase < 3 or not _supports_bound:
+		motor.global_position.x = clampf(motor.global_position.x, arena.left_x, arena.right_x)
 	_update_combat_shapes()
 	motor.queue_redraw()
 
@@ -198,6 +230,7 @@ func _enter(next: StringName, duration: float) -> void:
 	_motion_age = 0
 	core_open = next == &"recover"
 	_release_sent = false
+	_gust_volleys = 0
 	objective_changed.emit(objective())
 	_event(&"windkeeper_state", {"state": next})
 
@@ -205,6 +238,7 @@ func _start_phase_transition() -> void:
 	_clear_attacks()
 	_group_plan.clear()
 	motor.stop()
+	if _pending_phase == 2: _mill_start_age = _fight_age
 	stage_phase = _pending_phase
 	transition_target = stage_phase
 	_enter(&"phase_transition", _config().phase_warning_seconds)
@@ -225,9 +259,9 @@ func _selection_candidates() -> Array[Dictionary]:
 			{"attacks": [&"seeds"], "weight": 1.6 if elevated or camping else .4}]
 	elif stage_phase == 2:
 		candidates = [
-			{"attacks": [&"gust", &"sweep"], "weight": 2.8},
+			{"attacks": [&"gust", &"seeds"], "weight": 4.2 if dx > 190 or elevated else 2.8},
 			{"attacks": [&"lunge", &"sweep"], "weight": 3.2 if dx > 220 else 1.2},
-			{"attacks": [&"sweep", &"seeds"], "weight": 3.4 if elevated or camping else 2.0},
+			{"attacks": [&"sweep", &"gust"], "weight": 2.4 if elevated or camping else 2.0},
 			{"attacks": [&"stomp", &"seeds"], "weight": 1.1},
 			{"attacks": [&"stomp", &"stomp"], "weight": .7}]
 	else:
@@ -239,6 +273,9 @@ func _selection_candidates() -> Array[Dictionary]:
 			{"attacks": [&"sweep", &"seeds"], "weight": 1.1},
 			{"attacks": [&"stomp", &"sweep"], "weight": .8}]
 	for candidate: Dictionary in candidates:
+		var toward := -1 if _target.global_position.x < motor.global_position.x else 1
+		if stage_phase < 3 and &"lunge" in candidate.attacks and arena.travel_limit(motor.global_position.x,toward)<_config().lunge_min_distance:
+			candidate.weight = 0.0
 		var key := _group_key(candidate.attacks)
 		var repeats := 0
 		for index: int in range(_recent_groups.size() - 1, -1, -1):
@@ -283,7 +320,7 @@ func _select_group() -> void:
 	if absf(dx) > _config().approach_range:
 		_enter(&"approach", _config().approach_bound_seconds)
 	elif locked_direction != direction and absf(dx) > 20:
-		_enter(&"turn", _config().turn_seconds)
+		_turn_to(locked_direction)
 	else:
 		_begin_attack()
 
@@ -295,19 +332,75 @@ func _approach(delta: float) -> void:
 	var attacks: Array = _group_plan.get("attacks", [])
 	var wants_platform: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"platform"
 	var wants_sweep: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"sweep"
-	var desired := _config().sweep_approach_range if wants_sweep else 160.0 if wants_platform else _config().approach_range
+	var wants_stomp: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"stomp"
+	var desired := _config().sweep_approach_range if wants_sweep else _config().close_range if wants_stomp else 160.0 if wants_platform else _config().approach_range
 	if absf(dx) < desired or clock <= 0:
+		_guarded_attack_index = _attack_index
 		motor.stop()
 		_begin_attack()
 		return
-	direction = -1 if dx < 0 else 1
+	var wanted_direction := -1 if dx < 0 else 1
+	if wanted_direction != direction:
+		motor.stop()
+		_turn_to(wanted_direction, &"approach")
+		return
 	locked_direction = direction
 	var before := motor.global_position
 	motor.speed = _config().final_chase_speed if stage_phase == 3 else _config().approach_speed
 	motor.step(direction, minf(arena.travel_limit(motor.global_position.x, direction), maxf(0, absf(dx) - desired + 5)), delta)
-	_travel += motor.global_position.distance_to(before)
+	var moved := motor.global_position.distance_to(before)
+	_travel += moved
+	_blocked_age = _blocked_age + delta if moved < .25 else 0.0
+	if _blocked_age >= _config().blocked_seconds:
+		if not _try_retreat():
+			_guarded_attack_index = _attack_index
+			_begin_attack()
 
-func _begin_attack() -> void:
+func _turn_to(facing: int, resume: StringName = &"attack") -> void:
+	motor.stop()
+	locked_direction = facing
+	_turn_resume = resume
+	_enter(&"turn", _config().turn_seconds)
+
+func _try_retreat() -> bool:
+	if _fight_age < _retreat_ready_age or _hop_active: return false
+	var away := -direction
+	if stage_phase == 3 and _supports_bound:
+		var next := _next_support_index(motor.global_position.x, away)
+		if next < 0 or next == _support_index: return false
+		if not _lock_support_hop(next, _config().lunge_peak_speed, false, _config().retreat_height): return false
+	else:
+		var distance := minf(_config().retreat_distance, arena.travel_limit(motor.global_position.x, away))
+		if distance < 48.0: return false
+		_hop_start = motor.global_position
+		_hop_target = _hop_start + Vector2(away*distance, 0)
+		# The scripted giant stands behind bridge planes. Verify its landing
+		# against actual support, without adding terrain to its shot hull.
+		var excluded: Array[RID] = [motor.get_rid()]
+		if _target is CollisionObject2D: excluded.append((_target as CollisionObject2D).get_rid())
+		var floor_height := INF
+		for offset: float in [0.0, -_stance_half_width(), _stance_half_width()]:
+			var query := PhysicsRayQueryParameters2D.create(_hop_target+Vector2(offset,35), _hop_target+Vector2(offset,95), 1, excluded)
+			var hit := motor.get_world_2d().direct_space_state.intersect_ray(query)
+			if hit.is_empty() or (hit.normal as Vector2).dot(Vector2.UP)<.7: return false
+			var hit_y := (hit.position as Vector2).y
+			if is_finite(floor_height) and absf(hit_y-floor_height)>2.0: return false
+			floor_height = hit_y
+		_hop_target.y = floor_height-65.0
+		_hop_target_index = -1
+		_hop_duration = _config().retreat_seconds
+		_hop_height = _config().retreat_height
+		_hop_is_baseline = true
+		_hop_ballistic = true
+		_hop_prepared = true
+	_retreat_ready_age = _fight_age + _config().retreat_cooldown_seconds
+	_blocked_age = 0.0
+	motor.stop()
+	_enter(&"retreat_warning", _config().retreat_warning_seconds)
+	_event(&"windkeeper_retreat_warning", {"point": _hop_target})
+	return true
+
+func _begin_attack(facing_committed: bool = false) -> void:
 	if not active or _group_plan.is_empty(): return
 	var attacks: Array = _group_plan.attacks
 	if _attack_index >= attacks.size(): return
@@ -318,16 +411,18 @@ func _begin_attack() -> void:
 		_guarded_attack_index = -1
 	var dx := _target.global_position.x - motor.global_position.x
 	var wanted_direction := -1 if dx < -12 else 1 if dx > 12 else direction
-	if wanted_direction != direction:
+	if wanted_direction != direction and not facing_committed:
 		locked_direction = wanted_direction
-		_enter(&"turn", _config().turn_seconds)
+		_turn_to(locked_direction)
 		return
+	if absf(dx) < _config().retreat_trigger_range and _try_retreat(): return
 	locked_direction = direction
 	locked_target = _target.global_position
 	foot_index = _attack_index % 2
 	# The real leaf cannot reach a ground actor from the generic ranged
 	# distance. Close physically before its warning, keeping the chosen group.
-	if attack == &"sweep" and absf(dx) > _config().sweep_approach_range + 4.0 and _guarded_attack_index != _attack_index:
+	var melee_range := _config().sweep_approach_range if attack == &"sweep" else _config().close_range
+	if attack in [&"sweep", &"stomp"] and absf(dx) > melee_range + 4.0 and _guarded_attack_index != _attack_index:
 		_enter(&"approach", _config().approach_bound_seconds)
 		return
 	if attack == &"platform":
@@ -355,13 +450,39 @@ func _begin_attack() -> void:
 				if distance < nearest: nearest = distance; chase_segment = index
 	if attack == &"lunge" and stage_phase == 3 and _supports_bound:
 		var destination := _next_support_index(_target.global_position.x, locked_direction)
-		if destination < 0 or not _lock_support_hop(destination, _config().lunge_peak_speed, false):
+		if destination < 0 or not _lock_support_hop(destination, _config().lunge_peak_speed, false, _config().lunge_height):
 			_event(&"windkeeper_support_unavailable")
 			_finish_attack()
 			return
-	var duration := _config().sweep_warning_seconds if attack == &"sweep" else _config().platform_warning_seconds if attack == &"platform" else _config().normal_warning_seconds
+	# Ground pounce targets are locked before the readable warning; walking
+	# underneath works because the real body rises, not because contact is off.
+	if attack == &"lunge" and not (stage_phase == 3 and _supports_bound):
+		if not _prepare_ground_lunge():
+			_finish_attack()
+			return
+	var duration := _config().lunge_warning_seconds if attack == &"lunge" else _config().sweep_warning_seconds if attack == &"sweep" else _config().platform_warning_seconds if attack == &"platform" else _config().normal_warning_seconds
 	_enter(StringName("%s_warning" % attack), duration)
 	_event(StringName("windkeeper_%s_warning" % attack), {"attack": attack, "point": locked_target, "direction": locked_direction, "double_stomp": bool(_group_plan.double_stomp)})
+
+func _prepare_ground_lunge() -> bool:
+	var distance := clampf((locked_target.x-motor.global_position.x)*locked_direction+_config().lunge_landing_offset, _config().lunge_min_distance, _config().lunge_max_distance)
+	distance = minf(distance, arena.travel_limit(motor.global_position.x,locked_direction))
+	# Do not turn a high crossing attack into a point-blank hop at the wall.
+	if distance < _config().lunge_min_distance: return false
+	_hop_start = motor.global_position
+	_hop_target = _hop_start+Vector2(locked_direction*distance,0)
+	_hop_target_index = -1
+	_hop_age = 0.0
+	_hop_duration = _config().lunge_seconds
+	_hop_height = _config().lunge_height
+	_hop_is_baseline = true
+	_hop_ballistic = true
+	_hop_prepared = true
+	_hop_active = false
+	_lunge_start = _hop_start
+	_lunge_distance = distance
+	_lunge_distance_done = 0.0
+	return true
 
 func _platform_for_target() -> Vector2:
 	var feet := _target.global_position + Vector2(0, 18)
@@ -415,25 +536,15 @@ func _release_attack() -> void:
 	_enter(attack, duration)
 	_event(&"windkeeper_attack", {"attack": attack, "point": locked_target})
 	if attack == &"lunge":
-		if stage_phase == 3 and _supports_bound and _hop_prepared:
-			_start_prepared_hop()
-			_lunge_start = _hop_start
-			_lunge_distance = absf(_hop_target.x - _hop_start.x)
-			_event(&"windkeeper_lunge_start", {"point": _hop_target})
+		# Normal paths already prepared the endpoint before the warning. The
+		# fallback also supports old saves/test entry directly into a warning.
+		if not _hop_prepared and not _prepare_ground_lunge():
+			_finish_attack()
 			return
-		_lunge_start = motor.global_position
-		_lunge_distance_done = 0.0
-		_lunge_distance = minf(_config().lunge_peak_speed * duration * (2.0 / 3.0), arena.travel_limit(motor.global_position.x, locked_direction))
-		_hop_start = _lunge_start
-		_hop_target = _lunge_start + Vector2(locked_direction * _lunge_distance, 0)
-		_hop_target_index = -1
-		_hop_age = 0.0
-		_hop_duration = duration
-		_hop_height = _config().lunge_height
-		_hop_is_baseline = true
-		_hop_prepared = false
-		_hop_active = true
-		_event(&"windkeeper_lunge_start")
+		_start_prepared_hop()
+		_lunge_start = _hop_start
+		_lunge_distance = absf(_hop_target.x-_hop_start.x)
+		_event(&"windkeeper_lunge_start", {"point": _hop_target})
 	elif attack == &"seeds":
 		_release_seeds()
 	elif attack == &"sweep":
@@ -463,6 +574,8 @@ func _configure_attack(shot: BossProjectile, label: StringName, aim: Vector2) ->
 func _release_seeds() -> void:
 	var pose := rig_pose()
 	var origin: Vector2 = motor.to_global(pose.get("seed_origin", (pose.core_transform as Transform2D).origin))
+	if mode == &"gust" and stage_phase >= 2:
+		origin = motor.to_global(PlainsBossViewPose.windmill_origin(pose))
 	var aim := (locked_target - origin).normalized()
 	if aim.length_squared() < .001: aim = Vector2(locked_direction, 0)
 	for offset: float in [-_config().seed_spread, 0.0, _config().seed_spread]:
@@ -516,11 +629,15 @@ func _update_strike(delta: float) -> void:
 	_update_strike_segment()
 	_active_strike.advance(delta)
 
+func wind_field_rect() -> Rect2:
+	var reach:=_config().wind_pressure_range
+	var height:=_config().wind_pressure_phase_two_height if stage_phase>=2 else _config().wind_pressure_height
+	return Rect2(Vector2(-35 if locked_direction>0 else -reach,-height),Vector2(reach+35,height+100))
+
 func _apply_wind(delta: float) -> void:
 	if not _target is PlayerMotor: return
-	var local := _target.global_position - motor.global_position
-	if local.x * locked_direction >= -35 and absf(local.x) <= _config().wind_pressure_range and local.y > -_config().wind_pressure_height and local.y < 100:
-		(_target as PlayerMotor).queue_local_velocity(Vector2(locked_direction * _config().wind_pressure_speed, 0), delta)
+	if wind_field_rect().has_point(_target.global_position-motor.global_position):
+		(_target as PlayerMotor).queue_local_velocity(Vector2(locked_direction*_config().wind_pressure_speed,0),delta)
 
 func _finish_attack() -> void:
 	if is_instance_valid(_active_strike): _active_strike.dispose()
@@ -557,6 +674,7 @@ func _on_defeat() -> void:
 	motor.collision_mask = 0
 	_group_plan.clear()
 	_death_age = 0.0
+	_death_fall_speed = 0.0
 	_death_impact_sent = false
 	_death_final_sent = false
 	_enter(&"dead", _config().death_seconds)
@@ -566,9 +684,9 @@ func _on_defeat() -> void:
 func _advance_death(delta: float) -> void:
 	if mode != &"dead" or _death_final_sent: return
 	if _hop_active:
-		_advance_support_hop(delta)
-		# Flight belongs to the locked takeoff/landing, while the terminal body
-		# and wind are already harmless. Mechanical collapse starts on support.
+		_advance_terminal_fall(delta)
+		# The dead body drops under gravity; the live locked jump is cancelled.
+		# Mechanical collapse begins only after actual contact with terrain.
 		_death_age = 0.0
 		_state_age = 0.0
 		_update_combat_shapes()
@@ -585,6 +703,32 @@ func _advance_death(delta: float) -> void:
 		_event(&"windkeeper_death_final", {"point": motor.global_position})
 	_update_combat_shapes()
 	motor.queue_redraw()
+
+func _advance_terminal_fall(delta: float) -> void:
+	_death_fall_speed += _config().death_fall_gravity * delta
+	var before := motor.global_position
+	var next_y := before.y + _death_fall_speed * delta
+	var floor_y := INF
+	var excluded: Array[RID] = [motor.get_rid()]
+	if _target is CollisionObject2D: excluded.append((_target as CollisionObject2D).get_rid())
+	# The corpse may settle on any actual upward face beneath its body. It no
+	# longer steers horizontally toward the old attack's locked destination.
+	for offset: float in [-_stance_half_width()*.6, 0.0, _stance_half_width()*.6]:
+		var ray := PhysicsRayQueryParameters2D.create(Vector2(before.x+offset,before.y+63),Vector2(before.x+offset,next_y+66),1,excluded)
+		ray.collide_with_areas = false
+		var hit := motor.get_world_2d().direct_space_state.intersect_ray(ray)
+		if not hit.is_empty() and (hit.normal as Vector2).dot(Vector2.UP) >= .7:
+			floor_y = minf(floor_y,(hit.position as Vector2).y)
+	if is_finite(floor_y):
+		motor.global_position.y = floor_y - 65
+		_hop_active = false
+		_death_fall_speed = 0.0
+		_support_index = _nearest_support_index(before.x)
+		motor.stop()
+		_event(&"windkeeper_support_landed", {"point":motor.global_position,"terminal":true})
+	else:
+		motor.global_position.y = next_y
+		motor.velocity = Vector2(0,_death_fall_speed)
 
 func cancel_pending_attacks() -> void:
 	_clear_attacks()
@@ -622,8 +766,8 @@ func _event(id: StringName, extra: Dictionary = {}) -> void:
 
 func rig_pose() -> Dictionary:
 	var rig_mode: StringName = &"lunge_warning" if mode == &"traverse_warning" else &"lunge" if mode == &"traverse" else mode
-	var flight_pose: bool = _hop_active and mode in [&"phase_transition", &"traverse", &"lunge"]
-	if flight_pose: rig_mode = &"lunge"
+	var flight_pose: bool = _hop_active and mode in [&"phase_transition", &"traverse", &"lunge", &"retreat"]
+	if flight_pose: rig_mode = &"retreat" if mode == &"retreat" else &"lunge"
 	var pose_age := _hop_age if flight_pose else _state_age
 	var pose_duration := _hop_duration if flight_pose else _state_duration
 	var sampled := WindkeeperPressureRig.sample({"mode": rig_mode, "phase": stage_phase, "direction": direction,
@@ -639,7 +783,25 @@ func rig_pose() -> Dictionary:
 		"double_stomp": bool(_group_plan.get("double_stomp", false)) and _attack_index == 0})
 	if not _pose_from.is_empty() and _state_age < .10:
 		sampled = WindkeeperPressureRig.blend(_pose_from, sampled, clampf(_state_age / .10, 0, 1))
-	return _supported_pose(sampled)
+	sampled = _supported_pose(sampled)
+	sampled["mill_age"] = maxf(0,_fight_age-_mill_start_age)
+	sampled["deployment_seconds"] = _config().phase_warning_seconds
+	sampled["turn_active"] = mode==&"turn" and direction!=locked_direction
+	sampled["turn_yaw"] = cos(PI * smoothstep(.12,.92,_state_age/maxf(.001,_state_duration))) if mode==&"turn" and direction!=locked_direction else 1.0
+	sampled["core_transform"] = (sampled.body_transform as Transform2D)*Transform2D(0,Vector2(74,22))
+	sampled = PlainsBossViewPose.turn(sampled,false)
+	# Solve fixed-length joints after support correction and state blending.
+	# The same knees drive the actual damaging capsules and the painted bones.
+	for i: int in 4:
+		var hip: Vector2=sampled.hips[i]
+		var foot: Vector2=sampled.feet[i]
+		var ankle := foot-Vector2(0,20)
+		var axis: Vector2=(ankle-hip).normalized()
+		var distance:=clampf(hip.distance_to(ankle),20.1,91.9)
+		var along: float=(56.0*56.0-36.0*36.0+distance*distance)/(2.0*distance)
+		var bend:=sqrt(maxf(0.0,56.0*56.0-along*along))
+		sampled.knees[i]=hip+axis*along+Vector2(axis.y,-axis.x)*bend*float(direction)*(1.0 if i<2 else -1.0)*float(sampled.get("turn_yaw",1.0))
+	return sampled
 
 func _update_combat_shapes() -> void:
 	if not _rig_ready or not is_instance_valid(_core): return
@@ -705,7 +867,7 @@ func body_contact_enabled() -> bool:
 func objective() -> String:
 	if mode == &"intro": return "牧风者 / THE WINDKEEPER"
 	if mode == &"dead": return "风停铃息 / WINDKEEPER SILENCED"
-	if mode == &"phase_transition": return "风帆展开，先找下一处落脚点 / FIND YOUR NEXT LANDING"
+	if mode == &"phase_transition": return "风车展开，准备迎风 / THE WINDMILL AWAKENS"
 	if mode == &"recover": return "整组收招，反击后及时撤离 / COUNTER THEN RETREAT"
 	if mode == &"link": return "还没打完，观察下一次发力 / COMBO CONTINUES"
 	return "观察四足与风帆，持续换位 / READ THE LIMBS AND SAILS"
@@ -715,7 +877,7 @@ func presentation_state() -> BossPresentationState:
 	values.merge({"phase": stage_phase, "phase_axes": {"combat": stage_phase}, "damage_model": &"continuous_body", "core_hint_visible": mode == &"recover"}, true)
 	return _presentation_countdown(values, mode, clock, _state_duration,
 		String(mode).ends_with("_warning") or mode == &"phase_transition",
-		mode in [&"stomp", &"seeds", &"platform"], mode in [&"lunge", &"traverse", &"sweep", &"gust"], mode == &"recover")
+		mode in [&"stomp", &"seeds", &"platform"], mode in [&"lunge", &"traverse", &"retreat", &"sweep", &"gust"], mode == &"recover")
 
 func presentation_core() -> Dictionary:
 	return {"visible": mode == &"recover", "offset": core_offset(), "raw_clock": clock,
@@ -746,11 +908,12 @@ func combat_metrics() -> Dictionary:
 func combat_snapshot() -> Dictionary:
 	var result := super.combat_snapshot()
 	result["pressure"] = {"group": _group_plan.duplicate(true), "index": _attack_index,
+		"mill_start_age": _mill_start_age, "retreat_ready_age": _retreat_ready_age, "blocked_age": _blocked_age, "turn_resume": String(_turn_resume),
 		"age": _state_age, "duration": _state_duration, "fight_age": _fight_age, "travel": _travel,
-		"death_age": _death_age, "death_impact_sent": _death_impact_sent, "death_final_sent": _death_final_sent,
+		"death_age": _death_age, "death_fall_speed": _death_fall_speed, "death_impact_sent": _death_impact_sent, "death_final_sent": _death_final_sent,
 		"physical_reward_expected": physical_reward_expected, "bridge_released": _bridge_released,
 		"support_motion": {"index": _support_index, "active": _hop_active, "prepared": _hop_prepared,
-			"baseline": _hop_is_baseline, "start": [_hop_start.x, _hop_start.y], "target": [_hop_target.x, _hop_target.y],
+			"baseline": _hop_is_baseline, "ballistic": _hop_ballistic, "start": [_hop_start.x, _hop_start.y], "target": [_hop_target.x, _hop_target.y],
 			"target_index": _hop_target_index, "age": _hop_age, "duration": _hop_duration, "height": _hop_height,
 			"resume": String(_hop_resume), "preparation_index": _preparation_index,
 			"preparation_hops": _preparation_hops, "guarded_attack_index": _guarded_attack_index},
@@ -758,7 +921,7 @@ func combat_snapshot() -> Dictionary:
 		"groups_started": _groups_started, "groups_completed": _groups_completed,
 		"accepted_hits": _accepted_hits, "accepted_damage": _accepted_damage,
 		"locked_target": [locked_target.x, locked_target.y], "locked_direction": locked_direction,
-		"sweep_high": sweep_high, "foot_index": foot_index, "release_sent": _release_sent,
+		"sweep_high": sweep_high, "foot_index": foot_index, "release_sent": _release_sent, "gust_volleys": _gust_volleys,
 		"lunge_start": [_lunge_start.x, _lunge_start.y], "lunge_distance": _lunge_distance,
 		"camp_age": _camp_age, "camp_origin": [_camp_origin.x, _camp_origin.y]}
 	return result
@@ -771,6 +934,10 @@ func restore_combat_state(data: Dictionary) -> void:
 		_restore_legacy_combat_state()
 		return
 	var saved: Dictionary = data.get("pressure", {})
+	_mill_start_age = float(saved.get("mill_start_age", 0))
+	_retreat_ready_age = float(saved.get("retreat_ready_age", 0))
+	_blocked_age = float(saved.get("blocked_age", 0))
+	_turn_resume = StringName(saved.get("turn_resume", "attack"))
 	physical_reward_expected = bool(saved.get("physical_reward_expected", true))
 	_group_plan = (saved.get("group", {}) as Dictionary).duplicate(true)
 	_attack_index = int(saved.get("index", 0))
@@ -779,6 +946,7 @@ func restore_combat_state(data: Dictionary) -> void:
 	_fight_age = float(saved.get("fight_age", 0))
 	_travel = float(saved.get("travel", 0))
 	_death_age = float(saved.get("death_age", 0))
+	_death_fall_speed = maxf(0,float(saved.get("death_fall_speed",0)))
 	_death_impact_sent = bool(saved.get("death_impact_sent", false))
 	_death_final_sent = bool(saved.get("death_final_sent", false))
 	_selection_rng.state = int(String(saved.get("rng", str(_selection_rng.state))))
@@ -793,6 +961,7 @@ func restore_combat_state(data: Dictionary) -> void:
 	sweep_high = bool(saved.get("sweep_high", false))
 	foot_index = int(saved.get("foot_index", 0))
 	_release_sent = bool(saved.get("release_sent", false))
+	_gust_volleys = int(saved.get("gust_volleys", 0))
 	point = saved.get("lunge_start", [motor.global_position.x, motor.global_position.y])
 	_lunge_start = Vector2(point[0], point[1])
 	_lunge_distance = float(saved.get("lunge_distance", 0))
@@ -805,6 +974,7 @@ func restore_combat_state(data: Dictionary) -> void:
 	_hop_active = bool(motion.get("active", false))
 	_hop_prepared = bool(motion.get("prepared", false))
 	_hop_is_baseline = bool(motion.get("baseline", false))
+	_hop_ballistic = bool(motion.get("ballistic",not _hop_is_baseline))
 	point = motion.get("start", [_lunge_start.x, _lunge_start.y])
 	_hop_start = Vector2(point[0], point[1])
 	point = motion.get("target", [_lunge_start.x + locked_direction * _lunge_distance, _lunge_start.y])
@@ -822,6 +992,7 @@ func restore_combat_state(data: Dictionary) -> void:
 	if motion.is_empty() and mode == &"lunge" and stage_phase < 3:
 		_hop_active = true
 		_hop_is_baseline = true
+		_hop_ballistic = false
 	if stage_phase == 3 and _supports_bound and not _bridge_released and motion.is_empty() and not health.terminal:
 		mode = &"phase_transition"
 		_state_age = 0.0
@@ -834,6 +1005,11 @@ func restore_combat_state(data: Dictionary) -> void:
 
 
 func _restore_legacy_combat_state() -> void:
+	_retreat_ready_age = 0.0
+	_blocked_age = 0.0
+	_turn_resume = &"attack"
+	_mill_start_age = 0.0
+	_death_fall_speed = 0.0
 	# A v5 state has no immutable six-move group to continue. Preserve the
 	# authoritative HP/stage/position and current activation, cancel old
 	# transient attacks, then choose a new fully advertised group. Old charge,
@@ -842,6 +1018,7 @@ func _restore_legacy_combat_state() -> void:
 	_hop_active = false
 	_hop_prepared = false
 	_hop_is_baseline = false
+	_hop_ballistic = true
 	_bridge_released = false
 	_support_index = -1
 	_attack_index = 0
@@ -925,6 +1102,7 @@ func _support_valid(index: int) -> bool:
 	var slab := _support_rects[index]
 	var stance := _stance_half_width()
 	var centre := slab.get_center().x
+	if not _landing_body_clear(Vector2(centre,slab.position.y-65)): return false
 	var excluded: Array[RID] = [motor.get_rid()]
 	if _target is CollisionObject2D: excluded.append((_target as CollisionObject2D).get_rid())
 	for offset: float in [-stance, 0.0, stance]:
@@ -935,6 +1113,26 @@ func _support_valid(index: int) -> bool:
 		var actual: Vector2 = hit.position
 		var normal: Vector2 = hit.normal
 		if actual.distance_to(point) > 2 or normal.dot(Vector2.UP) < .7: return false
+	return true
+
+func _landing_body_clear(at: Vector2) -> bool:
+	var query := PhysicsShapeQueryParameters2D.new()
+	var shape := RectangleShape2D.new()
+	shape.size = Vector2(_config().wall_clearance*2.0,225.0)
+	query.shape = shape
+	query.transform = Transform2D(0,at+Vector2(0,-50))
+	query.collision_mask = 1
+	var excluded: Array[RID] = [motor.get_rid()]
+	if _target is CollisionObject2D: excluded.append((_target as CollisionObject2D).get_rid())
+	query.exclude = excluded
+	for hit: Dictionary in motor.get_world_2d().direct_space_state.intersect_shape(query,32):
+		var collider := hit.collider as CollisionObject2D
+		if collider == null: return false
+		var owner := collider.shape_find_owner(int(hit.shape))
+		# Like the original giant, the body can stand behind elevated one-way
+		# bridge planes; solid walls and platforms still reject the landing.
+		if not (collider is PhysicsBody2D and (collider as PhysicsBody2D).is_shape_owner_one_way_collision_enabled(owner)):
+			return false
 	return true
 
 func _nearest_support_index(world_x: float) -> int:
@@ -952,7 +1150,7 @@ func _standing_on_support() -> bool:
 	var stance := _stance_half_width()
 	return absf(motor.global_position.y + 65 - slab.position.y) <= .75 and motor.global_position.x - stance >= slab.position.x - .5 and motor.global_position.x + stance <= slab.end.x + .5
 
-func _lock_support_hop(index: int, speed_limit: float, start_immediately: bool = true) -> bool:
+func _lock_support_hop(index: int, speed_limit: float, start_immediately: bool = true, arc_height: float = -1.0) -> bool:
 	if not _support_valid(index): return false
 	var slab := _support_rects[index]
 	_hop_start = motor.global_position
@@ -960,12 +1158,15 @@ func _lock_support_hop(index: int, speed_limit: float, start_immediately: bool =
 	_hop_target_index = index
 	_hop_age = 0.0
 	var displacement := _hop_target - _hop_start
-	_hop_height = maxf(_config().lunge_height, absf(displacement.y) * .55)
+	_hop_height = maxf(_config().support_hop_height if arc_height < 0 else arc_height, absf(displacement.y) * .55)
 	# P(p)=start+D*p+(0,-4h*p*(1-p)). Its derivative is affine;
 	# the maximum vector speed is exactly bounded by the two endpoint norms.
 	var peak := maxf((displacement + Vector2(0, -4 * _hop_height)).length(), (displacement + Vector2(0, 4 * _hop_height)).length())
 	_hop_duration = maxf(.25, peak / maxf(1, speed_limit))
+	if arc_height >= 0:
+		_hop_duration = maxf(_hop_duration, _config().lunge_seconds if arc_height >= _config().lunge_height else _config().retreat_seconds)
 	_hop_is_baseline = false
+	_hop_ballistic = true
 	_hop_prepared = true
 	_hop_active = false
 	if start_immediately: _start_prepared_hop()
@@ -982,9 +1183,10 @@ func _advance_support_hop(delta: float) -> bool:
 	_hop_age = minf(_hop_duration, _hop_age + delta)
 	var progress := clampf(_hop_age / maxf(.01, _hop_duration), 0, 1)
 	var desired := _hop_start.lerp(_hop_target, progress) + Vector2(0, -4 * _hop_height * progress * (1 - progress))
-	if _hop_is_baseline:
-		var eased := progress * progress * (3 - 2 * progress)
-		desired = _hop_start.lerp(_hop_target, eased) + Vector2(0, -sin(progress * PI) * _hop_height)
+	if _hop_is_baseline and not _hop_ballistic:
+		# Finish an already-saved pre-v11 flight on its original curve.
+		var eased := progress*progress*(3-2*progress)
+		desired = _hop_start.lerp(_hop_target,eased)+Vector2(0,-sin(progress*PI)*_hop_height)
 	var before := motor.global_position
 	motor.move_and_collide(desired - before)
 	motor.velocity = (motor.global_position - before) / delta
@@ -1034,8 +1236,10 @@ func _approach_on_support() -> void:
 	_preparation_hops += 1
 	_hop_resume = &"approach"
 	locked_direction = -1 if _hop_target.x < _hop_start.x else 1
-	direction = locked_direction
-	_enter(&"traverse_warning", _config().traverse_warning_seconds)
+	if direction != locked_direction:
+		_turn_to(locked_direction, &"traverse_warning")
+	else:
+		_enter(&"traverse_warning", _config().traverse_warning_seconds)
 	_event(&"windkeeper_traverse_warning", {"point": _hop_target})
 	_event(&"windkeeper_lunge_warning", {"point": _hop_target, "movement_only": true})
 
