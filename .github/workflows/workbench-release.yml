@@ -52,6 +52,7 @@ jobs:
         run: python3 tools/export_workbench.py --site-copy build/workbench/release-runtime
       - name: Export game-authoritative rooms and component catalog
         run: |
+          bash tools/godot.sh --headless --path . --script tools/workbench/motion_reference.gd > build/workbench/logs/motion-reference.log 2>&1
           bash tools/godot.sh --headless --path . --script tools/world/workbench_scene_io.gd -- --export="$PWD/build/workbench/release-scenes.json"
           python3 tools/world/workbench_seed.py --scenes build/workbench/release-scenes.json --output build/workbench/release-seed.json --runtime-available
       - name: Package and publish a matching immutable game version

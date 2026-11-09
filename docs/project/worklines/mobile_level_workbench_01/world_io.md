@@ -38,7 +38,7 @@ python3 tools/world/workbench_seed.py --scenes build/workbench/room-scenes.json 
 
 候选不覆盖草稿。当前/候选切换复用同一数据解释器；采用是严格CAS写入，可撤销。人工编辑使旧候选失效，工作流自身记账不伪造几何变化；退回保留明确意见和当前数据供下一轮。锁定、跨房依赖和请求幂等沿用编辑器合同。生成审核记录在撤销、检查点恢复和游戏升级时保留。定稿包带`review_notes`供接入时重写对应正式设计正文，不直接把审稿文字当成新设计源。审核采用与正式游戏发布是两步。
 
-动作尺由真实`InputRouter → PlayerController → PlayerMotor`在隔离平地夹具中采样；包括短跳、长跳、跳跃反冲、二段跳与钩索。HD/H按夹具显式授予，默认枪，不附加正式世界资源及怪物压力。它显示指定输入时序，不是极限包络或房间可玩性证明。源哈希不匹配、采样失败或缺失时不导出；网页来源提交不匹配时不展示旧轨迹。
+动作尺由真实`InputRouter → PlayerController → PlayerMotor`在隔离平地夹具中采样；包括短跳、长跳、跳跃反冲、二段跳与钩索。HD/H按夹具显式授予，默认枪，不附加正式世界资源及怪物压力。它显示指定输入时序，不是极限包络或房间可玩性证明。专用发行流水线在导出seed前自动重新采样，任一样例失败即停止发行。源哈希不匹配、采样失败或缺失时不导出；网页来源提交不匹配时不展示旧轨迹。
 
 ```bash
 bash tools/godot.sh --headless --path . --script tools/workbench/motion_reference.gd
