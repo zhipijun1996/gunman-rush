@@ -9,7 +9,7 @@
 - 房间 `properties` 和 `nodes` 由共享 `WorldRoomDraft` 编解码器提取；平台、怪物、机关及既有兼容地形用同一组字段交给真实运行时及正式保存工具。
 - `bounds`、`space_rects` 和完整 `doors` 来自施工源及原编译器。`map_position` 只通过 `spatial.navigation_geometry` 从成对门缝推导，不接受独立地图原点。
 - 收集项有实际唯一宿主时，才提供真实 `position`、`edit_path`、宿主路径和类型。商店及里程碑目标没有独立宿主时，不制造展示坐标。
-- `source_hashes` 覆盖七个现行世界输入、35 个场景及玩家运动配置；提交版本记录为 `baseline`。组件目录另外记录源码合同哈希和来源文件；seed 保持轻量，不在每次状态和历史中复制完整运行合同。
+- `source_hashes` 覆盖七个现行世界输入、35 个场景及玩家运动配置；提交版本记录为 `baseline`。组件目录另外记录源码合同哈希和来源文件；seed 不复制完整运行合同；只读 review_context 从当前正式职责、区域和教程路线派生，不接管布局所有权。
 - `relocatable` 与正式导入规则一致：普通地图收集物、唯一 `WorldRoomInteraction` 宿主、没有独立返程状态。当前只有 `TG01`、`part_triple` 满足简单跨房迁移条件；`part_triple` 的 Boss 领取资格保持不变。其它条目用 `relocation_reason` 说明完整用例或返程合同要求。
 
 导出示例：
@@ -27,6 +27,25 @@ python3 tools/world/workbench_seed.py --scenes build/workbench/room-scenes.json 
 `preview_catalog(root)` 从同一原编译结果生成 `build/workbench/preview-world.json`，供专用工作台运行包使用。目录包含 `schema`、`base_content_version`、35 房 `rooms`、`actions`、`demo_services`、`npcs` 和 `map_rooms`。返程动作调用原 `build.local_returns` 派生，不重写奖励或资格规则。
 
 目录将 29 个房间标记为 `preview_only`，仅在目录视图中令平原内目标房可供工作台跨房预览。正式 `construction.implemented`、正式六房 `runtime.json` 和正式存档语义均不因此改变。预览旧内部场景不表示它已按新房形施工或完成体验验收。此目录约 1.95 MB，进入 PCK，不进入网页每次状态快照。
+
+## 灰盒生成与审核
+
+审核页先展示真实空间总图，再按房间进入不加载引擎和美术的 SVG 灰盒。矩形组合只画外轮廓，不将分块边线误画为房墙；位置继续由成对门缝推导。图中展示每房一行职责、教程顺序、休息站、Boss及收集数量，详细路线、门条件和回程在点选卡片中读取。SVG下载是当前草稿/候选视图的导出，不是第二份可编辑地图。
+
+`review_context` 由 [`workbench_review.py`](../../../../tools/world/workbench_review.py) 提取309房职责和16区目录；当前可编辑、可灰盒预览范围仍为平原35房。其它区域只显示规划目录，不用旧导入多边形冒充统一坐标下已施工的世界。区域扩展须先沿原施工源校准真实门缝，再接入同一codec和工作台目录。
+
+每个生成任务保存1–6个相连房间、能力阶段、玩法/空间范围、明确目标、圈选坐标、对象和反馈身份。玩法任务锁定房形、门位和连接；空间任务仍保持既有门对身份，改变拓扑须先更新正式连接源。模型不在网页后台运行：手机保存任务并复制一句指令，ChatGPT通过`get_generation_brief`读取任务、最新草稿、邻接、参数和锁定，再用`submit_review_candidate`写回候选。每房须说明原因、路线和失败恢复，未经执行的实机验证保持未验。
+
+候选不覆盖草稿。当前/候选切换复用同一数据解释器；采用是严格CAS写入，可撤销。人工编辑使旧候选失效，工作流自身记账不伪造几何变化；退回保留明确意见和当前数据供下一轮。锁定、跨房依赖和请求幂等沿用编辑器合同。生成审核记录在撤销、检查点恢复和游戏升级时保留。定稿包带`review_notes`供接入时重写对应正式设计正文，不直接把审稿文字当成新设计源。审核采用与正式游戏发布是两步。
+
+动作尺由真实`InputRouter → PlayerController → PlayerMotor`在隔离平地夹具中采样；包括短跳、长跳、跳跃反冲、二段跳与钩索。HD/H按夹具显式授予，默认枪，不附加正式世界资源及怪物压力。它显示指定输入时序，不是极限包络或房间可玩性证明。源哈希不匹配、采样失败或缺失时不导出；网页来源提交不匹配时不展示旧轨迹。
+
+```bash
+bash tools/godot.sh --headless --path . --script tools/workbench/motion_reference.gd
+python3 tools/world/workbench_review.py --output build/workbench/review-context.json
+```
+
+灰盒阶段优先验证每片空间的用途、路线选择、动作组合、可读性与失败恢复。先以小批相连房间反复生成/审核，布局成立后再用户试玩和美术收尾；不得把美术完成度当成灰盒通过的条件，也不能用静态图代替真实控制器验证。
 
 ## 游戏目录与版本更新
 

@@ -15,6 +15,7 @@ from pathlib import Path
 
 from spatial import navigation_geometry
 from workbench_catalog import make_catalog
+from workbench_review import review_context
 
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG_FILES = (
@@ -179,6 +180,7 @@ def make_seed(root: Path, scenes: dict, *, runtime_available=False, baseline=Non
         "schema": 1, "baseline": baseline, "content_version": runtime["content_version"],
         "source_hashes": hashes, "node_types": catalog["node_types"], "catalog": catalog,
         "rooms": rooms,
+        "review_context": review_context(root, baseline),
         "connections": [dict(copy.deepcopy(c), external=c["a"] not in rooms or c["b"] not in rooms)
                         for c in world["connections"] if c["a"] in rooms or c["b"] in rooms],
         "rewards": reward_view(world, design, rooms),
