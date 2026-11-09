@@ -6,6 +6,9 @@ uniform float saturation : hint_range(0.0,1.0) = 0.82;
 uniform float midtone_lift : hint_range(0.0,0.3) = 0.14;
 uniform float contour_strength : hint_range(0.0,1.0) = 0.78;
 uniform float hit_flash : hint_range(0.0,1.0) = 0.0;
+// Only the two windmill attachments opt into staged deployment.
+uniform int mill_part = 0;
+uniform float deployment = 1.0;
 varying vec4 modulation;
 void vertex() { modulation = COLOR; }
 void fragment() {
@@ -27,5 +30,14 @@ void fragment() {
 	rgb = mix(rgb,vec3(0.075,0.115,0.12),edge*(1.0-dark_ground)*contour_strength);
 	rgb = mix(rgb,vec3(0.80,0.75,0.62),upper_edge*dark_ground*0.55);
 	rgb = mix(clamp(rgb,vec3(0.0),vec3(1.0)), vec3(1.0,0.95,0.78), hit_flash);
-	COLOR = vec4(rgb,tex.a)*modulation;
+	float reveal = 1.0;
+	if (mill_part==1) { reveal = step(1.0-smoothstep(.08,.46,deployment),UV.y); }
+	if (mill_part==2) {
+		vec2 d = UV-vec2(.5);
+		float quadrant = d.y<0.0 ? (d.x<0.0 ? 0.0 : 1.0) : (d.x>=0.0 ? 2.0 : 3.0);
+		float opening = smoothstep(.46+quadrant*.055,.68+quadrant*.055,deployment);
+		// Native painted leaf pixels unfurl outwards in four staggered beats.
+		reveal = step(length(d),mix(.075,.72,opening))*step(.46,deployment);
+	}
+	COLOR = vec4(rgb,tex.a*reveal)*modulation;
 }

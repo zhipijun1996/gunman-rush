@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-ENEMY-STATIC-142 | 按已批准的B/C造型与明暗分离完成七怪、两Boss的全状态动画及正式接入 | PLAINS-BIBLE-V2-01 | done | [交接](worklines/plains_enemy_static_142/scope.md) |
+| PLAINS-ENEMY-STATIC-142 | 保留已批准整体风格，修两Boss转向、牧风者后跳／阶段演出与墙边体积 | PLAINS-BIBLE-V2-01 | in_progress | [交接](worklines/plains_enemy_static_142/scope.md) |
 | PLAINS-BIBLE-V2-01 | 按v07.1返工35房平原的反冲/机关、收集支路与空间生态、连续地图、美术和UI | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 
 ## 待验收

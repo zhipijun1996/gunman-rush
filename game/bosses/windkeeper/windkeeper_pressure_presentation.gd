@@ -20,6 +20,9 @@ func _ready() -> void:
 		encounter = get_parent().get_node_or_null("Encounter") as WindkeeperEncounter
 	if encounter == null:
 		return
+	var phase_screen:=WindkeeperPhaseScreen.new()
+	phase_screen.encounter=encounter as WindkeeperPressureEncounter
+	add_child(phase_screen)
 	var wind:=PlainsWindField.new()
 	wind.encounter=encounter as WindkeeperPressureEncounter
 	add_child(wind)

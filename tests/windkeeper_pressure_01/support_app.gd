@@ -67,6 +67,14 @@ func phase3_support() -> void:
 		var slab: Rect2 = support_arena.module.definition.platforms[index]
 		var world_rect := Rect2(support_arena.module.to_global(slab.position), slab.size)
 		authored_supports.append(world_rect)
+		# Initial-position fixture must select a shelf the approved larger body
+		# can occupy. The old rightmost target overlapped the actual seal wall.
+		# Keep that player shelf intact and verify its rejection independently.
+		var landing := Vector2(world_rect.get_center().x,world_rect.position.y-65)
+		if not encounter._landing_body_clear(landing):
+			check(not encounter._support_valid(index-1), "actual wall-overlapping shelf is rejected as a Boss landing without removing player terrain")
+			observations.append({"fixture_rejected": "Boss body overlaps actual solid wall", "player_shelf_unchanged": rect_values(world_rect)})
+			continue
 		var distance: float = absf(world_rect.get_center().x - app.stage.boss.global_position.x)
 		if distance > farthest:
 			farthest = distance

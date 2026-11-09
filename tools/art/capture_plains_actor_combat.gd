@@ -1,6 +1,6 @@
 extends "res://tools/art/capture_plains_enemy_context.gd"
 ## Actual encounters, normal Router inputs and clocks. Spawn/phase and wider review camera are disclosed fixtures.
-const ACTIONS := {"intro":"入场","observe":"观察","approach":"接近","turn":"转向","ring_warning":"铃波前摇","rings":"敲铃攻击","neck":"收招","lob_aim":"瞄准前摇","lob_lock":"锁定落点","lob":"抛铃","roll_warning":"冲锋前摇","roll":"冲锋","combo_brake":"刹停","combo_turn":"回身","combo_warning":"回冲前摇","phase_transition":"阶段转换","stomp_warning":"踏击前摇","stomp":"踏击","lunge_warning":"扑击前摇","lunge":"扑击","sweep_warning":"横扫前摇","sweep":"横扫","seeds_warning":"种子前摇","seeds":"发射种子","gust_warning":"风压前摇","gust":"风压","platform_warning":"踏台前摇","platform":"踏台","recover":"收招","link":"连招间歇","traverse_warning":"跨台前摇","traverse":"跨台","dead":"死亡"}
+const ACTIONS := {"intro":"入场","observe":"观察","approach":"接近","turn":"转向","ring_warning":"铃波前摇","rings":"敲铃攻击","neck":"收招","lob_aim":"瞄准前摇","lob_lock":"锁定落点","lob":"抛铃","roll_warning":"冲锋前摇","roll":"冲锋","combo_brake":"刹停","combo_turn":"回身","combo_warning":"回冲前摇","phase_transition":"阶段转换","stomp_warning":"踏击前摇","stomp":"踏击","lunge_warning":"扑击前摇","lunge":"扑击","sweep_warning":"横扫前摇","sweep":"横扫","seeds_warning":"种子前摇","seeds":"发射种子","gust_warning":"风压前摇","gust":"风压","platform_warning":"踏台前摇","platform":"踏台","recover":"收招","link":"连招间歇","traverse_warning":"跨台前摇","traverse":"跨台","retreat_warning":"后跳蓄力","retreat":"后跳脱身","dead":"死亡"}
 const OUT := "res://build/plains_actors_142/combat/"
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(OUT)
@@ -47,6 +47,11 @@ func run() -> void:
 			var far:=180.0 if test.id=="bell_wave" else 350.0 if test.id=="bell" else 300.0
 			var near:=135.0 if test.id=="bell_wave" else 280.0 if test.id=="bell" else 235.0
 			var axis:=signf(dx) if absf(dx)>far else -signf(dx) if absf(dx)<near else 0.0
+			# Cross behind and press in through normal inputs, so turning and
+			# disengagement are actually exercised by the live AI.
+			if test.id=="keeper" and frame>120 and frame<720:
+				axis=1.0 if frame<360 else -1.0
+				if app.player.is_on_floor() and absf(dx)<240:jump_until=frame+28
 			router.set_source_axis(&"keyboard_mouse",axis)
 			var danger:bool=(encounter.mode==&"roll" and absf(dx)<250) or encounter.mode in [&"rings",&"stomp",&"sweep",&"seeds",&"gust"]
 			if danger and app.player.is_on_floor():jump_until=frame+22
@@ -72,7 +77,7 @@ func run() -> void:
 
 func _frame_combat(boss: Node2D, encounter: Node, floor_y: float) -> void:
 	# Include real recoil jumps without cutting off either actor or the floor.
-	var height:=320.0 if encounter.stage_phase>=2 else 240.0
+	var height:=320.0 if encounter is WindkeeperPressureEncounter else 240.0
 	var left:=minf(app.player.global_position.x-70,boss.global_position.x-235)
 	var right:=maxf(app.player.global_position.x+70,boss.global_position.x+235)
 	var top:=minf(app.player.global_position.y-70,boss.global_position.y-height)

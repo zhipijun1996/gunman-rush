@@ -11,6 +11,11 @@ var bones: Dictionary = {}
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	_collect(skeleton)
+	if family == "windkeeper":
+		for key: String in ["Pole","Rotor"]:
+			var art := bones[key].get_node("Art") as Sprite2D
+			art.material = art.material.duplicate()
+			(art.material as ShaderMaterial).set_shader_parameter("mill_part",1 if key=="Pole" else 2)
 
 func _collect(node: Node) -> void:
 	for child: Node in node.get_children():
@@ -52,9 +57,17 @@ func present(pose: Dictionary, flash: float = 0.0) -> void:
 		_place("Core",pose.core_transform)
 		var pole:=PlainsBossViewPose.windmill_support(pose)
 		_place("Pole",pole)
-		var rotor:=pole*Transform2D(float(pose.fight_age)*7.0,Vector2.ZERO)
+		var mill_age:=float(pose.get("mill_age",pose.fight_age))
+		var opening_seconds:=float(pose.get("deployment_seconds",1.8))
+		var spin_age:=maxf(0,mill_age-opening_seconds*.62)
+		var ramp:=opening_seconds*.38
+		var angle:=7.0*(spin_age*spin_age/(2*ramp) if spin_age<ramp else spin_age-ramp*.5)
+		var rotor:=pole*Transform2D(angle,Vector2.ZERO)
 		rotor.origin=PlainsBossViewPose.windmill_origin(pose)
 		_place("Rotor",rotor)
+		var deployment:=float(pose.progress) if pose.mode==&"phase_transition" and int(pose.phase)==2 else 1.0
+		for key: String in ["Pole","Rotor"]:
+			(bones[key].get_node("Art").material as ShaderMaterial).set_shader_parameter("deployment",deployment)
 	var front:=float(pose.get("view_front",0.0))
 	for key: String in bones:
 		var sprite := bones[key].get_node_or_null("Art") as Sprite2D
@@ -64,6 +77,9 @@ func present(pose: Dictionary, flash: float = 0.0) -> void:
 				sprite.modulate.a=1.0-front
 				front_sprite.modulate.a=front
 				front_sprite.scale.x=1.0/maxf(.01,(bones[key] as Bone2D).global_transform.x.length())
+				if key in ["RearWheel","FrontWheel"]:
+					# Edge-on tire skin must not inherit spinning side-wheel axes.
+					front_sprite.transform=(bones[key] as Bone2D).global_transform.affine_inverse()*Transform2D(0,(bones[key] as Bone2D).global_position+global_transform.basis_xform(Vector2(-6,-21)))
 			if key in ["Cape","Cloth","Tail","Banner","Cannon","Mount"]: sprite.modulate.a=1.0-front
 			var surface := sprite.material as ShaderMaterial
 			if surface != null: surface.set_shader_parameter("hit_flash",flash)
