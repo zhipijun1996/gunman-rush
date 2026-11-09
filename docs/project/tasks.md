@@ -15,7 +15,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| MOBILE-LEVEL-WORKBENCH-01 | 已发布手机编辑器；外部下载恢复后复验自动发行与远端更新 | — | blocked | [交接](worklines/mobile_level_workbench_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | 手机灰盒生成、审核与迭代闭环；保留人工草稿与来源 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 | DEATH-RUNTIME-01 | 复验已接入死亡优化的目标设备帧时间 | — | blocked | [交接](worklines/death_runtime_01/scope.md) |
 | MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | — | blocked | [交接](worklines/mobile_web_fps_04/scope.md) |
 | AUDIO-LAB-MATERIAL-01 | Lab 受伤 ABC 试听与七怪声音路由复核 | — | in_progress | [交接](worklines/audio_lab_material_01/scope.md) |
