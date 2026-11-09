@@ -19,6 +19,10 @@ var station_animation: WorldSpriteAnimation
 var interaction_hosts: Array[WorldRoomInteraction] = []
 var service_pickup_sprites: Dictionary={}
 @export var platforms: Array[Rect2] = []
+## Authored polygon geometry; the same vertices feed physics and presentation.
+@export var terrain_polygons: Array[Dictionary] = []
+## Stable authoring identities for legacy indexed arrays. Never used as progress.
+@export var workbench_entity_ids: Dictionary = {}
 @export var one_way_indices: Array[int] = []
 ## Explicit scenery supplies the surface image; authored rectangles still collide.
 @export var illustrated_platform_indices: Array[int] = []
@@ -88,6 +92,18 @@ func _ready() -> void:
 		if collision.one_way_collision: body.add_to_group("one_way_platform")
 		body.add_child(collision)
 		add_child(body)
+	for polygon: Dictionary in terrain_polygons:
+		var body := StaticBody2D.new()
+		body.name = "Polygon_"+str(polygon.id).replace(":", "_")
+		body.collision_layer = 1
+		body.collision_mask = 0
+		body.set_meta(&"world_ground_polygon", str(polygon.id))
+		var shape := CollisionPolygon2D.new()
+		var points := PackedVector2Array()
+		for pair: Array in polygon.points: points.append(FixedWorldProvider.point(pair))
+		shape.polygon = points
+		body.add_child(shape)
+		add_child(body)
 	for door: Dictionary in doors:
 		var blocker := StaticBody2D.new()
 		blocker.position = FixedWorldProvider.point(door.position_candidate.local_world_units)
@@ -121,11 +137,16 @@ func _ready() -> void:
 		var backing:=Polygon2D.new()
 		backing.polygon=PackedVector2Array([fill.position,Vector2(fill.end.x,fill.position.y),fill.end,Vector2(fill.position.x,fill.end.y)])
 		backing.color=Color("0d101e");backing.z_index=1000;add_child(backing)
-	var terrain:=UnderworldTerrain.build(solids)
+	var ground_polygons: Array[Dictionary] = []
+	var masonry_polygons: Array[Dictionary] = []
+	for polygon: Dictionary in terrain_polygons:
+		if str(polygon.get("material", "ground")) == "masonry": masonry_polygons.append(polygon)
+		else: ground_polygons.append(polygon)
+	var terrain:=UnderworldTerrain.build_with_polygons(solids, ground_polygons)
 	if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
 	add_child(terrain)
-	if not masonry.is_empty():
-		var structure:=UnderworldTerrain.build(masonry)
+	if not masonry.is_empty() or not masonry_polygons.is_empty():
+		var structure:=UnderworldTerrain.build_with_polygons(masonry, masonry_polygons)
 		PlainsMillTerrainMaterial.install_on(structure);add_child(structure)
 	var scenery:=PlainsRoomArt.new();scenery.room=self;add_child(scenery)
 	for rect: Rect2 in climbable_walls:
@@ -141,6 +162,8 @@ func _ready() -> void:
 		for platform: Rect2 in platforms:
 			if point.x>=platform.position.x and point.x<=platform.end.x and platform.position.y>=point.y:
 				support=minf(support,platform.position.y)
+		for polygon: Dictionary in terrain_polygons:
+			support = minf(support, UnderworldPolygonTerrain.surface_below(polygon.points, point))
 		if is_inf(support): support=point.y+40
 		marker.position=Vector2(point.x,support-20)
 		sign["interaction_point"]=Vector2(point.x,support-18)
@@ -295,6 +318,9 @@ func snapshot() -> Dictionary:
 				var rect: Rect2=support.get_meta(&"world_ground")
 				var pose:=remains.presentation_snapshot({"kind":"ground","rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y]})
 				if not pose.is_empty(): result[id].corpse=pose
+			elif is_instance_valid(support) and support.has_meta(&"world_ground_polygon"):
+				var pose:=remains.presentation_snapshot({"kind":"ground_polygon","id":str(support.get_meta(&"world_ground_polygon"))})
+				if not pose.is_empty(): result[id].corpse=pose
 	return result
 
 func refresh_doors(state: FixedWorldState, content: FixedWorldProvider) -> void:
@@ -341,6 +367,8 @@ func celebrate_service_pickup(id: String) -> void:
 
 func _corpse_support(pose: Dictionary) -> Node2D:
 	for body: Node in find_children("*","StaticBody2D",true,false):
+		if body.has_meta(&"world_ground_polygon") and pose.get("support", {}).get("kind") == "ground_polygon":
+			if str(body.get_meta(&"world_ground_polygon")) == str(pose.support.get("id", "")): return body as Node2D
 		if not body.has_meta(&"world_ground"): continue
 		var rect: Rect2=body.get_meta(&"world_ground")
 		if [rect.position.x,rect.position.y,rect.size.x,rect.size.y]==pose.get("support",{}).get("rect",[]): return body as Node2D

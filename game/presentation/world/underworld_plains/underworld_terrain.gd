@@ -148,6 +148,26 @@ static func build(solids: Array[Rect2]) -> UnderworldTerrain:
 		node.add_child(quad)
 	return node
 
+
+static func build_with_polygons(solids: Array[Rect2], polygons: Array[Dictionary]) -> UnderworldTerrain:
+	if polygons.is_empty(): return build(solids)
+	var node := UnderworldTerrain.new()
+	node.name = "UnderworldTerrain"
+	node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var spec := specification()
+	node.set_meta("art_pixel_world_units", float(spec.world_tile_wu)/int(spec.tile_px))
+	node.union_pieces.assign(geometry_plan(solids).pieces)
+	# Retain the normal Terrain identity for lighting/material/foreground consumers.
+	node.core_layer = TileMapLayer.new()
+	node.core_layer.name = "PolygonInterior"
+	node.core_layer.tile_set = load(spec.tileset) as TileSet
+	var material := ShaderMaterial.new()
+	material.shader = CORE_SHADER
+	node.core_layer.material = material
+	node.add_child(node.core_layer)
+	UnderworldPolygonTerrain.install(node, node.union_pieces, polygons, spec, source_texture(), SHADER)
+	return node
+
 ## Physics-semantic sibling interfaces: thin open decks and copper carriers.
 ## They never become solid tile cells or create new collider bodies.
 static func draw_one_way(node: CanvasItem, rect: Rect2) -> void:
@@ -247,3 +267,4 @@ static func draw_mechanism_beam(node: CanvasItem, rect: Rect2, opacity := 1.0) -
 	else:
 		for part: Dictionary in moving_patch_plan(rect):
 			node.draw_texture_rect_region(texture,part.target,part.source,Color(1,1,1,opacity))
+

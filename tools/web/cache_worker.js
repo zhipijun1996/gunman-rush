@@ -12,29 +12,83 @@ self.addEventListener('message', event => {
     }
 });
 const digest = async bytes => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)), b => b.toString(16).padStart(2, '0')).join('');
+// Bound storage to one current build (plus the historic minimum), rather than
+// a fixed cap smaller than the package itself. The last production PCK exceeded
+// 128 MiB; previously its completed write evicted the engine and stored nothing.
+function cacheBudgets(resources) {
+    let complete = 0;
+    const chunks = new Map();
+    for (const info of Object.values(resources)) {
+        complete += Number(info.bytes) || 0;
+        for (const part of info.chunks || []) {
+            chunks.set(part.url, Math.max(chunks.get(part.url) || 0, Number(part.bytes) || 0));
+        }
+    }
+    return {
+        complete: Math.max(128 * 1048576, complete),
+        chunks: Math.max(80 * 1048576, [...chunks.values()].reduce((sum, size) => sum + size, 0)),
+    };
+}
+const CACHE_BUDGETS = cacheBudgets(RESOURCE_MAP);
+const cacheHandles = new Map();
+const cacheIndexes = new WeakMap();
 let cacheWrites = Promise.resolve();
+
+async function runtimeCache(name) {
+    // Reuse the handle so the in-memory FIFO index has one owner per cache.
+    if (!cacheHandles.has(name)) {
+        const pending = caches.open(name).catch(error => {
+            cacheHandles.delete(name);
+            throw error;
+        });
+        cacheHandles.set(name, pending);
+    }
+    return cacheHandles.get(name);
+}
+
+async function cacheIndex(cache) {
+    if (cacheIndexes.has(cache)) return cacheIndexes.get(cache);
+    const index = {sizes: new Map(), total: 0};
+    for (const item of await cache.keys()) {
+        const old = await cache.match(item);
+        if (!old) continue;
+        const size = Number(old.headers.get('Content-Length')) || 0;
+        index.sizes.set(item.url, size);
+        index.total += size;
+    }
+    cacheIndexes.set(cache, index);
+    return index;
+}
+
 async function storeBounded(cache, key, response, limit) {
-    // FIFO limits cover both complete resources and resumable pieces. These are
     // CacheStorage only; Godot's IndexedDB/localStorage saves are never touched.
+    // Refuse an oversized object before evicting otherwise useful cached files.
+    const size = Number(response.headers.get('Content-Length')) || 0;
+    if (size > limit) return;
+    const url = typeof key === 'string' ? key : key.url;
     const task = cacheWrites.catch(() => {}).then(async () => {
-        const size = Number(response.headers.get('Content-Length')) || 0;
-        const keys = await cache.keys();
-        let total = size;
-        const rows = [];
-        for (const item of keys) {
-            if (item.url === (typeof key === 'string' ? key : key.url)) continue;
-            const old = await cache.match(item);
-            const bytes = Number(old?.headers.get('Content-Length')) || 0;
-            total += bytes; rows.push({item, bytes});
-        }
-        for (const row of rows) {
+        // Scan metadata once after worker startup. Re-scanning every existing
+        // chunk before each write made a large download perform O(n²) cache IO.
+        const index = await cacheIndex(cache);
+        let total = index.total - (index.sizes.get(url) || 0) + size;
+        for (const [oldUrl, oldSize] of index.sizes) {
             if (total <= limit) break;
-            await cache.delete(row.item); total -= row.bytes;
+            if (oldUrl === url) continue;
+            await cache.delete(oldUrl);
+            index.sizes.delete(oldUrl);
+            index.total -= oldSize;
+            total -= oldSize;
         }
-        if (size <= limit) await cache.put(key, response);
+        await cache.put(key, response);
+        index.total = total;
+        index.sizes.set(url, size);
     });
     cacheWrites = task;
-    try { await task; } catch (_) { /* Quota/storage denial: still play. */ }
+    try { await task; } catch (_) {
+        // Quota/storage denial must still allow playing. Re-read metadata if a
+        // partial write or external deletion changed the underlying cache.
+        cacheIndexes.delete(cache);
+    }
 }
 async function fetchWithIdleTimeout(url) {
     const controller = new AbortController();
@@ -56,7 +110,7 @@ async function fetchWithIdleTimeout(url) {
 }
 async function chunkedResponse(info, clientId) {
     let cache;
-    try { cache = await caches.open(CHUNK_CACHE); } catch (_) {}
+    try { cache = await runtimeCache(CHUNK_CACHE); } catch (_) {}
     const blocks = new Array(info.chunks.length);
     let next = 0, loaded = 0, failed = false;
     const progress = async () => {
@@ -82,7 +136,7 @@ async function chunkedResponse(info, clientId) {
                             : await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
                     }
                     if (bytes.byteLength !== part.bytes || await digest(bytes) !== part.sha256) throw new Error('Chunk checksum mismatch');
-                    if (cache && !cached) await storeBounded(cache, url, new Response(bytes, {headers: {'Content-Length': String(bytes.byteLength)}}), 80 * 1048576);
+                    if (cache && !cached) await storeBounded(cache, url, new Response(bytes, {headers: {'Content-Length': String(bytes.byteLength)}}), CACHE_BUDGETS.chunks);
                     lastError = null; break;
                 } catch (error) {
                     lastError = error;
@@ -107,7 +161,7 @@ async function immutableResponse(request, name, clientId) {
     const info = RESOURCE_MAP[name];
     let cache;
     try {
-        cache = await caches.open(CACHE_NAME);
+        cache = await runtimeCache(CACHE_NAME);
         const found = await cache.match(request);
         if (found) {
             if (!info?.sha256) return found;
@@ -140,7 +194,7 @@ async function immutableResponse(request, name, clientId) {
     }
     if (!response) response = await fetch(request);
     if (response.ok && response.type !== 'opaque' && cache) {
-        await storeBounded(cache, request, response.clone(), 128 * 1048576);
+        await storeBounded(cache, request, response.clone(), CACHE_BUDGETS.complete);
     }
     return response;
 }

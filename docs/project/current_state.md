@@ -6,6 +6,7 @@
 | --- | --- |
 | 正常游戏入口 | project.godot → FixedWorldApp；原标题展示/正式人物/HUD，标题新游戏/继续，04首段6房施工、共用玩家、真实墙面缺口、可见步入/侧跳/下落、房间/内场约束镜头、尸体/敌人周期、充电不原地刷怪及死亡恢复、后续29房暂不装载；旧DemoApp保留为显式回归入口 |
 | 逐房试玩 | 标题/暂停/试玩顶栏选择已施工房号、真实来向与base/H/H+D；重置和直达链接复用正式控制器，独立内存保存不写正式进度，退出恢复正式继续 |
+| 手机关卡工作台 | 独立浏览器编辑器与ChatGPT MCP共享带版本草稿；房内编辑复用驻留Godot引擎和原控制器，35房临时预览不改变正式6房施工状态。源接入使用同一场景codec与原世界编译器，专用包/缓存及实际验证边界见[工作台交接](worklines/mobile_level_workbench_01/scope.md) |
 | 新世界状态/保存 | FixedWorldState按永久/周期/尝试职责提交，独立原生槽 `fixed_world_plains04_construction.json` / Web profile `plains04_construction`，保留旧版存档；WorldSaveService复用MetaSaveService可靠IO。基础枪首档试制5伤害；Q只在明确授予的专项夹具验收，平原不授予 |
 | 旧原型运行流程 | 标题 → 家园 → 平原两张连通探索图 → H／钩索 → 森林两图 → 开发边界；`RunCampaignProgression` 负责能力权益和地区准入 |
 | 角色资源 | 基础一跳、一发空中弹药；射击不耗时间能量，枪械／钩索共用AirFocus；共鸣蓄力回复复用HealthState/CombatEnergyState，数值与恢复/取消规则见 [资源合同](../bible/combat_and_recharge.md) |

@@ -127,9 +127,9 @@ func _update_panels() -> void:
 		_origin = center
 		_has_origin = true
 	if continuous_panorama:
-		var app := get_parent() as DemoApp
+		var app := get_parent()
 		if panels[0].material is ShaderMaterial and app != null:
-			(panels[0].material as ShaderMaterial).set_shader_parameter("mist",.52 if app.connected_region else .38)
+			(panels[0].material as ShaderMaterial).set_shader_parameter("mist",.52 if app.get("connected_region") == true else .38)
 		var source:=PANORAMA.get_size()
 		var factor:=maxf(_last_size.x/source.x,_last_size.y/source.y)*1.2
 		var extent:=source*factor
@@ -175,9 +175,10 @@ func _build_shared_environment() -> void:
 		panels.append(sprite)
 
 func _shared_domain() -> Rect2:
-	var app := get_parent() as DemoApp
-	if app != null and app.stage is PlainsRegionStage:
-		var b: Array = (app.stage as PlainsRegionStage).generated.manifest.world_bounds
+	var app := get_parent()
+	var stage: Variant = app.get("stage") if app != null else null
+	if stage is PlainsRegionStage:
+		var b: Array = (stage as PlainsRegionStage).generated.manifest.world_bounds
 		return Rect2(b[0]-180.0,b[1]-180.0,b[2]+360.0,b[3]+360.0)
 	return Rect2(-6000,-4000,16000,10000)
 
