@@ -2,7 +2,7 @@
 
 ## 范围与入口
 
-平原场景按当前用户逐房反馈维护，PR147包含PR148的26房成果与后续定稿。35房/43连接身份保持；本分支正式施工目录为16房，公开主站仍为六房，工作台范围为35房及V-R12、Z-R01隔离预览。三铃地空分种与P32远景整合已接入当前工作台；主角苏醒、贴墙、查看及五处充电站进出表现见[人物交接](../player_presentation_01/scope.md)。线上版本与草稿修订统一见[工作台交接](../mobile_level_workbench_01/scope.md)。
+平原场景按当前用户逐房反馈维护，PR147包含PR148的26房成果与后续定稿。35房/43连接身份保持；本分支与公开主站正式施工目录为16房，工作台范围为35房及V-R12、Z-R01隔离预览。三铃地空分种与P32远景整合已接入当前工作台；主角苏醒、贴墙、查看及五处充电站进出表现见[人物交接](../player_presentation_01/scope.md)。线上版本与草稿修订统一见[工作台交接](../mobile_level_workbench_01/scope.md)。
 
 ## 当前施工输入
 
@@ -42,14 +42,14 @@
 
 ## 当前公开试玩
 
-[正式主游戏](https://zhipijun1996.github.io/gunman-rush/?v=759d610ecc90)版本`759d610ecc90`，运行源码`a7fef8b11573ad13d1e5ed2210df781919a000af`，PR149尚未合入main。部署分支`playtest-world-feedback-a7fef8b1`仅Web产物，[Pages运行42799711660](https://github.com/zhipijun1996/gunman-rush/actions/runs/42799711660)成功。私有风铃工作台本轮未更新。
+[正式主游戏](https://zhipijun1996.github.io/gunman-rush/?v=a86f950665ac)版本`a86f950665ac`，运行源码`89b5c2bb0b788d1032a0958738c0e0d611552289`，PR150包含尚未合入main的PR149修复。部署分支`playtest-approved-r72-89b5c2bb`仅Web产物，[Pages运行42817981019](https://github.com/zhipijun1996/gunman-rush/actions/runs/42817981019)成功。私有风铃工作台本轮未更新。
 
-导出闭包1533项和真实PCK探针通过（正式6房、预览37房、15种怪物）。公开HTML、worker、版本信息及短片与本地逐字节一致；远端完整PCK为134,766,680字节，SHA256为`759d610ecc90a09f53dc228e61b03bc66f68d17f48947789e5e467c629df6174`，匹配验收包。相同Web包已在Chromium WebGL2点击新游戏进入P03，无脚本错误。
+导出闭包1537项和真实PCK探针通过（正式16房、预览37房、15种怪物）；两种钩索的黄铜／根系素材随动态加载闭包入包。完整PCK为135,269,320字节，SHA256为`a86f950665aced2a2d7852762ee24e7923cfa2ee3da0fa875ef7d44ec3342951`，实测129.003MiB，导出上限130MiB。公开HTML、worker、版本信息、完整PCK及三段短片已读回，与本地交付文件逐字节一致。独立Web包在Chromium WebGL2通过逐房入口进入P29基础阶段与P17钩索阶段，无脚本错误；这是桌面软件渲染检查，不代表安卓性能。
 
-[蓄力正常速度短片](https://zhipijun1996.github.io/gunman-rush/review/focus.mp4)为6.7秒、约1.2MB，包含实际集气、恢复和中断，来自原生软件OpenGL。当前临时证据归build/world-feedback/；失败的缺失光照配置导出已修正，最终配置随表现模块打包，不读取被排除的原始世界源。
+手机可从标题或暂停菜单进入逐房试玩；[P29直达](https://zhipijun1996.github.io/gunman-rush/?v=a86f950665ac&review=P-R29&stage=base)和[P17钩索阶段](https://zhipijun1996.github.io/gunman-rush/?v=a86f950665ac&review=P-R17&stage=h)使用隔离进度。主站提供[P29阁楼短片](https://zhipijun1996.github.io/gunman-rush/review/attic.mp4)和[P09限时门短片](https://zhipijun1996.github.io/gunman-rush/review/shutter.mp4)，各约5秒／1.3MB；[蓄力短片](https://zhipijun1996.github.io/gunman-rush/review/focus.mp4)保留PR149的6.7秒表现证据。临时导出、浏览器截图与发布校验收据归build/approved-r72，不进入源码。
 
 ## 未验与下一步
 
-草稿初审、源码施工与正式体验终审分开。本轮未完成35房新档连续主环、每条支路的所有反向绕行、全区战斗／经济平衡和安卓真机性能。未部署本批主游戏，平台保持用户当前编辑版本。后续先读取最新平台草稿及审核状态，对比本轮r72输入后继续施工；不能以当前源码覆盖平台的后续人工修改。
+草稿初审、源码施工与正式体验终审分开。本轮未完成35房新档连续主环、每条支路的所有反向绕行、全区战斗／经济平衡和安卓真机性能。本批仅更新主游戏试玩，平台保持用户当前编辑版本。后续先读取最新平台草稿及审核状态，对比本轮r72输入后继续施工；不能以当前源码覆盖平台的后续人工修改。
 
 局部专项命令为 `bash tools/godot.sh --headless --path . --fixed-fps 60 --script tests/world/<专项>.gd`。世界源变化后先执行 `python3 tools/world/build.py` 并重建本地preview_catalog，再运行工作台隔离回归；本地生成不等于发布或迁移线上平台。
