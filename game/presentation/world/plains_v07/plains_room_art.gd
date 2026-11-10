@@ -16,6 +16,9 @@ var sky: Sprite2D
 var daylight: DirectionalLight2D
 var ambient: CanvasModulate
 var indoor := false
+var repair_blend := 0.0
+var repair_initialized := false
+var wind_phase := 0.0
 var motes: Array[Dictionary]=[]
 var room_span:=Vector2.ZERO
 static var profiles: Dictionary={}
@@ -110,12 +113,20 @@ func add_lamp(at: Vector2) -> PointLight2D:
 func _process(delta: float) -> void:
 	clock+=delta
 	if room.services!=null:
+		var restored:=1.0 if room.services.state.has("clock_P") else 0.0
+		if not repair_initialized:repair_blend=restored;repair_initialized=true
+		repair_blend=move_toward(repair_blend,restored,delta*.25)
+		ambient.color=(Color(.66,.71,.80) if indoor else Color(.62,.68,.78)).lerp(Color(.76,.79,.83),repair_blend)
+		if daylight!=null:daylight.energy=lerpf(.42,.55,repair_blend)
+		if sky!=null:sky.modulate=Color(.84,.89,.92).lerp(Color(1,.98,.92),repair_blend)
 		for trace: Dictionary in story_props:
 			trace.node.visible=room.services.state.value.receipts.has(trace.receipt) and (str(trace.host).is_empty() or room.services.state.value.story_hosts.get(trace.host,"")==room.room_id)
+			if trace.receipt=="repair_P":trace.node.modulate.a=repair_blend
 		if player!=null:
 			for prop: Sprite2D in occluders:prop.modulate.a=move_toward(prop.modulate.a,.25 if player.global_position.distance_to(prop.global_position)<112 else 1.0,delta*3)
 
-	for i: int in swaying.size():swaying[i].set_shader_parameter("phase",clock*1.7+i*.73)
+	wind_phase+=delta*lerpf(1.1,1.7,repair_blend)
+	for i: int in swaying.size():swaying[i].set_shader_parameter("phase",wind_phase+i*.73)
 	var camera:=get_viewport().get_camera_2d()
 	if camera!=null:
 		if sky!=null:

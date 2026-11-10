@@ -103,36 +103,7 @@ func run() -> void:
  app.controller.router.clear("crossed doorway")
  check(app.room.room_id=="P-R13" and app.player.is_on_floor(),"P06 west doorway enters P13 through real walk")
  await load_room("P-R13")
- await fixture(Vector2(5680,2158))
- await jump_shot(-1,Vector2.RIGHT,6)
- var crossed:=false
- for i:int in 55:
-  await ticks(1)
-  if app.player.position.x<5384:app.controller.router.set_source_axis(&"keyboard_mouse",0)
-  if app.player.is_on_floor() and app.player.position.x<5400:crossed=true;break
- check(crossed,"P13 horizontal recoil between floor and ceiling thorns "+str(app.player.position))
- app.controller.router.clear("first low refuge")
- await jump_shot(0,Vector2.DOWN,8)
- await ticks(10);app.controller.router.set_source_axis(&"keyboard_mouse",-1)
- var climbed:=false
- for i:int in 45:
-  await ticks(1)
-  if app.player.position.x<5320:app.controller.router.set_source_axis(&"keyboard_mouse",0)
-  if app.player.is_on_floor() and app.player.position.y<2000:climbed=true;break
- check(climbed,"P13 upward turn onto refill refuge "+str(app.player.position))
- await fixture(Vector2(5296,1966))
- await jump_shot(-1,Vector2.RIGHT,6)
- crossed=false
- for i:int in 55:
-  await ticks(1)
-  if app.player.position.x<5024:app.controller.router.set_source_axis(&"keyboard_mouse",0)
-  if app.player.is_on_floor() and app.player.position.x<5040:crossed=true;break
- check(crossed,"P13 upper horizontal recoil to down-turn refuge "+str(app.player.position))
- app.controller.router.clear("downturn approach");app.controller.router.set_source_axis(&"keyboard_mouse",-1)
- for i:int in 50:
-  await ticks(1)
-  if app.player.position.x<4952:app.controller.router.set_source_axis(&"keyboard_mouse",0)
- check(app.player.is_on_floor() and app.player.position.y>2120 and app.player.position.x>4880,"P13 downward turn lands in next refuge "+str(app.player.position))
+ # Current P13 challenge and its no-reward latch counterexample: plains_feedback4.gd.
  await fixture(Vector2(384,2222));app._interact();await ticks(12)
  check(app.state.has("found_HP01"),"P13 actual HP01 interaction")
  await fixture(Vector2(448,2222));app._interact();await ticks(12)

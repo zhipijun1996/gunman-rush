@@ -187,6 +187,7 @@ func advance(delta: float) -> void:
 			var node := hit.collider as Node2D
 			if node != null and node.is_in_group(&"grapple_target"):
 				hook_target = node
+				if node is GrappleAnchor:(node as GrappleAnchor).hook_feedback()
 				_contact_target = node
 				_contact_remaining = definition.hook_contact_grace
 				hook_local = node.to_local(hook_tip)

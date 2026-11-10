@@ -1,38 +1,153 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R15" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_ni3xs"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="2_b5le1"]
+[ext_resource type="Script" path="res://game/world/components/grapple_anchor.gd" id="3_rjlb4"]
+
+[node name="P-R15" type="Node2D" unique_id=1613205744]
+script = ExtResource("1_ni3xs")
 room_id = "P-R15"
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "钟轴下降", "action": "沿错侧检修台下降，铜环保留H上返路线。", "point": [192, 142], "path": [[192, 142], [864, 366], [864, 1440], [864, 2592], [864, 3758]]}, {"number": 2, "label": "横越校时台", "action": "从井底侧岸钩住连续铜环横越断口，到台上修钟并开回桥捷径。", "point": [864, 3758], "path": [[864, 3758], [1136, 3840], [1520, 3840], [1952, 3918], [2304, 4686]]}]}
+arrival_text = "风鸣钟台"
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "沿错侧检修台下降到井底；修钟后开回桥捷径，不用细长钩点梯重复攀井。",
+"label": "钟轴下降",
+"number": 1.0,
+"path": [[192.0, 142.0], [864.0, 366.0], [864.0, 1440.0], [864.0, 2592.0], [864.0, 3758.0]],
+"point": [192.0, 142.0]
+}, {
+"action": "停驻环提供观察与恢复，弹跃锚接续横越；到风鸣钟台修钟后开回程捷径。",
+"label": "横越校时台",
+"number": 2.0,
+"path": [[864.0, 3758.0], [1136.0, 3840.0], [1520.0, 3840.0], [1952.0, 3918.0], [2304.0, 4686.0]],
+"point": [864.0, 3758.0]
+}]
+}
+section_volumes = Array[Dictionary]([{
+"bounds": [1504.0, 3712.0, 896.0, 544.0],
+"id": "access:H"
+}])
+retry_anchors = Array[Dictionary]([{
+"bounds": [816.0, 3716.0, 96.0, 60.0],
+"point": [864.0, 3758.0],
+"section": "main"
+}, {
+"bounds": [1904.0, 3876.0, 96.0, 60.0],
+"point": [1952.0, 3918.0],
+"section": "main"
+}, {
+"bounds": [2256.0, 4644.0, 96.0, 60.0],
+"point": [2304.0, 4686.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "world_clock_far",
+"depth": 0.6,
+"layer": -2.0,
+"point": [1920.0, 4704.0]
+}, {
+"asset": "windchime_plains_v2_bell_wheel",
+"layer": -2.0,
+"point": [1952.0, 3936.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [768.0, 544.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [1024.0, 1696.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [768.0, 2848.0]
+}, {
+"asset": "leaf_sprig",
+"layer": -1.0,
+"point": [1600.0, 3938.0],
+"receipt": "repair_P",
+"sway": true
+}, {
+"asset": "leaf_sprig",
+"layer": -1.0,
+"point": [1744.0, 3938.0],
+"receipt": "repair_P",
+"sway": true
+}, {
+"asset": "leaf_sprig",
+"layer": -1.0,
+"point": [2160.0, 3938.0],
+"receipt": "repair_P",
+"sway": true
+}])
 art_profile = "clock"
+platforms = Array[Rect2]([Rect2(0, 160, 352, 224), Rect2(704, 544, 128, 24), Rect2(960, 928, 128, 24), Rect2(704, 1312, 128, 24), Rect2(960, 1696, 128, 24), Rect2(704, 2080, 128, 24), Rect2(960, 2464, 128, 24), Rect2(704, 2848, 128, 24), Rect2(960, 3232, 128, 24), Rect2(704, 3616, 128, 24), Rect2(512, 4704, 1600, 96), Rect2(2240, 4704, 192, 96), Rect2(1536, 3936, 704, 64), Rect2(704, 3776, 288, 48)])
+workbench_entity_ids = {
+"art_placements": ["P-R15:art_placements:0", "P-R15:art_placements:1", "P-R15:art_placements:2", "P-R15:art_placements:3", "P-R15:art_placements:4", "P-R15:revival:0", "P-R15:revival:1", "P-R15:revival:2"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R15:platforms:0", "P-R15:platforms:1", "P-R15:platforms:2", "P-R15:platforms:3", "P-R15:platforms:4", "P-R15:platforms:5", "P-R15:platforms:6", "P-R15:platforms:7", "P-R15:platforms:8", "P-R15:platforms:9", "P-R15:platforms:10", "P-R15:platforms:11", "P-R15:platforms:12", "P-R15:platforms:13"],
+"retry_anchors": ["P-R15:retry_anchors:0", "P-R15:retry_anchors:1", "P-R15:retry_anchors:2"],
+"signs": []
+}
+one_way_indices = Array[int]([1, 2, 3, 4, 5, 6, 7, 8, 9])
 masonry_platform_indices = Array[int]([12])
-spike_strips = Array[Dictionary]([])
-arrival_text = "主风铃校时台"
-platforms = Array[Rect2]([Rect2(0,160,352,224),Rect2(704.0,544.0,128.0,24.0),Rect2(960.0,928.0,128.0,24.0),Rect2(704.0,1312.0,128.0,24.0),Rect2(960.0,1696.0,128.0,24.0),Rect2(704.0,2080.0,128.0,24.0),Rect2(960.0,2464.0,128.0,24.0),Rect2(704.0,2848.0,128.0,24.0),Rect2(960.0,3232.0,128.0,24.0),Rect2(704.0,3616.0,128.0,24.0),Rect2(512.0,4704.0,1600.0,96.0),Rect2(2240.0,4704.0,192.0,96.0),Rect2(1536.0,3936.0,704.0,64.0),Rect2(704.0,3776.0,288.0,48.0)])
-one_way_indices = Array[int]([1,2,3,4,5,6,7,8,9])
-start_point = Vector2(192,142)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([Vector2(896,288),Vector2(896,480),Vector2(896,672),Vector2(896,864),Vector2(896,1056),Vector2(896,1248),Vector2(896,1440),Vector2(896,1632),Vector2(896,1824),Vector2(896,2016),Vector2(896,2208),Vector2(896,2400),Vector2(896,2592),Vector2(896,2784),Vector2(896,2976),Vector2(896,3168),Vector2(896,3360),Vector2(896,3552),Vector2(896,3744),Vector2(1136,3840),Vector2(1328,3840),Vector2(1520,3840),Vector2(1728,3840),Vector2(1920,3840),Vector2(1248,4512),Vector2(1376,4352),Vector2(1504,4192),Vector2(1632,4032)])
-section_volumes = Array[Dictionary]([{"id":"access:H","bounds":[1504,3712,896,544]}])
-retry_anchors = Array[Dictionary]([{"bounds":[816,3716,96,60],"point":[864,3758],"section":"main"},{"bounds":[1904,3876,96,60],"point":[1952,3918],"section":"main"},{"bounds":[2256,4644,96,60],"point":[2304,4686],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"world_clock_far","point":[1920,4704],"layer":-2,"depth":0.6},{"asset":"windchime_plains_v2_bell_wheel","point":[1952,3936],"layer":-2},{"asset":"gear_lamp","point":[768,544],"layer":-2,"light":true},{"asset":"gear_lamp","point":[1024,1696],"layer":-2,"light":true},{"asset":"gear_lamp","point":[768,2848],"layer":-2,"light":true}])
-illustrated_platform_indices = Array[int]([])
-[node name="Interaction_0" type="Node2D" parent="."]
-script = ExtResource("interaction")
-position = Vector2(1952,3918)
+start_point = Vector2(192, 142)
+story_sequence = {
+"action": "",
+"display": [512.0, 3712.0, 1920.0, 1088.0],
+"effect_point": [1952.0, 3888.0],
+"focus": [1872.0, 3856.0],
+"kind": "repair",
+"lines": ["齿轮咬住了……第一声，终于回来了。", "风也醒了。沿着这声钟响，还能找到更多停下的地方。"],
+"speaker": "修钟者"
+}
+
+[node name="Interaction_0" type="Node2D" parent="." unique_id=1940423969]
+position = Vector2(1952, 3918)
+script = ExtResource("2_b5le1")
 action_id = "repair_P"
 section_id = "access:H"
-label = "修复主风铃"
+label = "修复风鸣钟"
 visual = "clock_altar"
-[node name="Interaction_1" type="Node2D" parent="."]
-script = ExtResource("interaction")
-position = Vector2(2112,3918)
+
+[node name="Interaction_1" type="Node2D" parent="." unique_id=782465153]
+position = Vector2(2112, 3918)
+script = ExtResource("2_b5le1")
 action_id = "open_SC_P01"
 section_id = "access:H"
 label = "开启回程机关"
 visual = "pulley_switch"
+
+[node name="ClockAnchor0" type="Area2D" parent="." unique_id=603406202]
+position = Vector2(1136, 3840)
+script = ExtResource("3_rjlb4")
+hang_enabled = true
+
+[node name="ClockAnchor1" type="Area2D" parent="." unique_id=1094933618]
+position = Vector2(1328, 3808)
+script = ExtResource("3_rjlb4")
+
+[node name="ClockAnchor2" type="Area2D" parent="." unique_id=1400196663]
+position = Vector2(1520, 3840)
+script = ExtResource("3_rjlb4")
+hang_enabled = true
+
+[node name="ClockAnchor3" type="Area2D" parent="." unique_id=661774305]
+position = Vector2(1248, 4512)
+script = ExtResource("3_rjlb4")
+hang_enabled = true
+
+[node name="ClockAnchor4" type="Area2D" parent="." unique_id=250449194]
+position = Vector2(1440, 4304)
+script = ExtResource("3_rjlb4")
+
+[node name="ClockAnchor5" type="Area2D" parent="." unique_id=819300057]
+position = Vector2(1632, 4096)
+script = ExtResource("3_rjlb4")
+hang_enabled = true

@@ -132,6 +132,9 @@ def descriptors(runtime):
 
     position = field("position", "位置", "point")
     nodes = [
+        ("grapple_anchor", "钟机构钩点", "地形", "GrappleAnchor", "hook", [position,
+            field("hang_enabled", "闭口承托环：允许悬挂（关闭为弹簧扣）", "boolean"),
+            field("material_family", "共享材质", "select", options=["clockwork", "rootbound"])]),
         ("moving_platform", "移动平台", "地形", "WorldMovingPlatform", "mechanism", [
             position, field("platform_size", "平台尺寸", "point", min=1), field("endpoint", "终点偏移", "point"),
             field("period", "往返周期（秒）", "number", min=0.1, step=0.1),

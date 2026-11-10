@@ -2,6 +2,8 @@ class_name EnemyMotor
 extends CharacterBody2D
 
 var patrol_speed := 0.0
+var _carrier: Node2D
+var _carrier_position := Vector2.ZERO
 var _ground_actor := false
 var _knockback_requires_floor := false
 var _knockback := Vector2.ZERO
@@ -9,6 +11,23 @@ var _knockback_seconds := 0.0
 var _attraction_tick := -1
 var _attraction := Vector2.ZERO
 var _attraction_limit := 0.0
+
+func _ready() -> void:
+	# Carriers advance at -100; transport the body before the actor chooses its step.
+	process_physics_priority = -50
+
+func _physics_process(_delta: float) -> void:
+	if not _ground_actor or collision_layer == 0: return
+	if is_instance_valid(_carrier):
+		var displacement := _carrier.global_position - _carrier_position
+		if not displacement.is_zero_approx(): move_and_collide(displacement)
+	var body_shape := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if body_shape == null or not body_shape.shape is RectangleShape2D: return
+	var feet := body_shape.global_position + Vector2(0, body_shape.shape.size.y * .5)
+	var ray := PhysicsRayQueryParameters2D.create(feet + Vector2(0,-3), feet + Vector2(0,10), 1, [get_rid()])
+	var hit := get_world_2d().direct_space_state.intersect_ray(ray)
+	_carrier = hit.get("collider") as Node2D if hit.get("collider") is ModuleMovingPlatform else null
+	if is_instance_valid(_carrier): _carrier_position = _carrier.global_position
 
 func configure(definition: EnemyDefinition) -> void:
 	patrol_speed = definition.patrol_speed
@@ -50,6 +69,7 @@ func stop() -> void:
 	velocity = Vector2.ZERO
 
 func reset_at(location: Vector2) -> void:
+	_carrier = null
 	stop()
 	global_position = location
 

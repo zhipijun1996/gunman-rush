@@ -1,53 +1,144 @@
-[gd_scene load_steps=8 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[ext_resource type="Script" path="res://game/bosses/windkeeper/windkeeper_world_binding.gd" id="boss"]
-[ext_resource type="Script" path="res://game/world/components/platforming_module.gd" id="module"]
-[ext_resource type="Resource" path="res://resources/generation/modules/plains_boss_arena.tres" id="arena"]
-[node name="P-R14" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_7ng1e"]
+[ext_resource type="Script" path="res://game/bosses/windkeeper/windkeeper_world_binding.gd" id="2_j37tj"]
+[ext_resource type="Script" path="res://game/world/components/platforming_module.gd" id="3_ioamn"]
+[ext_resource type="Resource" path="res://resources/generation/modules/plains_boss_arena.tres" id="4_g33hu"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="5_hyvxh"]
+[ext_resource type="Script" path="res://game/world/components/grapple_anchor.gd" id="6_d81yy"]
+
+[node name="P-R14" type="Node2D" unique_id=549417996]
+script = ExtResource("1_7ng1e")
 room_id = "P-R14"
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "庭地整备", "action": "从棚口沿宽石肩进入正式战场，完整入场后封门。", "point": [512, 1230], "path": [[512, 1230], [352, 1102], [384, 942], [400, 742], [592, 742]]}, {"number": 2, "label": "领取与回环", "action": "胜利后领取H，低路可开侧闸回岔路；上层铜环通向校时台。", "point": [1800, 742], "path": [[1800, 742], [1984, 558], [2080, 366], [2560, 366], [3200, 366], [4064, 366], [4736, 398]]}]}
-hazards = Array[Rect2]([])
-art_profile = "boss"
-masonry_platform_indices = Array[int]([3,6,7,8,10,12,13,14,15,16])
 arrival_text = "牧风者庭地"
-platforms = Array[Rect2]([Rect2(192,1312,128,32),Rect2(448,1248,128,96),Rect2(256,1120,192,32),Rect2(0,960,512,64),Rect2(0,760,512,40),Rect2(1632,760,544,40),Rect2(500,160,24,408),Rect2(1620,160,24,408),Rect2(512,160,1120,24),Rect2(0,992,3904,32),Rect2(3520,1120,384,96),Rect2(1856,576,256,32),Rect2(1920,384,320,64),Rect2(2432,384,288,64),Rect2(3072,384,352,64),Rect2(3904,384,320,64),Rect2(4672,416,128,96)])
-one_way_indices = Array[int]([2,3,4,5,9,11])
-start_point = Vector2(512,1230)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([Vector2(1984,408),Vector2(2112,240),Vector2(2304,240),Vector2(2496,240),Vector2(2688,240),Vector2(2880,240),Vector2(3072,240),Vector2(3264,240),Vector2(3456,240),Vector2(3648,240),Vector2(3840,240),Vector2(4032,240),Vector2(4224,240),Vector2(4416,240),Vector2(4608,240)])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[336,900,96,60],"point":[384,942],"section":"main"},{"bounds":[1752,700,96,60],"point":[1800,742],"section":"main"},{"bounds":[2032,324,96,60],"point":[2080,366],"section":"main"},{"bounds":[3152,324,96,60],"point":[3200,366],"section":"main"},{"bounds":[4016,324,96,60],"point":[4064,366],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"windmill_frame","point":[192,960],"layer":-2,"depth":0.75},{"asset":"bell_post","point":[2560,384],"layer":-2,"light":true},{"asset":"bell_post","point":[3200,384],"layer":-2,"light":true},{"asset":"bell_post","point":[4064,384],"layer":-2,"light":true}])
-boss_binding = ExtResource("boss")
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "从棚口沿宽石肩进入正式战场，完整入场后封门。",
+"label": "庭地整备",
+"number": 1.0,
+"path": [[512.0, 1230.0], [352.0, 1102.0], [384.0, 942.0], [400.0, 742.0], [592.0, 742.0]],
+"point": [512.0, 1230.0]
+}, {
+"action": "胜利后领取H，低路可开侧闸回岔路；上层铜环通向校时台。",
+"label": "领取与回环",
+"number": 2.0,
+"path": [[1800.0, 742.0], [1984.0, 558.0], [2080.0, 366.0], [2560.0, 366.0], [3200.0, 366.0], [4064.0, 366.0], [4736.0, 398.0]],
+"point": [1800.0, 742.0]
+}]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [336.0, 900.0, 96.0, 60.0],
+"point": [384.0, 942.0],
+"section": "main"
+}, {
+"bounds": [1752.0, 700.0, 96.0, 60.0],
+"point": [1800.0, 742.0],
+"section": "main"
+}, {
+"bounds": [2032.0, 324.0, 96.0, 60.0],
+"point": [2080.0, 366.0],
+"section": "main"
+}, {
+"bounds": [3152.0, 324.0, 96.0, 60.0],
+"point": [3200.0, 366.0],
+"section": "main"
+}, {
+"bounds": [4016.0, 324.0, 96.0, 60.0],
+"point": [4064.0, 366.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "windmill_frame",
+"depth": 0.75,
+"layer": -2.0,
+"point": [192.0, 960.0]
+}, {
+"asset": "bell_post",
+"layer": -2.0,
+"light": true,
+"point": [2560.0, 384.0]
+}, {
+"asset": "bell_post",
+"layer": -2.0,
+"light": true,
+"point": [3200.0, 384.0]
+}, {
+"asset": "bell_post",
+"layer": -2.0,
+"light": true,
+"point": [4064.0, 384.0]
+}])
+art_profile = "boss"
+platforms = Array[Rect2]([Rect2(192, 1312, 128, 32), Rect2(448, 1248, 128, 96), Rect2(256, 1120, 192, 32), Rect2(0, 960, 512, 64), Rect2(0, 760, 512, 40), Rect2(1632, 760, 544, 40), Rect2(500, 160, 24, 408), Rect2(1620, 160, 24, 408), Rect2(512, 160, 1120, 24), Rect2(0, 992, 3904, 32), Rect2(3520, 1120, 384, 96), Rect2(1856, 576, 256, 32), Rect2(1920, 384, 320, 64), Rect2(2432, 384, 288, 64), Rect2(3072, 384, 352, 64), Rect2(3904, 384, 320, 64), Rect2(4672, 416, 128, 96)])
+workbench_entity_ids = {
+"art_placements": ["P-R14:art_placements:0", "P-R14:art_placements:1", "P-R14:art_placements:2", "P-R14:art_placements:3"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R14:platforms:0", "P-R14:platforms:1", "P-R14:platforms:2", "P-R14:platforms:3", "P-R14:platforms:4", "P-R14:platforms:5", "P-R14:platforms:6", "P-R14:platforms:7", "P-R14:platforms:8", "P-R14:platforms:9", "P-R14:platforms:10", "P-R14:platforms:11", "P-R14:platforms:12", "P-R14:platforms:13", "P-R14:platforms:14", "P-R14:platforms:15", "P-R14:platforms:16"],
+"retry_anchors": ["P-R14:retry_anchors:0", "P-R14:retry_anchors:1", "P-R14:retry_anchors:2", "P-R14:retry_anchors:3", "P-R14:retry_anchors:4"],
+"signs": []
+}
+one_way_indices = Array[int]([2, 3, 4, 5, 9, 11])
+masonry_platform_indices = Array[int]([3, 6, 7, 8, 10, 12, 13, 14, 15, 16])
+start_point = Vector2(512, 1230)
 boss_identity = &"windkeeper_storm"
+boss_binding = ExtResource("2_j37tj")
 defeat_action = "defeat_P_WINDKEEPER"
 defeat_flag = "boss_P_WINDKEEPER_defeated"
-boss_position = Vector2(1296.0, 695)
+boss_position = Vector2(1296, 695)
 arena_bounds = Rect2(512, 160, 1120, 600)
 battle_entry_anchor = Vector2(592, 742)
-illustrated_platform_indices = Array[int]([])
-[node name="Arena" type="Node2D" parent="."]
+
+[node name="Arena" type="Node2D" parent="." unique_id=2144032123]
 position = Vector2(512, 160)
-script = ExtResource("module")
-definition = ExtResource("arena")
+script = ExtResource("3_ioamn")
+definition = ExtResource("4_g33hu")
 authoring_debug = false
-[node name="Interaction_0" type="Node2D" parent="."]
-script = ExtResource("interaction")
-position = Vector2(1800,742)
+
+[node name="Interaction_0" type="Node2D" parent="." unique_id=1535746709]
+position = Vector2(1800, 742)
+script = ExtResource("5_hyvxh")
 action_id = "get_H"
-section_id = "main"
 label = "领取钩索"
 visual = "grapple_device"
-[node name="Interaction_1" type="Node2D" parent="."]
-script = ExtResource("interaction")
-position = Vector2(3712,974)
+
+[node name="Interaction_1" type="Node2D" parent="." unique_id=1926602273]
+position = Vector2(3712, 974)
+script = ExtResource("5_hyvxh")
 action_id = "open_SC_P03"
-section_id = "main"
 label = "开启回程机关"
 visual = "pulley_switch"
+
+[node name="ClockAnchor0" type="Area2D" parent="." unique_id=1963911379]
+position = Vector2(1840, 408)
+script = ExtResource("6_d81yy")
+hang_enabled = true
+
+[node name="ClockAnchor1" type="Area2D" parent="." unique_id=1582880003]
+position = Vector2(2304, 264)
+script = ExtResource("6_d81yy")
+
+[node name="ClockAnchor2" type="Area2D" parent="." unique_id=645019752]
+position = Vector2(2820, 280)
+script = ExtResource("6_d81yy")
+hang_enabled = true
+
+[node name="ClockAnchor3" type="Area2D" parent="." unique_id=499063147]
+position = Vector2(3504, 296)
+script = ExtResource("6_d81yy")
+
+[node name="ClockAnchor4" type="Area2D" parent="." unique_id=1574569177]
+position = Vector2(3744, 232)
+script = ExtResource("6_d81yy")
+hang_enabled = true
+
+[node name="ClockAnchor5" type="Area2D" parent="." unique_id=1363097366]
+position = Vector2(4392, 288)
+script = ExtResource("6_d81yy")
+
+[node name="ClockAnchor6" type="Area2D" parent="." unique_id=535745890]
+position = Vector2(4608, 224)
+script = ExtResource("6_d81yy")
+hang_enabled = true

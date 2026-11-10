@@ -5,7 +5,7 @@
     {
       "room_id": "P-R01",
       "name": "钟外小站",
-      "purpose": "整备与辨路枢纽；上层东门进封井后西行牧风高地，中层通铃场探索。",
+      "purpose": "先向东查明钟心，再返回北侧旧路；社区整备。",
       "profile": "station",
       "scene": "res://game/world/regions/P/rooms/P-R01.tscn",
       "encounters": [],
@@ -16,7 +16,7 @@
         }
       ],
       "experience": {
-        "player_decision": "乘站内升降笼抵达平地服务大厅；由不同停靠层辨认来路、铃场和井口。",
+        "player_decision": "首次安全落地触发守钟匠对白；P08暂闭，P31→32→33可通；塔脚对白后永久开放北路。",
         "visual_read": "灯棚、柜台与休息点集中在宽敞大厅；笼轨和各层宽站台明确联系三个来向。",
         "pressure": "安全枢纽，无战斗和危险；层间交通不承担精密跳跃考验。",
         "failure_recovery": "错过升降笼可沿大厅下方有地面的维修道回到竖井重新搭乘；明确休息保存锚点，未提交交易不改变物资。",
@@ -47,7 +47,7 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "本房不新增战斗压力。"
       },
-      "spatial_intent": "站内地图与井口路标连续提示“东门进井，上到岔路再向西循铃”；铃场路口保持可探索。"
+      "spatial_intent": "首次安全落地触发守钟匠对白；P08暂闭，P31→32→33可通；塔脚对白后永久开放北路。"
     },
     {
       "room_id": "P-R02",
@@ -131,7 +131,7 @@
     {
       "room_id": "P-R04",
       "name": "倒钟田垄",
-      "purpose": "断桥换边与桥下齿轮探索，折返反冲登上果园石肩。",
+      "purpose": "反冲上行与落脚压力；下口预览森林。",
       "profile": "bridge",
       "scene": "res://game/world/regions/P/rooms/P-R04.tscn",
       "encounters": [
@@ -154,14 +154,9 @@
           ]
         }
       ],
-      "interactions": [
-        {
-          "action": "pickup_TG01",
-          "section": "main"
-        }
-      ],
+      "interactions": [],
       "experience": {
-        "player_decision": "从东岸先看见断桥和桥下铜齿；选择继续登桥或绕入桥下，再向左上折回井口。",
+        "player_decision": "上升台守怪，局部荆棘限制落脚；TG01已迁到25，不再在低处散发奖励。",
         "visual_read": "下层田垄、上层断桥和转向果园的附墙石肩上下相望。",
         "pressure": "地刺缩小低路站位；桥上石挡改变射线，出口前的高差需要反冲，壁刺限制落点。",
         "failure_recovery": "落到下层实地后可重新上路；领取沿原唯一收据，返程不重复发奖。",
@@ -176,12 +171,13 @@
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
-      }
+      },
+      "spatial_intent": "上升台守怪，局部荆棘限制落脚；TG01已迁到25，不再在低处散发奖励。"
     },
     {
       "room_id": "P-R05",
       "name": "慢风平台",
-      "purpose": "自愿慢台与断桥铜齿挑战；奖励侧落口接岔路捷径，失败沿下层回到起点。",
+      "purpose": "慢台铜齿挑战与墓园预览，保留独立回程。",
       "profile": "mill",
       "scene": "res://game/world/regions/P/rooms/P-R05.tscn",
       "encounters": [],
@@ -196,7 +192,7 @@
         }
       ],
       "experience": {
-        "player_decision": "用铃启动慢台，反冲接断桥铜齿；领取后从奖励侧放开落口回岔路。",
+        "player_decision": "只有TG02是奖励；另两项为回程吊桥和奖励侧返程机关。墓园门前留净空，轨道齿轮扫过载台与离台路线。",
         "visual_read": "上层断岸、慢台导轨和下方重试地面上下相望。",
         "pressure": "自愿平台挑战；奖励侧隔板防止从捷径提前爬入。",
         "failure_recovery": "失手落到下层，沿左端两级岸回起点；领奖侧单向落槽接捷径。",
@@ -210,7 +206,8 @@
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "本房不新增战斗压力。"
-      }
+      },
+      "spatial_intent": "只有TG02是奖励；另两项为回程吊桥和奖励侧返程机关。墓园门前留净空，轨道齿轮扫过载台与离台路线。"
     },
     {
       "room_id": "P-R06",
@@ -546,7 +543,7 @@
     {
       "room_id": "P-R13",
       "name": "旧路肩高台",
-      "purpose": "荆棘曲折窄道与普通下路分流；向左反冲穿上下刺，再交替上升、下降换层，西端取HP01并单向回主路。",
+      "purpose": "两路选择；宽段渐进到末段窄刺挑战。",
       "profile": "terrace",
       "scene": "res://game/world/regions/P/rooms/P-R13.tscn",
       "encounters": [
@@ -603,7 +600,7 @@
         }
       ],
       "experience": {
-        "player_decision": "荆棘曲折窄道与普通下路分流；向左反冲穿上下刺，再交替上升、下降换层，西端取HP01并单向回主路。",
+        "player_decision": "上路五处错位间隙，横渡与竖向转折交替、先宽后窄；11号地形守怪，领HP01后才开单向返程；下方升降台净空保持。",
         "failure_recovery": "转折或检修岸实际落地后可重试，支撑与入口保留安全净空。",
         "visual_read": "以实体轮廓、移动轨迹、刺道和敌人呈现选择；审核路线独立于场景告示，不放占位旅人。"
       },
@@ -613,12 +610,12 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
       },
-      "spatial_intent": "荆棘曲折窄道与普通下路分流；向左反冲穿上下刺，再交替上升、下降换层，西端取HP01并单向回主路。"
+      "spatial_intent": "上路五处错位间隙，横渡与竖向转折交替、先宽后窄；11号地形守怪，领HP01后才开单向返程；下方升降台净空保持。"
     },
     {
       "room_id": "P-R14",
       "name": "牧风者庭地",
-      "purpose": "保留正式牧风者竞技场；棚口整备、胜利领取H、上层铜环首次运用与低层胜利侧闸。",
+      "purpose": "牧风者竞技场与H初试。",
       "profile": "boss",
       "scene": "res://game/world/regions/P/rooms/P-R14.tscn",
       "encounters": [],
@@ -633,7 +630,7 @@
         }
       ],
       "experience": {
-        "player_decision": "保留正式牧风者竞技场；棚口整备、胜利领取H、上层铜环首次运用与低层胜利侧闸。",
+        "player_decision": "胜利后少量上下错开的弹簧扣／停留环，各段有真实接收岸，避免整齐密列。",
         "visual_read": "竞技场体量保持独立，胜利廊道的索点与钟灯引向真正的下行接口。",
         "pressure": "战斗压力集中在竞技场；胜利后的索点间保留安全下层，不再叠加敌人追击。",
         "failure_recovery": "只从真实接近侧恢复；战后下降到独立奖励前庭。",
@@ -648,12 +645,12 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
       },
-      "spatial_intent": "27来向与竞技场封场分开；战后H廊引向15，胜利闸S3独立开启，不用H领取代替。"
+      "spatial_intent": "胜利后少量上下错开的弹簧扣／停留环，各段有真实接收岸，避免整齐密列。"
     },
     {
       "room_id": "P-R15",
-      "name": "主风铃校时台",
-      "purpose": "沿钟轴错侧检修台下降，H横越校时台断口；修钟后下行开S1接回长桥。",
+      "name": "风鸣钟台",
+      "purpose": "第一次修钟，感受时间与生机恢复。",
       "profile": "clock",
       "scene": "res://game/world/regions/P/rooms/P-R15.tscn",
       "encounters": [],
@@ -668,7 +665,7 @@
         }
       ],
       "experience": {
-        "player_decision": "沿钟轴错侧下降，再用H横越校时断口；修钟后开S1回长桥。",
+        "player_decision": "钟轴下降删除无职责的钩点列，盆地下方保留有用恢复锚；修钟触发统一镜头演出、钟声与环境状态变化。",
         "visual_read": "轴井铜环、间隔检修台和底部独立钟台明确去向。",
         "pressure": "安静的胜利后H运用；不叠加敌人追击。",
         "failure_recovery": "轴井有分段维修台，底部可借回程铜环接近钟台；捷径另行开启。",
@@ -684,7 +681,7 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "本房不新增战斗压力。"
       },
-      "spatial_intent": "钟轴下落接32熟悉桥头；指向铜环新路、旧集水路和回站，不把战后引导写成只有返程。"
+      "spatial_intent": "钟轴下降删除无职责的钩点列，盆地下方保留有用恢复锚；修钟触发统一镜头演出、钟声与环境状态变化。"
     },
     {
       "room_id": "P-R16",
@@ -1192,7 +1189,7 @@
     {
       "room_id": "P-R25",
       "name": "倒铃果园",
-      "purpose": "果园下路应对逼近，上层树台提供越敌与捷线。",
+      "purpose": "果园普通战斗主路与可见高台铜齿。",
       "profile": "orchard",
       "scene": "res://game/world/regions/P/rooms/P-R25.tscn",
       "encounters": [
@@ -1233,9 +1230,14 @@
           ]
         }
       ],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "pickup_TG01",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "先从低口抬升到果园；用树根高差隔开冲锋，选择稳走下路或反冲走树冠。",
+        "player_decision": "从左侧较高岸看见TG01；回地形6满跳并精准下射反冲接高台，失败可立即重试。",
         "visual_read": "两座盘根挂铃树拱托住上层短路，根间低路可穿行；枝上落脚和地面遭遇同时可读。",
         "pressure": "上层反冲跨越树台，末端荆棘要求提前离台；低层冲锋与局部地刺迫使选择清怪、短跳或改走上层，东侧俯冲争夺落点。",
         "failure_recovery": "上层失手落回果园下路，可重新借树根登高；清怪后通路仍成立。",
@@ -1251,18 +1253,24 @@
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
-      }
+      },
+      "spatial_intent": "从左侧较高岸看见TG01；回地形6满跳并精准下射反冲接高台，失败可立即重试。"
     },
     {
       "room_id": "P-R26",
       "name": "旧风车内廊",
-      "purpose": "射铃乘西台，右上反冲接检修岸；东台斜升后左上反冲接棚口。",
+      "purpose": "双吊台反冲主路、载台遭遇和检修暗室。",
       "profile": "mill",
       "scene": "res://game/world/regions/P/rooms/P-R26.tscn",
       "encounters": [],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "open_P26_hidden_chest",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "先观察两条导轨和宽检修岸，分两次决定射铃与换乘时机；中间落稳可重新准备。",
+        "player_decision": "载台怪争夺站位，检修岸哨兵可先清；齿轮斜扫载台线路；右下植物遮挡暗室一次性20金币。",
         "visual_read": "室内梁架与传动轴支撑两条吊索，砌体检修台、阀门板和灯芯构成等待位；齿轮横轨在中层可见，铜铃各连到所属承载。",
         "pressure": "西台垂直抬升后反冲接右侧检修岸；东台斜升接出口。中层传动齿轮要求观察扫过区，宽岸提供等待位。",
         "failure_recovery": "沿宽岸或下层实地返回本段；承载可用两端铃召回，沿用原永久机关与收集收据。",
@@ -1276,7 +1284,8 @@
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
-      }
+      },
+      "spatial_intent": "载台怪争夺站位，检修岸哨兵可先清；齿轮斜扫载台线路；右下植物遮挡暗室一次性20金币。"
     },
     {
       "room_id": "P-R27",
@@ -1493,7 +1502,7 @@
     {
       "room_id": "P-R32",
       "name": "悬铃长桥",
-      "purpose": "初期可发现的H桥头预览、开放低路与修钟后的能力再识别。",
+      "purpose": "东行初见钟心与修钟后的熟路回返。",
       "profile": "bridge",
       "scene": "res://game/world/regions/P/rooms/P-R32.tscn",
       "encounters": [
@@ -1518,7 +1527,7 @@
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "沿桥下去钟庭，取得H后尝试长断桥；修钟捷径落回西桥头。",
+        "player_decision": "右侧完整旧塔地标与短镜头演出；低路基础动作可过，不强迫H。",
         "visual_read": "上层索链与低层石路明确分层，南井口接汇口。",
         "pressure": "桥下巡逻与俯冲改变射线；上桥主压力为连续H。",
         "failure_recovery": "落下可回低路，南井两侧留实地；上口保留返向铜环。",
@@ -1533,18 +1542,18 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "离开安全观察位后沿既有敌人的同体预警、命中与死亡表现；提示与辨路期间不受追击。"
       },
-      "spatial_intent": "近端铜环与对岸接收台构成可退的H预览；下层可探索，15回程落在熟悉近端，H得手后高路通35。"
+      "spatial_intent": "右侧完整旧塔地标与短镜头演出；低路基础动作可过，不强迫H。"
     },
     {
       "room_id": "P-R33",
       "name": "钟影前庭",
-      "purpose": "世界钟地标与东行回环前的舒缓前庭。",
+      "purpose": "钟心前庭告知修钟目标，开放北侧旧路。",
       "profile": "clock",
       "scene": "res://game/world/regions/P/rooms/P-R33.tscn",
       "encounters": [],
       "interactions": [],
       "experience": {
-        "player_decision": "在钟影宽庭辨认世界地标，再从南井接东行汇口。",
+        "player_decision": "守钟匠从检修道先到；对白解释时律钟与钟心，指向小站北侧风鸣钟，不改终局核心身份。",
         "visual_read": "世界钟与宽庭地基构成安静地标，井口两侧岸明确。",
         "pressure": "无战斗。",
         "failure_recovery": "南井的中继板接回宽庭，外区未施工边界保持封闭。",
@@ -1559,7 +1568,8 @@
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "本房不新增战斗压力。"
-      }
+      },
+      "spatial_intent": "守钟匠从检修道先到；对白解释时律钟与钟心，指向小站北侧风鸣钟，不改终局核心身份。"
     },
     {
       "room_id": "P-R34",

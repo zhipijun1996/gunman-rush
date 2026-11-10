@@ -1,28 +1,104 @@
-[gd_scene load_steps=4 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[node name="P-R04" type="Node2D"]
-script = ExtResource("1")
-room_id = "P-R04"
-art_profile = "bridge"
-arrival_text = "倒钟田垄"
-start_point = Vector2(1776,910)
-platforms = Array[Rect2]([Rect2(0,1216,1920,64),Rect2(1504,928,416,288),Rect2(992,928,224,64),Rect2(384,928,320,64),Rect2(128,1088,256,128),Rect2(512,704,256,64),Rect2(832,544,320,64),Rect2(1088,320,160,64),Rect2(1248,160,192,48)])
-masonry_platform_indices = Array[int]([1,2,3])
-one_way_indices = Array[int]([5,6,7,8])
-hazards = Array[Rect2]([])
-enemy_placements = Array[Dictionary]([{"id":"P-R04:bridge_guard","behavior":"patrol","point":[1600,910],"max_health":5},{"id":"P-R04:field_hopper","behavior":"hopper","point":[800,1198],"max_health":9}])
-spike_strips = Array[Dictionary]([{"id":"P04:broken_span","bounds":[1216,1192,224,24],"facing":"up"}])
-retry_anchors = Array[Dictionary]([{"bounds":[1504,868,96,60],"point":[1552,910],"section":"main"},{"bounds":[512,868,96,60],"point":[560,910],"section":"main"},{"bounds":[656,644,96,60],"point":[704,686],"section":"main"},{"bounds":[944,452,96,60],"point":[928,526],"section":"main"}])
-signs = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset":"plain_pier","point":[1120,928],"layer":-2,"support_height":288},{"asset":"plain_pier","point":[608,928],"layer":-2,"support_height":288},{"asset":"tilted_barrel","point":[432,1216],"layer":-2,"fade_near":true},{"asset":"hanging_chime","point":[1120,544],"layer":-2}])
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "断桥换边", "action": "向右射击反冲越过断桥；桥下可找齿轮和重新登桥。", "point": [1776, 910], "path": [[1776, 910], [1504, 910], [1104, 910], [608, 910]]}, {"number": 2, "label": "石肩折返", "action": "借反冲逐段抬升，从左侧石肩折回果园井口。", "point": [608, 910], "path": [[608, 910], [640, 686], [992, 494], [1168, 302], [1344, 142]]}]}
+[gd_scene format=3]
 
-[node name="Interaction_0" type="Node2D" parent="."]
-script = ExtResource("interaction")
-position = Vector2(480,1198)
-action_id = "pickup_TG01"
-section_id = "main"
-label = "收取时间齿轮"
-visual = "time_gear"
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_nefye"]
+
+[node name="P-R04" type="Node2D" unique_id=74144068]
+script = ExtResource("1_nefye")
+room_id = "P-R04"
+arrival_text = "倒钟田垄"
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "向右射击反冲越过断桥；桥下可找齿轮和重新登桥。",
+"label": "断桥换边",
+"number": 1.0,
+"path": [[1776.0, 910.0], [1504.0, 910.0], [1104.0, 910.0], [608.0, 910.0]],
+"point": [1776.0, 910.0]
+}, {
+"action": "借反冲逐段抬升，从左侧石肩折回果园井口。",
+"label": "石肩折返",
+"number": 2.0,
+"path": [[608.0, 910.0], [640.0, 686.0], [992.0, 494.0], [1168.0, 302.0], [1344.0, 142.0]],
+"point": [608.0, 910.0]
+}]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [1504.0, 868.0, 96.0, 60.0],
+"point": [1552.0, 910.0],
+"section": "main"
+}, {
+"bounds": [512.0, 868.0, 96.0, 60.0],
+"point": [560.0, 910.0],
+"section": "main"
+}, {
+"bounds": [656.0, 644.0, 96.0, 60.0],
+"point": [704.0, 686.0],
+"section": "main"
+}, {
+"bounds": [944.0, 452.0, 96.0, 60.0],
+"point": [928.0, 526.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "plain_pier",
+"layer": -2.0,
+"point": [1120.0, 928.0],
+"support_height": 288.0
+}, {
+"asset": "plain_pier",
+"layer": -2.0,
+"point": [608.0, 928.0],
+"support_height": 288.0
+}, {
+"asset": "tilted_barrel",
+"fade_near": true,
+"layer": -2.0,
+"point": [432.0, 1216.0]
+}, {
+"asset": "hanging_chime",
+"layer": -2.0,
+"point": [1120.0, 544.0]
+}])
+art_profile = "bridge"
+platforms = Array[Rect2]([Rect2(0, 1216, 960, 64), Rect2(1504, 928, 416, 288), Rect2(992, 928, 224, 64), Rect2(384, 928, 320, 64), Rect2(128, 1088, 256, 128), Rect2(512, 704, 256, 64), Rect2(832, 544, 320, 64), Rect2(1088, 320, 160, 64), Rect2(1248, 160, 192, 48), Rect2(1088, 1216, 832, 64)])
+workbench_entity_ids = {
+"art_placements": ["P-R04:art_placements:0", "P-R04:art_placements:1", "P-R04:art_placements:2", "P-R04:art_placements:3"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R04:platforms:0", "P-R04:platforms:1", "P-R04:platforms:2", "P-R04:platforms:3", "P-R04:platforms:4", "P-R04:platforms:5", "P-R04:platforms:6", "P-R04:platforms:7", "P-R04:platforms:8", "P-R04:platforms:9"],
+"retry_anchors": ["P-R04:retry_anchors:0", "P-R04:retry_anchors:1", "P-R04:retry_anchors:2", "P-R04:retry_anchors:3"],
+"signs": []
+}
+one_way_indices = Array[int]([5, 6, 7, 8])
+masonry_platform_indices = Array[int]([1, 2, 3])
+start_point = Vector2(1776, 910)
+enemy_placements = Array[Dictionary]([{
+"behavior": "patrol",
+"id": "P-R04:bridge_guard",
+"max_health": 9.0,
+"point": [1600.0, 910.0]
+}, {
+"behavior": "hopper",
+"id": "P-R04:field_hopper",
+"max_health": 9.0,
+"point": [800.0, 1198.0]
+}, {
+"behavior": "patrol",
+"id": "P-R04:upper_guard",
+"max_health": 9.0,
+"point": [912.0, 526.0]
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [1216.0, 1192.0, 224.0, 24.0],
+"facing": "up",
+"id": "P04:broken_span"
+}, {
+"bounds": [832.0, 520.0, 48.0, 24.0],
+"facing": "up",
+"id": "P-R04:upper_left_edge"
+}, {
+"bounds": [704.0, 680.0, 64.0, 24.0],
+"facing": "up",
+"id": "P-R04:stone_right_edge"
+}])

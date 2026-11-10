@@ -267,7 +267,7 @@
         "role": "双出口回访社区",
         "entry_read": "首次P24到站能辨认西P08和东P31两扇外出门；休息、柜台、裂缝互不遮挡。",
         "new_direction_cues": [
-          "西门田野与主风铃声",
+          "西门田野与风鸣钟声",
           "东门广场风向标与开阔天光"
         ],
         "reward_refs": [
@@ -844,9 +844,7 @@
       ],
       "rest_is_new": false,
       "npc_ids": [],
-      "reward_ids": [
-        "TG01"
-      ],
+      "reward_ids": [],
       "clock_actions": [],
       "challenge_anchors": [],
       "shortcut_controls": [],
@@ -957,12 +955,8 @@
       ],
       "world_context_story_object_ids": [],
       "collection_design_refs": {
-        "source_ids": [
-          "TG01"
-        ],
-        "source_cue_ids": [
-          "TG01"
-        ],
+        "source_ids": [],
+        "source_cue_ids": [],
         "secret_ids": [],
         "secret_cue_ids": [],
         "currency_cache_reservation_ids": []
@@ -3445,7 +3439,7 @@
     {
       "id": "P-R15",
       "region": "P",
-      "name": "主风铃校时台",
+      "name": "风鸣钟台",
       "primary_role": "landmark_or_objective",
       "primary_role_zh": "目标地标",
       "parent_anchor": "P2",
@@ -11024,7 +11018,7 @@
       "parent_anchor": "S2",
       "route_class": "optional_region_exploration",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "独立世界Boss：淤时巨螺；沼泽地方钟 clock_S + 深部记录 record_S。正式奖励资格与唯一ID见Boss/动作表。",
+      "purpose": "独立世界Boss：淤时巨螺；沼泽时律钟 clock_S + 深部记录 record_S。正式奖励资格与唯一ID见Boss/动作表。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -14531,7 +14525,7 @@
       "parent_anchor": "R1",
       "route_class": "optional_region_exploration",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "独立世界Boss：沉钟司渡；泄洪地方钟 clock_R；开启排水及后续档案路线。正式奖励资格与唯一ID见Boss/动作表。",
+      "purpose": "独立世界Boss：沉钟司渡；泄洪时律钟 clock_R；开启排水及后续档案路线。正式奖励资格与唯一ID见Boss/动作表。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -18621,7 +18615,7 @@
       "parent_anchor": "N2",
       "route_class": "optional_region_exploration",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "独立世界Boss：采时钻机；矿井地方钟 clock_N + 深部记录 record_N。正式奖励资格与唯一ID见Boss/动作表。",
+      "purpose": "独立世界Boss：采时钻机；矿井时律钟 clock_N + 深部记录 record_N。正式奖励资格与唯一ID见Boss/动作表。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -25444,7 +25438,7 @@
       "parent_anchor": "Y1",
       "route_class": "true_objective_or_optional_service",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "独立世界Boss：裂谷鸣兽；峡谷地方钟 clock_Y + 深部记录 record_Y。正式奖励资格与唯一ID见Boss/动作表。",
+      "purpose": "独立世界Boss：裂谷鸣兽；峡谷时律钟 clock_Y + 深部记录 record_Y。正式奖励资格与唯一ID见Boss/动作表。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -29122,7 +29116,7 @@
       "parent_anchor": "F4",
       "route_class": "true_objective_or_optional_service",
       "gate_summary": "房内环境：H+W",
-      "purpose": "独立世界Boss：荆冠女王；森林地方钟 clock_F + 深部记录 record_F。正式奖励资格与唯一ID见Boss/动作表。",
+      "purpose": "独立世界Boss：荆冠女王；森林时律钟 clock_F + 深部记录 record_F。正式奖励资格与唯一ID见Boss/动作表。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -63223,7 +63217,9 @@
       ],
       "rest_is_new": false,
       "npc_ids": [],
-      "reward_ids": [],
+      "reward_ids": [
+        "TG01"
+      ],
       "clock_actions": [],
       "challenge_anchors": [],
       "shortcut_controls": [],
@@ -63273,8 +63269,12 @@
       ],
       "world_context_story_object_ids": [],
       "collection_design_refs": {
-        "source_ids": [],
-        "source_cue_ids": [],
+        "source_ids": [
+          "TG01"
+        ],
+        "source_cue_ids": [
+          "TG01"
+        ],
         "secret_ids": [],
         "secret_cue_ids": [],
         "currency_cache_reservation_ids": []
@@ -96262,11 +96262,14 @@
       "source_macro_edge_id": "L01",
       "requires": [
         [
-          "station_briefed"
+          "clockheart_briefed"
+        ],
+        [
+          "clock_P"
         ]
       ],
       "direction": "both",
-      "condition_text": "物理门条件：station_briefed",
+      "condition_text": "塔脚交谈后开放；已修平原钟的旧进度保持开放",
       "external": false,
       "polyline": [
         [
@@ -96327,7 +96330,10 @@
       "passage_profile": "v07 explicit doorway route; no room-skipping junction at line crossings",
       "effective_door_requires": [
         [
-          "station_briefed"
+          "clockheart_briefed"
+        ],
+        [
+          "clock_P"
         ]
       ],
       "a_section": "main",
@@ -167513,7 +167519,7 @@
       "requires": [
         []
       ],
-      "description": "主风铃校时台",
+      "description": "风鸣钟台",
       "persistent": true,
       "repeat": false,
       "implementation_status": "proposal",
@@ -170435,7 +170441,7 @@
     {
       "id": "station_briefing",
       "room_id": "P-R01",
-      "type": "automatic_landmark",
+      "type": "tutorial",
       "requires": [
         []
       ],
@@ -170445,7 +170451,7 @@
       ],
       "persistent": true,
       "repeat": false,
-      "description": "首次到达小站即登记到站，展示可休息位置和路牌；不要求NPC对白、不自动休息，也不强制完成教学清单。",
+      "description": "首次安全落地与守钟匠交谈，先往东查看世界钟心；跳过演出同样提交结果。",
       "section_id": "main",
       "ability_qualification_at_interaction": false
     },
@@ -171568,7 +171574,7 @@
     {
       "id": "pickup_TG01",
       "reward_id": "TG01",
-      "room_id": "P-R04",
+      "room_id": "P-R25",
       "node": "P1",
       "type": "time_gear",
       "requires": [
@@ -171584,7 +171590,7 @@
       "persistent": true,
       "receipt_id": "TG01",
       "interaction_required": true,
-      "description": "失步齿轮",
+      "description": "果冠高台的失步齿轮",
       "section_id": "main",
       "ability_qualification_at_interaction": false
     },
@@ -175483,6 +175489,54 @@
       "ability_qualification_at_interaction": false,
       "progression_gate": false,
       "interaction_scope": "隐藏室内实体宝箱交互；领取与掉落原子保存"
+    },
+    {
+      "id": "open_P26_hidden_chest",
+      "room_id": "P-R26",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开检修暗室宝箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "intro_see_clockheart",
+      "room_id": "P-R32",
+      "section_id": "main",
+      "type": "tutorial",
+      "requires": [
+        []
+      ],
+      "grants": [
+        "clockheart_seen"
+      ],
+      "persistent": true,
+      "repeat": false,
+      "description": "长桥初见停摆钟塔",
+      "ability_qualification_at_interaction": false
+    },
+    {
+      "id": "intro_visit_clockheart",
+      "room_id": "P-R33",
+      "section_id": "main",
+      "type": "tutorial",
+      "requires": [
+        []
+      ],
+      "grants": [
+        "clockheart_briefed"
+      ],
+      "persistent": true,
+      "repeat": false,
+      "description": "塔脚获知先修时律钟，永久开放小站北侧旧路",
+      "ability_qualification_at_interaction": false
     }
   ],
   "npcs": [
@@ -177617,7 +177671,7 @@
       "reward_id": "repair_P",
       "action_id": "repair_P",
       "kind": "regional_clock",
-      "name": "主风铃校时台",
+      "name": "风鸣钟台",
       "quantity": 1,
       "requires": [
         []
@@ -177636,7 +177690,7 @@
       "counts_within_existing_budget": true,
       "source_action_ref": "repair_P",
       "map_label": "钟P",
-      "environment_change": "牧风者之后恢复主风铃节律；启动通向小站的短升降机，居民开始回到小站。",
+      "environment_change": "牧风者之后恢复风鸣钟节律；启动通向小站的短升降机，居民开始回到小站。",
       "grants_clock": [
         "clock_P",
         "clock_key"
@@ -177646,7 +177700,7 @@
       "physical_room": "P-R15",
       "region": "P",
       "node": "P2",
-      "room_name": "主风铃校时台",
+      "room_name": "风鸣钟台",
       "map_anchor": [
         1396.911,
         1085.813
@@ -180310,23 +180364,23 @@
         "receipt_id": "TG01",
         "interaction": "explicit_unique_pickup_or_turn_in",
         "counts_within_existing_budget": true,
-        "template": "观察探索",
+        "template": "满跳与下射反冲精度挑战",
         "map_label": "TG01",
         "discovery": {
           "first_seen": "进入该房的观察台时显示可见物/声音；若该房本身尚不可达，不虚构提前看见。",
-          "landmark": "倒钟田垄",
+          "landmark": "果冠高台",
           "visual_cues": [
-            "可见齿轮、一步可退的低风险侧台"
+            "从侧台先看见高处铜齿；从中间石台精确满跳与下射反冲"
           ],
           "memory_marker": "首次看见阻挡后记录room_id+障碍类型；取得对应能力仅点亮已记录项，不泄露未知地点。",
           "extra_lock_contract": "房内只采用列表中一个主视觉障碍，其余能力来自既有到达路径；不连续串三道额外能力门。"
         },
         "claim_policy": "完成本齿轮交互才领取；进入区域/房间或路过不批量发放。",
-        "room_id": "P-R04",
-        "physical_room": "P-R04",
+        "room_id": "P-R25",
+        "physical_room": "P-R25",
         "region": "P",
         "node": "P1",
-        "room_name": "倒钟田垄",
+        "room_name": "果园侧径",
         "map_anchor": [
           1098.291,
           1149.317
@@ -191802,7 +191856,7 @@
         "Z"
       ],
       "extra_item": "severance_key",
-      "description": "探索16区主体、完成地方钟与16记录、取得断契棱针后挑战神；不要求全309房或V11-14极限支线，不要求收藏100%。",
+      "description": "探索16区主体、完成时律钟与16记录、取得断契棱针后挑战神；不要求全309房或V11-14极限支线，不要求收藏100%。",
       "requires": [
         [
           "cores_installed",
@@ -191933,7 +191987,7 @@
           "宽地面上辨认阵风预兆，风刃与短位移交替；第一轮只用基础枪和基础移动。",
           "第二阶段改变安全站位，保留稳定落脚；绝不要求未取得的 H 或高难连跳。"
         ],
-        "first_reward_demonstration": "战后在庭地外的固定锚点完成一次低风险 H 跨越，抵达 P-R15 主风铃校时台，再开回小站短升降机。",
+        "first_reward_demonstration": "战后在庭地外的固定锚点完成一次低风险 H 跨越，抵达 P-R15 风鸣钟台，再开回小站短升降机。",
         "victory_persistence": "击败只发生一次并永久保存；休息与死亡不复活世界 Boss；奖励用既有唯一 reward/action ID 领取",
         "baseline_weapon_contract": "默认枪可完成本场；奖励武器、分支、技能芯与攻击等级不作为本场伤害资格或破盾前置",
         "implementation_reuse": {
@@ -191951,7 +192005,7 @@
         "tier_label": "中型独立Boss",
         "entry_summary": "基础枪与基础移动",
         "reward_summary": "H 钩索",
-        "unlock_summary": "战后在庭地外的固定锚点完成一次低风险 H 跨越，抵达 P-R15 主风铃校时台，再开回小站短升降机。",
+        "unlock_summary": "战后在庭地外的固定锚点完成一次低风险 H 跨越，抵达 P-R15 风鸣钟台，再开回小站短升降机。",
         "combat_identity": "宽地面上辨认阵风预兆，风刃与短位移交替；第一轮只用基础枪和基础移动。 第二阶段改变安全站位，保留稳定落脚；绝不要求未取得的 H 或高难连跳。",
         "required_for": "普通与真结局",
         "combat_mobility_requirements": [
@@ -192105,7 +192159,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_F",
-          "reward": "森林地方钟 clock_F + 深部记录 record_F",
+          "reward": "森林时律钟 clock_F + 深部记录 record_F",
           "reward_room": "F-R11",
           "section_id": "main"
         },
@@ -192127,7 +192181,7 @@
         "true_required": true,
         "tier_label": "大型区域首领",
         "entry_summary": "H钩索 + W墙面移动",
-        "reward_summary": "森林地方钟 clock_F + 深部记录 record_F",
+        "reward_summary": "森林时律钟 clock_F + 深部记录 record_F",
         "unlock_summary": "玩家亲手修复古树钟后，前厅至冠层的藤桥稳定，经过早前看到的树窗回到已知路口。",
         "combat_identity": "加速生长的枝蔓按可读顺序占地，墙面通路成为换边选择。 盛放期间缩小一侧立足区，枯落期间恢复；不强制 D 或手里剑。",
         "required_for": "真结局",
@@ -192176,7 +192230,7 @@
         "first_reward_demonstration": "战后上方出口用一次 D 跨过短缺口，失败返回本次小挑战入口；下方始终保留正常回程。",
         "victory_persistence": "击败只发生一次并永久保存；休息与死亡不复活世界 Boss；奖励用既有唯一 reward/action ID 领取",
         "baseline_weapon_contract": "默认枪可完成本场；奖励武器、分支、技能芯与攻击等级不作为本场伤害资格或破盾前置",
-        "non_boss_followup": "M-R10 的地方钟保留灯装与 D 的环境机关修复，不再加第二场 Boss。",
+        "non_boss_followup": "M-R10 的时律钟保留灯装与 D 的环境机关修复，不再加第二场 Boss。",
         "production_tier": "compact_guardian_or_trial",
         "production_scope": "中型守卫/试炼：目标2–3组独立动作加一种组合变化，通常单竞技场单胜利阶段；仍须有独立机制，不能普通怪加血换皮。",
         "name_and_mechanic_status": "角色名与招式为工作提案，未声称已实现；只有明确implementation_reuse项说明候选旧身份。",
@@ -192225,7 +192279,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_S",
-          "reward": "沼泽地方钟 clock_S + 深部记录 record_S",
+          "reward": "沼泽时律钟 clock_S + 深部记录 record_S",
           "reward_room": "S-R08",
           "section_id": "main"
         },
@@ -192247,7 +192301,7 @@
         "true_required": true,
         "tier_label": "中型独立Boss",
         "entry_summary": "H钩索 + W墙面移动 + 已装备滤芯 或 H钩索 + D二段跳 + 已装备滤芯",
-        "reward_summary": "沼泽地方钟 clock_S + 深部记录 record_S",
+        "reward_summary": "沼泽时律钟 clock_S + 深部记录 record_S",
         "unlock_summary": "修钟后净流泵形成可见的干岸捷径；回到泵站能看到环境改善，滤芯仍可卸下。",
         "combat_identity": "巨螺以低速本体封路、快速孢雾脉冲制造节奏反差。 净毒滤芯负责进场与阀门环境条件；玩家围绕高台与排液口转移，W 和 D 两条路线都能打。",
         "required_for": "真结局",
@@ -192288,7 +192342,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_Y",
-          "reward": "峡谷地方钟 clock_Y + 深部记录 record_Y",
+          "reward": "峡谷时律钟 clock_Y + 深部记录 record_Y",
           "reward_room": "Y-R08",
           "section_id": "main"
         },
@@ -192311,7 +192365,7 @@
         "true_required": true,
         "tier_label": "中型独立Boss",
         "entry_summary": "H钩索 + W墙面移动",
-        "reward_summary": "峡谷地方钟 clock_Y + 深部记录 record_Y",
+        "reward_summary": "峡谷时律钟 clock_Y + 深部记录 record_Y",
         "unlock_summary": "修钟使峡谷升降气流恢复固定节律，回访上山路缩短。",
         "combat_identity": "鸣叫改变局部风向，玩家用墙面与低中两条路径避开直冲。 冲击波先撞壁再回返，用方向和节拍区别于平原的阵风。",
         "required_for": "真结局",
@@ -192756,7 +192810,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_N",
-          "reward": "矿井地方钟 clock_N + 深部记录 record_N",
+          "reward": "矿井时律钟 clock_N + 深部记录 record_N",
           "reward_room": "N-R10",
           "section_id": "main"
         },
@@ -192790,7 +192844,7 @@
         "true_required": true,
         "tier_label": "中型独立Boss",
         "entry_summary": "H钩索 + D二段跳 + 炸弹",
-        "reward_summary": "矿井地方钟 clock_N + 深部记录 record_N",
+        "reward_summary": "矿井时律钟 clock_N + 深部记录 record_N",
         "unlock_summary": "修钟后停机检修缝连回上层与工城；玩家可以选择磁轨机修侧间或直接回主路。",
         "combat_identity": "钻机沿弯折竖井轨道钻入钻出；先听回声提示再选支台，区别于上层仓卫平面投弹。 炸弹只用于已获能力的岩壳窗口与环境引爆，露芯后基础枪正常造成伤害；不要求磁吸分支。",
         "required_for": "真结局",
@@ -193021,7 +193075,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_R",
-          "reward": "泄洪地方钟 clock_R；开启排水及后续档案路线",
+          "reward": "泄洪时律钟 clock_R；开启排水及后续档案路线",
           "reward_room": "R-R09",
           "section_id": "main"
         },
@@ -193059,7 +193113,7 @@
         "true_required": true,
         "tier_label": "大型区域首领",
         "entry_summary": "H钩索 + D二段跳",
-        "reward_summary": "泄洪地方钟 clock_R；开启排水及后续档案路线",
+        "reward_summary": "泄洪时律钟 clock_R；开启排水及后续档案路线",
         "unlock_summary": "玩家修钟排水，看到原本水下的 R2 档案入口与上下层回环；record_R 必须亲自进深档案登记，不能战后自动送。",
         "combat_identity": "浮台随钟摆缓慢升沉，司渡的长杆击打与回水波错拍出现。 H/D 能跨越各安全台；主战不要求灯或炸弹，排水后深档案才继续检查灯装备。",
         "required_for": "真结局",
@@ -193169,7 +193223,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_V",
-          "reward": "天门地方钟 clock_V + record_V；开启神契解译台流程",
+          "reward": "天门时律钟 clock_V + record_V；开启神契解译台流程",
           "reward_room": "V-R05",
           "section_id": "main"
         },
@@ -193191,7 +193245,7 @@
         "true_required": true,
         "tier_label": "中型独立Boss",
         "entry_summary": "双翼校相 + HWDQ上层通路",
-        "reward_summary": "天门地方钟 clock_V + record_V；开启神契解译台流程",
+        "reward_summary": "天门时律钟 clock_V + record_V；开启神契解译台流程",
         "unlock_summary": "修钟后前往 V-R06，把古堡、冰川、遗迹证据与星桥记录组合，取得断契棱针；不要把完整真结局钥匙直接做成 Boss 掉落。",
         "combat_identity": "星轨按位置预演后逐条划过，玩家读轨迹的交点与次序。 Boss 停表时保留上一轮星点标记，恢复时按固定顺序释放；不要求终局断契棱针。",
         "required_for": "真结局",
@@ -193340,7 +193394,7 @@
           "独立神契内景竞技场，重播与暂停的是可视轨道和场景片段，不是王的血条加长。",
           "利用已建立的地域时间异象，形成明确的暂停/加速轮换；每段仍有稳定回落区供 Q 刷新。"
         ],
-        "first_reward_demonstration": "战后由玩家执行断契与重新校时，显示修复各地方钟的结果，不发必须回头刷取的终局强度材料。",
+        "first_reward_demonstration": "战后由玩家执行断契与重新校时，显示修复各时律钟的结果，不发必须回头刷取的终局强度材料。",
         "victory_persistence": "击败只发生一次并永久保存；休息与死亡不复活世界 Boss；奖励用既有唯一 reward/action ID 领取",
         "baseline_weapon_contract": "默认枪可完成本场；奖励武器、分支、技能芯与攻击等级不作为本场伤害资格或破盾前置",
         "ending_contract": "Z3 宏锚点不变；独立物理房 Z-R12。进入条件含击败王与全部真线任务，不含 ending_normal。Z-R13 是无休息功能的安全准备室，经王胜后近路回既有 Z-R02 明确休息恢复；死于神仍回登记休息点，不重打王或重置前序修复。",
@@ -193355,7 +193409,7 @@
         "tier_label": "独立终局Boss",
         "entry_summary": "已击败王 + 16区修复/记录 + 断契棱针",
         "reward_summary": "切断神契、真结局与永久见证记录",
-        "unlock_summary": "战后由玩家执行断契与重新校时，显示修复各地方钟的结果，不发必须回头刷取的终局强度材料。",
+        "unlock_summary": "战后由玩家执行断契与重新校时，显示修复各时律钟的结果，不发必须回头刷取的终局强度材料。",
         "combat_identity": "独立神契内景竞技场，重播与暂停的是可视轨道和场景片段，不是王的血条加长。 利用已建立的地域时间异象，形成明确的暂停/加速轮换；每段仍有稳定回落区供 Q 刷新。",
         "required_for": "真结局",
         "combat_mobility_requirements": [
@@ -194129,7 +194183,7 @@
       "development_status": "structure_graybox_specification_not_runtime_implemented",
       "time_state": "时间只轻微错拍，居民仍能生活；各风铃与风车的相位不同，而非整片区域持续慢动作。",
       "split": "从平原教程进入钟外小站，再展开主体探索；高台、根井口和回程在房内以环境能力路线区分，主体保持早期安全回访用途。",
-      "clock_repair": "主风铃接回节拍，回程升降机落到悬铃桥近端；小站灯与生活声逐步增加。",
+      "clock_repair": "风鸣钟接回节拍，回程升降机落到悬铃桥近端；小站灯与生活声逐步增加。",
       "story": "望站坡先见世界钟心，小站明确时间失序与修钟寻三核心的目标；塔脚用维护遗迹解释攀升与修复。王的长生承诺先以旧告示出现，王与神真相随探索揭示。",
       "reward_role": "H教学、钟外小站、三连分支部件P3。",
       "portal": "钟外小站内部；武器匠后续联络或回程线索在这里提示。",
@@ -194290,7 +194344,7 @@
         "dedicated_challenge_rooms": "保留原能力要求、主要挑战布局与失败伤害",
         "player_physics": "沿用统一玩家参数，不随地区时间主题改变"
       },
-      "visual_audio_after_repair": "主风铃接回节拍，回程升降机落到悬铃桥近端；小站灯与生活声逐步增加。",
+      "visual_audio_after_repair": "风鸣钟接回节拍，回程升降机落到悬铃桥近端；小站灯与生活声逐步增加。",
       "traversal_after_repair": "打开既有捷径、恢复交通与便利旧路；不改写本区专门挑战房的要求。",
       "dedicated_challenges_unchanged": true,
       "opening_room_ids": [
@@ -194624,7 +194678,7 @@
       "split": "干岸入口可先到，能看见对岸地标；房内H路线接入横贯干岸，深区的装备门与毒水按抗毒规则处理，再连遗迹/矿井。",
       "clock_repair": "排污闸开出稳定回程步道，水色与环境声改善；毒水侧挑战仍在。",
       "story": "这里承受了王城工程的废液与失效药剂，呈现长生计划代价如何转嫁给普通地区。",
-      "reward_role": "可装卸净毒滤芯；地方钟与深池；装备地图2/商店2、齿轮3、共鸣碎片1的区域预算。",
+      "reward_role": "可装卸净毒滤芯；时律钟与深池；装备地图2/商店2、齿轮3、共鸣碎片1的区域预算。",
       "portal": "西岸高于毒水的旧泵站，放在深区道具锁之前。",
       "status": "v04房间分区、预览与主体通路规划；实机尺寸、镜头和战斗待实施。",
       "clock_node": "S2",
@@ -196176,7 +196230,7 @@
       "split": "主10房承担两翼校相、上层综合动作、守门Boss与神契解译；左右翼先后自选，各开短回程；4极限房独立。主路使用HWDQ，入口预览、道具剧情门、房内能力路线分别建模。",
       "clock_repair": "主钟/两翼的光环逐步对齐，背景旋律完整；已开回程保持，极限挑战原样保留。",
       "story": "玩家亲手校准两翼，看到天外授时并非恩赐而是控制接口；主钟后的神契记录提供解除控制的方法。",
-      "reward_role": "主10房保留断契棱针、地方钟、全部既有装备/齿轮/生命碎片；4极限房仅独立纪念或外观，不新增或扣留成长预算。",
+      "reward_role": "主10房保留断契棱针、时律钟、全部既有装备/齿轮/生命碎片；4极限房仅独立纪念或外观，不新增或扣留成长预算。",
       "portal": "观星前庭/校相中庭一处裂缝，交通交互不休息；两翼完成后各有回中庭便道。",
       "status": "v07后期试炼结构；段长、Q落地与冷却、精度尚待实机校准。",
       "clock_node": "V1",
@@ -198190,56 +198244,36 @@
     "room_id": "P-R01",
     "section_id": "main",
     "landmark_action_ref": "station_briefing",
-    "control_policy": "到站地标事件记录现有开局收据与主线日志，同时显示一次可立即关闭的非阻塞主目标短提示；玩家自由移动，所有对白可跳过，两个外出门无需聊天或休息解锁。",
+    "control_policy": "首次到站在安全地面短剧情；可逐句推进或跳过，完成后提交station_briefing。",
     "resident_lines": [
       {
         "npc_id": "NPC_P_REC",
-        "topic": "welcome",
-        "line": "先坐吧，赶路的人都把风带进来了。"
-      },
-      {
-        "npc_id": "NPC_P_REC",
-        "topic": "main_goal",
-        "line": "那座最高的塔是世界钟心。它失准以后，各地的时间就散了。"
-      },
-      {
-        "npc_id": "NPC_P_REC",
-        "topic": "time_disorder",
-        "line": "有的地方一天像一年，有的地方还停在同一刻。"
-      },
-      {
-        "npc_id": "NPC_P_WEAVER",
-        "topic": "main_goal",
-        "line": "先修各地的钟，找回三枚还能用的核心。钟心重新走起来，大家才有共同的明天。"
-      },
-      {
-        "npc_id": "NPC_P_REC",
         "topic": "directions",
-        "line": "西边的主风铃还在乱响。往北能到塔脚，东边田路也还通着。"
+        "line": "先往东看看钟心。塔脚的守钟匠会告诉你从哪一座钟开始。"
       },
       {
         "npc_id": "NPC_P_WEAVER",
         "topic": "daily_life",
-        "line": "能修的先放这儿。你不用一次走很远。"
+        "line": "回来时把坏掉的零件带上，我替你收拾。"
       }
     ],
-    "departure_guidance": "西门P08通首Boss与森林；东门P31分向北侧塔脚、东侧田路，并可跨接P08。H桥可预览，主目标记录不要求逐人对话。",
+    "departure_guidance": "先走中层东门P31，经32看见钟塔再到33；塔脚交谈后开放上层P08旧路，前往小站北侧风鸣钟。",
     "new_reward_count": 0,
     "not_rest": true,
     "journal_entry_ref": "JOURNAL_MAIN_CLOCK_REPAIR",
-    "two_exit_composition": "来自P24时可辨认西门的田野风铃声与东门的开阔天光；服务前庭保持连贯安全地面。",
+    "two_exit_composition": "中层东门有钟塔方向天光；上层门口旧检修栅与守钟匠的说明明确临时封闭。",
     "initial_objective_hint": {
       "trigger_action": "station_briefing",
-      "text": "世界钟心失准。修复地区时钟，寻找三枚核心。",
+      "text": "先向东去世界钟心看看。",
       "show_once_on_first_arrival": true,
       "once_scope": "existing station_briefing event; no additional gameplay action or token",
-      "blocking": false,
-      "input_lock": false,
+      "blocking": true,
+      "input_lock": true,
       "dismissible_immediately": true,
-      "requires_acknowledgement": false,
+      "requires_acknowledgement": true,
       "repeat_on_reentry": false,
       "record_remains_in_journal": true,
-      "presentation": "首次到站完成现有地标事件时，在画面边缘显示一次简短主目标提示。玩家可立即关闭或继续操作略过；目标记录始终留在日志中。"
+      "presentation": "安全站台短剧情，主动继续或跳过后归还控制；状态按完成提交。"
     }
   },
   "region_label_positions": {
@@ -198463,11 +198497,10 @@
   "station_network_story": {
     "schema": "world.station-network-story.v06",
     "status": "current design contract; topology and physical implementation validated separately",
-    "canonical_ref": "world-room-layout-v06.json",
-    "human_ref": "design/STATION_NETWORK_STORY-v06.txt",
+    "canonical_ref": "config/world/world.json",
     "scope": "中央平原双层路网、早期世界钟心叙事、H回程选择与小站回访动机。",
     "counts_contract": {
-      "rooms": 285,
+      "rooms": 309,
       "regions": 16,
       "plains_rooms": 35,
       "new_named_npcs": 0,
@@ -198482,10 +198515,10 @@
       {
         "room_id": "P-R01",
         "role": "双出口回访社区",
-        "entry_read": "首次P24到站能辨认西P08和东P31两扇外出门；休息、柜台、裂缝互不遮挡。",
+        "entry_read": "下层东口指向长桥与钟心，上层东口由守钟匠暂守；以实际上下门位区分，不使用已废弃的西门说法。",
         "new_direction_cues": [
-          "西门田野与主风铃声",
-          "东门广场风向标与开阔天光"
+          "下层东口：世界钟心高塔",
+          "上层东口：守钟匠与暂封旧路"
         ],
         "reward_refs": [
           "ATK08",
@@ -198559,7 +198592,7 @@
       },
       {
         "room_id": "P-R33",
-        "role": "世界钟心塔脚近景与修复目标说明",
+        "role": "首次强制但可跳的修钟目标说明，另保留可选实物调查",
         "base_access": [
           "P-R32:main",
           "P-R35:main",
@@ -198638,7 +198671,7 @@
       "room_id": "P-R01",
       "section_id": "main",
       "landmark_action_ref": "station_briefing",
-      "control_policy": "到站地标事件记录现有开局收据与主线日志，同时显示一次可立即关闭的非阻塞主目标短提示；玩家自由移动，所有对白可跳过，两个外出门无需聊天或休息解锁。",
+      "control_policy": "首次安全落地触发守钟匠短对话，可跳过；跳过仅提交本段station_briefing，不开放北侧旧路。P33说明完成后，以clockheart_briefed永久开放P01→P08，旧档clock_P亦可通行。",
       "resident_lines": [
         {
           "npc_id": "NPC_P_REC",
@@ -198658,12 +198691,12 @@
         {
           "npc_id": "NPC_P_WEAVER",
           "topic": "main_goal",
-          "line": "先修各地的钟，找回三枚还能用的核心。钟心重新走起来，大家才有共同的明天。"
+          "line": "时律钟替各地守着时间。钟心出了什么事，得去塔下看看才知道。"
         },
         {
           "npc_id": "NPC_P_REC",
           "topic": "directions",
-          "line": "西边的主风铃还在乱响。往北能到塔脚，东边田路也还通着。"
+          "line": "先去东边的钟心看看。回来后，再沿北侧高地寻找风鸣钟。"
         },
         {
           "npc_id": "NPC_P_WEAVER",
@@ -198671,24 +198704,11 @@
           "line": "能修的先放这儿。你不用一次走很远。"
         }
       ],
-      "departure_guidance": "西门P08通首Boss与森林；东门P31分向北侧塔脚、东侧田路，并可跨接P08。H桥可预览，主目标记录不要求逐人对话。",
+      "departure_guidance": "先从中层东口经P31、P32到P33查看世界钟心；回站后走右上方旧井路线，去北侧高地寻找风鸣钟。",
       "new_reward_count": 0,
       "not_rest": true,
       "journal_entry_ref": "JOURNAL_MAIN_CLOCK_REPAIR",
-      "two_exit_composition": "来自P24时可辨认西门的田野风铃声与东门的开阔天光；服务前庭保持连贯安全地面。",
-      "initial_objective_hint": {
-        "trigger_action": "station_briefing",
-        "text": "世界钟心失准。修复地区时钟，寻找三枚核心。",
-        "show_once_on_first_arrival": true,
-        "once_scope": "existing station_briefing event; no additional gameplay action or token",
-        "blocking": false,
-        "input_lock": false,
-        "dismissible_immediately": true,
-        "requires_acknowledgement": false,
-        "repeat_on_reentry": false,
-        "record_remains_in_journal": true,
-        "presentation": "首次到站完成现有地标事件时，在画面边缘显示一次简短主目标提示。玩家可立即关闭或继续操作略过；目标记录始终留在日志中。"
-      }
+      "two_exit_composition": "下层东口指向长桥与钟心，上层东口由守钟匠暂守；以实际上下门位区分，不使用已废弃的西门说法。"
     },
     "story_interactions": [
       {
@@ -198751,53 +198771,40 @@
     ],
     "early_story_sequence": [
       {
-        "stage": "silhouette",
-        "room_id": "P-R24",
-        "player_understands": [
-          "世界存在失序现象",
-          "最高塔与小站的空间关系"
-        ],
-        "delivery": "环境构图与已有布条，所有操作可继续",
-        "reveal_limits": [
-          "不解释王与神的真相",
-          "不改变玩家移动速度"
-        ]
-      },
-      {
-        "stage": "goal",
         "room_id": "P-R01",
-        "player_understands": [
-          "世界钟心失准导致各地时间失序",
-          "修复地区时钟，寻找三枚核心，重启世界钟心"
-        ],
-        "delivery": "可跳NPC对白 + 到站主线日志",
+        "delivery": "守钟匠安全地面短对话，可跳过",
         "gameplay_action_ref": "station_briefing"
       },
       {
-        "stage": "physical_confirmation",
+        "room_id": "P-R32",
+        "delivery": "右侧停摆高塔构图与克制的仰望演出",
+        "gameplay_action_ref": "intro_see_clockheart"
+      },
+      {
         "room_id": "P-R33",
-        "player_understands": [
-          "塔脚可访问，内部上层损坏",
-          "三枚核心是主轴修复材料，不是前门钥匙",
-          "需要更好的移动能力攀升"
-        ],
-        "delivery": "三个可选实物、向Z01继续的基础地面路",
-        "actual_obstacle_ref": "IR:Z-R04:entry:L18",
-        "actual_obstacle_seen_rule": "仅到达Z04入口且看见真实阻隔才记录该能力回访点。"
+        "delivery": "守钟匠经检修道先到；解释时律钟、钟心和核心，开放小站北路",
+        "gameplay_action_ref": "intro_visit_clockheart"
       }
     ],
     "journal_contract": {
       "entry_id": "JOURNAL_MAIN_CLOCK_REPAIR",
       "initial_trigger_action": "station_briefing",
       "initial_title": "让世界钟心重新走起来",
-      "initial_text": "修复地区时钟，寻找三枚还能使用的核心，重启世界钟心。附近可调查西侧主风铃；北侧塔脚和东侧田路也可探索。",
-      "initial_hint": "世界钟心失准。修复地区时钟，寻找三枚核心。",
-      "dialogue_required": false,
+      "initial_text": "向东穿过站外铃场和悬铃长桥，到世界钟心查看停摆的原因。",
+      "initial_hint": "向东穿过站外铃场和悬铃长桥，到世界钟心查看停摆的原因。",
+      "dialogue_required": true,
       "auto_rest": false,
       "auto_rewards": false,
-      "input_lock": false,
-      "additional_gameplay_tokens": [],
+      "input_lock": "仅首次安全地面短剧情；可跳过",
+      "additional_gameplay_tokens": [
+        "clockheart_seen",
+        "clockheart_briefed"
+      ],
       "updates": [
+        {
+          "when": "clockheart_briefed",
+          "text": "小站北侧旧路已让开。前往高地，让风鸣钟重新响起。"
+        },
         {
           "when": "clock_P",
           "text": "平原时钟已校准，裂缝网络恢复。继续调查各地时钟与钟心核心。"
@@ -198816,20 +198823,7 @@
         }
       ],
       "map_reveal_policy": "只记录实际到访、已见地标和确实发生的里程碑；不展示未访区域奖励或完整路线。",
-      "narrative_seen_flags_scope": "可存档，但任何门、Boss、材料、服务或结局前置不得引用这些seen标记。",
-      "initial_hint_display": {
-        "trigger_action": "station_briefing",
-        "text": "世界钟心失准。修复地区时钟，寻找三枚核心。",
-        "show_once_on_first_arrival": true,
-        "once_scope": "existing station_briefing event; no additional gameplay action or token",
-        "blocking": false,
-        "input_lock": false,
-        "dismissible_immediately": true,
-        "requires_acknowledgement": false,
-        "repeat_on_reentry": false,
-        "record_remains_in_journal": true,
-        "presentation": "首次到站完成现有地标事件时，在画面边缘显示一次简短主目标提示。玩家可立即关闭或继续操作略过；目标记录始终留在日志中。"
-      }
+      "narrative_seen_flags_scope": "可存档，但任何门、Boss、材料、服务或结局前置不得引用这些seen标记。"
     },
     "progression_contract": {
       "preserve_intro_chain": [
@@ -198840,7 +198834,6 @@
         "P-R24",
         "P-R01"
       ],
-      "preserve_station_west_exit": "L01 P-R01 <-> P-R08",
       "preserve_first_boss_access": "P05 -> P14; initial station-to-boss minimum remains 9 doors",
       "P15_return": "SC-P01 lands P-R32:main; still requires shortcut_p01 and clock_P",
       "tower_early_access": [
@@ -198870,9 +198863,12 @@
       "late_story_door": "L19: cores_installed AND clock_A",
       "late_Q_environment_route": "IR:Z-R07:entry:L19",
       "outer_phase_state": "clock_A is existing state, never a fourth inventory core",
-      "new_locks": [],
+      "new_locks": [
+        "L01首次钟心说明；不增加能力或材料锁"
+      ],
       "normal_ending": "Preserve existing ordinary-ending requirements; not all regional clocks required.",
-      "true_ending": "Preserve existing true-ending requirements."
+      "true_ending": "Preserve existing true-ending requirements.",
+      "station_upper_east_exit": "L01 P-R01 <-> P-R08; clockheart_briefed OR clock_P"
     },
     "revisit_states": [
       {
@@ -198965,11 +198961,19 @@
       "time_status": "graybox playtest budget only"
     },
     "graybox_observations": [
-      "从P01西门/东门分别出发，1房内能辨认分岔或跨接。",
+      "从小站中层东口与上层东口分别辨认钟心方向与北侧旧路。",
       "H回程落P32后玩家能认出小站灯、可用铜环和塔脚方向。",
       "未见地图的玩家能说出至少两条想走的路线和一个新能力回访点。",
       "记录是否自发识别与选择东向路线；不强迫平均分流。",
       "分别记录探索、熟路回站、Boss重试与阅读时间；不把图论门数当秒数。"
+    ],
+    "first_visit_sequence": [
+      "P01守钟匠认出主角",
+      "P31东行",
+      "P32看见世界钟心",
+      "P33交谈开放P01→P08",
+      "北侧高地击败牧风者",
+      "P15首次修钟，世界恢复活力"
     ]
   },
   "world_context_story_objects": [

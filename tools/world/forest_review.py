@@ -18,11 +18,11 @@ def rectangles(poly):
             if crossings%2:result.append([x,y,xx-x,yy-y])
     return result
 
-def split_path(points):
+def split_path(points,width=256):
     lengths=[math.dist(a,b) for a,b in zip(points,points[1:])];half=sum(lengths)/2
     candidates=[];offset=0
     for i,length in enumerate(lengths):
-        margin=min(160,length/2)
+        margin=min(width/2+32,length/2)
         at=max(margin,min(length-margin,half-offset))
         candidates.append((abs(offset+at-half),i,at/length))
         offset+=length
@@ -52,11 +52,12 @@ def build(root=ROOT):
     assert {p['id'] for p in plan['external_ports']}==expected,'Cross-region interfaces changed'
     rects={rid:rectangles(r['outline']) for rid,r in rooms.items()}
     for c in plan['connections']:
-        e=connections[c['id']];a,b=split_path(c['path']);c.update(a=e['a'],b=e['b'],requires=e.get('requires',[[]]),seam=a[-1])
+        e=connections[c['id']];a,b=split_path(c['path'],c['width']);c.update(a=e['a'],b=e['b'],requires=e.get('requires',[[]]),seam=a[-1])
         rects[e['a']]+=passage(a,c['width']);rects[e['b']]+=passage(b,c['width'])
     for rid,r in rooms.items():
         own=rects[rid];x=min(a[0] for a in own);y=min(a[1] for a in own);xx=max(a[0]+a[2] for a in own);yy=max(a[1]+a[3] for a in own)
-        shape=room_space([[a-x,b-y,c,d] for a,b,c,d in own],[xx-x,yy-y])
+        try:shape=room_space([[a-x,b-y,c,d] for a,b,c,d in own],[xx-x,yy-y])
+        except ValueError as error:raise ValueError(f'{rid}: {error}') from error
         r['outline']=[[a+x,b+y] for a,b in shape['outline']];r['bounds']=[x,y,xx-x,yy-y]
         source=identities[rid];r.update(name=source['name'],rewards=source['reward_ids'],rest=source['rest_point'],rift=source.get('rift_machine',False),neighbors=[])
         for e in connections.values():
@@ -98,7 +99,7 @@ def svg(plan):
         pts=r['outline'];d='M'+'L'.join(f'{a},{b}' for a,b in pts)+'Z';rid=r['room_id'];cx,cy=r['label'];m=marker(r);r['marker']=m
         out.append(f'<g class="room" data-room="{rid}" tabindex="0" role="button" aria-label="{rid} {html.escape(r["name"])}"><title>{rid} {html.escape(r["purpose"])}</title><path d="{d}" fill="{colors[r["zone"]]}" stroke="#8caa95" stroke-width="7"/><text x="{cx}" y="{cy-56}" text-anchor="middle" fill="#f2e5bd" font-size="53" font-weight="600">{rid[2:]} {html.escape(r["name"])}</text><text x="{cx}" y="{cy+8}" text-anchor="middle" fill="#cedbd3" font-size="37">{html.escape(r["purpose"])}</text><text x="{cx}" y="{cy+66}" text-anchor="middle" fill="#f1c982" font-size="35">{html.escape(m)}</text></g>')
     for c in plan['connections']:
-        a,b=split_path(c['path']);mid=a[-1];out.append(f'<circle cx="{mid[0]}" cy="{mid[1]}" r="19" fill="#c3cdb9" opacity=".8"><title>{c["id"]}: {c["a"]} ↔ {c["b"]}</title></circle>')
+        a,b=split_path(c['path'],c['width']);mid=a[-1];out.append(f'<circle cx="{mid[0]}" cy="{mid[1]}" r="19" fill="#c3cdb9" opacity=".8"><title>{c["id"]}: {c["a"]} ↔ {c["b"]}</title></circle>')
     lookup={r['room_id']:r for r in rooms}
     for rt in plan['routes']:
         for a,b in zip(rt['rooms'],rt['rooms'][1:]):

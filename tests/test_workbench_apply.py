@@ -72,7 +72,7 @@ class WorkbenchApplyTests(unittest.TestCase):
         source = next(r for r in world["collectibles"]["gear_sites"] if r["id"] == "TG01")
         self.assertEqual("P-R22", source["physical_room"])
         by_room = {r["id"]: r for r in world["rooms"]}
-        for room_id, contains in (("P-R04", False), ("P-R22", True)):
+        for room_id, contains in ((before["room_id"], False), ("P-R22", True)):
             self.assertEqual(contains, "TG01" in by_room[room_id]["reward_ids"])
             self.assertEqual(contains, "TG01" in by_room[room_id]["collection_design_refs"]["source_ids"])
             row = next(r for r in design["room_index"] if r["room_id"] == room_id)
@@ -91,10 +91,11 @@ class WorkbenchApplyTests(unittest.TestCase):
         for duplicate in (False, True):
             with self.subTest(duplicate=duplicate):
                 world, design, seed, package = self.reward_fixture()
-                room = copy.deepcopy(seed["rooms"]["P-R04"])
+                source_room = package["rewards"][0]["room_id"]
+                room = copy.deepcopy(seed["rooms"][source_room])
                 if duplicate: room["nodes"].append(copy.deepcopy(room["nodes"][0]))
                 else: room["nodes"].clear()
-                package["rooms"]["P-R04"] = room
+                package["rooms"][source_room] = room
                 with self.assertRaisesRegex(importer.ImportRejected, "unique actual scene host"):
                     importer.update_rewards(world, design, package, seed)
 

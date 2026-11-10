@@ -113,6 +113,12 @@ static func cue_event(origin: Node, event_id: StringName, legacy_cue: StringName
 		# has a different selection (e.g. chest_open -> confirm).
 		service._play_original(legacy_cue, service._origin_stream_override(origin, legacy_cue))
 
+static func cue_cinematic(origin: Node, id: StringName) -> bool:
+	# Explicit paused-world presentation; still uses this world's bounded voice pool.
+	if id not in [&"mechanism_bell", &"armour"] or not is_instance_valid(origin) or not origin.is_inside_tree(): return false
+	var service := for_origin(origin) as GameAudio
+	return service._play_original(id, null, false, origin, true) if service != null else false
+
 static func cue(origin: Node, id: StringName) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
 	var service := for_origin(origin) as GameAudio
@@ -355,19 +361,23 @@ func play_boss_cue(event_id: StringName, stream: AudioStream, origin: Node, prio
 	if director_events.size()>256: director_events.pop_front()
 	return true
 
-func _play_original(id: StringName, stream_override: AudioStream = null, committed_reward: bool = false, origin: Node = null) -> bool:
+func _play_original(id: StringName, stream_override: AudioStream = null, committed_reward: bool = false, origin: Node = null, cinematic: bool = false) -> bool:
 	if _shutting_down or not _streams.has(id) or volume <= 0: return false
 	var menu_reward := committed_reward and id in [&"confirm", &"note"]
-	if get_tree().paused and not menu_reward and id not in [&"click", &"confirm", &"denied"]: return false
+	var pause_safe := menu_reward or (cinematic and id in [&"mechanism_bell", &"armour"])
+	if get_tree().paused and not pause_safe and id not in [&"click", &"confirm", &"denied"]: return false
 	var interval := 0.16 if id in [&"step", &"denied", &"armour"] else 0.055
 	if _clock - float(_last.get(id, -100.0)) < interval: return false
 	for voice: AudioStreamPlayer in _voices:
 		if voice.playing: continue
 		_last[id] = _clock
 		played[id] = int(played.get(id, 0)) + 1
-		voice.process_mode = Node.PROCESS_MODE_ALWAYS if menu_reward or id in [&"click", &"confirm", &"denied"] else Node.PROCESS_MODE_PAUSABLE
+		voice.process_mode = Node.PROCESS_MODE_ALWAYS if pause_safe or id in [&"click", &"confirm", &"denied"] else Node.PROCESS_MODE_PAUSABLE
 		voice.set_meta("cue_id", id)
 		_clear_director_metadata(voice)
+		if cinematic and is_instance_valid(origin):
+			voice.set_meta("director_event", &"cinematic")
+			voice.set_meta("director_origin", weakref(origin))
 		if menu_reward:
 			voice.set_meta("committed_reward", true)
 			voice.set_meta("director_event", &"legacy_committed_reward")
@@ -395,7 +405,7 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 			replaceable.stop()
 			replaceable.stream = null
 			director_preemptions += 1
-			return _play_original(id, stream_override, committed_reward, origin)
+			return _play_original(id, stream_override, committed_reward, origin, cinematic)
 	return false
 
 func _load_director_bank() -> void:

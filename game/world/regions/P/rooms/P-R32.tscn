@@ -1,30 +1,88 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R32" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_wexgl"]
+
+[node name="P-R32" type="Node2D" unique_id=1127424155]
+script = ExtResource("1_wexgl")
 room_id = "P-R32"
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "初见断桥", "action": "西岸可看见上层铜环与断桥；无H时从下层通钟庭。", "point": [208, 1006], "path": [[208, 1006], [752, 846], [960, 622], [1280, 1006], [2080, 1006], [2752, 814], [2928, 622]]}, {"number": 2, "label": "修钟回访", "action": "修钟后从上口回来，连续H越桥，或从桥下进入汇口。", "point": [960, 142], "path": [[960, 142], [960, 622], [1440, 512], [2016, 512], [2608, 622], [2432, 1230]]}]}
-traveler_point = Vector2(0,0)
-climbable_walls = Array[Rect2]([])
-environment_zones = Array[Dictionary]([])
-bell_mechanisms = Array[Dictionary]([])
-gear_obstacles = Array[Dictionary]([])
-hazards = Array[Rect2]([])
-art_profile = "bridge"
-masonry_platform_indices = Array[int]([0,1,2,3,4])
-spike_strips = Array[Dictionary]([])
 arrival_text = "悬铃长桥"
-platforms = Array[Rect2]([Rect2(64.0,1024.0,704.0,128.0),Rect2(1024,1024,1216,64),Rect2(2560.0,832.0,512.0,64.0),Rect2(704.0,640.0,416.0,64.0),Rect2(2496.0,640.0,576.0,64.0),Rect2(864.0,160.0,192.0,32.0),Rect2(2368.0,1248.0,192.0,96.0),Rect2(1920.0,1248.0,320.0,96.0),Rect2(640.0,864.0,256.0,32.0),Rect2(1280.0,864.0,256.0,32.0),Rect2(1920.0,864.0,256.0,32.0),Rect2(2368,1024,192,64)])
-one_way_indices = Array[int]([5,8,9,10])
-start_point = Vector2(208,1006)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id":"P-R32:under_bridge_patrol","behavior":"patrol","point":[1744,1006],"max_health":9},{"id":"P-R32:under_bridge_diver","behavior":"diver","point":[2240,832],"max_health":9}])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([Vector2(1056,512),Vector2(1248,512),Vector2(1440,512),Vector2(1632,512),Vector2(1824,512),Vector2(2016,512),Vector2(2208,512),Vector2(2400,512),Vector2(2592,512),Vector2(960,320),Vector2(960,128)])
-section_volumes = Array[Dictionary]([{"id":"high:H","bounds":[1120,256,1952,448]}])
-retry_anchors = Array[Dictionary]([{"bounds":[1008,580,96,60],"point":[1056,622],"section":"main"},{"bounds":[2560,580,96,60],"point":[2608,622],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"plain_pier","point":[960,640],"layer":-2,"support_height":384},{"asset":"plain_pier","point":[2624,640],"layer":-2,"support_height":192},{"asset":"world_clock_far","point":[2928,832],"layer":-2,"depth":0.55}])
-illustrated_platform_indices = Array[int]([])
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "西岸可看见上层铜环与断桥；无H时从下层通钟庭。",
+"label": "初见断桥",
+"number": 1.0,
+"path": [[208.0, 1006.0], [752.0, 846.0], [960.0, 622.0], [1280.0, 1006.0], [2080.0, 1006.0], [2752.0, 814.0], [2928.0, 622.0]],
+"point": [208.0, 1006.0]
+}, {
+"action": "修钟后从上口回来，连续H越桥，或从桥下进入汇口。",
+"label": "修钟回访",
+"number": 2.0,
+"path": [[960.0, 142.0], [960.0, 622.0], [1440.0, 512.0], [2016.0, 512.0], [2608.0, 622.0], [2432.0, 1230.0]],
+"point": [960.0, 142.0]
+}]
+}
+section_volumes = Array[Dictionary]([{
+"bounds": [1120.0, 256.0, 1952.0, 448.0],
+"id": "high:H"
+}])
+retry_anchors = Array[Dictionary]([{
+"bounds": [1008.0, 580.0, 96.0, 60.0],
+"point": [1056.0, 622.0],
+"section": "main"
+}, {
+"bounds": [2560.0, 580.0, 96.0, 60.0],
+"point": [2608.0, 622.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "plain_pier",
+"layer": -2.0,
+"point": [960.0, 640.0],
+"support_height": 384.0
+}, {
+"asset": "plain_pier",
+"layer": -2.0,
+"point": [2624.0, 640.0],
+"support_height": 192.0
+}, {
+"asset": "world_clock_close",
+"layer": -12.0,
+"point": [2824.0, 640.0]
+}])
+art_profile = "bridge"
+platforms = Array[Rect2]([Rect2(64, 1024, 704, 128), Rect2(1024, 1024, 1216, 64), Rect2(2560, 832, 512, 64), Rect2(704, 640, 416, 64), Rect2(2496, 640, 576, 64), Rect2(864, 160, 192, 32), Rect2(2368, 1248, 192, 96), Rect2(1920, 1248, 320, 96), Rect2(640, 864, 256, 32), Rect2(1280, 864, 256, 32), Rect2(1920, 864, 256, 32), Rect2(2368, 1024, 192, 64)])
+workbench_entity_ids = {
+"art_placements": ["P-R32:art_placements:0", "P-R32:art_placements:1", "P-R32:art_placements:2"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": ["P-R32:hook_points:0", "P-R32:hook_points:1", "P-R32:hook_points:2", "P-R32:hook_points:3", "P-R32:hook_points:4", "P-R32:hook_points:5", "P-R32:hook_points:6", "P-R32:hook_points:7", "P-R32:hook_points:8", "P-R32:hook_points:9", "P-R32:hook_points:10"],
+"platforms": ["P-R32:platforms:0", "P-R32:platforms:1", "P-R32:platforms:2", "P-R32:platforms:3", "P-R32:platforms:4", "P-R32:platforms:5", "P-R32:platforms:6", "P-R32:platforms:7", "P-R32:platforms:8", "P-R32:platforms:9", "P-R32:platforms:10", "P-R32:platforms:11"],
+"retry_anchors": ["P-R32:retry_anchors:0", "P-R32:retry_anchors:1"],
+"signs": []
+}
+one_way_indices = Array[int]([5, 8, 9, 10])
+masonry_platform_indices = Array[int]([0, 1, 2, 3, 4])
+start_point = Vector2(208, 1006)
+enemy_placements = Array[Dictionary]([{
+"behavior": "patrol",
+"id": "P-R32:under_bridge_patrol",
+"max_health": 9.0,
+"point": [1744.0, 1006.0]
+}, {
+"behavior": "diver",
+"id": "P-R32:under_bridge_diver",
+"max_health": 9.0,
+"point": [2240.0, 832.0]
+}])
+story_sequence = {
+"action": "intro_see_clockheart",
+"display": [2240.0, 128.0, 832.0, 768.0],
+"establish_seconds": 2.4,
+"focus": [2720.0, 440.0],
+"kind": "landmark",
+"lines": ["那就是……世界钟心。", "钟摆还悬在那里，却听不见一声心跳。"],
+"speaker": "修钟者",
+"trigger": [2496.0, 560.0, 384.0, 80.0]
+}
+hook_points = Array[Vector2]([Vector2(1056, 512), Vector2(1248, 512), Vector2(1440, 512), Vector2(1632, 512), Vector2(1824, 512), Vector2(2016, 512), Vector2(2208, 512), Vector2(2400, 512), Vector2(2592, 512), Vector2(960, 320), Vector2(960, 128)])

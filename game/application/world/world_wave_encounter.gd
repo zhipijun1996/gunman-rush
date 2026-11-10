@@ -35,6 +35,7 @@ func _physics_process(delta: float) -> void:
 	if app==null or not is_instance_valid(app.player) or not is_instance_valid(app.controller) or app.paused or app.busy or finished:return
 	if app.state.value.receipts.has(str(settings.completion_action)):
 		finished=true;app.room.battle_finished=true
+		app.music.request_track(&"plains")
 		_exit_gate.set_deferred("collision_layer",0)
 		_entry_gate.set_deferred("collision_layer",0)
 		GameAudio.cue(self,&"bell");queue_redraw();return
@@ -42,6 +43,7 @@ func _physics_process(delta: float) -> void:
 		var trigger:=FixedWorldProvider.rect(settings.trigger)
 		if not trigger.encloses(Rect2(app.player.position-Vector2(12,18),Vector2(24,36))) or not app.player.is_on_floor():return
 		started=true;app.room.battle_started=true;app.room.battle_finished=false
+		app.music.request_track(&"plains_boss")
 		app.entry_anchor=FixedWorldProvider.point(settings.recovery_point)
 		_entry_gate.set_deferred("collision_layer",1)
 		_next_wave()

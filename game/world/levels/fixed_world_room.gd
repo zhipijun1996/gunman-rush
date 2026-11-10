@@ -38,6 +38,7 @@ var service_pickup_sprites: Dictionary={}
 @export var hazards: Array[Rect2] = []
 @export var spike_strips: Array[Dictionary] = []
 @export var gear_obstacles: Array[Dictionary] = []
+@export var story_sequence: Dictionary = {}
 @export var hook_points: Array[Vector2] = []
 @export var climbable_walls: Array[Rect2] = []
 @export var environment_zones: Array[Dictionary] = []
@@ -155,7 +156,7 @@ func _ready() -> void:
 	for rect: Rect2 in climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;add_child(wall)
 	for point: Vector2 in hook_points:
-		var anchor:=GrappleAnchor.new();anchor.position=point;anchor.hang_enabled=true;add_child(anchor)
+		var anchor:=GrappleAnchor.new();anchor.position=point;anchor.hang_enabled=true;anchor.material_family="rootbound" if room_id.begins_with("F-") or room_id.begins_with("M-") or room_id.begins_with("T-") else "clockwork";add_child(anchor)
 	for sign: Dictionary in signs:
 		var marker:=Sprite2D.new()
 		marker.texture=WorldProps.prop("notice_board")

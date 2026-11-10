@@ -28,6 +28,7 @@ var wave_encounter: WorldWaveEncounter
 var title: Control
 var q_guard: WorldRecoilGuard
 var focus_heal: WorldFocusHeal
+var story: WorldStorySequence
 var music: GameMusic
 var ui: FixedWorldUI
 var overlay: TouchOverlay
@@ -369,6 +370,7 @@ func load_room(id: String, entry: String) -> void:
 	tutorial.enter(room,player.position)
 	introduction=WorldIntroSequence.new();introduction.app=self
 	room.add_child(introduction);introduction.enter()
+	story=WorldStorySequence.new();room.add_child(story);story.setup(self)
 	wave_encounter=null
 	if not room.wave_encounter.is_empty():
 		wave_encounter=WorldWaveEncounter.new()
@@ -566,6 +568,7 @@ func _commit_action(id: String) -> void:
 	if id == room.defeat_action: room.finish_battle()
 	if host!=null:
 		host.celebrate()
+		if id=="repair_P" and is_instance_valid(story):story.play_repair.call_deferred(host.position)
 		if content.action(id).type=="local_return":GameAudio.cue(self,&"bell")
 		else:GameAudio.cue_committed_reward(self,&"item_get",&"confirm")
 	if id == room.reward_action: GameAudio.cue(self,&"confirm")
@@ -672,6 +675,8 @@ func toggle_pause() -> void:
 	if paused: _close_panel()
 	elif _pause_world(): ui.show_pause()
 func _close_panel() -> void:
+	if is_instance_valid(story) and story.active:
+		story.advance();return
 	if is_instance_valid(introduction) and introduction.dialogue_active:
 		introduction.advance();return
 	_service_ticket+=1
@@ -695,9 +700,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.physical_keycode==KEY_M: show_map()
 		elif event.physical_keycode==KEY_I: _ui_command("inventory","")
 func show_map() -> void:
+	if is_instance_valid(story) and story.active:return
 	if is_instance_valid(introduction) and introduction.dialogue_active:return
 	if controller!=null and (paused or _pause_world()): ui.show_map()
 func _ui_command(kind: String,_id: String) -> void:
+	if is_instance_valid(story) and story.active and kind not in ["close","title"]:return
 	if is_instance_valid(introduction) and introduction.dialogue_active and kind not in ["close","title"]:return
 	match kind:
 		"new":

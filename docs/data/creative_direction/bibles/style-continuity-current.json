@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "authority_id": "project_shared_regional_style",
-  "version": "43",
+  "version": "44",
   "source": {
     "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
     "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
@@ -29,12 +29,12 @@
       {
         "role": "formal_entry",
         "path": "game/application/world/fixed_world_app.gd",
-        "sha256": "932b70843d8ecbf24f08c4df4a60abfc88f1d1c69649355d8ae5ecefbb5a07dd"
+        "sha256": "5a42f6be750554c815ff131e9dd65e0486c13ff9e3425e30ff3e75f744235f30"
       },
       {
         "role": "terrain_consumer",
         "path": "game/world/levels/fixed_world_room.gd",
-        "sha256": "b87972e1b6cdedb30e6121af2d66e73522297ad5f21cc100c9998bf9a3924f4c"
+        "sha256": "d7305886aebe638a287393ae53bfa0b779e1f9e2a49a95d3d37b04020d2aabe5"
       },
       {
         "role": "terrain_renderer",
@@ -89,7 +89,7 @@
       {
         "role": "player_style_reference",
         "path": "game/presentation/actors/underworld_plains/underworld_player.gd",
-        "sha256": "4db6103b3938a28d994bfd5b1b70bbe50dd0d1fbf4976e2b6e36baddb633e8da"
+        "sha256": "6eefd7d334b2bac307539c3c57ca1f5081472da884256255ac2b48c12ed8319d"
       },
       {
         "role": "player_animation_build",
@@ -154,7 +154,7 @@
       {
         "role": "default_player_6",
         "path": "game/player/presentation/motion_visual.gd",
-        "sha256": "7a1df2dc8968e5cb3b2cc2eb6be5d8759ccfd9372a1c123b63970971143ffe3e"
+        "sha256": "522cecdc2a161f953db00ec4429588a2034d23eb7a1ffa019c1b946eb49844f8"
       },
       {
         "role": "default_player_7",
@@ -924,7 +924,7 @@
       {
         "role": "architecture_game_audio",
         "path": "game/presentation/audio/game_audio.gd",
-        "sha256": "933a8ce31e1e25e8990e0b53e81343239680e704d04129ea232284fd268156f7"
+        "sha256": "119a1c9ad3ac1ce12694f74f54c1ccc9844a73456d3736cd6add6e097a035722"
       },
       {
         "role": "architecture_plains_enemy_audio",
@@ -1059,7 +1059,7 @@
       {
         "role": "plains_v07_art",
         "path": "game/presentation/world/plains_v07/plains_room_art.gd",
-        "sha256": "9bbac03dab60918f55c9035de239a872c49b2d26316da84b00eacb034441eb61"
+        "sha256": "cf033c57cf378dffffd86ad48a3b844e87cfd3ee12f37b5fd084d8aee1129f1d"
       },
       {
         "role": "plains_v07_animation",
@@ -1069,7 +1069,7 @@
       {
         "role": "plains_v07_assets",
         "path": "assets/plains_v07/manifest.json",
-        "sha256": "61b9d6444e3f6e6a208e43eddaf9ddd7ef388b955ab36fe58968b9bc9823f91d"
+        "sha256": "46cbf48f8e3da455361325266e9a4c2f5526dc62f9edec2a79afad4410072942"
       },
       {
         "role": "plains_v07_provenance",
@@ -1107,9 +1107,9 @@
   ],
   "region_scope": "Every current catalog region and later new region; the two original Bible documents are unchanged.",
   "change_impact": {
-    "source": "Direct user request, 2026-11-09; merge PR141, PR142, PR144 and PR145",
-    "quote": "直接按照最新的文件，删除过程迭代的版本，保持项目干净",
-    "actual_changes": "整合最终怪物/Boss动画与工作台地形渲染；保留唯一正式镜头、隐藏遮挡、恒定缩放和左右贴墙，移除旧关注区接口。角色物理与正式关卡布局不变。",
-    "validation": "整合专项覆盖正式镜头、实际Boss动作、35房codec往返、工作台运行和世界源。技术检查不代签全区美术或实体设备验收。"
+    "source": "Direct user requests in this session, 2026-11-10",
+    "quote": "钩索需要绘制两种类型；第一次修钟，要看到修钟的特效、音效，然后世界从破败变有生机。",
+    "actual_changes": "沿用主角、原生32px地形与Underworld材质；两类铜件钩点、平原修钟暖光/风动/草叶、显式剧情镜头与暂停中音效，未换角色或物理。绑定此前已接入的角色表现与道具最新消费者。",
+    "validation": "本轮正常Godot窗口审看14钩点、13挑战、25奖励预读、32塔景、15修钟前后；真实动作、故事跳过/返回/读档、载台怪与音源生命周期检查。森林仅整图规划，无新增森林素材或全区视觉接受声明。"
   }
 }

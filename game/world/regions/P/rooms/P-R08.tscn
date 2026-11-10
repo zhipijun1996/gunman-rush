@@ -1,51 +1,129 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
-[node name="P-R08" type="Node2D"]
-script = ExtResource("1")
-room_id = "P-R08"
-route_guide = {"schema":1,"steps":[{"number":1,"label":"提水吊台","action":"射铃启台，顶部向左上反冲换到第二台。","point":[704,2926],"path":[[704,2926],[864,2868],[864,2228],[576,2020]]},{"number":2,"label":"反冲换乘","action":"第二台顶部向右上反冲接第三台；登台后击铃启动。","point":[576,2020],"path":[[576,2020],[576,1380],[896,1156]]},{"number":3,"label":"井口落岸","action":"从第三台最高点跳向左侧井口，轨道上方保持净空。","point":[896,1156],"path":[[896,1156],[896,212],[704,142]]}]}
-one_way_indices = Array[int]([])
-art_profile = "well"
-platforms = Array[Rect2]([Rect2(0,2944,1216,128),Rect2(320,2848,128,96),Rect2(448,2304,224,48),Rect2(800,1456,224,48),Rect2(608,160,192,32)])
-start_point = Vector2(144,2926)
-arrival_text = "封井回廊"
-bell_mechanisms = Array[Dictionary]([{"id":"P-R08:well_lift","bell":[864,2800],"carrier":"WellLift","access_bells":[[736,2896],[720,2208]]},{"id":"P-R08:service_lift","bell":[576,1952],"carrier":"ServiceLift","access_bells":[[624,2256],[720,1360]]},{"id":"P-R08:upper_lift","bell":[896,1120],"carrier":"UpperLift","access_bells":[[944,1408],[752,112]]}])
-enemy_placements = Array[Dictionary]([{"id":"P-R08:floor_patrol","behavior":"patrol","point":[544,2926],"max_health":5},{"id":"P-R08:landing_guard","behavior":"patrol","point":[976,1438],"max_health":5}])
-spike_strips = Array[Dictionary]([{"id":"P-R08:shaft_left","bounds":[448,1632,24,256],"facing":"right"},{"id":"P-R08:shaft_right","bounds":[1000,640,24,224],"facing":"left"}])
-gear_obstacles = Array[Dictionary]([{"id":"P-R08:well_cam","point":[744,896],"travel":[48,0],"period":5.6,"phase":0.5}])
-retry_anchors = Array[Dictionary]([{"bounds":[656,2884,96,60],"point":[704,2926],"section":"main"},{"bounds":[496,2244,96,60],"point":[544,2286],"section":"main"},{"bounds":[816,1396,96,60],"point":[864,1438],"section":"main"}])
-art_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([])
+[gd_scene format=3]
 
-[node name="WellLift" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(864,2896)
-endpoint = Vector2(0,-640)
-platform_size = Vector2(160,20)
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_wv5m1"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_pyfpb"]
+
+[node name="P-R08" type="Node2D" unique_id=1382594092]
+script = ExtResource("1_wv5m1")
+room_id = "P-R08"
+arrival_text = "封井回廊"
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "射铃启台，顶部向左上反冲换到第二台。",
+"label": "提水吊台",
+"number": 1.0,
+"path": [[704.0, 2926.0], [864.0, 2868.0], [864.0, 2228.0], [576.0, 2020.0]],
+"point": [704.0, 2926.0]
+}, {
+"action": "第二台顶部向右上反冲接第三台；登台后击铃启动。",
+"label": "反冲换乘",
+"number": 2.0,
+"path": [[576.0, 2020.0], [576.0, 1380.0], [896.0, 1156.0]],
+"point": [576.0, 2020.0]
+}, {
+"action": "从第三台最高点跳向左侧井口，轨道上方保持净空。",
+"label": "井口落岸",
+"number": 3.0,
+"path": [[896.0, 1156.0], [896.0, 212.0], [704.0, 142.0]],
+"point": [896.0, 1156.0]
+}]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [656.0, 2884.0, 96.0, 60.0],
+"point": [704.0, 2926.0],
+"section": "main"
+}, {
+"bounds": [496.0, 2244.0, 96.0, 60.0],
+"point": [544.0, 2286.0],
+"section": "main"
+}, {
+"bounds": [816.0, 1396.0, 96.0, 60.0],
+"point": [864.0, 1438.0],
+"section": "main"
+}])
+art_profile = "well"
+bell_mechanisms = Array[Dictionary]([{
+"access_bells": [[736.0, 2896.0], [720.0, 2208.0]],
+"bell": [864.0, 2800.0],
+"carrier": "WellLift",
+"id": "P-R08:well_lift"
+}, {
+"access_bells": [[624.0, 2256.0], [720.0, 1360.0]],
+"bell": [576.0, 1952.0],
+"carrier": "ServiceLift",
+"id": "P-R08:service_lift"
+}, {
+"access_bells": [[944.0, 1408.0], [752.0, 112.0]],
+"bell": [896.0, 1120.0],
+"carrier": "UpperLift",
+"id": "P-R08:upper_lift"
+}])
+platforms = Array[Rect2]([Rect2(0, 2944, 1216, 128), Rect2(320, 2848, 128, 96), Rect2(448, 2304, 224, 48), Rect2(800, 1456, 224, 48), Rect2(608, 160, 192, 32)])
+workbench_entity_ids = {
+"art_placements": [],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R08:platforms:0", "P-R08:platforms:1", "P-R08:platforms:2", "P-R08:platforms:3", "P-R08:platforms:4"],
+"retry_anchors": ["P-R08:retry_anchors:0", "P-R08:retry_anchors:1", "P-R08:retry_anchors:2"],
+"signs": []
+}
+start_point = Vector2(144, 2926)
+enemy_placements = Array[Dictionary]([{
+"behavior": "patrol",
+"id": "P-R08:floor_patrol",
+"max_health": 9.0,
+"point": [544.0, 2926.0]
+}, {
+"behavior": "patrol",
+"id": "P-R08:landing_guard",
+"max_health": 9.0,
+"point": [976.0, 1438.0]
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [448.0, 1632.0, 24.0, 256.0],
+"facing": "right",
+"id": "P-R08:shaft_left"
+}, {
+"bounds": [1000.0, 640.0, 24.0, 224.0],
+"facing": "left",
+"id": "P-R08:shaft_right"
+}])
+gear_obstacles = Array[Dictionary]([{
+"id": "P-R08:well_cam",
+"period": 5.6,
+"phase": 0.5,
+"point": [744.0, 896.0],
+"travel": [48.0, 0.0]
+}])
+
+[node name="WellLift" type="AnimatableBody2D" parent="." unique_id=1107146010]
+position = Vector2(864, 2896)
+script = ExtResource("2_pyfpb")
+endpoint = Vector2(0, -640)
+platform_size = Vector2(160, 20)
 period = 8.0
 one_way = true
+route = Array[Vector2]([Vector2(0, -640)])
 endpoint_dwell = 2.0
-route = Array[Vector2]([Vector2(0,-640)])
 
-[node name="ServiceLift" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(576,2048)
-endpoint = Vector2(0,-640)
-platform_size = Vector2(160,20)
+[node name="ServiceLift" type="AnimatableBody2D" parent="." unique_id=2073901636]
+position = Vector2(576, 2048)
+script = ExtResource("2_pyfpb")
+endpoint = Vector2(0, -640)
+platform_size = Vector2(160, 20)
 period = 9.0
 one_way = true
+route = Array[Vector2]([Vector2(0, -640)])
 endpoint_dwell = 2.0
-route = Array[Vector2]([Vector2(0,-640)])
 
-[node name="UpperLift" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(896,1184)
-endpoint = Vector2(0,-944)
-platform_size = Vector2(160,20)
+[node name="UpperLift" type="AnimatableBody2D" parent="." unique_id=1940177565]
+position = Vector2(896, 1184)
+script = ExtResource("2_pyfpb")
+endpoint = Vector2(0, -944)
+platform_size = Vector2(160, 20)
 period = 12.0
 one_way = true
+route = Array[Vector2]([Vector2(0, -944)])
 endpoint_dwell = 2.0
-route = Array[Vector2]([Vector2(0,-944)])

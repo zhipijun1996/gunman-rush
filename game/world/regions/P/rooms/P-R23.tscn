@@ -1,22 +1,54 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R23" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_ler70"]
+
+[node name="P-R23" type="Node2D" unique_id=27011568]
+script = ExtResource("1_ler70")
 room_id = "P-R23"
 arrival_text = "废弃候车棚"
+traveler_point = Vector2(640, 622)
+retry_anchors = Array[Dictionary]([{
+"bounds": [704.0, 580.0, 128.0, 60.0],
+"point": [720.0, 622.0],
+"section": "main"
+}, {
+"bounds": [1552.0, 484.0, 160.0, 60.0],
+"point": [1584.0, 526.0],
+"section": "main"
+}])
 art_profile = "shelter"
-platforms = Array[Rect2]([Rect2(0,640,288,128),Rect2(400,576,176,40),Rect2(688,640,160,40),Rect2(960,552,176,40),Rect2(1248,624,192,40),Rect2(1536,544,192,40),Rect2(1280,336,208,48),Rect2(1088,256,192,32),Rect2(992,160,192,32),Rect2(288,768,1504,128)])
+platforms = Array[Rect2]([Rect2(0, 640, 288, 128), Rect2(400, 576, 176, 40), Rect2(688, 640, 160, 40), Rect2(960, 552, 176, 40), Rect2(1248, 624, 192, 40), Rect2(1536, 544, 192, 40), Rect2(1280, 336, 208, 48), Rect2(1088, 256, 192, 32), Rect2(992, 160, 192, 32), Rect2(288, 768, 1504, 128)])
+workbench_entity_ids = {
+"art_placements": [],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R23:platforms:0", "P-R23:platforms:1", "P-R23:platforms:2", "P-R23:platforms:3", "P-R23:platforms:4", "P-R23:platforms:5", "P-R23:platforms:6", "P-R23:platforms:7", "P-R23:platforms:8", "P-R23:platforms:9"],
+"retry_anchors": ["P-R23:retry_anchors:0", "P-R23:retry_anchors:1"],
+"signs": ["P-R23:signs:0", "P-R23:signs:1"]
+}
 masonry_platform_indices = Array[int]([1, 2, 3, 4, 5, 6, 7, 8])
-start_point = Vector2(144,622)
-signs = Array[Dictionary]([{"point":[192,592],"text":"先看落脚处，再决定跳跃和射击方向。"},{"point":[1656,496],"text":"上方落点在左边：先跳，再朝右下开枪，反冲会将你推向左上。"}])
-traveler_point = Vector2(640,622)
-art_placements = Array[Dictionary]([])
-
-spike_strips = Array[Dictionary]([{"id":"P-R23:review_spikebed","bounds":[288,744,1504,24],"facing":"up"}])
-
-enemy_placements = Array[Dictionary]([{"id":"P-R23:review:low_guard","behavior":"patrol","point":[800,622],"max_health":5},{"id":"P-R23:review:high_guard","behavior":"patrol","point":[1392,606],"max_health":5}])
-
-retry_anchors = Array[Dictionary]([{"bounds":[704,580,128,60],"point":[720,622],"section":"main"},{"bounds":[1552,484,160,60],"point":[1584,526],"section":"main"}])
+start_point = Vector2(144, 622)
+enemy_placements = Array[Dictionary]([{
+"behavior": "patrol",
+"id": "P-R23:review:low_guard",
+"max_health": 9.0,
+"point": [800.0, 622.0]
+}, {
+"behavior": "patrol",
+"id": "P-R23:review:high_guard",
+"max_health": 9.0,
+"point": [1392.0, 606.0]
+}])
+signs = Array[Dictionary]([{
+"point": [192.0, 592.0],
+"text": "先看落脚处，再决定跳跃和射击方向。"
+}, {
+"point": [1656.0, 496.0],
+"text": "上方落点在左边：先跳，再朝右下开枪，反冲会将你推向左上。"
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [288.0, 744.0, 1504.0, 24.0],
+"facing": "up",
+"id": "P-R23:review_spikebed"
+}])

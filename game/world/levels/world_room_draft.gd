@@ -4,7 +4,7 @@ extends RefCounted
 ## Apply only to a fresh scene instance, before _ready creates any physics.
 const SCHEMA := 1
 const ROOM_FIELDS := [
-	"intro_sequence", "wave_encounter", "route_guide", "arrival_text", "traveler_point", "tutorial_action", "tutorial_target",
+	"story_sequence", "intro_sequence", "wave_encounter", "route_guide", "arrival_text", "traveler_point", "tutorial_action", "tutorial_target",
 	"tutorial_min_move", "tutorial_recoil_finish_x", "section_volumes",
 	"retry_anchors", "art_placements", "art_profile",
 	"bell_mechanisms", "platforms", "one_way_indices", "illustrated_platform_indices",
@@ -16,6 +16,7 @@ const ROOM_FIELDS := [
 ]
 const INDEXED_FIELDS := ["platforms", "hazards", "climbable_walls", "hook_points", "signs", "art_placements", "retry_anchors"]
 const NODE_SCRIPTS := {
+	"GrappleAnchor": "res://game/world/components/grapple_anchor.gd",
 	"WorldMovingPlatform": "res://game/world/components/world_moving_platform.gd",
 	"WorldRoomInteraction": "res://game/world/components/world_room_interaction.gd",
 	"WorldReturnLatch": "res://game/world/components/world_return_latch.gd",
@@ -23,6 +24,7 @@ const NODE_SCRIPTS := {
 	"WorldNpc": "res://game/npcs/world_npc.gd"
 }
 const NODE_FIELDS := {
+	"GrappleAnchor": ["position", "hang_enabled", "material_family"],
 	"WorldMovingPlatform": ["position", "endpoint", "platform_size", "period", "phase_offset", "one_way", "route", "endpoint_dwell"],
 	"WorldRoomInteraction": ["position", "action_id", "section_id", "label", "visual", "radius"],
 	"WorldReturnLatch": ["position", "action_id", "section_id", "label", "visual", "radius", "return_steps", "closed_panels", "metal_hatch"],

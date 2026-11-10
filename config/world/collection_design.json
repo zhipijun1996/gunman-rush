@@ -2827,7 +2827,7 @@
     },
     {
       "reward_id": "TG01",
-      "room_id": "P-R04",
+      "room_id": "P-R25",
       "section_id": "main",
       "requires": [
         []
@@ -2837,14 +2837,14 @@
       "local_route_refs": [],
       "status": "acquisition_design_intent_pending_graybox",
       "source_path": "world-room-layout-v07.json#collectibles.gear_sites[id=TG01]",
-      "approach_cue": "田垄小铃声与露出的铜齿，在低石栏后反复出现。",
-      "approach_route": "P-R04主田路旁短绕到石栏背侧的低台。",
-      "primary_experience": "首次观察探索",
-      "challenge": "看见铜齿后绕石栏换观察角度，沿一段可退回矮土埂接近；教玩家主动偏离主路，不要求已熟练长反冲。",
-      "failure_return": "矮土埂下是原田路，掉下可回准备位；不安排盲落伤害。",
-      "claim_placement": "石栏背侧低台上，进入侧线才可接触。",
-      "return_path": "沿刚才已通过的接近路线短返本房主面；保持已破壁、已停机关和已败Boss状态，不追加领奖后开闸。",
-      "challenge_budget": "轻；最早的观察型偏路回报。",
+      "approach_cue": "果园左侧上台可看见中间石台上方的铜齿。",
+      "approach_route": "回到地形6顶部，观察上方窄接收台。",
+      "primary_experience": "精确满跳接向下射击反冲",
+      "challenge": "普通跳跃不能达到；在满跳接近最高点时下射抬升，控制水平偏移接窄台。",
+      "failure_return": "落回中间石台或果园主路，重新准备。",
+      "claim_placement": "地形6上方高台",
+      "return_path": "取得后下落回原石台，不新增门或能力锁。",
+      "challenge_budget": "中高；单次精准组合，不做长连锁。",
       "capability_boundary": "基础动作即可；不添加H或任务对话条件。",
       "return_access_contract": {
         "kind": "existing_approach_reverse",
@@ -2861,7 +2861,7 @@
         []
       ],
       "cue_room_ids": [
-        "P-R04"
+        "P-R25"
       ],
       "design_intent_id": "ACQ_TG01"
     },
@@ -4755,16 +4755,16 @@
       "approach_cue": "大概率从06进入13：入口一侧辨认荆棘密集的上廊和普通平台小怪的下路。走下路到04附近才直接看见上层HP01，明白入口的高压支路通向它。",
       "approach_route": "自主选择上廊，或从下路出口观察到奖励后回入口挑战；不得在04附近直接跳上奖励岸。",
       "primary_experience": "先分路选择、后看见收益，再自主回访高压挑战。",
-      "challenge": "上廊用上下荆棘夹出的窄道，向左反冲穿过后交替向上、向下转折；转角实际落地补回空弹，上升需要反冲抬升。下路为普通平台和小怪，不复制上路的精度压力。",
+      "challenge": "五处错位宽段，混合横向反冲、竖向抬升及下降；仅末段夹刺收窄，稳定台分段恢复。",
       "failure_return": "碰到明示荆棘返回本段已到达的安全台，不清怪、不刷新冷却；可退回入口选择下路。",
       "claim_placement": "靠近04出口的上层实体路肩。",
-      "return_path": "领奖侧打开封住地面的单向返程折板，落回04前的普通主路；未开时连续实体底板隔开挑战路与普通下路。",
+      "return_path": "取得HP01后在领奖岸操作单向返程折板，落回主路。",
       "challenge_budget": "高；自愿的荆棘上廊，分段准备与恢复；下路保持普通平台和小怪的较低压力。",
       "capability_boundary": "基础枪和移动即可，不添加H/W/D。",
       "return_access_contract": {
         "mode": "reward_side_open_permanent_local",
         "local_return_state_id": "reward_return_HP01_open",
-        "physical_design": "领奖凹台内操作折叠木梯，将梯放到已走过的主路稳定台；未打开前梯身收在高台内侧，低层没有斜坡或可推开的入口。之后回主路不必反做挑战。",
+        "physical_design": "取得HP01后方可操作领奖侧折板；未领取仍可沿上廊原路退出，不自动开闸。",
         "opening_device": "高台折梯",
         "open_only_from": {
           "room_id": "P-R13",
@@ -4774,7 +4774,7 @@
         "explicit_reward_side_interaction_required": true,
         "initially_closed": true,
         "permanent_after_open": true,
-        "opening_is_independent_of_reward_claim": true,
+        "opening_is_independent_of_reward_claim": false,
         "cannot_open_from_entry_side_or_remote_shot": true,
         "visit_clock_reward_or_rest_does_not_auto_open": true,
         "new_macro_connection_count": 0,
@@ -4782,8 +4782,13 @@
         "validation_required": [
           "从所有入口、低层与奖励前站台反试返程路线；开放前不能绕过原动作或能力通路。",
           "奖励侧打开的本地状态只能由实际到达该站台后的交互产生，不能从地图、主路射击或领取收据推定。",
-          "领奖前后均保留安全退出；不得用尚未满足的领取资格阻止玩家返回。",
-          "原IR能力资格不改写为local_return_state的OR；开过的返程仅提供已经完成该段后的便利。"
+          "原IR能力资格不改写为local_return_state的OR；开过的返程仅提供已经完成该段后的便利。",
+          "未领取时拒绝开闩；取得后实际操作才开放；重入保留。"
+        ],
+        "requires": [
+          [
+            "found_HP01"
+          ]
         ]
       },
       "region": "P",
@@ -13045,7 +13050,7 @@
     "environment_access_section_audit": [
       {
         "room_id": "P-R15",
-        "room_name": "主风铃校时台",
+        "room_name": "风鸣钟台",
         "section_id": "access:H",
         "door_refs": [],
         "action_ids": [
@@ -13866,18 +13871,12 @@
     {
       "room_id": "P-R04",
       "name": "倒钟田垄",
-      "source_ids": [
-        "TG01"
-      ],
-      "source_cue_ids": [
-        "TG01"
-      ],
+      "source_ids": [],
+      "source_cue_ids": [],
       "secret_ids": [],
       "secret_cue_ids": [],
       "currency_cache_reservation_ids": [],
-      "world_action_refs": [
-        "pickup_TG01"
-      ],
+      "world_action_refs": [],
       "primary_role": "front_traversal",
       "design_status": "authoring_reservation_not_built_geometry",
       "before_collision_layout": "先确定线索视线、动作空间、领取台、失败重试及回程，再细化碰撞与美术。",
@@ -14063,7 +14062,7 @@
     },
     {
       "room_id": "P-R15",
-      "name": "主风铃校时台",
+      "name": "风鸣钟台",
       "source_ids": [],
       "source_cue_ids": [],
       "secret_ids": [],
@@ -17789,12 +17788,18 @@
     {
       "room_id": "P-R25",
       "name": "倒铃果园",
-      "source_ids": [],
-      "source_cue_ids": [],
+      "source_ids": [
+        "TG01"
+      ],
+      "source_cue_ids": [
+        "TG01"
+      ],
       "secret_ids": [],
       "secret_cue_ids": [],
       "currency_cache_reservation_ids": [],
-      "world_action_refs": [],
+      "world_action_refs": [
+        "pickup_TG01"
+      ],
       "primary_role": "front_traversal",
       "design_status": "authoring_reservation_not_built_geometry",
       "before_collision_layout": "先确定线索视线、动作空间、领取台、失败重试及回程，再细化碰撞与美术。",
