@@ -4,11 +4,11 @@
 
 唯一候选为 `game/world/regions/F/room_design.json`。继承世界源的24房、30条内部连接、5个跨区接口、W／手里剑／Boss／修钟与唯一奖励身份；每房说明职责、阶段、动作生态、发现与返回和失败恢复。轮廓与连接共用世界坐标，C01锚定平原P04实际门位，通道纳入相邻房形。占地仍待审核，不自动覆盖construction或扩大正式可玩范围。
 
-[手机初稿](https://windchime-level-workbench.zhipijun1996.chatgpt.site/forest-plan/index.html)（Site V15）提供完整图、五条路线、房号选择、双指缩放、相邻房跳转、每房方案和SVG下载。反馈暂存当前浏览器，复制回聊天才提交；不混入线上已发布的可玩草稿或假称云端已收到。
+[手机初稿](https://windchime-level-workbench.zhipijun1996.chatgpt.site/?review_region=F)在工作台“整区审核→荆棘森林”内提供完整图、五条路线、房号选择、双指缩放、相邻房跳转、每房方案和SVG下载。反馈暂存当前浏览器，复制回聊天才提交；不混入线上已发布的可玩草稿或假称云端已收到。
 
 ## 实际检查
 
-`python tools/export_workbench.py --plan-only` 后运行 `python tools/world/forest_review.py`：24房／30连接／5外区口身份、五条路线有效边、房形与通道无相互重叠、与平原35房无重叠、P04世界接缝一致。SVG和页面从同一候选生成；导出默认在 `build/forest-review/`，工作台部署拷贝该派生产物。
+`python tools/export_workbench.py --plan-only` 后运行 `python tools/world/forest_review.py`：24房／30连接／5外区口身份、五条路线有效边、房形与通道无相互重叠、与平原35房无重叠、P04世界接缝一致。SVG、JSON和离线页面从同一候选生成；导出默认在 `build/forest-review/`。工作台只读取派生forest.json并复用整区地图组件，SVG保留下载；旧独立网页地址跳转到整合审核入口，不维护第二套网页交互。
 
 生成检查不证明动作包络、能力锁、Boss战、存档或实机节奏。相邻四区未施工，只保留朝向明确且未被本区包围的接口；不宣称完整世界空间已验证。手机触摸实机和浏览器视觉未验证。
 
