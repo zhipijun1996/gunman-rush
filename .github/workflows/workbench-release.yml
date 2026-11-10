@@ -65,6 +65,7 @@ jobs:
           bash tools/godot.sh --headless --path . --script tests/world/plains_next_batch.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains-next.log
           bash tools/godot.sh --headless --path . --script tests/world/plains_feedback4.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains-feedback4.log
           bash tools/godot.sh --headless --path . --script tests/world/plains_story_hooks.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains-story-hooks.log
+          bash tools/godot.sh --headless --path . --script tests/world/station_grounding.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/station-grounding.log
           bash tools/godot.sh --headless --path . --script tests/world/plains_overlook.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/overlook.log
           bash tools/godot.sh --headless --path . --script tests/world/platform_enemy_feedback.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/platform-feedback.log
           bash tools/godot.sh --headless --path . --script tests/world/plains_feedback5.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains-feedback5.log

@@ -14,7 +14,9 @@ func run() -> void:
 	for door:Dictionary in app.room.doors:
 		if door.target_room=="P-R08":north_id=door.id
 	check(not north_id.is_empty() and not app.room.door_open.get(north_id,true),"skip station leaves north gate closed")
-	check(app.story.figure.position.distance_to(Vector2(2072,384))<1,"guard stands at closed north exit")
+	var guard_at:Vector2=app.story.figure.global_position
+	var guard_support:=app.player.get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(guard_at-Vector2(0,8),guard_at+Vector2(0,8),1))
+	check(app.story.figure.visible and Rect2(1952,288,224,128).has_point(guard_at) and not guard_support.is_empty() and guard_support.collider is StaticBody2D and not guard_support.collider is AnimatableBody2D,"guard stands on fixed ground at closed north exit")
 	await load_room("P-R33");await fixture(Vector2(1536,558));await ticks(3)
 	check(not app.story.active,"forecourt does not run interior explanation")
 	app._interact();await ticks(100)
