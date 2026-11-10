@@ -11,19 +11,17 @@ func pickup_return(pickup:String,latch:String,at:Vector2,switch_at:Vector2)->voi
  check(app.state.value.receipts.has(latch),pickup+" actual reward-qualified return")
 
 func clock_shutter()->void:
- var lift:=app.room.get_node("DrainCage") as WorldMovingPlatform
- lift.restore_motion(13.6,true)
- await fixture(Vector2(879,674))
+ await fixture(Vector2(928,686))
  app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(12)
- app.controller.router.request_action(&"shoot_release",(Vector2(816,624)-app.player.position-Vector2(0,-6)).normalized())
- app.controller.router.set_source_axis(&"keyboard_mouse",1)
+ app.controller.router.request_action(&"shoot_release",(Vector2(920,592)-app.player.position-Vector2(0,-6)).normalized())
  var opened:=false
  for frame:int in 100:
   await ticks(1)
   opened=opened or app.room.mechanisms["P-R12:air_shutter"].is_open
+  if app.player.position.y<430:app.controller.router.set_source_axis(&"keyboard_mouse",1)
   if app.player.position.x>1053:app.controller.router.set_source_axis(&"keyboard_mouse",0)
   if app.player.is_on_floor():break
- check(opened and app.player.is_on_floor() and app.player.position.x>992 and absf(app.player.position.y-462)<5,"P12 moving-cage jump fires bell and recoils through timed roof shutter "+str(app.player.position))
+ check(opened and app.player.is_on_floor() and app.player.position.x>992 and absf(app.player.position.y-462)<5,"P12 upper preparation shore jump fires bell and recoils through timed side shutter "+str(app.player.position))
  app.controller.router.clear("clock shutter complete")
 
 func run()->void:
@@ -34,7 +32,13 @@ func run()->void:
   await clock_shutter()
   await cache("open_P12_cellar_cache",Vector2(160,1326),20)
   await pickup_return("pickup_EQ_MAP_P01","reward_return_EQ_MAP_P01_open",Vector2(1104,462),Vector2(1152,462))
-  await hop(Vector2(1016,462),Vector2(816,302),Vector2(.8,.6),"P12 reward return upper shoulder")
+  await fixture(Vector2(1208,590))
+  app.controller.router.set_source_axis(&"keyboard_mouse",-1)
+  for frame:int in 80:
+   await ticks(1)
+   if app.player.position.x<1064:app.controller.router.set_source_axis(&"keyboard_mouse",0)
+  check(app.player.is_on_floor() and absf(app.player.position.y-686)<5,"P12 reward ladder returns to preparation shore "+str(app.player.position))
+  app.controller.router.clear("return descent complete")
  if selected("P-R13"):
   await load_room("P-R13")
   await hop(Vector2(5032,2062),Vector2(4672,1902),Vector2(.8,.6),"P13 rising thorn gap")

@@ -50,7 +50,7 @@ func _ready() -> void:
 	if not interior.is_empty():
 		var wall:=Sprite2D.new();wall.texture=load("res://assets/plains_v07/native/interior_"+interior+".png");wall.centered=false;wall.region_enabled=true;wall.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
 		wall.region_rect=Rect2(Vector2.ZERO,FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size+Vector2(1024,512));wall.position=Vector2(-512,-256);wall.z_index=-40;wall.modulate=Color(.8,.86,.95);add_child(wall)
-		depths.append({"node":wall,"origin":wall.position,"ratio":.92})
+		depths.append({"node":wall,"origin":wall.position,"ratio":1.0})
 	indoor=not interior.is_empty()
 	light_settings=JSON.parse_string(FileAccess.get_file_as_string("res://game/presentation/world/plains_v07/lighting.json"))
 	environment_light=light_settings.environments.get(interior,light_settings.environments.outdoor)
@@ -62,7 +62,8 @@ func _ready() -> void:
 		sky=Sprite2D.new();sky.name="PlainsFarLandscape"
 		sky.texture=load("res://"+str(backgrounds[room.art_profile].image)) if backgrounds.has(room.art_profile) else load("res://art/world-art-v2/"+str(assets.backgrounds.windchime_plains_v2.file))
 		sky.z_index=-100;sky.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
-		var unlit:=CanvasItemMaterial.new();unlit.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;sky.material=unlit
+		var cloud_material:=ShaderMaterial.new();cloud_material.shader=preload("res://game/presentation/world/plains_v07/cloud_drift.gdshader")
+		cloud_material.set_shader_parameter("tower_landscape",room.art_profile=="clockheart_vista");sky.material=cloud_material
 		add_child(sky)
 		daylight=DirectionalLight2D.new();daylight.color=Color(light_settings.sun.color);daylight.energy=float(environment_light.sun_energy)
 		# Open sky is a broad fill, not an infinitely projected shadow from every ledge.
@@ -128,6 +129,7 @@ func add_lamp(at: Vector2) -> PointLight2D:
 	return light
 func _process(delta: float) -> void:
 	clock+=delta
+	if sky!=null:(sky.material as ShaderMaterial).set_shader_parameter("cloud_time",clock)
 	if room.services!=null:
 		var restored:=1.0 if room.services.state.has("clock_P") else 0.0
 		if not repair_initialized:repair_blend=restored;repair_initialized=true
@@ -229,8 +231,7 @@ func _thresholds() -> void:
 		var marker:=Node2D.new();marker.name="Threshold_"+str(door.id).replace(":","_");add_child(marker)
 		if not indoor and direction in ["left","right"]:
 			var side:=1 if direction=="right" else -1
-			var facade:=sprite("building_threshold",at-Vector2(side*24,0),-3)
-			facade.scale.x=side;facade.set_meta("connection",door.id)
+			PlainsThresholdComposition.outside(self,at,side,str(door.id))
 		elif not indoor and direction=="down":
 			var ground:=at.y
 			for solid: Rect2 in room.platforms:

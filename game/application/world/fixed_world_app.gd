@@ -488,7 +488,7 @@ func _physics_process(_delta: float) -> void:
 				entry_anchor=FixedWorldProvider.point(retry.point)
 	for enemy_id: String in room.enemies:
 		var key:="income:enemy:"+enemy_id+":cycle:"+str(room.cycle_at_load)
-		if room.enemies[enemy_id].health.terminal and not state.value.receipts.has(key): enqueue("income",enemy_id)
+		if room.enemies[enemy_id].definition.behavior_id != &"chime_target" and room.enemies[enemy_id].health.terminal and not state.value.receipts.has(key): enqueue("income",enemy_id)
 	if _accepted_damage:
 		_accepted_damage=false
 		if state.commit(services.damage_candidate(_snapshot()),state.revision): _apply_capabilities()
@@ -539,6 +539,7 @@ func _physics_process(_delta: float) -> void:
 				GameAudio.cue(self,&"confirm")
 				room.celebrate_service_pickup(str(request.id));room.queue_redraw()
 		elif request.kind == "income":
+			if (room.enemies[str(request.id)] as EnemyActor).definition.behavior_id == &"chime_target": continue
 			var source:="enemy:"+str(request.id)+":cycle:"+str(room.cycle_at_load)
 			var actor: EnemyActor=room.enemies[str(request.id)]
 			var candidate:=_drop_candidate(_snapshot(),source,int(services.definitions.enemy_gold),actor.motor.position)

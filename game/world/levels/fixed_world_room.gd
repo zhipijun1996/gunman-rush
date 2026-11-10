@@ -142,8 +142,12 @@ func _ready() -> void:
 	for polygon: Dictionary in terrain_polygons:
 		if str(polygon.get("material", "ground")) == "masonry": masonry_polygons.append(polygon)
 		else: ground_polygons.append(polygon)
+	if not interior_material().is_empty():
+		solids.append_array(masonry);masonry.clear()
+		ground_polygons.append_array(masonry_polygons);masonry_polygons.clear()
 	var terrain:=UnderworldTerrain.build_with_polygons(solids, ground_polygons)
 	if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
+	else: terrain.position.y=-4 # Native grass roots start five pixels below the tile top; tips overhang the physical sole.
 	add_child(terrain)
 	if not masonry.is_empty() or not masonry_polygons.is_empty():
 		var structure:=UnderworldTerrain.build_with_polygons(masonry, masonry_polygons)
@@ -235,6 +239,9 @@ func _draw() -> void:
 
 func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime,saved: Dictionary,entry_anchor: Vector2) -> EnemyActor:
 	var id := str(placement.id)
+	# Practice targets always return to their authored perch, including old saves
+	# that recorded a former combat flyer under the same placement identity.
+	if str(placement.behavior) == "chime_target": saved = {}
 	var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
 	body.position = FixedWorldProvider.point(saved.get("position",placement.point))
 	var actor := body.get_node("Actor") as EnemyActor
@@ -243,9 +250,9 @@ func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: Fram
 		actor.definition=actor.definition.duplicate(true) as EnemyDefinition
 		actor.definition.health_definition.max_health=float(placement.max_health)
 		actor.definition.health_definition.initial_current=float(placement.max_health)
-	# Authored points use player-height references; settle the actual enemy sole
+	# Authored points and older saves can use player-height references; settle the actual enemy sole
 	# onto its nearby authored platform before home/AI/visual anchors are bound.
-	if saved.is_empty() and not actor.definition.aerial:
+	if not actor.definition.aerial:
 		var sole := body.position.y + actor.definition.collision_size.y*.5
 		for surface: Rect2 in platforms:
 			if absf(surface.position.y-sole)<=8 and body.position.x>=surface.position.x and body.position.x<=surface.end.x:
@@ -261,7 +268,7 @@ func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: Fram
 		actor.attack_behavior.restore_region_state(saved)
 	EnemyPresentationBinding.synchronize(actor)
 	var contact:=DemoContactEmitter.attach(body,policy,controller,StringName(id+":contact"),DamageRequest.Kind.MONSTER,actor.definition.collision_size/2)
-	contact.enabled=not actor.health.terminal
+	contact.enabled=not actor.health.terminal and actor.definition.behavior_id != &"chime_target"
 	actor.defeated.connect(func(_actor: EnemyActor) -> void: contact.enabled=false;contact.set_physics_process(false))
 	var remains:=EnemyPresentationBinding.remains(body.get_node("Presentation"))
 	if actor.health.terminal and remains!=null and saved.has("corpse"):
@@ -320,6 +327,7 @@ func snapshot() -> Dictionary:
 	for id: String in enemies:
 		var actor: EnemyActor = enemies[id]
 		if actor.get_meta("wave_attempt",false):continue
+		if actor.definition.behavior_id == &"chime_target": continue
 		result[id] = actor.region_snapshot()
 		var remains:=EnemyPresentationBinding.remains(actor.motor.get_node("Presentation"))
 		if actor.health.terminal and remains!=null:

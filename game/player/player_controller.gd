@@ -207,7 +207,7 @@ func on_weapon_damage(expected_session: int, packet: int, shot: int, airborne: b
 	if item_runtime != null:
 		var tuning: Dictionary = item_runtime.call("effect", &"B18")
 		bonus = float(tuning.get("extra_combat_energy_per_target",0.0))
-	if target!=0:combat_energy.committed_hit("%s/%s" % [expected_session,packet],target,skill,bonus)
+	if target!=0 and (not is_instance_valid(receiver) or receiver.grants_combat_energy):combat_energy.committed_hit("%s/%s" % [expected_session,packet],target,skill,bonus)
 	if skill and is_instance_valid(receiver):
 		var enemy := receiver.get_parent().get_node_or_null("Actor") as EnemyActor
 		if enemy!=null:
@@ -299,5 +299,6 @@ func on_grapple_damage(expected_session: int, packet: int, target: int, receiver
 	if item_runtime != null:
 		var read: Dictionary = item_runtime.call("effect", &"B19")
 		extra = float(read.get("extra_combat_energy_on_hook_hit", 0.0))
-	combat_energy.committed_hit("%s/hook/%s" % [expected_session,packet],target,false,extra)
+	if not is_instance_valid(receiver) or receiver.grants_combat_energy:
+		combat_energy.committed_hit("%s/hook/%s" % [expected_session,packet],target,false,extra)
 	if item_runtime != null and is_instance_valid(receiver): item_runtime.call("on_hook_hit", receiver, packet)

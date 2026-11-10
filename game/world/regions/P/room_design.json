@@ -168,8 +168,8 @@
           "id": "P-R04:bridge_guard",
           "max_health": 9.0,
           "point": [
-            1696.0,
-            910.0
+            1648,
+            910
           ]
         },
         {
@@ -585,7 +585,7 @@
         },
         {
           "id": "P-R10:r9:teach_down",
-          "behavior": "fan_sentry",
+          "behavior": "chime_target",
           "point": [
             976,
             1984
@@ -594,7 +594,7 @@
         },
         {
           "id": "P-R10:r9:teach_diagonal",
-          "behavior": "fan_sentry",
+          "behavior": "chime_target",
           "point": [
             1376,
             1632
@@ -603,7 +603,7 @@
         },
         {
           "id": "P-R10:r9:combo_left",
-          "behavior": "fan_sentry",
+          "behavior": "chime_target",
           "point": [
             816,
             1280
@@ -612,7 +612,7 @@
         },
         {
           "id": "P-R10:r9:combo_down",
-          "behavior": "fan_sentry",
+          "behavior": "chime_target",
           "point": [
             992,
             1160
@@ -621,7 +621,7 @@
         },
         {
           "id": "P-R10:r9:combo_right",
-          "behavior": "fan_sentry",
+          "behavior": "chime_target",
           "point": [
             1104,
             1024
@@ -636,8 +636,8 @@
         }
       ],
       "experience": {
-        "player_decision": "在楼下听取武器匠提示，选择基础枪命中续枪攀升或已拥有H的外侧回访路线。",
-        "visual_read": "楼下武器匠有接地工作柜与实际暖灯；机架落到同层地面，上层检修灯逐层标记命中续枪的落岸。",
+        "player_decision": "楼下武器匠教基础枪空中命中续枪；三段浮铃芽练习先两枪续升、再换向连击登高。靶子无攻击，清空后原位重凝，失手可在宽岸重试。",
+        "visual_read": "普通双轴范围跟随覆盖宽幅折返路线；木梁与灯台强调每段安全岸。浮铃芽叶翼、铃腹与克制摆动区别于攻击飞怪；保持下一目标与落点可预读。",
         "pressure": "空中命中补弹与下射反冲连用；最后一段需连续命中三个目标后接下射。",
         "failure_recovery": "各段宽岸可停留等冷却；失手落回较低平台，不凭空刷新怪物和弹药。",
         "return_visit": "顶岸20币箱两路线共用，取箱可下落回武器匠准备岸，邻接门对保持。"
@@ -657,7 +657,7 @@
         "signature": "1bb42c0576a8ce8cf024329f152bcfa8bc2763801e1dafe878310872a10ded04",
         "meaning": "人工草稿布局初审；正式内容与连续体验另验"
       },
-      "spatial_intent": "下层武器匠提示，双枪与换向教学接同次腾空四枪综合，H外侧易行线共用高处藏箱。"
+      "spatial_intent": "楼下武器匠教基础枪空中命中续枪；三段浮铃芽练习先两枪续升、再换向连击登高。靶子无攻击，清空后原位重凝，失手可在宽岸重试。"
     },
     {
       "room_id": "P-R11",
@@ -701,26 +701,35 @@
     {
       "room_id": "P-R12",
       "name": "春水地窖",
-      "purpose": "地窖空中射铃挑战与通根井的下层排水道。",
+      "purpose": "排水井接春水地窖；宽岸重组、错层反冲与限时顶闸构成可恢复的探索支路。",
       "profile": "cellar",
       "scene": "res://game/world/regions/P/rooms/P-R12.tscn",
       "encounters": [
-        {
-          "behavior": "hopper",
-          "id": "P-R12:cellar_hopper",
-          "max_health": 9.0,
-          "point": [
-            1600.0,
-            1262.0
-          ]
-        },
         {
           "behavior": "patrol",
           "id": "P-R12:r8:west_patrol",
           "max_health": 9,
           "point": [
-            160.0,
-            1326.0
+            160,
+            1326
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R12:chamber_guard",
+          "max_health": 9,
+          "point": [
+            1008,
+            1198
+          ]
+        },
+        {
+          "behavior": "sentry",
+          "id": "P-R12:bank_sentry",
+          "max_health": 14,
+          "point": [
+            1568,
+            1262
           ]
         }
       ],
@@ -739,9 +748,9 @@
         }
       ],
       "experience": {
-        "player_decision": "一台多段承载贯穿钟腔，离台越过同步齿轮再落回，空中左下射铃同时右上反冲过顶闸。",
-        "visual_read": "石拱地窖保留冷底光，灯具落在等待岸和领奖岸；长载台路线与齿轮预警不被道具遮挡。",
-        "failure_recovery": "井底和两岸可重新登同一载台；行装后放折梯回返，西岸藏箱不替代核心开闸。"
+        "player_decision": "下层直达井笼抵达宽穿透接收岸；西侧是守箱拱室，向右是三次错层反冲上升。第一岸清守卫、观察齿轮回扫后回身起跳，第三岸空中向左下射铃，同时反冲穿过1.6秒侧闸到行装岸。上入口沿左侧高肩进入主窖；领奖小室以连续墙体和同一侧闸隔开，不能从上口直接落入取奖。",
+        "visual_read": "统一石拱与砌体；灯台只落在停脚岸，西侧箱堆与东侧阀台分别说明储物、泵房身份。吊笼井留净空，齿轮轨迹完整可见，远端哨兵的射线不与道具混淆。",
+        "failure_recovery": "每个宽岸落地更新本段恢复点；刺床失败回实际进入的安全岸，不送出口。取行装后放返程折梯，西岸20金币箱独立、幂等，奖励与上下门对身份不变。"
       },
       "art_focal_assets": [
         "gear_lamp",
@@ -752,7 +761,7 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
       },
-      "spatial_intent": "一台多段承载贯穿钟腔，离台越过同步齿轮再落回，空中左下射铃同时右上反冲过顶闸。",
+      "spatial_intent": "下层直达井笼抵达宽穿透接收岸；西侧是守箱拱室，向右是三次错层反冲上升。第一岸清守卫、观察齿轮回扫后回身起跳，第三岸空中向左下射铃，同时反冲穿过1.6秒侧闸到行装岸。上入口沿左侧高肩进入主窖；领奖小室以连续墙体和同一侧闸隔开，不能从上口直接落入取奖。",
       "draft_approval": {
         "revision": 78,
         "signature": "105cfb02fe5f71ca578a9c637a0b2d71eb883976075694178632fd23b4a6cc21",

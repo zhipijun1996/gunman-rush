@@ -87,6 +87,8 @@ func _on_death() -> void:
 	defeated.emit(self)
 
 func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:
+	motor.add_collision_exception_with(target.motor)
+	target.motor.add_collision_exception_with(motor)
 	if definition.behavior_id == &"patrol" or attack_behavior != null: return
 	attack_behavior = EnemyBehaviorRegistry.create_behavior(definition)
 	if attack_behavior == null:

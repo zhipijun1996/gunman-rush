@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | 接入Z01恢复钟心前置，修复旧集出口闪烁，逐房校准平原分层美术与照明；审核平台只读 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 重做P12与P10靶怪教学，修正接地/碰撞/视听并按房间重整构图；审核平台只读 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 | MOBILE-LEVEL-WORKBENCH-01 | Site V18 / r68：双点出口跳房、37房隔离预览与钟心室内分层；整区审核含森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 

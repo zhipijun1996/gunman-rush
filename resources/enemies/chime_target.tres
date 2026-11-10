@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[sub_resource type="Resource" id="Health"]
+script = ExtResource("2")
+resource_id = &"chime_target_health"
+max_health = 9.0
+initial_current = 9.0
+[resource]
+script = ExtResource("1")
+stable_id = &"chime_target"
+health_definition = SubResource("Health")
+collision_size = Vector2(24, 28)
+aerial = true
+behavior_id = &"chime_target"
+recovery_duration = 2.0
+patrol_half_width = 6.0

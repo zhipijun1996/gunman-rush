@@ -7,6 +7,8 @@ signal died
 @export var max_health := 3.0
 @export var faction: StringName = &"target"
 @export var actor_id := 0
+## Re-forming practice targets still replenish air actions, but are not combat currency sources.
+@export var grants_combat_energy := true
 var _legacy_health := 3.0
 var _legacy_active := true
 var _health_state: HealthState

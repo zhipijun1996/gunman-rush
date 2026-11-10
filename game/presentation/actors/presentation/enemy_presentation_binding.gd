@@ -9,6 +9,7 @@ const RENDERERS := {
 	&"underworld": "res://game/presentation/actors/underworld_plains/underworld_enemy.gd"
 }
 const BODY_KEYS := {
+	&"chime_target": &"chime_target",
 	&"patrol": &"patrol", &"charger": &"charger", &"diver": &"aerial",
 	&"hopper": &"hopper", &"sentry": &"sentry", &"fan_sentry": &"aerial", &"ground_fan_sentry": &"sentry",
 	&"root_bell": &"root_bell",
@@ -68,6 +69,9 @@ static func view(host: Node) -> Dictionary:
 static func replace(actor: Node, profile: StringName) -> bool:
 	if actor == null or not RENDERERS.has(profile): return false
 	var motor: Node = actor.motor
+	if actor.definition.behavior_id == &"chime_target":
+		bind_existing(actor,motor.get_node("Presentation"),profile)
+		return false
 	var old := motor.get_node_or_null("Presentation")
 	# Underworld is the final skin layered over the pixel telegraph renderer.
 	# Reapplying the earlier installer must not downgrade that final binding.

@@ -89,26 +89,40 @@ func resolve(accepted: bool) -> void:
 	_pose(5);GameAudio.cue_focus(self,&"heal_release")
 	queue_redraw()
 func _draw() -> void:
-	var center:=Vector2(3,-5)
+	var center:=Vector2(2,-8)
 	var count:=int(settings.presentation.particles)/(2 if reduced else 1)
 	var strength:=.5 if reduced else 1.0
 	if elapsed>0 or _cancel_fade>0:
 		var progress:=ratio() if elapsed>0 else _last_ratio
 		var fade:=1.0 if elapsed>0 else _cancel_fade/float(settings.presentation.cancel_seconds)
+		# Fine inward trails collect into the hands; no enclosing circular outline.
 		for i:int in count:
-			var travel:=fposmod(progress*1.5+float(i)/count,1)
-			var angle:=float(i)*2.399+travel*.35
-			var radius:=lerpf(float(settings.presentation.gather_radius),4,travel)
-			var at:=(center+Vector2.from_angle(angle)*radius).round()
+			var travel:=fposmod(progress*2+float(i)/count,1)
+			var angle:=float(i)*2.399+travel*.6
+			var radius:=lerpf(float(settings.presentation.gather_radius),3,travel)
+			var at:=(center+Vector2.from_angle(angle)*Vector2(radius,radius*.7)).round()
 			var alpha:=sin(travel*PI)*fade*strength
-			draw_line(at,at+Vector2.from_angle(angle)*3,Color(.64,.87,.74,alpha*.55),1)
-			draw_rect(Rect2(at,Vector2.ONE if i%3 else Vector2(2,2)),Color(.95,.91,.68,alpha))
-		draw_arc(center,7-progress*2,0,TAU,24,Color(.8,.93,.72,(.15+progress*.45)*fade*strength),1)
+			var tail:=(at-center).normalized()*lerpf(2,5,progress)
+			draw_line(at,at+tail,Color(.61,.76,.71,alpha*.45),1)
+			draw_rect(Rect2(at,Vector2(1,2)),Color(.96,.88,.58,alpha))
+		var pulse:=(.3+progress*.55)*fade*strength
+		for r:int in range(10,1,-2):
+			draw_circle(center,float(r),Color(.9,.72,.35,pulse*.035))
+		draw_rect(Rect2(center-Vector2(1,2),Vector2(3,4)),Color(1,.94,.73,pulse))
+		# A quiet contact glow stays on the sole instead of tinting the screen.
+		draw_line(Vector2(-12,18),Vector2(12,18),Color(.9,.76,.44,pulse*.32),1)
 	if flash>0:
 		var progress:=1-flash/float(settings.presentation.release_seconds)
-		var radius:=lerpf(7,float(settings.presentation.release_radius),1-pow(1-progress,2))
-		var alpha:=(1-progress)*strength
-		draw_arc(center,radius,0,TAU,48,Color(.74,.94,.78,alpha*.75),1)
+		var radius:=lerpf(5,float(settings.presentation.release_radius),1-pow(1-progress,3))
+		var alpha:=pow(1-progress,2)*strength
+		for i:int in 8:
+			var angle:=float(i)*TAU/8+.2
+			var radial:=Vector2.from_angle(angle)
+			var side:=radial.orthogonal()
+			var tip:=center+radial*radius
+			var base:=center+radial*maxf(3,radius-8)
+			draw_colored_polygon(PackedVector2Array([tip,base+side*2,base-radial*4,base-side*2]),Color(.94,.87,.58,alpha))
 		for i:int in count:
-			var at:=(center+Vector2.from_angle(float(i)*TAU/count)*(radius+float(i%3)*3)).round()
-			draw_rect(Rect2(at,Vector2(2,1)),Color(.98,.9,.62,alpha))
+			var angle:=float(i)*2.399
+			var at:=(center+Vector2.from_angle(angle)*(radius+float(i%3)*4)+Vector2(0,-progress*12)).round()
+			draw_rect(Rect2(at,Vector2(1,2)),Color(.76,.9,.79,alpha*.8))
