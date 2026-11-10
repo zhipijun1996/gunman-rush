@@ -1,7 +1,7 @@
 extends "res://tests/world/focus_heal.gd"
 ## Formal application only. Declared entry/cache fixtures test integration and
 ## durable rewards, not full-route traversal or enemy difficulty.
-const ROOMS := ["P-R04","P-R05","P-R07","P-R09","P-R17","P-R19","P-R28","P-R29","P-R30","P-R31"]
+const ROOMS := ["P-R04","P-R05","P-R07","P-R09","P-R17","P-R19","P-R28","P-R29","P-R30","P-R31","P-R01","P-R02","P-R06","P-R08","P-R26","P-R27","P-R32","P-R33","P-R35"]
 
 func freeze_encounters() -> void:
 	for enemy: EnemyActor in app.room.enemies.values():
@@ -54,6 +54,6 @@ func run() -> void:
 			app._commit_action(host.action_id)
 			check(app.state.revision==revision,host.action_id+" duplicate interaction does not pay twice")
 			check(app.state.valid(app._snapshot()),host.action_id+" reloadable durable receipt and coin ledger")
-	check(caches==12,"all twelve concentrated caches covered")
+	check(caches==15,"all fifteen concentrated caches covered")
 	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(4)
 	print("APPROVED DRAFTS: ",checks," assertions, ",failures," failures");quit(failures)

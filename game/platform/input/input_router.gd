@@ -149,7 +149,7 @@ func request_action(type: StringName, direction: Vector2 = Vector2.ZERO) -> bool
 	if type in [&"jump", &"shoot_release", &"grapple", &"weapon_context", &"weapon_skill", &"item_skill"]:
 		camera_activity_serial += 1
 	sequence += 1
-	_queue.append({"type": type, "sequence": sequence, "epoch": epoch, "timestamp": Time.get_ticks_usec() / 1000000.0, "direction": direction.normalized()})
+	_queue.append({"type": type, "sequence": sequence, "epoch": epoch, "timestamp": Time.get_ticks_usec() / 1000000.0, "direction": direction.normalized(), "down_held": type == &"jump" and look_axis >= 0.65})
 	return true
 
 func consume_actions(tick: int) -> Array[Dictionary]:

@@ -1,9 +1,9 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_sincv"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_eo3pj"]
 
 [node name="P-R33" type="Node2D" unique_id=1639471995]
-script = ExtResource("1_sincv")
+script = ExtResource("1_eo3pj")
 room_id = "P-R33"
 arrival_text = "钟影前庭"
 route_guide = {
@@ -33,5 +33,14 @@ art_placements = Array[Dictionary]([{
 }])
 art_profile = "clock"
 platforms = Array[Rect2]([Rect2(0, 576, 960, 192), Rect2(1088, 576, 960, 192), Rect2(768, 992, 192, 32), Rect2(1088, 928, 256, 96), Rect2(960, 832, 128, 24), Rect2(960, 576, 128, 24)])
+workbench_entity_ids = {
+"art_placements": ["P-R33:art_placements:0", "P-R33:art_placements:1", "P-R33:art_placements:2"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R33:platforms:0", "P-R33:platforms:1", "P-R33:platforms:2", "P-R33:platforms:3", "P-R33:platforms:4", "P-R33:platforms:5"],
+"retry_anchors": [],
+"signs": []
+}
 one_way_indices = Array[int]([4, 5])
 start_point = Vector2(144, 558)

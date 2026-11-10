@@ -8,7 +8,7 @@ func run() -> void:
   for suffix:String in ["",".backup",".tmp",".corrupt"]:DirAccess.remove_absolute(path+suffix)
  root.add_child(app);app.start_new();await settle()
  app.load_room("P-R01","INTRO-P24-P01:P-R01");await settle();await ticks(5)
- check(app.content.room("P-R33").is_empty(),"formal construction still excludes the unfinished clockheart")
+ check(app.content.room("Z-R01").is_empty() and not app.story._has_east_route(),"arrival does not send the player toward an unavailable clockheart interior")
  check(not app.state.value.receipts.has("station_briefing"),"room entry does not auto-commit unplayed arrival")
  # Emulate the previous release's premature receipt, not a completed new lesson.
  app._commit_action("station_briefing");await ticks(4)

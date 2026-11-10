@@ -111,7 +111,9 @@ func play_repair(at: Vector2) -> void:
  focus=at;begin()
 
 func _has_east_route() -> bool:
- return not app.content.room("P-R33").is_empty()
+ for id:String in ["P-R31","P-R32","P-R33","Z-R01"]:
+  if app.content.room(id).is_empty():return false
+ return true
 func _welcome_complete() -> bool:
  return app.state.has(str(settings.get("completion_flag","station_rest_taught"))) or app.state.has("clockheart_briefed") or app.state.has("clock_P")
 func _lines() -> Array:

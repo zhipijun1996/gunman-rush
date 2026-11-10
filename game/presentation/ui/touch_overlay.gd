@@ -270,7 +270,7 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 			_vertical_ready = true
 		elif absf(axis.y) >= 0.65 and _vertical_ready:
 			_vertical_ready = false
-			router.request_action(&"interact" if axis.y < 0.0 else &"drop_through")
+			if axis.y < 0.0:router.request_action(&"interact")
 	elif region == &"right":
 		_right_offset = (location - right_center).limit_length(radius)
 		_direction = Vector2.ZERO

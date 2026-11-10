@@ -1771,7 +1771,7 @@ func _device_hint() -> String:
 		return "Left stick: move / hold up-down: look / up: interact | JUMP: tap or hold | Right stick: aim, RELEASE to fire"
 	if controller.router.current_device == &"gamepad":
 		return "Left stick: move / hold up-down: look | Jump button: tap / hold | Right stick: aim, return to center to fire"
-	return "A/D: move | Space: tap / hold jump | Mouse: aim, RELEASE left button to fire | W: interact | ↑/↓ on ground: look | S: drop"
+	return "A/D: move | Space: tap / hold jump | Mouse: aim, RELEASE left button to fire | W: interact | ↑/↓ on ground: look | S + Space: drop"
 
 func _update_actions() -> void:
 	var key := ""

@@ -1,5 +1,5 @@
 extends "res://tests/world/approved_draft_actions.gd"
-## Six actual crossings, including the vertical pair; local doorway approaches.
+## Actual crossings with declared local doorway approaches; not a full campaign run.
 func cross(source:String,dest:String,start:Vector2,axis:float,jump:bool=false)->void:
  await load_room(source)
  await fixture(start)
@@ -24,5 +24,12 @@ func run()->void:
  await cross("P-R09","P-R29",Vector2(1344,142),0,true)
  await cross("P-R01","P-R31",Vector2(2032,1198),1)
  await cross("P-R31","P-R01",Vector2(144,878),-1)
+ await cross("P-R31","P-R32",Vector2(2160,174),1)
+ await cross("P-R32","P-R31",Vector2(176,1006),-1)
+ await cross("P-R32","P-R33",Vector2(2944,622),1)
+ await cross("P-R33","P-R32",Vector2(144,558),-1)
+ await cross("P-R26","P-R27",Vector2(2112,142),0,true)
+ await cross("P-R27","P-R26",Vector2(608,718),-1)
+ await cross("P-R08","P-R06",Vector2(704,142),0,true)
  await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(4)
  print("APPROVED CONNECTIONS: ",failures," failures");quit(failures)

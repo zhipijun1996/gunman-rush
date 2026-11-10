@@ -45,10 +45,10 @@ func run() -> void:
 			var portal:=FixedWorldProvider.point(entry.position_candidate.local_world_units)
 			if entry.direction=="up":
 				check(absf(app.player.position.x-portal.x)<4,id+" upper entrance falls straight onto its safe floor")
-				var solid_landing:=false
+				var supported_landing:=false
 				for index: int in app.room.platforms.size():
-					if index not in app.room.one_way_indices and app.room.platforms[index].has_point(app.player.position+Vector2(0,20)):solid_landing=true
-				check(solid_landing,id+" upper landing is solid, not a drop-through trap")
+					if app.room.platforms[index].has_point(app.player.position+Vector2(0,20)):supported_landing=true
+				check(supported_landing,id+" upper entry lands on a real solid or one-way receiving platform")
 			if entry.direction=="down":
 				var shaft:=Rect2(portal-Vector2(52,128),Vector2(104,128))
 				var clear:=true

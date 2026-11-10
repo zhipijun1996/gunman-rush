@@ -49,6 +49,23 @@ class WorkbenchApplyTests(unittest.TestCase):
         package = {"rooms": {}, "rewards": copy.deepcopy(seed["rewards"])}
         return world, design, seed, package
 
+    def test_interior_edit_preserves_service_door_without_challenge_anchor(self):
+        construction = copy.deepcopy(self.construction)
+        row = next(r for r in construction["rooms"] if r["room_id"] == "P-R01")
+        row["terrain_failure"]["challenge_entries"] = []
+        geometry = {"bounds": [0, 0, *row["extent"]],
+                    "space_rects": copy.deepcopy(row["space_rects"]),
+                    "doors": copy.deepcopy(row["doors"]), "map_position": [0, 0]}
+        before = copy.deepcopy(row)
+        package = {"rooms": {"P-R01": {"geometry": copy.deepcopy(geometry)}}}
+        seed = {"rooms": {"P-R01": geometry}}
+        importer.update_geometry(construction, package, seed)
+        self.assertEqual(before, row)
+        # Moving a door still needs an explicit recovery contract.
+        package["rooms"]["P-R01"]["geometry"]["doors"][0]["position_candidate"]["local_world_units"][0] -= 32
+        with self.assertRaisesRegex(importer.ImportRejected, "recovery contract"):
+            importer.update_geometry(construction, package, seed)
+
     def relocate(self, seed, package, reward_id):
         reward = next(r for r in package["rewards"] if r["id"] == reward_id)
         source = reward["room_id"]

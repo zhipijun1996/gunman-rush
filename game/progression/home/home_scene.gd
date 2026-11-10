@@ -174,7 +174,7 @@ func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(player):
 		return
 	nearest_id = nearest_candidate(player.position) if player.is_on_floor() else &""
-	_prompt.text = "Space 跳跃 · S 下穿平台\n向右走出聚落 → 风铃平原"
+	_prompt.text = "Space 跳跃 · S＋Space 下穿平台\n向右走出聚落 → 风铃平原"
 	if not nearest_id.is_empty():
 		_prompt.text = "%s\nW / Left stick up / INTERACT" % FUNCTION_NAMES[str(nearest_id)]
 	reserved_id=""

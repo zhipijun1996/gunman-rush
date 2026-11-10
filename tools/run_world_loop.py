@@ -24,6 +24,8 @@ def main():
         ('room_contracts.gd',r'WORLD ROOMS: \d+ assertions, 0 failures',180),
         ('approved_drafts.gd',r'APPROVED DRAFTS: \d+ assertions, 0 failures',90),
         ('approved_draft_actions.gd',r'APPROVED ACTIONS: 0 failures',120),
+        ('approved_hub_actions.gd',r'APPROVED HUB ACTIONS: 0 failures',120),
+        ('platform_drop_input.gd',r'PLATFORM DROP INPUT: 0 failures',60),
         ('approved_draft_connections.gd',r'APPROVED CONNECTIONS: 0 failures',120),
         ('room_review.gd',r'WORLD ROOM REVIEW: 0 failures',120),
         ('ui_contracts.gd',r'WORLD UI: \d+ assertions, 0 failures',60),

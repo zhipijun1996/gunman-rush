@@ -545,7 +545,7 @@ func show_help(in_run: bool = false) -> void:
 		practice.name = "BeginBasicTutorial"
 		practice.theme_type_variation = &"PrimaryButton"
 	_label(_content, "键鼠 / KEYBOARD + MOUSE", 19, GOLD)
-	_label(_content, "A / D 移动，Space 跳跃。按住鼠标左键瞄准，松手射击。W 交互，S 下穿单向平台；方向键上 / 下观察。已获得钩索时，右键或 E 按住瞄准，松开发钩。", 17, TEXT)
+	_label(_content, "A / D 移动，Space 跳跃。按住鼠标左键瞄准，松手射击。W 交互，S＋Space 下穿单向平台；方向键上 / 下观察。已获得钩索时，右键或 E 按住瞄准，松开发钩。", 17, TEXT)
 	_label(_content, "触屏 / TOUCH", 19, GOLD)
 	_label(_content, "左侧拖动移动：小幅慢走、大幅跑动。右侧拖动瞄准，松手射击；回中心再松手可取消。JUMP 轻点小跳，按住跳高。HOOK 控件仅在获得钩索后显示。", 17, TEXT)
 	_label(_content, "手柄 / GAMEPAD", 19, GOLD)

@@ -104,7 +104,10 @@ func physics_tick(delta: float) -> void:
 	for action: Dictionary in actions:
 		if action.type == &"jump":
 			if not shoot_ability.behavior().locks_movement():
-				if not traversal.release_hang_for_jump() and not traversal.busy():
+				if bool(action.get("down_held",false)) and motor.request_drop_through():
+					dropped = true
+					jump_ability.cancel_requests()
+				elif not traversal.release_hang_for_jump() and not traversal.busy():
 					jump_ability.request_jump()
 		elif action.type == &"jump_release":
 			jump_ability.release_jump(motor)
@@ -116,7 +119,7 @@ func physics_tick(delta: float) -> void:
 		if action.type == &"grapple" and not shoot_ability.behavior().locks_movement(): traversal.request_hook(action.direction, action)
 	var wall_jumped := false
 	for action: Dictionary in actions:
-		if action.type == &"jump" and traversal.wall_jump():
+		if not dropped and action.type == &"jump" and traversal.wall_jump():
 			wall_jumped = true
 			jump_ability.cancel_requests()
 	var weapon_locked := shoot_ability.behavior().locks_movement()

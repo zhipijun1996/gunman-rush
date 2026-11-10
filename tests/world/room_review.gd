@@ -26,7 +26,7 @@ func run() -> void:
 	await tap(Vector2(popup.position)+Vector2(120,top+row_height*1.5))
 	check(not popup.visible and stages.get_selected_metadata()=="h","real popup touch selects H and closes")
 	app._close_panel();await ticks(2)
-	check(not await app.review.begin("P-R08","","base"),"planned room cannot be loaded as completed content")
+	check(not await app.review.begin("P-R18","","base"),"planned room cannot be loaded as completed content")
 	check(not await app.review.begin("P-R99","","base"),"unknown room rejected before changing save")
 	check(not await app.review.begin("P-R01","not-a-door","h"),"unknown entry rejected")
 	check(await app.review.begin("P-R22","INTRO-P22-P23:P-R22","h"),"review arrives through chosen real entry")
@@ -36,7 +36,7 @@ func run() -> void:
 	var explored: Array=app.state.value.explored.duplicate()
 	app.ui.show_map();await ticks(3)
 	var maps:=app.ui.shell.find_children("*","FixedWorldMap",true,false)
-	check(maps.size()==1 and (maps[0] as FixedWorldMap).rows().size()==16,"review map exposes only the sixteen constructed physical rooms")
+	check(maps.size()==1 and (maps[0] as FixedWorldMap).rows().size()==24,"review map exposes only the twenty-four constructed physical rooms")
 	check(app.state.value.explored==explored,"full review map does not grant campaign exploration")
 	app._close_panel();await ticks(2)
 	var lamp:=app.player.get_node("CarryLight") as PlayerCarryLight

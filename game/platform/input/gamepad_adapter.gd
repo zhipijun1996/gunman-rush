@@ -64,7 +64,7 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 		_vertical_ready = true
 	elif absf(left.y) >= 0.65 and _vertical_ready:
 		_vertical_ready = false
-		router.request_action(&"interact" if left.y < 0.0 else &"drop_through")
+		if left.y < 0.0:router.request_action(&"interact")
 	if not jump_pressed:
 		if _jump_held and not _jump_blocked:
 			router.set_jump_held(&"gamepad", false)
