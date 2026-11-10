@@ -2,7 +2,7 @@
 
 目标：正式主角苏醒、贴墙和上下查看补帧，以及短暂停住后逐渐加速的贴墙下滑。
 
-当前分支`fix/stargate-contact-route`，沿已授权工作台分支`feat/world-review-stargate`接续；没有修改房间布局、基础跳跃或反冲参数。进度由[任务表](../../tasks.md)维护。
+游戏源码`b5bca90e07029a127bfa03b7c8c1e25bf54aeeca`已发布工作台r62，当前分支`fix/stargate-contact-route`，沿已授权工作台分支`feat/world-review-stargate`接续；没有修改房间布局、基础跳跃或反冲参数。进度由[任务表](../../tasks.md)维护。
 
 ## 当前实现
 
@@ -13,9 +13,9 @@
 
 ## 检查与边界
 
-`tests/player_wake_wall.gd`使用正式P03与真实Motor碰撞，覆盖苏醒关键帧、对白／拾枪前禁射、暂停、epoch取消、上下查看及瞄准反例、左右贴墙停顿和加速、同墙取消不重置、墙跳响应。`tests/traversal_resource_refill.gd`验证17项原能力恢复规则。正常Godot窗口检查P03地面接触、上下查看与V12两侧墙面局部动作。
+`tests/player_wake_wall.gd`使用正式P03与真实Motor碰撞，覆盖苏醒关键帧、对白／拾枪前禁射、暂停、epoch取消、上下查看及瞄准反例、左右贴墙停顿和加速、同墙取消不重置、墙跳响应。`tests/traversal_resource_refill.gd`验证17项原能力恢复规则，教程回归、CI四项及文档检查通过。正常Godot窗口检查P03地面接触、上下查看与V12两侧墙面局部动作。
 
-发布版本与手机入口归[工作台交接](../mobile_level_workbench_01/scope.md)。素材与局部控制器检查不代表安卓真机、所有角色动作或全主线已经终审；新手段正常游戏不开W，贴墙在已有W的隔离V12夹具验证。
+临时音画与日志保存在`build/round7/`，公开短片、发布版本与手机入口归[工作台交接](../mobile_level_workbench_01/scope.md)。素材与局部控制器检查不代表安卓真机、所有角色动作或全主线已经终审；新手段正常游戏不开W，贴墙在已有W的隔离V12夹具验证。
 
 ## 后续
 
