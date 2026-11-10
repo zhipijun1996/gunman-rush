@@ -4,7 +4,7 @@
 
 `generated/player.png` 是12帧独立源：0/11中性比例对照，1–4转身踏入与接点，4–6充电姿态，7–10松手、转身、迈出。运行只使用1–10，退出直接回接原角色待机。`tools/build_player_charging.py` 对完整单元使用一个46/250最近邻尺度和整数锚点登记；不逐帧拉伸。运行图集80×64单元，脚底锚点40/58，轻微纵深偏移只属于表现，不改变角色碰撞与物理。
 
-`generated/station.png` 为开放式站体；原站体参考保存在同目录 `station-reference.png`，生成请求在 `request.json`。统一缩至84px高，登记在96×96画布48/92锚点。`station_front.png` 只提取原图前柱与底槛，人物跨槛时改变遮挡层次；基座下沉3wu与现有草边接地，物理和休息落点不变。`WorldChargingStation` 绘制两侧接点、有限电流支路与横向流动光核和短暂恢复光，不生成无限粒子或逐帧重建纹理。
+`generated/station.png` 为暖灰石色内腔的开放式站体，青绿只用于侧线圈与电流；原站体参考保存在同目录 `station-reference.png`，生成请求在 `request.json`。统一缩至84px高，登记在96×96画布48/92锚点。`station_front.png` 只提取原图前柱与底槛，人物跨槛时改变遮挡层次；基座下沉3wu与现有草边接地，物理和休息落点不变。`WorldChargingStation` 绘制两侧接点、有限电流支路与横向流动光核和短暂恢复光，不生成无限粒子或逐帧重建纹理。
 
 时间、闪光强度和趋近速度统一由 `game/presentation/world/station/rest_presentation.tres` 及其Resource默认值维护。世界冻结期间仅角色、站体与应用序列推进；暂停菜单冻结这些表现和对应声音。成功才单次柔光，减弱特效设置进一步减弱。进出使用真实补帧，站前趋近由PlayerMotor碰撞步进执行。
 

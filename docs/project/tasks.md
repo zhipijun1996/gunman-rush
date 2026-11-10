@@ -22,7 +22,7 @@
 | WINDKEEPER-PRESSURE-01 | 牧风者招式成果与新攻击档位适配审核 | — | review | [交接](worklines/windkeeper_pressure_01/scope.md) |
 | BELLSTRIDER-REWORK-01 | 鸣铃巡游机的唯一弱点、三招、回冲与奖励验收 | — | review | [交接](worklines/bellstrider_rework_01/scope.md) |
 | ENEMY-ALL-02 | 全现存怪物同体动作与实机审核 | — | review | [交接](worklines/enemy_all_02/scope.md) |
-| PLAYER-PRESENTATION-01 | 充电站进出补帧、电流／恢复音与柔和刷新，五站验证并发布r66 | — | review | [交接](worklines/player_presentation_01/scope.md) |
+| PLAYER-PRESENTATION-01 | 充电站进出补帧与暖灰内腔；小站NPC及摆件按固定平台接地，待新版试玩绑定 | — | review | [交接](worklines/player_presentation_01/scope.md) |
 
 - `DEATH-RUNTIME-01`：聚合首用／战斗／死亡性能链，在同版真实设备复验；技术合入不代签帧时间。
 - `MOBILE-WEB-FPS-04`：实体手机复验普通 Web 帧时间、供音与大图；承接 MOBILE-WEB-PERF/AUDIO 系列。

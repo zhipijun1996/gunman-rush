@@ -1892,6 +1892,22 @@
       ],
       "timeout_seconds": 90,
       "success_pattern": "^REST STATION: 0 failures"
+    },
+    "station-grounding": {
+      "mode": "manual",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/world/station_grounding.gd"
+      ],
+      "timeout_seconds": 90,
+      "success_pattern": "^STATION GROUNDING: 0 failures"
     }
   },
   "profiles": {}

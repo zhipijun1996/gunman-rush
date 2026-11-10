@@ -9,7 +9,7 @@
 script = ExtResource("1_kr68d")
 room_id = "P-R01"
 arrival_text = "钟外小站"
-traveler_point = Vector2(1152, 1262)
+traveler_point = Vector2(1152, 1265)
 route_guide = {
 "schema": 1.0,
 "steps": [{
@@ -33,20 +33,20 @@ art_placements = Array[Dictionary]([{
 }, {
 "asset": "merchant_counter",
 "layer": -2.0,
-"point": [600.0, 1280.0]
+"point": [752.0, 1280.0]
 }, {
 "asset": "storage_crates",
 "layer": -2.0,
-"point": [720.0, 1280.0]
+"point": [1320.0, 1280.0]
 }, {
 "asset": "hanging_chime",
 "layer": -2.0,
-"point": [856.0, 1280.0]
+"point": [856.0, 1283.0]
 }, {
 "asset": "gear_lamp",
 "layer": -2.0,
 "light": true,
-"point": [1984.0, 1216.0]
+"point": [1984.0, 1219.0]
 }])
 art_profile = "station"
 bell_mechanisms = Array[Dictionary]([{
@@ -62,12 +62,12 @@ signs = Array[Dictionary]([{
 "point": [224.0, 1232.0],
 "text": "小站的灯一直亮着。充电站恢复生命，并保存归途。"
 }, {
-"point": [1824.0, 1168.0],
+"point": [2056.0, 1168.0],
 "text": "向东进入旧井，上到岔路再向西循铃。"
 }])
 story_sequence = {
 "action": "station_briefing",
-"blocking_point": [2072.0, 366.0],
+"blocking_point": [2072.0, 369.0],
 "display": [0.0, 512.0, 2176.0, 1024.0],
 "focus": [768.0, 1136.0],
 "guard_lines": ["先去东边的钟心看看吧。这里的旧路，我会替你守着。", "穿过小站下层的东门，沿着长桥就能看见那座塔。"],
@@ -75,25 +75,25 @@ story_sequence = {
 "guard_trigger": [1952.0, 288.0, 224.0, 128.0],
 "kind": "station",
 "lines": ["这枚枪纹……你就是修钟者？我们等你很久了。", "先去东边的世界钟心看看吧。穿过铃场和长桥，那座停摆的高塔就是。", "北侧旧路先让我守着。弄清钟心出了什么事，我们再商量怎么让这些钟重新走起来。"],
-"npc_point": [960.0, 1262.0],
+"npc_point": [960.0, 1265.0],
 "speaker": "守钟匠",
 "trigger": [480.0, 1190.0, 320.0, 110.0]
 }
 
 [node name="Npc0" type="Node2D" parent="." unique_id=2108929953]
-position = Vector2(560, 1262)
+position = Vector2(688, 1265)
 script = ExtResource("2_sj7sl")
 npc_id = "NPC_P_REC"
 display_name = "小站回收匠"
 
 [node name="Npc1" type="Node2D" parent="." unique_id=1197660832]
-position = Vector2(816, 1262)
+position = Vector2(816, 1265)
 script = ExtResource("2_sj7sl")
 npc_id = "NPC_P_WEAVER"
 display_name = "织时匠"
 
 [node name="RiftStation" type="Node2D" parent="." unique_id=95402165]
-position = Vector2(448, 1262)
+position = Vector2(416, 1265)
 script = ExtResource("3_bnjeb")
 action_id = "activate_rift_P"
 label = "连接归途"
