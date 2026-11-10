@@ -2,11 +2,11 @@
 
 ## 范围与入口
 
-平原场景按当前用户逐房反馈维护，PR147包含PR148的26房成果与后续定稿。35房/43连接身份保持；本分支正式施工目录为35平原房及Z01钟心门厅，公开主站上一版为35平原房，工作台范围为35房及V-R12、Z-R01隔离预览。三铃地空分种与P32远景整合已接入当前工作台；主角苏醒、贴墙、查看及五处充电站进出表现见[人物交接](../player_presentation_01/scope.md)。线上版本与草稿修订统一见[工作台交接](../mobile_level_workbench_01/scope.md)。
+平原场景按当前用户逐房反馈维护，PR147包含PR148的26房成果与后续定稿。35房/43连接身份保持；本分支正式施工目录为35平原房及Z01钟心门厅，公开主站同为35平原房及Z01，工作台范围为35房及V-R12、Z-R01隔离预览。三铃地空分种与P32远景整合已接入当前工作台；主角苏醒、贴墙、查看及五处充电站进出表现见[人物交接](../player_presentation_01/scope.md)。线上版本与草稿修订统一见[工作台交接](../mobile_level_workbench_01/scope.md)。
 
 ## 当前施工输入
 
-本轮在 [PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)、`feat/approved-platform-rooms` 接入平台r80导出的P10、P20人工初审稿；沿用已接入的33房。源基线为`ded9633df210060710d97d25fec908f7fd0c010b`。三方字段比较保留当前正式美术与输入。平台保持只读，不部署、迁移、采用或改写人工审核状态。用户明确授权接入已有Z01剧情房，恢复小站→钟心调查→北路放行；不改写平台草稿审核状态。当前修复旧集右出口闪烁及平原室外不合理阴影，沿现有几何逐房校准美术。
+本轮在 [PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)、`feat/approved-platform-rooms` 接入平台r80导出的P10、P20人工初审稿；沿用已接入的33房。源基线为`ded9633df210060710d97d25fec908f7fd0c010b`。三方字段比较保留当前正式美术与输入。平台保持只读，不部署、迁移、采用或改写人工审核状态。用户明确授权接入已有Z01剧情房，恢复小站→钟心调查→北路放行；不改写平台草稿审核状态。旧集右出口失败重试与输入恢复已修复，沿现有几何完成逐房美术和稳定照明首轮校准。
 
 平台基线为 `8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`；使用同一Godot codec、原世界编译器与三方字段比较，保留正式源码的输入、光照、尸体支撑和小站教学。每房初审签名与导入修订归room_design.json。r78读取时，r76四房属性／节点／几何完全一致。
 
@@ -76,16 +76,14 @@ P12西岸守箱巡逻怪按用户明确决定使用规范9血。P10／P20审批�
 
 ## 当前公开试玩
 
-[正式主游戏](https://zhipijun1996.github.io/gunman-rush/?v=1040dcf370ef)版本`1040dcf370ef`，运行源码`8780a5ca3b3f72337eca3be41bf3db57cb76aba4`，PR150尚未合入main。部署分支`playtest-plains35-8780a5ca`只含最终Web产物，[Pages运行42850279406](https://github.com/zhipijun1996/gunman-rush/actions/runs/42850279406)成功。关卡审核平台本轮未更新，读取时仍为r80。
+[正式主游戏](https://zhipijun1996.github.io/gunman-rush/?v=2771565769f9)版本`2771565769f9`，运行源码`d5a3167f5bc610493dc12729fca0254470c635f5`，PR150尚未合入main。部署分支`playtest-plains-lighting-d5a3167f`只含最终Web产物，[Pages运行42868628490](https://github.com/zhipijun1996/gunman-rush/actions/runs/42868628490)成功。关卡审核平台保持原部署，读取时为r80，未改写人工审批。
 
-同现有主站使用显式运行闭包和单线程网页模板。导出闭包1539项、独立PCK探针通过：正式35房、隔离预览37房、15种怪物，正常新档在P03落地。PCK为136,353,264字节（约130.04MiB），SHA256为`1040dcf370ef027b849047e8fad27679fc1f1f5111828d710bdd2b43f4578551`；随正式房间合同增长，包上限调整为131MiB。分块缓存复用原引擎与未变内容，不上传历史实验资源全集。公网首页、版本信息、缓存脚本、完整PCK与两段短片均已读回，与本地交付逐字节一致。
+显式资源闭包和独立PCK装载通过，正式36房、隔离预览37房、15种怪物；正常新档从P03开始。PCK为136,404,128字节，SHA256为`2771565769f932a1c25e88da9fb3697d37c39a0d96b33dbc812092937df9312c`。公网版本信息、首页、缓存脚本、完整PCK和短片与本地交付一致。Chromium WebGL2检查P34、Z01与正常新游戏，无脚本错误；桌面软件渲染不代表安卓性能。
 
-最终Web包在Chromium WebGL2通过P10基础阶段和P35钩索阶段入口，无脚本错误；公网以新版本链接完成首次下载、真实触屏点击新游戏并进入P03苏醒对白。发布交接期间旧缓存请求曾超时，新版本完整包与入口复验通过。这是桌面软件渲染检查，不代表安卓性能。已检查35房原生入口合屏。日常CI四项、全武器2381项、世界／服务／经济／房间合同、各批审批动作及门对、镜头、教程视野与刺坑恢复、休息和独立保存专项通过。过时测试按当前平台、NPC、收集宿主及暂缓的旅人剧情重整，不据此宣称完整探索通关。
-
-手机可直接新游戏或继续；标题／暂停菜单提供逐房试玩，使用隔离进度。[P10](https://zhipijun1996.github.io/gunman-rush/?v=1040dcf370ef&review=P-R10&stage=base)、[P11巡游机](https://zhipijun1996.github.io/gunman-rush/?v=1040dcf370ef&review=P-R11&stage=base)、[P35](https://zhipijun1996.github.io/gunman-rush/?v=1040dcf370ef&review=P-R35&stage=h)可直达。当前正常速度短片：[冰弹贯穿](https://zhipijun1996.github.io/gunman-rush/review/ice.mp4)约4秒／240KB，[领奖与安装事务](https://zhipijun1996.github.io/gunman-rush/review/install.mp4)约3.2秒／656KB；后者使用Boss终末血量及局部定位，不是完整战斗。原始日志、录屏和发布读回校验在build/ice-release，不进入源码树。
+[旧集右门](https://zhipijun1996.github.io/gunman-rush/?v=2771565769f9&review=P-R34&stage=base)可逐房复测。[往返短片](https://zhipijun1996.github.io/gunman-rush/review/crossing.mp4)约5秒／500KB，原生正式控制器、正常速度、局部起点，敌人保持运行；不是新档连续通关。[冰弹](https://zhipijun1996.github.io/gunman-rush/review/ice.mp4)与[领奖安装](https://zhipijun1996.github.io/gunman-rush/review/install.mp4)沿用对应功能的既有短片。当前日志、160处逐房静态取景及原始录像在build/plains-art-pass，不进入源码树。
 
 ## 未验与下一步
 
-35房初审稿已施工；发布前检查正式入口、能力与机关、独立奖励／安装、保存及已施工门对。草稿初审、源码施工与正式体验终审分开。本轮没有完成新档连续全收集、每条支路所有反向绕行、全区战斗／经济平衡及安卓真机性能验证，不能以局部专项代替这些结论。本轮仅接入用户授权的Z01剧情房，其余外区保持关闭。审核平台继续只读，后续人工编辑不被本次发布覆盖。
+35房初审稿已施工；本轮修复及美术首轮校准已发布，后续沿连续片区复核探索与战斗节奏。草稿初审、源码施工与正式体验终审分开。本轮没有完成新档连续全收集、每条支路所有反向绕行、全区战斗／经济平衡及安卓真机性能验证，不能以局部专项代替这些结论。本轮仅接入用户授权的Z01剧情房，其余外区保持关闭。审核平台继续只读，后续人工编辑不被本次发布覆盖。
 
 局部专项命令为 `bash tools/godot.sh --headless --path . --fixed-fps 60 --script tests/world/<专项>.gd`。世界源变化后先执行 `python3 tools/world/build.py` 并重建本地preview_catalog，再运行工作台隔离回归；本地生成不等于发布或迁移线上平台。
