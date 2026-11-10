@@ -6,7 +6,7 @@
 
 ## 当前实现
 
-当前修复分支`fix/world-support-story-lighting`，main基线`f1e9e0e8`；保持既有地形、角色物理和六房正式范围。
+当前修复为[PR149](https://github.com/zhipijun1996/gunman-rush/pull/149)，分支`fix/world-support-story-lighting`，运行源码`a7fef8b11573ad13d1e5ed2210df781919a000af`，main基线`f1e9e0e8`；保持既有地形、角色物理和六房正式范围。
 
 - 尸体验证脚底真实碰撞接触，形状关闭／删除时继续以最终死亡帧落至下层，无地面时有界退出；同一死亡不重发奖励。227项双表现链专项通过，包括移动承载、节点销毁、形状删除／关闭及下层落地。
 - 正式六房不再静默提交小站对白。载台停稳后自动到站教学，镜头指向西侧充电站；跳过与正常完成原子保存station_rest_taught，旧档仅有station_briefing可补看。钟心已经调查的进度不倒退。仅完整预览提示东侧路线。正式载台／旧档／跳过／回访9项与完整钟心路线回归通过。
@@ -37,6 +37,14 @@
 - `plains_overlook.gd`、`plains_intro.gd`、`platform_enemy_feedback.gd`通过：24三波3/4/5、血量、清场开门、射铃完整升降、植物暗室宝箱，以及平台敌人和连续刺边。
 - 前门室内分层保留门对校验，普通房间接缝继续严格校验。
 - 正常Godot窗口审看24战场与秘密、31换乘、32背景塔、33前门及Z01室内。视频拆成短段；这是软件OpenGL的局部夹具，不是手机帧率或35房连续首通结果。
+
+## 当前公开试玩
+
+[正式主游戏](https://zhipijun1996.github.io/gunman-rush/?v=759d610ecc90)版本`759d610ecc90`，运行源码`a7fef8b11573ad13d1e5ed2210df781919a000af`，PR149尚未合入main。部署分支`playtest-world-feedback-a7fef8b1`仅Web产物，[Pages运行42799711660](https://github.com/zhipijun1996/gunman-rush/actions/runs/42799711660)成功。私有风铃工作台本轮未更新。
+
+导出闭包1533项和真实PCK探针通过（正式6房、预览37房、15种怪物）。公开HTML、worker、版本信息及短片与本地逐字节一致；远端完整PCK为134,766,680字节，SHA256为`759d610ecc90a09f53dc228e61b03bc66f68d17f48947789e5e467c629df6174`，匹配验收包。相同Web包已在Chromium WebGL2点击新游戏进入P03，无脚本错误。
+
+[蓄力正常速度短片](https://zhipijun1996.github.io/gunman-rush/review/focus.mp4)为6.7秒、约1.2MB，包含实际集气、恢复和中断，来自原生软件OpenGL。当前临时证据归build/world-feedback/；失败的缺失光照配置导出已修正，最终配置随表现模块打包，不读取被排除的原始世界源。
 
 ## 未验与下一步
 

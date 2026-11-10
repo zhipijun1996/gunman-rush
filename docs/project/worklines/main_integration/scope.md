@@ -18,6 +18,4 @@ PR148的头提交`d2a75c6a03572b6cdf0d39033faa75f55e36f275`已在PR147祖先链�
 
 ## 当前公开试玩
 
-正式试玩为 https://zhipijun1996.github.io/gunman-rush/?v=dd5a6e8871f1 ，运行源码`731e941c424db20aa23d3b5e369cba99734abec6`，版本`dd5a6e8871f1`。它从正式标题进入六房主游戏，与私有风铃关卡工作台分别发布。复用main已验证发行的相同运行字节，部署分支`playtest-main-731e941c`只承载Web产物，不合入源码；[Pages部署](https://github.com/zhipijun1996/gunman-rush/actions/runs/42793333301)成功。
-
-公开HTML、缓存worker与源码身份已逐项读回比对；完整PCK为134,713,420字节，远端SHA256为`dd5a6e8871f12e0e689837b0d16bc677eb6287024139659290d913624b395e66`，与发行包一致。相同包在Chromium WebGL2中加载正式标题、点击新游戏进入P03苏醒剧情，无脚本异常；不据此声明安卓性能或完整路线通过。临时证据归build/main-playtest。
+公开六房主游戏与私有风铃关卡工作台分别发布。当前试玩版本、源码、部署与完整PCK校验统一见[平原交接](../plains_bible_v2_01/scope.md)；后续修复PR的试玩发布不等于已合入main。部署分支只承载Web产物，不合入源码。
