@@ -9,20 +9,41 @@ var elapsed:=0.0
 var blocked:=false
 var flash:=0.0
 var _origin:=Vector2.ZERO
+var _cancel_fade:=0.0
+var _last_ratio:=0.0
+var reduced:=false
+var _release_pose_allowed:=false
+var body:UnderworldPlayer
+func _pose(index:int) -> void:
+	if not is_instance_valid(body):body=PlayerPresentationRuntime.current_body(controller.motor)
+	if body!=null:
+		body.authored_pose.focus_frame=index
+		if index>=0:body.authored_pose.session=controller.session_id
+func _reset_presentation() -> void:
+	_release_pose_allowed=false
+	flash=0;_cancel_fade=0;_pose(-1);GameAudio.stop_origin(self,false)
+func _exit_tree() -> void:
+	_reset_presentation()
+
 func _ready() -> void:
 	process_physics_priority=1100
 	z_index=5
-	controller.router.cancelled.connect(func(_reason: String) -> void: cancel(false))
-	controller.router.device_changed.connect(func(_source: StringName) -> void: cancel(false))
-	controller.jump_ability.jumped.connect(func() -> void: cancel(true))
-	controller.shoot_ability.shot_fired.connect(func(_direction: Vector2,_packet: int) -> void: cancel(true))
+	var unlit:=CanvasItemMaterial.new();unlit.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;material=unlit
+	controller.router.cancelled.connect(func(_reason: String) -> void: cancel(false);_reset_presentation())
+	controller.router.device_changed.connect(func(_source: StringName) -> void: cancel(false);_reset_presentation())
+	controller.jump_ability.jumped.connect(func() -> void: cancel(true);_release_pose_allowed=false)
+	controller.shoot_ability.shot_fired.connect(func(_direction: Vector2,_packet: int) -> void: cancel(true);_release_pose_allowed=false)
 	controller.actor_resources.health.changed.connect(func(result: ActorResourceResult) -> void:
-		if result.operation==&"damage" and result.amount_applied<0: cancel(true))
+		if result.operation==&"damage" and result.amount_applied<0: cancel(true);_release_pose_allowed=false)
 func available() -> bool:
 	var health:=controller.actor_resources.health
 	return controller.active and controller.motor.is_on_floor() and not health.terminal and not health.normal_healing_blocked and health.current<health.capacity and controller.combat_energy.can_consume(float(settings.cost))
 func ratio() -> float: return clampf(elapsed/float(settings.charge_seconds),0,1)
 func cancel(require_release: bool) -> void:
+	if elapsed>0:
+		_last_ratio=ratio();_cancel_fade=float(settings.presentation.cancel_seconds)
+		GameAudio.stop_origin(self)
+	_pose(-1)
 	elapsed=0.0
 	pending=false
 	blocked=require_release and controller.router.focus_heal_held()
@@ -37,24 +58,57 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 func _physics_process(delta: float) -> void:
 	flash=maxf(0,flash-delta)
-	if not controller.router.focus_heal_held(): cancel(false);return
+	_cancel_fade=maxf(0,_cancel_fade-delta)
+	queue_redraw()
+	if flash>0 and _release_pose_allowed and controller.active and controller.motor.is_on_floor() and absf(controller.motor.velocity.x)<10 and not controller.router.aim_engaged:
+		_pose(5 if flash>float(settings.presentation.release_seconds)*.5 else 6)
+	elif elapsed<=0:_pose(-1)
+	if not controller.router.focus_heal_held():
+		if elapsed>0:cancel(false)
+		blocked=false;return
 	if blocked or pending: return
 	if not available() or absf(controller.router.axis)>.01 or controller.router.aim_engaged or controller.traversal.busy() or absf(controller.motor.velocity.x)>10:
 		cancel(true);return
-	if elapsed<=0: _origin=controller.motor.position
+	var starting:=elapsed<=0
+	if starting: _origin=controller.motor.position
 	if controller.motor.position.distance_to(_origin)>2: cancel(true);return
 	elapsed+=delta/Engine.time_scale
+	if starting:GameAudio.cue_focus(self,&"heal_gather")
+	_pose(1 if ratio()<.16 else 2 if ratio()<.4 else 3+posmod(int(elapsed*7),2))
 	if elapsed+0.000001>=float(settings.charge_seconds):
 		elapsed=float(settings.charge_seconds)
 		pending=true
 		ready_to_heal.emit()
 	queue_redraw()
 func resolve(accepted: bool) -> void:
-	pending=false
-	elapsed=0
-	if accepted: flash=.25
-	else: cancel(true)
+	if not accepted:
+		cancel(true);return
+	pending=false;elapsed=0
+	GameAudio.stop_origin(self)
+	flash=float(settings.presentation.release_seconds);_cancel_fade=0;_release_pose_allowed=true
+	_pose(5);GameAudio.cue_focus(self,&"heal_release")
 	queue_redraw()
 func _draw() -> void:
-	if elapsed>0: draw_arc(Vector2.ZERO,25,-PI*.5,-PI*.5+TAU*ratio(),32,DemoClockworkTheme.TEAL,2)
-	if flash>0: draw_arc(Vector2.ZERO,25+(1-flash/.25)*8,0,TAU,32,Color(DemoClockworkTheme.TEAL,flash/.25),2)
+	var center:=Vector2(3,-5)
+	var count:=int(settings.presentation.particles)/(2 if reduced else 1)
+	var strength:=.5 if reduced else 1.0
+	if elapsed>0 or _cancel_fade>0:
+		var progress:=ratio() if elapsed>0 else _last_ratio
+		var fade:=1.0 if elapsed>0 else _cancel_fade/float(settings.presentation.cancel_seconds)
+		for i:int in count:
+			var travel:=fposmod(progress*1.5+float(i)/count,1)
+			var angle:=float(i)*2.399+travel*.35
+			var radius:=lerpf(float(settings.presentation.gather_radius),4,travel)
+			var at:=(center+Vector2.from_angle(angle)*radius).round()
+			var alpha:=sin(travel*PI)*fade*strength
+			draw_line(at,at+Vector2.from_angle(angle)*3,Color(.64,.87,.74,alpha*.55),1)
+			draw_rect(Rect2(at,Vector2.ONE if i%3 else Vector2(2,2)),Color(.95,.91,.68,alpha))
+		draw_arc(center,7-progress*2,0,TAU,24,Color(.8,.93,.72,(.15+progress*.45)*fade*strength),1)
+	if flash>0:
+		var progress:=1-flash/float(settings.presentation.release_seconds)
+		var radius:=lerpf(7,float(settings.presentation.release_radius),1-pow(1-progress,2))
+		var alpha:=(1-progress)*strength
+		draw_arc(center,radius,0,TAU,48,Color(.74,.94,.78,alpha*.75),1)
+		for i:int in count:
+			var at:=(center+Vector2.from_angle(float(i)*TAU/count)*(radius+float(i%3)*3)).round()
+			draw_rect(Rect2(at,Vector2(2,1)),Color(.98,.9,.62,alpha))

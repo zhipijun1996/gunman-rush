@@ -253,7 +253,7 @@ func setup(path: String, underworld: bool) -> void:
 		check(actual_body(target_art) != null and actual_body(peer_art) != null, "both actual selected Underworld instances own body-only flash consumers")
 		check(actual_body_material(target_art) != actual_body_material(peer_art), "actual body ShaderMaterials are distinct per instance")
 		check(actual_body_material(target_art).resource_path.is_empty() and actual_body_material(peer_art).resource_path.is_empty(), "body flash uses local material instances rather than a shared material resource")
-		check(target_art.material == null and peer_art.material == null, "flash material stays on body child, outside telegraphs and health marks")
+		check(not target_art.material is ShaderMaterial and not peer_art.material is ShaderMaterial, "flash shader stays on body child; root may own stable unshaded readability material")
 	else:
 		check(art is EnemyPresentation, "original scene consumes EnemyPresentation inheritance chain")
 	check(art.get("feedback_sample") != null, "selected existing enemy owns shared feedback component")

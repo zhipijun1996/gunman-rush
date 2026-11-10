@@ -11,6 +11,10 @@ const REST_CUES := {
 	&"rest_current": preload("res://assets/player_presentation_01/charging/audio/current.wav"),
 	&"rest_restore": preload("res://assets/player_presentation_01/charging/audio/restore.wav"),
 }
+const FOCUS_CUES := {
+	&"heal_gather": preload("res://assets/player_presentation_01/focus/audio/gather.wav"),
+	&"heal_release": preload("res://assets/player_presentation_01/focus/audio/release.wav"),
+}
 # Per-origin death timbre; the existing accepted cue still owns timing/pooling.
 const CUE_STREAM_OVERRIDES_META := &"audio_cue_stream_overrides"
 const CUES := [&"focus_start", &"focus_end", &"enemy_defeat", &"door", &"warning", &"boss_impact", &"click", &"confirm", &"coin", &"note", &"victory", &"jump", &"land", &"step", &"hurt", &"shot", &"impact", &"armour", &"core", &"enemy_shot", &"heal", &"death", &"bell", &"denied", &"roar"]
@@ -130,6 +134,12 @@ static func cue_rest(origin: WorldRestSequence, id: StringName) -> bool:
 	var service:=for_origin(origin) as GameAudio
 	return service._play_original(id,null,false,origin,true) if service!=null else false
 
+static func cue_focus(origin: WorldFocusHeal, id: StringName) -> bool:
+	if not is_instance_valid(origin) or not FOCUS_CUES.has(id):return false
+	if (id==&"heal_gather" and origin.elapsed<=0) or (id==&"heal_release" and origin.flash<=0):return false
+	var service:=for_origin(origin) as GameAudio
+	return service._play_original(id,null,false,origin) if service!=null else false
+
 func pause_origin(origin: Node, value: bool) -> void:
 	for voice: AudioStreamPlayer in _voices:
 		if not voice.has_meta("director_origin"):continue
@@ -220,6 +230,7 @@ func _ready() -> void:
 		_streams[id] = load(REGIONAL_CUE_PATHS[id])
 	_streams[&"mechanism_bell"] = MECHANISM_BELL_SOUND
 	_streams.merge(REST_CUES)
+	_streams.merge(FOCUS_CUES)
 	for index: int in MAX_VOICES:
 		var voice := AudioStreamPlayer.new()
 		add_child(voice)
@@ -394,6 +405,10 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 		voice.process_mode = Node.PROCESS_MODE_ALWAYS if pause_safe or id in [&"click", &"confirm", &"denied"] else Node.PROCESS_MODE_PAUSABLE
 		voice.set_meta("cue_id", id)
 		_clear_director_metadata(voice)
+		if FOCUS_CUES.has(id) and is_instance_valid(origin):
+			voice.set_meta("director_event",id)
+			voice.set_meta("director_origin",weakref(origin))
+			voice.set_meta("director_sustained",id==&"heal_gather")
 		if cinematic and is_instance_valid(origin):
 			voice.set_meta("director_event", id if rest_cinematic else &"cinematic")
 			voice.set_meta("director_origin", weakref(origin))

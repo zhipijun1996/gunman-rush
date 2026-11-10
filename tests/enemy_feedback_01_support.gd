@@ -98,6 +98,26 @@ func translated_support_case(underworld: bool) -> void:
 	await cleanup()
 	check(reference.get_ref() == null, "support-release case unload releases inactive remains sibling")
 
+func disabled_surface_case(underworld: bool, remove_shape: bool) -> void:
+	fixture_mode = &"supported"
+	await actual_charger_death(underworld)
+	var remains := art.get("feedback_remains") as EnemyFeedback01Remains
+	await ticks(90,"settle_before_surface_disappears")
+	var before := remains.global_position
+	var starts := remains.accepted_starts
+	var landing := StaticBody2D.new()
+	var shape := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new();rectangle.size=Vector2(4000,40)
+	shape.shape=rectangle;landing.add_child(shape);landing.position=Vector2(0,560);world.add_child(landing)
+	if remove_shape: support_floor.get_child(0).queue_free()
+	else: (support_floor.get_child(0) as CollisionShape2D).set_deferred("disabled",true)
+	await ticks(8,"support_node_survives_without_collision")
+	check(is_instance_valid(support_floor) and not remains.settled and remains.global_position.y>before.y,"live support body with removed/disabled collision releases corpse")
+	await ticks(80,"fall_to_actual_lower_floor")
+	check(remains.settled and remains.visible and absf(remains.global_position.y-before.y-160)<2,"corpse lands on actual lower floor")
+	check(remains.accepted_starts==starts and remains.frame_index==7,"support loss retains final pose and single death receipt")
+	await cleanup()
+
 func late_saved_transform_case(underworld: bool) -> void:
 	fixture_mode = &"supported"
 	await setup(CHARGER_PATH, underworld)
@@ -127,6 +147,8 @@ func run() -> void:
 	for underworld: bool in [false, true]:
 		await void_death_case(underworld)
 		await translated_support_case(underworld)
+		await disabled_surface_case(underworld,false)
+		await disabled_surface_case(underworld,true)
 		await late_saved_transform_case(underworld)
 	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01/v8")
 	var file := FileAccess.open("res://build/enemy_feedback_01/v8/support_runtime.json", FileAccess.WRITE)

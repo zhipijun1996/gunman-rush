@@ -21,6 +21,8 @@ var repair_blend := 0.0
 var repair_initialized := false
 var wind_phase := 0.0
 static var profiles: Dictionary={}
+var light_settings: Dictionary = {}
+var environment_light: Dictionary = {}
 func sprite(id: String,at: Vector2,layer: int=-2) -> Sprite2D:
 	var node:=Sprite2D.new();node.centered=false
 	if props.has(id):
@@ -49,8 +51,10 @@ func _ready() -> void:
 		wall.region_rect=Rect2(Vector2.ZERO,FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size+Vector2(1024,512));wall.position=Vector2(-512,-256);wall.z_index=-40;wall.modulate=Color(.8,.86,.95);add_child(wall)
 		depths.append({"node":wall,"origin":wall.position,"ratio":.92})
 	indoor=not interior.is_empty()
+	light_settings=JSON.parse_string(FileAccess.get_file_as_string("res://game/presentation/world/plains_v07/lighting.json"))
+	environment_light=light_settings.environments.get(interior,light_settings.environments.outdoor)
 	ambient=CanvasModulate.new()
-	ambient.color=Color(.34,.41,.53) if indoor else Color(.49,.57,.69)
+	ambient.color=Color(environment_light.ambient)
 	add_child(ambient)
 	if not indoor:
 		sky=Sprite2D.new();sky.name="PlainsFarLandscape"
@@ -58,8 +62,12 @@ func _ready() -> void:
 		sky.z_index=-100;sky.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 		var unlit:=CanvasItemMaterial.new();unlit.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;sky.material=unlit
 		add_child(sky)
-		daylight=DirectionalLight2D.new();daylight.color=Color("ffdfac");daylight.energy=.72
-		daylight.rotation=-.55;daylight.shadow_enabled=true;daylight.max_distance=1200
+		daylight=DirectionalLight2D.new();daylight.color=Color(light_settings.sun.color);daylight.energy=float(environment_light.sun_energy)
+		daylight.rotation=float(light_settings.sun.rotation);daylight.shadow_enabled=true
+		# Godot culls directional occluders relative to the camera. Keep every
+		# room occluder inside the range at every legal view, not a 1200wu bubble.
+		daylight.max_distance=FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size.length()+float(light_settings.sun.shadow_margin)
+		daylight.shadow_filter=Light2D.SHADOW_FILTER_PCF5;daylight.shadow_filter_smooth=float(light_settings.sun.shadow_softness)
 		add_child(daylight)
 	for i: int in room.platforms.size():
 		if i in room.one_way_indices:continue
@@ -77,7 +85,10 @@ func _ready() -> void:
 		polygon.polygon = points
 		blocker.occluder = polygon
 		add_child(blocker)
-	if room.rest_point!=Vector2.ZERO:add_lamp(room.rest_point-Vector2(0,42))
+	if room.rest_point!=Vector2.ZERO:
+		for offset:Array in light_settings.station.offsets:
+			var coil:=add_lamp(room.rest_point+FixedWorldProvider.point(offset))
+			coil.color=Color(light_settings.station.color);coil.energy=float(light_settings.station.energy);coil.texture_scale=float(light_settings.station.radius)/64
 	for placement: Dictionary in room.art_placements:
 		if placement.has("support_height"):
 			_support(FixedWorldProvider.point(placement.point),float(placement.support_height));continue
@@ -99,9 +110,10 @@ func _ready() -> void:
 				var tone:Array=placement.tint;node.modulate=Color(tone[0],tone[1],tone[2],tone[3])
 			var depth_material:=CanvasItemMaterial.new();depth_material.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;node.material=depth_material
 			depths.append({"node":node,"origin":node.position,"ratio":float(placement.depth)})
-		if placement.get("light",false):
-			var light_position:=FixedWorldProvider.point(placement.light_offset) if placement.has("light_offset") else Vector2(0,-node.texture.get_height()*.65)
-			var glow:=add_lamp(light_position)
+		if placement.get("light",false) and light_settings.emitters.has(str(placement.asset)):
+			var emitter:Dictionary=light_settings.emitters[str(placement.asset)]
+			var glow:=add_lamp(FixedWorldProvider.point(emitter.offset))
+			glow.color=Color(emitter.color);glow.energy=float(emitter.energy);glow.texture_scale=float(emitter.radius)/64
 			glow.reparent(node,false)
 	_thresholds()
 	var spikes:=WorldSpikeArt.new()
@@ -112,7 +124,7 @@ func _ready() -> void:
 func add_lamp(at: Vector2) -> PointLight2D:
 	var gradient:=Gradient.new();gradient.colors=PackedColorArray([Color.WHITE,Color(1,1,1,0)])
 	var tex:=GradientTexture2D.new();tex.gradient=gradient;tex.width=128;tex.height=128;tex.fill=GradientTexture2D.FILL_RADIAL;tex.fill_from=Vector2(.5,.5);tex.fill_to=Vector2(1,.5)
-	var light:=PointLight2D.new();light.texture=tex;light.position=at.round();light.color=Color("f1c27a");light.energy=1.25;light.texture_scale=2.8;light.shadow_enabled=true;add_child(light)
+	var light:=PointLight2D.new();light.texture=tex;light.position=at.round();light.color=Color("f1c27a");light.energy=1.25;light.texture_scale=2.8;light.shadow_enabled=true;light.shadow_filter=Light2D.SHADOW_FILTER_PCF5;light.shadow_filter_smooth=1.5;add_child(light)
 	return light
 func _process(delta: float) -> void:
 	clock+=delta
@@ -120,8 +132,8 @@ func _process(delta: float) -> void:
 		var restored:=1.0 if room.services.state.has("clock_P") else 0.0
 		if not repair_initialized:repair_blend=restored;repair_initialized=true
 		repair_blend=move_toward(repair_blend,restored,delta*.25)
-		ambient.color=(Color(.34,.41,.53) if indoor else Color(.49,.57,.69)).lerp(Color(.61,.68,.76),repair_blend)
-		if daylight!=null:daylight.energy=lerpf(.72,.83,repair_blend)
+		ambient.color=Color(environment_light.ambient).lerp(Color(environment_light.restored),repair_blend)
+		if daylight!=null:daylight.energy=lerpf(float(environment_light.sun_energy),float(environment_light.restored_sun_energy),repair_blend)
 		if sky!=null:sky.modulate=Color(.84,.89,.92).lerp(Color(1,.98,.92),repair_blend)
 		for trace: Dictionary in story_props:
 			trace.node.visible=room.services.state.value.receipts.has(trace.receipt) and (str(trace.host).is_empty() or room.services.state.value.story_hosts.get(trace.host,"")==room.room_id)
@@ -217,7 +229,6 @@ func _thresholds() -> void:
 			var side:=1 if direction=="right" else -1
 			var facade:=sprite("building_threshold",at-Vector2(side*24,0),-3)
 			facade.scale.x=side;facade.set_meta("connection",door.id)
-			var lamp:=add_lamp(at-Vector2(side*48,55));lamp.energy=.32
 		elif not indoor and direction=="down":
 			var ground:=at.y
 			for solid: Rect2 in room.platforms:

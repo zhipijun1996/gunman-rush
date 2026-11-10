@@ -28,9 +28,6 @@ func setup(application: FixedWorldApp) -> void:
  process_mode=Node.PROCESS_MODE_ALWAYS
  z_index=30
  if settings.is_empty():set_process(false);return
- # The six-room formal construction has no east route yet; do not direct its player into an unavailable quest.
- if settings.get("kind")=="station" and app.content.room("P-R33").is_empty():
-  app.enqueue("action","station_briefing");set_process(false);return
  if settings.has("npc_point"):
   figure=WorldSpriteAnimation.new();figure.asset_id="reclaimer"
   figure.position=FixedWorldProvider.point(settings.npc_point)+Vector2(0,18);add_child(figure)
@@ -47,7 +44,7 @@ func _place_station_figure() -> void:
  if app.state.has("clockheart_briefed") or app.state.has("clock_P"):
   figure.hide();return
  # The gate owns the collision and permission; this actor makes its reason visible.
- var at:Vector2=FixedWorldProvider.point(settings.get("blocking_point",settings.npc_point) if app.state.value.receipts.has("station_briefing") else settings.npc_point)
+ var at:Vector2=FixedWorldProvider.point(settings.get("blocking_point",settings.npc_point) if _welcome_complete() and _has_east_route() else settings.npc_point)
  figure.position=at+Vector2(0,18)
 
 func _process(delta: float) -> void:
@@ -56,10 +53,11 @@ func _process(delta: float) -> void:
   for i:int in clock_gears.size():clock_gears[i].rotation+=delta*(1 if i==0 else -1)*(.8 if not active else clampf((age-1.0)/2,0,.8))
  guard_cooldown=maxf(0,guard_cooldown-delta)
  if not active:
-  if settings.get("kind")=="station" and settings.has("guard_trigger") and not app.state.has("clockheart_briefed") and not app.state.has("clock_P") and guard_cooldown<=0 and not app.paused and not app.busy and FixedWorldProvider.rect(settings.guard_trigger).has_point(app.player.position):
+  if settings.get("kind")=="station" and settings.has("guard_trigger") and _has_east_route() and _welcome_complete() and not app.state.has("clockheart_briefed") and not app.state.has("clock_P") and guard_cooldown<=0 and not app.paused and not app.busy and FixedWorldProvider.rect(settings.guard_trigger).has_point(app.player.position):
    guarding=true;begin();return
   if settings.get("kind")=="repair" or app.paused or app.busy:return
-  if app.state.value.receipts.has(str(settings.get("action",""))):return
+  var completed:bool=_welcome_complete() if settings.get("kind")=="station" else app.state.value.receipts.has(str(settings.get("action","")))
+  if completed:return
   if FixedWorldProvider.rect(settings.trigger).has_point(app.player.position) and app.player.is_on_floor():
    if settings.get("kind")!="station" or (app.player.position.y<=float(settings.npc_point[1])+2 and app.player.get_platform_velocity().length_squared()<1):begin()
   return
@@ -112,14 +110,27 @@ func play_repair(at: Vector2) -> void:
  if settings.get("kind")!="repair" or active:return
  focus=at;begin()
 
+func _has_east_route() -> bool:
+ return not app.content.room("P-R33").is_empty()
+func _welcome_complete() -> bool:
+ return app.state.has(str(settings.get("completion_flag","station_rest_taught"))) or app.state.has("clockheart_briefed") or app.state.has("clock_P")
+func _lines() -> Array:
+ if guarding:return settings.guard_lines
+ var lines:Array=settings.get("lines",[]).duplicate()
+ if settings.get("kind")=="station" and _has_east_route():lines.append_array(settings.get("quest_lines",[]))
+ return lines
+
 func _show_lines() -> void:
- if settings.get("lines",[]).is_empty():finish();return
+ if _lines().is_empty():finish();return
  dialogue_active=true;_present_line()
 func _present_line() -> void:
- var panel:=app.ui.panel("dialogue",str(settings.get("speaker","守钟匠")),str((settings.guard_lines if guarding else settings.lines)[line_index])) as WorldDialogue
+ if settings.get("kind")=="station" and not guarding:
+  focus=FixedWorldProvider.point(settings.rest_focus if line_index in [1,2] else settings.focus)
+  camera_token=(app.camera as WorldCamera).begin_takeover(self,focus,FixedWorldProvider.rect(settings.display),.8)
+ var panel:=app.ui.panel("dialogue",str(settings.get("speaker","守钟匠")),str(_lines()[line_index])) as WorldDialogue
  panel.compact_actions=true
  (panel.get_child(0) as ColorRect).color=Color(.02,.04,.05,.12)
- var next:=panel.button("继续" if line_index+1<(settings.guard_lines if guarding else settings.lines).size() else "记住了",advance)
+ var next:=panel.button("继续" if line_index+1<_lines().size() else "记住了",advance)
  var skip:=panel.button("跳过本段",finish)
  var actions:=HBoxContainer.new();actions.add_theme_constant_override("separation",12);panel.rows.add_child(actions)
  next.reparent(actions);skip.reparent(actions);next.size_flags_horizontal=Control.SIZE_EXPAND_FILL;skip.size_flags_horizontal=Control.SIZE_EXPAND_FILL
@@ -128,7 +139,7 @@ func advance() -> void:
  if not active or finishing:return
  if not dialogue_active:_show_lines();return
  line_index+=1
- if line_index<(settings.guard_lines if guarding else settings.lines).size():_present_line()
+ if line_index<_lines().size():_present_line()
  else:finish()
 func finish() -> void:
  if not active or finishing:return
@@ -154,8 +165,11 @@ func _complete_finish() -> void:
   app.controller.active=true
   get_tree().paused=true
  var action:="" if guarding else str(settings.get("action",""))
- if not action.is_empty() and not app.state.value.receipts.has(action):
-  var candidate:=app.state.action_candidate(action,app.room.room_id,"main")
+ if not action.is_empty() and (not app.state.value.receipts.has(action) or (settings.get("kind")=="station" and not _welcome_complete())):
+  var candidate:=app.state.value.duplicate(true) if app.state.value.receipts.has(action) else app.state.action_candidate(action,app.room.room_id,"main")
+  if not candidate.is_empty() and settings.get("kind")=="station":
+   var completion:=str(settings.get("completion_flag","station_rest_taught"))
+   if completion not in candidate.flags:candidate.flags.append(completion)
   if candidate.is_empty() or not app.state.commit(candidate,app.state.revision):
    app.status="剧情进度未保存，请重试。";finishing=false;return
  active=false;finishing=false;dialogue_active=false;guarding=false;guard_cooldown=1.5
