@@ -364,8 +364,15 @@ func _draw() -> void:
 		draw_string(UnderworldUI.FONT,context_center+Vector2(-23,4),router.weapon_context_label,HORIZONTAL_ALIGNMENT_LEFT,-1,10,UnderworldUI.TEXT)
 	if enabled and router.weapon_skill_available:
 		draw_circle(skill_center,hook_radius*.8,Color(UnderworldUI.COOL,0.28))
-		draw_circle(skill_center,5,Color(UnderworldUI.TEXT,0.65))
-		draw_string(UnderworldUI.FONT,skill_center+Vector2(-16,4),"SKILL",HORIZONTAL_ALIGNMENT_LEFT,-1,11,UnderworldUI.TEXT)
+		if router.weapon_skill_label=="冰弹":
+			for i:int in 3:
+				var arm:=Vector2.from_angle(i*PI/3)*7
+				draw_line(skill_center+Vector2(0,-7)-arm,skill_center+Vector2(0,-7)+arm,Color("91d6ff"),2)
+			var size:=UnderworldUI.FONT.get_string_size("冰弹",HORIZONTAL_ALIGNMENT_LEFT,-1,11)
+			draw_string(UnderworldUI.FONT,skill_center+Vector2(-size.x*.5,15),"冰弹",HORIZONTAL_ALIGNMENT_LEFT,-1,11,UnderworldUI.TEXT)
+		else:draw_string(UnderworldUI.FONT,skill_center+Vector2(-16,4),"SKILL",HORIZONTAL_ALIGNMENT_LEFT,-1,11,UnderworldUI.TEXT)
+		if router.weapon_skill_cooldown_ratio>0:
+			draw_arc(skill_center,hook_radius*.8-3,-PI/2,-PI/2+TAU*router.weapon_skill_cooldown_ratio,32,Color("91d6ff"),2)
 	if not enabled:
 		return
 	for center: Vector2 in [left_center, right_center]:

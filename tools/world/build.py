@@ -141,7 +141,7 @@ def build(root=ROOT):
               'gear_milestones':['pickup_'+r['reward_id'] for r in json.loads((source/'collection_design.json').read_text())['acquisition_contracts'] if r['source_channel']=='gear_delivery'],
               'demo_services':json.loads((source/'demo_services.json').read_text()),
               'ui_texts':json.loads((source/'ui_texts.json').read_text()),
-              'npcs':[r for r in world['npcs'] if r['room_id'] in implemented], 'traveler_story':world.get('traveler_story',{}),
+              'npcs':[r for r in world['npcs'] if r['room_id'] in implemented or implemented.intersection(r.get('visit_rooms',[]))], 'traveler_story':world.get('traveler_story',{}),
               'map_rooms':[{**{k:r[k] for k in ['id','name','region']}, **layouts[r['id']]} for r in world['rooms'] if r['id'] in implemented], 'runtime_rules':world['runtime_rules'],
               'rooms':{r['room_id']:r for r in contracts['rooms'] if r['room_id'] in implemented}}
     validate_player(bundle['player'])

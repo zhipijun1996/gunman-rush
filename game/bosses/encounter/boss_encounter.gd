@@ -61,7 +61,7 @@ func activate() -> bool:
 	return true
 
 func _physics_process(delta: float) -> void:
-	physics_tick(delta)
+	physics_tick(delta*damageable.action_time_scale() if damageable!=null else delta)
 
 func physics_tick(delta: float) -> void:
 	if not active or health.terminal or not is_finite(delta) or delta <= 0.0:

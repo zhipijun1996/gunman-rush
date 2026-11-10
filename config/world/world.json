@@ -2145,7 +2145,7 @@
       "parent_anchor": "P3",
       "route_class": "optional_shortcut_or_return",
       "gate_summary": "房内环境：H",
-      "purpose": "钩索贯穿高风车；机架转角接外沿廊。",
+      "purpose": "基础枪命中续枪与反冲攀升，右侧钩索回访线；楼下武器匠教学，顶岸共用藏箱。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -2297,7 +2297,9 @@
         ]
       ],
       "rest_is_new": false,
-      "npc_ids": [],
+      "npc_ids": [
+        "NPC_G_SMITH"
+      ],
       "reward_ids": [],
       "clock_actions": [],
       "challenge_anchors": [],
@@ -2338,19 +2340,23 @@
           "from_section": "entry:L23",
           "to_section": "main",
           "requires": [
-            [
-              "H"
-            ]
+            []
           ],
           "kind": "environment_traversal",
-          "implementation": "以真实索点、墙面、高差、断桥或相位光幕实现；不在玩家面前生成隐藏能力检查墙。",
+          "implementation": "基础枪空中命中补弹接反冲攀升；宽岸可停留重组，右侧钩索是回访易行路线。",
           "physical_variants": [
+            {
+              "abilities": [],
+              "fixtures": [
+                "已审核的命中续枪平台和低岸往返"
+              ]
+            },
             {
               "abilities": [
                 "H"
               ],
               "fixtures": [
-                "可见索点与基础跳跃/反冲无法直达的接续落点"
+                "沿外侧索点回访，通向同一顶岸"
               ]
             }
           ],
@@ -2362,7 +2368,7 @@
             "room_id": "P-R10",
             "section_id": "entry:L23",
             "inside_room": true,
-            "kind": "environment_capability_obstacle"
+            "kind": "traversal_challenge"
           },
           "failure_anchor_section": "entry:L23",
           "normal_hazard_damage": 1,
@@ -2381,26 +2387,30 @@
               "new_wall_contact"
             ]
           },
-          "status": "结构灰盒必须实现的通路；具体动作尺寸与难度待房内测试"
+          "status": "已按人工初审稿接入正式场景；局部连续射击已验，完整房间探索另验。"
         },
         {
           "id": "IR:P-R10:entry:L23:return",
           "from_section": "main",
           "to_section": "entry:L23",
           "requires": [
-            [
-              "H"
-            ]
+            []
           ],
           "kind": "environment_traversal",
-          "implementation": "以真实索点、墙面、高差、断桥或相位光幕实现；不在玩家面前生成隐藏能力检查墙。",
+          "implementation": "基础枪空中命中补弹接反冲攀升；宽岸可停留重组，右侧钩索是回访易行路线。",
           "physical_variants": [
+            {
+              "abilities": [],
+              "fixtures": [
+                "已审核的命中续枪平台和低岸往返"
+              ]
+            },
             {
               "abilities": [
                 "H"
               ],
               "fixtures": [
-                "可见索点与基础跳跃/反冲无法直达的接续落点"
+                "沿外侧索点回访，通向同一顶岸"
               ]
             }
           ],
@@ -2412,7 +2422,7 @@
             "room_id": "P-R10",
             "section_id": "entry:L23",
             "inside_room": true,
-            "kind": "environment_capability_obstacle"
+            "kind": "traversal_challenge"
           },
           "failure_anchor_section": "entry:L23",
           "normal_hazard_damage": 1,
@@ -2431,7 +2441,7 @@
               "new_wall_contact"
             ]
           },
-          "status": "结构灰盒必须实现的通路；具体动作尺寸与难度待房内测试"
+          "status": "已按人工初审稿接入正式场景；局部连续射击已验，完整房间探索另验。"
         }
       ],
       "rest_section_id": null,
@@ -175859,6 +175869,38 @@
       "coin_drop_amount": 15,
       "ability_qualification_at_interaction": false,
       "progression_gate": false
+    },
+    {
+      "id": "open_P10_high_wind_cache",
+      "room_id": "P-R10",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开高风台藏箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P20_seawall_cache",
+      "room_id": "P-R20",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开防波堤藏箱，15金币散落。",
+      "coin_drop_amount": 15,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
     }
   ],
   "npcs": [
@@ -175989,8 +176031,8 @@
       "name_status": "沿用 v03 固定角色",
       "region": "G",
       "node": "G0",
-      "placement": "齿轮工房内固定工位；G0 裂缝机器与安全休息点在同一服务簇。",
-      "identity": "曾为钟心工程设计保险装置的武器匠；被无人生产线困在工房。",
+      "placement": "P10下层安全岸短驻教学；后续返回齿轮工房G01固定工位。",
+      "identity": "曾为钟心工程设计保险装置的武器匠；平原路过指导主角，返回工房后需要玩家解除无人生产线的封锁。",
       "theme": "把失效工程转成玩家可控制的工具，保留对王下令取消保险的见证。",
       "availability": {
         "visible_when": [
@@ -176002,19 +176044,20 @@
           ]
         ],
         "unlock_action_ref": "rescue_smith",
-        "permanent_after_first_meeting": true,
         "visible_when_spatial_mobility": [
           [
             "H"
           ]
-        ]
+        ],
+        "permanent_after_rescue": true
       },
       "services": [
         "weapon_attack_upgrade",
         "weapon_branch_forging",
         "shared_weapon_skill_install",
         "workshop_supply_shop",
-        "one_time_capacity_fit"
+        "one_time_capacity_fit",
+        "weapon_skill_install"
       ],
       "shop_reward_slots": [
         "EQ_SHOP_G01",
@@ -176036,7 +176079,7 @@
         "攻击合金、六分支、两共享技能芯分列；CAP04在后访修G钟后领取。"
       ],
       "production_room_id": "G-R01",
-      "placement_status": "房间职责卡已预留；实际交互坐标待灰盒，不新增独立房间。",
+      "placement_status": "P10访问坐标由正式场景维护；G01工位按后续工城灰盒落实。",
       "original_shop_reward_slots": [
         "EQ_SHOP_G01",
         "EQ_SHOP_G02",
@@ -176054,8 +176097,11 @@
       "change_class": "existing_npc_stock_redistributed",
       "service_does_not_implicitly_rest": true,
       "map_label": "人03",
-      "stationary_after_first_meeting": true,
-      "section_id": "main"
+      "section_id": "main",
+      "visit_rooms": [
+        "P-R10"
+      ],
+      "stationary_after_rescue": true
     },
     {
       "id": "NPC_F_RANGER",
@@ -191694,34 +191740,6 @@
       "beyond_section_id": "main",
       "internal_route_id": "IR:M-R04:entry:L05",
       "observed_route": "IR:M-R04:entry:L05",
-      "marker_type": "inside_room_environment"
-    },
-    {
-      "id": "MEM03",
-      "edge_id": "L23",
-      "preview_room": "P-R10",
-      "beyond_room": "P-R10",
-      "landmark": "停转风车",
-      "cue": "平原东侧风车机匣可见三联图样，地面无法直接到台阶",
-      "unlock_label": "H",
-      "reward_action": "pickup_part_triple",
-      "return_reason": "可选Boss与三连分支",
-      "seen_condition": "实际到达本房入口安全区并看见地标/环境阻隔；不因远处房门存在而自动记忆。",
-      "not_a_new_connection": true,
-      "peek_budget_seconds": [
-        10,
-        20
-      ],
-      "return_to_safe_route_max_transitions": 1,
-      "first_reward_after_gate_target_rooms": [
-        1,
-        3
-      ],
-      "map_memory": "保存实际看见的环境地标或道具门；获得相关能力/物品后提示已观察过的位置，不替玩家揭露未见房间。",
-      "preview_section_id": "entry:L23",
-      "beyond_section_id": "main",
-      "internal_route_id": "IR:P-R10:entry:L23",
-      "observed_route": "IR:P-R10:entry:L23",
       "marker_type": "inside_room_environment"
     },
     {

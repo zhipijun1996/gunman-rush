@@ -1,59 +1,205 @@
-[gd_scene load_steps=6 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
-[node name="P-R20" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_tch5y"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="2_x20yk"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="3_8viv0"]
+
+[node name="P-R20" type="Node2D" unique_id=339934183]
+script = ExtResource("1_tch5y")
 room_id = "P-R20"
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "退潮两岸", "action": "从根井进入水岸，反冲越水沟；西侧吊笼回到旧集井口。", "point": [2928, 942], "path": [[2928, 942], [1904, 942], [1424, 942], [1280, 142]]}, {"number": 2, "label": "H行装支路", "action": "底部铜环带玩家绕开高隔墙，上到水岸行装台后打开折梯。", "point": [1664, 1198], "path": [[1664, 1198], [1664, 752], [1664, 368], [1888, 142]]}]}
-traveler_point = Vector2(0,0)
-climbable_walls = Array[Rect2]([])
-bell_mechanisms = Array[Dictionary]([])
-gear_obstacles = Array[Dictionary]([])
-hazards = Array[Rect2]([])
-art_profile = "water"
-masonry_platform_indices = Array[int]([])
-spike_strips = Array[Dictionary]([])
 arrival_text = "退潮渠畔"
-platforms = Array[Rect2]([Rect2(0,1216,2816,64),Rect2(0,960,1536,128),Rect2(1792,960,1280,128),Rect2(1152,160,256,32),Rect2(1472,0,32,704),Rect2(1536,160,512,40),Rect2(320,832,256,32),Rect2(704,704,288,32),Rect2(1152,960,256,32)])
-one_way_indices = Array[int]([3,6,7])
-start_point = Vector2(2928,942)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id":"P-R20:bank_patrol","behavior":"patrol","point":[2448,942],"max_health":9},{"id":"P-R20:water_hopper","behavior":"hopper","point":[960,942],"max_health":9}])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([Vector2(1664,752),Vector2(1664,560),Vector2(1664,368),Vector2(1760,176)])
-section_volumes = Array[Dictionary]([{"id":"access:H","bounds":[1504,0,608,320]}])
-retry_anchors = Array[Dictionary]([{"bounds":[1408,900,96,60],"point":[1456,942],"section":"main"},{"bounds":[1824,900,96,60],"point":[1872,942],"section":"main"}])
-environment_zones = Array[Dictionary]([{"id":"P20Water","mode":"water","bounds":[1536,1192,256,24]}])
-art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_chime_span","point":[512,960],"layer":-2},{"asset":"plain_pier","point":[1920,960],"layer":-2,"support_height":256}])
-illustrated_platform_indices = Array[int]([])
-[node name="Interaction_0" type="Node2D" parent="."]
-script = ExtResource("interaction")
-position = Vector2(1888,142)
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "东堤外伸檐挡住地面射线；离岸略下落后向右下打檐下铃，同枪左上反冲穿1.5秒闸到一体接落岸，再回宽西堤。返向在西岸预开侧铃再起跳，失败落底刺按原地形恢复。",
+"label": "离岸下坠回射开前闸",
+"number": 1.0,
+"path": [[2928.0, 942.0], [2352.0, 942.0], [2239.0, 998.0], [2144.0, 905.0], [2024.0, 1070.0], [2024.0, 944.0], [1944.0, 944.0], [1944.0, 1006.0]],
+"point": [2928.0, 942.0]
+}, {
+"action": "借192高落地防波墩隔开冲锋线；回射右下地怪可同时上墩，随后射右上空哨并向左离墩跨96刺槽。左岸另有80短刺与跃击守转角。普通清怪后仍可走，怪物不是一次性必需踏脚。",
+"label": "桥下防波墩回射换位",
+"number": 2.0,
+"path": [[1944.0, 1006.0], [1680.0, 1006.0], [1304.0, 1006.0], [1232.0, 862.0], [1120.0, 780.0], [992.0, 780.0], [960.0, 814.0], [896.0, 720.0], [736.0, 880.0], [720.0, 942.0], [672.0, 800.0], [512.0, 800.0], [512.0, 942.0], [432.0, 942.0]],
+"point": [1944.0, 1006.0]
+}, {
+"action": "反冲上左宽肩后换边上桥；桥左段544与现行边界352之间留192净空，普通短跨过64地刺，经64抬阶和巡逻守卫进入原高井。上口高肩和从门台右侧接入的位置保留。",
+"label": "宽肩上低桥，再入原高井",
+"number": 3.0,
+"path": [[432.0, 942.0], [432.0, 650.0], [336.0, 650.0], [336.0, 718.0], [432.0, 560.0], [512.0, 472.0], [576.0, 526.0], [704.0, 526.0], [736.0, 416.0], [864.0, 416.0], [864.0, 526.0], [976.0, 526.0], [1024.0, 400.0], [1136.0, 400.0], [1216.0, 462.0], [1216.0, 304.0], [1344.0, 304.0], [1344.0, 334.0], [1408.0, 334.0], [1408.0, 100.0], [1280.0, 100.0], [1280.0, 142.0]],
+"point": [432.0, 942.0]
+}, {
+"action": "左墙连体侧台集中15金币箱。取后可从右侧安全回落宽肩，也可用近水平反冲跨256缺口上桥；这条回桥捷径为可选，不取代安全返回。箱内15金币沿一次性收据散落。",
+"label": "左壁集中收集与横向捷径",
+"number": 4.0,
+"path": [[288.0, 718.0], [240.0, 520.0], [128.0, 472.0], [80.0, 526.0], [176.0, 526.0], [240.0, 416.0], [448.0, 416.0], [560.0, 526.0]],
+"point": [288.0, 718.0]
+}, {
+"action": "干岸同时承担战斗换位和H起点。铜环沿墙侧空隙上行，原行装和折梯身份保持；新稿不另铺金币。",
+"label": "独立H行装支路",
+"number": 5.0,
+"path": [[1856.0, 750.0], [1824.0, 592.0], [1712.0, 448.0], [1600.0, 304.0], [1600.0, 112.0], [1712.0, 142.0], [1888.0, 142.0]],
+"point": [1856.0, 750.0]
+}]
+}
+section_volumes = Array[Dictionary]([{
+"bounds": [1504.0, 0.0, 608.0, 320.0],
+"id": "access:H"
+}])
+retry_anchors = Array[Dictionary]([{
+"bounds": [2880.0, 900.0, 96.0, 60.0],
+"point": [2928.0, 942.0],
+"section": "main"
+}, {
+"bounds": [2304.0, 900.0, 96.0, 60.0],
+"point": [2352.0, 942.0],
+"section": "main"
+}, {
+"bounds": [1872.0, 964.0, 96.0, 60.0],
+"point": [1920.0, 1006.0],
+"section": "main"
+}, {
+"bounds": [1712.0, 708.0, 96.0, 60.0],
+"point": [1760.0, 750.0],
+"section": "main"
+}, {
+"bounds": [384.0, 900.0, 96.0, 60.0],
+"point": [432.0, 942.0],
+"section": "main"
+}, {
+"bounds": [912.0, 772.0, 96.0, 60.0],
+"point": [960.0, 814.0],
+"section": "main"
+}, {
+"bounds": [528.0, 484.0, 96.0, 60.0],
+"point": [576.0, 526.0],
+"section": "main"
+}, {
+"bounds": [32.0, 484.0, 96.0, 60.0],
+"point": [80.0, 526.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "plain_pier",
+"layer": -2.0,
+"point": [576.0, 544.0],
+"support_height": 416.0
+}, {
+"asset": "plain_pier",
+"layer": -2.0,
+"point": [1360.0, 352.0],
+"support_height": 672.0
+}, {
+"asset": "bell_post",
+"layer": -2.0,
+"light": true,
+"point": [1856.0, 768.0]
+}, {
+"asset": "bell_post",
+"layer": -2.0,
+"light": true,
+"point": [288.0, 736.0]
+}])
+art_profile = "water"
+bell_mechanisms = Array[Dictionary]([{
+"access_bells": [[2016.0, 960.0]],
+"bell": [2360.0, 1088.0],
+"gate": [2080.0, 448.0, 32.0, 832.0],
+"id": "P-R20:r8:sluice",
+"open_seconds": 1.5
+}])
+platforms = Array[Rect2]([Rect2(1184, 160, 192, 32), Rect2(1472, 0, 32, 704), Rect2(1664, 160, 384, 40), Rect2(1728, 768, 288, 48), Rect2(2784, 960, 288, 32)])
+terrain_polygons = Array[Dictionary]([{
+"id": "P-R20:r8:west_bank",
+"material": "masonry",
+"points": [[0.0, 544.0], [192.0, 544.0], [192.0, 736.0], [384.0, 736.0], [384.0, 800.0], [192.0, 800.0], [192.0, 960.0], [768.0, 960.0], [768.0, 1024.0], [864.0, 1024.0], [864.0, 832.0], [1088.0, 832.0], [1088.0, 1024.0], [1984.0, 1024.0], [1984.0, 1088.0], [2080.0, 1088.0], [2080.0, 1280.0], [0.0, 1280.0]]
+}, {
+"id": "P-R20:r8:gatehouse_bridge",
+"material": "masonry",
+"points": [[448.0, 544.0], [1024.0, 544.0], [1024.0, 480.0], [1280.0, 480.0], [1280.0, 352.0], [1440.0, 352.0], [1440.0, 544.0], [1088.0, 544.0], [1088.0, 608.0], [448.0, 608.0]]
+}, {
+"id": "P-R20:r8:east_bank",
+"material": "masonry",
+"points": [[2304.0, 960.0], [3072.0, 960.0], [3072.0, 1088.0], [2816.0, 1088.0], [2816.0, 1280.0], [2432.0, 1280.0], [2432.0, 1040.0], [2304.0, 1040.0]]
+}])
+workbench_entity_ids = {
+"art_placements": ["P-R20:r8:art_placements:0", "P-R20:r8:art_placements:1", "P-R20:built:lamp_0", "P-R20:built:lamp_1"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": ["P-R20:r8:hook_points:0", "P-R20:r8:hook_points:1", "P-R20:r8:hook_points:2", "P-R20:r8:hook_points:3"],
+"platforms": ["P-R20:r8:upper_door", "P-R20:r8:H_wall", "P-R20:r8:equipment_bank", "P-R20:r8:dry_quay", "P-R20:r8:east_door"],
+"retry_anchors": ["P-R20:r8:retry_anchors:0", "P-R20:r8:retry_anchors:1", "P-R20:r8:retry_anchors:2", "P-R20:r8:retry_anchors:3", "P-R20:r8:retry_anchors:4", "P-R20:r9:retry_anchors:5", "P-R20:r9:retry_anchors:6", "P-R20:r9:retry_anchors:7"],
+"signs": []
+}
+one_way_indices = Array[int]([3])
+masonry_platform_indices = Array[int]([0, 1, 2, 4])
+start_point = Vector2(2928, 942)
+enemy_placements = Array[Dictionary]([{
+"behavior": "charger",
+"id": "P-R20:r8:bank_charge",
+"max_health": 14.0,
+"point": [1536.0, 1010.0]
+}, {
+"behavior": "hopper",
+"id": "P-R20:r8:west_hopper",
+"max_health": 9.0,
+"point": [416.0, 944.0]
+}, {
+"behavior": "fan_sentry",
+"id": "P-R20:r9:underbridge_air",
+"max_health": 9.0,
+"point": [1152.0, 704.0]
+}, {
+"behavior": "patrol",
+"id": "P-R20:r9:bridge_patrol",
+"max_health": 9.0,
+"point": [1136.0, 464.0]
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [2080.0, 1248.0, 224.0, 32.0],
+"facing": "up",
+"id": "P-R20:r8:canal_bed"
+}, {
+"bounds": [1952.0, 744.0, 64.0, 24.0],
+"facing": "up",
+"id": "P-R20:r8:quay_end"
+}, {
+"bounds": [768.0, 1000.0, 96.0, 24.0],
+"facing": "up",
+"id": "P-R20:r9:breakwater_trough"
+}, {
+"bounds": [576.0, 936.0, 80.0, 24.0],
+"facing": "up",
+"id": "P-R20:r9:west_short_strip"
+}, {
+"bounds": [752.0, 520.0, 64.0, 24.0],
+"facing": "up",
+"id": "P-R20:r9:bridge_short_strip"
+}])
+hook_points = Array[Vector2]([Vector2(1824, 592), Vector2(1712, 448), Vector2(1600, 304), Vector2(1600, 112)])
+
+[node name="Interaction_0" type="Node2D" parent="." unique_id=993892059]
+position = Vector2(1888, 142)
+script = ExtResource("2_x20yk")
 action_id = "pickup_EQ_MAP_P02"
 section_id = "access:H"
 label = "收取水岸行装包"
 visual = "equipment"
 
-[node name="RewardReturn" type="Node2D" parent="."]
-script = ExtResource("return")
-position = Vector2(1984,142)
+[node name="RewardReturn" type="Node2D" parent="." unique_id=512757137]
+position = Vector2(1984, 142)
+script = ExtResource("3_8viv0")
+return_steps = Array[Rect2]([Rect2(-32, 178, 128, 16), Rect2(32, 354, 128, 16), Rect2(-32, 530, 128, 16), Rect2(32, 706, 128, 16)])
 action_id = "reward_return_EQ_MAP_P02_open"
 section_id = "access:H"
 label = "放下返程折梯"
 visual = "pulley_switch"
 radius = 40.0
-return_steps = Array[Rect2]([Rect2(-32,178,128,16),Rect2(32,354,128,16),Rect2(-32,530,128,16),Rect2(32,706,128,16)])
-closed_panels = Array[Rect2]([])
 
-[node name="BankCage" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(1280,904)
-endpoint = Vector2(0,-672)
-platform_size = Vector2(144,20)
-period = 12.0
-one_way = true
-endpoint_dwell = 2.0
-route = Array[Vector2]([Vector2(0,-672)])
+[node name="Cache_seawall_cache" type="Node2D" parent="." unique_id=110689598]
+position = Vector2(80, 526)
+script = ExtResource("2_x20yk")
+action_id = "open_P20_seawall_cache"
+label = "打开防波堤藏箱"
+visual = "chest"
+radius = 48.0

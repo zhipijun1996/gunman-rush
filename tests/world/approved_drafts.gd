@@ -19,7 +19,7 @@ func run() -> void:
 	app.save_path="user://approved_drafts_test.json"
 	root.add_child(app)
 	check(not app.workbench.enabled,"uses formal catalog, not workbench bridge")
-	check(app.content.room("P-R10").is_empty(),"unapproved P10 remains unavailable")
+	check(app.content.room("Z-R01").is_empty(),"unapproved Z01 remains unavailable")
 	var caches:=0
 	for id: String in ROOMS:
 		check(await app.review.begin(id,"","hwdq"),id+" formal review entry")

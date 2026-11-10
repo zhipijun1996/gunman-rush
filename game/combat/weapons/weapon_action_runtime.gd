@@ -131,6 +131,9 @@ func _start(grounded: bool) -> void:
 func _release(_grounded: bool) -> void:
 	var def := definition()
 	match def.mode:
+		WeaponDefinition.Mode.PULSE:
+			ability.emit_special_projectile(direction,true,&"ice")
+			base_recoil();_pose(&"weapon_skill",.2);_phase(&"idle")
 		WeaponDefinition.Mode.LASER:
 			actor().motor.reset_motion();actor().motor.request_weapon_drive(Vector2.ZERO,Vector2.ZERO)
 			_beam_elapsed=0;_phase(&"beam");_timer=0;_pose(&"laser_fire",def.beam_duration)

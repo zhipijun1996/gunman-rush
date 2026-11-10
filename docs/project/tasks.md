@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | r78新增五房已施工；正式目录33房，局部动作／门对已验；P12血量取舍、两房返修及Z01初审待续；平台只读 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | r80初审P10／P20已施工，正式目录35房；P12改9血，武器匠对白与冰弹动作已验；奖励材料预算待决定，平台只读 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
 | MOBILE-LEVEL-WORKBENCH-01 | Site V18 / r68：双点出口跳房、37房隔离预览与钟心室内分层；整区审核含森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 

@@ -554,7 +554,7 @@
     {
       "room_id": "P-R10",
       "name": "高风车连台",
-      "purpose": "钩索贯穿高风车；机架转角接外沿廊。",
+      "purpose": "基础枪命中续枪和反冲登高；楼下武器匠提示，顶岸共用藏箱，钩索作为回访易行线。",
       "profile": "mill",
       "scene": "res://game/world/regions/P/rooms/P-R10.tscn",
       "encounters": [
@@ -563,18 +563,68 @@
           "id": "P-R10:lower_guard",
           "max_health": 9,
           "point": [
-            480,
+            688,
             2414
           ]
+        },
+        {
+          "id": "P-R10:r9:teach_down",
+          "behavior": "fan_sentry",
+          "point": [
+            976,
+            1984
+          ],
+          "max_health": 14
+        },
+        {
+          "id": "P-R10:r9:teach_diagonal",
+          "behavior": "fan_sentry",
+          "point": [
+            1376,
+            1632
+          ],
+          "max_health": 14
+        },
+        {
+          "id": "P-R10:r9:combo_left",
+          "behavior": "fan_sentry",
+          "point": [
+            816,
+            1280
+          ],
+          "max_health": 14
+        },
+        {
+          "id": "P-R10:r9:combo_down",
+          "behavior": "fan_sentry",
+          "point": [
+            992,
+            1160
+          ],
+          "max_health": 14
+        },
+        {
+          "id": "P-R10:r9:combo_right",
+          "behavior": "fan_sentry",
+          "point": [
+            1104,
+            1024
+          ],
+          "max_health": 14
         }
       ],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "open_P10_high_wind_cache",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "从风棚来向进入低机腔，借H上升后选择外沿廊或回铃藏室。",
-        "visual_read": "长机架中的铜环链与少量维修台交代上升方向。",
-        "pressure": "能力主导攀升，无战斗追击。",
-        "failure_recovery": "无H可退回风棚；维修台供分段重组，低处保持实地。",
-        "return_visit": "通向外沿廊和单入口回铃栈；奖励返程不改宏观连接。"
+        "player_decision": "在楼下听取武器匠提示，选择基础枪命中续枪攀升或已拥有H的外侧回访路线。",
+        "visual_read": "低岸灯具、三组高低错位的飞怪与接收台逐段指向顶岸藏箱。",
+        "pressure": "空中命中补弹与下射反冲连用；最后一段需连续命中三个目标后接下射。",
+        "failure_recovery": "各段宽岸可停留等冷却；失手落回较低平台，不凭空刷新怪物和弹药。",
+        "return_visit": "顶岸20币箱两路线共用，取箱可下落回武器匠准备岸，邻接门对保持。"
       },
       "art_focal_assets": [
         "mill_drive_frame",
@@ -583,8 +633,14 @@
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
-        "encounter": "本房不新增战斗压力。"
-      }
+        "encounter": "飞怪保持实际三连弹预警和命中反馈；空中命中按控制器补弹，技能安装沿持久提交。"
+      },
+      "draft_approval": {
+        "revision": 80,
+        "signature": "1bb42c0576a8ce8cf024329f152bcfa8bc2763801e1dafe878310872a10ded04",
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验"
+      },
+      "spatial_intent": "下层武器匠提示，双枪与换向教学接同次腾空四枪综合，H外侧易行线共用高处藏箱。"
     },
     {
       "room_id": "P-R11",
@@ -633,22 +689,22 @@
       "scene": "res://game/world/regions/P/rooms/P-R12.tscn",
       "encounters": [
         {
-          "id": "P-R12:cellar_hopper",
           "behavior": "hopper",
+          "id": "P-R12:cellar_hopper",
+          "max_health": 9.0,
           "point": [
-            1600,
-            1262
-          ],
-          "max_health": 9
+            1600.0,
+            1262.0
+          ]
         },
         {
-          "id": "P-R12:r8:west_patrol",
           "behavior": "patrol",
+          "id": "P-R12:r8:west_patrol",
+          "max_health": 9,
           "point": [
-            160,
-            1326
-          ],
-          "max_health": 5
+            160.0,
+            1326.0
+          ]
         }
       ],
       "interactions": [
@@ -1124,34 +1180,60 @@
       "scene": "res://game/world/regions/P/rooms/P-R20.tscn",
       "encounters": [
         {
-          "behavior": "patrol",
-          "id": "P-R20:bank_patrol",
-          "max_health": 9,
+          "id": "P-R20:r8:bank_charge",
+          "behavior": "charger",
           "point": [
-            2448,
-            942
-          ]
+            1536,
+            1010
+          ],
+          "max_health": 14
         },
         {
+          "id": "P-R20:r8:west_hopper",
           "behavior": "hopper",
-          "id": "P-R20:water_hopper",
-          "max_health": 9,
           "point": [
-            960,
-            942
-          ]
+            416,
+            944
+          ],
+          "max_health": 9
+        },
+        {
+          "id": "P-R20:r9:underbridge_air",
+          "behavior": "fan_sentry",
+          "point": [
+            1152,
+            704
+          ],
+          "max_health": 9
+        },
+        {
+          "id": "P-R20:r9:bridge_patrol",
+          "behavior": "patrol",
+          "point": [
+            1136,
+            464
+          ],
+          "max_health": 9
         }
       ],
       "interactions": [
         {
           "action": "pickup_EQ_MAP_P02",
           "section": "access:H"
+        },
+        {
+          "action": "reward_return_EQ_MAP_P02_open",
+          "section": "access:H"
+        },
+        {
+          "action": "open_P20_seawall_cache",
+          "section": "main"
         }
       ],
       "experience": {
         "player_decision": "沿退潮岸线往返根井与集市，再选择借H登远岸装备台。",
-        "visual_read": "石肋隔开集市高口与奖励高台，岸笼连接基础回环。",
-        "pressure": "岸边轻遭遇与局部浅水危险分开布置。",
+        "visual_read": "断渠和限时闸提示回身射铃；西岸桥肩要求先向上越障再转向，奖励高台另设H路线。",
+        "pressure": "低桥飞怪、岸线冲锋与守台巡逻分开施压，回身开闸与反冲一次动作完成。",
         "failure_recovery": "失手回低岸重组，领奖侧独立放梯；基础回环不要求H。",
         "return_visit": "无 H 仍能完成基础回环；H 装备预览可记忆。"
       },
@@ -1163,7 +1245,13 @@
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
-      }
+      },
+      "draft_approval": {
+        "revision": 80,
+        "signature": "03be17d1582d5df6c1b1811590a37bae9d43a8f6f7dc93a25b2b91da2e61528a",
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验"
+      },
+      "spatial_intent": "离岸下落回射穿限时闸，防波墩隔开冲锋线，低桥回升与H行装支路分工。"
     },
     {
       "room_id": "P-R21",

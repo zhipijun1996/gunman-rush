@@ -14,6 +14,7 @@ var axis := Vector2.RIGHT
 var friendly := true
 var impact := false
 var source: WeakRef
+var ice := false
 
 static func enabled(node: Node) -> bool:
 	# Keep the projectile leaf independent of actor/presentation classes. Boss
@@ -32,6 +33,7 @@ static func emit(origin: Node2D, at: Vector2, direction: Vector2, is_friendly: b
 	effect.axis = direction.normalized()
 	effect.friendly = is_friendly
 	effect.impact = is_impact
+	effect.ice = bool(origin.get_meta(&"ice_projectile",false))
 	effect.source = weakref(origin)
 	# Sibling: an accepted contact may finish after the projectile is retired;
 	# stage teardown still frees all effects. Cancelled shots emit no impact.
@@ -59,8 +61,10 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	var strength := 1.0 - age / EFFECT_LIFETIME
 	var color := FRIEND if friendly else HOSTILE
+	if ice:color=Color("c5f2ff")
 	color.a = strength
 	var edge := FRIEND_EDGE if friendly else HOSTILE_EDGE
+	if ice:edge=Color("5aafe4")
 	edge.a = strength
 	var spread := 3.0 + age * (58.0 if impact else 24.0)
 	var base := axis.angle() + (PI if impact else 0.0)
@@ -75,6 +79,7 @@ func _draw() -> void:
 static func paint(canvas: Node2D, direction: Vector2, radius: float, elapsed: float, trail: Array[Vector2], kind: StringName, is_friendly: bool, skill: bool = false, blade_texture: Texture2D = null) -> void:
 	var head := FRIEND if is_friendly else HOSTILE
 	var edge := FRIEND_EDGE if is_friendly else HOSTILE_EDGE
+	if kind==&"ice":head=Color("c5f2ff");edge=Color("5aafe4")
 	# Bounded world-space history, never a screen-sized glow. Trail uses each
 	# true historical position so curved bells do not leave a straight fake ray.
 	for i: int in range(1, trail.size()):

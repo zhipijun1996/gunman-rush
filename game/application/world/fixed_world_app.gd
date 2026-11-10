@@ -84,6 +84,7 @@ func _make_ui() -> void:
 	title=ui.title._root
 	ui.command.connect(_ui_command)
 	service_view.ui=ui;service_view.services=services
+	service_view.input_device=func()->StringName:return controller.router.current_device if controller!=null else &"keyboard_mouse"
 	settings_view.ui=ui;settings_view.settings=preferences
 	settings_view.applied=func() -> void:
 		_apply_preferences()
@@ -385,6 +386,12 @@ func load_room(id: String, entry: String) -> void:
 	_npc_id=""
 
 func _apply_capabilities() -> void:
+	var ice:WeaponDefinition=preload("res://resources/weapons/pulse_ice.tres")
+	var primary:WeaponDefinition=preload("res://resources/weapons/pulse_gun.tres")
+	var owns_ice:=state.has(str(services.definitions.get("smith_visit",{}).get("unlock_flag","skill_tier_1")))
+	if controller.shoot_ability.weapon.mode==WeaponDefinition.Mode.PULSE:
+		var desired:WeaponDefinition=ice if owns_ice else primary
+		if controller.shoot_ability.weapon!=desired:controller.shoot_ability.equip(desired)
 	var resonance: Dictionary=content.data.collection_rules.resonance
 	controller.combat_energy.set_capacity_bonus(floorf(float(state.value.inventory.get("resonance_shard",0))/float(resonance.shards_per_upgrade))*float(resonance.capacity_gain_each))
 	if build_state!=null: build_state.commit_equipment_sources(services.effect_sources())
@@ -792,7 +799,10 @@ func _refresh_traveler() -> void:
 func _npc(id: String) -> Dictionary:
 	if id==WorldTraveler.ID:return WorldTraveler.identity(state,room.room_id)
 	for npc: Dictionary in content.data.get("npcs",[]):
-		if npc.id==id: return npc
+		if npc.id==id:
+			var identity:=npc.duplicate(true)
+			if room!=null and room.room_id in npc.get("visit_rooms",[]):identity.room_id=room.room_id
+			return identity
 	return {}
 func _submit_service(kind: String,id: String,revision: int,ticket: int) -> void:
 	if not paused or busy or ticket!=_service_ticket or not lifetime.accepts(_service_token) or controller.actor_resources.health.terminal or policy.has_pending_player_damage(): return

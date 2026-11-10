@@ -39,6 +39,7 @@ func _physics_process(delta: float) -> void:
 func physics_tick(delta: float) -> void:
 	if health.terminal:
 		return
+	delta*=damageable.action_time_scale()
 	if _damage_stun_remaining > 0:
 		_damage_stun_remaining = maxf(0, _damage_stun_remaining-delta)
 		# Root Bell owns a fixed rooted body; hurt pauses its phase, not its roots.

@@ -46,6 +46,7 @@ func _shot(axis: Vector2, serial: int) -> void:
 	for projectile: PlayerProjectile in controller.shoot_ability._projectiles:
 		if is_instance_valid(projectile) and projectile.shot_id==serial:
 			projectile.terrain_impacted.connect(_wall.bind(projectile))
+			if projectile.art_kind==&"ice":_sound(&"ion_start","ice/%s/%s" % [_epoch,serial],15)
 
 func _contact(point: Vector2, axis: Vector2, projectile: PlayerProjectile, mode: int) -> void:
 	if not enabled_candidate: return

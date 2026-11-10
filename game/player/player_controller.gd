@@ -78,6 +78,8 @@ func physics_tick(delta: float) -> void:
 	traversal.advance(delta)
 	router.grapple_available = traversal.hook_enabled
 	router.weapon_skill_available=shoot_ability.weapon.tier==3
+	router.weapon_skill_label=shoot_ability.weapon.skill_name
+	router.weapon_skill_cooldown_ratio=clampf(shoot_ability.behavior().skill_cooldown/shoot_ability.weapon.skill_cooldown,0,1)
 	if item_runtime != null:
 		router.item_skill_available = not StringName(item_runtime.call("selected_active")).is_empty()
 		var selected: RunItemInstance = item_runtime.call("instance", item_runtime.call("selected_active"))

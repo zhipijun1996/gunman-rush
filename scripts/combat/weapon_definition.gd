@@ -49,6 +49,8 @@ enum Mode { PULSE, MACHINE, LASER, SHURIKEN, FAN, BOOMERANG, BOMB, MINE, SINGULA
 @export var skill_rounds := 7
 @export var skill_interval := 0.065
 @export var skill_cooldown := 2.0
+@export var chill_seconds := 0.0
+@export var chill_speed_scale := 1.0
 @export var skill_stagger_seconds := 0.12
 @export var skill_stagger_cooldown := 0.45
 @export var skill_knockback_speed := 500.0
@@ -57,6 +59,7 @@ enum Mode { PULSE, MACHINE, LASER, SHURIKEN, FAN, BOOMERANG, BOMB, MINE, SINGULA
 @export var chain_range := 120.0
 func is_valid() -> bool:
 	if tier < 1 or tier > 3 or id.is_empty(): return false
+	if not is_finite(chill_seconds) or chill_seconds<0 or not is_finite(chill_speed_scale) or chill_speed_scale<=0 or chill_speed_scale>1:return false
 	if not is_finite(mine_fuse_seconds) or mine_fuse_seconds<0 or mine_fuse_seconds>30:return false
 	if mode==Mode.MINE and (mine_fuse_seconds<=0 or mine_fuse_seconds>entity_lifetime):return false
 	var allowed := {&"pulse_gun":Mode.PULSE,&"triple_machine_gun":Mode.MACHINE,&"shadow_shuriken":Mode.SHURIKEN,&"recoil_bomb":Mode.BOMB,&"sustained_laser":Mode.LASER,&"fan_shuriken":Mode.FAN,&"remote_boomerang":Mode.BOOMERANG,&"magnetic_mine":Mode.MINE,&"collapse_singularity":Mode.SINGULARITY,&"machine_storm":Mode.MACHINE,&"laser_cannon":Mode.LASER,&"blade_bloom":Mode.FAN,&"moon_boomerang":Mode.BOOMERANG,&"magnetic_storm":Mode.MINE,&"star_collapse":Mode.SINGULARITY}
@@ -70,4 +73,5 @@ func is_valid() -> bool:
 	if tier!=required_tier or rounds!=(3 if mode==Mode.MACHINE else 1):return false
 	if tier == 3 and skill_name.is_empty(): return false
 	if tier == 1: return branch.is_empty() and mode in [Mode.PULSE,Mode.SHURIKEN,Mode.BOMB]
+	if mode==Mode.PULSE:return tier==3 and branch==&"ice" and chill_seconds>0 and chill_speed_scale<1
 	return (mode in [Mode.MACHINE,Mode.LASER,Mode.FAN,Mode.BOOMERANG,Mode.MINE,Mode.SINGULARITY]) and not branch.is_empty()

@@ -23,6 +23,8 @@ var owner_controller: PlayerController
 var owner_body: CollisionObject2D
 var art_kind: StringName = &"bullet"
 var skill_attack := false
+var chill_seconds := 0.0
+var chill_speed_scale := 1.0
 var weapon_id: StringName
 var weapon_tier := 1
 var weapon_mode := WeaponDefinition.Mode.PULSE
@@ -50,7 +52,7 @@ func _ready() -> void:
 
 func _draw() -> void:
 	if is_instance_valid(presentation): return
-	if UnderworldProjectileVisual.enabled(self):
+	if art_kind==&"ice" or UnderworldProjectileVisual.enabled(self):
 		UnderworldProjectileVisual.paint(self,direction,radius,_age,trail,art_kind,true,skill_attack,weapon_blade_texture())
 		return
 	for i: int in range(1, trail.size()):
@@ -158,6 +160,7 @@ func advance(delta: float) -> void:
 			var amount := damage * (pierced_damage_ratio if _pierced > 0 else 1.0)
 			if items != null: amount = float(items.call("modify_direct_damage", amount, receiver, skill_attack, packet))
 			var event := {"session":session_id,"packet":packet,"shot":shot_id,"shot_index":shot_index,"airborne":fired_airborne,"skill":skill_attack,"receiver":receiver,"target_id":(receiver.actor_id if receiver.actor_id != 0 else receiver.get_instance_id()) if receiver.faction == &"enemy" else 0,"point":query.transform.origin,"direction":direction,"amount":amount,"weapon_id":weapon_id,"tier":weapon_tier,"weapon_mode":weapon_mode,"weapon_epoch":weapon_epoch}
+			event.chill_seconds=chill_seconds;event.chill_speed_scale=chill_speed_scale
 			var context := {"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": amount, "damage_type": &"projectile", "skill_attack": skill_attack, "hit_direction": direction, "fired_airborne": fired_airborne, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.shoot_ability.item_hit_committed.bind(event)}
 			context.item_stagger_multiplier = float(items.call("enemy_stagger_multiplier")) if items != null and not skill_attack else 1.0
 			var accepted := receiver.receive_damage(context)

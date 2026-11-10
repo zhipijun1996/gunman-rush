@@ -6,7 +6,7 @@ var definitions: Dictionary
 var error := ""
 var prepare_candidate: Callable
 static func required_service(kind: String) -> String:
-	return {"buy":"station_supply_shop","upgrade":"equipment_gold_upgrade","repair":"equipment_breakage_repair","deliver":"gear_delivery","deliver_gears":"gear_delivery","claim_milestone":"gear_delivery"}.get(kind,"")
+	return {"buy":"station_supply_shop","upgrade":"equipment_gold_upgrade","repair":"equipment_breakage_repair","deliver":"gear_delivery","deliver_gears":"gear_delivery","claim_milestone":"gear_delivery","smith_install":"weapon_skill_install"}.get(kind,"")
 static func empty_ledger() -> Dictionary:
 	return {"version":1,"gold":0,"drops":{},"owned":{},"equipped":[],"locked":[],"met":[],"quests":{},"cycle_uses":{},"collected":[],"delivered":[]}
 static func valid_ledger(value: Dictionary) -> bool:
@@ -87,7 +87,7 @@ func request(kind: String,id: String,request_id: String,revision: int) -> bool:
 	if not required_service.is_empty():
 		var available:=false
 		for npc: Dictionary in state.content.data.get("npcs",[]):
-			if npc.room_id==candidate.room and npc.id in data.met and required_service in npc.services: available=true
+			if (npc.room_id==candidate.room or candidate.room in npc.get("visit_rooms",[])) and npc.id in data.met and required_service in npc.services: available=true
 		if not available: error="npc_unavailable";return false
 	if kind in ["deliver_gears","claim_milestone"]:
 		if kind=="claim_milestone" and id not in state.content.data.gear_milestones:error="action_not_eligible";return false
@@ -95,10 +95,19 @@ func request(kind: String,id: String,request_id: String,revision: int) -> bool:
 		if candidate.is_empty():error=state.error;return false
 		return state.commit(candidate,revision)
 	match kind:
+		"smith_install":
+			var visit:Dictionary=definitions.get("smith_visit",{})
+			if id!=visit.get("install_action","") or candidate.room!=visit.get("room","") or visit.get("npc_id","") not in data.met:
+				error="npc_unavailable";return false
+			candidate=state.action_candidate(id,str(candidate.room),"main")
+			if candidate.is_empty():error="missing_material";return false
+			if prepare_candidate.is_valid():candidate=prepare_candidate.call(candidate)
+			if not state.commit(candidate,revision):error=state.error;return false
+			return true
 		"meet":
 			var found:=false
 			for npc: Dictionary in state.content.data.get("npcs",[]):
-				if npc.id==id and npc.room_id==candidate.room: found=true
+				if npc.id==id and (npc.room_id==candidate.room or candidate.room in npc.get("visit_rooms",[])): found=true
 			if not found: error="npc_not_here";return false
 			if id not in data.met: data.met.append(id)
 			if id==str(definitions.quest.npc_id) and not data.quests.has(definitions.quest.id): data.quests[definitions.quest.id]="accepted"
