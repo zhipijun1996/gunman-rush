@@ -10,7 +10,6 @@ var dialogue_active := false
 var _serial := 0
 var _pose: Tween
 var _body: UnderworldPlayer
-var _origin := Vector2.ZERO
 
 func enter() -> void:
 	process_mode=Node.PROCESS_MODE_PAUSABLE
@@ -33,20 +32,18 @@ func _physics_process(_delta: float) -> void:
 func _wake() -> void:
 	_serial+=1
 	var serial:=_serial
+	var session:=app.controller.session_id
 	app.controller.active=false
 	app.controller.router.clear("tutorial_wake")
 	_body=PlayerPresentationRuntime.current_body(app.player)
 	if _body!=null:
-		_origin=_body.position
-		_body.rotation=-PI*.5
-		_body.position=_origin+Vector2(0,8)
+		_body.authored_pose.begin_wake(app.controller)
 	_pose=create_tween()
-	_pose.tween_interval(.65)
-	if _body!=null:
-		_pose.tween_property(_body,"rotation",0.0,.55).set_trans(Tween.TRANS_SINE)
-		_pose.parallel().tween_property(_body,"position",_origin,.55)
+	_pose.tween_interval(PlayerAuthoredPoses.WAKE_SECONDS)
 	await _pose.finished
-	if serial!=_serial or not is_instance_valid(app.player):return
+	if serial!=_serial or not is_instance_valid(app.player) or app.controller.session_id!=session:return
+	if is_instance_valid(_body) and not _body.authored_pose.waking:return
+	if is_instance_valid(_body):_body.authored_pose.clear()
 	app.controller.active=true
 	phase="pickup"
 	_show_lines(["我在哪？"],"修钟者")
@@ -107,4 +104,4 @@ func _draw() -> void:
 func _exit_tree() -> void:
 	_serial+=1
 	if _pose!=null and _pose.is_valid():_pose.kill()
-	if is_instance_valid(_body):_body.rotation=0;_body.position=_origin
+	if is_instance_valid(_body):_body.authored_pose.clear()

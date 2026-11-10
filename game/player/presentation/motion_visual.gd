@@ -136,7 +136,10 @@ func candidate_receipt() -> Dictionary:
 	return {"enabled":candidate_enabled,"state":displayed_state,"frame":displayed_frame,"gait_distance":_gait_distance,"accepted_jumps":accepted_jumps,"accepted_lands":accepted_lands,"dust_count":_dust.size(),"dust_peak":dust_peak,"muzzle":(motor.get_node("CourierVisual") as CourierVisual).visible_muzzle_position(),"foot_world":motor.to_global(Vector2(0,18)),"source":"idle_fall new frames;run original pixels with distance phase only;run art rework unverified"}
 
 func _draw() -> void:
-	if not candidate_enabled:
+	if not candidate_enabled or authored_pose.frame >= 0:
+		if authored_pose.frame >= 0:
+			displayed_state = "wake" if authored_pose.waking else ("look_up" if authored_pose.look_direction<0 else "look_down") if authored_pose.frame>=12 else "wall_attach"
+			displayed_frame = authored_pose.frame
 		super._draw()
 		return
 	if _build.is_empty() or _clips.is_empty(): return

@@ -18,6 +18,7 @@ var _accepted_hurt_count := 0
 var _return_fade_remaining := 0.0
 var return_echo_count := 0
 var _frames_by_state: Dictionary = {}
+var authored_pose := PlayerAuthoredPoses.new()
 
 func _ready() -> void:
 	super._ready()
@@ -34,6 +35,7 @@ func _accepted_landing() -> void:
 	if not _dead: _landing_remaining = .16
 
 func _segment_returned() -> void:
+	authored_pose.clear()
 	# HP commits before the synchronous segment relocation. Keep an actual old
 	# body silhouette in the old world while the safe-spawn body fades in.
 	if _hurt_remaining > 0 and not _frames_by_state.is_empty():
@@ -97,6 +99,7 @@ func _process(delta: float) -> void:
 		fps = clampf(absf(motor.normal_velocity.x) / 96.0 * count, 10.0, 24.0)
 	var wanted := int(_state_age*fps)
 	frame_index = posmod(wanted,count) if bool(clip.loop) else mini(wanted,count-1)
+	authored_pose.advance(delta,self)
 
 func _select_state() -> String:
 	if _dead: return "death"
@@ -130,9 +133,12 @@ func _draw() -> void:
 	var pivot: Array = _build.anchor
 	var scale_factor := UnderworldActors.HUMANOID_HEIGHT / float(_build.standing_body_source_height)
 	var target := Rect2(Vector2(-float(pivot[0]),-float(pivot[1]))*scale_factor+Vector2(0,18),Vector2(canvas[0],canvas[1])*scale_factor)
-	draw_set_transform(Vector2.ZERO,0,Vector2(facing,1.0))
-	draw_texture_rect_region(RUN_SHEET if frame.atlas=="run_sheet.png" else STATES_SHEET,target,rect)
-	draw_set_transform(Vector2.ZERO)
+	if authored_pose.frame >= 0:
+		authored_pose.draw(self)
+	else:
+		draw_set_transform(Vector2.ZERO,0,Vector2(facing,1.0))
+		draw_texture_rect_region(RUN_SHEET if frame.atlas=="run_sheet.png" else STATES_SHEET,target,rect)
+		draw_set_transform(Vector2.ZERO)
 	if _dead: return
 	# Bounded generated-body hit burst. World-anchored origin is relocated only by
 	# the accepted segment_returned event, never stretched across the teleport.

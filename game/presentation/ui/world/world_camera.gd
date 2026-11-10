@@ -52,6 +52,10 @@ func _cancel_input(_reason: String) -> void:
 func _cancel_look() -> void:
 	_look_age=0;_look_blocked=true;looking=false
 
+func accepted_look_direction() -> float:
+	# Presentation consumes the same delayed, priority-filtered decision as view.
+	return _look_direction if looking else 0.0
+
 func enter_room(_physical_bounds: Rect2) -> void:
 	zones.configure(room,settings)
 	reset_view()

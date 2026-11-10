@@ -12,6 +12,7 @@ var double_enabled := false
 var hook_used := false
 var state: StringName = &"free"
 var state_age := 0.0
+var wall_slide_age := 0.0
 var hook_tip := Vector2.ZERO
 var hook_direction := Vector2.RIGHT
 var hook_forward := 1.0
@@ -237,12 +238,15 @@ func advance(delta: float) -> void:
 		if touching and (_separated or wall_ready):
 			wall_normal = normal
 			wall_ready = true
-			motor.wall_slide_limit = definition.wall_fall_speed
 			_set_state(&"wall_attach")
 			if surface_id != _refill_wall_id:
+				wall_slide_age = 0.0
 				_refill_wall_id = surface_id
 				_refill_wall_x = motor.global_position.x
 				_refill_traversal_resources(&"wall_attach")
+			var progress := clampf((wall_slide_age-definition.wall_hold_seconds)/maxf(.01,definition.wall_slide_ramp_seconds),0.0,1.0)
+			motor.wall_slide_limit = definition.wall_fall_speed*progress*progress
+			if motor.normal_velocity.y >= 0.0: wall_slide_age += delta
 		elif state == &"wall_attach": _set_state(&"free")
 
 func after_move() -> void:
@@ -306,6 +310,7 @@ func cancel() -> void:
 		_separated = true
 		_refill_wall_id = 0
 		hook_used = false
+		wall_slide_age = 0.0
 	_set_state(&"free")
 
 func _set_state(next: StringName) -> void:

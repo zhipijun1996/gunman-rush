@@ -2,6 +2,8 @@ class_name TraversalDefinition
 extends Resource
 ## Candidate new-action tuning, independent from the unchanged base Motor tuning.
 @export var wall_fall_speed := 75.0
+@export_range(0.0, 1.0) var wall_hold_seconds := 0.18
+@export_range(0.01, 5.0) var wall_slide_ramp_seconds := 2.0
 @export var wall_kick := Vector2(340,-970)
 @export var wall_detach_seconds := 0.12
 @export var wall_separation := 5.0

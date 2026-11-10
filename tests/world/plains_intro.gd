@@ -130,7 +130,9 @@ func run() -> void:
 		var errors:=WorldRoomDraft.validate(room,WorldRoomDraft.extract(room))
 		check(errors.is_empty(),id+" editable codec "+str(errors));room.free()
 	await load_review("P-R03")
-	await ticks(100)
+	for frame:int in 180:
+		if app.introduction.dialogue_active:break
+		await ticks(1)
 	check(app.introduction.dialogue_active and not app.controller.shoot_ability.enabled,"wake blocks shooting before gun pickup")
 	app.introduction.advance();await ticks(3)
 	await fixture(Vector2(288,1774))
