@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "authority_id": "project_shared_regional_style",
-  "version": "43",
+  "version": "46",
   "source": {
     "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
     "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
@@ -29,12 +29,12 @@
       {
         "role": "formal_entry",
         "path": "game/application/world/fixed_world_app.gd",
-        "sha256": "932b70843d8ecbf24f08c4df4a60abfc88f1d1c69649355d8ae5ecefbb5a07dd"
+        "sha256": "e27c07defced93e046985f19e44dc65be8163020a7d083b332159ae27a4a926c"
       },
       {
         "role": "terrain_consumer",
         "path": "game/world/levels/fixed_world_room.gd",
-        "sha256": "b87972e1b6cdedb30e6121af2d66e73522297ad5f21cc100c9998bf9a3924f4c"
+        "sha256": "019b1befe696c630f69d1c5518075c909796dd72ad908691a51d292b5b7d28b5"
       },
       {
         "role": "terrain_renderer",
@@ -89,7 +89,7 @@
       {
         "role": "player_style_reference",
         "path": "game/presentation/actors/underworld_plains/underworld_player.gd",
-        "sha256": "4db6103b3938a28d994bfd5b1b70bbe50dd0d1fbf4976e2b6e36baddb633e8da"
+        "sha256": "6eefd7d334b2bac307539c3c57ca1f5081472da884256255ac2b48c12ed8319d"
       },
       {
         "role": "player_animation_build",
@@ -154,7 +154,7 @@
       {
         "role": "default_player_6",
         "path": "game/player/presentation/motion_visual.gd",
-        "sha256": "7a1df2dc8968e5cb3b2cc2eb6be5d8759ccfd9372a1c123b63970971143ffe3e"
+        "sha256": "522cecdc2a161f953db00ec4429588a2034d23eb7a1ffa019c1b946eb49844f8"
       },
       {
         "role": "default_player_7",
@@ -834,7 +834,7 @@
       {
         "role": "architecture_enemy_behavior_registry",
         "path": "game/enemies/enemy_behavior_registry.gd",
-        "sha256": "cfad0e810e0ea17e332260138b91493895ddefd80640841642173d5417c24f15"
+        "sha256": "c172dbe85f3c1e5e889de9439e597d1436911bca853fe2a7150a68dc86fefa3a"
       },
       {
         "role": "architecture_enemy_factory",
@@ -924,12 +924,12 @@
       {
         "role": "architecture_game_audio",
         "path": "game/presentation/audio/game_audio.gd",
-        "sha256": "933a8ce31e1e25e8990e0b53e81343239680e704d04129ea232284fd268156f7"
+        "sha256": "119a1c9ad3ac1ce12694f74f54c1ccc9844a73456d3736cd6add6e097a035722"
       },
       {
         "role": "architecture_plains_enemy_audio",
         "path": "game/presentation/audio/plains_enemy_audio.gd",
-        "sha256": "0d09aecc02394740755ee2becbf36299bcbf9095a8e3511c2d92103b07d5ee1d"
+        "sha256": "8f7f30ecbc62157fad274965b45e27e848fbe7fba96da34aea4991a2053699c6"
       },
       {
         "role": "architecture_forest_practice_bell",
@@ -1059,7 +1059,7 @@
       {
         "role": "plains_v07_art",
         "path": "game/presentation/world/plains_v07/plains_room_art.gd",
-        "sha256": "9bbac03dab60918f55c9035de239a872c49b2d26316da84b00eacb034441eb61"
+        "sha256": "51c2b53545e69aec4c3641208280c9e3b3b9924d727a09e8c4e94bd1d8ebdbd5"
       },
       {
         "role": "plains_v07_animation",
@@ -1069,17 +1069,17 @@
       {
         "role": "plains_v07_assets",
         "path": "assets/plains_v07/manifest.json",
-        "sha256": "61b9d6444e3f6e6a208e43eddaf9ddd7ef388b955ab36fe58968b9bc9823f91d"
+        "sha256": "b97a38430814cb00525358dc20c236932af4e7daff57155d9924494cf2858d5c"
       },
       {
         "role": "plains_v07_provenance",
         "path": "assets/plains_v07/SOURCES.md",
-        "sha256": "8b210699cab864d79259c3462c0fc26346b6c80617d46d014a16dfb7ae09266e"
+        "sha256": "36e152e60f76a98d215fdb3d78957a2e9cb3627b54a2d04f4c8d26e3409e052a"
       },
       {
         "role": "fixed_world_camera",
         "path": "game/presentation/ui/world/world_camera.gd",
-        "sha256": "4309434c5debef88c36a0b1897a571825f3ba42d9a4e8a01cac1b9933306ed30"
+        "sha256": "32e8dbaca45c55e55312b1249e6b6f718b43190fccf06386234551eded6045d1"
       },
       {
         "role": "fixed_world_camera_parameters",
@@ -1089,12 +1089,22 @@
       {
         "role": "physical_room_space",
         "path": "game/world/levels/world_room_space.gd",
-        "sha256": "06a18a0b7884dd086762b46403a09d202b15c67fe7647e3d0e3fc05ecdc57f60"
+        "sha256": "5c9ace2099e5a8b0defd8a5ee6f40b73d24d5fea68cb1c2f553e7377cd36a503"
       },
       {
         "role": "fixed_world_camera_zones",
         "path": "game/presentation/ui/world/world_camera_zones.gd",
         "sha256": "4bc705a27ca2fff03e2a9403209b2817e366ec9a40302403bc1a8ba48b65e245"
+      },
+      {
+        "role": "plains_three_bell_species_atlases",
+        "path": "assets/plains_actors_142/manifest.json",
+        "sha256": "4fa782819205272b9d38b79a94e4f661a71aa114c1533eaf780dc40aab6c07d9"
+      },
+      {
+        "role": "plains_ground_fan_definition",
+        "path": "resources/enemies/plains_ground_fan_sentry.tres",
+        "sha256": "653dd57fb6101a774c1ab3c1a741701bc102a587404292068a97397da6c07e6f"
       }
     ],
     "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."
@@ -1107,9 +1117,9 @@
   ],
   "region_scope": "Every current catalog region and later new region; the two original Bible documents are unchanged.",
   "change_impact": {
-    "source": "Direct user request, 2026-11-09; merge PR141, PR142, PR144 and PR145",
-    "quote": "直接按照最新的文件，删除过程迭代的版本，保持项目干净",
-    "actual_changes": "整合最终怪物/Boss动画与工作台地形渲染；保留唯一正式镜头、隐藏遮挡、恒定缩放和左右贴墙，移除旧关注区接口。角色物理与正式关卡布局不变。",
-    "validation": "整合专项覆盖正式镜头、实际Boss动作、35房codec往返、工作台运行和世界源。技术检查不代签全区美术或实体设备验收。"
+    "source": "Direct user requests in this session, 2026-11-10",
+    "quote": "恢复光线与风吹粒子；31/32/33重做；怪物自带光照，不被弄黑。",
+    "actual_changes": "保留人物物理、Underworld原生地形与怪物原形体；可见空气风点、暖冷受光、怪物自明材质，P32远景空气透视、P33塔门与Z01损毁钟心素材；门厅沿既有C07身份接入。",
+    "validation": "正常Godot窗口检查P24场地与隐藏室、P32远景、P33塔门、Z01室内；局部实际反冲动作、清场镜头、剧情跳过与存档许可专项。仍是本轮候选，不声明用户认可或手机性能验收。"
   }
 }

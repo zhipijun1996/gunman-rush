@@ -2,6 +2,8 @@ class_name EnemyMotor
 extends CharacterBody2D
 
 var patrol_speed := 0.0
+var _carrier: Node2D
+var _carrier_position := Vector2.ZERO
 var _ground_actor := false
 var _knockback_requires_floor := false
 var _knockback := Vector2.ZERO
@@ -9,6 +11,23 @@ var _knockback_seconds := 0.0
 var _attraction_tick := -1
 var _attraction := Vector2.ZERO
 var _attraction_limit := 0.0
+
+func _ready() -> void:
+	# Carriers advance at -100; transport the body before the actor chooses its step.
+	process_physics_priority = -50
+
+func _physics_process(_delta: float) -> void:
+	if not _ground_actor or collision_layer == 0: return
+	if is_instance_valid(_carrier):
+		var displacement := _carrier.global_position - _carrier_position
+		if not displacement.is_zero_approx(): move_and_collide(displacement)
+	var body_shape := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if body_shape == null or not body_shape.shape is RectangleShape2D: return
+	var feet := body_shape.global_position + Vector2(0, body_shape.shape.size.y * .5)
+	var ray := PhysicsRayQueryParameters2D.create(feet + Vector2(0,-3), feet + Vector2(0,10), 1, [get_rid()])
+	var hit := get_world_2d().direct_space_state.intersect_ray(ray)
+	_carrier = hit.get("collider") as Node2D if hit.get("collider") is ModuleMovingPlatform else null
+	if is_instance_valid(_carrier): _carrier_position = _carrier.global_position
 
 func configure(definition: EnemyDefinition) -> void:
 	patrol_speed = definition.patrol_speed
@@ -21,7 +40,7 @@ func step(intent: EnemyIntent, delta: float) -> bool:
 	velocity = Vector2.ZERO
 	if intent == null or not is_finite(delta) or delta <= 0.0 or intent.move_axis not in [-1, 0, 1] or not is_finite(intent.travel_limit) or intent.travel_limit < 0.0:
 		return false
-	# This first enemy is a hovering patrol fixture, not a ground/gravity policy.
+	# Ground locomotion turns at actual support edges; aerial fixtures keep their travel.
 	var distance := minf(patrol_speed * delta, intent.travel_limit)
 	velocity.x = float(intent.move_axis) * distance / delta
 	var attraction := _attraction if _attraction_tick==Engine.get_physics_frames() else Vector2.ZERO
@@ -36,11 +55,13 @@ func step(intent: EnemyIntent, delta: float) -> bool:
 		motion+=hit_motion
 		_knockback_seconds=maxf(0,_knockback_seconds-delta)
 	_attraction=Vector2.ZERO
+	var edge_blocked := _ground_actor and supported_at(global_position) and not supported_at(global_position + motion)
+	if edge_blocked: motion = Vector2.ZERO
 	velocity = motion / delta
 	var collision := move_and_collide(motion) if not motion.is_zero_approx() else null
 	if collision != null and _knockback.dot(collision.get_normal()) < 0:
 		_knockback = _knockback.slide(collision.get_normal())
-	return collision != null
+	return edge_blocked or collision != null
 
 func stop() -> void:
 	_knockback_requires_floor = false
@@ -48,6 +69,7 @@ func stop() -> void:
 	velocity = Vector2.ZERO
 
 func reset_at(location: Vector2) -> void:
+	_carrier = null
 	stop()
 	global_position = location
 
@@ -88,3 +110,25 @@ func _hit_landing_supported(motion: Vector2) -> bool:
 	var ray := PhysicsRayQueryParameters2D.create(feet+Vector2(0,-2),feet+Vector2(0,8),collision_mask,[get_rid()])
 	var hit := get_world_2d().direct_space_state.intersect_ray(ray)
 	return not hit.is_empty() and (hit.normal as Vector2).dot(Vector2.UP)>.7
+
+# Check both feet so a body never drifts half-way beyond a platform lip.
+func supported_at(at: Vector2) -> bool:
+	var shape := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if shape == null or not shape.shape is RectangleShape2D: return false
+	var half := (shape.shape as RectangleShape2D).size * .5
+	for side: float in [-1.0, 1.0]:
+		var foot := at + shape.position + Vector2(side * maxf(0, half.x-1), half.y)
+		var ray := PhysicsRayQueryParameters2D.create(foot-Vector2(0,2),foot+Vector2(0,4),collision_mask,[get_rid()])
+		var hit := get_world_2d().direct_space_state.intersect_ray(ray)
+		if hit.is_empty() or (hit.normal as Vector2).dot(Vector2.UP)<.7: return false
+	return true
+
+func supported_ground_goal(origin: Vector2, wanted: Vector2) -> Vector2:
+	if not supported_at(origin): return origin
+	var result := origin
+	var steps := maxi(1, ceili(absf(wanted.x-origin.x)/4.0))
+	for i: int in range(1,steps+1):
+		var next := origin.lerp(wanted,float(i)/steps)
+		if not supported_at(next): break
+		result=next
+	return result

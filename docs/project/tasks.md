@@ -8,21 +8,21 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | 按04总图施工35房；当前修复首段六房的预读、出口、恢复与空间用途，以连续玩家体验验收 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 三铃哨地空分种、飞行56帧与P32整幅高塔远景已接入当前工作台 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | Site V18 / r68：双点出口跳房、37房隔离预览与钟心室内分层；整区审核含森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
 ## 待验收
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| MOBILE-LEVEL-WORKBENCH-01 | 已发布手机编辑器；外部下载恢复后复验自动发行与远端更新 | — | blocked | [交接](worklines/mobile_level_workbench_01/scope.md) |
 | DEATH-RUNTIME-01 | 复验已接入死亡优化的目标设备帧时间 | — | blocked | [交接](worklines/death_runtime_01/scope.md) |
 | MOBILE-WEB-FPS-04 | 普通 Web 真实大图帧时间与移动供音复验 | — | blocked | [交接](worklines/mobile_web_fps_04/scope.md) |
 | AUDIO-LAB-MATERIAL-01 | Lab 受伤 ABC 试听与七怪声音路由复核 | — | in_progress | [交接](worklines/audio_lab_material_01/scope.md) |
 | WINDKEEPER-PRESSURE-01 | 牧风者招式成果与新攻击档位适配审核 | — | review | [交接](worklines/windkeeper_pressure_01/scope.md) |
 | BELLSTRIDER-REWORK-01 | 鸣铃巡游机的唯一弱点、三招、回冲与奖励验收 | — | review | [交接](worklines/bellstrider_rework_01/scope.md) |
 | ENEMY-ALL-02 | 全现存怪物同体动作与实机审核 | — | review | [交接](worklines/enemy_all_02/scope.md) |
-| PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | — | in_progress | [交接](worklines/player_presentation_01/scope.md) |
+| PLAYER-PRESENTATION-01 | 充电站进出补帧与暖灰内腔；小站NPC及摆件按固定平台接地，已发布r68 | — | review | [交接](worklines/player_presentation_01/scope.md) |
 
 - `DEATH-RUNTIME-01`：聚合首用／战斗／死亡性能链，在同版真实设备复验；技术合入不代签帧时间。
 - `MOBILE-WEB-FPS-04`：实体手机复验普通 Web 帧时间、供音与大图；承接 MOBILE-WEB-PERF/AUDIO 系列。
@@ -46,9 +46,9 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| FOREST-BIBLE-V2-01 | 固定世界森林房间内容与环境演出 | MV-RUNTIME-01 | planned | [交接](worklines/forest_bible_v2_01/scope.md) |
+| FOREST-BIBLE-V2-01 | 24房整区坐标、连接与初版玩法方案；手机审核后进入相连灰盒 | — | review | [交接](worklines/forest_bible_v2_01/scope.md) |
 
-- `FOREST-BIBLE-V2-01`：待代表样房闭环后按F房间制作；保留v15动作/生态资产，不推进旧两图量产。
+- `FOREST-BIBLE-V2-01`：整区候选先审房形、主支路与收集回程，再选03/04/19/20相连灰盒；保留现有H/W/生态资产。
 
 ## 固定世界迁移
 

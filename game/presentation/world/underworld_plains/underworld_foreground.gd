@@ -319,8 +319,8 @@ func _enemy_warning_protection(enemy: EnemyActor) -> void:
 			var pulse:=enemy.definition.pulse_size
 			_world_rect(Rect2(goal-Vector2(pulse.x*.5,pulse.y),pulse).grow(18),"actual_attack_goal_warning")
 		else:_world_rect(Rect2(goal-Vector2(24,24),Vector2(48,48)),"actual_attack_goal_warning")
-	elif kind in [&"sentry",&"fan_sentry"]:
-		for angle: float in ([-.18,0.0,.18] if kind==&"fan_sentry" else [0.0]):
+	elif kind in [&"sentry",&"fan_sentry",&"ground_fan_sentry"]:
+		for angle: float in ([-.18,0.0,.18] if kind in [&"fan_sentry",&"ground_fan_sentry"] else [0.0]):
 			var direction:=behavior.locked_direction.rotated(angle)
 			var a:=origin+direction*25.0
 			var b:=origin+direction*90.0

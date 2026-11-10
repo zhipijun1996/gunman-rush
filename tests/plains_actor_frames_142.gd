@@ -32,7 +32,7 @@ func run() -> void:
 	var floor_point := Vector2(support.get_center().x, support.position.y)
 
 	for actor: EnemyActor in app.room.enemies.values(): actor.set_physics_process(false)
-	for kind: StringName in [&"patrol",&"charger",&"hopper",&"sentry",&"fan_sentry",&"root_bell",&"diver"]:
+	for kind: StringName in [&"patrol",&"charger",&"hopper",&"sentry",&"fan_sentry",&"ground_fan_sentry",&"root_bell",&"diver"]:
 		var body := EnemyFactory.create_for_behavior(kind)
 		var actor := body.get_node("Actor") as EnemyActor
 		actor.set_meta(&"world_persistent_corpse",true)
@@ -56,7 +56,7 @@ func run() -> void:
 					EnemyPresentationBinding.synchronize(actor)
 					var selected:=skin.frame_selection(visual.pose)
 					var expected:=&"anticipation" if phase==&"telegraph" else phase
-					check(selected.clip==expected and skin.animation.frame_index(selected.clip,selected.progress)%4==index,"%s %s consumes exact owner phase %d" % [kind,phase,index])
+					check(selected.clip==expected and skin.animation.frame_index(selected.clip,selected.progress)%skin.animation.columns==int((float(index)+.1)/4*skin.animation.columns),"%s %s consumes exact owner phase %d" % [kind,phase,index])
 		else:
 			check(kind==&"patrol","contact patrol does not acquire artificial attack AI")
 		var hit := {"event_id":"art142_hit_"+String(kind),"amount":.5,"source_faction":&"player","source_actor_id":app.player.get_instance_id(),"target_actor_id":actor.damageable.actor_id,"target_epoch":actor.health.epoch,"hit_point":body.global_position}

@@ -119,7 +119,7 @@ func run() -> void:
 	check(controller.traversal.wall_ready==readiness and controller.traversal._separated==separation,"pause does not mint a wall reattach token")
 	check(kicks>=3 and low<400,"same-wall detach and reattach repeatedly climbs")
 	check(controller.jump_ability.used_jumps==1 and not controller.traversal.hook_used,"real repeated wall kicks restore extra jump and hook without gifting ground jump")
-	check(controller.action_resources.shot_charges==2,"wall reattach does not refill or add air shots")
+	check(controller.action_resources.shot_charges==2,"real wall reattachment refills up to the configured air-shot cap")
 	await fixture(Vector2(100,682))
 	await tick(3)
 	controller.traversal.grant(&"double_jump")
@@ -339,7 +339,7 @@ func refill_contract(hz: int) -> void:
 		if controller.traversal.state == &"hook_contact_kick":
 			contact_seen = true
 			contact_origin = motor.position
-			check(controller.traversal.hook_used and controller.jump_ability.used_jumps == 2,"contact kick does not refill before launch")
+			check(not controller.traversal.hook_used and controller.jump_ability.used_jumps == 1,"real body arrival restores D/H before the contact kick launches")
 		if controller.traversal.state == &"hook_kick":
 			launch_seen = true
 			break

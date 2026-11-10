@@ -71,7 +71,7 @@ class BuildTests(unittest.TestCase):
             actions={a['action_ref']:a for r in contracts['rooms'] for a in r['interactions']}
             self.assertEqual(actions['tutorial_move']['trigger'],'accepted_player_action')
             self.assertEqual(actions['defeat_P_WINDKEEPER']['trigger'],'actual_boss_victory')
-            self.assertFalse(actions['station_briefing']['arriving_does_not_grant'])
+            self.assertTrue(actions['station_briefing']['arriving_does_not_grant'])
             self.assertEqual(set(bundle['rooms']),{f'P-R{i:02}' for i in (1,3,21,22,23,24)})
             self.assertEqual(before,{str(p.relative_to(root)):p.read_bytes() for p in (root/'game').rglob('*.tscn')})
             (root/'game/world/regions/P/rooms/P-R03.tscn').unlink()

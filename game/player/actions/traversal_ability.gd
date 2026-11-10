@@ -3,6 +3,7 @@ extends Node
 ## All displacement is requested from the sole Motor step. Visuals read this state.
 signal action_changed(action: StringName)
 signal hook_contact(point: Vector2)
+signal traversal_resources_refilled(source: StringName)
 var controller: PlayerController
 var definition: TraversalDefinition = preload("res://resources/player/traversal.tres")
 var wall_enabled := false
@@ -11,6 +12,7 @@ var double_enabled := false
 var hook_used := false
 var state: StringName = &"free"
 var state_age := 0.0
+var wall_slide_age := 0.0
 var hook_tip := Vector2.ZERO
 var hook_direction := Vector2.RIGHT
 var hook_forward := 1.0
@@ -22,6 +24,8 @@ var wall_point := Vector2.ZERO
 var wall_ready := true
 var _kick_x := 0.0
 var _separated := true
+var _refill_wall_id := 0
+var _refill_wall_x := 0.0
 var _serial := 0
 var _session := 0
 var _pull_step_requested := false
@@ -135,6 +139,10 @@ func advance(delta: float) -> void:
 	if not controller.active: cancel(); return
 	if not _separated and absf(motor.global_position.x-_kick_x) >= definition.wall_separation:
 		_separated = true
+	# Pose cancellation (including recoil into the same wall) cannot rearm a
+	# refill. Require real clearance, using the wall-kick separation distance.
+	if _refill_wall_id != 0 and not motor.is_on_wall() and absf(motor.global_position.x-_refill_wall_x) >= definition.wall_separation:
+		_refill_wall_id = 0
 	if state == &"wall_kick" and state_age >= definition.wall_detach_seconds: _set_state(&"free")
 	if state == &"hook_kick":
 		hook_tip = hook_tip.move_toward(motor.global_position+Vector2(0,-6),definition.hook_return_speed*delta)
@@ -180,11 +188,14 @@ func advance(delta: float) -> void:
 			var node := hit.collider as Node2D
 			if node != null and node.is_in_group(&"grapple_target"):
 				hook_target = node
+				if node is GrappleAnchor:(node as GrappleAnchor).hook_feedback()
 				_contact_target = node
 				_contact_remaining = definition.hook_contact_grace
 				hook_local = node.to_local(hook_tip)
 				controller.jump_ability.cancel_ascent()
 				motor.clear_recoil()
+				# A confirmed hook hit restores charges immediately; arrival does not refill again.
+				_refill_traversal_resources(&"hook_hit")
 				hook_contact.emit(hook_tip)
 				_set_state(&"hook_pull")
 			else: _set_state(&"hook_miss")
@@ -213,20 +224,29 @@ func advance(delta: float) -> void:
 	if state == &"free" or state == &"wall_attach":
 		var touching := wall_enabled and not motor.is_on_floor() and motor.is_on_wall() and motor.recoil_burst_remaining <= 0
 		var normal := 0.0
+		var surface_id := 0
 		if touching:
 			for index: int in motor.get_slide_collision_count():
 				var hit := motor.get_slide_collision(index)
 				var surface := hit.get_collider() as Node
-				if absf(hit.get_normal().x) > .7 and surface != null and surface.is_in_group(&"wall_climbable"):
+				if absf(hit.get_normal().x) > .7 and surface != null and (surface is StaticBody2D or surface is AnimatableBody2D or surface is TileMapLayer):
 					normal = hit.get_normal().x
 					wall_point = hit.get_position()
+					surface_id = surface.get_instance_id()
 			if normal * controller.router.axis >= -0.1: touching = false
 			if is_zero_approx(normal): touching = false
 		if touching and (_separated or wall_ready):
 			wall_normal = normal
 			wall_ready = true
-			motor.wall_slide_limit = definition.wall_fall_speed
 			_set_state(&"wall_attach")
+			if surface_id != _refill_wall_id:
+				wall_slide_age = 0.0
+				_refill_wall_id = surface_id
+				_refill_wall_x = motor.global_position.x
+				_refill_traversal_resources(&"wall_attach")
+			var progress := clampf((wall_slide_age-definition.wall_hold_seconds)/maxf(.01,definition.wall_slide_ramp_seconds),0.0,1.0)
+			motor.wall_slide_limit = definition.wall_fall_speed*progress*progress
+			if motor.normal_velocity.y >= 0.0: wall_slide_age += delta
 		elif state == &"wall_attach": _set_state(&"free")
 
 func after_move() -> void:
@@ -251,7 +271,6 @@ func after_move() -> void:
 			receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction,"on_committed":controller.on_grapple_damage.bind(_session,_serial,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0,receiver)})
 		if hook_target is GrappleAnchor and (hook_target as GrappleAnchor).hang_enabled:
 			_hang_offset=motor.global_position-hook_tip
-			restore_air_actions()
 			_set_state(&"hook_hang")
 		else: _set_state(&"hook_contact_kick")
 	elif motor.get_slide_collision_count() > 0 and distance > definition.hook_stop_distance+2 and _pull_distance_before-distance < 0.05:
@@ -289,7 +308,9 @@ func cancel() -> void:
 		_session = controller.session_id
 		wall_ready = true
 		_separated = true
+		_refill_wall_id = 0
 		hook_used = false
+		wall_slide_age = 0.0
 	_set_state(&"free")
 
 func _set_state(next: StringName) -> void:
@@ -330,8 +351,14 @@ func restore_air_actions() -> void:
 	if double_enabled: controller.jump_ability.restore_air_jump()
 	if hook_enabled: hook_used = false
 
+func _refill_traversal_resources(source: StringName) -> void:
+	controller.action_resources.reset()
+	restore_air_actions()
+	traversal_resources_refilled.emit(source)
+
 func on_landed() -> void:
 	hook_used = false
+	_refill_wall_id = 0
 
 func _probe_segment(start: Vector2, finish: Vector2) -> Dictionary:
 	if _hook_probe==null:

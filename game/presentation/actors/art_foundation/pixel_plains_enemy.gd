@@ -63,13 +63,13 @@ func _draw() -> void:
 		draw_rect(Rect2(half-8,top+2,14,14),ink)
 		draw_rect(Rect2(half,top+4,4,4),cream)
 		draw_rect(Rect2(half+6,top+10,10,4),brass)
-	elif behavior in [&"sentry",&"fan_sentry"]:
+	elif behavior in [&"sentry",&"fan_sentry",&"ground_fan_sentry"]:
 		draw_rect(Rect2(-half,top+6,half*2,floor_y-top-10),ink)
 		draw_rect(Rect2(-half+4,top+10,half*2-8,floor_y-top-18),brass)
 		draw_rect(Rect2(-half-4,top+2,half*2+8,6),cream)
 		draw_rect(Rect2(half-6,top+12,12,8),ink)
 		draw_rect(Rect2(half-4,top+14,10,4),cream)
-		if behavior==&"fan_sentry":
+		if behavior in [&"fan_sentry",&"ground_fan_sentry"]:
 			for y: int in [-6,6]: draw_rect(Rect2(half-6,top+12+y,10,4),ink)
 	else:
 		draw_rect(Rect2(-half,top+10,half*2,floor_y-top-16),ink)

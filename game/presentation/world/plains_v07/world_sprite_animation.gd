@@ -24,7 +24,6 @@ func _process(delta: float) -> void:
 	phase += delta
 	event_seconds = maxf(0,event_seconds-delta)
 	if spec.kind == "npc": frame = 4 + mini(1,int(phase*4)) if event_seconds>0 else int(phase*3)%4
-	elif spec.kind == "station": frame = 3+int(phase*8)%3 if event_seconds>0 else int(phase*3)%3
 	elif spec.kind == "mechanism": frame = mini(5,int(phase*8)) if event_seconds>0 else (5 if activated else 0)
 	elif spec.kind == "burst":
 		frame = mini(5,int(phase*15))

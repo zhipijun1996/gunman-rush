@@ -23,9 +23,26 @@ func _construction() -> Dictionary:
 func _export(output: String) -> int:
 	var rows: Dictionary = {}
 	var construction := _construction()
+	var known: Dictionary = {}
+	var editable: Dictionary = {}
 	for row: Dictionary in construction.get("rooms", []):
 		var id := str(row.room_id)
-		if not id.begins_with("P-R"): continue
+		known[id] = true
+		if id.begins_with("P-R"): editable[id] = true
+	var scope_path := "res://config/workbench/rooms.json"
+	if FileAccess.file_exists(scope_path):
+		var scope: Variant = JSON.parse_string(FileAccess.get_file_as_string(scope_path))
+		if not scope is Dictionary or scope.get("schema") != 1 or not scope.get("additional_room_ids") is Array:
+			printerr("Unsupported workbench room scope")
+			return 1
+		for id: Variant in scope.additional_room_ids:
+			if not id is String or not known.has(id) or editable.has(id):
+				printerr("Unknown or duplicate workbench review room: "+str(id))
+				return 1
+			editable[id] = true
+	for row: Dictionary in construction.get("rooms", []):
+		var id := str(row.room_id)
+		if not editable.has(id): continue
 		var path := str(row.get("scene_ref", ""))
 		if not ResourceLoader.exists(path):
 			printerr("Scene missing: "+path)

@@ -52,6 +52,46 @@ func _catalog_roundtrip() -> void:
 		draft.properties.workbench_entity_ids[field] = ["catalog:"+field]
 	_roundtrip(draft)
 
+func _runtime_scope_checks() -> void:
+	var provider := FixedWorldProvider.new()
+	check(provider.open(), "compiled runtime scope fixture opens the formal source")
+	var catalog: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(FixedWorldProvider.WORKBENCH_CATALOG))
+	var runtime := provider.data.duplicate(true)
+	for key: String in ["rooms", "actions", "demo_services", "npcs", "map_rooms"]:
+		runtime[key] = catalog[key].duplicate(true)
+	var accepted := baseline_draft.duplicate(true)
+	accepted.base_content_version = provider.workbench_base_version()
+	accepted.revision = 40
+	accepted.runtime = runtime
+	check(not accepted.has("geometry"), "runtime scope tests do not rely on a separate geometry draft")
+	check(provider.install_workbench_draft(accepted).is_empty(), "same-version complete compiled preview runtime is accepted")
+	check(provider.data.rooms.size() == catalog.rooms.size() and provider.workbench_formal_room_ids().size() == 6, "compiled runtime replacement keeps the registered preview scope and formal six-room base")
+	var unchanged := JSON.stringify(provider.workbench_snapshot(), "", true)
+	for mutation: String in ["component", "room", "map_room", "seam"]:
+		var rejected := accepted.duplicate(true)
+		rejected.revision = 41
+		var expected := ""
+		match mutation:
+			"component":
+				for map_row: Dictionary in rejected.runtime.map_rooms:
+					if map_row.id == "P-R22": map_row.map_component = "P-R22"
+				expected = "runtime_map_component_changed"
+			"room":
+				rejected.runtime.rooms.erase("P-R17")
+				expected = "runtime_room_scope_mismatch"
+			"map_room":
+				rejected.runtime.map_rooms.pop_back()
+				expected = "runtime_map_scope_mismatch"
+			"seam":
+				for door: Dictionary in rejected.runtime.rooms["P-R22"].doors:
+					if door.target_room == "P-R23": door.position_candidate.local_world_units[1] += 16
+				expected = "map_seam_conflict:"
+		var error := provider.install_workbench_draft(rejected)
+		check(error.begins_with(expected), "compiled runtime rejects "+mutation+" without a separate geometry field: "+error)
+		check(JSON.stringify(provider.workbench_snapshot(), "", true) == unchanged, "rejected compiled runtime leaves state unchanged: "+mutation)
+	provider.restore_workbench_base()
+	check(provider.data.rooms.size() == 6, "compiled runtime scope fixture restores the formal source")
+
 func _fixture() -> Dictionary:
 	var result := baseline_draft.duplicate(true)
 	var props: Dictionary = result.properties
@@ -107,6 +147,7 @@ func run() -> void:
 	root.size = Vector2i(1280,720)
 	_codec_checks()
 	_catalog_roundtrip()
+	_runtime_scope_checks()
 	var draft := _fixture()
 	_roundtrip(draft)
 	app = preload("res://game/application/world/fixed_world.tscn").instantiate()
@@ -225,7 +266,11 @@ func run() -> void:
 	await app.workbench._handle({"channel":"gunman-workbench", "type":"load_draft", "request_id":"unbuilt", "revision":1, "draft":unbuilt})
 	check(app.workbench.last_event.get("type") == "draft_loaded" and app.workbench.last_event.get("preview_only") == true, "unbuilt room loads through real runtime and stays labelled preview only "+JSON.stringify(app.workbench.last_event))
 	check(app.room != null and app.room.room_id == "P-R17" and app.player.is_on_floor(), "unbuilt authored scene and real controller physically land")
-	check(app.content.data.rooms.size() == 35 and app.content.action("reward_return_EQ_MAP_P03_open").get("room_id") == "P-R17", "all 35 canonical rooms and local return action available in disposable session")
+	var preview_ids: Array = catalog.rooms.keys()
+	preview_ids.sort()
+	var actual_ids: Array = app.content.data.rooms.keys()
+	actual_ids.sort()
+	check(actual_ids == preview_ids and app.content.action("reward_return_EQ_MAP_P03_open").get("room_id") == "P-R17", "registered authored preview rooms and local return action available in disposable session")
 	await app.workbench._handle({"channel":"gunman-workbench", "type":"leave", "request_id":"unbuilt_leave"})
 	check(app.content.data.rooms.size() == 6 and app.state.storage == formal_storage and FileAccess.get_file_as_string(app.save_path) == formal_bytes, "unbuilt preview restores formal six-room catalog and save")
 	await WorldAudioLifecycle.drain_world(app)

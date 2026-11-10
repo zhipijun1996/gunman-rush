@@ -78,7 +78,7 @@ def navigation_geometry(rooms, anchor):
         if 'map_origin' in geom:
             raise ValueError('Independent map_origin is not a physical room space: '+rid)
         spaces[rid] = room_space(geom.get('space_rects',[]),geom['bounds_world_units'][2:])
-        exposed = [d for d in row['doors'] if d['target_room'] in rooms]
+        exposed = [d for d in row['doors'] if d['target_room'] in rooms and not d.get('front_door')]
         for i,door in enumerate(exposed):
             if not door_on_boundary(spaces[rid],door):
                 raise ValueError('Door aperture is not on its physical boundary: '+door['id'])

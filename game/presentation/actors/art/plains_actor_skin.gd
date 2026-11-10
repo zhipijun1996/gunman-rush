@@ -7,6 +7,7 @@ const ANIMATIONS := {
 	&"hopper": preload("res://assets/plains_actors_142/atlases/hopper.tres"),
 	&"sentry": preload("res://assets/plains_actors_142/atlases/sentry.tres"),
 	&"fan_sentry": preload("res://assets/plains_actors_142/atlases/fan_sentry.tres"),
+	&"ground_fan_sentry": preload("res://assets/plains_actors_142/atlases/ground_fan_sentry.tres"),
 	&"root_bell": preload("res://assets/plains_actors_142/atlases/root_bell.tres"),
 	&"diver": preload("res://assets/plains_actors_142/atlases/diver.tres")
 }
@@ -17,12 +18,12 @@ var texture: Texture2D
 var bounds: Rect2
 
 static func supports(definition: EnemyDefinition) -> bool:
-	return definition != null and definition.stable_id in [&"patrol_drone", &"graybox_patrol_drone", &"plains_charger", &"plains_hopper", &"plains_sentry", &"plains_fan_sentry", &"plains_root_bell", &"plains_diver"]
+	return definition != null and definition.stable_id in [&"patrol_drone", &"graybox_patrol_drone", &"plains_charger", &"plains_hopper", &"plains_sentry", &"plains_fan_sentry", &"plains_ground_fan_sentry", &"plains_root_bell", &"plains_diver"]
 
 func _init(behavior: StringName = &"patrol") -> void:
 	kind = behavior
 	animation = ANIMATIONS[kind]
-	motion_animation = load("res://assets/plains_actors_142/atlases/"+String(kind)+"_motion.tres")
+	motion_animation = animation if kind == &"fan_sentry" else load("res://assets/plains_actors_142/atlases/"+String(kind)+"_motion.tres")
 	texture = animation.atlas
 	bounds = Rect2(-animation.pivot, Vector2(animation.frame_size))
 

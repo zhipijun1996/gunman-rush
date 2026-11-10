@@ -173,7 +173,8 @@
               "automatic_crossing_of_ability_fixture"
             ],
             "coordinates_are_candidate": false
-          }
+          },
+          "npc_guard": true
         },
         {
           "id": "INTRO-P24-P01:P-R01",
@@ -742,8 +743,8 @@
         "id": "rest:P-R02",
         "section": "main",
         "position_candidate_world_units": [
-          512,
-          1360
+          688,
+          878
         ],
         "activation": "explicit_rest_interaction",
         "set_death_respawn": true,
@@ -5433,9 +5434,9 @@
         ],
         [
           2048,
-          1824,
+          1664,
           5056,
-          192
+          352
         ],
         [
           6528,
@@ -5871,7 +5872,7 @@
           "宽地面上辨认阵风预兆，风刃与短位移交替；第一轮只用基础枪和基础移动。",
           "第二阶段改变安全站位，保留稳定落脚；绝不要求未取得的 H 或高难连跳。"
         ],
-        "first_reward_demonstration": "战后在庭地外的固定锚点完成一次低风险 H 跨越，抵达 P-R15 主风铃校时台，再开回小站短升降机。",
+        "first_reward_demonstration": "战后在庭地外的固定锚点完成一次低风险 H 跨越，抵达 P-R15 风鸣钟台，再开回小站短升降机。",
         "victory_persistence": "击败只发生一次并永久保存；休息与死亡不复活世界 Boss；奖励用既有唯一 reward/action ID 领取",
         "baseline_weapon_contract": "默认枪可完成本场；奖励武器、分支、技能芯与攻击等级不作为本场伤害资格或破盾前置",
         "implementation_reuse": {
@@ -5889,7 +5890,7 @@
         "tier_label": "中型独立Boss",
         "entry_summary": "基础枪与基础移动",
         "reward_summary": "H 钩索",
-        "unlock_summary": "战后在庭地外的固定锚点完成一次低风险 H 跨越，抵达 P-R15 主风铃校时台，再开回小站短升降机。",
+        "unlock_summary": "战后在庭地外的固定锚点完成一次低风险 H 跨越，抵达 P-R15 风鸣钟台，再开回小站短升降机。",
         "combat_identity": "宽地面上辨认阵风预兆，风刃与短位移交替；第一轮只用基础枪和基础移动。 第二阶段改变安全站位，保留稳定落脚；绝不要求未取得的 H 或高难连跳。",
         "required_for": "普通与真结局",
         "combat_mobility_requirements": [
@@ -6714,8 +6715,8 @@
         "id": "rest:P-R16",
         "section": "main",
         "position_candidate_world_units": [
-          736,
-          320
+          640,
+          1006
         ],
         "activation": "explicit_rest_interaction",
         "set_death_respawn": true,
@@ -7294,16 +7295,16 @@
             "section": "main",
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
-              2304.0,
-              1774.0
+              2336,
+              1774
             ],
             "safe_standing_position_world_units": [
-              2272.0,
-              1774.0
+              2304,
+              1774
             ],
             "platform_candidate_rect_world_units": [
-              2240.0,
-              1792.0,
+              2240,
+              1792,
               128,
               32
             ],
@@ -7477,12 +7478,12 @@
           "entry_door": "EXP-P_field_return-02:P-R18",
           "section": "main",
           "position_candidate_world_units": [
-            2304.0,
-            1774.0
+            2336,
+            1774
           ],
           "eventual_standing_position_world_units": [
-            2272.0,
-            1774.0
+            2304,
+            1774
           ],
           "landing_contract_ref": "landing:EXP-P_field_return-02:P-R18",
           "fake_grounded_reset_forbidden": true
@@ -7630,8 +7631,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              2272.0,
-              1774.0
+              2304,
+              1774
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -8608,15 +8609,40 @@
       "room_id": "Z-R01",
       "scene_ref": "res://game/world/regions/Z/rooms/Z-R01.tscn",
       "extent": [
-        1104,
-        496
+        1536,
+        768
       ],
       "shape_class": "safe_service",
       "rationale": "容纳长凳、交通与NPC，保持可步行社区；主题不改变玩家尺度。 v07保留v04本房世界单位包络；图面轮廓修改不重缩旧场景。",
       "camera": {
         "profile": "bounded_follow",
         "transition": "occluded",
-        "zones": [],
+        "zones": [
+          {
+            "id": "hall",
+            "trigger": [
+              0,
+              0,
+              1536,
+              768
+            ],
+            "display": [
+              0,
+              256,
+              1536,
+              512
+            ],
+            "profile": "horizontal_follow",
+            "anchor": [
+              768,
+              512
+            ],
+            "follow_range": [
+              -1,
+              0
+            ]
+          }
+        ],
         "links": []
       },
       "doors": [
@@ -8624,33 +8650,33 @@
           "id": "room-link-150:Z-R01",
           "position_candidate": {
             "local_world_units": [
-              544,
+              768,
               0
             ],
             "normalized_uv": [
-              0.49275,
+              0.5,
               0.0
             ],
             "opening_candidate_world_units": [
               96,
               64
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "已校准入口与支撑。"
           },
           "landing_contract": {
             "id": "landing:room-link-150:Z-R01",
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              544,
-              64
+              768,
+              48
             ],
             "safe_standing_position_world_units": [
-              544,
+              768,
               174
             ],
             "platform_candidate_rect_world_units": [
-              416,
+              640,
               192,
               256,
               32
@@ -8668,42 +8694,42 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
           "id": "C07:Z-R01",
           "position_candidate": {
             "local_world_units": [
-              1104,
-              256
+              256,
+              640
             ],
             "normalized_uv": [
-              1.0,
-              0.51613
+              0.16666666666666666,
+              0.8333333333333334
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "已校准正面建筑入口，显式遮挡切房。"
           },
           "landing_contract": {
             "id": "landing:C07:Z-R01",
             "section": "main",
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
-              1040,
-              238
+              352,
+              622
             ],
             "safe_standing_position_world_units": [
-              960,
-              238
+              352,
+              622
             ],
             "platform_candidate_rect_world_units": [
-              864,
-              256,
-              192,
+              160,
+              640,
+              384,
               32
             ],
             "platform_is_real_collision": true,
@@ -8719,8 +8745,10 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
-          }
+            "coordinates_are_candidate": false
+          },
+          "front_door": true,
+          "label": "返回钟影前庭"
         }
       ],
       "entry_spawns": [
@@ -8729,11 +8757,11 @@
           "entry_door": "room-link-150:Z-R01",
           "section": "main",
           "position_candidate_world_units": [
-            544,
-            64
+            768,
+            48
           ],
           "eventual_standing_position_world_units": [
-            544,
+            768,
             174
           ],
           "landing_contract_ref": "landing:room-link-150:Z-R01",
@@ -8744,12 +8772,12 @@
           "entry_door": "C07:Z-R01",
           "section": "main",
           "position_candidate_world_units": [
-            1040,
-            238
+            352,
+            622
           ],
           "eventual_standing_position_world_units": [
-            960,
-            238
+            352,
+            622
           ],
           "landing_contract_ref": "landing:C07:Z-R01",
           "fake_grounded_reset_forbidden": true
@@ -8760,8 +8788,8 @@
         "id": "rest:Z-R01",
         "section": "main",
         "position_candidate_world_units": [
-          544,
-          320
+          384,
+          622
         ],
         "activation": "explicit_rest_interaction",
         "set_death_respawn": true,
@@ -8845,7 +8873,15 @@
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
       },
-      "implemented": false
+      "implemented": false,
+      "space_rects": [
+        [
+          0,
+          0,
+          1536,
+          768
+        ]
+      ]
     },
     {
       "room_id": "Z-R03",
@@ -14240,7 +14276,7 @@
           "独立神契内景竞技场，重播与暂停的是可视轨道和场景片段，不是王的血条加长。",
           "利用已建立的地域时间异象，形成明确的暂停/加速轮换；每段仍有稳定回落区供 Q 刷新。"
         ],
-        "first_reward_demonstration": "战后由玩家执行断契与重新校时，显示修复各地方钟的结果，不发必须回头刷取的终局强度材料。",
+        "first_reward_demonstration": "战后由玩家执行断契与重新校时，显示修复各时律钟的结果，不发必须回头刷取的终局强度材料。",
         "victory_persistence": "击败只发生一次并永久保存；休息与死亡不复活世界 Boss；奖励用既有唯一 reward/action ID 领取",
         "baseline_weapon_contract": "默认枪可完成本场；奖励武器、分支、技能芯与攻击等级不作为本场伤害资格或破盾前置",
         "ending_contract": "Z3 宏锚点不变；独立物理房 Z-R12。进入条件含击败王与全部真线任务，不含 ending_normal。Z-R13 是无休息功能的安全准备室，经王胜后近路回既有 Z-R02 明确休息恢复；死于神仍回登记休息点，不重打王或重置前序修复。",
@@ -14255,7 +14291,7 @@
         "tier_label": "独立终局Boss",
         "entry_summary": "已击败王 + 16区修复/记录 + 断契棱针",
         "reward_summary": "切断神契、真结局与永久见证记录",
-        "unlock_summary": "战后由玩家执行断契与重新校时，显示修复各地方钟的结果，不发必须回头刷取的终局强度材料。",
+        "unlock_summary": "战后由玩家执行断契与重新校时，显示修复各时律钟的结果，不发必须回头刷取的终局强度材料。",
         "combat_identity": "独立神契内景竞技场，重播与暂停的是可视轨道和场景片段，不是王的血条加长。 利用已建立的地域时间异象，形成明确的暂停/加速轮换；每段仍有稳定回落区供 Q 刷新。",
         "required_for": "真结局",
         "combat_mobility_requirements": [
@@ -17902,7 +17938,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_S",
-          "reward": "沼泽地方钟 clock_S + 深部记录 record_S",
+          "reward": "沼泽时律钟 clock_S + 深部记录 record_S",
           "reward_room": "S-R08",
           "section_id": "main"
         },
@@ -17924,7 +17960,7 @@
         "true_required": true,
         "tier_label": "中型独立Boss",
         "entry_summary": "H钩索 + W墙面移动 + 已装备滤芯 或 H钩索 + D二段跳 + 已装备滤芯",
-        "reward_summary": "沼泽地方钟 clock_S + 深部记录 record_S",
+        "reward_summary": "沼泽时律钟 clock_S + 深部记录 record_S",
         "unlock_summary": "修钟后净流泵形成可见的干岸捷径；回到泵站能看到环境改善，滤芯仍可卸下。",
         "combat_identity": "巨螺以低速本体封路、快速孢雾脉冲制造节奏反差。 净毒滤芯负责进场与阀门环境条件；玩家围绕高台与排液口转移，W 和 D 两条路线都能打。",
         "required_for": "真结局",
@@ -23239,7 +23275,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_R",
-          "reward": "泄洪地方钟 clock_R；开启排水及后续档案路线",
+          "reward": "泄洪时律钟 clock_R；开启排水及后续档案路线",
           "reward_room": "R-R09",
           "section_id": "main"
         },
@@ -23277,7 +23313,7 @@
         "true_required": true,
         "tier_label": "大型区域首领",
         "entry_summary": "H钩索 + D二段跳",
-        "reward_summary": "泄洪地方钟 clock_R；开启排水及后续档案路线",
+        "reward_summary": "泄洪时律钟 clock_R；开启排水及后续档案路线",
         "unlock_summary": "玩家修钟排水，看到原本水下的 R2 档案入口与上下层回环；record_R 必须亲自进深档案登记，不能战后自动送。",
         "combat_identity": "浮台随钟摆缓慢升沉，司渡的长杆击打与回水波错拍出现。 H/D 能跨越各安全台；主战不要求灯或炸弹，排水后深档案才继续检查灯装备。",
         "required_for": "真结局",
@@ -30203,7 +30239,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_N",
-          "reward": "矿井地方钟 clock_N + 深部记录 record_N",
+          "reward": "矿井时律钟 clock_N + 深部记录 record_N",
           "reward_room": "N-R10",
           "section_id": "main"
         },
@@ -30237,7 +30273,7 @@
         "true_required": true,
         "tier_label": "中型独立Boss",
         "entry_summary": "H钩索 + D二段跳 + 炸弹",
-        "reward_summary": "矿井地方钟 clock_N + 深部记录 record_N",
+        "reward_summary": "矿井时律钟 clock_N + 深部记录 record_N",
         "unlock_summary": "修钟后停机检修缝连回上层与工城；玩家可以选择磁轨机修侧间或直接回主路。",
         "combat_identity": "钻机沿弯折竖井轨道钻入钻出；先听回声提示再选支台，区别于上层仓卫平面投弹。 炸弹只用于已获能力的岩壳窗口与环境引爆，露芯后基础枪正常造成伤害；不要求磁吸分支。",
         "required_for": "真结局",
@@ -39582,7 +39618,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_Y",
-          "reward": "峡谷地方钟 clock_Y + 深部记录 record_Y",
+          "reward": "峡谷时律钟 clock_Y + 深部记录 record_Y",
           "reward_room": "Y-R08",
           "section_id": "main"
         },
@@ -39605,7 +39641,7 @@
         "true_required": true,
         "tier_label": "中型独立Boss",
         "entry_summary": "H钩索 + W墙面移动",
-        "reward_summary": "峡谷地方钟 clock_Y + 深部记录 record_Y",
+        "reward_summary": "峡谷时律钟 clock_Y + 深部记录 record_Y",
         "unlock_summary": "修钟使峡谷升降气流恢复固定节律，回访上山路缩短。",
         "combat_identity": "鸣叫改变局部风向，玩家用墙面与低中两条路径避开直冲。 冲击波先撞壁再回返，用方向和节拍区别于平原的阵风。",
         "required_for": "真结局",
@@ -45104,7 +45140,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_F",
-          "reward": "森林地方钟 clock_F + 深部记录 record_F",
+          "reward": "森林时律钟 clock_F + 深部记录 record_F",
           "reward_room": "F-R11",
           "section_id": "main"
         },
@@ -45126,7 +45162,7 @@
         "true_required": true,
         "tier_label": "大型区域首领",
         "entry_summary": "H钩索 + W墙面移动",
-        "reward_summary": "森林地方钟 clock_F + 深部记录 record_F",
+        "reward_summary": "森林时律钟 clock_F + 深部记录 record_F",
         "unlock_summary": "玩家亲手修复古树钟后，前厅至冠层的藤桥稳定，经过早前看到的树窗回到已知路口。",
         "combat_identity": "加速生长的枝蔓按可读顺序占地，墙面通路成为换边选择。 盛放期间缩小一侧立足区，枯落期间恢复；不强制 D 或手里剑。",
         "required_for": "真结局",
@@ -57786,7 +57822,7 @@
         "first_reward_demonstration": "战后上方出口用一次 D 跨过短缺口，失败返回本次小挑战入口；下方始终保留正常回程。",
         "victory_persistence": "击败只发生一次并永久保存；休息与死亡不复活世界 Boss；奖励用既有唯一 reward/action ID 领取",
         "baseline_weapon_contract": "默认枪可完成本场；奖励武器、分支、技能芯与攻击等级不作为本场伤害资格或破盾前置",
-        "non_boss_followup": "M-R10 的地方钟保留灯装与 D 的环境机关修复，不再加第二场 Boss。",
+        "non_boss_followup": "M-R10 的时律钟保留灯装与 D 的环境机关修复，不再加第二场 Boss。",
         "production_tier": "compact_guardian_or_trial",
         "production_scope": "中型守卫/试炼：目标2–3组独立动作加一种组合变化，通常单竞技场单胜利阶段；仍须有独立机制，不能普通怪加血换皮。",
         "name_and_mechanic_status": "角色名与招式为工作提案，未声称已实现；只有明确implementation_reuse项说明候选旧身份。",
@@ -80534,7 +80570,7 @@
         "primary_reward": {
           "mode": "victory_enables_clock_interaction",
           "action": "repair_V",
-          "reward": "天门地方钟 clock_V + record_V；开启神契解译台流程",
+          "reward": "天门时律钟 clock_V + record_V；开启神契解译台流程",
           "reward_room": "V-R05",
           "section_id": "main"
         },
@@ -80556,7 +80592,7 @@
         "true_required": true,
         "tier_label": "中型独立Boss",
         "entry_summary": "双翼校相 + HWDQ上层通路",
-        "reward_summary": "天门地方钟 clock_V + record_V；开启神契解译台流程",
+        "reward_summary": "天门时律钟 clock_V + record_V；开启神契解译台流程",
         "unlock_summary": "修钟后前往 V-R06，把古堡、冰川、遗迹证据与星桥记录组合，取得断契棱针；不要把完整真结局钥匙直接做成 Boss 掉落。",
         "combat_identity": "星轨按位置预演后逐条划过，玩家读轨迹的交点与次序。 Boss 停表时保留上一轮星点标记，恢复时按固定顺序释放；不要求终局断契棱针。",
         "required_for": "真结局",
@@ -93074,7 +93110,7 @@
         1600
       ],
       "shape_class": "connected_chambers",
-      "rationale": "缓坡看见小站灯火和世界钟心，抵站前舒缓。",
+      "rationale": "三波封场检验战斗换位，清场后射铃乘台抵站；左侧隐藏室为水平探索支路。",
       "camera": {
         "profile": "bounded_follow",
         "transition": "occluded",
@@ -93082,75 +93118,167 @@
           {
             "id": "lower",
             "trigger": [
-              1024,
-              960,
-              1472,
-              640
+              1664,
+              1216,
+              384,
+              384
             ],
             "display": [
+              1440,
               1024,
-              960,
-              1472,
-              640
+              1056,
+              576
             ],
             "profile": "bounded_follow",
             "priority": 0,
-            "look_up": true,
-            "look_down": true,
             "offset": [
-              -24,
+              0,
               -40
             ]
+          },
+          {
+            "id": "hall",
+            "trigger": [
+              1024,
+              928,
+              1472,
+              288
+            ],
+            "display": [
+              1024,
+              736,
+              1472,
+              480
+            ],
+            "profile": "horizontal_follow",
+            "anchor": [
+              1760,
+              960
+            ],
+            "follow_range": [
+              -1,
+              0
+            ],
+            "priority": 1
           },
           {
             "id": "lift",
             "trigger": [
               1024,
               0,
-              1472,
-              1216
+              512,
+              928
             ],
             "display": [
               1024,
               0,
-              1472,
-              1280
+              832,
+              1216
             ],
             "profile": "vertical_follow",
-            "priority": 0,
-            "look_up": true,
-            "look_down": true,
             "anchor": [
-              1536,
-              640
+              1440,
+              600
             ],
             "follow_range": [
-              256,
+              0,
               -1
             ],
+            "priority": 2,
             "offset": [
               0,
-              -72
+              -48
+            ]
+          },
+          {
+            "id": "secret",
+            "trigger": [
+              480,
+              928,
+              480,
+              192
+            ],
+            "display": [
+              448,
+              736,
+              832,
+              480
+            ],
+            "profile": "horizontal_follow",
+            "anchor": [
+              864,
+              976
+            ],
+            "follow_range": [
+              -1,
+              0
+            ],
+            "priority": 10,
+            "look_up": false,
+            "look_down": false,
+            "conceal": [
+              [
+                480,
+                928,
+                544,
+                192
+              ]
             ]
           }
         ],
         "links": [
           {
             "a": "lower",
+            "b": "hall",
+            "band": [
+              1664,
+              1120,
+              384,
+              128
+            ],
+            "display": [
+              1024,
+              736,
+              1472,
+              864
+            ],
+            "axis": "y",
+            "direction": -1
+          },
+          {
+            "a": "hall",
             "b": "lift",
             "band": [
               1024,
-              960,
-              1472,
-              256
+              832,
+              480,
+              160
             ],
             "display": [
               1024,
               0,
-              1472,
-              1600
+              832,
+              1216
             ],
             "axis": "y",
+            "direction": -1
+          },
+          {
+            "a": "hall",
+            "b": "secret",
+            "band": [
+              960,
+              1024,
+              128,
+              96
+            ],
+            "display": [
+              448,
+              736,
+              1088,
+              480
+            ],
+            "axis": "x",
             "direction": -1
           }
         ]
@@ -93465,7 +93593,48 @@
       "camera": {
         "profile": "bounded_follow",
         "transition": "occluded",
-        "zones": [],
+        "zones": [
+          {
+            "id": "main",
+            "profile": "bounded_follow",
+            "trigger": [
+              0,
+              0,
+              2880,
+              1216
+            ],
+            "display": [
+              0,
+              0,
+              2880,
+              1216
+            ],
+            "priority": 0
+          },
+          {
+            "id": "reward_view",
+            "profile": "bounded_follow",
+            "trigger": [
+              1248,
+              384,
+              448,
+              480
+            ],
+            "display": [
+              0,
+              0,
+              2880,
+              1216
+            ],
+            "priority": 10,
+            "offset": [
+              0,
+              -110
+            ],
+            "look_up": true,
+            "look_down": true
+          }
+        ],
         "links": []
       },
       "doors": [
@@ -93778,8 +93947,72 @@
       "camera": {
         "profile": "bounded_follow",
         "transition": "occluded",
-        "zones": [],
-        "links": []
+        "zones": [
+          {
+            "id": "main",
+            "profile": "bounded_follow",
+            "trigger": [
+              0,
+              0,
+              2368,
+              1696
+            ],
+            "display": [
+              0,
+              0,
+              2368,
+              1696
+            ],
+            "priority": 0
+          },
+          {
+            "id": "secret",
+            "profile": "bounded_follow",
+            "trigger": [
+              2032,
+              1376,
+              336,
+              160
+            ],
+            "display": [
+              1536,
+              1216,
+              832,
+              480
+            ],
+            "priority": 10,
+            "look_up": false,
+            "look_down": false,
+            "conceal": [
+              [
+                1952,
+                1376,
+                416,
+                160
+              ]
+            ]
+          }
+        ],
+        "links": [
+          {
+            "a": "main",
+            "b": "secret",
+            "band": [
+              1904,
+              1408,
+              128,
+              128
+            ],
+            "display": [
+              1536,
+              1216,
+              832,
+              480
+            ],
+            "axis": "x",
+            "direction": 1
+          }
+        ]
       },
       "doors": [
         {
@@ -94307,8 +94540,8 @@
         "id": "rest:P-R27",
         "section": "main",
         "position_candidate_world_units": [
-          480,
-          416
+          960,
+          558
         ],
         "activation": "explicit_rest_interaction",
         "set_death_respawn": true,
@@ -111361,7 +111594,28 @@
       "camera": {
         "profile": "bounded_follow",
         "transition": "occluded",
-        "zones": [],
+        "zones": [
+          {
+            "id": "whole",
+            "trigger": [
+              0,
+              0,
+              2688,
+              1856
+            ],
+            "display": [
+              0,
+              0,
+              2688,
+              1856
+            ],
+            "profile": "bounded_follow",
+            "offset": [
+              0,
+              -60
+            ]
+          }
+        ],
         "links": []
       },
       "doors": [
@@ -111772,7 +112026,28 @@
       "camera": {
         "profile": "bounded_follow",
         "transition": "occluded",
-        "zones": [],
+        "zones": [
+          {
+            "id": "bridge",
+            "trigger": [
+              0,
+              0,
+              3072,
+              1344
+            ],
+            "display": [
+              0,
+              0,
+              3072,
+              1344
+            ],
+            "profile": "bounded_follow",
+            "offset": [
+              80,
+              -72
+            ]
+          }
+        ],
         "links": []
       },
       "doors": [
@@ -112330,7 +112605,49 @@
       "camera": {
         "profile": "bounded_follow",
         "transition": "occluded",
-        "zones": [],
+        "zones": [
+          {
+            "id": "forecourt",
+            "trigger": [
+              0,
+              0,
+              2048,
+              768
+            ],
+            "display": [
+              0,
+              128,
+              2048,
+              640
+            ],
+            "profile": "horizontal_follow",
+            "anchor": [
+              1024,
+              448
+            ],
+            "follow_range": [
+              -1,
+              0
+            ]
+          },
+          {
+            "id": "undercroft",
+            "trigger": [
+              768,
+              768,
+              576,
+              256
+            ],
+            "display": [
+              640,
+              512,
+              832,
+              512
+            ],
+            "profile": "bounded_follow",
+            "priority": 1
+          }
+        ],
         "links": []
       },
       "doors": [
@@ -112338,35 +112655,35 @@
           "id": "C07:P-R33",
           "position_candidate": {
             "local_world_units": [
-              0,
-              608
+              1536,
+              576
             ],
             "normalized_uv": [
-              0.0,
-              0.59375
+              0.75,
+              0.5625
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "未施工的外区接口候选，不打开实体边界。"
+            "status": "已校准正面建筑入口，显式遮挡切房。"
           },
           "landing_contract": {
             "id": "landing:C07:P-R33",
             "section": "main",
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
-              64,
-              590
+              1440,
+              558
             ],
             "safe_standing_position_world_units": [
-              144,
-              590
+              1440,
+              558
             ],
             "platform_candidate_rect_world_units": [
-              0,
-              608,
-              288,
+              1344,
+              576,
+              384,
               32
             ],
             "platform_is_real_collision": true,
@@ -112382,8 +112699,10 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
-          }
+            "coordinates_are_candidate": false
+          },
+          "front_door": true,
+          "label": "进入钟心门厅"
         },
         {
           "id": "HUB-P32-P33:P-R33",
@@ -112494,12 +112813,12 @@
           "entry_door": "C07:P-R33",
           "section": "main",
           "position_candidate_world_units": [
-            64,
-            590
+            1440,
+            558
           ],
           "eventual_standing_position_world_units": [
-            144,
-            590
+            1440,
+            558
           ],
           "landing_contract_ref": "landing:C07:P-R33",
           "fake_grounded_reset_forbidden": true
@@ -112569,8 +112888,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              144,
-              590
+              1440,
+              558
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -121920,12 +122239,78 @@
         1024,
         2048
       ],
-      "shape_class": "vertical_route",
-      "rationale": "v07按房间职责预留工作尺寸：可选连锁反冲长段；沿用已有能力与固定锚点，允许更长组合，不增加运动物理。 尺寸是首轮施工候选，不能从世界图比例或分钟目标反推验收。",
+      "shape_class": "folded_vertical_route",
+      "rationale": "1024×2048的两段空中折返挑战：钩索、墙跳、二段跳与反冲接续，Q各段一次；中段真实安全台恢复资格，终台交互放下返程桥。不改变运动物理，正式相邻外区尚未施工。",
       "camera": {
-        "profile": "vertical_follow",
+        "profile": "bounded_follow",
         "transition": "occluded",
-        "zones": [],
+        "zones": [
+          {
+            "id": "trial_main",
+            "trigger": [
+              0,
+              0,
+              1024,
+              2048
+            ],
+            "display": [
+              0,
+              0,
+              1024,
+              2048
+            ],
+            "profile": "bounded_follow",
+            "priority": 0,
+            "look_up": true,
+            "look_down": true
+          },
+          {
+            "id": "lower_lift",
+            "trigger": [
+              464,
+              1408,
+              240,
+              368
+            ],
+            "display": [
+              0,
+              0,
+              1024,
+              2048
+            ],
+            "profile": "bounded_follow",
+            "priority": 10,
+            "offset": [
+              0,
+              -140
+            ],
+            "look_up": true,
+            "look_down": true
+          },
+          {
+            "id": "upper_span",
+            "trigger": [
+              336,
+              384,
+              688,
+              800
+            ],
+            "display": [
+              0,
+              0,
+              1024,
+              2048
+            ],
+            "profile": "bounded_follow",
+            "priority": 5,
+            "offset": [
+              0,
+              -110
+            ],
+            "look_up": true,
+            "look_down": true
+          }
+        ],
         "links": []
       },
       "doors": [
@@ -121934,17 +122319,17 @@
           "position_candidate": {
             "local_world_units": [
               0,
-              1024
+              1856
             ],
             "normalized_uv": [
-              0.0,
-              0.5
+              0,
+              0.90625
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "V-R12灰盒已施工门台；相邻房未施工，隔离试玩不打开外区边界。"
           },
           "landing_contract": {
             "id": "landing:V-EXTREME-11-12:V-R12",
@@ -121952,17 +122337,17 @@
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
               64,
-              1006
+              1838
             ],
             "safe_standing_position_world_units": [
               144,
-              1006
+              1838
             ],
             "platform_candidate_rect_world_units": [
-              48,
-              1024,
-              192,
-              32
+              0,
+              1856,
+              256,
+              192
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -121977,7 +122362,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
@@ -121985,17 +122370,17 @@
           "position_candidate": {
             "local_world_units": [
               1024,
-              1024
+              320
             ],
             "normalized_uv": [
-              1.0,
-              0.5
+              1,
+              0.15625
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "V-R12灰盒已施工门台；相邻房未施工，隔离试玩不打开外区边界。"
           },
           "landing_contract": {
             "id": "landing:V-EXTREME-12-13:V-R12",
@@ -122003,17 +122388,17 @@
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
               960,
-              1006
+              302
             ],
             "safe_standing_position_world_units": [
               880,
-              1006
+              302
             ],
             "platform_candidate_rect_world_units": [
               784,
-              1024,
-              192,
-              32
+              320,
+              240,
+              96
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -122028,7 +122413,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         }
       ],
@@ -122039,11 +122424,11 @@
           "section": "entry:V-EXTREME-11-12",
           "position_candidate_world_units": [
             64,
-            1006
+            1838
           ],
           "eventual_standing_position_world_units": [
             144,
-            1006
+            1838
           ],
           "landing_contract_ref": "landing:V-EXTREME-11-12:V-R12",
           "fake_grounded_reset_forbidden": true
@@ -122054,11 +122439,11 @@
           "section": "main",
           "position_candidate_world_units": [
             960,
-            1006
+            302
           ],
           "eventual_standing_position_world_units": [
             880,
-            1006
+            302
           ],
           "landing_contract_ref": "landing:V-EXTREME-12-13:V-R12",
           "fake_grounded_reset_forbidden": true
@@ -122099,7 +122484,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              1006
+              1838
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -122125,7 +122510,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               880,
-              1006
+              302
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -122176,7 +122561,7 @@
             "target_section": "main",
             "position_candidate_world_units": [
               144,
-              1006
+              1838
             ],
             "binding": "在实际环境挑战前稳定台激活；锚点占位不授权跨过隔断",
             "cannot_activate_from_other_section": true,
@@ -122218,7 +122603,15 @@
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
       },
-      "implemented": false
+      "implemented": false,
+      "space_rects": [
+        [
+          0,
+          0,
+          1024,
+          2048
+        ]
+      ]
     },
     {
       "room_id": "V-R13",

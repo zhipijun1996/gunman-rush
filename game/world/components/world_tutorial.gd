@@ -36,12 +36,16 @@ func _shot(_direction: Vector2,_id: int) -> void:
 	air_recoil_pending=not controller._was_grounded
 	recoil_origin=controller.motor.position;recoil_moved=false
 func _hit(_packet: int,_shot_id: int,receiver: Damageable,_session: int,_epoch: int) -> void:
-	if _enabled() and room.enemies.has(room.tutorial_target) and receiver==(room.enemies[room.tutorial_target] as EnemyActor).damageable: shot=true
+	if not _enabled():return
+	if room.tutorial_action=="tutorial_opening":
+		for enemy: EnemyActor in room.enemies.values():
+			if is_instance_valid(enemy) and receiver==enemy.damageable:shot=true;return
+	elif room.enemies.has(room.tutorial_target) and receiver==(room.enemies[room.tutorial_target] as EnemyActor).damageable:shot=true
 func _physics_process(_delta: float) -> void:
 	if not _enabled() or not controller.active: return
 	var player:=controller.motor
 	moved=maxf(moved,absf(player.position.x-initial_x))
 	if air_recoil_pending and player.recoil_burst_remaining>0 and player.position.distance_to(recoil_origin)>20: recoil_moved=true
-	if room.tutorial_action=="tutorial_move" and moved>room.tutorial_min_move and move_landed and not state.has("intro_move"): action_requested.emit("tutorial_move")
-	elif room.tutorial_action=="tutorial_shoot" and shot and state.has("intro_move") and not state.has("intro_shoot"): action_requested.emit("tutorial_shoot")
+	if room.tutorial_action in ["tutorial_move","tutorial_opening"] and moved>room.tutorial_min_move and move_landed and not state.has("intro_move"): action_requested.emit("tutorial_move")
+	elif room.tutorial_action in ["tutorial_shoot","tutorial_opening"] and shot and state.has("intro_move") and not state.has("intro_shoot"): action_requested.emit("tutorial_shoot")
 	elif room.tutorial_action=="tutorial_recoil" and recoil and state.has("intro_shoot") and not state.has("intro_complete"): action_requested.emit("tutorial_recoil")

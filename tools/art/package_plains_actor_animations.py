@@ -7,7 +7,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 ART = ROOT / 'assets/plains_actors_142'
 OUT = ROOT / 'build/plains_actors_142'
-LABELS = {'patrol':'巡逻怪','charger':'冲锋怪','hopper':'跳跃怪','sentry':'哨兵','fan_sentry':'扇射哨兵','root_bell':'根铃','diver':'俯冲怪','bellstrider':'鸣铃巡游机','windkeeper_phase1':'牧风者 · 一阶段','windkeeper_phase2':'牧风者 · 二阶段'}
+LABELS = {'patrol':'巡逻怪','charger':'冲锋怪','hopper':'跳跃怪','sentry':'哨兵','fan_sentry':'飞羽铃哨','ground_fan_sentry':'行枝铃哨','root_bell':'根铃','diver':'俯冲怪','bellstrider':'鸣铃巡游机','windkeeper_phase1':'牧风者 · 一阶段','windkeeper_phase2':'牧风者 · 二阶段'}
 
 def review_asset(path):
     relative = Path('review-assets') / path.parent.name / path.name
@@ -55,7 +55,7 @@ def main():
         sheets[name] = {k: meta[k] for k in ('frame_size', 'pivot', 'columns', 'states')}
         sheets[name]['image'] = review_asset(atlas)
         sources.append({'id':name, 'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(), 'atlas_sha256':hashlib.sha256(atlas.read_bytes()).hexdigest(), 'states':meta['states'],'frames':len(frames),'frame_sha256':frames})
-    manifest = {'generator':'image_gen','approved_static_commit':'a5668a4','world_sampling':'1 native pixel / world unit, nearest','baking':'alpha threshold, fixed body scale, fixed registration, nearest sampling; no painted Python pixels','pose_count':poses,'unique_authored_pose_count':poses-reused,'static_count':10,'sheets':sources}
+    manifest = {'generator':'image_gen','approved_static_commit':'a5668a4','world_sampling':'1 native pixel / world unit, nearest','baking':'alpha threshold, fixed body scale, fixed registration, nearest sampling; no painted Python pixels','pose_count':poses,'unique_authored_pose_count':poses-reused,'static_count':len(list((ART/'static').glob('*.png'))),'sheets':sources}
     (ART/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     payload = json.dumps({'sheets':sheets,'labels':{n:label for n,label in LABELS.items() if n in sheets},'static':{n:review_asset(ART/'static'/f'{n}.png') for n in LABELS}},ensure_ascii=False)
     template = '''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>平原怪物 · 动作检视</title><style>

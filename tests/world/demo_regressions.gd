@@ -36,7 +36,7 @@ func run() -> void:
 	remains=EnemyPresentationBinding.remains(enemy.motor.get_node("Presentation"))
 	check(enemy.health.terminal and remains.visible,"ordinary revisit restores the corpse without resurrecting the actor")
 	app.load_room("P-R21","");await settle()
-	id="P-R21:encounter:02";enemy=app.room.enemies[id]
+	id="P-R21:exit_right_guard";enemy=app.room.enemies[id]
 	enemy.damageable.receive_damage({"event_id":"rest_fixture_defeat","amount":99,"source_faction":&"player","source_actor_id":app.player.get_instance_id(),"target_actor_id":enemy.damageable.actor_id,"target_epoch":enemy.damageable.damage_epoch})
 	await ticks(180)
 	remains=EnemyPresentationBinding.remains(enemy.motor.get_node("Presentation"))
@@ -45,6 +45,9 @@ func run() -> void:
 	app.room.rest_point=app.room.start_point
 	app.player.reset_at(app.room.rest_point);await ticks(3)
 	app._interact();await ticks(4)
+	for rest_tick:int in 300:
+		if not is_instance_valid(app.rest_sequence) or not app.rest_sequence.active:break
+		await ticks(1)
 	check(app.room==old_room and enemy.health.terminal and remains.visible,"real rest interaction does not spawn a new enemy in the active room")
 	app.load_room("P-R01","");await settle()
 	app.load_room("P-R21","");await settle()

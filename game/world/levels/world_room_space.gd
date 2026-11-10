@@ -13,6 +13,7 @@ static func boundary_platforms(geometry: Dictionary, doors: Array) -> Array[Rect
 		var end := maxf(a.x,b.x) if horizontal else maxf(a.y,b.y)
 		var gaps: Array[Vector2] = []
 		for door: Dictionary in doors:
+			if door.get("front_door",false):continue
 			if door.direction != side: continue
 			var p := FixedWorldProvider.point(door.position_candidate.local_world_units)
 			if not is_equal_approx(p.y if horizontal else p.x,fixed): continue
@@ -33,6 +34,7 @@ static func exterior_fill(geometry: Dictionary, doors: Array) -> Array[Rect2]:
 	var open: Array[Rect2]=[]
 	for raw: Array in geometry.space_rects:open.append(FixedWorldProvider.rect(raw))
 	for door: Dictionary in doors:
+		if door.get("front_door",false):continue
 		var p:=FixedWorldProvider.point(door.position_candidate.local_world_units)
 		match str(door.direction):
 			"up":open.append(Rect2(p.x-64,outer.position.y,128,p.y-outer.position.y))

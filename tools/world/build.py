@@ -106,7 +106,7 @@ def local_returns(source, implemented):
         flag=row.get('return_access_contract',{}).get('local_return_state_id')
         if row['room_id'] not in implemented or not flag: continue
         result.append({'id':flag,'room_id':row['room_id'],'section_id':row['section_id'],
-                       'type':'local_return','requires':[[]],'grants':[flag],
+                       'type':'local_return','requires':row.get('return_access_contract',{}).get('requires',[[]]),'grants':[flag],
                        'repeat':False,'persistent':True,'interaction_required':True,
                        'description':'返程折梯已放下','source_ref':'ACQ_'+row['reward_id']})
     return result

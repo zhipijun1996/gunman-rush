@@ -1,7 +1,7 @@
 name: Workbench game update
 on:
   push:
-    branches: [main, feat/mobile-level-workbench]
+    branches: [main, feat/mobile-level-workbench, feat/world-review-stargate]
     paths:
       - 'game/**'
       - 'scripts/**'
@@ -27,7 +27,7 @@ permissions:
   contents: write
 concurrency:
   group: workbench-release-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -54,6 +54,32 @@ jobs:
         run: |
           bash tools/godot.sh --headless --path . --script tools/world/workbench_scene_io.gd -- --export="$PWD/build/workbench/release-scenes.json"
           python3 tools/world/workbench_seed.py --scenes build/workbench/release-scenes.json --output build/workbench/release-seed.json --runtime-available
+      - name: Basic Starbridge greybox check
+        if: github.ref_name == 'feat/world-review-stargate'
+        run: |
+          mkdir -p build/stargate_basic
+          set -o pipefail
+          bash tools/godot.sh --headless --path . --script tests/traversal_resource_refill.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/resources.log
+          bash tools/godot.sh --headless --path . --script tests/world/stargate_basic.gd 2>&1 | tee build/stargate_basic/check.log
+          bash tools/godot.sh --headless --path . --script tests/world/plains_intro.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains.log
+          bash tools/godot.sh --headless --path . --script tests/world/plains_next_batch.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains-next.log
+          bash tools/godot.sh --headless --path . --script tests/world/plains_feedback4.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains-feedback4.log
+          bash tools/godot.sh --headless --path . --script tests/world/plains_story_hooks.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains-story-hooks.log
+          bash tools/godot.sh --headless --path . --script tests/world/station_grounding.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/station-grounding.log
+          bash tools/godot.sh --headless --path . --script tests/world/plains_overlook.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/overlook.log
+          bash tools/godot.sh --headless --path . --script tests/world/platform_enemy_feedback.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/platform-feedback.log
+          bash tools/godot.sh --headless --path . --script tests/world/plains_feedback5.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains-feedback5.log
+          bash tools/godot.sh --headless --path . --script tests/world/plains_fan_species.gd --fixed-fps 60 2>&1 | tee build/stargate_basic/plains-fan-species.log
+      - name: Preserve basic greybox diagnostics
+        if: always() && github.ref_name == 'feat/world-review-stargate'
+        uses: actions/upload-artifact@v4
+        with:
+          name: starbridge-basic-${{ github.sha }}
+          path: |
+            build/stargate_basic/*.json
+            build/stargate_basic/*.log
+          if-no-files-found: warn
+          retention-days: 7
       - name: Package and publish a matching immutable game version
         env:
           GH_TOKEN: ${{ github.token }}

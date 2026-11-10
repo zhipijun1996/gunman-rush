@@ -3,5 +3,7 @@ extends EnemyAttackStrategy
 
 func attack_step(context: EnemyAttackBehavior, delta: float) -> void:
 	var definition := context.actor.definition
-	var destination := Vector2(context.home.x+float(context.actor.brain.direction)*definition.patrol_half_width,context.home.y)
-	context.actor.motor.move_attack((destination-context.actor.motor.global_position).limit_length(definition.attack_speed*delta),true,delta)
+	# Commit along the telegraphed direction. Patrol extent must not stop a
+	# charging creature short of its target; real wall/ledge probes still do.
+	var motion := Vector2(float(context.actor.brain.direction)*definition.attack_speed*delta,0)
+	if not context.actor.motor.move_attack(motion,true,delta):context._begin_recovery()

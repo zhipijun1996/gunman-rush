@@ -7,25 +7,31 @@
 [node name="P-R20" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R20"
+route_guide = {"schema": 1, "steps": [{"number": 1, "label": "退潮两岸", "action": "从根井进入水岸，反冲越水沟；西侧吊笼回到旧集井口。", "point": [2928, 942], "path": [[2928, 942], [1904, 942], [1424, 942], [1280, 142]]}, {"number": 2, "label": "H行装支路", "action": "底部铜环带玩家绕开高隔墙，上到水岸行装台后打开折梯。", "point": [1664, 1198], "path": [[1664, 1198], [1664, 752], [1664, 368], [1888, 142]]}]}
+traveler_point = Vector2(0,0)
+climbable_walls = Array[Rect2]([])
+bell_mechanisms = Array[Dictionary]([])
+gear_obstacles = Array[Dictionary]([])
+hazards = Array[Rect2]([])
 art_profile = "water"
-masonry_platform_indices = Array[int]([6,7])
-spike_strips = Array[Dictionary]([{"id":"sluice_bed","bounds":[864,870,64,26],"facing":"up"},{"id":"rib_face","bounds":[1222,512,26,96],"facing":"left"}])
+masonry_platform_indices = Array[int]([])
+spike_strips = Array[Dictionary]([])
 arrival_text = "退潮渠畔"
-platforms = Array[Rect2]([Rect2(0,992,2304,32),Rect2(0,896,1808,128),Rect2(1984,896,320,128),Rect2(1696,448,512,40),Rect2(0,896,288,32),Rect2(2016,896,288,32),Rect2(640,800,224,96),Rect2(1024,768,192,128),Rect2(0,160,320,64),Rect2(288,288,256,64),Rect2(512,416,256,64),Rect2(736,544,256,64),Rect2(1248,0,96,656),Rect2(2016,896,288,32),Rect2(0,160,288,32)])
-one_way_indices = Array[int]([])
-start_point = Vector2(144, 878)
+platforms = Array[Rect2]([Rect2(0,1216,2816,64),Rect2(0,960,1536,128),Rect2(1792,960,1280,128),Rect2(1152,160,256,32),Rect2(1472,0,32,704),Rect2(1536,160,512,40),Rect2(320,832,256,32),Rect2(704,704,288,32),Rect2(1152,960,256,32)])
+one_way_indices = Array[int]([3,6,7])
+start_point = Vector2(2928,942)
 rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id":"P-R20:encounter:01","behavior":"patrol","point":[928,878],"max_health":10},{"id":"P-R20:encounter:bank_hopper","behavior":"hopper","point":[448,878],"max_health":10}])
-signs = Array[Dictionary]([{"point": [224, 848], "text": "水岸上方的旧台架还留着一件行装。"}])
-hook_points = Array[Vector2]([Vector2(1408, 640), Vector2(1499, 539), Vector2(1589, 437), Vector2(1680, 336)])
-section_volumes = Array[Dictionary]([{"id": "access:H", "bounds": [1664, 0, 640, 464]}])
-retry_anchors = Array[Dictionary]([{"bounds":[1664,836,112,60],"point":[1728,878],"section":"main"},{"bounds":[2016,836,112,60],"point":[2048,878],"section":"main"}])
-environment_zones = Array[Dictionary]([{"id":"P20Water","mode":"water","bounds":[1808,936,176,56]}])
-art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_chime_span","point":[544,896.0],"layer":-2},{"asset":"plain_pier","point":[832,896],"support_height":288}])
+enemy_placements = Array[Dictionary]([{"id":"P-R20:bank_patrol","behavior":"patrol","point":[2448,942],"max_health":9},{"id":"P-R20:water_hopper","behavior":"hopper","point":[960,942],"max_health":9}])
+signs = Array[Dictionary]([])
+hook_points = Array[Vector2]([Vector2(1664,752),Vector2(1664,560),Vector2(1664,368),Vector2(1760,176)])
+section_volumes = Array[Dictionary]([{"id":"access:H","bounds":[1504,0,608,320]}])
+retry_anchors = Array[Dictionary]([{"bounds":[1408,900,96,60],"point":[1456,942],"section":"main"},{"bounds":[1824,900,96,60],"point":[1872,942],"section":"main"}])
+environment_zones = Array[Dictionary]([{"id":"P20Water","mode":"water","bounds":[1536,1192,256,24]}])
+art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_chime_span","point":[512,960],"layer":-2},{"asset":"plain_pier","point":[1920,960],"layer":-2,"support_height":256}])
 illustrated_platform_indices = Array[int]([])
 [node name="Interaction_0" type="Node2D" parent="."]
 script = ExtResource("interaction")
-position = Vector2(1888, 430)
+position = Vector2(1888,142)
 action_id = "pickup_EQ_MAP_P02"
 section_id = "access:H"
 label = "收取水岸行装包"
@@ -33,11 +39,21 @@ visual = "equipment"
 
 [node name="RewardReturn" type="Node2D" parent="."]
 script = ExtResource("return")
-position = Vector2(1984, 430)
+position = Vector2(1984,142)
 action_id = "reward_return_EQ_MAP_P02_open"
 section_id = "access:H"
 label = "放下返程折梯"
 visual = "pulley_switch"
 radius = 40.0
-return_steps = Array[Rect2]([Rect2(168, 114, 120, 16), Rect2(48, 210, 128, 16), Rect2(168, 306, 120, 16), Rect2(48, 402, 128, 16)])
+return_steps = Array[Rect2]([Rect2(-32,178,128,16),Rect2(32,354,128,16),Rect2(-32,530,128,16),Rect2(32,706,128,16)])
 closed_panels = Array[Rect2]([])
+
+[node name="BankCage" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(1280,904)
+endpoint = Vector2(0,-672)
+platform_size = Vector2(144,20)
+period = 12.0
+one_way = true
+endpoint_dwell = 2.0
+route = Array[Vector2]([Vector2(0,-672)])

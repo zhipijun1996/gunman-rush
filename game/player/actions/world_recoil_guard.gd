@@ -3,6 +3,7 @@ extends Node
 ## Q is a permission on real recoil movement, never a global invulnerability flag.
 var controller: PlayerController
 var owned := false
+# Kept as the existing public field; landing and real traversal refills rearm it.
 var landing_ready := false
 var cooldown_seconds := 2.0
 var cooldown := 0.0
@@ -15,6 +16,7 @@ func _ready() -> void:
 	process_physics_priority = 500
 	_last_position = controller.motor.position
 	controller.landed.connect(func() -> void: landing_ready = true)
+	controller.traversal.traversal_resources_refilled.connect(func(_source: StringName) -> void: landing_ready = true)
 	controller.router.cancelled.connect(func(_reason: String) -> void: cancel())
 	controller.shoot_ability.shot_fired.connect(_shot)
 
@@ -34,8 +36,11 @@ func _physics_process(delta: float) -> void:
 	_last_position = motor.position
 	if active and not _moving: cancel()
 
+func is_protecting() -> bool:
+	return owned and active and _moving
+
 func protects(request: DamageRequest) -> bool:
-	return owned and active and _moving and (request.kind==DamageRequest.Kind.MONSTER or request.hazard_category==&"phase_light")
+	return is_protecting() and (request.kind==DamageRequest.Kind.MONSTER or request.hazard_category==&"phase_light")
 
 func cancel() -> void:
 	active = false

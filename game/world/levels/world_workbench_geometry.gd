@@ -66,7 +66,9 @@ static func apply(source: Dictionary, draft: Dictionary) -> Dictionary:
 			row.doors.append(door)
 			changed[id] = door
 	for door: Dictionary in row.doors:
-		if not on_boundary(boundary, door): return {"error":"door_aperture_off_boundary:"+str(door.id)}
+		if bool(door.get("front_door", false)):
+			if not extent.has_point(FixedWorldProvider.point(door.position_candidate.local_world_units)): return {"error":"front_door_outside_room:"+str(door.id)}
+		elif not on_boundary(boundary, door): return {"error":"door_aperture_off_boundary:"+str(door.id)}
 	for spawn: Dictionary in row.entry_spawns:
 		var door_id := str(spawn.entry_door)
 		if not changed.has(door_id): continue
@@ -101,37 +103,64 @@ static func refresh_map(bundle: Dictionary) -> String:
 	var rooms: Dictionary = bundle.rooms
 	var start := str(bundle.start.room)
 	if not rooms.has(start): return "map_start_missing"
-	var origins: Dictionary = {start:Vector2.ZERO}
-	var pending: Array[String] = [start]
+	# Component membership comes from the compiled catalog, never from a draft
+	# whose broken door pair happened to split the existing plains component.
+	var declared: Dictionary = {}
+	for id: String in rooms: declared[id] = start
+	for row: Dictionary in bundle.get("map_rooms", []):
+		if rooms.has(str(row.id)): declared[str(row.id)] = str(row.get("map_component",start))
+	for id: String in declared:
+		if not rooms.has(declared[id]) or declared.get(declared[id]) != declared[id]: return "map_component_anchor_invalid"
+	var origins: Dictionary = {}
+	var components: Dictionary = {}
+	var remaining: Array = rooms.keys()
+	remaining.sort()
+	var anchor := str(declared[start])
 	var opposite := {"up":"down", "down":"up", "left":"right", "right":"left"}
-	while not pending.is_empty():
-		var id: String = pending.pop_back()
-		for door: Dictionary in rooms[id].doors:
-			var target := str(door.target_room)
-			if not rooms.has(target): continue
-			var paired: Dictionary = {}
-			for candidate: Dictionary in rooms[target].doors:
-				if candidate.id == door.target_door_id: paired = candidate;break
-			if paired.is_empty() or paired.target_room != id or paired.target_door_id != door.id: return "map_door_pair_invalid"
-			if opposite.get(str(door.direction), "") != str(paired.direction): return "map_door_directions_invalid"
-			var proposed: Vector2 = origins[id]+FixedWorldProvider.point(door.position_candidate.local_world_units)-FixedWorldProvider.point(paired.position_candidate.local_world_units)
-			if origins.has(target):
-				if not (origins[target] as Vector2).is_equal_approx(proposed): return "map_seam_conflict:"+str(door.id)
-			else:
-				origins[target] = proposed
-				pending.append(target)
-	if origins.size() != rooms.size(): return "map_disconnected"
+	while not remaining.is_empty():
+		# Isolated review rooms have their own coordinate origin. Formal worlds
+		# still require one connected geometry; no synthetic corridor is created.
+		if not origins.is_empty():
+			if not bool(bundle.get("workbench_preview", false)): return "map_disconnected"
+			anchor = str(declared[str(remaining[0])])
+		origins[anchor] = Vector2.ZERO
+		components[anchor] = anchor
+		var pending: Array[String] = [anchor]
+		while not pending.is_empty():
+			var id: String = pending.pop_back()
+			remaining.erase(id)
+			for door: Dictionary in rooms[id].doors:
+				var target := str(door.target_room)
+				if not rooms.has(target): continue
+				var paired: Dictionary = {}
+				for candidate: Dictionary in rooms[target].doors:
+					if candidate.id == door.target_door_id: paired = candidate;break
+				if paired.is_empty() or paired.target_room != id or paired.target_door_id != door.id: return "map_door_pair_invalid"
+				if bool(door.get("front_door", false)) != bool(paired.get("front_door", false)): return "map_front_door_pair_invalid"
+				if bool(door.get("front_door", false)): continue
+				if declared[target] != declared[id]: return "map_component_mismatch"
+				if opposite.get(str(door.direction), "") != str(paired.direction): return "map_door_directions_invalid"
+				var proposed: Vector2 = origins[id]+FixedWorldProvider.point(door.position_candidate.local_world_units)-FixedWorldProvider.point(paired.position_candidate.local_world_units)
+				if origins.has(target):
+					if components[target] != anchor or not (origins[target] as Vector2).is_equal_approx(proposed): return "map_seam_conflict:"+str(door.id)
+				else:
+					origins[target] = proposed
+					components[target] = anchor
+					pending.append(target)
+		for id: String in remaining:
+			if declared[id] == anchor: return "map_disconnected"
 	var placed: Array[Dictionary] = []
 	for id: String in rooms:
 		for raw: Array in rooms[id].world_geometry.space_rects:
 			var rect := FixedWorldProvider.rect(raw)
 			rect.position += origins[id]
 			for previous: Dictionary in placed:
-				if previous.id != id and (previous.rect as Rect2).intersects(rect): return "map_room_overlap:"+id+"/"+str(previous.id)
+				if previous.id != id and components[previous.id] == components[id] and (previous.rect as Rect2).intersects(rect): return "map_room_overlap:"+id+"/"+str(previous.id)
 			placed.append({"id":id, "rect":rect})
 	for row: Dictionary in bundle.get("map_rooms", []):
 		if not origins.has(str(row.id)): continue
 		var origin: Vector2 = origins[str(row.id)]
+		row.map_component = components[str(row.id)]
 		row.origin = [origin.x, origin.y]
 		row.polygon = []
 		for point: Array in rooms[str(row.id)].world_geometry.outline_candidate_local:

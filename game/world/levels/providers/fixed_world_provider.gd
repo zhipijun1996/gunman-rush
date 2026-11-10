@@ -3,6 +3,7 @@ extends RefCounted
 ## Owned build output is the only runtime content source; no docs or mapgen access.
 const BUNDLE := "res://build/world/runtime.json"
 const WORKBENCH_CATALOG := "res://build/workbench/preview-world.json"
+const WORKBENCH_SCOPE := "res://config/workbench/rooms.json"
 var data: Dictionary = {}
 var error := ""
 var _room_actions: Dictionary={}
@@ -78,14 +79,41 @@ func _preview_catalog() -> Dictionary:
 		return {}
 	# This packaged catalog is compiled from the same canonical sources. A web
 	# draft may select a packaged scene, but cannot introduce a script/resource path.
-	if parsed.rooms.size() != 35:
+	var formal: Dictionary = _workbench_base if not _workbench_base.is_empty() else data
+	var bindings: Variant = parsed.get("construction_scene_bindings")
+	if not bindings is Dictionary or parsed.get("construction_sha256") != formal.get("sources", {}).get("construction.json"):
+		workbench_catalog_error = "preview_scene_bindings_invalid"
+		return {}
+	var expected: Dictionary = {}
+	for id: Variant in bindings:
+		if not id is String or not bindings[id] is String:
+			workbench_catalog_error = "preview_scene_bindings_invalid"
+			return {}
+		if id.begins_with("P-R"): expected[id] = bindings[id]
+	if FileAccess.file_exists(WORKBENCH_SCOPE):
+		var scope: Variant = JSON.parse_string(FileAccess.get_file_as_string(WORKBENCH_SCOPE))
+		if not scope is Dictionary or scope.get("schema") != 1 or not scope.get("additional_room_ids") is Array or parsed.get("scope_sha256") != FileAccess.get_sha256(WORKBENCH_SCOPE):
+			workbench_catalog_error = "preview_scope_invalid"
+			return {}
+		for id: Variant in scope.additional_room_ids:
+			if not id is String or not bindings.has(id) or expected.has(id):
+				workbench_catalog_error = "preview_scope_invalid"
+				return {}
+			expected[id] = bindings[id]
+	elif not str(parsed.get("scope_sha256", "")).is_empty():
+		workbench_catalog_error = "preview_scope_missing"
+		return {}
+	if expected.is_empty() or parsed.rooms.size() != expected.size() or bindings.size() != expected.size():
 		workbench_catalog_error = "preview_catalog_incomplete"
 		return {}
-	for number: int in range(1, 36):
-		var id := "P-R%02d" % number
-		var expected_path := "res://game/world/regions/P/rooms/"+id+".tscn"
+	for id: String in formal.get("rooms", {}):
+		if not expected.has(id):
+			workbench_catalog_error = "preview_catalog_incomplete"
+			return {}
+	for id: String in expected:
+		var expected_path := str(expected[id])
 		var row: Variant = parsed.rooms.get(id)
-		if not row is Dictionary or row.get("room_id") != id or row.get("scene_ref") != expected_path or not ResourceLoader.exists(expected_path):
+		if not row is Dictionary or row.get("room_id") != id or row.get("scene_ref") != expected_path or not expected_path.begins_with("res://") or not ResourceLoader.exists(expected_path):
 			workbench_catalog_error = "preview_scene_not_packaged:"+id
 			return {}
 	_workbench_catalog = parsed
@@ -124,14 +152,31 @@ func install_workbench_draft(draft: Dictionary) -> String:
 		for key: String in ["rooms", "actions", "demo_services", "npcs", "map_rooms"]:
 			next_data[key] = catalog[key].duplicate(true)
 		next_data["workbench_preview"] = true
+	var changed_geometry := draft.has("runtime")
 	if draft.has("runtime"):
 		if not draft.runtime is Dictionary: return "runtime_invalid"
 		var runtime: Dictionary = draft.runtime
 		if runtime.get("schema") != 1 or not runtime.get("rooms") is Dictionary or not runtime.get("actions") is Array: return "runtime_invalid"
 		if str(runtime.get("content_version", "")).length() != 64: return "runtime_version_invalid"
+		if runtime.rooms.size() != packaged.size(): return "runtime_room_scope_mismatch"
 		for room_id: String in runtime.rooms:
 			if not packaged.has(room_id): return "runtime_room_not_packaged"
 			if not runtime.rooms[room_id] is Dictionary or runtime.rooms[room_id].get("scene_ref") != packaged[room_id].scene_ref: return "runtime_scene_binding_changed"
+		if not runtime.get("start") is Dictionary or not runtime.start.get("room") is String or not packaged.has(runtime.start.room): return "runtime_start_invalid"
+		if not runtime.get("map_rooms") is Array or runtime.map_rooms.size() != packaged.size(): return "runtime_map_scope_mismatch"
+		# A compiled replacement may change geometry, but its scene scope and
+		# component membership still belong to the packaged source catalog.
+		var expected_components: Dictionary = {}
+		for map_row: Dictionary in catalog.get("map_rooms", formal.get("map_rooms", [])):
+			expected_components[str(map_row.id)] = str(map_row.get("map_component", formal.start.room))
+		if expected_components.size() != packaged.size(): return "runtime_map_source_invalid"
+		var seen_map_rooms: Dictionary = {}
+		for map_row: Variant in runtime.map_rooms:
+			if not map_row is Dictionary or not map_row.get("id") is String: return "runtime_map_scope_mismatch"
+			var map_id := str(map_row.id)
+			if not expected_components.has(map_id) or seen_map_rooms.has(map_id): return "runtime_map_scope_mismatch"
+			if str(map_row.get("map_component", formal.start.room)) != expected_components[map_id]: return "runtime_map_component_changed"
+			seen_map_rooms[map_id] = true
 		for action: Variant in runtime.actions:
 			if not action is Dictionary or not action.get("room_id") is String or not action.get("id") is String: return "runtime_action_invalid"
 		next_data = runtime.duplicate(true)
@@ -143,7 +188,6 @@ func install_workbench_draft(draft: Dictionary) -> String:
 	selected.erase("runtime")
 	updates[id] = selected
 	var next_drafts: Dictionary = _workbench_drafts.duplicate(true)
-	var changed_geometry := false
 	for room_id: String in updates:
 		if not next_data.rooms.has(room_id) or not packaged.has(room_id): return "room_not_packaged:"+room_id
 		if not updates[room_id] is Dictionary: return "related_draft_invalid"

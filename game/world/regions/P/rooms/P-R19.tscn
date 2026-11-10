@@ -7,24 +7,31 @@
 [node name="P-R19" type="Node2D"]
 script = ExtResource("1")
 room_id = "P-R19"
+route_guide = {"schema": 1, "steps": [{"number": 1, "label": "根井主路", "action": "西岸往东下降到地窖接口，井中的吊笼接回汇口。", "point": [144, 1902], "path": [[144, 1902], [896, 2126], [1328, 2174], [2208, 2414], [2480, 2542]]}, {"number": 2, "label": "远期铜齿", "action": "看见上层铜齿；H到末环后仍需D抬升接石沿，得手放下返程梯。", "point": [1328, 2174], "path": [[1328, 2174], [1472, 2136], [1792, 1984], [1952, 1630]]}]}
+traveler_point = Vector2(0,0)
+climbable_walls = Array[Rect2]([])
+environment_zones = Array[Dictionary]([])
+bell_mechanisms = Array[Dictionary]([])
+gear_obstacles = Array[Dictionary]([])
+hazards = Array[Rect2]([])
 art_profile = "roots"
-masonry_platform_indices = Array[int]([8,9,10,11,12,13])
-spike_strips = Array[Dictionary]([{"id":"root_bed","bounds":[608,1126,96,26],"facing":"up"}])
+masonry_platform_indices = Array[int]([])
+spike_strips = Array[Dictionary]([])
 arrival_text = "根井侧畦"
-platforms = Array[Rect2]([Rect2(0,1248,2048,32),Rect2(0,1152,2048,128),Rect2(1792,288,224,40),Rect2(1536,640,160,32),Rect2(0,1152,288,32),Rect2(1760,1152,288,32),Rect2(1088,160,192,32),Rect2(1312,0,32,1024),Rect2(800,1008,224,48),Rect2(1056,864,256,48),Rect2(800,720,224,48),Rect2(1056,576,256,48),Rect2(800,432,224,48),Rect2(1056,288,256,48),Rect2(288,1040,224,112),Rect2(1760,1152,288,32),Rect2(0,928,288,32),Rect2(1088,160,192,32)])
-one_way_indices = Array[int]([])
-start_point = Vector2(144, 1134)
+platforms = Array[Rect2]([Rect2(0,1920,640,384),Rect2(640,2304,1408,384),Rect2(2336,2560,288,128),Rect2(2048,2432,288,32),Rect2(768,2144,288,32),Rect2(1216,2192,288,32),Rect2(1888,1648,224,48),Rect2(928,160,192,32),Rect2(832,960,192,32),Rect2(640,1536,256,32),Rect2(0,2688,2112,128)])
+one_way_indices = Array[int]([3,4,5,6,7,8,9])
+start_point = Vector2(144,1902)
 rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id":"P-R19:encounter:01","behavior":"hopper","point":[832,1134],"max_health":10}])
-signs = Array[Dictionary]([{"point": [224, 1104], "text": "根井深处的铜光，隔着两层断开的石沿。"}])
-hook_points = Array[Vector2]([Vector2(1440, 944), Vector2(1440, 752), Vector2(1440, 560)])
-section_volumes = Array[Dictionary]([{"id": "access:H_D", "bounds": [1760, 0, 288, 304]}])
-retry_anchors = Array[Dictionary]([{"bounds":[1392,1092,96,60],"point":[1440,1134],"section":"main"},{"bounds":[1616,580,96,60],"point":[1664,622],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"sunken_well","point":[688,1152.0],"layer":-2},{"asset":"windchime_plains_v2_seed_relic","point":[1856,288.0],"layer":-2},{"asset":"plain_pier","point":[176,1152],"support_height":192}])
+enemy_placements = Array[Dictionary]([{"id":"P-R19:root_hopper","behavior":"hopper","point":[896,2286],"max_health":9},{"id":"P-R19:deep_patrol","behavior":"patrol","point":[2208,2414],"max_health":9}])
+signs = Array[Dictionary]([])
+hook_points = Array[Vector2]([Vector2(1472,2136),Vector2(1632,2080),Vector2(1792,1984)])
+section_volumes = Array[Dictionary]([{"id":"access:H_D","bounds":[1856,1536,256,192]}])
+retry_anchors = Array[Dictionary]([{"bounds":[1280,2132,96,60],"point":[1328,2174],"section":"main"},{"bounds":[1904,1588,96,60],"point":[1952,1630],"section":"main"}])
+art_placements = Array[Dictionary]([{"asset":"sunken_well","point":[320,1920],"layer":-2},{"asset":"windchime_plains_v2_seed_relic","point":[1952,1648],"layer":-2},{"asset":"gear_lamp","point":[1024,160],"layer":-2,"light":true}])
 illustrated_platform_indices = Array[int]([])
 [node name="Interaction_0" type="Node2D" parent="."]
 script = ExtResource("interaction")
-position = Vector2(1888, 270)
+position = Vector2(1952,1630)
 action_id = "pickup_TG04"
 section_id = "access:H_D"
 label = "收取时间齿轮"
@@ -32,11 +39,21 @@ visual = "time_gear"
 
 [node name="RewardReturn" type="Node2D" parent="."]
 script = ExtResource("return")
-position = Vector2(1984, 270)
+position = Vector2(2048,1630)
 action_id = "reward_return_TG04_open"
 section_id = "access:H_D"
 label = "放下返程折梯"
 visual = "pulley_switch"
 radius = 40.0
-return_steps = Array[Rect2]([Rect2(-304, 146, 128, 16), Rect2(-256, 242, 128, 16), Rect2(-304, 338, 128, 16), Rect2(-256, 434, 128, 16), Rect2(-304, 530, 128, 16), Rect2(-256, 626, 128, 16), Rect2(-304, 722, 128, 16), Rect2(-256, 818, 128, 16)])
+return_steps = Array[Rect2]([Rect2(-96,178,128,16),Rect2(-160,354,128,16),Rect2(-96,530,128,16)])
 closed_panels = Array[Rect2]([])
+
+[node name="RootCage" type="AnimatableBody2D" parent="."]
+script = ExtResource("moving")
+position = Vector2(1088,2112)
+endpoint = Vector2(0,-1904)
+platform_size = Vector2(144,20)
+period = 22.0
+one_way = true
+endpoint_dwell = 2.0
+route = Array[Vector2]([Vector2(0,-1904)])

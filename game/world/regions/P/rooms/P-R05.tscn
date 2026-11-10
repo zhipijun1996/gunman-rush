@@ -1,71 +1,107 @@
-[gd_scene load_steps=6 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
-[node name="P-R05" type="Node2D"]
-script = ExtResource("1")
-room_id = "P-R05"
-art_profile = "mill"
-arrival_text = "慢风平台"
-platforms = Array[Rect2]([Rect2(0,1152,2048,128),Rect2(416,1040,224,32),Rect2(960,928,288,64),Rect2(1536,800,288,64),Rect2(1728,864,96,224),Rect2(0,928,288,32),Rect2(0,704,288,32),Rect2(320,800,256,48),Rect2(128,1056,224,48),Rect2(1856,1152,192,128),Rect2(2080,672,608,96),Rect2(2464,288,224,64),Rect2(2400,672,288,32),Rect2(0,928,288,32),Rect2(2048,160,288,32)])
-one_way_indices = Array[int]([])
-bell_mechanisms = Array[Dictionary]([{"id":"P-R05:drive_shuttle","bell":[464,968],"carrier":"Carrier0","access_bells":[[1104,848]]},{"id":"P-R05:ServiceCage","bell":[1808,1096],"carrier":"ServiceCage","access_bells":[[2544,616],[2224,104]]}])
-spike_strips = Array[Dictionary]([{"id":"reward_wall","bounds":[1798,896,26,96],"facing":"left"}])
-start_point = Vector2(144,1134)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([])
-gear_obstacles = Array[Dictionary]([{"id":"drive_gear","point":[920,816],"travel":[0,80],"period":5.4,"phase":0.75,"drive":"Carrier0"}])
-signs = Array[Dictionary]([{"point":[224,1104],"text":"轮轴慢慢转动，吊桥的绞盘在这一侧。"}])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[480,980,128,60],"point":[544,1022],"section":"main"},{"bounds":[1040,876,128,52],"point":[1104,910],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"gear_city_v2_valve_panel","point":[480,1040],"layer":-2},{"asset":"mill_drive_frame","point":[1104,1152],"layer":-3},{"asset":"mill_drive_frame","point":[1696,1152],"layer":-8},{"asset":"gear_lamp","point":[1600,800],"layer":-2,"light":true,"light_offset":[8,-67]},{"asset":"gear_lamp","point":[2544,672],"layer":-2,"light":true},{"asset":"mill_drive_frame","point":[2496,672],"layer":-6}])
-masonry_platform_indices = Array[int]([10,11])
-illustrated_platform_indices = Array[int]([])
-[node name="Interaction_0" type="Node2D" parent="."]
-script = ExtResource("interaction")
-position = Vector2(1728,782)
-action_id = "pickup_TG02"
-section_id = "main"
-label = "收取时间齿轮"
-visual = "time_gear"
-[node name="Interaction_1" type="Node2D" parent="."]
-script = ExtResource("interaction")
-position = Vector2(1683,1134)
-action_id = "open_SC_P02"
-section_id = "main"
-label = "开启回程机关"
-visual = "pulley_switch"
-[node name="Carrier0" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(704,1008)
-endpoint = Vector2(160, -96)
-period = 5.4
-[node name="Carrier1" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(1328,896)
-endpoint = Vector2(112, -64)
-period = 4.7
+[gd_scene format=3]
 
-[node name="RewardReturn" type="Node2D" parent="."]
-script = ExtResource("return")
-position = Vector2(1800,782)
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_e63of"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="2_lry05"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="3_63q66"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="4_n1hwk"]
+
+[node name="P-R05" type="Node2D" unique_id=1388894750]
+script = ExtResource("1_e63of")
+room_id = "P-R05"
+arrival_text = "慢风平台"
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "射铃召回慢台，搭台到检修口，再向右反冲跨断桥取铜齿。",
+"label": "慢台到断桥",
+"number": 1.0,
+"path": [[144.0, 366.0], [544.0, 324.0], [736.0, 260.0], [928.0, 206.0], [1360.0, 142.0]],
+"point": [144.0, 366.0]
+}, {
+"action": "从奖励侧打开折板落回东侧宽岸，开桥通岔路。",
+"label": "奖励侧回岔路",
+"number": 2.0,
+"path": [[1456.0, 142.0], [1664.0, 622.0], [1776.0, 622.0]],
+"point": [1456.0, 142.0]
+}]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [144.0, 324.0, 96.0, 60.0],
+"point": [192.0, 366.0],
+"section": "main"
+}, {
+"bounds": [880.0, 164.0, 96.0, 60.0],
+"point": [928.0, 206.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "mill_drive_frame",
+"layer": -2.0,
+"point": [736.0, 800.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [144.0, 384.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [1360.0, 160.0]
+}])
+art_profile = "mill"
+bell_mechanisms = Array[Dictionary]([{
+"access_bells": [[912.0, 160.0]],
+"bell": [224.0, 320.0],
+"carrier": "Carrier0",
+"id": "P-R05:drive_shuttle"
+}])
+platforms = Array[Rect2]([Rect2(0, 384, 320, 64), Rect2(0, 800, 1536, 32), Rect2(0, 704, 224, 32), Rect2(224, 544, 224, 32), Rect2(848, 224, 192, 32), Rect2(1280, 160, 256, 32), Rect2(1536, 320, 32, 512), Rect2(1568, 640, 352, 192)])
+workbench_entity_ids = {
+"art_placements": ["P-R05:art_placements:0", "P-R05:art_placements:1", "P-R05:art_placements:2"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R05:platforms:0", "P-R05:platforms:1", "P-R05:platforms:2", "P-R05:platforms:3", "P-R05:platforms:4", "P-R05:platforms:5", "P-R05:platforms:6", "P-R05:platforms:7"],
+"retry_anchors": ["P-R05:retry_anchors:0", "P-R05:retry_anchors:1"],
+"signs": []
+}
+one_way_indices = Array[int]([2, 3, 4, 5])
+masonry_platform_indices = Array[int]([0, 6, 7])
+start_point = Vector2(144, 366)
+gear_obstacles = Array[Dictionary]([{
+"drive": "Carrier0",
+"id": "drive_gear",
+"period": 5.4,
+"phase": 0.25,
+"point": [720.0, 272.0],
+"travel": [208.0, 112.0]
+}])
+
+[node name="Interaction_0" type="Node2D" parent="." unique_id=901969407]
+position = Vector2(1360, 142)
+script = ExtResource("2_lry05")
+action_id = "pickup_TG02"
+label = "收取时间齿轮"
+
+[node name="Interaction_1" type="Node2D" parent="." unique_id=645768986]
+position = Vector2(1776, 622)
+script = ExtResource("2_lry05")
+action_id = "open_SC_P02"
+label = "开启回程吊桥"
+visual = "pulley_switch"
+
+[node name="Carrier0" type="AnimatableBody2D" parent="." unique_id=1502815112]
+position = Vector2(544, 352)
+script = ExtResource("3_63q66")
+endpoint = Vector2(192, -64)
+period = 5.4
+
+[node name="RewardReturn" type="Node2D" parent="." unique_id=396443299]
+position = Vector2(1456, 142)
+script = ExtResource("4_n1hwk")
+closed_panels = Array[Rect2]([Rect2(80, -142, 32, 320)])
 action_id = "reward_return_TG02_open"
-section_id = "main"
 label = "打开回程落口"
 visual = "pulley_switch"
 radius = 40.0
-return_steps = Array[Rect2]([])
-closed_panels = Array[Rect2]([Rect2(24, -526, 32, 832)])
-metal_hatch = false
-
-[node name="ServiceCage" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(1936,1104)
-endpoint = Vector2(0,0)
-platform_size = Vector2(96,20)
-period = 10.0
-one_way = true
-route = Array[Vector2]([Vector2(0,-464),Vector2(464,-464),Vector2(464,-896)])

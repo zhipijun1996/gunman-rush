@@ -3,6 +3,7 @@ extends RefCounted
 ## The newest eligible chapter owns a single saved host; walking past is not a conversation.
 const ID := "NPC_TRAVELER_AQI"
 static func chapter(state: FixedWorldState, room_id: String) -> Dictionary:
+	if not state.content.data.get("traveler_story",{}).get("enabled",true): return {}
 	var selected: Dictionary={}
 	var latest_claimed:=0
 	for entry: Dictionary in state.content.data.get("traveler_story",{}).get("chapters",[]):
@@ -14,11 +15,6 @@ static func chapter(state: FixedWorldState, room_id: String) -> Dictionary:
 		for flag: String in row.get("valid_until_any",[]):
 			if state.has(flag):expired=true
 		if expired:continue
-		if row.id=="AQI_T01" and room_id=="P-R24" and "P-R23" in state.value.explored:
-			selected=row.duplicate(true)
-			selected.dialogue=[str(row.optional_followup_tableau.line)]
-			selected["visual_chapter"]="AQI_T01_LOOKOUT"
-			continue
 		var locked:=str(state.value.get("story_hosts",{}).get(row.id,""))
 		for host: Dictionary in row.get("hosts",[]):
 			if host.room_id==room_id and (locked.is_empty() or locked==room_id) and state.holds(host.get("requires_world",[])):selected=row

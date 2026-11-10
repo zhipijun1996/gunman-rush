@@ -1,38 +1,135 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R26" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_wqi4b"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_lmxbd"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_m2rs3"]
+
+[node name="P-R26" type="Node2D" unique_id=900779486]
+script = ExtResource("1_wqi4b")
 room_id = "P-R26"
-art_profile = "mill"
-bell_mechanisms = Array[Dictionary]([{"id": "P-R26:carrier_west", "bell": [416, 1168], "carrier": "Carrier0"}, {"id": "P-R26:carrier_east", "bell": [1040, 624], "carrier": "Carrier1"}])
 arrival_text = "旧风车内廊"
-platforms = Array[Rect2]([Rect2(0,1280,2048,128),Rect2(896,704,448,64),Rect2(1024,768,320,64),Rect2(1088,832,256,64),Rect2(1088,160,384,160),Rect2(1472,224,160,1056),Rect2(1344,704,128,576),Rect2(1088,160,192,32),Rect2(0,1280,288,32),Rect2(1088,160,192,32)])
-one_way_indices = Array[int]([])
-start_point = Vector2(144, 1262)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([])
-gear_obstacles = Array[Dictionary]([{"id":"shaft_gear","point":[1024,560],"travel":[112,0],"period":6.8}])
-signs = Array[Dictionary]([{"point": [256, 1232], "text": "旧吊架仍听得见铃声。先搭西台；断开的检修口在右上方。"}])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[960,650,160,54],"point":[1040,686],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"mill_drive_frame","point":[1568,1280],"layer":-2},{"asset":"gear_city_v2_valve_panel","point":[1152,704],"layer":-2},{"asset":"gear_lamp","point":[320,1280],"layer":-2,"light":true,"light_offset":[8,-67]},{"asset":"gear_lamp","point":[960,704],"layer":-2,"light":true,"light_offset":[8,-67]},{"asset":"gear_lamp","point":[1392,160],"layer":-2,"light":true,"light_offset":[8,-67]}])
-masonry_platform_indices = Array[int]([])
-illustrated_platform_indices = Array[int]([])
-[node name="Carrier0" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(512, 1224)
-endpoint = Vector2(96, -400)
-platform_size = Vector2(160, 24)
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "射铃启动西吊台，在顶部向右上反冲接检修岸。",
+"label": "西吊台换岸",
+"number": 1.0,
+"path": [[736.0, 1390.0], [960.0, 1332.0], [960.0, 836.0], [1376.0, 654.0]],
+"point": [736.0, 1390.0]
+}, {
+"action": "从检修岸登东台，升高后向左上反冲接棚口；落下可召回重试。",
+"label": "东吊台折返",
+"number": 2.0,
+"path": [[1712.0, 654.0], [1936.0, 596.0], [2192.0, 356.0], [2112.0, 142.0]],
+"point": [1712.0, 654.0]
+}]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [688.0, 1348.0, 96.0, 60.0],
+"point": [736.0, 1390.0],
+"section": "main"
+}, {
+"bounds": [1408.0, 612.0, 96.0, 60.0],
+"point": [1456.0, 686.0],
+"section": "main"
+}, {
+"bounds": [2064.0, 100.0, 96.0, 60.0],
+"point": [2112.0, 142.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "mill_drive_frame",
+"layer": -2.0,
+"point": [1504.0, 1536.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"light_offset": [8.0, -67.0],
+"point": [704.0, 1408.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"light_offset": [8.0, -67.0],
+"point": [1456.0, 704.0]
+}, {
+"asset": "cellar_backdrop",
+"layer": -20.0,
+"point": [1952.0, 1376.0],
+"tile_rect": [1952.0, 1376.0, 416.0, 160.0]
+}, {
+"asset": "concealing_grass",
+"layer": 20.0,
+"point": [1968.0, 1536.0]
+}])
+art_profile = "mill"
+bell_mechanisms = Array[Dictionary]([{
+"access_bells": [[800.0, 1344.0], [1360.0, 624.0]],
+"bell": [960.0, 1280.0],
+"carrier": "Carrier0",
+"id": "P-R26:carrier_west"
+}, {
+"access_bells": [[1760.0, 624.0], [2160.0, 112.0]],
+"bell": [1936.0, 544.0],
+"carrier": "Carrier1",
+"id": "P-R26:carrier_east"
+}])
+platforms = Array[Rect2]([Rect2(0, 1536, 2368, 160), Rect2(640, 1408, 224, 128), Rect2(1216, 704, 608, 80), Rect2(2016, 160, 256, 48), Rect2(1952, 1280, 416, 96)])
+workbench_entity_ids = {
+"art_placements": ["P-R26:art_placements:0", "P-R26:art_placements:1", "P-R26:art_placements:2", "P-R26:art_placements:3", "P-R26:art_placements:4"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R26:platforms:0", "P-R26:platforms:1", "P-R26:platforms:2", "P-R26:platforms:3", "P-R26:platforms:4"],
+"retry_anchors": ["P-R26:retry_anchors:0", "P-R26:retry_anchors:1", "P-R26:retry_anchors:2"],
+"signs": []
+}
+one_way_indices = Array[int]([2, 3])
+start_point = Vector2(144, 1518)
+enemy_placements = Array[Dictionary]([{
+"behavior": "patrol",
+"id": "P-R26:lift_rider",
+"max_health": 9.0,
+"point": [960.0, 1332.0]
+}, {
+"behavior": "sentry",
+"id": "P-R26:inspection_guard",
+"max_health": 14.0,
+"point": [1504.0, 686.0]
+}])
+gear_obstacles = Array[Dictionary]([{
+"id": "P26:drive_cam",
+"period": 7.8,
+"phase": 0.15,
+"point": [1060.0, 1088.0],
+"travel": [240.0, 224.0]
+}])
+
+[node name="Carrier0" type="AnimatableBody2D" parent="." unique_id=808384945]
+position = Vector2(960, 1360)
+script = ExtResource("2_lmxbd")
+endpoint = Vector2(0, -496)
+platform_size = Vector2(192, 20)
+period = 9.0
 one_way = true
-period = 6.0
-[node name="Carrier1" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(1184, 624)
-endpoint = Vector2(-192, -256)
-platform_size = Vector2(160, 24)
+route = Array[Vector2]([Vector2(0, -496)])
+endpoint_dwell = 1.4
+
+[node name="Carrier1" type="AnimatableBody2D" parent="." unique_id=1037041836]
+position = Vector2(1936, 624)
+script = ExtResource("2_lmxbd")
+endpoint = Vector2(256, -240)
+platform_size = Vector2(192, 20)
+period = 8.0
 one_way = true
-period = 5.6
+route = Array[Vector2]([Vector2(256, -240)])
+endpoint_dwell = 1.4
+
+[node name="HiddenChest" type="Node2D" parent="." unique_id=770988533]
+position = Vector2(2240, 1518)
+script = ExtResource("3_m2rs3")
+action_id = "open_P26_hidden_chest"
+label = "打开检修暗室宝箱"
+visual = "chest"
+radius = 48.0

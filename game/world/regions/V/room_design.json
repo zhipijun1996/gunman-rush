@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "source_revision": "v08.1-recoil-draft",
+  "geometry_owner": "各 room.scene 的实际碰撞、承载与放置；本文件只维护职责，不复制数值。",
+  "rooms": [
+    {
+      "room_id": "V-R12",
+      "name": "连锁反冲井 · 折星回路",
+      "purpose": "反冲与二段跳主导的后期可选挑战灰盒；少量钩点用于必要的转向与补给。当前交付用于手机快速试玩和微调，不宣称整房已自动验收。",
+      "profile": "starbridge_graybox",
+      "scene": "res://game/world/regions/V/rooms/V-R12.tscn",
+      "encounters": [],
+      "interactions": [
+        {
+          "action": "starbridge_v12_return_open",
+          "section": "main"
+        }
+      ],
+      "experience": {
+        "player_decision": "下段斜反冲与D接墙，沿墙下滑，绕墙脚横向反冲，D抬起抓低位环；向上反冲穿幕、D侧移接墙并上中继。上段斜跨外墙，绕隔墙下缘抓高位环，向左下反冲穿幕回内侧墙，反冲+D跨向高墙，最后收束到终台。",
+        "visual_read": "所有实体墙同色且可攀附，墙刺表示危险。路线编号与动作说明来自场景route_guide，地图和试玩共用。金色光幕标明需Q就绪的反冲穿越，粉红刺区不可由Q抵挡。",
+        "pressure": "连续反冲及多次 D 构成预期主动作，H 只在两个关键位置使用。不同宽度、高差和进入方向要求在空中改线；不通过同型高墙排成阶梯，也不规定按钮计数。",
+        "failure_recovery": "入口、中继和终台有真实支持的复位锚。普通地形失误扣一格并回当前真实到达的安全台；Q恢复资格和2秒冷却独立。首次有效贴墙和钩头合法命中补当前空弹上限、D/H与Q资格，持续贴住或挂住不逐帧补。",
+        "return_visit": "终台手柄开启既有返程桥，左侧安全落井保持畅通。V-R11/V-R13接口保留且仍为未施工邻房。"
+      },
+      "art_focal_assets": [],
+      "feedback": {
+        "locomotion": "使用主游戏当前真实控制器与恢复事件；新房没有私有物理和隐形补资源。",
+        "interaction": "终台正常local_return提交后生成返程桥。",
+        "encounter": "移动挑战为核心，齿轮与局部荆棘用于约束路线，不添加新敌人。"
+      },
+      "spatial_intent": "反冲+D是重复使用最多的动作；钩点和实体墙服务于路径续航。按场景路线指引做关键段基础验证后交付手机反馈，不把基础通过写成整房验收。"
+    }
+  ]
+}

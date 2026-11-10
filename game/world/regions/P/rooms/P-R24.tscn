@@ -1,25 +1,131 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R24" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_gsewa"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_07f2y"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_8lbhj"]
+
+[node name="P-R24" type="Node2D" unique_id=1927535924]
+script = ExtResource("1_gsewa")
 room_id = "P-R24"
 arrival_text = "望站坡"
+wave_encounter = {
+"completion_action": "intro_clear_waves",
+"entry_gate": [1760.0, 1120.0, 192.0, 32.0],
+"exit_gate": [1504.0, 960.0, 32.0, 160.0],
+"label_point": [1936.0, 800.0],
+"recovery_point": [1984.0, 1102.0],
+"trigger": [1552.0, 944.0, 736.0, 176.0],
+"waves": [[{
+"behavior": "charger",
+"id": "P-R24:wave1:left",
+"max_health": 9.0,
+"point": [1600.0, 1102.0]
+}, {
+"behavior": "charger",
+"id": "P-R24:wave1:right",
+"max_health": 9.0,
+"point": [2240.0, 1102.0]
+}, {
+"behavior": "hopper",
+"id": "P-R24:wave1:hopper",
+"max_health": 9.0,
+"point": [2112.0, 1102.0]
+}], [{
+"behavior": "charger",
+"id": "P-R24:wave2:charger",
+"max_health": 14.0,
+"point": [1616.0, 1102.0]
+}, {
+"behavior": "sentry",
+"id": "P-R24:wave2:sentry",
+"max_health": 14.0,
+"point": [2256.0, 1102.0]
+}, {
+"behavior": "charger",
+"id": "P-R24:wave2:patrol",
+"max_health": 9.0,
+"point": [2160.0, 1102.0]
+}, {
+"behavior": "diver",
+"id": "P-R24:wave2:diver",
+"max_health": 9.0,
+"point": [1808.0, 832.0]
+}], [{
+"behavior": "charger",
+"id": "P-R24:wave3:charger",
+"max_health": 14.0,
+"point": [1616.0, 1102.0]
+}, {
+"behavior": "hopper",
+"id": "P-R24:wave3:hopper",
+"max_health": 14.0,
+"point": [2224.0, 1102.0]
+}, {
+"behavior": "charger",
+"id": "P-R24:wave3:patrol",
+"max_health": 9.0,
+"point": [2128.0, 1102.0]
+}, {
+"behavior": "diver",
+"id": "P-R24:wave3:diver",
+"max_health": 9.0,
+"point": [1808.0, 832.0]
+}, {
+"behavior": "fan_sentry",
+"id": "P-R24:wave3:fan",
+"max_health": 14.0,
+"point": [2152.0, 848.0]
+}]]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [2128.0, 1060.0, 288.0, 60.0],
+"point": [2240.0, 1102.0],
+"section": "main"
+}, {
+"bounds": [1056.0, 1060.0, 224.0, 60.0],
+"point": [1136.0, 1102.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "cellar_backdrop",
+"layer": -20.0,
+"point": [480.0, 928.0],
+"tile_rect": [480.0, 928.0, 544.0, 192.0]
+}, {
+"asset": "concealing_grass",
+"layer": 20.0,
+"point": [1008.0, 1120.0]
+}, {
+"asset": "concealing_grass",
+"layer": 20.0,
+"point": [1040.0, 1120.0]
+}])
 art_profile = "overlook"
-platforms = Array[Rect2]([Rect2(1024,1120,224,96),Rect2(1440,1120,320,96),Rect2(1952,1120,544,96),Rect2(1664,1376,128,64),Rect2(1920,1504,128,96),Rect2(1056,160,192,32),Rect2(1920.0,1504.0,128,32),Rect2(1056.0,160.0,192,32),Rect2(0,320,1024,896)])
-start_point = Vector2(1984,1486)
-traveler_point = Vector2(1536,1102)
-signs = Array[Dictionary]([{"point":[1584,1072],"text":"钟外小站的灯在坡顶。候风笼仍沿着旧轨道往返。"},{"point":[1120,1072],"text":"褪色的布条仍指向山上。有人在下面打了一个新结。","action_ref":"read_intro_obj_ribbon"}])
-art_placements = Array[Dictionary]([{"asset":"windchime_plains_v2_road_marker","point":[1584,1120],"layer":-2},{"asset":"hanging_chime","point":[1184,1120],"layer":-2}])
+bell_mechanisms = Array[Dictionary]([{
+"access_bells": [[1440.0, 1080.0]],
+"bell": [1344.0, 992.0],
+"carrier": "OverlookLift",
+"id": "P-R24:station_lift",
+"open_seconds": 0.0
+}])
+platforms = Array[Rect2]([Rect2(1024, 1120, 352, 96), Rect2(1376, 1120, 384, 96), Rect2(1952, 1120, 544, 96), Rect2(1664, 1376, 128, 64), Rect2(1920, 1504, 128, 96), Rect2(1056, 160, 192, 32), Rect2(1792, 1248, 128, 32), Rect2(0, 320, 480, 896), Rect2(480, 320, 544, 608), Rect2(928, 928, 96, 96), Rect2(480, 1120, 544, 96), Rect2(1504, 320, 32, 640), Rect2(1536, 320, 800, 416), Rect2(2336, 320, 160, 800)])
+start_point = Vector2(1984, 1486)
+arena_bounds = Rect2(1536, 736, 800, 384)
 
-[node name="OverlookLift" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(1856,1456)
-endpoint = Vector2(-512,-1232)
-platform_size = Vector2(128,20)
-period = 12.0
+[node name="OverlookLift" type="AnimatableBody2D" parent="." unique_id=1190367471]
+position = Vector2(1344, 1072)
+script = ExtResource("2_07f2y")
+endpoint = Vector2(0, -864)
+platform_size = Vector2(128, 20)
+period = 10.0
 one_way = true
+route = Array[Vector2]([Vector2(0, -864)])
 endpoint_dwell = 2.0
-route = Array[Vector2]([Vector2(0,-400),Vector2(-512,-400),Vector2(-512,-1232)])
+
+[node name="HiddenChest" type="Node2D" parent="." unique_id=25092106]
+position = Vector2(672, 1102)
+script = ExtResource("3_8lbhj")
+action_id = "open_P24_hidden_chest"
+label = "打开宝箱"
+visual = "chest"
+radius = 56.0

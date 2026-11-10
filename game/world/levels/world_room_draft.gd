@@ -4,7 +4,7 @@ extends RefCounted
 ## Apply only to a fresh scene instance, before _ready creates any physics.
 const SCHEMA := 1
 const ROOM_FIELDS := [
-	"arrival_text", "traveler_point", "tutorial_action", "tutorial_target",
+	"story_sequence", "intro_sequence", "wave_encounter", "route_guide", "arrival_text", "traveler_point", "tutorial_action", "tutorial_target",
 	"tutorial_min_move", "tutorial_recoil_finish_x", "section_volumes",
 	"retry_anchors", "art_placements", "art_profile",
 	"bell_mechanisms", "platforms", "one_way_indices", "illustrated_platform_indices",
@@ -16,6 +16,7 @@ const ROOM_FIELDS := [
 ]
 const INDEXED_FIELDS := ["platforms", "hazards", "climbable_walls", "hook_points", "signs", "art_placements", "retry_anchors"]
 const NODE_SCRIPTS := {
+	"GrappleAnchor": "res://game/world/components/grapple_anchor.gd",
 	"WorldMovingPlatform": "res://game/world/components/world_moving_platform.gd",
 	"WorldRoomInteraction": "res://game/world/components/world_room_interaction.gd",
 	"WorldReturnLatch": "res://game/world/components/world_return_latch.gd",
@@ -23,6 +24,7 @@ const NODE_SCRIPTS := {
 	"WorldNpc": "res://game/npcs/world_npc.gd"
 }
 const NODE_FIELDS := {
+	"GrappleAnchor": ["position", "hang_enabled", "material_family"],
 	"WorldMovingPlatform": ["position", "endpoint", "platform_size", "period", "phase_offset", "one_way", "route", "endpoint_dwell"],
 	"WorldRoomInteraction": ["position", "action_id", "section_id", "label", "visual", "radius"],
 	"WorldReturnLatch": ["position", "action_id", "section_id", "label", "visual", "radius", "return_steps", "closed_panels", "metal_hatch"],
@@ -179,6 +181,27 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 		if key not in ROOM_FIELDS: return "property_not_editable:"+key
 		var error := property_error(room.get(key), properties[key])
 		if not error.is_empty(): return key+":"+error
+	var intro: Dictionary=properties.get("intro_sequence",room.intro_sequence)
+	if not intro.is_empty():
+		if intro.get("kind") not in ["wake","traveler"]:return "intro_kind_invalid"
+		if intro.kind=="wake" and not vector(intro.get("pickup_point")):return "intro_pickup_invalid"
+		if intro.kind=="traveler" and (not rectangle(intro.get("trigger")) or not intro.get("lines") is Array or intro.lines.is_empty()):return "intro_dialogue_invalid"
+	var encounter: Dictionary=properties.get("wave_encounter",room.wave_encounter)
+	if not encounter.is_empty():
+		for key: String in ["trigger","exit_gate","entry_gate"]:
+			if not rectangle(encounter.get(key)):return "wave_rect_invalid:"+key
+		for key: String in ["recovery_point","label_point"]:
+			if not vector(encounter.get(key)):return "wave_point_invalid:"+key
+		if not encounter.get("completion_action") is String or not encounter.get("waves") is Array or encounter.waves.is_empty():return "wave_sequence_invalid"
+		var wave_ids: Dictionary={}
+		for wave: Variant in encounter.waves:
+			if not wave is Array or wave.is_empty():return "wave_empty"
+			for spec: Variant in wave:
+				if not spec is Dictionary or str(spec.get("id","")).is_empty() or wave_ids.has(str(spec.id)) or not vector(spec.get("point")):return "wave_enemy_invalid"
+				if EnemyFactory.scene_path_for_behavior(StringName(str(spec.get("behavior","")))).is_empty():return "wave_species_invalid"
+				if not spec.get("max_health",5) is float and not spec.get("max_health",5) is int:return "wave_health_invalid"
+				if float(spec.get("max_health",5))<=0:return "wave_health_invalid"
+				wave_ids[str(spec.id)]=true
 	var platform_count: int = properties.get("platforms", room.platforms).size()
 	for key: String in ["one_way_indices", "illustrated_platform_indices", "masonry_platform_indices"]:
 		for index: Variant in properties.get(key, room.get(key)):
@@ -219,6 +242,7 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 		if not vector(row.get("point")) or not row.get("text") is String: return "sign_invalid"
 	for row: Dictionary in properties.get("art_placements", room.art_placements):
 		if not vector(row.get("point")): return "art_point_invalid"
+		if row.has("tile_rect") and not rectangle(row.tile_rect):return "art_tile_rect_invalid"
 		if row.has("support_height"):
 			if not number(row.support_height) or float(row.support_height) <= 0: return "art_support_invalid"
 		elif not row.get("asset") is String or str(row.asset).is_empty(): return "art_asset_missing"

@@ -52,6 +52,10 @@ func _cancel_input(_reason: String) -> void:
 func _cancel_look() -> void:
 	_look_age=0;_look_blocked=true;looking=false
 
+func accepted_look_direction() -> float:
+	# Presentation consumes the same delayed, priority-filtered decision as view.
+	return _look_direction if looking else 0.0
+
 func enter_room(_physical_bounds: Rect2) -> void:
 	zones.configure(room,settings)
 	reset_view()
@@ -221,6 +225,7 @@ func _door_goal(value: Vector2, half: Vector2) -> Vector2:
 	if str(frame.a.id)=="arena" or not _takeover.is_empty():return value
 	var result:=value
 	for door: Dictionary in room.doors:
+		if door.get("front_door",false):continue
 		var portal:=FixedWorldProvider.point(door.position_candidate.local_world_units)
 		var axis:=1 if str(door.direction) in ["up","down"] else 0
 		if absf(target.global_position[1-axis]-portal[1-axis])>float(settings.door_across) or absf(target.global_position[axis]-portal[axis])>half[axis]*float(settings.door_approach):continue
@@ -234,6 +239,7 @@ func _door_constraints(limits: Rect2, half: Vector2) -> Rect2:
 	if str(frame.a.id)=="arena" or not _takeover.is_empty():return limits
 	var low:=limits.position;var high:=limits.end
 	for door: Dictionary in room.doors:
+		if door.get("front_door",false):continue
 		var portal:=FixedWorldProvider.point(door.position_candidate.local_world_units)
 		var axis:=1 if str(door.direction) in ["up","down"] else 0
 		var across:=absf(target.global_position[1-axis]-portal[1-axis])

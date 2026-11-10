@@ -6,11 +6,11 @@ const MATERIALS := {
 	&"patrol_drone": &"shell", &"graybox_patrol_drone": &"shell",
 	&"plains_charger": &"shell", &"plains_hopper": &"shell",
 	&"plains_diver": &"wing", &"plains_fan_sentry": &"wing",
-	&"plains_sentry": &"plant", &"plains_root_bell": &"plant"
+	&"plains_ground_fan_sentry": &"plant", &"plains_sentry": &"plant", &"plains_root_bell": &"plant"
 }
 const CONTACT_PROGRESS := {
 	&"patrol": .80, &"charger": .76, &"hopper": .63,
-	&"sentry": .77, &"fan_sentry": .72, &"root_bell": .72
+	&"sentry": .77, &"fan_sentry": .72, &"ground_fan_sentry": .72, &"root_bell": .72
 }
 const STREAMS := {
 	&"shell_hurt": preload("res://assets/audio/plains_feedback_02/shell_hurt.wav"),

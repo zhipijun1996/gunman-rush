@@ -73,7 +73,7 @@ func show() -> void:
 	var stages := OptionButton.new()
 	stages.name = "ReviewStage"
 	stages.custom_minimum_size = Vector2(320,48)
-	for id: String in ["base","h","hd"]:
+	for id: String in ["base","h","hd","hwdq"]:
 		stages.add_item(WorldText.text("review.stage")+" · "+WorldText.text("review."+id))
 		stages.set_item_metadata(stages.item_count-1,id)
 		if id == stage: stages.select(stages.item_count-1)
@@ -108,7 +108,7 @@ func show() -> void:
 	modal.focus_first()
 
 func begin(id: String, entry: String, ability_stage: String) -> bool:
-	if launching or app.busy or app.content.room(id).is_empty() or ability_stage not in ["base","h","hd"]: return false
+	if launching or app.busy or app.content.room(id).is_empty() or ability_stage not in ["base","h","hd","hwdq"]: return false
 	if not entry.is_empty() and not app.state.valid_entry(id,entry): return false
 	launching = true
 	if app.controller != null:
@@ -124,9 +124,12 @@ func begin(id: String, entry: String, ability_stage: String) -> bool:
 	app.state.storage = storage
 	var health := preload("res://resources/actors/prototype_health.tres") as HealthDefinition
 	var candidate := app.state.fresh(health.max_health)
-	candidate.flags.append_array(["intro_move","intro_shoot","intro_complete","station_briefed"])
-	if ability_stage in ["h","hd"]: candidate.flags.append("H")
-	if ability_stage == "hd": candidate.flags.append("D")
+	if id!="P-R03":candidate.flags.append_array(["intro_gun","intro_move","intro_shoot"])
+	if id not in ["P-R03","P-R21","P-R22"]:candidate.flags.append("intro_complete")
+	if id not in ["P-R03","P-R21","P-R22","P-R23","P-R24"]:candidate.flags.append("station_briefed")
+	if ability_stage in ["h","hd","hwdq"]: candidate.flags.append("H")
+	if ability_stage in ["hd","hwdq"]: candidate.flags.append("D")
+	if ability_stage == "hwdq": candidate.flags.append_array(["W","Q"])
 	candidate.room = id
 	candidate.entry = entry
 	if not app.state.commit(candidate,app.state.revision): launching=false;return false

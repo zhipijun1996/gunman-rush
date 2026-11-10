@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_po6j1"]
+
+[node name="Z-R01" type="Node2D" unique_id=1298393844]
+script = ExtResource("1_po6j1")
+room_id = "Z-R01"
+arrival_text = "钟心门厅"
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "进入门厅，靠近损毁钟心听取修钟线索；左侧门可回前庭。",
+"label": "停摆的心脏",
+"number": 1.0,
+"path": [[256.0, 622.0], [736.0, 622.0], [960.0, 622.0]],
+"point": [256.0, 622.0]
+}]
+}
+art_placements = Array[Dictionary]([{
+"asset": "clockheart_ruin",
+"layer": -4.0,
+"light": true,
+"light_offset": [0.0, -245.0],
+"point": [960.0, 640.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [368.0, 640.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [1376.0, 640.0]
+}])
+art_profile = "clockheart"
+platforms = Array[Rect2]([Rect2(0, 640, 1536, 128)])
+masonry_platform_indices = Array[int]([0])
+start_point = Vector2(256, 622)
+rest_point = Vector2(384, 622)
+story_sequence = {
+"action": "intro_visit_clockheart",
+"display": [0.0, 0.0, 1536.0, 768.0],
+"establish_seconds": 2.2,
+"focus": [960.0, 456.0],
+"kind": "clockheart",
+"lines": ["钟心的主轴已经断了。你听——它连最后一声回响，也发不出来了。", "各地的时律钟还连着它。先让那些钟重新鸣响，才能找回修复钟心的力量。", "风铃平原的风鸣钟，就在小站北侧高地。我会先回去让开旧路。循着风里的铃声走吧。"],
+"npc_point": [752.0, 622.0],
+"speaker": "守钟匠",
+"trigger": [448.0, 544.0, 512.0, 96.0]
+}

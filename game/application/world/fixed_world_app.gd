@@ -23,9 +23,13 @@ var _return := false
 var _door_ready := false
 var _sequence := 0
 var tutorial: WorldTutorial
+var introduction: WorldIntroSequence
+var wave_encounter: WorldWaveEncounter
 var title: Control
 var q_guard: WorldRecoilGuard
 var focus_heal: WorldFocusHeal
+var story: WorldStorySequence
+var rest_sequence: WorldRestSequence
 var music: GameMusic
 var ui: FixedWorldUI
 var overlay: TouchOverlay
@@ -154,6 +158,9 @@ func _create_player() -> void:
 	q_guard.owned = state.has("Q")
 	q_guard.cooldown_seconds = float(content.data.runtime_rules.q.cooldown_seconds)
 	player.add_child(q_guard)
+	var guard_visual:=WorldRecoilGuardVisual.new()
+	guard_visual.guard=q_guard
+	player.add_child(guard_visual)
 	focus_heal=WorldFocusHeal.new()
 	focus_heal.controller=controller;focus_heal.settings=content.data.player.focus_heal
 	player.add_child(focus_heal)
@@ -173,6 +180,7 @@ func _create_player() -> void:
 	music.request_track(&"plains")
 
 func _acquire() -> int:
+	if is_instance_valid(rest_sequence): rest_sequence.finish()
 	_ticket += 1
 	busy = true
 	ui.begin_transition()
@@ -312,7 +320,7 @@ func load_room(id: String, entry: String) -> void:
 		busy=false
 		return
 	var motion: Dictionary=content.data.player.entry_motion
-	var entry_direction:=str(resolved.entry.get("direction",""))
+	var entry_direction:="" if resolved.entry.get("front_door",false) else str(resolved.entry.get("direction",""))
 	if entry_direction in ["left","right"]:
 		var inward:=1.0 if entry_direction=="left" else -1.0
 		player.reset_at(anchor-Vector2(inward*float(motion.walk_distance),1))
@@ -362,6 +370,15 @@ func load_room(id: String, entry: String) -> void:
 	music.request_track(&"home" if room.rest_point!=Vector2.ZERO or not room.find_children("*","WorldNpc",true,false).is_empty() else &"plains")
 	status = room.arrival_text if not room.arrival_text.is_empty() else str(room.contract.name)
 	tutorial.enter(room,player.position)
+	introduction=WorldIntroSequence.new();introduction.app=self
+	room.add_child(introduction);introduction.enter()
+	story=WorldStorySequence.new();room.add_child(story);story.setup(self)
+	wave_encounter=null
+	if not room.wave_encounter.is_empty():
+		wave_encounter=WorldWaveEncounter.new()
+		room.add_child(wave_encounter);wave_encounter.setup(self)
+	var carry:=player.get_node_or_null("CarryLight") as PointLight2D
+	if carry!=null:carry.enabled=room.art_profile!="starbridge_graybox"
 	_npc_id=""
 
 func _apply_capabilities() -> void:
@@ -396,8 +413,14 @@ func enqueue(kind: String,id: String) -> void:
 
 func context_target() -> Dictionary:
 	if room==null or player==null: return {}
+	if is_instance_valid(introduction):
+		var intro_target:=introduction.target()
+		if not intro_target.is_empty():return intro_target
 	var best: Dictionary={}
 	var distance:=82.0
+	for door: Dictionary in room.doors:
+		if door.get("front_door",false) and player.position.distance_to(FixedWorldProvider.point(door.position_candidate.local_world_units)-Vector2(0,18))<72:
+			return {"kind":"door","id":door.id,"label":str(door.get("label","进入"))}
 	for npc: Node in room.find_children("*","WorldNpc",true,false):
 		var d:=player.position.distance_to((npc as Node2D).position)
 		if d<distance: best={"kind":"npc","id":npc.npc_id,"label":"交谈 · "+npc.display_name};distance=d
@@ -467,6 +490,7 @@ func _physics_process(_delta: float) -> void:
 		_fail_terrain()
 	var near_door := false
 	for door: Dictionary in room.doors:
+		if door.get("front_door",false):continue
 		var point := FixedWorldProvider.point(door.position_candidate.local_world_units)
 		var near := player.position.distance_to(point-Vector2(0,18))<45
 		if near:
@@ -482,6 +506,7 @@ func _physics_process(_delta: float) -> void:
 		elif request.kind == "focus_heal": _commit_focus_heal()
 		elif request.kind == "rest": _rest()
 		elif request.kind == "door": _cross(str(request.id))
+		elif request.kind == "intro_pickup" and is_instance_valid(introduction):introduction.pickup()
 		elif request.kind == "npc": _open_npc(str(request.id))
 		elif request.kind == "sign":
 			if _pause_world():
@@ -540,6 +565,8 @@ func _commit_action(id: String) -> void:
 	candidate.hp = controller.actor_resources.health.current
 	candidate.combat_energy=controller.combat_energy.current
 	if room.cycle_at_load==int(state.value.cycle): candidate.enemies.merge(room.snapshot(),true)
+	if host!=null and action.get("type","")=="chest" and int(action.get("coin_drop_amount",0))>0:
+		candidate=_drop_candidate(candidate,"chest:"+id,int(action.coin_drop_amount),host.position)
 	if id==room.defeat_action: candidate=_drop_candidate(candidate,"boss:"+str(room.boss_identity),int(services.definitions.boss_gold),room.boss.position)
 	if not state.commit(candidate,state.revision):
 		status = "保存失败，结果未提交："+state.error
@@ -547,6 +574,7 @@ func _commit_action(id: String) -> void:
 	if id == room.defeat_action: room.finish_battle()
 	if host!=null:
 		host.celebrate()
+		if id=="repair_P" and is_instance_valid(story):story.play_repair.call_deferred(host.position)
 		if content.action(id).type=="local_return":GameAudio.cue(self,&"bell")
 		else:GameAudio.cue_committed_reward(self,&"item_get",&"confirm")
 	if id == room.reward_action: GameAudio.cue(self,&"confirm")
@@ -567,6 +595,12 @@ func _cross(id: String) -> void:
 		load_room.call_deferred(str(door.target_room),str(door.target_door_id))
 
 func _rest() -> void:
+	if is_instance_valid(rest_sequence) and rest_sequence.active:return
+	rest_sequence=WorldRestSequence.new()
+	add_child(rest_sequence)
+	if not rest_sequence.begin(self):rest_sequence.queue_free()
+
+func _commit_rest() -> bool:
 	var candidate := services.rest_candidate(_snapshot())
 	candidate.cycle += 1
 	candidate.enemies = {}
@@ -575,15 +609,13 @@ func _rest() -> void:
 	candidate.rest = {"room":room.room_id,"entry":"","point":[room.rest_point.x,room.rest_point.y]}
 	if not state.commit(candidate,state.revision):
 		status = state.error
-		return
+		return false
 	_restore_hp(float(candidate.hp))
 	controller.router.clear("explicit_rest")
 	controller.shoot_ability.clear_projectiles()
 	q_guard.cancel()
-	room.station_feedback=1.0
-	if room.station_animation!=null: room.station_animation.play_event()
-	GameAudio.cue(self,&"heal")
 	status=WorldText.text("rest.completed")
+	return true
 
 func _fail_terrain() -> void:
 	var safety := SegmentRespawn.new()
@@ -650,9 +682,18 @@ func _pause_world() -> bool:
 	paused=true;get_tree().paused=true
 	return true
 func toggle_pause() -> void:
-	if paused: _close_panel()
+	if is_instance_valid(rest_sequence) and rest_sequence.active:
+		if rest_sequence.suspended:_close_panel()
+		else:rest_sequence.suspend(true);ui.show_pause()
+	elif paused: _close_panel()
 	elif _pause_world(): ui.show_pause()
 func _close_panel() -> void:
+	if is_instance_valid(rest_sequence) and rest_sequence.active:
+		ui.close();rest_sequence.suspend(false);return
+	if is_instance_valid(story) and story.active:
+		story.advance();return
+	if is_instance_valid(introduction) and introduction.dialogue_active:
+		introduction.advance();return
 	_service_ticket+=1
 	_npc_id=""
 	ui.close()
@@ -674,8 +715,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.physical_keycode==KEY_M: show_map()
 		elif event.physical_keycode==KEY_I: _ui_command("inventory","")
 func show_map() -> void:
+	if is_instance_valid(rest_sequence) and rest_sequence.active:return
+	if is_instance_valid(story) and story.active:return
+	if is_instance_valid(introduction) and introduction.dialogue_active:return
 	if controller!=null and (paused or _pause_world()): ui.show_map()
 func _ui_command(kind: String,_id: String) -> void:
+	if is_instance_valid(rest_sequence) and rest_sequence.active and kind not in ["pause","close","title"]:return
+	if is_instance_valid(story) and story.active and kind not in ["close","title"]:return
+	if is_instance_valid(introduction) and introduction.dialogue_active and kind not in ["close","title"]:return
 	match kind:
 		"new":
 			if state.storage._exists(false):
@@ -768,6 +815,7 @@ func return_title() -> void:
 	if not state.commit(_snapshot(),state.revision):
 		status = state.error
 		return
+	if is_instance_valid(rest_sequence):rest_sequence.finish()
 	_ticket += 1
 	get_tree().paused = false
 	paused = false
@@ -789,12 +837,16 @@ func return_title() -> void:
 
 func _update_hud() -> void:
 	if ui==null or controller==null: return
+	ui.hud.present_recoil_guard(q_guard.owned,q_guard.landing_ready and q_guard.cooldown<=0,q_guard.is_protecting(),q_guard.cooldown,q_guard.cooldown_seconds)
 	var target:=context_target()
 	if room!=null:
 		var highlight:=Vector2.INF
 		match target.get("kind",""):
 			"sign": highlight=room.signs[int(target.id)].interaction_point
 			"rest": highlight=room.rest_point
+			"door":
+				for door:Dictionary in room.doors:
+					if door.id==target.id:highlight=FixedWorldProvider.point(door.position_candidate.local_world_units)-Vector2(0,18)
 			"action": highlight=room.reward_point
 			"pickup":
 				for pickup: Dictionary in services.definitions.pickups:
@@ -808,6 +860,7 @@ func _update_hud() -> void:
 	ui.present(controller,str(state.value.room),str(content.room(state.value.room).get("name","")),notice,str(target.get("label","")),int(services.ledger().gold),bool(preferences.value.reduced),focus_heal.ratio(),focus_heal.available())
 
 func _exit_tree() -> void:
+	if is_instance_valid(rest_sequence):rest_sequence.finish()
 	_ticket += 1
 	get_tree().paused = false
 	Engine.time_scale = 1.0

@@ -136,7 +136,10 @@ func candidate_receipt() -> Dictionary:
 	return {"enabled":candidate_enabled,"state":displayed_state,"frame":displayed_frame,"gait_distance":_gait_distance,"accepted_jumps":accepted_jumps,"accepted_lands":accepted_lands,"dust_count":_dust.size(),"dust_peak":dust_peak,"muzzle":(motor.get_node("CourierVisual") as CourierVisual).visible_muzzle_position(),"foot_world":motor.to_global(Vector2(0,18)),"source":"idle_fall new frames;run original pixels with distance phase only;run art rework unverified"}
 
 func _draw() -> void:
-	if not candidate_enabled:
+	if not candidate_enabled or (authored_pose.frame >= 0 and not authored_pose.uses_existing_idle()):
+		if authored_pose.frame >= 0:
+			displayed_state = "rest" if authored_pose.resting else "wake" if authored_pose.waking else ("look_up" if authored_pose.look_direction<0 else "look_down") if authored_pose.frame>=12 else "wall_attach"
+			displayed_frame = authored_pose.frame
 		super._draw()
 		return
 	if _build.is_empty() or _clips.is_empty(): return
@@ -175,6 +178,7 @@ func _draw() -> void:
 			var direction := Vector2.from_angle(i * TAU / 8 + .2)
 			var point := to_local(_hurt_origin) + direction * (5 + age * 65)
 			draw_line(point,point + direction * 3,Color("ead8a3",1 - age / feedback.hurt_seconds),2,false)
+	if not controller.shoot_ability.enabled:return
 	var anchor := motor.get_node("CourierVisual") as CourierVisual
 	var muzzle := to_local(anchor.visible_muzzle_position())
 	var aim := controller.router.aim_direction.normalized()

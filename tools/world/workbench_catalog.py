@@ -14,7 +14,7 @@ from pathlib import Path
 
 ENEMY_LABELS = {
     "patrol": "巡逻体", "charger": "冲锋体", "diver": "俯冲体", "hopper": "跃击体",
-    "sentry": "单发哨兵", "fan_sentry": "扇射哨兵", "root_bell": "根铃",
+    "sentry": "单发哨兵", "fan_sentry": "飞羽铃哨（空中三发）", "ground_fan_sentry": "行枝铃哨（地面三发）", "root_bell": "根铃",
     "forest_lantern": "铃囊萤", "forest_seed_sentry": "棘籽哨", "forest_bark_beetle": "树皮甲虫",
     "forest_swing_pod": "吊荚摆锚", "forest_thread_spider": "织棘蛛", "forest_crossbranch": "跨枝移动体",
     "forest_bible_weaver": "圣经织者",
@@ -49,7 +49,7 @@ def descriptors(runtime):
                                 field="platforms", kind="ground", identity="indexed", anchor="top_left", flags={"one_way": one_way}))
     for name, label, prop, kind, default in [
         ("hazard", "地形危险区", "hazards", "hazard", [0, 0, 160, 32]),
-        ("climbable_wall", "可攀爬墙", "climbable_walls", "climbable", [0, 0, 24, 256]),
+        ("climbable_wall", "实体墙", "climbable_walls", "climbable", [0, 0, 24, 256]),
     ]:
         result.append(component(name, label, "地形", "property_array", "rect", default,
                                 field=prop, kind=kind, identity="indexed", anchor="top_left"))
@@ -132,6 +132,9 @@ def descriptors(runtime):
 
     position = field("position", "位置", "point")
     nodes = [
+        ("grapple_anchor", "钟机构钩点", "地形", "GrappleAnchor", "hook", [position,
+            field("hang_enabled", "闭口承托环：允许悬挂（关闭为弹簧扣）", "boolean"),
+            field("material_family", "共享材质", "select", options=["clockwork", "rootbound"])]),
         ("moving_platform", "移动平台", "地形", "WorldMovingPlatform", "mechanism", [
             position, field("platform_size", "平台尺寸", "point", min=1), field("endpoint", "终点偏移", "point"),
             field("period", "往返周期（秒）", "number", min=0.1, step=0.1),
@@ -182,7 +185,8 @@ def make_catalog(root: Path, scenes: dict, world: dict, rooms: dict, baseline: s
     for row in enemies:
         row.update(label=ENEMY_LABELS.get(row["id"], row["id"]), value=row["id"])
     actions = [copy.deepcopy(a) for a in world["actions"] if a["room_id"] in rooms]
-    returns = local_returns(root / "config/world", set(rooms))
+    returns = [copy.deepcopy(a) for a in actions if a.get("type") == "local_return"]
+    returns += local_returns(root / "config/world", set(rooms))
     def authored_defaults(key, value):
         hosts = [node for room in rooms.values() for node in room.get("nodes", []) if node.get("properties", {}).get(key) == value]
         if len(hosts) != 1:
@@ -222,8 +226,9 @@ def make_catalog(root: Path, scenes: dict, world: dict, rooms: dict, baseline: s
              "source": "art/world-art-v2/" + row["file"]} for key, row in pixels.items()
             if (key.startswith(("plains_", "windchime_plains_", "gear_city_")) or key in authored_assets) and key not in props]
     interactions = json.loads((root / "assets/plains_v07/manifest.json").read_text())
-    # The animation registry resolves these assets; only registered clip IDs are offered.
-    visual_rows = interactions.get("assets", interactions.get("animations", {}))
+    # Animated interactions use the clip registry; the chest host uses UnderworldObjects.
+    visual_rows = dict(interactions.get("assets", interactions.get("animations", {})))
+    visual_rows["chest"] = {"renderer": "WorldRoomInteraction / UnderworldObjects"}
     if not visual_rows:
         raise ValueError("Unknown world interaction manifest shape")
     flags = sorted({str(flag) for a in actions + returns for flag in a.get("grants", [])})

@@ -1,17 +1,56 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R21" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_pef47"]
+
+[node name="P-R21" type="Node2D" unique_id=1088366261]
+script = ExtResource("1_pef47")
 room_id = "P-R21"
 arrival_text = "倒时车厢"
-art_profile = "carriage"
-platforms = Array[Rect2]([Rect2(0,256,288,384),Rect2(128,544,640,288),Rect2(320,832,448,320),Rect2(768,704,160,448),Rect2(768,864,576,288),Rect2(896,800,96,64),Rect2(1216,800,96,64),Rect2(1344,960,192,192),Rect2(1664,1056,640,96),Rect2(0.0,256.0,288,32),Rect2(1664.0,1056.0,128,32)])
-start_point = Vector2(144,238)
-tutorial_action = "tutorial_shoot"
+traveler_point = Vector2(560, 526)
 tutorial_target = "P-R21:encounter:01"
-enemy_placements = Array[Dictionary]([{"id":"P-R21:encounter:01","behavior":"patrol","point":[1120,846],"max_health":5},{"id":"P-R21:encounter:02","behavior":"hopper","point":[1440,942],"max_health":5}])
-signs = Array[Dictionary]([{"point":[496,496],"text":"末班车七点开。背面又添了：明天。","action_ref":"read_intro_obj_ticket"}])
-art_placements = Array[Dictionary]([{"asset":"carriage","point":[512,544],"layer":-2},{"asset":"storage_crates","point":[944,800],"layer":-2},{"asset":"hanging_chime","point":[1744,1056],"layer":-2}])
+art_placements = Array[Dictionary]([{
+"asset": "carriage",
+"layer": -2.0,
+"point": [512.0, 544.0]
+}, {
+"asset": "storage_crates",
+"layer": -2.0,
+"point": [944.0, 800.0]
+}, {
+"asset": "hanging_chime",
+"layer": -2.0,
+"point": [1744.0, 1056.0]
+}])
+art_profile = "carriage"
+platforms = Array[Rect2]([Rect2(0, 256, 288, 384), Rect2(128, 544, 640, 288), Rect2(320, 832, 448, 320), Rect2(768, 704, 160, 448), Rect2(768, 864, 576, 288), Rect2(896, 800, 96, 64), Rect2(1216, 800, 96, 64), Rect2(1344, 960, 192, 192), Rect2(1664, 1056, 640, 96), Rect2(0, 256, 288, 32), Rect2(1664, 1056, 128, 32)])
+workbench_entity_ids = {
+"art_placements": ["P-R21:art_placements:0", "P-R21:art_placements:1", "P-R21:art_placements:2"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R21:platforms:0", "P-R21:platforms:1", "P-R21:platforms:2", "P-R21:platforms:3", "P-R21:platforms:4", "P-R21:platforms:5", "P-R21:platforms:6", "P-R21:platforms:7", "P-R21:platforms:8", "P-R21:platforms:9", "P-R21:platforms:10"],
+"retry_anchors": [],
+"signs": ["P-R21:signs:0"]
+}
+start_point = Vector2(144, 238)
+enemy_placements = Array[Dictionary]([{
+"behavior": "patrol",
+"id": "P-R21:encounter:01",
+"max_health": 9.0,
+"point": [1120.0, 846.0]
+}, {
+"behavior": "patrol",
+"id": "P-R21:exit_right_guard",
+"max_health": 9.0,
+"point": [1904.0, 1038.0]
+}])
+signs = Array[Dictionary]([{
+"action_ref": "read_intro_obj_ticket",
+"point": [496.0, 496.0],
+"text": "末班车七点开。背面又添了：明天。"
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [1344.0, 936.0, 192.0, 24.0],
+"facing": "up",
+"id": "P-R21:exit_left_spikes"
+}])

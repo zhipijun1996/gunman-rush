@@ -3,7 +3,10 @@ extends Node2D
 ## Authored geometry and placements. Reads contract interfaces; never grants progress.
 @export var room_id := ""
 @export var arrival_text: String
-@export var traveler_point := Vector2(560,494)
+@export var traveler_point := Vector2.ZERO
+@export var route_guide: Dictionary = {}
+@export var intro_sequence: Dictionary = {}
+@export var wave_encounter: Dictionary = {}
 @export var tutorial_action: String
 @export var tutorial_target: String
 @export var tutorial_min_move:=100.0
@@ -15,7 +18,7 @@ var camera_concealers: Dictionary = {}
 @export var art_profile := "meadow"
 @export var bell_mechanisms: Array[Dictionary] = []
 var mechanisms: Dictionary={}
-var station_animation: WorldSpriteAnimation
+var station_animation: WorldChargingStation
 var interaction_hosts: Array[WorldRoomInteraction] = []
 var service_pickup_sprites: Dictionary={}
 @export var platforms: Array[Rect2] = []
@@ -35,14 +38,11 @@ var service_pickup_sprites: Dictionary={}
 @export var hazards: Array[Rect2] = []
 @export var spike_strips: Array[Dictionary] = []
 @export var gear_obstacles: Array[Dictionary] = []
+@export var story_sequence: Dictionary = {}
 @export var hook_points: Array[Vector2] = []
 @export var climbable_walls: Array[Rect2] = []
 @export var environment_zones: Array[Dictionary] = []
-var station_feedback:=0.0
 var interaction_point:=Vector2.INF
-func _process(delta: float) -> void:
-	if station_feedback>0:
-		station_feedback=maxf(0,station_feedback-delta);queue_redraw()
 var cycle_at_load := 0
 var door_open: Dictionary={}
 var services: WorldServices
@@ -70,7 +70,7 @@ var battle_started := false
 var battle_finished := false
 
 static func material_for_profile(profile: String) -> String:
-	return {"mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(profile,"")
+	return {"clockheart":"mill","mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(profile,"")
 func interior_material() -> String:
 	return material_for_profile(art_profile)
 
@@ -152,7 +152,7 @@ func _ready() -> void:
 	for rect: Rect2 in climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;add_child(wall)
 	for point: Vector2 in hook_points:
-		var anchor:=GrappleAnchor.new();anchor.position=point;anchor.hang_enabled=true;add_child(anchor)
+		var anchor:=GrappleAnchor.new();anchor.position=point;anchor.hang_enabled=true;anchor.material_family="rootbound" if room_id.begins_with("F-") or room_id.begins_with("M-") or room_id.begins_with("T-") else "clockwork";add_child(anchor)
 	for sign: Dictionary in signs:
 		var marker:=Sprite2D.new()
 		marker.texture=WorldProps.prop("notice_board")
@@ -213,6 +213,7 @@ func _draw() -> void:
 	for i: int in platforms.size():
 		if i in one_way_indices: UnderworldTerrain.draw_one_way(self,platforms[i])
 	for door: Dictionary in doors:
+		if door.get("front_door",false) or door.get("npc_guard",false):continue
 		var p := FixedWorldProvider.point(door.position_candidate.local_world_units)
 		var rect:=Rect2(p-Vector2(16,96),Vector2(32,96)) if door.direction in ["left","right"] else Rect2(p-Vector2(64,16),Vector2(128,32))
 		if not door_open.get(door.id,false):
@@ -229,40 +230,48 @@ func _draw() -> void:
 	if interaction_point.is_finite():
 		var tip:=interaction_point+Vector2(0,-55)
 		draw_polyline(PackedVector2Array([tip+Vector2(-5,5),tip,tip+Vector2(5,5)]),DemoClockworkTheme.PAPER,2)
-	if rest_point != Vector2.ZERO:
-		pass # Native animated station is an independent presentation node.
-		if station_feedback>0: draw_arc(rest_point,30+(1-station_feedback)*14,0,TAU,32,Color(.4,.9,.8,station_feedback),2)
 	if reward_point != Vector2.ZERO and battle_finished and services!=null and not services.state.value.receipts.has(reward_action):
 		WorldProps.draw_icon(self,ItemPresentation.icon(&"echo"),reward_point,30)
 
+func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime,saved: Dictionary,entry_anchor: Vector2) -> EnemyActor:
+	var id := str(placement.id)
+	var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
+	body.position = FixedWorldProvider.point(saved.get("position",placement.point))
+	var actor := body.get_node("Actor") as EnemyActor
+	actor.set_meta(&"world_persistent_corpse",true)
+	if placement.has("max_health"):
+		actor.definition=actor.definition.duplicate(true) as EnemyDefinition
+		actor.definition.health_definition.max_health=float(placement.max_health)
+		actor.definition.health_definition.initial_current=float(placement.max_health)
+	# Authored points use player-height references; settle the actual enemy sole
+	# onto its nearby authored platform before home/AI/visual anchors are bound.
+	if saved.is_empty() and not actor.definition.aerial:
+		var sole := body.position.y + actor.definition.collision_size.y*.5
+		for surface: Rect2 in platforms:
+			if absf(surface.position.y-sole)<=8 and body.position.x>=surface.position.x and body.position.x<=surface.end.x:
+				body.position.y=surface.position.y-actor.definition.collision_size.y*.5
+				break
+	add_child(body)
+	EnemyPresentationBinding.replace(actor,&"underworld")
+	policy.bind_damageable(StringName(id),actor.damageable,actor.health)
+	actor.bind_encounter(controller,policy,lifetime,StringName(id),[entry_anchor])
+	if saved.has("direction"): actor.brain.direction=int(saved.direction)
+	if saved.has("health"): actor.restore_instance_health(float(saved.health))
+	if not saved.is_empty() and not actor.health.terminal and actor.attack_behavior != null:
+		actor.attack_behavior.restore_region_state(saved)
+	EnemyPresentationBinding.synchronize(actor)
+	var contact:=DemoContactEmitter.attach(body,policy,controller,StringName(id+":contact"),DamageRequest.Kind.MONSTER,actor.definition.collision_size/2)
+	contact.enabled=not actor.health.terminal
+	actor.defeated.connect(func(_actor: EnemyActor) -> void: contact.enabled=false;contact.set_physics_process(false))
+	var remains:=EnemyPresentationBinding.remains(body.get_node("Presentation"))
+	if actor.health.terminal and remains!=null and saved.has("corpse"):
+		remains.restore_presentation(saved.corpse,_corpse_support(saved.corpse))
+	enemies[id] = actor
+	return actor
+
 func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime, saved_enemies: Dictionary, boss_defeated: bool, entry_anchor: Vector2) -> void:
 	for placement: Dictionary in enemy_placements:
-		var id := str(placement.id)
-		var saved: Dictionary = saved_enemies.get(id,{})
-		var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
-		body.position = FixedWorldProvider.point(saved.get("position",placement.point))
-		var actor := body.get_node("Actor") as EnemyActor
-		actor.set_meta(&"world_persistent_corpse",true)
-		if placement.has("max_health"):
-			actor.definition=actor.definition.duplicate(true) as EnemyDefinition
-			actor.definition.health_definition.max_health=float(placement.max_health)
-			actor.definition.health_definition.initial_current=float(placement.max_health)
-		add_child(body)
-		EnemyPresentationBinding.replace(actor,&"underworld")
-		policy.bind_damageable(StringName(id),actor.damageable,actor.health)
-		actor.bind_encounter(controller,policy,lifetime,StringName(id),[entry_anchor])
-		if saved.has("direction"): actor.brain.direction=int(saved.direction)
-		if saved.has("health"): actor.restore_instance_health(float(saved.health))
-		if not saved.is_empty() and not actor.health.terminal and actor.attack_behavior != null:
-			actor.attack_behavior.restore_region_state(saved)
-		EnemyPresentationBinding.synchronize(actor)
-		var contact:=DemoContactEmitter.attach(body,policy,controller,StringName(id+":contact"),DamageRequest.Kind.MONSTER,actor.definition.collision_size/2)
-		contact.enabled=not actor.health.terminal
-		actor.defeated.connect(func(_actor: EnemyActor) -> void: contact.enabled=false;contact.set_physics_process(false))
-		var remains:=EnemyPresentationBinding.remains(body.get_node("Presentation"))
-		if actor.health.terminal and remains!=null and saved.has("corpse"):
-			remains.restore_presentation(saved.corpse,_corpse_support(saved.corpse))
-		enemies[id] = actor
+		spawn_enemy(placement,controller,policy,lifetime,saved_enemies.get(str(placement.id),{}),entry_anchor)
 	for index: int in hazards.size():
 		add_child(DemoContactEmitter.environment_rect(hazards[index],policy,controller,StringName(room_id+":terrain:"+str(index))))
 	for strip: Dictionary in spike_strips:
@@ -310,6 +319,7 @@ func snapshot() -> Dictionary:
 	var result := {}
 	for id: String in enemies:
 		var actor: EnemyActor = enemies[id]
+		if actor.get_meta("wave_attempt",false):continue
 		result[id] = actor.region_snapshot()
 		var remains:=EnemyPresentationBinding.remains(actor.motor.get_node("Presentation"))
 		if actor.health.terminal and remains!=null:
@@ -327,7 +337,7 @@ func refresh_doors(state: FixedWorldState, content: FixedWorldProvider) -> void:
 	for door: Dictionary in doors:
 		var opened := bool(door.outbound_allowed) and state.holds(door.requires) and not content.room(str(door.target_room)).is_empty()
 		door_open[door.id]=opened
-		(door_blocks[door.id] as StaticBody2D).set_deferred("collision_layer",0 if opened else 1)
+		(door_blocks[door.id] as StaticBody2D).set_deferred("collision_layer",0 if opened or door.get("front_door",false) or door.get("npc_guard",false) else 1)
 	queue_redraw()
 
 func bind_services(value: WorldServices,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> void:
@@ -343,7 +353,7 @@ func bind_services(value: WorldServices,controller: PlayerController,policy: Fra
 		var host:=node as WorldRoomInteraction
 		host.bind(value.state);interaction_hosts.append(host)
 	if rest_point!=Vector2.ZERO:
-		station_animation=WorldSpriteAnimation.new();station_animation.asset_id="charging_station";station_animation.position=rest_point+Vector2(0,18);add_child(station_animation)
+		station_animation=WorldChargingStation.new();station_animation.position=rest_point+Vector2(0,18);add_child(station_animation)
 	if interior_material().is_empty():UnderworldForeground.attach(self,self,controller.motor)
 	loot=WorldCoinDrops.new();loot.services=value;loot.controller=controller;loot.room_id=room_id;loot.arena_bounds=arena_bounds
 	add_child(loot)
