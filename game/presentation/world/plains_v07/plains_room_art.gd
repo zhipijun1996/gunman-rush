@@ -51,7 +51,7 @@ func _ready() -> void:
 		wall.region_rect=Rect2(Vector2.ZERO,FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size+Vector2(1024,512));wall.position=Vector2(-512,-256);wall.z_index=-40;wall.modulate=Color(.8,.86,.95);add_child(wall)
 		depths.append({"node":wall,"origin":wall.position,"ratio":.92})
 	indoor=not interior.is_empty()
-	light_settings=JSON.parse_string(FileAccess.get_file_as_string("res://config/world/lighting.json"))
+	light_settings=JSON.parse_string(FileAccess.get_file_as_string("res://game/presentation/world/plains_v07/lighting.json"))
 	environment_light=light_settings.environments.get(interior,light_settings.environments.outdoor)
 	ambient=CanvasModulate.new()
 	ambient.color=Color(environment_light.ambient)
