@@ -2,7 +2,7 @@
 
 目标：修正正式主角苏醒、贴墙和上下查看补帧的体型与尺度，保留已接入的渐进下滑行为。
 
-游戏源码`b5bca90e07029a127bfa03b7c8c1e25bf54aeeca`已发布工作台r62，当前分支`fix/stargate-contact-route`，沿已授权工作台分支`feat/world-review-stargate`接续；没有修改房间布局、基础跳跃或反冲参数。进度由[任务表](../../tasks.md)维护。
+游戏源码`328d306d768ee42f53ddd9cb997be43a7a649c7a`已发布工作台r63，当前分支`fix/stargate-contact-route`，沿已授权工作台分支`feat/world-review-stargate`接续；没有修改房间布局、基础跳跃或反冲参数。进度由[任务表](../../tasks.md)维护。
 
 ## 当前实现
 
@@ -18,7 +18,7 @@ r62的同尺度对比确认视觉不通过：补帧误用旧瘦身立绘，且�
 
 `tests/test_player_pose_registration.py`四项检查实际母版身份、头部／胸腹／靴子宽度、查看脚底和单一缩放；`tests/player_wake_wall.gd`检查正式P03苏醒、对白、暂停、查看优先级、两侧贴墙和墙跳响应。本轮CI四项通过，正常Godot窗口检查P03待机→上下查看→待机、趴地→站稳，以及V12两侧攀附。动作参数和房间源未改。
 
-临时音画与日志保存在`build/round8/`，公开短片、发布版本与手机入口归[工作台交接](../mobile_level_workbench_01/scope.md)。素材与局部控制器检查不代表安卓真机、所有角色动作或全主线已经终审；新手段正常游戏不开W，贴墙在已有W的隔离V12夹具验证。
+临时音画与日志保存在`build/round8/`，[同尺度对比](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9543588141cfe7024db5d71b2e65cf6809437521/proportions.png)按左原待机／中r62／右返工绘制，公开短片、发布版本与手机入口归[工作台交接](../mobile_level_workbench_01/scope.md)。素材与局部控制器检查不代表安卓真机、所有角色动作或全主线已经终审；新手段正常游戏不开W，贴墙在已有W的隔离V12夹具验证。
 
 ## 后续
 

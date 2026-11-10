@@ -5,7 +5,7 @@
 ## 当前交付与身份
 
 - 工作台：https://windchime-level-workbench.zhipijun1996.chatgpt.site ，账号私有。Site V18（工具1.6.0），网页源码 `54ff947ac369fae5d162a54b01d405f9da23cb0d`，发布成功。整区审核内切换平原与森林，分别显示灰盒制作／正式接入与规划稿；森林提供24房地图、五条路线、逐房方案、SVG和本机反馈复制。
-- 本批游戏源码 `b5bca90e07029a127bfa03b7c8c1e25bf54aeeca`，接续PR147／PR148工作线；[发行流水线](https://github.com/zhipijun1996/gunman-rush/actions/runs/42772509181)成功，线上已迁移至r62。r61→r62三方比较无冲突、锁定或校验错误；恢复点`b0ab82ce-629b-40f3-992c-9036455b3ca5`保存更新前r61。P03读回确认新版绑定，P09/P18/P29房间内容与更新前逐项一致；正式接入包仅草稿revision随迁移递增。目录仍提供15种怪物。
+- 本批游戏源码 `328d306d768ee42f53ddd9cb997be43a7a649c7a`，接续PR147／PR148工作线；[发行流水线](https://github.com/zhipijun1996/gunman-rush/actions/runs/42776867795)成功，线上已迁移至r63。r62→r63三方比较无冲突、锁定或校验错误；恢复点`7e2b605c-329c-4ae7-9261-a80c78994d61`保存更新前r62。P03读回确认新版绑定，P09/P18/P29接入包除草稿revision递增外逐项一致；目录仍提供15种怪物。
 - 确切发行／运行包哈希与草稿绑定见[项目定位](../../../../tools/workbench/site-project.json)。更新使用三方比较，保留人工微调与不可变恢复点。
 - P18/P29的one_way_indices在编辑器按数值排序，集合和碰撞内容未变；规范化脏标记不代表人工地形变化，不为清标记覆盖真实草稿。
 - 正式施工仍为6房；工作台35个平原房和V-R12、Z-R01共37房可隔离灰盒审核。本轮仅发布工作台试玩，未合入main或扩大正式主站范围。
@@ -38,10 +38,11 @@ V-R12职责见[区域规范](../../../bible/regions/starbridge_gate.md)与该区
 
 逐房内容和验证归[平原当前交接](../plains_bible_v2_01/scope.md)，森林连接的空间分工与候选范围归[森林当前交接](../forest_bible_v2_01/scope.md)。工作台显示弹跃锚／停驻环功能区别、实际机关名称和齿轮完整往复轨迹，避免把回程开关标成不明“交付物”。
 
-- 主角苏醒／贴墙／上下查看专项、原17项攀墙与钩索恢复、教程回归、日常CI四项及文档检查通过。细节和真实消费者见[人物交接](../player_presentation_01/scope.md)。
-- 新运行包通过真实PCK探针，正式6房、编辑37房、15种怪物均可装载；包134,672,760字节，低于现行129MiB上限。新动作图集令运行包增加约75KB，原始生成图不进入该包。
-- 工作台UI沿用Site V18；本轮不更改编辑器、地图、房间节点或碰撞。迁移比较无校验问题，人工三房内容保持一致。既有关卡／剧情／怪物／森林规划的验证边界沿相应工作线。
-- 正常Godot窗口检查P03趴地苏醒、上下查看以及V12/HWDQ两侧贴墙、跳离和射击脱墙。正常速度可下载短片：[苏醒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b801538c2f1bf6b215ca6ca548194ac2d3c35b74/wake.mp4)、[上下查看](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b801538c2f1bf6b215ca6ca548194ac2d3c35b74/look-up-down.mp4)、[贴墙下滑](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b801538c2f1bf6b215ca6ca548194ac2d3c35b74/wall-slide.mp4)，分别约2、3、6秒，最大1.2MB；公开链接读回哈希一致。贴墙使用声明的局部起点，源码身份归同分支media.json。
+- 主角补帧比例返工以正式默认待机为母版，登记原脚底偏移，苏醒站稳直接回接原待机。用户已推翻r62视觉判断；当前结果按[人物交接](../player_presentation_01/scope.md)的同尺度对比及连续切换重新检查，不能沿用只验总高度的旧判断。
+- 当前母版来源／头部与胸腹及靴子宽度／脚底登记四项像素检查、真实苏醒／查看／贴墙专项、日常CI四项及文档检查通过。本轮未改运动参数、房间或编辑器。
+- 新运行包通过真实PCK探针，正式6房、编辑37房、15种怪物可装载；线上包134,664,712字节，低于现行129MiB上限。原始生成图与母版对照不进入运行包。
+- 迁移无校验问题，人工三房保持一致。既有关卡／剧情／怪物／森林规划验证边界沿相应工作线，Site仍为V18。
+- 正常Godot窗口检查P03原待机与上下查看往返、趴地至原待机接续，以及V12/HWDQ两侧贴墙、跳离和射击脱墙。可下载[同比例对比图](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9543588141cfe7024db5d71b2e65cf6809437521/proportions.png)、[苏醒与查看接续](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9543588141cfe7024db5d71b2e65cf6809437521/pose-transitions.mp4)、[贴墙](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9543588141cfe7024db5d71b2e65cf6809437521/wall-slide.mp4)。视频各约6秒、约1MB，链接读回哈希一致；贴墙使用声明的局部起点，源码身份归同分支media.json。
 
 - 未完成浏览器视觉、安卓真机性能、35房新档连续主环、全部钩索回访路线及新怪群战斗平衡终审。软件OpenGL、局部实机片段和状态测试不能代签这些结果。
 
