@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "authority_id": "project_shared_regional_style",
-  "version": "45",
+  "version": "46",
   "source": {
     "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
     "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
@@ -834,7 +834,7 @@
       {
         "role": "architecture_enemy_behavior_registry",
         "path": "game/enemies/enemy_behavior_registry.gd",
-        "sha256": "cfad0e810e0ea17e332260138b91493895ddefd80640841642173d5417c24f15"
+        "sha256": "c172dbe85f3c1e5e889de9439e597d1436911bca853fe2a7150a68dc86fefa3a"
       },
       {
         "role": "architecture_enemy_factory",
@@ -929,7 +929,7 @@
       {
         "role": "architecture_plains_enemy_audio",
         "path": "game/presentation/audio/plains_enemy_audio.gd",
-        "sha256": "0d09aecc02394740755ee2becbf36299bcbf9095a8e3511c2d92103b07d5ee1d"
+        "sha256": "8f7f30ecbc62157fad274965b45e27e848fbe7fba96da34aea4991a2053699c6"
       },
       {
         "role": "architecture_forest_practice_bell",
@@ -1059,7 +1059,7 @@
       {
         "role": "plains_v07_art",
         "path": "game/presentation/world/plains_v07/plains_room_art.gd",
-        "sha256": "c8f2814260043a43827137bdfb23499139b91a886b58f071e5d2f92e406ff186"
+        "sha256": "51c2b53545e69aec4c3641208280c9e3b3b9924d727a09e8c4e94bd1d8ebdbd5"
       },
       {
         "role": "plains_v07_animation",
@@ -1069,12 +1069,12 @@
       {
         "role": "plains_v07_assets",
         "path": "assets/plains_v07/manifest.json",
-        "sha256": "7e93f1d32bf6ccc24dcf0efb9fa0569d49c53a2b01108e6db29e35f96779b96b"
+        "sha256": "b97a38430814cb00525358dc20c236932af4e7daff57155d9924494cf2858d5c"
       },
       {
         "role": "plains_v07_provenance",
         "path": "assets/plains_v07/SOURCES.md",
-        "sha256": "8b210699cab864d79259c3462c0fc26346b6c80617d46d014a16dfb7ae09266e"
+        "sha256": "36e152e60f76a98d215fdb3d78957a2e9cb3627b54a2d04f4c8d26e3409e052a"
       },
       {
         "role": "fixed_world_camera",
@@ -1095,6 +1095,16 @@
         "role": "fixed_world_camera_zones",
         "path": "game/presentation/ui/world/world_camera_zones.gd",
         "sha256": "4bc705a27ca2fff03e2a9403209b2817e366ec9a40302403bc1a8ba48b65e245"
+      },
+      {
+        "role": "plains_three_bell_species_atlases",
+        "path": "assets/plains_actors_142/manifest.json",
+        "sha256": "4fa782819205272b9d38b79a94e4f661a71aa114c1533eaf780dc40aab6c07d9"
+      },
+      {
+        "role": "plains_ground_fan_definition",
+        "path": "resources/enemies/plains_ground_fan_sentry.tres",
+        "sha256": "653dd57fb6101a774c1ab3c1a741701bc102a587404292068a97397da6c07e6f"
       }
     ],
     "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."

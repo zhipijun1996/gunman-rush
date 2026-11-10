@@ -9,6 +9,7 @@ var depth_reference := Vector2.ZERO
 var depths: Array[Dictionary]=[]
 static var assets: Dictionary={}
 static var props: Dictionary={}
+static var backgrounds: Dictionary={}
 var occluders: Array[Sprite2D]=[]
 var terrain_polygons: Array[PackedVector2Array] = []
 var story_props: Array[Dictionary]=[]
@@ -33,7 +34,10 @@ func sprite(id: String,at: Vector2,layer: int=-2) -> Sprite2D:
 	return node
 func _ready() -> void:
 	if assets.is_empty():assets=JSON.parse_string(FileAccess.get_file_as_string("res://art/world-art-v2/assets/pixel/manifest.json"))
-	if props.is_empty():props=JSON.parse_string(FileAccess.get_file_as_string("res://assets/plains_v07/manifest.json")).props
+	if props.is_empty():
+		var manifest:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/plains_v07/manifest.json"))
+		props=manifest.props
+		backgrounds=manifest.get("backgrounds",{})
 	name="RegionalArt"
 	var air_material:=CanvasItemMaterial.new();air_material.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;material=air_material
 	depth_reference=Vector2(FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size.x*.5,room.start_point.y-100)
@@ -50,7 +54,7 @@ func _ready() -> void:
 	add_child(ambient)
 	if not indoor:
 		sky=Sprite2D.new();sky.name="PlainsFarLandscape"
-		sky.texture=load("res://art/world-art-v2/"+str(assets.backgrounds.windchime_plains_v2.file))
+		sky.texture=load("res://"+str(backgrounds[room.art_profile].image)) if backgrounds.has(room.art_profile) else load("res://art/world-art-v2/"+str(assets.backgrounds.windchime_plains_v2.file))
 		sky.z_index=-100;sky.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 		var unlit:=CanvasItemMaterial.new();unlit.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;sky.material=unlit
 		add_child(sky)
@@ -94,9 +98,6 @@ func _ready() -> void:
 			if placement.has("tint"):
 				var tone:Array=placement.tint;node.modulate=Color(tone[0],tone[1],tone[2],tone[3])
 			var depth_material:=CanvasItemMaterial.new();depth_material.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;node.material=depth_material
-			if float(placement.depth)<=.3:
-				var mist:=ShaderMaterial.new();mist.shader=preload("res://game/presentation/world/plains_v07/distant_air.gdshader")
-				node.material=mist;node.modulate=Color.WHITE
 			depths.append({"node":node,"origin":node.position,"ratio":float(placement.depth)})
 		if placement.get("light",false):
 			var light_position:=FixedWorldProvider.point(placement.light_offset) if placement.has("light_offset") else Vector2(0,-node.texture.get_height()*.65)

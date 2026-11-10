@@ -14,7 +14,7 @@ from pathlib import Path
 
 ENEMY_LABELS = {
     "patrol": "巡逻体", "charger": "冲锋体", "diver": "俯冲体", "hopper": "跃击体",
-    "sentry": "单发哨兵", "fan_sentry": "扇射哨兵", "root_bell": "根铃",
+    "sentry": "单发哨兵", "fan_sentry": "飞羽铃哨（空中三发）", "ground_fan_sentry": "行枝铃哨（地面三发）", "root_bell": "根铃",
     "forest_lantern": "铃囊萤", "forest_seed_sentry": "棘籽哨", "forest_bark_beetle": "树皮甲虫",
     "forest_swing_pod": "吊荚摆锚", "forest_thread_spider": "织棘蛛", "forest_crossbranch": "跨枝移动体",
     "forest_bible_weaver": "圣经织者",

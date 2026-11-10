@@ -1,10 +1,10 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_bkga5"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_sy8ch"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_giia0"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_3hout"]
 
 [node name="P-R32" type="Node2D" unique_id=1127424155]
-script = ExtResource("1_bkga5")
+script = ExtResource("1_giia0")
 room_id = "P-R32"
 arrival_text = "悬铃长桥"
 route_guide = {
@@ -63,18 +63,12 @@ art_placements = Array[Dictionary]([{
 "point": [1920.0, 832.0],
 "support_height": 256.0
 }, {
-"asset": "world_clock_distant",
-"depth": 0.18,
-"layer": -65.0,
-"point": [1856.0, 1040.0],
-"tint": [0.62, 0.72, 0.73, 0.78]
-}, {
 "asset": "bell_post",
 "layer": -2.0,
 "light": true,
 "point": [2560.0, 640.0]
 }])
-art_profile = "bridge"
+art_profile = "clockheart_vista"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[2496.0, 584.0], [2304.0, 1168.0]],
 "bell": [2112.0, 752.0],
@@ -83,7 +77,7 @@ bell_mechanisms = Array[Dictionary]([{
 }])
 platforms = Array[Rect2]([Rect2(64, 1024, 704, 128), Rect2(1024, 960, 448, 128), Rect2(1664, 832, 512, 256), Rect2(2432, 640, 640, 64), Rect2(704, 640, 416, 64), Rect2(864, 160, 192, 32), Rect2(2368, 1248, 192, 96), Rect2(1920, 1248, 320, 96), Rect2(2176, 1024, 192, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R32:art_placements:0", "P-R32:art_placements:1", "P-R32:art_placements:2", "P-R32:art_placements:3"],
+"art_placements": ["P-R32:art_placements:0", "P-R32:art_placements:1", "P-R32:art_placements:3"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": ["P-R32:hook_points:0", "P-R32:hook_points:1", "P-R32:hook_points:2"],
@@ -105,10 +99,10 @@ enemy_placements = Array[Dictionary]([{
 "max_health": 9.0,
 "point": [1376.0, 752.0]
 }, {
-"behavior": "sentry",
+"behavior": "ground_fan_sentry",
 "id": "P-R32:pier_sentry",
 "max_health": 14.0,
-"point": [2048.0, 814.0]
+"point": [1824.0, 814.0]
 }])
 spike_strips = Array[Dictionary]([{
 "bounds": [768.0, 1064.0, 256.0, 24.0],
@@ -137,7 +131,7 @@ hook_points = Array[Vector2]([Vector2(1200, 680), Vector2(960, 416), Vector2(960
 
 [node name="BridgeInspectionLift" type="AnimatableBody2D" parent="." unique_id=755208642]
 position = Vector2(2224, 800)
-script = ExtResource("2_sy8ch")
+script = ExtResource("2_3hout")
 endpoint = Vector2(112, -160)
 platform_size = Vector2(144, 20)
 period = 6.0

@@ -128,6 +128,9 @@ def bake(name):
     out = ASSETS / 'atlases'
     out.mkdir(exist_ok=True)
     atlas.save(out / f'{name}.png')
+    if spec.get('static_from_frame', False):
+        neutral = frames[0]
+        neutral.crop(neutral.getbbox()).save(ASSETS / 'static' / f'{name}.png')
     core_points, muzzle_points, barrel_pivots, barrel_regions = [], [], [], []
     meta = dict(frame_size=[cw, ch], pivot=pivot, columns=columns, states=states, core_points=core_points, muzzle_points=muzzle_points, barrel_pivots=barrel_pivots, barrel_regions=barrel_regions,
                 scale=scale, registration_x=registration_x, source_size=[width, height], source_rows=rows,

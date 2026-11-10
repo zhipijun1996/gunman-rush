@@ -1401,7 +1401,7 @@
       "room_id": "P-R32",
       "name": "悬铃长桥",
       "purpose": "断桥反冲、检修升降和安全远眺钟心塔。",
-      "profile": "bridge",
+      "profile": "clockheart_vista",
       "scene": "res://game/world/regions/P/rooms/P-R32.tscn",
       "encounters": [
         {
@@ -1423,28 +1423,28 @@
           ]
         },
         {
-          "behavior": "sentry",
+          "behavior": "ground_fan_sentry",
           "id": "P-R32:pier_sentry",
           "max_health": 14.0,
           "point": [
-            2048.0,
-            814.0
+            1824,
+            814
           ]
         }
       ],
       "interactions": [],
       "experience": {
         "player_decision": "从真实桥墩反冲跨两处断口，射铃乘检修台到远眺岸，再进入钟庭。",
-        "visual_read": "钟塔以低对比慢视差处于远景，桥墩与对岸是真正落脚点；上层只保留H回访所需三环，先挂中继环跳上宽岸，再从岸边继续登高。",
-        "pressure": "冲锋、桥间俯冲与桥墩哨兵分段施压，不用满屏钩点代替地形。",
+        "visual_read": "世界钟心塔与远山、谷雾组成同一背景底板，塔基完全隐入山雾，不与近景桥墩对齐；上层三环经中继挂环、宽岸落脚组织H回访。",
+        "pressure": "冲锋、桥间俯冲与桥墩地面行枝铃哨分段施压；铃哨只在无刺宽岸巡行，停步三发扇射后收势再走。",
         "failure_recovery": "断口刺回近岸；低层通旧集并能重新搭台。",
         "return_visit": "修钟后回到熟悉桥头，H上层支路与基础东行/下层回环分别可读。"
       },
       "art_focal_assets": [
         "plain_pier",
         "plain_pier",
-        "world_clock_distant",
-        "bell_post"
+        "bell_post",
+        "clockheart_vista"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",

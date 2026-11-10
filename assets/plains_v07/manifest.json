@@ -1012,6 +1012,18 @@
       ],
       "method": "native32 unchanged pixels; three shared variants; canonical exact-boundary mask repack",
       "sha256": "4d6a8c6739e913dbbabfa0bf32bb30c874f03edc4e14ee32970854aa8c47ef7e"
+    },
+    "clockheart_vista": {
+      "image": "assets/plains_v07/native/clockheart-landscape.png",
+      "source": "assets/plains_v07/source/clockheart-landscape.png",
+      "sha256": "af11ab14ecb19c490ca3144e0121138fb2ebc3cd259a6d3ff4046bfe68772b6e",
+      "source_sha256": "a9368eee18cfc87fa28ff787782ee686b884cdc630e51c9767bf493020a38793",
+      "size": [
+        640,
+        360
+      ],
+      "bake": "whole opaque plate to 640x360, nearest; tower foot painted behind hills and valley haze",
+      "anchor": "same viewport-fill far plate transform as plains sky"
     }
   },
   "props": {
@@ -1505,24 +1517,6 @@
       ],
       "bake_scale": 0.47920133111480867,
       "sha256": "c9cc02ab7db21bf418873871c2f7cefad358db5f59deb02239510ca93e16c5a1"
-    },
-    "world_clock_distant": {
-      "image": "assets/plains_v07/native/world_clock_distant.png",
-      "source": "assets/plains_v07/source/clocktower-generated.png",
-      "source_rect": [
-        0,
-        0,
-        1024,
-        1536
-      ],
-      "size": [
-        224,
-        335
-      ],
-      "bake_scale": 0.22062172976300398,
-      "sha256": "8c4da2c42ce5e38530efe205d18cc38b74d611bea297a809ec3aaa2acfbdbadc",
-      "derived_from": "assets/plains_v07/native/world_clock_close.png",
-      "resampling": "nearest"
     },
     "interior_mill": {
       "image": "assets/plains_v07/native/interior_mill.png",

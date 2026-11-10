@@ -10,7 +10,7 @@ const RENDERERS := {
 }
 const BODY_KEYS := {
 	&"patrol": &"patrol", &"charger": &"charger", &"diver": &"aerial",
-	&"hopper": &"hopper", &"sentry": &"sentry", &"fan_sentry": &"aerial",
+	&"hopper": &"hopper", &"sentry": &"sentry", &"fan_sentry": &"aerial", &"ground_fan_sentry": &"sentry",
 	&"root_bell": &"root_bell",
 	&"forest_lantern": &"aerial", &"forest_swing_pod": &"aerial",
 	&"forest_seed_sentry": &"patrol", &"forest_bark_beetle": &"patrol",
