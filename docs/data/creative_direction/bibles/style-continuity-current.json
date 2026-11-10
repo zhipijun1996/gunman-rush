@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "authority_id": "project_shared_regional_style",
-  "version": "44",
+  "version": "45",
   "source": {
     "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
     "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
@@ -29,12 +29,12 @@
       {
         "role": "formal_entry",
         "path": "game/application/world/fixed_world_app.gd",
-        "sha256": "5a42f6be750554c815ff131e9dd65e0486c13ff9e3425e30ff3e75f744235f30"
+        "sha256": "e27c07defced93e046985f19e44dc65be8163020a7d083b332159ae27a4a926c"
       },
       {
         "role": "terrain_consumer",
         "path": "game/world/levels/fixed_world_room.gd",
-        "sha256": "d7305886aebe638a287393ae53bfa0b779e1f9e2a49a95d3d37b04020d2aabe5"
+        "sha256": "019b1befe696c630f69d1c5518075c909796dd72ad908691a51d292b5b7d28b5"
       },
       {
         "role": "terrain_renderer",
@@ -1059,7 +1059,7 @@
       {
         "role": "plains_v07_art",
         "path": "game/presentation/world/plains_v07/plains_room_art.gd",
-        "sha256": "cf033c57cf378dffffd86ad48a3b844e87cfd3ee12f37b5fd084d8aee1129f1d"
+        "sha256": "c8f2814260043a43827137bdfb23499139b91a886b58f071e5d2f92e406ff186"
       },
       {
         "role": "plains_v07_animation",
@@ -1069,7 +1069,7 @@
       {
         "role": "plains_v07_assets",
         "path": "assets/plains_v07/manifest.json",
-        "sha256": "46cbf48f8e3da455361325266e9a4c2f5526dc62f9edec2a79afad4410072942"
+        "sha256": "526fab42dcb5654e6cedddcefa642e6020e237458c97a2beaa8a15ccaaf392c0"
       },
       {
         "role": "plains_v07_provenance",
@@ -1079,7 +1079,7 @@
       {
         "role": "fixed_world_camera",
         "path": "game/presentation/ui/world/world_camera.gd",
-        "sha256": "4309434c5debef88c36a0b1897a571825f3ba42d9a4e8a01cac1b9933306ed30"
+        "sha256": "32e8dbaca45c55e55312b1249e6b6f718b43190fccf06386234551eded6045d1"
       },
       {
         "role": "fixed_world_camera_parameters",
@@ -1089,7 +1089,7 @@
       {
         "role": "physical_room_space",
         "path": "game/world/levels/world_room_space.gd",
-        "sha256": "06a18a0b7884dd086762b46403a09d202b15c67fe7647e3d0e3fc05ecdc57f60"
+        "sha256": "5c9ace2099e5a8b0defd8a5ee6f40b73d24d5fea68cb1c2f553e7377cd36a503"
       },
       {
         "role": "fixed_world_camera_zones",
@@ -1108,8 +1108,8 @@
   "region_scope": "Every current catalog region and later new region; the two original Bible documents are unchanged.",
   "change_impact": {
     "source": "Direct user requests in this session, 2026-11-10",
-    "quote": "钩索需要绘制两种类型；第一次修钟，要看到修钟的特效、音效，然后世界从破败变有生机。",
-    "actual_changes": "沿用主角、原生32px地形与Underworld材质；两类铜件钩点、平原修钟暖光/风动/草叶、显式剧情镜头与暂停中音效，未换角色或物理。绑定此前已接入的角色表现与道具最新消费者。",
-    "validation": "本轮正常Godot窗口审看14钩点、13挑战、25奖励预读、32塔景、15修钟前后；真实动作、故事跳过/返回/读档、载台怪与音源生命周期检查。森林仅整图规划，无新增森林素材或全区视觉接受声明。"
+    "quote": "恢复光线与风吹粒子；31/32/33重做；怪物自带光照，不被弄黑。",
+    "actual_changes": "保留人物物理、Underworld原生地形与怪物原形体；可见空气风点、暖冷受光、怪物自明材质，P32远景空气透视、P33塔门与Z01损毁钟心素材；门厅沿既有C07身份接入。",
+    "validation": "正常Godot窗口检查P24场地与隐藏室、P32远景、P33塔门、Z01室内；局部实际反冲动作、清场镜头、剧情跳过与存档许可专项。仍是本轮候选，不声明用户认可或手机性能验收。"
   }
 }

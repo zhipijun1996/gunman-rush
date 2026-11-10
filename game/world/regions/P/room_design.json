@@ -5,7 +5,7 @@
     {
       "room_id": "P-R01",
       "name": "钟外小站",
-      "purpose": "先向东查明钟心，再返回北侧旧路；社区整备。",
+      "purpose": "首抵小站停靠与东行指引，射铃启动独立的上层载台。",
       "profile": "station",
       "scene": "res://game/world/regions/P/rooms/P-R01.tscn",
       "encounters": [],
@@ -16,18 +16,18 @@
         }
       ],
       "experience": {
-        "player_decision": "首次安全落地触发守钟匠对白；P08暂闭，P31→32→33可通；塔脚对白后永久开放北路。",
-        "visual_read": "灯棚、柜台与休息点集中在宽敞大厅；笼轨和各层宽站台明确联系三个来向。",
-        "pressure": "安全枢纽，无战斗和危险；层间交通不承担精密跳跃考验。",
-        "failure_recovery": "错过升降笼可沿大厅下方有地面的维修道回到竖井重新搭乘；明确休息保存锚点，未提交交易不改变物资。",
-        "return_visit": "带回齿轮与新能力，阿栖的茶杯与便笺提供生活变化。"
+        "player_decision": "第一段到小站即停，听取东侧钟心线索；上层旧路另乘射铃载台。",
+        "visual_read": "两段载台各有真实落岸；守路NPC取代黄色门墙。",
+        "pressure": "安全小站不塞战斗，靠近北路守卫后对白并实际走回安全岸。",
+        "failure_recovery": "载台可再次搭乘，钟心门厅收据决定守路者离开。",
+        "return_visit": "完成钟心调查后开放北侧封井路线。"
       },
       "art_focal_assets": [
         "waiting_shelter",
         "merchant_counter",
         "storage_crates",
         "hanging_chime",
-        "aqi_note"
+        "gear_lamp"
       ],
       "service_actions": [
         "pickup_ATK08",
@@ -47,7 +47,7 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "本房不新增战斗压力。"
       },
-      "spatial_intent": "首次安全落地触发守钟匠对白；P08暂闭，P31→32→33可通；塔脚对白后永久开放北路。"
+      "spatial_intent": "第一段到小站即停，听取东侧钟心线索；上层旧路另乘射铃载台。"
     },
     {
       "room_id": "P-R02",
@@ -1037,134 +1037,10 @@
     {
       "room_id": "P-R24",
       "name": "望站坡",
-      "purpose": "紧凑守望场三波3/4/5只，弱怪9血、中等14血；恒定缩放的战场构图。清场后探索左墙植物暗室宝箱，或射铃乘右移升降台到小站。",
+      "purpose": "三波主动战斗，清场后射铃升降，水平植物暗室探索。",
       "profile": "overlook",
       "scene": "res://game/world/regions/P/rooms/P-R24.tscn",
-      "encounters": [
-        {
-          "wave": 1,
-          "enemies": [
-            {
-              "id": "P-R24:wave1:left",
-              "behavior": "patrol",
-              "point": [
-                1600,
-                1102
-              ],
-              "max_health": 9
-            },
-            {
-              "id": "P-R24:wave1:right",
-              "behavior": "patrol",
-              "point": [
-                2240,
-                1102
-              ],
-              "max_health": 9
-            },
-            {
-              "id": "P-R24:wave1:hopper",
-              "behavior": "hopper",
-              "point": [
-                2112,
-                1102
-              ],
-              "max_health": 9
-            }
-          ]
-        },
-        {
-          "wave": 2,
-          "enemies": [
-            {
-              "id": "P-R24:wave2:charger",
-              "behavior": "charger",
-              "point": [
-                1616,
-                1102
-              ],
-              "max_health": 14
-            },
-            {
-              "id": "P-R24:wave2:sentry",
-              "behavior": "sentry",
-              "point": [
-                2256,
-                1102
-              ],
-              "max_health": 14
-            },
-            {
-              "id": "P-R24:wave2:patrol",
-              "behavior": "patrol",
-              "point": [
-                2160,
-                1102
-              ],
-              "max_health": 9
-            },
-            {
-              "id": "P-R24:wave2:diver",
-              "behavior": "diver",
-              "point": [
-                1808,
-                832
-              ],
-              "max_health": 9
-            }
-          ]
-        },
-        {
-          "wave": 3,
-          "enemies": [
-            {
-              "id": "P-R24:wave3:charger",
-              "behavior": "charger",
-              "point": [
-                1616,
-                1102
-              ],
-              "max_health": 14
-            },
-            {
-              "id": "P-R24:wave3:hopper",
-              "behavior": "hopper",
-              "point": [
-                2224,
-                1102
-              ],
-              "max_health": 14
-            },
-            {
-              "id": "P-R24:wave3:patrol",
-              "behavior": "patrol",
-              "point": [
-                2128,
-                1102
-              ],
-              "max_health": 9
-            },
-            {
-              "id": "P-R24:wave3:diver",
-              "behavior": "diver",
-              "point": [
-                1808,
-                832
-              ],
-              "max_health": 9
-            },
-            {
-              "id": "P-R24:wave3:fan",
-              "behavior": "fan_sentry",
-              "point": [
-                2152,
-                848
-              ],
-              "max_health": 14
-            }
-          ]
-        }
-      ],
+      "encounters": [],
       "interactions": [
         {
           "action_id": "open_P24_hidden_chest",
@@ -1172,19 +1048,23 @@
         }
       ],
       "experience": {
-        "player_decision": "紧凑守望场三波3/4/5只，弱怪9血、中等14血；恒定缩放的战场构图。清场后探索左墙植物暗室宝箱，或射铃乘右移升降台到小站。",
-        "failure_recovery": "已到达的安全岸重试；入口和出口保留实际支持与完整身体净空。",
-        "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
+        "player_decision": "在封场中换位反击三波3/4/5怪群，清场选择升降主路或左侧暗室。",
+        "visual_read": "场地恒定缩放，清场水平归位；暗室从左右边界交接。",
+        "pressure": "地面冲锋夹击、跳扑、二维俯冲与射击组合；入场恢复点不是永久免战点。",
+        "failure_recovery": "失败回既有恢复锚点，清场恢复探索音乐。",
+        "return_visit": "左侧一次性20金币宝箱，升降台可重搭。"
       },
       "art_focal_assets": [
-        "hanging_chime"
+        "cellar_backdrop",
+        "concealing_grass",
+        "concealing_grass"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "拾枪、对话和清场进度持久提交；风铃命中反馈与门、载台的实际状态一致。",
         "encounter": "复用真实敌人的预警、命中、受击与击败反馈；刺坑接触后回到已触达的安全岸。"
       },
-      "spatial_intent": "紧凑守望场三波3/4/5只，弱怪9血、中等14血；恒定缩放的战场构图。清场后探索左墙植物暗室宝箱，或射铃乘右移升降台到小站。"
+      "spatial_intent": "在封场中换位反击三波3/4/5怪群，清场选择升降主路或左侧暗室。"
     },
     {
       "room_id": "P-R25",
@@ -1456,36 +1336,54 @@
     {
       "room_id": "P-R31",
       "name": "站外铃场",
-      "purpose": "站外三向大枢纽；回站、上桥、下集由地标辨路，战后再分流。",
+      "purpose": "断渠战斗、射铃双吊台登高与下层回环分流。",
       "profile": "junction",
       "scene": "res://game/world/regions/P/rooms/P-R31.tscn",
       "encounters": [
         {
-          "behavior": "patrol",
-          "id": "P-R31:far_bank_patrol",
-          "max_health": 9,
+          "behavior": "charger",
+          "id": "P-R31:approach_guard",
+          "max_health": 9.0,
           "point": [
-            2608,
-            878
+            624.0,
+            878.0
+          ]
+        },
+        {
+          "behavior": "sentry",
+          "id": "P-R31:far_bank",
+          "max_health": 14.0,
+          "point": [
+            1984.0,
+            878.0
+          ]
+        },
+        {
+          "behavior": "diver",
+          "id": "P-R31:upper_air",
+          "max_health": 9.0,
+          "point": [
+            1600.0,
+            660.0
           ]
         },
         {
           "behavior": "hopper",
-          "id": "P-R31:lower_refuge_hopper",
-          "max_health": 9,
+          "id": "P-R31:lower_guard",
+          "max_health": 9.0,
           "point": [
-            1744,
-            1390
+            1792.0,
+            1390.0
           ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "从小站出来辨认上桥与下集市，选择田面反冲或乘笼换层。",
-        "visual_read": "上口灯、分层宽岸与斜升笼轨指向三个来向。",
-        "pressure": "入口安静；右侧宽岸与下层分配轻遭遇。",
-        "failure_recovery": "宽底地面可重组，笼子与停靠岸负责高低返程。",
-        "return_visit": "修钟回站经过此处，再带 H 上长桥看新路。"
+        "player_decision": "下路越断渠和守卫；射铃到左检修岸，反冲换右岸，再乘第二台去长桥。",
+        "visual_read": "宽岸承担战斗与恢复，斜吊台和风铃标明上行，下层错岸通旧集。",
+        "pressure": "冲锋阻路、远岸射线、上层俯冲分别争夺跨渠、起跳与换乘时机。",
+        "failure_recovery": "断渠底刺回近岸，下层留实地恢复并能借载台返回。",
+        "return_visit": "西回站、上接长桥、下行旧集，保持三向身份。"
       },
       "art_focal_assets": [
         "bell_post",
@@ -1497,79 +1395,90 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "离开安全观察位后沿既有敌人的同体预警、命中与死亡表现；提示与辨路期间不受追击。"
       },
-      "spatial_intent": "挑高中央庭院与回廊围绕钟柱展开，西端观察无压力；站灯、铜环和水车分别引向01、32、34，不保留封井直连。"
+      "spatial_intent": "下路越断渠和守卫；射铃到左检修岸，反冲换右岸，再乘第二台去长桥。"
     },
     {
       "room_id": "P-R32",
       "name": "悬铃长桥",
-      "purpose": "东行初见钟心与修钟后的熟路回返。",
+      "purpose": "断桥反冲、检修升降和安全远眺钟心塔。",
       "profile": "bridge",
       "scene": "res://game/world/regions/P/rooms/P-R32.tscn",
       "encounters": [
         {
-          "behavior": "patrol",
-          "id": "P-R32:under_bridge_patrol",
-          "max_health": 9,
+          "behavior": "charger",
+          "id": "P-R32:bridge_charge",
+          "max_health": 9.0,
           "point": [
-            1744,
-            1006
+            480.0,
+            1006.0
           ]
         },
         {
           "behavior": "diver",
-          "id": "P-R32:under_bridge_diver",
-          "max_health": 9,
+          "id": "P-R32:bridge_diver",
+          "max_health": 9.0,
           "point": [
-            2240,
-            832
+            1376.0,
+            752.0
+          ]
+        },
+        {
+          "behavior": "sentry",
+          "id": "P-R32:pier_sentry",
+          "max_health": 14.0,
+          "point": [
+            2048.0,
+            814.0
           ]
         }
       ],
       "interactions": [],
       "experience": {
-        "player_decision": "右侧完整旧塔地标与短镜头演出；低路基础动作可过，不强迫H。",
-        "visual_read": "上层索链与低层石路明确分层，南井口接汇口。",
-        "pressure": "桥下巡逻与俯冲改变射线；上桥主压力为连续H。",
-        "failure_recovery": "落下可回低路，南井两侧留实地；上口保留返向铜环。",
-        "return_visit": "15修钟后落回熟悉桥头，铜环响应H；可试上桥、走低路向东，或经31回站/下集入水路。"
+        "player_decision": "从真实桥墩反冲跨两处断口，射铃乘检修台到远眺岸，再进入钟庭。",
+        "visual_read": "钟塔以低对比慢视差处于远景，桥墩与对岸是真正落脚点；上层只保留H回访所需两环。",
+        "pressure": "冲锋、桥间俯冲与桥墩哨兵分段施压，不用满屏钩点代替地形。",
+        "failure_recovery": "断口刺回近岸；低层通旧集并能重新搭台。",
+        "return_visit": "修钟后回到熟悉桥头，H上层支路与基础东行/下层回环分别可读。"
       },
       "art_focal_assets": [
         "plain_pier",
-        "world_clock_far"
+        "plain_pier",
+        "world_clock_distant",
+        "bell_post"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "离开安全观察位后沿既有敌人的同体预警、命中与死亡表现；提示与辨路期间不受追击。"
       },
-      "spatial_intent": "右侧完整旧塔地标与短镜头演出；低路基础动作可过，不强迫H。"
+      "spatial_intent": "从真实桥墩反冲跨两处断口，射铃乘检修台到远眺岸，再进入钟庭。"
     },
     {
       "room_id": "P-R33",
       "name": "钟影前庭",
-      "purpose": "钟心前庭告知修钟目标，开放北侧旧路。",
+      "purpose": "钟心正面前庭：塔门进室内，地下口回环。",
       "profile": "clock",
       "scene": "res://game/world/regions/P/rooms/P-R33.tscn",
       "encounters": [],
       "interactions": [],
       "experience": {
-        "player_decision": "守钟匠从检修道先到；对白解释时律钟与钟心，指向小站北侧风鸣钟，不改终局核心身份。",
-        "visual_read": "世界钟与宽庭地基构成安静地标，井口两侧岸明确。",
-        "pressure": "无战斗。",
-        "failure_recovery": "南井的中继板接回宽庭，外区未施工边界保持封闭。",
-        "return_visit": "钟心是全世界目标，平原修钟不误作全部钟心已修复。"
+        "player_decision": "走向有建筑支撑的正面塔门，向上交互进入Z01；也可沿下口探索。",
+        "visual_read": "中部构图显示塔门凹口，不把钟心对白摆在室外。",
+        "pressure": "经历桥段后的安静落岸承担地标辨认与入室过渡。",
+        "failure_recovery": "正门双向遮挡切房，返回仍在门前实地。",
+        "return_visit": "门厅调查记录持久化，重复返回不重播首次解释。"
       },
       "art_focal_assets": [
-        "world_clock_far",
-        "windchime_plains_v2_bell_wheel",
-        "bell_post"
+        "interior_mill",
+        "clockheart_gate",
+        "gear_lamp"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "本房不新增战斗压力。"
       },
-      "spatial_intent": "守钟匠从检修道先到；对白解释时律钟与钟心，指向小站北侧风鸣钟，不改终局核心身份。"
+      "spatial_intent": "走向有建筑支撑的正面塔门，向上交互进入Z01；也可沿下口探索。"
     },
     {
       "room_id": "P-R34",

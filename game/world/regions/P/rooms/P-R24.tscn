@@ -1,11 +1,11 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_vafi1"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_gywlr"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_qbwoa"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_gsewa"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_07f2y"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_8lbhj"]
 
 [node name="P-R24" type="Node2D" unique_id=1927535924]
-script = ExtResource("1_vafi1")
+script = ExtResource("1_gsewa")
 room_id = "P-R24"
 arrival_text = "望站坡"
 wave_encounter = {
@@ -16,12 +16,12 @@ wave_encounter = {
 "recovery_point": [1984.0, 1102.0],
 "trigger": [1552.0, 944.0, 736.0, 176.0],
 "waves": [[{
-"behavior": "patrol",
+"behavior": "charger",
 "id": "P-R24:wave1:left",
 "max_health": 9.0,
 "point": [1600.0, 1102.0]
 }, {
-"behavior": "patrol",
+"behavior": "charger",
 "id": "P-R24:wave1:right",
 "max_health": 9.0,
 "point": [2240.0, 1102.0]
@@ -41,7 +41,7 @@ wave_encounter = {
 "max_health": 14.0,
 "point": [2256.0, 1102.0]
 }, {
-"behavior": "patrol",
+"behavior": "charger",
 "id": "P-R24:wave2:patrol",
 "max_health": 9.0,
 "point": [2160.0, 1102.0]
@@ -61,7 +61,7 @@ wave_encounter = {
 "max_health": 14.0,
 "point": [2224.0, 1102.0]
 }, {
-"behavior": "patrol",
+"behavior": "charger",
 "id": "P-R24:wave3:patrol",
 "max_health": 9.0,
 "point": [2128.0, 1102.0]
@@ -109,22 +109,12 @@ bell_mechanisms = Array[Dictionary]([{
 "open_seconds": 0.0
 }])
 platforms = Array[Rect2]([Rect2(1024, 1120, 352, 96), Rect2(1376, 1120, 384, 96), Rect2(1952, 1120, 544, 96), Rect2(1664, 1376, 128, 64), Rect2(1920, 1504, 128, 96), Rect2(1056, 160, 192, 32), Rect2(1792, 1248, 128, 32), Rect2(0, 320, 480, 896), Rect2(480, 320, 544, 608), Rect2(928, 928, 96, 96), Rect2(480, 1120, 544, 96), Rect2(1504, 320, 32, 640), Rect2(1536, 320, 800, 416), Rect2(2336, 320, 160, 800)])
-workbench_entity_ids = {
-"art_placements": ["P-R24:art_placements:0", "P-R24:art_placements:1", "P-R24:art_placements:2"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R24:platforms:0", "P-R24:platforms:1", "P-R24:platforms:2", "P-R24:platforms:3", "P-R24:platforms:4", "P-R24:platforms:5", "P-R24:platforms:6", "P-R24:platforms:7", "P-R24:platforms:8", "P-R24:platforms:9", "P-R24:platforms:10", "P-R24:platforms:11", "P-R24:platforms:12", "P-R24:platforms:13"],
-"retry_anchors": ["P-R24:retry_anchors:0", "P-R24:retry_anchors:1"],
-"signs": []
-}
-masonry_platform_indices = Array[int]([11, 12, 13])
 start_point = Vector2(1984, 1486)
 arena_bounds = Rect2(1536, 736, 800, 384)
 
 [node name="OverlookLift" type="AnimatableBody2D" parent="." unique_id=1190367471]
 position = Vector2(1344, 1072)
-script = ExtResource("2_gywlr")
+script = ExtResource("2_07f2y")
 endpoint = Vector2(0, -864)
 platform_size = Vector2(128, 20)
 period = 10.0
@@ -134,7 +124,7 @@ endpoint_dwell = 2.0
 
 [node name="HiddenChest" type="Node2D" parent="." unique_id=25092106]
 position = Vector2(672, 1102)
-script = ExtResource("3_qbwoa")
+script = ExtResource("3_8lbhj")
 action_id = "open_P24_hidden_chest"
 label = "打开宝箱"
 visual = "chest"

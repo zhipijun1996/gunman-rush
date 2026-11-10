@@ -1,25 +1,32 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_wexgl"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_hyceh"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_oa36b"]
 
 [node name="P-R32" type="Node2D" unique_id=1127424155]
-script = ExtResource("1_wexgl")
+script = ExtResource("1_hyceh")
 room_id = "P-R32"
 arrival_text = "悬铃长桥"
 route_guide = {
 "schema": 1.0,
 "steps": [{
-"action": "西岸可看见上层铜环与断桥；无H时从下层通钟庭。",
-"label": "初见断桥",
+"action": "利用桥墩遮挡清理射线，反冲跨越两处断口。",
+"label": "断桥推进",
 "number": 1.0,
-"path": [[208.0, 1006.0], [752.0, 846.0], [960.0, 622.0], [1280.0, 1006.0], [2080.0, 1006.0], [2752.0, 814.0], [2928.0, 622.0]],
+"path": [[208.0, 1006.0], [672.0, 1006.0], [1184.0, 942.0], [1952.0, 814.0]],
 "point": [208.0, 1006.0]
 }, {
-"action": "修钟后从上口回来，连续H越桥，或从桥下进入汇口。",
-"label": "修钟回访",
+"action": "射铃抬升检修台到安全远眺岸；塔在背景，前方只留真实可走桥面。",
+"label": "远眺钟心",
 "number": 2.0,
-"path": [[960.0, 142.0], [960.0, 622.0], [1440.0, 512.0], [2016.0, 512.0], [2608.0, 622.0], [2432.0, 1230.0]],
-"point": [960.0, 142.0]
+"path": [[2112.0, 814.0], [2224.0, 782.0], [2336.0, 622.0], [2656.0, 622.0], [3008.0, 622.0]],
+"point": [2112.0, 814.0]
+}, {
+"action": "检修岸下方回环通旧集，保留可重搭的载台。",
+"label": "下层出口",
+"number": 3.0,
+"path": [[2224.0, 1006.0], [2432.0, 1230.0], [2304.0, 1296.0]],
+"point": [2224.0, 1006.0]
 }]
 }
 section_volumes = Array[Dictionary]([{
@@ -27,62 +34,97 @@ section_volumes = Array[Dictionary]([{
 "id": "high:H"
 }])
 retry_anchors = Array[Dictionary]([{
-"bounds": [1008.0, 580.0, 96.0, 60.0],
-"point": [1056.0, 622.0],
+"bounds": [608.0, 964.0, 128.0, 60.0],
+"point": [672.0, 1006.0],
 "section": "main"
 }, {
-"bounds": [2560.0, 580.0, 96.0, 60.0],
-"point": [2608.0, 622.0],
+"bounds": [1088.0, 900.0, 256.0, 60.0],
+"point": [1184.0, 942.0],
+"section": "main"
+}, {
+"bounds": [1856.0, 772.0, 192.0, 60.0],
+"point": [1952.0, 814.0],
 "section": "main"
 }])
 art_placements = Array[Dictionary]([{
 "asset": "plain_pier",
-"layer": -2.0,
-"point": [960.0, 640.0],
-"support_height": 384.0
+"layer": -4.0,
+"point": [1280.0, 960.0],
+"support_height": 128.0
 }, {
 "asset": "plain_pier",
-"layer": -2.0,
-"point": [2624.0, 640.0],
-"support_height": 192.0
+"layer": -4.0,
+"point": [1920.0, 832.0],
+"support_height": 256.0
 }, {
-"asset": "world_clock_close",
-"layer": -12.0,
-"point": [2824.0, 640.0]
+"asset": "world_clock_distant",
+"depth": 0.18,
+"layer": -65.0,
+"point": [1856.0, 1040.0],
+"tint": [0.62, 0.72, 0.73, 0.78]
+}, {
+"asset": "bell_post",
+"layer": -2.0,
+"light": true,
+"point": [2560.0, 640.0]
 }])
 art_profile = "bridge"
-platforms = Array[Rect2]([Rect2(64, 1024, 704, 128), Rect2(1024, 1024, 1216, 64), Rect2(2560, 832, 512, 64), Rect2(704, 640, 416, 64), Rect2(2496, 640, 576, 64), Rect2(864, 160, 192, 32), Rect2(2368, 1248, 192, 96), Rect2(1920, 1248, 320, 96), Rect2(640, 864, 256, 32), Rect2(1280, 864, 256, 32), Rect2(1920, 864, 256, 32), Rect2(2368, 1024, 192, 64)])
-workbench_entity_ids = {
-"art_placements": ["P-R32:art_placements:0", "P-R32:art_placements:1", "P-R32:art_placements:2"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": ["P-R32:hook_points:0", "P-R32:hook_points:1", "P-R32:hook_points:2", "P-R32:hook_points:3", "P-R32:hook_points:4", "P-R32:hook_points:5", "P-R32:hook_points:6", "P-R32:hook_points:7", "P-R32:hook_points:8", "P-R32:hook_points:9", "P-R32:hook_points:10"],
-"platforms": ["P-R32:platforms:0", "P-R32:platforms:1", "P-R32:platforms:2", "P-R32:platforms:3", "P-R32:platforms:4", "P-R32:platforms:5", "P-R32:platforms:6", "P-R32:platforms:7", "P-R32:platforms:8", "P-R32:platforms:9", "P-R32:platforms:10", "P-R32:platforms:11"],
-"retry_anchors": ["P-R32:retry_anchors:0", "P-R32:retry_anchors:1"],
-"signs": []
-}
-one_way_indices = Array[int]([5, 8, 9, 10])
+bell_mechanisms = Array[Dictionary]([{
+"access_bells": [[2496.0, 584.0], [2304.0, 1168.0]],
+"bell": [2112.0, 752.0],
+"carrier": "BridgeInspectionLift",
+"id": "P32:inspection_lift"
+}])
+platforms = Array[Rect2]([Rect2(64, 1024, 704, 128), Rect2(1024, 960, 448, 128), Rect2(1664, 832, 512, 256), Rect2(2432, 640, 640, 64), Rect2(704, 640, 416, 64), Rect2(864, 160, 192, 32), Rect2(2368, 1248, 192, 96), Rect2(1920, 1248, 320, 96), Rect2(2176, 1024, 192, 32)])
+one_way_indices = Array[int]([5, 8])
 masonry_platform_indices = Array[int]([0, 1, 2, 3, 4])
 start_point = Vector2(208, 1006)
 enemy_placements = Array[Dictionary]([{
-"behavior": "patrol",
-"id": "P-R32:under_bridge_patrol",
+"behavior": "charger",
+"id": "P-R32:bridge_charge",
 "max_health": 9.0,
-"point": [1744.0, 1006.0]
+"point": [480.0, 1006.0]
 }, {
 "behavior": "diver",
-"id": "P-R32:under_bridge_diver",
+"id": "P-R32:bridge_diver",
 "max_health": 9.0,
-"point": [2240.0, 832.0]
+"point": [1376.0, 752.0]
+}, {
+"behavior": "sentry",
+"id": "P-R32:pier_sentry",
+"max_health": 14.0,
+"point": [2048.0, 814.0]
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [768.0, 1064.0, 256.0, 24.0],
+"facing": "up",
+"id": "P32:first_gap"
+}, {
+"bounds": [1472.0, 1064.0, 192.0, 24.0],
+"facing": "up",
+"id": "P32:second_gap"
+}, {
+"bounds": [1984.0, 808.0, 64.0, 24.0],
+"facing": "up",
+"id": "P32:landing_trim"
 }])
 story_sequence = {
 "action": "intro_see_clockheart",
 "display": [2240.0, 128.0, 832.0, 768.0],
-"establish_seconds": 2.4,
-"focus": [2720.0, 440.0],
+"establish_seconds": 2.2,
+"focus": [2660.0, 430.0],
 "kind": "landmark",
-"lines": ["那就是……世界钟心。", "钟摆还悬在那里，却听不见一声心跳。"],
+"lines": ["那座塔……就是世界钟心。", "风还在走，钟摆却停了。先到门里看看。"],
 "speaker": "修钟者",
 "trigger": [2496.0, 560.0, 384.0, 80.0]
 }
-hook_points = Array[Vector2]([Vector2(1056, 512), Vector2(1248, 512), Vector2(1440, 512), Vector2(1632, 512), Vector2(1824, 512), Vector2(2016, 512), Vector2(2208, 512), Vector2(2400, 512), Vector2(2592, 512), Vector2(960, 320), Vector2(960, 128)])
+hook_points = Array[Vector2]([Vector2(960, 416), Vector2(960, 224)])
+
+[node name="BridgeInspectionLift" type="AnimatableBody2D" parent="." unique_id=755208642]
+position = Vector2(2224, 800)
+script = ExtResource("2_oa36b")
+endpoint = Vector2(112, -160)
+platform_size = Vector2(144, 20)
+period = 6.0
+one_way = true
+endpoint_dwell = 1.3

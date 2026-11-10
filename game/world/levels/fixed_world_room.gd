@@ -74,7 +74,7 @@ var battle_started := false
 var battle_finished := false
 
 static func material_for_profile(profile: String) -> String:
-	return {"mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(profile,"")
+	return {"clockheart":"mill","mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(profile,"")
 func interior_material() -> String:
 	return material_for_profile(art_profile)
 
@@ -217,6 +217,7 @@ func _draw() -> void:
 	for i: int in platforms.size():
 		if i in one_way_indices: UnderworldTerrain.draw_one_way(self,platforms[i])
 	for door: Dictionary in doors:
+		if door.get("front_door",false) or door.get("npc_guard",false):continue
 		var p := FixedWorldProvider.point(door.position_candidate.local_world_units)
 		var rect:=Rect2(p-Vector2(16,96),Vector2(32,96)) if door.direction in ["left","right"] else Rect2(p-Vector2(64,16),Vector2(128,32))
 		if not door_open.get(door.id,false):
@@ -343,7 +344,7 @@ func refresh_doors(state: FixedWorldState, content: FixedWorldProvider) -> void:
 	for door: Dictionary in doors:
 		var opened := bool(door.outbound_allowed) and state.holds(door.requires) and not content.room(str(door.target_room)).is_empty()
 		door_open[door.id]=opened
-		(door_blocks[door.id] as StaticBody2D).set_deferred("collision_layer",0 if opened else 1)
+		(door_blocks[door.id] as StaticBody2D).set_deferred("collision_layer",0 if opened or door.get("front_door",false) or door.get("npc_guard",false) else 1)
 	queue_redraw()
 
 func bind_services(value: WorldServices,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> void:

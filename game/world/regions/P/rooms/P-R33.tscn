@@ -1,57 +1,37 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_r1h3m"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_sincv"]
 
 [node name="P-R33" type="Node2D" unique_id=1639471995]
-script = ExtResource("1_r1h3m")
+script = ExtResource("1_sincv")
 room_id = "P-R33"
 arrival_text = "钟影前庭"
 route_guide = {
 "schema": 1.0,
 "steps": [{
-"action": "沿宽庭回望主钟，南侧井口接东行汇口；外区边界仍封闭。",
-"label": "钟影喘息",
+"action": "中央塔门向上交互进入门厅，调查损毁的钟心；前庭下口通回环。",
+"label": "钟心正门",
 "number": 1.0,
-"path": [[144.0, 558.0], [768.0, 558.0], [1152.0, 910.0]],
+"path": [[144.0, 558.0], [768.0, 558.0], [1536.0, 558.0]],
 "point": [144.0, 558.0]
 }]
 }
 art_placements = Array[Dictionary]([{
-"asset": "world_clock_far",
-"depth": 0.6,
-"layer": -2.0,
-"point": [1600.0, 576.0]
+"asset": "interior_mill",
+"layer": -5.0,
+"point": [1536.0, 576.0],
+"tile_rect": [1436.0, 224.0, 200.0, 352.0]
 }, {
-"asset": "windchime_plains_v2_bell_wheel",
-"layer": -2.0,
-"point": [1280.0, 576.0]
+"asset": "clockheart_gate",
+"layer": -4.0,
+"point": [1536.0, 576.0]
 }, {
-"asset": "bell_post",
+"asset": "gear_lamp",
 "layer": -2.0,
 "light": true,
-"point": [768.0, 448.0]
+"point": [1152.0, 576.0]
 }])
 art_profile = "clock"
-platforms = Array[Rect2]([Rect2(0, 576, 960, 192), Rect2(1088, 576, 960, 192), Rect2(768, 992, 192, 32), Rect2(1088, 928, 256, 96), Rect2(960, 832, 128, 24), Rect2(576, 448, 384, 32)])
-workbench_entity_ids = {
-"art_placements": ["P-R33:art_placements:0", "P-R33:art_placements:1", "P-R33:art_placements:2"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R33:platforms:0", "P-R33:platforms:1", "P-R33:platforms:2", "P-R33:platforms:3", "P-R33:platforms:4", "P-R33:platforms:5"],
-"retry_anchors": [],
-"signs": []
-}
+platforms = Array[Rect2]([Rect2(0, 576, 960, 192), Rect2(1088, 576, 960, 192), Rect2(768, 992, 192, 32), Rect2(1088, 928, 256, 96), Rect2(960, 832, 128, 24), Rect2(960, 576, 128, 24)])
 one_way_indices = Array[int]([4, 5])
 start_point = Vector2(144, 558)
-story_sequence = {
-"action": "intro_visit_clockheart",
-"display": [0.0, 0.0, 2048.0, 768.0],
-"establish_seconds": 1.6,
-"focus": [928.0, 448.0],
-"kind": "clockheart",
-"lines": ["我从旧检修道先赶来看看。钟心已经停了，光修这座塔，还叫不醒散落各地的时间。", "散落各地的时律钟，是它的脉搏。先让它们重新响起来，再把还在运转的核心带回来。", "风铃平原的风鸣钟，就在小站北侧高地。旧路已经给你让开了——循着风里的铃声去吧。"],
-"npc_point": [752.0, 558.0],
-"speaker": "守钟匠",
-"trigger": [96.0, 480.0, 640.0, 96.0]
-}

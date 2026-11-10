@@ -53,6 +53,7 @@ def preview_navigation_geometry(rooms: dict, initial_room: str) -> dict:
         pending = [anchor]
         while pending:
             for door in rooms[pending.pop()]["doors"]:
+                if door.get("front_door"): continue
                 target = door["target_room"]
                 if target in rooms and target not in component:
                     component.add(target)

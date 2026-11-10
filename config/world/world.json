@@ -5348,7 +5348,7 @@
       "parent_anchor": "Z0",
       "route_class": "service",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "裂缝休息，早期展示最高塔目标",
+      "purpose": "钟心门厅：初次进入发现主轴损毁，守钟匠指引先修风鸣钟；更上层保持后续资格。",
       "rest_point": true,
       "rift_machine": true,
       "rest_position": "独立安全房/服务区",
@@ -72894,7 +72894,7 @@
       "parent_anchor": "P1",
       "route_class": "station_neighbourhood_choice",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "站外三向大枢纽；回站、上桥、下集由地标辨路，战后再分流。",
+      "purpose": "小站东侧三向枢纽：断渠战斗、双吊台登高与下层旧集回环。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -73058,7 +73058,7 @@
       "parent_anchor": "P1",
       "route_class": "station_neighbourhood_choice",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "初期可发现的H桥头预览、开放低路与修钟后的能力再识别。",
+      "purpose": "断桥反冲与检修台通向安全远眺岸，世界钟心塔在远背景；上层H回访口保留。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -73345,7 +73345,7 @@
       "parent_anchor": "P1",
       "route_class": "station_neighbourhood_choice",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "世界钟地标与东行回环前的舒缓前庭。",
+      "purpose": "钟心前庭：正面塔门经C07进入Z01门厅，地下口承担回环。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -96269,7 +96269,7 @@
         ]
       ],
       "direction": "both",
-      "condition_text": "塔脚交谈后开放；已修平原钟的旧进度保持开放",
+      "condition_text": "钟心门厅调查后开放；已修平原钟的旧进度保持开放",
       "external": false,
       "polyline": [
         [
@@ -175524,7 +175524,7 @@
     },
     {
       "id": "intro_visit_clockheart",
-      "room_id": "P-R33",
+      "room_id": "Z-R01",
       "section_id": "main",
       "type": "tutorial",
       "requires": [
@@ -175535,7 +175535,7 @@
       ],
       "persistent": true,
       "repeat": false,
-      "description": "塔脚获知先修时律钟，永久开放小站北侧旧路",
+      "description": "进入钟心门厅发现主轴损毁，获知修复时律钟的方向。",
       "ability_qualification_at_interaction": false
     }
   ],
@@ -198257,11 +198257,11 @@
         "line": "回来时把坏掉的零件带上，我替你收拾。"
       }
     ],
-    "departure_guidance": "先走中层东门P31，经32看见钟塔再到33；塔脚交谈后开放上层P08旧路，前往小站北侧风鸣钟。",
+    "departure_guidance": "先走中层东门P31，经32远眺钟塔到33前庭；进入正面塔门后在Z01调查钟心，完成后开放上层P08旧路，前往小站北侧风鸣钟。",
     "new_reward_count": 0,
     "not_rest": true,
     "journal_entry_ref": "JOURNAL_MAIN_CLOCK_REPAIR",
-    "two_exit_composition": "中层东门有钟塔方向天光；上层门口旧检修栅与守钟匠的说明明确临时封闭。",
+    "two_exit_composition": "第一段载台送到小站即触发指引；第二段射铃启动到北路。北路由NPC近身劝返与主角走回表达，去掉黄色封边。",
     "initial_objective_hint": {
       "trigger_action": "station_briefing",
       "text": "先向东去世界钟心看看。",
@@ -198671,7 +198671,7 @@
       "room_id": "P-R01",
       "section_id": "main",
       "landmark_action_ref": "station_briefing",
-      "control_policy": "首次安全落地触发守钟匠短对话，可跳过；跳过仅提交本段station_briefing，不开放北侧旧路。P33说明完成后，以clockheart_briefed永久开放P01→P08，旧档clock_P亦可通行。",
+      "control_policy": "首次安全到站触发守钟匠短对话，可跳过；跳过仅提交station_briefing。P33正面进Z01门厅，室内说明完成后clockheart_briefed永久开放P01→P08，旧档clock_P亦可通行。",
       "resident_lines": [
         {
           "npc_id": "NPC_P_REC",
@@ -198781,7 +198781,7 @@
         "gameplay_action_ref": "intro_see_clockheart"
       },
       {
-        "room_id": "P-R33",
+        "room_id": "Z-R01",
         "delivery": "守钟匠经检修道先到；解释时律钟、钟心和核心，开放小站北路",
         "gameplay_action_ref": "intro_visit_clockheart"
       }

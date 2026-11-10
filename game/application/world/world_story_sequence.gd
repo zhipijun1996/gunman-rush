@@ -16,6 +16,9 @@ var art: PlainsRoomArt
 var figure: WorldSpriteAnimation
 var focus := Vector2.ZERO
 var committed := false
+var guarding := false
+var guard_cooldown := 0.0
+var retreat_frames := 0
 var bars: Control
 var clock_gears: Array[Sprite2D] = []
 var repair_animation: WorldSpriteAnimation
@@ -51,10 +54,14 @@ func _process(delta: float) -> void:
  if app==null or not is_instance_valid(app.room) or not is_instance_valid(app.player):return
  if settings.get("kind")=="repair" and app.state.has("clock_P"):
   for i:int in clock_gears.size():clock_gears[i].rotation+=delta*(1 if i==0 else -1)*(.8 if not active else clampf((age-1.0)/2,0,.8))
+ guard_cooldown=maxf(0,guard_cooldown-delta)
  if not active:
+  if settings.get("kind")=="station" and settings.has("guard_trigger") and not app.state.has("clockheart_briefed") and not app.state.has("clock_P") and guard_cooldown<=0 and not app.paused and not app.busy and FixedWorldProvider.rect(settings.guard_trigger).has_point(app.player.position):
+   guarding=true;begin();return
   if settings.get("kind")=="repair" or app.paused or app.busy:return
   if app.state.value.receipts.has(str(settings.get("action",""))):return
-  if FixedWorldProvider.rect(settings.trigger).has_point(app.player.position) and app.player.is_on_floor():begin()
+  if FixedWorldProvider.rect(settings.trigger).has_point(app.player.position) and app.player.is_on_floor():
+   if settings.get("kind")!="station" or (app.player.position.y<=float(settings.npc_point[1])+2 and app.player.get_platform_velocity().length_squared()<1):begin()
   return
  if dialogue_active:return
  var previous_age:=age
@@ -70,14 +77,24 @@ func _process(delta: float) -> void:
  queue_redraw()
 
 func begin() -> void:
- if active or not app._pause_world():return
+ if active:return
+ if guarding:
+  if app.busy or app.controller==null or app.policy.has_pending_player_damage():return
+  app.controller.router.clear("station_guard");app.q_guard.cancel()
+  app.controller.active=false;app.paused=true
+ elif not app._pause_world():return
  active=true;age=0;line_index=0
  phase="repair" if settings.get("kind")=="repair" else "establish"
  focus=FixedWorldProvider.point(settings.get("focus",[app.player.position.x,app.player.position.y-64]))
- camera_mode=app.camera.process_mode;app.camera.process_mode=Node.PROCESS_MODE_ALWAYS
+ camera_mode=app.camera.process_mode
+ if not guarding:app.camera.process_mode=Node.PROCESS_MODE_ALWAYS
  var display:=FixedWorldProvider.rect(settings.get("display",app.room.contract.world_geometry.bounds_world_units))
+ if guarding:
+  focus=app.player.position+Vector2(-48,-64);display=Rect2(832,0,1344,1024)
  camera_token=(app.camera as WorldCamera).begin_takeover(self,focus,display,.8)
- if art!=null:art_mode=art.process_mode;art.process_mode=Node.PROCESS_MODE_ALWAYS
+ if art!=null:
+  art_mode=art.process_mode
+  if not guarding:art.process_mode=Node.PROCESS_MODE_ALWAYS
  bars=Control.new();bars.mouse_filter=Control.MOUSE_FILTER_IGNORE;bars.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);app.ui.root.add_child(bars)
  for bottom:bool in [false,true]:
   var stripe:=ColorRect.new();stripe.color=Color(0.025,.045,.055,.85);stripe.mouse_filter=Control.MOUSE_FILTER_IGNORE;bars.add_child(stripe)
@@ -99,33 +116,49 @@ func _show_lines() -> void:
  if settings.get("lines",[]).is_empty():finish();return
  dialogue_active=true;_present_line()
 func _present_line() -> void:
- var panel:=app.ui.panel("dialogue",str(settings.get("speaker","守钟匠")),str(settings.lines[line_index])) as WorldDialogue
+ var panel:=app.ui.panel("dialogue",str(settings.get("speaker","守钟匠")),str((settings.guard_lines if guarding else settings.lines)[line_index])) as WorldDialogue
  panel.compact_actions=true
  (panel.get_child(0) as ColorRect).color=Color(.02,.04,.05,.12)
- var next:=panel.button("继续" if line_index+1<settings.lines.size() else "记住了",advance)
+ var next:=panel.button("继续" if line_index+1<(settings.guard_lines if guarding else settings.lines).size() else "记住了",advance)
  var skip:=panel.button("跳过本段",finish)
  var actions:=HBoxContainer.new();actions.add_theme_constant_override("separation",12);panel.rows.add_child(actions)
  next.reparent(actions);skip.reparent(actions);next.size_flags_horizontal=Control.SIZE_EXPAND_FILL;skip.size_flags_horizontal=Control.SIZE_EXPAND_FILL
  panel.focus_first()
 func advance() -> void:
- if not active:return
+ if not active or finishing:return
  if not dialogue_active:_show_lines();return
  line_index+=1
- if line_index<settings.lines.size():_present_line()
+ if line_index<(settings.guard_lines if guarding else settings.lines).size():_present_line()
  else:finish()
 func finish() -> void:
  if not active or finishing:return
  finishing=true
  _finish.call_deferred()
 func _finish() -> void:
- finishing=false
  if not active:return
- var action:=str(settings.get("action",""))
+ if guarding:
+  app.ui.close();phase="retreat";retreat_frames=0
+  return
+ _complete_finish()
+func _physics_process(delta:float) -> void:
+ if not active or phase!="retreat":return
+ retreat_frames+=1
+ var destination:=FixedWorldProvider.point(settings.guard_return)
+ if app.player.position.x>destination.x and retreat_frames<=110:
+  app.player.step(-.6,delta)
+ else:
+  app.player.reset_motion();phase="returning"
+  _complete_finish.call_deferred()
+func _complete_finish() -> void:
+ if guarding:
+  app.controller.active=true
+  get_tree().paused=true
+ var action:="" if guarding else str(settings.get("action",""))
  if not action.is_empty() and not app.state.value.receipts.has(action):
   var candidate:=app.state.action_candidate(action,app.room.room_id,"main")
   if candidate.is_empty() or not app.state.commit(candidate,app.state.revision):
-   app.status="剧情进度未保存，请重试。";return
- active=false;dialogue_active=false
+   app.status="剧情进度未保存，请重试。";finishing=false;return
+ active=false;finishing=false;dialogue_active=false;guarding=false;guard_cooldown=1.5
  _release_view()
  app._close_panel()
  app._apply_capabilities()

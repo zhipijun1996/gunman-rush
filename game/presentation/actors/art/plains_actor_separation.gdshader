@@ -1,6 +1,7 @@
 shader_type canvas_item;
+render_mode unshaded;
 // Approved PR142 scene separation; atlas gutters keep neighbour-alpha taps local.
-// Standard room lighting remains active; no unshaded rendering or emissive halo.
+// Characters retain authored material values in environmental shadow; hit flashes remain readable.
 uniform sampler2D backdrop : hint_screen_texture, repeat_disable, filter_nearest;
 uniform float saturation : hint_range(0.0,1.0) = 0.82;
 uniform float midtone_lift : hint_range(0.0,0.3) = 0.14;

@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode unshaded;
 // Same 1wu sampling lattice as the shared fine art; high-res sources are
 // sampled at world scale, never made coarse by multiplying their texel size.
 varying vec2 item_world_units;

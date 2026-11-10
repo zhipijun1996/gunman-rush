@@ -1,15 +1,31 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_1f5jj"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="2_y76yf"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_oq77d"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="4_qu6hl"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_kr68d"]
+[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="2_sj7sl"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_bnjeb"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="4_6fscj"]
 
 [node name="P-R01" type="Node2D" unique_id=1926123389]
-script = ExtResource("1_1f5jj")
+script = ExtResource("1_kr68d")
 room_id = "P-R01"
 arrival_text = "钟外小站"
 traveler_point = Vector2(1152, 1262)
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "第一段载台只到小站；落地听取钟心方向。",
+"label": "抵达小站",
+"number": 1.0,
+"path": [[544.0, 1726.0], [544.0, 1262.0], [816.0, 1262.0], [2032.0, 1198.0]],
+"point": [544.0, 1726.0]
+}, {
+"action": "射铃启动第二段载台；未调查钟心时守钟匠劝返。",
+"label": "北侧旧路",
+"number": 2.0,
+"path": [[1392.0, 1262.0], [1536.0, 1214.0], [1824.0, 366.0], [2032.0, 366.0]],
+"point": [1392.0, 1262.0]
+}]
+}
 art_placements = Array[Dictionary]([{
 "asset": "waiting_shelter",
 "layer": -2.0,
@@ -33,16 +49,13 @@ art_placements = Array[Dictionary]([{
 "point": [1984.0, 1216.0]
 }])
 art_profile = "station"
-platforms = Array[Rect2]([Rect2(0, 1280, 1408, 64), Rect2(1664, 1280, 512, 256), Rect2(1888, 1216, 288, 64), Rect2(1888, 384, 288, 64), Rect2(320, 1696, 192, 32), Rect2(1888, 384, 288, 32), Rect2(384, 1696, 128, 32), Rect2(1888, 1216, 288, 32), Rect2(0, 1344, 320, 192), Rect2(0, 1472, 480, 64), Rect2(608, 1472, 800, 64)])
-workbench_entity_ids = {
-"art_placements": ["P-R01:art_placements:0", "P-R01:art_placements:1", "P-R01:art_placements:2", "P-R01:art_placements:3", "P-R01:art_placements:4"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R01:platforms:0", "P-R01:platforms:1", "P-R01:platforms:2", "P-R01:platforms:3", "P-R01:platforms:4", "P-R01:platforms:5", "P-R01:platforms:6", "P-R01:platforms:7", "P-R01:platforms:8", "P-R01:platforms:9", "P-R01:platforms:10"],
-"retry_anchors": [],
-"signs": ["P-R01:signs:0", "P-R01:signs:1"]
-}
+bell_mechanisms = Array[Dictionary]([{
+"access_bells": [[1984.0, 336.0]],
+"bell": [1392.0, 1200.0],
+"carrier": "UpperStationLift",
+"id": "P01:upper_station_lift"
+}])
+platforms = Array[Rect2]([Rect2(0, 1280, 480, 64), Rect2(1664, 1280, 512, 256), Rect2(1888, 1216, 288, 64), Rect2(1888, 384, 288, 64), Rect2(320, 1696, 192, 32), Rect2(1888, 384, 288, 32), Rect2(384, 1696, 128, 32), Rect2(1888, 1216, 288, 32), Rect2(0, 1344, 320, 192), Rect2(0, 1472, 480, 64), Rect2(608, 1472, 800, 64), Rect2(608, 1280, 800, 64)])
 start_point = Vector2(144, 1262)
 rest_point = Vector2(320, 1262)
 signs = Array[Dictionary]([{
@@ -54,41 +67,54 @@ signs = Array[Dictionary]([{
 }])
 story_sequence = {
 "action": "station_briefing",
-"blocking_point": [2112.0, 366.0],
+"blocking_point": [2072.0, 366.0],
 "display": [0.0, 512.0, 2176.0, 1024.0],
-"focus": [1120.0, 1120.0],
+"focus": [768.0, 1136.0],
+"guard_lines": ["先去东边的钟心看看吧。这里的旧路，我会替你守着。", "穿过小站下层的东门，沿着长桥就能看见那座塔。"],
+"guard_return": [1920.0, 366.0],
+"guard_trigger": [1952.0, 288.0, 224.0, 128.0],
 "kind": "station",
 "lines": ["这枚枪纹……你就是修钟者？我们等你很久了。", "先去东边的世界钟心看看吧。穿过铃场和长桥，那座停摆的高塔就是。", "北侧旧路先让我守着。弄清钟心出了什么事，我们再商量怎么让这些钟重新走起来。"],
-"npc_point": [1040.0, 1262.0],
+"npc_point": [960.0, 1262.0],
 "speaker": "守钟匠",
-"trigger": [320.0, 1184.0, 768.0, 96.0]
+"trigger": [480.0, 1190.0, 320.0, 110.0]
 }
 
 [node name="Npc0" type="Node2D" parent="." unique_id=2108929953]
 position = Vector2(560, 1262)
-script = ExtResource("2_y76yf")
+script = ExtResource("2_sj7sl")
 npc_id = "NPC_P_REC"
 display_name = "小站回收匠"
 
 [node name="Npc1" type="Node2D" parent="." unique_id=1197660832]
 position = Vector2(816, 1262)
-script = ExtResource("2_y76yf")
+script = ExtResource("2_sj7sl")
 npc_id = "NPC_P_WEAVER"
 display_name = "织时匠"
 
 [node name="RiftStation" type="Node2D" parent="." unique_id=95402165]
 position = Vector2(448, 1262)
-script = ExtResource("3_oq77d")
+script = ExtResource("3_bnjeb")
 action_id = "activate_rift_P"
 label = "连接归途"
 visual = "clock_altar"
 
 [node name="StationLift" type="AnimatableBody2D" parent="." unique_id=881699085]
 position = Vector2(544, 1744)
-script = ExtResource("4_qu6hl")
-endpoint = Vector2(1312, -1296)
-platform_size = Vector2(128, 20)
-period = 12.0
+script = ExtResource("4_6fscj")
+endpoint = Vector2(0, -464)
+platform_size = Vector2(144, 20)
+period = 8.0
 one_way = true
-route = Array[Vector2]([Vector2(0, -304), Vector2(992, -304), Vector2(992, -1296), Vector2(1312, -1296)])
-endpoint_dwell = 2.0
+route = Array[Vector2]([Vector2(0, -464)])
+endpoint_dwell = 1.3
+
+[node name="UpperStationLift" type="AnimatableBody2D" parent="." unique_id=698843054]
+position = Vector2(1536, 1232)
+script = ExtResource("4_6fscj")
+endpoint = Vector2(288, -848)
+platform_size = Vector2(144, 20)
+period = 11.0
+one_way = true
+route = Array[Vector2]([Vector2(288, -848)])
+endpoint_dwell = 1.3

@@ -17,7 +17,7 @@ func load_room(id: String, stage: String = "base") -> void:
 	for wait_frame:int in 600:
 		if not app.busy:break
 		await ticks(1)
-	var source:=load("res://game/world/regions/P/rooms/"+id+".tscn").instantiate() as FixedWorldRoom
+	var source:=load("res://game/world/regions/"+id.substr(0,1)+"/rooms/"+id+".tscn").instantiate() as FixedWorldRoom
 	var draft:=WorldRoomDraft.extract(source)
 	check(WorldRoomDraft.validate(source,draft).is_empty(),id+" codec")
 	source.free()
@@ -27,6 +27,8 @@ func load_room(id: String, stage: String = "base") -> void:
 	draft.geometry={"bounds":row.world_geometry.bounds_world_units,"space_rects":row.world_geometry.space_rects,"doors":row.doors}
 	await app.workbench._handle({"channel":"gunman-workbench","type":"load_draft","request_id":id,"revision":1,"draft":draft,"stage":stage,"paused":false})
 	await ticks(4)
+	if app.room==null:
+		printerr("Room load failed: ",app.workbench.last_event," provider ",app.content.workbench_catalog_error," status ",app.status);quit(1);return
 	if not exercise_story and is_instance_valid(app.story) and app.story.active:app.story.finish();await ticks(2)
 	check(app.room.room_id==id and app.player.is_on_floor(),id+" bridge and entry contact "+str(app.player.position))
 func fixture(at:Vector2) -> void:

@@ -6,7 +6,7 @@ func run() -> void:
 	app=load("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path="user://plains_story_hooks.json";root.add_child(app);app.workbench.enabled=true
 	await load_room("P-R01")
-	await fixture(Vector2(400,1262));await ticks(3)
+	await fixture(Vector2(640,1262));await ticks(3)
 	check(app.story.active and app.paused,"station briefing starts on safe approach")
 	app.story.finish();await ticks(3)
 	check(not app.paused and app.state.has("station_briefed") and not app.state.has("clockheart_briefed"),"skip commits only this conversation")
@@ -14,9 +14,12 @@ func run() -> void:
 	for door:Dictionary in app.room.doors:
 		if door.target_room=="P-R08":north_id=door.id
 	check(not north_id.is_empty() and not app.room.door_open.get(north_id,true),"skip station leaves north gate closed")
-	check(app.story.figure.position.distance_to(Vector2(2112,384))<1,"guard stands at closed north exit")
-	await load_room("P-R33");await ticks(5)
-	if not app.story.active:await fixture(Vector2(200,558));await ticks(3)
+	check(app.story.figure.position.distance_to(Vector2(2072,384))<1,"guard stands at closed north exit")
+	await load_room("P-R33");await fixture(Vector2(1536,558));await ticks(3)
+	check(not app.story.active,"forecourt does not run interior explanation")
+	app._interact();await ticks(100)
+	check(app.room.room_id=="Z-R01","front door loads actual clockheart room")
+	if not app.story.active:await fixture(Vector2(640,622));await ticks(3)
 	check(app.story.active,"clockheart first approach starts explanation")
 	app.story.finish();await ticks(3)
 	check(app.state.has("clockheart_briefed") and not app.paused,"clockheart skip saves north-route permission")

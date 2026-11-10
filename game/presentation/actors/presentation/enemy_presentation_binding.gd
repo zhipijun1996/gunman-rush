@@ -37,6 +37,12 @@ static func bind_existing(actor: Node, host: Node, profile: StringName, body_the
 	}
 	binding.make_read_only()
 	host.set_meta(METADATA, binding)
+	# The body/telegraph palette stays legible in room shadow, like the player.
+	# Detailed child bodies retain their own unshaded hit/outline shaders.
+	if host is CanvasItem and host.material == null:
+		var surface := CanvasItemMaterial.new()
+		surface.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+		host.material = surface
 	return binding
 
 static func can_bind(actor: Node, host: Node, profile: StringName) -> bool:

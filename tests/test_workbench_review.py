@@ -36,7 +36,7 @@ class WorldReviewTests(unittest.TestCase):
 
     def test_complete_authoritative_region_graph_is_only_a_summary(self):
         review = self.review
-        self.assertEqual((16, 309, 38, 36, 6), tuple(review["counts"][key] for key in (
+        self.assertEqual((16, 309, 38, 37, 6), tuple(review["counts"][key] for key in (
             "regions", "rooms", "region_connections", "editable_rooms", "implemented_rooms")))
         expected = {row["id"] for row in self.world["connections"]
                     if review["rooms"][row["a"]]["region"] != review["rooms"][row["b"]]["region"]}
@@ -55,10 +55,10 @@ class WorldReviewTests(unittest.TestCase):
             a, b = (link["endpoints"][side] for side in ("a", "b"))
             self.assertEqual((a["target_door_id"], b["target_door_id"]), (b["door_id"], a["door_id"]))
             self.assertFalse(link["implemented"])
-            self.assertFalse(link["preview_available"])
+            self.assertEqual(link["id"]=="C07",link["preview_available"])
             plains, outside = (a, b) if a["region"] == "P" else (b, a)
             self.assertTrue(plains["editor_available"])
-            self.assertFalse(outside["editor_available"])
+            self.assertEqual(link["id"]=="C07",outside["editor_available"])
             self.assertFalse(outside["implemented"])
             self.assertIn(link["id"], self.review["rooms"][plains["room_id"]]["boundary_connection_ids"])
         c01 = next(link for link in links if link["id"] == "C01")["endpoints"]["a"]
@@ -77,8 +77,8 @@ class WorldReviewTests(unittest.TestCase):
             self.make_review(contracts=contracts)
 
     def test_registered_trial_does_not_mark_its_neighbors_playable(self):
-        review = self.make_review(editable_rooms=self.plains | {"V-R12"})
-        self.assertEqual(36, review["counts"]["editable_rooms"])
+        review = self.make_review(editable_rooms=self.plains | {"V-R12","Z-R01"})
+        self.assertEqual(37, review["counts"]["editable_rooms"])
         self.assertTrue(review["rooms"]["V-R12"]["preview_available"])
         self.assertFalse(review["rooms"]["V-R12"]["implemented"])
         self.assertFalse(review["rooms"]["V-R11"]["preview_available"])
@@ -97,7 +97,7 @@ class WorldReviewTests(unittest.TestCase):
     def test_projection_never_changes_source_or_formal_runtime(self):
         originals = [self.world, self.construction, self.contracts, self.runtime]
         before = copy.deepcopy(originals)
-        self.make_review(editable_rooms=self.plains | {"V-R12"})
+        self.make_review(editable_rooms=self.plains | {"V-R12","Z-R01"})
         self.assertEqual(before, originals)
 
 

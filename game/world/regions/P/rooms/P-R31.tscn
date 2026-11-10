@@ -1,39 +1,117 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R31" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_r6t45"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_g1wau"]
+
+[node name="P-R31" type="Node2D" unique_id=296184326]
+script = ExtResource("1_r6t45")
 room_id = "P-R31"
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "三向铃场", "action": "西回小站，上层吊笼通长桥，下层石岸通旧集。", "point": [144, 878], "path": [[144, 878], [960, 878], [1536, 878], [2384, 878]]}, {"number": 2, "label": "下层旧集", "action": "沿错层石岸下降，或搭吊笼回到上层。", "point": [2256, 878], "path": [[2256, 878], [2208, 1134], [1792, 1390], [2240, 1614], [1984, 1742]]}]}
-traveler_point = Vector2(0,0)
-climbable_walls = Array[Rect2]([])
-environment_zones = Array[Dictionary]([])
-gear_obstacles = Array[Dictionary]([])
-hazards = Array[Rect2]([])
-art_profile = "junction"
-masonry_platform_indices = Array[int]([])
 arrival_text = "站外铃场"
-platforms = Array[Rect2]([Rect2(0.0,896.0,1120.0,128.0),Rect2(1408.0,896.0,672.0,128.0),Rect2(448.0,1824.0,1280.0,32.0),Rect2(1920.0,1760.0,768.0,96.0),Rect2(1984.0,192.0,320.0,32.0),Rect2(1952.0,1152.0,384.0,32.0),Rect2(1600.0,1408.0,384.0,32.0),Rect2(2112.0,1632.0,384.0,32.0),Rect2(2080,896.0,320,24),Rect2(2400,896.0,288.0,128.0)])
-one_way_indices = Array[int]([4,5,6,7,8])
-start_point = Vector2(144,878)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id":"P-R31:far_bank_patrol","behavior":"patrol","point":[2608,878],"max_health":9},{"id":"P-R31:lower_refuge_hopper","behavior":"hopper","point":[1744,1390],"max_health":9}])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[928,836,96,60],"point":[976,878],"section":"main"},{"bounds":[1456,836,96,60],"point":[1504,878],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"bell_post","point":[928,896],"layer":-2,"light":true},{"asset":"windchime_plains_v2_chime_span","point":[1504,896],"layer":-2},{"asset":"storage_crates","point":[2112,1760],"layer":-2}])
-bell_mechanisms = Array[Dictionary]([{"id":"P31:hub_lift","bell":[2384,816],"carrier":"BellFieldCarrier","access_bells":[[1984,1696],[2160,128]]}])
-spike_strips = Array[Dictionary]([])
-illustrated_platform_indices = Array[int]([])
-[node name="BellFieldCarrier" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(2320,1728)
-endpoint = Vector2(-208,-1488)
-platform_size = Vector2(160,20)
-period = 18.0
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "越过低矮守卫，向后射击反冲跨断渠；远岸有遮挡和落脚余地。",
+"label": "断渠换岸",
+"number": 1.0,
+"path": [[144.0, 878.0], [864.0, 878.0], [1344.0, 878.0], [1664.0, 878.0]],
+"point": [144.0, 878.0]
+}, {
+"action": "射铃乘斜台到左检修岸，反冲换右岸，再启动第二台到长桥出口。",
+"label": "双吊台登高",
+"number": 2.0,
+"path": [[1728.0, 830.0], [1408.0, 510.0], [1920.0, 526.0], [2144.0, 174.0], [2240.0, 174.0]],
+"point": [1728.0, 830.0]
+}, {
+"action": "从右侧缺口下探旧集，错层岸供恢复并可借载台返回。",
+"label": "下层回环",
+"number": 3.0,
+"path": [[2240.0, 878.0], [2144.0, 1134.0], [1792.0, 1390.0], [2240.0, 1614.0], [1984.0, 1742.0]],
+"point": [2240.0, 878.0]
+}]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [800.0, 836.0, 128.0, 60.0],
+"point": [864.0, 878.0],
+"section": "main"
+}, {
+"bounds": [1280.0, 836.0, 160.0, 60.0],
+"point": [1344.0, 878.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "bell_post",
+"layer": -2.0,
+"light": true,
+"point": [816.0, 896.0]
+}, {
+"asset": "windchime_plains_v2_chime_span",
+"layer": -3.0,
+"point": [1680.0, 896.0]
+}, {
+"asset": "storage_crates",
+"layer": -2.0,
+"point": [1952.0, 1760.0]
+}])
+art_profile = "junction"
+bell_mechanisms = Array[Dictionary]([{
+"access_bells": [[1408.0, 464.0]],
+"bell": [1616.0, 816.0],
+"carrier": "WestHoist",
+"id": "P31:west_hoist"
+}, {
+"access_bells": [[2144.0, 144.0]],
+"bell": [1856.0, 464.0],
+"carrier": "EastHoist",
+"id": "P31:east_hoist"
+}])
+platforms = Array[Rect2]([Rect2(0, 896, 960, 128), Rect2(1184, 896, 896, 128), Rect2(2400, 896, 288, 128), Rect2(448, 1824, 1280, 32), Rect2(1920, 1760, 768, 96), Rect2(1984, 192, 320, 32), Rect2(1216, 528, 384, 32), Rect2(1808, 544, 320, 32), Rect2(1952, 1152, 384, 32), Rect2(1600, 1408, 384, 32), Rect2(2112, 1632, 384, 32)])
+one_way_indices = Array[int]([5, 6, 7, 8, 9, 10])
+start_point = Vector2(144, 878)
+enemy_placements = Array[Dictionary]([{
+"behavior": "charger",
+"id": "P-R31:approach_guard",
+"max_health": 9.0,
+"point": [624.0, 878.0]
+}, {
+"behavior": "sentry",
+"id": "P-R31:far_bank",
+"max_health": 14.0,
+"point": [1984.0, 878.0]
+}, {
+"behavior": "diver",
+"id": "P-R31:upper_air",
+"max_health": 9.0,
+"point": [1600.0, 660.0]
+}, {
+"behavior": "hopper",
+"id": "P-R31:lower_guard",
+"max_health": 9.0,
+"point": [1792.0, 1390.0]
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [960.0, 1000.0, 224.0, 24.0],
+"facing": "up",
+"id": "P31:broken_culvert"
+}, {
+"bounds": [1504.0, 872.0, 64.0, 24.0],
+"facing": "up",
+"id": "P31:guard_flank"
+}])
+
+[node name="WestHoist" type="AnimatableBody2D" parent="." unique_id=27025278]
+position = Vector2(1728, 848)
+script = ExtResource("2_g1wau")
+endpoint = Vector2(-320, -320)
+platform_size = Vector2(144, 20)
+period = 7.0
 one_way = true
-route = Array[Vector2]([Vector2(-208,-1488)])
-endpoint_dwell = 2.0
+endpoint_dwell = 1.3
+
+[node name="EastHoist" type="AnimatableBody2D" parent="." unique_id=1101001776]
+position = Vector2(1920, 496)
+script = ExtResource("2_g1wau")
+endpoint = Vector2(224, -304)
+platform_size = Vector2(144, 20)
+period = 7.0
+one_way = true
+endpoint_dwell = 1.3

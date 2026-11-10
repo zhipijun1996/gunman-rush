@@ -66,7 +66,9 @@ static func apply(source: Dictionary, draft: Dictionary) -> Dictionary:
 			row.doors.append(door)
 			changed[id] = door
 	for door: Dictionary in row.doors:
-		if not on_boundary(boundary, door): return {"error":"door_aperture_off_boundary:"+str(door.id)}
+		if bool(door.get("front_door", false)):
+			if not extent.has_point(FixedWorldProvider.point(door.position_candidate.local_world_units)): return {"error":"front_door_outside_room:"+str(door.id)}
+		elif not on_boundary(boundary, door): return {"error":"door_aperture_off_boundary:"+str(door.id)}
 	for spawn: Dictionary in row.entry_spawns:
 		var door_id := str(spawn.entry_door)
 		if not changed.has(door_id): continue
@@ -130,11 +132,13 @@ static func refresh_map(bundle: Dictionary) -> String:
 			for door: Dictionary in rooms[id].doors:
 				var target := str(door.target_room)
 				if not rooms.has(target): continue
-				if declared[target] != declared[id]: return "map_component_mismatch"
 				var paired: Dictionary = {}
 				for candidate: Dictionary in rooms[target].doors:
 					if candidate.id == door.target_door_id: paired = candidate;break
 				if paired.is_empty() or paired.target_room != id or paired.target_door_id != door.id: return "map_door_pair_invalid"
+				if bool(door.get("front_door", false)) != bool(paired.get("front_door", false)): return "map_front_door_pair_invalid"
+				if bool(door.get("front_door", false)): continue
+				if declared[target] != declared[id]: return "map_component_mismatch"
 				if opposite.get(str(door.direction), "") != str(paired.direction): return "map_door_directions_invalid"
 				var proposed: Vector2 = origins[id]+FixedWorldProvider.point(door.position_candidate.local_world_units)-FixedWorldProvider.point(paired.position_candidate.local_world_units)
 				if origins.has(target):

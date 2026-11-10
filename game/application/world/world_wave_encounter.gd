@@ -71,6 +71,9 @@ func _spawn() -> void:
 	for spec: Dictionary in settings.waves[wave]:
 		var actor:=app.room.spawn_enemy(spec,app.controller,app.policy,app.lifetime,{},app.entry_anchor)
 		actor.set_meta("wave_attempt",true)
+		if actor.attack_behavior != null:
+			actor.attack_behavior.protected_points.clear()
+			actor.attack_behavior.max_concurrent_attacks=3
 		active_ids.append(str(spec.id))
 	_launch_pending=false
 	queue_redraw()

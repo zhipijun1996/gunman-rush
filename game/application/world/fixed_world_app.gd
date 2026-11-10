@@ -318,7 +318,7 @@ func load_room(id: String, entry: String) -> void:
 		busy=false
 		return
 	var motion: Dictionary=content.data.player.entry_motion
-	var entry_direction:=str(resolved.entry.get("direction",""))
+	var entry_direction:="" if resolved.entry.get("front_door",false) else str(resolved.entry.get("direction",""))
 	if entry_direction in ["left","right"]:
 		var inward:=1.0 if entry_direction=="left" else -1.0
 		player.reset_at(anchor-Vector2(inward*float(motion.walk_distance),1))
@@ -416,6 +416,9 @@ func context_target() -> Dictionary:
 		if not intro_target.is_empty():return intro_target
 	var best: Dictionary={}
 	var distance:=82.0
+	for door: Dictionary in room.doors:
+		if door.get("front_door",false) and player.position.distance_to(FixedWorldProvider.point(door.position_candidate.local_world_units)-Vector2(0,18))<72:
+			return {"kind":"door","id":door.id,"label":str(door.get("label","进入"))}
 	for npc: Node in room.find_children("*","WorldNpc",true,false):
 		var d:=player.position.distance_to((npc as Node2D).position)
 		if d<distance: best={"kind":"npc","id":npc.npc_id,"label":"交谈 · "+npc.display_name};distance=d
@@ -485,6 +488,7 @@ func _physics_process(_delta: float) -> void:
 		_fail_terrain()
 	var near_door := false
 	for door: Dictionary in room.doors:
+		if door.get("front_door",false):continue
 		var point := FixedWorldProvider.point(door.position_candidate.local_world_units)
 		var near := player.position.distance_to(point-Vector2(0,18))<45
 		if near:
@@ -826,6 +830,9 @@ func _update_hud() -> void:
 		match target.get("kind",""):
 			"sign": highlight=room.signs[int(target.id)].interaction_point
 			"rest": highlight=room.rest_point
+			"door":
+				for door:Dictionary in room.doors:
+					if door.id==target.id:highlight=FixedWorldProvider.point(door.position_candidate.local_world_units)-Vector2(0,18)
 			"action": highlight=room.reward_point
 			"pickup":
 				for pickup: Dictionary in services.definitions.pickups:
