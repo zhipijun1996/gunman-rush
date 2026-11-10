@@ -27,6 +27,10 @@ func clear() -> void:
 	look_age = 0.0
 	look_return_age = 0.0
 
+func uses_existing_idle() -> bool:
+	# The last wake hold is the actual active avatar, never a generated redesign.
+	return waking and frame == 7
+
 func advance(delta: float, body: UnderworldPlayer) -> void:
 	if body.controller.session_id != session and waking: clear()
 	if body._dead or body._hurt_remaining > 0:

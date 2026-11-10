@@ -1,11 +1,11 @@
-# 主角苏醒与贴墙动作
+# 主角苏醒、贴墙与查看
 
-同一Underworld主角母版补绘，原始生成图与完整请求保存在generated/；不是旋转、缩放站姿伪造动作。图集前八帧为趴地、抬头、双手撑地、收膝、跪起、蹲起与站稳，后四帧为抓墙、屈臂承重、攀附与下滑。
+母版为正式默认主角当前实际待机：`assets/player_presentation_01/motion_v1/motion_source.png`首个256×256切片，锚点(168,242)，182源像素映射44wu。它的敦实体型、兜帽宽度、胸腹与短腿比例是本组补帧基准；旧瘦身立绘不作为补帧参考。原始生成图、真实母版裁片与完整请求在generated/，被替代的分批图和配方已删除。
 
-`python3 tools/build_player_wake_wall.py`只执行完整分格、统一nearest缩放与整数锚点对齐；原始像素不重绘。build.json记录源哈希、切片、位移及各帧像素哈希。运行图集80×64/帧，站姿46源像素映射44wu；落地基线y58，贴墙最右手脚对齐人物碰撞侧12wu。姿态本身的高度差保留。
+源图20格包含比例对照姿势。苏醒前七帧绘制趴地、抬头、撑地、收膝与起身，第八阶段直接使用当前身体的原待机绘制器；不在交接处切换成另一个生成站姿。贴墙四帧为抓住、承重、保持和下滑，上看／下看各三帧。动作由WorldIntroSequence、TraversalAbility与WorldCamera接受状态驱动，素材不能改变物理或资源。
 
-正式消费者为PlayerAuthoredPoses，由UnderworldPlayer及其当前默认子类共同绘制。开场时序由WorldIntroSequence拥有；贴墙读取TraversalAbility，不写物理或资源。旧整图旋转苏醒已删除。运动停顿和加速仅由TraversalDefinition与PlayerMotor执行。
+`python3 tools/build_player_wake_wall.py`执行完整分格、统一46/214 nearest缩放、外部alpha<128清理和整数锚点登记；不重画不透明像素，不按屈膝或俯身高度各自缩放。运行格80×64，地面基线y58；站立脚底中心保留原待机相对角色原点的偏移，贴墙按真实12wu碰撞侧对齐手脚。build.json记录实际母版路径、切片、哈希、生成对照尺度、各帧像素与消费关系。
 
-正常Godot窗口核对P03苏醒与V12两侧墙面局部动作；专项见tests/player_wake_wall.gd。素材补齐及技术检查不代表安卓真机或整个角色动作集已终审。
+`tests/test_player_pose_registration.py`核当前母版身份、原图中头部／躯干／靴子中性对照宽度、查看脚底偏移和单一缩放。`tests/player_wake_wall.gd`覆盖真实状态／动作／取消。检查仍须在正常Godot窗口反复切换待机→上看→待机→下看，并审看苏醒→原待机和两侧墙面；总高度与状态测试通过不能证明比例、画风或连续动作通过。审查方法归Visual Bible。
 
-上看／下看另有六帧look.png，来源look-source.png及look-request.json。统一1/8 nearest采样，清除生成图alpha<128的外部雾晕，未改不透明RGB；脚底按各帧原图接触点登记。WorldCamera公开已接受查看方向，表现不重新判定输入或移动镜头。进入0.12秒、保持两帧呼吸、松开0.10秒归位；跳跃、移动、瞄准、射击及受伤直接让出姿态。
+下滑时序仍由TraversalDefinition与PlayerMotor拥有，本次比例返工不调整已接入的0.18秒停顿、2秒渐进加速或墙跳／反冲参数。发布与局部音画见人物工作线；安卓真机和整个角色动作集另验。

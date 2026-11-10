@@ -133,7 +133,7 @@ func _draw() -> void:
 	var pivot: Array = _build.anchor
 	var scale_factor := UnderworldActors.HUMANOID_HEIGHT / float(_build.standing_body_source_height)
 	var target := Rect2(Vector2(-float(pivot[0]),-float(pivot[1]))*scale_factor+Vector2(0,18),Vector2(canvas[0],canvas[1])*scale_factor)
-	if authored_pose.frame >= 0:
+	if authored_pose.frame >= 0 and not authored_pose.uses_existing_idle():
 		authored_pose.draw(self)
 	else:
 		draw_set_transform(Vector2.ZERO,0,Vector2(facing,1.0))
