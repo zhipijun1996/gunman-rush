@@ -29,6 +29,7 @@ var title: Control
 var q_guard: WorldRecoilGuard
 var focus_heal: WorldFocusHeal
 var story: WorldStorySequence
+var rest_sequence: WorldRestSequence
 var music: GameMusic
 var ui: FixedWorldUI
 var overlay: TouchOverlay
@@ -179,6 +180,7 @@ func _create_player() -> void:
 	music.request_track(&"plains")
 
 func _acquire() -> int:
+	if is_instance_valid(rest_sequence): rest_sequence.finish()
 	_ticket += 1
 	busy = true
 	ui.begin_transition()
@@ -593,6 +595,12 @@ func _cross(id: String) -> void:
 		load_room.call_deferred(str(door.target_room),str(door.target_door_id))
 
 func _rest() -> void:
+	if is_instance_valid(rest_sequence) and rest_sequence.active:return
+	rest_sequence=WorldRestSequence.new()
+	add_child(rest_sequence)
+	if not rest_sequence.begin(self):rest_sequence.queue_free()
+
+func _commit_rest() -> bool:
 	var candidate := services.rest_candidate(_snapshot())
 	candidate.cycle += 1
 	candidate.enemies = {}
@@ -601,15 +609,13 @@ func _rest() -> void:
 	candidate.rest = {"room":room.room_id,"entry":"","point":[room.rest_point.x,room.rest_point.y]}
 	if not state.commit(candidate,state.revision):
 		status = state.error
-		return
+		return false
 	_restore_hp(float(candidate.hp))
 	controller.router.clear("explicit_rest")
 	controller.shoot_ability.clear_projectiles()
 	q_guard.cancel()
-	room.station_feedback=1.0
-	if room.station_animation!=null: room.station_animation.play_event()
-	GameAudio.cue(self,&"heal")
 	status=WorldText.text("rest.completed")
+	return true
 
 func _fail_terrain() -> void:
 	var safety := SegmentRespawn.new()
@@ -676,9 +682,14 @@ func _pause_world() -> bool:
 	paused=true;get_tree().paused=true
 	return true
 func toggle_pause() -> void:
-	if paused: _close_panel()
+	if is_instance_valid(rest_sequence) and rest_sequence.active:
+		if rest_sequence.suspended:_close_panel()
+		else:rest_sequence.suspend(true);ui.show_pause()
+	elif paused: _close_panel()
 	elif _pause_world(): ui.show_pause()
 func _close_panel() -> void:
+	if is_instance_valid(rest_sequence) and rest_sequence.active:
+		ui.close();rest_sequence.suspend(false);return
 	if is_instance_valid(story) and story.active:
 		story.advance();return
 	if is_instance_valid(introduction) and introduction.dialogue_active:
@@ -704,10 +715,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.physical_keycode==KEY_M: show_map()
 		elif event.physical_keycode==KEY_I: _ui_command("inventory","")
 func show_map() -> void:
+	if is_instance_valid(rest_sequence) and rest_sequence.active:return
 	if is_instance_valid(story) and story.active:return
 	if is_instance_valid(introduction) and introduction.dialogue_active:return
 	if controller!=null and (paused or _pause_world()): ui.show_map()
 func _ui_command(kind: String,_id: String) -> void:
+	if is_instance_valid(rest_sequence) and rest_sequence.active and kind not in ["pause","close","title"]:return
 	if is_instance_valid(story) and story.active and kind not in ["close","title"]:return
 	if is_instance_valid(introduction) and introduction.dialogue_active and kind not in ["close","title"]:return
 	match kind:
@@ -802,6 +815,7 @@ func return_title() -> void:
 	if not state.commit(_snapshot(),state.revision):
 		status = state.error
 		return
+	if is_instance_valid(rest_sequence):rest_sequence.finish()
 	_ticket += 1
 	get_tree().paused = false
 	paused = false
@@ -846,6 +860,7 @@ func _update_hud() -> void:
 	ui.present(controller,str(state.value.room),str(content.room(state.value.room).get("name","")),notice,str(target.get("label","")),int(services.ledger().gold),bool(preferences.value.reduced),focus_heal.ratio(),focus_heal.available())
 
 func _exit_tree() -> void:
+	if is_instance_valid(rest_sequence):rest_sequence.finish()
 	_ticket += 1
 	get_tree().paused = false
 	Engine.time_scale = 1.0

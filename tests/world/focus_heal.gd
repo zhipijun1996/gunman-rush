@@ -99,6 +99,9 @@ func run() -> void:
 	key(true);await ticks(20);energy.consume("declared_other_skill",40);await ticks(65);key(false);await ticks(2)
 	check(health.current==4 and energy.current==25,"another accepted consumer prevents double spending the same resonance")
 	app.player.reset_at(app.room.rest_point);await ticks(3);app._interact();await ticks(4)
+	for rest_tick:int in 300:
+		if not is_instance_valid(app.rest_sequence) or not app.rest_sequence.active:break
+		await ticks(1)
 	check(health.current==5 and energy.current==25 and app.state.value.combat_energy==25,"rest heals without granting or resetting resonance")
 	await hurt();await ticks(45);energy.grant("fatal_fixture",75)
 	key(true)

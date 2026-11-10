@@ -139,7 +139,7 @@ func _draw() -> void:
 		draw_set_transform(Vector2.ZERO,0,Vector2(facing,1.0))
 		draw_texture_rect_region(RUN_SHEET if frame.atlas=="run_sheet.png" else STATES_SHEET,target,rect)
 		draw_set_transform(Vector2.ZERO)
-	if _dead: return
+	if _dead or authored_pose.resting: return
 	# Bounded generated-body hit burst. World-anchored origin is relocated only by
 	# the accepted segment_returned event, never stretched across the teleport.
 	if _hurt_remaining > 0:

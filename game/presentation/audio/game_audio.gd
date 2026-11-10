@@ -6,6 +6,11 @@ const MECHANISM_BELL_SOUND := preload("res://assets/audio/ambience_v1/plains_chi
 # Existing quiet-02 bell recording: lift only the accepted mechanism transient,
 # without changing the selected ambience asset/mix or any other cue's gain.
 const MECHANISM_BELL_GAIN_DB := 12.0
+const REST_CUES := {
+	&"rest_contact": preload("res://assets/player_presentation_01/charging/audio/contact.wav"),
+	&"rest_current": preload("res://assets/player_presentation_01/charging/audio/current.wav"),
+	&"rest_restore": preload("res://assets/player_presentation_01/charging/audio/restore.wav"),
+}
 # Per-origin death timbre; the existing accepted cue still owns timing/pooling.
 const CUE_STREAM_OVERRIDES_META := &"audio_cue_stream_overrides"
 const CUES := [&"focus_start", &"focus_end", &"enemy_defeat", &"door", &"warning", &"boss_impact", &"click", &"confirm", &"coin", &"note", &"victory", &"jump", &"land", &"step", &"hurt", &"shot", &"impact", &"armour", &"core", &"enemy_shot", &"heal", &"death", &"bell", &"denied", &"roar"]
@@ -119,6 +124,18 @@ static func cue_cinematic(origin: Node, id: StringName) -> bool:
 	var service := for_origin(origin) as GameAudio
 	return service._play_original(id, null, false, origin, true) if service != null else false
 
+static func cue_rest(origin: WorldRestSequence, id: StringName) -> bool:
+	if not is_instance_valid(origin) or not origin.active or origin.suspended or not REST_CUES.has(id):return false
+	if id==&"rest_restore" and not origin.committed:return false
+	var service:=for_origin(origin) as GameAudio
+	return service._play_original(id,null,false,origin,true) if service!=null else false
+
+func pause_origin(origin: Node, value: bool) -> void:
+	for voice: AudioStreamPlayer in _voices:
+		if not voice.has_meta("director_origin"):continue
+		var reference: Variant=voice.get_meta("director_origin")
+		if reference is WeakRef and reference.get_ref()==origin:voice.stream_paused=value
+
 static func cue(origin: Node, id: StringName) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
 	var service := for_origin(origin) as GameAudio
@@ -202,6 +219,7 @@ func _ready() -> void:
 	for id: StringName in REGIONAL_CUE_PATHS:
 		_streams[id] = load(REGIONAL_CUE_PATHS[id])
 	_streams[&"mechanism_bell"] = MECHANISM_BELL_SOUND
+	_streams.merge(REST_CUES)
 	for index: int in MAX_VOICES:
 		var voice := AudioStreamPlayer.new()
 		add_child(voice)
@@ -364,25 +382,27 @@ func play_boss_cue(event_id: StringName, stream: AudioStream, origin: Node, prio
 func _play_original(id: StringName, stream_override: AudioStream = null, committed_reward: bool = false, origin: Node = null, cinematic: bool = false) -> bool:
 	if _shutting_down or not _streams.has(id) or volume <= 0: return false
 	var menu_reward := committed_reward and id in [&"confirm", &"note"]
-	var pause_safe := menu_reward or (cinematic and id in [&"mechanism_bell", &"armour"])
+	var rest_cinematic: bool = cinematic and origin is WorldRestSequence and origin.active and REST_CUES.has(id)
+	var pause_safe: bool = menu_reward or rest_cinematic or (cinematic and id in [&"mechanism_bell", &"armour"])
 	if get_tree().paused and not pause_safe and id not in [&"click", &"confirm", &"denied"]: return false
 	var interval := 0.16 if id in [&"step", &"denied", &"armour"] else 0.055
 	if _clock - float(_last.get(id, -100.0)) < interval: return false
 	for voice: AudioStreamPlayer in _voices:
-		if voice.playing: continue
+		if voice.playing or voice.stream_paused: continue
 		_last[id] = _clock
 		played[id] = int(played.get(id, 0)) + 1
 		voice.process_mode = Node.PROCESS_MODE_ALWAYS if pause_safe or id in [&"click", &"confirm", &"denied"] else Node.PROCESS_MODE_PAUSABLE
 		voice.set_meta("cue_id", id)
 		_clear_director_metadata(voice)
 		if cinematic and is_instance_valid(origin):
-			voice.set_meta("director_event", &"cinematic")
+			voice.set_meta("director_event", id if rest_cinematic else &"cinematic")
 			voice.set_meta("director_origin", weakref(origin))
+			voice.set_meta("director_sustained",id==&"rest_current")
 		if menu_reward:
 			voice.set_meta("committed_reward", true)
 			voice.set_meta("director_event", &"legacy_committed_reward")
 			if is_instance_valid(origin): voice.set_meta("director_origin", weakref(origin))
-		voice.set_meta("audio_priority", 90 if id in [&"hurt", &"death", &"warning", &"enemy_defeat", &"boss_impact", &"mechanism_bell"] else 20 if id == &"step" else 50)
+		voice.set_meta("audio_priority", 90 if id in [&"hurt", &"death", &"warning", &"enemy_defeat", &"boss_impact", &"mechanism_bell"] else 70 if rest_cinematic else 20 if id == &"step" else 50)
 		voice.bus = &"Ambience" if REGIONAL_CUE_PATHS.has(id) else &"UI" if id in [&"click", &"confirm", &"denied"] else &"SFX"
 		voice.stream = stream_override if stream_override != null else _streams[id]
 		var attenuation := -MECHANISM_BELL_GAIN_DB if id == &"mechanism_bell" else 16.0 if id == &"forest_wind" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &"step" else 10.0 if id in [&"shot", &"land", &"jump", &"click"] else 7.0
@@ -393,9 +413,9 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 		return true
 	# A/B keeps unselected critical legacy cues audible under candidate load.
 	# Original profile deliberately retains its existing full-pool drop policy.
-	if (audio_profile != "original" and id in [&"death", &"warning", &"boss_impact"]) or id == &"mechanism_bell":
+	if rest_cinematic or (audio_profile != "original" and id in [&"death", &"warning", &"boss_impact"]) or id == &"mechanism_bell":
 		var replaceable: AudioStreamPlayer
-		var lowest_priority := 90
+		var lowest_priority := 70 if rest_cinematic else 90
 		for voice: AudioStreamPlayer in _voices:
 			var priority := int(voice.get_meta("audio_priority", 100))
 			if priority < lowest_priority:
@@ -608,6 +628,7 @@ func stop_director_cues(origin: Node = null, sustained_only: bool = false, prese
 		_clear_director_metadata(voice)
 
 func _clear_director_metadata(voice: AudioStreamPlayer) -> void:
+	voice.stream_paused=false
 	for key: StringName in [&"director_event", &"director_origin", &"director_sustained", &"director_family", &"material_started", &"committed_reward"]:
 		if voice.has_meta(key): voice.remove_meta(key)
 

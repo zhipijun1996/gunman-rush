@@ -25,7 +25,7 @@ def bake(source,rows):
   dest=BASE/'native'/f'{name}.png';dest.parent.mkdir(parents=True,exist_ok=True);sheet.save(dest)
   records[name]={'image':str(dest.relative_to(ROOT)),'cell':[cell,cell],'frames':6,'anchor':[cell//2,cell-4] if kind!='burst' else [cell//2,cell//2],'fps':6 if kind!='burst' else 15,'source':f'assets/plains_v07/source/{source}','source_cells':rects,'bake_scale':factor,'native_body_height':height,'alpha_threshold':128,'kind':kind,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest()}
  return records
-records=bake('inhabitants-generated.png',[('reclaimer',44,64,'npc'),('weaver',44,64,'npc'),('aqi',42,64,'npc'),('charging_station',72,96,'station')])
+records=bake('inhabitants-generated.png',[('reclaimer',44,64,'npc'),('weaver',44,64,'npc'),('aqi',42,64,'npc')])
 records.update(bake('collectibles-generated.png',[('time_gear',32,48,'pickup'),('health_shard',28,48,'pickup'),('resonance_shard',32,48,'pickup'),('collection_burst',56,72,'burst')]))
 records.update(bake('mechanisms-generated.png',[('grapple_device',32,48,'pickup'),('equipment',32,48,'pickup'),('clock_altar',88,112,'mechanism'),('pulley_switch',48,64,'mechanism')]))
 records.update(bake('aqi-story-generated.png',[(name,42,64,'npc') for name in ['aqi_clock','aqi_tea','aqi_lantern','aqi_lookout']]))

@@ -3,6 +3,7 @@ extends RefCounted
 ## Presentation only. Wake is owned by the intro; wall poses consume Traversal.
 const TEXTURE := preload("res://assets/player_presentation_01/wake_wall/poses.png")
 const LOOK_TEXTURE := preload("res://assets/player_presentation_01/wake_wall/look.png")
+const REST_TEXTURE := preload("res://assets/player_presentation_01/charging/poses.png")
 const WAKE_HOLDS := [.55,.14,.16,.16,.18,.18,.14,.18]
 const WAKE_SECONDS := 1.69
 var waking := false
@@ -12,6 +13,14 @@ var session := -1
 var look_direction := 0.0
 var look_age := 0.0
 var look_return_age := 0.0
+var resting := false
+var rest_frame := 1
+var rest_depth := 0.0
+
+func begin_rest(controller: PlayerController) -> void:
+	clear()
+	resting=true
+	session=controller.session_id
 
 func begin_wake(controller: PlayerController) -> void:
 	waking = true
@@ -20,6 +29,8 @@ func begin_wake(controller: PlayerController) -> void:
 	frame = 0
 
 func clear() -> void:
+	resting = false
+	rest_depth = 0
 	waking = false
 	age = 0.0
 	frame = -1
@@ -32,12 +43,14 @@ func uses_existing_idle() -> bool:
 	return waking and frame == 7
 
 func advance(delta: float, body: UnderworldPlayer) -> void:
-	if body.controller.session_id != session and waking: clear()
+	if body.controller.session_id != session and (waking or resting): clear()
 	if body._dead or body._hurt_remaining > 0:
 		clear()
 		return
 	frame = -1
-	if waking:
+	if resting:
+		frame=18+rest_frame
+	elif waking:
 		age += delta
 		var elapsed := age
 		frame = 7
@@ -74,7 +87,10 @@ func draw(body: UnderworldPlayer) -> void:
 	var factor := UnderworldActors.HUMANOID_HEIGHT/46.0
 	var target := Rect2(Vector2(-40,-58)*factor+Vector2(0,18),Vector2(80,64)*factor)
 	body.draw_set_transform(Vector2.ZERO,0,Vector2(body.facing,1))
-	if frame>=12:
+	if resting:
+		target.position.y+=rest_depth
+		body.draw_texture_rect_region(REST_TEXTURE,target,Rect2(rest_frame%4*80,rest_frame/4*64,80,64))
+	elif frame>=12:
 		var index := frame-12
 		body.draw_texture_rect_region(LOOK_TEXTURE,target,Rect2(index%3*80,index/3*64,80,64))
 	else:

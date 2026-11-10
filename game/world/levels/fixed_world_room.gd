@@ -18,7 +18,7 @@ var camera_concealers: Dictionary = {}
 @export var art_profile := "meadow"
 @export var bell_mechanisms: Array[Dictionary] = []
 var mechanisms: Dictionary={}
-var station_animation: WorldSpriteAnimation
+var station_animation: WorldChargingStation
 var interaction_hosts: Array[WorldRoomInteraction] = []
 var service_pickup_sprites: Dictionary={}
 @export var platforms: Array[Rect2] = []
@@ -42,11 +42,7 @@ var service_pickup_sprites: Dictionary={}
 @export var hook_points: Array[Vector2] = []
 @export var climbable_walls: Array[Rect2] = []
 @export var environment_zones: Array[Dictionary] = []
-var station_feedback:=0.0
 var interaction_point:=Vector2.INF
-func _process(delta: float) -> void:
-	if station_feedback>0:
-		station_feedback=maxf(0,station_feedback-delta);queue_redraw()
 var cycle_at_load := 0
 var door_open: Dictionary={}
 var services: WorldServices
@@ -234,9 +230,6 @@ func _draw() -> void:
 	if interaction_point.is_finite():
 		var tip:=interaction_point+Vector2(0,-55)
 		draw_polyline(PackedVector2Array([tip+Vector2(-5,5),tip,tip+Vector2(5,5)]),DemoClockworkTheme.PAPER,2)
-	if rest_point != Vector2.ZERO:
-		pass # Native animated station is an independent presentation node.
-		if station_feedback>0: draw_arc(rest_point,30+(1-station_feedback)*14,0,TAU,32,Color(.4,.9,.8,station_feedback),2)
 	if reward_point != Vector2.ZERO and battle_finished and services!=null and not services.state.value.receipts.has(reward_action):
 		WorldProps.draw_icon(self,ItemPresentation.icon(&"echo"),reward_point,30)
 
@@ -360,7 +353,7 @@ func bind_services(value: WorldServices,controller: PlayerController,policy: Fra
 		var host:=node as WorldRoomInteraction
 		host.bind(value.state);interaction_hosts.append(host)
 	if rest_point!=Vector2.ZERO:
-		station_animation=WorldSpriteAnimation.new();station_animation.asset_id="charging_station";station_animation.position=rest_point+Vector2(0,18);add_child(station_animation)
+		station_animation=WorldChargingStation.new();station_animation.position=rest_point+Vector2(0,18);add_child(station_animation)
 	if interior_material().is_empty():UnderworldForeground.attach(self,self,controller.motor)
 	loot=WorldCoinDrops.new();loot.services=value;loot.controller=controller;loot.room_id=room_id;loot.arena_bounds=arena_bounds
 	add_child(loot)

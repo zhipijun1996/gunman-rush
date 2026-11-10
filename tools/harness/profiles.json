@@ -1876,6 +1876,22 @@
       ],
       "timeout_seconds": 240,
       "success_pattern": "^PASS: isolated fixed world PCK"
+    },
+    "rest-station": {
+      "mode": "manual",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/world/rest_station.gd"
+      ],
+      "timeout_seconds": 90,
+      "success_pattern": "^REST STATION: 0 failures"
     }
   },
   "profiles": {}

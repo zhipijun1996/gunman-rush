@@ -138,7 +138,7 @@ func candidate_receipt() -> Dictionary:
 func _draw() -> void:
 	if not candidate_enabled or (authored_pose.frame >= 0 and not authored_pose.uses_existing_idle()):
 		if authored_pose.frame >= 0:
-			displayed_state = "wake" if authored_pose.waking else ("look_up" if authored_pose.look_direction<0 else "look_down") if authored_pose.frame>=12 else "wall_attach"
+			displayed_state = "rest" if authored_pose.resting else "wake" if authored_pose.waking else ("look_up" if authored_pose.look_direction<0 else "look_down") if authored_pose.frame>=12 else "wall_attach"
 			displayed_frame = authored_pose.frame
 		super._draw()
 		return
