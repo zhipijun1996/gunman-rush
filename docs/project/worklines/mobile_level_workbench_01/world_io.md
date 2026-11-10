@@ -29,7 +29,7 @@ python3 tools/world/workbench_seed.py --scenes build/workbench/room-scenes.json 
 
 `preview_catalog(root)`从同一原编译结果生成`build/workbench/preview-world.json`，供专用工作台运行包使用。目录包含`schema`、`base_content_version`、登记范围的37房`rooms`、`actions`、`demo_services`、`npcs`和`map_rooms`。返程动作来自世界动作及原`build.local_returns`，不重写奖励或资格规则。小型`construction_scene_bindings`按真实施工源导出；Provider核对施工源哈希、登记表哈希、精确房间集合及场景资源，避免把4.5MB人工施工源重复放入PCK。
 
-目录将未正式施工的31个房间标记为`preview_only`，仅对已在编辑范围内的目标提供跨房预览。正式`construction.implemented`、正式六房`runtime.json`和正式存档语义均不因此改变。V-R12邻房未登记，边界仍封闭。预览旧内部场景不表示它已按新房形施工或完成体验验收。完整运行目录进入PCK，不进入网页每次状态快照。
+目录将未正式施工的房间标记为`preview_only`，仅对已在编辑范围内的目标提供跨房预览。正式`construction.implemented`、由施工源派生的正式`runtime.json`和正式存档语义均不因此改变。V-R12邻房未登记，边界仍封闭。预览旧内部场景不表示它已按新房形施工或完成体验验收。完整运行目录进入PCK，不进入网页每次状态快照。
 
 ## 游戏目录与版本更新
 
@@ -98,7 +98,7 @@ python3 tools/world/workbench_apply.py accepted-change.json --output-dir build/w
 | 删除或复制唯一奖励宿主 | 即使奖励列表没有改，也会因宿主不唯一或缺失而拒绝，不能让列表和真实场景脱节 |
 | 设计文字 | `challenge/discovery/return_route` 对应收集合同的明确文字字段。没有独立场景宿主的目标不能伪造坐标 |
 
-候选编译通过和保存回读证明数据一致，不证明真实跳跃、战斗、初见可读性、艺术效果或完整区域体验。收据始终将 `actual_controller_playtest` 记录为 `false`；真实控制器与浏览器证据由该任务其它验证记录提供。未施工房间只有场景字节变化时，正式六房运行内容版本可以不变，场景来源哈希仍会记录该变化。
+候选编译通过和保存回读证明数据一致，不证明真实跳跃、战斗、初见可读性、艺术效果或完整区域体验。收据始终将 `actual_controller_playtest` 记录为 `false`；真实控制器与浏览器证据由该任务其它验证记录提供。未施工房间只有场景字节变化时，正式运行内容版本可以不变，场景来源哈希仍会记录该变化。
 
 ## 快速迭代与实际验证
 
@@ -112,7 +112,7 @@ python3 tools/world/workbench_apply.py accepted-change.json --output-dir build/w
 | --- | --- |
 | 37房导出与精确范围 | 既有检查确认35个平原房及登记V-R12/Z-R01使用同一场景codec；真实Provider核对范围、场景及施工源绑定。正式房仍为6个，P、V及Z门厅使用不同源登记分量。本次发行包含同版37房seed与运行包；此结果不证明整关通关 |
 | 世界审核与接入反例 | `test_workbench_review.py`及`test_workbench_apply.py`的既有18项检查通过，覆盖16区/38连接/8个平原接口、显式范围、孤立灰盒、断门与接缝冲突、来源哈希、奖励宿主迁移、复杂返程拒绝、编译失败回滚及保留相机区；仅证明对应数据合同 |
-| 实际工作台桥 | 既有`tests/world/workbench.gd`检查为0失败，范围为正式存档隔离、驻留引擎换稿、物理加载失败恢复、门位与支撑同步、35房回路约束、显式未施工房预览和正式6房目录恢复；不据此宣称新版动作路线通过 |
+| 实际工作台桥 | 既有`tests/world/workbench.gd`检查为0失败，范围为正式存档隔离、驻留引擎换稿、物理加载失败恢复、门位与支撑同步、35房回路约束、显式未施工房预览和正式施工目录恢复；不据此宣称新版动作路线通过 |
 | 新版V-R12基础校验 | 8项通过：同一codec、真实加载、能力配置、入口支撑、返程落井静态碰撞，以及入口反冲+D接墙、H补充后向上反冲穿幕+D侧移接墙两段。资源恢复另有17项短检查通过。局部起点已明确，不声明整房自动通关 |
 
 本轮基础导出命令使用上文同一链路：

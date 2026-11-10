@@ -138,29 +138,54 @@
         {
           "behavior": "patrol",
           "id": "P-R04:bridge_guard",
-          "max_health": 5,
+          "max_health": 9.0,
           "point": [
-            1600,
-            910
+            1696.0,
+            910.0
           ]
         },
         {
           "behavior": "hopper",
           "id": "P-R04:field_hopper",
-          "max_health": 9,
+          "max_health": 9.0,
           "point": [
-            800,
-            1198
+            800.0,
+            1198.0
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R04:upper_guard",
+          "max_health": 9.0,
+          "point": [
+            1248.0,
+            366.0
+          ]
+        },
+        {
+          "behavior": "diver",
+          "id": "P-R04:west_cache_diver",
+          "max_health": 9.0,
+          "point": [
+            176.0,
+            960.0
           ]
         }
       ],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "open_P04_bridge_cache",
+          "section": "main"
+        },
+        {
+          "action": "open_P04_west_cache",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "上升台守怪，局部荆棘限制落脚；TG01已迁到25，不再在低处散发奖励。",
-        "visual_read": "下层田垄、上层断桥和转向果园的附墙石肩上下相望。",
-        "pressure": "地刺缩小低路站位；桥上石挡改变射线，出口前的高差需要反冲，壁刺限制落点。",
-        "failure_recovery": "落到下层实地后可重新上路；领取沿原唯一收据，返程不重复发奖。",
-        "return_visit": "去果园的高口和来旧路肩的低口在不同高度。"
+        "player_decision": "向留在右岸的守桥怪射击，反冲同次跨到左接收岸；接收岸加宽32提供余量，保留提前清怪后的空射通行。；东桥下凹室由左侧进入，桥墩藏箱一次散落10金币。经检修台回桥，不沿台阶撒币。；5加宽、6下移32并向左加宽；5→6高差128，7加宽至256且下移64，6→7高差192。5的刺移到左边短段、6的刺移到右端，给起跳与反冲落点留出空间。守台怪移至7右段，6完整承担起跳准备；7左侧保留落脚再判断的空间。；西侧低地由俯冲怪守20金币藏箱；从平台左端下探，原路跳回石肩。",
+        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "plain_pier",
@@ -172,7 +197,12 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
       },
-      "spatial_intent": "上升台守怪，局部荆棘限制落脚；TG01已迁到25，不再在低处散发奖励。"
+      "spatial_intent": "回身射击越断桥；桥墩内探查；宽石肩上果园；西侧空角守藏。",
+      "draft_approval": {
+        "revision": 72,
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验",
+        "signature": "c6a417f621b1aae081f28b0203e301ef31524e37fef535adf43f0d6d320fec9d"
+      }
     },
     {
       "room_id": "P-R05",
@@ -189,14 +219,16 @@
         {
           "action": "open_SC_P02",
           "section": "main"
+        },
+        {
+          "action": "reward_return_TG02_open",
+          "section": "main"
         }
       ],
       "experience": {
-        "player_decision": "只有TG02是奖励；另两项为回程吊桥和奖励侧返程机关。墓园门前留净空，轨道齿轮扫过载台与离台路线。",
-        "visual_read": "上层断岸、慢台导轨和下方重试地面上下相望。",
-        "pressure": "自愿平台挑战；奖励侧隔板防止从捷径提前爬入。",
-        "failure_recovery": "失手落到下层，沿左端两级岸回起点；领奖侧单向落槽接捷径。",
-        "return_visit": "从本侧开回06的桥，缩短收集回程；Boss重试直接由27接14。"
+        "player_decision": "保留原射铃载台和同驱齿轮；观察齿轮相位后登台，不在这段精密移动里加追击怪。；在载台起跳后向左下的检修铃[448,336]开枪。真实命中停住同一传动的载台与齿轮；反冲同时把人送上检修岸。保留其他合法时机解法。；TG02保留唯一正式奖励；保留原领取、返程折板及回06吊桥。原底部0–1536整行地刺，失足按现行地形失败回准备岸；左侧2/3检修台保留可站恢复。",
+        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "mill_drive_frame",
@@ -207,7 +239,12 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "本房不新增战斗压力。"
       },
-      "spatial_intent": "只有TG02是奖励；另两项为回程吊桥和奖励侧返程机关。墓园门前留净空，轨道齿轮扫过载台与离台路线。"
+      "spatial_intent": "开传动并登慢台；回射停传动并离台；取唯一铜齿并开原返程。",
+      "draft_approval": {
+        "revision": 72,
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验",
+        "signature": "0894c104f97f0c43e8156225a940e8aac6fc4f5af0ab506380678a6aa77377d9"
+      }
     },
     {
       "room_id": "P-R06",
@@ -304,29 +341,41 @@
         {
           "behavior": "sentry",
           "id": "P-R07:lookout_sentry",
-          "max_health": 14,
+          "max_health": 14.0,
           "point": [
-            1408,
-            1006
+            1408.0,
+            1006.0
           ]
         },
         {
           "behavior": "patrol",
           "id": "P-R07:arch_patrol",
-          "max_health": 9,
+          "max_health": 9.0,
           "point": [
-            1024,
-            1006
+            1536.0,
+            1198.0
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R07:upper_bank_patrol",
+          "max_health": 9.0,
+          "point": [
+            1968.0,
+            622.0
           ]
         }
       ],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "open_P07_hook_cache",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "利用高低石挡改变对哨兵的射线，再沿东侧石肩下井。",
-        "visual_read": "观测地标、稳定上岸与东侧下行井分区。",
-        "pressure": "哨兵与巡逻守不同宽地；入口留观察距离。",
-        "failure_recovery": "掉入下层可沿岸反冲回路，未施工外区保持封闭。",
-        "return_visit": "未来区域回口返回同一腹地，不新增绕过门槛的出口。"
+        "player_decision": "6右段加64宽刺，左侧保留96宽起跳/落脚面；越刺跳向上路。原掩体跳射与反冲回避保留。；原主台1厚256削为64，下方得到连续低拱通路；局部64宽刺留起跳和接收地，巡逻守东段宽地。低路接东岸，不封井口。；原平台2缩成128宽左接驳岸，真正开放1792–2048落槽。保留井内交错单向台和底部门；原448宽实体曾横封整个井口。；从原井内两级岸回东接驳岸，再上主路或走桥下返回；原门和入口落脚不变。；沿右肩上升、越过局部刺台，再借左上钩点进入40金币藏箱岸。回访支路不堵初访主路；取得后折返下到原上路。",
+        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "windmill_frame",
@@ -337,6 +386,12 @@
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
+      },
+      "spatial_intent": "上路借掩体还击；桥下低拱换位；打开的东井接驳；向西返回；上空折返与钩索藏金。",
+      "draft_approval": {
+        "revision": 72,
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验",
+        "signature": "1d62ceee6d1aa32068e44a44c8c50ad9a95e3c02a82f4e5269633fca11a87516"
       }
     },
     {
@@ -389,48 +444,60 @@
         {
           "behavior": "patrol",
           "id": "P-R09:old_track_patrol",
-          "max_health": 9,
+          "max_health": 9.0,
           "point": [
-            1344,
-            1070
+            752.0,
+            942.0
           ]
         },
         {
           "behavior": "charger",
           "id": "P-R09:mine_charger",
-          "max_health": 14,
+          "max_health": 14.0,
           "point": [
-            2144,
-            1198
+            784.0,
+            1198.0
           ]
         },
         {
-          "behavior": "sentry",
+          "behavior": "patrol",
           "id": "P-R09:mine_sentry",
-          "max_health": 14,
+          "max_health": 9.0,
           "point": [
-            2960,
-            878
+            3056.0,
+            750.0
           ]
         }
       ],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "open_P09_pipe_cache",
+          "section": "main"
+        },
+        {
+          "action": "open_P09_upper_cache",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "沿矿口货架反冲换高低射线，回程乘货梯接上口。",
-        "visual_read": "货架、矿口地标和货梯轨道指向不同高度。",
-        "pressure": "巡逻、哨兵与俯冲分散在宽货台，窄上口不放敌人。",
-        "failure_recovery": "下层连续地面容纳失手；回上口依靠货梯，不靠敌人补枪。",
-        "return_visit": "未来从矿区返回时仍落在基础安全通路。"
+        "player_decision": "上门落到安全实体岸；沿货井乘货梯到中央货台。向西可预览未施工矿口，向东到岸底开口观察铃与闸。；矿口接驳只保留连接所需长度。左下管口后的暗室向右敞开，净高128、门槛32；短跳进入领取10金币旧货箱，再由右沿跳回货台，无需破墙。；从准备岸踏入缺口，回身向左下射入80高的宽铃口。子弹打开闸，同枪反冲向右上跨过缺口并落到闸后宽岸。射偏落刺则回到准备岸；射口不靠针眼限制玩家。；东端上层由守卫争夺20金币检修藏箱。回程从东台左缘跳起向右下射击，反冲左上接检修台；射访问铃后短跳回主路，途中不另堆浮台。；沿中央货台到货梯；中间无横梁穿过轨道。乘至上端后向左跳回安全入口岸。",
+        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "storage_crates",
-        "gear_city_v2_pipe_junction",
-        "plain_pier"
+        "gear_city_v2_pipe_junction"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
+      },
+      "spatial_intent": "由货井观察矿口；缩短矿口接驳与左下暗室；下落后回身射铃；上层取财，换边回环；返回货井。",
+      "draft_approval": {
+        "revision": 72,
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验",
+        "signature": "15fe3145b2b2444fb34e1dc3fd377913bfcf2e1e7c0c633200daf924eb29199f"
       }
     },
     {
@@ -715,29 +782,60 @@
       "purpose": "风车背后单入口藏室；从轮轴缝隙发现装备。",
       "profile": "secret",
       "scene": "res://game/world/regions/P/rooms/P-R17.tscn",
-      "encounters": [],
+      "encounters": [
+        {
+          "behavior": "patrol",
+          "id": "P-R17:review05:cache_patrol",
+          "max_health": 9.0,
+          "point": [
+            1072.0,
+            1262.0
+          ]
+        },
+        {
+          "behavior": "diver",
+          "id": "P-R17:review05:cache_diver",
+          "max_health": 9.0,
+          "point": [
+            1040.0,
+            1184.0
+          ]
+        }
+      ],
       "interactions": [
         {
           "action": "pickup_EQ_MAP_P03",
           "section": "main"
+        },
+        {
+          "action": "reward_return_EQ_MAP_P03_open",
+          "section": "main"
+        },
+        {
+          "action": "open_P17_lower_cache",
+          "section": "main"
         }
       ],
       "experience": {
-        "player_decision": "从单入口下探，借H折向藏室高岸取装备，再放返程梯。",
-        "visual_read": "挂铃和背梁灯光标记上层奖励岸。",
-        "pressure": "自愿钩索支路，无敌人追击。",
-        "failure_recovery": "失败落入低地可重组；领奖侧独立放梯，仍由原门回风车。",
-        "return_visit": "仍经同一门回 P10，不把秘密房改成绕关近路。"
+        "player_decision": "入口厚块减薄；下方原平台恢复落脚用途。检修门未开时从门下绕入原H路线。；原有H三环仍通往行装包；下层金币支路由右侧宽口进入，一空一陆守住下层奖励，屋檐遮断朝原H起点的初始视线。；操作原返程闩，西侧两阶展开，检修门打开；三段普通跳回入口。；右下宽口内一陆一空守20金币藏箱，屋檐隔开上层钩索路线；返程先在屋檐左侧下射反冲上升，身体越过檐面后再向右落上屋檐顶，再回原路线。",
+        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "barrel",
         "gear_city_v2_valve_panel",
-        "windchime_plains_near_v2"
+        "gear_lamp"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "本房不新增战斗压力。"
+      },
+      "spatial_intent": "沿封闭检修门下探；原有三环取行装；领奖后回到原门；右下守卫金币窝 · 20 金币。",
+      "draft_approval": {
+        "revision": 72,
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验",
+        "signature": "8e7ee90995efef7ecc2643bf8ac6ee8ea776fbbc0dfdb04815d84bf67c941bbf"
       }
     },
     {
@@ -798,25 +896,61 @@
       "room_id": "P-R19",
       "name": "根井侧畦",
       "purpose": "根井主通路、上层回环与H+D铜齿预览。",
-      "profile": "roots",
+      "profile": "well",
       "scene": "res://game/world/regions/P/rooms/P-R19.tscn",
       "encounters": [
         {
           "behavior": "hopper",
           "id": "P-R19:root_hopper",
-          "max_health": 9,
+          "max_health": 9.0,
           "point": [
-            896,
-            2286
+            896.0,
+            2286.0
           ]
         },
         {
           "behavior": "patrol",
           "id": "P-R19:deep_patrol",
-          "max_health": 9,
+          "max_health": 9.0,
           "point": [
-            2208,
-            2414
+            2208.0,
+            2414.0
+          ]
+        },
+        {
+          "behavior": "root_bell",
+          "id": "P-R19:review04:root_bell_guard",
+          "max_health": 14.0,
+          "point": [
+            744.0,
+            1512.0
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R19:review05:cache_patrol",
+          "max_health": 9.0,
+          "point": [
+            160.0,
+            2670.0
+          ]
+        },
+        {
+          "behavior": "diver",
+          "id": "P-R19:review05:cache_diver",
+          "max_health": 9.0,
+          "point": [
+            176.0,
+            2528.0
+          ]
+        },
+        {
+          "behavior": "sentry",
+          "id": "P-R19:review05:upper_sentry",
+          "max_health": 9.0,
+          "point": [
+            880.0,
+            622.0
           ]
         }
       ],
@@ -824,14 +958,24 @@
         {
           "action": "pickup_TG04",
           "section": "access:H_D"
+        },
+        {
+          "action": "reward_return_TG04_open",
+          "section": "access:H_D"
+        },
+        {
+          "action": "open_P19_root_cache",
+          "section": "main"
+        },
+        {
+          "action": "open_P19_sentry_cache",
+          "section": "main"
         }
       ],
       "experience": {
-        "player_decision": "低路往返地窖与水岸，乘根井笼回汇口；上层铜齿留给H+D回访。",
-        "visual_read": "导轨连通主路，远处独立石沿承载铜齿。",
-        "pressure": "主路轻遭遇；奖励段要求从末环抬升到高岸。",
-        "failure_recovery": "底部保留实地，升降笼承担上返；奖励岸显式放梯。",
-        "return_visit": "带 D 重访完成已有 TG04，不增新奖励或替代入口。"
+        "player_decision": "从低路回望桥下藏室：巡逻与俯冲怪守20金币藏箱，底部右段刺床保留左侧宽战斗面；由两层宽台回原低路。；第一笼只升到中层宽岸。根铃在实心平台9预警，玩家可跳离或射击打断；局部刺迫使换落点。清理后准备向右射铃，身体向左登第二笼。；右侧风铃启动第二笼；朝右射击同时把身体送向左侧载台。第二笼斜向右上收束到平台8，失败可回中层宽岸，顶端访问铃能召回或停台。允许先启动后登台。；第三笼接上门，途中左侧哨兵守10金币检修箱；射右侧访问铃停笼并反冲上左岸，处理遭遇后射左铃再搭笼。上门保留安静落台。；原三个钩点、TG04高岸、奖励与返程机关保留。新上升岸均在井道西侧，未把台阶接入右侧奖励；新怪不放到TG04附近充当回枪台阶。",
+        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "sunken_well",
@@ -842,6 +986,12 @@
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
+      },
+      "spatial_intent": "低路与井底藏室；第一段起井，换岸交战；射铃启笼并反冲登台；上井有侧岸可停战；TG04仍是H+D回访。",
+      "draft_approval": {
+        "revision": 72,
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验",
+        "signature": "ae6eda67df7f3723541f9aa1cd007153e9a3114171fdc6127e72bdf2d59e9eea"
       }
     },
     {
@@ -1204,48 +1354,79 @@
         {
           "behavior": "charger",
           "id": "P-R28:barn_charger",
-          "max_health": 14,
+          "max_health": 14.0,
           "point": [
-            1280,
-            1646
+            1264.0,
+            1646.0
           ]
         },
         {
           "behavior": "patrol",
           "id": "P-R28:fields_patrol",
-          "max_health": 9,
+          "max_health": 9.0,
           "point": [
-            448,
-            1518
+            96.0,
+            1518.0
           ]
         },
         {
-          "behavior": "hopper",
+          "behavior": "patrol",
           "id": "P-R28:exit_hopper",
-          "max_health": 9,
+          "max_health": 9.0,
           "point": [
-            960,
-            1390
+            1008.0,
+            1390.0
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R28:review03:cache_guard",
+          "max_health": 9.0,
+          "point": [
+            256.0,
+            1262.0
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R28:review04:east_bank_guard",
+          "max_health": 9.0,
+          "point": [
+            1904.0,
+            1262.0
           ]
         }
       ],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "open_P28_upper_cache",
+          "section": "main"
+        },
+        {
+          "action": "open_P28_lower_cache",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "从棚口下降到旧田，清理宽岸敌人或反冲跨沟去谷仓。",
-        "visual_read": "高口石肩、田垄与谷仓入口分层。",
-        "pressure": "冲锋、巡逻与跳怪守各自宽岸，安全门台不摆怪。",
-        "failure_recovery": "低田可重新起跳；原高口石肩提供回访路线。",
-        "return_visit": "经中层石肩反冲接上方风棚回口；低路与谷仓入口保留，返程不靠密集短台。"
+        "player_decision": "顶门实体台减薄。1右端、2左端、3右端局部刺；各阶肩有安全观察岸，可用已有下看确认下一侧，沿9接到谷仓宽岸。；保留朝右下守卫开枪、身体反冲左上的高效路线；西田上层仍可分步进入。；上檐凹室净高104、开口128，短跳配横向反冲进入10金币藏箱岸；由错开的上口分两次各落128到下袋。；在160宽中台下看确认凹袋底面，128宽口进入96净高凹袋领取10金币藏箱；两次普通跳回原肩，不依赖怪物存活。；从8经移高的9回到3，沿2、1回到薄0。井肩形成224、224、224、192的高差节奏；旧9承担回升，不额外堆浮台。",
+        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "storage_crates",
-        "orchard_arch_west",
+        "hanging_chime",
         "tilted_barrel"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
+      },
+      "spatial_intent": "交错刺肩下降；上田攻击换层；11内侧10金币；5内部10金币；谷仓岸回上门。",
+      "draft_approval": {
+        "revision": 72,
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验",
+        "signature": "866926c23fa3d4fa18678232cf31d7627f6ee7de1080f25c49b2033b48f6aa42"
       }
     },
     {
@@ -1258,29 +1439,59 @@
         {
           "behavior": "patrol",
           "id": "P-R29:beam_patrol",
-          "max_health": 9,
+          "max_health": 9.0,
           "point": [
-            1504,
-            622
+            1648.0,
+            622.0
           ]
         },
         {
           "behavior": "hopper",
           "id": "P-R29:lower_hopper",
-          "max_health": 9,
+          "max_health": 9.0,
           "point": [
-            688,
-            1038
+            688.0,
+            1038.0
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R29:review03:attic_guard",
+          "max_health": 9.0,
+          "point": [
+            1344.0,
+            286.0
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R29:review04:platform6_patrol",
+          "max_health": 9.0,
+          "point": [
+            992.0,
+            750.0
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R29:review04:platform7_patrol",
+          "max_health": 9.0,
+          "point": [
+            1280.0,
+            910.0
           ]
         }
       ],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "open_P29_attic_cache",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "上层反冲越仓顶断口，或落到卸粮地面，再借货梯返回。",
-        "visual_read": "仓顶梁、卸粮面与独立货梯轴线分工。",
-        "pressure": "哨兵和跳怪分守低层；上层跨距不靠敌人存活。",
-        "failure_recovery": "失手落到低层实地；下口有货梯，返程不重复走屋顶断口。",
-        "return_visit": "上层回看风棚，下层通矿口旧栈道。"
+        "player_decision": "西岸到中梁，再接东岸货井。阁楼挑战位于中梁上方，不占货梯轨道。；在宽刺台上空向右下射近处悬铃。弹丸打开头顶限时闸，同一枪的向上反冲将身体送过闸口，随后落向左侧阁楼。；阁楼西端为一次性20金币藏箱；沿已闭合顶闸向东，处理宽地守卫后从东端落回主路。失败落回近端重试。",
+        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "storage_crates",
@@ -1291,6 +1502,12 @@
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
+      },
+      "spatial_intent": "原主路不断；同枪开顶闸与上冲；阁楼集中藏物与回落。",
+      "draft_approval": {
+        "revision": 72,
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验",
+        "signature": "e6a4c9a153aee55cf84283c457513e7daa4e121928f4bcbc7f4762fb0cb91970"
       }
     },
     {
@@ -1301,12 +1518,21 @@
       "scene": "res://game/world/regions/P/rooms/P-R30.tscn",
       "encounters": [
         {
+          "behavior": "patrol",
+          "id": "P-R30:review03:pump_gallery_guard",
+          "max_health": 9.0,
+          "point": [
+            512.0,
+            430.0
+          ]
+        },
+        {
           "behavior": "hopper",
           "id": "P-R30:water_hopper",
-          "max_health": 9,
+          "max_health": 9.0,
           "point": [
-            576,
-            878
+            1264.0,
+            302.0
           ]
         }
       ],
@@ -1314,14 +1540,16 @@
         {
           "action": "pickup_TG03",
           "section": "reward:TG03"
+        },
+        {
+          "action": "reward_return_TG03_open",
+          "section": "reward:TG03"
         }
       ],
       "experience": {
-        "player_decision": "沿低顶主路去风棚，或下探索环支路领取铜齿。",
-        "visual_read": "石肋阻断从上层直接落进奖励台；索环提示低处接近。",
-        "pressure": "主路轻遭遇，奖励要求在低顶中控制钩索和落点。",
-        "failure_recovery": "洞底可沿岸回主路；到奖励侧后显式放返程梯。",
-        "return_visit": "TG03 仍是原唯一奖励，领取和开梯分开。"
+        "player_decision": "左入口的实心安全岸缩为320宽；下到中层泵台后向左折返，进入宽阔操作岸。中层泵台同时承担当期返左入口的落脚和巡逻遭遇。；短跳时向身后开枪：子弹命中风铃，启动吊斗；同一枪反冲把玩家送上已在移动的吊斗。沿横轨转入中井上升，从上端向右走下东岸。允许先开铃再登台。；下层东侧保留原来的H绕墙、三个钩点、TG03和返程折梯。只保留这一个真实收集目标，不新增散落金币或虚构奖励。；底层越过短刺沟，登实体恢复台，再跳回操作岸；短跳漏枪则直接落在恢复台。下层和东岸的同组铃可以远程起停载台，错过班次可等其8秒周期回程。；从吊斗上端回落中层泵台，再从台的左端跳起，射向右下、反冲左上回到西侧入口。不是从井顶直接横跨到西门。",
+        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "gear_city_v2_pipe_junction",
@@ -1331,6 +1559,12 @@
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "本房不新增战斗压力。"
+      },
+      "spatial_intent": "进入左下泵房；射铃同时登台；原铜齿探索；失误回岸；返回西门。",
+      "draft_approval": {
+        "revision": 72,
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验",
+        "signature": "8afa3d7860a6531b5dbe2f7e7de38a6a7dc5145bf024c09f0c02951efd50f04a"
       }
     },
     {
@@ -1345,16 +1579,16 @@
           "id": "P-R31:approach_guard",
           "max_health": 9.0,
           "point": [
-            624.0,
+            848.0,
             878.0
           ]
         },
         {
-          "behavior": "sentry",
+          "behavior": "patrol",
           "id": "P-R31:far_bank",
-          "max_health": 14.0,
+          "max_health": 9.0,
           "point": [
-            1984.0,
+            2608.0,
             878.0
           ]
         },
@@ -1363,8 +1597,8 @@
           "id": "P-R31:upper_air",
           "max_health": 9.0,
           "point": [
-            1600.0,
-            660.0
+            1120.0,
+            1488.0
           ]
         },
         {
@@ -1375,15 +1609,36 @@
             1792.0,
             1390.0
           ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R31:review05:platform8_patrol",
+          "max_health": 9.0,
+          "point": [
+            2208.0,
+            1134.0
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R31:review05:platform10_patrol",
+          "max_health": 9.0,
+          "point": [
+            2352.0,
+            1614.0
+          ]
         }
       ],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "open_P31_lower_cache",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "下路越断渠和守卫；射铃到左检修岸，反冲换右岸，再乘第二台去长桥。",
-        "visual_read": "宽岸承担战斗与恢复，斜吊台和风铃标明上行，下层错岸通旧集。",
-        "pressure": "冲锋阻路、远岸射线、上层俯冲分别争夺跨渠、起跳与换乘时机。",
-        "failure_recovery": "断渠底刺回近岸，下层留实地恢复并能借载台返回。",
-        "return_visit": "西回站、上接长桥、下行旧集，保持三向身份。"
+        "player_decision": "入口站位与失败恢复保持安全距离，向前进入遭遇后再选择上行或下路。；先越局部断渠；回身向右下射铃，身体向左上反冲，接上已启动的第一吊台。允许先启动后登台。；上层净空容纳完整身体轨迹；反冲跨到第二吊台，启动后去长桥。精密换乘区移走远程守卫和俯冲怪。；8和10平台各有巡逻体；先在宽落点处理守卫，再沿原9/12回升。左下地刺后集中20金币，原下层俯冲怪守接近空域，取币后可沿同路返回。；跨底部96宽地刺到左侧20金币藏箱；宽岸供战斗和回跳，领取后沿原路返回上层。",
+        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "bell_post",
@@ -1395,7 +1650,12 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "离开安全观察位后沿既有敌人的同体预警、命中与死亡表现；提示与辨路期间不受追击。"
       },
-      "spatial_intent": "下路越断渠和守卫；射铃到左检修岸，反冲换右岸，再乘第二台去长桥。"
+      "spatial_intent": "站口先观察；断渠与射铃上行；上行接长桥；下层实际有回路；左下支路 · 20 金币。",
+      "draft_approval": {
+        "revision": 72,
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验",
+        "signature": "999348b9a1e0e8bd00a285d7336c53130d32d23b63078417f97022a46b9737a3"
+      }
     },
     {
       "room_id": "P-R32",

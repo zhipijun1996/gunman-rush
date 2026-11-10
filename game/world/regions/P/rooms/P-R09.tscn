@@ -1,39 +1,145 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R09" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_4twoh"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_7i1df"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_022dg"]
+
+[node name="P-R09" type="Node2D" unique_id=1645072537]
+script = ExtResource("1_4twoh")
 room_id = "P-R09"
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "矿口旧道", "action": "从货井降到旧栈道，沿高低货台处理追压与射线，东端封闭矿门保留远期地标。", "point": [1344, 142], "path": [[1344, 142], [1344, 654], [1344, 1070], [1872, 942], [2480, 1070], [2960, 878]]}]}
-traveler_point = Vector2(0,0)
-climbable_walls = Array[Rect2]([])
-environment_zones = Array[Dictionary]([])
-gear_obstacles = Array[Dictionary]([])
-hazards = Array[Rect2]([])
-art_profile = "trestle"
-masonry_platform_indices = Array[int]([])
-bell_mechanisms = Array[Dictionary]([])
-spike_strips = Array[Dictionary]([{"id":"P09:rail_teeth","bounds":[1504,1192,192,24],"facing":"up"}])
 arrival_text = "矿口旧栈道"
-platforms = Array[Rect2]([Rect2(1152,160,224,256),Rect2(1152.0,416.0,192.0,32.0),Rect2(1024.0,672.0,640.0,32.0),Rect2(0.0,1216.0,3200.0,128.0),Rect2(128.0,1088.0,320.0,128.0),Rect2(640.0,960.0,288.0,256.0),Rect2(1184.0,1088.0,320.0,128.0),Rect2(1760.0,960.0,288.0,256.0),Rect2(2336.0,1088.0,320.0,128.0),Rect2(2816.0,896.0,384.0,448.0)])
-one_way_indices = Array[int]([1,2])
-start_point = Vector2(1344,142)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id":"P-R09:old_track_patrol","behavior":"patrol","point":[1344,1070],"max_health":9},{"id":"P-R09:mine_charger","behavior":"charger","point":[2144,1198],"max_health":14},{"id":"P-R09:mine_sentry","behavior":"sentry","point":[2960,878],"max_health":14}])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[1344,1028,96,60],"point":[1392,1070],"section":"main"},{"bounds":[1792,900,96,60],"point":[1840,942],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"storage_crates","point":[736,960],"layer":-2},{"asset":"gear_city_v2_pipe_junction","point":[2960,896],"layer":-2},{"asset":"plain_pier","point":[1344,672],"layer":-2,"support_height":416}])
-illustrated_platform_indices = Array[int]([])
-[node name="FreightLift" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(1440,1032)
-endpoint = Vector2(0,-784)
-platform_size = Vector2(144,20)
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "上门落到安全实体岸；沿货井乘货梯到中央货台。向西可预览未施工矿口，向东到岸底开口观察铃与闸。",
+"label": "由货井观察矿口",
+"number": 1.0,
+"path": [[1344.0, 142.0], [1440.0, 220.0], [1440.0, 1004.0], [1392.0, 1070.0], [1840.0, 942.0], [2048.0, 1006.0]],
+"point": [1344.0, 142.0]
+}, {
+"action": "矿口接驳只保留连接所需长度。左下管口后的暗室向右敞开，净高128、门槛32；短跳进入领取10金币旧货箱，再由右沿跳回货台，无需破墙。",
+"label": "缩短矿口接驳与左下暗室",
+"number": 2.0,
+"path": [[704.0, 942.0], [512.0, 1070.0], [304.0, 1198.0], [224.0, 1166.0], [128.0, 1166.0], [240.0, 1166.0], [352.0, 1070.0], [704.0, 942.0]],
+"point": [304.0, 1198.0]
+}, {
+"action": "从准备岸踏入缺口，回身向左下射入80高的宽铃口。子弹打开闸，同枪反冲向右上跨过缺口并落到闸后宽岸。射偏落刺则回到准备岸；射口不靠针眼限制玩家。",
+"label": "下落后回身射铃",
+"number": 3.0,
+"path": [[2048.0, 1006.0], [2191.0, 1093.0], [2343.0, 1066.0], [2388.0, 1086.0], [2420.0, 1134.0], [2480.0, 1134.0]],
+"point": [2048.0, 1006.0]
+}, {
+"action": "东端上层由守卫争夺20金币检修藏箱。回程从东台左缘跳起向右下射击，反冲左上接检修台；射访问铃后短跳回主路，途中不另堆浮台。",
+"label": "上层取财，换边回环",
+"number": 4.0,
+"path": [[2480.0, 1134.0], [2912.0, 1006.0], [2752.0, 878.0], [3008.0, 750.0], [2920.0, 750.0], [2885.0, 690.0], [2647.0, 702.0], [2528.0, 702.0], [2240.0, 702.0], [2048.0, 1006.0]],
+"point": [2480.0, 1134.0]
+}, {
+"action": "沿中央货台到货梯；中间无横梁穿过轨道。乘至上端后向左跳回安全入口岸。",
+"label": "返回货井",
+"number": 5.0,
+"path": [[2048.0, 1006.0], [1840.0, 942.0], [1392.0, 1070.0], [1440.0, 1032.0], [1440.0, 248.0], [1344.0, 142.0]],
+"point": [2048.0, 1006.0]
+}]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [1344.0, 1028.0, 96.0, 60.0],
+"point": [1392.0, 1070.0],
+"section": "main"
+}, {
+"bounds": [1984.0, 964.0, 112.0, 60.0],
+"point": [2048.0, 1006.0],
+"section": "main"
+}, {
+"bounds": [2416.0, 1092.0, 128.0, 60.0],
+"point": [2480.0, 1134.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "storage_crates",
+"layer": -2.0,
+"point": [736.0, 960.0]
+}, {
+"asset": "gear_city_v2_pipe_junction",
+"layer": -2.0,
+"point": [3040.0, 1024.0]
+}, {
+"asset": "storage_crates",
+"layer": -2.0,
+"point": [200.0, 1184.0]
+}, {
+"asset": "gear_city_v2_pipe_junction",
+"layer": -2.0,
+"point": [320.0, 1088.0]
+}])
+art_profile = "trestle"
+bell_mechanisms = Array[Dictionary]([{
+"access_bells": [[2552.0, 688.0]],
+"bell": [2080.0, 1112.0],
+"gate": [2344.0, 576.0, 32.0, 640.0],
+"id": "P-R09:review02:air_shutter",
+"open_seconds": 0.65
+}])
+platforms = Array[Rect2]([Rect2(1152, 160, 224, 256), Rect2(0, 1216, 3200, 128), Rect2(256, 1088, 320, 32), Rect2(640, 960, 288, 64), Rect2(1184, 1088, 320, 128), Rect2(1728, 960, 256, 128), Rect2(2384, 1152, 352, 64), Rect2(2816, 1024, 384, 320), Rect2(1984, 1024, 128, 32), Rect2(2016, 1056, 96, 16), Rect2(2016, 1072, 32, 80), Rect2(2016, 1152, 96, 64), Rect2(2656, 896, 224, 32), Rect2(2912, 768, 288, 32), Rect2(2400, 720, 256, 32), Rect2(2112, 720, 224, 32), Rect2(0, 736, 288, 64), Rect2(352, 800, 256, 32), Rect2(2112, 1184, 272, 32), Rect2(32, 1024, 224, 32), Rect2(32, 1184, 224, 32)])
+workbench_entity_ids = {
+"art_placements": ["P-R09:art_placements:0", "P-R09:art_placements:1", "P-R09:review04:hidden_cache_crates", "P-R09:review04:hidden_entry_pipe"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R09:platforms:0", "P-R09:platforms:3", "P-R09:platforms:4", "P-R09:platforms:5", "P-R09:platforms:6", "P-R09:platforms:7", "P-R09:platforms:8", "P-R09:platforms:9", "P-R09:review02:observe_lip", "P-R09:review02:bell_pocket_roof", "P-R09:review02:bell_pocket_back", "P-R09:review02:bell_pocket_floor", "P-R09:review02:east_step", "P-R09:review02:reward_shelf", "P-R09:review02:return_east", "P-R09:review02:return_west", "P-R09:review02:mine_threshold", "P-R09:review02:mine_preview_bridge", "P-R09:review02:shutter_ditch_pedestal", "P-R09:review04:hidden_room_roof", "P-R09:review04:hidden_room_floor"],
+"retry_anchors": ["P-R09:retry_anchors:0", "P-R09:retry_anchors:1", "P-R09:review02:reward_side_retry"],
+"signs": []
+}
+one_way_indices = Array[int]([2, 12, 13, 14, 15, 17])
+start_point = Vector2(1344, 142)
+enemy_placements = Array[Dictionary]([{
+"behavior": "patrol",
+"id": "P-R09:old_track_patrol",
+"max_health": 9.0,
+"point": [752.0, 942.0]
+}, {
+"behavior": "charger",
+"id": "P-R09:mine_charger",
+"max_health": 14.0,
+"point": [784.0, 1198.0]
+}, {
+"behavior": "patrol",
+"id": "P-R09:mine_sentry",
+"max_health": 9.0,
+"point": [3056.0, 750.0]
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [1504.0, 1192.0, 192.0, 24.0],
+"facing": "up",
+"id": "P09:rail_teeth"
+}, {
+"bounds": [2112.0, 1160.0, 272.0, 24.0],
+"facing": "up",
+"id": "P-R09:review02:shutter_ditch"
+}])
+
+[node name="FreightLift" type="AnimatableBody2D" parent="." unique_id=1748115506]
+position = Vector2(1440, 1032)
+script = ExtResource("2_7i1df")
+endpoint = Vector2(0, -784)
+platform_size = Vector2(144, 20)
 period = 12.0
 one_way = true
-route = Array[Vector2]([Vector2(0,-784)])
+route = Array[Vector2]([Vector2(0, -784)])
 endpoint_dwell = 2.0
+
+[node name="Cache_pipe_cache" type="Node2D" parent="." unique_id=1281366050]
+position = Vector2(128, 1166)
+script = ExtResource("3_022dg")
+action_id = "open_P09_pipe_cache"
+label = "打开矿口旧货箱"
+visual = "chest"
+radius = 48.0
+
+[node name="Cache_upper_cache" type="Node2D" parent="." unique_id=1229564768]
+position = Vector2(3104, 750)
+script = ExtResource("3_022dg")
+action_id = "open_P09_upper_cache"
+label = "打开检修台藏箱"
+visual = "chest"
+radius = 48.0

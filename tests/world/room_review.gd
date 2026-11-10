@@ -36,7 +36,7 @@ func run() -> void:
 	var explored: Array=app.state.value.explored.duplicate()
 	app.ui.show_map();await ticks(3)
 	var maps:=app.ui.shell.find_children("*","FixedWorldMap",true,false)
-	check(maps.size()==1 and (maps[0] as FixedWorldMap).rows().size()==6,"review map exposes only the six built physical rooms")
+	check(maps.size()==1 and (maps[0] as FixedWorldMap).rows().size()==16,"review map exposes only the sixteen constructed physical rooms")
 	check(app.state.value.explored==explored,"full review map does not grant campaign exploration")
 	app._close_panel();await ticks(2)
 	var lamp:=app.player.get_node("CarryLight") as PlayerCarryLight

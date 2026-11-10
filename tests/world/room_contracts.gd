@@ -13,6 +13,13 @@ func settle() -> void:
 	for i: int in 240:
 		await physics_frame
 		if not app.busy: return
+func interaction_supported(at:Vector2,safety:SegmentRespawn) -> bool:
+	# Art/NPC pivots may embed three pixels into the ground. Validate the actual
+	# nearby player standing center, not a player body placed at the art pivot.
+	var query:=PhysicsRayQueryParameters2D.create(at+Vector2(0,10),at+Vector2(0,26),1)
+	var hit:=app.player.get_world_2d().direct_space_state.intersect_ray(query)
+	if hit.is_empty() or (hit.normal as Vector2).y>-.8:return false
+	return safety.is_safe((hit.position as Vector2)-Vector2(0,18))
 func run() -> void:
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path="user://room_interface_test.json"
@@ -20,7 +27,7 @@ func run() -> void:
 	root.add_child(app)
 	app.start_new();await settle()
 	var candidate:=app.state.value.duplicate(true)
-	candidate.flags.append_array(["intro_move","intro_shoot","intro_complete","station_briefed"])
+	candidate.flags.append_array(["intro_gun","intro_move","intro_shoot","intro_complete","station_briefed"])
 	app.state.commit(candidate,app.state.revision)
 	var player_id:=app.player.get_instance_id()
 	for id: String in app.content.data.rooms:
@@ -53,7 +60,7 @@ func run() -> void:
 		var safety:=SegmentRespawn.new();safety.configure(app.controller,app.lifetime)
 		for host: WorldRoomInteraction in app.room.interaction_hosts:
 			check(app.room.section_at(host.position)==host.section_id,id+" action physical section "+host.action_id)
-			check(safety.is_safe(host.position),id+" safe interaction support "+host.action_id+" "+str(host.position))
+			check(interaction_supported(host.position,safety),id+" safe interaction support "+host.action_id+" "+str(host.position))
 		for retry: Dictionary in app.room.retry_anchors:
 			check(safety.is_safe(FixedWorldProvider.point(retry.point)),id+" safe local retry "+str(retry.point))
 		for hazard: Rect2 in app.room.hazards:
@@ -62,13 +69,12 @@ func run() -> void:
 				for platform: Rect2 in app.room.platforms:
 					if platform.has_point(Vector2(x,hazard.end.y+1)):supported=true
 				check(supported,id+" hazard rooted to physical surface")
-		if id in ["P-R01","P-R02","P-R23","P-R24","P-R27"]:
-			check(safety.is_safe(app.room.traveler_point),id+" traveler has safe physical support")
+		# Only an actual eligible traveler is a host; the NPC loop below checks it.
 		var placements: Dictionary={}
 		for npc: Node in app.room.find_children("*","WorldNpc",true,false):
 			check(not placements.has(npc.npc_id),"unique authored NPC placement")
 			placements[npc.npc_id]=true
-			check(safety.is_safe(npc.position),id+" NPC has safe physical support "+npc.npc_id)
+			check(interaction_supported(npc.position,safety),id+" NPC has safe physical support "+npc.npc_id)
 			check(not app._npc(npc.npc_id).is_empty() and app._npc(npc.npc_id).room_id==id,"NPC binding matches canonical room")
 		if not app.room.boss_identity.is_empty():
 			check(app.content.action(app.room.defeat_action).get("room_id")==id ,"Boss-owned binding references real room actions")

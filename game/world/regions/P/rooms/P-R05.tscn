@@ -1,28 +1,34 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_e63of"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="2_lry05"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="3_63q66"]
-[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="4_n1hwk"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_cd2yo"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="2_w1ake"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="3_ni14a"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="4_4olk5"]
 
 [node name="P-R05" type="Node2D" unique_id=1388894750]
-script = ExtResource("1_e63of")
+script = ExtResource("1_cd2yo")
 room_id = "P-R05"
 arrival_text = "慢风平台"
 route_guide = {
 "schema": 1.0,
 "steps": [{
-"action": "射铃召回慢台，搭台到检修口，再向右反冲跨断桥取铜齿。",
-"label": "慢台到断桥",
+"action": "保留原射铃载台和同驱齿轮；观察齿轮相位后登台，不在这段精密移动里加追击怪。",
+"label": "开传动并登慢台",
 "number": 1.0,
-"path": [[144.0, 366.0], [544.0, 324.0], [736.0, 260.0], [928.0, 206.0], [1360.0, 142.0]],
+"path": [[144.0, 366.0], [544.0, 324.0], [640.0, 292.0]],
 "point": [144.0, 366.0]
 }, {
-"action": "从奖励侧打开折板落回东侧宽岸，开桥通岔路。",
-"label": "奖励侧回岔路",
+"action": "在载台起跳后向左下的检修铃[448,336]开枪。真实命中停住同一传动的载台与齿轮；反冲同时把人送上检修岸。保留其他合法时机解法。",
+"label": "回射停传动并离台",
 "number": 2.0,
-"path": [[1456.0, 142.0], [1664.0, 622.0], [1776.0, 622.0]],
-"point": [1456.0, 142.0]
+"path": [[612.0, 299.0], [649.0, 216.0], [876.0, 206.0], [928.0, 206.0]],
+"point": [612.0, 299.0]
+}, {
+"action": "TG02保留唯一正式奖励；保留原领取、返程折板及回06吊桥。原底部0–1536整行地刺，失足按现行地形失败回准备岸；左侧2/3检修台保留可站恢复。",
+"label": "取唯一铜齿并开原返程",
+"number": 3.0,
+"path": [[928.0, 206.0], [1360.0, 142.0], [1456.0, 142.0], [1664.0, 622.0], [1776.0, 622.0]],
+"point": [928.0, 206.0]
 }]
 }
 retry_anchors = Array[Dictionary]([{
@@ -51,7 +57,7 @@ art_placements = Array[Dictionary]([{
 }])
 art_profile = "mill"
 bell_mechanisms = Array[Dictionary]([{
-"access_bells": [[912.0, 160.0]],
+"access_bells": [[912.0, 160.0], [448.0, 336.0]],
 "bell": [224.0, 320.0],
 "carrier": "Carrier0",
 "id": "P-R05:drive_shuttle"
@@ -69,6 +75,11 @@ workbench_entity_ids = {
 one_way_indices = Array[int]([2, 3, 4, 5])
 masonry_platform_indices = Array[int]([0, 6, 7])
 start_point = Vector2(144, 366)
+spike_strips = Array[Dictionary]([{
+"bounds": [0.0, 776.0, 1536.0, 24.0],
+"facing": "up",
+"id": "P-R05:review05:full_lower_row"
+}])
 gear_obstacles = Array[Dictionary]([{
 "drive": "Carrier0",
 "id": "drive_gear",
@@ -80,26 +91,26 @@ gear_obstacles = Array[Dictionary]([{
 
 [node name="Interaction_0" type="Node2D" parent="." unique_id=901969407]
 position = Vector2(1360, 142)
-script = ExtResource("2_lry05")
+script = ExtResource("2_w1ake")
 action_id = "pickup_TG02"
 label = "收取时间齿轮"
 
 [node name="Interaction_1" type="Node2D" parent="." unique_id=645768986]
 position = Vector2(1776, 622)
-script = ExtResource("2_lry05")
+script = ExtResource("2_w1ake")
 action_id = "open_SC_P02"
 label = "开启回程吊桥"
 visual = "pulley_switch"
 
 [node name="Carrier0" type="AnimatableBody2D" parent="." unique_id=1502815112]
 position = Vector2(544, 352)
-script = ExtResource("3_63q66")
+script = ExtResource("3_ni14a")
 endpoint = Vector2(192, -64)
 period = 5.4
 
 [node name="RewardReturn" type="Node2D" parent="." unique_id=396443299]
 position = Vector2(1456, 142)
-script = ExtResource("4_n1hwk")
+script = ExtResource("4_4olk5")
 closed_panels = Array[Rect2]([Rect2(80, -142, 32, 320)])
 action_id = "reward_return_TG02_open"
 label = "打开回程落口"
