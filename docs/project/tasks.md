@@ -8,8 +8,8 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | 平原逐房反馈：风光/怪物可读性、24战斗与镜头、01双台、31–33重作及钟心室内入口 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
-| MOBILE-LEVEL-WORKBENCH-01 | 平原35房灰盒已发布r50；Site V16修正制作统计，整区审核内接入森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 平原反馈已发布r58：风光/怪物可读性、24战斗与镜头、01双台、31–33重作及钟心室内入口 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | Site V18 / r58：双点出口跳房、37房隔离预览与钟心室内分层；整区审核含森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
 ## 待验收

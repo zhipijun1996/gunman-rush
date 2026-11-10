@@ -4,10 +4,10 @@
 
 ## 数据来源与精确对应
 
-[`workbench_seed.py`](../../../../tools/world/workbench_seed.py) 接受真实Godot场景导出，读取当前世界编译结果，并检查场景字节哈希及`base_content_version`。编辑范围为完整35个平原房间和[`rooms.json`](../../../../config/workbench/rooms.json)显式登记的附加房，当前共36房，包含V-R12。种子同时输出相关连接、24项现有收集或主要目标、玩家参数、实际组件与怪物目录、已登记节点类型及来源哈希。当前正式已施工房间仍为6个；隔离灰盒不据此改变施工验收状态。
+[`workbench_seed.py`](../../../../tools/world/workbench_seed.py) 接受真实Godot场景导出，读取当前世界编译结果，并检查场景字节哈希及`base_content_version`。编辑范围为完整35个平原房间和[`rooms.json`](../../../../config/workbench/rooms.json)显式登记的附加房，当前共37房，包含V-R12与Z-R01。种子同时输出相关连接、24项现有收集或主要目标、玩家参数、实际组件与怪物目录、已登记节点类型及来源哈希。当前正式已施工房间仍为6个；隔离灰盒不据此改变施工验收状态。
 
 - 房间 `properties` 和 `nodes` 由共享 `WorldRoomDraft` 编解码器提取；平台、怪物、机关及既有兼容地形用同一组字段交给真实运行时及正式保存工具。
-- `bounds`、`space_rects`和完整`doors`来自施工源及原编译器。`map_position`只通过`spatial.navigation_geometry`从成对门缝推导，不接受独立地图原点。隔离审核房按源导出的`map_component`分组，当前为P-R03与V-R12；网页与运行时只允许源登记组件，切断平原门不能把断房伪装成合法独立地图。
+- `bounds`、`space_rects`和完整`doors`来自施工源及原编译器。`map_position`只通过`spatial.navigation_geometry`从成对门缝推导，不接受独立地图原点。隔离审核房按源导出的`map_component`分组，当前为P-R03、V-R12与Z-R01；网页与运行时只允许源登记组件，切断平原门不能把断房伪装成合法独立地图。源登记的`front_door`正面入口保留成对身份和落脚，以遮挡方式连接室外与室内地图层；不求侧边接缝、不切开外墙，也不将两区永久合并。浏览器不能改该身份标志，位置与实际落脚仍可按既有流程微调。
 - 收集项有实际唯一宿主时，才提供真实 `position`、`edit_path`、宿主路径和类型。商店及里程碑目标没有独立宿主时，不制造展示坐标。
 - `source_hashes`覆盖现行世界输入、明确编辑范围内全部场景、工作台范围登记和玩家运动配置；提交版本记录为`baseline`。组件目录另外记录源码合同哈希和来源文件；seed不在每次状态和历史中复制完整运行合同。
 - `review_context`从同版人工源和编译合同派生16区域、309房职责摘要、38条跨区连接的双端门位、落点、门体条件和施工状态。它不增加309个可编辑场景。区域示意位置来自`world.regions.pos`，不代表碰撞坐标或距离；世界和施工源哈希必须匹配当前基线。反馈保存scope、region_code、connection_id、door_id及来源修订，`get_world_context`读取同一对象。
@@ -25,9 +25,9 @@ python3 tools/world/workbench_seed.py --scenes build/workbench/room-scenes.json 
 
 ### 未施工房间的隔离预览目录
 
-`preview_catalog(root)`从同一原编译结果生成`build/workbench/preview-world.json`，供专用工作台运行包使用。目录包含`schema`、`base_content_version`、登记范围的36房`rooms`、`actions`、`demo_services`、`npcs`和`map_rooms`。返程动作来自世界动作及原`build.local_returns`，不重写奖励或资格规则。小型`construction_scene_bindings`按真实施工源导出；Provider核对施工源哈希、登记表哈希、精确房间集合及场景资源，避免把4.5MB人工施工源重复放入PCK。
+`preview_catalog(root)`从同一原编译结果生成`build/workbench/preview-world.json`，供专用工作台运行包使用。目录包含`schema`、`base_content_version`、登记范围的37房`rooms`、`actions`、`demo_services`、`npcs`和`map_rooms`。返程动作来自世界动作及原`build.local_returns`，不重写奖励或资格规则。小型`construction_scene_bindings`按真实施工源导出；Provider核对施工源哈希、登记表哈希、精确房间集合及场景资源，避免把4.5MB人工施工源重复放入PCK。
 
-目录将未正式施工的30个房间标记为`preview_only`，仅对已在编辑范围内的目标提供跨房预览。正式`construction.implemented`、正式六房`runtime.json`和正式存档语义均不因此改变。V-R12邻房未登记，边界仍封闭。预览旧内部场景不表示它已按新房形施工或完成体验验收。完整运行目录进入PCK，不进入网页每次状态快照。
+目录将未正式施工的31个房间标记为`preview_only`，仅对已在编辑范围内的目标提供跨房预览。正式`construction.implemented`、正式六房`runtime.json`和正式存档语义均不因此改变。V-R12邻房未登记，边界仍封闭。预览旧内部场景不表示它已按新房形施工或完成体验验收。完整运行目录进入PCK，不进入网页每次状态快照。
 
 ## 游戏目录与版本更新
 
@@ -108,7 +108,7 @@ python3 tools/world/workbench_apply.py accepted-change.json --output-dir build/w
 
 | 验证 | 证据范围与当前状态 |
 | --- | --- |
-| 36房导出与精确范围 | 既有检查确认35个平原房及登记V-R12使用同一场景codec；真实Provider核对范围、场景及施工源绑定。正式房仍为6个，P与V使用不同源登记分量。本次发行包含同版36房seed与运行包；此结果不证明整关通关 |
+| 37房导出与精确范围 | 既有检查确认35个平原房及登记V-R12/Z-R01使用同一场景codec；真实Provider核对范围、场景及施工源绑定。正式房仍为6个，P、V及Z门厅使用不同源登记分量。本次发行包含同版37房seed与运行包；此结果不证明整关通关 |
 | 世界审核与接入反例 | `test_workbench_review.py`及`test_workbench_apply.py`的既有18项检查通过，覆盖16区/38连接/8个平原接口、显式范围、孤立灰盒、断门与接缝冲突、来源哈希、奖励宿主迁移、复杂返程拒绝、编译失败回滚及保留相机区；仅证明对应数据合同 |
 | 实际工作台桥 | 既有`tests/world/workbench.gd`检查为0失败，范围为正式存档隔离、驻留引擎换稿、物理加载失败恢复、门位与支撑同步、35房回路约束、显式未施工房预览和正式6房目录恢复；不据此宣称新版动作路线通过 |
 | 新版V-R12基础校验 | 8项通过：同一codec、真实加载、能力配置、入口支撑、返程落井静态碰撞，以及入口反冲+D接墙、H补充后向上反冲穿幕+D侧移接墙两段。资源恢复另有17项短检查通过。局部起点已明确，不声明整房自动通关 |
