@@ -38,7 +38,7 @@ DYNAMIC_FAMILIES = ["assets/underworld_plains", "assets/plains_v07/native",
                     "assets/plains_actors_142/atlases",
                     "assets/player_presentation_01/motion_v1",
                     "assets/enemy_feedback_01/frames_v8", "assets/actor_actions",
-                    "assets/world_interactions", "assets/items/v5",
+                    "assets/world_interactions", "assets/world_traversal/native", "assets/items/v5",
                     "assets/plains_v3/background_layers", "assets/audio/kenney",
                     "resources/player",
                     "resources/actors", "resources/weapons", "resources/items"]
