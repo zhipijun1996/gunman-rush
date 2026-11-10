@@ -2,7 +2,7 @@
 
 ## 范围与入口
 
-平原场景按当前用户逐房反馈维护，PR147包含PR148的26房成果与后续定稿。35房/43连接身份保持；本分支正式施工目录为35房，公开主站保持上一批16房，工作台范围为35房及V-R12、Z-R01隔离预览。三铃地空分种与P32远景整合已接入当前工作台；主角苏醒、贴墙、查看及五处充电站进出表现见[人物交接](../player_presentation_01/scope.md)。线上版本与草稿修订统一见[工作台交接](../mobile_level_workbench_01/scope.md)。
+平原场景按当前用户逐房反馈维护，PR147包含PR148的26房成果与后续定稿。35房/43连接身份保持；本分支正式施工目录为35房，公开主站已发布全部35房，工作台范围为35房及V-R12、Z-R01隔离预览。三铃地空分种与P32远景整合已接入当前工作台；主角苏醒、贴墙、查看及五处充电站进出表现见[人物交接](../player_presentation_01/scope.md)。线上版本与草稿修订统一见[工作台交接](../mobile_level_workbench_01/scope.md)。
 
 ## 当前施工输入
 
@@ -76,11 +76,13 @@ P12西岸守箱巡逻怪按用户明确决定使用规范9血。P10／P20审批�
 
 ## 当前公开试玩
 
-[正式主游戏](https://zhipijun1996.github.io/gunman-rush/?v=a86f950665ac)版本`a86f950665ac`，运行源码`89b5c2bb0b788d1032a0958738c0e0d611552289`，PR150包含尚未合入main的PR149修复。部署分支`playtest-approved-r72-89b5c2bb`仅Web产物，[Pages运行42817981019](https://github.com/zhipijun1996/gunman-rush/actions/runs/42817981019)成功。私有风铃工作台本轮未更新。
+[正式主游戏](https://zhipijun1996.github.io/gunman-rush/?v=1040dcf370ef)版本`1040dcf370ef`，运行源码`8780a5ca3b3f72337eca3be41bf3db57cb76aba4`，PR150尚未合入main。部署分支`playtest-plains35-8780a5ca`只含最终Web产物，[Pages运行42850279406](https://github.com/zhipijun1996/gunman-rush/actions/runs/42850279406)成功。关卡审核平台本轮未更新，读取时仍为r80。
 
-导出闭包1537项和真实PCK探针通过（正式16房、预览37房、15种怪物）；两种钩索的黄铜／根系素材随动态加载闭包入包。完整PCK为135,269,320字节，SHA256为`a86f950665aced2a2d7852762ee24e7923cfa2ee3da0fa875ef7d44ec3342951`，实测129.003MiB，导出上限130MiB。公开HTML、worker、版本信息、完整PCK及三段短片已读回，与本地交付文件逐字节一致。独立Web包在Chromium WebGL2通过逐房入口进入P29基础阶段与P17钩索阶段，无脚本错误；这是桌面软件渲染检查，不代表安卓性能。
+同现有主站使用显式运行闭包和单线程网页模板。导出闭包1539项、独立PCK探针通过：正式35房、隔离预览37房、15种怪物，正常新档在P03落地。PCK为136,353,264字节（约130.04MiB），SHA256为`1040dcf370ef027b849047e8fad27679fc1f1f5111828d710bdd2b43f4578551`；随正式房间合同增长，包上限调整为131MiB。分块缓存复用原引擎与未变内容，不上传历史实验资源全集。
 
-手机可从标题或暂停菜单进入逐房试玩；[P29直达](https://zhipijun1996.github.io/gunman-rush/?v=a86f950665ac&review=P-R29&stage=base)和[P17钩索阶段](https://zhipijun1996.github.io/gunman-rush/?v=a86f950665ac&review=P-R17&stage=h)使用隔离进度。主站提供[P29阁楼短片](https://zhipijun1996.github.io/gunman-rush/review/attic.mp4)和[P09限时门短片](https://zhipijun1996.github.io/gunman-rush/review/shutter.mp4)，各约5秒／1.3MB；[蓄力短片](https://zhipijun1996.github.io/gunman-rush/review/focus.mp4)保留PR149的6.7秒表现证据。临时导出、浏览器截图与发布校验收据归build/approved-r72，不进入源码。
+最终Web包在Chromium WebGL2通过P10基础阶段和P35钩索阶段入口，无脚本错误；这是桌面软件渲染检查，不代表安卓性能。已检查35房原生入口合屏。日常CI四项、全武器2381项、世界／服务／经济／房间合同、各批审批动作及门对、镜头、教程视野与刺坑恢复、休息和独立保存专项通过。过时测试按当前平台、NPC、收集宿主及暂缓的旅人剧情重整，不据此宣称完整探索通关。
+
+手机可直接新游戏或继续；标题／暂停菜单提供逐房试玩，使用隔离进度。[P10](https://zhipijun1996.github.io/gunman-rush/?v=1040dcf370ef&review=P-R10&stage=base)、[P11巡游机](https://zhipijun1996.github.io/gunman-rush/?v=1040dcf370ef&review=P-R11&stage=base)、[P35](https://zhipijun1996.github.io/gunman-rush/?v=1040dcf370ef&review=P-R35&stage=h)可直达。当前正常速度短片：[冰弹贯穿](https://zhipijun1996.github.io/gunman-rush/review/ice.mp4)约4秒／240KB，[领奖与安装事务](https://zhipijun1996.github.io/gunman-rush/review/install.mp4)约3.2秒／656KB；后者使用Boss终末血量及局部定位，不是完整战斗。原始日志、录屏和发布读回校验在build/ice-release，不进入源码树。
 
 ## 未验与下一步
 
