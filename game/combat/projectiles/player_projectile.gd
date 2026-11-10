@@ -23,6 +23,7 @@ var owner_controller: PlayerController
 var owner_body: CollisionObject2D
 var art_kind: StringName = &"bullet"
 var skill_attack := false
+var pierce_enemies := false
 var chill_seconds := 0.0
 var chill_speed_scale := 1.0
 var weapon_id: StringName
@@ -165,7 +166,7 @@ func advance(delta: float) -> void:
 			context.item_stagger_multiplier = float(items.call("enemy_stagger_multiplier")) if items != null and not skill_attack else 1.0
 			var accepted := receiver.receive_damage(context)
 			_hit_targets[receiver.get_instance_id()] = true
-			can_pierce = accepted and receiver.faction == &"enemy" and not skill_attack and art_kind == &"bullet" and _pierced < extra_enemy_pierces
+			can_pierce = accepted and receiver.faction == &"enemy" and (pierce_enemies or (not skill_attack and art_kind == &"bullet" and _pierced < extra_enemy_pierces))
 		# Boss armour/core presentation subscribes to armour contact / committed HP.
 		if receiver == null or receiver.impact_style() != &"boss":
 			UnderworldProjectileVisual.emit(self,query.transform.origin,direction,true,true)

@@ -66,6 +66,8 @@ flowchart TD
 
 业务模块不依赖 UI 或音画节点，Provider 不获得钱包、玩家或 RunSession 服务袋；解析内容不抽取新的随机结果、不提交奖励。装配层注入实际需要的服务。保存协调聚合各所有者的快照，不接管全部游戏规则；跨模块写操作经拥有该状态的业务入口，禁止读写同一事实的第二份账本。
 
+服务 action 默认由 `room_id` 限定宿主，明确迁居／访问服务可用 `service_rooms` 列出合法房间；所有宿主共用同一 action 身份、消耗和唯一收据。UI只提交安装意图，WorldServices在同一世界事务中扣料、授予技能并保存，成功后才反馈。
+
 当前正常链为 `project.godot → FixedWorldApp → FixedWorldProvider / FixedWorldState`。Provider只读build/world运行包，按LevelRequest的room/door/content身份解析；FixedWorldRoom消费合同并装配手工地形、既有敌人/Boss。App持有跨房共享玩家、相机与生命周期票据，WorldSaveService复用可靠IO保存同一世界修订。
 
 共鸣回复由WorldFocusHeal管理持有意图、蓄力与取消；HealthState/CombatEnergyState继续拥有实际资源。App在帧伤害裁决后复核并把回复后的HP/共鸣保存为同一修订，再同步应用资源事务；失败不扣费。蓄力进度不进入存档，UI和各房间不复制治疗规则。

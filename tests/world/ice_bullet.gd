@@ -22,7 +22,7 @@ func run()->void:
  for pressed:bool in [true,false]:
   var touch:=InputEventScreenTouch.new();touch.index=12;touch.position=app.overlay.skill_center;touch.pressed=pressed
   check(app.overlay.handle_touch(touch),"actual skill touch captured")
- await ticks(18)
+ await ticks(40)
  check(app.controller.router.weapon_skill_cooldown_ratio>0,"touch cooldown indicator consumes live skill timer")
  check(is_equal_approx(enemy.health.current,35),"ice commits exactly three times base 5 damage "+str(enemy.health.current))
  check(enemy.damageable.chill_remaining>0 and is_equal_approx(enemy.damageable.action_time_scale(),.5),"accepted ice hit slows a surviving enemy")

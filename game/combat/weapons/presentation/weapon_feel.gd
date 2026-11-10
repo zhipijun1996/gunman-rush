@@ -76,6 +76,8 @@ func _shot(axis: Vector2, serial: int) -> void:
 	var ability := controller.shoot_ability
 	var mode := ability.weapon.mode
 	var cue: StringName = &"blade" if mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN] else &"machine" if mode==WeaponDefinition.Mode.MACHINE else &"pulse"
+	for shot:PlayerProjectile in ability._projectiles:
+		if is_instance_valid(shot) and shot.shot_id==serial and shot.art_kind==&"ice":cue=&"ion_start"
 	# One sound per simultaneous volley; subsequent machine rounds keep rhythm.
 	var key := "%s/%s/%s/%s" % [_epoch,ability.packet_id,Engine.get_physics_frames(),cue]
 	# Lv1 bomb registers the same accepted-shot identity as a projectile, but its

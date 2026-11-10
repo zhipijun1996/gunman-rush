@@ -1,9 +1,9 @@
 extends "res://tests/world/camera_controller.gd"
-## Declared same-scene secret fixture on unchanged P23 terrain; formal state/camera owners.
+## Declared spatial secret fixture; actor positioning isolates zone handoff from current P23 challenges.
 func run() -> void:
  root.size=Vector2i(1280,720)
  app=preload("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://camera_zones_test.json";root.add_child(app)
- var camera:=await fixture("P-R23",Vector2(600,622))
+ var camera:=await camera_fixture("P-R23",Vector2(600,622))
  var closed: Dictionary=app.state.value.duplicate(true)
  var main: Dictionary={"id":"main","trigger":[0,0,1000,896],"display":[0,0,1024,896],"profile":"bounded_follow","offset":[0,-60]}
  var secret: Dictionary={"id":"secret","trigger":[832,0,960,896],"display":[768,0,1024,896],"profile":"bounded_follow","offset":[0,-60],"requires":[["camera_fixture_secret"]],"conceal":[[832,0,960,896]]}
@@ -12,6 +12,7 @@ func run() -> void:
  # Same material mask as production room preparation, attached without changing collisions.
  var surfaces: Array[Rect2]=[Rect2(832,0,960,896)]
  var cover:=UnderworldTerrain.build(surfaces);cover.z_index=2000;app.room.add_child(cover);app.room.camera_concealers.secret=cover
+ app.controller.active=false;app.player.reset_at(Vector2(600,622))
  camera.enter_room(Rect2(0,0,1792,896));await ticks(90)
  var initial:=camera.position
  camera.shake(7,3);key(KEY_PAGEUP,true);await ticks(50)

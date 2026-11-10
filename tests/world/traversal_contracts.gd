@@ -13,7 +13,7 @@ func run() -> void:
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path="user://world_traversal_contracts.json"
 	for suffix: String in ["",".backup",".tmp",".corrupt"]: DirAccess.remove_absolute(app.save_path+suffix)
-	root.add_child(app);app.start_new();await ticks(15)
+	root.add_child(app);await app.review.begin("P-R21","","base");await ticks(5)
 	check(not app.controller.traversal.double_enabled and not app.controller.traversal.wall_enabled,"fresh world does not grant late traversal")
 	var candidate:=app.state.value.duplicate(true);candidate.flags.append_array(["W","D"])
 	app.state.commit(candidate,app.state.revision);app._apply_capabilities()

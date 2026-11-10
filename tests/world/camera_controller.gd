@@ -6,8 +6,11 @@ func view() -> Rect2:
  return Rect2(app.camera.get_screen_center_position()-half,half*2)
 func expect(ok: bool,label: String) -> void:
  camera_checks+=1;check(ok,label)
-func fixture(rid: String,point: Vector2) -> WorldCamera:
+func camera_fixture(rid: String,point: Vector2) -> WorldCamera:
  await app.review.begin(rid,"","base")
+ # Camera probes isolate motion from incidental combat; encounter tests own combat.
+ for enemy:EnemyActor in app.room.enemies.values():enemy.queue_free()
+ app.room.enemies.clear()
  app.player.reset_at(point);await ticks(3)
  var camera:=app.camera as WorldCamera
  camera.reset_view();await ticks(90)
@@ -18,7 +21,7 @@ func key(code: Key,held: bool) -> void:
 func run() -> void:
  root.size=Vector2i(1280,720)
  app=preload("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://camera_controller_test.json";root.add_child(app)
- var camera:=await fixture("P-R23",Vector2(600,622))
+ var camera:=await camera_fixture("P-R23",Vector2(600,622))
  expect(camera==root.get_camera_2d(),"formal entry owns the active camera")
  expect(camera.zoom==Vector2(1.6,1.6),"uniform base zoom")
  var router:=app.controller.router
@@ -29,7 +32,7 @@ func run() -> void:
  expect(camera.observation_direction==1 and camera.lead>lead_before-5,"reverse aim and one shot do not flip observation")
  router.set_source_axis(&"keyboard_mouse",-1);await ticks(40);router.set_source_axis(&"keyboard_mouse",0);await ticks(60)
  expect(camera.observation_direction==-1 and camera.lead< -80,"explicit turn smoothly changes lead and stop retains it")
- camera=await fixture("P-R23",Vector2(800,622));router=app.controller.router
+ camera=await camera_fixture("P-R23",Vector2(800,622));router=app.controller.router
  var center:=camera.position
  key(KEY_W,true);await ticks(12)
  expect(not camera.looking,"manual inspection waits for deliberate hold")
@@ -50,12 +53,12 @@ func run() -> void:
  expect(not camera.looking,"shoot cancels inspection")
  key(KEY_W,false);await ticks(15)
  # A real interaction wins over the same up gesture; aim never requests inspection.
- camera=await fixture("P-R23",Vector2(448,622));router=app.controller.router
+ camera=await camera_fixture("P-R23",Vector2(448,622));router=app.controller.router
  key(KEY_W,true);await ticks(45)
  expect(app.paused and not camera.looking,"nearby sign consumes shared up before inspection")
  key(KEY_W,false)
  if app.paused:app._close_panel()
- camera=await fixture("P-R23",Vector2(800,622));router=app.controller.router
+ camera=await camera_fixture("P-R23",Vector2(800,622));router=app.controller.router
  router.set_aim(&"keyboard_mouse",Vector2.UP,true);await ticks(40)
  expect(not camera.looking,"upward aiming never inspects")
  key(KEY_W,true);await ticks(40)
@@ -104,7 +107,7 @@ func run() -> void:
  blocker.queue_free()
  app.overlay.set_enabled(false)
  # Controlled state probe isolates impulse duration from human input direction.
- camera=await fixture("P-R23",Vector2(600,622));app.controller.active=false
+ camera=await camera_fixture("P-R23",Vector2(600,622));app.controller.active=false
  for i: int in 20:app.player.velocity=Vector2(-650,0);await ticks(1)
  expect(camera.observation_direction==1,"short external impulse cannot turn the view")
  for i: int in 45:app.player.velocity=Vector2(-650,0);await ticks(1)

@@ -181,6 +181,8 @@ func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName) ->
 	projectile.direction=aim;projectile.speed=weapon.projectile_speed;projectile.damage=(weapon.skill_damage if skill else weapon.damage)*tuning.projectile_damage;projectile.lifetime=weapon.range_limit/weapon.projectile_speed
 	projectile.art_kind=art_kind;projectile.skill_attack=skill;projectile.radius=5 if art_kind==&"blade" else tuning.projectile_radius
 	if art_kind==&"ice":
+		projectile.pierce_enemies=true;projectile.pierced_damage_ratio=1.0
+		projectile.radius=weapon.skill_projectile_radius;projectile.lifetime=weapon.skill_projectile_range/weapon.projectile_speed
 		projectile.chill_seconds=weapon.chill_seconds;projectile.chill_speed_scale=weapon.chill_speed_scale
 		projectile.set_meta(&"ice_projectile",true)
 	projectile.weapon_id=weapon.id;projectile.weapon_tier=weapon.tier;projectile.weapon_mode=weapon.mode

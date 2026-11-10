@@ -26,6 +26,11 @@ func portrait(asset: String) -> void:
 	_portrait_host.show()
 	var actor:=WorldSpriteAnimation.new();actor.asset_id=asset;actor.position=Vector2(36,80);actor.scale=Vector2.ONE
 	_portrait_host.add_child(actor);actor.process_mode=Node.PROCESS_MODE_ALWAYS;actor.play_event()
+func celebrate_install() -> void:
+	var burst:=WorldSpriteAnimation.new();burst.asset_id="collection_burst";burst.disposable=true
+	burst.position=Vector2(36,48)
+	_portrait_host.add_child(burst);burst.process_mode=Node.PROCESS_MODE_ALWAYS
+
 func text(value: String,font_size: int=18,color: Color=DemoClockworkTheme.PAPER) -> Label:
 	var label:=super.text(value,maxi(16,font_size),color)
 	label.set_meta(&"world_reading_size",maxi(16,font_size))

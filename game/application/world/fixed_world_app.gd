@@ -811,13 +811,13 @@ func _submit_service(kind: String,id: String,revision: int,ticket: int) -> void:
 	_sequence+=1
 	var accepted:=services.request(kind,id,"%d:%d" % [state.revision,_sequence],revision)
 	if accepted:
-		if kind=="deliver": GameAudio.cue(self,&"confirm")
+		if kind in ["deliver","smith_install"]: GameAudio.cue(self,&"confirm")
 		if room!=null: room.queue_redraw()
 		_apply_capabilities()
 		if kind=="use":
 			var health:=controller.actor_resources.health
 			health.heal(ActorResourceRequest.new(StringName("world_heal:"+str(state.revision)),health.epoch,float(state.value.hp)-health.current,health.get_instance_id()))
-	var message:="已保存。" if accepted else services.reason()
+	var message:=("冰弹已安装。" if kind=="smith_install" else "已保存。") if accepted else services.reason()
 	if _npc_id.is_empty(): service_view.show_inventory(message)
 	else: service_view.show_npc(_npc(_npc_id),message)
 func _show_settings() -> void:

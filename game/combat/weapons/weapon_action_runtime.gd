@@ -116,7 +116,7 @@ func begin(direction_value: Vector2, grounded: bool, skill: bool = false) -> boo
 		if not actor().combat_energy.consume(receipt,skill_cost):return false
 		if ability.item_runtime() != null: ability.item_runtime().call("on_skill_started", StringName(receipt))
 		skill_cooldown=def.skill_cooldown
-		if def.mode in [WeaponDefinition.Mode.MACHINE,WeaponDefinition.Mode.LASER]:
+		if def.mode in [WeaponDefinition.Mode.PULSE,WeaponDefinition.Mode.MACHINE,WeaponDefinition.Mode.LASER]:
 			_phase(&"charge");_pose(&"weapon_charge",def.skill_charge);return true
 	_start(grounded)
 	return true
@@ -133,7 +133,7 @@ func _release(_grounded: bool) -> void:
 	match def.mode:
 		WeaponDefinition.Mode.PULSE:
 			ability.emit_special_projectile(direction,true,&"ice")
-			base_recoil();_pose(&"weapon_skill",.2);_phase(&"idle")
+			base_recoil();_pose(&"weapon_skill",.30);_phase(&"idle")
 		WeaponDefinition.Mode.LASER:
 			actor().motor.reset_motion();actor().motor.request_weapon_drive(Vector2.ZERO,Vector2.ZERO)
 			_beam_elapsed=0;_phase(&"beam");_timer=0;_pose(&"laser_fire",def.beam_duration)

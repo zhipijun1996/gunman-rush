@@ -104,6 +104,7 @@ func show_smith(npc:Dictionary,message:String="",index:int=0)->void:
 	line=line.replace("{skill_control}",control)
 	var modal:=ui.panel("dialogue",str(npc.display_name),line+("\n"+message if not message.is_empty() else "")) as WorldDialogue
 	modal.compact_actions=true;modal.portrait(WorldNpc.visual_for(str(npc.id)))
+	if message=="冰弹已安装。":modal.celebrate_install()
 	if index+1<lines.size():modal.button("继续",func()->void:show_smith(npc,"",index+1))
 	elif phase=="offering":button(modal,"交付素材 · 免费升级","smith_install",str(spec.install_action))
 	modal.button("离开",func()->void:ui.command.emit("close",""))

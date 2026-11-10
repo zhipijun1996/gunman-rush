@@ -56,11 +56,11 @@ func run()->void:
  app=preload("res://game/application/world/fixed_world.tscn").instantiate();root.add_child(app)
  if selected("P-R11"):
   await load_room("P-R11","h")
-  check(not app.state.holds(app.content.action("pickup_part_triple").requires),"P11 unique part locked before victory")
+  check(not app.state.holds(app.content.action("pickup_skill_core_root").requires),"P11 unique skill core locked before victory")
   check(not app.state.holds(app.content.action("open_P11_crown_cache").requires),"P11 high cache cannot bypass battle")
   await victory("P11")
   await fixture(Vector2(2240,1134));app._interact();await ticks(4)
-  check(app.state.value.receipts.has("pickup_part_triple"),"P11 actual part pickup after victory")
+  check(app.state.value.receipts.has("pickup_skill_core_root"),"P11 actual core pickup after victory")
   await hook(Vector2(2240,1134),Vector2(2352,896),"P11 first frame hook",16)
   await next_hook(Vector2(2304,544),"P11 second frame hook after jump and recoil",true,true)
   await next_hook(Vector2(2192,256),"P11 third frame hook",true,true)

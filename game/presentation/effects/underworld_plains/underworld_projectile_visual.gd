@@ -53,18 +53,18 @@ func _process(delta: float) -> void:
 			queue_free()
 			return
 	age += delta
-	if age >= EFFECT_LIFETIME:
+	if age >= (.30 if ice else EFFECT_LIFETIME):
 		queue_free()
 		return
 	queue_redraw()
 
 func _draw() -> void:
+	if ice:
+		IceCastVisual.burst(self,Vector2.ZERO,axis,age,impact);return
 	var strength := 1.0 - age / EFFECT_LIFETIME
 	var color := FRIEND if friendly else HOSTILE
-	if ice:color=Color("c5f2ff")
 	color.a = strength
 	var edge := FRIEND_EDGE if friendly else HOSTILE_EDGE
-	if ice:edge=Color("5aafe4")
 	edge.a = strength
 	var spread := 3.0 + age * (58.0 if impact else 24.0)
 	var base := axis.angle() + (PI if impact else 0.0)
@@ -77,6 +77,8 @@ func _draw() -> void:
 		draw_rect(Rect2(-2,-2,4,4), color)
 
 static func paint(canvas: Node2D, direction: Vector2, radius: float, elapsed: float, trail: Array[Vector2], kind: StringName, is_friendly: bool, skill: bool = false, blade_texture: Texture2D = null) -> void:
+	if kind==&"ice":
+		IceCastVisual.projectile(canvas,direction,elapsed,trail);return
 	var head := FRIEND if is_friendly else HOSTILE
 	var edge := FRIEND_EDGE if is_friendly else HOSTILE_EDGE
 	if kind==&"ice":head=Color("c5f2ff");edge=Color("5aafe4")

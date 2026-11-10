@@ -49,6 +49,8 @@ enum Mode { PULSE, MACHINE, LASER, SHURIKEN, FAN, BOOMERANG, BOMB, MINE, SINGULA
 @export var skill_rounds := 7
 @export var skill_interval := 0.065
 @export var skill_cooldown := 2.0
+@export var skill_projectile_radius := 3.0
+@export var skill_projectile_range := 420.0
 @export var chill_seconds := 0.0
 @export var chill_speed_scale := 1.0
 @export var skill_stagger_seconds := 0.12
@@ -59,6 +61,7 @@ enum Mode { PULSE, MACHINE, LASER, SHURIKEN, FAN, BOOMERANG, BOMB, MINE, SINGULA
 @export var chain_range := 120.0
 func is_valid() -> bool:
 	if tier < 1 or tier > 3 or id.is_empty(): return false
+	if not is_finite(skill_projectile_radius) or skill_projectile_radius<=0 or not is_finite(skill_projectile_range) or skill_projectile_range<=0:return false
 	if not is_finite(chill_seconds) or chill_seconds<0 or not is_finite(chill_speed_scale) or chill_speed_scale<=0 or chill_speed_scale>1:return false
 	if not is_finite(mine_fuse_seconds) or mine_fuse_seconds<0 or mine_fuse_seconds>30:return false
 	if mode==Mode.MINE and (mine_fuse_seconds<=0 or mine_fuse_seconds>entity_lifetime):return false

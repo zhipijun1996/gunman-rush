@@ -149,7 +149,7 @@ func holds(requirements: Array) -> bool:
 
 func action_candidate(id: String, room_id: String, section_id: String="main") -> Dictionary:
 	var action := content.action(id)
-	if action.is_empty() or action.room_id != room_id or action.get("section_id","main") != section_id or not holds(action.get("requires",[])):
+	if action.is_empty() or room_id not in action.get("service_rooms",[action.room_id]) or action.get("section_id","main") != section_id or not holds(action.get("requires",[])):
 		error = "action_not_eligible"
 		return {}
 	var source_hash := MetaSaveService.canonical_json(action).sha256_text()

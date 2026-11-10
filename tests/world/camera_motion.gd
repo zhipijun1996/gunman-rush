@@ -1,6 +1,5 @@
 extends "res://tests/world/camera_controller.gd"
-## Existing formal Boss/H scenes in explicitly isolated pre-migration room contracts.
-## No scene/platform/physics edit, no claim that the 29 pending rooms are reachable.
+## Formal Boss/H camera probes with explicitly isolated display bounds; actual current anchors.
 func install_fixture_contract(rid: String, size: Vector2) -> void:
  var all: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://build/world/contracts.json"))
  for original: Dictionary in all.rooms:
@@ -43,19 +42,18 @@ func run() -> void:
  expect(not camera.looking and camera._takeover.is_empty(),"death/rest reload cancels transient camera control")
  # Actual H target and geometry already exist in this scene's upper traversal route.
  await app.review.begin("P-R14","","h");camera=app.camera as WorldCamera
- app.player.reset_at(Vector2(2304,366));await ticks(3);camera.reset_view();await ticks(30)
+ app.player.reset_at(Vector2(1984,558));await ticks(3);camera.reset_view();await ticks(30)
  var received:=0
- app.controller.router.request_action(&"grapple",(Vector2(2448,240)-app.player.position-Vector2(0,-6)).normalized())
+ app.controller.router.request_action(&"grapple",(Vector2(1840,408)-app.player.position-Vector2(0,-6)).normalized())
  visible=true;var start:=app.player.position
  for i: int in 100:
   await ticks(1)
-  if i==40:app.controller.router.request_action(&"grapple",(Vector2(2624,240)-app.player.position-Vector2(0,-6)).normalized())
   if app.controller.traversal.state in [&"hook_pull",&"hook_hang",&"hook_kick"]:received+=1
   visible=visible and view().grow(-16).has_point(app.player.position)
- expect(received>0 and app.player.position.distance_to(start)>280,"real H cast/contact produces long traversal")
+ expect(received>0 and app.controller.traversal.state==&"hook_hang" and app.player.position.distance_to(start)>140,"real H cast/contact reaches current holding anchor")
  expect(visible,"high-speed H never loses the actor")
  expect(camera.zoom==Vector2(1.6,1.6),"H traversal restores the ordinary base scale")
- camera=await fixture("P-R22",Vector2(880,334))
+ camera=await camera_fixture("P-R22",Vector2(880,334))
  var pursuit_ticks:=0
  visible=true
  app.controller.router.set_source_axis(&"keyboard_mouse",-1)

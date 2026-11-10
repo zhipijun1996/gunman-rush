@@ -40,6 +40,9 @@ func _valid() -> bool:
 
 func _draw() -> void:
 	if not _valid(): return
+	if runtime.phase==&"charge" and runtime.definition().branch==&"ice":
+		var anchor:=controller.motor.get_node("CourierVisual") as CourierVisual
+		IceCastVisual.charge(self,to_local(anchor.visible_muzzle_position()),runtime.direction,runtime.age/runtime.definition().skill_charge)
 	var beam := runtime.beam_visual_segment()
 	if beam.size()==2:
 		_draw_ion_beam(to_local(beam[0]),to_local(beam[1]),runtime.age,1.0,false)

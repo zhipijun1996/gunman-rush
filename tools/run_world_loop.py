@@ -32,6 +32,8 @@ def main():
         ('approved_final_connections.gd',r'APPROVED FINAL CONNECTIONS: 0 failures',120),
         ('ice_bullet.gd',r'ICE BULLET: 0 failures',60),
         ('smith_dialogue.gd',r'SMITH DIALOGUE: 0 failures',60),
+        ('smith_upgrade.gd',r'SMITH UPGRADE: 0 failures',90),
+        ('ice_piercing.gd',r'ICE PIERCING: 0 failures',60),
         ('approved_hub_actions.gd',r'APPROVED HUB ACTIONS: 0 failures',120),
         ('platform_drop_input.gd',r'PLATFORM DROP INPUT: 0 failures',60),
         ('approved_draft_connections.gd',r'APPROVED CONNECTIONS: 0 failures',120),

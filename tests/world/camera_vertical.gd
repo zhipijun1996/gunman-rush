@@ -1,5 +1,5 @@
 extends "res://tests/world/camera_motion.gd"
-## Actual input on unchanged terrain: small phase bias, climb, drop, and fixed-scale arena.
+## Actual input on current reviewed terrain: small phase bias, climb, drop, and fixed-scale arena.
 var sampling := false
 var sample_visible := true
 var sample_focus := 0.0
@@ -28,7 +28,7 @@ func run() -> void:
  process_frame.connect(sample)
  var camera: WorldCamera
  for hold_ticks: int in [14,45]:
-  camera=await fixture("P-R23",Vector2(800,622));start_sample()
+  camera=await camera_fixture("P-R23",Vector2(800,622));start_sample()
   var ground_focus:=camera.vertical_focus
   expect(ground_focus<0 and ground_focus>=-8.01,"standing adds only a subtle upward bias")
   var falling_focus:=-1000.0;var landing_focus:=0.0;var airborne:=false
@@ -47,13 +47,13 @@ func run() -> void:
   expect(early<landing_focus and early>ground_focus-1,"landing gradually returns to upward bias")
   expect(absf(camera.position.y-landing_y)<45,"landing does not yank composition by a large distance: "+str(camera.position.y-landing_y))
   end_sample("in-place jump "+str(hold_ticks))
- camera=await fixture("P-R23",Vector2(800,622));start_sample()
- expect(await path([Vector2(1056,526),Vector2(1190,430),Vector2(1380,334)],"P-R23"),"actual input climbs three higher landings")
+ camera=await camera_fixture("P-R23",Vector2(1320,318));start_sample()
+ expect(await cross(Vector2(1200,238)),"actual input climbs current upper landing")
  await ticks(70);end_sample("ascending platforms")
  start_sample()
- expect(await path([Vector2(1190,430),Vector2(1056,526),Vector2(800,622)],"P-R23"),"actual input drops to three lower landings")
+ expect(await walk(Vector2(1380,318),"P-R23"),"actual input drops to current lower landing")
  await ticks(70);end_sample("descending platforms")
- camera=await fixture("P-R22",Vector2(832,142));start_sample()
+ camera=await camera_fixture("P-R22",Vector2(832,142));start_sample()
  expect(await path([Vector2(880,334),Vector2(736,526),Vector2(416,782),Vector2(544,1038)],"P-R22"),"actual shaft descent retains its authored landing survey")
  await ticks(40);end_sample("shaft descent",false)
  install_fixture_contract("P-R14",Vector2(4768,1280));await app.review.begin("P-R14","","base")

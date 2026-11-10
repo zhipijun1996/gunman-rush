@@ -18,6 +18,7 @@ var focus_frame := -1
 var resting := false
 var rest_frame := 1
 var rest_depth := 0.0
+var ice_cast := false
 
 func begin_rest(controller: PlayerController) -> void:
 	clear()
@@ -31,6 +32,7 @@ func begin_wake(controller: PlayerController) -> void:
 	frame = 0
 
 func clear() -> void:
+	ice_cast = false
 	focus_frame = -1
 	resting = false
 	rest_depth = 0
@@ -51,6 +53,8 @@ func advance(delta: float, body: UnderworldPlayer) -> void:
 		clear()
 		return
 	frame = -1
+	ice_cast=false
+	var runtime:=body.controller.shoot_ability.behavior()
 	if resting:
 		frame=18+rest_frame
 	elif waking:
@@ -64,6 +68,11 @@ func advance(delta: float, body: UnderworldPlayer) -> void:
 			elapsed -= float(WAKE_HOLDS[i])
 	elif focus_frame>=0 and body.controller.active:
 		frame=30+focus_frame
+	elif body.controller.active and body.controller.shoot_ability.weapon.branch==&"ice" and (runtime.phase==&"charge" or (runtime.pose==&"weapon_skill" and runtime.pose_remaining>0)):
+		ice_cast=true
+		var progress:=clampf(runtime.age/body.controller.shoot_ability.weapon.skill_charge,0,1)
+		frame=30+mini(3,int(progress*4)) if runtime.phase==&"charge" else 34+mini(3,int((.30-runtime.pose_remaining)*4/.30))
+		if absf(runtime.direction.x)>.1:body.facing=signf(runtime.direction.x)
 	elif body.controller.active and body.controller.traversal.state == &"wall_attach":
 		var traversal := body.controller.traversal
 		body.facing = -traversal.wall_normal

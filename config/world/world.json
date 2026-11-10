@@ -2580,7 +2580,7 @@
       "failure_contract": "HP耗尽按统一死亡规则回最后实际休息点；地形失误另按本次挑战入口处理。",
       "boss_encounter_id": "P_BELLSTRIDER",
       "boss_defeat_action": "defeat_P_BELLSTRIDER",
-      "boss_reward_action": "pickup_part_triple",
+      "boss_reward_action": "pickup_skill_core_root",
       "boss_role": "独立竞技场；初次胜利永久保存，不随休息重生",
       "polygon": [
         [
@@ -2653,7 +2653,7 @@
       "rest_is_new": false,
       "npc_ids": [],
       "reward_ids": [
-        "part_triple"
+        "skill_core_root"
       ],
       "clock_actions": [],
       "challenge_anchors": [],
@@ -2770,10 +2770,10 @@
       "world_context_story_object_ids": [],
       "collection_design_refs": {
         "source_ids": [
-          "part_triple"
+          "skill_core_root"
         ],
         "source_cue_ids": [
-          "part_triple"
+          "skill_core_root"
         ],
         "secret_ids": [],
         "secret_cue_ids": [],
@@ -41885,7 +41885,7 @@
       "failure_contract": "HP耗尽按统一死亡规则回最后实际休息点；地形失误另按本次挑战入口处理。",
       "boss_encounter_id": "T_TWINS",
       "boss_defeat_action": "defeat_T_TWINS",
-      "boss_reward_action": "pickup_skill_core_root",
+      "boss_reward_action": "pickup_part_triple",
       "boss_role": "独立竞技场；初次胜利永久保存，不随休息重生",
       "polygon": [
         [
@@ -41976,7 +41976,7 @@
       "rest_is_new": false,
       "npc_ids": [],
       "reward_ids": [
-        "skill_core_root"
+        "part_triple"
       ],
       "clock_actions": [],
       "challenge_anchors": [],
@@ -42080,10 +42080,10 @@
       "world_context_story_object_ids": [],
       "collection_design_refs": {
         "source_ids": [
-          "skill_core_root"
+          "part_triple"
         ],
         "source_cue_ids": [
-          "skill_core_root"
+          "part_triple"
         ],
         "secret_ids": [],
         "secret_cue_ids": [],
@@ -169149,14 +169149,15 @@
     },
     {
       "id": "pickup_part_triple",
-      "node": "P3",
+      "node": "T2",
       "grants": [
         "found_part_triple"
       ],
       "type": "branch_material",
       "requires": [
         [
-          "boss_P_BELLSTRIDER_defeated"
+          "clock_T",
+          "boss_T_TWINS_defeated"
         ]
       ],
       "description": "三联机芯",
@@ -169167,16 +169168,17 @@
         "part_triple": 1
       },
       "material_type": "part_triple",
-      "boss_prerequisite": "boss_P_BELLSTRIDER_defeated",
+      "boss_prerequisite": "boss_T_TWINS_defeated",
       "reward_id": "part_triple",
-      "room_id": "P-R11",
+      "room_id": "T-R06",
       "receipt_id": "part_triple",
       "interaction_required": true,
       "section_id": "main",
       "ability_qualification_at_interaction": false,
       "authored_mobility_access": [
         [
-          "H"
+          "H",
+          "W"
         ]
       ],
       "mobility_requirement_resolution": "approach_path_already_guarantees"
@@ -169599,37 +169601,33 @@
     },
     {
       "id": "pickup_skill_core_root",
-      "node": "T2",
+      "node": "P3",
       "grants": [
         "found_skill_core_root"
       ],
       "type": "skill_core",
       "requires": [
         [
-          "clock_T",
-          "boss_T_TWINS_defeated"
+          "boss_P_BELLSTRIDER_defeated"
         ]
       ],
       "description": "共鸣技能芯",
       "persistent": true,
       "repeat": false,
-      "implementation_status": "proposal",
+      "implementation_status": "implemented",
       "inventory_grants": {
         "skill_core": 1
       },
       "material_type": "skill_core",
-      "boss_prerequisite": "boss_T_TWINS_defeated",
+      "boss_prerequisite": "boss_P_BELLSTRIDER_defeated",
       "reward_id": "skill_core_root",
-      "room_id": "T-R06",
+      "room_id": "P-R11",
       "receipt_id": "skill_core_root",
       "interaction_required": true,
       "section_id": "main",
       "ability_qualification_at_interaction": false,
       "authored_mobility_access": [
-        [
-          "H",
-          "W"
-        ]
+        []
       ],
       "mobility_requirement_resolution": "approach_path_already_guarantees"
     },
@@ -169671,38 +169669,46 @@
     },
     {
       "id": "install_skill_core_1",
-      "node": "G0",
+      "node": "P3",
       "grants": [
         "skill_tier_1"
       ],
       "type": "skill_upgrade",
       "requires": [
         [
+          "found_skill_core_root"
+        ],
+        [
           "smith"
         ]
       ],
-      "description": "消耗任意第一枚共用核心，全局开放每个武器家族第1技能；后取得的武器继承。",
+      "description": "交付一枚共鸣技能芯，武器匠免费安装首层技能；普通枪开放冰弹，后取得的武器继承该技能层。",
       "persistent": true,
       "repeat": false,
-      "implementation_status": "proposal",
+      "implementation_status": "implemented",
       "consumes": {
         "skill_core": 1
       },
       "inventory_grants": {},
       "service_npc": "NPC_G_SMITH",
       "service_does_not_implicitly_rest": true,
-      "room_id": "G-R01",
-      "physical_room": "G-R01",
-      "region": "G",
-      "room_name": "齿轮工房",
+      "room_id": "P-R10",
+      "physical_room": "P-R10",
+      "region": "P",
+      "room_name": "高风车连台",
       "map_anchor": [
-        2260.0,
-        1190.0
+        2127.72,
+        1232.81
       ],
       "position_scope": "illustration_anchor_not_Godot_coordinates",
       "section_id": "main",
       "ability_qualification_at_interaction": false,
-      "mobility_requirement_resolution": "v07 room access routes, not interaction ability check"
+      "mobility_requirement_resolution": "v07 room access routes, not interaction ability check",
+      "service_rooms": [
+        "P-R10",
+        "G-R01"
+      ],
+      "gold_fee": 0
     },
     {
       "id": "install_skill_core_2",
@@ -177656,7 +177662,8 @@
       "quantity": 1,
       "requires": [
         [
-          "boss_P_BELLSTRIDER_defeated"
+          "clock_T",
+          "boss_T_TWINS_defeated"
         ]
       ],
       "grants": [
@@ -177676,20 +177683,21 @@
       "weapon": "gun",
       "upgrade_service": "NPC_G_SMITH",
       "binding_status": "v06 原绑定",
-      "room_id": "P-R11",
-      "physical_room": "P-R11",
-      "region": "P",
-      "node": "P3",
-      "room_name": "风车机匣",
+      "room_id": "T-R06",
+      "physical_room": "T-R06",
+      "region": "T",
+      "node": "T2",
+      "room_name": "护坛侧室",
       "map_anchor": [
-        1921.92,
-        1229.844
+        604.361,
+        1831.995
       ],
       "position_scope": "illustration_anchor_not_Godot_coordinates",
       "section_id": "main",
       "access_mobility": [
         [
-          "H"
+          "H",
+          "W"
         ]
       ],
       "acquisition_design_ref": "design/collection-level-design-v07.json#part_triple"
@@ -177946,8 +177954,7 @@
       "quantity": 1,
       "requires": [
         [
-          "clock_T",
-          "boss_T_TWINS_defeated"
+          "boss_P_BELLSTRIDER_defeated"
         ]
       ],
       "grants": [
@@ -177965,22 +177972,19 @@
       "map_label": "技1",
       "upgrade_service": "NPC_G_SMITH",
       "order_contract": "两枚等价；实际安装第1枚开全武器技能1、第2枚开技能2，不以产地决定技能槽。",
-      "room_id": "T-R06",
-      "physical_room": "T-R06",
-      "region": "T",
-      "node": "T2",
-      "room_name": "护坛侧室",
+      "room_id": "P-R11",
+      "physical_room": "P-R11",
+      "region": "P",
+      "node": "P3",
+      "room_name": "风车机匣",
       "map_anchor": [
-        604.361,
-        1831.995
+        1921.92,
+        1229.844
       ],
       "position_scope": "illustration_anchor_not_Godot_coordinates",
       "section_id": "main",
       "access_mobility": [
-        [
-          "H",
-          "W"
-        ]
+        []
       ],
       "acquisition_design_ref": "design/collection-level-design-v07.json#skill_core_root"
     },
@@ -185324,39 +185328,47 @@
     },
     {
       "id": "install_skill_core_1",
-      "node": "G0",
+      "node": "P3",
       "grants": [
         "skill_tier_1"
       ],
       "type": "skill_upgrade",
       "requires": [
         [
+          "found_skill_core_root"
+        ],
+        [
           "smith"
         ]
       ],
-      "description": "消耗任意第一枚共用核心，全局开放每个武器家族第1技能；后取得的武器继承。",
+      "description": "交付一枚共鸣技能芯，武器匠免费安装首层技能；普通枪开放冰弹，后取得的武器继承该技能层。",
       "persistent": true,
       "repeat": false,
-      "implementation_status": "proposal",
+      "implementation_status": "implemented",
       "consumes": {
         "skill_core": 1
       },
       "inventory_grants": {},
       "service_npc": "NPC_G_SMITH",
       "service_does_not_implicitly_rest": true,
-      "room_id": "G-R01",
-      "physical_room": "G-R01",
-      "region": "G",
-      "room_name": "齿轮工房",
+      "room_id": "P-R10",
+      "physical_room": "P-R10",
+      "region": "P",
+      "room_name": "高风车连台",
       "map_anchor": [
-        2260.0,
-        1190.0
+        2127.72,
+        1232.81
       ],
       "position_scope": "illustration_anchor_not_Godot_coordinates",
       "section_id": "main",
       "access_mobility": [
         []
-      ]
+      ],
+      "service_rooms": [
+        "P-R10",
+        "G-R01"
+      ],
+      "gold_fee": 0
     },
     {
       "id": "install_skill_core_2",
