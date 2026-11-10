@@ -65,11 +65,18 @@ func inventory() -> void:
 	await click_named("菜单")
 	await click_named("背包与装配")
 func talk(at: float) -> void:
+	if app.player.position.x<480 and at>608:
+		await walk(Vector2(464,1262),"P-R01");check(await cross(Vector2(624,1262)),"cross current station lift opening to services")
 	await walk(Vector2(at,app.room.rest_point.y),"P-R01")
 	await ticks(4);await click_named("交谈")
 func rest() -> void:
+	if app.player.position.x>608:
+		await walk(Vector2(624,1262),"P-R01");check(await cross(Vector2(464,1262)),"cross current station lift opening back to rest")
 	await walk(app.room.rest_point,"P-R01")
 	await ticks(4);await click_named("休息");await settle();await ticks(4)
+	for frame:int in 300:
+		if not is_instance_valid(app.rest_sequence) or not app.rest_sequence.active:break
+		await ticks(1)
 func run() -> void:
 	root.size=Vector2i(1280,720)
 	var destination:="user://world_service_ui_test.json"
@@ -80,10 +87,10 @@ func run() -> void:
 	root.add_child(app)
 	check(app.start_new(),"service UI starts new isolated world")
 	await settle();app.load_room("P-R01","");await settle()
-	var funded:=app.state.value.duplicate(true);funded.services.gold=100;app.state.commit(funded,app.state.revision)
+	var funded:=app.state.value.duplicate(true);funded.services.gold=100;funded.flags.append("station_rest_taught");app.state.commit(funded,app.state.revision)
 	await settle();await ticks(4)
 	await rest()
-	await talk(560)
+	await talk(app.room.get_node("Npc0").position.x)
 	await button_id("Service_buy_trial_filter")
 	await button_id("Service_buy_trial_heart")
 	await button_id("Service_buy_trial_lamp")

@@ -57,10 +57,25 @@ func run() -> void:
 		for door: Dictionary in app.room.contract.doors:
 			if door.target_implemented: continue
 			check(not app.room.doors.any(func(d: Dictionary) -> bool: return d.id==door.id),"unbuilt connection stays data-only instead of a crowded fake exit")
+			# Front entrances are interaction points, not holes through a boundary wall.
+			if door.get("front_door",false):continue
 			var p:=FixedWorldProvider.point(door.position_candidate.local_world_units)
-			p+=Vector2(16,-48) if door.direction=="left" else Vector2(-16,-48) if door.direction=="right" else Vector2(0,16) if door.direction=="up" else Vector2(0,-16)
+			# Unbuilt external ports can be candidate coordinates inside/outside the
+			# revised room; check the actual nearest same-facing sealed boundary.
+			var nearest:=INF;var boundary_point:=p
+			for edge:Dictionary in app.room.contract.world_geometry.boundary:
+				if edge.side!=door.direction:continue
+				var at:=Geometry2D.get_closest_point_to_segment(p,FixedWorldProvider.point(edge.from),FixedWorldProvider.point(edge.to))
+				if at.distance_squared_to(p)<nearest:nearest=at.distance_squared_to(p);boundary_point=at
+			p=boundary_point+(Vector2(16,0) if door.direction=="left" else Vector2(-16,0) if door.direction=="right" else Vector2(0,16) if door.direction=="up" else Vector2(0,-16))
 			var query:=PhysicsPointQueryParameters2D.new();query.position=p;query.collision_mask=1
-			check(not app.get_world_2d().direct_space_state.intersect_point(query).is_empty(),"unbuilt exit is continuous physical wall/floor")
+			var shares_live_passage:=app.room.doors.any(func(d:Dictionary)->bool:
+				if d.direction!=door.direction:return false
+				var at:=FixedWorldProvider.point(d.position_candidate.local_world_units)
+				return absf(at.x-boundary_point.x)<1 and boundary_point.y>at.y-96 and boundary_point.y<at.y if d.direction in ["left","right"] else absf(at.y-boundary_point.y)<1 and absf(at.x-boundary_point.x)<64)
+			if shares_live_passage:continue # Candidate adds no second opening.
+			check(is_finite(nearest) and not app.get_world_2d().direct_space_state.intersect_point(query).is_empty(),"unbuilt exit has sealed actual boundary "+room_id+" "+str(door.id))
+
 	preload("res://tests/world/authored_room_fixture.gd").install(app,"P-R14")
 	app.load_room("P-R14","");await settle()
 	var zoom:=app.camera.zoom
