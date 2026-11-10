@@ -1,39 +1,154 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R18" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_h80of"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_5jcqk"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_p5y7n"]
+
+[node name="P-R18" type="Node2D" unique_id=1204195999]
+script = ExtResource("1_h80of")
 room_id = "P-R18"
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "田路换边", "action": "沿宽田应对冲锋，两处断沟用反冲越岸，低处可回到当前岸。", "point": [144, 1134], "path": [[144, 1134], [880, 1134], [1376, 1134], [1840, 1134], [2368, 1134]]}, {"number": 2, "label": "灌溉与回访", "action": "下井去地窖，东侧升降笼去眺望台；更深的井口接回水洞。", "point": [1408, 1422], "path": [[1408, 1422], [2304, 1774], [2496, 1134], [2480, 238]]}]}
-traveler_point = Vector2(0,0)
-climbable_walls = Array[Rect2]([])
-environment_zones = Array[Dictionary]([])
-gear_obstacles = Array[Dictionary]([])
-hazards = Array[Rect2]([])
-art_profile = "field"
-spike_strips = Array[Dictionary]([{"id":"P18:irrigation_bed","bounds":[960,1448,192,24],"facing":"up"}])
 arrival_text = "东境旧田"
-platforms = Array[Rect2]([Rect2(0.0,1152.0,960.0,128.0),Rect2(1216.0,1152.0,704.0,128.0),Rect2(2240.0,1152.0,64.0,128.0),Rect2(384.0,1472.0,768.0,64.0),Rect2(1344.0,1440.0,1600.0,96.0),Rect2(2304,256.0,192,24),Rect2(2240.0,1792.0,128.0,128.0),Rect2(2240.0,1600.0,128.0,24.0),Rect2(2240.0,1312.0,256.0,32.0),Rect2(1792.0,960.0,320.0,32.0),Rect2(1472.0,800.0,288.0,32.0),Rect2(1088.0,768.0,320.0,32.0),Rect2(704.0,960.0,288.0,32.0),Rect2(1856.0,576.0,384.0,32.0),Rect2(1920.0,416.0,256.0,32.0),Rect2(2304.0,1152.0,192.0,24.0),Rect2(2496.0,1152.0,448.0,128.0),Rect2(1920.0,256.0,384.0,64.0),Rect2(2496,256.0,128.0,64.0)])
-one_way_indices = Array[int]([7,8,9,10,11,12,13,14,15,5])
-start_point = Vector2(144,1134)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id":"P-R18:old_field_charger","behavior":"charger","point":[688,1134],"max_health":14},{"id":"P-R18:middle_hopper","behavior":"hopper","point":[1616,1134],"max_health":9},{"id":"P-R18:bank_sentry","behavior":"sentry","point":[2640,1134],"max_health":14}])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[832,1092,96,60],"point":[880,1134],"section":"main"},{"bounds":[1312,1092,96,60],"point":[1360,1134],"section":"main"},{"bounds":[2320,1092,96,60],"point":[2368,1134],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"sunken_well","point":[1408,1440],"layer":-2},{"asset":"plain_pier","point":[1568,1152],"layer":-2,"support_height":288},{"asset":"windchime_plains_near_v2","point":[2560,1152],"layer":-2,"sway":true}])
-bell_mechanisms = Array[Dictionary]([{"id":"P18:irrigation_lift","bell":[2304,1696],"carrier":"IrrigationCage","access_bells":[[2544,1088],[2368,192]]}])
-masonry_platform_indices = Array[int]([])
-illustrated_platform_indices = Array[int]([])
-[node name="IrrigationCage" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(2400,1408)
-endpoint = Vector2(0,-1104)
-platform_size = Vector2(160,20)
-period = 16.0
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "西入口降到低田应对冲锋，再反冲上高田；第二沟下方通地窖和灌溉路，可经穿透平台返回当前田畦。",
+"label": "错层田畦与下方灌溉路",
+"number": 1.0,
+"path": [[144.0, 1134.0], [352.0, 1134.0], [640.0, 1230.0], [992.0, 1230.0], [1216.0, 1070.0], [1408.0, 1070.0], [1760.0, 1134.0], [2048.0, 1134.0]],
+"point": [144.0, 1134.0]
+}, {
+"action": "下层或中层射铃召回第一台，抵达中段后跳上准备岸，再向右换到自动斜行的崖台；东崖上岸后通P07。两条轨道与乘员头顶保持独立净空。",
+"label": "两段错位换乘登东崖",
+"number": 2.0,
+"path": [[2080.0, 1422.0], [2240.0, 1348.0], [2240.0, 836.0], [2240.0, 686.0], [2464.0, 804.0], [2256.0, 260.0], [2480.0, 238.0]],
+"point": [2080.0, 1422.0]
+}, {
+"action": "高田向下射击守卫可借反冲上观望层；C05保持未施工封闭边界。下井通P30，清怪后仍可经井中接收台与东岸台返回。",
+"label": "上层观望与窄井回环",
+"number": 3.0,
+"path": [[1280.0, 1070.0], [1280.0, 814.0], [1440.0, 590.0], [1760.0, 654.0], [1984.0, 814.0], [2304.0, 1774.0], [2272.0, 1566.0], [2400.0, 1390.0], [2672.0, 1262.0], [2800.0, 1134.0]],
+"point": [1280.0, 1070.0]
+}, {
+"action": "从田畦右缘下探原地窖，到左下集中金币位置；取后走到原岸右缘，向左下射击反冲跨过渠底短刺，接回原回升路。箱内20金币沿一次性收据散落。",
+"label": "左下地窖集中20金币",
+"number": 4.0,
+"path": [[992.0, 1230.0], [1040.0, 1336.0], [992.0, 1454.0], [672.0, 1454.0], [1032.0, 1454.0], [1376.0, 1422.0]],
+"point": [992.0, 1230.0]
+}]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [304.0, 1092.0, 96.0, 60.0],
+"point": [352.0, 1134.0],
+"section": "main"
+}, {
+"bounds": [592.0, 1188.0, 96.0, 60.0],
+"point": [640.0, 1230.0],
+"section": "main"
+}, {
+"bounds": [1360.0, 1028.0, 96.0, 60.0],
+"point": [1408.0, 1070.0],
+"section": "main"
+}, {
+"bounds": [1872.0, 1092.0, 96.0, 60.0],
+"point": [1920.0, 1134.0],
+"section": "main"
+}, {
+"bounds": [2352.0, 1348.0, 96.0, 60.0],
+"point": [2400.0, 1390.0],
+"section": "main"
+}, {
+"bounds": [2256.0, 1732.0, 96.0, 60.0],
+"point": [2304.0, 1774.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "sunken_well",
+"layer": -2.0,
+"point": [1408.0, 1440.0]
+}, {
+"asset": "plain_pier",
+"layer": -2.0,
+"point": [1920.0, 1152.0],
+"support_height": 288.0
+}, {
+"asset": "plain_pier",
+"layer": -2.0,
+"point": [1984.0, 832.0],
+"support_height": 384.0
+}])
+art_profile = "field"
+bell_mechanisms = Array[Dictionary]([{
+"access_bells": [[2048.0, 1088.0], [2048.0, 768.0]],
+"bell": [2048.0, 1376.0],
+"carrier": "IrrigationCage",
+"id": "P18:irrigation_lift"
+}])
+platforms = Array[Rect2]([Rect2(0, 1152, 416, 48), Rect2(576, 1248, 448, 48), Rect2(1120, 1088, 384, 32), Rect2(1696, 1152, 416, 32), Rect2(2432, 1152, 512, 32), Rect2(544, 1472, 512, 64), Rect2(1344, 1440, 352, 48), Rect2(1376, 1280, 224, 24), Rect2(1856, 1440, 320, 48), Rect2(2368, 1408, 576, 48), Rect2(2560, 1280, 256, 24), Rect2(2176, 1584, 192, 24), Rect2(2240, 1792, 128, 128), Rect2(1120, 832, 288, 32), Rect2(1344, 608, 192, 32), Rect2(1632, 672, 256, 32), Rect2(1856, 832, 288, 32), Rect2(2144, 704, 160, 24), Rect2(2336, 256, 288, 32), Rect2(1920, 416, 256, 32), Rect2(1056, 1504, 160, 32)])
+workbench_entity_ids = {
+"art_placements": ["P-R18:r7:art_placements:0", "P-R18:r7:art_placements:1", "P-R18:r7:art_placements:2"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R18:r7:west_entry", "P-R18:r7:low_field", "P-R18:r7:middle_terrace", "P-R18:r7:east_field", "P-R18:r7:east_bank", "P-R18:r7:west_recovery", "P-R18:r7:well_entry", "P-R18:r7:well_step", "P-R18:r7:irrigation_west", "P-R18:r7:irrigation_east", "P-R18:r7:east_understep", "P-R18:r7:waterway_step", "P-R18:r7:waterway_entry", "P-R18:r7:upper_terrace", "P-R18:r7:closed_boundary_view", "P-R18:r7:middle_view", "P-R18:r7:west_transfer", "P-R18:r7:cliff_launch", "P-R18:r7:cliff_door", "P-R18:r7:upper_return", "P-R18:r7:ditch_spike_foundation"],
+"retry_anchors": ["P-R18:r7:retry_anchors:0", "P-R18:r7:retry_anchors:1", "P-R18:r7:retry_anchors:2", "P-R18:r7:retry_anchors:3", "P-R18:r7:retry_anchors:4", "P-R18:r7:retry_anchors:5"],
+"signs": []
+}
+one_way_indices = Array[int]([2, 3, 4, 7, 10, 11, 13, 15, 17, 19])
+start_point = Vector2(144, 1134)
+enemy_placements = Array[Dictionary]([{
+"behavior": "charger",
+"id": "P-R18:r7:field_charger",
+"max_health": 14.0,
+"point": [768.0, 1230.0]
+}, {
+"behavior": "patrol",
+"id": "P-R18:r7:terrace_patrol",
+"max_health": 9.0,
+"point": [1280.0, 1070.0]
+}, {
+"behavior": "root_bell",
+"id": "P-R18:r7:east_root",
+"max_health": 14.0,
+"point": [2768.0, 1390.0]
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [1056.0, 1480.0, 160.0, 24.0],
+"facing": "up",
+"id": "P-R18:r7:lower_ditch"
+}, {
+"bounds": [864.0, 1224.0, 64.0, 24.0],
+"facing": "up",
+"id": "P-R18:r7:field_edge"
+}, {
+"bounds": [2496.0, 1128.0, 64.0, 24.0],
+"facing": "up",
+"id": "P-R18:r7:east_bank_edge"
+}])
+
+[node name="IrrigationCage" type="AnimatableBody2D" parent="." unique_id=1951713235]
+position = Vector2(2240, 1376)
+script = ExtResource("2_5jcqk")
+endpoint = Vector2(0, -512)
+platform_size = Vector2(192, 20)
+period = 7.2
 one_way = true
-route = Array[Vector2]([Vector2(0,-1104)])
-endpoint_dwell = 2.0
+route = Array[Vector2]([Vector2(0, -512)])
+endpoint_dwell = 1.8
+
+[node name="CliffCarrier" type="AnimatableBody2D" parent="." unique_id=747246620]
+position = Vector2(2464, 832)
+script = ExtResource("2_5jcqk")
+endpoint = Vector2(-208, -544)
+platform_size = Vector2(144, 20)
+period = 8.8
+one_way = true
+route = Array[Vector2]([Vector2(-208, -448), Vector2(-208, -544)])
+endpoint_dwell = 1.8
+
+[node name="Cache_irrigation_cache" type="Node2D" parent="." unique_id=1596348200]
+position = Vector2(672, 1454)
+script = ExtResource("3_p5y7n")
+action_id = "open_P18_irrigation_cache"
+label = "打开田畦地窖箱"
+visual = "chest"
+radius = 48.0

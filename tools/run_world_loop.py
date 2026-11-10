@@ -26,6 +26,8 @@ def main():
         ('approved_draft_actions.gd',r'APPROVED ACTIONS: 0 failures',120),
         ('approved_clock_rooms.gd',r'APPROVED CLOCK ROOMS: 0 failures',120),
         ('approved_clock_connections.gd',r'APPROVED CLOCK CONNECTIONS: 0 failures',120),
+        ('approved_exploration_rooms.gd',r'APPROVED EXPLORATION ROOMS: 0 failures',120),
+        ('approved_exploration_connections.gd',r'APPROVED EXPLORATION CONNECTIONS: 0 failures',120),
         ('approved_hub_actions.gd',r'APPROVED HUB ACTIONS: 0 failures',120),
         ('platform_drop_input.gd',r'PLATFORM DROP INPUT: 0 failures',60),
         ('approved_draft_connections.gd',r'APPROVED CONNECTIONS: 0 failures',120),

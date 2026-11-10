@@ -1,12 +1,12 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_0sr7g"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_edwcx"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_kwm08"]
-[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="4_g8htt"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_5vxom"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_3e6jq"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_c74mc"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="4_kkpcr"]
 
 [node name="P-R13" type="Node2D" unique_id=1006970316]
-script = ExtResource("1_0sr7g")
+script = ExtResource("1_5vxom")
 room_id = "P-R13"
 arrival_text = "旧路肩高台"
 route_guide = {
@@ -18,17 +18,23 @@ route_guide = {
 "path": [[5680.0, 1582.0], [5808.0, 1838.0], [5200.0, 2062.0]],
 "point": [5680.0, 1582.0]
 }, {
-"action": "宽落台恢复后再出发；沿错位墙刺抬升，再下降换边，不要求九次重复横冲。",
-"label": "宽段抬升与下降",
+"action": "东、中、西三段吊顶与顶刺改变净空；在高腔调整射向，高台边短跳后向右上射击压低轨迹，向左落入低腔，离开低顶后再抬升。",
+"label": "高低顶刺下换向穿行",
 "number": 2.0,
-"path": [[5200.0, 2062.0], [4576.0, 1902.0], [3936.0, 2062.0], [3232.0, 2030.0]],
+"path": [[5200.0, 2062.0], [4720.0, 1902.0], [4576.0, 1902.0], [4368.0, 1902.0], [4080.0, 2062.0], [3744.0, 2062.0], [3440.0, 2030.0], [3056.0, 2030.0]],
 "point": [5200.0, 2062.0]
 }, {
 "action": "最后一处夹刺观察后反冲；取得碎片再开返程折板落回主路。",
 "label": "最后收窄",
 "number": 3.0,
-"path": [[3232.0, 2030.0], [2832.0, 2176.0], [2400.0, 2222.0], [384.0, 2222.0], [448.0, 2478.0]],
-"point": [3232.0, 2030.0]
+"path": [[3056.0, 2030.0], [2832.0, 2176.0], [2400.0, 2222.0], [384.0, 2222.0], [448.0, 2478.0]],
+"point": [3056.0, 2030.0]
+}, {
+"action": "低廊掩体提供观察与换边；跃起后朝右击中身后根铃，同枪向左反冲跨越短刺口。清怪后也可普通跳跃跨过，西侧局部刺继续限制落脚；上层HP01保持独立挑战与单向返程。",
+"label": "下路回身退击跨口",
+"number": 4.0,
+"path": [[5888.0, 2478.0], [5488.0, 2446.0], [5184.0, 2478.0], [5024.0, 2478.0], [4954.0, 2339.0], [4800.0, 2478.0], [4128.0, 2350.0], [2800.0, 2478.0], [1104.0, 2478.0], [144.0, 2606.0]],
+"point": [5888.0, 2478.0]
 }]
 }
 retry_anchors = Array[Dictionary]([{
@@ -80,13 +86,33 @@ retry_anchors = Array[Dictionary]([{
 "point": [3936.0, 2062.0],
 "section": "main"
 }, {
-"bounds": [3184.0, 1988.0, 96.0, 60.0],
-"point": [3232.0, 2030.0],
+"bounds": [3248.0, 1988.0, 96.0, 60.0],
+"point": [3296.0, 2030.0],
 "section": "main"
 }, {
 "bounds": [2352.0, 2180.0, 96.0, 60.0],
 "point": [2400.0, 2222.0],
 "section": "main"
+}, {
+"bounds": [5136.0, 2436.0, 96.0, 60.0],
+"point": [5184.0, 2478.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "bell_post",
+"layer": -2.0,
+"light": true,
+"point": [5808.0, 1856.0]
+}, {
+"asset": "bell_post",
+"layer": -2.0,
+"light": true,
+"point": [1856.0, 2496.0]
+}, {
+"asset": "bell_post",
+"layer": -2.0,
+"light": true,
+"point": [7040.0, 256.0]
 }])
 art_profile = "terrace"
 bell_mechanisms = Array[Dictionary]([{
@@ -100,14 +126,24 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "OldRoadLift",
 "id": "P-R13:old_road_lift"
 }])
-platforms = Array[Rect2]([Rect2(6912, 256, 192, 32), Rect2(6656, 416, 256, 32), Rect2(6560, 704, 192, 32), Rect2(6816, 960, 160, 32), Rect2(6560, 1248, 192, 32), Rect2(5504, 1600, 384, 32), Rect2(6080, 1792, 1024, 32), Rect2(6080, 1728, 64, 64), Rect2(5888, 2304, 192, 32), Rect2(0, 2240, 512, 48), Rect2(640, 2240, 1408, 48), Rect2(2048, 2240, 3904, 64), Rect2(0, 2624, 288, 352), Rect2(288, 2496, 1280, 32), Rect2(1696, 2496, 1760, 32), Rect2(3584, 2496, 2496, 32), Rect2(3936, 2368, 384, 32), Rect2(4352, 2400, 192, 96), Rect2(5280, 2368, 96, 128), Rect2(320, 2720, 160, 32), Rect2(512, 2848, 320, 64), Rect2(768, 3456, 128, 32), Rect2(2048, 1664, 3456, 32), Rect2(5632, 1856, 320, 32), Rect2(4992, 2080, 400, 32), Rect2(4352, 1920, 400, 32), Rect2(3712, 2080, 400, 32), Rect2(2944, 2048, 528, 32), Rect2(2688, 1696, 96, 400), Rect2(5392, 1696, 80, 224)])
+platforms = Array[Rect2]([Rect2(6912, 256, 192, 32), Rect2(6656, 416, 256, 32), Rect2(6560, 704, 192, 32), Rect2(6816, 960, 160, 32), Rect2(6560, 1248, 192, 32), Rect2(5504, 1600, 384, 32), Rect2(6080, 1792, 1024, 32), Rect2(6080, 1728, 64, 64), Rect2(5888, 2304, 192, 32), Rect2(0, 2240, 512, 48), Rect2(640, 2240, 1408, 48), Rect2(2048, 2240, 3904, 32), Rect2(0, 2624, 288, 352), Rect2(288, 2496, 1280, 32), Rect2(1696, 2496, 1760, 32), Rect2(3584, 2496, 1280, 32), Rect2(3936, 2368, 384, 32), Rect2(4352, 2400, 192, 96), Rect2(5232, 2464, 96, 32), Rect2(320, 2720, 160, 32), Rect2(512, 2848, 320, 64), Rect2(768, 3456, 128, 32), Rect2(2048, 1664, 3456, 32), Rect2(5632, 1856, 320, 32), Rect2(4992, 2080, 400, 32), Rect2(4352, 1920, 400, 32), Rect2(3712, 2080, 400, 32), Rect2(2944, 2048, 528, 32), Rect2(2688, 1696, 96, 400), Rect2(5392, 1696, 80, 224), Rect2(4992, 2496, 1088, 32), Rect2(4864, 2520, 128, 8)])
+terrain_polygons = Array[Dictionary]([{
+"id": "P-R13:r8:east_roof",
+"points": [[4800.0, 1696.0], [5184.0, 1696.0], [5184.0, 1760.0], [5120.0, 1760.0], [5120.0, 1808.0], [4896.0, 1808.0], [4896.0, 1760.0], [4800.0, 1760.0]]
+}, {
+"id": "P-R13:r8:middle_roof",
+"points": [[3872.0, 1696.0], [4256.0, 1696.0], [4256.0, 1776.0], [4192.0, 1776.0], [4192.0, 1840.0], [3936.0, 1840.0], [3936.0, 1776.0], [3872.0, 1776.0]]
+}, {
+"id": "P-R13:r8:west_roof",
+"points": [[2944.0, 1696.0], [3360.0, 1696.0], [3360.0, 1776.0], [3296.0, 1776.0], [3296.0, 1856.0], [3008.0, 1856.0], [3008.0, 1776.0], [2944.0, 1776.0]]
+}])
 workbench_entity_ids = {
-"art_placements": [],
+"art_placements": ["P-R13:built:landmark_0", "P-R13:built:landmark_1", "P-R13:built:landmark_2"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],
-"platforms": ["P-R13:platforms:0", "P-R13:platforms:1", "P-R13:platforms:2", "P-R13:platforms:3", "P-R13:platforms:4", "P-R13:platforms:5", "P-R13:platforms:6", "P-R13:platforms:7", "P-R13:platforms:8", "P-R13:platforms:9", "P-R13:platforms:10", "P-R13:platforms:11", "P-R13:platforms:12", "P-R13:platforms:13", "P-R13:platforms:14", "P-R13:platforms:15", "P-R13:platforms:16", "P-R13:platforms:17", "P-R13:platforms:18", "P-R13:platforms:19", "P-R13:platforms:20", "P-R13:platforms:21", "P-R13:platforms:22", "P-R13:platforms:23", "P-R13:platforms:24", "P-R13:platforms:25", "P-R13:platforms:26", "P-R13:platforms:27", "P-R13:platforms:28", "P-R13:platforms:29"],
-"retry_anchors": ["P-R13:retry_anchors:0", "P-R13:retry_anchors:1", "P-R13:retry_anchors:2", "P-R13:retry_anchors:3", "P-R13:retry_anchors:4", "P-R13:retry_anchors:5", "P-R13:retry_anchors:6", "P-R13:retry_anchors:7", "P-R13:retry_anchors:8", "P-R13:retry_anchors:9", "P-R13:retry_anchors:10", "P-R13:retry_anchors:11", "P-R13:retry_anchors:12", "P-R13:retry_anchors:13"],
+"platforms": ["P-R13:platforms:0", "P-R13:platforms:1", "P-R13:platforms:2", "P-R13:platforms:3", "P-R13:platforms:4", "P-R13:platforms:5", "P-R13:platforms:6", "P-R13:platforms:7", "P-R13:platforms:8", "P-R13:platforms:9", "P-R13:platforms:10", "P-R13:platforms:11", "P-R13:platforms:12", "P-R13:platforms:13", "P-R13:platforms:14", "P-R13:platforms:15", "P-R13:platforms:16", "P-R13:platforms:17", "P-R13:platforms:18", "P-R13:platforms:19", "P-R13:platforms:20", "P-R13:platforms:21", "P-R13:platforms:22", "P-R13:platforms:23", "P-R13:platforms:24", "P-R13:platforms:25", "P-R13:platforms:26", "P-R13:platforms:27", "P-R13:platforms:28", "P-R13:platforms:29", "P-R13:r6:east_bank", "P-R13:r6:thorn_gap_bed"],
+"retry_anchors": ["P-R13:retry_anchors:0", "P-R13:retry_anchors:1", "P-R13:retry_anchors:2", "P-R13:retry_anchors:3", "P-R13:retry_anchors:4", "P-R13:retry_anchors:5", "P-R13:retry_anchors:6", "P-R13:retry_anchors:7", "P-R13:retry_anchors:8", "P-R13:retry_anchors:9", "P-R13:retry_anchors:10", "P-R13:retry_anchors:11", "P-R13:retry_anchors:12", "P-R13:retry_anchors:13", "P-R13:r6:gap_retry"],
 "signs": []
 }
 start_point = Vector2(6976, 238)
@@ -117,10 +153,10 @@ enemy_placements = Array[Dictionary]([{
 "max_health": 9.0,
 "point": [6880.0, 942.0]
 }, {
-"behavior": "charger",
+"behavior": "root_bell",
 "id": "P-R13:road_charger",
 "max_health": 14.0,
-"point": [5040.0, 2478.0]
+"point": [5392.0, 2472.0]
 }, {
 "behavior": "patrol",
 "id": "P-R13:road_perch",
@@ -186,11 +222,55 @@ spike_strips = Array[Dictionary]([{
 "bounds": [2688.0, 2096.0, 96.0, 24.0],
 "facing": "down",
 "id": "P-R13:last_narrow_roof"
+}, {
+"bounds": [4864.0, 2496.0, 128.0, 24.0],
+"facing": "up",
+"id": "P-R13:r6:road_gap"
+}, {
+"bounds": [2240.0, 2472.0, 48.0, 24.0],
+"facing": "up",
+"id": "P-R13:r6:middle_pressure"
+}, {
+"bounds": [832.0, 2472.0, 48.0, 24.0],
+"facing": "up",
+"id": "P-R13:r6:west_pressure"
+}, {
+"bounds": [4896.0, 1808.0, 224.0, 24.0],
+"facing": "down",
+"id": "P-R13:r8:east_roof:teeth"
+}, {
+"bounds": [3936.0, 1840.0, 256.0, 24.0],
+"facing": "down",
+"id": "P-R13:r8:middle_roof:teeth"
+}, {
+"bounds": [3008.0, 1856.0, 288.0, 24.0],
+"facing": "down",
+"id": "P-R13:r8:west_roof:teeth"
+}, {
+"bounds": [2048.0, 1696.0, 640.0, 24.0],
+"facing": "down",
+"id": "P-R13:r8:high_ceiling_teeth0"
+}, {
+"bounds": [2784.0, 1696.0, 160.0, 24.0],
+"facing": "down",
+"id": "P-R13:r8:high_ceiling_teeth1"
+}, {
+"bounds": [3360.0, 1696.0, 512.0, 24.0],
+"facing": "down",
+"id": "P-R13:r8:high_ceiling_teeth2"
+}, {
+"bounds": [4256.0, 1696.0, 544.0, 24.0],
+"facing": "down",
+"id": "P-R13:r8:high_ceiling_teeth3"
+}, {
+"bounds": [5184.0, 1696.0, 208.0, 24.0],
+"facing": "down",
+"id": "P-R13:r8:high_ceiling_teeth4"
 }])
 
 [node name="CliffLift" type="AnimatableBody2D" parent="." unique_id=1984051430]
 position = Vector2(7040, 1552)
-script = ExtResource("2_edwcx")
+script = ExtResource("2_3e6jq")
 endpoint = Vector2(0, -1168)
 platform_size = Vector2(96, 20)
 period = 16.0
@@ -200,7 +280,7 @@ endpoint_dwell = 1.5
 
 [node name="OldRoadLift" type="AnimatableBody2D" parent="." unique_id=1555111959]
 position = Vector2(944, 3392)
-script = ExtResource("2_edwcx")
+script = ExtResource("2_3e6jq")
 endpoint = Vector2(0, -608)
 platform_size = Vector2(112, 20)
 period = 10.0
@@ -210,14 +290,14 @@ endpoint_dwell = 1.5
 
 [node name="Interaction_0" type="Node2D" parent="." unique_id=1352522165]
 position = Vector2(384, 2222)
-script = ExtResource("3_kwm08")
+script = ExtResource("3_c74mc")
 action_id = "pickup_HP01"
 label = "收取生命碎片"
 visual = "health_shard"
 
 [node name="RewardReturn" type="Node2D" parent="." unique_id=2049340202]
 position = Vector2(448, 2222)
-script = ExtResource("4_g8htt")
+script = ExtResource("4_kkpcr")
 closed_panels = Array[Rect2]([Rect2(64, 18, 128, 48)])
 metal_hatch = true
 action_id = "reward_return_HP01_open"

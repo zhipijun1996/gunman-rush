@@ -633,38 +633,56 @@
       "scene": "res://game/world/regions/P/rooms/P-R12.tscn",
       "encounters": [
         {
-          "behavior": "hopper",
           "id": "P-R12:cellar_hopper",
-          "max_health": 9,
+          "behavior": "hopper",
           "point": [
-            1440,
-            878
-          ]
+            1600,
+            1262
+          ],
+          "max_health": 9
+        },
+        {
+          "id": "P-R12:r8:west_patrol",
+          "behavior": "patrol",
+          "point": [
+            160,
+            1326
+          ],
+          "max_health": 5
         }
       ],
       "interactions": [
         {
           "action": "pickup_EQ_MAP_P01",
           "section": "main"
+        },
+        {
+          "action": "reward_return_EQ_MAP_P01_open",
+          "section": "main"
+        },
+        {
+          "action": "open_P12_cellar_cache",
+          "section": "main"
         }
       ],
       "experience": {
-        "player_decision": "主路在旧田与根井间选择，支路空中射铃并反冲穿限时闸取行装。",
-        "visual_read": "上层闸窗与下层长排水笼各自有可见导轨或落点。",
-        "pressure": "支路考验射铃与位移的组合；长井承担连接。",
-        "failure_recovery": "上层失手可重组，奖励侧显式放梯；下井可搭排水笼回上层。",
-        "return_visit": "永久折板便于回主路；对外通旧田18和根井19，不再直通35。"
+        "player_decision": "一台多段承载贯穿钟腔，离台越过同步齿轮再落回，空中左下射铃同时右上反冲过顶闸。",
+        "visual_read": "宽钟腔用同一轨道、扫动齿轮和顶闸建立机器关系；检修灯标记固定岸与行装台。",
+        "failure_recovery": "井底和两岸可重新登同一载台；行装后放折梯回返，西岸藏箱不替代核心开闸。"
       },
       "art_focal_assets": [
-        "storage_crates",
-        "barrel",
-        "gear_city_v2_pipe_junction",
         "gear_lamp"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
+      },
+      "spatial_intent": "一台多段承载贯穿钟腔，离台越过同步齿轮再落回，空中左下射铃同时右上反冲过顶闸。",
+      "draft_approval": {
+        "revision": 78,
+        "signature": "105cfb02fe5f71ca578a9c637a0b2d71eb883976075694178632fd23b4a6cc21",
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验"
       }
     },
     {
@@ -675,69 +693,89 @@
       "scene": "res://game/world/regions/P/rooms/P-R13.tscn",
       "encounters": [
         {
-          "id": "P-R13:cliff_patrol",
           "behavior": "patrol",
+          "id": "P-R13:cliff_patrol",
+          "max_health": 9,
           "point": [
             6880,
             942
-          ],
-          "max_health": 5
+          ]
         },
         {
+          "behavior": "root_bell",
           "id": "P-R13:road_charger",
-          "behavior": "charger",
+          "max_health": 14,
           "point": [
-            5040,
-            2478
-          ],
-          "max_health": 10
+            5392,
+            2472
+          ]
         },
         {
-          "id": "P-R13:road_perch",
           "behavior": "patrol",
+          "id": "P-R13:road_perch",
+          "max_health": 9,
           "point": [
             4128,
             2350
-          ],
-          "max_health": 5
+          ]
         },
         {
-          "id": "P-R13:road_guard",
           "behavior": "patrol",
+          "id": "P-R13:road_guard",
+          "max_health": 9,
           "point": [
             2800,
             2478
-          ],
-          "max_health": 5
+          ]
         },
         {
-          "id": "P-R13:west_hopper",
           "behavior": "hopper",
+          "id": "P-R13:west_hopper",
+          "max_health": 9,
           "point": [
             1104,
             2478
-          ],
-          "max_health": 5
+          ]
+        },
+        {
+          "behavior": "patrol",
+          "id": "P-R13:reward_road_guard",
+          "max_health": 9,
+          "point": [
+            1376,
+            2222
+          ]
         }
       ],
       "interactions": [
         {
           "action": "pickup_HP01",
           "section": "main"
+        },
+        {
+          "action": "reward_return_HP01_open",
+          "section": "main"
         }
       ],
       "experience": {
-        "player_decision": "上路五处错位间隙，横渡与竖向转折交替、先宽后窄；11号地形守怪，领HP01后才开单向返程；下方升降台净空保持。",
-        "failure_recovery": "转折或检修岸实际落地后可重试，支撑与入口保留安全净空。",
-        "visual_read": "以实体轮廓、移动轨迹、刺道和敌人呈现选择；审核路线独立于场景告示，不放占位旅人。"
+        "player_decision": "下层可战可绕，上层高低顶刺改变净空，横向反冲与落到低腔交替，最后收窄接HP01。",
+        "visual_read": "天花板体量与顶刺连续附着，宽腔负责观察和换射向；奖励靠04端可从下路看到。",
+        "failure_recovery": "刺道转角保留安全落脚补枪；拿到HP01才开单向返程板，下路回入口和两端载台保持。"
       },
-      "art_focal_assets": [],
+      "art_focal_assets": [
+        "bell_post"
+      ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
       },
-      "spatial_intent": "上路五处错位间隙，横渡与竖向转折交替、先宽后窄；11号地形守怪，领HP01后才开单向返程；下方升降台净空保持。"
+      "spatial_intent": "下层可战可绕，上层高低顶刺改变净空，横向反冲与落到低腔交替，最后收窄接HP01。",
+      "draft_approval": {
+        "revision": 78,
+        "signature": "c3aa08bac1d4e57ad3a49b6231b7be3729126db65418d8b5102e7e78304f8098",
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验"
+      }
     },
     {
       "room_id": "P-R14",
@@ -922,50 +960,58 @@
       "scene": "res://game/world/regions/P/rooms/P-R18.tscn",
       "encounters": [
         {
+          "id": "P-R18:r7:field_charger",
           "behavior": "charger",
-          "id": "P-R18:old_field_charger",
-          "max_health": 14,
           "point": [
-            688,
-            1134
-          ]
+            768,
+            1230
+          ],
+          "max_health": 14
         },
         {
-          "behavior": "hopper",
-          "id": "P-R18:middle_hopper",
-          "max_health": 9,
+          "id": "P-R18:r7:terrace_patrol",
+          "behavior": "patrol",
           "point": [
-            1616,
-            1134
-          ]
+            1280,
+            1070
+          ],
+          "max_health": 9
         },
         {
-          "behavior": "sentry",
-          "id": "P-R18:bank_sentry",
-          "max_health": 14,
+          "id": "P-R18:r7:east_root",
+          "behavior": "root_bell",
           "point": [
-            2640,
-            1134
-          ]
+            2768,
+            1390
+          ],
+          "max_health": 14
         }
       ],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "open_P18_irrigation_cache",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "宽田处理冲锋和守线，选择下井、东侧回环或乘笼上眺望台。",
-        "visual_read": "田垄断沟、灌溉石岸和竖直笼轨区分不同高度。",
-        "pressure": "三类敌人在宽岸分段出现，低处短刺限制落点。",
-        "failure_recovery": "低岸可重组，灌溉笼贯通上层；窄井口两侧保持真实净空。",
-        "return_visit": "未来跨区能力预览保留原入口与可退回地面。"
+        "player_decision": "错层田畦接两段换乘登崖，地窖20金币后反冲出短刺渠底。",
+        "visual_read": "低田冲锋、高田守点和地下灌溉路互相可见；支柱顶接真实上层梁底。",
+        "failure_recovery": "两条载台轨道留独立净空；中段可召回第一台，窄井有宽肩回田畦；地窖短刺渠与下行井口分开，不依赖怪物存活。"
       },
       "art_focal_assets": [
         "sunken_well",
-        "plain_pier",
-        "windchime_plains_near_v2"
+        "plain_pier"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
+      },
+      "spatial_intent": "错层田畦接两段换乘登崖，地窖20金币后反冲出短刺渠底。",
+      "draft_approval": {
+        "revision": 78,
+        "signature": "d51c16d82dd7b7e08b75c39e3ff8ec150b848ec5d250e6922ad2409e6a8705da",
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验"
       }
     },
     {
@@ -1334,6 +1380,15 @@
             2656,
             558
           ]
+        },
+        {
+          "behavior": "fan_sentry",
+          "id": "P-R25:r7:air_fan_refill",
+          "max_health": 9,
+          "point": [
+            1352,
+            656
+          ]
         }
       ],
       "interactions": [
@@ -1343,11 +1398,9 @@
         }
       ],
       "experience": {
-        "player_decision": "从左侧较高岸看见TG01；回地形6满跳并精准下射反冲接高台，失败可立即重试。",
-        "visual_read": "两座盘根挂铃树拱托住上层短路，根间低路可穿行；枝上落脚和地面遭遇同时可读。",
-        "pressure": "上层反冲跨越树台，末端荆棘要求提前离台；低层冲锋与局部地刺迫使选择清怪、短跳或改走上层，东侧俯冲争夺落点。",
-        "failure_recovery": "上层失手落回果园下路，可重新借树根登高；清怪后通路仍成立。",
-        "return_visit": "清怪后路仍完整，换边操作不依赖一次性敌人。"
+        "player_decision": "保留果园战斗主路；高台TG01要求空中向左下命中回枪，同次腾空向下射击再次上冲。",
+        "visual_read": "高枝奖励可见，左下飞羽铃哨是第一枪目标；删去备用枝台，落奖后回原树台。",
+        "failure_recovery": "失手落回宽树台；命中目标沿正式休息周期恢复，不在房内偷偷复活。"
       },
       "art_focal_assets": [
         "orchard_arch_west",
@@ -1360,7 +1413,12 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
       },
-      "spatial_intent": "从左侧较高岸看见TG01；回地形6满跳并精准下射反冲接高台，失败可立即重试。"
+      "spatial_intent": "保留果园战斗主路；高台TG01要求空中向左下命中回枪，同次腾空向下射击再次上冲。",
+      "draft_approval": {
+        "revision": 78,
+        "signature": "3a54ce72a3b1c75fe46dc4d4cce935859ef18777f4559a50407b5794c3d20a78",
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验"
+      }
     },
     {
       "room_id": "P-R26",
@@ -1878,51 +1936,75 @@
       "scene": "res://game/world/regions/P/rooms/P-R34.tscn",
       "encounters": [
         {
+          "id": "P-R34:r8:entry_cache_patrol",
           "behavior": "patrol",
-          "id": "P-R34:stalls_patrol",
-          "max_health": 9,
           "point": [
-            912,
-            366
-          ]
+            96,
+            432
+          ],
+          "max_health": 9
         },
         {
+          "id": "P-R34:r8:plaza_charger",
+          "behavior": "charger",
+          "point": [
+            1056,
+            1042
+          ],
+          "max_health": 14
+        },
+        {
+          "id": "P-R34:r8:plaza_diver",
+          "behavior": "diver",
+          "point": [
+            1408,
+            736
+          ],
+          "max_health": 9
+        },
+        {
+          "id": "P-R34:r8:east_hopper",
           "behavior": "hopper",
-          "id": "P-R34:under_stalls_hopper",
-          "max_health": 9,
           "point": [
-            1696,
-            1070
-          ]
+            2048,
+            1040
+          ],
+          "max_health": 9
         },
         {
-          "behavior": "patrol",
-          "id": "P-R34:east_roof_patrol",
-          "max_health": 9,
+          "id": "P-R34:r8:east_air_sentry",
+          "behavior": "fan_sentry",
           "point": [
-            2608,
-            366
-          ]
+            2480,
+            448
+          ],
+          "max_health": 9
         }
       ],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "open_P34_eaves_cache",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "选择屋顶短驳或落到摊间低路，再从下方转进水岸。",
-        "visual_read": "屋檐、摊间地面和下行出口形成三层关系。",
-        "pressure": "低路巡逻与跳怪分段；上层跨距和承载提供不同路线。",
-        "failure_recovery": "低路接住失手，可沿侧向石肩重组。",
-        "return_visit": "市集保留生活痕迹，不复制 NPC 商店和休息站。"
+        "player_decision": "由檐口落入冲锋广场，在低纪念台越敌换边，再沿一体建筑的高差接东岸。",
+        "visual_read": "广场和东侧建筑形成两个遭遇区，飞怪争夺高处、地面怪控制宽岸；左檐15金币独立探索。",
+        "failure_recovery": "下井门岸从右边起跳避开实体投影，经穿透宽井肩回广场；不把全部转角变成小平台。"
       },
       "art_focal_assets": [
-        "storage_crates",
-        "merchant_counter",
-        "barrel",
-        "plain_pier"
+        "bell_post"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
+      },
+      "spatial_intent": "由檐口落入冲锋广场，在低纪念台越敌换边，再沿一体建筑的高差接东岸。",
+      "draft_approval": {
+        "revision": 78,
+        "signature": "150ea24414db7d72e308f4c891d157faec5f9cc462d06039ae1d9b1745133cbd",
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验"
       }
     },
     {
