@@ -198244,7 +198244,7 @@
     "room_id": "P-R01",
     "section_id": "main",
     "landmark_action_ref": "station_briefing",
-    "control_policy": "首次到站在安全地面短剧情；可逐句推进或跳过，完成后提交station_briefing。",
+    "control_policy": "首次载台停稳到站后自动学习充电站休息；完成或跳过提交station_briefing与station_rest_taught完成标记。正式六房不提示尚未装载的东侧路线。",
     "resident_lines": [
       {
         "npc_id": "NPC_P_REC",
@@ -198266,7 +198266,7 @@
       "trigger_action": "station_briefing",
       "text": "先向东去世界钟心看看。",
       "show_once_on_first_arrival": true,
-      "once_scope": "existing station_briefing event; no additional gameplay action or token",
+      "once_scope": "station_briefing grants the existing quest; station_rest_taught records the actually completed arrival/rest lesson, including skip; no automatic completion on room load",
       "blocking": true,
       "input_lock": true,
       "dismissible_immediately": true,
@@ -198671,7 +198671,7 @@
       "room_id": "P-R01",
       "section_id": "main",
       "landmark_action_ref": "station_briefing",
-      "control_policy": "首次安全到站触发守钟匠短对话，可跳过；跳过仅提交station_briefing。P33正面进Z01门厅，室内说明完成后clockheart_briefed永久开放P01→P08，旧档clock_P亦可通行。",
+      "control_policy": "首次安全到站触发守钟匠休息教学，可跳过；跳过同样提交station_briefing与station_rest_taught标记，不自动执行休息。P33正面进Z01门厅，室内说明完成后clockheart_briefed永久开放P01→P08，旧档clock_P亦可通行。",
       "resident_lines": [
         {
           "npc_id": "NPC_P_REC",

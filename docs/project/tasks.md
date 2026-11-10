@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | 三铃哨地空分种、飞行56帧与P32整幅高塔远景已接入当前工作台 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 尸体真实支撑、小站到站休息教学与按实际灯位的室内外光照修复 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
 | MOBILE-LEVEL-WORKBENCH-01 | Site V18 / r68：双点出口跳房、37房隔离预览与钟心室内分层；整区审核含森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
@@ -22,7 +22,7 @@
 | WINDKEEPER-PRESSURE-01 | 牧风者招式成果与新攻击档位适配审核 | — | review | [交接](worklines/windkeeper_pressure_01/scope.md) |
 | BELLSTRIDER-REWORK-01 | 鸣铃巡游机的唯一弱点、三招、回冲与奖励验收 | — | review | [交接](worklines/bellstrider_rework_01/scope.md) |
 | ENEMY-ALL-02 | 全现存怪物同体动作与实机审核 | — | review | [交接](worklines/enemy_all_02/scope.md) |
-| PLAYER-PRESENTATION-01 | 充电站进出补帧与暖灰内腔；小站NPC及摆件按固定平台接地，已发布r68 | — | review | [交接](worklines/player_presentation_01/scope.md) |
+| PLAYER-PRESENTATION-01 | 共鸣蓄力独立集气／释放补帧、声音与特效，按保存结果和取消生命周期接入 | — | review | [交接](worklines/player_presentation_01/scope.md) |
 
 - `DEATH-RUNTIME-01`：聚合首用／战斗／死亡性能链，在同版真实设备复验；技术合入不代签帧时间。
 - `MOBILE-WEB-FPS-04`：实体手机复验普通 Web 帧时间、供音与大图；承接 MOBILE-WEB-PERF/AUDIO 系列。

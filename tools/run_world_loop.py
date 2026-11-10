@@ -32,6 +32,7 @@ def main():
         ('presentation_contracts.gd',r'WORLD PRESENTATION: \d+ assertions, 0 failures',60),
         ('demo_regressions.gd',r'WORLD DEMO: \d+ assertions, 0 failures',60),
         ('focus_heal.gd',r'WORLD HEAL: \d+ assertions, 0 failures',90),
+        ('station_arrival.gd',r'STATION ARRIVAL: \d+ assertions, 0 failures',60),
         ('focus_heal_restart.gd',r'WORLD HEAL RESTART: 0 failures',30),
         ('lifecycle.gd',r'WORLD LIFECYCLE: \d+ assertions, 0 failures',60),
         ('plains_state_contracts.gd',r'PLAINS STATE: \d+ assertions, 0 failures',60),

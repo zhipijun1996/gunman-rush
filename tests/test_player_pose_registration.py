@@ -8,6 +8,25 @@ from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
 D=ROOT/'assets/player_presentation_01/wake_wall'
 class PoseRegistration(unittest.TestCase):
+    def test_focus_pose_registration(self):
+        directory=ROOT/'assets/player_presentation_01/focus'
+        data=json.loads((directory/'build.json').read_text())
+        self.assertEqual(data['reference'],'assets/player_presentation_01/motion_v1/motion_source.png')
+        self.assertAlmostEqual(data['uniform_scale'],46/311)
+        self.assertEqual(len(set(f['pixel_sha256'] for f in data['frames'][1:7])),6)
+        atlas=Image.open(directory/'poses.png')
+        for i in range(8):
+            alpha=atlas.crop((i%4*80,i//4*64,i%4*80+80,i//4*64+64)).getchannel('A')
+            self.assertEqual(alpha.getbbox()[3],58)
+            boots=alpha.crop((0,54,80,58)).getbbox()
+            self.assertLessEqual(abs(((boots[0]+boots[2])/2-40)*44/46-13.5*44/182),1.6)
+        # Actual neutral anatomical windows, compared at gameplay scale.
+        live=Image.open(ROOT/data['reference']).getchannel('A').point(lambda a:255 if a>=128 else 0)
+        generated=Image.open(directory/'generated/player.png').getchannel('A').point(lambda a:255 if a>=128 else 0)
+        for a,b in [((130,60,252,151),(178,65,384,226)),((125,155,236,209),(178,235,370,324)),((125,220,240,242),(177,344,352,376))]:
+            aa=live.crop(a).getbbox();bb=generated.crop(b).getbbox()
+            self.assertLessEqual(abs((aa[2]-aa[0])*44/182-(bb[2]-bb[0])*44/311),3)
+
     def test_charging_reference_and_anatomy(self):
         directory=ROOT/'assets/player_presentation_01/charging'
         data=json.loads((directory/'build.json').read_text())

@@ -92,6 +92,7 @@ func _make_ui() -> void:
 
 func _apply_preferences() -> void:
 	preferences.apply(controller)
+	if is_instance_valid(focus_heal):focus_heal.reduced=bool(preferences.value.reduced)
 	if overlay!=null: overlay.update_layout()
 	ui.title._reduced_effects=preferences.value.reduced
 	var backdrop:=ui.title._root.find_child("TitleBackdrop",true,false)
@@ -136,6 +137,7 @@ func _create_player() -> void:
 	controller.enable_shot_energy()
 	controller.motor.tuning.projectile_damage = float(content.data.player.starting_projectile_damage)
 	preferences.apply(controller)
+	if is_instance_valid(focus_heal):focus_heal.reduced=bool(preferences.value.reduced)
 	if overlay.enabled: controller.router.touch_mouse_guard_until_usec=Time.get_ticks_usec()+InputRouter.TOUCH_MOUSE_GUARD_USEC
 	player.get_node("CourierVisual").hide()
 	player.get_node("PlayerVisualAdapter").process_mode=Node.PROCESS_MODE_DISABLED
@@ -163,6 +165,7 @@ func _create_player() -> void:
 	player.add_child(guard_visual)
 	focus_heal=WorldFocusHeal.new()
 	focus_heal.controller=controller;focus_heal.settings=content.data.player.focus_heal
+	focus_heal.reduced=bool(preferences.value.reduced)
 	player.add_child(focus_heal)
 	focus_heal.ready_to_heal.connect(func() -> void: enqueue("focus_heal",""))
 	RunComposition.attach_player_guides(player,controller)
@@ -900,5 +903,4 @@ func _commit_focus_heal() -> void:
 	var result:=health.heal(ActorResourceRequest.new(StringName(event),health.epoch,float(settings.heal),health.get_instance_id()))
 	assert(spent and result.accepted(),"Preflighted resource commit must remain synchronous")
 	focus_heal.resolve(true)
-	GameAudio.cue(self,&"confirm")
 

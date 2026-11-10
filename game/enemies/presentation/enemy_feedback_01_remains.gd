@@ -211,7 +211,7 @@ func _attach_support(hit: Dictionary) -> void:
 func _follow_support() -> void:
 	if not _landed or _support == null: return
 	var support := _support.get_ref() as Node2D
-	if is_instance_valid(support) and not support.is_queued_for_deletion():
+	if is_instance_valid(support) and not support.is_queued_for_deletion() and _support_contact(support):
 		_floor_point = support.to_global(_support_anchor)
 		global_position = _floor_point - Vector2(0, _frame_foot)
 		return
@@ -225,6 +225,16 @@ func _follow_support() -> void:
 	_fall_age = 0.0
 	_fall_start_y = global_position.y
 	phase = &"falling"
+
+func _support_contact(support: Node2D) -> bool:
+	# A live body may have had its collision disabled or its shape removed.
+	# Probe the transformed anchor, so moving platforms still carry the corpse.
+	var foot := support.to_global(_support_anchor)
+	var query := PhysicsRayQueryParameters2D.create(foot-Vector2(0,CONTACT_SLOP),foot+Vector2(0,CONTACT_SLOP),1)
+	query.collide_with_areas = false
+	if is_instance_valid(_motor) and _motor is CollisionObject2D: query.exclude = [(_motor as CollisionObject2D).get_rid()]
+	var hit := get_world_2d().direct_space_state.intersect_ray(query)
+	return not hit.is_empty() and hit.collider == support and (hit.normal as Vector2).dot(Vector2.UP) >= .65
 
 func _committed(context: Dictionary) -> void:
 	if _disposed or _begun or _sample == null or _health == null or not _health.terminal or not _sample.death_active: return
