@@ -14,8 +14,6 @@ static func prop(id: String) -> Texture2D:
 		atlas.filter_clip=true
 		_props[id]=atlas
 	return _props[id]
-static func draw_station(canvas: Node2D,foot: Vector2) -> void:
-	draw_icon(canvas,prop("charging_station"),foot,64)
 static func draw_thorns(canvas: Node2D,bounds: Rect2) -> void:
 	var texture:=preload("res://assets/forest_bible_v2/native/fine_32/thorn_briar_atlas.png")
 	# Native up-facing strip, clipped horizontally rather than stretched.
