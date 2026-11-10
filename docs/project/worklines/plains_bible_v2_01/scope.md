@@ -77,11 +77,11 @@ Z01剧情、旧集出口失败恢复、冰弹和武器匠的上一轮专项仍�
 
 ## 当前公开试玩
 
-[正式主游戏](https://zhipijun1996.github.io/gunman-rush/?v=2771565769f9)版本`2771565769f9`，运行源码`d5a3167f5bc610493dc12729fca0254470c635f5`，PR150尚未合入main。部署分支`playtest-plains-lighting-d5a3167f`只含最终Web产物，[Pages运行42868628490](https://github.com/zhipijun1996/gunman-rush/actions/runs/42868628490)成功。关卡审核平台保持原部署，读取时为r80，未改写人工审批。
+[正式主游戏](https://zhipijun1996.github.io/gunman-rush/index.html?v=da23be7e1eeb)版本`da23be7e1eeb`，运行源码`1c0dc2ddc1f727c9694787dfb3f4e95f59b1118a`，PR150尚未合入main。部署分支`playtest-plains-composition-1c0dc2dd`只含最终Web产物，[Pages运行42881628580](https://github.com/zhipijun1996/gunman-rush/actions/runs/42881628580)成功。审核平台保持原部署，未改写人工审批。
 
-显式资源闭包和独立PCK装载通过，正式36房、隔离预览37房、15种怪物；正常新档从P03开始。PCK为136,404,128字节，SHA256为`2771565769f932a1c25e88da9fb3697d37c39a0d96b33dbc812092937df9312c`。公网版本信息、首页、缓存脚本、完整PCK和短片与本地交付一致。Chromium WebGL2检查P34、Z01与正常新游戏，无脚本错误；桌面软件渲染不代表安卓性能。
+显式资源闭包及独立PCK装载通过：正式36房、隔离预览37房、16种行为；PCK为136,456,180字节，SHA256为`da23be7e1eebab92d3423c759d9d472148257599d12305c17978145416379e96`。公网首页、版本、缓存脚本、完整PCK与四段短片逐字节一致。本地Chromium WebGL2运行P10、P12、P02及正常新游戏，无脚本错误；公网P10启动也已检查，其余公网逐房浏览因运行环境重启未完成，不冒充手机性能或全区体验验证。
 
-[旧集右门](https://zhipijun1996.github.io/gunman-rush/?v=2771565769f9&review=P-R34&stage=base)可逐房复测。[往返短片](https://zhipijun1996.github.io/gunman-rush/review/crossing.mp4)约5秒／500KB，原生正式控制器、正常速度、局部起点，敌人保持运行；不是新档连续通关。[冰弹](https://zhipijun1996.github.io/gunman-rush/review/ice.mp4)与[领奖安装](https://zhipijun1996.github.io/gunman-rush/review/install.mp4)沿用对应功能的既有短片。当前日志、160处逐房静态取景及原始录像在build/plains-art-pass，不进入源码树。
+[手机短片页](https://zhipijun1996.github.io/gunman-rush/review/index.html?v=da23be7e1eeb)包含P10命中续枪、P12射铃开闸、蓄力回复和金币声音，均为正常速度、约3–4秒，每段130–260KB，可独立下载。短片使用明确局部起点；回复预设缺血与共鸣，金币段预设守卫已击败，仍走真实操作／保存／入账流程。页面含P10/P12直达试玩，390px触屏布局与四段视频元数据已检查。当前日志、159处原生静态取景及原始短片在`build/plains-composition/`，不进入源码树。
 
 ## 未验与下一步
 
