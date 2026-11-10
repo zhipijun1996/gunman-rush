@@ -22,6 +22,23 @@ func run() -> void:
  await load_room("P-R32")
  await hop(Vector2(736,1006),Vector2(1056,942),Vector2(-.9,.4),"P32 first broken bridge")
  await hop(Vector2(1440,942),Vector2(1696,814),Vector2(-.8,.6),"P32 second pier rise")
+ await load_room("P-R32","h")
+ await fixture(Vector2(1184,942));app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(12)
+ app.controller.router.request_action(&"grapple",(Vector2(1200,680)-app.player.position-Vector2(0,-6)).normalized())
+ for i:int in 90:
+  await ticks(1)
+  if app.controller.traversal.state==&"hook_hang":break
+ check(app.controller.traversal.state==&"hook_hang","P32 lower stop anchor")
+ app.controller.router.set_jump_held(&"keyboard_mouse",false);await ticks(1)
+ app.controller.router.set_source_axis(&"keyboard_mouse",-1);app.controller.router.set_jump_held(&"keyboard_mouse",true)
+ for i:int in 90:
+  await ticks(1)
+  if app.player.position.x<1104:app.controller.router.set_source_axis(&"keyboard_mouse",0)
+  if i>10 and app.player.is_on_floor():break
+ check(app.player.is_on_floor() and absf(app.player.position.y-622)<5,"P32 held anchor jumps onto broad upper bank "+str(app.player.position))
+ await hook(Vector2(1104,622),Vector2(960,416),"P32 upper anchor after bank",12)
+ app.controller.router.request_action(&"grapple",(Vector2(960,224)-app.player.position-Vector2(0,-6)).normalized());await ticks(60)
+ check(app.controller.traversal.state==&"hook_hang" and app.player.position.distance_to(Vector2(960,224))<65,"P32 final anchor reaches top doorway")
  exercise_story=true
  await load_room("P-R01")
  await fixture((app.room.get_node("StationLift") as WorldMovingPlatform).position-Vector2(0,28))
