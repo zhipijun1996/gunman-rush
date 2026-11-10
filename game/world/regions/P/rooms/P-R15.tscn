@@ -1,27 +1,33 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_ni3xs"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="2_b5le1"]
-[ext_resource type="Script" path="res://game/world/components/grapple_anchor.gd" id="3_rjlb4"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_ey368"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="2_u8yyo"]
+[ext_resource type="Script" path="res://game/world/components/grapple_anchor.gd" id="3_p5pqs"]
 
 [node name="P-R15" type="Node2D" unique_id=1613205744]
-script = ExtResource("1_ni3xs")
+script = ExtResource("1_ey368")
 room_id = "P-R15"
 arrival_text = "风鸣钟台"
 route_guide = {
 "schema": 1.0,
 "steps": [{
-"action": "沿错侧检修台下降到井底；修钟后开回桥捷径，不用细长钩点梯重复攀井。",
-"label": "钟轴下降",
+"action": "沿R6三处宽岸安全下降；钩点集中在井底横渡和失手恢复，不在整根长井散放。",
+"label": "三处检修宽岸下降",
 "number": 1.0,
-"path": [[192.0, 142.0], [864.0, 366.0], [864.0, 1440.0], [864.0, 2592.0], [864.0, 3758.0]],
+"path": [[192.0, 142.0], [864.0, 366.0], [832.0, 910.0], [984.0, 2062.0], [800.0, 3214.0], [864.0, 3758.0]],
 "point": [192.0, 142.0]
 }, {
-"action": "停驻环提供观察与恢复，弹跃锚接续横越；到风鸣钟台修钟后开回程捷径。",
-"label": "横越校时台",
+"action": "在准备岸看见第一停驻环；向右离岸下落越过井口实体转角，再逐环牵引，末环向左射击反冲到宽钟台，实际修钟与回桥捷径身份不变。",
+"label": "H1—H3横渡至风鸣钟",
 "number": 2.0,
-"path": [[864.0, 3758.0], [1136.0, 3840.0], [1520.0, 3840.0], [1952.0, 3918.0], [2304.0, 4686.0]],
-"point": [864.0, 3758.0]
+"path": [[960.0, 3758.0], [1048.0, 3808.0], [1120.0, 3840.0], [1296.0, 3808.0], [1472.0, 3840.0], [1568.0, 3918.0], [1952.0, 3918.0], [2112.0, 3918.0]],
+"point": [960.0, 3758.0]
+}, {
+"action": "横渡失手落到安全盆地；逐环跳离再钩上行，最上环位于钟台左侧外缘，可跳回钟台，不靠未实现的回弹。",
+"label": "H4—H7底部恢复",
+"number": 3.0,
+"path": [[1152.0, 4686.0], [1152.0, 4528.0], [1280.0, 4320.0], [1408.0, 4112.0], [1488.0, 3896.0], [1632.0, 3918.0]],
+"point": [1152.0, 4686.0]
 }]
 }
 section_volumes = Array[Dictionary]([{
@@ -54,17 +60,17 @@ art_placements = Array[Dictionary]([{
 "asset": "gear_lamp",
 "layer": -2.0,
 "light": true,
-"point": [768.0, 544.0]
+"point": [832.0, 928.0]
 }, {
 "asset": "gear_lamp",
 "layer": -2.0,
 "light": true,
-"point": [1024.0, 1696.0]
+"point": [960.0, 2080.0]
 }, {
 "asset": "gear_lamp",
 "layer": -2.0,
 "light": true,
-"point": [768.0, 2848.0]
+"point": [832.0, 3232.0]
 }, {
 "asset": "leaf_sprig",
 "layer": -1.0,
@@ -85,18 +91,18 @@ art_placements = Array[Dictionary]([{
 "sway": true
 }])
 art_profile = "clock"
-platforms = Array[Rect2]([Rect2(0, 160, 352, 224), Rect2(704, 544, 128, 24), Rect2(960, 928, 128, 24), Rect2(704, 1312, 128, 24), Rect2(960, 1696, 128, 24), Rect2(704, 2080, 128, 24), Rect2(960, 2464, 128, 24), Rect2(704, 2848, 128, 24), Rect2(960, 3232, 128, 24), Rect2(704, 3616, 128, 24), Rect2(512, 4704, 1600, 96), Rect2(2240, 4704, 192, 96), Rect2(1536, 3936, 704, 64), Rect2(704, 3776, 288, 48)])
+platforms = Array[Rect2]([Rect2(0, 160, 352, 224), Rect2(704, 928, 256, 24), Rect2(832, 2080, 256, 24), Rect2(704, 3232, 256, 24), Rect2(512, 4704, 1600, 96), Rect2(2240, 4704, 192, 96), Rect2(1536, 3936, 704, 64), Rect2(704, 3776, 288, 48)])
 workbench_entity_ids = {
 "art_placements": ["P-R15:art_placements:0", "P-R15:art_placements:1", "P-R15:art_placements:2", "P-R15:art_placements:3", "P-R15:art_placements:4", "P-R15:revival:0", "P-R15:revival:1", "P-R15:revival:2"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],
-"platforms": ["P-R15:platforms:0", "P-R15:platforms:1", "P-R15:platforms:2", "P-R15:platforms:3", "P-R15:platforms:4", "P-R15:platforms:5", "P-R15:platforms:6", "P-R15:platforms:7", "P-R15:platforms:8", "P-R15:platforms:9", "P-R15:platforms:10", "P-R15:platforms:11", "P-R15:platforms:12", "P-R15:platforms:13"],
+"platforms": ["P-R15:platforms:0", "P-R15:platforms:2", "P-R15:platforms:5", "P-R15:platforms:8", "P-R15:platforms:10", "P-R15:platforms:11", "P-R15:platforms:12", "P-R15:platforms:13"],
 "retry_anchors": ["P-R15:retry_anchors:0", "P-R15:retry_anchors:1", "P-R15:retry_anchors:2"],
 "signs": []
 }
-one_way_indices = Array[int]([1, 2, 3, 4, 5, 6, 7, 8, 9])
-masonry_platform_indices = Array[int]([12])
+one_way_indices = Array[int]([1, 2, 3])
+masonry_platform_indices = Array[int]([6])
 start_point = Vector2(192, 142)
 story_sequence = {
 "action": "",
@@ -110,7 +116,7 @@ story_sequence = {
 
 [node name="Interaction_0" type="Node2D" parent="." unique_id=1940423969]
 position = Vector2(1952, 3918)
-script = ExtResource("2_b5le1")
+script = ExtResource("2_u8yyo")
 action_id = "repair_P"
 section_id = "access:H"
 label = "修复风鸣钟"
@@ -118,36 +124,43 @@ visual = "clock_altar"
 
 [node name="Interaction_1" type="Node2D" parent="." unique_id=782465153]
 position = Vector2(2112, 3918)
-script = ExtResource("2_b5le1")
+script = ExtResource("2_u8yyo")
 action_id = "open_SC_P01"
 section_id = "access:H"
 label = "开启回程机关"
 visual = "pulley_switch"
 
 [node name="ClockAnchor0" type="Area2D" parent="." unique_id=603406202]
-position = Vector2(1136, 3840)
-script = ExtResource("3_rjlb4")
+position = Vector2(1120, 3840)
+script = ExtResource("3_p5pqs")
 hang_enabled = true
 
 [node name="ClockAnchor1" type="Area2D" parent="." unique_id=1094933618]
-position = Vector2(1328, 3808)
-script = ExtResource("3_rjlb4")
+position = Vector2(1296, 3808)
+script = ExtResource("3_p5pqs")
+hang_enabled = true
 
 [node name="ClockAnchor2" type="Area2D" parent="." unique_id=1400196663]
-position = Vector2(1520, 3840)
-script = ExtResource("3_rjlb4")
+position = Vector2(1472, 3840)
+script = ExtResource("3_p5pqs")
 hang_enabled = true
 
 [node name="ClockAnchor3" type="Area2D" parent="." unique_id=661774305]
-position = Vector2(1248, 4512)
-script = ExtResource("3_rjlb4")
+position = Vector2(1152, 4528)
+script = ExtResource("3_p5pqs")
 hang_enabled = true
 
 [node name="ClockAnchor4" type="Area2D" parent="." unique_id=250449194]
-position = Vector2(1440, 4304)
-script = ExtResource("3_rjlb4")
+position = Vector2(1280, 4320)
+script = ExtResource("3_p5pqs")
+hang_enabled = true
 
 [node name="ClockAnchor5" type="Area2D" parent="." unique_id=819300057]
-position = Vector2(1632, 4096)
-script = ExtResource("3_rjlb4")
+position = Vector2(1408, 4112)
+script = ExtResource("3_p5pqs")
+hang_enabled = true
+
+[node name="ClockRecoveryTop" type="Area2D" parent="." unique_id=881084424]
+position = Vector2(1488, 3896)
+script = ExtResource("3_p5pqs")
 hang_enabled = true

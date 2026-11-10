@@ -1,37 +1,101 @@
-[gd_scene load_steps=6 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[ext_resource type="Script" path="res://game/bosses/bellstrider/bellstrider_world_binding.gd" id="boss"]
-[node name="P-R11" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_mxwro"]
+[ext_resource type="Script" path="res://game/bosses/bellstrider/bellstrider_world_binding.gd" id="2_ln6i6"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_0svpa"]
+
+[node name="P-R11" type="Node2D" unique_id=1738256695]
+script = ExtResource("1_mxwro")
 room_id = "P-R11"
-art_profile = "mill"
 arrival_text = "风车机匣"
-platforms = Array[Rect2]([Rect2(0,1216,320,128),Rect2(320,1152,2368,192),Rect2(384,1056,256,32),Rect2(1664,1056,256,32),Rect2(308,512,24,448),Rect2(1972,512,24,448),Rect2(320,512,1664,24)])
-one_way_indices = Array[int]([2,3])
-start_point = Vector2(144,1198)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset":"mill_drive_frame","point":[2368,1152],"layer":-2},{"asset":"gear_city_v2_valve_panel","point":[240,1216],"layer":-2}])
-boss_binding = ExtResource("boss")
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "唯一机芯保留原位置和Boss资格；奖励右上只露第一枚铜环，没有沿路金币或箭头泄露顶端藏点。",
+"label": "先领机芯，再看右上",
+"number": 1.0,
+"path": [[2240.0, 1134.0], [2304.0, 1134.0], [2352.0, 896.0]],
+"point": [2240.0, 1134.0]
+}, {
+"action": "第一钩恢复后跳离、向下射击再挂第二钩；沿原框外侧接第三钩，右侧检修岸可落地整理与重试。",
+"label": "框外钩索接反冲",
+"number": 2.0,
+"path": [[2352.0, 896.0], [2304.0, 544.0], [2192.0, 256.0], [2448.0, 238.0], [2528.0, 238.0]],
+"point": [2352.0, 896.0]
+}, {
+"action": "上端整块岸的检修箱集中散落30金币；取后沿右侧落到检修岸再回领奖地，不要求重复高处精密链。",
+"label": "有收益且能落回",
+"number": 3.0,
+"path": [[2528.0, 238.0], [2512.0, 686.0], [2500.0, 1134.0], [2240.0, 1134.0]],
+"point": [2528.0, 238.0]
+}]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [2464.0, 644.0, 96.0, 60.0],
+"point": [2512.0, 686.0],
+"section": "main"
+}, {
+"bounds": [2384.0, 196.0, 96.0, 60.0],
+"point": [2432.0, 238.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([{
+"asset": "mill_drive_frame",
+"layer": -2.0,
+"point": [2368.0, 1152.0]
+}, {
+"asset": "gear_city_v2_valve_panel",
+"layer": -2.0,
+"point": [240.0, 1216.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [2432.0, 1152.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [2512.0, 704.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [2464.0, 256.0]
+}])
+art_profile = "mill"
+platforms = Array[Rect2]([Rect2(0, 1216, 320, 128), Rect2(320, 1152, 2368, 192), Rect2(384, 1056, 256, 32), Rect2(1664, 1056, 256, 32), Rect2(308, 512, 24, 448), Rect2(1972, 512, 24, 448), Rect2(320, 512, 1664, 24), Rect2(2336, 704, 352, 32), Rect2(2304, 256, 384, 32)])
+workbench_entity_ids = {
+"art_placements": ["P-R11:art_placements:0", "P-R11:art_placements:1", "P-R11:built:inspection_lamp_0", "P-R11:built:inspection_lamp_1", "P-R11:built:inspection_lamp_2"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": ["P-R11:r7:hook_0", "P-R11:r7:hook_1", "P-R11:r7:hook_2"],
+"platforms": ["P-R11:platforms:0", "P-R11:platforms:1", "P-R11:platforms:2", "P-R11:platforms:3", "P-R11:platforms:4", "P-R11:platforms:5", "P-R11:platforms:6", "P-R11:r7:service_perch", "P-R11:r7:upper_cache"],
+"retry_anchors": ["P-R11:r7:retry_0", "P-R11:r7:retry_1"],
+"signs": []
+}
+one_way_indices = Array[int]([2, 3, 7])
+start_point = Vector2(144, 1198)
+hook_points = Array[Vector2]([Vector2(2352, 896), Vector2(2304, 544), Vector2(2192, 256)])
 boss_identity = &"bellstrider"
+boss_binding = ExtResource("2_ln6i6")
 defeat_action = "defeat_P_BELLSTRIDER"
 defeat_flag = "boss_P_BELLSTRIDER_defeated"
-boss_position = Vector2(1484.8,1087)
-arena_bounds = Rect2(320,512,1664,640)
-battle_entry_anchor = Vector2(400,1134)
-masonry_platform_indices = Array[int]([])
-illustrated_platform_indices = Array[int]([])
-[node name="Interaction_0" type="Node2D" parent="."]
-script = ExtResource("interaction")
-position = Vector2(2240,1134)
+boss_position = Vector2(1484.8, 1087)
+arena_bounds = Rect2(320, 512, 1664, 640)
+battle_entry_anchor = Vector2(400, 1134)
+
+[node name="Interaction_0" type="Node2D" parent="." unique_id=1373729102]
+position = Vector2(2240, 1134)
+script = ExtResource("3_0svpa")
 action_id = "pickup_part_triple"
-section_id = "main"
 label = "收取三联机芯"
 visual = "equipment"
+
+[node name="Cache_crown_cache" type="Node2D" parent="." unique_id=285111318]
+position = Vector2(2528, 238)
+script = ExtResource("3_0svpa")
+action_id = "open_P11_crown_cache"
+label = "打开机架顶检修箱"
+visual = "chest"
+radius = 48.0

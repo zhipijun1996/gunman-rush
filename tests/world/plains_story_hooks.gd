@@ -45,7 +45,7 @@ func run() -> void:
 		hung=hung or app.controller.traversal.state==&"hook_hang"
 	check(bounced and not hung,"open spring anchor bounces and never holds")
 	await load_room("P-R15","h")
-	await hook(Vector2(976,3758),Vector2(1136,3840),"P15 first stop anchor reachable from bank")
+	# Full revised throat/crossing/recovery is covered by approved_clock_rooms.
 	await fixture(Vector2(1952,3918));await ticks(3)
 	var zoom_before:=app.camera.zoom
 	app._commit_action("repair_P");await ticks(4)

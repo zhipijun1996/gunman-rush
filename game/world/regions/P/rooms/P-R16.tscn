@@ -1,30 +1,89 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R16" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_cs24h"]
+[ext_resource type="Script" path="res://game/world/components/grapple_anchor.gd" id="2_tmuht"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_hal60"]
+
+[node name="P-R16" type="Node2D" unique_id=1968499793]
+script = ExtResource("1_cs24h")
 room_id = "P-R16"
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "机匣前庭", "action": "宽岸整备后沿梁架上行，东门进入巡游机战场。", "point": [512, 1166], "path": [[512, 1166], [448, 1006], [448, 878], [912, 750], [1392, 686]]}]}
-traveler_point = Vector2(0,0)
-climbable_walls = Array[Rect2]([])
-environment_zones = Array[Dictionary]([])
-bell_mechanisms = Array[Dictionary]([])
-gear_obstacles = Array[Dictionary]([])
-hazards = Array[Rect2]([])
-art_profile = "mill"
-spike_strips = Array[Dictionary]([])
 arrival_text = "风车外沿廊"
-platforms = Array[Rect2]([Rect2(192,1248,128,32),Rect2(448,1184,128,96),Rect2(0,1024,320,64),Rect2(576,1024,960,64),Rect2(320,1024,256,24),Rect2(320,896,288,32),Rect2(768,768,288,32),Rect2(1248,704,288,64)])
-one_way_indices = Array[int]([4,5,6])
-start_point = Vector2(512,1166)
-rest_point = Vector2(640,1006)
-enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset":"mill_drive_frame","point":[1312,1024],"layer":-2},{"asset":"gear_lamp","point":[448,896],"layer":-2,"light":true},{"asset":"storage_crates","point":[1392,704],"layer":-2}])
-masonry_platform_indices = Array[int]([])
-illustrated_platform_indices = Array[int]([])
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "保留底部休息岸与通向东门的原台阶；无H也可按原路到达出口。",
+"label": "休息与初访主路",
+"number": 1.0,
+"path": [[512.0, 1166.0], [448.0, 1006.0], [640.0, 1006.0], [448.0, 878.0], [912.0, 750.0], [1392.0, 686.0]],
+"point": [512.0, 1166.0]
+}, {
+"action": "从上层主路牵引第一环，跳离后钩住左上环，再向右下射击反冲到左侧高岸；高阁箱一次散落20金币，不沿路零散撒币。",
+"label": "上空钩索与反冲回访",
+"number": 2.0,
+"path": [[992.0, 750.0], [1040.0, 576.0], [784.0, 416.0], [608.0, 206.0], [480.0, 206.0]],
+"point": [992.0, 750.0]
+}, {
+"action": "从高岸右端落下可再钩上环稳住，松钩后回原6号宽台；漏钩也落入无刺休息层。",
+"label": "从高岸回主路",
+"number": 3.0,
+"path": [[480.0, 206.0], [704.0, 206.0], [784.0, 416.0], [960.0, 750.0], [1392.0, 686.0]],
+"point": [480.0, 206.0]
+}]
+}
+art_placements = Array[Dictionary]([{
+"asset": "mill_drive_frame",
+"layer": -2.0,
+"point": [1312.0, 1024.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [448.0, 896.0]
+}, {
+"asset": "storage_crates",
+"layer": -2.0,
+"point": [1392.0, 704.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [976.0, 768.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [624.0, 224.0]
+}])
+art_profile = "mill"
+platforms = Array[Rect2]([Rect2(192, 1248, 128, 32), Rect2(448, 1184, 128, 96), Rect2(0, 1024, 320, 64), Rect2(576, 1024, 960, 64), Rect2(320, 1024, 256, 24), Rect2(320, 896, 288, 32), Rect2(768, 768, 288, 32), Rect2(1248, 704, 288, 64), Rect2(384, 224, 288, 40)])
+workbench_entity_ids = {
+"art_placements": ["P-R16:art_placements:0", "P-R16:art_placements:1", "P-R16:art_placements:2", "P-R16:built:inspection_lamp_0", "P-R16:built:inspection_lamp_1"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R16:platforms:0", "P-R16:platforms:1", "P-R16:platforms:2", "P-R16:platforms:3", "P-R16:platforms:4", "P-R16:platforms:5", "P-R16:platforms:6", "P-R16:platforms:7", "P-R16:r7:upper_coin_bank"],
+"retry_anchors": [],
+"signs": []
+}
+one_way_indices = Array[int]([4, 5, 6])
+masonry_platform_indices = Array[int]([8])
+start_point = Vector2(512, 1166)
+rest_point = Vector2(640, 1006)
+
+[node name="LoftApproachHook" type="Area2D" parent="." unique_id=1008299005]
+position = Vector2(1040, 576)
+script = ExtResource("2_tmuht")
+hang_enabled = true
+
+[node name="LoftRecoilHook" type="Area2D" parent="." unique_id=694078486]
+position = Vector2(784, 416)
+script = ExtResource("2_tmuht")
+hang_enabled = true
+
+[node name="Cache_loft_cache" type="Node2D" parent="." unique_id=375117998]
+position = Vector2(480, 206)
+script = ExtResource("3_hal60")
+action_id = "open_P16_loft_cache"
+label = "打开回铃高阁箱"
+visual = "chest"
+radius = 48.0

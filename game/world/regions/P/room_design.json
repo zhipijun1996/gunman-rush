@@ -597,23 +597,32 @@
         {
           "action": "pickup_part_triple",
           "section": "main"
+        },
+        {
+          "action": "open_P11_crown_cache",
+          "section": "main"
         }
       ],
       "experience": {
-        "player_decision": "从外廊进入巡游机战场，读招、越敌换位，胜利后到东侧取部件。",
-        "visual_read": "战场与整备来向、领奖侧分别留净空。",
-        "pressure": "沿用批准的巡游机招式和数值；不加额外地形危险。",
-        "failure_recovery": "战败沿正式休息恢复；胜利解封与奖励收据仍由原所有者处理。",
-        "return_visit": "胜后不重生唯一奖励，场地可通行。"
+        "player_decision": "领奖后的框外高处回访，保留巡游机竞技场与唯一机芯；三枚钩点接反冲到顶岸，取箱后下落回领奖地。",
+        "visual_read": "机芯旁只预览第一铜环；上端箱不以散币指路，机架内战场与框外高岸层次分开。",
+        "failure_recovery": "高链失手可落右侧检修岸或领奖地整理；顶岸取箱后沿右侧落回，不重复精密链。"
       },
       "art_focal_assets": [
         "mill_drive_frame",
-        "gear_city_v2_valve_panel"
+        "gear_city_v2_valve_panel",
+        "gear_lamp"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
+      },
+      "spatial_intent": "领奖后的框外高处回访，保留巡游机竞技场与唯一机芯；三枚钩点接反冲到顶岸，取箱后下落回领奖地。",
+      "draft_approval": {
+        "revision": 76,
+        "signature": "b5a3d83f0866380849268236e3de63c765ec24f835e7358c3eb509c6c59c3841",
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验"
       }
     },
     {
@@ -748,11 +757,9 @@
         }
       ],
       "experience": {
-        "player_decision": "胜利后少量上下错开的弹簧扣／停留环，各段有真实接收岸，避免整齐密列。",
-        "visual_read": "竞技场体量保持独立，胜利廊道的索点与钟灯引向真正的下行接口。",
-        "pressure": "战斗压力集中在竞技场；胜利后的索点间保留安全下层，不再叠加敌人追击。",
-        "failure_recovery": "只从真实接近侧恢复；战后下降到独立奖励前庭。",
-        "return_visit": "H 与回岔路闸分别交互，胜利不代替领取与开闸。"
+        "player_decision": "战前错肩接入，基础枪与移动击败牧风者；领取H后沿高低石肩练习停驻／弹跃钩索，低廊开回环。",
+        "visual_read": "三层战场保持原封门与恒定缩放；战后铜环错落分布，检修灯落在实际石肩上。",
+        "failure_recovery": "上路失手落低廊；两处断口可反冲返回侧闸，不将低廊变成重新挑战Boss的强制入口。侧闸下出口是128宽实体缺口，两侧各留接收岸。"
       },
       "art_focal_assets": [
         "windmill_frame",
@@ -763,7 +770,12 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
       },
-      "spatial_intent": "胜利后少量上下错开的弹簧扣／停留环，各段有真实接收岸，避免整齐密列。"
+      "spatial_intent": "战前错肩接入，基础枪与移动击败牧风者；领取H后沿高低石肩练习停驻／弹跃钩索，低廊开回环。",
+      "draft_approval": {
+        "revision": 76,
+        "signature": "ea922e012a65c65dab179ae2763278ad4de5887d20ebbb80246d622cafcfaaf6",
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验"
+      }
     },
     {
       "room_id": "P-R15",
@@ -783,23 +795,27 @@
         }
       ],
       "experience": {
-        "player_decision": "钟轴下降删除无职责的钩点列，盆地下方保留有用恢复锚；修钟触发统一镜头演出、钟声与环境状态变化。",
-        "visual_read": "轴井铜环、间隔检修台和底部独立钟台明确去向。",
-        "pressure": "安静的胜利后H运用；不叠加敌人追击。",
-        "failure_recovery": "轴井有分段维修台，底部可借回程铜环接近钟台；捷径另行开启。",
-        "return_visit": "钟台保持已校时姿态，捷径独立保存。"
+        "player_decision": "沿三处宽岸下降到钟井；三环横渡修风鸣钟，失手由安全盆地的恢复环返回钟台。",
+        "visual_read": "检修灯附着三处宽岸；井底横渡环与恢复环有不同高程，钟台保留主钟与修复后复苏。",
+        "failure_recovery": "横渡落空在无刺盆地重新上钩；修钟开启回长桥捷径，保留实际状态收据。"
       },
       "art_focal_assets": [
         "world_clock_far",
         "windchime_plains_v2_bell_wheel",
-        "gear_lamp"
+        "gear_lamp",
+        "leaf_sprig"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "本房不新增战斗压力。"
       },
-      "spatial_intent": "钟轴下降删除无职责的钩点列，盆地下方保留有用恢复锚；修钟触发统一镜头演出、钟声与环境状态变化。"
+      "spatial_intent": "沿三处宽岸下降到钟井；三环横渡修风鸣钟，失手由安全盆地的恢复环返回钟台。",
+      "draft_approval": {
+        "revision": 76,
+        "signature": "3deb3ae27141d4a0d6b2da94210b1b637fd5967cd155cdd876c0b02c367ce0c0",
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验"
+      }
     },
     {
       "room_id": "P-R16",
@@ -808,13 +824,16 @@
       "profile": "mill",
       "scene": "res://game/world/regions/P/rooms/P-R16.tscn",
       "encounters": [],
-      "interactions": [],
+      "interactions": [
+        {
+          "action": "open_P16_loft_cache",
+          "section": "main"
+        }
+      ],
       "experience": {
-        "player_decision": "在入口上方宽岸休息，沿机架反冲上行到巡游机门口。",
-        "visual_read": "休息灯与三段机架高差引向东门。",
-        "pressure": "整备空间无敌人和地刺。",
-        "failure_recovery": "低口保留实地和可向上穿越的检修板；能返回风车来向。",
-        "return_visit": "可选巡游机胜后仍能返回这个整备点。"
+        "player_decision": "休息后无H仍可沿主路到机舱；H回访上空双环，跳离向右下射击反冲上左高岸取箱。",
+        "visual_read": "底部服务岸与东门主路清晰，高阁箱集中在上层可选空间，双环不排列成长钩梯。",
+        "failure_recovery": "高岸右端落回主路；漏钩落入无刺休息层，不以重复战斗封死回访。"
       },
       "art_focal_assets": [
         "mill_drive_frame",
@@ -825,6 +844,12 @@
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "既有同体敌人/Boss 动画、预警、命中与死亡表现。"
+      },
+      "spatial_intent": "休息后无H仍可沿主路到机舱；H回访上空双环，跳离向右下射击反冲上左高岸取箱。",
+      "draft_approval": {
+        "revision": 76,
+        "signature": "9bcb8b9c70b389b49b808f9ac968799dbf099575f8a919936995b834b885cee6",
+        "meaning": "人工草稿布局初审；正式内容与连续体验另验"
       }
     },
     {
