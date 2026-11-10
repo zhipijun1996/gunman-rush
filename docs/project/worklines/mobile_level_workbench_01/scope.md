@@ -5,7 +5,7 @@
 ## 当前交付与身份
 
 - 工作台：https://windchime-level-workbench.zhipijun1996.chatgpt.site ，账号私有。Site V18（工具1.6.0），网页源码 `54ff947ac369fae5d162a54b01d405f9da23cb0d`，发布成功。整区审核内切换平原与森林，分别显示灰盒制作／正式接入与规划稿；森林提供24房地图、五条路线、逐房方案、SVG和本机反馈复制。
-- 本批游戏源码 `e2c08e628cbd52c53d3541a30d20166389de0a94`，接续PR147／PR148工作线；[发行流水线](https://github.com/zhipijun1996/gunman-rush/actions/runs/42782812971)成功，线上已迁移至r66。r65→r66三方比较无冲突、锁定或校验错误；恢复点`3f2fb7d4-4291-4b16-b29d-8eb0a5d61960`保存更新前r65。P01读回确认新版绑定，P09/P18/P29除草稿revision及基线content_version更新外，属性、实体、来源哈希和几何逐项一致；目录仍提供15种怪物。
+- 本批游戏源码 `8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`，接续PR147／PR148工作线；[发行流水线](https://github.com/zhipijun1996/gunman-rush/actions/runs/42786844875)成功，线上已迁移至r68。r67→r68三方比较无冲突、锁定或校验错误；恢复点`36f41b82-4109-46da-9621-e817710d4338`保存更新前r67。P01读回确认新版绑定及NPC／柜台／箱子／钟台新坐标，P09/P18/P29除草稿revision及基线content_version更新外，属性、实体、来源哈希和几何逐项一致；目录仍提供15种怪物。
 - 确切发行／运行包哈希与草稿绑定见[项目定位](../../../../tools/workbench/site-project.json)。更新使用三方比较，保留人工微调与不可变恢复点。
 - P18/P29的one_way_indices在编辑器按数值排序，集合和碰撞内容未变；规范化脏标记不代表人工地形变化，不为清标记覆盖真实草稿。
 - 正式施工仍为6房；工作台35个平原房和V-R12、Z-R01共37房可隔离灰盒审核。本轮仅发布工作台试玩，未合入main或扩大正式主站范围。
@@ -40,9 +40,9 @@ V-R12职责见[区域规范](../../../bible/regions/starbridge_gate.md)与该区
 
 - 主角苏醒／贴墙／查看及充电补帧统一以正式默认待机为母版，保持头身和原脚底偏移。充电站采用黄铜舱体与暖灰内腔，青绿只用于线圈／电流，10张进出／接通姿态消费原休息事务；电流、恢复音和柔和刷新在实际事件同步，保存失败不发成功反馈。
 - 本轮6项比例／素材登记、P01固定地面支撑专项与日常CI四项通过。回收匠／柜台移至升降井东岸，钟台收回西岸，箱子移至棚屋右侧；风铃架、路灯、告示与剧情NPC按固定平台接地。正常窗口实看西岸、服务区及高处落台；平台和升降路线未改。上一轮休息事务、共鸣回复与敌人状态专项及五站完整恢复证据仍有效，不代表全区摆件已检查。
-- 新运行包通过真实PCK探针，正式6房、编辑37房、15种怪物可装载；线上包134,713,788字节，低于现行129MiB上限。原始生成图和比例对照不进入运行包。
+- 新运行包通过真实PCK探针，正式6房、编辑37房、15种怪物可装载；线上包134,713,612字节，低于现行129MiB上限。原始生成图和比例对照不进入运行包。
 - 迁移保留更新前最新的三处人工房间。其余关卡／剧情／怪物／森林规划验证边界沿相应工作线，Site仍为V18。
-- 可下载[充电站完整进出与恢复短片](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/24e6c7bbf3b790810e5482c9cb2f1707ba0f97fc/charging-rest.mp4)和[角色同尺度对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/24e6c7bbf3b790810e5482c9cb2f1707ba0f97fc/proportions.png)。短片约6秒、466,776字节，60fps正常速度，含实际混音；使用P01声明局部起点和2HP前置，不代表从开场连续走到小站。链接读回哈希一致，源码身份归同分支media.json。
+- 可下载[新版充电短片](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/e4b8695b02e49ddca79338e5e7258db9c6827fc2/charging-rest.mp4)、[西岸站体](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/e4b8695b02e49ddca79338e5e7258db9c6827fc2/station-west.png)与[服务区接地画面](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/e4b8695b02e49ddca79338e5e7258db9c6827fc2/station-services.png)。短片4.8秒、349,304字节，60fps正常速度，含实际混音；使用P01局部起点，不代表从开场连续走到小站。画面采集自美术／摆位提交f2cc6ed3；当前发行只追加支撑回归与流水线检查，运行内容相同。链接读回哈希一致，来源收据见同分支media.json。
 - 未完成浏览器视觉、安卓真机性能／扬声器听感、35房新档连续主环、全部钩索回访路线及新怪群战斗平衡终审。软件OpenGL、局部实机片段和状态测试不能代签这些结果。
 
 ## 下一动作
