@@ -30,11 +30,21 @@ art_placements = Array[Dictionary]([{
 "layer": -2.0,
 "light": true,
 "point": [1152.0, 576.0]
+}, {
+"asset": "windchime_plains_near_v2",
+"fade_near": true,
+"layer": 1.0,
+"point": [320.0, 576.0],
+"sway": true
+}, {
+"asset": "storage_crates",
+"layer": -2.0,
+"point": [1840.0, 576.0]
 }])
 art_profile = "clock"
 platforms = Array[Rect2]([Rect2(0, 576, 960, 192), Rect2(1088, 576, 960, 192), Rect2(768, 992, 192, 32), Rect2(1088, 928, 256, 96), Rect2(960, 832, 128, 24), Rect2(960, 576, 128, 24)])
 workbench_entity_ids = {
-"art_placements": ["P-R33:art_placements:0", "P-R33:art_placements:1", "P-R33:art_placements:2"],
+"art_placements": ["P-R33:art_placements:0", "P-R33:art_placements:1", "P-R33:art_placements:2", "P-R33:art-pass:0", "P-R33:art-pass:1"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

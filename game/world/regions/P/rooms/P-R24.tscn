@@ -94,11 +94,26 @@ art_placements = Array[Dictionary]([{
 }, {
 "asset": "concealing_grass",
 "layer": 20.0,
-"point": [1008.0, 1120.0]
+"point": [1008.0, 1120.0],
+"sway": true
 }, {
 "asset": "concealing_grass",
 "layer": 20.0,
-"point": [1040.0, 1120.0]
+"point": [1040.0, 1120.0],
+"sway": true
+}, {
+"asset": "storage_crates",
+"layer": -2.0,
+"point": [2384.0, 1120.0]
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [1680.0, 320.0],
+"sway": true
+}, {
+"asset": "hanging_chime",
+"layer": -2.0,
+"point": [2080.0, 1120.0]
 }])
 art_profile = "overlook"
 bell_mechanisms = Array[Dictionary]([{
@@ -109,6 +124,15 @@ bell_mechanisms = Array[Dictionary]([{
 "open_seconds": 0.0
 }])
 platforms = Array[Rect2]([Rect2(1024, 1120, 352, 96), Rect2(1376, 1120, 384, 96), Rect2(1952, 1120, 544, 96), Rect2(1664, 1376, 128, 64), Rect2(1920, 1504, 128, 96), Rect2(1056, 160, 192, 32), Rect2(1792, 1248, 128, 32), Rect2(0, 320, 480, 896), Rect2(480, 320, 544, 608), Rect2(928, 928, 96, 96), Rect2(480, 1120, 544, 96), Rect2(1504, 320, 32, 640), Rect2(1536, 320, 800, 416), Rect2(2336, 320, 160, 800)])
+workbench_entity_ids = {
+"art_placements": ["P-R24:art_placements:0", "P-R24:art_placements:1", "P-R24:art_placements:2", "P-R24:art-pass:0", "P-R24:art-pass:1", "P-R24:art-pass:2"],
+"climbable_walls": [],
+"hazards": [],
+"hook_points": [],
+"platforms": ["P-R24:platforms:0", "P-R24:platforms:1", "P-R24:platforms:2", "P-R24:platforms:3", "P-R24:platforms:4", "P-R24:platforms:5", "P-R24:platforms:6", "P-R24:platforms:7", "P-R24:platforms:8", "P-R24:platforms:9", "P-R24:platforms:10", "P-R24:platforms:11", "P-R24:platforms:12", "P-R24:platforms:13"],
+"retry_anchors": ["P-R24:retry_anchors:0", "P-R24:retry_anchors:1"],
+"signs": []
+}
 start_point = Vector2(1984, 1486)
 arena_bounds = Rect2(1536, 736, 800, 384)
 

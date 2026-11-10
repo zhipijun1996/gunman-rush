@@ -13,7 +13,7 @@ func run() -> void:
 	app.save_path = "user://world_pack_test.json"
 	for suffix: String in ["",".backup",".tmp",".corrupt"]: DirAccess.remove_absolute(app.save_path+suffix)
 	root.add_child(app)
-	check(app.content.data.rooms.size()==35,"all 35 room contracts load from exported bundle")
+	check(app.content.data.rooms.size()==36 and not app.content.room("Z-R01").is_empty(),"35 plains and one clockheart contract load from exported bundle")
 	for id: String in app.content.data.rooms:
 		var request := LevelRequest.new()
 		request.room_id = id

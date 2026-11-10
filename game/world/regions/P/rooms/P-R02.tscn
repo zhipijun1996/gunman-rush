@@ -33,7 +33,7 @@ route_guide = {
 art_placements = Array[Dictionary]([{
 "asset": "waiting_shelter",
 "layer": -2.0,
-"point": [688.0, 896.0]
+"point": [696.0, 896.0]
 }, {
 "asset": "storage_crates",
 "layer": -2.0,
@@ -41,7 +41,16 @@ art_placements = Array[Dictionary]([{
 }, {
 "asset": "windmill_frame",
 "layer": -2.0,
-"point": [1184.0, 576.0]
+"point": [1192.0, 576.0]
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [240.0, 896.0],
+"sway": true
+}, {
+"asset": "travel_bundle",
+"layer": -2.0,
+"point": [880.0, 896.0]
 }])
 art_profile = "shelter"
 bell_mechanisms = Array[Dictionary]([{
@@ -52,7 +61,7 @@ bell_mechanisms = Array[Dictionary]([{
 }])
 platforms = Array[Rect2]([Rect2(0, 896, 448, 384), Rect2(576, 896, 768, 64), Rect2(576, 1184, 768, 96), Rect2(384, 1056, 192, 32), Rect2(1056, 576, 288, 64), Rect2(704, 224, 256, 32), Rect2(352, 160, 192, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R02:art_placements:0", "P-R02:art_placements:1", "P-R02:art_placements:2"],
+"art_placements": ["P-R02:art_placements:0", "P-R02:art_placements:1", "P-R02:art_placements:2", "P-R02:art-pass:0", "P-R02:art-pass:1"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

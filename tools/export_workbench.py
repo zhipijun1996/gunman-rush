@@ -160,7 +160,7 @@ def manifest() -> dict:
                     raise ValueError("Missing preload in " + name + ": " + resource)
                 unresolved.add(resource)
     # This derived catalog admits preview-only rooms without changing the formal
-    # six-room runtime bundle. Its sources are checked by preview_catalog().
+    # formal runtime bundle. Its sources are checked by preview_catalog().
     seen.add("build/workbench/preview-world.json")
     # FileAccess byte contracts: retain source bytes beside normal Godot imports.
     exporter = (ROOT / "addons/runtime_raw_export/raw_exporter.gd").read_text()
@@ -356,7 +356,7 @@ def main():
     parser.add_argument("--plan-only", action="store_true")
     parser.add_argument("--skip-import", action="store_true", help="Use an already completed, single-writer editor import")
     parser.add_argument("--output", type=Path, default=ROOT / "build/workbench/web")
-    # 35 formal rooms / 37 editable scenes and both dynamic anchor families:
+    # 35 plains + Clockheart formal rooms / 37 editable scenes and both dynamic anchor families:
     # approximately 130.04 MiB; bounded room-contract growth has a 1 MiB margin.
     parser.add_argument("--max-pack-mib", type=float, default=131)
     parser.add_argument("--site-copy", type=Path, help="Copy the verified split transport to a Site public/play directory")

@@ -65,7 +65,7 @@ func _runtime_scope_checks() -> void:
 	accepted.runtime = runtime
 	check(not accepted.has("geometry"), "runtime scope tests do not rely on a separate geometry draft")
 	check(provider.install_workbench_draft(accepted).is_empty(), "same-version complete compiled preview runtime is accepted")
-	check(provider.data.rooms.size() == catalog.rooms.size() and provider.workbench_formal_room_ids().size() == 35, "compiled runtime replacement keeps the registered preview scope and formal thirty-five-room base")
+	check(provider.data.rooms.size() == catalog.rooms.size() and provider.workbench_formal_room_ids().size() == 36, "compiled runtime replacement keeps the registered preview scope and formal 35-plains-plus-clockheart base")
 	var unchanged := JSON.stringify(provider.workbench_snapshot(), "", true)
 	for mutation: String in ["component", "room", "map_room", "seam"]:
 		var rejected := accepted.duplicate(true)
@@ -90,7 +90,7 @@ func _runtime_scope_checks() -> void:
 		check(error.begins_with(expected), "compiled runtime rejects "+mutation+" without a separate geometry field: "+error)
 		check(JSON.stringify(provider.workbench_snapshot(), "", true) == unchanged, "rejected compiled runtime leaves state unchanged: "+mutation)
 	provider.restore_workbench_base()
-	check(provider.data.rooms.size() == 35, "compiled runtime scope fixture restores the formal source")
+	check(provider.data.rooms.size() == 36, "compiled runtime scope fixture restores the formal source")
 
 func _fixture() -> Dictionary:
 	var result := baseline_draft.duplicate(true)
@@ -254,25 +254,25 @@ func run() -> void:
 	await app.workbench._handle({"channel":"gunman-workbench", "type":"leave", "request_id":"leave"})
 	check(not app.review.active and app.state.storage == formal_storage, "leaving restores formal storage and base provider")
 	check(FileAccess.get_file_as_string(app.save_path) == formal_bytes, "leaving workbench does not write test progress")
-	check(app.content.data.rooms.size() == 35 and app.content.room("Z-R01").is_empty(), "formal construction state still exposes only the thirty-five constructed rooms")
-	var unbuilt_scene := preload("res://game/world/regions/Z/rooms/Z-R01.tscn").instantiate() as FixedWorldRoom
+	check(app.content.data.rooms.size() == 36 and not app.content.room("Z-R01").is_empty(), "formal construction state still exposes 35 plains rooms plus authorized clockheart")
+	var unbuilt_scene := preload("res://game/world/regions/V/rooms/V-R12.tscn").instantiate() as FixedWorldRoom
 	var unbuilt := WorldRoomDraft.extract(unbuilt_scene)
 	unbuilt_scene.free()
 	unbuilt.base_content_version = app.content.workbench_base_version()
 	unbuilt.revision = 1
 	var catalog: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(FixedWorldProvider.WORKBENCH_CATALOG))
-	var unbuilt_contract: Dictionary = catalog.rooms["Z-R01"]
+	var unbuilt_contract: Dictionary = catalog.rooms["V-R12"]
 	unbuilt.geometry = {"bounds":unbuilt_contract.world_geometry.bounds_world_units, "space_rects":unbuilt_contract.world_geometry.space_rects, "doors":unbuilt_contract.doors}
 	await app.workbench._handle({"channel":"gunman-workbench", "type":"load_draft", "request_id":"unbuilt", "revision":1, "draft":unbuilt})
 	check(app.workbench.last_event.get("type") == "draft_loaded" and app.workbench.last_event.get("preview_only") == true, "unbuilt room loads through real runtime and stays labelled preview only "+JSON.stringify(app.workbench.last_event))
-	check(app.room != null and app.room.room_id == "Z-R01" and app.player.is_on_floor(), "unbuilt authored scene and real controller physically land")
+	check(app.room != null and app.room.room_id == "V-R12" and app.player.is_on_floor(), "unbuilt authored scene and real controller physically land")
 	var preview_ids: Array = catalog.rooms.keys()
 	preview_ids.sort()
 	var actual_ids: Array = app.content.data.rooms.keys()
 	actual_ids.sort()
 	check(actual_ids == preview_ids and app.content.action("reward_return_EQ_MAP_P03_open").get("room_id") == "P-R17", "registered authored preview rooms and local return action available in disposable session")
 	await app.workbench._handle({"channel":"gunman-workbench", "type":"leave", "request_id":"unbuilt_leave"})
-	check(app.content.data.rooms.size() == 35 and app.state.storage == formal_storage and FileAccess.get_file_as_string(app.save_path) == formal_bytes, "unbuilt preview restores formal thirty-five-room catalog and save")
+	check(app.content.data.rooms.size() == 36 and app.state.storage == formal_storage and FileAccess.get_file_as_string(app.save_path) == formal_bytes, "unbuilt preview restores formal 35-plains-plus-clockheart catalog and save")
 	await WorldAudioLifecycle.drain_world(app)
 	app.queue_free()
 	await ticks(8)

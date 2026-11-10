@@ -65,7 +65,21 @@ art_placements = Array[Dictionary]([{
 }, {
 "asset": "concealing_grass",
 "layer": 20.0,
-"point": [1968.0, 1536.0]
+"point": [1968.0, 1536.0],
+"sway": true
+}, {
+"asset": "barrel",
+"layer": -2.0,
+"point": [304.0, 1536.0]
+}, {
+"asset": "gear_lamp",
+"layer": -2.0,
+"light": true,
+"point": [2112.0, 160.0]
+}, {
+"asset": "storage_crates",
+"layer": -2.0,
+"point": [1664.0, 704.0]
 }])
 art_profile = "mill"
 bell_mechanisms = Array[Dictionary]([{
@@ -81,7 +95,7 @@ bell_mechanisms = Array[Dictionary]([{
 }])
 platforms = Array[Rect2]([Rect2(0, 1536, 2368, 160), Rect2(640, 1408, 224, 128), Rect2(1216, 704, 608, 80), Rect2(2016, 160, 256, 48), Rect2(1952, 1280, 416, 96)])
 workbench_entity_ids = {
-"art_placements": ["P-R26:art_placements:0", "P-R26:art_placements:1", "P-R26:art_placements:2", "P-R26:art_placements:3", "P-R26:art_placements:4"],
+"art_placements": ["P-R26:art_placements:0", "P-R26:art_placements:1", "P-R26:art_placements:2", "P-R26:art_placements:3", "P-R26:art_placements:4", "P-R26:art-pass:0", "P-R26:art-pass:1", "P-R26:art-pass:2"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

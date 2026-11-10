@@ -30,6 +30,22 @@ art_placements = Array[Dictionary]([{
 "asset": "windchime_plains_v2_road_marker",
 "layer": -2.0,
 "point": [1440.0, 1664.0]
+}, {
+"asset": "windchime_plains_near_v2",
+"fade_near": true,
+"layer": 1.0,
+"point": [112.0, 1792.0],
+"sway": true
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [1856.0, 1600.0],
+"sway": true
+}, {
+"asset": "leaf_sprig",
+"layer": -2.0,
+"point": [960.0, 1728.0],
+"sway": true
 }])
 bell_mechanisms = Array[Dictionary]([{
 "bell": [464.0, 1736.0],
@@ -39,7 +55,7 @@ bell_mechanisms = Array[Dictionary]([{
 }])
 platforms = Array[Rect2]([Rect2(0, 1792, 640, 128), Rect2(640, 1728, 384, 192), Rect2(1024, 1824, 128, 96), Rect2(1152, 1664, 512, 256), Rect2(1664, 1792, 128, 128), Rect2(1792, 1600, 512, 320), Rect2(1504, 160, 192, 32), Rect2(576, 1824, 128, 32), Rect2(1088, 1824, 128, 32), Rect2(2016, 1600, 288, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R03:art_placements:0", "P-R03:art_placements:1"],
+"art_placements": ["P-R03:art_placements:0", "P-R03:art_placements:1", "P-R03:art-pass:0", "P-R03:art-pass:1", "P-R03:art-pass:2"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

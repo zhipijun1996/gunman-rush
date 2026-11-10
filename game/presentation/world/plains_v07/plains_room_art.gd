@@ -10,7 +10,7 @@ var depths: Array[Dictionary]=[]
 static var assets: Dictionary={}
 static var props: Dictionary={}
 static var backgrounds: Dictionary={}
-var occluders: Array[Sprite2D]=[]
+var occluders: Array[Dictionary]=[]
 var terrain_polygons: Array[PackedVector2Array] = []
 var story_props: Array[Dictionary]=[]
 var sky: Sprite2D
@@ -23,6 +23,7 @@ var wind_phase := 0.0
 static var profiles: Dictionary={}
 var light_settings: Dictionary = {}
 var environment_light: Dictionary = {}
+var atmosphere: Dictionary = {}
 func sprite(id: String,at: Vector2,layer: int=-2) -> Sprite2D:
 	var node:=Sprite2D.new();node.centered=false
 	if props.has(id):
@@ -53,6 +54,7 @@ func _ready() -> void:
 	indoor=not interior.is_empty()
 	light_settings=JSON.parse_string(FileAccess.get_file_as_string("res://game/presentation/world/plains_v07/lighting.json"))
 	environment_light=light_settings.environments.get(interior,light_settings.environments.outdoor)
+	atmosphere=light_settings.atmospheres["indoor" if indoor else light_settings.profile_atmospheres.get(room.art_profile,"outdoor")]
 	ambient=CanvasModulate.new()
 	ambient.color=Color(environment_light.ambient)
 	add_child(ambient)
@@ -63,11 +65,9 @@ func _ready() -> void:
 		var unlit:=CanvasItemMaterial.new();unlit.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;sky.material=unlit
 		add_child(sky)
 		daylight=DirectionalLight2D.new();daylight.color=Color(light_settings.sun.color);daylight.energy=float(environment_light.sun_energy)
-		daylight.rotation=float(light_settings.sun.rotation);daylight.shadow_enabled=true
-		# Godot culls directional occluders relative to the camera. Keep every
-		# room occluder inside the range at every legal view, not a 1200wu bubble.
-		daylight.max_distance=FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size.length()+float(light_settings.sun.shadow_margin)
-		daylight.shadow_filter=Light2D.SHADOW_FILTER_PCF5;daylight.shadow_filter_smooth=float(light_settings.sun.shadow_softness)
+		# Open sky is a broad fill, not an infinitely projected shadow from every ledge.
+		# Terrain still occludes the finite lamps and the player's carry light.
+		daylight.rotation=float(light_settings.sun.rotation);daylight.shadow_enabled=false
 		add_child(daylight)
 	for i: int in room.platforms.size():
 		if i in room.one_way_indices:continue
@@ -103,7 +103,7 @@ func _ready() -> void:
 			material.set_shader_parameter("height",float(node.texture.get_height()));node.material=material;swaying.append(material)
 		if placement.has("receipt"):
 			node.hide();story_props.append({"node":node,"receipt":placement.receipt,"host":placement.get("story_host","")})
-		if placement.get("fade_near",false):occluders.append(node)
+		if placement.get("fade_near",false):occluders.append({"node":node,"alpha":node.modulate.a})
 		if placement.get("depth",1.0)!=1.0:
 			node.modulate=Color(.66,.77,.78,.8)
 			if placement.has("tint"):
@@ -139,9 +139,11 @@ func _process(delta: float) -> void:
 			trace.node.visible=room.services.state.value.receipts.has(trace.receipt) and (str(trace.host).is_empty() or room.services.state.value.story_hosts.get(trace.host,"")==room.room_id)
 			if trace.receipt=="repair_P":trace.node.modulate.a=repair_blend
 		if player!=null:
-			for prop: Sprite2D in occluders:prop.modulate.a=move_toward(prop.modulate.a,.25 if player.global_position.distance_to(prop.global_position)<112 else 1.0,delta*3)
+			for entry: Dictionary in occluders:
+				var prop:Sprite2D=entry.node
+				prop.modulate.a=move_toward(prop.modulate.a,float(entry.alpha)*(.25 if player.global_position.distance_to(prop.global_position)<112 else 1.0),delta*3)
 
-	wind_phase+=delta*lerpf(1.1,1.7,repair_blend)
+	wind_phase+=delta*float(atmosphere.sway_speed)*lerpf(1,1.35,repair_blend)
 	for i: int in swaying.size():swaying[i].set_shader_parameter("phase",wind_phase+i*.73)
 	var camera:=get_viewport().get_camera_2d()
 	if camera!=null:
@@ -175,8 +177,8 @@ func _draw() -> void:
 	for cy:int in range(floori(view.position.y/192)-1,ceili(view.end.y/192)+1):
 		for cx:int in range(floori(view.position.x/256)-1,ceili(view.end.x/256)+1):
 			var rng:=RandomNumberGenerator.new();rng.seed=hash(room.room_id+str(cx)+":"+str(cy))
-			for i:int in (2 if indoor else 4):
-				var speed:=rng.randf_range(8,15) if indoor else rng.randf_range(34,62)
+			for i:int in int(atmosphere.density):
+				var speed:=rng.randf_range(float(atmosphere.speed[0]),float(atmosphere.speed[1]))
 				var phase:=rng.randf_range(0,256)
 				var travel:=fposmod(phase+clock*speed,256)
 				var at:=Vector2(cx*256+travel,cy*192+rng.randf_range(0,192)+sin(clock*1.4+phase)*5).round()

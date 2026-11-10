@@ -18,9 +18,8 @@ func rows() -> Array:
 	var result: Array = []
 	if world == null: return result
 	var component := ""
-	if bool(content.data.get("workbench_preview",false)):
-		for row: Dictionary in content.data.get("map_rooms",[]):
-			if row.id == current_room: component = str(row.get("map_component",""));break
+	for row: Dictionary in content.data.get("map_rooms",[]):
+		if row.id == current_room: component = str(row.get("map_component",""));break
 	var nearby: Array[String]=[current_room]
 	if not expanded:
 		for door: Dictionary in content.room(current_room).get("doors",[]):nearby.append(str(door.target_room))

@@ -61,13 +61,28 @@ retry_anchors = Array[Dictionary]([{
 art_placements = Array[Dictionary]([{
 "asset": "bell_post",
 "layer": -2.0,
-"light": true,
 "point": [1344.0, 928.0]
 }, {
 "asset": "bell_post",
 "layer": -2.0,
-"light": true,
 "point": [2672.0, 384.0]
+}, {
+"asset": "market_stalls",
+"layer": -2.0,
+"point": [1040.0, 1056.0]
+}, {
+"asset": "storage_crates",
+"layer": -2.0,
+"point": [2048.0, 1056.0]
+}, {
+"asset": "tilted_barrel",
+"layer": -2.0,
+"point": [1648.0, 1248.0]
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [1440.0, 928.0],
+"sway": true
 }])
 art_profile = "market"
 platforms = Array[Rect2]([Rect2(96, 160, 192, 32), Rect2(160, 320, 256, 32), Rect2(1536, 1440, 128, 32), Rect2(1568, 1248, 352, 32), Rect2(2592, 384, 288, 32)])
@@ -93,7 +108,7 @@ terrain_polygons = Array[Dictionary]([{
 "points": [[1920.0, 1056.0], [2176.0, 1056.0], [2176.0, 864.0], [2432.0, 864.0], [2432.0, 608.0], [2592.0, 608.0], [2592.0, 384.0], [2880.0, 384.0], [2880.0, 1152.0], [2240.0, 1152.0], [2240.0, 1280.0], [1920.0, 1280.0]]
 }])
 workbench_entity_ids = {
-"art_placements": ["P-R34:built:landmark_0", "P-R34:built:landmark_1"],
+"art_placements": ["P-R34:built:landmark_0", "P-R34:built:landmark_1", "P-R34:art-pass:0", "P-R34:art-pass:1", "P-R34:art-pass:2", "P-R34:art-pass:3"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

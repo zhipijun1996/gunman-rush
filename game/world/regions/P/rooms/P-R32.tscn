@@ -72,8 +72,22 @@ art_placements = Array[Dictionary]([{
 }, {
 "asset": "bell_post",
 "layer": -2.0,
-"light": true,
 "point": [2560.0, 640.0]
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [336.0, 1024.0],
+"sway": true
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [2064.0, 832.0],
+"sway": true
+}, {
+"asset": "aqi_ribbon",
+"layer": -2.0,
+"point": [2816.0, 640.0],
+"sway": true
 }])
 art_profile = "clockheart_vista"
 bell_mechanisms = Array[Dictionary]([{
@@ -84,7 +98,7 @@ bell_mechanisms = Array[Dictionary]([{
 }])
 platforms = Array[Rect2]([Rect2(64, 1024, 704, 128), Rect2(1024, 960, 448, 128), Rect2(1664, 832, 512, 64), Rect2(2432, 640, 640, 64), Rect2(704, 640, 416, 64), Rect2(864, 160, 192, 32), Rect2(2368, 1248, 192, 96), Rect2(1920, 1248, 320, 96), Rect2(2176, 1024, 192, 32), Rect2(1664, 896, 64, 192), Rect2(1728, 1056, 448, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R32:art_placements:0", "P-R32:art_placements:1", "P-R32:art_placements:3"],
+"art_placements": ["P-R32:art_placements:0", "P-R32:art_placements:1", "P-R32:art_placements:3", "P-R32:art-pass:0", "P-R32:art-pass:1", "P-R32:art-pass:2"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": ["P-R32:hook_points:0", "P-R32:hook_points:1", "P-R32:hook_points:2"],

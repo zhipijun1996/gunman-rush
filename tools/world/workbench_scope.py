@@ -9,9 +9,9 @@ import json
 from pathlib import Path
 
 try:
-    from .spatial import navigation_geometry
+    from .spatial import component_navigation_geometry
 except ImportError:  # CLI modules in tools/world are also imported directly.
-    from spatial import navigation_geometry
+    from spatial import component_navigation_geometry
 
 
 SCOPE_PATH = "config/workbench/rooms.json"
@@ -39,26 +39,7 @@ def editable_room_ids(root: Path, construction: dict) -> set[str]:
     return result | set(additional)
 
 
-def preview_navigation_geometry(rooms: dict, initial_room: str) -> dict:
-    """Use the original seam solver independently for disconnected trials.
 
-    Component origins are local to each component, never a claim that a trial
-    has a physical connection to the plains. Consumers must group map_component.
-    """
-    remaining = set(rooms)
-    result = {}
-    while remaining:
-        anchor = initial_room if initial_room in remaining else min(remaining)
-        component = {anchor}
-        pending = [anchor]
-        while pending:
-            for door in rooms[pending.pop()]["doors"]:
-                if door.get("front_door"): continue
-                target = door["target_room"]
-                if target in rooms and target not in component:
-                    component.add(target)
-                    pending.append(target)
-        geometry = navigation_geometry({room_id: rooms[room_id] for room_id in sorted(component)}, anchor)
-        result.update({room_id: {**value, "map_component": anchor} for room_id, value in geometry.items()})
-        remaining -= component
-    return result
+def preview_navigation_geometry(rooms: dict, initial_room: str) -> dict:
+    """Explicitly registered trials may have no campaign connection."""
+    return component_navigation_geometry(rooms, initial_room, allow_isolated=True)

@@ -42,13 +42,28 @@ art_placements = Array[Dictionary]([{
 }, {
 "asset": "bell_post",
 "layer": -2.0,
-"light": true,
 "point": [1488.0, 1344.0]
+}, {
+"asset": "windchime_plains_near_v2",
+"fade_near": true,
+"layer": 1.0,
+"point": [304.0, 1696.0],
+"sway": true
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [984.0, 672.0],
+"sway": true
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [1392.0, 1344.0],
+"sway": true
 }])
 art_profile = "junction"
 platforms = Array[Rect2]([Rect2(1152, 1952, 128, 32), Rect2(896, 1824, 384, 48), Rect2(1024, 1696, 256, 32), Rect2(0, 1696, 768, 160), Rect2(480, 1600, 96, 96), Rect2(768, 1472, 256, 24), Rect2(1088, 1312, 288, 24), Rect2(640, 1152, 256, 24), Rect2(192, 960, 288, 32), Rect2(448, 832, 224, 24), Rect2(864, 672, 288, 24), Rect2(640, 512, 224, 24), Rect2(608, 160, 192, 32), Rect2(832, 336, 192, 24), Rect2(1344, 1344, 320, 48)])
 workbench_entity_ids = {
-"art_placements": ["P-R06:built:fixture_0", "P-R06:built:fixture_1"],
+"art_placements": ["P-R06:built:fixture_0", "P-R06:built:fixture_1", "P-R06:art-pass:0", "P-R06:art-pass:1", "P-R06:art-pass:2"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

@@ -101,18 +101,36 @@ retry_anchors = Array[Dictionary]([{
 art_placements = Array[Dictionary]([{
 "asset": "bell_post",
 "layer": -2.0,
-"light": true,
 "point": [5808.0, 1856.0]
 }, {
 "asset": "bell_post",
 "layer": -2.0,
-"light": true,
 "point": [1856.0, 2496.0]
 }, {
 "asset": "bell_post",
 "layer": -2.0,
-"light": true,
 "point": [7040.0, 256.0]
+}, {
+"asset": "windchime_plains_near_v2",
+"fade_near": true,
+"layer": 1.0,
+"point": [6400.0, 1792.0],
+"sway": true
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [4416.0, 2496.0],
+"sway": true
+}, {
+"asset": "windchime_plains_near_v2",
+"fade_near": true,
+"layer": 1.0,
+"point": [1168.0, 2496.0],
+"sway": true
+}, {
+"asset": "travel_bundle",
+"layer": -2.0,
+"point": [5744.0, 2496.0]
 }])
 art_profile = "terrace"
 bell_mechanisms = Array[Dictionary]([{
@@ -138,7 +156,7 @@ terrain_polygons = Array[Dictionary]([{
 "points": [[2944.0, 1696.0], [3360.0, 1696.0], [3360.0, 1776.0], [3296.0, 1776.0], [3296.0, 1856.0], [3008.0, 1856.0], [3008.0, 1776.0], [2944.0, 1776.0]]
 }])
 workbench_entity_ids = {
-"art_placements": ["P-R13:built:landmark_0", "P-R13:built:landmark_1", "P-R13:built:landmark_2"],
+"art_placements": ["P-R13:built:landmark_0", "P-R13:built:landmark_1", "P-R13:built:landmark_2", "P-R13:art-pass:0", "P-R13:art-pass:1", "P-R13:art-pass:2", "P-R13:art-pass:3"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

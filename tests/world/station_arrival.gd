@@ -1,5 +1,5 @@
 extends "res://tests/world/focus_heal.gd"
-## Formal app without the unfinished clockheart; real carrier motion with declared initial boarding position.
+## Formal app with the authorized clockheart interior; real carrier motion with declared initial boarding position.
 func run() -> void:
  root.size=Vector2i(1280,720)
  app=preload("res://game/application/world/fixed_world.tscn").instantiate()
@@ -8,7 +8,7 @@ func run() -> void:
   for suffix:String in ["",".backup",".tmp",".corrupt"]:DirAccess.remove_absolute(path+suffix)
  root.add_child(app);app.start_new();await settle()
  app.load_room("P-R01","INTRO-P24-P01:P-R01");await settle();await ticks(5)
- check(app.content.room("Z-R01").is_empty() and not app.story._has_east_route(),"arrival does not send the player toward an unavailable clockheart interior")
+ check(not app.content.room("Z-R01").is_empty() and app.story._has_east_route(),"arrival has a playable east route to the clockheart")
  check(not app.state.value.receipts.has("station_briefing"),"room entry does not auto-commit unplayed arrival")
  # Emulate the previous release's premature receipt, not a completed new lesson.
  app._commit_action("station_briefing");await ticks(4)
@@ -20,7 +20,7 @@ func run() -> void:
  check(app.story.active and app.player.position.y<=1267 and app.player.get_platform_velocity().length_squared()<1,"stopped first lift automatically starts arrival, including legacy receipt")
  check(not app.state.has("station_rest_taught"),"lesson does not commit before viewing or skipping")
  var lines:=app.story._lines()
- check(lines.size()==3 and "充电站" in str(lines[1]) and "世界钟心" not in str(lines),"formal arrival teaches resting without unavailable east quest")
+ check(lines.size()>3 and "充电站" in str(lines[1]) and "世界钟心" in str(lines),"formal arrival teaches resting and directs the player to the clockheart")
  var cycle:int=app.state.value.cycle
  app.story._show_lines();app.story.advance();await ticks(40)
  check(app.story.focus.x==480,"charging station lesson pans toward actual west station")

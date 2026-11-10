@@ -17,7 +17,7 @@
       ],
       "experience": {
         "player_decision": "第一段载台只到小站；落地学习充电站休息，东侧路线开放时听取钟心方向；射铃启动第二段载台；未调查钟心时守钟匠劝返。",
-        "visual_read": "首段载台落岸看见充电站和服务区，第二段的访问铃与载台同屏；守钟匠保留明确站位。",
+        "visual_read": "充电站、工作柜与候车棚组成同层服务岸；植物根部附着固定岸，二段升降后的守钟匠站在北口。",
         "failure_recovery": "两段载台均可重新搭乘，第二段未启动时留在安全小站，不以跳坑代替回程。"
       },
       "art_focal_assets": [
@@ -25,7 +25,9 @@
         "merchant_counter",
         "storage_crates",
         "hanging_chime",
-        "gear_lamp"
+        "gear_lamp",
+        "plains_grass",
+        "travel_bundle"
       ],
       "service_actions": [
         "pickup_ATK08",
@@ -77,13 +79,15 @@
       ],
       "experience": {
         "player_decision": "左门去回水洞，下口回旧田；棚里休息后乘屋顶绞盘；中层向右进高风车，上层向左接眺望台；从下口接收岸向右探索棚底，越64宽短刺后与巡逻体交战，右端检修箱一次散落10金币；原路回返程台上棚。上方休息与载台观察不受自愿支路影响。",
-        "visual_read": "屋顶绞盘与休息棚形成主地标，棚底守卫和检修箱构成可选低层支路。",
+        "visual_read": "候车棚与行囊落在下层宽岸，风车落在上层完整基座，屋顶机关与落脚沿保持清楚。",
         "failure_recovery": "箱后沿短刺原路退回接收岸，向左反冲上棚；各层宽岸供等待绞盘。"
       },
       "art_focal_assets": [
         "waiting_shelter",
         "storage_crates",
-        "windmill_frame"
+        "windmill_frame",
+        "plains_grass",
+        "travel_bundle"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -136,12 +140,14 @@
       "experience": {
         "player_decision": "苏醒、地面拾枪、按设备提示射击，射铃开门后逐阶处理弱敌。",
         "failure_recovery": "已到达的安全岸重试；入口和出口保留实际支持与完整身体净空。",
-        "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
+        "visual_read": "苏醒草甸以低矮草石簇框住起点，台阶逐渐露出路标与风铃；草尖随风，枪和敌人轮廓不被遮住。"
       },
       "art_focal_assets": [
         "windchime_plains_v2_chime_span",
-        "world_clock_far",
-        "windchime_plains_v2_road_marker"
+        "windchime_plains_v2_road_marker",
+        "windchime_plains_near_v2",
+        "plains_grass",
+        "leaf_sprig"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -206,13 +212,15 @@
       ],
       "experience": {
         "player_decision": "向留在右岸的守桥怪射击，反冲同次跨到左接收岸；接收岸加宽32提供余量，保留提前清怪后的空射通行。；东桥下凹室由左侧进入，桥墩藏箱一次散落10金币。经检修台回桥，不沿台阶撒币。；5加宽、6下移32并向左加宽；5→6高差128，7加宽至256且下移64，6→7高差192。5的刺移到左边短段、6的刺移到右端，给起跳与反冲落点留出空间。守台怪移至7右段，6完整承担起跳准备；7左侧保留落脚再判断的空间。；西侧低地由俯冲怪守20金币藏箱；从平台左端下探，原路跳回石肩。",
-        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "visual_read": "上下桥岸与石柱共同表达断桥结构；柱脚接岸、柱帽接梁，断口和荆棘前保留干净边缘。",
         "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "plain_pier",
         "tilted_barrel",
-        "hanging_chime"
+        "hanging_chime",
+        "plains_grass",
+        "windchime_plains_near_v2"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -249,12 +257,13 @@
       ],
       "experience": {
         "player_decision": "保留原射铃载台和同驱齿轮；观察齿轮相位后登台，不在这段精密移动里加追击怪。；在载台起跳后向左下的检修铃[448,336]开枪。真实命中停住同一传动的载台与齿轮；反冲同时把人送上检修岸。保留其他合法时机解法。；TG02保留唯一正式奖励；保留原领取、返程折板及回06吊桥。原底部0–1536整行地刺，失足按现行地形失败回准备岸；左侧2/3检修台保留可站恢复。",
-        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "visual_read": "木梁内墙与传动架表达机械内廊；暖灯分别标记入口、踏肩与高岸，移动台和齿轮轨迹留空。",
         "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "mill_drive_frame",
-        "gear_lamp"
+        "gear_lamp",
+        "storage_crates"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -342,12 +351,14 @@
       "interactions": [],
       "experience": {
         "player_decision": "从井口登上开阔低层，向西去旧路肩；可从空中或平台清理守路怪；穿透平台构成两条交错上行线，飞怪守空域、地面怪守停靠点；上方出口保留原回环条件。",
-        "visual_read": "中央保持通透，交错穿透台、地面守点和空中巡逻显示两条上行线，西侧风铃标记低层方向。",
+        "visual_read": "开阔中庭保留纵向视线，地面草石簇与远处分路铃构成三向辨路点，不用装饰填满平台间隙。",
         "failure_recovery": "低层落岸承接上层失误；从旧井来向先落稳再选路，不自动飞过中庭。"
       },
       "art_focal_assets": [
         "hanging_chime",
-        "bell_post"
+        "bell_post",
+        "windchime_plains_near_v2",
+        "plains_grass"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -404,13 +415,15 @@
       ],
       "experience": {
         "player_decision": "6右段加64宽刺，左侧保留96宽起跳/落脚面；越刺跳向上路。原掩体跳射与反冲回避保留。；原主台1厚256削为64，下方得到连续低拱通路；局部64宽刺留起跳和接收地，巡逻守东段宽地。低路接东岸，不封井口。；原平台2缩成128宽左接驳岸，真正开放1792–2048落槽。保留井内交错单向台和底部门；原448宽实体曾横封整个井口。；从原井内两级岸回东接驳岸，再上主路或走桥下返回；原门和入口落脚不变。；沿右肩上升、越过局部刺台，再借左上钩点进入40金币藏箱岸。回访支路不堵初访主路；取得后折返下到原上路。",
-        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "visual_read": "上岸风车、桥柱与货箱建立旧桥地点感，下岸以草缘和稀疏植被区分安全回路。",
         "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "windmill_frame",
         "plain_pier",
-        "storage_crates"
+        "storage_crates",
+        "windchime_plains_near_v2",
+        "travel_bundle"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -467,11 +480,13 @@
       ],
       "experience": {
         "player_decision": "第一台启动后，跳起向右命中根铃，同枪向左反冲登台；清怪后仍可射铃往返。右角旧货箱一次散落20金币，不是开台条件；射铃启台，顶部向左上反冲换到第二台；第二台顶部向右上反冲接第三台；登台后击铃启动；从第三台最高点跳向左侧井口，轨道上方保持净空；第三台升至侧岸附近时，向右打访问铃停台，反冲落到左侧岸；由岸上向左打铃重启，同枪向右反冲重新登台。齿轮只争夺横跨路径。",
-        "visual_read": "检修灯照亮三段固定岸；可见访问铃对应相邻载台，齿轮占用换台路径。",
+        "visual_read": "冷色井壁、管线和逐层检修灯串起三段升降；井底货具接地，灯光不横穿实体墙。",
         "failure_recovery": "每段保留停靠岸和可回射的访问铃；错过换台可在岸上召回，不依赖敌人刷新。"
       },
       "art_focal_assets": [
-        "gear_lamp"
+        "gear_lamp",
+        "gear_city_v2_pipe_junction",
+        "storage_crates"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -532,12 +547,13 @@
       ],
       "experience": {
         "player_decision": "上门落到安全实体岸；沿货井乘货梯到中央货台。向西可预览未施工矿口，向东到岸底开口观察铃与闸。；矿口接驳只保留连接所需长度。左下管口后的暗室向右敞开，净高128、门槛32；短跳进入领取10金币旧货箱，再由右沿跳回货台，无需破墙。；从准备岸踏入缺口，回身向左下射入80高的宽铃口。子弹打开闸，同枪反冲向右上跨过缺口并落到闸后宽岸。射偏落刺则回到准备岸；射口不靠针眼限制玩家。；东端上层由守卫争夺20金币检修藏箱。回程从东台左缘跳起向右下射击，反冲左上接检修台；射访问铃后短跳回主路，途中不另堆浮台。；沿中央货台到货梯；中间无横梁穿过轨道。乘至上端后向左跳回安全入口岸。",
-        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "visual_read": "货箱、管道与固定检修灯标记货井岸位；载台通道及回身射铃的瞄准窗口保持通透。",
         "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "storage_crates",
-        "gear_city_v2_pipe_junction"
+        "gear_city_v2_pipe_junction",
+        "gear_lamp"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -621,14 +637,15 @@
       ],
       "experience": {
         "player_decision": "在楼下听取武器匠提示，选择基础枪命中续枪攀升或已拥有H的外侧回访路线。",
-        "visual_read": "低岸灯具、三组高低错位的飞怪与接收台逐段指向顶岸藏箱。",
+        "visual_read": "楼下武器匠有接地工作柜与实际暖灯；机架落到同层地面，上层检修灯逐层标记命中续枪的落岸。",
         "pressure": "空中命中补弹与下射反冲连用；最后一段需连续命中三个目标后接下射。",
         "failure_recovery": "各段宽岸可停留等冷却；失手落回较低平台，不凭空刷新怪物和弹药。",
         "return_visit": "顶岸20币箱两路线共用，取箱可下落回武器匠准备岸，邻接门对保持。"
       },
       "art_focal_assets": [
         "mill_drive_frame",
-        "gear_lamp"
+        "gear_lamp",
+        "merchant_counter"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -661,7 +678,7 @@
       ],
       "experience": {
         "player_decision": "领奖后的框外高处回访，保留巡游机竞技场与唯一机芯；三枚钩点接反冲到顶岸，取箱后下落回领奖地。",
-        "visual_read": "机芯旁只预览第一铜环；上端箱不以散币指路，机架内战场与框外高岸层次分开。",
+        "visual_read": "巡游机前庭以机架和侧岸检修灯构图，中央战斗空域留白；战后高岸继续沿同族灯具引导。",
         "failure_recovery": "高链失手可落右侧检修岸或领奖地整理；顶岸取箱后沿右侧落回，不重复精密链。"
       },
       "art_focal_assets": [
@@ -723,11 +740,12 @@
       ],
       "experience": {
         "player_decision": "一台多段承载贯穿钟腔，离台越过同步齿轮再落回，空中左下射铃同时右上反冲过顶闸。",
-        "visual_read": "宽钟腔用同一轨道、扫动齿轮和顶闸建立机器关系；检修灯标记固定岸与行装台。",
+        "visual_read": "石拱地窖保留冷底光，灯具落在等待岸和领奖岸；长载台路线与齿轮预警不被道具遮挡。",
         "failure_recovery": "井底和两岸可重新登同一载台；行装后放折梯回返，西岸藏箱不替代核心开闸。"
       },
       "art_focal_assets": [
-        "gear_lamp"
+        "gear_lamp",
+        "storage_crates"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -815,11 +833,14 @@
       ],
       "experience": {
         "player_decision": "下层可战可绕，上层高低顶刺改变净空，横向反冲与落到低腔交替，最后收窄接HP01。",
-        "visual_read": "天花板体量与顶刺连续附着，宽腔负责观察和换射向；奖励靠04端可从下路看到。",
+        "visual_read": "下层宽路用低矮草簇与行囊形成停顿，上层刺顶和侧刺保持完整剪影；奖励端仍有独立铃柱地标。",
         "failure_recovery": "刺道转角保留安全落脚补枪；拿到HP01才开单向返程板，下路回入口和两端载台保持。"
       },
       "art_focal_assets": [
-        "bell_post"
+        "bell_post",
+        "windchime_plains_near_v2",
+        "plains_grass",
+        "travel_bundle"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -852,12 +873,14 @@
       ],
       "experience": {
         "player_decision": "战前错肩接入，基础枪与移动击败牧风者；领取H后沿高低石肩练习停驻／弹跃钩索，低廊开回环。",
-        "visual_read": "三层战场保持原封门与恒定缩放；战后铜环错落分布，检修灯落在实际石肩上。",
+        "visual_read": "入场风车与同层岸位固定，不随镜头漂移；战场中央保持低干扰，战后石肩以稀疏草簇引向钩索回路。",
         "failure_recovery": "上路失手落低廊；两处断口可反冲返回侧闸，不将低廊变成重新挑战Boss的强制入口。侧闸下出口是128宽实体缺口，两侧各留接收岸。"
       },
       "art_focal_assets": [
         "windmill_frame",
-        "bell_post"
+        "bell_post",
+        "plains_grass",
+        "windchime_plains_near_v2"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -890,14 +913,15 @@
       ],
       "experience": {
         "player_decision": "沿三处宽岸下降到钟井；三环横渡修风鸣钟，失手由安全盆地的恢复环返回钟台。",
-        "visual_read": "检修灯附着三处宽岸；井底横渡环与恢复环有不同高程，钟台保留主钟与修复后复苏。",
+        "visual_read": "风鸣钟是唯一主地标，钟井各检修岸有真实灯具；修复后的植物与环境变化沿修钟收据出现。",
         "failure_recovery": "横渡落空在无刺盆地重新上钩；修钟开启回长桥捷径，保留实际状态收据。"
       },
       "art_focal_assets": [
-        "world_clock_far",
         "windchime_plains_v2_bell_wheel",
         "gear_lamp",
-        "leaf_sprig"
+        "leaf_sprig",
+        "windchime_plains_near_v2",
+        "plains_grass"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -926,13 +950,15 @@
       ],
       "experience": {
         "player_decision": "休息后无H仍可沿主路到机舱；H回访上空双环，跳离向右下射击反冲上左高岸取箱。",
-        "visual_read": "底部服务岸与东门主路清晰，高阁箱集中在上层可选空间，双环不排列成长钩梯。",
+        "visual_read": "机架、检修灯与休息层行囊区分上下两层用途，高阁奖励岸保留独立灯位。",
         "failure_recovery": "高岸右端落回主路；漏钩落入无刺休息层，不以重复战斗封死回访。"
       },
       "art_focal_assets": [
         "mill_drive_frame",
         "gear_lamp",
-        "storage_crates"
+        "storage_crates",
+        "travel_bundle",
+        "barrel"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -988,13 +1014,14 @@
       ],
       "experience": {
         "player_decision": "入口厚块减薄；下方原平台恢复落脚用途。检修门未开时从门下绕入原H路线。；原有H三环仍通往行装包；下层金币支路由右侧宽口进入，一空一陆守住下层奖励，屋檐遮断朝原H起点的初始视线。；操作原返程闩，西侧两阶展开，检修门打开；三段普通跳回入口。；右下宽口内一陆一空守20金币藏箱，屋檐隔开上层钩索路线；返程先在屋檐左侧下射反冲上升，身体越过檐面后再向右落上屋檐顶，再回原路线。",
-        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "visual_read": "封闭检修室用管阀、货箱及检修灯表达用途，不混用室外植被或天空贴图。",
         "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "barrel",
         "gear_city_v2_valve_panel",
-        "gear_lamp"
+        "gear_lamp",
+        "storage_crates"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1051,12 +1078,15 @@
       ],
       "experience": {
         "player_decision": "错层田畦接两段换乘登崖，地窖20金币后反冲出短刺渠底。",
-        "visual_read": "低田冲锋、高田守点和地下灌溉路互相可见；支柱顶接真实上层梁底。",
+        "visual_read": "田畦草石、贴地桶与完整井台形成室外层次；桥柱接实际梁底，升降出口和地窖洞口保持净空。",
         "failure_recovery": "两条载台轨道留独立净空；中段可召回第一台，窄井有宽肩回田畦；地窖短刺渠与下行井口分开，不依赖怪物存活。"
       },
       "art_focal_assets": [
         "sunken_well",
-        "plain_pier"
+        "plain_pier",
+        "windchime_plains_near_v2",
+        "plains_grass",
+        "tilted_barrel"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1152,13 +1182,14 @@
       ],
       "experience": {
         "player_decision": "从低路回望桥下藏室：巡逻与俯冲怪守20金币藏箱，底部右段刺床保留左侧宽战斗面；由两层宽台回原低路。；第一笼只升到中层宽岸。根铃在实心平台9预警，玩家可跳离或射击打断；局部刺迫使换落点。清理后准备向右射铃，身体向左登第二笼。；右侧风铃启动第二笼；朝右射击同时把身体送向左侧载台。第二笼斜向右上收束到平台8，失败可回中层宽岸，顶端访问铃能召回或停台。允许先启动后登台。；第三笼接上门，途中左侧哨兵守10金币检修箱；射右侧访问铃停笼并反冲上左岸，处理遭遇后射左铃再搭笼。上门保留安静落台。；原三个钩点、TG04高岸、奖励与返程机关保留。新上升岸均在井道西侧，未把台阶接入右侧奖励；新怪不放到TG04附近充当回枪台阶。",
-        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "visual_read": "根井以暗冷井壁、管线及岸上灯具构图；升降层之间保留清晰竖向视线，不用室外风车填井。",
         "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "sunken_well",
         "windchime_plains_v2_seed_relic",
-        "gear_lamp"
+        "gear_lamp",
+        "gear_city_v2_pipe_junction"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1232,14 +1263,16 @@
       ],
       "experience": {
         "player_decision": "沿退潮岸线往返根井与集市，再选择借H登远岸装备台。",
-        "visual_read": "断渠和限时闸提示回身射铃；西岸桥肩要求先向上越障再转向，奖励高台另设H路线。",
+        "visual_read": "闸桥柱脚接下岸、柱帽顶桥底，桶与草缘标出安静岸；水闸和射铃路线保持清楚。",
         "pressure": "低桥飞怪、岸线冲锋与守台巡逻分开施压，回身开闸与反冲一次动作完成。",
         "failure_recovery": "失手回低岸重组，领奖侧独立放梯；基础回环不要求H。",
         "return_visit": "无 H 仍能完成基础回环；H 装备预览可记忆。"
       },
       "art_focal_assets": [
-        "windchime_plains_v2_chime_span",
-        "plain_pier"
+        "plain_pier",
+        "bell_post",
+        "plains_grass",
+        "barrel"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1283,11 +1316,14 @@
       "experience": {
         "player_decision": "沿车厢路线射击与跳跃，旅人剧情延后，不强制对话。",
         "failure_recovery": "已到达的安全岸重试；入口和出口保留实际支持与完整身体净空。",
-        "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
+        "visual_read": "旧车厢、货箱和行囊均落在实际站台；破损车后留出射击穿越空间，出口草缘轻摆。"
       },
       "art_focal_assets": [
         "carriage",
-        "storage_crates"
+        "storage_crates",
+        "hanging_chime",
+        "plains_grass",
+        "travel_bundle"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1344,9 +1380,14 @@
       "experience": {
         "player_decision": "两坑练反冲；在安全台看清风铃，跳起向后下方射铃，反冲展开后穿过后移的宽净空闸口。",
         "failure_recovery": "保留门前可承接反冲的安全落台及回试台，不要求冲刺能力或空中等冷却。",
-        "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
+        "visual_read": "坑前岸和长岸用少量草束分段，固定灯具与物资箱标记练习落点；满刺坑和开门瞄准区不加遮挡。"
       },
-      "art_focal_assets": [],
+      "art_focal_assets": [
+        "hanging_chime",
+        "gear_lamp",
+        "storage_crates",
+        "plains_grass"
+      ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "拾枪、对话和清场进度持久提交；风铃命中反馈与门、载台的实际状态一致。",
@@ -1384,9 +1425,13 @@
       "experience": {
         "player_decision": "教学复习：交错高低悬台、连续刺床、两处平台敌人、末端右下射击反冲向左上。",
         "failure_recovery": "已到达的安全岸重试；入口和出口保留实际支持与完整身体净空。",
-        "visual_read": "目标、落点、危险与机关在动作前可读；复用平原现有像素素材。"
+        "visual_read": "交错平台的动作带保持简洁，只在入口放行囊、转向岸放风铃，连续刺床保持完整可读。"
       },
-      "art_focal_assets": [],
+      "art_focal_assets": [
+        "travel_bundle",
+        "plains_grass",
+        "hanging_chime"
+      ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
         "interaction": "拾枪、对话和清场进度持久提交；风铃命中反馈与门、载台的实际状态一致。",
@@ -1409,7 +1454,7 @@
       ],
       "experience": {
         "player_decision": "在封场中换位反击三波3/4/5怪群，清场选择升降主路或左侧暗室。",
-        "visual_read": "场地恒定缩放，清场水平归位；暗室从左右边界交接。",
+        "visual_read": "战场中部留给怪群与玩家，货箱靠东侧宽岸；暗室前景植物保持不透明遮入口，出口草束不遮升降落点。",
         "pressure": "地面冲锋夹击、跳扑、二维俯冲与射击组合；入场恢复点不是永久免战点。",
         "failure_recovery": "失败回既有恢复锚点，清场恢复探索音乐。",
         "return_visit": "左侧一次性20金币宝箱，升降台可重搭。"
@@ -1417,7 +1462,9 @@
       "art_focal_assets": [
         "cellar_backdrop",
         "concealing_grass",
-        "concealing_grass"
+        "storage_crates",
+        "plains_grass",
+        "hanging_chime"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1487,14 +1534,16 @@
       ],
       "experience": {
         "player_decision": "保留果园战斗主路；高台TG01要求空中向左下命中回枪，同次腾空向下射击再次上冲。",
-        "visual_read": "高枝奖励可见，左下飞羽铃哨是第一枪目标；删去备用枝台，落奖后回原树台。",
+        "visual_read": "果园拱枝与地面保持同一坐标，根部不随风移动；低矮草枝强调高奖位置而不遮窄落点和刺床。",
         "failure_recovery": "失手落回宽树台；命中目标沿正式休息周期恢复，不在房内偷偷复活。"
       },
       "art_focal_assets": [
         "orchard_arch_west",
         "orchard_arch_east",
         "windchime_plains_near_v2",
-        "windchime_plains_v2_chime_span"
+        "windchime_plains_v2_chime_span",
+        "plains_grass",
+        "leaf_sprig"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1551,14 +1600,16 @@
       ],
       "experience": {
         "player_decision": "西台前侧留出准备；起跳后回身射左侧访问铃，同枪向右反冲登上启动的吊台，再在上端换岸。原移动台上巡逻怪移到入口后的宽地；从检修岸登东台，升高后向左上反冲接棚口；落下可召回重试；底路跳起反冲跨过一段160宽短刺，进入右侧檐下处理巡逻守卫后开启原有宝箱；原路回到西吊台准备岸，宝箱身份和内容不变。",
-        "visual_read": "室内梁柱、访问铃与双吊台构成连续向上的机器结构，下层藏宝口与主上行线分开。",
+        "visual_read": "双吊台内廊保留木梁、传动架和岸上检修灯；高岸货箱与入口桶建立维修用途，右下植物遮住暗室。",
         "failure_recovery": "两台均保留召回岸；取箱沿短刺回西台准备岸，上端可退回检修棚。"
       },
       "art_focal_assets": [
         "mill_drive_frame",
         "gear_lamp",
         "cellar_backdrop",
-        "concealing_grass"
+        "concealing_grass",
+        "barrel",
+        "storage_crates"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1582,13 +1633,15 @@
       "interactions": [],
       "experience": {
         "player_decision": "从检修口进棚休息，东边为自愿铜齿支路；从棚左侧宽石阶向上，抵达牧风者庭地。",
-        "visual_read": "宽棚是双吊台后的休整地标；东侧铜齿支路和左侧上行台阶分开，避免把服务位塞进动作路线。",
+        "visual_read": "背风棚、行囊与货箱集中在宽岸，低层草缘保持疏密变化，棚外空气流动弱于露天桥。",
         "failure_recovery": "从下口接收岸向上反冲进棚；回落同一下口时由风车内廊正下方台接住。"
       },
       "art_focal_assets": [
         "waiting_shelter",
         "storage_crates",
-        "windchime_plains_v2_chime_span"
+        "windchime_plains_v2_chime_span",
+        "plains_grass",
+        "travel_bundle"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1667,13 +1720,16 @@
       ],
       "experience": {
         "player_decision": "顶门实体台减薄。1右端、2左端、3右端局部刺；各阶肩有安全观察岸，可用已有下看确认下一侧，沿9接到谷仓宽岸。；保留朝右下守卫开枪、身体反冲左上的高效路线；西田上层仍可分步进入。；上檐凹室净高104、开口128，短跳配横向反冲进入10金币藏箱岸；由错开的上口分两次各落128到下袋。；在160宽中台下看确认凹袋底面，128宽口进入96净高凹袋领取10金币藏箱；两次普通跳回原肩，不依赖怪物存活。；从8经移高的9回到3，沿2、1回到薄0。井肩形成224、224、224、192的高差节奏；旧9承担回升，不额外堆浮台。",
-        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "visual_read": "错层田垄以桶、货箱和下岸草石簇分层；登高踏肩仅保留小草束，落点轮廓清楚。",
         "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "storage_crates",
         "hanging_chime",
-        "tilted_barrel"
+        "tilted_barrel",
+        "windchime_plains_near_v2",
+        "plains_grass",
+        "barrel"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1748,13 +1804,14 @@
       ],
       "experience": {
         "player_decision": "西岸到中梁，再接东岸货井。阁楼挑战位于中梁上方，不占货梯轨道。；在宽刺台上空向右下射近处悬铃。弹丸打开头顶限时闸，同一枪的向上反冲将身体送过闸口，随后落向左侧阁楼。；阁楼西端为一次性20金币藏箱；沿已闭合顶闸向东，处理宽地守卫后从东端落回主路。失败落回近端重试。",
-        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "visual_read": "粮仓内墙、货箱与不同高度的检修灯构成储运空间；升降井和阁楼出入口保持净空。",
         "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "storage_crates",
         "barrel",
-        "gear_lamp"
+        "gear_lamp",
+        "tilted_barrel"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1806,12 +1863,13 @@
       ],
       "experience": {
         "player_decision": "左入口的实心安全岸缩为320宽；下到中层泵台后向左折返，进入宽阔操作岸。中层泵台同时承担当期返左入口的落脚和巡逻遭遇。；短跳时向身后开枪：子弹命中风铃，启动吊斗；同一枪反冲把玩家送上已在移动的吊斗。沿横轨转入中井上升，从上端向右走下东岸。允许先开铃再登台。；下层东侧保留原来的H绕墙、三个钩点、TG03和返程折梯。只保留这一个真实收集目标，不新增散落金币或虚构奖励。；底层越过短刺沟，登实体恢复台，再跳回操作岸；短跳漏枪则直接落在恢复台。下层和东岸的同组铃可以远程起停载台，错过班次可等其8秒周期回程。；从吊斗上端回落中层泵台，再从台的左端跳起，射向右下、反冲左上回到西侧入口。不是从井顶直接横跨到西门。",
-        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "visual_read": "泵井管线落地，等待岸、东岸和井底各有可见灯具；室内尘粒缓慢漂移，不套露天强风。",
         "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "gear_city_v2_pipe_junction",
-        "hanging_chime"
+        "hanging_chime",
+        "gear_lamp"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1895,13 +1953,16 @@
       ],
       "experience": {
         "player_decision": "入口站位与失败恢复保持安全距离，向前进入遭遇后再选择上行或下路。；先越局部断渠；回身向右下射铃，身体向左上反冲，接上已启动的第一吊台。允许先启动后登台。；上层净空容纳完整身体轨迹；反冲跨到第二吊台，启动后去长桥。精密换乘区移走远程守卫和俯冲怪。；8和10平台各有巡逻体；先在宽落点处理守卫，再沿原9/12回升。左下地刺后集中20金币，原下层俯冲怪守接近空域，取币后可沿同路返回。；跨底部96宽地刺到左侧20金币藏箱；宽岸供战斗和回跳，领取后沿原路返回上层。",
-        "visual_read": "按草稿的宽岸、机关射线与真实奖励宿主预读路线；摆件接地，室内材质与灯源沿现有区域表现。",
+        "visual_read": "铃场用路铃、风向布条和低层货箱区分主路与下井；大中庭保留看见多条出口的视线。",
         "failure_recovery": "沿已触达的安全岸恢复；载台和返程机关不得依赖怪物存活。"
       },
       "art_focal_assets": [
         "bell_post",
         "windchime_plains_v2_chime_span",
-        "storage_crates"
+        "storage_crates",
+        "windchime_plains_near_v2",
+        "aqi_ribbon",
+        "plains_grass"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1967,12 +2028,14 @@
       ],
       "experience": {
         "player_decision": "利用桥墩遮挡清理射线，反冲跨越两处断口；从桥墩右侧跳起，朝左射身后的启动铃，同时向右反冲登检修台。也允许先启台再登台；上岸后是安全远眺段，保留钟心地标与东出口；检修岸下方回环通旧集，保留可重搭的载台；从桥墩跳起挂住中继环，再跳上宽检修岸；从岸边跳起连续挂环到上口；从下层检修台向左进入桥墩内，巡逻体守10金币检修箱。清理取奖后原路返回下层台，接下方汇口；洞顶隔开上层射线。",
-        "visual_read": "钟心塔保持雾中远景，桥墩藏箱不占跨桥落点；检修铃从起跳岸可读，支柱顶接实梁底。",
+        "visual_read": "世界钟心塔保留完整低对比远景，塔基融入远山；近岸只用小草束与风向布条，避免抢夺远眺焦点。",
         "failure_recovery": "下层检修岸留回到访问铃的路线，藏箱回程可普通跳上岸；上层钩索路线按能力回访。"
       },
       "art_focal_assets": [
         "plain_pier",
-        "bell_post"
+        "bell_post",
+        "plains_grass",
+        "aqi_ribbon"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -1996,13 +2059,15 @@
       "interactions": [],
       "experience": {
         "player_decision": "中央塔门向上交互进入门厅，调查损毁的钟心；前庭下口通回环。",
-        "visual_read": "中央高塔入口是前庭视觉中心，左右桥岸与下层回环区分；门厅未施工时不发出可完成的调查指令。",
+        "visual_read": "钟心入口居中，室内暗部透出门洞纵深；两侧仅布置路灯、草石与货箱，不把门厅剧情放在前庭。",
         "failure_recovery": "前庭下层可经穿透中台和反冲回主岸，下口由旧集上方接收台承接。"
       },
       "art_focal_assets": [
         "interior_mill",
         "clockheart_gate",
-        "gear_lamp"
+        "gear_lamp",
+        "windchime_plains_near_v2",
+        "storage_crates"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -2077,11 +2142,15 @@
       ],
       "experience": {
         "player_decision": "由檐口落入冲锋广场，在低纪念台越敌换边，再沿一体建筑的高差接东岸。",
-        "visual_read": "广场和东侧建筑形成两个遭遇区，飞怪争夺高处、地面怪控制宽岸；左檐15金币独立探索。",
+        "visual_read": "旧集广场以摊棚和货物恢复地点身份，纪念高台留出荆棘与战斗轮廓，东侧台阶和出口保持清楚。",
         "failure_recovery": "下井门岸从右边起跳避开实体投影，经穿透宽井肩回广场；不把全部转角变成小平台。"
       },
       "art_focal_assets": [
-        "bell_post"
+        "bell_post",
+        "market_stalls",
+        "storage_crates",
+        "tilted_barrel",
+        "plains_grass"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",
@@ -2142,13 +2211,15 @@
       "interactions": [],
       "experience": {
         "player_decision": "保留五向枢纽与交通笼，主岸轻战斗；平台2右侧局部刺约束下行选择，进入载台前仍有安静观察位；长桥来向仍可沿左侧落入中层；新增16肩台也承担返回上口的抬升；交通笼在上层岸12出笼后，经15、14、8、16、7返回长桥；补上原来缺失的西向接续，避免从同一路径硬顶448高差。根铃在实心宽岸14预警，右射打断同时反冲向左侧桥岸；可先清理再跳。",
-        "visual_read": "交通笼串起宽岸，根铃守卫提示中上层横向换位；左侧肩台显示回长桥的爬升方向。",
+        "visual_read": "五向汇口以低层行囊、中层货箱和高岸风向布区分道路；大空域及交通笼保持可读，不增加悬空装饰柱。",
         "failure_recovery": "交通笼之外保留15→14→8→16→7的西向回路，上口穿透台可主动下穿；不从井底硬跳448高差。"
       },
       "art_focal_assets": [
         "bell_post",
         "storage_crates",
-        "plain_pier"
+        "travel_bundle",
+        "plains_grass",
+        "aqi_ribbon"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",

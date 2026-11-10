@@ -48,11 +48,6 @@ retry_anchors = Array[Dictionary]([{
 "section": "main"
 }])
 art_placements = Array[Dictionary]([{
-"asset": "world_clock_far",
-"depth": 0.6,
-"layer": -2.0,
-"point": [1920.0, 4704.0]
-}, {
 "asset": "windchime_plains_v2_bell_wheel",
 "layer": -2.0,
 "point": [1952.0, 3936.0]
@@ -89,11 +84,22 @@ art_placements = Array[Dictionary]([{
 "point": [2160.0, 3938.0],
 "receipt": "repair_P",
 "sway": true
+}, {
+"asset": "windchime_plains_near_v2",
+"fade_near": true,
+"layer": 1.0,
+"point": [1280.0, 4704.0],
+"sway": true
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [1648.0, 3936.0],
+"sway": true
 }])
 art_profile = "clock"
 platforms = Array[Rect2]([Rect2(0, 160, 352, 224), Rect2(704, 928, 256, 24), Rect2(832, 2080, 256, 24), Rect2(704, 3232, 256, 24), Rect2(512, 4704, 1600, 96), Rect2(2240, 4704, 192, 96), Rect2(1536, 3936, 704, 64), Rect2(704, 3776, 288, 48)])
 workbench_entity_ids = {
-"art_placements": ["P-R15:art_placements:0", "P-R15:art_placements:1", "P-R15:art_placements:2", "P-R15:art_placements:3", "P-R15:art_placements:4", "P-R15:revival:0", "P-R15:revival:1", "P-R15:revival:2"],
+"art_placements": ["P-R15:art_placements:1", "P-R15:art_placements:2", "P-R15:art_placements:3", "P-R15:art_placements:4", "P-R15:revival:0", "P-R15:revival:1", "P-R15:revival:2", "P-R15:art-pass:0", "P-R15:art-pass:1"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

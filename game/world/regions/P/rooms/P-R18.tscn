@@ -64,7 +64,7 @@ retry_anchors = Array[Dictionary]([{
 art_placements = Array[Dictionary]([{
 "asset": "sunken_well",
 "layer": -2.0,
-"point": [1408.0, 1440.0]
+"point": [1520.0, 1440.0]
 }, {
 "asset": "plain_pier",
 "layer": -2.0,
@@ -75,6 +75,21 @@ art_placements = Array[Dictionary]([{
 "layer": -2.0,
 "point": [1984.0, 832.0],
 "support_height": 384.0
+}, {
+"asset": "windchime_plains_near_v2",
+"fade_near": true,
+"layer": 1.0,
+"point": [720.0, 1248.0],
+"sway": true
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [2688.0, 1152.0],
+"sway": true
+}, {
+"asset": "tilted_barrel",
+"layer": -2.0,
+"point": [1408.0, 1088.0]
 }])
 art_profile = "field"
 bell_mechanisms = Array[Dictionary]([{
@@ -85,7 +100,7 @@ bell_mechanisms = Array[Dictionary]([{
 }])
 platforms = Array[Rect2]([Rect2(0, 1152, 416, 48), Rect2(576, 1248, 448, 48), Rect2(1120, 1088, 384, 32), Rect2(1696, 1152, 416, 32), Rect2(2432, 1152, 512, 32), Rect2(544, 1472, 512, 64), Rect2(1344, 1440, 352, 48), Rect2(1376, 1280, 224, 24), Rect2(1856, 1440, 320, 48), Rect2(2368, 1408, 576, 48), Rect2(2560, 1280, 256, 24), Rect2(2176, 1584, 192, 24), Rect2(2240, 1792, 128, 128), Rect2(1120, 832, 288, 32), Rect2(1344, 608, 192, 32), Rect2(1632, 672, 256, 32), Rect2(1856, 832, 288, 32), Rect2(2144, 704, 160, 24), Rect2(2336, 256, 288, 32), Rect2(1920, 416, 256, 32), Rect2(1056, 1504, 160, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R18:r7:art_placements:0", "P-R18:r7:art_placements:1", "P-R18:r7:art_placements:2"],
+"art_placements": ["P-R18:r7:art_placements:0", "P-R18:r7:art_placements:1", "P-R18:r7:art_placements:2", "P-R18:art-pass:0", "P-R18:art-pass:1", "P-R18:art-pass:2"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

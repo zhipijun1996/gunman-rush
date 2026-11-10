@@ -25,9 +25,7 @@
   },
   "sun": {
     "color": "ffdfac",
-    "rotation": -0.55,
-    "shadow_margin": 2048,
-    "shadow_softness": 2
+    "rotation": -0.55
   },
   "emitters": {
     "gear_lamp": {
@@ -38,6 +36,24 @@
       "color": "f1c27a",
       "energy": 0.8,
       "radius": 150
+    },
+    "clockheart_ruin": {
+      "offset": [
+        0,
+        -245
+      ],
+      "color": "8bcecf",
+      "energy": 0.3,
+      "radius": 168
+    },
+    "merchant_counter": {
+      "offset": [
+        22,
+        -62
+      ],
+      "color": "f1c27a",
+      "energy": 0.45,
+      "radius": 100
     }
   },
   "station": {
@@ -54,5 +70,49 @@
     "color": "b5e6cb",
     "energy": 0.25,
     "radius": 80
+  },
+  "atmospheres": {
+    "outdoor": {
+      "density": 4,
+      "speed": [
+        34,
+        62
+      ],
+      "sway_speed": 1.1
+    },
+    "sheltered": {
+      "density": 3,
+      "speed": [
+        20,
+        34
+      ],
+      "sway_speed": 0.8
+    },
+    "ridge": {
+      "density": 5,
+      "speed": [
+        46,
+        74
+      ],
+      "sway_speed": 1.4
+    },
+    "indoor": {
+      "density": 2,
+      "speed": [
+        5,
+        11
+      ],
+      "sway_speed": 0.5
+    }
+  },
+  "profile_atmospheres": {
+    "station": "sheltered",
+    "shelter": "sheltered",
+    "market": "sheltered",
+    "orchard": "sheltered",
+    "bridge": "ridge",
+    "overlook": "ridge",
+    "boss": "ridge",
+    "clockheart_vista": "ridge"
   }
 }

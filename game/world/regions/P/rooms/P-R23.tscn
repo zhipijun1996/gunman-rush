@@ -16,10 +16,24 @@ retry_anchors = Array[Dictionary]([{
 "point": [1584.0, 526.0],
 "section": "main"
 }])
+art_placements = Array[Dictionary]([{
+"asset": "travel_bundle",
+"layer": -2.0,
+"point": [96.0, 640.0]
+}, {
+"asset": "plains_grass",
+"layer": -2.0,
+"point": [1060.0, 552.0],
+"sway": true
+}, {
+"asset": "hanging_chime",
+"layer": -2.0,
+"point": [1360.0, 336.0]
+}])
 art_profile = "shelter"
 platforms = Array[Rect2]([Rect2(0, 640, 288, 128), Rect2(400, 576, 176, 40), Rect2(688, 640, 160, 40), Rect2(960, 552, 176, 40), Rect2(1248, 624, 192, 40), Rect2(1536, 544, 192, 40), Rect2(1280, 336, 208, 48), Rect2(1088, 256, 192, 32), Rect2(992, 160, 192, 32), Rect2(288, 768, 1504, 128)])
 workbench_entity_ids = {
-"art_placements": [],
+"art_placements": ["P-R23:art-pass:0", "P-R23:art-pass:1", "P-R23:art-pass:2"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

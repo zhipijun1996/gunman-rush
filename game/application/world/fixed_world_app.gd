@@ -276,7 +276,7 @@ func load_room(id: String, entry: String) -> void:
 		await ui.finish_transition()
 		controller.active = true
 		busy = false
-		status = state.error
+		status = state.error if not state.error.is_empty() else "过门进度未保存，请离开门口后重试。"
 		return
 	lifetime.stage_epoch += 1
 	lifetime.invalidate_actor()
@@ -320,8 +320,7 @@ func load_room(id: String, entry: String) -> void:
 			break
 	if not landed:
 		await ui.finish_transition()
-		status="入口缺少实际支撑，请返回标题后继续。"
-		busy=false
+		_finish_room_entry("入口落脚中断，已恢复操作；可返回门口重试。")
 		return
 	var motion: Dictionary=content.data.player.entry_motion
 	var entry_direction:="" if resolved.entry.get("front_door",false) else str(resolved.entry.get("direction",""))
@@ -364,7 +363,12 @@ func load_room(id: String, entry: String) -> void:
 		player.reset_motion()
 	if ticket!=_ticket or not is_instance_valid(player): return
 	if entry_direction in ["up","down"] and (not player.is_on_floor() or player.position.distance_to(anchor)>8):
-		status="入口未抵达实体落脚面，请返回标题后继续。";busy=false;return
+		_finish_room_entry("入口未抵达落脚面，已恢复操作；可返回门口重试。")
+		return
+	_finish_room_entry()
+
+func _finish_room_entry(entry_issue: String = "") -> void:
+	# Even an interrupted entry must finish the new room's ownership and restore input.
 	player.reset_motion()
 	controller._was_grounded = false
 	controller.active = true
@@ -384,6 +388,7 @@ func load_room(id: String, entry: String) -> void:
 	var carry:=player.get_node_or_null("CarryLight") as PointLight2D
 	if carry!=null:carry.enabled=room.art_profile!="starbridge_graybox"
 	_npc_id=""
+	if not entry_issue.is_empty():status=entry_issue
 
 func _apply_capabilities() -> void:
 	var ice:WeaponDefinition=preload("res://resources/weapons/pulse_ice.tres")
@@ -595,6 +600,9 @@ func _cross(id: String) -> void:
 	if room.battle_started and not room.battle_finished: return
 	for door: Dictionary in room.doors:
 		if door.id != id: continue
+		# Consume the approach before any async work, including rejected or failed entries.
+		# Leaving the trigger rearms it; a rollback must not retry every frame.
+		_door_ready = false
 		if not door.outbound_allowed or not state.holds(door.requires):
 			status = "通路尚未开启，请先完成本处教学或事件。"
 			return

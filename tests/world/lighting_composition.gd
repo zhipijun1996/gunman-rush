@@ -1,4 +1,4 @@
-extends "res://tests/world/plains35_fixture.gd"
+extends "res://tests/world/approved_draft_actions.gd"
 ## GPU check: same world-surface samples across real camera pans, then indoor emitters.
 func image_at(name:String) -> Image:
  await process_frame
@@ -16,9 +16,10 @@ func run() -> void:
  root.size=Vector2i(1280,720)
  DirAccess.make_dir_recursive_absolute("res://build/world-feedback")
  app=preload("res://game/application/world/fixed_world.tscn").instantiate()
- app.save_path="user://lighting_composition.json";root.add_child(app);app.workbench.enabled=true
- await load_room("P-R01");await fixture(Vector2(1120,1262));await ticks(45)
+ app.save_path="user://lighting_composition.json";root.add_child(app)
+ await load_room("P-R01");app.story.set_process(false);await fixture(Vector2(1120,1262));await ticks(45)
  var art:=app.room.get_node("RegionalArt") as PlainsRoomArt
+ check(not art.daylight.shadow_enabled,"open sky never projects infinite ledge shadows")
  var color:=art.ambient.color
  var view:=Rect2(0,512,2176,1024)
  app.camera.begin_takeover(app,Vector2(1100,1136),view,.1);await ticks(90)
@@ -39,7 +40,7 @@ func run() -> void:
   for lamp:Node in child.get_children():
    if lamp is PointLight2D:
     emitters+=1;check(lamp.position==Vector2(8,-69),"lamp light registered on actual amber bulb")
- check(emitters==2,"mill has both visible authored lamp sources")
+ check(emitters==3,"mill has three grounded lamps covering both halls and the upper exit")
  await image_at("mill-lamps")
  await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)
  print("LIGHTING COMPOSITION: ",failures," failures");quit(failures)
