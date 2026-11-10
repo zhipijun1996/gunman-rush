@@ -8,8 +8,8 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | 三铃哨地空分种、飞行美术动画与P32高塔远景整合 | — | in_progress | [交接](worklines/plains_bible_v2_01/scope.md) |
-| MOBILE-LEVEL-WORKBENCH-01 | Site V18 / r58：双点出口跳房、37房隔离预览与钟心室内分层；整区审核含森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | 三铃哨地空分种、飞行56帧与P32整幅高塔远景已发布r59 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | Site V18 / r59：双点出口跳房、37房隔离预览与钟心室内分层；整区审核含森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
 ## 待验收

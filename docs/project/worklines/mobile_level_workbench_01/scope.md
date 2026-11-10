@@ -5,7 +5,7 @@
 ## 当前交付与身份
 
 - 工作台：https://windchime-level-workbench.zhipijun1996.chatgpt.site ，账号私有。Site V18（工具1.6.0），网页源码 `54ff947ac369fae5d162a54b01d405f9da23cb0d`，发布成功。整区审核内切换平原与森林，分别显示灰盒制作／正式接入与规划稿；森林提供24房地图、五条路线、逐房方案、SVG和本机反馈复制。
-- 本批游戏源码 `d7770c9943aeb11b24b2009642451c7080d2595c`，接续PR147／PR148工作线；[发行流水线](https://github.com/zhipijun1996/gunman-rush/actions/runs/42757155297)成功，线上已迁移至r58。r57→r58三方比较无冲突、锁定或校验错误；恢复点`d7446ff2-12cf-4c27-88ec-2f072ea7fd7f`保存更新前r57。01/24/31/32/33/Z01六个重点房读回与最终发行seed完全一致；P18/P29读回与迁移前内容逐项一致。
+- 本批游戏源码 `cc4ecd266d9c6ebd97e8ba4f4d140daf4bd4e7c7`，接续PR147／PR148工作线；[发行流水线](https://github.com/zhipijun1996/gunman-rush/actions/runs/42762070135)成功，线上已迁移至r59。r58→r59三方比较无冲突、锁定或校验错误；恢复点`1ffe1b50-e3e0-40e8-83e7-b4780ca47585`保存更新前r58。P32读回与最终发行seed完全一致，目录提供15种怪物；P18/P29读回与迁移前内容逐项一致。
 - 确切发行／运行包哈希与草稿绑定见[项目定位](../../../../tools/workbench/site-project.json)。更新使用三方比较，保留人工微调与不可变恢复点。
 - P18/P29的one_way_indices在编辑器按数值排序，集合和碰撞内容未变；规范化脏标记不代表人工地形变化，不为清标记覆盖真实草稿。
 - 正式施工仍为6房；工作台35个平原房和V-R12、Z-R01共37房可隔离灰盒审核。本轮仅发布工作台试玩，未合入main或扩大正式主站范围。
@@ -41,7 +41,7 @@ V-R12职责见[区域规范](../../../bible/regions/starbridge_gate.md)与该区
 - 本轮世界设计、场景接入与审核27项Python检查通过；游戏日常CI四项通过。
 - 工作台121项检查与生产构建通过，含双点出口与正面室内入口分层。35房灰盒与6房正式接入分开计数，森林仍24房规划；适配不写入可玩草稿。
 - 新版37房seed已通过实际validateState；平原真实动作／剧情跳过与读档／钩点功能／音乐和秘密收据专项通过，具体覆盖和未验项见平原交接。
-- 正常Godot窗口检查24战场／清场／秘密、31换乘、32远景、33正门、Z01室内。正常速度局部短片：[24战斗](https://windchime-level-workbench.zhipijun1996.chatgpt.site/review-media/p24-combat.mp4)、[32远眺](https://windchime-level-workbench.zhipijun1996.chatgpt.site/review-media/p32-distant-tower.mp4)、[前庭进入钟心](https://windchime-level-workbench.zhipijun1996.chatgpt.site/review-media/clockheart-entry.mp4)，分别约4.3/5.6/8.6秒、1.4/1.5/3.9MB。
+- 正常Godot窗口检查地空三铃怪及P32远景连续性。正常速度可下载短片：[地面铃哨](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ac63f7342a345fd6406a2749e6ed56ab2700299/ground-bell-sentry.mp4)、[飞行铃哨](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ac63f7342a345fd6406a2749e6ed56ab2700299/flying-bell-sentry.mp4)、[钟心远景移动与跳跃](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ac63f7342a345fd6406a2749e6ed56ab2700299/clockheart-background.mp4)，各约4秒且小于1MB；公开链接读回哈希一致。录像使用声明的局部起点，源码身份归同分支media.json。
 - 未完成浏览器视觉、安卓真机性能、35房新档连续主环、全部钩索回访路线及新怪群战斗平衡终审。软件OpenGL、局部实机片段和状态测试不能代签这些结果。
 
 ## 下一动作
