@@ -1,0 +1,158 @@
+{
+  "source_baseline": "5c87e6e1a74c43aaea96ee4312d313237bada72a",
+  "content_version": "acfe536e6b0dc981e2f2e480de4559b8cffa0b46e648e61f98c5563839679b9c",
+  "runtime_sha256": {
+    "game/world/regions/P/rooms/P-R33.tscn": "62ea573c56a7fb04b8267ad587ddcc2f34cc8795c784258e8e83de7a7a1755b9",
+    "game/world/regions/P/room_design.json": "abd83ae5017b0f9cfd49897c99c9250adefdafc41908a692873261c20fccde4c",
+    "assets/plains_v07/manifest.json": "950b431f31738051906a64d885f6fe1a3d60b854c7097e1b6aa7149ac0df172c",
+    "assets/plains_v07/native/forecourt_architecture.png": "5497584ebeaa0da1f68ba3d64e55bcb3dd0273ff07431012a1ffd68f1c110e98",
+    "assets/plains_v07/source/forecourt-provenance.json": "f29af0a37866cc52ee68d25787191090b9a8c292adf5cd86963a773a0d56ab82",
+    "config/world/construction.json": "0cd8d0a31e3680a023a8aae87dd4e0288f4b07fdaf9d50da01a2185a19fd819c",
+    "config/world/world.json": "bd75e0b38bd03093d93780e4aefe0c8c47477a826e77c176c5a664254883e49e"
+  },
+  "unchanged_contracts": {
+    "platforms": true,
+    "one_way_indices": true,
+    "start_point": true,
+    "masonry_platform_indices": true,
+    "art_profile": true,
+    "route_guide": true,
+    "world_construction": true,
+    "world_topology": true
+  },
+  "geometry_changes": [],
+  "capture": {
+    "engine": "Godot4.7.2 project build",
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 30,
+    "speed": 1,
+    "audio": "actual GameAudio/GameMusic",
+    "source": "route.gd",
+    "fixture": "Formal base-stage room review, start at actual P32 west entry. P33 contains no enemies. No mid-route teleport or mechanism/state writes; enter Z01, walk to investigation trigger, finish existing dialogue through its normal skip handler, return, descend and recoil back, exit/reenter via P32. lower-door.gd separately begins at P35 real paired landing, jumps up and returns down. No enemy isolation in these route scripts.",
+    "whole_room": "Actual P33 scene, UI hidden, 2048x1024 viewport at 1 world pixel per screenshot pixel; inspection camera, not formal gameplay zoom. Routes and labels are only in space-map.png. Clean whole-room.jpg is independently downloadable."
+  },
+  "frames": 989,
+  "seconds": 32.96666666666667,
+  "master_sha256": "58396a5d070e394780c1c9411164af29802307635e82d8cfa5fa95b7c2d64593",
+  "checks": {
+    "world": "309 contracts,36 implemented rooms",
+    "route": "West approach, enter Z01, actual investigation receipt, return, down+jump to midstep, lower bank, ordinary jump and downward recoil to forecourt, west door roundtrip",
+    "lower_door": "Actual P35 entry landing, ordinary jump into P33 safe bank, return down to P35",
+    "seams": "0 failures",
+    "bake": "new native source reproduced exactly",
+    "ci": "4 checks passed",
+    "docs": "passed"
+  },
+  "limitations": [
+    "No full 35-room new-save campaign, mobile hardware performance or new web export tested.",
+    "Z01 dialogue uses its normal skip handler in this traversal; no new story or interior art is claimed.",
+    "Previous P32-to-P33 self_list.h:46 logging issue was not reproduced by this capture; no engine lifecycle fix is included.",
+    "Visual result is current assistant-reviewed candidate, pending user feedback."
+  ],
+  "delivery": "PR150 source and small review media only; no game or level-platform deployment",
+  "clips": [
+    {
+      "file": "arrival-door.mp4",
+      "start_seconds": 1,
+      "seconds": 9.3,
+      "speed": 1,
+      "bytes": 651665,
+      "sha256": "55c9bcdeade333c058ca93f8d97cadfcad672b75b1903f870586f035dac60fc6",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "avg_frame_rate": "30/1",
+            "nb_frames": "279"
+          },
+          {
+            "codec_name": "aac",
+            "avg_frame_rate": "0/0",
+            "nb_frames": "437"
+          }
+        ],
+        "format": {
+          "duration": "9.300000"
+        }
+      }
+    },
+    {
+      "file": "foundation-return.mp4",
+      "start_seconds": 18.1,
+      "seconds": 9,
+      "speed": 1,
+      "bytes": 928973,
+      "sha256": "edf982906a6bdcaf21d8c988f73b7efa47d4551a79f29d417d196dd611d9355d",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "avg_frame_rate": "30/1",
+            "nb_frames": "270"
+          },
+          {
+            "codec_name": "aac",
+            "avg_frame_rate": "0/0",
+            "nb_frames": "423"
+          }
+        ],
+        "format": {
+          "duration": "9.000000"
+        }
+      }
+    },
+    {
+      "file": "west-doorway.mp4",
+      "start_seconds": 28,
+      "seconds": 4.8,
+      "speed": 1,
+      "bytes": 217291,
+      "sha256": "53c61d7e2d49d4fd60f33f2a8bab6fa31b9f85f952c36c30197383ab5b855595",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "avg_frame_rate": "30/1",
+            "nb_frames": "144"
+          },
+          {
+            "codec_name": "aac",
+            "avg_frame_rate": "0/0",
+            "nb_frames": "226"
+          }
+        ],
+        "format": {
+          "duration": "4.800000"
+        }
+      }
+    }
+  ],
+  "media_sha256": {
+    "route.gd": "6cff2744efe93ff5a1603841c93e903e7e1b29873ecccc660e4a0a0d5b9b33e1",
+    "capture.gd": "e46dae5d3d684232ec4d450e7cb4cd30e2e1877086ebf2f1022da4e76fcf12ab",
+    "invariants.json": "cbaaecc316b6983f0d168bce3f7e5a277d0f55bc0aafa03537e3e3a02e336141",
+    "movie.log": "9791bd1fad410810664aafa640d247181891fb10ee3ac69ee581ac374064c5ea",
+    "maps.py": "7a6205946424b7ce758382080937af392e8466e7de0fcbd6dc3a5a191d7df345",
+    "whole-room-preview.jpg": "384e0eff044b2815c33cf3d4658ec23454063ea29a811cc83bdef769f9277df5",
+    "foundation-return.mp4": "edf982906a6bdcaf21d8c988f73b7efa47d4551a79f29d417d196dd611d9355d",
+    "portal-comparison.jpg": "b31673f22840a9640021488fa3c04ca45c4cb779376dc1c49d57b55e268f3471",
+    "foundation-comparison.jpg": "f8751d658f1f88719a9cf2e2f05a116c606251647708a22c9ed2ad83c7a44a1b",
+    "arrival-door.mp4": "55c9bcdeade333c058ca93f8d97cadfcad672b75b1903f870586f035dac60fc6",
+    "west-doorway.mp4": "53c61d7e2d49d4fd60f33f2a8bab6fa31b9f85f952c36c30197383ab5b855595",
+    "checks.txt": "c31ef4fbd6c00066425c6797c6a69d5ef3019a56feaa160b5b6ddef6f7018ad7",
+    "lower-door.gd": "fe71d5f79f6360a3e63109f0e84c095cc24e9f2ad7f4b6cbacd9320f0c928d46",
+    "whole-room.jpg": "3d0b13e76070a998d0bffc1f6e6d04fefdf91d1bf02d983c2d260f0868f2758f",
+    "lower-door.log": "4bd25ad557a6eddd02bacce1776b8bf62232bfb80ed269f0346bce5be07e08f5",
+    "approach-comparison.jpg": "25e9e8a2e7224a9d7f590641e413e275d772be350af9d9f77daca896cf3d66c9",
+    "space-map.png": "d46fc7d53c02e90764d5b4f710fd6c08dd37d61ff8316016368ce762c685fa54"
+  }
+}
