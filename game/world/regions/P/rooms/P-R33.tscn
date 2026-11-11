@@ -20,14 +20,14 @@ art_placements = Array[Dictionary]([
   {
     "asset": "forecourt_architecture",
     "point": [
-      1408,
-      1040
+      1452,
+      582
     ],
     "layer": -20,
     "tint": [
-      0.78,
-      0.81,
-      0.79,
+      0.88,
+      0.89,
+      0.85,
       1
     ],
     "landscape": "junction_meadow",
@@ -126,13 +126,27 @@ art_placements = Array[Dictionary]([
       1408,
       832
     ]
+  },
+  {
+    "asset": "forecourt_foundation",
+    "point": [
+      1056,
+      1152
+    ],
+    "layer": -22,
+    "tint": [
+      0.72,
+      0.77,
+      0.78,
+      1
+    ]
   }
 ])
 art_profile = "clock"
 masonry_platform_indices = Array[int]([3, 4, 5])
-platforms = Array[Rect2]([Rect2(32, 576, 928, 128), Rect2(64, 704, 896, 32), Rect2(768, 736, 192, 32), Rect2(1088, 576, 928, 160), Rect2(1088, 736, 256, 32), Rect2(1088, 928, 224, 64), Rect2(960, 832, 128, 24), Rect2(960, 576, 128, 24)])
+platforms = Array[Rect2]([Rect2(32, 576, 928, 128), Rect2(32, 704, 928, 32), Rect2(768, 736, 192, 32), Rect2(1088, 576, 928, 160), Rect2(1088, 736, 256, 32), Rect2(1088, 928, 224, 64), Rect2(960, 832, 128, 24), Rect2(960, 576, 128, 24)])
 workbench_entity_ids = {
-  "art_placements": ["P-R33:forecourt:0", "P-R33:forecourt:1", "P-R33:forecourt:2", "P-R33:forecourt:3", "P-R33:forecourt:4", "P-R33:forecourt:5", "P-R33:forecourt:6", "P-R33:forecourt:7", "P-R33:forecourt:8"],
+  "art_placements": ["P-R33:forecourt:0", "P-R33:forecourt:1", "P-R33:forecourt:2", "P-R33:forecourt:3", "P-R33:forecourt:4", "P-R33:forecourt:5", "P-R33:forecourt:6", "P-R33:forecourt:7", "P-R33:forecourt:8", "P-R33:forecourt:9"],
   "climbable_walls": [],
   "hazards": [],
   "hook_points": [],

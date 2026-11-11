@@ -21,7 +21,7 @@
 | animal-residents-generated.png / aqi-animal-story-generated.png | 獾回收匠、长耳兔织时匠、狐狸旅人、野猪武器匠、猫头鹰守钟匠；每个状态四帧待机和两帧招呼，统一脚底、每状态固定比例；[最终来源与烘焙](source/inhabitants-sky-provenance.json)。人类NPC母版与旧生产路径已移除。 |
 | opening_plains-layer-generated.png / orchard-layer-generated.png / plains-layer-generated.png / wind_clouds-layer-generated.png | 固定地表具有透明天空，独立双层流云在地表后方移动；源图、裁切与输出哈希同上，不扭动山体或塔。 |
 | clockheart_hall-generated.png | Z01低对比后殿与真实左上窗；[源图、裁切与哈希](source/clockheart-route-provenance.json)。`python3 tools/art/bake_clockheart_route.py --verify`比对原生输出。 |
-| forecourt-architecture-generated.png | P33塔门、扶壁与下层塔基整房注册绘制；正常镜头可读拱口，下层接真实检修台，无额外碰撞。保留开放进场、独立云层与三盏接地实体灯；[构图、提示词、导出与哈希](source/forecourt-provenance.json)。 |
+| forecourt-architecture-generated.png / forecourt-foundation-generated.png | P33完整破损钟塔、低矮侧翼与独立凹入塔基背墙；整体轮廓、钟盘／门洞比例和实际地台合屏设计。立面统一等比烘焙，背墙退后，无额外碰撞；[构图、提示词、裁切与哈希](source/forecourt-provenance.json)。 |
 | windcourt-arena-generated.png / windcourt-gallery-generated.png | P14开敞残拱战场与连续后层古廊，原野和独立云层透过建筑空隙；[导图、提示词、注册位置和烘焙哈希](source/windcourt-composition-provenance.json)。残拱柱身按当前战场重绘至地面；实际平台、钩索和回程空间归P14场景与construction，生成导图只记录素材注册依据。木踏板复用现行同族表现。 |
 | bellgarden-ruin-generated.png / bellgarden-revival-generated.png | P15塌顶风鸣庭：同一构图的破败钟架、后壁与定点复苏枝叶，裁切和锚点成对注册；铜钟以原画局部挂点刚性摆动，独立云层保留。来源、提示词、裁切和哈希见[记录](source/bellgarden-provenance.json)。低沉修钟声为`tools/generate_windchime_audio.py --clock`原创模态合成，配合现有钟鸣，由GameAudio同一声部池播放。 |
 | story-traces-generated.png | 布条桩、路线便笺板、修好的灯凳，显现只读取交谈收据与宿主房号 |

@@ -40,7 +40,8 @@
     "junction-meadow-generated.png": "18a5f6f89fd5696342be34f4aec00382f012b34a19a8e74a41239081bbe12270",
     "bellgarden-ruin-generated.png": "c13d1796c44a6665d82343450f3b0f35a5995819bf1152c7488e0e03839be69b",
     "bellgarden-revival-generated.png": "fc7b298af45fadf845c7115d56fc59241bdc7cfd2ce20593970907f8f62c8bb1",
-    "forecourt-architecture-generated.png": "028355d74a07b4989a86dc522c6dd8ccc246e8b98d35490f341e8b2d63af6e4a"
+    "forecourt-architecture-generated.png": "5854712f4500f0875b3ad8665a49fe83a4622ec2b0ccf0b1af63ee894237285b",
+    "forecourt-foundation-generated.png": "58cfb84e361643a9553beccac6509bad5178e8cdc943885174a8ef78e7c5c7bb"
   },
   "assets": {
     "reclaimer": {
@@ -2705,25 +2706,41 @@
     "forecourt_architecture": {
       "asset": "forecourt_architecture",
       "source": "assets/plains_v07/source/forecourt-architecture-generated.png",
-      "source_sha256": "028355d74a07b4989a86dc522c6dd8ccc246e8b98d35490f341e8b2d63af6e4a",
+      "source_sha256": "5854712f4500f0875b3ad8665a49fe83a4622ec2b0ccf0b1af63ee894237285b",
       "source_rect": [
         0,
         0,
         1536,
+        672
+      ],
+      "size": [
+        1152,
+        504
+      ],
+      "image": "assets/plains_v07/native/forecourt_architecture.png",
+      "sha256": "671859492f56be23a610ff85fbb42d057e63ab33495378ba50a072d909087301",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "generation": "assets/plains_v07/source/forecourt-provenance.json"
+    },
+    "forecourt_foundation": {
+      "asset": "forecourt_foundation",
+      "source": "assets/plains_v07/source/forecourt-foundation-generated.png",
+      "source_sha256": "58cfb84e361643a9553beccac6509bad5178e8cdc943885174a8ef78e7c5c7bb",
+      "source_rect": [
+        0,
+        0,
+        1024,
         1024
       ],
       "size": [
-        1536,
-        1024
+        576,
+        576
       ],
-      "image": "assets/plains_v07/native/forecourt_architecture.png",
-      "sha256": "5497584ebeaa0da1f68ba3d64e55bcb3dd0273ff07431012a1ffd68f1c110e98",
+      "image": "assets/plains_v07/native/forecourt_foundation.png",
+      "sha256": "2b3bab1d90b1ec3742d0f01c3efd7184f23168bf339d5433b268c1e338f9e851",
       "sampling": "nearest",
-      "alpha_threshold": 128,
-      "anchor": [
-        768,
-        1024
-      ],
+      "alpha_threshold": null,
       "generation": "assets/plains_v07/source/forecourt-provenance.json"
     }
   },

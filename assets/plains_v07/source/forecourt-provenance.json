@@ -1,56 +1,49 @@
 {
   "generator": "OpenAI image_gen",
-  "prompt": "Create a production transparent pixel-art rear architectural layer for the 2D side-scroller in reference 2. Reference1 is the exact 1536x1024 registration diagram, not artwork. Match that layout and canvas exactly. Reference3 is the existing tower's restrained grey weathered stone and fine pixel clusters. Reference4 is the identity of its ornate ruined entrance: dull brass clock crest, torn cream banners, dark arched doorway. Recompose it INTO one continuous building, do not paste a separate door illustration. At this scale the entire arched portal including crest fits inside x730..1060,y225..576; doorway opening centered x896, reaches floor y576. Large quiet masonry tower continues above the TOP of the canvas, no roof or skyline at top. Its left sloping buttress follows x520,y0 to x448,y560. Right narrow tower edge stays within x1120 until y300, then a broken side shoulder slopes to x1312,y384 and x1376,y576. Main base floor is exactly y576, no feet below this on the upper right. Ruined sparse roots, restrained old gold trim, not bright polished ornate castle. Low contrast building surfaces with pale stone only around door framing. The door should feel like a real recessed interior, deep opaque charcoal inner hall, converging recessed jambs, a tiny faint teal broken energy thread high inside; NO transparent hole and no bright white bottom. NO staircase in front of door; existing playable floor meets bottom y576. A contiguous dark lower service foundation extends LEFTWARD under the buttress into the rectangle x128..704,y560..1024, fully backed by opaque charcoal stone (NOT an outdoor wall floating on sky), worn mortar, shallow recessed mechanical shaft traces, sparse muted copper conduit following the masonry. This lower rectangle connects seamlessly to the upper structure. No framed picture border, huge arch or second entrance in the lower rectangle. Red lines in guide are existing colliders and must NOT be drawn. All area OUTSIDE the filled guide polygon should be genuine alpha transparency, no ground, sky, landscape, grass, lamps, platforms, characters, lettering or colored guide lines. Native fine pixel style with readable pixel clusters, NO smooth painterly blur or photoreal texture. Warm desaturated slate grey, subtle olive moss, charcoal interiors; avoid strong blue/teal cast. Side-view architecture and integrated front-facing portal appropriate for UP-to-enter game interaction. Geometry registration matters more than standalone attractiveness. Output 1536x1024.",
-  "composition": "Open approach, readable front portal in the continuous tower buttress, recessed foundation inspection return. Architecture follows the existing cavity and all surfaces are actual scene collision; background adds no collision.",
+  "prompts": {"initial":"Redesign this entire architectural ensemble for a finely pixel-art 2D side-scrolling game. This is a NEW composition, not a cosmetic edit of the old block in reference 2. Reference1 is only the registration/bounding-envelope diagram; its slope lines are NOT literal solid triangular walls. Reference3 defines the WORLD CLOCKHEART tower identity: slender tapered ruined belfry, a very large antique-brass clock dial, irregular broken pinnacles, missing stonework and exposed supporting tracery. Show this same identity much nearer. Canvas 1536x1024 with alpha. ALL architectural skyline is visible with transparent sky ABOVE: highest broken pinnacle at y38, NOT cut off at top. Central tall tower is centered x896, narrow widthabout260 through y90..320, a large broken gold clock dial centered (896,210) diameter170; dull desaturated brass not neon. Asymmetric damaged finials, one leaning narrow clock-hand spindle, open negative gaps in the ruined upper crown. Slender vertical ribs and quieter grey stone taper outward into deep load-bearing buttresses; no enormous flat rectangular slab. Main arched entrance centered x896 at ground y576, opening about150wide, topy366; portal FRAME and its arch all fit below y326. Door is only one part of the whole tower, NOT a huge ornamental cathedral facade pasted onto a wall. Opaque dark recessed inner door. Low adjoining side wings in x448..720 and x1080..1376 end at exactly groundy576, height only120..160, express eroded clockwork maintenance galleries with irregular broken parapets and a few shallow dark bays; don't create symmetric long smooth triangular slopes or stairs. Large quiet stone planes, narrow highlights, very limited moss and worn brass conduit, light from upper right. No excessive gold ornament, tattered banner display or random roots covering structure. Whole silhouette should feel elegant, aged, immense by clear hierarchy and scale; avoid squashed bell shape. The lower-left foundation rectangle x128..704,y576..1024 is a recessed MAINTENANCE BACK WALL of this same tower, fully opaque desaturated dark stone, low detail, with one subtle embedded copper conduit and deep unlit recesses; connect it seamlessly to tower buttress at x448..704,y576. No frame around this rectangle, no light source or window painted on it. It will sit behind existing real foreground stone. No extra floor shelves, platforms, grass, landscape, sky, fog, trees, furniture, lamps, character, lettering or UI. Outside architecture and lower foundation is genuine transparent alpha. Fine deliberate pixel clusters consistent with reference2's existing game terrain and hero44worldpx, NO painterly strokes or high-frequency photographic texture. Muted ash-grey and olive, warmer restrained highlights, charcoal shadow recesses; do not blue-tint the whole building. Preserve exact door/foundation ground registration. Low wings and upper crown can freely depart within diagram's envelope to create a believable building, not fill every area solid. Output 1536x1024.","registration_edit":"Keep this exact tower design, material, restrained pixel art, clock dial, damaged crown and low side galleries, but fix its composition registration for the game. The current tower's ground baseline is at y744; it MUST be at y576. Scale/recompose the ENTIRE upper ensemble to 75% of its current width and height, then position its arched doorway center at x896 and its feet at y576. This makes the complete tower crown around y35, NOT clipped and not a giant cropped wall. Full tower INCLUDING low wings should now span roughly x532..1238, with its narrower tower shaft around x805..1005. Retain genuine alpha sky above and beside the complete skyline. Below the feet, rebuild ONE connected recessed foundation back wall filling EXACTLY x128..704, y576..1024 (448px tall, NOT the current short 264px panel). It joins the left buttress and continuous tower base at y576, behind the real game floor. Lower back wall quiet deep neutral charcoal old masonry, a subtle shallow pipe/conduit on left and a darker recessed central inspection bay, sparse details so a tiny44px character will read in front of it. No frame/moulding on the outer left or bottom edge; it extends underneath foreground real wall boundaries. No duplicate images or seam between upper and lower architecture. No ground beyond y576 under the main tower's right part; keep x704..1536 BELOW y576 transparent. No lamps, sky, grass, terrain, extra platform, stairs or UI. Main arched doorway must remain opaque dark inside and touch exactly y576. The tower is still weathered majestic architecture, not a toy or bright miniature. SAME1536x1024 canvas. Transparent background. Native sharp clustered pixel work, consistent grey stone and muted dull brass. Make these exact layout changes, do not just regenerate the original proportions.","foundation":"Create ONE seamless-in-space rear wall layer for the recessed underground foundation of the clock tower in the reference. Square1024x1024 opaque artwork, quiet deep charcoal/ash stone masonry with fine crisp pixel clusters, not photoreal, same old neutral stone and very restrained dull brass as reference. This is the BACK wall behind real foreground collision masonry, not an illustration of a separate building. Continuous stone fills the entire image edge to edge, no transparent background, no decorative border, no ledges or perimeter frame. Recessed vertical plane with a shallow dark niche integrated across center-right, subtle varied mortar and sparse old damp olive staining. A thin low-contrast brass cable conduit along LEFT third turns once inward at aroundy650 and ends in a small dark junction box; do not clutter the middle with machines. Do not draw a floor, ceiling, platform, stairs, lamp, door, windows, clock, character, sky or light beams. Main value range stays very quiet and dark, no black voids or purewhite highlights, central player action space readable. Tiny irregular stone courses around20..36sourcepx, low edge contrast. It should clearly read as a recessed load-bearing foundation and modest maintenance passage behind a44worldpixel game character after native576x576 baking, not ornate tower facade. Ambient light is neutral cool grey with only subtle warm stone; actual small lamps will light it in-game. No self-lit blue glow. Square composition, do not draw the whole tower again."},
   "guide": "assets/plains_v07/source/forecourt-architecture-guide.png",
+  "registration": {"facade_point": [1452,582], "facade_visible_ground": 576, "foundation_world_rect": [768,576,576,576], "scale_policy": "Uniform nearest baking; quiet foundation stays behind real stone and extends below bottom door."},
+  "composition": "Complete tapered clocktower and low ruined wings against open sky, foreground native stone court and separately recessed foundation. Source facade is uniformly baked; no cropped-off tower crown or oversized ornate gate. No new collision in either image.",
   "assets": [
     {
       "asset": "forecourt_architecture",
       "source": "assets/plains_v07/source/forecourt-architecture-generated.png",
-      "source_sha256": "028355d74a07b4989a86dc522c6dd8ccc246e8b98d35490f341e8b2d63af6e4a",
+      "source_sha256": "5854712f4500f0875b3ad8665a49fe83a4622ec2b0ccf0b1af63ee894237285b",
       "source_rect": [
         0,
         0,
         1536,
+        672
+      ],
+      "size": [
+        1152,
+        504
+      ],
+      "image": "assets/plains_v07/native/forecourt_architecture.png",
+      "sha256": "671859492f56be23a610ff85fbb42d057e63ab33495378ba50a072d909087301",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "generation": "assets/plains_v07/source/forecourt-provenance.json"
+    },
+    {
+      "asset": "forecourt_foundation",
+      "source": "assets/plains_v07/source/forecourt-foundation-generated.png",
+      "source_sha256": "58cfb84e361643a9553beccac6509bad5178e8cdc943885174a8ef78e7c5c7bb",
+      "source_rect": [
+        0,
+        0,
+        1024,
         1024
       ],
       "size": [
-        1536,
-        1024
+        576,
+        576
       ],
-      "image": "assets/plains_v07/native/forecourt_architecture.png",
-      "sha256": "5497584ebeaa0da1f68ba3d64e55bcb3dd0273ff07431012a1ffd68f1c110e98",
+      "image": "assets/plains_v07/native/forecourt_foundation.png",
+      "sha256": "2b3bab1d90b1ec3742d0f01c3efd7184f23168bf339d5433b268c1e338f9e851",
       "sampling": "nearest",
-      "alpha_threshold": 128,
-      "anchor": [
-        768,
-        1024
-      ],
+      "alpha_threshold": null,
       "generation": "assets/plains_v07/source/forecourt-provenance.json"
     }
-  ],
-  "registration": {
-    "world_origin": [
-      640,
-      16
-    ],
-    "native_size": [
-      1536,
-      1024
-    ],
-    "point": [
-      1408,
-      1040
-    ],
-    "reason": "Rear foundation cap visible edge meets the actual 576wu grass/bridge line; tall tower continues beyond viewport; never add collision to match the illustration."
-  },
-  "references": {
-    "source_commit": "5c87e6e1a74c43aaea96ee4312d313237bada72a",
-    "baseline": "game/world/regions/P/rooms/P-R33.tscn",
-    "style": [
-      "assets/plains_v07/native/clocktower_base.png",
-      "assets/plains_v07/native/clockheart_gate.png"
-    ],
-    "meaning": "Style references existed in source_commit; superseded unused native assets removed from current tree."
-  }
+  ]
 }
