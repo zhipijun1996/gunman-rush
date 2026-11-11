@@ -43,156 +43,240 @@ retry_anchors = Array[Dictionary]([{
 "section": "main"
 }])
 art_placements = Array[Dictionary]([
-{
-"asset": "orchard_tree",
-"sway": true,
-"point": [
-590,
-864
-],
-"layer": -2
-},
-{
-"asset": "orchard_fence",
-"point": [
-820,
-768
-],
-"layer": -2
-},
-{
-"asset": "orchard_reward_tree",
-"point": [
-1368,
-864
-],
-"layer": -2
-},
-{
-"asset": "orchard_tree",
-"sway": true,
-"point": [
-2160,
-768
-],
-"layer": -2,
-"flip_h": true
-},
-{
-"asset": "orchard_fence",
-"point": [
-2632,
-576
-],
-"layer": -2
-},
-{
-"asset": "orchard_root_lip",
-"point": [
-784,
-851
-],
-"layer": 1
-},
-{
-"asset": "orchard_root_lip",
-"point": [
-1456,
-819
-],
-"layer": 1
-},
-{
-"asset": "orchard_root_lip_narrow",
-"point": [
-2176,
-841
-],
-"layer": 1
-},
-{
-"asset": "orchard_root_lip",
-"point": [
-2640,
-659
-],
-"layer": 1
-},
-{
-"asset": "plains_grass",
-"point": [
-424,
-864
-],
-"layer": -2,
-"sway": true
-},
-{
-"asset": "plains_grass",
-"point": [
-1584,
-736
-],
-"layer": -2,
-"sway": true
-},
-{
-"asset": "plains_grass",
-"point": [
-2280,
-768
-],
-"layer": -2,
-"sway": true
-},
-{
-"asset": "leaf_sprig",
-"point": [
-1456,
-352
-],
-"layer": -2,
-"sway": true
-},
-{
-"point": [
-2448,
-864
-],
-"support_height": 160
-},
-{
-"asset": "mill_walkway",
-"point": [
-0,
-0
-],
-"surface_platform": 3
-},
-{
-"asset": "mill_walkway",
-"point": [
-0,
-0
-],
-"surface_platform": 8
-},
-{
-"asset": "mill_walkway",
-"point": [
-0,
-0
-],
-"surface_platform": 9
-},
-{
-"asset": "mill_walkway",
-"point": [
-0,
-0
-],
-"surface_platform": 11
-}
+  {
+    "asset": "orchard_ridge",
+    "point": [
+      1120,
+      960
+    ],
+    "layer": -40,
+    "depth": 0.85,
+    "tint": [
+      0.92,
+      1,
+      1,
+      0.86
+    ]
+  },
+  {
+    "asset": "orchard_ridge",
+    "point": [
+      2180,
+      940
+    ],
+    "layer": -40,
+    "depth": 0.85,
+    "tint": [
+      0.92,
+      1,
+      1,
+      0.86
+    ]
+  },
+  {
+    "asset": "orchard_branch_tree",
+    "point": [
+      1480,
+      740
+    ],
+    "layer": -8,
+    "tint": [
+      0.56,
+      0.65,
+      0.65,
+      1
+    ],
+    "sway": true
+  },
+  {
+    "asset": "orchard_mill_entrance",
+    "point": [
+      2764,
+      580
+    ],
+    "layer": -5,
+    "tint": [
+      0.82,
+      0.87,
+      0.88,
+      1
+    ],
+    "threshold_for": "WEST-P25-P26:P-R25"
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      424,
+      864
+    ],
+    "layer": -2,
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      1584,
+      736
+    ],
+    "layer": -2,
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      2280,
+      768
+    ],
+    "layer": -2,
+    "sway": true
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      760,
+      768
+    ],
+    "layer": -5,
+    "tint": [
+      0.7,
+      0.77,
+      0.76,
+      1
+    ]
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      2176,
+      768
+    ],
+    "layer": -5,
+    "tint": [
+      0.7,
+      0.77,
+      0.76,
+      1
+    ]
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      1064,
+      864
+    ],
+    "layer": -5,
+    "tile_rect": [
+      1048,
+      808,
+      32,
+      56
+    ],
+    "tint": [
+      0.64,
+      0.72,
+      0.73,
+      1
+    ]
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      1232,
+      864
+    ],
+    "layer": -5,
+    "tile_rect": [
+      1216,
+      808,
+      32,
+      56
+    ],
+    "tint": [
+      0.64,
+      0.72,
+      0.73,
+      1
+    ]
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      1776,
+      864
+    ],
+    "layer": -5,
+    "tile_rect": [
+      1760,
+      808,
+      32,
+      56
+    ],
+    "tint": [
+      0.64,
+      0.72,
+      0.73,
+      1
+    ]
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      1936,
+      864
+    ],
+    "layer": -5,
+    "tile_rect": [
+      1920,
+      808,
+      32,
+      56
+    ],
+    "tint": [
+      0.64,
+      0.72,
+      0.73,
+      1
+    ]
+  },
+  {
+    "point": [
+      2448,
+      864
+    ],
+    "support_height": 160
+  },
+  {
+    "asset": "mill_walkway",
+    "point": [
+      0,
+      0
+    ],
+    "surface_platform": 3
+  },
+  {
+    "asset": "mill_walkway",
+    "point": [
+      0,
+      0
+    ],
+    "surface_platform": 8
+  },
+  {
+    "asset": "mill_walkway",
+    "point": [
+      0,
+      0
+    ],
+    "surface_platform": 9
+  },
+  {
+    "asset": "mill_walkway",
+    "point": [
+      0,
+      0
+    ],
+    "surface_platform": 11
+  }
 ])
 art_profile = "orchard"
 platforms = Array[Rect2]([Rect2(0, 1184, 128, 32), Rect2(256, 1120, 128, 96), Rect2(384, 864, 2496, 32), Rect2(256, 960, 128, 64), Rect2(640, 768, 288, 96), Rect2(1312, 736, 320, 128), Rect2(2048, 768, 256, 96), Rect2(2496, 576, 384, 320), Rect2(1024, 784, 256, 24), Rect2(1728, 784, 256, 24), Rect2(2320, 672, 176, 32), Rect2(1408, 352, 160, 24)])
@@ -206,7 +290,7 @@ workbench_entity_ids = {
 "signs": []
 }
 one_way_indices = Array[int]([3, 8, 9, 11])
-masonry_platform_indices = Array[int]([10])
+masonry_platform_indices = Array[int]([7, 10])
 illustrated_platform_indices = Array[int]([3, 8, 9, 11])
 start_point = Vector2(320, 1102)
 enemy_placements = Array[Dictionary]([{

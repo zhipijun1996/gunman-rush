@@ -253,6 +253,8 @@ func _thresholds() -> void:
 		var direction: String=door.direction
 		var marker:=Node2D.new();marker.name="Threshold_"+str(door.id).replace(":","_");add_child(marker)
 		if not indoor and direction in ["left","right"]:
+			# An authored facade already includes this doorway and its supporting bank.
+			if room.art_placements.any(func(p:Dictionary)->bool: return p.get("threshold_for","")==str(door.id)):continue
 			var side:=1 if direction=="right" else -1
 			PlainsThresholdComposition.outside(self,at,side,str(door.id))
 		elif not indoor and direction=="down":

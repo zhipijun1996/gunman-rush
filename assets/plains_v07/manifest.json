@@ -18,7 +18,11 @@
     "room-orchard-generated.png": "409b40263821a84663fd569f6ae0b36edc7e3cc153444c5244091499b07b7fef",
     "room-mill-generated.png": "01a56e6872b96ac16eafb96b4e4d7bd29174c88094f63e9eb0c848373d754696",
     "mill-hall-generated.png": "30077d0b361af972f6f04a5ac38f28354f7fcdc7e9a9a36b4971b9cbc5ae2b8c",
-    "mill-window-bay-generated.png": "cff5dd56588289b371a284688f94b80153f977206d58b9c7b8810e08384c7d91"
+    "mill-window-bay-generated.png": "cff5dd56588289b371a284688f94b80153f977206d58b9c7b8810e08384c7d91",
+    "mill-recess-generated.png": "c44dc7a26882199c738b82a5eb9ebcb2e89e0c765c45c10587741772c6c72c9c",
+    "orchard-sky-generated.png": "537951ed2ea6028645a613e7c293d8622778da3fc172eb6eb737c257d8db1be9",
+    "orchard-ridge-generated.png": "b04800f53557f43232914e2106bd0f801fc2c70eb710367b8b4918749a138266",
+    "orchard-structure-generated.png": "3034f49bd4a03783d81fc136ba2ce2785484c8a6319e4ce9331b5d6770370d30"
   },
   "assets": {
     "reclaimer": {
@@ -971,6 +975,30 @@
       ],
       "bake": "whole opaque plate to 640x360, nearest; tower foot painted behind hills and valley haze",
       "anchor": "same viewport-fill far plate transform as plains sky"
+    },
+    "orchard": {
+      "image": "assets/plains_v07/native/orchard.png",
+      "source": "assets/plains_v07/source/orchard-sky-generated.png",
+      "source_rect": [
+        0,
+        100,
+        1536,
+        964
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        864,
+        486
+      ],
+      "bake_scale": 0.5625,
+      "flip_horizontal": false,
+      "alpha_threshold": null,
+      "anchor": [
+        432.0,
+        486
+      ],
+      "sha256": "751ad669ceead59b47f89b9ddb064e27916133da08987b80831b69c5ea397689",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
     }
   },
   "props": {
@@ -1480,75 +1508,6 @@
       ],
       "sha256": "ff932685f03df4df41db43af2fb245425b2b3e64eb4c92526d8c2950471a1c48"
     },
-    "orchard_tree": {
-      "image": "assets/plains_v07/native/orchard_tree.png",
-      "size": [
-        392,
-        255
-      ],
-      "source": "assets/plains_v07/source/room-orchard-generated.png",
-      "source_rect": [
-        43,
-        72,
-        855,
-        557
-      ],
-      "bake_scale": 0.4584795321637427,
-      "anchor": [
-        196.0,
-        255
-      ],
-      "alpha_threshold": 128,
-      "sha256": "13faa59159e2bcaee79407423538bb492e759cc7043a309b9f169cb156d097f6",
-      "source_rect_format": "xywh",
-      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
-    },
-    "orchard_reward_tree": {
-      "image": "assets/plains_v07/native/orchard_reward_tree.png",
-      "size": [
-        579,
-        674
-      ],
-      "source": "assets/plains_v07/source/room-orchard-generated.png",
-      "source_rect": [
-        976,
-        27,
-        527,
-        613
-      ],
-      "bake_scale": 1.099510603588907,
-      "anchor": [
-        289.5,
-        674
-      ],
-      "alpha_threshold": 128,
-      "sha256": "d9161d3ea737683f8dba921b216c7fdb92aed584dff27c0e5a38f4cd4572efbb",
-      "source_rect_format": "xywh",
-      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
-    },
-    "orchard_root_lip": {
-      "image": "assets/plains_v07/native/orchard_root_lip.png",
-      "size": [
-        288,
-        106
-      ],
-      "source": "assets/plains_v07/source/room-orchard-generated.png",
-      "source_rect": [
-        41,
-        692,
-        835,
-        306
-      ],
-      "bake_scale": 0.3449101796407186,
-      "anchor": [
-        144.0,
-        106
-      ],
-      "alpha_threshold": 128,
-      "sha256": "b8ddac8d2e0e693a2c6573884e74eaba506364f0d1c239343650d46d0f7b26cc",
-      "source_rect_format": "xywh",
-      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
-    },
     "orchard_fence": {
       "image": "assets/plains_v07/native/orchard_fence.png",
       "size": [
@@ -1638,29 +1597,6 @@
       ],
       "alpha_threshold": null,
       "sha256": "0ae49c28550515a33164977333a1697870a8ca50b42a1a7031ddb4346f3d2bdf",
-      "source_rect_format": "xywh",
-      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
-    },
-    "orchard_root_lip_narrow": {
-      "image": "assets/plains_v07/native/orchard_root_lip_narrow.png",
-      "size": [
-        256,
-        94
-      ],
-      "source": "assets/plains_v07/source/room-orchard-generated.png",
-      "source_rect": [
-        41,
-        692,
-        835,
-        306
-      ],
-      "bake_scale": 0.3065868263473054,
-      "anchor": [
-        128.0,
-        94
-      ],
-      "alpha_threshold": 128,
-      "sha256": "5cd8a650c63fe18de9743de782ad32097b791eaf2742e15874c5faa4cb6eefc4",
       "source_rect_format": "xywh",
       "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
     },
@@ -1755,6 +1691,102 @@
       "alpha_threshold": null,
       "sha256": "826754c1aac06dbd674637ac6a7790c087788f27b2ff826ecef654db9ef4bcbd",
       "generation": "assets/plains_v07/source/mill-atmosphere-provenance.json"
+    },
+    "orchard_branch_tree": {
+      "image": "assets/plains_v07/native/orchard_branch_tree.png",
+      "source": "assets/plains_v07/source/orchard-structure-generated.png",
+      "source_rect": [
+        16,
+        24,
+        596,
+        1000
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        307,
+        517
+      ],
+      "bake_scale": 0.53,
+      "flip_horizontal": true,
+      "alpha_threshold": 128,
+      "anchor": [
+        153.5,
+        517
+      ],
+      "sha256": "ca8b04773ca4170386469f11837f3c4a9396c4886cddb2761fe5634ce2dcef58",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    },
+    "orchard_mill_entrance": {
+      "image": "assets/plains_v07/native/orchard_mill_entrance.png",
+      "source": "assets/plains_v07/source/orchard-structure-generated.png",
+      "source_rect": [
+        600,
+        170,
+        1520,
+        944
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        460,
+        387
+      ],
+      "bake_scale": 0.5,
+      "flip_horizontal": false,
+      "alpha_threshold": 128,
+      "anchor": [
+        230.0,
+        387
+      ],
+      "sha256": "59b7a5bdceb8e626b1b29b1a018ee390a9fdbfe0f385c8613e182537a5613749",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    },
+    "mill_hidden_wall": {
+      "image": "assets/plains_v07/native/mill_hidden_wall.png",
+      "source": "assets/plains_v07/source/mill-recess-generated.png",
+      "source_rect": [
+        0,
+        0,
+        2020,
+        777
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        416,
+        160
+      ],
+      "bake_scale": 0.20594059405940593,
+      "flip_horizontal": false,
+      "alpha_threshold": null,
+      "anchor": [
+        208.0,
+        160
+      ],
+      "sha256": "ec53fa2eb7cf073573e69688d74dd63761f46f6c3b4d38593fed133d41131cb5",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    },
+    "orchard_ridge": {
+      "image": "assets/plains_v07/native/orchard_ridge.png",
+      "source": "assets/plains_v07/source/orchard-ridge-generated.png",
+      "source_rect": [
+        0,
+        230,
+        2172,
+        678
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        1086,
+        224
+      ],
+      "bake_scale": 0.5,
+      "flip_horizontal": false,
+      "alpha_threshold": 128,
+      "anchor": [
+        543.0,
+        224
+      ],
+      "sha256": "5c63a43dde10322f0779bef7c3f5c4f3dfeed50739548c291bf2a26a8309fb48",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

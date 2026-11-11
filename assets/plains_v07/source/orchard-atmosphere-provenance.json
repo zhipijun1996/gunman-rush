@@ -1,0 +1,166 @@
+{
+  "generator": "OpenAI image_gen",
+  "region": "windchime_plains",
+  "purpose": "P25 continuous outdoor orchard composition and P26 enclosed hidden recess; gameplay unchanged",
+  "references": [
+    ".agents/skills/godot-room-art/assets/approved-five-regions.png",
+    ".agents/skills/godot-room-art/assets/approved-tiles-and-props.png"
+  ],
+  "prompts": {
+    "background": "Create a background-only pixel art landscape for Windchime Plains, an old windswept orchard in a side scrolling game. Use the TOP PLAINS panel of reference for fine pixel style, warm ivory sky, cool teal slate distant hills, olive narrow vegetation; do not include hero, UI, labels, black terrain, foreground platforms or buildings near viewer. Landscape aspect 3:2. Open pale cream morning sky occupies upper 65 percent, delicately broken long windblown gray olive clouds only in upper 32 percent; calm clear sky across middle. Lower 35 percent has layered low orchard ridges, one much smaller distant windmill at far right, soft geometric terraces and sparse small fruit-tree silhouettes on their OWN rolling hills. Horizon distant, atmospheric, low contrast. Crisp fine pixel clusters, 32px terrain visual family, avoid painterly brush, avoid thick outlines. Muted restrained color, no giant tower, no huge dark trees, no dramatic beams. This is far-depth scenery behind a 44 world pixel tall character. The middle action band must stay quiet and readable. Fill every edge, opaque complete background.",
+    "parts": "Create two separate isolated game environment sprites on a fully transparent landscape 1536x1024 canvas, no text, no ground plane, no scenery backdrop. Fine Underworld pixel art matching the references, restrained cool slate stone and brown oak and muted olive foliage, crisp tiny pixel clusters not painted soft gradients, no brilliant yellow highlights. LEFT half: one slim old orchard tree 850 pixels tall, narrow crooked dark gray brown trunk around 60 pixels thick, roots at bottom, mostly bare bifurcated branches at top, sparse small olive leaves only at upper edges. A natural fork and wide near-horizontal branch at 80 percent of tree height supports a later-added harvest perch. No platform planks in this sprite, center and lower branches extremely sparse to keep game character readable, no gigantic canopy. RIGHT half: complete old windmill entrance wing, around 650 pixels wide and 600 high, front-facing 2D side-view building: asymmetrical low olive slate roof and timber eaves, cool blue-gray masonry lower wall, aged quiet brown oak upper siding, continuous solid foundation at bottom. A deep dark open doorway at bottom RIGHT quarter, short lean-to porch reaching left, small attached masonry buttress, one closed modest small upper window, no glowing lamps, no windmill blades, no other houses. Door bottom must sit on foundation baseline. Assets separated by generous fully transparent gutter, all edges contained. Both assets belong to the same abandoned yet sunlit orchard and old windmill architecture as reference. Keep dark broad mass and small light edges, not bright intricate texture everywhere. Ground-facing bases flat, roots subtle, no grass-island surrounding base. No characters, no UI.",
+    "recess": "Make a seamless-looking CLOSED rear wall for a low hidden storage recess inside the old windmill in reference. A single flat front facing rectangular wall panel, image aspect ratio 2.6:1, fills all canvas, opaque. Fine restrained pixel art matching blue gray stone and brown oak in reference, 32px tile family. Wall is QUIET dark slate blue masonry, large subdued horizontal stones with sparse hairline cracks, aged dark oak horizontal lintel along very top, two narrow vertical timber joints near quarter points, small dark metal braces. Absolutely no arches, doorways, windows, holes, lamps, gears, barrel, treasure, grass, perspective floors or UI. The recess is 416worldpixels wide and160high, character44pixels, keep texture low contrast behind character. Similar dark stone body colors to neighboring windmill wall. Material detail sparsely distributed at joints; broad calm stone faces. No black border, no scenery beyond, no lighting gradient across panel, only subtle consistent top-left material edge light. This is a solid back wall fitting exactly between an existing ceiling and floor, not a complete room image.",
+    "ridge": "An isolated distant orchard RIDGELINE sprite, transparent background. Extra wide 3:1 composition, 1536x512. Fine pixel art matching reference plains. Five small irregularly spaced windswept old fruit trees on one continuous gently undulating earthen ridge, small sparse olive crowns, crooked trunks, low bushes and a short broken fence. Trees grow on their OWN continuous hill crest. Ridge has visible blue gray soil body at bottom; lower boundary flat for covering behind game terrain. Tree height at tallest about 220px, hill below about180px. No sky, no clouds, no foreground objects, no text, no characters. This is a mid distance layer, muted desaturated slate teal and olive gray palette, low internal contrast, diffuse daylight, much quieter than game actors. Fine crisp pixel texture, not blurred, no black outlines or bright highlights. Entire upper contours, left and right trees fully contained with transparent margin, terrain extends to both image side edges. Far orchard should feel sparse old and windy rather than manicured. Reference top plains panel's distant hills for color, use same 32 pixel game family."
+  },
+  "sources": {
+    "background": {
+      "file": "assets/plains_v07/source/orchard-sky-generated.png",
+      "sha256": "537951ed2ea6028645a613e7c293d8622778da3fc172eb6eb737c257d8db1be9"
+    },
+    "parts": {
+      "file": "assets/plains_v07/source/orchard-structure-generated.png",
+      "sha256": "3034f49bd4a03783d81fc136ba2ce2785484c8a6319e4ce9331b5d6770370d30"
+    },
+    "recess": {
+      "file": "assets/plains_v07/source/mill-recess-generated.png",
+      "sha256": "c44dc7a26882199c738b82a5eb9ebcb2e89e0c765c45c10587741772c6c72c9c"
+    },
+    "ridge": {
+      "file": "assets/plains_v07/source/orchard-ridge-generated.png",
+      "sha256": "b04800f53557f43232914e2106bd0f801fc2c70eb710367b8b4918749a138266"
+    }
+  },
+  "assets": [
+    {
+      "asset": "orchard",
+      "image": "assets/plains_v07/native/orchard.png",
+      "source": "assets/plains_v07/source/orchard-sky-generated.png",
+      "source_rect": [
+        0,
+        100,
+        1536,
+        964
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        864,
+        486
+      ],
+      "bake_scale": 0.5625,
+      "flip_horizontal": false,
+      "alpha_threshold": null,
+      "anchor": [
+        432.0,
+        486
+      ],
+      "sha256": "751ad669ceead59b47f89b9ddb064e27916133da08987b80831b69c5ea397689",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    },
+    {
+      "asset": "orchard_branch_tree",
+      "image": "assets/plains_v07/native/orchard_branch_tree.png",
+      "source": "assets/plains_v07/source/orchard-structure-generated.png",
+      "source_rect": [
+        16,
+        24,
+        596,
+        1000
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        307,
+        517
+      ],
+      "bake_scale": 0.53,
+      "flip_horizontal": true,
+      "alpha_threshold": 128,
+      "anchor": [
+        153.5,
+        517
+      ],
+      "sha256": "ca8b04773ca4170386469f11837f3c4a9396c4886cddb2761fe5634ce2dcef58",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    },
+    {
+      "asset": "orchard_mill_entrance",
+      "image": "assets/plains_v07/native/orchard_mill_entrance.png",
+      "source": "assets/plains_v07/source/orchard-structure-generated.png",
+      "source_rect": [
+        600,
+        170,
+        1520,
+        944
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        460,
+        387
+      ],
+      "bake_scale": 0.5,
+      "flip_horizontal": false,
+      "alpha_threshold": 128,
+      "anchor": [
+        230.0,
+        387
+      ],
+      "sha256": "59b7a5bdceb8e626b1b29b1a018ee390a9fdbfe0f385c8613e182537a5613749",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    },
+    {
+      "asset": "mill_hidden_wall",
+      "image": "assets/plains_v07/native/mill_hidden_wall.png",
+      "source": "assets/plains_v07/source/mill-recess-generated.png",
+      "source_rect": [
+        0,
+        0,
+        2020,
+        777
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        416,
+        160
+      ],
+      "bake_scale": 0.20594059405940593,
+      "flip_horizontal": false,
+      "alpha_threshold": null,
+      "anchor": [
+        208.0,
+        160
+      ],
+      "sha256": "ec53fa2eb7cf073573e69688d74dd63761f46f6c3b4d38593fed133d41131cb5",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    },
+    {
+      "asset": "orchard_ridge",
+      "image": "assets/plains_v07/native/orchard_ridge.png",
+      "source": "assets/plains_v07/source/orchard-ridge-generated.png",
+      "source_rect": [
+        0,
+        230,
+        2172,
+        678
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        1086,
+        224
+      ],
+      "bake_scale": 0.5,
+      "flip_horizontal": false,
+      "alpha_threshold": 128,
+      "anchor": [
+        543.0,
+        224
+      ],
+      "sha256": "5c63a43dde10322f0779bef7c3f5c4f3dfeed50739548c291bf2a26a8309fb48",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    }
+  ],
+  "placement_anchors": {
+    "orchard_branch_tree": "uniformly baked mirrored root around local (205,513), placed root on launch bank y736; native branch aligns beneath platform11 at y352",
+    "orchard_mill_entrance": "door opening local x300..365 at y374, sill below supporting bank top y576",
+    "mill_hidden_wall": "single 416x160 backing at x1952,y1376; not repeated",
+    "orchard_ridge": "own soil ridge, independent depth .85; lower edge covered by world terrain"
+  }
+}
