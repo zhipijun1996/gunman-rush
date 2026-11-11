@@ -4,7 +4,7 @@
 
 当前分支为[PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)、`feat/approved-platform-rooms`，尚未合入main。正式内容为35个平原房与用户授权的Z01钟心门厅；35房／43连接身份不变。平台初审导入源截至r80，平台基线`8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`；随后只落实用户明确指定的正式游戏修改。平台保持只读，不部署、不迁移、不代签审批。草稿初审不等于正式体验终审。
 
-当前运行实现保留03862afb基线。P06迎风台地背景保留；P06→P05入口仍未解决。用户已否定外挑矩形短廊和大枝叶前景候选：体量突兀、前景不协调。该轮场景、渲染、素材引用与专项测试已全部撤回，未发布主游戏或工作台，也未改成交互门。侧向优先、门前交互备选的偏好保留；平台附着前景的方法归现有美术规范，不代表本轮候选获认可。下一步须先形成与原地形连贯的单屏建筑轮廓及前景构图，不能把绑定、碰撞和通行检查当作视觉质量通过。
+当前运行实现保持7814acb3基线。用户已明确允许以已定关卡为基础重做整房构图，并为构图微调局部空间。本轮以P06整房为实验单位：四个既有出口与15块平台作为输入，左侧风车以连续崖壁建筑体量承接侧向入口，低层岩肩、中层原野与上层天空形成统一空间；前景仅为少量岸沿小垂落物。两处墙形微调仅进入构图方案，未写入正式地形。旧外挑方块与大枝叶候选保持撤回；P05接收侧须在方案落地时成对复验。平台只读，未发布游戏或工作台。
 
 ## 当前实现
 
@@ -61,10 +61,10 @@
 - 修改前后实际碰撞、平台及房界快照一致；P06两段真实反冲路线、19项入口／落点合同通过。日常CI四项和两份素材的可重复烘焙核验通过。
 - 三段正常60fps短片：低层反冲约3.2秒、中层折返约3.2秒、东岸交战约5秒。前两段声明起点并隔离战斗干扰，交战片保留正式怪物AI；均不是新档连续通关或实体手机性能证明。另提供七机位整房图及同机位前后对照。
 
-本轮媒体：[低层反冲3.2秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/rise.mp4)、[中层折返3.2秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/upper.mp4)、[东岸交战5.25秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/encounter.mp4)、[同机位对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/comparison.jpg)、[七机位整房图](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/whole-room.jpg)。文件约0.26–1.53MiB，正常速度。
+保留基线媒体：[低层反冲3.2秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/rise.mp4)、[中层折返3.2秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/upper.mp4)、[东岸交战5.25秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/encounter.mp4)、[同机位对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/comparison.jpg)、[七机位整房图](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/whole-room.jpg)。文件约0.26–1.53MiB，正常速度。
 
-本房候选已完成本轮合屏与局部操作检查，整体审美待用户反馈；不据此批量替换其余房间。逐房方法归现有美术Skill和Visual Bible：先判断腔体、设定与空间，适合已有素材才复用，不适合就新绘所缺层次。
+基线背景曾完成合屏与局部操作检查，不代表新的整房构图方案已通过实机验收；不据此批量替换其余房间。逐房方法归现有美术Skill和Visual Bible：先判断腔体、设定与空间，适合已有素材才复用，不适合就新绘所缺层次。
 
-入口参考为[上层建筑入口](https://vgkami.com/wp-content/uploads/2022/02/city-of-tears-3-1024x576.jpg)与[古董商内场](https://vgkami.com/wp-content/uploads/2022/02/city-of-tears-4-1024x576.jpg)，来源与适用范围归美术Skill的组装参考。当前仅保留方法，新增入口与前景实现均已撤回。用户明确否定本轮合屏效果，不能继承其结构测试为美术完成结论。现有正式入口、碰撞和永久捷径条件保持基线；新的入口构图与实机往返尚未验收。
+当前构图交付：[整房稿](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/f0cc5de4a9f6cf17f163a34fabc3cfe4bc7f58e3/review/junction/whole-room.jpg)、[四个正式视窗取景](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/f0cc5de4a9f6cf17f163a34fabc3cfe4bc7f58e3/review/junction/views.jpg)、[现有地形与提议墙形叠图](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/f0cc5de4a9f6cf17f163a34fabc3cfe4bc7f58e3/review/junction/geometry-overlay.jpg)。审核图各约0.20–0.23MiB，原始生成稿、SVG骨架、提议多边形、正式镜头范围与来源记录保存在同一媒体目录。四个视窗来自正式WorldCamera的1280×720／1.6缩放取景，画面是同一概念稿的截取；橙框只代表角色尺度，不是实机截图。中层远地平线已按视窗检查上提；原低地平线候选不作为当前交付。生成图仍有轮廓偏差，青色原平台与金色提议墙形为核对依据，不将图像自动转碰撞。尚未验证新墙形的物理路线、动画视差和正式像素材质；整体审美待用户反馈。参考方法归现有美术Skill与Visual Bible。
 
-正式运行包仍为公开f8188783660b；本轮未部署主游戏或关卡平台。后续先收P06反馈，再逐房推进相邻路线，累计少量确认后统一发布。
+正式运行包仍为公开f8188783660b；本轮未部署主游戏或关卡平台。后续先对当前整房稿收取反馈、落实必要局部几何并复验，再拆分为可编辑场景层和原生素材；不将整张概念插画直接贴入游戏。
