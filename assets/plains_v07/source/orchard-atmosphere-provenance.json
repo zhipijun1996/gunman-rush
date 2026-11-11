@@ -1,7 +1,7 @@
 {
   "generator": "OpenAI image_gen",
   "region": "windchime_plains",
-  "purpose": "P25 continuous outdoor orchard composition and P26 enclosed hidden recess; gameplay unchanged",
+  "purpose": "P25 orchard depth and native timber harvest frame; P26 enclosed hidden recess; gameplay unchanged",
   "references": [
     ".agents/skills/godot-room-art/assets/approved-five-regions.png",
     ".agents/skills/godot-room-art/assets/approved-tiles-and-props.png"
@@ -54,31 +54,6 @@
         486
       ],
       "sha256": "751ad669ceead59b47f89b9ddb064e27916133da08987b80831b69c5ea397689",
-      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
-    },
-    {
-      "asset": "orchard_branch_tree",
-      "image": "assets/plains_v07/native/orchard_branch_tree.png",
-      "source": "assets/plains_v07/source/orchard-structure-generated.png",
-      "source_rect": [
-        16,
-        24,
-        596,
-        1000
-      ],
-      "source_rect_format": "xyxy",
-      "size": [
-        307,
-        517
-      ],
-      "bake_scale": 0.53,
-      "flip_horizontal": true,
-      "alpha_threshold": 128,
-      "anchor": [
-        153.5,
-        517
-      ],
-      "sha256": "ca8b04773ca4170386469f11837f3c4a9396c4886cddb2761fe5634ce2dcef58",
       "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
     },
     {
@@ -155,12 +130,58 @@
       ],
       "sha256": "5c63a43dde10322f0779bef7c3f5c4f3dfeed50739548c291bf2a26a8309fb48",
       "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    },
+    {
+      "asset": "orchard_frame_brace",
+      "image": "assets/plains_v07/native/orchard_frame_brace.png",
+      "source": "assets/plains_v07/native/mill_corbel.png",
+      "source_rect": [
+        0,
+        0,
+        96,
+        104
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        96,
+        104
+      ],
+      "bake_scale": 1,
+      "anchor": [
+        48.0,
+        104
+      ],
+      "sha256": "1f2f1dbcd471b3e281706aa797d90265da25d4bab5f0ccb0997f1c459eca7cf2",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    },
+    {
+      "asset": "orchard_post_foot",
+      "image": "assets/plains_v07/native/orchard_post_foot.png",
+      "source": "assets/plains_v07/native/mill_timber_bent.png",
+      "source_rect": [
+        0,
+        384,
+        96,
+        448
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        48,
+        32
+      ],
+      "bake_scale": 0.5,
+      "anchor": [
+        24.0,
+        32
+      ],
+      "sha256": "5e40a1d2abfa984f844b4f5be36d8b20bbae511913339bb39890f8200fdc17eb",
+      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
     }
   ],
   "placement_anchors": {
-    "orchard_branch_tree": "uniformly baked mirrored root around local (205,513), placed root on launch bank y736; native branch aligns beneath platform11 at y352",
     "orchard_mill_entrance": "door opening local x300..365 at y374, sill below supporting bank top y576",
     "mill_hidden_wall": "single 416x160 backing at x1952,y1376; not repeated",
-    "orchard_ridge": "own soil ridge, independent depth .85; lower edge covered by world terrain"
+    "orchard_ridge": "own soil ridge, independent depth .85; lower edge covered by world terrain",
+    "harvest_frame": "single native timber mast x1536, y364..736; upper brace overlaps visible perch underside by4wu; complete stone foot centered1552 ends on bank5 y736, fully inside supporting bank"
   }
 }

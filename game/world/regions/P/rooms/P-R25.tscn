@@ -74,21 +74,6 @@ art_placements = Array[Dictionary]([
     ]
   },
   {
-    "asset": "orchard_branch_tree",
-    "point": [
-      1480,
-      740
-    ],
-    "layer": -8,
-    "tint": [
-      0.56,
-      0.65,
-      0.65,
-      1
-    ],
-    "sway": true
-  },
-  {
     "asset": "orchard_mill_entrance",
     "point": [
       2764,
@@ -276,12 +261,61 @@ art_placements = Array[Dictionary]([
       0
     ],
     "surface_platform": 11
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      1536,
+      736
+    ],
+    "tile_rect": [
+      1536,
+      364,
+      32,
+      372
+    ],
+    "layer": -9,
+    "tint": [
+      0.48,
+      0.59,
+      0.6,
+      1
+    ]
+  },
+  {
+    "asset": "orchard_post_foot",
+    "point": [
+      1552,
+      736
+    ],
+    "layer": -8,
+    "tint": [
+      0.48,
+      0.59,
+      0.6,
+      1
+    ]
+  },
+  {
+    "asset": "orchard_frame_brace",
+    "point": [
+      1520,
+      468
+    ],
+    "layer": -8,
+    "flip_h": true,
+    "tint": [
+      0.48,
+      0.59,
+      0.6,
+      1
+    ]
   }
 ])
 art_profile = "orchard"
 platforms = Array[Rect2]([Rect2(0, 1184, 128, 32), Rect2(256, 1120, 128, 96), Rect2(384, 864, 2496, 32), Rect2(256, 960, 128, 64), Rect2(640, 768, 288, 96), Rect2(1312, 736, 320, 128), Rect2(2048, 768, 256, 96), Rect2(2496, 576, 384, 320), Rect2(1024, 784, 256, 24), Rect2(1728, 784, 256, 24), Rect2(2320, 672, 176, 32), Rect2(1408, 352, 160, 24)])
 workbench_entity_ids = {
-"art_placements": ["P-R25:art:0", "P-R25:art:1", "P-R25:art:2", "P-R25:art:3", "P-R25:art:4", "P-R25:art:5", "P-R25:art:6", "P-R25:art:7", "P-R25:art:8", "P-R25:art:9", "P-R25:art:10", "P-R25:art:11", "P-R25:art:12", "P-R25:art:13", "P-R25:art:14", "P-R25:art:15", "P-R25:art:16", "P-R25:art:17"],
+"art_placements": ["P-R25:art:0", "P-R25:art:1", "P-R25:art:2", "P-R25:art:3", "P-R25:art:4", "P-R25:art:5", "P-R25:art:6", "P-R25:art:7", "P-R25:art:8", "P-R25:art:9", "P-R25:art:10", "P-R25:art:11", "P-R25:art:12", "P-R25:art:13", "P-R25:art:14", "P-R25:art:15", "P-R25:art:16", "P-R25:art:17", "P-R25:art:18", "P-R25:art:19"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],
