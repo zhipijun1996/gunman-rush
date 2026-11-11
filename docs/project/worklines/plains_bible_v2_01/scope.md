@@ -4,7 +4,8 @@
 
 当前分支为[PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)、`feat/approved-platform-rooms`，尚未合入main。正式内容为35个平原房与用户授权的Z01钟心门厅；35房／43连接身份不变。平台初审导入源截至r80，平台基线`8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`；随后只落实用户明确指定的正式游戏修改。平台保持只读，不部署、不迁移、不代签审批。草稿初审不等于正式体验终审。
 
-P06整房实机获得用户视觉改善反馈；井口上方封路厚台已改为同族木质可穿越接收台，落台位置不变，沿正式下＋跳返回。当前施工P05慢风平台：按实际腔体整体制作风车传动厅、暖窗／冷窗及回程通廊，保留既有射铃载台、同驱齿轮与唯一TG02。领奖后下穿平台、空中向左射击反冲穿入右侧通口；右侧原回程开关同时永久解锁回访移动台，可从右侧穿口、升起并回到左侧检修岸。修正原固定隔墙与开关闸不重合的问题，保留世界门对、角色参数和怪物配置。源码与审核媒体更新，主游戏和工作台不部署。
+P06与P05整房实机已获用户改善／认可反馈，P05下穿反冲返程及开关解锁回访载台保留。本轮基线`6b2f1340`，施工相邻P27背风检修棚：以旧风车外侧检修院统筹休息岸、上行庭地与东侧P05入口。连续木廊与侧向风车剖面取代独立棚／门脸，低原野和独立流云保留开阔动作带；三块可穿越平台沿用同族木踏板。用户指出下口井口美术不符后，按真实向下缺口绘制两侧齐平石井沿和暗内壁，删除本房旧横梁／梯子门脸。六块平台、三处连接、休息点、指引及角色参数不变；只更新源码与小审核媒体，不部署主游戏或工作台。
+
 ## P06构图落地约束
 
 构图方向采用当前媒体整房稿；样式以正式平原tile set、同族木踏板和现有角色为准。保持入口在连续建筑体量中的位置、上中下空间节奏、原野地平线与安静动作带；稿中大块岩层仅作为体量示意。通用tile负责重复地形；特殊入口上下围合、洞壁、檐口与承托体允许整体定制，不要求套用已有tile。定制建筑与自然地形按承载面收口；不得用整张概念画覆盖可玩场景。
@@ -49,7 +50,7 @@ P06整房实机获得用户视觉改善反馈；井口上方封路厚台已改�
 - P20：回身射铃反冲过短时水闸，西侧先垂直上冲越过实体桥肩，再横移到岸；高处15金币箱和原H行装支路保留。
 - P25：疏果林远景、原生木采果架、落地木桥与整体风车入口组成果园宽岸，保留战斗主路，高枝TG01用第一发空中命中回枪、第二发下射反冲取得；不新增补弹能力或秘密复活规则。清空目标后沿正式休息周期恢复。
 - P26：双吊台反冲主路、访问铃与宽地守卫；多层远梁架、落地窗间墙、检修岸托梁与真实岸位暖灯形成连续构图，墙侧小传动轮连接轴座；下层短刺通原有藏宝支路。
-- P27：检修棚休整、东侧铜齿分路及上行石阶，保持已审基线布局。
+- P27：旧风车背风检修院，连续旧木廊统一休息岸与东侧侧向通廊；充电站为近处焦点，行囊和实体暖灯在同一地面。低原野、独立流云与固定建筑分层，上行三块轻薄木踏板保持原位。下口以两侧齐平石井沿和向下暗内壁表达敞开竖井，无横梁封口。保留原休息／两路辨认和全部已审玩法。
 - P28：交错刺肩下行与反冲回升，上檐和下袋各10币，两级普通跳可返回。
 - P29：同枪开顶闸并上冲阁楼，20币藏箱、宽地守卫和回落主路；货梯井保持通畅。
 - P30：回身射铃启泵斗、横移转上升，保留H绕墙TG03与返程折梯，不新增散币。
@@ -66,18 +67,15 @@ P06整房实机获得用户视觉改善反馈；井口上方封路厚台已改�
 
 ## 检查与证据
 
-本轮源码基线为`08e7cdf9`，写集为P06可穿越接收台、P05整房美术／真实窗光／反冲通口及解锁载台、房间职责与现行规范。没有修改正式镜头、角色动作物理、世界连接或工作台草稿。
+写集为P27场景美术配置、两件整房／井口资产及可重复来源、房间职责和当前交接。使用既有PlainsRoomArt、PlainsArchitecturalFacing、PlainsTimberSurface与云层消费者，没有修改共享运行代码、正式镜头、物理、世界连接或工作台草稿。右侧与下侧threshold_for抑制本房自动门脸，背墙按真实开口裁定，建筑前表面只绘入实际实体范围。
 
-P05窗光由lighting.json生成，PlainsRoomArt兼容单光源与整房素材多个已定位开口。移动台activation_flag由FixedWorldRoom绑定FixedWorldState；永久解锁归状态，运动相位归平台，每次进房回到右侧停靠点。WorldRoomDraft读写同一字段，并校验既有surface_platform派生木踏板的索引。未设置解锁字段的载台保留原行为。
+- 原六块平台坐标与单向属性、出生点、休息点、指引路径和文本逐字段与基线比较一致；P27仍无战斗，不增加新的奖励或机关。
+- 从P26真实来向的P27接收岸起步，全程正式控制器、无中途位置重设：反冲进棚→实际充电休息→步行进P05并返回→错层上行进入P14并返回→连续下穿回下岸→落入P26并跳回原接收岸。路线通过；首次上台普通跳不足时使用现行斜向反冲，未改物理或平台迁就录制。
+- P27三来向／13项房间合同零失败。独立云层运动与暂停、建筑随镜头保持世界锚定、两处旧门脸移除、井道背墙只覆盖真实缺口、最终场景codec检查通过。日常CI四项通过，两份素材可重复烘焙核验通过。
+- 实际审看覆盖下口、休息岸、东侧过渡与上行平台的五处同机位画面、整房拼装及正常速度连续操作。无人工缩放或新增强制镜头；整房总览仅用于审查。未覆盖新档前序主线、全区战斗平衡或实体手机性能，本轮P27视觉效果待用户反馈。
 
-- P05连续真实控制器路线通过：入口射铃、登载台、空中射铃停机反冲到检修岸、上领奖台、取TG02开闸、下＋跳后空中向左射击反冲穿右通口、操作右侧开关、进入P06并返回、搭乘新增回访台回左岸。中途不重设玩家位置或载台时间。相同下落与水平输入省略返程射击时未能穿口；这不是所有绕过方法的穷举证明。
-- P05初始移动台不可见且无碰撞；开关后出现、跨房恢复及独立磁盘存档读回通过。场景codec读写保留解锁字段；已有移动台端点停靠／暂停／恢复回归通过。P05房间合同15项、P06合同19项零失败。
-- P06从真实井口连续两次上跳至主路，再以两次下＋跳返回接收岸，通过8项检查；原两段反冲专项仍通过。厚台改为同族木踏板并移除不适用的垂苔，保持接收面和门对。
-- P05双窗位置、光束随世界固定、暂停与恢复通过；P01稳定日光和P26既有窗光回归通过。整房素材保留生成原图、几何导图、提示词、机械缩放及SHA，归`assets/plains_v07/source/mill-transmission-provenance.json`，可重复烘焙核验通过。
-- 日常CI四项通过。实际审看P05五个相同镜头、整房拼装及三段正常速度短片。录像从隔离逐房试玩合法起点进入；未覆盖新档前序主线、全战斗平衡或实体手机性能。P05视觉效果待用户反馈。
+审核媒体：[整房拼装](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ae763e47ccd79bd1c990e8e687d3e9c82a5452c0/review/shelter/whole-room.jpg)、[同机位前后对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ae763e47ccd79bd1c990e8e687d3e9c82a5452c0/review/shelter/comparison.jpg)、[休息及东侧往返（9.6秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ae763e47ccd79bd1c990e8e687d3e9c82a5452c0/review/shelter/rest-east.mp4)、[上行庭地及返回（9.2秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ae763e47ccd79bd1c990e8e687d3e9c82a5452c0/review/shelter/ascent.mp4)、[下方井口往返（7.6秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ae763e47ccd79bd1c990e8e687d3e9c82a5452c0/review/shelter/shaft.mp4)。视频均为正常速度、单段小于2.3MB；[源哈希与覆盖范围](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ae763e47ccd79bd1c990e8e687d3e9c82a5452c0/review/shelter/provenance.json)绑定实际运行源。源图、提示词、几何导图、裁切／原生尺寸和SHA归`assets/plains_v07/source/shelter-courtyard-provenance.json`与`shelter-shaft-provenance.json`。本房整体结构、下口与支路可分段观看，不用完整录像承担审核。
 
-审核媒体：[同机位前后对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/comparison.jpg)、[整房实机拼装总览](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/whole-room.jpg)、[入口到检修岸（8.7秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/drive.mp4)、[下穿与空中反冲返程（8秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/recoil-return.mp4)、[开关后从右侧乘台回左岸（9.1秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/return-lift.mp4)、[P06井口上下行（6.2秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/p06-well.mp4)。均正常速度，视频每段小于1.5MB；[源哈希、夹具与覆盖边界](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/provenance.json)绑定实际运行源。整房总览使用审查用广角，游玩镜头仍为正式统一镜头。
+此前已认可的P05实现保留：[整房对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/comparison.jpg)、[首次反冲返程](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/recoil-return.mp4)、[解锁回访载台](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/return-lift.mp4)。本轮未修改P05。
 
-P06已认可的整房构图参考与对应实现保留：[构图参考](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/f0cc5de4a9f6cf17f163a34fabc3cfe4bc7f58e3/review/junction/whole-room.jpg)、[实机对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9d2fb223efb072ec37833a242a9e4bd29c69fbf5/review/junction/comparison.jpg)。该对照早于本轮井口可穿越修复；当前上下行以本轮短片为准。
-
-正式运行包仍为公开f8188783660b；本轮只更新源码与审核媒体，不部署主游戏或关卡平台。P05待用户视觉反馈，暂不扩展更多房间；不恢复通用横梁拼入口或随机边框前景。
+正式运行包仍为公开f8188783660b；本轮只更新源码与审核媒体，不部署主游戏或关卡平台。下一步按P27短片反馈在本房闭环，再继续相邻房；不恢复通用门脸或随机边框前景。

@@ -24,15 +24,37 @@ route_guide = {
 }
 art_placements = Array[Dictionary]([
   {
-    "asset": "waiting_shelter",
-    "layer": -2.0,
+    "asset": "shelter_courtyard",
     "point": [
-      960.0,
-      576.0
+      1232,
+      581
     ],
-    "landscape": "opening_plains",
+    "layer": -20,
+    "landscape": "junction_meadow",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.45
+    ],
+    "landscape_reference": [
+      832,
+      440
+    ],
+    "landscape_offset": [
+      0,
+      -100
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
     "atmosphere": {
-      "density": 2,
+      "density": 3,
       "speed": [
         15,
         27
@@ -41,98 +63,103 @@ art_placements = Array[Dictionary]([
     }
   },
   {
-    "asset": "storage_crates",
-    "layer": -2.0,
+    "asset": "shelter_courtyard",
     "point": [
-      1328.0,
-      576.0
+      1232,
+      581
+    ],
+    "layer": -19,
+    "threshold_for": "WEST-P27-P05:P-R27",
+    "facing_polygons": [],
+    "facing_boundary": true,
+    "facing_platforms": [
+      2
+    ],
+    "facing_recess": [
+      1376,
+      480,
+      288,
+      96
     ]
   },
   {
     "asset": "windchime_plains_v2_chime_span",
-    "layer": -2.0,
     "point": [
-      768.0,
-      160.0
-    ]
-  },
-  {
-    "asset": "plains_grass",
-    "layer": -2.0,
-    "point": [
-      624.0,
-      736.0
+      768,
+      160
     ],
-    "sway": true
+    "layer": -2
   },
   {
     "asset": "travel_bundle",
-    "layer": -2.0,
     "point": [
-      1200.0,
-      576.0
-    ]
-  },
-  {
-    "asset": "opening_road_ridge",
-    "point": [
-      1192,
-      824
+      1168,
+      576
     ],
-    "layer": -40,
-    "depth": 0.88,
-    "tint": [
-      0.72,
-      0.85,
-      0.84,
-      0.75
-    ]
+    "layer": -2
   },
   {
     "asset": "gear_lamp",
     "point": [
-      1344,
+      1328,
       576
     ],
     "layer": -5,
     "light": true
   },
   {
-    "asset": "orchard_fence",
-    "point": [
-      1504,
-      576
-    ],
-    "layer": -5,
-    "tint": [
-      0.62,
-      0.72,
-      0.71,
-      1
-    ]
-  },
-  {
     "asset": "tilted_barrel",
     "point": [
-      760,
+      744,
       736
     ],
     "layer": -5
+  },
+  {
+    "surface_platform": 3
+  },
+  {
+    "surface_platform": 4
+  },
+  {
+    "surface_platform": 5
+  },
+  {
+    "asset": "shelter_shaft",
+    "point": [
+      512,
+      842
+    ],
+    "layer": -12,
+    "threshold_for": "WEST-P26-P27:P-R27",
+    "facing_polygons": [],
+    "facing_platforms": [
+      0,
+      1
+    ],
+    "facing_boundary": true,
+    "facing_recess": [
+      448,
+      736,
+      128,
+      106
+    ]
   }
 ])
 art_profile = "shelter"
 platforms = Array[Rect2]([Rect2(288, 736, 160, 64), Rect2(576, 736, 1056, 64), Rect2(800, 576, 832, 160), Rect2(352, 448, 288, 64), Rect2(512, 288, 224, 64), Rect2(672, 160, 192, 32)])
 workbench_entity_ids = {
   "art_placements": [
-    "P-R27:art_placements:0",
-    "P-R27:art_placements:1",
+    "P-R27:art:courtyard",
+    "P-R27:art:east-cutaway",
     "P-R27:art_placements:2",
-    "P-R27:art-pass:0",
     "P-R27:art-pass:1",
-    "P-R27:art:clockroute:0",
     "P-R27:art:clockroute:1",
-    "P-R27:art:clockroute:2",
-    "P-R27:art:clockroute:3"
+    "P-R27:art:clockroute:3",
+    "P-R27:art:surface:3",
+    "P-R27:art:surface:4",
+    "P-R27:art:surface:5",
+    "P-R27:art:open-shaft"
   ],
   "climbable_walls": [],
   "hazards": [],
@@ -151,6 +178,7 @@ workbench_entity_ids = {
   ]
 }
 one_way_indices = Array[int]([3, 4, 5])
+illustrated_platform_indices = Array[int]([3, 4, 5])
 start_point = Vector2(640, 718)
 rest_point = Vector2(960, 558)
 signs = Array[Dictionary]([{
