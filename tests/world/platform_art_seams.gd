@@ -27,7 +27,10 @@ func _initialize()->void:
 		var parts:=WorldRoomSpace.exposed_parts(room.platforms,blockers)
 		for part:Rect2 in parts:
 			for wall:Rect2 in blockers:check(not part.intersects(wall),id+" visible platform never enters room rock")
-		if id in ["P-R01","P-R22","P-R23"]:check(room.masonry_platform_indices.is_empty(),id+" natural platforms retain the plains tile family")
+		if id in ["P-R22","P-R23"]:check(room.masonry_platform_indices.is_empty(),id+" natural platforms retain the plains tile family")
+		if id=="P-R01":
+			check(room.masonry_platform_indices==[5],"P01 only the old-well entrance bank uses masonry; town street stays plains")
+			check(room.art_placements.any(func(p:Dictionary)->bool:return p.get("threshold_for","")=="L01:P-R01"),"P01 authored entrance suppresses duplicate automatic sill")
 		if id=="P-R22":
 			check(room.masonry_platform_indices.is_empty(),"canal receiving ledges and exit share the plains material")
 			var entrance:Array[Rect2]=[room.platforms[0]]

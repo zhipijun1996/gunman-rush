@@ -241,6 +241,9 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 	for row: Dictionary in properties.get("signs", room.signs):
 		if not vector(row.get("point")) or not row.get("text") is String: return "sign_invalid"
 	for row: Dictionary in properties.get("art_placements", room.art_placements):
+		if row.has("masonry_region"):
+			if not rectangle(row.masonry_region): return "art_masonry_region_invalid"
+			continue
 		if not vector(row.get("point")): return "art_point_invalid"
 		if row.has("tile_rect") and not rectangle(row.tile_rect):return "art_tile_rect_invalid"
 		if row.has("support_height"):

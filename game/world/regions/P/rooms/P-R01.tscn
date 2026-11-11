@@ -110,87 +110,6 @@ art_placements = Array[Dictionary]([
     ]
   },
   {
-    "asset": "mill_post_segment",
-    "point": [
-      1856,
-      1280
-    ],
-    "layer": -18,
-    "tile_rect": [
-      1856,
-      416,
-      32,
-      864
-    ],
-    "tint": [
-      0.9,
-      0.95,
-      0.95,
-      1
-    ],
-    "haze": [
-      0.43,
-      0.53,
-      0.52,
-      0.68
-    ]
-  },
-  {
-    "asset": "mill_beam_segment",
-    "point": [
-      1856,
-      436
-    ],
-    "layer": -18,
-    "tile_rect": [
-      1856,
-      412,
-      192,
-      24
-    ],
-    "tint": [
-      0.9,
-      0.95,
-      0.95,
-      1
-    ],
-    "haze": [
-      0.43,
-      0.53,
-      0.52,
-      0.68
-    ]
-  },
-  {
-    "asset": "orchard_frame_brace",
-    "point": [
-      1904,
-      516
-    ],
-    "layer": -18,
-    "tint": [
-      0.9,
-      0.95,
-      0.95,
-      1
-    ],
-    "haze": [
-      0.43,
-      0.53,
-      0.52,
-      0.68
-    ]
-  },
-  {
-    "asset": "plains_grass",
-    "point": [
-      1952,
-      384
-    ],
-    "layer": -5,
-    "sway": true
-  },
-  {
     "asset": "station_houses",
     "point": [
       1136,
@@ -226,9 +145,28 @@ art_placements = Array[Dictionary]([
       1280
     ],
     "layer": -5
+  },
+  {
+    "asset": "building_threshold",
+    "point": [
+      2152,
+      384
+    ],
+    "layer": -3,
+    "light": true,
+    "threshold_for": "L01:P-R01"
+  },
+  {
+    "masonry_region": [
+      1888,
+      0,
+      320,
+      1280
+    ]
   }
 ])
 art_profile = "station"
+masonry_platform_indices = Array[int]([5])
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[1984.0, 336.0]],
 "bell": [1392.0, 1200.0],
@@ -248,13 +186,11 @@ workbench_entity_ids = {
     "P-R01:art:6",
     "P-R01:art:7",
     "P-R01:art:8",
-    "P-R01:art:9",
-    "P-R01:art:10",
-    "P-R01:art:11",
-    "P-R01:art:12",
     "P-R01:art:13",
     "P-R01:art:14",
-    "P-R01:art:15"
+    "P-R01:art:15",
+    "P-R01:art:upper_well_entrance",
+    "P-R01:art:upper_well_wall"
   ],
   "climbable_walls": [],
   "hazards": [],
