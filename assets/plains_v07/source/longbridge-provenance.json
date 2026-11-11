@@ -1,0 +1,162 @@
+{
+  "generator": "OpenAI image_gen",
+  "composition": "P32 broken stone viaduct above a low river plain. World Clockheart remains distant; the actual native stone decks, gaps, enemies and carrier are unchanged. A single rear masonry source is registered to the real cache and lower service chambers. Upper return well uses the same stone family as P15; a grounded inspection crane anchors the windchime and the moving carrier cable.",
+  "prompts": {
+    "vista": "Create one landscape-background layer for a finely detailed pixel-art side-scroller, width1536 height1024. Reference1 shows the EXACT identity of the ruined World Clockheart tower: slender tapered slate-stone belfry, enormous dull-gold circular clock face, leaning broken upper finials, open ruined supporting buttresses on right. Preserve that identity and shape, but render at fine pixel detail and quiet distant atmospheric contrast. Reference2 sets the approved low flat pastoral horizon, muted sage/olive fields and misty layers, NOT stacked mountains. Composition: tower stands on far right around x1120, its tip at y150, body sinks into a distant low riverbank near y650, never a visible cut-off bottom. The low distant horizon extends at y640..700 across the image. Broad quiet horizontal river meadows and pale winding water occupy bottom third, no steep mountains or foreground hills; faded small ruins on banks at most. The tower is far behind gameplay and should feel monumental by scale against tiny distant trees, not by bright contrast or ornate close detail. Entire sky ABOVE horizon/tower is genuine alpha transparency: sky color and moving clouds are separate in the game. NO painted clouds, sky glow, foreground trees, nearest ground, platforms, characters or UI. Muted warm pale afternoon light, cool blue-green haze in distance, warm sage/ochre fields closer; coherent sophisticated detailed pixel art, not cartoon, not photograph. Lower edge must be fully filled with calm distant earth/water, no alpha gaps. Tower base dissolves organically into distant land and mist, not a freestanding sticker.",
+    "pier": "Create a transparent architectural BACK WALL for a ruined stone bridge's service passage. Reference1 is a coordinate-only guide on 1024x640 logical canvas; DO NOT paint labels/lines/background. Reference2 sets the detailed subdued blue-grey pixel masonry style. Preserve the guide footprint exactly: upper rectangle x64..576,y96..256; lower rectangle x320..960,y256..640. These rectangles join into ONE stepped rear-wall silhouette, every other pixel transparent. This is a side-scrolling cutaway: upper room is a shallow bridge-pier cache chamber, lower room is a descent passage in the bridge abutment. In upper rectangle draw continuous recessed masonry with a shallow horizontal vault tucked under its top y96, small blind arched niche at x220,y170, a few modest old timber brace attachments, no foreground legs. At right end x576 the side opening is a cutaway into the exterior: a little inward dark thickness belongs to the same top and bottom of the niche, no front-facing door image and no standing door column. The lower rectangle forms a broader old maintenance vault: coarse continuous blue-grey masonry all the way to bottom y640, a shallow decorative blind arch spanning x360..900 from y270 to y420, and a few old dull copper service channels fixed to wall. The bottom-center exit x640..768,y448..640 MUST HAVE OPAQUE CONTINUOUS BACK WALL, not sky or a painted obstructing floor. Actual floors/ceilings/platforms are separate game tiles: DO NOT paint any gameplay platform, floor line or ground on top. Material quiet/darker than collision surfaces but not a black silhouette; warm edge highlights only faint. No lamps, glow, grass, landscape, tower, characters, chest, words or UI. The space should read as one continuous old bridge structure, not unrelated prop stickers. Crisp fine-clustered pixel art consistent with reference2; no smooth photoreal texture. Exact footprint, continuous corners, alpha outside only.",
+    "crane": "Create ONE transparent 512x384 pixel-art old bridge inspection crane, matching the worn brown timber, dull brass and blue-grey stone of reference. This is low-contrast background machinery in a side-scrolling game, not a collidable pillar. Keep exact attachment coordinates: a narrow timber vertical mast centered x344 descends to a small stone foot at y383, base width about48. Mast rises to y64. Thin horizontal overhead beam spans x40..490 near y64. A small dull brass pulley hub at x440,y64 carries the separate in-game cable (do not paint a long rope to any platform). One thin diagonal timber strut goes from mast x344,y230 to beam x440,y64. At x107 a fine hanging tie descends from y64 down to exactly y160, ending with a little iron bracket; this attaches an existing windchime crossbar (DO NOT paint bell/chimes). Slight asymmetric wear, chipped edges, restrained tiny olive moss at base. There is NO floor, landscape, sky, house or other objects. Base touches bottom edge at y383 with no transparent padding; outside narrow mast, beam, strut, pulley and tie is alpha. Preserve sparse large transparent openings, no solid panel, no thick black silhouette or bright brass shine. Detailed small pixel clusters like reference, same native-world style; not photoreal and not cartoon."
+  },
+  "guide": "assets/plains_v07/source/longbridge-pier-guide.png",
+  "assets": [
+    {
+      "asset": "clockheart_vista",
+      "source": "assets/plains_v07/source/longbridge-vista-generated.png",
+      "source_sha256": "db137d974ab96dedcbb2b78a34f90195b56356432cdae66c95df120d2e3c6bb8",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        1152,
+        768
+      ],
+      "image": "assets/plains_v07/native/longbridge_vista.png",
+      "sha256": "16ad7a47bd304aac6104a89225e85efa6187d27cab897b114b1121372cff6f09",
+      "sampling": "nearest",
+      "alpha_threshold": null,
+      "anchor": [
+        576.0,
+        768
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    {
+      "asset": "longbridge_cache",
+      "source": "assets/plains_v07/source/longbridge-pier-generated.png",
+      "source_sha256": "1fe553399286358a1dd3bb4da2b923ce3cd12a925332afe9d92c6e0b51a55d77",
+      "source_rect": [
+        96,
+        144,
+        768,
+        255
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        512,
+        160
+      ],
+      "image": "assets/plains_v07/native/longbridge_cache.png",
+      "sha256": "ee3292933c8f0296e6ac92bee65f5bda27dee0ca380d69fa09bd922721f449fa",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        256.0,
+        160
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    {
+      "asset": "longbridge_service",
+      "source": "assets/plains_v07/source/longbridge-pier-generated.png",
+      "source_sha256": "1fe553399286358a1dd3bb4da2b923ce3cd12a925332afe9d92c6e0b51a55d77",
+      "source_rect": [
+        492,
+        396,
+        996,
+        596
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        640,
+        384
+      ],
+      "image": "assets/plains_v07/native/longbridge_service.png",
+      "sha256": "d180d13ba3f82ae01b74adb3be4ee47e659a2b61474f585198a4bf553fa0cb50",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        320.0,
+        384
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    {
+      "asset": "longbridge_crane",
+      "source": "assets/plains_v07/source/longbridge-crane-generated.png",
+      "source_sha256": "d9cc35319e0bc3ff3680d694d46ea15b86af2b7eb5a910fc2df2bb00dda7e70f",
+      "source_rect": [
+        0,
+        0,
+        1448,
+        1086
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        362,
+        272
+      ],
+      "image": "assets/plains_v07/native/longbridge_crane.png",
+      "sha256": "d96d97b541d64458cc4daef3d5ca4bcdc504c70f9fe2d17f929d78207a1973d0",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        181.0,
+        272
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    {
+      "asset": "longbridge_wellmouth",
+      "source": "assets/plains_v07/source/bellgarden_shaftmouth-generated.png",
+      "source_sha256": "c03639539de5f89cff06bd534e3a2bd91885e8617f43dd57262b02a83967131a",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        896,
+        598
+      ],
+      "image": "assets/plains_v07/native/longbridge_wellmouth.png",
+      "sha256": "0a0a37deb507febd9dfb01d9204fd35bde951188be6b37357fc81c0c79a5c007",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        448.0,
+        598
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    {
+      "asset": "longbridge_hanger",
+      "source": "assets/plains_v07/source/longbridge-crane-generated.png",
+      "source_sha256": "d9cc35319e0bc3ff3680d694d46ea15b86af2b7eb5a910fc2df2bb00dda7e70f",
+      "source_rect": [
+        280,
+        228,
+        16,
+        152
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        4,
+        38
+      ],
+      "image": "assets/plains_v07/native/longbridge_hanger.png",
+      "sha256": "b56d1cc8281e6bdfb7fa9014fb812d89681aa2960b0a1be5195e1cbb22a45ceb",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        2,
+        38
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    }
+  ]
+}

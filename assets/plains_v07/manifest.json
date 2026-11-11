@@ -29,7 +29,6 @@
     "aqi-animal-story-generated.png": "f58aaa61746f94a866d51faed09a62eaad879f30c0a0cbc08e9fd04fb4170e63",
     "opening_plains-layer-generated.png": "8ae454e97892c5c56bc96c718c1c0c68ebefbc4342ede6c5338303bb094798fe",
     "orchard-layer-generated.png": "d29d75330dad7822aec311afeb3a193ee61b83a2f6a06fc02f17a0ad28d56d43",
-    "clockheart_vista-layer-generated.png": "263001cc97d66f57f1d985a1d3271dee04568c351ef828d0f7823efae77763d8",
     "plains-layer-generated.png": "81a944887dc273c7e04a27d9425a407f2bcfe284be140ac8064be8a2211268f4",
     "wind_clouds-layer-generated.png": "4065a9bdb81772beb40d3855392e8fe3a9cc240ae2ae272d32789ca098d21be0",
     "clocktower_base-generated.png": "8c54ff0532730090edcfa9d6249501876d15d59d22c60b38fb09ca48f4eb1275",
@@ -1125,24 +1124,29 @@
       "sha256": "4d6a8c6739e913dbbabfa0bf32bb30c874f03edc4e14ee32970854aa8c47ef7e"
     },
     "clockheart_vista": {
-      "image": "assets/plains_v07/native/clockheart-landscape.png",
-      "source": "assets/plains_v07/source/clockheart_vista-layer-generated.png",
+      "asset": "clockheart_vista",
+      "source": "assets/plains_v07/source/longbridge-vista-generated.png",
+      "source_sha256": "db137d974ab96dedcbb2b78a34f90195b56356432cdae66c95df120d2e3c6bb8",
       "source_rect": [
         0,
         0,
-        1672,
-        941
+        1536,
+        1024
       ],
       "source_rect_format": "xywh",
       "size": [
-        640,
-        360
+        1152,
+        768
       ],
-      "filter": "nearest",
-      "alpha_threshold": 128,
-      "role": "fixed_landscape_transparent_sky",
-      "sha256": "051efc620fdfef9a5bdeefdfbd00d154d085a2cfd4183bbfdb4d8744481a89f0",
-      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
+      "image": "assets/plains_v07/native/longbridge_vista.png",
+      "sha256": "16ad7a47bd304aac6104a89225e85efa6187d27cab897b114b1121372cff6f09",
+      "sampling": "nearest",
+      "alpha_threshold": null,
+      "anchor": [
+        576.0,
+        768
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
     },
     "orchard": {
       "image": "assets/plains_v07/native/orchard.png",
@@ -2653,6 +2657,131 @@
         2048
       ],
       "generation": "assets/plains_v07/source/bellgarden-provenance.json"
+    },
+    "longbridge_cache": {
+      "asset": "longbridge_cache",
+      "source": "assets/plains_v07/source/longbridge-pier-generated.png",
+      "source_sha256": "1fe553399286358a1dd3bb4da2b923ce3cd12a925332afe9d92c6e0b51a55d77",
+      "source_rect": [
+        96,
+        144,
+        768,
+        255
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        512,
+        160
+      ],
+      "image": "assets/plains_v07/native/longbridge_cache.png",
+      "sha256": "ee3292933c8f0296e6ac92bee65f5bda27dee0ca380d69fa09bd922721f449fa",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        256.0,
+        160
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    "longbridge_service": {
+      "asset": "longbridge_service",
+      "source": "assets/plains_v07/source/longbridge-pier-generated.png",
+      "source_sha256": "1fe553399286358a1dd3bb4da2b923ce3cd12a925332afe9d92c6e0b51a55d77",
+      "source_rect": [
+        492,
+        396,
+        996,
+        596
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        640,
+        384
+      ],
+      "image": "assets/plains_v07/native/longbridge_service.png",
+      "sha256": "d180d13ba3f82ae01b74adb3be4ee47e659a2b61474f585198a4bf553fa0cb50",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        320.0,
+        384
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    "longbridge_crane": {
+      "asset": "longbridge_crane",
+      "source": "assets/plains_v07/source/longbridge-crane-generated.png",
+      "source_sha256": "d9cc35319e0bc3ff3680d694d46ea15b86af2b7eb5a910fc2df2bb00dda7e70f",
+      "source_rect": [
+        0,
+        0,
+        1448,
+        1086
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        362,
+        272
+      ],
+      "image": "assets/plains_v07/native/longbridge_crane.png",
+      "sha256": "d96d97b541d64458cc4daef3d5ca4bcdc504c70f9fe2d17f929d78207a1973d0",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        181.0,
+        272
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    "longbridge_wellmouth": {
+      "asset": "longbridge_wellmouth",
+      "source": "assets/plains_v07/source/bellgarden_shaftmouth-generated.png",
+      "source_sha256": "c03639539de5f89cff06bd534e3a2bd91885e8617f43dd57262b02a83967131a",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        896,
+        598
+      ],
+      "image": "assets/plains_v07/native/longbridge_wellmouth.png",
+      "sha256": "0a0a37deb507febd9dfb01d9204fd35bde951188be6b37357fc81c0c79a5c007",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        448.0,
+        598
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    "longbridge_hanger": {
+      "asset": "longbridge_hanger",
+      "source": "assets/plains_v07/source/longbridge-crane-generated.png",
+      "source_sha256": "d9cc35319e0bc3ff3680d694d46ea15b86af2b7eb5a910fc2df2bb00dda7e70f",
+      "source_rect": [
+        280,
+        228,
+        16,
+        152
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        4,
+        38
+      ],
+      "image": "assets/plains_v07/native/longbridge_hanger.png",
+      "sha256": "b56d1cc8281e6bdfb7fa9014fb812d89681aa2960b0a1be5195e1cbb22a45ceb",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        2,
+        38
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

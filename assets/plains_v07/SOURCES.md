@@ -13,13 +13,13 @@
 | architecture-generated.png | 倒时车厢、候车棚、风车架、旧摊架、井台；未使用的旧拱形桥墩只保留母版来源 |
 | thresholds-generated.png | 无拱直柱、木梁遮檐入口、低井口；固定裁切与等比原生烘焙见清单，生成提示摘要见source/thresholds-generation.json |
 | clocktower-generated.png | 世界钟塔构件原母版；P32远景不再使用独立剪影 |
-| clockheart-landscape.png | P32完整远景：同族高塔与山脊、谷雾一体绘制，塔基被环境遮住；640×360最近邻烘焙，提示词与源图一同保留 |
+| longbridge_vista.png / longbridge_cache.png / longbridge_service.png / longbridge_crane.png / longbridge_hanger.png / longbridge_wellmouth.png | P32整房构图：低平河谷与远处钟心、连续桥墩检修背墙、实际铃位与吊台承接的吊架、P15同族回程井口。独立流云沿现有天空层；母图、提示词、机械裁切／锚点与哈希见 source/longbridge-provenance.json。 |
 | room-orchard-generated.png / room-mill-generated.png | 现用果园断栅、木架、托梁和木台的母版；[裁切与锚点](source/room-pair-provenance.json)，原生尺寸归manifest。无消费者的大树、草根岩肩、独立亮窗、幕布墙和大装饰轮不进入现行素材清单 |
 | mill-hall-generated.png / mill-window-bay-generated.png | P26整屏氛围实验：多层风车远结构与完整窗间墙；[提示词、参考、裁切、等比烘焙与哈希](source/mill-atmosphere-provenance.json)。远景轻微视差，墙身与窗光固定世界坐标，主角与玩法沿用正式入口；主厅氛围改善获用户反馈，隐藏小室使用下列专用背墙 |
 | orchard-sky-generated.png / orchard-ridge-generated.png / orchard-structure-generated.png / mill-recess-generated.png | P25远山底板、自带地面的疏果林与整体门廊，P26单幅封闭小室背墙；[提示词、裁切、锚点和哈希](source/orchard-atmosphere-provenance.json)。中央高台侧柱与托臂由现用木材机械裁切复用，母版中的大树不生成运行素材；室外整体改善已获反馈，P25木桥按可见梁底修正接缝、入口木台按岩壁收口 |
 | opening-sky-generated.png / opening-ridge-generated.png / opening-gallery-generated.png / station-houses-generated.png | 首段六房连续构图：低对比草原远山、自带地面的旧路遗迹与望站坡通风后廊；[提示词、裁切、锚点和哈希](source/opening-atmosphere-provenance.json)。小站以略显破败的旧住宅、连续主街与已有服务居民组织生活感；挑战平台与铃闸复用原生梁柱；P24隐藏室由现用封闭背墙按净空机械裁切。 |
 | animal-residents-generated.png / aqi-animal-story-generated.png | 獾回收匠、长耳兔织时匠、狐狸旅人、野猪武器匠、猫头鹰守钟匠；每个状态四帧待机和两帧招呼，统一脚底、每状态固定比例；[最终来源与烘焙](source/inhabitants-sky-provenance.json)。人类NPC母版与旧生产路径已移除。 |
-| opening_plains-layer-generated.png / orchard-layer-generated.png / clockheart_vista-layer-generated.png / plains-layer-generated.png / wind_clouds-layer-generated.png | 四类固定地表／塔景具有透明天空，独立双层流云在地表后方移动；源图、裁切与输出哈希同上，不扭动山体或塔。 |
+| opening_plains-layer-generated.png / orchard-layer-generated.png / plains-layer-generated.png / wind_clouds-layer-generated.png | 固定地表具有透明天空，独立双层流云在地表后方移动；源图、裁切与输出哈希同上，不扭动山体或塔。 |
 | clockheart_hall-generated.png / clocktower_base-generated.png | Z01低对比后殿与真实左上窗、P33覆盖入口整座基台的后墙；[生成说明、源图、裁切与哈希](source/clockheart-route-provenance.json)。门洞取同一后殿的暗区，不重复亮窗；`python3 tools/art/bake_clockheart_route.py --verify`重建比对三份原生输出。 |
 | windcourt-arena-generated.png / windcourt-gallery-generated.png | P14开敞残拱战场与连续后层古廊，原野和独立云层透过建筑空隙；[导图、提示词、注册位置和烘焙哈希](source/windcourt-composition-provenance.json)。残拱柱身按当前战场重绘至地面；实际平台、钩索和回程空间归P14场景与construction，生成导图只记录素材注册依据。木踏板复用现行同族表现。 |
 | bellgarden-ruin-generated.png / bellgarden-revival-generated.png | P15塌顶风鸣庭：同一构图的破败钟架、后壁与定点复苏枝叶，裁切和锚点成对注册；铜钟以原画局部挂点刚性摆动，独立云层保留。来源、提示词、裁切和哈希见[记录](source/bellgarden-provenance.json)。低沉修钟声为`tools/generate_windchime_audio.py --clock`原创模态合成，配合现有钟鸣，由GameAudio同一声部池播放。 |

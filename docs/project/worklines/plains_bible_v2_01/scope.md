@@ -4,7 +4,7 @@
 
 当前分支为[PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)、`feat/approved-platform-rooms`，尚未合入main。正式内容为35个平原房与用户授权的Z01钟心门厅；35房／43连接身份不变。平台初审导入源截至r80，平台基线`8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`；随后只落实用户明确指定的正式游戏修改。平台保持只读，不部署、不迁移、不代签审批。草稿初审不等于正式体验终审。
 
-用户已认可P15修钟特效，但指出井下边界突兀、背景不好看。本轮基线`0f0e87bc`，只返工P15井口／井底背墙连续性与钟庭背景：排除水平裁断和下口漏出室外远景，背景退为安静的原野与统一庭墙，清除过近的大柱及重复墙片。针对下层过空的反馈，将钟台下方整理为带旧传动凹室、接地石基及复苏枯植的下院，中央保留安全承接与回升净空。保留修钟、摆钟、复苏、镜头、全部实体地形、路线和门位；源文档直接维护最终设计。只更新源码与小审核媒体，不部署主游戏或关卡平台。
+本轮基线`4b83d7e8`，用户要求继续下一间，范围仅P32悬铃长桥，承接P15修钟回程。按破损石桥统一远眺、桥墩藏室和下层检修口：先核完整几何与正常镜头，再匹配远处世界钟心、独立云层及连续桥墩背墙。保留角色物理、镜头、平台、怪物、风铃载台、奖励和门对；相邻房只验接缝。仍只更新源码与小审核媒体，不部署主游戏或关卡平台。
 
 ## P06构图落地约束
 
@@ -55,7 +55,7 @@
 - P29：同枪开顶闸并上冲阁楼，20币藏箱、宽地守卫和回落主路；货梯井保持通畅。
 - P30：回身射铃启泵斗、横移转上升，保留H绕墙TG03与返程折梯，不新增散币。
 - P31：断渠、双吊台上行与下层巡逻回路，底部96宽刺沟后的20币藏箱；精密换乘区保留净空。
-- P32：断桥反冲、射铃检修台、桥墩10金币箱和上层钩索回访，不必要桥柱已删除，钟心塔保持固定远景。
+- P32：破损石桥跨过低平河谷，钟心塔与远地一体绘制、云独立移动，远眺演出与普通镜头共用同一远景。原生石桥面与上口／下层可穿越木踏板保持原几何；落地检修吊架连接实际风铃与载台，桥墩藏室和下层检修口以同源砖拱背墙收拢，暖灯落在检修岸。上口接P15同族井壁与破损收口。保留断桥反冲、射铃检修台、桥墩10金币箱、上层H回访和四个门对。
 - P33：塔前庭、下层回环与正面门位。Z01按用户明确授权开放，门厅调查结束后解除小站北路限制。
 - P34：西檐15金币藏箱、宽地冲锋遭遇、带侧刺的纪念台与整体建筑逐级登高；下井口从右侧经宽穿透台回广场。
 - P35：交通笼与中层遭遇，西向回程补足肩台；实际新增占地同步施工源，两处上口保留可穿越接收台。
@@ -67,12 +67,16 @@
 
 ## 检查与证据
 
-本轮写集为P15美术放置、房间设计、素材登记／来源与当前交接。重绘带旧传动凹室的连续庭墙、井口破损拱缘、落地拱座与同源下院复苏植物，删除无消费者的巨柱／重复拱墙及对应枝叶裁片；原生成母图仍供已认可钟台和复苏素材使用。场景去除美术字段后与基线逐字相同：碰撞、平台、门位、镜头、机关和剧情配置未改；修钟表现／声音代码未改。没有修改construction、玩家参数、邻房内容或发布运行包。
+本轮写集为P32美术放置、房间设计、素材登记／来源与当前交接。新绘低河谷钟心远景、同源桥墩检修墙和落地吊架，复用P15同族井口；两处既有单向台只换木面表现。旧P32山脊塔景及无消费者源图／原生文件从现行清单删除；仍被其它房间使用的果园栏杆、行囊、通用铃柱保留其资产，P32不再放置。去除美术字段后，场景与基线逐字一致：碰撞、平台坐标、门位、镜头、敌人、机关、奖励和剧情配置没有改动；没有修改construction、玩家参数、邻房或平台运行包。
 
-- 正式控制器从P14成对入口，以前房已授予H阶段连续下降→三环横渡→实际修钟→实际开启捷径→P32→返回P15→盆地四环回升→钟台；中途不重置人物坐标，不伪造修钟／捷径状态。
-- 覆盖原生台面与墙体无重叠、七钩点可达、失败盆地回升、钟声在暂停世界中播放、修复揭示开始时保持衰败、完成后正常归还、提前跳过保留收据、重载不重播临时演出；实际磁盘读回保留修钟与捷径标记，持久状态结构有效。正式P15专项、平台接缝、整区编译和4项CI均通过。本轮按正式入口专项与连续录像覆盖目标房，不运行依赖停更平台目录的旧综合脚本，不修改或重部署平台目录。
-- 正常镜头下检查入口、检修岸、开放横渡、钟台与下院；移动复查修掉井口侧端裁切，下口背墙延伸过最终显示边界；传动石基与拱脚落在实际岸面，中央回升路径保持净空。同机位对照保留。构图判断为可继续审核，不代签用户审美认可。未覆盖手机真机性能、Web新包、完整新档通关及磁盘写失败注入；本轮没有部署。
+- 正式控制器从P31成对入口连续清理三只主路敌人→两次断桥反冲→实际射铃登台→东岸远眺→P33→返回P32，断言通过。真实战斗与美术巡览分别运行。
+- 美术录制使用正式H逐房入口，隔离敌人，仅帮助看清构图；真实输入连续从西口走到东口并返回，进入桥墩藏室实际打开10金币箱、普通跳回下层平台、下＋跳到检修岸。没有中途重置人物、改机关状态或伪造奖励；H属于声明的回访阶段，不声称新档获得。40.43秒母版为30fps正常速度、原声，短片按原时间裁切。上口井壁另由正常镜头局部夹具检查；整房图为缩远检查图，不冒充正常镜头。
+- P32正式动作专项、平台接缝、整区编译、素材机械烘焙复验及四项CI通过。最终编译版本`e64d8c7f2593`。连续巡览覆盖了实际桥墩、下口和东侧来回；未重跑整个35房新档、完整H回升战斗或手机真机性能，不运行依赖停更平台目录的旧综合脚本。
+- 同机位及连续画面复查：吊架脚贴实际岸面，风铃支架／缆绳接到吊架；桥墩背墙不透天缝，下口背墙覆盖最终显示边界；远景高度同时适应行走与原有演出，对白不遮钟面，塔基融入低地。视觉判断为可交用户审核，不代签认可。
+- P32→P33时Godot仍打印一次`self_list.h:46 / p_elem->_root`引擎错误日志，切房与返回断言通过。换回旧P32场景放置、使用当前渲染器与资源也可复现，未在本轮扩展修改引擎生命周期；不能称为全程无日志错误。
 
-当前证据绑定编译版本`c8c4ca94272e`及最终场景／素材哈希。38.17秒母版沿正式输入连续完成；正常速度、原声短片：[井口与横渡8秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ba241500f0d6b0bc59e93de7ec4f2a7524c978a/review/bellgarden-boundary/arrival.mp4)、[修钟背景10秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ba241500f0d6b0bc59e93de7ec4f2a7524c978a/review/bellgarden-boundary/clock.mp4)、[传动下院与往返14.47秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ba241500f0d6b0bc59e93de7ec4f2a7524c978a/review/bellgarden-boundary/return.mp4)，分别0.97／1.49／2.21MiB。[下院实机](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ba241500f0d6b0bc59e93de7ec4f2a7524c978a/review/bellgarden-boundary/undercourt.jpg)、[井口同机位对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ba241500f0d6b0bc59e93de7ec4f2a7524c978a/review/bellgarden-boundary/shaft-comparison.jpg)、[钟台同机位对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ba241500f0d6b0bc59e93de7ec4f2a7524c978a/review/bellgarden-boundary/clock-comparison.jpg)、[下口同机位对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ba241500f0d6b0bc59e93de7ec4f2a7524c978a/review/bellgarden-boundary/basin-comparison.jpg)、[源码／媒体哈希、录制脚本及检查记录](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ba241500f0d6b0bc59e93de7ec4f2a7524c978a/review/bellgarden-boundary/provenance.json)。远端文件均为HTTP200，SHA256已核对。相邻路线的来源保留：[P14布局与阶段证据](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b8dbe750e4065f594a7b818e4722766607e1c9aa/review/windcourt-layout/provenance.json)、[P27检修院](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ae763e47ccd79bd1c990e8e687d3e9c82a5452c0/review/shelter/provenance.json)。素材提示词、机械裁切、注册与哈希归`assets/plains_v07/source/bellgarden-provenance.json`。
+证据：正常速度、原声短片：[断桥6.6秒／0.63MiB](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/425eac4d9fda7024b7b187b45f708a2887ff93e5/review/longbridge/crossing.mp4)、[射铃登台与远眺13秒／0.85MiB](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/425eac4d9fda7024b7b187b45f708a2887ff93e5/review/longbridge/lift-vista.mp4)、[桥墩藏室10.4秒／1.04MiB](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/425eac4d9fda7024b7b187b45f708a2887ff93e5/review/longbridge/pier-cache.mp4)。同机位：[吊架](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/425eac4d9fda7024b7b187b45f708a2887ff93e5/review/longbridge/bridge-comparison.jpg)、[藏室](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/425eac4d9fda7024b7b187b45f708a2887ff93e5/review/longbridge/cache-comparison.jpg)、[远眺](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/425eac4d9fda7024b7b187b45f708a2887ff93e5/review/longbridge/vista-comparison.jpg)；[上口接收台](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/425eac4d9fda7024b7b187b45f708a2887ff93e5/review/longbridge/upper-return.jpg)、[证据与哈希](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/425eac4d9fda7024b7b187b45f708a2887ff93e5/review/longbridge/provenance.json)。远端下载均为HTTP200且SHA256一致。
 
-公开运行包仍为f8188783660b；下一步依据P15短片反馈在本房闭环，再继续相邻房。不恢复通用门脸、随机边框前景或已被替代的封闭钟腔稿。
+源码／素材哈希、录制脚本、夹具声明和检查日志归媒体`provenance.json`；生成提示词、母图、机械裁切和锚点归`assets/plains_v07/source/longbridge-provenance.json`。前房P15的修钟与回程证据保留[来源](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9ba241500f0d6b0bc59e93de7ec4f2a7524c978a/review/bellgarden-boundary/provenance.json)，本轮不重复宣称其全部流程验证。
+
+公开运行包仍为f8188783660b；下一步根据P32短片反馈在本房闭环，再继续下一间。不恢复通用门脸、随机边框前景或无消费者的旧远景。
