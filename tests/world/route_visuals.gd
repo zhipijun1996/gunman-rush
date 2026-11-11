@@ -12,6 +12,7 @@ func run() -> void:
 	check(packed.pack(authored) == OK, "arena scene packs")
 	var restored := packed.instantiate()
 	check(restored.get_node_or_null("Arena/RegionalTerrain") is WorldModuleTerrain, "packed roundtrip retains presenter")
+	check(restored.get_node("Arena").get_meta("authored_timber_surface", false), "packed roundtrip retains timber presentation")
 	restored.free(); authored.free()
 	await load_room("P-R14")
 	var arena := app.room.get_node("Arena") as PlatformingModule

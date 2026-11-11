@@ -21,11 +21,12 @@
 | animal-residents-generated.png / aqi-animal-story-generated.png | 獾回收匠、长耳兔织时匠、狐狸旅人、野猪武器匠、猫头鹰守钟匠；每个状态四帧待机和两帧招呼，统一脚底、每状态固定比例；[最终来源与烘焙](source/inhabitants-sky-provenance.json)。人类NPC母版与旧生产路径已移除。 |
 | opening_plains-layer-generated.png / orchard-layer-generated.png / clockheart_vista-layer-generated.png / plains-layer-generated.png / wind_clouds-layer-generated.png | 四类固定地表／塔景具有透明天空，独立双层流云在地表后方移动；源图、裁切与输出哈希同上，不扭动山体或塔。 |
 | clockheart_hall-generated.png / clocktower_base-generated.png | Z01低对比后殿与真实左上窗、P33覆盖入口整座基台的后墙；[生成说明、源图、裁切与哈希](source/clockheart-route-provenance.json)。门洞取同一后殿的暗区，不重复亮窗；`python3 tools/art/bake_clockheart_route.py --verify`重建比对三份原生输出。 |
+| windcourt-arena-generated.png / windcourt-gallery-generated.png | P14开敞残拱战场与连续后层古廊，原野和独立云层透过建筑空隙；[导图、提示词、注册位置和烘焙哈希](source/windcourt-composition-provenance.json)。普通地形、Boss与钩索路线保持原样；木踏板只替换实际单向平台的表现。 |
 | story-traces-generated.png | 布条桩、路线便笺板、修好的灯凳，显现只读取交谈收据与宿主房号 |
 
 `python3 tools/art/bake_plains_v07.py` 按最终动物与天空来源清单执行固定格裁切、alpha≥128 清边、最近邻采样与固定脚底对齐；`--verify`逐像素核对现用输出。源图、每次裁切、原生高度、缩放和输出哈希见 [manifest.json](manifest.json)。场景按一素材像素/一世界单位放置；UI肖像沿统一逻辑画布比例展示。源图由 `.gdignore` 隔离，导出只使用原生资产与运行清单。
 
-P32按`clockheart_vista`读取钟心远景，P25按`orchard`读取果园；首段六房及小站—钟心—牧风者路线的普通室外以本房`art_placements.landscape`选择`opening_plains`，不改变玩法或室内外材质配置。未指定专用底板的正式房间读取本清单的`plains`透明天际线，不再从旧家园通用背景加载。远景按整数倍覆盖实际窗口并使用独立低速视差；实体仍保持1素材像素/1世界单位。室外环境底光参考技能中的认可光照配置，实际Godot方向光须以窗口光照对照审查；接入不代表最终视觉通过。室外保留已接入的地形避让前景和明确放置植被；室内由同一个房间材质判定排除天空、自动草丛、风车外立面和室外井台，使用背墙、传动架、阀门与水管。
+P32按`clockheart_vista`读取钟心远景，P25按`orchard`读取果园；普通室外由本房`art_placements.landscape`选择底板，首段与既有钟心路线多使用`opening_plains`，P06／P14／P27已按整房构图使用`junction_meadow`低原野与独立疏云，不改变玩法或室内外材质配置。未指定专用底板的正式房间读取本清单的`plains`透明天际线，不再从旧家园通用背景加载。远景按整数倍覆盖实际窗口并使用独立低速视差；实体仍保持1素材像素/1世界单位。室外环境底光参考技能中的认可光照配置，实际Godot方向光须以窗口光照对照审查；接入不代表最终视觉通过。室外保留已接入的地形避让前景和明确放置植被；室内由同一个房间材质判定排除天空、自动草丛、风车外立面和室外井台，使用背墙、传动架、阀门与水管。
 
 场景材质与地形碰撞分开：直柱按真实梁底与地面拼接柱帽、等宽柱身和柱脚，不缩放宽度；室外入口仅在实际室内连接处放置门廊或井口，室内出口投来向外光。返程封墙继承宿主室内材质。普通建筑仅作构图；果园树拱由房间明确指定对应平台图像，按清单surface_height对齐枝面，树干在可穿行背景层；实际落脚面、遮弹掩体、铜铃吊台、折板与水面危险由对应组件拥有。动效只响应已接受的动作/持久化结果，不发放奖励。
 

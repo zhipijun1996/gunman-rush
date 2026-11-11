@@ -1,0 +1,60 @@
+{
+  "generator": "OpenAI image_gen",
+  "purpose": "P14 unified windcourt rear architecture. Actual gameplay geometry and sky/cloud layers remain independent.",
+  "prompts": {
+    "arena": "Create a production transparent pixel-art layer for an ancient open-air WINDCOURT PAVILION in a moody 2D metroidvania. Image1 is exact spatial registration, image2 is the game's real art and hero/Boss scale. This is a coherent architectural cutaway BEHIND the combat, not standalone props. Canvas 1536x1024. World mapping x320..1856,y-256..768, one pixel per world unit.\nAt image x180 and1300 are the pavilion's two actual narrow stone side piers, starting y416 and ending y824. A long actual old stone lintel lies between x204..1300,y416..440. Integrate these into a weathered tuning-court structure: broad very shallow arch relief in the rear, original slate-blue stone, faint ancient bell engravings, small sparse olive moss at worn edges. The outermost stone must match those actual pier/lintel positions. A few deep recessed secondary arch forms can rise above the top lintel into image y150..415, but they belong to the distant rear structure, not extra projecting platforms. Important: real sideways entry gaps BELOW y824 at both sides must stay clear, no full-height pillar placed across these entry lanes. You may show modest recessed foundations below the piers, clearly farther behind the play plane, but no blocking foreground wall.\nThe bottom image ground line is y1016. Low, broken remnants of a rear balustrade at y930..1016 may anchor the architecture in one continuous setting, very low contrast. Main central region x250..1250,y460..930 should be almost entirely TRANSPARENT OPEN AIR, allowing the game's separate sky and fields to show through. No bright big bell in the middle, no plants obscuring the Boss, no horizontal line at character height. Two separated background arch bays may frame the view but do not fill the action space with stone. Piers and upper stonework must read as an old pale cool gray-blue ruin with gentle warm sunlight from upper right, moss accents, deep recesses, understated texture. Their muted blue-green shadows contrast gently with the warm open sky. No giant mountains, sky paint, clouds, floor, actual gameplay platforms, characters, UI, text, guide boxes, magic circles or particles. All open air and outside silhouette truly transparent.\nStyle: finely clustered pixel art matching the game, tiny chipped edges, simple large masses, restrained palette. No photorealism, no painterly brush strokes, no shiny metal. Slightly abandoned, solemn and wind-worn, not luxurious. Avoid isolated decorative objects. Deliver a single continuous rear architecture sprite whose bottom and side anchors match the supplied actual geometry.\n",
+    "gallery": "Create a production transparent pixel-art distant architecture panorama for the EASTERN BELL GALLERY of the same ancient windcourt, in a 2D metroidvania. Image1 shows actual geometry and routes, image2 shows the game's original pixels and player size. This artwork is one coherent FAR REAR LAYER behind the entire gallery, never a set of solid gameplay walls or individually supported platforms. Canvas1536x1024. It maps world x1792..4864,y-512..1536, 2 world units per output pixel. Actual routes are yellow (high) and pale blue (lower); do not draw them or any guide objects.\nDesign a wind-eroded, partly collapsed old bell aqueduct / open ceremonial gallery in subdued atmospheric sage-blue and gray-green stone. Large broad shallow arch spans, varied broken heights and missing sections, very sparse dark ivy, remnants of bell-carved friezes. Keep most architectural masses BELOW image y480. A few broken upper crowns rise gently to y380 near image x180,580,1050, no repetitive evenly spaced towers. The playable upper lane (image y360..510) stays QUIET with mostly transparent sky and low-contrast distant silhouettes; the player's grappling rings must remain the clearest points. Do not imitate actual floating platform edges or draw new walkable ledges.\nAlong middle and lower image y540..770, a continuous deeply recessed arch gallery suggests a long lower return route, including a dark enclosed but low contrast bay at x850..1035,y590..770. This is the distant back of the same architectural complex, not a building pasted into a foreground platform. Bases of all structures share a continuous low rear foundation at image y800, fading into cool mist before the bottom; no floating roots or amputated visible bases. Left and right edges finish as naturally broken / receding silhouettes, not abrupt vertical image crops. Upper half and arch openings must be actual transparency so the game's independent moving clouds and field backdrop show through. Draw no sky, mountains, bright highlights, foreground grass, ground platforms, characters, gates, lamps, hook rings, labels or particles.\nFine clustered pixel art, matching original Underworld-style gray-blue masonry and sparse olive moss, but distinctly FAR behind the actor: compressed contrast, gentle atmospheric color, quiet material texture and no sharp heavy black outlines. Mild warm light on upper old stone and cool shadows. No photorealistic stone, no large painterly strokes, no uniformly repeated windows. Arrange the whole gallery as one composed sequence of broken arches and open spaces: a gentle left rise, central broad quiet span, a slightly taller remote eastern ruin; not one architectural scene copied three times.\n",
+    "gallery_edge_edit": "Edit the same transparent pixel-art panorama while preserving the scale, middle/right architecture, bell crowns and colors. Redraw the left end as naturally broken finite masonry, no clipped vertical edge. The very left must be transparent at every height. Remove the rectangular fog mat under the image; retain only localized atmospheric haze around finite foundations. Preserve transparent upper half and quiet low contrast rear architecture; no foreground, sky, characters or UI."
+  },
+  "guides": {
+    "arena": {
+      "path": "assets/plains_v07/source/windcourt-arena-guide.svg",
+      "sha256": "3c2521cf33cea0766c138b267f6e502f2237593ea7d84a432021b8178f1ded61"
+    },
+    "gallery": {
+      "path": "assets/plains_v07/source/windcourt-gallery-guide.svg",
+      "sha256": "5533bb26425a0de62f3c04925f32b6130d4ce25348c2f966a05c8cd9e3d39c0f"
+    }
+  },
+  "reference": "P14 actual camera at baseline fafb7c19.",
+  "assets": [
+    {
+      "asset": "windcourt_pavilion",
+      "source": "assets/plains_v07/source/windcourt-arena-generated.png",
+      "source_sha256": "540ee2ead07347c8776782f92fefc8799f8dcbfc82e14b6f75e116d0ade2a853",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "size": [
+        1536,
+        1024
+      ],
+      "image": "assets/plains_v07/native/windcourt_pavilion.png",
+      "sha256": "d807382fb19e265b8cca2d18783578e053b471104506b4d9808e54527c5550bc",
+      "alpha_threshold": 128,
+      "sampling": "nearest"
+    },
+    {
+      "asset": "windcourt_gallery",
+      "source": "assets/plains_v07/source/windcourt-gallery-generated.png",
+      "source_sha256": "d70ae64c547b7a9c3c0e577884c2f43f9a2f1b7d94aaccef25c45749dbb6be69",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "size": [
+        3072,
+        2048
+      ],
+      "image": "assets/plains_v07/native/windcourt_gallery.png",
+      "sha256": "98fc259de28d4bc585d84fb3c28c05a6afeb3c4c90b30a77637480e56ce5e3c9",
+      "alpha_threshold": null,
+      "sampling": "nearest"
+    }
+  ]
+}

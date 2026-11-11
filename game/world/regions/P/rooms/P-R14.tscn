@@ -58,19 +58,35 @@ retry_anchors = Array[Dictionary]([{
 }])
 art_placements = Array[Dictionary]([
   {
-    "asset": "windmill_frame",
-    "layer": -2.0,
+    "asset": "windcourt_pavilion",
     "point": [
-      272.0,
-      960.0
+      1088,
+      790
     ],
-    "landscape": "opening_plains",
-    "tint": [
-      0.7,
-      0.78,
-      0.78,
-      1
+    "layer": -25,
+    "landscape": "junction_meadow",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.45
     ],
+    "landscape_reference": [
+      2400,
+      600
+    ],
+    "landscape_offset": [
+      0,
+      -130
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.45,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
     "atmosphere": {
       "density": 4,
       "speed": [
@@ -81,75 +97,45 @@ art_placements = Array[Dictionary]([
     }
   },
   {
-    "asset": "bell_post",
-    "layer": -2.0,
+    "asset": "windcourt_gallery",
     "point": [
-      2592.0,
-      352.0
-    ]
-  },
-  {
-    "asset": "bell_post",
-    "layer": -2.0,
-    "point": [
-      3264.0,
-      448.0
-    ]
+      3328,
+      1200
+    ],
+    "layer": -40
   },
   {
     "asset": "bell_post",
-    "layer": -2.0,
     "point": [
-      4064.0,
-      384.0
-    ]
-  },
-  {
-    "asset": "plains_grass",
-    "layer": -2.0,
-    "point": [
-      2608.0,
-      928.0
+      2592,
+      352
     ],
-    "sway": true
+    "layer": -2
   },
   {
-    "asset": "windchime_plains_near_v2",
-    "layer": -2.0,
+    "asset": "bell_post",
     "point": [
-      3712.0,
-      992.0
+      3264,
+      448
     ],
-    "sway": true
+    "layer": -2
   },
   {
-    "asset": "opening_road_ridge",
+    "asset": "bell_post",
     "point": [
-      1104,
-      900
+      4064,
+      384
     ],
-    "layer": -40,
-    "depth": 0.88,
-    "tint": [
-      0.72,
-      0.85,
-      0.84,
-      0.75
-    ]
+    "layer": -2
   },
   {
-    "asset": "orchard_fence",
+    "asset": "gear_lamp",
     "point": [
-      1728,
-      760
+      3808,
+      992
     ],
     "layer": -5,
-    "tint": [
-      0.6,
-      0.7,
-      0.7,
-      1
-    ]
+    "light": true
   },
   {
     "asset": "plains_grass",
@@ -159,21 +145,70 @@ art_placements = Array[Dictionary]([
     ],
     "layer": -5,
     "sway": true
+  },
+  {
+    "asset": "bank_moss",
+    "point": [
+      2540,
+      393
+    ],
+    "layer": 2,
+    "sway": true,
+    "sway_hanging": true
+  },
+  {
+    "surface_platform": 1
+  },
+  {
+    "surface_platform": 2
+  },
+  {
+    "surface_platform": 3
+  },
+  {
+    "surface_platform": 4
+  },
+  {
+    "surface_platform": 5
+  },
+  {
+    "surface_platform": 9
+  },
+  {
+    "surface_platform": 10
+  },
+  {
+    "surface_platform": 12
+  },
+  {
+    "surface_platform": 19
+  },
+  {
+    "surface_platform": 20
   }
 ])
 art_profile = "boss"
 platforms = Array[Rect2]([Rect2(448, 1248, 96, 64), Rect2(256, 1120, 256, 32), Rect2(128, 960, 416, 32), Rect2(192, 992, 352, 16), Rect2(256, 760, 256, 40), Rect2(1632, 760, 448, 40), Rect2(500, 160, 24, 408), Rect2(1620, 160, 24, 408), Rect2(524, 160, 1096, 24), Rect2(192, 1008, 384, 16), Rect2(544, 992, 32, 16), Rect2(3776, 1120, 96, 64), Rect2(1840, 576, 288, 32), Rect2(1936, 384, 256, 64), Rect2(2464, 352, 256, 64), Rect2(3072, 448, 384, 32), Rect2(3072, 480, 256, 32), Rect2(3904, 384, 352, 64), Rect2(4672, 416, 96, 64), Rect2(2336, 928, 576, 48), Rect2(3520, 992, 352, 32), Rect2(3552, 1120, 96, 64)])
 workbench_entity_ids = {
   "art_placements": [
-    "P-R14:art_placements:0",
+    "P-R14:art:pavilion",
+    "P-R14:art:gallery",
     "P-R14:art_placements:1",
     "P-R14:art_placements:2",
     "P-R14:art_placements:3",
-    "P-R14:art-pass:0",
-    "P-R14:art-pass:1",
-    "P-R14:art:clockroute:0",
-    "P-R14:art:clockroute:1",
-    "P-R14:art:clockroute:2"
+    "P-R14:art:lower-lamp",
+    "P-R14:art:clockroute:2",
+    "P-R14:art:high-moss",
+    "P-R14:art:surface:1",
+    "P-R14:art:surface:2",
+    "P-R14:art:surface:3",
+    "P-R14:art:surface:4",
+    "P-R14:art:surface:5",
+    "P-R14:art:surface:9",
+    "P-R14:art:surface:10",
+    "P-R14:art:surface:12",
+    "P-R14:art:surface:19",
+    "P-R14:art:surface:20"
   ],
   "climbable_walls": [],
   "hazards": [],
@@ -212,6 +247,7 @@ workbench_entity_ids = {
   "signs": []
 }
 one_way_indices = Array[int]([1, 2, 3, 4, 5, 9, 10, 12, 19, 20])
+illustrated_platform_indices = Array[int]([1, 2, 3, 4, 5, 9, 10, 12, 19, 20])
 masonry_platform_indices = Array[int]([2, 3, 6, 7, 8, 11, 13, 14, 15, 16, 17, 18, 21])
 start_point = Vector2(512, 1230)
 boss_identity = &"windkeeper_storm"
@@ -227,6 +263,7 @@ position = Vector2(512, 160)
 script = ExtResource("3_74dfm")
 definition = ExtResource("4_wq04g")
 authoring_debug = false
+metadata/authored_timber_surface = true
 
 [node name="RegionalTerrain" type="Node2D" parent="Arena"]
 script = ExtResource("7_terrain")
