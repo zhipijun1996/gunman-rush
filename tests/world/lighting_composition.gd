@@ -31,7 +31,7 @@ func run() -> void:
    var difference:=maxf(absf(current[i].r-baseline[i].r),maxf(absf(current[i].g-baseline[i].g),absf(current[i].b-baseline[i].b)))
    check(difference<=2.0/255.0,"fixed world surface lighting survives camera pan: "+str(difference))
   check(art.ambient.color==color,"camera pan never animates global ambient")
- await load_room("P-R26");await fixture(Vector2(600,1518));await ticks(90)
+ await load_room("P-R26");await fixture(Vector2(1504,686));await ticks(90)
  art=app.room.get_node("RegionalArt") as PlainsRoomArt
  check(art.indoor and art.daylight==null,"mill has interior ambient and visible lamps, no outdoor sun")
  var emitters:=0
@@ -40,13 +40,34 @@ func run() -> void:
   if not child is Sprite2D:continue
   for lamp:Node in child.get_children():
    if lamp is PointLight2D:
-    if child.texture.resource_path.ends_with("mill_window.png"):
-     windows+=1;check(lamp.position==Vector2(0,-116),"window light registered on actual glass")
+    if child.texture.resource_path.ends_with("mill_window_bay.png"):
+     windows+=1;check(lamp.position==Vector2(-28,-1036),"window light registered on actual glass")
      check(child.has_node("WindowDaylight"),"window shaft shares the fixed glass anchor")
     else:
      emitters+=1;check(lamp.position==Vector2(8,-69),"lamp light registered on actual amber bulb")
  check(emitters==3,"mill has three grounded lamps covering both halls and the upper exit")
- check(windows==4,"mill has four authored windows, not a repeated glowing wallpaper")
+ check(windows==1,"mill has one integrated clerestory wall bay")
  await image_at("mill-lamps")
+ var bay:Sprite2D
+ for child:Node in art.get_children():
+  if child is Sprite2D and child.texture.resource_path.ends_with("mill_window_bay.png"):bay=child
+ var dust:=bay.get_node("WindowDaylight") as PlainsWindowLight
+ var world_anchor:=bay.global_position
+ var phase:=dust.clock
+ paused=true
+ await process_frame;await process_frame
+ check(dust.clock==phase,"window dust freezes with pause")
+ paused=false;await ticks(4)
+ check(dust.clock>phase,"window dust resumes")
+ var depth:=art.depths[0]
+ check(float(depth.ratio)<1 and bay.scale==Vector2.ONE,"separate distant structure and native world wall")
+ app.camera.begin_takeover(app,app.camera.get_screen_center_position()+Vector2(64,-48),Rect2(704,0,1664,1728),.1);await ticks(30)
+ check(bay.global_position==world_anchor,"camera pan cannot detach window from its wall")
+ dust.set_process(false)
+ await image_at("mill-window-light-on")
+ for child:Node in bay.get_children():
+  if child is PointLight2D:child.enabled=false
+ dust.hide()
+ await image_at("mill-window-light-off")
  await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)
  print("LIGHTING COMPOSITION: ",failures," failures");quit(failures)

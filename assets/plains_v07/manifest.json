@@ -17,7 +17,8 @@
     "clocktower-generated.png": "8b2393391b86ee55e38387efe53881213c4df5d8d91306bd11af439493056081",
     "room-orchard-generated.png": "409b40263821a84663fd569f6ae0b36edc7e3cc153444c5244091499b07b7fef",
     "room-mill-generated.png": "01a56e6872b96ac16eafb96b4e4d7bd29174c88094f63e9eb0c848373d754696",
-    "room-wall-generated.png": "a3b1b915f15659e20a02642ddfc1d622e1a573a1f62a90550632e2da38305b84"
+    "mill-hall-generated.png": "30077d0b361af972f6f04a5ac38f28354f7fcdc7e9a9a36b4971b9cbc5ae2b8c",
+    "mill-window-bay-generated.png": "cff5dd56588289b371a284688f94b80153f977206d58b9c7b8810e08384c7d91"
   },
   "assets": {
     "reclaimer": {
@@ -1594,52 +1595,6 @@
       "source_rect_format": "xywh",
       "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
     },
-    "mill_window": {
-      "image": "assets/plains_v07/native/mill_window.png",
-      "size": [
-        187,
-        224
-      ],
-      "source": "assets/plains_v07/source/room-mill-generated.png",
-      "source_rect": [
-        913,
-        96,
-        342,
-        409
-      ],
-      "bake_scale": 0.5476772616136919,
-      "anchor": [
-        93.5,
-        224
-      ],
-      "alpha_threshold": 128,
-      "sha256": "63b1373275104b8fa4f259cc669a138dc59242daf39131f18cb580aad36f832d",
-      "source_rect_format": "xywh",
-      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
-    },
-    "mill_drive_wheel": {
-      "image": "assets/plains_v07/native/mill_drive_wheel.png",
-      "size": [
-        280,
-        293
-      ],
-      "source": "assets/plains_v07/source/room-mill-generated.png",
-      "source_rect": [
-        131,
-        570,
-        461,
-        483
-      ],
-      "bake_scale": 0.6073752711496746,
-      "anchor": [
-        140.0,
-        293
-      ],
-      "alpha_threshold": 128,
-      "sha256": "f2de1dbe956395b54e03373b66a9c313120b79ef30247eb2c620532ce1832e8b",
-      "source_rect_format": "xywh",
-      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
-    },
     "mill_corbel": {
       "image": "assets/plains_v07/native/mill_corbel.png",
       "size": [
@@ -1660,29 +1615,6 @@
       ],
       "alpha_threshold": 128,
       "sha256": "ed1f42842ca75e40c15d9f4b6df5c6843cc8d42f6fdb05ef0d50fbfb63a81744",
-      "source_rect_format": "xywh",
-      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
-    },
-    "mill_quiet_wall": {
-      "image": "assets/plains_v07/native/mill_quiet_wall.png",
-      "size": [
-        512,
-        227
-      ],
-      "source": "assets/plains_v07/source/room-wall-generated.png",
-      "source_rect": [
-        0,
-        0,
-        1536,
-        680
-      ],
-      "bake_scale": 0.3333333333333333,
-      "anchor": [
-        256.0,
-        227
-      ],
-      "alpha_threshold": null,
-      "sha256": "2b4803138a37b85e04c2b76a4f4a54e2d5d8a42f7612c108ab38fc27c9c17130",
       "source_rect_format": "xywh",
       "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
     },
@@ -1731,6 +1663,98 @@
       "sha256": "5cd8a650c63fe18de9743de782ad32097b791eaf2742e15874c5faa4cb6eefc4",
       "source_rect_format": "xywh",
       "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
+    },
+    "mill_hall_depth": {
+      "image": "assets/plains_v07/native/mill_hall_depth.png",
+      "source": "assets/plains_v07/source/mill-hall-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        2880,
+        1920
+      ],
+      "bake_scale": 1.875,
+      "anchor": [
+        1440.0,
+        1920
+      ],
+      "alpha_threshold": null,
+      "sha256": "ea0604170c9492714e251e641867bbf53bd9253faff9dc576a8342f983a8b5c8",
+      "generation": "assets/plains_v07/source/mill-atmosphere-provenance.json"
+    },
+    "mill_window_bay": {
+      "image": "assets/plains_v07/native/mill_window_bay.png",
+      "source": "assets/plains_v07/source/mill-window-bay-generated.png",
+      "source_rect": [
+        63,
+        41,
+        823,
+        1737
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        688,
+        1536
+      ],
+      "bake_scale": 0.9056603773584906,
+      "anchor": [
+        344.0,
+        1536
+      ],
+      "alpha_threshold": 128,
+      "sha256": "684b3cd0e3be56e1aefc670d5929faed93619b00574bc8fff1fe667945b4085f",
+      "generation": "assets/plains_v07/source/mill-atmosphere-provenance.json"
+    },
+    "mill_post_segment": {
+      "image": "assets/plains_v07/native/mill_post_segment.png",
+      "source": "assets/plains_v07/native/mill_timber_bent.png",
+      "source_rect": [
+        28,
+        180,
+        60,
+        244
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        32,
+        64
+      ],
+      "bake_scale": 1,
+      "anchor": [
+        16.0,
+        64
+      ],
+      "alpha_threshold": null,
+      "sha256": "7c146dab0ddf453250fa046ba2a24b42ef3847c7039cd3c06467620b68d32942",
+      "generation": "assets/plains_v07/source/mill-atmosphere-provenance.json"
+    },
+    "mill_beam_segment": {
+      "image": "assets/plains_v07/native/mill_beam_segment.png",
+      "source": "assets/plains_v07/native/mill_timber_bent.png",
+      "source_rect": [
+        96,
+        54,
+        160,
+        78
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        64,
+        24
+      ],
+      "bake_scale": 1,
+      "anchor": [
+        32.0,
+        24
+      ],
+      "alpha_threshold": null,
+      "sha256": "826754c1aac06dbd674637ac6a7790c087788f27b2ff826ecef654db9ef4bcbd",
+      "generation": "assets/plains_v07/source/mill-atmosphere-provenance.json"
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

@@ -44,273 +44,303 @@ retry_anchors = Array[Dictionary]([{
 "section": "main"
 }])
 art_placements = Array[Dictionary]([
-{
-"asset": "mill_quiet_wall",
-"point": [
-0,
-0
-],
-"layer": -40,
-"backdrop": true,
-"tile_rect": [
--512,
--256,
-3392,
-2208
-],
-"tint": [
-0.62,
-0.68,
-0.78,
-1
-]
-},
-{
-"asset": "mill_timber_bent",
-"point": [
-312,
-1536
-],
-"layer": -22,
-"tint": [
-0.52,
-0.59,
-0.67,
-1
-]
-},
-{
-"asset": "mill_timber_bent",
-"point": [
-1192,
-1536
-],
-"layer": -22,
-"tint": [
-0.52,
-0.59,
-0.67,
-1
-]
-},
-{
-"asset": "mill_timber_bent",
-"point": [
-1648,
-1536
-],
-"layer": -22,
-"tint": [
-0.52,
-0.59,
-0.67,
-1
-]
-},
-{
-"asset": "mill_timber_bent",
-"point": [
-1512,
-704
-],
-"layer": -22,
-"tint": [
-0.58,
-0.64,
-0.72,
-1
-]
-},
-{
-"asset": "mill_window",
-"point": [
-1104,
-1392
-],
-"layer": -25,
-"light": true,
-"window_beam": true
-},
-{
-"asset": "mill_window",
-"point": [
-1232,
-992
-],
-"layer": -25,
-"light": true,
-"window_beam": true
-},
-{
-"asset": "mill_window",
-"point": [
-1512,
-624
-],
-"layer": -25,
-"light": true,
-"window_beam": true
-},
-{
-"asset": "mill_window",
-"point": [
-2224,
-336
-],
-"layer": -25,
-"light": true,
-"window_beam": true
-},
-{
-"asset": "mill_drive_wheel",
-"point": [
-982,
-1208
-],
-"layer": -26,
-"tint": [
-0.52,
-0.56,
-0.62,
-1
-],
-"rotation_speed": 0.1,
-"motion_source": "Carrier0"
-},
-{
-"asset": "mill_drive_wheel",
-"point": [
-1936,
-880
-],
-"layer": -26,
-"tint": [
-0.52,
-0.56,
-0.62,
-1
-],
-"rotation_speed": -0.08,
-"motion_source": "Carrier1"
-},
-{
-"asset": "mill_corbel",
-"point": [
-1368,
-808
-],
-"layer": -5,
-"tint": [
-0.72,
-0.76,
-0.8,
-1
-]
-},
-{
-"asset": "mill_corbel",
-"point": [
-1672,
-808
-],
-"layer": -5,
-"tint": [
-0.72,
-0.76,
-0.8,
-1
-]
-},
-{
-"asset": "gear_lamp",
-"point": [
-704,
-1408
-],
-"layer": -2,
-"light": true
-},
-{
-"asset": "gear_lamp",
-"point": [
-1456,
-704
-],
-"layer": -2,
-"light": true
-},
-{
-"asset": "gear_lamp",
-"point": [
-2112,
-160
-],
-"layer": -2,
-"light": true
-},
-{
-"asset": "mill_drive_frame",
-"point": [
-1800,
-1536
-],
-"layer": -3
-},
-{
-"asset": "cellar_backdrop",
-"point": [
-1952,
-1376
-],
-"layer": -20,
-"tile_rect": [
-1952,
-1376,
-416,
-160
-]
-},
-{
-"asset": "concealing_grass",
-"point": [
-1968,
-1536
-],
-"layer": 20,
-"sway": true
-},
-{
-"asset": "barrel",
-"point": [
-304,
-1536
-],
-"layer": -2
-},
-{
-"asset": "storage_crates",
-"point": [
-1664,
-704
-],
-"layer": -2
-},
-{
-"asset": "mill_walkway",
-"point": [
-0,
-0
-],
-"surface_platform": 2
-},
-{
-"asset": "mill_walkway",
-"point": [
-0,
-0
-],
-"surface_platform": 3
-}
+  {
+    "asset": "mill_hall_depth",
+    "point": [
+      1184,
+      1760
+    ],
+    "layer": -45,
+    "backdrop": true,
+    "depth": 0.94,
+    "tint": [
+      0.62,
+      0.78,
+      0.88,
+      1
+    ],
+    "atmosphere": {
+      "density": 1
+    },
+    "environment": {
+      "ambient": "737d86",
+      "restored": "7d8990",
+      "threshold_energy": 0.5,
+      "threshold_opacity": 0.12
+    }
+  },
+  {
+    "asset": "mill_window_bay",
+    "point": [
+      1520,
+      1536
+    ],
+    "layer": -28,
+    "tint": [
+      0.68,
+      0.73,
+      0.76,
+      1
+    ],
+    "light": true,
+    "window_beam": true
+  },
+  {
+    "asset": "mill_timber_bent",
+    "point": [
+      288,
+      1536
+    ],
+    "layer": -24,
+    "tint": [
+      0.5,
+      0.56,
+      0.59,
+      1
+    ]
+  },
+  {
+    "asset": "mill_gear",
+    "point": [
+      1104,
+      1176
+    ],
+    "layer": -20,
+    "tint": [
+      0.42,
+      0.5,
+      0.54,
+      1
+    ],
+    "rotation_speed": 0.1,
+    "motion_source": "Carrier0"
+  },
+  {
+    "asset": "mill_gear",
+    "point": [
+      1896,
+      800
+    ],
+    "layer": -20,
+    "tint": [
+      0.42,
+      0.5,
+      0.54,
+      1
+    ],
+    "rotation_speed": -0.08,
+    "motion_source": "Carrier1"
+  },
+  {
+    "asset": "mill_corbel",
+    "point": [
+      1368,
+      808
+    ],
+    "layer": -5,
+    "tint": [
+      0.62,
+      0.68,
+      0.7,
+      1
+    ]
+  },
+  {
+    "asset": "mill_corbel",
+    "point": [
+      1672,
+      808
+    ],
+    "layer": -5,
+    "tint": [
+      0.62,
+      0.68,
+      0.7,
+      1
+    ]
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -4,
+    "tile_rect": [
+      2256,
+      16,
+      32,
+      144
+    ],
+    "tint": [
+      0.6,
+      0.65,
+      0.68,
+      1
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -4,
+    "tile_rect": [
+      2176,
+      16,
+      112,
+      24
+    ],
+    "tint": [
+      0.6,
+      0.65,
+      0.68,
+      1
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      704,
+      1408
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1456,
+      704
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2112,
+      160
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "mill_drive_frame",
+    "point": [
+      1800,
+      1536
+    ],
+    "layer": -3,
+    "tint": [
+      0.67,
+      0.73,
+      0.76,
+      1
+    ]
+  },
+  {
+    "asset": "cellar_backdrop",
+    "point": [
+      1952,
+      1376
+    ],
+    "layer": -20,
+    "tile_rect": [
+      1952,
+      1376,
+      416,
+      160
+    ],
+    "tint": [
+      0.65,
+      0.75,
+      0.78,
+      1
+    ]
+  },
+  {
+    "asset": "concealing_grass",
+    "point": [
+      1968,
+      1536
+    ],
+    "layer": 20,
+    "sway": true
+  },
+  {
+    "asset": "barrel",
+    "point": [
+      304,
+      1536
+    ],
+    "layer": -2
+  },
+  {
+    "asset": "storage_crates",
+    "point": [
+      1664,
+      704
+    ],
+    "layer": -2
+  },
+  {
+    "asset": "mill_walkway",
+    "point": [
+      0,
+      0
+    ],
+    "surface_platform": 2
+  },
+  {
+    "asset": "mill_walkway",
+    "point": [
+      0,
+      0
+    ],
+    "surface_platform": 3
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -22,
+    "tile_rect": [
+      1104,
+      1128,
+      108,
+      24
+    ],
+    "tint": [
+      0.46,
+      0.52,
+      0.56,
+      1
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -22,
+    "tile_rect": [
+      1832,
+      752,
+      64,
+      24
+    ],
+    "tint": [
+      0.46,
+      0.52,
+      0.56,
+      1
+    ]
+  }
 ])
 art_profile = "mill"
 bell_mechanisms = Array[Dictionary]([{
@@ -326,7 +356,7 @@ bell_mechanisms = Array[Dictionary]([{
 }])
 platforms = Array[Rect2]([Rect2(0, 1536, 2368, 160), Rect2(640, 1408, 224, 128), Rect2(1216, 704, 608, 80), Rect2(2016, 160, 256, 48), Rect2(1952, 1280, 416, 96)])
 workbench_entity_ids = {
-"art_placements": ["P-R26:art:0", "P-R26:art:1", "P-R26:art:2", "P-R26:art:3", "P-R26:art:4", "P-R26:art:5", "P-R26:art:6", "P-R26:art:7", "P-R26:art:8", "P-R26:art:9", "P-R26:art:10", "P-R26:art:11", "P-R26:art:12", "P-R26:art:13", "P-R26:art:14", "P-R26:art:15", "P-R26:art:16", "P-R26:art:17", "P-R26:art:18", "P-R26:art:19", "P-R26:art:20", "P-R26:art:21", "P-R26:art:22"],
+"art_placements": ["P-R26:art:0", "P-R26:art:1", "P-R26:art:2", "P-R26:art:3", "P-R26:art:4", "P-R26:art:5", "P-R26:art:6", "P-R26:art:7", "P-R26:art:8", "P-R26:art:9", "P-R26:art:10", "P-R26:art:11", "P-R26:art:12", "P-R26:art:13", "P-R26:art:14", "P-R26:art:15", "P-R26:art:16", "P-R26:art:17", "P-R26:art:18", "P-R26:art:19", "P-R26:art:20"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

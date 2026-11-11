@@ -54,8 +54,12 @@ func _ready() -> void:
 		depths.append({"node":wall,"origin":wall.position,"ratio":1.0})
 	indoor=not interior.is_empty()
 	light_settings=JSON.parse_string(FileAccess.get_file_as_string("res://game/presentation/world/plains_v07/lighting.json"))
-	environment_light=light_settings.environments.get(interior,light_settings.environments.outdoor)
-	atmosphere=light_settings.atmospheres["indoor" if indoor else light_settings.profile_atmospheres.get(room.art_profile,"outdoor")]
+	environment_light=light_settings.environments.get(interior,light_settings.environments.outdoor).duplicate(true)
+	for placement:Dictionary in room.art_placements:
+		if placement.has("environment"):environment_light.merge(placement.environment,true)
+	atmosphere=light_settings.atmospheres["indoor" if indoor else light_settings.profile_atmospheres.get(room.art_profile,"outdoor")].duplicate(true)
+	for placement:Dictionary in room.art_placements:
+		if placement.has("atmosphere"):atmosphere.merge(placement.atmosphere,true)
 	ambient=CanvasModulate.new()
 	ambient.color=Color(environment_light.ambient)
 	add_child(ambient)
@@ -130,7 +134,7 @@ func _ready() -> void:
 			glow.color=Color(emitter.color);glow.energy=float(emitter.energy);glow.texture_scale=float(emitter.radius)/64
 			glow.reparent(node,false)
 		if placement.get("window_beam",false):
-			PlainsWindowLight.attach(node)
+			PlainsWindowLight.attach(node,self,light_settings.emitters[str(placement.asset)].shaft)
 	_thresholds()
 	var spikes:=WorldSpikeArt.new()
 	spikes.name="ContinuousSpikes"
@@ -260,10 +264,11 @@ func _thresholds() -> void:
 			# Outside light enters only through the real aperture, never as an indoor landscape.
 			var into:=Vector2.RIGHT if direction=="left" else Vector2.LEFT if direction=="right" else Vector2.DOWN if direction=="up" else Vector2.UP
 			var glow:=add_lamp(at+into*12-Vector2(0,44) if direction in ["left","right"] else at+into*24)
-			glow.color=Color("c9dfcf");glow.energy=.75;glow.texture_scale=2.6
+			glow.color=Color("c9dfcf");glow.energy=float(environment_light.get("threshold_energy",.75));glow.texture_scale=2.6
 			var beam:=Polygon2D.new();beam.z_index=-20
 			if direction in ["left","right"]:
 				beam.polygon=PackedVector2Array([at-Vector2(0,96),at,at+into*160,at+into*112-Vector2(0,96)])
 			else:beam.polygon=PackedVector2Array([at-Vector2(64,0),at+Vector2(64,0),at+Vector2(90,0)+into*160,at-Vector2(90,0)+into*160])
-			beam.vertex_colors=PackedColorArray([Color(.74,.85,.75,.3),Color(.74,.85,.75,.3),Color(.74,.85,.75,0),Color(.74,.85,.75,0)])
+			var opacity:=float(environment_light.get("threshold_opacity",.3))
+			beam.vertex_colors=PackedColorArray([Color(.74,.85,.75,opacity),Color(.74,.85,.75,opacity),Color(.74,.85,.75,0),Color(.74,.85,.75,0)])
 			add_child(beam)

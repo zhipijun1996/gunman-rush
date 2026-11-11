@@ -1,0 +1,107 @@
+{
+  "generator": "OpenAI image_gen",
+  "reference": ".agents/skills/godot-room-art/assets/approved-five-regions.png",
+  "purpose": "P26 coherent hall, integrated window pier and structural spans; gameplay geometry unchanged",
+  "assets": [
+    {
+      "asset": "mill_hall_depth",
+      "image": "assets/plains_v07/native/mill_hall_depth.png",
+      "source": "assets/plains_v07/source/mill-hall-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        2880,
+        1920
+      ],
+      "bake_scale": 1.875,
+      "anchor": [
+        1440.0,
+        1920
+      ],
+      "alpha_threshold": null,
+      "sha256": "ea0604170c9492714e251e641867bbf53bd9253faff9dc576a8342f983a8b5c8",
+      "generation": "assets/plains_v07/source/mill-atmosphere-provenance.json"
+    },
+    {
+      "asset": "mill_window_bay",
+      "image": "assets/plains_v07/native/mill_window_bay.png",
+      "source": "assets/plains_v07/source/mill-window-bay-generated.png",
+      "source_rect": [
+        63,
+        41,
+        823,
+        1737
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        688,
+        1536
+      ],
+      "bake_scale": 0.9056603773584906,
+      "anchor": [
+        344.0,
+        1536
+      ],
+      "alpha_threshold": 128,
+      "sha256": "684b3cd0e3be56e1aefc670d5929faed93619b00574bc8fff1fe667945b4085f",
+      "generation": "assets/plains_v07/source/mill-atmosphere-provenance.json"
+    },
+    {
+      "asset": "mill_post_segment",
+      "image": "assets/plains_v07/native/mill_post_segment.png",
+      "source": "assets/plains_v07/native/mill_timber_bent.png",
+      "source_rect": [
+        28,
+        180,
+        60,
+        244
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        32,
+        64
+      ],
+      "bake_scale": 1,
+      "anchor": [
+        16.0,
+        64
+      ],
+      "alpha_threshold": null,
+      "sha256": "7c146dab0ddf453250fa046ba2a24b42ef3847c7039cd3c06467620b68d32942",
+      "generation": "assets/plains_v07/source/mill-atmosphere-provenance.json"
+    },
+    {
+      "asset": "mill_beam_segment",
+      "image": "assets/plains_v07/native/mill_beam_segment.png",
+      "source": "assets/plains_v07/native/mill_timber_bent.png",
+      "source_rect": [
+        96,
+        54,
+        160,
+        78
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        64,
+        24
+      ],
+      "bake_scale": 1,
+      "anchor": [
+        32.0,
+        24
+      ],
+      "alpha_threshold": null,
+      "sha256": "826754c1aac06dbd674637ac6a7790c087788f27b2ff826ecef654db9ef4bcbd",
+      "generation": "assets/plains_v07/source/mill-atmosphere-provenance.json"
+    }
+  ],
+  "prompts": {
+    "hall": "Revise this architectural background into a SCROLLING LEVEL background, preserving the exact restrained navy/teal and old oak fine pixel-art atmosphere. Current image looks good as one whole picture but its huge central empty area becomes featureless fog when the game camera only sees ONE THIRD of the picture. Important: the full image represents a room about 3 screens wide and 4 screens tall. Add a coherent finer rhythm of recessed architecture THROUGHOUT the interior: four slender dark timber uprights across the width, subtly connected at THREE different heights by old crossbeams, diagonal knee braces and partly visible old stationary wheel shafts. These are DISTANT room structure, lower contrast than foreground gameplay, no floating individual gears. Every roughly 300x260 pixel crop should contain some quiet air AND a legible distant built frame, not just uniform mist. Vary bays instead of making a wallpaper grid: one taller central hoist bay, two shorter side bays with broken rear galleries, dark wall recesses, timber-and-stone piers anchored off the bottom. Reduce the all-over blue fog so the low-contrast material and depth are readable, keep atmospheric depth between structural tiers. No bright windows, only two small dim clerestory glints high up; no foreground decoration, no playable platforms, no hero or UI. No stone ground line. Continue the architecture beyond image edges. Keep overall calm dark middle values and fine pixel clusters, avoid big crisp white edges or busy texture. Opaque full image, landscape 3:2.",
+    "bay": "Create ONE isolated modular architectural asset for a 2D side-view pixel-art game, transparent background. Use reference 1 for fine pixel clusters and muted ancient timber/blue stone, and reference 2 for the coherent moody windmill hall it must fit into. A tall narrow full-height old windmill WINDOW WALL BAY, not a freestanding decorative window: heavy weathered dark oak uprights at the two sides, an old stone foundation foot at bottom, dark desaturated blue-grey masonry spanning between the uprights, a thick continuous wooden lintel at top. In the upper middle is ONE modest narrow deep recessed arched window, glass muted pale grey-teal and warm ivory, NEVER bright saturated yellow or white. Window is only roughly one quarter of total bay width and one third of height; deep shadowed sides and masonry sill show depth. Lower half is calm dark old stone infill, very little texture contrast, occasional stone corner wear. Two short diagonal knee braces integrated in top corners. Bay edges transition through irregular but clean masonry joints and timber edges, no scattered floating fragments, no detached props, no grass/moss spray. Front orthographic side elevation, flat game architecture, no perspective floor, no ground shadow, no background. Whole structure coherent, base at lowest opaque pixel and all members structurally joined. Outer proportions width:height approximately 1:2, entire asset centered with transparent margin. Fine authored pixel art with 1-3 pixel clusters intended to bake to about 260x520 world pixels, a hero is 44px tall: keep detail sparse enough for this scale. The brightest area should be the small window glass; surround very restrained, dark slate and desaturated oak, no brass glowing edges, no painted light beam. This is an integrated wall segment to sit behind the traversable room and connect to load-bearing galleries. No UI, no lettering."
+  }
+}
