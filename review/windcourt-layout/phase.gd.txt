@@ -1,0 +1,28 @@
+extends "res://build/p14-revision/route.gd"
+func run()->void:
+ root.size=Vector2i(1280,720)
+ app=preload("res://game/application/world/fixed_world.tscn").instantiate();root.add_child(app)
+ await load_room("P-R14")
+ await fixture(app.room.battle_entry_anchor);await ticks(8)
+ var e:=app.room.encounter as WindkeeperPressureEncounter
+ await fixture(Vector2(560,742));await ticks(30)
+ mark("phase_threshold_fixture")
+ var hp:=e.health
+ hp.apply_damage(ActorResourceRequest.new(&"phase_threshold_fixture",hp.epoch,hp.current-hp.capacity*.25,hp.get_instance_id()))
+ var hazard:WindkeeperArena
+ for child:Node in e.get_children():
+  if child is WindkeeperArena:hazard=child
+ for i:int in 480:
+  await ticks(1)
+  if hazard.thorns_active:break
+ mark("warning")
+ await ticks(30)
+ await jump_to(Vector2(752,612),Vector2.ZERO,"ground warning escape onto left deck")
+ mark("thorns")
+ await ticks(30)
+ await jump_to(Vector2(1072,612),Vector2.LEFT,"cross battle decks")
+ await ticks(120)
+ mark("terminal_fixture")
+ hp.apply_damage(ActorResourceRequest.new(&"terminal_fixture",hp.epoch,hp.current+1,hp.get_instance_id()))
+ await ticks(90)
+ await WorldAudioLifecycle.drain_world(app);quit(failures)
