@@ -174,7 +174,12 @@ art_placements = Array[Dictionary]([
       "P-R06:windmill-upper-wall",
       "P-R06:windmill-lower-wall"
     ],
-    "facing_recess": [192, 864, 160, 96],
+    "facing_recess": [
+      192,
+      864,
+      160,
+      96
+    ],
     "facing_boundary": true,
     "facing_platforms": [
       8
@@ -221,14 +226,7 @@ art_placements = Array[Dictionary]([
     "sway_hanging": true
   },
   {
-    "asset": "bank_moss",
-    "point": [
-      1180,
-      1865
-    ],
-    "layer": 2,
-    "sway": true,
-    "sway_hanging": true
+    "surface_platform": 1
   }
 ])
 art_profile = "junction"
@@ -255,7 +253,7 @@ workbench_entity_ids = {
     "P-R06:art:composition:1",
     "P-R06:art:composition:2",
     "P-R06:art:composition:3",
-    "P-R06:art:composition:4"
+    "P-R06:art:well-receiving-surface"
   ],
   "climbable_walls": [],
   "hazards": [],
@@ -284,7 +282,7 @@ workbench_entity_ids = {
   ],
   "signs": []
 }
-one_way_indices = Array[int]([2, 5, 6, 7, 9, 10, 11, 13])
+one_way_indices = Array[int]([1, 2, 5, 6, 7, 9, 10, 11, 13])
 start_point = Vector2(1216, 1934)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",
@@ -323,7 +321,7 @@ enemy_placements = Array[Dictionary]([{
 "point": [752.0, 560.0]
 }])
 
-illustrated_platform_indices = Array[int]([2, 5, 6, 7, 9, 10, 11, 13])
+illustrated_platform_indices = Array[int]([1, 2, 5, 6, 7, 9, 10, 11, 13])
 
 terrain_polygons = Array[Dictionary]([
   {

@@ -6,6 +6,10 @@ extends ModuleMovingPlatform
 @export var period := 5.0
 @export var phase_offset := 0.0
 @export var one_way := false
+## Optional permanent unlock. Hidden carriers have neither rails nor collision.
+@export var activation_flag := ""
+var activation_state: FixedWorldState
+var activation_enabled := true
 ## Optional ordered offsets for a guided cage; ordinary shuttles keep endpoint.
 @export var route: Array[Vector2] = []
 ## Transport cages may wait at both terminals so boarding is not a timing test.
@@ -27,11 +31,29 @@ func _ready() -> void:
 			rail.default_color=Color("222d2b") if index==0 else Color("857349")
 			rail.z_index=-3;add_child(rail);rail.global_position=global_position
 	process_physics_priority=-100
-	collision_layer=1;collision_mask=0
+	activation_enabled=activation_flag.is_empty()
+	visible=activation_enabled
+	collision_layer=1 if activation_enabled else 0;collision_mask=0
 	var collision:=CollisionShape2D.new();collision.name="CollisionShape2D";var shape:=RectangleShape2D.new();shape.size=platform_size;collision.shape=shape;collision.one_way_collision=one_way;add_child(collision)
 	if one_way:add_to_group("one_way_platform")
 	texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+func bind_activation(value: FixedWorldState) -> void:
+	if activation_flag.is_empty(): return
+	activation_state=value
+	value.committed.connect(_refresh_activation)
+	_refresh_activation(value.revision)
+
+func _refresh_activation(_revision: int) -> void:
+	var enabled:=activation_state.has(activation_flag)
+	if enabled==activation_enabled: return
+	activation_enabled=enabled
+	visible=enabled
+	set_deferred("collision_layer",1 if enabled else 0)
+	# Save only the unlock fact; each room entry starts at the safe boarding terminal.
+	restore_motion(0,true)
+
 func _physics_process(delta: float) -> void:
+	if not activation_enabled: return
 	if motion_running:motion_clock+=delta
 	position=sample_position(motion_clock)
 func sample_position(clock: float) -> Vector2:

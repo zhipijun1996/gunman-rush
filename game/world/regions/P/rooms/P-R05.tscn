@@ -24,10 +24,10 @@ route_guide = {
 "path": [[612.0, 299.0], [649.0, 216.0], [876.0, 206.0], [928.0, 206.0]],
 "point": [612.0, 299.0]
 }, {
-"action": "TG02保留唯一正式奖励；保留原领取、返程折板及回06吊桥。原底部0–1536整行地刺，失足按现行地形失败回准备岸；左侧2/3检修台保留可站恢复。",
+"action": "TG02保留唯一正式奖励；领取后开返程闸，下＋跳穿过领奖台，下落至回廊开口时向左射击，借反冲向右穿入通廊，开启回06吊桥。原底部0–1536整行地刺，失足按现行地形失败回准备岸；左侧2/3检修台保留可站恢复。",
 "label": "取唯一铜齿并开原返程",
 "number": 3.0,
-"path": [[928.0, 206.0], [1360.0, 142.0], [1456.0, 142.0], [1664.0, 622.0], [1776.0, 622.0]],
+"path": [[928.0, 206.0], [1360.0, 142.0], [1456.0, 142.0], [1488.0, 142.0], [1488.0, 534.0], [1664.0, 622.0], [1776.0, 622.0]],
 "point": [928.0, 206.0]
 }]
 }
@@ -40,30 +40,64 @@ retry_anchors = Array[Dictionary]([{
 "point": [928.0, 206.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "mill_drive_frame",
-"layer": -2.0,
-"point": [736.0, 800.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [144.0, 384.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1360.0, 160.0]
-}, {
-"asset": "storage_crates",
-"layer": -2.0,
-"point": [1728.0, 640.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [320.0, 544.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "mill_transmission_hall",
+    "point": [
+      960,
+      1056
+    ],
+    "layer": -40,
+    "backdrop": true,
+    "light": true,
+    "window_beam": true,
+    "environment": {
+      "ambient": "707a82",
+      "restored": "7b878b"
+    },
+    "atmosphere": {
+      "density": 3
+    }
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      144.0,
+      384.0
+    ]
+  },
+  {
+    "asset": "storage_crates",
+    "layer": -2.0,
+    "point": [
+      1728.0,
+      640.0
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      320.0,
+      544.0
+    ]
+  },
+  {
+    "surface_platform": 2
+  },
+  {
+    "surface_platform": 3
+  },
+  {
+    "surface_platform": 4
+  },
+  {
+    "surface_platform": 5
+  }
+])
 art_profile = "mill"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[912.0, 160.0], [448.0, 336.0]],
@@ -71,17 +105,39 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "Carrier0",
 "id": "P-R05:drive_shuttle"
 }])
-platforms = Array[Rect2]([Rect2(0, 384, 320, 64), Rect2(0, 800, 1536, 32), Rect2(0, 704, 224, 32), Rect2(224, 544, 224, 32), Rect2(848, 224, 192, 32), Rect2(1280, 160, 256, 32), Rect2(1536, 320, 32, 512), Rect2(1568, 640, 352, 192)])
+platforms = Array[Rect2]([Rect2(0, 384, 320, 64), Rect2(0, 800, 1536, 32), Rect2(0, 704, 224, 32), Rect2(224, 544, 224, 32), Rect2(848, 224, 192, 32), Rect2(1280, 160, 256, 32), Rect2(1536, 640, 32, 192), Rect2(1568, 640, 352, 192)])
 workbench_entity_ids = {
-"art_placements": ["P-R05:art_placements:0", "P-R05:art_placements:1", "P-R05:art_placements:2", "P-R05:art-pass:0", "P-R05:art-pass:1"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R05:platforms:0", "P-R05:platforms:1", "P-R05:platforms:2", "P-R05:platforms:3", "P-R05:platforms:4", "P-R05:platforms:5", "P-R05:platforms:6", "P-R05:platforms:7"],
-"retry_anchors": ["P-R05:retry_anchors:0", "P-R05:retry_anchors:1"],
-"signs": []
+  "art_placements": [
+    "P-R05:art:transmission-hall",
+    "P-R05:art_placements:1",
+    "P-R05:art-pass:0",
+    "P-R05:art-pass:1",
+    "P-R05:art:surface:2",
+    "P-R05:art:surface:3",
+    "P-R05:art:surface:4",
+    "P-R05:art:surface:5"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R05:platforms:0",
+    "P-R05:platforms:1",
+    "P-R05:platforms:2",
+    "P-R05:platforms:3",
+    "P-R05:platforms:4",
+    "P-R05:platforms:5",
+    "P-R05:platforms:6",
+    "P-R05:platforms:7"
+  ],
+  "retry_anchors": [
+    "P-R05:retry_anchors:0",
+    "P-R05:retry_anchors:1"
+  ],
+  "signs": []
 }
 one_way_indices = Array[int]([2, 3, 4, 5])
+illustrated_platform_indices = Array[int]([2, 3, 4, 5])
 masonry_platform_indices = Array[int]([0, 6, 7])
 start_point = Vector2(144, 366)
 spike_strips = Array[Dictionary]([{
@@ -96,6 +152,12 @@ gear_obstacles = Array[Dictionary]([{
 "phase": 0.25,
 "point": [720.0, 272.0],
 "travel": [208.0, 112.0]
+}])
+
+terrain_polygons = Array[Dictionary]([{
+"id": "P-R05:return-throat-lintel",
+"material": "masonry",
+"points": [[1504,320],[1536,320],[1536,352],[1568,352],[1568,512],[1504,512]]
 }])
 
 [node name="Interaction_0" type="Node2D" parent="." unique_id=901969407]
@@ -120,8 +182,17 @@ period = 5.4
 [node name="RewardReturn" type="Node2D" parent="." unique_id=396443299]
 position = Vector2(1456, 142)
 script = ExtResource("4_4olk5")
-closed_panels = Array[Rect2]([Rect2(80, -142, 32, 320)])
+closed_panels = Array[Rect2]([Rect2(48, 370, 64, 128)])
 action_id = "reward_return_TG02_open"
 label = "打开回程落口"
 visual = "pulley_switch"
 radius = 40.0
+
+[node name="ReturnLift" type="AnimatableBody2D" parent="."]
+position = Vector2(1696, 608)
+script = ExtResource("3_ni14a")
+endpoint = Vector2(-768, -396)
+route = Array[Vector2]([Vector2(-256, -42), Vector2(-528, -42), Vector2(-528, -396), Vector2(-768, -396)])
+period = 14.0
+endpoint_dwell = 1.5
+activation_flag = "shortcut_p02"

@@ -13,6 +13,8 @@ func run()->void:
   await hop(Vector2(816,1166),Vector2(512,1038),Vector2.RIGHT,"P02 cache returns to shelter step")
  if selected("P-R06"):
   await load_room("P-R06")
+  await well_approach()
+  await load_room("P-R06") # The following declared local hops intentionally isolate combat.
   await hop(Vector2(1152,1678),Vector2(880,1454),Vector2(.65,.76),"P06 rising choice from low bank")
   await hop(Vector2(752,1134),Vector2(448,942),Vector2(.75,.66),"P06 west branch recoil")
  if selected("P-R08"):
@@ -54,3 +56,22 @@ func run()->void:
   await hop(Vector2(512,558),Vector2(256,398),Vector2(.7,.7),"P35 back to long-bridge receiving bank")
  await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(4)
  print("APPROVED HUB ACTIONS: ",failures," failures");quit(failures)
+
+func well_key(code: Key, held: bool) -> void:
+ var event:=InputEventKey.new();event.physical_keycode=code;event.pressed=held
+ app.player.get_node("KeyboardMouseAdapter")._unhandled_input(event)
+
+func well_approach() -> void:
+ # Begin at the actual paired entrance; no intermediate teleport may skip the shaft.
+ check(await app.review.begin("P-R06","room-link-139:P-R06","base"),"P06 actual well entrance")
+ await ticks(12)
+ check(app.player.is_on_floor() and absf(app.player.position.y-1934)<4,"P06 well receiving bank")
+ for top:float in [1806.0,1678.0]:
+  well_key(KEY_SPACE,true);await ticks(24);well_key(KEY_SPACE,false);await ticks(48)
+  check(app.player.is_on_floor() and absf(app.player.position.y-top)<4,"P06 continuous well climb reaches "+str(top)+" actual "+str(app.player.position))
+ for top:float in [1806.0,1934.0]:
+  well_key(KEY_S,true);await ticks(5)
+  check(app.player.is_on_floor(),"P06 Down alone keeps the deck")
+  well_key(KEY_SPACE,true);await ticks(8);well_key(KEY_SPACE,false);well_key(KEY_S,false);await ticks(54)
+  check(app.player.is_on_floor() and absf(app.player.position.y-top)<4,"P06 Down+Jump returns to "+str(top)+" actual "+str(app.player.position))
+ app.controller.router.clear("well approach completed")

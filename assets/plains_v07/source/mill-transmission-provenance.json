@@ -1,0 +1,29 @@
+{
+  "generator": "OpenAI image_gen",
+  "purpose": "P05 complete transmission hall back wall, registered to actual room geometry; real platforms remain separate.",
+  "prompt": "Create a production pixel-art architectural BACKGROUND PLATE for P05, an ancient windmill transmission hall in a moody 2D side-scrolling metroidvania. This is ONE coherently composed whole room, not tiled wallpaper. Use image 1 strictly as the room spatial planning guide; image 2 is the current game's actual fine pixel texture and player scale (replace its repetitive background design). The guide canvas is 1536x1024 mapping world x0..1920 and y-224..1056, with the actual room at image y179..845. Match that exact canvas/aspect and registration.\nDraw ONLY the recessed BACK WALL and distant structural layers covering the ENTIRE canvas. Do NOT reproduce ANY colored guide terrain, ledges, characters, UI, dotted line, hazard strip, hanging platform or guide symbols. Those are separate real gameplay sprites and must remain absent from this background plate. No walkable-looking projecting ledges, no fake doorways on the playfield. The guide's upper sweeping yellow route is the quietest region, with broad restrained cool desaturated blue-slate stone behind it, readable at small player scale. The real main hall spans image x25..1204, y205..820; right x1255..1510 y460..690 is a lower return vestibule. A big foreground collision wall will hide x1204..1254, so use this division to compose the high machine hall and small lower side passage together.\nWhole room concept: disused yet still functional windmill, old oak roof trusses near the top, long weathered slate block wall, subtle depth and shadow in large irregular architectural bays, deeply recessed drive shaft and ONE large wooden crown wheel low in the left-middle (center image x640 y620, radius145), nearly dark and obviously far behind the play plane. Keep large timber frame posts sparse, not repeated as a grid. The back wall is visible through huge empty action space, restrained texture and very low contrast. Warm honey daylight through ONE narrow slit window centered near image (370,300), opening 42x115 pixels, reveals thick masonry reveals, a gentle diagonal pool of light going down/right to the low machinery. ONE smaller dim skylight near (1050,240), 24x45, above the reward balcony; no more windows, do not sprinkle little windows all over the wall. Right small return vestibule is recessed slate wall with a broad dark overhead lintel at image y470, calm dark return corridor, outside warm light enters only at far right around y640. Upper and bottom margins continue as dark architectural mass so there are no image edges.\nStyle is high-quality fine clustered PIXEL ART, original Underworld-inspired earthy gray-blue stone, aged olive-brown wood, restrained warm ochre light, luminous dusty air localized near windows, tiny crisp chips, large quiet masses. No glossy surfaces, no large painterly brush strokes, no realistic photograph. Match game's muted palette and subtle material texture. Clearly separated depth and soft atmospheric perspective but sharp individual pixel clusters. Window is the only bright background focal point; do not bake floating dust particles, any foreground grass, gameplay platforms, extra lamps or characters. Do not make a repeated pattern, do not put a standalone building in the middle. This is a continuous architectural interior cross-section back plate, ready to go BEHIND existing platforms.",
+  "guide": "assets/plains_v07/source/mill-transmission-guide.svg",
+  "guide_sha256": "12b10ec067075205f3c63e7b072cf2b1d418a32da0f7e111aad853baae72fe47",
+  "reference": "P05 actual pre-change camera captured from baaaeba8; image displayed in review evidence.",
+  "assets": [
+    {
+      "asset": "mill_transmission_hall",
+      "source": "assets/plains_v07/source/mill-transmission-hall-generated.png",
+      "source_sha256": "b53514132c6e2e0de67c6228e7ab83871a5b6b1ee7003c3930d928217222bd86",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "size": [
+        1920,
+        1280
+      ],
+      "image": "assets/plains_v07/native/mill_transmission_hall.png",
+      "sha256": "1bcddcf6bed115c05873bbcd11ce1a02c441bbde770c5a102e065392438b3bb3",
+      "alpha_threshold": null,
+      "sampling": "nearest"
+    }
+  ]
+}

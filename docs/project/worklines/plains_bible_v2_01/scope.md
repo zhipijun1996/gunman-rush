@@ -4,7 +4,7 @@
 
 当前分支为[PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)、`feat/approved-platform-rooms`，尚未合入main。正式内容为35个平原房与用户授权的Z01钟心门厅；35房／43连接身份不变。平台初审导入源截至r80，平台基线`8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`；随后只落实用户明确指定的正式游戏修改。平台保持只读，不部署、不迁移、不代签审批。草稿初审不等于正式体验终审。
 
-当前P06按已认可整房构图接入正式场景：保留15块平台、4个出口、敌人／机关与正式镜头；西侧风车上下壁体按真实剖面定制绘制，局部增加两块连续承托墙形并去除与原房界的重叠体积。普通自然地形保留正式平原tile，8块穿透台保持木踏板，不照搬概念稿岩层。整房远景、独立云层、风轮与3处岸沿垂苔统一构图；按用户要求全局删除边框随机前景实现、两处挂接、专用着色器及失效工具／测试；保留仍用于隐藏入口的定点草丛并迁入正式素材目录。P05只验真实开关与往返，未扩展美术施工。主游戏和工作台均未部署。
+P06整房实机获得用户视觉改善反馈；井口上方封路厚台已改为同族木质可穿越接收台，落台位置不变，沿正式下＋跳返回。当前施工P05慢风平台：按实际腔体整体制作风车传动厅、暖窗／冷窗及回程通廊，保留既有射铃载台、同驱齿轮与唯一TG02。领奖后下穿平台、空中向左射击反冲穿入右侧通口；右侧原回程开关同时永久解锁回访移动台，可从右侧穿口、升起并回到左侧检修岸。修正原固定隔墙与开关闸不重合的问题，保留世界门对、角色参数和怪物配置。源码与审核媒体更新，主游戏和工作台不部署。
 ## P06构图落地约束
 
 构图方向采用当前媒体整房稿；样式以正式平原tile set、同族木踏板和现有角色为准。保持入口在连续建筑体量中的位置、上中下空间节奏、原野地平线与安静动作带；稿中大块岩层仅作为体量示意。通用tile负责重复地形；特殊入口上下围合、洞壁、檐口与承托体允许整体定制，不要求套用已有tile。定制建筑与自然地形按承载面收口；不得用整张概念画覆盖可玩场景。
@@ -31,8 +31,8 @@
 - P01：连续而疏落的旧镇主街，低屋与少量居民、上提构图；保留首次到站和充电站教学、两段升降／铃位；东侧钟心正式接入，调查前守钟匠在北口劝返。
 - P02：屋顶绞盘、棚底短刺遭遇及一次性10金币检修箱，沿原路返回接收岸。
 - P04：断桥回身射击、上行守台，桥下10币与西角20币藏箱。删除不必要长柱，挂铃落在当前石肩上。
-- P05：同驱载台／齿轮与离台回射停机，保留TG02唯一正式收集与原回程机关。
-- P06：开阔选路中庭、交错穿透平台与空地守点。低层落岸、中层层叠原野、上层天空共享明确高度参照；西侧风车支路嵌入连续岸壁，专绘上檐／洞壁／下承托体，风轮缓转、入口实体灯照亮背墙。普通草岸与木踏板沿用原材质；3处小垂苔附着于厚岸，由房间明确规划，不叠自动前景。4个出口、15个平台、敌人与捷径条件保留。
+- P05：旧风车传动厅，整房连续背墙与低处退后的大轮，载台／反冲空域保持安静，真实暖窄窗、冷高窗与世界坐标光束。四块检修台使用既有木踏板，原射铃载台与同驱齿轮不改。TG02后下穿领奖台并向左射击，反冲穿过右侧128高通口；原回程开关开放P06并解锁回访载台，绕开领奖台底部，将右侧玩家送到左侧检修岸。
+- P06：开阔选路中庭、交错穿透平台与空地守点。低层落岸、中层层叠原野、上层天空共享明确高度参照；西侧风车支路嵌入连续岸壁，专绘上檐／洞壁／下承托体，风轮缓转、入口实体灯照亮背墙。普通草岸与木踏板沿用原材质；2处小垂苔附着于厚岸，由房间明确规划，不叠自动前景。4个出口、15个平台、敌人与捷径条件保留。
 - P07：上层掩体、桥下低拱与开放东井；上层钩索回访40币，风车与桥柱按真实平台接地。
 - P08：三段射铃载台、反冲换台与侧岸召回；井底20金币箱。底部宽检修厅进入上方窄井道，连续后墙与两侧检修构件贯穿全高，三处绞盘按真实行程悬接吊台；窗光、落岸灯与曲面受光分工，禁止逐屏重复圆柱透视。
 - P09：货井升降、矿口10币暗室；下落回身射铃同枪反冲过限时门，东上台20币藏箱及反冲返程。
@@ -66,13 +66,18 @@
 
 ## 检查与证据
 
-当前写集为P06场景／职责、专用美术与来源、PlainsRoomArt的可选远景参照和分层色调、PlainsSkyLayers的独立天空画幅、定制建筑表面裁切及旧随机前景的全局移除。P06美术的生产者为art_placements；消费者为FixedWorldRoom／PlainsRoomArt／PlainsArchitecturalFacing。旧Underworld前景删除同时清理旧演示表现、牧风者风效的随机草帘适配和性能诊断消费者；牧风者对真实定点草丛的风效保留。未配置新美术字段的房间保留原美术行为；全体房间及旧演示入口均不再自动补边框前景；没有修改正式镜头、动作物理、世界连接或工作台数据。
+本轮源码基线为`08e7cdf9`，写集为P06可穿越接收台、P05整房美术／真实窗光／反冲通口及解锁载台、房间职责与现行规范。没有修改正式镜头、角色动作物理、世界连接或工作台草稿。
 
-- 自然tile原字节保留；风轮、垂苔、定制建筑与层叠原野的源图、提示词、原生尺寸、机械裁切、SHA和几何导图归`assets/plains_v07/source/junction-composition-provenance.json`。旧P06原野已直接替换，旧来源文件只保留仍使用的云层。建筑前表面消费真实轮廓，画稿不生成碰撞；两块新墙去重前后实体并集一致，与既有房界不重叠。
-- 两段正式反冲动作、P06四个来向／19项落地合同通过；P05实交互开原捷径、走入P06、外出台地再返回通过。未改变捷径开放资格，未用解锁状态冒充真实开关。 P06井口至主路尚不通：平台1（x928–1248、y1824–1872）为实心，两端接左右房界，封住下层井口上行；该平台未被本轮美术修改。入口落地检查和从y1678开始的局部反冲跳过了这一段，不能作为连续路线通过的证据。此问题须先修复并连续验证井口上行、回落与返回，再扩房。
-- 四种视口、六个层位检查天空覆盖；高度参照、暂停冻结、捷径关／开阻挡和无旧前景节点的检查通过。日常CI四项与四份素材可重复烘焙核验通过。移除旧前景后，旧演示两地图104项、牧风者风效1198项与P24隐藏入口相关14项合同检查通过。
-- 实际审看覆盖原四个机位、门上方平台与三段正常60fps短片。保留安静动作带；入口暖灯、缓转风轮、云与风点各有空间归属。短片使用声明的局部起点；反冲片隔离战斗，过门片从P05真实开关开始，不代表新档连续全房通关、完整战斗平衡或实体手机性能。新增实现仍待用户视觉反馈，未据此扩房。
+P05窗光由lighting.json生成，PlainsRoomArt兼容单光源与整房素材多个已定位开口。移动台activation_flag由FixedWorldRoom绑定FixedWorldState；永久解锁归状态，运动相位归平台，每次进房回到右侧停靠点。WorldRoomDraft读写同一字段，并校验既有surface_platform派生木踏板的索引。未设置解锁字段的载台保留原行为。
 
-审核媒体：[同机位构图对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9d2fb223efb072ec37833a242a9e4bd29c69fbf5/review/junction/comparison.jpg)、[五处实际镜头](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9d2fb223efb072ec37833a242a9e4bd29c69fbf5/review/junction/views.jpg)、[P05开关与往返（5.5秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9d2fb223efb072ec37833a242a9e4bd29c69fbf5/review/junction/entrance.mp4)、[中层反冲（3.2秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9d2fb223efb072ec37833a242a9e4bd29c69fbf5/review/junction/upper.mp4)、[下层反冲（3.2秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9d2fb223efb072ec37833a242a9e4bd29c69fbf5/review/junction/rise.mp4)。视频均为正常速度、单段不足1MB；[源哈希与覆盖边界](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9d2fb223efb072ec37833a242a9e4bd29c69fbf5/review/junction/provenance.json)绑定本轮实际源文件。已认可构图参考：[整房稿](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/f0cc5de4a9f6cf17f163a34fabc3cfe4bc7f58e3/review/junction/whole-room.jpg)。它是空间参考，不是运行截图。
+- P05连续真实控制器路线通过：入口射铃、登载台、空中射铃停机反冲到检修岸、上领奖台、取TG02开闸、下＋跳后空中向左射击反冲穿右通口、操作右侧开关、进入P06并返回、搭乘新增回访台回左岸。中途不重设玩家位置或载台时间。相同下落与水平输入省略返程射击时未能穿口；这不是所有绕过方法的穷举证明。
+- P05初始移动台不可见且无碰撞；开关后出现、跨房恢复及独立磁盘存档读回通过。场景codec读写保留解锁字段；已有移动台端点停靠／暂停／恢复回归通过。P05房间合同15项、P06合同19项零失败。
+- P06从真实井口连续两次上跳至主路，再以两次下＋跳返回接收岸，通过8项检查；原两段反冲专项仍通过。厚台改为同族木踏板并移除不适用的垂苔，保持接收面和门对。
+- P05双窗位置、光束随世界固定、暂停与恢复通过；P01稳定日光和P26既有窗光回归通过。整房素材保留生成原图、几何导图、提示词、机械缩放及SHA，归`assets/plains_v07/source/mill-transmission-provenance.json`，可重复烘焙核验通过。
+- 日常CI四项通过。实际审看P05五个相同镜头、整房拼装及三段正常速度短片。录像从隔离逐房试玩合法起点进入；未覆盖新档前序主线、全战斗平衡或实体手机性能。P05视觉效果待用户反馈。
 
-正式运行包仍为公开f8188783660b；本轮只更新源码与审核媒体，不部署主游戏或关卡平台。后续先在P06闭环实机视觉反馈，再扩展下一房；不恢复已撤回的通用横梁拼入口或自动大枝叶。
+审核媒体：[同机位前后对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/comparison.jpg)、[整房实机拼装总览](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/whole-room.jpg)、[入口到检修岸（8.7秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/drive.mp4)、[下穿与空中反冲返程（8秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/recoil-return.mp4)、[开关后从右侧乘台回左岸（9.1秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/return-lift.mp4)、[P06井口上下行（6.2秒）](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/p06-well.mp4)。均正常速度，视频每段小于1.5MB；[源哈希、夹具与覆盖边界](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/8aaee5e61a41391a4fac87b77406770cf357f9df/review/transmission/provenance.json)绑定实际运行源。整房总览使用审查用广角，游玩镜头仍为正式统一镜头。
+
+P06已认可的整房构图参考与对应实现保留：[构图参考](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/f0cc5de4a9f6cf17f163a34fabc3cfe4bc7f58e3/review/junction/whole-room.jpg)、[实机对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/9d2fb223efb072ec37833a242a9e4bd29c69fbf5/review/junction/comparison.jpg)。该对照早于本轮井口可穿越修复；当前上下行以本轮短片为准。
+
+正式运行包仍为公开f8188783660b；本轮只更新源码与审核媒体，不部署主游戏或关卡平台。P05待用户视觉反馈，暂不扩展更多房间；不恢复通用横梁拼入口或随机边框前景。

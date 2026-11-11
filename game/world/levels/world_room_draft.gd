@@ -25,7 +25,7 @@ const NODE_SCRIPTS := {
 }
 const NODE_FIELDS := {
 	"GrappleAnchor": ["position", "hang_enabled", "material_family"],
-	"WorldMovingPlatform": ["position", "endpoint", "platform_size", "period", "phase_offset", "one_way", "route", "endpoint_dwell"],
+	"WorldMovingPlatform": ["position", "endpoint", "platform_size", "period", "phase_offset", "one_way", "route", "endpoint_dwell", "activation_flag"],
 	"WorldRoomInteraction": ["position", "action_id", "section_id", "label", "visual", "radius"],
 	"WorldReturnLatch": ["position", "action_id", "section_id", "label", "visual", "radius", "return_steps", "closed_panels", "metal_hatch"],
 	"WorldFlagPresentation": ["position", "flag"],
@@ -241,6 +241,10 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 	for row: Dictionary in properties.get("signs", room.signs):
 		if not vector(row.get("point")) or not row.get("text") is String: return "sign_invalid"
 	for row: Dictionary in properties.get("art_placements", room.art_placements):
+		if row.has("surface_platform"):
+			var index:Variant=row.surface_platform
+			if not number(index) or floorf(float(index))!=float(index) or int(index)<0 or int(index)>=platform_count: return "art_surface_platform_invalid"
+			continue
 		if row.has("masonry_region"):
 			if not rectangle(row.masonry_region): return "art_masonry_region_invalid"
 			continue

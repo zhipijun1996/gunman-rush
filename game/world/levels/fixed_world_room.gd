@@ -370,6 +370,7 @@ func refresh_doors(state: FixedWorldState, content: FixedWorldProvider) -> void:
 
 func bind_services(value: WorldServices,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> void:
 	services=value
+	for platform: Node in find_children("*","WorldMovingPlatform",true,false): platform.bind_activation(value.state)
 	(get_node("RegionalArt") as PlainsRoomArt).player=controller.motor
 	for pickup: Dictionary in services.definitions.get("pickups",[]):
 		if pickup.room_id!=room_id:continue

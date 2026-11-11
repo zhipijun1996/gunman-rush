@@ -174,12 +174,13 @@ func _ready() -> void:
 			var depth_material:=CanvasItemMaterial.new();depth_material.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;node.material=depth_material
 			depths.append({"node":node,"origin":node.position,"ratio":float(placement.depth)})
 		if placement.get("light",false) and light_settings.emitters.has(str(placement.asset)):
-			var emitter:Dictionary=light_settings.emitters[str(placement.asset)]
-			var glow:=add_lamp(FixedWorldProvider.point(emitter.offset))
-			glow.color=Color(emitter.color);glow.energy=float(emitter.energy);glow.texture_scale=float(emitter.radius)/64
-			glow.reparent(node,false)
-		if placement.get("window_beam",false):
-			PlainsWindowLight.attach(node,self,light_settings.emitters[str(placement.asset)].shaft)
+			var source_settings:Dictionary=light_settings.emitters[str(placement.asset)]
+			for emitter:Dictionary in source_settings.get("sources",[source_settings]):
+				var glow:=add_lamp(FixedWorldProvider.point(emitter.offset))
+				glow.color=Color(emitter.color);glow.energy=float(emitter.energy);glow.texture_scale=float(emitter.radius)/64
+				glow.reparent(node,false)
+				if placement.get("window_beam",false) and emitter.has("shaft"):
+					PlainsWindowLight.attach(node,self,emitter.shaft)
 	_thresholds()
 	var spikes:=WorldSpikeArt.new()
 	spikes.name="ContinuousSpikes"
