@@ -11,7 +11,7 @@
 | 旧原型入口与一局装配 | [DemoApp](../../game/application/demo_app.gd)、[RunComposition](../../game/application/run_composition.gd)、[RunSession](../../game/application/run_session.gd) | [架构](architecture.md)、[流程](../bible/world_progression.md) | `core` |
 | 能力与地区推进 | [RunCampaignProgression](../../game/application/run_campaign_progression.gd)、`DemoApp._select_next_region` | [流程](../bible/world_progression.md)、[地区门槛](../bible/regions.md) | `core`、`level-region-context` |
 | 输入／菜单取消 | [InputRouter](../../game/platform/input/input_router.gd)、[InputSetup](../../game/platform/input/input_setup.gd) | [操作](../bible/controls_contract.md) | `core`、`studio-input` |
-| 跳跃／反冲／钩索 | [PlayerMotor](../../game/player/player_motor.gd)、[PlayerController](../../game/player/player_controller.gd)、`game/player/actions/` | [物理](../bible/player_mechanics.md)、[动作入口](../data/player_actions.md) | `core`、`weapon-feel` |
+| 跳跃／反冲／钩索 | [PlayerMotor](../../game/player/player_motor.gd)、[PlayerController](../../game/player/player_controller.gd)、`game/player/actions/` | [物理](../bible/player_mechanics.md)、[动作入口](../data/player_actions.md) | `core`、`weapon-feel`；地面射击专项 `tests/ground_shooting_runner.gd` |
 | 时间能量／弹药／共鸣 | `PlayerController.enable_shot_energy`、[当前时间能量定义](../../game/player/resources/demo_ui_01/time_energy_v2.tres)、`game/combat/resources/` | [资源](../bible/combat_and_recharge.md) | `core`、`all-weapons` |
 | 武器与攻击 | [WeaponCatalog](../../game/combat/weapons/weapon_catalog.gd)、`game/combat/weapons/`、`resources/weapons/` | [武器规范](../data/weapons.md) | `all-weapons`、`weapon-feel`、`studio-input` |
 | 伤害／段回退 | [FrameDamagePolicy](../../game/combat/damage/frame_damage_policy.gd)、`game/combat/respawn/` | [伤害回退](../bible/damage_and_respawn.md) | `core`、`underworld-damage-feedback` |

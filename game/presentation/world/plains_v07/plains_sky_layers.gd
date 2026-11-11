@@ -25,6 +25,10 @@ func configure(landscape: Sprite2D, cloud_texture: Texture2D) -> void:
 		shader.set_shader_parameter("density",.72 if i==0 else .32)
 		cloud.material=shader;add_child(cloud);clouds.append(cloud)
 
+func set_density(values: Array) -> void:
+	for i: int in mini(values.size(), clouds.size()):
+		(clouds[i].material as ShaderMaterial).set_shader_parameter("density",clampf(float(values[i]),0.0,1.0))
+
 func update_clock(seconds: float) -> void:
 	for cloud:Sprite2D in clouds:
 		(cloud.material as ShaderMaterial).set_shader_parameter("cloud_time",seconds)

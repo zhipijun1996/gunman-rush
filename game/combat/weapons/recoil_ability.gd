@@ -14,6 +14,6 @@ func execute(direction: Vector2, grounded_at_fire: bool) -> void:
 		# on a jump-and-fire tick. Never re-evaluate grounding mid-burst.
 		var strength := motor.tuning.ground_recoil_multiplier if grounded_at_fire else 1.0
 		if motor.tuning.recoil_mode == "shot_burst":
-			motor.start_shot_burst(-direction, strength)
+			motor.start_shot_burst(-direction, strength, grounded_at_fire)
 		else:
-			motor.apply_impulse(-direction * motor.tuning.recoil_impulse * strength)
+			motor.apply_impulse(PlayerMotor.ground_shot_motion(-direction * motor.tuning.recoil_impulse * strength, grounded_at_fire))

@@ -127,14 +127,19 @@ func apply_impulse(impulse: Vector2) -> void:
 		clear_recoil()
 	recoil_velocity += impulse
 
-func start_shot_burst(direction: Vector2, strength: float = 1.0) -> void:
+static func ground_shot_motion(motion: Vector2, grounded: bool) -> Vector2:
+	return Vector2(motion.x, 0.0) if grounded else motion
+
+func start_shot_burst(direction: Vector2, strength: float = 1.0, grounded: bool = false) -> void:
 	if not direction.is_finite() or direction.is_zero_approx():
 		return
 	cancel_weapon_apex()
-	var unit := direction.normalized()
-	var opposing := normal_velocity.dot(unit)
+	var unit := ground_shot_motion(direction.normalized(), grounded)
+	if unit.is_zero_approx(): return
+	var axis := unit.normalized()
+	var opposing := normal_velocity.dot(axis)
 	if opposing < 0.0:
-		normal_velocity -= unit * opposing
+		normal_velocity -= axis * opposing
 	normal_velocity.y = 0.0
 	recoil_velocity = unit * tuning.shot_burst_speed * clampf(strength, 0.0, 1.0)
 	recoil_burst_remaining = tuning.shot_burst_duration
@@ -207,15 +212,18 @@ func cancel_ability_motion() -> void:
 	_blink_requested=false;_blink_motion=Vector2.ZERO;_sustained_recoil=false
 	weapon_pause_remaining=0;_weapon_drive_end_pending=false
 
-func start_weapon_burst(unit: Vector2, speed: float, duration: float) -> void:
+func start_weapon_burst(unit: Vector2, speed: float, duration: float, grounded: bool = false) -> void:
 	if not unit.is_finite() or unit.is_zero_approx() or not is_finite(speed) or speed<=0 or not is_finite(duration) or duration<=0:return
+	var motion := ground_shot_motion(unit.normalized()*speed, grounded)
+	if motion.is_zero_approx(): return
 	cancel_weapon_apex()
 	normal_velocity=Vector2.ZERO
-	recoil_velocity=unit.normalized()*speed
+	recoil_velocity=motion
 	recoil_burst_remaining=duration
 
 # A collision-checked instant displacement is committed inside the sole Motor step.
-func request_weapon_blink(motion: Vector2) -> void:
+func request_weapon_blink(motion: Vector2, grounded: bool = false) -> void:
+	motion = ground_shot_motion(motion, grounded)
 	if not motion.is_finite() or motion.is_zero_approx():return
 	reset_motion()
 	_blink_motion=motion;_blink_requested=true
@@ -245,7 +253,9 @@ func _weapon_gravity_time(delta: float) -> float:
 	var age := total-weapon_apex_remaining
 	weapon_apex_remaining=maxf(0,weapon_apex_remaining-delta)
 	return _apex_integral(age+delta)-_apex_integral(age)
-func request_weapon_drive(mean_velocity: Vector2, end_velocity: Vector2) -> void:
+func request_weapon_drive(mean_velocity: Vector2, end_velocity: Vector2, grounded: bool = false) -> void:
+	mean_velocity = ground_shot_motion(mean_velocity, grounded)
+	end_velocity = ground_shot_motion(end_velocity, grounded)
 	clear_local_velocity()
 	recoil_burst_remaining=0;recoil_velocity=end_velocity;_sustained_recoil=true
 	request_ability_velocity(mean_velocity)

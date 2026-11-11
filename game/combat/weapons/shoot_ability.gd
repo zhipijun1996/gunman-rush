@@ -111,7 +111,7 @@ func _emit_round(aim: Vector2, grounded: bool) -> void:
 	elif recoil.enabled:
 		var motion := controller.motor.weapon_motion
 		var distance := motion.base_distance(tuning,_packet_grounded)*motion.lv2_total_ratio/weapon.rounds
-		controller.motor.start_weapon_burst(-aim,distance/weapon.burst_duration,weapon.burst_duration)
+		controller.motor.start_weapon_burst(-aim,distance/weapon.burst_duration,weapon.burst_duration,grounded)
 	var projectile := PlayerProjectile.new()
 	projectile.impacted.connect(func(point: Vector2, hit_direction: Vector2) -> void: projectile_impacted.emit(point,hit_direction))
 	projectile.shot_id = _shot_serial

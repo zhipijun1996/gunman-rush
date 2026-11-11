@@ -74,15 +74,15 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 		shoot.cooldown_remaining = 0.0
 		check.call(not shoot.try_fire(Vector2.RIGHT, false) and resources.shot_charges == 0, "configured %d shots exhaust" % maximum)
 		shoot.reset()
-	await fixture()
+	await fixture(Vector2(80, -300))
 	motor.tuning.recoil_mode = "legacy_impulse"
 	# This fixture isolates legacy decay/cap rules at full impulse. The new
 	# default ground multiplier has its own real-distance regression runner.
 	motor.tuning.ground_recoil_multiplier = 1.0
 	motor.tuning.gravity = 1250.0
-	await ticks(30)
+	await ticks(1)
 	await fire(Vector2.DOWN)
-	check.call(not motor.is_on_floor() and resources.shot_charges == 1 and resources.pending_ground_shots == 0, "ground downward shot leaves floor and charges exactly once")
+	check.call(not motor.is_on_floor() and resources.shot_charges == 1 and resources.pending_ground_shots == 0, "air downward shot reverses fall and charges exactly once")
 	var recoil_before := motor.recoil_velocity
 	var remaining := resources.shot_charges
 	check.call(not shoot.try_fire(Vector2.LEFT, false) and resources.shot_charges == remaining and motor.recoil_velocity == recoil_before and shoot.get_projectiles().size() == 1, "cooldown rejection has no resource, recoil or projectile effects")

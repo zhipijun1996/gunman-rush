@@ -77,6 +77,8 @@ func _ready() -> void:
 		add_child(sky)
 		sky_layers=PlainsSkyLayers.new();sky.add_child(sky_layers)
 		sky_layers.configure(sky,load("res://"+str(backgrounds.wind_clouds.image)))
+		for placement:Dictionary in room.art_placements:
+			if placement.has("sky_cloud_density"):sky_layers.set_density(placement.sky_cloud_density)
 		daylight=DirectionalLight2D.new();daylight.color=Color(light_settings.sun.color);daylight.energy=float(environment_light.sun_energy)
 		# Open sky is a broad fill, not an infinitely projected shadow from every ledge.
 		# Terrain still occludes the finite lamps and the player's carry light.
@@ -276,6 +278,7 @@ static func _scene_profile(path: String) -> String:
 func _thresholds() -> void:
 	for door: Dictionary in room.doors:
 		if door.get("front_door",false):continue
+		if room.art_placements.any(func(p:Dictionary)->bool: return p.get("threshold_for","")==str(door.id)):continue
 		var other_indoor:=not FixedWorldRoom.material_for_profile(_scene_profile(str(door.target_scene))).is_empty()
 		if indoor==other_indoor:continue
 		var at:=FixedWorldProvider.point(door.position_candidate.local_world_units)
@@ -283,7 +286,6 @@ func _thresholds() -> void:
 		var marker:=Node2D.new();marker.name="Threshold_"+str(door.id).replace(":","_");add_child(marker)
 		if not indoor and direction in ["left","right"]:
 			# An authored facade already includes this doorway and its supporting bank.
-			if room.art_placements.any(func(p:Dictionary)->bool: return p.get("threshold_for","")==str(door.id)):continue
 			var side:=1 if direction=="right" else -1
 			PlainsThresholdComposition.outside(self,at,side,str(door.id))
 		elif not indoor and direction=="down":

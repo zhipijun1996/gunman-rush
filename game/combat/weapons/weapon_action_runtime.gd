@@ -128,7 +128,8 @@ func _start(grounded: bool) -> void:
 	if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG]:
 		_phase(&"throw_windup");return
 	_release(grounded)
-func _release(_grounded: bool) -> void:
+func _release(grounded: bool) -> void:
+	_fire_grounded = grounded
 	var def := definition()
 	match def.mode:
 		WeaponDefinition.Mode.PULSE:
@@ -187,11 +188,11 @@ func base_recoil() -> void:
 func blink(unit: Vector2, distance: float) -> void:
 	if actor().traversal.busy():actor().traversal.cancel()
 	actor().jump_ability.cancel_ascent()
-	actor().motor.request_weapon_blink(unit.normalized()*distance)
+	actor().motor.request_weapon_blink(unit.normalized()*distance,_fire_grounded)
 func flash(unit: Vector2, speed: float, duration: float) -> void:
 	if actor().traversal.busy():actor().traversal.cancel()
 	actor().motor.reset_motion();actor().jump_ability.cancel_ascent()
-	actor().motor.start_weapon_burst(unit,speed,duration)
+	actor().motor.start_weapon_burst(unit,speed,duration,actor().motor.is_on_floor())
 func advance(delta: float) -> void:
 	if delta <= 0.0:
 		if not valid_session(_session) and (phase != &"idle" or not current_entities().is_empty()): cancel(&"reset")
@@ -225,11 +226,13 @@ func advance(delta: float) -> void:
 			_timer-=delta
 			if _timer<=0:
 				for angle: float in [-.16,0,.16]:ability.emit_special_projectile(direction.rotated(angle),true,&"bullet")
-				actor().motor.start_shot_burst(-direction,def.recoil_scale);actor().motor.recoil_burst_remaining=def.burst_duration
+				actor().motor.start_shot_burst(-direction,def.recoil_scale,actor().motor.is_on_floor())
+				if actor().motor.recoil_burst_remaining>0:actor().motor.recoil_burst_remaining=def.burst_duration
 				_pose(&"weapon_skill");_rounds-=1;_timer+=def.skill_interval
 				if _rounds<=0:_phase(&"idle")
 		&"fan_wait":
 			if age>=def.second_flash_delay:
+				_fire_grounded=actor().motor.is_on_floor()
 				blink(-direction,base_displacement()*actor().motor.weapon_motion.secondary_ratio);_pose(&"blade_throw",.13);_phase(&"idle")
 		&"beam":
 			if not actor().router.aim_engaged or actor().router.aim_mode!=&"attack":
@@ -247,7 +250,7 @@ func advance(delta: float) -> void:
 					var acceleration := 2*budget/(def.beam_duration*def.beam_duration)
 					var distance := acceleration*(_beam_elapsed*step+.5*step*step)
 					_beam_elapsed+=step
-					actor().motor.request_weapon_drive(-direction*distance/delta,-direction*acceleration*_beam_elapsed)
+					actor().motor.request_weapon_drive(-direction*distance/delta,-direction*acceleration*_beam_elapsed,actor().motor.is_on_floor())
 					_timer-=step
 					beam_damage(direction,_packet_damage,false,false,_timer<=0)
 					if _timer<=0:_cue(&"focus_start");_timer+=def.beam_tick
