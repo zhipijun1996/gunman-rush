@@ -1,0 +1,203 @@
+{
+  "base_commit": "6b2f1340feb15c66d441ed2ee76bfd65113229a2",
+  "runtime_sha256": {
+    "assets/plains_v07/manifest.json": "8612fc3d2f386a97610e5850219082fba5851e5ac684a9a22ea97a2f3a0377d0",
+    "game/world/regions/P/room_design.json": "67577e33c9ab1d4a9c86966f46836f1af46f1adc6b67498404f4cba1a97c67e9",
+    "game/world/regions/P/rooms/P-R27.tscn": "22f5205398c1eb1dec55da0df96ed927fd013bcb8418e7ae2dc9cc5cc730c03b",
+    "assets/plains_v07/native/shelter_courtyard.png": "dcebbde9df33012de52ec9afe1ed1798c7ee6fd71067c80b61fe3f794e024922",
+    "assets/plains_v07/native/shelter_courtyard.png.import": "7408de4da2b47059b9040f28af7e205beb747617bb33e9053a0517e11cfeaa37",
+    "assets/plains_v07/native/shelter_shaft.png": "9017046d507bf99352cba4d2b9c3d0b1b2c33b618cd8b526ff6ea244a514ac53",
+    "assets/plains_v07/native/shelter_shaft.png.import": "e4b768e3db81f86ac2ed94a4ea1266f5e60e1a84a457b0065ff14922e2077e99",
+    "assets/plains_v07/source/shelter-courtyard-generated.png": "0dfb452212c9a771dbc58e9cf2bc1e29f343cc28ab9d23601ba72b96c4869eb3",
+    "assets/plains_v07/source/shelter-courtyard-guide.svg": "950738f943f61ba5008e919699a0fa6ca6cdae7c5699451102ede56479338baa",
+    "assets/plains_v07/source/shelter-courtyard-provenance.json": "f4a19f878e9fb447f24146db83212219f680c49475d6a1126b53f7f8ae233e6e",
+    "assets/plains_v07/source/shelter-shaft-generated.png": "7cfbfe56199763e567c54dfe5a0f1f8626bf2eb6d5f82c5e955ab7ecca65e446",
+    "assets/plains_v07/source/shelter-shaft-guide.svg": "53b3951fecc280d2f769e916fef31a1191e63b3856318b58ebe9e5b36c09a63f",
+    "assets/plains_v07/source/shelter-shaft-provenance.json": "7b35a36277b9e1b77f63eab3a696bcd99c8820dc43e64bf3aaba587c7f282d3d"
+  },
+  "media_sha256": {
+    "route.gd": "817d73e653869300a7936b12b1f2aef64b4d7c8a30baa7d1569026e982e4a21a",
+    "movie.log": "a383aa96a9066ccf87376b2bda4a132114ae1eb61382766ff33f7f6b6ad33fd8",
+    "shaft.mp4": "b5b27aa7f3f2916f162ca77f75d6478c9f67dece67ae5b9bc4c44d81a96f8cce",
+    "ci.log": "95cdd9c990afe8312ad1721394b5ec4838e0ed626ccc862867f4535323973842",
+    "ascent.mp4": "8a847bb28be395997dea5feb0bd60fb9551a31c9b48a36236e3fdc5446471048",
+    "art-check.log": "3eab89e29c73523409f82e45b9fca9256c9df73ec5964da2e033aefd8c9da609",
+    "comparison.jpg": "88fc6b5f7d66815c2dbbee0068a6c83977bb8adc5a7ee4f8ea767119f5d93afa",
+    "rest-east.mp4": "130b697cf1412448d42a094ba040980d061715aca0ea8d4fb0e18bfec672ff49",
+    "contracts.log": "598ef91f33a8523da2b344d604960f7d1dd2610d3613ada478866580de2b4c49",
+    "whole-room.jpg": "dae5d6e9b7384ab5eedaf9eaf48ac7006d48391e6b5a8d44189b33a84e075359",
+    "art-check.gd": "7ec583371b24a8612bc8b9043adc3843a40f5c13ead33c40cc2c4a451c5d2af7"
+  },
+  "clips": {
+    "rest-east.mp4": {
+      "start": 0.7,
+      "seconds": 9.6
+    },
+    "ascent.mp4": {
+      "start": 10.25,
+      "seconds": 9.15
+    },
+    "shaft.mp4": {
+      "start": 19.4,
+      "seconds": 7.6
+    }
+  },
+  "recording": {
+    "fps": 60,
+    "speed": 1,
+    "resolution": [
+      1280,
+      720
+    ],
+    "controller": "formal FixedWorldApp / PlayerMotor",
+    "fixture": "route.gd",
+    "entry": "P27 room review, real paired entry WEST-P26-P27:P-R27, base abilities",
+    "coverage": "Uninterrupted entry-to-rest, actual charging cycle, P05 exit/return, ascent to P14 and return, down-through descent to lower bank, shaft drop into P26 and jump back onto P27 receiving bank. No intermediate pose resets.",
+    "excluded": [
+      "new-save campaign approach",
+      "full campaign combat balance",
+      "physical phone performance"
+    ]
+  },
+  "geometry": "Original six platforms, one-way flags, spawn, rest and route guide unchanged against base.",
+  "camera_views": {
+    "before": [
+      {
+        "index": 0,
+        "player": [
+          640.0,
+          718.0
+        ],
+        "rect": [
+          250.569152832031,
+          382.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 1,
+        "player": [
+          960.0,
+          558.0
+        ],
+        "rect": [
+          570.569152832031,
+          289.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 2,
+        "player": [
+          1488.0,
+          558.0
+        ],
+        "rect": [
+          864.0,
+          289.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 3,
+        "player": [
+          560.0,
+          430.0
+        ],
+        "rect": [
+          170.569152832031,
+          161.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 4,
+        "player": [
+          768.0,
+          142.0
+        ],
+        "rect": [
+          378.569152832031,
+          0.0,
+          800.0,
+          450.0
+        ]
+      }
+    ],
+    "after": [
+      {
+        "index": 0,
+        "player": [
+          640.0,
+          718.0
+        ],
+        "rect": [
+          250.569152832031,
+          382.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 1,
+        "player": [
+          960.0,
+          558.0
+        ],
+        "rect": [
+          570.569152832031,
+          289.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 2,
+        "player": [
+          1488.0,
+          558.0
+        ],
+        "rect": [
+          864.0,
+          289.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 3,
+        "player": [
+          560.0,
+          430.0
+        ],
+        "rect": [
+          170.569152832031,
+          161.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 4,
+        "player": [
+          768.0,
+          142.0
+        ],
+        "rect": [
+          378.569152832031,
+          0.0,
+          800.0,
+          450.0
+        ]
+      }
+    ]
+  },
+  "art_provenance": [
+    "assets/plains_v07/source/shelter-courtyard-provenance.json",
+    "assets/plains_v07/source/shelter-shaft-provenance.json"
+  ]
+}
