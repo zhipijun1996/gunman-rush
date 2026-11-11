@@ -55,40 +55,200 @@ retry_anchors = Array[Dictionary]([{
 "point": [864.0, 1438.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [224.0, 2944.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [480.0, 2304.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [976.0, 1456.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [480.0, 992.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [752.0, 160.0]
-}, {
-"asset": "gear_city_v2_pipe_junction",
-"layer": -2.0,
-"point": [992.0, 2944.0]
-}, {
-"asset": "storage_crates",
-"layer": -2.0,
-"point": [592.0, 2304.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "sealed_well_depth",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -45,
+    "backdrop": true,
+    "tile_rect": [
+      0,
+      0,
+      1536,
+      3072
+    ],
+    "tint": [
+      0.75,
+      0.87,
+      0.92,
+      1
+    ],
+    "environment": {
+      "ambient": "6b7e88",
+      "restored": "7b8f94",
+      "threshold_energy": 0.45,
+      "threshold_opacity": 0.1
+    },
+    "atmosphere": {
+      "density": 2,
+      "speed": [
+        4,
+        9
+      ],
+      "sway_speed": 0.35
+    }
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      224.0,
+      2944.0
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      480.0,
+      2304.0
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      976.0,
+      1456.0
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      480.0,
+      992.0
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      752.0,
+      160.0
+    ]
+  },
+  {
+    "asset": "gear_city_v2_pipe_junction",
+    "layer": -2.0,
+    "point": [
+      992.0,
+      2944.0
+    ]
+  },
+  {
+    "asset": "storage_crates",
+    "layer": -2.0,
+    "point": [
+      592.0,
+      2304.0
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -35,
+    "tile_rect": [
+      0,
+      1012,
+      1216,
+      24
+    ],
+    "haze": [
+      0.1,
+      0.18,
+      0.22,
+      0.9
+    ],
+    "tint": [
+      0.6,
+      0.7,
+      0.75,
+      1
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -35,
+    "tile_rect": [
+      0,
+      2036,
+      1216,
+      24
+    ],
+    "haze": [
+      0.1,
+      0.18,
+      0.22,
+      0.9
+    ],
+    "tint": [
+      0.6,
+      0.7,
+      0.75,
+      1
+    ]
+  },
+  {
+    "asset": "mill_gear",
+    "point": [
+      384,
+      2608
+    ],
+    "layer": -25,
+    "rotation_speed": 0.07,
+    "motion_source": "WellLift",
+    "haze": [
+      0.15,
+      0.24,
+      0.28,
+      0.82
+    ],
+    "tint": [
+      0.6,
+      0.7,
+      0.75,
+      1
+    ]
+  },
+  {
+    "asset": "mill_gear",
+    "point": [
+      784,
+      1760
+    ],
+    "layer": -25,
+    "rotation_speed": -0.06,
+    "motion_source": "ServiceLift",
+    "haze": [
+      0.15,
+      0.24,
+      0.28,
+      0.82
+    ],
+    "tint": [
+      0.6,
+      0.7,
+      0.75,
+      1
+    ]
+  }
+])
 art_profile = "well"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[736.0, 2896.0], [720.0, 2208.0]],
@@ -106,15 +266,39 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "UpperLift",
 "id": "P-R08:upper_lift"
 }])
-platforms = Array[Rect2]([Rect2(0, 2944, 1216, 128), Rect2(320, 2848, 128, 96), Rect2(448, 2304, 224, 48), Rect2(800, 1456, 224, 48), Rect2(608, 160, 192, 32), Rect2(448, 992, 224, 32)])
+platforms = Array[Rect2]([Rect2(32, 2944, 1152, 96), Rect2(320, 2848, 128, 96), Rect2(480, 2304, 192, 48), Rect2(800, 1456, 192, 48), Rect2(608, 160, 192, 32), Rect2(480, 992, 192, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R08:built:fixture_0", "P-R08:built:fixture_1", "P-R08:built:fixture_2", "P-R08:built:fixture_3", "P-R08:built:fixture_4", "P-R08:art-pass:0", "P-R08:art-pass:1"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R08:platforms:0", "P-R08:platforms:1", "P-R08:platforms:2", "P-R08:platforms:3", "P-R08:platforms:4", "P-R08:r6:upper_cache_bank"],
-"retry_anchors": ["P-R08:retry_anchors:0", "P-R08:retry_anchors:1", "P-R08:retry_anchors:2"],
-"signs": []
+  "art_placements": [
+    "P-R08:art:clockroute:0",
+    "P-R08:built:fixture_0",
+    "P-R08:built:fixture_1",
+    "P-R08:built:fixture_2",
+    "P-R08:built:fixture_3",
+    "P-R08:built:fixture_4",
+    "P-R08:art-pass:0",
+    "P-R08:art-pass:1",
+    "P-R08:art:clockroute:1",
+    "P-R08:art:clockroute:2",
+    "P-R08:art:clockroute:3",
+    "P-R08:art:clockroute:4"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R08:platforms:0",
+    "P-R08:platforms:1",
+    "P-R08:platforms:2",
+    "P-R08:platforms:3",
+    "P-R08:platforms:4",
+    "P-R08:r6:upper_cache_bank"
+  ],
+  "retry_anchors": [
+    "P-R08:retry_anchors:0",
+    "P-R08:retry_anchors:1",
+    "P-R08:retry_anchors:2"
+  ],
+  "signs": []
 }
 start_point = Vector2(144, 2926)
 enemy_placements = Array[Dictionary]([{

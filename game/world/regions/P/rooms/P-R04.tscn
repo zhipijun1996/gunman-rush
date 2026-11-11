@@ -52,46 +52,126 @@ retry_anchors = Array[Dictionary]([{
 "point": [896.0, 558.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "plain_pier",
-"layer": -2.0,
-"point": [1120.0, 928.0],
-"support_height": 352.0
-}, {
-"asset": "plain_pier",
-"layer": -2.0,
-"point": [608.0, 928.0],
-"support_height": 224.0
-}, {
-"asset": "tilted_barrel",
-"fade_near": true,
-"layer": -2.0,
-"point": [432.0, 1216.0]
-}, {
-"asset": "hanging_chime",
-"layer": -2.0,
-"point": [1120.0, 576.0]
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [1744.0, 928.0],
-"sway": true
-}, {
-"asset": "windchime_plains_near_v2",
-"layer": -2.0,
-"point": [768.0, 1216.0],
-"sway": true
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "tilted_barrel",
+    "fade_near": true,
+    "layer": -2.0,
+    "point": [
+      432.0,
+      1216.0
+    ],
+    "landscape": "opening_plains",
+    "atmosphere": {
+      "density": 4,
+      "speed": [
+        43,
+        66
+      ],
+      "sway_speed": 1.1
+    }
+  },
+  {
+    "asset": "hanging_chime",
+    "layer": -2.0,
+    "point": [
+      1120.0,
+      576.0
+    ]
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -2.0,
+    "point": [
+      1744.0,
+      928.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "windchime_plains_near_v2",
+    "layer": -2.0,
+    "point": [
+      768.0,
+      1216.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "opening_road_ridge",
+    "point": [
+      1424,
+      1380
+    ],
+    "layer": -40,
+    "depth": 0.88,
+    "tint": [
+      0.72,
+      0.85,
+      0.84,
+      0.75
+    ]
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      1616,
+      928
+    ],
+    "layer": -5,
+    "tint": [
+      0.65,
+      0.74,
+      0.73,
+      1
+    ]
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      608,
+      704
+    ],
+    "layer": -5,
+    "sway": true
+  }
+])
 art_profile = "bridge"
-platforms = Array[Rect2]([Rect2(0, 1216, 960, 64), Rect2(1504, 928, 416, 64), Rect2(992, 928, 256, 64), Rect2(384, 928, 320, 64), Rect2(128, 1088, 256, 128), Rect2(512, 704, 288, 64), Rect2(768, 576, 448, 64), Rect2(1056, 384, 256, 32), Rect2(1248, 160, 192, 48), Rect2(1088, 1216, 832, 64), Rect2(1856, 992, 64, 224), Rect2(1376, 1088, 128, 32)])
+platforms = Array[Rect2]([Rect2(32, 1216, 928, 32), Rect2(1504, 928, 384, 64), Rect2(992, 928, 256, 64), Rect2(384, 928, 320, 64), Rect2(128, 1088, 256, 128), Rect2(512, 704, 288, 64), Rect2(768, 576, 448, 64), Rect2(1056, 384, 256, 32), Rect2(1248, 160, 192, 48), Rect2(1088, 1216, 800, 32), Rect2(1856, 992, 32, 224), Rect2(1376, 1088, 128, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R04:art_placements:0", "P-R04:art_placements:1", "P-R04:art_placements:2", "P-R04:art_placements:3", "P-R04:art-pass:0", "P-R04:art-pass:1"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R04:platforms:0", "P-R04:platforms:1", "P-R04:platforms:2", "P-R04:platforms:3", "P-R04:platforms:4", "P-R04:platforms:5", "P-R04:platforms:6", "P-R04:platforms:7", "P-R04:platforms:8", "P-R04:platforms:9", "P-R04:review04:east_bridge_end_support", "P-R04:review04:underbridge_return_step"],
-"retry_anchors": ["P-R04:retry_anchors:0", "P-R04:retry_anchors:1", "P-R04:retry_anchors:2", "P-R04:retry_anchors:3"],
-"signs": []
+  "art_placements": [
+    "P-R04:art_placements:2",
+    "P-R04:art_placements:3",
+    "P-R04:art-pass:0",
+    "P-R04:art-pass:1",
+    "P-R04:art:clockroute:0",
+    "P-R04:art:clockroute:1",
+    "P-R04:art:clockroute:2"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R04:platforms:0",
+    "P-R04:platforms:1",
+    "P-R04:platforms:2",
+    "P-R04:platforms:3",
+    "P-R04:platforms:4",
+    "P-R04:platforms:5",
+    "P-R04:platforms:6",
+    "P-R04:platforms:7",
+    "P-R04:platforms:8",
+    "P-R04:platforms:9",
+    "P-R04:review04:east_bridge_end_support",
+    "P-R04:review04:underbridge_return_step"
+  ],
+  "retry_anchors": [
+    "P-R04:retry_anchors:0",
+    "P-R04:retry_anchors:1",
+    "P-R04:retry_anchors:2",
+    "P-R04:retry_anchors:3"
+  ],
+  "signs": []
 }
 one_way_indices = Array[int]([5, 6, 7, 8, 11])
 masonry_platform_indices = Array[int]([1, 2, 3])

@@ -13,8 +13,10 @@ func _initialize()->void:
 	check(surfaces==[Rect2(0,0,100,40)],"source collision rectangles stay intact")
 	check(WorldRoomSpace.exposed_parts(surfaces,[])==surfaces,"an unobstructed doorway keeps its full surface")
 	var provider:=FixedWorldProvider.new();check(provider.open(),"formal world bundle")
-	for id:String in ["P-R01","P-R03","P-R21","P-R22","P-R23","P-R24","P-R25"]:
+	for id:String in ["P-R01","P-R03","P-R04","P-R06","P-R08","P-R13","P-R14","P-R21","P-R22","P-R23","P-R24","P-R25","P-R26","P-R27","P-R31","P-R32","P-R33","Z-R01"]:
 		var room:=load(str(provider.room(id).scene_ref)).instantiate() as FixedWorldRoom
+		for placement:Dictionary in room.art_placements:
+			if placement.has("motion_source"):check(room.get_node_or_null(NodePath(placement.motion_source)) is WorldMovingPlatform,id+" background drive references a real carrier")
 		var geometry:Dictionary=provider.room(id).world_geometry
 		var doors:Array=provider.room(id).doors.filter(func(d:Dictionary)->bool:return d.get("target_implemented",false))
 		var blockers:=WorldRoomSpace.exterior_fill(geometry,doors)

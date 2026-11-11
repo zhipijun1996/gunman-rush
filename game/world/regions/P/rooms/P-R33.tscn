@@ -16,40 +16,159 @@ route_guide = {
 "point": [144.0, 558.0]
 }]
 }
-art_placements = Array[Dictionary]([{
-"asset": "interior_mill",
-"layer": -5.0,
-"point": [1536.0, 576.0],
-"tile_rect": [1436.0, 224.0, 200.0, 352.0]
-}, {
-"asset": "clockheart_gate",
-"layer": -4.0,
-"point": [1536.0, 576.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1152.0, 576.0]
-}, {
-"asset": "windchime_plains_near_v2",
-"layer": -2.0,
-"point": [320.0, 576.0],
-"sway": true
-}, {
-"asset": "storage_crates",
-"layer": -2.0,
-"point": [1840.0, 576.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "clockheart_recess",
+    "layer": -5.0,
+    "point": [
+      1536.0,
+      576.0
+    ],
+    "tile_rect": [
+      1436.0,
+      224.0,
+      200.0,
+      352.0
+    ],
+    "tint": [
+      0.32,
+      0.42,
+      0.48,
+      1
+    ]
+  },
+  {
+    "asset": "clockheart_gate",
+    "layer": -4.0,
+    "point": [
+      1536.0,
+      576.0
+    ],
+    "tint": [
+      0.68,
+      0.76,
+      0.78,
+      1
+    ],
+    "landscape": "opening_plains",
+    "environment": {
+      "ambient": "899caf",
+      "restored": "99aabc",
+      "sun_energy": 0.45,
+      "restored_sun_energy": 0.55
+    },
+    "atmosphere": {
+      "density": 2,
+      "speed": [
+        18,
+        30
+      ],
+      "sway_speed": 0.65
+    }
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      1152.0,
+      576.0
+    ]
+  },
+  {
+    "asset": "windchime_plains_near_v2",
+    "layer": -2.0,
+    "point": [
+      320.0,
+      576.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "storage_crates",
+    "layer": -2.0,
+    "point": [
+      1840.0,
+      576.0
+    ]
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      512,
+      576
+    ],
+    "layer": -5,
+    "tint": [
+      0.65,
+      0.74,
+      0.72,
+      1
+    ]
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      1248,
+      576
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1920,
+      576
+    ],
+    "layer": -5,
+    "light": true
+  },
+  {
+    "asset": "clocktower_base",
+    "point": [
+      1536,
+      576
+    ],
+    "layer": -12,
+    "tint": [
+      0.68,
+      0.76,
+      0.78,
+      1
+    ]
+  }
+])
 art_profile = "clock"
-platforms = Array[Rect2]([Rect2(0, 576, 960, 192), Rect2(1088, 576, 960, 192), Rect2(768, 992, 192, 32), Rect2(1088, 928, 256, 96), Rect2(960, 832, 128, 24), Rect2(960, 576, 128, 24)])
+masonry_platform_indices = Array[int]([3, 4, 5])
+platforms = Array[Rect2]([Rect2(32, 576, 928, 128), Rect2(64, 704, 896, 32), Rect2(768, 736, 192, 32), Rect2(1088, 576, 928, 160), Rect2(1088, 736, 256, 32), Rect2(1088, 928, 224, 64), Rect2(960, 832, 128, 24), Rect2(960, 576, 128, 24)])
 workbench_entity_ids = {
-"art_placements": ["P-R33:art_placements:0", "P-R33:art_placements:1", "P-R33:art_placements:2", "P-R33:art-pass:0", "P-R33:art-pass:1"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R33:platforms:0", "P-R33:platforms:1", "P-R33:platforms:2", "P-R33:platforms:3", "P-R33:platforms:4", "P-R33:platforms:5"],
-"retry_anchors": [],
-"signs": []
+  "art_placements": [
+    "P-R33:art_placements:0",
+    "P-R33:art_placements:1",
+    "P-R33:art_placements:2",
+    "P-R33:art-pass:0",
+    "P-R33:art-pass:1",
+    "P-R33:art:clockroute:0",
+    "P-R33:art:clockroute:1",
+    "P-R33:art:clockroute:2",
+    "P-R33:art:clockroute:tower-base"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R33:platforms:0",
+    "P-R33:platforms:0:part2",
+    "P-R33:platforms:0:part3",
+    "P-R33:platforms:1",
+    "P-R33:platforms:1:part2",
+    "P-R33:platforms:3",
+    "P-R33:platforms:4",
+    "P-R33:platforms:5"
+  ],
+  "retry_anchors": [],
+  "signs": []
 }
-one_way_indices = Array[int]([4, 5])
+one_way_indices = Array[int]([6, 7])
 start_point = Vector2(144, 558)

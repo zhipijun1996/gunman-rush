@@ -22,38 +22,133 @@ route_guide = {
 "point": [800.0, 558.0]
 }]
 }
-art_placements = Array[Dictionary]([{
-"asset": "waiting_shelter",
-"layer": -2.0,
-"point": [960.0, 576.0]
-}, {
-"asset": "storage_crates",
-"layer": -2.0,
-"point": [1328.0, 576.0]
-}, {
-"asset": "windchime_plains_v2_chime_span",
-"layer": -2.0,
-"point": [768.0, 160.0]
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [624.0, 736.0],
-"sway": true
-}, {
-"asset": "travel_bundle",
-"layer": -2.0,
-"point": [1200.0, 576.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "waiting_shelter",
+    "layer": -2.0,
+    "point": [
+      960.0,
+      576.0
+    ],
+    "landscape": "opening_plains",
+    "atmosphere": {
+      "density": 2,
+      "speed": [
+        15,
+        27
+      ],
+      "sway_speed": 0.6
+    }
+  },
+  {
+    "asset": "storage_crates",
+    "layer": -2.0,
+    "point": [
+      1328.0,
+      576.0
+    ]
+  },
+  {
+    "asset": "windchime_plains_v2_chime_span",
+    "layer": -2.0,
+    "point": [
+      768.0,
+      160.0
+    ]
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -2.0,
+    "point": [
+      624.0,
+      736.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "travel_bundle",
+    "layer": -2.0,
+    "point": [
+      1200.0,
+      576.0
+    ]
+  },
+  {
+    "asset": "opening_road_ridge",
+    "point": [
+      1192,
+      824
+    ],
+    "layer": -40,
+    "depth": 0.88,
+    "tint": [
+      0.72,
+      0.85,
+      0.84,
+      0.75
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1344,
+      576
+    ],
+    "layer": -5,
+    "light": true
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      1504,
+      576
+    ],
+    "layer": -5,
+    "tint": [
+      0.62,
+      0.72,
+      0.71,
+      1
+    ]
+  },
+  {
+    "asset": "tilted_barrel",
+    "point": [
+      760,
+      736
+    ],
+    "layer": -5
+  }
+])
 art_profile = "shelter"
-platforms = Array[Rect2]([Rect2(256, 736, 192, 96), Rect2(576, 736, 1088, 96), Rect2(800, 576, 864, 160), Rect2(352, 448, 288, 64), Rect2(512, 288, 224, 64), Rect2(672, 160, 192, 32)])
+platforms = Array[Rect2]([Rect2(288, 736, 160, 64), Rect2(576, 736, 1056, 64), Rect2(800, 576, 832, 160), Rect2(352, 448, 288, 64), Rect2(512, 288, 224, 64), Rect2(672, 160, 192, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R27:art_placements:0", "P-R27:art_placements:1", "P-R27:art_placements:2", "P-R27:art-pass:0", "P-R27:art-pass:1"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R27:platforms:0", "P-R27:platforms:1", "P-R27:platforms:2", "P-R27:platforms:3", "P-R27:platforms:4", "P-R27:platforms:5"],
-"retry_anchors": [],
-"signs": ["P-R27:signs:0"]
+  "art_placements": [
+    "P-R27:art_placements:0",
+    "P-R27:art_placements:1",
+    "P-R27:art_placements:2",
+    "P-R27:art-pass:0",
+    "P-R27:art-pass:1",
+    "P-R27:art:clockroute:0",
+    "P-R27:art:clockroute:1",
+    "P-R27:art:clockroute:2",
+    "P-R27:art:clockroute:3"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R27:platforms:0",
+    "P-R27:platforms:1",
+    "P-R27:platforms:2",
+    "P-R27:platforms:3",
+    "P-R27:platforms:4",
+    "P-R27:platforms:5"
+  ],
+  "retry_anchors": [],
+  "signs": [
+    "P-R27:signs:0"
+  ]
 }
 one_way_indices = Array[int]([3, 4, 5])
 start_point = Vector2(640, 718)

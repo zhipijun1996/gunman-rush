@@ -59,36 +59,96 @@ retry_anchors = Array[Dictionary]([{
 "point": [1952.0, 814.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "plain_pier",
-"layer": -4.0,
-"point": [1280.0, 1088.0],
-"support_height": 128.0
-}, {
-"asset": "plain_pier",
-"layer": -4.0,
-"point": [1920.0, 896.0],
-"support_height": 64.0
-}, {
-"asset": "bell_post",
-"layer": -2.0,
-"point": [2560.0, 640.0]
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [336.0, 1024.0],
-"sway": true
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [2064.0, 832.0],
-"sway": true
-}, {
-"asset": "aqi_ribbon",
-"layer": -2.0,
-"point": [2816.0, 640.0],
-"sway": true
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "bell_post",
+    "layer": -2.0,
+    "point": [
+      2560.0,
+      640.0
+    ],
+    "atmosphere": {
+      "density": 4,
+      "speed": [
+        46,
+        70
+      ],
+      "sway_speed": 1.2
+    }
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -2.0,
+    "point": [
+      336.0,
+      1024.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -2.0,
+    "point": [
+      2064.0,
+      832.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "aqi_ribbon",
+    "layer": -2.0,
+    "point": [
+      2816.0,
+      640.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      1200,
+      960
+    ],
+    "layer": -5,
+    "tint": [
+      0.62,
+      0.72,
+      0.73,
+      1
+    ]
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      2616,
+      640
+    ],
+    "layer": -5,
+    "tint": [
+      0.62,
+      0.72,
+      0.73,
+      1
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2848,
+      640
+    ],
+    "layer": -5,
+    "light": true
+  },
+  {
+    "asset": "travel_bundle",
+    "point": [
+      2944,
+      640
+    ],
+    "layer": -5
+  }
+])
 art_profile = "clockheart_vista"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[2496.0, 584.0], [2304.0, 1168.0]],
@@ -96,18 +156,49 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "BridgeInspectionLift",
 "id": "P32:inspection_lift"
 }])
-platforms = Array[Rect2]([Rect2(64, 1024, 704, 128), Rect2(1024, 960, 448, 128), Rect2(1664, 832, 512, 64), Rect2(2432, 640, 640, 64), Rect2(704, 640, 416, 64), Rect2(864, 160, 192, 32), Rect2(2368, 1248, 192, 96), Rect2(1920, 1248, 320, 96), Rect2(2176, 1024, 192, 32), Rect2(1664, 896, 64, 192), Rect2(1728, 1056, 448, 32)])
+platforms = Array[Rect2]([Rect2(96, 1024, 672, 32), Rect2(96, 1056, 352, 32), Rect2(96, 1088, 320, 32), Rect2(1024, 960, 448, 96), Rect2(1664, 832, 512, 64), Rect2(2432, 640, 608, 64), Rect2(704, 640, 416, 64), Rect2(864, 160, 192, 32), Rect2(2368, 1248, 160, 64), Rect2(1952, 1248, 288, 64), Rect2(2176, 1024, 192, 32), Rect2(1664, 896, 64, 160), Rect2(1920, 1056, 256, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R32:art_placements:0", "P-R32:art_placements:1", "P-R32:art_placements:3", "P-R32:art-pass:0", "P-R32:art-pass:1", "P-R32:art-pass:2"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": ["P-R32:hook_points:0", "P-R32:hook_points:1", "P-R32:hook_points:2"],
-"platforms": ["P-R32:platforms:0", "P-R32:platforms:1", "P-R32:platforms:2", "P-R32:platforms:3", "P-R32:platforms:4", "P-R32:platforms:5", "P-R32:platforms:6", "P-R32:platforms:7", "P-R32:platforms:8", "P-R32:review06:pier_west_support", "P-R32:review06:inspection_cache_floor"],
-"retry_anchors": ["P-R32:retry_anchors:0", "P-R32:retry_anchors:1", "P-R32:retry_anchors:2"],
-"signs": []
+  "art_placements": [
+    "P-R32:art_placements:3",
+    "P-R32:art-pass:0",
+    "P-R32:art-pass:1",
+    "P-R32:art-pass:2",
+    "P-R32:art:clockroute:0",
+    "P-R32:art:clockroute:1",
+    "P-R32:art:clockroute:2",
+    "P-R32:art:clockroute:3"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [
+    "P-R32:hook_points:0",
+    "P-R32:hook_points:1",
+    "P-R32:hook_points:2"
+  ],
+  "platforms": [
+    "P-R32:platforms:0",
+    "P-R32:platforms:0:part2",
+    "P-R32:platforms:0:part3",
+    "P-R32:platforms:1",
+    "P-R32:platforms:2",
+    "P-R32:platforms:3",
+    "P-R32:platforms:4",
+    "P-R32:platforms:5",
+    "P-R32:platforms:6",
+    "P-R32:platforms:7",
+    "P-R32:platforms:8",
+    "P-R32:review06:pier_west_support",
+    "P-R32:review06:inspection_cache_floor"
+  ],
+  "retry_anchors": [
+    "P-R32:retry_anchors:0",
+    "P-R32:retry_anchors:1",
+    "P-R32:retry_anchors:2"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([5, 8])
-masonry_platform_indices = Array[int]([0, 1, 2, 3, 4])
+one_way_indices = Array[int]([7, 10])
+masonry_platform_indices = Array[int]([0, 1, 2, 3, 4, 5, 6])
 start_point = Vector2(208, 1006)
 enemy_placements = Array[Dictionary]([{
 "behavior": "charger",

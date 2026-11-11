@@ -137,12 +137,18 @@ art_placements = Array[Dictionary]([
       1368,
       808
     ],
-    "layer": -5,
+    "layer": -19,
     "tint": [
-      0.62,
-      0.68,
-      0.7,
+      0.8,
+      0.87,
+      0.91,
       1
+    ],
+    "haze": [
+      0.26,
+      0.33,
+      0.37,
+      0.5
     ]
   },
   {
@@ -151,12 +157,18 @@ art_placements = Array[Dictionary]([
       1672,
       808
     ],
-    "layer": -5,
+    "layer": -19,
     "tint": [
-      0.62,
-      0.68,
-      0.7,
+      0.8,
+      0.87,
+      0.91,
       1
+    ],
+    "haze": [
+      0.26,
+      0.33,
+      0.37,
+      0.5
     ]
   },
   {
@@ -165,7 +177,7 @@ art_placements = Array[Dictionary]([
       0,
       0
     ],
-    "layer": -4,
+    "layer": -19,
     "tile_rect": [
       2256,
       16,
@@ -173,10 +185,16 @@ art_placements = Array[Dictionary]([
       144
     ],
     "tint": [
-      0.6,
-      0.65,
-      0.68,
+      0.8,
+      0.87,
+      0.91,
       1
+    ],
+    "haze": [
+      0.26,
+      0.33,
+      0.37,
+      0.5
     ]
   },
   {
@@ -185,7 +203,7 @@ art_placements = Array[Dictionary]([
       0,
       0
     ],
-    "layer": -4,
+    "layer": -19,
     "tile_rect": [
       2176,
       16,
@@ -193,10 +211,16 @@ art_placements = Array[Dictionary]([
       24
     ],
     "tint": [
-      0.6,
-      0.65,
-      0.68,
+      0.8,
+      0.87,
+      0.91,
       1
+    ],
+    "haze": [
+      0.26,
+      0.33,
+      0.37,
+      0.5
     ]
   },
   {
@@ -285,7 +309,7 @@ art_placements = Array[Dictionary]([
       0,
       0
     ],
-    "surface_platform": 2
+    "surface_platform": 3
   },
   {
     "asset": "mill_walkway",
@@ -293,7 +317,7 @@ art_placements = Array[Dictionary]([
       0,
       0
     ],
-    "surface_platform": 3
+    "surface_platform": 4
   },
   {
     "asset": "mill_beam_segment",
@@ -348,18 +372,51 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "Carrier1",
 "id": "P-R26:carrier_east"
 }])
-platforms = Array[Rect2]([Rect2(0, 1536, 2368, 160), Rect2(640, 1408, 224, 128), Rect2(1216, 704, 608, 80), Rect2(2016, 160, 256, 48), Rect2(1952, 1280, 416, 96)])
+platforms = Array[Rect2]([Rect2(32, 1536, 2304, 128), Rect2(384, 1664, 1952, 32), Rect2(640, 1408, 224, 128), Rect2(1216, 704, 608, 80), Rect2(2016, 160, 256, 48), Rect2(1952, 1280, 384, 96)])
 workbench_entity_ids = {
-"art_placements": ["P-R26:art:0", "P-R26:art:1", "P-R26:art:2", "P-R26:art:3", "P-R26:art:4", "P-R26:art:5", "P-R26:art:6", "P-R26:art:7", "P-R26:art:8", "P-R26:art:9", "P-R26:art:10", "P-R26:art:11", "P-R26:art:12", "P-R26:art:13", "P-R26:art:14", "P-R26:art:15", "P-R26:art:16", "P-R26:art:17", "P-R26:art:18", "P-R26:art:19", "P-R26:art:20"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R26:platforms:0", "P-R26:platforms:1", "P-R26:platforms:2", "P-R26:platforms:3", "P-R26:platforms:4"],
-"retry_anchors": ["P-R26:retry_anchors:0", "P-R26:retry_anchors:1", "P-R26:retry_anchors:2"],
-"signs": []
+  "art_placements": [
+    "P-R26:art:0",
+    "P-R26:art:1",
+    "P-R26:art:2",
+    "P-R26:art:3",
+    "P-R26:art:4",
+    "P-R26:art:5",
+    "P-R26:art:6",
+    "P-R26:art:7",
+    "P-R26:art:8",
+    "P-R26:art:9",
+    "P-R26:art:10",
+    "P-R26:art:11",
+    "P-R26:art:12",
+    "P-R26:art:13",
+    "P-R26:art:14",
+    "P-R26:art:15",
+    "P-R26:art:16",
+    "P-R26:art:17",
+    "P-R26:art:18",
+    "P-R26:art:19",
+    "P-R26:art:20"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R26:platforms:0",
+    "P-R26:platforms:0:part2",
+    "P-R26:platforms:1",
+    "P-R26:platforms:2",
+    "P-R26:platforms:3",
+    "P-R26:platforms:4"
+  ],
+  "retry_anchors": [
+    "P-R26:retry_anchors:0",
+    "P-R26:retry_anchors:1",
+    "P-R26:retry_anchors:2"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([2, 3])
-illustrated_platform_indices = Array[int]([2, 3])
+one_way_indices = Array[int]([3, 4])
+illustrated_platform_indices = Array[int]([3, 4])
 start_point = Vector2(144, 1518)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",

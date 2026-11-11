@@ -35,40 +35,147 @@ retry_anchors = Array[Dictionary]([{
 "point": [288.0, 942.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "hanging_chime",
-"layer": -2.0,
-"point": [160.0, 1696.0]
-}, {
-"asset": "bell_post",
-"layer": -2.0,
-"point": [1488.0, 1344.0]
-}, {
-"asset": "windchime_plains_near_v2",
-"layer": -2.0,
-"point": [304.0, 1696.0],
-"sway": true
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [984.0, 672.0],
-"sway": true
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [1392.0, 1344.0],
-"sway": true
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "hanging_chime",
+    "layer": -2.0,
+    "point": [
+      160.0,
+      1696.0
+    ],
+    "landscape": "opening_plains",
+    "atmosphere": {
+      "density": 4,
+      "speed": [
+        36,
+        58
+      ],
+      "sway_speed": 1.0
+    }
+  },
+  {
+    "asset": "bell_post",
+    "layer": -2.0,
+    "point": [
+      1488.0,
+      1344.0
+    ]
+  },
+  {
+    "asset": "windchime_plains_near_v2",
+    "layer": -2.0,
+    "point": [
+      304.0,
+      1696.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -2.0,
+    "point": [
+      984.0,
+      672.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -2.0,
+    "point": [
+      1392.0,
+      1344.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "opening_road_ridge",
+    "point": [
+      352,
+      1840
+    ],
+    "layer": -40,
+    "depth": 0.88,
+    "tint": [
+      0.72,
+      0.85,
+      0.84,
+      0.75
+    ]
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      432,
+      1696
+    ],
+    "layer": -5,
+    "tint": [
+      0.66,
+      0.75,
+      0.74,
+      1
+    ]
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      272,
+      960
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      736,
+      512
+    ],
+    "layer": -5,
+    "sway": true
+  }
+])
 art_profile = "junction"
-platforms = Array[Rect2]([Rect2(1152, 1952, 128, 32), Rect2(896, 1824, 384, 48), Rect2(1024, 1696, 256, 32), Rect2(0, 1696, 768, 160), Rect2(480, 1600, 96, 96), Rect2(768, 1472, 256, 24), Rect2(1088, 1312, 288, 24), Rect2(640, 1152, 256, 24), Rect2(192, 960, 288, 32), Rect2(448, 832, 224, 24), Rect2(864, 672, 288, 24), Rect2(640, 512, 224, 24), Rect2(608, 160, 192, 32), Rect2(832, 336, 192, 24), Rect2(1344, 1344, 320, 48)])
+platforms = Array[Rect2]([Rect2(1152, 1952, 96, 32), Rect2(928, 1824, 320, 48), Rect2(1024, 1696, 224, 32), Rect2(32, 1696, 704, 128), Rect2(480, 1600, 96, 96), Rect2(768, 1472, 256, 24), Rect2(1088, 1312, 288, 24), Rect2(640, 1152, 256, 24), Rect2(224, 960, 256, 32), Rect2(448, 832, 224, 24), Rect2(864, 672, 288, 24), Rect2(640, 512, 224, 24), Rect2(608, 160, 192, 32), Rect2(832, 336, 192, 24), Rect2(1344, 1344, 288, 48)])
 workbench_entity_ids = {
-"art_placements": ["P-R06:built:fixture_0", "P-R06:built:fixture_1", "P-R06:art-pass:0", "P-R06:art-pass:1", "P-R06:art-pass:2"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R06:platforms:0", "P-R06:platforms:1", "P-R06:platforms:2", "P-R06:platforms:3", "P-R06:platforms:4", "P-R06:platforms:5", "P-R06:platforms:6", "P-R06:platforms:7", "P-R06:platforms:8", "P-R06:platforms:9", "P-R06:platforms:10", "P-R06:platforms:11", "P-R06:platforms:12", "P-R06:platforms:13", "P-R06:platforms:14"],
-"retry_anchors": ["P-R06:retry_anchors:0", "P-R06:retry_anchors:1", "P-R06:retry_anchors:2"],
-"signs": []
+  "art_placements": [
+    "P-R06:built:fixture_0",
+    "P-R06:built:fixture_1",
+    "P-R06:art-pass:0",
+    "P-R06:art-pass:1",
+    "P-R06:art-pass:2",
+    "P-R06:art:clockroute:0",
+    "P-R06:art:clockroute:1",
+    "P-R06:art:clockroute:2",
+    "P-R06:art:clockroute:3"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R06:platforms:0",
+    "P-R06:platforms:1",
+    "P-R06:platforms:2",
+    "P-R06:platforms:3",
+    "P-R06:platforms:4",
+    "P-R06:platforms:5",
+    "P-R06:platforms:6",
+    "P-R06:platforms:7",
+    "P-R06:platforms:8",
+    "P-R06:platforms:9",
+    "P-R06:platforms:10",
+    "P-R06:platforms:11",
+    "P-R06:platforms:12",
+    "P-R06:platforms:13",
+    "P-R06:platforms:14"
+  ],
+  "retry_anchors": [
+    "P-R06:retry_anchors:0",
+    "P-R06:retry_anchors:1",
+    "P-R06:retry_anchors:2"
+  ],
+  "signs": []
 }
 one_way_indices = Array[int]([2, 5, 6, 7, 9, 10, 11, 13])
 start_point = Vector2(1216, 1934)
