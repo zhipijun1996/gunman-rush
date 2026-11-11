@@ -17,7 +17,7 @@ def percentile(values,q):
 
 def summarize(row):
  frames=row['frames'];times=[r[0] for r in frames];n=len(times)
- return {'sequence':row['sequence'],'context':row['final']['context'],'mode':row['mode'],'frames':n,'fps':n/(row['elapsed_msec']/1000) if row['elapsed_msec'] else None,'p50_ms':percentile(times,.50),'p95_ms':percentile(times,.95),'process_p50_ms':percentile([r[1] for r in frames],.5),'physics_p50_ms':percentile([r[2] for r in frames],.5),'draw_calls_mean':statistics.mean(r[3] for r in frames) if n else None,'objects_mean':statistics.mean(r[4] for r in frames) if n else None,'primitives_mean':statistics.mean(r[5] for r in frames) if n else None,'top_inclusive_costs':sorted([{'name':k,'ms_per_frame':v[0]/1000/max(1,n),'ms_per_call':v[0]/1000/max(1,v[1]),'calls':v[1],'max_ms':v[2]/1000}for k,v in row['costs'].items()],key=lambda c:-c['ms_per_frame'])[:12],'audio_requests':len(row['audio_events']),'audio_accepted':sum(e['accepted'] for e in row['audio_events']),'audio_drops':{reason:sum(not e['accepted'] and e['reason']==reason for e in row['audio_events'])for reason in set(e['reason'] for e in row['audio_events'] if not e['accepted'])},'fg':row['final']['foreground'],'lights':row['final']['lights_enabled'],'shadows':row['final']['shadows_enabled'],'tree_paused':row['final']['tree_paused']}
+ return {'sequence':row['sequence'],'context':row['final']['context'],'mode':row['mode'],'frames':n,'fps':n/(row['elapsed_msec']/1000) if row['elapsed_msec'] else None,'p50_ms':percentile(times,.50),'p95_ms':percentile(times,.95),'process_p50_ms':percentile([r[1] for r in frames],.5),'physics_p50_ms':percentile([r[2] for r in frames],.5),'draw_calls_mean':statistics.mean(r[3] for r in frames) if n else None,'objects_mean':statistics.mean(r[4] for r in frames) if n else None,'primitives_mean':statistics.mean(r[5] for r in frames) if n else None,'top_inclusive_costs':sorted([{'name':k,'ms_per_frame':v[0]/1000/max(1,n),'ms_per_call':v[0]/1000/max(1,v[1]),'calls':v[1],'max_ms':v[2]/1000}for k,v in row['costs'].items()],key=lambda c:-c['ms_per_frame'])[:12],'audio_requests':len(row['audio_events']),'audio_accepted':sum(e['accepted'] for e in row['audio_events']),'audio_drops':{reason:sum(not e['accepted'] and e['reason']==reason for e in row['audio_events'])for reason in set(e['reason'] for e in row['audio_events'] if not e['accepted'])},'lights':row['final']['lights_enabled'],'shadows':row['final']['shadows_enabled'],'tree_paused':row['final']['tree_paused']}
 
 async def run(args):
  args.output.mkdir(parents=True,exist_ok=False);logs=[];results=[];summaries=[];snapshots=[]
@@ -30,19 +30,19 @@ async def run(args):
    await page.goto(args.root_url,wait_until='domcontentloaded');await page.wait_for_function('window.READY===true && window.MOBILE_PERF_READY===true',timeout=180000)
    await page.wait_for_timeout(1500);title=args.output/'title.png';await page.screenshot(path=str(title));box=surfaces(title,[(195,163,102)])[0]
    await page.touchscreen.tap((box[0]+box[2]/2)/2.5,(box[1]+box[3]/2)/2.5)
-   await page.wait_for_function("window.MOBILE_PERF_STATE?.state?.context==='home' && window.MOBILE_PERF_STATE.state.foreground.effective_drawn>0",timeout=45000)
+   await page.wait_for_function("window.MOBILE_PERF_STATE?.state?.context==='home'",timeout=45000)
    gpu=await page.locator('canvas').evaluate('''c=>{const g=c.getContext('webgl2');if(!g)return {unavailable:true};const d=g.getExtension('WEBGL_debug_renderer_info');return {renderer:d?g.getParameter(d.UNMASKED_RENDERER_WEBGL):g.getParameter(g.RENDERER),gpu_timer_supported:!!g.getExtension('EXT_disjoint_timer_query_webgl2'),gpu_time_ms:null,canvas:[c.width,c.height],note:'Draw counters via Godot; GPU time not inferred from FPS'}}''')
    cdp=await context.new_cdp_session(page);await cdp.send('Performance.enable')
    async def command(value):
     await page.evaluate('(v)=>window.MOBILE_PERF_COMMAND=v',value)
     await page.wait_for_function("window.MOBILE_PERF_COMMAND===''",timeout=20000)
    async def audio():return await page.evaluate('window.MOBILE_AUDIO_PROBE?.snapshot()||null')
-   schedule=['baseline','ambience_off','baseline','foreground_render_off','baseline','foreground_update_off','baseline','shadows_off','baseline','hud_avoidance_off','baseline','lights_off','baseline','menu','baseline']
+   schedule=['baseline','ambience_off','baseline','shadows_off','baseline','hud_avoidance_off','baseline','lights_off','baseline','menu','baseline']
    if args.schedule:schedule=args.schedule.split(',')
-   if args.quick:schedule=['baseline','foreground_update_off','baseline','shadows_off','baseline','lights_off','baseline']
+   if args.quick:schedule=['baseline','shadows_off','baseline','lights_off','baseline']
    for scene in args.scenes.split(','):
     if scene=='plains':
-     await command('plains');await page.wait_for_function("window.MOBILE_PERF_STATE?.state?.context==='plains' && window.MOBILE_PERF_STATE.state.foreground.effective_drawn>0",timeout=90000)
+     await command('plains');await page.wait_for_function("window.MOBILE_PERF_STATE?.state?.context==='plains'",timeout=90000)
     if args.lamp_view and scene=='plains':
      await command('lamp_view');await page.wait_for_timeout(5000)
     for index,mode in enumerate(schedule):
@@ -50,7 +50,6 @@ async def run(args):
      await page.wait_for_function('(m)=>window.MOBILE_PERF_STATE?.state?.mode===m',arg=mode,timeout=20000)
      await page.wait_for_timeout(args.warm_seconds*1000)
      state=await page.evaluate('window.MOBILE_PERF_STATE.state')
-     if mode=='foreground_update_off':assert state['foreground']['effective_drawn']>0,state
      begin_audio=await audio();begin_cdp=await cdp.send('Performance.getMetrics');start=await page.evaluate('performance.now()');before=await page.evaluate('window.MOBILE_PERF_RESULTS.length')
      await command('seconds:'+str(args.seconds));await command('capture')
      await page.wait_for_timeout(2200);await command('cue_coin')

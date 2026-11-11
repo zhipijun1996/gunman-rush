@@ -8,7 +8,6 @@ import argparse, hashlib, json, re, struct, sys
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'tools'))
 from check_web_bundle import Pack
 MEASURE={
- 'game/presentation/world/underworld_plains/underworld_foreground.gd':['_refresh','_protection','_sync_residents','_render_receipt'],
  'game/presentation/world/underworld_plains/underworld_presentation.gd':['refresh'],
  'game/presentation/world/underworld_plains/underworld_parallax.gd':['_update'],
  'game/presentation/world/underworld_plains/underworld_home_world.gd':['update_focus'],

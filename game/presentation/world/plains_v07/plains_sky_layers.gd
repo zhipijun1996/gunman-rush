@@ -5,7 +5,8 @@ var clouds: Array[Sprite2D] = []
 var sky_gradient: Gradient
 
 func configure(landscape: Sprite2D, cloud_texture: Texture2D) -> void:
-	var size:=landscape.texture.get_size()
+	# A tall land plate must not stretch its clouds or shift the sky gradient.
+	var size:=Vector2(landscape.texture.get_width(),landscape.texture.get_width()*9.0/16.0)
 	var gradient:=Gradient.new()
 	sky_gradient=gradient
 	gradient.colors=PackedColorArray([Color("dec9aa"),Color("fae7c3")])

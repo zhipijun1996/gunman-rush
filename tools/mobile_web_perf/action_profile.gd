@@ -35,24 +35,12 @@ func _ready() -> void:
 func _state() -> Dictionary:
 	var scene: Node = app.home_scene if is_instance_valid(app.home_scene) else app.stage
 	var context := "home" if is_instance_valid(app.home_scene) else ("plains" if is_instance_valid(app.stage) else "title")
-	var fg: Node = scene.get_node_or_null("UnderworldForeground") if is_instance_valid(scene) else null
 	var controller: Node = app.home_scene.controller if context == "home" else app.controller
 	var actor: Node2D = controller.motor if is_instance_valid(controller) else null
 	var camera := get_viewport().get_camera_2d()
 	var viewport := get_viewport()
 	var size := viewport.get_visible_rect().size
 	var texture_size := viewport.get_texture().get_size()
-	var foreground: Dictionary = {}
-	if is_instance_valid(fg):
-		var drawn := 0
-		var uploaded := 0
-		var drawn_masks := 0
-		for resident: Dictionary in fg._residents.values():
-			uploaded += int(resident.get("mask_rect_count", 0))
-			if resident.sprite.visible:
-				drawn += 1
-				drawn_masks += int(resident.get("mask_rect_count", 0))
-		foreground = {"tracked": fg._tracked.size(), "residents": fg._residents.size(), "drawn": drawn, "protect": fg._protect.size(), "static": fg._static_protect.size(), "dynamic": fg._dynamic_protect.size(), "mask_rectangles_all": uploaded, "mask_rectangles_drawn": drawn_masks}
 	var manifest: Dictionary = {}
 	if scene is PlainsRegionStage:
 		manifest = {"hash": str(scene.generated.manifest.manifest_hash), "seed": str(scene.generated.manifest.seed)}
@@ -60,7 +48,7 @@ func _state() -> Dictionary:
 	var health: Dictionary = {}
 	if is_instance_valid(controller) and controller.actor_resources != null:
 		health = {"current": controller.actor_resources.health.current, "terminal": controller.actor_resources.health.terminal}
-	return {"context": context, "tree_paused": get_tree().paused, "menu": str(app.menu.visible_panel), "player": [actor.global_position.x, actor.global_position.y] if is_instance_valid(actor) else [], "player_health": health, "audio_played": audio_service.played.duplicate() if is_instance_valid(audio_service) else {}, "camera": [camera.get_screen_center_position().x, camera.get_screen_center_position().y] if camera != null else [], "viewport": {"logical": [size.x,size.y], "texture": [texture_size.x,texture_size.y]}, "manifest": manifest, "foreground": foreground, "node_count": Performance.get_monitor(Performance.OBJECT_NODE_COUNT), "texture_bytes": Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED)}
+	return {"context": context, "tree_paused": get_tree().paused, "menu": str(app.menu.visible_panel), "player": [actor.global_position.x, actor.global_position.y] if is_instance_valid(actor) else [], "player_health": health, "audio_played": audio_service.played.duplicate() if is_instance_valid(audio_service) else {}, "camera": [camera.get_screen_center_position().x, camera.get_screen_center_position().y] if camera != null else [], "viewport": {"logical": [size.x,size.y], "texture": [texture_size.x,texture_size.y]}, "manifest": manifest, "node_count": Performance.get_monitor(Performance.OBJECT_NODE_COUNT), "texture_bytes": Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED)}
 
 func _publish() -> void:
 	if OS.has_feature("web"):

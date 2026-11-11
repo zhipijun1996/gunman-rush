@@ -35,7 +35,11 @@
     "clocktower_base-generated.png": "8c54ff0532730090edcfa9d6249501876d15d59d22c60b38fb09ca48f4eb1275",
     "clockheart_hall-generated.png": "1a62680b16aa4eff5f064dd057c273f50909a185bc5e99bcee62ef225592cc15",
     "well_tower-generated.png": "aa97659cc69be20d5c48f745b6648d9a8ab883b8ac1ffcbd52bb49544885d8d0",
-    "well_curved_wall-generated.png": "2cd6e7ac7f64aad47b899d8828d94d5596eddad4aa6f564b7006e04c8dc4a45c"
+    "well_curved_wall-generated.png": "2cd6e7ac7f64aad47b899d8828d94d5596eddad4aa6f564b7006e04c8dc4a45c",
+    "junction_rotor-generated.png": "58d157755c402c2ebea4875b7dc982324bfd5da663b7727ea560711ffe81c2d8",
+    "bank_moss-generated.png": "8cab36775771aa5e469073bad6cd1c624393c30a3119b17f17f80f04b2ad3d1f",
+    "junction-facade-generated.png": "7892889c4b7349c1e64f029c44745236513af2401e4a16545f8e1b51b9946cb1",
+    "junction-meadow-generated.png": "18a5f6f89fd5696342be34f4aec00382f012b34a19a8e74a41239081bbe12270"
   },
   "assets": {
     "reclaimer": {
@@ -1221,23 +1225,21 @@
     "junction_meadow": {
       "asset": "junction_meadow",
       "source": "assets/plains_v07/source/junction-meadow-generated.png",
-      "source_sha256": "d6116d51fdfee5fa4d505b5642f0b1a99c1a3bb8ca019a6625cdadf4a10b389b",
+      "source_sha256": "18a5f6f89fd5696342be34f4aec00382f012b34a19a8e74a41239081bbe12270",
       "source_rect": [
         0,
         0,
-        1672,
-        941
+        1536,
+        1024
       ],
-      "source_rect_format": "xywh",
       "size": [
-        864,
-        486
+        1152,
+        768
       ],
       "image": "assets/plains_v07/native/junction_meadow.png",
-      "sha256": "9a12261bd6ff1a9da2d75ba813bc03691555d74411e9ce3a2df79d607cef04a1",
-      "sampling": "nearest; source canvas; clouds retain original soft alpha",
-      "alpha_threshold": 128,
-      "generation": "assets/plains_v07/source/junction-atmosphere-provenance.json"
+      "sha256": "5ab9695f77b53bb2fa6d1ddffd83fb7b6f34caa7eb6366c75e29a1541e33cc1c",
+      "sampling": "nearest; preserve atmospheric horizon alpha",
+      "generation": "assets/plains_v07/source/junction-composition-provenance.json"
     },
     "junction_clouds": {
       "asset": "junction_clouds",
@@ -1691,13 +1693,14 @@
       "sha256": "ce7080779d322539fd8e63a7656de85fb15efb0908b43c9304153ec0159fa705"
     },
     "concealing_grass": {
-      "image": "assets/underworld_plains/foreground_fine_05/grass_b.png",
-      "source": "assets/underworld_plains/foreground_fine_05/grass_b.png",
+      "image": "assets/plains_v07/native/concealing_grass.png",
+      "source": "assets/plains_v07/source/concealing-grass-master.png",
       "size": [
         177,
         96
       ],
-      "sha256": "9d74f622e1c3b19cb18cf0194d3e39006e0455233434394b1260efe11e709bfd"
+      "sha256": "9d74f622e1c3b19cb18cf0194d3e39006e0455233434394b1260efe11e709bfd",
+      "provenance": "assets/plains_v07/source/concealing-grass-provenance.json"
     },
     "cellar_backdrop": {
       "image": "assets/plains_v07/native/interior_cellar.png",
@@ -2295,6 +2298,36 @@
       "filter": "nearest",
       "sha256": "2482d8a382754beecd3c64085dbe0b3786ca980d231acdc406e39e83cbef7890",
       "generation": "assets/plains_v07/source/well-tower-provenance.json"
+    },
+    "junction_rotor": {
+      "image": "assets/plains_v07/native/junction_rotor.png",
+      "size": [
+        384,
+        384
+      ],
+      "source": "assets/plains_v07/source/junction_rotor-generated.png",
+      "ground_embed_world_units": 0,
+      "provenance": "assets/plains_v07/source/junction-composition-provenance.json"
+    },
+    "bank_moss": {
+      "image": "assets/plains_v07/native/bank_moss.png",
+      "size": [
+        80,
+        41
+      ],
+      "source": "assets/plains_v07/source/bank_moss-generated.png",
+      "ground_embed_world_units": 0,
+      "provenance": "assets/plains_v07/source/junction-composition-provenance.json"
+    },
+    "junction_facade": {
+      "image": "assets/plains_v07/native/junction_facade.png",
+      "size": [
+        256,
+        1024
+      ],
+      "source": "assets/plains_v07/source/junction-facade-generated.png",
+      "ground_embed_world_units": 0,
+      "provenance": "assets/plains_v07/source/junction-composition-provenance.json"
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

@@ -1,0 +1,92 @@
+{
+  "generator": "OpenAI image_gen",
+  "purpose": "P06 whole-room composition: separate native rotor and small bank-attached moss. Existing terrain atlas retained.",
+  "prompts": {
+    "rotor": "Create a single transparent production sprite for a 2D side-scrolling pixel game: ONLY a weathered windmill rotor viewed exactly front-on, complete circular centered hub, four wooden spokes and four faded cream linen sails, clockwork brass rivets. NO tower, NO landscape, NO backing disk, NO text. Square canvas, hub exactly center. Rotor diameter fills 94 percent of canvas. Sails form a balanced diagonal X, moderate gaps between sails, thin olive moss only at hub, lightly torn lower fabric edges but not overly ruined. Muted antique wood, slate blue gray metal and restrained pale straw canvas. Light from upper right, shadowed undersides. Fine deliberate pixel clusters and hard clean silhouette matching the small windmill in reference1 and the flat dark-blue terrain/olive grass in reference2, not painterly concept rock. Final native size384x384, detail appropriate to a44px player. This is a large but subdued background mechanical landmark, no high-contrast pure white or black outline. Transparent background with genuinely empty space between spokes. Entire four-blade assembly in one rigid plane suitable for slow rotation about central axle.",
+    "moss": "Create ONE isolated small pixel-art hanging moss fringe for the edge of a grassy platform, transparent background, wide 3:2 canvas. A narrow horizontal top root mat across the central 85% of width, then three irregular fine wisps of olive moss dangling downward, longest off-center right, shortest at left. The root mat is flat and attaches to the UNDERSIDE of a grassy ledge; NO soil, rock, platform, branch, tree, flowers or separate floating particles. Quiet dark olive green with sparse muted golden highlights from upper right. Fine pixel clusters in Underworld style matching the grass edging in the TOP plains panel of the supplied reference. Final size80x52 native pixels, delicate and sparse negative space with transparent holes. Most of the moss stays in upper half, one thin off-center wisp reaches near bottom. Hard silhouette alpha without glow or drop shadow. This is a modest detail adjacent to a44px character, not a large foreground plant. No labels or borders.",
+    "facade": "Paint a production pixel-art ARCHITECTURAL SECTION asset inside the EXACT silhouette of image1. Output the SAME1024x1536 canvas, fully transparent outside the guide shape; no labels or background. The guide bounds are x336..644,y64..1472. Do not recenter, enlarge or invent terrain. Image2 is WHOLE ROOM composition reference only: reproduce its continuous weathered windmill masonry and recessed side entry, NOT the painterly rock style. Image3 TOP plains panel is actual fine-pixel style and dark slate/olive palette. This asset is a solid continuous ancient WINDMILL outer wall embedded in a grassy cliff. Tall tapering blue-gray stone masonry pier above, naturally tapering load-bearing foundation below, sparse old olive moss in joints, clustered weathered small stonework, quiet dark large planes with delicate warm top-right edge light. Main light comes upper right. No wooden rectangular beam slapped across, no regular metal-bordered brick tiles, no freestanding decorative doorframe. CRITICAL: the dark horizontal stripe in guide, between y812 and y944, is a walkable side entrance opening to the RIGHT. Keep that entire 132px high band open: paint a DARK RECESSED INTERIOR BACK WALL in it, perspective ceiling underside at very top and narrow continuous threshold at bottom, darkness deeper left and gradual indirect warm light at right. Do not place columns, obstructions, doors or a front-facing arch across this opening. The upper enclosing stone lintel and lower projecting stone foundation are organically part of the same massive structure, not separate blocks. Retain the exact guide silhouette: top body widens from rightx512 at y64 tox644 byy636; rightedgevertical toentrancey812; after entrance lower support rightx644 downy988 then gradually recedes tox534 aty1472. Leftedge x336 fullheight. Fill inside solids with opaque pixels; outside transparent. NO lantern, no rotor/sails, no plants hanging beyond silhouette, no character, no grass platform, no mountains. Native final use256x1024; at source scale1.375, small clusters comparable to a44px game character. Finely crafted pixel art, discrete sharp pixels, no blurry brush texture.",
+    "fields": "Create a separate transparent DISTANT LANDSCAPE layer for a fine-pixel 2D platformer, 1536x1024 canvas. TOP QUARTER truly transparent: NO sky, NO clouds (the game adds those as separate layers). A continuous delicate distant horizon at about y256 (25% height). Beneath horizon the entire remaining three quarters must be OPAQUE QUIET LAND: very broad soft horizontal shallow terraced grassland fields and distant irregular hedgerows, two tiny distant windmills; warm pale olive straw-green field planes with cool muted sage-gray in shaded swales. Absolutely NO mountains, NO steep hills, NO large bushes, NO large rocks, NO foreground grass, NO dark bottom silhouette, NO water. Match the flat expansive layered fields and atmospheric perspective of the central/lower part of reference1. But render with the discreet fine pixel clusters of the TOP plains panel of reference2, low contrast, broad quiet planes NOT noisy grass texture. At top near horizon warm pale gray trees are tiny and very faint; gradually stronger quiet muted olive fields toward bottom, still distant. Horizon should be irregular from a few tiny treetops, not a hard straight cutline. Lots of horizontal breathing space, no strong vertical focal objects. This background supports a44px character and dark existing tiles, not a painting to place over platforms. Image stretches to all left/right edges without frame. The topquarter transparent and the bottomthreequarters fully continuous opaque distant countryside."
+  },
+  "assets": [
+    {
+      "asset": "junction_rotor",
+      "source": "assets/plains_v07/source/junction_rotor-generated.png",
+      "source_sha256": "58d157755c402c2ebea4875b7dc982324bfd5da663b7727ea560711ffe81c2d8",
+      "source_rect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "size": [
+        384,
+        384
+      ],
+      "image": "assets/plains_v07/native/junction_rotor.png",
+      "sha256": "4fe84d239ffead05801c105d61bf94cab8a71834700735e81893e4c798161e7c",
+      "alpha_threshold": 128,
+      "sampling": "nearest"
+    },
+    {
+      "asset": "bank_moss",
+      "source": "assets/plains_v07/source/bank_moss-generated.png",
+      "source_sha256": "8cab36775771aa5e469073bad6cd1c624393c30a3119b17f17f80f04b2ad3d1f",
+      "source_rect": [
+        154,
+        206,
+        1222,
+        622
+      ],
+      "size": [
+        80,
+        41
+      ],
+      "image": "assets/plains_v07/native/bank_moss.png",
+      "sha256": "25b5f4581a09aa42aa5136e346c7275331e9694abd2d33f0ea59898854141605",
+      "alpha_threshold": 128,
+      "sampling": "nearest"
+    },
+    {
+      "asset": "junction_facade",
+      "source": "assets/plains_v07/source/junction-facade-generated.png",
+      "source_sha256": "7892889c4b7349c1e64f029c44745236513af2401e4a16545f8e1b51b9946cb1",
+      "source_rect": [
+        336,
+        64,
+        352,
+        1408
+      ],
+      "size": [
+        256,
+        1024
+      ],
+      "image": "assets/plains_v07/native/junction_facade.png",
+      "sha256": "f69163384ecf259e235a04b7b80488035615c0e2e279a2716cb4fe2f6929e266",
+      "alpha_threshold": 128,
+      "sampling": "nearest; authored section guide, solid faces clipped to actual room polygons"
+    },
+    {
+      "asset": "junction_meadow",
+      "source": "assets/plains_v07/source/junction-meadow-generated.png",
+      "source_sha256": "18a5f6f89fd5696342be34f4aec00382f012b34a19a8e74a41239081bbe12270",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "size": [
+        1152,
+        768
+      ],
+      "image": "assets/plains_v07/native/junction_meadow.png",
+      "sha256": "5ab9695f77b53bb2fa6d1ddffd83fb7b6f34caa7eb6366c75e29a1541e33cc1c",
+      "sampling": "nearest; preserve atmospheric horizon alpha"
+    }
+  ],
+  "geometry_guide": {
+    "file": "assets/plains_v07/source/junction-facade-guide.svg",
+    "sha256": "390db0e5283bbc2c3c8ef8c4c4dcead04136fd47141b2828172cd85e850039ff",
+    "role": "Painting guide only; live faces clip to current room collision contours."
+  }
+}

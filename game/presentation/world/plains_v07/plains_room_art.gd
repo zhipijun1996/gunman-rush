@@ -19,6 +19,8 @@ var sky: Sprite2D
 var sky_layers: PlainsSkyLayers
 var landscape_scroll := Vector2(.12,.12)
 var landscape_tracks_height := false
+var landscape_offset := Vector2.ZERO
+var authored_sky_palette := false
 var daylight: DirectionalLight2D
 var ambient: CanvasModulate
 var indoor := false
@@ -87,7 +89,11 @@ func _ready() -> void:
 			if placement.has("landscape_scroll"):
 				landscape_scroll=FixedWorldProvider.point(placement.landscape_scroll)
 				landscape_tracks_height=true
-			if placement.has("sky_colors"):sky_layers.set_colors(placement.sky_colors)
+			if placement.has("landscape_reference"):depth_reference=FixedWorldProvider.point(placement.landscape_reference)
+			if placement.has("landscape_offset"):landscape_offset=FixedWorldProvider.point(placement.landscape_offset)
+			if placement.has("sky_colors"):
+				sky_layers.set_colors(placement.sky_colors)
+				authored_sky_palette=true
 			if placement.has("cloud_wrap_fade"):sky_layers.set_wrap_fade(float(placement.cloud_wrap_fade))
 		daylight=DirectionalLight2D.new();daylight.color=Color(light_settings.sun.color);daylight.energy=float(environment_light.sun_energy)
 		# Open sky is a broad fill, not an infinitely projected shadow from every ledge.
@@ -125,6 +131,8 @@ func _ready() -> void:
 		if placement.has("support_height"):
 			_support(FixedWorldProvider.point(placement.point),float(placement.support_height));continue
 		var node:=sprite(str(placement.asset),FixedWorldProvider.point(placement.point),int(placement.get("layer",-2)))
+		if placement.has("facing_polygons"):
+			PlainsArchitecturalFacing.attach(self,node,placement)
 		if placement.has("tint"):
 			var tone:Array=placement.tint;node.modulate=Color(tone[0],tone[1],tone[2],tone[3])
 		if placement.has("haze"):
@@ -153,7 +161,9 @@ func _ready() -> void:
 				hoist_cables.append({"line":cable,"carrier":carrier,"anchor":node.position+FixedWorldProvider.point(placement.get("cable_offset",[0,0]))})
 		if placement.get("sway",false):
 			var material:=ShaderMaterial.new();material.shader=preload("res://game/presentation/world/plains_v07/rooted_wind.gdshader")
-			material.set_shader_parameter("height",float(node.texture.get_height()));node.material=material;swaying.append(material)
+			material.set_shader_parameter("height",float(node.texture.get_height()))
+			material.set_shader_parameter("hanging",bool(placement.get("sway_hanging",false)))
+			node.material=material;swaying.append(material)
 		if placement.has("receipt"):
 			node.hide();story_props.append({"node":node,"receipt":placement.receipt,"host":placement.get("story_host","")})
 		if placement.get("fade_near",false):occluders.append({"node":node,"alpha":node.modulate.a})
@@ -196,7 +206,10 @@ func _process(delta: float) -> void:
 		repair_blend=move_toward(repair_blend,restored,delta*.25)
 		ambient.color=Color(environment_light.ambient).lerp(Color(environment_light.restored),repair_blend)
 		if daylight!=null:daylight.energy=lerpf(float(environment_light.sun_energy),float(environment_light.restored_sun_energy),repair_blend)
-		if sky!=null:sky.modulate=Color(.84,.89,.92).lerp(Color(1,.98,.92),repair_blend)
+		if sky!=null:
+			var land_tint:=Color(.84,.89,.92).lerp(Color(1,.98,.92),repair_blend)
+			if authored_sky_palette:sky.self_modulate=land_tint
+			else:sky.modulate=land_tint
 		for trace: Dictionary in story_props:
 			trace.node.visible=room.services.state.value.receipts.has(trace.receipt) and (str(trace.host).is_empty() or room.services.state.value.story_hosts.get(trace.host,"")==room.room_id)
 			if trace.receipt=="repair_P":trace.node.modulate.a=repair_blend
@@ -212,10 +225,11 @@ func _process(delta: float) -> void:
 		if sky!=null:
 			var span:=get_viewport_rect().size/camera.zoom
 			var image_size:=sky.texture.get_size()
-			var magnification:=ceilf(maxf(span.x/image_size.x,span.y/image_size.y))
+			var sky_height:=image_size.x*9.0/16.0
+			var magnification:=ceilf(maxf(span.x/image_size.x,span.y/minf(image_size.y,sky_height)))
 			sky.scale=Vector2.ONE*magnification
 			var slack: Vector2=(image_size*magnification-span)*.5
-			var offset: Vector2=(camera.get_screen_center_position()-depth_reference)*landscape_scroll
+			var offset: Vector2=(camera.get_screen_center_position()-depth_reference)*landscape_scroll+landscape_offset
 			if landscape_tracks_height:
 				# A high outlook reveals sky above the SAME distant horizon. Clouds
 				# and sky fill stay viewport-wide even after the land leaves the frame.

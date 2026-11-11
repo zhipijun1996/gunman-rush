@@ -352,14 +352,16 @@
       "interactions": [],
       "experience": {
         "player_decision": "从井口登上开阔低层，向西去旧路肩；可从空中或平台清理守路怪；穿透平台构成两条交错上行线，飞怪守空域、地面怪守停靠点；上方出口保留原回环条件。",
-        "visual_read": "开阔中庭保留纵向视线，地面草石簇与远处分路铃构成三向辨路点，不用装饰填满平台间隙。",
+        "visual_read": "整房共享原野地平线与疏云，低层落岸、中层原野、上层天空形成连续景深；西侧风车嵌入岸壁，凹入入口与上方风轮解释支路。自然地形保留平原tile、穿透台沿用木踏板，少数厚岸附着小垂苔，保持动作空域清楚。",
         "failure_recovery": "低层落岸承接上层失误；从旧井来向先落稳再选路，不自动飞过中庭。"
       },
       "art_focal_assets": [
+        "junction_meadow",
+        "junction_clouds",
+        "junction_rotor",
         "hanging_chime",
-        "bell_post",
-        "windchime_plains_near_v2",
-        "plains_grass"
+        "plains_grass",
+        "bank_moss"
       ],
       "feedback": {
         "locomotion": "沿现有 PlayerMotor 已接受动作及材质声路由；不由房间重写运动。",

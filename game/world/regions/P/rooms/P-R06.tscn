@@ -46,13 +46,13 @@ art_placements = Array[Dictionary]([
     "landscape": "junction_meadow",
     "landscape_scroll": [
       0.08,
-      0.075
+      0.5
     ],
     "clouds": "junction_clouds",
     "cloud_wrap_fade": 0.025,
     "sky_colors": [
-      "c1c8b7",
-      "f4dfb5"
+      "e7d9b9",
+      "f8e7c8"
     ],
     "atmosphere": {
       "density": 6,
@@ -63,8 +63,16 @@ art_placements = Array[Dictionary]([
       "sway_speed": 1.0
     },
     "sky_cloud_density": [
-      0.8,
-      0.0
+      0.5,
+      0
+    ],
+    "landscape_reference": [
+      832,
+      1000
+    ],
+    "landscape_offset": [
+      0,
+      -194
     ]
   },
   {
@@ -149,61 +157,78 @@ art_placements = Array[Dictionary]([
   },
   {
     "masonry_region": [
-      192,
-      800,
-      32,
-      256
+      160,
+      320,
+      64,
+      1024
     ]
   },
   {
-    "asset": "well_masonry",
+    "asset": "junction_facade",
     "point": [
-      0,
-      0
-    ],
-    "tile_rect": [
-      176,
-      864,
-      48,
-      96
+      256,
+      1344
     ],
     "layer": -8,
-    "tint": [
-      0.35,
-      0.43,
-      0.46,
-      1
+    "facing_polygons": [
+      "P-R06:windmill-upper-wall",
+      "P-R06:windmill-lower-wall"
+    ],
+    "facing_recess": [192, 864, 160, 96],
+    "facing_boundary": true,
+    "facing_platforms": [
+      8
     ],
     "threshold_for": "room-link-144:P-R06",
     "closed_gate_for": "room-link-144:P-R06"
   },
   {
-    "asset": "well_window_rail",
+    "asset": "junction_rotor",
     "point": [
-      0,
-      0
+      240,
+      752
     ],
-    "tile_rect": [
-      178,
-      853,
-      46,
-      11
-    ],
-    "layer": 1
+    "layer": -12,
+    "rotation_speed": 0.045
   },
   {
-    "asset": "well_window_rail",
+    "asset": "gear_lamp",
     "point": [
-      0,
-      0
+      266,
+      960
     ],
-    "tile_rect": [
-      178,
-      960,
-      46,
-      11
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "bank_moss",
+    "point": [
+      438,
+      1001
     ],
-    "layer": 1
+    "layer": 2,
+    "sway": true,
+    "sway_hanging": true
+  },
+  {
+    "asset": "bank_moss",
+    "point": [
+      680,
+      1737
+    ],
+    "layer": 2,
+    "sway": true,
+    "sway_hanging": true
+  },
+  {
+    "asset": "bank_moss",
+    "point": [
+      1180,
+      1865
+    ],
+    "layer": 2,
+    "sway": true,
+    "sway_hanging": true
   }
 ])
 art_profile = "junction"
@@ -226,9 +251,12 @@ workbench_entity_ids = {
     "P-R06:art:junction:13",
     "P-R06:art:windmill-opening:0",
     "P-R06:art:windmill-opening:1",
-    "P-R06:art:windmill-opening:2",
-    "P-R06:art:windmill-opening:3"
-],
+    "P-R06:art:composition:0",
+    "P-R06:art:composition:1",
+    "P-R06:art:composition:2",
+    "P-R06:art:composition:3",
+    "P-R06:art:composition:4"
+  ],
   "climbable_walls": [],
   "hazards": [],
   "hook_points": [],
@@ -296,3 +324,62 @@ enemy_placements = Array[Dictionary]([{
 }])
 
 illustrated_platform_indices = Array[int]([2, 5, 6, 7, 9, 10, 11, 13])
+
+terrain_polygons = Array[Dictionary]([
+  {
+    "id": "P-R06:windmill-upper-wall",
+    "material": "masonry",
+    "points": [
+      [
+        224,
+        352
+      ],
+      [
+        264,
+        352
+      ],
+      [
+        304,
+        512
+      ],
+      [
+        352,
+        736
+      ],
+      [
+        352,
+        864
+      ],
+      [
+        224,
+        864
+      ]
+    ]
+  },
+  {
+    "id": "P-R06:windmill-lower-wall",
+    "material": "masonry",
+    "points": [
+      [
+        224,
+        992
+      ],
+      [
+        352,
+        992
+      ],
+      [
+        320,
+        1120
+      ],
+      [
+        272,
+        1344
+      ],
+      [
+        224,
+        1344
+      ]
+    ]
+  }
+])

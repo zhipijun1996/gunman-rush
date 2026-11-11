@@ -16,7 +16,6 @@ var _clock := 0.0
 var _sprite_material: ShaderMaterial
 var _surface_material: ShaderMaterial
 var _light_texture: GradientTexture2D
-var foreground: Node
 
 static func attach(owner: Node,context: Node,player: PlayerMotor) -> UnderworldPresentation:
 	var prior:=owner.get_node_or_null("FineWorldPresentation") as UnderworldPresentation
@@ -37,9 +36,6 @@ func _ready() -> void:
 	var ambient:=CanvasModulate.new();ambient.color=Color(.98,.98,1)
 	add_child(ambient)
 	get_tree().node_added.connect(_node_added)
-	# Optional foreground has no collision and independently protects gameplay/UI.
-	var script:=load("res://game/presentation/world/underworld_plains/underworld_foreground.gd") as Script
-	if script!=null: foreground=script.attach(get_parent(),world,actor)
 	refresh()
 	if DisplayServer.get_name() != "headless":
 		CANVAS_PREPARATION.prepare_combat(self, lamp_texture())
@@ -149,9 +145,9 @@ func install_occluders(node: Node) -> void:
 
 func _process(delta: float) -> void:
 	_clock+=delta
-	refresh(false)
+	refresh()
 
-func refresh(update_foreground: bool=true) -> void:
+func refresh() -> void:
 	var camera:=get_viewport().get_camera_2d()
 	var center:=camera.get_screen_center_position() if camera!=null else Vector2.ZERO
 	var size:=get_viewport_rect().size/(camera.zoom if camera!=null else Vector2.ONE)
@@ -167,10 +163,9 @@ func refresh(update_foreground: bool=true) -> void:
 	for ref: WeakRef in _latches:
 		var latch:=ref.get_ref() as CanvasItem
 		if latch!=null and view.has_point((latch as Node2D).to_global((latch as ShotLatch).bell_position)): latch.queue_redraw()
-	if update_foreground and is_instance_valid(foreground): foreground.call("refresh")
 
 func receipt() -> Dictionary:
 	var lights: Array[Dictionary]=[]
 	for row: Dictionary in emitters:
 		lights.append({"kind":row.kind,"position":[row.world_position.x,row.world_position.y],"radius":row.radius,"color":row.color,"energy":row.energy,"visible":(row.light as PointLight2D).visible})
-	return {"style":"fine1wu_warm","world_art_step":1,"terrain_tile_px":32,"world_tile_wu":32,"scene":"formal_home" if world is UnderworldHomeWorld else "formal_region","light_budget":MAX_VISIBLE_LIGHTS,"lights":lights,"foreground":foreground.call("receipt") if is_instance_valid(foreground) else {},"time":_clock}
+	return {"style":"fine1wu_warm","world_art_step":1,"terrain_tile_px":32,"world_tile_wu":32,"scene":"formal_home" if world is UnderworldHomeWorld else "formal_region","light_budget":MAX_VISIBLE_LIGHTS,"lights":lights,"time":_clock}

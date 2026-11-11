@@ -382,7 +382,6 @@ func bind_services(value: WorldServices,controller: PlayerController,policy: Fra
 		host.bind(value.state);interaction_hosts.append(host)
 	if rest_point!=Vector2.ZERO:
 		station_animation=WorldChargingStation.new();station_animation.position=rest_point+Vector2(0,18);add_child(station_animation)
-	if interior_material().is_empty():UnderworldForeground.attach(self,self,controller.motor)
 	loot=WorldCoinDrops.new();loot.services=value;loot.controller=controller;loot.room_id=room_id;loot.arena_bounds=arena_bounds
 	add_child(loot)
 	for presentation: Node in find_children("*","WorldFlagPresentation",true,false): presentation.bind(value.state.has)
