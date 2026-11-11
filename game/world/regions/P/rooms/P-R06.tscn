@@ -43,7 +43,17 @@ art_placements = Array[Dictionary]([
       160.0,
       1696.0
     ],
-    "landscape": "opening_plains",
+    "landscape": "junction_meadow",
+    "landscape_scroll": [
+      0.08,
+      0.075
+    ],
+    "clouds": "junction_clouds",
+    "cloud_wrap_fade": 0.025,
+    "sky_colors": [
+      "c1c8b7",
+      "f4dfb5"
+    ],
     "atmosphere": {
       "density": 6,
       "speed": [
@@ -53,8 +63,8 @@ art_placements = Array[Dictionary]([
       "sway_speed": 1.0
     },
     "sky_cloud_density": [
-      0.34,
-      0.12
+      0.8,
+      0.0
     ]
   },
   {
@@ -136,6 +146,64 @@ art_placements = Array[Dictionary]([
       1
     ],
     "threshold_for": "room-link-139:P-R06"
+  },
+  {
+    "masonry_region": [
+      192,
+      800,
+      32,
+      256
+    ]
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      176,
+      864,
+      48,
+      96
+    ],
+    "layer": -8,
+    "tint": [
+      0.35,
+      0.43,
+      0.46,
+      1
+    ],
+    "threshold_for": "room-link-144:P-R06",
+    "closed_gate_for": "room-link-144:P-R06"
+  },
+  {
+    "asset": "well_window_rail",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      178,
+      853,
+      46,
+      11
+    ],
+    "layer": 1
+  },
+  {
+    "asset": "well_window_rail",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      178,
+      960,
+      46,
+      11
+    ],
+    "layer": 1
   }
 ])
 art_profile = "junction"
@@ -155,7 +223,11 @@ workbench_entity_ids = {
     "P-R06:art:junction:10",
     "P-R06:art:junction:11",
     "P-R06:art:junction:12",
-    "P-R06:art:junction:13"
+    "P-R06:art:junction:13",
+    "P-R06:art:windmill-opening:0",
+    "P-R06:art:windmill-opening:1",
+    "P-R06:art:windmill-opening:2",
+    "P-R06:art:windmill-opening:3"
 ],
   "climbable_walls": [],
   "hazards": [],

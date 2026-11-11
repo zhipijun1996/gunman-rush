@@ -238,6 +238,9 @@ func _draw() -> void:
 		var p := FixedWorldProvider.point(door.position_candidate.local_world_units)
 		var rect:=Rect2(p-Vector2(16,96),Vector2(32,96)) if door.direction in ["left","right"] else Rect2(p-Vector2(64,16),Vector2(128,32))
 		if not door_open.get(door.id,false):
+			if art_placements.any(func(p:Dictionary)->bool: return p.get("closed_gate_for","")==str(door.id)):
+				UnderworldTerrain.draw_mechanism_beam(self,rect)
+				continue
 			draw_rect(rect,Color("3c4b44"))
 			draw_rect(rect,Color("9f8b67"),false,3)
 			draw_line(rect.position,rect.end,Color("9f8b67"),3)

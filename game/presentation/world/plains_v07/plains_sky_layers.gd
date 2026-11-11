@@ -2,10 +2,12 @@ class_name PlainsSkyLayers
 extends Node2D
 ## Sky and moving cloud veils sit behind the fixed landscape's transparent horizon.
 var clouds: Array[Sprite2D] = []
+var sky_gradient: Gradient
 
 func configure(landscape: Sprite2D, cloud_texture: Texture2D) -> void:
 	var size:=landscape.texture.get_size()
 	var gradient:=Gradient.new()
+	sky_gradient=gradient
 	gradient.colors=PackedColorArray([Color("dec9aa"),Color("fae7c3")])
 	var wash:=GradientTexture2D.new()
 	wash.gradient=gradient;wash.width=int(size.x);wash.height=int(size.y)
@@ -25,9 +27,18 @@ func configure(landscape: Sprite2D, cloud_texture: Texture2D) -> void:
 		shader.set_shader_parameter("density",.72 if i==0 else .32)
 		cloud.material=shader;add_child(cloud);clouds.append(cloud)
 
+func set_wrap_fade(amount: float) -> void:
+	for cloud:Sprite2D in clouds:
+		(cloud.material as ShaderMaterial).set_shader_parameter("wrap_fade",amount)
+
+func set_colors(values: Array) -> void:
+	if values.size()==2:
+		sky_gradient.colors=PackedColorArray([Color(str(values[0])),Color(str(values[1]))])
+
 func set_density(values: Array) -> void:
 	for i: int in mini(values.size(), clouds.size()):
 		(clouds[i].material as ShaderMaterial).set_shader_parameter("density",clampf(float(values[i]),0.0,1.0))
+		clouds[i].visible=float(values[i])>0
 
 func update_clock(seconds: float) -> void:
 	for cloud:Sprite2D in clouds:

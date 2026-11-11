@@ -17,6 +17,8 @@ var rotating_props: Array[Dictionary]=[]
 var hoist_cables: Array[Dictionary]=[]
 var sky: Sprite2D
 var sky_layers: PlainsSkyLayers
+var landscape_scroll := Vector2(.12,.12)
+var landscape_tracks_height := false
 var daylight: DirectionalLight2D
 var ambient: CanvasModulate
 var indoor := false
@@ -76,9 +78,17 @@ func _ready() -> void:
 		sky.material=sky_material
 		add_child(sky)
 		sky_layers=PlainsSkyLayers.new();sky.add_child(sky_layers)
-		sky_layers.configure(sky,load("res://"+str(backgrounds.wind_clouds.image)))
+		var cloud_asset: String="wind_clouds"
+		for placement:Dictionary in room.art_placements:
+			if placement.has("clouds"):cloud_asset=str(placement.clouds)
+		sky_layers.configure(sky,load("res://"+str(backgrounds[cloud_asset].image)))
 		for placement:Dictionary in room.art_placements:
 			if placement.has("sky_cloud_density"):sky_layers.set_density(placement.sky_cloud_density)
+			if placement.has("landscape_scroll"):
+				landscape_scroll=FixedWorldProvider.point(placement.landscape_scroll)
+				landscape_tracks_height=true
+			if placement.has("sky_colors"):sky_layers.set_colors(placement.sky_colors)
+			if placement.has("cloud_wrap_fade"):sky_layers.set_wrap_fade(float(placement.cloud_wrap_fade))
 		daylight=DirectionalLight2D.new();daylight.color=Color(light_settings.sun.color);daylight.energy=float(environment_light.sun_energy)
 		# Open sky is a broad fill, not an infinitely projected shadow from every ledge.
 		# Terrain still occludes the finite lamps and the player's carry light.
@@ -205,8 +215,17 @@ func _process(delta: float) -> void:
 			var magnification:=ceilf(maxf(span.x/image_size.x,span.y/image_size.y))
 			sky.scale=Vector2.ONE*magnification
 			var slack: Vector2=(image_size*magnification-span)*.5
-			var offset: Vector2=(camera.get_screen_center_position()-depth_reference)*.12
-			sky.position=(camera.get_screen_center_position()-offset.clamp(-slack,slack)).round()
+			var offset: Vector2=(camera.get_screen_center_position()-depth_reference)*landscape_scroll
+			if landscape_tracks_height:
+				# A high outlook reveals sky above the SAME distant horizon. Clouds
+				# and sky fill stay viewport-wide even after the land leaves the frame.
+				offset.x=clampf(offset.x,-slack.x,slack.x)
+				offset.y=minf(offset.y,slack.y)
+				sky_layers.position=offset/magnification
+			else:
+				offset=offset.clamp(-slack,slack)
+				sky_layers.position=Vector2.ZERO
+			sky.position=(camera.get_screen_center_position()-offset).round()
 		for d: Dictionary in depths:d.node.position=(d.origin+(camera.global_position-depth_reference)*(1.0-float(d.ratio))).round()
 	queue_redraw()
 func _air_open(at: Vector2) -> bool:
