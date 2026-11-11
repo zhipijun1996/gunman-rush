@@ -73,63 +73,185 @@ retry_anchors = Array[Dictionary]([{
 "point": [832.0, 430.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "mill_drive_frame",
-"layer": -2.0,
-"point": [1336.0, 2528.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [800.0, 2048.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1312.0, 1696.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [816.0, 1344.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [880.0, 2528.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1088.0, 2048.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [896.0, 736.0]
-}, {
-"asset": "merchant_counter",
-"layer": -2.0,
-"light": true,
-"point": [1008.0, 2528.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1216.0, 736.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      0,
+      0,
+      1664,
+      3072
+    ],
+    "layer": -45,
+    "backdrop": true,
+    "environment": {
+      "ambient": "a4aaae",
+      "restored": "a4aaae"
+    },
+    "atmosphere": {
+      "density": 3,
+      "speed": [
+        3,
+        7
+      ]
+    }
+  },
+  {
+    "asset": "training_atrium",
+    "point": [
+      832,
+      2496
+    ],
+    "layer": -35,
+    "light": true,
+    "window_beam": true
+  },
+  {
+    "asset": "mill_drive_frame",
+    "point": [
+      1336,
+      2528
+    ],
+    "layer": -6
+  },
+  {
+    "asset": "merchant_counter",
+    "point": [
+      1008,
+      2528
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      880,
+      2528
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      800,
+      2048
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1312,
+      1696
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      816,
+      1344
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1216,
+      736
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      224,
+      2944
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "surface_platform": 1
+  },
+  {
+    "surface_platform": 2
+  },
+  {
+    "surface_platform": 6
+  },
+  {
+    "surface_platform": 7
+  },
+  {
+    "surface_platform": 8
+  },
+  {
+    "surface_platform": 9
+  },
+  {
+    "surface_platform": 10
+  },
+  {
+    "surface_platform": 11
+  },
+  {
+    "surface_platform": 12
+  }
+])
 art_profile = "mill"
-platforms = Array[Rect2]([Rect2(0, 2944, 384, 128), Rect2(64, 2752, 224, 32), Rect2(192, 2560, 192, 32), Rect2(384, 2432, 384, 64), Rect2(768, 2528, 704, 96), Rect2(1600, 2528, 64, 96), Rect2(704, 2240, 384, 32), Rect2(768, 2048, 448, 32), Rect2(896, 1696, 464, 32), Rect2(768, 1344, 448, 32), Rect2(832, 736, 448, 32), Rect2(672, 448, 448, 32), Rect2(672, 160, 192, 32)])
+platforms = Array[Rect2]([Rect2(32, 2944, 320, 96), Rect2(64, 2752, 224, 32), Rect2(192, 2560, 160, 32), Rect2(384, 2432, 384, 32), Rect2(800, 2528, 672, 64), Rect2(1600, 2528, 32, 64), Rect2(704, 2240, 384, 32), Rect2(768, 2048, 448, 32), Rect2(896, 1696, 464, 32), Rect2(768, 1344, 448, 32), Rect2(832, 736, 448, 32), Rect2(672, 448, 448, 32), Rect2(672, 160, 192, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R10:art_placements:0", "P-R10:art_placements:1", "P-R10:art_placements:2", "P-R10:art_placements:3", "P-R10:built:lamp_0", "P-R10:built:lamp_1", "P-R10:built:lamp_2", "P-R10:art-pass:0", "P-R10:art-pass:1"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": ["P-R10:r9:hook_points:0", "P-R10:r9:hook_points:1", "P-R10:r9:hook_points:2", "P-R10:r9:hook_points:3", "P-R10:r9:hook_points:4", "P-R10:r9:hook_points:5", "P-R10:r9:hook_points:6", "P-R10:r9:hook_points:7", "P-R10:r9:hook_points:8", "P-R10:r9:hook_points:9", "P-R10:r9:hook_points:10"],
-"platforms": ["P-R10:platforms:0", "P-R10:platforms:1", "P-R10:platforms:2", "P-R10:platforms:3", "P-R10:platforms:4", "P-R10:platforms:5", "P-R10:platforms:6", "P-R10:platforms:7", "P-R10:platforms:8", "P-R10:platforms:9", "P-R10:platforms:10", "P-R10:platforms:11", "P-R10:r9:door_landing"],
-"retry_anchors": ["P-R10:r9:retry_anchors:0", "P-R10:r9:retry_anchors:1", "P-R10:r9:retry_anchors:2", "P-R10:r9:retry_anchors:3", "P-R10:r9:retry_anchors:4", "P-R10:r9:retry_anchors:5"],
-"signs": []
+  "art_placements": ["P-R10:composition:0", "P-R10:composition:1", "P-R10:composition:2", "P-R10:composition:3", "P-R10:composition:4", "P-R10:composition:5", "P-R10:composition:6", "P-R10:composition:7", "P-R10:composition:8", "P-R10:composition:9", "P-R10:composition:10", "P-R10:composition:11", "P-R10:composition:12", "P-R10:composition:13", "P-R10:composition:14", "P-R10:composition:15", "P-R10:composition:16", "P-R10:composition:17", "P-R10:composition:18"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [
+    "P-R10:r9:hook_points:0",
+    "P-R10:r9:hook_points:1",
+    "P-R10:r9:hook_points:2",
+    "P-R10:r9:hook_points:3",
+    "P-R10:r9:hook_points:4",
+    "P-R10:r9:hook_points:5",
+    "P-R10:r9:hook_points:6",
+    "P-R10:r9:hook_points:7",
+    "P-R10:r9:hook_points:8",
+    "P-R10:r9:hook_points:9",
+    "P-R10:r9:hook_points:10"
+  ],
+  "platforms": [
+    "P-R10:platforms:0",
+    "P-R10:platforms:1",
+    "P-R10:platforms:2",
+    "P-R10:platforms:3",
+    "P-R10:platforms:4",
+    "P-R10:platforms:5",
+    "P-R10:platforms:6",
+    "P-R10:platforms:7",
+    "P-R10:platforms:8",
+    "P-R10:platforms:9",
+    "P-R10:platforms:10",
+    "P-R10:platforms:11",
+    "P-R10:r9:door_landing"
+  ],
+  "retry_anchors": [
+    "P-R10:r9:retry_anchors:0",
+    "P-R10:r9:retry_anchors:1",
+    "P-R10:r9:retry_anchors:2",
+    "P-R10:r9:retry_anchors:3",
+    "P-R10:r9:retry_anchors:4",
+    "P-R10:r9:retry_anchors:5"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([1, 2, 6, 7, 8, 9, 10, 11, 12])
 start_point = Vector2(144, 2926)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",
@@ -172,6 +294,8 @@ spike_strips = Array[Dictionary]([{
 "id": "P-R10:r9:combo_receive_right"
 }])
 hook_points = Array[Vector2]([Vector2(640, 2256), Vector2(800, 2176), Vector2(1328, 1904), Vector2(1456, 1744), Vector2(1536, 1552), Vector2(1456, 1360), Vector2(1456, 1168), Vector2(1456, 976), Vector2(1376, 784), Vector2(1184, 592), Vector2(1184, 352)])
+one_way_indices = Array[int]([1, 2, 6, 7, 8, 9, 10, 11, 12])
+illustrated_platform_indices = Array[int]([1, 2, 6, 7, 8, 9, 10, 11, 12])
 
 [node name="Cache_high_wind_cache" type="Node2D" parent="." unique_id=189739756]
 position = Vector2(832, 430)

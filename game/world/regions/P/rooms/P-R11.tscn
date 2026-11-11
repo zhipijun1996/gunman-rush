@@ -39,52 +39,126 @@ retry_anchors = Array[Dictionary]([{
 "point": [2432.0, 238.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "mill_drive_frame",
-"layer": -2.0,
-"point": [2368.0, 1152.0]
-}, {
-"asset": "gear_city_v2_valve_panel",
-"layer": -2.0,
-"point": [240.0, 1216.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [2432.0, 1152.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [2512.0, 704.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [2464.0, 256.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [496.0, 1056.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1824.0, 1056.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "mill_hall_depth",
+    "point": [
+      1344,
+      1536
+    ],
+    "layer": -38,
+    "backdrop": true,
+    "environment": {
+      "ambient": "a1a8ad",
+      "restored": "a1a8ad"
+    },
+    "atmosphere": {
+      "density": 4,
+      "speed": [
+        3,
+        8
+      ]
+    }
+  },
+  {
+    "asset": "mill_drive_frame",
+    "point": [
+      2368,
+      1152
+    ],
+    "layer": -6
+  },
+  {
+    "asset": "gear_city_v2_valve_panel",
+    "point": [
+      240,
+      1216
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2432,
+      1152
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2512,
+      704
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2464,
+      256
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      496,
+      1056
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1824,
+      1056
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "surface_platform": 3
+  },
+  {
+    "surface_platform": 4
+  },
+  {
+    "surface_platform": 7
+  }
+])
 art_profile = "mill"
-platforms = Array[Rect2]([Rect2(0, 1216, 320, 128), Rect2(320, 1152, 2368, 192), Rect2(384, 1056, 256, 32), Rect2(1664, 1056, 256, 32), Rect2(308, 512, 24, 448), Rect2(1972, 512, 24, 448), Rect2(320, 512, 1664, 24), Rect2(2336, 704, 352, 32), Rect2(2304, 256, 384, 32)])
+platforms = Array[Rect2]([Rect2(32, 1216, 288, 96), Rect2(320, 1152, 2336, 192), Rect2(352, 1344, 2304, 160), Rect2(384, 1056, 256, 32), Rect2(1664, 1056, 256, 32), Rect2(1972, 512, 24, 448), Rect2(352, 512, 1620, 24), Rect2(2336, 704, 320, 32), Rect2(2304, 256, 352, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R11:art_placements:0", "P-R11:art_placements:1", "P-R11:built:inspection_lamp_0", "P-R11:built:inspection_lamp_1", "P-R11:built:inspection_lamp_2", "P-R11:art-pass:0", "P-R11:art-pass:1"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": ["P-R11:r7:hook_0", "P-R11:r7:hook_1", "P-R11:r7:hook_2"],
-"platforms": ["P-R11:platforms:0", "P-R11:platforms:1", "P-R11:platforms:2", "P-R11:platforms:3", "P-R11:platforms:4", "P-R11:platforms:5", "P-R11:platforms:6", "P-R11:r7:service_perch", "P-R11:r7:upper_cache"],
-"retry_anchors": ["P-R11:r7:retry_0", "P-R11:r7:retry_1"],
-"signs": []
+  "art_placements": ["P-R11:composition:0", "P-R11:composition:1", "P-R11:composition:2", "P-R11:composition:3", "P-R11:composition:4", "P-R11:composition:5", "P-R11:composition:6", "P-R11:composition:7", "P-R11:composition:8", "P-R11:composition:9", "P-R11:composition:10"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [
+    "P-R11:r7:hook_0",
+    "P-R11:r7:hook_1",
+    "P-R11:r7:hook_2"
+  ],
+  "platforms": [
+    "P-R11:platforms:0",
+    "P-R11:platforms:1",
+    "P-R11:platforms:1:inner:1",
+    "P-R11:platforms:2",
+    "P-R11:platforms:3",
+    "P-R11:platforms:5",
+    "P-R11:platforms:6",
+    "P-R11:r7:service_perch",
+    "P-R11:r7:upper_cache"
+  ],
+  "retry_anchors": [
+    "P-R11:r7:retry_0",
+    "P-R11:r7:retry_1"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([2, 3, 7])
 start_point = Vector2(144, 1198)
 hook_points = Array[Vector2]([Vector2(2352, 896), Vector2(2304, 544), Vector2(2192, 256)])
 boss_identity = &"bellstrider"
@@ -94,6 +168,8 @@ defeat_flag = "boss_P_BELLSTRIDER_defeated"
 boss_position = Vector2(1484.8, 1087)
 arena_bounds = Rect2(320, 512, 1664, 640)
 battle_entry_anchor = Vector2(400, 1134)
+one_way_indices = Array[int]([3, 4, 7])
+illustrated_platform_indices = Array[int]([3, 4, 7])
 
 [node name="Interaction_0" type="Node2D" parent="." unique_id=1373729102]
 position = Vector2(2240, 1134)

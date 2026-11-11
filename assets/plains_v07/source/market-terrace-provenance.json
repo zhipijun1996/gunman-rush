@@ -1,0 +1,33 @@
+{
+  "generator": "OpenAI image_gen",
+  "prompt": "Make a precisely registered architectural CUTAWAY FACING for a 2D pixel-art game's old canal-market retaining building. Square1024x1024, transparent outside building; fine restrained grey-olive masonry,32px stone courses and narrow worn capstones matching the game's existing stone tiles. This is one continuous stepped building, NOT floating individual terraces. Canvas coordinates are critical. Solid staircase silhouette has horizontal walking tops: x64..320 at y928; x320..576 at y736; x576..736 at y480; x736..1024 at y256. It extends solid from each of these tops to the bottom y1024. The far-right tall side-entry facade fills x832..1024 from y0 down: leave an opaque DARK RECESSED HORIZONTAL PASSAGE in x832..1024,y128..256, opening on the LEFT and continuing out the RIGHT edge; ceiling y128, floor y256. Above it continuous masonry x832..1024,y0..128, tall retaining foundation beneath. Adjacent surfaces use the same small grey blocks, NOT huge separate rocks. The stepped masonry runs continuously under the approach from lower left to upper right; no free-standing columns, roofs, exterior floors beyond silhouette, trees, grass, sky, characters, lamps or UI. On the vertical visible faces below the step caps, compose a modest abandoned storehouse elevation: two deeply recessed closed wooden shutters below the middle high terrace, a worn horizontal masonry band along lower building, one small bronze drain outlet at lower right, sparse moss attached to actual capstones. No live doorway on any lower wall, no extra fake accessible platforms, no glowing windows or ornament piles. Each step's horizontal cap MUST match specified coordinates exactly, because real collision follows these lines. The upper-right passage is one thick building recess integrated with all lower masonry, not a separate pasted doorway. Keep native tiny pixel clusters, subtle texture, low detail, quiet earthy grey. Top and left empty outside the staircase are genuine alpha, no glow. The reference is the actual current room: replace only right stepped building's plain front face, preserving its silhouette, walking heights, coherent subdued tile material. Entire isolated asset only; no screenshot or landscape.",
+  "registration": {
+    "point": [
+      2368,
+      1152
+    ],
+    "native_tile_caps": "32wu retained as real terrain, facing clipped to inset facade"
+  },
+  "assets": [
+    {
+      "asset": "market_terrace",
+      "source": "assets/plains_v07/source/market-terrace-generated.png",
+      "source_sha256": "8a9f929f50e52dd2357f10c29b009cf51804def79e0f45c700e8de37cc373213",
+      "source_rect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "size": [
+        1024,
+        1024
+      ],
+      "image": "assets/plains_v07/native/market_terrace.png",
+      "sha256": "e97262fbf36553279c19d6a5d80e2cbd46d8a522049e87692281a5e542a1df29",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "generation": "assets/plains_v07/source/market-terrace-provenance.json"
+    }
+  ]
+}

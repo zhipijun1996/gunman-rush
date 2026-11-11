@@ -40,8 +40,13 @@
     "junction-meadow-generated.png": "18a5f6f89fd5696342be34f4aec00382f012b34a19a8e74a41239081bbe12270",
     "bellgarden-ruin-generated.png": "c13d1796c44a6665d82343450f3b0f35a5995819bf1152c7488e0e03839be69b",
     "bellgarden-revival-generated.png": "fc7b298af45fadf845c7115d56fc59241bdc7cfd2ce20593970907f8f62c8bb1",
-    "forecourt-architecture-generated.png": "5854712f4500f0875b3ad8665a49fe83a4622ec2b0ccf0b1af63ee894237285b",
-    "forecourt-foundation-generated.png": "58cfb84e361643a9553beccac6509bad5178e8cdc943885174a8ef78e7c5c7bb"
+    "forecourt-architecture-generated.png": "a7369e691e904e0f8d1607536577c7351a8fc8e11163e763ae166aa1516548d6",
+    "forecourt-foundation-generated.png": "58cfb84e361643a9553beccac6509bad5178e8cdc943885174a8ef78e7c5c7bb",
+    "junction-transfer-generated.png": "258fb0024a3ca231d7f70c0832c1086fa6c13ff9fdd3a92706a349023e94f9a2",
+    "market-terrace-generated.png": "8a9f929f50e52dd2357f10c29b009cf51804def79e0f45c700e8de37cc373213",
+    "training_atrium-generated.png": "755900399c4b33861079eda5538839b01fd0ec6c7e661c6940edf251d7c0915f",
+    "spring_cellar-generated.png": "cabff4cd924dc86fbfa299de787bd579a7783a70d42193e0a6c47391f96c3c94",
+    "grain_loft-generated.png": "f1b3a3472f024c9977ff7aee7345b8ecdba185d08af2a2f3058aa92d72ba7f01"
   },
   "assets": {
     "reclaimer": {
@@ -2706,19 +2711,19 @@
     "forecourt_architecture": {
       "asset": "forecourt_architecture",
       "source": "assets/plains_v07/source/forecourt-architecture-generated.png",
-      "source_sha256": "5854712f4500f0875b3ad8665a49fe83a4622ec2b0ccf0b1af63ee894237285b",
+      "source_sha256": "a7369e691e904e0f8d1607536577c7351a8fc8e11163e763ae166aa1516548d6",
       "source_rect": [
+        256,
         0,
-        0,
-        1536,
-        672
+        1280,
+        982
       ],
       "size": [
-        1152,
-        504
+        1280,
+        982
       ],
       "image": "assets/plains_v07/native/forecourt_architecture.png",
-      "sha256": "671859492f56be23a610ff85fbb42d057e63ab33495378ba50a072d909087301",
+      "sha256": "cde83e3da341bf56435e274a55c0dcb78c15aaf4eeaf0125cc0dac50edee8a65",
       "sampling": "nearest",
       "alpha_threshold": 128,
       "generation": "assets/plains_v07/source/forecourt-provenance.json"
@@ -2742,6 +2747,106 @@
       "sampling": "nearest",
       "alpha_threshold": null,
       "generation": "assets/plains_v07/source/forecourt-provenance.json"
+    },
+    "junction_transfer": {
+      "asset": "junction_transfer",
+      "source": "assets/plains_v07/source/junction-transfer-generated.png",
+      "source_sha256": "258fb0024a3ca231d7f70c0832c1086fa6c13ff9fdd3a92706a349023e94f9a2",
+      "source_rect": [
+        64,
+        0,
+        1408,
+        1024
+      ],
+      "size": [
+        2816,
+        2048
+      ],
+      "image": "assets/plains_v07/native/junction_transfer.png",
+      "sha256": "055e2567ce9aa8a115724d7af5d7b2ed623b67e493f069776588e4538f928048",
+      "sampling": "nearest",
+      "alpha_threshold": null,
+      "generation": "assets/plains_v07/source/junction-transfer-provenance.json"
+    },
+    "market_terrace": {
+      "asset": "market_terrace",
+      "source": "assets/plains_v07/source/market-terrace-generated.png",
+      "source_sha256": "8a9f929f50e52dd2357f10c29b009cf51804def79e0f45c700e8de37cc373213",
+      "source_rect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "size": [
+        1024,
+        1024
+      ],
+      "image": "assets/plains_v07/native/market_terrace.png",
+      "sha256": "e97262fbf36553279c19d6a5d80e2cbd46d8a522049e87692281a5e542a1df29",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "generation": "assets/plains_v07/source/market-terrace-provenance.json"
+    },
+    "training_atrium": {
+      "asset": "training_atrium",
+      "source": "assets/plains_v07/source/training_atrium-generated.png",
+      "source_sha256": "755900399c4b33861079eda5538839b01fd0ec6c7e661c6940edf251d7c0915f",
+      "source_rect": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "size": [
+        1664,
+        2496
+      ],
+      "image": "assets/plains_v07/native/training_atrium.png",
+      "sha256": "c133caab7161122f6b18409e4ef235b393b1d6f803fd767b930cf4a295b1483d",
+      "sampling": "nearest",
+      "alpha_threshold": null,
+      "generation": "assets/plains_v07/source/training_atrium-provenance.json"
+    },
+    "spring_cellar": {
+      "asset": "spring_cellar",
+      "source": "assets/plains_v07/source/spring_cellar-generated.png",
+      "source_sha256": "cabff4cd924dc86fbfa299de787bd579a7783a70d42193e0a6c47391f96c3c94",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "size": [
+        2304,
+        1536
+      ],
+      "image": "assets/plains_v07/native/spring_cellar.png",
+      "sha256": "ffa2e2397081d377f5333245fd21d55c486cc6ea9b32ebb0db8a35dd90e8e831",
+      "sampling": "nearest",
+      "alpha_threshold": null,
+      "generation": "assets/plains_v07/source/spring_cellar-provenance.json"
+    },
+    "grain_loft": {
+      "asset": "grain_loft",
+      "source": "assets/plains_v07/source/grain_loft-generated.png",
+      "source_sha256": "f1b3a3472f024c9977ff7aee7345b8ecdba185d08af2a2f3058aa92d72ba7f01",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "size": [
+        2208,
+        1472
+      ],
+      "image": "assets/plains_v07/native/grain_loft.png",
+      "sha256": "030ba7e42c8983b13677356578e9cec083cd380b229e85488d822c6271d69ffa",
+      "sampling": "nearest",
+      "alpha_threshold": null,
+      "generation": "assets/plains_v07/source/grain_loft-provenance.json"
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

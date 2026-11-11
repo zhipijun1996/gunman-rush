@@ -61,35 +61,221 @@ retry_anchors = Array[Dictionary]([{
 "point": [2304.0, 1774.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "sunken_well",
-"layer": -2.0,
-"point": [1520.0, 1440.0]
-}, {
-"asset": "plain_pier",
-"layer": -2.0,
-"point": [1920.0, 1152.0],
-"support_height": 288.0
-}, {
-"asset": "plain_pier",
-"layer": -2.0,
-"point": [1984.0, 832.0],
-"support_height": 384.0
-}, {
-"asset": "windchime_plains_near_v2",
-"layer": -2.0,
-"point": [720.0, 1248.0],
-"sway": true
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [2688.0, 1152.0],
-"sway": true
-}, {
-"asset": "tilted_barrel",
-"layer": -2.0,
-"point": [1408.0, 1088.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "plains_grass",
+    "point": [
+      720,
+      1248
+    ],
+    "layer": -5,
+    "sway": true,
+    "landscape": "junction_meadow",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.35
+    ],
+    "landscape_reference": [
+      1472,
+      1200
+    ],
+    "landscape_offset": [
+      0,
+      80
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
+    "atmosphere": {
+      "density": 4,
+      "speed": [
+        24,
+        42
+      ],
+      "sway_speed": 0.8
+    }
+  },
+  {
+    "asset": "gear_city_v2_valve_panel",
+    "point": [
+      1552,
+      1440
+    ],
+    "layer": -6
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      2208,
+      704
+    ],
+    "layer": -6,
+    "hoist_cable": "IrrigationCage",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      2384,
+      256
+    ],
+    "layer": -6,
+    "hoist_cable": "CliffCarrier",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      2176,
+      1536,
+      192,
+      384
+    ],
+    "layer": -28
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2304,
+      1792
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "windchime_plains_near_v2",
+    "point": [
+      720,
+      1248
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      2688,
+      1152
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "asset": "tilted_barrel",
+    "point": [
+      1408,
+      1088
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      816,
+      1472
+    ],
+    "layer": -6,
+    "tint": [
+      0.63,
+      0.74,
+      0.72,
+      1
+    ]
+  },
+  {
+    "surface_platform": 2
+  },
+  {
+    "surface_platform": 3
+  },
+  {
+    "surface_platform": 4
+  },
+  {
+    "surface_platform": 7
+  },
+  {
+    "surface_platform": 10
+  },
+  {
+    "surface_platform": 11
+  },
+  {
+    "surface_platform": 13
+  },
+  {
+    "surface_platform": 15
+  },
+  {
+    "surface_platform": 17
+  },
+  {
+    "surface_platform": 19
+  },
+  {
+    "asset": "forecourt_foundation",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      0,
+      1056,
+      160,
+      96
+    ],
+    "layer": -24,
+    "threshold_for": "HUB-P35-P18:P-R18"
+  },
+  {
+    "masonry_region": [
+      0,
+      960,
+      160,
+      320
+    ]
+  },
+  {
+    "asset": "forecourt_foundation",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      2176,
+      1536,
+      768,
+      384
+    ],
+    "layer": -24,
+    "threshold_for": "EXP-P_field_return-02:P-R18"
+  },
+  {
+    "masonry_region": [
+      2176,
+      1536,
+      768,
+      384
+    ]
+  }
+])
 art_profile = "field"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[2048.0, 1088.0], [2048.0, 768.0]],
@@ -97,17 +283,44 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "IrrigationCage",
 "id": "P18:irrigation_lift"
 }])
-platforms = Array[Rect2]([Rect2(0, 1152, 416, 48), Rect2(576, 1248, 448, 48), Rect2(1120, 1088, 384, 32), Rect2(1696, 1152, 416, 32), Rect2(2432, 1152, 512, 32), Rect2(544, 1472, 512, 64), Rect2(1344, 1440, 352, 48), Rect2(1376, 1280, 224, 24), Rect2(1856, 1440, 320, 48), Rect2(2368, 1408, 576, 48), Rect2(2560, 1280, 256, 24), Rect2(2176, 1584, 192, 24), Rect2(2240, 1792, 128, 128), Rect2(1120, 832, 288, 32), Rect2(1344, 608, 192, 32), Rect2(1632, 672, 256, 32), Rect2(1856, 832, 288, 32), Rect2(2144, 704, 160, 24), Rect2(2336, 256, 288, 32), Rect2(1920, 416, 256, 32), Rect2(1056, 1504, 160, 32)])
+platforms = Array[Rect2]([Rect2(32, 1152, 384, 96), Rect2(576, 1248, 448, 48), Rect2(1120, 1088, 384, 32), Rect2(1696, 1152, 416, 32), Rect2(2432, 1152, 480, 32), Rect2(576, 1472, 480, 32), Rect2(1344, 1440, 352, 48), Rect2(1376, 1280, 224, 24), Rect2(1856, 1440, 320, 48), Rect2(2368, 1408, 544, 48), Rect2(2560, 1280, 256, 24), Rect2(2208, 1584, 128, 24), Rect2(2272, 1792, 64, 96), Rect2(1120, 832, 288, 32), Rect2(1344, 608, 192, 32), Rect2(1632, 672, 256, 32), Rect2(1856, 832, 288, 32), Rect2(2144, 704, 160, 24), Rect2(2336, 256, 256, 32), Rect2(1952, 416, 224, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R18:r7:art_placements:0", "P-R18:r7:art_placements:1", "P-R18:r7:art_placements:2", "P-R18:art-pass:0", "P-R18:art-pass:1", "P-R18:art-pass:2"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R18:r7:west_entry", "P-R18:r7:low_field", "P-R18:r7:middle_terrace", "P-R18:r7:east_field", "P-R18:r7:east_bank", "P-R18:r7:west_recovery", "P-R18:r7:well_entry", "P-R18:r7:well_step", "P-R18:r7:irrigation_west", "P-R18:r7:irrigation_east", "P-R18:r7:east_understep", "P-R18:r7:waterway_step", "P-R18:r7:waterway_entry", "P-R18:r7:upper_terrace", "P-R18:r7:closed_boundary_view", "P-R18:r7:middle_view", "P-R18:r7:west_transfer", "P-R18:r7:cliff_launch", "P-R18:r7:cliff_door", "P-R18:r7:upper_return", "P-R18:r7:ditch_spike_foundation"],
-"retry_anchors": ["P-R18:r7:retry_anchors:0", "P-R18:r7:retry_anchors:1", "P-R18:r7:retry_anchors:2", "P-R18:r7:retry_anchors:3", "P-R18:r7:retry_anchors:4", "P-R18:r7:retry_anchors:5"],
-"signs": []
+  "art_placements": ["P-R18:composition:0", "P-R18:composition:1", "P-R18:composition:2", "P-R18:composition:3", "P-R18:composition:4", "P-R18:composition:5", "P-R18:composition:6", "P-R18:composition:7", "P-R18:composition:8", "P-R18:composition:9", "P-R18:composition:10", "P-R18:composition:11", "P-R18:composition:12", "P-R18:composition:13", "P-R18:composition:14", "P-R18:composition:15", "P-R18:composition:16", "P-R18:composition:17", "P-R18:composition:18", "P-R18:composition:19", "P-R18:composition:20", "P-R18:composition:21", "P-R18:composition:22", "P-R18:composition:23"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R18:r7:west_entry",
+    "P-R18:r7:low_field",
+    "P-R18:r7:middle_terrace",
+    "P-R18:r7:east_field",
+    "P-R18:r7:east_bank",
+    "P-R18:r7:west_recovery",
+    "P-R18:r7:well_entry",
+    "P-R18:r7:well_step",
+    "P-R18:r7:irrigation_west",
+    "P-R18:r7:irrigation_east",
+    "P-R18:r7:east_understep",
+    "P-R18:r7:waterway_step",
+    "P-R18:r7:waterway_entry",
+    "P-R18:r7:upper_terrace",
+    "P-R18:r7:closed_boundary_view",
+    "P-R18:r7:middle_view",
+    "P-R18:r7:west_transfer",
+    "P-R18:r7:cliff_launch",
+    "P-R18:r7:cliff_door",
+    "P-R18:r7:upper_return"
+  ],
+  "retry_anchors": [
+    "P-R18:r7:retry_anchors:0",
+    "P-R18:r7:retry_anchors:1",
+    "P-R18:r7:retry_anchors:2",
+    "P-R18:r7:retry_anchors:3",
+    "P-R18:r7:retry_anchors:4",
+    "P-R18:r7:retry_anchors:5"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([2, 3, 4, 7, 10, 11, 13, 15, 17, 19])
 start_point = Vector2(144, 1134)
 enemy_placements = Array[Dictionary]([{
 "behavior": "charger",
@@ -138,6 +351,9 @@ spike_strips = Array[Dictionary]([{
 "facing": "up",
 "id": "P-R18:r7:east_bank_edge"
 }])
+terrain_polygons = Array[Dictionary]([{"id": "P-R18:entry:lintel", "material": "masonry", "points": [[32, 992], [160, 992], [160, 1056], [32, 1056]]}])
+one_way_indices = Array[int]([2, 3, 4, 7, 10, 11, 13, 15, 17, 19])
+illustrated_platform_indices = Array[int]([2, 3, 4, 7, 10, 11, 13, 15, 17, 19])
 
 [node name="IrrigationCage" type="AnimatableBody2D" parent="." unique_id=1951713235]
 position = Vector2(2240, 1376)

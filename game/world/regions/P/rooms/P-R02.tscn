@@ -30,28 +30,146 @@ route_guide = {
 "point": [640.0, 1166.0]
 }]
 }
-art_placements = Array[Dictionary]([{
-"asset": "waiting_shelter",
-"layer": -2.0,
-"point": [696.0, 896.0]
-}, {
-"asset": "storage_crates",
-"layer": -2.0,
-"point": [1120.0, 896.0]
-}, {
-"asset": "windmill_frame",
-"layer": -2.0,
-"point": [1192.0, 576.0]
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [240.0, 896.0],
-"sway": true
-}, {
-"asset": "travel_bundle",
-"layer": -2.0,
-"point": [880.0, 896.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "plains_grass",
+    "point": [
+      240,
+      896
+    ],
+    "layer": -5,
+    "sway": true,
+    "landscape": "junction_meadow",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.35
+    ],
+    "landscape_reference": [
+      672,
+      650
+    ],
+    "landscape_offset": [
+      0,
+      -100
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
+    "atmosphere": {
+      "density": 4,
+      "speed": [
+        24,
+        42
+      ],
+      "sway_speed": 0.8
+    }
+  },
+  {
+    "asset": "waiting_shelter",
+    "point": [
+      696,
+      896
+    ],
+    "layer": -3
+  },
+  {
+    "asset": "storage_crates",
+    "point": [
+      1120,
+      896
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "windmill_frame",
+    "point": [
+      1192,
+      576
+    ],
+    "layer": -12,
+    "tint": [
+      0.74,
+      0.82,
+      0.77,
+      1
+    ]
+  },
+  {
+    "asset": "travel_bundle",
+    "point": [
+      880,
+      896
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      912,
+      224
+    ],
+    "layer": -14,
+    "hoist_cable": "RoofWinch",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "forecourt_foundation",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      576,
+      960,
+      768,
+      320
+    ],
+    "layer": -24,
+    "tint": [
+      0.75,
+      0.8,
+      0.76,
+      1
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      784,
+      896
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1200,
+      1184
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "surface_platform": 3
+  },
+  {
+    "surface_platform": 5
+  },
+  {
+    "surface_platform": 6
+  }
+])
 art_profile = "shelter"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[1136.0, 512.0], [848.0, 160.0]],
@@ -59,17 +177,24 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "RoofWinch",
 "id": "P02:roof_winch"
 }])
-platforms = Array[Rect2]([Rect2(0, 896, 448, 384), Rect2(576, 896, 768, 64), Rect2(576, 1184, 768, 96), Rect2(384, 1056, 192, 32), Rect2(1056, 576, 288, 64), Rect2(704, 224, 256, 32), Rect2(352, 160, 192, 32)])
+platforms = Array[Rect2]([Rect2(32, 896, 416, 352), Rect2(576, 896, 736, 64), Rect2(576, 1184, 736, 64), Rect2(448, 1056, 128, 32), Rect2(1056, 576, 256, 64), Rect2(704, 224, 256, 32), Rect2(352, 160, 192, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R02:art_placements:0", "P-R02:art_placements:1", "P-R02:art_placements:2", "P-R02:art-pass:0", "P-R02:art-pass:1"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R02:platforms:0", "P-R02:platforms:1", "P-R02:platforms:2", "P-R02:platforms:3", "P-R02:platforms:4", "P-R02:platforms:5", "P-R02:platforms:6"],
-"retry_anchors": [],
-"signs": []
+  "art_placements": ["P-R02:composition:0", "P-R02:composition:1", "P-R02:composition:2", "P-R02:composition:3", "P-R02:composition:4", "P-R02:composition:5", "P-R02:composition:6", "P-R02:composition:7", "P-R02:composition:8", "P-R02:composition:9", "P-R02:composition:10", "P-R02:composition:11"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R02:platforms:0",
+    "P-R02:platforms:1",
+    "P-R02:platforms:2",
+    "P-R02:platforms:3",
+    "P-R02:platforms:4",
+    "P-R02:platforms:5",
+    "P-R02:platforms:6"
+  ],
+  "retry_anchors": [],
+  "signs": []
 }
-one_way_indices = Array[int]([3, 5, 6])
 start_point = Vector2(144, 878)
 rest_point = Vector2(688, 878)
 enemy_placements = Array[Dictionary]([{
@@ -83,6 +208,8 @@ spike_strips = Array[Dictionary]([{
 "facing": "up",
 "id": "P-R02:review06:maintenance_teeth"
 }])
+one_way_indices = Array[int]([3, 5, 6])
+illustrated_platform_indices = Array[int]([3, 5, 6])
 
 [node name="RoofWinch" type="AnimatableBody2D" parent="." unique_id=1955164023]
 position = Vector2(960, 832)

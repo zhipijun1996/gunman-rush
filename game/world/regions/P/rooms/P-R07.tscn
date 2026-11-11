@@ -50,41 +50,163 @@ retry_anchors = Array[Dictionary]([{
 "point": [1744.0, 1198.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "windmill_frame",
-"layer": -2.0,
-"point": [1488.0, 1024.0]
-}, {
-"asset": "plain_pier",
-"layer": -2.0,
-"point": [1312.0, 1024.0],
-"support_height": 160.0
-}, {
-"asset": "storage_crates",
-"layer": -2.0,
-"point": [624.0, 960.0]
-}, {
-"asset": "windchime_plains_near_v2",
-"layer": -2.0,
-"point": [160.0, 1088.0],
-"sway": true
-}, {
-"asset": "travel_bundle",
-"layer": -2.0,
-"point": [2000.0, 416.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "plains_grass",
+    "point": [
+      160,
+      1088
+    ],
+    "layer": -5,
+    "sway": true,
+    "landscape": "junction_meadow",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.35
+    ],
+    "landscape_reference": [
+      1056,
+      1088
+    ],
+    "landscape_offset": [
+      0,
+      110
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
+    "atmosphere": {
+      "density": 4,
+      "speed": [
+        24,
+        42
+      ],
+      "sway_speed": 0.8
+    }
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      1512,
+      1024
+    ],
+    "layer": -6,
+    "tint": [
+      0.68,
+      0.78,
+      0.74,
+      1
+    ]
+  },
+  {
+    "support_height": 128,
+    "point": [
+      1312,
+      1216
+    ]
+  },
+  {
+    "asset": "storage_crates",
+    "point": [
+      624,
+      960
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "travel_bundle",
+    "point": [
+      2000,
+      416
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      1664,
+      1280,
+      384,
+      512
+    ],
+    "curved_wall": [
+      1664,
+      1280,
+      384,
+      512
+    ],
+    "layer": -25
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1984,
+      1696
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "windchime_plains_near_v2",
+    "point": [
+      160,
+      1088
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "surface_platform": 4
+  },
+  {
+    "surface_platform": 5
+  },
+  {
+    "surface_platform": 7
+  }
+])
 art_profile = "overlook"
-platforms = Array[Rect2]([Rect2(0, 1088, 704, 192), Rect2(928, 1024, 736, 64), Rect2(1664, 1216, 128, 64), Rect2(1920, 1696, 128, 96), Rect2(1664, 1536, 192, 32), Rect2(1856, 1376, 192, 32), Rect2(576, 960, 192, 128), Rect2(1216, 864, 256, 32), Rect2(704, 1216, 960, 64), Rect2(1152, 928, 64, 96), Rect2(1664, 640, 448, 64), Rect2(1856, 416, 256, 64), Rect2(1472, 320, 224, 32), Rect2(1056, 160, 256, 32)])
+platforms = Array[Rect2]([Rect2(32, 1088, 672, 160), Rect2(928, 1024, 736, 64), Rect2(1664, 1216, 128, 64), Rect2(1920, 1696, 96, 64), Rect2(1696, 1536, 160, 32), Rect2(1856, 1376, 160, 32), Rect2(576, 960, 192, 128), Rect2(1216, 864, 256, 32), Rect2(704, 1216, 960, 32), Rect2(1152, 928, 64, 96), Rect2(1664, 640, 416, 64), Rect2(1856, 416, 224, 64), Rect2(1472, 320, 224, 32), Rect2(1056, 160, 256, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R07:art_placements:0", "P-R07:art_placements:1", "P-R07:art_placements:2", "P-R07:art-pass:0", "P-R07:art-pass:1"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": ["P-R07:review05:upper_left_reward_hook"],
-"platforms": ["P-R07:platforms:0", "P-R07:platforms:1", "P-R07:platforms:2", "P-R07:platforms:3", "P-R07:platforms:4", "P-R07:platforms:5", "P-R07:platforms:6", "P-R07:platforms:7", "P-R07:review04:arch_low_floor", "P-R07:review04:peek_cover", "P-R07:review04:lookout_wall_shoulder", "P-R07:review04:lookout_loft", "P-R07:review05:upper_transfer_ledge", "P-R07:review05:upper_left_reward_ledge"],
-"retry_anchors": ["P-R07:retry_anchors:0", "P-R07:retry_anchors:1"],
-"signs": []
+  "art_placements": ["P-R07:composition:0", "P-R07:composition:1", "P-R07:composition:2", "P-R07:composition:3", "P-R07:composition:4", "P-R07:composition:5", "P-R07:composition:6", "P-R07:composition:7", "P-R07:composition:8", "P-R07:composition:9", "P-R07:composition:10"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [
+    "P-R07:review05:upper_left_reward_hook"
+  ],
+  "platforms": [
+    "P-R07:platforms:0",
+    "P-R07:platforms:1",
+    "P-R07:platforms:2",
+    "P-R07:platforms:3",
+    "P-R07:platforms:4",
+    "P-R07:platforms:5",
+    "P-R07:platforms:6",
+    "P-R07:platforms:7",
+    "P-R07:review04:arch_low_floor",
+    "P-R07:review04:peek_cover",
+    "P-R07:review04:lookout_wall_shoulder",
+    "P-R07:review04:lookout_loft",
+    "P-R07:review05:upper_transfer_ledge",
+    "P-R07:review05:upper_left_reward_ledge"
+  ],
+  "retry_anchors": [
+    "P-R07:retry_anchors:0",
+    "P-R07:retry_anchors:1"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([4, 5, 7])
 start_point = Vector2(144, 1070)
 enemy_placements = Array[Dictionary]([{
 "behavior": "sentry",
@@ -120,6 +242,9 @@ spike_strips = Array[Dictionary]([{
 "id": "P-R07:review05:middle_teeth"
 }])
 hook_points = Array[Vector2]([Vector2(1344, 96)])
+one_way_indices = Array[int]([4, 5, 7])
+illustrated_platform_indices = Array[int]([4, 5, 7])
+masonry_platform_indices = Array[int]([1, 2, 3, 8, 9])
 
 [node name="Cache_hook_cache" type="Node2D" parent="." unique_id=627940546]
 position = Vector2(1120, 142)

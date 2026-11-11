@@ -42,47 +42,224 @@ retry_anchors = Array[Dictionary]([{
 "point": [2352.0, 1006.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "bell_post",
-"layer": -2.0,
-"point": [608.0, 1664.0]
-}, {
-"asset": "storage_crates",
-"layer": -2.0,
-"point": [1520.0, 1440.0]
-}, {
-"asset": "travel_bundle",
-"layer": -2.0,
-"point": [528.0, 1984.0]
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [816.0, 1632.0],
-"sway": true
-}, {
-"asset": "aqi_ribbon",
-"layer": -2.0,
-"point": [2496.0, 1024.0],
-"sway": true
-}])
-art_profile = "junction"
+art_placements = Array[Dictionary]([
+  {
+    "asset": "forecourt_foundation",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      0,
+      0,
+      2816,
+      2176
+    ],
+    "layer": -46,
+    "tint": [
+      0.68,
+      0.73,
+      0.72,
+      1
+    ],
+    "backdrop": true,
+    "environment": {
+      "ambient": "8b9294",
+      "restored": "8b9294",
+      "threshold_opacity": 0.12,
+      "threshold_energy": 0.65
+    },
+    "atmosphere": {
+      "density": 1,
+      "speed": [
+        4,
+        8
+      ],
+      "sway_speed": 0.3
+    }
+  },
+  {
+    "asset": "junction_transfer",
+    "point": [
+      1408,
+      2176
+    ],
+    "layer": -40,
+    "tint": [
+      0.88,
+      0.92,
+      0.9,
+      1
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      512,
+      768
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      736,
+      1632
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1568,
+      640
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2112,
+      160
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2320,
+      1024
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1952,
+      2080
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      464,
+      1984
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "storage_crates",
+    "point": [
+      1520,
+      1440
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "travel_bundle",
+    "point": [
+      528,
+      1984
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      1984,
+      96
+    ],
+    "layer": -15,
+    "tint": [
+      0.62,
+      0.7,
+      0.72,
+      1
+    ],
+    "hoist_cable": "JunctionLift",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "surface_platform": 1
+  },
+  {
+    "surface_platform": 6
+  },
+  {
+    "surface_platform": 7
+  },
+  {
+    "surface_platform": 9
+  },
+  {
+    "surface_platform": 10
+  },
+  {
+    "surface_platform": 11
+  },
+  {
+    "surface_platform": 12
+  },
+  {
+    "surface_platform": 13
+  },
+  {
+    "surface_platform": 15
+  },
+  {
+    "surface_platform": 16
+  }
+])
+art_profile = "well"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[2096.0, 992.0], [1968.0, 96.0]],
 "bell": [2080.0, 2000.0],
 "carrier": "JunctionLift",
 "id": "P35:junction_lift"
 }])
-platforms = Array[Rect2]([Rect2(192, 1984, 448, 32), Rect2(32, 1664, 640, 32), Rect2(672, 1632, 736, 64), Rect2(1408, 2112, 320, 64), Rect2(1920, 2080, 320, 96), Rect2(2240, 1024, 576, 64), Rect2(1792, 160, 384, 32), Rect2(96, 416, 192, 32), Rect2(256, 768, 448, 64), Rect2(768, 1216, 384, 32), Rect2(1248, 1440, 320, 32), Rect2(1568, 1824, 384, 32), Rect2(1792, 576, 384, 32), Rect2(384, 1824, 192, 32), Rect2(896, 768, 416, 48), Rect2(1376, 640, 384, 32), Rect2(448, 576, 192, 32)])
+platforms = Array[Rect2]([Rect2(224, 1984, 384, 32), Rect2(64, 1664, 608, 32), Rect2(672, 1632, 736, 64), Rect2(1440, 2112, 288, 32), Rect2(1920, 2080, 288, 64), Rect2(2240, 1024, 544, 64), Rect2(1824, 160, 320, 32), Rect2(192, 416, 96, 32), Rect2(256, 768, 448, 64), Rect2(768, 1216, 384, 32), Rect2(1248, 1440, 320, 32), Rect2(1568, 1824, 384, 32), Rect2(1792, 576, 384, 32), Rect2(384, 1824, 192, 32), Rect2(896, 768, 416, 48), Rect2(1376, 640, 384, 32), Rect2(448, 576, 192, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R35:art_placements:0", "P-R35:art_placements:1", "P-R35:art-pass:0", "P-R35:art-pass:1", "P-R35:art-pass:2"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R35:platforms:0", "P-R35:platforms:1", "P-R35:platforms:2", "P-R35:platforms:3", "P-R35:platforms:4", "P-R35:platforms:5", "P-R35:platforms:6", "P-R35:platforms:7", "P-R35:platforms:8", "P-R35:platforms:9", "P-R35:platforms:10", "P-R35:platforms:11", "P-R35:platforms:12", "P-R35:platforms:13", "P-R35:review06:upper_west_bank", "P-R35:review06:upper_transfer", "P-R35:review06:west_return_shoulder"],
-"retry_anchors": ["P-R35:retry_anchors:0", "P-R35:retry_anchors:1", "P-R35:retry_anchors:2"],
-"signs": []
+  "art_placements": ["P-R35:composition:0", "P-R35:composition:1", "P-R35:composition:2", "P-R35:composition:3", "P-R35:composition:4", "P-R35:composition:5", "P-R35:composition:6", "P-R35:composition:7", "P-R35:composition:8", "P-R35:composition:9", "P-R35:composition:10", "P-R35:composition:11", "P-R35:composition:12", "P-R35:composition:13", "P-R35:composition:14", "P-R35:composition:15", "P-R35:composition:16", "P-R35:composition:17", "P-R35:composition:18", "P-R35:composition:19", "P-R35:composition:20", "P-R35:composition:21"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R35:platforms:0",
+    "P-R35:platforms:1",
+    "P-R35:platforms:2",
+    "P-R35:platforms:3",
+    "P-R35:platforms:4",
+    "P-R35:platforms:5",
+    "P-R35:platforms:6",
+    "P-R35:platforms:7",
+    "P-R35:platforms:8",
+    "P-R35:platforms:9",
+    "P-R35:platforms:10",
+    "P-R35:platforms:11",
+    "P-R35:platforms:12",
+    "P-R35:platforms:13",
+    "P-R35:review06:upper_west_bank",
+    "P-R35:review06:upper_transfer",
+    "P-R35:review06:west_return_shoulder"
+  ],
+  "retry_anchors": [
+    "P-R35:retry_anchors:0",
+    "P-R35:retry_anchors:1",
+    "P-R35:retry_anchors:2"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([1, 6, 7, 9, 10, 11, 12, 13, 15, 16])
 start_point = Vector2(336, 1966)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",
@@ -110,6 +287,9 @@ spike_strips = Array[Dictionary]([{
 "facing": "up",
 "id": "P-R35:review06:middle_edge_trim"
 }])
+one_way_indices = Array[int]([1, 6, 7, 9, 10, 11, 12, 13, 15, 16])
+illustrated_platform_indices = Array[int]([1, 6, 7, 9, 10, 11, 12, 13, 15, 16])
+masonry_platform_indices = Array[int]([0, 2, 3, 4, 5, 8, 14])
 
 [node name="JunctionLift" type="AnimatableBody2D" parent="." unique_id=1567454785]
 position = Vector2(2080, 2032)

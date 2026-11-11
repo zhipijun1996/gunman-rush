@@ -60,30 +60,87 @@ retry_anchors = Array[Dictionary]([{
 "point": [304.0, 622.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "gear_city_v2_pipe_junction",
-"layer": -2.0,
-"point": [512.0, 896.0]
-}, {
-"asset": "hanging_chime",
-"layer": -2.0,
-"point": [1056.0, 544.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [288.0, 640.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1040.0, 544.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [624.0, 896.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "spring_cellar",
+    "point": [
+      832,
+      1152
+    ],
+    "layer": -38,
+    "backdrop": true,
+    "environment": {
+      "ambient": "a5afb0",
+      "restored": "a5afb0"
+    },
+    "atmosphere": {
+      "density": 3,
+      "speed": [
+        2,
+        6
+      ]
+    }
+  },
+  {
+    "asset": "gear_city_v2_pipe_junction",
+    "point": [
+      512,
+      896
+    ],
+    "layer": -6
+  },
+  {
+    "asset": "gear_city_v2_valve_panel",
+    "point": [
+      1056,
+      544
+    ],
+    "layer": -5
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      960,
+      320
+    ],
+    "layer": -5,
+    "hoist_cable": "PumpFerry",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "surface_platform": 4
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      288,
+      640
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1000,
+      544
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      624,
+      896
+    ],
+    "layer": -3,
+    "light": true
+  }
+])
 art_profile = "well"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[744.0, 848.0], [1280.0, 272.0]],
@@ -92,17 +149,34 @@ bell_mechanisms = Array[Dictionary]([{
 "gate": [0.0, 0.0, 1.0, 1.0],
 "id": "P-R30:review03:pump_ferry_bell"
 }])
-platforms = Array[Rect2]([Rect2(0, 256, 320, 64), Rect2(896, 320, 768, 128), Rect2(896, 320, 32, 448), Rect2(928, 544, 224, 32), Rect2(0, 896, 1216, 64), Rect2(0, 640, 384, 256), Rect2(416, 448, 192, 64), Rect2(384, 768, 128, 128)])
+platforms = Array[Rect2]([Rect2(32, 256, 288, 64), Rect2(896, 320, 736, 96), Rect2(896, 416, 320, 32), Rect2(896, 448, 32, 320), Rect2(928, 544, 224, 32), Rect2(32, 896, 1152, 32), Rect2(32, 640, 352, 256), Rect2(416, 448, 192, 64), Rect2(384, 768, 128, 128)])
 workbench_entity_ids = {
-"art_placements": ["P-R30:art_placements:0", "P-R30:art_placements:1", "P-R30:art-pass:0", "P-R30:art-pass:1", "P-R30:art-pass:2"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": ["P-R30:hook_points:0", "P-R30:hook_points:1", "P-R30:hook_points:2"],
-"platforms": ["P-R30:platforms:0", "P-R30:platforms:1", "P-R30:platforms:2", "P-R30:platforms:3", "P-R30:platforms:4", "P-R30:platforms:5", "P-R30:platforms:6", "P-R30:platforms:7"],
-"retry_anchors": ["P-R30:retry_anchors:0", "P-R30:retry_anchors:1", "P-R30:review03:retry_launch"],
-"signs": []
+  "art_placements": ["P-R30:composition:0", "P-R30:composition:1", "P-R30:composition:2", "P-R30:composition:3", "P-R30:composition:4", "P-R30:composition:5", "P-R30:composition:6", "P-R30:composition:7"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [
+    "P-R30:hook_points:0",
+    "P-R30:hook_points:1",
+    "P-R30:hook_points:2"
+  ],
+  "platforms": [
+    "P-R30:platforms:0",
+    "P-R30:platforms:1",
+    "P-R30:platforms:1:inner:1",
+    "P-R30:platforms:2",
+    "P-R30:platforms:3",
+    "P-R30:platforms:4",
+    "P-R30:platforms:5",
+    "P-R30:platforms:6",
+    "P-R30:platforms:7"
+  ],
+  "retry_anchors": [
+    "P-R30:retry_anchors:0",
+    "P-R30:retry_anchors:1",
+    "P-R30:review03:retry_launch"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([3])
 start_point = Vector2(144, 238)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",
@@ -121,6 +195,8 @@ spike_strips = Array[Dictionary]([{
 "id": "P-R30:review03:low_channel_teeth"
 }])
 hook_points = Array[Vector2]([Vector2(800, 736), Vector2(1008, 736), Vector2(1008, 576)])
+one_way_indices = Array[int]([4])
+illustrated_platform_indices = Array[int]([4])
 
 [node name="Interaction_0" type="Node2D" parent="." unique_id=1366935076]
 position = Vector2(1040, 526)

@@ -54,63 +54,69 @@ retry_anchors = Array[Dictionary]([{
 }])
 art_placements = Array[Dictionary]([
   {
-    "asset": "tilted_barrel",
-    "fade_near": true,
-    "layer": -2.0,
+    "asset": "plains_grass",
     "point": [
-      432.0,
-      1216.0
+      1744,
+      928
     ],
-    "landscape": "opening_plains",
+    "layer": -5,
+    "sway": true,
+    "landscape": "orchard",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.35
+    ],
+    "landscape_reference": [
+      960,
+      800
+    ],
+    "landscape_offset": [
+      0,
+      120
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
     "atmosphere": {
       "density": 4,
       "speed": [
-        43,
-        66
+        24,
+        42
       ],
-      "sway_speed": 1.1
+      "sway_speed": 0.8
     }
   },
   {
-    "asset": "hanging_chime",
-    "layer": -2.0,
+    "asset": "tilted_barrel",
     "point": [
-      1120.0,
-      576.0
-    ]
+      432,
+      1216
+    ],
+    "layer": -5
   },
   {
-    "asset": "plains_grass",
-    "layer": -2.0,
+    "asset": "hanging_chime",
     "point": [
-      1744.0,
-      928.0
+      1120,
+      576
     ],
-    "sway": true
+    "layer": -3
   },
   {
     "asset": "windchime_plains_near_v2",
-    "layer": -2.0,
     "point": [
-      768.0,
-      1216.0
+      768,
+      1216
     ],
+    "layer": -5,
     "sway": true
-  },
-  {
-    "asset": "opening_road_ridge",
-    "point": [
-      1424,
-      1380
-    ],
-    "layer": -40,
-    "depth": 0.88,
-    "tint": [
-      0.72,
-      0.85,
-      0.84,
-      0.75
-    ]
   },
   {
     "asset": "orchard_fence",
@@ -127,27 +133,61 @@ art_placements = Array[Dictionary]([
     ]
   },
   {
-    "asset": "plains_grass",
+    "support_height": 224,
     "point": [
-      608,
-      704
+      1120,
+      1216
+    ]
+  },
+  {
+    "asset": "forecourt_foundation",
+    "point": [
+      0,
+      0
     ],
-    "layer": -5,
-    "sway": true
+    "tile_rect": [
+      1504,
+      992,
+      384,
+      224
+    ],
+    "layer": -24,
+    "tint": [
+      0.74,
+      0.81,
+      0.78,
+      1
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1824,
+      1216
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "surface_platform": 5
+  },
+  {
+    "surface_platform": 6
+  },
+  {
+    "surface_platform": 7
+  },
+  {
+    "surface_platform": 8
+  },
+  {
+    "surface_platform": 11
   }
 ])
 art_profile = "bridge"
 platforms = Array[Rect2]([Rect2(32, 1216, 928, 32), Rect2(1504, 928, 384, 64), Rect2(992, 928, 256, 64), Rect2(384, 928, 320, 64), Rect2(128, 1088, 256, 128), Rect2(512, 704, 288, 64), Rect2(768, 576, 448, 64), Rect2(1056, 384, 256, 32), Rect2(1248, 160, 192, 48), Rect2(1088, 1216, 800, 32), Rect2(1856, 992, 32, 224), Rect2(1376, 1088, 128, 32)])
 workbench_entity_ids = {
-  "art_placements": [
-    "P-R04:art_placements:2",
-    "P-R04:art_placements:3",
-    "P-R04:art-pass:0",
-    "P-R04:art-pass:1",
-    "P-R04:art:clockroute:0",
-    "P-R04:art:clockroute:1",
-    "P-R04:art:clockroute:2"
-  ],
+  "art_placements": ["P-R04:composition:0", "P-R04:composition:1", "P-R04:composition:2", "P-R04:composition:3", "P-R04:composition:4", "P-R04:composition:5", "P-R04:composition:6", "P-R04:composition:7", "P-R04:composition:8", "P-R04:composition:9", "P-R04:composition:10", "P-R04:composition:11", "P-R04:composition:12"],
   "climbable_walls": [],
   "hazards": [],
   "hook_points": [],
@@ -174,7 +214,6 @@ workbench_entity_ids = {
   "signs": []
 }
 one_way_indices = Array[int]([5, 6, 7, 8, 11])
-masonry_platform_indices = Array[int]([1, 2, 3])
 start_point = Vector2(1776, 910)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",
@@ -210,6 +249,8 @@ spike_strips = Array[Dictionary]([{
 "facing": "up",
 "id": "P-R04:stone_right_edge"
 }])
+illustrated_platform_indices = Array[int]([5, 6, 7, 8, 11])
+masonry_platform_indices = Array[int]([1, 2, 3, 9, 10])
 
 [node name="Cache_bridge_cache" type="Node2D" parent="." unique_id=1560930615]
 position = Vector2(1776, 1198)

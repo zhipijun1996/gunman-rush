@@ -68,59 +68,197 @@ retry_anchors = Array[Dictionary]([{
 "point": [1104.0, 462.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [272.0, 3328.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [720.0, 1472.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [288.0, 1344.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [944.0, 1216.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [720.0, 960.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1120.0, 704.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1088.0, 480.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [784.0, 160.0]
-}, {
-"asset": "storage_crates",
-"layer": -2.0,
-"point": [224.0, 1344.0]
-}, {
-"asset": "tilted_barrel",
-"layer": -2.0,
-"point": [1648.0, 1280.0]
-}, {
-"asset": "gear_city_v2_valve_panel",
-"layer": -2.0,
-"point": [1408.0, 1280.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      0,
+      0,
+      1728,
+      3584
+    ],
+    "layer": -45,
+    "backdrop": true,
+    "environment": {
+      "ambient": "a6afb1",
+      "restored": "a6afb1"
+    },
+    "atmosphere": {
+      "density": 3,
+      "speed": [
+        2,
+        6
+      ]
+    }
+  },
+  {
+    "asset": "spring_cellar",
+    "point": [
+      864,
+      1536
+    ],
+    "layer": -38
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      320,
+      1536,
+      448,
+      1472
+    ],
+    "curved_wall": [
+      320,
+      1536,
+      448,
+      1472
+    ],
+    "layer": -34
+  },
+  {
+    "asset": "forecourt_foundation",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      128,
+      3008,
+      832,
+      576
+    ],
+    "layer": -33,
+    "tint": [
+      0.9,
+      0.97,
+      1,
+      1
+    ]
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      736,
+      1472
+    ],
+    "layer": -5,
+    "hoist_cable": "DrainCage",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "storage_crates",
+    "point": [
+      224,
+      1344
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "tilted_barrel",
+    "point": [
+      1648,
+      1280
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "gear_city_v2_valve_panel",
+    "point": [
+      1408,
+      1280
+    ],
+    "layer": -6
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      272,
+      3328
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      704,
+      1472
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      288,
+      1344
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      944,
+      1216
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      720,
+      960
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1120,
+      704
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1088,
+      480
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      784,
+      160
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "surface_platform": 3
+  },
+  {
+    "surface_platform": 8
+  }
+])
 art_profile = "cellar"
 bell_mechanisms = Array[Dictionary]([{
 "bell": [920.0, 592.0],
@@ -128,18 +266,37 @@ bell_mechanisms = Array[Dictionary]([{
 "id": "P-R12:air_shutter",
 "open_seconds": 1.6
 }])
-platforms = Array[Rect2]([Rect2(672, 160, 192, 32), Rect2(128, 3328, 288, 64), Rect2(128, 3552, 832, 32), Rect2(992, 480, 192, 64), Rect2(704, 320, 192, 32), Rect2(1344, 1280, 384, 256), Rect2(0, 1344, 384, 192), Rect2(576, 416, 192, 64), Rect2(448, 1472, 320, 32), Rect2(896, 1216, 256, 32), Rect2(544, 960, 224, 32), Rect2(896, 704, 256, 32), Rect2(960, 192, 32, 192)])
+platforms = Array[Rect2]([Rect2(672, 160, 192, 32), Rect2(160, 3328, 256, 64), Rect2(992, 480, 192, 64), Rect2(704, 320, 192, 32), Rect2(1344, 1280, 352, 224), Rect2(32, 1344, 352, 160), Rect2(320, 1504, 64, 32), Rect2(608, 416, 160, 64), Rect2(448, 1472, 320, 32), Rect2(896, 1216, 256, 32), Rect2(544, 960, 224, 32), Rect2(896, 704, 256, 32), Rect2(960, 224, 32, 160)])
 workbench_entity_ids = {
-"art_placements": ["P-R12:composition:art:0", "P-R12:composition:art:1", "P-R12:composition:art:2", "P-R12:composition:art:3", "P-R12:composition:art:4", "P-R12:composition:art:5", "P-R12:composition:art:6", "P-R12:composition:art:7", "P-R12:composition:art:8", "P-R12:composition:art:9", "P-R12:composition:art:10"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R12:composition:platforms:0", "P-R12:composition:platforms:1", "P-R12:composition:platforms:2", "P-R12:composition:platforms:3", "P-R12:composition:platforms:4", "P-R12:composition:platforms:5", "P-R12:composition:platforms:6", "P-R12:composition:platforms:7", "P-R12:composition:platforms:8", "P-R12:composition:platforms:9", "P-R12:composition:platforms:10", "P-R12:composition:platforms:11", "P-R12:composition:platforms:12"],
-"retry_anchors": ["P-R12:composition:retry_anchors:0", "P-R12:composition:retry_anchors:1", "P-R12:composition:retry_anchors:2", "P-R12:composition:retry_anchors:3", "P-R12:composition:retry_anchors:4", "P-R12:composition:retry_anchors:5"],
-"signs": []
+  "art_placements": ["P-R12:composition:0", "P-R12:composition:1", "P-R12:composition:2", "P-R12:composition:3", "P-R12:composition:4", "P-R12:composition:5", "P-R12:composition:6", "P-R12:composition:7", "P-R12:composition:8", "P-R12:composition:9", "P-R12:composition:10", "P-R12:composition:11", "P-R12:composition:12", "P-R12:composition:13", "P-R12:composition:14", "P-R12:composition:15", "P-R12:composition:16", "P-R12:composition:17"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R12:composition:platforms:0",
+    "P-R12:composition:platforms:1",
+    "P-R12:composition:platforms:3",
+    "P-R12:composition:platforms:4",
+    "P-R12:composition:platforms:5",
+    "P-R12:composition:platforms:6",
+    "P-R12:composition:platforms:6:inner:1",
+    "P-R12:composition:platforms:7",
+    "P-R12:composition:platforms:8",
+    "P-R12:composition:platforms:9",
+    "P-R12:composition:platforms:10",
+    "P-R12:composition:platforms:11",
+    "P-R12:composition:platforms:12"
+  ],
+  "retry_anchors": [
+    "P-R12:composition:retry_anchors:0",
+    "P-R12:composition:retry_anchors:1",
+    "P-R12:composition:retry_anchors:2",
+    "P-R12:composition:retry_anchors:3",
+    "P-R12:composition:retry_anchors:4",
+    "P-R12:composition:retry_anchors:5"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([4, 8])
-masonry_platform_indices = Array[int]([0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 12])
 start_point = Vector2(768, 142)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",
@@ -181,6 +338,9 @@ gear_obstacles = Array[Dictionary]([{
 "point": [768.0, 1040.0],
 "travel": [112.0, 80.0]
 }])
+one_way_indices = Array[int]([3, 8])
+illustrated_platform_indices = Array[int]([3, 8])
+masonry_platform_indices = Array[int]([0, 1, 2, 4, 5, 6, 7, 9, 10, 11, 12])
 
 [node name="Interaction_0" type="Node2D" parent="." unique_id=200022178]
 position = Vector2(1104, 462)

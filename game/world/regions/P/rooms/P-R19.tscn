@@ -64,44 +64,213 @@ retry_anchors = Array[Dictionary]([{
 "point": [1008.0, 942.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "sunken_well",
-"layer": -2.0,
-"point": [320.0, 1920.0]
-}, {
-"asset": "windchime_plains_v2_seed_relic",
-"layer": -2.0,
-"point": [1952.0, 1648.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1024.0, 160.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [448.0, 1920.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [816.0, 1536.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1056.0, 960.0]
-}, {
-"asset": "gear_city_v2_pipe_junction",
-"layer": -2.0,
-"point": [1856.0, 2304.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [512.0, 2496.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      0,
+      0,
+      2624,
+      2816
+    ],
+    "layer": -45,
+    "backdrop": true,
+    "environment": {
+      "ambient": "9ba7aa",
+      "restored": "9ba7aa"
+    },
+    "atmosphere": {
+      "density": 3,
+      "speed": [
+        2,
+        6
+      ]
+    }
+  },
+  {
+    "asset": "spring_cellar",
+    "point": [
+      1312,
+      2816
+    ],
+    "layer": -38,
+    "tint": [
+      0.88,
+      0.93,
+      0.9,
+      1
+    ]
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      832,
+      0,
+      384,
+      960
+    ],
+    "curved_wall": [
+      832,
+      0,
+      384,
+      1536
+    ],
+    "layer": -34
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      640,
+      960,
+      576,
+      576
+    ],
+    "curved_wall": [
+      640,
+      960,
+      576,
+      576
+    ],
+    "layer": -34
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      976,
+      1536
+    ],
+    "layer": -5,
+    "hoist_cable": "RootCage",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      992,
+      960
+    ],
+    "layer": -5,
+    "hoist_cable": "MiddleCage",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      976,
+      160
+    ],
+    "layer": -5,
+    "hoist_cable": "UpperCage",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "gear_city_v2_pipe_junction",
+    "point": [
+      1856,
+      2304
+    ],
+    "layer": -6
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1024,
+      160
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      448,
+      1920
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      816,
+      1536
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1056,
+      960
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      512,
+      2496
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2016,
+      1648
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "surface_platform": 3
+  },
+  {
+    "surface_platform": 4
+  },
+  {
+    "surface_platform": 5
+  },
+  {
+    "surface_platform": 6
+  },
+  {
+    "surface_platform": 7
+  },
+  {
+    "surface_platform": 8
+  },
+  {
+    "surface_platform": 11
+  },
+  {
+    "surface_platform": 12
+  }
+])
 art_profile = "well"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[960.0, 1008.0]],
@@ -114,17 +283,40 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "UpperCage",
 "id": "P-R19:review05:upper_cage"
 }])
-platforms = Array[Rect2]([Rect2(0, 1920, 640, 64), Rect2(640, 2304, 1408, 384), Rect2(2336, 2560, 288, 128), Rect2(2048, 2432, 288, 32), Rect2(768, 2144, 288, 32), Rect2(1216, 2192, 288, 32), Rect2(1888, 1648, 224, 48), Rect2(928, 160, 128, 32), Rect2(960, 960, 128, 32), Rect2(640, 1536, 368, 48), Rect2(0, 2688, 2112, 128), Rect2(320, 2496, 320, 32), Rect2(416, 2336, 224, 32), Rect2(832, 640, 176, 48)])
+platforms = Array[Rect2]([Rect2(32, 1920, 608, 64), Rect2(640, 2304, 1408, 384), Rect2(2336, 2560, 256, 96), Rect2(2048, 2432, 288, 32), Rect2(768, 2144, 288, 32), Rect2(1216, 2192, 288, 32), Rect2(1888, 1648, 192, 48), Rect2(928, 160, 128, 32), Rect2(960, 960, 128, 32), Rect2(640, 1536, 368, 48), Rect2(32, 2688, 2048, 96), Rect2(320, 2496, 320, 32), Rect2(416, 2336, 224, 32), Rect2(864, 640, 144, 48)])
 workbench_entity_ids = {
-"art_placements": ["P-R19:art_placements:0", "P-R19:art_placements:1", "P-R19:art_placements:2", "P-R19:art_placements:construction_lamp:3", "P-R19:art_placements:construction_lamp:4", "P-R19:art_placements:construction_lamp:5", "P-R19:art-pass:0", "P-R19:art-pass:1"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": ["P-R19:hook_points:0", "P-R19:hook_points:1", "P-R19:hook_points:2"],
-"platforms": ["P-R19:platforms:0", "P-R19:platforms:1", "P-R19:platforms:2", "P-R19:platforms:3", "P-R19:platforms:4", "P-R19:platforms:5", "P-R19:platforms:6", "P-R19:platforms:7", "P-R19:platforms:8", "P-R19:platforms:9", "P-R19:platforms:10", "P-R19:review05:cache_return_low", "P-R19:review05:cache_return_high", "P-R19:review05:shaft_balcony"],
-"retry_anchors": ["P-R19:retry_anchors:0", "P-R19:retry_anchors:1", "P-R19:review05:middle_retry", "P-R19:review05:upper_retry"],
-"signs": []
+  "art_placements": ["P-R19:composition:0", "P-R19:composition:1", "P-R19:composition:2", "P-R19:composition:3", "P-R19:composition:4", "P-R19:composition:5", "P-R19:composition:6", "P-R19:composition:7", "P-R19:composition:8", "P-R19:composition:9", "P-R19:composition:10", "P-R19:composition:11", "P-R19:composition:12", "P-R19:composition:13", "P-R19:composition:14", "P-R19:composition:15", "P-R19:composition:16", "P-R19:composition:17", "P-R19:composition:18", "P-R19:composition:19", "P-R19:composition:20", "P-R19:composition:21"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [
+    "P-R19:hook_points:0",
+    "P-R19:hook_points:1",
+    "P-R19:hook_points:2"
+  ],
+  "platforms": [
+    "P-R19:platforms:0",
+    "P-R19:platforms:1",
+    "P-R19:platforms:2",
+    "P-R19:platforms:3",
+    "P-R19:platforms:4",
+    "P-R19:platforms:5",
+    "P-R19:platforms:6",
+    "P-R19:platforms:7",
+    "P-R19:platforms:8",
+    "P-R19:platforms:9",
+    "P-R19:platforms:10",
+    "P-R19:review05:cache_return_low",
+    "P-R19:review05:cache_return_high",
+    "P-R19:review05:shaft_balcony"
+  ],
+  "retry_anchors": [
+    "P-R19:retry_anchors:0",
+    "P-R19:retry_anchors:1",
+    "P-R19:review05:middle_retry",
+    "P-R19:review05:upper_retry"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([3, 4, 5, 6, 7, 8, 11, 12])
 start_point = Vector2(144, 1902)
 enemy_placements = Array[Dictionary]([{
 "behavior": "hopper",
@@ -171,6 +363,8 @@ spike_strips = Array[Dictionary]([{
 "id": "P-R19:review05:transfer_teeth"
 }])
 hook_points = Array[Vector2]([Vector2(1472, 2136), Vector2(1632, 2080), Vector2(1792, 1984)])
+one_way_indices = Array[int]([3, 4, 5, 6, 7, 8, 11, 12])
+illustrated_platform_indices = Array[int]([3, 4, 5, 6, 7, 8, 11, 12])
 
 [node name="Interaction_0" type="Node2D" parent="." unique_id=1342324684]
 position = Vector2(1952, 1630)

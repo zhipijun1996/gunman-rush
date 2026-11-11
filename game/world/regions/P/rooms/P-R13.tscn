@@ -100,117 +100,68 @@ retry_anchors = Array[Dictionary]([{
 }])
 art_placements = Array[Dictionary]([
   {
-    "asset": "bell_post",
-    "layer": -2.0,
+    "asset": "plains_grass",
     "point": [
-      5808.0,
-      1856.0
+      6400,
+      1792
     ],
-    "landscape": "opening_plains",
+    "layer": -5,
+    "sway": true,
+    "landscape": "junction_meadow",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.35
+    ],
+    "landscape_reference": [
+      3552,
+      2400
+    ],
+    "landscape_offset": [
+      0,
+      100
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
     "atmosphere": {
-      "density": 3,
+      "density": 4,
       "speed": [
-        30,
-        46
+        24,
+        42
       ],
-      "sway_speed": 0.85
+      "sway_speed": 0.8
     }
   },
   {
     "asset": "bell_post",
-    "layer": -2.0,
     "point": [
-      1856.0,
-      2496.0
-    ]
+      5808,
+      1856
+    ],
+    "layer": -4
   },
   {
     "asset": "bell_post",
-    "layer": -2.0,
     "point": [
-      7040.0,
-      256.0
-    ]
-  },
-  {
-    "asset": "windchime_plains_near_v2",
-    "layer": -2.0,
-    "point": [
-      6400.0,
-      1792.0
+      1856,
+      2496
     ],
-    "sway": true
-  },
-  {
-    "asset": "plains_grass",
-    "layer": -2.0,
-    "point": [
-      4416,
-      2400
-    ],
-    "sway": true
-  },
-  {
-    "asset": "windchime_plains_near_v2",
-    "layer": -2.0,
-    "point": [
-      1168.0,
-      2496.0
-    ],
-    "sway": true
+    "layer": -4
   },
   {
     "asset": "travel_bundle",
-    "layer": -2.0,
     "point": [
-      5744.0,
-      2496.0
-    ]
-  },
-  {
-    "asset": "opening_road_ridge",
-    "point": [
-      1120,
-      2640
+      5744,
+      2496
     ],
-    "layer": -40,
-    "depth": 0.88,
-    "tint": [
-      0.72,
-      0.85,
-      0.84,
-      0.75
-    ]
-  },
-  {
-    "asset": "opening_road_ridge",
-    "point": [
-      3280,
-      2672
-    ],
-    "layer": -40,
-    "depth": 0.88,
-    "tint": [
-      0.72,
-      0.85,
-      0.84,
-      0.75
-    ]
-  },
-  {
-    "asset": "opening_road_ridge",
-    "point": [
-      5728,
-      2656
-    ],
-    "layer": -40,
-    "depth": 0.88,
-    "tint": [
-      0.72,
-      0.85,
-      0.84,
-      0.75
-    ]
+    "layer": -4
   },
   {
     "asset": "orchard_fence",
@@ -218,21 +169,7 @@ art_placements = Array[Dictionary]([
       2336,
       2496
     ],
-    "layer": -5,
-    "tint": [
-      0.6,
-      0.7,
-      0.7,
-      1
-    ]
-  },
-  {
-    "asset": "orchard_fence",
-    "point": [
-      4640,
-      2496
-    ],
-    "layer": -5,
+    "layer": -7,
     "tint": [
       0.6,
       0.7,
@@ -243,11 +180,69 @@ art_placements = Array[Dictionary]([
   {
     "asset": "plains_grass",
     "point": [
-      5536,
-      1600
+      4416,
+      2400
     ],
     "layer": -5,
     "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      6400,
+      1792
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      512,
+      2976,
+      576,
+      576
+    ],
+    "layer": -28,
+    "curved_wall": [
+      512,
+      2976,
+      576,
+      576
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      832,
+      3456
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "bank_moss",
+    "point": [
+      1640,
+      2329
+    ],
+    "layer": 2,
+    "sway": true,
+    "sway_hanging": true
+  },
+  {
+    "asset": "bank_moss",
+    "point": [
+      5480,
+      2313
+    ],
+    "layer": 2,
+    "sway": true,
+    "sway_hanging": true
   }
 ])
 art_profile = "terrace"
@@ -274,21 +269,7 @@ terrain_polygons = Array[Dictionary]([{
 "points": [[2944.0, 1696.0], [3360.0, 1696.0], [3360.0, 1776.0], [3296.0, 1776.0], [3296.0, 1856.0], [3008.0, 1856.0], [3008.0, 1776.0], [2944.0, 1776.0]]
 }])
 workbench_entity_ids = {
-  "art_placements": [
-    "P-R13:built:landmark_0",
-    "P-R13:built:landmark_1",
-    "P-R13:built:landmark_2",
-    "P-R13:art-pass:0",
-    "P-R13:art-pass:1",
-    "P-R13:art-pass:2",
-    "P-R13:art-pass:3",
-    "P-R13:art:clockroute:0",
-    "P-R13:art:clockroute:1",
-    "P-R13:art:clockroute:2",
-    "P-R13:art:clockroute:3",
-    "P-R13:art:clockroute:4",
-    "P-R13:art:clockroute:5"
-  ],
+  "art_placements": ["P-R13:composition:0", "P-R13:composition:1", "P-R13:composition:2", "P-R13:composition:3", "P-R13:composition:4", "P-R13:composition:5", "P-R13:composition:6", "P-R13:composition:7", "P-R13:composition:8", "P-R13:composition:9", "P-R13:composition:10"],
   "climbable_walls": [],
   "hazards": [],
   "hook_points": [],

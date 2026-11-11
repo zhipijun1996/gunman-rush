@@ -53,93 +53,65 @@ retry_anchors = Array[Dictionary]([{
 }])
 art_placements = Array[Dictionary]([
   {
-    "asset": "bell_post",
-    "layer": -2.0,
+    "asset": "plains_grass",
     "point": [
-      816.0,
-      896.0
+      256,
+      896
     ],
-    "landscape": "opening_plains",
+    "layer": -5,
+    "sway": true,
+    "landscape": "junction_meadow",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.35
+    ],
+    "landscape_reference": [
+      1344,
+      1000
+    ],
+    "landscape_offset": [
+      0,
+      -100
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
     "atmosphere": {
-      "density": 3,
+      "density": 4,
       "speed": [
-        27,
-        46
+        24,
+        42
       ],
-      "sway_speed": 0.9
+      "sway_speed": 0.8
     }
   },
   {
+    "asset": "bell_post",
+    "point": [
+      816,
+      896
+    ],
+    "layer": -3
+  },
+  {
     "asset": "windchime_plains_v2_chime_span",
-    "layer": -3.0,
     "point": [
-      1680.0,
-      896.0
-    ]
-  },
-  {
-    "asset": "storage_crates",
-    "layer": -2.0,
-    "point": [
-      1968.0,
-      1760.0
-    ]
-  },
-  {
-    "asset": "windchime_plains_near_v2",
-    "layer": -2.0,
-    "point": [
-      256.0,
-      896.0
+      1680,
+      896
     ],
-    "sway": true
-  },
-  {
-    "asset": "aqi_ribbon",
-    "layer": -2.0,
-    "point": [
-      1328.0,
-      896.0
-    ],
-    "sway": true
-  },
-  {
-    "asset": "plains_grass",
-    "layer": -2.0,
-    "point": [
-      2256.0,
-      1760.0
-    ],
-    "sway": true
-  },
-  {
-    "asset": "opening_road_ridge",
-    "point": [
-      640,
-      1040
-    ],
-    "layer": -40,
-    "depth": 0.88,
+    "layer": -5,
     "tint": [
-      0.72,
-      0.85,
-      0.84,
-      0.75
-    ]
-  },
-  {
-    "asset": "opening_road_ridge",
-    "point": [
-      2064,
-      1040
-    ],
-    "layer": -40,
-    "depth": 0.88,
-    "tint": [
-      0.72,
-      0.85,
-      0.84,
-      0.75
+      0.7,
+      0.8,
+      0.74,
+      1
     ]
   },
   {
@@ -165,10 +137,18 @@ art_placements = Array[Dictionary]([
     "layer": -5
   },
   {
+    "asset": "storage_crates",
+    "point": [
+      1968,
+      1760
+    ],
+    "layer": -5
+  },
+  {
     "asset": "plains_grass",
     "point": [
-      2080,
-      544
+      2256,
+      1760
     ],
     "layer": -5,
     "sway": true
@@ -177,10 +157,100 @@ art_placements = Array[Dictionary]([
     "asset": "gear_lamp",
     "point": [
       1496,
-      1824
+      1632
     ],
-    "layer": -5,
+    "layer": -3,
     "light": true
+  },
+  {
+    "asset": "longbridge_crane",
+    "point": [
+      1408,
+      528
+    ],
+    "layer": -18,
+    "hoist_cable": "WestHoist",
+    "cable_offset": [
+      116,
+      -224
+    ],
+    "tint": [
+      0.7,
+      0.78,
+      0.73,
+      1
+    ]
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      2184,
+      192
+    ],
+    "layer": -15,
+    "hoist_cable": "EastHoist",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "masonry_region": [
+      2272,
+      0,
+      416,
+      480
+    ]
+  },
+  {
+    "surface_platform": 5
+  },
+  {
+    "surface_platform": 6
+  },
+  {
+    "surface_platform": 7
+  },
+  {
+    "surface_platform": 9
+  },
+  {
+    "surface_platform": 11
+  },
+  {
+    "asset": "junction_transfer",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      448,
+      1024,
+      2240,
+      832
+    ],
+    "layer": -24,
+    "tint": [
+      0.74,
+      0.81,
+      0.78,
+      1
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1888,
+      1408
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "surface_platform": 8
+  },
+  {
+    "surface_platform": 10
   }
 ])
 art_profile = "junction"
@@ -197,20 +267,7 @@ bell_mechanisms = Array[Dictionary]([{
 }])
 platforms = Array[Rect2]([Rect2(32, 896, 928, 96), Rect2(448, 992, 512, 32), Rect2(1184, 896, 896, 128), Rect2(2400, 896, 256, 128), Rect2(1920, 1760, 736, 64), Rect2(2016, 192, 256, 32), Rect2(1216, 528, 384, 32), Rect2(1808, 544, 320, 32), Rect2(1952, 1152, 384, 32), Rect2(1600, 1408, 384, 32), Rect2(2112, 1632, 384, 32), Rect2(960, 1024, 224, 32), Rect2(1248, 1632, 320, 192)])
 workbench_entity_ids = {
-  "art_placements": [
-    "P-R31:art_placements:0",
-    "P-R31:art_placements:1",
-    "P-R31:art_placements:2",
-    "P-R31:art-pass:0",
-    "P-R31:art-pass:1",
-    "P-R31:art-pass:2",
-    "P-R31:art:clockroute:0",
-    "P-R31:art:clockroute:1",
-    "P-R31:art:clockroute:2",
-    "P-R31:art:clockroute:3",
-    "P-R31:art:clockroute:4",
-    "P-R31:art:clockroute:5"
-  ],
+  "art_placements": ["P-R31:composition:0", "P-R31:composition:1", "P-R31:composition:2", "P-R31:composition:3", "P-R31:composition:4", "P-R31:composition:5", "P-R31:composition:6", "P-R31:composition:7", "P-R31:composition:8", "P-R31:composition:9", "P-R31:composition:10", "P-R31:composition:11", "P-R31:composition:12", "P-R31:composition:13", "P-R31:composition:14", "P-R31:composition:15", "P-R31:composition:16", "P-R31:composition:17", "P-R31:composition:18", "P-R31:composition:19"],
   "climbable_walls": [],
   "hazards": [],
   "hook_points": [],
@@ -235,8 +292,6 @@ workbench_entity_ids = {
   ],
   "signs": []
 }
-one_way_indices = Array[int]([5, 6, 7, 8, 9, 10])
-illustrated_platform_indices = Array[int]([11, 12])
 start_point = Vector2(144, 878)
 enemy_placements = Array[Dictionary]([{
 "behavior": "charger",
@@ -282,6 +337,8 @@ spike_strips = Array[Dictionary]([{
 "facing": "up",
 "id": "P-R31:review04:lower_edge"
 }])
+one_way_indices = Array[int]([5, 6, 7, 8, 9, 10])
+illustrated_platform_indices = Array[int]([5, 6, 7, 8, 9, 10, 11])
 
 [node name="WestHoist" type="AnimatableBody2D" parent="." unique_id=27025278]
 position = Vector2(1536, 848)

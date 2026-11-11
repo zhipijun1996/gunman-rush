@@ -86,6 +86,9 @@ art_placements = Array[Dictionary]([
     ]
   },
   {
+    "surface_platform": 1
+  },
+  {
     "surface_platform": 2
   },
   {
@@ -93,9 +96,6 @@ art_placements = Array[Dictionary]([
   },
   {
     "surface_platform": 4
-  },
-  {
-    "surface_platform": 5
   }
 ])
 art_profile = "mill"
@@ -105,24 +105,14 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "Carrier0",
 "id": "P-R05:drive_shuttle"
 }])
-platforms = Array[Rect2]([Rect2(0, 384, 320, 64), Rect2(0, 800, 1536, 32), Rect2(0, 704, 224, 32), Rect2(224, 544, 224, 32), Rect2(848, 224, 192, 32), Rect2(1280, 160, 256, 32), Rect2(1536, 640, 32, 192), Rect2(1568, 640, 352, 192)])
+platforms = Array[Rect2]([Rect2(32, 384, 288, 64), Rect2(32, 704, 192, 32), Rect2(224, 544, 224, 32), Rect2(848, 224, 192, 32), Rect2(1280, 160, 224, 32), Rect2(1536, 640, 32, 160), Rect2(1568, 640, 320, 160)])
 workbench_entity_ids = {
-  "art_placements": [
-    "P-R05:art:transmission-hall",
-    "P-R05:art_placements:1",
-    "P-R05:art-pass:0",
-    "P-R05:art-pass:1",
-    "P-R05:art:surface:2",
-    "P-R05:art:surface:3",
-    "P-R05:art:surface:4",
-    "P-R05:art:surface:5"
-  ],
+  "art_placements": ["P-R05:composition:0", "P-R05:composition:1", "P-R05:composition:2", "P-R05:composition:3", "P-R05:composition:4", "P-R05:composition:5", "P-R05:composition:6", "P-R05:composition:7"],
   "climbable_walls": [],
   "hazards": [],
   "hook_points": [],
   "platforms": [
     "P-R05:platforms:0",
-    "P-R05:platforms:1",
     "P-R05:platforms:2",
     "P-R05:platforms:3",
     "P-R05:platforms:4",
@@ -136,9 +126,6 @@ workbench_entity_ids = {
   ],
   "signs": []
 }
-one_way_indices = Array[int]([2, 3, 4, 5])
-illustrated_platform_indices = Array[int]([2, 3, 4, 5])
-masonry_platform_indices = Array[int]([0, 6, 7])
 start_point = Vector2(144, 366)
 spike_strips = Array[Dictionary]([{
 "bounds": [0.0, 776.0, 1536.0, 24.0],
@@ -159,6 +146,9 @@ terrain_polygons = Array[Dictionary]([{
 "material": "masonry",
 "points": [[1504,320],[1536,320],[1536,352],[1568,352],[1568,512],[1504,512]]
 }])
+one_way_indices = Array[int]([1, 2, 3, 4])
+illustrated_platform_indices = Array[int]([1, 2, 3, 4])
+masonry_platform_indices = Array[int]([0, 5, 6])
 
 [node name="Interaction_0" type="Node2D" parent="." unique_id=901969407]
 position = Vector2(1360, 142)

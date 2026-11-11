@@ -21,9 +21,14 @@
 | animal-residents-generated.png / aqi-animal-story-generated.png | 獾回收匠、长耳兔织时匠、狐狸旅人、野猪武器匠、猫头鹰守钟匠；每个状态四帧待机和两帧招呼，统一脚底、每状态固定比例；[最终来源与烘焙](source/inhabitants-sky-provenance.json)。人类NPC母版与旧生产路径已移除。 |
 | opening_plains-layer-generated.png / orchard-layer-generated.png / plains-layer-generated.png / wind_clouds-layer-generated.png | 固定地表具有透明天空，独立双层流云在地表后方移动；源图、裁切与输出哈希同上，不扭动山体或塔。 |
 | clockheart_hall-generated.png | Z01低对比后殿与真实左上窗；[源图、裁切与哈希](source/clockheart-route-provenance.json)。`python3 tools/art/bake_clockheart_route.py --verify`比对原生输出。 |
-| forecourt-architecture-generated.png / forecourt-foundation-generated.png | P33完整破损钟塔、低矮侧翼与独立凹入塔基背墙；整体轮廓、钟盘／门洞比例和实际地台合屏设计。立面统一等比烘焙，背墙退后，无额外碰撞；[构图、提示词、裁切与哈希](source/forecourt-provenance.json)。 |
+| forecourt-architecture-generated.png / forecourt-foundation-generated.png | P33超画幅世界钟心巨塔基座、深凹门洞与独立下层塔基背墙；以厚墙、巨大入口及人物尺度表达站在塔底的体量，不缩小整塔展示塔冠。立面统一等比烘焙，背墙退后，无额外碰撞；[构图、提示词、裁切与哈希](source/forecourt-provenance.json)。 |
 | windcourt-arena-generated.png / windcourt-gallery-generated.png | P14开敞残拱战场与连续后层古廊，原野和独立云层透过建筑空隙；[导图、提示词、注册位置和烘焙哈希](source/windcourt-composition-provenance.json)。残拱柱身按当前战场重绘至地面；实际平台、钩索和回程空间归P14场景与construction，生成导图只记录素材注册依据。木踏板复用现行同族表现。 |
 | bellgarden-ruin-generated.png / bellgarden-revival-generated.png | P15塌顶风鸣庭：同一构图的破败钟架、后壁与定点复苏枝叶，裁切和锚点成对注册；铜钟以原画局部挂点刚性摆动，独立云层保留。来源、提示词、裁切和哈希见[记录](source/bellgarden-provenance.json)。低沉修钟声为`tools/generate_windchime_audio.py --clock`原创模态合成，配合现有钟鸣，由GameAudio同一声部池播放。 |
+| junction-transfer-generated.png | P35地下转运厅的连续背拱、分层后墙与升降井体量；P09按长货运廊复用，P31仅用低处渠壁段。源图、提示词、等比烘焙与哈希见 [来源](source/junction-transfer-provenance.json)。实际台面、绞盘与灯具由房间独立定位。 |
+| market-terrace-generated.png | P34阶台库房的连续承重立面；按实际阶台多边形、原生顶沿与短入口裁定显示，不以图片代替碰撞。见 [来源](source/market-terrace-provenance.json)。 |
+| training_atrium-generated.png | P10连续挑高练枪中庭，后梁、高低两窗与底部旧轴座统一构图；两窗实际局部光及窄光束按画面注册。见 [来源](source/training_atrium-provenance.json)。 |
+| spring_cellar-generated.png | P12储水厅整幅凹室与连续管线；P17检修室、P19井底厅、P30泵房按各自腔体注册复用。长井仍用连续砌体，不重复整座拱厅。见 [来源](source/spring_cellar-provenance.json)。 |
+| grain_loft-generated.png | P29整座旧谷仓的高窗、阁楼后梁、木墙与石砌货井底层；真实货梯、台面、灯和箱堆另行对位。见 [来源](source/grain_loft-provenance.json)。 |
 | story-traces-generated.png | 布条桩、路线便笺板、修好的灯凳，显现只读取交谈收据与宿主房号 |
 
 `python3 tools/art/bake_plains_v07.py` 按最终动物与天空来源清单执行固定格裁切、alpha≥128 清边、最近邻采样与固定脚底对齐；`--verify`逐像素核对现用输出。源图、每次裁切、原生高度、缩放和输出哈希见 [manifest.json](manifest.json)。场景按一素材像素/一世界单位放置；UI肖像沿统一逻辑画布比例展示。源图由 `.gdignore` 隔离，导出只使用原生资产与运行清单。
@@ -32,7 +37,7 @@ P32按`clockheart_vista`读取钟心远景，P25按`orchard`读取果园；普�
 
 场景材质与地形碰撞分开：直柱按真实梁底与地面拼接柱帽、等宽柱身和柱脚，不缩放宽度；室外入口仅在实际室内连接处放置门廊或井口，室内出口投来向外光。返程封墙继承宿主室内材质。普通建筑仅作构图；果园树拱由房间明确指定对应平台图像，按清单surface_height对齐枝面，树干在可穿行背景层；实际落脚面、遮弹掩体、铜铃吊台、折板与水面危险由对应组件拥有。动效只响应已接受的动作/持久化结果，不发放奖励。
 
-十个封闭室内与田垄、岔路、旧路肩的明确桥体表面复用素材包`gear_city`原生32px地形，机械重排至现有47邻接和精确边界采样布局，不重画或缩放像素，不改变碰撞。`mill_masonry_atlas47/source`的源路径与哈希归清单；其余室外自然地形保持原草沿家族。返程金属翻板使用既有吊台材质，动画消费已提交的机关状态。风中亮点使用房号种子生成不规则聚散、独立生命周期与速度，只保留微小亮核，不画蝌蚪状尾线；与游戏随机流隔离。地刺与墙刺复用原生危险图块按朝向连续铺设，可见危险面与共享环境伤害矩形一致。
+封闭室内与田垄、岔路、旧路肩的明确桥体表面复用素材包`gear_city`原生32px地形，机械重排至现有47邻接和精确边界采样布局，不重画或缩放像素，不改变碰撞。`mill_masonry_atlas47/source`的源路径与哈希归清单；其余室外自然地形保持原草沿家族。返程金属翻板使用既有吊台材质，动画消费已提交的机关状态。风中亮点使用房号种子生成不规则聚散、独立生命周期与速度，只保留微小亮核，不画蝌蚪状尾线；与游戏随机流隔离。地刺与墙刺复用原生危险图块按朝向连续铺设，可见危险面与共享环境伤害矩形一致。
 
 裸齿轮按72px原生尺寸旋转，碰撞使用同中心34wu圆形扫掠，轨道显示完整运动范围；换向小火星与金属轻响只表现机械运动，实际接触沿统一环境伤害与恢复策略处理。换向声复用Kenney CC0的impactMetal_light_000（项目armour.ogg），由GameAudio现有声部池播放。
 
