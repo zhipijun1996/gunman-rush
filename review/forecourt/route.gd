@@ -24,6 +24,8 @@ func run()->void:
  await ticks(30);mark("entry")
  await walk(768);await ticks(30);mark("approach")
  await walk(1536);await ticks(60);mark("portal")
+ await walk(1880);await ticks(45);mark("east_side")
+ await walk(1536);await ticks(15)
  app._interact();await ticks(100)
  check(app.room.room_id=="Z-R01","continuous enters interior");mark("interior")
  await walk(640);await ticks(30)
