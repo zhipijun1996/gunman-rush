@@ -20,7 +20,7 @@
 | opening-sky-generated.png / opening-ridge-generated.png / opening-gallery-generated.png / station-houses-generated.png | 首段六房连续构图：低对比草原远山、自带地面的旧路遗迹与望站坡通风后廊；[提示词、裁切、锚点和哈希](source/opening-atmosphere-provenance.json)。小站以略显破败的旧住宅、连续主街与已有服务居民组织生活感；挑战平台与铃闸复用原生梁柱；P24隐藏室由现用封闭背墙按净空机械裁切。 |
 | animal-residents-generated.png / aqi-animal-story-generated.png | 獾回收匠、长耳兔织时匠、狐狸旅人、野猪武器匠、猫头鹰守钟匠；每个状态四帧待机和两帧招呼，统一脚底、每状态固定比例；[最终来源与烘焙](source/inhabitants-sky-provenance.json)。人类NPC母版与旧生产路径已移除。 |
 | opening_plains-layer-generated.png / orchard-layer-generated.png / clockheart_vista-layer-generated.png / plains-layer-generated.png / wind_clouds-layer-generated.png | 四类固定地表／塔景具有透明天空，独立双层流云在地表后方移动；源图、裁切与输出哈希同上，不扭动山体或塔。 |
-| clockheart_hall-generated.png / sealed_well_depth-generated.png / clocktower_base-generated.png | Z01低对比后殿与真实左上窗、P08连续井壁与检修带、P33覆盖入口整座基台的后墙；[生成说明、源图、裁切与哈希](source/clockheart-route-provenance.json)。门洞取同一后殿的暗区，不重复亮窗；`python3 tools/art/bake_clockheart_route.py --verify`重建比对四份原生输出。 |
+| clockheart_hall-generated.png / clocktower_base-generated.png | Z01低对比后殿与真实左上窗、P33覆盖入口整座基台的后墙；[生成说明、源图、裁切与哈希](source/clockheart-route-provenance.json)。门洞取同一后殿的暗区，不重复亮窗；`python3 tools/art/bake_clockheart_route.py --verify`重建比对三份原生输出。 |
 | story-traces-generated.png | 布条桩、路线便笺板、修好的灯凳，显现只读取交谈收据与宿主房号 |
 
 `python3 tools/art/bake_plains_v07.py` 按最终动物与天空来源清单执行固定格裁切、alpha≥128 清边、最近邻采样与固定脚底对齐；`--verify`逐像素核对现用输出。源图、每次裁切、原生高度、缩放和输出哈希见 [manifest.json](manifest.json)。场景按一素材像素/一世界单位放置；UI肖像沿统一逻辑画布比例展示。源图由 `.gdignore` 隔离，导出只使用原生资产与运行清单。
@@ -34,3 +34,5 @@ P32按`clockheart_vista`读取钟心远景，P25按`orchard`读取果园；首�
 裸齿轮按72px原生尺寸旋转，碰撞使用同中心34wu圆形扫掠，轨道显示完整运动范围；换向小火星与金属轻响只表现机械运动，实际接触沿统一环境伤害与恢复策略处理。换向声复用Kenney CC0的impactMetal_light_000（项目armour.ogg），由GameAudio现有声部池播放。
 
 `audio/water_splash.ogg` 复用项目已收录的 `assets/audio/director_v3/_sources/water/splash_09.ogg`，原来源为 [40 CC0 Water/Splash/Slime SFX](https://opengameart.org/content/40-cc0-water-splash-slime-sfx)。原作者和授权证据保留在 [v3 声音来源](../../config/audio_director/v3/sources.json)。落水声在实际扣血结果接受后，由现有 GameAudio 声部池播放；不新建独立声音服务。
+
+井塔构件与连续井壁由 `well_tower-generated.png` / `well_curved_wall-generated.png` 机械裁切为五份原生素材，见[源图、裁切与哈希](source/well-tower-provenance.json)。背景仅取安静中心砌体；圆弧受光按真实井道与灯源计算，不重复圆柱插画。复核：`python3 tools/art/bake_clockheart_route.py --verify --provenance assets/plains_v07/source/well-tower-provenance.json`。

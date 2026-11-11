@@ -57,38 +57,39 @@ retry_anchors = Array[Dictionary]([{
 }])
 art_placements = Array[Dictionary]([
   {
-    "asset": "sealed_well_depth",
+    "asset": "well_masonry",
     "point": [
       0,
       0
     ],
     "layer": -45,
     "backdrop": true,
+    "curved_wall": [448, 0, 576, 2496],
     "tile_rect": [
       0,
       0,
-      1536,
+      1216,
       3072
     ],
     "tint": [
-      0.75,
-      0.87,
-      0.92,
+      0.62,
+      0.7,
+      0.73,
       1
     ],
     "environment": {
-      "ambient": "6b7e88",
-      "restored": "7b8f94",
-      "threshold_energy": 0.45,
-      "threshold_opacity": 0.1
+      "ambient": "8c9ca5",
+      "restored": "99aaac",
+      "threshold_energy": 0.6,
+      "threshold_opacity": 0.12
     },
     "atmosphere": {
-      "density": 2,
+      "density": 4,
       "speed": [
-        4,
-        9
+        3,
+        6
       ],
-      "sway_speed": 0.35
+      "sway_speed": 0.25
     }
   },
   {
@@ -105,7 +106,7 @@ art_placements = Array[Dictionary]([
     "layer": -2.0,
     "light": true,
     "point": [
-      480.0,
+      504,
       2304.0
     ]
   },
@@ -123,7 +124,7 @@ art_placements = Array[Dictionary]([
     "layer": -2.0,
     "light": true,
     "point": [
-      480.0,
+      504,
       992.0
     ]
   },
@@ -153,98 +154,204 @@ art_placements = Array[Dictionary]([
     ]
   },
   {
+    "asset": "mill_post_segment",
+    "point": [
+      492,
+      32
+    ],
+    "tile_rect": [
+      492,
+      32,
+      12,
+      2912
+    ],
+    "layer": -30,
+    "tint": [
+      0.32,
+      0.43,
+      0.46,
+      1
+    ]
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      980,
+      32
+    ],
+    "tile_rect": [
+      980,
+      32,
+      12,
+      2912
+    ],
+    "layer": -30,
+    "tint": [
+      0.32,
+      0.43,
+      0.46,
+      1
+    ]
+  },
+  {
+    "asset": "well_daylight_slit",
+    "point": [
+      656,
+      2160
+    ],
+    "layer": -20,
+    "light": true,
+    "window_beam": true
+  },
+  {
+    "asset": "well_daylight_slit",
+    "point": [
+      816,
+      1280
+    ],
+    "layer": -20,
+    "light": true,
+    "window_beam": true
+  },
+  {
+    "asset": "well_daylight_slit",
+    "point": [
+      656,
+      768
+    ],
+    "layer": -20,
+    "light": true,
+    "window_beam": true
+  },
+  {
     "asset": "mill_beam_segment",
     "point": [
-      0,
-      0
+      820,
+      2216
     ],
-    "layer": -35,
     "tile_rect": [
-      0,
-      1012,
-      1216,
-      24
+      820,
+      2216,
+      364,
+      16
     ],
-    "haze": [
-      0.1,
-      0.18,
-      0.22,
-      0.9
-    ],
+    "layer": -18,
     "tint": [
-      0.6,
-      0.7,
-      0.75,
+      0.37,
+      0.46,
+      0.48,
       1
+    ]
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      864,
+      2216
+    ],
+    "layer": -15,
+    "tint": [
+      0.62,
+      0.7,
+      0.72,
+      1
+    ],
+    "hoist_cable": "WellLift",
+    "cable_offset": [
+      0,
+      -37
     ]
   },
   {
     "asset": "mill_beam_segment",
     "point": [
-      0,
-      0
+      480,
+      1368
     ],
-    "layer": -35,
     "tile_rect": [
+      480,
+      1368,
+      140,
+      16
+    ],
+    "layer": -18,
+    "tint": [
+      0.37,
+      0.46,
+      0.48,
+      1
+    ]
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      576,
+      1368
+    ],
+    "layer": -15,
+    "tint": [
+      0.62,
+      0.7,
+      0.72,
+      1
+    ],
+    "hoist_cable": "ServiceLift",
+    "cable_offset": [
       0,
-      2036,
-      1216,
-      24
+      -37
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      852,
+      200
     ],
-    "haze": [
-      0.1,
-      0.18,
-      0.22,
-      0.9
+    "tile_rect": [
+      852,
+      200,
+      140,
+      16
     ],
+    "layer": -18,
     "tint": [
-      0.6,
-      0.7,
-      0.75,
+      0.37,
+      0.46,
+      0.48,
       1
     ]
   },
   {
-    "asset": "mill_gear",
+    "asset": "well_winch_mount",
     "point": [
-      384,
-      2608
+      896,
+      200
     ],
-    "layer": -25,
-    "rotation_speed": 0.07,
-    "motion_source": "WellLift",
-    "haze": [
-      0.15,
-      0.24,
-      0.28,
-      0.82
-    ],
+    "layer": -15,
     "tint": [
-      0.6,
+      0.62,
       0.7,
-      0.75,
+      0.72,
       1
+    ],
+    "hoist_cable": "UpperLift",
+    "cable_offset": [
+      0,
+      -37
     ]
   },
   {
-    "asset": "mill_gear",
+    "asset": "well_service_reveal",
     "point": [
-      784,
-      1760
+      24,
+      3008
     ],
-    "layer": -25,
-    "rotation_speed": -0.06,
-    "motion_source": "ServiceLift",
-    "haze": [
-      0.15,
-      0.24,
-      0.28,
-      0.82
-    ],
+    "layer": 1,
+    "flip_h": true,
     "tint": [
-      0.6,
       0.7,
-      0.75,
+      0.79,
+      0.82,
       1
     ]
   }
@@ -269,7 +376,7 @@ bell_mechanisms = Array[Dictionary]([{
 platforms = Array[Rect2]([Rect2(32, 2944, 1152, 96), Rect2(320, 2848, 128, 96), Rect2(480, 2304, 192, 48), Rect2(800, 1456, 192, 48), Rect2(608, 160, 192, 32), Rect2(480, 992, 192, 32)])
 workbench_entity_ids = {
   "art_placements": [
-    "P-R08:art:clockroute:0",
+    "P-R08:art:well-tower:0",
     "P-R08:built:fixture_0",
     "P-R08:built:fixture_1",
     "P-R08:built:fixture_2",
@@ -277,10 +384,18 @@ workbench_entity_ids = {
     "P-R08:built:fixture_4",
     "P-R08:art-pass:0",
     "P-R08:art-pass:1",
-    "P-R08:art:clockroute:1",
-    "P-R08:art:clockroute:2",
-    "P-R08:art:clockroute:3",
-    "P-R08:art:clockroute:4"
+    "P-R08:art:well-tower:8",
+    "P-R08:art:well-tower:9",
+    "P-R08:art:well-tower:10",
+    "P-R08:art:well-tower:11",
+    "P-R08:art:well-tower:12",
+    "P-R08:art:well-tower:14",
+    "P-R08:art:well-tower:15",
+    "P-R08:art:well-tower:16",
+    "P-R08:art:well-tower:17",
+    "P-R08:art:well-tower:18",
+    "P-R08:art:well-tower:19",
+    "P-R08:art:well-tower:20"
   ],
   "climbable_walls": [],
   "hazards": [],

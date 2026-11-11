@@ -33,7 +33,9 @@
     "plains-layer-generated.png": "81a944887dc273c7e04a27d9425a407f2bcfe284be140ac8064be8a2211268f4",
     "wind_clouds-layer-generated.png": "4065a9bdb81772beb40d3855392e8fe3a9cc240ae2ae272d32789ca098d21be0",
     "clocktower_base-generated.png": "8c54ff0532730090edcfa9d6249501876d15d59d22c60b38fb09ca48f4eb1275",
-    "clockheart_hall-generated.png": "1a62680b16aa4eff5f064dd057c273f50909a185bc5e99bcee62ef225592cc15"
+    "clockheart_hall-generated.png": "1a62680b16aa4eff5f064dd057c273f50909a185bc5e99bcee62ef225592cc15",
+    "well_tower-generated.png": "aa97659cc69be20d5c48f745b6648d9a8ab883b8ac1ffcbd52bb49544885d8d0",
+    "well_curved_wall-generated.png": "2cd6e7ac7f64aad47b899d8828d94d5596eddad4aa6f564b7006e04c8dc4a45c"
   },
   "assets": {
     "reclaimer": {
@@ -2133,23 +2135,6 @@
       "sha256": "1a62680b16aa4eff5f064dd057c273f50909a185bc5e99bcee62ef225592cc15",
       "generation": "assets/plains_v07/source/clockheart-route-provenance.json"
     },
-    "sealed_well_depth": {
-      "image": "assets/plains_v07/native/sealed_well_depth.png",
-      "source": "assets/plains_v07/source/sealed_well_depth-generated.png",
-      "size": [
-        1536,
-        1024
-      ],
-      "source_rect": [
-        0,
-        0,
-        1536,
-        1024
-      ],
-      "filter": "nearest",
-      "sha256": "6b7dddc7174d98a566d3cc0c660e53c72c8560c09020c0ef27f4920d6482b18b",
-      "generation": "assets/plains_v07/source/clockheart-route-provenance.json"
-    },
     "clocktower_base": {
       "image": "assets/plains_v07/native/clocktower_base.png",
       "source": "assets/plains_v07/source/clocktower_base-generated.png",
@@ -2183,6 +2168,92 @@
       "filter": "nearest",
       "sha256": "9f8d3d800b0e8b403a76c580832d90dbee962ee3fec162603aa3b49a64a1fd1e",
       "generation": "assets/plains_v07/source/clockheart-route-provenance.json"
+    },
+    "well_service_reveal": {
+      "image": "assets/plains_v07/native/well_service_reveal.png",
+      "source": "assets/plains_v07/source/well_tower-generated.png",
+      "source_rect": [
+        96,
+        0,
+        800,
+        960
+      ],
+      "size": [
+        176,
+        211
+      ],
+      "filter": "nearest",
+      "sha256": "5c2cc4d403131574212ab7815d5a236d96ca015ba9a278184d384603c8737783",
+      "generation": "assets/plains_v07/source/well-tower-provenance.json"
+    },
+    "well_outer_course": {
+      "image": "assets/plains_v07/native/well_outer_course.png",
+      "source": "assets/plains_v07/source/well_tower-generated.png",
+      "source_rect": [
+        120,
+        750,
+        760,
+        260
+      ],
+      "size": [
+        167,
+        57
+      ],
+      "filter": "nearest",
+      "sha256": "d63f86335c940c83e2baad307ad5c356b58519428befe6c6b893ae8e3d8ee757",
+      "generation": "assets/plains_v07/source/well-tower-provenance.json"
+    },
+    "well_daylight_slit": {
+      "image": "assets/plains_v07/native/well_daylight_slit.png",
+      "source": "assets/plains_v07/source/well_tower-generated.png",
+      "source_rect": [
+        1152,
+        112,
+        216,
+        496
+      ],
+      "size": [
+        54,
+        124
+      ],
+      "filter": "nearest",
+      "sha256": "cc8ef2f431422f37206f9b03560bdb493593d1a56dd7ef7efcbf0a435c80c9d1",
+      "generation": "assets/plains_v07/source/well-tower-provenance.json"
+    },
+    "well_winch_mount": {
+      "image": "assets/plains_v07/native/well_winch_mount.png",
+      "source": "assets/plains_v07/source/well_tower-generated.png",
+      "source_rect": [
+        1072,
+        688,
+        352,
+        224
+      ],
+      "size": [
+        88,
+        56
+      ],
+      "filter": "nearest",
+      "sha256": "50d048d226a151caa4f5322b35f371f7d9f7601407c6298883b020dca89d3e1f",
+      "generation": "assets/plains_v07/source/well-tower-provenance.json",
+      "ground_embed_world_units": 3
+    },
+    "well_masonry": {
+      "image": "assets/plains_v07/native/well_masonry.png",
+      "source": "assets/plains_v07/source/well_curved_wall-generated.png",
+      "source_rect": [
+        624,
+        176,
+        288,
+        672
+      ],
+      "size": [
+        108,
+        252
+      ],
+      "filter": "nearest",
+      "sha256": "da085219ceb3bb100872182c7cecefcb9c731df72c12ec345121beef31c69ce9",
+      "generation": "assets/plains_v07/source/well-tower-provenance.json"
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

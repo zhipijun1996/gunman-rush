@@ -14,6 +14,19 @@ static func attach(window: Sprite2D, host: PlainsRoomArt, settings: Dictionary) 
 	var rgb:Array=settings.color;effect.tone=Color(rgb[0],rgb[1],rgb[2]);effect.amount=int(settings.motes)
 	effect.z_index=1
 	window.add_child(effect)
+	if settings.has("opening"):
+		var aperture:=Polygon2D.new();aperture.name="VisibleSkyOpening";aperture.z_index=-1
+		var opening:=PackedVector2Array()
+		for point:Array in settings.opening:opening.append(FixedWorldProvider.point(point))
+		aperture.polygon=opening
+		var daylight:=GradientTexture2D.new();var gradient:=Gradient.new()
+		gradient.colors=PackedColorArray([Color("d8d4b8"),Color("566b70")]);daylight.gradient=gradient;daylight.width=32;daylight.height=128;daylight.fill_from=Vector2(.5,0);daylight.fill_to=Vector2(.5,1)
+		aperture.texture=daylight
+		var uv:=PackedVector2Array()
+		for point:Vector2 in opening:uv.append(Vector2(point.x+16,point.y+112))
+		aperture.uv=uv
+		var sky_material:=CanvasItemMaterial.new();sky_material.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;aperture.material=sky_material
+		window.add_child(aperture)
 	var shaft:=Polygon2D.new();shaft.name="DaylightVolume";shaft.polygon=effect.outline
 	var white:=GradientTexture2D.new();var gradient:=Gradient.new()
 	gradient.colors=PackedColorArray([Color.WHITE,Color.WHITE]);white.gradient=gradient;white.width=2;white.height=2

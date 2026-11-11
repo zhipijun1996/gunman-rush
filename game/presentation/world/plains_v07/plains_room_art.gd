@@ -14,6 +14,7 @@ var occluders: Array[Dictionary]=[]
 var terrain_polygons: Array[PackedVector2Array] = []
 var story_props: Array[Dictionary]=[]
 var rotating_props: Array[Dictionary]=[]
+var hoist_cables: Array[Dictionary]=[]
 var sky: Sprite2D
 var sky_layers: PlainsSkyLayers
 var daylight: DirectionalLight2D
@@ -129,6 +130,15 @@ func _ready() -> void:
 			node.position=area.position;node.offset=Vector2.ZERO
 			node.region_enabled=true;node.region_rect=Rect2(Vector2.ZERO,area.size)
 			node.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
+		if placement.has("curved_wall"):
+			var shaft:Rect2=FixedWorldProvider.rect(placement.curved_wall)
+			var curved:=ShaderMaterial.new();curved.shader=preload("res://game/presentation/world/plains_v07/well_wall_light.gdshader")
+			curved.set_shader_parameter("shaft",Vector4(shaft.position.x,shaft.position.y,shaft.size.x,shaft.size.y));node.material=curved
+		if placement.has("hoist_cable"):
+			var carrier:=room.get_node_or_null(NodePath(str(placement.hoist_cable))) as WorldMovingPlatform
+			if carrier!=null:
+				var cable:=Line2D.new();cable.width=2;cable.default_color=Color("71674e");cable.z_index=-14;add_child(cable)
+				hoist_cables.append({"line":cable,"carrier":carrier,"anchor":node.position+FixedWorldProvider.point(placement.get("cable_offset",[0,0]))})
 		if placement.get("sway",false):
 			var material:=ShaderMaterial.new();material.shader=preload("res://game/presentation/world/plains_v07/rooted_wind.gdshader")
 			material.set_shader_parameter("height",float(node.texture.get_height()));node.material=material;swaying.append(material)
@@ -160,6 +170,8 @@ func add_lamp(at: Vector2) -> PointLight2D:
 	var light:=PointLight2D.new();light.texture=tex;light.position=at.round();light.color=Color("f1c27a");light.energy=1.25;light.texture_scale=2.8;light.shadow_enabled=true;light.shadow_filter=Light2D.SHADOW_FILTER_PCF5;light.shadow_filter_smooth=1.5;add_child(light)
 	return light
 func _process(delta: float) -> void:
+	for cable:Dictionary in hoist_cables:
+		cable.line.points=PackedVector2Array([cable.anchor,cable.carrier.position])
 	clock+=delta
 	for trace:Dictionary in rotating_props:
 		var source:=room.get_node_or_null(str(trace.source)) as WorldMovingPlatform
