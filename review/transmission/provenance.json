@@ -1,0 +1,201 @@
+{
+  "base_commit": "08e7cdf9155ede95de01907b5fe9451149807979",
+  "runtime_sha256": {
+    "assets/plains_v07/manifest.json": "36ef5a57a7cba145b63d3617928d34665131a7c0d1a2b84fdde5294a3a44852d",
+    "game/presentation/world/plains_v07/lighting.json": "8624abffd1d8fccc0725d06b3b5d98f0b481a88bdd17716d85cb821c5e8ab5b9",
+    "game/presentation/world/plains_v07/plains_room_art.gd": "de1d4afb32d912c89436a0931083e9029bc0b0c6a33a0418b0444c0a4470698b",
+    "game/world/components/world_moving_platform.gd": "3cc909b3fe41b735c25bbcf18c6660cf5181288a87007df5130ae6d25ccd2932",
+    "game/world/levels/fixed_world_room.gd": "cd934614c668a3000e2c1ad3d5efda46858e787027b4739e7680baa6598ef137",
+    "game/world/levels/world_room_draft.gd": "72119e9184b3cf116503c6e5aaba8972e7efd789f50e55517ad57b53782c1888",
+    "game/world/regions/P/room_design.json": "1defaa744d2fec44dc832c1502bcc1201ff6002ebe8b9a3e39200e888cb1e756",
+    "game/world/regions/P/rooms/P-R05.tscn": "9d428f1f523f16fbe4b7aae7a4d23eafe1226d4f1fb6e3eeb6353a207ab6693d",
+    "game/world/regions/P/rooms/P-R06.tscn": "3963592bb426e6d2b42575107f452de047360406d60079f8916544965fa409ad",
+    "assets/plains_v07/native/mill_transmission_hall.png": "1bcddcf6bed115c05873bbcd11ce1a02c441bbde770c5a102e065392438b3bb3",
+    "assets/plains_v07/native/mill_transmission_hall.png.import": "4e4f8406f74c4df03e4d1a7d93019b772440cfe7e2067fb53b727f711f453f10",
+    "assets/plains_v07/source/mill-transmission-guide.svg": "12b10ec067075205f3c63e7b072cf2b1d418a32da0f7e111aad853baae72fe47",
+    "assets/plains_v07/source/mill-transmission-hall-generated.png": "b53514132c6e2e0de67c6228e7ab83871a5b6b1ee7003c3930d928217222bd86",
+    "assets/plains_v07/source/mill-transmission-provenance.json": "55735bf5717b439b8c1d696ae44ddd3f7f8edc74865c20a053323ed95d3e240b"
+  },
+  "media_sha256": {
+    "return-lift.mp4": "0f2a410c7ad6c1b63bd5373eccb767e0b9422fe814206866c58b3a264427c0b4",
+    "comparison.jpg": "bdf528dbd274f91842e87f7b86756b506a202d7b0cad9bb771806fcb0d9d265b",
+    "recoil-return.mp4": "9b39e225bd859650135dd069b71084180db37f9212ce3f08e8dd013c8eccbfca",
+    "whole-room.jpg": "3353412ebd390d9c8fbefd970d51769a0349f742b8a36fd3544f5dfc625b9d7c",
+    "drive.mp4": "6ca035a49ff0f13f9674b4e56708a6628171c3d8d060fc7a8d1cae5fb4c97e79",
+    "p06-well.mp4": "9c773dc2f7d49bcdca4f680849a45142589ed407747f90c5d7dae6dd4b81f90c",
+    "route-fixture.gd": "3398faedca75dc0692f496418924b6950f96b9ae671b979f78465787c4bd40ad"
+  },
+  "clips": {
+    "drive.mp4": {
+      "start": 0.7,
+      "seconds": 8.7
+    },
+    "recoil-return.mp4": {
+      "start": 9.4,
+      "seconds": 8
+    },
+    "return-lift.mp4": {
+      "start": 17.35,
+      "seconds": 9.1
+    },
+    "p06-well.mp4": {
+      "seconds": 6.183,
+      "separate_continuous_recording": true
+    }
+  },
+  "recording": {
+    "fps": 60,
+    "speed": 1,
+    "resolution": [
+      1280,
+      720
+    ],
+    "controller": "formal FixedWorldApp / PlayerMotor",
+    "fixture": "route-fixture.gd",
+    "entry": "isolated room review default P05 base; no intermediate player pose or carrier clock override",
+    "coverage": "entry bell, carrier, airborne drive stop, reward, down+jump and left shot recoil, real right switch, P06 exit/re-entry, right-to-left carrier and disembark",
+    "excluded": [
+      "new-save campaign approach",
+      "full combat balance",
+      "physical phone performance"
+    ],
+    "test_difference": "Latest repository test adds a scene codec precheck before loading gameplay; recorded fixture omits that precheck. Disk save/reload is separately checked headlessly and omitted in movie mode."
+  },
+  "camera_views": {
+    "before": [
+      {
+        "index": 0,
+        "player": [
+          192.0,
+          366.0
+        ],
+        "rect": [
+          0.0,
+          97.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 1,
+        "player": [
+          600.0,
+          324.0
+        ],
+        "rect": [
+          210.569152832031,
+          55.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 2,
+        "player": [
+          928.0,
+          206.0
+        ],
+        "rect": [
+          538.569152832031,
+          0.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 3,
+        "player": [
+          1360.0,
+          142.0
+        ],
+        "rect": [
+          970.569091796875,
+          0.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 4,
+        "player": [
+          1776.0,
+          622.0
+        ],
+        "rect": [
+          1120.0,
+          353.0,
+          800.0,
+          450.0
+        ]
+      }
+    ],
+    "after": [
+      {
+        "index": 0,
+        "player": [
+          192.0,
+          366.0
+        ],
+        "rect": [
+          0.0,
+          97.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 1,
+        "player": [
+          600.0,
+          324.0
+        ],
+        "rect": [
+          210.569152832031,
+          55.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 2,
+        "player": [
+          928.0,
+          206.0
+        ],
+        "rect": [
+          538.569152832031,
+          0.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 3,
+        "player": [
+          1360.0,
+          142.0
+        ],
+        "rect": [
+          970.569091796875,
+          0.0,
+          800.0,
+          450.0
+        ]
+      },
+      {
+        "index": 4,
+        "player": [
+          1776.0,
+          622.0
+        ],
+        "rect": [
+          1120.0,
+          353.0,
+          800.0,
+          450.0
+        ]
+      }
+    ]
+  },
+  "art_provenance": "assets/plains_v07/source/mill-transmission-provenance.json"
+}
