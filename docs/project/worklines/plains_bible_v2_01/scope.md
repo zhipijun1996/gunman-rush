@@ -4,7 +4,7 @@
 
 当前分支为[PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)、`feat/approved-platform-rooms`，尚未合入main。正式内容为35个平原房与用户授权的Z01钟心门厅；35房／43连接身份不变。平台初审导入源截至r80，平台基线`8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`；随后只落实用户明确指定的正式游戏修改。平台保持只读，不部署、不迁移、不代签审批。草稿初审不等于正式体验终审。
 
-P06、P05和P27整房实机已获用户改善／认可反馈。本轮基线`ac677dc7`，按用户最新反馈联合重整P14玩法与美术：缩短战前接近段、删除重复踏板和Boss下方横廊，三块等距战台配地面荆棘阶段，高廊末端以接地岸台和单个停驻环衔接钟井。残拱两侧石柱重绘到真实地面，原野、独立流云和远古廊沿连续构图保留。Boss血量／招式、H授予、正式镜头缩放与三门连接身份保持；地形、占地、恢复点及阶段危害按本轮明确要求修改。只更新源码与小审核媒体，不部署主游戏或关卡平台。
+P06、P05和P27整房实机已获用户改善／认可反馈；P14联合重整后，用户要求继续P15，并明确首次修钟需要开阔与震撼、看见衰败变生机。本轮基线`f63fbe39`，P15由连续钟轴井展开为塌顶风鸣庭，钟台上方净空增加640世界单位，实际地图占地同步，原门位与横渡／回升路线保留。破损钟架、下层后壁、灰蓝旧石与原野形成整体空间；铜钟、真实钟源暖光和同源新生枝叶承担修复变化。只更新源码与小审核媒体，不部署主游戏或关卡平台。
 
 ## P06构图落地约束
 
@@ -23,7 +23,7 @@ P06、P05和P27整房实机已获用户改善／认可反馈。本轮基线`ac67
 
 整屏构图以房间地点与动作带为依据，P25、P26保留已认可的主体设计，P01右上仅保留原墙缺口的上下窗沿，P06使用整房规划的原野／疏云、定制风车剖面与附着垂苔，P08井内保持下述候选；长桥与原野保持通风净空，P33由完整塔基后墙承接门廊和建筑台地，Z01新绘后殿与真实左上窗，P08使用连续砌体与固定世界坐标的曲面受光，三段绞盘绳索随真实吊台伸缩，窄窗与落岸灯提供实际光源。P27形成背风休整，P14内场沿实际平台使用原生平原地形，关闭旧亮绿地面绘制。室外背景继续使用独立云层、固定地表和分场所风点。无碰撞支撑退后；多余长柱删除，不逐台加装饰。
 
-12间目标房更新配置，小站作为已认可的路线起点与返回基准复验。静态地形的重复体积和入墙部分在源场景裁清；平台ID、单向属性与材质映射随分片保持。其余路线房的美术整理保持原碰撞并集；P14按下文职责及用户明确要求重整地形和占地。世界连接身份与敌人／机关职责保留。
+路线房按逐房反馈更新，小站作为已认可的起点与返回基准。静态地形的重复体积和入墙部分在源场景裁清；平台ID、单向属性与材质映射随分片保持。其余路线房的美术整理保持原碰撞并集；P14、P15按下文职责及用户明确要求重整局部占地。世界连接身份与敌人／机关职责保留。
 
 方法归现有[美术技能](../../../../.agents/skills/godot-room-art/SKILL.md)和Visual Bible：用户说“优化视觉体验”即按指定范围检查整屏、层次、材质、真实光源、环境运动、角色与碰撞可读性、接地和穿插。技能仅留执行顺序与判断原则，不装房间坐标、聊天记录或迭代历史。仓库内技能是本项目的执行入口；未声称同步其它会话安装的云技能。
 
@@ -42,7 +42,7 @@ P06、P05和P27整房实机已获用户改善／认可反馈。本轮基线`ac67
 - P12：下层直达井笼接宽穿透岸，西侧守箱、右侧三段错层反冲。第一岸清怪后观察齿轮，回身登左岸再上右准备岸；向左下射铃同时右上反冲过1.6秒侧闸，进入行装小室。上口沿左肩进入主窖，连续墙体防止直接落入领奖室。领取后放右侧两段折梯，保留身体净空返回准备岸；各宽岸更新真实失败恢复点。西岸20金币箱独立且守卫9血。
 - P13：保留下层普通战斗路和上层生命碎片支路；吊顶体量和顶刺改变净空，高低反冲、向上射击压低轨迹与最终下落横冲交替。拿到HP01才允许开启回主路的单向开关。
 - P14：短接收岸与三级攀升进入开敞残拱战场，删除叠板、无用途西侧空跑和Boss下方横廊。残拱柱身连续落地，三块同宽战台沿实际内场等距布置；地面本体保持，三阶段由Boss先登稳战台，再预警长出连续荆棘，触刺返回已到达的安全台，胜利止伤并收刺。战后领H，六个停驻／弹跃锚点连接高廊；下方小承接台支持失手后重新跳起勾回，不作为独立横穿路线。东端宽石肩、单个末端停驻环和接地钟井两岸形成可见目标；中段回程开关开启短竖井，穿透落台支持下穿与反冲返回。实体暖灯落在开关所在木台上。P27、P15、P06门对与通行条件保留。
-- P15：钟井三处检修宽岸下降，灯位随实际岸位调整；三环横渡至风鸣钟，盆地四环恢复后跳回钟台。正式交互修钟、演出与环境复苏后开启回长桥捷径。
+- P15：三处检修岸由连续井壁与实际灯位连接，下行展开为开阔塌顶风鸣庭。保留三环横渡、盆地四环回升、修钟和回长桥捷径；平台与墙重叠在源里裁清。原生平原岸面／木踏板保留，钟台为既有石台，背景支撑不加碰撞。首次修钟先咬合齿轮，1.4秒响起低沉钟声，暖波与枝叶按距钟远近复苏，铜钟独立刚性摆动；5.2秒进入两句短对白，正常缩放平滑归还。重进房直接显示恢复状态，跳过不会回滚已提交修复。
 - P16：保留休息与无H主路；双环回访后斜下射击反冲上左高岸，20金币箱集中取奖，失手落回无刺休息层。高阁和主岸补真实检修灯。
 - P17：原三环行装路线、下层地空遭遇20币；实体檐返程先在侧面上冲再横移落檐。室内删除不合适的大幅室外前景，使用实际检修灯。
 - P18：错层田畦、地窖20金币箱与两段载台换乘登崖；上层支柱接实际梁底。下井口原被刺床和地形盖住，保留西侧短刺渠并留出128宽真实下行缺口；不改门对与落点。
@@ -67,14 +67,12 @@ P06、P05和P27整房实机已获用户改善／认可反馈。本轮基线`ac67
 
 ## 检查与证据
 
-写集为P14场景与房间专用Arena资源、construction占地／门台局部坐标、房间职责、残拱石柱来源与导入、WindkeeperArena荆棘及其当前消费者、受影响检查和本交接。房间专用战台布局归`P-R14-arena.tres`，通用生成模块继续服务旧显式Demo；不以共享模板改动其它房间。Boss支撑和领奖点从实际平台推导。荆棘沿既有WorldSpikeArt、环境伤害和失败返回；阶段、暂停、致死与读档分别沿现有主人，不保留断地面实现。
+写集为P15场景、construction本房净空、房间职责与首次修钟规范、同源钟庭／复苏素材、PlainsRoomArt修复揭示与铜钟分件、WorldStorySequence及GameAudio现有演出／声部消费、受影响检查。没有改玩家参数、邻房内容、世界连接或发布运行包。
 
-- 正式控制器从P27成对入口连续起步：三级攀升→自然触发Boss→显式终结血量夹具提交胜利→实际领取H→六钩点及反冲穿越→P15往返→东岸回落中段开关→实际开启捷径→P06往返→连续反冲返回高廊。无中途位置重设；终结夹具只验证战后通行，不能声称完整打赢现行510HP Boss。
-- `windcourt_revision.gd`以真实阶段阈值事务触发Boss登台／荆棘预警和增长，验证保留地面与三战台、缩放不变、暂停、真实下穿触刺扣血并回已达台、接受死亡立即止伤／收刺。独立录屏保留实际AI、攻击、碰撞和玩家动作；阶段阈值与结尾致死为明确夹具。
-- P14三来向房间合同、钟路线动作与连接、平台无重叠／入墙、场景codec／稳定呈现、正式Boss镜头和H动作镜头检查通过。Pressure当前消费者的阶段支撑、锁定跳台／空中状态恢复、领奖和卸载重载检查通过；旧显式12HP战斗回归175项通过，不等同正式510HP完整战斗。
-- 日常CI四项、文档检查通过。旧显式12HP测试仍报告既存模块路径加载告警；同一基线亦可复现，未扩展修改无关模块。正式入口和当前专项没有该错误。
-- 实际机位对照包含战前、内场、奖励、高廊、回程竖井及钟井；整房总览和带职责路线图仅用于审查，不替换正式镜头。未验证新档前序主线、完整510HP战斗胜利、全区平衡或实体手机性能。视觉专业判断为冗余空间减少、石柱接地和末端目标更清晰，仍待本轮用户反馈。
+- 正式控制器从P14成对入口，以前房已授予H阶段连续下降→三环横渡→实际修钟→实际开启捷径→P32→返回P15→盆地四环回升→钟台；中途不重置人物坐标，不伪造修钟／捷径状态。
+- 覆盖原生台面与墙体无重叠、七钩点可达、失败盆地回升、钟声在暂停世界中播放、修复揭示开始时保持衰败、完成后正常归还、提前跳过保留收据、重载不重播临时演出；实际磁盘读回保留修钟与捷径标记，持久状态结构有效。正式P15专项、平台接缝、整区编译和4项CI均通过。旧plains_story_hooks综合脚本依赖停更的平台目录，在P01装载前因preview_catalog_version_mismatch/map_disconnected被拒绝，未执行其P15部分；本轮用正式入口专项与连续录像覆盖目标房，不修改或重部署平台目录。
+- 正常镜头下检查入口、检修岸、开放横渡、钟台和盆地；同机位对照保留。构图判断为可继续审核，不代签用户审美认可。未覆盖手机真机性能、Web新包、完整新档通关及磁盘写失败注入；本轮没有部署。
 
-审核媒体：[整房职责与路线图](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b8dbe750e4065f594a7b818e4722766607e1c9aa/review/windcourt-layout/layout.png)、[对应位置前后对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b8dbe750e4065f594a7b818e4722766607e1c9aa/review/windcourt-layout/comparison.jpg)、[实际整房拼装](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b8dbe750e4065f594a7b818e4722766607e1c9aa/review/windcourt-layout/whole-room.jpg)、[入口与战场9.4秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b8dbe750e4065f594a7b818e4722766607e1c9aa/review/windcourt-layout/approach.mp4)、[三阶段荆棘10.4秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b8dbe750e4065f594a7b818e4722766607e1c9aa/review/windcourt-layout/phase-three.mp4)、[钟井末端与往返12秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b8dbe750e4065f594a7b818e4722766607e1c9aa/review/windcourt-layout/clock-return.mp4)、[回中庭捷径10秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b8dbe750e4065f594a7b818e4722766607e1c9aa/review/windcourt-layout/shortcut.mp4)、[源哈希／输入／夹具边界](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b8dbe750e4065f594a7b818e4722766607e1c9aa/review/windcourt-layout/provenance.json)。录屏为60fps正常速度、游戏原声，每段1.2–2.3MiB。源图、导图、提示词、机械烘焙及SHA归`assets/plains_v07/source/windcourt-composition-provenance.json`；媒体记录明确绑定实际源码、输入与夹具范围。
+正常速度、原声短片：[修钟复苏10.5秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/a2aed8cc33ba51cabf71bac7b2a36c218657e9e5/review/bellgarden/repair.mp4)、[下行与横渡10.2秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/a2aed8cc33ba51cabf71bac7b2a36c218657e9e5/review/bellgarden/arrival.mp4)、[捷径往返与回升13.7秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/a2aed8cc33ba51cabf71bac7b2a36c218657e9e5/review/bellgarden/return.mp4)，各1.5–2.1MiB；[前后对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/a2aed8cc33ba51cabf71bac7b2a36c218657e9e5/review/bellgarden/revival.jpg)、[源码／媒体哈希及检查记录](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/a2aed8cc33ba51cabf71bac7b2a36c218657e9e5/review/bellgarden/provenance.json)。远端HTTP200与SHA256已核对。已认可相邻路线的来源保留：[P14布局与阶段证据](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/b8dbe750e4065f594a7b818e4722766607e1c9aa/review/windcourt-layout/provenance.json)、[P27检修院](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ae763e47ccd79bd1c990e8e687d3e9c82a5452c0/review/shelter/provenance.json)。素材提示词、机械裁切、注册与哈希归`assets/plains_v07/source/bellgarden-provenance.json`。
 
-P27整房与下口已获用户认可，证据保留在[检修院审核](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ae763e47ccd79bd1c990e8e687d3e9c82a5452c0/review/shelter/provenance.json)。正式运行包仍为公开f8188783660b；本轮只更新源码与审核媒体，不部署主游戏或关卡平台。下一步按本轮P14布局与短片反馈在本房闭环，再继续相邻房；不恢复通用门脸或随机边框前景。
+公开运行包仍为f8188783660b；下一步依据P15短片反馈在本房闭环，再继续相邻房。不恢复通用门脸、随机边框前景或已被替代的封闭钟腔稿。

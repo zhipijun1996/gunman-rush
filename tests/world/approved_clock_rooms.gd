@@ -122,11 +122,27 @@ func run()->void:
    if app.player.position.x>1600:app.controller.router.set_source_axis(&"keyboard_mouse",0)
    if app.player.is_on_floor():break
   check(app.player.is_on_floor() and absf(app.player.position.y-3918)<4,"P15 recovery final jump returns to clock bank "+str(app.player.position))
-  await fixture(Vector2(1952,3918));var zoom:=app.camera.zoom;app._interact();await ticks(365)
+  await fixture(Vector2(1952,3918));var zoom:=app.camera.zoom;app._interact();await ticks(35)
+  var art:=app.room.get_node("RegionalArt") as PlainsRoomArt
+  check(art.repair_blend<.01,"P15 committed clock holds dormant garden until first strike")
+  await ticks(330)
   check(app.state.has("clock_P") and app.story.active and app.story.dialogue_active,"P15 actual repair reaches narrative after performance")
   check(app.camera.zoom==zoom and (app.room.get_node("RegionalArt") as PlainsRoomArt).repair_blend>.95,"P15 repair restores environment at fixed zoom")
   app.story.finish();await ticks(5);await fixture(Vector2(2112,3918));app._interact();await ticks(4)
   check(app.state.has("shortcut_p01") and app.state.valid(app._snapshot()),"P15 actual return switch persists after repair")
+  check((GameAudio.for_origin(app) as GameAudio).played.get(&"clock_resonance",0)==1,"P15 first repair owns one deep clock strike")
+  var storage:=WorldSaveService.new();storage.configure("user://p15_repair_roundtrip.json",false,"p15_repair_roundtrip");storage.content_version=app.content.data.content_version
+  check(storage.commit(app._snapshot(),1),"P15 repair snapshot written through real save service")
+  var saved:=FixedWorldState.new();saved.content=app.content;saved.storage=storage
+  check(saved.restore() and saved.has("clock_P") and saved.has("shortcut_p01"),"P15 clock and return shortcut survive disk restore")
+  app.load_room("P-R15","room-link-149:P-R15");await ticks(30)
+  art=app.room.get_node("RegionalArt") as PlainsRoomArt
+  check(art.repair_blend>.99 and not app.story.active,"P15 reload retains revival without replaying temporary cinematic")
+  check(art.bell_pendulums.size()==1 and absf(art.bell_pendulums[0].rotation)>.001,"P15 restored bell continues real pendulum motion")
+  await load_room("P-R15","h");await fixture(Vector2(1952,3918));app._interact();await ticks(25)
+  app.story.finish();await ticks(6)
+  art=app.room.get_node("RegionalArt") as PlainsRoomArt
+  check(app.state.has("clock_P") and art.repair_blend>.99 and not app.paused,"P15 early skip retains committed revival and returns control")
  if selected("P-R16"):
   await load_room("P-R16")
   await hop(Vector2(512,1166),Vector2(448,878),Vector2.DOWN,"P16 recoil from receiving bank to upper step")

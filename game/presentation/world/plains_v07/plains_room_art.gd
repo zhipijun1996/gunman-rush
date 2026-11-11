@@ -26,6 +26,9 @@ var ambient: CanvasModulate
 var indoor := false
 var repair_blend := 0.0
 var repair_initialized := false
+var repair_reveal_age := -1.0
+var revival_materials: Array[ShaderMaterial] = []
+var bell_pendulums: Array[Sprite2D] = []
 var wind_phase := 0.0
 static var profiles: Dictionary={}
 var light_settings: Dictionary = {}
@@ -131,6 +134,8 @@ func _ready() -> void:
 		if placement.has("support_height"):
 			_support(FixedWorldProvider.point(placement.point),float(placement.support_height));continue
 		var node:=sprite(str(placement.asset),FixedWorldProvider.point(placement.point),int(placement.get("layer",-2)))
+		if placement.has("pendulum_rect"):
+			_attach_bell(node,FixedWorldProvider.rect(placement.pendulum_rect),FixedWorldProvider.point(placement.pendulum_pivot))
 		if placement.has("facing_polygons"):
 			PlainsArchitecturalFacing.attach(self,node,placement)
 		if placement.has("tint"):
@@ -166,6 +171,13 @@ func _ready() -> void:
 			node.material=material;swaying.append(material)
 		if placement.has("receipt"):
 			node.hide();story_props.append({"node":node,"receipt":placement.receipt,"host":placement.get("story_host","")})
+			if placement.has("growth_origin"):
+				var growth:=ShaderMaterial.new();growth.shader=preload("res://game/presentation/world/plains_v07/clock_revival.gdshader")
+				growth.set_shader_parameter("origin",FixedWorldProvider.point(placement.growth_origin))
+				growth.set_shader_parameter("anchor",node.position)
+				growth.set_shader_parameter("radius",float(placement.get("growth_radius",2200)))
+				growth.set_shader_parameter("height",float(node.texture.get_height()))
+				node.material=growth;revival_materials.append(growth)
 		if placement.get("fade_near",false):occluders.append({"node":node,"alpha":node.modulate.a})
 		if placement.get("depth",1.0)!=1.0:
 			node.modulate=Color(.66,.77,.78,.8)
@@ -204,7 +216,10 @@ func _process(delta: float) -> void:
 	if room.services!=null:
 		var restored:=1.0 if room.services.state.has("clock_P") else 0.0
 		if not repair_initialized:repair_blend=restored;repair_initialized=true
-		repair_blend=move_toward(repair_blend,restored,delta*.25)
+		if repair_reveal_age>=0:
+			repair_reveal_age+=delta
+			repair_blend=restored*smoothstep(1.4,5.0,repair_reveal_age)
+		else:repair_blend=move_toward(repair_blend,restored,delta*.25)
 		ambient.color=Color(environment_light.ambient).lerp(Color(environment_light.restored),repair_blend)
 		if daylight!=null:daylight.energy=lerpf(float(environment_light.sun_energy),float(environment_light.restored_sun_energy),repair_blend)
 		if sky!=null:
@@ -221,6 +236,11 @@ func _process(delta: float) -> void:
 
 	wind_phase+=delta*float(atmosphere.sway_speed)*lerpf(1,1.35,repair_blend)
 	for i: int in swaying.size():swaying[i].set_shader_parameter("phase",wind_phase+i*.73)
+	for growth:ShaderMaterial in revival_materials:
+		growth.set_shader_parameter("progress",repair_blend)
+		growth.set_shader_parameter("phase",wind_phase)
+	for bell:Sprite2D in bell_pendulums:
+		bell.rotation=sin(clock*2.4)*.065*repair_blend
 	var camera:=get_viewport().get_camera_2d()
 	if camera!=null:
 		if sky!=null:
@@ -243,6 +263,24 @@ func _process(delta: float) -> void:
 			sky.position=(camera.get_screen_center_position()-offset).round()
 		for d: Dictionary in depths:d.node.position=(d.origin+(camera.global_position-depth_reference)*(1.0-float(d.ratio))).round()
 	queue_redraw()
+func begin_repair_reveal() -> void:
+	# Presentation only: the action receipt has already been committed.
+	repair_reveal_age=0;repair_blend=0;repair_initialized=true
+func finish_repair_reveal() -> void:
+	repair_reveal_age=-1
+	if room.services!=null:repair_blend=1.0 if room.services.state.has("clock_P") else 0.0
+func _attach_bell(host:Sprite2D,cut:Rect2,pivot:Vector2) -> void:
+	# Register the painted bell as a rigid sprite part; the masonry frame stays still.
+	var texture:=host.texture
+	var canvas:=Rect2(Vector2.ZERO,texture.get_size())
+	for rect:Rect2 in WorldRoomSpace.exposed_parts([canvas],[cut]):
+		var part:=Sprite2D.new();part.texture=texture;part.centered=false
+		part.region_enabled=true;part.region_rect=rect;part.position=host.offset+rect.position
+		host.add_child(part)
+	var bell:=Sprite2D.new();bell.texture=texture;bell.centered=false
+	bell.region_enabled=true;bell.region_rect=cut
+	bell.position=host.offset+pivot;bell.offset=cut.position-pivot
+	host.add_child(bell);bell_pendulums.append(bell);host.texture=null
 func _air_open(at: Vector2) -> bool:
 	var inside:=false
 	for area:Array in room.contract.world_geometry.space_rects:

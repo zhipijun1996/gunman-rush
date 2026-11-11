@@ -47,58 +47,339 @@ retry_anchors = Array[Dictionary]([{
 "point": [2304.0, 4686.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "windchime_plains_v2_bell_wheel",
-"layer": -2.0,
-"point": [1952.0, 3936.0]
-}, {
+art_placements = Array[Dictionary]([
+{
+"asset": "well_masonry",
+"point": [
+0,
+0
+],
+"layer": -40,
+"backdrop": true,
+"tile_rect": [
+-512,
+-256,
+3456,
+3328
+],
+"curved_wall": [
+704,
+384,
+384,
+2688
+],
+"tint": [
+0.7,
+0.78,
+0.8,
+1
+],
+"environment": {
+"ambient": "77878e",
+"restored": "a1ada0",
+"sun_energy": 0.3,
+"restored_sun_energy": 0.52
+},
+"landscape": "opening_plains",
+"landscape_scroll": [
+0.1,
+0.04
+],
+"landscape_reference": [
+1536,
+3936
+],
+"atmosphere": {
+"density": 6,
+"speed": [10, 24],
+"sway_speed": 1.3
+}
+},
+{
+"asset": "well_masonry",
+"point": [
+0,
+0
+],
+"layer": -42,
+"tile_rect": [
+512,
+4384,
+1920,
+416
+],
+"tint": [
+0.5,
+0.59,
+0.61,
+1
+]
+},
+{
+"asset": "bellgarden_rearwall",
+"point": [
+720,
+4704
+],
+"layer": -30,
+"tint": [
+0.65,
+0.72,
+0.75,
+1
+]
+},
+{
+"asset": "bellgarden_rearwall",
+"point": [
+1560,
+4704
+],
+"layer": -30,
+"tint": [
+0.65,
+0.72,
+0.75,
+1
+]
+},
+{
+"asset": "bellgarden_rearwall",
+"point": [
+2400,
+4704
+],
+"layer": -30,
+"tint": [
+0.65,
+0.72,
+0.75,
+1
+]
+},
+{
+"asset": "bellgarden_left",
+"point": [
+640,
+4704
+],
+"layer": -24,
+"tint": [
+0.68,
+0.74,
+0.75,
+1
+]
+},
+{
+"asset": "bellgarden_right",
+"point": [
+2304,
+4704
+],
+"layer": -24,
+"tint": [
+0.68,
+0.74,
+0.75,
+1
+]
+},
+{
+"asset": "well_masonry",
+"point": [
+0,
+0
+],
+"layer": -18,
+"tile_rect": [
+1568,
+4000,
+48,
+704
+],
+"tint": [
+0.48,
+0.57,
+0.59,
+1
+]
+},
+{
+"asset": "well_masonry",
+"point": [
+0,
+0
+],
+"layer": -18,
+"tile_rect": [
+2160,
+4000,
+48,
+704
+],
+"tint": [
+0.48,
+0.57,
+0.59,
+1
+]
+},
+{
+"asset": "bellgarden_shrine",
+"pendulum_rect": [86, 135, 90, 103],
+"pendulum_pivot": [130, 135],
+"point": [
+1952,
+3936
+],
+"layer": -3
+},
+{
 "asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [832.0, 928.0]
-}, {
+"point": [
+832,
+928
+],
+"layer": -2,
+"light": true
+},
+{
 "asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [960.0, 2080.0]
-}, {
+"point": [
+960,
+2080
+],
+"layer": -2,
+"light": true
+},
+{
 "asset": "gear_lamp",
-"layer": -2.0,
+"point": [
+832,
+3232
+],
+"layer": -2,
+"light": true
+},
+{
+"asset": "well_daylight_slit",
+"point": [
+960,
+770
+],
+"layer": -28,
 "light": true,
-"point": [832.0, 3232.0]
-}, {
-"asset": "leaf_sprig",
-"layer": -1.0,
-"point": [1600.0, 3938.0],
+"window_beam": true
+},
+{
+"asset": "well_daylight_slit",
+"point": [
+848,
+1920
+],
+"layer": -28,
+"light": true,
+"window_beam": true
+},
+{
+"surface_platform": 1
+},
+{
+"surface_platform": 2
+},
+{
+"surface_platform": 3
+},
+{
+"asset": "bellgarden_shrine_leaves",
+"point": [
+1952,
+3936
+],
+"layer": -2,
 "receipt": "repair_P",
-"sway": true
-}, {
-"asset": "leaf_sprig",
-"layer": -1.0,
-"point": [1744.0, 3938.0],
+"growth_origin": [
+1952,
+3888
+],
+"growth_radius": 1900
+},
+{
+"asset": "bellgarden_left_leaves",
+"point": [
+640,
+4704
+],
+"layer": -23,
 "receipt": "repair_P",
-"sway": true
-}, {
-"asset": "leaf_sprig",
-"layer": -1.0,
-"point": [2160.0, 3938.0],
+"growth_origin": [
+1952,
+3888
+],
+"growth_radius": 1900
+},
+{
+"asset": "bellgarden_right_leaves",
+"point": [
+2304,
+4704
+],
+"layer": -23,
 "receipt": "repair_P",
-"sway": true
-}, {
-"asset": "windchime_plains_near_v2",
-"layer": -2.0,
-"point": [1280.0, 4704.0],
-"sway": true
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [1648.0, 3936.0],
-"sway": true
-}])
+"growth_origin": [
+1952,
+3888
+],
+"growth_radius": 1900
+},
+{
+"asset": "bellgarden_terrace_flowers",
+"point": [
+1680,
+3936
+],
+"layer": -1,
+"receipt": "repair_P",
+"growth_origin": [
+1952,
+3888
+],
+"growth_radius": 1900
+},
+{
+"asset": "bellgarden_terrace_flowers",
+"point": [
+2170,
+3936
+],
+"layer": -1,
+"receipt": "repair_P",
+"growth_origin": [
+1952,
+3888
+],
+"growth_radius": 1900
+},
+{
+"asset": "bellgarden_basin_flowers",
+"point": [
+1264,
+4704
+],
+"layer": -1,
+"receipt": "repair_P",
+"growth_origin": [
+1952,
+3888
+],
+"growth_radius": 1900
+}
+])
 art_profile = "clock"
-platforms = Array[Rect2]([Rect2(0, 160, 352, 224), Rect2(704, 928, 256, 24), Rect2(832, 2080, 256, 24), Rect2(704, 3232, 256, 24), Rect2(512, 4704, 1600, 96), Rect2(2240, 4704, 192, 96), Rect2(1536, 3936, 704, 64), Rect2(704, 3776, 288, 48)])
+platforms = Array[Rect2]([Rect2(32, 160, 320, 192), Rect2(736, 928, 224, 24), Rect2(832, 2080, 224, 24), Rect2(704, 3232, 256, 24), Rect2(544, 4704, 1568, 64), Rect2(2240, 4704, 160, 64), Rect2(1536, 3936, 704, 64), Rect2(704, 3776, 288, 48)])
 workbench_entity_ids = {
-"art_placements": ["P-R15:art_placements:1", "P-R15:art_placements:2", "P-R15:art_placements:3", "P-R15:art_placements:4", "P-R15:revival:0", "P-R15:revival:1", "P-R15:revival:2", "P-R15:art-pass:0", "P-R15:art-pass:1"],
+"art_placements": ["P-R15:composition:0", "P-R15:composition:1", "P-R15:composition:2", "P-R15:composition:3", "P-R15:composition:4", "P-R15:composition:5", "P-R15:composition:6", "P-R15:composition:7", "P-R15:composition:8", "P-R15:composition:9", "P-R15:composition:10", "P-R15:composition:11", "P-R15:composition:12", "P-R15:composition:13", "P-R15:composition:14", "P-R15:composition:15", "P-R15:composition:16", "P-R15:composition:17", "P-R15:composition:18", "P-R15:composition:19", "P-R15:composition:20", "P-R15:composition:21", "P-R15:composition:22", "P-R15:composition:23"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],
@@ -107,15 +388,16 @@ workbench_entity_ids = {
 "signs": []
 }
 one_way_indices = Array[int]([1, 2, 3])
+illustrated_platform_indices = Array[int]([1, 2, 3])
 masonry_platform_indices = Array[int]([6])
 start_point = Vector2(192, 142)
 story_sequence = {
 "action": "",
-"display": [512.0, 3712.0, 1920.0, 1088.0],
+"display": [512.0, 3072.0, 1920.0, 1728.0],
 "effect_point": [1952.0, 3888.0],
-"focus": [1872.0, 3856.0],
+"focus": [1936.0, 3752.0],
 "kind": "repair",
-"lines": ["齿轮咬住了……第一声，终于回来了。", "风也醒了。沿着这声钟响，还能找到更多停下的地方。"],
+"lines": ["听见了吗……停了这么久，它终于又走了。", "风回来了，枯枝也发了芽。原来这片土地，一直在等这一声钟响。"],
 "speaker": "修钟者"
 }
 

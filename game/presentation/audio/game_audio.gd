@@ -6,6 +6,7 @@ const MECHANISM_BELL_SOUND := preload("res://assets/audio/ambience_v1/plains_chi
 # Existing quiet-02 bell recording: lift only the accepted mechanism transient,
 # without changing the selected ambience asset/mix or any other cue's gain.
 const MECHANISM_BELL_GAIN_DB := 12.0
+const CLOCK_RESONANCE := preload("res://assets/plains_v07/audio/clock_resonance.wav")
 const REST_CUES := {
 	&"rest_contact": preload("res://assets/player_presentation_01/charging/audio/contact.wav"),
 	&"rest_current": preload("res://assets/player_presentation_01/charging/audio/current.wav"),
@@ -124,7 +125,7 @@ static func cue_event(origin: Node, event_id: StringName, legacy_cue: StringName
 
 static func cue_cinematic(origin: Node, id: StringName) -> bool:
 	# Explicit paused-world presentation; still uses this world's bounded voice pool.
-	if id not in [&"mechanism_bell", &"armour"] or not is_instance_valid(origin) or not origin.is_inside_tree(): return false
+	if id not in [&"mechanism_bell", &"clock_resonance", &"armour"] or not is_instance_valid(origin) or not origin.is_inside_tree(): return false
 	var service := for_origin(origin) as GameAudio
 	return service._play_original(id, null, false, origin, true) if service != null else false
 
@@ -238,6 +239,7 @@ func _ready() -> void:
 	for id: StringName in REGIONAL_CUE_PATHS:
 		_streams[id] = load(REGIONAL_CUE_PATHS[id])
 	_streams[&"mechanism_bell"] = MECHANISM_BELL_SOUND
+	_streams[&"clock_resonance"] = CLOCK_RESONANCE
 	_streams.merge(REST_CUES)
 	_streams.merge(FOCUS_CUES)
 	for index: int in MAX_VOICES:
@@ -403,7 +405,7 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 	if _shutting_down or not _streams.has(id) or volume <= 0: return false
 	var menu_reward := committed_reward and id in [&"confirm", &"note"]
 	var rest_cinematic: bool = cinematic and origin is WorldRestSequence and origin.active and REST_CUES.has(id)
-	var pause_safe: bool = menu_reward or rest_cinematic or (cinematic and id in [&"mechanism_bell", &"armour"])
+	var pause_safe: bool = menu_reward or rest_cinematic or (cinematic and id in [&"mechanism_bell", &"clock_resonance", &"armour"])
 	if get_tree().paused and not pause_safe and id not in [&"click", &"confirm", &"denied"]: return false
 	var interval := 0.16 if id in [&"step", &"denied", &"armour"] else 0.055
 	if _clock - float(_last.get(id, -100.0)) < interval: return false
@@ -426,11 +428,11 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 			voice.set_meta("committed_reward", true)
 			voice.set_meta("director_event", &"legacy_committed_reward")
 			if is_instance_valid(origin): voice.set_meta("director_origin", weakref(origin))
-		voice.set_meta("audio_priority", 90 if id in [&"hurt", &"death", &"warning", &"enemy_defeat", &"boss_impact", &"mechanism_bell"] else 70 if rest_cinematic else 20 if id == &"step" else 50)
+		voice.set_meta("audio_priority", 90 if id in [&"hurt", &"death", &"warning", &"enemy_defeat", &"boss_impact", &"mechanism_bell", &"clock_resonance"] else 70 if rest_cinematic else 20 if id == &"step" else 50)
 		if FOCUS_CUES.has(id):voice.set_meta("audio_priority",80)
 		voice.bus = &"Ambience" if REGIONAL_CUE_PATHS.has(id) else &"UI" if id in [&"click", &"confirm", &"denied"] else &"SFX"
 		voice.stream = stream_override if stream_override != null else _streams[id]
-		var attenuation := -MECHANISM_BELL_GAIN_DB if id == &"mechanism_bell" else 16.0 if id == &"forest_wind" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &"step" else 10.0 if id in [&"shot", &"land", &"jump", &"click"] else 7.0
+		var attenuation := -MECHANISM_BELL_GAIN_DB if id == &"mechanism_bell" else 3.0 if id == &"clock_resonance" else 16.0 if id == &"forest_wind" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &"step" else 10.0 if id in [&"shot", &"land", &"jump", &"click"] else 7.0
 		if FOCUS_CUES.has(id):attenuation=1.0
 		voice.set_meta("attenuation", attenuation)
 		voice.volume_db = linear_to_db(volume) - attenuation
@@ -439,7 +441,7 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 		return true
 	# A/B keeps unselected critical legacy cues audible under candidate load.
 	# Original profile deliberately retains its existing full-pool drop policy.
-	if rest_cinematic or (audio_profile != "original" and id in [&"death", &"warning", &"boss_impact"]) or id == &"mechanism_bell":
+	if rest_cinematic or (audio_profile != "original" and id in [&"death", &"warning", &"boss_impact"]) or id in [&"mechanism_bell", &"clock_resonance"]:
 		var replaceable: AudioStreamPlayer
 		var lowest_priority := 70 if rest_cinematic else 90
 		for voice: AudioStreamPlayer in _voices:
