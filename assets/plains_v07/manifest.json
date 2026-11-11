@@ -14,7 +14,10 @@
     "inhabitants-generated.png": "081dbf9a2ff5f1163b64a266b82d9848986b3ea23bb9a56e0d8dbe3d5a684c32",
     "mechanisms-generated.png": "e12df1bc1177034ce55e0fa5f5b6439d554f8f9d93fb672f6f504ac2602c3daa",
     "orchard-arches-generated.png": "9bc560d30550d6d5e606b27e09f6ba7635e2e4bc40fa7df7d4b295545d5ac0e9",
-    "clocktower-generated.png": "8b2393391b86ee55e38387efe53881213c4df5d8d91306bd11af439493056081"
+    "clocktower-generated.png": "8b2393391b86ee55e38387efe53881213c4df5d8d91306bd11af439493056081",
+    "room-orchard-generated.png": "409b40263821a84663fd569f6ae0b36edc7e3cc153444c5244091499b07b7fef",
+    "room-mill-generated.png": "01a56e6872b96ac16eafb96b4e4d7bd29174c88094f63e9eb0c848373d754696",
+    "room-wall-generated.png": "a3b1b915f15659e20a02642ddfc1d622e1a573a1f62a90550632e2da38305b84"
   },
   "assets": {
     "reclaimer": {
@@ -1475,6 +1478,259 @@
         256
       ],
       "sha256": "ff932685f03df4df41db43af2fb245425b2b3e64eb4c92526d8c2950471a1c48"
+    },
+    "orchard_tree": {
+      "image": "assets/plains_v07/native/orchard_tree.png",
+      "size": [
+        392,
+        255
+      ],
+      "source": "assets/plains_v07/source/room-orchard-generated.png",
+      "source_rect": [
+        43,
+        72,
+        855,
+        557
+      ],
+      "bake_scale": 0.4584795321637427,
+      "anchor": [
+        196.0,
+        255
+      ],
+      "alpha_threshold": 128,
+      "sha256": "13faa59159e2bcaee79407423538bb492e759cc7043a309b9f169cb156d097f6",
+      "source_rect_format": "xywh",
+      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
+    },
+    "orchard_reward_tree": {
+      "image": "assets/plains_v07/native/orchard_reward_tree.png",
+      "size": [
+        579,
+        674
+      ],
+      "source": "assets/plains_v07/source/room-orchard-generated.png",
+      "source_rect": [
+        976,
+        27,
+        527,
+        613
+      ],
+      "bake_scale": 1.099510603588907,
+      "anchor": [
+        289.5,
+        674
+      ],
+      "alpha_threshold": 128,
+      "sha256": "d9161d3ea737683f8dba921b216c7fdb92aed584dff27c0e5a38f4cd4572efbb",
+      "source_rect_format": "xywh",
+      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
+    },
+    "orchard_root_lip": {
+      "image": "assets/plains_v07/native/orchard_root_lip.png",
+      "size": [
+        288,
+        106
+      ],
+      "source": "assets/plains_v07/source/room-orchard-generated.png",
+      "source_rect": [
+        41,
+        692,
+        835,
+        306
+      ],
+      "bake_scale": 0.3449101796407186,
+      "anchor": [
+        144.0,
+        106
+      ],
+      "alpha_threshold": 128,
+      "sha256": "b8ddac8d2e0e693a2c6573884e74eaba506364f0d1c239343650d46d0f7b26cc",
+      "source_rect_format": "xywh",
+      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
+    },
+    "orchard_fence": {
+      "image": "assets/plains_v07/native/orchard_fence.png",
+      "size": [
+        160,
+        73
+      ],
+      "source": "assets/plains_v07/source/room-orchard-generated.png",
+      "source_rect": [
+        929,
+        717,
+        568,
+        258
+      ],
+      "bake_scale": 0.28169014084507044,
+      "anchor": [
+        80.0,
+        73
+      ],
+      "alpha_threshold": 128,
+      "sha256": "2e6714ffb14bf2e17e111d82118a41075a054961291464aba593b2584362e1ba",
+      "source_rect_format": "xywh",
+      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
+    },
+    "mill_timber_bent": {
+      "image": "assets/plains_v07/native/mill_timber_bent.png",
+      "size": [
+        404,
+        448
+      ],
+      "source": "assets/plains_v07/source/room-mill-generated.png",
+      "source_rect": [
+        121,
+        10,
+        478,
+        530
+      ],
+      "bake_scale": 0.8452830188679246,
+      "anchor": [
+        202.0,
+        448
+      ],
+      "alpha_threshold": 128,
+      "sha256": "220b9fbaba9a20b3409e2c277df2e0acacc7eac2593d4c8ebbc6a7196d9664f3",
+      "source_rect_format": "xywh",
+      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
+    },
+    "mill_window": {
+      "image": "assets/plains_v07/native/mill_window.png",
+      "size": [
+        187,
+        224
+      ],
+      "source": "assets/plains_v07/source/room-mill-generated.png",
+      "source_rect": [
+        913,
+        96,
+        342,
+        409
+      ],
+      "bake_scale": 0.5476772616136919,
+      "anchor": [
+        93.5,
+        224
+      ],
+      "alpha_threshold": 128,
+      "sha256": "63b1373275104b8fa4f259cc669a138dc59242daf39131f18cb580aad36f832d",
+      "source_rect_format": "xywh",
+      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
+    },
+    "mill_drive_wheel": {
+      "image": "assets/plains_v07/native/mill_drive_wheel.png",
+      "size": [
+        280,
+        293
+      ],
+      "source": "assets/plains_v07/source/room-mill-generated.png",
+      "source_rect": [
+        131,
+        570,
+        461,
+        483
+      ],
+      "bake_scale": 0.6073752711496746,
+      "anchor": [
+        140.0,
+        293
+      ],
+      "alpha_threshold": 128,
+      "sha256": "f2de1dbe956395b54e03373b66a9c313120b79ef30247eb2c620532ce1832e8b",
+      "source_rect_format": "xywh",
+      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
+    },
+    "mill_corbel": {
+      "image": "assets/plains_v07/native/mill_corbel.png",
+      "size": [
+        304,
+        104
+      ],
+      "source": "assets/plains_v07/source/room-mill-generated.png",
+      "source_rect": [
+        748,
+        716,
+        672,
+        231
+      ],
+      "bake_scale": 0.4523809523809524,
+      "anchor": [
+        152.0,
+        104
+      ],
+      "alpha_threshold": 128,
+      "sha256": "ed1f42842ca75e40c15d9f4b6df5c6843cc8d42f6fdb05ef0d50fbfb63a81744",
+      "source_rect_format": "xywh",
+      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
+    },
+    "mill_quiet_wall": {
+      "image": "assets/plains_v07/native/mill_quiet_wall.png",
+      "size": [
+        512,
+        227
+      ],
+      "source": "assets/plains_v07/source/room-wall-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        680
+      ],
+      "bake_scale": 0.3333333333333333,
+      "anchor": [
+        256.0,
+        227
+      ],
+      "alpha_threshold": null,
+      "sha256": "2b4803138a37b85e04c2b76a4f4a54e2d5d8a42f7612c108ab38fc27c9c17130",
+      "source_rect_format": "xywh",
+      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
+    },
+    "mill_walkway": {
+      "image": "assets/plains_v07/native/mill_walkway.png",
+      "size": [
+        310,
+        16
+      ],
+      "source": "assets/plains_v07/source/room-mill-generated.png",
+      "source_rect": [
+        760,
+        740,
+        620,
+        32
+      ],
+      "bake_scale": 0.5,
+      "anchor": [
+        155.0,
+        16
+      ],
+      "alpha_threshold": null,
+      "sha256": "0ae49c28550515a33164977333a1697870a8ca50b42a1a7031ddb4346f3d2bdf",
+      "source_rect_format": "xywh",
+      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
+    },
+    "orchard_root_lip_narrow": {
+      "image": "assets/plains_v07/native/orchard_root_lip_narrow.png",
+      "size": [
+        256,
+        94
+      ],
+      "source": "assets/plains_v07/source/room-orchard-generated.png",
+      "source_rect": [
+        41,
+        692,
+        835,
+        306
+      ],
+      "bake_scale": 0.3065868263473054,
+      "anchor": [
+        128.0,
+        94
+      ],
+      "alpha_threshold": 128,
+      "sha256": "5cd8a650c63fe18de9743de782ad32097b791eaf2742e15874c5faa4cb6eefc4",
+      "source_rect_format": "xywh",
+      "sampling": "nearest; uniform scale; alpha>=128 for cutouts; transparent RGB cleared"
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

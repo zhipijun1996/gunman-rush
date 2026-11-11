@@ -13,6 +13,7 @@ static var backgrounds: Dictionary={}
 var occluders: Array[Dictionary]=[]
 var terrain_polygons: Array[PackedVector2Array] = []
 var story_props: Array[Dictionary]=[]
+var rotating_props: Array[Dictionary]=[]
 var sky: Sprite2D
 var daylight: DirectionalLight2D
 var ambient: CanvasModulate
@@ -47,7 +48,7 @@ func _ready() -> void:
 	var interior:=room.interior_material()
 	for hazard: Rect2 in room.hazards:
 		for x: float in range(int(hazard.position.x),int(hazard.end.x),96):sprite("windchime_plains_hazard" if interior.is_empty() else "gear_city_hazard",Vector2(x+48,hazard.end.y),1)
-	if not interior.is_empty():
+	if not interior.is_empty() and not room.art_placements.any(func(p: Dictionary) -> bool: return p.get("backdrop",false)):
 		var wall:=Sprite2D.new();wall.texture=load("res://assets/plains_v07/native/interior_"+interior+".png");wall.centered=false;wall.region_enabled=true;wall.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
 		wall.region_rect=Rect2(Vector2.ZERO,FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size+Vector2(1024,512));wall.position=Vector2(-512,-256);wall.z_index=-40;wall.modulate=Color(.8,.86,.95);add_child(wall)
 		depths.append({"node":wall,"origin":wall.position,"ratio":1.0})
@@ -91,9 +92,21 @@ func _ready() -> void:
 			var coil:=add_lamp(room.rest_point+FixedWorldProvider.point(offset))
 			coil.color=Color(light_settings.station.color);coil.energy=float(light_settings.station.energy);coil.texture_scale=float(light_settings.station.radius)/64
 	for placement: Dictionary in room.art_placements:
+		if placement.has("surface_platform"):
+			var surface:=PlainsTimberSurface.new()
+			surface.bounds=room.platforms[int(placement.surface_platform)]
+			surface.z_index=0;add_child(surface);continue
 		if placement.has("support_height"):
 			_support(FixedWorldProvider.point(placement.point),float(placement.support_height));continue
 		var node:=sprite(str(placement.asset),FixedWorldProvider.point(placement.point),int(placement.get("layer",-2)))
+		if placement.has("tint"):
+			var tone:Array=placement.tint;node.modulate=Color(tone[0],tone[1],tone[2],tone[3])
+		if placement.get("flip_h",false):node.flip_h=true
+		if placement.has("rotation_speed"):
+			# Rotate rigid machinery about its painted hub, preserving its authored footprint.
+			node.position+=node.offset+node.texture.get_size()*.5
+			node.offset=-node.texture.get_size()*.5
+			rotating_props.append({"node":node,"speed":placement.rotation_speed,"source":placement.get("motion_source","")})
 		if placement.has("tile_rect"):
 			var area:=FixedWorldProvider.rect(placement.tile_rect)
 			node.position=area.position;node.offset=Vector2.ZERO
@@ -116,6 +129,8 @@ func _ready() -> void:
 			var glow:=add_lamp(FixedWorldProvider.point(emitter.offset))
 			glow.color=Color(emitter.color);glow.energy=float(emitter.energy);glow.texture_scale=float(emitter.radius)/64
 			glow.reparent(node,false)
+		if placement.get("window_beam",false):
+			PlainsWindowLight.attach(node)
 	_thresholds()
 	var spikes:=WorldSpikeArt.new()
 	spikes.name="ContinuousSpikes"
@@ -129,6 +144,10 @@ func add_lamp(at: Vector2) -> PointLight2D:
 	return light
 func _process(delta: float) -> void:
 	clock+=delta
+	for trace:Dictionary in rotating_props:
+		var source:=room.get_node_or_null(str(trace.source)) as WorldMovingPlatform
+		if source==null or source.motion_running:
+			trace.node.rotation+=delta*float(trace.speed)
 	if sky!=null:(sky.material as ShaderMaterial).set_shader_parameter("cloud_time",clock)
 	if room.services!=null:
 		var restored:=1.0 if room.services.state.has("clock_P") else 0.0

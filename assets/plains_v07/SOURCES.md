@@ -16,6 +16,7 @@
 | thresholds-generated.png | 无拱直柱、木梁遮檐入口、低井口；固定裁切与等比原生烘焙见清单，生成提示摘要见source/thresholds-generation.json |
 | clocktower-generated.png | 世界钟塔构件原母版；P32远景不再使用独立剪影 |
 | clockheart-landscape.png | P32完整远景：同族高塔与山脊、谷雾一体绘制，塔基被环境遮住；640×360最近邻烘焙，提示词与源图一同保留 |
+| room-orchard-generated.png / room-mill-generated.png / room-wall-generated.png | P25有根果树、草根岩裙与P26木架、窗洞、传动轮及安静墙面；[逐件提示词、裁切和锚点](source/room-pair-provenance.json)，原生尺寸归manifest；样房艺术方向待实际试玩审看 |
 | story-traces-generated.png | 布条桩、路线便笺板、修好的灯凳，显现只读取交谈收据与宿主房号 |
 
 `python3 tools/art/bake_plains_v07.py` 只执行固定格裁切、alpha≥128 清边、最近邻采样与固定脚底对齐。源图、每次裁切、原生高度、缩放和输出哈希见 [manifest.json](manifest.json)。场景按一素材像素/一世界单位放置；UI肖像沿统一逻辑画布比例展示。源图由 `.gdignore` 隔离，导出只使用原生资产与运行清单。

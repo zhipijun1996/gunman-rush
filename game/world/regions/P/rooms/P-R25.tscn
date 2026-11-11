@@ -42,30 +42,162 @@ retry_anchors = Array[Dictionary]([{
 "point": [2144.0, 750.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "windchime_plains_near_v2",
-"layer": -2.0,
-"point": [2080.0, 864.0],
-"sway": true
-}, {
-"asset": "windchime_plains_v2_chime_span",
-"layer": -2.0,
-"point": [2640.0, 576.0]
-}, {
+art_placements = Array[Dictionary]([
+{
+"asset": "orchard_tree",
+"sway": true,
+"point": [
+590,
+864
+],
+"layer": -2
+},
+{
+"asset": "orchard_fence",
+"point": [
+820,
+768
+],
+"layer": -2
+},
+{
+"asset": "orchard_reward_tree",
+"point": [
+1368,
+864
+],
+"layer": -2
+},
+{
+"asset": "orchard_tree",
+"sway": true,
+"point": [
+2160,
+768
+],
+"layer": -2,
+"flip_h": true
+},
+{
+"asset": "orchard_fence",
+"point": [
+2632,
+576
+],
+"layer": -2
+},
+{
+"asset": "orchard_root_lip",
+"point": [
+784,
+851
+],
+"layer": 1
+},
+{
+"asset": "orchard_root_lip",
+"point": [
+1456,
+819
+],
+"layer": 1
+},
+{
+"asset": "orchard_root_lip_narrow",
+"point": [
+2176,
+841
+],
+"layer": 1
+},
+{
+"asset": "orchard_root_lip",
+"point": [
+2640,
+659
+],
+"layer": 1
+},
+{
 "asset": "plains_grass",
-"layer": -2.0,
-"point": [512.0, 864.0],
+"point": [
+424,
+864
+],
+"layer": -2,
 "sway": true
-}, {
+},
+{
+"asset": "plains_grass",
+"point": [
+1584,
+736
+],
+"layer": -2,
+"sway": true
+},
+{
+"asset": "plains_grass",
+"point": [
+2280,
+768
+],
+"layer": -2,
+"sway": true
+},
+{
 "asset": "leaf_sprig",
-"layer": -2.0,
-"point": [1456.0, 352.0],
+"point": [
+1456,
+352
+],
+"layer": -2,
 "sway": true
-}])
+},
+{
+"point": [
+2448,
+864
+],
+"support_height": 160
+},
+{
+"asset": "mill_walkway",
+"point": [
+0,
+0
+],
+"surface_platform": 3
+},
+{
+"asset": "mill_walkway",
+"point": [
+0,
+0
+],
+"surface_platform": 8
+},
+{
+"asset": "mill_walkway",
+"point": [
+0,
+0
+],
+"surface_platform": 9
+},
+{
+"asset": "mill_walkway",
+"point": [
+0,
+0
+],
+"surface_platform": 11
+}
+])
 art_profile = "orchard"
 platforms = Array[Rect2]([Rect2(0, 1184, 128, 32), Rect2(256, 1120, 128, 96), Rect2(384, 864, 2496, 32), Rect2(256, 960, 128, 64), Rect2(640, 768, 288, 96), Rect2(1312, 736, 320, 128), Rect2(2048, 768, 256, 96), Rect2(2496, 576, 384, 320), Rect2(1024, 784, 256, 24), Rect2(1728, 784, 256, 24), Rect2(2320, 672, 176, 32), Rect2(1408, 352, 160, 24)])
 workbench_entity_ids = {
-"art_placements": ["P-R25:art_placements:2", "P-R25:art_placements:3", "P-R25:art-pass:0", "P-R25:art-pass:1"],
+"art_placements": ["P-R25:art:0", "P-R25:art:1", "P-R25:art:2", "P-R25:art:3", "P-R25:art:4", "P-R25:art:5", "P-R25:art:6", "P-R25:art:7", "P-R25:art:8", "P-R25:art:9", "P-R25:art:10", "P-R25:art:11", "P-R25:art:12", "P-R25:art:13", "P-R25:art:14", "P-R25:art:15", "P-R25:art:16", "P-R25:art:17"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],
@@ -75,6 +207,7 @@ workbench_entity_ids = {
 }
 one_way_indices = Array[int]([3, 8, 9, 11])
 masonry_platform_indices = Array[int]([10])
+illustrated_platform_indices = Array[int]([3, 8, 9, 11])
 start_point = Vector2(320, 1102)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",

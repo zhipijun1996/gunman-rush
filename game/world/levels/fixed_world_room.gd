@@ -215,7 +215,7 @@ func _draw() -> void:
 	if contract.is_empty(): return
 	var bounds := FixedWorldProvider.rect(contract.world_geometry.bounds_world_units)
 	for i: int in platforms.size():
-		if i in one_way_indices: UnderworldTerrain.draw_one_way(self,platforms[i])
+		if i in one_way_indices and i not in illustrated_platform_indices: UnderworldTerrain.draw_one_way(self,platforms[i])
 	for door: Dictionary in doors:
 		if door.get("front_door",false) or door.get("npc_guard",false):continue
 		var p := FixedWorldProvider.point(door.position_candidate.local_world_units)

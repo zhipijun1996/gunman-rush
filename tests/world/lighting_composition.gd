@@ -35,12 +35,18 @@ func run() -> void:
  art=app.room.get_node("RegionalArt") as PlainsRoomArt
  check(art.indoor and art.daylight==null,"mill has interior ambient and visible lamps, no outdoor sun")
  var emitters:=0
+ var windows:=0
  for child:Node in art.get_children():
   if not child is Sprite2D:continue
   for lamp:Node in child.get_children():
    if lamp is PointLight2D:
-    emitters+=1;check(lamp.position==Vector2(8,-69),"lamp light registered on actual amber bulb")
+    if child.texture.resource_path.ends_with("mill_window.png"):
+     windows+=1;check(lamp.position==Vector2(0,-116),"window light registered on actual glass")
+     check(child.has_node("WindowDaylight"),"window shaft shares the fixed glass anchor")
+    else:
+     emitters+=1;check(lamp.position==Vector2(8,-69),"lamp light registered on actual amber bulb")
  check(emitters==3,"mill has three grounded lamps covering both halls and the upper exit")
+ check(windows==4,"mill has four authored windows, not a repeated glowing wallpaper")
  await image_at("mill-lamps")
  await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)
  print("LIGHTING COMPOSITION: ",failures," failures");quit(failures)
