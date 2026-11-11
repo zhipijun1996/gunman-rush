@@ -13,7 +13,7 @@
 | architecture-generated.png | 倒时车厢、候车棚、风车架、旧摊架、井台；未使用的旧拱形桥墩只保留母版来源 |
 | thresholds-generated.png | 无拱直柱、木梁遮檐入口、低井口；固定裁切与等比原生烘焙见清单，生成提示摘要见source/thresholds-generation.json |
 | clocktower-generated.png | 世界钟塔构件原母版；P32远景不再使用独立剪影 |
-| longbridge_vista.png / longbridge_cache.png / longbridge_service.png / longbridge_crane.png / longbridge_hanger.png / longbridge_wellmouth.png | P32整房构图：低平河谷与远处钟心、连续桥墩检修背墙、实际铃位与吊台承接的吊架、P15同族回程井口。独立流云沿现有天空层；母图、提示词、机械裁切／锚点与哈希见 source/longbridge-provenance.json。 |
+| longbridge_vista.png / longbridge_rearwall.png / longbridge_crane.png / longbridge_hanger.png / longbridge_wellmouth.png | P32整房构图：低平河谷与远处钟心、厚桥台内的藏室与敞开检修井共用一体后侧挡墙、实际铃位与吊台承接的吊架、P15同族回程井口。独立流云沿现有天空层；母图、提示词、机械裁切／锚点与哈希见 source/longbridge-provenance.json。 |
 | room-orchard-generated.png / room-mill-generated.png | 现用果园断栅、木架、托梁和木台的母版；[裁切与锚点](source/room-pair-provenance.json)，原生尺寸归manifest。无消费者的大树、草根岩肩、独立亮窗、幕布墙和大装饰轮不进入现行素材清单 |
 | mill-hall-generated.png / mill-window-bay-generated.png | P26整屏氛围实验：多层风车远结构与完整窗间墙；[提示词、参考、裁切、等比烘焙与哈希](source/mill-atmosphere-provenance.json)。远景轻微视差，墙身与窗光固定世界坐标，主角与玩法沿用正式入口；主厅氛围改善获用户反馈，隐藏小室使用下列专用背墙 |
 | orchard-sky-generated.png / orchard-ridge-generated.png / orchard-structure-generated.png / mill-recess-generated.png | P25远山底板、自带地面的疏果林与整体门廊，P26单幅封闭小室背墙；[提示词、裁切、锚点和哈希](source/orchard-atmosphere-provenance.json)。中央高台侧柱与托臂由现用木材机械裁切复用，母版中的大树不生成运行素材；室外整体改善已获反馈，P25木桥按可见梁底修正接缝、入口木台按岩壁收口 |

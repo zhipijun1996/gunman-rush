@@ -61,11 +61,11 @@ retry_anchors = Array[Dictionary]([{
 }])
 art_placements = Array[Dictionary]([
   {
-    "asset": "plains_grass",
+    "asset": "aqi_ribbon",
     "layer": -2.0,
     "point": [
-      336.0,
-      1024.0
+      2816,
+      640
     ],
     "sway": true,
     "landscape": "clockheart_vista",
@@ -101,15 +101,6 @@ art_placements = Array[Dictionary]([
     }
   },
   {
-    "asset": "aqi_ribbon",
-    "layer": -2.0,
-    "point": [
-      2816.0,
-      640.0
-    ],
-    "sway": true
-  },
-  {
     "asset": "gear_lamp",
     "point": [
       2848,
@@ -117,22 +108,6 @@ art_placements = Array[Dictionary]([
     ],
     "layer": -5,
     "light": true
-  },
-  {
-    "asset": "longbridge_cache",
-    "point": [
-      1920,
-      1056
-    ],
-    "layer": -25
-  },
-  {
-    "asset": "longbridge_service",
-    "point": [
-      2240,
-      1440
-    ],
-    "layer": -25
   },
   {
     "asset": "gear_lamp",
@@ -209,10 +184,10 @@ art_placements = Array[Dictionary]([
     ]
   },
   {
-    "surface_platform": 7
+    "surface_platform": 5
   },
   {
-    "surface_platform": 10
+    "surface_platform": 8
   },
   {
     "asset": "longbridge_hanger",
@@ -223,44 +198,28 @@ art_placements = Array[Dictionary]([
     "layer": -17
   },
   {
-    "asset": "well_masonry",
-    "point": [
-      0,
-      0
-    ],
-    "tile_rect": [
-      1664,
-      894,
-      512,
-      164
-    ],
-    "layer": -26,
-    "tint": [
-      0.65,
-      0.73,
-      0.76,
-      1
+    "masonry_region": [
+      64,
+      960,
+      1600,
+      896
     ]
   },
   {
-    "asset": "well_masonry",
-    "point": [
-      0,
-      0
-    ],
-    "tile_rect": [
-      1920,
-      1056,
-      640,
-      384
-    ],
-    "layer": -26,
-    "tint": [
-      0.65,
-      0.73,
-      0.76,
-      1
+    "masonry_region": [
+      1664,
+      832,
+      896,
+      1024
     ]
+  },
+  {
+    "asset": "longbridge_rearwall",
+    "point": [
+      2112,
+      1515
+    ],
+    "layer": -25
   }
 ])
 art_profile = "clockheart_vista"
@@ -270,9 +229,9 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "BridgeInspectionLift",
 "id": "P32:inspection_lift"
 }])
-platforms = Array[Rect2]([Rect2(96, 1024, 672, 32), Rect2(96, 1056, 352, 32), Rect2(96, 1088, 320, 32), Rect2(1024, 960, 448, 96), Rect2(1664, 832, 512, 64), Rect2(2432, 640, 608, 64), Rect2(704, 640, 416, 64), Rect2(864, 160, 192, 32), Rect2(2368, 1248, 160, 64), Rect2(1952, 1248, 288, 64), Rect2(2176, 1024, 192, 32), Rect2(1664, 896, 64, 160), Rect2(1920, 1056, 256, 32)])
+platforms = Array[Rect2]([Rect2(96, 1024, 672, 96), Rect2(1024, 960, 448, 160), Rect2(1664, 832, 512, 64), Rect2(2432, 640, 608, 64), Rect2(704, 640, 416, 64), Rect2(864, 160, 192, 32), Rect2(2368, 1248, 160, 64), Rect2(1952, 1248, 288, 64), Rect2(2176, 1024, 192, 32), Rect2(1664, 896, 64, 224), Rect2(1920, 1056, 256, 32), Rect2(1728, 1056, 192, 64)])
 workbench_entity_ids = {
-  "art_placements": ["P-R32:composition:0", "P-R32:composition:1", "P-R32:composition:2", "P-R32:composition:3", "P-R32:composition:4", "P-R32:composition:5", "P-R32:composition:6", "P-R32:composition:7", "P-R32:composition:8", "P-R32:composition:9", "P-R32:composition:10", "P-R32:composition:11", "P-R32:composition:12", "P-R32:composition:13", "P-R32:composition:14", "P-R32:composition:15"],
+  "art_placements": ["P-R32:structure:0", "P-R32:structure:1", "P-R32:structure:2", "P-R32:structure:3", "P-R32:structure:4", "P-R32:structure:5", "P-R32:structure:6", "P-R32:structure:7", "P-R32:structure:8", "P-R32:structure:9", "P-R32:structure:10", "P-R32:structure:11", "P-R32:structure:12", "P-R32:structure:13"],
   "climbable_walls": [],
   "hazards": [],
   "hook_points": [
@@ -282,8 +241,6 @@ workbench_entity_ids = {
   ],
   "platforms": [
     "P-R32:platforms:0",
-    "P-R32:platforms:0:part2",
-    "P-R32:platforms:0:part3",
     "P-R32:platforms:1",
     "P-R32:platforms:2",
     "P-R32:platforms:3",
@@ -293,7 +250,8 @@ workbench_entity_ids = {
     "P-R32:platforms:7",
     "P-R32:platforms:8",
     "P-R32:review06:pier_west_support",
-    "P-R32:review06:inspection_cache_floor"
+    "P-R32:review06:inspection_cache_floor",
+    "P-R32:structure:cache_foundation"
   ],
   "retry_anchors": [
     "P-R32:retry_anchors:0",
@@ -302,9 +260,9 @@ workbench_entity_ids = {
   ],
   "signs": []
 }
-one_way_indices = Array[int]([7, 10])
-illustrated_platform_indices = Array[int]([7, 10])
-masonry_platform_indices = Array[int]([0, 1, 2, 3, 4, 5, 6])
+one_way_indices = Array[int]([5, 8])
+illustrated_platform_indices = Array[int]([5, 8])
+masonry_platform_indices = Array[int]([0, 1, 2, 3, 4, 6, 7, 9, 10, 11])
 start_point = Vector2(208, 1006)
 enemy_placements = Array[Dictionary]([{
 "behavior": "charger",
@@ -328,11 +286,11 @@ enemy_placements = Array[Dictionary]([{
 "point": [1936.0, 1038.0]
 }])
 spike_strips = Array[Dictionary]([{
-"bounds": [768.0, 1064.0, 256.0, 24.0],
+"bounds": [768.0, 1096.0, 256.0, 24.0],
 "facing": "up",
 "id": "P32:first_gap"
 }, {
-"bounds": [1472.0, 1064.0, 192.0, 24.0],
+"bounds": [1472.0, 1096.0, 192.0, 24.0],
 "facing": "up",
 "id": "P32:second_gap"
 }, {
