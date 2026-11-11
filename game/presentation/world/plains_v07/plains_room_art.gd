@@ -236,6 +236,10 @@ func _support(base: Vector2,height: float) -> void:
 	var texture: Texture2D=load("res://assets/plains_v07/native/plain_pier.png")
 	var width:=texture.get_width()
 	var top:=base.y-height
+	# Decorative piers sit behind the route: opaque atmospheric color, no solid-wall contrast.
+	var backdrop:=ShaderMaterial.new()
+	backdrop.shader=preload("res://game/presentation/world/plains_v07/backdrop_haze.gdshader")
+	backdrop.set_shader_parameter("haze",Color(.43,.53,.52,.68))
 	var pieces: Array[Rect2]=[Rect2(0,0,width,20)]
 	var remaining:=height-40
 	while remaining>0:
@@ -245,7 +249,7 @@ func _support(base: Vector2,height: float) -> void:
 	for rect: Rect2 in pieces:
 		var part:=Sprite2D.new();var atlas:=AtlasTexture.new();atlas.atlas=texture;atlas.region=rect
 		part.texture=atlas;part.centered=false;part.position=Vector2(base.x-width*.5,top).round();part.z_index=-4
-		part.modulate=Color(.72,.78,.82);part.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST;add_child(part);top+=rect.size.y
+		part.material=backdrop;part.modulate=Color(.9,.95,.95);part.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST;add_child(part);top+=rect.size.y
 
 static func _scene_profile(path: String) -> String:
 	if not profiles.has(path):
