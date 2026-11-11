@@ -70,7 +70,7 @@ P12西岸守箱巡逻怪按用户明确决定使用规范9血。P10／P20审批�
 
 ## 检查与证据
 
-本轮玩法反馈证据在`build/game-feel-pass/`。日常CI四项、文档和差异格式检查通过；`game_feel.gd`验证弹程端点不随步长变化、吸附范围／墙遮挡／目标资格、正式访问铃纹理一致，以及两怪当前位置索敌与隔墙拒绝。`focus_heal.gd`29项和`selected_sfx_runtime.gd`64项通过。
+本轮玩法反馈证据在`build/game-feel-pass/`。日常CI四项、文档和差异格式检查通过；`game_feel.gd`验证弹程端点不随步长变化、吸附范围／墙遮挡／目标资格、正式访问铃纹理一致，以及两怪当前位置索敌与隔墙拒绝。`focus_heal.gd`29项、`selected_sfx_runtime.gd`64项及全武器2,381项通过。
 
 真实控制器复验：`approved_final_rooms.gd -- P-R10`连续命中续枪；`approved_hub_actions.gd -- P-R26,P-R08`射铃承载与反冲换台；`approved_exploration_rooms.gd -- P-R12,P-R25`返程折梯和高枝奖励，均零失败。局部夹具隔离非目标战斗，不代表全主线连续通关。
 
@@ -80,11 +80,11 @@ Z01剧情、旧集出口失败恢复、冰弹和武器匠的上一轮专项仍�
 
 ## 当前公开试玩
 
-[正式主游戏](https://zhipijun1996.github.io/gunman-rush/index.html?v=dc9931bc73b2)版本`dc9931bc73b2`，运行源码`ca855fed8f8e0d99be3114e86ab9d83e96f46801`，PR150尚未合入main。部署分支`playtest-room-art-ca855fed`只含最终Web产物，[Pages运行42935338751](https://github.com/zhipijun1996/gunman-rush/actions/runs/42935338751)成功。审核平台保持原部署，未改写人工审批。
+[正式主游戏](https://zhipijun1996.github.io/gunman-rush/index.html?v=48ee6af4c614)版本`48ee6af4c614`，运行源码`d717a3c55a8fdad71ba6f5742fd02c7bffcdaa76`，PR150尚未合入main。部署分支`playtest-game-feel-d717a3c5`只含最终Web产物，[Pages运行42938997099](https://github.com/zhipijun1996/gunman-rush/actions/runs/42938997099)成功。审核平台保持原部署，未改写人工审批。
 
-显式资源闭包及独立PCK装载通过：正式36房、隔离预览37房、16种行为；PCK为137,222,772字节，SHA256为`dc9931bc73b26c1149317908633ec55cf15d906c37fd753d2bdb17a603088a25`。公网首页、版本、缓存脚本、完整PCK、样房审核页与三段短片逐字节一致。本地及公网Chromium WebGL2均运行P25、P26及正常新游戏，未见页面或引擎脚本错误。浏览器检查不代表手机性能或全区体验验证。
+显式资源闭包及独立PCK装载通过：正式36房、隔离预览37房、16种行为；PCK为137,199,840字节，SHA256为`48ee6af4c6140e8add95a62acfeb881a3e85786c34a2e3bd8b2440fb60a37792`。本地及公网Chromium WebGL2运行P10、P26及正常新游戏，未见页面或引擎脚本错误。公网完整PCK、首页、版本、缓存脚本、审核页及两段短片全部逐字节一致。浏览器验证不代表实体手机性能。
 
-[手机样房审核页](https://zhipijun1996.github.io/gunman-rush/review/room-art/index.html?v=dc9931bc73b2)提供两房直达试玩、11组同机位前后取景及三段正常速度短片：P25高枝收集约3.8秒／639KiB，P26吊台换岸约8.8秒／930KiB，室内外双向过门约4.2秒／265KiB，均可单独下载。390px触屏布局无横向溢出。原P10/P12／回复／金币的短片入口仍有效。当前样房截图、正常速度录像与验证日志在`build/room-art-pair/`，不进入源码树；此前玩法证据归`build/plains-composition/`。
+[手机玩法反馈审核页](https://zhipijun1996.github.io/gunman-rush/review/game-feel/index.html?v=48ee6af4c614)提供主游戏、P10/P25/P26直达及带声短片：回复约3.6秒／262KiB，金币约4.2秒／136KiB，可单独播放和下载，并提供独立金币音色试听。390px触屏布局无横向溢出。既有样房审核页保留可访问，并明确标记样房未通过；不代表当前美术已获认可。当前构建、录像与验证日志在`build/game-feel-pass/`，不进入源码树。
 
 ## 未验与下一步
 
