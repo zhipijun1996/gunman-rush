@@ -109,7 +109,7 @@ window.PLAYTEST_CACHE_READY = (async () => {
                     const timer = setTimeout(() => { channel.port1.close(); resolve(false); }, 250);
                     channel.port1.onmessage = event => {
                         clearTimeout(timer); channel.port1.close();
-                        resolve(event.data?.id === "794399f6b63c" && event.data.packs.includes('index.' + "48ee6af4c614" + '.pck'));
+                        resolve(event.data?.id === "d42ea6fa69ad" && event.data.packs.includes('index.' + "8dc33d83d895" + '.pck'));
                     };
                     controller.postMessage({type: 'playtest-cache-version'}, [channel.port2]);
                 });
@@ -118,7 +118,7 @@ window.PLAYTEST_CACHE_READY = (async () => {
                         // A newly claimed document keeps its original response
                         // headers. Navigate once under the verified current worker.
                         // Persistent policy failures must never create a reload loop.
-                        const key = 'playtest-isolation-' + "794399f6b63c";
+                        const key = 'playtest-isolation-' + "d42ea6fa69ad";
                         if (sessionStorage.getItem(key) === 'reloaded') return false;
                         sessionStorage.setItem(key, 'reloaded');
                         window.location.reload();
@@ -166,7 +166,7 @@ async function checkPlaytestUpdate() {
         const response = await fetch(manifest, {cache: 'no-store'});
         if (!response.ok) return;
         const live = await response.json();
-        if (!live || live.build_id === "48ee6af4c614" || !/^[a-f0-9]{12}$/.test(live.build_id)) return;
+        if (!live || live.build_id === "8dc33d83d895" || !/^[a-f0-9]{12}$/.test(live.build_id)) return;
         if (document.getElementById('playtest-update')) return;
         const button = document.createElement('button');
         button.id = 'playtest-update';
@@ -206,7 +206,7 @@ document.addEventListener('visibilitychange', checkPlaytestUpdate);
 
 		<script src="index.61064047f5b3.engine.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index.61064047f5b3.engine","experimentalVK":true,"fileSizes":{"index.48ee6af4c614.pck":137199840,"index.61064047f5b3.engine.wasm":51544493},"focusCanvas":false,"gdextensionLibs":[],"godotPoolSize":4,"mainPack":"index.48ee6af4c614.pck"};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index.61064047f5b3.engine","experimentalVK":true,"fileSizes":{"index.8dc33d83d895.pck":139679488,"index.61064047f5b3.engine.wasm":51544493},"focusCanvas":false,"gdextensionLibs":[],"godotPoolSize":4,"mainPack":"index.8dc33d83d895.pck"};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
@@ -324,7 +324,7 @@ const engine = new Engine(GODOT_CONFIG);
 	}
 }());
 		</script>
-	<div id="playtest-version" data-build-id="48ee6af4c614" style="position:fixed;bottom:3px;left:5px;z-index:9;pointer-events:none;font:10px sans-serif;color:#9ba7b6">试玩 48ee6af4</div>
+	<div id="playtest-version" data-build-id="8dc33d83d895" style="position:fixed;bottom:3px;left:5px;z-index:9;pointer-events:none;font:10px sans-serif;color:#9ba7b6">试玩 8dc33d83</div>
 </body>
 </html>
 
