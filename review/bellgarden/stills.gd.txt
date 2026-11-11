@@ -1,0 +1,12 @@
+extends "res://tests/world/approved_clock_rooms.gd"
+func shot(name:String)->void:
+ await RenderingServer.frame_post_draw
+ root.get_texture().get_image().save_png("res://build/p15-composition/"+name+".png")
+func run()->void:
+ root.size=Vector2i(1280,720)
+ app=preload("res://game/application/world/fixed_world.tscn").instantiate();root.add_child(app)
+ await load_room("P-R15","h");await fixture(Vector2(1952,3918))
+ app._interact();await ticks(75);await shot("silent")
+ await ticks(230);await shot("awake")
+ await ticks(20);app.story.finish();await ticks(5)
+ await WorldAudioLifecycle.drain_world(app);quit(failures)
