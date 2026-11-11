@@ -1,0 +1,20 @@
+{
+  "scope": "composition proposal only; no runtime assets or collision changes",
+  "source_commit": "7814acb3",
+  "generated_source_sha256": "716096777a45e7e36b09aa4904671ae04c346ed01e08e816ed2ea2ee395e1522",
+  "guide": "layout.svg",
+  "camera_source": "formal WorldCamera, 1280x720, zoom1.6",
+  "camera_views": "camera-views.json",
+  "proposals": "composition.json",
+  "generated_source": "whole-room-source.png",
+  "guide_sha256": "4cb2cbbf7f479ac03c5cb60bafb33300cbee7967cb88d411a0c69bc2f7395668",
+  "style_reference": ".agents/skills/godot-room-art/assets/approved-five-regions.png (plains panel only)",
+  "generation": "image_gen; whole-room concept, not runtime texture or collision source",
+  "review_boundary": [
+    "4 actual camera rectangles extracted from formal game at 1280x720 zoom1.6",
+    "15 platform outlines overlaid from baseline scene",
+    "2 wall silhouette proposals only; no gameplay verification",
+    "generated contours can deviate from geometry; overlay remains authoritative"
+  ],
+  "prompt_summary": "Preserve the exact 1024x1536 guide and world rectangle (96,160,832,1024), platforms and hero scale. Continuous cliff-bound windmill around left lateral opening. Shared meadow horizon raised to y640–690 after camera-crop review. Sparse small moss/root fringes on 3 thick bank fronts, no huge branches or supports. Quiet sage/olive/cream values; texture only inside existing wall silhouettes. Existing gameplay and entry identities retained."
+}
