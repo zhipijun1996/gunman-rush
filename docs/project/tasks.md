@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | P32整房结构返工：断桥、荆棘渠槽、桥墩藏室与检修井 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | P33整房构图：进场、塔门与塔基回路；独立整房图交付 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
 | MOBILE-LEVEL-WORKBENCH-01 | Site V18 / r68：双点出口跳房、37房隔离预览与钟心室内分层；整区审核含森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 

@@ -31,7 +31,6 @@
     "orchard-layer-generated.png": "d29d75330dad7822aec311afeb3a193ee61b83a2f6a06fc02f17a0ad28d56d43",
     "plains-layer-generated.png": "81a944887dc273c7e04a27d9425a407f2bcfe284be140ac8064be8a2211268f4",
     "wind_clouds-layer-generated.png": "4065a9bdb81772beb40d3855392e8fe3a9cc240ae2ae272d32789ca098d21be0",
-    "clocktower_base-generated.png": "8c54ff0532730090edcfa9d6249501876d15d59d22c60b38fb09ca48f4eb1275",
     "clockheart_hall-generated.png": "1a62680b16aa4eff5f064dd057c273f50909a185bc5e99bcee62ef225592cc15",
     "well_tower-generated.png": "aa97659cc69be20d5c48f745b6648d9a8ab883b8ac1ffcbd52bb49544885d8d0",
     "well_curved_wall-generated.png": "2cd6e7ac7f64aad47b899d8828d94d5596eddad4aa6f564b7006e04c8dc4a45c",
@@ -40,7 +39,8 @@
     "junction-facade-generated.png": "7892889c4b7349c1e64f029c44745236513af2401e4a16545f8e1b51b9946cb1",
     "junction-meadow-generated.png": "18a5f6f89fd5696342be34f4aec00382f012b34a19a8e74a41239081bbe12270",
     "bellgarden-ruin-generated.png": "c13d1796c44a6665d82343450f3b0f35a5995819bf1152c7488e0e03839be69b",
-    "bellgarden-revival-generated.png": "fc7b298af45fadf845c7115d56fc59241bdc7cfd2ce20593970907f8f62c8bb1"
+    "bellgarden-revival-generated.png": "fc7b298af45fadf845c7115d56fc59241bdc7cfd2ce20593970907f8f62c8bb1",
+    "forecourt-architecture-generated.png": "028355d74a07b4989a86dc522c6dd8ccc246e8b98d35490f341e8b2d63af6e4a"
   },
   "assets": {
     "reclaimer": {
@@ -1717,28 +1717,6 @@
         256
       ]
     },
-    "clockheart_gate": {
-      "image": "assets/plains_v07/native/clockheart_gate.png",
-      "source": "assets/plains_v07/source/clockheart-gate-core.png",
-      "source_rect": [
-        0,
-        0,
-        768,
-        1024
-      ],
-      "alpha_crop": [
-        26,
-        137,
-        748,
-        948
-      ],
-      "size": [
-        512,
-        575
-      ],
-      "bake_scale": 0.7091412742382271,
-      "sha256": "d7edf6aed37efba2866109c0e082a17675c5cdb282490fdfd5e8dc0a3779520e"
-    },
     "clockheart_ruin": {
       "image": "assets/plains_v07/native/clockheart_ruin.png",
       "source": "assets/plains_v07/source/clockheart-gate-core.png",
@@ -2183,40 +2161,6 @@
       ],
       "filter": "nearest",
       "sha256": "1a62680b16aa4eff5f064dd057c273f50909a185bc5e99bcee62ef225592cc15",
-      "generation": "assets/plains_v07/source/clockheart-route-provenance.json"
-    },
-    "clocktower_base": {
-      "image": "assets/plains_v07/native/clocktower_base.png",
-      "source": "assets/plains_v07/source/clocktower_base-generated.png",
-      "size": [
-        896,
-        566
-      ],
-      "source_rect": [
-        0,
-        0,
-        1536,
-        970
-      ],
-      "filter": "nearest",
-      "sha256": "3cb9b45d146382900c80e662b830c8f21bc631529abf6381e1f86601872f7186",
-      "generation": "assets/plains_v07/source/clockheart-route-provenance.json"
-    },
-    "clockheart_recess": {
-      "image": "assets/plains_v07/native/clockheart_recess.png",
-      "source": "assets/plains_v07/source/clockheart_hall-generated.png",
-      "size": [
-        200,
-        352
-      ],
-      "source_rect": [
-        700,
-        500,
-        200,
-        352
-      ],
-      "filter": "nearest",
-      "sha256": "9f8d3d800b0e8b403a76c580832d90dbee962ee3fec162603aa3b49a64a1fd1e",
       "generation": "assets/plains_v07/source/clockheart-route-provenance.json"
     },
     "well_service_reveal": {
@@ -2757,6 +2701,30 @@
         683
       ],
       "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    "forecourt_architecture": {
+      "asset": "forecourt_architecture",
+      "source": "assets/plains_v07/source/forecourt-architecture-generated.png",
+      "source_sha256": "028355d74a07b4989a86dc522c6dd8ccc246e8b98d35490f341e8b2d63af6e4a",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "size": [
+        1536,
+        1024
+      ],
+      "image": "assets/plains_v07/native/forecourt_architecture.png",
+      "sha256": "5497584ebeaa0da1f68ba3d64e55bcb3dd0273ff07431012a1ffd68f1c110e98",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        768,
+        1024
+      ],
+      "generation": "assets/plains_v07/source/forecourt-provenance.json"
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

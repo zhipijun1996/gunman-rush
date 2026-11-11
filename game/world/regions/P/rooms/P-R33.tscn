@@ -18,124 +18,113 @@ route_guide = {
 }
 art_placements = Array[Dictionary]([
   {
-    "asset": "clockheart_recess",
-    "layer": -5.0,
+    "asset": "forecourt_architecture",
     "point": [
-      1536.0,
-      576.0
+      1408,
+      1040
     ],
-    "tile_rect": [
-      1436.0,
-      224.0,
-      200.0,
-      352.0
-    ],
+    "layer": -20,
     "tint": [
-      0.32,
-      0.42,
-      0.48,
-      1
-    ]
-  },
-  {
-    "asset": "clockheart_gate",
-    "layer": -4.0,
-    "point": [
-      1536.0,
-      576.0
-    ],
-    "tint": [
-      0.68,
-      0.76,
       0.78,
+      0.81,
+      0.79,
       1
     ],
-    "landscape": "opening_plains",
-    "environment": {
-      "ambient": "899caf",
-      "restored": "99aabc",
-      "sun_energy": 0.45,
-      "restored_sun_energy": 0.55
-    },
+    "landscape": "junction_meadow",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.45
+    ],
+    "landscape_reference": [
+      1024,
+      448
+    ],
+    "landscape_offset": [
+      0,
+      -100
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
     "atmosphere": {
       "density": 2,
       "speed": [
-        18,
-        30
+        15,
+        27
       ],
-      "sway_speed": 0.65
+      "sway_speed": 0.6
     }
   },
   {
     "asset": "gear_lamp",
-    "layer": -2.0,
-    "light": true,
     "point": [
-      1152.0,
-      576.0
-    ]
+      1184,
+      576
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1888,
+      576
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1248,
+      928
+    ],
+    "layer": -2,
+    "light": true
   },
   {
     "asset": "windchime_plains_near_v2",
-    "layer": -2.0,
     "point": [
-      320.0,
-      576.0
-    ],
-    "sway": true
-  },
-  {
-    "asset": "storage_crates",
-    "layer": -2.0,
-    "point": [
-      1840.0,
-      576.0
-    ]
-  },
-  {
-    "asset": "orchard_fence",
-    "point": [
-      512,
+      320,
       576
     ],
     "layer": -5,
+    "sway": true,
     "tint": [
-      0.65,
-      0.74,
-      0.72,
+      0.85,
+      0.88,
+      0.84,
       1
     ]
   },
   {
     "asset": "plains_grass",
     "point": [
-      1248,
+      832,
       576
     ],
     "layer": -5,
     "sway": true
   },
   {
-    "asset": "gear_lamp",
-    "point": [
-      1920,
-      576
-    ],
-    "layer": -5,
-    "light": true
+    "surface_platform": 6
   },
   {
-    "asset": "clocktower_base",
-    "point": [
-      1536,
-      576
-    ],
-    "layer": -12,
-    "tint": [
-      0.68,
-      0.76,
-      0.78,
-      1
+    "surface_platform": 7
+  },
+  {
+    "masonry_region": [
+      736,
+      704,
+      1408,
+      832
     ]
   }
 ])
@@ -143,17 +132,7 @@ art_profile = "clock"
 masonry_platform_indices = Array[int]([3, 4, 5])
 platforms = Array[Rect2]([Rect2(32, 576, 928, 128), Rect2(64, 704, 896, 32), Rect2(768, 736, 192, 32), Rect2(1088, 576, 928, 160), Rect2(1088, 736, 256, 32), Rect2(1088, 928, 224, 64), Rect2(960, 832, 128, 24), Rect2(960, 576, 128, 24)])
 workbench_entity_ids = {
-  "art_placements": [
-    "P-R33:art_placements:0",
-    "P-R33:art_placements:1",
-    "P-R33:art_placements:2",
-    "P-R33:art-pass:0",
-    "P-R33:art-pass:1",
-    "P-R33:art:clockroute:0",
-    "P-R33:art:clockroute:1",
-    "P-R33:art:clockroute:2",
-    "P-R33:art:clockroute:tower-base"
-  ],
+  "art_placements": ["P-R33:forecourt:0", "P-R33:forecourt:1", "P-R33:forecourt:2", "P-R33:forecourt:3", "P-R33:forecourt:4", "P-R33:forecourt:5", "P-R33:forecourt:6", "P-R33:forecourt:7", "P-R33:forecourt:8"],
   "climbable_walls": [],
   "hazards": [],
   "hook_points": [],
@@ -172,3 +151,5 @@ workbench_entity_ids = {
 }
 one_way_indices = Array[int]([6, 7])
 start_point = Vector2(144, 558)
+
+illustrated_platform_indices = Array[int]([6, 7])

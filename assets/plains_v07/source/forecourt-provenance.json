@@ -1,0 +1,56 @@
+{
+  "generator": "OpenAI image_gen",
+  "prompt": "Create a production transparent pixel-art rear architectural layer for the 2D side-scroller in reference 2. Reference1 is the exact 1536x1024 registration diagram, not artwork. Match that layout and canvas exactly. Reference3 is the existing tower's restrained grey weathered stone and fine pixel clusters. Reference4 is the identity of its ornate ruined entrance: dull brass clock crest, torn cream banners, dark arched doorway. Recompose it INTO one continuous building, do not paste a separate door illustration. At this scale the entire arched portal including crest fits inside x730..1060,y225..576; doorway opening centered x896, reaches floor y576. Large quiet masonry tower continues above the TOP of the canvas, no roof or skyline at top. Its left sloping buttress follows x520,y0 to x448,y560. Right narrow tower edge stays within x1120 until y300, then a broken side shoulder slopes to x1312,y384 and x1376,y576. Main base floor is exactly y576, no feet below this on the upper right. Ruined sparse roots, restrained old gold trim, not bright polished ornate castle. Low contrast building surfaces with pale stone only around door framing. The door should feel like a real recessed interior, deep opaque charcoal inner hall, converging recessed jambs, a tiny faint teal broken energy thread high inside; NO transparent hole and no bright white bottom. NO staircase in front of door; existing playable floor meets bottom y576. A contiguous dark lower service foundation extends LEFTWARD under the buttress into the rectangle x128..704,y560..1024, fully backed by opaque charcoal stone (NOT an outdoor wall floating on sky), worn mortar, shallow recessed mechanical shaft traces, sparse muted copper conduit following the masonry. This lower rectangle connects seamlessly to the upper structure. No framed picture border, huge arch or second entrance in the lower rectangle. Red lines in guide are existing colliders and must NOT be drawn. All area OUTSIDE the filled guide polygon should be genuine alpha transparency, no ground, sky, landscape, grass, lamps, platforms, characters, lettering or colored guide lines. Native fine pixel style with readable pixel clusters, NO smooth painterly blur or photoreal texture. Warm desaturated slate grey, subtle olive moss, charcoal interiors; avoid strong blue/teal cast. Side-view architecture and integrated front-facing portal appropriate for UP-to-enter game interaction. Geometry registration matters more than standalone attractiveness. Output 1536x1024.",
+  "composition": "Open approach, readable front portal in the continuous tower buttress, recessed foundation inspection return. Architecture follows the existing cavity and all surfaces are actual scene collision; background adds no collision.",
+  "guide": "assets/plains_v07/source/forecourt-architecture-guide.png",
+  "assets": [
+    {
+      "asset": "forecourt_architecture",
+      "source": "assets/plains_v07/source/forecourt-architecture-generated.png",
+      "source_sha256": "028355d74a07b4989a86dc522c6dd8ccc246e8b98d35490f341e8b2d63af6e4a",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "size": [
+        1536,
+        1024
+      ],
+      "image": "assets/plains_v07/native/forecourt_architecture.png",
+      "sha256": "5497584ebeaa0da1f68ba3d64e55bcb3dd0273ff07431012a1ffd68f1c110e98",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        768,
+        1024
+      ],
+      "generation": "assets/plains_v07/source/forecourt-provenance.json"
+    }
+  ],
+  "registration": {
+    "world_origin": [
+      640,
+      16
+    ],
+    "native_size": [
+      1536,
+      1024
+    ],
+    "point": [
+      1408,
+      1040
+    ],
+    "reason": "Rear foundation cap visible edge meets the actual 576wu grass/bridge line; tall tower continues beyond viewport; never add collision to match the illustration."
+  },
+  "references": {
+    "source_commit": "5c87e6e1a74c43aaea96ee4312d313237bada72a",
+    "baseline": "game/world/regions/P/rooms/P-R33.tscn",
+    "style": [
+      "assets/plains_v07/native/clocktower_base.png",
+      "assets/plains_v07/native/clockheart_gate.png"
+    ],
+    "meaning": "Style references existed in source_commit; superseded unused native assets removed from current tree."
+  }
+}
