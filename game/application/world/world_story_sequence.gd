@@ -29,7 +29,7 @@ func setup(application: FixedWorldApp) -> void:
  z_index=30
  if settings.is_empty():set_process(false);return
  if settings.has("npc_point"):
-  figure=WorldSpriteAnimation.new();figure.asset_id="reclaimer"
+  figure=WorldSpriteAnimation.new();figure.asset_id="clockkeeper"
   figure.position=FixedWorldProvider.point(settings.npc_point)+Vector2(0,18);add_child(figure)
   figure.process_mode=Node.PROCESS_MODE_ALWAYS
   _place_station_figure()

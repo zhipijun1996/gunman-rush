@@ -34,27 +34,23 @@
     {
       "asset": "orchard",
       "image": "assets/plains_v07/native/orchard.png",
-      "source": "assets/plains_v07/source/orchard-sky-generated.png",
+      "source": "assets/plains_v07/source/orchard-layer-generated.png",
       "source_rect": [
         0,
-        100,
-        1536,
-        964
+        0,
+        1672,
+        941
       ],
-      "source_rect_format": "xyxy",
+      "source_rect_format": "xywh",
       "size": [
         864,
         486
       ],
-      "bake_scale": 0.5625,
-      "flip_horizontal": false,
-      "alpha_threshold": null,
-      "anchor": [
-        432.0,
-        486
-      ],
-      "sha256": "751ad669ceead59b47f89b9ddb064e27916133da08987b80831b69c5ea397689",
-      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+      "filter": "nearest",
+      "alpha_threshold": 128,
+      "role": "fixed_landscape_transparent_sky",
+      "sha256": "78c20be44e661570c621c3380767384a0a3895c436a7a2700f4d2187dc0908a3",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
     },
     {
       "asset": "orchard_mill_entrance",

@@ -5,13 +5,11 @@
   "sources": {
     "architecture-generated.png": "aa15252267099bd1119d44353141a0bf0f2718b79aba67a19e5596a9bcdff103",
     "interiors-generated.png": "a2cf0c7a76e8c4eb6618b7c9a6c2ba0eaeca1f2562f8e509c1e0a2ac8131e84a",
-    "aqi-story-generated.png": "b8969f9132506104aacea2321178f7aa6ff3087bf004cb5a6b8898e116cb6286",
     "story-traces-generated.png": "a819edf775b6eda75d6931c79bd498fd9f004d65563829b2b06b9598fa378685",
     "collectibles-generated.png": "39012315b9d73c1c29fb0b144f9d324679989ce98b6dcde67a0709223365d88d",
     "props-generated.png": "fccdc8e90851e97d6fe8217382fb0c9a253978af4b890fae873cd1ddfb2e1523",
     "mill-drive-generated.png": "42bd2ec13d55ec1d3f54c02e1babad05626de8e836fffc3b868d132f7bf86c58",
     "thresholds-generated.png": "78f83f6408c638b40287d94f6412d9fb4b781618b4515b51577d5a0b68a3b934",
-    "inhabitants-generated.png": "081dbf9a2ff5f1163b64a266b82d9848986b3ea23bb9a56e0d8dbe3d5a684c32",
     "mechanisms-generated.png": "e12df1bc1177034ce55e0fa5f5b6439d554f8f9d93fb672f6f504ac2602c3daa",
     "orchard-arches-generated.png": "9bc560d30550d6d5e606b27e09f6ba7635e2e4bc40fa7df7d4b295545d5ac0e9",
     "clocktower-generated.png": "8b2393391b86ee55e38387efe53881213c4df5d8d91306bd11af439493056081",
@@ -25,7 +23,15 @@
     "orchard-structure-generated.png": "3034f49bd4a03783d81fc136ba2ce2785484c8a6319e4ce9331b5d6770370d30",
     "opening-sky-generated.png": "e4fb0122c6af58b4dc63745671770348d2a30ac88cbc1a5f7320ab2c34c1db10",
     "opening-ridge-generated.png": "77a487fe3e981c81aba502d8d99c478d273f7fb5213145a928969a7a153df529",
-    "opening-gallery-generated.png": "f01e638d43688d25ed51c4092be154d1b443d5faecba2d98438eee61827d6136"
+    "opening-gallery-generated.png": "f01e638d43688d25ed51c4092be154d1b443d5faecba2d98438eee61827d6136",
+    "station-houses-generated.png": "c6fc4cd4422519b002f69393627c2d1c24fc30644b98d139b0b8269a3bbefb58",
+    "animal-residents-generated.png": "09a02064c477707bc9b89980b0dded9e2d5f1e797e3ee1e01738ba86087ef984",
+    "aqi-animal-story-generated.png": "f58aaa61746f94a866d51faed09a62eaad879f30c0a0cbc08e9fd04fb4170e63",
+    "opening_plains-layer-generated.png": "8ae454e97892c5c56bc96c718c1c0c68ebefbc4342ede6c5338303bb094798fe",
+    "orchard-layer-generated.png": "d29d75330dad7822aec311afeb3a193ee61b83a2f6a06fc02f17a0ad28d56d43",
+    "clockheart_vista-layer-generated.png": "263001cc97d66f57f1d985a1d3271dee04568c351ef828d0f7823efae77763d8",
+    "plains-layer-generated.png": "81a944887dc273c7e04a27d9425a407f2bcfe284be140ac8064be8a2211268f4",
+    "wind_clouds-layer-generated.png": "4065a9bdb81772beb40d3855392e8fe3a9cc240ae2ae272d32789ca098d21be0"
   },
   "assets": {
     "reclaimer": {
@@ -40,50 +46,53 @@
         60
       ],
       "fps": 6,
-      "source": "assets/plains_v07/source/inhabitants-generated.png",
+      "source": "assets/plains_v07/source/animal-residents-generated.png",
       "source_cells": [
         [
           0,
           0,
           256,
-          256
+          248
         ],
         [
           256,
           0,
-          256,
-          256
+          512,
+          248
         ],
         [
           512,
           0,
-          256,
-          256
+          768,
+          248
         ],
         [
           768,
           0,
-          256,
-          256
+          1024,
+          248
         ],
         [
           1024,
           0,
-          256,
-          256
+          1280,
+          248
         ],
         [
           1280,
           0,
-          256,
-          256
+          1536,
+          248
         ]
       ],
-      "bake_scale": 0.26666666666666666,
+      "source_rect_format": "xyxy",
+      "bake_scale": 0.2682926829268293,
       "native_body_height": 44,
       "alpha_threshold": 128,
       "kind": "npc",
-      "sha256": "7a826121699093c9e36f6d5f63e140eeb4f90e5208dbcbe150303d65b7e942d1"
+      "species": "badger",
+      "sha256": "ffd05a10e3a9e23c6f312bfd54921f3e75d6c44c1d2c6952f921926c507c4f9c",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
     },
     "weaver": {
       "image": "assets/plains_v07/native/weaver.png",
@@ -97,50 +106,53 @@
         60
       ],
       "fps": 6,
-      "source": "assets/plains_v07/source/inhabitants-generated.png",
+      "source": "assets/plains_v07/source/animal-residents-generated.png",
       "source_cells": [
         [
           0,
+          248,
           256,
-          256,
-          256
+          487
         ],
         [
           256,
-          256,
-          256,
-          256
+          248,
+          512,
+          487
         ],
         [
           512,
-          256,
-          256,
-          256
+          248,
+          768,
+          487
         ],
         [
           768,
-          256,
-          256,
-          256
+          248,
+          1024,
+          487
         ],
         [
           1024,
-          256,
-          256,
-          256
+          248,
+          1280,
+          487
         ],
         [
           1280,
-          256,
-          256,
-          256
+          248,
+          1536,
+          487
         ]
       ],
-      "bake_scale": 0.2603550295857988,
-      "native_body_height": 44,
+      "source_rect_format": "xyxy",
+      "bake_scale": 0.228310502283105,
+      "native_body_height": 50,
       "alpha_threshold": 128,
       "kind": "npc",
-      "sha256": "4f55f647cf632e12a9822a134b0bb818128c8d2776b9c5a4e8dd8a7c08fb7a53"
+      "species": "hare",
+      "sha256": "0b8df3b7553b798f4feb3d36ee6a6a19423194a603994a3fd16d0cae23516254",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
     },
     "aqi": {
       "image": "assets/plains_v07/native/aqi.png",
@@ -154,50 +166,53 @@
         60
       ],
       "fps": 6,
-      "source": "assets/plains_v07/source/inhabitants-generated.png",
+      "source": "assets/plains_v07/source/animal-residents-generated.png",
       "source_cells": [
         [
           0,
-          512,
+          487,
           256,
-          256
+          666
         ],
         [
           256,
+          487,
           512,
-          256,
-          256
+          666
         ],
         [
           512,
-          512,
-          256,
-          256
+          487,
+          768,
+          666
         ],
         [
           768,
-          512,
-          256,
-          256
+          487,
+          1024,
+          666
         ],
         [
           1024,
-          512,
-          256,
-          256
+          487,
+          1280,
+          666
         ],
         [
           1280,
-          512,
-          256,
-          256
+          487,
+          1536,
+          666
         ]
       ],
-      "bake_scale": 0.25925925925925924,
+      "source_rect_format": "xyxy",
+      "bake_scale": 0.267515923566879,
       "native_body_height": 42,
       "alpha_threshold": 128,
       "kind": "npc",
-      "sha256": "06f100f9d6bd461c86f48a991b4105e215c00d75a1ef8acfc8a9a57716178b10"
+      "species": "fox",
+      "sha256": "4840f8958f73310fe4c56d6063068b21ed0d6487389b6c167bb1fab84e3c09b5",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
     },
     "time_gear": {
       "image": "assets/plains_v07/native/time_gear.png",
@@ -667,50 +682,53 @@
         60
       ],
       "fps": 6,
-      "source": "assets/plains_v07/source/aqi-story-generated.png",
+      "source": "assets/plains_v07/source/aqi-animal-story-generated.png",
       "source_cells": [
         [
           0,
           0,
           256,
-          256
+          274
         ],
         [
           256,
           0,
-          256,
-          256
+          512,
+          274
         ],
         [
           512,
           0,
-          256,
-          256
+          768,
+          274
         ],
         [
           768,
           0,
-          256,
-          256
+          1024,
+          274
         ],
         [
           1024,
           0,
-          256,
-          256
+          1280,
+          274
         ],
         [
           1280,
           0,
-          256,
-          256
+          1536,
+          274
         ]
       ],
-      "bake_scale": 0.23728813559322035,
+      "source_rect_format": "xyxy",
+      "bake_scale": 0.23863636363636365,
       "native_body_height": 42,
       "alpha_threshold": 128,
       "kind": "npc",
-      "sha256": "a5db3d86ee53d4ad062ad0c67c2fcf5e1abc6ea19fa24726547981cd38a01441"
+      "species": "fox",
+      "sha256": "a508f8ebb8c3f518880d01166f195063e338cb798d2fdf835831a01e8491a187",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
     },
     "aqi_tea": {
       "image": "assets/plains_v07/native/aqi_tea.png",
@@ -724,50 +742,53 @@
         60
       ],
       "fps": 6,
-      "source": "assets/plains_v07/source/aqi-story-generated.png",
+      "source": "assets/plains_v07/source/aqi-animal-story-generated.png",
       "source_cells": [
         [
           0,
+          274,
           256,
-          256,
-          256
+          518
         ],
         [
           256,
-          256,
-          256,
-          256
+          274,
+          512,
+          518
         ],
         [
           512,
-          256,
-          256,
-          256
+          274,
+          768,
+          518
         ],
         [
           768,
-          256,
-          256,
-          256
+          274,
+          1024,
+          518
         ],
         [
           1024,
-          256,
-          256,
-          256
+          274,
+          1280,
+          518
         ],
         [
           1280,
-          256,
-          256,
-          256
+          274,
+          1536,
+          518
         ]
       ],
-      "bake_scale": 0.23863636363636365,
+      "source_rect_format": "xyxy",
+      "bake_scale": 0.2346368715083799,
       "native_body_height": 42,
       "alpha_threshold": 128,
       "kind": "npc",
-      "sha256": "735831c3e256b418efbab47ecb716d1def6e15e04294413f54f870e10c736fb3"
+      "species": "fox",
+      "sha256": "9bafef5ed82e634f8ff8265ba6c4b8d2c87eed7500acd5c36d67bd58dc5ba8dc",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
     },
     "aqi_lantern": {
       "image": "assets/plains_v07/native/aqi_lantern.png",
@@ -781,50 +802,53 @@
         60
       ],
       "fps": 6,
-      "source": "assets/plains_v07/source/aqi-story-generated.png",
+      "source": "assets/plains_v07/source/aqi-animal-story-generated.png",
       "source_cells": [
         [
           0,
-          512,
+          518,
           256,
-          256
+          757
         ],
         [
           256,
+          518,
           512,
-          256,
-          256
+          757
         ],
         [
           512,
-          512,
-          256,
-          256
+          518,
+          768,
+          757
         ],
         [
           768,
-          512,
-          256,
-          256
+          518,
+          1024,
+          757
         ],
         [
           1024,
-          512,
-          256,
-          256
+          518,
+          1280,
+          757
         ],
         [
           1280,
-          512,
-          256,
-          256
+          518,
+          1536,
+          757
         ]
       ],
-      "bake_scale": 0.2413793103448276,
+      "source_rect_format": "xyxy",
+      "bake_scale": 0.23595505617977527,
       "native_body_height": 42,
       "alpha_threshold": 128,
       "kind": "npc",
-      "sha256": "d8c892957102b843c2e3b64b2ecc8de8f3b41d50b02c43c38228955a345ecd37"
+      "species": "fox",
+      "sha256": "d1a45e5eba77259924f4b28ebacf7c9e22f2c0ea63e3f54717c5fc169daea285",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
     },
     "aqi_lookout": {
       "image": "assets/plains_v07/native/aqi_lookout.png",
@@ -838,50 +862,173 @@
         60
       ],
       "fps": 6,
-      "source": "assets/plains_v07/source/aqi-story-generated.png",
+      "source": "assets/plains_v07/source/aqi-animal-story-generated.png",
       "source_cells": [
         [
           0,
-          768,
+          757,
           256,
-          256
+          1024
         ],
         [
           256,
-          768,
-          256,
-          256
+          757,
+          512,
+          1024
         ],
         [
           512,
+          757,
           768,
-          256,
-          256
+          1024
         ],
         [
           768,
-          768,
-          256,
-          256
+          757,
+          1024,
+          1024
         ],
         [
           1024,
-          768,
-          256,
-          256
+          757,
+          1280,
+          1024
         ],
         [
           1280,
-          768,
-          256,
-          256
+          757,
+          1536,
+          1024
         ]
       ],
-      "bake_scale": 0.23728813559322035,
+      "source_rect_format": "xyxy",
+      "bake_scale": 0.22950819672131148,
       "native_body_height": 42,
       "alpha_threshold": 128,
       "kind": "npc",
-      "sha256": "015de36369ede1f75d94e1755ae2a9a1fae2bedac55f478e276635419c0b1450"
+      "species": "fox",
+      "sha256": "ad56e53b5ff1c4a5a2d7ec1e70efe0118aa0975a8643d07ea5fbcbde0125ce90",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
+    },
+    "weaponsmith": {
+      "image": "assets/plains_v07/native/weaponsmith.png",
+      "cell": [
+        64,
+        64
+      ],
+      "frames": 6,
+      "anchor": [
+        32,
+        60
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/animal-residents-generated.png",
+      "source_cells": [
+        [
+          0,
+          666,
+          256,
+          854
+        ],
+        [
+          256,
+          666,
+          512,
+          854
+        ],
+        [
+          512,
+          666,
+          768,
+          854
+        ],
+        [
+          768,
+          666,
+          1024,
+          854
+        ],
+        [
+          1024,
+          666,
+          1280,
+          854
+        ],
+        [
+          1280,
+          666,
+          1536,
+          854
+        ]
+      ],
+      "source_rect_format": "xyxy",
+      "bake_scale": 0.2994011976047904,
+      "native_body_height": 50,
+      "alpha_threshold": 128,
+      "kind": "npc",
+      "species": "boar",
+      "sha256": "aed7aecc561dcc2fb745cd5bced7d09f826d33dc6ccc7f606deb459820078d5f",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
+    },
+    "clockkeeper": {
+      "image": "assets/plains_v07/native/clockkeeper.png",
+      "cell": [
+        64,
+        64
+      ],
+      "frames": 6,
+      "anchor": [
+        32,
+        60
+      ],
+      "fps": 6,
+      "source": "assets/plains_v07/source/animal-residents-generated.png",
+      "source_cells": [
+        [
+          0,
+          854,
+          256,
+          1024
+        ],
+        [
+          256,
+          854,
+          512,
+          1024
+        ],
+        [
+          512,
+          854,
+          768,
+          1024
+        ],
+        [
+          768,
+          854,
+          1024,
+          1024
+        ],
+        [
+          1024,
+          854,
+          1280,
+          1024
+        ],
+        [
+          1280,
+          854,
+          1536,
+          1024
+        ]
+      ],
+      "source_rect_format": "xyxy",
+      "bake_scale": 0.32167832167832167,
+      "native_body_height": 46,
+      "alpha_threshold": 128,
+      "kind": "npc",
+      "species": "owl",
+      "sha256": "585bf783649227fd0b9df3d2bb1bd75e370599b1b6e37a16706a44cc05a76b93",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
     }
   },
   "backgrounds": {
@@ -969,62 +1116,103 @@
     },
     "clockheart_vista": {
       "image": "assets/plains_v07/native/clockheart-landscape.png",
-      "source": "assets/plains_v07/source/clockheart-landscape.png",
-      "sha256": "af11ab14ecb19c490ca3144e0121138fb2ebc3cd259a6d3ff4046bfe68772b6e",
-      "source_sha256": "a9368eee18cfc87fa28ff787782ee686b884cdc630e51c9767bf493020a38793",
-      "size": [
-        640,
-        360
-      ],
-      "bake": "whole opaque plate to 640x360, nearest; tower foot painted behind hills and valley haze",
-      "anchor": "same viewport-fill far plate transform as plains sky"
-    },
-    "orchard": {
-      "image": "assets/plains_v07/native/orchard.png",
-      "source": "assets/plains_v07/source/orchard-sky-generated.png",
-      "source_rect": [
-        0,
-        100,
-        1536,
-        964
-      ],
-      "source_rect_format": "xyxy",
-      "size": [
-        864,
-        486
-      ],
-      "bake_scale": 0.5625,
-      "flip_horizontal": false,
-      "alpha_threshold": null,
-      "anchor": [
-        432.0,
-        486
-      ],
-      "sha256": "751ad669ceead59b47f89b9ddb064e27916133da08987b80831b69c5ea397689",
-      "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
-    },
-    "opening_plains": {
-      "image": "assets/plains_v07/native/opening_plains.png",
-      "source": "assets/plains_v07/source/opening-sky-generated.png",
+      "source": "assets/plains_v07/source/clockheart_vista-layer-generated.png",
       "source_rect": [
         0,
         0,
         1672,
-        940
+        941
       ],
-      "source_rect_format": "xyxy",
+      "source_rect_format": "xywh",
+      "size": [
+        640,
+        360
+      ],
+      "filter": "nearest",
+      "alpha_threshold": 128,
+      "role": "fixed_landscape_transparent_sky",
+      "sha256": "051efc620fdfef9a5bdeefdfbd00d154d085a2cfd4183bbfdb4d8744481a89f0",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
+    },
+    "orchard": {
+      "image": "assets/plains_v07/native/orchard.png",
+      "source": "assets/plains_v07/source/orchard-layer-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "source_rect_format": "xywh",
       "size": [
         864,
         486
       ],
-      "bake_scale": 0.5167464114832536,
-      "alpha_threshold": null,
-      "anchor": [
-        432.0,
+      "filter": "nearest",
+      "alpha_threshold": 128,
+      "role": "fixed_landscape_transparent_sky",
+      "sha256": "78c20be44e661570c621c3380767384a0a3895c436a7a2700f4d2187dc0908a3",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
+    },
+    "opening_plains": {
+      "image": "assets/plains_v07/native/opening_plains.png",
+      "source": "assets/plains_v07/source/opening_plains-layer-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        864,
         486
       ],
-      "sha256": "8ba1635ee5a6ad294e68876d09f6a5e0c3120ea0d84f48c63b3226b790bf01ed",
-      "generation": "assets/plains_v07/source/opening-atmosphere-provenance.json"
+      "filter": "nearest",
+      "alpha_threshold": 128,
+      "role": "fixed_landscape_transparent_sky",
+      "sha256": "dd7595668a1d5b09658eba87349313d9af6f12c614f6016bb94b67d1a58dc160",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
+    },
+    "plains": {
+      "image": "assets/plains_v07/native/plains.png",
+      "source": "assets/plains_v07/source/plains-layer-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        640,
+        360
+      ],
+      "filter": "nearest",
+      "alpha_threshold": 128,
+      "role": "fixed_landscape_transparent_sky",
+      "sha256": "d11a530cc86259c545926e78e8126bf0e4f8f216efd1887df6541b3e54928cfc",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
+    },
+    "wind_clouds": {
+      "image": "assets/plains_v07/native/wind_clouds.png",
+      "source": "assets/plains_v07/source/wind_clouds-layer-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        864,
+        486
+      ],
+      "filter": "nearest",
+      "alpha_threshold": 128,
+      "role": "drifting_clouds",
+      "sha256": "278ab29071344313e812f97fdbf7de5330743668dcb798c6829962085f4368bf",
+      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
     }
   },
   "props": {
@@ -1901,6 +2089,29 @@
         192
       ],
       "sha256": "e161fd80dd0f1a736eecfba987d909b4c6d1ce4baca8640963153548ac70fbe6",
+      "generation": "assets/plains_v07/source/opening-atmosphere-provenance.json"
+    },
+    "station_houses": {
+      "image": "assets/plains_v07/native/station_houses.png",
+      "source": "assets/plains_v07/source/station-houses-generated.png",
+      "source_rect": [
+        88,
+        174,
+        2080,
+        678
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        996,
+        252
+      ],
+      "bake_scale": 0.5,
+      "alpha_threshold": 128,
+      "anchor": [
+        498,
+        252
+      ],
+      "sha256": "b9eb10e2cfc77f0e9349d1e2d0afb27814552accfaef40efce7f2e04fb3afad2",
       "generation": "assets/plains_v07/source/opening-atmosphere-provenance.json"
     }
   },

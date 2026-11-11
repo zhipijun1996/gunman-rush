@@ -15,6 +15,7 @@ var terrain_polygons: Array[PackedVector2Array] = []
 var story_props: Array[Dictionary]=[]
 var rotating_props: Array[Dictionary]=[]
 var sky: Sprite2D
+var sky_layers: PlainsSkyLayers
 var daylight: DirectionalLight2D
 var ambient: CanvasModulate
 var indoor := false
@@ -68,11 +69,13 @@ func _ready() -> void:
 		var landscape:=room.art_profile
 		for placement:Dictionary in room.art_placements:
 			if placement.has("landscape"):landscape=str(placement.landscape)
-		sky.texture=load("res://"+str(backgrounds[landscape].image)) if backgrounds.has(landscape) else load("res://art/world-art-v2/"+str(assets.backgrounds.windchime_plains_v2.file))
+		sky.texture=load("res://"+str(backgrounds[landscape if backgrounds.has(landscape) else "plains"].image))
 		sky.z_index=-100;sky.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
-		var cloud_material:=ShaderMaterial.new();cloud_material.shader=preload("res://game/presentation/world/plains_v07/cloud_drift.gdshader")
-		cloud_material.set_shader_parameter("tower_landscape",room.art_profile=="clockheart_vista");sky.material=cloud_material
+		var sky_material:=CanvasItemMaterial.new();sky_material.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED
+		sky.material=sky_material
 		add_child(sky)
+		sky_layers=PlainsSkyLayers.new();sky.add_child(sky_layers)
+		sky_layers.configure(sky,load("res://"+str(backgrounds.wind_clouds.image)))
 		daylight=DirectionalLight2D.new();daylight.color=Color(light_settings.sun.color);daylight.energy=float(environment_light.sun_energy)
 		# Open sky is a broad fill, not an infinitely projected shadow from every ledge.
 		# Terrain still occludes the finite lamps and the player's carry light.
@@ -100,17 +103,20 @@ func _ready() -> void:
 			coil.color=Color(light_settings.station.color);coil.energy=float(light_settings.station.energy);coil.texture_scale=float(light_settings.station.radius)/64
 	for placement: Dictionary in room.art_placements:
 		if placement.has("surface_platform"):
-			var surface:=PlainsTimberSurface.new()
-			surface.bounds=room.platforms[int(placement.surface_platform)]
-			# Terminate the visible plank at its bank face; physics remains authored.
-			if placement.has("surface_clip"):
-				surface.bounds=surface.bounds.intersection(FixedWorldProvider.rect(placement.surface_clip))
-			surface.z_index=0;add_child(surface);continue
+			var bounds:Array[Rect2]=[room.platforms[int(placement.surface_platform)]]
+			for part:Rect2 in WorldRoomSpace.exposed_parts(bounds,room.boundary_art_rock):
+				var surface:=PlainsTimberSurface.new();surface.bounds=part
+				surface.z_index=0;add_child(surface)
+			continue
 		if placement.has("support_height"):
 			_support(FixedWorldProvider.point(placement.point),float(placement.support_height));continue
 		var node:=sprite(str(placement.asset),FixedWorldProvider.point(placement.point),int(placement.get("layer",-2)))
 		if placement.has("tint"):
 			var tone:Array=placement.tint;node.modulate=Color(tone[0],tone[1],tone[2],tone[3])
+		if placement.has("haze"):
+			var haze:Array=placement.haze
+			var distant:=ShaderMaterial.new();distant.shader=preload("res://game/presentation/world/plains_v07/backdrop_haze.gdshader")
+			distant.set_shader_parameter("haze",Color(haze[0],haze[1],haze[2],haze[3]));node.material=distant
 		if placement.get("flip_h",false):node.flip_h=true
 		if placement.has("rotation_speed"):
 			# Rotate rigid machinery about its painted hub, preserving its authored footprint.
@@ -158,7 +164,7 @@ func _process(delta: float) -> void:
 		var source:=room.get_node_or_null(str(trace.source)) as WorldMovingPlatform
 		if source==null or source.motion_running:
 			trace.node.rotation+=delta*float(trace.speed)
-	if sky!=null:(sky.material as ShaderMaterial).set_shader_parameter("cloud_time",clock)
+	if sky_layers!=null:sky_layers.update_clock(clock)
 	if room.services!=null:
 		var restored:=1.0 if room.services.state.has("clock_P") else 0.0
 		if not repair_initialized:repair_blend=restored;repair_initialized=true

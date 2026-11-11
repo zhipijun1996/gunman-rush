@@ -62,3 +62,22 @@ static func exterior_fill(geometry: Dictionary, doors: Array) -> Array[Rect2]:
 			if not filled and start>=0:
 				result.append(Rect2(xs[start],ys[row],xs[col]-xs[start],ys[row+1]-ys[row]));start=-1
 	return result
+
+static func exposed_parts(surfaces: Array[Rect2], rock: Array[Rect2]) -> Array[Rect2]:
+	# Presentation only. Trim inserted ends against the physical room wall and
+	# exterior mass; do not trim against other authored platforms or change bodies.
+	var pieces: Array[Rect2] = surfaces.duplicate()
+	for wall: Rect2 in rock:
+		var remaining: Array[Rect2] = []
+		for piece: Rect2 in pieces:
+			var overlap:=piece.intersection(wall)
+			if not overlap.has_area():
+				remaining.append(piece);continue
+			for part: Rect2 in [
+				Rect2(piece.position,Vector2(piece.size.x,overlap.position.y-piece.position.y)),
+				Rect2(piece.position.x,overlap.end.y,piece.size.x,piece.end.y-overlap.end.y),
+				Rect2(piece.position.x,overlap.position.y,overlap.position.x-piece.position.x,overlap.size.y),
+				Rect2(overlap.end.x,overlap.position.y,piece.end.x-overlap.end.x,overlap.size.y)]:
+				if part.has_area():remaining.append(part)
+		pieces=remaining
+	return pieces

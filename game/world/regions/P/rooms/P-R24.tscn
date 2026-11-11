@@ -301,16 +301,52 @@ bell_mechanisms = Array[Dictionary]([{
 "id": "P-R24:station_lift",
 "open_seconds": 0.0
 }])
-masonry_platform_indices = Array[int]([0, 1, 2, 5, 8, 9, 10, 11, 12, 13])
-platforms = Array[Rect2]([Rect2(1024, 1120, 352, 96), Rect2(1376, 1120, 384, 96), Rect2(1952, 1120, 544, 96), Rect2(1664, 1376, 128, 64), Rect2(1920, 1504, 128, 96), Rect2(1056, 160, 192, 32), Rect2(1792, 1248, 128, 32), Rect2(0, 320, 480, 896), Rect2(480, 320, 544, 608), Rect2(928, 928, 96, 96), Rect2(480, 1120, 544, 96), Rect2(1504, 320, 32, 640), Rect2(1536, 320, 800, 416), Rect2(2336, 320, 160, 800)])
+masonry_platform_indices = Array[int]([0, 1, 2, 3, 4, 7, 10, 11, 12, 13, 14, 15])
+platforms = Array[Rect2]([Rect2(1024, 1120, 352, 64), Rect2(1376, 1120, 384, 64), Rect2(1664, 1184, 96, 32), Rect2(1952, 1120, 512, 64), Rect2(1952, 1184, 96, 32), Rect2(1696, 1376, 96, 64), Rect2(1920, 1504, 96, 64), Rect2(1056, 160, 192, 32), Rect2(1792, 1248, 128, 32), Rect2(32, 352, 448, 832), Rect2(480, 352, 544, 576), Rect2(928, 928, 96, 96), Rect2(480, 1120, 544, 64), Rect2(1504, 320, 32, 640), Rect2(1536, 352, 800, 384), Rect2(2336, 352, 128, 768)])
 workbench_entity_ids = {
-"art_placements": ["P-R24:art:0", "P-R24:art:1", "P-R24:art:2", "P-R24:art:3", "P-R24:art:4", "P-R24:art:5", "P-R24:art:6", "P-R24:art:7", "P-R24:art:8", "P-R24:art:9", "P-R24:art:10", "P-R24:art:11", "P-R24:art:12", "P-R24:art:13", "P-R24:art:14"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R24:platforms:0", "P-R24:platforms:1", "P-R24:platforms:2", "P-R24:platforms:3", "P-R24:platforms:4", "P-R24:platforms:5", "P-R24:platforms:6", "P-R24:platforms:7", "P-R24:platforms:8", "P-R24:platforms:9", "P-R24:platforms:10", "P-R24:platforms:11", "P-R24:platforms:12", "P-R24:platforms:13"],
-"retry_anchors": ["P-R24:retry_anchors:0", "P-R24:retry_anchors:1"],
-"signs": []
+  "art_placements": [
+    "P-R24:art:0",
+    "P-R24:art:1",
+    "P-R24:art:2",
+    "P-R24:art:3",
+    "P-R24:art:4",
+    "P-R24:art:5",
+    "P-R24:art:6",
+    "P-R24:art:7",
+    "P-R24:art:8",
+    "P-R24:art:9",
+    "P-R24:art:10",
+    "P-R24:art:11",
+    "P-R24:art:12",
+    "P-R24:art:13",
+    "P-R24:art:14"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R24:platforms:0",
+    "P-R24:platforms:1",
+    "P-R24:platforms:1:part2",
+    "P-R24:platforms:2",
+    "P-R24:platforms:2:part2",
+    "P-R24:platforms:3",
+    "P-R24:platforms:4",
+    "P-R24:platforms:5",
+    "P-R24:platforms:6",
+    "P-R24:platforms:7",
+    "P-R24:platforms:8",
+    "P-R24:platforms:9",
+    "P-R24:platforms:10",
+    "P-R24:platforms:11",
+    "P-R24:platforms:12",
+    "P-R24:platforms:13"
+  ],
+  "retry_anchors": [
+    "P-R24:retry_anchors:0",
+    "P-R24:retry_anchors:1"
+  ],
+  "signs": []
 }
 start_point = Vector2(1984, 1486)
 arena_bounds = Rect2(1536, 736, 800, 384)

@@ -236,13 +236,7 @@ art_placements = Array[Dictionary]([
       0,
       0
     ],
-    "surface_platform": 3,
-    "surface_clip": [
-      256,
-      960,
-      96,
-      16
-    ]
+    "surface_platform": 1
   },
   {
     "asset": "mill_walkway",
@@ -250,7 +244,15 @@ art_placements = Array[Dictionary]([
       0,
       0
     ],
-    "surface_platform": 8
+    "surface_platform": 6
+  },
+  {
+    "asset": "mill_walkway",
+    "point": [
+      0,
+      0
+    ],
+    "surface_platform": 7
   },
   {
     "asset": "mill_walkway",
@@ -259,14 +261,6 @@ art_placements = Array[Dictionary]([
       0
     ],
     "surface_platform": 9
-  },
-  {
-    "asset": "mill_walkway",
-    "point": [
-      0,
-      0
-    ],
-    "surface_platform": 11
   },
   {
     "asset": "mill_post_segment",
@@ -319,19 +313,55 @@ art_placements = Array[Dictionary]([
   }
 ])
 art_profile = "orchard"
-platforms = Array[Rect2]([Rect2(0, 1184, 128, 32), Rect2(256, 1120, 128, 96), Rect2(384, 864, 2496, 32), Rect2(256, 960, 128, 64), Rect2(640, 768, 288, 96), Rect2(1312, 736, 320, 128), Rect2(2048, 768, 256, 96), Rect2(2496, 576, 384, 320), Rect2(1024, 784, 256, 24), Rect2(1728, 784, 256, 24), Rect2(2320, 672, 176, 32), Rect2(1408, 352, 160, 24)])
+platforms = Array[Rect2]([Rect2(256, 1120, 96, 64), Rect2(256, 960, 96, 64), Rect2(640, 768, 288, 96), Rect2(1312, 736, 320, 128), Rect2(2048, 768, 256, 96), Rect2(2496, 576, 352, 288), Rect2(1024, 784, 256, 24), Rect2(1728, 784, 256, 24), Rect2(2320, 672, 176, 32), Rect2(1408, 352, 160, 24)])
 workbench_entity_ids = {
-"art_placements": ["P-R25:art:0", "P-R25:art:1", "P-R25:art:2", "P-R25:art:3", "P-R25:art:4", "P-R25:art:5", "P-R25:art:6", "P-R25:art:7", "P-R25:art:8", "P-R25:art:9", "P-R25:art:10", "P-R25:art:11", "P-R25:art:12", "P-R25:art:13", "P-R25:art:14", "P-R25:art:15", "P-R25:art:16", "P-R25:art:17", "P-R25:art:18", "P-R25:art:19"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R25:platforms:0", "P-R25:platforms:1", "P-R25:platforms:2", "P-R25:platforms:3", "P-R25:platforms:4", "P-R25:platforms:5", "P-R25:platforms:6", "P-R25:platforms:7", "P-R25:platforms:8", "P-R25:platforms:9", "P-R25:platforms:10", "P-R25:platforms:11"],
-"retry_anchors": ["P-R25:retry_anchors:0", "P-R25:retry_anchors:1", "P-R25:retry_anchors:2"],
-"signs": []
+  "art_placements": [
+    "P-R25:art:0",
+    "P-R25:art:1",
+    "P-R25:art:2",
+    "P-R25:art:3",
+    "P-R25:art:4",
+    "P-R25:art:5",
+    "P-R25:art:6",
+    "P-R25:art:7",
+    "P-R25:art:8",
+    "P-R25:art:9",
+    "P-R25:art:10",
+    "P-R25:art:11",
+    "P-R25:art:12",
+    "P-R25:art:13",
+    "P-R25:art:14",
+    "P-R25:art:15",
+    "P-R25:art:16",
+    "P-R25:art:17",
+    "P-R25:art:18",
+    "P-R25:art:19"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R25:platforms:1",
+    "P-R25:platforms:3",
+    "P-R25:platforms:4",
+    "P-R25:platforms:5",
+    "P-R25:platforms:6",
+    "P-R25:platforms:7",
+    "P-R25:platforms:8",
+    "P-R25:platforms:9",
+    "P-R25:platforms:10",
+    "P-R25:platforms:11"
+  ],
+  "retry_anchors": [
+    "P-R25:retry_anchors:0",
+    "P-R25:retry_anchors:1",
+    "P-R25:retry_anchors:2"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([3, 8, 9, 11])
-masonry_platform_indices = Array[int]([7, 10])
-illustrated_platform_indices = Array[int]([3, 8, 9, 11])
+one_way_indices = Array[int]([1, 6, 7, 9])
+masonry_platform_indices = Array[int]([5, 8])
+illustrated_platform_indices = Array[int]([1, 6, 7, 9])
 start_point = Vector2(320, 1102)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",

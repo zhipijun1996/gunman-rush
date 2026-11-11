@@ -214,17 +214,66 @@ bell_mechanisms = Array[Dictionary]([{
 "id": "P-R22:practice_shutter",
 "open_seconds": 1.8
 }])
-platforms = Array[Rect2]([Rect2(576, 160, 288, 32), Rect2(832, 352, 128, 96), Rect2(576, 544, 896, 96), Rect2(0, 800, 480, 96), Rect2(384, 1056, 640, 96), Rect2(0, 1280, 320, 224), Rect2(0, 1504, 832, 288), Rect2(832, 1664, 192, 128), Rect2(832, 1664, 64, 128), Rect2(1024, 1408, 832, 384), Rect2(1856, 1664, 224, 128), Rect2(1856, 1664, 64, 128), Rect2(2080, 1344, 256, 448), Rect2(2336, 1536, 352, 256), Rect2(2560, 1440, 96, 96), Rect2(2336, 1472, 64, 160), Rect2(2400, 1312, 160, 64), Rect2(2688, 1152, 576, 640), Rect2(2464, 960, 352, 32), Rect2(2400, 1088, 96, 136), Rect2(2400, 1256, 96, 56), Rect2(672, 160, 192, 32), Rect2(2976, 1152, 288, 32), Rect2(960, 448, 512, 608), Rect2(1472, 704, 1792, 256)])
+platforms = Array[Rect2]([Rect2(608, 160, 256, 32), Rect2(832, 352, 96, 96), Rect2(576, 544, 864, 96), Rect2(32, 800, 448, 96), Rect2(384, 1056, 640, 96), Rect2(32, 1280, 288, 224), Rect2(32, 1504, 800, 256), Rect2(832, 1664, 192, 96), Rect2(1024, 1408, 832, 352), Rect2(1856, 1664, 224, 96), Rect2(2080, 1344, 256, 416), Rect2(2336, 1536, 352, 224), Rect2(2560, 1440, 96, 96), Rect2(2336, 1472, 64, 64), Rect2(2400, 1312, 160, 64), Rect2(2688, 1152, 544, 608), Rect2(2464, 960, 352, 32), Rect2(2400, 1088, 96, 136), Rect2(2400, 1256, 96, 56), Rect2(960, 704, 512, 352), Rect2(960, 480, 480, 64), Rect2(960, 640, 480, 64), Rect2(1472, 736, 1760, 224)])
 workbench_entity_ids = {
-"art_placements": ["P-R22:art:0", "P-R22:art:1", "P-R22:art:2", "P-R22:art:3", "P-R22:art:4", "P-R22:art:5", "P-R22:art:6", "P-R22:art:7", "P-R22:art:8", "P-R22:art:9", "P-R22:art:10", "P-R22:art:11", "P-R22:art:12", "P-R22:art:13", "P-R22:art:14", "P-R22:art:15"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R22:platforms:0", "P-R22:platforms:1", "P-R22:platforms:2", "P-R22:platforms:3", "P-R22:platforms:4", "P-R22:platforms:5", "P-R22:platforms:6", "P-R22:platforms:7", "P-R22:platforms:8", "P-R22:platforms:9", "P-R22:platforms:10", "P-R22:platforms:11", "P-R22:platforms:12", "P-R22:platforms:13", "P-R22:platforms:14", "P-R22:platforms:15", "P-R22:platforms:16", "P-R22:platforms:17", "P-R22:platforms:18", "P-R22:platforms:19", "P-R22:platforms:20", "P-R22:platforms:21", "P-R22:platforms:22", "P-R22:platforms:23", "P-R22:platforms:24"],
-"retry_anchors": ["P-R22:retry_anchors:0", "P-R22:retry_anchors:1", "P-R22:retry_anchors:2"],
-"signs": ["P-R22:signs:0", "P-R22:signs:1"]
+  "art_placements": [
+    "P-R22:art:0",
+    "P-R22:art:1",
+    "P-R22:art:2",
+    "P-R22:art:3",
+    "P-R22:art:4",
+    "P-R22:art:5",
+    "P-R22:art:6",
+    "P-R22:art:7",
+    "P-R22:art:8",
+    "P-R22:art:9",
+    "P-R22:art:10",
+    "P-R22:art:11",
+    "P-R22:art:12",
+    "P-R22:art:13",
+    "P-R22:art:14",
+    "P-R22:art:15"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R22:platforms:0",
+    "P-R22:platforms:1",
+    "P-R22:platforms:2",
+    "P-R22:platforms:3",
+    "P-R22:platforms:4",
+    "P-R22:platforms:5",
+    "P-R22:platforms:6",
+    "P-R22:platforms:7",
+    "P-R22:platforms:9",
+    "P-R22:platforms:10",
+    "P-R22:platforms:12",
+    "P-R22:platforms:13",
+    "P-R22:platforms:14",
+    "P-R22:platforms:15",
+    "P-R22:platforms:16",
+    "P-R22:platforms:17",
+    "P-R22:platforms:18",
+    "P-R22:platforms:19",
+    "P-R22:platforms:20",
+    "P-R22:platforms:23",
+    "P-R22:platforms:23:part2",
+    "P-R22:platforms:23:part3",
+    "P-R22:platforms:24"
+  ],
+  "retry_anchors": [
+    "P-R22:retry_anchors:0",
+    "P-R22:retry_anchors:1",
+    "P-R22:retry_anchors:2"
+  ],
+  "signs": [
+    "P-R22:signs:0",
+    "P-R22:signs:1"
+  ]
 }
-masonry_platform_indices = Array[int]([0, 1, 2, 3, 4, 14, 15, 16, 18, 19, 20, 23, 24])
+masonry_shell = true
+masonry_platform_indices = Array[int]([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])
 start_point = Vector2(768, 142)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",

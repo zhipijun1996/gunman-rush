@@ -5,7 +5,7 @@
     {
       "room_id": "P-R01",
       "name": "钟外小站",
-      "purpose": "首抵小站停靠与东行指引，射铃启动独立的上层载台。",
+      "purpose": "开阔、疏落而略显破败的安全小镇，整备、充电与东行指引；射铃开启北路载台。",
       "profile": "station",
       "scene": "res://game/world/regions/P/rooms/P-R01.tscn",
       "encounters": [],
@@ -17,8 +17,8 @@
       ],
       "experience": {
         "player_decision": "第一段载台只到小站；落地学习充电站休息，东侧路线开放时听取钟心方向；射铃启动第二段载台；未调查钟心时守钟匠劝返。",
-        "visual_read": "充电站、工作柜与候车棚组成同层服务岸；植物根部附着固定岸，二段升降后的守钟匠站在北口。",
-        "failure_recovery": "两段载台均可重新搭乘，第二段未启动时留在安全小站，不以跳坑代替回程。"
+        "visual_read": "主街连续、少量低屋分居两侧，屋后留远景；背景建筑降低对比，动物居民面部和轮廓保持清楚。镜头上移，把街面置于画面下部，优先展示候车棚、居民与升降路标。",
+        "failure_recovery": "南侧升降井保留安全落台与可下穿井口承接台，两段载台可重搭；主街连续可步行到东侧台阶，无需跳坑。"
       },
       "art_focal_assets": [
         "waiting_shelter",
@@ -27,7 +27,8 @@
         "hanging_chime",
         "gear_lamp",
         "plains_grass",
-        "travel_bundle"
+        "travel_bundle",
+        "station_houses"
       ],
       "service_actions": [
         "pickup_ATK08",
@@ -47,7 +48,7 @@
         "interaction": "收集/校时/折板只在持久化成功后播放动画、散光与对应声音。",
         "encounter": "本房不新增战斗压力。"
       },
-      "spatial_intent": "抵达小站；北侧旧路。",
+      "spatial_intent": "连续主街承接服务、居民与方向选择；删除无职责的下层夹道，仅留南侧升降入口和北路载台。",
       "draft_approval": {
         "revision": 74,
         "signature": "8db679c7be64b0a6934ae1309345890afe8440d27d271926b0dfffbab60f64e6",
@@ -1389,7 +1390,7 @@
       "experience": {
         "player_decision": "两坑练反冲；在安全台看清风铃，跳起向后下方射铃，反冲展开后穿过后移的宽净空闸口。",
         "failure_recovery": "保留门前可承接反冲的安全落台及回试台，不要求冲刺能力或空中等冷却。",
-        "visual_read": "坑前岸和长岸用少量草束分段，固定灯具与物资箱标记练习落点；满刺坑和开门瞄准区不加遮挡。"
+        "visual_read": "同族砌体连续组成引渠的承台、渠壁、闸口和出口落台；自然岩壁处明确收口，不按平台编号散换材质。亮灯对应安全准备岸，刺床和风铃前保留安静背景。"
       },
       "art_focal_assets": [
         "hanging_chime",

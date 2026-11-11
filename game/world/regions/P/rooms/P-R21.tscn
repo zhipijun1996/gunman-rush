@@ -129,15 +129,43 @@ art_placements = Array[Dictionary]([
   }
 ])
 art_profile = "carriage"
-platforms = Array[Rect2]([Rect2(0, 256, 288, 384), Rect2(128, 544, 640, 288), Rect2(320, 832, 448, 320), Rect2(768, 704, 160, 448), Rect2(768, 864, 576, 288), Rect2(896, 800, 96, 64), Rect2(1216, 800, 96, 64), Rect2(1344, 960, 192, 192), Rect2(1664, 1056, 640, 96), Rect2(0, 256, 288, 32), Rect2(1664, 1056, 128, 32)])
+platforms = Array[Rect2]([Rect2(32, 256, 256, 352), Rect2(128, 608, 160, 32), Rect2(288, 608, 480, 32), Rect2(288, 544, 480, 64), Rect2(160, 640, 608, 160), Rect2(320, 800, 448, 32), Rect2(352, 832, 416, 288), Rect2(768, 704, 160, 416), Rect2(928, 864, 416, 256), Rect2(928, 800, 64, 64), Rect2(1216, 800, 96, 64), Rect2(1344, 960, 192, 160), Rect2(1664, 1056, 608, 64)])
 workbench_entity_ids = {
-"art_placements": ["P-R21:art:0", "P-R21:art:1", "P-R21:art:2", "P-R21:art:3", "P-R21:art:4", "P-R21:art:5", "P-R21:art:6", "P-R21:art:7", "P-R21:art:8", "P-R21:art:9", "P-R21:art:10"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R21:platforms:0", "P-R21:platforms:1", "P-R21:platforms:2", "P-R21:platforms:3", "P-R21:platforms:4", "P-R21:platforms:5", "P-R21:platforms:6", "P-R21:platforms:7", "P-R21:platforms:8", "P-R21:platforms:9", "P-R21:platforms:10"],
-"retry_anchors": [],
-"signs": ["P-R21:signs:0"]
+  "art_placements": [
+    "P-R21:art:0",
+    "P-R21:art:1",
+    "P-R21:art:2",
+    "P-R21:art:3",
+    "P-R21:art:4",
+    "P-R21:art:5",
+    "P-R21:art:6",
+    "P-R21:art:7",
+    "P-R21:art:8",
+    "P-R21:art:9",
+    "P-R21:art:10"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R21:platforms:0",
+    "P-R21:platforms:0:part2",
+    "P-R21:platforms:1",
+    "P-R21:platforms:1:part2",
+    "P-R21:platforms:1:part3",
+    "P-R21:platforms:1:part4",
+    "P-R21:platforms:2",
+    "P-R21:platforms:3",
+    "P-R21:platforms:4",
+    "P-R21:platforms:5",
+    "P-R21:platforms:6",
+    "P-R21:platforms:7",
+    "P-R21:platforms:8"
+  ],
+  "retry_anchors": [],
+  "signs": [
+    "P-R21:signs:0"
+  ]
 }
 start_point = Vector2(144, 238)
 enemy_placements = Array[Dictionary]([{

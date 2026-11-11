@@ -96,52 +96,6 @@ art_placements = Array[Dictionary]([
     ]
   },
   {
-    "asset": "opening_road_ridge",
-    "point": [
-      1152,
-      1648
-    ],
-    "layer": -40,
-    "depth": 0.86,
-    "tint": [
-      0.82,
-      0.94,
-      0.94,
-      0.62
-    ],
-    "flip_h": false
-  },
-  {
-    "asset": "opening_road_ridge",
-    "point": [
-      2048,
-      1408
-    ],
-    "layer": -40,
-    "depth": 0.86,
-    "tint": [
-      0.82,
-      0.94,
-      0.94,
-      0.62
-    ],
-    "flip_h": true
-  },
-  {
-    "asset": "orchard_fence",
-    "point": [
-      1256,
-      1472
-    ],
-    "layer": -7,
-    "tint": [
-      0.7,
-      0.77,
-      0.74,
-      1
-    ]
-  },
-  {
     "asset": "orchard_fence",
     "point": [
       2048,
@@ -154,33 +108,6 @@ art_placements = Array[Dictionary]([
       0.74,
       1
     ]
-  },
-  {
-    "asset": "plain_pier",
-    "point": [
-      704,
-      1472
-    ],
-    "layer": -5,
-    "support_height": 132
-  },
-  {
-    "asset": "plain_pier",
-    "point": [
-      1088,
-      1472
-    ],
-    "layer": -5,
-    "support_height": 132
-  },
-  {
-    "asset": "plain_pier",
-    "point": [
-      1344,
-      1472
-    ],
-    "layer": -5,
-    "support_height": 132
   },
   {
     "asset": "mill_post_segment",
@@ -244,6 +171,43 @@ art_placements = Array[Dictionary]([
     ],
     "layer": -5,
     "sway": true
+  },
+  {
+    "asset": "station_houses",
+    "point": [
+      1136,
+      1296
+    ],
+    "layer": -30,
+    "tint": [
+      0.75,
+      0.84,
+      0.82,
+      1
+    ],
+    "haze": [
+      0.43,
+      0.53,
+      0.52,
+      0.42
+    ]
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      1712,
+      1280
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "asset": "tilted_barrel",
+    "point": [
+      1600,
+      1280
+    ],
+    "layer": -5
   }
 ])
 art_profile = "station"
@@ -253,16 +217,47 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "UpperStationLift",
 "id": "P01:upper_station_lift"
 }])
-masonry_platform_indices = Array[int]([1, 2, 3, 5, 7, 10, 11])
-platforms = Array[Rect2]([Rect2(0, 1280, 480, 64), Rect2(1664, 1280, 512, 256), Rect2(1888, 1216, 288, 64), Rect2(1888, 384, 288, 64), Rect2(320, 1696, 192, 32), Rect2(1888, 384, 288, 32), Rect2(384, 1696, 128, 32), Rect2(1888, 1216, 288, 32), Rect2(0, 1344, 320, 192), Rect2(0, 1472, 480, 64), Rect2(608, 1472, 800, 64), Rect2(608, 1280, 800, 64)])
+masonry_shell = true
+masonry_platform_indices = Array[int]([0, 1, 2, 3, 4, 5])
+one_way_indices = Array[int]([7])
+platforms = Array[Rect2]([Rect2(32, 1280, 448, 224), Rect2(320, 1504, 160, 32), Rect2(608, 1280, 1536, 224), Rect2(608, 1504, 96, 32), Rect2(1888, 1216, 256, 64), Rect2(1888, 384, 256, 64), Rect2(352, 1696, 160, 32), Rect2(480, 1280, 128, 24)])
 workbench_entity_ids = {
-"art_placements": ["P-R01:art:0", "P-R01:art:1", "P-R01:art:2", "P-R01:art:3", "P-R01:art:4", "P-R01:art:5", "P-R01:art:6", "P-R01:art:7", "P-R01:art:8", "P-R01:art:9", "P-R01:art:10", "P-R01:art:11", "P-R01:art:12", "P-R01:art:13", "P-R01:art:14", "P-R01:art:15", "P-R01:art:16", "P-R01:art:17", "P-R01:art:18"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R01:platforms:0", "P-R01:platforms:1", "P-R01:platforms:2", "P-R01:platforms:3", "P-R01:platforms:4", "P-R01:platforms:5", "P-R01:platforms:6", "P-R01:platforms:7", "P-R01:platforms:8", "P-R01:platforms:9", "P-R01:platforms:10", "P-R01:platforms:11"],
-"retry_anchors": [],
-"signs": ["P-R01:signs:0", "P-R01:signs:1"]
+  "art_placements": [
+    "P-R01:art:0",
+    "P-R01:art:1",
+    "P-R01:art:2",
+    "P-R01:art:3",
+    "P-R01:art:4",
+    "P-R01:art:5",
+    "P-R01:art:6",
+    "P-R01:art:7",
+    "P-R01:art:8",
+    "P-R01:art:9",
+    "P-R01:art:10",
+    "P-R01:art:11",
+    "P-R01:art:12",
+    "P-R01:art:13",
+    "P-R01:art:14",
+    "P-R01:art:15"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R01:platforms:0",
+    "P-R01:platforms:0:part2",
+    "P-R01:platforms:11",
+    "P-R01:platforms:11:part2",
+    "P-R01:platforms:2",
+    "P-R01:platforms:3",
+    "P-R01:platforms:4",
+    "P-R01:station_arrival_grate"
+  ],
+  "retry_anchors": [],
+  "signs": [
+    "P-R01:signs:0",
+    "P-R01:signs:1"
+  ]
 }
 start_point = Vector2(144, 1262)
 rest_point = Vector2(320, 1262)
@@ -279,7 +274,7 @@ story_sequence = {
 "completion_flag": "station_rest_taught",
 "display": [0.0, 512.0, 2176.0, 1024.0],
 "focus": [768.0, 1136.0],
-"guard_lines": ["先去东边的钟心看看吧。这里的旧路，我会替你守着。", "穿过小站下层的东门，沿着长桥就能看见那座塔。"],
+"guard_lines": ["先去东边的钟心看看吧。这里的旧路，我会替你守着。", "沿主街向东，穿过铃场和长桥，就能看见那座塔。"],
 "guard_return": [1920.0, 366.0],
 "guard_trigger": [1952.0, 288.0, 224.0, 128.0],
 "kind": "station",

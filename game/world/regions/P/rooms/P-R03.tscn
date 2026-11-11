@@ -210,15 +210,43 @@ bell_mechanisms = Array[Dictionary]([{
 "id": "P-R03:first_bell",
 "open_seconds": 0.0
 }])
-platforms = Array[Rect2]([Rect2(0, 1792, 640, 128), Rect2(640, 1728, 384, 192), Rect2(1024, 1824, 128, 96), Rect2(1152, 1664, 512, 256), Rect2(1664, 1792, 128, 128), Rect2(1792, 1600, 512, 320), Rect2(1504, 160, 192, 32), Rect2(576, 1824, 128, 32), Rect2(1088, 1824, 128, 32), Rect2(2016, 1600, 288, 32)])
+platforms = Array[Rect2]([Rect2(32, 1792, 608, 96), Rect2(640, 1728, 384, 160), Rect2(1024, 1824, 128, 64), Rect2(1152, 1664, 512, 224), Rect2(1664, 1792, 128, 96), Rect2(1792, 1600, 480, 288), Rect2(1504, 160, 192, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R03:art:0", "P-R03:art:1", "P-R03:art:2", "P-R03:art:3", "P-R03:art:4", "P-R03:art:5", "P-R03:art:6", "P-R03:art:7", "P-R03:art:8", "P-R03:art:9", "P-R03:art:10", "P-R03:art:11", "P-R03:art:12", "P-R03:art:13"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R03:platforms:0", "P-R03:platforms:1", "P-R03:platforms:2", "P-R03:platforms:3", "P-R03:platforms:4", "P-R03:platforms:5", "P-R03:platforms:6", "P-R03:platforms:7", "P-R03:platforms:8", "P-R03:platforms:9"],
-"retry_anchors": ["P-R03:retry_anchors:0", "P-R03:retry_anchors:1"],
-"signs": ["P-R03:signs:0"]
+  "art_placements": [
+    "P-R03:art:0",
+    "P-R03:art:1",
+    "P-R03:art:2",
+    "P-R03:art:3",
+    "P-R03:art:4",
+    "P-R03:art:5",
+    "P-R03:art:6",
+    "P-R03:art:7",
+    "P-R03:art:8",
+    "P-R03:art:9",
+    "P-R03:art:10",
+    "P-R03:art:11",
+    "P-R03:art:12",
+    "P-R03:art:13"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R03:platforms:0",
+    "P-R03:platforms:1",
+    "P-R03:platforms:2",
+    "P-R03:platforms:3",
+    "P-R03:platforms:4",
+    "P-R03:platforms:5",
+    "P-R03:platforms:6"
+  ],
+  "retry_anchors": [
+    "P-R03:retry_anchors:0",
+    "P-R03:retry_anchors:1"
+  ],
+  "signs": [
+    "P-R03:signs:0"
+  ]
 }
 start_point = Vector2(144, 1774)
 enemy_placements = Array[Dictionary]([{

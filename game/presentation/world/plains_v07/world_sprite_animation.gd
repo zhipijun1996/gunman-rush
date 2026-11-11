@@ -16,6 +16,9 @@ func _ready() -> void:
 	centered = false
 	offset = -FixedWorldProvider.point(spec.anchor)
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	if spec.kind=="npc":
+		var readable:=CanvasItemMaterial.new();readable.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED
+		material=readable
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 func play_event() -> void:
 	event_seconds = .75
