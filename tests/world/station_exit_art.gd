@@ -13,7 +13,9 @@ func run()->void:
  var doors:=0
  for node:Node in art.get_children():
   if node is Sprite2D and node.texture.resource_path.ends_with("building_threshold.png"):doors+=1
- check(doors==1,"one doorway, no extra automatic entrance or floating apron")
+ check(doors==0,"side passage has no frontal facade or automatic entrance")
+ check(app.room.platforms.has(Rect2(2016,32,128,256)),"visible overhead masonry has real collision")
+ check(app.room.art_placements.any(func(p:Dictionary)->bool:return p.get("tile_rect",[])==[2016,288,160,96]),"enclosed passage rear wall stops at its ceiling and floor")
  check(app.room.masonry_platform_indices==[5],"main street remains plains material")
  var source:=load("res://game/world/regions/P/rooms/P-R01.tscn").instantiate() as FixedWorldRoom
  var draft:=WorldRoomDraft.extract(source)

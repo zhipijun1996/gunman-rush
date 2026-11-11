@@ -147,22 +147,42 @@ art_placements = Array[Dictionary]([
     "layer": -5
   },
   {
-    "asset": "building_threshold",
-    "point": [
-      2152,
-      384
-    ],
-    "layer": -3,
-    "light": true,
-    "threshold_for": "L01:P-R01"
-  },
-  {
     "masonry_region": [
       1888,
       0,
       320,
       1280
     ]
+  },
+  {
+    "asset": "mill_hidden_wall",
+    "point": [
+      2016,
+      288
+    ],
+    "tile_rect": [
+      2016,
+      288,
+      160,
+      96
+    ],
+    "layer": -8,
+    "tint": [
+      0.78,
+      0.84,
+      0.88,
+      1
+    ],
+    "threshold_for": "L01:P-R01"
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2112,
+      384
+    ],
+    "layer": -3,
+    "light": true
   }
 ])
 art_profile = "station"
@@ -174,7 +194,7 @@ bell_mechanisms = Array[Dictionary]([{
 "id": "P01:upper_station_lift"
 }])
 one_way_indices = Array[int]([7])
-platforms = Array[Rect2]([Rect2(32, 1280, 448, 224), Rect2(320, 1504, 160, 32), Rect2(608, 1280, 1536, 224), Rect2(608, 1504, 96, 32), Rect2(1888, 1216, 256, 64), Rect2(1888, 384, 256, 64), Rect2(352, 1696, 160, 32), Rect2(480, 1280, 128, 24)])
+platforms = Array[Rect2]([Rect2(32, 1280, 448, 224), Rect2(320, 1504, 160, 32), Rect2(608, 1280, 1536, 224), Rect2(608, 1504, 96, 32), Rect2(1888, 1216, 256, 64), Rect2(1888, 384, 256, 64), Rect2(352, 1696, 160, 32), Rect2(480, 1280, 128, 24), Rect2(2016, 32, 128, 256)])
 workbench_entity_ids = {
   "art_placements": [
     "P-R01:art:0",
@@ -189,8 +209,9 @@ workbench_entity_ids = {
     "P-R01:art:13",
     "P-R01:art:14",
     "P-R01:art:15",
-    "P-R01:art:upper_well_entrance",
-    "P-R01:art:upper_well_wall"
+    "P-R01:art:upper_well_wall",
+    "P-R01:art:upper_well_passage",
+    "P-R01:art:upper_well_lamp"
   ],
   "climbable_walls": [],
   "hazards": [],
@@ -203,7 +224,8 @@ workbench_entity_ids = {
     "P-R01:platforms:2",
     "P-R01:platforms:3",
     "P-R01:platforms:4",
-    "P-R01:station_arrival_grate"
+    "P-R01:station_arrival_grate",
+    "P-R01:upper_well_ceiling"
   ],
   "retry_anchors": [],
   "signs": [
