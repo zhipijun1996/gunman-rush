@@ -1,7 +1,7 @@
 {
   "generator": "OpenAI image_gen",
   "purpose": "P15 open bell garden, exact same registered ruin and revival pieces, actual geometry and native plains terrain remain separately authored",
-  "composition": "Shaft to open courtyard, central clock shrine on real balcony, muted buttresses anchored on actual basin, no generated gameplay collision. Layer sources are mechanically cropped and nearest-baked; paired plant crops use identical anchors.",
+  "composition": "Open bell courtyard with calm distant plains, continuous lower wall extending beyond the lower portal and broken well-mouth shoulders tucked into the ceiling. A two-footed rear arch sits on the real floor banks, clear of the portal. The lower wall integrates an old winding recess and aligned dormant plants with a registered revival layer. Main shrine, native terrain, rigid bell animation and registered living plants remain separate; no gameplay collision or camera changes.",
   "assets": [
     {
       "asset": "bellgarden_shrine",
@@ -29,81 +29,6 @@
       "generation": "assets/plains_v07/source/bellgarden-provenance.json"
     },
     {
-      "asset": "bellgarden_left",
-      "source": "assets/plains_v07/source/bellgarden-ruin-generated.png",
-      "source_sha256": "c13d1796c44a6665d82343450f3b0f35a5995819bf1152c7488e0e03839be69b",
-      "source_rect": [
-        0,
-        192,
-        280,
-        762
-      ],
-      "source_rect_format": "xywh",
-      "size": [
-        560,
-        1524
-      ],
-      "image": "assets/plains_v07/native/bellgarden_left.png",
-      "sha256": "8024b6ed077c83d8169efab1ad9d05518e864c4438719cd7d36ca5615cefb7bd",
-      "sampling": "nearest",
-      "alpha_threshold": 128,
-      "anchor": [
-        280.0,
-        1524
-      ],
-      "generation": "assets/plains_v07/source/bellgarden-provenance.json"
-    },
-    {
-      "asset": "bellgarden_right",
-      "source": "assets/plains_v07/source/bellgarden-ruin-generated.png",
-      "source_sha256": "c13d1796c44a6665d82343450f3b0f35a5995819bf1152c7488e0e03839be69b",
-      "source_rect": [
-        1280,
-        192,
-        256,
-        762
-      ],
-      "source_rect_format": "xywh",
-      "size": [
-        512,
-        1524
-      ],
-      "image": "assets/plains_v07/native/bellgarden_right.png",
-      "sha256": "e9a42e4fd61e528de32bf7ba67f22c59be191a90113afb598b88221232dcffec",
-      "sampling": "nearest",
-      "alpha_threshold": 128,
-      "anchor": [
-        256.0,
-        1524
-      ],
-      "generation": "assets/plains_v07/source/bellgarden-provenance.json"
-    },
-    {
-      "asset": "bellgarden_rearwall",
-      "source": "assets/plains_v07/source/bellgarden-ruin-generated.png",
-      "source_sha256": "c13d1796c44a6665d82343450f3b0f35a5995819bf1152c7488e0e03839be69b",
-      "source_rect": [
-        280,
-        748,
-        420,
-        206
-      ],
-      "source_rect_format": "xywh",
-      "size": [
-        840,
-        412
-      ],
-      "image": "assets/plains_v07/native/bellgarden_rearwall.png",
-      "sha256": "4e21e05e682db213d4c51dc5b48e153baa12f7c96e56106cc171d0dd6a494779",
-      "sampling": "nearest",
-      "alpha_threshold": 128,
-      "anchor": [
-        420.0,
-        412
-      ],
-      "generation": "assets/plains_v07/source/bellgarden-provenance.json"
-    },
-    {
       "asset": "bellgarden_shrine_leaves",
       "source": "assets/plains_v07/source/bellgarden-revival-generated.png",
       "source_sha256": "fc7b298af45fadf845c7115d56fc59241bdc7cfd2ce20593970907f8f62c8bb1",
@@ -125,56 +50,6 @@
       "anchor": [
         140.0,
         394
-      ],
-      "generation": "assets/plains_v07/source/bellgarden-provenance.json"
-    },
-    {
-      "asset": "bellgarden_left_leaves",
-      "source": "assets/plains_v07/source/bellgarden-revival-generated.png",
-      "source_sha256": "fc7b298af45fadf845c7115d56fc59241bdc7cfd2ce20593970907f8f62c8bb1",
-      "source_rect": [
-        0,
-        192,
-        280,
-        762
-      ],
-      "source_rect_format": "xywh",
-      "size": [
-        560,
-        1524
-      ],
-      "image": "assets/plains_v07/native/bellgarden_left_leaves.png",
-      "sha256": "0c4995f931bebe61a3bacc593c1d5a8784cc194b6105422c4147b92f83535179",
-      "sampling": "nearest",
-      "alpha_threshold": 128,
-      "anchor": [
-        280.0,
-        1524
-      ],
-      "generation": "assets/plains_v07/source/bellgarden-provenance.json"
-    },
-    {
-      "asset": "bellgarden_right_leaves",
-      "source": "assets/plains_v07/source/bellgarden-revival-generated.png",
-      "source_sha256": "fc7b298af45fadf845c7115d56fc59241bdc7cfd2ce20593970907f8f62c8bb1",
-      "source_rect": [
-        1280,
-        192,
-        256,
-        762
-      ],
-      "source_rect_format": "xywh",
-      "size": [
-        512,
-        1524
-      ],
-      "image": "assets/plains_v07/native/bellgarden_right_leaves.png",
-      "sha256": "1dd733afb8ff798014dd4c15c4abf395f916119424cffad54af25694d66cac3e",
-      "sampling": "nearest",
-      "alpha_threshold": 128,
-      "anchor": [
-        256.0,
-        1524
       ],
       "generation": "assets/plains_v07/source/bellgarden-provenance.json"
     },
@@ -227,11 +102,117 @@
         96
       ],
       "generation": "assets/plains_v07/source/bellgarden-provenance.json"
+    },
+    {
+      "asset": "bellgarden_shaftmouth",
+      "source": "assets/plains_v07/source/bellgarden_shaftmouth-generated.png",
+      "source_sha256": "c03639539de5f89cff06bd534e3a2bd91885e8617f43dd57262b02a83967131a",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        768,
+        512
+      ],
+      "image": "assets/plains_v07/native/bellgarden_shaftmouth.png",
+      "sha256": "fc2b9b0d43c5f7623551eae56f47649d09c6f916fdaed82b8a185e9116680b76",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        384.0,
+        512
+      ],
+      "generation": "assets/plains_v07/source/bellgarden-provenance.json"
+    },
+    {
+      "asset": "bellgarden_foundation",
+      "source": "assets/plains_v07/source/bellgarden_foundation-generated.png",
+      "source_sha256": "2a0a59b5d7aaebbb3fc435e2e530e4131ecbb330d00b5e8c7e029f9aae53e046",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        928,
+        704
+      ],
+      "image": "assets/plains_v07/native/bellgarden_foundation.png",
+      "sha256": "2138568af1ebae60c73a6b75e626465482822c739c5ed850dea1d4446b932860",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        464,
+        704
+      ],
+      "generation": "assets/plains_v07/source/bellgarden-provenance.json"
+    },
+    {
+      "asset": "bellgarden_courtwall",
+      "source": "assets/plains_v07/source/bellgarden_courtwall-generated.png",
+      "source_sha256": "ef65b449b3c1ce6b79e4362f28298bfc8ec3f0dffb6965a1660e8f9aa154ba4e",
+      "source_rect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        2048,
+        2048
+      ],
+      "image": "assets/plains_v07/native/bellgarden_courtwall.png",
+      "sha256": "e74dbbf88a2708cd3d6c32259a915a3019d8ab663144634460d8d49cd670f5b7",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        1024,
+        2048
+      ],
+      "generation": "assets/plains_v07/source/bellgarden-provenance.json"
+    },
+    {
+      "asset": "bellgarden_court_growth",
+      "source": "assets/plains_v07/source/bellgarden_court_growth-generated.png",
+      "source_sha256": "6d122069b6db1a5737ea31f09d1e49d98586712d3a5be6216d5b46e2824b6a4b",
+      "source_rect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        2048,
+        2048
+      ],
+      "image": "assets/plains_v07/native/bellgarden_court_growth.png",
+      "sha256": "ca61efe4ebaf45e40f8c82b12838ae3f56526de774bb91b525b14b9a9786bff5",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        1024,
+        2048
+      ],
+      "generation": "assets/plains_v07/source/bellgarden-provenance.json"
     }
   ],
   "prompts": {
     "ruin": "Create a finished 1536x1024 TRANSPARENT architectural background asset for a 2D detailed pixel platformer, matching the subdued ornate blue-slate stone, brown timber and worn brass of reference 2. Reference1 is a coordinate-only collision guide: OMIT ALL guide lines, dots, boxes, colored fills. Reimagine this as an OPEN, ROOFLESS RUINED BELL GARDEN / sunken ancient clock courtyard. Enormous open negative sky area occupies upper central 75% of composition, actual transparency: no enclosed room, no full roof, no landscape background. Clock terrace is x704..1056 with exact floor top y528 in image. Below that terrace create a weathered stone arch foundation, two piers under its ends beginning at y552 and ending on basin floor y912, supporting terrace as one old building. Do NOT draw terrace surface itself (game has it); put architectural attachment ends flush at y552. Above its right half, behind x900,y480, a small monumental ruined brass clock shrine stands rising from y528 to y290: narrow elegant openwork bell frame, dormant weathered copper bell, an empty dark circular clock mechanism housing at y465, broken architectural crown. This must remain subdued background, leave clear quiet space in front at y500..528 for a tiny player and existing clock prop. Shrine is only x850..980 wide; the gameplay terrace is wide and OPEN, not a cramped room. At far left x192..270 and far right x1090..1152, slender ruined stone buttresses and broken trellis arches frame the courtyard, their feet at y912; tops broken around y170..260. Don't enclose upper gap: breathing room is vital. Lower basin has a quiet dark receding wall with shallow arched alcoves between y600..912, but keep left action lane x400..690,y440..900 mostly transparent/quiet. Dry dormant vines, a few bare fine branches cling to the shrine and far buttresses; NO lush living foliage yet. No grass strip along entire bottom, no landscape mountains, no clouds painted into the layer, no foreground objects, no detached props, no characters, no UI, no text. All outside architectural pixels actual alpha transparency. Crisp sophisticated low contrast native pixel detail, muted cloudy afternoon stone and dull brass, avoid high contrast edges. The result should feel like one designed grand ruined clock garden with open sky and a meaningful supported terrace, not a sprite collage.",
-    "revival": "Create a perfectly registered TRANSPARENT botanical overlay for the attached ruined clock garden image, at exactly 1536x1024. KEEP the composition and plant attachment coordinates. Output ONLY newly revived leaves, flowers and very slender live vines, with everything else fully transparent. No architecture, ground, background, bell, sky, masonry or gears in output. Detailed muted green pixel art matching the image, not cartoon, no neon. Fresh fine olive and sage leaves spread over the existing dry vines: on the bell shrine at x974..1204,y294..651, especially fine branches beside its right post x1172,y420..650 and a little crown foliage near x1050,y295. Add understated pale cream and gold wildflowers and fresh small leaves along the terrace at x745..1225,y645..672, growing from its top edge, no hanging plant mats across the action space. Add delicate revived ivy on left buttress x72..242,y220..933 and right buttress x1320..1498,y220..933, rooted onto their existing stone edges; spread in several small clusters not huge opaque trees. Add low herbs and tiny cream-gold flowers along the basin plinth at y948, with living tips reaching up to y908, preserving gaps. Keep the center-left of the entire image completely empty. Brightness moderate, as though golden hour diffuse light, organic irregular arrangement. This overlay will grow outward from the central clock into the garden, so disconnected floating green specks, a solid background and independent objects are forbidden. Native pixel detail same as original. Only the sparse plant pixels, actual alpha everywhere else."
+    "revival": "Create a perfectly registered TRANSPARENT botanical overlay for the attached ruined clock garden image, at exactly 1536x1024. KEEP the composition and plant attachment coordinates. Output ONLY newly revived leaves, flowers and very slender live vines, with everything else fully transparent. No architecture, ground, background, bell, sky, masonry or gears in output. Detailed muted green pixel art matching the image, not cartoon, no neon. Fresh fine olive and sage leaves spread over the existing dry vines: on the bell shrine at x974..1204,y294..651, especially fine branches beside its right post x1172,y420..650 and a little crown foliage near x1050,y295. Add understated pale cream and gold wildflowers and fresh small leaves along the terrace at x745..1225,y645..672, growing from its top edge, no hanging plant mats across the action space. Add delicate revived ivy on left buttress x72..242,y220..933 and right buttress x1320..1498,y220..933, rooted onto their existing stone edges; spread in several small clusters not huge opaque trees. Add low herbs and tiny cream-gold flowers along the basin plinth at y948, with living tips reaching up to y908, preserving gaps. Keep the center-left of the entire image completely empty. Brightness moderate, as though golden hour diffuse light, organic irregular arrangement. This overlay will grow outward from the central clock into the garden, so disconnected floating green specks, a solid background and independent objects are forbidden. Native pixel detail same as original. Only the sparse plant pixels, actual alpha everywhere else.",
+    "wall": "Create a SQUARE 1024x1024 transparent pixel-art background layer for an open ruined bell courtyard in a side-scrolling game. Reference1 establishes the approved quiet distant stonework style, reference2 establishes the blue-gray native masonry material. This is ONE continuous REAR COURTYARD WALL, not a collection of props, not a castle painting and not a tall forest. Broad horizontal, calm composition: TOP 55 percent is almost entirely real transparency, so separate sky and distant plains can be seen. At far left and right only, small broken segments of a recessed ancient arch rise to about y330 and y390, thin silhouettes, quiet compressed contrast, never massive foreground columns. The rear wall's upper edge is naturally stepped and worn: approximately y590 left, y680 across the middle, y550 on the far right. A few very shallow blind arch recesses and long old masonry courses join the SAME continuous wall below this upper edge. The lower 30 percent MUST BE OPAQUE uninterrupted blue-gray weathered masonry all the way to the bottom and both side edges: a well passage beneath the floor needs backing, so absolutely no transparent holes, mist fading to alpha or bottom sky slits. Use stone texture and restrained shallow mortar detail; no rows of repeated ornate pillars. Suggested very faint dull copper chime engravings, not new glowing focal objects. Keep center upper action space wide and empty, and keep the lower hook-climbing area quiet. The main clock shrine and gameplay platforms are separate assets, DO NOT draw them, bells, floors or supports. No foreground vines, hanging plants, lush growth, trees, grass stripes, lamps, mountains, landscape, sky, clouds, characters, labels, UI, border, or frame. Upper masonry edges have subtle native chips without a heavy dark outline. Compressed cool slate / dusty sage shadows and a hint of warm sunlight along upper stone rims; understated dark fantasy fine-clustered pixel art. This is recessed architecture behind the action, not sharp collision scenery. Preserve actual alpha only ABOVE the wall/arch silhouettes. A consistent piece of architecture with visual depth and a strong quiet foundation.",
+    "mouth": "Create ONE transparent pixel-art BACK WALL TERMINATION for a narrow old clock well that opens downwards into a roofless courtyard. Match attached reference's muted blue-grey slate masonry, tiny hand-placed pixels and modest contrast exactly. Wide landscape canvas 1536x1024. Upper 60 percent must be uninterrupted opaque simple close-set masonry covering entire canvas width and running flush to top and side edges, with no border: it will overlap an existing repeating wall. Bottom edge of this masonry is a meaningful crumbling old WELL MOUTH / shallow inverted arch: CENTER opens upward to around y620; sides extend down to y850, with asymmetric stepped worn stone chips and a few very short hanging roots. Everything BELOW the shaped termination is fully transparent. It is a broken wall hanging continuously from the overhead structure, not freestanding pillars. Render subtle depth at the curved lower lip using recessed darker stone thickness and bevelled worn pale grey edges; do NOT draw a rectangle with flat horizontal bottom. This is a modest architectural seam piece, quiet and fine-detailed, no golden trim. No standing columns, doors, windows, characters, platforms, plants, grass, background landscape, sky, light beams or floating fragments. Actual transparent alpha below the masonry silhouette. Do not draw an entire scene.",
+    "foundation": "Create one TRANSPARENT rectangular architectural foundation asset, 1536 wide x1024 tall, for an ancient clock garden balcony in a pixel-art sidescroller. Match the subdued cool slate blue-gray masonry and low contrast of the provided image; this will be a quieter BACKGROUND structure behind player movement, not a solid gameplay wall. NO sky, ground, plants, gears, clock, rubble, platforms or separate objects. Draw a SINGLE wide asymmetrical STONE ARCH SUPPORT with two connected legs: TOP of arch is clipped flush to canvas top y0, following an imaginary existing balcony spanning x64 to1280; do not paint a balcony or additional floor. Left support is a slender simple worn rectangular stone pier occupying x120..220, from upper edge all the way to EXACT bottom y1023. Right support is x1370..1470 from y280 to EXACT bottom y1023. Right foot MUST BE FARTHER RIGHT than the top attachment at x1240: a visibly diagonal outward masonry buttress connects top-right at x1240,y0 down towards x1420,y280, then the right pier descends vertically. A shallow long arch of stones joins left pier near x170,y180 to the diagonal right support near x1310,y140; its highest central underside is at x760,y40. The big region below this shallow arch and between the legs is empty transparent, maintaining plenty of passage space. The arch is weathered and understated, fine stone courses, no ornate decoration, no powerful contrast black outline, no golden edges, avoid photographic smoothness. Both feet cut flush at bottom with NO transparent padding and no plinth outside their narrow footprints, so they can sit on two separate existing floor banks. The entire object must be one coherent structural foundation, not columns pasted together. Everything except the two piers, connecting shallow arch and diagonal brace is actual alpha.",
+    "mouth_refinement": "Edit this transparent well-mouth masonry asset. Preserve its blue-grey pixel art and central crumbling arch, but correct the cut-off lower ends on the far left and far right. Keep canvas exactly 1536x1024. All pixels above y400 remain masonry. At the very left x0 and very right x1535, the stone must END at y450; everything below that is TRANSPARENT. Going inward from the edges, shape a broken, sloping underside: at x300 stone can reach y730, central x768 ends at y560, x1230 reaches y730, then slopes back upward to y450 at the right edge. This creates two modest hanging arch shoulders connecting into an overhead ceiling, with their outer tips rising back into that ceiling; do NOT leave a rectangular vertical sprite cut at either side. Lower stone silhouette must be chipped and worn, continuous, no isolated pieces. The whole bottom quarter is transparent, no haze or soft shadow outside the stone. All masonry still grows continuously down from the top. No new pillars, decorations, landscape, platform or other objects. This is a physical designed broken arch rim in background, not a standalone floating slab. Match original pixel size, understated contrast and stone shading.",
+    "undercourt_wall": "Edit this ONE continuous transparent rear wall for a ruined open bell garden. Keep the EXACT square canvas and existing outer silhouette, broken wall top, masonry color, pixel scale, and opaque lower region unchanged. We need a meaningful OLD CLOCK FOUNDATION COURT below the balcony, quiet behind gameplay. On the existing LOWER RIGHT wall, integrate one broad shallow arched service recess centered around x0.70*width, y0.76*height, width0.29*width, height0.24*height. Within it embed a dormant old winding mechanism: one worn dull-copper wheel of radius0.06*width slightly right of recess center, half buried in broken masonry, with a short diagonal spindle/bracket and a smaller broken gear. These are architectural remains, with compressed low contrast, NO glowing center, no shiny rims, no giant new focal clock. Gear is mounted on the back wall within the stone recess, never floating. A low old stone plinth at y0.87..0.89*height under this recess ends exactly at y0.89*height (the actual ground height); its entire base must be horizontally level there, nothing protrudes lower except the already existing flat wall. Sparse short dry stems and a few fine bare vine tendrils root on that plinth and on the right recess jamb, all muted, do not form a grass stripe or a tree. The central and LEFT parts of the wall remain quiet, because the player climbs there. Do not add climbable-looking shelves, steps, doors, hazards, loot, lamps or new platforms. All these details are carved INTO the SAME rear wall, not pasted stickers and not front scenery. Keep thin weathered architectural lines leading from recess upward subtly into the existing wall, no cables across action space. Preserve fine subdued grey-sage/slate pixel art, slightly warm dull brass. Exact top alpha, no sky/landscape/clouds or full scene. This is ONE integrated wall asset used behind a real separate support arch.",
+    "undercourt_growth": "Create a perfectly REGISTERED transparent botanical overlay for the attached square ruined rear wall. Exactly preserve original square framing and ALL coordinates; output ONLY newly revived sparse fine vines, tiny leaves and small pale cream blossoms growing on the existing lower-right clock mechanism recess. ALL masonry, gears, sky and everything else is TRANSPARENT. Roots and stems must match the existing dry stems: lower-left corner of that recess near x0.56W,y0.925H; the low plinth's right end near x0.82W,y0.925H; a thin climbing vine attached to the existing right jamb around x0.83W,y0.86H. Roots lie at y0.932H; nothing below there. Plants are small and sparse: clusters roughly0.03W wide,0.05H tall, only the right-jamb vine can climb to y0.80H. No entire carpet, no horizontal grass stripe, no foreground bush, no loose leaves floating off the masonry. Delicate muted olive/sage green pixel clusters with a few dull cream flower tips, consistent subdued grey-green palette and exact native pixel style of reference. Leave gear wheel and central recess opening CLEAR. Do NOT output architecture, rocks, terrain, gear, glow, light beams, shadows or background. Actual alpha transparency everywhere except sparse revived foliage pixels."
   },
   "guide": {
     "path": "assets/plains_v07/source/bellgarden-guide.svg",

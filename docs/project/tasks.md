@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| PLAINS-BIBLE-V2-01 | P15开敞风鸣庭、首次修钟复苏与连续往返短片 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
+| PLAINS-BIBLE-V2-01 | P15井口连续边界、低原野与传动下院整屏返工，保留认可修钟效果 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
 | MOBILE-LEVEL-WORKBENCH-01 | Site V18 / r68：双点出口跳房、37房隔离预览与钟心室内分层；整区审核含森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
