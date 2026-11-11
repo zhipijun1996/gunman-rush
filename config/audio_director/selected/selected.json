@@ -9,10 +9,11 @@
     {
       "input_row": 0,
       "event_id": "coin",
-      "candidate_id": "coin_a",
-      "reel_candidate_id": "coin_a",
-      "profile": "A",
-      "selection_status": "explicit"
+      "candidate_id": "original",
+      "reel_candidate_id": "original",
+      "profile": "original",
+      "selection_status": "current_user_feedback",
+      "reason": "2026-11-11: bright short pitched pickup ding, replace old selection"
     },
     {
       "input_row": 1,
@@ -114,38 +115,21 @@
   "events": [
     {
       "event_id": "coin",
-      "profile": "A",
-      "candidate_id": "coin_a",
-      "candidate_path": "res://assets/audio/director_v3/coin_a.wav",
-      "candidate_sha256": "ceac1ed0267720c24d5ba50df7f9aec4eba8d75463274d728609c0ed141e8ea9",
-      "runtime_mode": "candidate",
+      "profile": "original",
+      "candidate_id": "original",
+      "candidate_path": null,
+      "candidate_sha256": null,
+      "runtime_mode": "original",
       "source_ids": [
-        "get/Coin01.aif",
-        "k/core"
+        "original/coin"
       ],
-      "selection_status": "explicit",
+      "selection_status": "current_user_feedback",
       "user_selected": true,
       "derived_from": null,
       "evidence": {
-        "input_row": 0,
-        "clip_id": "coin",
-        "reel_candidate_id": "coin_a",
-        "video_version": "main",
-        "video": "media/coin.mp4",
-        "movie_sha256": "a3ece1acda21b33cfc32939e2d2e5fc72b4c284b664c874b079dbf4a4ea76454",
-        "trace_sha256": "93e48bd927ccbbb0c8d967ff7342cada851777fc822b91b214bb5d904298c0a5",
-        "note": "",
-        "updated_at": "2026-10-28T01:20:39.760Z",
-        "start": 3.066666666666667,
-        "end": 5.816666666666666,
-        "event_ids": [
-          "coin"
-        ],
-        "reel_source_ids": [
-          "get/Coin01.aif",
-          "k/core",
-          "original/step"
-        ]
+        "current_user_request": "2026-11-11: clear pitched short coin ding",
+        "source": "assets/audio/kenney/sources.json",
+        "generator": "tools/audio_coin_chime.py"
       }
     },
     {
@@ -636,7 +620,7 @@
     }
   ],
   "event_profiles": {
-    "coin": "A",
+    "coin": "original",
     "heal": "A",
     "chest_open": "A",
     "item_get": "C",
@@ -666,6 +650,7 @@
       "path": "assets/audio/director_v3/manifest.json",
       "sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f"
     },
-    "importer_sha256": "63620d3527c0564daf3e46ceb53aa8bf491bfd2096b67a3f1b690c383945621b"
+    "importer_sha256": "63620d3527c0564daf3e46ceb53aa8bf491bfd2096b67a3f1b690c383945621b",
+    "current_coin_selection": "User feedback replaces the historical coin A with the current original synthesis; remaining event selections retain imported evidence."
   }
 }

@@ -2,7 +2,7 @@
 
 ## 意图与配置
 
-TouchAdapter、KeyboardMouseAdapter、GamepadAdapter向InputRouter提交移动、交互、jump／jump_release、瞄准与shoot_release等意图；方向是有限非零世界单位向量。设备提示切换不迁移未完成手势。
+TouchAdapter、KeyboardMouseAdapter、GamepadAdapter向InputRouter提交移动、交互、jump／jump_release、瞄准与shoot_release等意图；方向是有限非零世界单位向量。射程内的轻微弹道辅助在射击消费者完成，不写回Router，不改变反冲方向或钩索瞄准，按[攻击合同](combat_and_recharge.md)过滤有效目标。设备提示切换不迁移未完成手势。
 
 配置唯一来自`config/input_profile.json`及InputProfile校验；会话设置改变后重新配置并取消旧输入。瞄准坐标先经当前镜头逆变换，再从实际枪口求方向。
 

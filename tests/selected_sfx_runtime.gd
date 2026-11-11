@@ -40,7 +40,7 @@ func exercise() -> void:
 	var manifest: Dictionary = RUNTIME.read_json(RUNTIME.MANIFEST_PATH)
 	var rules: Dictionary = RUNTIME.read_json(RUNTIME.RULES_PATH)
 	check(selection.explicit_choices.size() == 13 and selection.events.size() == 14, "Thirteen explicit choices plus one original bomb-explosion derivation")
-	check(RUNTIME.selection_validation_error(selection, manifest, rules).is_empty(), "All14 exact profiles and11 actual imported resource fingerprints validate")
+	check(RUNTIME.selection_validation_error(selection, manifest, rules).is_empty(), "All14 exact profiles and10 actual imported resource fingerprints validate")
 	var bad := selection.duplicate(true)
 	bad.event_profiles.erase("coin")
 	check(not RUNTIME.selection_validation_error(bad, manifest, rules).is_empty(), "Missing selected event is rejected")
@@ -89,7 +89,7 @@ func exercise() -> void:
 	check(audio != other_audio and helper.snapshot().audio_owner_id == audio.get_instance_id(), "Only the direct formal App service is selected, never the earlier global-group service")
 	check(audio.audio_profile == "selected" and audio._voices.size() == 12, "Formal profile selected with unchanged12-voice pool")
 	check(helper.snapshot().event_profiles == selection.event_profiles, "Runtime consumes exact original14-event mapping")
-	check(helper.snapshot().candidate_imports_verified == 11, "Snapshot reports actual11 imported resource guards")
+	check(helper.snapshot().candidate_imports_verified == 10, "Snapshot reports actual10 imported resource guards")
 	for id: String in selection.event_profiles:
 		check(audio.director_profile_for_event(StringName(id)) == selection.event_profiles[id], "Actual profile: " + id)
 	check(audio.director_profile_for_event(&"jump") == "original" and audio.director_profile_for_event(&"land") == "original", "Jump/land preserve original motion consumers")

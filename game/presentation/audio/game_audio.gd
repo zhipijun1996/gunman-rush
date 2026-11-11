@@ -138,7 +138,16 @@ static func cue_focus(origin: WorldFocusHeal, id: StringName) -> bool:
 	if not is_instance_valid(origin) or not FOCUS_CUES.has(id):return false
 	if (id==&"heal_gather" and origin.elapsed<=0) or (id==&"heal_release" and origin.flash<=0):return false
 	var service:=for_origin(origin) as GameAudio
+	if service!=null:service._reserve_focus_voice()
 	return service._play_original(id,null,false,origin) if service!=null else false
+
+func _reserve_focus_voice()->void:
+	var victim:AudioStreamPlayer
+	for voice:AudioStreamPlayer in _voices:
+		if not voice.playing and not voice.stream_paused:return
+		if int(voice.get_meta("audio_priority",50))<80 and (victim==null or int(voice.get_meta("audio_priority",50))<int(victim.get_meta("audio_priority",50))):victim=voice
+	if victim!=null:
+		victim.stop();victim.stream=null;_clear_director_metadata(victim)
 
 func pause_origin(origin: Node, value: bool) -> void:
 	for voice: AudioStreamPlayer in _voices:
@@ -418,9 +427,11 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 			voice.set_meta("director_event", &"legacy_committed_reward")
 			if is_instance_valid(origin): voice.set_meta("director_origin", weakref(origin))
 		voice.set_meta("audio_priority", 90 if id in [&"hurt", &"death", &"warning", &"enemy_defeat", &"boss_impact", &"mechanism_bell"] else 70 if rest_cinematic else 20 if id == &"step" else 50)
+		if FOCUS_CUES.has(id):voice.set_meta("audio_priority",80)
 		voice.bus = &"Ambience" if REGIONAL_CUE_PATHS.has(id) else &"UI" if id in [&"click", &"confirm", &"denied"] else &"SFX"
 		voice.stream = stream_override if stream_override != null else _streams[id]
 		var attenuation := -MECHANISM_BELL_GAIN_DB if id == &"mechanism_bell" else 16.0 if id == &"forest_wind" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &"step" else 10.0 if id in [&"shot", &"land", &"jump", &"click"] else 7.0
+		if FOCUS_CUES.has(id):attenuation=1.0
 		voice.set_meta("attenuation", attenuation)
 		voice.volume_db = linear_to_db(volume) - attenuation
 		voice.play()

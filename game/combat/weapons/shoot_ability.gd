@@ -128,6 +128,9 @@ func _emit_round(aim: Vector2, grounded: bool) -> void:
 	projectile.damage = tuning.projectile_damage
 	projectile.base_lifetime = tuning.projectile_lifetime
 	projectile.lifetime = tuning.projectile_lifetime * item_range_multiplier()
+	projectile.max_distance=tuning.projectile_range*item_range_multiplier()
+	projectile.base_distance=tuning.projectile_range
+	projectile.direction=ShotAimAssist.resolve(controller,muzzle,aim,projectile.max_distance)
 	projectile.weapon_id = weapon.id
 	projectile.weapon_tier = weapon.tier
 	projectile.weapon_mode = weapon.mode
@@ -188,6 +191,9 @@ func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName) ->
 	projectile.weapon_id=weapon.id;projectile.weapon_tier=weapon.tier;projectile.weapon_mode=weapon.mode
 	projectile.shot_index=0 if skill else _shot_serial-packet_id+1
 	if not skill and art_kind==&"bullet":
+		projectile.max_distance=minf(weapon.range_limit,tuning.projectile_range)*item_range_multiplier()
+		projectile.base_distance=minf(weapon.range_limit,tuning.projectile_range)
+		projectile.direction=ShotAimAssist.resolve(controller,controller.motor.global_position,aim,projectile.max_distance)
 		projectile.base_lifetime = projectile.lifetime
 		projectile.lifetime *= item_range_multiplier()
 		if item_runtime() != null:

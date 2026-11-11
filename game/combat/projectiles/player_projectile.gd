@@ -19,6 +19,10 @@ var lifetime := 2.0
 ## Range modifiers stay attached to their live equipment source. Existing
 ## legacy fixtures without an item runtime retain their directly set lifetime.
 var base_lifetime := 0.0
+## Distance from the muzzle, independent of simulation tick and time scale.
+var max_distance := 0.0
+var base_distance := 0.0
+var traveled_distance := 0.0
 var owner_controller: PlayerController
 var owner_body: CollisionObject2D
 var art_kind: StringName = &"bullet"
@@ -93,6 +97,7 @@ func advance(delta: float) -> void:
 			dispose()
 			return
 		if base_lifetime > 0.0: lifetime = base_lifetime * float(items.call("projectile_range_multiplier"))
+		if base_distance > 0.0:max_distance=base_distance*float(items.call("projectile_range_multiplier"))
 	_age += delta
 	if _age >= lifetime:
 		dispose()
@@ -103,7 +108,11 @@ func advance(delta: float) -> void:
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
 	query.transform = Transform2D(0.0, global_position)
-	query.motion = launch_motion if not launch_motion.is_zero_approx() else direction * speed * delta
+	var barrel_sweep:=not launch_motion.is_zero_approx()
+	var remaining:=maxf(0,max_distance-traveled_distance)
+	if not barrel_sweep and max_distance>0 and remaining<=0:
+		dispose();return
+	query.motion = launch_motion if barrel_sweep else direction * minf(speed*delta,remaining) if max_distance>0 else direction*speed*delta
 	launch_motion = Vector2.ZERO
 	query.collision_mask = 0xFFFFFFFF
 	query.collide_with_areas = true
@@ -129,6 +138,9 @@ func advance(delta: float) -> void:
 			var fractions := space.cast_motion(query)
 			if fractions.size() != 2 or fractions[0] >= 1.0:
 				global_position += query.motion
+				if not barrel_sweep:
+					traveled_distance+=query.motion.length()
+					if max_distance>0 and traveled_distance>=max_distance-.0001:dispose()
 				return
 			# get_rest_info ignores query.motion; query at unsafe contact point.
 			query.transform.origin = global_position + query.motion * minf(1.0, fractions[1] + 0.0001)

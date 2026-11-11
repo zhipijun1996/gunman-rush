@@ -21,6 +21,8 @@ var damage_epoch: int:
 	get: return _health_state.epoch if _health_state != null else 0
 var _events: Dictionary = {}
 var damage_sink: Callable
+## Mechanisms can reject attraction while open or on the wrong sequence step.
+var aim_eligibility: Callable
 var chill_remaining := 0.0
 var chill_speed_scale := 1.0
 var _chill_body: CanvasItem
