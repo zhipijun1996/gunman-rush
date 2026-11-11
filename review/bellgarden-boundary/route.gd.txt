@@ -1,0 +1,81 @@
+extends "res://tests/world/approved_clock_rooms.gd"
+func mark(label:String)->void:print("MOVIE_MARK ",label," ",Engine.get_frames_drawn()," position ",app.player.position)
+func walk(x:float)->void:
+ var id:=app.room.room_id
+ for i:int in 600:
+  if app.room.room_id!=id or absf(app.player.position.x-x)<5:break
+  app.controller.router.set_source_axis(&"keyboard_mouse",signf(x-app.player.position.x));await ticks(1)
+ app.controller.router.set_source_axis(&"keyboard_mouse",0);await ticks(8)
+func key(code:Key,on:bool)->void:
+ var e:=InputEventKey.new();e.physical_keycode=code;e.pressed=on;Input.parse_input_event(e);Input.flush_buffered_events()
+func descend(y:float,one_way:bool)->void:
+ if one_way:
+  key(KEY_S,true);key(KEY_SPACE,true);await ticks(8);key(KEY_SPACE,false);key(KEY_S,false)
+ for i:int in 240:
+  await ticks(1)
+  if app.player.is_on_floor() and absf(app.player.position.y-y)<4:break
+ check(app.player.is_on_floor() and absf(app.player.position.y-y)<4,"continuous descent "+str(y)+" "+str(app.player.position))
+ await ticks(18)
+func land_clock()->void:
+ app.controller.router.set_jump_held(&"keyboard_mouse",true);app.controller.router.set_source_axis(&"keyboard_mouse",1);await ticks(8)
+ app.controller.router.request_action(&"shoot_release",Vector2.LEFT)
+ for i:int in 100:
+  await ticks(1)
+  if app.player.position.x>1620:app.controller.router.set_source_axis(&"keyboard_mouse",0)
+  if app.player.is_on_floor():break
+ app.controller.router.clear("clock bank")
+ check(app.player.is_on_floor() and absf(app.player.position.y-3918)<4,"continuous clock landing")
+func snap(label:String)->void:
+ await RenderingServer.frame_post_draw
+ root.get_texture().get_image().save_png("res://build/p15-boundary/"+label+".png")
+func run()->void:
+ root.size=Vector2i(1280,720)
+ app=preload("res://game/application/world/fixed_world.tscn").instantiate();root.add_child(app)
+ check(await app.review.begin("P-R15","room-link-149:P-R15","h"),"real P14 receiving entry; H from preceding reward stage")
+ await ticks(24);mark("entry")
+ await walk(864);await descend(910,false);mark("shaft")
+ await descend(2062,true);await descend(3214,true);await descend(3758,true)
+ mark("crossing");await snap("approach")
+ await walk(1048)
+ app.controller.router.request_action(&"grapple",(Vector2(1120,3840)-app.player.position-Vector2(0,-6)).normalized());await ticks(35)
+ check(app.controller.traversal.state==&"hook_hang","continuous first crossing hook")
+ await next_hook(Vector2(1296,3808),"middle crossing",false)
+ await next_hook(Vector2(1472,3840),"last crossing",false)
+ await land_clock();await walk(1952);await ticks(60)
+ mark("before_repair");await snap("ruined")
+ app._interact();await ticks(70);await snap("engaging");await ticks(95);await snap("wave");await ticks(200)
+ check(app.state.has("clock_P") and app.story.dialogue_active,"real repair commits then performs")
+ await snap("reborn");mark("repair_end")
+ await ticks(45);app.story.advance();await ticks(75);app.story.advance();await ticks(75)
+ check(not app.paused and app.controller.active,"dialogue returns control")
+ await snap("restored");mark("restored")
+ await walk(2112);app._interact();await ticks(12)
+ check(app.state.has("shortcut_p01"),"actual return switch")
+ await walk(2304);await descend(4686,false)
+ await walk(2176)
+ for i:int in 180:
+  await ticks(1)
+  if app.room.room_id=="P-R32" and not app.busy and app.player.is_on_floor():break
+ check(app.room.room_id=="P-R32" and app.player.is_on_floor(),"continuous room exit reaches P32")
+ mark("bridge")
+ app.controller.router.set_jump_held(&"keyboard_mouse",true)
+ for i:int in 240:
+  await ticks(1)
+  if app.room.room_id=="P-R15" and not app.busy and app.player.is_on_floor():break
+ app.controller.router.clear("return")
+ check(app.room.room_id=="P-R15" and app.player.is_on_floor(),"continuous return to clock garden")
+ check((app.room.get_node("RegionalArt") as PlainsRoomArt).repair_blend>.99,"restoration survives actual unload/reload")
+ mark("return")
+ app.controller.router.set_source_axis(&"keyboard_mouse",-1);app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(10)
+ app.controller.router.request_action(&"shoot_release",Vector2.RIGHT)
+ for i:int in 100:
+  await ticks(1)
+  if app.player.position.x<2010:app.controller.router.set_source_axis(&"keyboard_mouse",0)
+  if app.player.is_on_floor():break
+ app.controller.router.clear("basin return");await walk(1860);await ticks(45);await snap("undercourt");await walk(1152);mark("recovery")
+ app.controller.router.request_action(&"grapple",Vector2.UP);await ticks(40)
+ check(app.controller.traversal.state==&"hook_hang","basin first anchor")
+ for target:Vector2 in [Vector2(1280,4320),Vector2(1408,4112),Vector2(1488,3896)]:await next_hook(target,"continuous recovery")
+ await land_clock();await walk(1952);await ticks(50);mark("complete")
+ await snap("returned");check(app.state.valid(app._snapshot()),"repaired persistent snapshot valid")
+ await WorldAudioLifecycle.drain_world(app);quit(failures)

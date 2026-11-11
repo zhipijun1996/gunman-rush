@@ -1,0 +1,90 @@
+{
+  "base_commit": "0f0e87bc607181e04ec9bdd4c94a0fed83807cbd",
+  "source_branch": "feat/approved-platform-rooms",
+  "runtime_sha256": {
+    "assets/plains_v07/audio/clock_resonance.wav": "3330a08211c9968b71038cea3bb104835a516176a1e7294099ed3a036bfe7d4c",
+    "assets/plains_v07/manifest.json": "6af1c253bcd01995fb556bf75ebb0fac4e8665e3014e99ac7d2243ff119a792c",
+    "assets/plains_v07/native/bellgarden_basin_flowers.png": "6587538fc1b01a149ace44c79ca132698cab639c6caf30f8c29ab9239fb1cce6",
+    "assets/plains_v07/native/bellgarden_court_growth.png": "ca61efe4ebaf45e40f8c82b12838ae3f56526de774bb91b525b14b9a9786bff5",
+    "assets/plains_v07/native/bellgarden_courtwall.png": "e74dbbf88a2708cd3d6c32259a915a3019d8ab663144634460d8d49cd670f5b7",
+    "assets/plains_v07/native/bellgarden_foundation.png": "2138568af1ebae60c73a6b75e626465482822c739c5ed850dea1d4446b932860",
+    "assets/plains_v07/native/bellgarden_shaftmouth.png": "fc2b9b0d43c5f7623551eae56f47649d09c6f916fdaed82b8a185e9116680b76",
+    "assets/plains_v07/native/bellgarden_shrine.png": "171952d0a362ebcf07a62a86a354227a7b94814495eb24a21bc5ee4a0b5df3d3",
+    "assets/plains_v07/native/bellgarden_shrine_leaves.png": "a0edbaa40fd9ae717c6c3a0699236bc41bad641872eebb37fb7cbed0d64c86a9",
+    "assets/plains_v07/native/bellgarden_terrace_flowers.png": "15666a47965f63b9acbdadc42b3c6f29eb5ac6a3910b5768b6c93b80385de3cf",
+    "assets/plains_v07/source/bellgarden-provenance.json": "22764d8f873d26ffeba82ffbc51e37d3ab22951096d613afa2e126ad14da5958",
+    "config/world/construction.json": "5338ed4f8123277081f0d4e0cbdb8dfeaf0e1b99f0fe132b02db73b66d568671",
+    "game/application/world/world_story_sequence.gd": "d067a2c05e2173a766998f3ff021bffde56ec54e42bad0743515611838dbac26",
+    "game/presentation/audio/game_audio.gd": "a7391b4c59cf90409a7e8df84f0d29c2570e06049248b4490da502475cca21a9",
+    "game/presentation/world/plains_v07/clock_revival.gdshader": "24f2fd564c503843be5de4de4be5bac04b57bea65746aedb262e237f5971497e",
+    "game/presentation/world/plains_v07/plains_room_art.gd": "f7c04a57f3619e6b8f12444984c5099cc82b208c249df007a602ceea2acf7a21",
+    "game/world/regions/P/room_design.json": "c57a1d96e64939a98606238264d7146c77ed02fbb66c66a4d8e623bb9ddf681a",
+    "game/world/regions/P/rooms/P-R15.tscn": "6f1353333b59579eee3d9d06b5d6a1022398b74c53e640df06fd45120e173653"
+  },
+  "capture_runtime": {
+    "content_version": "c8c4ca94272ec670e8c7ef6fae21919b6461c9c21747e423e0a46d162c66fb8c",
+    "sha256": "4e67a4877a2efe177981ab120f0fd416a497d27e4cc2dd2de028ca68eb248a16"
+  },
+  "capture": "Godot 4.7.2; actual fixed_world.tscn and WorldReview P14 paired arrival, explicit H stage; 1280x720 60fps normal time and original audio; phone clips 960x540 H264/AAC. No speed changes.",
+  "continuous_route": "P14 receiving entry -> three one-way ledges -> three holding rings and recoil -> actual repair -> shortcut switch -> P32 -> P15 -> undercourt -> four-ring recovery -> clock; no mid-route fixture/reset, camera override or fake repair flags. H is a declared review stage, not a recorded prior boss victory.",
+  "frames": 2290,
+  "seconds": 38.166666666666664,
+  "master_sha256": "846e39f9eb8d7fd39f452b349269e37db5fbdcda84ef3baf1528b6d9f917e3dc",
+  "clips": [
+    {
+      "file": "arrival.mp4",
+      "start": 5.7,
+      "seconds": 8,
+      "bytes": 1017416
+    },
+    {
+      "file": "clock.mp4",
+      "start": 13.7,
+      "seconds": 10,
+      "bytes": 1560533
+    },
+    {
+      "file": "return.mp4",
+      "start": 23.7,
+      "seconds": 14.466667,
+      "bytes": 2313267
+    }
+  ],
+  "stills": "Comparisons use the same declared inspection fixtures at baseline and final source. Undercourt and poster are from the uninterrupted final route. Whole-room is an inspection overview at .13 zoom, not the actual gameplay camera.",
+  "checks": {
+    "room_non_art": "All scene fields except art_placements and its workbench IDs identical to base, including physics, camera, layout, interactions and story. No core VFX/audio changes.",
+    "formal_P15": "0 failures: seven hooks, repair, skip, save/restore, reload, bell movement and return shortcut",
+    "seams": "0 failures",
+    "world": "309 contracts / 36 implemented compiled before capture",
+    "ci": "4 passed",
+    "assets": "8 registered crops reproduced and hash-verified",
+    "docs": "passed"
+  },
+  "unverified": [
+    "Physical phone performance",
+    "New Web export and deployment",
+    "Full new-game campaign",
+    "User approval of the revised room composition"
+  ],
+  "delivery": "Source plus review media only; no main game or level platform deployment.",
+  "media_sha256": {
+    "arrival.mp4": "91cbc82a1304342937da25703a22109d4dc7d12beb06baa570d4967dc182b93b",
+    "clock.mp4": "553a24429590e9c38937a68031bc75cac38aba0b79c9931bbc94bcd55bd75437",
+    "ci.log": "dad99a22c96acbfea04483c2db265343df69a9a07de4a55e7b8da20a3035aa66",
+    "docs.log": "f533366605c856f2cad6f54d8febb74531f5b87ca91cb383592128685e0c9939",
+    "assets.log": "af14c936410ef52c9da6d5b0a652671ae079e20582a10353d05c7f8a50eac1d6",
+    "clock-test.log": "51e381e2d29776600e88abb84e6bc3d3aeeec24db4783a68ef241a49cfffed90",
+    "poster.jpg": "86f499bd19b8333c5758fb1f9911053b1bb0f3e3289e66253387aeb43be075a2",
+    "shaft-comparison.jpg": "0da7f1644de887869957a11b6cd6cfe6ad9adc1ec002909691363b6201b9ed70",
+    "capture.gd.txt": "58a648858bb2f702da619e054c1d912dd22f6b203cf8187d01e333bb8281cd19",
+    "basin-comparison.jpg": "2ce3759db74d14a9b56d57324fc5459914896f17c399eefceeba58a1e4f35ed8",
+    "clock-comparison.jpg": "d3b8b593a4da1b64db695b64c98346d3a6436f95ba7017dedd72917693e59de3",
+    "route.log": "c5d0f2e5447bf6cb664299cdd43b7433727f74a7143b3e55b642e9e7de0dbbec",
+    "whole-room.jpg": "61ffa1ca063e60d17d28d72bae8ec64c0dec80355830b938089b93bef4b073be",
+    "world.log": "89ae92dfd2eea2913fb4c15034d064d96a099be8a4cff1137a2ba4c8de8cda25",
+    "return.mp4": "5c3f4c0ba8cb8cc84a88676d51014d2702d08d06d95df876467048ca4f8ed379",
+    "route.gd.txt": "03762d41d264897a3077794b4d6e9e0a9cd040ab1313d2ef8e0d8ad0d20d0726",
+    "seams-test.log": "1ff89abde4e4711cc99c16d19ae156838f749bb7681f27bdc6636d5c0cc8509b",
+    "undercourt.jpg": "edeacff7188b832442ee545bd11166053aafc1992710f4ecfeffd863645691fa"
+  }
+}
