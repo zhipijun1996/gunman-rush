@@ -30,7 +30,7 @@ func kill_enemy(id:String)->void:
 func snap(label:String)->void:
  if DisplayServer.get_name()=="headless":return
  await RenderingServer.frame_post_draw
- root.get_texture().get_image().save_png("res://build/p32-composition/route-"+label+".png")
+ root.get_texture().get_image().save_png("res://build/p32-structure/route-"+label+".png")
 func run()->void:
  root.size=Vector2i(1280,720)
  app=preload("res://game/application/world/fixed_world.tscn").instantiate();root.add_child(app)

@@ -8,10 +8,10 @@ func run()->void:
  for i:int in views.size():
   await fixture(views[i]);app.controller.active=false;app.player.reset_at(views[i]);app.set_physics_process(false)
   app.camera.reset_view();await ticks(6);await RenderingServer.frame_post_draw
-  root.get_texture().get_image().save_png("res://build/p32-composition/"+folder+"/"+str(i)+".png")
+  root.get_texture().get_image().save_png("res://build/p32-structure/"+folder+"/"+str(i)+".png")
   app.set_physics_process(true);app.controller.active=true
  app.set_physics_process(false);app.controller.active=false;app.ui.hide();app.overlay.hide();app.camera.enabled=false
  var overview:=Camera2D.new();overview.position=Vector2(1536,672);overview.zoom=Vector2(.38,.38)
  root.add_child(overview);overview.make_current();await ticks(3);await RenderingServer.frame_post_draw
- root.get_texture().get_image().save_png("res://build/p32-composition/"+folder+"-whole.png")
+ root.get_texture().get_image().save_png("res://build/p32-structure/"+folder+"-whole.png")
  await WorldAudioLifecycle.drain_world(app);quit(failures)

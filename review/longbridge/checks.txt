@@ -1,19 +1,5 @@
-## world.log
-WORLD BUILD: 309 contracts, 36 implemented rooms, e64d8c7f2593
-
-
-## actions.log
-Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
-
-PLAINS35 true P-R32 formal load
-PLAINS35 true P32 first broken bridge at (1020.026, 941.9252)
-PLAINS35 true P32 real shore shot starts BridgeInspectionLift
-PLAINS35 true P32 BridgeInspectionLift actual deck contact
-PLAINS35 true P32 BridgeInspectionLift rides to terminal with full headroom (2335.311, 612.983)
-PLAINS35 true P32 moving deck to safe vista at (2479.577, 621.974)
-PLAINS35 true P32 cache returns to lower junction at (2222.025, 1005.932)
-TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/FixedWorld/@Node@2","played":{"mechanism_bell":1,"motion_jump":3,"motion_land":5,"weapon_pulse":2},"service":"GameAudio"},{"node":"/root/FixedWorld/@Node@15","service":"GameMusic","starts":{"home":1,"plains":1},"track":"plains"}],"released":true,"seconds":0.113}
-APPROVED HUB ACTIONS: 0 failures
+## world-final.log
+WORLD BUILD: 309 contracts, 36 implemented rooms, d99ec75d6184
 
 
 ## seams.log
@@ -24,16 +10,15 @@ PLATFORM ART SEAMS: 0 failures
 
 ## bake.log
 VERIFIED assets/plains_v07/native/longbridge_vista.png
-VERIFIED assets/plains_v07/native/longbridge_cache.png
-VERIFIED assets/plains_v07/native/longbridge_service.png
 VERIFIED assets/plains_v07/native/longbridge_crane.png
 VERIFIED assets/plains_v07/native/longbridge_wellmouth.png
 VERIFIED assets/plains_v07/native/longbridge_hanger.png
+VERIFIED assets/plains_v07/native/longbridge_rearwall.png
 
 
 ## ci.log
 PASS: project entry, runtime dependencies and configuration
-PASS: project (1.87s)
+PASS: project (2.43s)
 Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
 
 Unable to open Android 'build-tools' directory.
@@ -53,15 +38,15 @@ WARNING: Detected another project.godot at res://art/world-art-v2/godot. The fol
 [  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
 [92m[ DONE ][39m [1mloading_editor_layout[22m
 [0m
-PASS: import (8.01s)
+PASS: import (9.35s)
 Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
 
 PLAINS REGION: family=linked_rings areas=20 fallback=
-TERRAIN STUDY: solids=83 pieces=308 setup_ms=43
+TERRAIN STUDY: solids=83 pieces=308 setup_ms=62
 FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"bcc9223a9ca9f36cdf07758be1c2715c3f5c46d6e7966b240e93621984aca21e","map_index":1,"region":"plains","seed":"ci-smoke"}
-TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@181","played":{"death":1},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@194","service":"GameMusic","starts":{"home":1,"plains":1},"track":"home"}],"released":true,"seconds":0.095}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@181","played":{"death":1},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@194","service":"GameMusic","starts":{"home":1,"plains":1},"track":"home"}],"released":true,"seconds":0.164}
 CI SMOKE: 12 assertions, 0 failures
-PASS: smoke (6.50s)
+PASS: smoke (7.26s)
 Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
 
 VARIABLE JUMP PEAKS: tap=62.321 medium=82.932 long=116.643 overhold=150.366
@@ -72,8 +57,8 @@ CI CONTRACTS: 239 assertions, 0 failures
 Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
 
 META NOTES SAVE: 39 assertions, 0 failures
-PASS: contracts (6.18s)
-CI: 4 checks passed in 22.56s
+PASS: contracts (6.27s)
+CI: 4 checks passed in 25.31s
 
 
 ## docs.log

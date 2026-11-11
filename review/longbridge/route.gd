@@ -30,7 +30,7 @@ func kill_enemy(id:String)->void:
 func snap(label:String)->void:
  if DisplayServer.get_name()=="headless":return
  await RenderingServer.frame_post_draw
- root.get_texture().get_image().save_png("res://build/p32-composition/route-"+label+".png")
+ root.get_texture().get_image().save_png("res://build/p32-structure/route-"+label+".png")
 func isolate_combat()->void:
  # Declared art traversal fixture only; no actor teleport and no gameplay source changes.
  for enemy:EnemyActor in app.room.enemies.values():
