@@ -1,0 +1,129 @@
+{
+  "generator": "OpenAI image_gen",
+  "purpose": "P03→P21→P22→P23→P24→P01 continuous opening-route composition; physics and camera unchanged",
+  "prompts": {
+    "sky": "Create a production background texture for a side-scrolling pixel-art game, landscape 16:9. Very restrained fine pixel-art, native 32px terrain family, dark blue-gray earth and tiny olive gold grass edges. This image is ONLY far scenery, no foreground platform, no characters, no UI. A quiet windy grassy plain in warm late-afternoon daylight. Upper 60 percent broad muted pale cream sky with thin long gray olive clouds, much calm negative space. Bottom 40 percent layered low rolling hills, desaturated slate teal and blue gray, distant meadow terraces, extremely tiny scattered weathered stone walls, one tiny old windmill silhouette far on the left ridge. NO huge tower, NO large trees, NO big buildings, NO hard black silhouettes, NO glowing sun, no high contrast. Clear atmospheric depth: distant hills lighter, nearer hills still low contrast. Finely clustered crisp pixels, subtle small material details, not painterly, no blur. Entire bottom is a continuous rolling hill body with no visible lower edge, extends beyond frame. Similar mood to a quiet overgrown abandoned road in Hollow Knight expressed in the established detailed Underworld pixel art style. Resolution intended to be baked to864x486, preserve smooth large calm shapes and sparse controlled details. Sky top and hill lower area fully opaque. No vignette.",
+    "ridge": "A single isolated wide ruined roadside viaduct in fine restrained pixel art for a 32px tile side-scrolling game. Transparent background. Width roughly3times height. Continuous low slate-blue earthen ridge filling bottom15percent, with broken dark blue-gray masonry retaining walls growing out of it, three irregularly spaced ruined low bridge piers and one short sagging old wooden fence. Sparse small olive grasses integrated into masonry joints. Tallest ruin at left one third, lower fragments toward right. This is a MID DISTANCE scenery layer, quiet desaturated cool blue gray, low contrast, muted tiny edges, broad calm stone faces, crisp small pixel clusters not blur. Every stone fragment rests on the continuous ridge beneath it; no floating objects. The entire upper silhouette is transparent. Bottom is solid terrain extending to both sides and flat bottom for hiding behind gameplay earth. No sky, no cloud, no flowers, no characters, no trees, no arches, no glowing parts, no front platform, no text. Intended native size1000x240, background for abandoned roadside terraces and crossing.",
+    "gallery": "One production game rear architectural wall, front orthographic elevation, landscape 2.08:1. Fine dark restrained pixel art matching Underworld blue-gray stone and old muted brown oak. This is a rear wall of an abandoned roadside guard gallery. Exact full rectangular panel all edges contained. Heavy dark oak lintel along top, two narrow masonry end piers at left and right edges, low uninterrupted stone parapet filling bottom30percent. Three unequal broad vertical rectangular open window bays above parapet, separated by slender oak posts with small diagonal corner braces. Window holes genuinely transparent; canvas outside structure transparent. Absolutely no sky or scenic painting inside windows. The central bay broadest and calm. No curved arches. No perspective floor. The very bottom is a straight continuous stone baseline intended to sit on an existing game floor. Top lintel flush under existing roof. Keep quiet dark matte blue-gray stone body, sparse desaturated olive moss at sill joints, small warm worn timber edges. This is behind characters, not a bright ornate landmark. No lamps, gears, banners, text, characters, furniture, floor, or foreground grass. Native intended dimensions800x384 at44px character height. Structurally credible, shallow wall depth, fine clustered pixel texture, restrained highlights, no black outlines, no blur, no painterly texture.",
+    "sky_final_edit": "Revise this background while preserving its fine pixel-art material language and restrained warm-cream/cool-slate palette. Reduce empty sky: the far rolling hill skyline should rise to about40percent from top instead of65percent. Add three overlapping gently undulating hill layers with atmospheric separation, softly lit valleys and tiny ruined dry-stone fences, keeping the middle55percent calm and low contrast for a 2D game protagonist. The hills must look distant, no foreground objects or giant structures. Keep the tiny distant windmill toward left, make it subtle. Sky with long thin drifting clouds remains top40percent. No towers, no trees, no buildings near viewer, no flowers or UI. Crisp pixel clusters, broad calm shapes, no blur. Full opaque16:9 background, no margins."
+  },
+  "sources": {
+    "sky": {
+      "file": "assets/plains_v07/source/opening-sky-generated.png",
+      "sha256": "e4fb0122c6af58b4dc63745671770348d2a30ac88cbc1a5f7320ab2c34c1db10"
+    },
+    "ridge": {
+      "file": "assets/plains_v07/source/opening-ridge-generated.png",
+      "sha256": "77a487fe3e981c81aba502d8d99c478d273f7fb5213145a928969a7a153df529"
+    },
+    "gallery": {
+      "file": "assets/plains_v07/source/opening-gallery-generated.png",
+      "sha256": "f01e638d43688d25ed51c4092be154d1b443d5faecba2d98438eee61827d6136"
+    }
+  },
+  "assets": [
+    {
+      "asset": "opening_plains",
+      "image": "assets/plains_v07/native/opening_plains.png",
+      "source": "assets/plains_v07/source/opening-sky-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1672,
+        940
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        864,
+        486
+      ],
+      "bake_scale": 0.5167464114832536,
+      "alpha_threshold": null,
+      "anchor": [
+        432.0,
+        486
+      ],
+      "sha256": "8ba1635ee5a6ad294e68876d09f6a5e0c3120ea0d84f48c63b3226b790bf01ed",
+      "generation": "assets/plains_v07/source/opening-atmosphere-provenance.json"
+    },
+    {
+      "asset": "opening_road_ridge",
+      "image": "assets/plains_v07/native/opening_road_ridge.png",
+      "source": "assets/plains_v07/source/opening-ridge-generated.png",
+      "source_rect": [
+        0,
+        216,
+        2172,
+        724
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        652,
+        152
+      ],
+      "bake_scale": 0.3,
+      "alpha_threshold": 128,
+      "anchor": [
+        326.0,
+        152
+      ],
+      "sha256": "88ea212de23572cdb9848f329bac276a25bb11eef51d98789aac3819d68ac988",
+      "generation": "assets/plains_v07/source/opening-atmosphere-provenance.json"
+    },
+    {
+      "asset": "opening_guard_gallery",
+      "image": "assets/plains_v07/native/opening_guard_gallery.png",
+      "source": "assets/plains_v07/source/opening-gallery-generated.png",
+      "source_rect": [
+        8,
+        28,
+        1800,
+        836
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        800,
+        361
+      ],
+      "bake_scale": 0.44642857142857145,
+      "alpha_threshold": 128,
+      "anchor": [
+        400.0,
+        361
+      ],
+      "sha256": "539b7ce4b46947e0860f6d12803423c1a4944e759ae192d01e10ca7d1a51986c",
+      "generation": "assets/plains_v07/source/opening-atmosphere-provenance.json"
+    },
+    {
+      "asset": "opening_hidden_wall",
+      "image": "assets/plains_v07/native/opening_hidden_wall.png",
+      "source": "assets/plains_v07/source/mill-recess-generated.png",
+      "source_rect": [
+        0,
+        0,
+        2020,
+        713
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        544,
+        192
+      ],
+      "bake_scale": 0.2693069306930693,
+      "alpha_threshold": null,
+      "anchor": [
+        272.0,
+        192
+      ],
+      "sha256": "e161fd80dd0f1a736eecfba987d909b4c6d1ce4baca8640963153548ac70fbe6",
+      "generation": "assets/plains_v07/source/opening-atmosphere-provenance.json"
+    }
+  ],
+  "placement_rules": {
+    "wood_joint": "visible16wu strip underside, not24wu collision; support top y796 overlaps deck bottom800, feet864",
+    "entry_plank": "P25 platform3 visible clip ends at bank x352, collision retained",
+    "opening_guard_gallery": "rear gallery between physical roof736 and floor1120; top lintel overlap to roof; independent sky visible through cutouts",
+    "opening_hidden_wall": "one544x192 closed wall matching hidden recess, no repetition",
+    "depth": "independent ridge with own soil, attached supports remain world-speed1"
+  }
+}

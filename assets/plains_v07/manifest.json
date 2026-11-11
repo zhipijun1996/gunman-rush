@@ -22,7 +22,10 @@
     "mill-recess-generated.png": "c44dc7a26882199c738b82a5eb9ebcb2e89e0c765c45c10587741772c6c72c9c",
     "orchard-sky-generated.png": "537951ed2ea6028645a613e7c293d8622778da3fc172eb6eb737c257d8db1be9",
     "orchard-ridge-generated.png": "b04800f53557f43232914e2106bd0f801fc2c70eb710367b8b4918749a138266",
-    "orchard-structure-generated.png": "3034f49bd4a03783d81fc136ba2ce2785484c8a6319e4ce9331b5d6770370d30"
+    "orchard-structure-generated.png": "3034f49bd4a03783d81fc136ba2ce2785484c8a6319e4ce9331b5d6770370d30",
+    "opening-sky-generated.png": "e4fb0122c6af58b4dc63745671770348d2a30ac88cbc1a5f7320ab2c34c1db10",
+    "opening-ridge-generated.png": "77a487fe3e981c81aba502d8d99c478d273f7fb5213145a928969a7a153df529",
+    "opening-gallery-generated.png": "f01e638d43688d25ed51c4092be154d1b443d5faecba2d98438eee61827d6136"
   },
   "assets": {
     "reclaimer": {
@@ -999,6 +1002,29 @@
       ],
       "sha256": "751ad669ceead59b47f89b9ddb064e27916133da08987b80831b69c5ea397689",
       "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    },
+    "opening_plains": {
+      "image": "assets/plains_v07/native/opening_plains.png",
+      "source": "assets/plains_v07/source/opening-sky-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1672,
+        940
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        864,
+        486
+      ],
+      "bake_scale": 0.5167464114832536,
+      "alpha_threshold": null,
+      "anchor": [
+        432.0,
+        486
+      ],
+      "sha256": "8ba1635ee5a6ad294e68876d09f6a5e0c3120ea0d84f48c63b3226b790bf01ed",
+      "generation": "assets/plains_v07/source/opening-atmosphere-provenance.json"
     }
   },
   "props": {
@@ -1807,6 +1833,75 @@
       ],
       "sha256": "5e40a1d2abfa984f844b4f5be36d8b20bbae511913339bb39890f8200fdc17eb",
       "generation": "assets/plains_v07/source/orchard-atmosphere-provenance.json"
+    },
+    "opening_road_ridge": {
+      "image": "assets/plains_v07/native/opening_road_ridge.png",
+      "source": "assets/plains_v07/source/opening-ridge-generated.png",
+      "source_rect": [
+        0,
+        216,
+        2172,
+        724
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        652,
+        152
+      ],
+      "bake_scale": 0.3,
+      "alpha_threshold": 128,
+      "anchor": [
+        326.0,
+        152
+      ],
+      "sha256": "88ea212de23572cdb9848f329bac276a25bb11eef51d98789aac3819d68ac988",
+      "generation": "assets/plains_v07/source/opening-atmosphere-provenance.json"
+    },
+    "opening_guard_gallery": {
+      "image": "assets/plains_v07/native/opening_guard_gallery.png",
+      "source": "assets/plains_v07/source/opening-gallery-generated.png",
+      "source_rect": [
+        8,
+        28,
+        1800,
+        836
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        800,
+        361
+      ],
+      "bake_scale": 0.44642857142857145,
+      "alpha_threshold": 128,
+      "anchor": [
+        400.0,
+        361
+      ],
+      "sha256": "539b7ce4b46947e0860f6d12803423c1a4944e759ae192d01e10ca7d1a51986c",
+      "generation": "assets/plains_v07/source/opening-atmosphere-provenance.json"
+    },
+    "opening_hidden_wall": {
+      "image": "assets/plains_v07/native/opening_hidden_wall.png",
+      "source": "assets/plains_v07/source/mill-recess-generated.png",
+      "source_rect": [
+        0,
+        0,
+        2020,
+        713
+      ],
+      "source_rect_format": "xyxy",
+      "size": [
+        544,
+        192
+      ],
+      "bake_scale": 0.2693069306930693,
+      "alpha_threshold": null,
+      "anchor": [
+        272.0,
+        192
+      ],
+      "sha256": "e161fd80dd0f1a736eecfba987d909b4c6d1ce4baca8640963153548ac70fbe6",
+      "generation": "assets/plains_v07/source/opening-atmosphere-provenance.json"
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

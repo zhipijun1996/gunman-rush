@@ -86,35 +86,213 @@ retry_anchors = Array[Dictionary]([{
 "point": [1136.0, 1102.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "cellar_backdrop",
-"layer": -20.0,
-"point": [480.0, 928.0],
-"tile_rect": [480.0, 928.0, 544.0, 192.0]
-}, {
-"asset": "concealing_grass",
-"layer": 20.0,
-"point": [1008.0, 1120.0],
-"sway": true
-}, {
-"asset": "concealing_grass",
-"layer": 20.0,
-"point": [1040.0, 1120.0],
-"sway": true
-}, {
-"asset": "storage_crates",
-"layer": -2.0,
-"point": [2384.0, 1120.0]
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [1680.0, 320.0],
-"sway": true
-}, {
-"asset": "hanging_chime",
-"layer": -2.0,
-"point": [2080.0, 1120.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "opening_hidden_wall",
+    "point": [
+      752,
+      1120
+    ],
+    "layer": -20,
+    "landscape": "opening_plains"
+  },
+  {
+    "asset": "concealing_grass",
+    "layer": 20.0,
+    "point": [
+      1008.0,
+      1120.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "concealing_grass",
+    "layer": 20.0,
+    "point": [
+      1040.0,
+      1120.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "storage_crates",
+    "layer": -2.0,
+    "point": [
+      2384.0,
+      1120.0
+    ]
+  },
+  {
+    "asset": "hanging_chime",
+    "layer": -2.0,
+    "point": [
+      2080.0,
+      1120.0
+    ]
+  },
+  {
+    "asset": "opening_guard_gallery",
+    "point": [
+      1936,
+      1120
+    ],
+    "layer": -20,
+    "tint": [
+      0.75,
+      0.82,
+      0.84,
+      1
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      1536,
+      764
+    ],
+    "layer": -8,
+    "tile_rect": [
+      1536,
+      732,
+      800,
+      32
+    ],
+    "tint": [
+      0.62,
+      0.69,
+      0.7,
+      1
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2184,
+      1120
+    ],
+    "layer": -5,
+    "light": true
+  },
+  {
+    "asset": "opening_road_ridge",
+    "point": [
+      1280,
+      1248
+    ],
+    "layer": -40,
+    "depth": 0.86,
+    "tint": [
+      0.82,
+      0.94,
+      0.94,
+      0.62
+    ],
+    "flip_h": false
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      1248,
+      1120
+    ],
+    "layer": -8,
+    "tile_rect": [
+      1248,
+      184,
+      32,
+      936
+    ],
+    "tint": [
+      0.62,
+      0.69,
+      0.7,
+      1
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      1248,
+      208
+    ],
+    "layer": -8,
+    "tile_rect": [
+      1248,
+      184,
+      128,
+      24
+    ],
+    "tint": [
+      0.62,
+      0.69,
+      0.7,
+      1
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      1248,
+      1120
+    ],
+    "layer": -8,
+    "tile_rect": [
+      1248,
+      1100,
+      128,
+      20
+    ],
+    "tint": [
+      0.62,
+      0.69,
+      0.7,
+      1
+    ]
+  },
+  {
+    "asset": "orchard_frame_brace",
+    "point": [
+      1296,
+      288
+    ],
+    "layer": -8,
+    "tint": [
+      0.57,
+      0.67,
+      0.68,
+      1
+    ]
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      1120,
+      160
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      2328,
+      1120
+    ],
+    "tile_rect": [
+      2328,
+      736,
+      16,
+      384
+    ],
+    "layer": -19,
+    "tint": [
+      0.6,
+      0.67,
+      0.68,
+      1
+    ]
+  }
+])
 art_profile = "overlook"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[1440.0, 1080.0]],
@@ -123,9 +301,10 @@ bell_mechanisms = Array[Dictionary]([{
 "id": "P-R24:station_lift",
 "open_seconds": 0.0
 }])
+masonry_platform_indices = Array[int]([0, 1, 2, 5, 8, 9, 10, 11, 12, 13])
 platforms = Array[Rect2]([Rect2(1024, 1120, 352, 96), Rect2(1376, 1120, 384, 96), Rect2(1952, 1120, 544, 96), Rect2(1664, 1376, 128, 64), Rect2(1920, 1504, 128, 96), Rect2(1056, 160, 192, 32), Rect2(1792, 1248, 128, 32), Rect2(0, 320, 480, 896), Rect2(480, 320, 544, 608), Rect2(928, 928, 96, 96), Rect2(480, 1120, 544, 96), Rect2(1504, 320, 32, 640), Rect2(1536, 320, 800, 416), Rect2(2336, 320, 160, 800)])
 workbench_entity_ids = {
-"art_placements": ["P-R24:art_placements:0", "P-R24:art_placements:1", "P-R24:art_placements:2", "P-R24:art-pass:0", "P-R24:art-pass:1", "P-R24:art-pass:2"],
+"art_placements": ["P-R24:art:0", "P-R24:art:1", "P-R24:art:2", "P-R24:art:3", "P-R24:art:4", "P-R24:art:5", "P-R24:art:6", "P-R24:art:7", "P-R24:art:8", "P-R24:art:9", "P-R24:art:10", "P-R24:art:11", "P-R24:art:12", "P-R24:art:13", "P-R24:art:14"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

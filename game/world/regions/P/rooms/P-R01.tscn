@@ -26,42 +26,226 @@ route_guide = {
 "point": [1392.0, 1262.0]
 }]
 }
-art_placements = Array[Dictionary]([{
-"asset": "waiting_shelter",
-"layer": -2.0,
-"point": [1056.0, 1280.0]
-}, {
-"asset": "merchant_counter",
-"layer": -2.0,
-"point": [752.0, 1280.0]
-}, {
-"asset": "storage_crates",
-"layer": -2.0,
-"point": [1320.0, 1280.0]
-}, {
-"asset": "hanging_chime",
-"layer": -2.0,
-"point": [856.0, 1283.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1984.0, 1219.0]
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [1232.0, 1280.0],
-"sway": true
-}, {
-"asset": "plains_grass",
-"layer": -2.0,
-"point": [80.0, 1280.0],
-"sway": true
-}, {
-"asset": "travel_bundle",
-"layer": -2.0,
-"point": [1160.0, 1280.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "waiting_shelter",
+    "layer": -2.0,
+    "point": [
+      1056.0,
+      1280.0
+    ],
+    "landscape": "opening_plains"
+  },
+  {
+    "asset": "merchant_counter",
+    "layer": -2.0,
+    "point": [
+      752.0,
+      1280.0
+    ]
+  },
+  {
+    "asset": "storage_crates",
+    "layer": -2.0,
+    "point": [
+      1320.0,
+      1280.0
+    ]
+  },
+  {
+    "asset": "hanging_chime",
+    "layer": -2.0,
+    "point": [
+      856.0,
+      1280
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      1984.0,
+      1216
+    ]
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -2.0,
+    "point": [
+      1232.0,
+      1280.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -2.0,
+    "point": [
+      80.0,
+      1280.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "travel_bundle",
+    "layer": -2.0,
+    "point": [
+      1160.0,
+      1280.0
+    ]
+  },
+  {
+    "asset": "opening_road_ridge",
+    "point": [
+      1152,
+      1648
+    ],
+    "layer": -40,
+    "depth": 0.86,
+    "tint": [
+      0.82,
+      0.94,
+      0.94,
+      0.62
+    ],
+    "flip_h": false
+  },
+  {
+    "asset": "opening_road_ridge",
+    "point": [
+      2048,
+      1408
+    ],
+    "layer": -40,
+    "depth": 0.86,
+    "tint": [
+      0.82,
+      0.94,
+      0.94,
+      0.62
+    ],
+    "flip_h": true
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      1256,
+      1472
+    ],
+    "layer": -7,
+    "tint": [
+      0.7,
+      0.77,
+      0.74,
+      1
+    ]
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      2048,
+      1216
+    ],
+    "layer": -7,
+    "tint": [
+      0.7,
+      0.77,
+      0.74,
+      1
+    ]
+  },
+  {
+    "asset": "plain_pier",
+    "point": [
+      704,
+      1472
+    ],
+    "layer": -5,
+    "support_height": 132
+  },
+  {
+    "asset": "plain_pier",
+    "point": [
+      1088,
+      1472
+    ],
+    "layer": -5,
+    "support_height": 132
+  },
+  {
+    "asset": "plain_pier",
+    "point": [
+      1344,
+      1472
+    ],
+    "layer": -5,
+    "support_height": 132
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      1856,
+      1280
+    ],
+    "layer": -8,
+    "tile_rect": [
+      1856,
+      416,
+      32,
+      864
+    ],
+    "tint": [
+      0.62,
+      0.69,
+      0.7,
+      1
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      1856,
+      436
+    ],
+    "layer": -8,
+    "tile_rect": [
+      1856,
+      412,
+      192,
+      24
+    ],
+    "tint": [
+      0.62,
+      0.69,
+      0.7,
+      1
+    ]
+  },
+  {
+    "asset": "orchard_frame_brace",
+    "point": [
+      1904,
+      516
+    ],
+    "layer": -8,
+    "tint": [
+      0.57,
+      0.67,
+      0.68,
+      1
+    ]
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      1952,
+      384
+    ],
+    "layer": -5,
+    "sway": true
+  }
+])
 art_profile = "station"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[1984.0, 336.0]],
@@ -69,9 +253,10 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "UpperStationLift",
 "id": "P01:upper_station_lift"
 }])
+masonry_platform_indices = Array[int]([1, 2, 3, 5, 7, 10, 11])
 platforms = Array[Rect2]([Rect2(0, 1280, 480, 64), Rect2(1664, 1280, 512, 256), Rect2(1888, 1216, 288, 64), Rect2(1888, 384, 288, 64), Rect2(320, 1696, 192, 32), Rect2(1888, 384, 288, 32), Rect2(384, 1696, 128, 32), Rect2(1888, 1216, 288, 32), Rect2(0, 1344, 320, 192), Rect2(0, 1472, 480, 64), Rect2(608, 1472, 800, 64), Rect2(608, 1280, 800, 64)])
 workbench_entity_ids = {
-"art_placements": ["P-R01:art_placements:0", "P-R01:art_placements:1", "P-R01:art_placements:2", "P-R01:art_placements:3", "P-R01:art_placements:4", "P-R01:art-pass:0", "P-R01:art-pass:1", "P-R01:art-pass:2"],
+"art_placements": ["P-R01:art:0", "P-R01:art:1", "P-R01:art:2", "P-R01:art:3", "P-R01:art:4", "P-R01:art:5", "P-R01:art:6", "P-R01:art:7", "P-R01:art:8", "P-R01:art:9", "P-R01:art:10", "P-R01:art:11", "P-R01:art:12", "P-R01:art:13", "P-R01:art:14", "P-R01:art:15", "P-R01:art:16", "P-R01:art:17", "P-R01:art:18"],
 "climbable_walls": [],
 "hazards": [],
 "hook_points": [],

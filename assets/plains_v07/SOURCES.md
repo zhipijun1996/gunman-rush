@@ -18,12 +18,13 @@
 | clockheart-landscape.png | P32完整远景：同族高塔与山脊、谷雾一体绘制，塔基被环境遮住；640×360最近邻烘焙，提示词与源图一同保留 |
 | room-orchard-generated.png / room-mill-generated.png | 现用果园断栅、木架、托梁和木台的母版；[裁切与锚点](source/room-pair-provenance.json)，原生尺寸归manifest。无消费者的大树、草根岩肩、独立亮窗、幕布墙和大装饰轮不进入现行素材清单 |
 | mill-hall-generated.png / mill-window-bay-generated.png | P26整屏氛围实验：多层风车远结构与完整窗间墙；[提示词、参考、裁切、等比烘焙与哈希](source/mill-atmosphere-provenance.json)。远景轻微视差，墙身与窗光固定世界坐标，主角与玩法沿用正式入口；主厅氛围改善获用户反馈，隐藏小室使用下列专用背墙 |
-| orchard-sky-generated.png / orchard-ridge-generated.png / orchard-structure-generated.png / mill-recess-generated.png | P25远山底板、自带地面的疏果林与整体门廊，P26单幅封闭小室背墙；[提示词、裁切、锚点和哈希](source/orchard-atmosphere-provenance.json)。中央高台侧柱与托臂由现用木材机械裁切复用，母版中的大树不生成运行素材；室外整体效果待本轮审看 |
+| orchard-sky-generated.png / orchard-ridge-generated.png / orchard-structure-generated.png / mill-recess-generated.png | P25远山底板、自带地面的疏果林与整体门廊，P26单幅封闭小室背墙；[提示词、裁切、锚点和哈希](source/orchard-atmosphere-provenance.json)。中央高台侧柱与托臂由现用木材机械裁切复用，母版中的大树不生成运行素材；室外整体改善已获反馈，P25木桥按可见梁底修正接缝、入口木台按岩壁收口 |
+| opening-sky-generated.png / opening-ridge-generated.png / opening-gallery-generated.png | 首段六房连续构图：低对比草原远山、自带地面的旧路遗迹与望站坡通风后廊；[提示词、裁切、锚点和哈希](source/opening-atmosphere-provenance.json)。小站、挑战平台与铃闸复用原生梁柱；P24隐藏室由现用封闭背墙按净空机械裁切。 |
 | story-traces-generated.png | 布条桩、路线便笺板、修好的灯凳，显现只读取交谈收据与宿主房号 |
 
 `python3 tools/art/bake_plains_v07.py` 只执行固定格裁切、alpha≥128 清边、最近邻采样与固定脚底对齐。源图、每次裁切、原生高度、缩放和输出哈希见 [manifest.json](manifest.json)。场景按一素材像素/一世界单位放置；UI肖像沿统一逻辑画布比例展示。源图由 `.gdignore` 隔离，导出只使用原生资产与运行清单。
 
-P32按`clockheart_vista`配置读取本包整幅钟心远景；其他正式房间的远景读取 `art/world-art-v2/assets/pixel/manifest.json` 中 `windchime_plains_v2`，不再从旧家园通用背景加载。远景按整数倍覆盖实际窗口并使用独立低速视差；实体仍保持1素材像素/1世界单位。室外环境底光参考技能中的认可光照配置，实际Godot方向光须以窗口光照对照审查；接入不代表最终视觉通过。室外保留已接入的地形避让前景和明确放置植被；室内由同一个房间材质判定排除天空、自动草丛、风车外立面和室外井台，使用背墙、传动架、阀门与水管。
+P32按`clockheart_vista`读取钟心远景，P25按`orchard`读取果园；首段六房以本房`art_placements.landscape`选择`opening_plains`，不改变玩法或室内外材质配置。未指定专用底板的正式房间读取 `art/world-art-v2/assets/pixel/manifest.json` 中 `windchime_plains_v2`，不再从旧家园通用背景加载。远景按整数倍覆盖实际窗口并使用独立低速视差；实体仍保持1素材像素/1世界单位。室外环境底光参考技能中的认可光照配置，实际Godot方向光须以窗口光照对照审查；接入不代表最终视觉通过。室外保留已接入的地形避让前景和明确放置植被；室内由同一个房间材质判定排除天空、自动草丛、风车外立面和室外井台，使用背墙、传动架、阀门与水管。
 
 场景材质与地形碰撞分开：直柱按真实梁底与地面拼接柱帽、等宽柱身和柱脚，不缩放宽度；室外入口仅在实际室内连接处放置门廊或井口，室内出口投来向外光。返程封墙继承宿主室内材质。普通建筑仅作构图；果园树拱由房间明确指定对应平台图像，按清单surface_height对齐枝面，树干在可穿行背景层；实际落脚面、遮弹掩体、铜铃吊台、折板与水面危险由对应组件拥有。动效只响应已接受的动作/持久化结果，不发放奖励。
 

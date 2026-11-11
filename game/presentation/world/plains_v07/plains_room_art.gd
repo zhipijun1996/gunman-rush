@@ -65,7 +65,10 @@ func _ready() -> void:
 	add_child(ambient)
 	if not indoor:
 		sky=Sprite2D.new();sky.name="PlainsFarLandscape"
-		sky.texture=load("res://"+str(backgrounds[room.art_profile].image)) if backgrounds.has(room.art_profile) else load("res://art/world-art-v2/"+str(assets.backgrounds.windchime_plains_v2.file))
+		var landscape:=room.art_profile
+		for placement:Dictionary in room.art_placements:
+			if placement.has("landscape"):landscape=str(placement.landscape)
+		sky.texture=load("res://"+str(backgrounds[landscape].image)) if backgrounds.has(landscape) else load("res://art/world-art-v2/"+str(assets.backgrounds.windchime_plains_v2.file))
 		sky.z_index=-100;sky.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 		var cloud_material:=ShaderMaterial.new();cloud_material.shader=preload("res://game/presentation/world/plains_v07/cloud_drift.gdshader")
 		cloud_material.set_shader_parameter("tower_landscape",room.art_profile=="clockheart_vista");sky.material=cloud_material
@@ -99,6 +102,9 @@ func _ready() -> void:
 		if placement.has("surface_platform"):
 			var surface:=PlainsTimberSurface.new()
 			surface.bounds=room.platforms[int(placement.surface_platform)]
+			# Terminate the visible plank at its bank face; physics remains authored.
+			if placement.has("surface_clip"):
+				surface.bounds=surface.bounds.intersection(FixedWorldProvider.rect(placement.surface_clip))
 			surface.z_index=0;add_child(surface);continue
 		if placement.has("support_height"):
 			_support(FixedWorldProvider.point(placement.point),float(placement.support_height));continue
