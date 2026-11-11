@@ -31,8 +31,6 @@ var service_pickup_sprites: Dictionary={}
 ## Explicit scenery supplies the surface image; authored rectangles still collide.
 @export var illustrated_platform_indices: Array[int] = []
 @export var masonry_platform_indices: Array[int] = []
-## Built canals and town foundations keep the same material through generated walls.
-@export var masonry_shell := false
 @export var start_point := Vector2(144,512)
 @export var rest_point := Vector2.ZERO
 @export var reward_point := Vector2.ZERO
@@ -79,7 +77,6 @@ func interior_material() -> String:
 
 func _ready() -> void:
 	z_index = -1
-	var authored_count:=platforms.size()
 	var boundary:=WorldRoomSpace.boundary_platforms(contract.world_geometry,doors)
 	boundary_art_rock=WorldRoomSpace.exterior_fill(contract.world_geometry,doors)
 	boundary_art_rock.append_array(boundary)
@@ -123,14 +120,11 @@ func _ready() -> void:
 		add_child(blocker)
 		door_blocks[door.id] = blocker
 	var solids: Array[Rect2]=[]
-	var wall_faces: Array[Rect2]=[]
-	if masonry_shell:wall_faces.append_array(WorldRoomSpace.exterior_fill(contract.world_geometry,doors))
-	else:solids.append_array(WorldRoomSpace.exterior_fill(contract.world_geometry,doors))
+	solids.append_array(WorldRoomSpace.exterior_fill(contract.world_geometry,doors))
 	var masonry: Array[Rect2]=[]
 	for i: int in platforms.size():
 		if i in one_way_indices or i in illustrated_platform_indices:continue
-		if masonry_shell and i>=authored_count:wall_faces.append(platforms[i])
-		elif i in masonry_platform_indices:masonry.append(platforms[i])
+		if i in masonry_platform_indices:masonry.append(platforms[i])
 		else:solids.append(platforms[i])
 	for zone: Dictionary in contract.camera.get("zones",[]):
 		var conceal: Array[Rect2] = []
@@ -159,9 +153,8 @@ func _ready() -> void:
 	if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
 	else: terrain.position.y=-4 # Native grass roots start five pixels below the tile top; tips overhang the physical sole.
 	add_child(terrain)
-	if not masonry.is_empty() or not masonry_polygons.is_empty() or not wall_faces.is_empty():
+	if not masonry.is_empty() or not masonry_polygons.is_empty():
 		var visible_masonry:=WorldRoomSpace.exposed_parts(masonry,boundary_art_rock)
-		visible_masonry.append_array(wall_faces)
 		var structure:=UnderworldTerrain.build_with_polygons(visible_masonry, masonry_polygons)
 		PlainsMillTerrainMaterial.install_on(structure);add_child(structure)
 	var scenery:=PlainsRoomArt.new();scenery.room=self;add_child(scenery)

@@ -8,7 +8,7 @@ const ROOM_FIELDS := [
 	"tutorial_min_move", "tutorial_recoil_finish_x", "section_volumes",
 	"retry_anchors", "art_placements", "art_profile",
 	"bell_mechanisms", "platforms", "one_way_indices", "illustrated_platform_indices",
-	"masonry_platform_indices", "masonry_shell", "start_point", "rest_point", "reward_point",
+	"masonry_platform_indices", "start_point", "rest_point", "reward_point",
 	"enemy_placements", "signs", "hazards", "spike_strips", "gear_obstacles",
 	"hook_points", "climbable_walls", "environment_zones", "boss_position",
 	"arena_bounds", "battle_entry_anchor", "arena_door_height", "terrain_polygons",
