@@ -14,18 +14,18 @@ func run()->void:
  await cross("P-R16","P-R11",Vector2(1392,686),1)
  await cross("P-R11","P-R16",Vector2(144,1198),-1)
  await cross("P-R27","P-R14",Vector2(768,142),0,true)
- await load_room("P-R14");await drop_to("P-R27",Vector2(512,1230),390)
- await load_room("P-R14");await drop_to("P-R15",Vector2(4736,398),4614)
+ await load_room("P-R14");await drop_to("P-R27",Vector2(320,1230),198)
+ await load_room("P-R14");await drop_to("P-R15",Vector2(4544,398),4422)
  await cross("P-R15","P-R14",Vector2(192,142),0,true)
  await load_room("P-R14")
- await fixture(Vector2(3712,974));app._interact();await ticks(3)
+ await fixture(Vector2(3520,558));app._interact();await ticks(3)
  check(not app.state.has("shortcut_p03"),"side gate rejects use before Boss victory")
  await fixture(app.room.battle_entry_anchor);await ticks(5)
  var health:=app.room.encounter.health
  health.apply_damage(ActorResourceRequest.new(&"crossing_victory_fixture",health.epoch,health.current+1,health.get_instance_id()));await ticks(12)
- await fixture(Vector2(3712,974));app._interact();await ticks(5)
+ await fixture(Vector2(3520,558));app._interact();await ticks(5)
  check(app.state.has("shortcut_p03"),"actual side gate switch opens return")
- await drop_to("P-R06",Vector2(3840,1102),3718)
+ await drop_to("P-R06",Vector2(3648,1102),3526)
  # Keep that earned switch while approaching the paired upper portal.
  await fixture(Vector2(704,142));app.controller.router.set_jump_held(&"keyboard_mouse",true)
  for frame:int in 300:

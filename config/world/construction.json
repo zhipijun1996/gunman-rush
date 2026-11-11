@@ -5500,11 +5500,11 @@
       "room_id": "P-R14",
       "scene_ref": "res://game/world/regions/P/rooms/P-R14.tscn",
       "extent": [
-        4800,
+        4608,
         1344
       ],
       "shape_class": "connected_chambers",
-      "rationale": "牧风者战斗、唯一H领取与安全首次运用；由背风棚直接重试。",
+      "rationale": "紧凑战前攀升→三等距战台／地面荆棘→钩索高廊与钟井；中段短竖井回中庭，无Boss下方横向绕路。",
       "camera": {
         "profile": "bounded_follow",
         "transition": "occluded",
@@ -5516,11 +5516,11 @@
           "id": "room-link-149:P-R14",
           "position_candidate": {
             "local_world_units": [
-              4608.0,
+              4416.0,
               512.0
             ],
             "normalized_uv": [
-              0.96,
+              0.9583333333333334,
               0.38095238095238093
             ],
             "opening_candidate_world_units": [
@@ -5534,15 +5534,15 @@
             "section": "main",
             "incoming_mode": "short_jump_then_land",
             "entry_position_world_units": [
-              4608.0,
+              4416.0,
               464.0
             ],
             "safe_standing_position_world_units": [
-              4736.0,
+              4544.0,
               398.0
             ],
             "platform_candidate_rect_world_units": [
-              4672.0,
+              4480.0,
               416.0,
               128,
               32
@@ -5568,11 +5568,11 @@
           "id": "L02:P-R14",
           "position_candidate": {
             "local_world_units": [
-              3712.0,
+              3520.0,
               1216.0
             ],
             "normalized_uv": [
-              0.7733333333333333,
+              0.7638888888888888,
               0.9047619047619048
             ],
             "opening_candidate_world_units": [
@@ -5586,15 +5586,15 @@
             "section": "main",
             "incoming_mode": "short_jump_then_land",
             "entry_position_world_units": [
-              3712.0,
+              3520.0,
               1168.0
             ],
             "safe_standing_position_world_units": [
-              3840.0,
+              3648.0,
               1102.0
             ],
             "platform_candidate_rect_world_units": [
-              3776.0,
+              3584.0,
               1120.0,
               128,
               32
@@ -5620,11 +5620,11 @@
           "id": "APPROACH-P27-P14:P-R14",
           "position_candidate": {
             "local_world_units": [
-              384.0,
+              192.0,
               1344.0
             ],
             "normalized_uv": [
-              0.08,
+              0.041666666666666664,
               1.0
             ],
             "opening_candidate_world_units": [
@@ -5638,15 +5638,15 @@
             "section": "main",
             "incoming_mode": "short_jump_then_land",
             "entry_position_world_units": [
-              384.0,
+              192.0,
               1296.0
             ],
             "safe_standing_position_world_units": [
-              512.0,
+              320.0,
               1230.0
             ],
             "platform_candidate_rect_world_units": [
-              448.0,
+              256.0,
               1248.0,
               128,
               32
@@ -5675,11 +5675,11 @@
           "entry_door": "room-link-149:P-R14",
           "section": "main",
           "position_candidate_world_units": [
-            4608.0,
+            4416.0,
             464.0
           ],
           "eventual_standing_position_world_units": [
-            4736.0,
+            4544.0,
             398.0
           ],
           "landing_contract_ref": "landing:room-link-149:P-R14",
@@ -5690,11 +5690,11 @@
           "entry_door": "L02:P-R14",
           "section": "main",
           "position_candidate_world_units": [
-            3712.0,
+            3520.0,
             1168.0
           ],
           "eventual_standing_position_world_units": [
-            3840.0,
+            3648.0,
             1102.0
           ],
           "landing_contract_ref": "landing:L02:P-R14",
@@ -5705,11 +5705,11 @@
           "entry_door": "APPROACH-P27-P14:P-R14",
           "section": "main",
           "position_candidate_world_units": [
-            384.0,
+            192.0,
             1296.0
           ],
           "eventual_standing_position_world_units": [
-            512.0,
+            320.0,
             1230.0
           ],
           "landing_contract_ref": "landing:APPROACH-P27-P14:P-R14",
@@ -5750,7 +5750,7 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              4736.0,
+              4544.0,
               398.0
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
@@ -5776,7 +5776,7 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              3840.0,
+              3648.0,
               1102.0
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
@@ -6114,7 +6114,7 @@
         "name": "牧风者",
         "archetype": "ground_duel",
         "combat_bounds_world_units": [
-          512,
+          320,
           160,
           1120,
           600
@@ -6203,40 +6203,34 @@
       },
       "space_rects": [
         [
+          288,
           0,
+          1152,
+          792
+        ],
+        [
+          1440,
+          0,
+          1696,
+          832
+        ],
+        [
+          0,
+          608,
+          384,
+          736
+        ],
+        [
+          3136,
           160,
-          4800,
+          1472,
           352
         ],
         [
-          0,
-          640,
-          3904,
-          384
-        ],
-        [
-          0,
-          0,
           3328,
-          160
-        ],
-        [
-          0,
-          512,
-          3328,
-          128
-        ],
-        [
-          192,
-          1024,
+          480,
           384,
-          320
-        ],
-        [
-          3520,
-          1024,
-          384,
-          192
+          736
         ]
       ],
       "layout_revision": "plains-04",

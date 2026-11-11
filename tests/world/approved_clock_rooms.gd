@@ -74,20 +74,28 @@ func run()->void:
   await cache("open_P11_crown_cache",Vector2(2528,238),30)
  if selected("P-R14"):
   await load_room("P-R14")
-  await hop(Vector2(512,1230),Vector2(384,1102),Vector2.ZERO,"P14 first widened approach shoulder")
-  await hop(Vector2(384,1102),Vector2(416,942),Vector2.DOWN,"P14 rise to second shoulder")
-  await hop(Vector2(416,942),Vector2(400,742),Vector2.DOWN,"P14 recoil to preparation bank")
+  await hop(Vector2(320,1230),Vector2(192,1102),Vector2.ZERO,"P14 first widened approach shoulder")
+  await hop(Vector2(192,1102),Vector2(224,942),Vector2.DOWN,"P14 rise to second shoulder")
+  await hop(Vector2(224,942),Vector2(208,742),Vector2.DOWN,"P14 recoil to preparation bank")
   check(not app.state.has("H"),"P14 approach needs no granted H")
   await victory("P14")
-  await fixture(Vector2(1800,742));app._interact();await ticks(8)
+  await fixture(Vector2(1608,742));app._interact();await ticks(8)
   check(app.state.has("H") and app.controller.traversal.hook_enabled,"P14 reward activates actual hook consumer")
-  await hook(Vector2(1984,558),Vector2(1840,408),"P14 first holding hook")
-  await fixture(Vector2(2176,366));app.controller.router.request_action(&"grapple",(Vector2(2304,264)-app.player.position).normalized())
+  await hook(Vector2(1792,558),Vector2(1648,408),"P14 first holding hook")
+  await fixture(Vector2(1984,366));app.controller.router.request_action(&"grapple",(Vector2(2112,264)-app.player.position).normalized())
   var bounced:=false
   for frame:int in 65:await ticks(1);bounced=bounced or app.controller.traversal.state in [&"hook_contact_kick",&"hook_kick"]
   check(bounced,"P14 spring hook actually releases")
-  await hop(Vector2(2112,974),Vector2(2448,910),Vector2.LEFT,"P14 first low-return gap")
-  await hop(Vector2(2848,910),Vector2(3168,974),Vector2.LEFT,"P14 second low-return gap")
+  await hop(Vector2(2032,782),Vector2(2256,574),Vector2.DOWN,"P14 west failure shoulder returns to route")
+  await fixture(Vector2(2256,574))
+  app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(16)
+  app.controller.router.request_action(&"grapple",(Vector2(2112,264)-app.player.position-Vector2(0,-6)).normalized())
+  bounced=false
+  for frame:int in 90:
+   await ticks(1)
+   if app.controller.traversal.state in [&"hook_contact_kick",&"hook_kick"]:bounced=true;break
+  check(bounced,"P14 recovery shoulder reconnects spring hook using a real jump")
+  app.controller.router.clear("recovery complete")
  if selected("P-R15"):
   await load_room("P-R15","h")
   # Approach goes outside the solid throat before casting; not through its wall.

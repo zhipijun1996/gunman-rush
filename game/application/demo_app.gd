@@ -2162,7 +2162,7 @@ func _start_generated_boss() -> void:
 					abandon_run()
 					return
 			elif encounter.has_method("restore_combat_state"): encounter.call("restore_combat_state",data)
-			if encounter is WindkeeperPressureEncounter: encounter.restore_bridge_geometry()
+			if encounter is WindkeeperPressureEncounter: encounter.restore_arena_hazard()
 		(stage as PlainsRegionStage).restored_boss.clear()
 	EnemyPresentationBinding.synchronize(encounter)
 	if _boss_started and encounter is WindkeeperEncounter: _boss_intros_seen[encounter.definition.stable_id]=true

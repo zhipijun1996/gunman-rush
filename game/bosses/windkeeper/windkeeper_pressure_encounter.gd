@@ -45,7 +45,7 @@ var _pose_from: Dictionary = {}
 var _supports_bound := false
 var _support_rects: Array[Rect2] = []
 var _support_index := -1
-var _bridge_released := false
+var _thorns_released := false
 var _hop_active := false
 var _hop_start := Vector2.ZERO
 var _hop_target := Vector2.ZERO
@@ -131,7 +131,7 @@ func physics_tick(delta: float) -> void:
 		&"intro":
 			if clock <= 0: _enter(&"observe", 0)
 		&"phase_transition":
-			# Mount a verified surviving platform before removing the old bridge.
+			# Mount a verified platform before releasing the floor thorns.
 			# The warning clock continues during the real locked physical leap.
 			if stage_phase == 3 and _supports_bound and not _standing_on_support():
 				if not _hop_active and _state_age >= _config().traverse_warning_seconds:
@@ -143,7 +143,7 @@ func physics_tick(delta: float) -> void:
 					motor.queue_redraw()
 					return
 			if clock <= 0:
-				if stage_phase == 3: _bridge_released = true
+				if stage_phase == 3: _thorns_released = true
 				phase_changed.emit(stage_phase)
 				_event(&"windkeeper_phase", {"phase": stage_phase})
 				_select_group()
@@ -491,9 +491,9 @@ func _platform_for_target() -> Vector2:
 	var query := PhysicsRayQueryParameters2D.create(feet - Vector2(0, 2), feet + Vector2(0, 650), 1, excluded)
 	var space := motor.get_world_2d().direct_space_state
 	var result := space.intersect_ray(query)
-	# phase_changed schedules the actual bridge removal for the deferred step.
+	# The intact floor becomes dangerous when phase-three thorns emerge.
 	# A phase-III platform target must already be a surviving raised surface,
-	# including on that first frame while the old floor is still queryable.
+	# The floor remains queryable, but is never a legal phase-three landing.
 	if not result.is_empty():
 		var point: Vector2 = result.position
 		if stage_phase != 3 or point.y < _floor_y - 2.0:
@@ -911,7 +911,7 @@ func combat_snapshot() -> Dictionary:
 		"mill_start_age": _mill_start_age, "retreat_ready_age": _retreat_ready_age, "blocked_age": _blocked_age, "turn_resume": String(_turn_resume),
 		"age": _state_age, "duration": _state_duration, "fight_age": _fight_age, "travel": _travel,
 		"death_age": _death_age, "death_fall_speed": _death_fall_speed, "death_impact_sent": _death_impact_sent, "death_final_sent": _death_final_sent,
-		"physical_reward_expected": physical_reward_expected, "bridge_released": _bridge_released,
+		"physical_reward_expected": physical_reward_expected, "thorns_released": _thorns_released,
 		"support_motion": {"index": _support_index, "active": _hop_active, "prepared": _hop_prepared,
 			"baseline": _hop_is_baseline, "ballistic": _hop_ballistic, "start": [_hop_start.x, _hop_start.y], "target": [_hop_target.x, _hop_target.y],
 			"target_index": _hop_target_index, "age": _hop_age, "duration": _hop_duration, "height": _hop_height,
@@ -969,7 +969,7 @@ func restore_combat_state(data: Dictionary) -> void:
 	point = saved.get("camp_origin", [motor.global_position.x, motor.global_position.y])
 	_camp_origin = Vector2(point[0], point[1])
 	var motion: Dictionary = saved.get("support_motion", {})
-	_bridge_released = bool(saved.get("bridge_released", false))
+	_thorns_released = bool(saved.get("thorns_released", saved.get("bridge_released", false)))
 	_support_index = int(motion.get("index", -1))
 	_hop_active = bool(motion.get("active", false))
 	_hop_prepared = bool(motion.get("prepared", false))
@@ -993,7 +993,7 @@ func restore_combat_state(data: Dictionary) -> void:
 		_hop_active = true
 		_hop_is_baseline = true
 		_hop_ballistic = false
-	if stage_phase == 3 and _supports_bound and not _bridge_released and motion.is_empty() and not health.terminal:
+	if stage_phase == 3 and _supports_bound and not _thorns_released and motion.is_empty() and not health.terminal:
 		mode = &"phase_transition"
 		_state_age = 0.0
 		_state_duration = _config().phase_warning_seconds
@@ -1019,7 +1019,7 @@ func _restore_legacy_combat_state() -> void:
 	_hop_prepared = false
 	_hop_is_baseline = false
 	_hop_ballistic = true
-	_bridge_released = false
+	_thorns_released = false
 	_support_index = -1
 	_attack_index = 0
 	_state_age = 0.0
@@ -1083,13 +1083,13 @@ func bind_stage_geometry(owner_module: PlatformingModule, controller: PlayerCont
 
 # Restored phase three can still be landing on its first real shelf. Restore
 # the actual release flag, after terminal binding or active combat restoration.
-func restore_bridge_geometry() -> void:
-	if not bridge_break_ready(): return
+func restore_arena_hazard() -> void:
+	if not thorns_ready(): return
 	for child: Node in get_children():
-		if child is WindkeeperArena: (child as WindkeeperArena).restore_broken_bridge()
+		if child is WindkeeperArena: (child as WindkeeperArena).restore_floor_thorns()
 
-func bridge_break_ready() -> bool:
-	return _bridge_released
+func thorns_ready() -> bool:
+	return _thorns_released
 
 func _stance_half_width() -> float:
 	var pose := WindkeeperPressureRig.sample({"mode": &"observe", "phase": 3, "direction": 1})

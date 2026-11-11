@@ -56,12 +56,12 @@ func run() -> void:
  await path([Vector2(1056,526),Vector2(1190,430)],"P-R23");await ticks(30)
  await path([Vector2(1056,526),Vector2(800,622),Vector2(600,622)],"P-R23");await ticks(30)
  app.state.restore();reset_camera();await ticks(30);end("secret-return")
- install_fixture_contract("P-R14",Vector2(4768,1280))
- await setup("P-R14",Vector2(2304,366),"h");mark("hook")
- for point: Vector2 in [Vector2(2448,240),Vector2(2624,240),Vector2(2800,240)]:
+ install_fixture_contract("P-R14",Vector2(4608,1344))
+ await setup("P-R14",Vector2(1792,558),"h");mark("hook")
+ for point: Vector2 in [Vector2(1648,408)]:
   app.controller.router.request_action(&"grapple",(point-app.player.position-Vector2(0,-6)).normalized());await ticks(45)
  app.controller.router.request_action(&"jump");await ticks(50);end("hook")
- await setup("P-R14",Vector2(440,742));mark("boss-respawn")
+ await setup("P-R14",Vector2(248,742));mark("boss-respawn")
  app.controller.router.set_source_axis(&"keyboard_mouse",1);await ticks(55);app.controller.router.set_source_axis(&"keyboard_mouse",0);await ticks(45)
  app.controller.router.request_action(&"jump");await ticks(8);app.controller.router.request_action(&"shoot_release",Vector2.DOWN);await ticks(70)
  app.submit_damage(&"camera_clip",DamageRequest.Kind.MONSTER,100,&"camera_clip_death");await ticks(4);await settle();await ticks(45);end("boss-respawn")

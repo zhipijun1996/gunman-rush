@@ -350,17 +350,22 @@ func _prune_attacks() -> void:
 	_projectiles = kept
 
 func bind_stage_geometry(owner_module: PlatformingModule, controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime, segment: SegmentRespawn, supports: PlainsGroundSupports = null) -> WindkeeperArena:
-	_platform_piers.assign([owner_module.to_global(Vector2(350,452)).x,owner_module.to_global(Vector2(640,452)).x,owner_module.to_global(Vector2(870,452)).x])
+	_platform_piers.clear()
+	reward_stands.clear()
+	for index: int in owner_module.definition.one_way_platform_indices:
+		var slab: Rect2 = owner_module.definition.platforms[index]
+		var stand := owner_module.to_global(Vector2(slab.get_center().x, slab.position.y-18))
+		_platform_piers.append(stand.x)
+		reward_stands.append(stand)
 	var consumer := WindkeeperArena.new()
 	add_child(consumer)
 	consumer.setup(owner_module,self,controller,policy,lifetime,segment,supports)
-	reward_stands.assign([owner_module.to_global(Vector2(350,452)),owner_module.to_global(Vector2(640,452)),owner_module.to_global(Vector2(870,452))])
 	return consumer
 
-# The ordinary encounter restores its phase-three bridge after stage binding.
+# The ordinary encounter restores its phase-three floor hazard after stage binding.
 # Pressure has a separate grounded release flag and restore timing.
 func restore_stage_geometry(consumer: WindkeeperArena) -> void:
-	if stage_phase == 3: consumer.restore_broken_bridge()
+	if stage_phase == 3: consumer.restore_floor_thorns()
 
 func reward_stand_position() -> Vector2:
 	var x := _home_x

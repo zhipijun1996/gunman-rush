@@ -158,12 +158,12 @@ func run() -> void:
 	await fixture(Vector2(400,452))
 	encounter.health.apply_damage(ActorResourceRequest.new(&"phase3_fixture",encounter.health.epoch,8,encounter.health.get_instance_id()))
 	await frames(310)
-	check(encounter.stage_phase == 3 and encounter.chase_segment == 0, "third threshold starts broken-bridge segment chase")
+	check(encounter.stage_phase == 3 and encounter.chase_segment == 0, "third threshold starts raised-deck segment chase")
 	encounter._enter(&"observe",0.01)
 	await frames(210)
 	check(encounter.mode == &"pier_open" and encounter.core_open, "chase ends at first real bridge pier exposure")
 	check(absf(boss.position.x - (encounter.arena.left_x + 245)) < 3, "first chase uses bounded physical displacement to actual pier")
-	# Cross the 80px broken gap in one jump; turn back shot supplies next landing recoil.
+	# Cross the gap between raised decks in one jump; turn back shot supplies next landing recoil.
 	controller.router.set_jump_held(&"test",true)
 	controller.router.set_move_axis(1)
 	await frames(38)
@@ -171,22 +171,22 @@ func run() -> void:
 	controller.router.set_jump_held(&"test",false)
 	var shot_hp := encounter.health.current
 	var core_aim := boss.global_position + encounter.core_offset() - player.global_position
-	check(controller.shoot_ability.try_fire(core_aim,false), "actual turn-back air shot triggers recoil over bridge gap")
+	check(controller.shoot_ability.try_fire(core_aim,false), "actual turn-back air shot triggers recoil over thorn-covered ground")
 	await frames(50)
 	check(encounter.health.current == shot_hp - 1, "turn-back projectile hits exposed chase core")
-	check(player.position.x > 550 and player.is_on_floor(), "one jump plus turn-back recoil reaches next safe bridge segment")
-	check(controller.actor_resources.health.current == controller.actor_resources.health.capacity, "bridge trajectory remains no damage")
-	# Third-stage holes are real, lower ground cannot bypass bridge routes.
+	check(player.position.x > 550 and player.is_on_floor(), "one jump plus turn-back recoil reaches next safe deck")
+	check(controller.actor_resources.health.current == controller.actor_resources.health.capacity, "deck traversal remains no damage")
+	# Third-stage thorns preserve the floor and prevent a safe low bypass.
 	var ray := PhysicsRayQueryParameters2D.create(Vector2(510,500),Vector2(510,850),1,[player.get_rid()])
-	check(player.get_world_2d().direct_space_state.intersect_ray(ray).is_empty(), "phaseIII bridge gap has no hidden lower floor")
+	check(not player.get_world_2d().direct_space_state.intersect_ray(ray).is_empty(), "phaseIII thorns grow over the original real floor")
 	var saved_boss_hp := encounter.health.current
 	var saved_epoch := life.actor_epoch
 	controller.router.set_move_axis(-1)
 	await frames(40)
 	controller.router.set_move_axis(0)
 	await frames(50)
-	check(life.actor_epoch > saved_epoch and player.is_on_floor() and player.position.y < 470, "falling bridge gap performs actual selective return to safe bridge start")
-	check(encounter.health.current == saved_boss_hp and encounter.stage_phase == 3 and arena_consumer.broken, "bridge fall keeps bossHP phase and broken geometry")
+	check(life.actor_epoch > saved_epoch and player.is_on_floor() and player.position.y < 470, "falling between decks performs actual selective return to safe deck")
+	check(encounter.health.current == saved_boss_hp and encounter.stage_phase == 3 and arena_consumer.thorns_active, "thorn return preserves bossHP and phase")
 	# Full initial HP trace uses ordinary Motor inputs and actual projectiles only.
 	await full_fight()
 	# Cancel/pause never leaves delayed attacks or local current pending.
@@ -214,17 +214,17 @@ func run() -> void:
 	# Explicit restored phase fixture, on the same real unbroken Arena. No phase
 	# signal is emitted: this exercises the owner entry used by App reload.
 	paused = true
-	check(encounter.stage_phase==1 and not arena_consumer.broken, "ordinary restore fixture retains its actual initial bridge")
+	check(encounter.stage_phase==1 and not arena_consumer.thorns_active, "ordinary restore fixture retains its actual initial floor")
 	encounter.restore_stage_geometry(arena_consumer)
 	await process_frame
-	check(not arena_consumer.broken and module.get_node("Platform0").collision_layer==1, "ordinary non-third-phase restore leaves real ground intact")
+	check(not arena_consumer.thorns_active and module.get_node("Platform0").collision_layer==1, "ordinary non-third-phase restore leaves real ground intact")
 	encounter.stage_phase = 3
 	encounter.restore_stage_geometry(arena_consumer)
-	check(not arena_consumer.broken, "ordinary restored bridge keeps the existing deferred removal boundary")
+	check(arena_consumer.thorns_active and not arena_consumer._contact.enabled, "restored thorns repeat the warning before damage")
 	await process_frame
 	await process_frame
-	check(arena_consumer.broken and module.get_node("Platform0").collision_layer==0, "ordinary third-phase owner restore removes the actual original ground")
-	check(module.definition.platforms[0]==Rect2(0,600,290,80) and module.definition.platforms[-1]==Rect2(1000,600,120,80), "ordinary restored bridge preserves the original two ground remnants")
+	check(arena_consumer.thorns_active and module.get_node("Platform0").collision_layer==1, "ordinary third-phase restore keeps the actual ground")
+	check(module.definition.platforms[0]==Rect2(0,600,1120,80) and module.definition.platforms.size()==4, "restored thorn arena keeps all original platforms")
 	paused = false
 	world.free()
 	await process_frame

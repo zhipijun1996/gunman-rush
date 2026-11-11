@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_ah6s2"]
 [ext_resource type="Script" path="res://game/bosses/windkeeper/windkeeper_world_binding.gd" id="2_j1let"]
 [ext_resource type="Script" path="res://game/world/components/platforming_module.gd" id="3_74dfm"]
-[ext_resource type="Resource" path="res://resources/generation/modules/plains_boss_arena.tres" id="4_wq04g"]
+[ext_resource type="Resource" path="res://game/world/regions/P/rooms/P-R14-arena.tres" id="4_wq04g"]
 [ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="5_jqxv1"]
 [ext_resource type="Script" path="res://game/world/components/grapple_anchor.gd" id="6_eucgf"]
 
@@ -14,53 +14,239 @@ script = ExtResource("1_ah6s2")
 room_id = "P-R14"
 arrival_text = "牧风者庭地"
 route_guide = {
-"schema": 1.0,
-"steps": [{
-"action": "入口台不动；加宽第一转身岸，向右收束上两级石肩，让反冲后的身体有承接面。Boss封门、战场盒与原三层战斗平台保持。",
-"label": "错肩进入Boss庭地",
-"number": 1.0,
-"path": [[512.0, 1230.0], [384.0, 1102.0], [416.0, 942.0], [400.0, 742.0], [592.0, 742.0]],
-"point": [512.0, 1230.0]
-}, {
-"action": "领取H后，上层石肩按上—下—上错落，宽落点承接钩索与反冲换向，不再整排同一水平线。",
-"label": "战后铜环与起伏石肩",
-"number": 2.0,
-"path": [[1800.0, 742.0], [1984.0, 558.0], [2080.0, 366.0], [2592.0, 334.0], [3264.0, 430.0], [3504.0, 296.0], [3744.0, 232.0], [4064.0, 366.0], [4392.0, 288.0], [4608.0, 224.0], [4736.0, 398.0]],
-"point": [1800.0, 742.0]
-}, {
-"action": "战后可从奖励岸下落，跨两处160宽断口沿中央高肩回到S3侧闸；回程低廊从一条超长薄板改成三段。",
-"label": "下层可回走的三段廊",
-"number": 3.0,
-"path": [[1800.0, 742.0], [2048.0, 974.0], [2432.0, 910.0], [2816.0, 910.0], [3168.0, 974.0], [3712.0, 974.0], [3840.0, 1102.0]],
-"point": [1800.0, 742.0]
-}]
+  "schema": 1,
+  "steps": [
+    {
+      "number": 1,
+      "label": "三阶攀升与战前观察",
+      "point": [
+        320,
+        1230
+      ],
+      "path": [
+        [
+          320,
+          1230
+        ],
+        [
+          192,
+          1102
+        ],
+        [
+          240,
+          942
+        ],
+        [
+          208,
+          742
+        ],
+        [
+          400,
+          742
+        ]
+      ],
+      "action": "每块落台承担一次攀升；从短接近岸进入Boss战，不保留叠板与左侧空跑。"
+    },
+    {
+      "number": 2,
+      "label": "三等距战台与荆棘阶段",
+      "point": [
+        880,
+        742
+      ],
+      "path": [
+        [
+          560,
+          612
+        ],
+        [
+          880,
+          612
+        ],
+        [
+          1200,
+          612
+        ]
+      ],
+      "action": "三块同宽战台均匀布置。三阶段先预警再从原地面长出荆棘，不拆毁地面；胜利止伤并收回。"
+    },
+    {
+      "number": 3,
+      "label": "钩索高廊、钟井与回中庭",
+      "point": [
+        1608,
+        742
+      ],
+      "path": [
+        [
+          1608,
+          742
+        ],
+        [
+          1792,
+          558
+        ],
+        [
+          1888,
+          366
+        ],
+        [
+          2400,
+          334
+        ],
+        [
+          3072,
+          430
+        ],
+        [
+          3552,
+          232
+        ],
+        [
+          3872,
+          334
+        ],
+        [
+          4148,
+          240
+        ],
+        [
+          4272,
+          398
+        ],
+        [
+          4416,
+          512
+        ]
+      ],
+      "action": "停驻、弹跃与反冲联系宽落岸；末端仅一个停驻环，钟井两肩接地。中段下穿进入回中庭竖井；低处小落台只用于失手恢复，不另设横穿整房的下层路线。"
+    }
+  ]
 }
-retry_anchors = Array[Dictionary]([{
-"bounds": [336.0, 900.0, 96.0, 60.0],
-"point": [384.0, 942.0],
-"section": "main"
-}, {
-"bounds": [1752.0, 700.0, 96.0, 60.0],
-"point": [1800.0, 742.0],
-"section": "main"
-}, {
-"bounds": [2032.0, 324.0, 96.0, 60.0],
-"point": [2080.0, 366.0],
-"section": "main"
-}, {
-"bounds": [3216.0, 388.0, 96.0, 60.0],
-"point": [3264.0, 430.0],
-"section": "main"
-}, {
-"bounds": [4016.0, 324.0, 96.0, 60.0],
-"point": [4064.0, 366.0],
-"section": "main"
-}])
+retry_anchors = Array[Dictionary]([
+  {
+    "bounds": [
+      160,
+      900,
+      96,
+      60
+    ],
+    "point": [
+      208,
+      942
+    ],
+    "section": "main"
+  },
+  {
+    "bounds": [
+      1560.0,
+      700.0,
+      96.0,
+      60.0
+    ],
+    "point": [
+      1608.0,
+      742.0
+    ],
+    "section": "main"
+  },
+  {
+    "bounds": [
+      1840.0,
+      324.0,
+      96.0,
+      60.0
+    ],
+    "point": [
+      1888.0,
+      366.0
+    ],
+    "section": "main"
+  },
+  {
+    "bounds": [
+      3024.0,
+      388.0,
+      96.0,
+      60.0
+    ],
+    "point": [
+      3072.0,
+      430.0
+    ],
+    "section": "main"
+  },
+  {
+    "bounds": [
+      3824,
+      292,
+      96,
+      60
+    ],
+    "point": [
+      3872,
+      334
+    ],
+    "section": "main"
+  },
+  {
+    "bounds": [
+      3456,
+      516,
+      128,
+      60
+    ],
+    "point": [
+      3520,
+      558
+    ],
+    "section": "main"
+  },
+  {
+    "bounds": [
+      490,
+      572,
+      140,
+      60
+    ],
+    "point": [
+      560,
+      612
+    ],
+    "section": "main"
+  },
+  {
+    "bounds": [
+      810,
+      572,
+      140,
+      60
+    ],
+    "point": [
+      880,
+      612
+    ],
+    "section": "main"
+  },
+  {
+    "bounds": [
+      1130,
+      572,
+      140,
+      60
+    ],
+    "point": [
+      1200,
+      612
+    ],
+    "section": "main"
+  }
+])
 art_placements = Array[Dictionary]([
   {
     "asset": "windcourt_pavilion",
     "point": [
-      1088,
+      896,
       790
     ],
     "layer": -25,
@@ -71,7 +257,7 @@ art_placements = Array[Dictionary]([
       0.45
     ],
     "landscape_reference": [
-      2400,
+      2208,
       600
     ],
     "landscape_offset": [
@@ -99,15 +285,15 @@ art_placements = Array[Dictionary]([
   {
     "asset": "windcourt_gallery",
     "point": [
-      3328,
-      1200
+      3136,
+      1008
     ],
     "layer": -40
   },
   {
     "asset": "bell_post",
     "point": [
-      2592,
+      2400,
       352
     ],
     "layer": -2
@@ -115,7 +301,7 @@ art_placements = Array[Dictionary]([
   {
     "asset": "bell_post",
     "point": [
-      3264,
+      3072,
       448
     ],
     "layer": -2
@@ -123,16 +309,16 @@ art_placements = Array[Dictionary]([
   {
     "asset": "bell_post",
     "point": [
-      4064,
-      384
+      3872,
+      352
     ],
     "layer": -2
   },
   {
     "asset": "gear_lamp",
     "point": [
-      3808,
-      992
+      3616,
+      576
     ],
     "layer": -5,
     "light": true
@@ -140,7 +326,7 @@ art_placements = Array[Dictionary]([
   {
     "asset": "plains_grass",
     "point": [
-      2016,
+      1824,
       576
     ],
     "layer": -5,
@@ -149,7 +335,7 @@ art_placements = Array[Dictionary]([
   {
     "asset": "bank_moss",
     "point": [
-      2540,
+      2348,
       393
     ],
     "layer": 2,
@@ -166,29 +352,26 @@ art_placements = Array[Dictionary]([
     "surface_platform": 3
   },
   {
-    "surface_platform": 4
+    "surface_platform": 7
   },
   {
-    "surface_platform": 5
+    "surface_platform": 14
   },
   {
-    "surface_platform": 9
+    "surface_platform": 16
   },
   {
-    "surface_platform": 10
+    "surface_platform": 17
   },
   {
-    "surface_platform": 12
+    "surface_platform": 18
   },
   {
     "surface_platform": 19
-  },
-  {
-    "surface_platform": 20
   }
 ])
 art_profile = "boss"
-platforms = Array[Rect2]([Rect2(448, 1248, 96, 64), Rect2(256, 1120, 256, 32), Rect2(128, 960, 416, 32), Rect2(192, 992, 352, 16), Rect2(256, 760, 256, 40), Rect2(1632, 760, 448, 40), Rect2(500, 160, 24, 408), Rect2(1620, 160, 24, 408), Rect2(524, 160, 1096, 24), Rect2(192, 1008, 384, 16), Rect2(544, 992, 32, 16), Rect2(3776, 1120, 96, 64), Rect2(1840, 576, 288, 32), Rect2(1936, 384, 256, 64), Rect2(2464, 352, 256, 64), Rect2(3072, 448, 384, 32), Rect2(3072, 480, 256, 32), Rect2(3904, 384, 352, 64), Rect2(4672, 416, 96, 64), Rect2(2336, 928, 576, 48), Rect2(3520, 992, 352, 32), Rect2(3552, 1120, 96, 64)])
+platforms = Array[Rect2]([Rect2(256, 1248, 96, 64), Rect2(64, 1120, 256, 16), Rect2(128, 960, 224, 16), Rect2(128, 760, 192, 16), Rect2(1440, 760, 480, 32), Rect2(1440, 160, 32, 416), Rect2(3584, 1120, 96, 64), Rect2(1648, 576, 288, 16), Rect2(1744, 384, 256, 64), Rect2(2272, 352, 256, 64), Rect2(2880, 448, 384, 32), Rect2(2880, 480, 256, 32), Rect2(3712, 352, 288, 128), Rect2(4480, 416, 96, 64), Rect2(3360, 576, 320, 16), Rect2(3360, 1120, 96, 64), Rect2(2144, 592, 224, 16), Rect2(2624, 576, 224, 16), Rect2(3360, 768, 288, 16), Rect2(3392, 944, 288, 16), Rect2(4192, 416, 160, 64)])
 workbench_entity_ids = {
   "art_placements": [
     "P-R14:art:pavilion",
@@ -199,16 +382,15 @@ workbench_entity_ids = {
     "P-R14:art:lower-lamp",
     "P-R14:art:clockroute:2",
     "P-R14:art:high-moss",
-    "P-R14:art:surface:1",
     "P-R14:art:surface:2",
     "P-R14:art:surface:3",
     "P-R14:art:surface:4",
-    "P-R14:art:surface:5",
-    "P-R14:art:surface:9",
-    "P-R14:art:surface:10",
-    "P-R14:art:surface:12",
-    "P-R14:art:surface:19",
-    "P-R14:art:surface:20"
+    "P-R14:art:surface:11",
+    "P-R14:art:surface:lower_east_bank",
+    "P-R14:art:surface:recover-west",
+    "P-R14:art:surface:recover-east",
+    "P-R14:art:surface:shaft-upper",
+    "P-R14:art:surface:shaft-lower"
   ],
   "climbable_walls": [],
   "hazards": [],
@@ -217,14 +399,9 @@ workbench_entity_ids = {
     "P-R14:platforms:1",
     "P-R14:platforms:2",
     "P-R14:platforms:3",
-    "P-R14:platforms:3:part2",
     "P-R14:platforms:4",
     "P-R14:platforms:5",
-    "P-R14:platforms:6",
     "P-R14:platforms:7",
-    "P-R14:platforms:8",
-    "P-R14:platforms:9",
-    "P-R14:platforms:9:part2",
     "P-R14:platforms:10",
     "P-R14:platforms:11",
     "P-R14:platforms:12",
@@ -233,33 +410,41 @@ workbench_entity_ids = {
     "P-R14:platforms:14:part2",
     "P-R14:platforms:15",
     "P-R14:platforms:16",
-    "P-R14:r7:lower_middle_bank",
     "P-R14:r7:lower_east_bank",
-    "P-R14:built:side_gate_west_foot"
+    "P-R14:built:side_gate_west_foot",
+    "P-R14:platform:recover-west",
+    "P-R14:platform:recover-east",
+    "P-R14:platform:shaft-upper",
+    "P-R14:platform:shaft-lower",
+    "P-R14:platform:clock-bank"
   ],
   "retry_anchors": [
     "P-R14:retry_anchors:0",
     "P-R14:retry_anchors:1",
     "P-R14:retry_anchors:2",
     "P-R14:retry_anchors:3",
-    "P-R14:retry_anchors:4"
+    "P-R14:retry_anchors:4",
+    "P-R14:retry:shortcut",
+    "P-R14:retry:arena:0",
+    "P-R14:retry:arena:1",
+    "P-R14:retry:arena:2"
   ],
   "signs": []
 }
-one_way_indices = Array[int]([1, 2, 3, 4, 5, 9, 10, 12, 19, 20])
-illustrated_platform_indices = Array[int]([1, 2, 3, 4, 5, 9, 10, 12, 19, 20])
-masonry_platform_indices = Array[int]([2, 3, 6, 7, 8, 11, 13, 14, 15, 16, 17, 18, 21])
-start_point = Vector2(512, 1230)
+one_way_indices = Array[int]([1, 2, 3, 7, 14, 16, 17, 18, 19])
+illustrated_platform_indices = Array[int]([1, 2, 3, 7, 14, 16, 17, 18, 19])
+masonry_platform_indices = Array[int]([5, 6, 8, 9, 10, 11, 13, 15, 20])
+start_point = Vector2(320, 1230)
 boss_identity = &"windkeeper_storm"
 boss_binding = ExtResource("2_j1let")
 defeat_action = "defeat_P_WINDKEEPER"
 defeat_flag = "boss_P_WINDKEEPER_defeated"
-boss_position = Vector2(1296, 695)
-arena_bounds = Rect2(512, 160, 1120, 600)
-battle_entry_anchor = Vector2(592, 742)
+boss_position = Vector2(1104, 695)
+arena_bounds = Rect2(320, 160, 1120, 600)
+battle_entry_anchor = Vector2(400, 742)
 
 [node name="Arena" type="Node2D" parent="." unique_id=2144032123]
-position = Vector2(512, 160)
+position = Vector2(320, 160)
 script = ExtResource("3_74dfm")
 definition = ExtResource("4_wq04g")
 authoring_debug = false
@@ -269,47 +454,43 @@ metadata/authored_timber_surface = true
 script = ExtResource("7_terrain")
 
 [node name="Interaction_0" type="Node2D" parent="." unique_id=1535746709]
-position = Vector2(1800, 742)
+position = Vector2(1608, 742)
 script = ExtResource("5_jqxv1")
 action_id = "get_H"
 label = "领取钩索"
 visual = "grapple_device"
 
 [node name="Interaction_1" type="Node2D" parent="." unique_id=1926602273]
-position = Vector2(3712, 974)
+position = Vector2(3520, 558)
 script = ExtResource("5_jqxv1")
 action_id = "open_SC_P03"
 label = "开启回程机关"
 visual = "pulley_switch"
 
 [node name="ClockAnchor0" type="Area2D" parent="." unique_id=1963911379]
-position = Vector2(1840, 408)
+position = Vector2(1648, 408)
 script = ExtResource("6_eucgf")
 hang_enabled = true
 
 [node name="ClockAnchor1" type="Area2D" parent="." unique_id=1582880003]
-position = Vector2(2304, 264)
+position = Vector2(2112, 264)
 script = ExtResource("6_eucgf")
 
 [node name="ClockAnchor2" type="Area2D" parent="." unique_id=645019752]
-position = Vector2(2820, 280)
+position = Vector2(2628, 280)
 script = ExtResource("6_eucgf")
 hang_enabled = true
 
 [node name="ClockAnchor3" type="Area2D" parent="." unique_id=499063147]
-position = Vector2(3504, 296)
+position = Vector2(3312, 296)
 script = ExtResource("6_eucgf")
 
 [node name="ClockAnchor4" type="Area2D" parent="." unique_id=1574569177]
-position = Vector2(3744, 232)
+position = Vector2(3552, 232)
 script = ExtResource("6_eucgf")
 hang_enabled = true
 
 [node name="ClockAnchor5" type="Area2D" parent="." unique_id=1363097366]
-position = Vector2(4392, 288)
-script = ExtResource("6_eucgf")
-
-[node name="ClockAnchor6" type="Area2D" parent="." unique_id=535745890]
-position = Vector2(4608, 224)
+position = Vector2(4148, 240)
 script = ExtResource("6_eucgf")
 hang_enabled = true

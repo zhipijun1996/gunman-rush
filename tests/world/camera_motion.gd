@@ -13,10 +13,10 @@ func install_fixture_contract(rid: String, size: Vector2) -> void:
 func run() -> void:
  root.size=Vector2i(1280,720)
  app=preload("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://camera_motion_test.json";root.add_child(app)
- install_fixture_contract("P-R14",Vector2(4768,1280))
+ install_fixture_contract("P-R14",Vector2(4608,1344))
  await app.review.begin("P-R14","","h")
  var camera:=app.camera as WorldCamera
- app.player.reset_at(Vector2(440,742));await ticks(3);camera.reset_view();await ticks(90)
+ app.player.reset_at(Vector2(248,742));await ticks(3);camera.reset_view();await ticks(90)
  var previous:=camera.position;var largest:=0.0
  app.controller.router.set_source_axis(&"keyboard_mouse",1)
  for i: int in 55:
@@ -42,9 +42,9 @@ func run() -> void:
  expect(not camera.looking and camera._takeover.is_empty(),"death/rest reload cancels transient camera control")
  # Actual H target and geometry already exist in this scene's upper traversal route.
  await app.review.begin("P-R14","","h");camera=app.camera as WorldCamera
- app.player.reset_at(Vector2(1984,558));await ticks(3);camera.reset_view();await ticks(30)
+ app.player.reset_at(Vector2(1792,558));await ticks(3);camera.reset_view();await ticks(30)
  var received:=0
- app.controller.router.request_action(&"grapple",(Vector2(1840,408)-app.player.position-Vector2(0,-6)).normalized())
+ app.controller.router.request_action(&"grapple",(Vector2(1648,408)-app.player.position-Vector2(0,-6)).normalized())
  visible=true;var start:=app.player.position
  for i: int in 100:
   await ticks(1)

@@ -21,7 +21,7 @@
 | animal-residents-generated.png / aqi-animal-story-generated.png | 獾回收匠、长耳兔织时匠、狐狸旅人、野猪武器匠、猫头鹰守钟匠；每个状态四帧待机和两帧招呼，统一脚底、每状态固定比例；[最终来源与烘焙](source/inhabitants-sky-provenance.json)。人类NPC母版与旧生产路径已移除。 |
 | opening_plains-layer-generated.png / orchard-layer-generated.png / clockheart_vista-layer-generated.png / plains-layer-generated.png / wind_clouds-layer-generated.png | 四类固定地表／塔景具有透明天空，独立双层流云在地表后方移动；源图、裁切与输出哈希同上，不扭动山体或塔。 |
 | clockheart_hall-generated.png / clocktower_base-generated.png | Z01低对比后殿与真实左上窗、P33覆盖入口整座基台的后墙；[生成说明、源图、裁切与哈希](source/clockheart-route-provenance.json)。门洞取同一后殿的暗区，不重复亮窗；`python3 tools/art/bake_clockheart_route.py --verify`重建比对三份原生输出。 |
-| windcourt-arena-generated.png / windcourt-gallery-generated.png | P14开敞残拱战场与连续后层古廊，原野和独立云层透过建筑空隙；[导图、提示词、注册位置和烘焙哈希](source/windcourt-composition-provenance.json)。普通地形、Boss与钩索路线保持原样；木踏板只替换实际单向平台的表现。 |
+| windcourt-arena-generated.png / windcourt-gallery-generated.png | P14开敞残拱战场与连续后层古廊，原野和独立云层透过建筑空隙；[导图、提示词、注册位置和烘焙哈希](source/windcourt-composition-provenance.json)。残拱柱身按当前战场重绘至地面；实际平台、钩索和回程空间归P14场景与construction，生成导图只记录素材注册依据。木踏板复用现行同族表现。 |
 | story-traces-generated.png | 布条桩、路线便笺板、修好的灯凳，显现只读取交谈收据与宿主房号 |
 
 `python3 tools/art/bake_plains_v07.py` 按最终动物与天空来源清单执行固定格裁切、alpha≥128 清边、最近邻采样与固定脚底对齐；`--verify`逐像素核对现用输出。源图、每次裁切、原生高度、缩放和输出哈希见 [manifest.json](manifest.json)。场景按一素材像素/一世界单位放置；UI肖像沿统一逻辑画布比例展示。源图由 `.gdignore` 隔离，导出只使用原生资产与运行清单。

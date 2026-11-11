@@ -29,7 +29,7 @@ func restore_boss_after_binding(encounter: BossEncounter) -> bool:
 func restore_terminal_boss_geometry(encounter: WindkeeperPressureEncounter) -> void:
 	if not restored_boss.is_empty():
 		encounter.restore_combat_state(restored_boss)
-		encounter.restore_bridge_geometry()
+		encounter.restore_arena_hazard()
 
 func configure_boss_seal(encounter: BossEncounter, controller: PlayerController, lifetime: DemoLifetime, segment: SegmentRespawn) -> void:
 	boss_seal=BossArenaSeal.new()

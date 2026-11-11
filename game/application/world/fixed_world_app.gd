@@ -495,7 +495,7 @@ func _physics_process(_delta: float) -> void:
 	var entering_battle := not room.battle_started
 	room.update_battle(player.position)
 	if entering_battle and room.battle_started:
-		# Authored entering-side refuge remains supported after the central bridge breaks.
+		# Authored entering-side refuge remains safe when the phase-three thorns grow.
 		entry_anchor = room.battle_entry_anchor
 	if room.encounter != null and room.encounter.health.terminal and not room.battle_finished:
 		enqueue("action",room.defeat_action)

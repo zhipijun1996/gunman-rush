@@ -1,5 +1,5 @@
 extends "res://tests/world/approved_exploration_rooms.gd"
-## Formal boss arena art survives draft roundtrip and follows committed floor changes.
+## Formal boss arena art survives draft roundtrip and follows explicit draft geometry changes.
 func run() -> void:
 	app = preload("res://game/application/world/fixed_world.tscn").instantiate()
 	root.add_child(app)
@@ -26,13 +26,13 @@ func run() -> void:
 	var previous := art.terrain.get_instance_id()
 	await ticks(8)
 	check(art.terrain.get_instance_id() == previous, "stable arena does not rebuild each frame")
-	# Simulate a committed phase geometry update in an isolated fixture.
+	# Simulate a editor geometry update in an isolated fixture.
 	arena.definition.platforms[0] = Rect2(0, 760, 640, 96)
 	await ticks(2)
-	check(art.surfaces[0] == arena.definition.platforms[0] and art.terrain.get_instance_id() != previous, "phase geometry refreshes presentation")
+	check(art.surfaces[0] == arena.definition.platforms[0] and art.terrain.get_instance_id() != previous, "draft geometry refreshes presentation")
 	arena.definition.platforms = original
 	await ticks(2)
-	check(art.surfaces[0] == original[0], "restored phase restores terrain")
+	check(art.surfaces[0] == original[0], "restored draft restores terrain")
 	await WorldAudioLifecycle.drain_world(app)
 	print("ROUTE VISUALS: ", failures, " failures")
 	quit(failures)
