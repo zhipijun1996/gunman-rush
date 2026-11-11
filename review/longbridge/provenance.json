@@ -1,0 +1,107 @@
+{
+  "base_commit": "4b83d7e84c1644a15cad90823d947609ffe4689d",
+  "source_branch": "feat/approved-platform-rooms",
+  "runtime_sha256": {
+    "game/world/regions/P/rooms/P-R32.tscn": "4a08f762c2f3dfec7d632c10b36840c7cc536c2a3b9617a8729565dbfeed70ca",
+    "game/world/regions/P/room_design.json": "1751bbaca0232e1abc15d1d7ffebff5fcce3b4e5c9ccb693c1af3bafe2266f21",
+    "assets/plains_v07/manifest.json": "c166b3e53af90cba773d98562aeaa6dbc45f144231950fb1a3e8e9a45c3422e6",
+    "assets/plains_v07/source/longbridge-provenance.json": "1235b0c02626335dccf0ce623406c2002f64fb6944415e34f71c75840f28b258",
+    "assets/plains_v07/native/longbridge_hanger.png": "b56d1cc8281e6bdfb7fa9014fb812d89681aa2960b0a1be5195e1cbb22a45ceb",
+    "assets/plains_v07/native/longbridge_vista.png": "16ad7a47bd304aac6104a89225e85efa6187d27cab897b114b1121372cff6f09",
+    "assets/plains_v07/native/longbridge_crane.png": "d96d97b541d64458cc4daef3d5ca4bcdc504c70f9fe2d17f929d78207a1973d0",
+    "assets/plains_v07/native/longbridge_cache.png": "ee3292933c8f0296e6ac92bee65f5bda27dee0ca380d69fa09bd922721f449fa",
+    "assets/plains_v07/native/longbridge_wellmouth.png": "0a0a37deb507febd9dfb01d9204fd35bde951188be6b37357fc81c0c79a5c007",
+    "assets/plains_v07/native/longbridge_service.png": "d180d13ba3f82ae01b74adb3be4ee47e659a2b61474f585198a4bf553fa0cb50"
+  },
+  "capture_runtime": "e64d8c7f25933000e45de81f5267cf1cd71f680f75d604b0ab6ec3884f857ef5",
+  "capture": {
+    "engine": "Godot 4.7.2 project build",
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 30,
+    "speed": 1,
+    "audio": "actual GameAudio/GameMusic; AAC 80kbps clips",
+    "source": "route.gd",
+    "fixtures": "Formal room review H stage; enemies disabled/relocated for art traversal only. Player is never repositioned after actual west entrance. Comparison shots explicitly use isolated local positions. Whole-room still uses inspection zoom .38.",
+    "combat_evidence": "combat.gd separately retains active enemies and clears three main-route enemies through normal shooting, west entrance to P33 and return. No full four-enemy route claim."
+  },
+  "continuous_route": [
+    "P31 west entrance",
+    "two recoil bridge gaps",
+    "jump+bell shot boards original lift",
+    "safe vista and real dialogue",
+    "east exit to P33 and return",
+    "lower deck to pier cache",
+    "actual 10-coin receipt",
+    "jump back to one-way deck",
+    "Down+Jump to lower service bank"
+  ],
+  "frames": 1213,
+  "seconds": 40.43333333333333,
+  "master_sha256": "886169e4ae078f2f6ca858fc28ef82bda818c1d2cb11620e8f7258ab4a66260d",
+  "clips": [
+    {
+      "file": "crossing.mp4",
+      "start_seconds": 2.7,
+      "seconds": 6.6,
+      "speed": 1,
+      "bytes": 662189,
+      "sha256": "d46593a7ebac3bb194d50c88bed06e24a54760a6621721883dfec6977f1454e7"
+    },
+    {
+      "file": "lift-vista.mp4",
+      "start_seconds": 9.3,
+      "seconds": 13.0,
+      "speed": 1,
+      "bytes": 891802,
+      "sha256": "178decff054c86a881b0a7e0508e4e64b4cc2ef7b792369b407b2e17b2073698"
+    },
+    {
+      "file": "pier-cache.mp4",
+      "start_seconds": 30.0,
+      "seconds": 10.4,
+      "speed": 1,
+      "bytes": 1150905,
+      "sha256": "f0764afaf510311b84abcdbab5952c2c1ccfcb65cfd0cf04706b11cf3d2b4859"
+    }
+  ],
+  "stills": "before/after same camera and player position; upper-return local normal-camera inspection; whole-room is explicit overview",
+  "checks": {
+    "world": "309 contracts, 36 implemented; e64d8c7f2593",
+    "actions": "P32 official controller local actions: 0 failures",
+    "seams": "0 failures",
+    "ci": "4 checks passed",
+    "bake": "6 assets verified",
+    "docs": "passed",
+    "gameplay": "P32 non-art scene equals base (excludes art placements, illustration material indices, art ID list)"
+  },
+  "limitations": [
+    "P32 to P33 logs nonfatal Godot self_list.h:46 p_elem->_root; also reproduced using previous P32 scene placements with current renderer/resources. Transition and return pass. Engine lifecycle not repaired here.",
+    "H upper return reviewed in local camera fixture; no full H ascent combat or full 35-room new-save run in this round.",
+    "No mobile hardware or new Web build performance validation.",
+    "Enemy-isolated visual movie is not combat acceptance."
+  ],
+  "delivery": "source and review media only; no game or level-platform deployment",
+  "media_sha256": {
+    "route.gd": "75ddf4a84ade136c269943a90b85f95961a6a7bc7a023e8c66653d7f12b43476",
+    "capture.gd": "a4e2d781125668fbcf48b049f31ede14acb2124c73b8ec991625a4fd689022f1",
+    "vista.jpg": "b068ac9befe33440f175bf62a515908550e501f4f938531b5e0d7b4c516530f7",
+    "movie.log": "93db968bcab736b5a3964194d10a88229cac16006a8f9c615acc4c966bb455c4",
+    "bridge-comparison.jpg": "3aa9960983423a61e1805aa2a1c8c6b3533433c2aeaa74f71a763ce1fdd49e0c",
+    "scope-check.txt": "8e4f658d7ac6db8c6e4696793511813ee22a72ee229da87b03928c99b82d585a",
+    "combat.gd": "b7696bcf4b6d0315e4bf46a75ba62beee61e804ad59018b8492b601775da6d88",
+    "lift-vista.mp4": "178decff054c86a881b0a7e0508e4e64b4cc2ef7b792369b407b2e17b2073698",
+    "combat.log": "e3bd9e4ff2643fdf165713e8c14f3e17958d6aa49692ab2d79212128bda21efa",
+    "service.jpg": "e5c933aa1e909fb3bd784d9fdc14a35bd00fcb268b3e773351c1d6ff969555e7",
+    "checks.txt": "4a713e56e0874f78c63bdb8e27add5c9700d86f87ae9791d87547d36107cdf3a",
+    "crossing.mp4": "d46593a7ebac3bb194d50c88bed06e24a54760a6621721883dfec6977f1454e7",
+    "previous-room-check.log": "31fbb067a1b976ab3ec0bb9b095e6fa0e66e7d793a6e1d7a1dfe3ceecf08cec9",
+    "upper-return.jpg": "2336a76e94f43f942a289021c8aa0347b58355fee041b601bee1d2a70a5f14e5",
+    "whole-room.jpg": "51923fc527286efda3f5290b1581b54f0f833c9f31302d60b899e1d5d62addd7",
+    "vista-comparison.jpg": "3e1835d056d5f5d9f73317465451f269e898f11d2b38732324721b32ff6061c2",
+    "cache-comparison.jpg": "c8bd059152e8028b4ce08f36451bb45e04af1380c700ebefa40feaec47bd18f1",
+    "pier-cache.mp4": "f0764afaf510311b84abcdbab5952c2c1ccfcb65cfd0cf04706b11cf3d2b4859"
+  }
+}
