@@ -84,16 +84,16 @@ Z01剧情、旧集出口失败恢复、冰弹和武器匠的上一轮专项仍�
 
 ## 当前公开试玩
 
-[正式主游戏](https://zhipijun1996.github.io/gunman-rush/index.html?v=8dc33d83d895)版本`8dc33d83d895`，运行源码`165732c0ceed7b9ae7ccaf15e621cbfaab3a0be3`，PR150尚未合入main。部署分支`playtest-mill-atmosphere-165732c0`仅含最终Web产物，[Pages运行42943353251](https://github.com/zhipijun1996/gunman-rush/actions/runs/42943353251)成功。审核平台保持原部署，未改写人工审批。
+[正式主游戏](https://zhipijun1996.github.io/gunman-rush/index.html?v=f29b692c590a)版本`f29b692c590a`，运行源码`251cd7d6805593cefed6188f6ba8b599c2455cf2`，PR150尚未合入main。部署分支`playtest-orchard-251cd7d6`仅含最终Web产物，[Pages运行42947845051](https://github.com/zhipijun1996/gunman-rush/actions/runs/42947845051)成功，公网完整PCK、版本、首页、缓存脚本、审核页与三段短片逐字节一致；审核平台保持原部署，未改写人工审批。
 
-显式资源闭包及独立PCK装载通过：正式36房、隔离预览37房、16种行为；PCK为139,679,488字节，SHA256为`8dc33d83d8954157ddb43f30a68dc78e24fe4c0f4b305224c6d33268236738ce`。本地及公网Chromium WebGL2运行P26和正常新游戏，未见页面或引擎脚本错误。公网完整PCK、首页、版本、缓存脚本、审核页及三段短片全部逐字节一致。
+显式资源闭包及独立PCK装载通过：正式36房、隔离预览37房、16种行为；PCK为140,128,836字节，SHA256为`f29b692c590a82c6a2a3f0400913d45bd10a5b3fc371a396d141c0b7232ef691`。本地及公网Chromium WebGL2运行P25、P26和正常新游戏，未见页面或引擎脚本错误。用户指出中央树木根部悬空、画法突兀后，该运行素材已删除，改用右侧原生木柱和托臂，完整石脚固定在准备岸内。旧亮树及草根岩肩的无消费者素材一并清理。
 
-[手机P26整屏氛围审核](https://zhipijun1996.github.io/gunman-rush/review/mill-atmosphere/index.html?v=8dc33d83d895)提供P26直达、六个关键位置的点按前后对照、固定机位窗光开关，以及带声短片：入口3.9秒／319KiB、吊台8.8秒／794KiB、窗光3.3秒／207KiB，均可单独下载。390px布局、前后切换与窗光对照在本地和公网检查。局部动作录像关闭普通怪物、吊台片段预置起录状态；静态取景保留怪物，不作为战斗结论。P25旧样房和前批玩法审核链接保持可访问，并明确旧P26已由本轮实验取代。证据在`build/mill-atmosphere/`，不进入源码树。
+[手机室外与隐藏室审核](https://zhipijun1996.github.io/gunman-rush/review/orchard-atmosphere/index.html?v=f29b692c590a)提供果园起点、风车门口反向入口、风车直达，以及五处P25和一处隐藏室的前后对照。三段正常速度带声短片可单独下载：高台反冲3.8秒／530KiB，门口往返4.2秒／272KiB，暗室开箱3.5秒／188KiB。新版静态取景保留敌人但冻结位置；短片隔离普通怪物，高台保留命中回枪目标，不作为整房战斗结论。390px布局与六组点按对照本地及公网通过。旧审核页面保留证据并指向新版，不保留被拒绝大树的运行包。证据在`build/orchard-atmosphere/`，不进入源码树。
 
 ## 未验与下一步
 
 35房初审稿已施工；现行改稿完成局部功能和合屏校准，后续沿连续片区复核探索与战斗节奏。草稿初审、源码施工与正式体验终审分开。本轮没有完成新档连续全收集、每条支路所有反向绕行、全区战斗／经济平衡及安卓真机性能验证，不能以局部专项代替这些结论。本轮仅接入用户授权的Z01剧情房，其余外区保持关闭。审核平台继续只读，后续人工编辑不被本次发布覆盖。
 
-本轮新增整房远景和窗间墙，PCK较前版增加2,479,648字节（约1.8%）。重建此主游戏实验包使用`tools/export_workbench.py --max-pack-mib 134`的明确预算，未修改平台的默认预算或线上部署。
+本轮替换室外素材并清理无消费者旧图，PCK较前版增加449,348字节（约0.32%）。重建此主游戏实验包使用`tools/export_workbench.py --max-pack-mib 134`的明确预算，未修改平台的默认预算或线上部署。
 
 局部专项命令为 `bash tools/godot.sh --headless --path . --fixed-fps 60 --script tests/world/<专项>.gd`。世界源变化后先执行 `python3 tools/world/build.py` 并重建本地preview_catalog，再运行工作台隔离回归；本地生成不等于发布或迁移线上平台。
