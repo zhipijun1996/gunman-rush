@@ -61,7 +61,7 @@
 - 修改前后实际碰撞、平台及房界快照一致；P06两段真实反冲路线、19项入口／落点合同通过。日常CI四项和两份素材的可重复烘焙核验通过。
 - 三段正常60fps短片：低层反冲约3.2秒、中层折返约3.2秒、东岸交战约5秒。前两段声明起点并隔离战斗干扰，交战片保留正式怪物AI；均不是新档连续通关或实体手机性能证明。另提供七机位整房图及同机位前后对照。
 
-本轮媒体：[低层反冲3.2秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/rise.mp4)、[中层折返3.2秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/upper.mp4)、[东岸交战5.25秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/encounter.mp4)、[同机位对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/comparison.jpg)、[七机位整房图](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/whole-room.jpg)。文件约0.27–1.0MiB，正常速度。
+本轮媒体：[低层反冲3.2秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/rise.mp4)、[中层折返3.2秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/upper.mp4)、[东岸交战5.25秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/encounter.mp4)、[同机位对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/comparison.jpg)、[七机位整房图](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/85c5e5f3b0cf0e43e7cea89c08debfcd559b484a/review/junction/whole-room.jpg)。文件约0.26–1.53MiB，正常速度。
 
 本房候选已完成本轮合屏与局部操作检查，整体审美待用户反馈；不据此批量替换其余房间。逐房方法归现有美术Skill和Visual Bible：先判断腔体、设定与空间，适合已有素材才复用，不适合就新绘所缺层次。
 
