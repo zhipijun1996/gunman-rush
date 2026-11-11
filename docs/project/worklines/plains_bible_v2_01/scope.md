@@ -4,11 +4,11 @@
 
 当前分支为[PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)、`feat/approved-platform-rooms`，尚未合入main。正式内容为35个平原房与用户授权的Z01钟心门厅；35房／43连接身份不变。平台初审导入源截至r80，平台基线`8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`；随后只落实用户明确指定的正式游戏修改。平台保持只读，不部署、不迁移、不代签审批。草稿初审不等于正式体验终审。
 
-本轮基线0f904ec2。用户否定平直短廊的入口辨识与协调性，明确采用旧提水井塔的检修窗洞，并授权同时制作P08井内。P01局部外壁、窗洞厚度与井内纵深共同构图；P01接驳平台按用户要求改为轻薄可穿越平台，石质窗台只留洞内；P08以贯穿全井的砌体、连续检修构件、连接真实吊台的绞盘与落岸照明组织空间，撤除分段圆柱透视。保持角色物理、三段吊台／反冲换乘、门位与剧情资格。先交付实际画幅和短片，不部署关卡平台，不扩展其它房间。
+本轮基线e08ce968。用户要求入口只在原墙体缺口上下加简洁窗框；P01撤除新增拱形立面、墙皮、门口灯柱及外伸顶板／厚窗台，轻薄可穿越接驳台延长至原墙面，仅以两条短窗沿标明缺口。P08井内保持上一轮候选，未改井道玩法或表现。用户另提出凹形过渡间作为“不行时”的备选，本轮给空间关系草图，不增加正式房间、不改整区连接。仍先发布小型媒体，不部署主游戏或关卡平台。
 
 ## 当前实现
 
-整屏构图以房间地点与动作带为依据，P25、P26保留已认可的主体设计，P01右上检修窗洞与P08井内按下述联动候选审看；长桥与原野保持通风净空，P33由完整塔基后墙承接门廊和建筑台地，Z01新绘后殿与真实左上窗，P08使用连续砌体与固定世界坐标的曲面受光，三段绞盘绳索随真实吊台伸缩，窄窗与落岸灯提供实际光源。P27形成背风休整，P14内场沿实际平台使用原生平原地形，关闭旧亮绿地面绘制。室外背景继续使用独立云层、固定地表和分场所风点。无碰撞支撑退后；多余长柱删除，不逐台加装饰。
+整屏构图以房间地点与动作带为依据，P25、P26保留已认可的主体设计，P01右上仅保留原墙缺口的上下窗沿，P08井内保持下述候选；长桥与原野保持通风净空，P33由完整塔基后墙承接门廊和建筑台地，Z01新绘后殿与真实左上窗，P08使用连续砌体与固定世界坐标的曲面受光，三段绞盘绳索随真实吊台伸缩，窄窗与落岸灯提供实际光源。P27形成背风休整，P14内场沿实际平台使用原生平原地形，关闭旧亮绿地面绘制。室外背景继续使用独立云层、固定地表和分场所风点。无碰撞支撑退后；多余长柱删除，不逐台加装饰。
 
 12间目标房更新配置，小站作为已认可的路线起点与返回基准复验。静态地形的重复体积和入墙部分在源场景裁清；平台ID、单向属性与材质映射随分片保持。13房修改前后实际碰撞并集、实体并集逐矩形比较一致。世界地图、门对和敌人／机关配置保留。
 
@@ -54,16 +54,16 @@
 
 ## 检查与证据
 
-本轮`build/well-tower`保存实际镜头前后图、全井五个层位取景及三段60fps短片。P01从厚岸台改为176wu长、12wu厚可穿越接驳台，洞内保留80wu石质窗台；破损窗洞、连续井塔外壁与P08内侧洞沿采用同族原生石构件。P08地形、敌人、机关、三段吊台参数及反冲路线不变。
+本轮`build/well-tower`保存实际镜头前后图、全井五个层位取景及三段60fps短片。P01使用256wu长、12wu厚可穿越接驳台直达原墙面，上下窗沿为46×11wu原生石条；无新增外伸顶板、厚窗台、拱形立面或门口灯柱。P08内侧洞沿与井内本轮未改。P08地形、敌人、机关、三段吊台参数及反冲路线不变。
 
 井内不用分段重复的圆柱背景。背景仅取原生安静砌体，窄井身在固定世界坐标内通过曲面法线及漫射底光、实际窗灯表达弧度，底部宽检修厅逐渐恢复平面。三处窗位避开静态落岸；灯座完整落在支撑面，三套绞盘托架连到侧壁，绳索跟随对应真实吊台。旧P08专用整幅井壁已删除，源图、裁切、哈希归现有素材清单和溯源。
 
-- P01/P08实际入口／落点／恢复分别19/14项通过，源平台无重叠与门缝专项通过。
+- 本轮P01实际入口／落点／恢复19项、平台接缝专项、下穿回下层落台与实际门口往返通过。P08的14项入口与三段载台／两次换乘为上一轮已记录结果，本轮未改P08。
 - 正式动作验证：小站平台下穿后落回下层安全台、升降末段上岸、进入P08及返回、井内三段射铃载台与两次反冲换台通过。录像采用声明初态及局部真实控制器操作，战斗干扰隔离，不代表新档连续战斗通关。
-- 钟心调查前劝返、跳过／调查后放行与保存读档回归通过。
-- 日常CI四项、文档／差异格式检查与五份新素材可重复裁切验证通过。五个井内层位和入口前后实际画幅已审看；圆弧效果强度与整体审美待用户反馈，实体手机性能未验。
+- 钟心前置资格未改；调查前劝返、跳过／调查后放行与保存读档沿上一轮已记录回归。
+- 日常CI四项、文档／差异格式检查与五份新素材可重复裁切验证通过。本轮入口前后四个实际机位已审看；五个井内层位保留上一轮取景；圆弧效果强度与整体审美待用户反馈，实体手机性能未验。
 
-[入口往返5.5秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/playtest-clockroute-57afe5fe/review/well-tower/entry.mp4)、[井内上升8.8秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/playtest-clockroute-57afe5fe/review/well-tower/rise.mp4)、[反冲换台3.1秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/playtest-clockroute-57afe5fe/review/well-tower/transfer.mp4)，单段约0.55–1.39MiB；[全井五层实机图](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/playtest-clockroute-57afe5fe/review/well-tower/well-all-levels.jpg)用于整体空间反馈。仅更新小型媒体，未重新导出主游戏或部署关卡平台；下列公开运行包不包含本次候选。
+[入口往返5.5秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/playtest-clockroute-57afe5fe/review/well-tower/entry.mp4)、[井内上升8.8秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/playtest-clockroute-57afe5fe/review/well-tower/rise.mp4)、[反冲换台3.1秒](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/playtest-clockroute-57afe5fe/review/well-tower/transfer.mp4)，单段约0.55–1.39MiB；[全井五层实机图](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/playtest-clockroute-57afe5fe/review/well-tower/well-all-levels.jpg)用于整体空间反馈。[入口前后对照](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/playtest-clockroute-57afe5fe/review/well-tower/entrance-comparison.jpg)与[凹形备选草图](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/playtest-clockroute-57afe5fe/review/well-tower/transition-option.jpg)区分实机与未施工方案。仅更新小型媒体，未重新导出主游戏或部署关卡平台；下列公开运行包不包含本次候选。
 
 ## 当前公开试玩
 

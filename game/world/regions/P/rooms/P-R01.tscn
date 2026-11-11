@@ -157,13 +157,13 @@ art_placements = Array[Dictionary]([
   {
     "asset": "well_masonry",
     "point": [
-      2064,
+      2144,
       288
     ],
     "tile_rect": [
-      2064,
+      2144,
       288,
-      112,
+      32,
       96
     ],
     "layer": -8,
@@ -176,71 +176,36 @@ art_placements = Array[Dictionary]([
     "threshold_for": "L01:P-R01"
   },
   {
-    "asset": "well_outer_course",
+    "asset": "well_window_rail",
     "point": [
-      2064,
-      32
+      2130,
+      277
     ],
     "tile_rect": [
-      2064,
-      32,
-      112,
-      210
+      2130,
+      277,
+      46,
+      11
     ],
-    "layer": 1,
-    "tint": [
-      0.8,
-      0.87,
-      0.9,
-      1
-    ]
+    "layer": 1
   },
   {
-    "asset": "well_service_reveal",
+    "asset": "well_window_rail",
     "point": [
-      2152,
-      448
-    ],
-    "layer": 1,
-    "tint": [
-      0.8,
-      0.87,
-      0.9,
-      1
-    ]
-  },
-  {
-    "asset": "gear_lamp",
-    "point": [
-      2148,
+      2130,
       384
     ],
-    "layer": -3,
-    "light": true
-  },
-  {
-    "asset": "well_outer_course",
-    "point": [
-      2144,
-      448
-    ],
     "tile_rect": [
-      2144,
-      448,
-      32,
-      832
+      2130,
+      384,
+      46,
+      11
     ],
-    "layer": 1,
-    "tint": [
-      0.8,
-      0.87,
-      0.9,
-      1
-    ]
+    "layer": 1
   }
 ])
 art_profile = "station"
-masonry_platform_indices = Array[int]([9])
+masonry_platform_indices = Array[int]([])
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[1984.0, 336.0]],
 "bell": [1392.0, 1200.0],
@@ -248,7 +213,7 @@ bell_mechanisms = Array[Dictionary]([{
 "id": "P01:upper_station_lift"
 }])
 one_way_indices = Array[int]([7, 5])
-platforms = Array[Rect2]([Rect2(32, 1280, 448, 224), Rect2(320, 1504, 160, 32), Rect2(608, 1280, 1536, 224), Rect2(608, 1504, 96, 32), Rect2(1888, 1216, 256, 64), Rect2(1888, 384, 176, 12), Rect2(352, 1696, 160, 32), Rect2(480, 1280, 128, 24), Rect2(2064, 32, 80, 256), Rect2(2064, 384, 80, 64)])
+platforms = Array[Rect2]([Rect2(32, 1280, 448, 224), Rect2(320, 1504, 160, 32), Rect2(608, 1280, 1536, 224), Rect2(608, 1504, 96, 32), Rect2(1888, 1216, 256, 64), Rect2(1888, 384, 256, 12), Rect2(352, 1696, 160, 32), Rect2(480, 1280, 128, 24)])
 workbench_entity_ids = {
   "art_placements": [
     "P-R01:art:0",
@@ -264,11 +229,9 @@ workbench_entity_ids = {
     "P-R01:art:14",
     "P-R01:art:15",
     "P-R01:art:upper_well_wall",
-    "P-R01:art:well-tower:13",
-    "P-R01:art:well-tower:14",
-    "P-R01:art:well-tower:15",
-    "P-R01:art:well-tower:16",
-    "P-R01:art:well-tower:17"
+    "P-R01:art:window:13",
+    "P-R01:art:window:14",
+    "P-R01:art:window:15"
   ],
   "climbable_walls": [],
   "hazards": [],
@@ -281,9 +244,7 @@ workbench_entity_ids = {
     "P-R01:platforms:2",
     "P-R01:platforms:3",
     "P-R01:platforms:4",
-    "P-R01:station_arrival_grate",
-    "P-R01:upper_well_ceiling",
-    "P-R01:upper_well_sill"
+    "P-R01:station_arrival_grate"
   ],
   "retry_anchors": [],
   "signs": [
