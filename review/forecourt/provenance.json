@@ -1,14 +1,15 @@
 {
-  "source_baseline": "6d6f3e2d9ec21f204fb69abf564cc179cfc24810",
-  "content_version": "3f3b132616cabcd450e51f54d78ce6b6212c2b25dad3f513a7121d57cdcc6e0f",
+  "source_baseline": "94a0d6efa933c598aa02eb6b831b98a93f55f7dd",
+  "content_version": "afbd8249ad68400d421d4dd4ad2ddb4831455a56a446491d8698f58bb76546af",
   "runtime_sha256": {
-    "game/world/regions/P/rooms/P-R33.tscn": "62ea573c56a7fb04b8267ad587ddcc2f34cc8795c784258e8e83de7a7a1755b9",
-    "game/world/regions/P/room_design.json": "7045a43a44551f9c12b6fdc41ef92748e1a54a7ab805cd18081d89e256b4beec",
-    "assets/plains_v07/manifest.json": "950b431f31738051906a64d885f6fe1a3d60b854c7097e1b6aa7149ac0df172c",
-    "assets/plains_v07/native/forecourt_architecture.png": "5497584ebeaa0da1f68ba3d64e55bcb3dd0273ff07431012a1ffd68f1c110e98",
-    "assets/plains_v07/source/forecourt-provenance.json": "f29af0a37866cc52ee68d25787191090b9a8c292adf5cd86963a773a0d56ab82",
-    "config/world/construction.json": "c2c45ab30dec4d142d3f71cce14b0c56194dc1a3cb2b62fca66764acc8ec3e49",
-    "config/world/world.json": "bd75e0b38bd03093d93780e4aefe0c8c47477a826e77c176c5a664254883e49e"
+    "game/world/regions/P/rooms/P-R33.tscn": "21dbb42ab3188229c55a0211cf44dbc46598443c3317c6d2fe3bd6d00b9820ef",
+    "game/world/regions/P/room_design.json": "f5430c0a157ef176422fc49bbd2fb19a966761e2c0b42df6f1945a2f67de899c",
+    "assets/plains_v07/manifest.json": "e4c27543d22d6e166d82ee3009ded53edf1bb2591cb7a23243d1986fc66d1f1c",
+    "assets/plains_v07/native/forecourt_architecture.png": "671859492f56be23a610ff85fbb42d057e63ab33495378ba50a072d909087301",
+    "assets/plains_v07/source/forecourt-provenance.json": "62f450f7c6b551cc2b7a7db8680f590dd04050f7e4d2d72ffd4087cf3243bdea",
+    "config/world/construction.json": "f594b7a5e446e705992864a392a35ecf371b1ab3edee90217229ead0b04c561e",
+    "config/world/world.json": "bd75e0b38bd03093d93780e4aefe0c8c47477a826e77c176c5a664254883e49e",
+    "assets/plains_v07/native/forecourt_foundation.png": "2b3bab1d90b1ec3742d0f01c3efd7184f23168bf339d5433b268c1e338f9e851"
   },
   "unchanged_contracts": {
     "unchanged": {
@@ -16,7 +17,6 @@
       "scene_ref": true,
       "extent": true,
       "shape_class": true,
-      "camera": true,
       "doors": true,
       "entry_spawns": true,
       "rest": true,
@@ -37,7 +37,7 @@
       [
         64,
         0,
-        1728,
+        1984,
         288
       ],
       [
@@ -55,47 +55,126 @@
       [
         0,
         288,
-        1792,
+        2048,
         32
       ]
     ],
     "current_space_rects": [
       [
         0,
-        320,
-        2048,
-        416
-      ],
-      [
-        64,
         0,
-        1984,
-        288
+        2048,
+        768
       ],
       [
         768,
         768,
         576,
         256
-      ],
-      [
-        64,
-        736,
-        1984,
-        32
-      ],
-      [
-        0,
-        288,
-        2048,
-        32
       ]
     ],
-    "scene_unchanged": true
+    "previous_camera": {
+      "profile": "bounded_follow",
+      "transition": "occluded",
+      "zones": [
+        {
+          "id": "forecourt",
+          "trigger": [
+            0,
+            0,
+            2048,
+            768
+          ],
+          "display": [
+            0,
+            128,
+            2048,
+            640
+          ],
+          "profile": "horizontal_follow",
+          "anchor": [
+            1024,
+            448
+          ],
+          "follow_range": [
+            -1,
+            0
+          ]
+        },
+        {
+          "id": "undercroft",
+          "trigger": [
+            768,
+            768,
+            576,
+            256
+          ],
+          "display": [
+            640,
+            512,
+            832,
+            512
+          ],
+          "profile": "bounded_follow",
+          "priority": 1
+        }
+      ],
+      "links": []
+    },
+    "current_camera": {
+      "profile": "bounded_follow",
+      "transition": "occluded",
+      "zones": [
+        {
+          "id": "forecourt",
+          "trigger": [
+            0,
+            0,
+            2048,
+            768
+          ],
+          "display": [
+            32,
+            128,
+            1984,
+            640
+          ],
+          "profile": "horizontal_follow",
+          "anchor": [
+            1024,
+            448
+          ],
+          "follow_range": [
+            -1,
+            0
+          ]
+        },
+        {
+          "id": "undercroft",
+          "trigger": [
+            768,
+            768,
+            576,
+            256
+          ],
+          "display": [
+            640,
+            512,
+            832,
+            512
+          ],
+          "profile": "bounded_follow",
+          "priority": 1
+        }
+      ],
+      "links": []
+    },
+    "authored_platform_change": "Only platform1 x64,width896→x32,width928, fills exposed 32wu underbank hole. Positions of all walkable tops, one-way platforms, lamps and doors unchanged."
   },
   "geometry_changes": [
-    "P33 upper right cavity extends to existing east boundary x2048: upper rectangle width1728→1984, seam rectangle width1792→2048. No detached black overhang cuts the tower side and sky.",
-    "Room extent, all door identities/positions, camera, authored platforms and actors are unchanged; global spatial validation passed."
+    "Upper cavity becomes continuous open outdoor space [0,0,2048,768]; lower cavity and three door contracts retained.",
+    "Forecourt display uses inner wall faces x32..2016; same controller, zoom, anchor and vertical range.",
+    "Only authored terrain change fills a 32wu underbank hole at x32..64; all walkable top heights and one-way platforms retained."
   ],
   "capture": {
     "engine": "Godot4.7.2 project build",
@@ -108,11 +187,11 @@
     "audio": "actual GameAudio/GameMusic",
     "source": "route.gd",
     "fixture": "Formal base-stage west arrival; continuous walk to the portal and farther east to inspect the tower side, return to portal, enter Z01, perform existing investigation skip, return, descend, recoil up, then west door roundtrip. No mid-route teleport or direct state writes. Separate lower-door.gd verifies P35 paired landing, ordinary jump into P33 and return.",
-    "whole_room": "Actual P33 scene, UI hidden, 2048x1024 viewport at 1 world pixel per screenshot pixel; inspection camera, not formal gameplay zoom. Routes and labels are only in space-map.png. Clean whole-room.jpg is independently downloadable."
+    "whole_room": "Actual P33 scene, UI hidden, 1984x992 viewport at 1 world pixel per screenshot pixel, inspection center [1024,528], world x32..2016,y32..1024. Excludes outer 32wu collision frame, includes all play surfaces. This is not formal gameplay zoom. Whole comparison uses the same crop of the prior actual scene. Routes and labels are only in space-map.png."
   },
   "frames": 1107,
   "seconds": 36.9,
-  "master_sha256": "30cbad87bde56c132f2cf83c0a1a8573a2fec17daec7b6cc6e1aae2da0ab54e9",
+  "master_sha256": "47e472a02fd9e21147d211c0336fa9bfbb1bfae0c1502badad65d171b0d26765",
   "checks": {
     "world": "309 contracts,36 implemented rooms",
     "route": "West approach, enter Z01, actual investigation receipt, return, down+jump to midstep, lower bank, ordinary jump and downward recoil to forecourt, west door roundtrip",
@@ -120,23 +199,22 @@
     "seams": "0 failures",
     "ci": "4 checks passed",
     "docs": "passed",
-    "geometry": "world spatial compilation passed; all contract fields except cavity/rationale unchanged; authored P33 scene unchanged"
+    "geometry": "World spatial compilation passed; other contract fields unchanged. Actual platform change and camera difference recorded in geometry.json."
   },
   "limitations": [
     "No full 35-room new-save campaign, mobile hardware performance or new web export tested.",
     "Z01 dialogue uses its normal skip handler in this traversal; no new story or interior art is claimed.",
-    "Previous P32-to-P33 self_list.h:46 logging issue was not reproduced by this capture; no engine lifecycle fix is included.",
     "Visual result is current assistant-reviewed candidate, pending user feedback."
   ],
   "delivery": "PR150 source and small review media only; no game or level-platform deployment",
   "clips": [
     {
-      "file": "tower-side.mp4",
-      "start_seconds": 2,
-      "seconds": 9.5,
+      "file": "courtyard-traverse.mp4",
+      "start_seconds": 0.6,
+      "seconds": 11.5,
       "speed": 1,
-      "bytes": 791203,
-      "sha256": "5b6355b04e84dc8f9c5a216f2981bae5f9a8890636da3328715ceefb92a4747f",
+      "bytes": 695973,
+      "sha256": "585dc5cc6753451f957e83cfe92270492187e0b5c1503c12760fe07841352cb4",
       "probe": {
         "programs": [],
         "stream_groups": [],
@@ -144,16 +222,16 @@
           {
             "codec_name": "h264",
             "avg_frame_rate": "30/1",
-            "nb_frames": "285"
+            "nb_frames": "345"
           },
           {
             "codec_name": "aac",
             "avg_frame_rate": "0/0",
-            "nb_frames": "447"
+            "nb_frames": "541"
           }
         ],
         "format": {
-          "duration": "9.500000"
+          "duration": "11.500000"
         }
       }
     },
@@ -162,8 +240,8 @@
       "start_seconds": 22.1,
       "seconds": 8.6,
       "speed": 1,
-      "bytes": 929455,
-      "sha256": "3a2d28628478d31a1bb400eeeb94dc3ed04a9785b77cda27f6828da072a7aa0a",
+      "bytes": 814186,
+      "sha256": "b70187ef31a1106bfa4588501a39bd38da181fb37242284eb13e880c7ad110ae",
       "probe": {
         "programs": [],
         "stream_groups": [],
@@ -186,20 +264,21 @@
     }
   ],
   "media_sha256": {
-    "route.gd": "c947cc16006a17313fd121c54335d901f086cac50a48ee67474a92fc2869b763",
-    "capture.gd": "6c7215afb15c0b6f28342470e094f68676ec7e98d44153eda90648945fb4b2d2",
-    "movie.log": "5ae7a0867477bf9027f1252c364381176620a10135c5c6951f9a0037c04bdbf0",
-    "maps.py": "a783656c60d37601396cae1c0a0e5a3d6558d56d325764622b903989e8bff659",
-    "whole-room-preview.jpg": "5ec7d734dca6ab3eb3c70144527d478c739daa4b842a96c49cad5823f397bdc3",
-    "foundation-return.mp4": "3a2d28628478d31a1bb400eeeb94dc3ed04a9785b77cda27f6828da072a7aa0a",
-    "portal-comparison.jpg": "a4afe68e8d99f0959fd1aef28089ddf53e81b4de740b9ec09348b2b69b740649",
-    "geometry.json": "728c2faa22454d7c415fd4ebd2f6df84292e9395e296c332e8c7f0b6b36b1bc7",
-    "checks.txt": "d3a78bcdf2c5222804cded3d9721b279976ceaa40098545dfdbb8ba31e970114",
+    "approach-comparison.jpg": "d74738bf5b01860dc565a88c060b30e284a3b02921d36579569859b945ba8dd3",
+    "capture.gd": "5a29e5ed9f0f867c9588c5c281309ea7282400741001a9f5de2ea3850858bd63",
+    "checks.txt": "76255152ba1ff2cdaed01ebeeec30b4e681e82827674467328e28dbde2c15c8b",
+    "courtyard-traverse.mp4": "585dc5cc6753451f957e83cfe92270492187e0b5c1503c12760fe07841352cb4",
+    "foundation-return.mp4": "b70187ef31a1106bfa4588501a39bd38da181fb37242284eb13e880c7ad110ae",
+    "geometry.json": "e496ffe6322c0de50a1f3bd1f2b724295fd7635853adffd50de753a7e1b63f3a",
     "lower-door.gd": "fe71d5f79f6360a3e63109f0e84c095cc24e9f2ad7f4b6cbacd9320f0c928d46",
-    "whole-room.jpg": "9de9a825934a405fbe7bf09490b521511dd9d90f39c8e9ec5487849f042a1276",
-    "east-comparison.jpg": "f97158917d8df165ef5af0d1b6d525c30824e334631bd5e8fdaea6eaee46bc1e",
-    "lower-door.log": "97b22b809246c594c3bc9870c761b6988610a43853c3ee3f552fdfa5be768c0f",
-    "tower-side.mp4": "5b6355b04e84dc8f9c5a216f2981bae5f9a8890636da3328715ceefb92a4747f",
-    "space-map.png": "9a8f29eeeb4bd06f5ef2c02d5f1d96f7d0708537264e93912f2c499ea883249f"
+    "lower-door.log": "284f3cd62f90b7e981cf8fe8391ad9bc7ee5a34d7759c31d7dc4ec7856eed46b",
+    "maps.py": "5139b4eb7316fc71148600619f4a62720bfbdb44fc7a562c855ba6451a9d9789",
+    "movie.log": "5964faac6e292b9b2a8b679ae2429e6d4a1468cf9997d615aa1f8f17e0833986",
+    "portal-comparison.jpg": "77c2839fb4f6e843dafbe815132203411be2a5fbfec99fcb7ba90790c5cbee8d",
+    "route.gd": "c947cc16006a17313fd121c54335d901f086cac50a48ee67474a92fc2869b763",
+    "space-map.png": "eb44a4b989c7f02902aa8421c3e1edc1a092f8220c06de868858f8a3db42e271",
+    "whole-comparison.jpg": "d1f857e2165b31d469a1ad044cc480b9a2db75198339cecc017c048549c95892",
+    "whole-room-preview.jpg": "3f703179a785fcd0c1b8cf2f1052de2fb27893242af24dd2c632ff17ae24b19e",
+    "whole-room.jpg": "916ba2f6667d9eb2fd5e373865ea942f2ef45e86ec0825fbb2a302188a8a2129"
   }
 }

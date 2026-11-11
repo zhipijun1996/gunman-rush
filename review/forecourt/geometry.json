@@ -4,7 +4,6 @@
     "scene_ref": true,
     "extent": true,
     "shape_class": true,
-    "camera": true,
     "doors": true,
     "entry_spawns": true,
     "rest": true,
@@ -25,7 +24,7 @@
     [
       64,
       0,
-      1728,
+      1984,
       288
     ],
     [
@@ -43,41 +42,119 @@
     [
       0,
       288,
-      1792,
+      2048,
       32
     ]
   ],
   "current_space_rects": [
     [
       0,
-      320,
-      2048,
-      416
-    ],
-    [
-      64,
       0,
-      1984,
-      288
+      2048,
+      768
     ],
     [
       768,
       768,
       576,
       256
-    ],
-    [
-      64,
-      736,
-      1984,
-      32
-    ],
-    [
-      0,
-      288,
-      2048,
-      32
     ]
   ],
-  "scene_unchanged": true
+  "previous_camera": {
+    "profile": "bounded_follow",
+    "transition": "occluded",
+    "zones": [
+      {
+        "id": "forecourt",
+        "trigger": [
+          0,
+          0,
+          2048,
+          768
+        ],
+        "display": [
+          0,
+          128,
+          2048,
+          640
+        ],
+        "profile": "horizontal_follow",
+        "anchor": [
+          1024,
+          448
+        ],
+        "follow_range": [
+          -1,
+          0
+        ]
+      },
+      {
+        "id": "undercroft",
+        "trigger": [
+          768,
+          768,
+          576,
+          256
+        ],
+        "display": [
+          640,
+          512,
+          832,
+          512
+        ],
+        "profile": "bounded_follow",
+        "priority": 1
+      }
+    ],
+    "links": []
+  },
+  "current_camera": {
+    "profile": "bounded_follow",
+    "transition": "occluded",
+    "zones": [
+      {
+        "id": "forecourt",
+        "trigger": [
+          0,
+          0,
+          2048,
+          768
+        ],
+        "display": [
+          32,
+          128,
+          1984,
+          640
+        ],
+        "profile": "horizontal_follow",
+        "anchor": [
+          1024,
+          448
+        ],
+        "follow_range": [
+          -1,
+          0
+        ]
+      },
+      {
+        "id": "undercroft",
+        "trigger": [
+          768,
+          768,
+          576,
+          256
+        ],
+        "display": [
+          640,
+          512,
+          832,
+          512
+        ],
+        "profile": "bounded_follow",
+        "priority": 1
+      }
+    ],
+    "links": []
+  },
+  "authored_platform_change": "Only platform1 x64,width896→x32,width928, fills exposed 32wu underbank hole. Positions of all walkable tops, one-way platforms, lamps and doors unchanged."
 }

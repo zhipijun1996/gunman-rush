@@ -1,10 +1,15 @@
-## build.log
-WORLD BUILD: 309 contracts, 36 implemented rooms, 3f3b132616ca
+build
+WORLD BUILD: 309 contracts, 36 implemented rooms, afbd8249ad68
 
 
-## ci.log
+bake
+VERIFIED assets/plains_v07/native/forecourt_architecture.png
+VERIFIED assets/plains_v07/native/forecourt_foundation.png
+
+
+ci
 PASS: project entry, runtime dependencies and configuration
-PASS: project (1.78s)
+PASS: project (1.82s)
 Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
 
 Unable to open Android 'build-tools' directory.
@@ -24,15 +29,15 @@ WARNING: Detected another project.godot at res://art/world-art-v2/godot. The fol
 [  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
 [92m[ DONE ][39m [1mloading_editor_layout[22m
 [0m
-PASS: import (8.12s)
+PASS: import (8.03s)
 Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
 
 PLAINS REGION: family=linked_rings areas=20 fallback=
-TERRAIN STUDY: solids=83 pieces=308 setup_ms=41
+TERRAIN STUDY: solids=83 pieces=308 setup_ms=43
 FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"bcc9223a9ca9f36cdf07758be1c2715c3f5c46d6e7966b240e93621984aca21e","map_index":1,"region":"plains","seed":"ci-smoke"}
-TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@181","played":{"death":1},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@194","service":"GameMusic","starts":{"home":1,"plains":1},"track":"home"}],"released":true,"seconds":0.148}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@181","played":{"death":1},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@194","service":"GameMusic","starts":{"home":1,"plains":1},"track":"home"}],"released":true,"seconds":0.097}
 CI SMOKE: 12 assertions, 0 failures
-PASS: smoke (6.29s)
+PASS: smoke (6.22s)
 Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
 
 VARIABLE JUMP PEAKS: tap=62.321 medium=82.932 long=116.643 overhold=150.366
@@ -43,15 +48,15 @@ CI CONTRACTS: 239 assertions, 0 failures
 Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
 
 META NOTES SAVE: 39 assertions, 0 failures
-PASS: contracts (5.31s)
-CI: 4 checks passed in 21.50s
+PASS: contracts (5.22s)
+CI: 4 checks passed in 21.29s
 
 
-## docs.log
-PASS: current documentation, navigation, task dependencies and tuning. Game runtime not tested.
-
-
-## seams.log
+seams
 Godot Engine v4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf - https://godotengine.org
 
 PLATFORM ART SEAMS: 0 failures
+
+
+docs
+PASS: current documentation, navigation, task dependencies and tuning. Game runtime not tested.
