@@ -724,6 +724,9 @@ func toggle_pause() -> void:
 	elif _pause_world(): ui.show_pause()
 func _close_panel() -> void:
 	if is_instance_valid(damage_sequence) and damage_sequence.active: return
+	if ui.page=="help" and controller!=null:
+		ui.show_pause()
+		return
 	if is_instance_valid(rest_sequence) and rest_sequence.active:
 		ui.close();rest_sequence.suspend(false);return
 	if is_instance_valid(story) and story.active:
@@ -788,8 +791,10 @@ func _ui_command(kind: String,_id: String) -> void:
 			if controller!=null and (_id=="0" or (not busy and not paused)): controller.router.set_focus_heal_held(&"touch",_id=="1")
 		"settings": _show_settings()
 		"help":
-			var modal:=ui.panel("help","操作说明",WorldText.text("world.controls"))
-			modal.button("返回",_close_panel)
+			if controller==null or paused or _pause_world():ui.show_controls()
+		"guide_back":
+			if controller!=null:ui.show_pause()
+			else:_close_panel()
 func _start_from_title() -> void:
 	ui.close()
 	if not start_new():
@@ -899,6 +904,21 @@ func _update_hud() -> void:
 	var notice:=status
 	if room!=null and room.encounter!=null and not room.battle_finished: notice="%s · %d HP" % [room.encounter.definition.display_name,room.encounter.health.current]
 	ui.present(controller,str(state.value.room),str(content.room(state.value.room).get("name","")),notice,str(target.get("label","")),int(services.ledger().gold),bool(preferences.value.reduced),focus_heal.ratio(),focus_heal.available())
+	var lesson:=""
+	if room!=null and not room.onboarding.is_empty() and not busy and not paused and controller.active and ui.page.is_empty():
+		var body:=PlayerPresentationRuntime.current_body(player)
+		if body==null or body._hurt_remaining<=0:lesson=tutorial.hint(introduction.phase if is_instance_valid(introduction) else "",target)
+	var instruction:Dictionary={} if lesson.is_empty() else PlayerControlGuide.hint(lesson,controller.router.current_device,controller.router.profile.values,ui.pad_style())
+	if not instruction.is_empty():
+		var focus:=Vector2.INF
+		if lesson in ["move","pickup"]:focus=room.get_global_transform_with_canvas()*FixedWorldProvider.point(room.intro_sequence.pickup_point)
+		elif lesson=="jump":focus=room.get_global_transform_with_canvas()*FixedWorldProvider.point(room.onboarding.jump_landing)
+		elif lesson=="shoot":
+			var bell:=room.mechanisms.get(str(room.onboarding.bell_id)) as WorldShotLatch
+			if bell!=null:focus=bell.get_global_transform_with_canvas()*bell.bell_position
+		instruction.target_screen=focus
+	ui.present_instruction(instruction,controller,overlay,bool(preferences.value.reduced))
+	overlay.onboarding_action=StringName(lesson) if controller.router.current_device==&"touch" and not bool(preferences.value.reduced) else &""
 
 func _exit_tree() -> void:
 	if is_instance_valid(rest_sequence):rest_sequence.finish()

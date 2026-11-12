@@ -6,6 +6,7 @@ extends Node2D
 @export var traveler_point := Vector2.ZERO
 @export var route_guide: Dictionary = {}
 @export var intro_sequence: Dictionary = {}
+@export var onboarding: Dictionary = {}
 @export var wave_encounter: Dictionary = {}
 @export var tutorial_action: String
 @export var tutorial_target: String

@@ -10,6 +10,8 @@ signal reset_requested
 var router: InputRouter
 var aim_origin: Node2D
 var enabled := false
+var onboarding_action: StringName = &""
+var _onboarding_age := 0.0
 var left_center := Vector2.ZERO
 var right_center := Vector2.ZERO
 var jump_center := Vector2.ZERO
@@ -113,6 +115,9 @@ func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
 	queue_redraw()
 
 func _process(_delta: float) -> void:
+	if enabled and not onboarding_action.is_empty():
+		_onboarding_age += _delta/maxf(Engine.time_scale,.001)
+		queue_redraw()
 	if enabled and _layout_size != get_viewport_rect().size:
 		router.clear("touch_viewport_changed")
 	if enabled and (_last_item_skill_available != router.item_skill_available or _last_item_skill_label != router.item_skill_label):
@@ -353,6 +358,11 @@ func _cancel(_reason: String) -> void:
 	update_layout()
 
 func _draw() -> void:
+	if not onboarding_action.is_empty():
+		var center:=jump_center if onboarding_action==&"jump" else right_center if onboarding_action==&"shoot" else left_center
+		var radius_hint:=jump_radius if onboarding_action==&"jump" else radius
+		var phase:=fmod(_onboarding_age,1.8)/1.8
+		draw_arc(center,radius_hint+4+phase*7,0,TAU,48,Color(UnderworldUI.BRASS,(1-phase)*.5),2)
 	if enabled and router.item_skill_available:
 		draw_circle(item_skill_center,hook_radius*.8,Color(UnderworldUI.BRASS,0.30))
 		draw_arc(item_skill_center,hook_radius*.8,0,TAU,32,Color(UnderworldUI.BRASS,.65),2)

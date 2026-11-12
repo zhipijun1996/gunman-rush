@@ -24,6 +24,8 @@ var review_mode := false
 var review_stage := ""
 var review_button: Button
 var review_host: ScrollContainer
+var onboarding_hint: OnboardingHint
+var _actor: PlayerController
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer=30
@@ -63,6 +65,8 @@ func _ready() -> void:
 	notice.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	root.add_child(notice)
+	onboarding_hint=OnboardingHint.new()
+	root.add_child(onboarding_hint)
 	curtain=ColorRect.new()
 	curtain.color=Color.BLACK
 	curtain.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -74,10 +78,13 @@ func _ready() -> void:
 	equipment.requested_resume.connect(func() -> void: command.emit("close",""))
 	root.hide()
 func bind(actor: PlayerController) -> void:
+	_actor=actor
 	title._hide()
 	root.show()
 	hud.bind(actor)
 func unbind() -> void:
+	_actor=null
+	onboarding_hint.desired=false
 	close()
 	hud.unbind();root.hide();title.show_title()
 func panel(kind: String,heading: String,detail: String) -> DemoUiModalShell:
@@ -102,10 +109,57 @@ func close() -> void:
 	page=""
 func show_pause() -> void:
 	var modal:=panel("pause",WorldText.text("world_ui.01"),WorldText.text("world_ui.02"))
-	for row: Array in [[WorldText.text("world_ui.03"),"close"],[WorldText.text("world_ui.04"),"map"],[WorldText.text("world_ui.05"),"inventory"],[WorldText.text("world_ui.06"),"settings"],[WorldText.text("world_ui.07"),"title"]]:
+	for row: Array in [[WorldText.text("world_ui.03"),"close"],[PlayerControlGuide.text("title"),"help"],[WorldText.text("world_ui.04"),"map"],[WorldText.text("world_ui.05"),"inventory"],[WorldText.text("world_ui.06"),"settings"],[WorldText.text("world_ui.07"),"title"]]:
 		modal.button(row[0],func() -> void: command.emit(row[1],""))
 	modal.button(WorldText.text("review.open"),func() -> void: command.emit("review",""))
 	modal.focus_first()
+func pad_style() -> String:
+	var pads:=Input.get_connected_joypads()
+	return PlayerControlGuide.family(Input.get_joy_name(pads[0])) if not pads.is_empty() else "generic"
+func show_controls(device: StringName = &"") -> void:
+	if device==&"":device=_actor.router.current_device if _actor!=null else &"keyboard_mouse"
+	var profile:=_actor.router.profile.values if _actor!=null else InputProfile.load_default().values
+	var features: Dictionary={}
+	if _actor!=null:
+		features={"hook":world.has("H"),"double":world.has("D"),"wall":world.has("W"),"skill":_actor.router.weapon_skill_available,"item":_actor.router.item_skill_available,"skill_name":_actor.router.weapon_skill_label,"item_name":_actor.router.item_skill_label}
+	var modal:=panel("help",PlayerControlGuide.text("title"),PlayerControlGuide.text("subtitle"))
+	var tabs:=HBoxContainer.new();tabs.add_theme_constant_override("separation",8);modal.rows.add_child(tabs)
+	for id: StringName in [&"keyboard_mouse",&"gamepad",&"touch"]:
+		var button:=Button.new();button.name="GuideTab_"+String(id);button.text=PlayerControlGuide.text(String(id));button.toggle_mode=true;button.button_pressed=id==device
+		button.size_flags_horizontal=Control.SIZE_EXPAND_FILL;button.custom_minimum_size.y=48;button.set_meta("world_reading_size",18)
+		button.pressed.connect(func() -> void:
+			show_controls(id)
+			var next:=shell.find_child("GuideTab_"+String(id),true,false) as Button
+			if next!=null:next.grab_focus())
+		tabs.add_child(button)
+	var diagram:=ControlGuideDiagram.new();diagram.device=device;diagram.profile=profile;diagram.style=pad_style();diagram.reduced=bool(title._reduced_effects)
+	modal.rows.add_child(diagram)
+	modal.text(PlayerControlGuide.text("basic"),20,UnderworldUI.BRASS)
+	var advanced:=false
+	for row: Dictionary in PlayerControlGuide.rows(device,profile,features,content.data.player.focus_heal,pad_style()):
+		if not advanced and row.id in ["hook","double","wall","skill","item"]:
+			advanced=true
+			modal.text(PlayerControlGuide.text("advanced"),20,UnderworldUI.BRASS)
+		modal.text(str(row.title)+"  ·  "+str(row.binding),18,UnderworldUI.BRASS)
+		modal.text(str(row.detail),16,UnderworldUI.TEXT)
+	modal.text(PlayerControlGuide.text("resources"),16,UnderworldUI.MUTED)
+	modal.button(PlayerControlGuide.text("back"),func() -> void:command.emit("guide_back",""))
+	modal.focus_first()
+
+func present_instruction(value: Dictionary, actor: PlayerController, overlay: TouchOverlay, reduced: bool) -> void:
+	if value.is_empty():
+		onboarding_hint.present({},get_viewport(),[],false)
+		return
+	var avoid: Array[Rect2]=[]
+	var transform:=actor.motor.get_global_transform_with_canvas()
+	avoid.append(Rect2(transform*Vector2(-36,-55),Vector2(72,80)*transform.get_scale().abs()))
+	if value.get("target_screen",Vector2.INF).is_finite():avoid.append(Rect2(value.target_screen-Vector2(48,64),Vector2(96,128)))
+	for host: Control in [mini,pause_host,heal_host,hud._wallet_plate]:
+		if host.is_visible_in_tree():avoid.append(host.get_global_rect())
+	if overlay.enabled:
+		for center: Vector2 in [overlay.left_center,overlay.right_center,overlay.jump_center]:avoid.append(Rect2(center-Vector2.ONE*overlay.radius,Vector2.ONE*overlay.radius*2))
+	onboarding_hint.reduced=reduced
+	onboarding_hint.present(value,get_viewport(),avoid,actor.router.current_device==&"touch")
 func show_map() -> void:
 	var modal:=panel("map",WorldText.text("world_ui.08"),WorldText.text("review.map_detail") if review_mode else WorldText.text("world_ui.09"))
 	var map:=FixedWorldMap.new()
