@@ -134,7 +134,7 @@ func gamepad_edges() -> void:
 	gamepad.sample_tick(Vector2.ZERO,Vector2.ZERO)
 	gamepad.sample_tick(Vector2.ZERO,Vector2.RIGHT,false,false,false,false,true,true)
 	var simultaneous := actions()
-	check(simultaneous.size()==1 and simultaneous[0].type==&"item_skill" and not router.aim_engaged,"RT item takes precedence over a simultaneous RB press")
+	check(simultaneous.size()==1 and simultaneous[0].type==&"item_skill" and not router.gamepad_primary_held,"RT item takes precedence over a simultaneous RB press")
 	gamepad.sample_tick(Vector2.ZERO,Vector2.RIGHT)
 	check(actions().is_empty(),"releasing simultaneous item/gun input does not append an ordinary shot")
 	router.clear("gamepad_end")

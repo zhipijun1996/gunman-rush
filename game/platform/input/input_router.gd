@@ -16,6 +16,7 @@ var camera_look_axis := 0.0
 var camera_activity_serial := 0
 var aim_direction := Vector2.ZERO
 var aim_engaged := false
+var gamepad_primary_held := false
 var last_aim_direction := Vector2.ZERO
 var _skill_primary_suppressed := false
 var grapple_available := false
@@ -60,6 +61,7 @@ func activate_device(source: StringName) -> void:
 		camera_look_axis = 0.0
 		aim_direction = Vector2.ZERO
 		aim_engaged = false
+		gamepad_primary_held = false
 		last_aim_direction=Vector2.ZERO;_skill_primary_suppressed=false
 		current_device = source
 		device_changed.emit(source)
@@ -191,6 +193,7 @@ func clear(reason: String) -> void:
 	camera_look_axis = 0.0
 	aim_direction = Vector2.ZERO
 	aim_engaged = false
+	gamepad_primary_held = false
 	_source_axes.clear()
 	_jump_sources.clear()
 	_focus_heal_sources.clear()
@@ -228,3 +231,6 @@ func observe_touch_pointer(event: InputEvent) -> void:
 	touch_mouse_guard_until_usec=Time.get_ticks_usec()+TOUCH_MOUSE_GUARD_USEC
 func touch_owns_pointer() -> bool:
 	return touch_enabled and (not _touch_contact_ids.is_empty() or Time.get_ticks_usec()<touch_mouse_guard_until_usec)
+
+func primary_aim_held() -> bool:
+	return gamepad_primary_held if current_device == &"gamepad" else aim_engaged

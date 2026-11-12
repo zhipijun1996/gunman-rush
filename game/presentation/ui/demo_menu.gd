@@ -549,7 +549,7 @@ func show_help(in_run: bool = false) -> void:
 	_label(_content, "触屏 / TOUCH", 19, GOLD)
 	_label(_content, "左侧拖动移动：小幅慢走、大幅跑动。右侧拖动瞄准，松手射击；回中心再松手可取消。JUMP 轻点小跳，按住跳高。HOOK 控件仅在获得钩索后显示。", 17, TEXT)
 	_label(_content, "手柄 / GAMEPAD", 19, GOLD)
-	_label(_content, "左摇杆移动，右侧下方键跳跃（A／×／B）。右杆显示方向辅助线；RB／R1按住瞄准、松开射击，无右杆方向时朝前射击。左杆向上交互。LB／L1按住瞄准、松开发钩。RT／R2使用主动道具。菜单内用方向键或左杆选择、A 确认、B 返回。", 17, TEXT)
+	_label(_content, "左摇杆移动，右侧下方键跳跃（A／×／B）。右杆偏移进入慢时瞄准，回中保留方向；RB／R1按下射击，LB／L1按下出钩。左杆向上交互。RT／R2使用主动道具。菜单内用方向键或左杆选择、A 确认、B 返回。", 17, TEXT)
 	_label(_content, "生命与续航 / RESOURCES", 19, GOLD)
 	_label(_content, "开枪不消耗时间能量。空中瞄准枪械或钩索触发慢时，只有慢时消耗时间能量，接地逐渐恢复。基础空中弹药一发，对敌人造成真实伤害或落地可补充。二段跳与钩索解锁后，图标表示剩余可用资格。爱心归零结束本局，回到家园。", 17, TEXT)
 	_label(_content, "地图与暂停 / MAP & PAUSE", 19, GOLD)

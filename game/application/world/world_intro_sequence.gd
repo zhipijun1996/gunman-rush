@@ -63,7 +63,7 @@ func pickup() -> void:
 	var input: StringName=app.controller.router.current_device
 	var instruction:="按住鼠标左键瞄准，松开开枪"
 	if app.controller.router.touch_enabled:instruction="拖动右侧射击摇杆瞄准，松开开枪"
-	elif input==&"gamepad":instruction="按住 RB／R1 瞄准，松开就能开枪；右摇杆可以调整方向"
+	elif input==&"gamepad":instruction="推动右摇杆进入慢时瞄准，按下 RB／R1 开枪"
 	_show_lines(["我想起来了，可以"+instruction+"。","前面的风铃连着门。试着击中它。"],"修钟者")
 	queue_redraw()
 

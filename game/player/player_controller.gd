@@ -128,7 +128,7 @@ func physics_tick(delta: float) -> void:
 	var jumped := wall_jumped or (not weapon_locked and not traversal.busy() and motor.weapon_pause_remaining<=0 and jump_ability.try_jump(motor))
 	var started_grounded := _was_grounded and not jumped and not dropped
 	for action: Dictionary in actions:
-		if action.type == &"shoot_release" and shoot_ability.weapon.mode != WeaponDefinition.Mode.LASER and not weapon_locked and not traversal.busy():
+		if action.type == &"shoot_release" and (shoot_ability.weapon.mode != WeaponDefinition.Mode.LASER or router.current_device == &"gamepad") and not weapon_locked and not traversal.busy():
 			shoot_ability.try_fire(action.direction, started_grounded)
 	for action: Dictionary in actions:
 		if action.type == &"weapon_context": shoot_ability.behavior().context()
@@ -136,7 +136,7 @@ func physics_tick(delta: float) -> void:
 			shoot_ability.behavior().begin(action.direction if not action.direction.is_zero_approx() else Vector2.UP,started_grounded,true)
 		elif action.type == &"item_skill" and item_runtime != null and not traversal.busy() and not weapon_locked:
 			item_runtime.call("activate_selected", action.direction if not action.direction.is_zero_approx() else router.skill_direction())
-	if shoot_ability.weapon.mode==WeaponDefinition.Mode.LASER and router.aim_mode==&"attack" and router.aim_engaged and not traversal.busy() and not weapon_locked and not shoot_ability.behavior().occupied() and not shoot_ability.behavior()._beam_require_release and shoot_ability.cooldown_remaining<=0:
+	if shoot_ability.weapon.mode==WeaponDefinition.Mode.LASER and router.current_device!=&"gamepad" and router.aim_mode==&"attack" and router.primary_aim_held() and not traversal.busy() and not weapon_locked and not shoot_ability.behavior().occupied() and not shoot_ability.behavior()._beam_require_release and shoot_ability.cooldown_remaining<=0:
 		shoot_ability.try_fire(router.aim_direction,started_grounded)
 	jump_ability.update_hold(delta, motor)
 	var requested_recoil := motor.recoil_velocity

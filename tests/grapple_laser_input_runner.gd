@@ -40,8 +40,6 @@ func drag(index: int, point: Vector2) -> void:
 func start_gun(index := 1) -> void:
 	match device:
 		"pc":mouse(MOUSE_BUTTON_LEFT,true)
-		"pad":
-			gamepad.sample_tick(Vector2.ZERO,Vector2.RIGHT,false,false,false,false,false,true)
 		"touch":
 			gun_origin=overlay.right_center
 			touch(index,gun_origin,true)
@@ -49,7 +47,6 @@ func start_gun(index := 1) -> void:
 func start_hook() -> void:
 	match device:
 		"pc":mouse(MOUSE_BUTTON_RIGHT,true)
-		"pad":gamepad.sample_tick(Vector2.ZERO,Vector2.RIGHT,false,true)
 		"touch":
 			hook_origin=overlay.hook_center
 			touch(2,hook_origin,true)
@@ -57,17 +54,16 @@ func start_hook() -> void:
 func end_hook() -> void:
 	match device:
 		"pc":mouse(MOUSE_BUTTON_RIGHT,false)
-		"pad":gamepad.sample_tick(Vector2.ZERO,Vector2.ZERO,false,false)
 		"touch":touch(2,hook_origin+Vector2.RIGHT*overlay.hook_radius,false)
 func end_old_gun() -> void:
 	match device:
 		"pc":mouse(MOUSE_BUTTON_LEFT,false)
-		"pad":gamepad.sample_tick(Vector2.ZERO,Vector2.ZERO,false,false)
 		"touch":touch(1,gun_origin+Vector2.RIGHT*overlay.radius,false)
 func run() -> void:
 	fixture=preload("res://tests/combat_tests.gd").new();fixture.tree=self
 	for weapon: String in ["sustained_laser","laser_cannon"]:
-		for producer: String in ["pc","pad","touch"]:
+		await direct_gamepad(weapon)
+		for producer: String in ["pc","touch"]:
 			device=producer
 			for existing_beam: bool in [false,true]:
 				await fixture.fixture(Vector2(80,-10000))
@@ -80,9 +76,6 @@ func run() -> void:
 				keyboard=fixture.motor.get_node("KeyboardMouseAdapter")
 				gamepad=fixture.motor.get_node("GamepadAdapter");gamepad.set_physics_process(false)
 				overlay.set_enabled(device=="touch")
-				if device=="pad":
-					gamepad.sample_tick(Vector2.ZERO,Vector2.ZERO)
-					gamepad.sample_tick(Vector2.ZERO,Vector2.ZERO)
 				if existing_beam:
 					start_gun();await step(2)
 					check(controller.shoot_ability.behavior().phase==&"beam","real held gun starts beam before H")
@@ -111,9 +104,6 @@ func run() -> void:
 					await step()
 					if controller.traversal.state==&"free":break
 				check(controller.traversal.state==&"free","real miss/retract finishes without position reset")
-				if device=="pad":
-					gamepad.sample_tick(Vector2.ZERO,Vector2.ZERO)
-					gamepad.sample_tick(Vector2.ZERO,Vector2.ZERO)
 				if device!="touch":start_gun()
 				await step(2)
 				check(controller.shoot_ability.behavior().phase==&"beam" and controller.shoot_ability.packet_id==packet_before+1,"fresh gun resumes exactly one normal beam after H")
@@ -125,3 +115,36 @@ func run() -> void:
 	await process_frame
 	print("GRAPPLE LASER INPUT: %d assertions, %d failures"%[checks,failures])
 	quit(0 if failures==0 else 1)
+
+func direct_gamepad(weapon: String) -> void:
+	device="pad"
+	await fixture.fixture(Vector2(80,-10000))
+	controller=fixture.controller
+	controller.enable_shot_energy();controller.traversal.grant(&"grapple")
+	check(controller.shoot_ability.equip(load("res://resources/weapons/%s.tres"%weapon)),"equip direct gamepad laser")
+	controller.physics_tick(DT)
+	overlay=InputSetup.attach(fixture.motor,controller.router);overlay.set_enabled(false)
+	gamepad=fixture.motor.get_node("GamepadAdapter");gamepad.set_physics_process(false)
+	gamepad.sample_tick(Vector2.ZERO,Vector2.RIGHT)
+	await step(8)
+	check(controller.shoot_ability.packet_id==0 and controller.shoot_ability.behavior().phase==&"idle","stick slow aim alone never starts laser")
+	controller._physics_process(.001)
+	check(controller.air_focus_ability.active,"stick requests actual AirFocus before immediate trigger")
+	gamepad.sample_tick(Vector2.ZERO,Vector2.RIGHT,false,false,false,false,false,true)
+	await step(1)
+	check(controller.shoot_ability.packet_id==1 and controller.shoot_ability.behavior().phase==&"beam","R1 press immediately starts one actual laser packet")
+	gamepad.sample_tick(Vector2.ZERO,Vector2.ZERO,false,false,false,false,false,true)
+	await step(2)
+	check(controller.shoot_ability.packet_id==1 and controller.shoot_ability.behavior().phase==&"beam","holding R1 retains beam after stick centering without new packet")
+	gamepad.sample_tick(Vector2.ZERO,Vector2.RIGHT,false,true,false,false,false,true)
+	await step(2)
+	check(controller.traversal.state!=&"free" and controller.shoot_ability.behavior().phase==&"idle","L1 press immediately cancels beam and starts actual hook")
+	var packets:=controller.shoot_ability.packet_id
+	for i:int in 140:
+		gamepad.sample_tick(Vector2.ZERO,Vector2.RIGHT,false,true,false,false,false,true)
+		await step(1)
+		if controller.traversal.state==&"free":break
+	check(controller.traversal.state==&"free" and controller.shoot_ability.packet_id==packets,"held old R1 never restarts laser after the hook")
+	gamepad.sample_tick(Vector2.ZERO,Vector2.ZERO)
+	controller.router.clear("direct_pad_cleanup")
+	Engine.time_scale=1.0

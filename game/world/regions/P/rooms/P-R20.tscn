@@ -213,7 +213,7 @@ bell_mechanisms = Array[Dictionary]([{
 "id": "P-R20:r8:sluice",
 "open_seconds": 1.5
 }])
-platforms = Array[Rect2]([Rect2(1184, 160, 192, 32), Rect2(1472, 32, 32, 672), Rect2(1664, 160, 384, 40), Rect2(1728, 768, 288, 48)])
+platforms = Array[Rect2]([Rect2(1184, 160, 192, 32), Rect2(1472, 32, 32, 672), Rect2(1664, 160, 384, 40), Rect2(1728, 768, 288, 48), Rect2(480,1152,128,16), Rect2(640,1056,192,16), Rect2(704,928,160,16)])
 workbench_entity_ids = {
   "art_placements": ["P-R20:composition:0", "P-R20:composition:1", "P-R20:composition:2", "P-R20:composition:3", "P-R20:composition:4", "P-R20:composition:5", "P-R20:composition:6", "P-R20:composition:7", "P-R20:composition:8", "P-R20:composition:9"],
   "climbable_walls": [],
@@ -228,7 +228,10 @@ workbench_entity_ids = {
     "P-R20:r8:upper_door",
     "P-R20:r8:H_wall",
     "P-R20:r8:equipment_bank",
-    "P-R20:r8:dry_quay"
+    "P-R20:r8:dry_quay",
+    "P-R20:marsh:lower",
+    "P-R20:marsh:middle",
+    "P-R20:marsh:upper"
   ],
   "retry_anchors": [
     "P-R20:r8:retry_anchors:0",
@@ -264,30 +267,41 @@ enemy_placements = Array[Dictionary]([{
 "max_health": 9.0,
 "point": [1136.0, 464.0]
 }])
-spike_strips = Array[Dictionary]([{
-"bounds": [2080.0, 1248.0, 224.0, 32.0],
-"facing": "up",
-"id": "P-R20:r8:canal_bed"
-}, {
-"bounds": [1952.0, 744.0, 64.0, 24.0],
-"facing": "up",
-"id": "P-R20:r8:quay_end"
-}, {
-"bounds": [768.0, 1000.0, 96.0, 24.0],
-"facing": "up",
-"id": "P-R20:r9:breakwater_trough"
-}, {
-"bounds": [576.0, 936.0, 80.0, 24.0],
-"facing": "up",
-"id": "P-R20:r9:west_short_strip"
-}, {
-"bounds": [752.0, 520.0, 64.0, 24.0],
-"facing": "up",
-"id": "P-R20:r9:bridge_short_strip"
-}])
+spike_strips = Array[Dictionary]([
+  {
+    "bounds": [
+      2080.0,
+      1248.0,
+      224.0,
+      32.0
+    ],
+    "facing": "up",
+    "id": "P-R20:r8:canal_bed"
+  },
+  {
+    "bounds": [
+      1952.0,
+      744.0,
+      64.0,
+      24.0
+    ],
+    "facing": "up",
+    "id": "P-R20:r8:quay_end"
+  },
+  {
+    "bounds": [
+      752.0,
+      520.0,
+      64.0,
+      24.0
+    ],
+    "facing": "up",
+    "id": "P-R20:r9:bridge_short_strip"
+  }
+])
 hook_points = Array[Vector2]([Vector2(1824, 592), Vector2(1712, 448), Vector2(1600, 304), Vector2(1600, 112)])
-terrain_polygons = Array[Dictionary]([{"id": "P-R20:r8:west_bank", "material": "masonry", "points": [[0.0, 544.0], [192.0, 544.0], [192.0, 736.0], [384.0, 736.0], [384.0, 800.0], [192.0, 800.0], [192.0, 960.0], [768.0, 960.0], [768.0, 1024.0], [864.0, 1024.0], [864.0, 832.0], [1088.0, 832.0], [1088.0, 1024.0], [1984.0, 1024.0], [1984.0, 1088.0], [2080.0, 1088.0], [2080.0, 1280.0], [0.0, 1280.0]]}, {"id": "P-R20:r8:gatehouse_bridge", "material": "masonry", "points": [[448.0, 544.0], [1024.0, 544.0], [1024.0, 480.0], [1280.0, 480.0], [1280.0, 352.0], [1440.0, 352.0], [1440.0, 544.0], [1088.0, 544.0], [1088.0, 608.0], [448.0, 608.0]]}, {"id": "P-R20:r8:east_bank", "material": "masonry", "points": [[2304.0, 960.0], [3072.0, 960.0], [3072.0, 1088.0], [2816.0, 1088.0], [2816.0, 1280.0], [2432.0, 1280.0], [2432.0, 1040.0], [2304.0, 1040.0]]}, {"id": "P-R20:entry:lintel", "material": "masonry", "points": [[2912, 736], [3040, 736], [3040, 864], [2912, 864]]}])
-one_way_indices = Array[int]([3])
+terrain_polygons = Array[Dictionary]([{"id": "P-R20:r8:west_bank", "material": "masonry", "points": [[192.0, 960.0], [192.0, 800.0], [384.0, 800.0], [384.0, 736.0], [192.0, 736.0], [192.0, 544.0], [0.0, 544.0], [0.0, 1280.0], [448.0, 1280.0], [448.0, 960.0]]}, {"id": "P-R20:r8:west_bank:east", "material": "masonry", "points": [[2080.0, 1280.0], [2080.0, 1088.0], [1984.0, 1088.0], [1984.0, 1024.0], [1088.0, 1024.0], [1088.0, 832.0], [864.0, 832.0], [864.0, 1024.0], [832.0, 1024.0], [832.0, 1280.0]]}, {"id": "P-R20:r8:gatehouse_bridge", "material": "masonry", "points": [[448.0, 544.0], [1024.0, 544.0], [1024.0, 480.0], [1280.0, 480.0], [1280.0, 352.0], [1440.0, 352.0], [1440.0, 544.0], [1088.0, 544.0], [1088.0, 608.0], [448.0, 608.0]]}, {"id": "P-R20:r8:east_bank", "material": "masonry", "points": [[2304.0, 960.0], [3072.0, 960.0], [3072.0, 1088.0], [2816.0, 1088.0], [2816.0, 1280.0], [2432.0, 1280.0], [2432.0, 1040.0], [2304.0, 1040.0]]}, {"id": "P-R20:entry:lintel", "material": "masonry", "points": [[2912, 736], [3040, 736], [3040, 864], [2912, 864]]}])
+one_way_indices = Array[int]([3, 4, 5, 6])
 illustrated_platform_indices = Array[int]([3])
 masonry_platform_indices = Array[int]([0, 1, 2])
 

@@ -1,6 +1,6 @@
 class_name GamepadAdapter
 extends Node
-## Stick direction is a preview; only a fresh shoulder press/release fires.
+## Stick deflection requests AirFocus; shoulders submit immediate action edges.
 @export var router: InputRouter
 @export var aim_origin: Node2D
 var connected_device := -1
@@ -19,10 +19,10 @@ var _skill_blocked := false
 var _item_skill_held := false
 var _item_skill_blocked := false
 var _shoot_held := false
+var _aim_direction := Vector2.ZERO
 var _shoot_blocked := false
 var _hook_held := false
 var _hook_blocked := false
-var _hook_direction := Vector2.ZERO
 
 func _ready() -> void:
 	router.cancelled.connect(_cancel)
@@ -104,39 +104,25 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 	_item_skill_held = item_skill_pressed
 	if not shoot_pressed: _shoot_blocked = false
 	if not hook_pressed: _hook_blocked = false
-	# Hook takes ownership before gun release is interpreted. A held RB must
-	# be released and pressed anew after hook/skill/cancellation arbitration.
-	if hook_pressed and not _hook_blocked and router.grapple_available:
-		if not _hook_held:
-			_hook_direction = preview
-			router.cancel_actions_for(&"shoot_release")
-		_hook_held = true
+	# Direction survives stick centering, but slow aim requires actual deflection.
+	# Clearing/cancelling ownership erases it; no stale gesture can auto-fire.
+	if not preview.is_zero_approx(): _aim_direction = preview
+	var direction := _aim_direction if not _aim_direction.is_zero_approx() else _forward_direction()
+	var hook_edge := hook_pressed and not _hook_held and not _hook_blocked and router.grapple_available
+	var gun_edge := shoot_pressed and not _shoot_held and not _shoot_blocked
+	_hook_held = hook_pressed
+	_shoot_held = shoot_pressed
+	router.aim_mode = &"grapple" if hook_edge else &"attack"
+	router.set_aim(&"gamepad", direction if _right_active or not _aim_direction.is_zero_approx() else Vector2.ZERO, _right_active and not _preview_blocked)
+	if hook_edge:
+		router.cancel_actions_for(&"shoot_release")
 		_shoot_blocked = shoot_pressed
-		_shoot_held = false
-		if not preview.is_zero_approx(): _hook_direction = preview
-		router.aim_mode = &"grapple"
-		router.set_aim(&"gamepad", _hook_direction, true)
-		return
-	if _hook_held:
-		if not hook_pressed and not _hook_blocked and router.grapple_available:
-			if not preview.is_zero_approx(): _hook_direction = preview
-			router.request_action(&"grapple", _hook_direction)
-		if hook_pressed: _hook_blocked = true
-		_hook_held = false
-		_hook_direction = Vector2.ZERO
-		_shoot_blocked = shoot_pressed
-		_shoot_held = false
-	router.aim_mode = &"attack"
-	if secondary_fired:
-		_shoot_held = false
-		_shoot_blocked = shoot_pressed
-	var gun_direction := preview if not preview.is_zero_approx() else _forward_direction()
-	if not shoot_pressed and _shoot_held:
-		_shoot_held = false
-		router.primary_release(gun_direction)
-	elif shoot_pressed and not _shoot_blocked:
-		_shoot_held = true
-	router.set_aim(&"gamepad", gun_direction if _shoot_held else preview, _shoot_held)
+		router.gamepad_primary_held = false
+		router.request_action(&"grapple", direction)
+	else:
+		if secondary_fired: _shoot_blocked = shoot_pressed
+		router.gamepad_primary_held = shoot_pressed and not _shoot_blocked
+		if gun_edge and not secondary_fired: router.request_action(&"shoot_release", direction)
 
 func _forward_direction() -> Vector2:
 	if is_instance_valid(aim_origin):
@@ -158,8 +144,9 @@ func _cancel(reason: String) -> void:
 	_shoot_blocked = _shoot_blocked or _shoot_held or (connected_device >= 0 and Input.is_joy_button_pressed(connected_device, JOY_BUTTON_RIGHT_SHOULDER))
 	_hook_blocked = _hook_blocked or _hook_held or (connected_device >= 0 and Input.is_joy_button_pressed(connected_device, JOY_BUTTON_LEFT_SHOULDER))
 	_shoot_held = false
+	_aim_direction = Vector2.ZERO
+	router.gamepad_primary_held = false
 	_hook_held = false
-	_hook_direction = Vector2.ZERO
 	_preview_blocked = _preview_blocked or _right_active
 	_right_active = false
 	_vertical_ready = true

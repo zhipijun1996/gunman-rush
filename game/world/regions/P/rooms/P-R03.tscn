@@ -142,15 +142,6 @@ art_placements = Array[Dictionary]([
       0.62
     ],
     "flip_h": false
-  },
-  {
-    "asset": "plains_grass",
-    "point": [
-      384,
-      1792
-    ],
-    "layer": -5,
-    "threshold_for": "C03:P-R03"
   }
 ])
 bell_mechanisms = Array[Dictionary]([{
@@ -159,7 +150,7 @@ bell_mechanisms = Array[Dictionary]([{
 "id": "P-R03:first_bell",
 "open_seconds": 0.0
 }])
-platforms = Array[Rect2]([Rect2(32, 1792, 416, 96), Rect2(640, 1728, 320, 160), Rect2(1088, 1824, 64, 64), Rect2(1152, 1664, 512, 224), Rect2(1664, 1792, 128, 96), Rect2(1792, 1600, 480, 288), Rect2(1504, 160, 192, 32)])
+platforms = Array[Rect2]([Rect2(32, 1792, 608, 128), Rect2(640, 1728, 512, 192), Rect2(1152, 1664, 512, 224), Rect2(1664, 1792, 128, 128), Rect2(1792, 1600, 480, 320), Rect2(1504, 160, 192, 32), Rect2(96, 1120, 224, 16)])
 workbench_entity_ids = {
   "art_placements": [
     "P-R03:art:0",
@@ -172,20 +163,19 @@ workbench_entity_ids = {
     "P-R03:art:7",
     "P-R03:art:8",
     "P-R03:art:9",
-    "P-R03:art:10",
-    "P-R03:door-review:shaft-lip"
+    "P-R03:art:10"
   ],
   "climbable_walls": [],
   "hazards": [],
-  "hook_points": [],
+  "hook_points": ["P-R03:fungal:hook:0", "P-R03:fungal:hook:1", "P-R03:fungal:hook:2", "P-R03:fungal:hook:3"],
   "platforms": [
     "P-R03:platforms:0",
     "P-R03:platforms:1",
-    "P-R03:platforms:2",
     "P-R03:platforms:3",
     "P-R03:platforms:4",
     "P-R03:platforms:5",
-    "P-R03:platforms:6"
+    "P-R03:platforms:6",
+    "P-R03:fungal:receiving"
   ],
   "retry_anchors": [
     "P-R03:retry_anchors:0",
@@ -216,3 +206,8 @@ signs = Array[Dictionary]([{
 "point": [384.0, 1744.0],
 "text": "射击风铃开门。上台阶前，先瞄准守在台上的怪。"
 }])
+
+one_way_indices = Array[int]([6])
+hook_points = Array[Vector2]([Vector2(208,1584),Vector2(272,1408),Vector2(336,1232),Vector2(352,1056)])
+spike_strips = Array[Dictionary]([{"id":"P03:fungal:left_thorns","bounds":[0,1184,16,544],"facing":"right"},{"id":"P03:fungal:right_thorns","bounds":[400,960,16,256],"facing":"left"}])
+section_volumes = Array[Dictionary]([{"id":"access:H","bounds":[0,960,448,224]}])
