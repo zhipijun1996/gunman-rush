@@ -190,6 +190,9 @@ func _ready() -> void:
 			for emitter:Dictionary in source_settings.get("sources",[source_settings]):
 				var glow:=add_lamp(FixedWorldProvider.point(emitter.offset))
 				glow.color=Color(emitter.color);glow.energy=float(emitter.energy);glow.texture_scale=float(emitter.radius)/64
+				if str(placement.asset)=="gear_lamp":
+					glow.energy*=float(environment_light.get("lamp_energy_scale",1.0))
+					glow.texture_scale*=float(environment_light.get("lamp_radius_scale",1.0))
 				glow.reparent(node,false)
 				if placement.get("window_beam",false) and emitter.has("shaft"):
 					PlainsWindowLight.attach(node,self,emitter.shaft)

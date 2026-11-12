@@ -70,16 +70,16 @@ art_placements = Array[Dictionary]([
     "landscape": "opening_plains",
     "clouds": "junction_clouds",
     "landscape_scroll": [
-      0.08,
-      0.35
+      0.12,
+      0.12
     ],
     "landscape_reference": [
-      1440,
-      700
+      -2752,
+      -1014
     ],
     "landscape_offset": [
       0,
-      -100
+      0
     ],
     "sky_colors": [
       "e7d9b9",
@@ -219,6 +219,9 @@ art_placements = Array[Dictionary]([
   },
   {
     "surface_platform": 3
+  },
+  {
+    "surface_platform": 0
   }
 ])
 art_profile = "market"
@@ -486,7 +489,7 @@ terrain_polygons = Array[Dictionary]([
   }
 ])
 workbench_entity_ids = {
-  "art_placements": ["P-R34:composition:0", "P-R34:composition:1", "P-R34:composition:2", "P-R34:composition:3", "P-R34:composition:4", "P-R34:composition:5", "P-R34:composition:6", "P-R34:composition:7", "P-R34:composition:8", "P-R34:composition:9", "P-R34:composition:10", "P-R34:composition:11", "P-R34:composition:12"],
+  "art_placements": ["P-R34:composition:0", "P-R34:composition:1", "P-R34:composition:2", "P-R34:composition:3", "P-R34:composition:4", "P-R34:composition:5", "P-R34:composition:6", "P-R34:composition:7", "P-R34:composition:8", "P-R34:composition:9", "P-R34:composition:10", "P-R34:composition:11", "P-R34:composition:12", "P-R34:art:seam:13"],
   "climbable_walls": [],
   "hazards": [],
   "hook_points": [],
@@ -548,9 +551,9 @@ spike_strips = Array[Dictionary]([{
 "facing": "up",
 "id": "P-R34:r8:east_bank_corner"
 }])
-one_way_indices = Array[int]([1, 3])
-illustrated_platform_indices = Array[int]([1, 3])
-masonry_platform_indices = Array[int]([0, 2, 4])
+one_way_indices = Array[int]([0, 1, 3])
+illustrated_platform_indices = Array[int]([0, 1, 3])
+masonry_platform_indices = Array[int]([2, 4])
 
 [node name="Cache_eaves_cache" type="Node2D" parent="." unique_id=466059840]
 position = Vector2(96, 430)
