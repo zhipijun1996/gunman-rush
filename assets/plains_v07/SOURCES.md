@@ -17,14 +17,15 @@
 | room-orchard-generated.png / room-mill-generated.png | 现用果园断栅、木架、托梁和木台的母版；[裁切与锚点](source/room-pair-provenance.json)，原生尺寸归manifest。无消费者的大树、草根岩肩、独立亮窗、幕布墙和大装饰轮不进入现行素材清单 |
 | mill-hall-generated.png / mill-window-bay-generated.png | P26整屏氛围实验：多层风车远结构与完整窗间墙；[提示词、参考、裁切、等比烘焙与哈希](source/mill-atmosphere-provenance.json)。远景轻微视差，墙身与窗光固定世界坐标，主角与玩法沿用正式入口；主厅氛围改善获用户反馈，隐藏小室使用下列专用背墙 |
 | orchard-sky-generated.png / orchard-ridge-generated.png / orchard-structure-generated.png / mill-recess-generated.png | P25远山底板、自带地面的疏果林与整体门廊，P26单幅封闭小室背墙；[提示词、裁切、锚点和哈希](source/orchard-atmosphere-provenance.json)。中央高台侧柱与托臂由现用木材机械裁切复用，母版中的大树不生成运行素材；室外整体改善已获反馈，P25木桥按可见梁底修正接缝、入口木台按岩壁收口 |
-| opening-sky-generated.png / opening-ridge-generated.png / opening-gallery-generated.png / station-houses-generated.png | 首段六房连续构图：低对比草原远山、自带地面的旧路遗迹与望站坡通风后廊；[提示词、裁切、锚点和哈希](source/opening-atmosphere-provenance.json)。小站以略显破败的旧住宅、连续主街与已有服务居民组织生活感；挑战平台与铃闸复用原生梁柱；P24隐藏室由现用封闭背墙按净空机械裁切。 |
+| opening-ridge-generated.png / opening-gallery-generated.png / station-houses-generated.png | 首段六房连续构图：自带地面的旧路遗迹与望站坡通风后廊；[提示词、裁切、锚点和哈希](source/opening-atmosphere-provenance.json)。小站以略显破败的旧住宅、连续主街与已有服务居民组织生活感；挑战平台与铃闸复用原生梁柱；P24隐藏室由现用封闭背墙按净空机械裁切。 |
 | animal-residents-generated.png / aqi-animal-story-generated.png | 獾回收匠、长耳兔织时匠、狐狸旅人、野猪武器匠、猫头鹰守钟匠；每个状态四帧待机和两帧招呼，统一脚底、每状态固定比例；[最终来源与烘焙](source/inhabitants-sky-provenance.json)。人类NPC母版与旧生产路径已移除。 |
-| opening_plains-layer-generated.png / orchard-layer-generated.png / plains-layer-generated.png / wind_clouds-layer-generated.png | 固定地表具有透明天空，独立双层流云在地表后方移动；源图、裁切与输出哈希同上，不扭动山体或塔。 |
+| orchard-layer-generated.png / plains-layer-generated.png / wind_clouds-layer-generated.png | 固定地表具有透明天空，独立双层流云在地表后方移动；源图、裁切与输出哈希同上，不扭动山体或塔。 |
+| canal-lowlands-generated.png | P01／P31／P34相连的露天旧渠岸：低对比柳林、废渠与疏落屋顶，透明天空与独立流云；[提示词、原图、等比烘焙与哈希](source/canal-lowlands-provenance.json)。 |
 | clockheart_hall-generated.png | Z01低对比后殿与真实左上窗；[源图、裁切与哈希](source/clockheart-route-provenance.json)。`python3 tools/art/bake_clockheart_route.py --verify`比对原生输出。 |
 | forecourt-architecture-generated.png / forecourt-foundation-generated.png | P33超画幅世界钟心巨塔基座、深凹门洞与独立下层塔基背墙；以厚墙、巨大入口及人物尺度表达站在塔底的体量，不缩小整塔展示塔冠。立面统一等比烘焙，背墙退后，无额外碰撞；[构图、提示词、裁切与哈希](source/forecourt-provenance.json)。 |
 | windcourt-arena-generated.png / windcourt-gallery-generated.png | P14开敞残拱战场与连续后层古廊，原野和独立云层透过建筑空隙；[导图、提示词、注册位置和烘焙哈希](source/windcourt-composition-provenance.json)。残拱柱身按当前战场重绘至地面；实际平台、钩索和回程空间归P14场景与construction，生成导图只记录素材注册依据。木踏板复用现行同族表现。 |
 | bellgarden-ruin-generated.png / bellgarden-revival-generated.png | P15塌顶风鸣庭：同一构图的破败钟架、后壁与定点复苏枝叶，裁切和锚点成对注册；铜钟以原画局部挂点刚性摆动，独立云层保留。来源、提示词、裁切和哈希见[记录](source/bellgarden-provenance.json)。低沉修钟声为`tools/generate_windchime_audio.py --clock`原创模态合成，配合现有钟鸣，由GameAudio同一声部池播放。 |
-| junction-transfer-generated.png | P35地下转运厅的连续背拱、分层后墙与升降井体量；P09按长货运廊复用，P31仅用低处渠壁段。源图、提示词、等比烘焙与哈希见 [来源](source/junction-transfer-provenance.json)。实际台面、绞盘与灯具由房间独立定位。 |
+| junction-transfer-generated.png | P35地下转运厅的连续背拱、分层后墙与升降井体量；P09按长货运廊复用，P31为露天渠谷，不使用这幅室内背墙。源图、提示词、等比烘焙与哈希见 [来源](source/junction-transfer-provenance.json)。实际台面、绞盘与灯具由房间独立定位。 |
 | market-terrace-generated.png | P34阶台库房的连续承重立面；按实际阶台多边形、原生顶沿与短入口裁定显示，不以图片代替碰撞。见 [来源](source/market-terrace-provenance.json)。 |
 | training_atrium-generated.png | P10连续挑高练枪中庭，后梁、高低两窗与底部旧轴座统一构图；两窗实际局部光及窄光束按画面注册。见 [来源](source/training_atrium-provenance.json)。 |
 | spring_cellar-generated.png | P12储水厅整幅凹室与连续管线；P17检修室、P19井底厅、P30泵房按各自腔体注册复用。长井仍用连续砌体，不重复整座拱厅。见 [来源](source/spring_cellar-provenance.json)。 |
@@ -33,7 +34,7 @@
 
 `python3 tools/art/bake_plains_v07.py` 按最终动物与天空来源清单执行固定格裁切、alpha≥128 清边、最近邻采样与固定脚底对齐；`--verify`逐像素核对现用输出。源图、每次裁切、原生高度、缩放和输出哈希见 [manifest.json](manifest.json)。场景按一素材像素/一世界单位放置；UI肖像沿统一逻辑画布比例展示。源图由 `.gdignore` 隔离，导出只使用原生资产与运行清单。
 
-P32按`clockheart_vista`读取钟心远景，P25按`orchard`读取果园；普通室外由本房`art_placements.landscape`选择底板，首段与既有钟心路线多使用`opening_plains`，P06／P14／P27已按整房构图使用`junction_meadow`低原野与独立疏云，不改变玩法或室内外材质配置。未指定专用底板的正式房间读取本清单的`plains`透明天际线，不再从旧家园通用背景加载。远景按整数倍覆盖实际窗口并使用独立低速视差；实体仍保持1素材像素/1世界单位。室外环境底光参考技能中的认可光照配置，实际Godot方向光须以窗口光照对照审查；接入不代表最终视觉通过。室外保留已接入的地形避让前景和明确放置植被；室内由同一个房间材质判定排除天空、自动草丛、风车外立面和室外井台，使用背墙、传动架、阀门与水管。
+P32按`clockheart_vista`读取钟心远景，P25按`orchard`读取果园；普通室外由本房`art_placements.landscape`选择底板，P03、P21—P24使用`orchard`疏果林，P01／P31／P34使用`canal_lowlands`旧渠岸与疏屋远景，三房按门位共享景深参照，P06／P14／P27已按整房构图使用`junction_meadow`低原野与独立疏云，不改变玩法或室内外材质配置。未指定专用底板的正式房间读取本清单的`plains`透明天际线，不再从旧家园通用背景加载。远景按整数倍覆盖实际窗口并使用独立低速视差；实体仍保持1素材像素/1世界单位。室外环境底光参考技能中的认可光照配置，实际Godot方向光须以窗口光照对照审查；接入不代表最终视觉通过。室外保留已接入的地形避让前景和明确放置植被；室内由同一个房间材质判定排除天空、自动草丛、风车外立面和室外井台，使用背墙、传动架、阀门与水管。
 
 场景材质与地形碰撞分开：直柱按真实梁底与地面拼接柱帽、等宽柱身和柱脚，不缩放宽度；室外入口仅在实际室内连接处放置门廊或井口，室内出口投来向外光。返程封墙继承宿主室内材质。普通建筑仅作构图；果园树拱由房间明确指定对应平台图像，按清单surface_height对齐枝面，树干在可穿行背景层；实际落脚面、遮弹掩体、铜铃吊台、折板与水面危险由对应组件拥有。动效只响应已接受的动作/持久化结果，不发放奖励。
 

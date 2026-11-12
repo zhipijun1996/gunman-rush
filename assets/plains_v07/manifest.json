@@ -21,13 +21,11 @@
     "orchard-sky-generated.png": "537951ed2ea6028645a613e7c293d8622778da3fc172eb6eb737c257d8db1be9",
     "orchard-ridge-generated.png": "b04800f53557f43232914e2106bd0f801fc2c70eb710367b8b4918749a138266",
     "orchard-structure-generated.png": "3034f49bd4a03783d81fc136ba2ce2785484c8a6319e4ce9331b5d6770370d30",
-    "opening-sky-generated.png": "e4fb0122c6af58b4dc63745671770348d2a30ac88cbc1a5f7320ab2c34c1db10",
     "opening-ridge-generated.png": "77a487fe3e981c81aba502d8d99c478d273f7fb5213145a928969a7a153df529",
     "opening-gallery-generated.png": "f01e638d43688d25ed51c4092be154d1b443d5faecba2d98438eee61827d6136",
     "station-houses-generated.png": "c6fc4cd4422519b002f69393627c2d1c24fc30644b98d139b0b8269a3bbefb58",
     "animal-residents-generated.png": "09a02064c477707bc9b89980b0dded9e2d5f1e797e3ee1e01738ba86087ef984",
     "aqi-animal-story-generated.png": "f58aaa61746f94a866d51faed09a62eaad879f30c0a0cbc08e9fd04fb4170e63",
-    "opening_plains-layer-generated.png": "8ae454e97892c5c56bc96c718c1c0c68ebefbc4342ede6c5338303bb094798fe",
     "orchard-layer-generated.png": "d29d75330dad7822aec311afeb3a193ee61b83a2f6a06fc02f17a0ad28d56d43",
     "plains-layer-generated.png": "81a944887dc273c7e04a27d9425a407f2bcfe284be140ac8064be8a2211268f4",
     "wind_clouds-layer-generated.png": "4065a9bdb81772beb40d3855392e8fe3a9cc240ae2ae272d32789ca098d21be0",
@@ -46,7 +44,8 @@
     "market-terrace-generated.png": "8a9f929f50e52dd2357f10c29b009cf51804def79e0f45c700e8de37cc373213",
     "training_atrium-generated.png": "755900399c4b33861079eda5538839b01fd0ec6c7e661c6940edf251d7c0915f",
     "spring_cellar-generated.png": "cabff4cd924dc86fbfa299de787bd579a7783a70d42193e0a6c47391f96c3c94",
-    "grain_loft-generated.png": "f1b3a3472f024c9977ff7aee7345b8ecdba185d08af2a2f3058aa92d72ba7f01"
+    "grain_loft-generated.png": "f1b3a3472f024c9977ff7aee7345b8ecdba185d08af2a2f3058aa92d72ba7f01",
+    "canal-lowlands-generated.png": "78b314bc572ec421b79ce330ef4748933cf242bf50379347072378bff001cf8b"
   },
   "assets": {
     "reclaimer": {
@@ -1174,26 +1173,6 @@
       "sha256": "78c20be44e661570c621c3380767384a0a3895c436a7a2700f4d2187dc0908a3",
       "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
     },
-    "opening_plains": {
-      "image": "assets/plains_v07/native/opening_plains.png",
-      "source": "assets/plains_v07/source/opening_plains-layer-generated.png",
-      "source_rect": [
-        0,
-        0,
-        1672,
-        941
-      ],
-      "source_rect_format": "xywh",
-      "size": [
-        864,
-        486
-      ],
-      "filter": "nearest",
-      "alpha_threshold": 128,
-      "role": "fixed_landscape_transparent_sky",
-      "sha256": "dd7595668a1d5b09658eba87349313d9af6f12c614f6016bb94b67d1a58dc160",
-      "generation": "assets/plains_v07/source/inhabitants-sky-provenance.json"
-    },
     "plains": {
       "image": "assets/plains_v07/native/plains.png",
       "source": "assets/plains_v07/source/plains-layer-generated.png",
@@ -1272,6 +1251,25 @@
       "sha256": "73071edfe5faf60040a0e7e2b07428391dd0d5a2b7d16e084326a6e506cfa83f",
       "sampling": "nearest; source canvas; clouds retain original soft alpha",
       "generation": "assets/plains_v07/source/junction-atmosphere-provenance.json"
+    },
+    "canal_lowlands": {
+      "image": "assets/plains_v07/native/canal_lowlands.png",
+      "source": "assets/plains_v07/source/canal-lowlands-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        1152,
+        768
+      ],
+      "filter": "nearest",
+      "role": "fixed_landscape_transparent_sky",
+      "sha256": "9ab0006990c7bb1efac267ed608d10ea82866e11176dda2ae0180f12965f9846",
+      "generation": "assets/plains_v07/source/canal-lowlands-provenance.json"
     }
   },
   "props": {
