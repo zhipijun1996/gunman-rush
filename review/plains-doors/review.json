@@ -872,7 +872,7 @@
             "passed": true,
             "position": [
               224.0,
-              141.970367431641
+              605.992370605469
             ],
             "room": "M-R02",
             "target": "M-R02"
@@ -889,8 +889,8 @@
             "door": "C03:M-R02",
             "passed": true,
             "position": [
-              386.868530273438,
-              1773.92529296875
+              192.0,
+              1101.97924804688
             ],
             "room": "P-R03",
             "target": "P-R03"
@@ -898,22 +898,23 @@
         }
       ],
       "external": true,
-      "note": "贯通初行草坡的实际下井口并校准返程落岸，接蕈灯地穴示例。",
+      "note": "当前整房检查视口，非正式镜头；门位与全图已同步，四方向真实过门通过。P03左上钩索高洞口接蕈灯下口；短片演示从苏醒岸连续登高。",
       "pair": "pairs/C03.jpg",
-      "clip": "clips/C03.mp4"
+      "clip": "../plains-panorama/hook-route.mp4",
+      "view": "whole_room"
     },
     {
       "id": "C04",
       "sides": [
         {
-          "room": "P-R03",
-          "name": "初行草坡",
-          "door": "C04:P-R03",
-          "after": "after/C04_P-R03.jpg",
+          "room": "P-R20",
+          "name": "退潮渠畔",
+          "door": "C04:P-R20",
+          "after": "after/C04_P-R20.jpg",
           "before": "before/C04_P-R03.jpg",
           "before_room": "P-R03",
           "test": {
-            "door": "C04:P-R03",
+            "door": "C04:P-R20",
             "passed": true,
             "position": [
               224.0,
@@ -934,18 +935,19 @@
             "door": "C04:S-R01",
             "passed": true,
             "position": [
-              1118.44519042969,
-              1805.92529296875
+              562.78173828125,
+              1133.92529296875
             ],
-            "room": "P-R03",
-            "target": "P-R03"
+            "room": "P-R20",
+            "target": "P-R20"
           }
         }
       ],
       "external": true,
-      "note": "贯通初行草坡第二井口并校准返程落岸，接萤火湿地示例。",
+      "note": "当前整房检查视口，非正式镜头；门位与全图已同步，四方向真实过门通过。沼泽移至P20左下；低岸三段基础短跳可返回主路。",
       "pair": "pairs/C04.jpg",
-      "clip": "clips/C04.mp4"
+      "clip": null,
+      "view": "whole_room"
     },
     {
       "id": "C05",
@@ -3297,5 +3299,6 @@
       "room": "G-R02"
     }
   },
-  "method": "formal engine overview + exact physical envelope stitch; normal camera side captures; isolated local approaches using legal controls and explicitly granted progression flags; not a full campaign playthrough"
+  "method": "C03/C04为本轮真实轮廓整房检查图与四方向门口实测；其余沿用门对基线，正常镜头和过门覆盖以各卡片为准。",
+  "current_update_source": "3bc4b4c57c21e47aa1acfcb11671b2aa37e463a1"
 }
