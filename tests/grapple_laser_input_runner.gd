@@ -41,8 +41,7 @@ func start_gun(index := 1) -> void:
 	match device:
 		"pc":mouse(MOUSE_BUTTON_LEFT,true)
 		"pad":
-			gamepad.sample_tick(Vector2.ZERO,Vector2.RIGHT)
-			gamepad.sample_tick(Vector2.ZERO,Vector2.RIGHT)
+			gamepad.sample_tick(Vector2.ZERO,Vector2.RIGHT,false,false,false,false,false,true)
 		"touch":
 			gun_origin=overlay.right_center
 			touch(index,gun_origin,true)

@@ -2762,7 +2762,7 @@ func _select_equipment_active(instance_id: StringName, revision: int, session: i
 		controller.router.clear("item_active_selection")
 		# Reopen after the accepted input epoch change, invalidating old controls.
 		_open_build_session()
-		_refresh_equipment_view("当前道具技能：" + owned.item.display_name + " · R / RB / 触屏道具键")
+		_refresh_equipment_view("当前道具技能：" + owned.item.display_name + " · R / RT（R2） / 触屏道具键")
 
 func _repair_equipment_item(_instance_id: StringName, _quote_version: int, _revision: int, _session: int) -> void:
 	# Repairs belong to the merchant's transaction UI, never a remote pause menu.

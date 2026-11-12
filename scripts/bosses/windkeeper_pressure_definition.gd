@@ -13,6 +13,8 @@ extends WindkeeperDefinition
 @export var turn_seconds := .44
 @export var wall_clearance := 182.0
 @export var retreat_trigger_range := 105.0
+@export var boundary_retreat_range := 72.0
+@export var phase_three_jump_height_scale := 1.35
 @export var retreat_distance := 175.0
 @export var retreat_seconds := .48
 @export var retreat_warning_seconds := .18
@@ -57,7 +59,7 @@ extends WindkeeperDefinition
 func is_valid() -> bool:
 	if not super.is_valid() or not continuous_combat: return false
 	for value: float in [approach_speed,lunge_peak_speed,final_chase_speed,ground_wave_speed,
-		wall_clearance,retreat_trigger_range,retreat_distance,retreat_seconds,retreat_warning_seconds,retreat_cooldown_seconds,retreat_height,blocked_seconds,
+		wall_clearance,boundary_retreat_range,phase_three_jump_height_scale,retreat_trigger_range,retreat_distance,retreat_seconds,retreat_warning_seconds,retreat_cooldown_seconds,retreat_height,blocked_seconds,
 		approach_range,close_range,sweep_approach_range,approach_bound_seconds,turn_seconds,traverse_warning_seconds,normal_warning_seconds,
 		sweep_warning_seconds,platform_warning_seconds,combo_link_seconds,group_recovery_seconds,
 		lunge_seconds,lunge_height,lunge_warning_seconds,lunge_min_distance,lunge_max_distance,lunge_landing_offset,support_hop_height,stomp_seconds,sweep_seconds,gust_seconds,seeds_seconds,

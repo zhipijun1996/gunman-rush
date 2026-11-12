@@ -248,10 +248,10 @@ func shared_skill_aim() -> void:
 	check(actions.size()==1 and actions[0].type==&"weapon_skill" and actions[0].direction.distance_to(Vector2(1,-1).normalized())<.01,"gamepad skill uses main right stick")
 	for i: int in 6:pad.sample_tick(Vector2.ZERO,Vector2.ZERO)
 	check(controller.router.consume_actions(100001).is_empty(),"skill aim neutral does not emit primary")
-	for i: int in 6:pad.sample_tick(Vector2.ZERO,Vector2.LEFT)
-	for i: int in 6:pad.sample_tick(Vector2.ZERO,Vector2.ZERO)
+	pad.sample_tick(Vector2.ZERO,Vector2.LEFT,false,false,false,false,false,true)
+	pad.sample_tick(Vector2.ZERO,Vector2.LEFT)
 	actions=controller.router.consume_actions(100002)
-	check(actions.size()==1 and actions[0].type==&"shoot_release","next fresh gamepad aim still fires after skill")
+	check(actions.size()==1 and actions[0].type==&"shoot_release","next fresh gamepad shoulder tap still fires after skill")
 	await fixture();equip_id("blade_bloom");controller.router.weapon_skill_available=true
 	var overlay := TouchOverlay.new();overlay.router=controller.router;overlay.aim_origin=motor;world.add_child(overlay);overlay.set_enabled(true)
 	touch(overlay,3,overlay.right_center,true)

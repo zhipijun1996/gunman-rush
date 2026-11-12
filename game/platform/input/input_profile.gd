@@ -14,17 +14,14 @@ static func load_default() -> InputProfile:
 func configure(candidate: Dictionary) -> bool:
 	var merged := values.duplicate(true)
 	merged.merge(candidate, true)
-	for key: String in ["left_deadzone", "right_enter_deadzone", "right_exit_deadzone", "arm_confirm_ticks", "center_confirm_ticks", "left_sensitivity", "right_sensitivity", "response_curve", "touch_radius", "touch_jump_radius", "touch_jump_hit_padding", "touch_jump_left_inset", "touch_move_mode", "touch_walk_ratio", "touch_move_stop_deadzone", "touch_run_enter", "touch_run_exit", "touch_deadzone", "keyboard", "mouse_shoot_button", "gamepad_jump_button"]:
+	for key: String in ["left_deadzone", "right_enter_deadzone", "right_exit_deadzone", "left_sensitivity", "right_sensitivity", "response_curve", "touch_radius", "touch_jump_radius", "touch_jump_hit_padding", "touch_jump_left_inset", "touch_move_mode", "touch_walk_ratio", "touch_move_stop_deadzone", "touch_run_enter", "touch_run_exit", "touch_deadzone", "gamepad_trigger_threshold", "keyboard", "mouse_shoot_button", "gamepad_jump_button"]:
 		if not merged.has(key):
 			return false
-	for key: String in ["left_deadzone", "right_enter_deadzone", "right_exit_deadzone", "touch_deadzone"]:
+	for key: String in ["left_deadzone", "right_enter_deadzone", "right_exit_deadzone", "touch_deadzone", "gamepad_trigger_threshold"]:
 		if not (merged[key] is float or merged[key] is int) or not is_finite(float(merged[key])) or float(merged[key]) < 0.0 or float(merged[key]) >= 1.0:
 			return false
-	if float(merged.right_exit_deadzone) >= float(merged.right_enter_deadzone):
+	if float(merged.gamepad_trigger_threshold) <= 0 or float(merged.right_exit_deadzone) >= float(merged.right_enter_deadzone):
 		return false
-	for key: String in ["arm_confirm_ticks", "center_confirm_ticks"]:
-		if not (merged[key] is float or merged[key] is int) or not is_finite(float(merged[key])) or float(merged[key]) < 1 or float(merged[key]) != floorf(float(merged[key])):
-			return false
 	for key: String in ["left_sensitivity", "right_sensitivity", "response_curve", "touch_radius", "touch_jump_radius"]:
 		if not (merged[key] is float or merged[key] is int) or not is_finite(float(merged[key])) or float(merged[key]) <= 0:
 			return false

@@ -158,6 +158,8 @@ func physics_tick(delta: float) -> void:
 				direction = locked_direction
 				if _turn_resume == &"traverse_warning":
 					_enter(&"traverse_warning", _config().traverse_warning_seconds)
+				elif _turn_resume == &"retreat_warning":
+					_announce_retreat()
 				elif _turn_resume == &"approach":
 					_enter(&"approach", _config().approach_bound_seconds)
 				else:
@@ -315,6 +317,7 @@ func _select_group() -> void:
 	_recent_groups.append(_group_key(attacks))
 	while _recent_groups.size() > 3: _recent_groups.pop_front()
 	_event(&"windkeeper_group", {"plan": _group_plan.duplicate(true)})
+	if _try_boundary_retreat(): return
 	var dx := _target.global_position.x - motor.global_position.x
 	locked_direction = -1 if dx < 0 else 1
 	if absf(dx) > _config().approach_range:
@@ -325,6 +328,7 @@ func _select_group() -> void:
 		_begin_attack()
 
 func _approach(delta: float) -> void:
+	if _try_boundary_retreat(): return
 	if stage_phase == 3 and _supports_bound:
 		_approach_on_support()
 		return
@@ -362,9 +366,16 @@ func _turn_to(facing: int, resume: StringName = &"attack") -> void:
 	_turn_resume = resume
 	_enter(&"turn", _config().turn_seconds)
 
-func _try_retreat() -> bool:
-	if _fight_age < _retreat_ready_age or _hop_active: return false
-	var away := -direction
+func _try_boundary_retreat() -> bool:
+	if _hop_active or _hop_prepared: return false
+	var left_gap := motor.global_position.x - arena.left_x
+	var right_gap := arena.right_x - motor.global_position.x
+	if minf(left_gap, right_gap) > _config().boundary_retreat_range: return false
+	return _try_retreat(1 if left_gap <= right_gap else -1)
+
+func _try_retreat(inward: int = 0) -> bool:
+	if _hop_active or (inward == 0 and _fight_age < _retreat_ready_age): return false
+	var away := -direction if inward == 0 else inward
 	if stage_phase == 3 and _supports_bound:
 		var next := _next_support_index(motor.global_position.x, away)
 		if next < 0 or next == _support_index: return false
@@ -396,9 +407,17 @@ func _try_retreat() -> bool:
 	_retreat_ready_age = _fight_age + _config().retreat_cooldown_seconds
 	_blocked_age = 0.0
 	motor.stop()
+	# At a wall the safe displacement wins. Face outwards before the
+	# backward takeoff; never jump deeper into the wall to keep a facing.
+	if direction != -away:
+		_turn_to(-away, &"retreat_warning")
+	else:
+		_announce_retreat()
+	return true
+
+func _announce_retreat() -> void:
 	_enter(&"retreat_warning", _config().retreat_warning_seconds)
 	_event(&"windkeeper_retreat_warning", {"point": _hop_target})
-	return true
 
 func _begin_attack(facing_committed: bool = false) -> void:
 	if not active or _group_plan.is_empty(): return
@@ -410,6 +429,7 @@ func _begin_attack(facing_committed: bool = false) -> void:
 		_preparation_hops = 0
 		_guarded_attack_index = -1
 	var dx := _target.global_position.x - motor.global_position.x
+	if _try_boundary_retreat(): return
 	var wanted_direction := -1 if dx < -12 else 1 if dx > 12 else direction
 	if wanted_direction != direction and not facing_committed:
 		locked_direction = wanted_direction
@@ -843,6 +863,7 @@ func body_contact_rect() -> Rect2:
 	return bounds
 
 func _contact_parts() -> Array[CollisionShape2D]:
+	# The elevated windmill is scenery, not a body/contact/shot hull.
 	var parts: Array[CollisionShape2D] = [_head_shape]
 	parts.append_array(_foot_shapes)
 	parts.append_array(_limb_shapes)
@@ -1158,7 +1179,8 @@ func _lock_support_hop(index: int, speed_limit: float, start_immediately: bool =
 	_hop_target_index = index
 	_hop_age = 0.0
 	var displacement := _hop_target - _hop_start
-	_hop_height = maxf(_config().support_hop_height if arc_height < 0 else arc_height, absf(displacement.y) * .55)
+	var height_scale := _config().phase_three_jump_height_scale if stage_phase == 3 else 1.0
+	_hop_height = maxf((_config().support_hop_height if arc_height < 0 else arc_height) * height_scale, absf(displacement.y) * .55)
 	# P(p)=start+D*p+(0,-4h*p*(1-p)). Its derivative is affine;
 	# the maximum vector speed is exactly bounded by the two endpoint norms.
 	var peak := maxf((displacement + Vector2(0, -4 * _hop_height)).length(), (displacement + Vector2(0, 4 * _hop_height)).length())

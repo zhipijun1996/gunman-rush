@@ -43,6 +43,7 @@ func is_valid() -> bool:
 	if not crosswind_velocity.is_finite() or crosswind_velocity.length()>80 or not is_finite(upper_core_dot) or upper_core_dot<0 or upper_core_dot>1: return false
 	if not super.is_valid() or not wind_velocity.is_finite() or wind_velocity.length() > 80: return false
 	if not is_finite(phase_two_health) or not is_finite(phase_three_health) or not (0 < phase_three_health and phase_three_health < phase_two_health and phase_two_health < 1): return false
-	for value: float in [thorn_edge_margin,thorn_height,thorn_warning_seconds,thorn_growth_seconds,stomp_speed,charge_speed,chase_speed,warning_seconds,exposed_seconds,blade_period,intro_seconds,repeat_intro_seconds,phase_warning_seconds,pier_warning_seconds,pier_impact_seconds,pier_recovery_seconds]:
+	if not is_finite(thorn_edge_margin) or thorn_edge_margin < 0: return false
+	for value: float in [thorn_height,thorn_warning_seconds,thorn_growth_seconds,stomp_speed,charge_speed,chase_speed,warning_seconds,exposed_seconds,blade_period,intro_seconds,repeat_intro_seconds,phase_warning_seconds,pier_warning_seconds,pier_impact_seconds,pier_recovery_seconds]:
 		if not is_finite(value) or value <= 0: return false
 	return true

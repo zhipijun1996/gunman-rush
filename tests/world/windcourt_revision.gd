@@ -30,6 +30,7 @@ func run()->void:
   if hazard._contact.enabled:break
  check(e.stage_phase==3 and e.thorns_ready(),"Boss actually mounts a verified deck before phase-three release")
  check(warned and hazard._contact.enabled and hazard._growth==1.0,"visible warning and growth precede thorn damage")
+ check(hazard._band.position.x==hazard._floor.position.x and hazard._band.end.x==hazard._floor.end.x,"thorns cover both sealed floor edges without camping gaps")
  check(floor_body.collision_layer==1 and arena.definition.platforms==geometry,"phase three preserves every platform and solid floor")
  check(app.camera.zoom==zoom,"phase change preserves formal camera scale")
  e.set_physics_process(false);e.cancel_pending_attacks()
@@ -45,6 +46,18 @@ func run()->void:
   if app.lifetime.actor_epoch>epoch:break
  check(app.controller.actor_resources.health.current==player_hp-1,"thorns submit one real environment hit")
  check(app.lifetime.actor_epoch>epoch and app.player.position.distance_to(arena.to_global(Vector2(240,452)))<6,"thorn failure returns to the actually reached safe deck")
+ # The old right margin was safe. A real actor is now hurt and restored
+ # from the last 12 units next to either wall, not just a middle-strip probe.
+ for side:int in [-1,1]:
+  await ticks(100)
+  var before_hp:=app.controller.actor_resources.health.current
+  var before_epoch:=app.lifetime.actor_epoch
+  var edge_x:=hazard._floor.position.x+12 if side<0 else hazard._floor.end.x-12
+  app.player.reset_at(Vector2(edge_x,hazard._floor.position.y-18))
+  for i:int in 30:
+   await ticks(1)
+   if app.lifetime.actor_epoch>before_epoch:break
+  check(app.lifetime.actor_epoch>before_epoch and app.controller.actor_resources.health.current==before_hp-1,"real thorn damage and safe-deck return at sealed edge "+str(side))
  hp.apply_damage(ActorResourceRequest.new(&"terminal_fixture",hp.epoch,hp.current+1,hp.get_instance_id()))
  await ticks(2)
  check(not hazard._contact.enabled,"accepted death immediately stops thorn damage")

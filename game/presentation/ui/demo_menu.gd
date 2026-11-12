@@ -549,7 +549,7 @@ func show_help(in_run: bool = false) -> void:
 	_label(_content, "触屏 / TOUCH", 19, GOLD)
 	_label(_content, "左侧拖动移动：小幅慢走、大幅跑动。右侧拖动瞄准，松手射击；回中心再松手可取消。JUMP 轻点小跳，按住跳高。HOOK 控件仅在获得钩索后显示。", 17, TEXT)
 	_label(_content, "手柄 / GAMEPAD", 19, GOLD)
-	_label(_content, "左摇杆移动，A 跳跃。右摇杆瞄准，回中心射击。左杆向上交互。已获得钩索时，LB 按住瞄准，松开发钩。菜单内用方向键或左杆选择、A 确认、B 返回。", 17, TEXT)
+	_label(_content, "左摇杆移动，右侧下方键跳跃（A／×／B）。右杆显示方向辅助线；RB／R1按住瞄准、松开射击，无右杆方向时朝前射击。左杆向上交互。LB／L1按住瞄准、松开发钩。RT／R2使用主动道具。菜单内用方向键或左杆选择、A 确认、B 返回。", 17, TEXT)
 	_label(_content, "生命与续航 / RESOURCES", 19, GOLD)
 	_label(_content, "开枪不消耗时间能量。空中瞄准枪械或钩索触发慢时，只有慢时消耗时间能量，接地逐渐恢复。基础空中弹药一发，对敌人造成真实伤害或落地可补充。二段跳与钩索解锁后，图标表示剩余可用资格。爱心归零结束本局，回到家园。", 17, TEXT)
 	_label(_content, "地图与暂停 / MAP & PAUSE", 19, GOLD)
@@ -857,7 +857,7 @@ func _render_equipment_detail() -> void:
 			replace.disabled = locked
 		if equipped and bool(selected.get("active_capable",false)):
 			var active_selected := bool(selected.get("active_selected",false))
-			var active_button := _detail_equipment_button(_equipment_detail,"当前主动道具 · R / RB" if active_selected else "设为当前主动道具",func() -> void:
+			var active_button := _detail_equipment_button(_equipment_detail,"当前主动道具 · R / RT（R2）" if active_selected else "设为当前主动道具",func() -> void:
 				equipment_active_selected.emit(id,int(_equipment_view.get("revision",0)),int(_equipment_view.get("session",0))))
 			active_button.name = "SelectActiveItem"
 			active_button.disabled = active_selected or broken
