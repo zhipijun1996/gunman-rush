@@ -53,7 +53,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and not event.echo and event.physical_keycode==int(settings.keyboard_key):
 		controller.router.set_focus_heal_held(&"keyboard_mouse",event.pressed)
 		get_viewport().set_input_as_handled()
-	elif event is InputEventJoypadButton and event.button_index==int(settings.gamepad_button):
+	elif event is InputEventJoypadButton and event.button_index==int(controller.router.profile.gamepad_binding(event.device,"heal").index):
 		controller.router.set_focus_heal_held(&"gamepad",event.pressed)
 		get_viewport().set_input_as_handled()
 func _physics_process(delta: float) -> void:

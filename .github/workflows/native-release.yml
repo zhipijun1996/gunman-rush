@@ -66,6 +66,10 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 10
     steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          path: source
       - uses: actions/download-artifact@v4
         with:
           name: native-release-builds
@@ -83,9 +87,58 @@ jobs:
           Get-Content startup-error.log
           if ($process.ExitCode -ne 0) { throw "Windows exit code $($process.ExitCode)" }
           if (Select-String -Path startup.log,startup-error.log -Pattern 'SCRIPT ERROR:|^ERROR:|Parse Error:' -Quiet) { throw 'Windows startup reported an engine error' }
+      - name: Verify actual Windows display and maximize/restore
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force display-check,runtime-check | Out-Null
+          $game = Join-Path (Get-Location) 'unpacked/GunmanRush/GunmanRush.exe'
+          $pack = Join-Path (Get-Location) 'unpacked/GunmanRush/GunmanRush.pck'
+          $runtime = Join-Path (Get-Location) 'runtime-check'
+          $script = Join-Path (Get-Location) 'source/tests/world/native_windows_display.gd'
+          $evidence = Join-Path (Get-Location) 'display-check'
+          $arguments = @('--path',$runtime,'--main-pack',$pack,'--script',$script,'--max-fps','60','--',"--evidence-dir=$evidence")
+          $process = Start-Process -FilePath $game -ArgumentList $arguments -RedirectStandardOutput 'display-check/startup.log' -RedirectStandardError 'display-check/startup-error.log' -PassThru
+          Add-Type -AssemblyName System.Drawing
+          Add-Type -AssemblyName System.Windows.Forms
+          Add-Type @'
+          using System;
+          using System.Runtime.InteropServices;
+          public class GameWindowCapture {
+            [StructLayout(LayoutKind.Sequential)] public struct RECT { public int Left,Top,Right,Bottom; }
+            [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr window, out RECT rect);
+          }
+          '@
+          $deadline = (Get-Date).AddSeconds(120)
+          $frames = 0
+          while (-not $process.WaitForExit(500)) {
+            if ((Get-Date) -gt $deadline) { $process.Kill(); throw 'Windows graphical check timed out' }
+            $process.Refresh()
+            if ($process.MainWindowHandle -eq 0) { continue }
+            $rect = New-Object GameWindowCapture+RECT
+            if (-not [GameWindowCapture]::GetWindowRect($process.MainWindowHandle,[ref]$rect)) { continue }
+            $desktop = [System.Windows.Forms.SystemInformation]::VirtualScreen
+            $bounds = [System.Drawing.Rectangle]::FromLTRB($rect.Left,$rect.Top,$rect.Right,$rect.Bottom)
+            $bounds = [System.Drawing.Rectangle]::Intersect($bounds,$desktop)
+            if ($bounds.Width -lt 1 -or $bounds.Height -lt 1) { continue }
+            $bitmap = New-Object System.Drawing.Bitmap($bounds.Width,$bounds.Height)
+            $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+            try {
+              $graphics.CopyFromScreen($bounds.Location,[System.Drawing.Point]::Empty,$bounds.Size)
+              $bitmap.Save((Join-Path $evidence ("screen-{0:d2}.png" -f $frames)))
+              $frames++
+            } finally { $graphics.Dispose(); $bitmap.Dispose() }
+          }
+          if ($frames -eq 0) { throw 'No visible Windows client frame was captured' }
+          Get-Content display-check/startup.log
+          Get-Content display-check/startup-error.log
+          if ($process.ExitCode -ne 0) { throw "Graphical check exit code $($process.ExitCode)" }
+          if (Select-String -Path display-check/startup.log,display-check/startup-error.log -Pattern 'SCRIPT ERROR:|^ERROR:|Parse Error:|DISPLAY FAILED:' -Quiet) { throw 'Windows graphical check failed' }
+          if (-not (Test-Path display-check/report.json)) { throw 'Missing real display report' }
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: windows-release-startup
-          path: startup*.log
+          path: |
+            startup*.log
+            display-check/
           retention-days: 14

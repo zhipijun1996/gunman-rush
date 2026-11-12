@@ -14,6 +14,9 @@ static func load_default() -> InputProfile:
 func configure(candidate: Dictionary) -> bool:
 	var merged := values.duplicate(true)
 	merged.merge(candidate, true)
+	if not merged.has("gamepad_device_bindings"): merged.gamepad_device_bindings = {}
+	if not merged.has("gamepad_heal_button"):
+		merged.gamepad_heal_button=JSON.parse_string(FileAccess.get_file_as_string("res://config/input_profile.json")).gamepad_heal_button
 	# Existing full profiles predate LT's release threshold. Add its current
 	# default proportion without resetting their other bindings/preferences.
 	if candidate.has("gamepad_trigger_threshold") and not candidate.has("gamepad_jump_trigger_release_threshold"):
@@ -63,6 +66,9 @@ func configure(candidate: Dictionary) -> bool:
 		for code: Variant in merged.keyboard[action]:
 			codes.append(int(code))
 		merged.keyboard[action] = codes
+	var heal: Variant=merged.gamepad_heal_button
+	if not (heal is int or heal is float) or not is_finite(float(heal)) or float(heal)!=floorf(float(heal)) or int(heal)<0 or int(heal)>=JOY_BUTTON_MAX:return false
+	if not _valid_gamepads(merged.gamepad_device_bindings): return false
 	values = merged
 	return true
 
@@ -71,3 +77,44 @@ func axis(raw: Vector2, sensitivity_key: String) -> Vector2:
 		return Vector2.ZERO
 	var magnitude := minf(raw.length(), 1.0)
 	return raw.normalized() * clampf(pow(magnitude, float(values.response_curve)) * float(values[sensitivity_key]), 0.0, 1.0)
+
+static func gamepad_key(device: int) -> String:
+	return OS.get_name()+"/"+Input.get_joy_guid(device)+"/"+Input.get_joy_name(device)
+
+func gamepad_binding(device: int, role: String) -> Dictionary:
+	var defaults := {
+		"jump": {"kind":"button","index":int(values.gamepad_jump_button)},
+		"heal": {"kind":"button","index":int(values.gamepad_heal_button)},
+		"jump_trigger": {"kind":"axis","index":JOY_AXIS_TRIGGER_LEFT},
+		"map": {"kind":"button","index":JOY_BUTTON_BACK}}
+	return values.get("gamepad_device_bindings",{}).get(gamepad_key(device),{}).get(role,defaults[role])
+
+static func binding_down(binding: Dictionary, device: int, edge: InputEvent = null) -> float:
+	if binding.kind=="button":
+		return float(edge.pressed if edge is InputEventJoypadButton and edge.device==device and edge.button_index==int(binding.index) else Input.is_joy_button_pressed(device,int(binding.index)))
+	if binding.kind=="axis":
+		return edge.axis_value if edge is InputEventJoypadMotion and edge.device==device and edge.axis==int(binding.index) else Input.get_joy_axis(device,int(binding.index))
+	return 0.0
+
+static func _valid_gamepads(profiles: Variant) -> bool:
+	if not profiles is Dictionary: return false
+	for key: Variant in profiles:
+		if not key is String or key.is_empty() or key.length()>256 or not profiles[key] is Dictionary: return false
+		var seen: Dictionary={}
+		for role: String in ["jump","heal","jump_trigger","map"]:
+			var b: Variant=profiles[key].get(role)
+			if not b is Dictionary or not b.get("kind") is String: return false
+			if not (b.get("index") is int or b.get("index") is float) or not is_finite(float(b.index)) or float(b.index)!=floorf(float(b.index)): return false
+			if b.kind=="none":
+				if role!="map" or int(b.index)!=-1: return false
+				continue
+			if b.kind=="axis":
+				if role!="jump_trigger" or int(b.index)<4 or int(b.index)>=JOY_AXIS_MAX: return false
+			elif b.kind=="button":
+				if int(b.index)<0 or int(b.index)>=JOY_BUTTON_MAX: return false
+				if int(b.index) in [JOY_BUTTON_X,JOY_BUTTON_Y,JOY_BUTTON_LEFT_SHOULDER,JOY_BUTTON_RIGHT_SHOULDER,JOY_BUTTON_START]: return false
+			else: return false
+			var physical:=str(b.kind)+"/"+str(int(b.index))
+			if seen.has(physical): return false
+			seen[physical]=true
+	return true

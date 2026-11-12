@@ -3,7 +3,7 @@ config_version=5
 
 [application]
 config/name="Gunman Rush"
-config/version="0.1.0"
+config/version="0.1.1"
 config/icon="res://assets/player_presentation_01/wake_wall/generated/live-idle-reference.png"
 run/main_scene="res://game/application/world/fixed_world.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
@@ -21,6 +21,8 @@ window/stretch/mode="canvas_items"
 ; Web keeps all authored 1wu detail in one 1280x720 render target. This avoids
 ; the old CSS-sized low-resolution image and unbounded device-DPR world passes.
 window/stretch/mode.web="viewport"
+; Keep Windows internal pixel rendering stable while the OS resizes/maximizes.
+window/stretch/mode.windows="viewport"
 ; Use the display-density backing store when presenting the full game canvas.
 ; Relative UI/world geometry remains in the shared logical coordinate system.
 window/dpi/allow_hidpi.web=true
@@ -40,4 +42,6 @@ pointing/emulate_touch_from_mouse=false
 textures/vram_compression/import_etc2_astc=true
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+; Windows presentation uses ANGLE/Direct3D rather than vendor desktop OpenGL.
+gl_compatibility/driver.windows="opengl3_angle"
 environment/defaults/default_clear_color=Color(0.055, 0.075, 0.105, 1)

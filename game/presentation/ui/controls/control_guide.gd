@@ -36,6 +36,7 @@ static func pad_face(button: int, style: String) -> String:
 	return "#"+str(button)
 
 static func binding(action: String, device: StringName, profile: Dictionary, heal: Dictionary = {}, style: String = "generic") -> String:
+	if device==&"gamepad":profile=_calibrated_profile(profile)
 	var trigger := "L2" if style=="ps" else "ZL" if style=="switch" else "LT" if style=="xbox" else "LT / L2"
 	var jump := key(profile,"jump") if device==&"keyboard_mouse" else pad_face(int(profile.gamepad_jump_button),style)+" / "+trigger if device==&"gamepad" else text("touch_jump")
 	match action:
@@ -49,9 +50,9 @@ static func binding(action: String, device: StringName, profile: Dictionary, hea
 			return text("right_stick")+" + "+("R1" if style=="ps" else "R" if style=="switch" else "RB" if style=="xbox" else "R1 / RB") if device==&"gamepad" else text("touch_right")
 		"pickup": return key(profile,"up") if device==&"keyboard_mouse" else text("left_stick")+" ↑" if device==&"gamepad" else text("touch_left")+" ↑"
 		"drop": return (key(profile,"down") if device==&"keyboard_mouse" else text("left_stick")+" ↓" if device==&"gamepad" else text("touch_left")+" ↓")+" + "+jump
-		"heal": return OS.get_keycode_string(int(heal.get("keyboard_key",KEY_C))) if device==&"keyboard_mouse" else pad_face(int(heal.get("gamepad_button",JOY_BUTTON_B)),style) if device==&"gamepad" else text("touch_heal")
+		"heal": return OS.get_keycode_string(int(heal.get("keyboard_key",KEY_C))) if device==&"keyboard_mouse" else pad_face(int(profile.get("gamepad_heal_button",JOY_BUTTON_B)),style) if device==&"gamepad" else text("touch_heal")
 		"look": return key(profile,"up")+" / "+key(profile,"down") if device==&"keyboard_mouse" else text("left_stick")+" ↑ ↓" if device==&"gamepad" else text("touch_left")+" ↑ ↓"
-		"map": return "M / Esc" if device==&"keyboard_mouse" else "View / Start" if device==&"gamepad" else text("touch_menu")
+		"map": return "M / Esc" if device==&"keyboard_mouse" else "Start → "+text("map") if device==&"gamepad" and profile.get("gamepad_map_disabled",false) else "View / Start" if device==&"gamepad" else text("touch_menu")
 		"hook": return mouse(MOUSE_BUTTON_RIGHT)+" / E" if device==&"keyboard_mouse" else "L1" if device==&"gamepad" and style=="ps" else "L" if device==&"gamepad" and style=="switch" else "LB" if device==&"gamepad" and style=="xbox" else "L1 / LB" if device==&"gamepad" else text("touch_hook")
 		"skill": return "Q" if device==&"keyboard_mouse" else pad_face(JOY_BUTTON_Y,style) if device==&"gamepad" else text("touch_skill")
 		"item": return "R" if device==&"keyboard_mouse" else "R2" if device==&"gamepad" and style=="ps" else "ZR" if device==&"gamepad" and style=="switch" else "RT" if device==&"gamepad" else text("touch_item")
@@ -74,3 +75,14 @@ static func rows(device: StringName, profile: Dictionary, features: Dictionary =
 static func hint(lesson: String, device: StringName, profile: Dictionary, style: String) -> Dictionary:
 	var detail := "hint."+String(device)+"."+lesson if lesson in ["move","shoot","recoil"] else "hint."+lesson
 	return {"lesson":lesson,"title":text("goal."+lesson),"binding":binding(lesson,device,profile,{},style),"detail":text(detail)}
+
+static func _calibrated_profile(profile: Dictionary) -> Dictionary:
+	for device: int in Input.get_connected_joypads():
+		var mapped: Dictionary=profile.get("gamepad_device_bindings",{}).get(InputProfile.gamepad_key(device),{})
+		if mapped.is_empty():continue
+		var result:=profile.duplicate()
+		# Calibration labels name physical positions, never normalized raw button IDs.
+		result.gamepad_jump_button=JOY_BUTTON_A;result.gamepad_heal_button=JOY_BUTTON_B
+		result.gamepad_map_disabled=mapped.map.kind=="none"
+		return result
+	return profile

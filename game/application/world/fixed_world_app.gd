@@ -748,7 +748,7 @@ func _close_panel() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton and event.pressed:
 		if event.button_index==JOY_BUTTON_START: toggle_pause()
-		elif event.button_index==JOY_BUTTON_BACK: show_map()
+		elif controller!=null and event.button_index==int(controller.router.profile.gamepad_binding(event.device,"map").index): show_map()
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.physical_keycode==KEY_ESCAPE: toggle_pause()
 		elif event.physical_keycode==KEY_M: show_map()
