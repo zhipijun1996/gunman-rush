@@ -14,7 +14,7 @@ Android新建独立发布签名已获用户确认，私钥及密码保存于仓�
 
 ## 结果与恢复
 
-[GitHub Release v0.1.0](https://github.com/zhipijun1996/gunman-rush/releases/tag/v0.1.0)分发Android ARM64 APK、Windows x86_64 ZIP、许可、统一release-manifest及SHA256SUMS。两端运行内容均固定上述main合并提交；构建入口为[原生发行运行43208355348](https://github.com/zhipijun1996/gunman-rush/actions/runs/43208355348)，最终附件SHA、签名证书指纹及检查结果以Release中的release-manifest.json为准，不能把后续纯交接文档提交当作另一份运行包。
+[GitHub Release v0.1.0](https://github.com/zhipijun1996/gunman-rush/releases/tag/v0.1.0)分发Android ARM64 APK、Windows x86_64 ZIP、许可、统一release-manifest及SHA256SUMS。两端运行内容固定同一main提交；构建入口为[原生发行工作流](https://github.com/zhipijun1996/gunman-rush/actions/workflows/native-release.yml)，最终源码SHA、运行号、附件SHA、签名证书指纹及检查结果以Release中的release-manifest.json为准。发行图标直接复用现有主角站姿参考原图，不重绘或改变角色比例。
 
 合并前CI四项、文档检查、4项原生资源／预设检查、2项原素材导出检查、正式UI17断言、地图3721断言及独立PCK的43房／动态角色与特效／暂停指引装载通过。正式资源解析不包含旧Demo入口、实验室及工作台预览；共用地图手势／投影归MapViewport，风效用现有接地元数据识别景物，不再通过旧Stage类型引入实验依赖。发行额验main同源构建、实际Windows无界面启动、APK对齐／非debuggable／ARM64及apksigner签名；Android真机与Windows完整可视游玩未验。
 

@@ -12,6 +12,9 @@ class NativeRelease(unittest.TestCase):
  def test_formal_rooms_and_raw_catalog(self):
   p=self.plan;self.assertEqual(p['rooms'],p['formal_rooms']);self.assertEqual(len(p['rooms']),43)
   self.assertNotIn('V-R12',p['rooms']);self.assertTrue(p['formal_only'])
+  icon=re.search(r'^config/icon="res://([^"\n]+)"$',(native.ROOT/'project.godot').read_text(),re.M)
+  self.assertIsNotNone(icon)
+  self.assertTrue(any(r['path']==icon[1] for r in p['files']))
   self.assertFalse(any(r['path']=='game/application/demo_app.gd' for r in p['files']))
   self.assertIn('assets/plains_v3/hero/manifest.json',p['raw_files'])
   self.assertTrue(any(r['path']=='assets/plains_v3/effects/combat_atlas.png' for r in p['files']))
