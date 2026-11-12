@@ -150,9 +150,10 @@ func run() -> void:
 	var second:=app.stage as PlainsRegionStage
 	var boss:=second.boss.get_node("Encounter") as WindkeeperEncounter
 	check(second.generated.manifest.seed==PlainsRegionCampaign.seed_for(app.director.seed,2) and second.generated.manifest.manifest_hash!=first_hash,"second map has independently reproducible generation")
-	# Current map2 uses the user-requested60HP Pressure implementation. The
-	# historical36HP direct-scene contract remains in its frozen v5 consumer.
-	check(second.generated.manifest.difficulty=="advanced" and boss is WindkeeperPressureEncounter and boss.health.capacity==60 and (boss.definition as WindkeeperDefinition).storm_profile,"second map retains full three-phase region Boss")
+	# The regression follows the actual admitted health Definition; historical
+	# prototype tuning must not override the current three-phase identity.
+	var intended_boss := preload("res://resources/bosses/windkeeper_storm.tres") as WindkeeperPressureDefinition
+	check(second.generated.manifest.difficulty=="advanced" and boss is WindkeeperPressureEncounter and boss.health.capacity==intended_boss.health_definition.max_health and (boss.definition as WindkeeperDefinition).storm_profile,"second map retains full three-phase region Boss")
 	check(app.player.get_instance_id()==player_id and app.build.item_ids()==build_before and app.wallet.balance>=coins_before+12,"map transition keeps actor/build/coins and pays mini reward once")
 	check(app.controller.actor_resources.health==health and default_tuning.max_jumps==1 and default_tuning.max_air_shots==1 and action_budget_before==Vector2i(default_tuning.max_jumps,default_tuning.max_air_shots) and Vector2i(app.controller.motor.tuning.max_jumps,app.controller.motor.tuning.max_air_shots)==action_budget_before and not app.controller.shot_energy.definition.shooting_consumes_energy,"health identity and action resources survive transition")
 	check(app.meta.snapshot().completed_biomes==0 and not app._gold_claimed,"mini Boss neither completes region nor awards gold/major ability")
