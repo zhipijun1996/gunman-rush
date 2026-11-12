@@ -20,7 +20,7 @@
 | opening-ridge-generated.png / opening-gallery-generated.png / station-houses-generated.png | 首段六房连续构图：自带地面的旧路遗迹与望站坡通风后廊；[提示词、裁切、锚点和哈希](source/opening-atmosphere-provenance.json)。小站以略显破败的旧住宅、连续主街与已有服务居民组织生活感；挑战平台与铃闸复用原生梁柱；P24隐藏室由现用封闭背墙按净空机械裁切。 |
 | animal-residents-generated.png / aqi-animal-story-generated.png | 獾回收匠、长耳兔织时匠、狐狸旅人、野猪武器匠、猫头鹰守钟匠；每个状态四帧待机和两帧招呼，统一脚底、每状态固定比例；[最终来源与烘焙](source/inhabitants-sky-provenance.json)。人类NPC母版与旧生产路径已移除。 |
 | orchard-layer-generated.png / plains-layer-generated.png / wind_clouds-layer-generated.png | 固定地表具有透明天空，独立双层流云在地表后方移动；源图、裁切与输出哈希同上，不扭动山体或塔。 |
-| canal-lowlands-generated.png | P01／P31／P34相连的露天旧渠岸：低对比柳林、废渠与疏落屋顶，透明天空与独立流云；[提示词、原图、等比烘焙与哈希](source/canal-lowlands-provenance.json)。 |
+| canal-lowlands-generated.png | P01／P31／P34相连的露天旧渠岸：低对比柳林、废渠与疏落屋顶，透明天空与独立流云；[提示词、原图、等比烘焙与哈希](source/canal-lowlands-provenance.json)。使用 `tools/art/bake_clockheart_route.py --verify --provenance assets/plains_v07/source/canal-lowlands-provenance.json` 验证原生输出。 |
 | clockheart_hall-generated.png | Z01低对比后殿与真实左上窗；[源图、裁切与哈希](source/clockheart-route-provenance.json)。`python3 tools/art/bake_clockheart_route.py --verify`比对原生输出。 |
 | forecourt-architecture-generated.png / forecourt-foundation-generated.png | P33超画幅世界钟心巨塔基座、深凹门洞与独立下层塔基背墙；以厚墙、巨大入口及人物尺度表达站在塔底的体量，不缩小整塔展示塔冠。立面统一等比烘焙，背墙退后，无额外碰撞；[构图、提示词、裁切与哈希](source/forecourt-provenance.json)。 |
 | windcourt-arena-generated.png / windcourt-gallery-generated.png | P14开敞残拱战场与连续后层古廊，原野和独立云层透过建筑空隙；[导图、提示词、注册位置和烘焙哈希](source/windcourt-composition-provenance.json)。残拱柱身按当前战场重绘至地面；实际平台、钩索和回程空间归P14场景与construction，生成导图只记录素材注册依据。木踏板复用现行同族表现。 |
