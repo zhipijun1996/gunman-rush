@@ -1,6 +1,6 @@
 # 主线整合与原生发行
 
-当前任务：用户授权合入PR150（feat/approved-platform-rooms）最终文件树并发布Android／Windows GitHub Release。输入为c721b20a及本轮必要的发行修复，main为其祖先，无并行功能冲突。游戏内容与局部体验证据归[平原交接](../plains_bible_v2_01/scope.md)，源码合并不代签完整主环、Boss平衡或设备表现。
+正式平原内容通过[PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)以最终文件树合入main，合并提交`32a11154684a8b2d7453fb9c08e4b618713a74f5`。本轮只将最终实现压为一个main提交，保留有效制作源与许可；游戏内容与体验检查仍归[平原交接](../plains_bible_v2_01/scope.md)。源码合并不代签完整主环、Boss平衡或实体设备表现。
 
 ## 清理与范围
 
@@ -14,4 +14,8 @@ Android新建独立发布签名已获用户确认，私钥及密码保存于仓�
 
 ## 结果与恢复
 
-本轮构建、检查及附件记录写入ignored build/main-release、build/native和GitHub Actions。最终main合并、Release标签、两端附件及校验在完成后写回本段；公开网页版本及独立关卡平台状态仍归平原／工作台交接。
+[GitHub Release v0.1.0](https://github.com/zhipijun1996/gunman-rush/releases/tag/v0.1.0)分发Android ARM64 APK、Windows x86_64 ZIP、许可、统一release-manifest及SHA256SUMS。两端运行内容固定同一main提交；构建入口为[原生发行工作流](https://github.com/zhipijun1996/gunman-rush/actions/workflows/native-release.yml)，最终源码SHA、运行号、附件SHA、签名证书指纹及检查结果以Release中的release-manifest.json为准。发行图标直接复用现有主角站姿参考原图，不重绘或改变角色比例。
+
+合并前CI四项、文档检查、4项原生资源／预设检查、2项原素材导出检查、正式UI17断言、地图3721断言及独立PCK的43房／动态角色与特效／暂停指引装载通过。正式资源解析不包含旧Demo入口、实验室及工作台预览；共用地图手势／投影归MapViewport，风效用现有接地元数据识别景物，不再通过旧Stage类型引入实验依赖。发行额验main同源构建、实际Windows无界面启动、APK对齐／非debuggable／ARM64及apksigner签名；Android真机与Windows完整可视游玩未验。
+
+日志与临时包归ignored build/main-release和build/native；私有Android密钥与密码仅在仓库外的私有目录保留，权限为仅所有者可读，后续版本必须复用。当前公开Web试玩保留独立版本9800cdf6933b及其原发行来源；本轮不部署关卡平台。

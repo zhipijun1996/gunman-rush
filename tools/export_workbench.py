@@ -89,6 +89,8 @@ def manifest(formal_only: bool = False) -> dict:
             if found:
                 classes[found[1]] = path.relative_to(ROOT).as_posix()
     pending = [ENTRY, "game/presentation/ui/demo_ui_01/game_typography.gd", *COMPONENTS, *MANIFESTS]
+    icon = re.search(r'^config/icon="res://([^"\n]+)"$', (ROOT / "project.godot").read_text(), re.M)
+    if icon: pending.append(icon[1])
     if not formal_only and (ROOT / SCOPE_PATH).exists(): pending.append(SCOPE_PATH)
     pending += [row["scene_ref"].removeprefix("res://") for row in editable.values()]
     art = json.loads((ROOT / "art/world-art-v2/assets/pixel/manifest.json").read_text())
