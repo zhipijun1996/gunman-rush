@@ -4,7 +4,7 @@
 
 当前分支为[PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)、`feat/approved-platform-rooms`，尚未合入main。正式内容为35个平原房、用户授权的Z01钟心门厅与七间外区入口示例；35房／43内部连接身份保持；C02按用户要求由P05迁至P27。平台初审导入源截至r80，平台基线`8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`；随后只落实用户明确指定的正式游戏修改。平台保持只读，不部署、不迁移、不代签审批。草稿初审不等于正式体验终审。
 
-当前任务：按已确认的场景目标／短提示／暂停查阅方案，先完成P03与暂停操作页样板。共用实际输入映射，三端单独说明，提示不暂停、不占场景、不解锁关卡；射铃以真实机关提交、跳跃以接受动作和真实上台落地确认。暂停前设备作为默认，浏览标签不改游戏输入，关闭清旧持有。保留已发布受伤／死亡及Boss修复，关卡平台不部署。工作基线3f6af070；本轮源、媒体与验证在交付段维护。
+当前交付：按已确认的场景目标／短提示／暂停查阅方案，完成P03与暂停操作页样板。共用实际输入映射，三端单独说明，提示不暂停、不占场景、不解锁关卡；射铃以真实机关提交、跳跃以接受动作和真实上台落地确认。暂停前设备作为默认，浏览标签不改游戏输入，关闭清旧持有。保留已发布受伤／死亡及Boss修复，关卡平台不部署。工作基线3f6af070；本轮源、媒体与验证在交付段维护。
 
 实景全区审核：35平原房、七间外区入口示例及Z01的真实Godot整房渲染已拼成28,608×12,224实景全图。连续42房按同一世界坐标和真实轮廓裁切，Z01用明确的独立室内层框；隐藏HUD与重复主角，提供约29MB完整JPEG下载和914块按需加载的无损WebP层级图；房号、职责与Boss／休息／收集标记可切换，点击房间可进入无敌试玩。43房覆盖、100个连续方向门缝同像素、独立室内层和本地／线上模拟手机双指缩放、拖动、定位及标记开关已验证，线上无脚本或HTTP错误、完整JPEG的SHA256与本地一致；静态整房检查视口不冒充正式镜头或连续玩法。复现时先运行`python3 tools/world/build.py`；由`tools/world/capture_panorama.gd`采集，`tools/world/panorama.py --captures build/plains-panorama/rooms --output build/plains-panorama/media`拼接；`--metadata-only`可单独更新查看页与标注。[手机缩放审核页](https://zhipijun1996.github.io/gunman-rush/review/plains-panorama/)与[完整JPEG](https://zhipijun1996.github.io/gunman-rush/review/plains-panorama/panorama-full.jpg)已发布；本轮43房重新采集与生成绑定源码3bc4b4c5，媒体随下述最终运行包发布；C03／C04及全图连接已同步，图像为当前原生场景整房检查视口，非正式游玩镜头。提供[约4秒原速H登高片段](https://zhipijun1996.github.io/gunman-rush/review/plains-panorama/hook-route.mp4)，不足1MB；使用声明的H回访／无敌夹具和真实Router／Motor，不代表新档获得能力或人工游玩。
 
@@ -117,9 +117,15 @@ P05保留已认可传动厅构图，仅裁除埋入边界的静态体积并同�
 - 6份源图机械制作清单、7个输出校验通过；最终整图与正常镜头抽帧逐房审看，旧门脸、漂浮背景、无用途支柱与埋墙体积已按本房空间修正。来源／文件哈希和检查原始记录在媒体manifest与evidence内。
 - `python3 tools/check_docs.py`：现行正文、导航与依赖检查通过。
 
-逐房试玩保留“无敌（不扣血）”，地形危险仍遮挡后安全返回，不播放受伤音、不写正式存档。主游戏已发布[试玩版0efafbf784e0](https://zhipijun1996.github.io/gunman-rush/?v=0efafbf784e0)，运行源码`aa0d14d954e8fcc7935b53eb607498f500806d4d`，prepared提交`b27cba9d9b264c39e7c5df4c2672ea8dc2ae883a`，[发布运行43175846515](https://github.com/zhipijun1996/gunman-rush/actions/runs/43175846515)。43正式房／44隔离预览／16物种，1647资源与137原始文件闭包、164038696字节PCK及Native PCK探针通过；关卡平台未更新。本轮CI四项、254项输入等合同、26项正式受伤演出、317项伤害回归、29项真实回血、10项动作镜头、LT／南键实际跳跃与下穿、122项Boss边界／持续追压／恢复、1198项Boss组件时钟及阶段荆棘真实触刺返回通过。配置权威见DamageFeedbackDefinition与InputProfile；伤害量、人物尺度和关卡布局保持。线上P03／P14／P22／M02／P20加载无脚本错误；build-info、入口、缓存脚本及完整PCK的SHA256与本地一致，手机尺寸短片页实际播放与全部媒体下载校验通过。
+逐房试玩保留“无敌（不扣血）”，地形危险仍遮挡后安全返回，不播放受伤音、不写正式存档。主游戏已发布[试玩版3e9c502c6079](https://zhipijun1996.github.io/gunman-rush/?v=3e9c502c6079)，运行源码`26d49243a26d1a84646270e0a5988f3df5e6a8a6`，prepared提交`49367e51d1d6e6a97c2390a3fef98ae25757b8aa`，[发布运行43188325121](https://github.com/zhipijun1996/gunman-rush/actions/runs/43188325121)。43正式房／44隔离预览／16物种，1650资源与137原始文件闭包，164061116字节PCK；线上入口、缓存脚本、build-info及完整PCK的SHA256与本地一致。关卡平台未部署，PR150尚未合入main。
 
-[正常速度短片审核](https://zhipijun1996.github.io/gunman-rush/review/player-feedback/)含约6秒的同场景前后对比（约0.4MB）、修改后原片（约1MB）与约15秒的二阶段贴墙示例（约2.3MB），均可直接下载。受伤前片来自隔离基线93165603，后片匹配本轮运行源码，使用相同正式P22、明确的起始位置与接受伤害夹具；不是自然完整通关。Boss视频用显式无敌角色保留真实弹体命中，三个阶段×双侧与重置／恢复由专项覆盖。原始检查与日志在build/player-damage，媒体manifest绑定源码和文件校验；旧基线工作树及重复导出包已清理。此前C03／C04实际钩索、返回及102方向门对仍为对应基线证据，不冒充本轮重跑。新档全收集、自然完整Boss平衡、实体手柄／手机性能和用户视觉终审未验。
+P03沿原苏醒／拾枪剧情提供移动、拾枪、射铃、首阶跳跃的单条非模态提示；射铃以实际机关提交完成，跳跃须真正落上首阶，原地跳或失败落回不消除提示。提示避让玩家、目标及触屏操作区；按钮取实际输入映射，触屏强调对应现有操作。正式暂停→操作指引默认显示暂停前设备，可浏览键鼠／手柄／触屏三页；实际已获得能力、装备与改键参与显示，浏览不切换游戏输入；返回保持暂停，继续时清除旧持有。说明文字与触控目标按实际屏幕像素校准。共用代码归PlayerControlGuide、ControlGuideDiagram及OnboardingHint；P03仅增onboarding元数据，角色物理、地形、怪物与镜头均未修改。文本由编译后的WorldText／runtime目录消费，Web不依赖未导出的原始UI资料。
+
+本轮`tests/world/control_guide.gd`27项通过：实际移动／拾枪／射铃／上台落地、失败重试、重置、改键、PS／Switch标签、触屏与手柄共存、已获能力过滤、真实标签点击、暂停返回及无缓冲动作、编译文本目录回退；`tests/world/plains_intro.gd`首段教程回归0失败；CI四项通过（合同254断言、保存39断言）。线上P21桌面1280×720与P03模拟手机844×390加载无脚本错误，实际点击进入指引、滚动与返回暂停菜单通过。手机390×844审核页无横向溢出，视频实际播放，七个媒体文件下载校验一致。原始日志与截图归build/onboarding，不入运行包。
+
+[三端教学审核页](https://zhipijun1996.github.io/gunman-rush/review/onboarding/)提供[约8秒开场提示](https://zhipijun1996.github.io/gunman-rush/review/onboarding/opening.mp4)（约1.2MB）、[约4秒操作页](https://zhipijun1996.github.io/gunman-rush/review/onboarding/pause-guide.mp4)（约0.2MB）及三端截图，正常速度，可下载。媒体使用正式P03／UI及显式教学测试夹具，不代表完整自然通关或实体设备验收；manifest绑定上述运行源码。后续先审核P03与暂停页，再沿P21—P24按实际挑战扩展提示，不能把现有通行回归当作新增提示已完成。实体手柄、实体手机性能与用户体验终审未验。
+
+[正常速度短片审核](https://zhipijun1996.github.io/gunman-rush/review/player-feedback/)含约6秒的同场景前后对比（约0.4MB）、修改后原片（约1MB）与约15秒的二阶段贴墙示例（约2.3MB），均可直接下载。受伤前片来自隔离基线93165603，后片绑定受伤演出基线aa0d14d9，使用相同正式P22、明确的起始位置与接受伤害夹具；不是自然完整通关。Boss视频用显式无敌角色保留真实弹体命中，三个阶段×双侧与重置／恢复由专项覆盖。原始检查与日志在build/player-damage，媒体manifest绑定源码和文件校验；旧基线工作树及重复导出包已清理。受伤／死亡、牧风者边界及C03／C04实际钩索、返回与102方向门对保留对应基线结果，不冒充本轮重跑。新档全收集、自然完整Boss平衡、实体手柄／手机性能和用户视觉终审未验。
 
 [门对审核页](https://zhipijun1996.github.io/gunman-rush/review/plains-doors/#C03)保留51对：C03／C04按最新接口更新真实轮廓双房拼接、整房检查图与本轮四方向实测；其余49对沿用门对基线的正常镜头、整图和局部通过证据。总览改用本轮实景全区图，试玩链接指向当前运行包；C03短片为实际H登高，C04返回由专项验证，不混用旧P03下口图作当前正常镜头。[门对基线媒体](https://github.com/zhipijun1996/gunman-rush/tree/f8f1d985c18e0748833b035189c65c30083daf0c/review/plains-doors)绑定接口改版基线，本轮只更新试玩链接。此前背景与接缝比较仅代表其原范围，不作为当前全部图片。
 
