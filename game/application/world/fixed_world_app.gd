@@ -296,7 +296,7 @@ func load_room(id: String, entry: String) -> void:
 	add_child(policy)
 	policy.register_target(&"player",controller.actor_resources.health,true)
 	policy.register_player_controller(controller)
-	policy.transient_protection = q_guard.protects
+	policy.transient_protection = func(request: DamageRequest) -> bool: return q_guard.protects(request) or review.protects(request)
 	policy.player_fatal.connect(func() -> void: _fatal = true)
 	policy.environment_return_requested.connect(func() -> void: _return = true)
 	room.install(controller,policy,lifetime,state.value.enemies,state.has(room.defeat_flag),entry_anchor)
