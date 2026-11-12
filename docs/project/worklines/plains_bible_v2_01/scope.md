@@ -2,9 +2,9 @@
 
 ## 范围与输入
 
-当前分支为[PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)、`feat/approved-platform-rooms`，尚未合入main。正式内容为35个平原房、用户授权的Z01钟心门厅与七间外区入口示例；35房／43内部连接身份保持；C02按用户要求由P05迁至P27。平台初审导入源截至r80，平台基线`8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`；随后只落实用户明确指定的正式游戏修改。平台保持只读，不部署、不迁移、不代签审批。草稿初审不等于正式体验终审。
+正式源码通过[PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)统一归入main，后续从main接续。正式内容为35个平原房、用户授权的Z01钟心门厅与七间外区入口示例；35房／43内部连接身份保持；C02按用户要求由P05迁至P27。平台初审导入源截至r80，平台基线`8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`；随后只落实用户明确指定的正式游戏修改。平台保持只读，不部署、不迁移、不代签审批。草稿初审不等于正式体验终审。
 
-当前交付：P03＋暂停操作页样板已获用户认可；从c7869070扩展P21空中反冲单条提示，P22—P24不加提示。牧风者前两阶段按用户指定关系完成换边调整：地面逼近鼓励越顶，前扑鼓励地面穿身；后撤一次解围后恢复实际逼近，在墙前安全停步，本组保持已预告朝向，收势后再转身。角色物理、房间布局及第三阶段原规则保持；关卡平台未部署。运行源、媒体来源及实际检查见下方交付。
+当前任务：用户授权将PR150最终内容清理合入main，并发布Android及Windows的GitHub Release。沿c721b20a核对706个差异文件及现行素材引用；保留当前制作源与许可，清除退休实现和临时产物，原生安装包复用受控正式资源清单。用户确认创建独立Android发布签名，密钥保存在仓库外私有位置，不上传GitHub。合并和发行结果由[主线整合](../main_integration/scope.md)持有；关卡平台不部署。
 
 实景全区审核：35平原房、七间外区入口示例及Z01的真实Godot整房渲染已拼成28,608×12,224实景全图。连续42房按同一世界坐标和真实轮廓裁切，Z01用明确的独立室内层框；隐藏HUD与重复主角，提供约29MB完整JPEG下载和914块按需加载的无损WebP层级图；房号、职责与Boss／休息／收集标记可切换，点击房间可进入无敌试玩。43房覆盖、100个连续方向门缝同像素、独立室内层和本地／线上模拟手机双指缩放、拖动、定位及标记开关已验证，线上无脚本或HTTP错误、完整JPEG的SHA256与本地一致；静态整房检查视口不冒充正式镜头或连续玩法。复现时先运行`python3 tools/world/build.py`；由`tools/world/capture_panorama.gd`采集，`tools/world/panorama.py --captures build/plains-panorama/rooms --output build/plains-panorama/media`拼接；`--metadata-only`可单独更新查看页与标注。[手机缩放审核页](https://zhipijun1996.github.io/gunman-rush/review/plains-panorama/)与[完整JPEG](https://zhipijun1996.github.io/gunman-rush/review/plains-panorama/panorama-full.jpg)已发布；本轮43房重新采集与生成绑定源码3bc4b4c5，媒体随下述最终运行包发布；C03／C04及全图连接已同步，图像为当前原生场景整房检查视口，非正式游玩镜头。提供[约4秒原速H登高片段](https://zhipijun1996.github.io/gunman-rush/review/plains-panorama/hook-route.mp4)，不足1MB；使用声明的H回访／无敌夹具和真实Router／Motor，不代表新档获得能力或人工游玩。
 
@@ -117,7 +117,7 @@ P05保留已认可传动厅构图，仅裁除埋入边界的静态体积并同�
 - 6份源图机械制作清单、7个输出校验通过；最终整图与正常镜头抽帧逐房审看，旧门脸、漂浮背景、无用途支柱与埋墙体积已按本房空间修正。来源／文件哈希和检查原始记录在媒体manifest与evidence内。
 - `python3 tools/check_docs.py`：现行正文、导航与依赖检查通过。
 
-逐房试玩保留“无敌（不扣血）”，地形危险仍遮挡后安全返回，不写正式存档。主游戏已发布[试玩版9800cdf6933b](https://zhipijun1996.github.io/gunman-rush/?v=9800cdf6933b)，运行源码`aea55ffe6d543ae4c06a67d9249d195408e40585`，prepared提交`8b355a4ef1a71133e3b9cabf4fe07e3b8cc1e759`，[发布运行43199435507](https://github.com/zhipijun1996/gunman-rush/actions/runs/43199435507)。43正式房／44隔离预览／16物种，1650资源与137原始文件闭包，164063340字节PCK，Native PCK逐房探针通过；线上入口、缓存脚本、build-info与完整PCK的SHA256匹配本地。关卡平台未部署，PR150尚未合入main。
+逐房试玩保留“无敌（不扣血）”，地形危险仍遮挡后安全返回，不写正式存档。主游戏已发布[试玩版9800cdf6933b](https://zhipijun1996.github.io/gunman-rush/?v=9800cdf6933b)，运行源码`aea55ffe6d543ae4c06a67d9249d195408e40585`，prepared提交`8b355a4ef1a71133e3b9cabf4fe07e3b8cc1e759`，[发布运行43199435507](https://github.com/zhipijun1996/gunman-rush/actions/runs/43199435507)。43正式房／44隔离预览／16物种，1650资源与137原始文件闭包，164063340字节PCK，Native PCK逐房探针通过；线上入口、缓存脚本、build-info与完整PCK的SHA256匹配本地。关卡平台未部署；该Web包保留自身发行来源，原生版与main整合身份见[主线整合](../main_integration/scope.md)。
 
 P03保留苏醒、拾枪、射铃与首阶跳跃样板。P21仅在车厢安全平台说明“空中开枪会向反方向移动”，按实际设备展示跳跃与射击组合；真实空中反向位移并落地后结束，普通跳、地面射击或地形失败返回不算完成，连续动作中不覆盖提示。P22—P24不追加按键教学。暂停操作页仍可浏览三端实际绑定和已获得能力，浏览不切换游戏输入，返回保持暂停，继续不补交旧动作。文本统一由编译目录消费；P03／P21只增加onboarding元数据，角色物理、地形、普通怪与镜头均未改。
 

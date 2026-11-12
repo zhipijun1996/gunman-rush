@@ -43,6 +43,7 @@ DYNAMIC_FAMILIES = ["assets/region_thresholds/native", "assets/underworld_plains
                     "resources/player",
                     "resources/actors", "resources/weapons", "resources/items"]
 MANIFESTS = ["assets/region_thresholds/manifest.json", "assets/plains_v07/manifest.json", "assets/actor_actions/weapon_catalog.json",
+             "assets/plains_v3/hero/manifest.json", "assets/plains_v3/effects/manifest.json", "assets/plains_v3/effects/combat_atlas.png",
              "game/presentation/actors/resources/art/avatars.json",
              "config/player_tuning.json", "config/input_profile.json"]
 RES_PATH = re.compile(r"[\"'](res://[^\"'\r\n]+)[\"']")
@@ -59,16 +60,19 @@ def ignored(path: Path) -> bool:
                if parent != ROOT and parent.is_relative_to(ROOT))
 
 
-def manifest() -> dict:
+def manifest(formal_only: bool = False) -> dict:
     world = json.loads((ROOT / "build/world/runtime.json").read_text())
     construction = json.loads((ROOT / "config/world/construction.json").read_text())
-    scope = editable_room_ids(ROOT, construction)
+    scope = set(world["rooms"]) if formal_only else editable_room_ids(ROOT, construction)
     editable = {row["room_id"]: row for row in construction["rooms"] if row["room_id"] in scope}
     presets = (ROOT / "export_presets.cfg").read_text()
     base = re.search(r'\[preset\.2\]\n(.*?)\[preset\.2.options\]', presets, re.S)[1]
     exclusions = json.loads(re.search(r'^exclude_filter=(.*)$', base, re.M)[1]).split(",")
     exclusions += ["resources/mapgen/*", "resources/levels/mapgen*", "config/mapgen*",
                    "assets/audio/bgm/vines_beneath_the_canopy.mp3", "assets/audio/bgm/beyond_the_knotted_vines.mp3"]
+    if formal_only:
+        exclusions += ["build/workbench/*", "config/workbench/*", "game/world/regions/V/*",
+                       "resources/visual_development/*", "assets/underworld_plains/*/sources/*", "experiments/*"]
     # The real FixedWorldApp owns GameMusic and PlayerWeaponFeelAudioV2, not the
     # legacy DemoApp's optional ambience director. Its mechanism bell is the one
     # current consumer from this family; preserve that exact original sample.
@@ -85,7 +89,7 @@ def manifest() -> dict:
             if found:
                 classes[found[1]] = path.relative_to(ROOT).as_posix()
     pending = [ENTRY, "game/presentation/ui/demo_ui_01/game_typography.gd", *COMPONENTS, *MANIFESTS]
-    if (ROOT / SCOPE_PATH).exists(): pending.append(SCOPE_PATH)
+    if not formal_only and (ROOT / SCOPE_PATH).exists(): pending.append(SCOPE_PATH)
     pending += [row["scene_ref"].removeprefix("res://") for row in editable.values()]
     art = json.loads((ROOT / "art/world-art-v2/assets/pixel/manifest.json").read_text())
     props = json.loads((ROOT / "assets/plains_v07/manifest.json").read_text())["props"]
@@ -173,7 +177,7 @@ def manifest() -> dict:
                 unresolved.add(resource)
     # This derived catalog admits preview-only rooms without changing the formal
     # formal runtime bundle. Its sources are checked by preview_catalog().
-    seen.add("build/workbench/preview-world.json")
+    if not formal_only: seen.add("build/workbench/preview-world.json")
     # FileAccess byte contracts: retain source bytes beside normal Godot imports.
     exporter = (ROOT / "addons/runtime_raw_export/raw_exporter.gd").read_text()
     underworld = re.search(r"const UNDERWORLD_SOURCES:.*?=\s*\[(.*?)\]", exporter, re.S)
@@ -186,7 +190,7 @@ def manifest() -> dict:
     rows = [{"path": name, "sha256": sha(ROOT / name), "bytes": (ROOT / name).stat().st_size}
             for name in sorted(seen)]
     identity = hashlib.sha256(json.dumps(rows, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
-    return {"schema": 1, "entry": "res://" + ENTRY, "content_version": world["content_version"],
+    return {"schema": 1, "formal_only": formal_only, "entry": "res://" + ENTRY, "content_version": world["content_version"],
             "source_tree_sha256": identity, "rooms": sorted(editable), "formal_rooms": sorted(world["rooms"]), "enemy_ids": sorted(enemies),
             "files": rows, "raw_files": sorted(raw), "dynamic_prefixes": sorted(unresolved), "exclusions": exclusions}
 

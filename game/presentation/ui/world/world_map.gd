@@ -1,5 +1,5 @@
 class_name FixedWorldMap
-extends PlainsRegionMap
+extends MapViewport
 ## Same map gestures/theme as the existing UI; fixed room knowledge replaces Stage.
 var world: FixedWorldState
 var content: FixedWorldProvider

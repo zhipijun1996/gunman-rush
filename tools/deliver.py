@@ -1,4 +1,4 @@
-"""Explicit release build: daily checks, current Foundry preparation and selected exports."""
+"""Explicit fixed-world delivery: daily checks and controlled platform exports."""
 import argparse
 import subprocess
 import sys
@@ -14,13 +14,8 @@ def main():
     platforms = ("windows", "web") if args.platform == "all" else (args.platform,)
     commands = [
         ([sys.executable, "tools/ci.py"], 240),
-        ([sys.executable, "tools/foundry.py", "build", "--count", "24", "--promote"], 900),
-        (["bash", "tools/godot.sh", "--headless", "--path", ".", "--script", "tools/foundry_export_stamp.gd"], 30),
-        *[([sys.executable, "tools/build.py", platform], 600) for platform in platforms],
+        *[([sys.executable, "tools/export_workbench.py", "--output", "build/web", "--max-pack-mib", "180"] if platform=="web" else [sys.executable, "tools/export_native.py", platform], 600) for platform in platforms],
     ]
-    if "web" in platforms:
-        commands.append(([sys.executable, "tools/check_web_bundle.py"], 120))
-        commands.append(([sys.executable, "tools/check_world_pack.py"], 90))
     for command, timeout in commands:
         print(" ".join(command), flush=True)
         if not args.plan:

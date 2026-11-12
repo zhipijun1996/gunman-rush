@@ -136,6 +136,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("platform", choices=["android", "windows", "web"])
     args = parser.parse_args()
+    if args.platform in ("windows", "android"):
+        subprocess.run([sys.executable, str(REPO / "tools/export_native.py"), args.platform], check=True)
+        return
     subprocess.run([sys.executable, str(REPO / "tools/world/build.py")], check=True)
     check = [sys.executable, str(REPO / "tools/check_environment.py")]
     if args.platform in ("windows", "web"):

@@ -25,18 +25,20 @@ func _inventory(node: Node) -> void:
 	for child: Node in node.get_children(): _inventory(child)
 
 func _observe(node: Node) -> void:
-	if node is Sprite2D and node.get_parent() is UnderworldScenery:
+	# Renderer-owned name/root metadata identifies planted grass without
+	# importing the legacy generated-stage coordinator into the formal game.
+	if node is Sprite2D and node.get_parent() is Node2D:
 		if _grass.size() >= MAX_SCENERY or not is_instance_valid(_stage): return
 		if not _stage.is_ancestor_of(node): return
 		if not str(node.name).begins_with("Underworld_grass"): return
 		if not node.has_meta("grounded_render_root"): return
 		# Spend the bounded cache on this encounter's surroundings, rather than
 		# the first thirty-two grass clumps near the map entrance.
-		if _stage is GeneratedDemoStage:
-			var stage := _stage as GeneratedDemoStage
+		var legacy_arena: Variant = _stage.get("boss_arena")
+		if legacy_arena is Rect2:
 			var root_world := (node.get_parent() as Node2D).to_global(node.get_meta("grounded_render_root"))
 			var reach := (encounter.definition as WindkeeperPressureDefinition).wind_pressure_range
-			var bounds := stage.global_transform * stage.boss_arena.grow(reach)
+			var bounds: Rect2 = (_stage as Node2D).global_transform * (legacy_arena as Rect2).grow(reach)
 			if not bounds.has_point(root_world): return
 		_grass[node.get_instance_id()] = weakref(node)
 

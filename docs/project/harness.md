@@ -42,6 +42,10 @@ python3 tests/test_harness.py
 
 ## 发布与试玩
 
-[environment.yml](../../.github/workflows/environment.yml) 仅手动触发，支持Web、Windows、Android或Windows+Web。`tools/deliver.py`先运行四项CI，再准备当前Foundry和导出所选平台；显式勾选才部署Pages。
+`tools/deliver.py`先运行四项CI，再按正式世界的受控资源清单导出；发行不生成旧Foundry实验批次。Windows／Android由`tools/export_native.py`执行`--export-release`，共用现有世界闭包，只包含正式43房及实际运行依赖，不包含工作台试验房、制作参考图、报告或生成器。版本唯一来源为project.godot的config/version。
+
+[原生发行构建](../../.github/workflows/native-release.yml)手动固定提交构建Windows x86_64 ZIP及明确未签名的ARM64 APK，核43房真实装载、资源清单和Android非debuggable属性，并在Windows runner启动实际EXE。公开APK必须经`tools/sign_android_release.py`签名与apksigner验证；新建密钥须显式指定`--create-key`，私钥与密码只保存在仓库外私有目录，不进入Git、工作流输入或Release。Windows ZIP保留EXE、PCK及许可，不能只分发EXE。构建报告绑定同一main源码、工具链与SHA256；发布后下载核对附件。
+
+[environment.yml](../../.github/workflows/environment.yml)保留手动单平台交付与Web部署；只有显式勾选才部署Pages。
 
 已有同源Web包使用 [prepared工作流](../../.github/workflows/deploy-prepared-playtest.yml) 发布，核公开build-info、完整PCK身份和真实入口。需要独立Preview时选独立托管目标。具体交付与跨会话恢复见 [协作规则](cloud_production.md)，测试取舍见 [CI说明](ci-test-inventory.md)。

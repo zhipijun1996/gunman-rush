@@ -1,0 +1,90 @@
+name: Native release builds
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GUNMAN_TOOLCHAIN_ROOT: /tmp/gunman-toolchains
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: config/ci_python_version.txt
+      - name: Install locked engine and templates
+        run: bash tools/cloud_setup.sh --godot-only
+      - name: Check current source
+        run: python3 tools/ci.py
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install only the native APK export tools
+        run: |
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "build-tools;35.0.1" "platform-tools" "platforms;android-35"
+          python3 - <<'PY'
+          import sys
+          sys.path.insert(0, "tools")
+          from setup_environment import configure_editor
+          configure_editor()
+          PY
+      - name: Export release Windows and unsigned release Android
+        run: |
+          python3 tools/export_native.py windows --skip-import
+          python3 tools/export_native.py android --skip-import --unsigned
+          "$ANDROID_HOME/build-tools/35.0.1/zipalign" -c -P 16 -v 4 build/android/GunmanRush-unsigned.apk
+          "$ANDROID_HOME/build-tools/35.0.1/aapt" dump badging build/android/GunmanRush-unsigned.apk > build/android/package-info.txt
+          if "$ANDROID_HOME/build-tools/35.0.1/aapt" dump xmltree build/android/GunmanRush-unsigned.apk AndroidManifest.xml | grep -E 'android:debuggable.*0xffffffff'; then
+            exit 1
+          fi
+      - name: Stage public signing tool without any private credentials
+        run: |
+          mkdir -p build/android-signing-tool
+          cp "$ANDROID_HOME/build-tools/35.0.1/lib/apksigner.jar" build/android-signing-tool/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-release-builds
+          path: |
+            build/windows/*windows-x86_64.zip
+            build/windows/build-report.json
+            build/android/GunmanRush-unsigned.apk
+            build/android/build-report.json
+            build/android/package-info.txt
+            build/android-signing-tool/apksigner.jar
+          retention-days: 14
+          if-no-files-found: error
+  windows-startup:
+    needs: build
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: native-release-builds
+          path: native
+      - name: Verify actual Windows release startup
+        shell: pwsh
+        run: |
+          $package = Get-ChildItem native/windows/*windows-x86_64.zip | Select-Object -First 1
+          Expand-Archive $package.FullName -DestinationPath unpacked
+          $game = Join-Path (Get-Location) 'unpacked/GunmanRush/GunmanRush.exe'
+          $process = Start-Process -FilePath $game -ArgumentList '--headless','--quit-after','120' -RedirectStandardOutput 'startup.log' -RedirectStandardError 'startup-error.log' -PassThru
+          if (-not $process.WaitForExit(90000)) { $process.Kill(); throw 'Windows startup timed out' }
+          Get-Content startup.log
+          Get-Content startup-error.log
+          if ($process.ExitCode -ne 0) { throw "Windows exit code $($process.ExitCode)" }
+          if (Select-String -Path startup.log,startup-error.log -Pattern 'SCRIPT ERROR:|^ERROR:|Parse Error:' -Quiet) { throw 'Windows startup reported an engine error' }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-release-startup
+          path: startup*.log
+          retention-days: 14
