@@ -47,7 +47,7 @@ func sprite(id: String,at: Vector2,layer: int=-2) -> Sprite2D:
 	return node
 func _ready() -> void:
 	if assets.is_empty():assets=JSON.parse_string(FileAccess.get_file_as_string("res://art/world-art-v2/assets/pixel/manifest.json"))
-	if props.is_empty():
+	if props.is_empty() or backgrounds.is_empty():
 		var manifest:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/plains_v07/manifest.json"))
 		props=manifest.props
 		backgrounds=manifest.get("backgrounds",{})
