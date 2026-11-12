@@ -21,7 +21,8 @@ $stdout = Join-Path $EvidencePath 'startup.log'
 $stderr = Join-Path $EvidencePath 'startup-error.log'
 # Shipping production templates intentionally reject --path/--script/--main-pack.
 # Exercise the exact EXE/PCK via its existing isolated room-review entry instead.
-$process = Start-Process -FilePath $Game -WorkingDirectory (Split-Path $Game) -ArgumentList '--max-fps','60','--','--review=P-R22','--invincible=1' -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru
+# The hosted runner has no audio endpoint; this check covers graphics, not sound hardware.
+$process = Start-Process -FilePath $Game -WorkingDirectory (Split-Path $Game) -ArgumentList '--audio-driver','Dummy','--max-fps','60','--','--review=P-R22','--invincible=1' -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru
 $handle = [IntPtr]::Zero
 $deadline = (Get-Date).AddSeconds(40)
 while ($handle -eq [IntPtr]::Zero) {
