@@ -44,10 +44,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton:
 		var jump:=router.profile.gamepad_binding(event.device,"jump")
 		var trigger:=router.profile.gamepad_binding(event.device,"jump_trigger")
-		if event.button_index not in [int(jump.index), JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_RIGHT_SHOULDER, JOY_BUTTON_X, JOY_BUTTON_Y] and not (trigger.kind=="button" and event.button_index==int(trigger.index)): return
+		var item:=router.profile.gamepad_binding(event.device,"item_trigger")
+		if event.button_index not in [int(jump.index), JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_RIGHT_SHOULDER, JOY_BUTTON_X, JOY_BUTTON_Y] and not (trigger.kind=="button" and event.button_index==int(trigger.index)) and not (item.kind=="button" and event.button_index==int(item.index)): return
 	elif event is InputEventJoypadMotion:
 		var trigger:=router.profile.gamepad_binding(event.device,"jump_trigger")
-		if trigger.kind!="axis" or event.axis != int(trigger.index): return
+		var item:=router.profile.gamepad_binding(event.device,"item_trigger")
+		if not (trigger.kind=="axis" and event.axis==int(trigger.index)) and not (item.kind=="axis" and event.axis==int(item.index)): return
 	else: return
 	if connected_device < 0: connected_device = event.device
 	if event.device == connected_device: _sample_physical(event)
@@ -59,7 +61,7 @@ func _sample_physical(edge: InputEvent = null) -> void:
 	var left := Vector2(Input.get_joy_axis(connected_device, JOY_AXIS_LEFT_X), Input.get_joy_axis(connected_device, JOY_AXIS_LEFT_Y))
 	var right := Vector2(Input.get_joy_axis(connected_device, JOY_AXIS_RIGHT_X), Input.get_joy_axis(connected_device, JOY_AXIS_RIGHT_Y))
 	var jump_trigger := InputProfile.binding_down(router.profile.gamepad_binding(connected_device,"jump_trigger"),connected_device,edge)
-	var item := Input.get_joy_axis(connected_device, JOY_AXIS_TRIGGER_RIGHT) >= float(router.profile.values.gamepad_trigger_threshold)
+	var item := InputProfile.binding_down(router.profile.gamepad_binding(connected_device,"item_trigger"),connected_device,edge) >= float(router.profile.values.gamepad_trigger_threshold)
 	sample_tick(left, right, bool(InputProfile.binding_down(router.profile.gamepad_binding(connected_device,"jump"),connected_device,edge)), _button(JOY_BUTTON_LEFT_SHOULDER, edge), _button(JOY_BUTTON_X, edge), _button(JOY_BUTTON_Y, edge), item, _button(JOY_BUTTON_RIGHT_SHOULDER, edge), jump_trigger)
 
 func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = false, hook_pressed: bool = false, context_pressed: bool = false, skill_pressed: bool = false, item_skill_pressed: bool = false, shoot_pressed: bool = false, jump_trigger: float = 0.0) -> void:
@@ -152,7 +154,7 @@ func _cancel(reason: String) -> void:
 	_camera_held = false
 	_context_blocked = _context_blocked or _context_held
 	_skill_blocked = _skill_blocked or _skill_held
-	_item_skill_blocked = _item_skill_blocked or _item_skill_held or (connected_device >= 0 and Input.get_joy_axis(connected_device, JOY_AXIS_TRIGGER_RIGHT) >= float(router.profile.values.gamepad_trigger_threshold))
+	_item_skill_blocked = _item_skill_blocked or _item_skill_held or (connected_device >= 0 and InputProfile.binding_down(router.profile.gamepad_binding(connected_device,"item_trigger"),connected_device) >= float(router.profile.values.gamepad_trigger_threshold))
 	_shoot_blocked = _shoot_blocked or _shoot_held or (connected_device >= 0 and Input.is_joy_button_pressed(connected_device, JOY_BUTTON_RIGHT_SHOULDER))
 	_hook_blocked = _hook_blocked or _hook_held or (connected_device >= 0 and Input.is_joy_button_pressed(connected_device, JOY_BUTTON_LEFT_SHOULDER))
 	_shoot_held = false

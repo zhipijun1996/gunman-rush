@@ -2,7 +2,7 @@ class_name WorldGamepadCalibration
 extends Node
 ## Explicit physical-position capture; no guessed brand remapping or global SDL edits.
 signal progressed
-var roles: Array[String]=["jump","heal","jump_trigger","map"]
+var roles: Array[String]=["jump","heal","jump_trigger","item_trigger","map"]
 var step:=0
 var device: int=-1
 var bindings: Dictionary={}
@@ -34,7 +34,7 @@ func capture(event:InputEvent) -> void:
 		if event is InputEventJoypadButton and event.pressed:
 			if event.button_index in [JOY_BUTTON_X,JOY_BUTTON_Y,JOY_BUTTON_LEFT_SHOULDER,JOY_BUTTON_RIGHT_SHOULDER,JOY_BUTTON_START]:return
 			candidate={"kind":"button","index":event.button_index}
-		elif roles[step]=="jump_trigger" and event is InputEventJoypadMotion and event.axis>=4 and event.axis<JOY_AXIS_MAX and event.axis_value>=float(capture_profile.values.gamepad_trigger_threshold):
+		elif roles[step] in ["jump_trigger","item_trigger"] and event is InputEventJoypadMotion and event.axis>=4 and event.axis<JOY_AXIS_MAX and event.axis_value>=float(capture_profile.values.gamepad_trigger_threshold):
 			candidate={"kind":"axis","index":event.axis}
 		if candidate.is_empty():return
 		for prior:Dictionary in bindings.values():
@@ -44,9 +44,9 @@ func capture(event:InputEvent) -> void:
 	if released:
 		bindings[roles[step]]=pending.duplicate();pending.clear();step+=1;_refresh()
 
-func skip_map() -> void:
-	if step!=3 or not pending.is_empty():return
-	bindings.map={"kind":"none","index":-1};step+=1;_refresh()
+func skip_optional() -> void:
+	if step<3 or step>=roles.size() or not pending.is_empty():return
+	bindings[roles[step]]={"kind":"none","index":-1};step+=1;_refresh()
 
 func _connection_changed(id:int,connected:bool) -> void:
 	if not connected and id==device:
@@ -62,7 +62,8 @@ func _refresh() -> void:
 		if not pending.is_empty():instruction+="\n"+WorldText.text("gamepad_calibration.release")
 	status.text=name+"\n\n"+instruction
 	if not error.is_empty():status.text+="\n\n"+error
-	save_button.disabled=step<roles.size();skip_button.visible=step==3
+	save_button.disabled=step<roles.size();skip_button.visible=step in [3,4]
+	if step in [3,4]:skip_button.text=WorldText.text("gamepad_calibration.skip_item" if step==3 else "gamepad_calibration.skip")
 
 static func show(ui_value:FixedWorldUI,settings_value:WorldSettings,apply:Callable) -> WorldGamepadCalibration:
 	var modal:=ui_value.panel("gamepad_calibration",WorldText.text("gamepad_calibration.title"),WorldText.text("gamepad_calibration.detail"))
@@ -70,7 +71,7 @@ static func show(ui_value:FixedWorldUI,settings_value:WorldSettings,apply:Callab
 	wizard.capture_profile.configure(settings_value.value.input)
 	modal.add_child(wizard)
 	wizard.status=modal.text("",20,UnderworldUI.BRASS)
-	wizard.skip_button=modal.button(WorldText.text("gamepad_calibration.skip"),wizard.skip_map)
+	wizard.skip_button=modal.button(WorldText.text("gamepad_calibration.skip"),wizard.skip_optional)
 	wizard.save_button=modal.button(WorldText.text("gamepad_calibration.save"),wizard.save_bindings)
 	modal.button(WorldText.text("world_settings_view.09"),func() -> void:ui_value.command.emit("settings",""))
 	wizard._refresh();return wizard

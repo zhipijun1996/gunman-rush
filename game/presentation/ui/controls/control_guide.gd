@@ -55,7 +55,7 @@ static func binding(action: String, device: StringName, profile: Dictionary, hea
 		"map": return "M / Esc" if device==&"keyboard_mouse" else "Start → "+text("map") if device==&"gamepad" and profile.get("gamepad_map_disabled",false) else "View / Start" if device==&"gamepad" else text("touch_menu")
 		"hook": return mouse(MOUSE_BUTTON_RIGHT)+" / E" if device==&"keyboard_mouse" else "L1" if device==&"gamepad" and style=="ps" else "L" if device==&"gamepad" and style=="switch" else "LB" if device==&"gamepad" and style=="xbox" else "L1 / LB" if device==&"gamepad" else text("touch_hook")
 		"skill": return "Q" if device==&"keyboard_mouse" else pad_face(JOY_BUTTON_Y,style) if device==&"gamepad" else text("touch_skill")
-		"item": return "R" if device==&"keyboard_mouse" else "R2" if device==&"gamepad" and style=="ps" else "ZR" if device==&"gamepad" and style=="switch" else "RT" if device==&"gamepad" else text("touch_item")
+		"item": return text("unbound") if device==&"gamepad" and profile.get("gamepad_item_disabled",false) else "R" if device==&"keyboard_mouse" else "R2" if device==&"gamepad" and style=="ps" else "ZR" if device==&"gamepad" and style=="switch" else "RT" if device==&"gamepad" else text("touch_item")
 	return ""
 
 static func rows(device: StringName, profile: Dictionary, features: Dictionary = {}, heal: Dictionary = {}, style: String = "generic") -> Array[Dictionary]:
@@ -84,5 +84,6 @@ static func _calibrated_profile(profile: Dictionary) -> Dictionary:
 		# Calibration labels name physical positions, never normalized raw button IDs.
 		result.gamepad_jump_button=JOY_BUTTON_A;result.gamepad_heal_button=JOY_BUTTON_B
 		result.gamepad_map_disabled=mapped.map.kind=="none"
+		result.gamepad_item_disabled=mapped.item_trigger.kind=="none"
 		return result
 	return profile

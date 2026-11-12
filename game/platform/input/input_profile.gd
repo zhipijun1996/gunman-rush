@@ -86,6 +86,7 @@ func gamepad_binding(device: int, role: String) -> Dictionary:
 		"jump": {"kind":"button","index":int(values.gamepad_jump_button)},
 		"heal": {"kind":"button","index":int(values.gamepad_heal_button)},
 		"jump_trigger": {"kind":"axis","index":JOY_AXIS_TRIGGER_LEFT},
+		"item_trigger": {"kind":"axis","index":JOY_AXIS_TRIGGER_RIGHT},
 		"map": {"kind":"button","index":JOY_BUTTON_BACK}}
 	return values.get("gamepad_device_bindings",{}).get(gamepad_key(device),{}).get(role,defaults[role])
 
@@ -101,15 +102,15 @@ static func _valid_gamepads(profiles: Variant) -> bool:
 	for key: Variant in profiles:
 		if not key is String or key.is_empty() or key.length()>256 or not profiles[key] is Dictionary: return false
 		var seen: Dictionary={}
-		for role: String in ["jump","heal","jump_trigger","map"]:
+		for role: String in ["jump","heal","jump_trigger","item_trigger","map"]:
 			var b: Variant=profiles[key].get(role)
 			if not b is Dictionary or not b.get("kind") is String: return false
 			if not (b.get("index") is int or b.get("index") is float) or not is_finite(float(b.index)) or float(b.index)!=floorf(float(b.index)): return false
 			if b.kind=="none":
-				if role!="map" or int(b.index)!=-1: return false
+				if role not in ["map","item_trigger"] or int(b.index)!=-1: return false
 				continue
 			if b.kind=="axis":
-				if role!="jump_trigger" or int(b.index)<4 or int(b.index)>=JOY_AXIS_MAX: return false
+				if role not in ["jump_trigger","item_trigger"] or int(b.index)<4 or int(b.index)>=JOY_AXIS_MAX: return false
 			elif b.kind=="button":
 				if int(b.index)<0 or int(b.index)>=JOY_BUTTON_MAX: return false
 				if int(b.index) in [JOY_BUTTON_X,JOY_BUTTON_Y,JOY_BUTTON_LEFT_SHOULDER,JOY_BUTTON_RIGHT_SHOULDER,JOY_BUTTON_START]: return false
