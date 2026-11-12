@@ -30,6 +30,7 @@ var q_guard: WorldRecoilGuard
 var focus_heal: WorldFocusHeal
 var story: WorldStorySequence
 var rest_sequence: WorldRestSequence
+var damage_sequence: WorldDamageSequence
 var music: GameMusic
 var ui: FixedWorldUI
 var overlay: TouchOverlay
@@ -184,6 +185,7 @@ func _create_player() -> void:
 	music.request_track(&"plains")
 
 func _acquire() -> int:
+	if is_instance_valid(damage_sequence): damage_sequence.cancel()
 	if is_instance_valid(rest_sequence): rest_sequence.finish()
 	_ticket += 1
 	busy = true
@@ -195,7 +197,7 @@ func _acquire() -> int:
 	q_guard.cancel()
 	return _ticket
 
-func load_room(id: String, entry: String) -> void:
+func load_room(id: String, entry: String, reveal_seconds: float = .08) -> void:
 	var request := LevelRequest.new()
 	request.room_id = id
 	request.entry_door_id = entry
@@ -256,7 +258,7 @@ func load_room(id: String, entry: String) -> void:
 			previous_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 			for node: Node in old_modes: node.process_mode = int(old_modes[node])
 			for body: CollisionObject2D in old_layers: body.collision_layer = int(old_layers[body])
-		await ui.finish_transition()
+		await ui.finish_transition(reveal_seconds)
 		controller.active = true
 		busy = false
 		status = "入口没有完整身体净空或实际支撑：" + id + "/" + entry
@@ -273,7 +275,7 @@ func load_room(id: String, entry: String) -> void:
 			previous_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 			for node: Node in old_modes: node.process_mode = int(old_modes[node])
 			for body: CollisionObject2D in old_layers: body.collision_layer = int(old_layers[body])
-		await ui.finish_transition()
+		await ui.finish_transition(reveal_seconds)
 		controller.active = true
 		busy = false
 		status = state.error if not state.error.is_empty() else "过门进度未保存，请离开门口后重试。"
@@ -299,6 +301,7 @@ func load_room(id: String, entry: String) -> void:
 	policy.transient_protection = func(request: DamageRequest) -> bool: return q_guard.protects(request) or review.protects(request)
 	policy.player_fatal.connect(func() -> void: _fatal = true)
 	policy.environment_return_requested.connect(func() -> void: _return = true)
+	policy.batch_resolved.connect(_damage_presented)
 	room.install(controller,policy,lifetime,state.value.enemies,state.has(room.defeat_flag),entry_anchor)
 	room.bind_services(services,controller,policy,lifetime)
 	room.install_mechanisms(controller,lifetime,state.value.get("mechanisms",{}),func(id: String) -> void:enqueue("mechanism",id))
@@ -307,9 +310,9 @@ func load_room(id: String, entry: String) -> void:
 	_apply_capabilities()
 	var bounds := FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units)
 	(camera as WorldCamera).room=room
-	(camera as WorldCamera).enter_room(bounds)
 	# Land at the authored near-side ledge; no automatic leap across the new room.
 	player.reset_at(anchor-Vector2(0,1))
+	(camera as WorldCamera).enter_room(bounds)
 	var landed := false
 	for i: int in 30:
 		await get_tree().physics_frame
@@ -319,7 +322,7 @@ func load_room(id: String, entry: String) -> void:
 			landed=true
 			break
 	if not landed:
-		await ui.finish_transition()
+		await ui.finish_transition(reveal_seconds)
 		_finish_room_entry("入口落脚中断，已恢复操作；可返回门口重试。")
 		return
 	var motion: Dictionary=content.data.player.entry_motion
@@ -327,7 +330,7 @@ func load_room(id: String, entry: String) -> void:
 	if entry_direction in ["left","right"]:
 		var inward:=1.0 if entry_direction=="left" else -1.0
 		player.reset_at(anchor-Vector2(inward*float(motion.walk_distance),1))
-		await ui.finish_transition()
+		await ui.finish_transition(reveal_seconds)
 		for frame: int in ceili(float(motion.walk_seconds)/get_physics_process_delta_time()):
 			await get_tree().physics_frame
 			if ticket!=_ticket: return
@@ -335,7 +338,7 @@ func load_room(id: String, entry: String) -> void:
 		player.reset_motion()
 	elif entry_direction=="up":
 		player.reset_at(FixedWorldProvider.point(resolved.entry.landing_contract.entry_position_world_units))
-		await ui.finish_transition()
+		await ui.finish_transition(reveal_seconds)
 		for frame: int in ceili(float(motion.timeout_seconds)/get_physics_process_delta_time()):
 			await get_tree().physics_frame
 			if ticket!=_ticket: return
@@ -344,12 +347,12 @@ func load_room(id: String, entry: String) -> void:
 	var upward_entry: bool=not resolved.entry.is_empty() and resolved.entry.direction=="down"
 	if upward_entry:
 		player.reset_at(FixedWorldProvider.point(resolved.entry.landing_contract.entry_position_world_units))
-		await ui.finish_transition()
+		await ui.finish_transition(reveal_seconds)
 		controller.jump_ability.on_landed()
 		controller.jump_ability.advance(get_physics_process_delta_time(),true)
 		controller.jump_ability.request_jump()
 		controller.jump_ability.try_jump(player)
-	if entry_direction.is_empty(): await ui.finish_transition()
+	if entry_direction.is_empty(): await ui.finish_transition(reveal_seconds)
 	if upward_entry:
 		for frame: int in ceili(float(motion.timeout_seconds)/get_physics_process_delta_time()):
 			await get_tree().physics_frame
@@ -473,8 +476,7 @@ func _physics_process(_delta: float) -> void:
 	if _fatal:
 		_fatal = false
 		_queue.clear()
-		_recover_death.call_deferred()
-		busy = true
+		_begin_damage_sequence("death")
 		return
 	if _return:
 		_return = false
@@ -637,23 +639,37 @@ func _commit_rest() -> bool:
 	return true
 
 func _fail_terrain() -> void:
+	_begin_damage_sequence("terrain")
+
+func _damage_presented(results: Array[DamageResult]) -> void:
+	if busy or _fatal or _return: return
+	for result: DamageResult in results:
+		if result.request.target_id == &"player" and result.hp_lost > 0 and not result.lethal and result.request.kind == DamageRequest.Kind.MONSTER:
+			_begin_damage_sequence("hit")
+			return
+
+func _begin_damage_sequence(kind: String) -> void:
+	if is_instance_valid(damage_sequence) and damage_sequence.active: return
+	damage_sequence = WorldDamageSequence.new()
+	add_child(damage_sequence)
+	damage_sequence.begin(self, kind)
+
+func _complete_terrain_return() -> bool:
 	var safety := SegmentRespawn.new()
 	safety.configure(controller,lifetime)
 	if not safety.is_safe(entry_anchor):
 		status = "进入侧锚点不可用，暂停恢复。"
 		controller.active = false
-		return
-	controller.router.clear("terrain_return")
-	controller.shoot_ability.clear_projectiles()
-	ui.begin_transition()
-	player.reset_at(entry_anchor-Vector2(0,1))
+		return false
+	controller.active = true
+	if not controller.return_to_segment(entry_anchor-Vector2(0,1)): return false
+	controller.active = false
 	(camera as WorldCamera).reset_view()
-	ui.finish_transition()
 	lifetime.invalidate_actor()
-	controller.session_id += 1
 	q_guard.cancel()
 	state.commit(_snapshot(),state.revision)
 	status = "返回本次实际进入侧；周期与已提交结果保留。"
+	return true
 
 func _recover_death() -> void:
 	tutorial.reset_proof()
@@ -678,7 +694,7 @@ func _recover_death() -> void:
 	controller.active = true
 	lifetime.active = true
 	lifetime.epoch += 1
-	load_room(str(candidate.room),"")
+	load_room(str(candidate.room),"",WorldDamageSequence.SETTINGS.death_reveal_seconds)
 
 func submit_damage(source: StringName,kind: DamageRequest.Kind,amount: float,event: StringName,category: StringName=&"solid") -> void:
 	if policy == null or not lifetime.active: return
@@ -707,6 +723,7 @@ func toggle_pause() -> void:
 	elif paused: _close_panel()
 	elif _pause_world(): ui.show_pause()
 func _close_panel() -> void:
+	if is_instance_valid(damage_sequence) and damage_sequence.active: return
 	if is_instance_valid(rest_sequence) and rest_sequence.active:
 		ui.close();rest_sequence.suspend(false);return
 	if is_instance_valid(story) and story.active:
@@ -739,6 +756,7 @@ func show_map() -> void:
 	if is_instance_valid(introduction) and introduction.dialogue_active:return
 	if controller!=null and (paused or _pause_world()): ui.show_map()
 func _ui_command(kind: String,_id: String) -> void:
+	if is_instance_valid(damage_sequence) and damage_sequence.active and kind != "title": return
 	if is_instance_valid(rest_sequence) and rest_sequence.active and kind not in ["pause","close","title"]:return
 	if is_instance_valid(story) and story.active and kind not in ["close","title"]:return
 	if is_instance_valid(introduction) and introduction.dialogue_active and kind not in ["close","title"]:return
@@ -837,6 +855,7 @@ func return_title() -> void:
 	if not state.commit(_snapshot(),state.revision):
 		status = state.error
 		return
+	if is_instance_valid(damage_sequence): damage_sequence.cancel(false)
 	if is_instance_valid(rest_sequence):rest_sequence.finish()
 	_ticket += 1
 	get_tree().paused = false

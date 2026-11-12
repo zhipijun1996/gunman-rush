@@ -64,7 +64,7 @@ func run() -> void:
  app.controller.router.clear("fall_check")
  expect(pursuit_ticks>0 and visible,"actual shaft descent enters pursuit without losing the actor")
  app.ui.begin_transition();camera.shake(5,1)
- app._fail_terrain();await ticks(8)
+ app._fail_terrain();await settle();await ticks(8)
  expect(not camera.fall_catchup and not camera.looking and camera._takeover.is_empty(),"terrain return uses occluded lifecycle reset")
  print("CAMERA MOTION: ",camera_checks," checks; ",failures," failures")
  await finish()

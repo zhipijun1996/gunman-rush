@@ -14,6 +14,7 @@ extends WindkeeperDefinition
 @export var wall_clearance := 182.0
 @export var retreat_trigger_range := 105.0
 @export var boundary_retreat_range := 72.0
+@export var boundary_escape_rearm_distance := 192.0
 @export var phase_three_jump_height_scale := 1.35
 @export var retreat_distance := 175.0
 @export var retreat_seconds := .48
@@ -59,7 +60,7 @@ extends WindkeeperDefinition
 func is_valid() -> bool:
 	if not super.is_valid() or not continuous_combat: return false
 	for value: float in [approach_speed,lunge_peak_speed,final_chase_speed,ground_wave_speed,
-		wall_clearance,boundary_retreat_range,phase_three_jump_height_scale,retreat_trigger_range,retreat_distance,retreat_seconds,retreat_warning_seconds,retreat_cooldown_seconds,retreat_height,blocked_seconds,
+		wall_clearance,boundary_retreat_range,boundary_escape_rearm_distance,phase_three_jump_height_scale,retreat_trigger_range,retreat_distance,retreat_seconds,retreat_warning_seconds,retreat_cooldown_seconds,retreat_height,blocked_seconds,
 		approach_range,close_range,sweep_approach_range,approach_bound_seconds,turn_seconds,traverse_warning_seconds,normal_warning_seconds,
 		sweep_warning_seconds,platform_warning_seconds,combo_link_seconds,group_recovery_seconds,
 		lunge_seconds,lunge_height,lunge_warning_seconds,lunge_min_distance,lunge_max_distance,lunge_landing_offset,support_hop_height,stomp_seconds,sweep_seconds,gust_seconds,seeds_seconds,
@@ -70,4 +71,4 @@ func is_valid() -> bool:
 	for fraction: float in gust_volley_fractions:
 		if not is_finite(fraction) or fraction <= previous or fraction >= 1.0: return false
 		previous = fraction
-	return lunge_min_distance <= lunge_max_distance and lunge_max_distance*1.5/lunge_seconds <= lunge_peak_speed and not gust_volley_fractions.is_empty() and sweep_approach_range < close_range and close_range < approach_range and wind_pressure_speed <= 80.0 and recent_group_penalty > 0.0 and recent_group_penalty <= 1.0 and maximum_group_repeats >= 1 and death_impact_seconds < death_seconds and reward_coin_total >= 0
+	return boundary_escape_rearm_distance > boundary_retreat_range and lunge_min_distance <= lunge_max_distance and lunge_max_distance*1.5/lunge_seconds <= lunge_peak_speed and not gust_volley_fractions.is_empty() and sweep_approach_range < close_range and close_range < approach_range and wind_pressure_speed <= 80.0 and recent_group_penalty > 0.0 and recent_group_penalty <= 1.0 and maximum_group_repeats >= 1 and death_impact_seconds < death_seconds and reward_coin_total >= 0

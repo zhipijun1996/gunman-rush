@@ -12,15 +12,22 @@ func run() -> void:
  app=preload("res://game/application/world/fixed_world.tscn").instantiate()
  app.save_path="user://windkeeper_boundary_revision.json"
  root.add_child(app);app.start_new();await settle()
- for phase:int in [1,3]:
-  for side:int in [-1,1]:
-   for facing:int in [-1,1]:await boundary_case(phase,side,facing)
- await mill_passage()
+ if OS.get_cmdline_user_args().has("capture"):
+  await corner_pressure(2,-1)
+ else:
+  for phase:int in [1,3]:
+   for side:int in [-1,1]:
+    for facing:int in [-1,1]:await boundary_case(phase,side,facing)
+  for phase:int in [1,2,3]:
+   for side:int in [-1,1]:await corner_pressure(phase,side)
+  await isolated_edge()
+  await mill_passage()
  await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(4)
  print("WINDKEEPER BOUNDARY: %d checks, %d failures"%[checks,failures]);quit(1 if failures else 0)
 
 func prepare() -> WindkeeperPressureEncounter:
- load_fixture("P-R14");await settle();await ticks(4)
+ check(await app.review.begin("P-R14","","h",true),"declared invincible AI fixture")
+ await settle();await ticks(4)
  app.player.reset_at(app.room.battle_entry_anchor)
  app.room.update_battle(app.player.position)
  var boss:=app.room.encounter as WindkeeperPressureEncounter
@@ -37,6 +44,7 @@ func boundary_case(phase:int,side:int,facing:int) -> void:
   boss.motor.global_position=Vector2(slab.get_center().x,slab.position.y-65)
  else:
   boss.motor.global_position=Vector2(boss.arena.left_x+18 if side<0 else boss.arena.right_x-18,boss._base_y)
+ park_player(boss,phase,side)
  boss._enter(&"observe",0);boss._update_combat_shapes()
  boss._retreat_ready_age=boss._fight_age+1000 # Ordinary retreat is deliberately unavailable.
  boss._group_plan={"attacks":[&"seeds"],"double_stomp":false,"sweep_high":false}
@@ -76,3 +84,57 @@ func mill_passage() -> void:
  check(boss.body_contact_sweep(boss.motor.global_position,body_point-boss.motor.global_position,body_point,half),"real torso contact stays enabled while rotor is passable")
  var query:=PhysicsRayQueryParameters2D.create(start,finish,4,[app.player.get_rid()])
  check(boss.motor.get_world_2d().direct_space_state.intersect_ray(query).is_empty(),"rotor adds no physical or shootable obstacle across its upper span")
+
+func park_player(boss:WindkeeperPressureEncounter,phase:int,side:int) -> void:
+ var floor_y:=boss._base_y+65-18
+ var left:=app.room.arena_bounds.position.x
+ var right:=app.room.arena_bounds.end.x
+ var point:=Vector2(left+48 if side<0 else right-48,floor_y)
+ if phase==3:
+  var deck:Rect2=boss._support_rects[0 if side<0 else boss._support_rects.size()-1]
+  point=Vector2(deck.position.x+20 if side<0 else deck.end.x-20,deck.position.y-18)
+ app.player.reset_at(point)
+ app.controller.router.clear("corner target placement fixture")
+
+func corner_pressure(phase:int,side:int) -> void:
+ var boss:=await prepare()
+ boss.stage_phase=phase;boss.direction=side;boss._pose_from.clear()
+ if phase==3:
+  boss._support_index=0 if side<0 else boss._support_rects.size()-1
+  var deck:Rect2=boss._support_rects[boss._support_index]
+  boss.motor.global_position=Vector2(deck.get_center().x,deck.position.y-65)
+ else:
+  boss.motor.global_position=Vector2(boss.arena.left_x+18 if side<0 else boss.arena.right_x-18,boss._base_y)
+ park_player(boss,phase,side)
+ var physical_hits: Array[int]=[0]
+ boss.projectile_created.connect(func(projectile:BossProjectile)->void:
+  projectile.hit.connect(func(body:Node,_id:StringName,_amount:float)->void:
+   if body==app.player:physical_hits[0]+=1))
+ boss._event_history.clear();boss._group_plan.clear();boss._enter(&"observe",0)
+ for i:int in 900:
+  boss.physics_tick(1.0/60);await physics_frame
+ var retreats:=0
+ var attacks:=0
+ for row:Dictionary in boss._event_history:
+  if row.event==&"windkeeper_retreat_warning":retreats+=1
+  if row.event in [&"windkeeper_seeds_release",&"windkeeper_gust_release"]:attacks+=1
+ check(retreats==1,"15s continuous wall camping permits one spacing retreat: phase/side %s/%s actual=%s"%[phase,side,retreats])
+ check(attacks>=3,"wall camping still receives repeated real ranged attack releases, actual="+str(attacks))
+ check(physical_hits[0]>0,"real projectiles reach corner: phase/side %s/%s hits=%s"%[phase,side,physical_hits[0]])
+ check(boss._boundary_escape_side==side and not boss._boundary_retreat_active,"corner latch survives continued camping without trapping a retreat state")
+ var saved:=boss.combat_snapshot();boss.restore_combat_state(saved)
+ check(boss._boundary_escape_side==side,"combat restore preserves the corner latch")
+ boss._update_boundary_escape()
+ check(boss._boundary_escape_side==side,"reload while camping does not grant another retreat")
+ # Both actors deliberately leave this edge before it may be armed again.
+ app.player.reset_at(Vector2((boss.arena.left_x+boss.arena.right_x)*.5,boss._base_y+47))
+ boss.motor.global_position.x=(boss.arena.left_x+boss.arena.right_x)*.5
+ boss._update_boundary_escape()
+ check(boss._boundary_escape_side==0,"genuine departure re-arms anti-corner behavior")
+
+func isolated_edge() -> void:
+ var boss:=await prepare()
+ boss.motor.global_position.x=boss.arena.left_x+18
+ app.player.reset_at(Vector2(boss.arena.right_x,boss._base_y+47))
+ boss._group_plan={"attacks":[&"seeds"]};boss._attack_index=0
+ check(not boss._try_boundary_retreat(),"Boss alone at a boundary does not retreat when player is elsewhere")

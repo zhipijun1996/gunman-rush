@@ -62,6 +62,8 @@ var _preparation_hops := 0
 var _guarded_attack_index := -1
 var _retreat_ready_age := 0.0
 var _blocked_age := 0.0
+var _boundary_escape_side := 0
+var _boundary_retreat_active := false
 var _turn_resume: StringName = &"attack"
 var _mill_start_age := 0.0
 
@@ -116,6 +118,7 @@ func physics_tick(delta: float) -> void:
 		_advance_death(delta)
 		return
 	if not active or not is_instance_valid(_target): return
+	_update_boundary_escape()
 	_fight_age += delta
 	if _bell_hit_age >= 0: _bell_hit_age += delta
 	_state_age += delta
@@ -135,7 +138,8 @@ func physics_tick(delta: float) -> void:
 			# The warning clock continues during the real locked physical leap.
 			if stage_phase == 3 and _supports_bound and not _standing_on_support():
 				if not _hop_active and _state_age >= _config().traverse_warning_seconds:
-					var platform_index := _nearest_support_index(motor.global_position.x)
+					var mount_x := (arena.left_x + arena.right_x) * .5 if _wall_pressure_active() else motor.global_position.x
+					var platform_index := _nearest_support_index(mount_x)
 					if platform_index >= 0: _lock_support_hop(platform_index, _config().lunge_peak_speed)
 				if _hop_active: _advance_support_hop(delta)
 				if not _standing_on_support():
@@ -173,7 +177,11 @@ func physics_tick(delta: float) -> void:
 		&"retreat":
 			if _advance_support_hop(delta):
 				_event(&"windkeeper_lunge_land", {"movement_only": true})
-				_begin_attack()
+				if _boundary_retreat_active:
+					_boundary_retreat_active = false
+					_enter(&"observe", 0)
+				else:
+					_begin_attack()
 		&"traverse_warning":
 			if clock <= 0:
 				_start_prepared_hop()
@@ -274,6 +282,21 @@ func _selection_candidates() -> Array[Dictionary]:
 			{"attacks": [&"lunge", &"stomp", &"seeds"], "weight": 2.5 if dx > 230 else 1.0},
 			{"attacks": [&"sweep", &"seeds"], "weight": 1.1},
 			{"attacks": [&"stomp", &"sweep"], "weight": .8}]
+	if _wall_pressure_active():
+		# Choose this immutable group before its first warning. Its real ranged
+		# attacks reach the corner without walking back into another retreat.
+		if stage_phase == 1:
+			candidates = [
+				{"attacks": [&"stomp", &"seeds"], "weight": 1.0},
+				{"attacks": [&"seeds", &"stomp"], "weight": 1.0}]
+		else:
+			candidates = [
+				{"attacks": [&"stomp", &"gust"], "weight": 1.0},
+				{"attacks": [&"gust", &"stomp"], "weight": 1.0}]
+		if stage_phase == 3:
+			candidates = [
+				{"attacks": [&"seeds", &"gust", &"seeds"], "weight": 1.0},
+				{"attacks": [&"gust", &"seeds", &"gust"], "weight": 1.0}]
 	for candidate: Dictionary in candidates:
 		var toward := -1 if _target.global_position.x < motor.global_position.x else 1
 		if stage_phase < 3 and &"lunge" in candidate.attacks and arena.travel_limit(motor.global_position.x,toward)<_config().lunge_min_distance:
@@ -294,6 +317,7 @@ func _group_key(attacks: Array) -> String:
 
 func _select_group() -> void:
 	if not active or health.terminal: return
+	if _try_boundary_retreat(): return
 	var candidates := _selection_candidates()
 	var total := 0.0
 	for candidate: Dictionary in candidates: total += float(candidate.weight)
@@ -317,7 +341,9 @@ func _select_group() -> void:
 	_recent_groups.append(_group_key(attacks))
 	while _recent_groups.size() > 3: _recent_groups.pop_front()
 	_event(&"windkeeper_group", {"plan": _group_plan.duplicate(true)})
-	if _try_boundary_retreat(): return
+	if _wall_pressure_active():
+		_begin_attack()
+		return
 	var dx := _target.global_position.x - motor.global_position.x
 	locked_direction = -1 if dx < 0 else 1
 	if absf(dx) > _config().approach_range:
@@ -366,14 +392,39 @@ func _turn_to(facing: int, resume: StringName = &"attack") -> void:
 	_turn_resume = resume
 	_enter(&"turn", _config().turn_seconds)
 
+func _boundary_gap(x: float, side: int) -> float:
+	return x - arena.left_x if side < 0 else arena.right_x - x
+
+func _update_boundary_escape() -> void:
+	if _boundary_escape_side == 0 or not is_instance_valid(_target): return
+	var reset := _config().boundary_escape_rearm_distance
+	if _boundary_gap(_target.global_position.x, _boundary_escape_side) > reset and _boundary_gap(motor.global_position.x, _boundary_escape_side) > reset:
+		_boundary_escape_side = 0
+
+func _wall_pressure_active() -> bool:
+	return _boundary_escape_side != 0 and is_instance_valid(_target) and _boundary_gap(_target.global_position.x, _boundary_escape_side) <= _config().boundary_escape_rearm_distance
+
 func _try_boundary_retreat() -> bool:
-	if _hop_active or _hop_prepared: return false
+	# Complete an already committed combo; spacing may begin at the next group.
+	if not _group_plan.is_empty() and _attack_index > 0: return false
+	_update_boundary_escape()
+	if _boundary_escape_side != 0 or _hop_active or _hop_prepared: return false
 	var left_gap := motor.global_position.x - arena.left_x
 	var right_gap := arena.right_x - motor.global_position.x
-	if minf(left_gap, right_gap) > _config().boundary_retreat_range: return false
-	return _try_retreat(1 if left_gap <= right_gap else -1)
+	var side := -1 if left_gap <= right_gap else 1
+	if minf(left_gap, right_gap) > _config().boundary_retreat_range or _boundary_gap(_target.global_position.x, side) > _config().boundary_retreat_range: return false
+	if not _try_retreat(-side): return false
+	_boundary_escape_side = side
+	_boundary_retreat_active = true
+	if not _group_plan.is_empty():
+		# This was preparation, not a warned/committed attack. Make the change
+		# explicit, then choose a new ranged group after the retreat lands.
+		_event(&"windkeeper_group_cancelled", {"reason": &"corner_spacing"})
+		_group_plan.clear()
+	return true
 
 func _try_retreat(inward: int = 0) -> bool:
+	if inward == 0 and _wall_pressure_active(): return false
 	if _hop_active or (inward == 0 and _fight_age < _retreat_ready_age): return false
 	var away := -direction if inward == 0 else inward
 	if stage_phase == 3 and _supports_bound:
@@ -442,7 +493,8 @@ func _begin_attack(facing_committed: bool = false) -> void:
 	# The real leaf cannot reach a ground actor from the generic ranged
 	# distance. Close physically before its warning, keeping the chosen group.
 	var melee_range := _config().sweep_approach_range if attack == &"sweep" else _config().close_range
-	if attack in [&"sweep", &"stomp"] and absf(dx) > melee_range + 4.0 and _guarded_attack_index != _attack_index:
+	var corner_ground_wave := attack == &"stomp" and stage_phase < 3 and _wall_pressure_active()
+	if attack in [&"sweep", &"stomp"] and not corner_ground_wave and absf(dx) > melee_range + 4.0 and _guarded_attack_index != _attack_index:
 		_enter(&"approach", _config().approach_bound_seconds)
 		return
 	if attack == &"platform":
@@ -929,7 +981,7 @@ func combat_metrics() -> Dictionary:
 func combat_snapshot() -> Dictionary:
 	var result := super.combat_snapshot()
 	result["pressure"] = {"group": _group_plan.duplicate(true), "index": _attack_index,
-		"mill_start_age": _mill_start_age, "retreat_ready_age": _retreat_ready_age, "blocked_age": _blocked_age, "turn_resume": String(_turn_resume),
+		"mill_start_age": _mill_start_age, "retreat_ready_age": _retreat_ready_age, "blocked_age": _blocked_age, "boundary_escape_side": _boundary_escape_side, "boundary_retreat_active": _boundary_retreat_active, "turn_resume": String(_turn_resume),
 		"age": _state_age, "duration": _state_duration, "fight_age": _fight_age, "travel": _travel,
 		"death_age": _death_age, "death_fall_speed": _death_fall_speed, "death_impact_sent": _death_impact_sent, "death_final_sent": _death_final_sent,
 		"physical_reward_expected": physical_reward_expected, "thorns_released": _thorns_released,
@@ -958,6 +1010,8 @@ func restore_combat_state(data: Dictionary) -> void:
 	_mill_start_age = float(saved.get("mill_start_age", 0))
 	_retreat_ready_age = float(saved.get("retreat_ready_age", 0))
 	_blocked_age = float(saved.get("blocked_age", 0))
+	_boundary_escape_side = int(saved.get("boundary_escape_side", 0))
+	_boundary_retreat_active = bool(saved.get("boundary_retreat_active", false))
 	_turn_resume = StringName(saved.get("turn_resume", "attack"))
 	physical_reward_expected = bool(saved.get("physical_reward_expected", true))
 	_group_plan = (saved.get("group", {}) as Dictionary).duplicate(true)
@@ -1026,6 +1080,8 @@ func restore_combat_state(data: Dictionary) -> void:
 
 
 func _restore_legacy_combat_state() -> void:
+	_boundary_escape_side = 0
+	_boundary_retreat_active = false
 	_retreat_ready_age = 0.0
 	_blocked_age = 0.0
 	_turn_resume = &"attack"

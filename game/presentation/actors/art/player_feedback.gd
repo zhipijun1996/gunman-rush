@@ -58,8 +58,9 @@ func _ready() -> void:
 	_controller.actor_resources.health.changed.connect(_health_changed)
 	_controller.segment_returned.connect(_segment_returned)
 	_controller.died.connect(func() -> void:
-		GameAudio.cue(self, &"death")
-		clear())
+		clear()
+		_session = _controller.session_id
+		GameAudio.cue(self, &"death"))
 	# Accepted air aim/slow-time changes are intentionally silent. The shot and
 	# its existing recoil still own their one selected weapon sound on release.
 	_controller.shoot_ability.shot_rejected.connect(func(_reason: StringName) -> void: GameAudio.cue(self, &"denied"))
@@ -144,7 +145,10 @@ func _process(delta: float) -> void:
 		_session = _controller.session_id
 		clear()
 	if not _controller.active:
-		clear()
+		if _controller.actor_resources.health.terminal:
+			_particles.clear()
+		else:
+			clear()
 		return
 	var had_particles := not _particles.is_empty()
 	for index: int in range(_particles.size() - 1, -1, -1):
@@ -223,10 +227,10 @@ func _health_changed(result: ActorResourceResult) -> void:
 	if result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0.0:
 		return
 	_clear_heal_glow()
-	GameAudio.cue(self, &"hurt")
 	# Only committed nonterminal HP loss; replay/invulnerability never emits.
 	# RunEnd owns terminal cleanup, so no particle callback survives the actor.
 	if not result.snapshot.terminal:
+		GameAudio.cue(self, &"hurt")
 		_emit(global_position, Vector2.UP, 18, Color("ff9c85"), 0.32, 125.0)
 
 func _segment_returned() -> void:

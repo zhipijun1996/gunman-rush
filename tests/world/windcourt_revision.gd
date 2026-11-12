@@ -58,6 +58,11 @@ func run()->void:
    await ticks(1)
    if app.lifetime.actor_epoch>before_epoch:break
   check(app.lifetime.actor_epoch>before_epoch and app.controller.actor_resources.health.current==before_hp-1,"real thorn damage and safe-deck return at sealed edge "+str(side))
+ # Complete the accepted hazard return before this external Boss-kill fixture;
+ # normal attacks cannot execute while the presentation holds world simulation.
+ for i:int in 90:
+  if not app.busy:break
+  await ticks(1)
  hp.apply_damage(ActorResourceRequest.new(&"terminal_fixture",hp.epoch,hp.current+1,hp.get_instance_id()))
  await ticks(2)
  check(not hazard._contact.enabled,"accepted death immediately stops thorn damage")

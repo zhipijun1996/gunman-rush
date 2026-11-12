@@ -195,8 +195,8 @@ func begin_transition() -> void:
 	curtain.color=Color.BLACK
 	curtain.mouse_filter=Control.MOUSE_FILTER_STOP
 	curtain.show()
-func finish_transition() -> void:
+func finish_transition(seconds: float = .08) -> void:
 	_transition_tween=create_tween()
-	_transition_tween.tween_property(curtain,"color:a",0.0,.08)
+	_transition_tween.tween_property(curtain,"color:a",0.0,seconds)
 	await _transition_tween.finished
 	curtain.hide()

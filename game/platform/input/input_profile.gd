@@ -14,12 +14,19 @@ static func load_default() -> InputProfile:
 func configure(candidate: Dictionary) -> bool:
 	var merged := values.duplicate(true)
 	merged.merge(candidate, true)
-	for key: String in ["left_deadzone", "right_enter_deadzone", "right_exit_deadzone", "left_sensitivity", "right_sensitivity", "response_curve", "touch_radius", "touch_jump_radius", "touch_jump_hit_padding", "touch_jump_left_inset", "touch_move_mode", "touch_walk_ratio", "touch_move_stop_deadzone", "touch_run_enter", "touch_run_exit", "touch_deadzone", "gamepad_trigger_threshold", "keyboard", "mouse_shoot_button", "gamepad_jump_button"]:
+	# Existing full profiles predate LT's release threshold. Add its current
+	# default proportion without resetting their other bindings/preferences.
+	if candidate.has("gamepad_trigger_threshold") and not candidate.has("gamepad_jump_trigger_release_threshold"):
+		var defaults: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/input_profile.json"))
+		merged.gamepad_jump_trigger_release_threshold = float(candidate.gamepad_trigger_threshold) * float(defaults.gamepad_jump_trigger_release_threshold) / float(defaults.gamepad_trigger_threshold)
+
+	for key: String in ["left_deadzone", "right_enter_deadzone", "right_exit_deadzone", "left_sensitivity", "right_sensitivity", "response_curve", "touch_radius", "touch_jump_radius", "touch_jump_hit_padding", "touch_jump_left_inset", "touch_move_mode", "touch_walk_ratio", "touch_move_stop_deadzone", "touch_run_enter", "touch_run_exit", "touch_deadzone", "gamepad_trigger_threshold", "gamepad_jump_trigger_release_threshold", "keyboard", "mouse_shoot_button", "gamepad_jump_button"]:
 		if not merged.has(key):
 			return false
-	for key: String in ["left_deadzone", "right_enter_deadzone", "right_exit_deadzone", "touch_deadzone", "gamepad_trigger_threshold"]:
+	for key: String in ["left_deadzone", "right_enter_deadzone", "right_exit_deadzone", "touch_deadzone", "gamepad_trigger_threshold", "gamepad_jump_trigger_release_threshold"]:
 		if not (merged[key] is float or merged[key] is int) or not is_finite(float(merged[key])) or float(merged[key]) < 0.0 or float(merged[key]) >= 1.0:
 			return false
+	if float(merged.gamepad_jump_trigger_release_threshold) >= float(merged.gamepad_trigger_threshold): return false
 	if float(merged.gamepad_trigger_threshold) <= 0 or float(merged.right_exit_deadzone) >= float(merged.right_enter_deadzone):
 		return false
 	for key: String in ["left_sensitivity", "right_sensitivity", "response_curve", "touch_radius", "touch_jump_radius"]:
