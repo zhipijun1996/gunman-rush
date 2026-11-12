@@ -274,6 +274,53 @@ art_placements = Array[Dictionary]([
       768,
       384
     ]
+  },
+  {
+    "masonry_region": [
+      2688,
+      992,
+      256,
+      192
+    ]
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      2752,
+      1024,
+      192,
+      128
+    ],
+    "layer": -18,
+    "tint": [
+      0.7,
+      0.74,
+      0.8,
+      1
+    ],
+    "threshold_for": "CITY-P-G-WEST:P-R18"
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2816,
+      1152
+    ],
+    "layer": -4
+  },
+  {
+    "point": [
+      2688,
+      1152
+    ],
+    "material_transition": {
+      "height": 32,
+      "stone_on_right": true
+    }
   }
 ])
 art_profile = "field"
@@ -283,9 +330,38 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "IrrigationCage",
 "id": "P18:irrigation_lift"
 }])
-platforms = Array[Rect2]([Rect2(32, 1152, 384, 96), Rect2(576, 1248, 448, 48), Rect2(1120, 1088, 384, 32), Rect2(1696, 1152, 416, 32), Rect2(2432, 1152, 480, 32), Rect2(576, 1472, 480, 32), Rect2(1344, 1440, 352, 48), Rect2(1376, 1280, 224, 24), Rect2(1856, 1440, 320, 48), Rect2(2368, 1408, 544, 48), Rect2(2560, 1280, 256, 24), Rect2(2208, 1584, 128, 24), Rect2(2272, 1792, 64, 96), Rect2(1120, 832, 288, 32), Rect2(1344, 608, 192, 32), Rect2(1632, 672, 256, 32), Rect2(1856, 832, 288, 32), Rect2(2144, 704, 160, 24), Rect2(2336, 256, 256, 32), Rect2(1952, 416, 224, 32)])
+platforms = Array[Rect2]([Rect2(32, 1152, 384, 96), Rect2(576, 1248, 448, 48), Rect2(1120, 1088, 384, 32), Rect2(1696, 1152, 416, 32), Rect2(2432, 1152, 512, 32), Rect2(576, 1472, 480, 32), Rect2(1344, 1440, 352, 48), Rect2(1376, 1280, 224, 24), Rect2(1856, 1440, 320, 48), Rect2(2368, 1408, 544, 48), Rect2(2560, 1280, 256, 24), Rect2(2208, 1584, 128, 24), Rect2(2272, 1792, 64, 96), Rect2(1120, 832, 288, 32), Rect2(1344, 608, 192, 32), Rect2(1632, 672, 256, 32), Rect2(1856, 832, 288, 32), Rect2(2144, 704, 160, 24), Rect2(2336, 256, 256, 32), Rect2(1952, 416, 224, 32), Rect2(2752, 992, 160, 32)])
 workbench_entity_ids = {
-  "art_placements": ["P-R18:composition:0", "P-R18:composition:1", "P-R18:composition:2", "P-R18:composition:3", "P-R18:composition:4", "P-R18:composition:5", "P-R18:composition:6", "P-R18:composition:7", "P-R18:composition:8", "P-R18:composition:9", "P-R18:composition:10", "P-R18:composition:11", "P-R18:composition:12", "P-R18:composition:13", "P-R18:composition:14", "P-R18:composition:15", "P-R18:composition:16", "P-R18:composition:17", "P-R18:composition:18", "P-R18:composition:19", "P-R18:composition:20", "P-R18:composition:21", "P-R18:composition:22", "P-R18:composition:23"],
+  "art_placements": [
+    "P-R18:composition:0",
+    "P-R18:composition:1",
+    "P-R18:composition:2",
+    "P-R18:composition:3",
+    "P-R18:composition:4",
+    "P-R18:composition:5",
+    "P-R18:composition:6",
+    "P-R18:composition:7",
+    "P-R18:composition:8",
+    "P-R18:composition:9",
+    "P-R18:composition:10",
+    "P-R18:composition:11",
+    "P-R18:composition:12",
+    "P-R18:composition:13",
+    "P-R18:composition:14",
+    "P-R18:composition:15",
+    "P-R18:composition:16",
+    "P-R18:composition:17",
+    "P-R18:composition:18",
+    "P-R18:composition:19",
+    "P-R18:composition:20",
+    "P-R18:composition:21",
+    "P-R18:composition:22",
+    "P-R18:composition:23",
+    "P-R18:door-review:art:24",
+    "P-R18:door-review:art:25",
+    "P-R18:door-review:art:26",
+    "P-R18:material-transition:27"
+  ],
   "climbable_walls": [],
   "hazards": [],
   "hook_points": [],
@@ -309,7 +385,8 @@ workbench_entity_ids = {
     "P-R18:r7:west_transfer",
     "P-R18:r7:cliff_launch",
     "P-R18:r7:cliff_door",
-    "P-R18:r7:upper_return"
+    "P-R18:r7:upper_return",
+    "P-R18:door-review:platform:20"
   ],
   "retry_anchors": [
     "P-R18:r7:retry_anchors:0",

@@ -17,6 +17,8 @@ var camera_concealers: Dictionary = {}
 var boundary_art_rock: Array[Rect2] = []
 @export var art_placements: Array[Dictionary] = []
 @export var art_profile := "meadow"
+## Explicit regional threshold sample; empty for authored full rooms.
+@export var region_preview := ""
 @export var bell_mechanisms: Array[Dictionary] = []
 var mechanisms: Dictionary={}
 var station_animation: WorldChargingStation
@@ -161,7 +163,8 @@ func _ready() -> void:
 		solids.append_array(masonry);masonry.clear()
 		ground_polygons.append_array(masonry_polygons);masonry_polygons.clear()
 	var terrain:=UnderworldTerrain.build_with_polygons(solids, ground_polygons)
-	if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
+	if not region_preview.is_empty():RegionThresholdMaterial.install_on(terrain,region_preview)
+	elif not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
 	else: terrain.position.y=-4 # Native grass roots start five pixels below the tile top; tips overhang the physical sole.
 	add_child(terrain)
 	if not masonry.is_empty() or not masonry_polygons.is_empty() or not masonry_boundary.is_empty():
@@ -169,7 +172,7 @@ func _ready() -> void:
 		visible_masonry.append_array(masonry_boundary)
 		var structure:=UnderworldTerrain.build_with_polygons(visible_masonry, masonry_polygons)
 		PlainsMillTerrainMaterial.install_on(structure);add_child(structure)
-	var scenery:=PlainsRoomArt.new();scenery.room=self;add_child(scenery)
+	var scenery:PlainsRoomArt=PlainsRoomArt.new() if region_preview.is_empty() else RegionThresholdArt.new();scenery.room=self;add_child(scenery)
 	for rect: Rect2 in climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;add_child(wall)
 	for point: Vector2 in hook_points:

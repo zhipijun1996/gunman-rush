@@ -103,6 +103,11 @@ func _preview_catalog() -> Dictionary:
 	elif not str(parsed.get("scope_sha256", "")).is_empty():
 		workbench_catalog_error = "preview_scope_missing"
 		return {}
+	for id:String in formal.get("rooms",{}):
+		if not bindings.has(id) or bindings[id]!=formal.rooms[id].scene_ref:
+			workbench_catalog_error="preview_scene_bindings_invalid"
+			return {}
+		expected[id]=bindings[id]
 	if expected.is_empty() or parsed.rooms.size() != expected.size() or bindings.size() != expected.size():
 		workbench_catalog_error = "preview_catalog_incomplete"
 		return {}

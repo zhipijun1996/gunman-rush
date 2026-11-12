@@ -1908,6 +1908,22 @@
       ],
       "timeout_seconds": 90,
       "success_pattern": "^STATION GROUNDING: 0 failures"
+    },
+    "paired-thresholds": {
+      "mode": "manual",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/world/paired_thresholds.gd"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PAIRED THRESHOLDS: 102 directions, 0 failures$"
     }
   },
   "profiles": {}

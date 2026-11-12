@@ -65,7 +65,7 @@ func _runtime_scope_checks() -> void:
 	accepted.runtime = runtime
 	check(not accepted.has("geometry"), "runtime scope tests do not rely on a separate geometry draft")
 	check(provider.install_workbench_draft(accepted).is_empty(), "same-version complete compiled preview runtime is accepted")
-	check(provider.data.rooms.size() == catalog.rooms.size() and provider.workbench_formal_room_ids().size() == 36, "compiled runtime replacement keeps the registered preview scope and formal 35-plains-plus-clockheart base")
+	check(provider.data.rooms.size() == catalog.rooms.size() and provider.workbench_formal_room_ids().size() == 43, "compiled runtime replacement keeps the registered preview scope and formal plains, clockheart and regional-threshold base")
 	var unchanged := JSON.stringify(provider.workbench_snapshot(), "", true)
 	for mutation: String in ["component", "room", "map_room", "seam"]:
 		var rejected := accepted.duplicate(true)
@@ -90,7 +90,7 @@ func _runtime_scope_checks() -> void:
 		check(error.begins_with(expected), "compiled runtime rejects "+mutation+" without a separate geometry field: "+error)
 		check(JSON.stringify(provider.workbench_snapshot(), "", true) == unchanged, "rejected compiled runtime leaves state unchanged: "+mutation)
 	provider.restore_workbench_base()
-	check(provider.data.rooms.size() == 36, "compiled runtime scope fixture restores the formal source")
+	check(provider.data.rooms.size() == 43, "compiled runtime scope fixture restores the formal source")
 
 func _fixture() -> Dictionary:
 	var result := baseline_draft.duplicate(true)
@@ -254,7 +254,7 @@ func run() -> void:
 	await app.workbench._handle({"channel":"gunman-workbench", "type":"leave", "request_id":"leave"})
 	check(not app.review.active and app.state.storage == formal_storage, "leaving restores formal storage and base provider")
 	check(FileAccess.get_file_as_string(app.save_path) == formal_bytes, "leaving workbench does not write test progress")
-	check(app.content.data.rooms.size() == 36 and not app.content.room("Z-R01").is_empty(), "formal construction state still exposes 35 plains rooms plus authorized clockheart")
+	check(app.content.data.rooms.size() == 43 and not app.content.room("Z-R01").is_empty(), "formal construction state still exposes 35 plains rooms, clockheart and seven threshold samples")
 	var unbuilt_scene := preload("res://game/world/regions/V/rooms/V-R12.tscn").instantiate() as FixedWorldRoom
 	var unbuilt := WorldRoomDraft.extract(unbuilt_scene)
 	unbuilt_scene.free()
@@ -272,7 +272,7 @@ func run() -> void:
 	actual_ids.sort()
 	check(actual_ids == preview_ids and app.content.action("reward_return_EQ_MAP_P03_open").get("room_id") == "P-R17", "registered authored preview rooms and local return action available in disposable session")
 	await app.workbench._handle({"channel":"gunman-workbench", "type":"leave", "request_id":"unbuilt_leave"})
-	check(app.content.data.rooms.size() == 36 and app.state.storage == formal_storage and FileAccess.get_file_as_string(app.save_path) == formal_bytes, "unbuilt preview restores formal 35-plains-plus-clockheart catalog and save")
+	check(app.content.data.rooms.size() == 43 and app.state.storage == formal_storage and FileAccess.get_file_as_string(app.save_path) == formal_bytes, "unbuilt preview restores formal plains, clockheart and regional-threshold catalog and save")
 	await WorldAudioLifecycle.drain_world(app)
 	app.queue_free()
 	await ticks(8)

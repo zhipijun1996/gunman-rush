@@ -4,6 +4,7 @@
 
 | 母版 | 独立内容与动作 |
 | --- | --- |
+| grass-masonry-transitions-generated.png | 草土与旧石材的6格32px过渡：3格顶沿、3格内部，只覆盖连续实体上的明确材质接缝，保留47邻接和原碰撞；[来源与烘焙](source/grass-masonry-transitions-provenance.json)。 |
 | collectibles-generated.png | 时间齿轮转动、血量片/共鸣片脉动、领取散光各六帧 |
 | mechanisms-generated.png | 钩索装置、装备行囊、校时台、返程滑轮各六帧 |
 | interiors-generated.png | 风车、谷仓、地窖、井壁四片独立可平铺背墙 |

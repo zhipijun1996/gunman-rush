@@ -99,7 +99,8 @@ art_placements = Array[Dictionary]([
       0.82,
       0.77,
       1
-    ]
+    ],
+    "threshold_for": "L23:P-R02"
   },
   {
     "asset": "travel_bundle",
@@ -168,6 +169,81 @@ art_placements = Array[Dictionary]([
   },
   {
     "surface_platform": 6
+  },
+  {
+    "masonry_region": [
+      1056,
+      416,
+      288,
+      224
+    ]
+  },
+  {
+    "masonry_region": [
+      0,
+      736,
+      224,
+      512
+    ]
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -18,
+    "tile_rect": [
+      1152,
+      448,
+      192,
+      128
+    ],
+    "tint": [
+      0.72,
+      0.76,
+      0.8,
+      1
+    ]
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -18,
+    "tile_rect": [
+      0,
+      768,
+      192,
+      128
+    ],
+    "tint": [
+      0.72,
+      0.76,
+      0.8,
+      1
+    ],
+    "threshold_for": "EXP-P_field_return-01:P-R02"
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      128,
+      896
+    ],
+    "layer": -4
+  },
+  {
+    "point": [
+      224,
+      896
+    ],
+    "material_transition": {
+      "height": 352,
+      "stone_on_right": false
+    }
   }
 ])
 art_profile = "shelter"
@@ -177,9 +253,28 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "RoofWinch",
 "id": "P02:roof_winch"
 }])
-platforms = Array[Rect2]([Rect2(32, 896, 416, 352), Rect2(576, 896, 736, 64), Rect2(576, 1184, 736, 64), Rect2(448, 1056, 128, 32), Rect2(1056, 576, 256, 64), Rect2(704, 224, 256, 32), Rect2(352, 160, 192, 32)])
+platforms = Array[Rect2]([Rect2(32, 896, 416, 352), Rect2(576, 896, 736, 64), Rect2(576, 1184, 736, 64), Rect2(448, 1056, 128, 32), Rect2(1056, 576, 256, 64), Rect2(704, 224, 256, 32), Rect2(352, 160, 192, 32), Rect2(1152, 416, 160, 32), Rect2(32, 736, 192, 32)])
 workbench_entity_ids = {
-  "art_placements": ["P-R02:composition:0", "P-R02:composition:1", "P-R02:composition:2", "P-R02:composition:3", "P-R02:composition:4", "P-R02:composition:5", "P-R02:composition:6", "P-R02:composition:7", "P-R02:composition:8", "P-R02:composition:9", "P-R02:composition:10", "P-R02:composition:11"],
+  "art_placements": [
+    "P-R02:composition:0",
+    "P-R02:composition:1",
+    "P-R02:composition:2",
+    "P-R02:composition:3",
+    "P-R02:composition:4",
+    "P-R02:composition:5",
+    "P-R02:composition:6",
+    "P-R02:composition:7",
+    "P-R02:composition:8",
+    "P-R02:composition:9",
+    "P-R02:composition:10",
+    "P-R02:composition:11",
+    "P-R02:door-review:art:12",
+    "P-R02:door-review:art:13",
+    "P-R02:door-review:art:14",
+    "P-R02:door-review:art:15",
+    "P-R02:door-review:art:16",
+    "P-R02:material-transition:17"
+  ],
   "climbable_walls": [],
   "hazards": [],
   "hook_points": [],
@@ -190,7 +285,9 @@ workbench_entity_ids = {
     "P-R02:platforms:3",
     "P-R02:platforms:4",
     "P-R02:platforms:5",
-    "P-R02:platforms:6"
+    "P-R02:platforms:6",
+    "P-R02:door-review:platform:7",
+    "P-R02:door-review:platform:8"
   ],
   "retry_anchors": [],
   "signs": []

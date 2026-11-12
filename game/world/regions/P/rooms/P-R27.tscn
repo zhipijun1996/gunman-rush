@@ -144,10 +144,74 @@ art_placements = Array[Dictionary]([
       128,
       106
     ]
+  },
+  {
+    "masonry_region": [
+      1376,
+      448,
+      288,
+      288
+    ]
+  },
+  {
+    "masonry_region": [
+      0,
+      416,
+      224,
+      224
+    ]
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      0,
+      448,
+      160,
+      128
+    ],
+    "layer": -18,
+    "tint": [
+      0.7,
+      0.74,
+      0.8,
+      1
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      128,
+      576
+    ],
+    "layer": -4
+  },
+  {
+    "point": [
+      224,
+      576
+    ],
+    "material_transition": {
+      "height": 64,
+      "stone_on_right": false
+    }
+  },
+  {
+    "point": [
+      1376,
+      576
+    ],
+    "material_transition": {
+      "height": 160,
+      "stone_on_right": true
+    }
   }
 ])
 art_profile = "shelter"
-platforms = Array[Rect2]([Rect2(288, 736, 160, 64), Rect2(576, 736, 1056, 64), Rect2(800, 576, 832, 160), Rect2(352, 448, 288, 64), Rect2(512, 288, 224, 64), Rect2(672, 160, 192, 32)])
+platforms = Array[Rect2]([Rect2(288, 736, 160, 64), Rect2(576, 736, 1056, 64), Rect2(800, 576, 832, 160), Rect2(352, 448, 288, 64), Rect2(512, 288, 224, 64), Rect2(672, 160, 192, 32), Rect2(32, 576, 288, 64), Rect2(32, 416, 192, 32)])
 workbench_entity_ids = {
   "art_placements": [
     "P-R27:art:courtyard",
@@ -159,7 +223,13 @@ workbench_entity_ids = {
     "P-R27:art:surface:3",
     "P-R27:art:surface:4",
     "P-R27:art:surface:5",
-    "P-R27:art:open-shaft"
+    "P-R27:art:open-shaft",
+    "P-R27:door-review:art:10",
+    "P-R27:door-review:art:11",
+    "P-R27:door-review:art:12",
+    "P-R27:door-review:art:13",
+    "P-R27:material-transition:14",
+    "P-R27:material-transition:15"
   ],
   "climbable_walls": [],
   "hazards": [],
@@ -170,7 +240,9 @@ workbench_entity_ids = {
     "P-R27:platforms:2",
     "P-R27:platforms:3",
     "P-R27:platforms:4",
-    "P-R27:platforms:5"
+    "P-R27:platforms:5",
+    "P-R27:door-review:platform:6",
+    "P-R27:door-review:platform:7"
   ],
   "retry_anchors": [],
   "signs": [

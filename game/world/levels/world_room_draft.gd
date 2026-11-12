@@ -6,7 +6,7 @@ const SCHEMA := 1
 const ROOM_FIELDS := [
 	"story_sequence", "intro_sequence", "wave_encounter", "route_guide", "arrival_text", "traveler_point", "tutorial_action", "tutorial_target",
 	"tutorial_min_move", "tutorial_recoil_finish_x", "section_volumes",
-	"retry_anchors", "art_placements", "art_profile",
+	"retry_anchors", "art_placements", "art_profile", "region_preview",
 	"bell_mechanisms", "platforms", "one_way_indices", "illustrated_platform_indices",
 	"masonry_platform_indices", "start_point", "rest_point", "reward_point",
 	"enemy_placements", "signs", "hazards", "spike_strips", "gear_obstacles",
@@ -202,6 +202,7 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 				if not spec.get("max_health",5) is float and not spec.get("max_health",5) is int:return "wave_health_invalid"
 				if float(spec.get("max_health",5))<=0:return "wave_health_invalid"
 				wave_ids[str(spec.id)]=true
+	if properties.get("region_preview",room.region_preview)!=room.region_preview:return "region_preview_not_editable"
 	var platform_count: int = properties.get("platforms", room.platforms).size()
 	for key: String in ["one_way_indices", "illustrated_platform_indices", "masonry_platform_indices"]:
 		for index: Variant in properties.get(key, room.get(key)):
@@ -250,6 +251,11 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 			continue
 		if not vector(row.get("point")): return "art_point_invalid"
 		if row.has("tile_rect") and not rectangle(row.tile_rect):return "art_tile_rect_invalid"
+		if row.has("material_transition"):
+			var seam:Variant=row.material_transition
+			if not seam is Dictionary or not number(seam.get("height")) or float(seam.height)<=0 or float(seam.height)>4096:return "art_material_transition_invalid"
+			if seam.has("stone_on_right") and not seam.stone_on_right is bool:return "art_material_transition_invalid"
+			continue
 		if row.has("support_height"):
 			if not number(row.support_height) or float(row.support_height) <= 0: return "art_support_invalid"
 		elif not row.get("asset") is String or str(row.asset).is_empty(): return "art_asset_missing"

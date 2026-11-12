@@ -34,7 +34,7 @@ COMPONENTS = ["game/world/components/world_moving_platform.gd",
               "game/presentation/audio/world_audio_lifecycle.gd"]
 # These current consumers form filenames from manifests/IDs. Keep their admitted
 # resource families, not the project's historical all_resources export.
-DYNAMIC_FAMILIES = ["assets/underworld_plains", "assets/plains_v07/native",
+DYNAMIC_FAMILIES = ["assets/region_thresholds/native", "assets/underworld_plains", "assets/plains_v07/native",
                     "assets/plains_actors_142/atlases",
                     "assets/player_presentation_01/motion_v1",
                     "assets/enemy_feedback_01/frames_v8", "assets/actor_actions",
@@ -42,7 +42,7 @@ DYNAMIC_FAMILIES = ["assets/underworld_plains", "assets/plains_v07/native",
                     "assets/plains_v3/background_layers", "assets/audio/kenney",
                     "resources/player",
                     "resources/actors", "resources/weapons", "resources/items"]
-MANIFESTS = ["assets/plains_v07/manifest.json", "assets/actor_actions/weapon_catalog.json",
+MANIFESTS = ["assets/region_thresholds/manifest.json", "assets/plains_v07/manifest.json", "assets/actor_actions/weapon_catalog.json",
              "game/presentation/actors/resources/art/avatars.json",
              "config/player_tuning.json", "config/input_profile.json"]
 RES_PATH = re.compile(r"[\"'](res://[^\"'\r\n]+)[\"']")
@@ -93,6 +93,18 @@ def manifest() -> dict:
     for row in editable.values():
         source = (ROOT / row["scene_ref"].removeprefix("res://")).read_text()
         sprite_ids.update(re.findall(r'"asset"\s*:\s*"([^"\n]+)"', source))
+    # Threshold samples are formal scenes outside the editor scope. Admit their exact dynamic art.
+    for row in world["rooms"].values():
+        source = (ROOT / row["scene_ref"].removeprefix("res://")).read_text()
+        sample = re.search(r'^region_preview = "([a-z_]+)"$', source, re.M)
+        if not sample:
+            continue
+        family = sample[1]
+        background = art["backgrounds"].get(family+"_v2", art["backgrounds"][family])
+        pending.append("art/world-art-v2/"+background["file"])
+        lamp = art["terrains"][family]["asset"].removesuffix("_terrain")+"_lamp"
+        if lamp in art["sprites"]:
+            sprite_ids.add(lamp)
     for key in sprite_ids:
         if key in props:
             pending.append(props[key]["image"].removeprefix("res://"))

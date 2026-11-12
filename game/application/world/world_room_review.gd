@@ -140,6 +140,13 @@ func begin(id: String, entry: String, ability_stage: String, invincible_mode: bo
 	if ability_stage in ["h","hd","hwdq"]: candidate.flags.append("H")
 	if ability_stage in ["hd","hwdq"]: candidate.flags.append("D")
 	if ability_stage == "hwdq": candidate.flags.append_array(["W","Q"])
+	# A declared arrival simulates only the non-reward flags needed to have crossed that door.
+	if not entry.is_empty():
+		for doorway:Dictionary in app.content.room(id).doors:
+			if doorway.id!=entry:continue
+			for group:Array in doorway.requires:
+				for flag:String in group:
+					if flag in ["intro_complete","station_briefed","clockheart_briefed","s06"] and flag not in candidate.flags:candidate.flags.append(flag)
 	candidate.room = id
 	candidate.entry = entry
 	if not app.state.commit(candidate,app.state.revision): launching=false;return false

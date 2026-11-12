@@ -1092,7 +1092,6 @@
           ],
           "entry_connection_candidates": [
             "room-link-144",
-            "C02",
             "WEST-P27-P05"
           ],
           "activation": "进入单段挑战前在实际来路的安全台自动记录；多入口各记录各自来路，不选最近点、不跨区域回收。",
@@ -1117,7 +1116,7 @@
           "section_id": "main",
           "normal_failure_damage": 1,
           "special_failure_damage": 2,
-          "boss_retry_bypass": "P27→P05→P14有稳定地面下路，不重复TG02的慢平台取物挑战。",
+          "boss_retry_bypass": "由P27直接上行P14，不重复TG02慢平台挑战。",
           "entry_binding_scope": "当前真实门候选；挑战入口由来门与本段challenge_id共同登记，不跨房复位。"
         }
       ],
@@ -63438,7 +63437,7 @@
       "parent_anchor": "P_WEST",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "牧风者前休息与两路辨认；直达14，侧看05铜齿自愿挑战。",
+      "purpose": "牧风者前休息与分路：上行14、东看05铜齿挑战、西接月影墓园。",
       "rest_point": true,
       "rift_machine": false,
       "rest_position": "独立安全棚内明确休息的长椅",
@@ -97690,7 +97689,7 @@
     },
     {
       "id": "C02",
-      "a": "P-R05",
+      "a": "P-R27",
       "b": "C-R02",
       "kind": "cross_region",
       "anchor_a": "P1",
@@ -97794,7 +97793,8 @@
           1196.27,
           967.21
         ]
-      ]
+      ],
+      "description": "背风检修棚西侧墓园接近段；慢风平台不再外接墓地。"
     },
     {
       "id": "C03",

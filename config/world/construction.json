@@ -1020,13 +1020,13 @@
               1872
             ],
             "safe_standing_position_world_units": [
-              640,
-              1806
+              384,
+              1774
             ],
             "platform_candidate_rect_world_units": [
-              576,
-              1824,
-              128,
+              288,
+              1792,
+              160,
               32
             ],
             "platform_is_real_collision": true,
@@ -1042,7 +1042,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
@@ -1071,13 +1071,13 @@
               1872
             ],
             "safe_standing_position_world_units": [
-              1152,
+              1120,
               1806
             ],
             "platform_candidate_rect_world_units": [
               1088,
               1824,
-              128,
+              64,
               32
             ],
             "platform_is_real_collision": true,
@@ -1093,7 +1093,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
@@ -1173,8 +1173,8 @@
             1872
           ],
           "eventual_standing_position_world_units": [
-            640,
-            1806
+            384,
+            1774
           ],
           "landing_contract_ref": "landing:C03:P-R03",
           "fake_grounded_reset_forbidden": true
@@ -1188,7 +1188,7 @@
             1872
           ],
           "eventual_standing_position_world_units": [
-            1152,
+            1120,
             1806
           ],
           "landing_contract_ref": "landing:C04:P-R03",
@@ -1902,57 +1902,6 @@
           }
         },
         {
-          "id": "C02:P-R05",
-          "position_candidate": {
-            "local_world_units": [
-              0,
-              704
-            ],
-            "normalized_uv": [
-              0.0,
-              0.8461538461538461
-            ],
-            "opening_candidate_world_units": [
-              64,
-              96
-            ],
-            "status": "未施工的外区接口候选，不打开实体边界。"
-          },
-          "landing_contract": {
-            "id": "landing:C02:P-R05",
-            "section": "main",
-            "incoming_mode": "walk_into_grounded_landing",
-            "entry_position_world_units": [
-              64,
-              686
-            ],
-            "safe_standing_position_world_units": [
-              144,
-              686
-            ],
-            "platform_candidate_rect_world_units": [
-              0,
-              704,
-              288,
-              32
-            ],
-            "platform_is_real_collision": true,
-            "must_remain_on_entry_side_of_ability_obstacle": true,
-            "must_see_landing_before_handover": true,
-            "control_return_requires_actual_ground_contact": false,
-            "q_rearm_requires_actual_ground_contact": true,
-            "q_cooldown_reset": false,
-            "safe_from": [
-              "terrain_damage",
-              "enemy_contact",
-              "unseen_fall",
-              "door_retrigger",
-              "automatic_crossing_of_ability_fixture"
-            ],
-            "coordinates_are_candidate": true
-          }
-        },
-        {
           "id": "WEST-P27-P05:P-R05",
           "position_candidate": {
             "local_world_units": [
@@ -2021,21 +1970,6 @@
           "fake_grounded_reset_forbidden": true
         },
         {
-          "id": "spawn:C02:P-R05",
-          "entry_door": "C02:P-R05",
-          "section": "main",
-          "position_candidate_world_units": [
-            64,
-            686
-          ],
-          "eventual_standing_position_world_units": [
-            144,
-            686
-          ],
-          "landing_contract_ref": "landing:C02:P-R05",
-          "fake_grounded_reset_forbidden": true
-        },
-        {
           "id": "spawn:WEST-P27-P05:P-R05",
           "entry_door": "WEST-P27-P05:P-R05",
           "section": "main",
@@ -2099,32 +2033,6 @@
             "position_candidate_world_units": [
               1776.0,
               622.0
-            ]
-          },
-          {
-            "id": "CP:P-R05:C02:P-R05",
-            "challenge_ref": "CP:P-R05",
-            "approach_door": "C02:P-R05",
-            "fallback_entry_spawn": "spawn:C02:P-R05",
-            "entry_side": "main",
-            "activate_only_when_player_reaches_this_safe_platform": true,
-            "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
-            "cannot_record_or_respawn_across_closed_gate": true,
-            "heals_hp": false,
-            "resets_enemies": false,
-            "resets_rest_cycle": false,
-            "target_segment_seconds": [
-              10,
-              281
-            ],
-            "split_if_seconds_exceed": 40,
-            "section": "main",
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "q_cooldown_reset": false,
-            "position_candidate_world_units": [
-              144,
-              686
             ]
           },
           {
@@ -7395,34 +7303,34 @@
           "id": "CITY-P-G-WEST:P-R18",
           "position_candidate": {
             "local_world_units": [
-              2624,
-              224
+              2944,
+              1152
             ],
             "normalized_uv": [
-              0.8913043478260869,
-              0.11666666666666667
+              1.0,
+              0.6
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "未施工的外区接口候选，不打开实体边界。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:CITY-P-G-WEST:P-R18",
             "section": "main",
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
-              2560,
-              206
+              2880,
+              1134
             ],
             "safe_standing_position_world_units": [
-              2480,
-              206
+              2800,
+              1134
             ],
             "platform_candidate_rect_world_units": [
-              2336,
-              224,
+              2656,
+              1152,
               288,
               32
             ],
@@ -7439,7 +7347,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         }
       ],
@@ -7524,12 +7432,12 @@
           "entry_door": "CITY-P-G-WEST:P-R18",
           "section": "main",
           "position_candidate_world_units": [
-            2560,
-            206
+            2880,
+            1134
           ],
           "eventual_standing_position_world_units": [
-            2480,
-            206
+            2800,
+            1134
           ],
           "landing_contract_ref": "landing:CITY-P-G-WEST:P-R18",
           "fake_grounded_reset_forbidden": true
@@ -14953,52 +14861,50 @@
       "room_id": "S-R01",
       "scene_ref": "res://game/world/regions/S/rooms/S-R01.tscn",
       "extent": [
-        1008,
-        544
+        448,
+        768
       ],
-      "shape_class": "safe_service",
+      "shape_class": "threshold_sample",
       "rationale": "容纳长凳、交通与NPC，保持可步行社区；主题不改变玩家尺度。 v07保留v04本房世界单位包络；图面轮廓修改不重缩旧场景。",
       "camera": {
         "profile": "bounded_follow",
-        "transition": "occluded",
-        "zones": [],
-        "links": []
+        "transition": "occluded"
       },
       "doors": [
         {
           "id": "C04:S-R01",
           "position_candidate": {
             "local_world_units": [
-              624,
+              224,
               0
             ],
             "normalized_uv": [
-              0.61905,
+              0.5,
               0.0
             ],
             "opening_candidate_world_units": [
               96,
               64
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:C04:S-R01",
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              624,
+              224,
               64
             ],
             "safe_standing_position_world_units": [
-              624,
-              174
+              224,
+              142
             ],
             "platform_candidate_rect_world_units": [
-              496,
+              128,
+              160,
               192,
-              256,
-              32
+              24
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -15013,43 +14919,43 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
           "id": "C26:S-R01",
           "position_candidate": {
             "local_world_units": [
-              384,
+              96,
               0
             ],
             "normalized_uv": [
-              0.38095,
+              0.21428571428571427,
               0.0
             ],
             "opening_candidate_world_units": [
               96,
               64
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:C26:S-R01",
             "section": "entry:C26",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              384,
+              96,
               64
             ],
             "safe_standing_position_world_units": [
-              384,
-              174
+              96,
+              142
             ],
             "platform_candidate_rect_world_units": [
-              256,
+              0,
+              160,
               192,
-              256,
-              32
+              24
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -15064,41 +14970,41 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
           "id": "EXP-S_dry_bank-01:S-R01",
           "position_candidate": {
             "local_world_units": [
-              512,
-              544
+              224,
+              768
             ],
             "normalized_uv": [
-              0.50794,
+              0.5,
               1.0
             ],
             "opening_candidate_world_units": [
               96,
               64
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:EXP-S_dry_bank-01:S-R01",
             "section": "main",
             "incoming_mode": "scripted_short_hop_to_side_platform",
             "entry_position_world_units": [
-              512,
-              520
+              224,
+              720
             ],
             "safe_standing_position_world_units": [
-              368,
-              398
+              96,
+              654
             ],
             "platform_candidate_rect_world_units": [
-              272,
-              416,
+              32,
+              672,
               192,
               32
             ],
@@ -15115,7 +15021,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         }
       ],
@@ -15125,12 +15031,12 @@
           "entry_door": "C04:S-R01",
           "section": "main",
           "position_candidate_world_units": [
-            624,
+            224,
             64
           ],
           "eventual_standing_position_world_units": [
-            624,
-            174
+            224,
+            142
           ],
           "landing_contract_ref": "landing:C04:S-R01",
           "fake_grounded_reset_forbidden": true
@@ -15140,12 +15046,12 @@
           "entry_door": "C26:S-R01",
           "section": "entry:C26",
           "position_candidate_world_units": [
-            384,
+            96,
             64
           ],
           "eventual_standing_position_world_units": [
-            384,
-            174
+            96,
+            142
           ],
           "landing_contract_ref": "landing:C26:S-R01",
           "fake_grounded_reset_forbidden": true
@@ -15155,25 +15061,22 @@
           "entry_door": "EXP-S_dry_bank-01:S-R01",
           "section": "main",
           "position_candidate_world_units": [
-            512,
-            520
+            224,
+            720
           ],
           "eventual_standing_position_world_units": [
-            368,
-            398
+            96,
+            654
           ],
           "landing_contract_ref": "landing:EXP-S_dry_bank-01:S-R01",
           "fake_grounded_reset_forbidden": true
         }
       ],
       "rest": {
-        "enabled": true,
+        "enabled": false,
         "id": "rest:S-R01",
         "section": "main",
-        "position_candidate_world_units": [
-          512,
-          352
-        ],
+        "position_candidate_world_units": null,
         "activation": "explicit_rest_interaction",
         "set_death_respawn": true,
         "heal_hp": true,
@@ -15222,53 +15125,7 @@
           "tutorial_exception": "P22第一处短反冲失误为可走回的低台，不因本通用合同追加扣血地形",
           "terrain_hp_zero_policy": "HP为0优先死亡回实际休息点；不得用局部复位替代死亡"
         },
-        "internal_route_entries": [
-          {
-            "id": "CP_ROUTE:IR:S-R01:entry:C26",
-            "route_ref": "IR:S-R01:entry:C26",
-            "section": "entry:C26",
-            "target_section": "main",
-            "position_candidate_world_units": [
-              384,
-              174
-            ],
-            "binding": "在实际环境挑战前稳定台激活；锚点占位不授权跨过隔断",
-            "cannot_activate_from_other_section": true,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "no_heal_or_rest_reset": true
-          },
-          {
-            "id": "CP_ROUTE:IR:S-R01:entry:C26:return",
-            "route_ref": "IR:S-R01:entry:C26:return",
-            "section": "main",
-            "target_section": "entry:C26",
-            "position_candidate_world_units": [
-              512,
-              352
-            ],
-            "binding": "在实际环境挑战前稳定台激活；锚点占位不授权跨过隔断",
-            "cannot_activate_from_other_section": true,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "no_heal_or_rest_reset": true
-          },
-          {
-            "id": "CP_ROUTE:IR:S-R01:access:H:approach",
-            "route_ref": "IR:S-R01:access:H:approach",
-            "section": "main",
-            "target_section": "access:H",
-            "position_candidate_world_units": [
-              512,
-              352
-            ],
-            "binding": "在实际环境挑战前稳定台激活；锚点占位不授权跨过隔断",
-            "cannot_activate_from_other_section": true,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "no_heal_or_rest_reset": true
-          }
-        ]
+        "internal_route_entries": []
       },
       "shop_stock_refs": [
         "EQ_SHOP_S01",
@@ -15305,7 +15162,17 @@
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
       },
-      "implemented": false
+      "implemented": true,
+      "space_rects": [
+        [
+          0,
+          0,
+          448,
+          768
+        ]
+      ],
+      "layout_revision": "paired-region-threshold-sample-01",
+      "construction_status": "用户授权外区示例占位：只实现平原往返，不代表整区完成。"
     },
     {
       "room_id": "S-R02",
@@ -26164,16 +26031,14 @@
       "room_id": "N-R02",
       "scene_ref": "res://game/world/regions/N/rooms/N-R02.tscn",
       "extent": [
-        2000,
-        496
+        1152,
+        640
       ],
-      "shape_class": "ordinary_route",
+      "shape_class": "threshold_sample",
       "rationale": "按真实长宽比例与房间职责给工作包络；局部平台在固定角色参数下细化。 v07保留v04本房世界单位包络；图面轮廓修改不重缩旧场景。",
       "camera": {
         "profile": "bounded_follow",
-        "transition": "occluded",
-        "zones": [],
-        "links": []
+        "transition": "occluded"
       },
       "doors": [
         {
@@ -26181,17 +26046,17 @@
           "position_candidate": {
             "local_world_units": [
               0,
-              256
+              448
             ],
             "normalized_uv": [
               0.0,
-              0.51613
+              0.7
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:room-link-185:N-R02",
@@ -26199,16 +26064,16 @@
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
               64,
-              238
+              430
             ],
             "safe_standing_position_world_units": [
               144,
-              238
+              430
             ],
             "platform_candidate_rect_world_units": [
-              48,
-              256,
-              192,
+              0,
+              448,
+              288,
               32
             ],
             "platform_is_real_collision": true,
@@ -26224,41 +26089,41 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
           "id": "room-link-186:N-R02",
           "position_candidate": {
             "local_world_units": [
-              992,
-              496
+              576,
+              640
             ],
             "normalized_uv": [
-              0.496,
+              0.5,
               1.0
             ],
             "opening_candidate_world_units": [
               96,
               64
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:room-link-186:N-R02",
             "section": "main",
             "incoming_mode": "scripted_short_hop_to_side_platform",
             "entry_position_world_units": [
-              992,
-              472
+              576,
+              592
             ],
             "safe_standing_position_world_units": [
-              1136,
-              350
+              704,
+              526
             ],
             "platform_candidate_rect_world_units": [
-              1040,
-              368,
+              640,
+              544,
               192,
               32
             ],
@@ -26275,42 +26140,42 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
           "id": "room-link-187:N-R02",
           "position_candidate": {
             "local_world_units": [
-              2000,
+              1152,
               192
             ],
             "normalized_uv": [
               1.0,
-              0.3871
+              0.3
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:room-link-187:N-R02",
             "section": "main",
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
-              1936,
+              1088,
               174
             ],
             "safe_standing_position_world_units": [
-              1856,
+              1008,
               174
             ],
             "platform_candidate_rect_world_units": [
-              1760,
+              864,
               192,
-              192,
+              288,
               32
             ],
             "platform_is_real_collision": true,
@@ -26326,42 +26191,42 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
           "id": "C06:N-R02",
           "position_candidate": {
             "local_world_units": [
-              2000,
-              304
+              1152,
+              448
             ],
             "normalized_uv": [
               1.0,
-              0.6129
+              0.7
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:C06:N-R02",
             "section": "main",
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
-              1936,
-              286
+              1088,
+              430
             ],
             "safe_standing_position_world_units": [
-              1856,
-              286
+              1008,
+              430
             ],
             "platform_candidate_rect_world_units": [
-              1760,
-              304,
-              192,
+              864,
+              448,
+              288,
               32
             ],
             "platform_is_real_collision": true,
@@ -26377,7 +26242,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         }
       ],
@@ -26388,11 +26253,11 @@
           "section": "main",
           "position_candidate_world_units": [
             64,
-            238
+            430
           ],
           "eventual_standing_position_world_units": [
             144,
-            238
+            430
           ],
           "landing_contract_ref": "landing:room-link-185:N-R02",
           "fake_grounded_reset_forbidden": true
@@ -26402,12 +26267,12 @@
           "entry_door": "room-link-186:N-R02",
           "section": "main",
           "position_candidate_world_units": [
-            992,
-            472
+            576,
+            592
           ],
           "eventual_standing_position_world_units": [
-            1136,
-            350
+            704,
+            526
           ],
           "landing_contract_ref": "landing:room-link-186:N-R02",
           "fake_grounded_reset_forbidden": true
@@ -26417,11 +26282,11 @@
           "entry_door": "room-link-187:N-R02",
           "section": "main",
           "position_candidate_world_units": [
-            1936,
+            1088,
             174
           ],
           "eventual_standing_position_world_units": [
-            1856,
+            1008,
             174
           ],
           "landing_contract_ref": "landing:room-link-187:N-R02",
@@ -26432,12 +26297,12 @@
           "entry_door": "C06:N-R02",
           "section": "main",
           "position_candidate_world_units": [
-            1936,
-            286
+            1088,
+            430
           ],
           "eventual_standing_position_world_units": [
-            1856,
-            286
+            1008,
+            430
           ],
           "landing_contract_ref": "landing:C06:N-R02",
           "fake_grounded_reset_forbidden": true
@@ -26468,84 +26333,6 @@
         "heavy_example": "lava",
         "challenge_entries": [
           {
-            "id": "CP:N-R02:room-link-185:N-R02",
-            "challenge_ref": "CP:N-R02",
-            "approach_door": "room-link-185:N-R02",
-            "fallback_entry_spawn": "spawn:room-link-185:N-R02",
-            "section": "main",
-            "entry_side": "main",
-            "activate_only_when_player_reaches_this_safe_platform": true,
-            "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
-            "position_candidate_world_units": [
-              144,
-              238
-            ],
-            "cannot_record_or_respawn_across_closed_gate": true,
-            "heals_hp": false,
-            "resets_enemies": false,
-            "resets_rest_cycle": false,
-            "target_segment_seconds": [
-              10,
-              25
-            ],
-            "split_if_seconds_exceed": 40,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "q_cooldown_reset": false
-          },
-          {
-            "id": "CP:N-R02:room-link-186:N-R02",
-            "challenge_ref": "CP:N-R02",
-            "approach_door": "room-link-186:N-R02",
-            "fallback_entry_spawn": "spawn:room-link-186:N-R02",
-            "section": "main",
-            "entry_side": "main",
-            "activate_only_when_player_reaches_this_safe_platform": true,
-            "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
-            "position_candidate_world_units": [
-              1136,
-              350
-            ],
-            "cannot_record_or_respawn_across_closed_gate": true,
-            "heals_hp": false,
-            "resets_enemies": false,
-            "resets_rest_cycle": false,
-            "target_segment_seconds": [
-              10,
-              25
-            ],
-            "split_if_seconds_exceed": 40,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "q_cooldown_reset": false
-          },
-          {
-            "id": "CP:N-R02:room-link-187:N-R02",
-            "challenge_ref": "CP:N-R02",
-            "approach_door": "room-link-187:N-R02",
-            "fallback_entry_spawn": "spawn:room-link-187:N-R02",
-            "section": "main",
-            "entry_side": "main",
-            "activate_only_when_player_reaches_this_safe_platform": true,
-            "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
-            "position_candidate_world_units": [
-              1856,
-              174
-            ],
-            "cannot_record_or_respawn_across_closed_gate": true,
-            "heals_hp": false,
-            "resets_enemies": false,
-            "resets_rest_cycle": false,
-            "target_segment_seconds": [
-              10,
-              25
-            ],
-            "split_if_seconds_exceed": 40,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "q_cooldown_reset": false
-          },
-          {
             "id": "CP:N-R02:C06:N-R02",
             "challenge_ref": "CP:N-R02",
             "approach_door": "C06:N-R02",
@@ -26555,8 +26342,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1856,
-              286
+              1008,
+              430
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -26599,23 +26386,7 @@
           "tutorial_exception": "P22第一处短反冲失误为可走回的低台，不因本通用合同追加扣血地形",
           "terrain_hp_zero_policy": "HP为0优先死亡回实际休息点；不得用局部复位替代死亡"
         },
-        "internal_route_entries": [
-          {
-            "id": "CP_ROUTE:IR:N-R02:access:H:approach",
-            "route_ref": "IR:N-R02:access:H:approach",
-            "section": "main",
-            "target_section": "access:H",
-            "position_candidate_world_units": [
-              992,
-              320
-            ],
-            "binding": "在实际环境挑战前稳定台激活；锚点占位不授权跨过隔断",
-            "cannot_activate_from_other_section": true,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "no_heal_or_rest_reset": true
-          }
-        ]
+        "internal_route_entries": []
       },
       "shop_stock_refs": [],
       "save_scope": {
@@ -26649,7 +26420,17 @@
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
       },
-      "implemented": false
+      "implemented": true,
+      "space_rects": [
+        [
+          0,
+          0,
+          1152,
+          640
+        ]
+      ],
+      "layout_revision": "paired-region-threshold-sample-01",
+      "construction_status": "用户授权外区示例占位：只实现平原往返，不代表整区完成。"
     },
     {
       "room_id": "N-R03",
@@ -40823,15 +40604,13 @@
       "scene_ref": "res://game/world/regions/F/rooms/F-R01.tscn",
       "extent": [
         1104,
-        496
+        640
       ],
-      "shape_class": "safe_service",
+      "shape_class": "threshold_sample",
       "rationale": "容纳长凳、交通与NPC，保持可步行社区；主题不改变玩家尺度。 v07保留v04本房世界单位包络；图面轮廓修改不重缩旧场景。",
       "camera": {
         "profile": "bounded_follow",
-        "transition": "occluded",
-        "zones": [],
-        "links": []
+        "transition": "occluded"
       },
       "doors": [
         {
@@ -40839,17 +40618,17 @@
           "position_candidate": {
             "local_world_units": [
               0,
-              256
+              448
             ],
             "normalized_uv": [
               0.0,
-              0.51613
+              0.7
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:room-link-022:F-R01",
@@ -40857,16 +40636,16 @@
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
               64,
-              238
+              430
             ],
             "safe_standing_position_world_units": [
               144,
-              238
+              430
             ],
             "platform_candidate_rect_world_units": [
-              48,
-              256,
-              192,
+              0,
+              448,
+              288,
               32
             ],
             "platform_is_real_collision": true,
@@ -40882,7 +40661,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
@@ -40893,14 +40672,14 @@
               0
             ],
             "normalized_uv": [
-              0.49275,
+              0.4927536231884058,
               0.0
             ],
             "opening_candidate_world_units": [
               96,
               64
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:C01:F-R01",
@@ -40912,13 +40691,13 @@
             ],
             "safe_standing_position_world_units": [
               544,
-              174
+              142
             ],
             "platform_candidate_rect_world_units": [
-              416,
+              448,
+              160,
               192,
-              256,
-              32
+              24
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -40933,7 +40712,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         }
       ],
@@ -40944,11 +40723,11 @@
           "section": "main",
           "position_candidate_world_units": [
             64,
-            238
+            430
           ],
           "eventual_standing_position_world_units": [
             144,
-            238
+            430
           ],
           "landing_contract_ref": "landing:room-link-022:F-R01",
           "fake_grounded_reset_forbidden": true
@@ -40963,20 +40742,17 @@
           ],
           "eventual_standing_position_world_units": [
             544,
-            174
+            142
           ],
           "landing_contract_ref": "landing:C01:F-R01",
           "fake_grounded_reset_forbidden": true
         }
       ],
       "rest": {
-        "enabled": true,
+        "enabled": false,
         "id": "rest:F-R01",
         "section": "main",
-        "position_candidate_world_units": [
-          544,
-          320
-        ],
+        "position_candidate_world_units": null,
         "activation": "explicit_rest_interaction",
         "set_death_respawn": true,
         "heal_hp": true,
@@ -41059,7 +40835,17 @@
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
       },
-      "implemented": false
+      "implemented": true,
+      "space_rects": [
+        [
+          0,
+          0,
+          1104,
+          640
+        ]
+      ],
+      "layout_revision": "paired-region-threshold-sample-01",
+      "construction_status": "用户授权外区示例占位：只实现平原往返，不代表整区完成。"
     },
     {
       "room_id": "F-R02",
@@ -48987,51 +48773,49 @@
       "room_id": "C-R02",
       "scene_ref": "res://game/world/regions/C/rooms/C-R02.tscn",
       "extent": [
-        2032,
-        496
+        1280,
+        640
       ],
-      "shape_class": "ordinary_route",
+      "shape_class": "threshold_sample",
       "rationale": "按真实长宽比例与房间职责给工作包络；局部平台在固定角色参数下细化。 v07保留v04本房世界单位包络；图面轮廓修改不重缩旧场景。",
       "camera": {
         "profile": "bounded_follow",
-        "transition": "occluded",
-        "zones": [],
-        "links": []
+        "transition": "occluded"
       },
       "doors": [
         {
           "id": "C02:C-R02",
           "position_candidate": {
             "local_world_units": [
-              2032,
-              256
+              1280,
+              448
             ],
             "normalized_uv": [
               1.0,
-              0.51613
+              0.7
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:C02:C-R02",
             "section": "main",
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
-              1968,
-              238
+              1216,
+              430
             ],
             "safe_standing_position_world_units": [
-              1888,
-              238
+              1136,
+              430
             ],
             "platform_candidate_rect_world_units": [
-              1792,
-              256,
-              192,
+              992,
+              448,
+              288,
               32
             ],
             "platform_is_real_collision": true,
@@ -49047,7 +48831,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
@@ -49055,17 +48839,17 @@
           "position_candidate": {
             "local_world_units": [
               0,
-              256
+              448
             ],
             "normalized_uv": [
               0.0,
-              0.51613
+              0.7
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:room-link-039:C-R02",
@@ -49073,16 +48857,16 @@
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
               64,
-              238
+              430
             ],
             "safe_standing_position_world_units": [
               144,
-              238
+              430
             ],
             "platform_candidate_rect_world_units": [
-              48,
-              256,
-              192,
+              0,
+              448,
+              288,
               32
             ],
             "platform_is_real_collision": true,
@@ -49098,7 +48882,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         }
       ],
@@ -49108,12 +48892,12 @@
           "entry_door": "C02:C-R02",
           "section": "main",
           "position_candidate_world_units": [
-            1968,
-            238
+            1216,
+            430
           ],
           "eventual_standing_position_world_units": [
-            1888,
-            238
+            1136,
+            430
           ],
           "landing_contract_ref": "landing:C02:C-R02",
           "fake_grounded_reset_forbidden": true
@@ -49124,11 +48908,11 @@
           "section": "main",
           "position_candidate_world_units": [
             64,
-            238
+            430
           ],
           "eventual_standing_position_world_units": [
             144,
-            238
+            430
           ],
           "landing_contract_ref": "landing:room-link-039:C-R02",
           "fake_grounded_reset_forbidden": true
@@ -49168,34 +48952,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              1888,
-              238
-            ],
-            "cannot_record_or_respawn_across_closed_gate": true,
-            "heals_hp": false,
-            "resets_enemies": false,
-            "resets_rest_cycle": false,
-            "target_segment_seconds": [
-              10,
-              25
-            ],
-            "split_if_seconds_exceed": 40,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "q_cooldown_reset": false
-          },
-          {
-            "id": "CP:C-R02:room-link-039:C-R02",
-            "challenge_ref": "CP:C-R02",
-            "approach_door": "room-link-039:C-R02",
-            "fallback_entry_spawn": "spawn:room-link-039:C-R02",
-            "section": "main",
-            "entry_side": "main",
-            "activate_only_when_player_reaches_this_safe_platform": true,
-            "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
-            "position_candidate_world_units": [
-              144,
-              238
+              1136,
+              430
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -49238,23 +48996,7 @@
           "tutorial_exception": "P22第一处短反冲失误为可走回的低台，不因本通用合同追加扣血地形",
           "terrain_hp_zero_policy": "HP为0优先死亡回实际休息点；不得用局部复位替代死亡"
         },
-        "internal_route_entries": [
-          {
-            "id": "CP_ROUTE:IR:C-R02:access:H:approach",
-            "route_ref": "IR:C-R02:access:H:approach",
-            "section": "main",
-            "target_section": "access:H",
-            "position_candidate_world_units": [
-              1024,
-              320
-            ],
-            "binding": "在实际环境挑战前稳定台激活；锚点占位不授权跨过隔断",
-            "cannot_activate_from_other_section": true,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "no_heal_or_rest_reset": true
-          }
-        ]
+        "internal_route_entries": []
       },
       "shop_stock_refs": [],
       "save_scope": {
@@ -49288,7 +49030,17 @@
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
       },
-      "implemented": false
+      "implemented": true,
+      "space_rects": [
+        [
+          0,
+          0,
+          1280,
+          640
+        ]
+      ],
+      "layout_revision": "paired-region-threshold-sample-01",
+      "construction_status": "用户授权外区示例占位：只实现平原往返，不代表整区完成。"
     },
     {
       "room_id": "C-R03",
@@ -54906,23 +54658,21 @@
       "room_id": "M-R02",
       "scene_ref": "res://game/world/regions/M/rooms/M-R02.tscn",
       "extent": [
-        1376,
-        720
+        448,
+        768
       ],
-      "shape_class": "ordinary_route",
+      "shape_class": "threshold_sample",
       "rationale": "按真实长宽比例与房间职责给工作包络；局部平台在固定角色参数下细化。 v07保留v04本房世界单位包络；图面轮廓修改不重缩旧场景。",
       "camera": {
         "profile": "bounded_follow",
-        "transition": "occluded",
-        "zones": [],
-        "links": []
+        "transition": "occluded"
       },
       "doors": [
         {
           "id": "C03:M-R02",
           "position_candidate": {
             "local_world_units": [
-              688,
+              224,
               0
             ],
             "normalized_uv": [
@@ -54933,25 +54683,25 @@
               96,
               64
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:C03:M-R02",
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              688,
+              224,
               64
             ],
             "safe_standing_position_world_units": [
-              688,
-              174
+              224,
+              142
             ],
             "platform_candidate_rect_world_units": [
-              560,
+              128,
+              160,
               192,
-              256,
-              32
+              24
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -54966,7 +54716,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
@@ -54974,17 +54724,17 @@
           "position_candidate": {
             "local_world_units": [
               0,
-              352
+              512
             ],
             "normalized_uv": [
               0.0,
-              0.48889
+              0.6666666666666666
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:L22:M-R02",
@@ -54992,16 +54742,16 @@
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
               64,
-              334
+              494
             ],
             "safe_standing_position_world_units": [
               144,
-              334
+              494
             ],
             "platform_candidate_rect_world_units": [
-              48,
-              352,
-              192,
+              0,
+              512,
+              288,
               32
             ],
             "platform_is_real_collision": true,
@@ -55017,7 +54767,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         }
       ],
@@ -55027,12 +54777,12 @@
           "entry_door": "C03:M-R02",
           "section": "main",
           "position_candidate_world_units": [
-            688,
+            224,
             64
           ],
           "eventual_standing_position_world_units": [
-            688,
-            174
+            224,
+            142
           ],
           "landing_contract_ref": "landing:C03:M-R02",
           "fake_grounded_reset_forbidden": true
@@ -55043,11 +54793,11 @@
           "section": "main",
           "position_candidate_world_units": [
             64,
-            334
+            494
           ],
           "eventual_standing_position_world_units": [
             144,
-            334
+            494
           ],
           "landing_contract_ref": "landing:L22:M-R02",
           "fake_grounded_reset_forbidden": true
@@ -55087,34 +54837,8 @@
             "activate_only_when_player_reaches_this_safe_platform": true,
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
-              688,
-              174
-            ],
-            "cannot_record_or_respawn_across_closed_gate": true,
-            "heals_hp": false,
-            "resets_enemies": false,
-            "resets_rest_cycle": false,
-            "target_segment_seconds": [
-              10,
-              25
-            ],
-            "split_if_seconds_exceed": 40,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "q_cooldown_reset": false
-          },
-          {
-            "id": "CP:M-R02:L22:M-R02",
-            "challenge_ref": "CP:M-R02",
-            "approach_door": "L22:M-R02",
-            "fallback_entry_spawn": "spawn:L22:M-R02",
-            "section": "main",
-            "entry_side": "main",
-            "activate_only_when_player_reaches_this_safe_platform": true,
-            "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
-            "position_candidate_world_units": [
-              144,
-              334
+              224,
+              142
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -55191,7 +54915,17 @@
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
       },
-      "implemented": false
+      "implemented": true,
+      "space_rects": [
+        [
+          0,
+          0,
+          448,
+          768
+        ]
+      ],
+      "layout_revision": "paired-region-threshold-sample-01",
+      "construction_status": "用户授权外区示例占位：只实现平原往返，不代表整区完成。"
     },
     {
       "room_id": "M-R03",
@@ -65564,23 +65298,21 @@
       "room_id": "K-R01",
       "scene_ref": "res://game/world/regions/K/rooms/K-R01.tscn",
       "extent": [
-        1024,
-        528
+        896,
+        640
       ],
-      "shape_class": "safe_service",
+      "shape_class": "threshold_sample",
       "rationale": "容纳长凳、交通与NPC，保持可步行社区；主题不改变玩家尺度。 v07保留v04本房世界单位包络；图面轮廓修改不重缩旧场景。",
       "camera": {
         "profile": "bounded_follow",
-        "transition": "occluded",
-        "zones": [],
-        "links": []
+        "transition": "occluded"
       },
       "doors": [
         {
           "id": "room-link-074:K-R01",
           "position_candidate": {
             "local_world_units": [
-              512,
+              448,
               0
             ],
             "normalized_uv": [
@@ -65591,25 +65323,25 @@
               96,
               64
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:room-link-074:K-R01",
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              512,
+              448,
               64
             ],
             "safe_standing_position_world_units": [
-              512,
-              174
+              448,
+              142
             ],
             "platform_candidate_rect_world_units": [
-              384,
+              352,
+              160,
               192,
-              256,
-              32
+              24
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -65624,42 +65356,42 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
           "id": "room-link-076:K-R01",
           "position_candidate": {
             "local_world_units": [
-              1024,
-              256
+              896,
+              448
             ],
             "normalized_uv": [
               1.0,
-              0.48485
+              0.7
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:room-link-076:K-R01",
             "section": "main",
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
-              960,
-              238
+              832,
+              430
             ],
             "safe_standing_position_world_units": [
-              880,
-              238
+              752,
+              430
             ],
             "platform_candidate_rect_world_units": [
-              784,
-              256,
-              192,
+              608,
+              448,
+              288,
               32
             ],
             "platform_is_real_collision": true,
@@ -65675,15 +65407,15 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
           "id": "C05:K-R01",
           "position_candidate": {
             "local_world_units": [
-              512,
-              528
+              448,
+              640
             ],
             "normalized_uv": [
               0.5,
@@ -65693,23 +65425,23 @@
               96,
               64
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:C05:K-R01",
             "section": "entry:C05",
             "incoming_mode": "scripted_short_hop_to_side_platform",
             "entry_position_world_units": [
-              512,
-              504
+              448,
+              592
             ],
             "safe_standing_position_world_units": [
-              656,
-              382
+              576,
+              526
             ],
             "platform_candidate_rect_world_units": [
-              560,
-              400,
+              512,
+              544,
               192,
               32
             ],
@@ -65726,7 +65458,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         }
       ],
@@ -65736,12 +65468,12 @@
           "entry_door": "room-link-074:K-R01",
           "section": "main",
           "position_candidate_world_units": [
-            512,
+            448,
             64
           ],
           "eventual_standing_position_world_units": [
-            512,
-            174
+            448,
+            142
           ],
           "landing_contract_ref": "landing:room-link-074:K-R01",
           "fake_grounded_reset_forbidden": true
@@ -65751,12 +65483,12 @@
           "entry_door": "room-link-076:K-R01",
           "section": "main",
           "position_candidate_world_units": [
-            960,
-            238
+            832,
+            430
           ],
           "eventual_standing_position_world_units": [
-            880,
-            238
+            752,
+            430
           ],
           "landing_contract_ref": "landing:room-link-076:K-R01",
           "fake_grounded_reset_forbidden": true
@@ -65766,25 +65498,22 @@
           "entry_door": "C05:K-R01",
           "section": "entry:C05",
           "position_candidate_world_units": [
-            512,
-            504
+            448,
+            592
           ],
           "eventual_standing_position_world_units": [
-            656,
-            382
+            576,
+            526
           ],
           "landing_contract_ref": "landing:C05:K-R01",
           "fake_grounded_reset_forbidden": true
         }
       ],
       "rest": {
-        "enabled": true,
+        "enabled": false,
         "id": "rest:K-R01",
         "section": "main",
-        "position_candidate_world_units": [
-          512,
-          336
-        ],
+        "position_candidate_world_units": null,
         "activation": "explicit_rest_interaction",
         "set_death_respawn": true,
         "heal_hp": true,
@@ -65833,38 +65562,7 @@
           "tutorial_exception": "P22第一处短反冲失误为可走回的低台，不因本通用合同追加扣血地形",
           "terrain_hp_zero_policy": "HP为0优先死亡回实际休息点；不得用局部复位替代死亡"
         },
-        "internal_route_entries": [
-          {
-            "id": "CP_ROUTE:IR:K-R01:entry:C05",
-            "route_ref": "IR:K-R01:entry:C05",
-            "section": "entry:C05",
-            "target_section": "main",
-            "position_candidate_world_units": [
-              656,
-              382
-            ],
-            "binding": "在实际环境挑战前稳定台激活；锚点占位不授权跨过隔断",
-            "cannot_activate_from_other_section": true,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "no_heal_or_rest_reset": true
-          },
-          {
-            "id": "CP_ROUTE:IR:K-R01:entry:C05:return",
-            "route_ref": "IR:K-R01:entry:C05:return",
-            "section": "main",
-            "target_section": "entry:C05",
-            "position_candidate_world_units": [
-              512,
-              336
-            ],
-            "binding": "在实际环境挑战前稳定台激活；锚点占位不授权跨过隔断",
-            "cannot_activate_from_other_section": true,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "no_heal_or_rest_reset": true
-          }
-        ]
+        "internal_route_entries": []
       },
       "shop_stock_refs": [],
       "save_scope": {
@@ -65898,7 +65596,17 @@
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
       },
-      "implemented": false
+      "implemented": true,
+      "space_rects": [
+        [
+          0,
+          0,
+          896,
+          640
+        ]
+      ],
+      "layout_revision": "paired-region-threshold-sample-01",
+      "construction_status": "用户授权外区示例占位：只实现平原往返，不代表整区完成。"
     },
     {
       "room_id": "K-R02",
@@ -82484,52 +82192,50 @@
       "room_id": "G-R02",
       "scene_ref": "res://game/world/regions/G/rooms/G-R02.tscn",
       "extent": [
-        1776,
+        896,
         640
       ],
-      "shape_class": "ordinary_route",
+      "shape_class": "threshold_sample",
       "rationale": "v07按房间职责预留工作尺寸：从平原东田到工城的首次入口；先在安全门廊看见铜环跨距，H越过后进入钟匠街。 尺寸是首轮施工候选，不能从世界图比例或分钟目标反推验收。",
       "camera": {
         "profile": "bounded_follow",
-        "transition": "occluded",
-        "zones": [],
-        "links": []
+        "transition": "occluded"
       },
       "doors": [
         {
           "id": "room-link-107:G-R02",
           "position_candidate": {
             "local_world_units": [
-              896,
+              448,
               0
             ],
             "normalized_uv": [
-              0.5045,
+              0.5,
               0.0
             ],
             "opening_candidate_world_units": [
               96,
               64
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:room-link-107:G-R02",
             "section": "main",
             "incoming_mode": "drop_onto_visible_safe_platform",
             "entry_position_world_units": [
-              896,
+              448,
               64
             ],
             "safe_standing_position_world_units": [
-              896,
-              174
+              448,
+              142
             ],
             "platform_candidate_rect_world_units": [
-              768,
+              352,
+              160,
               192,
-              256,
-              32
+              24
             ],
             "platform_is_real_collision": true,
             "must_remain_on_entry_side_of_ability_obstacle": true,
@@ -82544,42 +82250,42 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
           "id": "room-link-110:G-R02",
           "position_candidate": {
             "local_world_units": [
-              1776,
-              240
+              896,
+              192
             ],
             "normalized_uv": [
               1.0,
-              0.375
+              0.3
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:room-link-110:G-R02",
             "section": "main",
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
-              1712,
-              222
+              832,
+              174
             ],
             "safe_standing_position_world_units": [
-              1632,
-              222
+              752,
+              174
             ],
             "platform_candidate_rect_world_units": [
-              1536,
-              240,
+              608,
               192,
+              288,
               32
             ],
             "platform_is_real_collision": true,
@@ -82595,42 +82301,42 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
           "id": "room-link-111:G-R02",
           "position_candidate": {
             "local_world_units": [
-              1776,
-              400
+              896,
+              448
             ],
             "normalized_uv": [
               1.0,
-              0.625
+              0.7
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:room-link-111:G-R02",
             "section": "main",
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
-              1712,
-              382
+              832,
+              430
             ],
             "safe_standing_position_world_units": [
-              1632,
-              382
+              752,
+              430
             ],
             "platform_candidate_rect_world_units": [
-              1536,
-              400,
-              192,
+              608,
+              448,
+              288,
               32
             ],
             "platform_is_real_collision": true,
@@ -82646,41 +82352,41 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
           "id": "EXP-G_workers_yard_reward-03:G-R02",
           "position_candidate": {
             "local_world_units": [
-              896,
+              448,
               640
             ],
             "normalized_uv": [
-              0.5045,
+              0.5,
               1.0
             ],
             "opening_candidate_world_units": [
               96,
               64
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:EXP-G_workers_yard_reward-03:G-R02",
             "section": "main",
             "incoming_mode": "scripted_short_hop_to_side_platform",
             "entry_position_world_units": [
-              896,
-              616
+              448,
+              592
             ],
             "safe_standing_position_world_units": [
-              752,
-              494
+              576,
+              526
             ],
             "platform_candidate_rect_world_units": [
-              656,
               512,
+              544,
               192,
               32
             ],
@@ -82697,7 +82403,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         },
         {
@@ -82705,17 +82411,17 @@
           "position_candidate": {
             "local_world_units": [
               0,
-              320
+              448
             ],
             "normalized_uv": [
               0.0,
-              0.5
+              0.7
             ],
             "opening_candidate_world_units": [
               64,
               96
             ],
-            "status": "可调整施工门口坐标；需和落脚台、相机、房内路一起校准。"
+            "status": "门对联合校准的正式入口。"
           },
           "landing_contract": {
             "id": "landing:CITY-P-G-WEST:G-R02",
@@ -82723,16 +82429,16 @@
             "incoming_mode": "walk_into_grounded_landing",
             "entry_position_world_units": [
               64,
-              302
+              430
             ],
             "safe_standing_position_world_units": [
               144,
-              302
+              430
             ],
             "platform_candidate_rect_world_units": [
-              48,
-              320,
-              192,
+              0,
+              448,
+              288,
               32
             ],
             "platform_is_real_collision": true,
@@ -82748,7 +82454,7 @@
               "door_retrigger",
               "automatic_crossing_of_ability_fixture"
             ],
-            "coordinates_are_candidate": true
+            "coordinates_are_candidate": false
           }
         }
       ],
@@ -82758,12 +82464,12 @@
           "entry_door": "room-link-107:G-R02",
           "section": "main",
           "position_candidate_world_units": [
-            896,
+            448,
             64
           ],
           "eventual_standing_position_world_units": [
-            896,
-            174
+            448,
+            142
           ],
           "landing_contract_ref": "landing:room-link-107:G-R02",
           "fake_grounded_reset_forbidden": true
@@ -82773,12 +82479,12 @@
           "entry_door": "room-link-110:G-R02",
           "section": "main",
           "position_candidate_world_units": [
-            1712,
-            222
+            832,
+            174
           ],
           "eventual_standing_position_world_units": [
-            1632,
-            222
+            752,
+            174
           ],
           "landing_contract_ref": "landing:room-link-110:G-R02",
           "fake_grounded_reset_forbidden": true
@@ -82788,12 +82494,12 @@
           "entry_door": "room-link-111:G-R02",
           "section": "main",
           "position_candidate_world_units": [
-            1712,
-            382
+            832,
+            430
           ],
           "eventual_standing_position_world_units": [
-            1632,
-            382
+            752,
+            430
           ],
           "landing_contract_ref": "landing:room-link-111:G-R02",
           "fake_grounded_reset_forbidden": true
@@ -82803,12 +82509,12 @@
           "entry_door": "EXP-G_workers_yard_reward-03:G-R02",
           "section": "main",
           "position_candidate_world_units": [
-            896,
-            616
+            448,
+            592
           ],
           "eventual_standing_position_world_units": [
-            752,
-            494
+            576,
+            526
           ],
           "landing_contract_ref": "landing:EXP-G_workers_yard_reward-03:G-R02",
           "fake_grounded_reset_forbidden": true
@@ -82819,11 +82525,11 @@
           "section": "entry:CITY-P-G-WEST",
           "position_candidate_world_units": [
             64,
-            302
+            430
           ],
           "eventual_standing_position_world_units": [
             144,
-            302
+            430
           ],
           "landing_contract_ref": "landing:CITY-P-G-WEST:G-R02",
           "fake_grounded_reset_forbidden": true
@@ -82854,110 +82560,6 @@
         "heavy_example": "lava",
         "challenge_entries": [
           {
-            "id": "CP:G-R02:room-link-107:G-R02",
-            "challenge_ref": "CP:G-R02",
-            "approach_door": "room-link-107:G-R02",
-            "fallback_entry_spawn": "spawn:room-link-107:G-R02",
-            "section": "main",
-            "entry_side": "main",
-            "activate_only_when_player_reaches_this_safe_platform": true,
-            "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
-            "position_candidate_world_units": [
-              896,
-              174
-            ],
-            "cannot_record_or_respawn_across_closed_gate": true,
-            "heals_hp": false,
-            "resets_enemies": false,
-            "resets_rest_cycle": false,
-            "target_segment_seconds": [
-              10,
-              25
-            ],
-            "split_if_seconds_exceed": 40,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "q_cooldown_reset": false
-          },
-          {
-            "id": "CP:G-R02:room-link-110:G-R02",
-            "challenge_ref": "CP:G-R02",
-            "approach_door": "room-link-110:G-R02",
-            "fallback_entry_spawn": "spawn:room-link-110:G-R02",
-            "section": "main",
-            "entry_side": "main",
-            "activate_only_when_player_reaches_this_safe_platform": true,
-            "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
-            "position_candidate_world_units": [
-              1632,
-              222
-            ],
-            "cannot_record_or_respawn_across_closed_gate": true,
-            "heals_hp": false,
-            "resets_enemies": false,
-            "resets_rest_cycle": false,
-            "target_segment_seconds": [
-              10,
-              25
-            ],
-            "split_if_seconds_exceed": 40,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "q_cooldown_reset": false
-          },
-          {
-            "id": "CP:G-R02:room-link-111:G-R02",
-            "challenge_ref": "CP:G-R02",
-            "approach_door": "room-link-111:G-R02",
-            "fallback_entry_spawn": "spawn:room-link-111:G-R02",
-            "section": "main",
-            "entry_side": "main",
-            "activate_only_when_player_reaches_this_safe_platform": true,
-            "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
-            "position_candidate_world_units": [
-              1632,
-              382
-            ],
-            "cannot_record_or_respawn_across_closed_gate": true,
-            "heals_hp": false,
-            "resets_enemies": false,
-            "resets_rest_cycle": false,
-            "target_segment_seconds": [
-              10,
-              25
-            ],
-            "split_if_seconds_exceed": 40,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "q_cooldown_reset": false
-          },
-          {
-            "id": "CP:G-R02:EXP-G_workers_yard_reward-03:G-R02",
-            "challenge_ref": "CP:G-R02",
-            "approach_door": "EXP-G_workers_yard_reward-03:G-R02",
-            "fallback_entry_spawn": "spawn:EXP-G_workers_yard_reward-03:G-R02",
-            "section": "main",
-            "entry_side": "main",
-            "activate_only_when_player_reaches_this_safe_platform": true,
-            "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
-            "position_candidate_world_units": [
-              752,
-              494
-            ],
-            "cannot_record_or_respawn_across_closed_gate": true,
-            "heals_hp": false,
-            "resets_enemies": false,
-            "resets_rest_cycle": false,
-            "target_segment_seconds": [
-              10,
-              25
-            ],
-            "split_if_seconds_exceed": 40,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "q_cooldown_reset": false
-          },
-          {
             "id": "CP:G-R02:CITY-P-G-WEST:G-R02",
             "challenge_ref": "CP:G-R02",
             "approach_door": "CITY-P-G-WEST:G-R02",
@@ -82968,7 +82570,7 @@
             "respawn_position": "本来向真实到达的挑战入口稳定台；按分段推进，不按欧氏最近点选复位。",
             "position_candidate_world_units": [
               144,
-              302
+              430
             ],
             "cannot_record_or_respawn_across_closed_gate": true,
             "heals_hp": false,
@@ -83011,23 +82613,7 @@
           "tutorial_exception": "P22第一处短反冲失误为可走回的低台，不因本通用合同追加扣血地形",
           "terrain_hp_zero_policy": "HP为0优先死亡回实际休息点；不得用局部复位替代死亡"
         },
-        "internal_route_entries": [
-          {
-            "id": "CP_ROUTE:IR:G-R02:entry:CITY-P-G-WEST",
-            "route_ref": "IR:G-R02:entry:CITY-P-G-WEST",
-            "section": "entry:CITY-P-G-WEST",
-            "target_section": "main",
-            "position_candidate_world_units": [
-              144,
-              302
-            ],
-            "binding": "在实际环境挑战前稳定台激活；锚点占位不授权跨过隔断",
-            "cannot_activate_from_other_section": true,
-            "damage_hp_default": 1,
-            "heavy_terrain_damage_hp": 2,
-            "no_heal_or_rest_reset": true
-          }
-        ]
+        "internal_route_entries": []
       },
       "shop_stock_refs": [],
       "save_scope": {
@@ -83061,7 +82647,17 @@
         "room_reload_is_not_rest": true,
         "all_unique_rewards_atomic_once": true
       },
-      "implemented": false
+      "implemented": true,
+      "space_rects": [
+        [
+          0,
+          0,
+          896,
+          640
+        ]
+      ],
+      "layout_revision": "paired-region-threshold-sample-01",
+      "construction_status": "用户授权外区示例占位：只实现平原往返，不代表整区完成。"
     },
     {
       "room_id": "G-R03",
@@ -94342,7 +93938,7 @@
         832
       ],
       "shape_class": "connected_chambers",
-      "rationale": "牧风者前休息与两路辨认；直达14，侧看05铜齿自愿挑战。",
+      "rationale": "牧风者前休息与分路：上行14、东看05铜齿挑战、西接月影墓园。",
       "camera": {
         "profile": "bounded_follow",
         "transition": "occluded",
@@ -94502,6 +94098,57 @@
             ],
             "coordinates_are_candidate": false
           }
+        },
+        {
+          "id": "C02:P-R27",
+          "position_candidate": {
+            "local_world_units": [
+              0,
+              576
+            ],
+            "normalized_uv": [
+              0.0,
+              0.6923076923076923
+            ],
+            "opening_candidate_world_units": [
+              64,
+              96
+            ],
+            "status": "门对联合校准的正式入口。"
+          },
+          "landing_contract": {
+            "id": "landing:C02:P-R27",
+            "section": "main",
+            "incoming_mode": "walk_into_grounded_landing",
+            "entry_position_world_units": [
+              64,
+              558
+            ],
+            "safe_standing_position_world_units": [
+              144,
+              558
+            ],
+            "platform_candidate_rect_world_units": [
+              0,
+              576,
+              288,
+              32
+            ],
+            "platform_is_real_collision": true,
+            "must_remain_on_entry_side_of_ability_obstacle": true,
+            "must_see_landing_before_handover": true,
+            "control_return_requires_actual_ground_contact": false,
+            "q_rearm_requires_actual_ground_contact": true,
+            "q_cooldown_reset": false,
+            "safe_from": [
+              "terrain_damage",
+              "enemy_contact",
+              "unseen_fall",
+              "door_retrigger",
+              "automatic_crossing_of_ability_fixture"
+            ],
+            "coordinates_are_candidate": false
+          }
         }
       ],
       "entry_spawns": [
@@ -94549,6 +94196,21 @@
           ],
           "landing_contract_ref": "landing:APPROACH-P27-P14:P-R27",
           "fake_grounded_reset_forbidden": true
+        },
+        {
+          "id": "spawn:C02:P-R27",
+          "entry_door": "C02:P-R27",
+          "section": "main",
+          "landing_contract_ref": "landing:C02:P-R27",
+          "fake_grounded_reset_forbidden": true,
+          "position_candidate_world_units": [
+            64,
+            558
+          ],
+          "eventual_standing_position_world_units": [
+            144,
+            558
+          ]
         }
       ],
       "rest": {
@@ -126078,16 +125740,16 @@
     {
       "edge_id": "C02",
       "old_sides": {
-        "P-R05": "left",
-        "C-R02": "right"
+        "C-R02": "right",
+        "P-R27": "left"
       },
       "construction_sides": {
-        "P-R05": "left",
-        "C-R02": "right"
+        "C-R02": "right",
+        "P-R27": "left"
       },
       "normalization_required": false,
       "connector_owner_rooms": [],
-      "reason": "原候选已是相反接口，保留。",
+      "reason": "墓地由背风检修棚西口外接，避免穿越P27实体。",
       "spatial_exception": null,
       "geometry_status": "施工接口工作值；实机校准可成对调整，保持门ID、分区与拓扑。"
     },

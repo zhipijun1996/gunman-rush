@@ -1,7 +1,7 @@
 """Explicit scene scope for the workbench, shared by export and source import.
 
-The world review contains summaries of every room. Only the complete plains
-region and individually registered review rooms become editable scene drafts.
+The world review contains summaries of every room. All formal rooms and individually registered review rooms become editable
+scene drafts, so a preview can retain every formal cross-room connection.
 """
 from __future__ import annotations
 
@@ -36,7 +36,7 @@ def editable_room_ids(root: Path, construction: dict) -> set[str]:
     unknown = set(additional) - known
     if unknown:
         raise ValueError("Unknown workbench review room: " + ", ".join(sorted(unknown)))
-    return result | set(additional)
+    return result | set(additional) | {r["room_id"] for r in construction["rooms"] if r.get("implemented")}
 
 
 

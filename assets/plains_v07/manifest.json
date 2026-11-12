@@ -45,7 +45,8 @@
     "training_atrium-generated.png": "755900399c4b33861079eda5538839b01fd0ec6c7e661c6940edf251d7c0915f",
     "spring_cellar-generated.png": "cabff4cd924dc86fbfa299de787bd579a7783a70d42193e0a6c47391f96c3c94",
     "grain_loft-generated.png": "f1b3a3472f024c9977ff7aee7345b8ecdba185d08af2a2f3058aa92d72ba7f01",
-    "canal-lowlands-generated.png": "78b314bc572ec421b79ce330ef4748933cf242bf50379347072378bff001cf8b"
+    "canal-lowlands-generated.png": "78b314bc572ec421b79ce330ef4748933cf242bf50379347072378bff001cf8b",
+    "grass-masonry-transitions-generated.png": "300b0788731f415ac4ab831fac54e65af5bea4dd6a05ae54aa92f079863f396b"
   },
   "assets": {
     "reclaimer": {
@@ -2845,6 +2846,28 @@
       "sampling": "nearest",
       "alpha_threshold": null,
       "generation": "assets/plains_v07/source/grain_loft-provenance.json"
+    },
+    "grass_masonry_transitions": {
+      "image": "assets/plains_v07/native/grass_masonry_transitions.png",
+      "source": "assets/plains_v07/source/grass-masonry-transitions-generated.png",
+      "source_sha256": "300b0788731f415ac4ab831fac54e65af5bea4dd6a05ae54aa92f079863f396b",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "size": [
+        96,
+        64
+      ],
+      "sha256": "4f6d317a294b7b0c4669adc37891dd45f02a4284cb1b1ebeddb148e8b51fd7ec",
+      "cell": [
+        32,
+        32
+      ],
+      "columns": 3,
+      "rows": 2
     }
   },
   "validation": "native assets require actual Godot composite and animation review"

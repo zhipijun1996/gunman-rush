@@ -142,6 +142,15 @@ art_placements = Array[Dictionary]([
       0.62
     ],
     "flip_h": false
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      384,
+      1792
+    ],
+    "layer": -5,
+    "threshold_for": "C03:P-R03"
   }
 ])
 bell_mechanisms = Array[Dictionary]([{
@@ -150,7 +159,7 @@ bell_mechanisms = Array[Dictionary]([{
 "id": "P-R03:first_bell",
 "open_seconds": 0.0
 }])
-platforms = Array[Rect2]([Rect2(32, 1792, 608, 96), Rect2(640, 1728, 384, 160), Rect2(1024, 1824, 128, 64), Rect2(1152, 1664, 512, 224), Rect2(1664, 1792, 128, 96), Rect2(1792, 1600, 480, 288), Rect2(1504, 160, 192, 32)])
+platforms = Array[Rect2]([Rect2(32, 1792, 416, 96), Rect2(640, 1728, 320, 160), Rect2(1088, 1824, 64, 64), Rect2(1152, 1664, 512, 224), Rect2(1664, 1792, 128, 96), Rect2(1792, 1600, 480, 288), Rect2(1504, 160, 192, 32)])
 workbench_entity_ids = {
   "art_placements": [
     "P-R03:art:0",
@@ -163,7 +172,8 @@ workbench_entity_ids = {
     "P-R03:art:7",
     "P-R03:art:8",
     "P-R03:art:9",
-    "P-R03:art:10"
+    "P-R03:art:10",
+    "P-R03:door-review:shaft-lip"
   ],
   "climbable_walls": [],
   "hazards": [],

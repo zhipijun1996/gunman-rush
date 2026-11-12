@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
+
+[node name="N-R02" type="Node2D"]
+script = ExtResource("1")
+room_id = "N-R02"
+arrival_text = "折返主坑道 · 区域示例占位"
+art_profile = "cellar"
+region_preview = "echo_mines"
+platforms = Array[Rect2]([Rect2(32, 448, 1088, 160)])
+one_way_indices = Array[int]([])
+start_point = Vector2(1008, 430)
