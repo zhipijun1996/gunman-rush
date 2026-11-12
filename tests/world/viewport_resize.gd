@@ -1,5 +1,5 @@
 extends SceneTree
-## Runs through the exported pack on a real Windows display; no headless fallback.
+## Editor/software viewport probe. Protected shipping EXEs use the external Windows tool.
 var app:FixedWorldApp
 var failures:=0
 var output:="user://native-display"
