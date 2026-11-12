@@ -76,7 +76,8 @@ jobs:
           $package = Get-ChildItem native/windows/*windows-x86_64.zip | Select-Object -First 1
           Expand-Archive $package.FullName -DestinationPath unpacked
           $game = Join-Path (Get-Location) 'unpacked/GunmanRush/GunmanRush.exe'
-          $process = Start-Process -FilePath $game -ArgumentList '--headless','--quit-after','120' -RedirectStandardOutput 'startup.log' -RedirectStandardError 'startup-error.log' -PassThru
+          # Exercise two seconds of real startup; unbounded headless frames can end during audio startup.
+          $process = Start-Process -FilePath $game -ArgumentList '--headless','--max-fps','60','--quit-after','120' -RedirectStandardOutput 'startup.log' -RedirectStandardError 'startup-error.log' -PassThru
           if (-not $process.WaitForExit(90000)) { $process.Kill(); throw 'Windows startup timed out' }
           Get-Content startup.log
           Get-Content startup-error.log
