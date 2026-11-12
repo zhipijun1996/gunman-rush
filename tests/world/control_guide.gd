@@ -20,6 +20,10 @@ func run() -> void:
 		if app.introduction.dialogue_active:break
 		await ticks(1)
 	verify(app.paused and not app.ui.onboarding_hint.desired,"wake dialogue suppresses nonmodal prompts")
+	var texts:=WorldText.catalog.duplicate(true)
+	WorldText.catalog.clear()
+	verify(PlayerControlGuide.text("title")==str(texts["guide.title"]),"unconfigured menu resolves the compiled runtime text catalog")
+	WorldText.configure({"strings":texts})
 	app.introduction.advance();await fixture(Vector2(128,1774));await ticks(20)
 	verify(app.ui.onboarding_hint.lesson=="move" and not app.paused,"safe first movement prompt does not pause")
 	mark("move");if capture:await ticks(45)

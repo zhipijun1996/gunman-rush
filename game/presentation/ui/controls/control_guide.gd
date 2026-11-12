@@ -2,11 +2,17 @@
 class_name PlayerControlGuide
 extends RefCounted
 ## Shared read-only descriptions. Gameplay adapters continue owning input.
-const TEXTS := "res://config/world/ui_texts.json"
+const BUNDLE := "res://build/world/runtime.json"
 static var _fallback: Dictionary = {}
 static func text(id: String) -> String:
-	if _fallback.is_empty(): _fallback = JSON.parse_string(FileAccess.get_file_as_string(TEXTS)).strings
-	return WorldText.text("guide."+id, str(_fallback.get("guide."+id,id)))
+	var key:="guide."+id
+	if WorldText.catalog.has(key):return WorldText.text(key)
+	# Standalone legacy menus share the same compiled catalog. Raw authoring
+	# config is not a runtime dependency, including in exported Web packages.
+	if _fallback.is_empty():
+		var parsed:Variant=JSON.parse_string(FileAccess.get_file_as_string(BUNDLE))
+		if parsed is Dictionary:_fallback=parsed.get("ui_texts",{}).get("strings",{})
+	return str(_fallback.get(key,id))
 
 static func key(profile: Dictionary, action: String) -> String:
 	var names := PackedStringArray()
