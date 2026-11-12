@@ -126,6 +126,7 @@ func continue_world() -> bool:
 	return true
 
 func _create_player() -> void:
+	map_input=GamepadMapInput.new()
 	_fatal = false
 	_return = false
 	_queue.clear()
@@ -747,6 +748,7 @@ func _close_panel() -> void:
 	else:
 		ui.root.hide()
 func _unhandled_input(event: InputEvent) -> void:
+	if controller!=null and not controller.router.has_application_focus:return
 	if controller!=null and (event is InputEventJoypadButton or event is InputEventJoypadMotion):
 		var profile:=controller.router.profile
 		var trigger:=InputProfile.binding_down(profile.gamepad_binding(event.device,"jump_trigger"),event.device,event)>float(profile.values.gamepad_jump_trigger_release_threshold)
