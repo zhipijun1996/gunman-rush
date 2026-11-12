@@ -3,6 +3,7 @@ extends DemoUiModalShell
 ## Reuses modal focus/touch/scroll ownership; a readable, compact world conversation.
 var conversation:=true
 var compact_actions:=false
+var physical_reading:=false
 var _content_minimum:=Vector2.ZERO
 var _portrait_host: Control
 func _ready() -> void:
@@ -43,14 +44,15 @@ func _fit() -> void:
 	if scroll==null: return
 	super._fit()
 	var scale:=METRICS.ui_scale(get_viewport())
+	var reading_scale:=METRICS.pixel_scale(get_viewport()) if physical_reading else scale
 	if compact_actions:rows.add_theme_constant_override("separation",ceili(8/scale))
 	for node: Node in rows.find_children("*","Control",true,false):
 		if node is Label or node is BaseButton:
 			(node as Control).add_theme_font_override("font",UnderworldUI.FONT)
-			(node as Control).add_theme_font_size_override("font_size",ceili(float(node.get_meta(&"world_reading_size",18))/scale))
+			(node as Control).add_theme_font_size_override("font_size",ceili(float(node.get_meta(&"world_reading_size",18))/reading_scale))
 			(node as Control).add_theme_constant_override("shadow_offset_x",0)
 			(node as Control).add_theme_constant_override("shadow_offset_y",0)
-			if node is BaseButton: (node as Control).custom_minimum_size.y=(48 if compact_actions else 52)/scale
+			if node is BaseButton: (node as Control).custom_minimum_size.y=(48 if compact_actions else 52)/reading_scale
 	# Content dragging remains the touch target; the scrollbar is a compact indicator.
 	var bar:=scroll.get_v_scroll_bar()
 	bar.custom_minimum_size=Vector2(12/scale,0)

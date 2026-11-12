@@ -95,6 +95,7 @@ func panel(kind: String,heading: String,detail: String) -> DemoUiModalShell:
 	if shell is WorldDialogue:
 		(shell as WorldDialogue).conversation=kind=="dialogue"
 		(shell as WorldDialogue).compact_actions=kind=="pause"
+		(shell as WorldDialogue).physical_reading=kind=="help"
 	root.add_child(shell)
 	root.show()
 	shell.heading(heading,detail)
@@ -145,6 +146,8 @@ func show_controls(device: StringName = &"") -> void:
 	modal.text(PlayerControlGuide.text("resources"),16,UnderworldUI.MUTED)
 	modal.button(PlayerControlGuide.text("back"),func() -> void:command.emit("guide_back",""))
 	modal.focus_first()
+	var selected:=modal.find_child("GuideTab_"+String(device),true,false) as Button
+	if selected!=null:selected.grab_focus()
 
 func present_instruction(value: Dictionary, actor: PlayerController, overlay: TouchOverlay, reduced: bool) -> void:
 	if value.is_empty():
