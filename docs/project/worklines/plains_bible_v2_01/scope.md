@@ -4,7 +4,7 @@
 
 正式源码通过[PR150](https://github.com/zhipijun1996/gunman-rush/pull/150)统一归入main，后续从main接续。正式内容为35个平原房、用户授权的Z01钟心门厅与七间外区入口示例；35房／43内部连接身份保持；C02按用户要求由P05迁至P27。平台初审导入源截至r80，平台基线`8a12f2ab1698c4d38251c1fe04fe381a7e6e0b18`；随后只落实用户明确指定的正式游戏修改。平台保持只读，不部署、不迁移、不代签审批。草稿初审不等于正式体验终审。
 
-当前任务：用户授权将PR150最终内容清理合入main，并发布Android及Windows的GitHub Release。沿c721b20a核对706个差异文件及现行素材引用；保留当前制作源与许可，清除退休实现和临时产物，原生安装包复用受控正式资源清单。用户确认创建独立Android发布签名，密钥保存在仓库外私有位置，不上传GitHub。合并和发行结果由[主线整合](../main_integration/scope.md)持有；关卡平台不部署。
+当前交付：PR150最终内容已清理合入main；Android／Windows原生发行版本及同源构建、签名和下载入口归[主线整合](../main_integration/scope.md)。用户确认独立Android发布签名，私钥不进入仓库或Release。后续从main接续体验复核；关卡平台未部署。
 
 实景全区审核：35平原房、七间外区入口示例及Z01的真实Godot整房渲染已拼成28,608×12,224实景全图。连续42房按同一世界坐标和真实轮廓裁切，Z01用明确的独立室内层框；隐藏HUD与重复主角，提供约29MB完整JPEG下载和914块按需加载的无损WebP层级图；房号、职责与Boss／休息／收集标记可切换，点击房间可进入无敌试玩。43房覆盖、100个连续方向门缝同像素、独立室内层和本地／线上模拟手机双指缩放、拖动、定位及标记开关已验证，线上无脚本或HTTP错误、完整JPEG的SHA256与本地一致；静态整房检查视口不冒充正式镜头或连续玩法。复现时先运行`python3 tools/world/build.py`；由`tools/world/capture_panorama.gd`采集，`tools/world/panorama.py --captures build/plains-panorama/rooms --output build/plains-panorama/media`拼接；`--metadata-only`可单独更新查看页与标注。[手机缩放审核页](https://zhipijun1996.github.io/gunman-rush/review/plains-panorama/)与[完整JPEG](https://zhipijun1996.github.io/gunman-rush/review/plains-panorama/panorama-full.jpg)已发布；本轮43房重新采集与生成绑定源码3bc4b4c5，媒体随下述最终运行包发布；C03／C04及全图连接已同步，图像为当前原生场景整房检查视口，非正式游玩镜头。提供[约4秒原速H登高片段](https://zhipijun1996.github.io/gunman-rush/review/plains-panorama/hook-route.mp4)，不足1MB；使用声明的H回访／无敌夹具和真实Router／Motor，不代表新档获得能力或人工游玩。
 
