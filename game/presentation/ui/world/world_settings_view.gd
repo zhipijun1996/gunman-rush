@@ -19,6 +19,7 @@ func show() -> void:
 	var popup_touch:=PopupTouchAdapter.new()
 	popup_touch.popup=movement.get_popup()
 	movement.get_popup().add_child(popup_touch)
+	modal.button(WorldText.text("gamepad_calibration.title"),func() -> void: WorldGamepadCalibration.show(ui,settings,applied))
 	var expected_revision:=settings.revision
 	modal.button(WorldText.text("world_settings_view.07"),func() -> void:
 		if settings.revision!=expected_revision: return

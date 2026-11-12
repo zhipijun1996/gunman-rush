@@ -20,6 +20,7 @@ class NativeRelease(unittest.TestCase):
   self.assertTrue(any(r['path']=='assets/plains_v3/effects/combat_atlas.png' for r in p['files']))
   self.assertFalse(any(r['path'].startswith(native.DENIED) or re.search(r'assets/underworld_plains/[^/]+/sources/',r['path']) for r in p['files']))
   self.assertNotIn('build/workbench/preview-world.json',p['raw_files'])
+  self.assertTrue(any(r['path']=='game/presentation/ui/world/gamepad_calibration.gd' for r in p['files']))
  def test_both_native_presets_use_controlled_runtime(self):
   for platform,n in [('windows',0),('android',1)]:
    text=native.configured_preset(self.original,self.plan,platform)

@@ -81,19 +81,24 @@ func interior_material() -> String:
 func _ready() -> void:
 	z_index = -1
 	var boundary:=WorldRoomSpace.boundary_platforms(contract.world_geometry,doors)
-	boundary_art_rock=WorldRoomSpace.exterior_fill(contract.world_geometry,doors)
+	var exterior_solid:=WorldRoomSpace.exterior_fill(contract.world_geometry,doors)
+	boundary_art_rock=exterior_solid.duplicate()
 	boundary_art_rock.append_array(boundary)
 	platforms.append_array(boundary)
-	for index: int in platforms.size():
+	# The displayed exterior is actual rock, not an empty pocket behind a thin shell.
+	# Keep authored platform indices stable for one-way/art bindings.
+	var collision_platforms: Array[Rect2]=platforms.duplicate()
+	collision_platforms.append_array(exterior_solid)
+	for index: int in collision_platforms.size():
 		var body := StaticBody2D.new()
-		body.position = platforms[index].get_center()
-		body.set_meta(&"world_ground",platforms[index])
+		body.position = collision_platforms[index].get_center()
+		body.set_meta(&"world_ground",collision_platforms[index])
 		body.collision_layer = 1
 		body.collision_mask = 0
 		var collision := CollisionShape2D.new()
 		collision.name = "CollisionShape2D"
 		var shape := RectangleShape2D.new()
-		shape.size = platforms[index].size
+		shape.size = collision_platforms[index].size
 		collision.shape = shape
 		collision.one_way_collision = index in one_way_indices
 		if collision.one_way_collision: body.add_to_group("one_way_platform")
@@ -269,6 +274,7 @@ func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: Fram
 	var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
 	body.position = FixedWorldProvider.point(saved.get("position",placement.point))
 	var actor := body.get_node("Actor") as EnemyActor
+	body.ground_recovery_enabled=true
 	actor.set_meta(&"world_persistent_corpse",true)
 	if placement.has("max_health"):
 		actor.definition=actor.definition.duplicate(true) as EnemyDefinition

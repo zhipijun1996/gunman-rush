@@ -5,6 +5,10 @@ var patrol_speed := 0.0
 var _carrier: Node2D
 var _carrier_position := Vector2.ZERO
 var _ground_actor := false
+# Formal world opts into physical settling; standalone/forest movement retains its owner.
+var ground_recovery_enabled := false
+var _ground_fall_speed := 0.0
+var _definition: EnemyDefinition
 var _knockback_requires_floor := false
 var _knockback := Vector2.ZERO
 var _knockback_seconds := 0.0
@@ -16,7 +20,7 @@ func _ready() -> void:
 	# Carriers advance at -100; transport the body before the actor chooses its step.
 	process_physics_priority = -50
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not _ground_actor or collision_layer == 0: return
 	if is_instance_valid(_carrier):
 		var displacement := _carrier.global_position - _carrier_position
@@ -28,8 +32,20 @@ func _physics_process(_delta: float) -> void:
 	var hit := get_world_2d().direct_space_state.intersect_ray(ray)
 	_carrier = hit.get("collider") as Node2D if hit.get("collider") is ModuleMovingPlatform else null
 	if is_instance_valid(_carrier): _carrier_position = _carrier.global_position
+	_recover_ground(delta)
+
+func _recover_ground(delta: float) -> void:
+	if not ground_recovery_enabled: return
+	var actor:=get_node_or_null("Actor") as EnemyActor
+	# The authored hop owns its arc; gravity resumes on recovery, stun or a stale saved position.
+	if actor!=null and actor.definition.behavior_id==&"hopper" and actor.attack_behavior!=null and actor.attack_behavior.state==&"attack":
+		_ground_fall_speed=0;return
+	_ground_fall_speed=minf(_definition.ground_fall_speed,_ground_fall_speed+_definition.ground_fall_acceleration*delta)
+	var collision:=move_and_collide(Vector2(0,_ground_fall_speed*delta))
+	if collision!=null and collision.get_normal().dot(Vector2.UP)>.7:_ground_fall_speed=0
 
 func configure(definition: EnemyDefinition) -> void:
+	_definition=definition
 	patrol_speed = definition.patrol_speed
 	_ground_actor = not definition.aerial
 	var shape := RectangleShape2D.new()
@@ -47,8 +63,8 @@ func step(intent: EnemyIntent, delta: float) -> bool:
 	var motion := Vector2(float(intent.move_axis)*distance,0)+attraction.limit_length(_attraction_limit/delta)*delta
 	if _knockback_seconds>0:
 		var hit_motion := _knockback*minf(delta,_knockback_seconds)
-		# The existing ground motor has no gravity recovery. Do not push a
-		# ground actor into permanent air; aerial definitions retain full force.
+		# Ground hit reaction retains the support guard; ordinary recovery
+		# is not permission to launch walking enemies off a ledge.
 		if _knockback_requires_floor and not hit_motion.is_zero_approx() and not _hit_landing_supported(motion+hit_motion):
 			_knockback=Vector2.ZERO
 			hit_motion=Vector2.ZERO
@@ -70,6 +86,7 @@ func stop() -> void:
 
 func reset_at(location: Vector2) -> void:
 	_carrier = null
+	_ground_fall_speed=0.0
 	stop()
 	global_position = location
 

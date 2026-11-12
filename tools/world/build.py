@@ -18,7 +18,7 @@ def validate_player(data):
         value = focus.get(key)
         if type(value) not in (int, float) or not math.isfinite(value) or value <= 0:
             raise ValueError('Invalid focus heal ' + key)
-    for key, limit in [('keyboard_key', 2**32), ('gamepad_button', 128)]:
+    for key, limit in [('keyboard_key', 2**32)]:
         value = focus.get(key)
         if type(value) is not int or not 0 <= value < limit:
             raise ValueError('Invalid focus heal ' + key)

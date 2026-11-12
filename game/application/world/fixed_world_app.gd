@@ -47,6 +47,7 @@ var _accepted_damage:=false
 var _last_notice:=""
 var review: WorldRoomReview
 var workbench: WorldWorkbenchBridge
+var map_input:=GamepadMapInput.new()
 
 
 func _ready() -> void:
@@ -125,6 +126,7 @@ func continue_world() -> bool:
 	return true
 
 func _create_player() -> void:
+	map_input=GamepadMapInput.new()
 	_fatal = false
 	_return = false
 	_queue.clear()
@@ -746,9 +748,13 @@ func _close_panel() -> void:
 	else:
 		ui.root.hide()
 func _unhandled_input(event: InputEvent) -> void:
+	if controller!=null and not controller.router.has_application_focus:return
+	if controller!=null and (event is InputEventJoypadButton or event is InputEventJoypadMotion):
+		var profile:=controller.router.profile
+		var trigger:=InputProfile.binding_down(profile.gamepad_binding(event.device,"jump_trigger"),event.device,event)>float(profile.values.gamepad_jump_trigger_release_threshold)
+		if map_input.requested(event,profile,controller.router.epoch,trigger):show_map()
 	if event is InputEventJoypadButton and event.pressed:
 		if event.button_index==JOY_BUTTON_START: toggle_pause()
-		elif event.button_index==JOY_BUTTON_BACK: show_map()
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.physical_keycode==KEY_ESCAPE: toggle_pause()
 		elif event.physical_keycode==KEY_M: show_map()

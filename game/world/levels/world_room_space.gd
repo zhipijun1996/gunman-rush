@@ -28,7 +28,7 @@ static func boundary_platforms(geometry: Dictionary, doors: Array) -> Array[Rect
 	return result
 
 static func exterior_fill(geometry: Dictionary, doors: Array) -> Array[Rect2]:
-	# Presentation only: room rock continues off screen instead of outlining sky.
+	# Shared physical/presentation mass: room rock continues beyond the chamber.
 	# Actual doorway apertures remain open through the surrounding mass.
 	var outer:=FixedWorldProvider.rect(geometry.bounds_world_units).grow(512)
 	var open: Array[Rect2]=[]
