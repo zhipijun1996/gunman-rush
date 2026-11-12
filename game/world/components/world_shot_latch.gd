@@ -4,6 +4,9 @@ extends ShotLatch
 signal activation_requested(id: String)
 var stable_id: String
 var pending_commit: Dictionary={}
+func _init()->void:
+	# Main and remote bells must not select different art from ancestor metadata.
+	set_meta("underworld_formal_style",true)
 func _commit_open(request: Dictionary) -> void:
 	# A timed shutter is a local attempt, not a permanent world entitlement.
 	if open_seconds>0:

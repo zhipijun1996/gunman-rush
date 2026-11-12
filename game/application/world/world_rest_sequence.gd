@@ -145,6 +145,11 @@ func finish() -> void:
 		app.controller.active=not app.controller.actor_resources.health.terminal
 	app.paused=false
 	get_tree().paused=false
+	# Rest covers key releases just like a modal. Reconcile physical neutrality
+	# so the next deliberate Up interacts, while a held key remains blocked.
+	if is_instance_valid(app.player):
+		var keyboard:=app.player.get_node_or_null("KeyboardMouseAdapter") as KeyboardMouseAdapter
+		if keyboard!=null:keyboard.observe_current_key_neutral()
 	queue_free()
 
 func _exit_tree() -> void:

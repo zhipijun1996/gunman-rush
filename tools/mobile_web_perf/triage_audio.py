@@ -16,13 +16,13 @@ async def main(args):
   async def capture(label,seconds=8):
    await page.wait_for_timeout(2500);start=await snapshot();n=await page.evaluate('window.MOBILE_PERF_RESULTS.length');await cmd('seconds:'+str(seconds));await cmd('capture');await page.wait_for_timeout(1500);await cmd('cue_coin');await page.wait_for_function('(n)=>window.MOBILE_PERF_RESULTS.length>n',arg=n,timeout=(seconds+30)*1000);row=await page.evaluate('window.MOBILE_PERF_RESULTS.at(-1)');row['label']=label;row['before']=start;row['after']=await snapshot();results.append(row);(args.output/'report.json').write_text(json.dumps({'runtime':args.runtime,'url':args.root_url,'results':results,'logs':logs,'scope':'official paired template engines, same instrumented public-PCK derivative, cloud SwiftShader not phone'},indent=2));print(label,json.dumps(summarize(row)),flush=True)
   try:
-   await page.goto(args.root_url,wait_until='domcontentloaded');await page.wait_for_function('window.READY===true && window.MOBILE_PERF_READY===true',timeout=180000);await page.wait_for_timeout(1000);await page.screenshot(path=str(args.output/'title.png'));b=surfaces(args.output/'title.png',[(195,163,102)])[0];await page.touchscreen.tap((b[0]+b[2]/2)/2.5,(b[1]+b[3]/2)/2.5);await page.wait_for_function("window.MOBILE_PERF_STATE?.state?.context==='home' && window.MOBILE_PERF_STATE.state.foreground.effective_drawn>0",timeout=45000)
+   await page.goto(args.root_url,wait_until='domcontentloaded');await page.wait_for_function('window.READY===true && window.MOBILE_PERF_READY===true',timeout=180000);await page.wait_for_timeout(1000);await page.screenshot(path=str(args.output/'title.png'));b=surfaces(args.output/'title.png',[(195,163,102)])[0];await page.touchscreen.tap((b[0]+b[2]/2)/2.5,(b[1]+b[3]/2)/2.5);await page.wait_for_function("window.MOBILE_PERF_STATE?.state?.context==='home'",timeout=45000)
    if args.runtime=='single':
     await cmd('mode:sample_only');await capture('sample_original_bus',6)
     await page.evaluate('window.MOBILE_PERF_MASTER_ROUTING(true)');await capture('sample_master_root',6)
     await page.evaluate('window.MOBILE_PERF_MASTER_ROUTING(false)');await capture('sample_original_bus_repeat',6)
    await cmd('mode:audio_bus_fix');await capture('home_bus_fix',12);await page.screenshot(path=str(args.output/'home.png'))
-   await cmd('plains');await page.wait_for_function("window.MOBILE_PERF_STATE?.state?.context==='plains' && window.MOBILE_PERF_STATE.state.foreground.effective_drawn>0",timeout=90000);await cmd('mode:audio_bus_fix');await capture('plains_bus_fix',12);await page.screenshot(path=str(args.output/'plains.png'))
+   await cmd('plains');await page.wait_for_function("window.MOBILE_PERF_STATE?.state?.context==='plains'",timeout=90000);await cmd('mode:audio_bus_fix');await capture('plains_bus_fix',12);await page.screenshot(path=str(args.output/'plains.png'))
    if args.runtime=='threaded':
     for r in results:
      stats=[s.get('underrun_stats') for s in r['after']['audio']['streams']];assert any(s and s.get('threads') for s in stats),stats

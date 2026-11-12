@@ -243,7 +243,7 @@ func capture_size(size: Vector2i) -> void:
 
 func leaf_hashes() -> Dictionary:
 	var result: Dictionary = {}
-	for path: String in ["game/bosses/windkeeper/windkeeper_pressure_encounter.gd","game/bosses/windkeeper/windkeeper_pressure_rig.gd","game/bosses/windkeeper/windkeeper_pressure_presentation.gd","scripts/bosses/windkeeper_pressure_definition.gd","game/bosses/windkeeper/windkeeper_pressure_wind.gd","shaders/windkeeper_pressure_foreground.gdshader","shaders/underworld_foreground.gdshader","resources/bosses/windkeeper_storm.tres","scenes/bosses/windkeeper_pressure.tscn","assets/underworld_plains/actors/windkeeper.png","tools/windkeeper_pressure_01/pose_review.gd"]:
+	for path: String in ["game/bosses/windkeeper/windkeeper_pressure_encounter.gd","game/bosses/windkeeper/windkeeper_pressure_rig.gd","game/bosses/windkeeper/windkeeper_pressure_presentation.gd","scripts/bosses/windkeeper_pressure_definition.gd","game/bosses/windkeeper/windkeeper_pressure_wind.gd","resources/bosses/windkeeper_storm.tres","scenes/bosses/windkeeper_pressure.tscn","assets/underworld_plains/actors/windkeeper.png","tools/windkeeper_pressure_01/pose_review.gd"]:
 		result[path] = FileAccess.get_sha256("res://"+path)
 	return result
 

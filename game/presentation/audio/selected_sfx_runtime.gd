@@ -12,7 +12,7 @@ const HURT_CANDIDATES := {
 }
 const PINNED_JSON := {
 	HURT_SELECTION_PATH: "ba02fb2fe2c3667870386ab17cd2336751d201a19306b8dfa04240ead2985d43",
-	"res://config/audio_director/selected/selected.json": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+	"res://config/audio_director/selected/selected.json": "1f8e838e982202a47830f36d909b26dda6b43e49ded528579b746201368b3ac1",
 	"res://assets/audio/director_v3/manifest.json": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
 	"res://config/audio_director/v3/runtime.json": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
 	"res://config/audio_director/selected/user-20261028.json": "56a0dd359fe5c53169794e28dcd7f333cea686d9f1d147ca70d3a3419d2ed072",
@@ -21,11 +21,6 @@ const PINNED_JSON := {
 # Frozen transport fingerprints, not a second event/profile selection table.
 # Source WAVs are QOA imports in shipped PCKs; verify the actual imported bytes.
 const IMPORTED_CANDIDATES := {
-  "res://assets/audio/director_v3/coin_a.wav": {
-    "path": "res://.godot/imported/coin_a.wav-5a2263decb591717afe805fb8db2bcf6.sample",
-    "sha256": "71e2b0c747b35251b2a5b3cf31beb3b519ea5901628f2fda53d617bc0a0db76c",
-    "bytes": 3843
-  },
   "res://assets/audio/director_v3/heal_a.wav": {
     "path": "res://.godot/imported/heal_a.wav-309ea4be16b163b223ee4003ecb770e7.sample",
     "sha256": "bc06ccfdb5d651bb8a88a68e8995a7b313dfdd1595143ab17331e72a0751dac0",

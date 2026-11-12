@@ -74,8 +74,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif _vertical_ready:
 			_vertical_ready = false
 			# Fixed-world Up interacts; legacy sessions retain arrow inspection.
-			if bool(router.get_meta(&"world_up_interaction",false)) or not (bool(_held.get(KEY_UP, false)) or bool(_held.get(KEY_DOWN, false))):
-				router.request_action(&"interact" if vertical < 0 else &"drop_through")
+			if vertical < 0 and (bool(router.get_meta(&"world_up_interaction",false)) or not bool(_held.get(KEY_UP, false))):
+				router.request_action(&"interact")
 		if code in mapping.jump:
 			router.set_jump_held(&"keyboard_mouse", _action_held("jump"))
 		if code in mapping.shoot:

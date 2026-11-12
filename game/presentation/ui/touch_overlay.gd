@@ -10,6 +10,8 @@ signal reset_requested
 var router: InputRouter
 var aim_origin: Node2D
 var enabled := false
+var onboarding_action: StringName = &""
+var _onboarding_age := 0.0
 var left_center := Vector2.ZERO
 var right_center := Vector2.ZERO
 var jump_center := Vector2.ZERO
@@ -113,6 +115,9 @@ func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
 	queue_redraw()
 
 func _process(_delta: float) -> void:
+	if enabled and not onboarding_action.is_empty():
+		_onboarding_age += _delta/maxf(Engine.time_scale,.001)
+		queue_redraw()
 	if enabled and _layout_size != get_viewport_rect().size:
 		router.clear("touch_viewport_changed")
 	if enabled and (_last_item_skill_available != router.item_skill_available or _last_item_skill_label != router.item_skill_label):
@@ -270,7 +275,7 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 			_vertical_ready = true
 		elif absf(axis.y) >= 0.65 and _vertical_ready:
 			_vertical_ready = false
-			router.request_action(&"interact" if axis.y < 0.0 else &"drop_through")
+			if axis.y < 0.0:router.request_action(&"interact")
 	elif region == &"right":
 		_right_offset = (location - right_center).limit_length(radius)
 		_direction = Vector2.ZERO
@@ -353,6 +358,11 @@ func _cancel(_reason: String) -> void:
 	update_layout()
 
 func _draw() -> void:
+	if not onboarding_action.is_empty():
+		var center:=jump_center if onboarding_action==&"jump" else right_center if onboarding_action==&"shoot" else left_center
+		var radius_hint:=jump_radius if onboarding_action==&"jump" else radius
+		var phase:=fmod(_onboarding_age,1.8)/1.8
+		draw_arc(center,radius_hint+4+phase*7,0,TAU,48,Color(UnderworldUI.BRASS,(1-phase)*.5),2)
 	if enabled and router.item_skill_available:
 		draw_circle(item_skill_center,hook_radius*.8,Color(UnderworldUI.BRASS,0.30))
 		draw_arc(item_skill_center,hook_radius*.8,0,TAU,32,Color(UnderworldUI.BRASS,.65),2)
@@ -364,8 +374,15 @@ func _draw() -> void:
 		draw_string(UnderworldUI.FONT,context_center+Vector2(-23,4),router.weapon_context_label,HORIZONTAL_ALIGNMENT_LEFT,-1,10,UnderworldUI.TEXT)
 	if enabled and router.weapon_skill_available:
 		draw_circle(skill_center,hook_radius*.8,Color(UnderworldUI.COOL,0.28))
-		draw_circle(skill_center,5,Color(UnderworldUI.TEXT,0.65))
-		draw_string(UnderworldUI.FONT,skill_center+Vector2(-16,4),"SKILL",HORIZONTAL_ALIGNMENT_LEFT,-1,11,UnderworldUI.TEXT)
+		if router.weapon_skill_label=="冰弹":
+			for i:int in 3:
+				var arm:=Vector2.from_angle(i*PI/3)*7
+				draw_line(skill_center+Vector2(0,-7)-arm,skill_center+Vector2(0,-7)+arm,Color("91d6ff"),2)
+			var size:=UnderworldUI.FONT.get_string_size("冰弹",HORIZONTAL_ALIGNMENT_LEFT,-1,11)
+			draw_string(UnderworldUI.FONT,skill_center+Vector2(-size.x*.5,15),"冰弹",HORIZONTAL_ALIGNMENT_LEFT,-1,11,UnderworldUI.TEXT)
+		else:draw_string(UnderworldUI.FONT,skill_center+Vector2(-16,4),"SKILL",HORIZONTAL_ALIGNMENT_LEFT,-1,11,UnderworldUI.TEXT)
+		if router.weapon_skill_cooldown_ratio>0:
+			draw_arc(skill_center,hook_radius*.8-3,-PI/2,-PI/2+TAU*router.weapon_skill_cooldown_ratio,32,Color("91d6ff"),2)
 	if not enabled:
 		return
 	for center: Vector2 in [left_center, right_center]:

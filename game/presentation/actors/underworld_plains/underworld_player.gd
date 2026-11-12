@@ -63,8 +63,14 @@ func _health_changed(result: ActorResourceResult) -> void:
 	if result == null or result.status != ActorResourceResult.Status.APPLIED or result.operation != &"damage" or result.amount_applied >= 0: return
 	if result.snapshot.terminal:
 		_damage_flash_remaining = 0.0
+		animation_state = "death"
+		_state_age = 0.0
+		frame_index = 0
 		return
 	_hurt_remaining = feedback.hurt_seconds
+	animation_state = "hurt"
+	_state_age = 0.0
+	frame_index = 0
 	_damage_flash_remaining = feedback.flash_seconds
 	_hurt_origin = motor.global_position
 	_accepted_hurt_count += 1
@@ -74,7 +80,7 @@ func _process(delta: float) -> void:
 	_damage_flash_remaining = maxf(0, _damage_flash_remaining-delta)
 	_return_fade_remaining = maxf(0, _return_fade_remaining-delta)
 	var flash_on := _damage_flash_remaining > 0 and int((feedback.flash_seconds-_damage_flash_remaining)*feedback.flash_frequency)%2 == 0
-	modulate = Color(1,.62,.48,.52) if flash_on and not _dead else Color.WHITE
+	modulate = Color(1,.78,.62,.72) if flash_on and not _dead else Color.WHITE
 	if _return_fade_remaining > 0: modulate.a *= lerpf(.25,1.0,1-_return_fade_remaining/feedback.return_transition_seconds)
 	if _build.is_empty(): return
 	_landing_remaining = maxf(0.0, _landing_remaining-delta)

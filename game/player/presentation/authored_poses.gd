@@ -4,6 +4,7 @@ extends RefCounted
 const TEXTURE := preload("res://assets/player_presentation_01/wake_wall/poses.png")
 const LOOK_TEXTURE := preload("res://assets/player_presentation_01/wake_wall/look.png")
 const REST_TEXTURE := preload("res://assets/player_presentation_01/charging/poses.png")
+const FOCUS_TEXTURE := preload("res://assets/player_presentation_01/focus/poses.png")
 const WAKE_HOLDS := [.55,.14,.16,.16,.18,.18,.14,.18]
 const WAKE_SECONDS := 1.69
 var waking := false
@@ -13,9 +14,11 @@ var session := -1
 var look_direction := 0.0
 var look_age := 0.0
 var look_return_age := 0.0
+var focus_frame := -1
 var resting := false
 var rest_frame := 1
 var rest_depth := 0.0
+var ice_cast := false
 
 func begin_rest(controller: PlayerController) -> void:
 	clear()
@@ -29,6 +32,8 @@ func begin_wake(controller: PlayerController) -> void:
 	frame = 0
 
 func clear() -> void:
+	ice_cast = false
+	focus_frame = -1
 	resting = false
 	rest_depth = 0
 	waking = false
@@ -43,11 +48,13 @@ func uses_existing_idle() -> bool:
 	return waking and frame == 7
 
 func advance(delta: float, body: UnderworldPlayer) -> void:
-	if body.controller.session_id != session and (waking or resting): clear()
+	if body.controller.session_id != session and (waking or resting or focus_frame>=0): clear()
 	if body._dead or body._hurt_remaining > 0:
 		clear()
 		return
 	frame = -1
+	ice_cast=false
+	var runtime:=body.controller.shoot_ability.behavior()
 	if resting:
 		frame=18+rest_frame
 	elif waking:
@@ -59,6 +66,13 @@ func advance(delta: float, body: UnderworldPlayer) -> void:
 				frame = i
 				break
 			elapsed -= float(WAKE_HOLDS[i])
+	elif focus_frame>=0 and body.controller.active:
+		frame=30+focus_frame
+	elif body.controller.active and body.controller.shoot_ability.weapon.branch==&"ice" and (runtime.phase==&"charge" or (runtime.pose==&"weapon_skill" and runtime.pose_remaining>0)):
+		ice_cast=true
+		var progress:=clampf(runtime.age/body.controller.shoot_ability.weapon.skill_charge,0,1)
+		frame=30+mini(3,int(progress*4)) if runtime.phase==&"charge" else 34+mini(3,int((.30-runtime.pose_remaining)*4/.30))
+		if absf(runtime.direction.x)>.1:body.facing=signf(runtime.direction.x)
 	elif body.controller.active and body.controller.traversal.state == &"wall_attach":
 		var traversal := body.controller.traversal
 		body.facing = -traversal.wall_normal
@@ -90,6 +104,9 @@ func draw(body: UnderworldPlayer) -> void:
 	if resting:
 		target.position.y+=rest_depth
 		body.draw_texture_rect_region(REST_TEXTURE,target,Rect2(rest_frame%4*80,rest_frame/4*64,80,64))
+	elif frame>=30:
+		var index := frame-30
+		body.draw_texture_rect_region(FOCUS_TEXTURE,target,Rect2(index%4*80,index/4*64,80,64))
 	elif frame>=12:
 		var index := frame-12
 		body.draw_texture_rect_region(LOOK_TEXTURE,target,Rect2(index%3*80,index/3*64,80,64))

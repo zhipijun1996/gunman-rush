@@ -1,83 +1,225 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_nefye"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_ehv7g"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="2_6t3id"]
 
 [node name="P-R04" type="Node2D" unique_id=74144068]
-script = ExtResource("1_nefye")
+script = ExtResource("1_ehv7g")
 room_id = "P-R04"
 arrival_text = "倒钟田垄"
 route_guide = {
 "schema": 1.0,
 "steps": [{
-"action": "向右射击反冲越过断桥；桥下可找齿轮和重新登桥。",
-"label": "断桥换边",
+"action": "向留在右岸的守桥怪射击，反冲同次跨到左接收岸；接收岸加宽32提供余量，保留提前清怪后的空射通行。",
+"label": "回身射击越断桥",
 "number": 1.0,
-"path": [[1776.0, 910.0], [1504.0, 910.0], [1104.0, 910.0], [608.0, 910.0]],
+"path": [[1776.0, 910.0], [1504.0, 910.0], [1469.0, 827.0], [1202.0, 910.0], [608.0, 910.0]],
 "point": [1776.0, 910.0]
 }, {
-"action": "借反冲逐段抬升，从左侧石肩折回果园井口。",
-"label": "石肩折返",
+"action": "东桥下凹室由左侧进入，桥墩藏箱一次散落10金币。经检修台回桥，不沿台阶撒币。",
+"label": "桥墩内探查",
 "number": 2.0,
-"path": [[608.0, 910.0], [640.0, 686.0], [992.0, 494.0], [1168.0, 302.0], [1344.0, 142.0]],
+"path": [[1504.0, 910.0], [1480.0, 1198.0], [1776.0, 1198.0], [1480.0, 1198.0], [1432.0, 1070.0], [1536.0, 910.0]],
+"point": [1480.0, 1198.0]
+}, {
+"action": "5加宽、6下移32并向左加宽；5→6高差128，7加宽至256且下移64，6→7高差192。5的刺移到左边短段、6的刺移到右端，给起跳与反冲落点留出空间。守台怪移至7右段，6完整承担起跳准备；7左侧保留落脚再判断的空间。",
+"label": "宽石肩上果园",
+"number": 3.0,
+"path": [[608.0, 910.0], [640.0, 686.0], [720.0, 686.0], [864.0, 558.0], [1072.0, 558.0], [1168.0, 366.0], [1344.0, 142.0]],
 "point": [608.0, 910.0]
+}, {
+"action": "西侧低地由俯冲怪守20金币藏箱；从平台左端下探，原路跳回石肩。",
+"label": "西侧空角守藏",
+"number": 4.0,
+"path": [[256.0, 1070.0], [176.0, 1070.0], [80.0, 1198.0], [176.0, 1070.0], [256.0, 1070.0]],
+"point": [176.0, 1070.0]
 }]
 }
 retry_anchors = Array[Dictionary]([{
-"bounds": [1504.0, 868.0, 96.0, 60.0],
-"point": [1552.0, 910.0],
+"bounds": [1792.0, 868.0, 96.0, 60.0],
+"point": [1840.0, 910.0],
 "section": "main"
 }, {
 "bounds": [512.0, 868.0, 96.0, 60.0],
 "point": [560.0, 910.0],
 "section": "main"
 }, {
-"bounds": [656.0, 644.0, 96.0, 60.0],
-"point": [704.0, 686.0],
+"bounds": [592.0, 644.0, 96.0, 60.0],
+"point": [640.0, 686.0],
 "section": "main"
 }, {
-"bounds": [944.0, 452.0, 96.0, 60.0],
-"point": [928.0, 526.0],
+"bounds": [848.0, 516.0, 96.0, 60.0],
+"point": [896.0, 558.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "plain_pier",
-"layer": -2.0,
-"point": [1120.0, 928.0],
-"support_height": 288.0
-}, {
-"asset": "plain_pier",
-"layer": -2.0,
-"point": [608.0, 928.0],
-"support_height": 288.0
-}, {
-"asset": "tilted_barrel",
-"fade_near": true,
-"layer": -2.0,
-"point": [432.0, 1216.0]
-}, {
-"asset": "hanging_chime",
-"layer": -2.0,
-"point": [1120.0, 544.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "plains_grass",
+    "point": [
+      1744,
+      928
+    ],
+    "layer": -5,
+    "sway": true,
+    "landscape": "orchard",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.35
+    ],
+    "landscape_reference": [
+      960,
+      800
+    ],
+    "landscape_offset": [
+      0,
+      120
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
+    "atmosphere": {
+      "density": 4,
+      "speed": [
+        24,
+        42
+      ],
+      "sway_speed": 0.8
+    }
+  },
+  {
+    "asset": "tilted_barrel",
+    "point": [
+      432,
+      1216
+    ],
+    "layer": -5
+  },
+  {
+    "asset": "hanging_chime",
+    "point": [
+      1120,
+      576
+    ],
+    "layer": -3
+  },
+  {
+    "asset": "windchime_plains_near_v2",
+    "point": [
+      768,
+      1216
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      1616,
+      928
+    ],
+    "layer": -5,
+    "tint": [
+      0.65,
+      0.74,
+      0.73,
+      1
+    ]
+  },
+  {
+    "support_height": 224,
+    "point": [
+      1120,
+      1216
+    ]
+  },
+  {
+    "asset": "forecourt_foundation",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      1504,
+      992,
+      384,
+      224
+    ],
+    "layer": -24,
+    "tint": [
+      0.74,
+      0.81,
+      0.78,
+      1
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1824,
+      1216
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "surface_platform": 5
+  },
+  {
+    "surface_platform": 6
+  },
+  {
+    "surface_platform": 7
+  },
+  {
+    "surface_platform": 8
+  },
+  {
+    "surface_platform": 11
+  }
+])
 art_profile = "bridge"
-platforms = Array[Rect2]([Rect2(0, 1216, 960, 64), Rect2(1504, 928, 416, 288), Rect2(992, 928, 224, 64), Rect2(384, 928, 320, 64), Rect2(128, 1088, 256, 128), Rect2(512, 704, 256, 64), Rect2(832, 544, 320, 64), Rect2(1088, 320, 160, 64), Rect2(1248, 160, 192, 48), Rect2(1088, 1216, 832, 64)])
+platforms = Array[Rect2]([Rect2(32, 1216, 928, 32), Rect2(1504, 928, 384, 64), Rect2(992, 928, 256, 64), Rect2(384, 928, 320, 64), Rect2(128, 1088, 256, 128), Rect2(512, 704, 288, 64), Rect2(768, 576, 448, 64), Rect2(1056, 384, 256, 32), Rect2(1248, 160, 192, 48), Rect2(1088, 1216, 800, 32), Rect2(1856, 992, 32, 224), Rect2(1376, 1088, 128, 32)])
 workbench_entity_ids = {
-"art_placements": ["P-R04:art_placements:0", "P-R04:art_placements:1", "P-R04:art_placements:2", "P-R04:art_placements:3"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R04:platforms:0", "P-R04:platforms:1", "P-R04:platforms:2", "P-R04:platforms:3", "P-R04:platforms:4", "P-R04:platforms:5", "P-R04:platforms:6", "P-R04:platforms:7", "P-R04:platforms:8", "P-R04:platforms:9"],
-"retry_anchors": ["P-R04:retry_anchors:0", "P-R04:retry_anchors:1", "P-R04:retry_anchors:2", "P-R04:retry_anchors:3"],
-"signs": []
+  "art_placements": ["P-R04:composition:0", "P-R04:composition:1", "P-R04:composition:2", "P-R04:composition:3", "P-R04:composition:4", "P-R04:composition:5", "P-R04:composition:6", "P-R04:composition:7", "P-R04:composition:8", "P-R04:composition:9", "P-R04:composition:10", "P-R04:composition:11", "P-R04:composition:12"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R04:platforms:0",
+    "P-R04:platforms:1",
+    "P-R04:platforms:2",
+    "P-R04:platforms:3",
+    "P-R04:platforms:4",
+    "P-R04:platforms:5",
+    "P-R04:platforms:6",
+    "P-R04:platforms:7",
+    "P-R04:platforms:8",
+    "P-R04:platforms:9",
+    "P-R04:review04:east_bridge_end_support",
+    "P-R04:review04:underbridge_return_step"
+  ],
+  "retry_anchors": [
+    "P-R04:retry_anchors:0",
+    "P-R04:retry_anchors:1",
+    "P-R04:retry_anchors:2",
+    "P-R04:retry_anchors:3"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([5, 6, 7, 8])
-masonry_platform_indices = Array[int]([1, 2, 3])
+one_way_indices = Array[int]([5, 6, 7, 8, 11])
 start_point = Vector2(1776, 910)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",
 "id": "P-R04:bridge_guard",
 "max_health": 9.0,
-"point": [1600.0, 910.0]
+"point": [1648.0, 910.0]
 }, {
 "behavior": "hopper",
 "id": "P-R04:field_hopper",
@@ -87,18 +229,41 @@ enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",
 "id": "P-R04:upper_guard",
 "max_health": 9.0,
-"point": [912.0, 526.0]
+"point": [1248.0, 366.0]
+}, {
+"behavior": "diver",
+"id": "P-R04:west_cache_diver",
+"max_health": 9.0,
+"point": [176.0, 960.0]
 }])
 spike_strips = Array[Dictionary]([{
 "bounds": [1216.0, 1192.0, 224.0, 24.0],
 "facing": "up",
 "id": "P04:broken_span"
 }, {
-"bounds": [832.0, 520.0, 48.0, 24.0],
+"bounds": [1184.0, 552.0, 32.0, 24.0],
 "facing": "up",
 "id": "P-R04:upper_left_edge"
 }, {
-"bounds": [704.0, 680.0, 64.0, 24.0],
+"bounds": [512.0, 680.0, 32.0, 24.0],
 "facing": "up",
 "id": "P-R04:stone_right_edge"
 }])
+illustrated_platform_indices = Array[int]([5, 6, 7, 8, 11])
+masonry_platform_indices = Array[int]([1, 2, 3, 9, 10])
+
+[node name="Cache_bridge_cache" type="Node2D" parent="." unique_id=1560930615]
+position = Vector2(1776, 1198)
+script = ExtResource("2_6t3id")
+action_id = "open_P04_bridge_cache"
+label = "打开桥墩藏箱"
+visual = "chest"
+radius = 48.0
+
+[node name="Cache_west_cache" type="Node2D" parent="." unique_id=842388603]
+position = Vector2(80, 1198)
+script = ExtResource("2_6t3id")
+action_id = "open_P04_west_cache"
+label = "打开田垄藏箱"
+visual = "chest"
+radius = 48.0

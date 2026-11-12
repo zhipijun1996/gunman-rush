@@ -1,39 +1,327 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R02" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_nwu6k"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_ryv4v"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_dk4ok"]
+
+[node name="P-R02" type="Node2D" unique_id=1805962333]
+script = ExtResource("1_nwu6k")
 room_id = "P-R02"
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "棚下整备", "action": "左门去回水洞，下口回旧田；棚里休息后乘屋顶绞盘。", "point": [144, 878], "path": [[144, 878], [688, 878], [640, 1166]]}, {"number": 2, "label": "屋顶分流", "action": "中层向右进高风车，上层向左接眺望台。", "point": [960, 804], "path": [[960, 804], [1200, 558], [832, 206], [448, 142]]}]}
-climbable_walls = Array[Rect2]([])
-environment_zones = Array[Dictionary]([])
-gear_obstacles = Array[Dictionary]([])
-spike_strips = Array[Dictionary]([])
-hazards = Array[Rect2]([])
-traveler_point = Vector2(0,0)
-art_profile = "shelter"
-masonry_platform_indices = Array[int]([])
 arrival_text = "东侧风棚"
-platforms = Array[Rect2]([Rect2(0,896,448,384),Rect2(576,896,768,192),Rect2(576,1184,768,96),Rect2(384,1056,128,32),Rect2(1056,576,288,64),Rect2(704,224,256,32),Rect2(352,160,192,32)])
-one_way_indices = Array[int]([3,5,6])
-start_point = Vector2(144,878)
-rest_point = Vector2(688,878)
-enemy_placements = Array[Dictionary]([])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([])
-art_placements = Array[Dictionary]([{"asset":"waiting_shelter","point":[688,896],"layer":-2},{"asset":"storage_crates","point":[1120,896],"layer":-2},{"asset":"windmill_frame","point":[1184,576],"layer":-2}])
-bell_mechanisms = Array[Dictionary]([{"id":"P02:roof_winch","bell":[848,816],"carrier":"RoofWinch","access_bells":[[1136,512],[848,160]]}])
-illustrated_platform_indices = Array[int]([])
-[node name="RoofWinch" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(960,832)
-endpoint = Vector2(0,-624)
-platform_size = Vector2(144,20)
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "左门去回水洞，下口回旧田；棚里休息后乘屋顶绞盘。",
+"label": "棚下整备",
+"number": 1.0,
+"path": [[144.0, 878.0], [688.0, 878.0], [640.0, 1166.0]],
+"point": [144.0, 878.0]
+}, {
+"action": "中层向右进高风车，上层向左接眺望台。",
+"label": "屋顶分流",
+"number": 2.0,
+"path": [[960.0, 804.0], [1200.0, 558.0], [832.0, 206.0], [448.0, 142.0]],
+"point": [960.0, 804.0]
+}, {
+"action": "从下口接收岸向右探索棚底，越64宽短刺后与巡逻体交战，右端检修箱一次散落10金币；原路回返程台上棚。上方休息与载台观察不受自愿支路影响。",
+"label": "棚下检修藏室",
+"number": 3.0,
+"path": [[640.0, 1166.0], [816.0, 1166.0], [880.0, 1068.0], [992.0, 1166.0], [1264.0, 1166.0], [992.0, 1166.0], [880.0, 1068.0], [816.0, 1166.0], [640.0, 1166.0], [512.0, 1038.0], [640.0, 878.0]],
+"point": [640.0, 1166.0]
+}]
+}
+art_placements = Array[Dictionary]([
+  {
+    "asset": "plains_grass",
+    "point": [
+      240,
+      896
+    ],
+    "layer": -5,
+    "sway": true,
+    "landscape": "junction_meadow",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.35
+    ],
+    "landscape_reference": [
+      672,
+      650
+    ],
+    "landscape_offset": [
+      0,
+      -100
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
+    "atmosphere": {
+      "density": 4,
+      "speed": [
+        24,
+        42
+      ],
+      "sway_speed": 0.8
+    }
+  },
+  {
+    "asset": "waiting_shelter",
+    "point": [
+      696,
+      896
+    ],
+    "layer": -3
+  },
+  {
+    "asset": "storage_crates",
+    "point": [
+      1120,
+      896
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "windmill_frame",
+    "point": [
+      1192,
+      576
+    ],
+    "layer": -12,
+    "tint": [
+      0.74,
+      0.82,
+      0.77,
+      1
+    ],
+    "threshold_for": "L23:P-R02"
+  },
+  {
+    "asset": "travel_bundle",
+    "point": [
+      880,
+      896
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      912,
+      224
+    ],
+    "layer": -14,
+    "hoist_cable": "RoofWinch",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "forecourt_foundation",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      576,
+      960,
+      768,
+      320
+    ],
+    "layer": -24,
+    "tint": [
+      0.75,
+      0.8,
+      0.76,
+      1
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      784,
+      896
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1200,
+      1184
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "surface_platform": 3
+  },
+  {
+    "surface_platform": 5
+  },
+  {
+    "surface_platform": 6
+  },
+  {
+    "masonry_region": [
+      1056,
+      416,
+      288,
+      224
+    ]
+  },
+  {
+    "masonry_region": [
+      0,
+      736,
+      224,
+      512
+    ]
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -18,
+    "tile_rect": [
+      1152,
+      448,
+      192,
+      128
+    ],
+    "tint": [
+      0.72,
+      0.76,
+      0.8,
+      1
+    ]
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -18,
+    "tile_rect": [
+      0,
+      768,
+      192,
+      128
+    ],
+    "tint": [
+      0.72,
+      0.76,
+      0.8,
+      1
+    ],
+    "threshold_for": "EXP-P_field_return-01:P-R02"
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      128,
+      896
+    ],
+    "layer": -4
+  },
+  {
+    "point": [
+      224,
+      896
+    ],
+    "material_transition": {
+      "height": 352,
+      "stone_on_right": false
+    }
+  }
+])
+art_profile = "shelter"
+bell_mechanisms = Array[Dictionary]([{
+"access_bells": [[1136.0, 512.0], [848.0, 160.0]],
+"bell": [848.0, 816.0],
+"carrier": "RoofWinch",
+"id": "P02:roof_winch"
+}])
+platforms = Array[Rect2]([Rect2(32, 896, 416, 352), Rect2(576, 896, 736, 64), Rect2(576, 1184, 736, 64), Rect2(448, 1056, 128, 32), Rect2(1056, 576, 256, 64), Rect2(704, 224, 256, 32), Rect2(352, 160, 192, 32), Rect2(1152, 416, 160, 32), Rect2(32, 736, 192, 32)])
+workbench_entity_ids = {
+  "art_placements": [
+    "P-R02:composition:0",
+    "P-R02:composition:1",
+    "P-R02:composition:2",
+    "P-R02:composition:3",
+    "P-R02:composition:4",
+    "P-R02:composition:5",
+    "P-R02:composition:6",
+    "P-R02:composition:7",
+    "P-R02:composition:8",
+    "P-R02:composition:9",
+    "P-R02:composition:10",
+    "P-R02:composition:11",
+    "P-R02:door-review:art:12",
+    "P-R02:door-review:art:13",
+    "P-R02:door-review:art:14",
+    "P-R02:door-review:art:15",
+    "P-R02:door-review:art:16",
+    "P-R02:material-transition:17"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R02:platforms:0",
+    "P-R02:platforms:1",
+    "P-R02:platforms:2",
+    "P-R02:platforms:3",
+    "P-R02:platforms:4",
+    "P-R02:platforms:5",
+    "P-R02:platforms:6",
+    "P-R02:door-review:platform:7",
+    "P-R02:door-review:platform:8"
+  ],
+  "retry_anchors": [],
+  "signs": []
+}
+start_point = Vector2(144, 878)
+rest_point = Vector2(688, 878)
+enemy_placements = Array[Dictionary]([{
+"behavior": "patrol",
+"id": "P-R02:review06:cache_patrol",
+"max_health": 9.0,
+"point": [1136.0, 1166.0]
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [864.0, 1160.0, 64.0, 24.0],
+"facing": "up",
+"id": "P-R02:review06:maintenance_teeth"
+}])
+one_way_indices = Array[int]([3, 5, 6])
+illustrated_platform_indices = Array[int]([3, 5, 6])
+
+[node name="RoofWinch" type="AnimatableBody2D" parent="." unique_id=1955164023]
+position = Vector2(960, 832)
+script = ExtResource("2_ryv4v")
+endpoint = Vector2(0, -624)
+platform_size = Vector2(144, 20)
 period = 10.0
 one_way = true
-route = Array[Vector2]([Vector2(0,-624)])
+route = Array[Vector2]([Vector2(0, -624)])
 endpoint_dwell = 2.0
+
+[node name="Cache_shelter_cache" type="Node2D" parent="." unique_id=2008026722]
+position = Vector2(1264, 1166)
+script = ExtResource("3_dk4ok")
+action_id = "open_P02_shelter_cache"
+label = "打开棚底检修箱"
+visual = "chest"
+radius = 48.0

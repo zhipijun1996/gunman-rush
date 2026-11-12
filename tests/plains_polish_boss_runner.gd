@@ -13,7 +13,7 @@ func run() -> void:
 	check(encounter.mode == &"observe", "skip enters the same legal attack state")
 	encounter.health.apply_damage(ActorResourceRequest.new(&"third_fixture",encounter.health.epoch,8,encounter.health.get_instance_id()))
 	await frames(310)
-	check(arena_consumer.broken, "safe shelf permits preannounced ground withdrawal")
+	check(arena_consumer.thorns_active, "safe shelf permits preannounced thorn emergence")
 	var previous := boss.position.x
 	var visits := {}
 	for tick: int in 2600:
@@ -34,7 +34,7 @@ func run() -> void:
 		check(encounter.mode == state and encounter.clock == clock_before and boss.position == position_before and encounter.attack_epoch == epoch_before, "pause preserves exact P3 state %s" % state)
 		paused = false
 		encounter.cancel_pending_attacks()
-		check(encounter.stage_phase == 3 and encounter.chase_segment == 2 and boss.position == position_before and arena_consumer.broken, "segment cancel preserves progression %s" % state)
+		check(encounter.stage_phase == 3 and encounter.chase_segment == 2 and boss.position == position_before and arena_consumer.thorns_active, "segment cancel preserves progression %s" % state)
 	# Actual projectile paths from both legal shelves to the final bell.
 	for at: Vector2 in [Vector2(640,452),Vector2(870,452)]:
 		await fixture(at)
@@ -59,7 +59,7 @@ func run() -> void:
 		encounter.health.apply_damage(ActorResourceRequest.new(&"transition_fixture",encounter.health.epoch,8,encounter.health.get_instance_id()))
 		await frames(2)
 		check(encounter.mode == &"phase_transition" and not encounter.core_open and encounter._projectiles.is_empty(), "transition cancels old attacks and closes bell at %s" % at)
-		check(boss.position == old and not arena_consumer.broken and controller.active, "prewarning preserves ground and input at %s" % at)
+		check(boss.position == old and not arena_consumer.thorns_active and controller.active, "prewarning preserves ground and input at %s" % at)
 		await frames(75)
 		check(boss.position.distance_to(old) <= 25, "postwarning movement is bounded rather than teleporting")
 	# App-specific lethal-frame/reward policies are exercised by windkeeper_app_runner.

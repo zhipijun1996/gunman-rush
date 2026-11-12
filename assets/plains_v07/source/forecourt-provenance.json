@@ -1,0 +1,65 @@
+{
+  "generator": "OpenAI image_gen",
+  "prompts": {
+    "tower_foot": "Create a game-ready transparent architecture layer for a 2D side-scrolling pixel-art game, 1536x1024 canvas. Redesign the reference small clocktower as the BASE of the colossal WORLD CLOCKHEART tower, a final-boss landmark, NOT a full small church. Camera stands at the foot of an enormous ancient tower. The building shaft continues far above the top edge; absolutely NO roof, crown, spire, full clockface or visible tower top. Massive vertical stone piers, recessed wall planes and long bronze conduits run beyond the top edge. At top right only the LOWEST ARC of an enormous broken bronze clock mechanism can be visible; most of it is above the image. Maintain fine restrained pixel clusters, worn grey-olive masonry and very dull aged brass of reference, 2D orthographic game side elevation without ground perspective, light from upper right. Spatial composition: left third mainly transparent sky. A broken low outer wall begins x240 at the ground then progressively becomes a gigantic layered buttressed base from x550 onward. Main tower body fills x600..1536 and extends off top and right; layered vertical setbacks and shallow buttresses give believable load bearing depth, no flat rectangular wallpaper wall and no repetitive zigzag silhouette. Main human-scale entry arch centered x1000, clear opening about160px wide and250px high, foot at y960. Door is recessed deeply through 3 thick wall reveals, warm dim inner passage beyond an opaque dark opening; the massive quiet wall above is 3 times its height and cut off by the frame. Building ground baseline y960, bottom64px solid stone foundation allowance. At canvas top x600..1536 is continuous opaque tower stone extending beyond frame. All architecture bases on y960, NO floor plane, NO platforms, NO trees, lamps, people, grass, scenery, clouds, ground shadows, lettering or UI. Opaque dark recesses inside building, genuine transparency ONLY outside its silhouette on left. Fine native game pixel art, quiet broad wall planes with sparse cracks; modest detail at doorway, great scale from repeated small stone courses (24..32px tall) and tiny maintenance slits. The lower foreground will be existing32px terrain tiles and44px player. Do NOT fit the whole building in the image. This is a close-up FOOT of an immense landmark, extending far beyond upper camera view, never a miniature.",
+    "foundation": "Create ONE seamless-in-space rear wall layer for the recessed underground foundation of the clock tower in the reference. Square1024x1024 opaque artwork, quiet deep charcoal/ash stone masonry with fine crisp pixel clusters, not photoreal, same old neutral stone and very restrained dull brass as reference. This is the BACK wall behind real foreground collision masonry, not an illustration of a separate building. Continuous stone fills the entire image edge to edge, no transparent background, no decorative border, no ledges or perimeter frame. Recessed vertical plane with a shallow dark niche integrated across center-right, subtle varied mortar and sparse old damp olive staining. A thin low-contrast brass cable conduit along LEFT third turns once inward at aroundy650 and ends in a small dark junction box; do not clutter the middle with machines. Do not draw a floor, ceiling, platform, stairs, lamp, door, windows, clock, character, sky or light beams. Main value range stays very quiet and dark, no black voids or purewhite highlights, central player action space readable. Tiny irregular stone courses around20..36sourcepx, low edge contrast. It should clearly read as a recessed load-bearing foundation and modest maintenance passage behind a44worldpixel game character after native576x576 baking, not ornate tower facade. Ambient light is neutral cool grey with only subtle warm stone; actual small lamps will light it in-game. No self-lit blue glow. Square composition, do not draw the whole tower again."
+  },
+  "registration": {
+    "facade_point": [
+      1416,
+      576
+    ],
+    "facade_visible_ground": 576,
+    "door_center_world_x": 1536,
+    "foundation_world_rect": [
+      768,
+      576,
+      576,
+      576
+    ],
+    "scale_policy": "Native 1:1 crop; tower shaft deliberately extends above room and view, never fit-to-frame."
+  },
+  "composition": "World-clock tower foot: colossal shaft and piers extend beyond view; human-scale recessed entrance, quiet foundation return below.",
+  "assets": [
+    {
+      "asset": "forecourt_architecture",
+      "source": "assets/plains_v07/source/forecourt-architecture-generated.png",
+      "source_sha256": "a7369e691e904e0f8d1607536577c7351a8fc8e11163e763ae166aa1516548d6",
+      "source_rect": [
+        256,
+        0,
+        1280,
+        982
+      ],
+      "size": [
+        1280,
+        982
+      ],
+      "image": "assets/plains_v07/native/forecourt_architecture.png",
+      "sha256": "cde83e3da341bf56435e274a55c0dcb78c15aaf4eeaf0125cc0dac50edee8a65",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "generation": "assets/plains_v07/source/forecourt-provenance.json"
+    },
+    {
+      "asset": "forecourt_foundation",
+      "source": "assets/plains_v07/source/forecourt-foundation-generated.png",
+      "source_sha256": "58cfb84e361643a9553beccac6509bad5178e8cdc943885174a8ef78e7c5c7bb",
+      "source_rect": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "size": [
+        576,
+        576
+      ],
+      "image": "assets/plains_v07/native/forecourt_foundation.png",
+      "sha256": "2b3bab1d90b1ec3742d0f01c3efd7184f23168bf339d5433b268c1e338f9e851",
+      "sampling": "nearest",
+      "alpha_threshold": null,
+      "generation": "assets/plains_v07/source/forecourt-provenance.json"
+    }
+  ]
+}

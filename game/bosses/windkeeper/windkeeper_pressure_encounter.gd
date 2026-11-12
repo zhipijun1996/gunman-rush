@@ -45,7 +45,7 @@ var _pose_from: Dictionary = {}
 var _supports_bound := false
 var _support_rects: Array[Rect2] = []
 var _support_index := -1
-var _bridge_released := false
+var _thorns_released := false
 var _hop_active := false
 var _hop_start := Vector2.ZERO
 var _hop_target := Vector2.ZERO
@@ -62,6 +62,8 @@ var _preparation_hops := 0
 var _guarded_attack_index := -1
 var _retreat_ready_age := 0.0
 var _blocked_age := 0.0
+var _boundary_escape_side := 0
+var _boundary_retreat_active := false
 var _turn_resume: StringName = &"attack"
 var _mill_start_age := 0.0
 
@@ -116,6 +118,7 @@ func physics_tick(delta: float) -> void:
 		_advance_death(delta)
 		return
 	if not active or not is_instance_valid(_target): return
+	_update_boundary_escape()
 	_fight_age += delta
 	if _bell_hit_age >= 0: _bell_hit_age += delta
 	_state_age += delta
@@ -131,11 +134,12 @@ func physics_tick(delta: float) -> void:
 		&"intro":
 			if clock <= 0: _enter(&"observe", 0)
 		&"phase_transition":
-			# Mount a verified surviving platform before removing the old bridge.
+			# Mount a verified platform before releasing the floor thorns.
 			# The warning clock continues during the real locked physical leap.
 			if stage_phase == 3 and _supports_bound and not _standing_on_support():
 				if not _hop_active and _state_age >= _config().traverse_warning_seconds:
-					var platform_index := _nearest_support_index(motor.global_position.x)
+					var mount_x := (arena.left_x + arena.right_x) * .5 if _wall_pressure_active() else motor.global_position.x
+					var platform_index := _nearest_support_index(mount_x)
 					if platform_index >= 0: _lock_support_hop(platform_index, _config().lunge_peak_speed)
 				if _hop_active: _advance_support_hop(delta)
 				if not _standing_on_support():
@@ -143,7 +147,7 @@ func physics_tick(delta: float) -> void:
 					motor.queue_redraw()
 					return
 			if clock <= 0:
-				if stage_phase == 3: _bridge_released = true
+				if stage_phase == 3: _thorns_released = true
 				phase_changed.emit(stage_phase)
 				_event(&"windkeeper_phase", {"phase": stage_phase})
 				_select_group()
@@ -158,6 +162,8 @@ func physics_tick(delta: float) -> void:
 				direction = locked_direction
 				if _turn_resume == &"traverse_warning":
 					_enter(&"traverse_warning", _config().traverse_warning_seconds)
+				elif _turn_resume == &"retreat_warning":
+					_announce_retreat()
 				elif _turn_resume == &"approach":
 					_enter(&"approach", _config().approach_bound_seconds)
 				else:
@@ -171,7 +177,11 @@ func physics_tick(delta: float) -> void:
 		&"retreat":
 			if _advance_support_hop(delta):
 				_event(&"windkeeper_lunge_land", {"movement_only": true})
-				_begin_attack()
+				if _boundary_retreat_active:
+					_boundary_retreat_active = false
+					_enter(&"observe", 0)
+				else:
+					_begin_attack()
 		&"traverse_warning":
 			if clock <= 0:
 				_start_prepared_hop()
@@ -272,9 +282,16 @@ func _selection_candidates() -> Array[Dictionary]:
 			{"attacks": [&"lunge", &"stomp", &"seeds"], "weight": 2.5 if dx > 230 else 1.0},
 			{"attacks": [&"sweep", &"seeds"], "weight": 1.1},
 			{"attacks": [&"stomp", &"sweep"], "weight": .8}]
+	if stage_phase == 3 and _wall_pressure_active():
+		candidates = [
+			{"attacks": [&"seeds", &"gust", &"seeds"], "weight": 1.0},
+			{"attacks": [&"gust", &"seeds", &"gust"], "weight": 1.0}]
 	for candidate: Dictionary in candidates:
 		var toward := -1 if _target.global_position.x < motor.global_position.x else 1
 		if stage_phase < 3 and &"lunge" in candidate.attacks and arena.travel_limit(motor.global_position.x,toward)<_config().lunge_min_distance:
+			candidate.weight = 0.0
+		if stage_phase < 3 and &"sweep" in candidate.attacks and dx-_approach_limit(toward)>_config().sweep_approach_range+4.0:
+			# The wall takeoff lane must not advertise an unreachable blade.
 			candidate.weight = 0.0
 		var key := _group_key(candidate.attacks)
 		var repeats := 0
@@ -292,6 +309,7 @@ func _group_key(attacks: Array) -> String:
 
 func _select_group() -> void:
 	if not active or health.terminal: return
+	if _try_boundary_retreat(): return
 	var candidates := _selection_candidates()
 	var total := 0.0
 	for candidate: Dictionary in candidates: total += float(candidate.weight)
@@ -315,6 +333,9 @@ func _select_group() -> void:
 	_recent_groups.append(_group_key(attacks))
 	while _recent_groups.size() > 3: _recent_groups.pop_front()
 	_event(&"windkeeper_group", {"plan": _group_plan.duplicate(true)})
+	if stage_phase == 3 and _wall_pressure_active():
+		_begin_attack()
+		return
 	var dx := _target.global_position.x - motor.global_position.x
 	locked_direction = -1 if dx < 0 else 1
 	if absf(dx) > _config().approach_range:
@@ -325,16 +346,23 @@ func _select_group() -> void:
 		_begin_attack()
 
 func _approach(delta: float) -> void:
+	if _try_boundary_retreat(): return
 	if stage_phase == 3 and _supports_bound:
 		_approach_on_support()
 		return
 	var dx := _target.global_position.x - motor.global_position.x
+	if stage_phase < 3 and _group_plan.has("facing") and dx*int(_group_plan.facing)<0:
+		motor.stop()
+		_guarded_attack_index = _attack_index
+		_begin_attack()
+		return
 	var attacks: Array = _group_plan.get("attacks", [])
 	var wants_platform: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"platform"
 	var wants_sweep: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"sweep"
 	var wants_stomp: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"stomp"
 	var desired := _config().sweep_approach_range if wants_sweep else _config().close_range if wants_stomp else 160.0 if wants_platform else _config().approach_range
-	if absf(dx) < desired or clock <= 0:
+	var travel := _approach_limit(-1 if dx < 0 else 1)
+	if absf(dx) < desired or clock <= 0 or travel < .5:
 		_guarded_attack_index = _attack_index
 		motor.stop()
 		_begin_attack()
@@ -347,7 +375,7 @@ func _approach(delta: float) -> void:
 	locked_direction = direction
 	var before := motor.global_position
 	motor.speed = _config().final_chase_speed if stage_phase == 3 else _config().approach_speed
-	motor.step(direction, minf(arena.travel_limit(motor.global_position.x, direction), maxf(0, absf(dx) - desired + 5)), delta)
+	motor.step(direction, minf(travel, maxf(0, absf(dx) - desired + 5)), delta)
 	var moved := motor.global_position.distance_to(before)
 	_travel += moved
 	_blocked_age = _blocked_age + delta if moved < .25 else 0.0
@@ -362,9 +390,52 @@ func _turn_to(facing: int, resume: StringName = &"attack") -> void:
 	_turn_resume = resume
 	_enter(&"turn", _config().turn_seconds)
 
-func _try_retreat() -> bool:
-	if _fight_age < _retreat_ready_age or _hop_active: return false
-	var away := -direction
+func _boundary_gap(x: float, side: int) -> float:
+	return x - arena.left_x if side < 0 else arena.right_x - x
+
+func _approach_limit(toward: int) -> float:
+	var limit := arena.travel_limit(motor.global_position.x,toward)
+	if stage_phase >= 3: return limit
+	# Actual walls differ from the centre bounds of this very large actor.
+	# Keep a takeoff lane in front; crossing over a walking body remains real.
+	var wall := arena.left_x-_config().wall_clearance if toward < 0 else arena.right_x+_config().wall_clearance
+	if (_target.global_position.x-wall)*-toward <= _config().corner_player_range:
+		var stop := wall-toward*_config().corner_standoff_distance
+		limit = minf(limit,maxf(0,(stop-motor.global_position.x)*toward))
+	return limit
+
+func _update_boundary_escape() -> void:
+	if _boundary_escape_side == 0 or not is_instance_valid(_target): return
+	var reset := _config().boundary_escape_rearm_distance
+	if _boundary_gap(_target.global_position.x, _boundary_escape_side) > reset and _boundary_gap(motor.global_position.x, _boundary_escape_side) > reset:
+		_boundary_escape_side = 0
+
+func _wall_pressure_active() -> bool:
+	return _boundary_escape_side != 0 and is_instance_valid(_target) and _boundary_gap(_target.global_position.x, _boundary_escape_side) <= _config().boundary_escape_rearm_distance
+
+func _try_boundary_retreat() -> bool:
+	# Complete an already committed combo; spacing may begin at the next group.
+	if not _group_plan.is_empty() and _attack_index > 0: return false
+	_update_boundary_escape()
+	if _boundary_escape_side != 0 or _hop_active or _hop_prepared: return false
+	var left_gap := motor.global_position.x - arena.left_x
+	var right_gap := arena.right_x - motor.global_position.x
+	var side := -1 if left_gap <= right_gap else 1
+	if minf(left_gap, right_gap) > _config().boundary_retreat_range or _boundary_gap(_target.global_position.x, side) > _config().boundary_retreat_range: return false
+	if not _try_retreat(-side): return false
+	_boundary_escape_side = side
+	_boundary_retreat_active = true
+	if not _group_plan.is_empty():
+		# This was preparation, not a warned/committed attack. Make the change
+		# explicit, then choose a new ranged group after the retreat lands.
+		_event(&"windkeeper_group_cancelled", {"reason": &"corner_spacing"})
+		_group_plan.clear()
+	return true
+
+func _try_retreat(inward: int = 0) -> bool:
+	if inward == 0 and _wall_pressure_active(): return false
+	if _hop_active or (inward == 0 and _fight_age < _retreat_ready_age): return false
+	var away := -direction if inward == 0 else inward
 	if stage_phase == 3 and _supports_bound:
 		var next := _next_support_index(motor.global_position.x, away)
 		if next < 0 or next == _support_index: return false
@@ -396,9 +467,17 @@ func _try_retreat() -> bool:
 	_retreat_ready_age = _fight_age + _config().retreat_cooldown_seconds
 	_blocked_age = 0.0
 	motor.stop()
+	# At a wall the safe displacement wins. Face outwards before the
+	# backward takeoff; never jump deeper into the wall to keep a facing.
+	if direction != -away:
+		_turn_to(-away, &"retreat_warning")
+	else:
+		_announce_retreat()
+	return true
+
+func _announce_retreat() -> void:
 	_enter(&"retreat_warning", _config().retreat_warning_seconds)
 	_event(&"windkeeper_retreat_warning", {"point": _hop_target})
-	return true
 
 func _begin_attack(facing_committed: bool = false) -> void:
 	if not active or _group_plan.is_empty(): return
@@ -410,19 +489,29 @@ func _begin_attack(facing_committed: bool = false) -> void:
 		_preparation_hops = 0
 		_guarded_attack_index = -1
 	var dx := _target.global_position.x - motor.global_position.x
+	# Crossing is rewarded for the remainder of this finite group. Its next
+	# attack cannot turn or walk back through the player who cleared the body.
+	var crossing_committed := stage_phase < 3 and _group_plan.has("facing")
+	var crossed_behind := crossing_committed and dx*int(_group_plan.facing)<0
+	if crossing_committed:
+		direction = int(_group_plan.facing)
+		locked_direction = direction
+		locked_target = Vector2(_group_plan.target[0],_group_plan.target[1]) if crossed_behind else _target.global_position
+		dx = locked_target.x-motor.global_position.x
+	if _try_boundary_retreat(): return
 	var wanted_direction := -1 if dx < -12 else 1 if dx > 12 else direction
-	if wanted_direction != direction and not facing_committed:
+	if wanted_direction != direction and not facing_committed and not crossing_committed:
 		locked_direction = wanted_direction
 		_turn_to(locked_direction)
 		return
-	if absf(dx) < _config().retreat_trigger_range and _try_retreat(): return
+	if not crossing_committed and absf(dx) < _config().retreat_trigger_range and _try_retreat(): return
 	locked_direction = direction
-	locked_target = _target.global_position
+	if not crossing_committed: locked_target = _target.global_position
 	foot_index = _attack_index % 2
 	# The real leaf cannot reach a ground actor from the generic ranged
 	# distance. Close physically before its warning, keeping the chosen group.
 	var melee_range := _config().sweep_approach_range if attack == &"sweep" else _config().close_range
-	if attack in [&"sweep", &"stomp"] and absf(dx) > melee_range + 4.0 and _guarded_attack_index != _attack_index:
+	if attack in [&"sweep", &"stomp"] and not crossed_behind and absf(dx) > melee_range + 4.0 and _guarded_attack_index != _attack_index:
 		_enter(&"approach", _config().approach_bound_seconds)
 		return
 	if attack == &"platform":
@@ -461,6 +550,9 @@ func _begin_attack(facing_committed: bool = false) -> void:
 			_finish_attack()
 			return
 	var duration := _config().lunge_warning_seconds if attack == &"lunge" else _config().sweep_warning_seconds if attack == &"sweep" else _config().platform_warning_seconds if attack == &"platform" else _config().normal_warning_seconds
+	if stage_phase < 3 and not crossing_committed:
+		_group_plan.facing = direction
+		_group_plan.target = [locked_target.x,locked_target.y]
 	_enter(StringName("%s_warning" % attack), duration)
 	_event(StringName("windkeeper_%s_warning" % attack), {"attack": attack, "point": locked_target, "direction": locked_direction, "double_stomp": bool(_group_plan.double_stomp)})
 
@@ -491,9 +583,9 @@ func _platform_for_target() -> Vector2:
 	var query := PhysicsRayQueryParameters2D.create(feet - Vector2(0, 2), feet + Vector2(0, 650), 1, excluded)
 	var space := motor.get_world_2d().direct_space_state
 	var result := space.intersect_ray(query)
-	# phase_changed schedules the actual bridge removal for the deferred step.
+	# The intact floor becomes dangerous when phase-three thorns emerge.
 	# A phase-III platform target must already be a surviving raised surface,
-	# including on that first frame while the old floor is still queryable.
+	# The floor remains queryable, but is never a legal phase-three landing.
 	if not result.is_empty():
 		var point: Vector2 = result.position
 		if stage_phase != 3 or point.y < _floor_y - 2.0:
@@ -584,7 +676,7 @@ func _release_seeds() -> void:
 		shot.speed = _config().seed_speed
 		shot.radius = 6
 		shot._shape.radius = 6
-		shot.lifetime = 1.8
+		shot.lifetime = minf(definition.projectile_lifetime,origin.distance_to(locked_target)/shot.speed+.35) if stage_phase < 3 else 1.8
 		shot.global_position = origin
 	_event(&"windkeeper_seeds_release", {"point": origin, "target": locked_target})
 
@@ -596,14 +688,16 @@ func _foot_impact(platform: bool) -> void:
 		_new_strike(&"platform")
 		_event(&"windkeeper_platform_impact", {"point": point, "target": locked_target})
 	else:
-		for side: int in [-1, 1]:
+		# Early stages reward clearing the guardian: the warned front remains
+		# dangerous, without an unadvertised new wave behind the landed player.
+		for side: int in ([locked_direction] if stage_phase < 3 else [-1, 1]):
 			var wave := WindkeeperPressureProjectile.new()
 			_configure_attack(wave, &"wave", Vector2(side, 0))
 			wave.wave = true
 			wave.speed = _config().ground_wave_speed
 			wave.radius = _config().wave_radius
 			wave._shape.radius = wave.radius
-			wave.lifetime = 1.45
+			wave.lifetime = minf(definition.projectile_lifetime,(arena.right_x-arena.left_x+2*_config().wall_clearance)/wave.speed+.1) if stage_phase < 3 else 1.45
 			wave.global_position = point + Vector2(side * (wave.radius + 3), -wave.radius - 2)
 		_event(&"windkeeper_stomp_strike", {"point": point, "foot": foot_index})
 
@@ -843,6 +937,7 @@ func body_contact_rect() -> Rect2:
 	return bounds
 
 func _contact_parts() -> Array[CollisionShape2D]:
+	# The elevated windmill is scenery, not a body/contact/shot hull.
 	var parts: Array[CollisionShape2D] = [_head_shape]
 	parts.append_array(_foot_shapes)
 	parts.append_array(_limb_shapes)
@@ -908,10 +1003,10 @@ func combat_metrics() -> Dictionary:
 func combat_snapshot() -> Dictionary:
 	var result := super.combat_snapshot()
 	result["pressure"] = {"group": _group_plan.duplicate(true), "index": _attack_index,
-		"mill_start_age": _mill_start_age, "retreat_ready_age": _retreat_ready_age, "blocked_age": _blocked_age, "turn_resume": String(_turn_resume),
+		"mill_start_age": _mill_start_age, "retreat_ready_age": _retreat_ready_age, "blocked_age": _blocked_age, "boundary_escape_side": _boundary_escape_side, "boundary_retreat_active": _boundary_retreat_active, "turn_resume": String(_turn_resume),
 		"age": _state_age, "duration": _state_duration, "fight_age": _fight_age, "travel": _travel,
 		"death_age": _death_age, "death_fall_speed": _death_fall_speed, "death_impact_sent": _death_impact_sent, "death_final_sent": _death_final_sent,
-		"physical_reward_expected": physical_reward_expected, "bridge_released": _bridge_released,
+		"physical_reward_expected": physical_reward_expected, "thorns_released": _thorns_released,
 		"support_motion": {"index": _support_index, "active": _hop_active, "prepared": _hop_prepared,
 			"baseline": _hop_is_baseline, "ballistic": _hop_ballistic, "start": [_hop_start.x, _hop_start.y], "target": [_hop_target.x, _hop_target.y],
 			"target_index": _hop_target_index, "age": _hop_age, "duration": _hop_duration, "height": _hop_height,
@@ -937,6 +1032,8 @@ func restore_combat_state(data: Dictionary) -> void:
 	_mill_start_age = float(saved.get("mill_start_age", 0))
 	_retreat_ready_age = float(saved.get("retreat_ready_age", 0))
 	_blocked_age = float(saved.get("blocked_age", 0))
+	_boundary_escape_side = int(saved.get("boundary_escape_side", 0))
+	_boundary_retreat_active = bool(saved.get("boundary_retreat_active", false))
 	_turn_resume = StringName(saved.get("turn_resume", "attack"))
 	physical_reward_expected = bool(saved.get("physical_reward_expected", true))
 	_group_plan = (saved.get("group", {}) as Dictionary).duplicate(true)
@@ -969,7 +1066,7 @@ func restore_combat_state(data: Dictionary) -> void:
 	point = saved.get("camp_origin", [motor.global_position.x, motor.global_position.y])
 	_camp_origin = Vector2(point[0], point[1])
 	var motion: Dictionary = saved.get("support_motion", {})
-	_bridge_released = bool(saved.get("bridge_released", false))
+	_thorns_released = bool(saved.get("thorns_released", saved.get("bridge_released", false)))
 	_support_index = int(motion.get("index", -1))
 	_hop_active = bool(motion.get("active", false))
 	_hop_prepared = bool(motion.get("prepared", false))
@@ -993,7 +1090,7 @@ func restore_combat_state(data: Dictionary) -> void:
 		_hop_active = true
 		_hop_is_baseline = true
 		_hop_ballistic = false
-	if stage_phase == 3 and _supports_bound and not _bridge_released and motion.is_empty() and not health.terminal:
+	if stage_phase == 3 and _supports_bound and not _thorns_released and motion.is_empty() and not health.terminal:
 		mode = &"phase_transition"
 		_state_age = 0.0
 		_state_duration = _config().phase_warning_seconds
@@ -1005,6 +1102,8 @@ func restore_combat_state(data: Dictionary) -> void:
 
 
 func _restore_legacy_combat_state() -> void:
+	_boundary_escape_side = 0
+	_boundary_retreat_active = false
 	_retreat_ready_age = 0.0
 	_blocked_age = 0.0
 	_turn_resume = &"attack"
@@ -1019,7 +1118,7 @@ func _restore_legacy_combat_state() -> void:
 	_hop_prepared = false
 	_hop_is_baseline = false
 	_hop_ballistic = true
-	_bridge_released = false
+	_thorns_released = false
 	_support_index = -1
 	_attack_index = 0
 	_state_age = 0.0
@@ -1083,13 +1182,13 @@ func bind_stage_geometry(owner_module: PlatformingModule, controller: PlayerCont
 
 # Restored phase three can still be landing on its first real shelf. Restore
 # the actual release flag, after terminal binding or active combat restoration.
-func restore_bridge_geometry() -> void:
-	if not bridge_break_ready(): return
+func restore_arena_hazard() -> void:
+	if not thorns_ready(): return
 	for child: Node in get_children():
-		if child is WindkeeperArena: (child as WindkeeperArena).restore_broken_bridge()
+		if child is WindkeeperArena: (child as WindkeeperArena).restore_floor_thorns()
 
-func bridge_break_ready() -> bool:
-	return _bridge_released
+func thorns_ready() -> bool:
+	return _thorns_released
 
 func _stance_half_width() -> float:
 	var pose := WindkeeperPressureRig.sample({"mode": &"observe", "phase": 3, "direction": 1})
@@ -1158,7 +1257,8 @@ func _lock_support_hop(index: int, speed_limit: float, start_immediately: bool =
 	_hop_target_index = index
 	_hop_age = 0.0
 	var displacement := _hop_target - _hop_start
-	_hop_height = maxf(_config().support_hop_height if arc_height < 0 else arc_height, absf(displacement.y) * .55)
+	var height_scale := _config().phase_three_jump_height_scale if stage_phase == 3 else 1.0
+	_hop_height = maxf((_config().support_hop_height if arc_height < 0 else arc_height) * height_scale, absf(displacement.y) * .55)
 	# P(p)=start+D*p+(0,-4h*p*(1-p)). Its derivative is affine;
 	# the maximum vector speed is exactly bounded by the two endpoint norms.
 	var peak := maxf((displacement + Vector2(0, -4 * _hop_height)).length(), (displacement + Vector2(0, 4 * _hop_height)).length())

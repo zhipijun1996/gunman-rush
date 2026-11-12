@@ -141,7 +141,9 @@ def validate(root=ROOT):
             errors.append('Invalid gamepad hysteresis')
         if not 0 <= profile['left_deadzone'] < 1 or not 0 < profile['touch_deadzone'] < 1:
             errors.append('Invalid input deadzones')
-        if any(profile[key] <= 0 for key in ('arm_confirm_ticks', 'center_confirm_ticks', 'left_sensitivity', 'right_sensitivity', 'response_curve', 'touch_radius', 'touch_jump_radius')):
+        if not 0 <= profile['gamepad_jump_trigger_release_threshold'] < profile['gamepad_trigger_threshold'] < 1:
+            errors.append('Invalid gamepad trigger threshold')
+        if any(profile[key] <= 0 for key in ('left_sensitivity', 'right_sensitivity', 'response_curve', 'touch_radius', 'touch_jump_radius')):
             errors.append('Invalid input profile values')
     for name in ('projectile_speed', 'projectile_radius', 'projectile_damage', 'projectile_lifetime'):
         value = tuning.get(name)

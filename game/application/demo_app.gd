@@ -1771,7 +1771,7 @@ func _device_hint() -> String:
 		return "Left stick: move / hold up-down: look / up: interact | JUMP: tap or hold | Right stick: aim, RELEASE to fire"
 	if controller.router.current_device == &"gamepad":
 		return "Left stick: move / hold up-down: look | Jump button: tap / hold | Right stick: aim, return to center to fire"
-	return "A/D: move | Space: tap / hold jump | Mouse: aim, RELEASE left button to fire | W: interact | ↑/↓ on ground: look | S: drop"
+	return "A/D: move | Space: tap / hold jump | Mouse: aim, RELEASE left button to fire | W: interact | ↑/↓ on ground: look | S + Space: drop"
 
 func _update_actions() -> void:
 	var key := ""
@@ -2162,7 +2162,7 @@ func _start_generated_boss() -> void:
 					abandon_run()
 					return
 			elif encounter.has_method("restore_combat_state"): encounter.call("restore_combat_state",data)
-			if encounter is WindkeeperPressureEncounter: encounter.restore_bridge_geometry()
+			if encounter is WindkeeperPressureEncounter: encounter.restore_arena_hazard()
 		(stage as PlainsRegionStage).restored_boss.clear()
 	EnemyPresentationBinding.synchronize(encounter)
 	if _boss_started and encounter is WindkeeperEncounter: _boss_intros_seen[encounter.definition.stable_id]=true
@@ -2762,7 +2762,7 @@ func _select_equipment_active(instance_id: StringName, revision: int, session: i
 		controller.router.clear("item_active_selection")
 		# Reopen after the accepted input epoch change, invalidating old controls.
 		_open_build_session()
-		_refresh_equipment_view("当前道具技能：" + owned.item.display_name + " · R / RB / 触屏道具键")
+		_refresh_equipment_view("当前道具技能：" + owned.item.display_name + " · R / RT（R2） / 触屏道具键")
 
 func _repair_equipment_item(_instance_id: StringName, _quote_version: int, _revision: int, _session: int) -> void:
 	# Repairs belong to the merchant's transaction UI, never a remote pause menu.

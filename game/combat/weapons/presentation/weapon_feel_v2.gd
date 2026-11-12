@@ -46,9 +46,10 @@ func _shot(axis: Vector2, serial: int) -> void:
 	for projectile: PlayerProjectile in controller.shoot_ability._projectiles:
 		if is_instance_valid(projectile) and projectile.shot_id==serial:
 			projectile.terrain_impacted.connect(_wall.bind(projectile))
+			if projectile.art_kind==&"ice":_sound(&"blast","ice/%s/%s" % [_epoch,serial],22)
 
 func _contact(point: Vector2, axis: Vector2, projectile: PlayerProjectile, mode: int) -> void:
-	if not enabled_candidate: return
+	if not enabled_candidate or projectile.art_kind==&"ice": return
 	# Contact spark alone never claims HP loss; only the receipt plays enemy-hit.
 	_effect(&"contact",point,-axis,profile.contact_seconds,10 if mode==WeaponDefinition.Mode.MACHINE else 14)
 	events.append({"type":"contact","tick":Engine.get_physics_frames(),"serial":projectile.shot_id,"point":[point.x,point.y]})
@@ -82,7 +83,7 @@ func _phase(value: StringName) -> void:
 	elif value==&"singularity":
 		_sound(&"blackhole_start","blackhole_start/%s/%s" % [_epoch,packet],11)
 		_loop(&"blackhole_loop")
-	elif value==&"charge" and controller.shoot_ability.weapon.mode==WeaponDefinition.Mode.LASER:
+	elif value==&"charge" and (controller.shoot_ability.weapon.mode==WeaponDefinition.Mode.LASER or controller.shoot_ability.weapon.branch==&"ice"):
 		_sound(&"ion_start","charge/%s/%s" % [_epoch,packet],13,true)
 	if value==&"idle" and _previous_phase==&"beam":
 		_sound(&"ion_tail","ion_tail/%s/%s" % [_epoch,packet],15)

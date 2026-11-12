@@ -172,6 +172,9 @@ func _export_begin(_features: PackedStringArray, _is_debug: bool, _path: String,
 	if "workbench" in _features:
 		_export_workbench(world)
 		return
+	if "fixed_world_release" in _features:
+		_export_workbench(world, true)
+		return
 	var planned := source_plan(preset.get_include_filter(), preset.get_exclude_filter())
 	if not planned.ok:
 		push_error(str(planned.error))
@@ -215,13 +218,13 @@ func _export_begin(_features: PackedStringArray, _is_debug: bool, _path: String,
 		add_file("res://"+path,bytes,false)
 	print("RECORDED ENEMY RAW EXPORT: %d exact Definition sources preserved alongside normal resources" % recorded.sources.size())
 
-func _export_workbench(world: Dictionary) -> void:
+func _export_workbench(world: Dictionary, formal_only: bool = false) -> void:
 	# The dedicated exporter owns this derived, fingerprinted closure. Normal
 	# exports continue through the existing complete production contracts above.
-	var path := "res://build/workbench/export-closure.json"
+	var path := "res://build/native/export-closure.json" if formal_only else "res://build/workbench/export-closure.json"
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
-	if not parsed is Dictionary or parsed.get("schema") != 1 or parsed.get("content_version") != world.content_version or not parsed.get("files") is Array or not parsed.get("raw_files") is Array:
-		push_error("Run tools/export_workbench.py for the current world before Workbench export")
+	if not parsed is Dictionary or parsed.get("schema") != 1 or bool(parsed.get("formal_only",false)) != formal_only or parsed.get("content_version") != world.content_version or not parsed.get("files") is Array or not parsed.get("raw_files") is Array:
+		push_error("Build the current controlled runtime closure before export")
 		editor_tree.quit(1)
 		return
 	var admitted: Dictionary = {}

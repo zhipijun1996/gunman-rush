@@ -196,7 +196,7 @@ def make_seed(root: Path, scenes: dict, *, runtime_available=False, baseline=Non
 
 
 def preview_catalog(root: Path) -> dict:
-    """Derive the explicit workbench-only view; formal runtime stays six rooms."""
+    """Derive the preview view without changing the constructed formal room set."""
     from build import local_returns
 
     source = root / "config/world"

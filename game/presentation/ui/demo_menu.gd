@@ -544,16 +544,12 @@ func show_help(in_run: bool = false) -> void:
 		var practice := _button(_content, "开始平原练习（新冒险）", _start_title_adventure)
 		practice.name = "BeginBasicTutorial"
 		practice.theme_type_variation = &"PrimaryButton"
-	_label(_content, "键鼠 / KEYBOARD + MOUSE", 19, GOLD)
-	_label(_content, "A / D 移动，Space 跳跃。按住鼠标左键瞄准，松手射击。W 交互，S 下穿单向平台；方向键上 / 下观察。已获得钩索时，右键或 E 按住瞄准，松开发钩。", 17, TEXT)
-	_label(_content, "触屏 / TOUCH", 19, GOLD)
-	_label(_content, "左侧拖动移动：小幅慢走、大幅跑动。右侧拖动瞄准，松手射击；回中心再松手可取消。JUMP 轻点小跳，按住跳高。HOOK 控件仅在获得钩索后显示。", 17, TEXT)
-	_label(_content, "手柄 / GAMEPAD", 19, GOLD)
-	_label(_content, "左摇杆移动，A 跳跃。右摇杆瞄准，回中心射击。左杆向上交互。已获得钩索时，LB 按住瞄准，松开发钩。菜单内用方向键或左杆选择、A 确认、B 返回。", 17, TEXT)
-	_label(_content, "生命与续航 / RESOURCES", 19, GOLD)
-	_label(_content, "开枪不消耗时间能量。空中瞄准枪械或钩索触发慢时，只有慢时消耗时间能量，接地逐渐恢复。基础空中弹药一发，对敌人造成真实伤害或落地可补充。二段跳与钩索解锁后，图标表示剩余可用资格。爱心归零结束本局，回到家园。", 17, TEXT)
-	_label(_content, "地图与暂停 / MAP & PAUSE", 19, GOLD)
-	_label(_content, "点击地图或按 M 查看已探索区域，拖动平移、滚轮或双指缩放。MENU / Esc 暂停；打开界面会取消旧瞄准。平原小 Boss 开启地图二，主 Boss 完成地区。开发练习保留各自规则。", 17, MUTED)
+	var diagram:=ControlGuideDiagram.new();diagram.device=_menu_device;diagram.profile=_values
+	_content.add_child(diagram)
+	for row:Dictionary in PlayerControlGuide.rows(_menu_device,_values,{"heal":false,"look":false}):
+		_label(_content,str(row.title)+"  ·  "+str(row.binding),18,GOLD)
+		_label(_content,str(row.detail),17,TEXT)
+	_label(_content,PlayerControlGuide.text("resources"),17,MUTED)
 	_button(_content, "BACK / 返回", _back)
 	_focus_first()
 
@@ -857,7 +853,7 @@ func _render_equipment_detail() -> void:
 			replace.disabled = locked
 		if equipped and bool(selected.get("active_capable",false)):
 			var active_selected := bool(selected.get("active_selected",false))
-			var active_button := _detail_equipment_button(_equipment_detail,"当前主动道具 · R / RB" if active_selected else "设为当前主动道具",func() -> void:
+			var active_button := _detail_equipment_button(_equipment_detail,"当前主动道具 · R / RT（R2）" if active_selected else "设为当前主动道具",func() -> void:
 				equipment_active_selected.emit(id,int(_equipment_view.get("revision",0)),int(_equipment_view.get("session",0))))
 			active_button.name = "SelectActiveItem"
 			active_button.disabled = active_selected or broken

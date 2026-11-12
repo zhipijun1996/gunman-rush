@@ -89,6 +89,7 @@ def navigation_geometry(rooms, anchor):
     while pending:
         rid = pending.pop()
         for door in rooms[rid]['doors']:
+            if door.get('front_door'): continue
             target = door['target_room']
             if target not in rooms: continue
             paired = next(d for d in rooms[target]['doors'] if d['id']==door['target_door_id'])
@@ -109,4 +110,40 @@ def navigation_geometry(rooms, anchor):
                 if other != rid and min(ox+x+w,xx+ww)>max(ox+x,xx) and min(oy+y+h,yy+hh)>max(oy+y,yy):
                     raise ValueError('Physical room spaces overlap: '+rid+'/'+other)
             placed.append((rid,ox+x,oy+y,w,h))
+    return result
+
+def component_navigation_geometry(rooms: dict, initial_room: str, *, allow_isolated=False) -> dict:
+    """Solve continuous spaces independently across front doors and isolated trials.
+
+    A front door enters a different depth plane, not an edge seam. Its room
+    shares the doorway position through traversal, not an overlapping map polygon.
+    Consumers group map_component; each component retains the original seam solver.
+    """
+    if not allow_isolated:
+        reachable = {initial_room}
+        pending = [initial_room]
+        while pending:
+            for door in rooms[pending.pop()]["doors"]:
+                target = door["target_room"]
+                if target in rooms and target not in reachable:
+                    reachable.add(target)
+                    pending.append(target)
+        if reachable != set(rooms):
+            raise ValueError("Implemented rooms need a connected physical map")
+    remaining = set(rooms)
+    result = {}
+    while remaining:
+        anchor = initial_room if initial_room in remaining else min(remaining)
+        component = {anchor}
+        pending = [anchor]
+        while pending:
+            for door in rooms[pending.pop()]["doors"]:
+                if door.get("front_door"): continue
+                target = door["target_room"]
+                if target in rooms and target not in component:
+                    component.add(target)
+                    pending.append(target)
+        geometry = navigation_geometry({room_id: rooms[room_id] for room_id in sorted(component)}, anchor)
+        result.update({room_id: {**value, "map_component": anchor} for room_id, value in geometry.items()})
+        remaining -= component
     return result

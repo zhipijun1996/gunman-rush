@@ -9,7 +9,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from compile_contracts import compile_contracts, write_json
-from spatial import navigation_geometry
+from spatial import component_navigation_geometry
 
 
 def validate_player(data):
@@ -131,7 +131,7 @@ def build(root=ROOT):
     # internal scenes are being rebuilt in connected batches. Validate every
     # adopted footprint; expose only completed scenes to the runtime loader.
     laid_out = implemented | {r['room_id'] for r in construction['rooms'] if r.get('layout_revision')}
-    layouts = navigation_geometry({r['room_id']:r for r in contracts['rooms'] if r['room_id'] in laid_out}, contracts['initial_state']['room'])
+    layouts = component_navigation_geometry({r['room_id']:r for r in contracts['rooms'] if r['room_id'] in laid_out}, contracts['initial_state']['room'])
     sources = {n:hashlib.sha256((source/n).read_bytes()).hexdigest() for n in ['world.json','construction.json','collections.json','player.json','demo_services.json','ui_texts.json','collection_design.json']}
     scene_sources = {r['scene_ref']:hashlib.sha256((root/r['scene_ref'].removeprefix('res://')).read_bytes()).hexdigest() for r in construction['rooms'] if r['room_id'] in implemented and (root/r['scene_ref'].removeprefix('res://')).is_file()}
     bundle = {'schema':1,'sources':sources,
@@ -141,7 +141,7 @@ def build(root=ROOT):
               'gear_milestones':['pickup_'+r['reward_id'] for r in json.loads((source/'collection_design.json').read_text())['acquisition_contracts'] if r['source_channel']=='gear_delivery'],
               'demo_services':json.loads((source/'demo_services.json').read_text()),
               'ui_texts':json.loads((source/'ui_texts.json').read_text()),
-              'npcs':[r for r in world['npcs'] if r['room_id'] in implemented], 'traveler_story':world.get('traveler_story',{}),
+              'npcs':[r for r in world['npcs'] if r['room_id'] in implemented or implemented.intersection(r.get('visit_rooms',[]))], 'traveler_story':world.get('traveler_story',{}),
               'map_rooms':[{**{k:r[k] for k in ['id','name','region']}, **layouts[r['id']]} for r in world['rooms'] if r['id'] in implemented], 'runtime_rules':world['runtime_rules'],
               'rooms':{r['room_id']:r for r in contracts['rooms'] if r['room_id'] in implemented}}
     validate_player(bundle['player'])

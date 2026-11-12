@@ -1,9 +1,9 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_sincv"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_eo3pj"]
 
 [node name="P-R33" type="Node2D" unique_id=1639471995]
-script = ExtResource("1_sincv")
+script = ExtResource("1_eo3pj")
 room_id = "P-R33"
 arrival_text = "钟影前庭"
 route_guide = {
@@ -16,22 +16,180 @@ route_guide = {
 "point": [144.0, 558.0]
 }]
 }
-art_placements = Array[Dictionary]([{
-"asset": "interior_mill",
-"layer": -5.0,
-"point": [1536.0, 576.0],
-"tile_rect": [1436.0, 224.0, 200.0, 352.0]
-}, {
-"asset": "clockheart_gate",
-"layer": -4.0,
-"point": [1536.0, 576.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1152.0, 576.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "forecourt_architecture",
+    "point": [
+      1416,
+      576
+    ],
+    "layer": -20,
+    "tint": [
+      0.88,
+      0.89,
+      0.85,
+      1
+    ],
+    "landscape": "junction_meadow",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.45
+    ],
+    "landscape_reference": [
+      1024,
+      448
+    ],
+    "landscape_offset": [
+      0,
+      -100
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
+    "atmosphere": {
+      "density": 2,
+      "speed": [
+        15,
+        27
+      ],
+      "sway_speed": 0.6
+    }
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1184,
+      576
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1888,
+      576
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1248,
+      928
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      832,
+      576
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "surface_platform": 6
+  },
+  {
+    "surface_platform": 7
+  },
+  {
+    "masonry_region": [
+      736,
+      704,
+      1408,
+      832
+    ]
+  },
+  {
+    "asset": "forecourt_foundation",
+    "point": [
+      1056,
+      1152
+    ],
+    "layer": -22,
+    "tint": [
+      0.72,
+      0.77,
+      0.78,
+      1
+    ],
+    "threshold_for": "HUB-P33-P35:P-R33"
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      320,
+      576
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "masonry_region": [
+      0,
+      512,
+      288,
+      224
+    ]
+  },
+  {
+    "point": [
+      288,
+      576
+    ],
+    "material_transition": {
+      "height": 160,
+      "stone_on_right": false
+    }
+  }
+])
 art_profile = "clock"
-platforms = Array[Rect2]([Rect2(0, 576, 960, 192), Rect2(1088, 576, 960, 192), Rect2(768, 992, 192, 32), Rect2(1088, 928, 256, 96), Rect2(960, 832, 128, 24), Rect2(960, 576, 128, 24)])
-one_way_indices = Array[int]([4, 5])
+masonry_platform_indices = Array[int]([3, 4, 5])
+platforms = Array[Rect2]([Rect2(32, 576, 928, 128), Rect2(32, 704, 928, 32), Rect2(768, 736, 192, 32), Rect2(1088, 576, 928, 160), Rect2(1088, 736, 256, 32), Rect2(1088, 928, 224, 64), Rect2(960, 832, 128, 24), Rect2(960, 576, 128, 24)])
+workbench_entity_ids = {
+  "art_placements": [
+    "P-R33:forecourt:0",
+    "P-R33:forecourt:1",
+    "P-R33:forecourt:2",
+    "P-R33:forecourt:3",
+    "P-R33:forecourt:5",
+    "P-R33:forecourt:6",
+    "P-R33:forecourt:7",
+    "P-R33:forecourt:8",
+    "P-R33:forecourt:9",
+    "P-R33:art:seam:9",
+    "P-R33:door-review:art:10",
+    "P-R33:material-transition:11"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R33:platforms:0",
+    "P-R33:platforms:0:part2",
+    "P-R33:platforms:0:part3",
+    "P-R33:platforms:1",
+    "P-R33:platforms:1:part2",
+    "P-R33:platforms:3",
+    "P-R33:platforms:4",
+    "P-R33:platforms:5"
+  ],
+  "retry_anchors": [],
+  "signs": []
+}
+one_way_indices = Array[int]([6, 7])
 start_point = Vector2(144, 558)
+
+illustrated_platform_indices = Array[int]([6, 7])

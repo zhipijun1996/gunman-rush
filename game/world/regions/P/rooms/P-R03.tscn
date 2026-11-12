@@ -6,6 +6,13 @@
 script = ExtResource("1_3vvy8")
 room_id = "P-R03"
 arrival_text = "初行草坡"
+onboarding = {
+"bell_id": "P-R03:first_bell",
+"jump_approach": [448.0, 1664.0, 192.0, 160.0],
+"jump_landing": [704.0, 1728.0],
+"jump_landing_bounds": [640.0, 1680.0, 512.0, 64.0],
+"move_distance": 24.0
+}
 intro_sequence = {
 "kind": "wake",
 "pickup_point": [288.0, 1774.0]
@@ -22,30 +29,168 @@ retry_anchors = Array[Dictionary]([{
 "point": [1216.0, 1646.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "windchime_plains_v2_chime_span",
-"layer": -2.0,
-"point": [240.0, 1792.0]
-}, {
-"asset": "windchime_plains_v2_road_marker",
-"layer": -2.0,
-"point": [1440.0, 1664.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "windchime_plains_v2_chime_span",
+    "layer": -2.0,
+    "point": [
+      240.0,
+      1792.0
+    ],
+    "landscape": "orchard"
+  },
+  {
+    "asset": "windchime_plains_v2_road_marker",
+    "layer": -2.0,
+    "point": [
+      1440.0,
+      1664.0
+    ]
+  },
+  {
+    "asset": "windchime_plains_near_v2",
+    "layer": -2.0,
+    "point": [
+      112.0,
+      1792.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -2.0,
+    "point": [
+      1856.0,
+      1600.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "leaf_sprig",
+    "layer": -2.0,
+    "point": [
+      960.0,
+      1728.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      832,
+      1728
+    ],
+    "layer": -7,
+    "tint": [
+      0.7,
+      0.77,
+      0.74,
+      1
+    ]
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      2160,
+      1600
+    ],
+    "layer": -7,
+    "tint": [
+      0.7,
+      0.77,
+      0.74,
+      1
+    ]
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      1200,
+      1664
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      1600,
+      1664
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "asset": "windchime_plains_mid_v2",
+    "point": [
+      2240,
+      1600
+    ],
+    "layer": -9,
+    "tint": [
+      0.68,
+      0.77,
+      0.74,
+      1
+    ]
+  },
+  {
+    "asset": "opening_road_ridge",
+    "point": [
+      1392,
+      1840
+    ],
+    "layer": -40,
+    "depth": 0.86,
+    "tint": [
+      0.82,
+      0.94,
+      0.94,
+      0.62
+    ],
+    "flip_h": false
+  }
+])
 bell_mechanisms = Array[Dictionary]([{
 "bell": [464.0, 1736.0],
 "gate": [576.0, 1536.0, 32.0, 256.0],
 "id": "P-R03:first_bell",
 "open_seconds": 0.0
 }])
-platforms = Array[Rect2]([Rect2(0, 1792, 640, 128), Rect2(640, 1728, 384, 192), Rect2(1024, 1824, 128, 96), Rect2(1152, 1664, 512, 256), Rect2(1664, 1792, 128, 128), Rect2(1792, 1600, 512, 320), Rect2(1504, 160, 192, 32), Rect2(576, 1824, 128, 32), Rect2(1088, 1824, 128, 32), Rect2(2016, 1600, 288, 32)])
+platforms = Array[Rect2]([Rect2(32, 1792, 608, 128), Rect2(640, 1728, 512, 192), Rect2(1152, 1664, 512, 224), Rect2(1664, 1792, 128, 128), Rect2(1792, 1600, 480, 320), Rect2(1504, 160, 192, 32), Rect2(96, 1120, 224, 16)])
 workbench_entity_ids = {
-"art_placements": ["P-R03:art_placements:0", "P-R03:art_placements:1"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R03:platforms:0", "P-R03:platforms:1", "P-R03:platforms:2", "P-R03:platforms:3", "P-R03:platforms:4", "P-R03:platforms:5", "P-R03:platforms:6", "P-R03:platforms:7", "P-R03:platforms:8", "P-R03:platforms:9"],
-"retry_anchors": ["P-R03:retry_anchors:0", "P-R03:retry_anchors:1"],
-"signs": ["P-R03:signs:0"]
+  "art_placements": [
+    "P-R03:art:0",
+    "P-R03:art:1",
+    "P-R03:art:2",
+    "P-R03:art:3",
+    "P-R03:art:4",
+    "P-R03:art:5",
+    "P-R03:art:6",
+    "P-R03:art:7",
+    "P-R03:art:8",
+    "P-R03:art:9",
+    "P-R03:art:10"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": ["P-R03:fungal:hook:0", "P-R03:fungal:hook:1", "P-R03:fungal:hook:2", "P-R03:fungal:hook:3"],
+  "platforms": [
+    "P-R03:platforms:0",
+    "P-R03:platforms:1",
+    "P-R03:platforms:3",
+    "P-R03:platforms:4",
+    "P-R03:platforms:5",
+    "P-R03:platforms:6",
+    "P-R03:fungal:receiving"
+  ],
+  "retry_anchors": [
+    "P-R03:retry_anchors:0",
+    "P-R03:retry_anchors:1"
+  ],
+  "signs": [
+    "P-R03:signs:0"
+  ]
 }
 start_point = Vector2(144, 1774)
 enemy_placements = Array[Dictionary]([{
@@ -68,3 +213,8 @@ signs = Array[Dictionary]([{
 "point": [384.0, 1744.0],
 "text": "射击风铃开门。上台阶前，先瞄准守在台上的怪。"
 }])
+
+one_way_indices = Array[int]([6])
+hook_points = Array[Vector2]([Vector2(208,1584),Vector2(272,1408),Vector2(336,1232),Vector2(352,1056)])
+spike_strips = Array[Dictionary]([{"id":"P03:fungal:left_thorns","bounds":[0,1184,16,544],"facing":"right"},{"id":"P03:fungal:right_thorns","bounds":[400,960,16,256],"facing":"left"}])
+section_volumes = Array[Dictionary]([{"id":"access:H","bounds":[0,960,448,224]}])

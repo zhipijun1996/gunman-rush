@@ -46,10 +46,17 @@ func run() -> void:
 	check(health.current==5 and energy.current==100,"full health rejects without spending")
 	await hurt(2)
 	check(health.current==3,"accepted damage establishes missing health")
-	key(true);await ticks(25);key(false);await ticks(50)
+	await ticks(45) # Let actual damage knockback settle before accepting a charge.
+	key(true);await ticks(25)
+	var body:=PlayerPresentationRuntime.current_body(app.player)
+	check(body.authored_pose.focus_frame in [2,3,4],"accepted charge uses dedicated gathering pose")
+	check((GameAudio.for_origin(app) as GameAudio).played.get(&"heal_gather",0)>0,"accepted charge starts gathering sound")
+	key(false);await ticks(50)
+	check(body.authored_pose.focus_frame==-1 and app.focus_heal.flash==0 and (GameAudio.for_origin(app) as GameAudio).played.get(&"heal_release",0)==0,"cancel removes pose and never emits success")
 	check(health.current==3 and energy.current==100 and app.focus_heal.ratio()==0,"release discards partial charge at no cost")
 	key(true);await ticks(64);key(false);await ticks(2)
 	check(health.current==4 and energy.current==65,"real C hold heals one for exactly 35 resonance")
+	check(app.focus_heal.flash>0 and body.authored_pose.focus_frame in [5,6] and (GameAudio.for_origin(app) as GameAudio).played.get(&"heal_release",0)==1,"committed heal releases outward energy, pose and sound")
 	check(app.state.value.hp==4 and app.state.value.combat_energy==65,"health and energy commit in the same durable world revision")
 	await hurt()
 	await ticks(45) # Let the preceding hit's real invulnerability expire.
@@ -78,8 +85,10 @@ func run() -> void:
 	check(health.current==2 and energy.current==65 and app.focus_heal.ratio()==0,"room change preserves currency and cancels action lifetime")
 	key(false);app.load_room("P-R01","INTRO-P24-P01:P-R01");await settle();await ticks(45)
 	app.state.storage.blocked=true
+	var release_count:int=(GameAudio.for_origin(app) as GameAudio).played.get(&"heal_release",0)
 	key(true);await ticks(65);key(false);await ticks(3)
 	check(health.current==2 and energy.current==65,"failed durable write spends no health or resonance")
+	check(app.focus_heal.flash==0 and (GameAudio.for_origin(app) as GameAudio).played.get(&"heal_release",0)==release_count,"failed save emits no success sound or outward release")
 	app.state.storage.blocked=false
 	health.normal_healing_blocked=true
 	key(true);await ticks(65);key(false);await ticks(2)

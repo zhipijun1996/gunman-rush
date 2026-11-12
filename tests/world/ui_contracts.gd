@@ -44,6 +44,9 @@ func run() -> void:
 	check(heart.current==tiny,"fractional heart rendering preserves the exact observed health value")
 	heart.queue_free()
 	app.start_new()
+	# Arrival is covered by station_arrival; this fixture isolates touch UI.
+	var ready:=app.state.value.duplicate(true);ready.flags.append("station_rest_taught")
+	app.state.commit(ready,app.state.revision)
 	await ticks(15)
 	app.overlay.set_enabled(true)
 	app.load_room("P-R01","INTRO-P24-P01:P-R01")

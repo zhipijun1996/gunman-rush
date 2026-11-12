@@ -3,7 +3,7 @@ extends "res://tests/world/camera_motion.gd"
 func run() -> void:
  app=preload("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://camera_arena_test.json";root.add_child(app)
  for rid: String in ["P-R14","P-R11"]:
-  install_fixture_contract(rid,Vector2(4768,1280) if rid=="P-R14" else Vector2(2304,1152))
+  install_fixture_contract(rid,Vector2(4608,1344) if rid=="P-R14" else Vector2(2304,1152))
   for size: Vector2i in [Vector2i(1280,720),Vector2i(960,540)]:
    root.size=size
    await app.review.begin(rid,"","base")

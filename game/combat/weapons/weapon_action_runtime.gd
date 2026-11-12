@@ -116,7 +116,7 @@ func begin(direction_value: Vector2, grounded: bool, skill: bool = false) -> boo
 		if not actor().combat_energy.consume(receipt,skill_cost):return false
 		if ability.item_runtime() != null: ability.item_runtime().call("on_skill_started", StringName(receipt))
 		skill_cooldown=def.skill_cooldown
-		if def.mode in [WeaponDefinition.Mode.MACHINE,WeaponDefinition.Mode.LASER]:
+		if def.mode in [WeaponDefinition.Mode.PULSE,WeaponDefinition.Mode.MACHINE,WeaponDefinition.Mode.LASER]:
 			_phase(&"charge");_pose(&"weapon_charge",def.skill_charge);return true
 	_start(grounded)
 	return true
@@ -128,9 +128,13 @@ func _start(grounded: bool) -> void:
 	if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG]:
 		_phase(&"throw_windup");return
 	_release(grounded)
-func _release(_grounded: bool) -> void:
+func _release(grounded: bool) -> void:
+	_fire_grounded = grounded
 	var def := definition()
 	match def.mode:
+		WeaponDefinition.Mode.PULSE:
+			ability.emit_special_projectile(direction,true,&"ice")
+			base_recoil();_pose(&"weapon_skill",.30);_phase(&"idle")
 		WeaponDefinition.Mode.LASER:
 			actor().motor.reset_motion();actor().motor.request_weapon_drive(Vector2.ZERO,Vector2.ZERO)
 			_beam_elapsed=0;_phase(&"beam");_timer=0;_pose(&"laser_fire",def.beam_duration)
@@ -184,17 +188,17 @@ func base_recoil() -> void:
 func blink(unit: Vector2, distance: float) -> void:
 	if actor().traversal.busy():actor().traversal.cancel()
 	actor().jump_ability.cancel_ascent()
-	actor().motor.request_weapon_blink(unit.normalized()*distance)
+	actor().motor.request_weapon_blink(unit.normalized()*distance,_fire_grounded)
 func flash(unit: Vector2, speed: float, duration: float) -> void:
 	if actor().traversal.busy():actor().traversal.cancel()
 	actor().motor.reset_motion();actor().jump_ability.cancel_ascent()
-	actor().motor.start_weapon_burst(unit,speed,duration)
+	actor().motor.start_weapon_burst(unit,speed,duration,actor().motor.is_on_floor())
 func advance(delta: float) -> void:
 	if delta <= 0.0:
 		if not valid_session(_session) and (phase != &"idle" or not current_entities().is_empty()): cancel(&"reset")
 		return
 	pose_remaining=maxf(0,pose_remaining-delta);skill_cooldown=maxf(0,skill_cooldown-delta)
-	if not actor().router.aim_engaged or actor().router.aim_mode==&"grapple":_beam_require_release=false
+	if not actor().router.primary_aim_held() or actor().router.aim_mode==&"grapple":_beam_require_release=false
 	for i: int in range(_fx.size()-1,-1,-1):
 		_fx[i].age+=delta
 		if _fx[i].age>fx_duration(_fx[i]):_fx.remove_at(i)
@@ -203,7 +207,7 @@ func advance(delta: float) -> void:
 		queue_redraw();return
 	age+=delta
 	var aim := actor().router.aim_direction
-	if not actor().router.aim_engaged or actor().router.aim_mode==&"grapple":_beam_require_release=false
+	if not actor().router.primary_aim_held() or actor().router.aim_mode==&"grapple":_beam_require_release=false
 	if not aim.is_zero_approx() and actor().router.aim_mode in [&"attack",&"singularity_launch"]:direction=aim
 	if actor().router.aim_mode!=&"grapple":
 		actor().router.aim_mode=&"singularity_launch" if phase==&"singularity" else &"steer_blade" if not current_entities().is_empty() and current_entities()[0].kind==&"boomerang" else &"attack"
@@ -222,14 +226,16 @@ func advance(delta: float) -> void:
 			_timer-=delta
 			if _timer<=0:
 				for angle: float in [-.16,0,.16]:ability.emit_special_projectile(direction.rotated(angle),true,&"bullet")
-				actor().motor.start_shot_burst(-direction,def.recoil_scale);actor().motor.recoil_burst_remaining=def.burst_duration
+				actor().motor.start_shot_burst(-direction,def.recoil_scale,actor().motor.is_on_floor())
+				if actor().motor.recoil_burst_remaining>0:actor().motor.recoil_burst_remaining=def.burst_duration
 				_pose(&"weapon_skill");_rounds-=1;_timer+=def.skill_interval
 				if _rounds<=0:_phase(&"idle")
 		&"fan_wait":
 			if age>=def.second_flash_delay:
+				_fire_grounded=actor().motor.is_on_floor()
 				blink(-direction,base_displacement()*actor().motor.weapon_motion.secondary_ratio);_pose(&"blade_throw",.13);_phase(&"idle")
 		&"beam":
-			if not actor().router.aim_engaged or actor().router.aim_mode!=&"attack":
+			if not actor().router.primary_aim_held() or actor().router.aim_mode!=&"attack":
 				_end_beam(false)
 			else:
 				var step := minf(delta,maxf(0,def.beam_duration-_beam_elapsed))
@@ -244,7 +250,7 @@ func advance(delta: float) -> void:
 					var acceleration := 2*budget/(def.beam_duration*def.beam_duration)
 					var distance := acceleration*(_beam_elapsed*step+.5*step*step)
 					_beam_elapsed+=step
-					actor().motor.request_weapon_drive(-direction*distance/delta,-direction*acceleration*_beam_elapsed)
+					actor().motor.request_weapon_drive(-direction*distance/delta,-direction*acceleration*_beam_elapsed,actor().motor.is_on_floor())
 					_timer-=step
 					beam_damage(direction,_packet_damage,false,false,_timer<=0)
 					if _timer<=0:_cue(&"focus_start");_timer+=def.beam_tick
@@ -259,7 +265,7 @@ func advance(delta: float) -> void:
 				flash(direction,base_displacement()*(def.skill_multiplier if _skill else 1)/actor().motor.tuning.shot_burst_duration,actor().motor.tuning.shot_burst_duration);_pose(&"weapon_skill");_phase(&"idle")
 	queue_redraw()
 func _end_beam(final_step: bool) -> void:
-	_beam_require_release=actor().router.aim_engaged and actor().router.aim_mode==&"attack"
+	_beam_require_release=actor().router.primary_aim_held() and actor().router.aim_mode==&"attack"
 	if final_step:actor().motor.finish_weapon_drive()
 	else:actor().motor.stop_weapon_drive()
 	pose_remaining=0;_phase(&"idle")

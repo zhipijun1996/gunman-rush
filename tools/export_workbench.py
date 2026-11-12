@@ -34,15 +34,16 @@ COMPONENTS = ["game/world/components/world_moving_platform.gd",
               "game/presentation/audio/world_audio_lifecycle.gd"]
 # These current consumers form filenames from manifests/IDs. Keep their admitted
 # resource families, not the project's historical all_resources export.
-DYNAMIC_FAMILIES = ["assets/underworld_plains", "assets/plains_v07/native",
+DYNAMIC_FAMILIES = ["assets/region_thresholds/native", "assets/underworld_plains", "assets/plains_v07/native",
                     "assets/plains_actors_142/atlases",
                     "assets/player_presentation_01/motion_v1",
                     "assets/enemy_feedback_01/frames_v8", "assets/actor_actions",
-                    "assets/world_interactions", "assets/items/v5",
+                    "assets/world_interactions", "assets/world_traversal/native", "assets/items/v5",
                     "assets/plains_v3/background_layers", "assets/audio/kenney",
                     "resources/player",
                     "resources/actors", "resources/weapons", "resources/items"]
-MANIFESTS = ["assets/plains_v07/manifest.json", "assets/actor_actions/weapon_catalog.json",
+MANIFESTS = ["assets/region_thresholds/manifest.json", "assets/plains_v07/manifest.json", "assets/actor_actions/weapon_catalog.json",
+             "assets/plains_v3/hero/manifest.json", "assets/plains_v3/effects/manifest.json", "assets/plains_v3/effects/combat_atlas.png",
              "game/presentation/actors/resources/art/avatars.json",
              "config/player_tuning.json", "config/input_profile.json"]
 RES_PATH = re.compile(r"[\"'](res://[^\"'\r\n]+)[\"']")
@@ -59,16 +60,19 @@ def ignored(path: Path) -> bool:
                if parent != ROOT and parent.is_relative_to(ROOT))
 
 
-def manifest() -> dict:
+def manifest(formal_only: bool = False) -> dict:
     world = json.loads((ROOT / "build/world/runtime.json").read_text())
     construction = json.loads((ROOT / "config/world/construction.json").read_text())
-    scope = editable_room_ids(ROOT, construction)
+    scope = set(world["rooms"]) if formal_only else editable_room_ids(ROOT, construction)
     editable = {row["room_id"]: row for row in construction["rooms"] if row["room_id"] in scope}
     presets = (ROOT / "export_presets.cfg").read_text()
     base = re.search(r'\[preset\.2\]\n(.*?)\[preset\.2.options\]', presets, re.S)[1]
     exclusions = json.loads(re.search(r'^exclude_filter=(.*)$', base, re.M)[1]).split(",")
     exclusions += ["resources/mapgen/*", "resources/levels/mapgen*", "config/mapgen*",
                    "assets/audio/bgm/vines_beneath_the_canopy.mp3", "assets/audio/bgm/beyond_the_knotted_vines.mp3"]
+    if formal_only:
+        exclusions += ["build/workbench/*", "config/workbench/*", "game/world/regions/V/*",
+                       "resources/visual_development/*", "assets/underworld_plains/*/sources/*", "experiments/*"]
     # The real FixedWorldApp owns GameMusic and PlayerWeaponFeelAudioV2, not the
     # legacy DemoApp's optional ambience director. Its mechanism bell is the one
     # current consumer from this family; preserve that exact original sample.
@@ -85,7 +89,7 @@ def manifest() -> dict:
             if found:
                 classes[found[1]] = path.relative_to(ROOT).as_posix()
     pending = [ENTRY, "game/presentation/ui/demo_ui_01/game_typography.gd", *COMPONENTS, *MANIFESTS]
-    if (ROOT / SCOPE_PATH).exists(): pending.append(SCOPE_PATH)
+    if not formal_only and (ROOT / SCOPE_PATH).exists(): pending.append(SCOPE_PATH)
     pending += [row["scene_ref"].removeprefix("res://") for row in editable.values()]
     art = json.loads((ROOT / "art/world-art-v2/assets/pixel/manifest.json").read_text())
     props = json.loads((ROOT / "assets/plains_v07/manifest.json").read_text())["props"]
@@ -93,6 +97,18 @@ def manifest() -> dict:
     for row in editable.values():
         source = (ROOT / row["scene_ref"].removeprefix("res://")).read_text()
         sprite_ids.update(re.findall(r'"asset"\s*:\s*"([^"\n]+)"', source))
+    # Threshold samples are formal scenes outside the editor scope. Admit their exact dynamic art.
+    for row in world["rooms"].values():
+        source = (ROOT / row["scene_ref"].removeprefix("res://")).read_text()
+        sample = re.search(r'^region_preview = "([a-z_]+)"$', source, re.M)
+        if not sample:
+            continue
+        family = sample[1]
+        background = art["backgrounds"].get(family+"_v2", art["backgrounds"][family])
+        pending.append("art/world-art-v2/"+background["file"])
+        lamp = art["terrains"][family]["asset"].removesuffix("_terrain")+"_lamp"
+        if lamp in art["sprites"]:
+            sprite_ids.add(lamp)
     for key in sprite_ids:
         if key in props:
             pending.append(props[key]["image"].removeprefix("res://"))
@@ -160,8 +176,8 @@ def manifest() -> dict:
                     raise ValueError("Missing preload in " + name + ": " + resource)
                 unresolved.add(resource)
     # This derived catalog admits preview-only rooms without changing the formal
-    # six-room runtime bundle. Its sources are checked by preview_catalog().
-    seen.add("build/workbench/preview-world.json")
+    # formal runtime bundle. Its sources are checked by preview_catalog().
+    if not formal_only: seen.add("build/workbench/preview-world.json")
     # FileAccess byte contracts: retain source bytes beside normal Godot imports.
     exporter = (ROOT / "addons/runtime_raw_export/raw_exporter.gd").read_text()
     underworld = re.search(r"const UNDERWORLD_SOURCES:.*?=\s*\[(.*?)\]", exporter, re.S)
@@ -174,7 +190,7 @@ def manifest() -> dict:
     rows = [{"path": name, "sha256": sha(ROOT / name), "bytes": (ROOT / name).stat().st_size}
             for name in sorted(seen)]
     identity = hashlib.sha256(json.dumps(rows, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
-    return {"schema": 1, "entry": "res://" + ENTRY, "content_version": world["content_version"],
+    return {"schema": 1, "formal_only": formal_only, "entry": "res://" + ENTRY, "content_version": world["content_version"],
             "source_tree_sha256": identity, "rooms": sorted(editable), "formal_rooms": sorted(world["rooms"]), "enemy_ids": sorted(enemies),
             "files": rows, "raw_files": sorted(raw), "dynamic_prefixes": sorted(unresolved), "exclusions": exclusions}
 
@@ -356,9 +372,9 @@ def main():
     parser.add_argument("--plan-only", action="store_true")
     parser.add_argument("--skip-import", action="store_true", help="Use an already completed, single-writer editor import")
     parser.add_argument("--output", type=Path, default=ROOT / "build/workbench/web")
-    # 37-room preview with separate ground/air bell sentries and integrated
-    # clockheart landscape: 128.36 MiB. Keep a tight measured 129 MiB ceiling.
-    parser.add_argument("--max-pack-mib", type=float, default=129)
+    # 35 plains + Clockheart formal rooms / 37 editable scenes and both dynamic anchor families:
+    # approximately 130.04 MiB; bounded room-contract growth has a 1 MiB margin.
+    parser.add_argument("--max-pack-mib", type=float, default=131)
     parser.add_argument("--site-copy", type=Path, help="Copy the verified split transport to a Site public/play directory")
     parser.add_argument("--site-copy-only", action="store_true", help="Publish the already verified --output without another Godot export")
     args = parser.parse_args()

@@ -433,7 +433,7 @@
       "design_intent_id": "ACQ_ATK08"
     },
     {
-      "reward_id": "part_triple",
+      "reward_id": "skill_core_root",
       "room_id": "P-R11",
       "section_id": "main",
       "requires": [
@@ -442,19 +442,19 @@
         ]
       ],
       "source_channel": "map",
-      "canonical_source_ref": "weapon_major_rewards[id=part_triple]",
+      "canonical_source_ref": "weapon_major_rewards[id=skill_core_root]",
       "local_route_refs": [],
       "status": "acquisition_design_intent_pending_graybox",
-      "source_path": "world-room-layout-v07.json#weapon_major_rewards[id=part_triple]",
-      "approach_cue": "巡游机停下后，风车机匣打开，三联机芯停在可辨认的托盘上。",
+      "source_path": "world-room-layout-v07.json#weapon_major_rewards[id=skill_core_root]",
+      "approach_cue": "巡游机停转后，机匣托盘露出共鸣技能芯；提示带回高风台下层武器匠。",
       "approach_route": "P-R11战场收束后走入机匣侧面领奖位置。",
       "primary_experience": "Boss后领取",
-      "challenge": "巡游机战本身就是获取挑战；胜利后只让玩家绕到机匣开口确认奖励，展示回铃栈方向。",
+      "challenge": "巡游机战承担获取挑战；胜利后在安全托盘领取，再沿原路回P10免费安装冰弹。",
       "failure_return": "战前死亡沿现有休息/Boss回路；胜后不得再让危险平台阻止领取。",
       "claim_placement": "战场外缘安全托盘，独立交互而非一进房就发放。",
       "return_path": "沿原门P-R11 → P-R16 → P-R10返回；P-R10可另行发现P-R17收藏支袋，不新增两支袋之间的回环，也不重置巡游机。",
       "challenge_budget": "轻（领奖段）；主要成本为既有Boss。",
-      "capability_boundary": "boss_P_BELLSTRIDER_defeated不变；无需三连枪才能拿三联机芯。",
+      "capability_boundary": "巡游机胜利后领取；基础枪即可取得，安装不要求先解锁工城武器匠。",
       "return_access_contract": {
         "kind": "existing_approach_reverse",
         "local_return_state_id": null,
@@ -465,7 +465,7 @@
       },
       "region": "P",
       "channel": "map",
-      "category": "branch_material",
+      "category": "skill_core",
       "canonical_requires": [
         [
           "boss_P_BELLSTRIDER_defeated"
@@ -474,7 +474,7 @@
       "cue_room_ids": [
         "P-R11"
       ],
-      "design_intent_id": "ACQ_part_triple"
+      "design_intent_id": "ACQ_skill_core_root"
     },
     {
       "reward_id": "part_laser",
@@ -701,7 +701,7 @@
       "design_intent_id": "ACQ_part_singularity"
     },
     {
-      "reward_id": "skill_core_root",
+      "reward_id": "part_triple",
       "room_id": "T-R06",
       "section_id": "main",
       "requires": [
@@ -711,14 +711,14 @@
         ]
       ],
       "source_channel": "map",
-      "canonical_source_ref": "weapon_major_rewards[id=skill_core_root]",
+      "canonical_source_ref": "weapon_major_rewards[id=part_triple]",
       "local_route_refs": [],
       "status": "acquisition_design_intent_pending_graybox",
-      "source_path": "world-room-layout-v07.json#weapon_major_rewards[id=skill_core_root]",
+      "source_path": "world-room-layout-v07.json#weapon_major_rewards[id=part_triple]",
       "approach_cue": "根铃双卫退场后，护坛侧室中央的两道纹路汇到技能芯托座。",
       "approach_route": "T-R06从竞技区到护坛后部安全空间。",
       "primary_experience": "Boss与修钟后领取",
-      "challenge": "clock_T和根铃双卫战已经承担投入；胜利后走到托座，空间构图强调这是共享技能材料。",
+      "challenge": "修钟与根铃双卫战承担投入；安全托座给出三联机芯，交给工城武器匠打造三连分支。",
       "failure_return": "Boss失败按既有休息回路；Boss死亡与修钟保持，领奖区不再要求精确跳跃。",
       "claim_placement": "护坛后部宽台，和T-R07攻击合金分离。",
       "return_path": "经原门T-R06 → T-R16 → T-R15 → T-R10 → T-R11返回；T16可休息，之后自行走现有道路或已解锁裂缝回武器匠，不新增直达交通。",
@@ -734,7 +734,7 @@
       },
       "region": "T",
       "channel": "map",
-      "category": "skill_core",
+      "category": "branch_material",
       "canonical_requires": [
         [
           "clock_T",
@@ -744,7 +744,7 @@
       "cue_room_ids": [
         "T-R06"
       ],
-      "design_intent_id": "ACQ_skill_core_root"
+      "design_intent_id": "ACQ_part_triple"
     },
     {
       "reward_id": "skill_core_sky",
@@ -12307,7 +12307,7 @@
         "door_crossings_back_to_next_geometric_choice": 1,
         "measurement_scope": "All authored room links present; ignores ability/story qualifiers, does not measure walking time or failure burden.",
         "currency_reservation_ids": [],
-        "resolved_payoff_summary": "skill_core_sky 共鸣技能芯"
+        "resolved_payoff_summary": "skill_core_sky 三联机芯"
       },
       {
         "room_id": "C-R08",
@@ -12762,12 +12762,12 @@
           "P-R16"
         ],
         "reward_ids": [
-          "part_triple"
+          "skill_core_root"
         ],
         "actions": [
           {
-            "id": "pickup_part_triple",
-            "type": "branch_material",
+            "id": "pickup_skill_core_root",
+            "type": "skill_core",
             "section_id": "main"
           },
           {
@@ -12785,7 +12785,7 @@
         "door_crossings_back_to_next_geometric_choice": 2,
         "measurement_scope": "All authored room links present; ignores ability/story qualifiers, does not measure walking time or failure burden.",
         "currency_reservation_ids": [],
-        "resolved_payoff_summary": "part_triple 三联机芯"
+        "resolved_payoff_summary": "skill_core_root 共鸣技能芯"
       },
       {
         "room_id": "P-R17",
@@ -12930,12 +12930,12 @@
           "T-R16"
         ],
         "reward_ids": [
-          "skill_core_root"
+          "part_triple"
         ],
         "actions": [
           {
-            "id": "pickup_skill_core_root",
-            "type": "skill_core",
+            "id": "pickup_part_triple",
+            "type": "branch_material",
             "section_id": "main"
           },
           {
@@ -12955,7 +12955,7 @@
         "door_crossings_back_to_next_geometric_choice": 4,
         "measurement_scope": "All authored room links present; ignores ability/story qualifiers, does not measure walking time or failure burden.",
         "currency_reservation_ids": [],
-        "resolved_payoff_summary": "skill_core_root 共鸣技能芯"
+        "resolved_payoff_summary": "part_triple 三联机芯"
       },
       {
         "room_id": "Y-R07",
@@ -13509,7 +13509,7 @@
           "P-R11"
         ],
         "payoff_refs": [
-          "part_triple",
+          "skill_core_root",
           "defeat_P_BELLSTRIDER"
         ],
         "rest_room": "P-R16",
@@ -13624,7 +13624,7 @@
           "T-R06"
         ],
         "payoff_refs": [
-          "skill_core_root",
+          "part_triple",
           "defeat_T_TWINS"
         ],
         "rest_room": "T-R16",
@@ -13751,7 +13751,7 @@
       },
       {
         "reward_refs": [
-          "skill_core_root"
+          "part_triple"
         ],
         "path_out": [
           "T-R11",
@@ -13971,7 +13971,9 @@
         "SECRET_EQ_MAP_P03"
       ],
       "currency_cache_reservation_ids": [],
-      "world_action_refs": [],
+      "world_action_refs": [
+        "install_skill_core_1"
+      ],
       "primary_role": "gated_rear_or_connector",
       "design_status": "authoring_reservation_not_built_geometry",
       "before_collision_layout": "先确定线索视线、动作空间、领取台、失败重试及回程，再细化碰撞与美术。",
@@ -13981,16 +13983,16 @@
       "room_id": "P-R11",
       "name": "风车机匣",
       "source_ids": [
-        "part_triple"
+        "skill_core_root"
       ],
       "source_cue_ids": [
-        "part_triple"
+        "skill_core_root"
       ],
       "secret_ids": [],
       "secret_cue_ids": [],
       "currency_cache_reservation_ids": [],
       "world_action_refs": [
-        "pickup_part_triple",
+        "pickup_skill_core_root",
         "defeat_P_BELLSTRIDER"
       ],
       "primary_role": "optional_branch",
@@ -16483,16 +16485,16 @@
       "room_id": "T-R06",
       "name": "护坛侧室",
       "source_ids": [
-        "skill_core_root"
+        "part_triple"
       ],
       "source_cue_ids": [
-        "skill_core_root"
+        "part_triple"
       ],
       "secret_ids": [],
       "secret_cue_ids": [],
       "currency_cache_reservation_ids": [],
       "world_action_refs": [
-        "pickup_skill_core_root",
+        "pickup_part_triple",
         "defeat_T_TWINS"
       ],
       "primary_role": "optional_branch",
@@ -17314,7 +17316,6 @@
         "forge_boomerang",
         "forge_magnetic",
         "forge_singularity",
-        "install_skill_core_1",
         "install_skill_core_2",
         "pickup_ATK01",
         "pickup_CAP04",

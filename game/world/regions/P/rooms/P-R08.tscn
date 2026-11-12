@@ -1,15 +1,22 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_wv5m1"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_pyfpb"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_3a6jf"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_hn82d"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_vm5ey"]
 
 [node name="P-R08" type="Node2D" unique_id=1382594092]
-script = ExtResource("1_wv5m1")
+script = ExtResource("1_3a6jf")
 room_id = "P-R08"
 arrival_text = "封井回廊"
 route_guide = {
 "schema": 1.0,
 "steps": [{
+"action": "第一台启动后，跳起向右命中根铃，同枪向左反冲登台；清怪后仍可射铃往返。右角旧货箱一次散落20金币，不是开台条件。",
+"label": "回身命中并登台",
+"number": 0.0,
+"path": [[944.0, 2926.0], [944.0, 2825.0], [816.0, 2868.0]],
+"point": [944.0, 2926.0]
+}, {
 "action": "射铃启台，顶部向左上反冲换到第二台。",
 "label": "提水吊台",
 "number": 1.0,
@@ -27,6 +34,12 @@ route_guide = {
 "number": 3.0,
 "path": [[896.0, 1156.0], [896.0, 212.0], [704.0, 142.0]],
 "point": [896.0, 1156.0]
+}, {
+"action": "第三台升至侧岸附近时，向右打访问铃停台，反冲落到左侧岸；由岸上向左打铃重启，同枪向右反冲重新登台。齿轮只争夺横跨路径。",
+"label": "上井停台与返回",
+"number": 4.0,
+"path": [[896.0, 1026.0], [853.0, 922.0], [608.0, 974.0], [568.0, 974.0], [612.0, 873.0], [838.0, 876.0]],
+"point": [896.0, 1026.0]
 }]
 }
 retry_anchors = Array[Dictionary]([{
@@ -42,6 +55,307 @@ retry_anchors = Array[Dictionary]([{
 "point": [864.0, 1438.0],
 "section": "main"
 }])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -45,
+    "backdrop": true,
+    "curved_wall": [448, 0, 576, 2496],
+    "tile_rect": [
+      0,
+      0,
+      1216,
+      3072
+    ],
+    "tint": [
+      0.62,
+      0.7,
+      0.73,
+      1
+    ],
+    "environment": {
+      "ambient": "8c9ca5",
+      "restored": "99aaac",
+      "threshold_energy": 0.6,
+      "threshold_opacity": 0.12
+    },
+    "atmosphere": {
+      "density": 4,
+      "speed": [
+        3,
+        6
+      ],
+      "sway_speed": 0.25
+    }
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      224.0,
+      2944.0
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      504,
+      2304.0
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      976.0,
+      1456.0
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      504,
+      992.0
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      752.0,
+      160.0
+    ]
+  },
+  {
+    "asset": "gear_city_v2_pipe_junction",
+    "layer": -2.0,
+    "point": [
+      992.0,
+      2944.0
+    ]
+  },
+  {
+    "asset": "storage_crates",
+    "layer": -2.0,
+    "point": [
+      592.0,
+      2304.0
+    ]
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      492,
+      32
+    ],
+    "tile_rect": [
+      492,
+      32,
+      12,
+      2912
+    ],
+    "layer": -30,
+    "tint": [
+      0.32,
+      0.43,
+      0.46,
+      1
+    ]
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      980,
+      32
+    ],
+    "tile_rect": [
+      980,
+      32,
+      12,
+      2912
+    ],
+    "layer": -30,
+    "tint": [
+      0.32,
+      0.43,
+      0.46,
+      1
+    ]
+  },
+  {
+    "asset": "well_daylight_slit",
+    "point": [
+      656,
+      2160
+    ],
+    "layer": -20,
+    "light": true,
+    "window_beam": true
+  },
+  {
+    "asset": "well_daylight_slit",
+    "point": [
+      816,
+      1280
+    ],
+    "layer": -20,
+    "light": true,
+    "window_beam": true
+  },
+  {
+    "asset": "well_daylight_slit",
+    "point": [
+      656,
+      768
+    ],
+    "layer": -20,
+    "light": true,
+    "window_beam": true
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      820,
+      2216
+    ],
+    "tile_rect": [
+      820,
+      2216,
+      364,
+      16
+    ],
+    "layer": -18,
+    "tint": [
+      0.37,
+      0.46,
+      0.48,
+      1
+    ]
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      864,
+      2216
+    ],
+    "layer": -15,
+    "tint": [
+      0.62,
+      0.7,
+      0.72,
+      1
+    ],
+    "hoist_cable": "WellLift",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      480,
+      1368
+    ],
+    "tile_rect": [
+      480,
+      1368,
+      140,
+      16
+    ],
+    "layer": -18,
+    "tint": [
+      0.37,
+      0.46,
+      0.48,
+      1
+    ]
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      576,
+      1368
+    ],
+    "layer": -15,
+    "tint": [
+      0.62,
+      0.7,
+      0.72,
+      1
+    ],
+    "hoist_cable": "ServiceLift",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      852,
+      200
+    ],
+    "tile_rect": [
+      852,
+      200,
+      140,
+      16
+    ],
+    "layer": -18,
+    "tint": [
+      0.37,
+      0.46,
+      0.48,
+      1
+    ]
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      896,
+      200
+    ],
+    "layer": -15,
+    "tint": [
+      0.62,
+      0.7,
+      0.72,
+      1
+    ],
+    "hoist_cable": "UpperLift",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "well_service_reveal",
+    "point": [
+      24,
+      3008
+    ],
+    "layer": 1,
+    "flip_h": true,
+    "tint": [
+      0.7,
+      0.79,
+      0.82,
+      1
+    ]
+  }
+])
 art_profile = "well"
 bell_mechanisms = Array[Dictionary]([{
 "access_bells": [[736.0, 2896.0], [720.0, 2208.0]],
@@ -54,20 +368,52 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "ServiceLift",
 "id": "P-R08:service_lift"
 }, {
-"access_bells": [[944.0, 1408.0], [752.0, 112.0]],
+"access_bells": [[944.0, 1408.0], [752.0, 112.0], [976.0, 928.0], [528.0, 944.0]],
 "bell": [896.0, 1120.0],
 "carrier": "UpperLift",
 "id": "P-R08:upper_lift"
 }])
-platforms = Array[Rect2]([Rect2(0, 2944, 1216, 128), Rect2(320, 2848, 128, 96), Rect2(448, 2304, 224, 48), Rect2(800, 1456, 224, 48), Rect2(608, 160, 192, 32)])
+platforms = Array[Rect2]([Rect2(32, 2944, 1152, 96), Rect2(320, 2848, 128, 96), Rect2(480, 2304, 192, 48), Rect2(800, 1456, 192, 48), Rect2(608, 160, 192, 32), Rect2(480, 992, 192, 32)])
 workbench_entity_ids = {
-"art_placements": [],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R08:platforms:0", "P-R08:platforms:1", "P-R08:platforms:2", "P-R08:platforms:3", "P-R08:platforms:4"],
-"retry_anchors": ["P-R08:retry_anchors:0", "P-R08:retry_anchors:1", "P-R08:retry_anchors:2"],
-"signs": []
+  "art_placements": [
+    "P-R08:art:well-tower:0",
+    "P-R08:built:fixture_0",
+    "P-R08:built:fixture_1",
+    "P-R08:built:fixture_2",
+    "P-R08:built:fixture_3",
+    "P-R08:built:fixture_4",
+    "P-R08:art-pass:0",
+    "P-R08:art-pass:1",
+    "P-R08:art:well-tower:8",
+    "P-R08:art:well-tower:9",
+    "P-R08:art:well-tower:10",
+    "P-R08:art:well-tower:11",
+    "P-R08:art:well-tower:12",
+    "P-R08:art:well-tower:14",
+    "P-R08:art:well-tower:15",
+    "P-R08:art:well-tower:16",
+    "P-R08:art:well-tower:17",
+    "P-R08:art:well-tower:18",
+    "P-R08:art:well-tower:19",
+    "P-R08:art:well-tower:20"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R08:platforms:0",
+    "P-R08:platforms:1",
+    "P-R08:platforms:2",
+    "P-R08:platforms:3",
+    "P-R08:platforms:4",
+    "P-R08:r6:upper_cache_bank"
+  ],
+  "retry_anchors": [
+    "P-R08:retry_anchors:0",
+    "P-R08:retry_anchors:1",
+    "P-R08:retry_anchors:2"
+  ],
+  "signs": []
 }
 start_point = Vector2(144, 2926)
 enemy_placements = Array[Dictionary]([{
@@ -80,6 +426,11 @@ enemy_placements = Array[Dictionary]([{
 "id": "P-R08:landing_guard",
 "max_health": 9.0,
 "point": [976.0, 1438.0]
+}, {
+"behavior": "root_bell",
+"id": "P-R08:r6:floor_root",
+"max_health": 14.0,
+"point": [1088.0, 2920.0]
 }])
 spike_strips = Array[Dictionary]([{
 "bounds": [448.0, 1632.0, 24.0, 256.0],
@@ -89,18 +440,22 @@ spike_strips = Array[Dictionary]([{
 "bounds": [1000.0, 640.0, 24.0, 224.0],
 "facing": "left",
 "id": "P-R08:shaft_right"
+}, {
+"bounds": [448.0, 968.0, 48.0, 24.0],
+"facing": "up",
+"id": "P-R08:r6:cache_left_teeth"
 }])
 gear_obstacles = Array[Dictionary]([{
 "id": "P-R08:well_cam",
 "period": 5.6,
 "phase": 0.5,
-"point": [744.0, 896.0],
-"travel": [48.0, 0.0]
+"point": [768.0, 992.0],
+"travel": [64.0, 0.0]
 }])
 
 [node name="WellLift" type="AnimatableBody2D" parent="." unique_id=1107146010]
 position = Vector2(864, 2896)
-script = ExtResource("2_pyfpb")
+script = ExtResource("2_hn82d")
 endpoint = Vector2(0, -640)
 platform_size = Vector2(160, 20)
 period = 8.0
@@ -110,7 +465,7 @@ endpoint_dwell = 2.0
 
 [node name="ServiceLift" type="AnimatableBody2D" parent="." unique_id=2073901636]
 position = Vector2(576, 2048)
-script = ExtResource("2_pyfpb")
+script = ExtResource("2_hn82d")
 endpoint = Vector2(0, -640)
 platform_size = Vector2(160, 20)
 period = 9.0
@@ -120,10 +475,18 @@ endpoint_dwell = 2.0
 
 [node name="UpperLift" type="AnimatableBody2D" parent="." unique_id=1940177565]
 position = Vector2(896, 1184)
-script = ExtResource("2_pyfpb")
+script = ExtResource("2_hn82d")
 endpoint = Vector2(0, -944)
 platform_size = Vector2(160, 20)
 period = 12.0
 one_way = true
 route = Array[Vector2]([Vector2(0, -944)])
 endpoint_dwell = 2.0
+
+[node name="Cache_well_cache" type="Node2D" parent="." unique_id=812148604]
+position = Vector2(1168, 2926)
+script = ExtResource("3_vm5ey")
+action_id = "open_P08_well_cache"
+label = "打开封井旧货箱"
+visual = "chest"
+radius = 48.0

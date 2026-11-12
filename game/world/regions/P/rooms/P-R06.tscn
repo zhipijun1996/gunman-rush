@@ -1,9 +1,9 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_5kqym"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_ehu4o"]
 
 [node name="P-R06" type="Node2D" unique_id=571092182]
-script = ExtResource("1_5kqym")
+script = ExtResource("1_ehu4o")
 room_id = "P-R06"
 arrival_text = "风铃岔路"
 route_guide = {
@@ -35,18 +35,254 @@ retry_anchors = Array[Dictionary]([{
 "point": [288.0, 942.0],
 "section": "main"
 }])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "hanging_chime",
+    "layer": -2.0,
+    "point": [
+      160.0,
+      1696.0
+    ],
+    "landscape": "junction_meadow",
+    "landscape_scroll": [
+      0.08,
+      0.5
+    ],
+    "clouds": "junction_clouds",
+    "cloud_wrap_fade": 0.025,
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "atmosphere": {
+      "density": 6,
+      "speed": [
+        36,
+        58
+      ],
+      "sway_speed": 1.0
+    },
+    "sky_cloud_density": [
+      0.5,
+      0
+    ],
+    "landscape_reference": [
+      832,
+      1000
+    ],
+    "landscape_offset": [
+      0,
+      -194
+    ]
+  },
+  {
+    "asset": "hanging_chime",
+    "layer": -2.0,
+    "point": [
+      1576,
+      1344
+    ]
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -5,
+    "point": [
+      640,
+      1696
+    ],
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -2.0,
+    "point": [
+      1392.0,
+      1344.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "plains_grass",
+    "point": [
+      272,
+      960
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "surface_platform": 2
+  },
+  {
+    "surface_platform": 5
+  },
+  {
+    "surface_platform": 6
+  },
+  {
+    "surface_platform": 7
+  },
+  {
+    "surface_platform": 9
+  },
+  {
+    "surface_platform": 10
+  },
+  {
+    "surface_platform": 11
+  },
+  {
+    "surface_platform": 13
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      1024,
+      2016,
+      128,
+      64
+    ],
+    "layer": -8,
+    "tint": [
+      0.35,
+      0.43,
+      0.46,
+      1
+    ],
+    "threshold_for": "room-link-139:P-R06"
+  },
+  {
+    "masonry_region": [
+      160,
+      320,
+      64,
+      1024
+    ]
+  },
+  {
+    "asset": "junction_facade",
+    "point": [
+      256,
+      1344
+    ],
+    "layer": -8,
+    "facing_polygons": [
+      "P-R06:windmill-upper-wall",
+      "P-R06:windmill-lower-wall"
+    ],
+    "facing_recess": [
+      192,
+      864,
+      160,
+      96
+    ],
+    "facing_boundary": true,
+    "facing_platforms": [
+      8
+    ],
+    "threshold_for": "room-link-144:P-R06",
+    "closed_gate_for": "room-link-144:P-R06"
+  },
+  {
+    "asset": "junction_rotor",
+    "point": [
+      240,
+      752
+    ],
+    "layer": -12,
+    "rotation_speed": 0.045
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      266,
+      960
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "bank_moss",
+    "point": [
+      438,
+      1001
+    ],
+    "layer": 2,
+    "sway": true,
+    "sway_hanging": true
+  },
+  {
+    "asset": "bank_moss",
+    "point": [
+      680,
+      1737
+    ],
+    "layer": 2,
+    "sway": true,
+    "sway_hanging": true
+  },
+  {
+    "surface_platform": 1
+  }
+])
 art_profile = "junction"
-platforms = Array[Rect2]([Rect2(1152, 1952, 128, 32), Rect2(896, 1824, 384, 48), Rect2(1024, 1696, 256, 32), Rect2(0, 1696, 768, 160), Rect2(480, 1600, 96, 96), Rect2(768, 1472, 256, 24), Rect2(1088, 1312, 288, 24), Rect2(640, 1152, 256, 24), Rect2(192, 960, 288, 32), Rect2(448, 832, 224, 24), Rect2(864, 672, 288, 24), Rect2(640, 512, 224, 24), Rect2(608, 160, 192, 32), Rect2(832, 336, 192, 24), Rect2(1344, 1344, 320, 48)])
+platforms = Array[Rect2]([Rect2(1152, 1952, 96, 32), Rect2(928, 1824, 320, 48), Rect2(1024, 1696, 224, 32), Rect2(32, 1696, 704, 128), Rect2(480, 1600, 96, 96), Rect2(768, 1472, 256, 24), Rect2(1088, 1312, 288, 24), Rect2(640, 1152, 256, 24), Rect2(224, 960, 256, 32), Rect2(448, 832, 224, 24), Rect2(864, 672, 288, 24), Rect2(640, 512, 224, 24), Rect2(608, 160, 192, 32), Rect2(832, 336, 192, 24), Rect2(1344, 1344, 288, 48)])
 workbench_entity_ids = {
-"art_placements": [],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R06:platforms:0", "P-R06:platforms:1", "P-R06:platforms:2", "P-R06:platforms:3", "P-R06:platforms:4", "P-R06:platforms:5", "P-R06:platforms:6", "P-R06:platforms:7", "P-R06:platforms:8", "P-R06:platforms:9", "P-R06:platforms:10", "P-R06:platforms:11", "P-R06:platforms:12", "P-R06:platforms:13", "P-R06:platforms:14"],
-"retry_anchors": ["P-R06:retry_anchors:0", "P-R06:retry_anchors:1", "P-R06:retry_anchors:2"],
-"signs": []
+  "art_placements": [
+    "P-R06:art:junction:0",
+    "P-R06:art:junction:1",
+    "P-R06:art:junction:2",
+    "P-R06:art:junction:3",
+    "P-R06:art:junction:4",
+    "P-R06:art:junction:5",
+    "P-R06:art:junction:6",
+    "P-R06:art:junction:7",
+    "P-R06:art:junction:8",
+    "P-R06:art:junction:9",
+    "P-R06:art:junction:10",
+    "P-R06:art:junction:11",
+    "P-R06:art:junction:12",
+    "P-R06:art:junction:13",
+    "P-R06:art:windmill-opening:0",
+    "P-R06:art:windmill-opening:1",
+    "P-R06:art:composition:0",
+    "P-R06:art:composition:1",
+    "P-R06:art:composition:2",
+    "P-R06:art:composition:3",
+    "P-R06:art:well-receiving-surface"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R06:platforms:0",
+    "P-R06:platforms:1",
+    "P-R06:platforms:2",
+    "P-R06:platforms:3",
+    "P-R06:platforms:4",
+    "P-R06:platforms:5",
+    "P-R06:platforms:6",
+    "P-R06:platforms:7",
+    "P-R06:platforms:8",
+    "P-R06:platforms:9",
+    "P-R06:platforms:10",
+    "P-R06:platforms:11",
+    "P-R06:platforms:12",
+    "P-R06:platforms:13",
+    "P-R06:platforms:14"
+  ],
+  "retry_anchors": [
+    "P-R06:retry_anchors:0",
+    "P-R06:retry_anchors:1",
+    "P-R06:retry_anchors:2"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([2, 5, 6, 7, 9, 10, 11, 13])
+one_way_indices = Array[int]([1, 2, 5, 6, 7, 9, 10, 11, 13])
 start_point = Vector2(1216, 1934)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",
@@ -84,3 +320,64 @@ enemy_placements = Array[Dictionary]([{
 "max_health": 9.0,
 "point": [752.0, 560.0]
 }])
+
+illustrated_platform_indices = Array[int]([1, 2, 5, 6, 7, 9, 10, 11, 13])
+
+terrain_polygons = Array[Dictionary]([
+  {
+    "id": "P-R06:windmill-upper-wall",
+    "material": "masonry",
+    "points": [
+      [
+        224,
+        352
+      ],
+      [
+        264,
+        352
+      ],
+      [
+        304,
+        512
+      ],
+      [
+        352,
+        736
+      ],
+      [
+        352,
+        864
+      ],
+      [
+        224,
+        864
+      ]
+    ]
+  },
+  {
+    "id": "P-R06:windmill-lower-wall",
+    "material": "masonry",
+    "points": [
+      [
+        224,
+        992
+      ],
+      [
+        352,
+        992
+      ],
+      [
+        320,
+        1120
+      ],
+      [
+        272,
+        1344
+      ],
+      [
+        224,
+        1344
+      ]
+    ]
+  }
+])

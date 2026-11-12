@@ -1,0 +1,28 @@
+{
+  "generator": "OpenAI image_gen",
+  "purpose": "P06 independent sparse cloud layer; current meadow source belongs to junction-composition-provenance.json",
+  "prompts": {
+    "clouds": "Create one transparent production CLOUD LAYER for a finely detailed atmospheric pixel-art side-scroller matching Underworld muted golden plains. Wide16:9 canvas. Two uneven delicate wind-swept cloud banks in TOP HALF ONLY: one large thin bank stretches from top-left to near center, another SMALLER layered bank at top-right, broad calm open gap between; lower HALF completely transparent. Feathered uneven pixel silhouettes, many gentle small cloud scallops, a few long tapering tails to the right showing wind direction. Low-contrast desaturated slate sage/gray cloud bodies with pale warm cream and dusty gold rim-lit edges from upper-left daylight. Delicate fine pixel clusters rather than long flat horizontal rectangle stripes, no outlines, no hard vertical borders. Sparse airy composition, not stormy, no rays, no sun, no birds, no terrain, no UI. The clouds must feel like distant late afternoon weather and leave an uninterrupted empty central action space, not like pasted foreground decoration. Every non-cloud pixel truly transparent. Native visual detail should remain attractive at864x486. Do not fill the canvas with clouds; two organic irregular cloud groups only."
+  },
+  "assets": [
+    {
+      "asset": "junction_clouds",
+      "source": "assets/plains_v07/source/junction-clouds-generated.png",
+      "source_sha256": "f46e8060aec483c5a8ceb13df1a76af82f427088de1b016620f196972f74bb16",
+      "source_rect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        864,
+        486
+      ],
+      "image": "assets/plains_v07/native/junction_clouds.png",
+      "sha256": "73071edfe5faf60040a0e7e2b07428391dd0d5a2b7d16e084326a6e506cfa83f",
+      "sampling": "nearest; source canvas; clouds retain original soft alpha"
+    }
+  ]
+}

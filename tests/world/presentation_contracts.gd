@@ -30,7 +30,7 @@ func run() -> void:
 	app.save_path="user://world_presentation_test.json"
 	app.settings_path="user://world_presentation_settings.json"
 	for suffix: String in ["",".backup",".tmp",".corrupt"]: DirAccess.remove_absolute(app.save_path+suffix)
-	root.add_child(app);app.start_new();await settle()
+	root.add_child(app);await app.review.begin("P-R23","","base");await settle()
 	app.player.reset_at(FixedWorldProvider.point(app.room.signs[0].point)+Vector2(0,30));await ticks(3)
 	check(app.context_target().get("kind","")=="sign","authored notice board is reachable from its supported approach")
 	key(KEY_UP,true);await ticks(3);key(KEY_UP,false);await ticks(2)

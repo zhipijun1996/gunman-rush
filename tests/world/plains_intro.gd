@@ -148,6 +148,7 @@ func run() -> void:
 	app.room.enemies.clear();await ticks(2)
 	for bay: Array in [[Vector2(830,1486),1024,1408],[Vector2(1854,1390),2080,1344]]:
 		for recoil: bool in [false,true]:
+			await settle() # A failed attempt now completes its covered return first.
 			await fixture(bay[0])
 			app.controller.router.set_source_axis(&"keyboard_mouse",1)
 			app.controller.router.set_jump_held(&"keyboard_mouse",true)

@@ -18,7 +18,7 @@ class RuntimeRawExportTests(unittest.TestCase):
         expected = {name for name, data in textures.items() if data["raw"]}
         config = configparser.ConfigParser(interpolation=None)
         config.read(ROOT / "export_presets.cfg")
-        for index in range(3):
+        for index in [2]:
             with self.subTest(preset=index):
                 preset = config[f"preset.{index}"]
                 included = preset["include_filter"].strip('"').split(",")

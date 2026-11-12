@@ -1,0 +1,34 @@
+{
+  "generator": "OpenAI image_gen",
+  "purpose": "Material joins on contiguous solids; top and interior tile rows; no collision ownership",
+  "references": [
+    "assets/plains_v07/native/mill_masonry_atlas47.png",
+    "assets/underworld_plains/terrain/fine_32/terrain.png"
+  ],
+  "assets": [
+    {
+      "asset": "grass_masonry_transitions",
+      "image": "assets/plains_v07/native/grass_masonry_transitions.png",
+      "source": "assets/plains_v07/source/grass-masonry-transitions-generated.png",
+      "source_sha256": "300b0788731f415ac4ab831fac54e65af5bea4dd6a05ae54aa92f079863f396b",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "size": [
+        96,
+        64
+      ],
+      "sha256": "4f6d317a294b7b0c4669adc37891dd45f02a4284cb1b1ebeddb148e8b51fd7ec",
+      "cell": [
+        32,
+        32
+      ],
+      "columns": 3,
+      "rows": 2
+    }
+  ],
+  "prompt": "Edit the two referenced production pixel-art terrain atlases into a NEW compact material-transition sheet for the same side-scrolling game. Preserve their exact dark blue-gray palette, native fine pixel clustering, slate masonry brick scale, sparse muted olive-gold grass, dark deep navy soil and occasional blue rock fragments. Output 1536x1024 RGBA with SIX seamless square tiles in a strict 3 columns x 2 rows grid, each cell 512x512, no gutters, no labels, no margins. Treat each cell as exactly 32x32 logical pixels enlarged 16 times with HARD nearest-neighbor squares: draw deliberately at that logical pixel resolution, no smooth shading, no blur, no painterly fine noise. Every tile transitions horizontally from the reference masonry at the LEFT edge to the reference grassy dark soil at the RIGHT edge. This is an interlocking material seam, not a decorative prop or a vertical wall exposed to air: left half broken thin slate bricks, right half packed soil with sparse angular blue stones, the two interlock irregularly around the middle. No tall plants, vines, columns, giant roots or glowing lines. TOP ROW three subtle variations of WALKABLE TOP EDGE transition tiles: flat worn stone cap along top-left becoming a narrow sparse grassy lip across top-right, solid dark terrain below. Some tiny olive moss in masonry cracks near the join. Keep top edge horizontally level across the tile and the body completely solid to the bottom. BOTTOM ROW three subtle variations of completely solid INTERIOR material transition, without any grass lip or transparent sky; left dark slate brick texture meets dark soil and small blue stones. All material textures reach every cell edge, with left/right palettes closely matching the provided atlases. Vertical seam profile reaches the center at the top and bottom of each cell so rows can join. Avoid a straight vertical cut: use a few staggered brick ends and small soil pockets within an approximately 8-logical-pixel-wide seam. Quiet restrained texture, no shiny outline or high-contrast accent. The final sheet will be mechanically baked to 96x64 using nearest-neighbor, retaining six 32x32 tiles. It must fit the EXISTING game terrain, not establish a new art style.\n"
+}

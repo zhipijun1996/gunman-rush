@@ -16,18 +16,83 @@ retry_anchors = Array[Dictionary]([{
 "point": [1584.0, 526.0],
 "section": "main"
 }])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "travel_bundle",
+    "layer": -2.0,
+    "point": [
+      96.0,
+      640.0
+    ],
+    "landscape": "orchard"
+  },
+  {
+    "asset": "plains_grass",
+    "layer": -2.0,
+    "point": [
+      1060.0,
+      552.0
+    ],
+    "sway": true
+  },
+  {
+    "asset": "hanging_chime",
+    "layer": -2.0,
+    "point": [
+      1360.0,
+      336.0
+    ]
+  },
+  {
+    "asset": "opening_road_ridge",
+    "point": [
+      896,
+      880
+    ],
+    "layer": -40,
+    "depth": 0.86,
+    "tint": [
+      0.82,
+      0.94,
+      0.94,
+      0.62
+    ],
+    "flip_h": false
+  }
+])
 art_profile = "shelter"
-platforms = Array[Rect2]([Rect2(0, 640, 288, 128), Rect2(400, 576, 176, 40), Rect2(688, 640, 160, 40), Rect2(960, 552, 176, 40), Rect2(1248, 624, 192, 40), Rect2(1536, 544, 192, 40), Rect2(1280, 336, 208, 48), Rect2(1088, 256, 192, 32), Rect2(992, 160, 192, 32), Rect2(288, 768, 1504, 128)])
+platforms = Array[Rect2]([Rect2(32, 640, 256, 96), Rect2(400, 576, 176, 40), Rect2(688, 640, 160, 40), Rect2(960, 552, 176, 40), Rect2(1248, 624, 192, 40), Rect2(1536, 544, 192, 40), Rect2(1280, 336, 208, 48), Rect2(1088, 256, 192, 32), Rect2(992, 160, 192, 32), Rect2(416, 768, 1344, 96)])
 workbench_entity_ids = {
-"art_placements": [],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R23:platforms:0", "P-R23:platforms:1", "P-R23:platforms:2", "P-R23:platforms:3", "P-R23:platforms:4", "P-R23:platforms:5", "P-R23:platforms:6", "P-R23:platforms:7", "P-R23:platforms:8", "P-R23:platforms:9"],
-"retry_anchors": ["P-R23:retry_anchors:0", "P-R23:retry_anchors:1"],
-"signs": ["P-R23:signs:0", "P-R23:signs:1"]
+  "art_placements": [
+    "P-R23:art:0",
+    "P-R23:art:1",
+    "P-R23:art:2",
+    "P-R23:art:3"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R23:platforms:0",
+    "P-R23:platforms:1",
+    "P-R23:platforms:2",
+    "P-R23:platforms:3",
+    "P-R23:platforms:4",
+    "P-R23:platforms:5",
+    "P-R23:platforms:6",
+    "P-R23:platforms:7",
+    "P-R23:platforms:8",
+    "P-R23:platforms:9"
+  ],
+  "retry_anchors": [
+    "P-R23:retry_anchors:0",
+    "P-R23:retry_anchors:1"
+  ],
+  "signs": [
+    "P-R23:signs:0",
+    "P-R23:signs:1"
+  ]
 }
-masonry_platform_indices = Array[int]([1, 2, 3, 4, 5, 6, 7, 8])
 start_point = Vector2(144, 622)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",

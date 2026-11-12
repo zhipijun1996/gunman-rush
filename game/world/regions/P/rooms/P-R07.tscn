@@ -1,30 +1,255 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[node name="P-R07" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_d2l7w"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="2_7hd7t"]
+
+[node name="P-R07" type="Node2D" unique_id=1672508544]
+script = ExtResource("1_d2l7w")
 room_id = "P-R07"
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "掩体射线", "action": "从旧田进台，利用断墙换射线接近哨兵，再从东侧井口回棚。", "point": [144, 1070], "path": [[144, 1070], [640, 942], [1088, 1006], [1744, 1198], [1952, 1358], [1744, 1518], [1984, 1678]]}]}
-traveler_point = Vector2(0,0)
-climbable_walls = Array[Rect2]([])
-environment_zones = Array[Dictionary]([])
-bell_mechanisms = Array[Dictionary]([])
-gear_obstacles = Array[Dictionary]([])
-hazards = Array[Rect2]([])
-art_profile = "overlook"
-spike_strips = Array[Dictionary]([])
 arrival_text = "东缘眺望台"
-platforms = Array[Rect2]([Rect2(0,1088,704,192),Rect2(928,1024,736,256),Rect2(1664,1216,448,64),Rect2(1920,1696,128,96),Rect2(1664,1536,192,32),Rect2(1856,1376,192,32),Rect2(576,960,192,128),Rect2(1216,864,256,32)])
-one_way_indices = Array[int]([4,5,7])
-start_point = Vector2(144,1070)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id":"P-R07:lookout_sentry","behavior":"sentry","point":[1408,1006],"max_health":14},{"id":"P-R07:arch_patrol","behavior":"patrol","point":[1024,1006],"max_health":9}])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[592,900,96,60],"point":[640,942],"section":"main"},{"bounds":[1696,1156,96,60],"point":[1744,1198],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"windmill_frame","point":[1488,1024],"layer":-2,"depth":0.62},{"asset":"plain_pier","point":[1312,1024],"layer":-2,"support_height":256},{"asset":"storage_crates","point":[608,960],"layer":-2}])
-masonry_platform_indices = Array[int]([])
-illustrated_platform_indices = Array[int]([])
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "6右段加64宽刺，左侧保留96宽起跳/落脚面；越刺跳向上路。原掩体跳射与反冲回避保留。",
+"label": "上路借掩体还击",
+"number": 1.0,
+"path": [[144.0, 1070.0], [640.0, 942.0], [1088.0, 1006.0], [1152.0, 888.0], [1008.0, 1006.0], [1280.0, 846.0]],
+"point": [144.0, 1070.0]
+}, {
+"action": "原主台1厚256削为64，下方得到连续低拱通路；局部64宽刺留起跳和接收地，巡逻守东段宽地。低路接东岸，不封井口。",
+"label": "桥下低拱换位",
+"number": 2.0,
+"path": [[784.0, 1198.0], [1056.0, 1198.0], [1091.0, 1138.0], [1248.0, 1198.0], [1536.0, 1198.0], [1744.0, 1198.0]],
+"point": [784.0, 1198.0]
+}, {
+"action": "原平台2缩成128宽左接驳岸，真正开放1792–2048落槽。保留井内交错单向台和底部门；原448宽实体曾横封整个井口。",
+"label": "打开的东井接驳",
+"number": 3.0,
+"path": [[1744.0, 1198.0], [1888.0, 1358.0], [1744.0, 1518.0], [1984.0, 1678.0]],
+"point": [1744.0, 1198.0]
+}, {
+"action": "从原井内两级岸回东接驳岸，再上主路或走桥下返回；原门和入口落脚不变。",
+"label": "向西返回",
+"number": 4.0,
+"path": [[1984.0, 1678.0], [1744.0, 1518.0], [1952.0, 1358.0], [1744.0, 1198.0], [1600.0, 1006.0], [1088.0, 1006.0], [640.0, 942.0], [144.0, 1070.0]],
+"point": [1984.0, 1678.0]
+}, {
+"action": "沿右肩上升、越过局部刺台，再借左上钩点进入40金币藏箱岸。回访支路不堵初访主路；取得后折返下到原上路。",
+"label": "上空折返与钩索藏金",
+"number": 5.0,
+"path": [[1456.0, 846.0], [1707.0, 622.0], [1808.0, 622.0], [1902.0, 398.0], [1648.0, 302.0], [1454.0, 162.0], [1344.0, 96.0], [1256.0, 142.0], [1120.0, 142.0], [1360.0, 142.0], [1360.0, 846.0]],
+"point": [1456.0, 846.0]
+}]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [592.0, 900.0, 96.0, 60.0],
+"point": [640.0, 942.0],
+"section": "main"
+}, {
+"bounds": [1696.0, 1156.0, 96.0, 60.0],
+"point": [1744.0, 1198.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "plains_grass",
+    "point": [
+      160,
+      1088
+    ],
+    "layer": -5,
+    "sway": true,
+    "landscape": "junction_meadow",
+    "clouds": "junction_clouds",
+    "landscape_scroll": [
+      0.08,
+      0.35
+    ],
+    "landscape_reference": [
+      1056,
+      1088
+    ],
+    "landscape_offset": [
+      0,
+      110
+    ],
+    "sky_colors": [
+      "e7d9b9",
+      "f8e7c8"
+    ],
+    "sky_cloud_density": [
+      0.4,
+      0
+    ],
+    "cloud_wrap_fade": 0.025,
+    "atmosphere": {
+      "density": 4,
+      "speed": [
+        24,
+        42
+      ],
+      "sway_speed": 0.8
+    }
+  },
+  {
+    "asset": "orchard_fence",
+    "point": [
+      1512,
+      1024
+    ],
+    "layer": -6,
+    "tint": [
+      0.68,
+      0.78,
+      0.74,
+      1
+    ]
+  },
+  {
+    "support_height": 128,
+    "point": [
+      1312,
+      1216
+    ]
+  },
+  {
+    "asset": "storage_crates",
+    "point": [
+      624,
+      960
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "travel_bundle",
+    "point": [
+      2000,
+      416
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      1664,
+      1280,
+      384,
+      512
+    ],
+    "curved_wall": [
+      1664,
+      1280,
+      384,
+      512
+    ],
+    "layer": -25
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1984,
+      1696
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "windchime_plains_near_v2",
+    "point": [
+      160,
+      1088
+    ],
+    "layer": -5,
+    "sway": true
+  },
+  {
+    "surface_platform": 4
+  },
+  {
+    "surface_platform": 5
+  },
+  {
+    "surface_platform": 7
+  }
+])
+art_profile = "overlook"
+platforms = Array[Rect2]([Rect2(32, 1088, 672, 160), Rect2(928, 1024, 736, 64), Rect2(1664, 1216, 128, 64), Rect2(1920, 1696, 96, 64), Rect2(1696, 1536, 160, 32), Rect2(1856, 1376, 160, 32), Rect2(576, 960, 192, 128), Rect2(1216, 864, 256, 32), Rect2(704, 1216, 960, 32), Rect2(1152, 928, 64, 96), Rect2(1664, 640, 416, 64), Rect2(1856, 416, 224, 64), Rect2(1472, 320, 224, 32), Rect2(1056, 160, 256, 32)])
+workbench_entity_ids = {
+  "art_placements": ["P-R07:composition:0", "P-R07:composition:1", "P-R07:composition:2", "P-R07:composition:3", "P-R07:composition:4", "P-R07:composition:5", "P-R07:composition:6", "P-R07:composition:7", "P-R07:composition:8", "P-R07:composition:9", "P-R07:composition:10"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [
+    "P-R07:review05:upper_left_reward_hook"
+  ],
+  "platforms": [
+    "P-R07:platforms:0",
+    "P-R07:platforms:1",
+    "P-R07:platforms:2",
+    "P-R07:platforms:3",
+    "P-R07:platforms:4",
+    "P-R07:platforms:5",
+    "P-R07:platforms:6",
+    "P-R07:platforms:7",
+    "P-R07:review04:arch_low_floor",
+    "P-R07:review04:peek_cover",
+    "P-R07:review04:lookout_wall_shoulder",
+    "P-R07:review04:lookout_loft",
+    "P-R07:review05:upper_transfer_ledge",
+    "P-R07:review05:upper_left_reward_ledge"
+  ],
+  "retry_anchors": [
+    "P-R07:retry_anchors:0",
+    "P-R07:retry_anchors:1"
+  ],
+  "signs": []
+}
+start_point = Vector2(144, 1070)
+enemy_placements = Array[Dictionary]([{
+"behavior": "sentry",
+"id": "P-R07:lookout_sentry",
+"max_health": 14.0,
+"point": [1408.0, 1006.0]
+}, {
+"behavior": "patrol",
+"id": "P-R07:arch_patrol",
+"max_health": 9.0,
+"point": [1536.0, 1198.0]
+}, {
+"behavior": "patrol",
+"id": "P-R07:upper_bank_patrol",
+"max_health": 9.0,
+"point": [1968.0, 622.0]
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [1088.0, 1192.0, 64.0, 24.0],
+"facing": "up",
+"id": "P-R07:review04:low_arch_teeth"
+}, {
+"bounds": [672.0, 936.0, 64.0, 24.0],
+"facing": "up",
+"id": "P-R07:review05:step6_teeth"
+}, {
+"bounds": [1984.0, 392.0, 64.0, 24.0],
+"facing": "up",
+"id": "P-R07:review05:upper_right_teeth"
+}, {
+"bounds": [1536.0, 296.0, 64.0, 24.0],
+"facing": "up",
+"id": "P-R07:review05:middle_teeth"
+}])
+hook_points = Array[Vector2]([Vector2(1344, 96)])
+one_way_indices = Array[int]([4, 5, 7])
+illustrated_platform_indices = Array[int]([4, 5, 7])
+masonry_platform_indices = Array[int]([1, 2, 3, 8, 9])
+
+[node name="Cache_hook_cache" type="Node2D" parent="." unique_id=627940546]
+position = Vector2(1120, 142)
+script = ExtResource("2_7hd7t")
+action_id = "open_P07_hook_cache"
+label = "打开眺望台藏箱"
+visual = "chest"
+radius = 48.0

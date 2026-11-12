@@ -184,7 +184,7 @@ func drive() -> void:
 	row["state_duration"] = metrics.get("state_duration", 0)
 	for support_key: String in ["airborne", "supports_bound", "support_verified", "support_rect", "locked_hop_target", "hop_target_rect"]:
 		row[support_key] = _json_value(metrics.get(support_key))
-	row["bridge_break_ready"] = bool(encounter.bridge_break_ready())
+	row["thorns_ready"] = bool(encounter.thorns_ready())
 	phase_visits[str(encounter.stage_phase)] = true
 	modes_seen[state] = true
 	row["slide_collisions"] = _slide_rows(player)

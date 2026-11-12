@@ -82,9 +82,9 @@ func run()->void:
 		for frame:int in 4:await process_frame
 	check(original_tuning_hash==FileAccess.get_sha256("res://config/player_tuning.json"),"unique tuning unchanged")
 	# Explicit lifecycle fixture: select actual second map via DemoApp, invoke
-	# actual committed Boss break callback, and observe study refresh. Not play.
+	# actual committed Boss thorn callback, and verify stable terrain. Not play.
 	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
-	check(app.start_debug_region(&"plains",2,"underworld-break-refresh"),"actual App starts second map for break fixture")
+	check(app.start_debug_region(&"plains",2,"underworld-thorn-floor"),"actual App starts second map for thorn fixture")
 	for frame:int in 4:await physics_frame
 	var stage:=app.stage as PlainsRegionStage
 	var art_before:=stage.terrain_art.art as UnderworldTerrain
@@ -92,31 +92,26 @@ func run()->void:
 	var old_solids:=stage.terrain_art.authored_solids.duplicate()
 	var arena_nodes:=stage.find_children("*","WindkeeperArena",true,false)
 	check(arena_nodes.size()==1,"actual second-map Boss bound one arena consumer")
-	var break_receipt:Dictionary={}
+	var thorn_receipt:Dictionary={}
 	if arena_nodes.size()==1:
 		var arena:=arena_nodes[0] as WindkeeperArena
 		var cut_probe:=arena.module.position+Vector2(645,640)
-		check(coverage(art_before,cut_probe),"actual bridge middle drawn before actual break")
+		check(coverage(art_before,cut_probe),"actual floor middle drawn before thorn growth")
 		var refreshes: Array[int]=[0]
 		stage.terrain_art.geometry_changed.connect(func() -> void:refreshes[0]+=1)
-		arena._break_ground()
-		# The actual observer runs in _process, independently of physics ticks.
-		# Wait for its accepted event, never invoke refresh from the fixture.
-		for frame:int in 8:
-			if refreshes[0]>0:break
-			await process_frame
-		check(refreshes[0]==1,"actual geometry observer emitted one committed refresh")
+		arena.restore_floor_thorns()
+		for frame:int in 100:await physics_frame
 		var art_after:=stage.terrain_art.art as UnderworldTerrain
-		check(arena.broken,"actual arena callback committed")
-		check(art_after.get_instance_id()!=old_id,"geometry observer replaced actual material after break")
-		check(stage.terrain_art.authored_solids!=old_solids,"geometry observer collected changed real bodies")
-		check(not coverage(art_after,cut_probe),"broken bridge middle is no longer painted")
-		check(stage.terrain_art.authored_solids==stage.terrain_art.collect_solids(),"refresh uses current actual geometry")
-		break_receipt={"actual_app":true,"map_index":2,"explicit_callback_fixture":true,"route_completion":false,"manifest_hash":stage.generated.manifest.manifest_hash,"before_solids":old_solids.size(),"after_solids":stage.terrain_art.authored_solids.size(),"probe":cut_probe,"after_tilemap_cells":art_after.core_cells.size()}
+		check(arena.thorns_active,"actual arena thorn callback committed")
+		check(refreshes[0]==0 and art_after.get_instance_id()==old_id,"thorn growth does not rebuild intact terrain")
+		check(stage.terrain_art.authored_solids==old_solids,"thorn growth preserves real ground bodies")
+		check(coverage(art_after,cut_probe),"ground under thorns remains painted")
+		check(stage.terrain_art.authored_solids==stage.terrain_art.collect_solids(),"presenter still matches actual geometry")
+		thorn_receipt={"actual_app":true,"map_index":2,"explicit_callback_fixture":true,"route_completion":false,"manifest_hash":stage.generated.manifest.manifest_hash,"before_solids":old_solids.size(),"after_solids":stage.terrain_art.authored_solids.size(),"probe":cut_probe,"after_tilemap_cells":art_after.core_cells.size()}
 	if not await load("res://tests/audio_teardown.gd").drain_world(app):check(false,"actual App audio teardown drained")
 	app.free()
 	for frame:int in 4:await process_frame
-	var result:={"checks":checks,"failures":failures,"consumers":inventory,"break_fixture":break_receipt,"scope":"20 actual formal Stage geometries and one App Boss lifecycle callback fixture; no real route traversal, aesthetic/device/full gameplay approval."}
+	var result:={"checks":checks,"failures":failures,"consumers":inventory,"thorn_fixture":thorn_receipt,"scope":"20 actual formal Stage geometries and one App Boss lifecycle callback fixture; no real route traversal, aesthetic/device/full gameplay approval."}
 	DirAccess.make_dir_recursive_absolute("res://build/underworld_plains/terrain")
 	FileAccess.open("res://build/underworld_plains/terrain/formal_result.json",FileAccess.WRITE).store_string(JSON.stringify(result,"\t"))
 	print("UNDERWORLD_FORMAL_TERRAIN checks=",checks," failures=",failures.size()," consumers=",inventory.size())

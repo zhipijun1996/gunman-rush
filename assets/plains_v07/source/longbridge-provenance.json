@@ -1,0 +1,151 @@
+{
+  "generator": "OpenAI image_gen",
+  "composition": "Abandoned canal causeway: continuous load-bearing stone bridgehead and piers, two sunken thorn-filled channel breaks, a low service chamber INSIDE the east pier and an open maintenance well below. Native collision stone and the rear retaining wall have distinct depth; the rear wall is one connected source, not two pasted arch panels. Existing recoil spans, lift, enemies, H access, treasure and four doorway identities remain. Natural ground only outside the bridge works.",
+  "prompts": {
+    "vista": "Create one landscape-background layer for a finely detailed pixel-art side-scroller, width1536 height1024. Reference1 shows the EXACT identity of the ruined World Clockheart tower: slender tapered slate-stone belfry, enormous dull-gold circular clock face, leaning broken upper finials, open ruined supporting buttresses on right. Preserve that identity and shape, but render at fine pixel detail and quiet distant atmospheric contrast. Reference2 sets the approved low flat pastoral horizon, muted sage/olive fields and misty layers, NOT stacked mountains. Composition: tower stands on far right around x1120, its tip at y150, body sinks into a distant low riverbank near y650, never a visible cut-off bottom. The low distant horizon extends at y640..700 across the image. Broad quiet horizontal river meadows and pale winding water occupy bottom third, no steep mountains or foreground hills; faded small ruins on banks at most. The tower is far behind gameplay and should feel monumental by scale against tiny distant trees, not by bright contrast or ornate close detail. Entire sky ABOVE horizon/tower is genuine alpha transparency: sky color and moving clouds are separate in the game. NO painted clouds, sky glow, foreground trees, nearest ground, platforms, characters or UI. Muted warm pale afternoon light, cool blue-green haze in distance, warm sage/ochre fields closer; coherent sophisticated detailed pixel art, not cartoon, not photograph. Lower edge must be fully filled with calm distant earth/water, no alpha gaps. Tower base dissolves organically into distant land and mist, not a freestanding sticker.",
+    "crane": "Create ONE transparent 512x384 pixel-art old bridge inspection crane, matching the worn brown timber, dull brass and blue-grey stone of reference. This is low-contrast background machinery in a side-scrolling game, not a collidable pillar. Keep exact attachment coordinates: a narrow timber vertical mast centered x344 descends to a small stone foot at y383, base width about48. Mast rises to y64. Thin horizontal overhead beam spans x40..490 near y64. A small dull brass pulley hub at x440,y64 carries the separate in-game cable (do not paint a long rope to any platform). One thin diagonal timber strut goes from mast x344,y230 to beam x440,y64. At x107 a fine hanging tie descends from y64 down to exactly y160, ending with a little iron bracket; this attaches an existing windchime crossbar (DO NOT paint bell/chimes). Slight asymmetric wear, chipped edges, restrained tiny olive moss at base. There is NO floor, landscape, sky, house or other objects. Base touches bottom edge at y383 with no transparent padding; outside narrow mast, beam, strut, pulley and tie is alpha. Preserve sparse large transparent openings, no solid panel, no thick black silhouette or bright brass shine. Detailed small pixel clusters like reference, same native-world style; not photoreal and not cartoon.",
+    "retaining_wall": "Create one production-ready transparent background architectural pixel-art layer for a 2D side-scrolling ruined canal bridge. Reference 1 is the exact silhouette/construction guide (1536x1024); reference 2 is the WHOLE live game room, so match its muted charcoal/slate and restrained old brass, pixel texture and the scale of the existing bridge stones. Reference 3 is the current native game wall material style. This is ONE continuous masonry structure, not two separate framed postcards. Follow reference 1's filled polygon area exactly: upper-left service chamber and lower-right canal retaining wall merge continuously under the left room floor. Make all guide dark background fully transparent, erase all colored outlines. Upper-left cyan rectangle means a recessed low service-room rear wall at pixels x192..864,y96..336; opaque deep charcoal gray stone, slightly warm desaturated moss-staining, subtle low flat lintel near y96, NO enormous arches, no door, no separate rectangular picture border. Outer area above and left belongs to thicker existing bridge masonry, leave continuous matching quiet stone. Lower wall begins where the upper room base joins the canal: at x480,y336 then continues right as an irregular slumped broken retaining parapet following the guide's shallow dip at x1056,y444, rising to x1440,y336. That broken skyline must look naturally eroded, NOT a straight diagonal triangular cut; texture and bricks continue from the same stone wall without any horizontal split/seam. Lower part is a worn retaining wall behind an OPEN service well, not a second indoor room; NO arch and NO ceiling there. Dull old drainage discoloration, 1 small recess, perhaps an extremely subtle embedded copper conduit below y560, not visually busy. No platforms, floors, doors, windows, objects, lights, grass, chest, NPC, text, HUD, sky or terrain additions. Uniform 2D side-view, almost flat relief, clustered hand-authored fine pixel art, clearly pixelated edges, no painterly gradients or neon blue/teal cast. Architecture stays lower contrast than the game walkable stone edges and character. Preserve substantial opaque stone down to bottom y960 so it extends behind the real floor/well exit. Output same canvas dimensions and spatial registration as reference 1, transparent alpha. Need a credible recessed room backed by one broken retaining wall, not an attractive standalone monument."
+  },
+  "guide": "assets/plains_v07/source/longbridge-retaining-guide.png",
+  "assets": [
+    {
+      "asset": "clockheart_vista",
+      "source": "assets/plains_v07/source/longbridge-vista-generated.png",
+      "source_sha256": "db137d974ab96dedcbb2b78a34f90195b56356432cdae66c95df120d2e3c6bb8",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        1152,
+        768
+      ],
+      "image": "assets/plains_v07/native/longbridge_vista.png",
+      "sha256": "16ad7a47bd304aac6104a89225e85efa6187d27cab897b114b1121372cff6f09",
+      "sampling": "nearest",
+      "alpha_threshold": null,
+      "anchor": [
+        576.0,
+        768
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    {
+      "asset": "longbridge_crane",
+      "source": "assets/plains_v07/source/longbridge-crane-generated.png",
+      "source_sha256": "d9cc35319e0bc3ff3680d694d46ea15b86af2b7eb5a910fc2df2bb00dda7e70f",
+      "source_rect": [
+        0,
+        0,
+        1448,
+        1086
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        362,
+        272
+      ],
+      "image": "assets/plains_v07/native/longbridge_crane.png",
+      "sha256": "d96d97b541d64458cc4daef3d5ca4bcdc504c70f9fe2d17f929d78207a1973d0",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        181.0,
+        272
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    {
+      "asset": "longbridge_wellmouth",
+      "source": "assets/plains_v07/source/bellgarden_shaftmouth-generated.png",
+      "source_sha256": "c03639539de5f89cff06bd534e3a2bd91885e8617f43dd57262b02a83967131a",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        896,
+        598
+      ],
+      "image": "assets/plains_v07/native/longbridge_wellmouth.png",
+      "sha256": "0a0a37deb507febd9dfb01d9204fd35bde951188be6b37357fc81c0c79a5c007",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        448.0,
+        598
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    {
+      "asset": "longbridge_hanger",
+      "source": "assets/plains_v07/source/longbridge-crane-generated.png",
+      "source_sha256": "d9cc35319e0bc3ff3680d694d46ea15b86af2b7eb5a910fc2df2bb00dda7e70f",
+      "source_rect": [
+        280,
+        228,
+        16,
+        152
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        4,
+        38
+      ],
+      "image": "assets/plains_v07/native/longbridge_hanger.png",
+      "sha256": "b56d1cc8281e6bdfb7fa9014fb812d89681aa2960b0a1be5195e1cbb22a45ceb",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        2,
+        38
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    },
+    {
+      "asset": "longbridge_rearwall",
+      "source": "assets/plains_v07/source/longbridge-retaining-generated.png",
+      "source_sha256": "cd66e94e7c069cce59b6849027c0ce2c3efd1aee9de1a1cf6ace9f4f1729b471",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        1024,
+        683
+      ],
+      "image": "assets/plains_v07/native/longbridge_rearwall.png",
+      "sha256": "236146dbfdef50e27af9253a9daa8a2306fbc87a4178f957e47effe223d5e8d8",
+      "sampling": "nearest",
+      "alpha_threshold": 128,
+      "anchor": [
+        512,
+        683
+      ],
+      "generation": "assets/plains_v07/source/longbridge-provenance.json"
+    }
+  ],
+  "retaining_references": [
+    {
+      "path": "assets/plains_v07/source/longbridge-retaining-guide.png",
+      "sha256": "b523f032069b3c848bb9e1ca8c03a58483edd026a195aee69df4e70016a00607"
+    },
+    {
+      "path": "assets/plains_v07/source/longbridge-structure-guide.png",
+      "sha256": "439d595a041baa972e21def14613612c3d7d9bad055ecc98bd1520c850639988"
+    },
+    {
+      "path": "assets/plains_v07/native/interior_well.png",
+      "sha256": "1712887a8b9a09e0219e934d7ad0485c7f2ef950ec1dcb32f2d47e4c7d71a6dc"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generator": "OpenAI image_gen",
+  "purpose": "Lowland canal scenery for adjacent outdoor station, bellfield and old market; independent runtime sky/clouds",
+  "prompt": "Create a production-ready background layer for a side-scrolling 2D pixel art metroidvania called The Disordered Clock. Landscape canvas 1536x1024, transparent background. This is distant scenery ONLY, no playable foreground, no player, no text. Style: delicately clustered fine pixels, restrained Underworld-like blue-gray stone, muted olive foliage, weathered gray oak, warm cream light and cool desaturated teal shadows. NOT painterly, not photorealistic. Depict a quiet abandoned lowland irrigation district behind a sparsely inhabited small station: shallow winding water channel in the distance, irregular small copses of wind-bent willows and orchard trees, two very small mossy slate rooftops at different distances, a few broken old low stone channel walls, one tiny disused windmill very far away. Compose overlapping ASYMMETRIC silhouettes and layered open pockets: higher thin tree grouping on the left third, very small roofs middle-right, lower long channel curving through center, receding tree bands. No rolling grassy hills or mountain ridges; no repeating horizontal meadow stripes; no giant structures or huge central tree; no close front platform. Keep the central action-reading region calm and subdued, small landmarks subordinate to characters. Transparent sky fills the actual gaps above all landforms, with a varied gently rising and falling tree/roof silhouette mostly between 28 and 50 percent of canvas height. Land extends continuously to the bottom and side edges with subdued stone/earth/reeds/water, not a solid lawn. The land should have fine crisp texture but low contrast with atmospheric depth; the near-most bottom still reads distant, never black. Do not draw any sky, clouds, sunlight beams or fog outside silhouettes: sky and clouds are separate runtime layers. Full canvas asset, no decorative borders, no margins, no interface. The source will be mechanically baked to 1152x768 using nearest-neighbor. Prioritize coherent spatial composition over clutter.",
+  "sources": {
+    "canal-lowlands-generated.png": {
+      "file": "assets/plains_v07/source/canal-lowlands-generated.png",
+      "sha256": "78b314bc572ec421b79ce330ef4748933cf242bf50379347072378bff001cf8b"
+    }
+  },
+  "assets": [
+    {
+      "asset": "canal_lowlands",
+      "image": "assets/plains_v07/native/canal_lowlands.png",
+      "source": "assets/plains_v07/source/canal-lowlands-generated.png",
+      "source_rect": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "source_rect_format": "xywh",
+      "size": [
+        1152,
+        768
+      ],
+      "filter": "nearest",
+      "role": "fixed_landscape_transparent_sky",
+      "sha256": "9ab0006990c7bb1efac267ed608d10ea82866e11176dda2ae0180f12965f9846",
+      "generation": "assets/plains_v07/source/canal-lowlands-provenance.json",
+      "source_sha256": "78b314bc572ec421b79ce330ef4748933cf242bf50379347072378bff001cf8b"
+    }
+  ],
+  "placement_rules": "Preserve shared P01/P31/P34 depth reference transformed through door pairs; native nearest bake only, no painting or generated foreground."
+}

@@ -1,17 +1,17 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_wqi4b"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_lmxbd"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_m2rs3"]
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_15jaj"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="2_nwjbr"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="3_itec7"]
 
 [node name="P-R26" type="Node2D" unique_id=900779486]
-script = ExtResource("1_wqi4b")
+script = ExtResource("1_15jaj")
 room_id = "P-R26"
 arrival_text = "旧风车内廊"
 route_guide = {
 "schema": 1.0,
 "steps": [{
-"action": "射铃启动西吊台，在顶部向右上反冲接检修岸。",
+"action": "西台前侧留出准备；起跳后回身射左侧访问铃，同枪向右反冲登上启动的吊台，再在上端换岸。原移动台上巡逻怪移到入口后的宽地。",
 "label": "西吊台换岸",
 "number": 1.0,
 "path": [[736.0, 1390.0], [960.0, 1332.0], [960.0, 836.0], [1376.0, 654.0]],
@@ -22,6 +22,12 @@ route_guide = {
 "number": 2.0,
 "path": [[1712.0, 654.0], [1936.0, 596.0], [2192.0, 356.0], [2112.0, 142.0]],
 "point": [1712.0, 654.0]
+}, {
+"action": "底路跳起反冲跨过一段160宽短刺，进入右侧檐下处理巡逻守卫后开启原有宝箱；原路回到西吊台准备岸，宝箱身份和内容不变。",
+"label": "检修底路与原暗室宝箱",
+"number": 3.0,
+"path": [[1120.0, 1518.0], [1440.0, 1518.0], [1664.0, 1518.0], [1984.0, 1518.0], [2240.0, 1518.0], [1664.0, 1518.0], [1440.0, 1518.0], [912.0, 1518.0], [736.0, 1390.0]],
+"point": [2240.0, 1518.0]
 }]
 }
 retry_anchors = Array[Dictionary]([{
@@ -37,35 +43,326 @@ retry_anchors = Array[Dictionary]([{
 "point": [2112.0, 142.0],
 "section": "main"
 }])
-art_placements = Array[Dictionary]([{
-"asset": "mill_drive_frame",
-"layer": -2.0,
-"point": [1504.0, 1536.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"light_offset": [8.0, -67.0],
-"point": [704.0, 1408.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"light_offset": [8.0, -67.0],
-"point": [1456.0, 704.0]
-}, {
-"asset": "cellar_backdrop",
-"layer": -20.0,
-"point": [1952.0, 1376.0],
-"tile_rect": [1952.0, 1376.0, 416.0, 160.0]
-}, {
-"asset": "concealing_grass",
-"layer": 20.0,
-"point": [1968.0, 1536.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "mill_hall_depth",
+    "point": [
+      1184,
+      1760
+    ],
+    "layer": -45,
+    "backdrop": true,
+    "depth": 0.94,
+    "tint": [
+      0.62,
+      0.78,
+      0.88,
+      1
+    ],
+    "atmosphere": {
+      "density": 1
+    },
+    "environment": {
+      "ambient": "737d86",
+      "restored": "7d8990",
+      "threshold_energy": 0.5,
+      "threshold_opacity": 0.12
+    }
+  },
+  {
+    "asset": "mill_window_bay",
+    "point": [
+      1520,
+      1536
+    ],
+    "layer": -28,
+    "tint": [
+      0.68,
+      0.73,
+      0.76,
+      1
+    ],
+    "light": true,
+    "window_beam": true
+  },
+  {
+    "asset": "mill_timber_bent",
+    "point": [
+      288,
+      1536
+    ],
+    "layer": -24,
+    "tint": [
+      0.5,
+      0.56,
+      0.59,
+      1
+    ]
+  },
+  {
+    "asset": "mill_gear",
+    "point": [
+      1104,
+      1176
+    ],
+    "layer": -20,
+    "tint": [
+      0.42,
+      0.5,
+      0.54,
+      1
+    ],
+    "rotation_speed": 0.1,
+    "motion_source": "Carrier0"
+  },
+  {
+    "asset": "mill_gear",
+    "point": [
+      1896,
+      800
+    ],
+    "layer": -20,
+    "tint": [
+      0.42,
+      0.5,
+      0.54,
+      1
+    ],
+    "rotation_speed": -0.08,
+    "motion_source": "Carrier1"
+  },
+  {
+    "asset": "mill_corbel",
+    "point": [
+      1368,
+      808
+    ],
+    "layer": -19,
+    "tint": [
+      0.8,
+      0.87,
+      0.91,
+      1
+    ],
+    "haze": [
+      0.26,
+      0.33,
+      0.37,
+      0.5
+    ]
+  },
+  {
+    "asset": "mill_corbel",
+    "point": [
+      1672,
+      808
+    ],
+    "layer": -19,
+    "tint": [
+      0.8,
+      0.87,
+      0.91,
+      1
+    ],
+    "haze": [
+      0.26,
+      0.33,
+      0.37,
+      0.5
+    ]
+  },
+  {
+    "asset": "mill_post_segment",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -19,
+    "tile_rect": [
+      2256,
+      16,
+      32,
+      144
+    ],
+    "tint": [
+      0.8,
+      0.87,
+      0.91,
+      1
+    ],
+    "haze": [
+      0.26,
+      0.33,
+      0.37,
+      0.5
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -19,
+    "tile_rect": [
+      2176,
+      16,
+      112,
+      24
+    ],
+    "tint": [
+      0.8,
+      0.87,
+      0.91,
+      1
+    ],
+    "haze": [
+      0.26,
+      0.33,
+      0.37,
+      0.5
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      704,
+      1408
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1456,
+      704
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      2112,
+      160
+    ],
+    "layer": -2,
+    "light": true
+  },
+  {
+    "asset": "mill_drive_frame",
+    "point": [
+      1800,
+      1536
+    ],
+    "layer": -3,
+    "tint": [
+      0.67,
+      0.73,
+      0.76,
+      1
+    ]
+  },
+  {
+    "asset": "mill_hidden_wall",
+    "point": [
+      2160,
+      1536
+    ],
+    "layer": -20,
+    "tint": [
+      0.82,
+      0.88,
+      0.91,
+      1
+    ]
+  },
+  {
+    "asset": "concealing_grass",
+    "point": [
+      1968,
+      1536
+    ],
+    "layer": 20,
+    "sway": true
+  },
+  {
+    "asset": "barrel",
+    "point": [
+      304,
+      1536
+    ],
+    "layer": -2
+  },
+  {
+    "asset": "storage_crates",
+    "point": [
+      1664,
+      704
+    ],
+    "layer": -2
+  },
+  {
+    "asset": "mill_walkway",
+    "point": [
+      0,
+      0
+    ],
+    "surface_platform": 3
+  },
+  {
+    "asset": "mill_walkway",
+    "point": [
+      0,
+      0
+    ],
+    "surface_platform": 4
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -22,
+    "tile_rect": [
+      1104,
+      1128,
+      108,
+      24
+    ],
+    "tint": [
+      0.46,
+      0.52,
+      0.56,
+      1
+    ]
+  },
+  {
+    "asset": "mill_beam_segment",
+    "point": [
+      0,
+      0
+    ],
+    "layer": -22,
+    "tile_rect": [
+      1832,
+      752,
+      64,
+      24
+    ],
+    "tint": [
+      0.46,
+      0.52,
+      0.56,
+      1
+    ]
+  }
+])
 art_profile = "mill"
 bell_mechanisms = Array[Dictionary]([{
-"access_bells": [[800.0, 1344.0], [1360.0, 624.0]],
+"access_bells": [[672.0, 1320.0], [1360.0, 624.0]],
 "bell": [960.0, 1280.0],
 "carrier": "Carrier0",
 "id": "P-R26:carrier_west"
@@ -75,28 +372,72 @@ bell_mechanisms = Array[Dictionary]([{
 "carrier": "Carrier1",
 "id": "P-R26:carrier_east"
 }])
-platforms = Array[Rect2]([Rect2(0, 1536, 2368, 160), Rect2(640, 1408, 224, 128), Rect2(1216, 704, 608, 80), Rect2(2016, 160, 256, 48), Rect2(1952, 1280, 416, 96)])
+platforms = Array[Rect2]([Rect2(32, 1536, 2304, 128), Rect2(384, 1664, 1952, 32), Rect2(640, 1408, 224, 128), Rect2(1216, 704, 608, 80), Rect2(2016, 160, 256, 48), Rect2(1952, 1280, 384, 96)])
 workbench_entity_ids = {
-"art_placements": ["P-R26:art_placements:0", "P-R26:art_placements:1", "P-R26:art_placements:2", "P-R26:art_placements:3", "P-R26:art_placements:4"],
-"climbable_walls": [],
-"hazards": [],
-"hook_points": [],
-"platforms": ["P-R26:platforms:0", "P-R26:platforms:1", "P-R26:platforms:2", "P-R26:platforms:3", "P-R26:platforms:4"],
-"retry_anchors": ["P-R26:retry_anchors:0", "P-R26:retry_anchors:1", "P-R26:retry_anchors:2"],
-"signs": []
+  "art_placements": [
+    "P-R26:art:0",
+    "P-R26:art:1",
+    "P-R26:art:2",
+    "P-R26:art:3",
+    "P-R26:art:4",
+    "P-R26:art:5",
+    "P-R26:art:6",
+    "P-R26:art:7",
+    "P-R26:art:8",
+    "P-R26:art:9",
+    "P-R26:art:10",
+    "P-R26:art:11",
+    "P-R26:art:12",
+    "P-R26:art:13",
+    "P-R26:art:14",
+    "P-R26:art:15",
+    "P-R26:art:16",
+    "P-R26:art:17",
+    "P-R26:art:18",
+    "P-R26:art:19",
+    "P-R26:art:20"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R26:platforms:0",
+    "P-R26:platforms:0:part2",
+    "P-R26:platforms:1",
+    "P-R26:platforms:2",
+    "P-R26:platforms:3",
+    "P-R26:platforms:4"
+  ],
+  "retry_anchors": [
+    "P-R26:retry_anchors:0",
+    "P-R26:retry_anchors:1",
+    "P-R26:retry_anchors:2"
+  ],
+  "signs": []
 }
-one_way_indices = Array[int]([2, 3])
+one_way_indices = Array[int]([3, 4])
+illustrated_platform_indices = Array[int]([3, 4])
 start_point = Vector2(144, 1518)
 enemy_placements = Array[Dictionary]([{
 "behavior": "patrol",
 "id": "P-R26:lift_rider",
 "max_health": 9.0,
-"point": [960.0, 1332.0]
+"point": [448.0, 1518.0]
 }, {
 "behavior": "sentry",
 "id": "P-R26:inspection_guard",
 "max_health": 14.0,
 "point": [1504.0, 686.0]
+}, {
+"behavior": "patrol",
+"id": "P-R26:review06:chest_patrol",
+"max_health": 9.0,
+"point": [2176.0, 1518.0]
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [1472.0, 1512.0, 160.0, 24.0],
+"facing": "up",
+"id": "P26:review06:lower_short_bed"
 }])
 gear_obstacles = Array[Dictionary]([{
 "id": "P26:drive_cam",
@@ -108,7 +449,7 @@ gear_obstacles = Array[Dictionary]([{
 
 [node name="Carrier0" type="AnimatableBody2D" parent="." unique_id=808384945]
 position = Vector2(960, 1360)
-script = ExtResource("2_lmxbd")
+script = ExtResource("2_nwjbr")
 endpoint = Vector2(0, -496)
 platform_size = Vector2(192, 20)
 period = 9.0
@@ -118,7 +459,7 @@ endpoint_dwell = 1.4
 
 [node name="Carrier1" type="AnimatableBody2D" parent="." unique_id=1037041836]
 position = Vector2(1936, 624)
-script = ExtResource("2_lmxbd")
+script = ExtResource("2_nwjbr")
 endpoint = Vector2(256, -240)
 platform_size = Vector2(192, 20)
 period = 8.0
@@ -128,7 +469,7 @@ endpoint_dwell = 1.4
 
 [node name="HiddenChest" type="Node2D" parent="." unique_id=770988533]
 position = Vector2(2240, 1518)
-script = ExtResource("3_m2rs3")
+script = ExtResource("3_itec7")
 action_id = "open_P26_hidden_chest"
 label = "打开检修暗室宝箱"
 visual = "chest"

@@ -1,0 +1,29 @@
+{
+  "generator": "OpenAI image_gen",
+  "purpose": "P27 downward shaft replaces the old crossbeam/ladder facade; original collision aperture remains open.",
+  "prompt": "Produce a pixel-art SIDE CUTAWAY of an OPEN DOWNWARD MAINTENANCE SHAFT, matching the attached exact geometry guide (image1) and game's screenshot materials (image2). A small architectural junction asset, not a whole scene. Transparent background. Canvas 1536x1024. The final asset will be baked down to 288x192 world pixels.\nExact registration: top of ground at image y341. Left grassy bank occupies x0..426 BELOW y341, right grassy bank occupies x1109..1536 BELOW y341. Clear downward passage between x426 and1109, continuing down off bottom. Entire canvas above y320 must be TRANSPARENT AIR. Nothing bridges the opening at its top: NO horizontal crossbeam, NO arch, NO door header, NO grille, NO gate, NO ladder, NO well roof, NO hanging ropes. It must be unmistakably a hole that a player drops into, not a door one walks through.\nDraw a modest flush old gray-blue stone collar on the inner edge of each bank, just below ground level. Left stone facing occupies x330..426, right x1109..1205. Stone facing and short moss tufts blend into small dark earthen edge fragments towards each outer bank, fading to transparent outside x250..1285, no giant floor or platform illustration. Collar's TOP SURFACE exactly y341, no high protrusions that could suggest collision. Both inner jambs extend vertically down to bottom canvas and continue offscreen. Use hand-hewn weathered stone of the windmill, a few subtle rusty bronze anchor bolts, sparse olive moss at upper edges. Side walls do not lean into or narrow the passage. The actual terrain side faces are x426 and1109 and must remain clear.\nInside the open shaft BELOW y360 draw a recessed dark desaturated blue-slate masonry back wall, visibly behind the play plane, becoming darker toward the bottom. NO sky inside underground shaft. Back wall at x426..1109 with a subdued upper edge at ground level that does not look like a solid cap. Very subtle cool upper reflected light on inner side edges to show depth. It is a side-scrolling 2D section, no circular front-facing well ellipse, no floor at bottom. No bright light source or decoration in central playable air. Foreground lips two separate banks only.\nMatch the screenshot's fine clustered pixel-art character/world scale, restrained material contrast, earthy blue-gray stone and olive moss. Not photorealistic or painterly. Crisp edges at final native small size. Remove all guide colors, letters and arrows. This is one aligned transparent asset containing both shaft-side junctions and recessed back wall, to composite with existing terrain at exact supplied coordinates.\n",
+  "guide": "assets/plains_v07/source/shelter-shaft-guide.svg",
+  "guide_sha256": "53b3951fecc280d2f769e916fef31a1191e63b3856318b58ebe9e5b36c09a63f",
+  "registration": "Source shaft edges x468/1068 and collar top y406 map to world x448/576 and y736. Asset origin [352,650]; rear clipped to actual hole, front clipped to actual ground.",
+  "assets": [
+    {
+      "asset": "shelter_shaft",
+      "source": "assets/plains_v07/source/shelter-shaft-generated.png",
+      "source_sha256": "7cfbfe56199763e567c54dfe5a0f1f8626bf2eb6d5f82c5e955ab7ecca65e446",
+      "source_rect": [
+        18,
+        4,
+        1500,
+        900
+      ],
+      "size": [
+        320,
+        192
+      ],
+      "image": "assets/plains_v07/native/shelter_shaft.png",
+      "sha256": "9017046d507bf99352cba4d2b9c3d0b1b2c33b618cd8b526ff6ea244a514ac53",
+      "alpha_threshold": 128,
+      "sampling": "nearest"
+    }
+  ]
+}

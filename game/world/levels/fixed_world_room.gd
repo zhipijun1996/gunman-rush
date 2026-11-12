@@ -6,6 +6,7 @@ extends Node2D
 @export var traveler_point := Vector2.ZERO
 @export var route_guide: Dictionary = {}
 @export var intro_sequence: Dictionary = {}
+@export var onboarding: Dictionary = {}
 @export var wave_encounter: Dictionary = {}
 @export var tutorial_action: String
 @export var tutorial_target: String
@@ -14,8 +15,11 @@ extends Node2D
 @export var section_volumes: Array[Dictionary] = []
 @export var retry_anchors: Array[Dictionary] = []
 var camera_concealers: Dictionary = {}
+var boundary_art_rock: Array[Rect2] = []
 @export var art_placements: Array[Dictionary] = []
 @export var art_profile := "meadow"
+## Explicit regional threshold sample; empty for authored full rooms.
+@export var region_preview := ""
 @export var bell_mechanisms: Array[Dictionary] = []
 var mechanisms: Dictionary={}
 var station_animation: WorldChargingStation
@@ -76,7 +80,10 @@ func interior_material() -> String:
 
 func _ready() -> void:
 	z_index = -1
-	platforms.append_array(WorldRoomSpace.boundary_platforms(contract.world_geometry,doors))
+	var boundary:=WorldRoomSpace.boundary_platforms(contract.world_geometry,doors)
+	boundary_art_rock=WorldRoomSpace.exterior_fill(contract.world_geometry,doors)
+	boundary_art_rock.append_array(boundary)
+	platforms.append_array(boundary)
 	for index: int in platforms.size():
 		var body := StaticBody2D.new()
 		body.position = platforms[index].get_center()
@@ -122,6 +129,16 @@ func _ready() -> void:
 		if i in one_way_indices or i in illustrated_platform_indices:continue
 		if i in masonry_platform_indices:masonry.append(platforms[i])
 		else:solids.append(platforms[i])
+	# An authored entrance may share material with the real boundary wall.
+	# Partition presentation only; the collision rectangles remain untouched.
+	var masonry_boundary: Array[Rect2] = []
+	for placement: Dictionary in art_placements:
+		if not placement.has("masonry_region"): continue
+		var region := FixedWorldProvider.rect(placement.masonry_region)
+		for solid: Rect2 in solids:
+			var part := solid.intersection(region)
+			if part.has_area(): masonry_boundary.append(part)
+		solids = WorldRoomSpace.exposed_parts(solids, [region])
 	for zone: Dictionary in contract.camera.get("zones",[]):
 		var conceal: Array[Rect2] = []
 		for raw: Array in zone.get("conceal",[]):conceal.append(FixedWorldProvider.rect(raw))
@@ -142,13 +159,21 @@ func _ready() -> void:
 	for polygon: Dictionary in terrain_polygons:
 		if str(polygon.get("material", "ground")) == "masonry": masonry_polygons.append(polygon)
 		else: ground_polygons.append(polygon)
+	if not interior_material().is_empty():
+		solids.append_array(masonry_boundary);masonry_boundary.clear()
+		solids.append_array(masonry);masonry.clear()
+		ground_polygons.append_array(masonry_polygons);masonry_polygons.clear()
 	var terrain:=UnderworldTerrain.build_with_polygons(solids, ground_polygons)
-	if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
+	if not region_preview.is_empty():RegionThresholdMaterial.install_on(terrain,region_preview)
+	elif not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
+	else: terrain.position.y=-4 # Native grass roots start five pixels below the tile top; tips overhang the physical sole.
 	add_child(terrain)
-	if not masonry.is_empty() or not masonry_polygons.is_empty():
-		var structure:=UnderworldTerrain.build_with_polygons(masonry, masonry_polygons)
+	if not masonry.is_empty() or not masonry_polygons.is_empty() or not masonry_boundary.is_empty():
+		var visible_masonry:=WorldRoomSpace.exposed_parts(masonry,boundary_art_rock)
+		visible_masonry.append_array(masonry_boundary)
+		var structure:=UnderworldTerrain.build_with_polygons(visible_masonry, masonry_polygons)
 		PlainsMillTerrainMaterial.install_on(structure);add_child(structure)
-	var scenery:=PlainsRoomArt.new();scenery.room=self;add_child(scenery)
+	var scenery:PlainsRoomArt=PlainsRoomArt.new() if region_preview.is_empty() else RegionThresholdArt.new();scenery.room=self;add_child(scenery)
 	for rect: Rect2 in climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;add_child(wall)
 	for point: Vector2 in hook_points:
@@ -211,12 +236,15 @@ func _draw() -> void:
 	if contract.is_empty(): return
 	var bounds := FixedWorldProvider.rect(contract.world_geometry.bounds_world_units)
 	for i: int in platforms.size():
-		if i in one_way_indices: UnderworldTerrain.draw_one_way(self,platforms[i])
+		if i in one_way_indices and i not in illustrated_platform_indices: UnderworldTerrain.draw_one_way(self,platforms[i])
 	for door: Dictionary in doors:
 		if door.get("front_door",false) or door.get("npc_guard",false):continue
 		var p := FixedWorldProvider.point(door.position_candidate.local_world_units)
 		var rect:=Rect2(p-Vector2(16,96),Vector2(32,96)) if door.direction in ["left","right"] else Rect2(p-Vector2(64,16),Vector2(128,32))
 		if not door_open.get(door.id,false):
+			if art_placements.any(func(p:Dictionary)->bool: return p.get("closed_gate_for","")==str(door.id)):
+				UnderworldTerrain.draw_mechanism_beam(self,rect)
+				continue
 			draw_rect(rect,Color("3c4b44"))
 			draw_rect(rect,Color("9f8b67"),false,3)
 			draw_line(rect.position,rect.end,Color("9f8b67"),3)
@@ -235,6 +263,9 @@ func _draw() -> void:
 
 func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime,saved: Dictionary,entry_anchor: Vector2) -> EnemyActor:
 	var id := str(placement.id)
+	# Practice targets always return to their authored perch, including old saves
+	# that recorded a former combat flyer under the same placement identity.
+	if str(placement.behavior) == "chime_target": saved = {}
 	var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
 	body.position = FixedWorldProvider.point(saved.get("position",placement.point))
 	var actor := body.get_node("Actor") as EnemyActor
@@ -243,9 +274,9 @@ func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: Fram
 		actor.definition=actor.definition.duplicate(true) as EnemyDefinition
 		actor.definition.health_definition.max_health=float(placement.max_health)
 		actor.definition.health_definition.initial_current=float(placement.max_health)
-	# Authored points use player-height references; settle the actual enemy sole
+	# Authored points and older saves can use player-height references; settle the actual enemy sole
 	# onto its nearby authored platform before home/AI/visual anchors are bound.
-	if saved.is_empty() and not actor.definition.aerial:
+	if not actor.definition.aerial:
 		var sole := body.position.y + actor.definition.collision_size.y*.5
 		for surface: Rect2 in platforms:
 			if absf(surface.position.y-sole)<=8 and body.position.x>=surface.position.x and body.position.x<=surface.end.x:
@@ -261,7 +292,7 @@ func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: Fram
 		actor.attack_behavior.restore_region_state(saved)
 	EnemyPresentationBinding.synchronize(actor)
 	var contact:=DemoContactEmitter.attach(body,policy,controller,StringName(id+":contact"),DamageRequest.Kind.MONSTER,actor.definition.collision_size/2)
-	contact.enabled=not actor.health.terminal
+	contact.enabled=not actor.health.terminal and actor.definition.behavior_id != &"chime_target"
 	actor.defeated.connect(func(_actor: EnemyActor) -> void: contact.enabled=false;contact.set_physics_process(false))
 	var remains:=EnemyPresentationBinding.remains(body.get_node("Presentation"))
 	if actor.health.terminal and remains!=null and saved.has("corpse"):
@@ -320,6 +351,7 @@ func snapshot() -> Dictionary:
 	for id: String in enemies:
 		var actor: EnemyActor = enemies[id]
 		if actor.get_meta("wave_attempt",false):continue
+		if actor.definition.behavior_id == &"chime_target": continue
 		result[id] = actor.region_snapshot()
 		var remains:=EnemyPresentationBinding.remains(actor.motor.get_node("Presentation"))
 		if actor.health.terminal and remains!=null:
@@ -342,6 +374,7 @@ func refresh_doors(state: FixedWorldState, content: FixedWorldProvider) -> void:
 
 func bind_services(value: WorldServices,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> void:
 	services=value
+	for platform: Node in find_children("*","WorldMovingPlatform",true,false): platform.bind_activation(value.state)
 	(get_node("RegionalArt") as PlainsRoomArt).player=controller.motor
 	for pickup: Dictionary in services.definitions.get("pickups",[]):
 		if pickup.room_id!=room_id:continue
@@ -354,7 +387,6 @@ func bind_services(value: WorldServices,controller: PlayerController,policy: Fra
 		host.bind(value.state);interaction_hosts.append(host)
 	if rest_point!=Vector2.ZERO:
 		station_animation=WorldChargingStation.new();station_animation.position=rest_point+Vector2(0,18);add_child(station_animation)
-	if interior_material().is_empty():UnderworldForeground.attach(self,self,controller.motor)
 	loot=WorldCoinDrops.new();loot.services=value;loot.controller=controller;loot.room_id=room_id;loot.arena_bounds=arena_bounds
 	add_child(loot)
 	for presentation: Node in find_children("*","WorldFlagPresentation",true,false): presentation.bind(value.state.has)

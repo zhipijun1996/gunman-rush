@@ -18,7 +18,6 @@ from check_web_bundle import Pack
 from build_probe import write_pack
 
 MEASURE = {
-    'scripts/underworld_plains/underworld_foreground.gd': ['_refresh', '_protection', '_sync_residents', '_render_receipt'],
     'scripts/underworld_plains/underworld_presentation.gd': ['refresh'],
     'scripts/underworld_plains/underworld_parallax.gd': ['_update'],
     'scripts/underworld_plains/underworld_home_world.gd': ['update_focus'],
@@ -39,7 +38,6 @@ ACTION_MEASURE = {
 
 # Finite source-path relocation only; one unchanged measurement/instrumentation algorithm.
 CURRENT_PATHS = {
-    'scripts/underworld_plains/underworld_foreground.gd': 'game/presentation/world/underworld_plains/underworld_foreground.gd',
     'scripts/underworld_plains/underworld_presentation.gd': 'game/presentation/world/underworld_plains/underworld_presentation.gd',
     'scripts/underworld_plains/underworld_parallax.gd': 'game/presentation/world/underworld_plains/underworld_parallax.gd',
     'scripts/underworld_plains/underworld_home_world.gd': 'game/presentation/world/underworld_plains/underworld_home_world.gd',
@@ -122,7 +120,6 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--bundle', required=True, type=Path)
     p.add_argument('--output', required=True, type=Path)
-    p.add_argument('--foreground-candidate', type=Path, help='Explicit single-file candidate; all other source stays at the bundle commit')
     p.add_argument('--action-detail', action='store_true', help='Observe per-frame costs/objects and chest presentation methods')
     p.add_argument('--candidate-source', action='append', default=[], choices=['scripts/art/chest_art_library.gd', 'scripts/demo/plains_region_stage.gd', CURRENT_PATHS['scripts/art/chest_art_library.gd'], CURRENT_PATHS['scripts/demo/plains_region_stage.gd']], help='Explicit current-worktree candidate, recorded separately from the baseline commit')
     args = p.parse_args()
@@ -137,7 +134,6 @@ def main():
     measured = dict(MEASURE)
     if args.action_detail:
         measured.update(ACTION_MEASURE)
-        measured['scripts/underworld_plains/underworld_foreground.gd'] = MEASURE['scripts/underworld_plains/underworld_foreground.gd'] + ['_observe']
         measured['scripts/underworld_plains/underworld_presentation.gd'] = MEASURE['scripts/underworld_plains/underworld_presentation.gd'] + ['install_item']
     assert not args.candidate_source or args.action_detail, 'Candidate source requires action detail profile'
     paths = measurement_paths(commit, pack.entries, measured)
@@ -146,8 +142,6 @@ def main():
     for path, methods in measured.items():
         raw = subprocess.check_output(['git', 'show', commit + ':' + path], cwd=ROOT)
         baseline_source_sha = sha(raw)
-        if args.foreground_candidate and path == paths['scripts/underworld_plains/underworld_foreground.gd']:
-            raw = args.foreground_candidate.read_bytes()
         if path in args.candidate_source:
             raw = (ROOT / path).read_bytes()
         source = raw.decode()
@@ -175,8 +169,6 @@ def main():
                 source += '\tif not grounded: _fps04_event("airborne_round")\n'
             if args.action_detail and method == '_land':
                 source += '\tif heavy and airborne: _fps04_event("heavy_landing")\n'
-            if args.action_detail and method == '_observe':
-                source += '\tvar _fps04_script := node.get_script() as Script\n\t_fps04_record("observe:"+(_fps04_script.resource_path if _fps04_script != null else node.get_class()),_fps04_elapsed)\n'
         if path == paths['scripts/demo/demo_app.gd']:
             hook = 'func _ready() -> void:\n'
             assert source.count(hook) == 1
@@ -191,7 +183,7 @@ def main():
     receipt = {'baseline_info': info, 'baseline_pack_sha256': digest, 'diagnostic_pack_sha256': sha(target.read_bytes()),
                'replaced': mutations, 'removed_remaps': sorted(skip), 'source_sha256': sources,
                'probe_sha256': sha(replacements['fps04_profile.gd']), 'unchanged_entries': len(set(pack.entries)-skip-set(replacements)),
-               'source_commit': commit, 'measurement_paths': paths, 'foreground_candidate': str(args.foreground_candidate) if args.foreground_candidate else None, 'candidate_sources':args.candidate_source, 'action_detail':args.action_detail, 'main_scene': 'Unchanged original exported demo.tscn and project.binary',
+               'source_commit': commit, 'measurement_paths': paths, 'candidate_sources':args.candidate_source, 'action_detail':args.action_detail, 'main_scene': 'Unchanged original exported demo.tscn and project.binary',
                'scope': 'Shared timing wrappers add overhead; nested elapsed costs inclusive and not additive. Only current-root capture metadata and diagnostic JS are written. No GPU or physical phone timing claim.'}
     (args.output / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps({'output': str(args.output), 'source_commit': commit, 'unchanged_entries': receipt['unchanged_entries'], 'diagnostic_pack_sha256': receipt['diagnostic_pack_sha256']}))

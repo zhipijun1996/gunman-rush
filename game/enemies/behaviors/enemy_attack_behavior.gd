@@ -123,7 +123,8 @@ func _can_engage() -> bool:
 				if peer and peer.attack_behavior and peer.attack_behavior.state in [&"telegraph", &"attack"] and peer.attack_behavior._active(): concurrent += 1
 		if concurrent >= max_concurrent_attacks: return false
 	var target := controller.motor.global_position
-	if target.distance_to(home) > actor.definition.activation_range: return false
+	var detection_origin:=actor.motor.global_position if actor.definition.behavior_id in [&"charger",&"diver"] else home
+	if target.distance_to(detection_origin) > actor.definition.activation_range: return false
 	for point: Vector2 in protected_points:
 		if target.distance_to(point) < actor.definition.protected_radius: return false
 	var ray := PhysicsRayQueryParameters2D.create(actor.motor.global_position, target, 1, [actor.motor.get_rid()])

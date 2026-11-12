@@ -1,6 +1,6 @@
 extends Node
 ## Diagnostic copy only. Presentation knockouts and explicitly labelled scene/cue fixtures.
-const MODES := ["baseline", "ambience_off", "foreground_render_off", "foreground_update_off", "shadows_off", "hud_avoidance_off", "lights_off", "all_audio_off", "audio_pause_guard", "web_sample_music", "web_sample_audio", "transparent_skip", "audio_bus_fix", "sample_only", "menu"]
+const MODES := ["baseline", "ambience_off", "shadows_off", "hud_avoidance_off", "lights_off", "all_audio_off", "audio_pause_guard", "web_sample_music", "web_sample_audio", "transparent_skip", "audio_bus_fix", "sample_only", "menu"]
 var app: Node
 var mode := "baseline"
 var active := false
@@ -13,7 +13,6 @@ var snapshot_at := 0
 var sequence := 0
 var context_id := 0
 var subject: Node
-var fg: CanvasLayer
 var lights: Array = []
 var selected: Node
 var audio: GameAudio
@@ -52,9 +51,7 @@ func _cache() -> bool:
 	var current: Node=app.home_scene if is_instance_valid(app.home_scene) else app.stage
 	if not is_instance_valid(current):return false
 	if current.get_instance_id()==context_id:return true
-	var foreground:=current.get_node_or_null("UnderworldForeground") as CanvasLayer
-	if not is_instance_valid(foreground):return false
-	subject=current;context_id=subject.get_instance_id();lights.clear();fg=foreground
+	subject=current;context_id=subject.get_instance_id();lights.clear()
 	for node: Node in subject.find_children("*","PointLight2D",true,false):
 		lights.append([node,node.enabled,node.shadow_enabled])
 	var controller: PlayerController=app.home_scene.controller if is_instance_valid(app.home_scene) else app.controller
@@ -76,7 +73,6 @@ func _restore() -> void:
 	if app.menu.visible_panel==&"home" and is_instance_valid(app.home_scene):
 		app.menu._close_home_overlay()
 	elif get_tree().paused and mode=="menu":app.toggle_pause()
-	if is_instance_valid(fg):fg.visible=true;fg.set_process(true)
 	for row: Array in shader_materials:
 		if is_instance_valid(row[0]):row[0].shader=row[1]
 	for row: Array in lights:
@@ -107,8 +103,6 @@ func _apply(value: String) -> void:
 	if value=="ambience_off" and is_instance_valid(selected):
 		selected.set_process(false)
 		selected._clear_context()
-	if value=="foreground_render_off":fg.visible=false
-	if value=="foreground_update_off":fg.set_process(false)
 	if value=="shadows_off":
 		for row: Array in lights:row[0].shadow_enabled=false
 	if value=="lights_off":
@@ -214,19 +208,11 @@ func _state() -> Dictionary:
 		if is_instance_valid(row[0]) and row[0].enabled and row[0].visible:
 			lights_enabled+=1
 			if row[0].shadow_enabled:shadowed+=1
-	var residents:=0;var masks:=0;var drawn:=0;var effective:=0
-	if is_instance_valid(fg):
-		residents=fg._residents.size()
-		for row: Dictionary in fg._residents.values():
-			masks+=int(row.get("mask_rect_count",0))
-			if row.sprite.visible:
-				drawn+=1
-				if fg.visible:effective+=1
 	var player: Node=app.home_scene.player if is_instance_valid(app.home_scene) else app.player
 	var music: Dictionary={}
 	if is_instance_valid(app._music):
 		music={"requested_track":str(app._music.requested_track),"starts":app._music.starts,"playing":app._music._voices.map(func(v):return {"playing":v.playing,"position":v.get_playback_position(),"paused":v.stream_paused,"db":v.volume_db,"type":v.playback_type})}
-	return {"context":"home" if is_instance_valid(app.home_scene) else "plains","mode":mode,"tree_paused":get_tree().paused,"menu":str(app.menu.visible_panel),"player":[player.global_position.x,player.global_position.y] if is_instance_valid(player) else [],"foreground":{"visible":fg.visible if is_instance_valid(fg) else false,"processing":fg.is_processing() if is_instance_valid(fg) else false,"tracked":fg._tracked.size() if is_instance_valid(fg) else 0,"protect":fg._protect.size() if is_instance_valid(fg) else 0,"static":fg._static_protect.size() if is_instance_valid(fg) else 0,"dynamic":fg._dynamic_protect.size() if is_instance_valid(fg) else 0,"residents":residents,"drawn":drawn,"effective_drawn":effective,"mask_rectangles_uploaded":masks},"lights_enabled":lights_enabled,"shadows_enabled":shadowed,"texture_memory":Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED),"buffer_memory":Performance.get_monitor(Performance.RENDER_BUFFER_MEM_USED),"music":music,"selected_ambience":selected.snapshot() if is_instance_valid(selected) else {},"motion_events":audio.get("motion_events") if is_instance_valid(audio) else [],"weapon_events":audio.get("weapon_events") if is_instance_valid(audio) else [],"motion_dropped":audio.get("motion_dropped") if is_instance_valid(audio) else 0,"weapon_dropped":audio.get("weapon_dropped") if is_instance_valid(audio) else 0,"lamp_positions":lights.map(func(row):return [row[0].global_position.x,row[0].global_position.y]),"voices_busy":audio._voices.filter(func(v):return v.playing).size() if is_instance_valid(audio) else 0,"sfx_played":audio.played if is_instance_valid(audio) else {},"seed":"plains-run","camera_fixture":camera_fixture,"input_rejections":input_rejections}
+	return {"context":"home" if is_instance_valid(app.home_scene) else "plains","mode":mode,"tree_paused":get_tree().paused,"menu":str(app.menu.visible_panel),"player":[player.global_position.x,player.global_position.y] if is_instance_valid(player) else [],"lights_enabled":lights_enabled,"shadows_enabled":shadowed,"texture_memory":Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED),"buffer_memory":Performance.get_monitor(Performance.RENDER_BUFFER_MEM_USED),"music":music,"selected_ambience":selected.snapshot() if is_instance_valid(selected) else {},"motion_events":audio.get("motion_events") if is_instance_valid(audio) else [],"weapon_events":audio.get("weapon_events") if is_instance_valid(audio) else [],"motion_dropped":audio.get("motion_dropped") if is_instance_valid(audio) else 0,"weapon_dropped":audio.get("weapon_dropped") if is_instance_valid(audio) else 0,"lamp_positions":lights.map(func(row):return [row[0].global_position.x,row[0].global_position.y]),"voices_busy":audio._voices.filter(func(v):return v.playing).size() if is_instance_valid(audio) else 0,"sfx_played":audio.played if is_instance_valid(audio) else {},"seed":"plains-run","camera_fixture":camera_fixture,"input_rejections":input_rejections}
 
 func _publish() -> void:
 	if not OS.has_feature("web"):return

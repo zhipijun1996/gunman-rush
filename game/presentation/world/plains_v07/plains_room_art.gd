@@ -10,17 +10,30 @@ var depths: Array[Dictionary]=[]
 static var assets: Dictionary={}
 static var props: Dictionary={}
 static var backgrounds: Dictionary={}
-var occluders: Array[Sprite2D]=[]
+var occluders: Array[Dictionary]=[]
 var terrain_polygons: Array[PackedVector2Array] = []
 var story_props: Array[Dictionary]=[]
+var rotating_props: Array[Dictionary]=[]
+var hoist_cables: Array[Dictionary]=[]
 var sky: Sprite2D
+var sky_layers: PlainsSkyLayers
+var landscape_scroll := Vector2(.12,.12)
+var landscape_tracks_height := false
+var landscape_offset := Vector2.ZERO
+var authored_sky_palette := false
 var daylight: DirectionalLight2D
 var ambient: CanvasModulate
 var indoor := false
 var repair_blend := 0.0
 var repair_initialized := false
+var repair_reveal_age := -1.0
+var revival_materials: Array[ShaderMaterial] = []
+var bell_pendulums: Array[Sprite2D] = []
 var wind_phase := 0.0
 static var profiles: Dictionary={}
+var light_settings: Dictionary = {}
+var environment_light: Dictionary = {}
+var atmosphere: Dictionary = {}
 func sprite(id: String,at: Vector2,layer: int=-2) -> Sprite2D:
 	var node:=Sprite2D.new();node.centered=false
 	if props.has(id):
@@ -34,7 +47,7 @@ func sprite(id: String,at: Vector2,layer: int=-2) -> Sprite2D:
 	return node
 func _ready() -> void:
 	if assets.is_empty():assets=JSON.parse_string(FileAccess.get_file_as_string("res://art/world-art-v2/assets/pixel/manifest.json"))
-	if props.is_empty():
+	if props.is_empty() or backgrounds.is_empty():
 		var manifest:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/plains_v07/manifest.json"))
 		props=manifest.props
 		backgrounds=manifest.get("backgrounds",{})
@@ -44,22 +57,51 @@ func _ready() -> void:
 	var interior:=room.interior_material()
 	for hazard: Rect2 in room.hazards:
 		for x: float in range(int(hazard.position.x),int(hazard.end.x),96):sprite("windchime_plains_hazard" if interior.is_empty() else "gear_city_hazard",Vector2(x+48,hazard.end.y),1)
-	if not interior.is_empty():
+	if not interior.is_empty() and not room.art_placements.any(func(p: Dictionary) -> bool: return p.get("backdrop",false)):
 		var wall:=Sprite2D.new();wall.texture=load("res://assets/plains_v07/native/interior_"+interior+".png");wall.centered=false;wall.region_enabled=true;wall.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
 		wall.region_rect=Rect2(Vector2.ZERO,FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).size+Vector2(1024,512));wall.position=Vector2(-512,-256);wall.z_index=-40;wall.modulate=Color(.8,.86,.95);add_child(wall)
-		depths.append({"node":wall,"origin":wall.position,"ratio":.92})
+		depths.append({"node":wall,"origin":wall.position,"ratio":1.0})
 	indoor=not interior.is_empty()
+	light_settings=JSON.parse_string(FileAccess.get_file_as_string("res://game/presentation/world/plains_v07/lighting.json"))
+	environment_light=light_settings.environments.get(interior,light_settings.environments.outdoor).duplicate(true)
+	for placement:Dictionary in room.art_placements:
+		if placement.has("environment"):environment_light.merge(placement.environment,true)
+	atmosphere=light_settings.atmospheres["indoor" if indoor else light_settings.profile_atmospheres.get(room.art_profile,"outdoor")].duplicate(true)
+	for placement:Dictionary in room.art_placements:
+		if placement.has("atmosphere"):atmosphere.merge(placement.atmosphere,true)
 	ambient=CanvasModulate.new()
-	ambient.color=Color(.34,.41,.53) if indoor else Color(.49,.57,.69)
+	ambient.color=Color(environment_light.ambient)
 	add_child(ambient)
 	if not indoor:
 		sky=Sprite2D.new();sky.name="PlainsFarLandscape"
-		sky.texture=load("res://"+str(backgrounds[room.art_profile].image)) if backgrounds.has(room.art_profile) else load("res://art/world-art-v2/"+str(assets.backgrounds.windchime_plains_v2.file))
+		var landscape:=room.art_profile
+		for placement:Dictionary in room.art_placements:
+			if placement.has("landscape"):landscape=str(placement.landscape)
+		sky.texture=load("res://"+str(backgrounds[landscape if backgrounds.has(landscape) else "plains"].image))
 		sky.z_index=-100;sky.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
-		var unlit:=CanvasItemMaterial.new();unlit.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;sky.material=unlit
+		var sky_material:=CanvasItemMaterial.new();sky_material.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED
+		sky.material=sky_material
 		add_child(sky)
-		daylight=DirectionalLight2D.new();daylight.color=Color("ffdfac");daylight.energy=.72
-		daylight.rotation=-.55;daylight.shadow_enabled=true;daylight.max_distance=1200
+		sky_layers=PlainsSkyLayers.new();sky.add_child(sky_layers)
+		var cloud_asset: String="wind_clouds"
+		for placement:Dictionary in room.art_placements:
+			if placement.has("clouds"):cloud_asset=str(placement.clouds)
+		sky_layers.configure(sky,load("res://"+str(backgrounds[cloud_asset].image)))
+		for placement:Dictionary in room.art_placements:
+			if placement.has("sky_cloud_density"):sky_layers.set_density(placement.sky_cloud_density)
+			if placement.has("landscape_scroll"):
+				landscape_scroll=FixedWorldProvider.point(placement.landscape_scroll)
+				landscape_tracks_height=true
+			if placement.has("landscape_reference"):depth_reference=FixedWorldProvider.point(placement.landscape_reference)
+			if placement.has("landscape_offset"):landscape_offset=FixedWorldProvider.point(placement.landscape_offset)
+			if placement.has("sky_colors"):
+				sky_layers.set_colors(placement.sky_colors)
+				authored_sky_palette=true
+			if placement.has("cloud_wrap_fade"):sky_layers.set_wrap_fade(float(placement.cloud_wrap_fade))
+		daylight=DirectionalLight2D.new();daylight.color=Color(light_settings.sun.color);daylight.energy=float(environment_light.sun_energy)
+		# Open sky is a broad fill, not an infinitely projected shadow from every ledge.
+		# Terrain still occludes the finite lamps and the player's carry light.
+		daylight.rotation=float(light_settings.sun.rotation);daylight.shadow_enabled=false
 		add_child(daylight)
 	for i: int in room.platforms.size():
 		if i in room.one_way_indices:continue
@@ -77,32 +119,86 @@ func _ready() -> void:
 		polygon.polygon = points
 		blocker.occluder = polygon
 		add_child(blocker)
-	if room.rest_point!=Vector2.ZERO:add_lamp(room.rest_point-Vector2(0,42))
+	if room.rest_point!=Vector2.ZERO:
+		for offset:Array in light_settings.station.offsets:
+			var coil:=add_lamp(room.rest_point+FixedWorldProvider.point(offset))
+			coil.color=Color(light_settings.station.color);coil.energy=float(light_settings.station.energy);coil.texture_scale=float(light_settings.station.radius)/64
 	for placement: Dictionary in room.art_placements:
+		if placement.has("masonry_region"): continue
+		if placement.has("material_transition"):
+			var seam:=PlainsMaterialTransition.new();seam.position=FixedWorldProvider.point(placement.point);seam.height=float(placement.material_transition.height);seam.stone_on_right=bool(placement.material_transition.get("stone_on_right",false));room.add_child(seam)
+			continue
+		if placement.has("surface_platform"):
+			var bounds:Array[Rect2]=[room.platforms[int(placement.surface_platform)]]
+			for part:Rect2 in WorldRoomSpace.exposed_parts(bounds,room.boundary_art_rock):
+				var surface:=PlainsTimberSurface.new();surface.bounds=part
+				surface.z_index=0;add_child(surface)
+			continue
 		if placement.has("support_height"):
 			_support(FixedWorldProvider.point(placement.point),float(placement.support_height));continue
 		var node:=sprite(str(placement.asset),FixedWorldProvider.point(placement.point),int(placement.get("layer",-2)))
+		if placement.has("pendulum_rect"):
+			_attach_bell(node,FixedWorldProvider.rect(placement.pendulum_rect),FixedWorldProvider.point(placement.pendulum_pivot))
+		if placement.has("facing_polygons"):
+			PlainsArchitecturalFacing.attach(self,node,placement)
+		if placement.has("tint"):
+			var tone:Array=placement.tint;node.modulate=Color(tone[0],tone[1],tone[2],tone[3])
+		if placement.has("haze"):
+			var haze:Array=placement.haze
+			var distant:=ShaderMaterial.new();distant.shader=preload("res://game/presentation/world/plains_v07/backdrop_haze.gdshader")
+			distant.set_shader_parameter("haze",Color(haze[0],haze[1],haze[2],haze[3]));node.material=distant
+		if placement.get("flip_h",false):node.flip_h=true
+		if placement.has("rotation_speed"):
+			# Rotate rigid machinery about its painted hub, preserving its authored footprint.
+			node.position+=node.offset+node.texture.get_size()*.5
+			node.offset=-node.texture.get_size()*.5
+			rotating_props.append({"node":node,"speed":placement.rotation_speed,"source":placement.get("motion_source","")})
 		if placement.has("tile_rect"):
 			var area:=FixedWorldProvider.rect(placement.tile_rect)
 			node.position=area.position;node.offset=Vector2.ZERO
 			node.region_enabled=true;node.region_rect=Rect2(Vector2.ZERO,area.size)
 			node.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
+		if placement.has("curved_wall"):
+			var shaft:Rect2=FixedWorldProvider.rect(placement.curved_wall)
+			var curved:=ShaderMaterial.new();curved.shader=preload("res://game/presentation/world/plains_v07/well_wall_light.gdshader")
+			curved.set_shader_parameter("shaft",Vector4(shaft.position.x,shaft.position.y,shaft.size.x,shaft.size.y));node.material=curved
+		if placement.has("hoist_cable"):
+			var carrier:=room.get_node_or_null(NodePath(str(placement.hoist_cable))) as WorldMovingPlatform
+			if carrier!=null:
+				var cable:=Line2D.new();cable.width=2;cable.default_color=Color("71674e");cable.z_index=-14;add_child(cable)
+				hoist_cables.append({"line":cable,"carrier":carrier,"anchor":node.position+FixedWorldProvider.point(placement.get("cable_offset",[0,0]))})
 		if placement.get("sway",false):
 			var material:=ShaderMaterial.new();material.shader=preload("res://game/presentation/world/plains_v07/rooted_wind.gdshader")
-			material.set_shader_parameter("height",float(node.texture.get_height()));node.material=material;swaying.append(material)
+			material.set_shader_parameter("height",float(node.texture.get_height()))
+			material.set_shader_parameter("hanging",bool(placement.get("sway_hanging",false)))
+			node.material=material;swaying.append(material)
 		if placement.has("receipt"):
 			node.hide();story_props.append({"node":node,"receipt":placement.receipt,"host":placement.get("story_host","")})
-		if placement.get("fade_near",false):occluders.append(node)
+			if placement.has("growth_origin"):
+				var growth:=ShaderMaterial.new();growth.shader=preload("res://game/presentation/world/plains_v07/clock_revival.gdshader")
+				growth.set_shader_parameter("origin",FixedWorldProvider.point(placement.growth_origin))
+				growth.set_shader_parameter("anchor",node.position)
+				growth.set_shader_parameter("radius",float(placement.get("growth_radius",2200)))
+				growth.set_shader_parameter("height",float(node.texture.get_height()))
+				node.material=growth;revival_materials.append(growth)
+		if placement.get("fade_near",false):occluders.append({"node":node,"alpha":node.modulate.a})
 		if placement.get("depth",1.0)!=1.0:
 			node.modulate=Color(.66,.77,.78,.8)
 			if placement.has("tint"):
 				var tone:Array=placement.tint;node.modulate=Color(tone[0],tone[1],tone[2],tone[3])
 			var depth_material:=CanvasItemMaterial.new();depth_material.light_mode=CanvasItemMaterial.LIGHT_MODE_UNSHADED;node.material=depth_material
 			depths.append({"node":node,"origin":node.position,"ratio":float(placement.depth)})
-		if placement.get("light",false):
-			var light_position:=FixedWorldProvider.point(placement.light_offset) if placement.has("light_offset") else Vector2(0,-node.texture.get_height()*.65)
-			var glow:=add_lamp(light_position)
-			glow.reparent(node,false)
+		if placement.get("light",false) and light_settings.emitters.has(str(placement.asset)):
+			var source_settings:Dictionary=light_settings.emitters[str(placement.asset)]
+			for emitter:Dictionary in source_settings.get("sources",[source_settings]):
+				var glow:=add_lamp(FixedWorldProvider.point(emitter.offset))
+				glow.color=Color(emitter.color);glow.energy=float(emitter.energy);glow.texture_scale=float(emitter.radius)/64
+				if str(placement.asset)=="gear_lamp":
+					glow.energy*=float(environment_light.get("lamp_energy_scale",1.0))
+					glow.texture_scale*=float(environment_light.get("lamp_radius_scale",1.0))
+				glow.reparent(node,false)
+				if placement.get("window_beam",false) and emitter.has("shaft"):
+					PlainsWindowLight.attach(node,self,emitter.shaft)
 	_thresholds()
 	var spikes:=WorldSpikeArt.new()
 	spikes.name="ContinuousSpikes"
@@ -112,37 +208,85 @@ func _ready() -> void:
 func add_lamp(at: Vector2) -> PointLight2D:
 	var gradient:=Gradient.new();gradient.colors=PackedColorArray([Color.WHITE,Color(1,1,1,0)])
 	var tex:=GradientTexture2D.new();tex.gradient=gradient;tex.width=128;tex.height=128;tex.fill=GradientTexture2D.FILL_RADIAL;tex.fill_from=Vector2(.5,.5);tex.fill_to=Vector2(1,.5)
-	var light:=PointLight2D.new();light.texture=tex;light.position=at.round();light.color=Color("f1c27a");light.energy=1.25;light.texture_scale=2.8;light.shadow_enabled=true;add_child(light)
+	var light:=PointLight2D.new();light.texture=tex;light.position=at.round();light.color=Color("f1c27a");light.energy=1.25;light.texture_scale=2.8;light.shadow_enabled=true;light.shadow_filter=Light2D.SHADOW_FILTER_PCF5;light.shadow_filter_smooth=1.5;add_child(light)
 	return light
 func _process(delta: float) -> void:
+	for cable:Dictionary in hoist_cables:
+		cable.line.points=PackedVector2Array([cable.anchor,cable.carrier.position])
 	clock+=delta
+	for trace:Dictionary in rotating_props:
+		var source:=room.get_node_or_null(str(trace.source)) as WorldMovingPlatform
+		if source==null or source.motion_running:
+			trace.node.rotation+=delta*float(trace.speed)
+	if sky_layers!=null:sky_layers.update_clock(clock)
 	if room.services!=null:
 		var restored:=1.0 if room.services.state.has("clock_P") else 0.0
 		if not repair_initialized:repair_blend=restored;repair_initialized=true
-		repair_blend=move_toward(repair_blend,restored,delta*.25)
-		ambient.color=(Color(.34,.41,.53) if indoor else Color(.49,.57,.69)).lerp(Color(.61,.68,.76),repair_blend)
-		if daylight!=null:daylight.energy=lerpf(.72,.83,repair_blend)
-		if sky!=null:sky.modulate=Color(.84,.89,.92).lerp(Color(1,.98,.92),repair_blend)
+		if repair_reveal_age>=0:
+			repair_reveal_age+=delta
+			repair_blend=restored*smoothstep(1.4,5.0,repair_reveal_age)
+		else:repair_blend=move_toward(repair_blend,restored,delta*.25)
+		ambient.color=Color(environment_light.ambient).lerp(Color(environment_light.restored),repair_blend)
+		if daylight!=null:daylight.energy=lerpf(float(environment_light.sun_energy),float(environment_light.restored_sun_energy),repair_blend)
+		if sky!=null:
+			var land_tint:=Color(.84,.89,.92).lerp(Color(1,.98,.92),repair_blend)
+			if authored_sky_palette:sky.self_modulate=land_tint
+			else:sky.modulate=land_tint
 		for trace: Dictionary in story_props:
 			trace.node.visible=room.services.state.value.receipts.has(trace.receipt) and (str(trace.host).is_empty() or room.services.state.value.story_hosts.get(trace.host,"")==room.room_id)
 			if trace.receipt=="repair_P":trace.node.modulate.a=repair_blend
 		if player!=null:
-			for prop: Sprite2D in occluders:prop.modulate.a=move_toward(prop.modulate.a,.25 if player.global_position.distance_to(prop.global_position)<112 else 1.0,delta*3)
+			for entry: Dictionary in occluders:
+				var prop:Sprite2D=entry.node
+				prop.modulate.a=move_toward(prop.modulate.a,float(entry.alpha)*(.25 if player.global_position.distance_to(prop.global_position)<112 else 1.0),delta*3)
 
-	wind_phase+=delta*lerpf(1.1,1.7,repair_blend)
+	wind_phase+=delta*float(atmosphere.sway_speed)*lerpf(1,1.35,repair_blend)
 	for i: int in swaying.size():swaying[i].set_shader_parameter("phase",wind_phase+i*.73)
+	for growth:ShaderMaterial in revival_materials:
+		growth.set_shader_parameter("progress",repair_blend)
+		growth.set_shader_parameter("phase",wind_phase)
+	for bell:Sprite2D in bell_pendulums:
+		bell.rotation=sin(clock*2.4)*.065*repair_blend
 	var camera:=get_viewport().get_camera_2d()
 	if camera!=null:
 		if sky!=null:
 			var span:=get_viewport_rect().size/camera.zoom
 			var image_size:=sky.texture.get_size()
-			var magnification:=ceilf(maxf(span.x/image_size.x,span.y/image_size.y))
+			var sky_height:=image_size.x*9.0/16.0
+			var magnification:=ceilf(maxf(span.x/image_size.x,span.y/minf(image_size.y,sky_height)))
 			sky.scale=Vector2.ONE*magnification
 			var slack: Vector2=(image_size*magnification-span)*.5
-			var offset: Vector2=(camera.get_screen_center_position()-depth_reference)*.12
-			sky.position=(camera.get_screen_center_position()-offset.clamp(-slack,slack)).round()
+			var offset: Vector2=(camera.get_screen_center_position()-depth_reference)*landscape_scroll+landscape_offset
+			if landscape_tracks_height:
+				# A high outlook reveals sky above the SAME distant horizon. Clouds
+				# and sky fill stay viewport-wide even after the land leaves the frame.
+				offset.x=clampf(offset.x,-slack.x,slack.x)
+				offset.y=minf(offset.y,slack.y)
+				sky_layers.position=offset/magnification
+			else:
+				offset=offset.clamp(-slack,slack)
+				sky_layers.position=Vector2.ZERO
+			sky.position=(camera.get_screen_center_position()-offset).round()
 		for d: Dictionary in depths:d.node.position=(d.origin+(camera.global_position-depth_reference)*(1.0-float(d.ratio))).round()
 	queue_redraw()
+func begin_repair_reveal() -> void:
+	# Presentation only: the action receipt has already been committed.
+	repair_reveal_age=0;repair_blend=0;repair_initialized=true
+func finish_repair_reveal() -> void:
+	repair_reveal_age=-1
+	if room.services!=null:repair_blend=1.0 if room.services.state.has("clock_P") else 0.0
+func _attach_bell(host:Sprite2D,cut:Rect2,pivot:Vector2) -> void:
+	# Register the painted bell as a rigid sprite part; the masonry frame stays still.
+	var texture:=host.texture
+	var canvas:=Rect2(Vector2.ZERO,texture.get_size())
+	for rect:Rect2 in WorldRoomSpace.exposed_parts([canvas],[cut]):
+		var part:=Sprite2D.new();part.texture=texture;part.centered=false
+		part.region_enabled=true;part.region_rect=rect;part.position=host.offset+rect.position
+		host.add_child(part)
+	var bell:=Sprite2D.new();bell.texture=texture;bell.centered=false
+	bell.region_enabled=true;bell.region_rect=cut
+	bell.position=host.offset+pivot;bell.offset=cut.position-pivot
+	host.add_child(bell);bell_pendulums.append(bell);host.texture=null
 func _air_open(at: Vector2) -> bool:
 	var inside:=false
 	for area:Array in room.contract.world_geometry.space_rects:
@@ -163,8 +307,8 @@ func _draw() -> void:
 	for cy:int in range(floori(view.position.y/192)-1,ceili(view.end.y/192)+1):
 		for cx:int in range(floori(view.position.x/256)-1,ceili(view.end.x/256)+1):
 			var rng:=RandomNumberGenerator.new();rng.seed=hash(room.room_id+str(cx)+":"+str(cy))
-			for i:int in (2 if indoor else 4):
-				var speed:=rng.randf_range(8,15) if indoor else rng.randf_range(34,62)
+			for i:int in int(atmosphere.density):
+				var speed:=rng.randf_range(float(atmosphere.speed[0]),float(atmosphere.speed[1]))
 				var phase:=rng.randf_range(0,256)
 				var travel:=fposmod(phase+clock*speed,256)
 				var at:=Vector2(cx*256+travel,cy*192+rng.randf_range(0,192)+sin(clock*1.4+phase)*5).round()
@@ -185,6 +329,10 @@ func _support(base: Vector2,height: float) -> void:
 	var texture: Texture2D=load("res://assets/plains_v07/native/plain_pier.png")
 	var width:=texture.get_width()
 	var top:=base.y-height
+	# Decorative piers sit behind the route: opaque atmospheric color, no solid-wall contrast.
+	var backdrop:=ShaderMaterial.new()
+	backdrop.shader=preload("res://game/presentation/world/plains_v07/backdrop_haze.gdshader")
+	backdrop.set_shader_parameter("haze",Color(.43,.53,.52,.68))
 	var pieces: Array[Rect2]=[Rect2(0,0,width,20)]
 	var remaining:=height-40
 	while remaining>0:
@@ -194,7 +342,7 @@ func _support(base: Vector2,height: float) -> void:
 	for rect: Rect2 in pieces:
 		var part:=Sprite2D.new();var atlas:=AtlasTexture.new();atlas.atlas=texture;atlas.region=rect
 		part.texture=atlas;part.centered=false;part.position=Vector2(base.x-width*.5,top).round();part.z_index=-4
-		part.modulate=Color(.72,.78,.82);part.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST;add_child(part);top+=rect.size.y
+		part.material=backdrop;part.modulate=Color(.9,.95,.95);part.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST;add_child(part);top+=rect.size.y
 
 static func _scene_profile(path: String) -> String:
 	if not profiles.has(path):
@@ -208,16 +356,16 @@ static func _scene_profile(path: String) -> String:
 func _thresholds() -> void:
 	for door: Dictionary in room.doors:
 		if door.get("front_door",false):continue
+		if room.art_placements.any(func(p:Dictionary)->bool: return p.get("threshold_for","")==str(door.id)):continue
 		var other_indoor:=not FixedWorldRoom.material_for_profile(_scene_profile(str(door.target_scene))).is_empty()
 		if indoor==other_indoor:continue
 		var at:=FixedWorldProvider.point(door.position_candidate.local_world_units)
 		var direction: String=door.direction
 		var marker:=Node2D.new();marker.name="Threshold_"+str(door.id).replace(":","_");add_child(marker)
 		if not indoor and direction in ["left","right"]:
+			# An authored facade already includes this doorway and its supporting bank.
 			var side:=1 if direction=="right" else -1
-			var facade:=sprite("building_threshold",at-Vector2(side*24,0),-3)
-			facade.scale.x=side;facade.set_meta("connection",door.id)
-			var lamp:=add_lamp(at-Vector2(side*48,55));lamp.energy=.32
+			PlainsThresholdComposition.outside(self,at,side,str(door.id))
 		elif not indoor and direction=="down":
 			var ground:=at.y
 			for solid: Rect2 in room.platforms:
@@ -227,10 +375,11 @@ func _thresholds() -> void:
 			# Outside light enters only through the real aperture, never as an indoor landscape.
 			var into:=Vector2.RIGHT if direction=="left" else Vector2.LEFT if direction=="right" else Vector2.DOWN if direction=="up" else Vector2.UP
 			var glow:=add_lamp(at+into*12-Vector2(0,44) if direction in ["left","right"] else at+into*24)
-			glow.color=Color("c9dfcf");glow.energy=.75;glow.texture_scale=2.6
+			glow.color=Color("c9dfcf");glow.energy=float(environment_light.get("threshold_energy",.75));glow.texture_scale=2.6
 			var beam:=Polygon2D.new();beam.z_index=-20
 			if direction in ["left","right"]:
 				beam.polygon=PackedVector2Array([at-Vector2(0,96),at,at+into*160,at+into*112-Vector2(0,96)])
 			else:beam.polygon=PackedVector2Array([at-Vector2(64,0),at+Vector2(64,0),at+Vector2(90,0)+into*160,at-Vector2(90,0)+into*160])
-			beam.vertex_colors=PackedColorArray([Color(.74,.85,.75,.3),Color(.74,.85,.75,.3),Color(.74,.85,.75,0),Color(.74,.85,.75,0)])
+			var opacity:=float(environment_light.get("threshold_opacity",.3))
+			beam.vertex_colors=PackedColorArray([Color(.74,.85,.75,opacity),Color(.74,.85,.75,opacity),Color(.74,.85,.75,0),Color(.74,.85,.75,0)])
 			add_child(beam)

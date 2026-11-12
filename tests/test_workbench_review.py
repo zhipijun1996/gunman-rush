@@ -36,7 +36,7 @@ class WorldReviewTests(unittest.TestCase):
 
     def test_complete_authoritative_region_graph_is_only_a_summary(self):
         review = self.review
-        self.assertEqual((16, 309, 38, 37, 6), tuple(review["counts"][key] for key in (
+        self.assertEqual((16, 309, 38, 44, 43), tuple(review["counts"][key] for key in (
             "regions", "rooms", "region_connections", "editable_rooms", "implemented_rooms")))
         expected = {row["id"] for row in self.world["connections"]
                     if review["rooms"][row["a"]]["region"] != review["rooms"][row["b"]]["region"]}
@@ -54,17 +54,17 @@ class WorldReviewTests(unittest.TestCase):
         for link in links:
             a, b = (link["endpoints"][side] for side in ("a", "b"))
             self.assertEqual((a["target_door_id"], b["target_door_id"]), (b["door_id"], a["door_id"]))
-            self.assertFalse(link["implemented"])
-            self.assertEqual(link["id"]=="C07",link["preview_available"])
+            self.assertTrue(link["implemented"])
+            self.assertTrue(link["preview_available"])
             plains, outside = (a, b) if a["region"] == "P" else (b, a)
             self.assertTrue(plains["editor_available"])
-            self.assertEqual(link["id"]=="C07",outside["editor_available"])
-            self.assertFalse(outside["implemented"])
+            self.assertTrue(outside["editor_available"])
+            self.assertTrue(outside["implemented"])
             self.assertIn(link["id"], self.review["rooms"][plains["room_id"]]["boundary_connection_ids"])
         c01 = next(link for link in links if link["id"] == "C01")["endpoints"]["a"]
-        self.assertEqual(([1024, 1280], [128, 64], [1152, 1166]),
+        self.assertEqual(([1024, 1280], [128, 64], [1152, 1198]),
                          (c01["position"], c01["opening"], c01["landing_position"]))
-        self.assertTrue(c01["coordinates_are_candidate"])
+        self.assertFalse(c01["coordinates_are_candidate"])
 
     def test_unknown_room_or_broken_pair_fails_closed(self):
         with self.assertRaisesRegex(ValueError, "unknown editable"):

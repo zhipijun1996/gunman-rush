@@ -1,0 +1,30 @@
+{
+  "generator": "OpenAI image_gen",
+  "purpose": "P27 continuous rear veranda and east windmill side passage, fitted to actual rest terrace; actual platforms remain separate.",
+  "prompt": "Create an exquisite production pixel-art architectural layer for a 2D side-scrolling metroidvania, ONE whole-room composition of a quiet, slightly ruined WINDMILL SERVICE COURTYARD, on transparent background. Image 1 is an exact spatial registration guide, image 2 is the actual game's pixel density, muted palette, grass terrain and hero scale. Replace the disconnected little shelter and door props with one coherent architectural place. Do NOT copy guide markings or gameplay objects.\nCanvas 1536x1024, identical registration to guide: world x=-128..1792, y=-224..1056. All following coordinates are IMAGE PIXELS.\nThe main structure is a long OLD TIMBER SERVICE VERANDA across image x760..1434, feet exactly at image y640 (world ground576). It is viewed from the side as a shallow architectural section, behind the player plane. A low gently sagging muted moss/slate roof at y405..450 extends from x780 and merges naturally into the taller windmill building at right, not a standalone hut. Dark weathered timber backboards and recessed oak braces form a quiet shelter behind the future charging station at image x870,y620. Broad open weathered arch bays towards the middle show TRANSPARENT sky, not a painted landscape. Keep the veranda's posts few and restrained, bases all on y640; timber recesses are low contrast, warm gray olive wood, foreground hero must be the most readable thing. No bench, no station, no lamps, no barrels, no crates, no characters: these are separate game objects.\nAt the RIGHT end x1260..1434 the veranda transitions into an ancient slate/stone windmill side cutaway. This tall building continues off top at y0 and off right. Architectural form broad and quiet, not a tall narrow freestanding pillar. In its lower part, create a clearly recessed SIDEWAYS PASSAGE running horizontally right from image x1280,y563 to the right edge at image x1536,y640. Passage floor exactly y640, upper lintel y563; no front-facing doorway. Darker rear wall, thick roof above it, warm worn sill at its floor. The real camera edge will cut at x1434. A player must visibly walk right into the depth of the side passage, no painted blocking end wall. Keep the floor only a subtle line, the real terrain remains separate. The building roof/upper mass is set behind the gameplay, avoid extra protruding walkable ledges.\nAt far LEFT, only a partial old garden retaining wall attached to canvas x0..330, below y450, with muted trailing ivy from real masonry. Its ragged upper edge must stay far below the empty platform ascent area. Main image x350..760 ABOVE y700 stays TRANSPARENT, no pillars behind every platform, no horizontal bars, no gameplay platforms. Canvas x0..1200 above y400 is mainly transparent sky. This open air is the contrast to the sheltered right bank. Keep all roots/bases supported by the indicated actual ground, no floating roots, no disconnected decorative branches.\nFine crisp clustered pixel art, original Underworld-like restrained blue-gray slate, weathered brown olive timber, sparse moss, warm soft sunlight from upper right and cool air fill. Excellent simple silhouette, atmospheric depth in recessed backboards, tiny material chips not noisy texture. Material must harmonize with the current game's screenshot. Nothing glossy, no broad painterly brushwork, no vector gradients. One continuous architectural composition, not a sheet of separate props. NO sky, mountains, clouds, grass floor, collision platforms, guide colors, UI, text, animals or particles. Actual transparent alpha around and through openings. Do not draw fake scenery inside transparent openings.\n",
+  "guide": "assets/plains_v07/source/shelter-courtyard-guide.svg",
+  "guide_sha256": "950738f943f61ba5008e919699a0fa6ca6cdae7c5699451102ede56479338baa",
+  "reference": "Actual P27 rest camera at baseline 6b2f1340; guide contains source geometry.",
+  "registration": "Generated ground at source y694 maps to world y576. Crop x456 removes a ground fringe outside the real terrace; uniform .8 nearest bake, origin [800,21], anchor [432,560]. No collision generated from painting.",
+  "assets": [
+    {
+      "asset": "shelter_courtyard",
+      "source": "assets/plains_v07/source/shelter-courtyard-generated.png",
+      "source_sha256": "0dfb452212c9a771dbc58e9cf2bc1e29f343cc28ab9d23601ba72b96c4869eb3",
+      "source_rect": [
+        456,
+        0,
+        1080,
+        700
+      ],
+      "size": [
+        864,
+        560
+      ],
+      "image": "assets/plains_v07/native/shelter_courtyard.png",
+      "sha256": "dcebbde9df33012de52ec9afe1ed1798c7ee6fd71067c80b61fe3f794e024922",
+      "alpha_threshold": 128,
+      "sampling": "nearest"
+    }
+  ]
+}

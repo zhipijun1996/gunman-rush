@@ -45,7 +45,7 @@ func run() -> void:
 		hung=hung or app.controller.traversal.state==&"hook_hang"
 	check(bounced and not hung,"open spring anchor bounces and never holds")
 	await load_room("P-R15","h")
-	await hook(Vector2(976,3758),Vector2(1136,3840),"P15 first stop anchor reachable from bank")
+	# Full revised throat/crossing/recovery is covered by approved_clock_rooms.
 	await fixture(Vector2(1952,3918));await ticks(3)
 	var zoom_before:=app.camera.zoom
 	app._commit_action("repair_P");await ticks(4)
@@ -65,14 +65,11 @@ func run() -> void:
 	var receipt_count:int=app.state.value.receipts.size();app._commit_action("open_P26_hidden_chest");await ticks(3)
 	check(app.state.value.receipts.size()==receipt_count,"P26 chest cannot be reopened for duplicate coins")
 	await fixture(Vector2(144,1518))
-	var carrier:=app.room.get_node("Carrier0") as WorldMovingPlatform
-	var rider:EnemyMotor=app.room.enemies["P-R26:lift_rider"].get_parent()
-	carrier.motion_running=true
-	var offset:=rider.position.y-carrier.position.y
+	var guard:EnemyMotor=app.room.enemies["P-R26:lift_rider"].get_parent()
 	var supported:=true
-	for frame:int in 240:
+	for frame:int in 60:
 		await ticks(1)
-		supported=supported and absf(rider.position.y-carrier.position.y-offset)<3
-	check(supported and carrier.position.y<1300,"P26 ground enemy rides ascent without hovering")
+		supported=supported and guard.supported_at(guard.global_position) and absf(guard.position.y-1518)<3
+	check(supported,"P26 approved draft places the former lift guard on the wide entrance ground")
 	await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(3)
 	print("STORY HOOKS: ",failures," failures");quit(failures)

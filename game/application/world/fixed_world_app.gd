@@ -30,6 +30,7 @@ var q_guard: WorldRecoilGuard
 var focus_heal: WorldFocusHeal
 var story: WorldStorySequence
 var rest_sequence: WorldRestSequence
+var damage_sequence: WorldDamageSequence
 var music: GameMusic
 var ui: FixedWorldUI
 var overlay: TouchOverlay
@@ -84,6 +85,7 @@ func _make_ui() -> void:
 	title=ui.title._root
 	ui.command.connect(_ui_command)
 	service_view.ui=ui;service_view.services=services
+	service_view.input_device=func()->StringName:return controller.router.current_device if controller!=null else &"keyboard_mouse"
 	settings_view.ui=ui;settings_view.settings=preferences
 	settings_view.applied=func() -> void:
 		_apply_preferences()
@@ -92,6 +94,7 @@ func _make_ui() -> void:
 
 func _apply_preferences() -> void:
 	preferences.apply(controller)
+	if is_instance_valid(focus_heal):focus_heal.reduced=bool(preferences.value.reduced)
 	if overlay!=null: overlay.update_layout()
 	ui.title._reduced_effects=preferences.value.reduced
 	var backdrop:=ui.title._root.find_child("TitleBackdrop",true,false)
@@ -136,6 +139,7 @@ func _create_player() -> void:
 	controller.enable_shot_energy()
 	controller.motor.tuning.projectile_damage = float(content.data.player.starting_projectile_damage)
 	preferences.apply(controller)
+	if is_instance_valid(focus_heal):focus_heal.reduced=bool(preferences.value.reduced)
 	if overlay.enabled: controller.router.touch_mouse_guard_until_usec=Time.get_ticks_usec()+InputRouter.TOUCH_MOUSE_GUARD_USEC
 	player.get_node("CourierVisual").hide()
 	player.get_node("PlayerVisualAdapter").process_mode=Node.PROCESS_MODE_DISABLED
@@ -163,6 +167,7 @@ func _create_player() -> void:
 	player.add_child(guard_visual)
 	focus_heal=WorldFocusHeal.new()
 	focus_heal.controller=controller;focus_heal.settings=content.data.player.focus_heal
+	focus_heal.reduced=bool(preferences.value.reduced)
 	player.add_child(focus_heal)
 	focus_heal.ready_to_heal.connect(func() -> void: enqueue("focus_heal",""))
 	RunComposition.attach_player_guides(player,controller)
@@ -180,6 +185,7 @@ func _create_player() -> void:
 	music.request_track(&"plains")
 
 func _acquire() -> int:
+	if is_instance_valid(damage_sequence): damage_sequence.cancel()
 	if is_instance_valid(rest_sequence): rest_sequence.finish()
 	_ticket += 1
 	busy = true
@@ -191,7 +197,7 @@ func _acquire() -> int:
 	q_guard.cancel()
 	return _ticket
 
-func load_room(id: String, entry: String) -> void:
+func load_room(id: String, entry: String, reveal_seconds: float = .08) -> void:
 	var request := LevelRequest.new()
 	request.room_id = id
 	request.entry_door_id = entry
@@ -252,7 +258,7 @@ func load_room(id: String, entry: String) -> void:
 			previous_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 			for node: Node in old_modes: node.process_mode = int(old_modes[node])
 			for body: CollisionObject2D in old_layers: body.collision_layer = int(old_layers[body])
-		await ui.finish_transition()
+		await ui.finish_transition(reveal_seconds)
 		controller.active = true
 		busy = false
 		status = "入口没有完整身体净空或实际支撑：" + id + "/" + entry
@@ -269,10 +275,10 @@ func load_room(id: String, entry: String) -> void:
 			previous_room.process_mode = Node.PROCESS_MODE_PAUSABLE
 			for node: Node in old_modes: node.process_mode = int(old_modes[node])
 			for body: CollisionObject2D in old_layers: body.collision_layer = int(old_layers[body])
-		await ui.finish_transition()
+		await ui.finish_transition(reveal_seconds)
 		controller.active = true
 		busy = false
-		status = state.error
+		status = state.error if not state.error.is_empty() else "过门进度未保存，请离开门口后重试。"
 		return
 	lifetime.stage_epoch += 1
 	lifetime.invalidate_actor()
@@ -292,9 +298,10 @@ func load_room(id: String, entry: String) -> void:
 	add_child(policy)
 	policy.register_target(&"player",controller.actor_resources.health,true)
 	policy.register_player_controller(controller)
-	policy.transient_protection = q_guard.protects
+	policy.transient_protection = func(request: DamageRequest) -> bool: return q_guard.protects(request) or review.protects(request)
 	policy.player_fatal.connect(func() -> void: _fatal = true)
 	policy.environment_return_requested.connect(func() -> void: _return = true)
+	policy.batch_resolved.connect(_damage_presented)
 	room.install(controller,policy,lifetime,state.value.enemies,state.has(room.defeat_flag),entry_anchor)
 	room.bind_services(services,controller,policy,lifetime)
 	room.install_mechanisms(controller,lifetime,state.value.get("mechanisms",{}),func(id: String) -> void:enqueue("mechanism",id))
@@ -303,9 +310,9 @@ func load_room(id: String, entry: String) -> void:
 	_apply_capabilities()
 	var bounds := FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units)
 	(camera as WorldCamera).room=room
-	(camera as WorldCamera).enter_room(bounds)
 	# Land at the authored near-side ledge; no automatic leap across the new room.
 	player.reset_at(anchor-Vector2(0,1))
+	(camera as WorldCamera).enter_room(bounds)
 	var landed := false
 	for i: int in 30:
 		await get_tree().physics_frame
@@ -315,16 +322,15 @@ func load_room(id: String, entry: String) -> void:
 			landed=true
 			break
 	if not landed:
-		await ui.finish_transition()
-		status="入口缺少实际支撑，请返回标题后继续。"
-		busy=false
+		await ui.finish_transition(reveal_seconds)
+		_finish_room_entry("入口落脚中断，已恢复操作；可返回门口重试。")
 		return
 	var motion: Dictionary=content.data.player.entry_motion
 	var entry_direction:="" if resolved.entry.get("front_door",false) else str(resolved.entry.get("direction",""))
 	if entry_direction in ["left","right"]:
 		var inward:=1.0 if entry_direction=="left" else -1.0
 		player.reset_at(anchor-Vector2(inward*float(motion.walk_distance),1))
-		await ui.finish_transition()
+		await ui.finish_transition(reveal_seconds)
 		for frame: int in ceili(float(motion.walk_seconds)/get_physics_process_delta_time()):
 			await get_tree().physics_frame
 			if ticket!=_ticket: return
@@ -332,7 +338,7 @@ func load_room(id: String, entry: String) -> void:
 		player.reset_motion()
 	elif entry_direction=="up":
 		player.reset_at(FixedWorldProvider.point(resolved.entry.landing_contract.entry_position_world_units))
-		await ui.finish_transition()
+		await ui.finish_transition(reveal_seconds)
 		for frame: int in ceili(float(motion.timeout_seconds)/get_physics_process_delta_time()):
 			await get_tree().physics_frame
 			if ticket!=_ticket: return
@@ -341,12 +347,12 @@ func load_room(id: String, entry: String) -> void:
 	var upward_entry: bool=not resolved.entry.is_empty() and resolved.entry.direction=="down"
 	if upward_entry:
 		player.reset_at(FixedWorldProvider.point(resolved.entry.landing_contract.entry_position_world_units))
-		await ui.finish_transition()
+		await ui.finish_transition(reveal_seconds)
 		controller.jump_ability.on_landed()
 		controller.jump_ability.advance(get_physics_process_delta_time(),true)
 		controller.jump_ability.request_jump()
 		controller.jump_ability.try_jump(player)
-	if entry_direction.is_empty(): await ui.finish_transition()
+	if entry_direction.is_empty(): await ui.finish_transition(reveal_seconds)
 	if upward_entry:
 		for frame: int in ceili(float(motion.timeout_seconds)/get_physics_process_delta_time()):
 			await get_tree().physics_frame
@@ -360,7 +366,12 @@ func load_room(id: String, entry: String) -> void:
 		player.reset_motion()
 	if ticket!=_ticket or not is_instance_valid(player): return
 	if entry_direction in ["up","down"] and (not player.is_on_floor() or player.position.distance_to(anchor)>8):
-		status="入口未抵达实体落脚面，请返回标题后继续。";busy=false;return
+		_finish_room_entry("入口未抵达落脚面，已恢复操作；可返回门口重试。")
+		return
+	_finish_room_entry()
+
+func _finish_room_entry(entry_issue: String = "") -> void:
+	# Even an interrupted entry must finish the new room's ownership and restore input.
 	player.reset_motion()
 	controller._was_grounded = false
 	controller.active = true
@@ -380,8 +391,15 @@ func load_room(id: String, entry: String) -> void:
 	var carry:=player.get_node_or_null("CarryLight") as PointLight2D
 	if carry!=null:carry.enabled=room.art_profile!="starbridge_graybox"
 	_npc_id=""
+	if not entry_issue.is_empty():status=entry_issue
 
 func _apply_capabilities() -> void:
+	var ice:WeaponDefinition=preload("res://resources/weapons/pulse_ice.tres")
+	var primary:WeaponDefinition=preload("res://resources/weapons/pulse_gun.tres")
+	var owns_ice:=state.has(str(services.definitions.get("smith_visit",{}).get("unlock_flag","skill_tier_1")))
+	if controller.shoot_ability.weapon.mode==WeaponDefinition.Mode.PULSE:
+		var desired:WeaponDefinition=ice if owns_ice else primary
+		if controller.shoot_ability.weapon!=desired:controller.shoot_ability.equip(desired)
 	var resonance: Dictionary=content.data.collection_rules.resonance
 	controller.combat_energy.set_capacity_bonus(floorf(float(state.value.inventory.get("resonance_shard",0))/float(resonance.shards_per_upgrade))*float(resonance.capacity_gain_each))
 	if build_state!=null: build_state.commit_equipment_sources(services.effect_sources())
@@ -458,8 +476,7 @@ func _physics_process(_delta: float) -> void:
 	if _fatal:
 		_fatal = false
 		_queue.clear()
-		_recover_death.call_deferred()
-		busy = true
+		_begin_damage_sequence("death")
 		return
 	if _return:
 		_return = false
@@ -473,14 +490,14 @@ func _physics_process(_delta: float) -> void:
 				entry_anchor=FixedWorldProvider.point(retry.point)
 	for enemy_id: String in room.enemies:
 		var key:="income:enemy:"+enemy_id+":cycle:"+str(room.cycle_at_load)
-		if room.enemies[enemy_id].health.terminal and not state.value.receipts.has(key): enqueue("income",enemy_id)
+		if room.enemies[enemy_id].definition.behavior_id != &"chime_target" and room.enemies[enemy_id].health.terminal and not state.value.receipts.has(key): enqueue("income",enemy_id)
 	if _accepted_damage:
 		_accepted_damage=false
 		if state.commit(services.damage_candidate(_snapshot()),state.revision): _apply_capabilities()
 	var entering_battle := not room.battle_started
 	room.update_battle(player.position)
 	if entering_battle and room.battle_started:
-		# Authored entering-side refuge remains supported after the central bridge breaks.
+		# Authored entering-side refuge remains safe when the phase-three thorns grow.
 		entry_anchor = room.battle_entry_anchor
 	if room.encounter != null and room.encounter.health.terminal and not room.battle_finished:
 		enqueue("action",room.defeat_action)
@@ -524,6 +541,7 @@ func _physics_process(_delta: float) -> void:
 				GameAudio.cue(self,&"confirm")
 				room.celebrate_service_pickup(str(request.id));room.queue_redraw()
 		elif request.kind == "income":
+			if (room.enemies[str(request.id)] as EnemyActor).definition.behavior_id == &"chime_target": continue
 			var source:="enemy:"+str(request.id)+":cycle:"+str(room.cycle_at_load)
 			var actor: EnemyActor=room.enemies[str(request.id)]
 			var candidate:=_drop_candidate(_snapshot(),source,int(services.definitions.enemy_gold),actor.motor.position)
@@ -585,6 +603,9 @@ func _cross(id: String) -> void:
 	if room.battle_started and not room.battle_finished: return
 	for door: Dictionary in room.doors:
 		if door.id != id: continue
+		# Consume the approach before any async work, including rejected or failed entries.
+		# Leaving the trigger rearms it; a rollback must not retry every frame.
+		_door_ready = false
 		if not door.outbound_allowed or not state.holds(door.requires):
 			status = "通路尚未开启，请先完成本处教学或事件。"
 			return
@@ -618,23 +639,37 @@ func _commit_rest() -> bool:
 	return true
 
 func _fail_terrain() -> void:
+	_begin_damage_sequence("terrain")
+
+func _damage_presented(results: Array[DamageResult]) -> void:
+	if busy or _fatal or _return: return
+	for result: DamageResult in results:
+		if result.request.target_id == &"player" and result.hp_lost > 0 and not result.lethal and result.request.kind == DamageRequest.Kind.MONSTER:
+			_begin_damage_sequence("hit")
+			return
+
+func _begin_damage_sequence(kind: String) -> void:
+	if is_instance_valid(damage_sequence) and damage_sequence.active: return
+	damage_sequence = WorldDamageSequence.new()
+	add_child(damage_sequence)
+	damage_sequence.begin(self, kind)
+
+func _complete_terrain_return() -> bool:
 	var safety := SegmentRespawn.new()
 	safety.configure(controller,lifetime)
 	if not safety.is_safe(entry_anchor):
 		status = "进入侧锚点不可用，暂停恢复。"
 		controller.active = false
-		return
-	controller.router.clear("terrain_return")
-	controller.shoot_ability.clear_projectiles()
-	ui.begin_transition()
-	player.reset_at(entry_anchor-Vector2(0,1))
+		return false
+	controller.active = true
+	if not controller.return_to_segment(entry_anchor-Vector2(0,1)): return false
+	controller.active = false
 	(camera as WorldCamera).reset_view()
-	ui.finish_transition()
 	lifetime.invalidate_actor()
-	controller.session_id += 1
 	q_guard.cancel()
 	state.commit(_snapshot(),state.revision)
 	status = "返回本次实际进入侧；周期与已提交结果保留。"
+	return true
 
 func _recover_death() -> void:
 	tutorial.reset_proof()
@@ -659,7 +694,7 @@ func _recover_death() -> void:
 	controller.active = true
 	lifetime.active = true
 	lifetime.epoch += 1
-	load_room(str(candidate.room),"")
+	load_room(str(candidate.room),"",WorldDamageSequence.SETTINGS.death_reveal_seconds)
 
 func submit_damage(source: StringName,kind: DamageRequest.Kind,amount: float,event: StringName,category: StringName=&"solid") -> void:
 	if policy == null or not lifetime.active: return
@@ -688,6 +723,10 @@ func toggle_pause() -> void:
 	elif paused: _close_panel()
 	elif _pause_world(): ui.show_pause()
 func _close_panel() -> void:
+	if is_instance_valid(damage_sequence) and damage_sequence.active: return
+	if ui.page=="help" and controller!=null:
+		ui.show_pause()
+		return
 	if is_instance_valid(rest_sequence) and rest_sequence.active:
 		ui.close();rest_sequence.suspend(false);return
 	if is_instance_valid(story) and story.active:
@@ -720,6 +759,7 @@ func show_map() -> void:
 	if is_instance_valid(introduction) and introduction.dialogue_active:return
 	if controller!=null and (paused or _pause_world()): ui.show_map()
 func _ui_command(kind: String,_id: String) -> void:
+	if is_instance_valid(damage_sequence) and damage_sequence.active and kind != "title": return
 	if is_instance_valid(rest_sequence) and rest_sequence.active and kind not in ["pause","close","title"]:return
 	if is_instance_valid(story) and story.active and kind not in ["close","title"]:return
 	if is_instance_valid(introduction) and introduction.dialogue_active and kind not in ["close","title"]:return
@@ -751,8 +791,10 @@ func _ui_command(kind: String,_id: String) -> void:
 			if controller!=null and (_id=="0" or (not busy and not paused)): controller.router.set_focus_heal_held(&"touch",_id=="1")
 		"settings": _show_settings()
 		"help":
-			var modal:=ui.panel("help","操作说明",WorldText.text("world.controls"))
-			modal.button("返回",_close_panel)
+			if controller==null or paused or _pause_world():ui.show_controls()
+		"guide_back":
+			if controller!=null:ui.show_pause()
+			else:_close_panel()
 func _start_from_title() -> void:
 	ui.close()
 	if not start_new():
@@ -789,7 +831,10 @@ func _refresh_traveler() -> void:
 func _npc(id: String) -> Dictionary:
 	if id==WorldTraveler.ID:return WorldTraveler.identity(state,room.room_id)
 	for npc: Dictionary in content.data.get("npcs",[]):
-		if npc.id==id: return npc
+		if npc.id==id:
+			var identity:=npc.duplicate(true)
+			if room!=null and room.room_id in npc.get("visit_rooms",[]):identity.room_id=room.room_id
+			return identity
 	return {}
 func _submit_service(kind: String,id: String,revision: int,ticket: int) -> void:
 	if not paused or busy or ticket!=_service_ticket or not lifetime.accepts(_service_token) or controller.actor_resources.health.terminal or policy.has_pending_player_damage(): return
@@ -798,13 +843,13 @@ func _submit_service(kind: String,id: String,revision: int,ticket: int) -> void:
 	_sequence+=1
 	var accepted:=services.request(kind,id,"%d:%d" % [state.revision,_sequence],revision)
 	if accepted:
-		if kind=="deliver": GameAudio.cue(self,&"confirm")
+		if kind in ["deliver","smith_install"]: GameAudio.cue(self,&"confirm")
 		if room!=null: room.queue_redraw()
 		_apply_capabilities()
 		if kind=="use":
 			var health:=controller.actor_resources.health
 			health.heal(ActorResourceRequest.new(StringName("world_heal:"+str(state.revision)),health.epoch,float(state.value.hp)-health.current,health.get_instance_id()))
-	var message:="已保存。" if accepted else services.reason()
+	var message:=("冰弹已安装。" if kind=="smith_install" else "已保存。") if accepted else services.reason()
 	if _npc_id.is_empty(): service_view.show_inventory(message)
 	else: service_view.show_npc(_npc(_npc_id),message)
 func _show_settings() -> void:
@@ -815,6 +860,7 @@ func return_title() -> void:
 	if not state.commit(_snapshot(),state.revision):
 		status = state.error
 		return
+	if is_instance_valid(damage_sequence): damage_sequence.cancel(false)
 	if is_instance_valid(rest_sequence):rest_sequence.finish()
 	_ticket += 1
 	get_tree().paused = false
@@ -858,6 +904,22 @@ func _update_hud() -> void:
 	var notice:=status
 	if room!=null and room.encounter!=null and not room.battle_finished: notice="%s · %d HP" % [room.encounter.definition.display_name,room.encounter.health.current]
 	ui.present(controller,str(state.value.room),str(content.room(state.value.room).get("name","")),notice,str(target.get("label","")),int(services.ledger().gold),bool(preferences.value.reduced),focus_heal.ratio(),focus_heal.available())
+	var lesson:=""
+	if room!=null and not room.onboarding.is_empty() and not busy and not paused and controller.active and ui.page.is_empty():
+		var body:=PlayerPresentationRuntime.current_body(player)
+		if body==null or body._hurt_remaining<=0:lesson=tutorial.hint(introduction.phase if is_instance_valid(introduction) else "",target)
+	var instruction:Dictionary={} if lesson.is_empty() else PlayerControlGuide.hint(lesson,controller.router.current_device,controller.router.profile.values,ui.pad_style())
+	if not instruction.is_empty():
+		var focus:=Vector2.INF
+		if lesson in ["move","pickup"]:focus=room.get_global_transform_with_canvas()*FixedWorldProvider.point(room.intro_sequence.pickup_point)
+		elif lesson=="jump":focus=room.get_global_transform_with_canvas()*FixedWorldProvider.point(room.onboarding.jump_landing)
+		elif lesson=="recoil":focus=room.get_global_transform_with_canvas()*FixedWorldProvider.point(room.onboarding.focus)
+		elif lesson=="shoot":
+			var bell:=room.mechanisms.get(str(room.onboarding.bell_id)) as WorldShotLatch
+			if bell!=null:focus=bell.get_global_transform_with_canvas()*bell.bell_position
+		instruction.target_screen=focus
+	ui.present_instruction(instruction,controller,overlay,bool(preferences.value.reduced))
+	overlay.onboarding_action=StringName("shoot" if lesson=="recoil" else lesson) if controller.router.current_device==&"touch" and not bool(preferences.value.reduced) else &""
 
 func _exit_tree() -> void:
 	if is_instance_valid(rest_sequence):rest_sequence.finish()
@@ -900,5 +962,4 @@ func _commit_focus_heal() -> void:
 	var result:=health.heal(ActorResourceRequest.new(StringName(event),health.epoch,float(settings.heal),health.get_instance_id()))
 	assert(spent and result.accepted(),"Preflighted resource commit must remain synchronous")
 	focus_heal.resolve(true)
-	GameAudio.cue(self,&"confirm")
 

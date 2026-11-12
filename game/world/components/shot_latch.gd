@@ -99,6 +99,7 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 	add_child(bell_body)
 	receiver.bind_health(health)
 	receiver.damage_sink = _receive_projectile
+	receiver.aim_eligibility = func()->bool:return _aim_available(false)
 	if not sequence_offset.is_zero_approx():
 		_second_body = StaticBody2D.new()
 		_second_body.position = bell + sequence_offset
@@ -115,6 +116,7 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 		add_child(_second_body)
 		_second_receiver.bind_health(health)
 		_second_receiver.damage_sink = _receive_projectile
+		_second_receiver.aim_eligibility = func()->bool:return _aim_available(true)
 	gate_body = StaticBody2D.new()
 	gate_body.position = gate.get_center()
 	gate_body.collision_layer = 1
@@ -357,6 +359,9 @@ func _play_bell() -> void:
 
 # Multiple receivers belong to the same mechanism actor and health epoch. Both
 # entry sides use actual projectile collisions and the same accepted-shot policy.
+func _aim_available(second:bool)->bool:
+	return not _cancelled and (not is_open or motion_mode) and (sequence_offset.is_zero_approx() or second==(sequence_step==1))
+
 func add_access_bell(location: Vector2, second := false, return_side_only := false) -> void:
 	var primary := _second_receiver if second else receiver
 	if not is_instance_valid(primary): return
@@ -376,6 +381,8 @@ func add_access_bell(location: Vector2, second := false, return_side_only := fal
 	body.add_child(access)
 	add_child(body)
 	access.bind_health(health)
+	access.aim_eligibility = func()->bool:
+		return _aim_available(second) and (not return_side_only or to_local(controller.motor.global_position).x>=gate_rect.end.x+12)
 	access.damage_sink = func(context: Dictionary) -> bool:
 		if return_side_only:
 			var key: String="%s:%s" % [context.get("session_id",-1),context.get("shot_id",-1)]

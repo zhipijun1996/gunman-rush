@@ -4,12 +4,14 @@ extends RefCounted
 var ui: FixedWorldUI
 var services: WorldServices
 var submit: Callable
+var input_device: Callable
 func button(modal: DemoUiModalShell,label: String,kind: String,id: String) -> Button:
 	var revision:=services.state.revision
 	var control:=modal.button(label,func() -> void: submit.call(kind,id,revision))
 	control.name="Service_"+kind+"_"+id
 	return control
 func show_greeting(npc: Dictionary) -> void:
+	if _smith_here(npc):show_smith(npc);return
 	var lines: Dictionary=services.definitions.dialogues.get(npc.id,{})
 	var line:=str(lines.get("after_quest" if services.state.has(str(services.definitions.quest.flag)) else "after_h" if services.state.has("H") else "greeting",npc.identity))
 	var modal:=ui.panel("dialogue",npc.display_name,line)
@@ -18,6 +20,7 @@ func show_greeting(npc: Dictionary) -> void:
 	modal.button(WorldText.text("dialogue.leave"),func() -> void: ui.command.emit("close",""))
 	modal.focus_first()
 func show_npc(npc: Dictionary,message: String="") -> void:
+	if _smith_here(npc):show_smith(npc,message);return
 	var data:=services.ledger()
 	var content: Dictionary=services.definitions.dialogues.get(npc.id,{})
 	var line:=str(content.get("greeting",npc.identity))
@@ -81,3 +84,28 @@ func show_inventory(message: String="") -> void:
 	ui.equipment.submit=submit
 	ui.equipment.show_build(WorldText.text("equipment.hp") % [services.state.value.hp,services.state.value.get("max_hp",5)])
 	ui.equipment.set_equipment_view({"lifetime":"world","rarity_label":WorldText.text("equipment.trial"),"items":items,"capacity":services.capacity(),"used":services.used_load(data.equipped),"coins":data.gold,"revision":services.state.revision,"session":int(services.state.value.cycle),"message":message,"lock_text":WorldText.text("equipment.locked"),"growth_hint":WorldText.text("equipment.growth"),"upgrade":{"reason":WorldText.text("equipment.capacity")}})
+
+func _smith_here(npc:Dictionary)->bool:
+	var spec:Dictionary=services.definitions.get("smith_visit",{})
+	return npc.get("id")==spec.get("npc_id") and npc.get("room_id")==spec.get("room")
+
+func show_smith(npc:Dictionary,message:String="",index:int=0)->void:
+	var spec:Dictionary=services.definitions.smith_visit
+	var completed:=services.state.has(str(spec.unlock_flag))
+	var carried:=int(services.state.value.inventory.get(str(spec.material),0))>0
+	var phase:="completed" if completed else "offering" if carried else "teaching"
+	var lines:Array=spec[phase]
+	index=clampi(index,0,lines.size()-1)
+	var line:=str(lines[index])
+	var control:="Q 键（保持当前瞄准）"
+	var device:StringName=input_device.call() if input_device.is_valid() else &"keyboard_mouse"
+	if device==&"touch":control="屏幕上的技能按钮（用右摇杆瞄准）"
+	elif device==&"gamepad":control="Y 键（用右摇杆瞄准）"
+	line=line.replace("{skill_control}",control)
+	var modal:=ui.panel("dialogue",str(npc.display_name),line+("\n"+message if not message.is_empty() else "")) as WorldDialogue
+	modal.compact_actions=true;modal.portrait(WorldNpc.visual_for(str(npc.id)))
+	if message=="冰弹已安装。":modal.celebrate_install()
+	if index+1<lines.size():modal.button("继续",func()->void:show_smith(npc,"",index+1))
+	elif phase=="offering":button(modal,"交付素材 · 免费升级","smith_install",str(spec.install_action))
+	modal.button("离开",func()->void:ui.command.emit("close",""))
+	modal.focus_first()

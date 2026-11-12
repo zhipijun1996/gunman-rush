@@ -1,15 +1,15 @@
 extends "res://tests/windkeeper_pressure_01/formal_app.gd"
 ## Actual App terminal/reward chain, declared Boss-only lethal health fixture.
 ## Player health, Router movement, gravity, pickup admission and receipts stay live.
-func reward_case(broken: bool) -> void:
+func reward_case(phase_three: bool) -> void:
 	var ready := false
-	if broken:
-		await bridge_transition_escape()
+	if phase_three:
+		await thorn_transition_escape()
 		ready = is_instance_valid(app) and encounter != null and not app.controller.actor_resources.health.terminal
 	else:
 		ready = await setup()
 	if ready:
-		if broken:
+		if phase_three:
 			# Disclosed pre-lethal observation fixture: wait on another actual
 			# shelf so automatic pickup cannot hide the physical bounce/settle.
 			for child: Node in encounter.get_children():
@@ -69,7 +69,7 @@ func reward_case(broken: bool) -> void:
 			check(app.stage.region_state.claimed.has(unit.id), "original per-unit claim identity persists")
 		observations.append({"case":"actual Boss reward chain", "total":total, "wallet_delta":app.wallet.balance-wallet_start,
 			"large":large,"small":small,"units":saved.units,"scope":"declared Boss-only lethal fixture; player and physical App pickup unchanged"})
-		await terminal_reload(broken, units.size())
+		await terminal_reload(phase_three, units.size())
 	await cleanup()
 
 func current_arena() -> WindkeeperArena:
@@ -77,7 +77,7 @@ func current_arena() -> WindkeeperArena:
 		if child is WindkeeperArena: return child as WindkeeperArena
 	return null
 
-func terminal_reload(broken: bool, unit_count: int) -> void:
+func terminal_reload(phase_three: bool, unit_count: int) -> void:
 	# Existing earned terminal/reward fixture, followed by the actual App reload.
 	# Pause only excludes a fresh damage batch until the completion flag is read.
 	var old_stage_id: int = app.stage.get_instance_id()
@@ -94,9 +94,9 @@ func terminal_reload(broken: bool, unit_count: int) -> void:
 	check(not app.director.stage_complete and app.current_reward==null, "terminal App reentry reopens completion before the next real damage batch")
 	await ticks(2)
 	var arena := current_arena()
-	check(arena!=null and arena.broken==broken and encounter.bridge_break_ready()==broken, "terminal Pressure reload restores the actual bridge-release flag, not phase alone")
+	check(arena!=null and not arena.thorns_active and encounter.thorns_ready()==phase_three, "terminal Pressure reload restores the actual thorn-release flag, not phase alone")
 	if arena!=null:
-		check(arena.module.get_node("Platform0").collision_layer==(0 if broken else 1), "terminal restore binds the corresponding actual collision surface")
+		check(arena.module.get_node("Platform0").collision_layer==1, "terminal restore binds the corresponding actual collision surface")
 	check(app.wallet==wallet and app.build.inventory==inventory and app.wallet.balance==balance and app.region_state.claimed==claimed, "terminal reentry retains the real wallet, inventory and claimed-source ledger")
 	check(app.lifetime.epoch==run_epoch and app.lifetime.stage_epoch==stage_epoch, "same-stage terminal reentry does not advance run or stage epoch")
 	paused = false
@@ -105,7 +105,7 @@ func terminal_reload(broken: bool, unit_count: int) -> void:
 	var restored_units: Array = app.stage.pickups.filter(func(pickup: Dictionary) -> bool: return str(pickup.get("source", ""))==WindkeeperPressureRewards.SOURCE)
 	check(restored_units.size()==unit_count and restored_units.all(func(pickup: Dictionary) -> bool: return bool(pickup.claimed)) and app.wallet.balance==balance, "terminal reload neither duplicates physical coins nor pays an already claimed source")
 	check(not WindkeeperPressureRewards.spawn(app.stage,encounter), "restored terminal impact still cannot resettle its original receipt")
-	observations.append({"case":"actual terminal App reload", "bridge_released":broken, "physical_units":unit_count, "wallet":balance, "scope":"actual unload/bind/terminal restore/completion batch; original earned reward fixture, no injected bridge or completion state"})
+	observations.append({"case":"actual terminal App reload", "thorns_released":phase_three, "physical_units":unit_count, "wallet":balance, "scope":"actual unload/bind/terminal restore/completion batch; original earned reward fixture, no injected thorn or completion state"})
 
 func unreleased_phase_three_restore() -> void:
 	if not await setup(): return
@@ -117,39 +117,39 @@ func unreleased_phase_three_restore() -> void:
 	encounter.set_physics_process(true)
 	await ticks(1)
 	paused = true
-	check(encounter.stage_phase==3 and not encounter.bridge_break_ready() and arena!=null and not arena.broken, "Pressure is actually in phase3 before its verified landing releases the bridge")
-	encounter.restore_bridge_geometry()
+	check(encounter.stage_phase==3 and not encounter.thorns_ready() and arena!=null and not arena.thorns_active, "Pressure is actually in phase3 before its verified landing releases the thorns")
+	encounter.restore_arena_hazard()
 	await ticks(2)
-	check(not arena.broken and arena.module.get_node("Platform0").collision_layer==1, "Pressure restore cannot substitute phase3 for the unreleased bridge flag")
+	check(not arena.thorns_active and arena.module.get_node("Platform0").collision_layer==1, "Pressure restore cannot substitute phase3 for the unreleased thorn flag")
 	await cleanup()
 
-func active_bridge_reload() -> void:
-	# Earn the real bridge release using the original Boss HP transaction and
+func active_thorn_reload() -> void:
+	# Earn the real thorn release using the original Boss HP transaction and
 	# ordinary player jump fixture, then exercise App's second restore consumer.
-	await bridge_transition_escape()
+	await thorn_transition_escape()
 	if not is_instance_valid(app) or not is_instance_valid(encounter): return
-	check(encounter.bridge_break_ready() and current_arena()!=null and current_arena().broken, "active reload begins after the actual grounded bridge release")
+	check(encounter.thorns_ready() and current_arena()!=null and current_arena().thorns_active, "active reload begins after the actual grounded thorn release")
 	var health: float = encounter.health.current
 	var stage_id: int = app.stage.get_instance_id()
 	paused = true
 	await app._load_stage()
 	encounter = app.stage.boss.get_node("Encounter")
 	var arena := current_arena()
-	check(app.stage.get_instance_id()!=stage_id and arena!=null and not arena.broken and not app._boss_started, "live Pressure reload waits for actual activation before restoring its bridge")
+	check(app.stage.get_instance_id()!=stage_id and arena!=null and not arena.thorns_active and not app._boss_started, "live Pressure reload waits for actual activation before restoring its thorns")
 	check(bool(app.stage.restored_boss.get("active",false)), "active snapshot is retained for the real activation restore consumer")
 	app._start_generated_boss()
 	check(app._boss_started and encounter.health.current==health and app.stage.restored_boss.is_empty(), "actual App activation consumes the saved active combat state")
-	check(encounter.bridge_break_ready() and not arena.broken, "active bridge restore retains the same deferred collision boundary")
+	check(encounter.thorns_ready() and arena.thorns_active and not arena._contact.enabled, "active thorn restore preserves warning before damage")
 	await ticks(2)
-	check(arena.broken and arena.module.get_node("Platform0").collision_layer==0, "App activation restores the physically earned broken bridge through its owner")
-	observations.append({"case":"actual active App bridge reload", "scope":"earned original bridge fixture, actual unload/bind and explicit existing App activation command while paused; not a natural approach-route claim"})
+	check(arena.thorns_active and arena.module.get_node("Platform0").collision_layer==1, "App activation restores the physically earned thorn arena through its owner")
+	observations.append({"case":"actual active App thorn reload", "scope":"earned original thorn fixture, actual unload/bind and explicit existing App activation command while paused; not a natural approach-route claim"})
 	await cleanup()
 
 func run() -> void:
 	await reward_case(false)
 	await reward_case(true)
 	await unreleased_phase_three_restore()
-	await active_bridge_reload()
+	await active_thorn_reload()
 	DirAccess.make_dir_recursive_absolute("res://build/windkeeper_pressure_01")
 	var file := FileAccess.open("res://build/windkeeper_pressure_01/rewards.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify({"assertions":assertions,"failures":failures,"observations":observations},"\t"))

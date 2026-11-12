@@ -111,7 +111,7 @@ func _emit_round(aim: Vector2, grounded: bool) -> void:
 	elif recoil.enabled:
 		var motion := controller.motor.weapon_motion
 		var distance := motion.base_distance(tuning,_packet_grounded)*motion.lv2_total_ratio/weapon.rounds
-		controller.motor.start_weapon_burst(-aim,distance/weapon.burst_duration,weapon.burst_duration)
+		controller.motor.start_weapon_burst(-aim,distance/weapon.burst_duration,weapon.burst_duration,grounded)
 	var projectile := PlayerProjectile.new()
 	projectile.impacted.connect(func(point: Vector2, hit_direction: Vector2) -> void: projectile_impacted.emit(point,hit_direction))
 	projectile.shot_id = _shot_serial
@@ -128,6 +128,9 @@ func _emit_round(aim: Vector2, grounded: bool) -> void:
 	projectile.damage = tuning.projectile_damage
 	projectile.base_lifetime = tuning.projectile_lifetime
 	projectile.lifetime = tuning.projectile_lifetime * item_range_multiplier()
+	projectile.max_distance=tuning.projectile_range*item_range_multiplier()
+	projectile.base_distance=tuning.projectile_range
+	projectile.direction=ShotAimAssist.resolve(controller,muzzle,aim,projectile.max_distance)
 	projectile.weapon_id = weapon.id
 	projectile.weapon_tier = weapon.tier
 	projectile.weapon_mode = weapon.mode
@@ -180,9 +183,17 @@ func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName) ->
 	projectile.owner_controller=controller;projectile.owner_body=controller.motor;projectile.fired_airborne=not controller.motor.is_on_floor()
 	projectile.direction=aim;projectile.speed=weapon.projectile_speed;projectile.damage=(weapon.skill_damage if skill else weapon.damage)*tuning.projectile_damage;projectile.lifetime=weapon.range_limit/weapon.projectile_speed
 	projectile.art_kind=art_kind;projectile.skill_attack=skill;projectile.radius=5 if art_kind==&"blade" else tuning.projectile_radius
+	if art_kind==&"ice":
+		projectile.pierce_enemies=true;projectile.pierced_damage_ratio=1.0
+		projectile.radius=weapon.skill_projectile_radius;projectile.lifetime=weapon.skill_projectile_range/weapon.projectile_speed
+		projectile.chill_seconds=weapon.chill_seconds;projectile.chill_speed_scale=weapon.chill_speed_scale
+		projectile.set_meta(&"ice_projectile",true)
 	projectile.weapon_id=weapon.id;projectile.weapon_tier=weapon.tier;projectile.weapon_mode=weapon.mode
 	projectile.shot_index=0 if skill else _shot_serial-packet_id+1
 	if not skill and art_kind==&"bullet":
+		projectile.max_distance=minf(weapon.range_limit,tuning.projectile_range)*item_range_multiplier()
+		projectile.base_distance=minf(weapon.range_limit,tuning.projectile_range)
+		projectile.direction=ShotAimAssist.resolve(controller,controller.motor.global_position,aim,projectile.max_distance)
 		projectile.base_lifetime = projectile.lifetime
 		projectile.lifetime *= item_range_multiplier()
 		if item_runtime() != null:
@@ -213,5 +224,7 @@ func item_hit_committed(event: Dictionary) -> void:
 	var raw: Variant = event.get("receiver")
 	var receiver: Damageable = raw as Damageable if is_instance_valid(raw) else null
 	var target := int(event.get("target_id", 0))
+	if receiver!=null and target!=0 and controller.active and not controller.actor_resources.health.terminal and float(event.get("chill_seconds",0))>0:
+		receiver.damage_policy_owner().apply_chill(float(event.chill_seconds),float(event.chill_speed_scale))
 	controller.on_weapon_damage(int(event.session),int(event.packet),int(event.shot),bool(event.airborne),target,bool(event.skill),receiver,int(event.weapon_epoch))
 	if item_runtime() != null and target != 0 and receiver != null and controller.active and not controller.actor_resources.health.terminal and int(event.session) == controller.session_id and (int(event.weapon_epoch) < 0 or int(event.weapon_epoch) == weapon_epoch): item_runtime().call("on_hit", event)

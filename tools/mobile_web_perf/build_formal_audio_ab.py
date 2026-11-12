@@ -33,7 +33,6 @@ MEASURE_COMMIT = "1b29932c5333a9dad50759afc635762163ed79f5"
 if MEASURE_COMMIT != COMMIT:
     raise ValueError("Recorded measurement paths require their original source commit")
 MEASURE = {
-    'scripts/underworld_plains/underworld_foreground.gd': ['_refresh', '_protection', '_sync_residents', '_render_receipt'],
     'scripts/underworld_plains/underworld_presentation.gd': ['refresh'],
     'scripts/underworld_plains/underworld_parallax.gd': ['_update'],
     'scripts/underworld_plains/underworld_home_world.gd': ['update_focus'],

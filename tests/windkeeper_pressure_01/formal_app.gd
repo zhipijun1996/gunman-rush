@@ -162,13 +162,13 @@ func physical_projectile_hurt() -> void:
 	check(app.player.damage_remaining > 0, "accepted physical seed starts actual Motor hurt response")
 	observations.append({"case": "formal real projectile hurt", "HP_before": hp, "HP_after": app.controller.actor_resources.health.current, "results": player_damage.duplicate(true), "hurt_remaining": app.player.damage_remaining})
 
-func bridge_transition_escape() -> void:
+func thorn_transition_escape() -> void:
 	if not await setup(): return
 	var arena_consumer: WindkeeperArena
 	for child: Node in encounter.get_children():
 		if child is WindkeeperArena: arena_consumer = child as WindkeeperArena
 	check(arena_consumer != null and arena_consumer.module.definition.platforms.size() >= 4,
-		"formal phase3 owns actual bridge and three existing shelf surfaces")
+		"formal phase3 owns actual floor and three existing shelf surfaces")
 	if arena_consumer == null or arena_consumer.module.definition.platforms.size() < 4: return
 	var slab := Rect2()
 	var farthest := -1.0
@@ -178,20 +178,20 @@ func bridge_transition_escape() -> void:
 		var gap := absf(point.x - app.stage.boss.global_position.x)
 		if gap > farthest: farthest = gap; slab = candidate
 	var floor_rect: Rect2 = arena_consumer.module.definition.platforms[0]
-	# The new guardian actually mounts a shelf before breaking the bridge.
+	# The new guardian actually mounts a shelf before growing the thorns.
 	# Select a different real shelf for this disclosed ordinary-jump fixture;
 	# the former centre-shelf fixture overlapped that real landing and failed
 	# with contact then a fall (support-formal-fixture-02.json is retained).
 	var local_start := Vector2(slab.end.x - 18, floor_rect.position.y - 18)
 	var initial: Vector2 = arena_consumer.module.to_global(local_start)
-	relocate(initial, "ground below a real shelf away from the guardian landing before break warning")
+	relocate(initial, "ground below a real shelf away from the guardian landing before emergence warning")
 	await ticks(3)
 	var player_hp: float = app.controller.actor_resources.health.current
-	check(app.player.is_on_floor() and not arena_consumer.broken,
+	check(app.player.is_on_floor() and not arena_consumer.thorns_active,
 		"actual central ground is supported and unbroken before transition")
 	check(player_damage.is_empty(), "disclosed initial floor position is outside live Boss contact")
 	# Only the Boss phase trigger is a declared authoritative resource fixture.
-	# Player HP/resources/abilities and the real transition/break clocks remain.
+	# Player HP/resources/abilities and the real transition/growth clocks remain.
 	var target_hp: float = encounter.health.capacity * encounter._config().phase_three_health - 1
 	var request := ActorResourceRequest.new(&"explicit-formal-third-phase-fixture", encounter.health.epoch,
 		encounter.health.current - target_hp, encounter.health.get_instance_id())
@@ -199,8 +199,8 @@ func bridge_transition_escape() -> void:
 		"explicit phase3 fixture reaches health band through original Boss transaction")
 	encounter.set_physics_process(true)
 	await ticks(1)
-	check(encounter.stage_phase == 3 and encounter.mode == &"phase_transition" and not arena_consumer.broken,
-		"real phase3 warning precedes the actual bridge removal")
+	check(encounter.stage_phase == 3 and encounter.mode == &"phase_transition" and not arena_consumer.thorns_active,
+		"real phase3 warning precedes the actual thorn emergence")
 	app.controller.router.set_jump_held(&"keyboard_mouse", true)
 	var reached := false
 	var trace: Array[Dictionary] = []
@@ -208,31 +208,31 @@ func bridge_transition_escape() -> void:
 		await ticks(1)
 		var feet: Vector2 = arena_consumer.module.to_local(app.player.global_position) + Vector2(0,18)
 		trace.append({"tick": Engine.get_physics_frames(), "position": app.player.global_position,
-			"grounded": app.player.is_on_floor(), "feet_local": feet, "broken": arena_consumer.broken,
+			"grounded": app.player.is_on_floor(), "feet_local": feet, "thorns_active": arena_consumer.thorns_active,
 			"HP": app.controller.actor_resources.health.current, "state": String(encounter.mode)})
 		var on_shelf: bool = (app.player.is_on_floor() and absf(feet.y - slab.position.y) < 2
 			and feet.x - 12 >= slab.position.x and feet.x + 12 <= slab.end.x)
-		if arena_consumer.broken and on_shelf:
+		if arena_consumer.thorns_active and on_shelf:
 			reached = true
 			break
 	app.controller.router.set_jump_held(&"keyboard_mouse", false)
-	check(arena_consumer.broken and reached,
-		"one real held jump reaches existing central shelf before ground disappears")
+	check(arena_consumer.thorns_active and reached,
+		"one real held jump reaches existing central shelf before thorns become damaging")
 	check(app.controller.jump_ability.used_jumps <= 1,
 		"actual escape never requires an ungranted extra jump")
 	check(app.controller.actor_resources.health.current == player_hp,
-		"actual warning-jump-break sequence does not debit player HP")
+		"actual warning-jump-growth sequence does not debit player HP")
 	var environment_hits := player_damage.filter(func(row: Dictionary) -> bool:
 		return float(row.HP_lost) > 0 and (str(row.source).contains("fall") or str(row.source).contains("bounds")))
-	check(environment_hits.is_empty(), "real bridge removal does not force an environment return")
-	observations.append({"case": "actual bridge warning escape", "Boss_HP_transaction_fixture": true,
-		"initial": initial, "actual_shelf": slab, "reached_after_break": reached, "trace": trace,
-		"player_damage": player_damage.duplicate(true), "scope": "controlled phase trigger and initial position; ordinary base held jump, actual WindkeeperArena bridge geometry and original player damage rules"})
+	check(environment_hits.is_empty(), "real thorn emergence does not force an environment return")
+	observations.append({"case": "actual thorn warning escape", "Boss_HP_transaction_fixture": true,
+		"initial": initial, "actual_shelf": slab, "reached_after_release": reached, "trace": trace,
+		"player_damage": player_damage.duplicate(true), "scope": "controlled phase trigger and initial position; ordinary base held jump, actual WindkeeperArena intact floor and thorn strip and original player damage rules"})
 
 func run() -> void:
 	await two_shot_recovery()
 	await physical_projectile_hurt()
-	await bridge_transition_escape()
+	await thorn_transition_escape()
 	await cleanup()
 	DirAccess.make_dir_recursive_absolute("res://build/windkeeper_pressure_01")
 	var file := FileAccess.open("res://build/windkeeper_pressure_01/formal_app.json", FileAccess.WRITE)

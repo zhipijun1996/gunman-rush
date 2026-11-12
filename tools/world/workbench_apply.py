@@ -111,6 +111,13 @@ def update_geometry(construction: dict, package: dict, base_seed: dict):
         bounds, spaces = geometry.get("bounds"), geometry.get("space_rects")
         if not rectangle(bounds) or bounds[:2] != [0, 0] or not isinstance(spaces, list) or not spaces or not all(map(rectangle, spaces)):
             reject(room_id + ": invalid physical room extent/space rectangles")
+        # An interior-only edit must preserve authored recovery entries. Some
+        # service rooms intentionally have no challenge recovery for quiet doors.
+        # Only a changed geometry needs the explicit landing/recovery rewrite.
+        baseline_room = base_seed["rooms"][room_id]
+        if all(geometry.get(key) == baseline_room.get(key)
+               for key in ("bounds", "space_rects", "doors", "map_position")):
+            continue
         row["extent"] = copy.deepcopy(bounds[2:])
         row["space_rects"] = copy.deepcopy(spaces)
         old_doors = {d["id"]: d for d in row["doors"]}

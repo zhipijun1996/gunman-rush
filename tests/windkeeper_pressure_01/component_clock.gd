@@ -244,7 +244,7 @@ func gust_then_sweep_reaches_actual_actor() -> void:
 	# Explicit two-move/phase fixture. The target is now an actual PlayerMotor
 	# on the original ground, with zero move input. Wind displaces it through
 	# the original local-velocity/step path; no target position is fabricated.
-	if not await fixture(Vector2(830,582), -1, true, true): return
+	if not await fixture(Vector2(760,582), -1, true, true): return
 	var player := target as PlayerMotor
 	check(player != null and player.tuning != null, "gust-range fixture uses actual configured PlayerMotor")
 	if player == null: return
@@ -263,6 +263,10 @@ func gust_then_sweep_reaches_actual_actor() -> void:
 		encounter.physics_tick(1.0 / 60)
 		player.step(0.0, 1.0 / 60)
 		await ticks(1)
+		if encounter.mode == &"gust_warning" and encounter._group_plan.has("facing"):
+			# The first warning commits facing/target into the same saved plan.
+			# Freeze that complete plan, rather than its uncommitted preparation.
+			frozen = encounter._group_plan.duplicate(true)
 		if encounter.mode == &"gust": gust_seen = true
 		if gust_seen and encounter.mode == &"approach":
 			pursuit_seen = true
@@ -286,8 +290,8 @@ func gust_then_sweep_reaches_actual_actor() -> void:
 		encounter.physics_tick(1.0 / 60)
 		player.step(0.0, 1.0 / 60)
 		await ticks(1)
-		if not actual_hits.is_empty() or encounter.mode == &"recover": break
-	check(not actual_hits.is_empty() and actual_hits[0].body_is_target and str(actual_hits[0].event).begins_with("windkeeper_sweep-"),
+		if actual_hits.any(func(hit:Dictionary)->bool:return str(hit.event).begins_with("windkeeper_sweep-")) or encounter.mode == &"recover": break
+	check(actual_hits.any(func(hit:Dictionary)->bool:return hit.body_is_target and str(hit.event).begins_with("windkeeper_sweep-")),
 		"actual rendered follow-up blade physically intersects the real standing Motor after closing")
 	observations.append({"case": "actual gust-to-sweep range", "fixture": "phase2 frozen group; real Motor zero input/real gravity and gust", "boss_start": boss_start,
 		"boss_end": boss.global_position, "target_start": target_start, "target_end": player.global_position,

@@ -60,11 +60,7 @@ func pickup() -> void:
 	app.controller.shoot_ability.enabled=true
 	phase="picked"
 	GameAudio.cue(app,&"confirm")
-	var input: StringName=app.controller.router.current_device
-	var instruction:="按住鼠标左键瞄准，松开开枪"
-	if app.controller.router.touch_enabled:instruction="拖动右侧射击摇杆瞄准，松开开枪"
-	elif input==&"gamepad":instruction="推动右摇杆瞄准，回中开枪"
-	_show_lines(["我想起来了，可以"+instruction+"。","前面的风铃连着门。试着击中它。"],"修钟者")
+	_show_lines(["这把枪……我想起来该怎么用了。","前面的风铃连着门。试着击中它。"],"修钟者")
 	queue_redraw()
 
 func _show_lines(value: Array,title: String) -> void:

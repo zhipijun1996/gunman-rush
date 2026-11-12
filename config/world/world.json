@@ -497,7 +497,7 @@
       "parent_anchor": "P1",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "苏醒、地面拾枪、按设备提示射击，射铃开门后逐阶处理弱敌。",
+      "purpose": "苏醒拾枪与射铃教学；左上钩索高洞口为回访蕈灯支路，地面不再直连外区。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -596,9 +596,79 @@
           ],
           "counts_as_room_main_visit": true,
           "placement_status": "主体逻辑分区；具体可走轮廓由灰盒细化"
+        },
+        {
+          "id": "access:H",
+          "kind": "environment_access",
+          "name": "蕈灯高洞口",
+          "counts_as_room_main_visit": true,
+          "safe_return_required": true,
+          "not_a_new_room": true,
+          "placement_status": "左上钩索接续与高处接收台"
         }
       ],
-      "internal_routes": [],
+      "internal_routes": [
+        {
+          "id": "IR:P-R03:access:H:approach",
+          "from_section": "main",
+          "to_section": "access:H",
+          "requires": [
+            [
+              "H"
+            ]
+          ],
+          "kind": "environment_traversal",
+          "implementation": "左上钩点接续登高至蕈灯洞口；普通跳跃与反冲不可直达。",
+          "physical_variants": [
+            {
+              "abilities": [
+                "H"
+              ],
+              "fixtures": [
+                "可见钩点、高差与带刺侧壁"
+              ]
+            }
+          ],
+          "reverse_route_id": "IR:P-R03:access:H:return",
+          "map_marker": {
+            "room_id": "P-R03",
+            "section_id": "access:H",
+            "inside_room": true,
+            "kind": "environment_capability_obstacle"
+          },
+          "failure_anchor_section": "main",
+          "normal_hazard_damage": 1,
+          "status": "正式钩索回访接口，动作实测后验收"
+        },
+        {
+          "id": "IR:P-R03:access:H:return",
+          "from_section": "access:H",
+          "to_section": "main",
+          "requires": [
+            []
+          ],
+          "kind": "environment_traversal",
+          "implementation": "沿钩点或安全下落回到苏醒草坡。",
+          "physical_variants": [
+            {
+              "abilities": [],
+              "fixtures": [
+                "安全落岸"
+              ]
+            }
+          ],
+          "reverse_route_id": "IR:P-R03:access:H:approach",
+          "map_marker": {
+            "room_id": "P-R03",
+            "section_id": "access:H",
+            "inside_room": true,
+            "kind": "environment_capability_obstacle"
+          },
+          "failure_anchor_section": "main",
+          "normal_hazard_damage": 1,
+          "status": "正式钩索回访接口，动作实测后验收"
+        }
+      ],
       "rest_section_id": null,
       "rift_section_id": null,
       "entry_preview_policy": "门可进入对应安全落脚区；能力阻隔由房内环境通路实现；未通过时可沿来门安全返回。",
@@ -1092,7 +1162,6 @@
           ],
           "entry_connection_candidates": [
             "room-link-144",
-            "C02",
             "WEST-P27-P05"
           ],
           "activation": "进入单段挑战前在实际来路的安全台自动记录；多入口各记录各自来路，不选最近点、不跨区域回收。",
@@ -1117,7 +1186,7 @@
           "section_id": "main",
           "normal_failure_damage": 1,
           "special_failure_damage": 2,
-          "boss_retry_bypass": "P27→P05→P14有稳定地面下路，不重复TG02的慢平台取物挑战。",
+          "boss_retry_bypass": "由P27直接上行P14，不重复TG02慢平台挑战。",
           "entry_binding_scope": "当前真实门候选；挑战入口由来门与本段challenge_id共同登记，不跨房复位。"
         }
       ],
@@ -2145,7 +2214,7 @@
       "parent_anchor": "P3",
       "route_class": "optional_shortcut_or_return",
       "gate_summary": "房内环境：H",
-      "purpose": "钩索贯穿高风车；机架转角接外沿廊。",
+      "purpose": "基础枪命中续枪与反冲攀升，右侧钩索回访线；楼下武器匠教学，顶岸共用藏箱。",
       "rest_point": false,
       "rift_machine": false,
       "rest_position": null,
@@ -2297,7 +2366,9 @@
         ]
       ],
       "rest_is_new": false,
-      "npc_ids": [],
+      "npc_ids": [
+        "NPC_G_SMITH"
+      ],
       "reward_ids": [],
       "clock_actions": [],
       "challenge_anchors": [],
@@ -2338,19 +2409,23 @@
           "from_section": "entry:L23",
           "to_section": "main",
           "requires": [
-            [
-              "H"
-            ]
+            []
           ],
           "kind": "environment_traversal",
-          "implementation": "以真实索点、墙面、高差、断桥或相位光幕实现；不在玩家面前生成隐藏能力检查墙。",
+          "implementation": "基础枪空中命中补弹接反冲攀升；宽岸可停留重组，右侧钩索是回访易行路线。",
           "physical_variants": [
+            {
+              "abilities": [],
+              "fixtures": [
+                "已审核的命中续枪平台和低岸往返"
+              ]
+            },
             {
               "abilities": [
                 "H"
               ],
               "fixtures": [
-                "可见索点与基础跳跃/反冲无法直达的接续落点"
+                "沿外侧索点回访，通向同一顶岸"
               ]
             }
           ],
@@ -2362,7 +2437,7 @@
             "room_id": "P-R10",
             "section_id": "entry:L23",
             "inside_room": true,
-            "kind": "environment_capability_obstacle"
+            "kind": "traversal_challenge"
           },
           "failure_anchor_section": "entry:L23",
           "normal_hazard_damage": 1,
@@ -2381,26 +2456,30 @@
               "new_wall_contact"
             ]
           },
-          "status": "结构灰盒必须实现的通路；具体动作尺寸与难度待房内测试"
+          "status": "已按人工初审稿接入正式场景；局部连续射击已验，完整房间探索另验。"
         },
         {
           "id": "IR:P-R10:entry:L23:return",
           "from_section": "main",
           "to_section": "entry:L23",
           "requires": [
-            [
-              "H"
-            ]
+            []
           ],
           "kind": "environment_traversal",
-          "implementation": "以真实索点、墙面、高差、断桥或相位光幕实现；不在玩家面前生成隐藏能力检查墙。",
+          "implementation": "基础枪空中命中补弹接反冲攀升；宽岸可停留重组，右侧钩索是回访易行路线。",
           "physical_variants": [
+            {
+              "abilities": [],
+              "fixtures": [
+                "已审核的命中续枪平台和低岸往返"
+              ]
+            },
             {
               "abilities": [
                 "H"
               ],
               "fixtures": [
-                "可见索点与基础跳跃/反冲无法直达的接续落点"
+                "沿外侧索点回访，通向同一顶岸"
               ]
             }
           ],
@@ -2412,7 +2491,7 @@
             "room_id": "P-R10",
             "section_id": "entry:L23",
             "inside_room": true,
-            "kind": "environment_capability_obstacle"
+            "kind": "traversal_challenge"
           },
           "failure_anchor_section": "entry:L23",
           "normal_hazard_damage": 1,
@@ -2431,7 +2510,7 @@
               "new_wall_contact"
             ]
           },
-          "status": "结构灰盒必须实现的通路；具体动作尺寸与难度待房内测试"
+          "status": "已按人工初审稿接入正式场景；局部连续射击已验，完整房间探索另验。"
         }
       ],
       "rest_section_id": null,
@@ -2570,7 +2649,7 @@
       "failure_contract": "HP耗尽按统一死亡规则回最后实际休息点；地形失误另按本次挑战入口处理。",
       "boss_encounter_id": "P_BELLSTRIDER",
       "boss_defeat_action": "defeat_P_BELLSTRIDER",
-      "boss_reward_action": "pickup_part_triple",
+      "boss_reward_action": "pickup_skill_core_root",
       "boss_role": "独立竞技场；初次胜利永久保存，不随休息重生",
       "polygon": [
         [
@@ -2643,7 +2722,7 @@
       "rest_is_new": false,
       "npc_ids": [],
       "reward_ids": [
-        "part_triple"
+        "skill_core_root"
       ],
       "clock_actions": [],
       "challenge_anchors": [],
@@ -2760,10 +2839,10 @@
       "world_context_story_object_ids": [],
       "collection_design_refs": {
         "source_ids": [
-          "part_triple"
+          "skill_core_root"
         ],
         "source_cue_ids": [
-          "part_triple"
+          "skill_core_root"
         ],
         "secret_ids": [],
         "secret_cue_ids": [],
@@ -4959,7 +5038,7 @@
       "parent_anchor": "P1",
       "route_class": "optional_reward",
       "gate_summary": "房内环境：H",
-      "purpose": "退潮水岸的曲折主路与H行装支路。",
+      "purpose": "退潮水岸曲折主路、H行装支路与左下沼泽接续。",
       "player_choice_or_interaction": "可走稳定渠岸或短平台看既有收藏槽；不增加独立商店、NPC或大奖。",
       "relationship_intent_room_ids": [
         "P-R12",
@@ -41875,7 +41954,7 @@
       "failure_contract": "HP耗尽按统一死亡规则回最后实际休息点；地形失误另按本次挑战入口处理。",
       "boss_encounter_id": "T_TWINS",
       "boss_defeat_action": "defeat_T_TWINS",
-      "boss_reward_action": "pickup_skill_core_root",
+      "boss_reward_action": "pickup_part_triple",
       "boss_role": "独立竞技场；初次胜利永久保存，不随休息重生",
       "polygon": [
         [
@@ -41966,7 +42045,7 @@
       "rest_is_new": false,
       "npc_ids": [],
       "reward_ids": [
-        "skill_core_root"
+        "part_triple"
       ],
       "clock_actions": [],
       "challenge_anchors": [],
@@ -42070,10 +42149,10 @@
       "world_context_story_object_ids": [],
       "collection_design_refs": {
         "source_ids": [
-          "skill_core_root"
+          "part_triple"
         ],
         "source_cue_ids": [
-          "skill_core_root"
+          "part_triple"
         ],
         "secret_ids": [],
         "secret_cue_ids": [],
@@ -63428,7 +63507,7 @@
       "parent_anchor": "P_WEST",
       "route_class": "ordinary_backbone_candidate",
       "gate_summary": "基础通路；房内分区与实际门锁见下列合同。",
-      "purpose": "牧风者前休息与两路辨认；直达14，侧看05铜齿自愿挑战。",
+      "purpose": "牧风者前休息与分路：上行14、东看05铜齿挑战、西接月影墓园。",
       "rest_point": true,
       "rift_machine": false,
       "rest_position": "独立安全棚内明确休息的长椅",
@@ -97680,7 +97759,7 @@
     },
     {
       "id": "C02",
-      "a": "P-R05",
+      "a": "P-R27",
       "b": "C-R02",
       "kind": "cross_region",
       "anchor_a": "P1",
@@ -97784,7 +97863,8 @@
           1196.27,
           967.21
         ]
-      ]
+      ],
+      "description": "背风检修棚西侧墓园接近段；慢风平台不再外接墓地。"
     },
     {
       "id": "C03",
@@ -97796,130 +97876,37 @@
       "geometry_status": "room-boundary doorway anchors; all unrelated room bodies excluded",
       "source_macro_edge_id": "C03",
       "requires": [
-        [
-          "intro_complete",
-          "station_briefed"
-        ]
+        []
       ],
       "direction": "both",
-      "condition_text": "物理门条件：intro_complete+station_briefed",
+      "condition_text": "无物理门锁；可达性由房内路线决定。",
       "external": true,
-      "polyline": [
-        [
-          1233.39,
-          1288.51
-        ],
-        [
-          1195.67,
-          1299.39
-        ],
-        [
-          1195.67,
-          1403.55
-        ],
-        [
-          1078.49,
-          1403.55
-        ],
-        [
-          1058.11,
-          1414.12
-        ]
-      ],
-      "route_status": "room_obstacles_avoided",
-      "length_map_units": 283.556,
-      "passage_polygons": [
-        [
-          [
-            1191.42,
-            1296.19
-          ],
-          [
-            1191.42,
-            1399.3
-          ],
-          [
-            1077.45,
-            1399.3
-          ],
-          [
-            1056.15,
-            1410.35
-          ],
-          [
-            1052.38,
-            1412.3
-          ],
-          [
-            1056.29,
-            1419.85
-          ],
-          [
-            1079.53,
-            1407.8
-          ],
-          [
-            1199.92,
-            1407.8
-          ],
-          [
-            1199.92,
-            1302.59
-          ],
-          [
-            1234.57,
-            1292.59
-          ],
-          [
-            1238.65,
-            1291.42
-          ],
-          [
-            1236.3,
-            1283.25
-          ]
-        ]
-      ],
       "passage_profile": "v07 explicit doorway route; no room-skipping junction at line crossings",
-      "local_guard_explanation": "开局封闭侧门；抵达小站后永久开放，不修改宏观能力需求",
+      "local_guard_explanation": "左上高洞口仅能经钩索接续抵达。",
       "effective_door_requires": [
-        [
-          "intro_complete",
-          "station_briefed"
-        ]
+        []
       ],
-      "a_section": "main",
+      "a_section": "access:H",
       "b_section": "main",
       "condition_format": "OR of AND groups",
       "requirement_scope": "physical_item_story_switch_door",
       "transition_contract": "左右步行；上口进入时直接落到正下方安全台；下口为净空洞口，向上抵达后落至洞旁安全岸；交通交互不休息。",
       "ability_gate_in_door": false,
-      "manual_polyline": [
+      "description": "左上高洞口仅能经钩索接续抵达。",
+      "polyline": [
         [
-          1233.39,
-          1288.51
+          1230.59,
+          1285.15
         ],
         [
-          1195.67,
-          1299.39
-        ],
-        [
-          1195.67,
-          1403.55
-        ],
-        [
-          1078.49,
-          1403.55
-        ],
-        [
-          1058.11,
-          1414.12
+          1060.91,
+          1413.0
         ]
       ]
     },
     {
       "id": "C04",
-      "a": "P-R03",
+      "a": "P-R20",
       "b": "S-R01",
       "kind": "cross_region",
       "anchor_a": "P1",
@@ -97927,109 +97914,15 @@
       "geometry_status": "room-boundary doorway anchors; all unrelated room bodies excluded",
       "source_macro_edge_id": "C04",
       "requires": [
-        [
-          "intro_complete",
-          "station_briefed"
-        ]
+        []
       ],
       "direction": "both",
-      "condition_text": "物理门条件：intro_complete+station_briefed",
+      "condition_text": "无物理门锁；可达性由房内路线决定。",
       "external": true,
-      "polyline": [
-        [
-          1233.39,
-          1288.51
-        ],
-        [
-          1236.0,
-          1296.0
-        ],
-        [
-          1236.0,
-          1392.0
-        ],
-        [
-          1290.0,
-          1392.0
-        ],
-        [
-          1290.0,
-          1458.0
-        ],
-        [
-          1241.42,
-          1456.9
-        ]
-      ],
-      "route_status": "room_obstacles_avoided",
-      "length_map_units": 272.524,
-      "passage_polygons": [
-        [
-          [
-            1231.75,
-            1296.72
-          ],
-          [
-            1231.75,
-            1396.25
-          ],
-          [
-            1285.75,
-            1396.25
-          ],
-          [
-            1285.75,
-            1453.65
-          ],
-          [
-            1241.52,
-            1452.65
-          ],
-          [
-            1237.27,
-            1452.55
-          ],
-          [
-            1237.07,
-            1461.05
-          ],
-          [
-            1294.25,
-            1462.35
-          ],
-          [
-            1294.25,
-            1387.75
-          ],
-          [
-            1240.25,
-            1387.75
-          ],
-          [
-            1240.25,
-            1295.28
-          ],
-          [
-            1237.4,
-            1287.11
-          ],
-          [
-            1236.0,
-            1283.1
-          ],
-          [
-            1227.98,
-            1285.9
-          ]
-        ]
-      ],
       "passage_profile": "v07 explicit doorway route; no room-skipping junction at line crossings",
-      "local_guard_explanation": "开局封闭侧门；抵达小站后永久开放，不修改宏观能力需求",
+      "local_guard_explanation": "P20左下水岸下行进入沼泽，基础动作可返回。",
       "effective_door_requires": [
-        [
-          "intro_complete",
-          "station_briefed"
-        ]
+        []
       ],
       "a_section": "main",
       "b_section": "main",
@@ -98037,29 +97930,14 @@
       "requirement_scope": "physical_item_story_switch_door",
       "transition_contract": "左右步行；上口进入时直接落到正下方安全台；下口为净空洞口，向上抵达后落至洞旁安全岸；交通交互不休息。",
       "ability_gate_in_door": false,
-      "manual_polyline": [
+      "description": "P20左下水岸下行进入沼泽，基础动作可返回。",
+      "polyline": [
         [
-          1233.39,
-          1288.51
+          1556.93,
+          1327.48
         ],
         [
-          1236.0,
-          1296.0
-        ],
-        [
-          1236.0,
-          1392.0
-        ],
-        [
-          1290.0,
-          1392.0
-        ],
-        [
-          1290.0,
-          1458.0
-        ],
-        [
-          1241.42,
+          1231.9,
           1456.9
         ]
       ]
@@ -169139,14 +169017,15 @@
     },
     {
       "id": "pickup_part_triple",
-      "node": "P3",
+      "node": "T2",
       "grants": [
         "found_part_triple"
       ],
       "type": "branch_material",
       "requires": [
         [
-          "boss_P_BELLSTRIDER_defeated"
+          "clock_T",
+          "boss_T_TWINS_defeated"
         ]
       ],
       "description": "三联机芯",
@@ -169157,16 +169036,17 @@
         "part_triple": 1
       },
       "material_type": "part_triple",
-      "boss_prerequisite": "boss_P_BELLSTRIDER_defeated",
+      "boss_prerequisite": "boss_T_TWINS_defeated",
       "reward_id": "part_triple",
-      "room_id": "P-R11",
+      "room_id": "T-R06",
       "receipt_id": "part_triple",
       "interaction_required": true,
       "section_id": "main",
       "ability_qualification_at_interaction": false,
       "authored_mobility_access": [
         [
-          "H"
+          "H",
+          "W"
         ]
       ],
       "mobility_requirement_resolution": "approach_path_already_guarantees"
@@ -169589,37 +169469,33 @@
     },
     {
       "id": "pickup_skill_core_root",
-      "node": "T2",
+      "node": "P3",
       "grants": [
         "found_skill_core_root"
       ],
       "type": "skill_core",
       "requires": [
         [
-          "clock_T",
-          "boss_T_TWINS_defeated"
+          "boss_P_BELLSTRIDER_defeated"
         ]
       ],
       "description": "共鸣技能芯",
       "persistent": true,
       "repeat": false,
-      "implementation_status": "proposal",
+      "implementation_status": "implemented",
       "inventory_grants": {
         "skill_core": 1
       },
       "material_type": "skill_core",
-      "boss_prerequisite": "boss_T_TWINS_defeated",
+      "boss_prerequisite": "boss_P_BELLSTRIDER_defeated",
       "reward_id": "skill_core_root",
-      "room_id": "T-R06",
+      "room_id": "P-R11",
       "receipt_id": "skill_core_root",
       "interaction_required": true,
       "section_id": "main",
       "ability_qualification_at_interaction": false,
       "authored_mobility_access": [
-        [
-          "H",
-          "W"
-        ]
+        []
       ],
       "mobility_requirement_resolution": "approach_path_already_guarantees"
     },
@@ -169661,38 +169537,46 @@
     },
     {
       "id": "install_skill_core_1",
-      "node": "G0",
+      "node": "P3",
       "grants": [
         "skill_tier_1"
       ],
       "type": "skill_upgrade",
       "requires": [
         [
+          "found_skill_core_root"
+        ],
+        [
           "smith"
         ]
       ],
-      "description": "消耗任意第一枚共用核心，全局开放每个武器家族第1技能；后取得的武器继承。",
+      "description": "交付一枚共鸣技能芯，武器匠免费安装首层技能；普通枪开放冰弹，后取得的武器继承该技能层。",
       "persistent": true,
       "repeat": false,
-      "implementation_status": "proposal",
+      "implementation_status": "implemented",
       "consumes": {
         "skill_core": 1
       },
       "inventory_grants": {},
       "service_npc": "NPC_G_SMITH",
       "service_does_not_implicitly_rest": true,
-      "room_id": "G-R01",
-      "physical_room": "G-R01",
-      "region": "G",
-      "room_name": "齿轮工房",
+      "room_id": "P-R10",
+      "physical_room": "P-R10",
+      "region": "P",
+      "room_name": "高风车连台",
       "map_anchor": [
-        2260.0,
-        1190.0
+        2127.72,
+        1232.81
       ],
       "position_scope": "illustration_anchor_not_Godot_coordinates",
       "section_id": "main",
       "ability_qualification_at_interaction": false,
-      "mobility_requirement_resolution": "v07 room access routes, not interaction ability check"
+      "mobility_requirement_resolution": "v07 room access routes, not interaction ability check",
+      "service_rooms": [
+        "P-R10",
+        "G-R01"
+      ],
+      "gold_fee": 0
     },
     {
       "id": "install_skill_core_2",
@@ -175537,6 +175421,360 @@
       "repeat": false,
       "description": "进入钟心门厅发现主轴损毁，获知修复时律钟的方向。",
       "ability_qualification_at_interaction": false
+    },
+    {
+      "id": "open_P04_bridge_cache",
+      "room_id": "P-R04",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开桥墩藏箱，10金币散落。",
+      "coin_drop_amount": 10,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P04_west_cache",
+      "room_id": "P-R04",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开田垄藏箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P07_hook_cache",
+      "room_id": "P-R07",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开眺望台藏箱，40金币散落。",
+      "coin_drop_amount": 40,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P09_pipe_cache",
+      "room_id": "P-R09",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开矿口旧货箱，10金币散落。",
+      "coin_drop_amount": 10,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P09_upper_cache",
+      "room_id": "P-R09",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开检修台藏箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P17_lower_cache",
+      "room_id": "P-R17",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开风车底仓藏箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P19_root_cache",
+      "room_id": "P-R19",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开根井藏箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P19_sentry_cache",
+      "room_id": "P-R19",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开井道检修箱，10金币散落。",
+      "coin_drop_amount": 10,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P28_upper_cache",
+      "room_id": "P-R28",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开旧田檐下藏箱，10金币散落。",
+      "coin_drop_amount": 10,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P28_lower_cache",
+      "room_id": "P-R28",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开田下藏箱，10金币散落。",
+      "coin_drop_amount": 10,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P29_attic_cache",
+      "room_id": "P-R29",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开谷仓阁楼藏箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P31_lower_cache",
+      "room_id": "P-R31",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开铃场旧集藏箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P02_shelter_cache",
+      "room_id": "P-R02",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开棚底检修箱，10金币散落。",
+      "coin_drop_amount": 10,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P08_well_cache",
+      "room_id": "P-R08",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开封井旧货箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P32_pier_cache",
+      "room_id": "P-R32",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开桥墩检修箱，10金币散落。",
+      "coin_drop_amount": 10,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P11_crown_cache",
+      "room_id": "P-R11",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        [
+          "boss_P_BELLSTRIDER_defeated"
+        ]
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开机架顶检修箱，30金币散落。",
+      "coin_drop_amount": 30,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P16_loft_cache",
+      "room_id": "P-R16",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开回铃高阁箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P12_cellar_cache",
+      "room_id": "P-R12",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开钟腔西岸箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P18_irrigation_cache",
+      "room_id": "P-R18",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开田畦地窖箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P34_eaves_cache",
+      "room_id": "P-R34",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开旧檐藏箱，15金币散落。",
+      "coin_drop_amount": 15,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P10_high_wind_cache",
+      "room_id": "P-R10",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开高风台藏箱，20金币散落。",
+      "coin_drop_amount": 20,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
+    },
+    {
+      "id": "open_P20_seawall_cache",
+      "room_id": "P-R20",
+      "section_id": "main",
+      "type": "chest",
+      "requires": [
+        []
+      ],
+      "grants": [],
+      "persistent": true,
+      "repeat": false,
+      "description": "打开防波堤藏箱，15金币散落。",
+      "coin_drop_amount": 15,
+      "ability_qualification_at_interaction": false,
+      "progression_gate": false
     }
   ],
   "npcs": [
@@ -175667,8 +175905,8 @@
       "name_status": "沿用 v03 固定角色",
       "region": "G",
       "node": "G0",
-      "placement": "齿轮工房内固定工位；G0 裂缝机器与安全休息点在同一服务簇。",
-      "identity": "曾为钟心工程设计保险装置的武器匠；被无人生产线困在工房。",
+      "placement": "P10下层安全岸短驻教学；后续返回齿轮工房G01固定工位。",
+      "identity": "曾为钟心工程设计保险装置的武器匠；平原路过指导主角，返回工房后需要玩家解除无人生产线的封锁。",
       "theme": "把失效工程转成玩家可控制的工具，保留对王下令取消保险的见证。",
       "availability": {
         "visible_when": [
@@ -175680,19 +175918,20 @@
           ]
         ],
         "unlock_action_ref": "rescue_smith",
-        "permanent_after_first_meeting": true,
         "visible_when_spatial_mobility": [
           [
             "H"
           ]
-        ]
+        ],
+        "permanent_after_rescue": true
       },
       "services": [
         "weapon_attack_upgrade",
         "weapon_branch_forging",
         "shared_weapon_skill_install",
         "workshop_supply_shop",
-        "one_time_capacity_fit"
+        "one_time_capacity_fit",
+        "weapon_skill_install"
       ],
       "shop_reward_slots": [
         "EQ_SHOP_G01",
@@ -175714,7 +175953,7 @@
         "攻击合金、六分支、两共享技能芯分列；CAP04在后访修G钟后领取。"
       ],
       "production_room_id": "G-R01",
-      "placement_status": "房间职责卡已预留；实际交互坐标待灰盒，不新增独立房间。",
+      "placement_status": "P10访问坐标由正式场景维护；G01工位按后续工城灰盒落实。",
       "original_shop_reward_slots": [
         "EQ_SHOP_G01",
         "EQ_SHOP_G02",
@@ -175732,8 +175971,11 @@
       "change_class": "existing_npc_stock_redistributed",
       "service_does_not_implicitly_rest": true,
       "map_label": "人03",
-      "stationary_after_first_meeting": true,
-      "section_id": "main"
+      "section_id": "main",
+      "visit_rooms": [
+        "P-R10"
+      ],
+      "stationary_after_rescue": true
     },
     {
       "id": "NPC_F_RANGER",
@@ -177288,7 +177530,8 @@
       "quantity": 1,
       "requires": [
         [
-          "boss_P_BELLSTRIDER_defeated"
+          "clock_T",
+          "boss_T_TWINS_defeated"
         ]
       ],
       "grants": [
@@ -177308,20 +177551,21 @@
       "weapon": "gun",
       "upgrade_service": "NPC_G_SMITH",
       "binding_status": "v06 原绑定",
-      "room_id": "P-R11",
-      "physical_room": "P-R11",
-      "region": "P",
-      "node": "P3",
-      "room_name": "风车机匣",
+      "room_id": "T-R06",
+      "physical_room": "T-R06",
+      "region": "T",
+      "node": "T2",
+      "room_name": "护坛侧室",
       "map_anchor": [
-        1921.92,
-        1229.844
+        604.361,
+        1831.995
       ],
       "position_scope": "illustration_anchor_not_Godot_coordinates",
       "section_id": "main",
       "access_mobility": [
         [
-          "H"
+          "H",
+          "W"
         ]
       ],
       "acquisition_design_ref": "design/collection-level-design-v07.json#part_triple"
@@ -177578,8 +177822,7 @@
       "quantity": 1,
       "requires": [
         [
-          "clock_T",
-          "boss_T_TWINS_defeated"
+          "boss_P_BELLSTRIDER_defeated"
         ]
       ],
       "grants": [
@@ -177597,22 +177840,19 @@
       "map_label": "技1",
       "upgrade_service": "NPC_G_SMITH",
       "order_contract": "两枚等价；实际安装第1枚开全武器技能1、第2枚开技能2，不以产地决定技能槽。",
-      "room_id": "T-R06",
-      "physical_room": "T-R06",
-      "region": "T",
-      "node": "T2",
-      "room_name": "护坛侧室",
+      "room_id": "P-R11",
+      "physical_room": "P-R11",
+      "region": "P",
+      "node": "P3",
+      "room_name": "风车机匣",
       "map_anchor": [
-        604.361,
-        1831.995
+        1921.92,
+        1229.844
       ],
       "position_scope": "illustration_anchor_not_Godot_coordinates",
       "section_id": "main",
       "access_mobility": [
-        [
-          "H",
-          "W"
-        ]
+        []
       ],
       "acquisition_design_ref": "design/collection-level-design-v07.json#skill_core_root"
     },
@@ -184956,39 +185196,47 @@
     },
     {
       "id": "install_skill_core_1",
-      "node": "G0",
+      "node": "P3",
       "grants": [
         "skill_tier_1"
       ],
       "type": "skill_upgrade",
       "requires": [
         [
+          "found_skill_core_root"
+        ],
+        [
           "smith"
         ]
       ],
-      "description": "消耗任意第一枚共用核心，全局开放每个武器家族第1技能；后取得的武器继承。",
+      "description": "交付一枚共鸣技能芯，武器匠免费安装首层技能；普通枪开放冰弹，后取得的武器继承该技能层。",
       "persistent": true,
       "repeat": false,
-      "implementation_status": "proposal",
+      "implementation_status": "implemented",
       "consumes": {
         "skill_core": 1
       },
       "inventory_grants": {},
       "service_npc": "NPC_G_SMITH",
       "service_does_not_implicitly_rest": true,
-      "room_id": "G-R01",
-      "physical_room": "G-R01",
-      "region": "G",
-      "room_name": "齿轮工房",
+      "room_id": "P-R10",
+      "physical_room": "P-R10",
+      "region": "P",
+      "room_name": "高风车连台",
       "map_anchor": [
-        2260.0,
-        1190.0
+        2127.72,
+        1232.81
       ],
       "position_scope": "illustration_anchor_not_Godot_coordinates",
       "section_id": "main",
       "access_mobility": [
         []
-      ]
+      ],
+      "service_rooms": [
+        "P-R10",
+        "G-R01"
+      ],
+      "gold_fee": 0
     },
     {
       "id": "install_skill_core_2",
@@ -191372,34 +191620,6 @@
       "beyond_section_id": "main",
       "internal_route_id": "IR:M-R04:entry:L05",
       "observed_route": "IR:M-R04:entry:L05",
-      "marker_type": "inside_room_environment"
-    },
-    {
-      "id": "MEM03",
-      "edge_id": "L23",
-      "preview_room": "P-R10",
-      "beyond_room": "P-R10",
-      "landmark": "停转风车",
-      "cue": "平原东侧风车机匣可见三联图样，地面无法直接到台阶",
-      "unlock_label": "H",
-      "reward_action": "pickup_part_triple",
-      "return_reason": "可选Boss与三连分支",
-      "seen_condition": "实际到达本房入口安全区并看见地标/环境阻隔；不因远处房门存在而自动记忆。",
-      "not_a_new_connection": true,
-      "peek_budget_seconds": [
-        10,
-        20
-      ],
-      "return_to_safe_route_max_transitions": 1,
-      "first_reward_after_gate_target_rooms": [
-        1,
-        3
-      ],
-      "map_memory": "保存实际看见的环境地标或道具门；获得相关能力/物品后提示已观察过的位置，不替玩家揭露未见房间。",
-      "preview_section_id": "entry:L23",
-      "beyond_section_id": "main",
-      "internal_route_id": "IR:P-R10:entry:L23",
-      "observed_route": "IR:P-R10:entry:L23",
       "marker_type": "inside_room_environment"
     },
     {
@@ -198244,7 +198464,7 @@
     "room_id": "P-R01",
     "section_id": "main",
     "landmark_action_ref": "station_briefing",
-    "control_policy": "首次到站在安全地面短剧情；可逐句推进或跳过，完成后提交station_briefing。",
+    "control_policy": "首次载台停稳到站后自动学习充电站休息；完成或跳过提交station_briefing与station_rest_taught完成标记。正式六房不提示尚未装载的东侧路线。",
     "resident_lines": [
       {
         "npc_id": "NPC_P_REC",
@@ -198266,7 +198486,7 @@
       "trigger_action": "station_briefing",
       "text": "先向东去世界钟心看看。",
       "show_once_on_first_arrival": true,
-      "once_scope": "existing station_briefing event; no additional gameplay action or token",
+      "once_scope": "station_briefing grants the existing quest; station_rest_taught records the actually completed arrival/rest lesson, including skip; no automatic completion on room load",
       "blocking": true,
       "input_lock": true,
       "dismissible_immediately": true,
@@ -198671,7 +198891,7 @@
       "room_id": "P-R01",
       "section_id": "main",
       "landmark_action_ref": "station_briefing",
-      "control_policy": "首次安全到站触发守钟匠短对话，可跳过；跳过仅提交station_briefing。P33正面进Z01门厅，室内说明完成后clockheart_briefed永久开放P01→P08，旧档clock_P亦可通行。",
+      "control_policy": "首次安全到站触发守钟匠休息教学，可跳过；跳过同样提交station_briefing与station_rest_taught标记，不自动执行休息。P33正面进Z01门厅，室内说明完成后clockheart_briefed永久开放P01→P08，旧档clock_P亦可通行。",
       "resident_lines": [
         {
           "npc_id": "NPC_P_REC",

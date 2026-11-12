@@ -35,6 +35,8 @@ func run() -> void:
 		if not scope is Dictionary or scope.get("schema") != 1 or not scope.get("additional_room_ids") is Array:
 			check(false, "registered preview room scope invalid");quit(1);return
 		for id: String in scope.additional_room_ids: expected[id] = true
+	var formal_catalog:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://build/world/runtime.json"))
+	for id:String in formal_catalog.rooms:expected[id]=true
 	check(catalog.rooms.size() == expected.size(), "complete plains and registered preview scene contracts")
 	for id: String in expected: check(catalog.rooms.has(id), "registered preview scene " + id)
 	var plains: Dictionary = {}

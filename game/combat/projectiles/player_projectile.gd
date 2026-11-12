@@ -19,10 +19,17 @@ var lifetime := 2.0
 ## Range modifiers stay attached to their live equipment source. Existing
 ## legacy fixtures without an item runtime retain their directly set lifetime.
 var base_lifetime := 0.0
+## Distance from the muzzle, independent of simulation tick and time scale.
+var max_distance := 0.0
+var base_distance := 0.0
+var traveled_distance := 0.0
 var owner_controller: PlayerController
 var owner_body: CollisionObject2D
 var art_kind: StringName = &"bullet"
 var skill_attack := false
+var pierce_enemies := false
+var chill_seconds := 0.0
+var chill_speed_scale := 1.0
 var weapon_id: StringName
 var weapon_tier := 1
 var weapon_mode := WeaponDefinition.Mode.PULSE
@@ -50,7 +57,7 @@ func _ready() -> void:
 
 func _draw() -> void:
 	if is_instance_valid(presentation): return
-	if UnderworldProjectileVisual.enabled(self):
+	if art_kind==&"ice" or UnderworldProjectileVisual.enabled(self):
 		UnderworldProjectileVisual.paint(self,direction,radius,_age,trail,art_kind,true,skill_attack,weapon_blade_texture())
 		return
 	for i: int in range(1, trail.size()):
@@ -90,6 +97,7 @@ func advance(delta: float) -> void:
 			dispose()
 			return
 		if base_lifetime > 0.0: lifetime = base_lifetime * float(items.call("projectile_range_multiplier"))
+		if base_distance > 0.0:max_distance=base_distance*float(items.call("projectile_range_multiplier"))
 	_age += delta
 	if _age >= lifetime:
 		dispose()
@@ -100,7 +108,11 @@ func advance(delta: float) -> void:
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
 	query.transform = Transform2D(0.0, global_position)
-	query.motion = launch_motion if not launch_motion.is_zero_approx() else direction * speed * delta
+	var barrel_sweep:=not launch_motion.is_zero_approx()
+	var remaining:=maxf(0,max_distance-traveled_distance)
+	if not barrel_sweep and max_distance>0 and remaining<=0:
+		dispose();return
+	query.motion = launch_motion if barrel_sweep else direction * minf(speed*delta,remaining) if max_distance>0 else direction*speed*delta
 	launch_motion = Vector2.ZERO
 	query.collision_mask = 0xFFFFFFFF
 	query.collide_with_areas = true
@@ -126,6 +138,9 @@ func advance(delta: float) -> void:
 			var fractions := space.cast_motion(query)
 			if fractions.size() != 2 or fractions[0] >= 1.0:
 				global_position += query.motion
+				if not barrel_sweep:
+					traveled_distance+=query.motion.length()
+					if max_distance>0 and traveled_distance>=max_distance-.0001:dispose()
 				return
 			# get_rest_info ignores query.motion; query at unsafe contact point.
 			query.transform.origin = global_position + query.motion * minf(1.0, fractions[1] + 0.0001)
@@ -158,11 +173,12 @@ func advance(delta: float) -> void:
 			var amount := damage * (pierced_damage_ratio if _pierced > 0 else 1.0)
 			if items != null: amount = float(items.call("modify_direct_damage", amount, receiver, skill_attack, packet))
 			var event := {"session":session_id,"packet":packet,"shot":shot_id,"shot_index":shot_index,"airborne":fired_airborne,"skill":skill_attack,"receiver":receiver,"target_id":(receiver.actor_id if receiver.actor_id != 0 else receiver.get_instance_id()) if receiver.faction == &"enemy" else 0,"point":query.transform.origin,"direction":direction,"amount":amount,"weapon_id":weapon_id,"tier":weapon_tier,"weapon_mode":weapon_mode,"weapon_epoch":weapon_epoch}
+			event.chill_seconds=chill_seconds;event.chill_speed_scale=chill_speed_scale
 			var context := {"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": amount, "damage_type": &"projectile", "skill_attack": skill_attack, "hit_direction": direction, "fired_airborne": fired_airborne, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.shoot_ability.item_hit_committed.bind(event)}
 			context.item_stagger_multiplier = float(items.call("enemy_stagger_multiplier")) if items != null and not skill_attack else 1.0
 			var accepted := receiver.receive_damage(context)
 			_hit_targets[receiver.get_instance_id()] = true
-			can_pierce = accepted and receiver.faction == &"enemy" and not skill_attack and art_kind == &"bullet" and _pierced < extra_enemy_pierces
+			can_pierce = accepted and receiver.faction == &"enemy" and (pierce_enemies or (not skill_attack and art_kind == &"bullet" and _pierced < extra_enemy_pierces))
 		# Boss armour/core presentation subscribes to armour contact / committed HP.
 		if receiver == null or receiver.impact_style() != &"boss":
 			UnderworldProjectileVisual.emit(self,query.transform.origin,direction,true,true)

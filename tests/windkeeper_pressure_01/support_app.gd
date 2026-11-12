@@ -56,9 +56,9 @@ func phase3_support() -> void:
 	if not await setup(): return
 	for child: Node in encounter.get_children():
 		if child is WindkeeperArena: support_arena = child as WindkeeperArena
-	check(support_arena != null and encounter.has_method("bridge_break_ready"),
-		"actual formal Arena and explicit grounded bridge-release capability are installed")
-	if support_arena == null or not encounter.has_method("bridge_break_ready"): return
+	check(support_arena != null and encounter.has_method("thorns_ready"),
+		"actual formal Arena and explicit grounded thorn-release capability are installed")
+	if support_arena == null or not encounter.has_method("thorns_ready"): return
 	var initial_metrics: Dictionary = encounter.combat_metrics()
 	check(bool(initial_metrics.get("supports_bound", false)), "formal encounter binds real map support rectangles")
 	var selected := Rect2()
@@ -83,7 +83,7 @@ func phase3_support() -> void:
 	var at: Vector2 = support_arena.module.to_global(Vector2(selected.get_center().x, floor_rect.position.y - 18))
 	relocate(at, "ground under a real shelf away from the guardian's initial landing")
 	await ticks(3)
-	check(app.player.is_on_floor() and not support_arena.broken, "actual floor supports phase-trigger entry before break")
+	check(app.player.is_on_floor() and not support_arena.thorns_active, "actual floor supports phase-trigger entry before emergence")
 	var player_hp: float = app.controller.actor_resources.health.current
 	var target_hp: float = encounter.health.capacity * encounter._config().phase_three_health - 1
 	var request := ActorResourceRequest.new(&"explicit-support-third-phase-fixture", encounter.health.epoch,
@@ -92,9 +92,9 @@ func phase3_support() -> void:
 	encounter.set_physics_process(true)
 	app.controller.router.set_jump_held(&"keyboard_mouse", true)
 	var trace: Array[Dictionary] = []
-	var first_break: Dictionary = {}
-	var airborne_before_break := false
-	var broke_in_air := false
+	var first_release: Dictionary = {}
+	var airborne_before_release := false
+	var released_in_air := false
 	for index: int in 420:
 		await ticks(1)
 		if not live_world():
@@ -103,32 +103,32 @@ func phase3_support() -> void:
 		var metrics: Dictionary = encounter.combat_metrics()
 		var airborne: bool = bool(metrics.get("airborne", false))
 		var supported: Rect2 = metrics.get("support_rect", Rect2())
-		if not support_arena.broken and airborne: airborne_before_break = true
-		if support_arena.broken and airborne: broke_in_air = true
+		if not support_arena.thorns_active and airborne: airborne_before_release = true
+		if support_arena.thorns_active and airborne: released_in_air = true
 		trace.append({"tick": Engine.get_physics_frames(), "Boss": app.stage.boss.global_position,
 			"player": app.player.global_position, "player_HP": app.controller.actor_resources.health.current,
-			"mode": String(encounter.mode), "airborne": airborne, "broken": support_arena.broken,
+			"mode": String(encounter.mode), "airborne": airborne, "thorns_active": support_arena.thorns_active,
 			"support_verified": bool(metrics.get("support_verified", false)), "support_rect": rect_values(supported),
-			"bridge_break_ready": bool(encounter.bridge_break_ready())})
-		if support_arena.broken:
-			first_break = trace.back().duplicate(true)
+			"thorns_ready": bool(encounter.thorns_ready())})
+		if support_arena.thorns_active:
+			first_release = trace.back().duplicate(true)
 			break
 	app.controller.router.set_jump_held(&"keyboard_mouse", false)
-	check(not first_break.is_empty() and airborne_before_break and not broke_in_air,
-		"guardian performs real support ascent and settles before the actual bridge breaks")
-	check(not first_break.is_empty() and bool(first_break.bridge_break_ready) and bool(first_break.support_verified),
-		"actual bridge removal is gated by the landed verified guardian")
+	check(not first_release.is_empty() and airborne_before_release and not released_in_air,
+		"guardian performs real support ascent and settles before the actual thorns emerge")
+	check(not first_release.is_empty() and bool(first_release.thorns_ready) and bool(first_release.support_verified),
+		"actual thorn release is gated by the landed verified guardian")
 	var final_metrics: Dictionary = encounter.combat_metrics()
 	var final_rect: Rect2 = final_metrics.get("support_rect", Rect2())
 	var old_floor_world: Vector2 = support_arena.module.to_global(floor_rect.position)
 	check(final_rect.size.x > 0 and final_rect.position.y < old_floor_world.y - 50,
-		"phase3 guardian now rests on an actual raised shelf rather than the removed old floor")
+		"phase3 guardian now rests on an actual raised shelf rather than the thorn-covered floor")
 	check(app.player.is_on_floor() and app.controller.actor_resources.health.current == player_hp,
-		"ordinary base held jump reaches real support without forced player damage during the break")
+		"ordinary base held jump reaches real support without forced player damage during emergence")
 	check(app.controller.jump_ability.used_jumps <= 1, "phase transition escape uses no ungranted second jump")
 	observations.append({"case": "actual phase3 guardian and player support transition", "Boss_HP_trigger_fixture": true,
-		"initial_player": at, "actual_first_break": first_break, "airborne_before_break": airborne_before_break, "trace": trace})
-	if first_break.is_empty() or not live_world(): return
+		"initial_player": at, "actual_first_release": first_release, "airborne_before_release": airborne_before_release, "trace": trace})
+	if first_release.is_empty() or not live_world(): return
 	# Explicit recovered-stance fixture AFTER the measured real landing. It
 	# does not set Actor position or manufacture a support surface.
 	encounter.cancel_pending_attacks()
@@ -363,7 +363,7 @@ func central_moving_escape() -> void:
 	var arena_consumer: WindkeeperArena
 	for child: Node in encounter.get_children():
 		if child is WindkeeperArena: arena_consumer=child as WindkeeperArena
-	check(arena_consumer!=null,"central escape uses actual bridge consumer")
+	check(arena_consumer!=null,"central escape uses actual thorn consumer")
 	if arena_consumer==null:return
 	var central: Rect2 = arena_consumer.module.definition.platforms[2]
 	var neighbour: Rect2 = arena_consumer.module.definition.platforms[3]
@@ -394,13 +394,13 @@ func central_moving_escape() -> void:
 		var feet:Vector2=arena_consumer.module.to_local(at)+Vector2(0,18)
 		var on_neighbour:bool=app.player.is_on_floor() and absf(feet.y-neighbour.position.y)<2 and feet.x-12>=neighbour.position.x and feet.x+12<=neighbour.end.x
 		trace.append({"tick":Engine.get_physics_frames(),"player":at,"Boss":app.stage.boss.global_position,
-			"HP":app.controller.actor_resources.health.current,"grounded":app.player.is_on_floor(),"broken":arena_consumer.broken,"on_neighbour":on_neighbour})
-		if arena_consumer.broken and on_neighbour:
+			"HP":app.controller.actor_resources.health.current,"grounded":app.player.is_on_floor(),"thorns_active":arena_consumer.thorns_active,"on_neighbour":on_neighbour})
+		if arena_consumer.thorns_active and on_neighbour:
 			reached=true
 			break
 	app.controller.router.set_jump_held(&"keyboard_mouse",false)
 	app.controller.router.set_source_axis(&"keyboard_mouse",0)
-	check(reached and arena_consumer.broken,"original central start has a real rightward base-jump route to the neighbouring surviving platform")
+	check(reached and arena_consumer.thorns_active,"original central start has a real rightward base-jump route to the neighbouring surviving platform")
 	check(max_jumps<=1,"central moving escape requires no ungranted second jump")
 	check(app.controller.actor_resources.health.current==hp,"central moving escape preserves actual player HP")
 	var env_hits:=player_damage.filter(func(row:Dictionary)->bool:return float(row.HP_lost)>0 and (str(row.source).contains("fall") or str(row.source).contains("bounds")))
@@ -421,7 +421,7 @@ func run() -> void:
 	var file := FileAccess.open("res://build/windkeeper_pressure_01/support_app.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify({"assertions": assertions, "failures": failures, "observations": observations,
 		"coverage_pending": [],
-		"scope": "real formal App phase3 support ascent/actual bridge release/four ordinary stance rays/locked platform traversal and lunge/midair snapshot and terminal landing/original-central normal rightward-jump escape; initial positions, Boss phase/fatal transactions and selected group/recovery/snapshot fixtures explicit; no player or terrain injection, not natural fullfight or visual approval"}, "\t"))
+		"scope": "real formal App phase3 support ascent/actual thorn release/four ordinary stance rays/locked platform traversal and lunge/midair snapshot and terminal landing/original-central normal rightward-jump escape; initial positions, Boss phase/fatal transactions and selected group/recovery/snapshot fixtures explicit; no player or terrain injection, not natural fullfight or visual approval"}, "\t"))
 	file.close()
 	print("WINDKEEPER PRESSURE SUPPORT APP: ", assertions, " checks, ", failures.size(), " failures")
 	quit(0 if failures.is_empty() else 1)

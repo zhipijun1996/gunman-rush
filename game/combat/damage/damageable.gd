@@ -7,6 +7,8 @@ signal died
 @export var max_health := 3.0
 @export var faction: StringName = &"target"
 @export var actor_id := 0
+## Re-forming practice targets still replenish air actions, but are not combat currency sources.
+@export var grants_combat_energy := true
 var _legacy_health := 3.0
 var _legacy_active := true
 var _health_state: HealthState
@@ -19,11 +21,39 @@ var damage_epoch: int:
 	get: return _health_state.epoch if _health_state != null else 0
 var _events: Dictionary = {}
 var damage_sink: Callable
+## Mechanisms can reject attraction while open or on the wrong sequence step.
+var aim_eligibility: Callable
+var chill_remaining := 0.0
+var chill_speed_scale := 1.0
+var _chill_body: CanvasItem
+var _chill_color := Color.WHITE
+
+func apply_chill(seconds:float,speed_scale:float)->void:
+	if not active or faction!=&"enemy" or not is_finite(seconds) or seconds<=0 or not is_finite(speed_scale) or speed_scale<=0 or speed_scale>1:return
+	if chill_remaining<=0:
+		_chill_body=instance_from_id(actor_id) as CanvasItem if actor_id!=0 and is_instance_id_valid(actor_id) else get_parent() as CanvasItem
+		if is_instance_valid(_chill_body):_chill_color=_chill_body.modulate
+	chill_remaining=seconds;chill_speed_scale=speed_scale
+	if is_instance_valid(_chill_body):_chill_body.modulate=_chill_color*Color(.68,1.05,1.4,1)
+	set_physics_process(true)
+
+func action_time_scale()->float:
+	return chill_speed_scale if chill_remaining>0 and active else 1.0
+
+func clear_chill()->void:
+	chill_remaining=0;chill_speed_scale=1
+	if is_instance_valid(_chill_body):_chill_body.modulate=_chill_color
+	_chill_body=null;set_physics_process(false)
+
+func _physics_process(delta:float)->void:
+	chill_remaining=maxf(0,chill_remaining-delta)
+	if chill_remaining<=0 or not active:clear_chill()
 
 func _ready() -> void:
 	reset()
 
 func reset() -> void:
+	clear_chill()
 	_legacy_health = max_health
 	_legacy_active = true
 	_death_emitted = false
@@ -81,6 +111,7 @@ func _notify_commit(context: Dictionary) -> void:
 # Adapter for the existing projectile contract. New actors keep exactly one HP
 # owner; legacy graybox targets retain their old counter until their migration.
 func bind_health(state: HealthState) -> void:
+	clear_chill()
 	if _health_state != null and _health_state.changed.is_connected(_state_changed):
 		_health_state.changed.disconnect(_state_changed)
 	_health_state = state
@@ -93,6 +124,7 @@ func bind_health(state: HealthState) -> void:
 func _state_changed(_result: ActorResourceResult) -> void:
 	health_changed.emit(health)
 	if not active and not _death_emitted:
+		clear_chill()
 		_death_emitted = true
 		died.emit()
 	elif active:

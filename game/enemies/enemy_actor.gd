@@ -39,6 +39,7 @@ func _physics_process(delta: float) -> void:
 func physics_tick(delta: float) -> void:
 	if health.terminal:
 		return
+	delta*=damageable.action_time_scale()
 	if _damage_stun_remaining > 0:
 		_damage_stun_remaining = maxf(0, _damage_stun_remaining-delta)
 		# Root Bell owns a fixed rooted body; hurt pauses its phase, not its roots.
@@ -86,6 +87,8 @@ func _on_death() -> void:
 	defeated.emit(self)
 
 func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:
+	motor.add_collision_exception_with(target.motor)
+	target.motor.add_collision_exception_with(motor)
 	if definition.behavior_id == &"patrol" or attack_behavior != null: return
 	attack_behavior = EnemyBehaviorRegistry.create_behavior(definition)
 	if attack_behavior == null:

@@ -25,6 +25,9 @@ func _process(_delta: float) -> void:
 
 func _draw() -> void:
 	if not active or not is_instance_valid(projectile): return
+	if projectile.art_kind==&"ice":
+		UnderworldProjectileVisual.paint(self,projectile.direction,projectile.radius,projectile._age,projectile.trail,&"ice",true,true)
+		return
 	var history := projectile.trail
 	for i: int in range(1,history.size()):
 		var t := float(i)/history.size()

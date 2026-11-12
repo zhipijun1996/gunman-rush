@@ -9,7 +9,8 @@ import unittest
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
-from world.build import build, validate_services, validate_player, navigation_geometry
+from world.build import build, validate_services, validate_player
+from world.spatial import navigation_geometry, component_navigation_geometry
 
 class BuildTests(unittest.TestCase):
     def test_focus_heal_rejects_unusable_parameters(self):
@@ -43,6 +44,17 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(len(rooms),35)
         self.assertEqual(len(pairs),43)
 
+    def test_clockheart_is_an_interior_plane_but_still_requires_a_real_connection(self):
+        _,bundle=build()
+        rows={r['id']:r for r in bundle['map_rooms']}
+        self.assertEqual(len({rows[f'P-R{i:02}']['map_component'] for i in range(1,36)}),1)
+        self.assertNotEqual(rows['P-R33']['map_component'],rows['Z-R01']['map_component'])
+        disconnected=copy.deepcopy(bundle['rooms'])
+        for room in disconnected.values():
+            room['doors']=[door for door in room['doors'] if not door.get('front_door')]
+        with self.assertRaisesRegex(ValueError,'connected'):
+            component_navigation_geometry(disconnected,'P-R03')
+
     def test_navigation_rejects_crowding_open_loops_and_old_projection(self):
         contracts,bundle=build();rooms={r['room_id']:r for r in contracts['rooms'] if r['room_id'].startswith('P-')}
         crowded=copy.deepcopy(rooms)
@@ -72,10 +84,19 @@ class BuildTests(unittest.TestCase):
             self.assertEqual(actions['tutorial_move']['trigger'],'accepted_player_action')
             self.assertEqual(actions['defeat_P_WINDKEEPER']['trigger'],'actual_boss_victory')
             self.assertTrue(actions['station_briefing']['arriving_does_not_grant'])
-            self.assertEqual(set(bundle['rooms']),{f'P-R{i:02}' for i in (1,3,21,22,23,24)})
+            self.assertEqual(set(bundle['rooms']),{f'P-R{i:02}' for i in range(1,36)} | {'Z-R01','F-R01','C-R02','M-R02','S-R01','K-R01','N-R02','G-R02'})
             self.assertEqual(before,{str(p.relative_to(root)):p.read_bytes() for p in (root/'game').rglob('*.tscn')})
             (root/'game/world/regions/P/rooms/P-R03.tscn').unlink()
             with self.assertRaisesRegex(ValueError,'scene missing'):build(root)
+
+    def test_removed_door_does_not_leave_a_failure_anchor(self):
+        _,bundle=build()
+        for room in bundle['rooms'].values():
+            doors={d['id'] for d in room['doors']}
+            for anchor in room['terrain_failure']['challenge_entries']:
+                self.assertIn(anchor['approach_door'],doors)
+        self.assertNotIn('C02:P-R05',{d['id'] for d in bundle['rooms']['P-R05']['doors']})
+        self.assertEqual(next(d['target_room'] for d in bundle['rooms']['P-R27']['doors'] if d['edge_id']=='C02'),'C-R02')
 
     def test_invalid_content_refuses_runtime_bundle(self):
         data=json.loads((ROOT/'config/world/demo_services.json').read_text())

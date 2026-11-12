@@ -16,25 +16,99 @@ route_guide = {
 "point": [256.0, 622.0]
 }]
 }
-art_placements = Array[Dictionary]([{
-"asset": "clockheart_ruin",
-"layer": -4.0,
-"light": true,
-"light_offset": [0.0, -245.0],
-"point": [960.0, 640.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [368.0, 640.0]
-}, {
-"asset": "gear_lamp",
-"layer": -2.0,
-"light": true,
-"point": [1376.0, 640.0]
-}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "clockheart_hall",
+    "point": [
+      768,
+      1056
+    ],
+    "layer": -45,
+    "backdrop": true,
+    "light": true,
+    "window_beam": true,
+    "tint": [
+      0.78,
+      0.86,
+      0.92,
+      1
+    ],
+    "environment": {
+      "ambient": "788791",
+      "restored": "82939d",
+      "threshold_energy": 0.55,
+      "threshold_opacity": 0.12
+    },
+    "atmosphere": {
+      "density": 1,
+      "speed": [
+        4,
+        8
+      ],
+      "sway_speed": 0.35
+    }
+  },
+  {
+    "asset": "clockheart_ruin",
+    "layer": -4.0,
+    "light": true,
+    "point": [
+      960.0,
+      640.0
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      368.0,
+      640.0
+    ]
+  },
+  {
+    "asset": "gear_lamp",
+    "layer": -2.0,
+    "light": true,
+    "point": [
+      1376.0,
+      640.0
+    ]
+  },
+  {
+    "asset": "storage_crates",
+    "point": [
+      1280,
+      640
+    ],
+    "layer": -5,
+    "tint": [
+      0.65,
+      0.73,
+      0.78,
+      1
+    ]
+  }
+])
 art_profile = "clockheart"
-platforms = Array[Rect2]([Rect2(0, 640, 1536, 128)])
+platforms = Array[Rect2]([Rect2(32, 640, 1472, 96)])
+workbench_entity_ids = {
+  "art_placements": [
+    "Z-R01:art:clockroute:0",
+    "Z-R01:art_placements:0",
+    "Z-R01:art_placements:1",
+    "Z-R01:art_placements:2",
+    "Z-R01:art:clockroute:1"
+  ],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "Z-R01:platforms:0"
+  ],
+  "retry_anchors": [],
+  "signs": []
+}
 masonry_platform_indices = Array[int]([0])
 start_point = Vector2(256, 622)
 rest_point = Vector2(384, 622)

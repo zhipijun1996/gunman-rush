@@ -1,59 +1,378 @@
-[gd_scene load_steps=6 format=3]
-[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1"]
-[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="interaction"]
-[ext_resource type="Script" path="res://game/npcs/world_npc.gd" id="npc"]
-[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="moving"]
-[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="return"]
-[node name="P-R12" type="Node2D"]
-script = ExtResource("1")
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/world/levels/fixed_world_room.gd" id="1_0paer"]
+[ext_resource type="Script" path="res://game/world/components/world_room_interaction.gd" id="2_qrnkm"]
+[ext_resource type="Script" path="res://game/world/components/world_return_latch.gd" id="3_xsi0l"]
+[ext_resource type="Script" path="res://game/world/components/world_moving_platform.gd" id="4_y8xw0"]
+
+[node name="P-R12" type="Node2D" unique_id=1581633325]
+script = ExtResource("1_0paer")
 room_id = "P-R12"
-route_guide = {"schema": 1, "steps": [{"number": 1, "label": "空中射铃", "action": "地窖主路旁的低梁遮住地面射线，跃起射铃并向右反冲接奖励台。", "point": [768, 142], "path": [[768, 142], [672, 622], [624, 568], [912, 462], [1104, 462]]}, {"number": 2, "label": "排水升降", "action": "主路从排水口下行接根井，导轨吊笼负责长井返程。", "point": [256, 1390], "path": [[256, 1390], [576, 1412], [576, 3244], [272, 3310]]}]}
-traveler_point = Vector2(0,0)
-climbable_walls = Array[Rect2]([])
-environment_zones = Array[Dictionary]([])
-gear_obstacles = Array[Dictionary]([])
-hazards = Array[Rect2]([])
-art_profile = "cellar"
 arrival_text = "春水地窖"
-platforms = Array[Rect2]([Rect2(672,160,192,32),Rect2(0,896,448,128),Rect2(576,896,1152,128),Rect2(0,672,480,64),Rect2(832,480,352,64),Rect2(608,384,224,32),Rect2(544,640,160,64),Rect2(416,800,96,64),Rect2(544,416,96,136),Rect2(544,584,96,56),Rect2(704,768,96,128),Rect2(0,1408,320,128),Rect2(768,1408,960,128),Rect2(128,3328,288,64),Rect2(128,3552,832,32),Rect2(320,2352,160,24),Rect2(608,1936,160,24),Rect2(320,2912,160,24)])
-one_way_indices = Array[int]([0,5,15,16,17])
-bell_mechanisms = Array[Dictionary]([{"id":"P-R12:air_shutter","bell":[624,568],"gate":[800,416,32,224],"open_seconds":0.85}])
-spike_strips = Array[Dictionary]([{"id":"pocket_wall","bounds":[640,448,26,96],"facing":"right"},{"id":"cellar_bed","bounds":[992,872,96,24],"facing":"up"}])
-start_point = Vector2(768,142)
-rest_point = Vector2(0, 0)
-enemy_placements = Array[Dictionary]([{"id":"P-R12:cellar_hopper","behavior":"hopper","point":[1440,878],"max_health":9}])
-signs = Array[Dictionary]([])
-hook_points = Array[Vector2]([])
-section_volumes = Array[Dictionary]([])
-retry_anchors = Array[Dictionary]([{"bounds":[624,580,96,60],"point":[672,622],"section":"main"},{"bounds":[864,420,96,60],"point":[912,462],"section":"main"},{"bounds":[224,3268,96,60],"point":[272,3310],"section":"main"}])
-art_placements = Array[Dictionary]([{"asset":"storage_crates","point":[896,480],"layer":-2},{"asset":"barrel","point":[960,480],"layer":-2},{"asset":"gear_city_v2_pipe_junction","point":[256,3328],"layer":-2},{"asset":"gear_lamp","point":[688,1936],"layer":-2,"light":true}])
-masonry_platform_indices = Array[int]([])
-illustrated_platform_indices = Array[int]([])
-[node name="Interaction_0" type="Node2D" parent="."]
-script = ExtResource("interaction")
+route_guide = {
+"schema": 1.0,
+"steps": [{
+"action": "下层入口乘短停井笼直达宽穿透接收岸。这里先观察西侧宝箱和右上层路线；失败可从宽岸重新组织。",
+"label": "井笼进地窖",
+"number": 1.0,
+"path": [[272.0, 3310.0], [544.0, 3280.0], [544.0, 1454.0]],
+"point": [272.0, 3310.0]
+}, {
+"action": "向左跳入储物拱室，击退守箱怪取20币，再回接收岸。",
+"label": "西侧藏金",
+"number": 2.0,
+"path": [[544.0, 1454.0], [320.0, 1326.0], [160.0, 1326.0], [544.0, 1454.0]],
+"point": [544.0, 1454.0]
+}, {
+"action": "起跳后向左下射击登右岸，清除平台守卫；避开右侧短刺，回身向右下射击登左岸。转角齿轮扫过换岸通道，观察后出发。",
+"label": "错层反冲",
+"number": 3.0,
+"path": [[544.0, 1454.0], [704.0, 1300.0], [992.0, 1198.0], [832.0, 1040.0], [672.0, 942.0]],
+"point": [544.0, 1454.0]
+}, {
+"action": "由左岸反冲到右上准备岸，向左下射铃，身体右上穿过临时侧闸，落到行装岸。",
+"label": "上层开闸",
+"number": 4.0,
+"path": [[672.0, 942.0], [816.0, 790.0], [1008.0, 686.0], [944.0, 550.0], [1104.0, 462.0]],
+"point": [672.0, 942.0]
+}, {
+"action": "收取原行装，放折梯。沿领奖岸右侧折梯下降回准备岸；若回上口，从左侧高肩上行；下行可沿宽台回井笼，不重新做上升挑战。",
+"label": "领取与回环",
+"number": 5.0,
+"path": [[1104.0, 462.0], [1152.0, 462.0], [816.0, 302.0], [768.0, 142.0]],
+"point": [1104.0, 462.0]
+}]
+}
+retry_anchors = Array[Dictionary]([{
+"bounds": [224.0, 3268.0, 96.0, 60.0],
+"point": [272.0, 3310.0],
+"section": "main"
+}, {
+"bounds": [448.0, 1412.0, 320.0, 60.0],
+"point": [544.0, 1454.0],
+"section": "main"
+}, {
+"bounds": [896.0, 1156.0, 192.0, 60.0],
+"point": [992.0, 1198.0],
+"section": "main"
+}, {
+"bounds": [592.0, 900.0, 176.0, 60.0],
+"point": [672.0, 942.0],
+"section": "main"
+}, {
+"bounds": [896.0, 644.0, 256.0, 60.0],
+"point": [1008.0, 686.0],
+"section": "main"
+}, {
+"bounds": [1056.0, 420.0, 96.0, 60.0],
+"point": [1104.0, 462.0],
+"section": "main"
+}])
+art_placements = Array[Dictionary]([
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      0,
+      0,
+      1728,
+      3584
+    ],
+    "layer": -45,
+    "backdrop": true,
+    "environment": {
+      "ambient": "a6afb1",
+      "restored": "a6afb1"
+    },
+    "atmosphere": {
+      "density": 3,
+      "speed": [
+        2,
+        6
+      ]
+    }
+  },
+  {
+    "asset": "spring_cellar",
+    "point": [
+      864,
+      1536
+    ],
+    "layer": -38
+  },
+  {
+    "asset": "well_masonry",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      320,
+      1536,
+      448,
+      1472
+    ],
+    "curved_wall": [
+      320,
+      1536,
+      448,
+      1472
+    ],
+    "layer": -34
+  },
+  {
+    "asset": "forecourt_foundation",
+    "point": [
+      0,
+      0
+    ],
+    "tile_rect": [
+      128,
+      3008,
+      832,
+      576
+    ],
+    "layer": -33,
+    "tint": [
+      0.9,
+      0.97,
+      1,
+      1
+    ]
+  },
+  {
+    "asset": "well_winch_mount",
+    "point": [
+      736,
+      1472
+    ],
+    "layer": -5,
+    "hoist_cable": "DrainCage",
+    "cable_offset": [
+      0,
+      -37
+    ]
+  },
+  {
+    "asset": "storage_crates",
+    "point": [
+      224,
+      1344
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "tilted_barrel",
+    "point": [
+      1648,
+      1280
+    ],
+    "layer": -4
+  },
+  {
+    "asset": "gear_city_v2_valve_panel",
+    "point": [
+      1408,
+      1280
+    ],
+    "layer": -6
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      272,
+      3328
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      704,
+      1472
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      288,
+      1344
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      944,
+      1216
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      720,
+      960
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1120,
+      704
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      1088,
+      480
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "asset": "gear_lamp",
+    "point": [
+      784,
+      160
+    ],
+    "layer": -3,
+    "light": true
+  },
+  {
+    "surface_platform": 3
+  },
+  {
+    "surface_platform": 8
+  }
+])
+art_profile = "cellar"
+bell_mechanisms = Array[Dictionary]([{
+"bell": [920.0, 592.0],
+"gate": [960.0, 384.0, 32.0, 128.0],
+"id": "P-R12:air_shutter",
+"open_seconds": 1.6
+}])
+platforms = Array[Rect2]([Rect2(672, 160, 192, 32), Rect2(160, 3328, 256, 64), Rect2(992, 480, 192, 64), Rect2(704, 320, 192, 32), Rect2(1344, 1280, 352, 224), Rect2(32, 1344, 352, 160), Rect2(320, 1504, 64, 32), Rect2(608, 416, 160, 64), Rect2(448, 1472, 320, 32), Rect2(896, 1216, 256, 32), Rect2(544, 960, 224, 32), Rect2(896, 704, 256, 32), Rect2(960, 224, 32, 160)])
+workbench_entity_ids = {
+  "art_placements": ["P-R12:composition:0", "P-R12:composition:1", "P-R12:composition:2", "P-R12:composition:3", "P-R12:composition:4", "P-R12:composition:5", "P-R12:composition:6", "P-R12:composition:7", "P-R12:composition:8", "P-R12:composition:9", "P-R12:composition:10", "P-R12:composition:11", "P-R12:composition:12", "P-R12:composition:13", "P-R12:composition:14", "P-R12:composition:15", "P-R12:composition:16", "P-R12:composition:17"],
+  "climbable_walls": [],
+  "hazards": [],
+  "hook_points": [],
+  "platforms": [
+    "P-R12:composition:platforms:0",
+    "P-R12:composition:platforms:1",
+    "P-R12:composition:platforms:3",
+    "P-R12:composition:platforms:4",
+    "P-R12:composition:platforms:5",
+    "P-R12:composition:platforms:6",
+    "P-R12:composition:platforms:6:inner:1",
+    "P-R12:composition:platforms:7",
+    "P-R12:composition:platforms:8",
+    "P-R12:composition:platforms:9",
+    "P-R12:composition:platforms:10",
+    "P-R12:composition:platforms:11",
+    "P-R12:composition:platforms:12"
+  ],
+  "retry_anchors": [
+    "P-R12:composition:retry_anchors:0",
+    "P-R12:composition:retry_anchors:1",
+    "P-R12:composition:retry_anchors:2",
+    "P-R12:composition:retry_anchors:3",
+    "P-R12:composition:retry_anchors:4",
+    "P-R12:composition:retry_anchors:5"
+  ],
+  "signs": []
+}
+start_point = Vector2(768, 142)
+enemy_placements = Array[Dictionary]([{
+"behavior": "patrol",
+"id": "P-R12:r8:west_patrol",
+"max_health": 9.0,
+"point": [160.0, 1326.0]
+}, {
+"behavior": "patrol",
+"id": "P-R12:chamber_guard",
+"max_health": 9.0,
+"point": [1008.0, 1198.0]
+}, {
+"behavior": "sentry",
+"id": "P-R12:bank_guard",
+"max_health": 14.0,
+"point": [1568.0, 1262.0]
+}])
+spike_strips = Array[Dictionary]([{
+"bounds": [0.0, 1512.0, 320.0, 24.0],
+"facing": "up",
+"id": "P-R12:floor_west"
+}, {
+"bounds": [768.0, 1512.0, 960.0, 24.0],
+"facing": "up",
+"id": "P-R12:floor_east"
+}, {
+"bounds": [1088.0, 1192.0, 64.0, 24.0],
+"facing": "up",
+"id": "P-R12:first_edge"
+}, {
+"bounds": [544.0, 936.0, 48.0, 24.0],
+"facing": "up",
+"id": "P-R12:second_edge"
+}])
+gear_obstacles = Array[Dictionary]([{
+"id": "P-R12:crossing_wheel",
+"period": 4.8,
+"phase": 0.3,
+"point": [768.0, 1040.0],
+"travel": [112.0, 80.0]
+}])
+one_way_indices = Array[int]([3, 8])
+illustrated_platform_indices = Array[int]([3, 8])
+masonry_platform_indices = Array[int]([0, 1, 2, 4, 5, 6, 7, 9, 10, 11, 12])
+
+[node name="Interaction_0" type="Node2D" parent="." unique_id=200022178]
 position = Vector2(1104, 462)
+script = ExtResource("2_qrnkm")
 action_id = "pickup_EQ_MAP_P01"
-section_id = "main"
 label = "收取地窖行装包"
 visual = "equipment"
 
-[node name="RewardReturn" type="Node2D" parent="."]
-script = ExtResource("return")
+[node name="RewardReturn" type="Node2D" parent="." unique_id=847041515]
 position = Vector2(1152, 462)
+script = ExtResource("3_xsi0l")
+return_steps = Array[Rect2]([Rect2(0, 146, 128, 16), Rect2(-64, 242, 128, 16)])
+closed_panels = Array[Rect2]([Rect2(32, -110, 32, 416)])
 action_id = "reward_return_EQ_MAP_P01_open"
-section_id = "main"
 label = "放下返程折梯"
 visual = "pulley_switch"
 radius = 40.0
-return_steps = Array[Rect2]([Rect2(0, 114, 128, 16), Rect2(-64, 210, 128, 16), Rect2(0, 306, 128, 16)])
-closed_panels = Array[Rect2]([Rect2(32, -110, 32, 416)])
 
-[node name="DrainCage" type="AnimatableBody2D" parent="."]
-script = ExtResource("moving")
-position = Vector2(576,3272)
-endpoint = Vector2(0,-1832)
-platform_size = Vector2(160,20)
-period = 24.0
+[node name="DrainCage" type="AnimatableBody2D" parent="." unique_id=1266276128]
+position = Vector2(544, 3304)
+script = ExtResource("4_y8xw0")
+endpoint = Vector2(0, -1868)
+platform_size = Vector2(224, 24)
+period = 14.0
 one_way = true
-route = Array[Vector2]([Vector2(0,-1832)])
-endpoint_dwell = 2.0
+route = Array[Vector2]([Vector2(0, -1868)])
+endpoint_dwell = 1.6
+
+[node name="Cache_cellar_cache" type="Node2D" parent="." unique_id=1555817960]
+position = Vector2(160, 1326)
+script = ExtResource("2_qrnkm")
+action_id = "open_P12_cellar_cache"
+label = "打开钟腔西岸箱"
+visual = "chest"
+radius = 48.0
