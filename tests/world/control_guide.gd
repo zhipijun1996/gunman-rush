@@ -57,7 +57,17 @@ func run() -> void:
 	verify(app.ui.onboarding_hint.lesson=="jump","first physical step selects variable jump instruction")
 	mark("jump");if capture:await ticks(45)
 	router.set_jump_held(&"keyboard_mouse",true);await ticks(8);router.set_jump_held(&"keyboard_mouse",false);await ticks(35)
-	verify(app.tutorial.learned_hints.has("keyboard_mouse:jump") and app.ui.onboarding_hint.lesson!="jump","accepted jump completes hint without granting progress")
+	verify(not app.tutorial.learned_hints.has("keyboard_mouse:jump") and app.ui.onboarding_hint.lesson=="jump","jumping in place does not falsely complete the step goal")
+	# Isolate this explicit landing fixture from later combat, retaining terrain.
+	for enemy:EnemyActor in app.room.enemies.values():
+		enemy.cancel_attacks();enemy.process_mode=Node.PROCESS_MODE_DISABLED;enemy.motor.position=Vector2(-10000,-10000)
+	router.set_source_axis(&"keyboard_mouse",1);router.set_jump_held(&"keyboard_mouse",true);await ticks(16);router.set_jump_held(&"keyboard_mouse",false)
+	for i: int in 65:
+		await ticks(1)
+		if app.player.position.x>704:router.set_source_axis(&"keyboard_mouse",0)
+		if app.player.is_on_floor():break
+	router.set_source_axis(&"keyboard_mouse",0);await ticks(5)
+	verify(app.tutorial.learned_hints.has("keyboard_mouse:jump") and app.ui.onboarding_hint.lesson!="jump","actual accepted jump and upper-step landing complete the goal")
 	app.tutorial.reset_proof();await ticks(4)
 	verify(app.tutorial.learned_hints.has("keyboard_mouse:jump"),"terrain/death proof reset does not re-teach mastered prompt")
 	app.toggle_pause();app._ui_command("help","");await ticks(5)

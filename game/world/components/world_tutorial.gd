@@ -15,11 +15,13 @@ var recoil_origin:=Vector2.ZERO
 var recoil_moved:=false
 var air_recoil_pending:=false
 var learned_hints: Dictionary = {}
+var _hint_jump_origin:=Vector2.INF
 func _ready() -> void:
 	process_physics_priority=1100
 	controller.jump_ability.jumped.connect(func() -> void:
 		jumped=true
-		_mark_hint("jump"))
+		if is_instance_valid(room) and not room.onboarding.is_empty():_hint_jump_origin=controller.motor.position)
+	controller.segment_returned.connect(func() -> void:_hint_jump_origin=Vector2.INF)
 	controller.landed.connect(_landed)
 	controller.shoot_ability.shot_fired.connect(_shot)
 	controller.weapon_damage_committed.connect(_hit)
@@ -28,6 +30,7 @@ func enter(value: FixedWorldRoom,origin: Vector2) -> void:
 func reset_proof() -> void:
 	moved=0;shot=false;recoil=false;jumped=false;move_landed=false
 	recoil_moved=false;air_recoil_pending=false
+	_hint_jump_origin=Vector2.INF
 
 func _mark_hint(id: String) -> void:
 	if not is_instance_valid(room) or room.onboarding.is_empty():return
@@ -49,6 +52,9 @@ func hint(phase: String, target: Dictionary) -> String:
 func _enabled() -> bool:
 	return is_instance_valid(room) and not room.tutorial_action.is_empty()
 func _landed() -> void:
+	if is_instance_valid(room) and not room.onboarding.is_empty() and _hint_jump_origin.is_finite():
+		if FixedWorldProvider.rect(room.onboarding.jump_landing_bounds).has_point(controller.motor.position) and controller.motor.position.y<_hint_jump_origin.y-16:_mark_hint("jump")
+		_hint_jump_origin=Vector2.INF
 	if not _enabled(): return
 	move_landed=jumped
 	if state.has("intro_shoot") and recoil_moved and controller.motor.position.x>=room.tutorial_recoil_finish_x: recoil=true
