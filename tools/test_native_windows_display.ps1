@@ -17,6 +17,19 @@ public class GameDisplay {
   [DllImport("user32.dll")] public static extern bool IsZoomed(IntPtr window);
 }
 '@
+function Get-GameFrame([IntPtr]$Handle) {
+  $rect = New-Object GameDisplay+RECT
+  $origin = New-Object GameDisplay+POINT
+  if (-not [GameDisplay]::GetClientRect($Handle,[ref]$rect) -or -not [GameDisplay]::ClientToScreen($Handle,[ref]$origin)) { throw 'Cannot inspect real window client' }
+  $client = [System.Drawing.Rectangle]::new($origin.X,$origin.Y,$rect.Right,$rect.Bottom)
+  $bounds = [System.Drawing.Rectangle]::Intersect($client,[System.Windows.Forms.SystemInformation]::VirtualScreen)
+  if ($bounds.Width -lt 320 -or $bounds.Height -lt 200) { throw 'No usable visible Windows client area' }
+  $bitmap = [System.Drawing.Bitmap]::new($bounds.Width,$bounds.Height)
+  $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+  try { $graphics.CopyFromScreen($bounds.Location,[System.Drawing.Point]::Empty,$bounds.Size) }
+  finally { $graphics.Dispose() }
+  return @{Bitmap=$bitmap;ClientWidth=$rect.Right;ClientHeight=$rect.Bottom}
+}
 $stdout = Join-Path $EvidencePath 'startup.log'
 $stderr = Join-Path $EvidencePath 'startup-error.log'
 # Shipping production templates intentionally reject --path/--script/--main-pack.
@@ -30,8 +43,27 @@ while ($handle -eq [IntPtr]::Zero) {
   if ((Get-Date) -gt $deadline) { $process.Kill(); throw 'Native window did not appear' }
   $process.Refresh(); $handle = $process.MainWindowHandle
 }
+[GameDisplay]::ShowWindow($handle,9) | Out-Null
+[GameDisplay]::MoveWindow($handle,12,12,1296,759,$true) | Out-Null
 [GameDisplay]::SetForegroundWindow($handle) | Out-Null
-Start-Sleep -Milliseconds 2500
+# Wait for the actual game HUD, not the engine splash or title background.
+$deadline = (Get-Date).AddSeconds(45)
+$ready = $false
+while (-not $ready) {
+  if ($process.HasExited -or (Get-Date) -gt $deadline) { throw 'P22 gameplay HUD did not appear' }
+  $frameData=Get-GameFrame $handle; $bitmap=$frameData.Bitmap
+  try {
+    $red=0
+    for ($y=12;$y -lt 96;$y+=2) {
+      for ($x=64;$x -lt 300;$x+=2) {
+        $c=$bitmap.GetPixel($x,$y)
+        if ($c.R -gt 180 -and $c.G -gt 55 -and $c.G -lt 150 -and $c.B -lt 145 -and ($c.R - $c.G) -gt 60) { $red++ }
+      }
+    }
+    $ready=$red -gt 30
+  } finally { $bitmap.Dispose() }
+  if (-not $ready) { Start-Sleep -Milliseconds 200 }
+}
 $samples = [System.Collections.Generic.List[object]]::new()
 foreach ($stage in @('normal','maximized','restored','large_window')) {
   if ($stage -eq 'maximized') { [GameDisplay]::ShowWindow($handle,3) | Out-Null }
@@ -46,16 +78,8 @@ foreach ($stage in @('normal','maximized','restored','large_window')) {
   $previous = $null
   foreach ($frame in 0..11) {
     if ($process.HasExited) { Get-Content $stdout,$stderr; throw 'Game exited during display test' }
-    $rect = New-Object GameDisplay+RECT
-    $origin = New-Object GameDisplay+POINT
-    if (-not [GameDisplay]::GetClientRect($handle,[ref]$rect) -or -not [GameDisplay]::ClientToScreen($handle,[ref]$origin)) { throw 'Cannot inspect real window client' }
-    $client = [System.Drawing.Rectangle]::new($origin.X,$origin.Y,$rect.Right,$rect.Bottom)
-    $bounds = [System.Drawing.Rectangle]::Intersect($client,[System.Windows.Forms.SystemInformation]::VirtualScreen)
-    if ($bounds.Width -lt 320 -or $bounds.Height -lt 200) { throw 'No usable visible Windows client area' }
-    $bitmap = [System.Drawing.Bitmap]::new($bounds.Width,$bounds.Height)
-    $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+    $frameData=Get-GameFrame $handle; $bitmap=$frameData.Bitmap
     try {
-      $graphics.CopyFromScreen($bounds.Location,[System.Drawing.Point]::Empty,$bounds.Size)
       $luminance = 0.0; $count = 0
       for ($y=16;$y -lt $bitmap.Height-16;$y+=32) {
         for ($x=16;$x -lt $bitmap.Width-16;$x+=32) {
@@ -66,9 +90,9 @@ foreach ($stage in @('normal','maximized','restored','large_window')) {
       if ($mean -lt .015 -or $mean -gt .98) { throw "$stage has an empty black/white presented frame" }
       if ($null -ne $previous -and [Math]::Abs($mean-$previous) -gt .18) { throw "$stage has a whole-frame brightness jump" }
       $previous=$mean
-      $samples.Add(@{stage=$stage;client=@($rect.Right,$rect.Bottom);captured=@($bounds.Width,$bounds.Height);mean_luminance=$mean})
+      $samples.Add(@{stage=$stage;client=@($frameData.ClientWidth,$frameData.ClientHeight);captured=@($bitmap.Width,$bitmap.Height);mean_luminance=$mean})
       if ($frame -in @(0,11)) { $bitmap.Save((Join-Path $EvidencePath "$stage-$frame.png")) }
-    } finally { $graphics.Dispose(); $bitmap.Dispose() }
+    } finally { $bitmap.Dispose() }
     Start-Sleep -Milliseconds 100
   }
 }

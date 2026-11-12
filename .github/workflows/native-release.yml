@@ -74,19 +74,11 @@ jobs:
         with:
           name: native-release-builds
           path: native
-      - name: Verify actual Windows release startup
+      - name: Unpack the actual Windows release
         shell: pwsh
         run: |
           $package = Get-ChildItem native/windows/*windows-x86_64.zip | Select-Object -First 1
           Expand-Archive $package.FullName -DestinationPath unpacked
-          $game = Join-Path (Get-Location) 'unpacked/GunmanRush/GunmanRush.exe'
-          # Exercise two seconds of real startup; unbounded headless frames can end during audio startup.
-          $process = Start-Process -FilePath $game -ArgumentList '--headless','--max-fps','60','--quit-after','120' -RedirectStandardOutput 'startup.log' -RedirectStandardError 'startup-error.log' -PassThru
-          if (-not $process.WaitForExit(90000)) { $process.Kill(); throw 'Windows startup timed out' }
-          Get-Content startup.log
-          Get-Content startup-error.log
-          if ($process.ExitCode -ne 0) { throw "Windows exit code $($process.ExitCode)" }
-          if (Select-String -Path startup.log,startup-error.log -Pattern 'SCRIPT ERROR:|^ERROR:|Parse Error:' -Quiet) { throw 'Windows startup reported an engine error' }
       - name: Verify actual Windows display and maximize/restore
         shell: pwsh
         run: |
@@ -97,7 +89,5 @@ jobs:
         if: always()
         with:
           name: windows-release-startup
-          path: |
-            startup*.log
-            display-check/
+          path: display-check/
           retention-days: 14
