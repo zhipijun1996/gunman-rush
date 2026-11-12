@@ -913,12 +913,13 @@ func _update_hud() -> void:
 		var focus:=Vector2.INF
 		if lesson in ["move","pickup"]:focus=room.get_global_transform_with_canvas()*FixedWorldProvider.point(room.intro_sequence.pickup_point)
 		elif lesson=="jump":focus=room.get_global_transform_with_canvas()*FixedWorldProvider.point(room.onboarding.jump_landing)
+		elif lesson=="recoil":focus=room.get_global_transform_with_canvas()*FixedWorldProvider.point(room.onboarding.focus)
 		elif lesson=="shoot":
 			var bell:=room.mechanisms.get(str(room.onboarding.bell_id)) as WorldShotLatch
 			if bell!=null:focus=bell.get_global_transform_with_canvas()*bell.bell_position
 		instruction.target_screen=focus
 	ui.present_instruction(instruction,controller,overlay,bool(preferences.value.reduced))
-	overlay.onboarding_action=StringName(lesson) if controller.router.current_device==&"touch" and not bool(preferences.value.reduced) else &""
+	overlay.onboarding_action=StringName("shoot" if lesson=="recoil" else lesson) if controller.router.current_device==&"touch" and not bool(preferences.value.reduced) else &""
 
 func _exit_tree() -> void:
 	if is_instance_valid(rest_sequence):rest_sequence.finish()

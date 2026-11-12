@@ -72,5 +72,5 @@ static func rows(device: StringName, profile: Dictionary, features: Dictionary =
 	return result
 
 static func hint(lesson: String, device: StringName, profile: Dictionary, style: String) -> Dictionary:
-	var detail := "hint."+String(device)+"."+lesson if lesson in ["move","shoot"] else "hint."+lesson
+	var detail := "hint."+String(device)+"."+lesson if lesson in ["move","shoot","recoil"] else "hint."+lesson
 	return {"lesson":lesson,"title":text("goal."+lesson),"binding":binding(lesson,device,profile,{},style),"detail":text(detail)}

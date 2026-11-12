@@ -25,8 +25,8 @@ func run() -> void:
  await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(4)
  print("WINDKEEPER BOUNDARY: %d checks, %d failures"%[checks,failures]);quit(1 if failures else 0)
 
-func prepare() -> WindkeeperPressureEncounter:
- check(await app.review.begin("P-R14","","h",true),"declared invincible AI fixture")
+func prepare(stage: String = "h") -> WindkeeperPressureEncounter:
+ check(await app.review.begin("P-R14","",stage,true),"declared invincible AI fixture")
  await settle();await ticks(4)
  app.player.reset_at(app.room.battle_entry_anchor)
  app.room.update_battle(app.player.position)

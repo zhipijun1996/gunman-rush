@@ -282,24 +282,16 @@ func _selection_candidates() -> Array[Dictionary]:
 			{"attacks": [&"lunge", &"stomp", &"seeds"], "weight": 2.5 if dx > 230 else 1.0},
 			{"attacks": [&"sweep", &"seeds"], "weight": 1.1},
 			{"attacks": [&"stomp", &"sweep"], "weight": .8}]
-	if _wall_pressure_active():
-		# Choose this immutable group before its first warning. Its real ranged
-		# attacks reach the corner without walking back into another retreat.
-		if stage_phase == 1:
-			candidates = [
-				{"attacks": [&"stomp", &"seeds"], "weight": 1.0},
-				{"attacks": [&"seeds", &"stomp"], "weight": 1.0}]
-		else:
-			candidates = [
-				{"attacks": [&"stomp", &"gust"], "weight": 1.0},
-				{"attacks": [&"gust", &"stomp"], "weight": 1.0}]
-		if stage_phase == 3:
-			candidates = [
-				{"attacks": [&"seeds", &"gust", &"seeds"], "weight": 1.0},
-				{"attacks": [&"gust", &"seeds", &"gust"], "weight": 1.0}]
+	if stage_phase == 3 and _wall_pressure_active():
+		candidates = [
+			{"attacks": [&"seeds", &"gust", &"seeds"], "weight": 1.0},
+			{"attacks": [&"gust", &"seeds", &"gust"], "weight": 1.0}]
 	for candidate: Dictionary in candidates:
 		var toward := -1 if _target.global_position.x < motor.global_position.x else 1
 		if stage_phase < 3 and &"lunge" in candidate.attacks and arena.travel_limit(motor.global_position.x,toward)<_config().lunge_min_distance:
+			candidate.weight = 0.0
+		if stage_phase < 3 and &"sweep" in candidate.attacks and dx-_approach_limit(toward)>_config().sweep_approach_range+4.0:
+			# The wall takeoff lane must not advertise an unreachable blade.
 			candidate.weight = 0.0
 		var key := _group_key(candidate.attacks)
 		var repeats := 0
@@ -341,7 +333,7 @@ func _select_group() -> void:
 	_recent_groups.append(_group_key(attacks))
 	while _recent_groups.size() > 3: _recent_groups.pop_front()
 	_event(&"windkeeper_group", {"plan": _group_plan.duplicate(true)})
-	if _wall_pressure_active():
+	if stage_phase == 3 and _wall_pressure_active():
 		_begin_attack()
 		return
 	var dx := _target.global_position.x - motor.global_position.x
@@ -359,12 +351,18 @@ func _approach(delta: float) -> void:
 		_approach_on_support()
 		return
 	var dx := _target.global_position.x - motor.global_position.x
+	if stage_phase < 3 and _group_plan.has("facing") and dx*int(_group_plan.facing)<0:
+		motor.stop()
+		_guarded_attack_index = _attack_index
+		_begin_attack()
+		return
 	var attacks: Array = _group_plan.get("attacks", [])
 	var wants_platform: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"platform"
 	var wants_sweep: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"sweep"
 	var wants_stomp: bool = _attack_index < attacks.size() and attacks[_attack_index] == &"stomp"
 	var desired := _config().sweep_approach_range if wants_sweep else _config().close_range if wants_stomp else 160.0 if wants_platform else _config().approach_range
-	if absf(dx) < desired or clock <= 0:
+	var travel := _approach_limit(-1 if dx < 0 else 1)
+	if absf(dx) < desired or clock <= 0 or travel < .5:
 		_guarded_attack_index = _attack_index
 		motor.stop()
 		_begin_attack()
@@ -377,7 +375,7 @@ func _approach(delta: float) -> void:
 	locked_direction = direction
 	var before := motor.global_position
 	motor.speed = _config().final_chase_speed if stage_phase == 3 else _config().approach_speed
-	motor.step(direction, minf(arena.travel_limit(motor.global_position.x, direction), maxf(0, absf(dx) - desired + 5)), delta)
+	motor.step(direction, minf(travel, maxf(0, absf(dx) - desired + 5)), delta)
 	var moved := motor.global_position.distance_to(before)
 	_travel += moved
 	_blocked_age = _blocked_age + delta if moved < .25 else 0.0
@@ -394,6 +392,17 @@ func _turn_to(facing: int, resume: StringName = &"attack") -> void:
 
 func _boundary_gap(x: float, side: int) -> float:
 	return x - arena.left_x if side < 0 else arena.right_x - x
+
+func _approach_limit(toward: int) -> float:
+	var limit := arena.travel_limit(motor.global_position.x,toward)
+	if stage_phase >= 3: return limit
+	# Actual walls differ from the centre bounds of this very large actor.
+	# Keep a takeoff lane in front; crossing over a walking body remains real.
+	var wall := arena.left_x-_config().wall_clearance if toward < 0 else arena.right_x+_config().wall_clearance
+	if (_target.global_position.x-wall)*-toward <= _config().corner_player_range:
+		var stop := wall-toward*_config().corner_standoff_distance
+		limit = minf(limit,maxf(0,(stop-motor.global_position.x)*toward))
+	return limit
 
 func _update_boundary_escape() -> void:
 	if _boundary_escape_side == 0 or not is_instance_valid(_target): return
@@ -480,21 +489,29 @@ func _begin_attack(facing_committed: bool = false) -> void:
 		_preparation_hops = 0
 		_guarded_attack_index = -1
 	var dx := _target.global_position.x - motor.global_position.x
+	# Crossing is rewarded for the remainder of this finite group. Its next
+	# attack cannot turn or walk back through the player who cleared the body.
+	var crossing_committed := stage_phase < 3 and _group_plan.has("facing")
+	var crossed_behind := crossing_committed and dx*int(_group_plan.facing)<0
+	if crossing_committed:
+		direction = int(_group_plan.facing)
+		locked_direction = direction
+		locked_target = Vector2(_group_plan.target[0],_group_plan.target[1]) if crossed_behind else _target.global_position
+		dx = locked_target.x-motor.global_position.x
 	if _try_boundary_retreat(): return
 	var wanted_direction := -1 if dx < -12 else 1 if dx > 12 else direction
-	if wanted_direction != direction and not facing_committed:
+	if wanted_direction != direction and not facing_committed and not crossing_committed:
 		locked_direction = wanted_direction
 		_turn_to(locked_direction)
 		return
-	if absf(dx) < _config().retreat_trigger_range and _try_retreat(): return
+	if not crossing_committed and absf(dx) < _config().retreat_trigger_range and _try_retreat(): return
 	locked_direction = direction
-	locked_target = _target.global_position
+	if not crossing_committed: locked_target = _target.global_position
 	foot_index = _attack_index % 2
 	# The real leaf cannot reach a ground actor from the generic ranged
 	# distance. Close physically before its warning, keeping the chosen group.
 	var melee_range := _config().sweep_approach_range if attack == &"sweep" else _config().close_range
-	var corner_ground_wave := attack == &"stomp" and stage_phase < 3 and _wall_pressure_active()
-	if attack in [&"sweep", &"stomp"] and not corner_ground_wave and absf(dx) > melee_range + 4.0 and _guarded_attack_index != _attack_index:
+	if attack in [&"sweep", &"stomp"] and not crossed_behind and absf(dx) > melee_range + 4.0 and _guarded_attack_index != _attack_index:
 		_enter(&"approach", _config().approach_bound_seconds)
 		return
 	if attack == &"platform":
@@ -533,6 +550,9 @@ func _begin_attack(facing_committed: bool = false) -> void:
 			_finish_attack()
 			return
 	var duration := _config().lunge_warning_seconds if attack == &"lunge" else _config().sweep_warning_seconds if attack == &"sweep" else _config().platform_warning_seconds if attack == &"platform" else _config().normal_warning_seconds
+	if stage_phase < 3 and not crossing_committed:
+		_group_plan.facing = direction
+		_group_plan.target = [locked_target.x,locked_target.y]
 	_enter(StringName("%s_warning" % attack), duration)
 	_event(StringName("windkeeper_%s_warning" % attack), {"attack": attack, "point": locked_target, "direction": locked_direction, "double_stomp": bool(_group_plan.double_stomp)})
 
@@ -656,7 +676,7 @@ func _release_seeds() -> void:
 		shot.speed = _config().seed_speed
 		shot.radius = 6
 		shot._shape.radius = 6
-		shot.lifetime = 1.8
+		shot.lifetime = minf(definition.projectile_lifetime,origin.distance_to(locked_target)/shot.speed+.35) if stage_phase < 3 else 1.8
 		shot.global_position = origin
 	_event(&"windkeeper_seeds_release", {"point": origin, "target": locked_target})
 
@@ -668,14 +688,16 @@ func _foot_impact(platform: bool) -> void:
 		_new_strike(&"platform")
 		_event(&"windkeeper_platform_impact", {"point": point, "target": locked_target})
 	else:
-		for side: int in [-1, 1]:
+		# Early stages reward clearing the guardian: the warned front remains
+		# dangerous, without an unadvertised new wave behind the landed player.
+		for side: int in ([locked_direction] if stage_phase < 3 else [-1, 1]):
 			var wave := WindkeeperPressureProjectile.new()
 			_configure_attack(wave, &"wave", Vector2(side, 0))
 			wave.wave = true
 			wave.speed = _config().ground_wave_speed
 			wave.radius = _config().wave_radius
 			wave._shape.radius = wave.radius
-			wave.lifetime = 1.45
+			wave.lifetime = minf(definition.projectile_lifetime,(arena.right_x-arena.left_x+2*_config().wall_clearance)/wave.speed+.1) if stage_phase < 3 else 1.45
 			wave.global_position = point + Vector2(side * (wave.radius + 3), -wave.radius - 2)
 		_event(&"windkeeper_stomp_strike", {"point": point, "foot": foot_index})
 
