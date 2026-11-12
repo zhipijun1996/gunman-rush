@@ -233,8 +233,8 @@ func _accepted_hit(context: Dictionary) -> void:
 	if context.get("damage_type", &"") == &"grapple" or context.get("skill_attack", false) == true: return
 	var direction: Vector2 = raw_direction
 	if direction.is_zero_approx(): direction = Vector2(-brain.direction,0)
-	# Ground actors have no gravity policy in EnemyMotor; a vertical force must
-	# not leave a walking beetle permanently hovering above its authored floor.
+	# A normal accepted hit on a ground actor stays horizontal; settling is
+	# not permission to launch a walking beetle away from its authored floor.
 	if not definition.aerial: direction=Vector2(signf(direction.x) if absf(direction.x)>.05 else -brain.direction,0)
 	_damage_stun_remaining = damage_feedback.enemy_knockback_seconds * clampf(float(context.get("item_stagger_multiplier", 1.0)), 1.0, 1.3)
 	if definition.behavior_id == &"root_bell": return

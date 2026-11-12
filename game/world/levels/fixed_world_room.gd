@@ -274,6 +274,7 @@ func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: Fram
 	var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
 	body.position = FixedWorldProvider.point(saved.get("position",placement.point))
 	var actor := body.get_node("Actor") as EnemyActor
+	body.ground_recovery_enabled=true
 	actor.set_meta(&"world_persistent_corpse",true)
 	if placement.has("max_health"):
 		actor.definition=actor.definition.duplicate(true) as EnemyDefinition

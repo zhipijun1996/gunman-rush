@@ -35,5 +35,14 @@ func run() -> void:
    await ticks(1)
    if app.player.position.x>2124 and app.player.position.y<430:escaped=true
   check(not escaped,"real jump/recoil remains inside concave corner "+str(start))
+ var latch:=app.room.get_node("RewardReturn") as WorldReturnLatch
+ var step:Rect2=latch.return_steps[1]
+ check(latch.position.x+step.end.x<=2080,"return step leaves body-sized clearance beside upper ceiling")
+ app.state.value.flags.append("reward_return_EQ_MAP_P02_open");latch._refresh(app.state.revision);await ticks(3)
+ app.controller.router.clear("return ladder fixture");app.player.reset_at(Vector2(2050,478));await ticks(5)
+ check(app.player.is_on_floor(),"actual opened second return step safely supports player")
+ app.controller.router.set_source_axis(&"keyboard_mouse",1);app.controller.router.set_jump_held(&"keyboard_mouse",true)
+ for frame:int in 90:await ticks(1)
+ check(app.player.position.x<2112 or app.player.position.y>=498,"return ladder wall jump cannot eject body into ceiling mass")
  await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(5)
  print("ROOM BOUNDARY SOLIDS: ",assertions," assertions; ",failures," failures");quit(failures)

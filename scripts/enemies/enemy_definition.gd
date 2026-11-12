@@ -10,6 +10,8 @@ extends Resource
 @export var initial_direction := 1
 @export var collision_size := Vector2.ZERO
 @export var aerial := false
+@export var ground_fall_acceleration := 720.0
+@export var ground_fall_speed := 480.0
 @export var behavior_id: StringName = &"patrol"
 @export var telegraph_duration := 0.45
 @export var attack_duration := 0.2
@@ -39,6 +41,7 @@ func has_valid_identity() -> bool:
 func is_valid() -> bool:
 	for value: float in [telegraph_duration, attack_duration, recovery_duration, attack_speed, return_speed, activation_range, dive_depth, protected_radius, projectile_speed, projectile_lifetime, projectile_muzzle_reach, forest_dwell_seconds, forest_arc_height, forest_zone_seconds]:
 		if not is_finite(value): return false
+	if not is_finite(ground_fall_acceleration) or ground_fall_acceleration<=0 or not is_finite(ground_fall_speed) or ground_fall_speed<=0: return false
 	if not projectile_muzzle_pivot.is_finite() or projectile_muzzle_reach < 0.0: return false
 	if not pulse_size.is_finite() or pulse_size.x <= 0 or pulse_size.y <= 0: return false
 	return EnemyBehaviorRegistry.validation_family(behavior_id) == &"base" and EnemyBehaviorRegistry.definition_error(behavior_id,stable_id).is_empty() and forest_dwell_seconds > 0 and forest_arc_height > 0 and forest_zone_seconds > 0 and telegraph_duration >= 0.3 and attack_duration > 0 and recovery_duration >= 0.3 and attack_speed > 0 and activation_range > 0 and dive_depth >= 0 and protected_radius >= 0 and projectile_speed > 0 and projectile_lifetime > 0 and has_valid_identity() and is_finite(patrol_speed) and patrol_speed >= 0.0 and is_finite(patrol_half_width) and patrol_half_width >= 0.0

@@ -79,6 +79,7 @@ func axis(raw: Vector2, sensitivity_key: String) -> Vector2:
 	return raw.normalized() * clampf(pow(magnitude, float(values.response_curve)) * float(values[sensitivity_key]), 0.0, 1.0)
 
 static func gamepad_key(device: int) -> String:
+	if device not in Input.get_connected_joypads():return OS.get_name()+"/disconnected/"+str(device)
 	return OS.get_name()+"/"+Input.get_joy_guid(device)+"/"+Input.get_joy_name(device)
 
 func gamepad_binding(device: int, role: String) -> Dictionary:

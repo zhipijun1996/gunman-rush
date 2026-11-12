@@ -105,6 +105,8 @@ static func valid_presentation_snapshot(value: Variant) -> bool:
 		"ground":
 			var rect: Variant = identity.get("rect")
 			if not rect is Array or rect.size() != 4 or not _finite_pair(rect.slice(0,2)) or not _finite_pair(rect.slice(2,4)) or rect[2] <= 0 or rect[3] <= 0: return false
+		"ground_polygon":
+			if not identity.get("id") is String or identity.id.is_empty(): return false
 		"shortcut":
 			if not identity.get("id") is String or identity.id.is_empty(): return false
 		_: return false
