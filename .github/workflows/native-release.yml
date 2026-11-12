@@ -1,93 +1,88 @@
 name: Native release builds
 on:
   workflow_dispatch:
+    inputs:
+      source_run:
+        description: Verified main native build run
+        required: true
+        type: string
+      signed_result:
+        description: Public signing result Git blob SHA (contains no private key)
+        required: true
+        type: string
 permissions:
-  contents: read
-concurrency:
-  group: native-release-${{ github.ref }}
-  cancel-in-progress: false
+  contents: write
+  actions: read
 jobs:
-  build:
+  publish-verified-release:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     env:
-      GUNMAN_TOOLCHAIN_ROOT: /tmp/gunman-toolchains
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_RUN: ${{ inputs.source_run }}
+      SIGNED_RESULT: ${{ inputs.signed_result }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - uses: actions/setup-python@v5
-        with:
-          python-version-file: config/ci_python_version.txt
-      - name: Install locked engine and templates
-        run: bash tools/cloud_setup.sh --godot-only
-      - name: Check current source
-        run: python3 tools/ci.py
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-      - name: Install only the native APK export tools
-        run: |
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "build-tools;35.0.1" "platform-tools" "platforms;android-35"
-          python3 - <<'PY'
-          import sys
-          sys.path.insert(0, "tools")
-          from setup_environment import configure_editor
-          configure_editor()
-          PY
-      - name: Export release Windows and unsigned release Android
-        run: |
-          python3 tools/export_native.py windows --skip-import
-          python3 tools/export_native.py android --skip-import --unsigned
-          "$ANDROID_HOME/build-tools/35.0.1/zipalign" -c -P 16 -v 4 build/android/GunmanRush-unsigned.apk
-          "$ANDROID_HOME/build-tools/35.0.1/aapt" dump badging build/android/GunmanRush-unsigned.apk > build/android/package-info.txt
-          if "$ANDROID_HOME/build-tools/35.0.1/aapt" dump xmltree build/android/GunmanRush-unsigned.apk AndroidManifest.xml | grep -E 'android:debuggable.*0xffffffff'; then
-            exit 1
-          fi
-      - name: Stage public signing tool without any private credentials
-        run: |
-          mkdir -p build/android-signing-tool
-          cp "$ANDROID_HOME/build-tools/35.0.1/lib/apksigner.jar" build/android-signing-tool/
-      - uses: actions/upload-artifact@v4
-        with:
-          name: native-release-builds
-          path: |
-            build/windows/*windows-x86_64.zip
-            build/windows/build-report.json
-            build/android/GunmanRush-unsigned.apk
-            build/android/build-report.json
-            build/android/package-info.txt
-            build/android-signing-tool/apksigner.jar
-          retention-days: 14
-          if-no-files-found: error
-  windows-startup:
-    needs: build
-    runs-on: windows-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-          path: source
       - uses: actions/download-artifact@v4
         with:
           name: native-release-builds
+          run-id: ${{ inputs.source_run }}
+          github-token: ${{ github.token }}
           path: native
-      - name: Unpack the actual Windows release
-        shell: pwsh
+      - name: Reconstruct the byte-verified signed APK without private credentials
         run: |
-          $package = Get-ChildItem native/windows/*windows-x86_64.zip | Select-Object -First 1
-          Expand-Archive $package.FullName -DestinationPath unpacked
-      - name: Verify actual Windows display and maximize/restore
-        shell: pwsh
+          gh api repos/zhipijun1996/gunman-rush/git/blobs/$SIGNED_RESULT --jq .content | base64 --decode > signed-result.zip
+          gh api repos/zhipijun1996/gunman-rush/actions/runs/$SOURCE_RUN > source-run.json
+          python3 - <<'PYTHON'
+          import base64,gzip,hashlib,json,os,shutil,subprocess,zipfile
+          from pathlib import Path
+          def sha(p):
+              with p.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
+          with zipfile.ZipFile('signed-result.zip') as z:
+              names={'signed-apk.patch.gz','THIRD_PARTY_NOTICES.zip','release-manifest.json','SHA256SUMS.txt','release-notes.md'}
+              assert set(z.namelist())==names
+              z.extractall('signed-result')
+          src=Path('signed-result');out=Path('release');out.mkdir()
+          manifest=json.loads((src/'release-manifest.json').read_text())
+          run=json.loads(Path('source-run.json').read_text())
+          assert run['conclusion']=='success' and run['head_sha']==manifest['source_commit']
+          assert manifest['workflow_run']==int(os.environ['SOURCE_RUN'])
+          for platform in ['windows','android']:
+              info=json.loads(Path('native',platform,'build-report.json').read_text())
+              assert info['source_commit']==manifest['source_commit'] and info['mode']=='release' and info['source_dirty'] is False
+              assert info['closure']['rooms']==43
+          patch=json.loads(gzip.decompress((src/'signed-apk.patch.gz').read_bytes()))
+          original=Path('native/android/GunmanRush-unsigned.apk')
+          assert sha(original)==patch['source_sha256']
+          apk=out/'GunmanRush-v0.1.1-android-arm64.apk'
+          with original.open('rb') as raw,apk.open('wb') as final:
+              for op in patch['operations']:
+                  if op[0]=='copy':
+                      raw.seek(op[1]);data=raw.read(op[2]);assert len(data)==op[2];final.write(data)
+                  else:
+                      assert op[0]=='literal';final.write(base64.b64decode(op[1]))
+          assert sha(apk)==patch['target_sha256'] and apk.stat().st_size==patch['target_bytes']
+          checked=subprocess.run(['java','-jar','native/android-signing-tool/apksigner.jar','verify','--verbose','--print-certs',str(apk)],capture_output=True,text=True,check=True)
+          assert 'Verified using v2 scheme (APK Signature Scheme v2): true' in checked.stdout
+          assert manifest['android']['certificate_sha256'] in checked.stdout.lower()
+          shutil.copyfile('native/windows/GunmanRush-v0.1.1-windows-x86_64.zip',out/'GunmanRush-v0.1.1-windows-x86_64.zip')
+          for n in ['THIRD_PARTY_NOTICES.zip','release-manifest.json','SHA256SUMS.txt']:shutil.copyfile(src/n,out/n)
+          for line in (out/'SHA256SUMS.txt').read_text().splitlines():
+              digest,name=line.split('  ',1);assert Path(name).name==name and sha(out/name)==digest
+          Path('publish.json').write_text(json.dumps({'target_commitish':manifest['source_commit'],'name':'失序之钟 v0.1.1 · 原生试玩修复','body':(src/'release-notes.md').read_text(),'draft':False,'prerelease':False},ensure_ascii=False))
+          print('Both release artifacts match the final main commit and local signed hashes; APK certificate verified.')
+          PYTHON
+      - name: Upload only final public attachments and publish
         run: |
-          $game = Join-Path (Get-Location) 'unpacked/GunmanRush/GunmanRush.exe'
-          $evidence = Join-Path (Get-Location) 'display-check'
-          ./source/tools/test_native_windows_display.ps1 -Game $game -EvidencePath $evidence
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: windows-release-startup
-          path: display-check/
-          retention-days: 14
+          repo=repos/zhipijun1996/gunman-rush
+          gh release view v0.1.1 --repo zhipijun1996/gunman-rush --json isDraft --jq .isDraft | grep -qx true
+          gh release upload v0.1.1 release/* --clobber --repo zhipijun1996/gunman-rush
+          gh api $repo/releases --jq '.[] | select(.tag_name == "v0.1.1")' > draft.json
+          python3 - <<'PYTHON'
+          import json,subprocess
+          d=json.load(open('draft.json'));assert d['draft']
+          names={'GunmanRush-v0.1.1-android-arm64.apk','GunmanRush-v0.1.1-windows-x86_64.zip','THIRD_PARTY_NOTICES.zip','release-manifest.json','SHA256SUMS.txt'}
+          assert {a['name'] for a in d['assets']}<=names|{'native-transfer.zip'}
+          for a in d['assets']:
+              if a['name']=='native-transfer.zip':subprocess.run(['gh','api','--method','DELETE','repos/zhipijun1996/gunman-rush/releases/assets/'+str(a['id'])],check=True)
+          assert {a['name'] for a in d['assets']} - {'native-transfer.zip'}==names
+          subprocess.run(['gh','api','--method','PATCH','repos/zhipijun1996/gunman-rush/releases/'+str(d['id']),'--input','publish.json','--jq','.html_url'],check=True)
+          PYTHON
