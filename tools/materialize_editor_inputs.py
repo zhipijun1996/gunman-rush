@@ -16,6 +16,13 @@ def main():
         subprocess.run(['git','restore','--ignore-skip-worktree-bits','--worktree','--pathspec-from-file=-','--pathspec-file-nul'],cwd=ROOT,input=('\0'.join(rows)+'\0').encode(),check=True)
     restore([n for n in names if n.endswith('.gdignore')])
     restore([n for n in names if any(n.startswith(p+'/') for p in export_workbench.DYNAMIC_FAMILIES) and Path(n).suffix in export_workbench.RESOURCE | {'.json'} and not export_workbench.ignored(ROOT/n)])
+    # The export closure hashes this generated input too. Fresh CI checkouts
+    # have no build/ artifacts, so create it from the existing source compiler.
+    subprocess.run([sys.executable,'-c',
+        "import json,sys;from pathlib import Path;sys.path.insert(0,'tools/world');"
+        "from workbench_seed import preview_catalog;"
+        "target=Path('build/workbench/preview-world.json');target.parent.mkdir(parents=True,exist_ok=True);"
+        "target.write_text(json.dumps(preview_catalog(Path.cwd()),ensure_ascii=False,separators=(',',':'))+'\\n')"],cwd=ROOT,check=True)
     # Exact static references and manifest-derived filenames are discovered by
     # the same export traversal, rather than a second hand-maintained allowlist.
     original_is_file=Path.is_file;original_read_text=Path.read_text
