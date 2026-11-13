@@ -404,7 +404,8 @@ func refresh_doors(state: FixedWorldState, content: FixedWorldProvider) -> void:
 func bind_services(value: WorldServices,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> void:
 	services=value
 	for platform: Node in find_children("*","WorldMovingPlatform",true,false): platform.bind_activation(value.state)
-	(get_node("RegionalArt") as PlainsRoomArt).player=controller.motor
+	var regional_art := get_node_or_null("RegionalArt") as PlainsRoomArt
+	if regional_art != null: regional_art.player=controller.motor
 	for pickup: Dictionary in services.definitions.get("pickups",[]):
 		if pickup.room_id!=room_id:continue
 		var art:=WorldSpriteAnimation.new();art.asset_id="equipment"

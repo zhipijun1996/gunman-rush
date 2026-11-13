@@ -27,7 +27,7 @@ func run() -> void:
 		wrapper.free()
 		result.room.free()
 		count += 1
-	check(count == DirAccess.get_files_at("res://config/world/rooms").filter(func(name: String) -> bool: return name.ends_with(".json")).size(), "every authored JSON room covered")
+	check(count == Array(DirAccess.get_files_at("res://config/world/rooms")).filter(func(name: String) -> bool: return name.ends_with(".json")).size(), "every authored JSON room covered")
 	var app := preload("res://game/application/world/fixed_world.tscn").instantiate() as FixedWorldApp
 	root.add_child(app)
 	check(await app.review.begin("P-R03", "", "base", true), "formal app loads migrated room with real player")
