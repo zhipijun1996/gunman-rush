@@ -3,15 +3,15 @@
   "task_id": "PAPER-THEATER-01",
   "task_type": "art",
   "baseline_commit": "4f2bb5e41573e930603789c64b52a0c15a6a3dc4",
-  "reviewed_commit": "02c88d7141702c2e53577fe0babac9cbefaeb2d8",
-  "content_version": "4e193bfe9d95feb08842bad326d633e4796aa9fdf1184e0a07a747637d7b4584",
+  "reviewed_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+  "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
   "owner": "Codex",
-  "purpose": "以P04真实渲染判断轻剪纸与抽象拼贴能否消除拼接并形成统一语言；不替换正式美术。",
-  "player_experience": "保持正式尺寸、碰撞、基础动作和镜头，比较三种表现的落点、危险、前景遮挡与空间感。",
+  "purpose": "按用户明确选择退出A，仅验证B在三个区域真实样房的视觉差异与复用。",
+  "player_experience": "三域共用身体尺度与正式控制/镜头；直接触屏切区，比较现有像素与B。",
   "constraints": [
-    "仅独立实验入口；不改正式房间、控制器、碰撞、Visual Bible或素材。",
-    "WorldRoomReview.MemorySave隔离；录像明确使用现有无敌审核夹具。",
-    "不用完整场景插画、AI概念图或网页模拟Godot效果。"
+    "不改正式入口、碰撞、控制、存档、Visual Bible或素材",
+    "三个区域各一间现有样房，非全区域改造",
+    "实际Godot渲染；不使用整场景插画或网页模拟"
   ],
   "affected_paths": [
     "game/experiments/paper_theater/",
@@ -20,246 +20,272 @@
     "tools/art/package_paper_review.py"
   ],
   "deliverables": [
-    "A/B/当前美术三个机位九张无标注实机原图。",
-    "A/B各20秒正常速度Godot操作片，分别约1.9MB。",
-    "独立非线程Web运行包及手机触控入口；发布于独立owner-private Site。",
-    "渲染结构、实际开销、复用限制与三版比较。"
+    "三域18张当前/B同机位截图",
+    "平原20秒、森林/工城各15秒实机片段",
+    "同一独立手机入口直接切三域与0/B",
+    "三域性能原始数据、渲染说明及比较边界"
   ],
-  "creative_decisions": [],
+  "creative_decisions": [
+    {
+      "status": "user_confirmed",
+      "decision": "停用A，沿B比较三个区域样房",
+      "basis": "用户本会话明确指令，仅确认继续实验方向，不代签正式美术质量。",
+      "evidence_id": "user-direction"
+    }
+  ],
   "formal_impact": false,
-  "gates": {
-    "G2": {
-      "status": "failed",
-      "reason": "实机比较已成立；艺术质量尚不足以直接替换正式美术。没有用技术通过冒充美术通过。",
-      "evidence": [
-        "A-bridge",
-        "B-bridge",
-        "A-video",
-        "B-video"
-      ]
-    },
-    "G4": {
-      "status": "passed",
-      "reason": "CI与P04隔离/碰撞/机位专项通过；原始导出包也已在浏览器启动。",
-      "evidence": [
-        "ci",
-        "capture-checks"
-      ]
-    }
-  },
-  "dimensions": {
-    "visual": {
-      "status": "failed",
-      "reason": "三版形成清楚对比且纸层稳定；纸偶细节与物种区分不足，A开阔机位偏简，B钟架局部抢眼，未到正式替换门槛。",
-      "evidence": [
-        "A-bridge",
-        "B-bridge"
-      ]
-    },
-    "technical": {
-      "status": "passed",
-      "reason": "CI四项与35项隔离专项通过，原项目参数/房间数据未改。",
-      "evidence": [
-        "ci",
-        "capture-checks"
-      ]
-    },
-    "gameplay": {
-      "status": "passed",
-      "reason": "限定录像中的真实控制器输入、8次接受跳跃/射击、断桥和逐层登高；不声称完整路线或战斗终审。",
-      "evidence": [
-        "A-video",
-        "B-video",
-        "browser"
-      ]
-    },
-    "performance": {
-      "status": "unverified",
-      "reason": "已有软件渲染原始记录；目标实体设备与帧率预算未验。",
-      "evidence": [
-        "performance"
-      ]
-    }
-  },
+  "required_dimensions": [
+    "visual",
+    "technical"
+  ],
+  "consumer_coverage": null,
   "criteria": [
     {
-      "id": "p04-isolation",
+      "id": "three-distinct-B",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "三域B与各自当前美术的同机位",
+      "method": "审看18原图与正常速度片段",
+      "expected": "保留共同纸艺语言并形成三种空间性格",
+      "failure": "只有换色、空间漂移或预绘整景时返工",
+      "status": "passed",
+      "reason": "三域分别为铜钟断桥、树冠根系与机械内墙；森林重复已修正。",
+      "evidence": [
+        "P-R04-image",
+        "F-R01-image",
+        "G-R02-image",
+        "P-R04-video",
+        "F-R01-video",
+        "G-R02-video"
+      ]
+    },
+    {
+      "id": "physical-isolation",
       "gate": "G4",
       "dimension": "technical",
-      "scenario": "三种风格和重置入口",
-      "method": "真实窗口对比静态碰撞/镜头/MemorySave与CI",
-      "expected": "不写正式存档、不改变静态地形碰撞，机位一致",
-      "failure": "任何物理或存档泄漏即返工",
+      "scenario": "三房切换/重置/0与B切换",
+      "method": "CI、GPU专项与真实触屏切区",
+      "expected": "物理身份不变、镜头相同、内存保存且稳定帧不重建",
+      "failure": "触控不可用、碰撞改变或保存泄漏时返工",
       "status": "passed",
-      "reason": "35项专项和CI四项通过",
+      "reason": "87项及CI通过，CDP触屏切区与模式切换成功。",
       "evidence": [
-        "capture-checks",
-        "ci"
-      ]
-    },
-    {
-      "id": "real-comparison",
-      "gate": "G2",
-      "dimension": "visual",
-      "scenario": "桥面/上层/桥下及连续动作",
-      "method": "审看真实Godot截图与正常速度编码影片",
-      "expected": "形成可审核的A/B比较，画面来源于原生渲染",
-      "failure": "静态插画或网页模拟不能通过此项",
-      "status": "passed",
-      "reason": "真实九图和两片；连续地形与纸艺同族可辨",
-      "evidence": [
-        "A-bridge",
-        "B-bridge",
-        "A-video",
-        "B-video"
-      ]
-    },
-    {
-      "id": "production-art-threshold",
-      "gate": "G2",
-      "dimension": "visual",
-      "scenario": "后续替换正式美术与16区扩展",
-      "method": "比较角色细节、物种区分、空白机位与钟架局部构图",
-      "expected": "在有辨识度的同时达到成熟动作与跨场所质量",
-      "failure": "纸偶过简、地标抢眼或未经第二房型验证时不量产",
-      "status": "failed",
-      "reason": "纸偶和物种细节、第二房型及构图仍有缺口",
-      "evidence": [
-        "A-bridge",
-        "B-bridge",
-        "A-video",
-        "B-video"
+        "ci",
+        "capture",
+        "browser"
       ]
     }
   ],
   "evidence": [
     {
-      "id": "A-bridge",
-      "path": "build/paper_theater/captures/A-bridge.png",
-      "sha256": "494cae6ea4f314e3663122300850a9d4e5e330d798cf9e0bbf1db0fb222184e7",
+      "id": "P-R04-image",
+      "path": "build/paper_theater/captures/P-R04-B-landmark.png",
+      "sha256": "0c5e014330cc88527b1cb14dd7e958b4f457099ba3c94e95a1bdb21acb3a3bc1",
       "kind": "screenshot",
       "producer": "Codex",
-      "source_commit": "02c88d7141702c2e53577fe0babac9cbefaeb2d8",
-      "content_version": "4e193bfe9d95feb08842bad326d633e4796aa9fdf1184e0a07a747637d7b4584",
-      "method": "GPU Godot GL Compatibility; 1280x720，机位/zoom由capture-manifest绑定。",
-      "observed": "连续地形无Tile拼接；纸偶与环境同族，危险对比明确。",
-      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/A-bridge.png"
+      "source_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+      "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
+      "method": "真实GPU同机位，角色尺寸/镜头沿房间源。",
+      "observed": "风铃平原的B轮廓、纸层与区域构图清楚；无预制整景插画。",
+      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/P-R04-B-landmark.png"
     },
     {
-      "id": "A-video",
-      "path": "build/paper_theater/A.mp4",
-      "sha256": "2d45774e0276aabe3818a4afd6aae97c5c1f3c6bf67736319631fb9e9d9aa57c",
+      "id": "P-R04-video",
+      "path": "build/paper_theater/P-R04.mp4",
+      "sha256": "8ade96dbd483bf552eab1505c2657d551fb25b4034da39b9fc53ebc3609288b6",
       "kind": "video",
       "producer": "Codex",
-      "source_commit": "02c88d7141702c2e53577fe0babac9cbefaeb2d8",
-      "content_version": "4e193bfe9d95feb08842bad326d633e4796aa9fdf1184e0a07a747637d7b4584",
-      "method": "Godot Movie Maker，每秒60物理tick；ffmpeg仅H264/AAC编码与裁去启动段，无变速。",
-      "observed": "实际8次跳跃/射击，断桥、登高、镜头运动和附着前景；无敌夹具标在画面中。",
-      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/A.mp4"
+      "source_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+      "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
+      "method": "Godot 60tick/s输出，H264/AAC正常速度编码。",
+      "observed": "真实移动、跳跃、反冲与镜头；录像标示现有无敌夹具，不变速。",
+      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/P-R04.mp4"
     },
     {
-      "id": "B-bridge",
-      "path": "build/paper_theater/captures/B-bridge.png",
-      "sha256": "7a5253f47109e36010eb47aed428d1279db694915e9dfc58222e9f4aa54af0f2",
+      "id": "F-R01-image",
+      "path": "build/paper_theater/captures/F-R01-B-landmark.png",
+      "sha256": "08040b5b9cf9fa14e17a4904b1b71b0ef9b9cfcbe1fba92bbff0cc26e54d3956",
       "kind": "screenshot",
       "producer": "Codex",
-      "source_commit": "02c88d7141702c2e53577fe0babac9cbefaeb2d8",
-      "content_version": "4e193bfe9d95feb08842bad326d633e4796aa9fdf1184e0a07a747637d7b4584",
-      "method": "GPU Godot GL Compatibility; 1280x720，机位/zoom由capture-manifest绑定。",
-      "observed": "连续地形无Tile拼接；纸偶与环境同族，危险对比明确。",
-      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/B-bridge.png"
+      "source_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+      "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
+      "method": "真实GPU同机位，角色尺寸/镜头沿房间源。",
+      "observed": "荆棘森林的B轮廓、纸层与区域构图清楚；无预制整景插画。",
+      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/F-R01-B-landmark.png"
     },
     {
-      "id": "B-video",
-      "path": "build/paper_theater/B.mp4",
-      "sha256": "b3c9ea71dafb887e9cac9dabc0d2731c64ca9c96d420045fe97a4f1fe71d7d63",
+      "id": "F-R01-video",
+      "path": "build/paper_theater/F-R01.mp4",
+      "sha256": "a29f8fc5d88deb952a98c383d4542540b9f6d99f7b5f79808d00e8ea6262c1c2",
       "kind": "video",
       "producer": "Codex",
-      "source_commit": "02c88d7141702c2e53577fe0babac9cbefaeb2d8",
-      "content_version": "4e193bfe9d95feb08842bad326d633e4796aa9fdf1184e0a07a747637d7b4584",
-      "method": "Godot Movie Maker，每秒60物理tick；ffmpeg仅H264/AAC编码与裁去启动段，无变速。",
-      "observed": "实际8次跳跃/射击，断桥、登高、镜头运动和附着前景；无敌夹具标在画面中。",
-      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/B.mp4"
+      "source_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+      "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
+      "method": "Godot 60tick/s输出，H264/AAC正常速度编码。",
+      "observed": "真实移动、跳跃、反冲与镜头；录像标示现有无敌夹具，不变速。",
+      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/F-R01.mp4"
+    },
+    {
+      "id": "G-R02-image",
+      "path": "build/paper_theater/captures/G-R02-B-landmark.png",
+      "sha256": "9b43f44256ef877dfd46e63f945f5f33b1118a8d6dadc7eeffa7fbc2babbb830",
+      "kind": "screenshot",
+      "producer": "Codex",
+      "source_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+      "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
+      "method": "真实GPU同机位，角色尺寸/镜头沿房间源。",
+      "observed": "齿轮工城的B轮廓、纸层与区域构图清楚；无预制整景插画。",
+      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/G-R02-B-landmark.png"
+    },
+    {
+      "id": "G-R02-video",
+      "path": "build/paper_theater/G-R02.mp4",
+      "sha256": "246bd747eea8e777379b49b348168d93441832ddb267c30f46ec3ace2158921e",
+      "kind": "video",
+      "producer": "Codex",
+      "source_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+      "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
+      "method": "Godot 60tick/s输出，H264/AAC正常速度编码。",
+      "observed": "真实移动、跳跃、反冲与镜头；录像标示现有无敌夹具，不变速。",
+      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/G-R02.mp4"
     },
     {
       "id": "ci",
       "path": "build/paper_theater/ci.log",
-      "sha256": "60508d4a2873288434036d411ccf2cb6ab6205387b411f54b8e20f80c09637ca",
+      "sha256": "95d9631ce8734237c420c831b145d4efd8b7daf45a551f037c4a2168a99f656d",
       "kind": "command",
       "producer": "Codex",
-      "source_commit": "02c88d7141702c2e53577fe0babac9cbefaeb2d8",
-      "content_version": "4e193bfe9d95feb08842bad326d633e4796aa9fdf1184e0a07a747637d7b4584",
-      "method": "项目原四项CI。",
-      "observed": "project/import/smoke/contracts均通过。",
+      "source_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+      "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
+      "method": "沿项目锁定引擎运行原CI四项。",
+      "observed": "四项通过，无删改原检查。",
       "command": "python3 tools/ci.py",
       "exit_code": 0,
-      "environment": "Linux x86_64，项目锁定4.7.2 gunman-sd1",
+      "environment": "Linux / Godot gunman-sd1 4.7.2",
       "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/ci.log"
     },
     {
-      "id": "capture-checks",
+      "id": "capture",
       "path": "build/paper_theater/capture.log",
-      "sha256": "5ae22362aea72aaedb526c472e798b3f692b52ec6cc9f0f251474d6534f32480",
+      "sha256": "ce7bcd14fd895d191540ce6ebee11d9b5e45385813fd574ee1bd590aff1f4e39",
       "kind": "command",
       "producer": "Codex",
-      "source_commit": "02c88d7141702c2e53577fe0babac9cbefaeb2d8",
-      "content_version": "4e193bfe9d95feb08842bad326d633e4796aa9fdf1184e0a07a747637d7b4584",
-      "method": "真实窗口捕获，比较同机位、静态碰撞与MemorySave，检查稳定帧和重置。",
-      "observed": "35项，0失败；不是完整通关或审美认证。",
+      "source_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+      "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
+      "method": "真实窗口87项，静态碰撞、机位、附着、重置/存档和实际帧缓冲。",
+      "observed": "87项，0失败，无脚本错误。",
       "command": "DISPLAY=:99 bash tools/godot.sh --audio-driver Dummy --path . --script tools/art/paper_capture.gd",
       "exit_code": 0,
-      "environment": "Xvfb / Mesa llvmpipe / GL Compatibility",
+      "environment": "Mesa llvmpipe/Xvfb GL Compatibility",
       "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/capture.log"
     },
     {
       "id": "browser",
-      "path": "build/paper_theater/web-touch-browser.json",
-      "sha256": "b9bcd4b659da267fa8590a4e0ab7f1991b6b8703b78a7be70b609d0aa00616f9",
+      "path": "build/paper_theater/web-browser.json",
+      "sha256": "06983580fffc7fee4868b0c7b4ec55d552041f481e6cee747ff23b6c4fe2b482",
       "kind": "gui",
       "producer": "Codex",
-      "source_commit": "02c88d7141702c2e53577fe0babac9cbefaeb2d8",
-      "content_version": "4e193bfe9d95feb08842bad326d633e4796aa9fdf1184e0a07a747637d7b4584",
-      "method": "Chromium真实WASM/WebGL2，844×390触控仿真；观察移动、跳跃和模式切换后的实际游戏截图。",
-      "observed": "PAPER LAB READY，触控移动/跳跃可操作，B切至A成功；唯一HTTP404为favicon.ico。不是实体手机性能证据。",
-      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/web-touch-browser.json"
+      "source_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+      "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
+      "method": "844×390 Chromium实际WASM/WebGL2；CDP ScreenTouch按按钮切区与切表现。",
+      "observed": "P04→F01→G02→F01，当前/B切换与移动已看图；无脚本错误。",
+      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/web-browser.json"
     },
     {
       "id": "performance",
       "path": "build/paper_theater/performance.json",
-      "sha256": "e67ff47ebdd2305d15d780a662757be59a03f8d3406ee236340554c87517f888",
+      "sha256": "74456570c20e7db9cd0133be85773790e6ce1fab358e153b127f1ad3e8a0b6d1",
       "kind": "measurement",
       "producer": "Codex",
-      "source_commit": "02c88d7141702c2e53577fe0babac9cbefaeb2d8",
-      "content_version": "4e193bfe9d95feb08842bad326d633e4796aa9fdf1184e0a07a747637d7b4584",
-      "method": "固定机位，每版300个process帧采样；不据云端软件渲染时序给真机背书。",
-      "observed": "绘制调用0/A/B为83/171/176；纸艺5个主轮廓，242/251个纸面。云端计时抖动明显，不据均值比较设备帧率。",
-      "device": "Mesa llvmpipe LLVM19.1.7，软件OpenGL",
-      "environment": "Linux Xvfb，1280x720，GL Compatibility",
-      "scenario": "P04东桥静态机位，原游戏逻辑继续运行",
-      "budget_source": "用户要求Web/Windows/Android兼容与实际设备性能；本环境无实体设备。",
+      "source_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+      "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
+      "method": "每房当前/B各240 process帧。",
+      "observed": "绘制调用P88/181、F87/161、G77/147；B仍更贵，未签真机FPS。",
+      "device": "Mesa llvmpipe软件OpenGL",
+      "environment": "Linux Xvfb/1280×720/GL Compatibility",
+      "scenario": "三房各自相同取景下的0/B",
+      "budget_source": "用户要求目标平台兼容；无实体手机/Windows执行设备",
       "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/performance.json"
     },
     {
-      "id": "modulation",
-      "path": "build/paper_theater/modulation.json",
-      "sha256": "d4418d1f802ac1cd4ed46213f0dafe689f3f432f409dea857bcf371cf1229d9b",
-      "kind": "runtime_trace",
-      "producer": "Codex",
-      "source_commit": "02c88d7141702c2e53577fe0babac9cbefaeb2d8",
-      "content_version": "4e193bfe9d95feb08842bad326d633e4796aa9fdf1184e0a07a747637d7b4584",
-      "method": "真实GPU帧缓冲对同纸面采样alpha 0/.5/1及父节点色调，非属性自检。",
-      "observed": "半透明像素处于背景与纸面颜色之间；父节点红通道乘0.4后由0.2078降至0.0824。",
-      "source_url": "https://clock-paper-theater-p04.zhipijun1996.chatgpt.site/media/modulation.json"
+      "id": "user-direction",
+      "path": "docs/project/worklines/paper_theater_01/scope.md",
+      "sha256": "779c76e7e3355a8592755730d1a6859674ebb09636826be04f6ee099a4043401",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "e79a56f1e275e0312faf318a56759a13d7b0a9d5",
+      "content_version": "60e5f8c3ddef7678679bfe55997793384baffb5dd1d3ec9d55837929f9152333",
+      "method": "记录用户原话与限定范围。",
+      "observed": "明确只继续B，三个区域对比。",
+      "source": "本会话用户消息",
+      "quote": "不用a了，b继续实验3个区域对比",
+      "accepted": true,
+      "covers": [
+        "direction"
+      ]
     }
   ],
-  "consumer_coverage": null,
+  "gates": {
+    "G2": {
+      "status": "passed",
+      "reason": "本轮授权的三域样房比较范围，截图/连续片段已审看。",
+      "evidence": [
+        "P-R04-image",
+        "F-R01-image",
+        "G-R02-image",
+        "P-R04-video",
+        "F-R01-video",
+        "G-R02-video"
+      ]
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "限定代码/碰撞/存档/机位和实际加载检查。",
+      "evidence": [
+        "ci",
+        "capture"
+      ]
+    }
+  },
+  "dimensions": {
+    "visual": {
+      "status": "passed",
+      "reason": "限定三域比较：造型与空间有差异，统一纸艺材质与角色，实际合屏可审看；不签正式替换门槛。",
+      "evidence": [
+        "P-R04-image",
+        "F-R01-image",
+        "G-R02-image"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "CI与87项实机专项通过，正式系统和房间数据未改。",
+      "evidence": [
+        "ci",
+        "capture"
+      ]
+    },
+    "gameplay": {
+      "status": "passed",
+      "reason": "仅三个片段内的真实移动/跳跃/射击与触屏切区，非全区域流程或完整战斗。",
+      "evidence": [
+        "P-R04-video",
+        "F-R01-video",
+        "G-R02-video",
+        "browser"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "三域软件渲染数据已保留，实体设备帧率与规模化成本尚未验。",
+      "evidence": [
+        "performance"
+      ]
+    }
+  },
   "unverified_items": [
-    "艺术质量未达到正式替换与16区量产门槛：纸偶动作/物种区分较简，大钟架局部构图仍抢眼。",
-    "实体Android/Windows运行性能未验；SwiftShader手机尺寸测试不是实体设备。",
-    "第二房型与16区扩展未验；不宣称完整新档/全收集/完整战斗路线通过。"
-  ],
-  "required_dimensions": [
-    "visual",
-    "technical"
+    "实体Android/Windows帧率",
+    "完整战斗、第二类室内空间和16区量产",
+    "正式美术替换与用户审美终审；用户选择B不等于批准所有画面"
   ]
 }
