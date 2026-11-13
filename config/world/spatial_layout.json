@@ -1,13 +1,20 @@
 {
   "schema": 1,
-  "status": "calibration_required",
-  "scope_regions": ["F"],
+  "status": "regional_draft_for_review",
+  "scope_regions": [
+    "F"
+  ],
   "source": "game/world/regions/F/room_design.json",
   "units": "world_units",
   "intent": "只恢复森林完整房间空间与门对；平原作为同尺度基准。未完成逐区构图的世界房间保持未定位，不再输出自动排布作为可采用初稿。",
   "review_limits": [
-    "森林为既有待审设计的完整空间恢复，尚未达到平原实机制作与体验验收水平。",
+    "森林24房已按完整空间重排；是房形和路线初稿，尚未完成逐房动作与美术施工。",
     "通道是两侧房间各自占地的一部分；门对以共享接缝连接，不用独立细线替代。",
     "跨到未编排区域的出口只保留预留方向，不伪造全世界连续通路。"
-  ]
+  ],
+  "reference": {
+    "title": "失序之钟·沿途据点与阿栖的旅程（v07生活与叙事层）",
+    "sha256": "7bf7b6ec22bd3878bdc95089c55c679ddc1d61a1cc1cfea8b7852bb23b4c2a54",
+    "use": "区域相对位置、层级、体量、生活据点和回环关系参考；现行能力、奖励身份及已制作平原优先，不从图片反推碰撞。"
+  }
 }
