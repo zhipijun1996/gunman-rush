@@ -7,7 +7,7 @@ static var _data: Dictionary = {}
 static func catalog() -> Dictionary:
 	if _data.is_empty():
 		var index: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PATH))
-		_data = {"version":index.version,"behaviors":{},"definitions":{}}
+		_data = {"version":index.version,"libraries":index.libraries,"behaviors":{},"definitions":{}}
 		for group: String in ["behaviors","definitions"]:
 			for id: String in index[group]:
 				var entry: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(str(index[group][id])))

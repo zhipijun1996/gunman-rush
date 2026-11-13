@@ -1,5 +1,6 @@
-"""Validate the single library and all canonical room instance references."""
+"""Validate catalog ownership, domain documentation and canonical room references."""
 import json
+import re
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def check(root=ROOT):
@@ -11,7 +12,14 @@ def check(root=ROOT):
             path=root/ref[6:];assert path not in paths,ref;paths.add(path)
             value=json.loads(path.read_text());assert value['id']==key,key;catalog[group][key]=value
         assert paths==set((base/group).glob('*.json')),f'Unregistered {group} file'
+    libraries=index['libraries']
+    assert libraries,'Missing ownership libraries'
+    for library in libraries.values():
+        assert library.get('name') and (root/library['documentation']).is_file(),library
     documentation=(root/'docs/data/world_objects.md').read_text()
+    mechanism_ids={k for k,d in catalog['definitions'].items() if d.get('library')=='mechanisms'}
+    documented_ids=set(re.findall(r'^\| `([^`]+)` \|',documentation,re.M))
+    assert mechanism_ids==documented_ids,'Mechanism library must describe only its own definitions'
     scripts=set()
     for key,b in catalog['behaviors'].items():
         if b.get('script'):
@@ -19,9 +27,15 @@ def check(root=ROOT):
             assert b['script'] not in scripts,key;scripts.add(b['script'])
         assert b['default_definition'] in catalog['definitions'],key
     for key,d in catalog['definitions'].items():
-        assert d['documentation']=='docs/data/world_objects.md',key
+        assert d.get('library') in libraries,key
+        doc=d.get('documentation','')
+        assert doc.startswith('docs/') and '..' not in doc and (root/doc).is_file(),key
+        assert (doc=='docs/data/world_objects.md')==(d['library']=='mechanisms'),key
+        component=d.get('component','')
+        if component=='array:art_placements':assert d['library']=='presentation',key
+        if component=='array:enemy_placements':
+            assert d['library']=='enemies' and doc.startswith('docs/data/enemies/'),key
         assert d['version']>=1,key
-        assert f'`{key}`' in documentation,f'Library documentation missing {key}'
         if 'members' in d:
             for m in d['members']:assert m['definition'] in catalog['definitions'],key
         else:

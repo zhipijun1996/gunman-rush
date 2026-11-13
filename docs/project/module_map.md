@@ -70,4 +70,4 @@
 
 默认rg遵守.gitignore和.ignore，排除build、引擎缓存、大型世界导入包及独立原始来源/录制夹具；世界数据用room_context.py按房提取。需审计被排除内容时显式指定路径并用`rg --no-ignore`。临时输出只进入build/或构建产物，持久来源与测试输入由其真实消费者维护。
 
-| 可交互元素与统一实例 | [唯一目录](../../config/world_elements/index.json)、[机关库](../data/world_objects.md)、[共同合同](../bible/world_elements.md)、`game/world/elements/` | 独立定义、统一实例、房内类型信号及世界事实；WorldRoomFeature注册特殊宿主，WorldRoomAssembly批量组装 | `tools/check_element_registry.py`、`tests/world/element_registry.gd`、`world-elements`、`editor-protocol` |
+| 关卡目录分类与机关实例 | [唯一目录](../../config/world_elements/index.json)、[机关库](../data/world_objects.md)、[共同合同](../bible/world_elements.md)、`game/world/elements/` | library定义业务归属，documentation指向所属正文；统一实例、机关房内类型信号及世界事实；WorldRoomFeature注册特殊宿主，WorldRoomAssembly批量组装 | `tools/check_element_registry.py`、`tests/world/element_registry.gd`、`world-elements`、`editor-protocol` |
