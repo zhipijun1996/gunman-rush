@@ -2,18 +2,22 @@
 from pathlib import Path
 import argparse,copy,hashlib,json,subprocess
 from preview_catalog import preview_catalog
+from forest_review import build as forest_blueprint
 ROOT=Path(__file__).resolve().parents[2]
 def load(path):return json.loads(path.read_text())
 def sha(value):return hashlib.sha256(json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
 def export(root=ROOT):
     source=root/'config/world';world=load(source/'world.json');construction=load(source/'construction.json');contracts=load(root/'build/world/contracts.json');runtime=load(root/'build/world/runtime.json');catalog=load(root/'build/editor/catalog.json')
     p={'schema':3,'id':'gunman-rush-world','revision':0,'source':{'repository':'zhipijun1996/gunman-rush','commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'content_version':runtime['content_version'],'protocol':3,'motion_hash':sha(runtime['player']),'catalog_hash':sha(catalog)},'rooms':{},'connections':{},'rewards':{},'npcs':{},'catalog':catalog,'management':{},'locks':[],'metadata':{'name':'失序之钟 · 世界工坊','start':{'room':world['start_room'],'section':world.get('start_section','main')},'initial_tokens':world.get('initial_tokens',[])}}
+    preview=preview_catalog(root)
+    p['planning']={'source':'config/world/world.json','coordinate_frame':'macro_topology_not_world_units','regions':[{k:copy.deepcopy(r[k]) for k in ['id','code','name','pos','color','play'] if k in r} for r in world['regions']],'rooms':{r['id']:{'position':r.get('map_centre'),'region':r['region']} for r in world['rooms']},'blueprints':{'F':{'source':'game/world/regions/F/room_design.json','design':forest_blueprint(root,preview=preview)}}}
     p['runtime_defaults']={k:copy.deepcopy(runtime[k]) for k in ['player','demo_services','ui_texts','npcs','runtime_rules','collection_rules','gear_milestones','traveler_story','start'] if k in runtime}
-    maps={r['id']:r for r in preview_catalog(root)['map_rooms']};cs={r['room_id']:r for r in construction['rooms']};rs={r['room_id']:r for r in contracts['rooms']};main_component=maps[world['start_room']]['map_component']
+    maps={r['id']:r for r in preview['map_rooms']};cs={r['room_id']:r for r in construction['rooms']};rs={r['room_id']:r for r in contracts['rooms']};main_component=maps[world['start_room']]['map_component']
     for r in world['rooms']:
         rid=r['id'];c=cs[rid];rt=rs[rid];mapped=maps.get(rid);doc_path=source/'rooms'/f'{rid}.json';doc=load(root/'build/editor/rooms'/f'{rid}.json') if doc_path.exists() else None
-        bounds=rt['world_geometry']['bounds_world_units'];centre=r.get('map_centre',[0,0]);origin=mapped['origin'] if mapped else c.get('world_origin',[centre[0]*8-bounds[2]/2,centre[1]*8-bounds[3]/2])
+        bounds=rt['world_geometry']['bounds_world_units'];origin=mapped['origin'] if mapped else c.get('world_origin',[0,0])
         room={'id':rid,'region':r['region'],'name':r['name'],'purpose':r['purpose'],'role':r['primary_role'],'rest':bool(r.get('rest_point')),'origin':origin,'layer':mapped['map_component'] if mapped and mapped['map_component']!=main_component else c.get('space_layer','world'),'bounds':bounds,'spaces':c.get('space_rects',[bounds]),'sections':{s['id']:{**copy.deepcopy(s),'known':True} for s in r.get('sections',[{'id':'main','name':'主体'}])},'routes':{route['id']:{**copy.deepcopy(route),'from':route['from_section'],'to':route['to_section'],'known':True} for route in r.get('internal_routes',[])},'ports':{},'entities':copy.deepcopy(doc['entities']) if doc else {},'root':copy.deepcopy(doc['root']) if doc else {'definition_id':'room.standard','definition_version':1,'component':'FixedWorldRoom','properties':{}},'implemented':bool(c.get('implemented')),'authored':doc is not None,'layout_status':'calibrated' if mapped else 'planned','camera':c['camera'],'source_scene':c['scene_ref']}
+        room['spatial_source']={'kind':'calibrated' if mapped else 'explicit' if 'world_origin' in c else 'unplaced','path':'config/world/construction.json','units':'world_units'}
         raw_doors={d['id']:d for d in c['doors']}
         for door in rt['doors']:
             raw=raw_doors.get(door['id'],door)
@@ -22,16 +26,6 @@ def export(root=ROOT):
     for c in world['connections']:
         a,b=p['rooms'][c['a']],p['rooms'][c['b']];ap=next(port for port in a['ports'].values() if port['connection']==c['id']);bp=next(port for port in b['ports'].values() if port['connection']==c['id'])
         p['connections'][c['id']]={**copy.deepcopy(c),'a':{'room':a['id'],'port':ap['id']},'b':{'room':b['id'],'port':bp['id']},'requires':c.get('effective_door_requires',c.get('requires',[[]])),'direction':c.get('direction','both') if c.get('direction') in ['a_to_b','b_to_a'] else 'both','known':True,'front_door':ap['front_door'] or bp['front_door']}
-    placed=set(maps)
-    for _ in range(len(p['rooms'])):
-        changed=False
-        for edge in p['connections'].values():
-            if edge['front_door']:continue
-            a,b=p['rooms'][edge['a']['room']],p['rooms'][edge['b']['room']];ap,bp=a['ports'][edge['a']['port']],b['ports'][edge['b']['port']]
-            if a['id'] not in placed and b['id'] in placed:a,b,ap,bp=b,a,bp,ap
-            if a['id'] in placed and b['id'] not in placed:
-                b['origin']=[a['origin'][i]+ap['position'][i]-bp['position'][i] for i in [0,1]];placed.add(b['id']);changed=True
-        if not changed:break
     for room in p['rooms'].values():
         for section in room['sections'].values():
             volume=next((v for v in room['root']['properties'].get('section_volumes',[]) if v['id']==section['id']),None)

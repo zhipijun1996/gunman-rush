@@ -42,7 +42,7 @@ def passage(points,width):
 def overlap(a,b):
     return min(a[0]+a[2],b[0]+b[2])-max(a[0],b[0])>0.001 and min(a[1]+a[3],b[1]+b[3])-max(a[1],b[1])>0.001
 
-def build(root=ROOT):
+def build(root=ROOT, preview=None):
     plan=json.loads((root/'game/world/regions/F/room_design.json').read_text()); world=json.loads((root/'config/world/world.json').read_text())
     identities={r['id']:r for r in world['rooms']}; connections={e['id']:e for e in world['connections']}
     rooms={r['room_id']:dict(r) for r in plan['rooms']}
@@ -66,9 +66,11 @@ def build(root=ROOT):
     for i,a in enumerate(keys):
         for b in keys[i+1:]:
             assert not any(overlap(s,t) for s in rects[a] for t in rects[b]),f'Overlapping room/passage {a} {b}'
-    preview_path=root/'build/preview/preview-world.json'
-    if not preview_path.exists():raise ValueError('Run python tools/export_runtime.py --plan-only before reviewing the world seam')
-    preview=json.loads(preview_path.read_text());plains={m['id']:m for m in preview['map_rooms'] if m['id'].startswith('P-')}
+    if preview is None:
+        preview_path=root/'build/preview/preview-world.json'
+        if not preview_path.exists():raise ValueError('Run python tools/export_runtime.py --plan-only before reviewing the world seam')
+        preview=json.loads(preview_path.read_text())
+    plains={m['id']:m for m in preview['map_rooms'] if m['id'].startswith('P-')}
     source=plains[plan['anchor']['source_room']];local=plan['anchor']['source_door_local']
     assert plan['anchor']['world_point']==[source['origin'][i]+local[i] for i in (0,1)],'C01 world anchor drift'
     for rid,own in rects.items():
