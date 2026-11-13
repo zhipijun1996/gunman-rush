@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| DEPTH-LAB-01 | 引水渠实帧转译失败：核对素材重绘、地形与水面损失 | — | in_progress | [交接](worklines/depth_lab_01/scope.md) |
+| DEPTH-LAB-01 | 纯2D引擎前置试验：先定镜头、真实资源与渲染职责，再约束生图 | — | in_progress | [交接](worklines/depth_lab_01/scope.md) |
 | TERRAIN-MATERIAL-01 | 统一关卡分类与机关库、schema3房间组装、44房迁移与草稿升级 | — | review | [交接](worklines/terrain_material_01/scope.md) |
 | NATIVE-PLAYTEST-FIX-01 | 原生0.1.1墙体、手柄校准与最大化呈现设备复核 | — | review | [交接](worklines/native_playtest_fix_01/scope.md) |
 | PLAINS-BIBLE-V2-01 | 平原正式内容与双端发行体验复核 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
