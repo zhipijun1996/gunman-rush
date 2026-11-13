@@ -39,8 +39,8 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 	world.add_child(shot_latch_encounter)
 	check.call(shot_latch_encounter.setup(replay,stage,controller,lifetime),"region uses production bilateral bells")
 	controller.shoot_ability.shot_fired.connect(func(_direction: Vector2,_id: int): shots += 1)
-	# Fixture equivalent of the existing DemoApp proximity interaction. The live
-	# trace uses DemoApp's own connected consumer, not this fixture callback.
+	# Fixture equivalent of the existing CampaignFixture proximity interaction. The live
+	# trace uses CampaignFixture's own connected consumer, not this fixture callback.
 	controller.interact_requested.connect(func():
 		for edge: Dictionary in stage.manifest.connections:
 			if edge.condition=="backside" and not region_state.opened.has(edge.id) and motor.global_position.distance_to(Vector2(edge.control[0],edge.control[1]))<=90:

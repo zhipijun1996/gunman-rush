@@ -55,7 +55,7 @@ def validate(data):
             raise ValueError('Observed runner-local release required: ' + key)
     apps = [r for r in rows if r.get('id') == 'app_legacy']
     if len(apps) != 2 or {r.get('map') for r in apps} != {1, 2}:
-        raise ValueError('Both actual legacy DemoApp entry maps required')
+        raise ValueError('Both actual legacy CampaignFixture entry maps required')
     for row in apps:
         expected_scene = 'res://scenes/bosses/' + ('thorn_guardian' if row['map'] == 1 else 'thorn_queen') + '.tscn'
         if row.get('boss_scene') != expected_scene or not row.get('enemies'):

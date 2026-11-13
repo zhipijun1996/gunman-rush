@@ -157,7 +157,7 @@ def validate(data):
     need(manifest.get('layout_version') == LAYOUT and admission.get('schema') == 'forest-exploration-runtime-v16', 'actual_v16_layout_and_strategy_required')
     need(admission.get('actual_layout') == LAYOUT and admission.get('actual_validated') is True and admission.get('legacy_reference_used') is False, 'actual_registry_validator_not_historical_reference')
     need(admission.get('requested_layout_pin') in ('',LAYOUT) and admission.get('actual_requested_layout_cleared') is True, 'actual_App_request_ownership')
-    need(data.get('scope') == 'formal_DemoApp_forest_v2_continuous_route_not_boss_fight' and data.get('boss_fight_covered') is False, 'scope_not_boss_or_release')
+    need(data.get('scope') == 'formal_CampaignFixture_forest_v2_continuous_route_not_boss_fight' and data.get('boss_fight_covered') is False, 'scope_not_boss_or_release')
     need(data.get('manual_motor_step') is False and data.get('position_or_resource_injection') is False, 'no_privileged_motion_or_resources')
     need(data.get('tick_budget') == 18000 and data.get('edge_tick_budget') == 1800, 'original_route_and_edge_budgets')
     need(manifest.get('version') == VERSION and data.get('actual_stage_version') == VERSION and data.get('actual_stage_map') == data.get('map_index') == manifest.get('map_index'), 'actual_map_version_identity')

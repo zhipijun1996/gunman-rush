@@ -1,6 +1,24 @@
-# 机关、危险与交互对象
+# 可交互元素库（简称机关）
 
 对象通过外形、预告、运动和反馈让玩家理解功能。共同伤害规则见 [伤害合同](../bible/damage_and_respawn.md)，组合场所见 [平原](../bible/regions/windchime_plains.md) 与 [森林](../bible/regions/thorn_forest.md)。本页定义对象行为，数值从所在地图或对象配置读取。
+
+本页是可交互元素库的唯一说明入口，仅收录具有触发、响应、运动、伤害或资源交互行为的场景机关。纯美术贴图、静态地形、怪物、NPC／剧情及奖励数据分别归各自分类和文档；共用实例化接口不改变其业务归属。每种机关的独立定义位于 `config/world_elements/definitions/`，行为合同位于 `behaviors/`，唯一注册索引为 [index.json](../../config/world_elements/index.json)。实例化、信号和状态共用规则归[关卡要素圣经](../bible/world_elements.md)；本页维护对象行为、适用场景和配置入口，数值以定义文件为准。
+
+## 房间制作方式
+
+1. 配置房间空间、出口与镜头，使用 `room.standard` 根定义。
+2. 从统一关卡目录的对应分类放置实例，设置稳定 ID、定义版本、位置和参数。地形和机关分别归类，按同一实例化协议读取，实体地形由组装服务批量生成，保持连续的47邻接表面。
+3. 风铃／开关的 `links` 指定输出、目标实例 ID、目标输入；接收者独立管理门、移动平台或齿轮状态。房内连接不得指向未装载房间；跨房开锁由世界 action 提交事实，目标读取该事实。
+4. NPC、奖励、遭遇和剧情使用登记宿主。这些宿主属于各自内容分类；参数中的 action／NPC ID 仍属于世界相应数据主人；新增奖励或NPC时一并登记权益，不能复制旧的永久领取身份。
+5. 普通房间不添加专属脚本。星桥灰盒用 `presentation.trial`；房间服务与Boss内场等内部组件不出现在放置列表。
+
+静态岩土／砌体与空中实体平台共用47地形；木梁、单向平台和移动平台采用对应构件外观。四向尖刺的区域皮肤与支撑材质分开配置，实例可覆盖；危险轮廓和方向仍由玩法定义负责。建筑外观本身没有碰撞，需要实体平台组合；无碰撞布景不会创建站立面。
+
+## 扩展一种机关
+
+同一行为换皮或调参时增加独立定义文件并登记到索引；需要新的触发／响应方式时增加独立行为实现及合同。声明参数、输入输出、状态版本和持久范围，再给出默认定义、编辑分类和外观。为真实触发、拒绝、暂停、重入和保存失败补充针对性检查。已有机关通过本页及定义文件管理；编辑器只配置实例，不另存一套行为定义。
+
+可攻击隐藏入口、伸缩刺、风场、弹跳蘑菇和空中浮石尚未作为新玩法实现。后续分别用受击、定时、场域、接触和运动行为加入本目录。它们共享实例和状态接口，各自拥有碰撞、力或伤害，不以隐藏贴图代替玩法状态。
 
 ## 铃锁与通路
 
@@ -37,3 +55,26 @@
 宝箱仅在奖励成功提交后开盖；取消、拒绝或保存失败保持关闭，返回已领地点仍保持开启，不再发奖。静态开／关姿态与完整开盖动画分别判断，外观映射与尺寸取 [chest_art.json](../../config/chest_art.json)。森林困难可选资源箱借用金箱外观，奖励仍按该箱真实内容说明。
 
 商店显示价格、当前收益与失败原因，刷新和购买沿 [奖励构筑](../bible/rewards_and_builds.md)。出口显示实际去向与准入条件，主路不能依赖未来能力。对象代码与对应检查见 [模块导航](../project/module_map.md)。
+
+## 已登记机关与参数入口
+
+这里只列 `library=mechanisms` 的定义及组合。机关上的贴图和换皮是机关外观；独立无碰撞布景归[美术表现](world_presentation.md)，怪物行为归[怪物文档](README.md)，静态平台和建筑碰撞归[地形与材质](../bible/terrain_materials.md)。
+
+| 定义 | 用途／名称 | 参数源 |
+| --- | --- | --- |
+| `assembly.bell_carrier` | 风铃与升降台 | [定义](../../config/world_elements/definitions/assembly.bell_carrier.json) |
+| `assembly.bell_gate` | 风铃与机关门 | [定义](../../config/world_elements/definitions/assembly.bell_gate.json) |
+| `gate.masonry` | 砌体机关门 | [定义](../../config/world_elements/definitions/gate.masonry.json) |
+| `hazard.area` | 危险区域 | [定义](../../config/world_elements/definitions/hazard.area.json) |
+| `hazard.gear` | 移动齿轮 | [定义](../../config/world_elements/definitions/hazard.gear.json) |
+| `hazard.spikes` | 附着尖刺 | [定义](../../config/world_elements/definitions/hazard.spikes.json) |
+| `interaction.action` | 世界行动宿主 | [定义](../../config/world_elements/definitions/interaction.action.json) |
+| `interaction.return_gate` | 捷径门 | [定义](../../config/world_elements/definitions/interaction.return_gate.json) |
+| `interaction.sign` | 告示 | [定义](../../config/world_elements/definitions/interaction.sign.json) |
+| `platform.moving` | 移动载台 | [定义](../../config/world_elements/definitions/platform.moving.json) |
+| `recovery.anchor` | 安全恢复点 | [定义](../../config/world_elements/definitions/recovery.anchor.json) |
+| `recovery.station` | 充电保存站 | [定义](../../config/world_elements/definitions/recovery.station.json) |
+| `switch.shot` | 射击风铃 | [定义](../../config/world_elements/definitions/switch.shot.json) |
+| `traversal.hook` | 钩索锚点 | [定义](../../config/world_elements/definitions/traversal.hook.json) |
+| `traversal.hook_point` | 固定钩索点 | [定义](../../config/world_elements/definitions/traversal.hook_point.json) |
+| `zone.environment` | 环境区域 | [定义](../../config/world_elements/definitions/zone.environment.json) |

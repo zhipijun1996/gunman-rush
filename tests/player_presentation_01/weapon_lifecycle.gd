@@ -81,7 +81,7 @@ func run() -> void:
 	controller.router.clear("cancel_charge_test")
 	await frames(3)
 	check(controller.shoot_ability.runtime.phase==&"idle" and int(app.weapon_audio.played.get(&"weapon_pulse",0))==pulse_before,"cancelled charge emits no fake cannon release")
-	# Real DemoApp Plains,where its original shot subscriber installs PixelPlains.
+	# Real CampaignFixture Plains,where its original shot subscriber installs PixelPlains.
 	app.restart_sample()
 	for unused: int in 180:
 		await physics_frame
@@ -91,7 +91,7 @@ func run() -> void:
 		var observed := false
 		app.controller.shoot_ability.shot_fired.connect(func(_axis:Vector2,_id:int)->void:
 			var actual: PlayerWeaponFeelProjectile = app.weapon_feel.leaves.back()
-			check(actual.previous is PixelPlainsProjectile,"original DemoApp pixel subscriber actually ran")
+			check(actual.previous is PixelPlainsProjectile,"original CampaignFixture pixel subscriber actually ran")
 			app.set_weapon_enabled(false)
 			check(actual.projectile.presentation==actual.previous and actual.previous.visible,"OFF restores actual original Plains leaf")
 			app.set_weapon_enabled(true)

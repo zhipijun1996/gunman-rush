@@ -4,7 +4,7 @@ extends SceneTree
 var checks := 0
 var failures := 0
 var accepted := 0
-var app: DemoApp
+var app: CampaignFixture
 var menu: DemoMenu
 var spawn_consumer := false
 var player: PlayerMotor
@@ -82,7 +82,7 @@ func run() -> void:
 	canceled.pressed = false
 	canceled.canceled = true
 	check(not canceled.is_pressed() and not canceled.is_released(),"actual native canceled mouse is neither press nor release")
-	app = preload("res://game/application/demo.tscn").instantiate() as DemoApp
+	app = preload("res://tests/fixtures/campaign_fixture.tscn").instantiate() as CampaignFixture
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	menu = app.menu

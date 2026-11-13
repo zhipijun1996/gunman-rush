@@ -63,7 +63,7 @@ func run() -> void:
 	var baseline := [shot.speed,shot.radius,shot.damage,shot.lifetime]
 	var skin := PixelPlainsProjectile.new();skin.projectile=shot;shot.presentation=skin;shot.add_child(skin)
 	shot.advance(.02)
-	check(is_instance_valid(shot.presentation) and shot.presentation is PixelPlainsProjectile,"real DemoApp skin remains active and delegates Underworld drawing")
+	check(is_instance_valid(shot.presentation) and shot.presentation is PixelPlainsProjectile,"real CampaignFixture skin remains active and delegates Underworld drawing")
 	check(effects(false)==1 and effects(true)==0,"accepted launch has one muzzle and no fake impact")
 	check([shot.speed,shot.radius,shot.damage,shot.lifetime]==baseline,"presentation leaves projectile tuning unchanged")
 	await snapshot("player_flight")

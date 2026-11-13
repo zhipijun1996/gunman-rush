@@ -4,7 +4,7 @@ extends "res://tests/world/plains35_fixture.gd"
 func run() -> void:
 	root.size=Vector2i(1280,720)
 	app=load("res://game/application/world/fixed_world.tscn").instantiate()
-	app.save_path="user://plains35_carriers.json";root.add_child(app);app.workbench.enabled=true
+	app.save_path="user://plains35_carriers.json";root.add_child(app)
 	var args:=OS.get_cmdline_user_args()
 	for row:Array in [["P-R02","RoofWinch"],["P-R09","FreightLift"],["P-R12","DrainCage"],["P-R18","IrrigationCage"],["P-R19","RootCage"],["P-R20","BankCage"],["P-R29","GrainLift"],["P-R31","BellFieldCarrier"],["P-R35","JunctionLift"]]:
 		if not args.is_empty() and row[0] not in args[0].split(","):continue

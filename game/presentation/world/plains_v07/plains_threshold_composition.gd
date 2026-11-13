@@ -16,7 +16,7 @@ static func outside(art: PlainsRoomArt, at: Vector2, side: int, connection: Stri
 		var x1:=minf(approach.end.x,at.x+(224 if side<0 else 0))
 		if x1-x0>=48:
 			var base:=UnderworldTerrain.build([Rect2(x0,floor_y, x1-x0,minf(32,approach.size.y))])
-			PlainsMillTerrainMaterial.install_on(base);base.z_index=1;art.add_child(base)
+			TerrainMaterialRegistry.install_on(base,"mill_masonry");base.z_index=1;art.add_child(base)
 			# Small rooted growth softens only the outside masonry/soil seam.
 			art.sprite("plains_grass",Vector2(x0+12 if side>0 else x1-12,floor_y),-1)
 	var emitter:Dictionary=art.light_settings.emitters.building_threshold

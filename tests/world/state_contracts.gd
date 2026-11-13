@@ -52,7 +52,7 @@ func run() -> void:
 	backup.store_string("also corrupt");backup.close()
 	check(not state.restore() and state.storage.blocked,"both bad files block overwrite")
 	check(FileAccess.get_file_as_string(state.storage.path)=="corrupt","original bad main retained")
-	check(state.storage.web_storage_key()=="gunman_rush.fixed_world.v1.contracts","independent world Web key")
+	check(state.storage.web_storage_key()=="gunman_rush.fixed_world.v2.contracts","independent world Web key")
 	check(state.storage.web_storage_key()!=MetaSaveService.WEB_KEY,"old key isolated")
 	var request := LevelRequest.new()
 	request.room_id = "P-R01";request.entry_door_id = "missing"

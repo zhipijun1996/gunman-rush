@@ -34,7 +34,7 @@ func start() -> void:
 	root.size = Vector2i(1280,720)
 	audio = GameAudio.new()
 	root.add_child(audio)
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	var overlay := CanvasLayer.new()
@@ -44,12 +44,12 @@ func start() -> void:
 	# unobscured. No review camera, world label or replacement HUD is installed.
 	heading = make_label("INITIAL REVIEW STAND / ORIGINAL FORMAL STAGE / NOT NATURAL ROUTE",Vector2(12,698),12)
 	overlay.add_child(heading)
-	detail = make_label("Loading original DemoApp stage; one safe initial player stand only",Vector2(12,680),12)
+	detail = make_label("Loading original CampaignFixture stage; one safe initial player stand only",Vector2(12,680),12)
 	overlay.add_child(detail)
 	var forest := group == "formal_forest"
 	var started := app.start_debug_region(&"thorn_forest",1,seed_label) if forest else app.start_plains(seed_label)
 	if not started: failures.append("Original run entry refused")
-	cases.append({"case":0,"id":"formal_forest_initial_review_stand" if forest else "formal_plains_initial_review_stand","definition":"actual existing generated enemy; selection pending","definition_path":"actual stage enemy definitions in inventory","scene":"res://game/application/demo.tscn","chain":"actual_DemoApp_generated_stage","renderer":"original stage-installed renderer and StageCameraRig","start_frame":1,"start_seconds":float(Engine.get_process_frames())/60,"movie_start_process_frame":Engine.get_process_frames(),"fixture":{"production_AI_enabled":true,"initial_player_reset":false,"false_natural_spawn":true,"natural_player_spawn":false,"natural_progression":false,"entry":"start_debug_region(thorn_forest,map1)" if forest else "start_plains","actor_positioning":"at most one initial player reset_at onto existing physically verified safe static support; no enemy placement","differences":["one disclosed initial player review stand","automated gamepad Router replaces keyboard/mouse adapter","permanent meta persistence disabled for review run"],"debug_region_admission":forest},"inventory":[],"events":[],"target_events":[],"player_events":[],"inputs":[],"shots":[],"states":[],"deaths":0,"coverage":{},"coverage_gaps":[]})
+	cases.append({"case":0,"id":"formal_forest_initial_review_stand" if forest else "formal_plains_initial_review_stand","definition":"actual existing generated enemy; selection pending","definition_path":"actual stage enemy definitions in inventory","scene":"res://tests/fixtures/campaign_fixture.tscn","chain":"actual_CampaignFixture_generated_stage","renderer":"original stage-installed renderer and StageCameraRig","start_frame":1,"start_seconds":float(Engine.get_process_frames())/60,"movie_start_process_frame":Engine.get_process_frames(),"fixture":{"production_AI_enabled":true,"initial_player_reset":false,"false_natural_spawn":true,"natural_player_spawn":false,"natural_progression":false,"entry":"start_debug_region(thorn_forest,map1)" if forest else "start_plains","actor_positioning":"at most one initial player reset_at onto existing physically verified safe static support; no enemy placement","differences":["one disclosed initial player review stand","automated gamepad Router replaces keyboard/mouse adapter","permanent meta persistence disabled for review run"],"debug_region_admission":forest},"inventory":[],"events":[],"target_events":[],"player_events":[],"inputs":[],"shots":[],"states":[],"deaths":0,"coverage":{},"coverage_gaps":[]})
 	process_frame.connect(drive)
 
 func all_actual_enemies() -> Array[EnemyMotor]:
@@ -256,10 +256,10 @@ func finish() -> void:
 	if terminal_frame>=0: result.coverage_gaps.append("Original player/run became terminal during review; no health or respawn injected")
 	result["terminal_policy_observation"] = {"policy":"selected original species policy; no corpse policy added","target_terminal_frame":target_death_frame,"player_terminal_frame":terminal_frame,"scope":"actual formal stage with one disclosed initial review stand; not natural traversal or all-roster proof"}
 	app.abandon_run()
-	if not await load("res://tests/audio_teardown.gd").drain_world(app): failures.append("Original DemoApp fallback audio failed to release")
+	if not await load("res://tests/audio_teardown.gd").drain_world(app): failures.append("Original CampaignFixture fallback audio failed to release")
 	var sound_events: Dictionary = audio.played.duplicate(true)
 	if not await audio.shutdown(): failures.append("GameAudio ownership did not release")
-	var output := {"task":"ENEMY-ALL-02","complete":true,"seed_label":seed_label,"group":group,"frames":frames,"cases":cases,"failures":failures,"coverage_gap_count":result.coverage_gaps.size(),"audio_events":sound_events,"conditions":{"fps":60,"resolution":[1280,720],"playback_speed":1,"original_stage_camera":true,"initial_player_reset":initial_player_reset,"false_natural_spawn":true,"actor_positioning":"exactly one initial player review stand if safe support found; no later placement or enemy teleport","source_HP_state_AI_injection":false,"scope":"True DemoApp formal generated stage, original enemies/terrain/AI/HUD/StageCameraRig/policy; labelled initial player review stand, NOT NATURAL ROUTE. Forest uses explicit debug map1 admission."},"not_verified":["natural route from original spawn","full campaign completion","all species on this map","physical device performance","human visual approval"]}
+	var output := {"task":"ENEMY-ALL-02","complete":true,"seed_label":seed_label,"group":group,"frames":frames,"cases":cases,"failures":failures,"coverage_gap_count":result.coverage_gaps.size(),"audio_events":sound_events,"conditions":{"fps":60,"resolution":[1280,720],"playback_speed":1,"original_stage_camera":true,"initial_player_reset":initial_player_reset,"false_natural_spawn":true,"actor_positioning":"exactly one initial player review stand if safe support found; no later placement or enemy teleport","source_HP_state_AI_injection":false,"scope":"True CampaignFixture formal generated stage, original enemies/terrain/AI/HUD/StageCameraRig/policy; labelled initial player review stand, NOT NATURAL ROUTE. Forest uses explicit debug map1 admission."},"not_verified":["natural route from original spawn","full campaign completion","all species on this map","physical device performance","human visual approval"]}
 	var file := FileAccess.open(trace_path,FileAccess.WRITE)
 	if file == null:
 		printerr("Cannot write actual formal-encounter trace")

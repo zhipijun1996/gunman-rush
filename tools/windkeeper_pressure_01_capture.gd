@@ -67,11 +67,11 @@ func _initialize() -> void:
 func start() -> void:
 	source_before = _source_hashes()
 	git_before = _git_source()
-	app = load("res://game/application/demo_app.gd").new() as Node2D
+	app = load("res://tests/fixtures/campaign_fixture.gd").new() as Node2D
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	if not app.start_debug_region(&"plains", 2, seed_label):
-		_fail("Actual DemoApp refused public start_debug_region plains map2")
+		_fail("Actual CampaignFixture refused public start_debug_region plains map2")
 		return
 	for _i: int in 3600:
 		await physics_frame
@@ -110,7 +110,7 @@ func start() -> void:
 	capture_health = app.controller.actor_resources.health
 	capture_lifetime = app.lifetime
 	original_manifest = JSON.stringify(app.stage.generated.manifest)
-	setup = {"entry": "actual public DemoApp.start_debug_region plains map2", "natural_progression": false, "debug_entry": true, "actual_map_index": app.stage.map_index, "actual_manifest_seed": app.stage.generated.manifest.seed, "original_spawn": _vec(original), "initial_precombat_position": _vec(preparation), "floor_support_path": str(support.collider.get_path()), "floor_support_point": _vec(support.position), "arena": [arena.position.x, arena.position.y, arena.size.x, arena.size.y], "boss_scene": app.stage.boss.scene_file_path, "boss_renderer": _renderer_paths(), "boss_definition": encounter.definition.resource_path, "boss_health": encounter.health.current, "player_health": app.controller.actor_resources.health.current, "weapon": app.controller.shoot_ability.weapon.resource_path, "weapon_damage": app.controller.shoot_ability.weapon.damage, "weapon_interval": app.controller.shoot_ability.weapon.interval, "initial_wallet": wallet_start, "camera_zoom": _vec(app._run_camera.zoom), "window": [root.size.x, root.size.y], "epoch": _epochs(), "differences": ["automatic read-only observer submits normal Router actions and MouseMotion aim events", "one disclosed initial player position outside arena before combat", "profile persistence disabled for isolated capture"], "forbidden_combat_mutations": "none: no HP/resources/RNG/clocks/positions/invulnerability/terrain/AI/camera injection after preparation; actual formal debug map2 is disclosed, not natural whole-campaign progression"}
+	setup = {"entry": "actual public CampaignFixture.start_debug_region plains map2", "natural_progression": false, "debug_entry": true, "actual_map_index": app.stage.map_index, "actual_manifest_seed": app.stage.generated.manifest.seed, "original_spawn": _vec(original), "initial_precombat_position": _vec(preparation), "floor_support_path": str(support.collider.get_path()), "floor_support_point": _vec(support.position), "arena": [arena.position.x, arena.position.y, arena.size.x, arena.size.y], "boss_scene": app.stage.boss.scene_file_path, "boss_renderer": _renderer_paths(), "boss_definition": encounter.definition.resource_path, "boss_health": encounter.health.current, "player_health": app.controller.actor_resources.health.current, "weapon": app.controller.shoot_ability.weapon.resource_path, "weapon_damage": app.controller.shoot_ability.weapon.damage, "weapon_interval": app.controller.shoot_ability.weapon.interval, "initial_wallet": wallet_start, "camera_zoom": _vec(app._run_camera.zoom), "window": [root.size.x, root.size.y], "epoch": _epochs(), "differences": ["automatic read-only observer submits normal Router actions and MouseMotion aim events", "one disclosed initial player position outside arena before combat", "profile persistence disabled for isolated capture"], "forbidden_combat_mutations": "none: no HP/resources/RNG/clocks/positions/invulnerability/terrain/AI/camera injection after preparation; actual formal debug map2 is disclosed, not natural whole-campaign progression"}
 	pilot = load("res://tools/windkeeper_pressure_01/legal_input_pilot.gd").new()
 	pilot.mode = pilot_mode
 	reward_coin_total = int(encounter.definition.get("reward_coin_total"))
@@ -481,7 +481,7 @@ func _source_hashes() -> Dictionary:
 	var result: Dictionary = {}
 	# This independent native guard names critical capture/runtime leaves only.
 	# The Python wrapper separately records the COMPLETE source inventory.
-	for path: String in ["tools/windkeeper_pressure_01_capture.gd", "tools/windkeeper_pressure_01/legal_input_pilot.gd", "game/application/demo_app.gd", "game/world/levels/providers/plains_region_stage.gd", "game/bosses/windkeeper/windkeeper_pressure_encounter.gd", "scripts/bosses/windkeeper_pressure_definition.gd", "game/bosses/windkeeper/windkeeper_pressure_rig.gd", "game/bosses/windkeeper/windkeeper_pressure_presentation.gd", "game/bosses/windkeeper/windkeeper_pressure_projectile.gd", "game/bosses/windkeeper/windkeeper_pressure_strike.gd", "scenes/bosses/windkeeper_pressure.tscn", "game/platform/input/input_router.gd", "game/platform/input/keyboard_mouse_adapter.gd", "game/combat/weapons/shoot_ability.gd", "game/player/player_controller.gd", "game/player/player_motor.gd", "resources/bosses/windkeeper_storm.tres", "resources/bosses/windkeeper_storm_health.tres", "game/rewards/drops/plains_loot_motion.gd", "game/presentation/audio/windkeeper_pressure_audio.gd"]:
+	for path: String in ["tools/windkeeper_pressure_01_capture.gd", "tools/windkeeper_pressure_01/legal_input_pilot.gd", "tests/fixtures/campaign_fixture.gd", "game/world/levels/providers/plains_region_stage.gd", "game/bosses/windkeeper/windkeeper_pressure_encounter.gd", "scripts/bosses/windkeeper_pressure_definition.gd", "game/bosses/windkeeper/windkeeper_pressure_rig.gd", "game/bosses/windkeeper/windkeeper_pressure_presentation.gd", "game/bosses/windkeeper/windkeeper_pressure_projectile.gd", "game/bosses/windkeeper/windkeeper_pressure_strike.gd", "scenes/bosses/windkeeper_pressure.tscn", "game/platform/input/input_router.gd", "game/platform/input/keyboard_mouse_adapter.gd", "game/combat/weapons/shoot_ability.gd", "game/player/player_controller.gd", "game/player/player_motor.gd", "resources/bosses/windkeeper_storm.tres", "resources/bosses/windkeeper_storm_health.tres", "game/rewards/drops/plains_loot_motion.gd", "game/presentation/audio/windkeeper_pressure_audio.gd"]:
 		result[path] = FileAccess.get_sha256("res://" + path) if FileAccess.file_exists("res://" + path) else "missing"
 	return result
 

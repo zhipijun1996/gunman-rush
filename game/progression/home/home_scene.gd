@@ -125,7 +125,7 @@ func _ready() -> void:
 	set_meta_state({"notes": 0})
 	UnderworldUI.style_canvas(_hud)
 	# Load the optional presentation at the composition root; avoid a static
-	# HomeScene -> presentation -> scenery -> stage -> DemoApp class cycle.
+	# HomeScene -> presentation -> scenery -> stage -> CampaignFixture class cycle.
 	var presentation:=load("res://game/presentation/world/underworld_plains/underworld_presentation.gd") as Script
 	presentation.attach(self,world,player)
 	_layout_home_hud()

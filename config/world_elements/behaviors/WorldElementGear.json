@@ -1,0 +1,51 @@
+{
+  "id": "WorldElementGear",
+  "script": "res://game/world/elements/world_element_gear.gd",
+  "fields": {
+    "element_id": {
+      "type": "string"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "permanent",
+        "attempt"
+      ]
+    },
+    "position": {
+      "type": "point"
+    },
+    "travel": {
+      "type": "point"
+    },
+    "period": {
+      "type": "number",
+      "min": 0.051
+    },
+    "phase": {
+      "type": "number"
+    },
+    "drive_id": {
+      "type": "string"
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "state": {
+    "active": {
+      "type": "bool",
+      "required": true
+    },
+    "clock": {
+      "type": "number",
+      "min": 0,
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "hazards",
+  "root": false,
+  "default_definition": "hazard.gear"
+}

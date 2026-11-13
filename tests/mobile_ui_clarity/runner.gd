@@ -1,7 +1,7 @@
 extends SceneTree
 ## Actual Controls and native input; window/touch settings are explicit fixtures.
 ## Exported browser coverage supplies the backing-store/HiDPI pixel evidence.
-var app: DemoApp
+var app: CampaignFixture
 var checks := 0
 var failures := 0
 var observations: Array[Dictionary] = []
@@ -21,7 +21,7 @@ func run() -> void:
  root.content_scale_mode=Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
  root.content_scale_aspect=Window.CONTENT_SCALE_ASPECT_KEEP
  root.size=windows[0]
- app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+ app=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
  await frames(10)
  for size: Vector2i in windows:
   root.size=size

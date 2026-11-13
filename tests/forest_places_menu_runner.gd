@@ -8,7 +8,7 @@ func check(ok: bool,label: String) -> void:
 	if not ok: failures += 1; push_error(label)
 func run() -> void:
 	for map_index: int in [1,2]:
-		var app := DemoApp.new()
+		var app := CampaignFixture.new()
 		app.meta_persistence_enabled = false
 		root.add_child(app)
 		app.menu.show_debug_regions()

@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['game/**', 'scripts/**', 'resources/**', 'scenes/**', 'config/**', 'assets/**', 'art/**', 'shaders/**', 'tools/world/**', 'tools/export_editor_native.py', 'tools/export_workbench.py', 'tools/materialize_editor_inputs.py', 'addons/runtime_raw_export/**', '.github/workflows/publish-editor-runtime.yml']
+    paths: ['game/**', 'scripts/**', 'resources/**', 'scenes/**', 'config/**', 'assets/**', 'art/**', 'shaders/**', 'tools/world/**', 'tools/export_editor_native.py', 'tools/export_runtime.py', 'tools/materialize_editor_inputs.py', 'addons/runtime_raw_export/**', '.github/workflows/publish-editor-runtime.yml']
 permissions:
   contents: write
 concurrency:

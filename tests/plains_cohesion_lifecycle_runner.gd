@@ -1,7 +1,7 @@
 extends SceneTree
 var assertions:=0
 var failures:=0
-var app:DemoApp
+var app:CampaignFixture
 func _initialize()->void:run.call_deferred()
 func check(ok:bool,label:String)->void:
  assertions+=1
@@ -14,7 +14,7 @@ func isolate(node:Node)->void:
  for child:Node in node.get_children():isolate(child)
 func run()->void:
  # Fixture spawn is explicit. Subsequent wall movement uses real physics/input.
- app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+ app=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
  await frames(2);check(app.start_plains("d082-seal-lifecycle"),"formal region setup");await frames(8)
  var stage:PlainsRegionStage=app.stage
  app.player.reset_at(Vector2(stage.boss_arena.position.x+70,stage.boss_arena.end.y-18));await frames(48)

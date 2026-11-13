@@ -1,5 +1,5 @@
 extends SceneTree
-## ITEM-V5-01 formal DemoApp integration. All relocation, known rewards, income,
+## ITEM-V5-01 formal CampaignFixture integration. All relocation, known rewards, income,
 ## high-HP training targets/platform and director completion are SETUP FIXTURES.
 ## This is neither a natural route clear nor physical keyboard/device evidence.
 ## Gameplay hits always enter the real Router/Controller/projectile/policy chain;
@@ -94,7 +94,7 @@ func equip(definitions: Array[StringName]) -> void:
 	var revision: int = int(app.build.equipment.snapshot().revision)
 	var session: int = app._equipment_session
 	app._submit_equipment(desired, revision, session)
-	check(app.build.equipment.equipped_ids() == desired, "DemoApp equipment command commits the selected actual instance IDs")
+	check(app.build.equipment.equipped_ids() == desired, "CampaignFixture equipment command commits the selected actual instance IDs")
 	# BuildState intentionally emits its changed signal deferred. Observe the
 	# actual delivery while paused, without calling the runtime sync helper.
 	await frames(2)
@@ -307,7 +307,7 @@ func cache_flow() -> bool:
 	app._region_interact()
 	check(ids(app._region_offer.candidates) == offered and app._item_v5_pool.manifest_for(cache_key) == manifest_before, "reopening the actual unclaimed cache neither redraws candidates nor advances RNG")
 	var damage_before: float = app.controller.motor.tuning.projectile_damage
-	check(app._commit_region_choice(offered[0]), "formal cache choice commits through DemoApp and original RewardService")
+	check(app._commit_region_choice(offered[0]), "formal cache choice commits through CampaignFixture and original RewardService")
 	check(app.build.inventory.instances().size() == 1 and app.build.item_ids().is_empty(), "cache item enters ownership without automatic equipment")
 	check(app._item_runtime._effects.is_empty() and app.controller.motor.tuning.projectile_damage == damage_before, "un-equipped cache item does not become a live effect")
 	check(not app.reward_modal.opened and not paused and bool(chosen.claimed), "cache completion closes the modal, records claim and resumes the world")
@@ -399,7 +399,7 @@ func shop_flow() -> void:
 	await frames(2)
 
 func _exercise() -> void:
-	check(app.start_plains("level-design-v2-baseline/08"), "formal DemoApp starts the real Plains run")
+	check(app.start_plains("level-design-v2-baseline/08"), "formal CampaignFixture starts the real Plains run")
 	check(await wait_stage(), "actual formal stage generation and binding complete")
 	if not is_instance_valid(app.stage) or app._stage_pending: return
 	check(app.connected_region and app.stage is PlainsRegionStage and app.director.region_map_index == 1, "actual consumer is formal Plains map one")
@@ -552,7 +552,7 @@ func _run() -> void:
 		print("ITEM V5 FORMAL: %s assertions, %s failures" % [assertions,failures])
 		quit(1)
 		return
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(5)

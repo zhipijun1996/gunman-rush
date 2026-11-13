@@ -40,7 +40,7 @@ def main():
     after = inventory()
     if after != before:
         raise RuntimeError('formal combat sources changed during actual capture')
-    print('PASSED: formal_DemoApp_forest_combat')
+    print('PASSED: formal_CampaignFixture_forest_combat')
 
 if __name__ == '__main__':
     main()

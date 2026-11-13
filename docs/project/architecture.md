@@ -72,7 +72,13 @@ flowchart TD
 
 共鸣回复由WorldFocusHeal管理持有意图、蓄力与取消；HealthState/CombatEnergyState继续拥有实际资源。App在帧伤害裁决后复核并把回复后的HP/共鸣保存为同一修订，再同步应用资源事务；失败不扣费。蓄力进度不进入存档，UI和各房间不复制治疗规则。
 
-旧DemoApp → RunComposition/RunSession → Plains/Forest Provider → Stage/LevelRuntime仍供显式原型与回归。region/map/seed、clear_run_services/reset_maps及旧Run/Meta清空语义不进入新世界链；不将历史WorldContext或回放格式改名作为新核心。
+旧Demo入口已退役；历史运行流程仅保留在tests/fixtures的CampaignFixture中供底层回归，正式运行不引用该夹具。region/map/seed、clear_run_services/reset_maps及旧Run/Meta清空语义不进入新世界链；不将历史WorldContext或回放格式改名作为新核心。
+
+## 地形表现边界
+
+关卡要素按[关卡要素与机关合同](../bible/world_elements.md)登记行为、定义与组合。房间文档拥有实例；同一实例化入口供正式与编辑预览使用，按稳定身份绑定控制和附着关系。世界状态负责接受及持久化，按行为版本校验状态，不把所有机关固定成风铃快照。编辑器只消费主游戏导出的目录与已登记端口。
+
+房间JSON拥有静态实体与危险条；材质覆盖只引用同一几何。TerrainComposer统一分区并将共享占用交给UnderworldTerrain的47核心与精确边界适配。TerrainMaterialRegistry拥有资源与区域许可，表面和接缝解析只产出表现计划。渲染器不创建物理、伤害或保存事实；单向／移动／机关地形保留独立生命周期。旧房默认、砌体标记及区域入口经同一桥接转换，不能持续维护两套正式渲染算法。编辑文档／草稿与导出目录同步消费可选外观协议，规则见[地形与材质](../bible/terrain_materials.md)。
 
 ## 系统职责与真实缺口
 
@@ -80,7 +86,7 @@ flowchart TD
 
 | 系统与目标所有者 | 现有复用：真实入口 | 需要适配／需要新增 | 归位任务 |
 | --- | --- | --- | --- |
-| 应用与全局流程：新游戏、继续、暂停、过房、死亡恢复、结束的编排 | [DemoApp](../../game/application/demo_app.gd)、[RunSession](../../game/application/run_session.gd)、[RunComposition](../../game/application/run_composition.gd) | **已接入**FixedWorldApp开始/继续、共享玩家、暂停/过房/失败/死亡与保存返回标题；**需要新增**结局及完整对话/演出接管 | 01D／01E／01H |
+| 应用与全局流程：新游戏、继续、暂停、过房、死亡恢复、结束的编排 | [FixedWorldApp](../../game/application/world/fixed_world_app.gd)、[RunSession](../../game/application/run_session.gd)、[RunComposition](../../game/application/run_composition.gd) | **已接入**FixedWorldApp开始/继续、共享玩家、暂停/过房/失败/死亡与保存返回标题；**需要新增**结局及完整对话/演出接管 | 01D／01E／01H |
 | 玩家、武器与战斗：运动、动作资源、攻击请求和帧伤害各有主人 | [PlayerController](../../game/player/player_controller.gd) → [PlayerMotor](../../game/player/player_motor.gd)；[WeaponActionRuntime](../../game/combat/weapons/weapon_action_runtime.gd)、[FrameDamagePolicy](../../game/combat/damage/frame_damage_policy.gd) | **已接入**跨房取消/资源连续性、WorldRecoilGuard与进入侧恢复；平原不授予Q，正式获取路线待扩展，保持唯一Motor及接受后命中/表现链 | 01D／01E／01F |
 | 成长、库存、装配与效果：永久解锁、实例所有权、当前装配、有效属性与触发额度分别拥有 | [MetaProgression](../../game/progression/meta_progression.gd)、[RunInventory](../../game/loadout/inventory/run_inventory.gd)、[EquipmentService](../../game/loadout/equipment/equipment_service.gd)、[BuildState](../../game/loadout/stats/build_state.gd)、[ItemRuntime](../../game/loadout/effects/item_runtime.gd) | **已接入**试制永久所有权/等级/破损、负荷装配/周期锁/使用额度与实际效果查询，统计复用BuildState；**需要适配**最终48件及正式成长配置。所有权不等于已装备 | 01E／01G，依赖 ITEM-V5-01 |
 | 怪物与Boss：定义、实例战斗状态、专属决策/招式/阶段及表现 | [EnemyFactory](../../game/enemies/enemy_factory.gd)、EnemyBehaviorRegistry、EnemyActor/Behavior；[BossFactory](../../game/bosses/encounter/boss_factory.gd)、BossEncounter与专属Encounter | **已接入**平原稳定放置ID、敌人周期快照、牧风者场地/封场及永久胜利/H收据；Damageable拥有接受命中后的临时减速时钟，EnemyActor／BossEncounter消费行动倍率，实际伤害仍归HealthState；暂停不推进，死亡／重置清理，不写永久存档。后续对象仍逐个绑定，工厂不拥有永久进度 | 01D／01F／01J；既有物种工作线继续打磨 |
@@ -111,7 +117,7 @@ flowchart TD
 
 ## 控制权、时间与资源寿命
 
-当前正常入口暂停/地图互斥与取消由FixedWorldApp和Router处理，旧DemoApp只供回归，规则引用 [输入合同](../bible/controls_contract.md)。固定世界当前由装载票据与活动epoch接管过房/死亡；后续对话/演出沿同一边界扩展：菜单、对话、演出、过房、死亡用例声明接管原因、活动epoch及恢复条件；只能由当前持有者释放，死亡可使先前持有者失效。关闭旧面板或旧异步回调不能重新启用已死亡/正在装载的角色。接管时取消旧意图与未提交动作；恢复不伪造松手射击，也不靠暂停刷新资格。
+当前正常入口暂停/地图互斥与取消由FixedWorldApp和Router处理，CampaignFixture只供隔离回归，规则引用 [输入合同](../bible/controls_contract.md)。固定世界当前由装载票据与活动epoch接管过房/死亡；后续对话/演出沿同一边界扩展：菜单、对话、演出、过房、死亡用例声明接管原因、活动epoch及恢复条件；只能由当前持有者释放，死亡可使先前持有者失效。关闭旧面板或旧异步回调不能重新启用已死亡/正在装载的角色。接管时取消旧意图与未提交动作；恢复不伪造松手射击，也不靠暂停刷新资格。
 
 | 时钟 | 当前消费者与目标约束 |
 | --- | --- |
@@ -147,9 +153,11 @@ flowchart TD
 
 ## 数据权威、保存与导出
 
-手机关卡工作台是现行场景和世界源的编辑入口。浏览器与 AI 共同修改带基线、修订和稳定实体身份的草稿；草稿不成为第二套正式世界来源。`WorldRoomDraft` 同时承担正式场景提取、实例入树前应用和 `ResourceSaver` 候选写回。世界房形、门与奖励修改仍经原世界编译器校验，地图位置由真实成对门缝推导。工作台只在显式入口启用，沿 `WorldRoomReview` 隔离正式存档，复用 PlayerMotor、输入、镜头、机关和奖励所有者。已加载引擎保持运行，数据修改重建当前房间；新增代码或资源更新才需要导出运行包。草稿修订与实际 `draft_hash` 分别标识修改序列和已加载内容，正式源写回后须用相同编解码器回读核对。
+独立世界编辑器是现行房间和世界源的编辑入口。房间源使用schema3，只有定义引用、参数、稳定实例ID和关系；`WorldRoomDocument`从唯一目录解析实现并在入树前校验、创建及回读，编辑器的component字段是派生视图，回写时移除。`WorldRoomAssembly`是内部组装服务，批量创建地形、危险和表现；`WorldRoomFeature`将恢复、奖励、遭遇、教学及剧情配置接入已有状态主人。房间根编排空间、服务和生命周期，缓存不作为另一份布置来源。V12使用普通根与独立表现组件。
 
-工作台面向手机审核、反馈和微调。新怪物、地图组件、镜头及剧情行为先在主游戏实现和登记，再由同一游戏版本导出组件目录、房间基线与真实试玩包；网页依据目录提供类型和属性，不另行定义游戏行为。点按选择、拖动移动，长按或显式属性按钮打开参数。游戏更新保留旧来源快照，将旧基线、当前草稿与新基线作三方比较；未解决冲突不切换，接受更新时一并保存检查点并切换对应运行包。定稿固定明确修订及房间依赖范围，接入后其余草稿仍保留。版本迁移、源码接入与正式发布分别记录结果。
+主游戏持有独立行为与定义文件，唯一索引为config/world_elements/index.json，定义以library声明业务归属、documentation指向所属系统正文；[世界对象](../data/world_objects.md)仅为机关库说明，纯美术归表现、怪物归既有怪物与Boss文档。新增玩法先在游戏登记；编辑器只选择定义和配置实例，内部组件不可直接放置。正式游戏和WorldEditorSession预览复用同一组件、控制器和状态所有者，预览保存由WorldRoomReview隔离。旧手机工作台桥接、schema1草稿协议及专用发布入口已退役；几何验证、预览目录和打包闭包迁入共用工具。
+
+编辑器schema2本地工作区一次性升级前保存检查点；基线与草稿同时迁移，保留稳定ID、人工管理数据、锁定、撤销和重做记录。旧候选保留供复核，禁止把旧结构路径直接应用到新宿主。之后仍按旧基线、草稿、新基线三方比较，未解决冲突不切换运行包。定稿经选区与依赖进入PR，源码提交不表示部署或合并。
 
 当前权威和生成关系唯一见 [世界输入](../data/world/README.md)：config/world拥有人工源，当前编译309房合同；生成物只进入build/world并纳入实际导出。布置唯一归房间JSON；旧直接场景消费者使用不含布置的装载壳，编译器不生成或覆盖人工布置。独立编辑器管理草稿、候选和人工评分，主游戏拥有组件目录、数据协议及运行包，定稿按选区及依赖进入PR。
 
@@ -158,7 +166,7 @@ flowchart TD
 | 身份、连接、资格与交互所在room/section | config/world/world.json | 合同、UI、模拟和运行导出按ID引用，不另维护拓扑表 |
 | 奖励侧本地返程身份与独立开启要求 | config/world/collection_design.json | 编译为同一动作账本中的local_return；真实闩位置与开闭碰撞归场景，不增加跨房边、不改原IR资格、不以领奖推定开启 |
 | 尺寸、门台、镜头意图、场景绑定 | config/world/construction.json | 合同生成；场景验实际包络和成对接口，不能将地图坐标当碰撞坐标 |
-| 地形、房内节点与专属表现 | 手工Godot场景及所引用Definition | 场景装配/校验消费稳定放置ID；重复的ID、门位、交互位置明确由源生成或校验，不双向随意改 |
+| 地形、实例与表现 | config/world/rooms的schema3 JSON及独立元素定义 | tscn仅为装载壳；碰撞和画面消费同一几何，目录解析实现，稳定ID在回读和预览中保留 |
 | 收集/库存映射与数值 | collections及实际目录、配置/Definition | 文档描述玩家行为并链接参数来源；不复制可编辑数值表 |
 | 路线回归输入 | 从当前路线提取的独立测试输入 | 模拟结果/报告重新生成，不能将上次生成结果当人工权威 |
 

@@ -1,0 +1,35 @@
+{
+  "id": "assembly.bell_gate",
+  "name": "风铃与机关门",
+  "version": 1,
+  "members": [
+    {
+      "id": "switch",
+      "definition": "switch.shot",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "gate",
+      "definition": "gate.masonry",
+      "offset": [
+        128,
+        -64
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": "switch",
+      "target": "gate",
+      "input": "set_active",
+      "output": "active"
+    }
+  ],
+  "category": "assemblies",
+  "placeable": true,
+  "documentation": "docs/data/world_objects.md",
+  "library": "mechanisms"
+}

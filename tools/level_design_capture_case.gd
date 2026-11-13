@@ -46,7 +46,7 @@ func run() -> void:
 	verify(not strategies.is_empty() and strategies.size() <= 3, "bounded_strategy_request")
 	for strategy: String in strategies: verify(strategy in ["fast", "growth", "deep"], "supported_strategy/" + strategy)
 	if not failures.is_empty(): save_report(); finish_code(1); return
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	get_tree().root.add_child(app)
 	verify(app.start_plains(seed_value), "formal_consumer_starts")

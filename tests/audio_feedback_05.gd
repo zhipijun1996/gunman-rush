@@ -18,7 +18,7 @@ func frames(count: int) -> void:
 		await physics_frame
 		await process_frame
 
-func local_audio(app: DemoApp) -> Variant:
+func local_audio(app: CampaignFixture) -> Variant:
 	for child: Node in app.get_children():
 		var source := child.get_script() as Script
 		while source != null:
@@ -63,8 +63,8 @@ func exercise() -> void:
 	check(await music.shutdown(), "Standalone music drain stays within original budget")
 	music.free()
 
-	var packed := load("res://game/application/demo.tscn") as PackedScene
-	var app := packed.instantiate() as DemoApp
+	var packed := load("res://tests/fixtures/campaign_fixture.tscn") as PackedScene
+	var app := packed.instantiate() as CampaignFixture
 	packed = null
 	app.meta_persistence_enabled = false
 	root.add_child(app)

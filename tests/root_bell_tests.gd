@@ -61,7 +61,7 @@ func fixture(blocked := false, restored: Dictionary = {}, floor_width := 0.0, di
 	policy.bind_damageable(&"root_fixture", actor.damageable, actor.health)
 	actor.bind_encounter(controller, policy, life, &"root_fixture", [])
 	behavior = actor.attack_behavior as RootBellBehavior
-	# Same inherited fields consumed by the actual DemoApp restore loop. This is
+	# Same inherited fields consumed by the actual CampaignFixture restore loop. This is
 	# an isolated snapshot fixture, not a claimed complete formal map reload.
 	if not restored.is_empty():
 		behavior.state = StringName(restored.state)

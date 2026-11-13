@@ -52,8 +52,8 @@ func run() -> void:
 			if entry.direction=="down":
 				var shaft:=Rect2(portal-Vector2(52,128),Vector2(104,128))
 				var clear:=true
-				for platform: Rect2 in app.room.platforms:
-					if platform.intersects(shaft):clear=false
+				for index:int in app.room.platforms.size():
+					if index not in app.room.one_way_indices and app.room.platforms[index].intersects(shaft):clear=false
 				check(clear,id+" downward exit is an unobstructed hole")
 			for blocked: Dictionary in app.room.doors:
 				if app.content.room(blocked.target_room).is_empty(): check(not app.room.door_open.get(blocked.id,true),"unbuilt target has visible closed barrier")

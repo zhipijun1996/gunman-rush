@@ -16,7 +16,7 @@ var failures := 0
 var pointer_events: Array[Dictionary] = []
 var callback_counts := {"reward":0,"ability":0,"region":0}
 var selected_reward_ids: Array[StringName] = []
-var app: DemoApp
+var app: CampaignFixture
 func _initialize() -> void: run.call_deferred()
 func check(ok: bool, message: String) -> void:
 	assertions += 1
@@ -91,7 +91,7 @@ func run() -> void:
 	DisplayServer.window_set_size(Vector2i(1280,720))
 	root.size=Vector2i(1280,720)
 	print("FOREST_CAMPAIGN_WINDOW ",JSON.stringify({"physical_before":[before.x,before.y],"physical":[DisplayServer.window_get_size().x,DisplayServer.window_get_size().y],"viewport":[root.size.x,root.size.y],"screen_scale":[root.get_screen_transform().get_scale().x,root.get_screen_transform().get_scale().y]}))
-	app=DemoApp.new()
+	app=CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	root.add_child(app)
 	app.reward_modal.item_selected.connect(func(id: StringName) -> void:

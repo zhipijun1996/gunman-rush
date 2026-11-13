@@ -21,7 +21,7 @@ class RegionContextTests(unittest.TestCase):
         ]:
             with self.subTest(paths=paths):
                 self.assertEqual(region_write_scope(paths), {"region_ids": expected, "unresolved_production_paths": []})
-        unknown = ["game/world/generation/new_region.gd", "game/application/demo_app.gd",
+        unknown = ["game/world/generation/new_region.gd", "tests/fixtures/campaign_fixture.gd",
                    "experiments/terrain/entries/new_study.tscn", "experiments/motion/action_studio.gd"]
         self.assertEqual(region_write_scope(unknown), {"region_ids": [], "unresolved_production_paths": unknown})
         shared = ["game/player/player_motor.gd", "game/platform/persistence/save_store.gd",
@@ -87,7 +87,7 @@ class RegionContextTests(unittest.TestCase):
 # Finite source-chain negatives; no runtime or region authorization.
 from level_region_context import Source, _forest_consumer_observed
 
-APP = 'game/application/demo_app.gd'
+APP = 'tests/fixtures/campaign_fixture.gd'
 PROVIDER = 'game/world/levels/providers/forest_level_provider.gd'
 ADAPTER = 'game/world/levels/providers/legacy_region_plan_adapter.gd'
 CONFIGURED = 'game/world/levels/providers/generated_demo_stage.gd'

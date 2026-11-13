@@ -1,6 +1,6 @@
 @tool
 extends EditorExportPlugin
-## Normal presets declare raw files; Workbench uses a verified derived closure.
+## Normal presets declare raw files; Runtime uses a verified derived closure.
 ## Existing family manifests bind source bytes in both paths.
 ## add_file never skips/remaps normal ResourceLoader/imported derivatives.
 var editor_tree: SceneTree
@@ -174,11 +174,11 @@ func _export_begin(_features: PackedStringArray, _is_debug: bool, _path: String,
 			return
 	add_file(world_path, world_bytes, false)
 	var preset := get_export_preset()
-	if "workbench" in _features:
-		_export_workbench(world)
+	if "editor_preview" in _features:
+		_export_runtime(world)
 		return
 	if "fixed_world_release" in _features:
-		_export_workbench(world, true)
+		_export_runtime(world, true)
 		return
 	var planned := source_plan(preset.get_include_filter(), preset.get_exclude_filter())
 	if not planned.ok:
@@ -223,10 +223,10 @@ func _export_begin(_features: PackedStringArray, _is_debug: bool, _path: String,
 		add_file("res://"+path,bytes,false)
 	print("RECORDED ENEMY RAW EXPORT: %d exact Definition sources preserved alongside normal resources" % recorded.sources.size())
 
-func _export_workbench(world: Dictionary, formal_only: bool = false) -> void:
+func _export_runtime(world: Dictionary, formal_only: bool = false) -> void:
 	# The dedicated exporter owns this derived, fingerprinted closure. Normal
 	# exports continue through the existing complete production contracts above.
-	var path := "res://build/native/export-closure.json" if formal_only else "res://build/workbench/export-closure.json"
+	var path := "res://build/native/export-closure.json" if formal_only else "res://build/preview/export-closure.json"
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if not parsed is Dictionary or parsed.get("schema") != 1 or bool(parsed.get("formal_only",false)) != formal_only or parsed.get("content_version") != world.content_version or not parsed.get("files") is Array or not parsed.get("raw_files") is Array:
 		push_error("Build the current controlled runtime closure before export")
@@ -235,25 +235,25 @@ func _export_workbench(world: Dictionary, formal_only: bool = false) -> void:
 	var admitted: Dictionary = {}
 	for row: Variant in parsed.files:
 		if not row is Dictionary or not row.get("path") is String or not row.get("sha256") is String:
-			push_error("Invalid Workbench export closure row");editor_tree.quit(1);return
+			push_error("Invalid Runtime export closure row");editor_tree.quit(1);return
 		var source: String = row.path
 		if source.begins_with("/") or ":" in source or ".." in source.split("/") or admitted.has(source) or str(row.sha256).length() != 64 or FileAccess.get_sha256("res://" + source) != row.sha256:
-			push_error("Stale/unsafe Workbench export dependency: " + source);editor_tree.quit(1);return
+			push_error("Stale/unsafe Runtime export dependency: " + source);editor_tree.quit(1);return
 		admitted[source] = row.sha256
 	var terrain := underworld_source_contract()
 	var audio := selected_audio_contract()
 	var recorded := recorded_enemy_contract()
 	if terrain.size() != UNDERWORLD_SOURCES.size() or audio.size() != SELECTED_AUDIO_SOURCES.size() or recorded.is_empty():
-		push_error("Workbench export requires intact production source contracts");editor_tree.quit(1);return
+		push_error("Runtime export requires intact production source contracts");editor_tree.quit(1);return
 	for raw: Variant in parsed.raw_files:
 		if not raw is String or not admitted.has(raw):
-			push_error("Unadmitted Workbench raw source");editor_tree.quit(1);return
+			push_error("Unadmitted Runtime raw source");editor_tree.quit(1);return
 		var source: String = raw
 		if terrain.has(source) and admitted[source] != terrain[source]:
-			push_error("Workbench terrain source differs from production record: " + source);editor_tree.quit(1);return
+			push_error("Runtime terrain source differs from production record: " + source);editor_tree.quit(1);return
 		if audio.has(source) and admitted[source] != audio[source].sha256:
-			push_error("Workbench audio source differs from production record: " + source);editor_tree.quit(1);return
+			push_error("Runtime audio source differs from production record: " + source);editor_tree.quit(1);return
 		if recorded.has(source) and admitted[source] != recorded[source]:
-			push_error("Workbench enemy source differs from registered revision: " + source);editor_tree.quit(1);return
+			push_error("Runtime enemy source differs from registered revision: " + source);editor_tree.quit(1);return
 		add_file("res://" + source, FileAccess.get_file_as_bytes("res://" + source), false)
 	print("WORKBENCH RAW EXPORT: %d sources from %d verified dependencies" % [parsed.raw_files.size(), admitted.size()])

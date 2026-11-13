@@ -2,7 +2,7 @@ extends SceneTree
 ## Technical fixtures are not live-route, enemy-state or visual acceptance.
 var assertions := 0
 var failures := 0
-var app: DemoApp
+var app: CampaignFixture
 var observations: Array[Dictionary] = []
 var output := ""
 var deliberate_floating := false
@@ -33,10 +33,10 @@ func valid_item(item: Dictionary, supports: Array[Rect2], blocked: Array[Rect2])
 	if str(item.asset_id) not in ["ruin_arch", "stones"]: return false
 	return not blocked.any(func(r: Rect2): return r.intersects(bounds.grow(8)))
 func run() -> void:
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
-	check(app.start_plains("level-design-v2-baseline"), "real formal DemoApp starts")
+	check(app.start_plains("level-design-v2-baseline"), "real formal CampaignFixture starts")
 	await frames(8)
 	var stage := app.stage as PlainsRegionStage
 	check(stage != null and stage.assembly_ok, "formal PlainsRegionStage assembly")
@@ -100,7 +100,7 @@ func run() -> void:
 	check(again == plan, "presentation repeat deterministic")
 	check(JSON.stringify(stage.generated.manifest) == geometry_before, "complete manifest geometry/interactables unchanged")
 	check(app.director.manifest.canonical_json() == rng_before, "run manifest and RNG positions unchanged by planning")
-	observations.append({"seed": "level-design-v2-baseline", "map": 1, "fixture": "actual DemoApp setup paused for technical assertions, not live enemy acceptance", "plan": plan, "actual_sprites": actual_sprites, "assertions": assertions, "failures": failures})
+	observations.append({"seed": "level-design-v2-baseline", "map": 1, "fixture": "actual CampaignFixture setup paused for technical assertions, not live enemy acceptance", "plan": plan, "actual_sprites": actual_sprites, "assertions": assertions, "failures": failures})
 	finish()
 func finish() -> void:
 	if output.is_empty() or FileAccess.file_exists(output):

@@ -105,7 +105,7 @@ func run() -> void:
 	if is_instance_valid(app.weapon_feel):
 		app.controller.shoot_ability.shot_fired.connect(func(_axis:Vector2,_serial:int)->void:
 			var leaf: PlayerWeaponFeelProjectile=app.weapon_feel.leaves.back()
-			check(leaf.previous is PixelPlainsProjectile,"formal DemoApp really installed original pixel projectile leaf")
+			check(leaf.previous is PixelPlainsProjectile,"formal CampaignFixture really installed original pixel projectile leaf")
 			app.set_weapon_enabled(false)
 			check(leaf.projectile.presentation==leaf.previous and leaf.previous.visible,"formal OFF restores original pixel projectile")
 			app.set_weapon_enabled(true))

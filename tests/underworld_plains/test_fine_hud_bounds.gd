@@ -8,7 +8,7 @@ func check(ok: bool,label: String) -> void:
 	if not ok:failures.append(label);printerr("FAIL "+label)
 func run() -> void:
 	root.size = Vector2i(1280,720)
-	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_debug_region(&"plains",2,"level-design-v2-baseline/08"),"actual formal map2 starts")
 	for i: int in 8:await physics_frame
 	app.set_physics_process(false);app.player.set_physics_process(false)

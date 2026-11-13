@@ -18,7 +18,7 @@ func bind(value: FixedWorldState) -> void:
 	if not metal_hatch:
 		closed_terrain=UnderworldTerrain.build(closed_panels)
 		var room:=get_parent() as FixedWorldRoom
-		if room!=null and not room.interior_material().is_empty():PlainsMillTerrainMaterial.install_on(closed_terrain)
+		if room!=null and not room.interior_material().is_empty():TerrainMaterialRegistry.install_on(closed_terrain,"mill_masonry")
 		add_child(closed_terrain)
 	_refresh(0)
 

@@ -13,7 +13,7 @@ func take_sample() -> void:
 
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(folder)
-	app = APP.instantiate() as DemoApp
+	app = APP.instantiate() as CampaignFixture
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	for child: Node in app.get_children():

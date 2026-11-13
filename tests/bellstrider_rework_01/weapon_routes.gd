@@ -1,5 +1,5 @@
 extends SceneTree
-## Actual formal DemoApp routes with explicit position/loadout/capability fixtures.
+## Actual formal CampaignFixture routes with explicit position/loadout/capability fixtures.
 ## No HP, Boss mode, clock, policy admission, resource or invulnerability edits.
 ## Fixture projectiles/contact sources below are disclosed, not natural attacks.
 const TEARDOWN := preload("res://tests/audio_teardown.gd")
@@ -70,7 +70,7 @@ func setup() -> bool:
 	player_results.clear()
 	packet_events.clear()
 	hook_negatives_done = false
-	app = load("res://game/application/demo_app.gd").new()
+	app = load("res://tests/fixtures/campaign_fixture.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_plains("level-design-v2-baseline/08"), "SETUP formal map1 starts through actual App")

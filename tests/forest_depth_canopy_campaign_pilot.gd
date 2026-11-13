@@ -1,6 +1,6 @@
 extends Node
 ## Actual-App binding only. Canonical canopy aim/choreography; no fixture world setup.
-var app: DemoApp
+var app: CampaignFixture
 var player: PlayerMotor
 var controller: PlayerController
 var queen: ThornQueenCanopyEncounter
@@ -33,7 +33,7 @@ var partial_path := "res://build/forest_depth/campaign/canopy-partial.json"
 func check(ok: bool,message: String) -> void:
 	assertions+=1
 	if not ok: failures.append(message);printerr("FAIL: canopy/"+message)
-func bind_actual(value: DemoApp) -> bool:
+func bind_actual(value: CampaignFixture) -> bool:
 	disconnect_actual()
 	if not is_instance_valid(value.stage) or not is_instance_valid(value.stage.boss) or not value.stage.boss.get_node("Encounter") is ThornQueenCanopyEncounter: return false
 	app=value;player=value.player;controller=value.controller;queen=value.stage.boss.get_node("Encounter") as ThornQueenCanopyEncounter

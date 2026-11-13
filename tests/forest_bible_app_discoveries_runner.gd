@@ -81,8 +81,8 @@ func key(code: Key, pressed: bool) -> void:
 	Input.parse_input_event(event)
 	await frames(2)
 
-func setup_app(label: String) -> DemoApp:
-	var app: DemoApp = DemoApp.new()
+func setup_app(label: String) -> CampaignFixture:
+	var app: CampaignFixture = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_debug_region(&"thorn_forest",2,selected_seed,ThornForestRegionGenerator.DEPTH_VERSION,ThornForestRegionGenerator.DEPTH_LAYOUT_BIBLE),"actual App pins v15 map2 / "+label)
@@ -114,7 +114,7 @@ func setup_app(label: String) -> DemoApp:
 	check(button_text(app._actions,"OPEN CACHE / CHOOSE REWARD") != null and button_text(app._actions,"查看发现物") != null,"actual root shows separate cache and discovery buttons / "+label)
 	return app
 
-func claim_badge(app: DemoApp, label: String) -> bool:
+func claim_badge(app: CampaignFixture, label: String) -> bool:
 	var stage: ThornForestRegionStage = app.stage as ThornForestRegionStage
 	var reader: ForestBibleDiscoveries = stage.discoveries
 	var before: float = app.controller.actor_resources.health.capacity
@@ -133,7 +133,7 @@ func claim_badge(app: DemoApp, label: String) -> bool:
 		await frames(2)
 	return accepted
 
-func claim_cache(app: DemoApp, label: String) -> bool:
+func claim_cache(app: CampaignFixture, label: String) -> bool:
 	var stage: ThornForestRegionStage = app.stage as ThornForestRegionStage
 	var index: int = stage.nearby_chest(app.player.global_position)
 	check(index >= 0,"actual cache remains reachable / "+label)
@@ -154,7 +154,7 @@ func claim_cache(app: DemoApp, label: String) -> bool:
 	check(accepted and not paused and not app.reward_modal.opened,"actual cache selection commits its unique wallet grant / "+label)
 	return accepted
 
-func dispose(app: DemoApp) -> void:
+func dispose(app: CampaignFixture) -> void:
 	if app.lifetime.active: app.abandon_run()
 	paused = false
 	await frames(4)
@@ -165,7 +165,7 @@ func dispose(app: DemoApp) -> void:
 
 func order_case(read_first: bool) -> void:
 	var label: String = "read_then_cache" if read_first else "cache_then_read"
-	var app: DemoApp = await setup_app(label)
+	var app: CampaignFixture = await setup_app(label)
 	var accepted: bool = false
 	if app.stage is ThornForestRegionStage and app.stage.assembly_ok:
 		var first: bool
@@ -200,7 +200,7 @@ func order_case(read_first: bool) -> void:
 	await dispose(app)
 
 func fatal_confirm_case() -> void:
-	var app: DemoApp = await setup_app("fatal_confirm")
+	var app: CampaignFixture = await setup_app("fatal_confirm")
 	var committed: Array[Dictionary] = []
 	var outcomes: Array[Dictionary] = []
 	var enqueue: Array[Dictionary] = []
@@ -250,7 +250,7 @@ func run() -> void:
 		push_error("Forest Bible App discovery capture could not be written")
 		quit(1)
 		return
-	file.store_string(JSON.stringify({"scope":"actual v15 DemoApp UI staging only, no Motor route/art/device admission","assertions":assertions,"failures":failures,"checks":checks,"cases":cases,"clicks":clicks,"seed_candidates":seed_candidates,"staged":staged,"shots":shots,"viewport":[1280,720],"position_staging":true,"resource_injection":false,"synthetic_damage_order_control":true},"  "))
+	file.store_string(JSON.stringify({"scope":"actual v15 CampaignFixture UI staging only, no Motor route/art/device admission","assertions":assertions,"failures":failures,"checks":checks,"cases":cases,"clicks":clicks,"seed_candidates":seed_candidates,"staged":staged,"shots":shots,"viewport":[1280,720],"position_staging":true,"resource_injection":false,"synthetic_damage_order_control":true},"  "))
 	file.close()
 	print("FOREST BIBLE APP DISCOVERIES: %s assertions, %s failures" % [assertions,failures])
 	quit(0 if failures == 0 else 1)

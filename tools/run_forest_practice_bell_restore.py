@@ -20,7 +20,7 @@ SOURCE_PATHS = (
     "scripts/generation/forest_bible_v2_layout.gd",
     "game/world/generation/thorn_forest_region_assembler.gd",
     "game/world/levels/providers/thorn_forest_region_stage.gd",
-    "game/application/demo_app.gd",
+    "tests/fixtures/campaign_fixture.gd",
     "game/world/generation/thorn_forest_region_generator.gd",
     "game/presentation/world/presentation/forest_bible_presentation.gd",
     "game/presentation/audio/game_audio.gd",

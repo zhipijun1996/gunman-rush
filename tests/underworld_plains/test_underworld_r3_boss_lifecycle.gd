@@ -5,7 +5,7 @@ extends SceneTree
 var checks:=0
 var failures:Array[String]=[]
 var observations:Array[Dictionary]=[]
-var app:DemoApp
+var app:CampaignFixture
 var encounter:WindkeeperEncounter
 var map_hashes: Dictionary = {}
 func _initialize()->void:run.call_deferred()
@@ -21,7 +21,7 @@ func clear_fixture()->void:
 		app.free();await frames(3)
 func fixture(map_index:int,one_hp:bool)->void:
 	await clear_fixture()
-	app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("underworld-r3-boss-adversarial")
+	app=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("underworld-r3-boss-adversarial")
 	await frames(8)
 	if map_index==2:app.director.stage_index=2;app.director.region_map_index=2;app._load_stage();await frames(8)
 	var stage := app.stage as PlainsRegionStage

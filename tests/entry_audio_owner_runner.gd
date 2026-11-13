@@ -164,10 +164,10 @@ func _cloud_case(path: String, expects_app: bool) -> void:
 	var audio := GameAudio.for_origin(preview.custom_scene) as GameAudio
 	_check(audio != null, path+" has its scoped service")
 	if expects_app:
-		var app := preview.custom_scene as DemoApp
+		var app := preview.custom_scene as CampaignFixture
 		_check(app != null and not app.meta_persistence_enabled and preview.custom_audio == null, path+" owns audio and keeps save isolation without duplicate generic service")
 		_check(audio.get_parent() == app and audio._voices.size() == 12, path+" retains one owned twelve-voice service")
-		if path == "res://game/application/demo.tscn":
+		if path == "res://tests/fixtures/campaign_fixture.tscn":
 			_check(audio is PlayerWeaponFeelAudioV2 and audio.audio_profile == "selected", "formal scene retains its exact selected audio assembly")
 			app._show_home()
 			var actor := app.home_scene.player
@@ -189,7 +189,7 @@ func _cloud_case(path: String, expects_app: bool) -> void:
 func _run() -> void:
 	await _ownership_case()
 	await _unowned_fallback()
-	await _cloud_case("res://game/application/demo.tscn",true)
+	await _cloud_case("res://tests/fixtures/campaign_fixture.tscn",true)
 	await _cloud_case("res://experiments/motion/entries/action_studio.tscn",false)
 	if "--auditions" in OS.get_cmdline_user_args():
 		for path: String in ["audio/entries/audio_home_lab", "audio/entries/audio_ambience_lab", "audio/entries/audio_director_lab", "audio/entries/audio_director_lab_v2", "audio/entries/audio_director_reels", "motion/entries/motion_candidate", "motion/entries/landing_feel", "motion/entries/weapon_feel", "motion/entries/weapon_feel_v2"]:

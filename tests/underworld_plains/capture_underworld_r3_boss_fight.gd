@@ -4,7 +4,7 @@ extends SceneTree
 ## Optional Godot --write-movie captures this same normal-clock driver.
 const BELL_PLATFORM := preload("res://tests/underworld_plains/bell_platform_fixture.gd")
 const BELL_PILOT := preload("res://tools/bellstrider_01/legal_input_pilot.gd")
-var app:DemoApp
+var app:CampaignFixture
 var map_index:=1
 var trace:Array[Dictionary]=[]
 var failure:Array[String]=[]

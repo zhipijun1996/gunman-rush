@@ -56,11 +56,7 @@ func valid(candidate: Dictionary) -> bool:
 		for id: Variant in candidate.mechanisms:
 			var row: Variant=candidate.mechanisms[id]
 			if not id is String or not row is Dictionary:return false
-			for field: String in ["clock","opened_at","sequence_step","open_count","motion_clock"]:
-				if not (row.get(field) is float or row.get(field) is int) or not is_finite(row[field]):return false
-			for field: String in ["is_open","motion_running"]:
-				if not row.get(field) is bool:return false
-			if row.clock<0 or row.motion_clock<0 or row.open_count<0:return false
+			if not WorldElementCatalog.state_error(row).is_empty(): return false
 	if candidate.has("story_hosts"):
 		if not candidate.story_hosts is Dictionary: return false
 		for key: Variant in candidate.story_hosts:

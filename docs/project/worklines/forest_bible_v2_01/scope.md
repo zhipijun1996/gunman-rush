@@ -8,7 +8,7 @@
 
 ## 实际检查
 
-`python tools/export_workbench.py --plan-only` 后运行 `python tools/world/forest_review.py`：24房／30连接／5外区口身份、五条路线有效边、房形与通道无相互重叠、与平原35房无重叠、P04世界接缝一致。SVG、JSON和离线页面从同一候选生成；导出默认在 `build/forest-review/`。工作台只读取派生forest.json并复用整区地图组件，SVG保留下载；旧独立网页地址跳转到整合审核入口，不维护第二套网页交互。
+`python tools/export_runtime.py --plan-only` 后运行 `python tools/world/forest_review.py`：24房／30连接／5外区口身份、五条路线有效边、房形与通道无相互重叠、与平原35房无重叠、P04世界接缝一致。SVG、JSON和离线页面从同一候选生成；导出默认在 `build/forest-review/`。工作台只读取派生forest.json并复用整区地图组件，SVG保留下载；旧独立网页地址跳转到整合审核入口，不维护第二套网页交互。
 
 生成检查不证明动作包络、能力锁、Boss战、存档或实机节奏。相邻四区未施工，只保留朝向明确且未被本区包围的接口；不宣称完整世界空间已验证。手机触摸实机和浏览器视觉未验证。
 

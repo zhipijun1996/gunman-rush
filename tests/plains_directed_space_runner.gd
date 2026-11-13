@@ -1,7 +1,7 @@
 extends SceneTree
 const LEGACY_PRESENTATION := preload("res://tests/legacy_plains_presentation_fixture.gd")
 var legacy_presentation_fixtures: Array[Dictionary] = []
-## Real DemoApp consumer and deliberate live-Node counterexamples.
+## Real CampaignFixture consumer and deliberate live-Node counterexamples.
 ## No traversal, pixels, performance, audio, device or aesthetic acceptance.
 var assertions := 0
 var failures := 0
@@ -35,13 +35,13 @@ func forbidden_descendant(node: Node) -> bool:
 		if forbidden_descendant(child): return true
 	return false
 
-func wait_stage(app: DemoApp) -> void:
+func wait_stage(app: CampaignFixture) -> void:
 	for unused: int in 120:
 		await physics_frame
 		await process_frame
 		if not app._stage_pending and app.stage is PlainsRegionStage: return
 
-func check_live(app: DemoApp, map_index: int, seed_value: String, thorough: bool) -> void:
+func check_live(app: CampaignFixture, map_index: int, seed_value: String, thorough: bool) -> void:
 	_install_legacy_presentation(app)
 	var stage := app.stage as PlainsRegionStage
 	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
@@ -197,7 +197,7 @@ func run_legacy() -> void:
 	var seeds: Array[String]=["level-design-v2-baseline","level-design-v2-baseline/01","level-design-v2-baseline/02","level-design-v2-baseline/03","level-design-v2-baseline/04","level-design-v2-baseline/05","level-design-v2-baseline/06","level-design-v2-baseline/07","level-design-v2-baseline/08","level-design-v2-baseline/09"]
 	if "--single-seed" in OS.get_cmdline_user_args(): seeds.resize(1)
 	for seed_value: String in seeds:
-		var app := DemoApp.new()
+		var app := CampaignFixture.new()
 		app.meta_persistence_enabled=false
 		root.add_child(app)
 		check(app.start_plains(seed_value),"real formal seed starts")
@@ -262,7 +262,7 @@ func expected_highland_slot(landscape: PlainsSemanticLandscape) -> bool:
 		if minf(support.end.x,occupied.position.x-16.0)-support.position.x>=width+24.0: return true
 	return false
 
-func check_default(app: DemoApp, map_index: int, seed_value: String, thorough: bool) -> void:
+func check_default(app: CampaignFixture, map_index: int, seed_value: String, thorough: bool) -> void:
 	_install_legacy_presentation(app)
 	var stage := app.stage as PlainsRegionStage
 	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
@@ -318,7 +318,7 @@ func run_default() -> void:
 	var seeds: Array[String]=["level-design-v2-baseline","level-design-v2-baseline/01","level-design-v2-baseline/02","level-design-v2-baseline/03","level-design-v2-baseline/04","level-design-v2-baseline/05","level-design-v2-baseline/06","level-design-v2-baseline/07","level-design-v2-baseline/08","level-design-v2-baseline/09"]
 	if "--single-seed" in OS.get_cmdline_user_args(): seeds.resize(1)
 	for seed_value: String in seeds:
-		var app := DemoApp.new()
+		var app := CampaignFixture.new()
 		app.meta_persistence_enabled=false
 		root.add_child(app)
 		check(app.start_plains(seed_value),"default real formal seed starts")
@@ -382,20 +382,20 @@ func check_ivy_attachments(composition: PlainsRegionComposition) -> void:
 
 
 # Test-only independent-stage fixture; no natural campaign transition is claimed.
-func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+func _sync_fixture_map_index(app: CampaignFixture, index: int) -> void:
 	for entry: Dictionary in app.director.get_property_list():
 		if str(entry.get("name", "")) == "region_map_index":
 			app.director.set("region_map_index", index)
 			return
 
-func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+func _fixture_identity_matches(app: CampaignFixture, index: int, root_seed: String) -> bool:
 	var actual := app.stage as PlainsRegionStage
 	if actual == null or not actual.assembly_ok: return false
 	var manifest: Dictionary = actual.generated.manifest
 	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")
 
 
-func _install_legacy_presentation(app: DemoApp) -> void:
+func _install_legacy_presentation(app: CampaignFixture) -> void:
 	var record := LEGACY_PRESENTATION.prepare(app, "directed_space")
 	legacy_presentation_fixtures.append(record)
 	check(record.get("pixel_default_before",false), "new stage retains current pixel default before explicit historical fixture")

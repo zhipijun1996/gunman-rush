@@ -37,7 +37,7 @@ func run() -> void:
 			var root_seed := "forest-depth-hollow-%02d" % root_index
 			var context := "%s/map%s" % [root_seed,map_index]
 			var before_failures := failures.size()
-			var app := DemoApp.new()
+			var app := CampaignFixture.new()
 			app.meta_persistence_enabled=false
 			root.add_child(app)
 			# Exact original-corpus comparison is explicitly historical, even when

@@ -33,7 +33,7 @@ def capture(folder, samples):
                   source_before=before, captures=[], errors=[],
                   conditions=dict(seed='player-presentation-01/motion-01', fps=60, resolution=[1280, 720], requested_samples=samples),
                   baseline='Same task dev consumer with candidate disabled: inherited original renderer and formal gameplay',
-                  scope='Actual DemoApp Plains player visual leaf substitution only. Original world/camera/AI/input/Motor/resources/muzzle. Synthetic Router schedule. Not Home/new weapons/full lifecycle/user/device acceptance.',
+                  scope='Actual CampaignFixture Plains player visual leaf substitution only. Original world/camera/AI/input/Motor/resources/muzzle. Synthetic Router schedule. Not Home/new weapons/full lifecycle/user/device acceptance.',
                   comparison_differences=['Only task candidate body drawing/gait phase and accepted jump/landing dust enabled after; new generated idle/fall trial, old run art retained.'],
                   user_acceptance='unverified', device_acceptance='unverified')
     receipt = folder / 'report.json'

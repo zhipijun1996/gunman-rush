@@ -1,0 +1,19 @@
+{
+  "id": "enemy.patrol",
+  "name": "怪物 · patrol",
+  "version": 1,
+  "component": "array:enemy_placements",
+  "defaults": {
+    "point": [
+      0,
+      0
+    ],
+    "behavior": "patrol"
+  },
+  "position_field": "point",
+  "category": "characters",
+  "placeable": true,
+  "documentation": "docs/data/enemies/plains.md",
+  "definition_resource": "res://resources/enemies/patrol_drone.tres",
+  "library": "enemies"
+}

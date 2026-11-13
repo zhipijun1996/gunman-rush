@@ -6,11 +6,11 @@ releases; sign_android_release.py signs and verifies the final distributed APK.
 from __future__ import annotations
 import argparse, hashlib, json, os, re, shutil, subprocess, sys, tempfile, zipfile
 from pathlib import Path
-import export_workbench as closure
+import export_runtime as closure
 from check_web_bundle import Pack, check_fixed_world_payload
 from godot_identity import verified_engine, verify_templates, engine_directory
 ROOT=closure.ROOT
-DENIED=('docs/','tests/','tools/','experiments/','resources/mapgen/','resources/levels/mapgen','config/world/','config/workbench/','build/workbench/','game/world/regions/V/','assets/visual_development/','resources/visual_development/')
+DENIED=('docs/','tests/','tools/','experiments/','resources/mapgen/','resources/levels/mapgen','config/world/','config/editor/','build/preview/','game/world/regions/V/','assets/visual_development/','resources/visual_development/')
 
 def version()->str:
  return re.search(r'^config/version="([0-9]+\.[0-9]+\.[0-9]+)"$',(ROOT/'project.godot').read_text(),re.M)[1]
@@ -34,9 +34,16 @@ class ApkResources:
   self.entries={n.removeprefix('assets/'):None for n in self.archive.namelist() if n.startswith('assets/') and not n.endswith('/')}
  def read(self,name):return self.archive.read('assets/'+name)
 
+def forbidden_resource(name:str,plan:dict)->bool:
+ # Runtime JSON rooms replaced their old scene-owned layouts. Admit only the
+ # exact formal room set already selected by the audited dependency closure.
+ allowed_rooms={'config/world/rooms/'+rid+'.json' for rid in plan['rooms']}
+ if name in allowed_rooms and name in plan['raw_files']:return False
+ return name.startswith(DENIED) or bool(re.search(r'assets/underworld_plains/[^/]+/sources/',name))
+
 def verify_resources(pack,plan:dict)->dict:
  for name in pack.entries:
-  if name.startswith(DENIED) or re.search(r'assets/underworld_plains/[^/]+/sources/',name):raise ValueError('Development payload leaked into native release: '+name)
+  if forbidden_resource(name,plan):raise ValueError('Development payload leaked into native release: '+name)
  fixed=check_fixed_world_payload(pack,ROOT)
  for name in plan['raw_files']:
   if pack.read(name)!=(ROOT/name).read_bytes():raise ValueError('Changed raw runtime dependency: '+name)

@@ -52,7 +52,7 @@ def validate_native(data, recovery=False, reward_resource=""):
         require(isinstance(frames,list) and bool(frames) and isinstance(events,list),"empty actual trajectory")
         require([f.get("tick") for f in frames]==list(range(1,len(frames)+1)),"discontinuous actual physics observation")
         if recovery:
-            require(row.get("scope")=="actual_live_DemoApp_normal_start" and row.get("same_scene") is True,"wrong formal consumer")
+            require(row.get("scope")=="actual_live_CampaignFixture_normal_start" and row.get("same_scene") is True,"wrong formal consumer")
             returns=[e for e in events if e.get("kind")=="segment_returned"]
             damage=[e for e in events if e.get("kind")=="damage_committed" and e.get("target")=="player" and e.get("damage_kind")==1]
             expected_returns=2 if reward_resource=="heart" else 1
@@ -135,7 +135,7 @@ def validate_reward_entry(data, sources):
     require(len(data.get("cases",[]))==1,"ambiguous reward input run")
     row=data["cases"][0];state=row.get("state",{});frames=row.get("frames",[]);events=row.get("events",[])
     validate_reward_map_identity(row)
-    require(row.get("id")=="formal_reward_entry" and row.get("scope")=="actual_live_DemoApp_normal_start_reward_entry_observer" and not row.get("restored_unsafe") and not row.get("restored_unsafe_return"),"wrong/physically broken reward consumer")
+    require(row.get("id")=="formal_reward_entry" and row.get("scope")=="actual_live_CampaignFixture_normal_start_reward_entry_observer" and not row.get("restored_unsafe") and not row.get("restored_unsafe_return"),"wrong/physically broken reward consumer")
     require(row.get("driver_sha256")==sources.get("tests/level_formal_trace.gd") and row.get("observer_sha256")==sources.get("tests/plains_encounter_policy_runner.gd"),"wrong actual driver/observer bytes")
     require(all(state.get(k) is True for k in ["done","tutorial","approach","trial","camp"]) and not row.get("diagnostics"),"incomplete normal-spawn reward itinerary")
     require(frames and [f.get("tick") for f in frames]==list(range(1,len(frames)+1)),"missing actual physics observation")

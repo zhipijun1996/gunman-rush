@@ -2,7 +2,7 @@ extends SceneTree
 ## Regression: actual ScreenTouch events with global mouse emulation still off.
 var failures := 0
 var assertions := 0
-var app: DemoApp
+var app: CampaignFixture
 var lab: FoundryLab
 func _initialize() -> void: run.call_deferred()
 func check(ok: bool, label: String) -> void:
@@ -26,7 +26,7 @@ func tap(button: Button) -> void:
 func run() -> void:
 	root.size = Vector2i(1280, 720)
 	check(not ProjectSettings.get_setting("input_devices/pointing/emulate_mouse_from_touch"), "global touch policy remains unchanged")
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	app._open_foundry()

@@ -10,8 +10,8 @@ ROOT=Path(__file__).resolve().parents[1]
 def main():
     build()
     sys.path.insert(0, str(ROOT / "tools/world"))
-    from workbench_seed import preview_catalog
-    target = ROOT / "build/workbench/preview-world.json"
+    from preview_catalog import preview_catalog
+    target = ROOT / "build/preview/preview-world.json"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(preview_catalog(ROOT), ensure_ascii=False) + "\n")
     for script,marker,timeout in [
@@ -54,12 +54,11 @@ def main():
         ('plains_intro.gd',r'PLAINS REVISION: 0 failures',180),
         ('plains_readability.gd',r'PLAINS INTRO: 0 failures',180),
         ('platform_dwell.gd',r'PLATFORM DWELL: .*0 failures',60),
-        ('workbench.gd',r'WORKBENCH: .*0 failures',180),
         ('service_ui.gd',r'WORLD SERVICE UI: 0 failures',120),
         ('service_restart.gd',r'WORLD SERVICE RESTART: 0 failures',30),
     ]:
         output=run_engine(['--headless','--fixed-fps','60','--path','.', '--script','tests/world/'+script],timeout)
         if 'SCRIPT ERROR:' in output or re.search(r'^ERROR:',output,re.M) or not re.search(marker,output):
             raise RuntimeError('World validation failed: '+script)
-    print('PASS: current tutorial local fixtures, camera/workbench, world contracts, service disk restart, services and lifecycle counterexamples')
+    print('PASS: current tutorial local fixtures, camera/editor, world contracts, service disk restart, services and lifecycle counterexamples')
 if __name__=='__main__':main()

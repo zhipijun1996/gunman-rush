@@ -11,7 +11,7 @@ func check(value: bool, message: String) -> void:
 		push_error(message)
 
 func run() -> void:
-	var app := preload("res://game/application/demo.tscn").instantiate() as DemoApp
+	var app := preload("res://tests/fixtures/campaign_fixture.tscn").instantiate() as CampaignFixture
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	var audio := app.get_tree().get_first_node_in_group(&"game_audio") as GameAudio

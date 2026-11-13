@@ -1,11 +1,11 @@
 extends "res://tools/level_formal_capture.gd"
 ## Explicit three-prototype place candidate. The original capture owns timing and teardown.
 
-func make_application() -> DemoApp:
-	var result := DemoApp.new()
+func make_application() -> CampaignFixture:
+	var result := CampaignFixture.new()
 	result.set("plains_places_candidate_requested", true)
 	result.avatar_selection_id = "p1_girl"
-	report["entry_context"] = "Explicit independent place-grammar candidate via DemoApp.start_plains; original player, controls, spawn, camera and bounded capture lifecycle"
+	report["entry_context"] = "Explicit independent place-grammar candidate via CampaignFixture.start_plains; original player, controls, spawn, camera and bounded capture lifecycle"
 	report["visual_layout_treatment"] = "original"
 	report["visual_sample_treatment"] = {"catalog_path": "", "catalog_sha256": ""}
 	report.captured_scope["plains_places_candidate"] = true

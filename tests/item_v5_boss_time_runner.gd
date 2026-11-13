@@ -137,7 +137,7 @@ func _exercise() -> void:
 	relocate(shore)
 	await ticks(8)
 	if not app._boss_started: app._start_generated_boss()
-	check(app._boss_started and boss.active,"original DemoApp activation starts real Windkeeper encounter")
+	check(app._boss_started and boss.active,"original CampaignFixture activation starts real Windkeeper encounter")
 	check(boss.continuous_combat(),"real Boss uses formal continuous-combat profile")
 	check(app.controller.actor_resources.health.current == app.controller.actor_resources.health.capacity,"P06 starts at naturally full HP without HP injection")
 	# Wait for the original timed stomp to emit actual moving ring projectiles.
@@ -458,7 +458,7 @@ func static_hazard_and_scene_case() -> void:
 func _run() -> void:
 	root.size = Vector2i(1280,720)
 	root.content_scale_size = Vector2i(1280,720)
-	app = load("res://game/application/demo_app.gd").new()
+	app = load("res://tests/fixtures/campaign_fixture.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(5)

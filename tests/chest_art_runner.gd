@@ -4,7 +4,7 @@ var checks := 0
 var failures := 0
 var region_completion: Dictionary = {}
 var region_phases: Dictionary = {}
-var live_apps: Array[DemoApp] = []
+var live_apps: Array[CampaignFixture] = []
 var pose_cases: Dictionary = {}
 var repeated_w_completed := false
 var cache_pointer_completed := false
@@ -31,7 +31,7 @@ func frames(count: int) -> void:
 		await physics_frame
 		await process_frame
 
-func release_app(app: DemoApp) -> bool:
+func release_app(app: CampaignFixture) -> bool:
 	# Also called by the outer owner when an inner coroutine fails to finish.
 	live_apps.erase(app)
 	paused = false
@@ -52,7 +52,7 @@ func w_event(pressed: bool) -> void:
 	event.pressed = pressed
 	Input.parse_input_event(event)
 
-func locate_original_cache(app: DemoApp, chest: Dictionary) -> bool:
+func locate_original_cache(app: CampaignFixture, chest: Dictionary) -> bool:
 	# Same disclosed pose-only protocol as tests/demo_tests.gd locate; no
 	# controller reset, resource grant, chest mutation, or collider substitution.
 	var collision := app.player.get_node("CollisionShape2D") as CollisionShape2D
@@ -76,7 +76,7 @@ func locate_original_cache(app: DemoApp, chest: Dictionary) -> bool:
 	return false
 
 func repeated_w_cache() -> void:
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	live_apps.append(app)
 	app.meta_persistence_enabled = false
 	root.add_child(app)
@@ -151,7 +151,7 @@ func repeated_w_cache() -> void:
 func formal_region(region: StringName) -> void:
 	region_completion[String(region)] = false
 	region_phases[String(region)] = {}
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	live_apps.append(app)
 	app.meta_persistence_enabled = false
 	root.add_child(app)
@@ -260,7 +260,7 @@ func run() -> void:
 	check(cache_pointer_completed,"required actual pointer, five-frame paused support and duplicate-interaction carryover completed")
 	# An interrupted inner coroutine must not print success or leak its App.
 	while not live_apps.is_empty():
-		var unfinished: DemoApp = live_apps.back()
+		var unfinished: CampaignFixture = live_apps.back()
 		check(false,"formal region coroutine returned before releasing its owned application")
 		check(await release_app(unfinished),"outer owner releases incomplete formal fixture audio")
 	for region: String in ["plains","thorn_forest"]:
@@ -287,7 +287,7 @@ func cache_support_ids(player: PlayerMotor) -> Array[int]:
 	result.sort()
 	return result
 
-func cache_pointer_carryover(app: DemoApp, chest: Dictionary) -> void:
+func cache_pointer_carryover(app: CampaignFixture, chest: Dictionary) -> void:
 	# Reuse the already-open second W cache and its real supported player.
 	# The original first-cache queue, two-region claims and reload tests stay intact.
 	var active := paused and app.reward_modal.opened and app._region_offer != null and not app._region_offer.candidates.is_empty()

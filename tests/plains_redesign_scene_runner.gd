@@ -11,7 +11,7 @@ var frame_dir := ""
 var capture_pending := false
 var screenshots: Array = []
 var cases: Array = []
-var app: DemoApp
+var app: CampaignFixture
 var active_trace
 var mutation_applied := false
 var mutation_receipt: Dictionary = {}
@@ -265,7 +265,7 @@ func apply_mutation(trace) -> void:
 		app.overlay.set_enabled(true);app.overlay.update_layout()
 		app._hud_frame.position=Vector2(12,590)
 		(app.stage as PlainsRegionStage).map_view.position=Vector2(1098,674)
-		app.item_toast.show_item(DemoApp.SHOT_ITEM);app.item_toast._root.position=Vector2(300,615)
+		app.item_toast.show_item(CampaignFixture.SHOT_ITEM);app.item_toast._root.position=Vector2(300,615)
 		mutation_receipt={"overlay_enabled":app.overlay.enabled,"actual_touch_regions":app._region_touch_regions().map(func(r:Rect2):return rect_values(r)),"actual_ui":display_regions(),"scope":"real legacy candidate rectangles overlap real enabled overlay; no touch input claim"};mutation_applied=true;return
 	if mutation in ["hud_actor","foreground_actor","heading_actor","required_outside","info_actor"]:chosen=rows[0]
 	elif mutation=="foreground_landing":
@@ -334,7 +334,7 @@ func capture_screen(request_tick: int) -> void:
 	capture_pending=false
 
 func run_case(map_index: int, strategy: String, custom: String="", seed_value: String="level-design-v2-baseline") -> void:
-	app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	app=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_plains(seed_value),"formal start accepted")
 	for unused:int in 120:
 		await physics_frame;await process_frame
@@ -358,7 +358,7 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
 		trace.observe_every_tick=true
 		app.overlay.set_enabled(true);app.overlay.update_layout()
 		# Presentation-only toast fixture. No item is granted or build changed.
-		app.item_toast.show_item(DemoApp.SHOT_ITEM);app._layout_region_hud()
+		app.item_toast.show_item(CampaignFixture.SHOT_ITEM);app._layout_region_hud()
 	var manifest_before:=JSON.stringify(app.stage.generated.manifest)
 	var execution: Dictionary = {"execution_done":false}
 	drive_scene_execution.call_deferred(trace,custom,execution)
@@ -520,18 +520,18 @@ func extra_upward_recoil(trace) -> bool:
 	# followed by the versioned paused equipment command before real ground rearm.
 	# Equipment is explicit fixture staging, not natural menu-operation evidence.
 	# Other scene cases retain the current base cap.
-	app.item_toast.show_item(DemoApp.SHOT_ITEM);app._layout_region_hud()
+	app.item_toast.show_item(CampaignFixture.SHOT_ITEM);app._layout_region_hud()
 	var approached: bool = await trace.move_to(well.position.x+265)
 	if trace.is_trace_cancelled(): return false
 	if not approached:return false
 	var before_grant:={"tick":trace.trace_ticks,"max_air_shots":trace.motor.tuning.max_air_shots,"shots":trace.controller.action_resources.shot_charges,"grounded":trace.motor.is_on_floor(),"items":app.build.item_ids()}
-	var offer: RewardOffer=app.rewards.create_offer(&"scene_extra_magazine",[DemoApp.SHOT_ITEM,DemoApp.JUMP_ITEM],&"scene_extra_magazine_fixture")
+	var offer: RewardOffer=app.rewards.create_offer(&"scene_extra_magazine",[CampaignFixture.SHOT_ITEM,CampaignFixture.JUMP_ITEM],&"scene_extra_magazine_fixture")
 	if offer==null:return false
 	var request:=RewardClaimRequest.new()
-	request.token=app.lifetime.token();request.offer_id=offer.offer_id;request.option_id=DemoApp.SHOT_ITEM.stable_id;request.claim_id=&"scene_extra_magazine_claim"
+	request.token=app.lifetime.token();request.offer_id=offer.offer_id;request.option_id=CampaignFixture.SHOT_ITEM.stable_id;request.claim_id=&"scene_extra_magazine_claim"
 	var claim: EconomyReceipt=app.rewards.claim(request)
-	check(claim.accepted() and claim.item_id==DemoApp.SHOT_ITEM.stable_id,"actual Air Magazine reward accepted by official build service")
-	check(trace.motor.tuning.max_air_shots==before_grant.max_air_shots and app.build.count_item(DemoApp.SHOT_ITEM.stable_id)==1,"actual Air Magazine claim first enters backpack without granting capacity")
+	check(claim.accepted() and claim.item_id==CampaignFixture.SHOT_ITEM.stable_id,"actual Air Magazine reward accepted by official build service")
+	check(trace.motor.tuning.max_air_shots==before_grant.max_air_shots and app.build.count_item(CampaignFixture.SHOT_ITEM.stable_id)==1,"actual Air Magazine claim first enters backpack without granting capacity")
 	var magazine_sources: Array[StringName] = [&"reward:scene_extra_magazine_fixture"]
 	check(load("res://tests/gear_inventory_support.gd").equip_sources(app.build,magazine_sources),"explicit paused equipment fixture installs the legitimately claimed magazine")
 	var after_claim:={"tick":trace.trace_ticks,"max_air_shots":trace.motor.tuning.max_air_shots,"shots":trace.controller.action_resources.shot_charges,"items":app.build.item_ids()}
@@ -580,7 +580,7 @@ func extra_upward_recoil(trace) -> bool:
 	return completed
 
 func legacy_compatibility() -> void:
-	var legacy:=DemoApp.new();legacy.meta_persistence_enabled=false;root.add_child(legacy)
+	var legacy:=CampaignFixture.new();legacy.meta_persistence_enabled=false;root.add_child(legacy)
 	check(legacy.start_demo("scene-legacy-info",false),"original nonregion consumer starts")
 	for unused: int in 120:
 		await physics_frame;await process_frame
@@ -590,7 +590,7 @@ func legacy_compatibility() -> void:
 	# StageCameraRig default separately, on the real legacy actor.
 	var camera:=StageCameraRig.new();legacy.add_child(camera)
 	camera.configure(legacy.player,Rect2(-2000,-1000,4000,2000))
-	legacy_ui={"connected_region":legacy.connected_region,"info":pair(legacy._debug_button.position),"hud_width":legacy._hud_frame.size.x,"health_width":legacy._resources_hud.health_bar.size.x,"camera_zoom":pair(camera.zoom),"camera_scope":"actual nonregion StageCameraRig fixture; fixed legacy rooms themselves have no run-camera","scope":"actual legacy DemoApp consumer, not screenshot/device acceptance"}
+	legacy_ui={"connected_region":legacy.connected_region,"info":pair(legacy._debug_button.position),"hud_width":legacy._hud_frame.size.x,"health_width":legacy._resources_hud.health_bar.size.x,"camera_zoom":pair(camera.zoom),"camera_scope":"actual nonregion StageCameraRig fixture; fixed legacy rooms themselves have no run-camera","scope":"actual legacy CampaignFixture consumer, not screenshot/device acceptance"}
 	check(not legacy.connected_region and legacy._debug_button.position==Vector2(434,10),"nonregion actual INFO original position")
 	check(legacy._hud_frame.size.x==500 and legacy._resources_hud.health_bar.size.x==220,"nonregion actual HUD and resource original widths")
 	check(camera.zoom.is_equal_approx(Vector2.ONE*1.95),"nonregion original camera zoom retained")
@@ -638,13 +638,13 @@ func run() -> void:
 
 
 # Test-only independent-stage fixture; no natural campaign transition is claimed.
-func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+func _sync_fixture_map_index(app: CampaignFixture, index: int) -> void:
 	for entry: Dictionary in app.director.get_property_list():
 		if str(entry.get("name", "")) == "region_map_index":
 			app.director.set("region_map_index", index)
 			return
 
-func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+func _fixture_identity_matches(app: CampaignFixture, index: int, root_seed: String) -> bool:
 	var actual := app.stage as PlainsRegionStage
 	if actual == null or not actual.assembly_ok: return false
 	var manifest: Dictionary = actual.generated.manifest

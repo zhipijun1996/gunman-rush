@@ -12,7 +12,7 @@ func check(value:bool,message:String)->void:
 	if not value:failures.append(message);printerr("FAIL: ",message)
 func run()->void:
 	for side:int in [-1,1]:
-		var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+		var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 		check(app.start_plains("underworld-r3-boss-direction"),"actual formal run starts")
 		await frames(8)
 		var encounter:=app.stage.boss.get_node("Encounter") as WindkeeperEncounter
@@ -37,7 +37,7 @@ func run()->void:
 		check(signf(app.player.damage_velocity.x)==side and app.player.damage_remaining>0,"Motor receives same accepted incoming hit direction")
 		await frames(3)
 		check((app.player.global_position.x-before.x)*side>6,"actual unique Motor moves away from the incoming wave")
-		observations.append({"side":side,"source":"actual encounter._wave -> BossProjectile collision -> DemoApp -> FrameDamagePolicy","queued_direction":queued.hit_direction if queued!=null else Vector2.ZERO,"before":before,"after":app.player.global_position,"hp":app.controller.actor_resources.health.current})
+		observations.append({"side":side,"source":"actual encounter._wave -> BossProjectile collision -> CampaignFixture -> FrameDamagePolicy","queued_direction":queued.hit_direction if queued!=null else Vector2.ZERO,"before":before,"after":app.player.global_position,"hp":app.controller.actor_resources.health.current})
 		app.abandon_run()
 		check(await load("res://tests/audio_teardown.gd").drain_world(app),"actual feedback audio drains before teardown")
 		app.free();await frames(5)

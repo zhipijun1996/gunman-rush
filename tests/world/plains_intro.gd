@@ -127,7 +127,7 @@ func run() -> void:
 	app.save_path="user://plains_revision_isolated.json";root.add_child(app)
 	for id: String in ["P-R03","P-R21","P-R22","P-R23","P-R24"]:
 		var room:=load("res://game/world/regions/P/rooms/"+id+".tscn").instantiate() as FixedWorldRoom
-		var errors:=WorldRoomDraft.validate(room,WorldRoomDraft.extract(room))
+		var errors:=WorldRoomValidation.validate_room(room)
 		check(errors.is_empty(),id+" editable codec "+str(errors));room.free()
 	await load_review("P-R03")
 	for frame:int in 180:
@@ -167,7 +167,7 @@ func run() -> void:
 	var shutter:=app.room.mechanisms["P-R22:practice_shutter"] as WorldShotLatch
 	app.controller.router.set_source_axis(&"keyboard_mouse",1)
 	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(11)
-	app.controller.router.request_action(&"shoot_release",(shutter.bell_position-app.player.position).normalized())
+	app.controller.router.request_action(&"shoot_release",(shutter.to_global(shutter.bell_position)-app.player.position).normalized())
 	await ticks(50);app.controller.router.clear("shutter landing");await ticks(25)
 	check(shutter.open_count==1 and app.player.position.x>2828 and app.player.position.y<1200,"P22 exposed bell and recoil clear tutorial shutter "+str(app.player.position))
 	await load_review("P-R23")

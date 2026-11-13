@@ -1,7 +1,7 @@
 extends SceneTree
 var assertions:=0
 var failures:=0
-var app: DemoApp
+var app: CampaignFixture
 func check(ok: bool,message: String) -> void:
 	assertions+=1
 	if not ok:
@@ -16,7 +16,7 @@ func fixture(seed_value: String) -> void:
 			failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 		app.free()
 	paused=false
-	app=DemoApp.new()
+	app=CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	root.add_child(app)
 	check(app.start_plains(seed_value),"actual formal consumer starts")

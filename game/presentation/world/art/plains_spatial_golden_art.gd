@@ -34,7 +34,7 @@ func _ready() -> void:
 		push_error("Spatial golden finite kit is missing")
 		return
 	z_as_relative = false
-	var app := _stage.get_parent() as DemoApp
+	var app := _stage.get_parent() as CampaignFixture
 	_old_background = app.get_node_or_null("PlainsBackground") as CanvasLayer
 	if _old_background != null: _old_background.hide()
 	var sky_layer := CanvasLayer.new()

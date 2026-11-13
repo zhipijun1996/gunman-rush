@@ -103,7 +103,7 @@ func run() -> void:
 	var reward:=StageRewardModal.new();root.add_child(reward);var reward_offer: RefCounted=load("res://game/rewards/offers/reward_offer.gd").new();reward_offer.candidates.append(item);reward_offer.candidates.append(load("res://resources/items/damage_blue.tres"));reward.show_offer(reward_offer,"MAP 2");await frames();await observe("reward",reward._root);var choices:Array[StringName]=[];reward.item_selected.connect(func(id:StringName):choices.append(id));await click(button(reward._root,"选择 / PICK"));check(choices==[item.stable_id],"actual reward button preserves accepted stable item ID");reward.close();reward.free()
 	var exit:=StageExitModal.new();root.add_child(exit);exit.show_exit("MAP 2","Reward remains owned by gameplay service");await frames();await observe("stage_exit",exit._root);exit.close();exit.free()
 	menu.free();await frames(3)
-	var app := DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app);await frames(4)
+	var app := CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app);await frames(4)
 	await click(button(app.menu._content,"风铃平原"));await frames(8)
 	check(is_instance_valid(app.home_scene) and app.director.state==DemoRunDirector.State.HOME,"native primary title click creates playable Home")
 	app.menu._seed="level-design-v2-baseline/08";app._open_home_navigation();await click(button(app.menu._content,"Explore"));await frames(8)

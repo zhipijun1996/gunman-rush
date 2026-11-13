@@ -1,7 +1,8 @@
 {
   "entities": {
     "P-R21:art:0": {
-      "component": "array:art_placements",
+      "definition_id": "decor.carriage",
+      "definition_version": 1,
       "id": "P-R21:art:0",
       "order": 0,
       "properties": {
@@ -15,7 +16,8 @@
       }
     },
     "P-R21:art:1": {
-      "component": "array:art_placements",
+      "definition_id": "decor.storage_crates",
+      "definition_version": 1,
       "id": "P-R21:art:1",
       "order": 1,
       "properties": {
@@ -28,7 +30,8 @@
       }
     },
     "P-R21:art:10": {
-      "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R21:art:10",
       "order": 10,
       "properties": {
@@ -42,7 +45,8 @@
       }
     },
     "P-R21:art:2": {
-      "component": "array:art_placements",
+      "definition_id": "decor.hanging_chime",
+      "definition_version": 1,
       "id": "P-R21:art:2",
       "order": 2,
       "properties": {
@@ -55,7 +59,8 @@
       }
     },
     "P-R21:art:3": {
-      "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R21:art:3",
       "order": 3,
       "properties": {
@@ -69,7 +74,8 @@
       }
     },
     "P-R21:art:4": {
-      "component": "array:art_placements",
+      "definition_id": "decor.travel_bundle",
+      "definition_version": 1,
       "id": "P-R21:art:4",
       "order": 4,
       "properties": {
@@ -82,7 +88,8 @@
       }
     },
     "P-R21:art:5": {
-      "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R21:art:5",
       "order": 5,
       "properties": {
@@ -96,7 +103,8 @@
       }
     },
     "P-R21:art:6": {
-      "component": "array:art_placements",
+      "definition_id": "decor.opening_road_ridge",
+      "definition_version": 1,
       "id": "P-R21:art:6",
       "order": 6,
       "properties": {
@@ -117,7 +125,8 @@
       }
     },
     "P-R21:art:7": {
-      "component": "array:art_placements",
+      "definition_id": "decor.orchard_fence",
+      "definition_version": 1,
       "id": "P-R21:art:7",
       "order": 7,
       "properties": {
@@ -136,7 +145,8 @@
       }
     },
     "P-R21:art:8": {
-      "component": "array:art_placements",
+      "definition_id": "decor.orchard_fence",
+      "definition_version": 1,
       "id": "P-R21:art:8",
       "order": 8,
       "properties": {
@@ -155,7 +165,8 @@
       }
     },
     "P-R21:art:9": {
-      "component": "array:art_placements",
+      "definition_id": "decor.windchime_plains_mid_v2",
+      "definition_version": 1,
       "id": "P-R21:art:9",
       "order": 9,
       "properties": {
@@ -174,7 +185,8 @@
       }
     },
     "P-R21:enemy_placements:0": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R21:enemy_placements:0",
       "order": 0,
       "properties": {
@@ -188,7 +200,8 @@
       }
     },
     "P-R21:enemy_placements:1": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R21:enemy_placements:1",
       "order": 1,
       "properties": {
@@ -201,8 +214,61 @@
         ]
       }
     },
+    "P-R21:feature:story.intro": {
+      "definition_id": "story.intro",
+      "definition_version": 1,
+      "id": "P-R21:feature:story.intro",
+      "order": 1028,
+      "parent": "",
+      "properties": {
+        "modulate": {
+          "$color": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "parameters": {
+          "intro_sequence": {},
+          "onboarding": {
+            "approach": [
+              448,
+              464,
+              288,
+              96
+            ],
+            "focus": [
+              880,
+              686
+            ],
+            "kind": "recoil"
+          },
+          "traveler_point": [
+            560.0,
+            526.0
+          ],
+          "tutorial_action": "",
+          "tutorial_min_move": 100.0,
+          "tutorial_recoil_finish_x": 1540.0,
+          "tutorial_target": "P-R21:encounter:01"
+        },
+        "position": [
+          0,
+          0
+        ],
+        "rotation": 0,
+        "scale": [
+          1,
+          1
+        ],
+        "visible": true,
+        "z_index": 0
+      }
+    },
     "P-R21:platforms:0": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:0",
       "order": 0,
       "properties": {
@@ -218,7 +284,8 @@
       }
     },
     "P-R21:platforms:0:part2": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:0:part2",
       "order": 1,
       "properties": {
@@ -234,7 +301,8 @@
       }
     },
     "P-R21:platforms:1": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:1",
       "order": 2,
       "properties": {
@@ -250,7 +318,8 @@
       }
     },
     "P-R21:platforms:1:part2": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:1:part2",
       "order": 3,
       "properties": {
@@ -266,7 +335,8 @@
       }
     },
     "P-R21:platforms:1:part3": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:1:part3",
       "order": 4,
       "properties": {
@@ -282,7 +352,8 @@
       }
     },
     "P-R21:platforms:1:part4": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:1:part4",
       "order": 5,
       "properties": {
@@ -298,7 +369,8 @@
       }
     },
     "P-R21:platforms:2": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:2",
       "order": 6,
       "properties": {
@@ -314,7 +386,8 @@
       }
     },
     "P-R21:platforms:3": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:3",
       "order": 7,
       "properties": {
@@ -330,7 +403,8 @@
       }
     },
     "P-R21:platforms:4": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:4",
       "order": 8,
       "properties": {
@@ -346,7 +420,8 @@
       }
     },
     "P-R21:platforms:5": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:5",
       "order": 9,
       "properties": {
@@ -362,7 +437,8 @@
       }
     },
     "P-R21:platforms:6": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:6",
       "order": 10,
       "properties": {
@@ -378,7 +454,8 @@
       }
     },
     "P-R21:platforms:7": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:7",
       "order": 11,
       "properties": {
@@ -394,7 +471,8 @@
       }
     },
     "P-R21:platforms:8": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R21:platforms:8",
       "order": 12,
       "properties": {
@@ -410,7 +488,8 @@
       }
     },
     "P-R21:signs:0": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "P-R21:signs:0",
       "order": 0,
       "properties": {
@@ -423,7 +502,8 @@
       }
     },
     "P-R21:spike_strips:0": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1,
       "id": "P-R21:spike_strips:0",
       "order": 0,
       "properties": {
@@ -434,36 +514,18 @@
           24.0
         ],
         "facing": "up",
+        "host_id": "P-R21:platforms:7",
         "id": "P-R21:exit_left_spikes"
       }
     }
   },
   "room_id": "P-R21",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "倒时车厢",
       "art_profile": "carriage",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -472,34 +534,11 @@
           1.0
         ]
       },
-      "onboarding": {
-        "approach": [
-          448,
-          464,
-          288,
-          96
-        ],
-        "focus": [
-          880,
-          686
-        ],
-        "kind": "recoil"
-      },
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R21",
       "rotation": 0.0,
       "route_guide": {},
@@ -512,19 +551,15 @@
         144.0,
         238.0
       ],
-      "story_sequence": {},
-      "traveler_point": [
-        560.0,
-        526.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "P-R21:encounter:01",
+      "terrain_paint": {
+        "regions": [],
+        "seed": 0,
+        "surfaces": [],
+        "version": 1
+      },
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

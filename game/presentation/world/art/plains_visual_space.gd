@@ -318,7 +318,7 @@ func protected_bounds() -> Array[Dictionary]:
 		var real_bounds := actual_shape_bounds(ferry)
 		if real_bounds.has_area():
 			result.append({"id": str(ferry.get_path()), "bounds": rect_values(real_bounds), "measurement": "actual RectangleShape2D global_transform", "declared_definition_size": pair(ferry.definition.size)})
-	var app := stage.get_parent() as DemoApp
+	var app := stage.get_parent() as CampaignFixture
 	if app != null and is_instance_valid(app.player):
 		var real_bounds := actual_shape_bounds(app.player)
 		if real_bounds.has_area():

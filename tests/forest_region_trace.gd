@@ -202,9 +202,9 @@ func install_observer() -> void:
 	add_child(observer)
 
 func begin_region() -> void:
-	var script: Script = load("res://game/application/demo_app.gd")
+	var script: Script = load("res://tests/fixtures/campaign_fixture.gd")
 	if script == null or not script.can_instantiate():
-		route_errors.append("formal_DemoApp_compile_failed")
+		route_errors.append("formal_CampaignFixture_compile_failed")
 		finished = true
 		return
 	app = script.new()

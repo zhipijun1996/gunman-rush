@@ -4,11 +4,11 @@ from pathlib import Path
 import argparse,hashlib,json
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[2]
-FAMILIES=('thorn_forest','mushroom_caverns','moonshadow_cemetery','firefly_marsh','moon_crown_castle','echo_mines','gear_city')
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--verify',action='store_true');args=p.parse_args()
  m=json.loads((ROOT/'art/world-art-v2/assets/terrain47/manifest.json').read_text());rows={}
- for family in FAMILIES:
+ for family in m["regions"]:
+  if family == "windchime_plains": continue
   spec=m['regions'][family];src=ROOT/'art/world-art-v2'/spec['atlas'];im=Image.open(src).convert('RGBA')
   tile=lambda mask:im.crop((int(spec['maskToAtlas'][str(mask)][0])*32,int(spec['maskToAtlas'][str(mask)][1])*32,int(spec['maskToAtlas'][str(mask)][0]+1)*32,int(spec['maskToAtlas'][str(mask)][1]+1)*32))
   atlas=Image.new('RGBA',(768,192));source=Image.new('RGBA',(1056,288))

@@ -2,7 +2,7 @@ extends SceneTree
 ## Native pointer + real Home navigation; app startup APIs cover loadout propagation.
 var checks := 0
 var failures := 0
-var app: DemoApp
+var app: CampaignFixture
 var selections: Array[Dictionary] = []
 
 func _initialize() -> void:
@@ -59,7 +59,7 @@ func weapon_button(id: StringName) -> Button:
 
 func run() -> void:
 	root.size = Vector2i(1280, 720)
-	app = preload("res://game/application/demo.tscn").instantiate() as DemoApp
+	app = preload("res://tests/fixtures/campaign_fixture.tscn").instantiate() as CampaignFixture
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(4)

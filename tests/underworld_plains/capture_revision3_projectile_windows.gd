@@ -1,8 +1,8 @@
 extends SceneTree
-## Real formal DemoApp combat windows, NOT natural acquisition/traversal proof.
+## Real formal CampaignFixture combat windows, NOT natural acquisition/traversal proof.
 ## Exactly one initialized player position; subsequent movement/shots are actual
 ## InputEvents. No health, energy, AI mode, weapon, cadence or epoch injection.
-var app: DemoApp
+var app: CampaignFixture
 var stage: PlainsRegionStage
 var focus := "enemy"
 var seed := "level-design-v2-baseline/08"
@@ -60,7 +60,7 @@ func observe() -> void:
 	var boss:=stage.boss.get_node("Encounter") as WindkeeperEncounter
 	rows.append({"frame":rows.size(),"physics_frame":Engine.get_physics_frames(),"drawn_frame":Engine.get_frames_drawn(),"position":pair(app.player.global_position),"velocity":pair(app.player.velocity),"health":app.controller.actor_resources.health.current,"stamina":app.controller.actor_resources.stamina.current,"combat_energy":app.controller.combat_energy.current,"grounded":app.player.is_on_floor(),"boss_mode":str(boss.mode),"boss_health":boss.health.current,"boss_active":boss.active,"projectiles":projectiles,"effects":effects,"target_actor":target_state,"run_epoch":app.lifetime.epoch,"stage_epoch":app.lifetime.stage_epoch,"actor_epoch":app.lifetime.actor_epoch})
 func wait_for_formal_map(expected_map: int) -> bool:
-	# DemoApp loads after a physics boundary. Observe the actual consumer,
+	# CampaignFixture loads after a physics boundary. Observe the actual consumer,
 	# never treat start_plains returning true as a synchronously ready scene.
 	for n: int in 180:
 		var loaded := app.stage as PlainsRegionStage
@@ -100,7 +100,7 @@ func run() -> void:
 		if argument.begins_with("--frames="):frame_budget=int(argument.trim_prefix("--frames="))
 		if argument.begins_with("--output="):output=argument.trim_prefix("--output=")
 	root.size=Vector2i(1280,720)
-	app=preload("res://game/application/demo.tscn").instantiate() as DemoApp
+	app=preload("res://tests/fixtures/campaign_fixture.tscn").instantiate() as CampaignFixture
 	app.meta_persistence_enabled=false;root.add_child(app)
 	for i: int in 8: await tick()
 	if not app.start_plains(seed): failures.append("formal ordinary start failed")
@@ -113,13 +113,13 @@ func run() -> void:
 	stage=app.stage as PlainsRegionStage
 	if stage==null:
 		printerr("FORMAL PROJECTILE WINDOW failed to create actual formal stage");quit(1);return
-	initialization={"scope":"real formal consumer combat window, initialized fixture position; not natural route or acquisition proof","operation":"DemoApp.start_plains(seed)","seed":seed,"focus":focus,"map_index":app.director.stage_index,"actual_map_index":stage.map_index,"manifest_seed":stage.generated.manifest.seed,"manifest_hash":stage.generated.manifest.manifest_hash,"source_actors_and_AI_unchanged":true,"resource_or_health_injection":false,"AI_state_injection":false,"after_initialization":"actual Input.parse_input_event mouse/keyboard, original KeyboardMouseAdapter/Router/PlayerMotor and AI"}
+	initialization={"scope":"real formal consumer combat window, initialized fixture position; not natural route or acquisition proof","operation":"CampaignFixture.start_plains(seed)","seed":seed,"focus":focus,"map_index":app.director.stage_index,"actual_map_index":stage.map_index,"manifest_seed":stage.generated.manifest.seed,"manifest_hash":stage.generated.manifest.manifest_hash,"source_actors_and_AI_unchanged":true,"resource_or_health_injection":false,"AI_state_injection":false,"after_initialization":"actual Input.parse_input_event mouse/keyboard, original KeyboardMouseAdapter/Router/PlayerMotor and AI"}
 	var at:=enemy_window() if focus=="enemy" else Vector2(stage.boss_arena.position.x+125,stage.boss_arena.end.y-18)
 	if focus!="enemy":
 		target=stage.boss
 		initialization["selected_source_id"]=str((stage.boss.get_node("Encounter") as WindkeeperEncounter).definition.stable_id)
 		initialization["selected_shooter_position"]=pair(stage.boss.position)
-		initialization["trigger"]="normal DemoApp._in_boss_core -> _start_generated_boss; natural attack pattern, no activate/_enter invocation"
+		initialization["trigger"]="normal CampaignFixture._in_boss_core -> _start_generated_boss; natural attack pattern, no activate/_enter invocation"
 	if at==Vector2.INF or target==null:
 		failures.append("no supported unprotected formal ranged actor in this manifest")
 	else:

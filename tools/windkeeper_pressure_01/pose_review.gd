@@ -44,7 +44,7 @@ func start() -> void:
 		return
 	DirAccess.make_dir_recursive_absolute(output)
 	source_before = leaf_hashes()
-	app = load("res://game/application/demo_app.gd").new()
+	app = load("res://tests/fixtures/campaign_fixture.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	if not app.start_debug_region(&"plains",2,"windkeeper-pressure-01"):

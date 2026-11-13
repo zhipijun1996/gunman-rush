@@ -1,14 +1,14 @@
 extends RefCounted
 
 const GEAR := preload("res://tests/gear_inventory_support.gd")
-const DEMO := preload("res://game/application/demo.tscn")
+const DEMO := preload("res://tests/fixtures/campaign_fixture.tscn")
 var tree: SceneTree
 var check: Callable
 
 func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	tree = scene_tree
 	check = assertion
-	var app: DemoApp = DEMO.instantiate()
+	var app: CampaignFixture = DEMO.instantiate()
 	app.meta_persistence_enabled = false
 	tree.root.add_child(app)
 	await frames(2)
@@ -179,7 +179,7 @@ func frames(count: int) -> void:
 	for index: int in count:
 		await tree.physics_frame
 
-func queue_damage(app: DemoApp, target: StringName, health: HealthState, amount: float, event: StringName) -> void:
+func queue_damage(app: CampaignFixture, target: StringName, health: HealthState, amount: float, event: StringName) -> void:
 	var request := DamageRequest.new()
 	request.token = app.lifetime.token()
 	request.event_id = event
@@ -190,7 +190,7 @@ func queue_damage(app: DemoApp, target: StringName, health: HealthState, amount:
 	request.actor_epoch = app.lifetime.actor_epoch
 	app.policy.submit(request)
 
-func locate(app: DemoApp, position: Vector2) -> void:
+func locate(app: CampaignFixture, position: Vector2) -> void:
 	# Fixture teleports invalidate contact history, as real selective returns do.
 	app.lifetime.invalidate_actor()
 	app.player.reset_at(position)

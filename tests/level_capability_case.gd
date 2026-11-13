@@ -1,5 +1,5 @@
 extends Node
-## The actual default DemoApp owns the actor/build; same41 capability checks.
+## The actual default CampaignFixture owns the actor/build; same41 capability checks.
 var SNAPSHOT: Script
 var lifecycle_ok := false
 var assertions = 0
@@ -10,7 +10,7 @@ func verify(ok: bool, label: String) -> void:
 	if not ok: failures += 1; push_error("LEVEL CAPABILITY: " + label)
 
 func run() -> void:
-	var app=load("res://game/application/demo_app.gd").new()
+	var app=load("res://tests/fixtures/campaign_fixture.gd").new()
 	app.meta_persistence_enabled=false
 	get_tree().root.add_child(app)
 	if not app.start_plains("level-capability-default"):

@@ -78,18 +78,18 @@ static func boundary(shapes: Array[PackedVector2Array]) -> PackedVector4Array:
 			result.append(Vector4(start.x, start.y, end.x, end.y))
 	return result
 
-static func install(node: Node2D, solids: Array[Rect2], polygons: Array[Dictionary], spec: Dictionary, texture: Texture2D, shader: Shader) -> void:
+static func install(node: Node2D, solids: Array[Rect2], polygons: Array[Dictionary], spec: Dictionary, texture: Texture2D, shader: Shader, shared: Dictionary = {}, appearance: Dictionary = {}) -> void:
 	var shapes: Array[PackedVector2Array] = []
 	for rect: Rect2 in solids: shapes.append(rectangle_points(rect))
 	for row: Dictionary in polygons:
 		var points := PackedVector2Array()
 		for pair: Array in row.points: points.append(Vector2(float(pair[0]), float(pair[1])))
 		shapes.append(clockwise(points))
-	var faces := boundary(shapes)
+	var faces: PackedVector4Array = shared.get("edges", boundary(shapes))
 	node.set("union_edges", faces)
-	for shape: PackedVector2Array in shapes: _piece(node, shape, faces, spec, texture, shader)
+	for shape: PackedVector2Array in shapes: _piece(node, shape, faces, spec, texture, shader, 0, appearance)
 
-static func _piece(node: Node2D, points: PackedVector2Array, all_faces: PackedVector4Array, spec: Dictionary, texture: Texture2D, shader: Shader, depth := 0) -> void:
+static func _piece(node: Node2D, points: PackedVector2Array, all_faces: PackedVector4Array, spec: Dictionary, texture: Texture2D, shader: Shader, depth := 0, appearance: Dictionary = {}) -> void:
 	var box := bounds(points)
 	var faces := PackedVector4Array()
 	for edge: Vector4 in all_faces:
@@ -109,10 +109,13 @@ static func _piece(node: Node2D, points: PackedVector2Array, all_faces: PackedVe
 			second.size.y -= first.size.y
 		for half: Rect2 in [first, second]:
 			for clipped: PackedVector2Array in Geometry2D.intersect_polygons(points, rectangle_points(half)):
-				if clipped.size() >= 3: _piece(node, clockwise(clipped), all_faces, spec, texture, shader, depth+1)
+				if clipped.size() >= 3: _piece(node, clockwise(clipped), all_faces, spec, texture, shader, depth+1, appearance)
 		return
 	var material := ShaderMaterial.new()
 	material.shader = shader
+	material.set_shader_parameter("surface_trim", float(appearance.get("surface_y", 0)))
+	material.set_shader_parameter("variant_seed", int(appearance.get("seed", 0)))
+	material.set_shader_parameter("bare_surface", bool(appearance.get("bare", false)))
 	material.set_shader_parameter("source_pixels", texture)
 	material.set_shader_parameter("source_size", Vector2(texture.get_size()))
 	material.set_shader_parameter("art_scale", float(spec.source_coordinate_scale))

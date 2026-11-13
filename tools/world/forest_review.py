@@ -66,8 +66,8 @@ def build(root=ROOT):
     for i,a in enumerate(keys):
         for b in keys[i+1:]:
             assert not any(overlap(s,t) for s in rects[a] for t in rects[b]),f'Overlapping room/passage {a} {b}'
-    preview_path=root/'build/workbench/preview-world.json'
-    if not preview_path.exists():raise ValueError('Run python tools/export_workbench.py --plan-only before reviewing the world seam')
+    preview_path=root/'build/preview/preview-world.json'
+    if not preview_path.exists():raise ValueError('Run python tools/export_runtime.py --plan-only before reviewing the world seam')
     preview=json.loads(preview_path.read_text());plains={m['id']:m for m in preview['map_rooms'] if m['id'].startswith('P-')}
     source=plains[plan['anchor']['source_room']];local=plan['anchor']['source_door_local']
     assert plan['anchor']['world_point']==[source['origin'][i]+local[i] for i in (0,1)],'C01 world anchor drift'

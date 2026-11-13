@@ -5,7 +5,7 @@ var checks := 0
 var failures := 0
 var observations: Array[Dictionary] = []
 var loop_observations: Array[Dictionary] = []
-var app: DemoApp
+var app: CampaignFixture
 
 func _initialize() -> void:
 	run.call_deferred()
@@ -250,7 +250,7 @@ func retry_check() -> void:
 func run() -> void:
 	root.size = Vector2i(1280, 720)
 	await gate_and_loop_checks()
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames()

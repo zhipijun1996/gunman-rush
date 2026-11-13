@@ -4,7 +4,7 @@ func run() -> void:
 	exercise_story=true
 	root.size=Vector2i(1280,720)
 	app=load("res://game/application/world/fixed_world.tscn").instantiate()
-	app.save_path="user://plains_story_hooks.json";root.add_child(app);app.workbench.enabled=true
+	app.save_path="user://plains_story_hooks.json";root.add_child(app)
 	await load_room("P-R01")
 	await fixture(Vector2(640,1262));await ticks(3)
 	check(app.story.active and app.paused,"station briefing starts on safe approach")

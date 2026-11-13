@@ -176,7 +176,7 @@ func run() -> void:
 				var item:=load("res://resources/items/"+id+".tres") as ItemDefinition
 				check(item!=null and item.is_valid() and id!="jump_blue","formal pool excludes big ability and resolves real items")
 	check(pair_set.size()>=8,"independent item stream changes meaningful choice combinations")
-	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_plains("energy-formal-preview"),"default formal consumer starts with new resource")
 	await frames(4)
 	check(app.controller.shot_energy!=null and not app.controller.shot_energy.definition.shooting_consumes_energy and app.controller.air_focus_ability.stamina_state==app.controller.actor_resources.stamina and app.controller.motor.tuning.max_air_shots==1,"actual App owns formal v2 shared time energy and one-round baseline")

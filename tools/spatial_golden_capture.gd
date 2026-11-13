@@ -15,8 +15,8 @@ func _initialize() -> void:
 			return
 	super._initialize()
 
-func make_application() -> DemoApp:
-	var result := DemoApp.new()
+func make_application() -> CampaignFixture:
+	var result := CampaignFixture.new()
 	result.set("spatial_golden_requested", true)
 	var mutation := ""
 	var visual_sample := ""

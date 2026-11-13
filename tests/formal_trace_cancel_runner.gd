@@ -73,7 +73,7 @@ func probe_inner(driver: RewardTrace, state: Dictionary, kind: String) -> void:
  state.unexpected_route_return=true
 
 func run_probe(kind: String) -> void:
- var app: DemoApp=DemoApp.new()
+ var app: CampaignFixture=CampaignFixture.new()
  app.meta_persistence_enabled=false
  root.add_child(app)
  verify(app.start_plains("level-design-v2-baseline"),kind+" normal actual world starts")

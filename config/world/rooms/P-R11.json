@@ -1,7 +1,8 @@
 {
   "entities": {
     "P-R11:composition:0": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_hall_depth",
+      "definition_version": 1,
       "id": "P-R11:composition:0",
       "order": 0,
       "properties": {
@@ -26,7 +27,8 @@
       }
     },
     "P-R11:composition:1": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_drive_frame",
+      "definition_version": 1,
       "id": "P-R11:composition:1",
       "order": 1,
       "properties": {
@@ -38,16 +40,9 @@
         ]
       }
     },
-    "P-R11:composition:10": {
-      "component": "array:art_placements",
-      "id": "P-R11:composition:10",
-      "order": 10,
-      "properties": {
-        "surface_platform": 7
-      }
-    },
     "P-R11:composition:2": {
-      "component": "array:art_placements",
+      "definition_id": "decor.gear_city_v2_valve_panel",
+      "definition_version": 1,
       "id": "P-R11:composition:2",
       "order": 2,
       "properties": {
@@ -60,7 +55,8 @@
       }
     },
     "P-R11:composition:3": {
-      "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R11:composition:3",
       "order": 3,
       "properties": {
@@ -74,7 +70,8 @@
       }
     },
     "P-R11:composition:4": {
-      "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R11:composition:4",
       "order": 4,
       "properties": {
@@ -88,7 +85,8 @@
       }
     },
     "P-R11:composition:5": {
-      "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R11:composition:5",
       "order": 5,
       "properties": {
@@ -102,7 +100,8 @@
       }
     },
     "P-R11:composition:6": {
-      "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R11:composition:6",
       "order": 6,
       "properties": {
@@ -116,7 +115,8 @@
       }
     },
     "P-R11:composition:7": {
-      "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R11:composition:7",
       "order": 7,
       "properties": {
@@ -129,27 +129,54 @@
         ]
       }
     },
-    "P-R11:composition:8": {
-      "component": "array:art_placements",
-      "id": "P-R11:composition:8",
-      "order": 8,
+    "P-R11:feature:encounter.bellstrider": {
+      "definition_id": "encounter.bellstrider",
+      "definition_version": 1,
+      "id": "P-R11:feature:encounter.bellstrider",
+      "order": 1024,
+      "parent": "",
       "properties": {
-        "surface_platform": 3
-      }
-    },
-    "P-R11:composition:9": {
-      "component": "array:art_placements",
-      "id": "P-R11:composition:9",
-      "order": 9,
-      "properties": {
-        "surface_platform": 4
+        "modulate": {
+          "$color": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "parameters": {
+          "arena_bounds": [
+            320.0,
+            512.0,
+            1664.0,
+            640.0
+          ],
+          "arena_door_height": 192.0,
+          "battle_entry_anchor": [
+            400.0,
+            1134.0
+          ],
+          "boss_identity": "bellstrider",
+          "defeat_action": "defeat_P_BELLSTRIDER",
+          "defeat_flag": "boss_P_BELLSTRIDER_defeated"
+        },
+        "position": [
+          1484.80004882812,
+          1087.0
+        ],
+        "rotation": 0,
+        "scale": [
+          1,
+          1
+        ],
+        "visible": true,
+        "z_index": 0
       }
     },
     "P-R11:node:./Cache_crown_cache": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R11:node:./Cache_crown_cache",
-      "node_name": "Cache_crown_cache",
-      "node_path": "./Cache_crown_cache",
       "order": 2,
       "parent": "",
       "properties": {
@@ -180,10 +207,9 @@
       }
     },
     "P-R11:node:./Interaction_0": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R11:node:./Interaction_0",
-      "node_name": "Interaction_0",
-      "node_path": "./Interaction_0",
       "order": 1,
       "parent": "",
       "properties": {
@@ -214,7 +240,8 @@
       }
     },
     "P-R11:platforms:0": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R11:platforms:0",
       "order": 0,
       "properties": {
@@ -230,7 +257,8 @@
       }
     },
     "P-R11:platforms:1": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R11:platforms:1",
       "order": 1,
       "properties": {
@@ -246,7 +274,8 @@
       }
     },
     "P-R11:platforms:1:inner:1": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R11:platforms:1:inner:1",
       "order": 2,
       "properties": {
@@ -262,10 +291,12 @@
       }
     },
     "P-R11:platforms:2": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R11:platforms:2",
       "order": 3,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -278,10 +309,12 @@
       }
     },
     "P-R11:platforms:3": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R11:platforms:3",
       "order": 4,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -294,7 +327,8 @@
       }
     },
     "P-R11:platforms:5": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R11:platforms:5",
       "order": 5,
       "properties": {
@@ -310,7 +344,8 @@
       }
     },
     "P-R11:platforms:6": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R11:platforms:6",
       "order": 6,
       "properties": {
@@ -326,7 +361,8 @@
       }
     },
     "P-R11:r7:hook_0": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "P-R11:r7:hook_0",
       "order": 0,
       "properties": {
@@ -337,7 +373,8 @@
       }
     },
     "P-R11:r7:hook_1": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "P-R11:r7:hook_1",
       "order": 1,
       "properties": {
@@ -348,7 +385,8 @@
       }
     },
     "P-R11:r7:hook_2": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "P-R11:r7:hook_2",
       "order": 2,
       "properties": {
@@ -359,7 +397,8 @@
       }
     },
     "P-R11:r7:retry_0": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R11:r7:retry_0",
       "order": 0,
       "properties": {
@@ -377,7 +416,8 @@
       }
     },
     "P-R11:r7:retry_1": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R11:r7:retry_1",
       "order": 1,
       "properties": {
@@ -395,10 +435,12 @@
       }
     },
     "P-R11:r7:service_perch": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R11:r7:service_perch",
       "order": 7,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -411,7 +453,8 @@
       }
     },
     "P-R11:r7:upper_cache": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R11:r7:upper_cache",
       "order": 8,
       "properties": {
@@ -429,32 +472,11 @@
   },
   "room_id": "P-R11",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        320.0,
-        512.0,
-        1664.0,
-        640.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "风车机匣",
       "art_profile": "mill",
-      "battle_entry_anchor": [
-        400.0,
-        1134.0
-      ],
-      "boss_binding": {
-        "$resource": "res://game/bosses/bellstrider/bellstrider_world_binding.gd"
-      },
-      "boss_identity": "bellstrider",
-      "boss_position": [
-        1484.80004882812,
-        1087.0
-      ],
-      "defeat_action": "defeat_P_BELLSTRIDER",
-      "defeat_flag": "boss_P_BELLSTRIDER_defeated",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -463,22 +485,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R11",
       "rotation": 0.0,
       "route_guide": {
@@ -576,19 +587,15 @@
         144.0,
         1198.0
       ],
-      "story_sequence": {},
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
+      "terrain_paint": {
+        "regions": [],
+        "seed": 0,
+        "surfaces": [],
+        "version": 1
+      },
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

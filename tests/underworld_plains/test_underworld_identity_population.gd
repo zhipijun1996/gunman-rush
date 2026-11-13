@@ -32,7 +32,7 @@ func run() -> void:
 	for number: int in 10:
 		for map_index: int in [1,2]:
 			var seed_text := "underworld-formal/"+str(number)
-			var app := DemoApp.new()
+			var app := CampaignFixture.new()
 			app.meta_persistence_enabled=false
 			root.add_child(app)
 			await process_frame

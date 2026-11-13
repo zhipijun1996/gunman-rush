@@ -1,0 +1,79 @@
+{
+  "id": "assembly.masonry_portal",
+  "name": "砌体门廊（实体组合件）",
+  "version": 1,
+  "members": [
+    {
+      "id": "left",
+      "definition": "platform.solid",
+      "offset": [
+        0,
+        0
+      ],
+      "properties": {
+        "rect": [
+          0,
+          0,
+          32,
+          128
+        ],
+        "masonry": true
+      }
+    },
+    {
+      "id": "right",
+      "definition": "platform.solid",
+      "offset": [
+        160,
+        0
+      ],
+      "properties": {
+        "rect": [
+          0,
+          0,
+          32,
+          128
+        ],
+        "masonry": true
+      }
+    },
+    {
+      "id": "top",
+      "definition": "platform.solid",
+      "offset": [
+        0,
+        -32
+      ],
+      "properties": {
+        "rect": [
+          0,
+          0,
+          192,
+          32
+        ],
+        "masonry": true
+      }
+    },
+    {
+      "id": "base",
+      "definition": "platform.solid",
+      "offset": [
+        0,
+        128
+      ],
+      "properties": {
+        "rect": [
+          0,
+          0,
+          192,
+          32
+        ],
+        "masonry": true
+      }
+    }
+  ],
+  "category": "assemblies",
+  "placeable": true,
+  "documentation": "docs/bible/terrain_materials.md",
+  "library": "terrain"
+}

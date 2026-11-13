@@ -204,7 +204,7 @@ func finish()->void:
 
 func platform_roll_positive() -> void:
 	await clear_fixture()
-	var actual_app: DemoApp = await BELL_PLATFORM.create_formal_app(self)
+	var actual_app: CampaignFixture = await BELL_PLATFORM.create_formal_app(self)
 	var actual_stage: PlainsRegionStage = actual_app.stage as PlainsRegionStage if is_instance_valid(actual_app) else null
 	var actual_boss: BossMotor = actual_stage.boss as BossMotor if is_instance_valid(actual_stage) else null
 	var actual_encounter: BellstriderEncounter = actual_boss.get_node_or_null("Encounter") as BellstriderEncounter if is_instance_valid(actual_boss) else null
@@ -258,7 +258,7 @@ func platform_roll_positive() -> void:
 		check(actual_map, "roll positive uses actual connected map1 identity and campaign seed")
 		check(actual_definition, "roll positive starts at current formal Bell forty HP")
 		check(actual_base, "roll positive retains actual base-one weapon, one jump and no hook")
-		platform_positive = {"entry": "actual DemoApp map1 shared fixture", "manifest_seed": actual_stage.generated.manifest.seed, "manifest_hash": actual_stage.generated.manifest.manifest_hash, "initial_boss_HP": actual_boss_health.current, "initial_player_HP": actual_player_health.current, "initial_rounds": actual_controller.action_resources.shot_charges, "initial_energy": actual_controller.actor_resources.stamina.current, "combat_frame_limit": 7200, "scope": "first autonomous roll group; not a complete fight"}
+		platform_positive = {"entry": "actual CampaignFixture map1 shared fixture", "manifest_seed": actual_stage.generated.manifest.seed, "manifest_hash": actual_stage.generated.manifest.manifest_hash, "initial_boss_HP": actual_boss_health.current, "initial_player_HP": actual_player_health.current, "initial_rounds": actual_controller.action_resources.shot_charges, "initial_energy": actual_controller.actor_resources.stamina.current, "combat_frame_limit": 7200, "scope": "first autonomous roll group; not a complete fight"}
 		if actual_map and actual_definition and actual_base:
 			await BELL_PLATFORM.place_initial_entry(self, actual_app, actual_boss)
 			var activated: bool = live.call() and actual_app._boss_started and is_equal_approx(actual_boss_health.current, 40.0) and is_equal_approx(actual_player_health.current, actual_player_health.capacity) and is_equal_approx(actual_player_health.current, initial_hp) and not actual_player_health.terminal

@@ -1,0 +1,96 @@
+{
+  "id": "encounter.windkeeper",
+  "name": "牧风者遭遇",
+  "version": 1,
+  "component": "WorldRoomFeature",
+  "category": "encounters",
+  "placeable": true,
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "parameters": {
+      "boss_identity": "",
+      "arena_bounds": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "battle_entry_anchor": [
+        0,
+        0
+      ],
+      "arena_door_height": 192,
+      "defeat_action": "",
+      "defeat_flag": ""
+    }
+  },
+  "room_bindings": {
+    "boss_identity": {
+      "parameter": "boss_identity"
+    },
+    "boss_position": {
+      "position": true
+    },
+    "arena_bounds": {
+      "parameter": "arena_bounds"
+    },
+    "battle_entry_anchor": {
+      "parameter": "battle_entry_anchor"
+    },
+    "arena_door_height": {
+      "parameter": "arena_door_height"
+    },
+    "defeat_action": {
+      "parameter": "defeat_action"
+    },
+    "defeat_flag": {
+      "parameter": "defeat_flag"
+    },
+    "boss_binding": {
+      "constant": {
+        "$resource": "res://game/bosses/windkeeper/windkeeper_world_binding.gd"
+      }
+    }
+  },
+  "parameter_defaults": {
+    "boss_identity": "",
+    "arena_bounds": [
+      0,
+      0,
+      640,
+      480
+    ],
+    "battle_entry_anchor": [
+      0,
+      0
+    ],
+    "arena_door_height": 192,
+    "defeat_action": "",
+    "defeat_flag": ""
+  },
+  "documentation": "docs/data/bosses/windkeeper.md",
+  "parameter_fields": {
+    "boss_identity": {
+      "type": "string"
+    },
+    "arena_bounds": {
+      "type": "rect"
+    },
+    "battle_entry_anchor": {
+      "type": "point"
+    },
+    "arena_door_height": {
+      "type": "number"
+    },
+    "defeat_action": {
+      "type": "string"
+    },
+    "defeat_flag": {
+      "type": "string"
+    }
+  },
+  "library": "enemies"
+}

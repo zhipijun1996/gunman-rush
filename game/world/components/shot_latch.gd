@@ -132,8 +132,11 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 	controller.shoot_ability.shot_fired.connect(_register_shot)
 	queue_redraw()
 
+func accepts_activation() -> bool:
+	return not is_open or motion_mode
+
 func _register_shot(_direction: Vector2, shot_id: int) -> void:
-	if not _cancelled and (not is_open or motion_mode) and lifetime.active and controller.active:
+	if not _cancelled and accepts_activation() and lifetime.active and controller.active:
 		_eligible_shots["%s:%s" % [controller.session_id, shot_id]] = {"token": lifetime.token(), "actor_position":controller.motor.global_position, "expires": _clock + controller.motor.tuning.projectile_lifetime + 1.0 / 60.0}
 
 func _receive_projectile(context: Dictionary) -> bool:
@@ -141,7 +144,7 @@ func _receive_projectile(context: Dictionary) -> bool:
 	var eligibility: Dictionary = _eligible_shots.get(key, {})
 	var token: DemoToken = eligibility.get("token")
 	var id := str(context.get("event_id", ""))
-	if _cancelled or (is_open and not motion_mode) or not _pending.is_empty() or not lifetime.accepts(token) or id.is_empty() or _seen.has(id):
+	if _cancelled or not accepts_activation() or not _pending.is_empty() or not lifetime.accepts(token) or id.is_empty() or _seen.has(id):
 		return false
 	if not controller.active or controller.actor_resources.health.terminal or context.get("source_faction", &"") != &"player" or context.get("source_actor_id", -1) != controller.motor.get_instance_id() or context.get("session_id", -1) != controller.session_id:
 		return false
@@ -360,7 +363,7 @@ func _play_bell() -> void:
 # Multiple receivers belong to the same mechanism actor and health epoch. Both
 # entry sides use actual projectile collisions and the same accepted-shot policy.
 func _aim_available(second:bool)->bool:
-	return not _cancelled and (not is_open or motion_mode) and (sequence_offset.is_zero_approx() or second==(sequence_step==1))
+	return not _cancelled and accepts_activation() and (sequence_offset.is_zero_approx() or second==(sequence_step==1))
 
 func add_access_bell(location: Vector2, second := false, return_side_only := false) -> void:
 	var primary := _second_receiver if second else receiver

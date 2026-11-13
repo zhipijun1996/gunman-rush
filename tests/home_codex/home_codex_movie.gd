@@ -1,5 +1,5 @@
 extends "res://tests/item_v5_movie.gd"
-## Continuous actual DemoApp/Home/menu/input proof. Known B11 RewardService
+## Continuous actual CampaignFixture/Home/menu/input proof. Known B11 RewardService
 ## ownership,50notes and two Home positions are disclosed setup fixtures.
 ## Never writes discovery/unlock/selection/HP or emits UI/economy signals.
 const DISCLOSURE := "已知B11/音符50/家园站位为测试初始化，非自然掉落"
@@ -95,11 +95,11 @@ func _run() -> void:
 	root.size = Vector2i(1280,720)
 	root.content_scale_size = Vector2i(1280,720)
 	fixture_note = DISCLOSURE
-	app = preload("res://game/application/demo.tscn").instantiate()
+	app = preload("res://tests/fixtures/campaign_fixture.tscn").instantiate()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	add_captions()
-	if not check(app.start_plains(SEED),"original DemoApp starts actual formal Plains for the known reward demonstration"): await finish(); return
+	if not check(app.start_plains(SEED),"original CampaignFixture starts actual formal Plains for the known reward demonstration"): await finish(); return
 	for unused: int in 180:
 		if is_instance_valid(app.stage) and not app._stage_pending: break
 		await frames(1)

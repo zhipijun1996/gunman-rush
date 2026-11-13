@@ -1,6 +1,6 @@
 extends SceneTree
 ## Real Home input, then live formal-world diagnostic camera sweeps. No route claim.
-var app: DemoApp
+var app: CampaignFixture
 var frame := 0
 var phase := ""
 var phase_frame := 0
@@ -16,7 +16,7 @@ func _initialize() -> void:
 	start.call_deferred()
 
 func start() -> void:
-	app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	app=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	await process_frame
 	app._show_home()
 	await process_frame
@@ -52,7 +52,7 @@ func switch_map(index: int) -> void:
 	await load("res://tests/audio_teardown.gd").drain_world(app)
 	app.free()
 	await process_frame
-	app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	app=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	await process_frame
 	if not app.start_debug_region(&"plains",index,"level-design-v2-baseline/08"):
 		printerr("SPACE_MOVIE_FORMAL_ENTRY_FAILED");quit(1);return

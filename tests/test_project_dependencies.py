@@ -21,7 +21,7 @@ class ProjectDependenciesTests(unittest.TestCase):
     def test_shared_implementation_and_application_composition_are_allowed(self):
         self.source("game/combat/health.gd", "class_name Health\nextends RefCounted\n")
         self.source("game/enemies/enemy.gd", "class_name Enemy\nvar health: Health\n")
-        self.source("game/application/app.gd", "class_name DemoApp\nvar enemy := Enemy.new()\n")
+        self.source("game/application/app.gd", "class_name CampaignFixture\nvar enemy := Enemy.new()\n")
         result = inspect(self.root)
         self.assertFalse(result["errors"])
         self.assertIn({"source": "game/enemies/enemy.gd", "target": "game/combat/health.gd", "kind": "class"}, result["edges"])
@@ -32,15 +32,15 @@ class ProjectDependenciesTests(unittest.TestCase):
         self.assertIn("Duplicate runtime class Health", "\n".join(inspect(self.root)["errors"]))
 
     def test_implicit_class_and_scene_dependencies_respect_boundary(self):
-        self.source("game/application/demo_app.gd", "class_name DemoApp\n")
-        self.source("game/world/level.gd", "var app: DemoApp\n")
+        self.source("game/application/world/fixed_world_app.gd", "class_name FixedWorldApp\n")
+        self.source("game/world/level.gd", "var app: FixedWorldApp\n")
         self.source("game/enemies/enemy.tscn", '[ext_resource path="res://experiments/fixture.gd" type="Script" id="1"]\n')
         errors = inspect(self.root)["errors"]
         self.assertEqual(2, len(errors), errors)
 
     def test_comments_strings_and_hash_inputs_are_not_calls(self):
-        self.source("game/world/catalog.gd", '# load("res://tests/bad.gd")\nvar label = "DemoApp"\nvar hash_input = "res://tests/driver.gd"\n')
-        self.source("game/application/app.gd", "class_name DemoApp\n")
+        self.source("game/world/catalog.gd", '# load("res://tests/bad.gd")\nvar label = "CampaignFixture"\nvar hash_input = "res://tests/driver.gd"\n')
+        self.source("game/application/app.gd", "class_name CampaignFixture\n")
         self.assertFalse(inspect(self.root)["errors"])
 
     def test_shared_ui_and_platform_cannot_hide_experiment_owned_helpers(self):
@@ -63,10 +63,10 @@ class ProjectDependenciesTests(unittest.TestCase):
         self.source("game/world/catalog.gd", "\n".join([
             "var note = 'load(\"res://tests/bad.gd\")'",
             'var escaped = "preload(\\\"res://tests/bad.gd\\\")"',
-            "var multiline = \"\"\"\nload('res://tests/bad.gd')\nclass_name DemoApp\n\"\"\"",
+            "var multiline = \"\"\"\nload('res://tests/bad.gd')\nclass_name CampaignFixture\n\"\"\"",
             "# ResourceLoader.load('res://tests/bad.gd')",
             'var tag = "# not a comment"']))
-        self.source("game/application/app.gd", "class_name DemoApp\n")
+        self.source("game/application/app.gd", "class_name CampaignFixture\n")
         result = inspect(self.root)
         self.assertEqual(result["edges"], [])
         self.assertEqual(result["dynamic_loads"], [])
@@ -107,18 +107,18 @@ class ProjectDependenciesTests(unittest.TestCase):
         self.assertEqual(len(result['errors']), 1)
 
     def test_real_implicit_class_forms_and_literal_extends_are_dependencies(self):
-        self.source("game/application/app.gd", "class_name DemoApp\n")
+        self.source("game/application/app.gd", "class_name CampaignFixture\n")
         self.source("game/world/map.gd", 'extends "res://experiments/base.gd"\n'
-                    'var typed: Array[DemoApp]\nvar app = DemoApp.new()\n'
-                    'func is_app(value):\n return value is DemoApp\n')
+                    'var typed: Array[CampaignFixture]\nvar app = CampaignFixture.new()\n'
+                    'func is_app(value):\n return value is CampaignFixture\n')
         result = inspect(self.root)
         self.assertEqual({edge['target'] for edge in result['edges']},
                          {'game/application/app.gd', 'experiments/base.gd'})
         self.assertEqual(len(result['errors']), 2)
 
     def test_member_and_declaration_names_are_not_global_class_references(self):
-        self.source("game/application/app.gd", "class_name DemoApp\n")
-        self.source("game/world/map.gd", 'var DemoApp = 0\nfunc DemoApp():\n return other.DemoApp\n')
+        self.source("game/application/app.gd", "class_name CampaignFixture\n")
+        self.source("game/world/map.gd", 'var CampaignFixture = 0\nfunc CampaignFixture():\n return other.CampaignFixture\n')
         self.assertEqual(inspect(self.root)['edges'], [])
 
 

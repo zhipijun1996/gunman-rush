@@ -1,7 +1,7 @@
 ## v8: restored strict persistent-corpse assertions from 0d5b72c following the
 ## latest user rejection of exploded disappearance and custom death sound.
 extends SceneTree
-## Real DemoApp default start_plains / generated spawn / damage / drop / rebuild.
+## Real CampaignFixture default start_plains / generated spawn / damage / drop / rebuild.
 ## Each target uses one explicitly recorded initial player Motor positioning on
 ## existing safe terrain. Subsequent movement and shooting use InputRouter.
 ## No enemy, AI, HP, collider, damage, reward, manifest or energy is altered.
@@ -13,7 +13,7 @@ var results: Array[Dictionary] = []
 var events: Array[Dictionary] = []
 var shots: Array[Dictionary] = []
 var trace: Array[Dictionary] = []
-var app: DemoApp
+var app: CampaignFixture
 var original_manifest := ""
 var ready_receipts: Array[Dictionary] = []
 var remains_teardown: Array[WeakRef] = []
@@ -163,7 +163,7 @@ func verify_target(stable_id: StringName) -> void:
 	check(art.feedback_particles.emitted_bursts == ceili(initial_hp) and art.feedback_sample.impact_serial == ceili(initial_hp), "actual default formal projectiles emit exactly one pixel burst per accepted HP receipt including death")
 	check(art.feedback_remains.active and not art.feedback_remains.restored and art.feedback_remains.accepted_starts == 1 and art.feedback_remains.get_parent() == stage, "actual generated enemy has one accepted corpse owned by its real stage")
 	await ticks(3, "formal_drop_settlement")
-	check(app.region_state.drops.has(enemy_id), "DemoApp itself settles actual generated terminal identity")
+	check(app.region_state.drops.has(enemy_id), "CampaignFixture itself settles actual generated terminal identity")
 	if not app.region_state.drops.has(enemy_id):
 		return
 	var drop: Dictionary = app.region_state.drops[enemy_id].duplicate(true)
@@ -243,7 +243,7 @@ func verify_actual_reload() -> void:
 		check(found, "same generated enemy identity restored for " + str(result.stable_id))
 
 func run() -> void:
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_plains("enemy-feedback-01-formal"), "actual default start_plains accepts task seed")
@@ -271,9 +271,9 @@ func run() -> void:
 	app.free()
 	for _frame: int in 4:
 		await process_frame
-	check(remains_teardown.all(func(reference: WeakRef) -> bool: return reference.get_ref() == null), "abandon and full DemoApp unload release all remaining corpse siblings")
+	check(remains_teardown.all(func(reference: WeakRef) -> bool: return reference.get_ref() == null), "abandon and full CampaignFixture unload release all remaining corpse siblings")
 	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01/v8")
-	var output := {"feedback_revision": "dedicated_species_frames_and_persistent_corpse_v8", "task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "ready": ready_receipts, "inventory": inventory, "targets": results, "shots": shots, "accepted_events": events, "trace": trace, "drop_observations": drop_observations, "scope": "real default DemoApp/start_plains generated actors, Router/projectile damage, official drop ledger and same-map rebuild; explicitly positioned player fixtures, not natural traversal", "not_verified": ["full natural traversal", "GPU visual quality", "user acceptance", "physical device"]}
+	var output := {"feedback_revision": "dedicated_species_frames_and_persistent_corpse_v8", "task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "ready": ready_receipts, "inventory": inventory, "targets": results, "shots": shots, "accepted_events": events, "trace": trace, "drop_observations": drop_observations, "scope": "real default CampaignFixture/start_plains generated actors, Router/projectile damage, official drop ledger and same-map rebuild; explicitly positioned player fixtures, not natural traversal", "not_verified": ["full natural traversal", "GPU visual quality", "user acceptance", "physical device"]}
 	var file := FileAccess.open("res://build/enemy_feedback_01/v8/formal_runtime.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(output, "\t"))
 	file.close()

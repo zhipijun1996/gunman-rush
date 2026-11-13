@@ -15,6 +15,9 @@ var phase:=0.0
 var tooth_tick:=0
 var spark_remaining:=0.0
 var drive: WorldMovingPlatform
+var clock_source: Node
+var source_room_id := ""
+var motion_running := true
 
 func _ready() -> void:
 	process_physics_priority=100
@@ -27,7 +30,7 @@ func _ready() -> void:
 	wheel.position=origin+travel*sin(phase*TAU);add_child(wheel)
 	var contact:=DemoContactEmitter.new()
 	contact.policy=policy;contact.controller=controller;contact.kind=DamageRequest.Kind.ENVIRONMENT
-	contact.source_id=StringName(str(get_parent().room_id)+":"+str(definition.id))
+	contact.source_id=StringName((str(get_parent().room_id) if source_room_id.is_empty() else source_room_id)+":"+str(definition.id))
 	contact.half_size=Vector2.ONE*RADIUS
 	contact.contact_test_provider=func(center: Vector2,previous: Vector2,actor: Vector2,half_size: Vector2) -> bool:
 		return SawHazard.swept_contact(previous,actor-center,half_size,RADIUS)
@@ -35,16 +38,19 @@ func _ready() -> void:
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
-	clock=drive.motion_clock if drive!=null else clock+delta
+	clock=float(clock_source.get("motion_clock")) if is_instance_valid(clock_source) else (drive.motion_clock if drive!=null else clock+(delta if motion_running else 0.0))
 	spark_remaining=maxf(0,spark_remaining-delta)
-	wheel.position=(origin+travel*sin(TAU*(clock/period+phase))).round()
-	wheel.rotation=TAU*clock/2.4
+	refresh_position()
 	var next_tick:=floori((clock/period+phase)*2+.5)
 	if next_tick!=tooth_tick:
 		tooth_tick=next_tick;spark_remaining=.14
 		if controller.active and controller.motor.global_position.distance_to(wheel.global_position)<420:
 			GameAudio.cue(self,&"armour")
 	queue_redraw()
+
+func refresh_position() -> void:
+	wheel.position=(origin+travel*sin(TAU*(clock/period+phase))).round()
+	wheel.rotation=TAU*clock/2.4
 
 func _draw() -> void:
 	# The fixed axle guide exposes the complete swept corridor before entry.

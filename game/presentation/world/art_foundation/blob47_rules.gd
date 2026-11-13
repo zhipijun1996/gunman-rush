@@ -40,6 +40,13 @@ static func mask_at(cells: Dictionary, cell: Vector2i) -> int:
 		if cells.has(other) and cells[other] == cells[cell]: raw |= 1 << index
 	return canonical_mask(raw)
 
+static func occupancy_mask(cells: Dictionary, cell: Vector2i) -> int:
+	if not cells.has(cell): return 0
+	var raw := 0
+	for index: int in OFFSETS.size():
+		if cells.has(cell+OFFSETS[index]): raw |= 1 << index
+	return canonical_mask(raw)
+
 static func atlas_index(mask: int) -> int:
 	return catalog_masks().find(mask)
 

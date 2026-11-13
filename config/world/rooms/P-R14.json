@@ -1,7 +1,8 @@
 {
   "entities": {
     "P-R14:art:clockroute:2": {
-      "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R14:art:clockroute:2",
       "order": 6,
       "properties": {
@@ -15,7 +16,8 @@
       }
     },
     "P-R14:art:gallery": {
-      "component": "array:art_placements",
+      "definition_id": "decor.windcourt_gallery",
+      "definition_version": 1,
       "id": "P-R14:art:gallery",
       "order": 1,
       "properties": {
@@ -28,7 +30,8 @@
       }
     },
     "P-R14:art:high-moss": {
-      "component": "array:art_placements",
+      "definition_id": "decor.bank_moss",
+      "definition_version": 1,
       "id": "P-R14:art:high-moss",
       "order": 7,
       "properties": {
@@ -43,7 +46,8 @@
       }
     },
     "P-R14:art:lower-lamp": {
-      "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R14:art:lower-lamp",
       "order": 5,
       "properties": {
@@ -57,7 +61,8 @@
       }
     },
     "P-R14:art:pavilion": {
-      "component": "array:art_placements",
+      "definition_id": "decor.windcourt_pavilion",
+      "definition_version": 1,
       "id": "P-R14:art:pavilion",
       "order": 0,
       "properties": {
@@ -100,80 +105,9 @@
         ]
       }
     },
-    "P-R14:art:surface:11": {
-      "component": "array:art_placements",
-      "id": "P-R14:art:surface:11",
-      "order": 11,
-      "properties": {
-        "surface_platform": 7
-      }
-    },
-    "P-R14:art:surface:2": {
-      "component": "array:art_placements",
-      "id": "P-R14:art:surface:2",
-      "order": 8,
-      "properties": {
-        "surface_platform": 1
-      }
-    },
-    "P-R14:art:surface:3": {
-      "component": "array:art_placements",
-      "id": "P-R14:art:surface:3",
-      "order": 9,
-      "properties": {
-        "surface_platform": 2
-      }
-    },
-    "P-R14:art:surface:4": {
-      "component": "array:art_placements",
-      "id": "P-R14:art:surface:4",
-      "order": 10,
-      "properties": {
-        "surface_platform": 3
-      }
-    },
-    "P-R14:art:surface:lower_east_bank": {
-      "component": "array:art_placements",
-      "id": "P-R14:art:surface:lower_east_bank",
-      "order": 12,
-      "properties": {
-        "surface_platform": 14
-      }
-    },
-    "P-R14:art:surface:recover-east": {
-      "component": "array:art_placements",
-      "id": "P-R14:art:surface:recover-east",
-      "order": 14,
-      "properties": {
-        "surface_platform": 17
-      }
-    },
-    "P-R14:art:surface:recover-west": {
-      "component": "array:art_placements",
-      "id": "P-R14:art:surface:recover-west",
-      "order": 13,
-      "properties": {
-        "surface_platform": 16
-      }
-    },
-    "P-R14:art:surface:shaft-lower": {
-      "component": "array:art_placements",
-      "id": "P-R14:art:surface:shaft-lower",
-      "order": 16,
-      "properties": {
-        "surface_platform": 19
-      }
-    },
-    "P-R14:art:surface:shaft-upper": {
-      "component": "array:art_placements",
-      "id": "P-R14:art:surface:shaft-upper",
-      "order": 15,
-      "properties": {
-        "surface_platform": 18
-      }
-    },
     "P-R14:art_placements:1": {
-      "component": "array:art_placements",
+      "definition_id": "decor.bell_post",
+      "definition_version": 1,
       "id": "P-R14:art_placements:1",
       "order": 2,
       "properties": {
@@ -186,7 +120,8 @@
       }
     },
     "P-R14:art_placements:2": {
-      "component": "array:art_placements",
+      "definition_id": "decor.bell_post",
+      "definition_version": 1,
       "id": "P-R14:art_placements:2",
       "order": 3,
       "properties": {
@@ -199,7 +134,8 @@
       }
     },
     "P-R14:art_placements:3": {
-      "component": "array:art_placements",
+      "definition_id": "decor.bell_post",
+      "definition_version": 1,
       "id": "P-R14:art_placements:3",
       "order": 4,
       "properties": {
@@ -212,7 +148,8 @@
       }
     },
     "P-R14:built:side_gate_west_foot": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:built:side_gate_west_foot",
       "order": 15,
       "properties": {
@@ -227,11 +164,54 @@
         ]
       }
     },
+    "P-R14:feature:encounter.windkeeper": {
+      "definition_id": "encounter.windkeeper",
+      "definition_version": 1,
+      "id": "P-R14:feature:encounter.windkeeper",
+      "order": 1048,
+      "parent": "",
+      "properties": {
+        "modulate": {
+          "$color": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "parameters": {
+          "arena_bounds": [
+            320.0,
+            160.0,
+            1120.0,
+            600.0
+          ],
+          "arena_door_height": 192.0,
+          "battle_entry_anchor": [
+            400.0,
+            742.0
+          ],
+          "boss_identity": "windkeeper_storm",
+          "defeat_action": "defeat_P_WINDKEEPER",
+          "defeat_flag": "boss_P_WINDKEEPER_defeated"
+        },
+        "position": [
+          1104.0,
+          695.0
+        ],
+        "rotation": 0,
+        "scale": [
+          1,
+          1
+        ],
+        "visible": true,
+        "z_index": 0
+      }
+    },
     "P-R14:node:./Arena": {
-      "component": "PlatformingModule",
+      "definition_id": "internal.arena",
+      "definition_version": 1,
       "id": "P-R14:node:./Arena",
-      "node_name": "Arena",
-      "node_path": "./Arena",
       "order": 1,
       "parent": "",
       "properties": {
@@ -262,10 +242,9 @@
       }
     },
     "P-R14:node:./Arena/RegionalTerrain": {
-      "component": "WorldModuleTerrain",
+      "definition_id": "internal.arena_terrain",
+      "definition_version": 1,
       "id": "P-R14:node:./Arena/RegionalTerrain",
-      "node_name": "RegionalTerrain",
-      "node_path": "./Arena/RegionalTerrain",
       "order": 2,
       "parent": "P-R14:node:./Arena",
       "properties": {
@@ -291,10 +270,9 @@
       }
     },
     "P-R14:node:./ClockAnchor0": {
-      "component": "GrappleAnchor",
+      "definition_id": "traversal.hook",
+      "definition_version": 1,
       "id": "P-R14:node:./ClockAnchor0",
-      "node_name": "ClockAnchor0",
-      "node_path": "./ClockAnchor0",
       "order": 5,
       "parent": "",
       "properties": {
@@ -322,10 +300,9 @@
       }
     },
     "P-R14:node:./ClockAnchor1": {
-      "component": "GrappleAnchor",
+      "definition_id": "traversal.hook",
+      "definition_version": 1,
       "id": "P-R14:node:./ClockAnchor1",
-      "node_name": "ClockAnchor1",
-      "node_path": "./ClockAnchor1",
       "order": 6,
       "parent": "",
       "properties": {
@@ -353,10 +330,9 @@
       }
     },
     "P-R14:node:./ClockAnchor2": {
-      "component": "GrappleAnchor",
+      "definition_id": "traversal.hook",
+      "definition_version": 1,
       "id": "P-R14:node:./ClockAnchor2",
-      "node_name": "ClockAnchor2",
-      "node_path": "./ClockAnchor2",
       "order": 7,
       "parent": "",
       "properties": {
@@ -384,10 +360,9 @@
       }
     },
     "P-R14:node:./ClockAnchor3": {
-      "component": "GrappleAnchor",
+      "definition_id": "traversal.hook",
+      "definition_version": 1,
       "id": "P-R14:node:./ClockAnchor3",
-      "node_name": "ClockAnchor3",
-      "node_path": "./ClockAnchor3",
       "order": 8,
       "parent": "",
       "properties": {
@@ -415,10 +390,9 @@
       }
     },
     "P-R14:node:./ClockAnchor4": {
-      "component": "GrappleAnchor",
+      "definition_id": "traversal.hook",
+      "definition_version": 1,
       "id": "P-R14:node:./ClockAnchor4",
-      "node_name": "ClockAnchor4",
-      "node_path": "./ClockAnchor4",
       "order": 9,
       "parent": "",
       "properties": {
@@ -446,10 +420,9 @@
       }
     },
     "P-R14:node:./ClockAnchor5": {
-      "component": "GrappleAnchor",
+      "definition_id": "traversal.hook",
+      "definition_version": 1,
       "id": "P-R14:node:./ClockAnchor5",
-      "node_name": "ClockAnchor5",
-      "node_path": "./ClockAnchor5",
       "order": 10,
       "parent": "",
       "properties": {
@@ -477,10 +450,9 @@
       }
     },
     "P-R14:node:./Interaction_0": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R14:node:./Interaction_0",
-      "node_name": "Interaction_0",
-      "node_path": "./Interaction_0",
       "order": 3,
       "parent": "",
       "properties": {
@@ -511,10 +483,9 @@
       }
     },
     "P-R14:node:./Interaction_1": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R14:node:./Interaction_1",
-      "node_name": "Interaction_1",
-      "node_path": "./Interaction_1",
       "order": 4,
       "parent": "",
       "properties": {
@@ -545,7 +516,8 @@
       }
     },
     "P-R14:platform:clock-bank": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:platform:clock-bank",
       "order": 20,
       "properties": {
@@ -561,10 +533,12 @@
       }
     },
     "P-R14:platform:recover-east": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R14:platform:recover-east",
       "order": 17,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -577,10 +551,12 @@
       }
     },
     "P-R14:platform:recover-west": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R14:platform:recover-west",
       "order": 16,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -593,10 +569,12 @@
       }
     },
     "P-R14:platform:shaft-lower": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R14:platform:shaft-lower",
       "order": 19,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -609,10 +587,12 @@
       }
     },
     "P-R14:platform:shaft-upper": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R14:platform:shaft-upper",
       "order": 18,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -625,7 +605,8 @@
       }
     },
     "P-R14:platforms:1": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:platforms:1",
       "order": 0,
       "properties": {
@@ -641,7 +622,8 @@
       }
     },
     "P-R14:platforms:10": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:platforms:10",
       "order": 6,
       "properties": {
@@ -657,10 +639,12 @@
       }
     },
     "P-R14:platforms:11": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R14:platforms:11",
       "order": 7,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -673,7 +657,8 @@
       }
     },
     "P-R14:platforms:12": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:platforms:12",
       "order": 8,
       "properties": {
@@ -689,7 +674,8 @@
       }
     },
     "P-R14:platforms:13": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:platforms:13",
       "order": 9,
       "properties": {
@@ -705,7 +691,8 @@
       }
     },
     "P-R14:platforms:14": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:platforms:14",
       "order": 10,
       "properties": {
@@ -721,7 +708,8 @@
       }
     },
     "P-R14:platforms:14:part2": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:platforms:14:part2",
       "order": 11,
       "properties": {
@@ -737,7 +725,8 @@
       }
     },
     "P-R14:platforms:15": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:platforms:15",
       "order": 12,
       "properties": {
@@ -753,7 +742,8 @@
       }
     },
     "P-R14:platforms:16": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:platforms:16",
       "order": 13,
       "properties": {
@@ -769,10 +759,12 @@
       }
     },
     "P-R14:platforms:2": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R14:platforms:2",
       "order": 1,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -785,10 +777,12 @@
       }
     },
     "P-R14:platforms:3": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R14:platforms:3",
       "order": 2,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -801,10 +795,12 @@
       }
     },
     "P-R14:platforms:4": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R14:platforms:4",
       "order": 3,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -817,7 +813,8 @@
       }
     },
     "P-R14:platforms:5": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:platforms:5",
       "order": 4,
       "properties": {
@@ -833,7 +830,8 @@
       }
     },
     "P-R14:platforms:7": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R14:platforms:7",
       "order": 5,
       "properties": {
@@ -849,10 +847,12 @@
       }
     },
     "P-R14:r7:lower_east_bank": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R14:r7:lower_east_bank",
       "order": 14,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -865,7 +865,8 @@
       }
     },
     "P-R14:retry:arena:0": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R14:retry:arena:0",
       "order": 6,
       "properties": {
@@ -883,7 +884,8 @@
       }
     },
     "P-R14:retry:arena:1": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R14:retry:arena:1",
       "order": 7,
       "properties": {
@@ -901,7 +903,8 @@
       }
     },
     "P-R14:retry:arena:2": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R14:retry:arena:2",
       "order": 8,
       "properties": {
@@ -919,7 +922,8 @@
       }
     },
     "P-R14:retry:shortcut": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R14:retry:shortcut",
       "order": 5,
       "properties": {
@@ -937,7 +941,8 @@
       }
     },
     "P-R14:retry_anchors:0": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R14:retry_anchors:0",
       "order": 0,
       "properties": {
@@ -955,7 +960,8 @@
       }
     },
     "P-R14:retry_anchors:1": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R14:retry_anchors:1",
       "order": 1,
       "properties": {
@@ -973,7 +979,8 @@
       }
     },
     "P-R14:retry_anchors:2": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R14:retry_anchors:2",
       "order": 2,
       "properties": {
@@ -991,7 +998,8 @@
       }
     },
     "P-R14:retry_anchors:3": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R14:retry_anchors:3",
       "order": 3,
       "properties": {
@@ -1009,7 +1017,8 @@
       }
     },
     "P-R14:retry_anchors:4": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R14:retry_anchors:4",
       "order": 4,
       "properties": {
@@ -1029,32 +1038,11 @@
   },
   "room_id": "P-R14",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        320.0,
-        160.0,
-        1120.0,
-        600.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "牧风者庭地",
       "art_profile": "boss",
-      "battle_entry_anchor": [
-        400.0,
-        742.0
-      ],
-      "boss_binding": {
-        "$resource": "res://game/bosses/windkeeper/windkeeper_world_binding.gd"
-      },
-      "boss_identity": "windkeeper_storm",
-      "boss_position": [
-        1104.0,
-        695.0
-      ],
-      "defeat_action": "defeat_P_WINDKEEPER",
-      "defeat_flag": "boss_P_WINDKEEPER_defeated",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -1063,22 +1051,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R14",
       "rotation": 0.0,
       "route_guide": {
@@ -1200,19 +1177,15 @@
         320.0,
         1230.0
       ],
-      "story_sequence": {},
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
+      "terrain_paint": {
+        "regions": [],
+        "seed": 0,
+        "surfaces": [],
+        "version": 1
+      },
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

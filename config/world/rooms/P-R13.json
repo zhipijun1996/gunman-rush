@@ -1,54 +1,63 @@
 {
   "entities": {
-    "P-R13:bell_mechanisms:0": {
-      "component": "array:bell_mechanisms",
-      "id": "P-R13:bell_mechanisms:0",
-      "order": 0,
+    "P-R13:cliff_return": {
+      "definition_id": "switch.shot",
+      "definition_version": 1.0,
+      "id": "P-R13:cliff_return",
+      "order": 1,
+      "parent": "",
       "properties": {
-        "access_bells": [
+        "access_points": [
           [
             6928.0,
             232.0
           ]
         ],
-        "bell": [
+        "duration": 0.0,
+        "element_id": "P-R13:cliff_return",
+        "links": [
+          {
+            "input": "set_active",
+            "output": "active",
+            "target": "P-R13:node:./CliffLift"
+          }
+        ],
+        "metadata/underworld_formal_style": true,
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
           6960.0,
           1576.0
         ],
-        "carrier": "CliffLift",
-        "id": "P-R13:cliff_return"
-      }
-    },
-    "P-R13:bell_mechanisms:1": {
-      "component": "array:bell_mechanisms",
-      "id": "P-R13:bell_mechanisms:1",
-      "order": 1,
-      "properties": {
-        "access_bells": [
-          [
-            1008.0,
-            3408.0
-          ]
+        "repeat_enabled": true,
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
         ],
-        "bell": [
-          720.0,
-          2800.0
-        ],
-        "carrier": "OldRoadLift",
-        "id": "P-R13:old_road_lift"
+        "state_scope": "permanent",
+        "visible": true,
+        "z_index": 0
       }
     },
     "P-R13:composition:0": {
-      "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R13:composition:0",
       "order": 0,
       "properties": {
         "asset": "plains_grass",
         "atmosphere": {
-          "density": 4,
+          "density": 4.0,
           "speed": [
-            24,
-            42
+            24.0,
+            42.0
           ],
           "sway_speed": 0.8
         },
@@ -56,25 +65,25 @@
         "clouds": "junction_clouds",
         "landscape": "junction_meadow",
         "landscape_offset": [
-          0,
-          100
+          0.0,
+          100.0
         ],
         "landscape_reference": [
-          3552,
-          2400
+          3552.0,
+          2400.0
         ],
         "landscape_scroll": [
           0.08,
           0.35
         ],
-        "layer": -5,
+        "layer": -5.0,
         "point": [
-          6400,
-          1792
+          6400.0,
+          1792.0
         ],
         "sky_cloud_density": [
           0.4,
-          0
+          0.0
         ],
         "sky_colors": [
           "e7d9b9",
@@ -84,175 +93,187 @@
       }
     },
     "P-R13:composition:1": {
-      "component": "array:art_placements",
+      "definition_id": "decor.bell_post",
+      "definition_version": 1,
       "id": "P-R13:composition:1",
       "order": 1,
       "properties": {
         "asset": "bell_post",
-        "layer": -4,
+        "layer": -4.0,
         "point": [
-          5808,
-          1856
+          5808.0,
+          1856.0
         ]
       }
     },
     "P-R13:composition:10": {
-      "component": "array:art_placements",
+      "definition_id": "decor.bank_moss",
+      "definition_version": 1,
       "id": "P-R13:composition:10",
       "order": 10,
       "properties": {
         "asset": "bank_moss",
-        "layer": 2,
+        "layer": 2.0,
         "point": [
-          5480,
-          2313
+          5480.0,
+          2313.0
         ],
         "sway": true,
         "sway_hanging": true
       }
     },
     "P-R13:composition:2": {
-      "component": "array:art_placements",
+      "definition_id": "decor.bell_post",
+      "definition_version": 1,
       "id": "P-R13:composition:2",
       "order": 2,
       "properties": {
         "asset": "bell_post",
-        "layer": -4,
+        "layer": -4.0,
         "point": [
-          1856,
-          2496
+          1856.0,
+          2496.0
         ]
       }
     },
     "P-R13:composition:3": {
-      "component": "array:art_placements",
+      "definition_id": "decor.travel_bundle",
+      "definition_version": 1,
       "id": "P-R13:composition:3",
       "order": 3,
       "properties": {
         "asset": "travel_bundle",
-        "layer": -4,
+        "layer": -4.0,
         "point": [
-          5744,
-          2496
+          5744.0,
+          2496.0
         ]
       }
     },
     "P-R13:composition:4": {
-      "component": "array:art_placements",
+      "definition_id": "decor.orchard_fence",
+      "definition_version": 1,
       "id": "P-R13:composition:4",
       "order": 4,
       "properties": {
         "asset": "orchard_fence",
-        "layer": -7,
+        "layer": -7.0,
         "point": [
-          2336,
-          2496
+          2336.0,
+          2496.0
         ],
         "tint": [
           0.6,
           0.7,
           0.7,
-          1
+          1.0
         ]
       }
     },
     "P-R13:composition:5": {
-      "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R13:composition:5",
       "order": 5,
       "properties": {
         "asset": "plains_grass",
-        "layer": -5,
+        "layer": -5.0,
         "point": [
-          4416,
-          2400
+          4416.0,
+          2400.0
         ],
         "sway": true
       }
     },
     "P-R13:composition:6": {
-      "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R13:composition:6",
       "order": 6,
       "properties": {
         "asset": "plains_grass",
-        "layer": -5,
+        "layer": -5.0,
         "point": [
-          6400,
-          1792
+          6400.0,
+          1792.0
         ],
         "sway": true
       }
     },
     "P-R13:composition:7": {
-      "component": "array:art_placements",
+      "definition_id": "decor.well_masonry",
+      "definition_version": 1,
       "id": "P-R13:composition:7",
       "order": 7,
       "properties": {
         "asset": "well_masonry",
         "curved_wall": [
-          512,
-          2976,
-          576,
-          576
+          512.0,
+          2976.0,
+          576.0,
+          576.0
         ],
-        "layer": -28,
+        "layer": -28.0,
         "point": [
-          0,
-          0
+          0.0,
+          0.0
         ],
         "tile_rect": [
-          512,
-          2976,
-          576,
-          576
+          512.0,
+          2976.0,
+          576.0,
+          576.0
         ]
       }
     },
     "P-R13:composition:8": {
-      "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R13:composition:8",
       "order": 8,
       "properties": {
         "asset": "gear_lamp",
-        "layer": -3,
+        "layer": -3.0,
         "light": true,
         "point": [
-          832,
-          3456
+          832.0,
+          3456.0
         ]
       }
     },
     "P-R13:composition:9": {
-      "component": "array:art_placements",
+      "definition_id": "decor.bank_moss",
+      "definition_version": 1,
       "id": "P-R13:composition:9",
       "order": 9,
       "properties": {
         "asset": "bank_moss",
-        "layer": 2,
+        "layer": 2.0,
         "point": [
-          1640,
-          2329
+          1640.0,
+          2329.0
         ],
         "sway": true,
         "sway_hanging": true
       }
     },
     "P-R13:door-review:art:11": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_transmission_hall",
+      "definition_version": 1,
       "id": "P-R13:door-review:art:11",
       "order": 11,
       "properties": {
         "masonry_region": [
-          0,
-          2496,
-          288,
-          448
+          0.0,
+          2496.0,
+          288.0,
+          448.0
         ]
       }
     },
     "P-R13:enemy_placements:0": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R13:enemy_placements:0",
       "order": 0,
       "properties": {
@@ -266,7 +287,8 @@
       }
     },
     "P-R13:enemy_placements:1": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.root_bell",
+      "definition_version": 1,
       "id": "P-R13:enemy_placements:1",
       "order": 1,
       "properties": {
@@ -280,7 +302,8 @@
       }
     },
     "P-R13:enemy_placements:2": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R13:enemy_placements:2",
       "order": 2,
       "properties": {
@@ -294,7 +317,8 @@
       }
     },
     "P-R13:enemy_placements:3": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R13:enemy_placements:3",
       "order": 3,
       "properties": {
@@ -308,7 +332,8 @@
       }
     },
     "P-R13:enemy_placements:4": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.hopper",
+      "definition_version": 1,
       "id": "P-R13:enemy_placements:4",
       "order": 4,
       "properties": {
@@ -322,7 +347,8 @@
       }
     },
     "P-R13:enemy_placements:5": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R13:enemy_placements:5",
       "order": 5,
       "properties": {
@@ -336,14 +362,14 @@
       }
     },
     "P-R13:node:./CliffLift": {
-      "component": "WorldMovingPlatform",
+      "definition_id": "platform.moving",
+      "definition_version": 1.0,
       "id": "P-R13:node:./CliffLift",
-      "node_name": "CliffLift",
-      "node_path": "./CliffLift",
-      "order": 1,
+      "order": 2,
       "parent": "",
       "properties": {
         "activation_flag": "",
+        "element_id": "P-R13:node:./CliffLift",
         "endpoint": [
           0.0,
           -1168.0
@@ -379,16 +405,16 @@
           1.0,
           1.0
         ],
+        "state_scope": "permanent",
         "visible": true,
         "z_index": 0
       }
     },
     "P-R13:node:./Interaction_0": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R13:node:./Interaction_0",
-      "node_name": "Interaction_0",
-      "node_path": "./Interaction_0",
-      "order": 3,
+      "order": 5,
       "parent": "",
       "properties": {
         "action_id": "pickup_HP01",
@@ -418,14 +444,14 @@
       }
     },
     "P-R13:node:./OldRoadLift": {
-      "component": "WorldMovingPlatform",
+      "definition_id": "platform.moving",
+      "definition_version": 1.0,
       "id": "P-R13:node:./OldRoadLift",
-      "node_name": "OldRoadLift",
-      "node_path": "./OldRoadLift",
-      "order": 2,
+      "order": 4,
       "parent": "",
       "properties": {
         "activation_flag": "",
+        "element_id": "P-R13:node:./OldRoadLift",
         "endpoint": [
           0.0,
           -608.0
@@ -461,16 +487,16 @@
           1.0,
           1.0
         ],
+        "state_scope": "permanent",
         "visible": true,
         "z_index": 0
       }
     },
     "P-R13:node:./RewardReturn": {
-      "component": "WorldReturnLatch",
+      "definition_id": "interaction.return_gate",
+      "definition_version": 1,
       "id": "P-R13:node:./RewardReturn",
-      "node_name": "RewardReturn",
-      "node_path": "./RewardReturn",
-      "order": 4,
+      "order": 6,
       "parent": "",
       "properties": {
         "action_id": "reward_return_HP01_open",
@@ -509,8 +535,55 @@
         "z_index": 0
       }
     },
+    "P-R13:old_road_lift": {
+      "definition_id": "switch.shot",
+      "definition_version": 1.0,
+      "id": "P-R13:old_road_lift",
+      "order": 3,
+      "parent": "",
+      "properties": {
+        "access_points": [
+          [
+            1008.0,
+            3408.0
+          ]
+        ],
+        "duration": 0.0,
+        "element_id": "P-R13:old_road_lift",
+        "links": [
+          {
+            "input": "set_active",
+            "output": "active",
+            "target": "P-R13:node:./OldRoadLift"
+          }
+        ],
+        "metadata/underworld_formal_style": true,
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          720.0,
+          2800.0
+        ],
+        "repeat_enabled": true,
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "state_scope": "permanent",
+        "visible": true,
+        "z_index": 0
+      }
+    },
     "P-R13:platforms:0": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:0",
       "order": 0,
       "properties": {
@@ -526,7 +599,8 @@
       }
     },
     "P-R13:platforms:1": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:1",
       "order": 1,
       "properties": {
@@ -542,7 +616,8 @@
       }
     },
     "P-R13:platforms:10": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:10",
       "order": 10,
       "properties": {
@@ -558,7 +633,8 @@
       }
     },
     "P-R13:platforms:11": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:11",
       "order": 11,
       "properties": {
@@ -574,7 +650,8 @@
       }
     },
     "P-R13:platforms:12": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:12",
       "order": 12,
       "properties": {
@@ -590,7 +667,8 @@
       }
     },
     "P-R13:platforms:13": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:13",
       "order": 13,
       "properties": {
@@ -606,7 +684,8 @@
       }
     },
     "P-R13:platforms:16": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:16",
       "order": 14,
       "properties": {
@@ -622,7 +701,8 @@
       }
     },
     "P-R13:platforms:17": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:17",
       "order": 15,
       "properties": {
@@ -638,7 +718,8 @@
       }
     },
     "P-R13:platforms:18": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:18",
       "order": 16,
       "properties": {
@@ -654,7 +735,8 @@
       }
     },
     "P-R13:platforms:19": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:19",
       "order": 17,
       "properties": {
@@ -670,7 +752,8 @@
       }
     },
     "P-R13:platforms:2": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:2",
       "order": 2,
       "properties": {
@@ -686,7 +769,8 @@
       }
     },
     "P-R13:platforms:20": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:20",
       "order": 18,
       "properties": {
@@ -702,7 +786,8 @@
       }
     },
     "P-R13:platforms:21": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:21",
       "order": 19,
       "properties": {
@@ -718,7 +803,8 @@
       }
     },
     "P-R13:platforms:23": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:23",
       "order": 20,
       "properties": {
@@ -734,7 +820,8 @@
       }
     },
     "P-R13:platforms:24": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:24",
       "order": 21,
       "properties": {
@@ -750,7 +837,8 @@
       }
     },
     "P-R13:platforms:25": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:25",
       "order": 22,
       "properties": {
@@ -766,7 +854,8 @@
       }
     },
     "P-R13:platforms:26": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:26",
       "order": 23,
       "properties": {
@@ -782,7 +871,8 @@
       }
     },
     "P-R13:platforms:27": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:27",
       "order": 24,
       "properties": {
@@ -798,7 +888,8 @@
       }
     },
     "P-R13:platforms:28": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:28",
       "order": 25,
       "properties": {
@@ -814,7 +905,8 @@
       }
     },
     "P-R13:platforms:29": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:29",
       "order": 26,
       "properties": {
@@ -830,7 +922,8 @@
       }
     },
     "P-R13:platforms:3": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:3",
       "order": 3,
       "properties": {
@@ -846,7 +939,8 @@
       }
     },
     "P-R13:platforms:4": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:4",
       "order": 4,
       "properties": {
@@ -862,7 +956,8 @@
       }
     },
     "P-R13:platforms:5": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:5",
       "order": 5,
       "properties": {
@@ -878,7 +973,8 @@
       }
     },
     "P-R13:platforms:6": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:6",
       "order": 6,
       "properties": {
@@ -894,7 +990,8 @@
       }
     },
     "P-R13:platforms:7": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:7",
       "order": 7,
       "properties": {
@@ -910,7 +1007,8 @@
       }
     },
     "P-R13:platforms:8": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:8",
       "order": 8,
       "properties": {
@@ -926,7 +1024,8 @@
       }
     },
     "P-R13:platforms:9": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R13:platforms:9",
       "order": 9,
       "properties": {
@@ -942,7 +1041,8 @@
       }
     },
     "P-R13:r6:gap_retry": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:r6:gap_retry",
       "order": 14,
       "properties": {
@@ -960,7 +1060,8 @@
       }
     },
     "P-R13:retry_anchors:0": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:0",
       "order": 0,
       "properties": {
@@ -978,7 +1079,8 @@
       }
     },
     "P-R13:retry_anchors:1": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:1",
       "order": 1,
       "properties": {
@@ -996,7 +1098,8 @@
       }
     },
     "P-R13:retry_anchors:10": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:10",
       "order": 10,
       "properties": {
@@ -1014,7 +1117,8 @@
       }
     },
     "P-R13:retry_anchors:11": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:11",
       "order": 11,
       "properties": {
@@ -1032,7 +1136,8 @@
       }
     },
     "P-R13:retry_anchors:12": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:12",
       "order": 12,
       "properties": {
@@ -1050,7 +1155,8 @@
       }
     },
     "P-R13:retry_anchors:13": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:13",
       "order": 13,
       "properties": {
@@ -1068,7 +1174,8 @@
       }
     },
     "P-R13:retry_anchors:2": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:2",
       "order": 2,
       "properties": {
@@ -1086,7 +1193,8 @@
       }
     },
     "P-R13:retry_anchors:3": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:3",
       "order": 3,
       "properties": {
@@ -1104,7 +1212,8 @@
       }
     },
     "P-R13:retry_anchors:4": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:4",
       "order": 4,
       "properties": {
@@ -1122,7 +1231,8 @@
       }
     },
     "P-R13:retry_anchors:5": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:5",
       "order": 5,
       "properties": {
@@ -1140,7 +1250,8 @@
       }
     },
     "P-R13:retry_anchors:6": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:6",
       "order": 6,
       "properties": {
@@ -1158,7 +1269,8 @@
       }
     },
     "P-R13:retry_anchors:7": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:7",
       "order": 7,
       "properties": {
@@ -1176,7 +1288,8 @@
       }
     },
     "P-R13:retry_anchors:8": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:8",
       "order": 8,
       "properties": {
@@ -1194,7 +1307,8 @@
       }
     },
     "P-R13:retry_anchors:9": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R13:retry_anchors:9",
       "order": 9,
       "properties": {
@@ -1212,7 +1326,8 @@
       }
     },
     "P-R13:spike_strips:0": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:0",
       "order": 0,
       "properties": {
@@ -1227,7 +1342,8 @@
       }
     },
     "P-R13:spike_strips:1": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:1",
       "order": 1,
       "properties": {
@@ -1238,11 +1354,13 @@
           24.0
         ],
         "facing": "up",
+        "host_id": "P-R13:platforms:11",
         "id": "P-R13:gap_floor0"
       }
     },
     "P-R13:spike_strips:10": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:10",
       "order": 10,
       "properties": {
@@ -1253,11 +1371,13 @@
           24.0
         ],
         "facing": "down",
+        "host_id": "P-R13:platforms:28",
         "id": "P-R13:last_narrow_roof"
       }
     },
     "P-R13:spike_strips:11": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:11",
       "order": 11,
       "properties": {
@@ -1272,7 +1392,8 @@
       }
     },
     "P-R13:spike_strips:12": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:12",
       "order": 12,
       "properties": {
@@ -1287,7 +1408,8 @@
       }
     },
     "P-R13:spike_strips:13": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:13",
       "order": 13,
       "properties": {
@@ -1298,11 +1420,13 @@
           24.0
         ],
         "facing": "up",
+        "host_id": "P-R13:platforms:13",
         "id": "P-R13:r6:west_pressure"
       }
     },
     "P-R13:spike_strips:14": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:14",
       "order": 14,
       "properties": {
@@ -1317,7 +1441,8 @@
       }
     },
     "P-R13:spike_strips:15": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:15",
       "order": 15,
       "properties": {
@@ -1332,7 +1457,8 @@
       }
     },
     "P-R13:spike_strips:16": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:16",
       "order": 16,
       "properties": {
@@ -1347,7 +1473,8 @@
       }
     },
     "P-R13:spike_strips:17": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:17",
       "order": 17,
       "properties": {
@@ -1362,7 +1489,8 @@
       }
     },
     "P-R13:spike_strips:18": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:18",
       "order": 18,
       "properties": {
@@ -1377,7 +1505,8 @@
       }
     },
     "P-R13:spike_strips:19": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:19",
       "order": 19,
       "properties": {
@@ -1392,7 +1521,8 @@
       }
     },
     "P-R13:spike_strips:2": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:2",
       "order": 2,
       "properties": {
@@ -1403,11 +1533,13 @@
           24.0
         ],
         "facing": "up",
+        "host_id": "P-R13:platforms:11",
         "id": "P-R13:gap_floor1"
       }
     },
     "P-R13:spike_strips:20": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:20",
       "order": 20,
       "properties": {
@@ -1422,7 +1554,8 @@
       }
     },
     "P-R13:spike_strips:21": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:21",
       "order": 21,
       "properties": {
@@ -1437,7 +1570,8 @@
       }
     },
     "P-R13:spike_strips:3": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:3",
       "order": 3,
       "properties": {
@@ -1448,11 +1582,13 @@
           24.0
         ],
         "facing": "up",
+        "host_id": "P-R13:platforms:11",
         "id": "P-R13:gap_floor2"
       }
     },
     "P-R13:spike_strips:4": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:4",
       "order": 4,
       "properties": {
@@ -1463,11 +1599,13 @@
           24.0
         ],
         "facing": "up",
+        "host_id": "P-R13:platforms:11",
         "id": "P-R13:gap_floor3"
       }
     },
     "P-R13:spike_strips:5": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:5",
       "order": 5,
       "properties": {
@@ -1478,11 +1616,13 @@
           24.0
         ],
         "facing": "up",
+        "host_id": "P-R13:platforms:11",
         "id": "P-R13:gap_floor4"
       }
     },
     "P-R13:spike_strips:6": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:6",
       "order": 6,
       "properties": {
@@ -1493,11 +1633,13 @@
           24.0
         ],
         "facing": "down",
+        "host_id": "P-R13:platforms:29",
         "id": "P-R13:first_wide_roof"
       }
     },
     "P-R13:spike_strips:7": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:7",
       "order": 7,
       "properties": {
@@ -1512,7 +1654,8 @@
       }
     },
     "P-R13:spike_strips:8": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:8",
       "order": 8,
       "properties": {
@@ -1527,7 +1670,8 @@
       }
     },
     "P-R13:spike_strips:9": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R13:spike_strips:9",
       "order": 9,
       "properties": {
@@ -1542,7 +1686,8 @@
       }
     },
     "P-R13:terrain_polygons:0": {
-      "component": "array:terrain_polygons",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
       "id": "P-R13:terrain_polygons:0",
       "order": 0,
       "properties": {
@@ -1584,7 +1729,8 @@
       }
     },
     "P-R13:terrain_polygons:1": {
-      "component": "array:terrain_polygons",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
       "id": "P-R13:terrain_polygons:1",
       "order": 1,
       "properties": {
@@ -1626,7 +1772,8 @@
       }
     },
     "P-R13:terrain_polygons:2": {
-      "component": "array:terrain_polygons",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
       "id": "P-R13:terrain_polygons:2",
       "order": 2,
       "properties": {
@@ -1670,30 +1817,11 @@
   },
   "room_id": "P-R13",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "旧路肩高台",
       "art_profile": "terrace",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -1702,22 +1830,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R13",
       "rotation": 0.0,
       "route_guide": {
@@ -1882,19 +1999,15 @@
         6976.0,
         238.0
       ],
-      "story_sequence": {},
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
+      "terrain_paint": {
+        "regions": [],
+        "seed": 0.0,
+        "surfaces": [],
+        "version": 1.0
+      },
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

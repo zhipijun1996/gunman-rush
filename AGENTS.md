@@ -1,6 +1,6 @@
 # Gunman Rush
 
-Godot 4.7.2 Standard、类型化 GDScript，目标为固定世界类银河恶魔城。正常入口：`project.godot` → `game/application/world/fixed_world.tscn` → FixedWorldApp；旧DemoApp保留回归。
+Godot 4.7.2 Standard、类型化 GDScript，目标为固定世界类银河恶魔城。正常入口：`project.godot` → `game/application/world/fixed_world.tscn` → FixedWorldApp；旧Demo与旧手机工作台入口退役，保留并迁移仍被正式消费者使用的底层能力。
 
 ## 按任务加载
 

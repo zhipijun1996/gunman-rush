@@ -35,7 +35,7 @@ func key(pressed: bool) -> void:
 	var event := InputEventKey.new();event.physical_keycode=KEY_SPACE;event.keycode=KEY_SPACE;event.pressed=pressed;Input.parse_input_event(event)
 func run() -> void:
 	root.size = Vector2i(1280,720)
-	app = load("res://game/application/demo.tscn").instantiate()
+	app = load("res://tests/fixtures/campaign_fixture.tscn").instantiate()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(120)
@@ -84,7 +84,7 @@ func run() -> void:
 		if row.shot_serial > 0 and row.shots == 0: had_shot = true
 		if row.ring_visible and row.focus_active and row.energy < 100.0: had_ring = true
 	var file := FileAccess.open(destination,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"scope":"Actual DemoApp/native mouse. Scripted official policy damage, SupplyHealEffect restoration; real jump/aim slow-time energy ring/release shooting without shot energy debit. Not a natural combat route or device performance proof.","frames":trace,"damage_observed":had_damage,"heal_observed":had_heal,"shot_observed":had_shot,"time_energy_ring_observed":had_ring},"  "));file.close()
+	file.store_string(JSON.stringify({"scope":"Actual CampaignFixture/native mouse. Scripted official policy damage, SupplyHealEffect restoration; real jump/aim slow-time energy ring/release shooting without shot energy debit. Not a natural combat route or device performance proof.","frames":trace,"damage_observed":had_damage,"heal_observed":had_heal,"shot_observed":had_shot,"time_energy_ring_observed":had_ring},"  "));file.close()
 	paused=false
 	app.free()
 	for i: int in 8: await process_frame

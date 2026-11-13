@@ -5,7 +5,7 @@ const AUDIO := preload("res://tests/audio_teardown.gd")
 const GEAR := preload("res://tests/gear_inventory_support.gd")
 var assertions := 0
 var failures := 0
-var app: DemoApp
+var app: CampaignFixture
 
 func _initialize() -> void:
 	run.call_deferred()
@@ -64,7 +64,7 @@ func flow_reentry_boundary() -> void:
 
 func run() -> void:
 	flow_reentry_boundary()
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(2)

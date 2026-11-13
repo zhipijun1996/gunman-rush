@@ -2,7 +2,7 @@ extends SceneTree
 ## Regression adapted from independent D082 round3 probe; explicit outcome fixtures.
 var failures:=0
 var assertions:=0
-var app:DemoApp
+var app:CampaignFixture
 func _initialize():run.call_deferred()
 func check(ok,label):
  assertions+=1
@@ -14,7 +14,7 @@ func isolate(node):
  if node is EnemyAttackBehavior:node.set_physics_process(false)
  for child in node.get_children():isolate(child)
 func run():
- app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app);await frames(2)
+ app=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app);await frames(2)
  check(app.start_plains("d082-round3-drops"),"formal start");await frames(8);isolate(app)
  var stage:PlainsRegionStage=app.stage
  var idx:=-1

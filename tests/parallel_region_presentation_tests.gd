@@ -18,7 +18,7 @@ func frames(count: int) -> void:
 	for index: int in count:
 		await physics_frame
 
-static func presentation_errors(app: DemoApp, region: StringName, expected_forest_layout: String = EXPECTED_CURRENT_FOREST_LAYOUT) -> Array[String]:
+static func presentation_errors(app: CampaignFixture, region: StringName, expected_forest_layout: String = EXPECTED_CURRENT_FOREST_LAYOUT) -> Array[String]:
 	var errors: Array[String] = []
 	if not is_instance_valid(app.stage) or not app.stage.assembly_ok or not is_instance_valid(app.player):
 		return ["actual stage/player missing"]
@@ -52,7 +52,7 @@ static func presentation_errors(app: DemoApp, region: StringName, expected_fores
 		if not app.stage.get_meta("underworld_formal_style", false): errors.append("formal Underworld metadata missing")
 	return errors
 
-static func home_errors(app: DemoApp) -> Array[String]:
+static func home_errors(app: CampaignFixture) -> Array[String]:
 	var errors: Array[String] = []
 	if app.director.state != DemoRunDirector.State.HOME: errors.append("not Home")
 	if is_instance_valid(app.player) or is_instance_valid(app.stage): errors.append("ended run still owns player/stage")
@@ -88,7 +88,7 @@ static func home_errors(app: DemoApp) -> Array[String]:
 func run() -> void:
 	# Actual embedded Lab owns its actor while director remains HOME. Reject
 	# a concurrent formal run before it can mutate the pending region request.
-	var lab_app := DemoApp.new()
+	var lab_app := CampaignFixture.new()
 	lab_app.meta_persistence_enabled = false
 	root.add_child(lab_app)
 	lab_app._open_style_lab()
@@ -107,7 +107,7 @@ func run() -> void:
 	lab_app.free()
 	for region: StringName in [&"plains", &"thorn_forest"]:
 		for map_index: int in [1, 2]:
-			var app := DemoApp.new()
+			var app := CampaignFixture.new()
 			app.meta_persistence_enabled = false
 			root.add_child(app)
 			check(app.start_debug_region(region, map_index, "parallel-presentation"), "real debug entry accepted")
@@ -154,7 +154,7 @@ func run() -> void:
 # Forest currently exits to its boundary, so a reverse region is not a legal
 # reward. Rebuild through the actual app loader without replacing the player,
 # altering positions, stepping Motor, or changing any production route guard.
-func reload_presentation_region(app: DemoApp, region: StringName) -> void:
+func reload_presentation_region(app: CampaignFixture, region: StringName) -> void:
 	# Old stage captures only its own state; the destination receives a distinct
 	# state keyed exactly as the real loader looks it up, never an old map hash.
 	var previous_state := (app.stage as PlainsRegionStage).region_state
@@ -176,7 +176,7 @@ func same_player_roundtrip(recorded_forest_layout := "") -> void:
 	var expected_forest_layout: String = recorded_forest_layout if not recorded_forest_layout.is_empty() else EXPECTED_CURRENT_FOREST_LAYOUT
 	var shared_forest: bool = expected_forest_layout == "forest-bible-world-v15"
 	for map_index: int in [1, 2]:
-		var app := DemoApp.new()
+		var app := CampaignFixture.new()
 		app.meta_persistence_enabled = false
 		root.add_child(app)
 		check(app.start_debug_region(&"plains", map_index, "underworld-same-player-roundtrip"), "same-player fixture enters actual Plains")

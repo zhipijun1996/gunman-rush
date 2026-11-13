@@ -16,7 +16,7 @@ func run() -> void:
 	for entry_id: String in ["actions", "scene", "demo", "slice", "slice_exit_signal"]:
 		var preview := preload("res://experiments/platform/entries/cloud_preview.tscn").instantiate() as CloudPreviewBootstrap
 		preview.entry = "actions" if entry_id == "actions" else "scene"
-		preview.entry_scene = "res://game/application/demo.tscn" if entry_id == "demo" else "res://experiments/motion/entries/action_studio.tscn"
+		preview.entry_scene = "res://tests/fixtures/campaign_fixture.tscn" if entry_id == "demo" else "res://experiments/motion/entries/action_studio.tscn"
 		if entry_id.begins_with("slice"): preview.entry_scene = "res://experiments/generation/entries/runtime_map_v2_slice.tscn"
 		root.add_child(preview)
 		await process_frame
@@ -34,9 +34,9 @@ func run() -> void:
 			var owners := preview.find_children("*","Node",true,false).filter(func(node: Node) -> bool: return node is GameAudio)
 			expect(owners.size()==1,"Packed loading slice has exactly one actual GameAudio owner")
 		else:
-			expect(preview.custom_scene is DemoApp, "Standalone full App must remain the real consumer")
+			expect(preview.custom_scene is CampaignFixture, "Standalone full App must remain the real consumer")
 			expect(preview.custom_scene.has_meta("cloud_preview_host"), "Standalone full App must not redirect recursively")
-			expect(not (preview.custom_scene as DemoApp).meta_persistence_enabled, "Standalone full App must not access main save")
+			expect(not (preview.custom_scene as CampaignFixture).meta_persistence_enabled, "Standalone full App must not access main save")
 		var old_lifetime: DemoLifetime = (preview.custom_scene as RuntimeMapSlice).session.lifetime if entry_id.begins_with("slice") else null
 		var old_scene: WeakRef = weakref(preview.custom_scene) if entry_id.begins_with("slice") else null
 		if entry_id=="slice_exit_signal":

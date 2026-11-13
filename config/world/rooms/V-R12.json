@@ -1,92 +1,132 @@
 {
   "entities": {
     "V-R12:environment_zones:0": {
-      "component": "array:environment_zones",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
       "id": "V-R12:environment_zones:0",
       "order": 0,
       "properties": {
         "bounds": [
-          464,
-          1584,
-          120,
-          24
+          464.0,
+          1584.0,
+          120.0,
+          24.0
         ],
         "id": "LowerLiftCurtain",
         "mode": "phase_light"
       }
     },
     "V-R12:environment_zones:1": {
-      "component": "array:environment_zones",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
       "id": "V-R12:environment_zones:1",
       "order": 1,
       "properties": {
         "bounds": [
-          516,
-          720,
-          16,
-          80
+          516.0,
+          720.0,
+          16.0,
+          80.0
         ],
         "id": "UpperFoldCurtain",
         "mode": "phase_light"
       }
     },
     "V-R12:environment_zones:2": {
-      "component": "array:environment_zones",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
       "id": "V-R12:environment_zones:2",
       "order": 2,
       "properties": {
         "bounds": [
-          256,
-          1856,
-          768,
-          192
+          256.0,
+          1856.0,
+          768.0,
+          192.0
         ],
         "id": "VisibleFailureBed",
         "mode": "thorns"
       }
     },
     "V-R12:gear_obstacles:0": {
-      "component": "array:gear_obstacles",
+      "definition_id": "hazard.gear",
+      "definition_version": 1.0,
       "id": "V-R12:gear_obstacles:0",
-      "order": 0,
+      "order": 1,
+      "parent": "",
       "properties": {
-        "id": "low_orbit_gear",
+        "drive_id": "",
+        "element_id": "V-R12:gear_obstacles:0",
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
         "period": 4.2,
         "phase": 0.1,
-        "point": [
-          720,
-          1776
+        "position": [
+          720.0,
+          1776.0
         ],
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "state_scope": "attempt",
         "travel": [
-          64,
-          0
-        ]
+          64.0,
+          0.0
+        ],
+        "visible": true,
+        "z_index": 0
       }
     },
     "V-R12:gear_obstacles:1": {
-      "component": "array:gear_obstacles",
+      "definition_id": "hazard.gear",
+      "definition_version": 1.0,
       "id": "V-R12:gear_obstacles:1",
-      "order": 1,
+      "order": 2,
+      "parent": "",
       "properties": {
-        "id": "upper_orbit_gear",
+        "drive_id": "",
+        "element_id": "V-R12:gear_obstacles:1",
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
         "period": 4.8,
         "phase": 0.4,
-        "point": [
-          496,
-          608
+        "position": [
+          496.0,
+          608.0
         ],
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "state_scope": "attempt",
         "travel": [
-          40,
-          0
-        ]
+          40.0,
+          0.0
+        ],
+        "visible": true,
+        "z_index": 0
       }
     },
     "V-R12:node:./FinishReturn": {
-      "component": "WorldReturnLatch",
+      "definition_id": "interaction.return_gate",
+      "definition_version": 1,
       "id": "V-R12:node:./FinishReturn",
-      "node_name": "FinishReturn",
-      "node_path": "./FinishReturn",
-      "order": 1,
+      "order": 3,
       "parent": "",
       "properties": {
         "action_id": "starbridge_v12_return_open",
@@ -126,127 +166,140 @@
       }
     },
     "V-R12:spike_strips:0": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "V-R12:spike_strips:0",
       "order": 0,
       "properties": {
         "bounds": [
-          464,
-          1376,
-          22,
-          128
+          464.0,
+          1376.0,
+          22.0,
+          128.0
         ],
         "facing": "right",
+        "host_id": "V12:drop_tongue",
         "id": "tongue_face"
       }
     },
     "V-R12:spike_strips:1": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "V-R12:spike_strips:1",
       "order": 1,
       "properties": {
         "bounds": [
-          584,
-          1504,
-          24,
-          240
+          584.0,
+          1504.0,
+          24.0,
+          240.0
         ],
         "facing": "left",
+        "host_id": "V12:lift_pier",
         "id": "lift_channel_face"
       }
     },
     "V-R12:spike_strips:2": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "V-R12:spike_strips:2",
       "order": 2,
       "properties": {
         "bounds": [
-          320,
-          1254,
-          144,
-          26
+          320.0,
+          1254.0,
+          144.0,
+          26.0
         ],
         "facing": "up",
+        "host_id": "V12:low_canopy",
         "id": "canopy_crown"
       }
     },
     "V-R12:spike_strips:3": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "V-R12:spike_strips:3",
       "order": 3,
       "properties": {
         "bounds": [
-          320,
-          1376,
-          80,
-          24
+          320.0,
+          1376.0,
+          80.0,
+          24.0
         ],
         "facing": "down",
+        "host_id": "V12:low_canopy",
         "id": "canopy_teeth"
       }
     },
     "V-R12:spike_strips:4": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "V-R12:spike_strips:4",
       "order": 4,
       "properties": {
         "bounds": [
-          352,
-          1478,
-          48,
-          26
+          352.0,
+          1478.0,
+          48.0,
+          26.0
         ],
         "facing": "up",
         "id": "first_wall_cap"
       }
     },
     "V-R12:spike_strips:5": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "V-R12:spike_strips:5",
       "order": 5,
       "properties": {
         "bounds": [
-          144,
-          1270,
-          48,
-          26
+          144.0,
+          1270.0,
+          48.0,
+          26.0
         ],
         "facing": "up",
         "id": "west_wall_cap"
       }
     },
     "V-R12:spike_strips:6": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "V-R12:spike_strips:6",
       "order": 6,
       "properties": {
         "bounds": [
-          352,
-          742,
-          48,
-          26
+          352.0,
+          742.0,
+          48.0,
+          26.0
         ],
         "facing": "up",
         "id": "upper_fold_cap"
       }
     },
     "V-R12:spike_strips:7": {
-      "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "V-R12:spike_strips:7",
       "order": 7,
       "properties": {
         "bounds": [
-          672,
-          406,
-          48,
-          26
+          672.0,
+          406.0,
+          48.0,
+          26.0
         ],
         "facing": "up",
         "id": "high_wall_cap"
       }
     },
     "V12:drop_tongue": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "V12:drop_tongue",
       "order": 4,
       "properties": {
@@ -262,7 +315,8 @@
       }
     },
     "V12:entry_mass": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "V12:entry_mass",
       "order": 0,
       "properties": {
@@ -278,31 +332,33 @@
       }
     },
     "V12:entry_retry": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "V12:entry_retry",
       "order": 0,
       "properties": {
         "bounds": [
-          32,
-          1792,
-          208,
-          64
+          32.0,
+          1792.0,
+          208.0,
+          64.0
         ],
         "point": [
-          144,
-          1838
+          144.0,
+          1838.0
         ],
         "section": "entry:V-EXTREME-11-12"
       }
     },
     "V12:entry_sign": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "V12:entry_sign",
       "order": 0,
       "properties": {
         "point": [
-          192,
-          1814
+          192.0,
+          1814.0
         ],
         "route_guide": {
           "legend": [
@@ -317,229 +373,229 @@
               "mode": "thorns"
             }
           ],
-          "schema": 1,
+          "schema": 1.0,
           "steps": [
             {
               "action": "向右上反冲，二段跳接第一面墙；向墙移动即可攀附并恢复次数。",
               "label": "起步接墙",
-              "number": 1,
+              "number": 1.0,
               "path": [
                 [
-                  144,
-                  1838
+                  144.0,
+                  1838.0
                 ],
                 [
-                  260,
-                  1740
+                  260.0,
+                  1740.0
                 ],
                 [
-                  338,
-                  1680
+                  338.0,
+                  1680.0
                 ]
               ],
               "point": [
-                240,
-                1760
+                240.0,
+                1760.0
               ]
             },
             {
               "action": "沿第一面墙下滑，到墙脚下方横向反冲，二段跳抬起后向上抓低位钩点。别落入粉红刺床。左上墙是可选练习支路。",
               "label": "绕墙脚抓环",
-              "number": 2,
+              "number": 2.0,
               "path": [
                 [
-                  338,
-                  1700
+                  338.0,
+                  1700.0
                 ],
                 [
-                  338,
-                  1800
+                  338.0,
+                  1800.0
                 ],
                 [
-                  424,
-                  1800
+                  424.0,
+                  1800.0
                 ],
                 [
-                  528,
-                  1660
+                  528.0,
+                  1660.0
                 ]
               ],
               "point": [
-                428,
-                1788
+                428.0,
+                1788.0
               ]
             },
             {
               "action": "挂环等Q冷却结束，向下射击，反冲向上一次穿出金色光幕；二段跳向右接内墙。",
               "label": "反冲穿光幕",
-              "number": 3,
+              "number": 3.0,
               "path": [
                 [
-                  544,
-                  1648
+                  544.0,
+                  1648.0
                 ],
                 [
-                  544,
-                  1488
+                  544.0,
+                  1488.0
                 ],
                 [
-                  594,
-                  1412
+                  594.0,
+                  1412.0
                 ]
               ],
               "point": [
-                552,
-                1600
+                552.0,
+                1600.0
               ]
             },
             {
               "action": "贴墙恢复后，用墙跳、向上反冲和二段跳越过墙顶，落到中继台。失误从这里重试。",
               "label": "中继落地",
-              "number": 4,
+              "number": 4.0,
               "path": [
                 [
-                  594,
-                  1412
+                  594.0,
+                  1412.0
                 ],
                 [
-                  568,
-                  1190
+                  568.0,
+                  1190.0
                 ],
                 [
-                  720,
-                  1198
+                  720.0,
+                  1198.0
                 ]
               ],
               "point": [
-                702,
-                1174
+                702.0,
+                1174.0
               ]
             },
             {
               "action": "从中继台向右上反冲，二段跳接右侧外墙，再次恢复次数。",
               "label": "斜跨外墙",
-              "number": 5,
+              "number": 5.0,
               "path": [
                 [
-                  740,
-                  1198
+                  740.0,
+                  1198.0
                 ],
                 [
-                  868,
-                  1080
+                  868.0,
+                  1080.0
                 ],
                 [
-                  898,
-                  1000
+                  898.0,
+                  1000.0
                 ]
               ],
               "point": [
-                856,
-                1100
+                856.0,
+                1100.0
               ]
             },
             {
               "action": "从外墙向左上推进，先绕开隔墙下缘，再向上抓高位钩点。",
               "label": "绕隔墙抓高环",
-              "number": 6,
+              "number": 6.0,
               "path": [
                 [
-                  898,
-                  1000
+                  898.0,
+                  1000.0
                 ],
                 [
-                  828,
-                  866
+                  828.0,
+                  866.0
                 ],
                 [
-                  664,
-                  866
+                  664.0,
+                  866.0
                 ],
                 [
-                  624,
-                  720
+                  624.0,
+                  720.0
                 ]
               ],
               "point": [
-                660,
-                850
+                660.0,
+                850.0
               ]
             },
             {
               "action": "挂环等Q就绪，向右上射击使反冲朝左下；穿过金幕后接内侧墙。普通下落不受保护。",
               "label": "向左下穿幕",
-              "number": 7,
+              "number": 7.0,
               "path": [
                 [
-                  624,
-                  704
+                  624.0,
+                  704.0
                 ],
                 [
-                  560,
-                  742
+                  560.0,
+                  742.0
                 ],
                 [
-                  480,
-                  782
+                  480.0,
+                  782.0
                 ],
                 [
-                  414,
-                  836
+                  414.0,
+                  836.0
                 ]
               ],
               "point": [
-                560,
-                742
+                560.0,
+                742.0
               ]
             },
             {
               "action": "从内侧墙向右上反冲，二段跳接高墙左面；绕开上方齿轮和墙顶刺。",
               "label": "接高墙",
-              "number": 8,
+              "number": 8.0,
               "path": [
                 [
-                  414,
-                  836
+                  414.0,
+                  836.0
                 ],
                 [
-                  560,
-                  690
+                  560.0,
+                  690.0
                 ],
                 [
-                  658,
-                  576
+                  658.0,
+                  576.0
                 ]
               ],
               "point": [
-                572,
-                632
+                572.0,
+                632.0
               ]
             },
             {
               "action": "墙跳、反冲和二段跳越过高墙，落到终台；拉手柄放桥，沿左侧落井回入口。",
               "label": "终台与返程",
-              "number": 9,
+              "number": 9.0,
               "path": [
                 [
-                  658,
-                  576
+                  658.0,
+                  576.0
                 ],
                 [
-                  612,
-                  364
+                  612.0,
+                  364.0
                 ],
                 [
-                  744,
-                  284
+                  744.0,
+                  284.0
                 ],
                 [
-                  880,
-                  302
+                  880.0,
+                  302.0
                 ]
               ],
               "point": [
-                850,
-                260
+                850.0,
+                260.0
               ]
             }
           ]
@@ -548,7 +604,8 @@
       }
     },
     "V12:finish_launch_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:finish_launch_wall",
       "order": 5,
       "properties": {
@@ -561,7 +618,8 @@
       }
     },
     "V12:finish_mass": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "V12:finish_mass",
       "order": 2,
       "properties": {
@@ -577,37 +635,40 @@
       }
     },
     "V12:finish_retry": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "V12:finish_retry",
       "order": 2,
       "properties": {
         "bounds": [
-          800,
-          256,
-          208,
-          64
+          800.0,
+          256.0,
+          208.0,
+          64.0
         ],
         "point": [
-          880,
-          302
+          880.0,
+          302.0
         ],
         "section": "main"
       }
     },
     "V12:finish_sign": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "V12:finish_sign",
       "order": 2,
       "properties": {
         "point": [
-          960,
-          278
+          960.0,
+          278.0
         ],
         "text": "折星回路终台。拉下手柄放出返程桥，向左走到安全落井，下落回入口。右侧 V-R13 是未施工接口。本轮为快速灰盒，完整节奏和容错等你试玩反馈。"
       }
     },
     "V12:inner_lift_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:inner_lift_wall",
       "order": 2,
       "properties": {
@@ -620,7 +681,8 @@
       }
     },
     "V12:inner_return_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:inner_return_wall",
       "order": 4,
       "properties": {
@@ -633,7 +695,8 @@
       }
     },
     "V12:launch_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:launch_wall",
       "order": 0,
       "properties": {
@@ -646,7 +709,8 @@
       }
     },
     "V12:lift_pier": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "V12:lift_pier",
       "order": 5,
       "properties": {
@@ -662,7 +726,8 @@
       }
     },
     "V12:low_canopy": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "V12:low_canopy",
       "order": 3,
       "properties": {
@@ -678,7 +743,8 @@
       }
     },
     "V12:low_turn_refill": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "V12:low_turn_refill",
       "order": 0,
       "properties": {
@@ -689,7 +755,8 @@
       }
     },
     "V12:outer_span_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:outer_span_wall",
       "order": 3,
       "properties": {
@@ -702,7 +769,8 @@
       }
     },
     "V12:relay_mass": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "V12:relay_mass",
       "order": 1,
       "properties": {
@@ -718,37 +786,40 @@
       }
     },
     "V12:relay_retry": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "V12:relay_retry",
       "order": 1,
       "properties": {
         "bounds": [
-          640,
-          1152,
-          176,
-          64
+          640.0,
+          1152.0,
+          176.0,
+          64.0
         ],
         "point": [
-          720,
-          1198
+          720.0,
+          1198.0
         ],
         "section": "main"
       }
     },
     "V12:relay_sign": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "V12:relay_sign",
       "order": 1,
       "properties": {
         "point": [
-          672,
-          1174
+          672.0,
+          1174.0
         ],
         "text": "中继台记录重试点。继续按5—9前进，绕隔墙抓高环，再向左下反冲穿幕。金色光幕需Q就绪并靠反冲一次穿出，单纯跳跃/钩索无保护；粉红刺和齿轮始终危险。"
       }
     },
     "V12:upper_fold_baffle": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "V12:upper_fold_baffle",
       "order": 6,
       "properties": {
@@ -764,7 +835,8 @@
       }
     },
     "V12:upper_turn_refill": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "V12:upper_turn_refill",
       "order": 1,
       "properties": {
@@ -775,7 +847,8 @@
       }
     },
     "V12:west_fold_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:west_fold_wall",
       "order": 1,
       "properties": {
@@ -786,34 +859,43 @@
           224.0
         ]
       }
+    },
+    "V-R12:feature:presentation.trial": {
+      "id": "V-R12:feature:presentation.trial",
+      "definition_id": "presentation.trial",
+      "definition_version": 1,
+      "order": 2000,
+      "parent": "",
+      "properties": {
+        "position": [
+          0,
+          0
+        ],
+        "rotation": 0,
+        "scale": [
+          1,
+          1
+        ],
+        "z_index": 0,
+        "visible": true,
+        "modulate": {
+          "$color": [
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      }
     }
   },
   "room_id": "V-R12",
   "root": {
-    "component": "StarbridgeTrialRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "星桥天门 · 折星回路（反冲＋二段跳灰盒）",
       "art_profile": "starbridge_graybox",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -822,22 +904,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "V-R12",
       "rotation": 0.0,
       "route_guide": {},
@@ -848,10 +919,10 @@
       "section_volumes": [
         {
           "bounds": [
-            0,
-            1792,
-            256,
-            256
+            0.0,
+            1792.0,
+            256.0,
+            256.0
           ],
           "id": "entry:V-EXTREME-11-12"
         }
@@ -860,19 +931,15 @@
         144.0,
         1838.0
       ],
-      "story_sequence": {},
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
+      "terrain_paint": {
+        "regions": [],
+        "seed": 0.0,
+        "surfaces": [],
+        "version": 1.0
+      },
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

@@ -10,7 +10,7 @@ func frames(count: int) -> void:
 		await get_tree().physics_frame
 		await get_tree().process_frame
 func run(map_index: int) -> void:
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	get_tree().root.add_child(app)
 	check(not app.start_debug_region(&"thorn_forest",map_index,"version-app","unknown"),"debug rejects unsupported version before entry")
@@ -77,7 +77,7 @@ func run(map_index: int) -> void:
 		await frames(3)
 	reporter.get_ref().cases.append(identity)
 	await dispose(app)
-func dispose(app: DemoApp) -> void:
+func dispose(app: CampaignFixture) -> void:
 	app.abandon_run()
 	await frames(4)
 	check(app.director.state==DemoRunDirector.State.HOME,"legacy app cleanup returns HOME")

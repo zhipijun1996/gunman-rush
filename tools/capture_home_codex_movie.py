@@ -22,7 +22,7 @@ DISCLOSURE = "已知B11/音符50/家园站位为测试初始化，非自然掉�
 PHASES = {"formal_known_reward","reward_committed","return_home","home_relics",
           "unknown","discovered","unlocked","selected","departure",
           "carried_in_bag","backpack","equipped","removed","result"}
-SCOPE = ("Continuous actual DemoApp formal knownB11 RewardService acquisition/toast, "
+SCOPE = ("Continuous actual CampaignFixture formal knownB11 RewardService acquisition/toast, "
          "original journey/end/Home/relicsW/codex unlock and carry native UI, original "
          "Home departure into a new formal run, oneLv1inactivebag/nativeequip/unequip. "
          "Known reward,50notes and two Home actor positions are explicit setup; not "
@@ -131,7 +131,7 @@ def main():
     os.environ.setdefault("LP_NUM_THREADS","1")
     before=inventory()
     required={DRIVER,"tools/capture_home_codex_movie.py","tests/item_v5_movie.gd",
-              "game/application/demo_app.gd","game/progression/home/home_scene.gd","game/presentation/ui/home_item_codex.gd",
+              "tests/fixtures/campaign_fixture.gd","game/progression/home/home_scene.gd","game/presentation/ui/home_item_codex.gd",
               "game/progression/meta_progression.gd","game/progression/home_item_catalog.gd","config/home_items.json",
               "game/rewards/grants/reward_service.gd","game/loadout/equipment/equipment_service.gd",
               "game/presentation/ui/demo_menu.gd","game/presentation/ui/item_card.gd","game/presentation/ui/item_presentation.gd",

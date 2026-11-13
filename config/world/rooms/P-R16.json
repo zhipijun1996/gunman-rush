@@ -1,7 +1,8 @@
 {
   "entities": {
     "P-R16:composition:0": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_transmission_hall",
+      "definition_version": 1,
       "id": "P-R16:composition:0",
       "order": 0,
       "properties": {
@@ -28,7 +29,8 @@
       }
     },
     "P-R16:composition:1": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_drive_frame",
+      "definition_version": 1,
       "id": "P-R16:composition:1",
       "order": 1,
       "properties": {
@@ -40,16 +42,9 @@
         ]
       }
     },
-    "P-R16:composition:10": {
-      "component": "array:art_placements",
-      "id": "P-R16:composition:10",
-      "order": 10,
-      "properties": {
-        "surface_platform": 6
-      }
-    },
     "P-R16:composition:2": {
-      "component": "array:art_placements",
+      "definition_id": "decor.storage_crates",
+      "definition_version": 1,
       "id": "P-R16:composition:2",
       "order": 2,
       "properties": {
@@ -62,7 +57,8 @@
       }
     },
     "P-R16:composition:3": {
-      "component": "array:art_placements",
+      "definition_id": "decor.travel_bundle",
+      "definition_version": 1,
       "id": "P-R16:composition:3",
       "order": 3,
       "properties": {
@@ -75,7 +71,8 @@
       }
     },
     "P-R16:composition:4": {
-      "component": "array:art_placements",
+      "definition_id": "decor.barrel",
+      "definition_version": 1,
       "id": "P-R16:composition:4",
       "order": 4,
       "properties": {
@@ -88,7 +85,8 @@
       }
     },
     "P-R16:composition:5": {
-      "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R16:composition:5",
       "order": 5,
       "properties": {
@@ -102,7 +100,8 @@
       }
     },
     "P-R16:composition:6": {
-      "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R16:composition:6",
       "order": 6,
       "properties": {
@@ -116,7 +115,8 @@
       }
     },
     "P-R16:composition:7": {
-      "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R16:composition:7",
       "order": 7,
       "properties": {
@@ -129,27 +129,39 @@
         ]
       }
     },
-    "P-R16:composition:8": {
-      "component": "array:art_placements",
-      "id": "P-R16:composition:8",
-      "order": 8,
+    "P-R16:feature:recovery.station": {
+      "definition_id": "recovery.station",
+      "definition_version": 1,
+      "id": "P-R16:feature:recovery.station",
+      "order": 1020,
+      "parent": "",
       "properties": {
-        "surface_platform": 4
-      }
-    },
-    "P-R16:composition:9": {
-      "component": "array:art_placements",
-      "id": "P-R16:composition:9",
-      "order": 9,
-      "properties": {
-        "surface_platform": 5
+        "modulate": {
+          "$color": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "parameters": {},
+        "position": [
+          640.0,
+          1006.0
+        ],
+        "rotation": 0,
+        "scale": [
+          1,
+          1
+        ],
+        "visible": true,
+        "z_index": 0
       }
     },
     "P-R16:node:./Cache_loft_cache": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R16:node:./Cache_loft_cache",
-      "node_name": "Cache_loft_cache",
-      "node_path": "./Cache_loft_cache",
       "order": 3,
       "parent": "",
       "properties": {
@@ -180,10 +192,9 @@
       }
     },
     "P-R16:node:./LoftApproachHook": {
-      "component": "GrappleAnchor",
+      "definition_id": "traversal.hook",
+      "definition_version": 1,
       "id": "P-R16:node:./LoftApproachHook",
-      "node_name": "LoftApproachHook",
-      "node_path": "./LoftApproachHook",
       "order": 1,
       "parent": "",
       "properties": {
@@ -211,10 +222,9 @@
       }
     },
     "P-R16:node:./LoftRecoilHook": {
-      "component": "GrappleAnchor",
+      "definition_id": "traversal.hook",
+      "definition_version": 1,
       "id": "P-R16:node:./LoftRecoilHook",
-      "node_name": "LoftRecoilHook",
-      "node_path": "./LoftRecoilHook",
       "order": 2,
       "parent": "",
       "properties": {
@@ -242,7 +252,8 @@
       }
     },
     "P-R16:platforms:1": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R16:platforms:1",
       "order": 0,
       "properties": {
@@ -258,7 +269,8 @@
       }
     },
     "P-R16:platforms:2": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R16:platforms:2",
       "order": 1,
       "properties": {
@@ -274,7 +286,8 @@
       }
     },
     "P-R16:platforms:2:inner:1": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R16:platforms:2:inner:1",
       "order": 2,
       "properties": {
@@ -290,7 +303,8 @@
       }
     },
     "P-R16:platforms:3": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R16:platforms:3",
       "order": 3,
       "properties": {
@@ -306,10 +320,12 @@
       }
     },
     "P-R16:platforms:4": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R16:platforms:4",
       "order": 4,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -322,10 +338,12 @@
       }
     },
     "P-R16:platforms:5": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R16:platforms:5",
       "order": 5,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -338,10 +356,12 @@
       }
     },
     "P-R16:platforms:6": {
-      "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R16:platforms:6",
       "order": 6,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -354,7 +374,8 @@
       }
     },
     "P-R16:platforms:7": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R16:platforms:7",
       "order": 7,
       "properties": {
@@ -370,7 +391,8 @@
       }
     },
     "P-R16:r7:upper_coin_bank": {
-      "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R16:r7:upper_coin_bank",
       "order": 8,
       "properties": {
@@ -388,30 +410,11 @@
   },
   "room_id": "P-R16",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "风车外沿廊",
       "art_profile": "mill",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -420,22 +423,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        640.0,
-        1006.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R16",
       "rotation": 0.0,
       "route_guide": {
@@ -549,19 +541,15 @@
         512.0,
         1166.0
       ],
-      "story_sequence": {},
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
+      "terrain_paint": {
+        "regions": [],
+        "seed": 0,
+        "surfaces": [],
+        "version": 1
+      },
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

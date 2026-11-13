@@ -4,9 +4,15 @@
 
 ## 房间布置
 
-房间文档 schema 2 用稳定 `room_id`、根组件配置和带稳定ID的实体表表达布置。Godot加载器在入树前校验文档、转换类型并创建真实组件；编辑不经过外部JSON→tscn生成步骤。数组地形转为实例，单向／材质属性随实例保存；装载时派生原引擎所需数组，不另存一份可编辑布局。
+房间文档 schema 3 用稳定 `room_id`、根组件配置和带稳定ID的实体表表达布置。Godot加载器在入树前校验文档、转换类型并创建真实组件；编辑不经过外部JSON→tscn生成步骤。数组地形转为实例，单向／材质属性随实例保存；装载时派生原引擎所需数组，不另存一份可编辑布局。
 
-组件脚本只从游戏登记目录选择。资源引用使用显式标记，不允许JSON指定任意代码；未知属性、节点、资源或不支持类型必须报错。现有专用根脚本、Boss绑定、剧情、模块及表现节点必须完整提取和回读。被直接场景消费者使用的tscn仅保留为无布置的JSON装载壳，不重复存地形。44个已编写房间使用同源JSON；规划房仍只有世界和施工合同，不声称已实现。
+房间源只引用definition_id与definition_version，禁止指定组件脚本或节点路径。编辑视图中的component由定义派生，装载时核对，回写源时移除；脚本只从游戏登记目录选择。资源引用使用显式标记，不允许JSON指定任意代码；未知属性、节点、资源或不支持类型必须报错。根定义统一为room.standard；Boss、剧情、恢复与奖励配置由WorldRoomFeature独立宿主持有，星桥皮肤由独立表现组件持有。全部节点必须完整提取和回读。被直接场景消费者使用的tscn仅保留为无布置的JSON装载壳，不重复存地形。44个已编写房间使用同源JSON；规划房仍只有世界和施工合同，不声称已实现。
+
+## 关卡目录与可交互元素
+
+目录 `elements` 来自主游戏 `config/world_elements/index.json`，包含业务分类libraries、行为及单体／组合定义。定义的library区分地形、机关、表现、怪物等，category为库内分组，documentation指向所属系统正文；共享实例化不将所有对象归为机关。编辑器提供按library筛选的统一放置入口；`surface_styles` 提供危险外观。实例使用 `definition_id`、`definition_version`，有状态的节点以 `properties.element_id` 等于实体ID。复制组合重映射内部 `links.target`、运动 `drive_id`、附着 `host_id` 和实体饰面引用，外部引用保留；移动与删除连同组合和附着子项执行同一事务，被其它实例引用时须先处理关联。
+
+平台的 `appearance` 由平台实例保存，不再用独立装饰行绑定数组下标。建筑饰面使用 `facing_platform_ids`；危险可用 `host_id` 指定真实实体支撑，移动宿主带走危险，改形后不贴合则拒绝。信号端口、状态范围、未知定义版本、危险外观及悬空引用在草稿提交和游戏装载时校验。完整行为和扩展合同见[可交互元素](../../bible/world_elements.md)。
 
 ## 世界与管理
 
@@ -16,12 +22,22 @@
 
 ## 版本与候选
 
+旧schema1运行协议已经退役。现行编辑器的schema2工作区一次性升级为schema3，先保存原始检查点，同时转换基线、草稿、撤销／重做中的房间及锁定引用，管理评分保持；旧候选保留但需重新生成后采用。运行时只接受schema3。
+
 版本包绑定游戏提交、schema、目录、数据与运行资源哈希。草稿更新三方比较旧基线、草稿、新基线，冲突未解决不切运行包；更新前检查点。AI先生成独立候选，人工采用后按同一事务生效；不得代签人工评分、初审或解锁对象。新组件仍先在游戏实现后更新目录。定稿选择范围与依赖，通过PR进入主游戏，不自动合main。
 
 ## 工具链与发行
 
-`tools/world/build.py` 编译源合同；锁定Godot运行 `tools/world/export_editor_documents.gd` 提取完整目录并回读；`tools/world/export_editor_project.py` 导出整世界schema2编辑视图。`tools/materialize_editor_inputs.py` 在干净检出中先生成同源预览目录，再按现行资源闭包补齐输入；派生目录不要求随源码存在。`tools/export_editor_native.py` 以现行资源闭包导出PCK，并验证实际包；行为哈希排除纯布局JSON和装载壳，布局更新可复用相同行为包。引擎身份改变必须更新APK。
+`tools/world/build.py` 编译源合同；锁定Godot运行 `tools/world/export_editor_documents.gd` 提取完整目录并回读；`tools/world/export_editor_project.py` 导出整世界schema3编辑视图。`tools/materialize_editor_inputs.py` 在干净检出中先生成同源预览目录，再按现行资源闭包补齐输入；派生目录不要求随源码存在。`tools/export_editor_native.py` 以现行资源闭包导出PCK，并验证实际包；行为哈希排除纯布局JSON和装载壳，布局更新可复用相同行为包。引擎身份改变必须更新APK。
 
 原生预览通过WorldEditorSession／WorldRoomReview隔离保存、复用正式玩家与组件。灰盒只简化静态表现，不替换碰撞和动作。预览标记文件通知驻留进程重载当前数据，不逐帧解析整世界。真实房间图是派生分块缓存，布置变化后失效，不能冒充当前实机效果。
 
-定稿包由 `tools/world/editor_apply.py` 在隔离树三方比较、更新原所有者并运行原世界编译；明确apply后逐文件校验及异常回滚。永久奖励退役需显式迁移，不以删除宿主隐瞒保存兼容问题。选区外草稿、评分和AI历史不入PR。`editor-import.yml` 验证真实组件后更新同一草稿PR，不自动合main；`publish-editor-runtime.yml` 仅在main发布匹配数据和不可变运行包，发现通道为editor-runtime。
+定稿包由 `tools/world/editor_apply.py` 在隔离树三方比较、更新原所有者并运行原世界编译；明确apply后逐文件校验及异常回滚。永久奖励身份与世界数据引用须同步调整；本轮不兼容旧存档。选区外草稿、评分和AI历史不入PR。`editor-import.yml` 验证真实组件后更新同一草稿PR，不自动合main；`publish-editor-runtime.yml` 仅在main发布匹配数据和不可变运行包，发现通道为editor-runtime。
+
+## 地形外观
+
+房间 `root.properties.terrain_paint` 是可选版本1外观输入，旧文档缺省为空。实体几何仍由 `array:platforms` 与 `array:terrain_polygons` 拥有；`spike_strips` 继续拥有危险。该字段由同版主游戏目录导出和运行包解释，独立编辑器须保留完整字段；旧运行包不得解释新增字段后默默丢弃。专用笔刷界面不等于本协议或主游戏运行时。
+
+`terrain_paint` 包含整数 `seed`、`regions` 和 `surfaces` 数组。每条记录有稳定 `id`、整数像素 `bounds:[x,y,w,h]` 和整数 `priority`；区域另有 `material_id`，表面另有四向 `facing`、`surface_id`（`bare` 或 `material`，后者提供 `material_id`）。覆盖只裁入已有静态地形，表面仅作用于实际外露边；完整规则见[地形与材质](../../bible/terrain_materials.md)。可用材质、区域和接缝资源从游戏导出的 `terrain_materials` 目录读取，不能自行拼接资源路径。
+
+地刺笔刷编辑正式 `spike_strips`；渲染从其根平面推导表面替换，不另存一份地刺表现。编辑事务先校验全部新外观，成功才替换文档；取消或未知版本／材质／字段／重复ID／非法区间返回错误且不写原文档。字段改变不写世界进度或存档。

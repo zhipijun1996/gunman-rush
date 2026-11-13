@@ -1,0 +1,86 @@
+{
+  "id": "story.intro",
+  "name": "开场与教学",
+  "version": 1,
+  "component": "WorldRoomFeature",
+  "category": "story",
+  "placeable": true,
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "parameters": {
+      "intro_sequence": {},
+      "onboarding": {},
+      "tutorial_action": "",
+      "tutorial_target": "",
+      "tutorial_min_move": 100,
+      "tutorial_recoil_finish_x": 1540,
+      "traveler_point": [
+        0,
+        0
+      ]
+    }
+  },
+  "room_bindings": {
+    "intro_sequence": {
+      "parameter": "intro_sequence"
+    },
+    "onboarding": {
+      "parameter": "onboarding"
+    },
+    "tutorial_action": {
+      "parameter": "tutorial_action"
+    },
+    "tutorial_target": {
+      "parameter": "tutorial_target"
+    },
+    "tutorial_min_move": {
+      "parameter": "tutorial_min_move"
+    },
+    "tutorial_recoil_finish_x": {
+      "parameter": "tutorial_recoil_finish_x"
+    },
+    "traveler_point": {
+      "parameter": "traveler_point"
+    }
+  },
+  "parameter_defaults": {
+    "intro_sequence": {},
+    "onboarding": {},
+    "tutorial_action": "",
+    "tutorial_target": "",
+    "tutorial_min_move": 100,
+    "tutorial_recoil_finish_x": 1540,
+    "traveler_point": [
+      0,
+      0
+    ]
+  },
+  "documentation": "docs/bible/story.md",
+  "parameter_fields": {
+    "intro_sequence": {
+      "type": "dict"
+    },
+    "onboarding": {
+      "type": "dict"
+    },
+    "tutorial_action": {
+      "type": "string"
+    },
+    "tutorial_target": {
+      "type": "string"
+    },
+    "tutorial_min_move": {
+      "type": "number"
+    },
+    "tutorial_recoil_finish_x": {
+      "type": "number"
+    },
+    "traveler_point": {
+      "type": "point"
+    }
+  },
+  "library": "narrative"
+}

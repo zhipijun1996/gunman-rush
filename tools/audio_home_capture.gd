@@ -78,7 +78,7 @@ func run() -> void:
 		if not await lab.home_lab_audio.shutdown(): failures.append("Home audio did not drain")
 		lab.free()
 		for unused: int in 4: await process_frame
-	var trace := {"task":"AUDIO-HOME-01","version":"audio-home-capture-v1","fps":60,"kind":"scene-smoke" if smoke_only else "actions" if actions_only else "movie","scope":"Formal DemoApp/HomeScene with unchanged ground movement; upstairs buildings heard from the ground; static NPC-area interior foley, no hammer-animation synchronization claim","rendering":{"actual_window":[root.size.x,root.size.y],"logical_content":[root.content_scale_size.x,root.content_scale_size.y]},"segments":segments,"samples":samples,"failures":failures,"movie_clock":{"index_base":0,"frames_drawn_before_quit":movie_frame}}
+	var trace := {"task":"AUDIO-HOME-01","version":"audio-home-capture-v1","fps":60,"kind":"scene-smoke" if smoke_only else "actions" if actions_only else "movie","scope":"Formal CampaignFixture/HomeScene with unchanged ground movement; upstairs buildings heard from the ground; static NPC-area interior foley, no hammer-animation synchronization claim","rendering":{"actual_window":[root.size.x,root.size.y],"logical_content":[root.content_scale_size.x,root.content_scale_size.y]},"segments":segments,"samples":samples,"failures":failures,"movie_clock":{"index_base":0,"frames_drawn_before_quit":movie_frame}}
 	FileAccess.open(folder.path_join("trace.json"),FileAccess.WRITE).store_string(JSON.stringify(trace))
 	print("AUDIO_HOME_%s segments=%s failures=%s" % ["SCENE_SMOKE" if smoke_only else "ACTIONS" if actions_only else "CAPTURE",segments.size(),failures.size()])
 	quit(0 if failures.is_empty() and segments.size() == modes.size() else 1)

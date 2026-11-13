@@ -1,13 +1,13 @@
 extends RefCounted
 ## Dynamic module consumer regressions, not platforming reachability evidence.
-const DEMO := preload("res://game/application/demo.tscn")
+const DEMO := preload("res://tests/fixtures/campaign_fixture.tscn")
 var tree: SceneTree
 var check: Callable
 
 func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	tree = scene_tree
 	check = assertion
-	var app: DemoApp = DEMO.instantiate()
+	var app: CampaignFixture = DEMO.instantiate()
 	app.meta_persistence_enabled = false
 	tree.root.add_child(app)
 	await frames(2)
@@ -137,7 +137,7 @@ func frames(count: int) -> void:
 	for unused: int in count:
 		await tree.physics_frame
 
-func cleanup(app: DemoApp) -> void:
+func cleanup(app: CampaignFixture) -> void:
 	Engine.time_scale = 1.0
 	tree.paused = false
 	if app._lab != null:

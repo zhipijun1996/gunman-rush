@@ -20,7 +20,7 @@ func frames(count: int = 3) -> void:
 		await physics_frame
 		await process_frame
 
-func owned_audio(app: DemoApp) -> Variant:
+func owned_audio(app: CampaignFixture) -> Variant:
 	# Avoid the independently reproduced test-only GameAudio member-type cycle.
 	for child: Node in app.get_children():
 		var script := child.get_script() as Script
@@ -38,7 +38,7 @@ func reset_audio(audio: Variant) -> void:
 	audio.stop_director_cues()
 	await frames(8)
 
-func reward_request(app: DemoApp, tag: String) -> RewardClaimRequest:
+func reward_request(app: CampaignFixture, tag: String) -> RewardClaimRequest:
 	serial += 1
 	var item: ItemDefinition
 	for item_id: StringName in [&"B03", &"B04", &"B05", &"B06", &"B07", &"B08"]:
@@ -60,7 +60,7 @@ func reward_request(app: DemoApp, tag: String) -> RewardClaimRequest:
 	request.claim_id = StringName(str(id) + "/claim")
 	return request
 
-func cache_flow(app: DemoApp, audio: Variant, resource_choice: bool, label: String) -> void:
+func cache_flow(app: CampaignFixture, audio: Variant, resource_choice: bool, label: String) -> void:
 	await reset_audio(audio)
 	var stage := app.stage as PlainsRegionStage
 	var index := -1
@@ -105,7 +105,7 @@ func cache_flow(app: DemoApp, audio: Variant, resource_choice: bool, label: Stri
 	check(not app._claim_modal_item(option.stable_id), label + " stale late choice is rejected")
 	check(audio.director_events.size() == after, label + " rejected duplicate cannot emit another opening or obtain")
 
-func shop_flow(app: DemoApp, audio: Variant) -> void:
+func shop_flow(app: CampaignFixture, audio: Variant) -> void:
 	await reset_audio(audio)
 	check(app.wallet.grant(500, &"audio-feedback/shop-funds"), "SETUP wallet fixture grants real ledger-backed purchase funds")
 	app.player.global_position = (app.stage as PlainsRegionStage).merchant_position
@@ -145,7 +145,7 @@ func run() -> void:
 
 func exercise() -> void:
 	root.size = Vector2i(1280, 720)
-	var app := (load("res://game/application/demo.tscn") as PackedScene).instantiate() as DemoApp
+	var app := (load("res://tests/fixtures/campaign_fixture.tscn") as PackedScene).instantiate() as CampaignFixture
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(6)

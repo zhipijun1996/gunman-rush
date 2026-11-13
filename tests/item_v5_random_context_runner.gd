@@ -1,5 +1,5 @@
 extends SceneTree
-## Native initialization fixture: calls DemoApp's actual cache/Boss consumers
+## Native initialization fixture: calls CampaignFixture's actual cache/Boss consumers
 ## and ItemV5ShopPresenter.map_ready, rather than restating their RNG formulas.
 ## The app intentionally stays outside the tree so its unrelated _ready UI and
 ## initial run creation do not replace the explicitly controlled seed/build.
@@ -23,7 +23,7 @@ func item_ids(items: Array[ItemDefinition]) -> Array[String]:
 	return result
 
 func sample(seed: String, receipt_prefix: String, region: StringName, map_index: int) -> Dictionary:
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.director.seed = seed
 	app.director.state = DemoRunDirector.State.IN_STAGE
 	app.director.stage_index = 1

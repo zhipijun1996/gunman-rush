@@ -139,7 +139,7 @@ func grant_backlog() -> void:
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(OUTPUT)
 	root.size = Vector2i(1280,720)
-	app = DemoApp.new(); app.meta_persistence_enabled = false; root.add_child(app)
+	app = CampaignFixture.new(); app.meta_persistence_enabled = false; root.add_child(app)
 	await frames(5)
 	check(app.start_plains("level-design-v2-baseline/08"), "formal Plains run starts")
 	for unused: int in 180:

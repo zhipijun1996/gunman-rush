@@ -28,7 +28,7 @@ def main():
     folder.mkdir(parents=True,exist_ok=True)
     paths=['tools/run_connected_family_tests.py','game/presentation/world/art/plains_connected_landscape.gd','game/presentation/world/art/plains_region_composition.gd',
            'game/presentation/world/art/plains_landscape_observer.gd','tests/plains_connected_family_contract_runner.gd',
-           'tests/legacy_plains_presentation_fixture.gd','game/application/demo_app.gd','game/world/levels/providers/plains_region_stage.gd',
+           'tests/legacy_plains_presentation_fixture.gd','tests/fixtures/campaign_fixture.gd','game/world/levels/providers/plains_region_stage.gd',
            'game/presentation/world/art/plains_terrain_study.gd','game/presentation/world/art/plains_terrain_family_sampler.gd',
            'game/presentation/world/art_foundation/pixel_region_scenery.gd','game/presentation/world/art_foundation/pixel_region_landmarks.gd','game/presentation/world/art_foundation/pixel_plains_parallax.gd',
            'config/player_tuning.json','resources/player/traversal.tres','assets/production_repair/rooted_plants_v1/raw.png','assets/production_repair/rooted_plants_v1/family.json']

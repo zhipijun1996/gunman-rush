@@ -1,6 +1,6 @@
 class_name SelectedAmbienceRuntime
 extends Node
-## Formal-scene assembly only. Programmatic DemoApp and developer Labs stay opt-in.
+## Formal-scene assembly only. Programmatic CampaignFixture and developer Labs stay opt-in.
 const REGION_SELECTION := "res://config/audio_director/ambience/user-selected.json"
 const HOME_SELECTION := "res://config/audio_director/home/user-selected.json"
 const REGION_MANIFEST := "res://assets/audio/ambience_v1/manifest.json"
@@ -113,9 +113,9 @@ static func selections_valid(regions: Variant, home: Variant) -> bool:
 
 func _attach() -> void:
 	if not is_inside_tree(): return
-	var app := get_parent() as DemoApp
+	var app := get_parent() as CampaignFixture
 	if app == null:
-		validation_error = "formal ambience requires its direct DemoApp parent"
+		validation_error = "formal ambience requires its direct CampaignFixture parent"
 		return
 	var audio: GameAudio
 	for child: Node in app.get_children():
@@ -137,13 +137,13 @@ func _attach() -> void:
 	set_process(true)
 	_process(0.0)
 
-func _app_node() -> DemoApp:
-	return _app.get_ref() as DemoApp if _app != null else null
+func _app_node() -> CampaignFixture:
+	return _app.get_ref() as CampaignFixture if _app != null else null
 
 func _audio_node() -> GameAudio:
 	return _audio.get_ref() as GameAudio if _audio != null else null
 
-func _desired(app: DemoApp) -> Dictionary:
+func _desired(app: CampaignFixture) -> Dictionary:
 	if is_instance_valid(app.menu) and app.menu.visible_panel == &"title": return {}
 	if app.director.state == DemoRunDirector.State.HOME:
 		var home := app.home_scene

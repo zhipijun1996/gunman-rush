@@ -14,7 +14,7 @@ def main():
     platforms = ("windows", "web") if args.platform == "all" else (args.platform,)
     commands = [
         ([sys.executable, "tools/ci.py"], 240),
-        *[([sys.executable, "tools/export_workbench.py", "--output", "build/web", "--max-pack-mib", "180"] if platform=="web" else [sys.executable, "tools/export_native.py", platform], 600) for platform in platforms],
+        *[([sys.executable, "tools/export_runtime.py", "--output", "build/web", "--max-pack-mib", "180"] if platform=="web" else [sys.executable, "tools/export_native.py", platform], 600) for platform in platforms],
     ]
     for command, timeout in commands:
         print(" ".join(command), flush=True)

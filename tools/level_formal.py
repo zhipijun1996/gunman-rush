@@ -1,4 +1,4 @@
-"""Thin live-DemoApp capture runner for the existing Level Design Harness.
+"""Thin live-CampaignFixture capture runner for the existing Level Design Harness.
 
 Process success means capture integrity. Route failure/death remains evidence and
 is never translated to a passing traversal claim. No production gameplay edits.
@@ -73,13 +73,13 @@ def validate_policy_basis(data, sources):
         if not expected or any(not isinstance(v,str) or not re.fullmatch(r"[0-9a-f]{64}",v) for v in expected.values()) or basis.get(field) != expected:
             errors.append("missing/changed actual source basis/" + field)
     # Keep the full per-side runtime inventory. It must not be replaced by the
-    # small policy projection or lose scenery/DemoApp merely to make a compare pass.
+    # small policy projection or lose scenery/CampaignFixture merely to make a compare pass.
     observers=data.get("capture_source_hashes")
     required_observers={"res://tools/level_formal_capture.gd","res://tests/level_formal_trace.gd","res://game/presentation/world/art/plains_region_scenery.gd"}
     if not isinstance(observers,dict) or not required_observers<=observers.keys():errors.append("incomplete full capture observer inventory")
     runtime = {"res://"+k:v for k,v in sources.items() if k == "project.godot" or k.startswith(("scripts/", "game/", "experiments/", "scenes/", "resources/", "config/", "shaders/", "assets/"))}
     if not runtime or data.get("runtime_source_hashes") != runtime: errors.append("incomplete/changed independently observed runtime source inventory")
-    required = {"project.godot", "game/application/demo_app.gd", "game/presentation/world/art/plains_region_scenery.gd", "game/world/generation/plains_region_generator.gd"}
+    required = {"project.godot", "tests/fixtures/campaign_fixture.gd", "game/presentation/world/art/plains_region_scenery.gd", "game/world/generation/plains_region_generator.gd"}
     if not required <= sources.keys(): errors.append("incomplete full runtime source inventory")
     if not isinstance(data.get("resource_receipts"), list) or not isinstance(data.get("policy_observations"), list): errors.append("missing policy observations/receipts")
     return errors

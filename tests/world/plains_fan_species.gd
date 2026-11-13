@@ -2,7 +2,7 @@ extends "res://tests/world/plains35_fixture.gd"
 ## Real AI/ground support, authored species binding, and camera-independent sky composition.
 func run() -> void:
  app=load("res://game/application/world/fixed_world.tscn").instantiate()
- app.save_path="user://fan_species_test.json";root.add_child(app);app.workbench.enabled=true
+ app.save_path="user://fan_species_test.json";root.add_child(app)
  await load_room("P-R32")
  await fixture(Vector2(1728,814))
  var health:=HealthDefinition.new();health.resource_id=&"fan_test_health";health.max_health=100;health.initial_current=100

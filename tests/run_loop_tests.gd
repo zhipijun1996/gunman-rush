@@ -1,7 +1,7 @@
 extends RefCounted
 
 func run(_tree: SceneTree, check: Callable) -> void:
-	var retired_entry := DemoApp.new()
+	var retired_entry := CampaignFixture.new()
 	check.call(not retired_entry.has_method("start_plains_regression") and not ResourceLoader.exists("res://resources/run/formal_eight.tres"), "retired runtime entry and resource are absent")
 	retired_entry.free()
 	var formal := RunProfile.formal()

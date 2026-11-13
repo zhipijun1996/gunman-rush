@@ -285,8 +285,8 @@ def region_write_scope(paths, root=ROOT):
                   "experiments/generation/", "experiments/terrain/art/",
                   "experiments/audio/entries/", "experiments/motion/entries/", "experiments/terrain/entries/", "experiments/platform/entries/",
                   "experiments/audio/audio_ambience_lab.gd", "experiments/audio/audio_home_lab.gd",
-                  "experiments/motion/action_studio.gd", "game/application/demo.tscn",
-                  "game/application/demo_app.gd", "game/player/player.tscn",
+                  "experiments/motion/action_studio.gd", "tests/fixtures/campaign_fixture.tscn",
+                  "tests/fixtures/campaign_fixture.gd", "game/player/player.tscn",
                   "game/player/presentation/demo_aim_guide.gd",
                   "game/world/state/world_context.gd", "game/world/state/world_definition.gd")
     regions, unresolved = set(), []

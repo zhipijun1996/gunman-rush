@@ -35,10 +35,9 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(output)
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path="user://stargate_basic_isolated.json"
-	root.add_child(app);app.workbench.enabled=true
+	root.add_child(app)
 	var source:=preload("res://game/world/regions/V/rooms/V-R12.tscn").instantiate() as FixedWorldRoom
-	var draft:=WorldRoomDraft.extract(source)
-	check(WorldRoomDraft.validate(source,draft).is_empty(),"current scene uses the normal editable codec")
+	check(WorldRoomValidation.validate_room(source).is_empty(),"current scene uses the normal editable codec")
 	check(source.hook_points.size()==2 and source.climbable_walls.size()==6,"two H turn points and six wall recovery surfaces")
 	var chute:=Rect2(108,340,24,1490)
 	var clear:=true
@@ -48,12 +47,10 @@ func run() -> void:
 		if FixedWorldProvider.rect(strip.bounds).intersects(chute):clear=false
 	check(clear,"the existing left return drop remains free of new solid and thorn geometry")
 	source.free()
-	draft.base_content_version=app.content.workbench_base_version();draft.revision=1
-	var catalog: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(FixedWorldProvider.WORKBENCH_CATALOG))
-	var row: Dictionary=catalog.rooms["V-R12"]
-	draft.geometry={"bounds":row.world_geometry.bounds_world_units,"space_rects":row.world_geometry.space_rects,"doors":row.doors}
-	await app.workbench._handle({"channel":"gunman-workbench","type":"load_draft","request_id":"stargate_basic","revision":1,"draft":draft,"stage":"hwdq","paused":false})
-	if not check(app.workbench.last_event.get("type")=="draft_loaded","current draft loads through the real bridge with hwdq"):await finish();return
+	var catalog: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(FixedWorldProvider.PREVIEW_CATALOG))
+	for field:String in ["rooms","actions","demo_services","npcs","map_rooms"]: app.content.data[field]=catalog[field].duplicate(true)
+	app.content._index_actions()
+	if not check(await app.review.begin("V-R12","","hwdq"),"registered trial presentation loads via current preview"):await finish();return
 	check(app.player.is_on_floor() and app.controller.traversal.hook_enabled and app.controller.traversal.double_enabled and app.controller.traversal.wall_enabled and app.q_guard.owned,"real entry support and H/W/D/Q consumers")
 	app.controller.traversal.traversal_resources_refilled.connect(func(kind: StringName) -> void: refills[str(kind)]=int(refills.get(str(kind),0))+1)
 	await ticks(10)

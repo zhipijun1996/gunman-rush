@@ -14,9 +14,9 @@ func _initialize()->void:
 	if smoke_close and not capture_output.is_empty():push_error("Choose smoke close or rendered capture");quit(2);return
 	run.call_deferred()
 
-func make_review_application() -> DemoApp:
+func make_review_application() -> CampaignFixture:
 	root.title = "失序之钟 · 关卡美术语言参数样板（非艺术准入）"
-	var result := DemoApp.new()
+	var result := CampaignFixture.new()
 	result.set_meta("plains_art_language_candidate","bounded_plains_v1")
 	return result
 

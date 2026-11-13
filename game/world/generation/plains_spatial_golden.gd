@@ -176,7 +176,7 @@ class GoldenStage extends PlainsRegionStage:
 					add_child(art)
 					assembler.modules[0].set_meta("art_active",true)
 					assembler.modules[0].queue_redraw()
-		print("SPATIAL GOLDEN: true polygon collision, original DemoApp systems, explicit experimental content; contract=",golden_manifest.contract_sha256)
+		print("SPATIAL GOLDEN: true polygon collision, original CampaignFixture systems, explicit experimental content; contract=",golden_manifest.contract_sha256)
 	func setup_shot_latches(_controller: PlayerController, _lifetime: DemoLifetime) -> bool:
 		# This first space uses the actual moving gear, no bell gate is claimed.
 		return true

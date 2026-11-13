@@ -30,7 +30,7 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(output)
 	if compare_plains: await capture_plains_reference()
 	for index: int in [1,2]:
-		var app := DemoApp.new()
+		var app := CampaignFixture.new()
 		app.meta_persistence_enabled = false
 		root.add_child(app)
 		if not app.start_debug_region(&"thorn_forest",index,"forest-depth-hollow-00",ThornForestRegionGenerator.DEPTH_VERSION,"forest-bible-world-v15"):
@@ -124,7 +124,7 @@ func run() -> void:
 
 func capture_plains_reference() -> void:
 	for index: int in [1,2]:
-		var app := DemoApp.new()
+		var app := CampaignFixture.new()
 		app.meta_persistence_enabled = false
 		root.add_child(app)
 		if not app.start_debug_region(&"plains",index,"forest-style-continuity-reference"):

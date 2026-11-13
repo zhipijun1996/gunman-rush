@@ -1,7 +1,7 @@
 extends "res://tools/level_formal_capture.gd"
 ## Opt-in full formal region; original timing, damage and strict teardown owner.
-func make_application() -> DemoApp:
-	var result := DemoApp.new()
+func make_application() -> CampaignFixture:
+	var result := CampaignFixture.new()
 	result.set("plains_regional_art_candidate_requested",true)
 	result.avatar_selection_id = "p1_girl"
 	report["entry_context"] = "Explicit regional art candidate over the full formal PlainsRegionGenerator; not the places chain"

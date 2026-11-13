@@ -1,5 +1,5 @@
 extends SceneTree
-## Keep the production DemoApp, encounters, contacts, rewards and camera alive.
+## Keep the production CampaignFixture, encounters, contacts, rewards and camera alive.
 ## Exit 0 means evidence captured, not that the input policy completed the route.
 const TRACE := preload("res://tests/level_formal_trace.gd")
 const SNAPSHOT := preload("res://tools/level_capability_snapshot.gd")
@@ -15,7 +15,7 @@ var frame_dir := ""
 var frame_stride := 120
 var visible_capture := false
 var report: Dictionary = {}
-var app: DemoApp
+var app: CampaignFixture
 var driver: RefCounted
 var _capture_busy := false
 var _last_frame := -1
@@ -103,14 +103,14 @@ func run() -> void:
 	root.content_scale_size = Vector2i(1280, 720)
 	root.size = Vector2i(1280, 720)
 	if not frame_dir.is_empty(): DirAccess.make_dir_recursive_absolute(frame_dir)
-	report["captured_scope"] = {"consumer": "live DemoApp + PlainsRegionStage", "enemies_instantiated": true, "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity", "enemy_attacks_enabled": true, "enemy_contacts_enabled": true, "environment_damage_enabled": true, "production_rewards_enabled": true, "production_camera_enabled": true, "input": "synthetic InputRouter requests through normally scheduled PlayerController", "reward_choice_input": "production modal callback; not physical GUI", "controller_manual_step": false, "actor_teleport_by_driver": false, "resource_injection": false, "enemy_disable": false, "boss_fight_completion": false, "campaign_map1_to_map2_completion": false, "device_acceptance": "unverified", "subjective_acceptance": "unverified", "rendered_screenshots": not frame_dir.is_empty(), "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement"}
+	report["captured_scope"] = {"consumer": "live CampaignFixture + PlainsRegionStage", "enemies_instantiated": true, "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity", "enemy_attacks_enabled": true, "enemy_contacts_enabled": true, "environment_damage_enabled": true, "production_rewards_enabled": true, "production_camera_enabled": true, "input": "synthetic InputRouter requests through normally scheduled PlayerController", "reward_choice_input": "production modal callback; not physical GUI", "controller_manual_step": false, "actor_teleport_by_driver": false, "resource_injection": false, "enemy_disable": false, "boss_fight_completion": false, "campaign_map1_to_map2_completion": false, "device_acceptance": "unverified", "subjective_acceptance": "unverified", "rendered_screenshots": not frame_dir.is_empty(), "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement"}
 	if encounter_policy != "blind_legacy": report.captured_scope.enemy_strategy = encounter_policy + "; privileged actual manifest/AI state, not human perception or fairness acceptance"
 	report["capture_contract_version"] = 3
 	report.captured_scope["resource_claim_evidence"] = "v3: aware resource choices bind actual offer, final cache and complete native wallet/HP/meta ledgers; unselected item/build paths unverified"
 	report["runtime_source_hashes"] = runtime_source_hashes()
 	report["encounter_policy"] = encounter_policy
 	report["policy_basis"] = policy_basis()
-	report["entry_context"] = "normal formal map1 start" if map_index == 1 else "independent map2 test entry via actual director stage setup and DemoApp loader; no map1 Boss defeat or campaign transition claim"
+	report["entry_context"] = "normal formal map1 start" if map_index == 1 else "independent map2 test entry via actual director stage setup and CampaignFixture loader; no map1 Boss defeat or campaign transition claim"
 	report["capture_source_hashes"] = {}
 	for path: String in ["res://tools/level_formal_capture.gd", "res://game/presentation/world/art/plains_region_scenery.gd", "res://tests/level_formal_trace.gd", "res://tests/plains_region_trace.gd", "res://tests/plains_run_trace.gd", "res://tests/random_stage_tests.gd"]: report.capture_source_hashes[path] = FileAccess.get_sha256(path)
 	app = make_application()
@@ -247,10 +247,10 @@ func policy_basis() -> Dictionary:
 		if source.ends_with("/"):
 			if DirAccess.dir_exists_absolute(source): collect_core_sources(source.trim_suffix("/"),core)
 		elif FileAccess.file_exists(source): core[source]=FileAccess.get_sha256(source)
-	return {"schema_version":1,"encounter_policy":encounter_policy,"reward_policy":"legacy_auto_claim_v1" if encounter_policy=="blind_legacy" else "two_actual_medium_and_camp_v1","driver_sources":driver_sources,"core_invariants":core,"content_differences":"Full per-side receipt source inventory retained; generator/scenery/DemoApp differences require independent content review, not inferred semantic equivalence"}
+	return {"schema_version":1,"encounter_policy":encounter_policy,"reward_policy":"legacy_auto_claim_v1" if encounter_policy=="blind_legacy" else "two_actual_medium_and_camp_v1","driver_sources":driver_sources,"core_invariants":core,"content_differences":"Full per-side receipt source inventory retained; generator/scenery/CampaignFixture differences require independent content review, not inferred semantic equivalence"}
 
-func make_application() -> DemoApp:
-	return DemoApp.new()
+func make_application() -> CampaignFixture:
+	return CampaignFixture.new()
 
 func make_driver() -> RefCounted:
 	return TRACE.new()

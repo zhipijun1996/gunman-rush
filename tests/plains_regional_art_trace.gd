@@ -5,7 +5,7 @@ var regional_cases: Array = []
 var regional_expected: Array[String] = []
 var regional_excluded: Array = []
 
-func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "kill_from_bank_v2") -> bool:
+func attach(application: CampaignFixture, selected_strategy: String, wait_ticks: int, selected_policy: String = "kill_from_bank_v2") -> bool:
 	if not super.attach(application, selected_strategy, wait_ticks, selected_policy): return false
 	for area: Dictionary in stage.manifest.areas:
 		if area.role == "boss":

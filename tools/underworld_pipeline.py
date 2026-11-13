@@ -723,7 +723,7 @@ def chest_loop_matches(function, expected):
 
 # These finite source paths are audit inputs, never runtime authority.
 CHEST_CLAIM_SOURCES = {
-    'app': 'game/application/demo_app.gd',
+    'app': 'tests/fixtures/campaign_fixture.gd',
     'generated': 'game/world/levels/providers/generated_demo_stage.gd',
     'forest': 'game/world/levels/providers/thorn_forest_region_stage.gd',
 }

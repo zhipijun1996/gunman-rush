@@ -21,7 +21,7 @@ func run() -> void:
 	root.size = Vector2i(1280,720)
 	DirAccess.make_dir_recursive_absolute(output)
 	for area_id: String in ["root_bay","interwoven_inner","interwoven_deep_basin","interwoven_root_landing"]:
-		var app := DemoApp.new()
+		var app := CampaignFixture.new()
 		app.meta_persistence_enabled=false
 		root.add_child(app)
 		if not app.start_debug_region(&"thorn_forest",map_index,"forest-depth-00",ThornForestRegionGenerator.DEPTH_VERSION,layout):

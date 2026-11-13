@@ -93,8 +93,10 @@ def validate(root=ROOT):
     contract = json.loads((root / 'docs/bible/design_contract.json').read_text())
     if contract.get('schema_version') != 2 or contract.get('target') != 'fixed_world_metroidvania':
         errors.append('Expected fixed-world design contract')
-    if contract.get('implementation', {}).get('fixed_world_runtime') is not False:
-        errors.append('MV-MIGRATION-01 must not claim fixed-world runtime completion')
+    if contract.get('implementation', {}).get('entry') != 'game/application/world/fixed_world.tscn' or contract['implementation'].get('mode') != 'fixed_world':
+        errors.append('Design contract must describe the current fixed-world entry')
+    if contract['implementation'].get('full_world_content_complete') is not False:
+        errors.append('Implemented rooms do not imply completion of the whole world')
     for document in ('world_structure', 'world_progression', 'room_authoring', 'home_and_save'):
         if not (root / 'docs/bible' / (document + '.md')).is_file():
             errors.append('Missing current design authority: ' + document)

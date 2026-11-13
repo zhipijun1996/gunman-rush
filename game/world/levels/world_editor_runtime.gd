@@ -3,7 +3,7 @@ extends RefCounted
 ## Compile editor data into the existing runtime contract. Component behavior,
 ## physical geometry, conditions and receipts remain the game's own systems.
 static func compile(base: Dictionary, project: Dictionary, selected: String, verified_behavior_hash := "") -> Dictionary:
-	if project.get("schema") != 2 or not project.get("rooms") is Dictionary or not project.get("connections") is Dictionary: return {"error":"editor_project_invalid"}
+	if project.get("schema") != 3 or not project.get("rooms") is Dictionary or not project.get("connections") is Dictionary: return {"error":"editor_project_invalid"}
 	if project.get("source", {}).get("content_version") != base.get("content_version") and (verified_behavior_hash.is_empty() or project.source.get("behavior_hash") != verified_behavior_hash): return {"error":"editor_runtime_version_mismatch"}
 	if not project.rooms.has(selected): return {"error":"editor_selected_room_missing"}
 	var next := base.duplicate(true)
@@ -19,7 +19,7 @@ static func compile(base: Dictionary, project: Dictionary, selected: String, ver
 		if authored.entities.is_empty() and not bool(authored.get("authored", false)):
 			if rid == selected: return {"error":"editor_room_has_no_authored_content"}
 			continue
-		var document := {"schema":2, "room_id":rid, "root":authored.root, "entities":authored.entities}
+		var document := {"schema":3, "room_id":rid, "root":authored.root, "entities":authored.entities}
 		var checked := WorldRoomDocument.instantiate(document)
 		if checked.has("error"): return {"error":rid+":"+str(checked.error)}
 		checked.room.free()
@@ -88,7 +88,7 @@ static func compile(base: Dictionary, project: Dictionary, selected: String, ver
 				door.landing_contract = {"section":door.section, "safe_standing_position_world_units":[landing.x, landing.y], "entry_position_world_units":[landing.x, landing.y], "platform_candidate_rect_world_units":[clampf(landing.x-64,0,maxf(0,float(authored.bounds[2])-128)),landing.y+18,128,32], "incoming_mode":"walk_into_grounded_landing", "platform_is_real_collision":false, "needs_support_validation":true}
 			row.doors.append(door)
 			row.entry_spawns.append({"id":"spawn:"+str(port.id), "entry_door":str(port.id), "section_id":door.section, "position_candidate_world_units":door.landing_contract.entry_position_world_units, "eventual_standing_position_world_units":door.landing_contract.safe_standing_position_world_units})
-		var geometry := WorldWorkbenchGeometry.apply(row, {"bounds":authored.bounds, "space_rects":authored.spaces})
+		var geometry := WorldEditorGeometry.apply(row, {"bounds":authored.bounds, "space_rects":authored.spaces})
 		if geometry.has("error"): return {"error":rid+":"+str(geometry.error)}
 		rows[rid] = geometry.room
 	next.rooms = rows
@@ -137,5 +137,5 @@ static func compile(base: Dictionary, project: Dictionary, selected: String, ver
 	next.actions = []
 	for action: Dictionary in action_map.values():
 		if rows.has(str(action.room_id)): next.actions.append(action)
-	next["workbench_preview"] = true
+	next["editor_preview"] = true
 	return {"runtime":next, "documents":documents}

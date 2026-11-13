@@ -72,7 +72,7 @@ def validate_region_capture(data: dict) -> list[str]:
     frames, events = data.get("frames", []), data.get("events", [])
     itinerary, completed = data.get("itinerary", []), data.get("completed_legs", [])
     manifest = data.get("manifest", {})
-    if data.get("scope") != "formal_DemoApp_continuous_route": errors.append("not formal DemoApp route")
+    if data.get("scope") != "formal_CampaignFixture_continuous_route": errors.append("not formal CampaignFixture route")
     if data.get("midroute_position_or_resource_injection") is not False or data.get("manual_motor_step") is not False: errors.append("injected route")
     if not frames or any(f.get("tick") != i+1 or f.get("motor_steps_this_tick") != 1 for i,f in enumerate(frames)): errors.append("noncontinuous normal Motor trace")
     if any(math.dist(a.get("position",[0,0]), b.get("position",[0,0])) > 30 for a,b in zip(frames,frames[1:])): errors.append("impossible or respawn displacement")
@@ -197,7 +197,7 @@ def main() -> int:
             return 1
         if args.region_matrix:
             jobs = [(f"seed{seed:02d}-map{map_index}-{route}",args.seed_prefix+f"{seed:02d}",map_index,route) for seed in range(args.seed_count) for map_index in (1,2) for route in ("fast","growth","high_return")]
-            summary["scope"] = "formal_DemoApp_10roots_two_maps_three_routes" if args.seed_count==10 else "formal_DemoApp_bounded_route_sample"
+            summary["scope"] = "formal_CampaignFixture_10roots_two_maps_three_routes" if args.seed_count==10 else "formal_CampaignFixture_bounded_route_sample"
         else:
             jobs = [(case,None,None,None) for case in args.case or CASES]
         for case,seed,map_index,route_name in jobs:

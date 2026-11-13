@@ -26,7 +26,7 @@ SOURCE_PATHS = (
     "game/enemies/behaviors/enemy_attack_behavior.gd",
     "game/enemies/enemy_actor.gd",
     "game/enemies/enemy_motor.gd",
-    "game/application/demo_app.gd",
+    "tests/fixtures/campaign_fixture.gd",
     "game/world/levels/providers/thorn_forest_region_stage.gd",
     "game/combat/damage/frame_damage_policy.gd",
     "tests/forest_depth_enemy_runner.gd",

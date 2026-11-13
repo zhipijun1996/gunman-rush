@@ -21,7 +21,7 @@ func opaque_height(texture: Texture2D, region: Rect2i = Rect2i()) -> int:
 func run() -> void:
 	var map_hashes: Dictionary = {}
 	var tuning_hash:=FileAccess.get_sha256("res://config/player_tuning.json")
-	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_plains("underworld-formal-integrated"),"ordinary formal entry accepted")
 	for frame:int in 8:await physics_frame
 	for map_index:int in [1,2]:
@@ -99,7 +99,7 @@ func run() -> void:
 	print("UNDERWORLD_FORMAL checks=%d failures=%d maps=2"%[checks,failures.size()])
 	quit(0 if failures.is_empty() else 1)
 
-func deferred_presentation_contract(app: DemoApp) -> void:
+func deferred_presentation_contract(app: CampaignFixture) -> void:
 	var stage: Node=app.stage
 	var presentation:=stage.get_node("FineWorldPresentation") as UnderworldPresentation
 	check(presentation!=null,"actual formal presentation owns deferred additions")

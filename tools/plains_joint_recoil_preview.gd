@@ -14,7 +14,7 @@ func run() -> void:
 	root.size = Vector2i(1280,720)
 	root.content_scale_size = Vector2i(1280,720)
 	root.title = "失序之钟 · 单挑战同源体积实验（未正式准入）"
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.set("plains_joint_recoil_candidate_requested",true)
 	app.avatar_selection_id = "p1_girl"
 	app.meta_persistence_enabled = false

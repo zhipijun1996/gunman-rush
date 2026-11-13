@@ -74,14 +74,15 @@ static func draw_surface(node: CanvasItem, thorn: PlatformThornDefinition, platf
 	if not thorn.is_valid(platforms): return
 	draw_band(node, thorn.danger(platforms), thorn.face, platforms[thorn.platform_index])
 
-static func draw_band(node: CanvasItem, danger: Rect2, face: int, host: Rect2) -> void:
+static func draw_band(node: CanvasItem, danger: Rect2, face: int, host: Rect2, skin: Texture2D = null) -> void:
 	var plan := surface_plan(danger, face, host)
 	if _atlas == null: return
+	var selected := _atlas if skin == null else skin
 	var basis := _axes(face)
 	basis.origin = _origin(danger, face)
 	node.draw_set_transform_matrix(basis)
 	for part: Dictionary in plan:
-		node.draw_texture_rect_region(_atlas, part.danger_local, part.danger_source)
+		node.draw_texture_rect_region(selected, part.danger_local, part.danger_source)
 		# A shallow host may be thinner than the root tile; crop, never spill into air.
 		var root_world: Rect2 = part.root_world
 		if not root_world.has_area(): continue
@@ -91,7 +92,7 @@ static func draw_band(node: CanvasItem, danger: Rect2, face: int, host: Rect2) -
 		root_local.size.y *= ratio
 		var root_source: Rect2 = part.root_source
 		root_source.size.y *= ratio
-		node.draw_texture_rect_region(_atlas, root_local, root_source)
+		node.draw_texture_rect_region(selected, root_local, root_source)
 	node.draw_set_transform_matrix(Transform2D.IDENTITY)
 
 static func supported_legacy_face(danger: Rect2, solids: Array[Rect2]) -> Dictionary:

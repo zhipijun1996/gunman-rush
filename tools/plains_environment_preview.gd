@@ -18,7 +18,7 @@ func run() -> void:
 	root.size = Vector2i(1280, 720)
 	root.content_scale_size = Vector2i(1280, 720)
 	root.title = "失序之钟 · 风铃平原整体环境实验（未正式准入）"
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.set("plains_environment_candidate_requested", true)
 	app.avatar_selection_id = "p1_girl"
 	app.meta_persistence_enabled = false

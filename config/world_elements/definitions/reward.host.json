@@ -1,0 +1,43 @@
+{
+  "id": "reward.host",
+  "name": "奖励宿主",
+  "version": 1,
+  "component": "WorldRoomFeature",
+  "category": "interaction",
+  "placeable": true,
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "parameters": {
+      "reward_action": "",
+      "reward_text": ""
+    }
+  },
+  "room_bindings": {
+    "reward_point": {
+      "position": true
+    },
+    "reward_action": {
+      "parameter": "reward_action"
+    },
+    "reward_text": {
+      "parameter": "reward_text"
+    }
+  },
+  "parameter_defaults": {
+    "reward_action": "",
+    "reward_text": ""
+  },
+  "documentation": "docs/bible/rewards_and_builds.md",
+  "parameter_fields": {
+    "reward_action": {
+      "type": "string"
+    },
+    "reward_text": {
+      "type": "string"
+    }
+  },
+  "library": "rewards"
+}

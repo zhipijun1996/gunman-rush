@@ -82,7 +82,7 @@ class BibleTraceConsumerTests(unittest.TestCase):
                 manifest['encounter_plan_contract'][key] = value
             with self.subTest(field=key), self.assertRaises(ValueError): validate(d)
         d = synthetic(); d['manifest']['encounter_plan_contract']['recipe'] = 'foreign_recipe'
-        with self.assertRaisesRegex(ValueError, 'Actual DemoApp route rejected'):
+        with self.assertRaisesRegex(ValueError, 'Actual CampaignFixture route rejected'):
             validate(d)
 
     def test_formal_recipe_gate_always_keeps_full_route_reader_first(self):

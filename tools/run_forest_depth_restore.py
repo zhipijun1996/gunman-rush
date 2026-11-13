@@ -241,7 +241,7 @@ def main():
     before = level_formal.source_files()
     verifier = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                 for p in (Path(__file__).resolve(), ROOT / 'tests/forest_depth_restore_runner.gd')}
-    receipt = {'scope': 'Actual DemoApp Guardian reload/legacy compatibility; normal-input earned-state integration, NOT Boss content admission',
+    receipt = {'scope': 'Actual CampaignFixture Guardian reload/legacy compatibility; normal-input earned-state integration, NOT Boss content admission',
                'base_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                'source_before': before, 'verifier_before': verifier, 'passed': False}
     snapshot = ROOT / 'build/snapshot-receipt.json'
