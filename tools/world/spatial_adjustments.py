@@ -2,6 +2,19 @@
 import copy,json
 from spatial import room_space
 
+def connections(root,world):
+    """Use approved topology edits consistently in every draft consumer."""
+    manifest=json.loads((root/'config/world/spatial_layout.json').read_text())
+    rows=copy.deepcopy(world['connections']);lookup={r['id']:r for r in rows}
+    for cid,change in manifest.get('connection_adjustments',{}).items():
+        edge=lookup[cid]
+        for key in ['a','b','a_section','b_section']:
+            if key in change:edge[key]=change[key]
+        for key in ['polyline','manual_polyline','passage_polygons','length_map_units']:
+            edge.pop(key,None)
+        edge['geometry_status']='世界初稿门对；按候选房形和端口共同校准'
+    return rows
+
 def designs(root):
     manifest=json.loads((root/'config/world/spatial_layout.json').read_text())
     result={}
@@ -24,6 +37,21 @@ def apply(root,project):
     from forest_review import rectangles
     manifest=json.loads((root/'config/world/spatial_layout.json').read_text())
     changed=set()
+    for cid,change in manifest.get('connection_adjustments',{}).items():
+        edge=project['connections'][cid]
+        for side in ['a','b']:
+            if side not in change:continue
+            ep=edge[side];old_room=project['rooms'][ep['room']]
+            port=old_room['ports'].pop(ep['port']);new_room=project['rooms'][change[side]]
+            port['id']=cid+':'+new_room['id'];port['section']=change.get(side+'_section','main')
+            new_room['ports'][port['id']]=port;edge[side]={'room':new_room['id'],'port':port['id']}
+            other=edge['b' if side=='a' else 'a'];back=project['rooms'][other['room']]['ports'][other['port']]
+            back.update(target_room=new_room['id'],target_port=port['id'])
+            changed.add(new_room['id'])
+        for key in ['a_section','b_section']:
+            if key in change:edge[key]=change[key]
+        for key in ['polyline','manual_polyline','passage_polygons','length_map_units']:edge.pop(key,None)
+        edge['geometry_status']='世界初稿门对；按候选房形和端口共同校准'
     for rid,d in designs(root).items():
         r=project['rooms'][rid];old=r['origin'];x,y=d['origin']
         # Unchanged ports keep their world anchor when the room origin moves.

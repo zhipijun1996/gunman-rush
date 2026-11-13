@@ -11,6 +11,8 @@ class WorldSpatialLayout(unittest.TestCase):
  def test_only_authored_draft_regions_change_and_others_remain_unplaced(self):
   self.assertEqual(len(self.p['rooms']),309);self.assertEqual(len(self.p['connections']),409)
   for rid,r in self.p['rooms'].items():
+   if rid=='P-R18':
+    self.assertEqual(r['layout_status'],self.base['rooms'][rid]['layout_status']);continue
    if rid[0] not in 'FMSTYICKN' and rid not in ['P-R07','P-R18','G-R02']:self.assertEqual(r,self.base['rooms'][rid])
    else:self.assertEqual(r['layout_status'],'draft')
   self.assertEqual(self.p['rooms']['G-R16']['spatial_source']['kind'],'unplaced')
@@ -74,35 +76,37 @@ class WorldSpatialLayout(unittest.TestCase):
    self.assertTrue(identities[cid]['passage_profile'].startswith('paired named passage/lift stops'))
    self.assertEqual(self.p['connections'][cid]['spatial_draft']['kind'],'named_shortcut')
    self.assertNotIn('path',self.p['connections'][cid]['spatial_draft'])
-  # The user's continuous city entrance must not silently become a transition.
-  self.assertEqual(self.p['connections']['CITY-P-G-WEST'],self.base['connections']['CITY-P-G-WEST'])
- def test_city_approach_and_east_moved_overlook(self):
+  self.assertFalse(self.p['connections']['CITY-P-G-WEST']['front_door'])
+ def test_city_entrance_moves_to_p07_without_moving_plains_rooms(self):
   from spatial_adjustments import designs
-  from forest_review import rectangles
-  from world_review import on_boundary
-  changes=designs(ROOT);rects={rid:rectangles(d['outline']) for rid,d in changes.items()}
-  self.assertGreater(changes['P-R07']['label'][0],20000)
+  from world_review import on_boundary,build
+  from spatial import room_space
+  for rid in ['P-R07','P-R18']:
+   for field in ['origin','bounds','spaces','entities']:
+    self.assertEqual(self.p['rooms'][rid][field],self.base['rooms'][rid][field],(rid,field))
+  edge=self.p['connections']['CITY-P-G-WEST']
+  self.assertEqual(edge['a'],{'room':'P-R07','port':'CITY-P-G-WEST:P-R07'})
+  self.assertEqual(edge['b']['room'],'G-R02')
+  self.assertNotIn('CITY-P-G-WEST:P-R18',self.p['rooms']['P-R18']['ports'])
+  self.assertEqual(self.base['connections']['CITY-P-G-WEST']['a']['room'],'P-R18')
   for cid in ['room-link-133','room-link-134','CITY-P-G-WEST']:
    e=self.p['connections'][cid];points=[]
    for side in ['a','b']:
-    ep=e[side];r=self.p['rooms'][ep['room']];port=r['ports'][ep['port']];points.append([port['position'][i]+r['origin'][i] for i in (0,1)])
-    if ep['room'] in changes:self.assertTrue(on_boundary(changes[ep['room']]['outline'],points[-1]),cid)
+    ep=e[side];r=self.p['rooms'][ep['room']];port=r['ports'][ep['port']]
+    points.append([port['position'][i]+r['origin'][i] for i in (0,1)])
+    shape=room_space(r['spaces'],r['bounds'][2:])
+    self.assertTrue(on_boundary(shape['outline'],port['position']),cid)
+    other=e['b' if side=='a' else 'a']
+    self.assertEqual((port['target_room'],port['target_port']),(other['room'],other['port']))
    self.assertEqual(*points,cid)
-  self.assertEqual(self.p['rooms']['P-R18']['spaces'],self.base['rooms']['P-R18']['spaces'])
-  # A non-overlapping G02 room is insufficient: its upper approach must be open.
-  for cid in ['room-link-107','room-link-110','room-link-111','EXP-G_workers_yard_reward-03']:
-   r=self.p['rooms']['G-R02'];port=next(v for v in r['ports'].values() if v['connection']==cid)
-   x,y=[port['position'][i]+r['origin'][i] for i in (0,1)]
-   self.assertEqual(port['direction'],'up');self.assertTrue(on_boundary(changes['G-R02']['outline'],[x,y]))
-   probe=[x-96,y-384,192,384]
-   for rid in ['P-R07','P-R18','P-R02','P-R30']:
-    r=self.p['rooms'][rid];rs=rects.get(rid,[[a+r['origin'][0],b+r['origin'][1],c,d] for a,b,c,d in r['spaces']])
-    self.assertFalse(any(overlap(probe,b) for b in rs),rid)
-    self.assertFalse(any(overlap(a,b) for a in rects['G-R02'] for b in rs),rid)
+  plan,_=build(self.p);p07=next(r for r in plan['rooms'] if r['room_id']=='P-R07');p18=next(r for r in plan['rooms'] if r['room_id']=='P-R18')
+  self.assertTrue(any(n['room']=='G-R02' for n in p07['neighbors']))
+  self.assertFalse(any(n['room']=='G-R02' for n in p18['neighbors']))
   self.assertEqual(self.p['connections']['G-P18-L25'],self.base['connections']['G-P18-L25'])
  def test_draft_does_not_change_gate_or_reward_progression(self):
   for cid,e in self.p['connections'].items():
    for key in ['requires','direction','a','b']:
+    if cid=='CITY-P-G-WEST' and key=='a':continue
     self.assertEqual(e[key],self.base['connections'][cid][key])
   for rid in self.p['rooms']:
    self.assertEqual(self.p['management'][rid],self.base['management'][rid])

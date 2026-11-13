@@ -50,7 +50,8 @@ def build(project=None):
             design.update(r.get('design_contract',{}));design['stage']='已制作房的候选调整；尚未回写正式关卡'
             if 'review_label' in r:design['label']=[r['review_label'][i]+r['origin'][i] for i in (0,1)]
         rooms.append(design)
-    ids={r['room_id'] for r in rooms};edges={e['id']:e for e in world['connections']}
+    from spatial_adjustments import connections as draft_connections
+    ids={r['room_id'] for r in rooms};edges={e['id']:e for e in draft_connections(ROOT,world)}
     for r in rooms:
         rid=r['room_id'];src=identities[rid]
         r.update(rest=src['rest_point'],rift=src.get('rift_machine',False),rewards=src['reward_ids'],bosses=[b['working_name'] for b in world['boss_plan']['bosses'] if b['physical_room']==rid],actions=[a for a in world['actions'] if a.get('room_id')==rid],gates=[g for g in src['internal_routes'] if not g['id'].endswith(':return')])

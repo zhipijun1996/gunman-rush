@@ -13,7 +13,8 @@ ROOT=Path(__file__).resolve().parents[2]
 def compile_plan(root=ROOT,validate=True,cluster="underground"):
     plan=json.loads((root/f'config/world/spatial_clusters/{cluster}.json').read_text())
     world=json.loads((root/'config/world/world.json').read_text())
-    identities={r['id']:r for r in world['rooms']};edges={e['id']:e for e in world['connections']}
+    from spatial_adjustments import connections as draft_connections
+    identities={r['id']:r for r in world['rooms']};edges={e['id']:e for e in draft_connections(root,world)}
     rooms={r['room_id']:r for r in plan['rooms']};expected={r for r in identities if r[0] in plan['regions']}
     assert set(rooms)==expected,'Missing/extra regional rooms'
     internal={e['id'] for e in edges.values() if e['a'] in rooms and e['b'] in rooms}
