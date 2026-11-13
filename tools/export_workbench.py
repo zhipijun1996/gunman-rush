@@ -380,9 +380,9 @@ def main():
     parser.add_argument("--plan-only", action="store_true")
     parser.add_argument("--skip-import", action="store_true", help="Use an already completed, single-writer editor import")
     parser.add_argument("--output", type=Path, default=ROOT / "build/workbench/web")
-    # 35 plains + Clockheart formal rooms / 37 editable scenes and both dynamic anchor families:
-    # approximately 130.04 MiB; bounded room-contract growth has a 1 MiB margin.
-    parser.add_argument("--max-pack-mib", type=float, default=131)
+    # 43 formal rooms + the isolated V12 room and the complete registered enemy
+    # catalog measure about 138 MiB; retain a bounded 1 MiB growth margin.
+    parser.add_argument("--max-pack-mib", type=float, default=139)
     parser.add_argument("--site-copy", type=Path, help="Copy the verified split transport to a Site public/play directory")
     parser.add_argument("--site-copy-only", action="store_true", help="Publish the already verified --output without another Godot export")
     args = parser.parse_args()

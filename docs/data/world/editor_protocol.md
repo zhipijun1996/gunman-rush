@@ -20,7 +20,7 @@
 
 ## 工具链与发行
 
-`tools/world/build.py` 编译源合同；锁定Godot运行 `tools/world/export_editor_documents.gd` 提取完整目录并回读；`tools/world/export_editor_project.py` 导出整世界schema2编辑视图。`tools/export_editor_native.py` 以现行资源闭包导出PCK，并验证实际包；行为哈希排除纯布局JSON和装载壳，布局更新可复用相同行为包。引擎身份改变必须更新APK。
+`tools/world/build.py` 编译源合同；锁定Godot运行 `tools/world/export_editor_documents.gd` 提取完整目录并回读；`tools/world/export_editor_project.py` 导出整世界schema2编辑视图。`tools/materialize_editor_inputs.py` 在干净检出中先生成同源预览目录，再按现行资源闭包补齐输入；派生目录不要求随源码存在。`tools/export_editor_native.py` 以现行资源闭包导出PCK，并验证实际包；行为哈希排除纯布局JSON和装载壳，布局更新可复用相同行为包。引擎身份改变必须更新APK。
 
 原生预览通过WorldEditorSession／WorldRoomReview隔离保存、复用正式玩家与组件。灰盒只简化静态表现，不替换碰撞和动作。预览标记文件通知驻留进程重载当前数据，不逐帧解析整世界。真实房间图是派生分块缓存，布置变化后失效，不能冒充当前实机效果。
 
