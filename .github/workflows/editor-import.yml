@@ -24,6 +24,7 @@ jobs:
             resources
             docs
             .github
+            .editor
       - name: Prepare and apply exact scoped data
         env:
           SUBMISSION: ${{ inputs.submission }}

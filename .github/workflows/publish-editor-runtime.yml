@@ -32,7 +32,7 @@ jobs:
         run: |
           python3 tools/world/build.py
           python3 tools/materialize_editor_inputs.py
-          python3 tools/setup_environment.py
+          python3 tools/setup_environment.py --godot-only
           bash tools/godot.sh --headless --path . --editor --quit
       - name: Validate and export same-version data and native pack
         run: |
