@@ -1,0 +1,909 @@
+{
+  "entities": {
+    "P-R29:bell_mechanisms:0": {
+      "component": "array:bell_mechanisms",
+      "id": "P-R29:bell_mechanisms:0",
+      "order": 0,
+      "properties": {
+        "bell": [
+          912.0,
+          448.0
+        ],
+        "gate": [
+          832.0,
+          304.0,
+          192.0,
+          32.0
+        ],
+        "id": "P-R29:review03:attic_hatch",
+        "open_seconds": 0.75
+      }
+    },
+    "P-R29:composition:0": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:0",
+      "order": 0,
+      "properties": {
+        "asset": "grain_loft",
+        "atmosphere": {
+          "density": 4,
+          "speed": [
+            3,
+            7
+          ]
+        },
+        "backdrop": true,
+        "environment": {
+          "ambient": "aab0ae",
+          "restored": "aab0ae"
+        },
+        "layer": -38,
+        "light": true,
+        "point": [
+          896,
+          1472
+        ],
+        "window_beam": true
+      }
+    },
+    "P-R29:composition:1": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:1",
+      "order": 1,
+      "properties": {
+        "asset": "storage_crates",
+        "layer": -4,
+        "point": [
+          768,
+          576
+        ]
+      }
+    },
+    "P-R29:composition:10": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:10",
+      "order": 10,
+      "properties": {
+        "surface_platform": 7
+      }
+    },
+    "P-R29:composition:11": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:11",
+      "order": 11,
+      "properties": {
+        "surface_platform": 8
+      }
+    },
+    "P-R29:composition:12": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:12",
+      "order": 12,
+      "properties": {
+        "surface_platform": 9
+      }
+    },
+    "P-R29:composition:2": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:2",
+      "order": 2,
+      "properties": {
+        "asset": "barrel",
+        "layer": -4,
+        "point": [
+          1728,
+          640
+        ]
+      }
+    },
+    "P-R29:composition:3": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:3",
+      "order": 3,
+      "properties": {
+        "asset": "storage_crates",
+        "layer": -4,
+        "point": [
+          608,
+          1056
+        ]
+      }
+    },
+    "P-R29:composition:4": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:4",
+      "order": 4,
+      "properties": {
+        "asset": "tilted_barrel",
+        "layer": -4,
+        "point": [
+          1120,
+          304
+        ]
+      }
+    },
+    "P-R29:composition:5": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:5",
+      "order": 5,
+      "properties": {
+        "asset": "well_winch_mount",
+        "cable_offset": [
+          0,
+          -37
+        ],
+        "hoist_cable": "GrainLift",
+        "layer": -5,
+        "point": [
+          1408,
+          304
+        ]
+      }
+    },
+    "P-R29:composition:6": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:6",
+      "order": 6,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -3,
+        "light": true,
+        "point": [
+          1216,
+          1376
+        ]
+      }
+    },
+    "P-R29:composition:7": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:7",
+      "order": 7,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -3,
+        "light": true,
+        "point": [
+          400,
+          640
+        ]
+      }
+    },
+    "P-R29:composition:8": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:8",
+      "order": 8,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -3,
+        "light": true,
+        "point": [
+          1168,
+          576
+        ]
+      }
+    },
+    "P-R29:composition:9": {
+      "component": "array:art_placements",
+      "id": "P-R29:composition:9",
+      "order": 9,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -3,
+        "light": true,
+        "point": [
+          624,
+          304
+        ]
+      }
+    },
+    "P-R29:enemy_placements:0": {
+      "component": "array:enemy_placements",
+      "id": "P-R29:enemy_placements:0",
+      "order": 0,
+      "properties": {
+        "behavior": "patrol",
+        "id": "P-R29:beam_patrol",
+        "max_health": 9.0,
+        "point": [
+          1648.0,
+          622.0
+        ]
+      }
+    },
+    "P-R29:enemy_placements:1": {
+      "component": "array:enemy_placements",
+      "id": "P-R29:enemy_placements:1",
+      "order": 1,
+      "properties": {
+        "behavior": "hopper",
+        "id": "P-R29:lower_hopper",
+        "max_health": 9.0,
+        "point": [
+          688.0,
+          1038.0
+        ]
+      }
+    },
+    "P-R29:enemy_placements:2": {
+      "component": "array:enemy_placements",
+      "id": "P-R29:enemy_placements:2",
+      "order": 2,
+      "properties": {
+        "behavior": "patrol",
+        "id": "P-R29:review03:attic_guard",
+        "max_health": 9.0,
+        "point": [
+          1344.0,
+          286.0
+        ]
+      }
+    },
+    "P-R29:enemy_placements:3": {
+      "component": "array:enemy_placements",
+      "id": "P-R29:enemy_placements:3",
+      "order": 3,
+      "properties": {
+        "behavior": "patrol",
+        "id": "P-R29:review04:platform6_patrol",
+        "max_health": 9.0,
+        "point": [
+          992.0,
+          750.0
+        ]
+      }
+    },
+    "P-R29:enemy_placements:4": {
+      "component": "array:enemy_placements",
+      "id": "P-R29:enemy_placements:4",
+      "order": 4,
+      "properties": {
+        "behavior": "patrol",
+        "id": "P-R29:review04:platform7_patrol",
+        "max_health": 9.0,
+        "point": [
+          1280.0,
+          910.0
+        ]
+      }
+    },
+    "P-R29:node:./Cache_attic_cache": {
+      "component": "WorldRoomInteraction",
+      "id": "P-R29:node:./Cache_attic_cache",
+      "node_name": "Cache_attic_cache",
+      "node_path": "./Cache_attic_cache",
+      "order": 2,
+      "parent": "",
+      "properties": {
+        "action_id": "open_P29_attic_cache",
+        "label": "打开谷仓阁楼藏箱",
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          448.0,
+          286.0
+        ],
+        "radius": 48.0,
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "section_id": "main",
+        "visible": true,
+        "visual": "chest",
+        "z_index": 0
+      }
+    },
+    "P-R29:node:./GrainLift": {
+      "component": "WorldMovingPlatform",
+      "id": "P-R29:node:./GrainLift",
+      "node_name": "GrainLift",
+      "node_path": "./GrainLift",
+      "order": 1,
+      "parent": "",
+      "properties": {
+        "activation_flag": "",
+        "endpoint": [
+          0.0,
+          -624.0
+        ],
+        "endpoint_dwell": 2.0,
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "one_way": true,
+        "period": 10.0,
+        "phase_offset": 0.0,
+        "platform_size": [
+          128.0,
+          20.0
+        ],
+        "position": [
+          1440.0,
+          1328.0
+        ],
+        "rotation": 0.0,
+        "route": [
+          [
+            0.0,
+            -624.0
+          ]
+        ],
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "visible": true,
+        "z_index": 0
+      }
+    },
+    "P-R29:platforms:0": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:0",
+      "order": 0,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          32.0,
+          640.0,
+          416.0,
+          96.0
+        ]
+      }
+    },
+    "P-R29:platforms:0:inner:1": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:0:inner:1",
+      "order": 1,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          320.0,
+          736.0,
+          128.0,
+          32.0
+        ]
+      }
+    },
+    "P-R29:platforms:1": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:1",
+      "order": 2,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          704.0,
+          576.0,
+          544.0,
+          64.0
+        ]
+      }
+    },
+    "P-R29:platforms:10": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:10",
+      "order": 10,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          1568.0,
+          1056.0,
+          192.0,
+          64.0
+        ]
+      }
+    },
+    "P-R29:platforms:11": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:11",
+      "order": 11,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          1568.0,
+          640.0,
+          192.0,
+          128.0
+        ]
+      }
+    },
+    "P-R29:platforms:3": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:3",
+      "order": 3,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          352.0,
+          1056.0,
+          1024.0,
+          64.0
+        ]
+      }
+    },
+    "P-R29:platforms:3:inner:1": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:3:inner:1",
+      "order": 4,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          832.0,
+          1120.0,
+          544.0,
+          32.0
+        ]
+      }
+    },
+    "P-R29:platforms:4": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:4",
+      "order": 5,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          1152.0,
+          1376.0,
+          352.0,
+          64.0
+        ]
+      }
+    },
+    "P-R29:platforms:5": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:5",
+      "order": 6,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          864.0,
+          1408.0,
+          160.0,
+          32.0
+        ]
+      }
+    },
+    "P-R29:platforms:6": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:6",
+      "order": 7,
+      "properties": {
+        "illustrated": true,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          416.0,
+          896.0,
+          256.0,
+          32.0
+        ]
+      }
+    },
+    "P-R29:platforms:7": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:7",
+      "order": 8,
+      "properties": {
+        "illustrated": true,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          864.0,
+          768.0,
+          256.0,
+          32.0
+        ]
+      }
+    },
+    "P-R29:platforms:8": {
+      "component": "array:platforms",
+      "id": "P-R29:platforms:8",
+      "order": 9,
+      "properties": {
+        "illustrated": true,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          1184.0,
+          928.0,
+          192.0,
+          32.0
+        ]
+      }
+    },
+    "P-R29:review03:platforms:12": {
+      "component": "array:platforms",
+      "id": "P-R29:review03:platforms:12",
+      "order": 12,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          864.0,
+          496.0,
+          192.0,
+          80.0
+        ]
+      }
+    },
+    "P-R29:review03:platforms:13": {
+      "component": "array:platforms",
+      "id": "P-R29:review03:platforms:13",
+      "order": 13,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          352.0,
+          304.0,
+          480.0,
+          64.0
+        ]
+      }
+    },
+    "P-R29:review03:platforms:14": {
+      "component": "array:platforms",
+      "id": "P-R29:review03:platforms:14",
+      "order": 14,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          1024.0,
+          304.0,
+          448.0,
+          64.0
+        ]
+      }
+    },
+    "P-R29:review03:retry:0": {
+      "component": "array:retry_anchors",
+      "id": "P-R29:review03:retry:0",
+      "order": 0,
+      "properties": {
+        "bounds": [
+          304.0,
+          580.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          352.0,
+          622.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R29:review03:retry:1": {
+      "component": "array:retry_anchors",
+      "id": "P-R29:review03:retry:1",
+      "order": 1,
+      "properties": {
+        "bounds": [
+          752.0,
+          516.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          800.0,
+          558.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R29:review03:retry:2": {
+      "component": "array:retry_anchors",
+      "id": "P-R29:review03:retry:2",
+      "order": 2,
+      "properties": {
+        "bounds": [
+          1168.0,
+          1316.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          1216.0,
+          1358.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R29:review03:retry:3": {
+      "component": "array:retry_anchors",
+      "id": "P-R29:review03:retry:3",
+      "order": 3,
+      "properties": {
+        "bounds": [
+          752.0,
+          244.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          800.0,
+          286.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R29:spike_strips:0": {
+      "component": "array:spike_strips",
+      "id": "P-R29:spike_strips:0",
+      "order": 0,
+      "properties": {
+        "bounds": [
+          864.0,
+          472.0,
+          192.0,
+          24.0
+        ],
+        "facing": "up",
+        "id": "P29:beam_edge"
+      }
+    }
+  },
+  "room_id": "P-R29",
+  "root": {
+    "component": "FixedWorldRoom",
+    "properties": {
+      "arena_bounds": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "arena_door_height": 192.0,
+      "arrival_text": "旧谷仓通廊",
+      "art_profile": "barn",
+      "battle_entry_anchor": [
+        0.0,
+        0.0
+      ],
+      "boss_binding": null,
+      "boss_identity": "",
+      "boss_position": [
+        0.0,
+        0.0
+      ],
+      "defeat_action": "",
+      "defeat_flag": "",
+      "intro_sequence": {},
+      "modulate": {
+        "$color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "onboarding": {},
+      "position": [
+        0.0,
+        0.0
+      ],
+      "region_preview": "",
+      "rest_point": [
+        0.0,
+        0.0
+      ],
+      "reward_action": "",
+      "reward_point": [
+        0.0,
+        0.0
+      ],
+      "reward_text": "",
+      "room_id": "P-R29",
+      "rotation": 0.0,
+      "route_guide": {
+        "schema": 1.0,
+        "steps": [
+          {
+            "action": "西岸到中梁，再接东岸货井。阁楼挑战位于中梁上方，不占货梯轨道。",
+            "label": "原主路不断",
+            "number": 1.0,
+            "path": [
+              [
+                144.0,
+                622.0
+              ],
+              [
+                416.0,
+                622.0
+              ],
+              [
+                570.0,
+                490.0
+              ],
+              [
+                720.0,
+                558.0
+              ],
+              [
+                800.0,
+                558.0
+              ],
+              [
+                878.0,
+                415.0
+              ],
+              [
+                1032.0,
+                415.0
+              ],
+              [
+                1136.0,
+                558.0
+              ],
+              [
+                1232.0,
+                558.0
+              ],
+              [
+                1420.0,
+                430.0
+              ],
+              [
+                1600.0,
+                622.0
+              ],
+              [
+                1544.0,
+                622.0
+              ],
+              [
+                1544.0,
+                800.0
+              ],
+              [
+                1600.0,
+                900.0
+              ],
+              [
+                1600.0,
+                1038.0
+              ],
+              [
+                1460.0,
+                900.0
+              ],
+              [
+                1328.0,
+                1038.0
+              ],
+              [
+                1400.0,
+                1038.0
+              ],
+              [
+                1440.0,
+                1200.0
+              ],
+              [
+                1216.0,
+                1358.0
+              ]
+            ],
+            "point": [
+              144.0,
+              622.0
+            ]
+          },
+          {
+            "action": "在宽刺台上空向右下射近处悬铃。弹丸打开头顶限时闸，同一枪的向上反冲将身体送过闸口，随后落向左侧阁楼。",
+            "label": "同枪开顶闸与上冲",
+            "number": 2.0,
+            "path": [
+              [
+                800.0,
+                558.0
+              ],
+              [
+                896.0,
+                408.0
+              ],
+              [
+                816.0,
+                266.0
+              ],
+              [
+                784.0,
+                286.0
+              ],
+              [
+                448.0,
+                286.0
+              ]
+            ],
+            "point": [
+              800.0,
+              558.0
+            ]
+          },
+          {
+            "action": "阁楼西端为一次性20金币藏箱；沿已闭合顶闸向东，处理宽地守卫后从东端落回主路。失败落回近端重试。",
+            "label": "阁楼集中藏物与回落",
+            "number": 3.0,
+            "path": [
+              [
+                448.0,
+                286.0
+              ],
+              [
+                1344.0,
+                286.0
+              ],
+              [
+                1472.0,
+                286.0
+              ],
+              [
+                1600.0,
+                622.0
+              ]
+            ],
+            "point": [
+              448.0,
+              286.0
+            ]
+          }
+        ]
+      },
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "section_volumes": [],
+      "start_point": [
+        144.0,
+        622.0
+      ],
+      "story_sequence": {},
+      "traveler_point": [
+        0.0,
+        0.0
+      ],
+      "tutorial_action": "",
+      "tutorial_min_move": 100.0,
+      "tutorial_recoil_finish_x": 1540.0,
+      "tutorial_target": "",
+      "visible": true,
+      "wave_encounter": {},
+      "z_index": 0
+    }
+  },
+  "schema": 2
+}

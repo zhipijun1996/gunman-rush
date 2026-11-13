@@ -323,10 +323,10 @@ def build(canonical, construction, replay_path):
             assert not terms(requirement) & ABILITIES, (e["id"], requirement)
             side = sides[idx]
             door = {
-                "id": f"{e['id']}:{rid}", "edge_id": e["id"], "room_id": rid,
+                "id": e.get('door_ids',{}).get(rid,f"{e['id']}:{rid}"), "edge_id": e["id"], "room_id": rid,
                 "section": section, "target_room": target, "target_section": target_section,
                 "target_scene": f"res://world/regions/{rooms[target]['region']}/rooms/{target}.tscn",
-                "target_door_id": f"{e['id']}:{target}", "target_spawn": f"spawn:{e['id']}:{target}",
+                "target_door_id": e.get('door_ids',{}).get(target,f"{e['id']}:{target}"), "target_spawn": "spawn:"+e.get('door_ids',{}).get(target,f"{e['id']}:{target}"),
                 "direction": side, "target_direction": OPPOSITE[side],
                 "traversal_direction": direct, "outbound_allowed": bool(allowed),
                 "requires": requirement, "condition_format": "OR of AND; empty inner group is true",

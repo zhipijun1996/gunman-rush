@@ -85,7 +85,8 @@ def navigation_geometry(rooms, anchor):
             for other in exposed[i+1:]:
                 if door['direction'] == other['direction'] and math.dist(door['position_candidate']['local_world_units'],other['position_candidate']['local_world_units']) < 192:
                     raise ValueError('Crowded physical exits: '+rid)
-    origins = {anchor:(0,0)};pending = [anchor]
+    declared={rid:tuple(row['world_geometry']['world_origin']) for rid,row in rooms.items() if 'world_origin' in row['world_geometry']}
+    origins = {anchor:declared.get(anchor,(0,0))};pending = [anchor]
     while pending:
         rid = pending.pop()
         for door in rooms[rid]['doors']:
@@ -95,6 +96,7 @@ def navigation_geometry(rooms, anchor):
             paired = next(d for d in rooms[target]['doors'] if d['id']==door['target_door_id'])
             a,b = door['position_candidate']['local_world_units'],paired['position_candidate']['local_world_units']
             proposed = tuple(origins[rid][n]+a[n]-b[n] for n in (0,1))
+            if target in declared and proposed != declared[target]: raise ValueError('Authored world seam conflicts with declared position: '+door['id'])
             if target in origins:
                 if proposed != origins[target]: raise ValueError('Room map seam conflicts: '+door['id'])
             else: origins[target]=proposed;pending.append(target)

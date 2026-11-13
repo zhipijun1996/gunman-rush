@@ -1,0 +1,62 @@
+name: Publish editor runtime
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['game/**', 'scripts/**', 'resources/**', 'scenes/**', 'config/**', 'tools/world/**', 'tools/export_editor_native.py', 'addons/runtime_raw_export/**']
+permissions:
+  contents: write
+concurrency:
+  group: editor-runtime
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            config
+            tools
+            game
+            scripts
+            scenes
+            resources
+            addons
+            shaders
+            experiments
+            tests
+      - name: Hydrate registered inputs and install locked engine
+        run: |
+          python3 tools/world/build.py
+          python3 tools/materialize_editor_inputs.py
+          python3 tools/setup_environment.py --godot-only
+          bash tools/godot.sh --headless --path . --editor --quit
+      - name: Validate and export same-version data and native pack
+        run: |
+          bash tools/godot.sh --headless --path . --script tools/world/export_editor_documents.gd
+          python3 tools/export_editor_native.py
+          python3 tools/world/export_editor_project.py
+          bash tools/godot.sh --headless --path . --script tests/world/editor_documents.gd
+      - name: Publish immutable runtime and update discovery channel
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          root=Path('build/editor-native');meta=json.loads((root/'manifest.json').read_text())
+          tag='editor-runtime-'+os.environ['GITHUB_SHA'][:12]
+          meta['pck_url']='https://github.com/'+os.environ['GITHUB_REPOSITORY']+'/releases/download/'+tag+'/game.pck'
+          (root/'manifest.json').write_text(json.dumps(meta,ensure_ascii=False))
+          project=json.loads(Path('build/editor/project.json').read_text());project['native_runtime']=meta
+          (root/'editor-project.json').write_text(json.dumps(project,ensure_ascii=False))
+          Path('build/editor-runtime-tag').write_text(tag)
+          PY
+          tag=$(cat build/editor-runtime-tag)
+          gh release view "$tag" >/dev/null 2>&1 || gh release create "$tag" --target "$GITHUB_SHA" --title "Editor runtime $GITHUB_SHA" --notes 'Same-version editor data and verified native runtime; not a full-world content completion claim.' --prerelease
+          gh release upload "$tag" build/editor-native/game.pck build/editor-native/manifest.json build/editor-native/editor-project.json --clobber
+          gh release view editor-runtime >/dev/null 2>&1 || gh release create editor-runtime --target "$GITHUB_SHA" --title 'Editor update channel' --notes 'Discovery metadata; runtime packs use immutable version URLs.' --prerelease
+          gh release upload editor-runtime build/editor-native/manifest.json build/editor-native/editor-project.json build/editor-native/game.pck --clobber

@@ -10,6 +10,7 @@ var _room_actions: Dictionary={}
 var _workbench_base: Dictionary = {}
 var _workbench_drafts: Dictionary = {}
 var _workbench_catalog: Dictionary = {}
+var _editor_documents: Dictionary = {}
 var workbench_catalog_error := ""
 
 func open(path: String = BUNDLE) -> bool:
@@ -39,14 +40,23 @@ func resolve(request: LevelRequest) -> Dictionary:
 	var row := room(request.room_id)
 	if row.is_empty(): return {"error":"room_not_implemented"}
 	if not request.expected_hash.is_empty() and request.expected_hash != data.content_version: return {"error":"content_version_mismatch"}
-	var packed := load(str(row.scene_ref)) as PackedScene
-	if packed == null: return {"error":"scene_missing"}
+	var document_path := str(row.get("document_ref", ""))
+	var packed: PackedScene
+	var document: Dictionary = {}
+	if _editor_documents.has(request.room_id):
+		document = _editor_documents[request.room_id]
+	elif not document_path.is_empty():
+		document = WorldRoomDocument.read(document_path)
+		if document.has("error"): return document
+	else:
+		packed = load(str(row.scene_ref)) as PackedScene
+		if packed == null: return {"error":"scene_missing"}
 	var entry: Dictionary = {}
 	if not request.entry_door_id.is_empty():
 		for door: Dictionary in row.doors:
 			if door.id == request.entry_door_id: entry = door
 		if entry.is_empty(): return {"error":"entry_missing"}
-	return {"room":row,"scene":packed,"entry":entry,"content_version":data.content_version,"draft":_workbench_drafts.get(request.room_id,{})}
+	return {"room":row,"scene":packed,"document":document,"entry":entry,"content_version":data.content_version,"draft":_workbench_drafts.get(request.room_id,{})}
 
 static func point(value: Array) -> Vector2:
 	return Vector2(float(value[0]),float(value[1]))
@@ -125,19 +135,32 @@ func _preview_catalog() -> Dictionary:
 	return _workbench_catalog
 
 func workbench_snapshot() -> Dictionary:
-	return {"data":data.duplicate(true), "base":_workbench_base.duplicate(true), "drafts":_workbench_drafts.duplicate(true)}
+	return {"data":data.duplicate(true), "base":_workbench_base.duplicate(true), "drafts":_workbench_drafts.duplicate(true), "editor_documents":_editor_documents.duplicate(true)}
 
 func restore_workbench_snapshot(snapshot: Dictionary) -> void:
 	data = snapshot.data.duplicate(true)
 	_workbench_base = snapshot.base.duplicate(true)
 	_workbench_drafts = snapshot.drafts.duplicate(true)
+	_editor_documents = snapshot.get("editor_documents", {}).duplicate(true)
 	_index_actions()
 
 func restore_workbench_base() -> void:
 	if not _workbench_base.is_empty(): data = _workbench_base.duplicate(true)
 	_workbench_base.clear()
 	_workbench_drafts.clear()
+	_editor_documents.clear()
 	_index_actions()
+
+func install_editor_project(project: Dictionary, selected: String, verified_behavior_hash := "") -> String:
+	var base: Dictionary = _workbench_base if not _workbench_base.is_empty() else data
+	var compiled := WorldEditorRuntime.compile(base, project, selected, verified_behavior_hash)
+	if compiled.has("error"): return str(compiled.error)
+	if _workbench_base.is_empty(): _workbench_base = data.duplicate(true)
+	data = compiled.runtime
+	_editor_documents = compiled.documents
+	_workbench_drafts.clear()
+	_index_actions()
+	return ""
 
 func _index_actions() -> void:
 	_room_actions.clear()

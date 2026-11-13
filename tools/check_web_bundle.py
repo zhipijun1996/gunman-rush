@@ -527,8 +527,16 @@ def check_fixed_world_payload(pack, repo):
     actual = json.loads(pack.read('build/world/runtime.json'))
     if actual != expected:
         raise ValueError('PCK fixed world differs from current source and scene hashes')
-    if any(name.startswith(('docs/','config/world/')) for name in pack.entries):
+    allowed_documents = {resource_path(r['document_ref']) for r in actual['rooms'].values() if r.get('document_ref')}
+    if 'build/workbench/preview-world.json' in pack.entries:
+        preview = json.loads(pack.read('build/workbench/preview-world.json'))
+        allowed_documents.update(resource_path(r['document_ref']) for r in preview.get('rooms',{}).values() if r.get('document_ref'))
+    if any(name.startswith('docs/') or (name.startswith('config/world/') and name not in allowed_documents) for name in pack.entries):
         raise ValueError('PCK fixed world must not include docs or manual world sources')
+    for name in allowed_documents:
+        document = json.loads(pack.read(name))
+        if document.get('schema') != 2 or pack.read(name) != (Path(repo)/name).read_bytes():
+            raise ValueError('PCK room document differs from current registered source: '+name)
     for room in actual['rooms'].values():
         name = resource_path(room['scene_ref'])
         if name in pack.entries:

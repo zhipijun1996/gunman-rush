@@ -1,0 +1,1339 @@
+{
+  "entities": {
+    "P-R20:bell_mechanisms:0": {
+      "component": "array:bell_mechanisms",
+      "id": "P-R20:bell_mechanisms:0",
+      "order": 0,
+      "properties": {
+        "access_bells": [
+          [
+            2016.0,
+            960.0
+          ]
+        ],
+        "bell": [
+          2360.0,
+          1088.0
+        ],
+        "gate": [
+          2080.0,
+          448.0,
+          32.0,
+          832.0
+        ],
+        "id": "P-R20:r8:sluice",
+        "open_seconds": 1.5
+      }
+    },
+    "P-R20:composition:0": {
+      "component": "array:art_placements",
+      "id": "P-R20:composition:0",
+      "order": 0,
+      "properties": {
+        "asset": "plains_grass",
+        "atmosphere": {
+          "density": 4,
+          "speed": [
+            24,
+            42
+          ],
+          "sway_speed": 0.8
+        },
+        "cloud_wrap_fade": 0.025,
+        "clouds": "junction_clouds",
+        "landscape": "junction_meadow",
+        "landscape_offset": [
+          0,
+          130
+        ],
+        "landscape_reference": [
+          1536,
+          960
+        ],
+        "landscape_scroll": [
+          0.08,
+          0.35
+        ],
+        "layer": -5,
+        "point": [
+          2720,
+          960
+        ],
+        "sky_cloud_density": [
+          0.4,
+          0
+        ],
+        "sky_colors": [
+          "e7d9b9",
+          "f8e7c8"
+        ],
+        "sway": true
+      }
+    },
+    "P-R20:composition:1": {
+      "component": "array:art_placements",
+      "id": "P-R20:composition:1",
+      "order": 1,
+      "properties": {
+        "point": [
+          576,
+          960
+        ],
+        "support_height": 352
+      }
+    },
+    "P-R20:composition:2": {
+      "component": "array:art_placements",
+      "id": "P-R20:composition:2",
+      "order": 2,
+      "properties": {
+        "point": [
+          1360,
+          1024
+        ],
+        "support_height": 480
+      }
+    },
+    "P-R20:composition:3": {
+      "component": "array:art_placements",
+      "id": "P-R20:composition:3",
+      "order": 3,
+      "properties": {
+        "asset": "forecourt_foundation",
+        "layer": -28,
+        "point": [
+          0,
+          0
+        ],
+        "tile_rect": [
+          2080,
+          960,
+          352,
+          320
+        ]
+      }
+    },
+    "P-R20:composition:4": {
+      "component": "array:art_placements",
+      "id": "P-R20:composition:4",
+      "order": 4,
+      "properties": {
+        "asset": "gear_city_v2_valve_panel",
+        "layer": -5,
+        "point": [
+          1808,
+          768
+        ]
+      }
+    },
+    "P-R20:composition:5": {
+      "component": "array:art_placements",
+      "id": "P-R20:composition:5",
+      "order": 5,
+      "properties": {
+        "asset": "barrel",
+        "layer": -4,
+        "point": [
+          688,
+          960
+        ]
+      }
+    },
+    "P-R20:composition:6": {
+      "component": "array:art_placements",
+      "id": "P-R20:composition:6",
+      "order": 6,
+      "properties": {
+        "asset": "hanging_chime",
+        "layer": -5,
+        "point": [
+          288,
+          736
+        ]
+      }
+    },
+    "P-R20:composition:7": {
+      "component": "array:art_placements",
+      "id": "P-R20:composition:7",
+      "order": 7,
+      "properties": {
+        "asset": "orchard_fence",
+        "layer": -6,
+        "point": [
+          2640,
+          960
+        ],
+        "tint": [
+          0.65,
+          0.75,
+          0.72,
+          1
+        ]
+      }
+    },
+    "P-R20:composition:8": {
+      "component": "array:art_placements",
+      "id": "P-R20:composition:8",
+      "order": 8,
+      "properties": {
+        "surface_platform": 3
+      }
+    },
+    "P-R20:composition:9": {
+      "component": "array:art_placements",
+      "id": "P-R20:composition:9",
+      "order": 9,
+      "properties": {
+        "asset": "forecourt_foundation",
+        "layer": -24,
+        "point": [
+          0,
+          0
+        ],
+        "threshold_for": "room-link-137:P-R20",
+        "tile_rect": [
+          2912,
+          864,
+          160,
+          96
+        ]
+      }
+    },
+    "P-R20:enemy_placements:0": {
+      "component": "array:enemy_placements",
+      "id": "P-R20:enemy_placements:0",
+      "order": 0,
+      "properties": {
+        "behavior": "charger",
+        "id": "P-R20:r8:bank_charge",
+        "max_health": 14.0,
+        "point": [
+          1536.0,
+          1010.0
+        ]
+      }
+    },
+    "P-R20:enemy_placements:1": {
+      "component": "array:enemy_placements",
+      "id": "P-R20:enemy_placements:1",
+      "order": 1,
+      "properties": {
+        "behavior": "hopper",
+        "id": "P-R20:r8:west_hopper",
+        "max_health": 9.0,
+        "point": [
+          416.0,
+          944.0
+        ]
+      }
+    },
+    "P-R20:enemy_placements:2": {
+      "component": "array:enemy_placements",
+      "id": "P-R20:enemy_placements:2",
+      "order": 2,
+      "properties": {
+        "behavior": "fan_sentry",
+        "id": "P-R20:r9:underbridge_air",
+        "max_health": 9.0,
+        "point": [
+          1152.0,
+          704.0
+        ]
+      }
+    },
+    "P-R20:enemy_placements:3": {
+      "component": "array:enemy_placements",
+      "id": "P-R20:enemy_placements:3",
+      "order": 3,
+      "properties": {
+        "behavior": "patrol",
+        "id": "P-R20:r9:bridge_patrol",
+        "max_health": 9.0,
+        "point": [
+          1136.0,
+          464.0
+        ]
+      }
+    },
+    "P-R20:marsh:lower": {
+      "component": "array:platforms",
+      "id": "P-R20:marsh:lower",
+      "order": 4,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          480.0,
+          1152.0,
+          128.0,
+          16.0
+        ]
+      }
+    },
+    "P-R20:marsh:middle": {
+      "component": "array:platforms",
+      "id": "P-R20:marsh:middle",
+      "order": 5,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          640.0,
+          1056.0,
+          192.0,
+          16.0
+        ]
+      }
+    },
+    "P-R20:marsh:upper": {
+      "component": "array:platforms",
+      "id": "P-R20:marsh:upper",
+      "order": 6,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          704.0,
+          928.0,
+          160.0,
+          16.0
+        ]
+      }
+    },
+    "P-R20:node:./Cache_seawall_cache": {
+      "component": "WorldRoomInteraction",
+      "id": "P-R20:node:./Cache_seawall_cache",
+      "node_name": "Cache_seawall_cache",
+      "node_path": "./Cache_seawall_cache",
+      "order": 3,
+      "parent": "",
+      "properties": {
+        "action_id": "open_P20_seawall_cache",
+        "label": "打开防波堤藏箱",
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          80.0,
+          526.0
+        ],
+        "radius": 48.0,
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "section_id": "main",
+        "visible": true,
+        "visual": "chest",
+        "z_index": 0
+      }
+    },
+    "P-R20:node:./Interaction_0": {
+      "component": "WorldRoomInteraction",
+      "id": "P-R20:node:./Interaction_0",
+      "node_name": "Interaction_0",
+      "node_path": "./Interaction_0",
+      "order": 1,
+      "parent": "",
+      "properties": {
+        "action_id": "pickup_EQ_MAP_P02",
+        "label": "收取水岸行装包",
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          1888.0,
+          142.0
+        ],
+        "radius": 60.0,
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "section_id": "access:H",
+        "visible": true,
+        "visual": "equipment",
+        "z_index": 0
+      }
+    },
+    "P-R20:node:./RewardReturn": {
+      "component": "WorldReturnLatch",
+      "id": "P-R20:node:./RewardReturn",
+      "node_name": "RewardReturn",
+      "node_path": "./RewardReturn",
+      "order": 2,
+      "parent": "",
+      "properties": {
+        "action_id": "reward_return_EQ_MAP_P02_open",
+        "closed_panels": [],
+        "label": "放下返程折梯",
+        "metal_hatch": false,
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          1984.0,
+          142.0
+        ],
+        "radius": 40.0,
+        "return_steps": [
+          [
+            -32.0,
+            178.0,
+            128.0,
+            16.0
+          ],
+          [
+            0.0,
+            354.0,
+            96.0,
+            16.0
+          ],
+          [
+            -32.0,
+            530.0,
+            128.0,
+            16.0
+          ],
+          [
+            32.0,
+            706.0,
+            128.0,
+            16.0
+          ]
+        ],
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "section_id": "access:H",
+        "visible": true,
+        "visual": "pulley_switch",
+        "z_index": 0
+      }
+    },
+    "P-R20:r8:H_wall": {
+      "component": "array:platforms",
+      "id": "P-R20:r8:H_wall",
+      "order": 1,
+      "properties": {
+        "illustrated": false,
+        "masonry": true,
+        "one_way": false,
+        "rect": [
+          1472.0,
+          32.0,
+          32.0,
+          672.0
+        ]
+      }
+    },
+    "P-R20:r8:dry_quay": {
+      "component": "array:platforms",
+      "id": "P-R20:r8:dry_quay",
+      "order": 3,
+      "properties": {
+        "illustrated": true,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          1728.0,
+          768.0,
+          288.0,
+          48.0
+        ]
+      }
+    },
+    "P-R20:r8:equipment_bank": {
+      "component": "array:platforms",
+      "id": "P-R20:r8:equipment_bank",
+      "order": 2,
+      "properties": {
+        "illustrated": false,
+        "masonry": true,
+        "one_way": false,
+        "rect": [
+          1664.0,
+          160.0,
+          384.0,
+          40.0
+        ]
+      }
+    },
+    "P-R20:r8:hook_points:0": {
+      "component": "array:hook_points",
+      "id": "P-R20:r8:hook_points:0",
+      "order": 0,
+      "properties": {
+        "position": [
+          1824.0,
+          592.0
+        ]
+      }
+    },
+    "P-R20:r8:hook_points:1": {
+      "component": "array:hook_points",
+      "id": "P-R20:r8:hook_points:1",
+      "order": 1,
+      "properties": {
+        "position": [
+          1712.0,
+          448.0
+        ]
+      }
+    },
+    "P-R20:r8:hook_points:2": {
+      "component": "array:hook_points",
+      "id": "P-R20:r8:hook_points:2",
+      "order": 2,
+      "properties": {
+        "position": [
+          1600.0,
+          304.0
+        ]
+      }
+    },
+    "P-R20:r8:hook_points:3": {
+      "component": "array:hook_points",
+      "id": "P-R20:r8:hook_points:3",
+      "order": 3,
+      "properties": {
+        "position": [
+          1600.0,
+          112.0
+        ]
+      }
+    },
+    "P-R20:r8:retry_anchors:0": {
+      "component": "array:retry_anchors",
+      "id": "P-R20:r8:retry_anchors:0",
+      "order": 0,
+      "properties": {
+        "bounds": [
+          2880.0,
+          900.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          2928.0,
+          942.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R20:r8:retry_anchors:1": {
+      "component": "array:retry_anchors",
+      "id": "P-R20:r8:retry_anchors:1",
+      "order": 1,
+      "properties": {
+        "bounds": [
+          2304.0,
+          900.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          2352.0,
+          942.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R20:r8:retry_anchors:2": {
+      "component": "array:retry_anchors",
+      "id": "P-R20:r8:retry_anchors:2",
+      "order": 2,
+      "properties": {
+        "bounds": [
+          1872.0,
+          964.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          1920.0,
+          1006.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R20:r8:retry_anchors:3": {
+      "component": "array:retry_anchors",
+      "id": "P-R20:r8:retry_anchors:3",
+      "order": 3,
+      "properties": {
+        "bounds": [
+          1712.0,
+          708.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          1760.0,
+          750.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R20:r8:retry_anchors:4": {
+      "component": "array:retry_anchors",
+      "id": "P-R20:r8:retry_anchors:4",
+      "order": 4,
+      "properties": {
+        "bounds": [
+          384.0,
+          900.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          432.0,
+          942.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R20:r8:upper_door": {
+      "component": "array:platforms",
+      "id": "P-R20:r8:upper_door",
+      "order": 0,
+      "properties": {
+        "illustrated": false,
+        "masonry": true,
+        "one_way": false,
+        "rect": [
+          1184.0,
+          160.0,
+          192.0,
+          32.0
+        ]
+      }
+    },
+    "P-R20:r9:retry_anchors:5": {
+      "component": "array:retry_anchors",
+      "id": "P-R20:r9:retry_anchors:5",
+      "order": 5,
+      "properties": {
+        "bounds": [
+          912.0,
+          772.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          960.0,
+          814.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R20:r9:retry_anchors:6": {
+      "component": "array:retry_anchors",
+      "id": "P-R20:r9:retry_anchors:6",
+      "order": 6,
+      "properties": {
+        "bounds": [
+          528.0,
+          484.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          576.0,
+          526.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R20:r9:retry_anchors:7": {
+      "component": "array:retry_anchors",
+      "id": "P-R20:r9:retry_anchors:7",
+      "order": 7,
+      "properties": {
+        "bounds": [
+          32.0,
+          484.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          80.0,
+          526.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R20:spike_strips:0": {
+      "component": "array:spike_strips",
+      "id": "P-R20:spike_strips:0",
+      "order": 0,
+      "properties": {
+        "bounds": [
+          2080.0,
+          1248.0,
+          224.0,
+          32.0
+        ],
+        "facing": "up",
+        "id": "P-R20:r8:canal_bed"
+      }
+    },
+    "P-R20:spike_strips:1": {
+      "component": "array:spike_strips",
+      "id": "P-R20:spike_strips:1",
+      "order": 1,
+      "properties": {
+        "bounds": [
+          1952.0,
+          744.0,
+          64.0,
+          24.0
+        ],
+        "facing": "up",
+        "id": "P-R20:r8:quay_end"
+      }
+    },
+    "P-R20:spike_strips:2": {
+      "component": "array:spike_strips",
+      "id": "P-R20:spike_strips:2",
+      "order": 2,
+      "properties": {
+        "bounds": [
+          752.0,
+          520.0,
+          64.0,
+          24.0
+        ],
+        "facing": "up",
+        "id": "P-R20:r9:bridge_short_strip"
+      }
+    },
+    "P-R20:terrain_polygons:0": {
+      "component": "array:terrain_polygons",
+      "id": "P-R20:terrain_polygons:0",
+      "order": 0,
+      "properties": {
+        "id": "P-R20:r8:west_bank",
+        "material": "masonry",
+        "points": [
+          [
+            192.0,
+            960.0
+          ],
+          [
+            192.0,
+            800.0
+          ],
+          [
+            384.0,
+            800.0
+          ],
+          [
+            384.0,
+            736.0
+          ],
+          [
+            192.0,
+            736.0
+          ],
+          [
+            192.0,
+            544.0
+          ],
+          [
+            0.0,
+            544.0
+          ],
+          [
+            0.0,
+            1280.0
+          ],
+          [
+            448.0,
+            1280.0
+          ],
+          [
+            448.0,
+            960.0
+          ]
+        ]
+      }
+    },
+    "P-R20:terrain_polygons:1": {
+      "component": "array:terrain_polygons",
+      "id": "P-R20:terrain_polygons:1",
+      "order": 1,
+      "properties": {
+        "id": "P-R20:r8:west_bank:east",
+        "material": "masonry",
+        "points": [
+          [
+            2080.0,
+            1280.0
+          ],
+          [
+            2080.0,
+            1088.0
+          ],
+          [
+            1984.0,
+            1088.0
+          ],
+          [
+            1984.0,
+            1024.0
+          ],
+          [
+            1088.0,
+            1024.0
+          ],
+          [
+            1088.0,
+            832.0
+          ],
+          [
+            864.0,
+            832.0
+          ],
+          [
+            864.0,
+            1024.0
+          ],
+          [
+            832.0,
+            1024.0
+          ],
+          [
+            832.0,
+            1280.0
+          ]
+        ]
+      }
+    },
+    "P-R20:terrain_polygons:2": {
+      "component": "array:terrain_polygons",
+      "id": "P-R20:terrain_polygons:2",
+      "order": 2,
+      "properties": {
+        "id": "P-R20:r8:gatehouse_bridge",
+        "material": "masonry",
+        "points": [
+          [
+            448.0,
+            544.0
+          ],
+          [
+            1024.0,
+            544.0
+          ],
+          [
+            1024.0,
+            480.0
+          ],
+          [
+            1280.0,
+            480.0
+          ],
+          [
+            1280.0,
+            352.0
+          ],
+          [
+            1440.0,
+            352.0
+          ],
+          [
+            1440.0,
+            544.0
+          ],
+          [
+            1088.0,
+            544.0
+          ],
+          [
+            1088.0,
+            608.0
+          ],
+          [
+            448.0,
+            608.0
+          ]
+        ]
+      }
+    },
+    "P-R20:terrain_polygons:3": {
+      "component": "array:terrain_polygons",
+      "id": "P-R20:terrain_polygons:3",
+      "order": 3,
+      "properties": {
+        "id": "P-R20:r8:east_bank",
+        "material": "masonry",
+        "points": [
+          [
+            2304.0,
+            960.0
+          ],
+          [
+            3072.0,
+            960.0
+          ],
+          [
+            3072.0,
+            1088.0
+          ],
+          [
+            2816.0,
+            1088.0
+          ],
+          [
+            2816.0,
+            1280.0
+          ],
+          [
+            2432.0,
+            1280.0
+          ],
+          [
+            2432.0,
+            1040.0
+          ],
+          [
+            2304.0,
+            1040.0
+          ]
+        ]
+      }
+    },
+    "P-R20:terrain_polygons:4": {
+      "component": "array:terrain_polygons",
+      "id": "P-R20:terrain_polygons:4",
+      "order": 4,
+      "properties": {
+        "id": "P-R20:entry:lintel",
+        "material": "masonry",
+        "points": [
+          [
+            2912,
+            736
+          ],
+          [
+            3040,
+            736
+          ],
+          [
+            3040,
+            864
+          ],
+          [
+            2912,
+            864
+          ]
+        ]
+      }
+    }
+  },
+  "room_id": "P-R20",
+  "root": {
+    "component": "FixedWorldRoom",
+    "properties": {
+      "arena_bounds": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "arena_door_height": 192.0,
+      "arrival_text": "退潮渠畔",
+      "art_profile": "water",
+      "battle_entry_anchor": [
+        0.0,
+        0.0
+      ],
+      "boss_binding": null,
+      "boss_identity": "",
+      "boss_position": [
+        0.0,
+        0.0
+      ],
+      "defeat_action": "",
+      "defeat_flag": "",
+      "intro_sequence": {},
+      "modulate": {
+        "$color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "onboarding": {},
+      "position": [
+        0.0,
+        0.0
+      ],
+      "region_preview": "",
+      "rest_point": [
+        0.0,
+        0.0
+      ],
+      "reward_action": "",
+      "reward_point": [
+        0.0,
+        0.0
+      ],
+      "reward_text": "",
+      "room_id": "P-R20",
+      "rotation": 0.0,
+      "route_guide": {
+        "schema": 1.0,
+        "steps": [
+          {
+            "action": "东堤外伸檐挡住地面射线；离岸略下落后向右下打檐下铃，同枪左上反冲穿1.5秒闸到一体接落岸，再回宽西堤。返向在西岸预开侧铃再起跳，失败落底刺按原地形恢复。",
+            "label": "离岸下坠回射开前闸",
+            "number": 1.0,
+            "path": [
+              [
+                2928.0,
+                942.0
+              ],
+              [
+                2352.0,
+                942.0
+              ],
+              [
+                2239.0,
+                998.0
+              ],
+              [
+                2144.0,
+                905.0
+              ],
+              [
+                2024.0,
+                1070.0
+              ],
+              [
+                2024.0,
+                944.0
+              ],
+              [
+                1944.0,
+                944.0
+              ],
+              [
+                1944.0,
+                1006.0
+              ]
+            ],
+            "point": [
+              2928.0,
+              942.0
+            ]
+          },
+          {
+            "action": "借192高落地防波墩隔开冲锋线；回射右下地怪可同时上墩，随后射右上空哨并向左离墩跨96刺槽。左岸另有80短刺与跃击守转角。普通清怪后仍可走，怪物不是一次性必需踏脚。",
+            "label": "桥下防波墩回射换位",
+            "number": 2.0,
+            "path": [
+              [
+                1944.0,
+                1006.0
+              ],
+              [
+                1680.0,
+                1006.0
+              ],
+              [
+                1304.0,
+                1006.0
+              ],
+              [
+                1232.0,
+                862.0
+              ],
+              [
+                1120.0,
+                780.0
+              ],
+              [
+                992.0,
+                780.0
+              ],
+              [
+                960.0,
+                814.0
+              ],
+              [
+                896.0,
+                720.0
+              ],
+              [
+                736.0,
+                880.0
+              ],
+              [
+                720.0,
+                942.0
+              ],
+              [
+                672.0,
+                800.0
+              ],
+              [
+                512.0,
+                800.0
+              ],
+              [
+                512.0,
+                942.0
+              ],
+              [
+                432.0,
+                942.0
+              ]
+            ],
+            "point": [
+              1944.0,
+              1006.0
+            ]
+          },
+          {
+            "action": "反冲上左宽肩后换边上桥；桥左段544与现行边界352之间留192净空，普通短跨过64地刺，经64抬阶和巡逻守卫进入原高井。上口高肩和从门台右侧接入的位置保留。",
+            "label": "宽肩上低桥，再入原高井",
+            "number": 3.0,
+            "path": [
+              [
+                432.0,
+                942.0
+              ],
+              [
+                432.0,
+                650.0
+              ],
+              [
+                336.0,
+                650.0
+              ],
+              [
+                336.0,
+                718.0
+              ],
+              [
+                432.0,
+                560.0
+              ],
+              [
+                512.0,
+                472.0
+              ],
+              [
+                576.0,
+                526.0
+              ],
+              [
+                704.0,
+                526.0
+              ],
+              [
+                736.0,
+                416.0
+              ],
+              [
+                864.0,
+                416.0
+              ],
+              [
+                864.0,
+                526.0
+              ],
+              [
+                976.0,
+                526.0
+              ],
+              [
+                1024.0,
+                400.0
+              ],
+              [
+                1136.0,
+                400.0
+              ],
+              [
+                1216.0,
+                462.0
+              ],
+              [
+                1216.0,
+                304.0
+              ],
+              [
+                1344.0,
+                304.0
+              ],
+              [
+                1344.0,
+                334.0
+              ],
+              [
+                1408.0,
+                334.0
+              ],
+              [
+                1408.0,
+                100.0
+              ],
+              [
+                1280.0,
+                100.0
+              ],
+              [
+                1280.0,
+                142.0
+              ]
+            ],
+            "point": [
+              432.0,
+              942.0
+            ]
+          },
+          {
+            "action": "左墙连体侧台集中15金币箱。取后可从右侧安全回落宽肩，也可用近水平反冲跨256缺口上桥；这条回桥捷径为可选，不取代安全返回。箱内15金币沿一次性收据散落。",
+            "label": "左壁集中收集与横向捷径",
+            "number": 4.0,
+            "path": [
+              [
+                288.0,
+                718.0
+              ],
+              [
+                240.0,
+                520.0
+              ],
+              [
+                128.0,
+                472.0
+              ],
+              [
+                80.0,
+                526.0
+              ],
+              [
+                176.0,
+                526.0
+              ],
+              [
+                240.0,
+                416.0
+              ],
+              [
+                448.0,
+                416.0
+              ],
+              [
+                560.0,
+                526.0
+              ]
+            ],
+            "point": [
+              288.0,
+              718.0
+            ]
+          },
+          {
+            "action": "干岸同时承担战斗换位和H起点。铜环沿墙侧空隙上行，原行装和折梯身份保持；新稿不另铺金币。",
+            "label": "独立H行装支路",
+            "number": 5.0,
+            "path": [
+              [
+                1856.0,
+                750.0
+              ],
+              [
+                1824.0,
+                592.0
+              ],
+              [
+                1712.0,
+                448.0
+              ],
+              [
+                1600.0,
+                304.0
+              ],
+              [
+                1600.0,
+                112.0
+              ],
+              [
+                1712.0,
+                142.0
+              ],
+              [
+                1888.0,
+                142.0
+              ]
+            ],
+            "point": [
+              1856.0,
+              750.0
+            ]
+          }
+        ]
+      },
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "section_volumes": [
+        {
+          "bounds": [
+            1504.0,
+            0.0,
+            608.0,
+            320.0
+          ],
+          "id": "access:H"
+        }
+      ],
+      "start_point": [
+        2928.0,
+        942.0
+      ],
+      "story_sequence": {},
+      "traveler_point": [
+        0.0,
+        0.0
+      ],
+      "tutorial_action": "",
+      "tutorial_min_move": 100.0,
+      "tutorial_recoil_finish_x": 1540.0,
+      "tutorial_target": "",
+      "visible": true,
+      "wave_encounter": {},
+      "z_index": 0
+    }
+  },
+  "schema": 2
+}

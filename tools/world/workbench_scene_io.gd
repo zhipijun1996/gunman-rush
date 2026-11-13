@@ -126,19 +126,40 @@ func _apply(input: String, output_dir: String) -> int:
 			printerr(id+": "+error)
 			return 1
 		var packed := PackedScene.new()
+		var document_ref := room.document_ref
+		room.document_ref = ""
 		var packed_error := packed.pack(room)
 		var expected := WorldRoomDraft.extract(room)
 		room.free()
 		if packed_error != OK:
 			printerr("Could not pack "+id)
 			return 1
-		prepared.append({"id":id, "packed":packed, "expected":expected, "source":path})
+		prepared.append({"id":id, "packed":packed, "expected":expected, "source":path, "document_ref":document_ref})
 	if DirAccess.make_dir_recursive_absolute(output_dir) != OK:
 		printerr("Could not create output directory")
 		return 1
 	var receipts: Array = []
 	for row: Dictionary in prepared:
 		var path := output_dir.path_join(str(row.id)+".tscn")
+		if not str(row.document_ref).is_empty():
+			var document := WorldRoomDocument.extract(row.packed)
+			if document.has("error"):
+				printerr(document.error)
+				return 1
+			var result := WorldRoomDocument.instantiate(document)
+			if result.has("error"): return 1
+			var actual := WorldRoomDraft.extract(result.room)
+			result.room.free()
+			if JSON.parse_string(JSON.stringify(actual)) != JSON.parse_string(JSON.stringify(row.expected)):
+				printerr("Saved document differs from accepted draft: "+str(row.id))
+				return 1
+			var document_path := output_dir.path_join(str(row.id)+".json")
+			if _write_json(document_path, document) != 0: return 1
+			var wrapper := FileAccess.open(path, FileAccess.WRITE)
+			wrapper.store_string(FileAccess.get_file_as_string(row.source))
+			wrapper.close()
+			receipts.append({"room_id":row.id, "source":row.source, "candidate":path, "source_hash":FileAccess.get_sha256(path), "document_source":row.document_ref, "document_candidate":document_path, "document_hash":FileAccess.get_sha256(document_path), "draft_hash":JSON.stringify(actual, "", true).sha256_text(), "roundtrip_verified":true})
+			continue
 		if ResourceSaver.save(row.packed, path) != OK:
 			printerr("Could not save "+path)
 			return 1

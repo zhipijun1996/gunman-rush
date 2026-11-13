@@ -77,7 +77,13 @@ func _ready() -> void:
 	review.app = self
 	workbench = WorldWorkbenchBridge.new()
 	workbench.setup(self)
-	if not workbench.enabled: review.requested()
+	var editor_path := WorldEditorSession.requested_path()
+	if not editor_path.is_empty():
+		var session := WorldEditorSession.new()
+		session.app = self
+		session.path = editor_path
+		add_child(session)
+	elif not workbench.enabled: review.requested()
 
 func _make_ui() -> void:
 	ui=FixedWorldUI.new()
@@ -209,7 +215,16 @@ func load_room(id: String, entry: String, reveal_seconds: float = .08) -> void:
 		busy = false
 		status = "暂不可通行：" + str(resolved.error)
 		return
-	var next := (resolved.scene as PackedScene).instantiate() as FixedWorldRoom
+	var next: FixedWorldRoom
+	if not resolved.get("document", {}).is_empty():
+		var created := WorldRoomDocument.instantiate(resolved.document)
+		if created.has("error"):
+			busy = false
+			status = "房间数据无法装载："+str(created.error)
+			return
+		next = created.room as FixedWorldRoom
+	else:
+		next = (resolved.scene as PackedScene).instantiate() as FixedWorldRoom
 	if next == null or next.room_id != id:
 		if next != null: next.free()
 		busy = false

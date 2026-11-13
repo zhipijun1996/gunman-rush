@@ -123,6 +123,14 @@ def build(root=ROOT):
     implemented = {r['room_id'] for r in construction['rooms'] if r.get('implemented')}
     scene_refs = {r['room_id']:r['scene_ref'] for r in construction['rooms']}
     for room in contracts['rooms']:
+        owned = next(r for r in construction['rooms'] if r['room_id'] == room['room_id'])
+        if 'world_origin' in owned:
+            if not isinstance(owned['world_origin'],list) or len(owned['world_origin'])!=2 or any(type(x) not in (int,float) or not math.isfinite(x) for x in owned['world_origin']):
+                raise ValueError('Invalid authored world origin: '+room['room_id'])
+            room['world_geometry']['world_origin'] = owned['world_origin']
+        document = root/'config/world/rooms'/f'{room["room_id"]}.json'
+        if document.is_file():
+            room['document_ref'] = 'res://'+document.relative_to(root).as_posix()
         room['scene_ref_status'] = 'implemented_graybox' if room['room_id'] in implemented else 'planned_new_scene_path; not already implemented'
         for door in room['doors']:
             door['target_scene'] = scene_refs[door['target_room']]
@@ -144,6 +152,7 @@ def build(root=ROOT):
               'npcs':[r for r in world['npcs'] if r['room_id'] in implemented or implemented.intersection(r.get('visit_rooms',[]))], 'traveler_story':world.get('traveler_story',{}),
               'map_rooms':[{**{k:r[k] for k in ['id','name','region']}, **layouts[r['id']]} for r in world['rooms'] if r['id'] in implemented], 'runtime_rules':world['runtime_rules'],
               'rooms':{r['room_id']:r for r in contracts['rooms'] if r['room_id'] in implemented}}
+    bundle['document_sources'] = {r['document_ref']:hashlib.sha256((root/r['document_ref'].removeprefix('res://')).read_bytes()).hexdigest() for r in bundle['rooms'].values() if r.get('document_ref')}
     validate_player(bundle['player'])
     validate_cameras(construction,bundle['player']['camera'])
     # Unbuilt-room placements remain authored in the source, but must not be

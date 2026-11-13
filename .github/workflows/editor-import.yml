@@ -1,0 +1,66 @@
+name: Validate editor change and prepare PR
+on:
+  workflow_dispatch:
+    inputs:
+      submission:
+        description: Scoped editor change package
+        required: true
+        default: .editor/submission.json
+permissions:
+  contents: write
+  pull-requests: write
+  statuses: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          sparse-checkout: |
+            config
+            tools
+            game
+            resources
+            docs
+            .github
+            .editor
+      - name: Prepare and apply exact scoped data
+        env:
+          SUBMISSION: ${{ inputs.submission }}
+        run: |
+          test "$GITHUB_REF_NAME" != main
+          test "$SUBMISSION" = .editor/submission.json
+          python3 tools/world/editor_apply.py "$SUBMISSION" --output build/editor-import --apply > build/editor-import-receipt.json
+      - name: Install locked validation engine
+        run: python3 tools/setup_environment.py --engine-only
+      - name: Fetch official matching runtime for component validation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p build/editor-validate
+          gh release download editor-runtime --pattern game.pck --pattern manifest.json --dir build/editor-validate
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('build/editor-validate');meta=json.loads((root/'manifest.json').read_text())
+          assert hashlib.sha256((root/'game.pck').read_bytes()).hexdigest()==meta['pck_sha256']
+          receipt=json.loads(Path('build/editor-import-receipt.json').read_text())
+          files=[str(Path(c['path']).resolve()) for c in receipt['changes'] if c['path'].startswith('config/world/rooms/') and c['path'].endswith('.json')]
+          (root/'documents.json').write_text(json.dumps(files))
+          PY
+          bash tools/godot.sh --headless --main-pack build/editor-validate/game.pck --script res://game/application/world/world_editor_validate_cli.gd -- --documents="$PWD/build/editor-validate/documents.json"
+      - name: Commit canonical files and return the existing draft PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git rm -- .editor/submission.json
+          git add -- config/world game/world/regions
+          git commit -m '采用世界工坊选区定稿：JSON与世界源校验通过'
+          git push origin HEAD
+          target_sha=$(git rev-parse HEAD)
+          gh api --method POST "repos/$GITHUB_REPOSITORY/statuses/$target_sha" -f state=success -f context='Editor schema and world' -f description='原世界编译及真实Godot组件装载通过；不代表整段动作试玩通过'
+          pr=$(gh pr list --head "$GITHUB_REF_NAME" --json number --jq '.[0].number')
+          if test -n "$pr"; then gh pr ready "$pr"; fi

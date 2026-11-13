@@ -79,6 +79,9 @@ def verify_baseline(root: Path, package: dict, construction: dict):
         if room_id not in bindings or room_id not in scope:
             reject("Unknown or out-of-scope room: " + room_id)
         required.add(bindings[room_id])
+        document = root/'config/world/rooms'/f'{room_id}.json'
+        if document.is_file():
+            required.add(document.relative_to(root).as_posix())
         if not isinstance(draft, dict) or draft.get("schema") != 1 or draft.get("room_id") != room_id:
             reject(room_id + ": draft identity/schema does not match its room binding")
         if draft.get("base_content_version") != package.get("base_content_version") or draft.get("revision") != package["revision"]:
@@ -87,7 +90,7 @@ def verify_baseline(root: Path, package: dict, construction: dict):
             reject(room_id + ": draft scene hash differs from its source binding")
     if not required.issubset(hashes):
         reject("Package omits required source hashes: " + ", ".join(sorted(required - hashes.keys())))
-    allowed = required | set(bindings.values()) | {"config/player_tuning.json"}
+    allowed = required | set(bindings.values()) | {"config/player_tuning.json"} | {p.relative_to(root).as_posix() for p in (root/'config/world/rooms').glob('*.json')}
     for relative, expected in hashes.items():
         if relative not in allowed or not re.fullmatch(r"[a-f0-9]{64}", str(expected)):
             reject("Unknown source hash binding: " + relative)
@@ -364,6 +367,12 @@ def prepare(root: Path, package: dict, output: Path, *, godot=None):
         relative = bindings[row["room_id"]]
         shutil.copyfile(Path(row["candidate"]), stage / relative)
         changed_sources[relative] = stage / relative
+        if row.get('document_source'):
+            document_relative = row['document_source'].removeprefix('res://')
+            destination = stage/document_relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(Path(row['document_candidate']), destination)
+            changed_sources[document_relative] = destination
     try:
         contracts, runtime = build(stage)
         verify_map_positions(contracts, package, base_seed["rooms"])

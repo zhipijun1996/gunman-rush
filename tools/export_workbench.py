@@ -65,6 +65,9 @@ def manifest(formal_only: bool = False) -> dict:
     construction = json.loads((ROOT / "config/world/construction.json").read_text())
     scope = set(world["rooms"]) if formal_only else editable_room_ids(ROOT, construction)
     editable = {row["room_id"]: row for row in construction["rooms"] if row["room_id"] in scope}
+    room_documents = {rid: 'config/world/rooms/'+rid+'.json' for rid in editable if (ROOT/'config/world/rooms'/f'{rid}.json').is_file()}
+    def authored_text(row):
+        return (ROOT/room_documents.get(row['room_id'], row['scene_ref'].removeprefix('res://'))).read_text()
     presets = (ROOT / "export_presets.cfg").read_text()
     base = re.search(r'\[preset\.2\]\n(.*?)\[preset\.2.options\]', presets, re.S)[1]
     exclusions = json.loads(re.search(r'^exclude_filter=(.*)$', base, re.M)[1]).split(",")
@@ -79,6 +82,7 @@ def manifest(formal_only: bool = False) -> dict:
     exclusions += [p.relative_to(ROOT).as_posix() for p in (ROOT / "assets/audio/ambience_v1").rglob("*")
                    if p.suffix in {".ogg", ".wav"} and p.name != "plains_chime_a.wav"]
     def excluded(name):
+        if name in room_documents.values(): return False
         return any(fnmatch.fnmatchcase(name, pattern) for pattern in exclusions)
     classes = {}
     for folder in ["game", "scripts", "resources", "scenes", "addons", "experiments"]:
@@ -93,19 +97,21 @@ def manifest(formal_only: bool = False) -> dict:
     if icon: pending.append(icon[1])
     if not formal_only and (ROOT / SCOPE_PATH).exists(): pending.append(SCOPE_PATH)
     pending += [row["scene_ref"].removeprefix("res://") for row in editable.values()]
+    pending += list(room_documents.values())
+    pending.append('game/application/world/world_editor_validate_cli.gd')
     art = json.loads((ROOT / "art/world-art-v2/assets/pixel/manifest.json").read_text())
     props = json.loads((ROOT / "assets/plains_v07/manifest.json").read_text())["props"]
     sprite_ids = {key for key in art["sprites"] if key.startswith(("plains_", "windchime_plains_", "gear_city_"))}
     for row in editable.values():
-        source = (ROOT / row["scene_ref"].removeprefix("res://")).read_text()
+        source = authored_text(row)
         sprite_ids.update(re.findall(r'"asset"\s*:\s*"([^"\n]+)"', source))
     # Threshold samples are formal scenes outside the editor scope. Admit their exact dynamic art.
     for row in world["rooms"].values():
-        source = (ROOT / row["scene_ref"].removeprefix("res://")).read_text()
+        source = authored_text(row)
         sample = re.search(r'^region_preview = "([a-z_]+)"$', source, re.M)
-        if not sample:
+        family = json.loads(source).get('root',{}).get('properties',{}).get('region_preview','') if row['room_id'] in room_documents else (sample[1] if sample else '')
+        if not family:
             continue
-        family = sample[1]
         background = art["backgrounds"].get(family+"_v2", art["backgrounds"][family])
         pending.append("art/world-art-v2/"+background["file"])
         lamp = art["terrains"][family]["asset"].removesuffix("_terrain")+"_lamp"
