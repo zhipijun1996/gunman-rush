@@ -23,4 +23,5 @@ for name in ['capture.json','ortho-capture.json']:
     a,b=m['samples'][0]['points'],m['samples'][1]['points']
     displacement={z:round(b[z][0]-a[z][0],3) for z in a}
     print(name,'screen-x displacement by depth:',displacement)
+subprocess.run([sys.executable,str(ROOT/'tools/check_depth_lab_capture.py'),*extra],check=True)
 print('DEPTH LAB: real graphics capture, both projection modes and media encoding passed')

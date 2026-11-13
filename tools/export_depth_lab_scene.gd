@@ -9,8 +9,7 @@ func own(node: Node, scene: Node) -> void:
 func run() -> void:
 	var source: Control = load("res://game/presentation/experiments/depth_lab/depth_lab.tscn").instantiate()
 	root.add_child(source)
-	await process_frame
-	await physics_frame
+	while not source.ready_to_run: await process_frame
 	var scene: Node = source.duplicate()
 	scene.set_script(null)
 	own(scene,scene)
