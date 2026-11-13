@@ -1,0 +1,68 @@
+{
+  "tool": "image_gen.imagegen",
+  "review_status": "candidate",
+  "formal_gameplay_verified": false,
+  "reference_roles": {
+    "animal_well": "用户截图：仅学习空间围合、明暗主次、细节分布；不复制建筑或房形",
+    "terrain": "正式32px平原材质约束",
+    "hero": "正式角色尺度与画法"
+  },
+  "generations": [
+    {
+      "file": "composition-studies.png",
+      "source": "/workspace/generated_images/exec-5da114df-5cfb-4b8f-aa47-21841710cf69.png",
+      "kind": "composition studies; not a formal-camera pass",
+      "prompt_summary": "Two contrasting abandoned aqueduct/sluice compositions, using user Animal Well screenshot for spatial hierarchy and real32px terrain/hero for material and scale. Top continuous aqueduct selected, bottom repetitive retaining-wall composition rejected. Panels generated too wide: require a new single16:9 frame before further work.",
+      "actual_references": [
+        "user-supplied Animal Well screenshot",
+        "assets/underworld_plains/terrain/fine_32/terrain.png",
+        "assets/underworld_plains/player_animation/states_sheet.png"
+      ],
+      "prompt": "Create an art-direction comparison board for a SIDE-ON 2D pixel-art metroidvania, two large 16:9 landscape frames stacked vertically, separated by a narrow black gutter, no text, no labels, no UI. Reference 1 teaches coherent spatial enclosure, focal hierarchy and restrained pixel detail, DO NOT copy its shrine or layout. Reference 2 is the ACTUAL 32px terrain material: muted olive moss on cool midnight blue soil, narrow bright edges, quiet interior. Reference 3 gives the scale and drawing of the 44-world-pixel orange hooded hero. Fine authored pixel clusters, hard nearest edges, restrained palette; no painterly brushwork, 3D rendering or isometric floor planes. Both frames depict the same place: an abandoned water-channel crossing at the edge of a windswept orchard at blue dusk. This is an OUTDOOR structure, sky visible through large openings. Use ONE continuous ancient sluice/aqueduct ruin as the spatial skeleton: massive masonry visibly joined to terrain, eroded grassy banks, a still dark channel, a small warm mechanical bell alcove as the single focal destination, and distant low orchard silhouettes. No complete freestanding house, no giant tree arch, no giant root patch, no distant clocktower. Design WHOLE connected place rather than a row of complete props. The orange hero must be small, ~6% of frame height, with readable silhouette on an accessible bank, never centered as a poster portrait. Ground and traversable edges read as thin olive lit contours on quiet dark material. Distant structures and surface marks subordinate. Spacious but shaped negative space. Local water reflections, subtle partial foreground framing belongs to structure. No sparkling ornaments everywhere, no uniform detail density. Top frame A: camera under a broken aqueduct, large partial cropped pier at left, one continuous elevated aqueduct body crossing upper frame then breaking to open sky at right; stepped lower banks across a narrow channel, warm alcove right of center. Bottom frame B: camera beside a broad eroded sluice retaining wall, strong asymmetric diagonal silhouette stepping down from upper left toward low right bank; a tall water gate opening at right frames the small warm bell chamber deeper behind, expansive cool sky and dark orchard distance at upper right, low channel across foreground. A and B must differ in overall mass and empty-space silhouette, not simply move props. Prioritize beautiful coherent complete game frames and material family, not complex item inventory. High resolution board, each frame composed as real horizontal gameplay camera view."
+    },
+    {
+      "file": "composition.png",
+      "source": "/workspace/generated_images/exec-7b5d3050-bdc7-413d-921d-a66286cdd384.png",
+      "kind": "selected intent; never loaded by runtime",
+      "prompt": "Create ONE SINGLE full-frame 16:9 landscape 2D pixel game art direction image, NOT a board, NOT multiple panels. Use ONLY THE TOP DESIGN of reference1 as spatial starting point, RECOMPOSE for a normal 1280x720 gameplay camera; do not squeeze the superwide top panel into the frame. Reference2 is the actual native32px terrain surface/material, reference3 is the actual orange hooded44px hero. Abandoned aqueduct sluice crossing outside an orchard at quiet blue dusk. A continuous very large ancient mossy aqueduct fills the upper left and curves across the upper half with two large structurally connected arches, cropping naturally out of left and top; the bridge BROKEN at right letting blue sky open. Tall piers descend behind the walkable banks to a dark water channel. A SMALL recessed warm bell alcove is built into the right pier around x830 y320; it is part of the aqueduct, not a complete house or shrine perched on a platform. Main warm destination subordinate to huge cool structure. Foreground walkable soil banks use ACTUAL REFERENCE2 dark navy soil, sparse blue stone flecks and narrow muted olive grass, NOT all masonry: left bank from x0 to x420 around y540, with one low step down to x560 around y580; right bank begins x770 around y550, rises x1000 around y510, continues right. A narrow visible still water channel separates banks and reflects small fragments of the warm alcove. Keep useful dark mass under banks, no huge high-contrast exposed roots, no busy filler. Aqueduct stone is dark desaturated blue-grey, weathered but calm internally, narrow edge catches, masonry belongs to the structure only. Distant low orchard silhouettes and old low fence through arches; cool sky, no giant tower. Very sparse rooted foreground reeds in one lower corner. Small actual orange hero feet at x330 y540, about44px tall in1280x720, NOT the enlarged hero from ref1. Strong hierarchy of immense partial structure, navigable banks, tiny character and small warm point. Coherent 2D side elevation, NO broad visible3D floor tops, isometric view, painterly strokes or soft detailed illustration. Fine controlled pixel clusters with crisp edges and deliberate limited palette matching reference2. No UI, labels, arrows, annotations, typography, vignette or panels. The full-frame must look like an intentional integrated playable place, not an asset exhibition. Preserve breathing room around hero and channel; no all-over bright moss, ivy decoration or sky particles.",
+      "actual_references": [
+        "source/composition-studies.png",
+        "assets/underworld_plains/terrain/fine_32/terrain.png",
+        "assets/underworld_plains/player_animation/states_sheet.png"
+      ]
+    },
+    {
+      "file": "aqueduct-draft.png",
+      "source": "/workspace/generated_images/exec-20ad3cea-732c-45dc-ba27-d84518a7a71a.png",
+      "kind": "superseded; first assembly trial, before explicit terrain-reference calibration",
+      "prompt": "Edit this selected full-frame pixel game concept into ONE transparent architectural layer for an actual Godot2D assembly. Preserve the exact single16:9 camera composition, scale, positions, fine pixel style and lighting of ALL aqueduct masonry: cropped left huge arch, continuous upper bridge and broken right edge, central pier, right pier with the small warm recessed bell alcove and its intact threshold/foundation. Keep these as ONE coherent continuous structure exactly placed in the full original camera canvas, not a centered prop sheet. Keep hanging moss attached to masonry. Remove ALL sky, clouds, distant trees, fence, distant terrain, foreground soil/grass banks, water, reflection, reeds and the orange hero; every removed region must be genuinely transparent alpha. The large arch openings must be transparent, except the self-shadowed inner masonry thickness. The bell recess remains opaque dark back wall with tiny warm bell and mechanism, not a transparent hole. Extend obscured pier bottoms modestly behind where the grass banks and water originally hide them, with natural masonry continuation; no invented giant footings or new visual features. Crisp fine pixel clusters and exact same muted blue-grey/olive/amber palette. Do not recompose, zoom, move arches or enlarge alcove, no floor plane, no external shadow plate, no black background, no text. Desired native display footprint1280x720, full canvas retains transparent surroundings.",
+      "actual_references": [
+        "source/composition.png"
+      ]
+    },
+    {
+      "file": "environment.png",
+      "source": "/workspace/generated_images/exec-6a0e7433-5db9-4eb8-9d66-3715a0efa768.png",
+      "kind": "independent far environment",
+      "prompt": "Edit this full-frame pixel game concept into the independent DISTANT ENVIRONMENT layer for actual Godot2D assembly. Keep the same single16:9 full camera canvas, palette, fine pixel clusters and quiet blue dusk lighting. Remove the ENTIRE aqueduct architecture, piers, alcove, bell, all foreground soil/grass banks, orange character, foreground reeds and all warm light/reflection. Seamlessly reveal the scene behind them: cool muted periwinkle dusk sky occupying roughly upper half to60%, very sparse restrained horizontal clouds, a low distant orchard of softly subordinate dark blue silhouetted rounded old trees and an old low fence across the middle-lower part, rolling low dark distant land. All trees far and small, no individual centerpiece tree, no freestanding building or tower. Lower25% is calm very dark blue water and distance haze, no near shore, grass outline, detailed soil or foreground. The orchard ground/horizon aligns around y450 of720; the distant land merges into calm dark water around y555. Keep contrast lower than the aqueduct and hero, with no saturated bright blue sky or red fruit highlights. Opaque background, no transparency. This is ONLY distant scene; foreground architecture and walkable banks will be separate nodes. Do not include any architecture or playable terrain. No smooth painterly brushwork, blur, vignetting, text, UI or panels.",
+      "actual_references": [
+        "source/composition.png"
+      ]
+    },
+    {
+      "file": "aqueduct.png",
+      "source": "/workspace/generated_images/exec-59e8ff03-8931-485a-ab9a-d42c16e12b43.png",
+      "kind": "continuous architecture, selected after formal-terrain material calibration",
+      "prompt": "Calibrate this ENTIRE continuous architectural cutout layer for a real2D pixel game, keeping the exact16:9 full canvas, silhouette, positions and scale of reference1. Reference2 is the selected COMPLETE SCREEN design: preserve its immense connected aqueduct, quiet blue dusk mass and small single warm recessed bell alcove. Reference3 is the ACTUAL32px terrain sheet that must coexist with this masonry in the game: sparse olive lit edges on calm midnight blue interior, deliberate fine pixel clusters and low noise. Repaint this whole aqueduct layer in one coherent material treatment closer to that native pixel language: keep interior stone blue-grey and calm, reduce excess isolated bright mottling and bright cracks, edge highlights narrow and sparse. The structure is ancient masonry, NOT soil blocks; interpret the source material's density and contrast without turning piers into dirt or adding grass to every joint. Maintain all connected arches, self-shadowed inner arch thickness, piers descending to about82%frameheight, small intact warm bell mechanism/recess, its threshold and foundation; no changes of layout or added props. All sky, orchard, fence, far land, foreground banks, hero, water and reflections must remain completely transparent. Keep the full-frame1280x720 intended display footprint with the same camera and transparent margins; do not center the object or enlarge it. Fully transparent arch openings except genuine masonry; no baked checkerboard or opaque dark background. Fine crisp pixel art, no painterly or smooth3D surfaces, no new glow haze, no text. This is one architecture layer within a scene with actual tile terrain, not a finished whole scene.",
+      "actual_references": [
+        "source/aqueduct-draft.png",
+        "source/composition.png",
+        "assets/underworld_plains/terrain/fine_32/terrain.png"
+      ]
+    }
+  ],
+  "constraint_hashes": {
+    "assets/underworld_plains/terrain/fine_32/terrain.png": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de",
+    "assets/underworld_plains/player_animation/states_sheet.png": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744"
+  }
+}
