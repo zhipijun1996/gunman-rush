@@ -15,5 +15,6 @@ void fragment() {
     float tint = (wash - 0.5) * 0.7 + (bloom - 0.5) * 0.25;
     float grain = (tooth-0.5)*0.015 + (fiber-0.5)*0.008;
     vec3 ink = pigment.rgb * (1.0 + tint * strength + grain);
-    COLOR = vec4(ink, pigment.a);
+    // Preserve inherited alpha and accepted hurt flashes from the paper puppet.
+    COLOR = vec4(ink, pigment.a) * COLOR;
 }

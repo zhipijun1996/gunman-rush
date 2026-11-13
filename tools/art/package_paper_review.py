@@ -29,6 +29,11 @@ def main():
     names += [p.name for p in source.glob('index.*.engine*.js')]
     for name in names:
         shutil.copyfile(source/name,play/name)
+    # Retain only chunks used by this frozen export, never old build payloads.
+    if (play/'chunks').is_dir():
+        for old in (play/'chunks').glob('*.gz'):
+            if re.fullmatch(r'[a-f0-9]{64}\.gz',old.name) and not (source/'chunks'/old.name).exists():
+                old.unlink()
     shutil.copytree(source/'chunks',play/'chunks',dirs_exist_ok=True)
     html = (play/'index.html').read_text()
     # Raw >25MiB files intentionally remain local. Require the existing verified
@@ -46,7 +51,9 @@ def main():
     (play/'index.html').write_text(html)
     media = target/'media'
     media.mkdir(exist_ok=True)
-    for path in (EVIDENCE/'captures').glob('*.png'):
+    captures = json.loads((EVIDENCE/'capture-manifest.json').read_text())
+    for row in captures:
+        path = EVIDENCE/'captures'/Path(row['file']).name
         shutil.copyfile(path,media/path.name)
     for name in ['A.mp4','B.mp4','capture-manifest.json','clip-A.json','clip-B.json','performance.json']:
         shutil.copyfile(EVIDENCE/name,media/name)

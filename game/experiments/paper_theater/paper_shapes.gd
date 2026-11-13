@@ -26,7 +26,7 @@ func _init() -> void:
 func polygon(parent: Node, points: PackedVector2Array, color: Color, z := 0, wash := true) -> Polygon2D:
 	var face := Polygon2D.new()
 	face.polygon = points
-	face.color = color
+	face.color = Color.WHITE if wash else color
 	face.z_index = z
 	face.light_mask = 2
 	face.antialiased = true
