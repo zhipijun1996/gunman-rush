@@ -208,10 +208,10 @@ func check_legacy_shared_background() -> void:
 	var viewport:=SubViewport.new()
 	viewport.size=Vector2i(1280,720)
 	root.add_child(viewport)
-	var app:=DemoApp.new()
+	var app:=CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	viewport.add_child(app)
-	check(app.start_plains("pressure-background-current-domain"),"current background test starts actual formal DemoApp")
+	check(app.start_plains("pressure-background-current-domain"),"current background test starts actual formal CampaignFixture")
 	await frames(10)
 	check(app.stage is PlainsRegionStage and app.stage.assembly_ok,"current background receives a real assembled formal Manifest")
 	if not app.stage is PlainsRegionStage:
@@ -269,10 +269,10 @@ func check_current_formal_background() -> void:
 	var viewport:=SubViewport.new()
 	viewport.size=Vector2i(1280,720)
 	root.add_child(viewport)
-	var app:=DemoApp.new()
+	var app:=CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	viewport.add_child(app)
-	check(app.start_plains("pressure-background-pixel-current"),"pixel default test starts actual formal DemoApp")
+	check(app.start_plains("pressure-background-pixel-current"),"pixel default test starts actual formal CampaignFixture")
 	await frames(10)
 	check(app.stage is PlainsRegionStage and app.stage.assembly_ok,"pixel background receives an assembled formal Manifest")
 	var stage:=app.stage as PlainsRegionStage

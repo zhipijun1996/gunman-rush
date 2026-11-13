@@ -24,7 +24,7 @@ func run() -> void:
 	var view_groups := {"root_hint":["hanging_fruit_hint"],"fallen_fork":["broken_arch_entry","broken_arch_crown","broken_arch_return_view"],"spiral_crown":["spiral_pod_bank","spiral_crown_bank","canopy_return_view"],"gate_pull":["gate_side_closed","gate_approach_closed","gate_open_after_actual_hook"],"guardian_pair":["guardian_entry","guardian_left_counter","guardian_right_counter"],"queen_rib":["queen_entry","queen_right_bank","queen_right_return"],"hollow_elbow":["hollow_upper_bank","hollow_exit_bank","hollow_return_bank"]}
 	var views: Array = view_groups.get(group,[])
 	for view: String in views:
-		var app := DemoApp.new()
+		var app := CampaignFixture.new()
 		app.meta_persistence_enabled=false
 		root.add_child(app)
 		if not app.start_debug_region(&"thorn_forest",map_index,seed_value,ThornForestRegionGenerator.DEPTH_VERSION,ForestTargetHosts.LAYOUT):

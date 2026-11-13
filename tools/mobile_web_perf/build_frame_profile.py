@@ -41,7 +41,7 @@ CURRENT_PATHS = {
     'scripts/underworld_plains/underworld_presentation.gd': 'game/presentation/world/underworld_plains/underworld_presentation.gd',
     'scripts/underworld_plains/underworld_parallax.gd': 'game/presentation/world/underworld_plains/underworld_parallax.gd',
     'scripts/underworld_plains/underworld_home_world.gd': 'game/presentation/world/underworld_plains/underworld_home_world.gd',
-    'scripts/demo/demo_app.gd': 'game/application/demo_app.gd',
+    'scripts/demo/demo_app.gd': 'tests/fixtures/campaign_fixture.gd',
     'scripts/demo/home_scene.gd': 'game/progression/home/home_scene.gd',
     'scripts/demo/plains_region_stage.gd': 'game/world/levels/providers/plains_region_stage.gd',
     'scripts/enemies/enemy_actor.gd': 'game/enemies/enemy_actor.gd',

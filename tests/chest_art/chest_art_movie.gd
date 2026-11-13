@@ -186,11 +186,11 @@ func claim_original_chest(id: String, tier: StringName, hold_closed: int, hold_o
 	return true
 
 func _start_original_region(region: StringName) -> bool:
-	app = preload("res://game/application/demo.tscn").instantiate()
+	app = preload("res://tests/fixtures/campaign_fixture.tscn").instantiate()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	var started: bool = app.start_plains(SEED) if region == &"plains" else app.start_debug_region(&"thorn_forest",1,"forest-depth-hollow-00",ThornForestRegionGenerator.DEPTH_VERSION,ThornForestRegionGenerator.CURRENT_DEPTH_LAYOUT)
-	if not check(started,"original DemoApp starts the actual requested formal region"): return false
+	if not check(started,"original CampaignFixture starts the actual requested formal region"): return false
 	for unused: int in 180:
 		if is_instance_valid(app.stage) and not app._stage_pending: break
 		await frames(1)

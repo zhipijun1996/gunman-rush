@@ -212,7 +212,7 @@ func source_revocation_before_derived_commit() -> void:
 
 func pending_lethal_formal_shop() -> void:
 	paused = false
-	var app: Variant = load("res://game/application/demo_app.gd").new()
+	var app: Variant = load("res://tests/fixtures/campaign_fixture.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	for _frame: int in 5: await process_frame

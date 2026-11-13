@@ -15,14 +15,14 @@ func check(ok: bool, reason: String) -> void:
 func frames(count: int) -> void:
 	for unused: int in count: await get_tree().physics_frame
 func run() -> void:
-	data={"scope":"actual_DemoApp_v2_map1_route_Guardian_fullfight_pointer_reward_map2_entry","seed":seed_value,"expected_version":ThornForestRegionGenerator.DEPTH_VERSION,"initial_debug_entry_only":true,"manual_motor_step":false,"position_health_phase_resource_injection":false,"pointer_scope":"real Godot Viewport InputEventMouseButton, not OS or browser pointer","queen_whole_boss_admission":false}
+	data={"scope":"actual_CampaignFixture_v2_map1_route_Guardian_fullfight_pointer_reward_map2_entry","seed":seed_value,"expected_version":ThornForestRegionGenerator.DEPTH_VERSION,"initial_debug_entry_only":true,"manual_motor_step":false,"position_health_phase_resource_injection":false,"pointer_scope":"real Godot Viewport InputEventMouseButton, not OS or browser pointer","queen_whole_boss_admission":false}
 	var trace: Node=STRATEGY.create();trace.seed_value=seed_value;trace.map_index=1;trace.route_name="fast";get_tree().root.add_child(trace)
 	while not trace.finished or not trace.setup_done: await get_tree().process_frame
 	trace.set_physics_process(false)
 	data.route={"manifest":trace.manifest.duplicate(true),"frames":trace.frames.duplicate(true),"events":trace.events.duplicate(true),"requests":trace.requests.duplicate(true),"completed":trace.completed.duplicate(true),"itinerary":trace.itinerary.duplicate(true),"failures":trace.failures.duplicate(),"initial":trace.initial.duplicate(true),"final":trace.snapshot()}
 	check(trace.failures.is_empty() and trace.completed.size()==trace.itinerary.size(),"actual fast route naturally reaches gate_ready")
 	if not trace.failures.is_empty() or not is_instance_valid(trace.app): await finish(trace);return
-	var app: DemoApp=trace.app
+	var app: CampaignFixture=trace.app
 	var stage:=app.stage as ThornForestRegionStage
 	check(stage.generated.stage_generator_version==ThornForestRegionGenerator.DEPTH_VERSION and stage.map_index==1,"actual map1 uses explicitly pinned v2")
 	check(stage.region_state.opened.has("crown_vine") and stage.assembler.vine_shape.disabled,"actual route H opened persistent entry vine")
@@ -84,13 +84,13 @@ func run() -> void:
 	await finish(trace)
 func reward_declaration() -> Dictionary:
 	# Read the actual production settlement declaration, never a fixture grant.
-	var source:=FileAccess.get_file_as_string("res://game/application/demo_app.gd")
+	var source:=FileAccess.get_file_as_string("res://tests/fixtures/campaign_fixture.gd")
 	var section:=source.get_slice("func _advance_region_map() -> bool:",1).get_slice("\nfunc ",0)
 	var coins:=RegEx.new();coins.compile("wallet\\.grant\\(([0-9.]+),id\\)")
 	var heal:=RegEx.new();heal.compile("SupplyHealEffect\\.apply\\(controller\\.actor_resources\\.health,([0-9.]+),id\\)")
 	var coin_match:=coins.search(section);var heal_match:=heal.search(section)
-	return {"coins":float(coin_match.get_string(1)) if coin_match!=null else -1.0,"heal":float(heal_match.get_string(1)) if heal_match!=null else -1.0,"app_source_sha256":FileAccess.get_sha256("res://game/application/demo_app.gd")}
-func identity(app: DemoApp) -> Dictionary:
+	return {"coins":float(coin_match.get_string(1)) if coin_match!=null else -1.0,"heal":float(heal_match.get_string(1)) if heal_match!=null else -1.0,"app_source_sha256":FileAccess.get_sha256("res://tests/fixtures/campaign_fixture.gd")}
+func identity(app: CampaignFixture) -> Dictionary:
 	return {"map":app.director.region_map_index,"stage_index":app.director.stage_index,"stage_epoch":app.lifetime.stage_epoch,"actor_epoch":app.lifetime.actor_epoch,"session":app.controller.session_id,"version":app.stage.generated.stage_generator_version,"manifest_hash":app.stage.generated.manifest.manifest_hash,"wallet":app.wallet.balance,"hp":app.controller.actor_resources.health.current,"capacity":app.controller.actor_resources.health.capacity,"energy":app.controller.actor_resources.stamina.current,"build":app.build.inventory.item_ids(),"hook":app.controller.traversal.hook_enabled,"double":app.controller.traversal.double_enabled,"wall":app.controller.traversal.wall_enabled,"weapon":String(app.controller.shoot_ability.weapon.id),"tier":app.controller.shoot_ability.weapon.tier}
 func pointer(owner: Node, text: String) -> bool:
 	for unused: int in 4: await get_tree().process_frame

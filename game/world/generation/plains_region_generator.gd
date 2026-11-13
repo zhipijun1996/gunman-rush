@@ -13,7 +13,7 @@ const PRE_FOCUS_15_TUNING_HASH := "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f
 var joint_recoil_profile := false # Explicit one-challenge semantic experiment; normal maps unchanged.
 var regional_art_profile := "" # Candidate-only; empty preserves the exact formal map.
 var art_language_profile := "" # Explicit pre-embedding language; no change to default/old joint records.
-var root_bell_mode := "legacy_v10" # Preserve the old generator API; DemoApp explicitly pins admitted content.
+var root_bell_mode := "legacy_v10" # Preserve the old generator API; CampaignFixture explicitly pins admitted content.
 
 func generate(seed_value: String, tuning: PlayerTuning, sample := false, force_family := "", difficulty := "advanced") -> Dictionary:
 	return _generate_with_fingerprint(seed_value,tuning,sample,force_family,difficulty,FileAccess.get_sha256("res://config/player_tuning.json"))

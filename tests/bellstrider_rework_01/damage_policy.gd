@@ -1,5 +1,5 @@
 extends SceneTree
-## Actual DemoApp/start_plains integration, with disclosed position/equipment and
+## Actual CampaignFixture/start_plains integration, with disclosed position/equipment and
 ## synchronous policy-flush fixtures. This is NOT natural battle, complete weapon
 ## coverage, two-shot timing, or user/art acceptance. No HP/clock/AI injection.
 const TEARDOWN := preload("res://tests/audio_teardown.gd")
@@ -77,7 +77,7 @@ func diagnostic(label: String) -> Dictionary:
 
 func setup() -> bool:
 	await cleanup()
-	app = load("res://game/application/demo_app.gd").new()
+	app = load("res://tests/fixtures/campaign_fixture.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	if not app.start_plains("level-design-v2-baseline/08"):

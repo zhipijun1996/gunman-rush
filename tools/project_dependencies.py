@@ -123,8 +123,8 @@ def inspect(root):
                 for path in re.findall(r'\bpath\s*=\s*"res://([^"\n]+)"', header):
                     edges.add((name, path, "resource"))
     application = {p for p in texts if p.startswith("game/application/")}
-    # The actual App is still in its old path during staged migration.
-    application.update(classes[c] for c in ("DemoApp", "RunSession", "RunComposition") if c in classes)
+    # Application composition is excluded from core module dependencies.
+    application.update(classes[c] for c in ("FixedWorldApp", "RunSession", "RunComposition") if c in classes)
     for source, target, kind in sorted(edges):
         if target.startswith("tests/"):
             errors.append(f"Runtime loads test implementation: {source} -> {target}")

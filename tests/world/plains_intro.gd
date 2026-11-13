@@ -127,7 +127,7 @@ func run() -> void:
 	app.save_path="user://plains_revision_isolated.json";root.add_child(app)
 	for id: String in ["P-R03","P-R21","P-R22","P-R23","P-R24"]:
 		var room:=load("res://game/world/regions/P/rooms/"+id+".tscn").instantiate() as FixedWorldRoom
-		var errors:=WorldRoomDraft.validate(room,WorldRoomDraft.extract(room))
+		var errors:=WorldRoomValidation.validate_room(room)
 		check(errors.is_empty(),id+" editable codec "+str(errors));room.free()
 	await load_review("P-R03")
 	for frame:int in 180:

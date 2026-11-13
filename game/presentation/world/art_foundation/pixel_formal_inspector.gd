@@ -1,7 +1,7 @@
 class_name PixelFormalInspector
 extends CanvasLayer
 ## Explicit positional art inspection, never a route completion/normal entry.
-var app: DemoApp
+var app: CampaignFixture
 var points: Array[Dictionary] = []
 var current := -1
 var caption: Label

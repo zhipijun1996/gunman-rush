@@ -1,7 +1,6 @@
 {
   "entities": {
     "P-R27:art-pass:1": {
-      "component": "array:art_placements",
       "definition_id": "decor.travel_bundle",
       "definition_version": 1,
       "id": "P-R27:art-pass:1",
@@ -16,7 +15,6 @@
       }
     },
     "P-R27:art:clockroute:1": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R27:art:clockroute:1",
@@ -32,7 +30,6 @@
       }
     },
     "P-R27:art:clockroute:3": {
-      "component": "array:art_placements",
       "definition_id": "decor.tilted_barrel",
       "definition_version": 1,
       "id": "P-R27:art:clockroute:3",
@@ -47,7 +44,6 @@
       }
     },
     "P-R27:art:courtyard": {
-      "component": "array:art_placements",
       "definition_id": "decor.shelter_courtyard",
       "definition_version": 1,
       "id": "P-R27:art:courtyard",
@@ -93,7 +89,6 @@
       }
     },
     "P-R27:art:east-cutaway": {
-      "component": "array:art_placements",
       "definition_id": "decor.shelter_courtyard",
       "definition_version": 1,
       "id": "P-R27:art:east-cutaway",
@@ -120,7 +115,6 @@
       }
     },
     "P-R27:art:open-shaft": {
-      "component": "array:art_placements",
       "definition_id": "decor.shelter_shaft",
       "definition_version": 1,
       "id": "P-R27:art:open-shaft",
@@ -148,7 +142,6 @@
       }
     },
     "P-R27:art_placements:2": {
-      "component": "array:art_placements",
       "definition_id": "decor.windchime_plains_v2_chime_span",
       "definition_version": 1,
       "id": "P-R27:art_placements:2",
@@ -163,7 +156,8 @@
       }
     },
     "P-R27:door-review:art:10": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_transmission_hall",
+      "definition_version": 1,
       "id": "P-R27:door-review:art:10",
       "order": 7,
       "properties": {
@@ -176,7 +170,8 @@
       }
     },
     "P-R27:door-review:art:11": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_transmission_hall",
+      "definition_version": 1,
       "id": "P-R27:door-review:art:11",
       "order": 8,
       "properties": {
@@ -189,7 +184,6 @@
       }
     },
     "P-R27:door-review:art:12": {
-      "component": "array:art_placements",
       "definition_id": "decor.well_masonry",
       "definition_version": 1,
       "id": "P-R27:door-review:art:12",
@@ -216,7 +210,6 @@
       }
     },
     "P-R27:door-review:art:13": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R27:door-review:art:13",
@@ -231,7 +224,6 @@
       }
     },
     "P-R27:door-review:platform:6": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "id": "P-R27:door-review:platform:6",
@@ -249,7 +241,6 @@
       }
     },
     "P-R27:door-review:platform:7": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "id": "P-R27:door-review:platform:7",
@@ -266,8 +257,36 @@
         ]
       }
     },
+    "P-R27:feature:recovery.station": {
+      "definition_id": "recovery.station",
+      "definition_version": 1,
+      "id": "P-R27:feature:recovery.station",
+      "order": 1020,
+      "parent": "",
+      "properties": {
+        "modulate": {
+          "$color": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "parameters": {},
+        "position": [
+          960.0,
+          558.0
+        ],
+        "rotation": 0,
+        "scale": [
+          1,
+          1
+        ],
+        "visible": true,
+        "z_index": 0
+      }
+    },
     "P-R27:platforms:0": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "id": "P-R27:platforms:0",
@@ -285,7 +304,6 @@
       }
     },
     "P-R27:platforms:1": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "id": "P-R27:platforms:1",
@@ -303,7 +321,6 @@
       }
     },
     "P-R27:platforms:2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "id": "P-R27:platforms:2",
@@ -321,7 +338,6 @@
       }
     },
     "P-R27:platforms:3": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1,
       "id": "P-R27:platforms:3",
@@ -340,7 +356,6 @@
       }
     },
     "P-R27:platforms:4": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1,
       "id": "P-R27:platforms:4",
@@ -359,7 +374,6 @@
       }
     },
     "P-R27:platforms:5": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1,
       "id": "P-R27:platforms:5",
@@ -378,7 +392,8 @@
       }
     },
     "P-R27:signs:0": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "P-R27:signs:0",
       "order": 0,
       "properties": {
@@ -392,30 +407,11 @@
   },
   "room_id": "P-R27",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "背风检修棚",
       "art_profile": "shelter",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -424,22 +420,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        960.0,
-        558.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R27",
       "rotation": 0.0,
       "route_guide": {
@@ -506,25 +491,15 @@
         640.0,
         718.0
       ],
-      "story_sequence": {},
       "terrain_paint": {
         "regions": [],
         "seed": 0,
         "surfaces": [],
         "version": 1
       },
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

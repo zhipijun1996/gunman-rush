@@ -1,7 +1,7 @@
 extends "res://tests/world/plains35_fixture.gd"
 func run() -> void:
  root.size=Vector2i(1280,720)
- app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://plains_feedback5.json";root.add_child(app);app.workbench.enabled=true
+ app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://plains_feedback5.json";root.add_child(app)
  await load_room("P-R24");await fixture(Vector2(1984,1102));await ticks(75)
  var attacking:Dictionary={}
  for i:int in 150:

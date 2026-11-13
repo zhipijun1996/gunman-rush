@@ -2,7 +2,7 @@ extends SceneTree
 ## Continuous real-input demonstration. The fixed three-room development fixture
 ## is explicitly labelled; no position, health, resources, rewards or enemy state
 ## are injected. All gameplay movement belongs to the real PlayerMotor.
-var app: DemoApp
+var app: CampaignFixture
 var destination := "res://build/run_gear_movie/trace.json"
 var phase := "开发固定关卡 · 真实输入 / 正式交易与装备UI"
 var frame := 0
@@ -117,7 +117,7 @@ func walk_to(target_x: float, budget: int) -> bool:
 func _run() -> void:
 	root.size = Vector2i(1280, 720)
 	root.content_scale_size = Vector2i(1280, 720)
-	app = preload("res://game/application/demo.tscn").instantiate()
+	app = preload("res://tests/fixtures/campaign_fixture.tscn").instantiate()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	var layer := CanvasLayer.new()

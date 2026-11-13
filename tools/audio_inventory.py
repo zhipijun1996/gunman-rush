@@ -58,7 +58,7 @@ def resolve_source_paths(tree):
     aliases = {
         'scripts/audio/game_audio.gd': 'game/presentation/audio/game_audio.gd',
         'scripts/audio/game_music.gd': 'game/presentation/audio/game_music.gd',
-        'scripts/demo/demo_app.gd': 'game/application/demo_app.gd',
+        'scripts/demo/demo_app.gd': 'tests/fixtures/campaign_fixture.gd',
         'scripts/dev/player_presentation_01/motion_feel.gd': 'game/player/presentation/motion_feel.gd',
         'scripts/dev/player_presentation_01/weapon_feel.gd': 'game/combat/weapons/presentation/weapon_feel.gd',
         'scripts/dev/player_presentation_01/weapon_feel_v2.gd': 'game/combat/weapons/presentation/weapon_feel_v2.gd',
@@ -82,12 +82,12 @@ def music_app_refs(texts, path, cue):
     source = texts[path].splitlines()
     starts = [i for i, line in enumerate(source) if line.startswith("func _sync_music(")]
     if len(starts) != 1:
-        raise ValueError("Missing/ambiguous actual DemoApp music selector in selected Git tree")
+        raise ValueError("Missing/ambiguous actual CampaignFixture music selector in selected Git tree")
     start = starts[0]
     end = next((i for i in range(start + 1, len(source))
                 if source[i] and not source[i][0].isspace()), len(source))
     if not any("_music.request_track(" in line for line in source[start:end]):
-        raise ValueError("Actual DemoApp music selector no longer delegates to GameMusic")
+        raise ValueError("Actual CampaignFixture music selector no longer delegates to GameMusic")
     return [row for row in references if start + 1 <= row["line"] <= end
             or "_music.request_track(" in row["code"]]
 
@@ -273,7 +273,7 @@ def main() -> None:
                        "route":"PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool", "assets":assets,
                        "references":refs, "mapping_status":"verified_static", "listening_status":"subjective_pending"})
     for cue in ["home","plains","plains_boss","forest","forest_boss"]:
-        events.append({"event_id":"music."+cue,"description":"用户原BGM；由DemoApp真实状态选择", "route":"DemoApp._sync_music → GameMusic.request_track → two crossfade voices",
+        events.append({"event_id":"music."+cue,"description":"用户原BGM；由CampaignFixture真实状态选择", "route":"CampaignFixture._sync_music → GameMusic.request_track → two crossfade voices",
                        "assets":[r["path"] for r in records if r["family"]=="bgm" and (cue=="home" and "kindred" in r["path"] or cue=="plains" and "path_bends" in r["path"] or cue=="plains_boss" and "wooden_sails" in r["path"] or cue=="forest" and "beneath" in r["path"] or cue=="forest_boss" and "knotted" in r["path"])],
                        "references":line_refs(texts,'&"'+cue+'"',(runtime_paths['scripts/audio/game_music.gd'],))+music_app_refs(texts, runtime_paths['scripts/demo/demo_app.gd'], cue),"mapping_status":"verified_static","listening_status":"subjective_pending"})
     generators=[]

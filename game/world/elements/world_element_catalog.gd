@@ -1,11 +1,18 @@
 class_name WorldElementCatalog
 extends RefCounted
 ## Definitions are shared by room loading, authoring and runtime state validation.
-const PATH := "res://config/world_elements.json"
+const PATH := "res://config/world_elements/index.json"
 static var _data: Dictionary = {}
 
 static func catalog() -> Dictionary:
-	if _data.is_empty(): _data = JSON.parse_string(FileAccess.get_file_as_string(PATH))
+	if _data.is_empty():
+		var index: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PATH))
+		_data = {"version":index.version,"behaviors":{},"definitions":{}}
+		for group: String in ["behaviors","definitions"]:
+			for id: String in index[group]:
+				var entry: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(str(index[group][id])))
+				assert(entry.get("id")==id,"Catalog identity mismatch: "+id)
+				_data[group][id] = entry
 	return _data
 
 static func component_path(kind: String) -> String:
@@ -25,22 +32,26 @@ static func fields_error(fields: Dictionary, values: Dictionary) -> String:
 			continue
 		var value: Variant = values[key]
 		match str(spec.type):
+			"dict":
+				if not value is Dictionary: return "dictionary_invalid:"+key
+			"array":
+				if not value is Array: return "array_invalid:"+key
 			"number":
-				if not WorldRoomDraft.number(value): return "number_invalid:"+key
+				if not WorldRoomValidation.number(value): return "number_invalid:"+key
 				if spec.has("min") and float(value) < float(spec.min): return "number_too_small:"+key
 			"bool":
 				if not value is bool: return "bool_invalid:"+key
 			"point":
-				if not WorldRoomDraft.vector(value): return "point_invalid:"+key
+				if not WorldRoomValidation.vector(value): return "point_invalid:"+key
 				if spec.has("min_component") and (float(value[0])<float(spec.min_component) or float(value[1])<float(spec.min_component)): return "point_too_small:"+key
 			"rect":
-				if not WorldRoomDraft.rectangle(value): return "rect_invalid:"+key
+				if not WorldRoomValidation.rectangle(value): return "rect_invalid:"+key
 			"string":
 				if not value is String: return "string_invalid:"+key
 			"points":
 				if not value is Array: return "points_invalid:"+key
 				for point: Variant in value:
-					if not WorldRoomDraft.vector(point): return "point_invalid:"+key
+					if not WorldRoomValidation.vector(point): return "point_invalid:"+key
 		if spec.has("choices") and value not in spec.choices: return "choice_invalid:"+key
 	return ""
 
@@ -54,14 +65,15 @@ static func state_error(packet: Dictionary) -> String:
 static func signal_value_valid(type: String, value: Variant) -> bool:
 	match type:
 		"bool": return value is bool
-		"number": return WorldRoomDraft.number(value)
+		"number": return WorldRoomValidation.number(value)
 		"string": return value is String
-		"point": return WorldRoomDraft.vector(value)
+		"point": return WorldRoomValidation.vector(value)
 		"pulse": return value == null
 	return false
 
 static func document_error(document: Dictionary) -> String:
 	var entities: Dictionary = document.entities
+	var bindings := {}
 	for id: String in entities:
 		var row: Dictionary = entities[id]
 		if row.get("id") != id: return "element_id_mismatch:"+id
@@ -73,6 +85,13 @@ static func document_error(document: Dictionary) -> String:
 		var properties: Dictionary = row.get("properties", {})
 		var error := fields_error(behavior.get("fields", {}), properties)
 		if not error.is_empty(): return id+":"+error
+		var definition: Dictionary = catalog().definitions.get(str(row.get("definition_id","")),{})
+		for field: String in definition.get("room_bindings",{}):
+			if bindings.has(field): return "duplicate_feature_host:"+field
+			bindings[field]=id
+		if definition.has("parameter_fields"):
+			error=fields_error(definition.parameter_fields,properties.get("parameters",{}))
+			if not error.is_empty():return id+":"+error
 		if behavior.has("state") and properties.get("element_id") != id: return "element_identity_mismatch:"+id
 		if kind=="WorldElementGate" and not TerrainMaterialRegistry.known(str(properties.get("appearance","mill_masonry"))): return "gate_material_unknown:"+id
 		if kind=="array:spike_strips" and not str(properties.get("appearance", "")).is_empty():
@@ -130,7 +149,11 @@ static func instantiate_definition(definition_id: String, instance_id: String, a
 		props.merge(member.get("properties", {}), true)
 		var offset := at+FixedWorldProvider.point(member.get("offset", [0,0]))
 		var position_field := str(child.get("position_field", "position"))
-		if position_field in ["rect", "bounds"]:
+		for field: String in child.get("offset_fields",[]):
+			props[field] = [float(props[field][0])+offset.x,float(props[field][1])+offset.y]
+		if position_field=="polygon":
+			for point: Array in props.points: point[0]+=offset.x;point[1]+=offset.y
+		elif position_field in ["rect", "bounds"]:
 			props[position_field][0] = offset.x; props[position_field][1] = offset.y
 		else: props[position_field] = [offset.x, offset.y]
 		var row := {"id":id,"definition_id":member.definition,"definition_version":child.version,"component":child.component,"order":result.size(),"properties":props}

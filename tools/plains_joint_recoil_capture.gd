@@ -1,10 +1,10 @@
 extends "res://tools/level_formal_capture.gd"
 ## Actual formal region, original input timing, HP, errors and teardown.
 var joint_baseline := false
-func make_application() -> DemoApp:
+func make_application() -> CampaignFixture:
 	var baseline_mode:=OS.get_environment("JOINT_RECOIL_BASELINE")
 	joint_baseline=baseline_mode in ["1","regional"]
-	var result:=DemoApp.new()
+	var result:=CampaignFixture.new()
 	if not joint_baseline: result.set("plains_joint_recoil_candidate_requested",true)
 	elif baseline_mode=="regional": result.set("plains_regional_art_candidate_requested",true)
 	result.avatar_selection_id="p1_girl"

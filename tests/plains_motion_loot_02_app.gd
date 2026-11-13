@@ -17,7 +17,7 @@ static func _hit(tree:SceneTree,app:Node,id:StringName,health:HealthState,amount
  await _frames(tree,3)
  return accepted
 static func run(tree:SceneTree,app:Node)->Dictionary:
- var r:Dictionary={"assertions":0,"failures":[],"checks":[],"samples":[],"scope":"Actual DemoApp ordinary death/pickup/save consumers with explicit native damage and player positions; no Router combat or natural traversal claim"}
+ var r:Dictionary={"assertions":0,"failures":[],"checks":[],"samples":[],"scope":"Actual CampaignFixture ordinary death/pickup/save consumers with explicit native damage and player positions; no Router combat or natural traversal claim"}
  _isolate(app)
  var stage:GeneratedDemoStage=app.stage as GeneratedDemoStage
  var enemy:EnemyMotor=stage.enemies[0]

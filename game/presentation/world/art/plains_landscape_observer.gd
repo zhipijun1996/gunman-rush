@@ -41,7 +41,7 @@ func protected_bounds() -> Array[Dictionary]:
 			result.append({"id":str(body.get_path()),"bounds":PlainsSemanticLandscape.rect_values(bounds),"semantic":"one_way_landing" if index in module.definition.one_way_platform_indices else "solid_standing_edge","measurement":"actual global RectangleShape2D; complete body, not inferred alpha"})
 		for ferry: ModuleMovingPlatform in module.moving_platforms:
 			result.append({"id":str(ferry.get_path()),"bounds":PlainsSemanticLandscape.rect_values(shape_bounds(ferry)),"semantic":"actual_moving_platform"})
-	var app := stage.get_parent() as DemoApp
+	var app := stage.get_parent() as CampaignFixture
 	if app != null and is_instance_valid(app.player):
 		result.append({"id":"actual_player","bounds":PlainsSemanticLandscape.rect_values(shape_bounds(app.player)),"semantic":"actual_player"})
 	for enemy: EnemyMotor in stage.enemies:
@@ -57,7 +57,7 @@ func measure() -> Dictionary:
 	var camera := get_viewport().get_camera_2d()
 	var nodes := landscape.measured_nodes()
 	var background_nodes: Array[Dictionary] = []
-	var app := stage.get_parent() as DemoApp
+	var app := stage.get_parent() as CampaignFixture
 	if app != null:
 		var background := app.get_node_or_null("PlainsBackground") as PlainsBackground
 		if background != null: background_nodes = background.measured_nodes()

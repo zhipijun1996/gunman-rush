@@ -2,7 +2,7 @@ extends SceneTree
 const DRIVER=preload("res://tests/underworld_plains/home_terrace_driver.gd")
 var checks:=0
 var failures:=0
-var app: DemoApp
+var app: CampaignFixture
 var driver: HomeTerraceDriver
 var visits: Array[Dictionary]=[]
 var requests: Array[StringName]=[]
@@ -47,7 +47,7 @@ func capture(id: String) -> void:
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
 	root.size=Vector2i(1280,720)
-	app=preload("res://game/application/demo.tscn").instantiate() as DemoApp
+	app=preload("res://tests/fixtures/campaign_fixture.tscn").instantiate() as CampaignFixture
 	app.meta_persistence_enabled=false
 	# Explicit economic test fixture, inherited from the original Home App
 	# business test. This grants no movement ability and is not production input.

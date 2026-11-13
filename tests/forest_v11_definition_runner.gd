@@ -64,7 +64,7 @@ func run() -> void:
 	check_motor(current,Vector2(28,28),"current factory")
 	check_motor(historical,Vector2(28,32),"explicit historical factory")
 	world.free()
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	root.add_child(app)
 	await frames(2)

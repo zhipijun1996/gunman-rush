@@ -1,6 +1,6 @@
 extends SceneTree
 ## Final-source actual App input evidence. No pose/resource injection or teleports.
-var app: DemoApp
+var app: CampaignFixture
 var mode:="formal"
 var output:="res://build/underworld_revision2_experience/trace.json"
 var seed:="level-design-v2-baseline/08"
@@ -139,7 +139,7 @@ func walk_home(target: float,phase: String) -> void:
 	await ticks(phase+"_neutral",4)
 	check(is_instance_valid(actor()) and absf(actor().position.x-target)<12,"actual keyboard Motor reaches "+phase)
 func formal() -> void:
-	initialization={"operation":"ordinary DemoApp.start_plains(seed)","root_seed":seed,"initial_position_assignment":false,"direct_pose_or_resource_assignment":false}
+	initialization={"operation":"ordinary CampaignFixture.start_plains(seed)","root_seed":seed,"initial_position_assignment":false,"direct_pose_or_resource_assignment":false}
 	check(app.start_plains(seed),"ordinary formal entry starts one real run")
 	await ticks("formal_entry_settle",45)
 	if not is_instance_valid(actor()) or not app.stage is PlainsRegionStage:
@@ -229,7 +229,7 @@ func run() -> void:
 		if argument.begins_with("--seed="):seed=argument.trim_prefix("--seed=")
 	root.size=Vector2i(1280,720)
 	animation_build=JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/player_animation/animation_build.json"))
-	app=preload("res://game/application/demo.tscn").instantiate() as DemoApp
+	app=preload("res://tests/fixtures/campaign_fixture.tscn").instantiate() as CampaignFixture
 	app.meta_persistence_enabled=false
 	root.add_child(app)
 	await ticks("ordinary_title_boot",45)
@@ -238,7 +238,7 @@ func run() -> void:
 	else:check(false,"unknown capture mode")
 	for code: Variant in held.keys():key(code,false)
 	await ticks("final_neutral",8)
-	var data: Dictionary={"schema":"underworld-revision2-actual-experience-v1","mode":mode,"checks":checks,"failures":failures,"initialization":initialization,"input_events":events,"slots":slots,"frames":rows,"seen_states":seen.keys(),"right_run_indices":right_frames.keys(),"left_run_indices":left_frames.keys(),"input_policy":"actual Input.parse_input_event keyboard/mouse; ordinary DemoApp consumers, ordinary KeyboardMouseAdapter enabled; no teleports, input adapter disabling, pose injection, extra resource or physics edits","media_policy":"60fps normal simulation/playback via MovieMaker; software GPU is not device FPS; Dummy output audio not listening acceptance; no live PNG readbacks during input"}
+	var data: Dictionary={"schema":"underworld-revision2-actual-experience-v1","mode":mode,"checks":checks,"failures":failures,"initialization":initialization,"input_events":events,"slots":slots,"frames":rows,"seen_states":seen.keys(),"right_run_indices":right_frames.keys(),"left_run_indices":left_frames.keys(),"input_policy":"actual Input.parse_input_event keyboard/mouse; ordinary CampaignFixture consumers, ordinary KeyboardMouseAdapter enabled; no teleports, input adapter disabling, pose injection, extra resource or physics edits","media_policy":"60fps normal simulation/playback via MovieMaker; software GPU is not device FPS; Dummy output audio not listening acceptance; no live PNG readbacks during input"}
 	var f:=FileAccess.open(output,FileAccess.WRITE);f.store_string(JSON.stringify(data,"\t"));f.close()
 	if not await load("res://tests/audio_teardown.gd").drain_world(app):check(false,"actual App audio teardown must release")
 	app.queue_free()

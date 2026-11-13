@@ -10,14 +10,12 @@ func check(ok: bool,label: String) -> void:
  if not ok:failures+=1
 func load_room(id: String) -> void:
  var source:=load("res://game/world/regions/P/rooms/"+id+".tscn").instantiate() as FixedWorldRoom
- var draft:=WorldRoomDraft.extract(source)
- check(WorldRoomDraft.validate(source,draft).is_empty(),id+" codec")
+ check(WorldRoomValidation.validate_room(source).is_empty(),id+" codec")
  source.free()
- draft.base_content_version=app.content.workbench_base_version();draft.revision=1
- var catalog:Dictionary=JSON.parse_string(FileAccess.get_file_as_string(FixedWorldProvider.WORKBENCH_CATALOG))
- var row:Dictionary=catalog.rooms[id]
- draft.geometry={"bounds":row.world_geometry.bounds_world_units,"space_rects":row.world_geometry.space_rects,"doors":row.doors}
- await app.workbench._handle({"channel":"gunman-workbench","type":"load_draft","request_id":id,"revision":1,"draft":draft,"stage":"base","paused":false})
+ var catalog:Dictionary=JSON.parse_string(FileAccess.get_file_as_string(FixedWorldProvider.PREVIEW_CATALOG))
+ for field:String in ["rooms","actions","demo_services","npcs","map_rooms"]: app.content.data[field]=catalog[field].duplicate(true)
+ app.content._index_actions()
+ await app.review.begin(id,"","base")
  await ticks(4)
  check(app.room.room_id==id and app.player.is_on_floor(),id+" bridge and entry contact "+str(app.player.position))
 func fixture(at:Vector2) -> void:
@@ -31,7 +29,7 @@ func jump_shot(axis:float, aim:Vector2, delay:int=8) -> void:
  app.controller.router.request_action(&"shoot_release",aim)
 func run() -> void:
  root.size=Vector2i(1280,720)
- app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://next_batch_round3.json";root.add_child(app);app.workbench.enabled=true
+ app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://next_batch_round3.json";root.add_child(app)
  for id:String in ["P-R08","P-R06","P-R13"]:
   await load_room(id)
   for door:Dictionary in app.room.doors:

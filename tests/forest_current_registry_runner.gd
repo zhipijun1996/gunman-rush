@@ -63,11 +63,11 @@ func data_cases() -> void:
 		negatives.append({"kind":"layout/"+str(layout),"refused":refused})
 	cases.append({"id":"registry_refusals","negative_cases":negatives})
 
-func request_fields(app: DemoApp) -> Array:
+func request_fields(app: CampaignFixture) -> Array:
 	return [app._debug_region,app._debug_map,app._requested_forest_version,app._requested_forest_layout,app.forest_content_version,app._forest_layout_version]
 
 func app_case(index: int) -> void:
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	root.add_child(app)
 	var home_fields := request_fields(app)
@@ -134,7 +134,7 @@ func app_case(index: int) -> void:
 	cases.append({"id":"current_app","map":index,"version":actual.get("version"),"layout":actual.get("layout_version"),"complete_output_equal":complete_equal,"home_unknown_unchanged":home_unknown_unchanged,"home_empty_unchanged":home_empty_unchanged,"active_unchanged":active_unchanged,"unknown_snapshot_refused":unknown_snapshot_refused,"malformed_snapshot_refused":malformed_snapshot_refused,"reload_same_manifest":same_manifest,"reload_same_state":same_state,"reload_ledgers_health":ledgers_health,"saved_health":saved_hp,"restored_health":loaded_actor.health.current})
 	await dispose(app)
 
-func dispose(app: DemoApp) -> void:
+func dispose(app: CampaignFixture) -> void:
 	var ref: WeakRef = weakref(app)
 	app.abandon_run()
 	await frames(4)

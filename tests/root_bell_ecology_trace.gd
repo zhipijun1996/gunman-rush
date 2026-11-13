@@ -10,7 +10,7 @@ var _root_home := Vector2.ZERO
 var _floor_y := 0.0
 var _step_time_scale := 1.0
 
-func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "kill_from_bank_v1") -> bool:
+func attach(application: CampaignFixture, selected_strategy: String, wait_ticks: int, selected_policy: String = "kill_from_bank_v1") -> bool:
 	if not super.attach(application,selected_strategy,wait_ticks,selected_policy):return false
 	for i: int in formal_stage.enemy_manifest.size():
 		if formal_stage.enemy_manifest[i].get("behavior_id", "") != "root_bell":continue

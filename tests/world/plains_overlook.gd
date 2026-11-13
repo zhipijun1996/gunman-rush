@@ -2,7 +2,7 @@ extends "res://tests/world/plains_next_batch.gd"
 ## Local P24 fixtures exercise authored arena state, actual carrier and durable chest.
 func run() -> void:
  root.size=Vector2i(1280,720)
- app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://overlook_round3.json";root.add_child(app);app.workbench.enabled=true
+ app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://overlook_round3.json";root.add_child(app)
  await load_room("P-R24")
  var zoom_before:=app.camera.zoom
  await fixture(Vector2(1984,1102));await ticks(75)

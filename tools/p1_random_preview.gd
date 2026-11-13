@@ -18,7 +18,7 @@ func _initialize() -> void:
 func run() -> void:
 	root.size=Vector2i(1280,720);root.content_scale_size=Vector2i(1280,720)
 	root.title="失序之钟 · P1随机平原与外观本地评审"
-	app=DemoApp.new()
+	app=CampaignFixture.new()
 	app.p1_random_plains_requested=true
 	app.avatar_selection_id=selected_avatar
 	app.meta_persistence_enabled=false

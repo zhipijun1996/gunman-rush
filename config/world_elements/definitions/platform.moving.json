@@ -1,0 +1,31 @@
+{
+  "id": "platform.moving",
+  "name": "移动载台",
+  "version": 1,
+  "component": "WorldMovingPlatform",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "platform_size": [
+      128,
+      24
+    ],
+    "endpoint": [
+      384,
+      0
+    ],
+    "period": 5,
+    "phase_offset": 0,
+    "one_way": false,
+    "state_scope": "attempt",
+    "route": [],
+    "endpoint_dwell": 0,
+    "activation_flag": ""
+  },
+  "position_field": "position",
+  "category": "platforms",
+  "placeable": true,
+  "documentation": "docs/data/world_objects.md"
+}

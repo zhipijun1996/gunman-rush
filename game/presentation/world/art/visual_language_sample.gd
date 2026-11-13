@@ -5,7 +5,7 @@ var _stage: PlainsRegionStage
 var _design: Dictionary
 var _catalog: Dictionary
 var _atlas: Texture2D
-var _app: DemoApp
+var _app: CampaignFixture
 var _hero: PaintedHero
 var _old_background: CanvasLayer
 var _wind: Array[Dictionary] = []
@@ -32,7 +32,7 @@ func _ready() -> void:
 		return
 	_catalog = parsed
 	_atlas = _texture(str(_catalog.get("atlas", "")))
-	_app = _stage.get_parent() as DemoApp
+	_app = _stage.get_parent() as CampaignFixture
 	if _design.get("presentation_scope","")=="formal_random":
 		_coverage={"catalog_path":catalog_path,"catalog_sha256":FileAccess.get_sha256(catalog_path),"hero_states":[],"root_body":false,"saw":false,"scope":"ordinary random P1 actors/HUD/background; actual terrain owned by P1RandomPlainsSample, no golden placements"}
 		_background()

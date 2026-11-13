@@ -4,7 +4,7 @@ extends SceneTree
 ## ENEMY-FEEDBACK-01: real Router -> ShootAbility -> PlayerProjectile swept
 ## collision -> Damageable -> FrameDamagePolicy -> HealthState consumers.
 ## Explicit supported arena spawns; this is not a natural campaign traversal,
-## GPU/readability assessment, full DemoApp drop flow, or device measurement.
+## GPU/readability assessment, full CampaignFixture drop flow, or device measurement.
 const INSTALLER = preload("res://game/presentation/actors/underworld_plains/underworld_actor_installer.gd")
 const ENEMY = preload("res://game/enemies/scenes/patrol_drone.tscn")
 const PLAYER = preload("res://game/player/player.tscn")
@@ -579,7 +579,7 @@ func one_case(path: String, underworld: bool) -> void:
 	if not stale_context.is_empty():
 		check(not actor.damageable.receive_damage(stale_context), "previous lethal health epoch is rejected after restore-live")
 	check(int(remains.accepted_starts) == starts_before and not remains.active, "old-epoch lethal receipt cannot resurrect or duplicate cleared corpse")
-	cases.append({"definition": path, "chain": "UnderworldEnemy/PixelPlainsEnemy/WindchimeEnemyVisual" if underworld else "EnemyPresentation", "shots": shots.duplicate(true), "accepted_contexts": accepted.duplicate(true), "trace": trace.duplicate(true), "hurt_count": sample.accepted_hit_count, "death_count": sample.accepted_death_count, "impact_serial": sample.impact_serial, "emitted_bursts": particles.emitted_bursts, "active_bursts_at_end": particles.active_bursts(), "persistent_remains": remains_final, "authored_frames": frame_profile, "rig_hurt_samples":rig_hurt_samples.duplicate(true),"hurt_frames_seen": hurt_frames_seen.duplicate(), "death_frames_seen": death_frames_seen.duplicate(), "frame_source_errors": frame_source_errors.duplicate(), "drop": settled, "scope": "actual scene and installer consumers in explicit arena; drop ledger only, not DemoApp settlement integration"})
+	cases.append({"definition": path, "chain": "UnderworldEnemy/PixelPlainsEnemy/WindchimeEnemyVisual" if underworld else "EnemyPresentation", "shots": shots.duplicate(true), "accepted_contexts": accepted.duplicate(true), "trace": trace.duplicate(true), "hurt_count": sample.accepted_hit_count, "death_count": sample.accepted_death_count, "impact_serial": sample.impact_serial, "emitted_bursts": particles.emitted_bursts, "active_bursts_at_end": particles.active_bursts(), "persistent_remains": remains_final, "authored_frames": frame_profile, "rig_hurt_samples":rig_hurt_samples.duplicate(true),"hurt_frames_seen": hurt_frames_seen.duplicate(), "death_frames_seen": death_frames_seen.duplicate(), "frame_source_errors": frame_source_errors.duplicate(), "drop": settled, "scope": "actual scene and installer consumers in explicit arena; drop ledger only, not CampaignFixture settlement integration"})
 	var component_weak: WeakRef = weakref(sample)
 	var remains_weak: WeakRef = weakref(remains)
 	sample = null
@@ -608,7 +608,7 @@ func run() -> void:
 			await one_case(path, underworld)
 	for path: String in SHARED_SOURCE_PATHS:
 		check(not str(shared_source_hashes[path]).is_empty() and FileAccess.get_sha256(path) == shared_source_hashes[path], "accepted flash and particles leave existing shared source bytes unchanged: " + path)
-	var output := {"feedback_revision": "dedicated_species_frames_and_persistent_corpse_v8", "shared_source_sha256": shared_source_hashes, "task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "cases": cases, "scope": "real Router/projectiles and original scenes/formal installer; explicit supported arena, not campaign/GPU/device", "not_verified": ["full DemoApp drop persistence and restart", "natural campaign traversal", "same-instance parent death-clock reset", "visual readability", "device performance"]}
+	var output := {"feedback_revision": "dedicated_species_frames_and_persistent_corpse_v8", "shared_source_sha256": shared_source_hashes, "task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "cases": cases, "scope": "real Router/projectiles and original scenes/formal installer; explicit supported arena, not campaign/GPU/device", "not_verified": ["full CampaignFixture drop persistence and restart", "natural campaign traversal", "same-instance parent death-clock reset", "visual readability", "device performance"]}
 	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01/v8")
 	var file := FileAccess.open("res://build/enemy_feedback_01/v8/runtime.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(output, "\t"))

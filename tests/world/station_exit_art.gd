@@ -19,8 +19,11 @@ func run()->void:
  check(app.room.masonry_platform_indices.is_empty(),"main street remains plains material")
  check(5 in app.room.one_way_indices and app.room.platforms[5]==Rect2(1888,384,256,12),"station approach is a thin pass-through deck ending at the actual sill")
  var source:=load("res://game/world/regions/P/rooms/P-R01.tscn").instantiate() as FixedWorldRoom
- var draft:=WorldRoomDraft.extract(source)
- check(WorldRoomDraft.apply(source,draft).is_empty(),"material region survives the existing scene codec")
+ var draft:=WorldRoomDocument.read(source.document_ref)
+ source.free()
+ var restored:=WorldRoomDocument.instantiate(draft)
+ source=restored.get("room")
+ check(not restored.has("error"),"material region survives the existing scene codec")
  check(source.art_placements.any(func(p:Dictionary)->bool:return p.has("masonry_region")),"authored boundary material remains in room data")
  source.free()
  var state:=app.state.value.duplicate(true)

@@ -3,7 +3,7 @@ import sys,json,re,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 import export_native as native
-import export_workbench as shared
+import export_runtime as shared
 from world.build import build
 class NativeRelease(unittest.TestCase):
  @classmethod
@@ -15,11 +15,11 @@ class NativeRelease(unittest.TestCase):
   icon=re.search(r'^config/icon="res://([^"\n]+)"$',(native.ROOT/'project.godot').read_text(),re.M)
   self.assertIsNotNone(icon)
   self.assertTrue(any(r['path']==icon[1] for r in p['files']))
-  self.assertFalse(any(r['path']=='game/application/demo_app.gd' for r in p['files']))
+  self.assertFalse(any(r['path']=='tests/fixtures/campaign_fixture.gd' for r in p['files']))
   self.assertIn('assets/plains_v3/hero/manifest.json',p['raw_files'])
   self.assertTrue(any(r['path']=='assets/plains_v3/effects/combat_atlas.png' for r in p['files']))
   self.assertFalse(any(native.forbidden_resource(r['path'],p) for r in p['files']))
-  self.assertNotIn('build/workbench/preview-world.json',p['raw_files'])
+  self.assertNotIn('build/preview/preview-world.json',p['raw_files'])
   self.assertIn('config/terrain_materials.json',p['raw_files'])
   self.assertFalse(native.forbidden_resource('config/world/rooms/P-R01.json',p))
   for forbidden in ['config/world/world.json','config/world/rooms/V-R12.json','config/world/rooms/P-RUNKNOWN.json']:

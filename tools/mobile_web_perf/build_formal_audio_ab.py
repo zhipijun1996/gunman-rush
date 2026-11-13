@@ -316,7 +316,7 @@ def formal_probe(original: bytes) -> bytes:
     source = source.replace('instrumented actual public PCK; explicit scene and cue fixtures; not physical phone',
                             'main1b real demo.tscn/App; startup-only independent audio cases, explicit scene/cue fixtures; not physical phone')
     for forbidden in ['MOBILE_PERF_MASTER_ROUTING', 'mobile_perf_audio_pause_guard', 'mobile_perf_audio_off',
-                      'mobile_perf_hud_off', '"mode:"', 'DemoApp.new()', 'meta_persistence_enabled=false',
+                      'mobile_perf_hud_off', '"mode:"', 'CampaignFixture.new()', 'meta_persistence_enabled=false',
                       'func _apply(', 'func _restore(']:
         if forbidden in source:
             raise ValueError('Unexpected diagnostic control: ' + forbidden)

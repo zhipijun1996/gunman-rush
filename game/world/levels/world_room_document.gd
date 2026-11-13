@@ -2,33 +2,98 @@ class_name WorldRoomDocument
 extends RefCounted
 ## Complete static room authoring document. Runtime creates the existing game
 ## components; no external JSON-to-scene build and no second movement engine.
-const SCHEMA := 2
-const COMPONENTS := {
-	"FixedWorldRoom":"res://game/world/levels/fixed_world_room.gd",
-	"StarbridgeTrialRoom":"res://game/world/regions/V/starbridge_trial_room.gd",
-	"WorldRoomInteraction":"res://game/world/components/world_room_interaction.gd",
-	"WorldReturnLatch":"res://game/world/components/world_return_latch.gd",
-	"WorldMovingPlatform":"res://game/world/components/world_moving_platform.gd",
-	"WorldNpc":"res://game/npcs/world_npc.gd",
-	"GrappleAnchor":"res://game/world/components/grapple_anchor.gd",
-	"PlatformingModule":"res://game/world/components/platforming_module.gd",
-	"WorldModuleTerrain":"res://game/presentation/world/plains_v07/world_module_terrain.gd",
-	"WorldFlagPresentation":"res://game/world/components/world_flag_presentation.gd"
-}
-const SCRIPT_RESOURCES := [
-	"res://game/bosses/windkeeper/windkeeper_world_binding.gd",
-	"res://game/bosses/bellstrider/bellstrider_world_binding.gd"
-]
-const ENTITY_FIELDS := ["platforms", "terrain_polygons", "enemy_placements", "bell_mechanisms", "spike_strips", "gear_obstacles", "hook_points", "climbable_walls", "environment_zones", "art_placements", "hazards", "signs", "retry_anchors"]
+const SCHEMA := 3
+static var _defaults: Dictionary = {}
+static func component_scripts() -> Dictionary:
+	var result := {}
+	for kind: String in WorldElementCatalog.catalog().behaviors:
+		var path := WorldElementCatalog.component_path(kind)
+		if not path.is_empty() and not WorldElementCatalog.catalog().behaviors[kind].get("internal_service",false): result[kind] = path
+	return result
+
+static func entity_fields() -> Array[String]:
+	var result: Array[String] = []
+	for kind: String in WorldElementCatalog.catalog().behaviors:
+		var field := str(WorldElementCatalog.catalog().behaviors[kind].get("storage_field",""))
+		if not field.is_empty(): result.append(field)
+	return result
+
+static func registered_script_resources() -> Array[String]:
+	var result: Array[String]=[]
+	for definition:Dictionary in WorldElementCatalog.catalog().definitions.values():
+		for binding:Dictionary in definition.get("room_bindings",{}).values():
+			var constant:Variant=binding.get("constant")
+			if constant is Dictionary and constant.has("$resource"):result.append(str(constant["$resource"]))
+	return result
+
 const PLATFORM_FLAGS := {"one_way":"one_way_indices", "masonry":"masonry_platform_indices", "illustrated":"illustrated_platform_indices"}
 
 static func component_for(script: Script) -> String:
 	if script == null: return ""
-	var registered := WorldElementCatalog.component_for(script)
-	if not registered.is_empty(): return registered
-	for key: String in COMPONENTS:
-		if COMPONENTS[key] == script.resource_path: return key
-	return ""
+	return WorldElementCatalog.component_for(script)
+
+static func authored_defaults(kind: String) -> Dictionary:
+	if _defaults.has(kind):return _defaults[kind].duplicate(true)
+	var values:Dictionary={}
+	if kind.begins_with("array:"):return values
+	var node:Node=(load(WorldElementCatalog.component_path(kind)) as Script).new()
+	for info:Dictionary in node.get_property_list():
+		var key:=str(info.name)
+		if int(info.usage) & PROPERTY_USAGE_STORAGE and int(info.usage) & PROPERTY_USAGE_SCRIPT_VARIABLE and key!="document_ref":values[key]=encode(node.get(key))
+	for key:String in ["position","rotation","scale","z_index","visible","modulate"]:values[key]=encode(node.get(key))
+	for key:StringName in node.get_meta_list():values["metadata/"+str(key)]=encode(node.get_meta(key))
+	if WorldElementCatalog.catalog().behaviors[kind].get("root",false):
+		for key:String in entity_fields()+["entity_ids","platform_appearances","one_way_indices","masonry_platform_indices","illustrated_platform_indices","terrain_paint"]:values.erase(key)
+	node.free()
+	_defaults[kind]=values.duplicate(true)
+	return values
+
+## The source contains definitions. This derived view is shared with the editor;
+## component and scene names are implementation details, not another authority.
+static func view(source: Dictionary) -> Dictionary:
+	if source.get("schema")!=SCHEMA: return {"error":"document_version_unsupported"}
+	if not source.get("root") is Dictionary or not source.root.get("properties") is Dictionary or not source.get("entities") is Dictionary: return {"error":"document_shape_invalid"}
+	for key: Variant in source.entities:
+		var row: Variant = source.entities[key]
+		if not row is Dictionary or row.get("id")!=key or not row.get("properties") is Dictionary: return {"error":"entity_shape_invalid"}
+	var reserved:Array=entity_fields()+["entity_ids","platform_appearances","one_way_indices","masonry_platform_indices","illustrated_platform_indices"]
+	for definition:Dictionary in WorldElementCatalog.catalog().definitions.values():reserved.append_array(definition.get("room_bindings",{}).keys())
+	for field:String in reserved:
+		if source.root.properties.has(field):return {"error":"root_field_owned_by_instance:"+field}
+	var document := source.duplicate(true)
+	var rows: Array = [document.root]
+	rows.append_array(document.entities.values())
+	for row: Dictionary in rows:
+		var definition: Dictionary = WorldElementCatalog.catalog().definitions.get(str(row.get("definition_id","")),{})
+		if definition.is_empty() or definition.has("members") or row.get("definition_version")!=definition.version: return {"error":"instance_definition_invalid"}
+		if row.has("component") and row.component!=definition.component: return {"error":"derived_component_mismatch"}
+		var behavior:Dictionary=WorldElementCatalog.catalog().behaviors.get(str(definition.component),{})
+		if behavior.get("internal_service",false) or bool(behavior.get("root",false))!=not row.has("id"): return {"error":"definition_role_invalid"}
+		if (definition.has("room_bindings") or definition.id=="presentation.trial") and not str(row.get("parent","")).is_empty(): return {"error":"feature_requires_room_parent"}
+		row["component"] = definition.component
+		var values:=authored_defaults(str(definition.component))
+		values.merge(definition.get("defaults",{}),true)
+		values.merge(row.properties,true)
+		row["properties"]=values
+		row.erase("node_path")
+		if row.has("id") and not str(row.component).begins_with("array:"):
+			var id := str(row.id)
+			row["node_name"] = id.split(":node:",true,1)[1].get_file() if id.contains(":node:") else "Element_"+id.sha256_text().substr(0,16)
+			row["parent"] = row.get("parent", "")
+	document.root.properties["room_id"]=str(document.get("room_id",""))
+	return document
+
+static func canonical(source: Dictionary) -> Dictionary:
+	var document := source.duplicate(true)
+	for definition: Dictionary in WorldElementCatalog.catalog().definitions.values():
+		for field: String in definition.get("room_bindings",{}): document.root.properties.erase(field)
+	var rows: Array = [document.root]; rows.append_array(document.entities.values())
+	for row: Dictionary in rows:
+		if not row.has("definition_id"):
+			row["definition_id"] = WorldElementCatalog.catalog().behaviors.get(str(row.get("component","")),{}).get("default_definition","")
+			row["definition_version"] = 1
+		for key: String in ["component","node_name","node_path"]: row.erase(key)
+	return document
 
 static func encode(value: Variant) -> Variant:
 	if value is Vector2: return [value.x, value.y]
@@ -57,7 +122,7 @@ static func value_error(value: Variant, depth := 0) -> String:
 		if value.has("$resource"):
 			var path := str(value["$resource"])
 			if path.contains("..") or not (path.begins_with("res://game/") or path.begins_with("res://assets/") or path.begins_with("res://resources/")): return "resource_not_registered"
-			if path.ends_with(".gd") and path not in SCRIPT_RESOURCES: return "script_resource_not_registered"
+			if path.ends_with(".gd") and path not in registered_script_resources(): return "script_resource_not_registered"
 			if not ResourceLoader.exists(path): return "resource_missing:"+path
 		for item: Variant in value.values():
 			var error := value_error(item, depth+1)
@@ -105,7 +170,7 @@ static func extract(packed: PackedScene) -> Dictionary:
 		source.free()
 		return document
 	var root_component := component_for(source.get_script())
-	if root_component not in ["FixedWorldRoom", "StarbridgeTrialRoom"]:
+	if root_component not in ["FixedWorldRoom"]:
 		source.free()
 		return {"error":"root_component_unregistered"}
 	var state := packed.get_state()
@@ -130,7 +195,7 @@ static func extract(packed: PackedScene) -> Dictionary:
 			values[key] = encode(node.get(key))
 		for property_index: int in state.get_node_property_count(index):
 			var key := str(state.get_node_property_name(index, property_index))
-			if key in ["script", "document_ref", "metadata/editor_entity_ids", "metadata/editor_entity_id", "metadata/editor_element_rows"]: continue
+			if key in ["script", "document_ref", "metadata/editor_entity_ids", "metadata/editor_entity_id", "metadata/editor_element_rows", "metadata/definition_id"]: continue
 			values[key] = encode(node.get(key))
 		if index == 0:
 			document.root.properties = values
@@ -140,8 +205,8 @@ static func extract(packed: PackedScene) -> Dictionary:
 			var parent_path := path.get_base_dir()
 			document.entities[entity_id] = {"id":entity_id, "component":component, "node_name":str(node.name), "parent":node_ids.get(parent_path if not parent_path.is_empty() else ".", ""), "node_path":path, "order":index, "properties":values}
 	var props: Dictionary = document.root.properties
-	var identities: Dictionary = source.get_meta("editor_entity_ids", source.get("workbench_entity_ids"))
-	for field: String in ENTITY_FIELDS:
+	var identities: Dictionary = source.get_meta("editor_entity_ids", source.get("entity_ids"))
+	for field: String in entity_fields():
 		if not props.has(field): continue
 		var values: Array = props[field]
 		for index: int in values.size():
@@ -156,12 +221,12 @@ static func extract(packed: PackedScene) -> Dictionary:
 			document.entities[identity] = {"id":identity, "component":"array:"+field, "order":index, "properties":parameters}
 		props.erase(field)
 	for field: String in PLATFORM_FLAGS.values(): props.erase(field)
-	props.erase("workbench_entity_ids")
+	props.erase("entity_ids")
 	props.erase("platform_appearances")
 	var element_rows: Dictionary = source.get_meta("editor_element_rows", {})
 	for id: String in document.entities:
 		if not element_rows.has(id): continue
-		for key: String in ["definition_id", "definition_version", "assembly_id"]:
+		for key: String in ["definition_id", "definition_version", "assembly_id", "order"]:
 			if element_rows[id].has(key): document.entities[id][key] = element_rows[id][key]
 		if document.entities[id].component=="array:platforms" and source.platform_appearances.has(id): document.entities[id].properties.appearance = source.platform_appearances[id]
 	# Codec metadata is persisted on the packed root, never duplicated in JSON.
@@ -169,7 +234,7 @@ static func extract(packed: PackedScene) -> Dictionary:
 		if key.begins_with("metadata/editor_"): props.erase(key)
 	source.free()
 	var error := value_error(document)
-	return document if error.is_empty() else {"error":error}
+	return view(canonical(document)) if error.is_empty() else {"error":error}
 
 static func assign_properties(node: Node, properties: Dictionary) -> String:
 	var allowed: Dictionary = {}
@@ -189,13 +254,15 @@ static func assign_properties(node: Node, properties: Dictionary) -> String:
 		elif original is NodePath:
 			if not value is String: return "node_path_required:"+key
 		elif original != null:
-			var error := WorldRoomDraft.property_error(original, value)
+			var error := WorldRoomValidation.property_error(original, value)
 			if not error.is_empty(): return error+":"+key
 		node.set(key, decode(node.get(key), properties[key]))
 	return ""
 
 static func apply(room: Node, document: Dictionary) -> String:
 	if room.is_inside_tree(): return "room_already_running"
+	document = view(document)
+	if document.has("error"): return str(document.error)
 	if document.get("schema") != SCHEMA or str(document.get("room_id", "")).is_empty() or not document.get("entities") is Dictionary: return "document_invalid"
 	var error := value_error(document)
 	if not error.is_empty(): return error
@@ -208,7 +275,7 @@ static func apply(room: Node, document: Dictionary) -> String:
 	room.set("room_id", str(document.room_id))
 	var fields: Dictionary = {}
 	room.platform_appearances = {}
-	for field: String in ENTITY_FIELDS: fields[field] = []
+	for field: String in entity_fields(): fields[field] = []
 	var rows: Array = document.entities.values()
 	rows.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return int(a.get("order", 0)) < int(b.get("order", 0)))
 	var ids: Dictionary = {}
@@ -220,7 +287,7 @@ static func apply(room: Node, document: Dictionary) -> String:
 		var kind := str(row.get("component", ""))
 		if not kind.begins_with("array:"): continue
 		var field := kind.trim_prefix("array:")
-		if field not in ENTITY_FIELDS: return "array_component_unregistered"
+		if field not in entity_fields(): return "array_component_unregistered"
 		var value: Variant = row.properties.duplicate(true)
 		if field == "platforms":
 			if value.has("appearance"): room.platform_appearances[str(row.id)] = str(value.appearance)
@@ -231,15 +298,15 @@ static func apply(room: Node, document: Dictionary) -> String:
 		elif field == "hook_points": value = value.position
 		fields[field].append(value)
 	var engine_ids: Dictionary = {}
-	for field: String in ENTITY_FIELDS:
+	for field: String in entity_fields():
 		room.set(field, decode(room.get(field), fields[field]))
 		engine_ids[field] = []
 		for row: Dictionary in rows:
 			if row.component == "array:"+field: engine_ids[field].append(row.id)
 	room.set_meta("editor_entity_ids", engine_ids)
 	var legacy_ids: Dictionary = {}
-	for field: String in WorldRoomDraft.INDEXED_FIELDS: legacy_ids[field] = engine_ids[field]
-	room.set("workbench_entity_ids", legacy_ids)
+	for field: String in WorldRoomValidation.INDEXED_FIELDS: legacy_ids[field] = engine_ids[field]
+	room.set("entity_ids", legacy_ids)
 	for field: String in platform_flags: room.set(field, decode(room.get(field), platform_flags[field]))
 	var parents: Dictionary = {"":room}
 	var pending: Array = rows.filter(func(row: Dictionary) -> bool: return not str(row.component).begins_with("array:"))
@@ -249,10 +316,11 @@ static func apply(room: Node, document: Dictionary) -> String:
 			var parent_id := str(row.get("parent", ""))
 			if not parents.has(parent_id): continue
 			var script_path := WorldElementCatalog.component_path(str(row.component))
-			if script_path.is_empty(): script_path = str(COMPONENTS.get(row.component,""))
-			if script_path.is_empty() or row.component in ["FixedWorldRoom", "StarbridgeTrialRoom"]: return "node_component_unregistered"
+			if script_path.is_empty(): script_path = str(component_scripts().get(row.component,""))
+			if script_path.is_empty() or row.component in ["FixedWorldRoom"]: return "node_component_unregistered"
 			var node := (load(script_path) as Script).new() as Node
 			node.set_meta("editor_entity_id", str(row.id))
+			node.set_meta("definition_id", str(row.definition_id))
 			node.name = str(row.get("node_name", ""))
 			if str(node.name).is_empty() or str(node.name).validate_node_name() != str(node.name):
 				node.free()
@@ -267,12 +335,16 @@ static func apply(room: Node, document: Dictionary) -> String:
 			pending.erase(row)
 			advanced = true
 		if not advanced: return "node_parent_missing_or_cyclic"
-	return WorldRoomDraft.validate(room as FixedWorldRoom, WorldRoomDraft.extract(room as FixedWorldRoom)) if room is FixedWorldRoom else ""
+	for node: Node in room.find_children("*", "", true, false):
+		if node.has_method("prepare_room"): node.call("prepare_room",room)
+	return WorldRoomValidation.validate_room(room as FixedWorldRoom) if room is FixedWorldRoom else ""
 
 static func instantiate(document: Dictionary) -> Dictionary:
+	document = view(document)
+	if document.has("error"): return document
 	var kind := str(document.get("root", {}).get("component", ""))
-	if kind not in ["FixedWorldRoom", "StarbridgeTrialRoom"]: return {"error":"root_component_unregistered"}
-	var room := (load(COMPONENTS[kind]) as Script).new() as Node
+	if kind not in ["FixedWorldRoom"]: return {"error":"root_component_unregistered"}
+	var room := (load(component_scripts()[kind]) as Script).new() as Node
 	var error := apply(room, document)
 	if not error.is_empty():
 		room.free()
@@ -282,4 +354,4 @@ static func instantiate(document: Dictionary) -> Dictionary:
 static func read(path: String) -> Dictionary:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if not parsed is Dictionary: return {"error":"document_json_invalid"}
-	return parsed
+	return view(parsed)

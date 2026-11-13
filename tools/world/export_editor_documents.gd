@@ -47,22 +47,22 @@ func _run() -> void:
 	var receipt := FileAccess.open(output.get_base_dir().path_join("roundtrip.json"), FileAccess.WRITE)
 	receipt.store_string(JSON.stringify({"passed":not failed, "rooms":checks}, "\t"))
 	var components: Dictionary = {}
-	for kind: String in WorldRoomDocument.COMPONENTS:
-		var instance := (load(WorldRoomDocument.COMPONENTS[kind]) as Script).new() as Node
+	for kind: String in WorldRoomDocument.component_scripts():
+		var instance := (load(WorldRoomDocument.component_scripts()[kind]) as Script).new() as Node
 		var fields: Dictionary = {}
 		for info: Dictionary in instance.get_property_list():
 			if int(info.usage) & PROPERTY_USAGE_STORAGE and int(info.usage) & PROPERTY_USAGE_SCRIPT_VARIABLE and info.name != "document_ref":
 				fields[str(info.name)] = {"type":int(info.type), "hint":str(info.hint_string), "default":WorldRoomDocument.encode(instance.get(info.name))}
-		components[kind] = {"id":kind, "script":WorldRoomDocument.COMPONENTS[kind], "fields":fields, "root":kind in ["FixedWorldRoom", "StarbridgeTrialRoom"]}
+		components[kind] = {"id":kind, "script":WorldRoomDocument.component_scripts()[kind], "fields":fields, "root":kind in ["FixedWorldRoom"]}
 		instance.free()
 	for kind: String in WorldElementCatalog.catalog().behaviors:
 		if not kind.begins_with("array:"): components[kind] = {"id":kind,"script":WorldElementCatalog.component_path(kind),"fields":WorldElementCatalog.catalog().behaviors[kind].fields}
-	for field: String in WorldRoomDocument.ENTITY_FIELDS: components["array:"+field] = {"id":"array:"+field, "field":field}
+	for field: String in WorldRoomDocument.entity_fields(): components["array:"+field] = {"id":"array:"+field, "field":field}
 	var enemies: Array = []
 	for behavior: StringName in EnemyBehaviorRegistry.behavior_ids():
 		var definition := EnemyFactory.definition_for_behavior(behavior)
 		enemies.append({"id":str(behavior), "health":definition.health_definition.max_health, "size":WorldRoomDocument.encode(definition.collision_size), "aerial":definition.aerial, "definition":EnemyFactory.definition_path_for_behavior(behavior)})
 	var catalog := FileAccess.open(output.get_base_dir().path_join("catalog.json"), FileAccess.WRITE)
-	catalog.store_string(JSON.stringify({"schema":2, "components":components, "enemies":enemies, "terrain_materials":TerrainMaterialRegistry.catalog(), "elements":WorldElementCatalog.catalog(), "surface_styles":WorldSurfaceStyles.catalog()}, "\t", true))
+	catalog.store_string(JSON.stringify({"schema":3, "components":components, "enemies":enemies, "terrain_materials":TerrainMaterialRegistry.catalog(), "elements":WorldElementCatalog.catalog(), "surface_styles":WorldSurfaceStyles.catalog()}, "\t", true))
 	print("EDITOR DOCUMENTS: ", checks.size(), " rooms, passed=", not failed)
 	quit(1 if failed else 0)

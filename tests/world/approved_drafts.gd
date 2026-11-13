@@ -18,8 +18,8 @@ func run() -> void:
 	app=preload("res://game/application/world/fixed_world.tscn").instantiate()
 	app.save_path="user://approved_drafts_test.json"
 	root.add_child(app)
-	check(not app.workbench.enabled,"uses formal catalog, not workbench bridge")
-	check(app.content.room("Z-R01").is_empty(),"unapproved Z01 remains unavailable")
+	check(not app.content.data.get("editor_preview",false),"uses formal catalog")
+	check(not app.content.room("Z-R01").is_empty(),"authorized Z01 is in the formal catalog")
 	var caches:=0
 	for id: String in ROOMS:
 		check(await app.review.begin(id,"","hwdq"),id+" formal review entry")
@@ -33,11 +33,10 @@ func run() -> void:
 		for door: Dictionary in app.room.contract.doors:
 			var foot:=FixedWorldProvider.point(door.landing_contract.safe_standing_position_world_units)+Vector2(0,18)
 			support(foot,id+" "+str(door.id))
-		for spec:Dictionary in app.room.bell_mechanisms:
-			var mechanism:=app.room.mechanisms.get(str(spec.id)) as WorldShotLatch
-			check(mechanism!=null,id+" authored bell bound")
-			if spec.has("carrier"):
-				check(mechanism.motion_target==app.room.get_node(str(spec.carrier)),id+" bell controls its actual carrier")
+		for mechanism:WorldElementSwitch in app.room.mechanisms.values():
+			check(mechanism!=null,id+" registered bell bound")
+			for link:Dictionary in mechanism.links:
+				check(app.room.element_runtime.nodes.has(str(link.target)),id+" bell resolves actual registered receiver")
 		for host:WorldRoomInteraction in app.room.interaction_hosts:
 			if not host.name.begins_with("Cache_"):continue
 			caches+=1

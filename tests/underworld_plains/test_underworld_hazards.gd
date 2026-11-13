@@ -1,5 +1,5 @@
 extends SceneTree
-## Geometry checks plus real DemoApp/environment contact. Explicit contact poses
+## Geometry checks plus real CampaignFixture/environment contact. Explicit contact poses
 ## are consumer fixtures, not continuous route or user/device acceptance.
 var assertions := 0
 var failures := 0
@@ -145,7 +145,7 @@ func contact_fixture(face: int, length: float) -> void:
 	await process_frame
 
 func formal_contact() -> void:
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_plains("underworld-integrated-hazard-01"), "real formal stage starts")

@@ -146,7 +146,7 @@ def validate_native_audio(native,trace,manifest):
 def capture(output,smoke=False):
     if output.exists(): raise ValueError('Use fresh Home output; retain earlier failures')
     output.mkdir(parents=True)
-    report={'status':'failed','task':'AUDIO-HOME-01','version':VERSION,'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'scope':'Actual DemoApp/HomeScene original/bed/life comparison; original Home BGM throughout; automatic ground inputs; no natural NPC interaction or animation synchronization claim'}
+    report={'status':'failed','task':'AUDIO-HOME-01','version':VERSION,'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'scope':'Actual CampaignFixture/HomeScene original/bed/life comparison; original Home BGM throughout; automatic ground inputs; no natural NPC interaction or animation synchronization claim'}
     started=time.monotonic();display=None;lock=None;owned=False;cleanup_error=None;override=ROOT/'override.cfg';env=os.environ.copy();env.update(LIBGL_ALWAYS_SOFTWARE='1',LP_NUM_THREADS='4')
     try:
         lock=(ROOT/'build/.audio_ambience_capture.lock').open('a');fcntl.flock(lock.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)

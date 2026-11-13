@@ -162,7 +162,7 @@ func current_focus_items() -> void:
 		check(await load("res://tests/audio_teardown.gd").drain_world(world),"current item fixture observes bounded actual audio release")
 		world.free();await physics_frame
 func cache_app(kind: String):
-	var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app=load("res://tests/fixtures/campaign_fixture.gd").new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_plains("cache-kind-"+kind),"formal cache fixture starts")
 	# Let actual spawn protection expire before damage-race fixtures.
 	await frames(64)
@@ -225,7 +225,7 @@ func save_failure_cache() -> void:
 	app.free();await frames(2)
 	for suffix: String in ["",".backup",".tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(path+suffix))
 func eligible_item_cache() -> void:
-	var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("one-eligible-cache");await frames(4)
+	var app=load("res://tests/fixtures/campaign_fixture.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("one-eligible-cache");await frames(4)
 	var chest: Dictionary=(app.stage as PlainsRegionStage).chests.filter(func(c: Dictionary): return c.tier=="medium")[0]
 	# Explicit two-definition fixture through the existing V5 provider seam.
 	# Generate the actual frozen cache first, then advance one owned item to its
@@ -364,7 +364,7 @@ func enemy_behaviors() -> void:
 func formal_consumers() -> void:
 	var seen: Dictionary={};var hopper_checked:=false;var fan_checked:=false
 	for i: int in 12:
-		var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("formal-consumer/%s" % i);await frames(5)
+		var app=load("res://tests/fixtures/campaign_fixture.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("formal-consumer/%s" % i);await frames(5)
 		app.set_physics_process(false);app.controller.set_physics_process(false)
 		for contact: DemoContactEmitter in app._enemy_contacts: contact.enabled=false
 		for enemy: EnemyMotor in app.stage.enemies: (enemy.get_node("Actor") as EnemyActor).set_physics_process(false)
@@ -427,7 +427,7 @@ func cache_policy_boundaries() -> void:
 func cache_policy_actual_app() -> void:
 	# Empty actual provider is an explicit eligibility boundary, not a generated-seed claim.
 	for row: Array in [["medium",1,ItemDefinition.Rarity.BLUE],["high",2,ItemDefinition.Rarity.PURPLE],["region_top",4,ItemDefinition.Rarity.GOLD],["unknown",4,ItemDefinition.Rarity.GOLD]]:
-		var app=load("res://game/application/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app)
+		var app=load("res://tests/fixtures/campaign_fixture.gd").new();app.meta_persistence_enabled=false;root.add_child(app)
 		check(app.start_plains("cache-policy-"+str(row[0])),"cache policy consumer starts the actual App")
 		await frames(4)
 		app.set_physics_process(false)

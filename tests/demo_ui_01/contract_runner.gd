@@ -1,6 +1,6 @@
 extends SceneTree
-## Real DemoApp consumer, actual native event dispatch. Resource edge cases are explicit fixtures.
-var app: DemoApp
+## Real CampaignFixture consumer, actual native event dispatch. Resource edge cases are explicit fixtures.
+var app: CampaignFixture
 var checks := 0
 var failures := 0
 var observations: Array[Dictionary] = []
@@ -49,7 +49,7 @@ func image(name: String) -> void:
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(out)
 	root.size = Vector2i(1280, 720)
-	app = DemoApp.new(); app.meta_persistence_enabled = false; root.add_child(app)
+	app = CampaignFixture.new(); app.meta_persistence_enabled = false; root.add_child(app)
 	await frames(8)
 	await image("title")
 	var primary := button(app.menu._root, "风铃平原")

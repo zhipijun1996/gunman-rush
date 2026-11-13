@@ -12,7 +12,7 @@ func frames(count: int) -> void:
 func run() -> void:
 	# Real default consumer, without the Lab opt-in. Outcome fixture below only
 	# exercises map transitions; it does not claim player completion of a route.
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(3)

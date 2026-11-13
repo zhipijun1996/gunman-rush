@@ -165,7 +165,7 @@ func _receive_counter_impact(data: Dictionary, bell: GuardianRootBellV2) -> void
 	request.token = bell.token.copy()
 	request.event_id = bell._counter_event
 	request.source_id = StringName("guardian_bell_counter:%s" % defeat_id)
-	# Both the formal DemoApp and this local fixture register this existing
+	# Both the formal CampaignFixture and this local fixture register this existing
 	# Boss Health under boss. Never register another owner or fake a shot ID.
 	request.target_id = &"boss"
 	request.kind = DamageRequest.Kind.MONSTER

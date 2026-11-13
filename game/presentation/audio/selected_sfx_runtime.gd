@@ -165,9 +165,9 @@ func _ready() -> void:
 
 func _attach() -> void:
 	if validation_ok: return
-	var app := get_parent() as DemoApp
+	var app := get_parent() as CampaignFixture
 	if app == null or not is_inside_tree():
-		validation_error = "selected SFX requires its direct DemoApp owner"
+		validation_error = "selected SFX requires its direct CampaignFixture owner"
 		_publish_probe()
 		return
 	var service: GameAudio

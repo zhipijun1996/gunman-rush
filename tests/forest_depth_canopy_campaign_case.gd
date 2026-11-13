@@ -24,7 +24,7 @@ func run() -> void:
 	data.route={"manifest":trace.manifest.duplicate(true),"frames":trace.frames.duplicate(true),"events":trace.events.duplicate(true),"requests":trace.requests.duplicate(true),"completed":trace.completed.duplicate(true),"itinerary":trace.itinerary.duplicate(true),"failures":trace.failures.duplicate(),"initial":trace.initial.duplicate(true),"final":trace.snapshot()}
 	check(trace.failures.is_empty() and trace.completed.size()==trace.itinerary.size(),"actual latest map2 fast reaches gate_ready")
 	if not failures.is_empty(): await finish(trace);return
-	var app: DemoApp=trace.app
+	var app: CampaignFixture=trace.app
 	pilot=PILOT.new();add_child(pilot);pilot.partial_path=output.get_base_dir()+"/canopy-partial.json"
 	check(pilot.bind_actual(app),"latest default produces actual canopy Encounter, not legacy Queen")
 	if not failures.is_empty(): await finish(trace);return
@@ -101,19 +101,19 @@ func modifier_rows(item: ItemDefinition) -> Array[Dictionary]:
 	for modifier: BuildModifier in BuildState.resolve_item_modifiers(item,1):
 		result.append({"stat":String(modifier.stat_id),"operation":int(modifier.operation),"value":modifier.value,"priority":modifier.priority})
 	return result
-func effect_source_rows(app: DemoApp) -> Array[Dictionary]:
+func effect_source_rows(app: CampaignFixture) -> Array[Dictionary]:
 	var result: Array[Dictionary]=[]
 	for source: Dictionary in app.build.effect_sources():
 		result.append({"definition_id":String(source.definition_id),"instance_id":String(source.instance_id),"source_id":String(source.source_id),"level":int(source.level),"parameters":source.parameters.duplicate(true)})
 	return result
-func reward_identity(app: DemoApp) -> Dictionary:
+func reward_identity(app: CampaignFixture) -> Dictionary:
 	var instances: Array[Dictionary]=[]
 	for item: RunItemInstance in app.build.inventory.instances():
 		if selected_gold!=null and item.definition_id==selected_gold.stable_id:
 			instances.append({"instance_id":String(item.instance_id),"definition_id":String(item.definition_id),"definition_version":item.definition_version,"source_id":String(item.source_id),"level":item.level,"fingerprint":item.item.fingerprint()})
 	return {"hp":app.controller.actor_resources.health.current,"capacity":app.controller.actor_resources.health.capacity,"wallet":app.wallet.balance,"count":app.build.count_item(selected_gold.stable_id),"equipped":app.build.item_ids(),"instances":instances}
 func _pause_reload(driver: Node) -> bool:
-	var app: DemoApp=driver.app
+	var app: CampaignFixture=driver.app
 	var before: Dictionary=driver.snapshot();var token:=app.lifetime.token();var prior:=app.region_state
 	if not await send_button(app._pause_button,"pause"): return false
 	check(get_tree().paused,"MENU genuinely pauses App")
@@ -167,7 +167,7 @@ func probe_invalid(driver: Node,saved: Dictionary) -> Array[Dictionary]:
 		check(not accepted and not driver.queen.last_restore_accepted and atomic,"invalid real schema rejects atomically: "+id)
 		if not failures.is_empty(): break
 	return variants
-func approach_reward(app: DemoApp) -> void:
+func approach_reward(app: CampaignFixture) -> void:
 	var start_tick: int=pilot.tick
 	var holding:=0
 	for unused: int in 900:

@@ -37,7 +37,7 @@ def main():
     target.mkdir(parents=True)
     os.environ['DISPLAY']=args.display;os.environ['LIBGL_ALWAYS_SOFTWARE']='1';os.environ.setdefault('LP_NUM_THREADS','1')
     before=inventory()
-    report={'schema':'underworld-revision2-actual-experience-capture-v1','source_commit':commit,'worktree_head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_hashes_before':before,'captures':[],'status':'failed','scope':'ordinary real DemoApp consumers driven by actual KeyboardMouseAdapter InputEvents; normal60fps simulation/playback software recording, not hardware FPS/player/device acceptance','audio_policy':'Dummy engine output, no real hardware audio/listening acceptance. Track presence and RMS are observed separately, not evidence of listening.'}
+    report={'schema':'underworld-revision2-actual-experience-capture-v1','source_commit':commit,'worktree_head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_hashes_before':before,'captures':[],'status':'failed','scope':'ordinary real CampaignFixture consumers driven by actual KeyboardMouseAdapter InputEvents; normal60fps simulation/playback software recording, not hardware FPS/player/device acceptance','audio_policy':'Dummy engine output, no real hardware audio/listening acceptance. Track presence and RMS are observed separately, not evidence of listening.'}
     try:
         for mode in modes:
             folder=target/mode;folder.mkdir()

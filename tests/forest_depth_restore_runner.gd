@@ -24,7 +24,7 @@ func run() -> void:
 		if argument.begins_with("--output="): output=argument.trim_prefix("--output=")
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 	var file := FileAccess.open(output,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"scope":"Actual DemoApp V6 Guardian normal-input earned-state reload and v1 compatibility; NOT full Boss gameplay admission","engine":Engine.get_version_info(),"assertions":assertions,"failures":failures,"checks":checks,"cases":cases},"\t"))
+	file.store_string(JSON.stringify({"scope":"Actual CampaignFixture V6 Guardian normal-input earned-state reload and v1 compatibility; NOT full Boss gameplay admission","engine":Engine.get_version_info(),"assertions":assertions,"failures":failures,"checks":checks,"cases":cases},"\t"))
 	file.close()
 	print("FOREST DEPTH RESTORE: %s assertions, %s failures" % [assertions,failures])
 	quit(1 if failures else 0)
@@ -40,7 +40,7 @@ func guardian_case() -> void:
 		if is_instance_valid(trace.app): await dispose(trace.app)
 		trace.free()
 		return
-	var app: DemoApp=trace.app
+	var app: CampaignFixture=trace.app
 	var stage := app.stage as ThornForestRegionStage
 	var duel := stage.boss.get_node("Encounter") as RootbellGuardianV2
 	check(duel!=null and duel._duel_bound,"actual App physically binds current Guardian arena")
@@ -130,7 +130,7 @@ func guardian_case() -> void:
 	await dispose(app)
 	trace.free()
 func legacy_case() -> void:
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	root.add_child(app)
 	check(app.start_debug_region(&"thorn_forest",1,"restore-legacy",ThornForestRegionGenerator.LEGACY_VERSION),"ordinary explicit v1 App entry accepted")
@@ -153,14 +153,14 @@ func legacy_case() -> void:
 	check(restored.health.current==hp and app.stage.boss.scene_file_path=="res://scenes/bosses/thorn_guardian.tscn","ordinary v1 damaged Boss reload preserved")
 	cases.append({"id":"legacy_app_reload","health_before":hp,"health_after":restored.health.current,"scene":app.stage.boss.scene_file_path})
 	await dispose(app)
-func dispose(app: DemoApp) -> void:
+func dispose(app: CampaignFixture) -> void:
 	paused=false
 	app.abandon_run()
 	await frames(4)
 	check(await AUDIO.drain_world(app),"owned App audio drained")
 	app.free()
 	await frames(2)
-func earn_current_restore_state(app: DemoApp, duel: RootbellGuardianV2, samples: Array[Dictionary]) -> bool:
+func earn_current_restore_state(app: CampaignFixture, duel: RootbellGuardianV2, samples: Array[Dictionary]) -> bool:
 	var controller: PlayerController=app.controller
 	var player: PlayerMotor=app.player
 	var last_hook := -1

@@ -57,11 +57,11 @@ class RoutingTests(unittest.TestCase):
                     'authorization_basis': 'SIMULATED explicit bounded geometry/camera authorization',
                     'design': {'space': 'One playable against-wind room'},
                     'validation': ['Actual Motor traversal and whole-screen normal-speed independent review'],
-                    'allowed_paths': ['game/world/generation/plains_spatial_golden.gd', 'game/world/generation/stage_camera_rig.gd', 'game/application/demo_app.gd']}
+                    'allowed_paths': ['game/world/generation/plains_spatial_golden.gd', 'game/world/generation/stage_camera_rig.gd', 'tests/fixtures/campaign_fixture.gd']}
             level_design.write(path, data)
             _, binding = level_design.load_spatial_experiment('experiment.json', 'windchime_plains', root)
             self.assertEqual(binding['allowed_paths'], data['allowed_paths'])
-            for allowed in ('scripts/demo/demo_app.gd', 'game/application/demo_app.gd',
+            for allowed in ('scripts/demo/demo_app.gd', 'tests/fixtures/campaign_fixture.gd',
                             'game/world/components/module_moving_platform.gd',
                             'game/world/components/module_moving_platform.gd.uid',
                             'game/world/components/scenes/checkpoint.tscn',

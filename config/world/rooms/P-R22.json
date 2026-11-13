@@ -1,7 +1,6 @@
 {
   "entities": {
     "P-R22:art:0": {
-      "component": "array:art_placements",
       "definition_id": "decor.hanging_chime",
       "definition_version": 1,
       "id": "P-R22:art:0",
@@ -17,7 +16,6 @@
       }
     },
     "P-R22:art:1": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R22:art:1",
@@ -33,7 +31,6 @@
       }
     },
     "P-R22:art:10": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R22:art:10",
@@ -49,7 +46,6 @@
       }
     },
     "P-R22:art:14": {
-      "component": "array:art_placements",
       "definition_id": "decor.mill_post_segment",
       "definition_version": 1,
       "id": "P-R22:art:14",
@@ -82,7 +78,6 @@
       }
     },
     "P-R22:art:15": {
-      "component": "array:art_placements",
       "definition_id": "decor.mill_beam_segment",
       "definition_version": 1,
       "id": "P-R22:art:15",
@@ -115,7 +110,6 @@
       }
     },
     "P-R22:art:2": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R22:art:2",
@@ -131,7 +125,6 @@
       }
     },
     "P-R22:art:3": {
-      "component": "array:art_placements",
       "definition_id": "decor.storage_crates",
       "definition_version": 1,
       "id": "P-R22:art:3",
@@ -146,7 +139,6 @@
       }
     },
     "P-R22:art:4": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R22:art:4",
@@ -162,7 +154,6 @@
       }
     },
     "P-R22:art:5": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R22:art:5",
@@ -178,7 +169,6 @@
       }
     },
     "P-R22:art:6": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R22:art:6",
@@ -194,7 +184,6 @@
       }
     },
     "P-R22:art:7": {
-      "component": "array:art_placements",
       "definition_id": "decor.opening_road_ridge",
       "definition_version": 1,
       "id": "P-R22:art:7",
@@ -217,7 +206,6 @@
       }
     },
     "P-R22:art:8": {
-      "component": "array:art_placements",
       "definition_id": "decor.opening_road_ridge",
       "definition_version": 1,
       "id": "P-R22:art:8",
@@ -240,7 +228,6 @@
       }
     },
     "P-R22:art:9": {
-      "component": "array:art_placements",
       "definition_id": "decor.orchard_fence",
       "definition_version": 1,
       "id": "P-R22:art:9",
@@ -261,7 +248,8 @@
       }
     },
     "P-R22:enemy_placements:0": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R22:enemy_placements:0",
       "order": 0,
       "properties": {
@@ -275,7 +263,8 @@
       }
     },
     "P-R22:enemy_placements:1": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R22:enemy_placements:1",
       "order": 1,
       "properties": {
@@ -289,7 +278,8 @@
       }
     },
     "P-R22:enemy_placements:2": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.hopper",
+      "definition_version": 1,
       "id": "P-R22:enemy_placements:2",
       "order": 2,
       "properties": {
@@ -303,7 +293,8 @@
       }
     },
     "P-R22:enemy_placements:3": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R22:enemy_placements:3",
       "order": 3,
       "properties": {
@@ -316,8 +307,47 @@
         ]
       }
     },
+    "P-R22:feature:story.intro": {
+      "definition_id": "story.intro",
+      "definition_version": 1,
+      "id": "P-R22:feature:story.intro",
+      "order": 1050,
+      "parent": "",
+      "properties": {
+        "modulate": {
+          "$color": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "parameters": {
+          "intro_sequence": {},
+          "onboarding": {},
+          "traveler_point": [
+            0.0,
+            0.0
+          ],
+          "tutorial_action": "tutorial_recoil",
+          "tutorial_min_move": 100.0,
+          "tutorial_recoil_finish_x": 2820.0,
+          "tutorial_target": ""
+        },
+        "position": [
+          0,
+          0
+        ],
+        "rotation": 0,
+        "scale": [
+          1,
+          1
+        ],
+        "visible": true,
+        "z_index": 0
+      }
+    },
     "P-R22:platforms:0": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:0",
@@ -335,7 +365,6 @@
       }
     },
     "P-R22:platforms:1": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:1",
@@ -353,7 +382,6 @@
       }
     },
     "P-R22:platforms:10": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:10",
@@ -371,7 +399,6 @@
       }
     },
     "P-R22:platforms:12": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:12",
@@ -389,7 +416,6 @@
       }
     },
     "P-R22:platforms:13": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:13",
@@ -407,7 +433,6 @@
       }
     },
     "P-R22:platforms:14": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:14",
@@ -425,7 +450,6 @@
       }
     },
     "P-R22:platforms:15": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:15",
@@ -443,7 +467,6 @@
       }
     },
     "P-R22:platforms:16": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:16",
@@ -461,7 +484,6 @@
       }
     },
     "P-R22:platforms:17": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:17",
@@ -479,7 +501,6 @@
       }
     },
     "P-R22:platforms:18": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:18",
@@ -497,7 +518,6 @@
       }
     },
     "P-R22:platforms:19": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:19",
@@ -515,7 +535,6 @@
       }
     },
     "P-R22:platforms:2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:2",
@@ -533,7 +552,6 @@
       }
     },
     "P-R22:platforms:20": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:20",
@@ -551,7 +569,6 @@
       }
     },
     "P-R22:platforms:23": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:23",
@@ -569,7 +586,6 @@
       }
     },
     "P-R22:platforms:23:part2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:23:part2",
@@ -587,7 +603,6 @@
       }
     },
     "P-R22:platforms:23:part3": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:23:part3",
@@ -605,7 +620,6 @@
       }
     },
     "P-R22:platforms:24": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:24",
@@ -623,7 +637,6 @@
       }
     },
     "P-R22:platforms:3": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:3",
@@ -641,7 +654,6 @@
       }
     },
     "P-R22:platforms:4": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:4",
@@ -659,7 +671,6 @@
       }
     },
     "P-R22:platforms:5": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:5",
@@ -677,7 +688,6 @@
       }
     },
     "P-R22:platforms:6": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:6",
@@ -695,7 +705,6 @@
       }
     },
     "P-R22:platforms:7": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:7",
@@ -713,7 +722,6 @@
       }
     },
     "P-R22:platforms:9": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R22:platforms:9",
@@ -731,12 +739,9 @@
       }
     },
     "P-R22:practice_shutter": {
-      "component": "WorldElementSwitch",
       "definition_id": "switch.shot",
       "definition_version": 1.0,
       "id": "P-R22:practice_shutter",
-      "node_name": "Element_24180f9f8cb1d570",
-      "node_path": "./Element_24180f9f8cb1d570",
       "order": 1,
       "parent": "",
       "properties": {
@@ -775,12 +780,9 @@
       }
     },
     "P-R22:practice_shutter/gate": {
-      "component": "WorldElementGate",
       "definition_id": "gate.masonry",
       "definition_version": 1.0,
       "id": "P-R22:practice_shutter/gate",
-      "node_name": "Element_02dabe329a3f96be",
-      "node_path": "./Element_02dabe329a3f96be",
       "order": 2,
       "parent": "",
       "properties": {
@@ -815,7 +817,8 @@
       }
     },
     "P-R22:retry_anchors:0": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R22:retry_anchors:0",
       "order": 0,
       "properties": {
@@ -833,7 +836,8 @@
       }
     },
     "P-R22:retry_anchors:1": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R22:retry_anchors:1",
       "order": 1,
       "properties": {
@@ -851,7 +855,8 @@
       }
     },
     "P-R22:retry_anchors:2": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R22:retry_anchors:2",
       "order": 2,
       "properties": {
@@ -869,7 +874,8 @@
       }
     },
     "P-R22:signs:0": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "P-R22:signs:0",
       "order": 0,
       "properties": {
@@ -882,7 +888,8 @@
       }
     },
     "P-R22:signs:1": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "P-R22:signs:1",
       "order": 1,
       "properties": {
@@ -894,7 +901,6 @@
       }
     },
     "P-R22:spike_strips:0": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R22:spike_strips:0",
@@ -912,7 +918,6 @@
       }
     },
     "P-R22:spike_strips:1": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R22:spike_strips:1",
@@ -930,7 +935,6 @@
       }
     },
     "P-R22:spike_strips:2": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R22:spike_strips:2",
@@ -949,30 +953,11 @@
   },
   "room_id": "P-R22",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "风压引渠",
       "art_profile": "canal",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -981,22 +966,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R22",
       "rotation": 0.0,
       "route_guide": {},
@@ -1009,25 +983,15 @@
         768.0,
         142.0
       ],
-      "story_sequence": {},
       "terrain_paint": {
         "regions": [],
         "seed": 0.0,
         "surfaces": [],
         "version": 1.0
       },
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "tutorial_recoil",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 2820.0,
-      "tutorial_target": "",
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

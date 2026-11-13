@@ -20,7 +20,7 @@ OWNED = (
     'tests/underworld_plains/home_terrace_driver.gd',
     'tests/underworld_plains/test_underworld_home_terraces.gd',
     'tools/run_underworld_home_terrace_tests.py',
-    'game/application/demo_app.gd',
+    'tests/fixtures/campaign_fixture.gd',
     'game/presentation/ui/home_item_codex.gd',
     'game/progression/meta_progression.gd',
     'game/progression/home_item_catalog.gd',

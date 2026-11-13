@@ -4,7 +4,7 @@ const REQUIRED_PROTOTYPES := ["wind_meadow", "postal_valley", "lee_court"]
 var places_route_contract: Dictionary = {}
 var places_waypoint_observations: Array = []
 
-func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
+func attach(application: CampaignFixture, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
 	if not super.attach(application, selected_strategy, wait_ticks, selected_policy): return false
 	var instances: Variant = _plan.get("place_instances")
 	var order: Variant = _plan.get("place_order")

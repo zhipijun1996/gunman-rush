@@ -1,0 +1,31 @@
+{
+  "id": "encounter.waves",
+  "name": "波次遭遇",
+  "version": 1,
+  "component": "WorldRoomFeature",
+  "category": "encounters",
+  "placeable": true,
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "parameters": {
+      "wave_encounter": {}
+    }
+  },
+  "room_bindings": {
+    "wave_encounter": {
+      "parameter": "wave_encounter"
+    }
+  },
+  "parameter_defaults": {
+    "wave_encounter": {}
+  },
+  "documentation": "docs/data/world_objects.md",
+  "parameter_fields": {
+    "wave_encounter": {
+      "type": "dict"
+    }
+  }
+}

@@ -49,7 +49,7 @@ func run() -> void:
 	var explored: Array=app.state.value.explored.duplicate()
 	app.ui.show_map();await ticks(3)
 	var maps:=app.ui.shell.find_children("*","FixedWorldMap",true,false)
-	check(maps.size()==1 and (maps[0] as FixedWorldMap).rows().size()==35,"review map shows the continuous plains, without overlapping the interior depth plane")
+	check(maps.size()==1 and (maps[0] as FixedWorldMap).rows().size()==42,"review map shows the continuous plains, without overlapping the interior depth plane")
 	check(app.state.value.explored==explored,"full review map does not grant campaign exploration")
 	app._close_panel();await ticks(2)
 	var lamp:=app.player.get_node("CarryLight") as PlayerCarryLight
@@ -74,6 +74,7 @@ func run() -> void:
 	await ticks(3)
 	check(app.controller.actor_resources.health.current==app.controller.actor_resources.health.capacity-1,"turning protection off restores real damage")
 	app.review.set_invincible(true)
+	await ticks(90)
 	app.review.leave();await ticks(2)
 	check(not app.review.invincible,"leaving review clears invincibility")
 	check(app.state.storage==storage and not app.review.active,"leaving review restores campaign storage")

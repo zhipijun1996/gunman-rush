@@ -17,7 +17,7 @@ func _initialize() -> void:
 			_p1_selected=true
 	super._initialize()
 
-func make_application() -> DemoApp:
+func make_application() -> CampaignFixture:
 	var application := super.make_application()
 	application.p1_random_plains_requested=_p1_selected
 	application.avatar_selection_id="p1_girl" if _p1_selected else "courier"

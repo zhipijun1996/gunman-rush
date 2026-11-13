@@ -54,7 +54,7 @@ static func _physics(node: Node, rows: Array[Dictionary]) -> void:
 			"one_way":node.one_way_collision, "one_way_margin":node.one_way_collision_margin})
 	for child: Node in node.get_children(): _physics(child, rows)
 
-static func invariant(app: DemoApp) -> String:
+static func invariant(app: CampaignFixture) -> String:
 	var bodies: Array[Dictionary] = []
 	_physics(app.stage, bodies)
 	_physics(app.player, bodies)
@@ -67,7 +67,7 @@ static func invariant(app: DemoApp) -> String:
 		"player_tuning":tuning, "tuning_file":FileAccess.get_sha256("res://config/player_tuning.json"),
 		"traversal":FileAccess.get_sha256("res://resources/player/traversal.tres")}).sha256_text()
 
-static func pixel_default(app: DemoApp) -> bool:
+static func pixel_default(app: CampaignFixture) -> bool:
 	var stage := app.stage as PlainsRegionStage
 	var background := app.get_node_or_null("PixelPlainsParallax") as UnderworldParallax
 	return stage != null and not stage.has_meta("legacy_presentation_fixture") \
@@ -81,7 +81,7 @@ static func pixel_default(app: DemoApp) -> bool:
 		and app._uses_pixel_plains_presentation() and background != null and background.visible \
 		and background.panels.size() == 9
 
-static func _install(app: DemoApp, profile: String, arguments: PackedStringArray) -> Dictionary:
+static func _install(app: CampaignFixture, profile: String, arguments: PackedStringArray) -> Dictionary:
 	if profile not in PROFILES or arguments.count(FLAG+profile) != 1:
 		return {"installed":false, "error":"explicit_legacy_profile_required"}
 	for argument: String in arguments:
@@ -147,7 +147,7 @@ static func _install(app: DemoApp, profile: String, arguments: PackedStringArray
 	stage.set_meta("legacy_presentation_fixture", record.duplicate(true))
 	return record
 
-static func prepare(app: DemoApp, profile: String) -> Dictionary:
+static func prepare(app: CampaignFixture, profile: String) -> Dictionary:
 	var before := invariant(app)
 	var actual_default := pixel_default(app)
 	var absent := _install(app, profile, PackedStringArray())

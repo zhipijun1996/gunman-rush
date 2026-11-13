@@ -42,5 +42,5 @@ func run() -> void:
 	push_error("Regional art review stage timeout")
 	await close_review()
 
-func make_review_application() -> DemoApp:
-	return DemoApp.new()
+func make_review_application() -> CampaignFixture:
+	return CampaignFixture.new()

@@ -2,7 +2,7 @@ extends "res://tests/world/plains35_fixture.gd"
 
 func run() -> void:
 	root.size=Vector2i(1280,720)
-	app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://plains35_region.json";root.add_child(app);app.workbench.enabled=true
+	app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://plains35_region.json";root.add_child(app)
 	var cases:Array=[
 	["P-R05",Vector2(1024,206),Vector2(1328,142),Vector2(-.92,.392)],
 	["P-R14",Vector2(512,1230),Vector2(352,1102),Vector2.ZERO],

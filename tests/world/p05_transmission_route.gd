@@ -3,10 +3,13 @@ extends "res://tests/world/approved_hub_actions.gd"
 func run()->void:
  root.size=Vector2i(1280,720)
  var authored:=load("res://game/world/regions/P/rooms/P-R05.tscn").instantiate() as FixedWorldRoom
- var draft:=WorldRoomDraft.extract(authored)
- check(WorldRoomDraft.validate(authored,draft).is_empty(),"P05 current scene codec accepts its return lift")
+ var draft:=WorldRoomDocument.read(authored.document_ref)
+ check(WorldRoomValidation.validate_room(authored).is_empty(),"P05 current scene codec accepts its return lift")
  (authored.get_node("ReturnLift") as WorldMovingPlatform).activation_flag=""
- check(WorldRoomDraft.apply(authored,draft).is_empty() and authored.get_node("ReturnLift").activation_flag=="shortcut_p02","P05 codec round-trip preserves permanent activation binding")
+ authored.free()
+ var restored:=WorldRoomDocument.instantiate(draft)
+ authored=restored.get("room")
+ check(not restored.has("error") and authored.get_node("ReturnLift").activation_flag=="shortcut_p02","P05 codec round-trip preserves permanent activation binding")
  authored.free()
  app=preload("res://game/application/world/fixed_world.tscn").instantiate();root.add_child(app)
  await load_room("P-R05");await ticks(30)

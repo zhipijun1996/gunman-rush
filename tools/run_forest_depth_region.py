@@ -1,4 +1,4 @@
-"""Fresh actual DemoApp v2 routes. No Boss fight or historical-v1 substitution.
+"""Fresh actual CampaignFixture v2 routes. No Boss fight or historical-v1 substitution.
 
 Start with one seed/map and three individually recorded routes. --matrix merely
 requests actual runs; it never manufactures a pass for an absent/blocked map.
@@ -1302,7 +1302,7 @@ def validate(data):
         errors.extend(validate_bible_admission(data))
     def fail(reason):
         if reason not in errors:errors.append(reason)
-    if data.get('scope')!='formal_DemoApp_forest_v2_continuous_route_not_boss_fight' or data.get('boss_fight_covered') is not False:fail('scope_or_boss_claim')
+    if data.get('scope')!='formal_CampaignFixture_forest_v2_continuous_route_not_boss_fight' or data.get('boss_fight_covered') is not False:fail('scope_or_boss_claim')
     if data.get('manual_motor_step') is not False or data.get('position_or_resource_injection') is not False:fail('privileged_motion')
     if manifest.get('version')!=VERSION or data.get('actual_stage_version')!=VERSION or data.get('actual_stage_map')!=data.get('map_index') or manifest.get('map_index')!=data.get('map_index'):fail('actual_map_version_identity')
     if manifest.get('seed')!=f"{data.get('seed')}/thorn_forest/map_{data.get('map_index')}":fail('actual_seed_identity')

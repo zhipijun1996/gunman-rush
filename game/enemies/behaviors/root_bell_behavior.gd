@@ -18,7 +18,7 @@ func advance(delta: float) -> bool:
 	if _actor_epoch != lifetime.actor_epoch:
 		_actor_epoch = lifetime.actor_epoch
 		cancel()
-	# DemoApp restores inherited phase fields after bind_encounter. An old
+	# CampaignFixture restores inherited phase fields after bind_encounter. An old
 	# targeted warning/pulse belongs to the old actor epoch: retain serial and
 	# recovery debt, never recreate its damage in the new target's lifetime.
 	if _first_advance:

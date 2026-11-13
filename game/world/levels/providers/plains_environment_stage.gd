@@ -1,6 +1,6 @@
 class_name PlainsEnvironmentStage
 extends PlainsRegionStage
-## Real DemoApp candidate; intentionally not admitted into the two-map content pool.
+## Real CampaignFixture candidate; intentionally not admitted into the two-map content pool.
 var environment_plan: Dictionary = {}
 var environment_renderer: Node2D
 
@@ -101,7 +101,7 @@ func get_environment_snapshot() -> Dictionary:
 	var art: Dictionary = {}
 	if is_instance_valid(environment_renderer) and environment_renderer.has_method("measured_nodes"):
 		art = environment_renderer.call("measured_nodes")
-	return {"environment_plan":environment_plan,"manifest_hash":generated.manifest.manifest_hash,"solid_polygons":actual,"saws":saws,"art":art,"production_pool":false,"scope":"Explicit development places through original DemoApp systems; not admitted campaign content"}
+	return {"environment_plan":environment_plan,"manifest_hash":generated.manifest.manifest_hash,"solid_polygons":actual,"saws":saws,"art":art,"production_pool":false,"scope":"Explicit development places through original CampaignFixture systems; not admitted campaign content"}
 
 func _draw() -> void:
 	# Original actors, hazards, HUD and contacts remain their actual consumers.

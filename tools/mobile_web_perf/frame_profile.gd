@@ -1,5 +1,5 @@
 extends Node
-## Diagnostic-only child of the real DemoApp. Observation/capture only.
+## Diagnostic-only child of the real CampaignFixture. Observation/capture only.
 var app: Node
 var measuring := false
 var begin_usec := 0

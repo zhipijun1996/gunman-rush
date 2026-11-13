@@ -189,10 +189,10 @@ func actual_ferry(phase: float, forward: bool) -> void:
 	await process_frame
 
 func formal_inventory() -> void:
-	var app:=DemoApp.new()
+	var app:=CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	root.add_child(app)
-	check(app.start_plains("underworld-mechanism-unification"),"actual normal DemoApp starts")
+	check(app.start_plains("underworld-mechanism-unification"),"actual normal CampaignFixture starts")
 	await frames(10)
 	check(app.stage is PlainsRegionStage and app.stage.assembly_ok,"formal map assembles")
 	var stage:=app.stage as PlainsRegionStage
@@ -209,7 +209,7 @@ func formal_inventory() -> void:
 	check(app.stage.generated.manifest.manifest_hash==manifest_hash,"real unload/reload preserves Manifest")
 	for module: PlatformingModule in app.stage.assembler.modules:
 		for ferry: ModuleMovingPlatform in module.moving_platforms: check(ferry.painted_art is ModuleMovingPlatform.UnderworldCarrierPaint,"reloaded actual ferry retains current material")
-	rows.append({"kind":"actual_DemoApp_reload","seed":"underworld-mechanism-unification","manifest_hash":manifest_hash,"ferries":ferries,"scope":"Actual normal-entry consumer material inventory and reload, not traversal"})
+	rows.append({"kind":"actual_CampaignFixture_reload","seed":"underworld-mechanism-unification","manifest_hash":manifest_hash,"ferries":ferries,"scope":"Actual normal-entry consumer material inventory and reload, not traversal"})
 	if not await load("res://tests/audio_teardown.gd").drain_world(app): check(false,"formal audio teardown")
 	app.free()
 	await process_frame

@@ -2,7 +2,7 @@ extends SceneTree
 ## Consumer checks: real replay node, capabilities, pause, damage and feedback.
 var failures := 0
 var assertions := 0
-var app: DemoApp
+var app: CampaignFixture
 var lab: FoundryLab
 
 func _initialize() -> void: run.call_deferred()
@@ -32,7 +32,7 @@ func run() -> void:
 	forged.capability_profile = "air_chain"
 	forged.hash = FoundryCatalog.checksum(forged)
 	check(not FoundryCatalog.valid(forged), "profile cannot be relabelled without reconstruction")
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	var before := app.meta.snapshot()

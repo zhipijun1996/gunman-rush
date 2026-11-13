@@ -1,7 +1,6 @@
 {
   "entities": {
     "P-R09:art:seam:17": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R09:art:seam:17",
@@ -17,7 +16,6 @@
       }
     },
     "P-R09:composition:0": {
-      "component": "array:art_placements",
       "definition_id": "decor.forecourt_foundation",
       "definition_version": 1,
       "id": "P-R09:composition:0",
@@ -49,7 +47,6 @@
       }
     },
     "P-R09:composition:1": {
-      "component": "array:art_placements",
       "definition_id": "decor.junction_transfer",
       "definition_version": 1,
       "id": "P-R09:composition:1",
@@ -70,7 +67,6 @@
       }
     },
     "P-R09:composition:10": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R09:composition:10",
@@ -86,7 +82,6 @@
       }
     },
     "P-R09:composition:2": {
-      "component": "array:art_placements",
       "definition_id": "decor.well_winch_mount",
       "definition_version": 1,
       "id": "P-R09:composition:2",
@@ -106,7 +101,6 @@
       }
     },
     "P-R09:composition:3": {
-      "component": "array:art_placements",
       "definition_id": "decor.storage_crates",
       "definition_version": 1,
       "id": "P-R09:composition:3",
@@ -121,7 +115,6 @@
       }
     },
     "P-R09:composition:4": {
-      "component": "array:art_placements",
       "definition_id": "decor.storage_crates",
       "definition_version": 1,
       "id": "P-R09:composition:4",
@@ -136,7 +129,6 @@
       }
     },
     "P-R09:composition:5": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_city_v2_pipe_junction",
       "definition_version": 1,
       "id": "P-R09:composition:5",
@@ -151,7 +143,6 @@
       }
     },
     "P-R09:composition:6": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R09:composition:6",
@@ -167,7 +158,6 @@
       }
     },
     "P-R09:composition:7": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R09:composition:7",
@@ -183,7 +173,6 @@
       }
     },
     "P-R09:composition:8": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R09:composition:8",
@@ -199,7 +188,6 @@
       }
     },
     "P-R09:composition:9": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R09:composition:9",
@@ -215,7 +203,8 @@
       }
     },
     "P-R09:enemy_placements:0": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R09:enemy_placements:0",
       "order": 0,
       "properties": {
@@ -229,7 +218,8 @@
       }
     },
     "P-R09:enemy_placements:1": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.charger",
+      "definition_version": 1,
       "id": "P-R09:enemy_placements:1",
       "order": 1,
       "properties": {
@@ -243,7 +233,8 @@
       }
     },
     "P-R09:enemy_placements:2": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R09:enemy_placements:2",
       "order": 2,
       "properties": {
@@ -257,10 +248,9 @@
       }
     },
     "P-R09:node:./Cache_pipe_cache": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R09:node:./Cache_pipe_cache",
-      "node_name": "Cache_pipe_cache",
-      "node_path": "./Cache_pipe_cache",
       "order": 4,
       "parent": "",
       "properties": {
@@ -291,10 +281,9 @@
       }
     },
     "P-R09:node:./Cache_upper_cache": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R09:node:./Cache_upper_cache",
-      "node_name": "Cache_upper_cache",
-      "node_path": "./Cache_upper_cache",
       "order": 5,
       "parent": "",
       "properties": {
@@ -325,12 +314,9 @@
       }
     },
     "P-R09:node:./FreightLift": {
-      "component": "WorldMovingPlatform",
       "definition_id": "platform.moving",
       "definition_version": 1.0,
       "id": "P-R09:node:./FreightLift",
-      "node_name": "FreightLift",
-      "node_path": "./FreightLift",
       "order": 3,
       "parent": "",
       "properties": {
@@ -377,7 +363,6 @@
       }
     },
     "P-R09:platforms:0": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:platforms:0",
@@ -395,7 +380,6 @@
       }
     },
     "P-R09:platforms:0:inner:1": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:platforms:0:inner:1",
@@ -413,7 +397,6 @@
       }
     },
     "P-R09:platforms:3": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:platforms:3",
@@ -431,7 +414,6 @@
       }
     },
     "P-R09:platforms:4": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R09:platforms:4",
@@ -450,7 +432,6 @@
       }
     },
     "P-R09:platforms:5": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:platforms:5",
@@ -468,7 +449,6 @@
       }
     },
     "P-R09:platforms:6": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:platforms:6",
@@ -486,7 +466,6 @@
       }
     },
     "P-R09:platforms:7": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:platforms:7",
@@ -504,7 +483,6 @@
       }
     },
     "P-R09:platforms:8": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:platforms:8",
@@ -522,7 +500,6 @@
       }
     },
     "P-R09:platforms:9": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:platforms:9",
@@ -540,7 +517,8 @@
       }
     },
     "P-R09:retry_anchors:0": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R09:retry_anchors:0",
       "order": 0,
       "properties": {
@@ -558,7 +536,8 @@
       }
     },
     "P-R09:retry_anchors:1": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R09:retry_anchors:1",
       "order": 1,
       "properties": {
@@ -576,12 +555,9 @@
       }
     },
     "P-R09:review02:air_shutter": {
-      "component": "WorldElementSwitch",
       "definition_id": "switch.shot",
       "definition_version": 1.0,
       "id": "P-R09:review02:air_shutter",
-      "node_name": "Element_ec8577b1bc66c3f9",
-      "node_path": "./Element_ec8577b1bc66c3f9",
       "order": 1,
       "parent": "",
       "properties": {
@@ -625,12 +601,9 @@
       }
     },
     "P-R09:review02:air_shutter/gate": {
-      "component": "WorldElementGate",
       "definition_id": "gate.masonry",
       "definition_version": 1.0,
       "id": "P-R09:review02:air_shutter/gate",
-      "node_name": "Element_b4ffbc336d01ab11",
-      "node_path": "./Element_b4ffbc336d01ab11",
       "order": 2,
       "parent": "",
       "properties": {
@@ -665,7 +638,6 @@
       }
     },
     "P-R09:review02:bell_pocket_back": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:review02:bell_pocket_back",
@@ -683,7 +655,6 @@
       }
     },
     "P-R09:review02:bell_pocket_floor": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:review02:bell_pocket_floor",
@@ -701,7 +672,6 @@
       }
     },
     "P-R09:review02:bell_pocket_roof": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:review02:bell_pocket_roof",
@@ -719,7 +689,6 @@
       }
     },
     "P-R09:review02:east_step": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R09:review02:east_step",
@@ -738,7 +707,6 @@
       }
     },
     "P-R09:review02:mine_preview_bridge": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R09:review02:mine_preview_bridge",
@@ -757,7 +725,6 @@
       }
     },
     "P-R09:review02:mine_threshold": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:review02:mine_threshold",
@@ -775,7 +742,6 @@
       }
     },
     "P-R09:review02:observe_lip": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:review02:observe_lip",
@@ -793,7 +759,6 @@
       }
     },
     "P-R09:review02:return_east": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R09:review02:return_east",
@@ -812,7 +777,6 @@
       }
     },
     "P-R09:review02:return_west": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R09:review02:return_west",
@@ -831,7 +795,6 @@
       }
     },
     "P-R09:review02:reward_shelf": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R09:review02:reward_shelf",
@@ -850,7 +813,8 @@
       }
     },
     "P-R09:review02:reward_side_retry": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R09:review02:reward_side_retry",
       "order": 2,
       "properties": {
@@ -868,7 +832,6 @@
       }
     },
     "P-R09:review02:shutter_ditch_pedestal": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:review02:shutter_ditch_pedestal",
@@ -886,7 +849,6 @@
       }
     },
     "P-R09:review04:hidden_room_floor": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:review04:hidden_room_floor",
@@ -904,7 +866,6 @@
       }
     },
     "P-R09:review04:hidden_room_roof": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R09:review04:hidden_room_roof",
@@ -922,7 +883,6 @@
       }
     },
     "P-R09:spike_strips:0": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R09:spike_strips:0",
@@ -940,7 +900,6 @@
       }
     },
     "P-R09:spike_strips:1": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R09:spike_strips:1",
@@ -960,30 +919,11 @@
   },
   "room_id": "P-R09",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "矿口旧栈道",
       "art_profile": "well",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -992,22 +932,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R09",
       "rotation": 0.0,
       "route_guide": {
@@ -1223,25 +1152,15 @@
         1344.0,
         142.0
       ],
-      "story_sequence": {},
       "terrain_paint": {
         "regions": [],
         "seed": 0.0,
         "surfaces": [],
         "version": 1.0
       },
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

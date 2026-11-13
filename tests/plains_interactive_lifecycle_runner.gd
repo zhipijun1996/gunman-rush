@@ -1,7 +1,7 @@
 extends SceneTree
 var failures:=0
 var assertions:=0
-var app:DemoApp
+var app:CampaignFixture
 var trace:Variant
 func _initialize()->void:run.call_deferred()
 func check(ok:bool,msg:String)->void:
@@ -14,7 +14,7 @@ func isolate(node:Node)->void:
  if node is EnemyAttackBehavior:node.set_physics_process(false)
  for child:Node in node.get_children():isolate(child)
 func reload_ferry()->void:
- app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+ app=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
  var seed_value:=""
  for i:int in 8:
   var candidate:="d081-actuator/%s"%i

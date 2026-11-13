@@ -206,7 +206,7 @@ def main():
     folder=(ROOT/args.output_dir).resolve()
     require(folder.is_relative_to(ROOT/'build/production_repair/ecology') and not folder.exists(),'Use a NEW ecology build directory; originals immutable')
     folder.mkdir(parents=True)
-    report={'status':'failed','scope':'real formal current DemoApp; 17 Router movement/combat cases plus one production pause callback and separately labeled inactive target lifecycle fixture; no commercial/player/device acceptance','source_before':source_files(),'started_at_unix':time.time(),'native_reexecuted':not bool(args.validate_capture),'movie_reexecuted':args.movie}
+    report={'status':'failed','scope':'real formal current CampaignFixture; 17 Router movement/combat cases plus one production pause callback and separately labeled inactive target lifecycle fixture; no commercial/player/device acceptance','source_before':source_files(),'started_at_unix':time.time(),'native_reexecuted':not bool(args.validate_capture),'movie_reexecuted':args.movie}
     display=None
     try:
         if args.validate_capture:

@@ -195,7 +195,7 @@ func crossbranch_counterexamples(m: Dictionary) -> void:
 	check(not ECOLOGY._admit(changed,candidate).is_empty(),"a new actual danger on the airborne path invalidates the habitat instead of exempting its flight bounds")
 
 func actual_app(map_index: int) -> void:
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	root.add_child(app)
 	check(app.start_debug_region(&"thorn_forest",map_index,"forest-ecology-app",ThornForestRegionGenerator.DEPTH_VERSION,ECOLOGY.LAYOUT),"real App accepts explicit v16 map%s" % map_index)

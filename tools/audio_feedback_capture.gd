@@ -1,10 +1,10 @@
 extends SceneTree
 ## Development fixture in the actual formal App. MovieMaker owns the soundtrack.
-const APP := preload("res://game/application/demo.tscn")
+const APP := preload("res://tests/fixtures/campaign_fixture.tscn")
 const VERSION := "audio-feedback-capture-v1"
 var folder := "res://build/audio_feedback_05/capture"
 var smoke := false
-var app: DemoApp
+var app: CampaignFixture
 var audio: GameAudio
 var caption: Label
 var phase := "title"
@@ -95,7 +95,7 @@ func bell_stand(point: Vector2) -> Vector2:
 
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(folder)
-	app = APP.instantiate() as DemoApp
+	app = APP.instantiate() as CampaignFixture
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	for child: Node in app.get_children():

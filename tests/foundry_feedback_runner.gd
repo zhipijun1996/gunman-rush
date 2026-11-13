@@ -9,7 +9,7 @@ func ticks(n: int) -> void:
 	for i: int in n: await physics_frame
 	await process_frame
 func run() -> void:
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	var before := app.meta.snapshot()

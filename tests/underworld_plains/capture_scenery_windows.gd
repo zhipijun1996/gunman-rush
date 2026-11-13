@@ -3,7 +3,7 @@ extends SceneTree
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
 	root.size = Vector2i(1280,720)
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await process_frame

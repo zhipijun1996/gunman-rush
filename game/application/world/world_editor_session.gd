@@ -32,7 +32,7 @@ func _load() -> void:
 		return
 	var id := str(parsed.get("room_id", ""))
 	Engine.set_meta("world_editor_graybox", bool(parsed.get("graybox", true)))
-	var previous := app.content.workbench_snapshot()
+	var previous := app.content.preview_snapshot()
 	var error := app.content.install_editor_project(parsed.project, id, str(parsed.get("verified_behavior_hash", "")))
 	if not error.is_empty():
 		app.status = "编辑器预览："+error
@@ -41,6 +41,6 @@ func _load() -> void:
 	app.services.definitions = app.content.data.get("demo_services", {})
 	var success := await app.review.begin(id, str(parsed.get("entry", "")), "base", bool(parsed.get("invincible", true)), parsed.get("stage", []), parsed.get("flags", []))
 	if not success:
-		app.content.restore_workbench_snapshot(previous)
+		app.content.restore_preview_snapshot(previous)
 		app.status = "编辑器预览装载失败，保留原草稿"
 	loading = false

@@ -42,7 +42,7 @@ func run() -> void:
 	var replay: Array=[]
 	if selected_phase in ["all","replay"]:
 		for mode: String in ["legacy_v10","v2","v3"]:replay.append(await run_replay(mode))
-	report={"phase":selected_phase,"scope":"40 actual maps; native physical rejection and real current DemoApp versioned state; not input traversal, pixels or player acceptance","rows":rows,"rejection_counts":rules,"physical_negatives":negatives,"drop_contract_negatives":drop_negatives,"saved_map_compatibility":compatibility,"run_manifest_replay":replay,"failures":failures,"production_admitted":PlainsRootBellEncounterV3.PRODUCTION_ADMITTED}
+	report={"phase":selected_phase,"scope":"40 actual maps; native physical rejection and real current CampaignFixture versioned state; not input traversal, pixels or player acceptance","rows":rows,"rejection_counts":rules,"physical_negatives":negatives,"drop_contract_negatives":drop_negatives,"saved_map_compatibility":compatibility,"run_manifest_replay":replay,"failures":failures,"production_admitted":PlainsRootBellEncounterV3.PRODUCTION_ADMITTED}
 	var file:=FileAccess.open(output,FileAccess.WRITE)
 	file.store_string(JSON.stringify(report,"  ")+"\n");file.close()
 	print("ROOT BELL SPACES: maps=%s negatives=%s failures=%s"%[rows.size(),negatives.size(),failures.size()])
@@ -156,24 +156,24 @@ func physical_negatives() -> Array:
 		refused.append({"mutation":mutation,"refused":bad,"reasons":facts.reasons})
 	return refused
 
-func ready_map(app: DemoApp,index: int) -> bool:
+func ready_map(app: CampaignFixture,index: int) -> bool:
 	for unused: int in 180:
 		await physics_frame;await process_frame
 		var actual_stage := app.stage as PlainsRegionStage
 		if not app._stage_pending and actual_stage != null and actual_stage.map_index==index:return actual_stage.assembly_ok and _fixture_identity_matches(app, index, str(app.director.get("seed")))
 	return false
-func second_map(app: DemoApp) -> void:
+func second_map(app: CampaignFixture) -> void:
 	app.lifetime.stage_epoch+=1;app.lifetime.actor_epoch+=1
 	_sync_fixture_map_index(app, 2)
 	app.director._enter_stage(2,&"boss")
 	app._stage_entered(DemoRunResult.new())
-func cleanup(app: DemoApp) -> void:
+func cleanup(app: CampaignFixture) -> void:
 	app.abandon_run();await process_frame;await process_frame
 	# Return-to-Home can start music: drain the still-live App before freeing it.
 	require(await load("res://tests/audio_teardown.gd").drain_world(app),"audio_backend_not_released")
 	app.queue_free();await process_frame;await process_frame
-func application(mode: String) -> DemoApp:
-	var app:=DemoApp.new();app.meta_persistence_enabled=false
+func application(mode: String) -> CampaignFixture:
+	var app:=CampaignFixture.new();app.meta_persistence_enabled=false
 	root.add_child(app)
 	app.start_plains("v3-root-bell-pilot-1")
 	app._root_bell_run_mode=mode # Explicit loader version fixture before deferred load.
@@ -221,13 +221,13 @@ func run_replay(mode: String) -> Dictionary:
 
 
 # Test-only independent-stage fixture; no natural campaign transition is claimed.
-func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+func _sync_fixture_map_index(app: CampaignFixture, index: int) -> void:
 	for entry: Dictionary in app.director.get_property_list():
 		if str(entry.get("name", "")) == "region_map_index":
 			app.director.set("region_map_index", index)
 			return
 
-func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+func _fixture_identity_matches(app: CampaignFixture, index: int, root_seed: String) -> bool:
 	var actual := app.stage as PlainsRegionStage
 	if actual == null or not actual.assembly_ok: return false
 	var manifest: Dictionary = actual.generated.manifest

@@ -1,5 +1,5 @@
 extends SceneTree
-## Actual DemoApp, Router movement, Motor gravity and automatic frame damage.
+## Actual CampaignFixture, Router movement, Motor gravity and automatic frame damage.
 ## Each boundary has a disclosed initial position/actor epoch. The live Boss AI
 ## is stopped after its real intro solely to test a stationary vehicle. Phase
 ## transition is an explicit state fixture. No HP debit, damage submission or
@@ -116,7 +116,7 @@ func record_batch(results: Array[DamageResult]) -> void:
 func setup(wait_intro: bool = true) -> bool:
 	await cleanup()
 	contacts.clear()
-	app = load("res://game/application/demo_app.gd").new()
+	app = load("res://tests/fixtures/campaign_fixture.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(

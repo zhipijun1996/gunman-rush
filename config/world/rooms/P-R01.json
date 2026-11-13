@@ -1,7 +1,6 @@
 {
   "entities": {
     "P-R01:art:0": {
-      "component": "array:art_placements",
       "definition_id": "decor.waiting_shelter",
       "definition_version": 1,
       "id": "P-R01:art:0",
@@ -39,7 +38,6 @@
       }
     },
     "P-R01:art:1": {
-      "component": "array:art_placements",
       "definition_id": "decor.merchant_counter",
       "definition_version": 1,
       "id": "P-R01:art:1",
@@ -54,7 +52,6 @@
       }
     },
     "P-R01:art:13": {
-      "component": "array:art_placements",
       "definition_id": "decor.station_houses",
       "definition_version": 1,
       "id": "P-R01:art:13",
@@ -81,7 +78,6 @@
       }
     },
     "P-R01:art:14": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R01:art:14",
@@ -97,7 +93,6 @@
       }
     },
     "P-R01:art:15": {
-      "component": "array:art_placements",
       "definition_id": "decor.tilted_barrel",
       "definition_version": 1,
       "id": "P-R01:art:15",
@@ -112,7 +107,6 @@
       }
     },
     "P-R01:art:2": {
-      "component": "array:art_placements",
       "definition_id": "decor.storage_crates",
       "definition_version": 1,
       "id": "P-R01:art:2",
@@ -127,7 +121,6 @@
       }
     },
     "P-R01:art:3": {
-      "component": "array:art_placements",
       "definition_id": "decor.hanging_chime",
       "definition_version": 1,
       "id": "P-R01:art:3",
@@ -142,7 +135,6 @@
       }
     },
     "P-R01:art:4": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R01:art:4",
@@ -158,7 +150,6 @@
       }
     },
     "P-R01:art:5": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R01:art:5",
@@ -174,7 +165,6 @@
       }
     },
     "P-R01:art:6": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R01:art:6",
@@ -190,7 +180,6 @@
       }
     },
     "P-R01:art:7": {
-      "component": "array:art_placements",
       "definition_id": "decor.travel_bundle",
       "definition_version": 1,
       "id": "P-R01:art:7",
@@ -205,7 +194,6 @@
       }
     },
     "P-R01:art:8": {
-      "component": "array:art_placements",
       "definition_id": "decor.orchard_fence",
       "definition_version": 1,
       "id": "P-R01:art:8",
@@ -226,7 +214,8 @@
       }
     },
     "P-R01:art:upper_well_wall": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_transmission_hall",
+      "definition_version": 1,
       "id": "P-R01:art:upper_well_wall",
       "order": 12,
       "properties": {
@@ -239,7 +228,6 @@
       }
     },
     "P-R01:art:window:13": {
-      "component": "array:art_placements",
       "definition_id": "decor.well_masonry",
       "definition_version": 1,
       "id": "P-R01:art:window:13",
@@ -267,7 +255,6 @@
       }
     },
     "P-R01:art:window:14": {
-      "component": "array:art_placements",
       "definition_id": "decor.well_window_rail",
       "definition_version": 1,
       "id": "P-R01:art:window:14",
@@ -288,7 +275,6 @@
       }
     },
     "P-R01:art:window:15": {
-      "component": "array:art_placements",
       "definition_id": "decor.well_window_rail",
       "definition_version": 1,
       "id": "P-R01:art:window:15",
@@ -308,11 +294,126 @@
         ]
       }
     },
+    "P-R01:feature:recovery.station": {
+      "definition_id": "recovery.station",
+      "definition_version": 1,
+      "id": "P-R01:feature:recovery.station",
+      "order": 1032,
+      "parent": "",
+      "properties": {
+        "modulate": {
+          "$color": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "parameters": {},
+        "position": [
+          320.0,
+          1262.0
+        ],
+        "rotation": 0,
+        "scale": [
+          1,
+          1
+        ],
+        "visible": true,
+        "z_index": 0
+      }
+    },
+    "P-R01:feature:story.sequence": {
+      "definition_id": "story.sequence",
+      "definition_version": 1,
+      "id": "P-R01:feature:story.sequence",
+      "order": 1033,
+      "parent": "",
+      "properties": {
+        "modulate": {
+          "$color": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "parameters": {
+          "story_sequence": {
+            "action": "station_briefing",
+            "blocking_point": [
+              2072.0,
+              369.0
+            ],
+            "completion_flag": "station_rest_taught",
+            "display": [
+              0.0,
+              512.0,
+              2176.0,
+              1024.0
+            ],
+            "focus": [
+              768.0,
+              1136.0
+            ],
+            "guard_lines": [
+              "先去东边的钟心看看吧。这里的旧路，我会替你守着。",
+              "沿主街向东，穿过铃场和长桥，就能看见那座塔。"
+            ],
+            "guard_return": [
+              1920.0,
+              366.0
+            ],
+            "guard_trigger": [
+              1952.0,
+              288.0,
+              224.0,
+              128.0
+            ],
+            "kind": "station",
+            "lines": [
+              "站稳了，修钟者。这里是钟外小站，你可以喘口气。",
+              "看西边那座黄铜拱架，那是充电站。靠近它，在出现休息提示时互动：键盘按W或↑，手柄和触屏向上推左摇杆。",
+              "进去歇一歇吧。它会补好你的生命，也替你记住归来的位置。路上失手，就从这里再出发。"
+            ],
+            "npc_point": [
+              960.0,
+              1265.0
+            ],
+            "quest_lines": [
+              "接下来，先去东边的世界钟心看看。穿过铃场和长桥，你就能看见那座停摆的高塔。",
+              "北侧旧路先让我守着。弄清钟心出了什么事，我们再商量如何让这些钟重新走起来。"
+            ],
+            "rest_focus": [
+              480.0,
+              1136.0
+            ],
+            "speaker": "守钟匠",
+            "trigger": [
+              480.0,
+              1190.0,
+              320.0,
+              110.0
+            ]
+          }
+        },
+        "position": [
+          0,
+          0
+        ],
+        "rotation": 0,
+        "scale": [
+          1,
+          1
+        ],
+        "visible": true,
+        "z_index": 0
+      }
+    },
     "P-R01:node:./Npc0": {
-      "component": "WorldNpc",
+      "definition_id": "character.npc",
+      "definition_version": 1,
       "id": "P-R01:node:./Npc0",
-      "node_name": "Npc0",
-      "node_path": "./Npc0",
       "order": 2,
       "parent": "",
       "properties": {
@@ -341,10 +442,9 @@
       }
     },
     "P-R01:node:./Npc1": {
-      "component": "WorldNpc",
+      "definition_id": "character.npc",
+      "definition_version": 1,
       "id": "P-R01:node:./Npc1",
-      "node_name": "Npc1",
-      "node_path": "./Npc1",
       "order": 3,
       "parent": "",
       "properties": {
@@ -373,10 +473,9 @@
       }
     },
     "P-R01:node:./RiftStation": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R01:node:./RiftStation",
-      "node_name": "RiftStation",
-      "node_path": "./RiftStation",
       "order": 4,
       "parent": "",
       "properties": {
@@ -407,12 +506,9 @@
       }
     },
     "P-R01:node:./StationLift": {
-      "component": "WorldMovingPlatform",
       "definition_id": "platform.moving",
       "definition_version": 1.0,
       "id": "P-R01:node:./StationLift",
-      "node_name": "StationLift",
-      "node_path": "./StationLift",
       "order": 5,
       "parent": "",
       "properties": {
@@ -459,12 +555,9 @@
       }
     },
     "P-R01:node:./UpperStationLift": {
-      "component": "WorldMovingPlatform",
       "definition_id": "platform.moving",
       "definition_version": 1.0,
       "id": "P-R01:node:./UpperStationLift",
-      "node_name": "UpperStationLift",
-      "node_path": "./UpperStationLift",
       "order": 6,
       "parent": "",
       "properties": {
@@ -511,7 +604,6 @@
       }
     },
     "P-R01:platforms:0": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R01:platforms:0",
@@ -529,7 +621,6 @@
       }
     },
     "P-R01:platforms:0:part2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R01:platforms:0:part2",
@@ -547,7 +638,6 @@
       }
     },
     "P-R01:platforms:11": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R01:platforms:11",
@@ -565,7 +655,6 @@
       }
     },
     "P-R01:platforms:11:part2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R01:platforms:11:part2",
@@ -583,7 +672,6 @@
       }
     },
     "P-R01:platforms:2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R01:platforms:2",
@@ -601,7 +689,6 @@
       }
     },
     "P-R01:platforms:3": {
-      "component": "array:platforms",
       "definition_id": "platform.one_way",
       "definition_version": 1.0,
       "id": "P-R01:platforms:3",
@@ -619,7 +706,6 @@
       }
     },
     "P-R01:platforms:4": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R01:platforms:4",
@@ -637,7 +723,8 @@
       }
     },
     "P-R01:signs:0": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "P-R01:signs:0",
       "order": 0,
       "properties": {
@@ -649,7 +736,8 @@
       }
     },
     "P-R01:signs:1": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "P-R01:signs:1",
       "order": 1,
       "properties": {
@@ -661,7 +749,6 @@
       }
     },
     "P-R01:station_arrival_grate": {
-      "component": "array:platforms",
       "definition_id": "platform.one_way",
       "definition_version": 1.0,
       "id": "P-R01:station_arrival_grate",
@@ -679,12 +766,9 @@
       }
     },
     "P01:upper_station_lift": {
-      "component": "WorldElementSwitch",
       "definition_id": "switch.shot",
       "definition_version": 1.0,
       "id": "P01:upper_station_lift",
-      "node_name": "Element_b54646aaac3748dc",
-      "node_path": "./Element_b54646aaac3748dc",
       "order": 1,
       "parent": "",
       "properties": {
@@ -730,30 +814,11 @@
   },
   "room_id": "P-R01",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "钟外小站",
       "art_profile": "station",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -762,22 +827,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        320.0,
-        1262.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R01",
       "rotation": 0.0,
       "route_guide": {
@@ -848,81 +902,15 @@
         144.0,
         1262.0
       ],
-      "story_sequence": {
-        "action": "station_briefing",
-        "blocking_point": [
-          2072.0,
-          369.0
-        ],
-        "completion_flag": "station_rest_taught",
-        "display": [
-          0.0,
-          512.0,
-          2176.0,
-          1024.0
-        ],
-        "focus": [
-          768.0,
-          1136.0
-        ],
-        "guard_lines": [
-          "先去东边的钟心看看吧。这里的旧路，我会替你守着。",
-          "沿主街向东，穿过铃场和长桥，就能看见那座塔。"
-        ],
-        "guard_return": [
-          1920.0,
-          366.0
-        ],
-        "guard_trigger": [
-          1952.0,
-          288.0,
-          224.0,
-          128.0
-        ],
-        "kind": "station",
-        "lines": [
-          "站稳了，修钟者。这里是钟外小站，你可以喘口气。",
-          "看西边那座黄铜拱架，那是充电站。靠近它，在出现休息提示时互动：键盘按W或↑，手柄和触屏向上推左摇杆。",
-          "进去歇一歇吧。它会补好你的生命，也替你记住归来的位置。路上失手，就从这里再出发。"
-        ],
-        "npc_point": [
-          960.0,
-          1265.0
-        ],
-        "quest_lines": [
-          "接下来，先去东边的世界钟心看看。穿过铃场和长桥，你就能看见那座停摆的高塔。",
-          "北侧旧路先让我守着。弄清钟心出了什么事，我们再商量如何让这些钟重新走起来。"
-        ],
-        "rest_focus": [
-          480.0,
-          1136.0
-        ],
-        "speaker": "守钟匠",
-        "trigger": [
-          480.0,
-          1190.0,
-          320.0,
-          110.0
-        ]
-      },
       "terrain_paint": {
         "regions": [],
         "seed": 0.0,
         "surfaces": [],
         "version": 1.0
       },
-      "traveler_point": [
-        1152.0,
-        1265.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

@@ -12,12 +12,12 @@ func _initialize()->void:
 func check(value:bool,label:String)->void:
 	assertions+=1
 	if not value:failures+=1;printerr("CONNECTED FAMILY FAIL: ",label)
-func wait_stage(app:DemoApp)->void:
+func wait_stage(app:CampaignFixture)->void:
 	for unused:int in 120:
 		await physics_frame;await process_frame
 		if not app._stage_pending and app.stage is PlainsRegionStage:return
 func run()->void:
-	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_plains("v3-root-bell-pilot-1"),"actual formal root starts")
 	await wait_stage(app)
 	app.lifetime.stage_epoch+=1
@@ -73,20 +73,20 @@ func run()->void:
 
 
 # Test-only independent-stage fixture; no natural campaign transition is claimed.
-func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+func _sync_fixture_map_index(app: CampaignFixture, index: int) -> void:
 	for entry: Dictionary in app.director.get_property_list():
 		if str(entry.get("name", "")) == "region_map_index":
 			app.director.set("region_map_index", index)
 			return
 
-func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+func _fixture_identity_matches(app: CampaignFixture, index: int, root_seed: String) -> bool:
 	var actual := app.stage as PlainsRegionStage
 	if actual == null or not actual.assembly_ok: return false
 	var manifest: Dictionary = actual.generated.manifest
 	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")
 
 
-func _install_legacy_presentation(app: DemoApp) -> void:
+func _install_legacy_presentation(app: CampaignFixture) -> void:
 	var record := LEGACY_PRESENTATION.prepare(app, "connected_family")
 	legacy_presentation_fixtures.append(record)
 	check(record.get("pixel_default_before",false), "new stage retains current pixel default before explicit historical fixture")

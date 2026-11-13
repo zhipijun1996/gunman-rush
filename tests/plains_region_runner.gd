@@ -29,7 +29,7 @@ func run() -> void:
 	var fixed := g.generate("sample",tuning,true,"woven_layers")
 	check(fixed.ok,"fixed 12 node sample validates")
 	if fixed.ok: print("SAMPLE ",fixed.manifest.areas.size()," fallback=",fixed.manifest.fallback_id)
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_plains("region-app"),"formal connected region starts")
@@ -207,7 +207,7 @@ func fixture_baseline(g: PlainsRegionGenerator,tuning: PlayerTuning) -> void:
 	var fixed := g.generate("sample",tuning,true,"woven_layers")
 	check(fixed.ok,"fixed 12 node sample validates")
 	if fixed.ok: print("SAMPLE ",fixed.manifest.areas.size()," fallback=",fixed.manifest.fallback_id)
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_plains("region-app"),"formal connected region starts")

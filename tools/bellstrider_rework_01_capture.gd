@@ -66,11 +66,11 @@ func _initialize() -> void:
 func start() -> void:
 	source_before = _source_hashes()
 	git_before = _git_source()
-	app = load("res://game/application/demo_app.gd").new() as Node2D
+	app = load("res://tests/fixtures/campaign_fixture.gd").new() as Node2D
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	if not app.start_plains(seed_label):
-		_fail("Actual DemoApp refused start_plains")
+		_fail("Actual CampaignFixture refused start_plains")
 		return
 	for _i: int in 3600:
 		await physics_frame
@@ -109,7 +109,7 @@ func start() -> void:
 	capture_health = app.controller.actor_resources.health
 	capture_lifetime = app.lifetime
 	original_manifest = JSON.stringify(app.stage.generated.manifest)
-	setup = {"entry": "actual DemoApp.start_plains / connected map1", "original_spawn": _vec(original), "initial_precombat_position": _vec(preparation), "floor_support_path": str(support.collider.get_path()), "floor_support_point": _vec(support.position), "arena": [arena.position.x, arena.position.y, arena.size.x, arena.size.y], "boss_scene": app.stage.boss.scene_file_path, "boss_renderer": _renderer_paths(), "boss_definition": encounter.definition.resource_path, "boss_health": encounter.health.current, "player_health": app.controller.actor_resources.health.current, "weapon": app.controller.shoot_ability.weapon.resource_path, "weapon_damage": app.controller.shoot_ability.weapon.damage, "weapon_interval": app.controller.shoot_ability.weapon.interval, "initial_wallet": wallet_start, "camera_zoom": _vec(app._run_camera.zoom), "window": [root.size.x, root.size.y], "epoch": _epochs(), "differences": ["automatic read-only observer submits normal Router actions and MouseMotion aim events", "one disclosed initial player position outside arena before combat", "profile persistence disabled for isolated capture"], "forbidden_combat_mutations": "none: no HP/resources/RNG/clocks/positions/invulnerability/terrain/AI/camera injection after preparation"}
+	setup = {"entry": "actual CampaignFixture.start_plains / connected map1", "original_spawn": _vec(original), "initial_precombat_position": _vec(preparation), "floor_support_path": str(support.collider.get_path()), "floor_support_point": _vec(support.position), "arena": [arena.position.x, arena.position.y, arena.size.x, arena.size.y], "boss_scene": app.stage.boss.scene_file_path, "boss_renderer": _renderer_paths(), "boss_definition": encounter.definition.resource_path, "boss_health": encounter.health.current, "player_health": app.controller.actor_resources.health.current, "weapon": app.controller.shoot_ability.weapon.resource_path, "weapon_damage": app.controller.shoot_ability.weapon.damage, "weapon_interval": app.controller.shoot_ability.weapon.interval, "initial_wallet": wallet_start, "camera_zoom": _vec(app._run_camera.zoom), "window": [root.size.x, root.size.y], "epoch": _epochs(), "differences": ["automatic read-only observer submits normal Router actions and MouseMotion aim events", "one disclosed initial player position outside arena before combat", "profile persistence disabled for isolated capture"], "forbidden_combat_mutations": "none: no HP/resources/RNG/clocks/positions/invulnerability/terrain/AI/camera injection after preparation"}
 	pilot = load("res://tools/bellstrider_01/legal_input_pilot.gd").new()
 	pilot.mode = pilot_mode
 	pilot.review_armour = review_armour
@@ -427,7 +427,7 @@ func _json_value(value: Variant) -> Variant:
 
 func _source_hashes() -> Dictionary:
 	var result: Dictionary = {}
-	for path: String in ["tools/bellstrider_rework_01_capture.gd", "tools/bellstrider_01/legal_input_pilot.gd", "game/application/demo_app.gd", "game/bosses/bellstrider/bellstrider_encounter.gd", "scripts/bosses/bellstrider_definition.gd", "game/bosses/bellstrider/bellstrider_rig_pose.gd", "game/bosses/bellstrider/bellstrider_presentation.gd", "game/bosses/bellstrider/bellstrider_bell_projectile.gd", "game/bosses/bellstrider/bellstrider_ring_projectile.gd", "scenes/bosses/bellstrider.tscn", "game/platform/input/input_router.gd", "game/platform/input/keyboard_mouse_adapter.gd", "game/combat/weapons/shoot_ability.gd", "game/player/player_controller.gd", "game/player/player_motor.gd", "resources/bosses/bellstrider.tres", "resources/bosses/bellstrider_health.tres", "game/rewards/drops/plains_loot_motion.gd", "game/presentation/audio/bellstrider_audio.gd"]:
+	for path: String in ["tools/bellstrider_rework_01_capture.gd", "tools/bellstrider_01/legal_input_pilot.gd", "tests/fixtures/campaign_fixture.gd", "game/bosses/bellstrider/bellstrider_encounter.gd", "scripts/bosses/bellstrider_definition.gd", "game/bosses/bellstrider/bellstrider_rig_pose.gd", "game/bosses/bellstrider/bellstrider_presentation.gd", "game/bosses/bellstrider/bellstrider_bell_projectile.gd", "game/bosses/bellstrider/bellstrider_ring_projectile.gd", "scenes/bosses/bellstrider.tscn", "game/platform/input/input_router.gd", "game/platform/input/keyboard_mouse_adapter.gd", "game/combat/weapons/shoot_ability.gd", "game/player/player_controller.gd", "game/player/player_motor.gd", "resources/bosses/bellstrider.tres", "resources/bosses/bellstrider_health.tres", "game/rewards/drops/plains_loot_motion.gd", "game/presentation/audio/bellstrider_audio.gd"]:
 		result[path] = FileAccess.get_sha256("res://" + path) if FileAccess.file_exists("res://" + path) else "missing"
 	return result
 

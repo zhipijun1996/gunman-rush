@@ -219,8 +219,8 @@ def load_spatial_experiment(path, region_id, root=ROOT):
                                       'experiments/terrain/art/', 'experiments/terrain/entries/',
                                       'experiments/platform/entries/', 'experiments/audio/entries/',
                                       'experiments/motion/entries/', 'experiments/generation/entries/'))
-                     or name in {'scripts/demo/demo_app.gd', 'game/application/demo_app.gd',
-                                 'game/application/demo.tscn', 'game/player/player.tscn',
+                     or name in {'scripts/demo/demo_app.gd', 'tests/fixtures/campaign_fixture.gd',
+                                 'tests/fixtures/campaign_fixture.tscn', 'game/player/player.tscn',
                                  'game/world/components/module_moving_platform.gd',
                                  'game/world/components/module_moving_platform.gd.uid',
                                  'game/world/components/module_saw_hazard.gd',

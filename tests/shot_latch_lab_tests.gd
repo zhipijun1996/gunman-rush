@@ -1,12 +1,12 @@
 extends RefCounted
 ## Real ModuleLab consumer integration; explicit position changes are state fixtures.
-const DEMO := preload("res://game/application/demo.tscn")
+const DEMO := preload("res://tests/fixtures/campaign_fixture.tscn")
 var tree: SceneTree
 var check: Callable
 func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	tree = scene_tree
 	check = assertion
-	var app: DemoApp = DEMO.instantiate()
+	var app: CampaignFixture = DEMO.instantiate()
 	tree.root.add_child(app)
 	await idle_frames(2)
 	var meta := app.meta.snapshot().duplicate(true)

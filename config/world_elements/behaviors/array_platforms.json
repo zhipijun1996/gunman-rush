@@ -1,0 +1,31 @@
+{
+  "id": "array:platforms",
+  "fields": {
+    "rect": {
+      "type": "rect",
+      "required": true
+    },
+    "one_way": {
+      "type": "bool"
+    },
+    "appearance": {
+      "type": "string",
+      "choices": [
+        "timber",
+        "carrier"
+      ]
+    },
+    "masonry": {
+      "type": "bool"
+    },
+    "illustrated": {
+      "type": "bool"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "storage_field": "platforms",
+  "category": "platforms",
+  "root": false,
+  "default_definition": "platform.solid"
+}

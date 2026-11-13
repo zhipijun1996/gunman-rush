@@ -218,7 +218,7 @@ def validate_formal_choice(data):
     from run_forest_depth_region import validate as validate_actual_route
     errors = validate_actual_route(data)
     if errors:
-        raise ValueError('Actual DemoApp route rejected: ' + ', '.join(errors))
+        raise ValueError('Actual CampaignFixture route rejected: ' + ', '.join(errors))
     validate_router_observation(data)
     strategy = data.get('ecology_strategy')
     if strategy not in FORMAL_STRATEGIES or not (0 < data.get('ecology_started', -1) < data.get('ecology_finished', -1)):
@@ -351,7 +351,7 @@ def strict_manifest_admission(data):
 def validate_lift_choice(data):
     strict_manifest_admission(data)
     from run_forest_depth_region import VERSION, expected_itinerary
-    if data.get('failures') or data.get('scope') != 'actual_DemoApp_R_E_lift_candidate_not_admitted_route':
+    if data.get('failures') or data.get('scope') != 'actual_CampaignFixture_R_E_lift_candidate_not_admitted_route':
         raise ValueError('Actual bounded R-to-E candidate must finish without native route failures')
     manifest = data['manifest']
     if data.get('actual_stage_version') != VERSION or manifest.get('version') != VERSION or data.get('actual_stage_map') != data.get('map_index') or manifest.get('map_index') != data.get('map_index'):
@@ -714,7 +714,7 @@ def validate_crossbranch(data):
         actors=[r for r in data['manifest']['enemies'] if r['id']==contract.get('enemy_id')]
         if c.get('scope')!='actual_generated_crossbranch_contract' or len(actors)!=1 or actors[0].get('behavior_id')!='forest_crossbranch' or actors[0].get('shore_rows')!=contract.get('shore_rows') or c.get('actor_id')!=contract.get('enemy_id'):
             raise ValueError('One actual generated migration placement/shore contract required')
-    if (not formal and c.get('scope')!='candidate_data_overlay_after_actual_DemoApp_generation_not_formal_generator_admission') or any(c.get(k) is not False for k in ('player_reset','resource_injection','enemy_phase_reset')):
+    if (not formal and c.get('scope')!='candidate_data_overlay_after_actual_CampaignFixture_generation_not_formal_generator_admission') or any(c.get(k) is not False for k in ('player_reset','resource_injection','enemy_phase_reset')):
         raise ValueError('Candidate custody must preserve actual App/actor and declare geometry overlay')
     frames=data['frames']
     if not frames or any(f['tick']!=i+1 or f['motor_steps']!=1 for i,f in enumerate(frames)):
@@ -723,7 +723,7 @@ def validate_crossbranch(data):
         contact=c.get('actual_contact',{})
         half=[v/2+1 for v in c.get('actual_definition',{}).get('body',[])]
         if contact.get('source_id')!=str(c.get('actor_id'))+'_contact' or contact.get('registered_in_App') is not True or contact.get('half_size')!=half or contact.get('amount')!=1 or contact.get('interval')!=.7 or contact.get('kind')!=0:
-            raise ValueError('Current complete combat consumer requires the exact normal DemoApp contact binding; archived missing-contact runs retain only historical motion scope')
+            raise ValueError('Current complete combat consumer requires the exact normal CampaignFixture contact binding; archived missing-contact runs retain only historical motion scope')
     if data.get('ecology_strategy')=='crossbranch_contact_recovery':
         contact=c.get('actual_contact',{})
         hits=[e for e in data['events'] if e['kind']=='committed_damage' and e.get('target')=='player' and e.get('source')==contact['source_id'] and e.get('damage_kind')==0 and e.get('amount')==1]
@@ -768,7 +768,7 @@ def validate_crossbranch(data):
         # Only the vocabulary field is adapted in this local validation view;
         # raw provenance remains explicitly candidate, never formal admission.
         import run_forest_depth_region as region
-        view=dict(data, scope='formal_DemoApp_forest_v2_continuous_route_not_boss_fight')
+        view=dict(data, scope='formal_CampaignFixture_forest_v2_continuous_route_not_boss_fight')
         errors=region.validate(view)
         if errors:raise ValueError('Candidate complete actual route rejected: '+', '.join(errors))
         mode=data['ecology_strategy']
@@ -1099,13 +1099,13 @@ def main():
     receipt = {'scope': 'Local actors, four spider actor cases, seven spatial controls and twenty causal/phase/dead/low-resource controls; rejected badger prototype retired. Mechanics value remains subject to actual comparison; not formal forest admission',
                'source_before': before, 'verifier_before': verifier, 'passed': False}
     if args.scenario in ('formal', 'lift', 'expedition', 'crossbranch', 'root_entry'):
-        receipt['scope'] = 'Actual DemoApp seed recipe crown pair, natural route entry and fixed/live/kill/wait/damage controls; not whole forest admission'
+        receipt['scope'] = 'Actual CampaignFixture seed recipe crown pair, natural route entry and fixed/live/kill/wait/damage controls; not whole forest admission'
     if args.scenario == 'crossbranch':
         # A requested strategy does not establish provenance. Only captured
         # actual manifest/actor validation can establish generated vs overlay.
-        receipt['scope'] = 'Crossbranch DemoApp consumer requested; generated placement or historical candidate overlay provenance is pending captured Manifest validation; no mechanism or full-region admission'
+        receipt['scope'] = 'Crossbranch CampaignFixture consumer requested; generated placement or historical candidate overlay provenance is pending captured Manifest validation; no mechanism or full-region admission'
     if args.scenario == 'lift':
-        receipt['scope'] = 'Actual generated DemoApp R-to-E live lift vs strongest full-jump/two-R and original fixed return, including natural projectile death; not an admitted topology edge'
+        receipt['scope'] = 'Actual generated CampaignFixture R-to-E live lift vs strongest full-jump/two-R and original fixed return, including natural projectile death; not an admitted topology edge'
     if args.scenario == 'root_entry':
         receipt['scope'] = 'Actual generated R spawn, first twelve full-body supports, natural living R-to-E, ordinary one-R E-to-C and physical gate; no reward/camp expedition or Boss-fight claim'
     if args.scenario == 'expedition':
@@ -1148,7 +1148,7 @@ def main():
             if args.scenario == 'root_entry':
                 print('PASS: actual R root entry live lift ordinary crown return and gate')
             else:
-                print('PASS: actual DemoApp ecology choices, strict exit')
+                print('PASS: actual CampaignFixture ecology choices, strict exit')
             return
         with (out / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
             text = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script',

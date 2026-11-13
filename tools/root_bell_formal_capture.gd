@@ -1,11 +1,11 @@
 extends "res://tools/level_formal_capture.gd"
-func make_application() -> DemoApp:
-	var result := DemoApp.new()
+func make_application() -> CampaignFixture:
+	var result := CampaignFixture.new()
 	var fields: Array = result.get_property_list().map(func(p: Dictionary):return p.name)
 	if "root_bell_pilot_requested" in fields:
 		var pilot := "--root-bell-default" not in OS.get_cmdline_user_args()
 		result.set("root_bell_pilot_requested",pilot)
-		report["root_bell_admission_scope"] = "explicit encounter-v2 pilot in original formal generated DemoApp; no default-path validation claim" if pilot else "default admitted encounter-v2 limited runtime candidate through ordinary DemoApp run configuration; no pilot override; commercial/user/device acceptance unverified"
+		report["root_bell_admission_scope"] = "explicit encounter-v2 pilot in original formal generated CampaignFixture; no default-path validation claim" if pilot else "default admitted encounter-v2 limited runtime candidate through ordinary CampaignFixture run configuration; no pilot override; commercial/user/device acceptance unverified"
 	else:
 		report["root_bell_admission_scope"] = "legacy comparison with identical observer; no root pilot or promotion claim"
 	return result

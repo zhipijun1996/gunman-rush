@@ -5,9 +5,10 @@
   "world_source": "config/world/world.json",
   "collections_source": "docs/data/world/import-v04/design/collection-catalog-v04.json",
   "implementation": {
-    "entry": "game/application/demo.tscn",
-    "mode": "legacy_run_prototype",
-    "fixed_world_runtime": false
+    "entry": "game/application/world/fixed_world.tscn",
+    "mode": "fixed_world",
+    "fixed_world_runtime": true,
+    "full_world_content_complete": false
   },
   "authorities": [
     "docs/bible/world_structure.md",

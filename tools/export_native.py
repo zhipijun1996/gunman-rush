@@ -6,11 +6,11 @@ releases; sign_android_release.py signs and verifies the final distributed APK.
 from __future__ import annotations
 import argparse, hashlib, json, os, re, shutil, subprocess, sys, tempfile, zipfile
 from pathlib import Path
-import export_workbench as closure
+import export_runtime as closure
 from check_web_bundle import Pack, check_fixed_world_payload
 from godot_identity import verified_engine, verify_templates, engine_directory
 ROOT=closure.ROOT
-DENIED=('docs/','tests/','tools/','experiments/','resources/mapgen/','resources/levels/mapgen','config/world/','config/workbench/','build/workbench/','game/world/regions/V/','assets/visual_development/','resources/visual_development/')
+DENIED=('docs/','tests/','tools/','experiments/','resources/mapgen/','resources/levels/mapgen','config/world/','config/editor/','build/preview/','game/world/regions/V/','assets/visual_development/','resources/visual_development/')
 
 def version()->str:
  return re.search(r'^config/version="([0-9]+\.[0-9]+\.[0-9]+)"$',(ROOT/'project.godot').read_text(),re.M)[1]

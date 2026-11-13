@@ -87,7 +87,7 @@ class RecordedPaths(unittest.TestCase):
                     minimal.build_bundle(pathlib.Path(temp) / 'output', pathlib.Path(temp) / 'not-read.pck')
         self.assertEqual(observed['scenes/demo/demo.tscn'], minimal.SCENE)
         self.assertIn('scenes/demo/demo.tscn.remap', observed)
-        self.assertNotIn('game/application/demo.tscn', observed)
+        self.assertNotIn('tests/fixtures/campaign_fixture.tscn', observed)
         self.assertEqual(minimal.PACK_SHA, formal.PACK_SHA)
 
     def test_frame_recorded_and_current_complete_layouts(self):

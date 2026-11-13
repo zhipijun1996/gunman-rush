@@ -1,7 +1,6 @@
 {
   "entities": {
     "P-R33:art:seam:9": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R33:art:seam:9",
@@ -17,7 +16,8 @@
       }
     },
     "P-R33:door-review:art:10": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_transmission_hall",
+      "definition_version": 1,
       "id": "P-R33:door-review:art:10",
       "order": 8,
       "properties": {
@@ -30,7 +30,6 @@
       }
     },
     "P-R33:forecourt:0": {
-      "component": "array:art_placements",
       "definition_id": "decor.forecourt_architecture",
       "definition_version": 1,
       "id": "P-R33:forecourt:0",
@@ -82,7 +81,6 @@
       }
     },
     "P-R33:forecourt:1": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R33:forecourt:1",
@@ -98,7 +96,6 @@
       }
     },
     "P-R33:forecourt:2": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R33:forecourt:2",
@@ -114,7 +111,6 @@
       }
     },
     "P-R33:forecourt:3": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R33:forecourt:3",
@@ -130,7 +126,6 @@
       }
     },
     "P-R33:forecourt:5": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R33:forecourt:5",
@@ -146,7 +141,8 @@
       }
     },
     "P-R33:forecourt:8": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_transmission_hall",
+      "definition_version": 1,
       "id": "P-R33:forecourt:8",
       "order": 5,
       "properties": {
@@ -159,7 +155,6 @@
       }
     },
     "P-R33:forecourt:9": {
-      "component": "array:art_placements",
       "definition_id": "decor.forecourt_foundation",
       "definition_version": 1,
       "id": "P-R33:forecourt:9",
@@ -181,7 +176,6 @@
       }
     },
     "P-R33:platforms:0": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "id": "P-R33:platforms:0",
@@ -199,7 +193,6 @@
       }
     },
     "P-R33:platforms:0:part2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "id": "P-R33:platforms:0:part2",
@@ -217,7 +210,6 @@
       }
     },
     "P-R33:platforms:0:part3": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "id": "P-R33:platforms:0:part3",
@@ -235,7 +227,6 @@
       }
     },
     "P-R33:platforms:1": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "id": "P-R33:platforms:1",
@@ -253,7 +244,6 @@
       }
     },
     "P-R33:platforms:1:part2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "id": "P-R33:platforms:1:part2",
@@ -271,7 +261,6 @@
       }
     },
     "P-R33:platforms:3": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "id": "P-R33:platforms:3",
@@ -289,7 +278,6 @@
       }
     },
     "P-R33:platforms:4": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1,
       "id": "P-R33:platforms:4",
@@ -308,7 +296,6 @@
       }
     },
     "P-R33:platforms:5": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1,
       "id": "P-R33:platforms:5",
@@ -329,30 +316,11 @@
   },
   "room_id": "P-R33",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "钟影前庭",
       "art_profile": "clock",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -361,22 +329,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R33",
       "rotation": 0.0,
       "route_guide": {
@@ -416,25 +373,15 @@
         144.0,
         558.0
       ],
-      "story_sequence": {},
       "terrain_paint": {
         "regions": [],
         "seed": 0,
         "surfaces": [],
         "version": 1
       },
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

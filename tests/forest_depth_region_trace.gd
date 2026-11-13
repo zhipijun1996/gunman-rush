@@ -70,8 +70,8 @@ func _ready() -> void:
 	process_physics_priority=-100
 	begin.call_deferred()
 func begin() -> void:
-	var script: Script=load("res://game/application/demo_app.gd")
-	if script==null or not script.can_instantiate(): fail("DemoApp_compile_failed");setup_done=true;return
+	var script: Script=load("res://tests/fixtures/campaign_fixture.gd")
+	if script==null or not script.can_instantiate(): fail("CampaignFixture_compile_failed");setup_done=true;return
 	app=script.new();app.meta_persistence_enabled=false;add_child(app)
 	if not app.start_debug_region(&"thorn_forest",map_index,seed_value,ThornForestRegionGenerator.DEPTH_VERSION,recorded_layout_version): fail("formal_debug_entry_rejected");setup_done=true;return
 	for unused: int in 8: await get_tree().physics_frame

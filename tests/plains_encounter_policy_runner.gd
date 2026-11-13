@@ -1,5 +1,5 @@
 extends SceneTree
-## Real physics fixtures and an actual DemoApp failure/retry. Fixture results
+## Real physics fixtures and an actual CampaignFixture failure/retry. Fixture results
 ## never stand in for the separately captured formal-route consumer.
 const PLAYER := preload("res://game/player/player.tscn")
 const ENEMY := preload("res://game/enemies/scenes/patrol_drone.tscn")
@@ -149,7 +149,7 @@ func kills_and_states() -> void:
 		snapshot_case("bait_state_"+behavior,{"observed_telegraph":telegraphed,"observed_recovery":recovered,"body_moved":moved})
 func formal_recovery() -> void:
 	if is_instance_valid(world):world.free()
-	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	var proof_seed := "level-design-v2-baseline/05" if reward_resource=="heart" else "level-design-v2-baseline"
 	# Existing audited cohort /05 orders healing before coin, inside the real two-choice offer.
 	verify(app.start_plains(proof_seed),"actual normal formal start")
@@ -232,7 +232,7 @@ func formal_recovery() -> void:
 	verify(chest.claimed and app.region_state.claimed.has(reward_id) and app.wallet.balance==before_wallet,"real claimed reward and wallet persist across failure")
 	verify(app.stage.get_instance_id()==world_id and app.stage.enemies.map(func(e):return e.get_instance_id())==enemy_ids and latch.is_open and latch.open_count==before_open,"same scene/enemy/latch instances retain committed opening")
 	verify(await driver.move_to(module.world_entry().x,500) and await driver.forward_module(module),"real retry uses legal input after normal return")
-	cases.append({"id":"formal_pit_return_retry","root_seed":proof_seed,"capture_contract_version":3,"map_index":app.director.stage_index,"manifest":app.stage.generated.manifest,"formal_run_manifest_final":app.director.manifest.snapshot(),"scope":"actual_live_DemoApp_normal_start","frames":driver.observed_frames,"events":driver.events,"resource_receipts":driver.resource_receipts,"policy_observations":driver.policy_observations,"failure_start_tick":failure_start_tick,"return_tick":return_tick,"before_actor_epoch":before_epoch,"after_actor_epoch":app.lifetime.actor_epoch,"before_runtime":before_runtime,"returned_runtime":returned_runtime,"before_resources":before_resources,"returned_resources":returned_resources,"before_health":before_health,"after_health":app.controller.actor_resources.health.current,"before_session":before_session,"after_session":app.controller.session_id,"recovery_count":driver._recovery_serial,"reward_id":reward_id,"claimed_after":chest.claimed,"wallet_before":before_wallet,"wallet_after":app.wallet.balance,"latch_open":latch.is_open,"same_scene":app.stage.get_instance_id()==world_id,"retry_position":[app.player.global_position.x,app.player.global_position.y],"expected_exit":[module.world_exit().x,module.world_exit().y]})
+	cases.append({"id":"formal_pit_return_retry","root_seed":proof_seed,"capture_contract_version":3,"map_index":app.director.stage_index,"manifest":app.stage.generated.manifest,"formal_run_manifest_final":app.director.manifest.snapshot(),"scope":"actual_live_CampaignFixture_normal_start","frames":driver.observed_frames,"events":driver.events,"resource_receipts":driver.resource_receipts,"policy_observations":driver.policy_observations,"failure_start_tick":failure_start_tick,"return_tick":return_tick,"before_actor_epoch":before_epoch,"after_actor_epoch":app.lifetime.actor_epoch,"before_runtime":before_runtime,"returned_runtime":returned_runtime,"before_resources":before_resources,"returned_resources":returned_resources,"before_health":before_health,"after_health":app.controller.actor_resources.health.current,"before_session":before_session,"after_session":app.controller.session_id,"recovery_count":driver._recovery_serial,"reward_id":reward_id,"claimed_after":chest.claimed,"wallet_before":before_wallet,"wallet_after":app.wallet.balance,"latch_open":latch.is_open,"same_scene":app.stage.get_instance_id()==world_id,"retry_position":[app.player.global_position.x,app.player.global_position.y],"expected_exit":[module.world_exit().x,module.world_exit().y]})
 	app.queue_free();await process_frame
 func drive_reward_entry(driver: RewardTrace, state: Dictionary) -> void:
 	await _drive_reward_entry_inner(driver,state)
@@ -313,7 +313,7 @@ func _drive_reward_entry_inner(driver: RewardTrace, state: Dictionary) -> void:
 		state.camp=camp_result
 	state.done=true
 
-func unwind_reward_execution(driver: RewardTrace, state: Dictionary, app: DemoApp, timeout_msec: int = 1000) -> Dictionary:
+func unwind_reward_execution(driver: RewardTrace, state: Dictionary, app: CampaignFixture, timeout_msec: int = 1000) -> Dictionary:
 	# Phase1: immutable evidence already belongs to the owner. A normal sticky
 	# terminal keeps waiting until this explicit, post-capture cleanup request.
 	driver.seal_test_observation()
@@ -334,7 +334,7 @@ func unwind_reward_execution(driver: RewardTrace, state: Dictionary, app: DemoAp
 	return result
 
 func formal_reward_entry() -> void:
-	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	verify(app.start_plains(entry_seed),"reward entry actual normal spawn")
 	for unused:int in 120:
 		await physics_frame;await process_frame
@@ -394,7 +394,7 @@ func formal_reward_entry() -> void:
 	for id:String in [goal+"_entry",goal+"_ferry",goal+"_recoil",goal+"_landing"]:
 		var module:PlatformingModule=driver.named(id)
 		modules.append({"id":id,"module_id":str(module.definition.module_id),"entry":[module.world_entry().x,module.world_entry().y],"exit":[module.world_exit().x,module.world_exit().y]})
-	var frozen_case: Dictionary = ({"id":"formal_reward_entry","scope":"actual_live_DemoApp_normal_start_reward_entry_observer","map_index":entry_map,"actual_stage_identity":actual_stage_identity,"tier":entry_tier,"phase":entry_phase,"policy":entry_policy,"natural_low":entry_low,"restored_unsafe":restore_unsafe_entry,"restored_unsafe_return":restore_unsafe_return,"root_seed":entry_seed,"state":state,"guard_id":driver.guard_id,"modules":modules,"manifest":driver.stage.manifest,"frames":driver.observed_frames,"events":driver.events,"resource_receipts":driver.resource_receipts,"policy_observations":driver.policy_observations,"outcome":driver.outcome,"diagnostics":driver.diagnostics,"formal_run_manifest_final":app.director.manifest.snapshot(),"initial_capability":driver.initial_capability,"final_capability":driver.final_capability,"final_runtime":driver.runtime_snapshot(true),"chest_id":chest.id,"claimed":chest.claimed,"driver_sha256":FileAccess.get_sha256("res://tests/level_formal_trace.gd"),"observer_sha256":FileAccess.get_sha256("res://tests/plains_encounter_policy_runner.gd")}).duplicate(true)
+	var frozen_case: Dictionary = ({"id":"formal_reward_entry","scope":"actual_live_CampaignFixture_normal_start_reward_entry_observer","map_index":entry_map,"actual_stage_identity":actual_stage_identity,"tier":entry_tier,"phase":entry_phase,"policy":entry_policy,"natural_low":entry_low,"restored_unsafe":restore_unsafe_entry,"restored_unsafe_return":restore_unsafe_return,"root_seed":entry_seed,"state":state,"guard_id":driver.guard_id,"modules":modules,"manifest":driver.stage.manifest,"frames":driver.observed_frames,"events":driver.events,"resource_receipts":driver.resource_receipts,"policy_observations":driver.policy_observations,"outcome":driver.outcome,"diagnostics":driver.diagnostics,"formal_run_manifest_final":app.director.manifest.snapshot(),"initial_capability":driver.initial_capability,"final_capability":driver.final_capability,"final_runtime":driver.runtime_snapshot(true),"chest_id":chest.id,"claimed":chest.claimed,"driver_sha256":FileAccess.get_sha256("res://tests/level_formal_trace.gd"),"observer_sha256":FileAccess.get_sha256("res://tests/plains_encounter_policy_runner.gd")}).duplicate(true)
 	var sealed_hash := JSON.stringify(frozen_case).sha256_text()
 	var cleanup: Dictionary = await unwind_reward_execution(driver,state,app)
 	cleanup["sealed_case_sha256"] = sealed_hash
@@ -432,6 +432,6 @@ func run() -> void:
 	elif recovery_only:await formal_recovery()
 	else:await guards();await kills_and_states()
 	if is_instance_valid(world):world.free()
-	var report:Dictionary={"schema_version":1,"artifact_kind":"actual_encounter_policy_proof","assertions":assertions,"failures":failures,"cases":cases,"post_capture_cleanup":cleanup_receipts,"engine":Engine.get_version_info().string,"scope":"physics fixtures and explicitly identified live DemoApp scenario, not all-player or device/fun acceptance"}
+	var report:Dictionary={"schema_version":1,"artifact_kind":"actual_encounter_policy_proof","assertions":assertions,"failures":failures,"cases":cases,"post_capture_cleanup":cleanup_receipts,"engine":Engine.get_version_info().string,"scope":"physics fixtures and explicitly identified live CampaignFixture scenario, not all-player or device/fun acceptance"}
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir());var file:=FileAccess.open(output,FileAccess.WRITE);file.store_string(JSON.stringify(report));file.close()
 	print("PLAINS ENCOUNTER POLICY: %s assertions, %s failures, %s cases"%[assertions,failures,cases.size()]);quit(0 if failures==0 else 1)

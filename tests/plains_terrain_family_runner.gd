@@ -14,13 +14,13 @@ func _initialize()->void:
 func check(ok:bool,label:String)->void:
 	assertions+=1
 	if not ok:failures+=1;printerr("TERRAIN FAMILY FAIL: ",label)
-func wait_stage(app:DemoApp)->void:
+func wait_stage(app:CampaignFixture)->void:
 	for unused:int in 120:
 		await physics_frame;await process_frame
 		if not app._stage_pending and app.stage is PlainsRegionStage:return
 func rect_values(rect:Rect2)->Array:return [rect.position.x,rect.position.y,rect.size.x,rect.size.y]
 func pair(p:Vector2)->Array:return [p.x,p.y]
-func check_live(app:DemoApp,seed_value:String,map_index:int,thorough:bool)->void:
+func check_live(app:CampaignFixture,seed_value:String,map_index:int,thorough:bool)->void:
 	_install_legacy_presentation(app)
 	var stage:=app.stage as PlainsRegionStage
 	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
@@ -87,7 +87,7 @@ func check_live(app:DemoApp,seed_value:String,map_index:int,thorough:bool)->void
 	check(PlainsTerrainFamilySampler.actual_issues(art).is_empty(),"live negative mutations restored")
 	check(JSON.stringify(stage.generated.manifest)==manifest,"presentation and tests preserve actual Manifest")
 	rows.append({"seed":seed_value,"map_index":map_index,"actual_map_index":stage.map_index,"actual_manifest_seed":stage.generated.manifest.seed,"actual_manifest_difficulty":stage.generated.manifest.difficulty,"manifest_hash":stage.generated.manifest.manifest_hash,"serialized_manifest_sha256":manifest.sha256_text(),"actual_entries":measured,"actual_rooted_rectangles":data.rooted.size(),"actual_floating_count":data.floating.size(),"actual_one_way_count":data.one_way.size(),"omissions":art.get_meta("family_omitted",[]).map(func(e:Dictionary)->Dictionary:return {"kind":e.kind,"bounds":rect_values(e.bounds),"reason":e.reason})})
-func golden(app:DemoApp)->void:
+func golden(app:CampaignFixture)->void:
 	var stage:=app.stage as PlainsRegionStage
 	var art:=stage.terrain_art.art
 	var original:=PlainsTileComposer.build_rectangles(stage.terrain_art.collect_solids())
@@ -125,7 +125,7 @@ func run()->void:
 	if "--all-maps" in OS.get_cmdline_user_args():
 		seeds=["level-design-v2-baseline","level-design-v2-baseline/01","level-design-v2-baseline/02","level-design-v2-baseline/03","level-design-v2-baseline/04","level-design-v2-baseline/05","level-design-v2-baseline/06","level-design-v2-baseline/07","level-design-v2-baseline/08","level-design-v2-baseline/09"]
 	for seed_value:String in seeds:
-		var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+		var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 		check(app.start_plains(seed_value),"real formal map starts");await wait_stage(app)
 		check_live(app,seed_value,1,true)
 		app.lifetime.stage_epoch+=1
@@ -149,20 +149,20 @@ func run()->void:
 
 
 # Test-only independent-stage fixture; no natural campaign transition is claimed.
-func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+func _sync_fixture_map_index(app: CampaignFixture, index: int) -> void:
 	for entry: Dictionary in app.director.get_property_list():
 		if str(entry.get("name", "")) == "region_map_index":
 			app.director.set("region_map_index", index)
 			return
 
-func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+func _fixture_identity_matches(app: CampaignFixture, index: int, root_seed: String) -> bool:
 	var actual := app.stage as PlainsRegionStage
 	if actual == null or not actual.assembly_ok: return false
 	var manifest: Dictionary = actual.generated.manifest
 	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")
 
 
-func _install_legacy_presentation(app: DemoApp) -> void:
+func _install_legacy_presentation(app: CampaignFixture) -> void:
 	var record := LEGACY_PRESENTATION.prepare(app, "terrain_family")
 	legacy_presentation_fixtures.append(record)
 	check(record.get("pixel_default_before",false), "new stage retains current pixel default before explicit historical fixture")

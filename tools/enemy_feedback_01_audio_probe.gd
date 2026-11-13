@@ -34,7 +34,7 @@ func run() -> void:
 		printerr("AUDIO PROBE refuses to overwrite existing evidence: ", output_path)
 		quit(1)
 		return
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_plains("enemy-feedback-01-formal"), "audio probe starts same actual default consumer")
@@ -66,7 +66,7 @@ func run() -> void:
 	file.store_string(JSON.stringify({"task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures,
 		"ready": ready_receipts, "inventory": inventory, "targets": results, "shots": shots,
 		"accepted_events": events, "trace": trace, "audio_rows": audio_rows,
-		"scope": "Original real DemoApp and GameAudio observed after each frame; explicit initial player positioning, no stream/event/mix override",
+		"scope": "Original real CampaignFixture and GameAudio observed after each frame; explicit initial player positioning, no stream/event/mix override",
 		"limits": ["played increments measure accepted cue starts, not perceived loudness or clipping",
 			"software fixed-FPS cannot measure device latency", "active voice playback follows AudioServer wall clock",
 			"No listening or subjective quality verdict from counters"]}, "\t"))

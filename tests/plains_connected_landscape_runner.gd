@@ -20,7 +20,7 @@ func _initialize() -> void:
 		if arg=="--edge-windows":edge_windows=true
 	run.call_deferred()
 
-func wait_stage(app: DemoApp) -> void:
+func wait_stage(app: CampaignFixture) -> void:
 	for unused: int in 120:
 		await physics_frame
 		await process_frame
@@ -30,7 +30,7 @@ func run() -> void:
 	_source_before=bound_sources()
 	root.size=Vector2i(1280,720)
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
-	var app:=DemoApp.new()
+	var app:=CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	root.add_child(app)
 	if not app.start_plains(root_seed): errors.append("formal_start_failed")
@@ -81,7 +81,7 @@ func run() -> void:
 		rows.append(item)
 		if connected!=null:connected.call("set_candidate",true)
 		paused=false
-	var report:Dictionary={"schema_version":1,"artifact_kind":"actual_formal_static_composition_fixture","root_seed":root_seed,"map_index":2,"actual_map_index":stage.map_index,"actual_manifest_seed":stage.generated.manifest.seed,"actual_manifest_difficulty":stage.generated.manifest.difficulty,"manifest_hash":stage.generated.manifest.manifest_hash,"manifest":stage.generated.manifest,"source_before":_source_before,"source_after":bound_sources(),"health_fixture":"Health Resource configure before each unrelated pose, no invulnerability or enemy disabling; not natural/no-damage traversal.","actual_static_support_unions":supports,"windows":rows,"errors":errors,"scope":"Real DemoApp, existing gameplay/enemies/HUD/camera, static reset poses; no route traversal, user aesthetic or device acceptance."}
+	var report:Dictionary={"schema_version":1,"artifact_kind":"actual_formal_static_composition_fixture","root_seed":root_seed,"map_index":2,"actual_map_index":stage.map_index,"actual_manifest_seed":stage.generated.manifest.seed,"actual_manifest_difficulty":stage.generated.manifest.difficulty,"manifest_hash":stage.generated.manifest.manifest_hash,"manifest":stage.generated.manifest,"source_before":_source_before,"source_after":bound_sources(),"health_fixture":"Health Resource configure before each unrelated pose, no invulnerability or enemy disabling; not natural/no-damage traversal.","actual_static_support_unions":supports,"windows":rows,"errors":errors,"scope":"Real CampaignFixture, existing gameplay/enemies/HUD/camera, static reset poses; no route traversal, user aesthetic or device acceptance."}
 	if bound_sources()!=_source_before:errors.append("bound_visual_source_changed_during_capture")
 	if JSON.stringify(stage.generated.manifest)!=manifest_before:errors.append("manifest_modified")
 	if connected!=null and connected.has_method("measured_nodes"):report["connected_landscape"]=connected.call("measured_nodes")
@@ -97,13 +97,13 @@ func run() -> void:
 
 
 # Test-only independent-stage fixture; no natural campaign transition is claimed.
-func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+func _sync_fixture_map_index(app: CampaignFixture, index: int) -> void:
 	for entry: Dictionary in app.director.get_property_list():
 		if str(entry.get("name", "")) == "region_map_index":
 			app.director.set("region_map_index", index)
 			return
 
-func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+func _fixture_identity_matches(app: CampaignFixture, index: int, root_seed: String) -> bool:
 	var actual := app.stage as PlainsRegionStage
 	if actual == null or not actual.assembly_ok: return false
 	var manifest: Dictionary = actual.generated.manifest

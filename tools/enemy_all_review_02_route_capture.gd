@@ -6,7 +6,7 @@ var trace_path := ""
 var group := "route_plains"
 var seed_label := "enemy-all-review-02-route"
 var route_seconds := 45
-var app: DemoApp
+var app: CampaignFixture
 var audio: GameAudio
 var heading: Label
 var detail: Label
@@ -44,7 +44,7 @@ func start() -> void:
 	root.size = Vector2i(1280,720)
 	audio = GameAudio.new()
 	root.add_child(audio)
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	# Do not write a review run into the user's permanent local save. All
 	# in-run economy, manifest, rewards, combat and map persistence are real.
 	app.meta_persistence_enabled = false
@@ -60,7 +60,7 @@ func start() -> void:
 	var forest := group == "route_forest"
 	var started := app.start_debug_region(&"thorn_forest",1,seed_label) if forest else app.start_plains(seed_label)
 	if not started: failures.append("Original run entry refused")
-	cases.append({"case":0,"id":"formal_forest_map1_debug_entry" if forest else "formal_plains_map1_default_entry","definition":"actual generated manifest","definition_path":"actual stage enemy definitions in inventory","scene":"res://game/application/demo.tscn","chain":"actual_DemoApp_generated_stage","renderer":"actual installed stage/player/enemy renderers and original StageCameraRig","start_frame":1,"start_seconds":float(Engine.get_process_frames())/60,"movie_start_process_frame":Engine.get_process_frames(),"fixture":{"production_AI_enabled":true,"actor_positioning":"none; original generated spawn","entry":"start_debug_region(thorn_forest,map1)" if forest else "start_plains","natural_progression":not forest,"differences":["automated gamepad Router input replaces KeyboardMouseAdapter","permanent meta persistence disabled for review run"],"debug_region_admission":forest},"inventory":[],"events":[],"player_events":[],"inputs":[],"shots":[],"states":[],"deaths":0,"coverage":{},"coverage_gaps":[]})
+	cases.append({"case":0,"id":"formal_forest_map1_debug_entry" if forest else "formal_plains_map1_default_entry","definition":"actual generated manifest","definition_path":"actual stage enemy definitions in inventory","scene":"res://tests/fixtures/campaign_fixture.tscn","chain":"actual_CampaignFixture_generated_stage","renderer":"actual installed stage/player/enemy renderers and original StageCameraRig","start_frame":1,"start_seconds":float(Engine.get_process_frames())/60,"movie_start_process_frame":Engine.get_process_frames(),"fixture":{"production_AI_enabled":true,"actor_positioning":"none; original generated spawn","entry":"start_debug_region(thorn_forest,map1)" if forest else "start_plains","natural_progression":not forest,"differences":["automated gamepad Router input replaces KeyboardMouseAdapter","permanent meta persistence disabled for review run"],"debug_region_admission":forest},"inventory":[],"events":[],"player_events":[],"inputs":[],"shots":[],"states":[],"deaths":0,"coverage":{},"coverage_gaps":[]})
 	process_frame.connect(drive)
 
 func optional_property(object: Object,property_name: StringName) -> Variant:
@@ -189,7 +189,7 @@ func finish() -> void:
 	result["terminal_policy_observation"] = {"policy":"actual generated stage and original run result","player_terminal_frame":terminal_frame,"scope":"continuous actual traversal; no all-roster or completed-campaign claim"}
 	# Cleanup starts only after the recorded gameplay/terminal observation.
 	app.abandon_run()
-	if not await load("res://tests/audio_teardown.gd").drain_world(app): failures.append("Original DemoApp fallback audio failed to release")
+	if not await load("res://tests/audio_teardown.gd").drain_world(app): failures.append("Original CampaignFixture fallback audio failed to release")
 	var sound_events: Dictionary = audio.played.duplicate(true)
 	if not await audio.shutdown(): failures.append("GameAudio ownership did not release")
 	var output := {"task":"ENEMY-ALL-02","complete":true,"seed_label":seed_label,"group":group,"frames":frames,"cases":cases,"failures":failures,"coverage_gap_count":result.coverage_gaps.size(),"audio_events":sound_events,"conditions":{"fps":60,"resolution":[1280,720],"playback_speed":1,"original_stage_camera":true,"actor_positioning":false,"source_HP_state_AI_injection":false,"scope":"Actual generated formal stage from original spawn with continuous Router input; forest direct debug entry is explicitly labelled when selected."},"not_verified":["full campaign completion","all species on this route","physical device performance","human visual approval"]}

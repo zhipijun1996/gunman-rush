@@ -3,7 +3,7 @@ extends RefCounted
 ## The core-choice UI stays open. A disclosed real resonance debit only makes
 ## room in a full bar; no HP/position/clock/ability/token or resource grant writes.
 
-static func sample(app: DemoApp, id: StringName) -> Dictionary:
+static func sample(app: CampaignFixture, id: StringName) -> Dictionary:
 	var runtime := app._item_runtime
 	var energy := app.controller.combat_energy
 	var owned := app.build.inventory.instance_for_definition(id)
@@ -12,7 +12,7 @@ static func sample(app: DemoApp, id: StringName) -> Dictionary:
 	var row: Dictionary = maps.get(map,{})
 	return {"clock":runtime.now(),"physics_frame":Engine.get_physics_frames(),"motor_steps":app.player.motion_steps,"actor_instance":app.player.get_instance_id(),"session":app.controller.session_id,"actor_epoch":app.lifetime.actor_epoch,"resonance":energy.current,"capacity":energy.capacity(),"hp":app.controller.actor_resources.health.current,"hp_capacity":app.controller.actor_resources.health.capacity,"map":map,"recovered":float(row.get("recovered",0.0)),"serial":int(row.get("serial",0)),"last_combat":float(runtime._economy.get("_last_combat")),"instance":String(owned.instance_id) if owned != null else "","parameters":runtime.effect(id),"core_modal_open":app.progression_modal.opened,"campaign_phase":int(app.campaign.phase),"abilities":Array(app.campaign.abilities),"paused":app.get_tree().paused}
 
-static func run(app: DemoApp, item: ItemDefinition) -> Dictionary:
+static func run(app: CampaignFixture, item: ItemDefinition) -> Dictionary:
 	var tree := app.get_tree()
 	var id := item.stable_id
 	var result := {"scope":"Explicit real-frame passive probe with core-choice modal retained; optional CombatEnergyState debit is disclosed fixture, not a natural skill or resource grant","kind":"G07_idle_recovery","supported":id==&"G07","frames":[],"grants":[]}

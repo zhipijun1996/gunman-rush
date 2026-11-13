@@ -9,7 +9,7 @@ var _plan: Dictionary = {}
 var _health := 0.0
 var _session := 0
 
-func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
+func attach(application: CampaignFixture, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--environment-phase="): environment_phase = arg.trim_prefix("--environment-phase=")
 		elif arg.begins_with("--environment-mutation="): environment_mutation = arg.trim_prefix("--environment-mutation=")

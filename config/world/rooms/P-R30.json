@@ -1,7 +1,6 @@
 {
   "entities": {
     "P-R30:composition:0": {
-      "component": "array:art_placements",
       "definition_id": "decor.spring_cellar",
       "definition_version": 1,
       "id": "P-R30:composition:0",
@@ -28,7 +27,6 @@
       }
     },
     "P-R30:composition:1": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_city_v2_pipe_junction",
       "definition_version": 1,
       "id": "P-R30:composition:1",
@@ -43,7 +41,6 @@
       }
     },
     "P-R30:composition:2": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_city_v2_valve_panel",
       "definition_version": 1,
       "id": "P-R30:composition:2",
@@ -58,7 +55,6 @@
       }
     },
     "P-R30:composition:3": {
-      "component": "array:art_placements",
       "definition_id": "decor.well_winch_mount",
       "definition_version": 1,
       "id": "P-R30:composition:3",
@@ -78,7 +74,6 @@
       }
     },
     "P-R30:composition:5": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R30:composition:5",
@@ -94,7 +89,6 @@
       }
     },
     "P-R30:composition:6": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R30:composition:6",
@@ -110,7 +104,6 @@
       }
     },
     "P-R30:composition:7": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R30:composition:7",
@@ -126,7 +119,8 @@
       }
     },
     "P-R30:enemy_placements:0": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R30:enemy_placements:0",
       "order": 0,
       "properties": {
@@ -140,7 +134,8 @@
       }
     },
     "P-R30:enemy_placements:1": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.hopper",
+      "definition_version": 1,
       "id": "P-R30:enemy_placements:1",
       "order": 1,
       "properties": {
@@ -154,7 +149,8 @@
       }
     },
     "P-R30:hook_points:0": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "P-R30:hook_points:0",
       "order": 0,
       "properties": {
@@ -165,7 +161,8 @@
       }
     },
     "P-R30:hook_points:1": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "P-R30:hook_points:1",
       "order": 1,
       "properties": {
@@ -176,7 +173,8 @@
       }
     },
     "P-R30:hook_points:2": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "P-R30:hook_points:2",
       "order": 2,
       "properties": {
@@ -187,10 +185,9 @@
       }
     },
     "P-R30:node:./Interaction_0": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R30:node:./Interaction_0",
-      "node_name": "Interaction_0",
-      "node_path": "./Interaction_0",
       "order": 2,
       "parent": "",
       "properties": {
@@ -221,12 +218,9 @@
       }
     },
     "P-R30:node:./PumpFerry": {
-      "component": "WorldMovingPlatform",
       "definition_id": "platform.moving",
       "definition_version": 1.0,
       "id": "P-R30:node:./PumpFerry",
-      "node_name": "PumpFerry",
-      "node_path": "./PumpFerry",
       "order": 4,
       "parent": "",
       "properties": {
@@ -277,10 +271,9 @@
       }
     },
     "P-R30:node:./RewardReturn": {
-      "component": "WorldReturnLatch",
+      "definition_id": "interaction.return_gate",
+      "definition_version": 1,
       "id": "P-R30:node:./RewardReturn",
-      "node_name": "RewardReturn",
-      "node_path": "./RewardReturn",
       "order": 3,
       "parent": "",
       "properties": {
@@ -327,7 +320,6 @@
       }
     },
     "P-R30:platforms:0": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R30:platforms:0",
@@ -345,7 +337,6 @@
       }
     },
     "P-R30:platforms:1": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R30:platforms:1",
@@ -363,7 +354,6 @@
       }
     },
     "P-R30:platforms:1:inner:1": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R30:platforms:1:inner:1",
@@ -381,7 +371,6 @@
       }
     },
     "P-R30:platforms:2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R30:platforms:2",
@@ -399,7 +388,6 @@
       }
     },
     "P-R30:platforms:3": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R30:platforms:3",
@@ -418,7 +406,6 @@
       }
     },
     "P-R30:platforms:4": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R30:platforms:4",
@@ -436,7 +423,6 @@
       }
     },
     "P-R30:platforms:5": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R30:platforms:5",
@@ -454,7 +440,6 @@
       }
     },
     "P-R30:platforms:6": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R30:platforms:6",
@@ -472,7 +457,6 @@
       }
     },
     "P-R30:platforms:7": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R30:platforms:7",
@@ -490,7 +474,8 @@
       }
     },
     "P-R30:retry_anchors:0": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R30:retry_anchors:0",
       "order": 0,
       "properties": {
@@ -508,7 +493,8 @@
       }
     },
     "P-R30:retry_anchors:1": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R30:retry_anchors:1",
       "order": 1,
       "properties": {
@@ -526,12 +512,9 @@
       }
     },
     "P-R30:review03:pump_ferry_bell": {
-      "component": "WorldElementSwitch",
       "definition_id": "switch.shot",
       "definition_version": 1.0,
       "id": "P-R30:review03:pump_ferry_bell",
-      "node_name": "Element_311d1c1b5abb2cf4",
-      "node_path": "./Element_311d1c1b5abb2cf4",
       "order": 1,
       "parent": "",
       "properties": {
@@ -579,7 +562,8 @@
       }
     },
     "P-R30:review03:retry_launch": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R30:review03:retry_launch",
       "order": 2,
       "properties": {
@@ -597,7 +581,6 @@
       }
     },
     "P-R30:spike_strips:0": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R30:spike_strips:0",
@@ -617,30 +600,11 @@
   },
   "room_id": "P-R30",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "田下回水洞",
       "art_profile": "well",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -649,22 +613,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R30",
       "rotation": 0.0,
       "route_guide": {
@@ -866,25 +819,15 @@
         144.0,
         238.0
       ],
-      "story_sequence": {},
       "terrain_paint": {
         "regions": [],
         "seed": 0.0,
         "surfaces": [],
         "version": 1.0
       },
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

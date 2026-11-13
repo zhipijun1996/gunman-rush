@@ -10,7 +10,7 @@ var data: Dictionary = {}
 var selected_boss := "guardian"
 var _q_driver_phase := "entry"
 var _q_combat_deadline := -1
-var _q_app: DemoApp
+var _q_app: CampaignFixture
 var _q_segment := "before_reload"
 var _q_last_steps := 0
 var _q_defeats := 0
@@ -82,7 +82,7 @@ func finish(trace: Node) -> void:
 
 # Queen branch binds the actual App to the shared input helpers. It never calls
 # fixture(), slab(), configure_arena(), activate(), grant() or a Factory itself.
-func _queen_bind_actual(app: DemoApp) -> bool:
+func _queen_bind_actual(app: CampaignFixture) -> bool:
 	if not is_instance_valid(app.stage) or not is_instance_valid(app.stage.boss) or not app.stage.boss.get_node("Encounter") is ThornQueenV2: return false
 	# App reload keeps the player/controller but advances its session. Replace only
 	# this observer binding so accepted shots retain their new real ownership.
@@ -279,7 +279,7 @@ func _queen_send_button(button: Button,phase: String) -> bool:
 	return true
 func run_queen() -> void:
 	current="actual_app_queen";tick=0
-	data={"scope":"actual_DemoApp_v2_map2_Queen_route_reload_fullfight_pointer_rewards_boundary","seed":seed_value,"initial_debug_entry_only":true,"expected_version":ThornForestRegionGenerator.DEPTH_VERSION,"manual_motor_step":false,"position_health_phase_resource_injection":false,"queen_whole_boss_admission":false,"pointer_scope":"actual Godot Viewport Button events; no OS/browser claim","input_scope":"shared Queen aim/fire/hook helpers bound to actual App; no fixture world or efficiency comparison","world_constructor_called":false}
+	data={"scope":"actual_CampaignFixture_v2_map2_Queen_route_reload_fullfight_pointer_rewards_boundary","seed":seed_value,"initial_debug_entry_only":true,"expected_version":ThornForestRegionGenerator.DEPTH_VERSION,"manual_motor_step":false,"position_health_phase_resource_injection":false,"queen_whole_boss_admission":false,"pointer_scope":"actual Godot Viewport Button events; no OS/browser claim","input_scope":"shared Queen aim/fire/hook helpers bound to actual App; no fixture world or efficiency comparison","world_constructor_called":false}
 	# This schema13 regression owns its recorded v7 content. The current canopy
 	# Boss has a separate mandatory actual-App consumer, not a relaxed old test.
 	var trace: Node=STRATEGY.create(ThornForestRegionGenerator.DEPTH_LAYOUT_V7);trace.seed_value=seed_value;trace.map_index=2;trace.route_name="fast";root.add_child(trace)

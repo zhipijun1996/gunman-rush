@@ -105,7 +105,7 @@ def capture(folder, route, route_kind="main", variant=0):
 
 
 def trace(folder, route, variant=0):
-    """Short real DemoApp/Router feedback without recording or actor relocation."""
+    """Short real CampaignFixture/Router feedback without recording or actor relocation."""
     started = time.monotonic()
     before = source_files(EXTRA)
     report = {"status": "failed", "source_before": before, "variant": variant,

@@ -17,7 +17,7 @@ func run() -> void:
 	root.content_scale_size = Vector2i(1280,720)
 	DirAccess.make_dir_recursive_absolute(output)
 	for map_index: int in [1,2]:
-		var app := DemoApp.new()
+		var app := CampaignFixture.new()
 		app.meta_persistence_enabled = false
 		root.add_child(app)
 		if not app.start_debug_region(&"thorn_forest",map_index,"forest-places-00" if map_index==1 else "forest-places-01",ThornForestRegionGenerator.DEPTH_VERSION,"forest-exploration-places-v18"):

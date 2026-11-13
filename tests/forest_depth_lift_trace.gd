@@ -1,5 +1,5 @@
 extends "res://tests/forest_depth_ecology_trace.gd"
-## One real R->E candidate in the generated DemoApp, never a copied room.
+## One real R->E candidate in the generated CampaignFixture, never a copied room.
 var lift_strategy := "alive_lift"
 var lift_started := -1
 var lift_finished := -1

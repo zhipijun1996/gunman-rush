@@ -129,13 +129,13 @@ func _studies() -> void:
 		while bool(study.get("busy")) and Time.get_ticks_msec()<deadline:
 			await process_frame
 		await process_frame
-		var app := study.get("app") as DemoApp
+		var app := study.get("app") as CampaignFixture
 		_check(not bool(study.get("busy")) and is_instance_valid(app) and is_instance_valid(app.home_scene), entry+" actual default Home opens")
 		_check(not app.meta_persistence_enabled, entry+" retains memory-only Meta")
 		for place: String in ["plains","home"]:
 			var previous: WeakRef = weakref(app)
 			await study.call("open_place",place)
-			app = study.get("app") as DemoApp
+			app = study.get("app") as CampaignFixture
 			_check(previous.get_ref() == null, entry+" frees previous real App after drain")
 			_check(is_instance_valid(app) and (is_instance_valid(app.stage) if place == "plains" else is_instance_valid(app.home_scene)), entry+" opens real "+place+" consumer")
 		app.abandon_run()

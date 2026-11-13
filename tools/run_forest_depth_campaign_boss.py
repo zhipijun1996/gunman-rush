@@ -135,7 +135,7 @@ def validate_map2_boss_identity(manifest, *, allow_legacy=False):
                 'Exact historical weave contract and experimental admission required')
 
 def validate(data):
-    assert data['scope']=='actual_DemoApp_v2_map1_route_Guardian_fullfight_pointer_reward_map2_entry'
+    assert data['scope']=='actual_CampaignFixture_v2_map1_route_Guardian_fullfight_pointer_reward_map2_entry'
     assert data['failures']==[] and len(data['checks'])>=20 and all(r['passed'] is True for r in data['checks'])
     assert data['initial_debug_entry_only'] is True and data['manual_motor_step'] is False and data['position_health_phase_resource_injection'] is False
     route=data['route'];fight=data['combat'];events=fight['events']
@@ -173,7 +173,7 @@ def validate(data):
     assert run['stages'][0]['outputs']['mini_boss_reward']['coins']==data['reward_declaration']['coins']
 
 def validate_queen(data):
-    require(data.get('scope')=='actual_DemoApp_v2_map2_Queen_route_reload_fullfight_pointer_rewards_boundary','Queen actual-App scenario scope required')
+    require(data.get('scope')=='actual_CampaignFixture_v2_map2_Queen_route_reload_fullfight_pointer_rewards_boundary','Queen actual-App scenario scope required')
     require(data.get('failures')==[] and len(data.get('checks',[]))>=20 and all(c.get('passed') is True for c in data['checks']),'All Queen consumer runtime assertions required')
     require(data.get('initial_debug_entry_only') is True and data.get('manual_motor_step') is False and data.get('position_health_phase_resource_injection') is False and data.get('world_constructor_called') is False,'Queen scenario must use actual debug-pinned App and normal inputs without fixture world')
     require(data.get('queen_whole_boss_admission') is False,'Consumer success cannot sign Queen design admission')

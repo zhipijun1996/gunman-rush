@@ -18,7 +18,7 @@ func frames(count: int = 3) -> void:
 		await physics_frame
 		await process_frame
 
-func local_audio(app: DemoApp) -> Variant:
+func local_audio(app: CampaignFixture) -> Variant:
 	# Check the real script inheritance chain without introducing the test's
 	# GameAudio -> GameAmbience member-type compilation cycle. The production
 	# assembly separately checks `child is GameAudio` on the same direct owner.
@@ -29,7 +29,7 @@ func local_audio(app: DemoApp) -> Variant:
 			source = source.get_base_script()
 	return null
 
-func selected_child(app: DemoApp) -> SelectedAmbienceRuntime:
+func selected_child(app: CampaignFixture) -> SelectedAmbienceRuntime:
 	for child: Node in app.get_children():
 		if child is SelectedAmbienceRuntime: return child as SelectedAmbienceRuntime
 	return null
@@ -53,15 +53,15 @@ func exercise() -> void:
 	root.size = Vector2i(1280, 720)
 	# An earlier group member is deliberately another real App. It must never
 	# receive the formal scene's selected audio or affect its chosen service.
-	var other := DemoApp.new()
+	var other := CampaignFixture.new()
 	other.meta_persistence_enabled = false
 	root.add_child(other)
 	await frames()
-	check(selected_child(other) == null, "Programmatic DemoApp stays unchanged and contains no formal assembly")
+	check(selected_child(other) == null, "Programmatic CampaignFixture stays unchanged and contains no formal assembly")
 	var other_audio: Variant = local_audio(other)
 	check(is_instance_valid(other_audio) and other_audio.ambience == null, "Independent App initially has no ambience component")
-	var packed := load("res://game/application/demo.tscn") as PackedScene
-	var app := packed.instantiate() as DemoApp
+	var packed := load("res://tests/fixtures/campaign_fixture.tscn") as PackedScene
+	var app := packed.instantiate() as CampaignFixture
 	packed = null
 	app.meta_persistence_enabled = false
 	root.add_child(app)

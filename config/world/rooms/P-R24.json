@@ -1,7 +1,6 @@
 {
   "entities": {
     "P-R24:art:0": {
-      "component": "array:art_placements",
       "definition_id": "decor.opening_hidden_wall",
       "definition_version": 1,
       "id": "P-R24:art:0",
@@ -17,7 +16,6 @@
       }
     },
     "P-R24:art:1": {
-      "component": "array:art_placements",
       "definition_id": "decor.concealing_grass",
       "definition_version": 1,
       "id": "P-R24:art:1",
@@ -33,7 +31,6 @@
       }
     },
     "P-R24:art:10": {
-      "component": "array:art_placements",
       "definition_id": "decor.mill_beam_segment",
       "definition_version": 1,
       "id": "P-R24:art:10",
@@ -66,7 +63,6 @@
       }
     },
     "P-R24:art:11": {
-      "component": "array:art_placements",
       "definition_id": "decor.mill_beam_segment",
       "definition_version": 1,
       "id": "P-R24:art:11",
@@ -99,7 +95,6 @@
       }
     },
     "P-R24:art:12": {
-      "component": "array:art_placements",
       "definition_id": "decor.orchard_frame_brace",
       "definition_version": 1,
       "id": "P-R24:art:12",
@@ -126,7 +121,6 @@
       }
     },
     "P-R24:art:13": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R24:art:13",
@@ -142,7 +136,6 @@
       }
     },
     "P-R24:art:14": {
-      "component": "array:art_placements",
       "definition_id": "decor.mill_post_segment",
       "definition_version": 1,
       "id": "P-R24:art:14",
@@ -169,7 +162,6 @@
       }
     },
     "P-R24:art:2": {
-      "component": "array:art_placements",
       "definition_id": "decor.concealing_grass",
       "definition_version": 1,
       "id": "P-R24:art:2",
@@ -185,7 +177,6 @@
       }
     },
     "P-R24:art:3": {
-      "component": "array:art_placements",
       "definition_id": "decor.storage_crates",
       "definition_version": 1,
       "id": "P-R24:art:3",
@@ -200,7 +191,6 @@
       }
     },
     "P-R24:art:4": {
-      "component": "array:art_placements",
       "definition_id": "decor.hanging_chime",
       "definition_version": 1,
       "id": "P-R24:art:4",
@@ -215,7 +205,6 @@
       }
     },
     "P-R24:art:5": {
-      "component": "array:art_placements",
       "definition_id": "decor.opening_guard_gallery",
       "definition_version": 1,
       "id": "P-R24:art:5",
@@ -236,7 +225,6 @@
       }
     },
     "P-R24:art:6": {
-      "component": "array:art_placements",
       "definition_id": "decor.mill_beam_segment",
       "definition_version": 1,
       "id": "P-R24:art:6",
@@ -263,7 +251,6 @@
       }
     },
     "P-R24:art:7": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R24:art:7",
@@ -279,7 +266,6 @@
       }
     },
     "P-R24:art:8": {
-      "component": "array:art_placements",
       "definition_id": "decor.opening_road_ridge",
       "definition_version": 1,
       "id": "P-R24:art:8",
@@ -302,7 +288,6 @@
       }
     },
     "P-R24:art:9": {
-      "component": "array:art_placements",
       "definition_id": "decor.mill_post_segment",
       "definition_version": 1,
       "id": "P-R24:art:9",
@@ -334,11 +319,185 @@
         ]
       }
     },
+    "P-R24:feature:encounter.waves": {
+      "definition_id": "encounter.waves",
+      "definition_version": 1,
+      "id": "P-R24:feature:encounter.waves",
+      "order": 1036,
+      "parent": "",
+      "properties": {
+        "modulate": {
+          "$color": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "parameters": {
+          "wave_encounter": {
+            "completion_action": "intro_clear_waves",
+            "entry_gate": [
+              1760.0,
+              1120.0,
+              192.0,
+              32.0
+            ],
+            "exit_gate": [
+              1504.0,
+              960.0,
+              32.0,
+              160.0
+            ],
+            "label_point": [
+              1936.0,
+              800.0
+            ],
+            "recovery_point": [
+              1984.0,
+              1102.0
+            ],
+            "trigger": [
+              1552.0,
+              944.0,
+              736.0,
+              176.0
+            ],
+            "waves": [
+              [
+                {
+                  "behavior": "charger",
+                  "id": "P-R24:wave1:left",
+                  "max_health": 9.0,
+                  "point": [
+                    1600.0,
+                    1102.0
+                  ]
+                },
+                {
+                  "behavior": "charger",
+                  "id": "P-R24:wave1:right",
+                  "max_health": 9.0,
+                  "point": [
+                    2240.0,
+                    1102.0
+                  ]
+                },
+                {
+                  "behavior": "hopper",
+                  "id": "P-R24:wave1:hopper",
+                  "max_health": 9.0,
+                  "point": [
+                    2112.0,
+                    1102.0
+                  ]
+                }
+              ],
+              [
+                {
+                  "behavior": "charger",
+                  "id": "P-R24:wave2:charger",
+                  "max_health": 14.0,
+                  "point": [
+                    1616.0,
+                    1102.0
+                  ]
+                },
+                {
+                  "behavior": "sentry",
+                  "id": "P-R24:wave2:sentry",
+                  "max_health": 14.0,
+                  "point": [
+                    2256.0,
+                    1102.0
+                  ]
+                },
+                {
+                  "behavior": "charger",
+                  "id": "P-R24:wave2:patrol",
+                  "max_health": 9.0,
+                  "point": [
+                    2160.0,
+                    1102.0
+                  ]
+                },
+                {
+                  "behavior": "diver",
+                  "id": "P-R24:wave2:diver",
+                  "max_health": 9.0,
+                  "point": [
+                    1808.0,
+                    832.0
+                  ]
+                }
+              ],
+              [
+                {
+                  "behavior": "charger",
+                  "id": "P-R24:wave3:charger",
+                  "max_health": 14.0,
+                  "point": [
+                    1616.0,
+                    1102.0
+                  ]
+                },
+                {
+                  "behavior": "hopper",
+                  "id": "P-R24:wave3:hopper",
+                  "max_health": 14.0,
+                  "point": [
+                    2224.0,
+                    1102.0
+                  ]
+                },
+                {
+                  "behavior": "charger",
+                  "id": "P-R24:wave3:patrol",
+                  "max_health": 9.0,
+                  "point": [
+                    2128.0,
+                    1102.0
+                  ]
+                },
+                {
+                  "behavior": "diver",
+                  "id": "P-R24:wave3:diver",
+                  "max_health": 9.0,
+                  "point": [
+                    1808.0,
+                    832.0
+                  ]
+                },
+                {
+                  "behavior": "fan_sentry",
+                  "id": "P-R24:wave3:fan",
+                  "max_health": 14.0,
+                  "point": [
+                    2152.0,
+                    848.0
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "position": [
+          0,
+          0
+        ],
+        "rotation": 0,
+        "scale": [
+          1,
+          1
+        ],
+        "visible": true,
+        "z_index": 0
+      }
+    },
     "P-R24:node:./HiddenChest": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R24:node:./HiddenChest",
-      "node_name": "HiddenChest",
-      "node_path": "./HiddenChest",
       "order": 3,
       "parent": "",
       "properties": {
@@ -369,12 +528,9 @@
       }
     },
     "P-R24:node:./OverlookLift": {
-      "component": "WorldMovingPlatform",
       "definition_id": "platform.moving",
       "definition_version": 1.0,
       "id": "P-R24:node:./OverlookLift",
-      "node_name": "OverlookLift",
-      "node_path": "./OverlookLift",
       "order": 2,
       "parent": "",
       "properties": {
@@ -421,7 +577,6 @@
       }
     },
     "P-R24:platforms:0": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:0",
@@ -439,7 +594,6 @@
       }
     },
     "P-R24:platforms:1": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:1",
@@ -457,7 +611,6 @@
       }
     },
     "P-R24:platforms:10": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:10",
@@ -475,7 +628,6 @@
       }
     },
     "P-R24:platforms:11": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:11",
@@ -493,7 +645,6 @@
       }
     },
     "P-R24:platforms:12": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:12",
@@ -511,7 +662,6 @@
       }
     },
     "P-R24:platforms:13": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:13",
@@ -529,7 +679,6 @@
       }
     },
     "P-R24:platforms:1:part2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:1:part2",
@@ -547,7 +696,6 @@
       }
     },
     "P-R24:platforms:2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:2",
@@ -565,7 +713,6 @@
       }
     },
     "P-R24:platforms:2:part2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:2:part2",
@@ -583,7 +730,6 @@
       }
     },
     "P-R24:platforms:3": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:3",
@@ -601,7 +747,6 @@
       }
     },
     "P-R24:platforms:4": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:4",
@@ -619,7 +764,6 @@
       }
     },
     "P-R24:platforms:5": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:5",
@@ -637,7 +781,6 @@
       }
     },
     "P-R24:platforms:6": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:6",
@@ -655,7 +798,6 @@
       }
     },
     "P-R24:platforms:7": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:7",
@@ -673,7 +815,6 @@
       }
     },
     "P-R24:platforms:8": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:8",
@@ -691,7 +832,6 @@
       }
     },
     "P-R24:platforms:9": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R24:platforms:9",
@@ -709,7 +849,8 @@
       }
     },
     "P-R24:retry_anchors:0": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R24:retry_anchors:0",
       "order": 0,
       "properties": {
@@ -727,7 +868,8 @@
       }
     },
     "P-R24:retry_anchors:1": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R24:retry_anchors:1",
       "order": 1,
       "properties": {
@@ -745,12 +887,9 @@
       }
     },
     "P-R24:station_lift": {
-      "component": "WorldElementSwitch",
       "definition_id": "switch.shot",
       "definition_version": 1.0,
       "id": "P-R24:station_lift",
-      "node_name": "Element_72f8d0389c41c919",
-      "node_path": "./Element_72f8d0389c41c919",
       "order": 1,
       "parent": "",
       "properties": {
@@ -796,30 +935,11 @@
   },
   "room_id": "P-R24",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        1536.0,
-        736.0,
-        800.0,
-        384.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "望站坡",
       "art_profile": "overlook",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -828,22 +948,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R24",
       "rotation": 0.0,
       "route_guide": {},
@@ -856,169 +965,15 @@
         1984.0,
         1486.0
       ],
-      "story_sequence": {},
       "terrain_paint": {
         "regions": [],
         "seed": 0.0,
         "surfaces": [],
         "version": 1.0
       },
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
       "visible": true,
-      "wave_encounter": {
-        "completion_action": "intro_clear_waves",
-        "entry_gate": [
-          1760.0,
-          1120.0,
-          192.0,
-          32.0
-        ],
-        "exit_gate": [
-          1504.0,
-          960.0,
-          32.0,
-          160.0
-        ],
-        "label_point": [
-          1936.0,
-          800.0
-        ],
-        "recovery_point": [
-          1984.0,
-          1102.0
-        ],
-        "trigger": [
-          1552.0,
-          944.0,
-          736.0,
-          176.0
-        ],
-        "waves": [
-          [
-            {
-              "behavior": "charger",
-              "id": "P-R24:wave1:left",
-              "max_health": 9.0,
-              "point": [
-                1600.0,
-                1102.0
-              ]
-            },
-            {
-              "behavior": "charger",
-              "id": "P-R24:wave1:right",
-              "max_health": 9.0,
-              "point": [
-                2240.0,
-                1102.0
-              ]
-            },
-            {
-              "behavior": "hopper",
-              "id": "P-R24:wave1:hopper",
-              "max_health": 9.0,
-              "point": [
-                2112.0,
-                1102.0
-              ]
-            }
-          ],
-          [
-            {
-              "behavior": "charger",
-              "id": "P-R24:wave2:charger",
-              "max_health": 14.0,
-              "point": [
-                1616.0,
-                1102.0
-              ]
-            },
-            {
-              "behavior": "sentry",
-              "id": "P-R24:wave2:sentry",
-              "max_health": 14.0,
-              "point": [
-                2256.0,
-                1102.0
-              ]
-            },
-            {
-              "behavior": "charger",
-              "id": "P-R24:wave2:patrol",
-              "max_health": 9.0,
-              "point": [
-                2160.0,
-                1102.0
-              ]
-            },
-            {
-              "behavior": "diver",
-              "id": "P-R24:wave2:diver",
-              "max_health": 9.0,
-              "point": [
-                1808.0,
-                832.0
-              ]
-            }
-          ],
-          [
-            {
-              "behavior": "charger",
-              "id": "P-R24:wave3:charger",
-              "max_health": 14.0,
-              "point": [
-                1616.0,
-                1102.0
-              ]
-            },
-            {
-              "behavior": "hopper",
-              "id": "P-R24:wave3:hopper",
-              "max_health": 14.0,
-              "point": [
-                2224.0,
-                1102.0
-              ]
-            },
-            {
-              "behavior": "charger",
-              "id": "P-R24:wave3:patrol",
-              "max_health": 9.0,
-              "point": [
-                2128.0,
-                1102.0
-              ]
-            },
-            {
-              "behavior": "diver",
-              "id": "P-R24:wave3:diver",
-              "max_health": 9.0,
-              "point": [
-                1808.0,
-                832.0
-              ]
-            },
-            {
-              "behavior": "fan_sentry",
-              "id": "P-R24:wave3:fan",
-              "max_health": 14.0,
-              "point": [
-                2152.0,
-                848.0
-              ]
-            }
-          ]
-        ]
-      },
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

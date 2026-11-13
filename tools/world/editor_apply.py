@@ -1,4 +1,4 @@
-"""Prepare/validate schema-2 editor changes; explicit --apply writes reviewed files.
+"""Prepare/validate schema-3 editor changes; explicit --apply writes reviewed files.
 
 Stable-ID three-way merges preserve unrelated main changes. Room documents and
 world/construction/collection owners are updated together, never generated as
@@ -11,6 +11,12 @@ sys.path.insert(0,str(Path(__file__).parent))
 from build import build
 
 MISSING=object()
+def canonical_document(document):
+    result=copy.deepcopy(document)
+    for row in [result['root'],*result['entities'].values()]:
+        for key in ['component','node_name','node_path']:row.pop(key,None)
+    return result
+
 def read(path):return json.loads(Path(path).read_text())
 def write(path,data):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest() if path.exists() else None
@@ -52,7 +58,7 @@ def routes(rows):
     return out
 
 def prepare(root,package,output):
-    if package.get('schema')!=2 or package.get('project',{}).get('schema')!=2:raise ValueError('Expected schema-2 change package')
+    if package.get('schema')!=3 or package.get('project',{}).get('schema')!=3:raise ValueError('Expected schema-3 change package')
     base,project=package['base'],package['project']
     commit=package.get('source',{}).get('commit','')
     if not re.fullmatch('[a-f0-9]{40}',commit):raise ValueError('Missing game baseline commit')
@@ -89,9 +95,9 @@ def prepare(root,package,output):
         if new.get('layer')!=old.get('layer'):c['space_layer']=merge(old.get('layer','world'),new['layer'],c.get('space_layer',old.get('layer','world')),f'/rooms/{rid}/layer')
         doc_path=source/'rooms'/f'{rid}.json'
         if (new['root']!=old.get('root') or new['entities']!=old.get('entities')) and (new.get('authored') or new['entities']):
-            original={'schema':2,'room_id':rid,'root':old.get('root',{}),'entities':old.get('entities',{})};draft={'schema':2,'room_id':rid,'root':new['root'],'entities':new['entities']};current=read(doc_path) if doc_path.exists() else original
+            original=canonical_document({'schema':3,'room_id':rid,'root':old.get('root',{}),'entities':old.get('entities',{})});draft=canonical_document({'schema':3,'room_id':rid,'root':new['root'],'entities':new['entities']});current=read(doc_path) if doc_path.exists() else original
             document=merge(original,draft,current,'/documents/'+rid);target=stage/'config/world/rooms'/f'{rid}.json';write(target,document);changed.add(target.relative_to(stage).as_posix());new_documents.append(target)
-            scene=Path(c['scene_ref'].removeprefix('res://'));script='res://game/world/regions/V/starbridge_trial_room.gd' if new['root']['component']=='StarbridgeTrialRoom' else 'res://game/world/levels/fixed_world_room.gd'
+            scene=Path(c['scene_ref'].removeprefix('res://'));script='res://game/world/levels/fixed_world_room.gd'
             wrapper=f'[gd_scene format=3]\n\n[ext_resource type="Script" path="{script}" id="1"]\n\n[node name="{rid}" type="Node2D"]\nscript = ExtResource("1")\ndocument_ref = "res://config/world/rooms/{rid}.json"\n';(stage/scene).parent.mkdir(parents=True,exist_ok=True);(stage/scene).write_text(wrapper)
             if not (root/scene).exists() or (root/scene).read_text()!=wrapper:changed.add(scene.as_posix())
         old_ports=old.get('ports',{});existing={d['id']:d for d in c['doors']}
@@ -193,7 +199,7 @@ def prepare(root,package,output):
     ui=root/'game/presentation/ui/world'
     if ui.exists():shutil.copytree(ui,stage/'game/presentation/ui/world')
     _,runtime=build(stage)
-    result={'schema':2,'status':'prepared','source_commit':commit,'revision':project['revision'],'rooms':sorted(scope),'content_version':runtime['content_version'],'actual_controller_playtest':False,'changes':[{'path':name,'sha256':digest(stage/name),'previous_sha256':digest(root/name)} for name in sorted(changed)],'candidate':str(stage)}
+    result={'schema':3,'status':'prepared','source_commit':commit,'revision':project['revision'],'rooms':sorted(scope),'content_version':runtime['content_version'],'actual_controller_playtest':False,'changes':[{'path':name,'sha256':digest(stage/name),'previous_sha256':digest(root/name)} for name in sorted(changed)],'candidate':str(stage)}
     write(output/'receipt.json',result);return result
 
 def publish(root,receipt):

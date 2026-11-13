@@ -164,7 +164,7 @@ func run() -> void:
 	if gpu_probe:
 		await run_gpu_probe()
 		return
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_plains("level-design-v2-baseline"), "real formal baseline starts")
@@ -238,7 +238,7 @@ func run() -> void:
 		issues.append_array(space.bank_material_issues())
 		check(issues.is_empty(), "actual consumer invariant after requested mutation: " + str(issues))
 		check(JSON.stringify(app.stage.generated.manifest) == before, "presentation keeps formal Manifest unchanged")
-		report = {"mutation": mutation, "issues": issues, "nodes": space.measured_nodes(), "bank_materials": bank_rows, "dock": PlainsVisualSpace.rect_values(space.dock), "manifest_hash": app.stage.generated.manifest.manifest_hash, "scope": "Real DemoApp/assembler and actual Sprite/Platform0 measures, no traversal or aesthetic/device claim"}
+		report = {"mutation": mutation, "issues": issues, "nodes": space.measured_nodes(), "bank_materials": bank_rows, "dock": PlainsVisualSpace.rect_values(space.dock), "manifest_hash": app.stage.generated.manifest.manifest_hash, "scope": "Real CampaignFixture/assembler and actual Sprite/Platform0 measures, no traversal or aesthetic/device claim"}
 	check(PlainsVisualSpace.validated_output_path("res://build/../docs/escape.json").is_empty(), "observer rejects canonical relative path escape")
 	check(PlainsVisualSpace.validated_output_path(ProjectSettings.globalize_path("res://build") + "/../../escape.json").is_empty(), "observer rejects canonical absolute path escape")
 	check(not PlainsVisualSpace.validated_output_path("res://build/visual_director/observed.json").is_empty(), "observer permits only real build output")
@@ -323,20 +323,20 @@ func run_gpu_probe() -> void:
 
 
 # Test-only independent-stage fixture; no natural campaign transition is claimed.
-func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+func _sync_fixture_map_index(app: CampaignFixture, index: int) -> void:
 	for entry: Dictionary in app.director.get_property_list():
 		if str(entry.get("name", "")) == "region_map_index":
 			app.director.set("region_map_index", index)
 			return
 
-func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+func _fixture_identity_matches(app: CampaignFixture, index: int, root_seed: String) -> bool:
 	var actual := app.stage as PlainsRegionStage
 	if actual == null or not actual.assembly_ok: return false
 	var manifest: Dictionary = actual.generated.manifest
 	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")
 
 
-func _install_legacy_presentation(app: DemoApp) -> void:
+func _install_legacy_presentation(app: CampaignFixture) -> void:
 	var record := LEGACY_PRESENTATION.prepare(app, "waterworks")
 	legacy_presentation_fixtures.append(record)
 	check(record.get("pixel_default_before",false), "new stage retains current pixel default before explicit historical fixture")

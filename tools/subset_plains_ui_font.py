@@ -11,7 +11,7 @@ args = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
 paths = ['game/bosses/windkeeper/windkeeper_encounter.gd', 'game/bosses/windkeeper/windkeeper_presentation.gd',
          'game/presentation/ui/windkeeper_hud.gd', 'game/presentation/ui/actor_resources_hud.gd', 'game/presentation/ui/demo_menu.gd',
-         'game/application/demo_app.gd', 'game/bosses/bellstrider/bellstrider_encounter.gd',
+         'tests/fixtures/campaign_fixture.gd', 'game/bosses/bellstrider/bellstrider_encounter.gd',
          'resources/bosses/bellstrider.tres']
 characters = set(range(32, 127))
 # Preserve the existing dynamic navigation arrow alongside current UI literals.

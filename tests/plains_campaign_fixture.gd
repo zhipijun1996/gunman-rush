@@ -2,7 +2,7 @@ extends RefCounted
 ## Explicit outcome/position fixtures; natural traversal is covered separately.
 ## Death clocks and physical entitlements remain production-owned. Every coin
 ## is claimed through the real App, never by editing a balance or claim ledger.
-static func second_map(app: DemoApp, tree: SceneTree) -> bool:
+static func second_map(app: CampaignFixture, tree: SceneTree) -> bool:
 	var stage:=app.stage as PlainsRegionStage
 	app.player.reset_at(stage.boss_arena.position+Vector2(540,202))
 	for i: int in 3: await tree.physics_frame
@@ -33,7 +33,7 @@ static func second_map(app: DemoApp, tree: SceneTree) -> bool:
 	for i: int in 8: await tree.physics_frame
 	return app.director.stage_index==2 and app.stage is PlainsRegionStage and app.stage.assembly_ok
 
-static func wait_bell_reward(app: DemoApp, tree: SceneTree, complete_death: bool = true) -> bool:
+static func wait_bell_reward(app: CampaignFixture, tree: SceneTree, complete_death: bool = true) -> bool:
 	var stage := app.stage as PlainsRegionStage
 	var boss := stage.boss.get_node("Encounter") as BellstriderEncounter
 	if boss == null: return false
@@ -47,7 +47,7 @@ static func wait_bell_reward(app: DemoApp, tree: SceneTree, complete_death: bool
 		await tree.physics_frame
 	return false
 
-static func wait_pressure_reward(app: DemoApp, tree: SceneTree) -> bool:
+static func wait_pressure_reward(app: CampaignFixture, tree: SceneTree) -> bool:
 	var stage := app.stage as PlainsRegionStage
 	var boss := stage.boss.get_node("Encounter") as WindkeeperPressureEncounter
 	if boss == null: return false
@@ -61,7 +61,7 @@ static func wait_pressure_reward(app: DemoApp, tree: SceneTree) -> bool:
 		await tree.physics_frame
 	return false
 
-static func collect_boss_coins(app: DemoApp, source: String, expected_total: int) -> bool:
+static func collect_boss_coins(app: CampaignFixture, source: String, expected_total: int) -> bool:
 	var stage := app.stage as PlainsRegionStage
 	var indices: Array[int] = []
 	var ids: Dictionary = {}

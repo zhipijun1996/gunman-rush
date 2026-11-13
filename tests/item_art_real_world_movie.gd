@@ -153,7 +153,7 @@ func _run() -> void:
 	root.size = Vector2i(1280,720)
 	root.content_scale_size = Vector2i(1280,720)
 	fixture_note = WATERMARK
-	app = preload("res://game/application/demo.tscn").instantiate()
+	app = preload("res://tests/fixtures/campaign_fixture.tscn").instantiate()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	add_captions()
@@ -166,7 +166,7 @@ func _run() -> void:
 	await frames(20)
 	if not check(app.stage is PlainsRegionStage and app.stage.assembly_ok,"actual formal stage assembled"): await finish(); return
 	_candidate_points()
-	setup = {"natural_progression":false,"region":str(region),"map":1,"seed":world_seed,"manifest":app.stage.generated.manifest.duplicate(true),"watermark":WATERMARK,"candidates":candidates,"initial_actors":target_rows(),"initial_hazards":hazard_rows(),"forest_H_grant":"existing DemoApp debug entry campaign/traversal grant only" if region == &"thorn_forest" else "none","training_objects_created":0,"enemy_or_hazard_mutations":0,"player_pose_assignments":0}
+	setup = {"natural_progression":false,"region":str(region),"map":1,"seed":world_seed,"manifest":app.stage.generated.manifest.duplicate(true),"watermark":WATERMARK,"candidates":candidates,"initial_actors":target_rows(),"initial_hazards":hazard_rows(),"forest_H_grant":"existing CampaignFixture debug entry campaign/traversal grant only" if region == &"thorn_forest" else "none","training_objects_created":0,"enemy_or_hazard_mutations":0,"player_pose_assignments":0}
 	if probe_only: await finish(); return
 	if not check(not selected.is_empty(),"a real collision-legal floor near a live original actor and visible original hazard exists"): await finish(); return
 	await tap(KEY_ESCAPE)

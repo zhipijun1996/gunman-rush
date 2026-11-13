@@ -2,8 +2,8 @@ extends "res://tests/world/plains35_fixture.gd"
 
 func run() -> void:
 	root.size=Vector2i(1280,720)
-	app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://plains35_support.json";root.add_child(app);app.workbench.enabled=true
-	var scope:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://config/workbench/rooms.json"))
+	app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://plains35_support.json";root.add_child(app)
+	var scope:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://config/editor/preview_rooms.json"))
 	var args:=OS.get_cmdline_user_args()
 	for id:String in scope.graybox_room_ids:
 		if not id.begins_with("P-R"):continue

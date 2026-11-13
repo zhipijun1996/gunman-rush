@@ -8,7 +8,7 @@ const SPECIES: Array[StringName] = [&"patrol",&"charger",&"hopper",&"sentry",&"f
 const SOURCE_PATHS: Array[String] = [
 	"res://tools/plains_revision_01_comparison.gd",
 	"res://game/presentation/audio/game_audio.gd",
-	"res://game/application/demo_app.gd", "res://game/world/levels/providers/plains_region_stage.gd",
+	"res://tests/fixtures/campaign_fixture.gd", "res://game/world/levels/providers/plains_region_stage.gd",
 	"res://game/world/generation/stage_camera_rig.gd",
 	"res://game/enemies/enemy_factory.gd", "res://game/enemies/enemy_actor.gd",
 	"res://game/enemies/enemy_motor.gd", "res://game/presentation/actors/presentation/enemy_presentation_binding.gd",
@@ -30,7 +30,7 @@ const SOURCE_PATHS: Array[String] = [
 ]
 var trace_path := ""
 var seed_label := "plains-revision-01-scale"
-var app: DemoApp
+var app: CampaignFixture
 var audio: Node
 var heading: Label
 var detail: Label
@@ -90,17 +90,17 @@ func start() -> void:
 	root.add_child(audio)
 	if audio.get_script().resource_path!="res://game/presentation/audio/game_audio.gd" or not audio.has_method("shutdown"):
 		failures.append("Owned audio service does not match actual GameAudio implementation")
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	var overlay := CanvasLayer.new()
 	overlay.layer = 100
 	root.add_child(overlay)
 	heading = _label("STAGED SCALE COMPARISON / ORIGINAL PLAINS TERRAIN / NOT COMBAT",Vector2(12,666),16)
-	detail = _label("Loading original DemoApp.start_plains; no replacement terrain",Vector2(12,691),14)
+	detail = _label("Loading original CampaignFixture.start_plains; no replacement terrain",Vector2(12,691),14)
 	overlay.add_child(heading)
 	overlay.add_child(detail)
-	if not app.start_plains(seed_label): failures.append("DemoApp.start_plains refused")
+	if not app.start_plains(seed_label): failures.append("CampaignFixture.start_plains refused")
 	process_frame.connect(drive)
 
 func _stage_ready() -> bool:
@@ -361,7 +361,7 @@ func _motion_clock(motor: EnemyMotor) -> Variant:
 
 func _player_report() -> Dictionary:
 	var collision := app.player.get_node("CollisionShape2D") as CollisionShape2D
-	return {"scene":"res://game/player/player.tscn","position":_vec(app.player.global_position),"actual_shape_class":collision.shape.get_class(),"actual_shape_world_aabb":_rect(collision.global_transform*collision.shape.get_rect()),"actual_on_floor":app.player.is_on_floor(),"underworld_stature_world_units":UnderworldActors.HUMANOID_HEIGHT,"source":"unchanged actual DemoApp player and UnderworldPlayer; no visual scale override"}
+	return {"scene":"res://game/player/player.tscn","position":_vec(app.player.global_position),"actual_shape_class":collision.shape.get_class(),"actual_shape_world_aabb":_rect(collision.global_transform*collision.shape.get_rect()),"actual_on_floor":app.player.is_on_floor(),"underworld_stature_world_units":UnderworldActors.HUMANOID_HEIGHT,"source":"unchanged actual CampaignFixture player and UnderworldPlayer; no visual scale override"}
 
 func _visible_body_bounds(texture: Texture2D, destination: Rect2) -> Rect2:
 	# Preserve the real alpha>16 measurement while avoiding a compiled nested
@@ -437,14 +437,14 @@ func finish() -> void:
 	var camera_receipt := {"class":"StageCameraRig","zoom":_vec(original_camera_zoom),"policy":"Actual formal camera/zoom retained; snap once at disclosed player stand and freeze camera follow for all six exhibit pages"}
 	var player_receipt := _player_report() if ready else {}
 	app.abandon_run()
-	if not await load("res://tests/audio_teardown.gd").drain_world(app): failures.append("Original DemoApp fallback audio failed to release")
+	if not await load("res://tests/audio_teardown.gd").drain_world(app): failures.append("Original CampaignFixture fallback audio failed to release")
 	var played: Variant = audio.get("played")
 	var sound_events: Dictionary = {}
 	if played is Dictionary: sound_events = played.duplicate(true)
 	else: failures.append("Actual GameAudio played-event dictionary is unavailable")
 	var audio_released: Variant = await audio.call("shutdown")
 	if audio_released!=true: failures.append("GameAudio ownership did not release")
-	var output := {"task":"PLAINS-MONSTER-REVISION-01","kind":"staged_scale_comparison","complete":failures.is_empty(),"seed":seed_label,"entry":"DemoApp.start_plains","stage_script":"res://game/world/levels/providers/plains_region_stage.gd","resolution":[1280,720],"fps":60,"playback_speed":1,"pages":pages,"frames":frames,"failures":failures,"camera":camera_receipt,"player":player_receipt,"support":support,"stand_search":stand_search,"physics_space_sync":space_sync_receipt,"original_spawn":_vec(original_spawn),"staged_player_stand":_vec(stand),"original_manifest_sha256":manifest_json.sha256_text(),"original_manifest_unchanged":manifest_same,"original_enemy_inventory":native_inventory,"source_before":source_before,"source_after":source_after,"git_before":git_before,"git_after":git_after,"source_stable":source_before==source_after and git_before.head==git_after.head and git_before.status==git_after.status,"source_guard_scope":"Finite direct driver/player/renderer/body/definition resources listed in source_before; not a claim to a complete project dependency closure","audio_events":sound_events,"disclosed_differences":["initial player review relocation to nearest verified original wide static shore; full same-stage static/manifest candidate search disclosed in stand_search","six page-cut placements of factory-created display samples on one original safe static shore","comparison sample Actor physics disabled; original body process clocks continue","comparison samples have no combat/encounter/drop binding","original player initial reset_at, four real physics settling ticks, then controller/input held inactive","original camera/zoom retained and camera following held fixed","permanent meta persistence disabled"],"not_verified":["combat readability","attack or death continuity","natural campaign traversal","human scale/color approval","physical device performance"]}
+	var output := {"task":"PLAINS-MONSTER-REVISION-01","kind":"staged_scale_comparison","complete":failures.is_empty(),"seed":seed_label,"entry":"CampaignFixture.start_plains","stage_script":"res://game/world/levels/providers/plains_region_stage.gd","resolution":[1280,720],"fps":60,"playback_speed":1,"pages":pages,"frames":frames,"failures":failures,"camera":camera_receipt,"player":player_receipt,"support":support,"stand_search":stand_search,"physics_space_sync":space_sync_receipt,"original_spawn":_vec(original_spawn),"staged_player_stand":_vec(stand),"original_manifest_sha256":manifest_json.sha256_text(),"original_manifest_unchanged":manifest_same,"original_enemy_inventory":native_inventory,"source_before":source_before,"source_after":source_after,"git_before":git_before,"git_after":git_after,"source_stable":source_before==source_after and git_before.head==git_after.head and git_before.status==git_after.status,"source_guard_scope":"Finite direct driver/player/renderer/body/definition resources listed in source_before; not a claim to a complete project dependency closure","audio_events":sound_events,"disclosed_differences":["initial player review relocation to nearest verified original wide static shore; full same-stage static/manifest candidate search disclosed in stand_search","six page-cut placements of factory-created display samples on one original safe static shore","comparison sample Actor physics disabled; original body process clocks continue","comparison samples have no combat/encounter/drop binding","original player initial reset_at, four real physics settling ticks, then controller/input held inactive","original camera/zoom retained and camera following held fixed","permanent meta persistence disabled"],"not_verified":["combat readability","attack or death continuity","natural campaign traversal","human scale/color approval","physical device performance"]}
 	var file := FileAccess.open(trace_path,FileAccess.WRITE)
 	if file == null:
 		printerr("Cannot write staged scale comparison trace")

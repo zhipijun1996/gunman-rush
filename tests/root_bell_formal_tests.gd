@@ -55,7 +55,7 @@ func physical_negatives() -> Dictionary:
 		else:refused.append({"mutation":mutation,"reasons":result.reasons})
 	return {"refused":refused,"failures":failures,"scope":"Actual620 candidate counterfactual physical admission, no gameplay mutation"}
 
-func wait_map(tree: SceneTree,app: DemoApp,index: int) -> bool:
+func wait_map(tree: SceneTree,app: CampaignFixture,index: int) -> bool:
 	for unused: int in 180:
 		await tree.physics_frame
 		await tree.process_frame
@@ -63,7 +63,7 @@ func wait_map(tree: SceneTree,app: DemoApp,index: int) -> bool:
 		if not app._stage_pending and actual_stage != null and actual_stage.map_index==index:return actual_stage.assembly_ok and _fixture_identity_matches(app, index, str(app.director.get("seed")))
 	return false
 
-func map2(app: DemoApp) -> void:
+func map2(app: CampaignFixture) -> void:
 	app.lifetime.stage_epoch+=1
 	app.lifetime.actor_epoch+=1
 	_sync_fixture_map_index(app, 2)
@@ -71,7 +71,7 @@ func map2(app: DemoApp) -> void:
 	app._stage_entered(DemoRunResult.new())
 
 func compatibility(tree: SceneTree) -> Dictionary:
-	var old := DemoApp.new()
+	var old := CampaignFixture.new()
 	old.meta_persistence_enabled=false
 	tree.root.add_child(old)
 	for child: Node in old.get_children():
@@ -95,7 +95,7 @@ func compatibility(tree: SceneTree) -> Dictionary:
 	await tree.process_frame
 	var restored := PlainsRegionState.new()
 	ok=ok and restored.restore(snapshot,old_hash)
-	var current := DemoApp.new()
+	var current := CampaignFixture.new()
 	current.meta_persistence_enabled=false
 	current.root_bell_pilot_requested=true
 	tree.root.add_child(current)
@@ -119,17 +119,17 @@ func compatibility(tree: SceneTree) -> Dictionary:
 	current.queue_free()
 	await tree.process_frame
 	await tree.process_frame
-	return {"passed":ok,"actual_map_identity":actual_map_identity,"old_hash":old_hash,"actual_new_loader_hash":new_hash,"old_version":old_version,"actual_version":actual_version,"old_actor_count":snapshot.actors.size(),"actual_actor_count":actual_actors,"actual_root_count":actual_root,"scope":"Current real DemoApp explicitly pinned to historical legacy_v10 before map2 capture_state → detached restore → new loader hash-bound legacy replay; not a frozen old binary; no save/RNG schema rewrite"}
+	return {"passed":ok,"actual_map_identity":actual_map_identity,"old_hash":old_hash,"actual_new_loader_hash":new_hash,"old_version":old_version,"actual_version":actual_version,"old_actor_count":snapshot.actors.size(),"actual_actor_count":actual_actors,"actual_root_count":actual_root,"scope":"Current real CampaignFixture explicitly pinned to historical legacy_v10 before map2 capture_state → detached restore → new loader hash-bound legacy replay; not a frozen old binary; no save/RNG schema rewrite"}
 
 func run_manifest_replay(tree: SceneTree) -> Dictionary:
-	# Replay contract fixture: real DemoApp generation/recording and the existing
+	# Replay contract fixture: real CampaignFixture generation/recording and the existing
 	# explicit mini-Boss outcome fixture. No traversal/combat/device claim.
 	var failures: Array = []
 	var cases: Array = []
 	var negatives: Array = []
 	var snapshots: Dictionary = {}
 	for mode: String in ["v2", "legacy_v10"]:
-		var app := DemoApp.new()
+		var app := CampaignFixture.new()
 		app.root_bell_pilot_requested = mode == "v2" # Keep this historical fixture explicitly on v11.
 		app.meta_persistence_enabled = false
 		tree.root.add_child(app)
@@ -218,17 +218,17 @@ func run_manifest_replay(tree: SceneTree) -> Dictionary:
 	var legacy_default: bool = legacy_api.enable_plains_region() and legacy_api.snapshot().versions.generated_layout == PlainsRegionGenerator.VERSION
 	cases.append({"case": "default_enable_api_keeps_v10", "passed": legacy_default})
 	if not legacy_default: failures.append("legacy_default_enable_version")
-	return {"passed": failures.is_empty(), "failures": failures, "cases": cases, "negatives": negatives, "actual_snapshots": snapshots, "scope": "Real current DemoApp two-map versioned RunManifest snapshots/reconstruction; explicit lawful item and mini-Boss outcome fixtures, not input-only traversal/combat, save schema or device acceptance"}
+	return {"passed": failures.is_empty(), "failures": failures, "cases": cases, "negatives": negatives, "actual_snapshots": snapshots, "scope": "Real current CampaignFixture two-map versioned RunManifest snapshots/reconstruction; explicit lawful item and mini-Boss outcome fixtures, not input-only traversal/combat, save schema or device acceptance"}
 
 
 # Test-only independent-stage fixture; no natural campaign transition is claimed.
-func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+func _sync_fixture_map_index(app: CampaignFixture, index: int) -> void:
 	for entry: Dictionary in app.director.get_property_list():
 		if str(entry.get("name", "")) == "region_map_index":
 			app.director.set("region_map_index", index)
 			return
 
-func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+func _fixture_identity_matches(app: CampaignFixture, index: int, root_seed: String) -> bool:
 	var actual := app.stage as PlainsRegionStage
 	if actual == null or not actual.assembly_ok: return false
 	var manifest: Dictionary = actual.generated.manifest

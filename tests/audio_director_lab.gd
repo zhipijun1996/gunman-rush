@@ -32,7 +32,7 @@ func run() -> void:
 		quit(1)
 		return
 	await ticks(12)
-	check(not lab.meta_persistence_enabled, "Lab disables normal save persistence before formal DemoApp ready")
+	check(not lab.meta_persistence_enabled, "Lab disables normal save persistence before formal CampaignFixture ready")
 	check(host.custom_audio == null, "Lab removes bootstrap generic audio before formal assembly")
 	check(get_nodes_in_group(&"game_audio").size() == 1 and get_first_node_in_group(&"game_audio") == lab.lab_audio, "Exactly one formal V2 service owns the existing twelve-voice pool")
 	check(lab.lab_audio._voices.size() == GameAudio.MAX_VOICES, "Lab does not create a parallel SFX voice pool")

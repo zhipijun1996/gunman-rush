@@ -54,7 +54,7 @@ func assembler_fixture(cases: RefCounted, already_open: bool) -> PlainsRegionAss
 	assembler.install_attack_shortcuts(cases.controller,cases.scope)
 	return assembler
 
-func formal_snapshot(app: DemoApp, name: String) -> void:
+func formal_snapshot(app: CampaignFixture, name: String) -> void:
 	if "--capture" not in OS.get_cmdline_user_args(): return
 	if "--cache-only" in OS.get_cmdline_user_args() and not "cache_" in name: return
 	app._run_camera.snap_to_target()
@@ -65,7 +65,7 @@ func formal_snapshot(app: DemoApp, name: String) -> void:
 
 func formal_consumers() -> void:
 	var map_hashes: Dictionary = {}
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_plains("underworld-r3-objects-formal"),"actual ordinary formal entry accepted")

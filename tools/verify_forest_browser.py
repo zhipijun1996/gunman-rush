@@ -77,7 +77,7 @@ def locate(path: Path, phrase: str):
 def validate_region_heading(path: Path, region: str, map_index: int):
     """Require one complete actual HUD heading, including the selected map.
 
-    DemoApp positions the same heading at four finite HUD layout candidates.
+    CampaignFixture positions the same heading at four finite HUD layout candidates.
     Read a conservative title sampling region before the INFO button, refusing
     visible boundary ink instead of accepting a crop that cuts a suffix. All candidates
     participate even when the original full-frame region locator succeeds.
@@ -89,7 +89,7 @@ def validate_region_heading(path: Path, region: str, map_index: int):
     receipt = {"expected": expected, "scope": "actual complete HUD heading OCR only; no click or engine mutation", "observations": observations}
     try:
         for panel_y in (8,220,382,590):
-            # Actual DemoApp::_layout_region_hud panel/title coordinates at
+            # Actual CampaignFixture::_layout_region_hud panel/title coordinates at
             # 1280x720. Use250 as a conservative title sampling edge; Label
             # has no explicit clipping boundary. INFO starts at panel12+250
             # =262 and ends at318. This is not a desired-word bounding box.

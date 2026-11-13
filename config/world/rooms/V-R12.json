@@ -1,7 +1,8 @@
 {
   "entities": {
     "V-R12:environment_zones:0": {
-      "component": "array:environment_zones",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
       "id": "V-R12:environment_zones:0",
       "order": 0,
       "properties": {
@@ -16,7 +17,8 @@
       }
     },
     "V-R12:environment_zones:1": {
-      "component": "array:environment_zones",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
       "id": "V-R12:environment_zones:1",
       "order": 1,
       "properties": {
@@ -31,7 +33,8 @@
       }
     },
     "V-R12:environment_zones:2": {
-      "component": "array:environment_zones",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
       "id": "V-R12:environment_zones:2",
       "order": 2,
       "properties": {
@@ -46,12 +49,9 @@
       }
     },
     "V-R12:gear_obstacles:0": {
-      "component": "WorldElementGear",
       "definition_id": "hazard.gear",
       "definition_version": 1.0,
       "id": "V-R12:gear_obstacles:0",
-      "node_name": "Element_5e348f53271fe7a5",
-      "node_path": "./Element_5e348f53271fe7a5",
       "order": 1,
       "parent": "",
       "properties": {
@@ -86,12 +86,9 @@
       }
     },
     "V-R12:gear_obstacles:1": {
-      "component": "WorldElementGear",
       "definition_id": "hazard.gear",
       "definition_version": 1.0,
       "id": "V-R12:gear_obstacles:1",
-      "node_name": "Element_06e44347e9babe7a",
-      "node_path": "./Element_06e44347e9babe7a",
       "order": 2,
       "parent": "",
       "properties": {
@@ -126,10 +123,9 @@
       }
     },
     "V-R12:node:./FinishReturn": {
-      "component": "WorldReturnLatch",
+      "definition_id": "interaction.return_gate",
+      "definition_version": 1,
       "id": "V-R12:node:./FinishReturn",
-      "node_name": "FinishReturn",
-      "node_path": "./FinishReturn",
       "order": 3,
       "parent": "",
       "properties": {
@@ -170,7 +166,6 @@
       }
     },
     "V-R12:spike_strips:0": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "V-R12:spike_strips:0",
@@ -188,7 +183,6 @@
       }
     },
     "V-R12:spike_strips:1": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "V-R12:spike_strips:1",
@@ -206,7 +200,6 @@
       }
     },
     "V-R12:spike_strips:2": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "V-R12:spike_strips:2",
@@ -224,7 +217,6 @@
       }
     },
     "V-R12:spike_strips:3": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "V-R12:spike_strips:3",
@@ -242,7 +234,6 @@
       }
     },
     "V-R12:spike_strips:4": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "V-R12:spike_strips:4",
@@ -259,7 +250,6 @@
       }
     },
     "V-R12:spike_strips:5": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "V-R12:spike_strips:5",
@@ -276,7 +266,6 @@
       }
     },
     "V-R12:spike_strips:6": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "V-R12:spike_strips:6",
@@ -293,7 +282,6 @@
       }
     },
     "V-R12:spike_strips:7": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "V-R12:spike_strips:7",
@@ -310,7 +298,6 @@
       }
     },
     "V12:drop_tongue": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "V12:drop_tongue",
@@ -328,7 +315,6 @@
       }
     },
     "V12:entry_mass": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "V12:entry_mass",
@@ -346,7 +332,8 @@
       }
     },
     "V12:entry_retry": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "V12:entry_retry",
       "order": 0,
       "properties": {
@@ -364,7 +351,8 @@
       }
     },
     "V12:entry_sign": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "V12:entry_sign",
       "order": 0,
       "properties": {
@@ -616,7 +604,8 @@
       }
     },
     "V12:finish_launch_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:finish_launch_wall",
       "order": 5,
       "properties": {
@@ -629,7 +618,6 @@
       }
     },
     "V12:finish_mass": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "V12:finish_mass",
@@ -647,7 +635,8 @@
       }
     },
     "V12:finish_retry": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "V12:finish_retry",
       "order": 2,
       "properties": {
@@ -665,7 +654,8 @@
       }
     },
     "V12:finish_sign": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "V12:finish_sign",
       "order": 2,
       "properties": {
@@ -677,7 +667,8 @@
       }
     },
     "V12:inner_lift_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:inner_lift_wall",
       "order": 2,
       "properties": {
@@ -690,7 +681,8 @@
       }
     },
     "V12:inner_return_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:inner_return_wall",
       "order": 4,
       "properties": {
@@ -703,7 +695,8 @@
       }
     },
     "V12:launch_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:launch_wall",
       "order": 0,
       "properties": {
@@ -716,7 +709,6 @@
       }
     },
     "V12:lift_pier": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "V12:lift_pier",
@@ -734,7 +726,6 @@
       }
     },
     "V12:low_canopy": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "V12:low_canopy",
@@ -752,7 +743,8 @@
       }
     },
     "V12:low_turn_refill": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "V12:low_turn_refill",
       "order": 0,
       "properties": {
@@ -763,7 +755,8 @@
       }
     },
     "V12:outer_span_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:outer_span_wall",
       "order": 3,
       "properties": {
@@ -776,7 +769,6 @@
       }
     },
     "V12:relay_mass": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "V12:relay_mass",
@@ -794,7 +786,8 @@
       }
     },
     "V12:relay_retry": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "V12:relay_retry",
       "order": 1,
       "properties": {
@@ -812,7 +805,8 @@
       }
     },
     "V12:relay_sign": {
-      "component": "array:signs",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
       "id": "V12:relay_sign",
       "order": 1,
       "properties": {
@@ -824,7 +818,6 @@
       }
     },
     "V12:upper_fold_baffle": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "V12:upper_fold_baffle",
@@ -842,7 +835,8 @@
       }
     },
     "V12:upper_turn_refill": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "V12:upper_turn_refill",
       "order": 1,
       "properties": {
@@ -853,7 +847,8 @@
       }
     },
     "V12:west_fold_wall": {
-      "component": "array:climbable_walls",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
       "id": "V12:west_fold_wall",
       "order": 1,
       "properties": {
@@ -864,34 +859,43 @@
           224.0
         ]
       }
+    },
+    "V-R12:feature:presentation.trial": {
+      "id": "V-R12:feature:presentation.trial",
+      "definition_id": "presentation.trial",
+      "definition_version": 1,
+      "order": 2000,
+      "parent": "",
+      "properties": {
+        "position": [
+          0,
+          0
+        ],
+        "rotation": 0,
+        "scale": [
+          1,
+          1
+        ],
+        "z_index": 0,
+        "visible": true,
+        "modulate": {
+          "$color": [
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      }
     }
   },
   "room_id": "V-R12",
   "root": {
-    "component": "StarbridgeTrialRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "星桥天门 · 折星回路（反冲＋二段跳灰盒）",
       "art_profile": "starbridge_graybox",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -900,22 +904,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "V-R12",
       "rotation": 0.0,
       "route_guide": {},
@@ -938,25 +931,15 @@
         144.0,
         1838.0
       ],
-      "story_sequence": {},
       "terrain_paint": {
         "regions": [],
         "seed": 0.0,
         "surfaces": [],
         "version": 1.0
       },
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

@@ -30,7 +30,7 @@ func check_default_forest_identity(app: Node,map_index: int) -> void:
 func run() -> void:
 	for region: StringName in [&"plains",&"thorn_forest"]:
 		for map_index: int in [1,2]:
-			var app := DemoApp.new()
+			var app := CampaignFixture.new()
 			app.meta_persistence_enabled=false
 			root.add_child(app)
 			check(app.start_debug_region(region,map_index,"debug-lifecycle"),"debug request accepts supported map")

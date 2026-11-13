@@ -1,7 +1,7 @@
 extends SceneTree
 ## The existing successful actual-App R3 Boss pilot, without post-victory
 ## placement/reward callbacks. Only initial map/room placement is a fixture.
-var app: DemoApp
+var app: CampaignFixture
 var encounter: WindkeeperEncounter
 var boss: BossMotor
 var trace_path := ""
@@ -34,7 +34,7 @@ func ticks(count: int) -> void:
 
 func run() -> void:
 	root.size = Vector2i(1280,720)
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	if not app.start_plains(seed_label) or not await ready_stage():
@@ -60,7 +60,7 @@ func run() -> void:
 	await ticks(5)
 	if not app._boss_started or encounter.health.current!=encounter.health.capacity: failures.append("Actual full-health Boss room activation failed")
 	var id := "windkeeper_storm_formal_app" if map_index==2 else "bellstrider_formal_app"
-	cases.append({"case":0,"id":id,"chain":"actual_formal_App","definition":String(encounter.definition.stable_id),"definition_path":encounter.definition.resource_path,"scene":"res://game/application/demo.tscn","renderer":(boss.get_node("Presentation").get_script() as Script).resource_path,"start_frame":1,"start_seconds":float(Engine.get_process_frames())/60,"movie_start_process_frame":Engine.get_process_frames(),"fixture":{"production_AI_enabled":encounter.is_physics_processing(),"initial_map_selection":map_index,"initial_room_player_position":[app.player.global_position.x,app.player.global_position.y],"initial_enemy_health":encounter.health.current,"initial_player_health":app.controller.actor_resources.health.current,"manifest_hash":String(stage.generated.manifest.manifest_hash),"manifest_seed":String(stage.generated.manifest.seed),"differences":["one initial original-room player reset_at only","map2 selected before battle using original successful native-driver entry","automated Router input replaces keyboard","permanent meta persistence disabled"],"scope":"Actual formal stage and original App gameplay; initial room entry is a fixture, not natural traversal"},"events":[],"player_events":[],"inputs":[],"shots":[],"states":[],"attacks":[],"deaths":0,"coverage":{},"coverage_gaps":[]})
+	cases.append({"case":0,"id":id,"chain":"actual_formal_App","definition":String(encounter.definition.stable_id),"definition_path":encounter.definition.resource_path,"scene":"res://tests/fixtures/campaign_fixture.tscn","renderer":(boss.get_node("Presentation").get_script() as Script).resource_path,"start_frame":1,"start_seconds":float(Engine.get_process_frames())/60,"movie_start_process_frame":Engine.get_process_frames(),"fixture":{"production_AI_enabled":encounter.is_physics_processing(),"initial_map_selection":map_index,"initial_room_player_position":[app.player.global_position.x,app.player.global_position.y],"initial_enemy_health":encounter.health.current,"initial_player_health":app.controller.actor_resources.health.current,"manifest_hash":String(stage.generated.manifest.manifest_hash),"manifest_seed":String(stage.generated.manifest.seed),"differences":["one initial original-room player reset_at only","map2 selected before battle using original successful native-driver entry","automated Router input replaces keyboard","permanent meta persistence disabled"],"scope":"Actual formal stage and original App gameplay; initial room entry is a fixture, not natural traversal"},"events":[],"player_events":[],"inputs":[],"shots":[],"states":[],"attacks":[],"deaths":0,"coverage":{},"coverage_gaps":[]})
 	encounter.health.changed.connect(func(result: ActorResourceResult) -> void:
 		if result.operation==&"damage" and result.status==ActorResourceResult.Status.APPLIED:
 			cases[0].events.append({"frame":frame,"local_frame":frame,"event_id":String(result.event_id),"amount":result.amount_applied,"HP":result.snapshot.current,"epoch":result.snapshot.epoch,"terminal":result.snapshot.terminal})

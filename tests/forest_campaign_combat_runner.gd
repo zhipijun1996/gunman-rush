@@ -41,7 +41,7 @@ func combat(map_index: int) -> void:
 	if not is_instance_valid(trace.app) or not is_instance_valid(trace.controller) or not trace.route_errors.is_empty():
 		await cleanup(trace)
 		return
-	var app: DemoApp=trace.app
+	var app: CampaignFixture=trace.app
 	var controller: PlayerController=trace.controller
 	var player: PlayerMotor=trace.player
 	var stage: ThornForestRegionStage=trace.stage

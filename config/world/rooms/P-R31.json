@@ -1,7 +1,6 @@
 {
   "entities": {
     "P-R31:composition:0": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R31:composition:0",
@@ -48,7 +47,6 @@
       }
     },
     "P-R31:composition:1": {
-      "component": "array:art_placements",
       "definition_id": "decor.bell_post",
       "definition_version": 1,
       "id": "P-R31:composition:1",
@@ -63,7 +61,8 @@
       }
     },
     "P-R31:composition:10": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_transmission_hall",
+      "definition_version": 1,
       "id": "P-R31:composition:10",
       "order": 10,
       "properties": {
@@ -76,7 +75,6 @@
       }
     },
     "P-R31:composition:17": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R31:composition:17",
@@ -92,7 +90,6 @@
       }
     },
     "P-R31:composition:2": {
-      "component": "array:art_placements",
       "definition_id": "decor.windchime_plains_v2_chime_span",
       "definition_version": 1,
       "id": "P-R31:composition:2",
@@ -113,7 +110,6 @@
       }
     },
     "P-R31:composition:3": {
-      "component": "array:art_placements",
       "definition_id": "decor.orchard_fence",
       "definition_version": 1,
       "id": "P-R31:composition:3",
@@ -134,7 +130,6 @@
       }
     },
     "P-R31:composition:4": {
-      "component": "array:art_placements",
       "definition_id": "decor.tilted_barrel",
       "definition_version": 1,
       "id": "P-R31:composition:4",
@@ -149,7 +144,6 @@
       }
     },
     "P-R31:composition:5": {
-      "component": "array:art_placements",
       "definition_id": "decor.storage_crates",
       "definition_version": 1,
       "id": "P-R31:composition:5",
@@ -164,7 +158,6 @@
       }
     },
     "P-R31:composition:6": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R31:composition:6",
@@ -180,7 +173,6 @@
       }
     },
     "P-R31:composition:7": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R31:composition:7",
@@ -196,7 +188,6 @@
       }
     },
     "P-R31:composition:8": {
-      "component": "array:art_placements",
       "definition_id": "decor.longbridge_crane",
       "definition_version": 1,
       "id": "P-R31:composition:8",
@@ -222,7 +213,6 @@
       }
     },
     "P-R31:composition:9": {
-      "component": "array:art_placements",
       "definition_id": "decor.well_winch_mount",
       "definition_version": 1,
       "id": "P-R31:composition:9",
@@ -242,7 +232,8 @@
       }
     },
     "P-R31:enemy_placements:0": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.charger",
+      "definition_version": 1,
       "id": "P-R31:enemy_placements:0",
       "order": 0,
       "properties": {
@@ -256,7 +247,8 @@
       }
     },
     "P-R31:enemy_placements:1": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R31:enemy_placements:1",
       "order": 1,
       "properties": {
@@ -270,7 +262,8 @@
       }
     },
     "P-R31:enemy_placements:2": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.diver",
+      "definition_version": 1,
       "id": "P-R31:enemy_placements:2",
       "order": 2,
       "properties": {
@@ -284,7 +277,8 @@
       }
     },
     "P-R31:enemy_placements:3": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.hopper",
+      "definition_version": 1,
       "id": "P-R31:enemy_placements:3",
       "order": 3,
       "properties": {
@@ -298,7 +292,8 @@
       }
     },
     "P-R31:enemy_placements:4": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R31:enemy_placements:4",
       "order": 4,
       "properties": {
@@ -312,7 +307,8 @@
       }
     },
     "P-R31:enemy_placements:5": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R31:enemy_placements:5",
       "order": 5,
       "properties": {
@@ -326,10 +322,9 @@
       }
     },
     "P-R31:node:./Cache_lower_cache": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R31:node:./Cache_lower_cache",
-      "node_name": "Cache_lower_cache",
-      "node_path": "./Cache_lower_cache",
       "order": 5,
       "parent": "",
       "properties": {
@@ -360,12 +355,9 @@
       }
     },
     "P-R31:node:./EastHoist": {
-      "component": "WorldMovingPlatform",
       "definition_id": "platform.moving",
       "definition_version": 1.0,
       "id": "P-R31:node:./EastHoist",
-      "node_name": "EastHoist",
-      "node_path": "./EastHoist",
       "order": 4,
       "parent": "",
       "properties": {
@@ -407,12 +399,9 @@
       }
     },
     "P-R31:node:./WestHoist": {
-      "component": "WorldMovingPlatform",
       "definition_id": "platform.moving",
       "definition_version": 1.0,
       "id": "P-R31:node:./WestHoist",
-      "node_name": "WestHoist",
-      "node_path": "./WestHoist",
       "order": 3,
       "parent": "",
       "properties": {
@@ -454,7 +443,6 @@
       }
     },
     "P-R31:platforms:0": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R31:platforms:0",
@@ -472,7 +460,6 @@
       }
     },
     "P-R31:platforms:0:part2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R31:platforms:0:part2",
@@ -490,7 +477,6 @@
       }
     },
     "P-R31:platforms:1": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R31:platforms:1",
@@ -508,7 +494,6 @@
       }
     },
     "P-R31:platforms:10": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R31:platforms:10",
@@ -527,7 +512,6 @@
       }
     },
     "P-R31:platforms:2": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R31:platforms:2",
@@ -545,7 +529,6 @@
       }
     },
     "P-R31:platforms:4": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R31:platforms:4",
@@ -563,7 +546,6 @@
       }
     },
     "P-R31:platforms:5": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R31:platforms:5",
@@ -582,7 +564,6 @@
       }
     },
     "P-R31:platforms:6": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R31:platforms:6",
@@ -601,7 +582,6 @@
       }
     },
     "P-R31:platforms:7": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R31:platforms:7",
@@ -620,7 +600,6 @@
       }
     },
     "P-R31:platforms:8": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R31:platforms:8",
@@ -639,7 +618,6 @@
       }
     },
     "P-R31:platforms:9": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R31:platforms:9",
@@ -658,7 +636,8 @@
       }
     },
     "P-R31:retry_anchors:0": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R31:retry_anchors:0",
       "order": 0,
       "properties": {
@@ -676,7 +655,8 @@
       }
     },
     "P-R31:retry_anchors:1": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R31:retry_anchors:1",
       "order": 1,
       "properties": {
@@ -694,7 +674,6 @@
       }
     },
     "P-R31:review04:culvert_foundation": {
-      "component": "array:platforms",
       "definition_id": "platform.beam",
       "definition_version": 1.0,
       "id": "P-R31:review04:culvert_foundation",
@@ -713,7 +692,6 @@
       }
     },
     "P-R31:review04:lower_return_ledge": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R31:review04:lower_return_ledge",
@@ -731,7 +709,6 @@
       }
     },
     "P-R31:spike_strips:0": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R31:spike_strips:0",
@@ -749,7 +726,6 @@
       }
     },
     "P-R31:spike_strips:1": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R31:spike_strips:1",
@@ -767,7 +743,6 @@
       }
     },
     "P-R31:spike_strips:2": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R31:spike_strips:2",
@@ -784,12 +759,9 @@
       }
     },
     "P31:east_hoist": {
-      "component": "WorldElementSwitch",
       "definition_id": "switch.shot",
       "definition_version": 1.0,
       "id": "P31:east_hoist",
-      "node_name": "Element_814fefe23e13200e",
-      "node_path": "./Element_814fefe23e13200e",
       "order": 2,
       "parent": "",
       "properties": {
@@ -833,12 +805,9 @@
       }
     },
     "P31:west_hoist": {
-      "component": "WorldElementSwitch",
       "definition_id": "switch.shot",
       "definition_version": 1.0,
       "id": "P31:west_hoist",
-      "node_name": "Element_1c4aac5900dec348",
-      "node_path": "./Element_1c4aac5900dec348",
       "order": 1,
       "parent": "",
       "properties": {
@@ -884,30 +853,11 @@
   },
   "room_id": "P-R31",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "站外铃场",
       "art_profile": "junction",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -916,22 +866,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R31",
       "rotation": 0.0,
       "route_guide": {
@@ -1127,25 +1066,15 @@
         144.0,
         878.0
       ],
-      "story_sequence": {},
       "terrain_paint": {
         "regions": [],
         "seed": 0.0,
         "surfaces": [],
         "version": 1.0
       },
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

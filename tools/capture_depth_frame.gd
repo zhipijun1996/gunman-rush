@@ -1,6 +1,6 @@
 extends SceneTree
 ## Actual formal consumers; positioning/camera sweeps are diagnostic, not routes.
-var app: DemoApp
+var app: CampaignFixture
 var output := "res://build/depth_frame_06/captures"
 var quick := false
 var task_id := "DEPTH-FRAME-06"
@@ -21,7 +21,7 @@ func new_app(region: String,map_index: int,seed_value: String) -> void:
 		app.abandon_run()
 		await load("res://tests/audio_teardown.gd").drain_world(app)
 		app.free();await process_frame
-	app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	app=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	await process_frame
 	if region=="home":app._show_home()
 	else:check(app.start_debug_region(StringName(region),map_index,seed_value),"real formal debug entry accepted")

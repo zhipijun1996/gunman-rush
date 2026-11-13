@@ -1,0 +1,31 @@
+{
+  "id": "story.sequence",
+  "name": "剧情事件",
+  "version": 1,
+  "component": "WorldRoomFeature",
+  "category": "story",
+  "placeable": true,
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "parameters": {
+      "story_sequence": {}
+    }
+  },
+  "room_bindings": {
+    "story_sequence": {
+      "parameter": "story_sequence"
+    }
+  },
+  "parameter_defaults": {
+    "story_sequence": {}
+  },
+  "documentation": "docs/data/world_objects.md",
+  "parameter_fields": {
+    "story_sequence": {
+      "type": "dict"
+    }
+  }
+}

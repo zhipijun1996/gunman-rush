@@ -8,7 +8,7 @@ const PRIMARY := {
 	"TitleSettings": "设定",
 	"TitleTutorial": "新手教程",
 }
-var app: DemoApp
+var app: CampaignFixture
 var checks := 0
 var failures := 0
 var observations: Array[Dictionary] = []
@@ -252,7 +252,7 @@ func title_layout(size: Vector2i) -> void:
 func run() -> void:
 	check(DirAccess.make_dir_recursive_absolute(out) == OK, "fresh R2 evidence directory is writable")
 	root.size = Vector2i(1280, 720)
-	app = preload("res://game/application/demo.tscn").instantiate() as DemoApp
+	app = preload("res://tests/fixtures/campaign_fixture.tscn").instantiate() as CampaignFixture
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(9)
@@ -313,8 +313,8 @@ func run() -> void:
 	app.queue_free()
 	app = null
 	await frames(10)
-	check(reference.get_ref() == null, "real DemoApp is released cleanly")
-	var result := {"schema": "demo-ui-r2-native-v1", "checks": checks, "failures": failures, "exit_code": 0 if failures == 0 else 1, "native_event_route": "Window.push_input(event, true)", "pointer_events": pointer_events, "wheel_events": wheel_events, "pointer_trace": pointer_trace, "captured": capture, "layouts": layouts, "media": media, "observations": observations, "scope": "Actual native DemoApp and Control GUI. Saved/session snapshots are explicitly presentation fixtures; real persistence disabled. CJK checks actual quoted UI/item/Boss/Home source against embedded font. No physical device or user-art approval."}
+	check(reference.get_ref() == null, "real CampaignFixture is released cleanly")
+	var result := {"schema": "demo-ui-r2-native-v1", "checks": checks, "failures": failures, "exit_code": 0 if failures == 0 else 1, "native_event_route": "Window.push_input(event, true)", "pointer_events": pointer_events, "wheel_events": wheel_events, "pointer_trace": pointer_trace, "captured": capture, "layouts": layouts, "media": media, "observations": observations, "scope": "Actual native CampaignFixture and Control GUI. Saved/session snapshots are explicitly presentation fixtures; real persistence disabled. CJK checks actual quoted UI/item/Boss/Home source against embedded font. No physical device or user-art approval."}
 	var file := FileAccess.open(out + "/assertions.json", FileAccess.WRITE)
 	if file == null:
 		printerr("FAIL: unable to write R2 assertions.json")

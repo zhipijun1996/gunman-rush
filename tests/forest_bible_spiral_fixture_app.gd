@@ -1,4 +1,4 @@
-extends "res://game/application/demo_app.gd"
+extends "res://tests/fixtures/campaign_fixture.gd"
 ## F08 LOCAL only: one initial basin pose before the first actual Motor step.
 var fixture_data: Dictionary = {}
 var fixture_error := ""

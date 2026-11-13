@@ -56,7 +56,7 @@ func setup() -> bool:
 	player_damage.clear()
 	shots.clear()
 	spawned.clear()
-	app = load("res://game/application/demo_app.gd").new()
+	app = load("res://tests/fixtures/campaign_fixture.gd").new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_debug_region(&"plains", 2, "windkeeper-pressure-formal-01"), "declared map2 debug entry uses actual App formal stage factory")

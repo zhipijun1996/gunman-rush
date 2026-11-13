@@ -155,7 +155,7 @@ func run() -> void:
 	if legacy: folder += "-rejected"
 	DirAccess.make_dir_recursive_absolute(folder)
 	root.size = Vector2i(1280, 720)
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(3)

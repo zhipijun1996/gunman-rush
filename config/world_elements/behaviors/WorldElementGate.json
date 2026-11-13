@@ -1,0 +1,36 @@
+{
+  "id": "WorldElementGate",
+  "script": "res://game/world/elements/world_element_gate.gd",
+  "fields": {
+    "element_id": {
+      "type": "string"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "permanent",
+        "attempt"
+      ]
+    },
+    "bounds": {
+      "type": "rect"
+    },
+    "appearance": {
+      "type": "string"
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "state": {
+    "active": {
+      "type": "bool",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "gate.masonry"
+}

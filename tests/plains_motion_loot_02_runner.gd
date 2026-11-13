@@ -16,7 +16,7 @@ func run()->void:
  assertions+=int(loot.assertions);failures.append_array(loot.failures);samples.append(loot)
  var audio:Dictionary=await load("res://tests/plains_motion_loot_02_audio.gd").run(self)
  assertions+=int(audio.assertions);failures.append_array(audio.failures);samples.append(audio)
- var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+ var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
  await frames(3)
  check(app.start_plains("plains-motion-loot-02"),"actual formal plains accepts normal start")
  await frames(8)

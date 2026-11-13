@@ -1,7 +1,7 @@
 extends SceneTree
 ## Explicit local review entry. No automatic gameplay driver or save writes.
 const VISUAL_SAMPLE_CATALOGS := ["res://game/presentation/world/resources/visual_development/candidate.json", "res://game/presentation/world/resources/visual_development/painted_terrain_candidate.json", "res://game/presentation/world/resources/visual_development/p1_candidate.json"]
-var app: DemoApp
+var app: CampaignFixture
 var closing := false
 var review_seed := "against-wind-golden-v1"
 var visual_sample := ""
@@ -41,7 +41,7 @@ func run() -> void:
 	root.size = Vector2i(1280, 720)
 	root.content_scale_size = Vector2i(1280, 720)
 	root.title = "失序之钟 · 正式几何两薄岸表现候选（后段保留原貌）" if formal_painted else "失序之钟 · 实验黄金空间本地评审（未正式准入）"
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.spatial_golden_requested = not formal_painted
 	app.set("visual_language_sample_path", visual_sample)
 	app.set("visual_language_open_meadow_requested", open_meadow)

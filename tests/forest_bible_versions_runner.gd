@@ -53,7 +53,7 @@ func run() -> void:
 	registry=null;tuning=null;equality=null
 	finish.call_deferred()
 func public_app_case(map_index: int) -> void:
-	var app := DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app := CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_debug_region(&"thorn_forest",map_index,"bible-version-public",ThornForestRegionGenerator.DEPTH_VERSION),"actual public App starts without layout pin map%s" % map_index)
 	await frames(8)
 	var stage := app.stage as ThornForestRegionStage
@@ -66,7 +66,7 @@ func public_app_case(map_index: int) -> void:
 	cases.append({"id":"public_app","map":map_index,"layout_argument":"","expected_layout":PUBLIC_EXPECTATION.EXPECTED_PUBLIC_LAYOUT,"manifest":actual.duplicate(true),"complete_manifest_equal":equal})
 	await dispose(app)
 func recorded_app_case(map_index: int,layout: String) -> void:
-	var app := DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app := CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_debug_region(&"thorn_forest",map_index,"bible-version-recorded",ThornForestRegionGenerator.DEPTH_VERSION,layout),"actual recorded App starts %s/map%s" % [layout,map_index])
 	await frames(8)
 	var stage := app.stage as ThornForestRegionStage
@@ -97,7 +97,7 @@ func recorded_app_case(map_index: int,layout: String) -> void:
 	check(before==ledgers and loaded_actor.get_instance_id()!=actor_id and loaded_actor.health.current==nondefault_hp,"old claims mechanisms and nondefault actor survive rebuild %s/map%s" % [layout,map_index])
 	cases.append({"id":"recorded_app","map":map_index,"layout":layout,"original_manifest":original,"restored_manifest":restored.generated.manifest.duplicate(true),"forced_request":BIBLE,"recorded_layout_after":app._forest_layout_version,"same_state":app.region_state==state,"before":before,"after":ledgers,"old_actor_id":actor_id,"new_actor_id":loaded_actor.get_instance_id(),"saved_health":nondefault_hp,"restored_health":loaded_actor.health.current})
 	await dispose(app)
-func dispose(app: DemoApp) -> void:
+func dispose(app: CampaignFixture) -> void:
 	app.abandon_run();await frames(4)
 	check(await AUDIO.drain_world(app),"actual owned App audio drains")
 	app.free();await frames(2)

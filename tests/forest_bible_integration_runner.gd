@@ -77,12 +77,12 @@ func outer_refusal_cases(generated: Dictionary, tuning: PlayerTuning, saved: Dic
 		await release_stage(stage)
 
 func run() -> void:
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_debug_region(&"thorn_forest",1,"forest-bible-integration",ThornForestRegionGenerator.DEPTH_VERSION,ThornForestRegionGenerator.DEPTH_LAYOUT_BIBLE),"actual debug entry explicitly pins v15")
 	await frames(8)
-	check(app.stage is ThornForestRegionStage and app.stage.assembly_ok,"actual DemoApp assembles v15 stage")
+	check(app.stage is ThornForestRegionStage and app.stage.assembly_ok,"actual CampaignFixture assembles v15 stage")
 	if app.stage is ThornForestRegionStage and app.stage.assembly_ok:
 		var stage := app.stage as ThornForestRegionStage
 		var actor := find_weaver(stage)

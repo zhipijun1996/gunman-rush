@@ -5,8 +5,11 @@ func run() -> void:
 	root.add_child(app)
 	var source := load("res://game/world/regions/P/rooms/P-R14.tscn") as PackedScene
 	var authored := source.instantiate() as FixedWorldRoom
-	var draft := WorldRoomDraft.extract(authored)
-	check(WorldRoomDraft.apply(authored, draft).is_empty(), "arena draft roundtrip")
+	var draft := WorldRoomDocument.read(authored.document_ref)
+	authored.free()
+	var recreated:=WorldRoomDocument.instantiate(draft)
+	authored=recreated.get("room")
+	check(not recreated.has("error"), "arena draft roundtrip")
 	check(authored.get_node_or_null("Arena/RegionalTerrain") is WorldModuleTerrain, "roundtrip retains formal terrain presenter")
 	var packed := PackedScene.new()
 	check(packed.pack(authored) == OK, "arena scene packs")

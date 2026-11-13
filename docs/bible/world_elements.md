@@ -2,6 +2,10 @@
 
 主游戏持有行为类型、要素定义和组合定义；房间JSON持有实例，编辑器消费同源目录。定义、实例化、关联、状态和表现共用合同，不要求所有要素采用同一种绘制或物理节点。
 
+## 房间组装
+
+普通房间由空间／出口／镜头配置、对象实例、参数和稳定ID关系构成。房间根节点只编排服务及生命周期，实际碰撞、危险、交互和表现由注册组件或批量适配器产生；地形批量绘制，不逐格创建节点。怪物、装备、奖励继续委托各自系统；NPC、Boss、教学和特殊剧情通过登记宿主接入，不在普通房间增加专属玩法脚本。编辑器只有一个分类放置入口，内部技术组件不可直接放置。
+
 ## 定义与实例
 
 行为类型登记实现、参数、输入输出、状态版本与生命周期。要素定义选择行为、默认参数、可用外观与编辑描述；组合定义声明子要素、局部坐标和内部连接。房间实例持有稳定ID、定义引用、参数覆盖、外观及外部连接。已有行为换皮或组合不修改房间脚本；新玩法登记行为及相应验证。
@@ -26,8 +30,8 @@
 
 ## 制作与验证
 
-目录入口为 `config/world_elements.json`。新增行为登记脚本、`fields`、`inputs`／`outputs`、`state_version`／`state`；注册脚本实现 `element_bind`、`element_state`、`element_restore`，接收者额外实现纯校验 `element_can_receive` 和纯提案 `element_propose`。发送者提供 `can_commit`、`proposed_state`、`element_signal`、`accept_committed`、`cancel_pending`，向App提交自身ID，不直接操作接收者。信号负载支持bool、number、string、point和pulse，按已登记端口类型校验。恢复不重新发信号或播放触发反馈。
+唯一注册索引为 `config/world_elements/index.json`，行为合同与每种对象定义分别存入独立文件；房间和编辑器不另维护注册清单。具体机关库的唯一说明入口是[世界对象](../data/world_objects.md)，集中描述当前对象及配置来源。新增行为登记脚本、`fields`、`inputs`／`outputs`、`state_version`／`state`；注册脚本实现 `element_bind`、`element_state`、`element_restore`，接收者额外实现纯校验 `element_can_receive` 和纯提案 `element_propose`。发送者提供 `can_commit`、`proposed_state`、`element_signal`、`accept_committed`、`cancel_pending`，向App提交自身ID，不直接操作接收者。信号负载支持bool、number、string、point和pulse，按已登记端口类型校验。恢复不重新发信号或播放触发反馈。
 
-要素定义由 `component`、`version`、`defaults` 与 `position_field` 构成；放置工厂展开默认参数后生成完整实例。组合的 `members` 用固定局部ID、定义、offset和覆盖参数构成，内部 `links` 引用局部ID。组合实例保留 `assembly_id`，成员仍是独立真实要素。旧手机工作台的数组风铃仅在装载边界转为同一发送者／接收者；正式房间源与新编辑器不再创建这种数组组合，存档没有旧格式转换。NPC、奖励和永久门锁继续复用各自世界事实所有者，不另造机关进度账本。
+要素定义由 `component`、`version`、`defaults` 与 `position_field` 构成；放置工厂展开默认参数后生成完整实例。组合的 `members` 用固定局部ID、定义、offset和覆盖参数构成，内部 `links` 引用局部ID。组合实例保留 `assembly_id`，成员仍是独立真实要素。旧Demo与旧手机工作台入口退役；仍被主游戏消费的基础能力归共用模块，正式运行时不接受旧房间／草稿协议，存档没有旧格式转换。NPC、奖励和永久门锁继续复用各自世界事实所有者，不另造机关进度账本。
 
-先以真实拼装验证地形过渡、四向危险、四类平台、触发与控制及建筑组合，再迁移旧房。目录参数、实例创建、复制／删除／撤销、旧格式往返、存档恢复与取消都须验证。视觉逐房检查真实承载面、危险边界、机关反馈和镜头运动；自动测试不能代替视觉检查。
+先以真实拼装验证地形过渡、四向危险、四类平台、触发与控制及建筑组合，再迁移旧房。目录参数、实例创建、复制／删除／撤销、当前schema3完整往返、存档恢复与取消都须验证。视觉逐房检查真实承载面、危险边界、机关反馈和镜头运动；自动测试不能代替视觉检查。

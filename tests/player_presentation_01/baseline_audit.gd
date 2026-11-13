@@ -2,7 +2,7 @@ extends SceneTree
 ## Checkpoint-only observer of unmodified production consumers. Selection uses
 ## the existing application API (not pointer/GUI proof); movement/shots use Router.
 ## No transforms, HP, grants, weapon Definitions or gameplay results are injected.
-var app: DemoApp
+var app: CampaignFixture
 var consumer := "home"
 var output := "res://build/player_presentation_01/checkpoint_01/home.json"
 var capture := false
@@ -25,7 +25,7 @@ func advance() -> void:
 
 func run() -> void:
 	root.size = Vector2i(1280, 720)
-	app = preload("res://game/application/demo.tscn").instantiate()
+	app = preload("res://tests/fixtures/campaign_fixture.tscn").instantiate()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await advance()
@@ -92,7 +92,7 @@ func run() -> void:
 func finish() -> void:
 	var report := {"consumer":consumer,"seed":seed_value,"engine":Engine.get_version_info().string,
 		"status":"passed" if errors.is_empty() else "failed","errors":errors,"rows":rows,"shots":shots,
-		"scope":"Baseline observation of actual DemoApp/HomeScene or formal PlainsRegionStage. Existing select_avatar API is a selection fixture, not GUI click proof. No damage/death or complete route claim; no presentation improvement.",
+		"scope":"Baseline observation of actual CampaignFixture/HomeScene or formal PlainsRegionStage. Existing select_avatar API is a selection fixture, not GUI click proof. No damage/death or complete route claim; no presentation improvement.",
 		"user_acceptance":"unverified","device_acceptance":"unverified"}
 	if is_instance_valid(app):
 		report["audio_released"] = await load("res://tests/audio_teardown.gd").drain_world(app)

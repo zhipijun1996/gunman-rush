@@ -19,7 +19,7 @@ func frames(count: int = 3) -> void:
 		await physics_frame
 		await process_frame
 
-func local_audio(app: DemoApp) -> Variant:
+func local_audio(app: CampaignFixture) -> Variant:
 	for child: Node in app.get_children():
 		var source := child.get_script() as Script
 		while source != null:
@@ -58,14 +58,14 @@ func exercise() -> void:
 	check(not RUNTIME.selection_validation_error(bad, manifest, rules).is_empty(), "Duplicate event cannot hide a missing selection")
 	check(not RUNTIME.candidate_validation_error("res://assets/audio/director_v3/unselected.wav", "0".repeat(64)).is_empty(), "Unknown imported audio is rejected before loading")
 
-	var other := DemoApp.new()
+	var other := CampaignFixture.new()
 	other.meta_persistence_enabled = false
 	root.add_child(other)
 	await frames()
 	var other_audio: Variant = local_audio(other)
 	check(other_audio != null and other_audio.audio_profile == "original", "Earlier programmatic App remains original")
-	var packed := load("res://game/application/demo.tscn") as PackedScene
-	var app := packed.instantiate() as DemoApp
+	var packed := load("res://tests/fixtures/campaign_fixture.tscn") as PackedScene
+	var app := packed.instantiate() as CampaignFixture
 	packed = null
 	app.meta_persistence_enabled = false
 	root.add_child(app)

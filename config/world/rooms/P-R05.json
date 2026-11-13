@@ -1,7 +1,6 @@
 {
   "entities": {
     "P-R05:art:seam:8": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R05:art:seam:8",
@@ -17,7 +16,6 @@
       }
     },
     "P-R05:composition:0": {
-      "component": "array:art_placements",
       "definition_id": "decor.mill_transmission_hall",
       "definition_version": 1,
       "id": "P-R05:composition:0",
@@ -42,7 +40,6 @@
       }
     },
     "P-R05:composition:1": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R05:composition:1",
@@ -58,7 +55,6 @@
       }
     },
     "P-R05:composition:2": {
-      "component": "array:art_placements",
       "definition_id": "decor.storage_crates",
       "definition_version": 1,
       "id": "P-R05:composition:2",
@@ -73,7 +69,6 @@
       }
     },
     "P-R05:composition:3": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_lamp",
       "definition_version": 1,
       "id": "P-R05:composition:3",
@@ -89,12 +84,9 @@
       }
     },
     "P-R05:drive_shuttle": {
-      "component": "WorldElementSwitch",
       "definition_id": "switch.shot",
       "definition_version": 1.0,
       "id": "P-R05:drive_shuttle",
-      "node_name": "Element_b89fa8ea142e1146",
-      "node_path": "./Element_b89fa8ea142e1146",
       "order": 1,
       "parent": "",
       "properties": {
@@ -142,12 +134,9 @@
       }
     },
     "P-R05:gear_obstacles:0": {
-      "component": "WorldElementGear",
       "definition_id": "hazard.gear",
       "definition_version": 1.0,
       "id": "P-R05:gear_obstacles:0",
-      "node_name": "Element_9c4fa323ca10eb1f",
-      "node_path": "./Element_9c4fa323ca10eb1f",
       "order": 2,
       "parent": "",
       "properties": {
@@ -182,12 +171,9 @@
       }
     },
     "P-R05:node:./Carrier0": {
-      "component": "WorldMovingPlatform",
       "definition_id": "platform.moving",
       "definition_version": 1.0,
       "id": "P-R05:node:./Carrier0",
-      "node_name": "Carrier0",
-      "node_path": "./Carrier0",
       "order": 5,
       "parent": "",
       "properties": {
@@ -229,10 +215,9 @@
       }
     },
     "P-R05:node:./Interaction_0": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R05:node:./Interaction_0",
-      "node_name": "Interaction_0",
-      "node_path": "./Interaction_0",
       "order": 3,
       "parent": "",
       "properties": {
@@ -263,10 +248,9 @@
       }
     },
     "P-R05:node:./Interaction_1": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R05:node:./Interaction_1",
-      "node_name": "Interaction_1",
-      "node_path": "./Interaction_1",
       "order": 4,
       "parent": "",
       "properties": {
@@ -297,12 +281,9 @@
       }
     },
     "P-R05:node:./ReturnLift": {
-      "component": "WorldMovingPlatform",
       "definition_id": "platform.moving",
       "definition_version": 1.0,
       "id": "P-R05:node:./ReturnLift",
-      "node_name": "ReturnLift",
-      "node_path": "./ReturnLift",
       "order": 7,
       "parent": "",
       "properties": {
@@ -361,10 +342,9 @@
       }
     },
     "P-R05:node:./RewardReturn": {
-      "component": "WorldReturnLatch",
+      "definition_id": "interaction.return_gate",
+      "definition_version": 1,
       "id": "P-R05:node:./RewardReturn",
-      "node_name": "RewardReturn",
-      "node_path": "./RewardReturn",
       "order": 6,
       "parent": "",
       "properties": {
@@ -405,7 +385,6 @@
       }
     },
     "P-R05:platforms:0": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R05:platforms:0",
@@ -423,7 +402,6 @@
       }
     },
     "P-R05:platforms:2": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R05:platforms:2",
@@ -442,7 +420,6 @@
       }
     },
     "P-R05:platforms:3": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R05:platforms:3",
@@ -461,7 +438,6 @@
       }
     },
     "P-R05:platforms:4": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R05:platforms:4",
@@ -480,7 +456,6 @@
       }
     },
     "P-R05:platforms:5": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R05:platforms:5",
@@ -499,7 +474,6 @@
       }
     },
     "P-R05:platforms:6": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R05:platforms:6",
@@ -517,7 +491,6 @@
       }
     },
     "P-R05:platforms:7": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R05:platforms:7",
@@ -535,7 +508,8 @@
       }
     },
     "P-R05:retry_anchors:0": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R05:retry_anchors:0",
       "order": 0,
       "properties": {
@@ -553,7 +527,8 @@
       }
     },
     "P-R05:retry_anchors:1": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R05:retry_anchors:1",
       "order": 1,
       "properties": {
@@ -571,7 +546,6 @@
       }
     },
     "P-R05:spike_strips:0": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R05:spike_strips:0",
@@ -588,7 +562,8 @@
       }
     },
     "P-R05:terrain_polygons:0": {
-      "component": "array:terrain_polygons",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
       "id": "P-R05:terrain_polygons:0",
       "order": 0,
       "properties": {
@@ -625,30 +600,11 @@
   },
   "room_id": "P-R05",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "慢风平台",
       "art_profile": "mill",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -657,22 +613,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R05",
       "rotation": 0.0,
       "route_guide": {
@@ -778,25 +723,15 @@
         144.0,
         366.0
       ],
-      "story_sequence": {},
       "terrain_paint": {
         "regions": [],
         "seed": 0.0,
         "surfaces": [],
         "version": 1.0
       },
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

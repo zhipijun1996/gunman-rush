@@ -4,7 +4,7 @@ extends SceneTree
 const AUDIO := preload("res://tests/audio_teardown.gd")
 var assertions := 0
 var failures := 0
-var app: DemoApp
+var app: CampaignFixture
 
 func _initialize() -> void:
 	run.call_deferred()
@@ -188,7 +188,7 @@ func reject_before_nodes(host: Node2D, plan: LevelPlan, state: PlainsRegionState
 	check(not rejected.ok and not str(rejected.get("error","")).is_empty() and rejected.assembler==null and host.get_child_count()==before,label)
 
 func real_entries() -> void:
-	app=DemoApp.new()
+	app=CampaignFixture.new()
 	app.meta_persistence_enabled=false
 	root.add_child(app)
 	await frames(2)

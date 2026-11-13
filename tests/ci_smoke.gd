@@ -22,37 +22,13 @@ func _run() -> void:
 	check(world.start_new(),"normal new-world entry accepted")
 	for i: int in 40: await physics_frame
 	check(world.room != null and world.room.room_id == "P-R03" and world.player.is_on_floor(),"new world loads actual tutorial with grounded player")
+	check(is_instance_valid(world.controller) and world.controller.actor_resources.health.current>0,"formal player starts alive")
+	check(world.room.element_runtime.nodes.size()>0,"formal room binds registered interactive elements")
+	world.return_title()
+	for unused:int in 4:await process_frame
+	check(world.title.visible,"formal lifecycle returns to title")
+	check(await WorldAudioLifecycle.drain_world(world),"owned audio drains before teardown")
 	world.queue_free()
-	for i: int in 3: await process_frame
-	# Existing prototype remains an explicit regression fixture for shared consumers.
-	var app: DemoApp = preload("res://game/application/demo.tscn").instantiate()
-	app.meta_persistence_enabled = false
-	root.add_child(app)
-	for unused: int in 3:
-		await process_frame
-	check(is_instance_valid(app.menu), "configured main scene creates its menu")
-	check(app.menu.visible_panel == &"title", "configured main scene opens the title")
-	app.menu._start_title_adventure()
-	await process_frame
-	check(is_instance_valid(app.home_scene), "title start creates the playable home")
-	check(app.start_plains("ci-smoke"), "normal Explore entry starts the real Plains run")
-	for unused: int in 600:
-		await physics_frame
-		if is_instance_valid(app.stage) and is_instance_valid(app.player):
-			break
-	check(is_instance_valid(app.stage) and is_instance_valid(app.player), "normal run creates a stage and player")
-	if is_instance_valid(app.player):
-		for unused: int in 30:
-			await physics_frame
-		check(is_instance_valid(app.controller) and app.player.is_inside_tree(), "player survives startup frames with its controller")
-		check(app.controller.actor_resources.health.current > 0, "normal run starts alive")
-	app.menu.requested_home.emit()
-	for unused: int in 3:
-		await process_frame
-	check(app.director.state == DemoRunDirector.State.HOME and is_instance_valid(app.home_scene), "run cleanup returns to home")
-	check(await preload("res://tests/audio_teardown.gd").drain_world(app), "owned audio drains before test teardown")
-	app.queue_free()
-	for unused: int in 3:
-		await process_frame
+	for unused:int in 3:await process_frame
 	print("CI SMOKE: %d assertions, %d failures" % [assertions, failures])
 	quit(1 if failures > 0 else 0)

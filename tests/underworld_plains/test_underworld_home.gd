@@ -1,7 +1,7 @@
 extends SceneTree
 var checks:=0
 var failures:=0
-var app: DemoApp
+var app: CampaignFixture
 var records: Array[Dictionary]=[]
 var output:="res://build/underworld_home/"
 func _initialize() -> void: run.call_deferred()
@@ -30,7 +30,7 @@ func capture(home: HomeScene,id: String) -> void:
 	check(root.get_texture().get_image().save_png(path)==OK,"Actual Home GPU image "+id)
 func run() -> void:
 	root.size=Vector2i(1280,720)
-	app=preload("res://game/application/demo.tscn").instantiate() as DemoApp
+	app=preload("res://tests/fixtures/campaign_fixture.tscn").instantiate() as CampaignFixture
 	app.meta_persistence_enabled=false
 	root.add_child(app)
 	await frames(3)

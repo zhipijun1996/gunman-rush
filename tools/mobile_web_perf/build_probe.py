@@ -16,7 +16,7 @@ MEASURE={
  'game/enemies/enemy_actor.gd':['_physics_process'],
  'game/progression/home/home_scene.gd':['_physics_process','_process'],
  'game/player/player_controller.gd':['_physics_process'],
- 'game/application/demo_app.gd':['_process','_physics_process','_layout_region_hud','_sync_music'],
+ 'tests/fixtures/campaign_fixture.gd':['_process','_physics_process','_layout_region_hud','_sync_music'],
  'game/presentation/ui/demo_ui_01/game_hud.gd':['_process','_refresh','present_context'],
  'game/presentation/audio/game_audio.gd':['_process'],
  'game/presentation/audio/game_music.gd':['_process'],

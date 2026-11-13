@@ -1,6 +1,6 @@
 extends SceneTree
-## Real DemoApp rendering. Positioning is explicitly separate from traversal.
-var app: DemoApp
+## Real CampaignFixture rendering. Positioning is explicitly separate from traversal.
+var app: CampaignFixture
 var output := "res://build/underworld_plains/captures"
 var map_index := 1
 var moving := false
@@ -23,7 +23,7 @@ func freeze_physics(node: Node) -> void:
 	for child: Node in node.get_children(): freeze_physics(child)
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(output)
-	app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	app=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	assert(app.start_plains(seed_value))
 	for tick: int in 8:await physics_frame
 	if map_index==2:
@@ -34,7 +34,7 @@ func run() -> void:
 		app.player.get_node(name).process_mode=Node.PROCESS_MODE_DISABLED
 	var stage:=app.stage as PlainsRegionStage
 	var manifest_hash:=str(stage.generated.manifest.manifest_hash)
-	var evidence:= {"seed":seed_value,"map":map_index,"manifest_hash":manifest_hash,"source_scope":"actual DemoApp normal formal consumers with real UI/actors/physics","motion":moving,"positioned_fixture":not moving or map_index==2,"traversal_claim":false,"captures":captures,"motion_frames":motion}
+	var evidence:= {"seed":seed_value,"map":map_index,"manifest_hash":manifest_hash,"source_scope":"actual CampaignFixture normal formal consumers with real UI/actors/physics","motion":moving,"positioned_fixture":not moving or map_index==2,"traversal_claim":false,"captures":captures,"motion_frames":motion}
 	if moving:
 		var start:=app.player.global_position
 		var initial_epoch:=app.lifetime.actor_epoch

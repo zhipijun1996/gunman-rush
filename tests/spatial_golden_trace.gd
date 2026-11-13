@@ -12,7 +12,7 @@ var spatial_route_contract: Dictionary = {}
 var _route_waypoints: Dictionary = {}
 var _route_failure_y := 0.0
 
-func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
+func attach(application: CampaignFixture, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--spatial-phase="): spatial_phase = arg.trim_prefix("--spatial-phase=")
 		elif arg.begins_with("--spatial-mutation="): spatial_mutation = arg.trim_prefix("--spatial-mutation=")

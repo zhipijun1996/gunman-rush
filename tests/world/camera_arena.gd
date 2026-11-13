@@ -3,10 +3,10 @@ extends "res://tests/world/camera_motion.gd"
 func run() -> void:
  app=preload("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://camera_arena_test.json";root.add_child(app)
  for rid: String in ["P-R14","P-R11"]:
-  install_fixture_contract(rid,Vector2(4608,1344) if rid=="P-R14" else Vector2(2304,1152))
   for size: Vector2i in [Vector2i(1280,720),Vector2i(960,540)]:
    root.size=size
-   await app.review.begin(rid,"","base")
+   if not await app.review.begin(rid,"","base"):
+    expect(false,"review rejected "+rid+": "+app.status);quit(1);return
    var arena:=app.room.arena_bounds
    app.player.reset_at(Vector2(arena.position.x+80,arena.end.y-18));await ticks(3)
    expect(app.room.battle_started,"real entry activates seals "+rid)

@@ -4,7 +4,7 @@ class Observer extends Node:
 	func _physics_process(_delta: float) -> void: pilot.observe()
 var _last_motion_steps := 0
 ## Narrow actual-App input pilot. Never owns actors, Health, resources or stage activation.
-var app: DemoApp
+var app: CampaignFixture
 var duel: RootbellGuardianV2
 var tick := 0
 var frames: Array[Dictionary] = []
@@ -21,7 +21,7 @@ var direction := 1.0
 var arrived := false
 var seal_seen := false
 var eligible_seen := false
-func run(actual_app: DemoApp, budget := 3000) -> Dictionary:
+func run(actual_app: CampaignFixture, budget := 3000) -> Dictionary:
 	app=actual_app
 	duel=app.stage.boss.get_node("Encounter") as RootbellGuardianV2
 	if duel==null: return {"error":"actual Guardian absent","frames":[],"events":[],"requests":[]}

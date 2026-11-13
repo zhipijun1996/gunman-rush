@@ -40,7 +40,7 @@ func run() -> void:
 	if not output.is_empty():
 		if DirAccess.dir_exists_absolute(output) or DirAccess.make_dir_recursive_absolute(output) != OK:
 			push_error("Capture refuses existing or unavailable directory");quit(2);return
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.set_meta("plains_world_rebuild_candidate",true)
 	app.set_meta("plains_world_rebuild_variant",variant)
 	app.avatar_selection_id = "p1_girl"

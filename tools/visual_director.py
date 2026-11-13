@@ -124,7 +124,7 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
     report = dict(schema_version=1, artifact_kind='actual_formal_visual_capture', status='running', producer_root=str(ROOT),
                   request=request, source_before=before, source_after=None, errors=[],
                   subjective_acceptance='unverified', device_acceptance='unverified',
-                  scope='Real DemoApp camera, enemies, Motor and synthetic Router input; post-extracted video frames are NOT exact physics-tick screenshots',
+                  scope='Real CampaignFixture camera, enemies, Motor and synthetic Router input; post-extracted video frames are NOT exact physics-tick screenshots',
                   started_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()))
     if capture_script is not None:
         report['capture_extension'] = {'script': capture_script, 'sources': extension_sources,

@@ -190,7 +190,7 @@ def main():
     # runtime configs, modals, resources and actual presentation consumers.
     # Build outputs are excluded; a changed source rejects the whole attempt.
     before = inventory()
-    required = {DRIVER, "tools/capture_item_art_golden.py", "game/application/demo_app.gd",
+    required = {DRIVER, "tools/capture_item_art_golden.py", "tests/fixtures/campaign_fixture.gd",
                 "game/loadout/effects/item_runtime.gd", "game/loadout/effects/item_active_effects.gd", "tests/item_v5_movie.gd",
                 "game/loadout/effects/item_art_library.gd", "game/loadout/effects/item_effect_view.gd",
                 "game/loadout/effects/item_v5_entity.gd", "config/item_v5_art.json",

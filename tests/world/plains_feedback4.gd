@@ -1,7 +1,7 @@
 extends "res://tests/world/plains35_fixture.gd"
 func run() -> void:
  root.size=Vector2i(1280,720)
- app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://plains_feedback4.json";root.add_child(app);app.workbench.enabled=true
+ app=load("res://game/application/world/fixed_world.tscn").instantiate();app.save_path="user://plains_feedback4.json";root.add_child(app)
  await load_room("P-R25")
  for actor:EnemyActor in app.room.enemies.values():actor.set_physics_process(false)
  await hop(Vector2(1488,718),Vector2(1488,430),Vector2.DOWN,"P25 full jump + down recoil reward",20)

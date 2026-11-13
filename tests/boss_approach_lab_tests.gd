@@ -1,12 +1,12 @@
 extends RefCounted
 ## Position changes below are encounter-state fixtures, not reachability proof.
-const DEMO := preload("res://game/application/demo.tscn")
+const DEMO := preload("res://tests/fixtures/campaign_fixture.tscn")
 var tree: SceneTree
 var check: Callable
 func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	tree = scene_tree
 	check = assertion
-	var app: DemoApp = DEMO.instantiate()
+	var app: CampaignFixture = DEMO.instantiate()
 	app.meta_persistence_enabled = false
 	tree.root.add_child(app)
 	await frames(2)

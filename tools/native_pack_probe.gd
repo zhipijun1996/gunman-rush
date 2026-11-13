@@ -15,7 +15,7 @@ func settle()->void:
  check(not app.busy,"room transition finishes")
 func run()->void:
  check(not FileAccess.file_exists("res://config/world/world.json"),"authoring source is excluded")
- check(not FileAccess.file_exists("res://build/workbench/preview-world.json"),"editor preview catalog is excluded")
+ check(not FileAccess.file_exists("res://build/preview/preview-world.json"),"editor preview catalog is excluded")
  check(not ResourceLoader.exists("res://game/world/regions/V/rooms/V-R12.tscn"),"experimental room is excluded")
  check(PlainsActorAssets.texture("effects",&"muzzle_flash")!=null,"dynamic effect atlas resolves from the real package")
  app=preload("res://game/application/world/fixed_world.tscn").instantiate()

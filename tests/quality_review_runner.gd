@@ -71,7 +71,7 @@ func moving_support()->void:
 	world.free();module.free();await process_frame
 
 func pause_encounter()->void:
-	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	await frames(2);check(app.start_plains("quality-review-pause"),"real formal region initializes")
 	await frames(8)
 	var stage:=app.stage as PlainsRegionStage
@@ -239,7 +239,7 @@ func corner_radius(solids:Array[Rect2])->float:
 	art.free();return result
 
 func region_art_consumer()->void:
-	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	await frames(3);app._open_module_lab();await frames(3)
 	app._lab.request_module(&"terrain_gallery");await frames(5)
 	app._lab.terrain_gallery.region_requested.emit();await frames(6)

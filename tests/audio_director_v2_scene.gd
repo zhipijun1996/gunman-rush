@@ -87,7 +87,7 @@ func run() -> void:
 	check(is_equal_approx(lab.lab_audio.volume, 0.7), "Scene playback resumes original session gain")
 	check(lab.set_lab_music("forest"), "Scene music accepts an existing original MP3 identifier")
 	await ticks(45)
-	check(lab._music.requested_track == &"forest", "Selected forest music survives the normal DemoApp state observer across frames")
+	check(lab._music.requested_track == &"forest", "Selected forest music survives the normal CampaignFixture state observer across frames")
 	lab.set_lab_music("")
 	await ticks(45)
 	check(lab._music.requested_track.is_empty(), "No-music selection survives the normal Home observer")

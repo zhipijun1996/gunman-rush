@@ -1,5 +1,5 @@
 extends RefCounted
-## Shared v15-only hooks act on the actual inherited Router trace and DemoApp.
+## Shared v15-only hooks act on the actual inherited Router trace and CampaignFixture.
 ## Historical traces and every physics/resource/strategy assertion stay inherited.
 const LAYOUT := "forest-bible-world-v15"
 const STATE := &"forest_bible_trace_support"

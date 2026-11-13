@@ -89,7 +89,7 @@ func configure_cases(row: Dictionary) -> void:
 	cases.append({"id":"row_guards","rejected":8})
 
 func actual_app_case() -> void:
-	var app: DemoApp = DemoApp.new()
+	var app: CampaignFixture = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	check(app.start_debug_region(&"thorn_forest",1,"forest-depth-hollow-00",ThornForestRegionGenerator.DEPTH_VERSION,ThornForestRegionGenerator.DEPTH_LAYOUT_BIBLE),"actual App explicitly enters the authored practice map")

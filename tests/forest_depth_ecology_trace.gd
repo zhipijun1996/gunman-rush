@@ -1,5 +1,5 @@
 extends "res://tests/forest_depth_region_trace.gd"
-## Actual DemoApp/shared Manifest route, with an authored crown encounter choice.
+## Actual CampaignFixture/shared Manifest route, with an authored crown encounter choice.
 ## No room copy, transforms, resources, ability grants or enemy phase writes.
 var ecology_enabled := true
 var ecology_state := "start"
@@ -341,7 +341,7 @@ func begin() -> void:
 		if not _bind_recorded_crossbranch():fail("formal_crossbranch_binding_failed")
 		return
 	ecology_enabled=false
-	crossbranch_candidate={"scope":"candidate_data_overlay_after_actual_DemoApp_generation_not_formal_generator_admission","base_manifest":manifest.duplicate(true),"actor_id":"candidate__crossbranch","player_reset":false,"resource_injection":false,"enemy_phase_reset":false,"support_rows":[
+	crossbranch_candidate={"scope":"candidate_data_overlay_after_actual_CampaignFixture_generation_not_formal_generator_admission","base_manifest":manifest.duplicate(true),"actor_id":"candidate__crossbranch","player_reset":false,"resource_injection":false,"enemy_phase_reset":false,"support_rows":[
 		{"id":"candidate_reward_branch","rect":[-610.0,268.0,290.0,24.0],"one_way":true},
 		{"id":"candidate_lower_return","rect":[-220.0,618.0,140.0,24.0],"one_way":true},
 		{"id":"candidate_root_catch","rect":[-1050.0,820.0,1130.0,30.0],"one_way":true},

@@ -154,7 +154,7 @@ def main():
     report = {"task": "BELLSTRIDER-REWORK-01", "status": "running", "source": source,
               "source_files_before": before, "driver_sha256": digest(ROOT / DRIVER),
               "pilot_sha256": digest(ROOT / "tools/bellstrider_01/legal_input_pilot.gd"),
-              "scope": "One uncut actual DemoApp/start_plains map1 encounter. Disclosed initial precombat positioning; thereafter automated legal Router movement/jump/shoot and MouseMotion aim. Encounter selection and clocks remain autonomous.",
+              "scope": "One uncut actual CampaignFixture/start_plains map1 encounter. Disclosed initial precombat positioning; thereafter automated legal Router movement/jump/shoot and MouseMotion aim. Encounter selection and clocks remain autonomous.",
               "human_play_acceptance": False, "listening_acceptance": False,
               "device_acceptance": "unverified", "pilot": args.pilot,
               "diagnostic_headless": args.diagnostic_headless, "review_armour": args.review_armour}

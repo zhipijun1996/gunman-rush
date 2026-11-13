@@ -5,7 +5,7 @@ var target_id := ""
 var target_edge: Dictionary={}
 var lower_edge: Dictionary={}
 var underbank_edge: Dictionary={}
-func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String="kill_from_bank_v2") -> bool:
+func attach(application: CampaignFixture, selected_strategy: String, wait_ticks: int, selected_policy: String="kill_from_bank_v2") -> bool:
 	if not super.attach(application,selected_strategy,wait_ticks,selected_policy): return false
 	if stage.manifest.get("joint_recoil_profile",false):
 		var actual:Dictionary=formal_stage.call("get_joint_recoil_snapshot")

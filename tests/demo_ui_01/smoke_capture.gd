@@ -1,5 +1,5 @@
 extends SceneTree
-var app: DemoApp
+var app: CampaignFixture
 func _initialize() -> void: run.call_deferred()
 func frames(n: int) -> void:
 	for i: int in n: await process_frame
@@ -9,7 +9,7 @@ func shot(name: String) -> void:
 	root.get_texture().get_image().save_png("res://build/verification/demo-ui-01-01/"+name+".png")
 func run() -> void:
 	root.size = Vector2i(1280,720)
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await shot("title")

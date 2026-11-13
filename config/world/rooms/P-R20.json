@@ -1,7 +1,6 @@
 {
   "entities": {
     "P-R20:composition:0": {
-      "component": "array:art_placements",
       "definition_id": "decor.plains_grass",
       "definition_version": 1,
       "id": "P-R20:composition:0",
@@ -48,7 +47,8 @@
       }
     },
     "P-R20:composition:1": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_transmission_hall",
+      "definition_version": 1,
       "id": "P-R20:composition:1",
       "order": 1,
       "properties": {
@@ -60,7 +60,8 @@
       }
     },
     "P-R20:composition:2": {
-      "component": "array:art_placements",
+      "definition_id": "decor.mill_transmission_hall",
+      "definition_version": 1,
       "id": "P-R20:composition:2",
       "order": 2,
       "properties": {
@@ -72,7 +73,6 @@
       }
     },
     "P-R20:composition:3": {
-      "component": "array:art_placements",
       "definition_id": "decor.forecourt_foundation",
       "definition_version": 1,
       "id": "P-R20:composition:3",
@@ -93,7 +93,6 @@
       }
     },
     "P-R20:composition:4": {
-      "component": "array:art_placements",
       "definition_id": "decor.gear_city_v2_valve_panel",
       "definition_version": 1,
       "id": "P-R20:composition:4",
@@ -108,7 +107,6 @@
       }
     },
     "P-R20:composition:5": {
-      "component": "array:art_placements",
       "definition_id": "decor.barrel",
       "definition_version": 1,
       "id": "P-R20:composition:5",
@@ -123,7 +121,6 @@
       }
     },
     "P-R20:composition:6": {
-      "component": "array:art_placements",
       "definition_id": "decor.hanging_chime",
       "definition_version": 1,
       "id": "P-R20:composition:6",
@@ -138,7 +135,6 @@
       }
     },
     "P-R20:composition:7": {
-      "component": "array:art_placements",
       "definition_id": "decor.orchard_fence",
       "definition_version": 1,
       "id": "P-R20:composition:7",
@@ -159,7 +155,6 @@
       }
     },
     "P-R20:composition:9": {
-      "component": "array:art_placements",
       "definition_id": "decor.forecourt_foundation",
       "definition_version": 1,
       "id": "P-R20:composition:9",
@@ -181,7 +176,8 @@
       }
     },
     "P-R20:enemy_placements:0": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.charger",
+      "definition_version": 1,
       "id": "P-R20:enemy_placements:0",
       "order": 0,
       "properties": {
@@ -195,7 +191,8 @@
       }
     },
     "P-R20:enemy_placements:1": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.hopper",
+      "definition_version": 1,
       "id": "P-R20:enemy_placements:1",
       "order": 1,
       "properties": {
@@ -209,7 +206,8 @@
       }
     },
     "P-R20:enemy_placements:2": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.fan_sentry",
+      "definition_version": 1,
       "id": "P-R20:enemy_placements:2",
       "order": 2,
       "properties": {
@@ -223,7 +221,8 @@
       }
     },
     "P-R20:enemy_placements:3": {
-      "component": "array:enemy_placements",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
       "id": "P-R20:enemy_placements:3",
       "order": 3,
       "properties": {
@@ -237,7 +236,6 @@
       }
     },
     "P-R20:marsh:lower": {
-      "component": "array:platforms",
       "definition_id": "platform.one_way",
       "definition_version": 1.0,
       "id": "P-R20:marsh:lower",
@@ -255,7 +253,6 @@
       }
     },
     "P-R20:marsh:middle": {
-      "component": "array:platforms",
       "definition_id": "platform.one_way",
       "definition_version": 1.0,
       "id": "P-R20:marsh:middle",
@@ -273,7 +270,6 @@
       }
     },
     "P-R20:marsh:upper": {
-      "component": "array:platforms",
       "definition_id": "platform.one_way",
       "definition_version": 1.0,
       "id": "P-R20:marsh:upper",
@@ -291,10 +287,9 @@
       }
     },
     "P-R20:node:./Cache_seawall_cache": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R20:node:./Cache_seawall_cache",
-      "node_name": "Cache_seawall_cache",
-      "node_path": "./Cache_seawall_cache",
       "order": 5,
       "parent": "",
       "properties": {
@@ -325,10 +320,9 @@
       }
     },
     "P-R20:node:./Interaction_0": {
-      "component": "WorldRoomInteraction",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
       "id": "P-R20:node:./Interaction_0",
-      "node_name": "Interaction_0",
-      "node_path": "./Interaction_0",
       "order": 3,
       "parent": "",
       "properties": {
@@ -359,10 +353,9 @@
       }
     },
     "P-R20:node:./RewardReturn": {
-      "component": "WorldReturnLatch",
+      "definition_id": "interaction.return_gate",
+      "definition_version": 1,
       "id": "P-R20:node:./RewardReturn",
-      "node_name": "RewardReturn",
-      "node_path": "./RewardReturn",
       "order": 4,
       "parent": "",
       "properties": {
@@ -421,7 +414,6 @@
       }
     },
     "P-R20:r8:H_wall": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R20:r8:H_wall",
@@ -439,7 +431,6 @@
       }
     },
     "P-R20:r8:dry_quay": {
-      "component": "array:platforms",
       "definition_id": "platform.timber",
       "definition_version": 1.0,
       "id": "P-R20:r8:dry_quay",
@@ -458,7 +449,6 @@
       }
     },
     "P-R20:r8:equipment_bank": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R20:r8:equipment_bank",
@@ -476,7 +466,8 @@
       }
     },
     "P-R20:r8:hook_points:0": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "P-R20:r8:hook_points:0",
       "order": 0,
       "properties": {
@@ -487,7 +478,8 @@
       }
     },
     "P-R20:r8:hook_points:1": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "P-R20:r8:hook_points:1",
       "order": 1,
       "properties": {
@@ -498,7 +490,8 @@
       }
     },
     "P-R20:r8:hook_points:2": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "P-R20:r8:hook_points:2",
       "order": 2,
       "properties": {
@@ -509,7 +502,8 @@
       }
     },
     "P-R20:r8:hook_points:3": {
-      "component": "array:hook_points",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
       "id": "P-R20:r8:hook_points:3",
       "order": 3,
       "properties": {
@@ -520,7 +514,8 @@
       }
     },
     "P-R20:r8:retry_anchors:0": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R20:r8:retry_anchors:0",
       "order": 0,
       "properties": {
@@ -538,7 +533,8 @@
       }
     },
     "P-R20:r8:retry_anchors:1": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R20:r8:retry_anchors:1",
       "order": 1,
       "properties": {
@@ -556,7 +552,8 @@
       }
     },
     "P-R20:r8:retry_anchors:2": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R20:r8:retry_anchors:2",
       "order": 2,
       "properties": {
@@ -574,7 +571,8 @@
       }
     },
     "P-R20:r8:retry_anchors:3": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R20:r8:retry_anchors:3",
       "order": 3,
       "properties": {
@@ -592,7 +590,8 @@
       }
     },
     "P-R20:r8:retry_anchors:4": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R20:r8:retry_anchors:4",
       "order": 4,
       "properties": {
@@ -610,12 +609,9 @@
       }
     },
     "P-R20:r8:sluice": {
-      "component": "WorldElementSwitch",
       "definition_id": "switch.shot",
       "definition_version": 1.0,
       "id": "P-R20:r8:sluice",
-      "node_name": "Element_c7725c6a472eeecf",
-      "node_path": "./Element_c7725c6a472eeecf",
       "order": 2,
       "parent": "",
       "properties": {
@@ -659,12 +655,9 @@
       }
     },
     "P-R20:r8:sluice/gate": {
-      "component": "WorldElementGate",
       "definition_id": "gate.masonry",
       "definition_version": 1.0,
       "id": "P-R20:r8:sluice/gate",
-      "node_name": "Element_06437b7e552373e1",
-      "node_path": "./Element_06437b7e552373e1",
       "order": 1,
       "parent": "",
       "properties": {
@@ -699,7 +692,6 @@
       }
     },
     "P-R20:r8:upper_door": {
-      "component": "array:platforms",
       "definition_id": "platform.solid",
       "definition_version": 1.0,
       "id": "P-R20:r8:upper_door",
@@ -717,7 +709,8 @@
       }
     },
     "P-R20:r9:retry_anchors:5": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R20:r9:retry_anchors:5",
       "order": 5,
       "properties": {
@@ -735,7 +728,8 @@
       }
     },
     "P-R20:r9:retry_anchors:6": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R20:r9:retry_anchors:6",
       "order": 6,
       "properties": {
@@ -753,7 +747,8 @@
       }
     },
     "P-R20:r9:retry_anchors:7": {
-      "component": "array:retry_anchors",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
       "id": "P-R20:r9:retry_anchors:7",
       "order": 7,
       "properties": {
@@ -771,7 +766,6 @@
       }
     },
     "P-R20:spike_strips:0": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R20:spike_strips:0",
@@ -788,7 +782,6 @@
       }
     },
     "P-R20:spike_strips:1": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R20:spike_strips:1",
@@ -805,7 +798,6 @@
       }
     },
     "P-R20:spike_strips:2": {
-      "component": "array:spike_strips",
       "definition_id": "hazard.spikes",
       "definition_version": 1.0,
       "id": "P-R20:spike_strips:2",
@@ -822,7 +814,8 @@
       }
     },
     "P-R20:terrain_polygons:0": {
-      "component": "array:terrain_polygons",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
       "id": "P-R20:terrain_polygons:0",
       "order": 0,
       "properties": {
@@ -873,7 +866,8 @@
       }
     },
     "P-R20:terrain_polygons:1": {
-      "component": "array:terrain_polygons",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
       "id": "P-R20:terrain_polygons:1",
       "order": 1,
       "properties": {
@@ -924,7 +918,8 @@
       }
     },
     "P-R20:terrain_polygons:2": {
-      "component": "array:terrain_polygons",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
       "id": "P-R20:terrain_polygons:2",
       "order": 2,
       "properties": {
@@ -975,7 +970,8 @@
       }
     },
     "P-R20:terrain_polygons:3": {
-      "component": "array:terrain_polygons",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
       "id": "P-R20:terrain_polygons:3",
       "order": 3,
       "properties": {
@@ -1018,7 +1014,8 @@
       }
     },
     "P-R20:terrain_polygons:4": {
-      "component": "array:terrain_polygons",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
       "id": "P-R20:terrain_polygons:4",
       "order": 4,
       "properties": {
@@ -1047,30 +1044,11 @@
   },
   "room_id": "P-R20",
   "root": {
-    "component": "FixedWorldRoom",
+    "definition_id": "room.standard",
+    "definition_version": 1,
     "properties": {
-      "arena_bounds": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
-      "arena_door_height": 192.0,
       "arrival_text": "退潮渠畔",
       "art_profile": "water",
-      "battle_entry_anchor": [
-        0.0,
-        0.0
-      ],
-      "boss_binding": null,
-      "boss_identity": "",
-      "boss_position": [
-        0.0,
-        0.0
-      ],
-      "defeat_action": "",
-      "defeat_flag": "",
-      "intro_sequence": {},
       "modulate": {
         "$color": [
           1.0,
@@ -1079,22 +1057,11 @@
           1.0
         ]
       },
-      "onboarding": {},
       "position": [
         0.0,
         0.0
       ],
       "region_preview": "",
-      "rest_point": [
-        0.0,
-        0.0
-      ],
-      "reward_action": "",
-      "reward_point": [
-        0.0,
-        0.0
-      ],
-      "reward_text": "",
       "room_id": "P-R20",
       "rotation": 0.0,
       "route_guide": {
@@ -1412,25 +1379,15 @@
         2928.0,
         942.0
       ],
-      "story_sequence": {},
       "terrain_paint": {
         "regions": [],
         "seed": 0.0,
         "surfaces": [],
         "version": 1.0
       },
-      "traveler_point": [
-        0.0,
-        0.0
-      ],
-      "tutorial_action": "",
-      "tutorial_min_move": 100.0,
-      "tutorial_recoil_finish_x": 1540.0,
-      "tutorial_target": "",
       "visible": true,
-      "wave_encounter": {},
       "z_index": 0
     }
   },
-  "schema": 2
+  "schema": 3
 }

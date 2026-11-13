@@ -146,10 +146,10 @@ func run() -> void:
 	if historical is Dictionary:
 		check(not PlainsRegionGenerator.new().validate(historical.manifest, tuning), "real recorded v8 manifest rejected by current v9 generator")
 		check(RunManifest.from_snapshot(historical.formal_run_manifest_initial) == null, "real recorded v8 RunManifest rejected by current version contract")
-	var app := DemoApp.new()
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
-	check(app.start_plains("level-design-v2-baseline/02"), "current real formal DemoApp entry starts")
+	check(app.start_plains("level-design-v2-baseline/02"), "current real formal CampaignFixture entry starts")
 	for unused: int in 3: await physics_frame
 	var current: Dictionary = JSON.parse_string(app.director.manifest.canonical_json())
 	check(current.versions.generated_layout == "plains-region-v9" and RunManifest.from_snapshot(current) != null, "current v9 real RunManifest roundtrips without changing save services")

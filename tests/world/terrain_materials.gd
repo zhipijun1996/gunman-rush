@@ -96,7 +96,7 @@ func run() -> void:
 		if count == 0:
 			var edited := TerrainPaint.with_paint(document,paint)
 			var restored := WorldRoomDocument.instantiate(edited.document)
-			check(not restored.has("error"),"schema2 edited appearance creates real room")
+			check(not restored.has("error"),"schema3 edited appearance creates real room")
 			if not restored.has("error"):
 				var packed := PackedScene.new();packed.pack(restored.room)
 				var roundtrip := WorldRoomDocument.extract(packed)

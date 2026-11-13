@@ -178,7 +178,7 @@ func resolve_reward_shortcuts() -> int:
 	return opened
 
 func setup_damage(_controller: PlayerController, _policy: FrameDamagePolicy, _lifetime: DemoLifetime) -> void:
-	# Static hazard emitters are installed by the shared formal DemoApp coordinator.
+	# Static hazard emitters are installed by the shared formal CampaignFixture coordinator.
 	pass
 
 func world_anchors() -> Array[Vector2]:
@@ -189,7 +189,7 @@ func world_static_dangers() -> Array[Rect2]:
 
 func world_static_hazard_records() -> Array[Dictionary]:
 	# Forest builds real rectangles directly, not PlatformingModules. Keep
-	# manifest order exactly aligned with generated_spikes_N in DemoApp.
+	# manifest order exactly aligned with generated_spikes_N in CampaignFixture.
 	# These are authored forest thorns; the plains pit-plane heuristic does
 	# not apply to a large recovery-root hazard or a thin hanging thorn band.
 	var output: Array[Dictionary] = []

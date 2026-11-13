@@ -8,8 +8,8 @@ var platform_damage_commits: Array[Dictionary] = []
 var battle_boss_health: HealthState
 
 
-static func create_formal_app(tree: SceneTree) -> DemoApp:
-	var app := DemoApp.new()
+static func create_formal_app(tree: SceneTree) -> CampaignFixture:
+	var app := CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	tree.root.add_child(app)
 	app.start_plains("underworld-r3-continuous-boss")
@@ -18,7 +18,7 @@ static func create_formal_app(tree: SceneTree) -> DemoApp:
 	return app
 
 
-static func place_initial_entry(tree: SceneTree, app: DemoApp, boss: BossMotor) -> void:
+static func place_initial_entry(tree: SceneTree, app: CampaignFixture, boss: BossMotor) -> void:
 	# The same disclosed one-time room-entry fixture used by the full consumer.
 	app.player.reset_at(boss.global_position + Vector2(-250, 47))
 	for _frame: int in 5:

@@ -30,7 +30,7 @@ func _ready() -> void:
 	layer.hide() # Real selection is offered by the Home character service.
 	_selector=OptionButton.new()
 	_selector.name="AvatarSelector"
-	# This layer is outside DemoApp's styled canvas; Web needs packaged CJK glyphs.
+	# This layer is outside CampaignFixture's styled canvas; Web needs packaged CJK glyphs.
 	_selector.theme=UI_THEME.create_theme()
 	_selector.focus_mode=Control.FOCUS_NONE
 	_selector.tooltip_text="选择人物外观；玩法与能力保持一致"

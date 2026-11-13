@@ -149,7 +149,7 @@ func _install_hollow(m: Dictionary,offset: Vector2,split_entry: bool) -> void:
 	var source:=raw.duplicate(true)
 	var modifications: Array=[]
 	# Existing factory owns the complete tested cavity. All new regional seams
-	# remain experimental until the actual DemoApp route consumer admits them.
+	# remain experimental until the actual CampaignFixture route consumer admits them.
 	modifications.append("descending airborne elbow from exact A2 geometry; original M/E/D/R retained; new regional seams unverified" if descending else "shared roof cavity from exact geometry factory; original M/E/D/R retained; new S/C regional seams unverified")
 
 	if split_entry:
@@ -212,7 +212,7 @@ func _install_cavity_edges(m: Dictionary,p: Dictionary,split: bool) -> void:
 	_edge(m,"borer_belly_return","S","M","drop_through",[_pair(p.S),[338.0,282.0],[338.0,382.0],[338.0,482.0],west_landing])
 	if split:
 		m.connections[-1].post_landing_steps=[{"kind":"jump_gap","takeoff":[468.0,600.0],"landing":[532.0,600.0],"from_support_id":"hollow__belly_west","support_id":"hollow__belly_entry"},{"kind":"walk","landing":_pair(p.M)}]
-	m.borer_loop={"ports":["M","S","C","E"],"edges":["belly_borer_access","borer_crossing","borer_crown_descent","lower_in","inner_recovery"],"risk_reward":"two H+two R receive the wide centre; descending H0R receives the edge and conserves a shot; three ordinary R cross faster; zero-shot roof bypass remains legal" if int(m.choices.cavity_direction)==1 else "two H+two R retain energy at C; four R cross faster; ordinary roof bypass remains legal","seams":"unverified_actual_DemoApp"}
+	m.borer_loop={"ports":["M","S","C","E"],"edges":["belly_borer_access","borer_crossing","borer_crown_descent","lower_in","inner_recovery"],"risk_reward":"two H+two R receive the wide centre; descending H0R receives the edge and conserves a shot; three ordinary R cross faster; zero-shot roof bypass remains legal" if int(m.choices.cavity_direction)==1 else "two H+two R retain energy at C; four R cross faster; ordinary roof bypass remains legal","seams":"unverified_actual_CampaignFixture"}
 
 func _single_tree(m: Dictionary,p: Dictionary,variant: int) -> void:
 	if variant==0:

@@ -86,7 +86,7 @@ func run() -> void:
 	early.label = "early root probe"
 	early.reporter = event_trace
 	root.add_child(early)
-	app = DemoApp.new()
+	app = CampaignFixture.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	var late := EventProbe.new()

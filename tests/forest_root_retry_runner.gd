@@ -1,5 +1,5 @@
 extends SceneTree
-## Same live DemoApp prefix and Motor as the proved shortcut, followed only by
+## Same live CampaignFixture prefix and Motor as the proved shortcut, followed only by
 ## real input. No target/player movement, grants, enemy reset or borrowed saves.
 class RetryTrace extends "res://tests/forest_depth_region_trace.gd":
 	var retry_phase := "depart"

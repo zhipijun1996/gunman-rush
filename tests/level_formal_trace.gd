@@ -1,8 +1,8 @@
 extends "res://tests/plains_region_trace.gd"
-## Test-only router policy attached to the live DemoApp; no replacement world,
+## Test-only router policy attached to the live CampaignFixture; no replacement world,
 ## manually stepped Motor, resource injection, disabled enemy or actor relocation.
 const SNAPSHOT := preload("res://tools/level_capability_snapshot.gd")
-var app: DemoApp
+var app: CampaignFixture
 var formal_stage: PlainsRegionStage
 var observed_frames: Array = []
 var observed_edges: Array = []
@@ -99,7 +99,7 @@ func disconnect_test_observers() -> int:
 				removed += 1
 	return removed
 
-func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
+func attach(application: CampaignFixture, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
 	if selected_policy not in ["blind_legacy", "kill_from_bank_v1", "kill_from_bank_v2", "bait_then_bypass_v1"]: return false
 	encounter_policy = selected_policy
 	app = application

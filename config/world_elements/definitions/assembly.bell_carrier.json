@@ -1,0 +1,40 @@
+{
+  "id": "assembly.bell_carrier",
+  "name": "风铃与升降台",
+  "version": 1,
+  "members": [
+    {
+      "id": "switch",
+      "definition": "switch.shot",
+      "offset": [
+        0,
+        0
+      ],
+      "properties": {
+        "repeat_enabled": true
+      }
+    },
+    {
+      "id": "carrier",
+      "definition": "platform.moving",
+      "offset": [
+        128,
+        32
+      ],
+      "properties": {
+        "state_scope": "permanent"
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "switch",
+      "target": "carrier",
+      "input": "set_active",
+      "output": "active"
+    }
+  ],
+  "category": "assemblies",
+  "placeable": true,
+  "documentation": "docs/data/world_objects.md"
+}

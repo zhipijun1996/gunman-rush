@@ -66,7 +66,7 @@ func run()->void:
 	var original_tuning_hash:=FileAccess.get_sha256("res://config/player_tuning.json")
 	for seed_index:int in 10:
 		var seed_value:="underworld-formal/%d"%seed_index
-		var consumer:=DemoApp.new();consumer.meta_persistence_enabled=false;root.add_child(consumer)
+		var consumer:=CampaignFixture.new();consumer.meta_persistence_enabled=false;root.add_child(consumer)
 		check(consumer.start_plains(seed_value),"actual formal App starts")
 		for frame:int in 4:await physics_frame
 		for map_index:int in [1,2]:
@@ -81,9 +81,9 @@ func run()->void:
 		consumer.free()
 		for frame:int in 4:await process_frame
 	check(original_tuning_hash==FileAccess.get_sha256("res://config/player_tuning.json"),"unique tuning unchanged")
-	# Explicit lifecycle fixture: select actual second map via DemoApp, invoke
+	# Explicit lifecycle fixture: select actual second map via CampaignFixture, invoke
 	# actual committed Boss thorn callback, and verify stable terrain. Not play.
-	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	var app:=CampaignFixture.new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_debug_region(&"plains",2,"underworld-thorn-floor"),"actual App starts second map for thorn fixture")
 	for frame:int in 4:await physics_frame
 	var stage:=app.stage as PlainsRegionStage

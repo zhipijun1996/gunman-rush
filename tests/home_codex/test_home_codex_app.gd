@@ -5,7 +5,7 @@ const DRIVER := preload("res://tests/underworld_plains/home_terrace_driver.gd")
 const ITEM_ID := &"B11"
 var checks := 0
 var failures := 0
-var app: DemoApp
+var app: CampaignFixture
 
 func _initialize() -> void:
 	_run.call_deferred()
@@ -177,7 +177,7 @@ func review_regressions() -> void:
 		if FileAccess.file_exists(path): DirAccess.remove_absolute(path)
 
 func _exercise() -> void:
-	app = preload("res://game/application/demo.tscn").instantiate() as DemoApp
+	app = preload("res://tests/fixtures/campaign_fixture.tscn").instantiate() as CampaignFixture
 	app.meta_persistence_enabled = false
 	app.meta.grant_notes(1000,&"home_codex_app_notes_fixture")
 	root.add_child(app)
