@@ -1,0 +1,14 @@
+{
+  "tool": "image_gen.imagegen",
+  "source": "painting.png",
+  "prompt": "EDIT REFERENCE1, the exact Godot2D greybox, by painting its surfaces. Keep its layout and silhouette. Output one16:9 horizontal pixel-art frame. Do NOT make a new scene composition. The light-grey shape is ONE abandoned stone aqueduct: its three curved arch cut-outs, slope of the bridge top, three vertical piers, broken right edge, and small dark niche in the right pier MUST stay in their exact relative positions. Fill only the materials/details of those authored shapes; do not move or widen piers, round off the authored ground, add a footbridge, or change the two foreground banks. Reference2 is the actual terrain material: keep the existing thin olive grass and dark navy soil unchanged; the game will draw that real tile surface in front. The aqueduct is worn blue-grey masonry, with quiet large dark surfaces and sparse fine cool highlights, naturally varied small joints, gentle moss on a few upper edges, subtle chipped stone; fine authored pixel clusters matching the terrain, not painterly or smooth3D. The darker blue regions inside the arches are the independent DISTANT ENVIRONMENT: paint a quiet desaturated blue dusk sky with a few thin horizontal clouds, low distant windswept orchard silhouettes on low ground around y440 of720, a restrained old fence in that distance. Make distant forms low contrast; main structure gives the scene its depth and enclosure. Keep the dark recess at x864..992 y356..500 empty, dark and unlit, with only a shallow rear wall and a small mounting point near x928y430. The live gold windchime will be drawn there by Godot, so no bell, no lamp, no mechanism, no warm glow or warm reflection. Foreground ground shape and tile material stay as in ref1. Below y560, quiet dark cool water only; NO reflections or bright streaks, since the engine supplies them. No character, figures, UI, text, extra props, decorative roots, standalone house, clocktower, vignetting or panels. This is a surface paint-over of the exact engine geometry. Do not use a generic aqueduct composition. Prioritize exact authored spaces, coherent cool illumination, controlled fine pixel detail and a beautiful restrained whole frame. Intended camera1280x720,1wu per pixel.",
+  "actual_references": [
+    "source/godot-paint-guide.png",
+    "assets/underworld_plains/terrain/fine_32/terrain.png"
+  ],
+  "earlier_attempt": "attempt01-review.json",
+  "geometry_review": "Representative geometry substantially follows authored banks, piers and niche. Small drawn weathering/arch contour deviations remain; do not claim exact pixel geometry from the model.",
+  "render_contract": "config/art/engine_first_2d.json",
+  "per_layer_ai_regeneration": false,
+  "review_status": "candidate"
+}

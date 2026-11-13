@@ -1,0 +1,40 @@
+{
+  "review_status": "candidate",
+  "scope": "fixed-camera engine-first2D representative; not a general modular art library",
+  "source": {
+    "file": "source/painting.png",
+    "size": [
+      1672,
+      941
+    ],
+    "sha256": "bde3f8b34b23dc3627b3303e905ed32e1c205b8e4314613700e10f25610a8190"
+  },
+  "native": {
+    "file": "native/painting.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "418f019451e9343f4c3efe3c801edf478d1b5c8ae764d90838a915830b69eebd",
+    "bake": "single uniform width ratio; rounded height; nearest"
+  },
+  "structure_mask": {
+    "file": "native/structure-mask.png",
+    "sha256": "59eb69a4772ec11147542fae1ca7c016c6019ec06ebc073c9c3f375b137fd427",
+    "origin": "authored Godot geometry before generation"
+  },
+  "composition": "same native texture, complementary masks at same coordinates; no independent AI layer redraw",
+  "independent_parallax": false,
+  "hidden_background_restored": false,
+  "formal_gameplay_verified": false,
+  "observed_pixel_recombination": {
+    "scope": "same-native-painting recombination and observed effect masks; not art approval",
+    "pixels": 921600,
+    "exact_pixels": 921600,
+    "max_channel_error": 0,
+    "light_changed_pixels": 82117,
+    "outside_structure_changed_pixels_above_y496": 0,
+    "reflected_bell_area_changed_pixels": 2649
+  },
+  "final_config_sha256": "1eb760c8cda33c304edcfa9af09ba313b329d089a3b3dd5d3cf529ca02db789d"
+}

@@ -1,0 +1,212 @@
+{
+  "viewport": [
+    1280,
+    720
+  ],
+  "camera_position": [
+    640,
+    360
+  ],
+  "hero_foot": [
+    304,
+    520
+  ],
+  "hero_height_wu": 44,
+  "terrain_material": "windchime_plains",
+  "terrain_polygons": [
+    {
+      "points": [
+        [
+          -32,
+          520
+        ],
+        [
+          304,
+          520
+        ],
+        [
+          400,
+          536
+        ],
+        [
+          464,
+          560
+        ],
+        [
+          544,
+          560
+        ],
+        [
+          544,
+          752
+        ],
+        [
+          -32,
+          752
+        ]
+      ]
+    },
+    {
+      "points": [
+        [
+          800,
+          560
+        ],
+        [
+          960,
+          528
+        ],
+        [
+          1088,
+          504
+        ],
+        [
+          1312,
+          496
+        ],
+        [
+          1312,
+          752
+        ],
+        [
+          800,
+          752
+        ]
+      ]
+    }
+  ],
+  "piers": [
+    [
+      -64,
+      -32,
+      160,
+      672
+    ],
+    [
+      500,
+      292,
+      112,
+      348
+    ],
+    [
+      840,
+      320,
+      176,
+      320
+    ]
+  ],
+  "arches": [
+    {
+      "left": 88,
+      "right": 506,
+      "baseline": 320,
+      "rise": 204,
+      "top_left": 12,
+      "top_right": 96
+    },
+    {
+      "left": 612,
+      "right": 844,
+      "baseline": 348,
+      "rise": 168,
+      "top_left": 110,
+      "top_right": 148
+    },
+    {
+      "left": 1016,
+      "right": 1200,
+      "baseline": 344,
+      "rise": 104,
+      "top_left": 177,
+      "top_right": 212
+    }
+  ],
+  "roof": [
+    [
+      -64,
+      -32
+    ],
+    [
+      160,
+      -32
+    ],
+    [
+      336,
+      32
+    ],
+    [
+      512,
+      64
+    ],
+    [
+      688,
+      100
+    ],
+    [
+      864,
+      132
+    ],
+    [
+      1056,
+      176
+    ],
+    [
+      1184,
+      200
+    ],
+    [
+      1216,
+      240
+    ],
+    [
+      1184,
+      256
+    ],
+    [
+      -64,
+      100
+    ]
+  ],
+  "alcove": {
+    "rect": [
+      864,
+      356,
+      128,
+      144
+    ],
+    "floor_y": 500
+  },
+  "bell": {
+    "components": "res://game/presentation/world/resources/visual_development/p1_unity_components.json",
+    "point": [
+      928,
+      456
+    ],
+    "height": 52
+  },
+  "light": {
+    "point": [
+      928,
+      456
+    ],
+    "radius": 180,
+    "color": "efb96f",
+    "energy": 0.85
+  },
+  "water": {
+    "surface_y": 560,
+    "color": "182b46",
+    "reflection_strength": 0.64
+  },
+  "review_status": "candidate",
+  "formal_gameplay_verified": false,
+  "render_contract": {
+    "static_painting": "One coherent fixed-world plate; cool ambient/material shading baked; no hero, bell or warm local glow.",
+    "lighting_slices": "Same plate with complementary preauthored structure mask; common coordinates; no independent parallax or restored hidden background.",
+    "terrain": "Production TerrainComposer; immutable for this visual trial; visible before generation.",
+    "actors": "Formal hero44wu and existing formal bell graphic; excluded from generated painting.",
+    "local_light": "Actual PointLight2D affects structure slice, terrain and bell; distant portion unlit.",
+    "water": "Godot screen-texture reflection behind foreground terrain; mirrors lit structure and bell; not painted gold reflection.",
+    "scope": "Fixed-camera representative structure trial; no formal controller or route claim."
+  }
+}
