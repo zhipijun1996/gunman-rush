@@ -2,10 +2,10 @@
 
 目标与边界归[编辑器协议](../../../data/world/editor_protocol.md)。独立编辑器采用文档先行、最终正文和一项任务一份交接；AI先候选后人工采用，人工正式评分与AI建议分离。
 
-基线：baaf1dbb1828582a6c6aece891b2595f9089b60c；分支feat/editor-json-world-contract。写集：同源房间JSON／装载、整世界导出、隔离原生预览、目录／运行包发行及选区PR接入。现有Site和在线草稿未修改或部署。
+后续开发从最新origin/main拉主题分支；源整合由[PR154](https://github.com/zhipijun1996/gunman-rush/pull/154)与编辑器[PR1](https://github.com/zhipijun1996/gunman-rush-editor/pull/1)追溯。写集：同源房间JSON／装载、整世界导出、隔离原生预览、目录／运行包发行及选区PR接入。现有Site和在线草稿未修改或部署。
 
 结果：44个已编写房间完整静态提取及回读后迁移为JSON权威，tscn仅保留装载壳；309房／409连接及149奖励与目标导出schema2。43房正式可玩、V12隔离预览，其余规划房不标为施工完成。旧工作台字段适配保留，写回JSON且核完整组件。主游戏行为／目录／协议仍归本仓库，编辑器源码归独立仓库；世界位置和门缝共同校验，不使用另一份独立地图坐标。
 
 实际检查：锁定Godot4.7.2日常CI四项通过；44房完整回读通过；真实FixedWorldApp／控制器装载、灰盒表现与精确H能力集合186项断言通过；Python三方合并／新增房间门对／原编译及旧工作台22项通过。原生包采用真实资源闭包并核PCK；配套编辑器核心测试及浏览器检查在独立仓库记录。
 
-交付边界：ChatGPT真实授权、Android真机性能、在线定稿工作流尚未端到端验证。在线导入／自动更新须本分支合入main并首次发布editor-runtime后启用，不自动合main。逻辑可达、静态整房图和真实组件装载不代替整段关卡动作验收。配套独立签名APK已[发布0.1.1预览版](https://github.com/zhipijun1996/gunman-rush-editor/releases/tag/v0.1.1-preview.1)，约164MiB，附件及公开完整下载核哈希通过，打包后的PCK经原生请求文件装载P13灰盒、核H而无D并通过真实入口探针。主游戏[PR154](https://github.com/zhipijun1996/gunman-rush/pull/154)与编辑器[PR1](https://github.com/zhipijun1996/gunman-rush-editor/pull/1)待审核；临时证据在build/editor-*，不提交构建产物。下一动作是PR审核接入与设备授权／热预览及定稿往返复核。
+交付边界：ChatGPT真实授权、Android真机性能、在线定稿工作流尚未端到端验证。在线导入／自动更新依赖main首次成功发布editor-runtime，以工作流及发行资产为准，不因代码已存在就视为通道已就绪。逻辑可达、静态整房图和真实组件装载不代替整段关卡动作验收。配套独立签名APK已[发布0.1.1预览版](https://github.com/zhipijun1996/gunman-rush-editor/releases/tag/v0.1.1-preview.1)，约164MiB，附件及公开完整下载核哈希通过，打包后的PCK经原生请求文件装载P13灰盒、核H而无D并通过真实入口探针。临时证据在build/editor-*，不提交构建产物。一次性迁移器已移除，实际导出／装载及仍有在线消费者的工作台适配保留。下一动作是运行通道发布、设备授权／热预览及定稿往返复核。
