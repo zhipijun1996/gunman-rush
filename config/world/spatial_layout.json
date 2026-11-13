@@ -5,13 +5,16 @@
     "F",
     "M",
     "S",
-    "T"
+    "T",
+    "Y",
+    "I",
+    "C"
   ],
   "source": "game/world/regions/F/room_design.json",
   "units": "world_units",
-  "intent": "以平原为已制作基准，逐片编排连续房间与门对；森林和地下三地区为地图候选，其他未编排地区保持未定位。",
+  "intent": "以平原为基准，按相邻片区完成世界初稿；每批同时检查全部已有区域的占地、跨区接缝与外口，不把孤立分区当成世界交付。",
   "review_limits": [
-    "森林24房、地穴18房、沼泽16房、圣殿16房为地图初稿，非实机玩法完成。",
+    "平原35房为已制作基准；森林24、地穴18、沼泽16、圣殿16、峡谷12、冰川16、墓园18房为地图候选，非实机玩法完成。",
     "通路属于两侧房间占地，连续门对使用共享接缝；M02至M01是明确的井内升降转场。",
     "尚未编排的邻区仅保留具名出口与接近空间，不伪造全世界连通。"
   ],
@@ -20,5 +23,8 @@
     "sha256": "7bf7b6ec22bd3878bdc95089c55c679ddc1d61a1cc1cfea8b7852bb23b4c2a54",
     "use": "区域相对位置、层级、体量、生活据点和回环关系参考；现行能力、奖励身份及已制作平原优先，不从图片反推碰撞。"
   },
-  "cluster_source": "config/world/spatial_clusters/underground.json"
+  "cluster_sources": [
+    "config/world/spatial_clusters/underground.json",
+    "config/world/spatial_clusters/northwest.json"
+  ]
 }

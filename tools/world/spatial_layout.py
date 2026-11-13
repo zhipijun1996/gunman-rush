@@ -32,9 +32,9 @@ def apply(project,root):
     for port in plan['external_ports']:
         room=project['rooms'][port['room']];ep=next(v for v in room['ports'].values() if v['connection']==port['id'])
         ep.update(position=[port['point'][i]-room['origin'][i] for i in (0,1)],direction=port['direction'],landing_status='requires_room_construction')
-    if 'M' in manifest['scope_regions']:
-        from regional_review import compile_plan
-        apply_cluster(project, compile_plan(Path(root)), manifest['cluster_source'])
+    from regional_review import compile_plan
+    for cluster_source in manifest.get('cluster_sources',[]):
+        apply_cluster(project, compile_plan(Path(root),cluster=Path(cluster_source).stem), cluster_source)
     project['metadata']['spatial_draft']={'source':str(source.relative_to(root)),'status':manifest['status'],'regions':manifest['scope_regions'],'limits':manifest['review_limits']}
 
 
@@ -70,4 +70,4 @@ def apply_cluster(project,plan,source):
         for side in ['a','b']:
             rid=t[side]['room'];r=project['rooms'][rid];p=next(p for p in r['ports'].values() if p['connection']==t['id'])
             p.update(position=[t[side]['point'][i]-r['origin'][i] for i in (0,1)],front_door=True,landing_status='requires_room_construction')
-    project['planning']['blueprints']['MST']={'source':source,'design':plan}
+    project['planning']['blueprints'][''.join(plan['regions'])]={'source':source,'design':plan}

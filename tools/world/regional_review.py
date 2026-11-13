@@ -10,8 +10,8 @@ from spatial import room_space
 from preview_catalog import preview_catalog
 ROOT=Path(__file__).resolve().parents[2]
 
-def compile_plan(root=ROOT,validate=True):
-    plan=json.loads((root/'config/world/spatial_clusters/underground.json').read_text())
+def compile_plan(root=ROOT,validate=True,cluster="underground"):
+    plan=json.loads((root/f'config/world/spatial_clusters/{cluster}.json').read_text())
     world=json.loads((root/'config/world/world.json').read_text())
     identities={r['id']:r for r in world['rooms']};edges={e['id']:e for e in world['connections']}
     rooms={r['room_id']:r for r in plan['rooms']};expected={r for r in identities if r[0] in plan['regions']}
@@ -41,7 +41,9 @@ def compile_plan(root=ROOT,validate=True):
             if rid in [e['a'],e['b']]:r['neighbors'].append({'id':e['id'],'room':e['b'] if e['a']==rid else e['a'],'condition':e.get('condition_text','基础通行')})
     preview=preview_catalog(root);forest=forest_build(root,preview)
     fixed={r['room_id']:rectangles(r['outline']) for r in forest['rooms']}
-    fixed.update({r['id']:rectangles(r['polygon']) for r in preview['map_rooms'] if r['id'][0] not in 'FMSTZV'})
+    fixed.update({r['id']:rectangles(r['polygon']) for r in preview['map_rooms'] if r['id'][0] not in {*plan['regions'],'F','M','S','T','Z','V'}})
+    if cluster=='northwest':
+        fixed.update({r['room_id']:rectangles(r['outline']) for r in compile_plan(root)['rooms']})
     items=list(rects.items())
     for i,(rid,rs) in enumerate(items):
         for other,ss in [*items[i+1:],*fixed.items()]:
