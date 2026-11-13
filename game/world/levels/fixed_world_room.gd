@@ -29,6 +29,9 @@ var boundary_art_rock: Array[Rect2] = []
 @export var region_preview := ""
 @export var bell_mechanisms: Array[Dictionary] = []
 var mechanisms: Dictionary={}
+var element_runtime := WorldElementRuntime.new()
+var element_policy: FrameDamagePolicy
+@export_storage var platform_appearances: Dictionary = {}
 var station_animation: WorldChargingStation
 var interaction_hosts: Array[WorldRoomInteraction] = []
 var service_pickup_sprites: Dictionary={}
@@ -86,6 +89,9 @@ static func material_for_profile(profile: String) -> String:
 	return {"clockheart":"mill","mill":"mill","barn":"barn","cellar":"cellar","secret":"cellar","well":"well"}.get(profile,"")
 func interior_material() -> String:
 	return material_for_profile(art_profile)
+
+func platform_index(id: String) -> int:
+	return workbench_entity_ids.get("platforms",[]).find(id)
 
 func _ready() -> void:
 	z_index = -1
@@ -189,27 +195,32 @@ func physical_action(id: String) -> WorldRoomInteraction:
 	return null
 
 func install_mechanisms(controller: PlayerController,lifetime: DemoLifetime,saved: Dictionary,submit: Callable) -> void:
+	# The older workbench adapter still supplies array rows. Convert at this
+	# boundary; all runtime dispatch and persistence uses the same elements.
 	for row: Dictionary in bell_mechanisms:
-		var latch:=WorldShotLatch.new();latch.stable_id=str(row.id)
-		latch.open_seconds=float(row.get("open_seconds",0))
-		latch.z_index=-2;add_child(latch)
+		var source := WorldElementSwitch.new()
+		source.element_id = str(row.id); source.position = FixedWorldProvider.point(row.bell)
+		source.duration = float(row.get("open_seconds",0))
+		source.state_scope = "attempt" if source.duration>0 else "permanent"
+		for point: Array in row.get("access_bells",[]): source.access_points.append(FixedWorldProvider.point(point))
+		var target_id := source.element_id+"/gate"
 		if row.has("carrier"):
-			latch.motion_mode=true;latch.motion_target=get_node(str(row.carrier)) as WorldMovingPlatform
-			latch.motion_target.bind_bell_control();latch.gate_visual_enabled=false
-		latch.setup(controller,lifetime,FixedWorldProvider.point(row.bell),FixedWorldProvider.rect(row.get("gate",[0,0,1,1])))
-		for point: Array in row.get("access_bells",[]):latch.add_access_bell(FixedWorldProvider.point(point))
-		if latch.motion_mode:latch.gate_body.collision_layer=0;latch.gate_shape.disabled=true
-		if saved.has(row.id) and latch.open_seconds<=0:
-			latch.restore_region_state(saved[row.id]);latch.restore_region_opened(bool(saved[row.id].is_open))
-		latch.activation_requested.connect(submit)
-		controller.router.cancelled.connect(latch.on_router_cancelled)
-		mechanisms[row.id]=latch
+			var carrier := get_node(str(row.carrier)) as WorldMovingPlatform
+			if carrier.element_id.is_empty(): carrier.element_id = room_id+":node:"+str(row.carrier)
+			carrier.state_scope = source.state_scope
+			target_id = carrier.element_id; source.repeat_enabled = true
+		else:
+			var gate := WorldElementGate.new(); gate.element_id = target_id
+			gate.bounds = FixedWorldProvider.rect(row.gate); gate.state_scope = source.state_scope
+			add_child(gate)
+		source.links = [{"output":"active","target":target_id,"input":"set_active"}]
+		add_child(source)
+	for node: Node in find_children("*","WorldMovingPlatform",true,false):
+		if node.element_id.is_empty(): node.element_id = room_id+":node:"+str(get_path_to(node))
+	element_runtime.bind(self,controller,element_policy,lifetime,saved,submit)
 
 func mechanism_snapshot() -> Dictionary:
-	var result: Dictionary={}
-	for id: String in mechanisms:
-		if mechanisms[id].open_seconds<=0:result[id]=(mechanisms[id] as WorldShotLatch).region_snapshot()
-	return result
+	return element_runtime.snapshot()
 
 func configure(row: Dictionary) -> void:
 	contract = row
@@ -297,6 +308,7 @@ func spawn_enemy(placement: Dictionary,controller: PlayerController,policy: Fram
 	return actor
 
 func install(controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime, saved_enemies: Dictionary, boss_defeated: bool, entry_anchor: Vector2) -> void:
+	element_policy = policy
 	for placement: Dictionary in enemy_placements:
 		spawn_enemy(placement,controller,policy,lifetime,saved_enemies.get(str(placement.id),{}),entry_anchor)
 	for index: int in hazards.size():

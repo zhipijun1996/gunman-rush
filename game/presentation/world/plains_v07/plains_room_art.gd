@@ -123,10 +123,17 @@ func _ready() -> void:
 		for offset:Array in light_settings.station.offsets:
 			var coil:=add_lamp(room.rest_point+FixedWorldProvider.point(offset))
 			coil.color=Color(light_settings.station.color);coil.energy=float(light_settings.station.energy);coil.texture_scale=float(light_settings.station.radius)/64
+	for id: String in room.platform_appearances:
+		var index := room.platform_index(id)
+		for part: Rect2 in WorldRoomSpace.exposed_parts([room.platforms[index]],room.boundary_art_rock):
+			var surface := WorldPlatformSurface.new(); surface.bounds = part
+			surface.appearance = str(room.platform_appearances[id]); surface.one_way = index in room.one_way_indices
+			add_child(surface)
 	for placement: Dictionary in room.art_placements:
 		if placement.has("masonry_region"): continue
-		if placement.has("surface_platform"):
-			var bounds:Array[Rect2]=[room.platforms[int(placement.surface_platform)]]
+		if placement.has("surface_platform_id") or placement.has("surface_platform"):
+			var index := room.platform_index(str(placement.surface_platform_id)) if placement.has("surface_platform_id") else int(placement.surface_platform)
+			var bounds:Array[Rect2]=[room.platforms[index]]
 			for part:Rect2 in WorldRoomSpace.exposed_parts(bounds,room.boundary_art_rock):
 				var surface:=PlainsTimberSurface.new();surface.bounds=part
 				surface.z_index=0;add_child(surface)
@@ -200,7 +207,7 @@ func _ready() -> void:
 	var spikes:=WorldSpikeArt.new()
 	spikes.name="ContinuousSpikes"
 	add_child(spikes)
-	spikes.setup(room.spike_strips,room.platforms)
+	spikes.setup(room.spike_strips,room.platforms,room)
 	set_process(true)
 func add_lamp(at: Vector2) -> PointLight2D:
 	var gradient:=Gradient.new();gradient.colors=PackedColorArray([Color.WHITE,Color(1,1,1,0)])

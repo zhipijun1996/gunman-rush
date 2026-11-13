@@ -46,8 +46,8 @@ func _draw() -> void:
 		draw_line(carrier.origin-Vector2(0,12),carrier.origin+carrier.endpoint-Vector2(0,12),Color("685c48"),3)
 		for at: Vector2 in [carrier.origin,carrier.origin+carrier.endpoint]:
 			draw_circle(at-Vector2(0,12),5,Color("b39358"),false,2)
-	elif not is_open:_draw_gate(gate_rect,1.0)
-	elif age<.35:
+	elif gate_visual_enabled and not is_open:_draw_gate(gate_rect,1.0)
+	elif gate_visual_enabled and age<.35:
 		var raised:=gate_rect;raised.position.y-=gate_rect.size.y*age/.35
 		_draw_gate(raised,1-age/.35)
 	if age<.65:

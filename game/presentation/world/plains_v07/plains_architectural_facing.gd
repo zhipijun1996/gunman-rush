@@ -11,7 +11,9 @@ static func attach(art: PlainsRoomArt, rear: Sprite2D, placement: Dictionary) ->
 			var points := PackedVector2Array()
 			for pair: Array in row.points: points.append(FixedWorldProvider.point(pair))
 			contours.append(points)
-	for index: int in placement.get("facing_platforms", []):
+	var indices: Array = placement.get("facing_platforms", []).duplicate()
+	for id: String in placement.get("facing_platform_ids", []): indices.append(art.room.platform_index(id))
+	for index: int in indices:
 		var area := art.room.platforms[index].intersection(image_bounds)
 		if area.has_area():
 			contours.append(PackedVector2Array([area.position, Vector2(area.end.x,area.position.y), area.end, Vector2(area.position.x,area.end.y)]))

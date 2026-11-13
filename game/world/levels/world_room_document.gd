@@ -24,6 +24,8 @@ const PLATFORM_FLAGS := {"one_way":"one_way_indices", "masonry":"masonry_platfor
 
 static func component_for(script: Script) -> String:
 	if script == null: return ""
+	var registered := WorldElementCatalog.component_for(script)
+	if not registered.is_empty(): return registered
 	for key: String in COMPONENTS:
 		if COMPONENTS[key] == script.resource_path: return key
 	return ""
@@ -128,12 +130,12 @@ static func extract(packed: PackedScene) -> Dictionary:
 			values[key] = encode(node.get(key))
 		for property_index: int in state.get_node_property_count(index):
 			var key := str(state.get_node_property_name(index, property_index))
-			if key in ["script", "document_ref", "metadata/editor_entity_ids"]: continue
+			if key in ["script", "document_ref", "metadata/editor_entity_ids", "metadata/editor_entity_id", "metadata/editor_element_rows"]: continue
 			values[key] = encode(node.get(key))
 		if index == 0:
 			document.root.properties = values
 		else:
-			var entity_id := str(document.room_id)+":node:"+path
+			var entity_id := str(node.get_meta("editor_entity_id",str(document.room_id)+":node:"+path))
 			node_ids[path] = entity_id
 			var parent_path := path.get_base_dir()
 			document.entities[entity_id] = {"id":entity_id, "component":component, "node_name":str(node.name), "parent":node_ids.get(parent_path if not parent_path.is_empty() else ".", ""), "node_path":path, "order":index, "properties":values}
@@ -155,6 +157,16 @@ static func extract(packed: PackedScene) -> Dictionary:
 		props.erase(field)
 	for field: String in PLATFORM_FLAGS.values(): props.erase(field)
 	props.erase("workbench_entity_ids")
+	props.erase("platform_appearances")
+	var element_rows: Dictionary = source.get_meta("editor_element_rows", {})
+	for id: String in document.entities:
+		if not element_rows.has(id): continue
+		for key: String in ["definition_id", "definition_version", "assembly_id"]:
+			if element_rows[id].has(key): document.entities[id][key] = element_rows[id][key]
+		if document.entities[id].component=="array:platforms" and source.platform_appearances.has(id): document.entities[id].properties.appearance = source.platform_appearances[id]
+	# Codec metadata is persisted on the packed root, never duplicated in JSON.
+	for key: String in props.keys():
+		if key.begins_with("metadata/editor_"): props.erase(key)
 	source.free()
 	var error := value_error(document)
 	return document if error.is_empty() else {"error":error}
@@ -187,11 +199,15 @@ static func apply(room: Node, document: Dictionary) -> String:
 	if document.get("schema") != SCHEMA or str(document.get("room_id", "")).is_empty() or not document.get("entities") is Dictionary: return "document_invalid"
 	var error := value_error(document)
 	if not error.is_empty(): return error
+	error = WorldElementCatalog.document_error(document)
+	if not error.is_empty(): return error
+	room.set_meta("editor_element_rows", document.entities.duplicate(true))
 	if component_for(room.get_script()) != document.root.get("component"): return "root_component_mismatch"
 	error = assign_properties(room, document.root.properties)
 	if not error.is_empty(): return error
 	room.set("room_id", str(document.room_id))
 	var fields: Dictionary = {}
+	room.platform_appearances = {}
 	for field: String in ENTITY_FIELDS: fields[field] = []
 	var rows: Array = document.entities.values()
 	rows.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return int(a.get("order", 0)) < int(b.get("order", 0)))
@@ -207,6 +223,7 @@ static func apply(room: Node, document: Dictionary) -> String:
 		if field not in ENTITY_FIELDS: return "array_component_unregistered"
 		var value: Variant = row.properties.duplicate(true)
 		if field == "platforms":
+			if value.has("appearance"): room.platform_appearances[str(row.id)] = str(value.appearance)
 			for flag: String in PLATFORM_FLAGS:
 				if bool(value.get(flag, false)): platform_flags[PLATFORM_FLAGS[flag]].append(fields[field].size())
 			value = value.rect
@@ -231,8 +248,11 @@ static func apply(room: Node, document: Dictionary) -> String:
 		for row: Dictionary in pending.duplicate():
 			var parent_id := str(row.get("parent", ""))
 			if not parents.has(parent_id): continue
-			if row.component not in COMPONENTS or row.component in ["FixedWorldRoom", "StarbridgeTrialRoom"]: return "node_component_unregistered"
-			var node := (load(COMPONENTS[row.component]) as Script).new() as Node
+			var script_path := WorldElementCatalog.component_path(str(row.component))
+			if script_path.is_empty(): script_path = str(COMPONENTS.get(row.component,""))
+			if script_path.is_empty() or row.component in ["FixedWorldRoom", "StarbridgeTrialRoom"]: return "node_component_unregistered"
+			var node := (load(script_path) as Script).new() as Node
+			node.set_meta("editor_entity_id", str(row.id))
 			node.name = str(row.get("node_name", ""))
 			if str(node.name).is_empty() or str(node.name).validate_node_name() != str(node.name):
 				node.free()

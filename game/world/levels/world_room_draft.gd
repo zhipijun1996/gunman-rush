@@ -12,7 +12,7 @@ const ROOM_FIELDS := [
 	"enemy_placements", "signs", "hazards", "spike_strips", "gear_obstacles",
 	"hook_points", "climbable_walls", "environment_zones", "boss_position",
 	"arena_bounds", "battle_entry_anchor", "arena_door_height", "terrain_polygons",
-	"workbench_entity_ids", "terrain_paint"
+	"workbench_entity_ids", "terrain_paint", "platform_appearances"
 ]
 const INDEXED_FIELDS := ["platforms", "hazards", "climbable_walls", "hook_points", "signs", "art_placements", "retry_anchors"]
 const NODE_SCRIPTS := {
@@ -50,7 +50,7 @@ static func extract(room: FixedWorldRoom) -> Dictionary:
 		var kind := node_kind(node)
 		if kind.is_empty(): continue
 		var values: Dictionary = {}
-		for key: String in NODE_FIELDS[kind]: values[key] = encode(node.get(key))
+		for key: String in node_fields(kind): values[key] = encode(node.get(key))
 		nodes.append({"path": str(room.get_path_to(node)), "type": kind, "properties": values})
 	return {"schema": SCHEMA, "room_id": room.room_id, "properties": properties, "nodes": nodes}
 
@@ -68,11 +68,27 @@ static func encode(value: Variant) -> Variant:
 		return result
 	return value
 
+static func node_scripts() -> Dictionary:
+	var scripts := NODE_SCRIPTS.duplicate()
+	for kind: String in WorldElementCatalog.catalog().behaviors:
+		var path := WorldElementCatalog.component_path(kind)
+		if not path.is_empty(): scripts[kind] = path
+	return scripts
+
+static func node_fields(kind: String) -> Array:
+	if WorldElementCatalog.component_path(kind).is_empty(): return NODE_FIELDS.get(kind, [])
+	var probe := (load(WorldElementCatalog.component_path(kind)) as Script).new() as Node
+	var fields: Array = ["position"]
+	for property: Dictionary in probe.get_property_list():
+		if int(property.usage) & PROPERTY_USAGE_STORAGE and int(property.usage) & PROPERTY_USAGE_SCRIPT_VARIABLE: fields.append(str(property.name))
+	probe.free()
+	return fields
+
 static func node_kind(node: Node) -> String:
 	var script: Script = node.get_script()
 	if script == null: return ""
-	for kind: String in NODE_SCRIPTS:
-		if script.resource_path == NODE_SCRIPTS[kind]: return kind
+	for kind: String in node_scripts():
+		if script.resource_path == node_scripts()[kind]: return kind
 	return ""
 
 static func number(value: Variant) -> bool:
@@ -244,6 +260,9 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 	for row: Dictionary in properties.get("signs", room.signs):
 		if not vector(row.get("point")) or not row.get("text") is String: return "sign_invalid"
 	for row: Dictionary in properties.get("art_placements", room.art_placements):
+		if row.has("surface_platform_id"):
+			if str(row.surface_platform_id) not in properties.get("workbench_entity_ids", room.workbench_entity_ids).get("platforms",[]): return "art_surface_platform_missing"
+			continue
 		if row.has("surface_platform"):
 			var index:Variant=row.surface_platform
 			if not number(index) or floorf(float(index))!=float(index) or int(index)<0 or int(index)>=platform_count: return "art_surface_platform_invalid"
@@ -269,14 +288,14 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 		if not row is Dictionary or not row.get("properties") is Dictionary: return "node_shape_invalid"
 		var path := str(row.get("path", ""))
 		var kind := str(row.get("type", ""))
-		if not valid_path(path) or paths.has(path) or not NODE_SCRIPTS.has(kind): return "node_identity_invalid"
+		if not valid_path(path) or paths.has(path) or not node_scripts().has(kind): return "node_identity_invalid"
 		paths[path] = true
 		var existing := room.get_node_or_null(NodePath(path))
 		if existing != null and node_kind(existing) != kind: return "node_type_change_rejected:"+path
-		var probe: Node = existing if existing != null else (load(NODE_SCRIPTS[kind]) as Script).new()
+		var probe: Node = existing if existing != null else (load(node_scripts()[kind]) as Script).new()
 		var error := ""
 		for key: String in row.properties:
-			if key not in NODE_FIELDS[kind]: error = "node_property_not_editable:"+key;break
+			if key not in node_fields(kind): error = "node_property_not_editable:"+key;break
 			error = property_error(probe.get(key), row.properties[key])
 			if not error.is_empty(): break
 		if existing == null: probe.free()
@@ -290,6 +309,17 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 		if not parent.is_empty() and not paths.has(parent):
 			var parent_node := room.get_node_or_null(NodePath(parent))
 			if parent_node == null or not node_kind(parent_node).is_empty(): return "node_parent_missing"
+	var elements: Dictionary = {}
+	for row: Dictionary in draft.get("nodes", []):
+		var id := str(row.properties.get("element_id",""))
+		if id.is_empty():
+			if str(row.type).begins_with("WorldElement"): return "element_identity_missing"
+			continue
+		if elements.has(id): return "element_identity_duplicate"
+		elements[id] = {"id":id,"component":row.type,"properties":row.properties}
+	if not elements.is_empty():
+		var element_error := WorldElementCatalog.document_error({"entities":elements})
+		if not element_error.is_empty(): return element_error
 	for row: Dictionary in properties.get("bell_mechanisms", room.bell_mechanisms):
 		if not row.has("carrier"): continue
 		var carrier_path := str(row.carrier)
@@ -322,6 +352,9 @@ static func valid_path(value: String) -> bool:
 static func apply(room: FixedWorldRoom, draft: Dictionary) -> String:
 	var error := validate(room, draft)
 	if not error.is_empty(): return error
+	# Materialized candidate scenes own their accepted layout. Keeping the source
+	# loader reference would instantiate duplicate children on ResourceSaver reload.
+	room.document_ref = ""
 	for key: String in draft.properties: room.set(key, decode(room.get(key), draft.properties[key]))
 	if not draft.has("nodes"): return ""
 	var wanted: Dictionary = {}
@@ -338,7 +371,7 @@ static func apply(room: FixedWorldRoom, draft: Dictionary) -> String:
 		var row: Dictionary = wanted[path]
 		var node := room.get_node_or_null(NodePath(path))
 		if node == null:
-			node = (load(NODE_SCRIPTS[str(row.type)]) as Script).new()
+			node = (load(node_scripts()[str(row.type)]) as Script).new()
 			node.name = path.get_file()
 			var parent_path := path.get_base_dir()
 			var parent := room if parent_path.is_empty() else room.get_node(NodePath(parent_path))

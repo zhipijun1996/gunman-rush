@@ -1,10 +1,10 @@
 class_name WorldSaveService
 extends MetaSaveService
 ## Independent slot and envelope. Meta/Run payloads are never read or converted.
-const WORLD_SCHEMA := 1
+const WORLD_SCHEMA := 2
 var content_version := ""
 var save_kind := "fixed_world"
-var key_prefix := "gunman_rush.fixed_world.v1."
+var key_prefix := "gunman_rush.fixed_world.v2."
 var payload_validator: Callable
 
 func make_envelope(payload: Dictionary, revision: int) -> Dictionary:

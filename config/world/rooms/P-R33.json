@@ -2,8 +2,10 @@
   "entities": {
     "P-R33:art:seam:9": {
       "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R33:art:seam:9",
-      "order": 9,
+      "order": 7,
       "properties": {
         "asset": "plains_grass",
         "layer": -5,
@@ -17,7 +19,7 @@
     "P-R33:door-review:art:10": {
       "component": "array:art_placements",
       "id": "P-R33:door-review:art:10",
-      "order": 10,
+      "order": 8,
       "properties": {
         "masonry_region": [
           0,
@@ -29,6 +31,8 @@
     },
     "P-R33:forecourt:0": {
       "component": "array:art_placements",
+      "definition_id": "decor.forecourt_architecture",
+      "definition_version": 1,
       "id": "P-R33:forecourt:0",
       "order": 0,
       "properties": {
@@ -79,6 +83,8 @@
     },
     "P-R33:forecourt:1": {
       "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R33:forecourt:1",
       "order": 1,
       "properties": {
@@ -93,6 +99,8 @@
     },
     "P-R33:forecourt:2": {
       "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R33:forecourt:2",
       "order": 2,
       "properties": {
@@ -107,6 +115,8 @@
     },
     "P-R33:forecourt:3": {
       "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R33:forecourt:3",
       "order": 3,
       "properties": {
@@ -121,6 +131,8 @@
     },
     "P-R33:forecourt:5": {
       "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R33:forecourt:5",
       "order": 4,
       "properties": {
@@ -133,26 +145,10 @@
         "sway": true
       }
     },
-    "P-R33:forecourt:6": {
-      "component": "array:art_placements",
-      "id": "P-R33:forecourt:6",
-      "order": 5,
-      "properties": {
-        "surface_platform": 6
-      }
-    },
-    "P-R33:forecourt:7": {
-      "component": "array:art_placements",
-      "id": "P-R33:forecourt:7",
-      "order": 6,
-      "properties": {
-        "surface_platform": 7
-      }
-    },
     "P-R33:forecourt:8": {
       "component": "array:art_placements",
       "id": "P-R33:forecourt:8",
-      "order": 7,
+      "order": 5,
       "properties": {
         "masonry_region": [
           736,
@@ -164,8 +160,10 @@
     },
     "P-R33:forecourt:9": {
       "component": "array:art_placements",
+      "definition_id": "decor.forecourt_foundation",
+      "definition_version": 1,
       "id": "P-R33:forecourt:9",
-      "order": 8,
+      "order": 6,
       "properties": {
         "asset": "forecourt_foundation",
         "layer": -22,
@@ -184,6 +182,8 @@
     },
     "P-R33:platforms:0": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R33:platforms:0",
       "order": 0,
       "properties": {
@@ -200,6 +200,8 @@
     },
     "P-R33:platforms:0:part2": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R33:platforms:0:part2",
       "order": 1,
       "properties": {
@@ -216,6 +218,8 @@
     },
     "P-R33:platforms:0:part3": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R33:platforms:0:part3",
       "order": 2,
       "properties": {
@@ -232,6 +236,8 @@
     },
     "P-R33:platforms:1": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R33:platforms:1",
       "order": 3,
       "properties": {
@@ -248,6 +254,8 @@
     },
     "P-R33:platforms:1:part2": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R33:platforms:1:part2",
       "order": 4,
       "properties": {
@@ -264,6 +272,8 @@
     },
     "P-R33:platforms:3": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R33:platforms:3",
       "order": 5,
       "properties": {
@@ -280,9 +290,12 @@
     },
     "P-R33:platforms:4": {
       "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R33:platforms:4",
       "order": 6,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -296,9 +309,12 @@
     },
     "P-R33:platforms:5": {
       "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R33:platforms:5",
       "order": 7,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -401,6 +417,12 @@
         558.0
       ],
       "story_sequence": {},
+      "terrain_paint": {
+        "regions": [],
+        "seed": 0,
+        "surfaces": [],
+        "version": 1
+      },
       "traveler_point": [
         0.0,
         0.0
@@ -411,13 +433,7 @@
       "tutorial_target": "",
       "visible": true,
       "wave_encounter": {},
-      "z_index": 0,
-      "terrain_paint": {
-        "version": 1,
-        "seed": 0,
-        "regions": [],
-        "surfaces": []
-      }
+      "z_index": 0
     }
   },
   "schema": 2

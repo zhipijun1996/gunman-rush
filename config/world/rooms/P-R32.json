@@ -1,28 +1,5 @@
 {
   "entities": {
-    "P-R32:bell_mechanisms:0": {
-      "component": "array:bell_mechanisms",
-      "id": "P-R32:bell_mechanisms:0",
-      "order": 0,
-      "properties": {
-        "access_bells": [
-          [
-            2496.0,
-            584.0
-          ],
-          [
-            2304.0,
-            1168.0
-          ]
-        ],
-        "bell": [
-          1952.0,
-          744.0
-        ],
-        "carrier": "BridgeInspectionLift",
-        "id": "P32:inspection_lift"
-      }
-    },
     "P-R32:enemy_placements:0": {
       "component": "array:enemy_placements",
       "id": "P-R32:enemy_placements:0",
@@ -114,13 +91,16 @@
     },
     "P-R32:node:./BridgeInspectionLift": {
       "component": "WorldMovingPlatform",
+      "definition_id": "platform.moving",
+      "definition_version": 1.0,
       "id": "P-R32:node:./BridgeInspectionLift",
       "node_name": "BridgeInspectionLift",
       "node_path": "./BridgeInspectionLift",
-      "order": 1,
+      "order": 2,
       "parent": "",
       "properties": {
         "activation_flag": "",
+        "element_id": "P-R32:node:./BridgeInspectionLift",
         "endpoint": [
           112.0,
           -160.0
@@ -151,6 +131,7 @@
           1.0,
           1.0
         ],
+        "state_scope": "permanent",
         "visible": true,
         "z_index": 0
       }
@@ -160,7 +141,7 @@
       "id": "P-R32:node:./Cache_pier_cache",
       "node_name": "Cache_pier_cache",
       "node_path": "./Cache_pier_cache",
-      "order": 2,
+      "order": 3,
       "parent": "",
       "properties": {
         "action_id": "open_P32_pier_cache",
@@ -191,6 +172,8 @@
     },
     "P-R32:platforms:0": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R32:platforms:0",
       "order": 0,
       "properties": {
@@ -207,6 +190,8 @@
     },
     "P-R32:platforms:1": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R32:platforms:1",
       "order": 1,
       "properties": {
@@ -223,6 +208,8 @@
     },
     "P-R32:platforms:2": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R32:platforms:2",
       "order": 2,
       "properties": {
@@ -239,6 +226,8 @@
     },
     "P-R32:platforms:3": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R32:platforms:3",
       "order": 3,
       "properties": {
@@ -255,6 +244,8 @@
     },
     "P-R32:platforms:4": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R32:platforms:4",
       "order": 4,
       "properties": {
@@ -271,9 +262,12 @@
     },
     "P-R32:platforms:5": {
       "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1.0,
       "id": "P-R32:platforms:5",
       "order": 5,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -287,6 +281,8 @@
     },
     "P-R32:platforms:6": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R32:platforms:6",
       "order": 6,
       "properties": {
@@ -303,6 +299,8 @@
     },
     "P-R32:platforms:7": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R32:platforms:7",
       "order": 7,
       "properties": {
@@ -319,9 +317,12 @@
     },
     "P-R32:platforms:8": {
       "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1.0,
       "id": "P-R32:platforms:8",
       "order": 8,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -389,6 +390,8 @@
     },
     "P-R32:review06:inspection_cache_floor": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R32:review06:inspection_cache_floor",
       "order": 10,
       "properties": {
@@ -405,6 +408,8 @@
     },
     "P-R32:review06:pier_west_support": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R32:review06:pier_west_support",
       "order": 9,
       "properties": {
@@ -421,6 +426,8 @@
     },
     "P-R32:spike_strips:0": {
       "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R32:spike_strips:0",
       "order": 0,
       "properties": {
@@ -436,6 +443,8 @@
     },
     "P-R32:spike_strips:1": {
       "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R32:spike_strips:1",
       "order": 1,
       "properties": {
@@ -451,6 +460,8 @@
     },
     "P-R32:spike_strips:2": {
       "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R32:spike_strips:2",
       "order": 2,
       "properties": {
@@ -461,20 +472,23 @@
           24.0
         ],
         "facing": "up",
+        "host_id": "P-R32:platforms:2",
         "id": "P32:landing_trim"
       }
     },
     "P-R32:structure:0": {
       "component": "array:art_placements",
+      "definition_id": "decor.aqi_ribbon",
+      "definition_version": 1,
       "id": "P-R32:structure:0",
       "order": 0,
       "properties": {
         "asset": "aqi_ribbon",
         "atmosphere": {
-          "density": 3,
+          "density": 3.0,
           "speed": [
-            18,
-            32
+            18.0,
+            32.0
           ],
           "sway_speed": 0.8
         },
@@ -482,12 +496,12 @@
         "clouds": "junction_clouds",
         "landscape": "clockheart_vista",
         "landscape_offset": [
-          0,
-          50
+          0.0,
+          50.0
         ],
         "landscape_reference": [
-          1900,
-          820
+          1900.0,
+          820.0
         ],
         "landscape_scroll": [
           0.08,
@@ -495,12 +509,12 @@
         ],
         "layer": -2.0,
         "point": [
-          2816,
-          640
+          2816.0,
+          640.0
         ],
         "sky_cloud_density": [
           0.4,
-          0
+          0.0
         ],
         "sky_colors": [
           "e7d9b9",
@@ -511,192 +525,196 @@
     },
     "P-R32:structure:1": {
       "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R32:structure:1",
       "order": 1,
       "properties": {
         "asset": "gear_lamp",
-        "layer": -5,
+        "layer": -5.0,
         "light": true,
         "point": [
-          2848,
-          640
+          2848.0,
+          640.0
         ]
       }
     },
     "P-R32:structure:10": {
       "component": "array:art_placements",
+      "definition_id": "decor.longbridge_hanger",
+      "definition_version": 1,
       "id": "P-R32:structure:10",
-      "order": 10,
+      "order": 8,
       "properties": {
         "asset": "longbridge_hanger",
-        "layer": -17,
+        "layer": -17.0,
         "point": [
-          1952,
-          684
+          1952.0,
+          684.0
         ]
       }
     },
     "P-R32:structure:11": {
       "component": "array:art_placements",
       "id": "P-R32:structure:11",
-      "order": 11,
+      "order": 9,
       "properties": {
         "masonry_region": [
-          64,
-          960,
-          1600,
-          896
+          64.0,
+          960.0,
+          1600.0,
+          896.0
         ]
       }
     },
     "P-R32:structure:12": {
       "component": "array:art_placements",
       "id": "P-R32:structure:12",
-      "order": 12,
+      "order": 10,
       "properties": {
         "masonry_region": [
-          1664,
-          832,
-          896,
-          1024
+          1664.0,
+          832.0,
+          896.0,
+          1024.0
         ]
       }
     },
     "P-R32:structure:13": {
       "component": "array:art_placements",
+      "definition_id": "decor.longbridge_rearwall",
+      "definition_version": 1,
       "id": "P-R32:structure:13",
-      "order": 13,
+      "order": 11,
       "properties": {
         "asset": "longbridge_rearwall",
-        "layer": -25,
+        "layer": -25.0,
         "point": [
-          2112,
-          1515
+          2112.0,
+          1515.0
         ]
       }
     },
     "P-R32:structure:2": {
       "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R32:structure:2",
       "order": 2,
       "properties": {
         "asset": "gear_lamp",
-        "layer": -3,
+        "layer": -3.0,
         "light": true,
         "point": [
-          2128,
-          1056
+          2128.0,
+          1056.0
         ]
       }
     },
     "P-R32:structure:3": {
       "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R32:structure:3",
       "order": 3,
       "properties": {
         "asset": "gear_lamp",
-        "layer": -3,
+        "layer": -3.0,
         "light": true,
         "point": [
-          2480,
-          1248
+          2480.0,
+          1248.0
         ]
       }
     },
     "P-R32:structure:4": {
       "component": "array:art_placements",
+      "definition_id": "decor.well_masonry",
+      "definition_version": 1,
       "id": "P-R32:structure:4",
       "order": 4,
       "properties": {
         "asset": "well_masonry",
-        "layer": -40,
+        "layer": -40.0,
         "point": [
-          0,
-          0
+          0.0,
+          0.0
         ],
         "tile_rect": [
-          704,
-          -256,
-          896,
-          448
+          704.0,
+          -256.0,
+          896.0,
+          448.0
         ],
         "tint": [
           0.7,
           0.78,
           0.8,
-          1
+          1.0
         ]
       }
     },
     "P-R32:structure:5": {
       "component": "array:art_placements",
+      "definition_id": "decor.longbridge_wellmouth",
+      "definition_version": 1,
       "id": "P-R32:structure:5",
       "order": 5,
       "properties": {
         "asset": "longbridge_wellmouth",
-        "layer": -38,
+        "layer": -38.0,
         "point": [
-          1152,
-          502
+          1152.0,
+          502.0
         ],
         "tint": [
           0.7,
           0.78,
           0.8,
-          1
+          1.0
         ]
       }
     },
     "P-R32:structure:6": {
       "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R32:structure:6",
       "order": 6,
       "properties": {
         "asset": "gear_lamp",
-        "layer": -3,
+        "layer": -3.0,
         "light": true,
         "point": [
-          1024,
-          160
+          1024.0,
+          160.0
         ]
       }
     },
     "P-R32:structure:7": {
       "component": "array:art_placements",
+      "definition_id": "decor.longbridge_crane",
+      "definition_version": 1,
       "id": "P-R32:structure:7",
       "order": 7,
       "properties": {
         "asset": "longbridge_crane",
         "cable_offset": [
-          116,
-          -224
+          116.0,
+          -224.0
         ],
         "hoist_cable": "BridgeInspectionLift",
-        "layer": -18,
+        "layer": -18.0,
         "point": [
-          2061,
-          832
+          2061.0,
+          832.0
         ]
-      }
-    },
-    "P-R32:structure:8": {
-      "component": "array:art_placements",
-      "id": "P-R32:structure:8",
-      "order": 8,
-      "properties": {
-        "surface_platform": 5
-      }
-    },
-    "P-R32:structure:9": {
-      "component": "array:art_placements",
-      "id": "P-R32:structure:9",
-      "order": 9,
-      "properties": {
-        "surface_platform": 8
       }
     },
     "P-R32:structure:cache_foundation": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R32:structure:cache_foundation",
       "order": 11,
       "properties": {
@@ -709,6 +727,59 @@
           192.0,
           64.0
         ]
+      }
+    },
+    "P32:inspection_lift": {
+      "component": "WorldElementSwitch",
+      "definition_id": "switch.shot",
+      "definition_version": 1.0,
+      "id": "P32:inspection_lift",
+      "node_name": "Element_a058a7cb26f11fa1",
+      "node_path": "./Element_a058a7cb26f11fa1",
+      "order": 1,
+      "parent": "",
+      "properties": {
+        "access_points": [
+          [
+            2496.0,
+            584.0
+          ],
+          [
+            2304.0,
+            1168.0
+          ]
+        ],
+        "duration": 0.0,
+        "element_id": "P32:inspection_lift",
+        "links": [
+          {
+            "input": "set_active",
+            "output": "active",
+            "target": "P-R32:node:./BridgeInspectionLift"
+          }
+        ],
+        "metadata/underworld_formal_style": true,
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          1952.0,
+          744.0
+        ],
+        "repeat_enabled": true,
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "state_scope": "permanent",
+        "visible": true,
+        "z_index": 0
       }
     }
   },
@@ -969,6 +1040,12 @@
           80.0
         ]
       },
+      "terrain_paint": {
+        "regions": [],
+        "seed": 0.0,
+        "surfaces": [],
+        "version": 1.0
+      },
       "traveler_point": [
         0.0,
         0.0
@@ -979,13 +1056,7 @@
       "tutorial_target": "",
       "visible": true,
       "wave_encounter": {},
-      "z_index": 0,
-      "terrain_paint": {
-        "version": 1,
-        "seed": 0,
-        "regions": [],
-        "surfaces": []
-      }
+      "z_index": 0
     }
   },
   "schema": 2

@@ -1958,6 +1958,15 @@
       ],
       "timeout_seconds": 260,
       "success_pattern": "^TERRAIN MATERIALS: [1-9]\\d* assertions, 0 failures$"
+    },
+    "world-elements": {
+      "mode": "manual",
+      "argv": [
+        "python3",
+        "tools/run_element_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^WORLD ELEMENTS: [1-9]\\d* assertions, 0 failures$"
     }
   },
   "profiles": {}

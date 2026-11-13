@@ -55,12 +55,14 @@ func _run() -> void:
 				fields[str(info.name)] = {"type":int(info.type), "hint":str(info.hint_string), "default":WorldRoomDocument.encode(instance.get(info.name))}
 		components[kind] = {"id":kind, "script":WorldRoomDocument.COMPONENTS[kind], "fields":fields, "root":kind in ["FixedWorldRoom", "StarbridgeTrialRoom"]}
 		instance.free()
+	for kind: String in WorldElementCatalog.catalog().behaviors:
+		if not kind.begins_with("array:"): components[kind] = {"id":kind,"script":WorldElementCatalog.component_path(kind),"fields":WorldElementCatalog.catalog().behaviors[kind].fields}
 	for field: String in WorldRoomDocument.ENTITY_FIELDS: components["array:"+field] = {"id":"array:"+field, "field":field}
 	var enemies: Array = []
 	for behavior: StringName in EnemyBehaviorRegistry.behavior_ids():
 		var definition := EnemyFactory.definition_for_behavior(behavior)
 		enemies.append({"id":str(behavior), "health":definition.health_definition.max_health, "size":WorldRoomDocument.encode(definition.collision_size), "aerial":definition.aerial, "definition":EnemyFactory.definition_path_for_behavior(behavior)})
 	var catalog := FileAccess.open(output.get_base_dir().path_join("catalog.json"), FileAccess.WRITE)
-	catalog.store_string(JSON.stringify({"schema":2, "components":components, "enemies":enemies, "terrain_materials":TerrainMaterialRegistry.catalog()}, "\t", true))
+	catalog.store_string(JSON.stringify({"schema":2, "components":components, "enemies":enemies, "terrain_materials":TerrainMaterialRegistry.catalog(), "elements":WorldElementCatalog.catalog(), "surface_styles":WorldSurfaceStyles.catalog()}, "\t", true))
 	print("EDITOR DOCUMENTS: ", checks.size(), " rooms, passed=", not failed)
 	quit(1 if failed else 0)

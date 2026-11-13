@@ -1,15 +1,9 @@
 {
   "entities": {
-    "P-R34:art:seam:13": {
-      "component": "array:art_placements",
-      "id": "P-R34:art:seam:13",
-      "order": 13,
-      "properties": {
-        "surface_platform": 0
-      }
-    },
     "P-R34:composition:0": {
       "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R34:composition:0",
       "order": 0,
       "properties": {
@@ -55,6 +49,8 @@
     },
     "P-R34:composition:1": {
       "component": "array:art_placements",
+      "definition_id": "decor.market_stalls",
+      "definition_version": 1,
       "id": "P-R34:composition:1",
       "order": 1,
       "properties": {
@@ -85,24 +81,10 @@
         ]
       }
     },
-    "P-R34:composition:11": {
-      "component": "array:art_placements",
-      "id": "P-R34:composition:11",
-      "order": 11,
-      "properties": {
-        "surface_platform": 1
-      }
-    },
-    "P-R34:composition:12": {
-      "component": "array:art_placements",
-      "id": "P-R34:composition:12",
-      "order": 12,
-      "properties": {
-        "surface_platform": 3
-      }
-    },
     "P-R34:composition:2": {
       "component": "array:art_placements",
+      "definition_id": "decor.storage_crates",
+      "definition_version": 1,
       "id": "P-R34:composition:2",
       "order": 2,
       "properties": {
@@ -116,6 +98,8 @@
     },
     "P-R34:composition:3": {
       "component": "array:art_placements",
+      "definition_id": "decor.bell_post",
+      "definition_version": 1,
       "id": "P-R34:composition:3",
       "order": 3,
       "properties": {
@@ -129,6 +113,8 @@
     },
     "P-R34:composition:4": {
       "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R34:composition:4",
       "order": 4,
       "properties": {
@@ -143,6 +129,8 @@
     },
     "P-R34:composition:5": {
       "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R34:composition:5",
       "order": 5,
       "properties": {
@@ -157,6 +145,8 @@
     },
     "P-R34:composition:6": {
       "component": "array:art_placements",
+      "definition_id": "decor.gear_lamp",
+      "definition_version": 1,
       "id": "P-R34:composition:6",
       "order": 6,
       "properties": {
@@ -171,6 +161,8 @@
     },
     "P-R34:composition:7": {
       "component": "array:art_placements",
+      "definition_id": "decor.forecourt_foundation",
+      "definition_version": 1,
       "id": "P-R34:composition:7",
       "order": 7,
       "properties": {
@@ -196,13 +188,15 @@
     },
     "P-R34:composition:8": {
       "component": "array:art_placements",
+      "definition_id": "decor.market_terrace",
+      "definition_version": 1,
       "id": "P-R34:composition:8",
       "order": 8,
       "properties": {
         "asset": "market_terrace",
         "facing_boundary": true,
-        "facing_platforms": [
-          4
+        "facing_platform_ids": [
+          "P-R34:transfer-lintel"
         ],
         "facing_polygons": [
           "P-R34:r8:east_building"
@@ -340,9 +334,12 @@
     },
     "P-R34:r8:entry_return": {
       "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R34:r8:entry_return",
       "order": 1,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -356,9 +353,12 @@
     },
     "P-R34:r8:north_door": {
       "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R34:r8:north_door",
       "order": 0,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -498,6 +498,8 @@
     },
     "P-R34:r8:waterway_door": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R34:r8:waterway_door",
       "order": 2,
       "properties": {
@@ -514,9 +516,12 @@
     },
     "P-R34:r8:well_shoulder": {
       "component": "array:platforms",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
       "id": "P-R34:r8:well_shoulder",
       "order": 3,
       "properties": {
+        "appearance": "timber",
         "illustrated": true,
         "masonry": false,
         "one_way": true,
@@ -530,6 +535,8 @@
     },
     "P-R34:spike_strips:0": {
       "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1,
       "id": "P-R34:spike_strips:0",
       "order": 0,
       "properties": {
@@ -545,6 +552,8 @@
     },
     "P-R34:spike_strips:1": {
       "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1,
       "id": "P-R34:spike_strips:1",
       "order": 1,
       "properties": {
@@ -560,6 +569,8 @@
     },
     "P-R34:spike_strips:2": {
       "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1,
       "id": "P-R34:spike_strips:2",
       "order": 2,
       "properties": {
@@ -885,6 +896,8 @@
     },
     "P-R34:transfer-lintel": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
       "id": "P-R34:transfer-lintel",
       "order": 4,
       "properties": {
@@ -1180,6 +1193,12 @@
         142.0
       ],
       "story_sequence": {},
+      "terrain_paint": {
+        "regions": [],
+        "seed": 0,
+        "surfaces": [],
+        "version": 1
+      },
       "traveler_point": [
         0.0,
         0.0
@@ -1190,13 +1209,7 @@
       "tutorial_target": "",
       "visible": true,
       "wave_encounter": {},
-      "z_index": 0,
-      "terrain_paint": {
-        "version": 1,
-        "seed": 0,
-        "regions": [],
-        "surfaces": []
-      }
+      "z_index": 0
     }
   },
   "schema": 2

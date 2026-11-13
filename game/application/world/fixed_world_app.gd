@@ -580,12 +580,17 @@ func _drop_candidate(candidate: Dictionary,id: String,amount: int,origin: Vector
 	return services.drop_candidate(candidate,id,WorldCoinDrops.create_units(id,amount,origin,safe,room.room_id))
 
 func _commit_mechanism(id: String) -> void:
-	var latch:=room.mechanisms.get(id) as WorldShotLatch
-	if latch==null or not latch.can_commit():return
-	var candidate:=_snapshot();candidate.mechanisms[id]=latch.proposed_state()
-	if not state.commit(candidate,state.revision):
-		status="机关尚未保存，请再敲一次铃。";latch.cancel_pending();return
-	latch.accept_committed()
+	if room.element_runtime.nodes.has(id):
+		var proposed := room.element_runtime.proposal(id)
+		if proposed.is_empty(): return
+		var source: Node = room.element_runtime.nodes[id]
+		if str(source.get("state_scope")) == "permanent":
+			var next := _snapshot()
+			next.mechanisms.merge(proposed,true)
+			if not state.commit(next,state.revision):
+				status="机关状态未能保存，请重试。"; source.call("cancel_pending"); return
+		room.element_runtime.accept(id,proposed)
+		return
 
 func _commit_action(id: String) -> void:
 	var action:=content.action(id)

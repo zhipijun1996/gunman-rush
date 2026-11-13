@@ -87,7 +87,7 @@ func run() -> void:
   if app.player.position.x>=894:break
  app.controller.router.clear("centered on third deck")
  bell=app.room.mechanisms["P-R08:upper_lift"] as WorldShotLatch
- app.controller.router.request_action(&"shoot_release",(bell.bell_position-app.player.position).normalized());await ticks(15)
+ app.controller.router.request_action(&"shoot_release",(bell.to_global(bell.bell_position)-app.player.position).normalized());await ticks(15)
  lift=app.room.get_node("UpperLift") as WorldMovingPlatform
  check(lift.motion_running,"P08 real bell starts third lift")
  for i:int in 700:

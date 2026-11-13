@@ -69,3 +69,5 @@
 新实现归game/所属功能；scripts/scenes/resources仍有Definition、Boss场景和当前布局消费者，移除前核静态、动态与UID引用。素材及许可随assets，配置及必要源表归config，测试输入随tests/fixtures。
 
 默认rg遵守.gitignore和.ignore，排除build、引擎缓存、大型世界导入包及独立原始来源/录制夹具；世界数据用room_context.py按房提取。需审计被排除内容时显式指定路径并用`rg --no-ignore`。临时输出只进入build/或构建产物，持久来源与测试输入由其真实消费者维护。
+
+| 可交互元素与统一实例 | [目录](../../config/world_elements.json)、[实例合同](../bible/world_elements.md)、`game/world/elements/`；WorldElementCatalog校验与展开单体／组合，WorldElementRuntime按稳定ID绑定和原子提交；WorldRoomDocument与WorldRoomDraft保留身份及外观，FixedWorldState持有类型／版本状态包。`world-elements`专项检查真实射击、取消、多目标、失败／恢复和43房；工作台专项覆盖V12及ResourceSaver，编辑器协议见[协议](../data/world/editor_protocol.md) |

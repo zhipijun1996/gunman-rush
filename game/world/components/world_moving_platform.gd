@@ -1,5 +1,7 @@
 class_name WorldMovingPlatform
 extends ModuleMovingPlatform
+@export var element_id := ""
+@export_enum("permanent", "attempt") var state_scope := "attempt"
 ## A real physics carrier. CharacterBody2D owns rider velocity and movement.
 @export var endpoint := Vector2(384,0)
 @export var platform_size := Vector2(128,24)
@@ -86,4 +88,23 @@ func restore_motion(clock: float,running: bool) -> void:
 	position=sample_position(motion_clock)
 	sync_to_physics=true
 func _draw() -> void:
-	UnderworldTerrain.draw_moving(self,Rect2(-platform_size/2,platform_size))
+	if one_way: UnderworldTerrain.draw_one_way(self,Rect2(-platform_size/2,platform_size))
+	else: UnderworldTerrain.draw_moving(self,Rect2(-platform_size/2,platform_size))
+
+func element_bind(context: Dictionary) -> void:
+	for node: Node in context.runtime.nodes.values():
+		if not node.has_method("element_signal"): continue
+		for link: Dictionary in node.links:
+			if str(link.target) == element_id: bind_bell_control()
+
+func element_state() -> Dictionary:
+	return {"active":motion_running,"clock":motion_clock}
+
+func element_can_receive(input: String, _value: bool) -> bool:
+	return input == "set_active"
+
+func element_propose(_input: String, value: bool) -> Dictionary:
+	return {"active":value,"clock":motion_clock}
+
+func element_restore(data: Dictionary) -> void:
+	restore_motion(float(data.clock),bool(data.active))

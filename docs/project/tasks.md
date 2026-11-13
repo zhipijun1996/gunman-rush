@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| TERRAIN-MATERIAL-01 | 44房迁移统一拓扑、材质／表面／自动接缝及编辑协议 | — | review | [交接](worklines/terrain_material_01/scope.md) |
+| TERRAIN-MATERIAL-01 | 统一关卡要素、机关实例化、区域外观、44房迁移及编辑器工具 | — | review | [交接](worklines/terrain_material_01/scope.md) |
 | NATIVE-PLAYTEST-FIX-01 | 原生0.1.1墙体、手柄校准与最大化呈现设备复核 | — | review | [交接](worklines/native_playtest_fix_01/scope.md) |
 | PLAINS-BIBLE-V2-01 | 平原正式内容与双端发行体验复核 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
 | WORLD-EDITOR-02 | 编辑器运行通道、原生预览与定稿往返复核 | — | review | [交接](worklines/world_editor_02/scope.md) |

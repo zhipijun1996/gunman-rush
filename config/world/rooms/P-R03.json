@@ -2,6 +2,8 @@
   "entities": {
     "P-R03:art:0": {
       "component": "array:art_placements",
+      "definition_id": "decor.windchime_plains_v2_chime_span",
+      "definition_version": 1,
       "id": "P-R03:art:0",
       "order": 0,
       "properties": {
@@ -16,6 +18,8 @@
     },
     "P-R03:art:1": {
       "component": "array:art_placements",
+      "definition_id": "decor.windchime_plains_v2_road_marker",
+      "definition_version": 1,
       "id": "P-R03:art:1",
       "order": 1,
       "properties": {
@@ -29,16 +33,18 @@
     },
     "P-R03:art:10": {
       "component": "array:art_placements",
+      "definition_id": "decor.opening_road_ridge",
+      "definition_version": 1,
       "id": "P-R03:art:10",
       "order": 10,
       "properties": {
         "asset": "opening_road_ridge",
         "depth": 0.86,
         "flip_h": false,
-        "layer": -40,
+        "layer": -40.0,
         "point": [
-          1392,
-          1840
+          1392.0,
+          1840.0
         ],
         "tint": [
           0.82,
@@ -50,6 +56,8 @@
     },
     "P-R03:art:2": {
       "component": "array:art_placements",
+      "definition_id": "decor.windchime_plains_near_v2",
+      "definition_version": 1,
       "id": "P-R03:art:2",
       "order": 2,
       "properties": {
@@ -64,6 +72,8 @@
     },
     "P-R03:art:3": {
       "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R03:art:3",
       "order": 3,
       "properties": {
@@ -78,6 +88,8 @@
     },
     "P-R03:art:4": {
       "component": "array:art_placements",
+      "definition_id": "decor.leaf_sprig",
+      "definition_version": 1,
       "id": "P-R03:art:4",
       "order": 4,
       "properties": {
@@ -92,106 +104,97 @@
     },
     "P-R03:art:5": {
       "component": "array:art_placements",
+      "definition_id": "decor.orchard_fence",
+      "definition_version": 1,
       "id": "P-R03:art:5",
       "order": 5,
       "properties": {
         "asset": "orchard_fence",
-        "layer": -7,
+        "layer": -7.0,
         "point": [
-          832,
-          1728
+          832.0,
+          1728.0
         ],
         "tint": [
           0.7,
           0.77,
           0.74,
-          1
+          1.0
         ]
       }
     },
     "P-R03:art:6": {
       "component": "array:art_placements",
+      "definition_id": "decor.orchard_fence",
+      "definition_version": 1,
       "id": "P-R03:art:6",
       "order": 6,
       "properties": {
         "asset": "orchard_fence",
-        "layer": -7,
+        "layer": -7.0,
         "point": [
-          2160,
-          1600
+          2160.0,
+          1600.0
         ],
         "tint": [
           0.7,
           0.77,
           0.74,
-          1
+          1.0
         ]
       }
     },
     "P-R03:art:7": {
       "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R03:art:7",
       "order": 7,
       "properties": {
         "asset": "plains_grass",
-        "layer": -5,
+        "layer": -5.0,
         "point": [
-          1200,
-          1664
+          1200.0,
+          1664.0
         ],
         "sway": true
       }
     },
     "P-R03:art:8": {
       "component": "array:art_placements",
+      "definition_id": "decor.plains_grass",
+      "definition_version": 1,
       "id": "P-R03:art:8",
       "order": 8,
       "properties": {
         "asset": "plains_grass",
-        "layer": -5,
+        "layer": -5.0,
         "point": [
-          1600,
-          1664
+          1600.0,
+          1664.0
         ],
         "sway": true
       }
     },
     "P-R03:art:9": {
       "component": "array:art_placements",
+      "definition_id": "decor.windchime_plains_mid_v2",
+      "definition_version": 1,
       "id": "P-R03:art:9",
       "order": 9,
       "properties": {
         "asset": "windchime_plains_mid_v2",
-        "layer": -9,
+        "layer": -9.0,
         "point": [
-          2240,
-          1600
+          2240.0,
+          1600.0
         ],
         "tint": [
           0.68,
           0.77,
           0.74,
-          1
+          1.0
         ]
-      }
-    },
-    "P-R03:bell_mechanisms:0": {
-      "component": "array:bell_mechanisms",
-      "id": "P-R03:bell_mechanisms:0",
-      "order": 0,
-      "properties": {
-        "bell": [
-          464.0,
-          1736.0
-        ],
-        "gate": [
-          576.0,
-          1536.0,
-          32.0,
-          256.0
-        ],
-        "id": "P-R03:first_bell",
-        "open_seconds": 0.0
       }
     },
     "P-R03:enemy_placements:0": {
@@ -234,6 +237,90 @@
           2016.0,
           1582.0
         ]
+      }
+    },
+    "P-R03:first_bell": {
+      "component": "WorldElementSwitch",
+      "definition_id": "switch.shot",
+      "definition_version": 1.0,
+      "id": "P-R03:first_bell",
+      "node_name": "Element_50d0811e64f4a828",
+      "node_path": "./Element_50d0811e64f4a828",
+      "order": 2,
+      "parent": "",
+      "properties": {
+        "access_points": [],
+        "duration": 0.0,
+        "element_id": "P-R03:first_bell",
+        "links": [
+          {
+            "input": "set_active",
+            "output": "active",
+            "target": "P-R03:first_bell/gate"
+          }
+        ],
+        "metadata/underworld_formal_style": true,
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          464.0,
+          1736.0
+        ],
+        "repeat_enabled": false,
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "state_scope": "permanent",
+        "visible": true,
+        "z_index": 0
+      }
+    },
+    "P-R03:first_bell/gate": {
+      "component": "WorldElementGate",
+      "definition_id": "gate.masonry",
+      "definition_version": 1.0,
+      "id": "P-R03:first_bell/gate",
+      "node_name": "Element_27577c162b280eb9",
+      "node_path": "./Element_27577c162b280eb9",
+      "order": 1,
+      "parent": "",
+      "properties": {
+        "appearance": "mill_masonry",
+        "bounds": [
+          576.0,
+          1536.0,
+          32.0,
+          256.0
+        ],
+        "element_id": "P-R03:first_bell/gate",
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          0.0,
+          0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "state_scope": "permanent",
+        "visible": true,
+        "z_index": 0
       }
     },
     "P-R03:fungal:hook:0": {
@@ -282,6 +369,8 @@
     },
     "P-R03:fungal:receiving": {
       "component": "array:platforms",
+      "definition_id": "platform.one_way",
+      "definition_version": 1.0,
       "id": "P-R03:fungal:receiving",
       "order": 6,
       "properties": {
@@ -298,6 +387,8 @@
     },
     "P-R03:platforms:0": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R03:platforms:0",
       "order": 0,
       "properties": {
@@ -314,6 +405,8 @@
     },
     "P-R03:platforms:1": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R03:platforms:1",
       "order": 1,
       "properties": {
@@ -330,6 +423,8 @@
     },
     "P-R03:platforms:3": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R03:platforms:3",
       "order": 2,
       "properties": {
@@ -346,6 +441,8 @@
     },
     "P-R03:platforms:4": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R03:platforms:4",
       "order": 3,
       "properties": {
@@ -362,6 +459,8 @@
     },
     "P-R03:platforms:5": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R03:platforms:5",
       "order": 4,
       "properties": {
@@ -378,6 +477,8 @@
     },
     "P-R03:platforms:6": {
       "component": "array:platforms",
+      "definition_id": "platform.solid",
+      "definition_version": 1.0,
       "id": "P-R03:platforms:6",
       "order": 5,
       "properties": {
@@ -442,14 +543,16 @@
     },
     "P-R03:spike_strips:0": {
       "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R03:spike_strips:0",
       "order": 0,
       "properties": {
         "bounds": [
-          0,
-          1184,
-          16,
-          544
+          0.0,
+          1184.0,
+          16.0,
+          544.0
         ],
         "facing": "right",
         "id": "P03:fungal:left_thorns"
@@ -457,14 +560,16 @@
     },
     "P-R03:spike_strips:1": {
       "component": "array:spike_strips",
+      "definition_id": "hazard.spikes",
+      "definition_version": 1.0,
       "id": "P-R03:spike_strips:1",
       "order": 1,
       "properties": {
         "bounds": [
-          400,
-          960,
-          16,
-          256
+          400.0,
+          960.0,
+          16.0,
+          256.0
         ],
         "facing": "left",
         "id": "P03:fungal:right_thorns"
@@ -556,10 +661,10 @@
       "section_volumes": [
         {
           "bounds": [
-            0,
-            960,
-            448,
-            224
+            0.0,
+            960.0,
+            448.0,
+            224.0
           ],
           "id": "access:H"
         }
@@ -569,6 +674,12 @@
         1774.0
       ],
       "story_sequence": {},
+      "terrain_paint": {
+        "regions": [],
+        "seed": 0.0,
+        "surfaces": [],
+        "version": 1.0
+      },
       "traveler_point": [
         0.0,
         0.0
@@ -579,13 +690,7 @@
       "tutorial_target": "P-R03:lesson:step1",
       "visible": true,
       "wave_encounter": {},
-      "z_index": 0,
-      "terrain_paint": {
-        "version": 1,
-        "seed": 0,
-        "regions": [],
-        "surfaces": []
-      }
+      "z_index": 0
     }
   },
   "schema": 2

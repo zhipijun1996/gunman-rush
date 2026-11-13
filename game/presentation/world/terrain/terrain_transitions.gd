@@ -7,6 +7,9 @@ func setup(seams: Array[Dictionary], geometry: Dictionary) -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	var lit := ShaderMaterial.new(); lit.shader = UnderworldTerrain.CORE_SHADER; material = lit
 	for seam: Dictionary in seams:
+		if seam.get("axis", "vertical") == "horizontal":
+			_horizontal(seam)
+			continue
 		var y := float(seam.start)
 		var open_top := not UnderworldPolygonTerrain.inside(geometry.shapes, Vector2(seam.x,y-.1))
 		while y < float(seam.end):
@@ -26,6 +29,20 @@ func setup(seams: Array[Dictionary], geometry: Dictionary) -> void:
 					patches.append({"points":clip,"uv":uv,"texture":texture})
 			y += height
 	queue_redraw()
+
+func _horizontal(seam: Dictionary) -> void:
+	var x := float(seam.start)
+	var texture := TerrainMaterialRegistry.texture(str(seam.texture))
+	while x<float(seam.end):
+		var width := minf(32,float(seam.end)-x)
+		var box := Rect2(x,float(seam.x)-16,width,32)
+		var source := Vector2(posmod(floori(x/32),3)*32,32 if seam.stone_on_right else 0)
+		for shape: PackedVector2Array in seam.shapes:
+			for clip: PackedVector2Array in Geometry2D.intersect_polygons(shape,UnderworldPolygonTerrain.rectangle_points(box)):
+				var uv := PackedVector2Array()
+				for point: Vector2 in clip: uv.append((source+point-box.position)/Vector2(texture.get_size()))
+				patches.append({"points":clip,"uv":uv,"texture":texture})
+		x+=width
 
 func _draw() -> void:
 	for patch: Dictionary in patches: draw_polygon(patch.points,PackedColorArray([Color.WHITE]),patch.uv,patch.texture)

@@ -36,6 +36,15 @@ func run() -> void:
 	check(is_equal_approx(area,192*96),"non-grid material painting preserves occupied area")
 	var seams := TerrainTransitionResolver.resolve(groups)
 	check(seams.size() == 2,"both non-grid material contacts derived")
+	for stone_above: bool in [false,true]:
+		var stacked: Array[Dictionary]=[{"material_id":"windchime_plains","solids":[Rect2(0,0,192,128)],"polygons":[],"bare":false}]
+		TerrainGeometry.paint_rect(stacked,Rect2(0,0 if stone_above else 64,192,64),"mill_masonry")
+		var contacts := TerrainTransitionResolver.resolve(TerrainComposer.compact(stacked))
+		check(contacts.size()==1 and contacts[0].axis=="horizontal" and contacts[0].stone_on_right==stone_above,"stack orientation selects matching atlas row")
+	check(WorldSurfaceStyles.choose("","F","thorn_forest")=="forest_bramble","forest surface uses bramble skin")
+	check(WorldSurfaceStyles.choose("","P","mill_masonry")=="metal_spikes","masonry surface overrides plains default")
+	check(WorldSurfaceStyles.choose("stone_spikes","F","thorn_forest")=="stone_spikes","explicit appearance wins over regional default")
+	check(not WorldSurfaceStyles.error("missing","up").is_empty(),"unknown hazard skin rejected")
 	var requests: Array = [{"id":"middle","surface_id":"bare","facing":"up","bounds":[32,-8,96,16]}]
 	var bands := TerrainSurfaceResolver.bands(shared.edges,requests)
 	check(bands.size() == 1 and bands[0].rect == Rect2(32,0,96,16),"middle three cells replace only exposed top")

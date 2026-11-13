@@ -167,7 +167,7 @@ func run() -> void:
 	var shutter:=app.room.mechanisms["P-R22:practice_shutter"] as WorldShotLatch
 	app.controller.router.set_source_axis(&"keyboard_mouse",1)
 	app.controller.router.set_jump_held(&"keyboard_mouse",true);await ticks(11)
-	app.controller.router.request_action(&"shoot_release",(shutter.bell_position-app.player.position).normalized())
+	app.controller.router.request_action(&"shoot_release",(shutter.to_global(shutter.bell_position)-app.player.position).normalized())
 	await ticks(50);app.controller.router.clear("shutter landing");await ticks(25)
 	check(shutter.open_count==1 and app.player.position.x>2828 and app.player.position.y<1200,"P22 exposed bell and recoil clear tutorial shutter "+str(app.player.position))
 	await load_review("P-R23")
