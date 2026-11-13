@@ -18,6 +18,7 @@
 | 固定世界推进、能力回访 | [运行路线](bible/world_progression.md)、[地区框架](bible/regions.md) |
 | 房间、分区与难度 | [世界结构](bible/world_structure.md)、[房间制作](bible/room_authoring.md) |
 | 地区体验 | [风铃平原](bible/regions/windchime_plains.md)、[荆棘森林](bible/regions/thorn_forest.md) |
+| 世界地图片区编排 | [地下片区](bible/regions/underground_cluster.md)、[西北片区](bible/regions/northwest_cluster.md)、[东部片区](bible/regions/eastern_cluster.md)、[遗迹、熔火与高空](bible/regions/late_world.md) |
 | 构筑、家园与保存 | [奖励构筑](bible/rewards_and_builds.md)、[家园保存](bible/home_and_save.md) |
 | 关卡要素分类与机关 | [定义、实例化、信号与状态](bible/world_elements.md) |
 | 地形与材质 | [TileSet／表面／接缝](bible/terrain_materials.md) |

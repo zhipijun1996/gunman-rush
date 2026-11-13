@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "regional_draft_for_review",
+  "status": "world_first_draft_for_review",
   "scope_regions": [
     "F",
     "M",
@@ -10,15 +10,22 @@
     "I",
     "C",
     "K",
-    "N"
+    "N",
+    "R",
+    "E",
+    "A",
+    "V",
+    "Z",
+    "G"
   ],
   "source": "game/world/regions/F/room_design.json",
   "units": "world_units",
   "intent": "先推进职责、路线和接续，轮廓细节后续集中打磨；每批同时检查全部已有区域的真实占地与接口。",
   "review_limits": [
-    "平原房形保持正式基准；世界初稿将工城入口改为P07→G02，G02门廊另行校准。区域地图不等于实机玩法完成。",
-    "通路属于两侧房间占地，连续门对使用共享接缝；井内升降与原合同的成对永久捷径明确标识。",
-    "尚未编排的邻区仅保留具名出口与接近空间，不伪造全世界连通。"
+    "本交付是世界地图初稿，不是309房可玩关卡；当前正式游戏、人工审批和在线平台不变。",
+    "每房具有明确职责；尺寸与长接近段尚需真实镜头及能力参数校准，轮廓精修后置。",
+    "连续通道占地属于两侧房间；原合同成对捷径及已确认井内升降使用同号两端，不画穿房细线。",
+    "CITY-P-G-WEST保留P07→G02，交通方式因拓扑交叉待确认；G-P18-L25按用户确认采用货梯转场，身份、双向和资格不变。"
   ],
   "reference": {
     "title": "失序之钟·沿途据点与阿栖的旅程（v07生活与叙事层）",
@@ -28,43 +35,31 @@
   "cluster_sources": [
     "config/world/spatial_clusters/underground.json",
     "config/world/spatial_clusters/northwest.json",
-    "config/world/spatial_clusters/eastern.json"
+    "config/world/spatial_clusters/eastern.json",
+    "config/world/spatial_clusters/lower_east.json",
+    "config/world/spatial_clusters/upper_world.json",
+    "config/world/spatial_clusters/city.json"
   ],
   "review_regions": [
+    "P",
+    "F",
+    "M",
+    "S",
+    "T",
+    "Y",
+    "I",
+    "C",
     "K",
-    "N"
+    "N",
+    "R",
+    "E",
+    "A",
+    "V",
+    "Z",
+    "G"
   ],
-  "review_summary": "工城入口改为P07→G02，P07/P18原房形与相互通路恢复。优先继续职责、路线与接续，轮廓细节后置；工城主体尚未编排。",
-  "room_adjustments": {
-    "G-R02": {
-      "spaces": [
-        [
-          20288,
-          -640,
-          640,
-          256
-        ],
-        [
-          20672,
-          -3456,
-          256,
-          3072
-        ],
-        [
-          20928,
-          -3712,
-          1792,
-          512
-        ]
-      ],
-      "label": [
-        21824,
-        -3456
-      ],
-      "purpose": "钟匠街西口，从P07眺望台进入工城",
-      "play": "从P07东口进入门廊，H接近段通向上层街口；四条工城连接仍为待编排的街区口。"
-    }
-  },
+  "review_summary": "16地区309房已全覆盖：每房有尺寸、同坐标占地、职责及路线。平原保持正式房形，工城入口身份改接P07。红色口为尚未接续的P07工城入口，连续连接存在拓扑交叉，交通方式待确认；G18→G25采用已确认货梯；不冒充已连通。轮廓与实际动作随后逐区校准。",
+  "room_adjustments": {},
   "port_adjustments": {
     "CITY-P-G-WEST": {
       "point": [
@@ -75,38 +70,6 @@
         "P-R07": "right",
         "G-R02": "left"
       }
-    },
-    "room-link-107": {
-      "room": "G-R02",
-      "point": [
-        22720,
-        -3456
-      ],
-      "direction": "right"
-    },
-    "room-link-110": {
-      "room": "G-R02",
-      "point": [
-        22720,
-        -3264
-      ],
-      "direction": "right"
-    },
-    "room-link-111": {
-      "room": "G-R02",
-      "point": [
-        21376,
-        -3200
-      ],
-      "direction": "down"
-    },
-    "EXP-G_workers_yard_reward-03": {
-      "room": "G-R02",
-      "point": [
-        22336,
-        -3200
-      ],
-      "direction": "down"
     }
   },
   "connection_adjustments": {

@@ -21,6 +21,7 @@ def validate_assembly(plan,project):
     items=list(rects.items())
     for i,(rid,rs) in enumerate(items):
         for other,ss in items[i+1:]:
+            if not overlap(rooms[rid]['bounds'],rooms[other]['bounds']):continue
             if any(overlap(a,b) for a in rs for b in ss):issues.append(f'Overlap {rid} / {other}')
     for seam in plan['seams']:
         e=project['connections'][seam['id']];points=[];dirs=[]
@@ -32,14 +33,19 @@ def validate_assembly(plan,project):
         if points[0]!=points[1]:issues.append(f"Seam drift {e['id']}: {points}")
         if OPPOSITE[dirs[0]]!=dirs[1]:issues.append(f"Normals {e['id']}: {dirs}")
         seam.update(point=points[0],directions=dirs)
+    for pending in plan.get('pending_connections',[]):
+        for side in ('a','b'):
+            ep=pending[side]
+            if not on_boundary(rooms[ep['room']]['outline'],ep['point']):issues.append(f"Pending port off boundary: {pending['id']} / {ep['room']}")
     assert not issues,'\n'.join(issues)
-    return {'rooms':len(rooms),'cross_region_seams':len(plan['seams']),'overlaps':0}
+    return {'rooms':len(rooms),'cross_region_seams':len(plan['seams']),'overlaps':0,'unresolved_connections':len(plan.get('pending_connections',[]))}
 
 def build(project=None):
     from spatial_adjustments import preview as adjusted_preview
     p=project or export(spatial_draft=True);preview=adjusted_preview(ROOT,preview_catalog(ROOT))
     manifest=json.loads(MANIFEST.read_text());regions='P'+''.join(manifest['scope_regions'])
-    plans=[forest_build(ROOT,preview),*[compile_plan(cluster=Path(source).stem) for source in manifest['cluster_sources']]]
+    cache={}
+    plans=[forest_build(ROOT,preview),*[compile_plan(cluster=Path(source).stem,_cache=cache) for source in manifest['cluster_sources']]]
     world=json.loads((ROOT/'config/world/world.json').read_text());identities={r['id']:r for r in world['rooms']};names={r['code']:r['name'] for r in world['regions']}
     rooms=[copy.deepcopy(r) for plan in plans for r in plan['rooms']]
     for row in preview['map_rooms']:
@@ -57,22 +63,23 @@ def build(project=None):
         r.update(rest=src['rest_point'],rift=src.get('rift_machine',False),rewards=src['reward_ids'],bosses=[b['working_name'] for b in world['boss_plan']['bosses'] if b['physical_room']==rid],actions=[a for a in world['actions'] if a.get('room_id')==rid],gates=[g for g in src['internal_routes'] if not g['id'].endswith(':return')])
         r['neighbors']=[{'id':e['id'],'room':e['b'] if e['a']==rid else e['a'],'condition':e.get('condition_text','基础通行')} for e in edges.values() if rid in [e['a'],e['b']]]
     connections=[copy.deepcopy(c) for plan in plans for c in plan['connections']];seen={c['id'] for c in connections}
-    transitions=[t for plan in plans for t in plan.get('transitions',[])];transition_ids={t['id'] for t in transitions}
+    transitions=[t for plan in plans for t in plan.get('transitions',[])];pending=[t for plan in plans for t in plan.get('pending_connections',[])];transition_ids={t['id'] for t in [*transitions,*pending]}
     seams=[];external=[]
     for e in edges.values():
         inside=[e[side] in ids for side in ['a','b']]
         if not any(inside):continue
         cid=e['id'];edge=p['connections'][cid]
         if all(inside):
-            if e['a'][0]!=e['b'][0]:seams.append({'id':cid,'a':e['a'],'b':e['b'],'condition':e.get('condition_text','基础通行')})
+            if e['a'][0]!=e['b'][0] and cid not in transition_ids:seams.append({'id':cid,'a':e['a'],'b':e['b'],'condition':e.get('condition_text','基础通行')})
             if cid not in seen and cid not in transition_ids:
                 ep=edge['a'];r=p['rooms'][ep['room']];port=r['ports'][ep['port']];pt=[port['position'][i]+r['origin'][i] for i in (0,1)]
                 connections.append(dict(id=cid,a=e['a'],b=e['b'],seam=pt,path=[pt,pt],space_role=e.get('description','现行共享门口')))
         else:
             host=e['a'] if inside[0] else e['b'];target=e['b'] if inside[0] else e['a'];r=p['rooms'][host];port=next(v for v in r['ports'].values() if v['connection']==cid)
             external.append(dict(id=cid,room=host,target=target,point=[r['origin'][i]+port['position'][i] for i in (0,1)],direction=port['direction'],region_name=names[target[0]]+'（待编排）'))
-    plan=dict(title=f'失序之钟 · {len(regions)}地区 / {len(rooms)}房连续世界初稿',rooms=sorted(rooms,key=lambda r:(regions.index(r['room_id'][0]),r['room_id'])),connections=connections,routes=[copy.deepcopy(r) for p1 in plans for r in p1['routes']],external_ports=external,transitions=transitions,seams=seams,attachments=[],regions=[{'code':c,'name':names[c]} for c in regions],review_limits=manifest['review_limits']+[f'同坐标检查{len(rooms)}房无重叠、{len(seams)}对跨区接缝共点且门向相反；真实落点和动作待灰盒验证。','能力锁、奖励、NPC与审批状态不因排布升级；房内门槛位置仍需灰盒校准。'],summary=manifest['review_summary'],focus_regions=manifest['review_regions'])
+    plan=dict(title=f'失序之钟 · {len(regions)}地区 / {len(rooms)}房世界空间初稿',rooms=sorted(rooms,key=lambda r:(regions.index(r['room_id'][0]),r['room_id'])),connections=connections,routes=[copy.deepcopy(r) for p1 in plans for r in p1['routes']],external_ports=external,transitions=transitions,pending_connections=pending,seams=seams,attachments=[],regions=[{'code':c,'name':names[c]} for c in regions],review_limits=manifest['review_limits']+[f'同坐标检查{len(rooms)}房无重叠、{len(seams)}对跨区接缝共点且门向相反；真实落点和动作待灰盒验证。','能力锁、奖励、NPC与审批状态不因排布升级；房内门槛位置仍需灰盒校准。'],summary=manifest['review_summary'],focus_regions=manifest['review_regions'])
     plan['checks']=validate_assembly(plan,p)
+    plan['review_limits'] += [f"待接续 {t['id']}：{t['reason']}" for t in pending]
     plan['attachments']=[dict(id=s['id'],path=[s['point']],label=s['a'][0]+' ↔ '+s['b'][0]) for s in seams]
     return plan,p
 
@@ -88,7 +95,9 @@ def page(plan,svg):
     text=text.replace('<select id="route"',selectors+'<select id="route"')
     text=text.replace("$('#route-summary').textContent=rt?","if(rt)fitRooms(rt.rooms.map(id=>rooms.get(id)));$('#route-summary').textContent=rt?")
     text=text.replace("const pointers=new Map();", "function fitRooms(rs){const bs=rs.map(r=>r.bounds),x=Math.min(...bs.map(b=>b[0])),y=Math.min(...bs.map(b=>b[1])),xx=Math.max(...bs.map(b=>b[0]+b[2])),yy=Math.max(...bs.map(b=>b[1]+b[3]));view=[x-300,y-300,xx-x+600,yy-y+600];renderView()}const pointers=new Map();")
+    text=text.replace('<select id="route"', '<select id="pending-view" aria-label="待解决连接"><option value="">待解决连接 · '+str(len(plan.get('pending_connections',[])))+'</option>'+''.join('<option value="'+t['id']+'">'+t['id']+'</option>' for t in plan.get('pending_connections',[]))+'</select><select id="route"')
     handlers="""
+$('#pending-view').onchange=e=>{const p=plan.pending_connections.find(p=>p.id===e.target.value);if(!p)return;select(p.a.room);fitRooms([rooms.get(p.a.room),rooms.get(p.b.room)]);$('#route-summary').textContent='待接续：'+p.reason;document.querySelectorAll('.room').forEach(n=>n.classList.toggle('dim',![p.a.room,p.b.room].includes(n.dataset.room)))};
 $('#region-view').onchange=e=>{ $('#route').value='all';$('#route').dispatchEvent(new Event('change'));$('#seam-view').value='';fitRooms(plan.rooms.filter(r=>e.target.value==='all'||r.room_id[0]===e.target.value&&(e.target.value!=='M'||r.room_id!=='M-R02')))};
 $('#seam-view').onchange=e=>{const s=plan.seams.find(s=>s.id===e.target.value);if(!s)return;$('#route').value='all';$('#route').dispatchEvent(new Event('change'));select(s.a);view=[s.point[0]-1800,s.point[1]-1500,3600,3000];renderView();$('#route-summary').textContent=`${s.id}：${s.a}（${s.directions[0]}） ↔ ${s.b}（${s.directions[1]}） · ${s.condition}`;document.querySelectorAll('.room').forEach(n=>n.classList.toggle('dim',![s.a,s.b].includes(n.dataset.room)))};
 """
@@ -123,13 +132,13 @@ def main():
     (out/'world-project.json').write_text(json.dumps(p,ensure_ascii=False,separators=(',',':'))+'\n')
     for code in plan['focus_regions']:
         filename=code.lower()
-        sub={**plan,'rooms':[r for r in plan['rooms'] if r['room_id'][0]==code],'connections':[c for c in plan['connections'] if c['a'][0]==c['b'][0]==code],'routes':[r for r in plan['routes'] if all(x[0]==code for x in r['rooms'])],'attachments':[],'transitions':[t for t in plan['transitions'] if any(t[side]['room'][0]==code for side in 'ab')],'external_ports':[e for e in plan['external_ports'] if e['room'][0]==code],'title':next(r['name'] for r in plan['regions'] if r['code']==code)+' · 整区初稿'}
+        sub={**plan,'rooms':[r for r in plan['rooms'] if r['room_id'][0]==code],'connections':[c for c in plan['connections'] if c['a'][0]==c['b'][0]==code],'routes':[r for r in plan['routes'] if all(x[0]==code for x in r['rooms'])],'attachments':[],'pending_connections':[t for t in plan.get('pending_connections',[]) if any(t[side]['room'][0]==code for side in 'ab')],'transitions':[t for t in plan['transitions'] if any(t[side]['room'][0]==code for side in 'ab')],'external_ports':[e for e in plan['external_ports'] if e['room'][0]==code],'title':next(r['name'] for r in plan['regions'] if r['code']==code)+' · 整区初稿'}
         for s in plan['seams']:
             if code not in [s['a'][0],s['b'][0]]:continue
             index=0 if s['a'][0]==code else 1;host=s['a'] if index==0 else s['b'];other=s['b'] if index==0 else s['a']
             sub['external_ports'].append(dict(id=s['id'],point=s['point'],direction=s['directions'][index],room=host,region_name=other))
         (out/f'{filename}.svg').write_text(drawing(sub))
     # Keep a compact, machine-readable validation/identity record with the delivery.
-    (out/'manifest.json').write_text(json.dumps({'source':p['source'],'draft':p['metadata']['spatial_draft'],'checks':plan['checks'],'seams':plan['seams'],'regions':plan['regions'],'limits':plan['review_limits']},ensure_ascii=False,indent=2)+'\n')
+    (out/'manifest.json').write_text(json.dumps({'source':p['source'],'draft':p['metadata']['spatial_draft'],'checks':plan['checks'],'seams':plan['seams'],'regions':plan['regions'],'limits':plan['review_limits'],'pending_connections':plan.get('pending_connections',[])},ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(plan['checks']))
 if __name__=='__main__':main()

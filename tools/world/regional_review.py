@@ -10,7 +10,12 @@ from spatial import room_space
 from preview_catalog import preview_catalog
 ROOT=Path(__file__).resolve().parents[2]
 
-def compile_plan(root=ROOT,validate=True,cluster="underground"):
+def compile_plan(root=ROOT,validate=True,cluster="underground",_cache=None):
+    cache={} if _cache is None else _cache
+    if cluster in cache:
+        result=copy.deepcopy(cache[cluster])
+        if validate:assert not result['issues'],'\n'.join(result['issues'])
+        return result
     plan=json.loads((root/f'config/world/spatial_clusters/{cluster}.json').read_text())
     world=json.loads((root/'config/world/world.json').read_text())
     from spatial_adjustments import connections as draft_connections
@@ -18,9 +23,10 @@ def compile_plan(root=ROOT,validate=True,cluster="underground"):
     rooms={r['room_id']:r for r in plan['rooms']};expected={r for r in identities if r[0] in plan['regions']}
     assert set(rooms)==expected,'Missing/extra regional rooms'
     internal={e['id'] for e in edges.values() if e['a'] in rooms and e['b'] in rooms}
-    assert internal=={e['id'] for e in plan['connections']+plan['transitions']},'Missing/extra internal edges'
+    transition_ids={t['id'] for t in [*plan['transitions'],*plan.get('pending_connections',[])]}
+    assert internal=={e['id'] for e in plan['connections']}|{cid for cid in transition_ids if edges[cid]['a'] in rooms and edges[cid]['b'] in rooms},'Missing/extra internal edges'
     external={e['id'] for e in edges.values() if (e['a'] in rooms)!=(e['b'] in rooms)}
-    assert external=={e['id'] for e in plan['external_ports']+plan['attachments']},'Missing/extra outside ports'
+    assert external=={e['id'] for e in plan['external_ports']+plan['attachments']}|{cid for cid in transition_ids if (edges[cid]['a'] in rooms)!=(edges[cid]['b'] in rooms)},'Missing/extra outside ports'
     rects={rid:rectangles(r['outline']) for rid,r in rooms.items()}
     for c in plan['connections']:
         e=edges[c['id']];a,b=split_path(c['path'],c['width']);c.update(a=e['a'],b=e['b'],seam=a[-1],requires=e.get('requires',[[]]))
@@ -48,10 +54,14 @@ def compile_plan(root=ROOT,validate=True,cluster="underground"):
     for source in manifest['cluster_sources']:
         previous=Path(source).stem
         if previous==cluster:break
-        fixed.update({r['room_id']:rectangles(r['outline']) for r in compile_plan(root,cluster=previous)['rooms']})
+        fixed.update({r['room_id']:rectangles(r['outline']) for r in compile_plan(root,cluster=previous,_cache=cache)['rooms']})
+    def extent(rs):
+        x=min(r[0] for r in rs);y=min(r[1] for r in rs)
+        return [x,y,max(r[0]+r[2] for r in rs)-x,max(r[1]+r[3] for r in rs)-y]
     items=list(rects.items())
     for i,(rid,rs) in enumerate(items):
         for other,ss in [*items[i+1:],*fixed.items()]:
+            if not overlap(extent(rs),extent(ss)):continue
             pairs=[(a,b) for a in rs for b in ss if overlap(a,b)]
             if pairs:issues.append(f'Overlap {rid} / {other}: {pairs[0]}')
     for route in plan['routes']:
@@ -77,6 +87,7 @@ def compile_plan(root=ROOT,validate=True,cluster="underground"):
         if not boundary(rooms[c['room']]['outline'],c['path'][0]):issues.append(f"Anchor not on boundary: {c['id']}")
     plan['issues']=issues
     if validate:assert not issues,'\n'.join(issues)
+    cache[cluster]=copy.deepcopy(plan)
     return plan
 
 if __name__=='__main__':

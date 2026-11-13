@@ -14,7 +14,7 @@ def apply(project,root):
     lookup={r['room_id']:r for r in plan['rooms']}
     for rid,design in lookup.items():
         room=project['rooms'][rid];x,y,w,h=design['bounds']
-        room.update(origin=[x,y],bounds=[0,0,w,h],spaces=[[a-x,b-y,c,d] for a,b,c,d in rectangles(design['outline'])],layout_status='draft')
+        room.update(layer='world',origin=[x,y],bounds=[0,0,w,h],spaces=[[a-x,b-y,c,d] for a,b,c,d in rectangles(design['outline'])],layout_status='draft')
         room['spatial_source']={'kind':'spatial_draft','path':manifest['source'],'units':'world_units','status':'calibration_required'}
         room['review_label']=[design['label'][0]-x,design['label'][1]-y]
         room['purpose']=design['purpose']
@@ -35,8 +35,9 @@ def apply(project,root):
         room=project['rooms'][port['room']];ep=next(v for v in room['ports'].values() if v['connection']==port['id'])
         ep.update(position=[port['point'][i]-room['origin'][i] for i in (0,1)],direction=port['direction'],landing_status='requires_room_construction')
     from regional_review import compile_plan
+    cache={}
     for cluster_source in manifest.get('cluster_sources',[]):
-        apply_cluster(project, compile_plan(Path(root),cluster=Path(cluster_source).stem), cluster_source)
+        apply_cluster(project, compile_plan(Path(root),cluster=Path(cluster_source).stem,_cache=cache), cluster_source)
     project['metadata']['spatial_draft']={'source':str(source.relative_to(root)),'status':manifest['status'],'regions':manifest['scope_regions'],'limits':manifest['review_limits']}
 
 
@@ -44,7 +45,7 @@ def apply_cluster(project,plan,source):
     """Install only candidate coordinates; gameplay documents remain unchanged."""
     for design in plan['rooms']:
         room=project['rooms'][design['room_id']];x,y,w,h=design['bounds']
-        room.update(origin=[x,y],bounds=[0,0,w,h],spaces=[[a-x,b-y,c,d] for a,b,c,d in rectangles(design['outline'])],layout_status='draft')
+        room.update(layer='world',origin=[x,y],bounds=[0,0,w,h],spaces=[[a-x,b-y,c,d] for a,b,c,d in rectangles(design['outline'])],layout_status='draft')
         room['spatial_source']={'kind':'spatial_draft','path':source,'units':'world_units','status':'calibration_required'}
         room['review_label']=[design['label'][0]-x,design['label'][1]-y]
         room['purpose']=design['purpose']
@@ -72,4 +73,11 @@ def apply_cluster(project,plan,source):
         for side in ['a','b']:
             rid=t[side]['room'];r=project['rooms'][rid];p=next(p for p in r['ports'].values() if p['connection']==t['id'])
             p.update(position=[t[side]['point'][i]-r['origin'][i] for i in (0,1)],front_door=True,landing_status='requires_room_construction')
+    for pending in plan.get('pending_connections',[]):
+        edge=project['connections'][pending['id']]
+        edge['spatial_draft']={'kind':'unresolved','reason':pending['reason'],'endpoints':[pending['a'],pending['b']]}
+        for side in ['a','b']:
+            endpoint=pending[side];r=project['rooms'][endpoint['room']]
+            p=next(p for p in r['ports'].values() if p['connection']==pending['id'])
+            p.update(position=[endpoint['point'][i]-r['origin'][i] for i in (0,1)],landing_status='unresolved')
     project['planning']['blueprints'][''.join(plan['regions'])]={'source':source,'design':plan}

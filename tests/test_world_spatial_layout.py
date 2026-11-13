@@ -8,14 +8,18 @@ from preview_catalog import preview_catalog
 class WorldSpatialLayout(unittest.TestCase):
  @classmethod
  def setUpClass(cls):cls.base=export();cls.p=export(spatial_draft=True);cls.plan=build(ROOT,preview=preview_catalog(ROOT))
- def test_only_authored_draft_regions_change_and_others_remain_unplaced(self):
+ def test_all_regions_are_authored_and_plains_geometry_is_preserved(self):
   self.assertEqual(len(self.p['rooms']),309);self.assertEqual(len(self.p['connections']),409)
   for rid,r in self.p['rooms'].items():
-   if rid=='P-R18':
-    self.assertEqual(r['layout_status'],self.base['rooms'][rid]['layout_status']);continue
-   if rid[0] not in 'FMSTYICKN' and rid not in ['P-R07','P-R18','G-R02']:self.assertEqual(r,self.base['rooms'][rid])
-   else:self.assertEqual(r['layout_status'],'draft')
-  self.assertEqual(self.p['rooms']['G-R16']['spatial_source']['kind'],'unplaced')
+   if rid[0]=='P':
+    for key in ['origin','bounds','spaces','entities']:
+     self.assertEqual(r[key],self.base['rooms'][rid][key],(rid,key))
+   else:
+    self.assertEqual(r['layout_status'],'draft')
+    self.assertEqual(r['spatial_source']['kind'],'spatial_draft')
+    self.assertEqual(r['layer'],'world')
+    self.assertTrue(r['design_contract']['play'])
+  self.assertFalse(any(r['spatial_source']['kind']=='unplaced' for r in self.p['rooms'].values()))
  def test_complete_chamber_area_including_passages_survives(self):
   from forest_review import rectangles
   for design in self.plan['rooms']:
@@ -35,7 +39,7 @@ class WorldSpatialLayout(unittest.TestCase):
   from regional_review import compile_plan
   plan=compile_plan(ROOT)
   self.assertEqual(len(plan['rooms']),50)
-  self.assertEqual(len(plan['connections']),59)
+  self.assertEqual(len(plan['connections']),58)
   self.assertFalse(plan['issues'])
   for c in plan['connections']:
    edge=self.p['connections'][c['id']]
@@ -56,8 +60,9 @@ class WorldSpatialLayout(unittest.TestCase):
  def test_northwest_and_all_existing_regions_share_world_geometry(self):
   from world_review import build,validate_assembly
   plan,_=build(self.p)
-  self.assertEqual(plan['checks'],{'rooms':197,'cross_region_seams':17,'overlaps':0})
-  self.assertEqual({s['id'] for s in plan['seams']},{'C01','C02','C03','C04','C08','C09','C10','C11','C12','C13','C14','C26','C28','C05','C06','C17','C31'})
+  self.assertEqual(plan['checks'],{'rooms':309,'cross_region_seams':35,'overlaps':0,'unresolved_connections':1})
+  self.assertEqual({r['code'] for r in plan['regions']},{r['region'] for r in self.p['rooms'].values()})
+  self.assertFalse(plan['external_ports'])
   self.assertEqual(len([r for r in plan['rooms'] if r['room_id'][0] in 'YIC']),46)
   self.assertFalse(any(e['target'][0] in 'PFMSTYICKN' for e in plan['external_ports']))
   # Catch an editor/export regression that leaves matching-looking geometry but
@@ -98,11 +103,37 @@ class WorldSpatialLayout(unittest.TestCase):
     self.assertTrue(on_boundary(shape['outline'],port['position']),cid)
     other=e['b' if side=='a' else 'a']
     self.assertEqual((port['target_room'],port['target_port']),(other['room'],other['port']))
-   self.assertEqual(*points,cid)
+   if cid=='CITY-P-G-WEST':self.assertNotEqual(*points)
+   else:self.assertEqual(*points,cid)
   plan,_=build(self.p);p07=next(r for r in plan['rooms'] if r['room_id']=='P-R07');p18=next(r for r in plan['rooms'] if r['room_id']=='P-R18')
   self.assertTrue(any(n['room']=='G-R02' for n in p07['neighbors']))
   self.assertFalse(any(n['room']=='G-R02' for n in p18['neighbors']))
-  self.assertEqual(self.p['connections']['G-P18-L25'],self.base['connections']['G-P18-L25'])
+  for cid in ['CITY-P-G-WEST']:
+   e=self.p['connections'][cid]
+   self.assertEqual(e['spatial_draft']['kind'],'unresolved')
+   self.assertFalse(e['front_door'])
+   self.assertNotIn('route_within_rooms',e['spatial_draft'])
+ def test_complete_late_regions_and_paired_transport_preserve_contracts(self):
+  from regional_review import compile_plan
+  cache={}
+  for name,count in [('lower_east',32),('upper_world',44),('city',36)]:
+   plan=compile_plan(ROOT,cluster=name,_cache=cache)
+   self.assertEqual(len(plan['rooms']),count);self.assertFalse(plan['issues'])
+   for c in plan['connections']:
+    e=self.p['connections'][c['id']];points=[]
+    for side in ('a','b'):
+     ep=e[side];r=self.p['rooms'][ep['room']];port=r['ports'][ep['port']]
+     points.append([r['origin'][i]+port['position'][i] for i in (0,1)])
+    self.assertEqual(points,[c['seam'],c['seam']])
+  world=json.loads((ROOT/'config/world/world.json').read_text());identities={e['id']:e for e in world['connections']}
+  for cid in ['SC-S01','C30','SC-R01','SC-E01','SC-A01','SC-G01','SC-V-RETURN','SC-V-EXTREME','SC-Z01']:
+   self.assertIn('paired',identities[cid]['passage_profile'])
+   self.assertTrue(self.p['connections'][cid]['front_door'])
+   self.assertEqual(self.p['connections'][cid]['requires'],self.base['connections'][cid]['requires'])
+  self.assertEqual(self.p['connections']['C07']['spatial_draft']['kind'],'front_door')
+  lift=self.p['connections']['G-P18-L25']
+  self.assertTrue(lift['front_door']);self.assertEqual(lift['spatial_draft']['kind'],'freight_lift')
+  for field in ['a','b','requires','direction']:self.assertEqual(lift[field],self.base['connections']['G-P18-L25'][field])
  def test_draft_does_not_change_gate_or_reward_progression(self):
   for cid,e in self.p['connections'].items():
    for key in ['requires','direction','a','b']:

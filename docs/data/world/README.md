@@ -7,7 +7,7 @@
 | 房间、分区、连接、资格、永久动作身份 | [world.json](../../../config/world/world.json)，以最新 ZIP 主数据为基线，按用户确定的现行设计直接维护 |
 | 施工尺寸、门位、来向落脚、镜头与场景绑定 | [construction.json](../../../config/world/construction.json)；实际碰撞和对象放置由 `config/world/rooms/<ID>.json` 持有，`.tscn` 仅为同源装载壳 |
 | 平原逐房用途与遭遇职责 | [room_design.json](../../../game/world/regions/P/room_design.json)，引用稳定房号和动作，不复制碰撞 |
-| 世界空间校准范围 | [spatial_layout.json](../../../config/world/spatial_layout.json)登记已编排的九个候选地区，森林复用区域设计源，地穴/沼泽/圣殿共享[地下片区候选](../../../config/world/spatial_clusters/underground.json)，峡谷/冰川/墓园共享[西北片区候选](../../../config/world/spatial_clusters/northwest.json)，古堡/矿井共享[东部片区候选](../../../config/world/spatial_clusters/eastern.json)；`--spatial-draft`显式导出。M02→M01为明确井内升降转场；其它未定位区域不通过自动排布制造空间完成状态；不改变正式运行 |
+| 世界空间校准范围 | [spatial_layout.json](../../../config/world/spatial_layout.json)登记16区309房初稿。森林复用区域源；其余逐房职责、占地、通道与路线归spatial_clusters中的underground、northwest、eastern、lower_east、upper_world和city。`--spatial-draft`显式导出候选，正式运行不变。未解决门对以pending_connections登记，不能伪造连续通路或自动升级审批 |
 | 森林整区与逐房候选 | [room_design.json](../../../game/world/regions/F/room_design.json)，现行24房/30区内连接/5跨区接口的待审占地与玩法；不自动替换施工源。审核页由 `tools/world/forest_review.py` 派生 |
 | 星桥天门挑战灰盒职责 | [room_design.json](../../../game/world/regions/V/room_design.json)与[设计规范](../../bible/regions/starbridge_gate.md)，当前仅V-R12；真实几何归该房JSON |
 | 收集系统与来源槽 | [collections.json](../../../config/world/collections.json)、[collection_design.json](../../../config/world/collection_design.json)；新版为 50 件装备来源槽，原包未提供全部最终效果、价格与平衡 |
@@ -19,7 +19,7 @@
 
 正式平原35房使用已审核的真实占地与门位，按人工草稿初审逐房接入正式目录；当前源码与公开运行包的装载范围见[当前状态](../../project/current_state.md)。另按用户明确授权开放Z-R01钟心门厅，另按用户授权接入F-R01、C-R02、M-R02、S-R01、K-R01、N-R02、G-R02七间可往返的区域示例占位；只实现平原接近段与返回，其余266房保留接口，正式路径未声明可玩。Z-R01以既有C07正面入口接入正式游戏及工作台，与前庭采用显式遮挡切换及独立室内地图层；不开启其上层未施工出口。V-R12通过`config/workbench/rooms.json`明确登记为隔离审核灰盒，正式`implemented`仍为false；这不解锁V-R11/V-R13。示例房的后续出口使用连续实体边界；外区示例不冒充整区完成。C02由P27西口接C-R02，工城由P18下层东岸接G-R02样房，后续延伸的包围与跨层取舍见世界编辑器交接；样房往返不证明工城主体能够连续展开。P03原两处下方外区口撤除并补平；C03改为P03左上钩索高洞口接M-R02下口，H门槛由房内高差、索点与侧壁荆棘实现，缺H可预览并退回。C04改为P20左下接S-R01上口，两侧保留基础动作可完成的安全返回。不能把309房合同的通过等同于309房实现。
 
-`python3 tools/world/world_review.py`按同一坐标装配全部已编排区域，输出总图、分区图、跨区口局部图、手机审核页和完整App导入文件；校验全部占地无重叠、已配对跨区口共点、相反门向和两侧边界。增加片区时必须重验旧片区接缝，已接通的接口从邻区预留标记转为同图共享口；M02→M01仍单独标明升降；古堡与矿井沿原合同的成对捷径同样保留具名两端，不画虚构连续通道，不因总图装配而合并范围。世界初稿中的用户确认改线由spatial_layout.json的connection_adjustments持有：CITY-P-G-WEST由P07接G02，覆盖正式运行基线的P18端；总图、邻接、端口和App导入统一消费该候选，不另造连接ID。room_adjustments/port_adjustments仅校准G02门廊与新门对；P07/P18原房形恢复。普通导出与已发布游戏仍沿正式施工源，待灰盒校准后统一回写，不把地图审批冒充游戏施工。地图候选不升级房间审批或声明已施工。
+`python3 tools/world/world_review.py`按同一坐标装配全部已编排区域，输出总图、分区图、跨区口局部图、手机审核页和完整App导入文件；校验全部占地无重叠、已配对跨区口共点、相反门向和两侧边界。增加片区时必须重验旧片区接缝，已接通的接口从邻区预留标记转为同图共享口；M02→M01仍单独标明升降；古堡与矿井沿原合同的成对捷径同样保留具名两端，不画虚构连续通道，不因总图装配而合并范围。世界初稿中的用户确认改线由spatial_layout.json的connection_adjustments持有：CITY-P-G-WEST由P07接G02，覆盖正式运行基线的P18端；总图、邻接、端口和App导入统一消费该候选，不另造连接ID。G02整房候选归city.json，入口侧P07/P18原房形保持。pending_connections保留原身份与资格、候选端点和未接续原因；审核页标红并单独定位，App导出写spatial_draft.kind=unresolved，不设置front_door，不安装虚构接缝。普通导出与已发布游戏仍沿正式施工源，待灰盒校准后统一回写，不把地图审批冒充游戏施工。地图候选不升级房间审批或声明已施工。
 
 地图接缝、房间形态与真实通行的要求统一见 [房间制作](../../bible/room_authoring.md)。正面建筑入口由construction门对的`front_door`显式标记：配对身份、资格与落脚仍校验，室内坐标层不强行与室外边缘拼接，也不在房界开假洞；普通侧门继续校验实际接缝。宏观图提供空间意图，施工门位、落脚和地图须共同校准；构建检查不能替代连续地区的实际体验审查。
 
