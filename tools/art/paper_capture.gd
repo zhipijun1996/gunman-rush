@@ -7,7 +7,8 @@ var checks := 0
 var failures := 0
 var jumps := 0
 var shots := 0
-var mode := "A"
+const Studies = preload("res://game/experiments/paper_theater/paper_studies.gd")
+var mode := "B"
 var output := "res://build/paper_theater"
 
 func _initialize() -> void: run.call_deferred()
@@ -28,7 +29,7 @@ func geometry(node: Node) -> Array:
 func run() -> void:
 	root.size = Vector2i(1280,720)
 	for arg: String in OS.get_cmdline_user_args():
-		if arg.begins_with("--paper="):mode = arg.trim_prefix("--paper=")
+		if arg.begins_with("--paper="):mode = "0" if arg.trim_prefix("--paper=")=="0" else "B"
 	lab = ENTRY.instantiate()
 	root.add_child(lab)
 	while not lab.ready_for_play:await physics_frame
@@ -43,40 +44,43 @@ func run() -> void:
 	quit(1 if failures else 0)
 
 func capture() -> void:
-	lab.app.controller.active = false
-	lab.app.set_physics_process(false)
-	for actor: EnemyActor in lab.app.room.enemies.values():actor.set_physics_process(false)
 	lab.controls.hide()
-	lab.app.ui.root.hide()
-	var physical_before := geometry(lab.app.room)
-	var poses := {"bridge":Vector2(1700,910),"ascent":Vector2(640,686),"underbridge":Vector2(1776,1198)}
 	var manifest: Array = []
-	for pose: String in poses:
-		lab.app.player.reset_at(poses[pose])
-		lab.app.camera.reset_view()
-		lab.app.camera.set_physics_process(false)
-		var camera_before: Vector2 = lab.app.camera.global_position
-		for style: String in ["0","A","B"]:
-			lab.set_mode(style)
-			await ticks(12)
-			await RenderingServer.frame_post_draw
-			var path := output+"/captures/"+style+"-"+pose+".png"
-			root.get_texture().get_image().save_png(path)
-			check(geometry(lab.app.room)==physical_before,"collision identity "+style+pose)
-			check(lab.app.camera.global_position==camera_before,"same camera "+style+pose)
-			if style!="0":
-				check(lab.paper.rebuild_count==1,"no per-frame geometry rebuild")
-				check(geometry(lab.paper).is_empty(),"presentation has no collision")
-			manifest.append({"style":style,"pose":pose,"player":[poses[pose].x,poses[pose].y],"camera":[camera_before.x,camera_before.y],"zoom":lab.app.camera.zoom.x,"file":path,"sha256":FileAccess.get_sha256(path)})
-	check(lab.app.review.active and lab.app.state.storage is WorldRoomReview.MemorySave,"memory save isolation")
-	# Physical room inputs must remain byte-for-byte identical on disk as well;
-	# the delivery report binds their Git hashes alongside this runtime check.
+	for id: String in Studies.ROOMS:
+		await lab.open_study(id)
+		await ticks(20)
+		lab.app.controller.active=false
+		lab.app.set_physics_process(false)
+		for actor: EnemyActor in lab.app.room.enemies.values():actor.set_physics_process(false)
+		lab.app.ui.root.hide()
+		var physical_before:=geometry(lab.app.room)
+		var poses: Dictionary=Studies.ROOMS[id].poses
+		for pose: String in poses:
+			lab.app.player.reset_at(poses[pose])
+			lab.app.camera.reset_view()
+			lab.app.camera.set_physics_process(false)
+			var camera_before: Vector2=lab.app.camera.global_position
+			for style: String in ["0","B"]:
+				lab.set_mode(style)
+				await ticks(12)
+				await RenderingServer.frame_post_draw
+				var path:=output+"/captures/"+id+"-"+style+"-"+pose+".png"
+				root.get_texture().get_image().save_png(path)
+				check(geometry(lab.app.room)==physical_before,"collision identity "+id+style+pose)
+				check(lab.app.camera.global_position==camera_before,"same camera "+id+style+pose)
+				if style=="B":
+					check(lab.paper.rebuild_count==1,"no per-frame rebuild "+id)
+					check(geometry(lab.paper).is_empty(),"paper owns no collision "+id)
+					for attached: Dictionary in lab.paper.foreground:
+						check(attached.node.get_parent().position==Vector2.ZERO,"foreground stays world-fixed "+id)
+				manifest.append({"room":id,"region":Studies.ROOMS[id].name,"style":style,"pose":pose,"player":[poses[pose].x,poses[pose].y],"camera":[camera_before.x,camera_before.y],"zoom":lab.app.camera.zoom.x,"file":path,"sha256":FileAccess.get_sha256(path)})
+		check(lab.app.state.storage is WorldRoomReview.MemorySave,"memory isolation "+id)
+		await lab.restart()
+		check(lab.ready_for_play and lab.app.room.room_id==id and lab.mode=="B","selected-region reset "+id)
+	check(lab.app.review.active,"review remains active")
 	FileAccess.open(output+"/capture-manifest.json",FileAccess.WRITE).store_string(JSON.stringify(manifest,"  "))
-	print("PAPER CAPTURES ",manifest.size()," same-camera frames")
+	print("PAPER CAPTURES ",manifest.size()," matched frames / three B regions")
 	await paper_modulation()
-	await lab.restart()
-	check(lab.ready_for_play and lab.app.room.room_id=="P-R04" and lab.mode=="B","standalone restart preserves P04 and mode")
-	check(lab.app.state.storage is WorldRoomReview.MemorySave,"restart remains in memory")
 
 func paper_modulation() -> void:
 	# Verify real framebuffer blending, not just the Node's modulate property.
@@ -144,7 +148,7 @@ func clip() -> void:
 	lab.app.ui.review_host.hide()
 	var caption := Label.new()
 	caption.position = Vector2(24,76)
-	caption.text = mode+" · P04 · 正常速度 / 隔离无敌审核夹具"
+	caption.text = "B · "+lab.selected_room+" · 正常速度 / 隔离无敌审核夹具"
 	caption.add_theme_color_override("font_color",Color("244d4c"))
 	var layer := CanvasLayer.new()
 	layer.layer = 55
@@ -152,50 +156,78 @@ func clip() -> void:
 	layer.add_child(caption)
 	lab.app.controller.jump_ability.jumped.connect(func() -> void:jumps+=1)
 	lab.app.controller.shoot_ability.shot_fired.connect(func(_axis:Vector2,_id:int) -> void:shots+=1)
-	# Inputs have positional goals, like a player approaching a ledge. There are
-	# no position, velocity or camera setters in this continuous sequence.
-	await record_ticks(30)
-	await input_walk(1830,25)
-	await record_ticks(25)
-	await input_walk(1512)
-	await input_hop(Vector2(1184,910),Vector2.RIGHT)
-	await record_ticks(35)
-	await input_walk(1008)
-	await input_hop(Vector2(650,910),Vector2.RIGHT)
-	await input_walk(608,50)
-	await input_hop(Vector2(640,686),Vector2.DOWN)
-	await record_ticks(65)
-	await input_hop(Vector2(896,558),Vector2.DOWN)
-	await input_walk(1072,70)
-	await input_hop(Vector2(1168,366),Vector2.DOWN)
-	await record_ticks(65)
-	await input_hop(Vector2(1344,142),Vector2.DOWN)
-	await record_ticks(55)
-	await input_hop(Vector2(896,558),Vector2.RIGHT)
-	await input_hop(Vector2(640,686),Vector2.RIGHT)
-	if clip_tick<1200:await record_ticks(1200-clip_tick)
+	# Continuous accepted inputs; no body/velocity/camera setters.
+	var id: String=lab.selected_room
+	if id=="P-R04":
+		await record_ticks(30)
+		await input_walk(1830,25)
+		await record_ticks(25)
+		await input_walk(1512)
+		await input_hop(Vector2(1184,910),Vector2.RIGHT)
+		await record_ticks(35)
+		await input_walk(1008)
+		await input_hop(Vector2(650,910),Vector2.RIGHT)
+		await input_walk(608,50)
+		await input_hop(Vector2(640,686),Vector2.DOWN)
+		await record_ticks(65)
+		await input_hop(Vector2(896,558),Vector2.DOWN)
+		await input_walk(1072,70)
+		await input_hop(Vector2(1168,366),Vector2.DOWN)
+		await record_ticks(65)
+		await input_hop(Vector2(1344,142),Vector2.DOWN)
+		await record_ticks(55)
+		await input_hop(Vector2(896,558),Vector2.RIGHT)
+		await input_hop(Vector2(640,686),Vector2.RIGHT)
+	elif id=="F-R01":
+		await record_ticks(35)
+		await input_hop(Vector2(950,430),Vector2.LEFT)
+		await input_walk(975)
+		lab.app.controller.router.request_action(&"drop_through")
+		await record_ticks(65)
+		await input_hop(Vector2(700,558),Vector2.RIGHT)
+		await input_walk(140,180)
+		await input_hop(Vector2(156,286),Vector2.DOWN)
+		await record_ticks(60)
+		await input_hop(Vector2(620,558),Vector2.LEFT)
+		await record_ticks(80)
+	else:
+		await record_ticks(35)
+		await input_walk(210)
+		await input_hop(Vector2(410,430),Vector2.LEFT)
+		await input_walk(735)
+		await record_ticks(35)
+		await input_hop(Vector2(500,430),Vector2.RIGHT)
+		await input_walk(210)
+		await input_hop(Vector2(450,430),Vector2.DOWN)
+		await input_walk(650)
+		await input_hop(Vector2(480,430),Vector2.RIGHT)
+		await record_ticks(65)
+	var length_ticks:=1200 if id=="P-R04" else 900
+	if clip_tick<length_ticks:await record_ticks(length_ticks-clip_tick)
 	check(jumps>=3,"accepted jumps")
 	check(shots>=3,"accepted recoil shots")
-	check(lab.app.room.room_id=="P-R04","clip stays in P04")
-	FileAccess.open(output+"/clip-"+mode+".json",FileAccess.WRITE).store_string(JSON.stringify({"style":mode,"seconds":clip_tick/60.0,"physics_hz":60,"jumps":jumps,"shots":shots,"trace":clip_trace},"  "))
-	print("PAPER CLIP mode=",mode," accepted_jumps=",jumps," accepted_shots=",shots)
+	check(lab.app.room.room_id==id,"clip stays in selected region")
+	FileAccess.open(output+"/clip-"+id+".json",FileAccess.WRITE).store_string(JSON.stringify({"room":id,"style":mode,"seconds":clip_tick/60.0,"physics_hz":60,"jumps":jumps,"shots":shots,"trace":clip_trace},"  "))
+	print("PAPER CLIP room=",id," mode=",mode," accepted_jumps=",jumps," accepted_shots=",shots)
 
 func measure() -> void:
-	lab.app.controller.active = false
-	lab.app.set_physics_process(false)
-	var rows: Array = []
-	for style: String in ["0","A","B"]:
-		lab.set_mode(style)
-		await ticks(90)
-		var times: Array[float] = []
-		var draws: Array[float] = []
-		for frame: int in 300:
-			await process_frame
-			times.append(Performance.get_monitor(Performance.TIME_PROCESS)*1000)
-			draws.append(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))
-		times.sort()
-		var total := 0.0
-		for t: float in times:total+=t
-		rows.append({"mode":style,"mean_process_ms":total/times.size(),"p95_process_ms":times[int(times.size()*.95)],"draw_calls_last":draws.back(),"paper_nodes":lab.paper.ply_count if style!="0" else 0,"contours":lab.paper.silhouette_count if style!="0" else 0})
+	var rows: Array=[]
+	for id: String in Studies.ROOMS:
+		await lab.open_study(id)
+		lab.app.controller.active=false
+		lab.app.set_physics_process(false)
+		for style: String in ["0","B"]:
+			lab.set_mode(style)
+			await ticks(90)
+			var times: Array[float]=[]
+			var calls:=0.0
+			for frame: int in 240:
+				await process_frame
+				times.append(Performance.get_monitor(Performance.TIME_PROCESS)*1000)
+				calls=Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)
+			times.sort()
+			var total:=0.0
+			for t: float in times:total+=t
+			rows.append({"room":id,"mode":style,"mean_process_ms":total/times.size(),"p95_process_ms":times[int(times.size()*.95)],"draw_calls_last":calls,"paper_nodes":lab.paper.ply_count if style=="B" else 0,"contours":lab.paper.silhouette_count if style=="B" else 0})
 	FileAccess.open(output+"/performance.json",FileAccess.WRITE).store_string(JSON.stringify({"adapter":RenderingServer.get_video_adapter_name(),"renderer":"GL Compatibility","resolution":[1280,720],"measurements":rows,"physical_mobile":"unverified"},"  "))
 	print("PAPER PERFORMANCE ",JSON.stringify(rows))

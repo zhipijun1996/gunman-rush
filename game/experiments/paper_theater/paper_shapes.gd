@@ -4,7 +4,6 @@ const WASH = preload("res://game/experiments/paper_theater/paper.gdshader")
 static var shared_noise: Texture2D
 static var inks: Dictionary = {}
 var noise: Texture2D
-var bold := false
 var sheet_count := 0
 
 func _init() -> void:
@@ -31,13 +30,13 @@ func polygon(parent: Node, points: PackedVector2Array, color: Color, z := 0, was
 	face.light_mask = 2
 	face.antialiased = true
 	if wash:
-		var key := color.to_html()+str(bold)
+		var key := color.to_html()
 		if not inks.has(key):
 			var ink := ShaderMaterial.new()
 			ink.shader = WASH
 			ink.set_shader_parameter("paper_noise",noise)
 			ink.set_shader_parameter("pigment",color)
-			ink.set_shader_parameter("strength",.16 if bold else .07)
+			ink.set_shader_parameter("strength",.16)
 			ink.set_shader_parameter("seed",float(color.to_rgba32()%37))
 			inks[key] = ink
 		face.material = inks[key]
@@ -52,7 +51,7 @@ func ellipse(center: Vector2, radius: Vector2, phase := 0.0, count := 48) -> Pac
 	var points := PackedVector2Array()
 	for i: int in count:
 		var angle := TAU*i/count
-		var cut := 1.0 + (.016 if bold else .006)*sin(angle*7+phase)
+		var cut := 1.0 + .016*sin(angle*7+phase)
 		points.append(center+Vector2(cos(angle),sin(angle))*radius*cut)
 	return points
 

@@ -55,22 +55,37 @@ def main():
     for row in captures:
         path = EVIDENCE/'captures'/Path(row['file']).name
         shutil.copyfile(path,media/path.name)
-    for name in ['A.mp4','B.mp4','capture-manifest.json','clip-A.json','clip-B.json','performance.json']:
+    rooms = [('P-R04','风铃平原','断桥与铜钟：开敞空间、斜切日轮与赭色薄台。'),('F-R01','荆棘森林','叠叶与裂根：非等距树冠、双层树干与林隙。'),('G-R02','齿轮工城','壁板与窗光：固定机械内墙、墙上铜钟与缓转齿轮。')]
+    for name in ['capture-manifest.json','performance.json','modulation.json']:
         shutil.copyfile(EVIDENCE/name,media/name)
-    cards = ''
-    for pose,label in [('bridge','断桥与钟架'),('ascent','上层跳台'),('underbridge','桥下凹室')]:
-        cards += '<section><h2>'+label+' · 相同机位</h2><div class="grid">'
-        for mode,title in [('0','当前像素'),('A','A · 轻剪纸水彩'),('B','B · 抽象拼贴')]:
-            name=f'{mode}-{pose}.png'
-            cards+=f'<figure><a href="media/{name}" target="_blank"><img src="media/{name}" alt="{title} / {label}" loading="lazy"></a><figcaption>{title} · <a href="media/{name}" download>原图</a></figcaption></figure>'
-        cards+='</div></section>'
-    videos=''
-    for mode,title in [('A','轻剪纸水彩'),('B','抽象拼贴')]:
-        videos+=f'<figure><video controls playsinline preload="metadata" poster="media/{mode}-bridge.png" src="media/{mode}.mp4"></video><figcaption>{mode} · {title} / 正常速度 · <a href="media/{mode}.mp4" download>下载视频</a></figcaption></figure>'
-    page='''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>失序之钟 · P04 纸艺剧场</title>
-<style>*{box-sizing:border-box}body{margin:0;background:#eee7d6;color:#294f4f;font:16px/1.8 system-ui,sans-serif}main{max-width:1440px;margin:auto;padding:40px 24px 64px}header{max-width:820px;margin-bottom:38px}.eyebrow{letter-spacing:.16em;font-size:12px;color:#91604c}h1{font-size:clamp(30px,4vw,55px);font-weight:550;line-height:1.2;letter-spacing:-.04em;margin:20px 0}h2{font-size:21px;font-weight:550;margin-top:32px}p{color:#61746a}nav{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}nav a{background:#315e59;color:#f6e8cc;padding:12px 24px;text-decoration:none;border-radius:3px}nav a:nth-child(2){background:#a86448}nav a:nth-child(3){background:#d9cfb6;color:#294f4f}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.videos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}figure{margin:0}img,video{display:block;width:100%;border:1px solid #cabfa4}figcaption{font-size:13px;color:#64766c;margin:8px 0}a{color:inherit}.note{max-width:900px;border-left:2px solid #a86448;padding-left:18px;margin-top:32px}footer{font-size:12px;color:#708077;margin-top:40px}@media(max-width:800px){main{padding:24px 16px}.grid,.videos{grid-template-columns:1fr}nav a{flex:1;text-align:center;padding:12px}.grid figure{margin-bottom:12px}}</style>
-<main><header><div class="eyebrow">GODOT 4.7.2 / GL COMPATIBILITY / P04</div><h1>失序之钟<br>纸艺剧场实验</h1><p>同一间倒钟田垄、同一控制器与镜头，比较当前像素、轻剪纸水彩与抽象拼贴。下方图片与影片均来自真实 Godot 渲染。风格尚未替换正式游戏。</p><nav><a href="play/index.html?paper=A">试玩 A</a><a href="play/index.html?paper=B">试玩 B</a><a href="play/index.html?paper=0">当前美术</a></nav><p>建议手机横屏。首次下载共享运行包约 142 MB，之后缓存复用。键盘 A/D 移动，空格跳跃；鼠标按住瞄准、松开射击。手机使用游戏原触控。试玩内可随时切换三种表现与重置 P04。</p></header>
-'''+cards+'''<section><h2>连续操作 · 正常速度</h2><p>相同目标与真实输入，覆盖断桥反冲、登高、镜头移动和附着前景。录像使用现有隔离无敌审核模式；未设置玩家位置或镜头路径。Godot 以 60 个物理 tick 对应 1 秒输出，离线编码后保持该速度。</p><div class="videos">'''+videos+'''</div></section><div class="note"><strong>本次判断</strong><p>纸艺能够消除本房的规则贴图接缝，并把角色、危险与地形收进同一语言。A 更安静易读，B 的裁切色块与钟架更有辨识度。纸偶动作与各物种差异仍较简化；大钟架的局部构图以及手机性能还需打磨。当前证据不能证明已经适合16区量产。</p><p>没有使用完整场景插画或 AI 概念图。地形轮廓、色层、纸厚、接触影、视差、纸偶和有限动态光均在 Godot 运行时组成。</p><a href="media/performance.json">性能原始记录</a> · <a href="media/capture-manifest.json">机位与图片哈希</a></div><footer>源码与渲染结构：<a href="https://github.com/zhipijun1996/gunman-rush/tree/experiment/p04-paper-watercolor">独立实验分支</a> · 无正式存档写入 · 实体手机帧率未验收<br>Build: '''+info['build_id']+' · Source: '+info['source_commit']+'''</footer></main></html>'''
+    for rid,_,_ in rooms:
+        for name in [rid+'.mp4','clip-'+rid+'.json']:
+            shutil.copyfile(EVIDENCE/name,media/name)
+    # Old A and P04 A/B media belong to Git/earlier Site versions only.
+    admitted={Path(row['file']).name for row in captures}
+    admitted.update(['capture-manifest.json','performance.json','modulation.json'])
+    admitted.update(rid+'.mp4' for rid,_,_ in rooms)
+    admitted.update('clip-'+rid+'.json' for rid,_,_ in rooms)
+    for path in media.iterdir():
+        if path.is_file() and path.name not in admitted:path.unlink()
+    triptych=''
+    cards=''
+    for rid,title,detail in rooms:
+        image=rid+'-B-landmark.png'
+        triptych+=f'<figure><a href="media/{image}" target="_blank"><img src="media/{image}" alt="B / {title}"></a><figcaption>{title} · {rid} · <a href="play/index.html?room={rid}&paper=B">试玩</a></figcaption></figure>'
+        cards+=f'<section><h2>{title} / {rid}</h2><p>{detail}</p><div class="video-wrap"><video controls playsinline preload="metadata" poster="media/{image}" src="media/{rid}.mp4"></video><p><a href="media/{rid}.mp4" download>下载正常速度实机片段</a></p></div>'
+        for pose,label in [('landmark','主机位'),('upper','第二机位'),('lower','第三机位')]:
+            cards+=f'<h3>{label} · 当前美术 / B 同机位</h3><div class="compare">'
+            for mode,name in [('0','当前像素'),('B','B 抽象拼贴')]:
+                image=f'{rid}-{mode}-{pose}.png'
+                cards+=f'<figure><a href="media/{image}" target="_blank"><img src="media/{image}" alt="{title} / {name} / {label}" loading="lazy"></a><figcaption>{name} · <a href="media/{image}" download>原图下载</a></figcaption></figure>'
+            cards+='</div>'
+        cards+='</section>'
+    navigation=''.join(f'<a href="play/index.html?room={rid}&paper=B">{title}试玩</a>' for rid,title,_ in rooms)
+    megabytes=round(info['download_bytes']/1000000)
+    page='''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>失序之钟 · B 三域纸艺剧场</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#eee7d6;color:#294f4f;font:16px/1.8 system-ui,sans-serif}main{max-width:1440px;margin:auto;padding:40px 24px 64px}header{max-width:920px}.eyebrow{letter-spacing:.16em;font-size:12px;color:#91604c}h1{font-size:clamp(30px,4vw,55px);font-weight:550;line-height:1.2;margin:20px 0}h2{font-size:25px;font-weight:550;margin-top:44px}h3{font-size:16px;font-weight:500;color:#65786c}p{color:#61746a}nav{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}nav a{background:#315e59;color:#f6e8cc;padding:12px 24px;text-decoration:none;border-radius:3px}nav a:nth-child(2){background:#586c50}nav a:nth-child(3){background:#576a73}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.video-wrap{max-width:960px}figure{margin:0}img,video{display:block;width:100%;border:1px solid #cabfa4}figcaption{font-size:13px;color:#64766c;margin:8px 0}a{color:inherit}.note{max-width:920px;border-left:2px solid #a86448;padding-left:18px;margin-top:32px}footer{font-size:12px;color:#708077;margin-top:40px}@media(max-width:800px){main{padding:24px 16px}.grid,.compare{grid-template-columns:1fr}nav a{flex:1;text-align:center;padding:12px}.grid figure{margin-bottom:12px}}</style>
+<main><header><div class="eyebrow">GODOT 4.7.2 / B / THREE REGIONAL STUDIES</div><h1>失序之钟<br>B · 三域纸艺剧场</h1><p>只继续抽象拼贴 B。风铃平原、荆棘森林、齿轮工城，各一间现有真实样房：共用纸偶、连续地形、纸厚与水彩材质，分别探索开敞断桥、树冠根系和封闭机械建筑。A 已退出当前实验。</p><nav>'''+navigation+f'''</nav><p>建议手机横屏。首次共享运行包约 {megabytes} MB，之后缓存复用。试玩内直接切换三个区域，按 B / 0 对比纸艺与当前美术，按 1 / 2 / 3 切区域；A/D移动、空格跳跃，鼠标按住瞄准后松开射击，手机使用原触控。</p></header><h2>三域 B · 真实 Godot 合屏</h2><p>三域使用相同角色尺寸与正式镜头参数。以下三列来自各自真实房间；往下可看每房当前美术/B的同机位原图。</p><div class="grid">'''+triptych+'''</div><div class="note"><strong>本轮检查范围</strong><p>森林与工城使用当前正式入口示例，保持其现有地形和玩法；不是三个完整区域改造。所有画面由运行时几何、材质、层叠、纸偶和有限动态光组成，没有完整场景插画或AI概念图。</p><p>操作片段保持正常速度；使用画面明示的隔离无敌审核模式，不写正式存档，不设置片中玩家位置或镜头路径。P04约20秒，另两房约15秒。实体手机帧率与完整战斗仍未验收。</p></div>'''+cards+'''<div class="note"><strong>比较判断</strong><p>平原保留温暖留白与铜钟，森林用叶冠负形和树干深度建立包围感，工城用固定壁板、窗光与机械圆片建立室内秩序。三域在共同纸艺语言下已有不同空间性格；纸偶动作和物种细节仍是后续打磨项，三个样房不等于16区量产通过。</p><a href="media/performance.json">三域性能原始记录</a> · <a href="media/capture-manifest.json">机位与图片哈希</a></div><footer><a href="https://github.com/zhipijun1996/gunman-rush/pull/159">独立实验 PR159</a> · 正式游戏入口、地形碰撞与规范未修改<br>Build: '''+info['build_id']+' · Source: '+info['source_commit']+'''</footer></main></html>'''
     (target/'index.html').write_text(page)
     (target/'build-info.json').write_text(json.dumps(info,indent=2)+'\n')
     oversized=[str(p) for p in target.rglob('*') if p.is_file() and p.stat().st_size>25*1024*1024]

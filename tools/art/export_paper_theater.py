@@ -1,10 +1,9 @@
-"""Export the isolated P04 experiment with the existing verified dependency closure.
+"""Export the B-only three-region experiment with the existing verified dependency closure.
 
 Restores both production configuration files even on export failure. Run alone,
 after tools/setup_environment.py --godot-only. Outputs never replace build/web.
 """
 from pathlib import Path
-import hashlib
 import json
 import re
 import subprocess
@@ -50,7 +49,7 @@ def main():
     checked = web.verify_pack(output/'index.pck',plan)
     files = prepare_web_playtest(output/'index.html',{k:v for k,v in identity.items() if k!='binary'})
     info = json.loads((output/'build-info.json').read_text())
-    info.update(paper_theater=True, room='P-R04', entry='res://'+ENTRY, source_tree_sha256=plan['source_tree_sha256'], source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip())
+    info.update(paper_theater=True, rooms=['P-R04','F-R01','G-R02'], style='B', entry='res://'+ENTRY, source_tree_sha256=plan['source_tree_sha256'], source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip())
     (output/'build-info.json').write_text(json.dumps(info,indent=2)+'\n')
     report = {'entry':ENTRY,'source_tree_sha256':plan['source_tree_sha256'],'closure':checked,'pack_bytes':info['pack_bytes'],'download_bytes':info['download_bytes'],'engine':identity,'mobile_device':'unverified'}
     (output/'paper-build.json').write_text(json.dumps(report,indent=2)+'\n')
