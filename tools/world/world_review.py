@@ -120,6 +120,6 @@ def main():
             sub['external_ports'].append(dict(id=s['id'],point=s['point'],direction=s['directions'][index],room=host,region_name=other))
         (out/f'{filename}.svg').write_text(drawing(sub))
     # Keep a compact, machine-readable validation/identity record with the delivery.
-    (out/'manifest.json').write_text(json.dumps({'source':p['metadata'],'checks':plan['checks'],'seams':plan['seams'],'regions':plan['regions'],'limits':plan['review_limits']},ensure_ascii=False,indent=2)+'\n')
+    (out/'manifest.json').write_text(json.dumps({'source':p['source'],'draft':p['metadata']['spatial_draft'],'checks':plan['checks'],'seams':plan['seams'],'regions':plan['regions'],'limits':plan['review_limits']},ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(plan['checks']))
 if __name__=='__main__':main()
