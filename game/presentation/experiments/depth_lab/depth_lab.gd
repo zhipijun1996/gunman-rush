@@ -22,11 +22,15 @@ var bodies3: Array[MeshInstance3D] = []
 var layers3: Array[Sprite3D] = []
 var thicknesses: Array[float] = []
 var samples: Array[Dictionary] = []
+var outdoor := false
+var output := "res://build/depth-lab"
 
 func _ready() -> void:
 	recording = "--capture" in OS.get_cmdline_user_args()
+	outdoor = "--outdoor" in OS.get_cmdline_user_args()
+	if outdoor: output += "/outdoor"
 	ortho = "--ortho" in OS.get_cmdline_user_args()
-	RenderingServer.set_default_clear_color(Color("10191e"))
+	RenderingServer.set_default_clear_color(Color("526879") if outdoor else Color("10191e"))
 	flat = viewport_panel(0)
 	spatial = viewport_panel(640)
 	flat.disable_3d = true
@@ -37,29 +41,33 @@ func _ready() -> void:
 	camera2 = Camera2D.new(); camera2.zoom = Vector2(.75,.75); scene2.add_child(camera2)
 	camera3 = Camera3D.new(); camera3.fov = 38; camera3.near = .1; camera3.far = 100; scene3.add_child(camera3)
 	var environment := WorldEnvironment.new(); var env := Environment.new()
-	env.background_mode = Environment.BG_COLOR; env.background_color = Color("10191e")
+	env.background_mode = Environment.BG_COLOR; env.background_color = Color("526879") if outdoor else Color("10191e")
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.ambient_light_color = Color("9cbdc7"); env.ambient_light_energy = .7
 	env.tonemap_mode = Environment.TONE_MAPPER_LINEAR
 	environment.environment = env; scene3.add_child(environment)
 	var light := DirectionalLight3D.new(); light.rotation_degrees = Vector3(-35,-25,0); light.light_color = Color("e8d9af"); light.shadow_enabled = true; light.light_energy = .9; scene3.add_child(light)
-	# A shared source list; depth and extrusion are the experimental variables.
-	piece("mill_hall_depth",Vector2(800,260),Vector2(1728,1152),-560,Color(.55,.65,.7))
-	piece("mill_window_bay",Vector2(800,260),Vector2(344,768),-300,Color(.7,.8,.83))
-	for x: float in [300.0,1300.0]:
-		piece("mill_drive_frame",Vector2(x,420),Vector2(238,320),-180,Color(.55,.65,.68))
-	for x: float in [420.0,1180.0]:
-		piece("mill_gear",Vector2(x,300),Vector2(142,144),-80,Color(.8,.8,.7))
-	# Doorway posts, lintel, walkable stage and side platforms have actual depth.
-	block(Rect2(-300,600,2200,160),130,Color("516166"))
-	block(Rect2(610,270,48,330),150,Color("818173"))
-	block(Rect2(942,270,48,330),150,Color("818173"))
-	block(Rect2(580,238,440,48),150,Color("a29978"))
-	block(Rect2(320,442,190,32),80,Color("8d8066"))
-	block(Rect2(1090,442,190,32),80,Color("8d8066"))
-	for x: float in [440.0,1160.0]:
-		piece("mill_post_segment",Vector2(x,504),Vector2(48,192),170,Color("536364"))
-		piece("mill_gear",Vector2(x,380),Vector2(142,144),170,Color("667473"))
+	# Both representations consume the same authored pieces and solid rectangles.
+	if outdoor:
+		build_outdoor()
+	else:
+		# A shared source list; depth and extrusion are the experimental variables.
+		piece("mill_hall_depth",Vector2(800,260),Vector2(1728,1152),-560,Color(.55,.65,.7))
+		piece("mill_window_bay",Vector2(800,260),Vector2(344,768),-300,Color(.7,.8,.83))
+		for x: float in [300.0,1300.0]:
+			piece("mill_drive_frame",Vector2(x,420),Vector2(238,320),-180,Color(.55,.65,.68))
+		for x: float in [420.0,1180.0]:
+			piece("mill_gear",Vector2(x,300),Vector2(142,144),-80,Color(.8,.8,.7))
+		# Doorway posts, lintel, walkable stage and side platforms have actual depth.
+		block(Rect2(-300,600,2200,160),130,Color("516166"))
+		block(Rect2(610,270,48,330),150,Color("818173"))
+		block(Rect2(942,270,48,330),150,Color("818173"))
+		block(Rect2(580,238,440,48),150,Color("a29978"))
+		block(Rect2(320,442,190,32),80,Color("8d8066"))
+		block(Rect2(1090,442,190,32),80,Color("8d8066"))
+		for x: float in [440.0,1160.0]:
+			piece("mill_post_segment",Vector2(x,504),Vector2(48,192),170,Color("536364"))
+			piece("mill_gear",Vector2(x,380),Vector2(142,144),170,Color("667473"))
 	for p: Dictionary in pieces:
 		var texture: Texture2D = load(p.path)
 		var sprite := Sprite2D.new(); sprite.texture = texture; sprite.position = p.at; sprite.scale = p.size / texture.get_size(); sprite.modulate = p.tint; sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST; sprite.z_index = int(p.depth); scene2.add_child(sprite)
@@ -76,8 +84,24 @@ func _ready() -> void:
 	projection_label = label_at("",Vector2(660,12),22)
 	label_at("← → / A D 移动   空格跳跃   O 正交/透视   Z 厚度开关",Vector2(20,675),17)
 	label_at("独立视觉实验 · 共用2D碰撞 / 非正式关卡",Vector2(660,675),16)
-	DirAccess.make_dir_recursive_absolute("res://build/depth-lab")
+	DirAccess.make_dir_recursive_absolute(output)
 	print("DEPTH LAB READY: same textures / shared physics / fixed camera orientation")
+
+func build_outdoor() -> void:
+	# Ruined orchard crossing: distant valley, tree terraces, a root arch and near grasses.
+	piece("longbridge_vista",Vector2(800,230),Vector2(2304,1536),-1200,Color(.8,.88,.9))
+	piece("orchard",Vector2(800,255),Vector2(1728,972),-650,Color(.8,.9,.78))
+	piece("orchard_ridge",Vector2(800,525),Vector2(1629,336),-320,Color(.68,.78,.66))
+	piece("opening_road_ridge",Vector2(900,567),Vector2(978,228),-130,Color(.82,.86,.73))
+	piece("orchard_arch_east",Vector2(820,430),Vector2(600,340),-70,Color.WHITE)
+	piece("orchard_fence",Vector2(470,565),Vector2(160,73),-20,Color.WHITE)
+	block(Rect2(-300,600,2200,160),180,Color("8c997c"))
+	block(Rect2(320,442,190,32),100,Color("a1a283"))
+	block(Rect2(1090,442,190,32),100,Color("a1a283"))
+	for x: float in [-240,0,240,480,720,960,1200,1440,1680]:
+		piece("bank_moss",Vector2(x+120,600),Vector2(240,123),2,Color(.9,.96,.8))
+	piece("orchard_arch_west",Vector2(370,469),Vector2(414,243),180,Color(.5,.63,.52))
+	piece("orchard_fence",Vector2(1190,586),Vector2(240,109.5),200,Color(.5,.62,.5))
 
 func viewport_panel(x: int) -> SubViewport:
 	var container := SubViewportContainer.new(); container.position = Vector2(x,60); container.size = Vector2(640,600); add_child(container)
@@ -94,8 +118,8 @@ func point3(p: Vector2,depth: float = 0) -> Vector3:
 
 func block(rect: Rect2,depth: float,tint: Color) -> void:
 	# Identical masonry front image in both views; side faces exist only in 3D.
-	var atlas: Texture2D = load(NATIVE+"mill_masonry_atlas47.png")
-	var image := atlas.get_image().get_region(Rect2i(0,160,32,32))
+	var atlas: Texture2D = load("res://assets/underworld_plains/terrain/fine_32/terrain.png" if outdoor else NATIVE+"mill_masonry_atlas47.png")
+	var image := atlas.get_image().get_region(Rect2i(192 if outdoor else 0,160,32,32))
 	var tile := ImageTexture.create_from_image(image)
 	var front := Polygon2D.new(); front.polygon = PackedVector2Array([rect.position,rect.position+Vector2(rect.size.x,0),rect.end,rect.position+Vector2(0,rect.size.y)]); front.texture = tile; front.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED; front.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST; front.color = tint; flat.add_child(front)
 	var mesh := MeshInstance3D.new(); var box := BoxMesh.new(); box.size = Vector3(rect.size.x/U,rect.size.y/U,depth/U); mesh.mesh = box; mesh.position = point3(rect.get_center(),-depth/2)
@@ -141,10 +165,10 @@ func _physics_process(delta: float) -> void:
 
 func capture(index: int) -> void:
 	await RenderingServer.frame_post_draw
-	get_viewport().get_texture().get_image().save_png(("res://build/depth-lab/ortho-frame-%03d.png" if ortho else "res://build/depth-lab/frame-%03d.png") % index)
+	get_viewport().get_texture().get_image().save_png(output+("/ortho-frame-%03d.png" if ortho else "/frame-%03d.png") % index)
 
 func finish() -> void:
 	set_physics_process(false)
 	await RenderingServer.frame_post_draw
 	var data := {"frames":frame,"seconds":elapsed,"samples":samples,"orthographic":ortho,"assets":source_images,"camera_fov":38,"shared_physics":true,"formal_controller":false,"note":"2D reference is this experiment's flat assembly, not the full production renderer"}
-	var file := FileAccess.open("res://build/depth-lab/ortho-capture.json" if ortho else "res://build/depth-lab/capture.json",FileAccess.WRITE); file.store_string(JSON.stringify(data,"\t")); print("DEPTH LAB CAPTURE COMPLETE"); get_tree().quit()
+	var file := FileAccess.open(output+("/ortho-capture.json" if ortho else "/capture.json"),FileAccess.WRITE); file.store_string(JSON.stringify(data,"\t")); print("DEPTH LAB CAPTURE COMPLETE"); get_tree().quit()
