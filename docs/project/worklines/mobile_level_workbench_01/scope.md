@@ -12,7 +12,7 @@
 
 ## 设计与所有权
 
-区域、房间、连接、资格和永久动作唯一归 `config/world/world.json`，施工尺寸与门台归 `config/world/construction.json`，实地形与放置归房间场景。完整接入和版本合同见[接入规范](world_io.md)，源码整合见[整合交接](../main_integration/scope.md)。不手写第二份世界图或复制物理。
+区域、房间、连接、资格和永久动作唯一归 `config/world/world.json`，施工尺寸与门台归 `config/world/construction.json`，实地形与放置归房间JSON，场景为同源装载壳。完整接入和版本合同见[接入规范](world_io.md)，源码整合见[整合交接](../main_integration/scope.md)。不手写第二份世界图或复制物理。
 
 世界审核由实际合同导出16区域、38条跨区连接和平原8个外接接口，包含双端门位、安全落点、能力条件与施工状态。反馈保存世界/区域/连接/房间范围、稳定ID与来源修订。当前草稿的门位、门洞及落点优先于派生坐标。未施工端点可审核，不据此开放正常游戏。
 

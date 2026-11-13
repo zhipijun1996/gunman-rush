@@ -32,7 +32,7 @@ description: 为《失序之钟》/ gunman-rush 及 Godot 类银河恶魔城规�
 | 内容 | 入口 |
 | --- | --- |
 | 拓扑/资格/身份 | `docs/data/world/README.md` → `config/world/world.json` |
-| 尺寸/门台/场景/镜头意图 | `config/world/construction.json`；场景拥有实地形和真实放置 |
+| 尺寸/门台/场景/镜头意图 | `config/world/construction.json`；实地形和实例唯一归房间JSON，装载所有权沿世界输入 |
 | 按房读取 | `python3 tools/world/room_context.py <room_id> --contract` |
 | 现行设计 | `docs/bible/room_authoring.md`、目标区域 Bible、相关对象规范 |
 | 正式装载 | `FixedWorldApp`、`FixedWorldProvider`、`FixedWorldRoom` |
