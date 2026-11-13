@@ -2,7 +2,7 @@
 
 普通房间按定义实例、参数和稳定ID联动组装；每种机关独立定义，唯一说明入口为[可交互元素库](../../../data/world_objects.md)，合同归[关卡要素](../../../bible/world_elements.md)。旧存档不兼容，现行编辑器草稿保留并一次性升级。受击隐藏入口、伸缩刺、风场、弹跳蘑菇与浮石是扩展用例，本轮没有将尚未实现的行为登记为可放置对象。
 
-接续主游戏codex/terrain-material-system@c1bbf89、编辑器codex/unified-elements@e4dbd2e；交付在[主游戏PR156](https://github.com/zhipijun1996/gunman-rush/pull/156)与[编辑器PR2](https://github.com/zhipijun1996/gunman-rush-editor/pull/2)，单写者Codex，最终SHA由PR提交追溯。写集包括统一目录、schema3房间协议、房间组装与特殊宿主、44房数据、编辑器、旧入口清理及相关规范和回归。不合并、不部署、不删除在线用户数据。
+接续主游戏codex/terrain-material-system@c1bbf89、编辑器codex/unified-elements@e4dbd2e；交付在[主游戏PR156](https://github.com/zhipijun1996/gunman-rush/pull/156)与[编辑器PR2](https://github.com/zhipijun1996/gunman-rush-editor/pull/2)，单写者Codex，本轮实现提交为主游戏c2abac6、编辑器7943f3c，后续交接正文提交由PR追溯。写集包括统一目录、schema3房间协议、房间组装与特殊宿主、44房数据、编辑器、旧入口清理及相关规范和回归。不合并、不部署、不删除在线用户数据。
 
 ## 实现结果
 
@@ -19,6 +19,7 @@
 - 日常CI四项通过，合同254项、存档39项；文档及注册索引检查通过。
 - 注册库365项真实创建／PackedScene往返检查、机关112项信号／状态／生命周期检查通过；地形材质544项通过。
 - 44房完整静态往返、309房导出、186项真实房间与控制器检查及3项Python定稿协议测试通过；运行发行与依赖相关17项Python测试通过。
+- 实际PCK由c2abac6构建，145484672字节，SHA256 `f70c692dbc53d71c79a3bfb79df8fe868ca2afcf56fddd941132be5694160188`；空目录装载43正式房／44可编辑场景／16物种通过，无源码目录回退。运行包及导出目录均为schema3。
 - 独立编辑器32项测试及生产构建通过；Chromium桌面和390×844手机布局放置／复制／删除／危险及材质操作无页面错误，309房旧工作区浏览器升级保留检查点、人工记录和锁定。
 - 世界回归其余40个脚本通过（world-loop-final.log前32项及world-tail-delivery.log后8项）；station_arrival.gd报告Godot原生错误 `Condition "p_elem->_root" is true`，其13项业务断言通过。独立检出本轮基线c1bbf89、重新导入并编译世界后同样复现，日志baseline-station.log；没有通过吞掉错误或改变玩法来标绿。完整世界回归因此仍有该已确认的基线失败。
 
