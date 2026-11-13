@@ -14,6 +14,10 @@
 
 同源审核交付含可触摸缩放HTML、带每房名称/一行职责/收集ID的SVG、总览PNG、编辑器schema3完整导入JSON。HTML可筛区域、切室内层、按房号搜索、查看奖励/休息/Boss/NPC/房内能力路线并点邻房跳转。独立图只提供空间审核，不冒充实景与正式可玩内容。
 
+## 交付
+
+代码由[PR158](https://github.com/zhipijun1996/gunman-rush/pull/158)审查；[地图初稿发行](https://github.com/zhipijun1996/gunman-rush/releases/tag/world-layout-preview.1)包含约3MB导入数据、轻量HTML、SVG与总览PNG，无需更新APK。七个附件服务器摘要已核对，导入JSON无授权完整下载摘要一致。发行代码基线 `4054241`，未合入main。
+
 ## 验证与后续
 
 4项空间专项和6项原编辑协议测试通过；检查房间不重叠、所有通道端点、正交和第三房净空、玩法身份不变、默认导出不受候选污染。编辑器freshWorkspace实测接受309房文件。桌面和390×844浏览器检查搜索、邻房切换及布局，无页面异常；不等同实体手机触控验证。文档检查通过。证据与生成媒体在build/world-layout，源码不带运行资源或构建媒体。
