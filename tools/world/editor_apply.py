@@ -73,8 +73,9 @@ def prepare(root,package,output):
             continue
         if not re.fullmatch(r'[A-Z]-R[A-Za-z0-9_-]+',rid):raise ValueError('Room ID is not cross-platform safe: '+rid)
         if rid not in room_rows:
-            template=next((r for r in world['rooms'] if r['region']==new['region'] and not r.get('rest_point') and 'boss' not in r.get('primary_role','')),world['rooms'][0]);row=copy.deepcopy(template);row.update(id=rid,region=new['region'],name=new['name'],purpose=new['purpose'],sections=[],internal_routes=[],rest_point=False,rift_machine=False,npc_ids=[],reward_ids=[],clock_actions=[],challenge_anchors=[],shortcut_controls=[]);room_rows[rid]=row;world['rooms'].append(row)
-            c=copy.deepcopy(construction['rooms'][0]);c.update(room_id=rid,scene_ref=f'res://game/world/regions/{new["region"]}/rooms/{rid}.tscn',implemented=False,doors=[],entry_spawns=[],extent=new['bounds'][2:],space_rects=new['spaces'],camera=new['camera']);c.pop('layout_revision',None);build_rows[rid]=c;construction['rooms'].append(c)
+            x,y=new['origin'];w,h=new['bounds'][2:];polygon=[[x/8,y/8],[(x+w)/8,y/8],[(x+w)/8,(y+h)/8],[x/8,(y+h)/8]]
+            row={'id':rid,'region':new['region'],'name':new['name'],'purpose':new['purpose'],'primary_role':new.get('role','exploration'),'polygon':polygon,'map_centre':[(x+w/2)/8,(y+h/2)/8],'sections':[],'internal_routes':[],'rest_point':False,'rift_machine':False,'npc_ids':[],'reward_ids':[],'clock_actions':[],'challenge_anchors':[],'shortcut_controls':[]};room_rows[rid]=row;world['rooms'].append(row)
+            c={'shape_class':'authored_union','rationale':'编辑器新房灰盒；门台和实际动作须另验','room_id':rid,'scene_ref':f'res://game/world/regions/{new["region"]}/rooms/{rid}.tscn','implemented':False,'doors':[],'entry_spawns':[],'extent':new['bounds'][2:],'space_rects':new['spaces'],'camera':new['camera'],'world_origin':new['origin'],'space_layer':new.get('layer','world')};build_rows[rid]=c;construction['rooms'].append(c)
         row,c=room_rows[rid],build_rows[rid];old=old or {}
         for field,key in [('name','name'),('purpose','purpose'),('region','region'),('role','primary_role'),('rest','rest_point')]:
             if field in new and new[field]!=old.get(field):row[key]=merge(old.get(field,MISSING),new[field],row.get(key,MISSING),f'/rooms/{rid}/{field}')
@@ -102,16 +103,18 @@ def prepare(root,package,output):
             if port.get('landing'):raw['landing_contract']=merge(prior.get('landing',MISSING),port['landing'],raw.get('landing_contract',MISSING),f'/rooms/{rid}/ports/{pid}/landing')
             elif not raw.get('landing_contract'):
                 x,y=port['position'];dx,dy={'left':(64,-18),'right':(-64,-18),'up':(0,128),'down':(-96,-64)}[port['direction']];raw['landing_contract']={'id':'landing:'+pid,'section':port['section'],'incoming_mode':'walk_into_grounded_landing','safe_standing_position_world_units':[x+dx,y+dy],'entry_position_world_units':[x+dx,y+dy],'platform_is_real_collision':False,'needs_support_validation':True}
+            landing=raw['landing_contract'];stand=landing['safe_standing_position_world_units'];landing.setdefault('platform_candidate_rect_world_units',[max(0,min(new['bounds'][2]-128,stand[0]-64)),stand[1]+18,128,32])
             existing[pid]=raw
         c['doors']=[existing[pid] for pid in new['ports'] if pid in existing]
         c['entry_spawns']=[{'id':'spawn:'+d['id'],'entry_door':d['id'],'section':d['landing_contract'].get('section','main'),'position_candidate_world_units':d['landing_contract']['entry_position_world_units'],'eventual_standing_position_world_units':d['landing_contract']['safe_standing_position_world_units'],'landing_contract_ref':'landing:'+d['id'],'fake_grounded_reset_forbidden':True} for d in c['doors']]
     for cid in base['connections'].keys()|project['connections'].keys():
         old,new=base['connections'].get(cid),project['connections'].get(cid)
         owners={v[k]['room'] for v in [old,new] if v for k in ['a','b']}
-        if not owners&scope or old==new:continue
+        directions_changed=bool(new) and any(project['rooms'][v['room']]['ports'][v['port']].get('direction')!=base['rooms'].get(v['room'],{}).get('ports',{}).get(v['port'],{}).get('direction') for v in [new['a'],new['b']])
+        if not owners&scope or old==new and not directions_changed:continue
         if not new:
             connection_rows.pop(cid,None);pair_rows.pop(cid,None);continue
-        value=copy.deepcopy(connection_rows.get(cid,world['connections'][0]));draft_value={**value,'id':cid,'a':new['a']['room'],'b':new['b']['room'],'a_section':project['rooms'][new['a']['room']]['ports'][new['a']['port']]['section'],'b_section':project['rooms'][new['b']['room']]['ports'][new['b']['port']]['section'],'requires':new.get('requires',[[]]),'effective_door_requires':new.get('requires',[[]]),'direction':new.get('direction','both'),'door_ids':{new['a']['room']:new['a']['port'],new['b']['room']:new['b']['port']}}
+        value=copy.deepcopy(connection_rows.get(cid,{'kind':'editor_door_pair','geometry_status':'authored construction ports'}));draft_value={**value,'id':cid,'a':new['a']['room'],'b':new['b']['room'],'a_section':project['rooms'][new['a']['room']]['ports'][new['a']['port']]['section'],'b_section':project['rooms'][new['b']['room']]['ports'][new['b']['port']]['section'],'requires':new.get('requires',[[]]),'effective_door_requires':new.get('requires',[[]]),'direction':new.get('direction','both'),'door_ids':{new['a']['room']:new['a']['port'],new['b']['room']:new['b']['port']}}
         for field in ['a','b','direction','requires']:
             if old:
                 prior=old[field]['room'] if field in ['a','b'] else old.get(field,'both' if field=='direction' else [[]]);current=value.get('effective_door_requires',value.get('requires',[[]])) if field=='requires' else value.get(field,'both' if field=='direction' else MISSING)
@@ -119,7 +122,11 @@ def prepare(root,package,output):
                 if field=='direction' and current not in ['a_to_b','b_to_a']:current='both'
                 draft_value[field]=merge(prior,draft_value[field],current,'/connections/'+cid+'/'+field)
         draft_value['effective_door_requires']=draft_value['requires'];connection_rows[cid]=draft_value
-        side_map={end['room']:project['rooms'][end['room']]['ports'][end['port']]['direction'] for end in [new['a'],new['b']]};pair=copy.deepcopy(pair_rows.get(cid,construction['door_pairs'][0]));pair.update(edge_id=cid,construction_sides=side_map,old_sides=side_map,normalization_required=False,connector_owner_rooms=[]);pair['front_door']=bool(new.get('front_door'));pair_rows[cid]=pair
+        pair=copy.deepcopy(pair_rows.get(cid,{'spatial_exception':None}));side_map={}
+        for end in [new['a'],new['b']]:
+            prior=base['rooms'].get(end['room'],{}).get('ports',{}).get(end['port'],{}).get('direction',MISSING)
+            side_map[end['room']]=merge(prior,project['rooms'][end['room']]['ports'][end['port']]['direction'],pair.get('construction_sides',{}).get(end['room'],MISSING),'/connections/'+cid+'/sides/'+end['room'])
+        pair.update(edge_id=cid,construction_sides=side_map,old_sides=side_map,normalization_required=False,connector_owner_rooms=[]);pair['front_door']=bool(new.get('front_door'));pair_rows[cid]=pair
     world['connections']=list(connection_rows.values());construction['door_pairs']=list(pair_rows.values())
     actions={a['id']:a for a in world['actions']};acquisitions={a['reward_id']:a for a in design['acquisition_contracts']}
     for key,new in project['rewards'].items():
@@ -127,15 +134,21 @@ def prepare(root,package,output):
         if old==new or not {new['room'],old['room'] if old else new['room']}&scope:continue
         action=actions.get(new['action_id']) or new.get('action')
         if not action:raise ValueError('Reward definition missing: '+key)
-        action=copy.deepcopy(action);action.update(room_id=new['room'],section_id=new.get('section','main'),requires=new.get('requires',[[]]));actions[action['id']]=action
-        if new.get('type')!=action.get('type'):
+        if old and new['action_id']!=old['action_id']:raise ValueError('Permanent reward receipt identity is immutable: '+key)
+        action=copy.deepcopy(action)
+        for field,target,default in [('room','room_id',MISSING),('section','section_id','main'),('requires','requires',[[]])]:
+            action[target]=merge((old or {}).get(field,default),new.get(field,default),action.get(target,default),'/rewards/'+key+'/'+field)
+        actions[action['id']]=action
+        if new.get('type')!=(old or {}).get('type') and new.get('type')!=action.get('type'):
             if new.get('goal') or action.get('type') in ['ability','equipment'] or new['type'] in ['ability','equipment']:raise ValueError('Unique reward type cannot be converted: '+key)
             template=next((a for a in actions.values() if a.get('type')==new['type'] and a.get('inventory_grants')),None)
             if not template:raise ValueError('Unregistered reward type: '+new['type'])
             action.update(type=new['type'],inventory_grants=copy.deepcopy(template['inventory_grants']))
-        if int(new.get('quantity',1))!=1:
-            if not action.get('inventory_grants'):raise ValueError('Reward is not stackable: '+key)
-            action['inventory_grants']={k:int(new['quantity']) for k in action['inventory_grants']}
+        quantity=int(new.get('quantity',1))
+        if quantity!=int((old or {}).get('quantity',1)) or old is None:
+            if len(action.get('inventory_grants',{}))!=1:raise ValueError('Reward is not a single stackable inventory type: '+key)
+            action['inventory_grants']={k:quantity for k in action['inventory_grants']}
+            action['quantity']=quantity
         if key in acquisitions:
             acquisitions[key].update(room_id=new['room'],section_id=new.get('section','main'),requires=new.get('requires',[[]]),category=new['type'])
             for field in ['challenge','approach_cue','approach_route','return_path','failure_return','primary_experience']:
@@ -159,9 +172,11 @@ def prepare(root,package,output):
         old=base.get('npcs',{}).get(key)
         if npc==old or npc['room_id'] not in scope and (not old or old['room_id'] not in scope):continue
         current=next((n for n in world['npcs'] if n['id']==key),None)
-        merged=merge(old or {},npc,current or {},'/npcs/'+key);merged.pop('host',None)
+        merged=merge({k:v for k,v in (old or {}).items() if k!='host'},{k:v for k,v in npc.items() if k!='host'},current or {},'/npcs/'+key)
         if current:current.clear();current.update(merged)
         else:world['npcs'].append(merged)
+    for key,npc in base.get('npcs',{}).items():
+        if key not in project.get('npcs',{}) and npc['room_id'] in scope:raise ValueError('NPC retirement requires relocating its services and story references first: '+key)
     for row in world['actions']:
         npc=next((n for n in world['npcs'] if n['id']==row.get('service_npc')),None)
         if npc:row.update(room_id=npc['room_id'],section_id=npc.get('section_id','main'))
@@ -170,6 +185,8 @@ def prepare(root,package,output):
         world.setdefault('counts',{})[key]=value
     for name,value in [('world.json',world),('construction.json',construction),('collection_design.json',design)]:
         if value!=read(source/name):write(stage/'config/world'/name,value);changed.add('config/world/'+name)
+    collections=read(source/'collections.json');collections['canonical_reference']['sha256']=digest(stage/'config/world/world.json')
+    if collections!=read(source/'collections.json'):write(stage/'config/world/collections.json',collections);changed.add('config/world/collections.json')
     for r in construction['rooms']:
         relative=Path(r['scene_ref'].removeprefix('res://'))
         if (root/relative).exists() and not (stage/relative).exists():(stage/relative).parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(root/relative,stage/relative)

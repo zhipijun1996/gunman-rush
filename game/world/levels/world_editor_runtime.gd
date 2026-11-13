@@ -85,7 +85,7 @@ static func compile(base: Dictionary, project: Dictionary, selected: String, ver
 					"right": landing += Vector2(-64, -18)
 					"up": landing += Vector2(0, 128)
 					"down": landing += Vector2(-96, -64)
-				door.landing_contract = {"section":door.section, "safe_standing_position_world_units":[landing.x, landing.y], "entry_position_world_units":[landing.x, landing.y], "incoming_mode":"walk_into_grounded_landing", "platform_is_real_collision":true}
+				door.landing_contract = {"section":door.section, "safe_standing_position_world_units":[landing.x, landing.y], "entry_position_world_units":[landing.x, landing.y], "platform_candidate_rect_world_units":[clampf(landing.x-64,0,maxf(0,float(authored.bounds[2])-128)),landing.y+18,128,32], "incoming_mode":"walk_into_grounded_landing", "platform_is_real_collision":false, "needs_support_validation":true}
 			row.doors.append(door)
 			row.entry_spawns.append({"id":"spawn:"+str(port.id), "entry_door":str(port.id), "section_id":door.section, "position_candidate_world_units":door.landing_contract.entry_position_world_units, "eventual_standing_position_world_units":door.landing_contract.safe_standing_position_world_units})
 		var geometry := WorldWorkbenchGeometry.apply(row, {"bounds":authored.bounds, "space_rects":authored.spaces})
@@ -126,9 +126,9 @@ static func compile(base: Dictionary, project: Dictionary, selected: String, ver
 			action.inventory_grants = prototype.inventory_grants.duplicate(true)
 		var quantity := int(reward.get("quantity", 1))
 		if quantity < 1: return {"error":"editor_reward_quantity_invalid"}
-		if quantity != 1:
-			if action.get("inventory_grants", {}).is_empty(): return {"error":"editor_reward_not_stackable"}
+		if not reward.get("goal", false) and action.get("inventory_grants", {}).size() == 1:
 			for item: String in action.inventory_grants: action.inventory_grants[item] = quantity
+		elif quantity != 1: return {"error":"editor_reward_not_stackable"}
 	for action: Dictionary in action_map.values():
 		var npc_id := str(action.get("service_npc", ""))
 		if project.get("npcs", {}).has(npc_id):

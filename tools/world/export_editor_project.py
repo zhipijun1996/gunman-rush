@@ -42,7 +42,7 @@ def export(root=ROOT):
     for reward in design['acquisition_contracts']:
         key=reward['reward_id'];action=next((a for a in actions.values() if a.get('reward_id')==key or a['id']=='pickup_'+key),None);action_id=action['id'] if action else 'pickup_'+key
         host=next((e['id'] for e in p['rooms'][reward['room_id']]['entities'].values() if e['properties'].get('action_id')==action_id),None)
-        p['rewards'][key]={**copy.deepcopy(reward),'id':key,'room':reward['room_id'],'section':reward.get('section_id','main'),'type':action.get('type') if action else reward.get('category','collectible'),'action_id':action_id,'host':host,'physical':host is not None,'quantity':(action or {}).get('quantity',1),'requires':reward.get('requires',[[]])}
+        p['rewards'][key]={**copy.deepcopy(reward),'id':key,'room':reward['room_id'],'section':reward.get('section_id','main'),'type':action.get('type') if action else reward.get('category','collectible'),'action_id':action_id,'host':host,'physical':host is not None,'quantity':(action or {}).get('quantity',next(iter(action['inventory_grants'].values())) if action and len(action.get('inventory_grants',{}))==1 else 1),'requires':reward.get('requires',[[]])}
     clock_ids={c['action_id'] for c in world['clock_repairs']}
     for action in actions.values():
         key=action.get('reward_id',action['id'])
