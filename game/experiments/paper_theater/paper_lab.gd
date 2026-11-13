@@ -42,7 +42,13 @@ func _build_controls() -> void:
  style.content_margin_top=8;style.content_margin_bottom=8
  style.border_color=Color("b8b39b");style.set_border_width_all(1)
  panel.add_theme_stylebox_override("panel",style);controls.add_child(panel)
- var rows:=VBoxContainer.new();panel.add_child(rows)
+ var scroll:=ScrollContainer.new()
+ scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
+ scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
+ panel.add_child(scroll)
+ var rows:=VBoxContainer.new();scroll.add_child(rows)
+ var touch:=preload("res://game/presentation/ui/menu_scroll_touch_adapter.gd").new()
+ touch.scroll=scroll;scroll.add_child(touch)
  var title:=Label.new();title.text="失序之钟 / B · 三域纸艺剧场"
  title.add_theme_color_override("font_color",Color("244d4c"));rows.add_child(title)
  var regions:=HBoxContainer.new();rows.add_child(regions)
