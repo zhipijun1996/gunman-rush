@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "world_first_draft_for_review",
+  "status": "world_geography_and_routes_draft",
   "scope_regions": [
     "F",
     "M",
@@ -20,12 +20,12 @@
   ],
   "source": "game/world/regions/F/room_design.json",
   "units": "world_units",
-  "intent": "先推进职责、路线和接续，轮廓细节后续集中打磨；每批同时检查全部已有区域的真实占地与接口。",
+  "intent": "玩家体验和可信世界优先；按地理、建筑与水系编排占地，共享边界接门，主动优化能力锁、分支和回环，必要时拆房与改线。",
   "review_limits": [
-    "本交付是世界地图初稿，不是309房可玩关卡；当前正式游戏、人工审批和在线平台不变。",
-    "每房具有明确职责；尺寸与长接近段尚需真实镜头及能力参数校准，轮廓精修后置。",
-    "连续通道占地属于两侧房间；原合同成对捷径及已确认井内升降使用同号两端，不画穿房细线。",
-    "CITY-P-G-WEST保留P07→G02，交通方式因拓扑交叉待确认；G-P18-L25按用户确认采用货梯转场，身份、双向和资格不变。"
+    "本版是统一坐标下的世界空间初稿，未施工房的实际平台、怪物、镜头与动作距离尚未验证。",
+    "平原已制作几何保持；候选拓扑单独导出，正式游戏与已发布App不因本次排图被覆盖。",
+    "灰盒需逐段检查能力锁的替代解、奖励支路和失败回程；地图资格可达不代表可玩。",
+    "配对交通显示具名两端与开放条件；新增交通设施尚未实现运行时演出。"
   ],
   "reference": {
     "title": "失序之钟·沿途据点与阿栖的旅程（v07生活与叙事层）",
@@ -58,25 +58,809 @@
     "Z",
     "G"
   ],
-  "review_summary": "16地区309房已全覆盖：每房有尺寸、同坐标占地、职责及路线。平原保持正式房形，工城入口身份改接P07。红色口为尚未接续的P07工城入口，连续连接存在拓扑交叉，交通方式待确认；G18→G25采用已确认货梯；不冒充已连通。轮廓与实际动作随后逐区校准。",
-  "room_adjustments": {},
-  "port_adjustments": {
-    "CITY-P-G-WEST": {
-      "point": [
-        20288,
-        -512
-      ],
-      "directions": {
-        "P-R07": "right",
-        "G-R02": "left"
-      }
-    }
-  },
+  "review_summary": "以地理与设施组织16地区：平原小站分流，西侧树根—菌床—圣殿相连，干岸水系下接旧城，东侧城镇—矿运—炉区共同运转；钟心与星桥形成高处目标。查看各区首访、能力回访与修钟后的路线变化。",
   "connection_adjustments": {
     "CITY-P-G-WEST": {
       "a": "P-R07",
       "a_section": "main",
       "reason": "用户明确将工城入口由P18改为P07；保留原连接身份与资格。"
+    },
+    "C16": {
+      "a": "K-R11",
+      "b": "G-R31",
+      "a_section": "main",
+      "requires": [
+        [
+          "royal_sigil",
+          "clock_K"
+        ]
+      ],
+      "reason": "档案侧翼直接接授时院检修层；内廷纹章和修钟资格保护档案，外院不再拖长走廊绕过平原。"
+    },
+    "C18": {
+      "a": "G-R35",
+      "reason": "工城最高的保险试验间阳台接浮岛石桥，修复工城钟后放行；无需绕远的顶层走廊。"
+    },
+    "C23": {
+      "a": "Z-R01",
+      "reason": "墓园开启的回程门直接返回熟悉的钟心门厅，削去横穿塔基的长接廊。"
+    },
+    "C24": {
+      "b": "K-R24",
+      "reason": "古堡侧翼露台的维护口接钟心东侧基座，保持纹章与s24开启条件。"
+    },
+    "EXP-G_workers_yard_reward-03": {
+      "b": "G-R12",
+      "reason": "洗件池回铜匠院形成街区小环，橱窗、洗件池与工房庭院彼此相邻。"
+    },
+    "SC-G-EAST": {
+      "b": "G-R18",
+      "reason": "东支座打开向桥下行人廊的短楼梯，回到已见过的桥背；不再绕城连西台。"
+    },
+    "SC-G-BELL": {
+      "b": "G-R23",
+      "reason": "悬钟背架的检修出口落到工人会馆附近，完成高层后快速回整备点。"
+    },
+    "C21": {
+      "a": "N-R04",
+      "b": "N-R06",
+      "reason": "深矿开放的交班升降机回上层矿岔；工城只保留明确的联运货梯，避免重复跨区长隧道。"
+    },
+    "room-link-124": {
+      "a": "E-R15",
+      "requires": [
+        [
+          "clock_E"
+        ]
+      ],
+      "reason": "停炉后装卸站冷却格栅打开，露出攻击素材和返回工城的高位检修路。"
+    },
+    "room-link-173": {
+      "a": "R-R15",
+      "reason": "遗迹旧街沿真实市场连续前行，先经店街再到东侧上矿道；取消跨过店街的空廊。"
+    },
+    "room-link-174": {
+      "a": "R-R03",
+      "b": "R-R12",
+      "requires": [
+        [
+          "clock_R"
+        ]
+      ],
+      "reason": "排水后开启浅庭与旧城上环的近路，回到最初看见的水线；不保留横穿整个遗迹的空跑直线。"
+    },
+    "C26": {
+      "b": "S-R13",
+      "reason": "地穴出口先接西侧旧渡干堤，东侧干岸驿棚接平原；沿自然河岸在折桩浅湾汇合。"
+    },
+    "EXP-S_dry_bank-01": {
+      "b": "S-R14",
+      "reason": "平原驿棚抵达浅湾分岔，西去地穴干堤、下行沼泽外圈，不强制先往返西岸。"
+    },
+    "C29": {
+      "a": "S-R10",
+      "reason": "深区双闸廊沿排污口接下方遗迹东街，抗毒检查与高低水位关系一致。"
+    },
+    "room-link-185": {
+      "b": "N-R03",
+      "reason": "矿井中转台接实际同层的废井折台，平原入口与矿岔由主坑道相连。"
+    },
+    "C32": {
+      "b": "N-R05",
+      "b_section": "entry:L12",
+      "reason": "遗迹东街的上矿坡进入深矿原有安全入口，沿同一HW/HD能力段进入主体，不从主街直接绕过能力锁。"
+    },
+    "C33": {
+      "b": "N-R19",
+      "reason": "排水后观潮厅开启矿泵维护口；分成泵廊、搬运段和检修竖井，再回交班台，避免一个房间拖出超长细管。"
+    },
+    "C34": {
+      "a": "N-R14",
+      "b": "E-R04",
+      "reason": "炉后分流台的冷却回路接矿井交班绕坑道，修炉后才开放，不把炉前入口和深矿首次路线混在一起。"
+    },
+    "C35": {
+      "b": "E-R11",
+      "reason": "修炉后恢复冷却水道的运维小舟，遗迹观潮岸与炉下横庭是具名停靠点，不伪装成长步行细线。"
+    },
+    "C22": {
+      "b": "E-R15",
+      "reason": "独立装卸到达厅承接工城货运，HDQ检验后进入炉口；卸料与炉内战斗分开。"
+    },
+    "room-link-187": {
+      "a": "N-R04",
+      "b": "N-R13",
+      "reason": "把入口旁的重复三角改成废井、矿岔与搬运层的实际短环，平原入口不跨过相邻房直接接远层。"
+    },
+    "C11": {
+      "a": "Y-R13",
+      "reason": "悬台长段拆出观墓前崖，给墓园入口独立的远望和接近空间，收集仍留Y06。"
+    },
+    "room-link-154": {
+      "b": "Z-R17",
+      "reason": "封印外接近段先落在检修台，再经分层观测井到星桥，取消一房承担整条巨型折廊。"
+    },
+    "C25": {
+      "a": "Z-R18",
+      "reason": "星桥从同高度接引露台进入；原修钟条件保持，入口仍在钟心最终封印之前。"
+    }
+  },
+  "connection_removals": {
+    "C17": "古堡到矿岔的旧跨区线穿过平原；改走工城既有联运节点，删掉重复且没有独立体验的远接线。",
+    "room-link-065": "外根横廊绕行没有独立决策且返程过长；T03保留根岸渡舟，普通外层通过T01→T12继续，修钟回桥沿SC-T01。"
+  },
+  "additional_rooms": [
+    {
+      "id": "N-R19",
+      "region": "N",
+      "name": "退水矿泵廊",
+      "purpose": "排水后从遗迹进入的泵廊；干燥维护岸、退水刻度与泵声共同指向矿井交班台。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "N-R20",
+      "region": "N",
+      "name": "旧运水横廊",
+      "purpose": "两岸搬运段接泵廊与检修竖井；普通地面遭遇和一处可见的休息落台分开。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "N-R21",
+      "region": "N",
+      "name": "交班检修井",
+      "purpose": "短竖向接续回交班台；层层能看见下一落台，经过主井时能认出早先的运输层。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "N-R22",
+      "region": "N",
+      "name": "沉泵换层间",
+      "purpose": "横廊上方的换层间，先观察停摆泵体再攀上检修井；失败回本层，避免四屏连续空爬。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "E-R15",
+      "region": "E",
+      "name": "工炉装卸站",
+      "purpose": "工城货运抵达的稳定到达厅；HDQ接续进入卸料主体，停炉后冷却门露出奖励与城内回程。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "Y-R13",
+      "region": "Y",
+      "name": "观墓前崖",
+      "purpose": "风蚀岩台渐成石砌送葬路；远见墓园，短遭遇后选择进入或返回悬台。",
+      "primary_role": "transition",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "name": "主体"
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "Z-R17",
+      "region": "Z",
+      "name": "封印外检修台",
+      "purpose": "封印前的检修层，明确分开主轴与星桥来路。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "Z-R18",
+      "region": "Z",
+      "name": "星桥接引露台",
+      "purpose": "观测井顶端的高空露台，与星桥同高度接续。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    }
+  ],
+  "additional_connections": [
+    {
+      "id": "N-PUMP-19-20",
+      "a": "N-R19",
+      "b": "N-R20",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "direction": "both",
+      "kind": "internal",
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "N-PUMP-20-22",
+      "a": "N-R20",
+      "b": "N-R22",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "direction": "both",
+      "kind": "internal",
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "N-PUMP-22-21",
+      "a": "N-R22",
+      "b": "N-R21",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "direction": "both",
+      "kind": "internal",
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "N-PUMP-21-06",
+      "a": "N-R21",
+      "b": "N-R06",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "direction": "both",
+      "kind": "internal",
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "E-UNLOAD-15-12",
+      "a": "E-R15",
+      "b": "E-R12",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "direction": "both",
+      "kind": "internal",
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "Y-LEDGE-06-13",
+      "a": "Y-R06",
+      "b": "Y-R13",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "direction": "both",
+      "kind": "internal",
+      "condition_text": "基础通行",
+      "effective_door_requires": [
+        []
+      ],
+      "description": "背风悬台到观墓前崖，地质与葬园铺路在接近段逐步交替。"
+    },
+    {
+      "id": "Z-OUTER-17-14",
+      "a": "Z-R17",
+      "b": "Z-R14",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "bidirectional": true,
+      "condition_text": "基础通行；分层检修岸双向返回",
+      "description": "封印外观测井的分层接续",
+      "kind": "door"
+    },
+    {
+      "id": "Z-OUTER-14-18",
+      "a": "Z-R14",
+      "b": "Z-R18",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "bidirectional": true,
+      "condition_text": "基础通行；分层检修岸双向返回",
+      "description": "封印外观测井的分层接续",
+      "kind": "door"
+    }
+  ],
+  "world_routes": [
+    {
+      "id": "n-pump",
+      "label": "矿井 · 旧城退水与交班路线",
+      "rooms": [
+        "R-R10",
+        "N-R19",
+        "N-R20",
+        "N-R22",
+        "N-R21",
+        "N-R06"
+      ],
+      "color": "#8ecdbb"
+    },
+    {
+      "id": "y-grave",
+      "label": "峡谷 → 墓园 · 悬台与观墓前崖",
+      "rooms": [
+        "Y-R03",
+        "Y-R06",
+        "Y-R13",
+        "C-R01"
+      ],
+      "color": "#c7b49b"
+    }
+  ],
+  "room_identity_adjustments": {
+    "E-R10": {
+      "name": "冷却检修廊",
+      "purpose": "修炉后进入冷却检修层，领取ATK05并接回工城维护侧；首次从工城只能预览。"
+    },
+    "Z-R14": {
+      "name": "外轴观测井",
+      "purpose": "封印外侧分层登高，中段侧台回望主轴与星桥。"
+    }
+  },
+  "world_structure": [
+    {
+      "id": "water",
+      "description": "平原旧渠流向低处湿地，双闸下方是旧城市场和泄洪设施；退水泵廊接深矿交班层，冷却水路连接炉底。"
+    },
+    {
+      "id": "work",
+      "description": "东田货运进工城街区；桥上步行、桥下货运、下城供能、屋顶授时分层。矿井与主炉拥有各自装卸和恢复节点。"
+    },
+    {
+      "id": "landmark",
+      "description": "中央钟心主轴向上贯穿天际；森林根系向下进入地穴与圣殿，西侧山脊上接冰川、背风石路进入墓园。"
+    }
+  ],
+  "route_review": {
+    "visit_replacements": [
+      {
+        "match": {
+          "visit_room": "M-R02"
+        },
+        "replace": {
+          "visit_room": "P-R03",
+          "visit_section": "main",
+          "purpose": "在P03观察钩索高口；未获H时不进入M02。"
+        }
+      },
+      {
+        "match": {
+          "visit_section": "entry:C16"
+        },
+        "replace": {
+          "visit_room": "G-R02",
+          "visit_section": "main",
+          "purpose": "本轮首访工城经P07田货轨车；古堡高庭口留到修钟后。"
+        }
+      },
+      {
+        "match": {
+          "visit_section": "entry:C22"
+        },
+        "replace": {
+          "visit_room": "E-R15",
+          "purpose": "在装卸站入口前廊预览HDQ门槛。"
+        }
+      },
+      {
+        "match": {
+          "visit_section": "entry:C26"
+        },
+        "replace": {
+          "visit_room": "S-R13",
+          "purpose": "在旧渡堤预览由地穴进入湿地的门槛。"
+        }
+      }
+    ],
+    "before_targets": [
+      {
+        "route": "B_normal_d_first",
+        "target": "pickup_skill_core_root",
+        "insert": [
+          "defeat_P_BELLSTRIDER"
+        ],
+        "reason": "技能芯现归巡游机奖励，领取前必须获得对应击败收据。"
+      }
+    ]
+  },
+  "action_adjustments": {
+    "open_s21": {
+      "room_id": "N-R06",
+      "section_id": "main",
+      "description": "从深矿交班站启动升降笼，之后可直达上矿货运廊。"
+    },
+    "open_s24": {
+      "room_id": "K-R24",
+      "section_id": "main",
+      "description": "在王冠侧露台凭纹章打开通向钟心基座的检修口。"
+    },
+    "open_s33": {
+      "room_id": "N-R19",
+      "section_id": "main",
+      "description": "从矿井侧打开退水泵廊末端闸门，接通旧城泄洪设施与深矿交班线。"
+    }
+  },
+  "region_programs": {
+    "P": {
+      "geography": "风车田野围绕钟外小站展开，西部旧路、北部风车和东侧钟心前庭各有地标。",
+      "landmark": "钟外小站与世界钟心塔",
+      "landmark_rooms": [
+        "P-R01",
+        "P-R32"
+      ],
+      "first_visit": "初行草坡完成反冲实践，经小站先调查钟心，再回到北路迎战牧风者。",
+      "return_visit": "H取得后，从熟悉小站选择森林、地穴与其它已预览高口。",
+      "repair_effect": "沿已制作时律钟演出与回路；不重排已验证教学、战斗和奖励。",
+      "route_ids": [],
+      "branch_tradeoff": "教学线保持清楚；能力到手后扩大世界选择，支路难度与主路区别可读。"
+    },
+    "F": {
+      "geography": "林下旧道绕过大树，树腹是竖向核心，枝冠与根井形成不同高度的回访。",
+      "landmark": "空心古树与调律庭",
+      "landmark_rooms": [
+        "F-R04",
+        "F-R11"
+      ],
+      "first_visit": "林下看见游侠方向与树冠工坊，H进入树腹取得W。",
+      "return_visit": "W把同一树干变成通往根桥、女王与苗圃的多层枢纽。",
+      "repair_effect": "树心节律与光恢复，已开启根梯收束回程；保留专门荆棘支线。",
+      "route_ids": [
+        "w",
+        "queen",
+        "root",
+        "ranger",
+        "reward"
+      ],
+      "branch_tradeoff": "游侠是独立武器选择；苗圃挑战绕回根梯，根桥能进一步预览圣殿。"
+    },
+    "M": {
+      "geography": "森林根下的明亮菌廊连接营点，深处菌床下降后折返到高位后庭，入口井室独立升降接近。",
+      "landmark": "菌灯营地与蕈母菌床",
+      "landmark_rooms": [
+        "M-R01",
+        "M-R09"
+      ],
+      "first_visit": "先在营地取得照明，再沿根下宽腔与菌台挑战接近D能力庭。",
+      "return_visit": "D后从后庭回到菌幕枢纽，可选主钟、苗床收集及遗迹干岸。",
+      "repair_effect": "菌光恢复并使已开启回营路更易识别，专门弹菇挑战保持。",
+      "route_ids": [
+        "m-first",
+        "m-clock",
+        "m-loot"
+      ],
+      "branch_tradeoff": "先明确主能力目标，再用新高度打开不同收益的短回环。"
+    },
+    "S": {
+      "geography": "上游干堤依次接驿棚、浅湾与倒树岸，低洼毒池在其下游；双闸把湿地水系接入旧城。",
+      "landmark": "倒树观潮岸与双闸",
+      "landmark_rooms": [
+        "S-R11",
+        "S-R10"
+      ],
+      "first_visit": "从平原或地穴进入干岸，先看毒池阀门；未装滤芯仍能探索外圈、收藏岸与矿道入口。",
+      "return_visit": "装备滤芯后深入深池，主钟和沉舟支线在排污桥分开；闸下接遗迹。",
+      "repair_effect": "净流后SC-S01返回熟悉观潮岸；沉舟回访有独立收益，不重复外圈。",
+      "route_ids": [
+        "s-deep",
+        "s-loot"
+      ],
+      "branch_tradeoff": "浅岸提供战斗与观察，深池提供环境压力；木屋是可辨认的侧路目的。"
+    },
+    "T": {
+      "geography": "圣殿沿古树根系生长，根柱中庭连接外层生活根桥、内层仪式庭及低处渡岸。",
+      "landmark": "根柱与调律根脉",
+      "landmark_rooms": [
+        "T-R02",
+        "T-R09"
+      ],
+      "first_visit": "从森林或地穴门厅看见根柱，经外庭练习HW，再进入内侧主钟路线。",
+      "return_visit": "根桥开启后回到起始中庭；可决定挑战双卫或从渡岸前往旧城。",
+      "repair_effect": "主调律恢复根脉节律，SC-T01成为真实回程；不削弱双卫支线。",
+      "route_ids": [
+        "t-core",
+        "t-side"
+      ],
+      "branch_tradeoff": "主目标、可选武器素材与安静渡岸分开，避免修钟后立刻强迫第二场Boss。"
+    },
+    "Y": {
+      "geography": "谷底向两层壁井登高，横向风桥跨越裂谷，背风岸通向送葬路，北端接冰川山麓。",
+      "landmark": "交风石桥",
+      "landmark_rooms": [
+        "Y-R04"
+      ],
+      "first_visit": "林缘进入谷底，分辨上行冰川与侧向墓园；通过一次短换墙理解风桥。",
+      "return_visit": "修钟后谷底近路连接桥背，回访收藏崖不再重爬整条谷道。",
+      "repair_effect": "峡风节律恢复，SC-Y01缩短回谷底路径，风压挑战仍有原等待岸。",
+      "route_ids": [
+        "y-climb",
+        "y-clock"
+      ],
+      "branch_tradeoff": "登高目标明确，横向可选路线提供收集、邻区与短休息。"
+    },
+    "I": {
+      "geography": "山麓车站通向镜脊与峰顶，侧面的工棚和冻结水车沿同一索道服务线布置。",
+      "landmark": "复行索道与镜峰",
+      "landmark_rooms": [
+        "I-R05",
+        "I-R08"
+      ],
+      "first_visit": "山麓先看到高桥门槛，能力齐备后沿镜脊、冻结车站与折桥攀向峰顶。",
+      "return_visit": "沉雪侧洞绕回已见索道，工棚材料支路与峰顶主目标分开。",
+      "repair_effect": "校准后SC-I01恢复便捷回程；镜面、雪光与水车表现变化不改动作参数。",
+      "route_ids": [
+        "i-peak",
+        "i-loop",
+        "i-attack"
+      ],
+      "branch_tradeoff": "高峰主线、低压侧洞和水车材料挑战分别承担不同回报。"
+    },
+    "C": {
+      "geography": "外葬园长径汇入守夜处，送葬岔庭把武器侧园与内墓礼拜堂分开，上部墓钟通王室记忆。",
+      "landmark": "礼拜堂与送葬岔庭",
+      "landmark_rooms": [
+        "C-R05",
+        "C-R04"
+      ],
+      "first_visit": "平原或森林来向先经过生活痕迹与守夜整备，进入岔庭选择武器支路或灯门。",
+      "return_visit": "取得灯后进入内墓；墓钟的纹章令古堡封门成为新的目标，钟后路可回钟心门厅。",
+      "repair_effect": "送葬钟声恢复并提示已开放回路，外墓仍保留安静纪念空间。",
+      "route_ids": [
+        "c-entry",
+        "c-clock",
+        "c-blade"
+      ],
+      "branch_tradeoff": "回旋武器是可选战，主线战与纹章领取分别有独立空间和休止。"
+    },
+    "K": {
+      "geography": "外院围绕王室封门，内廷有生活侧翼、骑士训练翼和修钟后档案翼；上层露台联系钟心与工城。",
+      "landmark": "王冠庭院与内廷钟楼",
+      "landmark_rooms": [
+        "K-R02",
+        "K-R09"
+      ],
+      "first_visit": "先探索外院与兵械庭，记住封门；取得纹章后从同一庭院进入内廷。",
+      "return_visit": "骑士授Q后从安全厅进入逆相后厅，修钟后再读档案并接高层工城。",
+      "repair_effect": "SC-K01把钟楼接回外庭；档案与检修口改变后期交通，不把Q光幕全部取消。",
+      "route_ids": [
+        "k-first",
+        "k-knight",
+        "k-inner",
+        "k-record"
+      ],
+      "branch_tradeoff": "日常侧翼提供低压力发现，训练翼提供能力，档案翼提供后期信息与接续。"
+    },
+    "G": {
+      "geography": "西街工坊与铜匠院是生活层，悬钟桥连接东站；下城供能与矿货运输在桥下，上层授时院俯瞰城市。",
+      "landmark": "悬钟桥与授时院",
+      "landmark_rooms": [
+        "G-R14",
+        "G-R08"
+      ],
+      "first_visit": "P07农货轨车到西街，工坊服务后在铜匠院辨认店街支线与悬钟桥。",
+      "return_visit": "HW/HD深入货运和动力沟；恢复炉区后向主轴与授时院登高，返回工坊形成服务循环。",
+      "repair_effect": "修钟开放浮岛方向并支持既有检修回程；主炉恢复与总钟修复保持不同阶段。",
+      "route_ids": [
+        "G-west",
+        "g-yard",
+        "G-station",
+        "G-power",
+        "G-clock",
+        "G-return"
+      ],
+      "branch_tradeoff": "车站战斗服务武器支路，赴炉路线可以绕过；住宅回环降低连续机关压力。"
+    },
+    "N": {
+      "geography": "上矿搬运层连接平原与干岸，深层交班台控制采时井与矿钟；旧泵道连接遗迹退水设施。",
+      "landmark": "废井折台与交班站",
+      "landmark_rooms": [
+        "N-R03",
+        "N-R06"
+      ],
+      "first_visit": "上矿先看爆破支线与深矿入口，取得武器或继续探索由玩家决定。",
+      "return_visit": "HW/HD深入交班台，爆破开启采时支线；修钟回台后可选择标定材料与炉底维护口。",
+      "repair_effect": "SC-N01降低矿钟返程；矿井侧开启s33后，旧泵道成为遗迹与交班台的联运路。",
+      "route_ids": [
+        "n-clock",
+        "n-reward",
+        "n-return",
+        "n-pump"
+      ],
+      "branch_tradeoff": "长竖井分层给恢复岸，普通运矿遭遇与高压力采时挑战交替。"
+    },
+    "E": {
+      "geography": "工城供料口进入炉腹，主炉、炉下工作环与冷却侧道形成一套生产设施，边缘留散热岩体。",
+      "landmark": "主炉与冷却闸",
+      "landmark_rooms": [
+        "E-R09",
+        "E-R04"
+      ],
+      "first_visit": "在装卸站落稳后预览HDQ热闸，沿停炉路径接近主炉，能力不足可返回。",
+      "return_visit": "修炉后从冷却检修回工城主轴；炉下回环通矿井，侧线提供独立材料。",
+      "repair_effect": "原热闸与s34/s35回路按资格开放；专门Q段仍保留安全起手和冷却等待。",
+      "route_ids": [
+        "e-first",
+        "e-ring",
+        "e-furnace-return"
+      ],
+      "branch_tradeoff": "主炉目标、工城回程与深处选修分开，不让长热通道代替内容。"
+    },
+    "R": {
+      "geography": "干燥旧街跨过沉水城区，上层市场能看见闸底；下层排水中庭、观察厅和实验街彼此错层。",
+      "landmark": "旧市场与悬浪观察厅",
+      "landmark_rooms": [
+        "R-R15",
+        "R-R10"
+      ],
+      "first_visit": "从地穴或湿地抵达干街，先认识市场和封闭下巷，再下降到排水中庭。",
+      "return_visit": "排水后从旧街已见缺口进入研究支线，旧泵道和冷却水路成为跨区回访选择。",
+      "repair_effect": "clock_R打开浅庭至上环近路；SC-R01回旧街，悬水退去使旧地标有新入口。",
+      "route_ids": [
+        "r-dry",
+        "r-clock",
+        "r-drain-return",
+        "r-water",
+        "r-lab"
+      ],
+      "branch_tradeoff": "研究、扩容与攻击材料不捆在同一房；返回旧街时能看懂早先水线。"
+    },
+    "A": {
+      "geography": "断裂岛体围绕同一观测设施分层漂浮，短石桥与避风岸接续；中层宽岛缓冲高空动作。",
+      "landmark": "观测浮桥与稳定器",
+      "landmark_rooms": [
+        "A-R12",
+        "A-R09"
+      ],
+      "first_visit": "从工城或古堡来向先落避风台，观察上岛设施后分段登高。",
+      "return_visit": "观测浮桥分向独立奖励与巨像路线；校相后回下岛并开放星桥方向。",
+      "repair_effect": "SC-A01缩短高空返程，稳定器表现恢复；危险短链仍保留恢复岸。",
+      "route_ids": [
+        "a-first",
+        "a-boss",
+        "a-reward"
+      ],
+      "branch_tradeoff": "高难移动之间必须有宽岛战斗或休息，避免满屏连续钩索。"
+    },
+    "V": {
+      "geography": "星桥以校相中庭为核心，左右观测翼各成小环，上层守门与极限支线独立展开。",
+      "landmark": "双翼校相中庭",
+      "landmark_rooms": [
+        "V-R02"
+      ],
+      "first_visit": "从前庭预览中央门，左右翼任选顺序；每翼末端返回同一中庭。",
+      "return_visit": "双翼完成后上行主钟与解译台；极限支线明确可选，不绑定成长或结局材料。",
+      "repair_effect": "既有回前庭与钟心接引桥收束长旅行，完成的双翼状态不因失败重置。",
+      "route_ids": [
+        "v-left",
+        "v-right",
+        "v-truth",
+        "v-extreme"
+      ],
+      "branch_tradeoff": "两翼用不同动作判断，主线整合与可选极限挑战分开。"
+    },
+    "Z": {
+      "geography": "巨大钟心由基座门厅、封印前环、外轴观测层和终局主轴组成；王座与神契内域是不同战场。",
+      "landmark": "世界钟心主轴",
+      "landmark_rooms": [
+        "Z-R10",
+        "Z-R11"
+      ],
+      "first_visit": "初访门厅建立修钟目标；后续从墓园、古堡及星桥回到封印前熟悉空间。",
+      "return_visit": "外轴检修台、观测井与接引露台分段接续星桥，终局主轴仍要求三核等既定资格。",
+      "repair_effect": "世界稳定或真结局沿正式条件；独立保存两场终局战的状态，休息龛保护重试。",
+      "route_ids": [
+        "z-first",
+        "z-collect",
+        "z-final"
+      ],
+      "branch_tradeoff": "封印前允许探索与撤回；终局攀升不新增能力，旁路不能绕过核心条件。"
     }
   }
 }

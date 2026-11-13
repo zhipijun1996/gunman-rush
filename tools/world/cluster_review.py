@@ -8,6 +8,7 @@ def markers(r):
     if r.get('rift'):m.append('裂缝')
     m += ['Boss '+b for b in r.get('bosses',[])]
     m += r.get('rewards',[])
+    m += ['NPC '+n for n in r.get('npcs',[])]
     for a in r.get('actions',[]):
         if a.get('type')=='ability':m.append('获得'+' / '.join(a['grants']))
         elif a['id']=='get_lamp':m.append('照明')
@@ -21,7 +22,7 @@ def drawing(plan,context=()):
     colors={'P':('#514e35','#b8ae78'),'F':('#283e34','#84ad94'),'M':('#3d344d','#b9a3d2'),'S':('#294840','#8fc5b5'),'T':('#42472c','#b8c58a'),'Y':('#4c3b2e','#b89772'),'I':('#2d4653','#8eb4c5'),'C':('#3e3d51','#aaa6c4'),'K':('#433447','#bda5c2'),'G':('#4a3d2e','#c8b085'),'N':('#3a3a32','#b5ad92'),'R':('#294552','#83b6cb'),'E':('#503b32','#cc9070'),'A':('#373e50','#a3acc9'),'V':('#3d4356','#c6cce2'),'Z':('#4c4735','#d0bd81')}
     whole=len(rooms)>200
     if whole:y-=1200;h+=1200
-    out=[f'<svg id="map" xmlns="http://www.w3.org/2000/svg" viewBox="{x} {y} {w} {h}" role="img" aria-label="连续地区地图初稿"><style>text{{font-family:"Noto Sans CJK SC",sans-serif}}.room{{cursor:pointer}}.room.selected path{{stroke:#ffe5a8;stroke-width:20}}.room.dim{{opacity:.24}}.route{{pointer-events:none}}</style><rect x="{x}" y="{y}" width="{w}" height="{h}" fill="#101b21"/><text x="{x+240}" y="{y+(560 if whole else 330)}" fill="#e5d9b4" font-size="{480 if whole else min(180,(w-480)/max(1,len(plan.get("title","地穴 · 沼泽 · 圣殿 / 地图初稿"))))}">{html.escape(plan.get("title","地穴 · 沼泽 · 圣殿 / 地图初稿"))}</text><text x="{x+240}" y="{y+(1040 if whole else 600)}" fill="#a7b7b5" font-size="{230 if whole else min(95,(w-480)/68)}">同一世界坐标 · 实宽通道归房间 · 金色口为邻区预留 · 电梯两端同号 · 尚未施工玩法</text>']
+    out=[f'<svg id="map" xmlns="http://www.w3.org/2000/svg" viewBox="{x} {y} {w} {h}" role="img" aria-label="连续地区地图初稿"><style>text{{font-family:"Noto Sans CJK SC",sans-serif}}.room{{cursor:pointer}}.room.selected path{{stroke:#ffe5a8;stroke-width:20}}.room.dim{{opacity:.24}}.route{{pointer-events:none}}</style><rect x="{x}" y="{y}" width="{w}" height="{h}" fill="#101b21"/><text x="{x+240}" y="{y+(560 if whole else 330)}" fill="#e5d9b4" font-size="{480 if whole else min(180,(w-480)/max(1,len(plan.get("title","地穴 · 沼泽 · 圣殿 / 地图初稿"))))}">{html.escape(plan.get("title","地穴 · 沼泽 · 圣殿 / 地图初稿"))}</text><text x="{x+240}" y="{y+(1040 if whole else 600)}" fill="#a7b7b5" font-size="{230 if whole else min(95,(w-480)/68)}">同一世界坐标 · 完整房腔共享门口 · 金色点为跨区接缝 · 配对交通两端同号 · 尚未施工玩法</text>']
     if whole:
         for n,region in enumerate(plan['regions']):
             lx=x+240+(n%8)*(w-480)/8;ly=y+1510+(n//8)*400;color=colors[region['code']][1]

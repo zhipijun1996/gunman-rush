@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Assemble authored regions in place; validate shared seams before review export."""
-import base64,copy,html,json
+import base64,copy,html,json,xml.etree.ElementTree as ET
 from pathlib import Path
 from cluster_review import drawing
 from export_editor_project import export
@@ -14,6 +14,59 @@ OPPOSITE={'left':'right','right':'left','up':'down','down':'up'}
 def on_boundary(poly,p):
     x,y=p
     return any(a[0]==b[0]==x and min(a[1],b[1])<=y<=max(a[1],b[1]) or a[1]==b[1]==y and min(a[0],b[0])<=x<=max(a[0],b[0]) for a,b in zip(poly,poly[1:]+poly[:1]))
+
+def mouth_clearance(poly,point,direction):
+    """Width of the straight wall interval around a real door, not its bounds."""
+    axis=1 if direction in ('left','right') else 0
+    x=point[axis];fixed=point[1-axis]
+    segments=[]
+    for a,b in zip(poly,poly[1:]+poly[:1]):
+        if a[1-axis]==b[1-axis]==fixed:
+            lo,hi=sorted((a[axis],b[axis]))
+            if lo<=x<=hi:segments.append((lo,hi))
+    if not segments:return 0
+    return 2*min(x-min(a for a,b in segments),max(b for a,b in segments)-x)
+
+def validate_shared_door(rooms,edge,outlines=None):
+    points=[];directions=[];polys=[]
+    from spatial import room_space
+    for side in ('a','b'):
+        ep=edge[side];r=rooms[ep['room']];p=r['ports'][ep['port']]
+        points.append([r['origin'][i]+p['position'][i] for i in (0,1)])
+        directions.append(p['direction'])
+        if outlines is not None:polys.append(outlines[r['id']])
+        else:
+            shape=room_space(r['spaces'],r['bounds'][2:])
+            polys.append([[q[i]+r['origin'][i] for i in (0,1)] for q in shape['outline']])
+    assert points[0]==points[1],f"Seam drift {edge['id']}: {points}"
+    assert OPPOSITE[directions[0]]==directions[1],f"Normals {edge['id']}"
+    width=edge['spatial_draft']['width']
+    assert width>=128,f"Narrow mouth {edge['id']}"
+    for poly,point,direction in zip(polys,points,directions):
+        assert mouth_clearance(poly,point,direction)>=width-.001,f"Mouth clearance {edge['id']}"
+        dx,dy={'left':(-1,0),'right':(1,0),'up':(0,-1),'down':(0,1)}[direction]
+        # Outward must be empty in this room; inward must be its real chamber.
+        def inside(x,y):
+            return any(a<=x<a+w and b<=y<b+h for a,b,w,h in rectangles(poly))
+        assert inside(point[0]-dx,point[1]-dy) and not inside(point[0]+dx,point[1]+dy),f"Door facing {edge['id']}"
+
+def validate_review_path(connection,outlines):
+    """The displayed journey may cross its door, never an intervening wall."""
+    rs=[rect for rid in (connection['a'],connection['b']) for rect in rectangles(outlines[rid])]
+    for a,b in zip(connection['path'],connection['path'][1:]):
+        if a==b:continue
+        axis=0 if a[1]==b[1] else 1
+        assert a[1-axis]==b[1-axis],f"Diagonal review path {connection['id']}"
+        lo,hi=sorted((a[axis],b[axis]));fixed=a[1-axis]
+        spans=sorted((r[axis],r[axis]+r[axis+2]) for r in rs
+                     if r[1-axis]<=fixed<=r[1-axis]+r[3-axis])
+        cursor=lo
+        for start,end in spans:
+            if end<cursor:continue
+            if start>cursor+.001:break
+            cursor=max(cursor,end)
+            if cursor>=hi:break
+        assert cursor>=hi-.001,f"Review path leaves rooms {connection['id']}"
 
 def validate_assembly(plan,project):
     rooms={r['room_id']:r for r in plan['rooms']};issues=[]
@@ -38,15 +91,18 @@ def validate_assembly(plan,project):
             ep=pending[side]
             if not on_boundary(rooms[ep['room']]['outline'],ep['point']):issues.append(f"Pending port off boundary: {pending['id']} / {ep['room']}")
     assert not issues,'\n'.join(issues)
+    for edge in project['connections'].values():
+        if edge.get('spatial_draft',{}).get('kind')=='shared_seam':validate_shared_door(project['rooms'],edge,{rid:r['outline'] for rid,r in rooms.items()})
+    outlines={rid:r['outline'] for rid,r in rooms.items()}
+    for connection in plan['connections']:validate_review_path(connection,outlines)
     return {'rooms':len(rooms),'cross_region_seams':len(plan['seams']),'overlaps':0,'unresolved_connections':len(plan.get('pending_connections',[]))}
 
 def build(project=None):
-    from spatial_adjustments import preview as adjusted_preview
-    p=project or export(spatial_draft=True);preview=adjusted_preview(ROOT,preview_catalog(ROOT))
+    p=project or export(spatial_draft=True);preview=preview_catalog(ROOT)
     manifest=json.loads(MANIFEST.read_text());regions='P'+''.join(manifest['scope_regions'])
     cache={}
     plans=[forest_build(ROOT,preview),*[compile_plan(cluster=Path(source).stem,_cache=cache) for source in manifest['cluster_sources']]]
-    world=json.loads((ROOT/'config/world/world.json').read_text());identities={r['id']:r for r in world['rooms']};names={r['code']:r['name'] for r in world['regions']}
+    world=json.loads((ROOT/'config/world/world.json').read_text());from spatial_adjustments import world_for_draft;world=world_for_draft(ROOT,world);identities={r['id']:r for r in world['rooms']};names={r['code']:r['name'] for r in world['regions']}
     rooms=[copy.deepcopy(r) for plan in plans for r in plan['rooms']]
     for row in preview['map_rooms']:
         if row['id'][0]!='P':continue
@@ -56,14 +112,13 @@ def build(project=None):
             design.update(r.get('design_contract',{}));design['stage']='已制作房的候选调整；尚未回写正式关卡'
             if 'review_label' in r:design['label']=[r['review_label'][i]+r['origin'][i] for i in (0,1)]
         rooms.append(design)
-    from spatial_adjustments import connections as draft_connections
-    ids={r['room_id'] for r in rooms};edges={e['id']:e for e in draft_connections(ROOT,world)}
+    ids={r['room_id'] for r in rooms};edges={e['id']:e for e in world['connections']}
     for r in rooms:
         rid=r['room_id'];src=identities[rid]
-        r.update(rest=src['rest_point'],rift=src.get('rift_machine',False),rewards=src['reward_ids'],bosses=[b['working_name'] for b in world['boss_plan']['bosses'] if b['physical_room']==rid],actions=[a for a in world['actions'] if a.get('room_id')==rid],gates=[g for g in src['internal_routes'] if not g['id'].endswith(':return')])
+        r.update(npcs=[n.get('name',n['id']) for n in world['npcs'] if n['room_id']==rid],rest=src['rest_point'],rift=src.get('rift_machine',False),rewards=src['reward_ids'],bosses=[b['working_name'] for b in world['boss_plan']['bosses'] if b['physical_room']==rid],actions=[a for a in world['actions'] if a.get('room_id')==rid],gates=[g for g in src['internal_routes'] if not g['id'].endswith(':return')])
         r['neighbors']=[{'id':e['id'],'room':e['b'] if e['a']==rid else e['a'],'condition':e.get('condition_text','基础通行')} for e in edges.values() if rid in [e['a'],e['b']]]
     connections=[copy.deepcopy(c) for plan in plans for c in plan['connections']];seen={c['id'] for c in connections}
-    transitions=[t for plan in plans for t in plan.get('transitions',[])];pending=[t for plan in plans for t in plan.get('pending_connections',[])];transition_ids={t['id'] for t in [*transitions,*pending]}
+    transitions=list({t['id']:t for plan in plans for t in plan.get('transitions',[])}.values());pending=[t for plan in plans for t in plan.get('pending_connections',[])];transition_ids={t['id'] for t in [*transitions,*pending]}
     seams=[];external=[]
     for e in edges.values():
         inside=[e[side] in ids for side in ['a','b']]
@@ -77,8 +132,10 @@ def build(project=None):
         else:
             host=e['a'] if inside[0] else e['b'];target=e['b'] if inside[0] else e['a'];r=p['rooms'][host];port=next(v for v in r['ports'].values() if v['connection']==cid)
             external.append(dict(id=cid,room=host,target=target,point=[r['origin'][i]+port['position'][i] for i in (0,1)],direction=port['direction'],region_name=names[target[0]]+'（待编排）'))
-    plan=dict(title=f'失序之钟 · {len(regions)}地区 / {len(rooms)}房世界空间初稿',rooms=sorted(rooms,key=lambda r:(regions.index(r['room_id'][0]),r['room_id'])),connections=connections,routes=[copy.deepcopy(r) for p1 in plans for r in p1['routes']],external_ports=external,transitions=transitions,pending_connections=pending,seams=seams,attachments=[],regions=[{'code':c,'name':names[c]} for c in regions],review_limits=manifest['review_limits']+[f'同坐标检查{len(rooms)}房无重叠、{len(seams)}对跨区接缝共点且门向相反；真实落点和动作待灰盒验证。','能力锁、奖励、NPC与审批状态不因排布升级；房内门槛位置仍需灰盒校准。'],summary=manifest['review_summary'],focus_regions=manifest['review_regions'])
+    plan=dict(title=f'失序之钟 · {len(regions)}地区 / {len(rooms)}房世界空间初稿',rooms=sorted(rooms,key=lambda r:(regions.index(r['room_id'][0]),r['room_id'])),connections=connections,routes=[copy.deepcopy(r) for p1 in plans for r in p1['routes']]+manifest.get('world_routes',[]),external_ports=external,transitions=transitions,pending_connections=pending,seams=seams,attachments=[],regions=[{'code':c,'name':names[c]} for c in regions],review_limits=manifest['review_limits']+[f'同坐标检查{len(rooms)}房无重叠、{len(seams)}对跨区接缝共点且门向相反；真实落点和动作待灰盒验证。','奖励与NPC身份保持；候选改线及资格同步，房内门槛位置仍需灰盒校准；不升级审批。'],summary=manifest['review_summary'],focus_regions=manifest['review_regions'])
     plan['checks']=validate_assembly(plan,p)
+    plan['topology_changes']={'adjusted':manifest.get('connection_adjustments',{}),'removed':manifest.get('connection_removals',{}),'added_rooms':[{k:r[k] for k in ('id','name','purpose')} for r in manifest.get('additional_rooms',[])]}
+    plan['region_programs']=manifest.get('region_programs',{})
     plan['review_limits'] += [f"待接续 {t['id']}：{t['reason']}" for t in pending]
     plan['attachments']=[dict(id=s['id'],path=[s['point']],label=s['a'][0]+' ↔ '+s['b'][0]) for s in seams]
     return plan,p
@@ -92,18 +149,46 @@ def page(plan,svg):
     text=text.replace('r.room_id.slice(2)','r.room_id').replace('id.slice(2)','id').replace('e.room.slice(2)','e.room')
     text=text.replace('href="forest.svg" download','href="data:image/svg+xml;base64,'+base64.b64encode(svg.encode()).decode()+'" download="world-map.svg"')
     selectors=f'<select id="region-view" aria-label="选择区域"><option value="all">{nr}地区总览</option>'+''.join(f'<option value="{r["code"]}">{r["name"]}</option>' for r in plan['regions'])+f'</select><select id="seam-view" aria-label="选择跨区接缝"><option value="">跨区接缝 · {ns}对</option>'+''.join(f'<option value="{s["id"]}">{s["id"]} · {s["a"]} ↔ {s["b"]}</option>' for s in plan['seams'])+'</select>'
+    selectors+='<select id="transport-view" aria-label="查看配对交通"><option value="">配对交通 · '+str(len(plan['transitions']))+'处</option>'+''.join('<option value="'+t['id']+'">'+t['id']+' · '+html.escape(t.get('label','配对捷径'))+'</option>' for t in plan['transitions'])+'</select>'
     text=text.replace('<select id="route"',selectors+'<select id="route"')
     text=text.replace("$('#route-summary').textContent=rt?","if(rt)fitRooms(rt.rooms.map(id=>rooms.get(id)));$('#route-summary').textContent=rt?")
     text=text.replace("const pointers=new Map();", "function fitRooms(rs){const bs=rs.map(r=>r.bounds),x=Math.min(...bs.map(b=>b[0])),y=Math.min(...bs.map(b=>b[1])),xx=Math.max(...bs.map(b=>b[0]+b[2])),yy=Math.max(...bs.map(b=>b[1]+b[3]));view=[x-300,y-300,xx-x+600,yy-y+600];renderView()}const pointers=new Map();")
     text=text.replace('<select id="route"', '<select id="pending-view" aria-label="待解决连接"><option value="">待解决连接 · '+str(len(plan.get('pending_connections',[])))+'</option>'+''.join('<option value="'+t['id']+'">'+t['id']+'</option>' for t in plan.get('pending_connections',[]))+'</select><select id="route"')
     handlers="""
+$('#transport-view').onchange=e=>{const t=plan.transitions.find(t=>t.id===e.target.value);if(!t)return;$('#route').value='all';$('#route').dispatchEvent(new Event('change'));select(t.a.room);fitRooms([rooms.get(t.a.room),rooms.get(t.b.room)]);$('#route-summary').textContent=t.id+' · '+t.a.room+' ↔ '+t.b.room+'：'+t.description;document.querySelectorAll('.room').forEach(n=>n.classList.toggle('dim',![t.a.room,t.b.room].includes(n.dataset.room)))};
 $('#pending-view').onchange=e=>{const p=plan.pending_connections.find(p=>p.id===e.target.value);if(!p)return;select(p.a.room);fitRooms([rooms.get(p.a.room),rooms.get(p.b.room)]);$('#route-summary').textContent='待接续：'+p.reason;document.querySelectorAll('.room').forEach(n=>n.classList.toggle('dim',![p.a.room,p.b.room].includes(n.dataset.room)))};
-$('#region-view').onchange=e=>{ $('#route').value='all';$('#route').dispatchEvent(new Event('change'));$('#seam-view').value='';fitRooms(plan.rooms.filter(r=>e.target.value==='all'||r.room_id[0]===e.target.value&&(e.target.value!=='M'||r.room_id!=='M-R02')))};
+function showRegionProgram(code){const p=plan.region_programs[code],box=$('#region-program');box.hidden=!p;if(!p)return;box.innerHTML=`<h2>${esc(plan.regions.find(r=>r.code===code).name)} · 地理与探索</h2><p>${esc(p.geography)}</p><p><strong>地标：</strong>${esc(p.landmark)}</p><dl><dt>首访</dt><dd>${esc(p.first_visit)}</dd><dt>能力回访</dt><dd>${esc(p.return_visit)}</dd><dt>修钟后的变化</dt><dd>${esc(p.repair_effect)}</dd><dt>分支为何值得走</dt><dd>${esc(p.branch_tradeoff)}</dd></dl><div class="neighbors">${p.landmark_rooms.map(id=>`<button data-landmark="${id}">${id} · 看地标</button>`).join('')}</div>`;box.querySelectorAll('[data-landmark]').forEach(b=>b.onclick=()=>select(b.dataset.landmark,true))}
+$('#region-view').onchange=e=>{const code=e.target.value;$('#route').value='all';$('#route').dispatchEvent(new Event('change'));$('#seam-view').value='';for(const o of $('#route').options){const rt=plan.routes.find(r=>r.id===o.value);o.hidden=!!rt&&code!=='all'&&!rt.rooms.some(id=>id[0]===code)}showRegionProgram(code);fitRooms(plan.rooms.filter(r=>code==='all'||r.room_id[0]===code&&(code!=='M'||r.room_id!=='M-R02')))};
 $('#seam-view').onchange=e=>{const s=plan.seams.find(s=>s.id===e.target.value);if(!s)return;$('#route').value='all';$('#route').dispatchEvent(new Event('change'));select(s.a);view=[s.point[0]-1800,s.point[1]-1500,3600,3000];renderView();$('#route-summary').textContent=`${s.id}：${s.a}（${s.directions[0]}） ↔ ${s.b}（${s.directions[1]}） · ${s.condition}`;document.querySelectorAll('.room').forEach(n=>n.classList.toggle('dim',![s.a,s.b].includes(n.dataset.room)))};
 """
     text=text.replace('</script>',handlers+'</script>')
+    changes=plan['topology_changes']
+    details='<details><summary>本版房间与连接调整</summary><ul>'+''.join('<li>'+html.escape(cid+'：'+row.get('reason',str(row)))+'</li>' for cid,row in changes['adjusted'].items())+''.join('<li>移除 '+html.escape(cid+'：'+reason)+'</li>' for cid,reason in changes['removed'].items())+''.join('<li>新增 '+html.escape(r['id']+' '+r['name']+'：'+r['purpose'])+'</li>' for r in changes['added_rooms'])+'</ul></details>'
+    text=text.replace('<ul id="limits"></ul>','<ul id="limits"></ul>'+details)
+    text=text.replace('<select id="region-view"','<button id="labels-view" aria-pressed="false">只看轮廓</button><select id="region-view"')
+    text=text.replace('<h2>本版优先审核</h2>','<div id="region-program" hidden></div><h2>本版优先审核</h2>')
+    text=text.replace('</script>',"$('#labels-view').onclick=e=>{const clean=e.target.getAttribute('aria-pressed')!=='true';e.target.setAttribute('aria-pressed',String(clean));e.target.textContent=clean?'显示标注':'只看轮廓';document.querySelectorAll('#map text').forEach(t=>t.style.visibility=clean?'hidden':'')};</script>")
     text=text.replace('<!-- MAP -->',svg).replace('/* PLAN */',json.dumps(plan,ensure_ascii=False).replace('</','<\\/'))
     return text
+
+def overview_svg(plan):
+    """Same physical geometry, with readable region names for phone overview.
+
+    The detailed map and review page retain every room's role and rewards.
+    """
+    ns='http://www.w3.org/2000/svg';ET.register_namespace('',ns)
+    root=ET.fromstring(drawing(plan))
+    for parent in root.iter():
+        for child in list(parent):
+            if child.tag==f'{{{ns}}}text':parent.remove(child)
+    rooms={r['room_id']:r for r in plan['rooms']}
+    for region in plan['regions']:
+        code=region['code'];program=plan['region_programs'][code]
+        anchor=rooms[program['landmark_rooms'][0]]['label'];count=sum(r['room_id'][0]==code for r in plan['rooms'])
+        for offset,size,label in [(0,360,region['name']),(360,190,f'{code} · {count}房')]:
+            node=ET.SubElement(root,f'{{{ns}}}text',{'x':str(anchor[0]),'y':str(anchor[1]+offset),'font-size':str(size),'text-anchor':'middle','fill':'#f5e9c9','stroke':'#101b21','stroke-width':'35','paint-order':'stroke','font-weight':'600'})
+            node.text=label
+    return ET.tostring(root,encoding='unicode')
 
 def seam_sheet(plan):
     """Actual same-coordinate neighborhoods, not a separate schematic graph."""
@@ -128,6 +213,7 @@ def main():
     out=ROOT/'build/world-review';out.mkdir(parents=True,exist_ok=True)
     plan,p=build();svg=drawing(plan)
     (out/'world-map.svg').write_text(svg);(out/'world-review.html').write_text(page(plan,svg))
+    (out/'world-overview.svg').write_text(overview_svg(plan))
     (out/'seams.svg').write_text(seam_sheet(plan))
     (out/'world-project.json').write_text(json.dumps(p,ensure_ascii=False,separators=(',',':'))+'\n')
     for code in plan['focus_regions']:

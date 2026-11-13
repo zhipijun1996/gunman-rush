@@ -5,7 +5,7 @@ candidate geometry into construction or mutate the playable room documents.
 """
 import copy,json
 from pathlib import Path
-from forest_review import rectangles,passage,split_path,overlap,build as forest_build
+from forest_review import rectangles,overlap,build as forest_build
 from spatial import room_space
 from preview_catalog import preview_catalog
 ROOT=Path(__file__).resolve().parents[2]
@@ -18,8 +18,9 @@ def compile_plan(root=ROOT,validate=True,cluster="underground",_cache=None):
         return result
     plan=json.loads((root/f'config/world/spatial_clusters/{cluster}.json').read_text())
     world=json.loads((root/'config/world/world.json').read_text())
-    from spatial_adjustments import connections as draft_connections
-    identities={r['id']:r for r in world['rooms']};edges={e['id']:e for e in draft_connections(root,world)}
+    from spatial_adjustments import world_for_draft
+    world=world_for_draft(root,world)
+    identities={r['id']:r for r in world['rooms']};edges={e['id']:e for e in world['connections']}
     rooms={r['room_id']:r for r in plan['rooms']};expected={r for r in identities if r[0] in plan['regions']}
     assert set(rooms)==expected,'Missing/extra regional rooms'
     internal={e['id'] for e in edges.values() if e['a'] in rooms and e['b'] in rooms}
@@ -27,11 +28,10 @@ def compile_plan(root=ROOT,validate=True,cluster="underground",_cache=None):
     assert internal=={e['id'] for e in plan['connections']}|{cid for cid in transition_ids if edges[cid]['a'] in rooms and edges[cid]['b'] in rooms},'Missing/extra internal edges'
     external={e['id'] for e in edges.values() if (e['a'] in rooms)!=(e['b'] in rooms)}
     assert external=={e['id'] for e in plan['external_ports']+plan['attachments']}|{cid for cid in transition_ids if (edges[cid]['a'] in rooms)!=(edges[cid]['b'] in rooms)},'Missing/extra outside ports'
+    assert plan['geometry_schema']==2, 'Room outlines must own complete geometry'
     rects={rid:rectangles(r['outline']) for rid,r in rooms.items()}
     for c in plan['connections']:
-        e=edges[c['id']];a,b=split_path(c['path'],c['width']);c.update(a=e['a'],b=e['b'],seam=a[-1],requires=e.get('requires',[[]]))
-        rects[e['a']]+=passage(a,c['width']);rects[e['b']]+=passage(b,c['width'])
-    for c in plan['attachments']:rects[c['room']]+=passage(c['path'],c['width'])
+        e=edges[c['id']];c.update(a=e['a'],b=e['b'],requires=e.get('requires',[[]]))
     issues=[]
     for rid,r in rooms.items():
         own=rects[rid];x=min(a[0] for a in own);y=min(a[1] for a in own);xx=max(a[0]+a[2] for a in own);yy=max(a[1]+a[3] for a in own)
@@ -46,8 +46,7 @@ def compile_plan(root=ROOT,validate=True,cluster="underground",_cache=None):
         r['actions']=[{k:copy.deepcopy(a[k]) for k in ['id','type','grants','section_id'] if k in a} for a in world['actions'] if a.get('room_id')==rid and (a.get('type')=='ability' or a['id'].startswith(('repair_','get_lamp','get_filter','open_SC','open_s03')))]
         for e in edges.values():
             if rid in [e['a'],e['b']]:r['neighbors'].append({'id':e['id'],'room':e['b'] if e['a']==rid else e['a'],'condition':e.get('condition_text','基础通行')})
-    from spatial_adjustments import preview as adjusted_preview
-    preview=adjusted_preview(root,preview_catalog(root));forest=forest_build(root,preview)
+    preview=preview_catalog(root);forest=forest_build(root,preview)
     fixed={r['room_id']:rectangles(r['outline']) for r in forest['rooms']}
     fixed.update({r['id']:rectangles(r['polygon']) for r in preview['map_rooms'] if r['id'][0] not in {*plan['regions'],'F','M','S','T','Z','V'}})
     manifest=json.loads((root/'config/world/spatial_layout.json').read_text())
@@ -82,7 +81,7 @@ def compile_plan(root=ROOT,validate=True,cluster="underground",_cache=None):
         if p['target'][0] in 'PF':continue
         x,y=p['point'];probe={'up':[x-96,y-384,192,384],'down':[x-96,y,192,384],'left':[x-384,y-96,384,192],'right':[x,y-96,384,192]}[p['direction']]
         for rid,rs in [*rects.items(),*fixed.items()]:
-            if rid!=p['room'] and any(overlap(probe,r) for r in rs):issues.append(f"Blocked outside approach: {p['id']} / {rid}")
+            if rid not in (p['room'],p['target']) and any(overlap(probe,r) for r in rs):issues.append(f"Blocked outside approach: {p['id']} / {rid}")
     for c in plan['attachments']:
         if not boundary(rooms[c['room']]['outline'],c['path'][0]):issues.append(f"Anchor not on boundary: {c['id']}")
     plan['issues']=issues

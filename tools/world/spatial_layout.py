@@ -18,14 +18,11 @@ def apply(project,root):
         room['spatial_source']={'kind':'spatial_draft','path':manifest['source'],'units':'world_units','status':'calibration_required'}
         room['review_label']=[design['label'][0]-x,design['label'][1]-y]
         room['purpose']=design['purpose']
-        room['design_contract']={k:design[k] for k in ['stage','play','failure','exploration']}
+        room['design_contract']={k:design[k] for k in ['stage','play','failure','exploration','space_type'] if k in design}
         for section in room['sections'].values():section['point']=copy.deepcopy(room['review_label'])
     for c in plan['connections']:
         edge=project['connections'][c['id']];seam=c['seam']
-        path=c['path'];horizontal=any(a[1]==b[1]==seam[1] and min(a[0],b[0])<=seam[0]<=max(a[0],b[0]) for a,b in zip(path,path[1:]))
-        # The segment through the seam defines its normals, not the room centre.
-        seg=next((a,b) for a,b in zip(path,path[1:]) if min(a[0],b[0])<=seam[0]<=max(a[0],b[0]) and min(a[1],b[1])<=seam[1]<=max(a[1],b[1]))
-        direction=('right' if seg[1][0]>seg[0][0] else 'left') if horizontal else ('down' if seg[1][1]>seg[0][1] else 'up')
+        direction=c['direction']
         opposite={'left':'right','right':'left','up':'down','down':'up'}
         for side in ['a','b']:
             ep=edge[side];room=project['rooms'][ep['room']];port=room['ports'][ep['port']]
@@ -39,6 +36,7 @@ def apply(project,root):
     for cluster_source in manifest.get('cluster_sources',[]):
         apply_cluster(project, compile_plan(Path(root),cluster=Path(cluster_source).stem,_cache=cache), cluster_source)
     project['metadata']['spatial_draft']={'source':str(source.relative_to(root)),'status':manifest['status'],'regions':manifest['scope_regions'],'limits':manifest['review_limits']}
+    project['planning']['region_programs']=copy.deepcopy(manifest.get('region_programs',{}))
 
 
 def apply_cluster(project,plan,source):
@@ -49,7 +47,7 @@ def apply_cluster(project,plan,source):
         room['spatial_source']={'kind':'spatial_draft','path':source,'units':'world_units','status':'calibration_required'}
         room['review_label']=[design['label'][0]-x,design['label'][1]-y]
         room['purpose']=design['purpose']
-        room['design_contract']={k:design[k] for k in ['stage','play','failure','exploration']}
+        room['design_contract']={k:design[k] for k in ['stage','play','failure','exploration','space_type'] if k in design}
         for section in room['sections'].values():section['point']=copy.deepcopy(room['review_label'])
     opposite={'left':'right','right':'left','up':'down','down':'up'}
     def port(rid,cid,point,direction):
@@ -57,8 +55,7 @@ def apply_cluster(project,plan,source):
         p.update(position=[point[i]-r['origin'][i] for i in (0,1)],direction=direction,landing_status='requires_room_construction')
         if p['section'].startswith('entry:'):r['sections'][p['section']]['point']=p['position'][:]
     for c in plan['connections']:
-        seam=c['seam'];a,b=next((a,b) for a,b in zip(c['path'],c['path'][1:]) if min(a[0],b[0])<=seam[0]<=max(a[0],b[0]) and min(a[1],b[1])<=seam[1]<=max(a[1],b[1]))
-        direction=('right' if b[0]>a[0] else 'left') if a[1]==b[1] else ('down' if b[1]>a[1] else 'up')
+        seam=c['seam'];direction=c['direction']
         port(c['a'],c['id'],seam,direction);port(c['b'],c['id'],seam,opposite[direction])
         project['connections'][c['id']]['spatial_draft']={'kind':'shared_seam','path':[seam,seam],'route_within_rooms':c['path'],'width':c['width'],'length':0}
     for c in plan['attachments']:

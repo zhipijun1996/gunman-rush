@@ -4,39 +4,31 @@
 Candidate footprints are deliberately not installed into construction/runtime.
 No geometry dependency: reuse the game's orthogonal room-space compiler.
 """
-import argparse, html, json, math
+import argparse, html, json
 from pathlib import Path
 from spatial import room_space
 ROOT = Path(__file__).resolve().parents[2]
 
 def rectangles(poly):
-    xs=sorted({p[0] for p in poly}); ys=sorted({p[1] for p in poly}); result=[]
-    for x,xx in zip(xs,xs[1:]):
-        for y,yy in zip(ys,ys[1:]):
-            px,py=(x+xx)/2,(y+yy)/2
-            crossings=sum(1 for a,b in zip(poly,poly[1:]+poly[:1]) if a[0]==b[0] and a[0]>px and min(a[1],b[1])<=py<max(a[1],b[1]))
-            if crossings%2:result.append([x,y,xx-x,yy-y])
-    return result
+    """Exact scanline rectangles, merging equal spans across adjacent bands.
 
-def split_path(points,width=256):
-    lengths=[math.dist(a,b) for a,b in zip(points,points[1:])];half=sum(lengths)/2
-    candidates=[];offset=0
-    for i,length in enumerate(lengths):
-        margin=min(width/2+32,length/2)
-        at=max(margin,min(length-margin,half-offset))
-        candidates.append((abs(offset+at-half),i,at/length))
-        offset+=length
-    _,i,f=min(candidates)
-    a,b=points[i:i+2];mid=[a[k]+(b[k]-a[k])*f for k in (0,1)]
-    return points[:i+1]+[mid],[mid]+points[i+1:]
-
-def passage(points,width):
-    result=[];h=width/2
-    for a,b in zip(points,points[1:]):
-        if a==b:continue
-        assert a[0]==b[0] or a[1]==b[1], 'Passages must be orthogonal'
-        result.append([min(a[0],b[0]),a[1]-h,abs(a[0]-b[0]),width] if a[1]==b[1] else [a[0]-h,min(a[1],b[1]),width,abs(a[1]-b[1])])
-    for p in points[1:-1]:result.append([p[0]-h,p[1]-h,width,width])
+    A room bend must not split every other chamber into a Cartesian grid:
+    those redundant cells made complete-world export and App data much larger.
+    """
+    ys=sorted({p[1] for p in poly}); result=[]; active={}
+    vertical=[(a[0],min(a[1],b[1]),max(a[1],b[1]))
+              for a,b in zip(poly,poly[1:]+poly[:1]) if a[0]==b[0]]
+    for y,yy in zip(ys,ys[1:]):
+        py=(y+yy)/2;cuts=sorted(x for x,lo,hi in vertical if lo<=py<hi)
+        next_active={}
+        for x,xx in zip(cuts[::2],cuts[1::2]):
+            key=(x,xx)
+            if key in active:
+                rect=active[key];rect[3]=yy-rect[1]
+            else:
+                rect=[x,y,xx-x,yy-y];result.append(rect)
+            next_active[key]=rect
+        active=next_active
     return result
 
 def overlap(a,b):
@@ -50,10 +42,10 @@ def build(root=ROOT, preview=None):
     assert {e['id'] for e in plan['connections']}=={e['id'] for e in connections.values() if e['a'] in rooms and e['b'] in rooms},'Internal connection identity mismatch'
     expected={e['id'] for e in connections.values() if (e['a'] in rooms)!=(e['b'] in rooms)}
     assert {p['id'] for p in plan['external_ports']}==expected,'Cross-region interfaces changed'
+    assert plan['geometry_schema']==2, 'Room outlines must own complete geometry'
     rects={rid:rectangles(r['outline']) for rid,r in rooms.items()}
     for c in plan['connections']:
-        e=connections[c['id']];a,b=split_path(c['path'],c['width']);c.update(a=e['a'],b=e['b'],requires=e.get('requires',[[]]),seam=a[-1])
-        rects[e['a']]+=passage(a,c['width']);rects[e['b']]+=passage(b,c['width'])
+        e=connections[c['id']];c.update(a=e['a'],b=e['b'],requires=e.get('requires',[[]]))
     for rid,r in rooms.items():
         own=rects[rid];x=min(a[0] for a in own);y=min(a[1] for a in own);xx=max(a[0]+a[2] for a in own);yy=max(a[1]+a[3] for a in own)
         try:shape=room_space([[a-x,b-y,c,d] for a,b,c,d in own],[xx-x,yy-y])
@@ -101,7 +93,7 @@ def svg(plan):
         pts=r['outline'];d='M'+'L'.join(f'{a},{b}' for a,b in pts)+'Z';rid=r['room_id'];cx,cy=r['label'];m=marker(r);r['marker']=m
         out.append(f'<g class="room" data-room="{rid}" tabindex="0" role="button" aria-label="{rid} {html.escape(r["name"])}"><title>{rid} {html.escape(r["purpose"])}</title><path d="{d}" fill="{colors[r["zone"]]}" stroke="#8caa95" stroke-width="7"/><text x="{cx}" y="{cy-56}" text-anchor="middle" fill="#f2e5bd" font-size="53" font-weight="600">{rid[2:]} {html.escape(r["name"])}</text><text x="{cx}" y="{cy+8}" text-anchor="middle" fill="#cedbd3" font-size="37">{html.escape(r["purpose"])}</text><text x="{cx}" y="{cy+66}" text-anchor="middle" fill="#f1c982" font-size="35">{html.escape(m)}</text></g>')
     for c in plan['connections']:
-        a,b=split_path(c['path'],c['width']);mid=a[-1];out.append(f'<circle cx="{mid[0]}" cy="{mid[1]}" r="19" fill="#c3cdb9" opacity=".8"><title>{c["id"]}: {c["a"]} ↔ {c["b"]}</title></circle>')
+        mid=c['seam'];out.append(f'<circle cx="{mid[0]}" cy="{mid[1]}" r="19" fill="#c3cdb9" opacity=".8"><title>{c["id"]}: {c["a"]} ↔ {c["b"]}</title></circle>')
     lookup={r['room_id']:r for r in rooms}
     for rt in plan['routes']:
         for a,b in zip(rt['rooms'],rt['rooms'][1:]):

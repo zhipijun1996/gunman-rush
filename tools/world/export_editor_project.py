@@ -47,6 +47,9 @@ def export(root=ROOT, spatial_draft=False):
     for n in world['npcs']:
         host=next((e['id'] for e in p['rooms'][n['room_id']]['entities'].values() if e['component']=='WorldNpc' and e['properties'].get('npc_id')==n['id']),None);p['npcs'][n['id']]={**copy.deepcopy(n),'host':host}
     if spatial_draft:apply_spatial_layout(p,root)
+    if spatial_draft:
+        from spatial_adjustments import world_for_draft
+        world=world_for_draft(root,world)
     p['catalog']['actions']=copy.deepcopy(world['actions']);p['catalog']['behavior_source']=p['source']['commit'];p['source']['document_hash']=sha(p['rooms'])
     native=root/'build/editor-native/manifest.json'
     if native.exists():

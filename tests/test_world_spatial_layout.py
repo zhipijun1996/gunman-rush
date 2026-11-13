@@ -1,144 +1,130 @@
-"""Continuous regional geometry must survive export; layout alone is not quality."""
-import json,sys,unittest
+"""Candidate geometry, interface migration and player progression regressions."""
+import copy,json,sys,unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools/world'))
 from export_editor_project import export
-from forest_review import overlap,build
-from preview_catalog import preview_catalog
+from spatial_adjustments import world_for_draft,review_route_plans
+from world_review import build,validate_assembly,validate_shared_door,validate_review_path
+from simulate_world import Model,State
+
 class WorldSpatialLayout(unittest.TestCase):
  @classmethod
- def setUpClass(cls):cls.base=export();cls.p=export(spatial_draft=True);cls.plan=build(ROOT,preview=preview_catalog(ROOT))
- def test_all_regions_are_authored_and_plains_geometry_is_preserved(self):
-  self.assertEqual(len(self.p['rooms']),309);self.assertEqual(len(self.p['connections']),409)
+ def setUpClass(cls):
+  cls.base=export();cls.p=export(spatial_draft=True);cls.plan,_=build(cls.p)
+  cls.world=world_for_draft(ROOT,json.loads((ROOT/'config/world/world.json').read_text()))
+  cls.manifest=json.loads((ROOT/'config/world/spatial_layout.json').read_text())
+ def test_complete_world_with_eight_purposeful_new_rooms(self):
+  self.assertEqual((len(self.base['rooms']),len(self.base['connections'])),(309,409))
+  self.assertEqual((len(self.p['rooms']),len(self.p['connections'])),(317,415))
+  self.assertEqual(self.plan['checks'],{'rooms':317,'cross_region_seams':30,'overlaps':0,'unresolved_connections':0})
+  self.assertEqual(len(self.plan['transitions']),20)
   for rid,r in self.p['rooms'].items():
-   if rid[0]=='P':
-    for key in ['origin','bounds','spaces','entities']:
-     self.assertEqual(r[key],self.base['rooms'][rid][key],(rid,key))
-   else:
-    self.assertEqual(r['layout_status'],'draft')
-    self.assertEqual(r['spatial_source']['kind'],'spatial_draft')
-    self.assertEqual(r['layer'],'world')
-    self.assertTrue(r['design_contract']['play'])
-  self.assertFalse(any(r['spatial_source']['kind']=='unplaced' for r in self.p['rooms'].values()))
- def test_complete_chamber_area_including_passages_survives(self):
-  from forest_review import rectangles
-  for design in self.plan['rooms']:
-   r=self.p['rooms'][design['room_id']]
-   self.assertEqual(sum(s[2]*s[3] for s in r['spaces']),sum(s[2]*s[3] for s in rectangles(design['outline'])))
- def test_all_thirty_internal_ports_are_shared_seams(self):
-  for c in self.plan['connections']:
-   edge=self.p['connections'][c['id']]
-   for side in ['a','b']:
-    ep=edge[side];r=self.p['rooms'][ep['room']];pos=r['ports'][ep['port']]['position'];self.assertEqual([pos[i]+r['origin'][i] for i in (0,1)],c['seam'])
-   self.assertEqual(edge['spatial_draft']['length'],0)
- def test_rewards_abilities_and_runtime_entities_preserved(self):
+   self.assertNotEqual(r['spatial_source']['kind'],'unplaced')
+   if rid not in self.base['rooms']:
+    self.assertEqual(r['entities'],{});self.assertFalse(r['implemented'])
+    self.assertEqual(self.p['management'][rid]['development'],'unbuilt')
+ def test_runtime_entities_rewards_npcs_and_approval_are_preserved(self):
   self.assertEqual(self.p['rewards'],self.base['rewards']);self.assertEqual(self.p['npcs'],self.base['npcs'])
-  for rid,r in self.p['rooms'].items():
-   for k in ['routes','entities','implemented']:self.assertEqual(r[k],self.base['rooms'][rid][k])
- def test_underground_geometry_anchors_and_explicit_lift(self):
-  from regional_review import compile_plan
-  plan=compile_plan(ROOT)
-  self.assertEqual(len(plan['rooms']),50)
-  self.assertEqual(len(plan['connections']),58)
-  self.assertFalse(plan['issues'])
-  for c in plan['connections']:
-   edge=self.p['connections'][c['id']]
-   for side in ['a','b']:
-    ep=edge[side];r=self.p['rooms'][ep['room']];pos=r['ports'][ep['port']]['position']
-    self.assertEqual([pos[i]+r['origin'][i] for i in (0,1)],c['seam'])
-  for cid in ['C03','C04','C13','C14']:
-   e=self.p['connections'][cid];points=[]
-   for side in ['a','b']:
-    r=self.p['rooms'][e[side]['room']];port=r['ports'][e[side]['port']]
-    points.append([r['origin'][i]+port['position'][i] for i in (0,1)])
-   self.assertEqual(*points,cid)
-  lift=self.p['connections']['L22']
-  self.assertEqual(lift['spatial_draft']['kind'],'well_lift')
-  self.assertEqual(lift['requires'],self.base['connections']['L22']['requires'])
-  self.assertTrue(lift['front_door'])
-  self.assertNotIn('path',lift['spatial_draft'])
- def test_northwest_and_all_existing_regions_share_world_geometry(self):
-  from world_review import build,validate_assembly
-  plan,_=build(self.p)
-  self.assertEqual(plan['checks'],{'rooms':309,'cross_region_seams':35,'overlaps':0,'unresolved_connections':1})
-  self.assertEqual({r['code'] for r in plan['regions']},{r['region'] for r in self.p['rooms'].values()})
-  self.assertFalse(plan['external_ports'])
-  self.assertEqual(len([r for r in plan['rooms'] if r['room_id'][0] in 'YIC']),46)
-  self.assertFalse(any(e['target'][0] in 'PFMSTYICKN' for e in plan['external_ports']))
-  # Catch an editor/export regression that leaves matching-looking geometry but
-  # a misplaced or reversed actual port.
-  import copy
-  changed=copy.deepcopy(self.p);edge=changed['connections']['C08'];ep=edge['b']
-  changed['rooms'][ep['room']]['ports'][ep['port']]['position'][0]+=32
-  with self.assertRaisesRegex(AssertionError,'Seam drift C08'):validate_assembly(plan,changed)
- def test_eastern_rooms_and_existing_named_shortcuts(self):
-  from regional_review import compile_plan
-  plan=compile_plan(ROOT,cluster='eastern')
-  self.assertEqual(len(plan['rooms']),42)
-  self.assertEqual(len(plan['connections']),47)
-  identities={e['id']:e for e in json.loads((ROOT/'config/world/world.json').read_text())['connections']}
-  for cid in ['SC-K01','SC-N01']:
-   self.assertTrue(identities[cid]['passage_profile'].startswith('paired named passage/lift stops'))
-   self.assertEqual(self.p['connections'][cid]['spatial_draft']['kind'],'named_shortcut')
-   self.assertNotIn('path',self.p['connections'][cid]['spatial_draft'])
-  self.assertFalse(self.p['connections']['CITY-P-G-WEST']['front_door'])
- def test_city_entrance_moves_to_p07_without_moving_plains_rooms(self):
-  from spatial_adjustments import designs
-  from world_review import on_boundary,build
-  from spatial import room_space
-  for rid in ['P-R07','P-R18']:
-   for field in ['origin','bounds','spaces','entities']:
-    self.assertEqual(self.p['rooms'][rid][field],self.base['rooms'][rid][field],(rid,field))
-  edge=self.p['connections']['CITY-P-G-WEST']
-  self.assertEqual(edge['a'],{'room':'P-R07','port':'CITY-P-G-WEST:P-R07'})
-  self.assertEqual(edge['b']['room'],'G-R02')
-  self.assertNotIn('CITY-P-G-WEST:P-R18',self.p['rooms']['P-R18']['ports'])
-  self.assertEqual(self.base['connections']['CITY-P-G-WEST']['a']['room'],'P-R18')
-  for cid in ['room-link-133','room-link-134','CITY-P-G-WEST']:
-   e=self.p['connections'][cid];points=[]
-   for side in ['a','b']:
-    ep=e[side];r=self.p['rooms'][ep['room']];port=r['ports'][ep['port']]
-    points.append([port['position'][i]+r['origin'][i] for i in (0,1)])
-    shape=room_space(r['spaces'],r['bounds'][2:])
-    self.assertTrue(on_boundary(shape['outline'],port['position']),cid)
-    other=e['b' if side=='a' else 'a']
-    self.assertEqual((port['target_room'],port['target_port']),(other['room'],other['port']))
-   if cid=='CITY-P-G-WEST':self.assertNotEqual(*points)
-   else:self.assertEqual(*points,cid)
-  plan,_=build(self.p);p07=next(r for r in plan['rooms'] if r['room_id']=='P-R07');p18=next(r for r in plan['rooms'] if r['room_id']=='P-R18')
-  self.assertTrue(any(n['room']=='G-R02' for n in p07['neighbors']))
-  self.assertFalse(any(n['room']=='G-R02' for n in p18['neighbors']))
-  for cid in ['CITY-P-G-WEST']:
-   e=self.p['connections'][cid]
-   self.assertEqual(e['spatial_draft']['kind'],'unresolved')
-   self.assertFalse(e['front_door'])
-   self.assertNotIn('route_within_rooms',e['spatial_draft'])
- def test_complete_late_regions_and_paired_transport_preserve_contracts(self):
-  from regional_review import compile_plan
-  cache={}
-  for name,count in [('lower_east',32),('upper_world',44),('city',36)]:
-   plan=compile_plan(ROOT,cluster=name,_cache=cache)
-   self.assertEqual(len(plan['rooms']),count);self.assertFalse(plan['issues'])
-   for c in plan['connections']:
-    e=self.p['connections'][c['id']];points=[]
-    for side in ('a','b'):
-     ep=e[side];r=self.p['rooms'][ep['room']];port=r['ports'][ep['port']]
-     points.append([r['origin'][i]+port['position'][i] for i in (0,1)])
-    self.assertEqual(points,[c['seam'],c['seam']])
-  world=json.loads((ROOT/'config/world/world.json').read_text());identities={e['id']:e for e in world['connections']}
-  for cid in ['SC-S01','C30','SC-R01','SC-E01','SC-A01','SC-G01','SC-V-RETURN','SC-V-EXTREME','SC-Z01']:
-   self.assertIn('paired',identities[cid]['passage_profile'])
-   self.assertTrue(self.p['connections'][cid]['front_door'])
-   self.assertEqual(self.p['connections'][cid]['requires'],self.base['connections'][cid]['requires'])
-  self.assertEqual(self.p['connections']['C07']['spatial_draft']['kind'],'front_door')
-  lift=self.p['connections']['G-P18-L25']
-  self.assertTrue(lift['front_door']);self.assertEqual(lift['spatial_draft']['kind'],'freight_lift')
-  for field in ['a','b','requires','direction']:self.assertEqual(lift[field],self.base['connections']['G-P18-L25'][field])
- def test_draft_does_not_change_gate_or_reward_progression(self):
-  for cid,e in self.p['connections'].items():
-   for key in ['requires','direction','a','b']:
-    if cid=='CITY-P-G-WEST' and key=='a':continue
-    self.assertEqual(e[key],self.base['connections'][cid][key])
-  for rid in self.p['rooms']:
+  for rid,r in self.base['rooms'].items():
+   for key in ['entities','implemented','authored']:self.assertEqual(self.p['rooms'][rid][key],r[key],(rid,key))
    self.assertEqual(self.p['management'][rid],self.base['management'][rid])
+   if rid[0]=='P':
+    for key in ['origin','bounds','spaces']:self.assertEqual(self.p['rooms'][rid][key],r[key],(rid,key))
+ def test_all_candidate_ports_are_reciprocal_and_bound_to_sections(self):
+  for e in self.p['connections'].values():
+   for side,other in [('a','b'),('b','a')]:
+    ep=e[side];r=self.p['rooms'][ep['room']];p=r['ports'][ep['port']]
+    self.assertIn(p['section'],r['sections'],e['id'])
+    self.assertEqual((p['target_room'],p['target_port']),(e[other]['room'],e[other]['port']))
+ def test_region_programs_have_real_landmarks_and_review_routes(self):
+  programs=self.plan['region_programs'];routes={r['id'] for r in self.plan['routes']}
+  self.assertEqual(set(programs),{r['code'] for r in self.plan['regions']})
+  self.assertEqual(self.p['planning']['region_programs'],programs)
+  for code,program in programs.items():
+   for key in ('geography','first_visit','return_visit','repair_effect','branch_tradeoff'):
+    self.assertTrue(program[key].strip(),(code,key))
+   for rid in program['landmark_rooms']:
+    self.assertIn(rid,self.p['rooms']);self.assertEqual(rid[0],code)
+   self.assertTrue(set(program['route_ids'])<=routes,code)
+ def test_outer_observation_route_stays_before_final_seal(self):
+  edges={e['id']:e for e in self.world['connections']}
+  self.assertEqual((edges['room-link-154']['a'],edges['room-link-154']['b']),('Z-R10','Z-R17'))
+  self.assertEqual(edges['C25']['a'],'Z-R18')
+  self.assertEqual(edges['L19']['a_section'],'main')
+  self.assertEqual(edges['L19']['requires'],next(e['requires'] for e in json.loads((ROOT/'config/world/world.json').read_text())['connections'] if e['id']=='L19'))
+ def test_scanline_partition_preserves_concave_room_without_tiny_grid_cells(self):
+  from forest_review import rectangles
+  from spatial import room_space
+  poly=[[0,0],[1200,0],[1200,400],[800,400],[800,1000],[400,1000],[400,400],[0,400]]
+  rs=rectangles(poly)
+  self.assertEqual(sum(w*h for x,y,w,h in rs),720000)
+  self.assertEqual(len(rs),2)
+  result=room_space(rs,[1200,1000])
+  self.assertEqual({tuple(p) for p in result['outline']},{tuple(p) for p in poly})
+ def test_review_path_cannot_draw_through_a_void(self):
+  polygons={'a':[[0,0],[100,0],[100,100],[0,100]],'b':[[200,0],[300,0],[300,100],[200,100]]}
+  with self.assertRaisesRegex(AssertionError,'Review path leaves rooms'):
+   validate_review_path({'id':'bad','a':'a','b':'b','path':[[50,50],[250,50]]},polygons)
+ def test_room_outline_is_complete_geometry_not_reconstructed_from_routes(self):
+  from regional_review import compile_plan
+  from forest_review import rectangles
+  cache={}
+  for source in self.manifest['cluster_sources']:
+   plan=compile_plan(ROOT,cluster=Path(source).stem,_cache=cache)
+   raw=json.loads((ROOT/source).read_text())
+   for r in raw['rooms']:
+    compiled=next(a for a in plan['rooms'] if a['room_id']==r['room_id'])
+    self.assertEqual(sum(w*h for x,y,w,h in rectangles(r['outline'])),sum(w*h for x,y,w,h in rectangles(compiled['outline'])))
+ def test_misplaced_seam_fails_even_if_room_outlines_touch(self):
+  changed=copy.deepcopy(self.p);e=changed['connections']['C08'];ep=e['b']
+  changed['rooms'][ep['room']]['ports'][ep['port']]['position'][0]+=32
+  with self.assertRaisesRegex(AssertionError,'Seam drift C08'):validate_assembly(self.plan,changed)
+ def test_point_contact_and_backwards_normals_are_not_usable_doors(self):
+  def room(rid,origin,pos,direction,height=256):
+   return {'id':rid,'origin':origin,'bounds':[0,0,256,height],'spaces':[[0,0,256,height]],'ports':{'p':{'position':pos,'direction':direction}}}
+  rooms={'a':room('a',[0,0],[256,128],'right'),'b':room('b',[256,0],[0,128],'left')}
+  edge={'id':'test','a':{'room':'a','port':'p'},'b':{'room':'b','port':'p'},'spatial_draft':{'width':192}}
+  validate_shared_door(rooms,edge)
+  rooms['b']=room('b',[256,96],[0,32],'left',height=64)
+  with self.assertRaisesRegex(AssertionError,'Mouth clearance'):validate_shared_door(rooms,edge)
+  rooms['b']=room('b',[256,0],[0,128],'right')
+  with self.assertRaisesRegex(AssertionError,'Normals'):validate_shared_door(rooms,edge)
+ def test_p07_and_explicit_transport_keep_identity_without_fake_corridor(self):
+  e=self.p['connections']['CITY-P-G-WEST']
+  self.assertEqual(e['a']['room'],'P-R07');self.assertEqual(e['b']['room'],'G-R02')
+  self.assertEqual(e['spatial_draft']['kind'],'field_freight_tram');self.assertTrue(e['front_door'])
+  self.assertNotIn('path',e['spatial_draft'])
+  for cid,kind in [('L22','well_lift'),('G-P18-L25','freight_lift')]:
+   e=self.p['connections'][cid];self.assertEqual(e['spatial_draft']['kind'],kind)
+   self.assertEqual(e['requires'],self.base['connections'][cid]['requires'])
+ def test_removed_connections_leave_no_orphan_ports_or_candidate_edges(self):
+  for cid in ['C17','room-link-065']:
+   self.assertNotIn(cid,self.p['connections'])
+   self.assertFalse(any(p['connection']==cid for r in self.p['rooms'].values() for p in r['ports'].values()))
+ def test_new_entrances_do_not_bypass_ability_sections(self):
+  model=Model(self.world);self.assertEqual(model.warnings,[])
+  for origin,target,without,grant in [
+   (('E-R15','entry:C22'),('E-R15','main'),{'gun','H','D','smith'},'Q'),
+   (('N-R05','entry:L12'),('N-R05','main'),{'gun','H'},'D')]:
+   self.assertIsNone(model.search(State(*origin,tokens=without),targets=[target],allow_teleport=False))
+   self.assertIsNotNone(model.search(State(*origin,tokens=without|{grant}),targets=[target],allow_teleport=False))
+  self.assertNotIn('entry:C22',self.p['rooms']['E-R12']['sections'])
+  self.assertIn('entry:C22',self.p['rooms']['E-R15']['sections'])
+ def test_repaired_furnace_opens_reward_return_not_before(self):
+  m=Model(self.world);tokens={'gun','H','W','D','Q','smith'}
+  self.assertIsNone(m.search(State('E-R15',tokens=tokens),targets=[('E-R10','main')],allow_teleport=False))
+  self.assertIsNotNone(m.search(State('E-R15',tokens=tokens|{'clock_E'}),targets=[('E-R10','main')],allow_teleport=False))
+ def test_four_current_journeys_complete_in_section_state_model(self):
+  plans=review_route_plans(ROOT);self.assertEqual(len(plans),4)
+  for plan in plans:
+   result=Model(self.world).replay(plan)
+   self.assertTrue(result['success'],(plan['id'],result['failure']))
+ def test_source_migration_does_not_duplicate_sections_actions_or_rooms(self):
+  self.assertEqual(len({r['id'] for r in self.world['rooms']}),len(self.world['rooms']))
+  for r in self.world['rooms']:
+   self.assertEqual(len({s['id'] for s in r['sections']}),len(r['sections']),r['id'])
+   self.assertEqual(len({s['id'] for s in r['internal_routes']}),len(r['internal_routes']),r['id'])
+  original=json.loads((ROOT/'config/world/world.json').read_text())
+  self.assertEqual({a['id'] for a in self.world['actions']},{a['id'] for a in original['actions']})
+
 if __name__=='__main__':unittest.main()

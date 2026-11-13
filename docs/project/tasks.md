@@ -11,7 +11,7 @@
 | TERRAIN-MATERIAL-01 | 统一关卡分类与机关库、schema3房间组装、44房迁移与草稿升级 | — | review | [交接](worklines/terrain_material_01/scope.md) |
 | NATIVE-PLAYTEST-FIX-01 | 原生0.1.1墙体、手柄校准与最大化呈现设备复核 | — | review | [交接](worklines/native_playtest_fix_01/scope.md) |
 | PLAINS-BIBLE-V2-01 | 平原正式内容与双端发行体验复核 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
-| WORLD-EDITOR-02 | 16区309房地图初稿已全覆盖；G18货梯已确认，工城P07入口几何一处待接续，保持正式游戏不变 | — | in_progress | [交接](worklines/world_editor_02/scope.md) |
+| WORLD-EDITOR-02 | 16区317房地理与路线重整候选；完整总图、分区、手机审核与App导入，正式游戏不变 | — | review | [交接](worklines/world_editor_02/scope.md) |
 | MOBILE-LEVEL-WORKBENCH-01 | 旧手机工作台源码与发行入口退役，在线数据保留 | — | done | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
