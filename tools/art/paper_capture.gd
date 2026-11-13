@@ -73,9 +73,35 @@ func capture() -> void:
 	# the delivery report binds their Git hashes alongside this runtime check.
 	FileAccess.open(output+"/capture-manifest.json",FileAccess.WRITE).store_string(JSON.stringify(manifest,"  "))
 	print("PAPER CAPTURES ",manifest.size()," same-camera frames")
+	await paper_modulation()
 	await lab.restart()
 	check(lab.ready_for_play and lab.app.room.room_id=="P-R04" and lab.mode=="B","standalone restart preserves P04 and mode")
 	check(lab.app.state.storage is WorldRoomReview.MemorySave,"restart remains in memory")
+
+func paper_modulation() -> void:
+	# Verify real framebuffer blending, not just the Node's modulate property.
+	var layer := CanvasLayer.new()
+	layer.layer = 90
+	root.add_child(layer)
+	var parent := Node2D.new()
+	parent.position = Vector2(1200,12)
+	layer.add_child(parent)
+	var material_factory: RefCounted = load("res://game/experiments/paper_theater/paper_shapes.gd").new()
+	material_factory.polygon(parent,material_factory.rect_points(Rect2(0,0,16,16)),Color("35565b"))
+	var colors: Array[Color] = []
+	for alpha: float in [0.0,.5,1.0]:
+		parent.modulate = Color(1,1,1,alpha)
+		await RenderingServer.frame_post_draw
+		await RenderingServer.frame_post_draw
+		colors.append(root.get_texture().get_image().get_pixel(1208,20))
+	check(colors[0]!=colors[1] and colors[1]!=colors[2],"paper shader inherits parent alpha in framebuffer")
+	parent.modulate = Color(.4,1,1,1)
+	await RenderingServer.frame_post_draw
+	await RenderingServer.frame_post_draw
+	var hurt := root.get_texture().get_image().get_pixel(1208,20)
+	check(hurt.r<colors[2].r-.02,"paper shader inherits accepted flash tint")
+	layer.queue_free()
+	FileAccess.open(output+"/modulation.json",FileAccess.WRITE).store_string(JSON.stringify({"transparent":str(colors[0]),"half":str(colors[1]),"opaque":str(colors[2]),"tinted":str(hurt)}))
 
 var clip_tick := 0
 var clip_trace: Array = []
