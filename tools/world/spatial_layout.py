@@ -8,6 +8,8 @@ def apply(project,root):
     source=Path(root)/'config/world/spatial_layout.json'
     if not source.exists():return
     manifest=json.loads(source.read_text())
+    from spatial_adjustments import apply as apply_adjustments
+    apply_adjustments(Path(root),project)
     plan=build(root=Path(root),preview=preview_catalog(root))
     lookup={r['room_id']:r for r in plan['rooms']}
     for rid,design in lookup.items():

@@ -36,7 +36,8 @@ def validate_assembly(plan,project):
     return {'rooms':len(rooms),'cross_region_seams':len(plan['seams']),'overlaps':0}
 
 def build(project=None):
-    p=project or export(spatial_draft=True);preview=preview_catalog(ROOT)
+    from spatial_adjustments import preview as adjusted_preview
+    p=project or export(spatial_draft=True);preview=adjusted_preview(ROOT,preview_catalog(ROOT))
     manifest=json.loads(MANIFEST.read_text());regions='P'+''.join(manifest['scope_regions'])
     plans=[forest_build(ROOT,preview),*[compile_plan(cluster=Path(source).stem) for source in manifest['cluster_sources']]]
     world=json.loads((ROOT/'config/world/world.json').read_text());identities={r['id']:r for r in world['rooms']};names={r['code']:r['name'] for r in world['regions']}
@@ -44,7 +45,11 @@ def build(project=None):
     for row in preview['map_rooms']:
         if row['id'][0]!='P':continue
         r=p['rooms'][row['id']];x,y=r['origin'];box=max(r['spaces'],key=lambda b:b[2]*b[3])
-        rooms.append(dict(room_id=r['id'],name=r['name'],purpose=r['purpose'],outline=row['polygon'],label=[x+box[0]+box[2]/2,y+box[1]+box[3]/2],bounds=[x,y,*r['bounds'][2:]],stage='沿用已制作平原；本轮不重新验收玩法',play='玩法与对象保持正式房间配置。',failure='沿用现行安全岸和地形恢复规则；本轮仅检查世界拼接。',exploration='奖励、能力门与剧情沿正式数据。'))
+        design=dict(room_id=r['id'],name=r['name'],purpose=r['purpose'],outline=row['polygon'],label=[x+box[0]+box[2]/2,y+box[1]+box[3]/2],bounds=[x,y,*r['bounds'][2:]],stage='沿用已制作平原；本轮不重新验收玩法',play='玩法与对象保持正式房间配置。',failure='沿用现行安全岸和地形恢复规则；本轮仅检查世界拼接。',exploration='奖励、能力门与剧情沿正式数据。')
+        if r['spatial_source']['kind']=='spatial_draft':
+            design.update(r.get('design_contract',{}));design['stage']='已制作房的候选调整；尚未回写正式关卡'
+            if 'review_label' in r:design['label']=[r['review_label'][i]+r['origin'][i] for i in (0,1)]
+        rooms.append(design)
     ids={r['room_id'] for r in rooms};edges={e['id']:e for e in world['connections']}
     for r in rooms:
         rid=r['room_id'];src=identities[rid]

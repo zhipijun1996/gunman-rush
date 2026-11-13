@@ -39,7 +39,8 @@ def compile_plan(root=ROOT,validate=True,cluster="underground"):
         r['actions']=[{k:copy.deepcopy(a[k]) for k in ['id','type','grants','section_id'] if k in a} for a in world['actions'] if a.get('room_id')==rid and (a.get('type')=='ability' or a['id'].startswith(('repair_','get_lamp','get_filter','open_SC','open_s03')))]
         for e in edges.values():
             if rid in [e['a'],e['b']]:r['neighbors'].append({'id':e['id'],'room':e['b'] if e['a']==rid else e['a'],'condition':e.get('condition_text','基础通行')})
-    preview=preview_catalog(root);forest=forest_build(root,preview)
+    from spatial_adjustments import preview as adjusted_preview
+    preview=adjusted_preview(root,preview_catalog(root));forest=forest_build(root,preview)
     fixed={r['room_id']:rectangles(r['outline']) for r in forest['rooms']}
     fixed.update({r['id']:rectangles(r['polygon']) for r in preview['map_rooms'] if r['id'][0] not in {*plan['regions'],'F','M','S','T','Z','V'}})
     manifest=json.loads((root/'config/world/spatial_layout.json').read_text())

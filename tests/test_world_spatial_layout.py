@@ -11,7 +11,7 @@ class WorldSpatialLayout(unittest.TestCase):
  def test_only_authored_draft_regions_change_and_others_remain_unplaced(self):
   self.assertEqual(len(self.p['rooms']),309);self.assertEqual(len(self.p['connections']),409)
   for rid,r in self.p['rooms'].items():
-   if rid[0] not in 'FMSTYICKN':self.assertEqual(r,self.base['rooms'][rid])
+   if rid[0] not in 'FMSTYICKN' and rid not in ['P-R07','P-R18','G-R02']:self.assertEqual(r,self.base['rooms'][rid])
    else:self.assertEqual(r['layout_status'],'draft')
   self.assertEqual(self.p['rooms']['G-R16']['spatial_source']['kind'],'unplaced')
  def test_complete_chamber_area_including_passages_survives(self):
@@ -74,8 +74,32 @@ class WorldSpatialLayout(unittest.TestCase):
    self.assertTrue(identities[cid]['passage_profile'].startswith('paired named passage/lift stops'))
    self.assertEqual(self.p['connections'][cid]['spatial_draft']['kind'],'named_shortcut')
    self.assertNotIn('path',self.p['connections'][cid]['spatial_draft'])
-  # Pending city design must not silently turn into a transition or edit plains.
+  # The user's continuous city entrance must not silently become a transition.
   self.assertEqual(self.p['connections']['CITY-P-G-WEST'],self.base['connections']['CITY-P-G-WEST'])
+ def test_city_approach_and_east_moved_overlook(self):
+  from spatial_adjustments import designs
+  from forest_review import rectangles
+  from world_review import on_boundary
+  changes=designs(ROOT);rects={rid:rectangles(d['outline']) for rid,d in changes.items()}
+  self.assertGreater(changes['P-R07']['label'][0],20000)
+  for cid in ['room-link-133','room-link-134','CITY-P-G-WEST']:
+   e=self.p['connections'][cid];points=[]
+   for side in ['a','b']:
+    ep=e[side];r=self.p['rooms'][ep['room']];port=r['ports'][ep['port']];points.append([port['position'][i]+r['origin'][i] for i in (0,1)])
+    if ep['room'] in changes:self.assertTrue(on_boundary(changes[ep['room']]['outline'],points[-1]),cid)
+   self.assertEqual(*points,cid)
+  self.assertEqual(self.p['rooms']['P-R18']['spaces'],self.base['rooms']['P-R18']['spaces'])
+  # A non-overlapping G02 room is insufficient: its upper approach must be open.
+  for cid in ['room-link-107','room-link-110','room-link-111','EXP-G_workers_yard_reward-03']:
+   r=self.p['rooms']['G-R02'];port=next(v for v in r['ports'].values() if v['connection']==cid)
+   x,y=[port['position'][i]+r['origin'][i] for i in (0,1)]
+   self.assertEqual(port['direction'],'up');self.assertTrue(on_boundary(changes['G-R02']['outline'],[x,y]))
+   probe=[x-96,y-384,192,384]
+   for rid in ['P-R07','P-R18','P-R02','P-R30']:
+    r=self.p['rooms'][rid];rs=rects.get(rid,[[a+r['origin'][0],b+r['origin'][1],c,d] for a,b,c,d in r['spaces']])
+    self.assertFalse(any(overlap(probe,b) for b in rs),rid)
+    self.assertFalse(any(overlap(a,b) for a in rects['G-R02'] for b in rs),rid)
+  self.assertEqual(self.p['connections']['G-P18-L25'],self.base['connections']['G-P18-L25'])
  def test_draft_does_not_change_gate_or_reward_progression(self):
   for cid,e in self.p['connections'].items():
    for key in ['requires','direction','a','b']:
