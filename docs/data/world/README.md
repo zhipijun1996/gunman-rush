@@ -7,6 +7,7 @@
 | 房间、分区、连接、资格、永久动作身份 | [world.json](../../../config/world/world.json)，以最新 ZIP 主数据为基线，按用户确定的现行设计直接维护 |
 | 施工尺寸、门位、来向落脚、镜头与场景绑定 | [construction.json](../../../config/world/construction.json)；实际碰撞和对象放置由 `config/world/rooms/<ID>.json` 持有，`.tscn` 仅为同源装载壳 |
 | 平原逐房用途与遭遇职责 | [room_design.json](../../../game/world/regions/P/room_design.json)，引用稳定房号和动作，不复制碰撞 |
+| 全世界空间初稿 | [spatial_layout.json](../../../config/world/spatial_layout.json)；309房统一世界单位的待审占地、门位及通道方案；已施工房内部保留，三处外区接口适配显式标记；使用导出器`--spatial-draft`载入，默认运行不受影响，初稿不开放运行房间，不改变能力锁和奖励身份 |
 | 森林整区与逐房候选 | [room_design.json](../../../game/world/regions/F/room_design.json)，现行24房/30区内连接/5跨区接口的待审占地与玩法；不自动替换施工源。审核页由 `tools/world/forest_review.py` 派生 |
 | 星桥天门挑战灰盒职责 | [room_design.json](../../../game/world/regions/V/room_design.json)与[设计规范](../../bible/regions/starbridge_gate.md)，当前仅V-R12；真实几何归该房JSON |
 | 收集系统与来源槽 | [collections.json](../../../config/world/collections.json)、[collection_design.json](../../../config/world/collection_design.json)；新版为 50 件装备来源槽，原包未提供全部最终效果、价格与平衡 |
