@@ -1,0 +1,285 @@
+{
+  "viewport": [
+    1280,
+    720
+  ],
+  "camera_zoom": 1.0,
+  "scope": "isolated visual reuse/coverage fixture; layouts are experimental renderer parameters, not formal room schema",
+  "arch": "res://assets/kit_reuse/native/arch.png",
+  "arch_half": "res://assets/kit_reuse/native/arch-half.png",
+  "pier": "res://assets/kit_reuse/native/pier.png",
+  "far_plate": "res://assets/art_rule_trial/native/environment.png",
+  "terrain_material": "windchime_plains",
+  "masonry_material": "mill_masonry",
+  "profiles": {
+    "flat": {
+      "far": "a8b9d2",
+      "middle": "a8b9d2",
+      "structure": "ffffff",
+      "light_energy": 0.65,
+      "middle_visible": true
+    },
+    "depth": {
+      "far": "6c859c",
+      "middle": "394e65",
+      "structure": "71869a",
+      "light_energy": 1.1,
+      "middle_visible": false
+    }
+  },
+  "light": {
+    "radius": 230,
+    "color": "f1c681"
+  },
+  "rooms": {
+    "passage": {
+      "size": [
+        2560,
+        960
+      ],
+      "arch_rows": [
+        {
+          "start": [
+            -32,
+            -32
+          ],
+          "count": 6,
+          "extend": 1
+        }
+      ],
+      "ground": [
+        [
+          -64,
+          576,
+          1088,
+          448
+        ],
+        [
+          1536,
+          576,
+          1088,
+          448
+        ]
+      ],
+      "masonry": [
+        [
+          1120,
+          496,
+          160,
+          48
+        ],
+        [
+          1360,
+          464,
+          96,
+          48
+        ]
+      ],
+      "hero_foot": [
+        800,
+        576
+      ],
+      "bell": [
+        1696,
+        542
+      ],
+      "camera": [
+        1280,
+        360
+      ],
+      "path": [
+        [
+          640,
+          360
+        ],
+        [
+          1920,
+          360
+        ],
+        [
+          640,
+          360
+        ]
+      ],
+      "description": "horizontal broken canal crossing"
+    },
+    "shaft": {
+      "size": [
+        1280,
+        2048
+      ],
+      "arch_rows": [
+        {
+          "start": [
+            96,
+            -128
+          ],
+          "count": 2,
+          "extend": 0
+        },
+        {
+          "start": [
+            96,
+            512
+          ],
+          "count": 2,
+          "extend": 0
+        },
+        {
+          "start": [
+            96,
+            1152
+          ],
+          "count": 2,
+          "extend": 0
+        }
+      ],
+      "ground": [
+        [
+          -64,
+          1920,
+          1408,
+          192
+        ]
+      ],
+      "masonry": [
+        [
+          0,
+          -64,
+          128,
+          2176
+        ],
+        [
+          1152,
+          -64,
+          128,
+          2176
+        ],
+        [
+          128,
+          512,
+          352,
+          64
+        ],
+        [
+          800,
+          864,
+          352,
+          64
+        ],
+        [
+          128,
+          1216,
+          352,
+          64
+        ],
+        [
+          800,
+          1568,
+          352,
+          64
+        ]
+      ],
+      "hero_foot": [
+        912,
+        1568
+      ],
+      "bell": [
+        384,
+        1182
+      ],
+      "camera": [
+        640,
+        1360
+      ],
+      "path": [
+        [
+          640,
+          360
+        ],
+        [
+          640,
+          1688
+        ],
+        [
+          640,
+          360
+        ]
+      ],
+      "description": "vertical sluice stairwell; not claimed traversable"
+    },
+    "hall": {
+      "size": [
+        2560,
+        1280
+      ],
+      "arch_rows": [
+        {
+          "start": [
+            -32,
+            128
+          ],
+          "count": 6,
+          "extend": 1
+        }
+      ],
+      "ground": [
+        [
+          -64,
+          960,
+          2688,
+          384
+        ]
+      ],
+      "masonry": [
+        [
+          832,
+          768,
+          256,
+          64
+        ],
+        [
+          1472,
+          768,
+          256,
+          64
+        ]
+      ],
+      "hero_foot": [
+        1200,
+        960
+      ],
+      "bell": [
+        1600,
+        734
+      ],
+      "camera": [
+        1280,
+        640
+      ],
+      "path": [
+        [
+          640,
+          640
+        ],
+        [
+          1920,
+          640
+        ],
+        [
+          1280,
+          360
+        ],
+        [
+          1280,
+          920
+        ],
+        [
+          640,
+          640
+        ]
+      ],
+      "description": "wide hall with extended piers and broad empty floor"
+    }
+  }
+}
