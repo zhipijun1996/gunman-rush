@@ -8,6 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
+| PAPER-THEATER-01 | P04 独立剪纸水彩／抽象拼贴实机 A/B 与手机入口 | — | review | [交接](worklines/paper_theater_01/scope.md) |
 | NATIVE-PLAYTEST-FIX-01 | 原生0.1.1墙体、手柄校准与最大化呈现设备复核 | — | review | [交接](worklines/native_playtest_fix_01/scope.md) |
 | PLAINS-BIBLE-V2-01 | 平原正式内容与双端发行体验复核 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
 | WORLD-EDITOR-02 | 编辑器运行通道、原生预览与定稿往返复核 | — | review | [交接](worklines/world_editor_02/scope.md) |
