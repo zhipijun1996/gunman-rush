@@ -12,12 +12,12 @@
 
 ## 房间美术的专业分工
 
-设计规则归Visual Bible／区域Bible，对象与分类归各自正文，代码与现有能力归模块导航，进度与未实现方案归当前工作线。场景美术生产主流程唯一为[godot-room-art](../../.agents/skills/godot-room-art/SKILL.md)，区域套件、引擎前置、跨房型检查均由它维护；职能技能不再各自复制制作顺序。
+设计规则归Visual Bible／区域Bible，对象与分类归各自正文，代码与现有能力归模块导航，进度与未实现方案归当前工作线。场景美术生产主流程唯一为[godot-room-art](../../.agents/skills/godot-room-art/SKILL.md)，实际单房优先、引擎前置和成品后的可选复用实验均由它维护；职能技能不再各自复制制作顺序。
 
 | 专业入口 | 持有的工作 |
 | --- | --- |
 | [region-creative-director](../../.agents/skills/region-creative-director/SKILL.md) | 主题、体验、区域语言与成本边界 |
-| [godot-room-art](../../.agents/skills/godot-room-art/SKILL.md) | 美术生产主流程，区域套件与跨房型适用范围 |
+| [godot-room-art](../../.agents/skills/godot-room-art/SKILL.md) | 实际房间完整合屏，从成品提炼与验证可选复用 |
 | [scene-composer](../../.agents/skills/scene-composer/SKILL.md) | 整房／连续机位的体量、入口、负空间与组合布局 |
 | [art-director](../../.agents/skills/art-director/SKILL.md) | 材质母版、资产家族、完整边界和来源 |
 | [visual-director](../../.agents/skills/visual-director/SKILL.md) | 实帧诊断，区分共享缺陷、单房构图与工程损失 |
@@ -27,7 +27,7 @@
 | [game-quality-gate](../../.agents/skills/game-quality-gate/SKILL.md) | 按范围审查技术、视觉、复用与体验证据 |
 | [project-integration](../../.agents/skills/project-integration/SKILL.md) | 依赖、构建、发布与来源一致性 |
 
-按当前任务选入口，不要求每次通读或同时执行全部技能。固定机位原型不自动升级为多房生产方式；同批套件跨几何成立后仍逐房审看。新组合先查已有注册与members能力，不因方法整理另建万能模块或平行素材目录。尚未实现或未验证的能力必须保留该状态。
+按当前任务选入口，不要求每次通读或同时执行全部技能。固定机位原型不自动升级为整房或多房生产方式；先完成实际房间，再按目标需要验证复用，区域套件不作为强制前提。新组合先查已有注册与members能力，不因方法整理另建万能模块或平行素材目录。尚未实现或未验证的能力必须保留该状态。
 
 ## 按需工具
 

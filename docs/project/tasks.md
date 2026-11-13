@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| DEPTH-LAB-01 | 冻结Skill的房间美术跨几何复用实验 | — | review | [交接](worklines/depth_lab_01/scope.md) |
+| DEPTH-LAB-01 | 实际单房优先的美术Skill修正与复用假设降级 | — | review | [交接](worklines/depth_lab_01/scope.md) |
 | TERRAIN-MATERIAL-01 | 统一关卡分类与机关库、schema3房间组装、44房迁移与草稿升级 | — | review | [交接](worklines/terrain_material_01/scope.md) |
 | NATIVE-PLAYTEST-FIX-01 | 原生0.1.1墙体、手柄校准与最大化呈现设备复核 | — | review | [交接](worklines/native_playtest_fix_01/scope.md) |
 | PLAINS-BIBLE-V2-01 | 平原正式内容与双端发行体验复核 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |

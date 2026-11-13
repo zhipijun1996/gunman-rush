@@ -4,8 +4,8 @@
 
 | 需要判断什么 | 唯一方法入口 |
 | --- | --- |
-| 当前任务属于原型、套件、房间还是局部修复 | [SKILL](../SKILL.md) |
-| 区域资产与空间组合如何复用 | [区域套件生产](regional-kit-production.md) |
+| 实际房间优先，原型／复用实验与局部修复如何分工 | [SKILL](../SKILL.md) |
+| 如何从成品提炼与验证可选复用 | [可选复用实验](regional-kit-production.md) |
 | 如何先确定引擎职责，再约束生图 | [引擎前置2D](engine-first-2d.md) |
 | 如何读参考与筛选整屏 | [构图与选材](art-direction.md) |
 | 素材、锚点、尺寸、来源与分类 | [素材合同](asset-contract.md) |
