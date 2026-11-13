@@ -18,7 +18,7 @@ def markers(r):
 def drawing(plan,context=()):
     rooms=plan['rooms'];pts=[p for r in [*rooms,*context] for p in r['outline']]
     x=min(a for a,b in pts)-640;y=min(b for a,b in pts)-900;w=max(a for a,b in pts)-x+640;h=max(b for a,b in pts)-y+640
-    colors={'P':('#514e35','#b8ae78'),'F':('#283e34','#84ad94'),'M':('#3d344d','#b9a3d2'),'S':('#294840','#8fc5b5'),'T':('#42472c','#b8c58a'),'Y':('#4c3b2e','#b89772'),'I':('#2d4653','#8eb4c5'),'C':('#3e3d51','#aaa6c4')}
+    colors={'P':('#514e35','#b8ae78'),'F':('#283e34','#84ad94'),'M':('#3d344d','#b9a3d2'),'S':('#294840','#8fc5b5'),'T':('#42472c','#b8c58a'),'Y':('#4c3b2e','#b89772'),'I':('#2d4653','#8eb4c5'),'C':('#3e3d51','#aaa6c4'),'K':('#433447','#bda5c2'),'G':('#4a3d2e','#c8b085'),'N':('#3a3a32','#b5ad92')}
     out=[f'<svg id="map" xmlns="http://www.w3.org/2000/svg" viewBox="{x} {y} {w} {h}" role="img" aria-label="连续地区地图初稿"><style>text{{font-family:"Noto Sans CJK SC",sans-serif}}.room{{cursor:pointer}}.room.selected path{{stroke:#ffe5a8;stroke-width:20}}.room.dim{{opacity:.24}}.route{{pointer-events:none}}</style><rect x="{x}" y="{y}" width="{w}" height="{h}" fill="#101b21"/><text x="{x+240}" y="{y+330}" fill="#e5d9b4" font-size="{min(180,(w-480)/max(1,len(plan.get("title","地穴 · 沼泽 · 圣殿 / 地图初稿"))))}">{html.escape(plan.get("title","地穴 · 沼泽 · 圣殿 / 地图初稿"))}</text><text x="{x+240}" y="{y+600}" fill="#a7b7b5" font-size="{min(95,(w-480)/68)}">同一世界坐标 · 实宽通道归房间 · 金色口为邻区预留 · 电梯两端同号 · 尚未施工玩法</text>']
     for r in [*context,*rooms]:
         rid=r['room_id'];a,b=r['label'];fill,stroke=colors[rid[0]];d='M'+'L'.join(f'{x},{y}' for x,y in r['outline'])+'Z';is_context=r in context
@@ -49,5 +49,5 @@ def drawing(plan,context=()):
     for t in plan['transitions']:
         for side in ['a','b']:
             if t[side]['room'] not in {r['room_id'] for r in rooms}:continue
-            a,b=t[side]['point'];out.append(f'<rect x="{a-45}" y="{b-45}" width="90" height="90" fill="#edc17b"/><text x="{a+70}" y="{b-60}" fill="#edc17b" font-size="42">L22 ⇅ 井内升降</text>')
+            a,b=t[side]['point'];out.append(f'<rect x="{a-45}" y="{b-45}" width="90" height="90" fill="#edc17b"/><text x="{a+70}" y="{b-60}" fill="#edc17b" font-size="42">{t["id"]} ⇄ {html.escape(t.get("label","井内升降" if t.get("kind","well_lift")=="well_lift" else "配对捷径"))}</text>')
     out.append('</svg>');return ''.join(out)

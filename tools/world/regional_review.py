@@ -42,8 +42,11 @@ def compile_plan(root=ROOT,validate=True,cluster="underground"):
     preview=preview_catalog(root);forest=forest_build(root,preview)
     fixed={r['room_id']:rectangles(r['outline']) for r in forest['rooms']}
     fixed.update({r['id']:rectangles(r['polygon']) for r in preview['map_rooms'] if r['id'][0] not in {*plan['regions'],'F','M','S','T','Z','V'}})
-    if cluster=='northwest':
-        fixed.update({r['room_id']:rectangles(r['outline']) for r in compile_plan(root)['rooms']})
+    manifest=json.loads((root/'config/world/spatial_layout.json').read_text())
+    for source in manifest['cluster_sources']:
+        previous=Path(source).stem
+        if previous==cluster:break
+        fixed.update({r['room_id']:rectangles(r['outline']) for r in compile_plan(root,cluster=previous)['rooms']})
     items=list(rects.items())
     for i,(rid,rs) in enumerate(items):
         for other,ss in [*items[i+1:],*fixed.items()]:

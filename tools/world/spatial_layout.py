@@ -66,7 +66,7 @@ def apply_cluster(project,plan,source):
     for p in plan['external_ports']:port(p['room'],p['id'],p['point'],p['direction'])
     for t in plan['transitions']:
         edge=project['connections'][t['id']];edge['front_door']=True
-        edge['spatial_draft']={'kind':'well_lift','description':t['description'],'endpoints':copy.deepcopy([t['a'],t['b']])}
+        edge['spatial_draft']={'kind':t.get('kind','well_lift'),'description':t['description'],'endpoints':copy.deepcopy([t['a'],t['b']])}
         for side in ['a','b']:
             rid=t[side]['room'];r=project['rooms'][rid];p=next(p for p in r['ports'].values() if p['connection']==t['id'])
             p.update(position=[t[side]['point'][i]-r['origin'][i] for i in (0,1)],front_door=True,landing_status='requires_room_construction')

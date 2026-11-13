@@ -11,7 +11,7 @@ class WorldSpatialLayout(unittest.TestCase):
  def test_only_authored_draft_regions_change_and_others_remain_unplaced(self):
   self.assertEqual(len(self.p['rooms']),309);self.assertEqual(len(self.p['connections']),409)
   for rid,r in self.p['rooms'].items():
-   if rid[0] not in 'FMSTYIC':self.assertEqual(r,self.base['rooms'][rid])
+   if rid[0] not in 'FMSTYICKN':self.assertEqual(r,self.base['rooms'][rid])
    else:self.assertEqual(r['layout_status'],'draft')
   self.assertEqual(self.p['rooms']['G-R16']['spatial_source']['kind'],'unplaced')
  def test_complete_chamber_area_including_passages_survives(self):
@@ -54,16 +54,28 @@ class WorldSpatialLayout(unittest.TestCase):
  def test_northwest_and_all_existing_regions_share_world_geometry(self):
   from world_review import build,validate_assembly
   plan,_=build(self.p)
-  self.assertEqual(plan['checks'],{'rooms':155,'cross_region_seams':13,'overlaps':0})
-  self.assertEqual({s['id'] for s in plan['seams']},{'C01','C02','C03','C04','C08','C09','C10','C11','C12','C13','C14','C26','C28'})
+  self.assertEqual(plan['checks'],{'rooms':197,'cross_region_seams':17,'overlaps':0})
+  self.assertEqual({s['id'] for s in plan['seams']},{'C01','C02','C03','C04','C08','C09','C10','C11','C12','C13','C14','C26','C28','C05','C06','C17','C31'})
   self.assertEqual(len([r for r in plan['rooms'] if r['room_id'][0] in 'YIC']),46)
-  self.assertFalse(any(e['target'][0] in 'PFMSTYIC' for e in plan['external_ports']))
+  self.assertFalse(any(e['target'][0] in 'PFMSTYICKN' for e in plan['external_ports']))
   # Catch an editor/export regression that leaves matching-looking geometry but
   # a misplaced or reversed actual port.
   import copy
   changed=copy.deepcopy(self.p);edge=changed['connections']['C08'];ep=edge['b']
   changed['rooms'][ep['room']]['ports'][ep['port']]['position'][0]+=32
   with self.assertRaisesRegex(AssertionError,'Seam drift C08'):validate_assembly(plan,changed)
+ def test_eastern_rooms_and_existing_named_shortcuts(self):
+  from regional_review import compile_plan
+  plan=compile_plan(ROOT,cluster='eastern')
+  self.assertEqual(len(plan['rooms']),42)
+  self.assertEqual(len(plan['connections']),47)
+  identities={e['id']:e for e in json.loads((ROOT/'config/world/world.json').read_text())['connections']}
+  for cid in ['SC-K01','SC-N01']:
+   self.assertTrue(identities[cid]['passage_profile'].startswith('paired named passage/lift stops'))
+   self.assertEqual(self.p['connections'][cid]['spatial_draft']['kind'],'named_shortcut')
+   self.assertNotIn('path',self.p['connections'][cid]['spatial_draft'])
+  # Pending city design must not silently turn into a transition or edit plains.
+  self.assertEqual(self.p['connections']['CITY-P-G-WEST'],self.base['connections']['CITY-P-G-WEST'])
  def test_draft_does_not_change_gate_or_reward_progression(self):
   for cid,e in self.p['connections'].items():
    for key in ['requires','direction','a','b']:

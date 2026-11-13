@@ -8,7 +8,7 @@ from forest_review import build as forest_build,rectangles,overlap
 from preview_catalog import preview_catalog
 from regional_review import compile_plan,ROOT
 
-REGIONS='PFMSTYIC'
+MANIFEST=ROOT/'config/world/spatial_layout.json'
 OPPOSITE={'left':'right','right':'left','up':'down','down':'up'}
 
 def on_boundary(poly,p):
@@ -37,7 +37,8 @@ def validate_assembly(plan,project):
 
 def build(project=None):
     p=project or export(spatial_draft=True);preview=preview_catalog(ROOT)
-    plans=[forest_build(ROOT,preview),compile_plan(),compile_plan(cluster='northwest')]
+    manifest=json.loads(MANIFEST.read_text());regions='P'+''.join(manifest['scope_regions'])
+    plans=[forest_build(ROOT,preview),*[compile_plan(cluster=Path(source).stem) for source in manifest['cluster_sources']]]
     world=json.loads((ROOT/'config/world/world.json').read_text());identities={r['id']:r for r in world['rooms']};names={r['code']:r['name'] for r in world['regions']}
     rooms=[copy.deepcopy(r) for plan in plans for r in plan['rooms']]
     for row in preview['map_rooms']:
@@ -64,19 +65,20 @@ def build(project=None):
         else:
             host=e['a'] if inside[0] else e['b'];target=e['b'] if inside[0] else e['a'];r=p['rooms'][host];port=next(v for v in r['ports'].values() if v['connection']==cid)
             external.append(dict(id=cid,room=host,target=target,point=[r['origin'][i]+port['position'][i] for i in (0,1)],direction=port['direction'],region_name=names[target[0]]+'（待编排）'))
-    plan=dict(title='失序之钟 · 8地区 / 155房连续世界初稿',rooms=sorted(rooms,key=lambda r:(REGIONS.index(r['room_id'][0]),r['room_id'])),connections=connections,routes=[copy.deepcopy(r) for p1 in plans for r in p1['routes']],external_ports=external,transitions=transitions,seams=seams,attachments=[],regions=[{'code':c,'name':names[c]} for c in REGIONS],review_limits=['平原35房保持正式几何；另外120房为地图候选，尚未制作真实关卡。','同坐标检查155房无重叠、13对跨区接缝重合且门向相反；未完成区域仅保留具名接口。','能力锁、奖励、NPC与审批状态不因重新排布而升级；房内门槛位置仍需灰盒校准。','M02—M01使用已确认的L22井内升降；世界钟心及未编排地区不强行拼入连续层。'])
+    plan=dict(title=f'失序之钟 · {len(regions)}地区 / {len(rooms)}房连续世界初稿',rooms=sorted(rooms,key=lambda r:(regions.index(r['room_id'][0]),r['room_id'])),connections=connections,routes=[copy.deepcopy(r) for p1 in plans for r in p1['routes']],external_ports=external,transitions=transitions,seams=seams,attachments=[],regions=[{'code':c,'name':names[c]} for c in regions],review_limits=manifest['review_limits']+[f'同坐标检查{len(rooms)}房无重叠、{len(seams)}对跨区接缝共点且门向相反；真实落点和动作待灰盒验证。','能力锁、奖励、NPC与审批状态不因排布升级；房内门槛位置仍需灰盒校准。'],summary=manifest['review_summary'],focus_regions=manifest['review_regions'])
     plan['checks']=validate_assembly(plan,p)
     plan['attachments']=[dict(id=s['id'],path=[s['point']],label=s['a'][0]+' ↔ '+s['b'][0]) for s in seams]
     return plan,p
 
 def page(plan,svg):
+    nr=len(plan['regions']);nc=len(plan['rooms']);ns=len(plan['seams'])
     text=(ROOT/'tools/world/forest_review.html').read_text()
-    text=text.replace('荆棘森林','世界地图').replace('24 房 · 30 条区内连接 · 5 个跨区接口','8 地区 · 155 房 · 13 对跨区接缝').replace("selected='F-R01'","selected='Y-R01'").replace('forest-review-notes','world-review-notes').replace('F-Rxx','区域-Rxx')
-    text=text.replace('<a class="link" href="/">返回工坊</a>','<span class="muted">第三片 / 西北三地区</span>')
-    text=text.replace('一棵主树连接林下、树腹与根井。主路使用 H 深入并取得 W；游侠武器支路可先去，也可回来挑战；取得 W 后在已见过的岔路展开另一半森林。','新增峡谷12房、冰川16房、墓园18房。所有已编排地区保持原世界坐标；选择“接缝”查看两侧空间与来向，选择路线核对探索和奖励节奏。').replace('较长的根道','较长的通道').replace('首访、武器支路、W后回环分别查看，比较连续几房的节奏。','选择一条首访、能力回访或奖励支路；也可按区域或跨区接缝逐处查看。')
+    text=text.replace('荆棘森林','世界地图').replace('24 房 · 30 条区内连接 · 5 个跨区接口',f'{nr} 地区 · {nc} 房 · {ns} 对跨区接缝').replace("selected='F-R01'",f"selected='{plan['focus_regions'][0]}-R01'").replace('forest-review-notes','world-review-notes').replace('F-Rxx','区域-Rxx')
+    text=text.replace('<a class="link" href="/">返回工坊</a>','<span class="muted">世界初稿 / 持续编排</span>')
+    text=text.replace('一棵主树连接林下、树腹与根井。主路使用 H 深入并取得 W；游侠武器支路可先去，也可回来挑战；取得 W 后在已见过的岔路展开另一半森林。',plan['summary']).replace('较长的根道','较长的通道').replace('首访、武器支路、W后回环分别查看，比较连续几房的节奏。','选择一条首访、能力回访或奖励支路；也可按区域或跨区接缝逐处查看。')
     text=text.replace('r.room_id.slice(2)','r.room_id').replace('id.slice(2)','id').replace('e.room.slice(2)','e.room')
-    text=text.replace('href="forest.svg" download','href="data:image/svg+xml;base64,'+base64.b64encode(svg.encode()).decode()+'" download="world-155.svg"')
-    selectors='<select id="region-view" aria-label="选择区域"><option value="all">8地区总览</option>'+''.join(f'<option value="{r["code"]}">{r["name"]}</option>' for r in plan['regions'])+'</select><select id="seam-view" aria-label="选择跨区接缝"><option value="">跨区接缝 · 13对</option>'+''.join(f'<option value="{s["id"]}">{s["id"]} · {s["a"]} ↔ {s["b"]}</option>' for s in plan['seams'])+'</select>'
+    text=text.replace('href="forest.svg" download','href="data:image/svg+xml;base64,'+base64.b64encode(svg.encode()).decode()+'" download="world-map.svg"')
+    selectors=f'<select id="region-view" aria-label="选择区域"><option value="all">{nr}地区总览</option>'+''.join(f'<option value="{r["code"]}">{r["name"]}</option>' for r in plan['regions'])+f'</select><select id="seam-view" aria-label="选择跨区接缝"><option value="">跨区接缝 · {ns}对</option>'+''.join(f'<option value="{s["id"]}">{s["id"]} · {s["a"]} ↔ {s["b"]}</option>' for s in plan['seams'])+'</select>'
     text=text.replace('<select id="route"',selectors+'<select id="route"')
     text=text.replace("$('#route-summary').textContent=rt?","if(rt)fitRooms(rt.rooms.map(id=>rooms.get(id)));$('#route-summary').textContent=rt?")
     text=text.replace("const pointers=new Map();", "function fitRooms(rs){const bs=rs.map(r=>r.bounds),x=Math.min(...bs.map(b=>b[0])),y=Math.min(...bs.map(b=>b[1])),xx=Math.max(...bs.map(b=>b[0]+b[2])),yy=Math.max(...bs.map(b=>b[1]+b[3]));view=[x-300,y-300,xx-x+600,yy-y+600];renderView()}const pointers=new Map();")
@@ -90,7 +92,8 @@ $('#seam-view').onchange=e=>{const s=plan.seams.find(s=>s.id===e.target.value);i
 
 def seam_sheet(plan):
     """Actual same-coordinate neighborhoods, not a separate schematic graph."""
-    out=['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 4250"><rect width="3000" height="4250" fill="#101b21"/><style>text{font-family:"Noto Sans CJK SC",sans-serif}</style>']
+    height=((len(plan['seams'])+2)//3)*850
+    out=[f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 {height}"><rect width="3000" height="{height}" fill="#101b21"/><style>text{{font-family:"Noto Sans CJK SC",sans-serif}}</style>']
     for i,s in enumerate(plan['seams']):
         x=(i%3)*1000;y=(i//3)*850;px,py=s['point'];view=[px-1800,py-1300,3600,2600]
         out.append(f'<text x="{x+24}" y="{y+42}" fill="#f0dcac" font-size="24">{s["id"]} · {s["a"]} ↔ {s["b"]}</text><text x="{x+24}" y="{y+76}" fill="#b3c7c5" font-size="18">{html.escape(s["condition"])}</text><svg x="{x+12}" y="{y+100}" width="976" height="710" viewBox="{view[0]} {view[1]} {view[2]} {view[3]}">')
@@ -107,13 +110,14 @@ def seam_sheet(plan):
     out.append('</svg>');return ''.join(out)
 
 def main():
-    out=ROOT/'build/northwest-review';out.mkdir(parents=True,exist_ok=True)
+    out=ROOT/'build/world-review';out.mkdir(parents=True,exist_ok=True)
     plan,p=build();svg=drawing(plan)
-    (out/'world-155.svg').write_text(svg);(out/'world-review.html').write_text(page(plan,svg))
+    (out/'world-map.svg').write_text(svg);(out/'world-review.html').write_text(page(plan,svg))
     (out/'seams.svg').write_text(seam_sheet(plan))
     (out/'world-project.json').write_text(json.dumps(p,ensure_ascii=False,separators=(',',':'))+'\n')
-    for code,filename in [('Y','canyon'),('I','glacier'),('C','cemetery')]:
-        sub={**plan,'rooms':[r for r in plan['rooms'] if r['room_id'][0]==code],'connections':[c for c in plan['connections'] if c['a'][0]==c['b'][0]==code],'routes':[r for r in plan['routes'] if all(x[0]==code for x in r['rooms'])],'attachments':[],'transitions':[],'external_ports':[e for e in plan['external_ports'] if e['room'][0]==code],'title':next(r['name'] for r in plan['regions'] if r['code']==code)+' · 整区初稿'}
+    for code in plan['focus_regions']:
+        filename=code.lower()
+        sub={**plan,'rooms':[r for r in plan['rooms'] if r['room_id'][0]==code],'connections':[c for c in plan['connections'] if c['a'][0]==c['b'][0]==code],'routes':[r for r in plan['routes'] if all(x[0]==code for x in r['rooms'])],'attachments':[],'transitions':[t for t in plan['transitions'] if any(t[side]['room'][0]==code for side in 'ab')],'external_ports':[e for e in plan['external_ports'] if e['room'][0]==code],'title':next(r['name'] for r in plan['regions'] if r['code']==code)+' · 整区初稿'}
         for s in plan['seams']:
             if code not in [s['a'][0],s['b'][0]]:continue
             index=0 if s['a'][0]==code else 1;host=s['a'] if index==0 else s['b'];other=s['b'] if index==0 else s['a']

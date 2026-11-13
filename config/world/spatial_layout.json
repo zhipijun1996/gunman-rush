@@ -8,14 +8,16 @@
     "T",
     "Y",
     "I",
-    "C"
+    "C",
+    "K",
+    "N"
   ],
   "source": "game/world/regions/F/room_design.json",
   "units": "world_units",
-  "intent": "以平原为基准，按相邻片区完成世界初稿；每批同时检查全部已有区域的占地、跨区接缝与外口，不把孤立分区当成世界交付。",
+  "intent": "先推进职责、路线和接续，轮廓细节后续集中打磨；每批同时检查全部已有区域的真实占地与接口。",
   "review_limits": [
-    "平原35房为已制作基准；森林24、地穴18、沼泽16、圣殿16、峡谷12、冰川16、墓园18房为地图候选，非实机玩法完成。",
-    "通路属于两侧房间占地，连续门对使用共享接缝；M02至M01是明确的井内升降转场。",
+    "平原35房为已制作基准；另有162房地图候选，非实机玩法完成。",
+    "通路属于两侧房间占地，连续门对使用共享接缝；井内升降与原合同的成对永久捷径明确标识。",
     "尚未编排的邻区仅保留具名出口与接近空间，不伪造全世界连通。"
   ],
   "reference": {
@@ -25,6 +27,12 @@
   },
   "cluster_sources": [
     "config/world/spatial_clusters/underground.json",
-    "config/world/spatial_clusters/northwest.json"
-  ]
+    "config/world/spatial_clusters/northwest.json",
+    "config/world/spatial_clusters/eastern.json"
+  ],
+  "review_regions": [
+    "K",
+    "N"
+  ],
+  "review_summary": "新增古堡24房与矿井18房，先审职责、主支路与跨区接续，轮廓细节后续集中打磨。工城入口冲突待确认，暂不伪造连续接通；已编排地区可按接缝和路线逐处审核。"
 }
