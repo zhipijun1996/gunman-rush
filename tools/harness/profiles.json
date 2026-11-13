@@ -1,6 +1,24 @@
 {
   "schema_version": 1,
   "checks": {
+    "vfx-source": {
+      "mode": "manual",
+      "argv": ["python3", "tools/vfx/pixelfx.py", "check", "gunman"],
+      "timeout_seconds": 180,
+      "success_pattern": "^[1-9][0-9]* effects: [1-9][0-9]* pass, 0 fail, 0 with warnings$"
+    },
+    "vfx-export": {
+      "mode": "manual",
+      "argv": ["python3", "tests/test_vfx_export.py"],
+      "timeout_seconds": 180,
+      "success_pattern": "^OK$"
+    },
+    "vfx-runtime": {
+      "mode": "manual",
+      "argv": ["bash", "tools/godot.sh", "--headless", "--path", ".", "--script", "tests/vfx/contracts.gd"],
+      "timeout_seconds": 90,
+      "success_pattern": "^VFX CONTRACTS: [1-9][0-9]* checks, 0 failures;"
+    },
     "core": {
       "mode": "manual",
       "argv": [

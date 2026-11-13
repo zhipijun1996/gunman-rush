@@ -48,6 +48,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=["setup", "list", "render", "check", "act", "export"])
     args, tail = parser.parse_known_args()
+    if "--out" in tail:
+        index = tail.index("--out") + 1
+        if index >= len(tail):
+            parser.error("--out requires a path")
+        tail[index] = str((ROOT / tail[index]).resolve())
     checkout = prepare()
     if args.command == "setup":
         print(f"pixelfx {REVISION}: {checkout}")

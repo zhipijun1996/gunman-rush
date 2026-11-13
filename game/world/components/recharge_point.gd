@@ -75,7 +75,7 @@ func try_touch(controller: PlayerController) -> bool:
 func _draw() -> void:
 	var radius := definition.radius if definition != null else 24.0
 	var tint := Color(0.4, 0.94, 0.84) if active else Color(0.18, 0.28, 0.3)
-	draw_circle(Vector2.ZERO, radius, Color(tint, 0.15))
-	draw_arc(Vector2.ZERO, radius * 0.8, 0, TAU, 32, tint, 3)
+	draw_circle(Vector2.ZERO,radius,Color(tint,.06))
+	PixelVfx.arc(self,Vector2.ZERO,radius*.8,0,TAU,tint,1)
 	draw_line(Vector2(-8, 0), Vector2(8, 0), tint, 3)
 	draw_line(Vector2(0, -8), Vector2(0, 8), tint, 3)

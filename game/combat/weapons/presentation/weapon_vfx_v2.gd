@@ -83,7 +83,7 @@ func _draw_ion_beam(start: Vector2, finish: Vector2, age: float, fade: float, ca
 	var blocked := length<controller.shoot_ability.weapon.range_limit-.5 if cannon else runtime._beam_start.distance_to(runtime._beam_point)<controller.shoot_ability.weapon.range_limit-.5
 	if blocked:
 		var flicker := .8+.2*sin(age*31)
-		draw_circle(finish,4*flicker,Color(.78,.98,1,.8*strength))
+		PixelVfx.glint(self,finish,3,Color(.78,.98,1,.8*strength),flicker)
 		for i: int in 6:
 			var direction := (-axis).rotated((float(i)-2.5)*.44+sin(age*24+float(i))*.1)
 			var distance := 5+fposmod(age*67+float(i)*4,12)
@@ -146,7 +146,7 @@ func _draw_accretion() -> void:
 		for i: int in 33:
 			var angle := float(i)*TAU/32+age*(4.5+band)
 			var point := Vector2(cos(angle)*(31+band*7),sin(angle)*(10+band*4)).rotated(-.20)
-			points.append(center+point*pulse)
+			points.append((center+point*pulse).round())
 		draw_polyline(points,Color(.57+.08*band,.42+.10*band,.78,.5*opacity),2,false)
 	for i: int in 18:
 		var travel := fposmod(age*2.2+float(i)/18,1.0)
@@ -176,11 +176,12 @@ func _draw_explosion(fx: Dictionary) -> void:
 		var axis := Vector2.from_angle(float(i)*TAU/8+.12*sin(float(i)*5))
 		var point := center+axis*radius*(.10+.22*burst)
 		var size := radius*(.06+.04*sin(float(i)*4))*(1-age/.7)
-		draw_circle(point,size,Color(.94,.24+.07*(i%3),.055,.65*fade))
+		PixelVfx.shard(self,point,axis,size*3.0,size*.8,Color(.94,.24+.07*(i%3),.055,.65*fade))
 		if age<.18:
 			var flame := PackedVector2Array([point-axis*size,point+axis.orthogonal()*size*.65,point+axis*size*2.1,point-axis.orthogonal()*size*.65])
 			draw_colored_polygon(flame,Color(1,.76,.22,.85*fade))
-	if age<.09: draw_circle(center,radius*.105,Color(1,.94,.70,(1-age/.09)*opacity))
+	if age<.09: PixelVfx.glint(self,center,minf(8,radius*.105),Color(1,.94,.70,opacity),1-age/.09)
+	PixelVfx.clip(self,&"ember",center,age/.55,0,Color(1,1,1,opacity*.8))
 	for i: int in 16:
 		var axis := Vector2.from_angle(float(i)*TAU/16+.13*sin(float(i)*7))
 		var travel := radius*(.15+.75*clampf(age/.36,0,1))
@@ -192,7 +193,7 @@ func _draw_explosion(fx: Dictionary) -> void:
 	if age>.08:
 		for i: int in 6:
 			var point := center+Vector2.from_angle(float(i)*TAU/6)*radius*(.1+age*.25)+Vector2.UP*age*30
-			draw_circle(point,radius*(.035+age*.075),Color(.16,.17,.19,.42*fade))
+			draw_circle(point.round(),roundf(radius*(.035+age*.075)),Color(.16,.17,.19,.22*fade))
 
 func _draw_collapse(fx: Dictionary) -> void:
 	var center := to_local(fx.start)
@@ -207,12 +208,12 @@ func _draw_collapse(fx: Dictionary) -> void:
 		var distance := lerpf(radius*.66,8.0,progress)
 		var axis := Vector2.from_angle(angle)
 		var point := center+axis*distance*Vector2(1,.75)
-		draw_line(point-axis*7,point,Color(.77,.67,.91,.8*fade),2,false)
+		PixelVfx.shard(self,point,-axis,7*(1-progress*.5),1.2,Color(.77,.67,.91,.8*fade))
 	for i: int in 3:
 		var points := PackedVector2Array()
 		for j: int in 33:
 			var angle := float(j)*TAU/32
-			points.append(center+Vector2(cos(angle),sin(angle)*.42).rotated(-.2)*(18+progress*radius*(.65+i*.08)))
+			points.append((center+Vector2(cos(angle),sin(angle)*.42).rotated(-.2)*(18+progress*radius*(.65+i*.08))).round())
 		draw_polyline(points,Color(.77,.72,.94,(.65-.16*i)*fade),2,false)
 	if age<.10:
 		draw_arc(center,24*(1-progress),0,TAU,24,Color(.94,.88,1,(1-age/.10)*opacity),3,false)

@@ -44,7 +44,13 @@ func _draw() -> void:
 	paint(self, family, row, age / seconds, Vector2.ZERO, effect_scale * Vector2(facing, 1))
 
 static func paint(canvas: Node2D, kind: StringName, clip: int, progress: float, at := Vector2.ZERO, size := Vector2.ONE, angle := 0.0, tint := Color.WHITE) -> void:
+	if progress < 0.0 or progress >= 1.0: return
+	if clip>=2 and PixelVfx.reduced(canvas):tint.a*=.6
 	var frame := clampi(int(progress * 4), 0, 3)
 	canvas.draw_set_transform(at.round(), angle, size)
 	canvas.draw_texture_rect_region(WIND if kind == &"wind" else BELL, Rect2(-80,-32,160,64), Rect2(frame*160,clip*64,160,64),tint)
 	canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
+	if clip==2 or (clip==3 and kind==&"bell"):
+		PixelVfx.clip(canvas,&"dust",at+Vector2(0,12),progress,angle,Color(tint,tint.a*.6),size)
+		if kind==&"bell" and clip==2:
+			PixelVfx.clip(canvas,&"impact",at,progress,angle,Color(tint,tint.a*.5),size)

@@ -23,7 +23,18 @@ if (!ids.length) throw new Error("Choose effect IDs or the gunman category; expo
 const output = resolve(flags.out ?? join(root, "assets/vfx"));
 if (!output.startsWith(root + sep)) throw new Error("Export destination must be inside the project.");
 const opts = { ...(flags.fps ? { fps: +flags.fps } : {}), ...(flags.seed ? { seed: +flags.seed } : {}), options: JSON.parse(flags.opts ?? "{}"), actor: false };
+if (opts.fps !== undefined && (!Number.isInteger(opts.fps) || opts.fps < 1 || opts.fps > 120)) throw new Error("fps must be an integer from 1 to 120");
+if (opts.seed !== undefined && !Number.isFinite(opts.seed)) throw new Error("seed must be finite");
 let count = 0;
+
+function dependencies(file, result = {}) {
+  const key = relative(checkout, file).split(sep).join("/");
+  if (result[key]) return result;
+  const source = readFileSync(file, "utf8");
+  result[key] = createHash("sha256").update(source).digest("hex");
+  for (const match of source.matchAll(/from\s+["'](\.[^"']+)["']/g)) dependencies(fileURLToPath(new URL(match[1], pathToFileURL(file))), result);
+  return result;
+}
 
 function resource(fx, name, r, filename) {
   const lines = [`[gd_resource type="SpriteFrames" load_steps=${r.n + 2} format=3]`, "", `[ext_resource type="Texture2D" path="res://${relative(root, filename).split(sep).join("/")}" id="1"]`, ""];
@@ -59,7 +70,7 @@ for (const id of resolveIds(ids)) {
   if (fx.mod.act?.onBody) throw new Error(`${id} paints a stock body. Adapt it to the project silhouette before export.`);
   const r = renderFrames(fx, opts), name = id.split("/").join("-"), directory = join(output, name);
   mkdirSync(directory, { recursive: true });
-  const manifest = { upstream: "https://github.com/patch-gg/pixelfx", revision: "5294518ce7c72e48b6100a744596e0acf57f2826", effect: id, source_sha256: createHash("sha256").update(readFileSync(fx.file)).digest("hex"), options: opts, pivot: fx.meta.origin, passes: {} };
+  const manifest = { upstream: "https://github.com/patch-gg/pixelfx", revision: "5294518ce7c72e48b6100a744596e0acf57f2826", effect: id, source_sha256: createHash("sha256").update(readFileSync(fx.file)).digest("hex"), source_dependencies: dependencies(fx.file), options: opts, pivot: fx.meta.origin, passes: {} };
   const passes = { combined: r, ...(flags.split ? splitFrames(fx, r) : {}) };
   for (const [pass, frames] of Object.entries(passes)) {
     const basename = pass === "combined" ? name : `${name}-${pass}`, png = join(directory, `${basename}.png`);

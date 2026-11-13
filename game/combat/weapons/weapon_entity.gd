@@ -114,7 +114,7 @@ func _draw() -> void:
 	for i: int in range(1,trail.size()):
 		var color := Color("aa854b") if underworld else Color(.3,.85,1)
 		color.a = float(i)/trail.size()*.65
-		draw_line(to_local(trail[i-1]),to_local(trail[i]),color,3 if skill else 1.5,not underworld)
+		draw_line(to_local(trail[i-1]).round(),to_local(trail[i]).round(),color,2 if skill else 1,false)
 	var art_index := 2 if kind==&"boomerang" else 4 if kind==&"mine" else 3
 	var catalog := runtime.art_catalog()
 	if catalog.is_empty():return
@@ -129,4 +129,4 @@ func _draw() -> void:
 	if kind==&"mine":
 		var color := Color("d4ac64") if underworld else Color(1,.48,.3)
 		color.a = .5+.25*sin(age*8)
-		draw_arc(Vector2.ZERO,18,0,TAU*minf(1,age/.25),12 if underworld else 24,color,2 if underworld else 1.5,not underworld)
+		PixelVfx.arc(self,Vector2.ZERO,18,0,TAU*minf(1,age/.25),color)

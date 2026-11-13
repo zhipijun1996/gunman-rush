@@ -16,7 +16,8 @@ func _draw()->void:
 		for i: int in 16:
 			var axis := Vector2.from_angle(i*TAU/16)
 			var p := (axis*(12+age*(90 if mini else 150))+Vector2(0,age*age*35)).snapped(Vector2(2,2))
-			draw_rect(Rect2(p,Vector2(4,4)),Color(PixelFormalActors.CREAM if i%2==0 else PixelFormalActors.MOSS,opacity))
+			PixelVfx.shard(self,p,axis.rotated(age*3),3+opacity*3,1,Color(PixelFormalActors.CREAM if i%2==0 else PixelFormalActors.MOSS,opacity))
+		PixelVfx.clip(self,&"dissolve",Vector2.ZERO,age/.9)
 		return
 	var t:=clampf(age/.9,0,1)
 	var size:float=(130 if mini else 220)*(.35+.65*sin(minf(1,t*2)*PI/2))
@@ -25,4 +26,4 @@ func _draw()->void:
 	for i:int in 12:
 		var direction:=Vector2.from_angle(float(i)*TAU/12)
 		var point:=direction*(15+age*95)+Vector2(0,age*age*35)
-		draw_line(point,point+direction*5,Color(1,.85,.43,1-t),2)
+		PixelVfx.streak(self,point,direction,5*(1-t)+1,1,Color(1,.85,.43,1-t))

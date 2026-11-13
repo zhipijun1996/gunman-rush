@@ -100,6 +100,7 @@ func _make_ui() -> void:
 	_apply_preferences()
 
 func _apply_preferences() -> void:
+	set_meta(&"reduced_vfx",bool(preferences.value.reduced))
 	preferences.apply(controller)
 	if is_instance_valid(focus_heal):focus_heal.reduced=bool(preferences.value.reduced)
 	if overlay!=null: overlay.update_layout()

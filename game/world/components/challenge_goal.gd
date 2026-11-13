@@ -27,5 +27,5 @@ func reset(_policy: StringName = &"life") -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	draw_rect(Rect2(-28, -50, 56, 100), Color(0.4, 0.84, 0.66, 0.3))
-	draw_arc(Vector2.ZERO, 23, 0, TAU, 32, Color(0.62, 0.97, 0.76) if completed else Color(0.92, 0.78, 0.5), 3)
+	draw_rect(Rect2(-28, -50, 56, 100), Color(0.4,0.84,0.66,.10))
+	PixelVfx.arc(self,Vector2.ZERO,23,0,TAU,Color(.62,.97,.76) if completed else Color(.92,.78,.5),1)

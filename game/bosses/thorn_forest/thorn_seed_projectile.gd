@@ -75,9 +75,7 @@ func advance_frozen_contact() -> void:
 
 func _draw() -> void:
 	if landed:
-		draw_rect(Rect2(Vector2(-zone_size.x*.5, -zone_size.y), zone_size), Color(.8,.23,.32,.65))
-		for x: int in range(-int(zone_size.x*.5), int(zone_size.x*.5), 14):
-			draw_line(Vector2(x,0),Vector2(x+6,-zone_size.y),Color(1,.65,.34),3)
+		PixelVfx.hazard_patch(self,Rect2(Vector2(-zone_size.x*.5,-zone_size.y),zone_size),age)
 	else:
-		draw_circle(Vector2.ZERO, radius, Color(.95,.64,.3))
-		draw_arc(Vector2.ZERO,radius+3,0,TAU,16,Color(.4,.2,.3),2)
+		draw_circle(Vector2.ZERO,radius+2,Color("392c2a"))
+		PixelVfx.shard(self,Vector2.ZERO,Vector2(1,-.3),radius*2,radius*.6,Color("d8a065"))

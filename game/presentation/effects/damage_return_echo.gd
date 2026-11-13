@@ -32,4 +32,4 @@ func _draw() -> void:
 	for i: int in 8:
 		var axis := Vector2.from_angle(i*TAU/8+.2)
 		var point := axis*(5+progress*23)
-		draw_line(point,point+axis*4,Color("ead8a3",1-progress),2,false)
+		PixelVfx.shard(self,point,axis,4*(1-progress)+1,.7,Color("ead8a3",1-progress))

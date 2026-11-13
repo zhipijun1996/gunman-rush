@@ -70,8 +70,10 @@ func primary(index: int) -> void:
 	var ability := controller.shoot_ability
 	var before := app.training_targets[0].health
 	controller.router.set_aim(&"gamepad",Vector2.RIGHT,ability.weapon.mode==WeaponDefinition.Mode.LASER)
-	if ability.weapon.mode!=WeaponDefinition.Mode.LASER: controller.router.request_action(&"shoot_release",Vector2.RIGHT)
+	controller.router.gamepad_primary_held=ability.weapon.mode==WeaponDefinition.Mode.LASER
+	controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 	await frames(42)
+	controller.router.gamepad_primary_held=false
 	controller.router.set_aim(&"gamepad",Vector2.RIGHT,false)
 	if ability.weapon.mode==WeaponDefinition.Mode.BOOMERANG: controller.router.request_action(&"weapon_context")
 	await frames(330 if ability.weapon.mode==WeaponDefinition.Mode.MINE else 34)

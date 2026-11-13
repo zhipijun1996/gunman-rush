@@ -474,7 +474,7 @@ func _draw() -> void:
 			for i: int in 8:
 				var angle := float(i)*TAU/8
 				var offset := Vector2.from_angle(angle)*(8+float(fx.age)*100)
-				draw_line(end+offset,end+offset+Vector2.from_angle(angle)*7,Color(.95,.86,.63,alpha) if underworld else Color(.7,.85,1,alpha),1.5,not underworld)
+				PixelVfx.streak(self,end+offset,Vector2.from_angle(angle),7*alpha,1,Color(.95,.86,.63,alpha) if underworld else Color(.7,.85,1,alpha))
 		elif fx.kind=="blast":
 			if not custom: _draw_blast(fx,alpha)
 		elif fx.kind in ["beam","return_blade","arc"]:
@@ -484,21 +484,21 @@ func _draw() -> void:
 			draw_line(to_local(fx.start),to_local(fx.end),color,5 if fx.skill else 2,true)
 		else:
 			var progress := float(fx.age)/duration
-			draw_arc(to_local(fx.start),float(fx.radius)*(.2+.8*progress),0,TAU,64,(Color(.57,.58,.43,alpha) if underworld else Color(.45,.65,.8,alpha)) if fx.kind=="fizzle" else Color(1,.65,.25,alpha),4,true)
+			PixelVfx.arc(self,to_local(fx.start),float(fx.radius)*(.2+.8*progress),0,TAU,(Color(.57,.58,.43,alpha) if underworld else Color(.45,.65,.8,alpha)) if fx.kind=="fizzle" else Color(1,.65,.25,alpha),2)
 	if phase==&"singularity" and not custom:
 		var center := to_local(_center);var progress := clampf(age/(definition().hold_seconds+_singularity_hold_add()),0,1)
 		draw_circle(center,24,Color(.22,.35,.27,.4) if underworld else Color(.3,.1,.5,.4))
 		for i: int in 4:draw_arc(center,12+i*10,age*7+i,age*7+i+PI*1.3,24,Color(.62,.71,.49,.7) if underworld else Color(.6,.5,1,.7),2,not underworld)
 		draw_arc(center,definition().attract_radius,0,TAU*progress,64,Color(.62,.71,.49,.2) if underworld else Color(.6,.55,1,.2),1,not underworld)
 		draw_line(center,center+direction*60,Color(1,.85,.45),2,not underworld)
-		draw_circle(center+direction*60,4,Color(1,.85,.45))
+		PixelVfx.glint(self,center+direction*60,3,Color(1,.85,.45))
 	elif phase==&"fan_wait" and age>.13:
 		var center := to_local(actor().motor.global_position)
 		var progress := clampf((age-.13)/maxf(.01,definition().second_flash_delay-.13),0,1)
-		draw_arc(center,23,0,TAU*progress,32,Color(.83,.72,.45,.6) if underworld else Color(.45,.8,1,.6),1.5,not underworld)
+		PixelVfx.arc(self,center,23,0,TAU*progress,Color(.83,.72,.45,.6) if underworld else Color(.45,.8,1,.6))
 		draw_line(center,center-direction*32,Color(.95,.86,.63,.65) if underworld else Color(.6,.85,1,.65),1,not underworld)
-	elif phase==&"charge":
-		draw_arc(to_local(actor().motor.global_position),25,0,TAU*minf(1,age/definition().skill_charge),32,Color("f3dda0") if underworld else Color(.3,.9,1),3,not underworld)
+	elif phase==&"charge" and not (custom and definition().branch==&"ice"):
+		PixelVfx.arc(self,to_local(actor().motor.global_position),25,0,TAU*minf(1,age/definition().skill_charge),Color("f3dda0") if underworld else Color(.3,.9,1),2)
 
 func _draw_blast(fx: Dictionary, alpha: float) -> void:
 	var underworld := UnderworldProjectileVisual.enabled(self)
@@ -518,12 +518,13 @@ func _draw_blast(fx: Dictionary, alpha: float) -> void:
 	if hot>0:
 		draw_circle(center,radius*.20*(.7+.3*flare),Color(1,.87,.5,hot))
 		draw_circle(center,radius*.09,Color(1,.98,.88,hot))
+	PixelVfx.clip(self,&"ember",center,age_value/.55,0,Color(1,1,1,alpha*.7))
 	var wave := radius*(1-pow(1-clampf(age_value/.28,0,1),3))
-	draw_arc(center,wave,0,TAU,64,Color(1,.8,.45,maxf(0,1-age_value/.32)),3.5,true)
+	PixelVfx.arc(self,center,wave,0,TAU,Color(1,.8,.45,maxf(0,1-age_value/.32)),2)
 	for i: int in 18:
 		var unit := Vector2.from_angle(float(i)*TAU/18+.17*sin(float(i)))
 		var point := center+unit*radius*(.2+age_value*(1.1+.2*sin(float(i)*7)))+Vector2.DOWN*age_value*age_value*90
-		draw_line(point-unit*8*alpha,point,Color(1,.8,.3,alpha),1.5,not underworld)
+		PixelVfx.shard(self,point,unit,8*alpha,.75,Color(1,.8,.3,alpha))
 	if age_value>.08:
 		for i: int in 7:
 			var unit := Vector2.from_angle(float(i)*TAU/7)

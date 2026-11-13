@@ -104,7 +104,8 @@ func _draw() -> void:
 			var alpha:=sin(travel*PI)*fade*strength
 			var tail:=(at-center).normalized()*lerpf(5,13,progress)
 			draw_line(at,at+tail,Color(.8,.87,.75,alpha*.7),2)
-			draw_rect(Rect2(at,Vector2(2,3)),Color(1,.96,.77,alpha))
+			PixelVfx.shard(self,at,-(at-center).normalized(),3,1,Color(1,.96,.77,alpha))
+		PixelVfx.clip(self,&"charge",center,fposmod(elapsed/.8,1),0,Color(1,1,1,fade*strength*.35))
 		# Two tapered upward plumes show sustained concentration at phone scale.
 		for side:float in [-1.0,1.0]:
 			var points:=PackedVector2Array()
@@ -122,6 +123,7 @@ func _draw() -> void:
 		var progress:=1-flash/float(settings.presentation.release_seconds)
 		var radius:=lerpf(5,float(settings.presentation.release_radius),1-pow(1-progress,3))
 		var alpha:=pow(1-progress,1.4)*strength
+		PixelVfx.clip(self,&"heal",center,progress,0,Color(1,1,1,strength*.8))
 		for side:float in [-1.0,1.0]:
 			var wing:=PackedVector2Array([center+Vector2(side*radius*.08,radius*.04),center+Vector2(side*radius*.7,-radius*.55),center+Vector2(side*radius,-radius*.16),center+Vector2(side*radius*.58,radius*.05),center+Vector2(side*radius*.15,radius*.09)])
 			draw_colored_polygon(wing,Color(1,.96,.8,alpha*.26))
@@ -135,4 +137,4 @@ func _draw() -> void:
 		for i:int in count:
 			var angle:=float(i)*2.399
 			var at:=(center+Vector2.from_angle(angle)*(radius+float(i%3)*4)+Vector2(0,-progress*12)).round()
-			draw_rect(Rect2(at,Vector2(1,2)),Color(.76,.9,.79,alpha*.8))
+			PixelVfx.shard(self,at,Vector2.from_angle(angle),3*(1-progress),.7,Color(.76,.9,.79,alpha*.8))

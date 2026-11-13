@@ -135,11 +135,12 @@ func _draw() -> void:
 	for i: int in 12:
 		var axis := Vector2.from_angle(i*TAU/12+.12)
 		var point := center + axis*(8+age*105)
-		draw_line(point, point+axis*(3+fade*8), Color(.97,.87,.61,fade), 2, false)
+		PixelVfx.streak(self,point,axis,3+fade*8,maxf(.4,fade),Color(.97,.87,.61,fade))
 	if kind == "death":
 		var lift := maxf(0, age-.18)
 		for i: int in 14:
 			var phase := float(i)/14
 			var point := center + Vector2(sin(i*2.4)*lift*34, -lift*(25+phase*55))
 			var alpha := sin(PI*clampf(lift/.95,0,1))*.85
-			draw_rect(Rect2(point.snapped(Vector2.ONE), Vector2(2,2)), Color(.94,.78,.43,alpha))
+			PixelVfx.shard(self,point,Vector2.from_angle(i+lift),2+alpha*2,.75,Color(.94,.78,.43,alpha))
+		PixelVfx.clip(self,&"dissolve",center,clampf(lift/.95,0,1))

@@ -232,6 +232,7 @@ func _draw() -> void:
 				var observed_radius := radius if bool(row.get("observed_radius",false)) else NAN
 				if ItemArtLibrary.draw_recipe(self,artist_clip,float(row.age),center,row.direction,finish-center,observed_radius,finish,Color(1,1,1,art_alpha),(row.direction as Vector2).angle()):
 					_art_draws += 1
+					_art_accent(row,phase,alpha)
 					continue
 			_art_missing += 1
 			# Missing artist art is diagnosed by the library. A committed impact
@@ -243,14 +244,15 @@ func _draw() -> void:
 			&"arc", &"item_arc": _arc(row,alpha)
 			&"cloud": _cloud(row,phase)
 			&"ring":
-				draw_arc(center,radius,0,TAU,32,cool,1,false)
+				PixelVfx.arc(self,center,radius,0,TAU,cool)
 				_ticks(center,radius,phase,8,brass)
 			&"mark", &"echo":
 				_gear(center,8.0+phase*10.0,cool)
 				draw_arc(center,12.0+phase*12.0,0,TAU,16,brass,1,false)
 			&"coin": _coin(row,phase,alpha)
 			&"item_blast", &"item_throw_burst":
-				draw_arc(center,radius*(0.3+phase*0.7),0,TAU,24,cool,1,false)
+				PixelVfx.arc(self,center,radius*(0.3+phase*0.7),0,TAU,cool)
+				PixelVfx.clip(self,&"ember",center,phase,0,Color(1,1,1,alpha*.5))
 				_ticks(center,radius*(0.2+phase*0.8),phase,8,brass)
 			&"item_clock_pulse":
 				var angle: float = (row.direction as Vector2).angle()
@@ -275,12 +277,13 @@ func _draw() -> void:
 				var bob := pivot+Vector2(sin(phase*TAU)*7.0,12.0)
 				draw_line(pivot,bob,brass,1,false)
 				_gear(bob,4.0,cool)
-			&"projectile_intercept": _ticks(center,6.0+phase*10.0,phase,8,cool)
+			&"projectile_intercept": PixelVfx.clip(self,&"impact",center,phase,row.direction.angle(),Color(.55,.9,1,alpha))
 			&"defense_active", &"barrier":
 				if row.origin == &"P27": _heal_mark(center,alpha)
 				else:
 					var points := PackedVector2Array([center+Vector2(-12,-15),center+Vector2(12,-15),center+Vector2(11,9),center+Vector2(0,19),center+Vector2(-11,9),center+Vector2(-12,-15)])
 					draw_polyline(points,cool,1,false)
+					PixelVfx.glint(self,center+Vector2(0,-15),2,cool,1.0-phase)
 					_gear(center,6.0+phase*3.0,brass)
 			&"heal": _heal_mark(center,alpha)
 			_: _gear(center,5.0+phase*8.0,brass)
@@ -363,7 +366,11 @@ func _arc(row: Dictionary, alpha: float) -> void:
 		var t := float(i)/float(count)
 		var shift := sin(float(i*5+int(row.sequence)))*float(_settings.arc_offset_px)*sin(t*PI)
 		points.append(_point(start.lerp(finish,t)+normal*shift))
+	draw_polyline(points,_fade(UnderworldUI.INK,alpha*.5),3,false)
 	draw_polyline(points,_fade(UnderworldUI.COOL,alpha),1,false)
+	if points.size()>1:
+		var index:=mini(points.size()-1,floori(float(row.age)/float(row.duration)*(points.size()-1)))
+		PixelVfx.glint(self,points[index],1,_fade(UnderworldUI.BRASS,alpha))
 
 func _cloud(row: Dictionary, phase: float) -> void:
 	var center := _point(row.point)
@@ -372,8 +379,9 @@ func _cloud(row: Dictionary, phase: float) -> void:
 	for i: int in int(_settings.cloud_wisps):
 		var angle := TAU*float(i)/float(_settings.cloud_wisps)+float(row.age)*0.25
 		var point := (center+Vector2.from_angle(angle)*radius*0.65).round()
-		draw_arc(point,radius*0.18,angle+0.4,angle+2.0,7,_fade(UnderworldUI.MOSS,opacity),1,false)
-	draw_arc(center,radius,0,TAU,32,_fade(UnderworldUI.MOSS,opacity*0.5),1,false)
+		draw_circle(point,radius*.16,_fade(UnderworldUI.MOSS,opacity*.12))
+		PixelVfx.arc(self,point,radius*.18,angle+.4,angle+2.0,_fade(UnderworldUI.MOSS,opacity))
+	PixelVfx.arc(self,center,radius,0,TAU,_fade(UnderworldUI.MOSS,opacity*.35))
 
 func _coin(row: Dictionary, phase: float, alpha: float) -> void:
 	var start: Vector2 = row.point
@@ -387,6 +395,7 @@ func _coin(row: Dictionary, phase: float, alpha: float) -> void:
 		else: point = start+Vector2(float(i)*5-5,-phase*18)
 		var center := _point(point)
 		draw_circle(center,float(_settings.coin_glyph_radius_px),_fade(UnderworldUI.BRASS,alpha))
+		PixelVfx.glint(self,center+Vector2(-1,-2),1,_fade(UnderworldUI.BRASS.lightened(.35),alpha))
 		draw_line(center+Vector2.UP,center+Vector2.DOWN,_fade(UnderworldUI.INK,alpha),1,false)
 
 func _ticks(center: Vector2, radius: float, phase: float, count: int, color: Color) -> void:
@@ -398,11 +407,12 @@ func _heal_mark(center: Vector2, alpha: float) -> void:
 	var color := _fade(UnderworldUI.MOSS,alpha)
 	draw_line(center+Vector2(-6,0),center+Vector2(6,0),color,2,false)
 	draw_line(center+Vector2(0,-6),center+Vector2(0,6),color,2,false)
+	PixelVfx.glint(self,center+Vector2(-8,-8),1,_fade(UnderworldUI.BRASS,alpha*.7))
 
 func _gear(center: Vector2, radius: float, color: Color) -> void:
-	draw_arc(center,radius,0,TAU,16,color,1,false)
+	PixelVfx.arc(self,center,radius,0,TAU,color)
 	_ticks(center,radius,0,int(_settings.gear_teeth),color)
-	draw_arc(center,maxf(1,radius*0.35),0,TAU,12,color,1,false)
+	PixelVfx.arc(self,center,maxf(1,radius*.35),0,TAU,color)
 
 func _point(world_point: Vector2) -> Vector2:
 	return to_local(world_point.round()).round()
@@ -426,3 +436,14 @@ func _read_settings() -> Dictionary:
 		if float(parsed[field]) != floor(float(parsed[field])): return {}
 	if int(parsed.max_entries)>64 or int(parsed.max_long_entries)>8 or int(parsed.arc_segments)>16 or int(parsed.cloud_wisps)>8 or int(parsed.gear_teeth)>16 or int(parsed.max_coin_glyphs)>3 or float(parsed.max_opacity)>0.75 or float(parsed.cloud_opacity)>0.25: return {}
 	return parsed
+
+func _art_accent(row: Dictionary, phase: float, alpha: float) -> void:
+	# Accents follow the same accepted clip/receipt. They never manufacture a hit
+	# for a launch cue or enlarge a registered damage/cloud/mark envelope.
+	var point:=_point(row.point)
+	if row.kind in [&"arc",&"item_arc"]:
+		PixelVfx.glint(self,point.lerp(_point(row.finish),phase),1,_fade(UnderworldUI.COOL,alpha*.5))
+	elif row.kind in [&"barrier",&"item_guard_active",&"defense_active"]:
+		PixelVfx.glint(self,point+Vector2(0,-8),1,_fade(UnderworldUI.COOL,alpha*.35))
+	elif row.kind==&"heal":
+		PixelVfx.glint(self,point+Vector2(-5,-4-phase*10),1,_fade(UnderworldUI.MOSS,alpha*.5))

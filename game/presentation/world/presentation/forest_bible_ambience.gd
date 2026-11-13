@@ -99,7 +99,7 @@ func _draw() -> void:
 		# wind field as the leaf, in world space rather than camera space.
 		var phase := root.x*0.013+root.y*0.009
 		var dust := root+Vector2(sin(_clock*0.13+phase)*21.0+wind*5.0, 23.0+sin(_clock*0.19+phase)*11.0)
-		if _clear_for_actor(dust): draw_circle(to_local(dust), 0.8, Color(0.71, 0.73, 0.46, 0.24))
+		if _clear_for_actor(dust): draw_rect(Rect2(to_local(dust).round(),Vector2.ONE),Color(.71,.73,.46,.24))
 		shown += 1
 	for burst: Dictionary in _bursts:
 		var age := _clock-float(burst.born)
@@ -113,8 +113,9 @@ func _draw() -> void:
 func _leaf(at: Vector2, angle: float, tint: Color) -> void:
 	var points := PackedVector2Array()
 	for offset: Vector2 in [Vector2(-3, 0), Vector2(0, -1.5), Vector2(3, 0), Vector2(0, 1.5)]:
-		points.append(to_local(at+offset.rotated(angle)))
-	draw_colored_polygon(points, tint)
+		points.append(to_local(at+offset.rotated(angle)).round())
+	draw_colored_polygon(points,tint)
+	draw_line(points[0],points[2],Color(tint.lightened(.12),tint.a*.7),1,false)
 
 func _wind(at: Vector2) -> float:
 	return sin(_clock*0.65+at.x*0.003+at.y*0.001)*0.65+sin(_clock*1.2+at.y*0.005)*0.25

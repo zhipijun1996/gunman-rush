@@ -108,7 +108,10 @@ func _draw() -> void:
 				if i % 2 == 1: color = Color("826347") if _material_family != &"wing" else BRASS
 			color.a = .85 * pow(1.0 - progress, 1.4)
 			var tail := (p - unit * ((2.0 if progress < .3 else 1.0) if scoped else (6.0 if progress < .3 else 2.0))).snapped(Vector2.ONE)
-			draw_line(tail, p, color, 1.0 if scoped else (1.5 if progress < .25 else 1.0), false)
+			if i%3==0 and progress<.55:
+				PixelVfx.shard(self,p,unit.rotated(float(variant)*.17+progress),p.distance_to(tail)+1,.65,color)
+			else:
+				draw_line(tail,p,color,1,false)
 
 func active_bursts() -> int:
 	return _bursts.size()

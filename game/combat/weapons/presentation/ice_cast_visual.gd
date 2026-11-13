@@ -24,7 +24,8 @@ static func charge(canvas:Node2D,muzzle:Vector2,axis:Vector2,progress:float)->vo
 	for i:int in 3:
 		var angle:=axis.angle()+i*TAU/3-t*2
 		crystal(canvas,muzzle+Vector2.from_angle(angle)*(17-8*t),4+6*t,3,axis.angle(),.5+t*.5)
-	canvas.draw_arc(muzzle,lerpf(27,14,t),t*3,t*3+PI*1.5,12,Color(EDGE,.65),2,false)
+	PixelVfx.arc(canvas,muzzle,lerpf(27,14,t),t*3,t*3+PI*1.5,Color(EDGE,.45),1)
+	PixelVfx.clip(canvas,&"charge",muzzle,fposmod(t*1.7,.999),0,Color(.58,.88,1,.35+t*.35))
 	crystal(canvas,muzzle,4+10*t,2+5*t,axis.angle())
 
 static func projectile(canvas:Node2D,axis:Vector2,age:float,history:Array[Vector2])->void:
@@ -34,23 +35,22 @@ static func projectile(canvas:Node2D,axis:Vector2,age:float,history:Array[Vector
 		var b:=canvas.to_local(history[i]).snapped(Vector2(2,2))
 		canvas.draw_line(a,b,Color(EDGE,strength*.32),14*strength,false)
 		canvas.draw_line(a,b,Color(BLUE,strength*.65),5*strength,false)
+	PixelVfx.clip(canvas,&"cold",Vector2.ZERO,fposmod(age/.8,1),axis.angle())
 	var normal:=axis.orthogonal()
 	for i:int in 4:
 		var phase:=fposmod(age*2.5+i*.25,1)
 		var point:Vector2=-axis*(15+phase*46)+normal*sin(age*23+i*2.4)*(7+phase*5)
 		crystal(canvas,point,5-phase*2,2,axis.angle(),(1-phase)*.7)
 	crystal(canvas,Vector2.ZERO,27,11,axis.angle())
+	var glint_at:=axis*lerpf(-9,19,fposmod(age*3.5,1))
+	canvas.draw_line(glint_at-axis*2-normal*2,glint_at+axis*3+normal*2,Color(CORE,.9),1,false)
 	crystal(canvas,-axis*12+normal*10,12,4,axis.angle()+.12,.8)
 	crystal(canvas,-axis*12-normal*10,12,4,axis.angle()-.12,.8)
 
 static func burst(canvas:Node2D,at:Vector2,axis:Vector2,age:float,impact:bool)->void:
 	var t:=clampf(age/.30,0,1)
-	var fade:=1-t
-	var radius:=lerpf(6,34 if impact else 43,t)
-	for i:int in 8:
-		var angle:=axis.angle()+i*TAU/8
-		var point:=at+Vector2.from_angle(angle)*radius
-		crystal(canvas,point,(8 if impact else 11)*fade,3*fade,angle,fade)
-	if t<.7:
-		canvas.draw_arc(at,4+radius*.7,0,TAU,12,Color(BLUE,fade*.7),2,false)
-		canvas.draw_line(at-axis*12*fade,at+axis*16*fade,Color(CORE,fade),3,false)
+	PixelVfx.clip(canvas,&"ice",at,t,axis.angle(),Color.WHITE,Vector2.ONE*(1.0 if impact else 1.2))
+	var core:=maxf(0,1-t/.24)
+	if core>0:
+		PixelVfx.streak(canvas,at,-axis,14*core,2*core,CORE,core)
+		PixelVfx.streak(canvas,at,axis,20*core,1.5*core,BLUE,core)

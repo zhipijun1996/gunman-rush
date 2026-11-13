@@ -129,7 +129,7 @@ func _spawn_dust(landing: bool, speed: float) -> void:
 		if _dust.size() >= profile.particle_cap: break
 		var side := -1.0 if i % 2 == 0 else 1.0
 		var rank := float(i / 2)
-		_dust.append({"origin":origin,"velocity":Vector2(side * (profile.dust_spread_speed + rank * 6) * (0.7 + intensity), -profile.dust_lift_speed - fmod(rank * 9, 18)), "age":0.0, "duration":duration, "size":profile.dust_particle_size + fmod(rank, 2), "landing":landing})
+		_dust.append({"origin":origin,"velocity":Vector2(side * (profile.dust_spread_speed + rank * 6) * (0.7 + intensity), -profile.dust_lift_speed - fmod(rank * 9, 18)), "age":0.0, "duration":duration, "size":profile.dust_particle_size + fmod(rank, 2), "landing":landing,"accent":i==0})
 	dust_peak = maxi(dust_peak, _dust.size())
 
 func candidate_receipt() -> Dictionary:
@@ -178,6 +178,17 @@ func _draw() -> void:
 			var direction := Vector2.from_angle(i * TAU / 8 + .2)
 			var point := to_local(_hurt_origin) + direction * (5 + age * 65)
 			draw_line(point,point + direction * 3,Color("ead8a3",1 - age / feedback.hurt_seconds),2,false)
+	for item: Dictionary in _dust:
+		var age := float(item.age)
+		var ratio := age / float(item.duration)
+		var point := to_local(item.origin + item.velocity * age + Vector2(0,18 * age * age)).snapped(Vector2(1,1))
+		var color := profile.dust_color
+		color.a = (1 - ratio) * 0.8
+		if bool(item.accent):
+			PixelVfx.clip(self,&"dust",to_local(item.origin),ratio,0,Color(1,1,1,.75 if item.landing else .45))
+		var size := float(item.size) * (1-ratio*.7)
+		PixelVfx.shard(self,point,Vector2.from_angle(age*4+float(item.velocity.x)*.01),size*2,.7,color)
+
 	if not controller.shoot_ability.enabled:return
 	var anchor := motor.get_node("CourierVisual") as CourierVisual
 	var muzzle := to_local(anchor.visible_muzzle_position())
@@ -186,13 +197,5 @@ func _draw() -> void:
 	var hand := Vector2(facing * 4,-1)
 	draw_line(hand,muzzle,Color("101816"),4,false)
 	draw_line(hand + aim * 8 - Vector2(0,2),muzzle - Vector2(0,2),Color("9b7740"),2,false)
-	if _flash > 0: draw_rect(Rect2(muzzle + aim * 4 - Vector2(2,2),Vector2(6,6)),Color("ead8a3"))
+	if _flash > 0: PixelVfx.glint(self,muzzle+aim*3,2,Color("ead8a3"),minf(1,_flash*16))
 	PlayerFeedback.draw_grapple(self,controller,to_global(hand))
-	for item: Dictionary in _dust:
-		var age := float(item.age)
-		var ratio := age / float(item.duration)
-		var point := to_local(item.origin + item.velocity * age + Vector2(0,18 * age * age)).snapped(Vector2(1,1))
-		var color := profile.dust_color
-		color.a = (1 - ratio) * 0.8
-		var size := float(item.size) * (1 + ratio)
-		draw_rect(Rect2(point - Vector2(size,size / 2),Vector2(size * 2,size)),color)

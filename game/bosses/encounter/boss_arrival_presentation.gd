@@ -43,7 +43,8 @@ func _draw() -> void:
 		for i: int in 16:
 			var side := -1.0 if i%2==0 else 1.0
 			var p := Vector2(side*(12+burst*(24+i*4)),62-burst*(8+i*2)).snapped(Vector2(2,2))
-			draw_rect(Rect2(p,Vector2(6,2)),Color(PixelFormalActors.MOSS,burst*.7))
+			PixelVfx.shard(self,p,Vector2(side,-.3),5,1,Color(PixelFormalActors.MOSS,burst*.65))
+		PixelVfx.clip(self,&"dust",Vector2(0,62),clampf((progress-.58)/.35,0,1),0,Color(1,1,1,.65),Vector2(2,1))
 		return
 	# Painted leaf/dust wake hugs the floor and clears before control resumes.
 	var pulse:=clampf((progress-.58)/.35,0,1)

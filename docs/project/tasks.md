@@ -8,7 +8,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
-| VFX-PIXELFX-01 | 迁移pixelfx制作Skill与固定工具，优化全部有消费者的特效并核正式入口与开发武器／道具 | — | in_progress | [交接](worklines/vfx_pixelfx_01/scope.md) |
+| VFX-PIXELFX-01 | pixelfx Skill、12种原生图集及全现有特效族优化；原生音画与专项复核 | — | review | [交接](worklines/vfx_pixelfx_01/scope.md) |
 | NATIVE-PLAYTEST-FIX-01 | 原生0.1.1墙体、手柄校准与最大化呈现设备复核 | — | review | [交接](worklines/native_playtest_fix_01/scope.md) |
 | PLAINS-BIBLE-V2-01 | 平原正式内容与双端发行体验复核 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
 | WORLD-EDITOR-02 | 编辑器运行通道、原生预览与定稿往返复核 | — | review | [交接](worklines/world_editor_02/scope.md) |

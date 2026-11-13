@@ -12,6 +12,7 @@ var receiver: Damageable
 var host: Node2D
 var _last_serial := 0
 var _disposed := false
+var _frost_age := 0.0
 
 static func install(owner_actor: EnemyActor, presentation: Node2D) -> EnemyHitTemplate:
 	var template := _install(owner_actor.health, owner_actor.damageable, presentation, owner_actor.definition)
@@ -68,15 +69,31 @@ func _health_changed(result: ActorResourceResult) -> void:
 func _process(delta: float) -> void:
 	if _disposed or get_tree().paused: return
 	sample.advance(delta)
+	var chilled:=is_instance_valid(receiver) and receiver.chill_remaining>0.0
+	_frost_age = _frost_age+delta if chilled else 0.0
 	_sync()
-	if sample.hurt_remaining <= 0 and sample.impact_remaining <= 0: _finish()
+	if sample.hurt_remaining <= 0 and sample.impact_remaining <= 0 and not chilled: _finish()
 
 func _sync() -> void:
 	host.queue_redraw()
+	queue_redraw()
 
 func _finish() -> void:
 	set_process(false)
 	host.queue_redraw()
+	queue_redraw()
+
+func _draw() -> void:
+	if _disposed or health==null or health.terminal or not is_instance_valid(receiver) or receiver.chill_remaining<=0.0: return
+	var size:=actor.definition.collision_size if is_instance_valid(actor) else Vector2(48,64)
+	var fade:=minf(1,receiver.chill_remaining/.25)
+	# Sparse cool facets, never an opaque frozen body: the real slowed animation
+	# and original palette remain readable, including green forest species.
+	for i:int in 6:
+		var side:=-1.0 if i%2==0 else 1.0
+		var at:=Vector2(side*(size.x*.42+sin(_frost_age*3+i)),(-.35+float(i/2)*.3)*size.y).round()
+		var alpha:=fade*(.42+.2*sin(_frost_age*4+i))
+		PixelVfx.shard(self,at,Vector2(side,-.6),3,1,Color(.58,.87,1,alpha))
 
 func tint(base: Color = Color.WHITE) -> Color:
 	if health.terminal: return base

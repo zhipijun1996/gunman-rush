@@ -93,6 +93,7 @@ func _process(delta: float) -> void:
 		return
 	_time += delta
 	_sync_pickups()
+	queue_redraw()
 	for index: int in _pickups.size():
 		var data: Dictionary = stage.pickups[index]
 		var sprite := _pickups[index]
@@ -192,3 +193,20 @@ func _pressure_rewards_visible() -> bool:
 	if encounter == null or not encounter.health.terminal: return true
 	if not encounter.physical_reward_expected: return stage.clock >= stage.reward_ready_at
 	return stage.clock >= stage.reward_ready_at and float(encounter.combat_metrics().get("death_age", 0)) >= (encounter.definition as WindkeeperPressureDefinition).death_seconds
+
+func _draw() -> void:
+	if not is_instance_valid(stage): return
+	for index: int in _pickups.size():
+		var data: Dictionary=stage.pickups[index]
+		var sprite:=_pickups[index]
+		if not sprite.visible: continue
+		if data.claimed:
+			var duration:=PlainsLootMotion.COLLECT_SECONDS if bool(data.get("loot_motion",false)) else .25
+			var progress:=(_time-float(_claimed_times.get(data.id,-1000)))/duration
+			PixelVfx.clip(self,&"collect",data.get("claimed_position",data.position),progress,0,Color(1,1,1,.65))
+		else:
+			var phase:=fposmod(_time*.38+index*.37,1.0)
+			if phase<.12:
+				PixelVfx.glint(self,sprite.position+Vector2(3,-4),2,Color("f9e5a8"),sin(phase/.12*PI)*.6)
+	if is_instance_valid(_boss_loot) and _boss_loot.visible:
+		PixelVfx.glint(self,_boss_loot.position+Vector2(0,-14),3,Color("fff0b8"),.4+.25*sin(_time*3))
