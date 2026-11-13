@@ -15,7 +15,7 @@ func run() -> void:
 	own(scene,scene)
 	var packed := PackedScene.new()
 	assert(packed.pack(scene) == OK)
-	assert(ResourceSaver.save(packed,"res://build/depth-lab/editable.tscn") == OK)
+	assert(ResourceSaver.save(packed,str(source.output)+"/editable.tscn") == OK)
 	scene.free();source.queue_free()
 	await process_frame
 	print("DEPTH LAB EDITABLE SCENE: exported generated nodes without builder")
