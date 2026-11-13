@@ -53,7 +53,7 @@ static func _corners(edges: PackedVector4Array, pieces: Array[Rect2]) -> PackedV
 			result.append(Vector4(vertex.x,vertex.y,3-filled.find(false)+4,0))
 	return result
 
-static func build(solids: Array[Rect2]) -> UnderworldTerrain:
+static func build(solids: Array[Rect2], shared: Dictionary = {}, appearance: Dictionary = {}) -> UnderworldTerrain:
 	var node := UnderworldTerrain.new()
 	node.name = "UnderworldTerrain"
 	node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -61,17 +61,12 @@ static func build(solids: Array[Rect2]) -> UnderworldTerrain:
 	var cell := int(spec.world_tile_wu)
 	node.set_meta("art_pixel_world_units",float(cell)/int(spec.tile_px))
 	var plan := geometry_plan(solids)
-	node.union_edges = plan.edges
+	node.union_edges = shared.get("edges", plan.edges)
 	node.union_pieces.assign(plan.pieces)
-	node.union_corners = _corners(node.union_edges,node.union_pieces)
+	node.union_corners = shared.get("corners", _corners(node.union_edges,node.union_pieces))
 	# Sum disjoint canonical pieces: fully covered grid cells can enter TileMap.
-	var areas: Dictionary = {}
-	for rect: Rect2 in node.union_pieces:
-		for y: int in range(floori(rect.position.y/cell),ceili(rect.end.y/cell)):
-			for x: int in range(floori(rect.position.x/cell),ceili(rect.end.x/cell)):
-				var key := Vector2i(x,y)
-				var overlap := rect.intersection(Rect2(Vector2(key*cell),Vector2.ONE*cell))
-				areas[key] = float(areas.get(key,0.0)) + overlap.get_area()
+	var owned_areas := TerrainGeometry.cell_areas(node.union_pieces)
+	var areas: Dictionary = shared.get("areas", owned_areas)
 	var full: Dictionary = {}
 	for key: Vector2i in areas:
 		if is_equal_approx(areas[key],float(cell*cell)): full[key]=true
@@ -81,18 +76,27 @@ static func build(solids: Array[Rect2]) -> UnderworldTerrain:
 			for x: int in range(-1,2):
 				var neighbour:=key+Vector2i(x,y)
 				if areas.has(neighbour) and not full.has(neighbour): safe=false
+		# A full shared cell may straddle a material split. Only a cell wholly
+		# owned by this partition can be batched; the rest uses exact clipping.
+		if not is_equal_approx(float(owned_areas.get(key,0.0)), float(cell*cell)): safe = false
+		if shared.get("has_polygons",false): safe = false
+		# Surface alignment samples the outer edge without translating the solid.
+		# Those cells use the exact adapter; internal cells remain batched.
+		if not appearance.is_empty() and (bool(appearance.get("bare", false)) or float(appearance.get("surface_y", 0)) != 0.0):
+			if Blob47Rules.occupancy_mask(full, key) != 255: safe = false
 		if safe: node.core_cells[key]=true
 	node.core_layer=TileMapLayer.new()
 	node.core_layer.name="Source47InteriorTileMap"
-	node.core_layer.tile_set=load(spec.tileset) as TileSet
+	node.core_layer.tile_set=appearance.get("tileset", load(spec.tileset)) as TileSet
+	node.core_layer.collision_enabled=false
 	node.core_layer.scale=Vector2.ONE*float(cell)/int(spec.tile_px)
 	var core_material:=ShaderMaterial.new()
 	core_material.shader=CORE_SHADER
 	node.core_layer.material=core_material
 	for key: Vector2i in node.core_cells:
-		var mask:=Blob47Rules.mask_at(full,key)
+		var mask:=Blob47Rules.occupancy_mask(full,key)
 		var atlas: Array = spec.mask_to_atlas[str(mask)]
-		var variant:=posmod(key.x,int(spec.variant_count))
+		var variant:=posmod(key.x+int(appearance.get("seed",0)),int(spec.variant_count))
 		node.core_layer.set_cell(key,0,Vector2i(int(atlas[0])+variant*int(spec.variant_atlas_stride),int(atlas[1])))
 	node.add_child(node.core_layer)
 	# Subtract those exact full cells from the drawing only. Boundary strips are
@@ -112,7 +116,7 @@ static func build(solids: Array[Rect2]) -> UnderworldTerrain:
 					run_start=x_end
 				cursor=x_end
 			if cursor>run_start: node.boundary_pieces.append(Rect2(run_start,ys[row],cursor-run_start,ys[row+1]-ys[row]))
-	var texture := source_texture()
+	var texture: Texture2D = appearance.get("texture", source_texture())
 	var pending: Array[Rect2] = node.boundary_pieces.duplicate()
 	while not pending.is_empty():
 		var rect: Rect2 = pending.pop_back()
@@ -133,6 +137,9 @@ static func build(solids: Array[Rect2]) -> UnderworldTerrain:
 			continue
 		var material:=ShaderMaterial.new()
 		material.shader=SHADER
+		material.set_shader_parameter("surface_trim",float(appearance.get("surface_y",0)))
+		material.set_shader_parameter("variant_seed",int(appearance.get("seed",0)))
+		material.set_shader_parameter("bare_surface",bool(appearance.get("bare",false)))
 		material.set_shader_parameter("source_pixels",texture)
 		material.set_shader_parameter("source_size",Vector2(texture.get_size()))
 		material.set_shader_parameter("art_scale",float(spec.source_coordinate_scale))
@@ -149,8 +156,8 @@ static func build(solids: Array[Rect2]) -> UnderworldTerrain:
 	return node
 
 
-static func build_with_polygons(solids: Array[Rect2], polygons: Array[Dictionary]) -> UnderworldTerrain:
-	if polygons.is_empty(): return build(solids)
+static func build_with_polygons(solids: Array[Rect2], polygons: Array[Dictionary], shared: Dictionary = {}, appearance: Dictionary = {}) -> UnderworldTerrain:
+	if polygons.is_empty(): return build(solids, shared, appearance)
 	var node := UnderworldTerrain.new()
 	node.name = "UnderworldTerrain"
 	node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -160,12 +167,13 @@ static func build_with_polygons(solids: Array[Rect2], polygons: Array[Dictionary
 	# Retain the normal Terrain identity for lighting/material/foreground consumers.
 	node.core_layer = TileMapLayer.new()
 	node.core_layer.name = "PolygonInterior"
-	node.core_layer.tile_set = load(spec.tileset) as TileSet
+	node.core_layer.tile_set = appearance.get("tileset", load(spec.tileset)) as TileSet
+	node.core_layer.collision_enabled = false
 	var material := ShaderMaterial.new()
 	material.shader = CORE_SHADER
 	node.core_layer.material = material
 	node.add_child(node.core_layer)
-	UnderworldPolygonTerrain.install(node, node.union_pieces, polygons, spec, source_texture(), SHADER)
+	UnderworldPolygonTerrain.install(node, node.union_pieces, polygons, spec, appearance.get("texture", source_texture()), SHADER, shared, appearance)
 	return node
 
 ## Physics-semantic sibling interfaces: thin open decks and copper carriers.

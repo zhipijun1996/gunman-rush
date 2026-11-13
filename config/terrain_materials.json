@@ -1,0 +1,548 @@
+{
+  "schema": 1,
+  "materials": {
+    "windchime_plains": {
+      "source": "res://assets/underworld_plains/terrain/fine_32/source.png",
+      "atlas": "res://assets/underworld_plains/terrain/fine_32/terrain.png",
+      "surface_y": 4,
+      "provenance": "res://assets/underworld_plains/terrain/fine_32/terrain_build.json"
+    },
+    "thorn_forest": {
+      "source": "res://assets/region_thresholds/native/thorn_forest_source.png",
+      "atlas": "res://assets/region_thresholds/native/thorn_forest_atlas47.png",
+      "surface_y": 8,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "mushroom_caverns": {
+      "source": "res://assets/region_thresholds/native/mushroom_caverns_source.png",
+      "atlas": "res://assets/region_thresholds/native/mushroom_caverns_atlas47.png",
+      "surface_y": 7,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "firefly_marsh": {
+      "source": "res://assets/region_thresholds/native/firefly_marsh_source.png",
+      "atlas": "res://assets/region_thresholds/native/firefly_marsh_atlas47.png",
+      "surface_y": 14,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "windswept_canyon": {
+      "source": "res://assets/region_thresholds/native/windswept_canyon_source.png",
+      "atlas": "res://assets/region_thresholds/native/windswept_canyon_atlas47.png",
+      "surface_y": 3,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "frostmirror_glacier": {
+      "source": "res://assets/region_thresholds/native/frostmirror_glacier_source.png",
+      "atlas": "res://assets/region_thresholds/native/frostmirror_glacier_atlas47.png",
+      "surface_y": 2,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "moonshadow_cemetery": {
+      "source": "res://assets/region_thresholds/native/moonshadow_cemetery_source.png",
+      "atlas": "res://assets/region_thresholds/native/moonshadow_cemetery_atlas47.png",
+      "surface_y": 3,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "moon_crown_castle": {
+      "source": "res://assets/region_thresholds/native/moon_crown_castle_source.png",
+      "atlas": "res://assets/region_thresholds/native/moon_crown_castle_atlas47.png",
+      "surface_y": 0,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "gear_city": {
+      "source": "res://assets/region_thresholds/native/gear_city_source.png",
+      "atlas": "res://assets/region_thresholds/native/gear_city_atlas47.png",
+      "surface_y": 0,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "echo_mines": {
+      "source": "res://assets/region_thresholds/native/echo_mines_source.png",
+      "atlas": "res://assets/region_thresholds/native/echo_mines_atlas47.png",
+      "surface_y": 0,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "ember_depths": {
+      "source": "res://assets/region_thresholds/native/ember_depths_source.png",
+      "atlas": "res://assets/region_thresholds/native/ember_depths_atlas47.png",
+      "surface_y": 4,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "root_sanctuary": {
+      "source": "res://assets/region_thresholds/native/root_sanctuary_source.png",
+      "atlas": "res://assets/region_thresholds/native/root_sanctuary_atlas47.png",
+      "surface_y": 0,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "sunken_ruins": {
+      "source": "res://assets/region_thresholds/native/sunken_ruins_source.png",
+      "atlas": "res://assets/region_thresholds/native/sunken_ruins_atlas47.png",
+      "surface_y": 3,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "shattered_isles": {
+      "source": "res://assets/region_thresholds/native/shattered_isles_source.png",
+      "atlas": "res://assets/region_thresholds/native/shattered_isles_atlas47.png",
+      "surface_y": 6,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "starbridge_gate": {
+      "source": "res://assets/region_thresholds/native/starbridge_gate_source.png",
+      "atlas": "res://assets/region_thresholds/native/starbridge_gate_atlas47.png",
+      "surface_y": 1,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "world_clockheart": {
+      "source": "res://assets/region_thresholds/native/world_clockheart_source.png",
+      "atlas": "res://assets/region_thresholds/native/world_clockheart_atlas47.png",
+      "surface_y": 1,
+      "provenance": "res://assets/region_thresholds/manifest.json"
+    },
+    "mill_masonry": {
+      "source": "res://assets/plains_v07/native/mill_masonry_source.png",
+      "atlas": "res://assets/plains_v07/native/mill_masonry_atlas47.png",
+      "surface_y": 0,
+      "provenance": "res://assets/plains_v07/manifest.json"
+    }
+  },
+  "regions": {
+    "windchime_plains": {
+      "primary": "windchime_plains",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "thorn_forest": {
+      "primary": "thorn_forest",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "mushroom_caverns": {
+      "primary": "mushroom_caverns",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "firefly_marsh": {
+      "primary": "firefly_marsh",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "windswept_canyon": {
+      "primary": "windswept_canyon",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "frostmirror_glacier": {
+      "primary": "frostmirror_glacier",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "moonshadow_cemetery": {
+      "primary": "moonshadow_cemetery",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "moon_crown_castle": {
+      "primary": "moon_crown_castle",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "gear_city": {
+      "primary": "gear_city",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "echo_mines": {
+      "primary": "echo_mines",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "ember_depths": {
+      "primary": "ember_depths",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "root_sanctuary": {
+      "primary": "root_sanctuary",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "sunken_ruins": {
+      "primary": "sunken_ruins",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "shattered_isles": {
+      "primary": "shattered_isles",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "starbridge_gate": {
+      "primary": "starbridge_gate",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    },
+    "world_clockheart": {
+      "primary": "world_clockheart",
+      "secondary": [
+        "windchime_plains",
+        "thorn_forest",
+        "mushroom_caverns",
+        "firefly_marsh",
+        "windswept_canyon",
+        "frostmirror_glacier",
+        "moonshadow_cemetery",
+        "moon_crown_castle",
+        "gear_city",
+        "echo_mines",
+        "ember_depths",
+        "root_sanctuary",
+        "sunken_ruins",
+        "shattered_isles",
+        "starbridge_gate",
+        "world_clockheart",
+        "mill_masonry"
+      ],
+      "surfaces": [
+        "bare",
+        "material",
+        "spikes"
+      ]
+    }
+  },
+  "transitions": {
+    "mill_masonry|windchime_plains": {
+      "texture": "res://assets/plains_v07/native/grass_masonry_transitions.png",
+      "axis": "vertical"
+    }
+  },
+  "fallback": "native_hard_seam"
+}

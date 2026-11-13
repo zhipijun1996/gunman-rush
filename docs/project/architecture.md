@@ -74,6 +74,10 @@ flowchart TD
 
 旧DemoApp → RunComposition/RunSession → Plains/Forest Provider → Stage/LevelRuntime仍供显式原型与回归。region/map/seed、clear_run_services/reset_maps及旧Run/Meta清空语义不进入新世界链；不将历史WorldContext或回放格式改名作为新核心。
 
+## 地形表现边界
+
+房间JSON拥有静态实体与危险条；材质覆盖只引用同一几何。TerrainComposer统一分区并将共享占用交给UnderworldTerrain的47核心与精确边界适配。TerrainMaterialRegistry拥有资源与区域许可，表面和接缝解析只产出表现计划。渲染器不创建物理、伤害或保存事实；单向／移动／机关地形保留独立生命周期。旧房默认、砌体标记及区域入口经同一桥接转换，不能持续维护两套正式渲染算法。编辑文档／草稿与导出目录同步消费可选外观协议，规则见[地形与材质](../bible/terrain_materials.md)。
+
 ## 系统职责与真实缺口
 
 任务编号均属于 MV-RUNTIME-01，依赖与进度唯一见 [任务表](tasks.md)。所有权描述是目标，复用和缺口分别列出。

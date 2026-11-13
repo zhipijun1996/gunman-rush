@@ -61,6 +61,6 @@ func _run() -> void:
 		var definition := EnemyFactory.definition_for_behavior(behavior)
 		enemies.append({"id":str(behavior), "health":definition.health_definition.max_health, "size":WorldRoomDocument.encode(definition.collision_size), "aerial":definition.aerial, "definition":EnemyFactory.definition_path_for_behavior(behavior)})
 	var catalog := FileAccess.open(output.get_base_dir().path_join("catalog.json"), FileAccess.WRITE)
-	catalog.store_string(JSON.stringify({"schema":2, "components":components, "enemies":enemies}, "\t", true))
+	catalog.store_string(JSON.stringify({"schema":2, "components":components, "enemies":enemies, "terrain_materials":TerrainMaterialRegistry.catalog()}, "\t", true))
 	print("EDITOR DOCUMENTS: ", checks.size(), " rooms, passed=", not failed)
 	quit(1 if failed else 0)

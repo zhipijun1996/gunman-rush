@@ -35,6 +35,8 @@ var service_pickup_sprites: Dictionary={}
 @export var platforms: Array[Rect2] = []
 ## Authored polygon geometry; the same vertices feed physics and presentation.
 @export var terrain_polygons: Array[Dictionary] = []
+## Optional versioned appearance; authoritative solids and hazards remain separate.
+@export var terrain_paint: Dictionary = {}
 ## Stable authoring identities for legacy indexed arrays. Never used as progress.
 @export var workbench_entity_ids: Dictionary = {}
 @export var one_way_indices: Array[int] = []
@@ -139,30 +141,13 @@ func _ready() -> void:
 		graybox.room = self
 		add_child(graybox)
 	else:
-		var solids: Array[Rect2]=[]
-		solids.append_array(WorldRoomSpace.exterior_fill(contract.world_geometry,doors))
-		var masonry: Array[Rect2]=[]
-		for i: int in platforms.size():
-			if i in one_way_indices or i in illustrated_platform_indices:continue
-			if i in masonry_platform_indices:masonry.append(platforms[i])
-			else:solids.append(platforms[i])
-		# An authored entrance may share material with the real boundary wall.
-		# Partition presentation only; the collision rectangles remain untouched.
-		var masonry_boundary: Array[Rect2] = []
-		for placement: Dictionary in art_placements:
-			if not placement.has("masonry_region"): continue
-			var region := FixedWorldProvider.rect(placement.masonry_region)
-			for solid: Rect2 in solids:
-				var part := solid.intersection(region)
-				if part.has_area(): masonry_boundary.append(part)
-			solids = WorldRoomSpace.exposed_parts(solids, [region])
 		for zone: Dictionary in contract.camera.get("zones",[]):
 			var conceal: Array[Rect2] = []
 			for raw: Array in zone.get("conceal",[]):conceal.append(FixedWorldProvider.rect(raw))
 			if conceal.is_empty():continue
 			var mask:=UnderworldTerrain.build(conceal)
 			mask.z_index=2000
-			if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(mask)
+			if not interior_material().is_empty():TerrainMaterialRegistry.install_on(mask,"mill_masonry")
 			add_child(mask);camera_concealers[str(zone.id)]=mask
 		# Existing textured rock covers the near exterior. Deep opaque rock continues
 		# past it at extreme aspect ratios without allocating an unbounded tile field.
@@ -171,25 +156,7 @@ func _ready() -> void:
 			var backing:=Polygon2D.new()
 			backing.polygon=PackedVector2Array([fill.position,Vector2(fill.end.x,fill.position.y),fill.end,Vector2(fill.position.x,fill.end.y)])
 			backing.color=Color("0d101e");backing.z_index=1000;add_child(backing)
-		var ground_polygons: Array[Dictionary] = []
-		var masonry_polygons: Array[Dictionary] = []
-		for polygon: Dictionary in terrain_polygons:
-			if str(polygon.get("material", "ground")) == "masonry": masonry_polygons.append(polygon)
-			else: ground_polygons.append(polygon)
-		if not interior_material().is_empty():
-			solids.append_array(masonry_boundary);masonry_boundary.clear()
-			solids.append_array(masonry);masonry.clear()
-			ground_polygons.append_array(masonry_polygons);masonry_polygons.clear()
-		var terrain:=UnderworldTerrain.build_with_polygons(solids, ground_polygons)
-		if not region_preview.is_empty():RegionThresholdMaterial.install_on(terrain,region_preview)
-		elif not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
-		else: terrain.position.y=-4 # Native grass roots start five pixels below the tile top; tips overhang the physical sole.
-		add_child(terrain)
-		if not masonry.is_empty() or not masonry_polygons.is_empty() or not masonry_boundary.is_empty():
-			var visible_masonry:=WorldRoomSpace.exposed_parts(masonry,boundary_art_rock)
-			visible_masonry.append_array(masonry_boundary)
-			var structure:=UnderworldTerrain.build_with_polygons(visible_masonry, masonry_polygons)
-			PlainsMillTerrainMaterial.install_on(structure);add_child(structure)
+		add_child(TerrainComposer.build(self))
 		var scenery:PlainsRoomArt=PlainsRoomArt.new() if region_preview.is_empty() else RegionThresholdArt.new();scenery.room=self;add_child(scenery)
 	for rect: Rect2 in climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;add_child(wall)

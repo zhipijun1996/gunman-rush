@@ -125,9 +125,6 @@ func _ready() -> void:
 			coil.color=Color(light_settings.station.color);coil.energy=float(light_settings.station.energy);coil.texture_scale=float(light_settings.station.radius)/64
 	for placement: Dictionary in room.art_placements:
 		if placement.has("masonry_region"): continue
-		if placement.has("material_transition"):
-			var seam:=PlainsMaterialTransition.new();seam.position=FixedWorldProvider.point(placement.point);seam.height=float(placement.material_transition.height);seam.stone_on_right=bool(placement.material_transition.get("stone_on_right",false));room.add_child(seam)
-			continue
 		if placement.has("surface_platform"):
 			var bounds:Array[Rect2]=[room.platforms[int(placement.surface_platform)]]
 			for part:Rect2 in WorldRoomSpace.exposed_parts(bounds,room.boundary_art_rock):

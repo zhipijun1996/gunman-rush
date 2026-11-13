@@ -2,6 +2,9 @@ shader_type canvas_item;
 // FINE-SPACE-05: production native32px, shared exact-union adapter.
 // The selected source retains the canonical16-coordinate recipe at art_scale2.
 uniform float art_scale = 2.0;
+uniform float surface_trim = 0.0;
+uniform int variant_seed = 0;
+uniform bool bare_surface = false;
 uniform float wind_clock = 0.0;
 uniform sampler2D source_pixels : filter_nearest, repeat_disable;
 uniform vec2 source_size;
@@ -15,7 +18,7 @@ void vertex(){local_position=VERTEX;}
 vec4 sample_pixel(vec2 region, vec2 at, float kit_variant){return texture(source_pixels,(region*art_scale+vec2(176.0*art_scale*kit_variant,0.0)+clamp(floor(at*art_scale),vec2(0.0),vec2(16.0*art_scale-1.0))+0.5)/source_size);}
 void fragment(){
  vec2 p=shape_origin+local_position;
- float kit_variant=mod(floor(p.x/32.0),3.0);
+ float kit_variant=mod(floor(p.x/32.0)+float(variant_seed),3.0);
  vec2 phase=mod(floor(p*(art_scale/2.0)),16.0*art_scale)/art_scale;
  vec2 region=vec2(32.0,16.0);
  vec2 sample_at=phase;
@@ -26,7 +29,7 @@ void fragment(){
   float distance_to_face=999999.0;
   vec2 candidate_region=region;vec2 candidate_at=phase;
   if(a.y==b.y && p.x>=min(a.x,b.x) && p.x<max(a.x,b.x)){
-   if(b.x>a.x && p.y>=a.y){distance_to_face=p.y-a.y;candidate_region=vec2(32.0,0.0);candidate_at.y=distance_to_face/2.0;}
+   if(b.x>a.x && p.y>=a.y-surface_trim){distance_to_face=p.y-a.y;candidate_region=vec2(32.0,0.0);candidate_at.y=(distance_to_face+surface_trim)/2.0;}
    if(b.x<a.x && p.y<=a.y){distance_to_face=a.y-p.y;candidate_region=vec2(32.0,32.0);candidate_at.y=16.0-distance_to_face/2.0;}
   }
   if(a.x==b.x && p.y>=min(a.y,b.y) && p.y<max(a.y,b.y)){
@@ -44,7 +47,7 @@ void fragment(){
     distance_to_face=inward;
     if(abs(direction.x)>=abs(direction.y)){
      candidate_region=vec2(32.0,direction.x>0.0?0.0:32.0);
-     candidate_at.y=direction.x>0.0?inward/2.0:16.0-inward/2.0;
+     candidate_at.y=direction.x>0.0?(inward+surface_trim)/2.0:16.0-inward/2.0;
     }else{
      candidate_region=vec2(direction.y<0.0?16.0:48.0,16.0);
      candidate_at.x=direction.y<0.0?inward/2.0:16.0-inward/2.0;
@@ -61,13 +64,15 @@ void fragment(){
   vec4 c=corners[i];int type=int(c.z);int orientation=type%4;
   vec2 direction=vec2((orientation==0 || orientation==2)?1.0:-1.0,orientation<2?1.0:-1.0);
   vec2 d=(p-c.xy)*direction;
-  if(d.x>=0.0 && d.y>=0.0 && d.x<16.0 && d.y<16.0 && max(d.x,d.y)<corner_best){
+  if(d.x>=0.0 && d.y>=(orientation<2?-surface_trim:0.0) && d.x<16.0 && d.y<16.0 && max(d.x,d.y)<corner_best){
    corner_best=max(d.x,d.y);
    sample_at=vec2(direction.x>0.0?d.x/2.0:16.0-d.x/2.0,direction.y>0.0?d.y/2.0:16.0-d.y/2.0);
+   if(type<4 && orientation<2){sample_at.y+=surface_trim/2.0;}
    if(type<4){region=vec2(orientation%2==0?16.0:48.0,orientation<2?0.0:32.0);}
    else{region=vec2(orientation%2==0?80.0:64.0,orientation<2?16.0:0.0);}
   }
  }
+ if(bare_surface){region=vec2(32.0,16.0);sample_at=phase;}
  COLOR=sample_pixel(region,sample_at,kit_variant);
  // Only the topmost three world pixels of green tips respond. Roots, bark,
  // rock, exact union, collision and source-bank phase remain stationary.

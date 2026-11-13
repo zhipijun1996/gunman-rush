@@ -42,7 +42,7 @@ DYNAMIC_FAMILIES = ["assets/region_thresholds/native", "assets/underworld_plains
                     "assets/plains_v3/background_layers", "assets/audio/kenney",
                     "resources/player",
                     "resources/actors", "resources/weapons", "resources/items"]
-MANIFESTS = ["assets/region_thresholds/manifest.json", "assets/plains_v07/manifest.json", "assets/actor_actions/weapon_catalog.json",
+MANIFESTS = ["config/terrain_materials.json", "assets/region_thresholds/manifest.json", "assets/plains_v07/manifest.json", "assets/actor_actions/weapon_catalog.json",
              "assets/plains_v3/hero/manifest.json", "assets/plains_v3/effects/manifest.json", "assets/plains_v3/effects/combat_atlas.png",
              "game/presentation/actors/resources/art/avatars.json",
              "config/player_tuning.json", "config/input_profile.json"]

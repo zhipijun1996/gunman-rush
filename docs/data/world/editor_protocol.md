@@ -25,3 +25,11 @@
 原生预览通过WorldEditorSession／WorldRoomReview隔离保存、复用正式玩家与组件。灰盒只简化静态表现，不替换碰撞和动作。预览标记文件通知驻留进程重载当前数据，不逐帧解析整世界。真实房间图是派生分块缓存，布置变化后失效，不能冒充当前实机效果。
 
 定稿包由 `tools/world/editor_apply.py` 在隔离树三方比较、更新原所有者并运行原世界编译；明确apply后逐文件校验及异常回滚。永久奖励退役需显式迁移，不以删除宿主隐瞒保存兼容问题。选区外草稿、评分和AI历史不入PR。`editor-import.yml` 验证真实组件后更新同一草稿PR，不自动合main；`publish-editor-runtime.yml` 仅在main发布匹配数据和不可变运行包，发现通道为editor-runtime。
+
+## 地形外观
+
+房间 `root.properties.terrain_paint` 是可选版本1外观输入，旧文档缺省为空。实体几何仍由 `array:platforms` 与 `array:terrain_polygons` 拥有；`spike_strips` 继续拥有危险。该字段由同版主游戏目录导出和运行包解释，独立编辑器须保留完整字段；旧运行包不得解释新增字段后默默丢弃。专用笔刷界面不等于本协议或主游戏运行时。
+
+`terrain_paint` 包含整数 `seed`、`regions` 和 `surfaces` 数组。每条记录有稳定 `id`、整数像素 `bounds:[x,y,w,h]` 和整数 `priority`；区域另有 `material_id`，表面另有四向 `facing`、`surface_id`（`bare` 或 `material`，后者提供 `material_id`）。覆盖只裁入已有静态地形，表面仅作用于实际外露边；完整规则见[地形与材质](../../bible/terrain_materials.md)。可用材质、区域和接缝资源从游戏导出的 `terrain_materials` 目录读取，不能自行拼接资源路径。
+
+地刺笔刷编辑正式 `spike_strips`；渲染从其根平面推导表面替换，不另存一份地刺表现。编辑事务先校验全部新外观，成功才替换文档；取消或未知版本／材质／字段／重复ID／非法区间返回错误且不写原文档。字段改变不写世界进度或存档。

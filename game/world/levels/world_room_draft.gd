@@ -12,7 +12,7 @@ const ROOM_FIELDS := [
 	"enemy_placements", "signs", "hazards", "spike_strips", "gear_obstacles",
 	"hook_points", "climbable_walls", "environment_zones", "boss_position",
 	"arena_bounds", "battle_entry_anchor", "arena_door_height", "terrain_polygons",
-	"workbench_entity_ids"
+	"workbench_entity_ids", "terrain_paint"
 ]
 const INDEXED_FIELDS := ["platforms", "hazards", "climbable_walls", "hook_points", "signs", "art_placements", "retry_anchors"]
 const NODE_SCRIPTS := {
@@ -181,6 +181,8 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 		if key not in ROOM_FIELDS: return "property_not_editable:"+key
 		var error := property_error(room.get(key), properties[key])
 		if not error.is_empty(): return key+":"+error
+	var terrain_error := TerrainPaint.validate(properties.get("terrain_paint", room.terrain_paint))
+	if not terrain_error.is_empty(): return terrain_error
 	var intro: Dictionary=properties.get("intro_sequence",room.intro_sequence)
 	if not intro.is_empty():
 		if intro.get("kind") not in ["wake","traveler"]:return "intro_kind_invalid"
@@ -251,11 +253,7 @@ static func validate(room: FixedWorldRoom, draft: Dictionary) -> String:
 			continue
 		if not vector(row.get("point")): return "art_point_invalid"
 		if row.has("tile_rect") and not rectangle(row.tile_rect):return "art_tile_rect_invalid"
-		if row.has("material_transition"):
-			var seam:Variant=row.material_transition
-			if not seam is Dictionary or not number(seam.get("height")) or float(seam.height)<=0 or float(seam.height)>4096:return "art_material_transition_invalid"
-			if seam.has("stone_on_right") and not seam.stone_on_right is bool:return "art_material_transition_invalid"
-			continue
+		if row.has("material_transition"): return "manual_transition_retired_use_terrain_paint"
 		if row.has("support_height"):
 			if not number(row.support_height) or float(row.support_height) <= 0: return "art_support_invalid"
 		elif not row.get("asset") is String or str(row.asset).is_empty(): return "art_asset_missing"

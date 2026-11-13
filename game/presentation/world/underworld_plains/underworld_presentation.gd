@@ -11,7 +11,7 @@ var emitters: Array[Dictionary]=[]
 var _materials: Array[ShaderMaterial]=[]
 var _seen: Dictionary={}
 var _latches: Array[WeakRef]=[]
-var _terrain_materials: Array[ShaderMaterial]=[]
+var _terrain_materials: Array[WeakRef]=[]
 var _clock := 0.0
 var _sprite_material: ShaderMaterial
 var _surface_material: ShaderMaterial
@@ -68,8 +68,8 @@ func install_item(node: Node) -> void:
 					item.material=_surface_material
 			if item.material is ShaderMaterial and item.get_parent() is UnderworldTerrain:
 				var material:=item.material as ShaderMaterial
-				if "wind_clock" in material.shader.code and material not in _terrain_materials:
-					_terrain_materials.append(material)
+				if "wind_clock" in material.shader.code and not _terrain_materials.any(func(ref: WeakRef) -> bool: return ref.get_ref() == material):
+					_terrain_materials.append(weakref(material))
 		if node is ShotLatch:
 			node.set_meta("fine_space_presentation",true)
 			_latches.append(weakref(node))
@@ -159,7 +159,10 @@ func refresh() -> void:
 		var shown:=live<MAX_VISIBLE_LIGHTS and view.has_point(row.world_position)
 		(row.light as PointLight2D).visible=shown;(row.bloom as Sprite2D).visible=shown
 		if shown:live+=1
-	for material: ShaderMaterial in _terrain_materials: material.set_shader_parameter("wind_clock",_clock)
+	for ref: WeakRef in _terrain_materials.duplicate():
+		var material := ref.get_ref() as ShaderMaterial
+		if material == null: _terrain_materials.erase(ref)
+		else: material.set_shader_parameter("wind_clock",_clock)
 	for ref: WeakRef in _latches:
 		var latch:=ref.get_ref() as CanvasItem
 		if latch!=null and view.has_point((latch as Node2D).to_global((latch as ShotLatch).bell_position)): latch.queue_redraw()

@@ -122,6 +122,7 @@ static func extract(packed: PackedScene) -> Dictionary:
 		for info: Dictionary in node.get_property_list():
 			var key := str(info.name)
 			if int(info.usage) & PROPERTY_USAGE_STORAGE and int(info.usage) & PROPERTY_USAGE_SCRIPT_VARIABLE and key != "document_ref":
+				if key == "terrain_paint" and node.get(key).is_empty(): continue
 				values[key] = encode(node.get(key))
 		for key: String in ["position", "rotation", "scale", "z_index", "visible", "modulate"]:
 			values[key] = encode(node.get(key))
