@@ -8,10 +8,10 @@ from preview_catalog import preview_catalog
 class WorldSpatialLayout(unittest.TestCase):
  @classmethod
  def setUpClass(cls):cls.base=export();cls.p=export(spatial_draft=True);cls.plan=build(ROOT,preview=preview_catalog(ROOT))
- def test_only_forest_calibration_changes_and_others_remain_unplaced(self):
+ def test_only_authored_draft_regions_change_and_others_remain_unplaced(self):
   self.assertEqual(len(self.p['rooms']),309);self.assertEqual(len(self.p['connections']),409)
   for rid,r in self.p['rooms'].items():
-   if not rid.startswith('F-'):self.assertEqual(r,self.base['rooms'][rid])
+   if rid[0] not in 'FMST':self.assertEqual(r,self.base['rooms'][rid])
    else:self.assertEqual(r['layout_status'],'draft')
   self.assertEqual(self.p['rooms']['G-R16']['spatial_source']['kind'],'unplaced')
  def test_complete_chamber_area_including_passages_survives(self):
@@ -29,4 +29,32 @@ class WorldSpatialLayout(unittest.TestCase):
   self.assertEqual(self.p['rewards'],self.base['rewards']);self.assertEqual(self.p['npcs'],self.base['npcs'])
   for rid,r in self.p['rooms'].items():
    for k in ['routes','entities','implemented']:self.assertEqual(r[k],self.base['rooms'][rid][k])
+ def test_underground_geometry_anchors_and_explicit_lift(self):
+  from regional_review import compile_plan
+  plan=compile_plan(ROOT)
+  self.assertEqual(len(plan['rooms']),50)
+  self.assertEqual(len(plan['connections']),59)
+  self.assertFalse(plan['issues'])
+  for c in plan['connections']:
+   edge=self.p['connections'][c['id']]
+   for side in ['a','b']:
+    ep=edge[side];r=self.p['rooms'][ep['room']];pos=r['ports'][ep['port']]['position']
+    self.assertEqual([pos[i]+r['origin'][i] for i in (0,1)],c['seam'])
+  for cid in ['C03','C04','C13','C14']:
+   e=self.p['connections'][cid];points=[]
+   for side in ['a','b']:
+    r=self.p['rooms'][e[side]['room']];port=r['ports'][e[side]['port']]
+    points.append([r['origin'][i]+port['position'][i] for i in (0,1)])
+   self.assertEqual(*points,cid)
+  lift=self.p['connections']['L22']
+  self.assertEqual(lift['spatial_draft']['kind'],'well_lift')
+  self.assertEqual(lift['requires'],self.base['connections']['L22']['requires'])
+  self.assertTrue(lift['front_door'])
+  self.assertNotIn('path',lift['spatial_draft'])
+ def test_draft_does_not_change_gate_or_reward_progression(self):
+  for cid,e in self.p['connections'].items():
+   for key in ['requires','direction','a','b']:
+    self.assertEqual(e[key],self.base['connections'][cid][key])
+  for rid in self.p['rooms']:
+   self.assertEqual(self.p['management'][rid],self.base['management'][rid])
 if __name__=='__main__':unittest.main()
