@@ -1,0 +1,866 @@
+{
+  "entities": {
+    "P-R07:composition:0": {
+      "component": "array:art_placements",
+      "id": "P-R07:composition:0",
+      "order": 0,
+      "properties": {
+        "asset": "plains_grass",
+        "atmosphere": {
+          "density": 4,
+          "speed": [
+            24,
+            42
+          ],
+          "sway_speed": 0.8
+        },
+        "cloud_wrap_fade": 0.025,
+        "clouds": "junction_clouds",
+        "landscape": "junction_meadow",
+        "landscape_offset": [
+          0,
+          110
+        ],
+        "landscape_reference": [
+          1056,
+          1088
+        ],
+        "landscape_scroll": [
+          0.08,
+          0.35
+        ],
+        "layer": -5,
+        "point": [
+          160,
+          1088
+        ],
+        "sky_cloud_density": [
+          0.4,
+          0
+        ],
+        "sky_colors": [
+          "e7d9b9",
+          "f8e7c8"
+        ],
+        "sway": true
+      }
+    },
+    "P-R07:composition:1": {
+      "component": "array:art_placements",
+      "id": "P-R07:composition:1",
+      "order": 1,
+      "properties": {
+        "asset": "orchard_fence",
+        "layer": -6,
+        "point": [
+          1512,
+          1024
+        ],
+        "tint": [
+          0.68,
+          0.78,
+          0.74,
+          1
+        ]
+      }
+    },
+    "P-R07:composition:10": {
+      "component": "array:art_placements",
+      "id": "P-R07:composition:10",
+      "order": 10,
+      "properties": {
+        "surface_platform": 7
+      }
+    },
+    "P-R07:composition:2": {
+      "component": "array:art_placements",
+      "id": "P-R07:composition:2",
+      "order": 2,
+      "properties": {
+        "point": [
+          1312,
+          1216
+        ],
+        "support_height": 128
+      }
+    },
+    "P-R07:composition:3": {
+      "component": "array:art_placements",
+      "id": "P-R07:composition:3",
+      "order": 3,
+      "properties": {
+        "asset": "storage_crates",
+        "layer": -4,
+        "point": [
+          624,
+          960
+        ]
+      }
+    },
+    "P-R07:composition:4": {
+      "component": "array:art_placements",
+      "id": "P-R07:composition:4",
+      "order": 4,
+      "properties": {
+        "asset": "travel_bundle",
+        "layer": -4,
+        "point": [
+          2000,
+          416
+        ]
+      }
+    },
+    "P-R07:composition:5": {
+      "component": "array:art_placements",
+      "id": "P-R07:composition:5",
+      "order": 5,
+      "properties": {
+        "asset": "well_masonry",
+        "curved_wall": [
+          1664,
+          1280,
+          384,
+          512
+        ],
+        "layer": -25,
+        "point": [
+          0,
+          0
+        ],
+        "tile_rect": [
+          1664,
+          1280,
+          384,
+          512
+        ]
+      }
+    },
+    "P-R07:composition:6": {
+      "component": "array:art_placements",
+      "id": "P-R07:composition:6",
+      "order": 6,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -3,
+        "light": true,
+        "point": [
+          1984,
+          1696
+        ]
+      }
+    },
+    "P-R07:composition:7": {
+      "component": "array:art_placements",
+      "id": "P-R07:composition:7",
+      "order": 7,
+      "properties": {
+        "asset": "windchime_plains_near_v2",
+        "layer": -5,
+        "point": [
+          160,
+          1088
+        ],
+        "sway": true
+      }
+    },
+    "P-R07:composition:8": {
+      "component": "array:art_placements",
+      "id": "P-R07:composition:8",
+      "order": 8,
+      "properties": {
+        "surface_platform": 4
+      }
+    },
+    "P-R07:composition:9": {
+      "component": "array:art_placements",
+      "id": "P-R07:composition:9",
+      "order": 9,
+      "properties": {
+        "surface_platform": 5
+      }
+    },
+    "P-R07:enemy_placements:0": {
+      "component": "array:enemy_placements",
+      "id": "P-R07:enemy_placements:0",
+      "order": 0,
+      "properties": {
+        "behavior": "sentry",
+        "id": "P-R07:lookout_sentry",
+        "max_health": 14.0,
+        "point": [
+          1408.0,
+          1006.0
+        ]
+      }
+    },
+    "P-R07:enemy_placements:1": {
+      "component": "array:enemy_placements",
+      "id": "P-R07:enemy_placements:1",
+      "order": 1,
+      "properties": {
+        "behavior": "patrol",
+        "id": "P-R07:arch_patrol",
+        "max_health": 9.0,
+        "point": [
+          1536.0,
+          1198.0
+        ]
+      }
+    },
+    "P-R07:enemy_placements:2": {
+      "component": "array:enemy_placements",
+      "id": "P-R07:enemy_placements:2",
+      "order": 2,
+      "properties": {
+        "behavior": "patrol",
+        "id": "P-R07:upper_bank_patrol",
+        "max_health": 9.0,
+        "point": [
+          1968.0,
+          622.0
+        ]
+      }
+    },
+    "P-R07:node:./Cache_hook_cache": {
+      "component": "WorldRoomInteraction",
+      "id": "P-R07:node:./Cache_hook_cache",
+      "node_name": "Cache_hook_cache",
+      "node_path": "./Cache_hook_cache",
+      "order": 1,
+      "parent": "",
+      "properties": {
+        "action_id": "open_P07_hook_cache",
+        "label": "打开眺望台藏箱",
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          1120.0,
+          142.0
+        ],
+        "radius": 48.0,
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "section_id": "main",
+        "visible": true,
+        "visual": "chest",
+        "z_index": 0
+      }
+    },
+    "P-R07:platforms:0": {
+      "component": "array:platforms",
+      "id": "P-R07:platforms:0",
+      "order": 0,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          32.0,
+          1088.0,
+          672.0,
+          160.0
+        ]
+      }
+    },
+    "P-R07:platforms:1": {
+      "component": "array:platforms",
+      "id": "P-R07:platforms:1",
+      "order": 1,
+      "properties": {
+        "illustrated": false,
+        "masonry": true,
+        "one_way": false,
+        "rect": [
+          928.0,
+          1024.0,
+          736.0,
+          64.0
+        ]
+      }
+    },
+    "P-R07:platforms:2": {
+      "component": "array:platforms",
+      "id": "P-R07:platforms:2",
+      "order": 2,
+      "properties": {
+        "illustrated": false,
+        "masonry": true,
+        "one_way": false,
+        "rect": [
+          1664.0,
+          1216.0,
+          128.0,
+          64.0
+        ]
+      }
+    },
+    "P-R07:platforms:3": {
+      "component": "array:platforms",
+      "id": "P-R07:platforms:3",
+      "order": 3,
+      "properties": {
+        "illustrated": false,
+        "masonry": true,
+        "one_way": false,
+        "rect": [
+          1920.0,
+          1696.0,
+          96.0,
+          64.0
+        ]
+      }
+    },
+    "P-R07:platforms:4": {
+      "component": "array:platforms",
+      "id": "P-R07:platforms:4",
+      "order": 4,
+      "properties": {
+        "illustrated": true,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          1696.0,
+          1536.0,
+          160.0,
+          32.0
+        ]
+      }
+    },
+    "P-R07:platforms:5": {
+      "component": "array:platforms",
+      "id": "P-R07:platforms:5",
+      "order": 5,
+      "properties": {
+        "illustrated": true,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          1856.0,
+          1376.0,
+          160.0,
+          32.0
+        ]
+      }
+    },
+    "P-R07:platforms:6": {
+      "component": "array:platforms",
+      "id": "P-R07:platforms:6",
+      "order": 6,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          576.0,
+          960.0,
+          192.0,
+          128.0
+        ]
+      }
+    },
+    "P-R07:platforms:7": {
+      "component": "array:platforms",
+      "id": "P-R07:platforms:7",
+      "order": 7,
+      "properties": {
+        "illustrated": true,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          1216.0,
+          864.0,
+          256.0,
+          32.0
+        ]
+      }
+    },
+    "P-R07:retry_anchors:0": {
+      "component": "array:retry_anchors",
+      "id": "P-R07:retry_anchors:0",
+      "order": 0,
+      "properties": {
+        "bounds": [
+          592.0,
+          900.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          640.0,
+          942.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R07:retry_anchors:1": {
+      "component": "array:retry_anchors",
+      "id": "P-R07:retry_anchors:1",
+      "order": 1,
+      "properties": {
+        "bounds": [
+          1696.0,
+          1156.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          1744.0,
+          1198.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R07:review04:arch_low_floor": {
+      "component": "array:platforms",
+      "id": "P-R07:review04:arch_low_floor",
+      "order": 8,
+      "properties": {
+        "illustrated": false,
+        "masonry": true,
+        "one_way": false,
+        "rect": [
+          704.0,
+          1216.0,
+          960.0,
+          32.0
+        ]
+      }
+    },
+    "P-R07:review04:lookout_loft": {
+      "component": "array:platforms",
+      "id": "P-R07:review04:lookout_loft",
+      "order": 11,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          1856.0,
+          416.0,
+          224.0,
+          64.0
+        ]
+      }
+    },
+    "P-R07:review04:lookout_wall_shoulder": {
+      "component": "array:platforms",
+      "id": "P-R07:review04:lookout_wall_shoulder",
+      "order": 10,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          1664.0,
+          640.0,
+          416.0,
+          64.0
+        ]
+      }
+    },
+    "P-R07:review04:peek_cover": {
+      "component": "array:platforms",
+      "id": "P-R07:review04:peek_cover",
+      "order": 9,
+      "properties": {
+        "illustrated": false,
+        "masonry": true,
+        "one_way": false,
+        "rect": [
+          1152.0,
+          928.0,
+          64.0,
+          96.0
+        ]
+      }
+    },
+    "P-R07:review05:upper_left_reward_hook": {
+      "component": "array:hook_points",
+      "id": "P-R07:review05:upper_left_reward_hook",
+      "order": 0,
+      "properties": {
+        "position": [
+          1344.0,
+          96.0
+        ]
+      }
+    },
+    "P-R07:review05:upper_left_reward_ledge": {
+      "component": "array:platforms",
+      "id": "P-R07:review05:upper_left_reward_ledge",
+      "order": 13,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          1056.0,
+          160.0,
+          256.0,
+          32.0
+        ]
+      }
+    },
+    "P-R07:review05:upper_transfer_ledge": {
+      "component": "array:platforms",
+      "id": "P-R07:review05:upper_transfer_ledge",
+      "order": 12,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          1472.0,
+          320.0,
+          224.0,
+          32.0
+        ]
+      }
+    },
+    "P-R07:spike_strips:0": {
+      "component": "array:spike_strips",
+      "id": "P-R07:spike_strips:0",
+      "order": 0,
+      "properties": {
+        "bounds": [
+          1088.0,
+          1192.0,
+          64.0,
+          24.0
+        ],
+        "facing": "up",
+        "id": "P-R07:review04:low_arch_teeth"
+      }
+    },
+    "P-R07:spike_strips:1": {
+      "component": "array:spike_strips",
+      "id": "P-R07:spike_strips:1",
+      "order": 1,
+      "properties": {
+        "bounds": [
+          672.0,
+          936.0,
+          64.0,
+          24.0
+        ],
+        "facing": "up",
+        "id": "P-R07:review05:step6_teeth"
+      }
+    },
+    "P-R07:spike_strips:2": {
+      "component": "array:spike_strips",
+      "id": "P-R07:spike_strips:2",
+      "order": 2,
+      "properties": {
+        "bounds": [
+          1984.0,
+          392.0,
+          64.0,
+          24.0
+        ],
+        "facing": "up",
+        "id": "P-R07:review05:upper_right_teeth"
+      }
+    },
+    "P-R07:spike_strips:3": {
+      "component": "array:spike_strips",
+      "id": "P-R07:spike_strips:3",
+      "order": 3,
+      "properties": {
+        "bounds": [
+          1536.0,
+          296.0,
+          64.0,
+          24.0
+        ],
+        "facing": "up",
+        "id": "P-R07:review05:middle_teeth"
+      }
+    }
+  },
+  "room_id": "P-R07",
+  "root": {
+    "component": "FixedWorldRoom",
+    "properties": {
+      "arena_bounds": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "arena_door_height": 192.0,
+      "arrival_text": "东缘眺望台",
+      "art_profile": "overlook",
+      "battle_entry_anchor": [
+        0.0,
+        0.0
+      ],
+      "boss_binding": null,
+      "boss_identity": "",
+      "boss_position": [
+        0.0,
+        0.0
+      ],
+      "defeat_action": "",
+      "defeat_flag": "",
+      "intro_sequence": {},
+      "modulate": {
+        "$color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "onboarding": {},
+      "position": [
+        0.0,
+        0.0
+      ],
+      "region_preview": "",
+      "rest_point": [
+        0.0,
+        0.0
+      ],
+      "reward_action": "",
+      "reward_point": [
+        0.0,
+        0.0
+      ],
+      "reward_text": "",
+      "room_id": "P-R07",
+      "rotation": 0.0,
+      "route_guide": {
+        "schema": 1.0,
+        "steps": [
+          {
+            "action": "6右段加64宽刺，左侧保留96宽起跳/落脚面；越刺跳向上路。原掩体跳射与反冲回避保留。",
+            "label": "上路借掩体还击",
+            "number": 1.0,
+            "path": [
+              [
+                144.0,
+                1070.0
+              ],
+              [
+                640.0,
+                942.0
+              ],
+              [
+                1088.0,
+                1006.0
+              ],
+              [
+                1152.0,
+                888.0
+              ],
+              [
+                1008.0,
+                1006.0
+              ],
+              [
+                1280.0,
+                846.0
+              ]
+            ],
+            "point": [
+              144.0,
+              1070.0
+            ]
+          },
+          {
+            "action": "原主台1厚256削为64，下方得到连续低拱通路；局部64宽刺留起跳和接收地，巡逻守东段宽地。低路接东岸，不封井口。",
+            "label": "桥下低拱换位",
+            "number": 2.0,
+            "path": [
+              [
+                784.0,
+                1198.0
+              ],
+              [
+                1056.0,
+                1198.0
+              ],
+              [
+                1091.0,
+                1138.0
+              ],
+              [
+                1248.0,
+                1198.0
+              ],
+              [
+                1536.0,
+                1198.0
+              ],
+              [
+                1744.0,
+                1198.0
+              ]
+            ],
+            "point": [
+              784.0,
+              1198.0
+            ]
+          },
+          {
+            "action": "原平台2缩成128宽左接驳岸，真正开放1792–2048落槽。保留井内交错单向台和底部门；原448宽实体曾横封整个井口。",
+            "label": "打开的东井接驳",
+            "number": 3.0,
+            "path": [
+              [
+                1744.0,
+                1198.0
+              ],
+              [
+                1888.0,
+                1358.0
+              ],
+              [
+                1744.0,
+                1518.0
+              ],
+              [
+                1984.0,
+                1678.0
+              ]
+            ],
+            "point": [
+              1744.0,
+              1198.0
+            ]
+          },
+          {
+            "action": "从原井内两级岸回东接驳岸，再上主路或走桥下返回；原门和入口落脚不变。",
+            "label": "向西返回",
+            "number": 4.0,
+            "path": [
+              [
+                1984.0,
+                1678.0
+              ],
+              [
+                1744.0,
+                1518.0
+              ],
+              [
+                1952.0,
+                1358.0
+              ],
+              [
+                1744.0,
+                1198.0
+              ],
+              [
+                1600.0,
+                1006.0
+              ],
+              [
+                1088.0,
+                1006.0
+              ],
+              [
+                640.0,
+                942.0
+              ],
+              [
+                144.0,
+                1070.0
+              ]
+            ],
+            "point": [
+              1984.0,
+              1678.0
+            ]
+          },
+          {
+            "action": "沿右肩上升、越过局部刺台，再借左上钩点进入40金币藏箱岸。回访支路不堵初访主路；取得后折返下到原上路。",
+            "label": "上空折返与钩索藏金",
+            "number": 5.0,
+            "path": [
+              [
+                1456.0,
+                846.0
+              ],
+              [
+                1707.0,
+                622.0
+              ],
+              [
+                1808.0,
+                622.0
+              ],
+              [
+                1902.0,
+                398.0
+              ],
+              [
+                1648.0,
+                302.0
+              ],
+              [
+                1454.0,
+                162.0
+              ],
+              [
+                1344.0,
+                96.0
+              ],
+              [
+                1256.0,
+                142.0
+              ],
+              [
+                1120.0,
+                142.0
+              ],
+              [
+                1360.0,
+                142.0
+              ],
+              [
+                1360.0,
+                846.0
+              ]
+            ],
+            "point": [
+              1456.0,
+              846.0
+            ]
+          }
+        ]
+      },
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "section_volumes": [],
+      "start_point": [
+        144.0,
+        1070.0
+      ],
+      "story_sequence": {},
+      "traveler_point": [
+        0.0,
+        0.0
+      ],
+      "tutorial_action": "",
+      "tutorial_min_move": 100.0,
+      "tutorial_recoil_finish_x": 1540.0,
+      "tutorial_target": "",
+      "visible": true,
+      "wave_encounter": {},
+      "z_index": 0
+    }
+  },
+  "schema": 2
+}

@@ -167,6 +167,11 @@ func _export_begin(_features: PackedStringArray, _is_debug: bool, _path: String,
 			push_error("Stale authored world scene: " + scene)
 			editor_tree.quit(1)
 			return
+	for document: String in world.get("document_sources", {}):
+		if FileAccess.get_sha256(document) != world.document_sources[document]:
+			push_error("Stale authored world document: "+document)
+			editor_tree.quit(1)
+			return
 	add_file(world_path, world_bytes, false)
 	var preset := get_export_preset()
 	if "workbench" in _features:

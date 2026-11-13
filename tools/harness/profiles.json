@@ -1940,6 +1940,15 @@
       ],
       "timeout_seconds": 120,
       "success_pattern": "^REGIONAL SAMPLE RETURNS: 0 failures$"
+    },
+    "editor-protocol": {
+      "mode": "manual",
+      "argv": [
+        "python3",
+        "tools/check_editor_protocol.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^EDITOR PROTOCOL: passed$"
     }
   },
   "profiles": {}

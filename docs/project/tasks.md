@@ -10,6 +10,7 @@
 | --- | --- | --- | --- | --- |
 | NATIVE-PLAYTEST-FIX-01 | 原生0.1.1墙体、手柄校准与最大化呈现设备复核 | — | review | [交接](worklines/native_playtest_fix_01/scope.md) |
 | PLAINS-BIBLE-V2-01 | 平原正式内容与双端发行体验复核 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
+| WORLD-EDITOR-02 | 独立开源整世界编辑器、JSON装载与原生AI候选；共享协议接入 | — | in_progress | [交接](worklines/world_editor_02/scope.md) |
 | MOBILE-LEVEL-WORKBENCH-01 | Site V18 / r68：双点出口跳房、37房隔离预览与钟心室内分层；整区审核含森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 

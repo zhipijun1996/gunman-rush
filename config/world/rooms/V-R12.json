@@ -1,0 +1,878 @@
+{
+  "entities": {
+    "V-R12:environment_zones:0": {
+      "component": "array:environment_zones",
+      "id": "V-R12:environment_zones:0",
+      "order": 0,
+      "properties": {
+        "bounds": [
+          464,
+          1584,
+          120,
+          24
+        ],
+        "id": "LowerLiftCurtain",
+        "mode": "phase_light"
+      }
+    },
+    "V-R12:environment_zones:1": {
+      "component": "array:environment_zones",
+      "id": "V-R12:environment_zones:1",
+      "order": 1,
+      "properties": {
+        "bounds": [
+          516,
+          720,
+          16,
+          80
+        ],
+        "id": "UpperFoldCurtain",
+        "mode": "phase_light"
+      }
+    },
+    "V-R12:environment_zones:2": {
+      "component": "array:environment_zones",
+      "id": "V-R12:environment_zones:2",
+      "order": 2,
+      "properties": {
+        "bounds": [
+          256,
+          1856,
+          768,
+          192
+        ],
+        "id": "VisibleFailureBed",
+        "mode": "thorns"
+      }
+    },
+    "V-R12:gear_obstacles:0": {
+      "component": "array:gear_obstacles",
+      "id": "V-R12:gear_obstacles:0",
+      "order": 0,
+      "properties": {
+        "id": "low_orbit_gear",
+        "period": 4.2,
+        "phase": 0.1,
+        "point": [
+          720,
+          1776
+        ],
+        "travel": [
+          64,
+          0
+        ]
+      }
+    },
+    "V-R12:gear_obstacles:1": {
+      "component": "array:gear_obstacles",
+      "id": "V-R12:gear_obstacles:1",
+      "order": 1,
+      "properties": {
+        "id": "upper_orbit_gear",
+        "period": 4.8,
+        "phase": 0.4,
+        "point": [
+          496,
+          608
+        ],
+        "travel": [
+          40,
+          0
+        ]
+      }
+    },
+    "V-R12:node:./FinishReturn": {
+      "component": "WorldReturnLatch",
+      "id": "V-R12:node:./FinishReturn",
+      "node_name": "FinishReturn",
+      "node_path": "./FinishReturn",
+      "order": 1,
+      "parent": "",
+      "properties": {
+        "action_id": "starbridge_v12_return_open",
+        "closed_panels": [],
+        "label": "放下连锁井返程桥",
+        "metal_hatch": false,
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          864.0,
+          302.0
+        ],
+        "radius": 48.0,
+        "return_steps": [
+          [
+            -864.0,
+            18.0,
+            784.0,
+            16.0
+          ]
+        ],
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "section_id": "main",
+        "visible": true,
+        "visual": "pulley_switch",
+        "z_index": 0
+      }
+    },
+    "V-R12:spike_strips:0": {
+      "component": "array:spike_strips",
+      "id": "V-R12:spike_strips:0",
+      "order": 0,
+      "properties": {
+        "bounds": [
+          464,
+          1376,
+          22,
+          128
+        ],
+        "facing": "right",
+        "id": "tongue_face"
+      }
+    },
+    "V-R12:spike_strips:1": {
+      "component": "array:spike_strips",
+      "id": "V-R12:spike_strips:1",
+      "order": 1,
+      "properties": {
+        "bounds": [
+          584,
+          1504,
+          24,
+          240
+        ],
+        "facing": "left",
+        "id": "lift_channel_face"
+      }
+    },
+    "V-R12:spike_strips:2": {
+      "component": "array:spike_strips",
+      "id": "V-R12:spike_strips:2",
+      "order": 2,
+      "properties": {
+        "bounds": [
+          320,
+          1254,
+          144,
+          26
+        ],
+        "facing": "up",
+        "id": "canopy_crown"
+      }
+    },
+    "V-R12:spike_strips:3": {
+      "component": "array:spike_strips",
+      "id": "V-R12:spike_strips:3",
+      "order": 3,
+      "properties": {
+        "bounds": [
+          320,
+          1376,
+          80,
+          24
+        ],
+        "facing": "down",
+        "id": "canopy_teeth"
+      }
+    },
+    "V-R12:spike_strips:4": {
+      "component": "array:spike_strips",
+      "id": "V-R12:spike_strips:4",
+      "order": 4,
+      "properties": {
+        "bounds": [
+          352,
+          1478,
+          48,
+          26
+        ],
+        "facing": "up",
+        "id": "first_wall_cap"
+      }
+    },
+    "V-R12:spike_strips:5": {
+      "component": "array:spike_strips",
+      "id": "V-R12:spike_strips:5",
+      "order": 5,
+      "properties": {
+        "bounds": [
+          144,
+          1270,
+          48,
+          26
+        ],
+        "facing": "up",
+        "id": "west_wall_cap"
+      }
+    },
+    "V-R12:spike_strips:6": {
+      "component": "array:spike_strips",
+      "id": "V-R12:spike_strips:6",
+      "order": 6,
+      "properties": {
+        "bounds": [
+          352,
+          742,
+          48,
+          26
+        ],
+        "facing": "up",
+        "id": "upper_fold_cap"
+      }
+    },
+    "V-R12:spike_strips:7": {
+      "component": "array:spike_strips",
+      "id": "V-R12:spike_strips:7",
+      "order": 7,
+      "properties": {
+        "bounds": [
+          672,
+          406,
+          48,
+          26
+        ],
+        "facing": "up",
+        "id": "high_wall_cap"
+      }
+    },
+    "V12:drop_tongue": {
+      "component": "array:platforms",
+      "id": "V12:drop_tongue",
+      "order": 4,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          400.0,
+          1376.0,
+          64.0,
+          160.0
+        ]
+      }
+    },
+    "V12:entry_mass": {
+      "component": "array:platforms",
+      "id": "V12:entry_mass",
+      "order": 0,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          0.0,
+          1856.0,
+          256.0,
+          192.0
+        ]
+      }
+    },
+    "V12:entry_retry": {
+      "component": "array:retry_anchors",
+      "id": "V12:entry_retry",
+      "order": 0,
+      "properties": {
+        "bounds": [
+          32,
+          1792,
+          208,
+          64
+        ],
+        "point": [
+          144,
+          1838
+        ],
+        "section": "entry:V-EXTREME-11-12"
+      }
+    },
+    "V12:entry_sign": {
+      "component": "array:signs",
+      "id": "V12:entry_sign",
+      "order": 0,
+      "properties": {
+        "point": [
+          192,
+          1814
+        ],
+        "route_guide": {
+          "legend": [
+            {
+              "instruction": "Q可用时用反冲穿越，结束反冲前必须离开光幕；普通跳跃、钩索不提供穿幕保护。",
+              "label": "金色：反冲保护光幕",
+              "mode": "phase_light"
+            },
+            {
+              "instruction": "接触危险，Q也无法抵挡；绕行，失误返回最近恢复点。",
+              "label": "粉红：实体尖刺",
+              "mode": "thorns"
+            }
+          ],
+          "schema": 1,
+          "steps": [
+            {
+              "action": "向右上反冲，二段跳接第一面墙；向墙移动即可攀附并恢复次数。",
+              "label": "起步接墙",
+              "number": 1,
+              "path": [
+                [
+                  144,
+                  1838
+                ],
+                [
+                  260,
+                  1740
+                ],
+                [
+                  338,
+                  1680
+                ]
+              ],
+              "point": [
+                240,
+                1760
+              ]
+            },
+            {
+              "action": "沿第一面墙下滑，到墙脚下方横向反冲，二段跳抬起后向上抓低位钩点。别落入粉红刺床。左上墙是可选练习支路。",
+              "label": "绕墙脚抓环",
+              "number": 2,
+              "path": [
+                [
+                  338,
+                  1700
+                ],
+                [
+                  338,
+                  1800
+                ],
+                [
+                  424,
+                  1800
+                ],
+                [
+                  528,
+                  1660
+                ]
+              ],
+              "point": [
+                428,
+                1788
+              ]
+            },
+            {
+              "action": "挂环等Q冷却结束，向下射击，反冲向上一次穿出金色光幕；二段跳向右接内墙。",
+              "label": "反冲穿光幕",
+              "number": 3,
+              "path": [
+                [
+                  544,
+                  1648
+                ],
+                [
+                  544,
+                  1488
+                ],
+                [
+                  594,
+                  1412
+                ]
+              ],
+              "point": [
+                552,
+                1600
+              ]
+            },
+            {
+              "action": "贴墙恢复后，用墙跳、向上反冲和二段跳越过墙顶，落到中继台。失误从这里重试。",
+              "label": "中继落地",
+              "number": 4,
+              "path": [
+                [
+                  594,
+                  1412
+                ],
+                [
+                  568,
+                  1190
+                ],
+                [
+                  720,
+                  1198
+                ]
+              ],
+              "point": [
+                702,
+                1174
+              ]
+            },
+            {
+              "action": "从中继台向右上反冲，二段跳接右侧外墙，再次恢复次数。",
+              "label": "斜跨外墙",
+              "number": 5,
+              "path": [
+                [
+                  740,
+                  1198
+                ],
+                [
+                  868,
+                  1080
+                ],
+                [
+                  898,
+                  1000
+                ]
+              ],
+              "point": [
+                856,
+                1100
+              ]
+            },
+            {
+              "action": "从外墙向左上推进，先绕开隔墙下缘，再向上抓高位钩点。",
+              "label": "绕隔墙抓高环",
+              "number": 6,
+              "path": [
+                [
+                  898,
+                  1000
+                ],
+                [
+                  828,
+                  866
+                ],
+                [
+                  664,
+                  866
+                ],
+                [
+                  624,
+                  720
+                ]
+              ],
+              "point": [
+                660,
+                850
+              ]
+            },
+            {
+              "action": "挂环等Q就绪，向右上射击使反冲朝左下；穿过金幕后接内侧墙。普通下落不受保护。",
+              "label": "向左下穿幕",
+              "number": 7,
+              "path": [
+                [
+                  624,
+                  704
+                ],
+                [
+                  560,
+                  742
+                ],
+                [
+                  480,
+                  782
+                ],
+                [
+                  414,
+                  836
+                ]
+              ],
+              "point": [
+                560,
+                742
+              ]
+            },
+            {
+              "action": "从内侧墙向右上反冲，二段跳接高墙左面；绕开上方齿轮和墙顶刺。",
+              "label": "接高墙",
+              "number": 8,
+              "path": [
+                [
+                  414,
+                  836
+                ],
+                [
+                  560,
+                  690
+                ],
+                [
+                  658,
+                  576
+                ]
+              ],
+              "point": [
+                572,
+                632
+              ]
+            },
+            {
+              "action": "墙跳、反冲和二段跳越过高墙，落到终台；拉手柄放桥，沿左侧落井回入口。",
+              "label": "终台与返程",
+              "number": 9,
+              "path": [
+                [
+                  658,
+                  576
+                ],
+                [
+                  612,
+                  364
+                ],
+                [
+                  744,
+                  284
+                ],
+                [
+                  880,
+                  302
+                ]
+              ],
+              "point": [
+                850,
+                260
+              ]
+            }
+          ]
+        },
+        "text": "所有实体墙面均可攀附，墙刺危险。攀墙或钩头命中恢复空弹、D/H和Q资格，冷却保留。按编号向前；1接墙，2绕墙脚抓环，3向上反冲穿金色光幕。"
+      }
+    },
+    "V12:finish_launch_wall": {
+      "component": "array:climbable_walls",
+      "id": "V12:finish_launch_wall",
+      "order": 5,
+      "properties": {
+        "rect": [
+          672.0,
+          432.0,
+          48.0,
+          240.0
+        ]
+      }
+    },
+    "V12:finish_mass": {
+      "component": "array:platforms",
+      "id": "V12:finish_mass",
+      "order": 2,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          784.0,
+          320.0,
+          240.0,
+          96.0
+        ]
+      }
+    },
+    "V12:finish_retry": {
+      "component": "array:retry_anchors",
+      "id": "V12:finish_retry",
+      "order": 2,
+      "properties": {
+        "bounds": [
+          800,
+          256,
+          208,
+          64
+        ],
+        "point": [
+          880,
+          302
+        ],
+        "section": "main"
+      }
+    },
+    "V12:finish_sign": {
+      "component": "array:signs",
+      "id": "V12:finish_sign",
+      "order": 2,
+      "properties": {
+        "point": [
+          960,
+          278
+        ],
+        "text": "折星回路终台。拉下手柄放出返程桥，向左走到安全落井，下落回入口。右侧 V-R13 是未施工接口。本轮为快速灰盒，完整节奏和容错等你试玩反馈。"
+      }
+    },
+    "V12:inner_lift_wall": {
+      "component": "array:climbable_walls",
+      "id": "V12:inner_lift_wall",
+      "order": 2,
+      "properties": {
+        "rect": [
+          608.0,
+          1280.0,
+          48.0,
+          192.0
+        ]
+      }
+    },
+    "V12:inner_return_wall": {
+      "component": "array:climbable_walls",
+      "id": "V12:inner_return_wall",
+      "order": 4,
+      "properties": {
+        "rect": [
+          352.0,
+          768.0,
+          48.0,
+          272.0
+        ]
+      }
+    },
+    "V12:launch_wall": {
+      "component": "array:climbable_walls",
+      "id": "V12:launch_wall",
+      "order": 0,
+      "properties": {
+        "rect": [
+          352.0,
+          1504.0,
+          48.0,
+          272.0
+        ]
+      }
+    },
+    "V12:lift_pier": {
+      "component": "array:platforms",
+      "id": "V12:lift_pier",
+      "order": 5,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          608.0,
+          1504.0,
+          64.0,
+          240.0
+        ]
+      }
+    },
+    "V12:low_canopy": {
+      "component": "array:platforms",
+      "id": "V12:low_canopy",
+      "order": 3,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          320.0,
+          1280.0,
+          144.0,
+          96.0
+        ]
+      }
+    },
+    "V12:low_turn_refill": {
+      "component": "array:hook_points",
+      "id": "V12:low_turn_refill",
+      "order": 0,
+      "properties": {
+        "position": [
+          544.0,
+          1648.0
+        ]
+      }
+    },
+    "V12:outer_span_wall": {
+      "component": "array:climbable_walls",
+      "id": "V12:outer_span_wall",
+      "order": 3,
+      "properties": {
+        "rect": [
+          912.0,
+          864.0,
+          48.0,
+          224.0
+        ]
+      }
+    },
+    "V12:relay_mass": {
+      "component": "array:platforms",
+      "id": "V12:relay_mass",
+      "order": 1,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          624.0,
+          1216.0,
+          208.0,
+          64.0
+        ]
+      }
+    },
+    "V12:relay_retry": {
+      "component": "array:retry_anchors",
+      "id": "V12:relay_retry",
+      "order": 1,
+      "properties": {
+        "bounds": [
+          640,
+          1152,
+          176,
+          64
+        ],
+        "point": [
+          720,
+          1198
+        ],
+        "section": "main"
+      }
+    },
+    "V12:relay_sign": {
+      "component": "array:signs",
+      "id": "V12:relay_sign",
+      "order": 1,
+      "properties": {
+        "point": [
+          672,
+          1174
+        ],
+        "text": "中继台记录重试点。继续按5—9前进，绕隔墙抓高环，再向左下反冲穿幕。金色光幕需Q就绪并靠反冲一次穿出，单纯跳跃/钩索无保护；粉红刺和齿轮始终危险。"
+      }
+    },
+    "V12:upper_fold_baffle": {
+      "component": "array:platforms",
+      "id": "V12:upper_fold_baffle",
+      "order": 6,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          720.0,
+          672.0,
+          64.0,
+          160.0
+        ]
+      }
+    },
+    "V12:upper_turn_refill": {
+      "component": "array:hook_points",
+      "id": "V12:upper_turn_refill",
+      "order": 1,
+      "properties": {
+        "position": [
+          624.0,
+          704.0
+        ]
+      }
+    },
+    "V12:west_fold_wall": {
+      "component": "array:climbable_walls",
+      "id": "V12:west_fold_wall",
+      "order": 1,
+      "properties": {
+        "rect": [
+          144.0,
+          1296.0,
+          48.0,
+          224.0
+        ]
+      }
+    }
+  },
+  "room_id": "V-R12",
+  "root": {
+    "component": "StarbridgeTrialRoom",
+    "properties": {
+      "arena_bounds": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "arena_door_height": 192.0,
+      "arrival_text": "星桥天门 · 折星回路（反冲＋二段跳灰盒）",
+      "art_profile": "starbridge_graybox",
+      "battle_entry_anchor": [
+        0.0,
+        0.0
+      ],
+      "boss_binding": null,
+      "boss_identity": "",
+      "boss_position": [
+        0.0,
+        0.0
+      ],
+      "defeat_action": "",
+      "defeat_flag": "",
+      "intro_sequence": {},
+      "modulate": {
+        "$color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "onboarding": {},
+      "position": [
+        0.0,
+        0.0
+      ],
+      "region_preview": "",
+      "rest_point": [
+        0.0,
+        0.0
+      ],
+      "reward_action": "",
+      "reward_point": [
+        0.0,
+        0.0
+      ],
+      "reward_text": "",
+      "room_id": "V-R12",
+      "rotation": 0.0,
+      "route_guide": {},
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "section_volumes": [
+        {
+          "bounds": [
+            0,
+            1792,
+            256,
+            256
+          ],
+          "id": "entry:V-EXTREME-11-12"
+        }
+      ],
+      "start_point": [
+        144.0,
+        1838.0
+      ],
+      "story_sequence": {},
+      "traveler_point": [
+        0.0,
+        0.0
+      ],
+      "tutorial_action": "",
+      "tutorial_min_move": 100.0,
+      "tutorial_recoil_finish_x": 1540.0,
+      "tutorial_target": "",
+      "visible": true,
+      "wave_encounter": {},
+      "z_index": 0
+    }
+  },
+  "schema": 2
+}

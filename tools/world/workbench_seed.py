@@ -161,6 +161,9 @@ def make_seed(root: Path, scenes: dict, *, runtime_available=False, baseline=Non
     if (root / SCOPE_PATH).exists():
         hashes[SCOPE_PATH] = digest(root / SCOPE_PATH)
     for room_id, row in source_rooms.items():
+        document = source/'rooms'/f'{room_id}.json'
+        if document.is_file():
+            hashes[document.relative_to(root).as_posix()] = digest(document)
         scene = copy.deepcopy(scenes["rooms"][room_id])
         path = row["scene_ref"].removeprefix("res://")
         if scene["source_hash"] != digest(root / path):

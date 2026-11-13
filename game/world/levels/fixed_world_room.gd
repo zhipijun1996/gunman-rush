@@ -1,6 +1,13 @@
 class_name FixedWorldRoom
 extends Node2D
 ## Authored geometry and placements. Reads contract interfaces; never grants progress.
+var document_error := ""
+@export var document_ref := "":
+	set(value):
+		document_ref = value
+		if not value.is_empty():
+			var document := WorldRoomDocument.read(value)
+			document_error = str(document.error) if document.has("error") else WorldRoomDocument.apply(self, document)
 @export var room_id := ""
 @export var arrival_text: String
 @export var traveler_point := Vector2.ZERO
@@ -127,58 +134,63 @@ func _ready() -> void:
 		blocker.add_child(collision)
 		add_child(blocker)
 		door_blocks[door.id] = blocker
-	var solids: Array[Rect2]=[]
-	solids.append_array(WorldRoomSpace.exterior_fill(contract.world_geometry,doors))
-	var masonry: Array[Rect2]=[]
-	for i: int in platforms.size():
-		if i in one_way_indices or i in illustrated_platform_indices:continue
-		if i in masonry_platform_indices:masonry.append(platforms[i])
-		else:solids.append(platforms[i])
-	# An authored entrance may share material with the real boundary wall.
-	# Partition presentation only; the collision rectangles remain untouched.
-	var masonry_boundary: Array[Rect2] = []
-	for placement: Dictionary in art_placements:
-		if not placement.has("masonry_region"): continue
-		var region := FixedWorldProvider.rect(placement.masonry_region)
-		for solid: Rect2 in solids:
-			var part := solid.intersection(region)
-			if part.has_area(): masonry_boundary.append(part)
-		solids = WorldRoomSpace.exposed_parts(solids, [region])
-	for zone: Dictionary in contract.camera.get("zones",[]):
-		var conceal: Array[Rect2] = []
-		for raw: Array in zone.get("conceal",[]):conceal.append(FixedWorldProvider.rect(raw))
-		if conceal.is_empty():continue
-		var mask:=UnderworldTerrain.build(conceal)
-		mask.z_index=2000
-		if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(mask)
-		add_child(mask);camera_concealers[str(zone.id)]=mask
-	# Existing textured rock covers the near exterior. Deep opaque rock continues
-	# past it at extreme aspect ratios without allocating an unbounded tile field.
-	var exterior:=FixedWorldProvider.rect(contract.world_geometry.bounds_world_units).grow(512)
-	for fill: Rect2 in [Rect2(-100000,-100000,200000,exterior.position.y+100000),Rect2(-100000,exterior.end.y,200000,100000),Rect2(-100000,exterior.position.y,exterior.position.x+100000,exterior.size.y),Rect2(exterior.end.x,exterior.position.y,100000,exterior.size.y)]:
-		var backing:=Polygon2D.new()
-		backing.polygon=PackedVector2Array([fill.position,Vector2(fill.end.x,fill.position.y),fill.end,Vector2(fill.position.x,fill.end.y)])
-		backing.color=Color("0d101e");backing.z_index=1000;add_child(backing)
-	var ground_polygons: Array[Dictionary] = []
-	var masonry_polygons: Array[Dictionary] = []
-	for polygon: Dictionary in terrain_polygons:
-		if str(polygon.get("material", "ground")) == "masonry": masonry_polygons.append(polygon)
-		else: ground_polygons.append(polygon)
-	if not interior_material().is_empty():
-		solids.append_array(masonry_boundary);masonry_boundary.clear()
-		solids.append_array(masonry);masonry.clear()
-		ground_polygons.append_array(masonry_polygons);masonry_polygons.clear()
-	var terrain:=UnderworldTerrain.build_with_polygons(solids, ground_polygons)
-	if not region_preview.is_empty():RegionThresholdMaterial.install_on(terrain,region_preview)
-	elif not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
-	else: terrain.position.y=-4 # Native grass roots start five pixels below the tile top; tips overhang the physical sole.
-	add_child(terrain)
-	if not masonry.is_empty() or not masonry_polygons.is_empty() or not masonry_boundary.is_empty():
-		var visible_masonry:=WorldRoomSpace.exposed_parts(masonry,boundary_art_rock)
-		visible_masonry.append_array(masonry_boundary)
-		var structure:=UnderworldTerrain.build_with_polygons(visible_masonry, masonry_polygons)
-		PlainsMillTerrainMaterial.install_on(structure);add_child(structure)
-	var scenery:PlainsRoomArt=PlainsRoomArt.new() if region_preview.is_empty() else RegionThresholdArt.new();scenery.room=self;add_child(scenery)
+	if bool(Engine.get_meta("world_editor_graybox", false)):
+		var graybox := WorldEditorGraybox.new()
+		graybox.room = self
+		add_child(graybox)
+	else:
+		var solids: Array[Rect2]=[]
+		solids.append_array(WorldRoomSpace.exterior_fill(contract.world_geometry,doors))
+		var masonry: Array[Rect2]=[]
+		for i: int in platforms.size():
+			if i in one_way_indices or i in illustrated_platform_indices:continue
+			if i in masonry_platform_indices:masonry.append(platforms[i])
+			else:solids.append(platforms[i])
+		# An authored entrance may share material with the real boundary wall.
+		# Partition presentation only; the collision rectangles remain untouched.
+		var masonry_boundary: Array[Rect2] = []
+		for placement: Dictionary in art_placements:
+			if not placement.has("masonry_region"): continue
+			var region := FixedWorldProvider.rect(placement.masonry_region)
+			for solid: Rect2 in solids:
+				var part := solid.intersection(region)
+				if part.has_area(): masonry_boundary.append(part)
+			solids = WorldRoomSpace.exposed_parts(solids, [region])
+		for zone: Dictionary in contract.camera.get("zones",[]):
+			var conceal: Array[Rect2] = []
+			for raw: Array in zone.get("conceal",[]):conceal.append(FixedWorldProvider.rect(raw))
+			if conceal.is_empty():continue
+			var mask:=UnderworldTerrain.build(conceal)
+			mask.z_index=2000
+			if not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(mask)
+			add_child(mask);camera_concealers[str(zone.id)]=mask
+		# Existing textured rock covers the near exterior. Deep opaque rock continues
+		# past it at extreme aspect ratios without allocating an unbounded tile field.
+		var exterior:=FixedWorldProvider.rect(contract.world_geometry.bounds_world_units).grow(512)
+		for fill: Rect2 in [Rect2(-100000,-100000,200000,exterior.position.y+100000),Rect2(-100000,exterior.end.y,200000,100000),Rect2(-100000,exterior.position.y,exterior.position.x+100000,exterior.size.y),Rect2(exterior.end.x,exterior.position.y,100000,exterior.size.y)]:
+			var backing:=Polygon2D.new()
+			backing.polygon=PackedVector2Array([fill.position,Vector2(fill.end.x,fill.position.y),fill.end,Vector2(fill.position.x,fill.end.y)])
+			backing.color=Color("0d101e");backing.z_index=1000;add_child(backing)
+		var ground_polygons: Array[Dictionary] = []
+		var masonry_polygons: Array[Dictionary] = []
+		for polygon: Dictionary in terrain_polygons:
+			if str(polygon.get("material", "ground")) == "masonry": masonry_polygons.append(polygon)
+			else: ground_polygons.append(polygon)
+		if not interior_material().is_empty():
+			solids.append_array(masonry_boundary);masonry_boundary.clear()
+			solids.append_array(masonry);masonry.clear()
+			ground_polygons.append_array(masonry_polygons);masonry_polygons.clear()
+		var terrain:=UnderworldTerrain.build_with_polygons(solids, ground_polygons)
+		if not region_preview.is_empty():RegionThresholdMaterial.install_on(terrain,region_preview)
+		elif not interior_material().is_empty():PlainsMillTerrainMaterial.install_on(terrain)
+		else: terrain.position.y=-4 # Native grass roots start five pixels below the tile top; tips overhang the physical sole.
+		add_child(terrain)
+		if not masonry.is_empty() or not masonry_polygons.is_empty() or not masonry_boundary.is_empty():
+			var visible_masonry:=WorldRoomSpace.exposed_parts(masonry,boundary_art_rock)
+			visible_masonry.append_array(masonry_boundary)
+			var structure:=UnderworldTerrain.build_with_polygons(visible_masonry, masonry_polygons)
+			PlainsMillTerrainMaterial.install_on(structure);add_child(structure)
+		var scenery:PlainsRoomArt=PlainsRoomArt.new() if region_preview.is_empty() else RegionThresholdArt.new();scenery.room=self;add_child(scenery)
 	for rect: Rect2 in climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;add_child(wall)
 	for point: Vector2 in hook_points:
@@ -234,6 +246,17 @@ func mechanism_snapshot() -> Dictionary:
 
 func configure(row: Dictionary) -> void:
 	contract = row
+	# Logical sections may gain explicit trigger volumes in the editor. Existing
+	# authored volumes remain the fallback when a section has no spatial extent.
+	for section: Dictionary in row.get("sections", []):
+		if not section.get("bounds") is Array or section.bounds.size() != 4: continue
+		var found := false
+		for volume: Dictionary in section_volumes:
+			if volume.id == section.id:
+				volume.bounds = section.bounds.duplicate()
+				found = true
+				break
+		if not found: section_volumes.append({"id":section.id, "bounds":section.bounds.duplicate()})
 	doors = row.doors.filter(func(door: Dictionary) -> bool: return door.get("target_implemented",false))
 	queue_redraw()
 

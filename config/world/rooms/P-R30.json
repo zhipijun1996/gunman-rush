@@ -1,0 +1,828 @@
+{
+  "entities": {
+    "P-R30:bell_mechanisms:0": {
+      "component": "array:bell_mechanisms",
+      "id": "P-R30:bell_mechanisms:0",
+      "order": 0,
+      "properties": {
+        "access_bells": [
+          [
+            744.0,
+            848.0
+          ],
+          [
+            1280.0,
+            272.0
+          ]
+        ],
+        "bell": [
+          224.0,
+          576.0
+        ],
+        "carrier": "PumpFerry",
+        "gate": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        "id": "P-R30:review03:pump_ferry_bell"
+      }
+    },
+    "P-R30:composition:0": {
+      "component": "array:art_placements",
+      "id": "P-R30:composition:0",
+      "order": 0,
+      "properties": {
+        "asset": "spring_cellar",
+        "atmosphere": {
+          "density": 3,
+          "speed": [
+            2,
+            6
+          ]
+        },
+        "backdrop": true,
+        "environment": {
+          "ambient": "a5afb0",
+          "restored": "a5afb0"
+        },
+        "layer": -38,
+        "point": [
+          832,
+          1152
+        ]
+      }
+    },
+    "P-R30:composition:1": {
+      "component": "array:art_placements",
+      "id": "P-R30:composition:1",
+      "order": 1,
+      "properties": {
+        "asset": "gear_city_v2_pipe_junction",
+        "layer": -6,
+        "point": [
+          512,
+          896
+        ]
+      }
+    },
+    "P-R30:composition:2": {
+      "component": "array:art_placements",
+      "id": "P-R30:composition:2",
+      "order": 2,
+      "properties": {
+        "asset": "gear_city_v2_valve_panel",
+        "layer": -5,
+        "point": [
+          1056,
+          544
+        ]
+      }
+    },
+    "P-R30:composition:3": {
+      "component": "array:art_placements",
+      "id": "P-R30:composition:3",
+      "order": 3,
+      "properties": {
+        "asset": "well_winch_mount",
+        "cable_offset": [
+          0,
+          -37
+        ],
+        "hoist_cable": "PumpFerry",
+        "layer": -5,
+        "point": [
+          960,
+          320
+        ]
+      }
+    },
+    "P-R30:composition:4": {
+      "component": "array:art_placements",
+      "id": "P-R30:composition:4",
+      "order": 4,
+      "properties": {
+        "surface_platform": 4
+      }
+    },
+    "P-R30:composition:5": {
+      "component": "array:art_placements",
+      "id": "P-R30:composition:5",
+      "order": 5,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -3,
+        "light": true,
+        "point": [
+          288,
+          640
+        ]
+      }
+    },
+    "P-R30:composition:6": {
+      "component": "array:art_placements",
+      "id": "P-R30:composition:6",
+      "order": 6,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -3,
+        "light": true,
+        "point": [
+          1000,
+          544
+        ]
+      }
+    },
+    "P-R30:composition:7": {
+      "component": "array:art_placements",
+      "id": "P-R30:composition:7",
+      "order": 7,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -3,
+        "light": true,
+        "point": [
+          624,
+          896
+        ]
+      }
+    },
+    "P-R30:enemy_placements:0": {
+      "component": "array:enemy_placements",
+      "id": "P-R30:enemy_placements:0",
+      "order": 0,
+      "properties": {
+        "behavior": "patrol",
+        "id": "P-R30:review03:pump_gallery_guard",
+        "max_health": 9.0,
+        "point": [
+          512.0,
+          430.0
+        ]
+      }
+    },
+    "P-R30:enemy_placements:1": {
+      "component": "array:enemy_placements",
+      "id": "P-R30:enemy_placements:1",
+      "order": 1,
+      "properties": {
+        "behavior": "hopper",
+        "id": "P-R30:water_hopper",
+        "max_health": 9.0,
+        "point": [
+          1264.0,
+          302.0
+        ]
+      }
+    },
+    "P-R30:hook_points:0": {
+      "component": "array:hook_points",
+      "id": "P-R30:hook_points:0",
+      "order": 0,
+      "properties": {
+        "position": [
+          800.0,
+          736.0
+        ]
+      }
+    },
+    "P-R30:hook_points:1": {
+      "component": "array:hook_points",
+      "id": "P-R30:hook_points:1",
+      "order": 1,
+      "properties": {
+        "position": [
+          1008.0,
+          736.0
+        ]
+      }
+    },
+    "P-R30:hook_points:2": {
+      "component": "array:hook_points",
+      "id": "P-R30:hook_points:2",
+      "order": 2,
+      "properties": {
+        "position": [
+          1008.0,
+          576.0
+        ]
+      }
+    },
+    "P-R30:node:./Interaction_0": {
+      "component": "WorldRoomInteraction",
+      "id": "P-R30:node:./Interaction_0",
+      "node_name": "Interaction_0",
+      "node_path": "./Interaction_0",
+      "order": 1,
+      "parent": "",
+      "properties": {
+        "action_id": "pickup_TG03",
+        "label": "收取时间齿轮",
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          1040.0,
+          526.0
+        ],
+        "radius": 60.0,
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "section_id": "reward:TG03",
+        "visible": true,
+        "visual": "time_gear",
+        "z_index": 0
+      }
+    },
+    "P-R30:node:./PumpFerry": {
+      "component": "WorldMovingPlatform",
+      "id": "P-R30:node:./PumpFerry",
+      "node_name": "PumpFerry",
+      "node_path": "./PumpFerry",
+      "order": 3,
+      "parent": "",
+      "properties": {
+        "activation_flag": "",
+        "endpoint": [
+          176.0,
+          -448.0
+        ],
+        "endpoint_dwell": 0.0,
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "one_way": true,
+        "period": 8.0,
+        "phase_offset": 0.0,
+        "platform_size": [
+          144.0,
+          20.0
+        ],
+        "position": [
+          608.0,
+          672.0
+        ],
+        "rotation": 0.0,
+        "route": [
+          [
+            176.0,
+            0.0
+          ],
+          [
+            176.0,
+            -448.0
+          ]
+        ],
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "visible": true,
+        "z_index": 0
+      }
+    },
+    "P-R30:node:./RewardReturn": {
+      "component": "WorldReturnLatch",
+      "id": "P-R30:node:./RewardReturn",
+      "node_name": "RewardReturn",
+      "node_path": "./RewardReturn",
+      "order": 2,
+      "parent": "",
+      "properties": {
+        "action_id": "reward_return_TG03_open",
+        "closed_panels": [],
+        "label": "放下返程折梯",
+        "metal_hatch": false,
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          1120.0,
+          526.0
+        ],
+        "radius": 40.0,
+        "return_steps": [
+          [
+            -96.0,
+            146.0,
+            128.0,
+            16.0
+          ],
+          [
+            -160.0,
+            274.0,
+            128.0,
+            16.0
+          ]
+        ],
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "section_id": "reward:TG03",
+        "visible": true,
+        "visual": "pulley_switch",
+        "z_index": 0
+      }
+    },
+    "P-R30:platforms:0": {
+      "component": "array:platforms",
+      "id": "P-R30:platforms:0",
+      "order": 0,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          32.0,
+          256.0,
+          288.0,
+          64.0
+        ]
+      }
+    },
+    "P-R30:platforms:1": {
+      "component": "array:platforms",
+      "id": "P-R30:platforms:1",
+      "order": 1,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          896.0,
+          320.0,
+          736.0,
+          96.0
+        ]
+      }
+    },
+    "P-R30:platforms:1:inner:1": {
+      "component": "array:platforms",
+      "id": "P-R30:platforms:1:inner:1",
+      "order": 2,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          896.0,
+          416.0,
+          320.0,
+          32.0
+        ]
+      }
+    },
+    "P-R30:platforms:2": {
+      "component": "array:platforms",
+      "id": "P-R30:platforms:2",
+      "order": 3,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          896.0,
+          448.0,
+          32.0,
+          320.0
+        ]
+      }
+    },
+    "P-R30:platforms:3": {
+      "component": "array:platforms",
+      "id": "P-R30:platforms:3",
+      "order": 4,
+      "properties": {
+        "illustrated": true,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          928.0,
+          544.0,
+          224.0,
+          32.0
+        ]
+      }
+    },
+    "P-R30:platforms:4": {
+      "component": "array:platforms",
+      "id": "P-R30:platforms:4",
+      "order": 5,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          32.0,
+          896.0,
+          1152.0,
+          32.0
+        ]
+      }
+    },
+    "P-R30:platforms:5": {
+      "component": "array:platforms",
+      "id": "P-R30:platforms:5",
+      "order": 6,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          32.0,
+          640.0,
+          352.0,
+          256.0
+        ]
+      }
+    },
+    "P-R30:platforms:6": {
+      "component": "array:platforms",
+      "id": "P-R30:platforms:6",
+      "order": 7,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          416.0,
+          448.0,
+          192.0,
+          64.0
+        ]
+      }
+    },
+    "P-R30:platforms:7": {
+      "component": "array:platforms",
+      "id": "P-R30:platforms:7",
+      "order": 8,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          384.0,
+          768.0,
+          128.0,
+          128.0
+        ]
+      }
+    },
+    "P-R30:retry_anchors:0": {
+      "component": "array:retry_anchors",
+      "id": "P-R30:retry_anchors:0",
+      "order": 0,
+      "properties": {
+        "bounds": [
+          720.0,
+          836.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          768.0,
+          878.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R30:retry_anchors:1": {
+      "component": "array:retry_anchors",
+      "id": "P-R30:retry_anchors:1",
+      "order": 1,
+      "properties": {
+        "bounds": [
+          992.0,
+          484.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          1040.0,
+          526.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R30:review03:retry_launch": {
+      "component": "array:retry_anchors",
+      "id": "P-R30:review03:retry_launch",
+      "order": 2,
+      "properties": {
+        "bounds": [
+          256.0,
+          580.0,
+          96.0,
+          60.0
+        ],
+        "point": [
+          304.0,
+          622.0
+        ],
+        "section": "main"
+      }
+    },
+    "P-R30:spike_strips:0": {
+      "component": "array:spike_strips",
+      "id": "P-R30:spike_strips:0",
+      "order": 0,
+      "properties": {
+        "bounds": [
+          544.0,
+          872.0,
+          160.0,
+          24.0
+        ],
+        "facing": "up",
+        "id": "P-R30:review03:low_channel_teeth"
+      }
+    }
+  },
+  "room_id": "P-R30",
+  "root": {
+    "component": "FixedWorldRoom",
+    "properties": {
+      "arena_bounds": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "arena_door_height": 192.0,
+      "arrival_text": "田下回水洞",
+      "art_profile": "well",
+      "battle_entry_anchor": [
+        0.0,
+        0.0
+      ],
+      "boss_binding": null,
+      "boss_identity": "",
+      "boss_position": [
+        0.0,
+        0.0
+      ],
+      "defeat_action": "",
+      "defeat_flag": "",
+      "intro_sequence": {},
+      "modulate": {
+        "$color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "onboarding": {},
+      "position": [
+        0.0,
+        0.0
+      ],
+      "region_preview": "",
+      "rest_point": [
+        0.0,
+        0.0
+      ],
+      "reward_action": "",
+      "reward_point": [
+        0.0,
+        0.0
+      ],
+      "reward_text": "",
+      "room_id": "P-R30",
+      "rotation": 0.0,
+      "route_guide": {
+        "schema": 1.0,
+        "steps": [
+          {
+            "action": "左入口的实心安全岸缩为320宽；下到中层泵台后向左折返，进入宽阔操作岸。中层泵台同时承担当期返左入口的落脚和巡逻遭遇。",
+            "label": "进入左下泵房",
+            "number": 1.0,
+            "path": [
+              [
+                144.0,
+                238.0
+              ],
+              [
+                320.0,
+                238.0
+              ],
+              [
+                439.0,
+                430.0
+              ],
+              [
+                416.0,
+                430.0
+              ],
+              [
+                303.0,
+                622.0
+              ]
+            ],
+            "point": [
+              144.0,
+              238.0
+            ]
+          },
+          {
+            "action": "短跳时向身后开枪：子弹命中风铃，启动吊斗；同一枪反冲把玩家送上已在移动的吊斗。沿横轨转入中井上升，从上端向右走下东岸。允许先开铃再登台。",
+            "label": "射铃同时登台",
+            "number": 2.0,
+            "path": [
+              [
+                368.0,
+                622.0
+              ],
+              [
+                411.0,
+                567.0
+              ],
+              [
+                565.0,
+                559.0
+              ],
+              [
+                669.0,
+                644.0
+              ],
+              [
+                800.0,
+                644.0
+              ],
+              [
+                800.0,
+                197.0
+              ],
+              [
+                943.0,
+                302.0
+              ]
+            ],
+            "point": [
+              368.0,
+              622.0
+            ]
+          },
+          {
+            "action": "下层东侧保留原来的H绕墙、三个钩点、TG03和返程折梯。只保留这一个真实收集目标，不新增散落金币或虚构奖励。",
+            "label": "原铜齿探索",
+            "number": 3.0,
+            "path": [
+              [
+                768.0,
+                878.0
+              ],
+              [
+                800.0,
+                736.0
+              ],
+              [
+                1008.0,
+                736.0
+              ],
+              [
+                1008.0,
+                576.0
+              ],
+              [
+                1040.0,
+                526.0
+              ]
+            ],
+            "point": [
+              768.0,
+              878.0
+            ]
+          },
+          {
+            "action": "底层越过短刺沟，登实体恢复台，再跳回操作岸；短跳漏枪则直接落在恢复台。下层和东岸的同组铃可以远程起停载台，错过班次可等其8秒周期回程。",
+            "label": "失误回岸",
+            "number": 4.0,
+            "path": [
+              [
+                744.0,
+                878.0
+              ],
+              [
+                675.0,
+                739.0
+              ],
+              [
+                499.0,
+                750.0
+              ],
+              [
+                369.0,
+                622.0
+              ],
+              [
+                304.0,
+                622.0
+              ]
+            ],
+            "point": [
+              768.0,
+              878.0
+            ]
+          },
+          {
+            "action": "从吊斗上端回落中层泵台，再从台的左端跳起，射向右下、反冲左上回到西侧入口。不是从井顶直接横跨到西门。",
+            "label": "返回西门",
+            "number": 5.0,
+            "path": [
+              [
+                800.0,
+                197.0
+              ],
+              [
+                700.0,
+                240.0
+              ],
+              [
+                560.0,
+                430.0
+              ],
+              [
+                432.0,
+                430.0
+              ],
+              [
+                389.0,
+                328.0
+              ],
+              [
+                300.0,
+                200.0
+              ],
+              [
+                250.0,
+                238.0
+              ],
+              [
+                144.0,
+                238.0
+              ]
+            ],
+            "point": [
+              800.0,
+              197.0
+            ]
+          }
+        ]
+      },
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "section_volumes": [
+        {
+          "bounds": [
+            928.0,
+            448.0,
+            288.0,
+            160.0
+          ],
+          "id": "reward:TG03"
+        }
+      ],
+      "start_point": [
+        144.0,
+        238.0
+      ],
+      "story_sequence": {},
+      "traveler_point": [
+        0.0,
+        0.0
+      ],
+      "tutorial_action": "",
+      "tutorial_min_move": 100.0,
+      "tutorial_recoil_finish_x": 1540.0,
+      "tutorial_target": "",
+      "visible": true,
+      "wave_encounter": {},
+      "z_index": 0
+    }
+  },
+  "schema": 2
+}

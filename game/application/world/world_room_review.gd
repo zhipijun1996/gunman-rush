@@ -117,7 +117,7 @@ func show() -> void:
 		picker.get_popup().add_child(touch)
 	modal.focus_first()
 
-func begin(id: String, entry: String, ability_stage: String, invincible_mode: bool = false) -> bool:
+func begin(id: String, entry: String, ability_stage: String, invincible_mode: bool = false, editor_abilities: Variant = null, editor_flags: Array = []) -> bool:
 	if launching or app.busy or app.content.room(id).is_empty() or ability_stage not in ["base","h","hd","hwdq"]: return false
 	if not entry.is_empty() and not app.state.valid_entry(id,entry): return false
 	launching = true
@@ -140,6 +140,12 @@ func begin(id: String, entry: String, ability_stage: String, invincible_mode: bo
 	if ability_stage in ["h","hd","hwdq"]: candidate.flags.append("H")
 	if ability_stage in ["hd","hwdq"]: candidate.flags.append("D")
 	if ability_stage == "hwdq": candidate.flags.append_array(["W","Q"])
+	if editor_abilities is Array:
+		for ability: String in ["H", "W", "D", "Q"]:
+			candidate.flags.erase(ability)
+			if ability in editor_abilities: candidate.flags.append(ability)
+		for flag: Variant in editor_flags:
+			if flag is String and flag not in candidate.flags: candidate.flags.append(flag)
 	# A declared arrival simulates only the non-reward flags needed to have crossed that door.
 	if not entry.is_empty():
 		for doorway:Dictionary in app.content.room(id).doors:

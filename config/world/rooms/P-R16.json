@@ -1,0 +1,567 @@
+{
+  "entities": {
+    "P-R16:composition:0": {
+      "component": "array:art_placements",
+      "id": "P-R16:composition:0",
+      "order": 0,
+      "properties": {
+        "asset": "mill_transmission_hall",
+        "atmosphere": {
+          "density": 3,
+          "speed": [
+            3,
+            7
+          ]
+        },
+        "backdrop": true,
+        "environment": {
+          "ambient": "a5a9ab",
+          "restored": "a5a9ab"
+        },
+        "layer": -38,
+        "light": true,
+        "point": [
+          960,
+          1280
+        ],
+        "window_beam": true
+      }
+    },
+    "P-R16:composition:1": {
+      "component": "array:art_placements",
+      "id": "P-R16:composition:1",
+      "order": 1,
+      "properties": {
+        "asset": "mill_drive_frame",
+        "layer": -6,
+        "point": [
+          1312,
+          1024
+        ]
+      }
+    },
+    "P-R16:composition:10": {
+      "component": "array:art_placements",
+      "id": "P-R16:composition:10",
+      "order": 10,
+      "properties": {
+        "surface_platform": 6
+      }
+    },
+    "P-R16:composition:2": {
+      "component": "array:art_placements",
+      "id": "P-R16:composition:2",
+      "order": 2,
+      "properties": {
+        "asset": "storage_crates",
+        "layer": -4,
+        "point": [
+          1392,
+          704
+        ]
+      }
+    },
+    "P-R16:composition:3": {
+      "component": "array:art_placements",
+      "id": "P-R16:composition:3",
+      "order": 3,
+      "properties": {
+        "asset": "travel_bundle",
+        "layer": -4,
+        "point": [
+          1088,
+          1024
+        ]
+      }
+    },
+    "P-R16:composition:4": {
+      "component": "array:art_placements",
+      "id": "P-R16:composition:4",
+      "order": 4,
+      "properties": {
+        "asset": "barrel",
+        "layer": -4,
+        "point": [
+          1440,
+          1024
+        ]
+      }
+    },
+    "P-R16:composition:5": {
+      "component": "array:art_placements",
+      "id": "P-R16:composition:5",
+      "order": 5,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -3,
+        "light": true,
+        "point": [
+          448,
+          896
+        ]
+      }
+    },
+    "P-R16:composition:6": {
+      "component": "array:art_placements",
+      "id": "P-R16:composition:6",
+      "order": 6,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -3,
+        "light": true,
+        "point": [
+          976,
+          768
+        ]
+      }
+    },
+    "P-R16:composition:7": {
+      "component": "array:art_placements",
+      "id": "P-R16:composition:7",
+      "order": 7,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -3,
+        "light": true,
+        "point": [
+          624,
+          224
+        ]
+      }
+    },
+    "P-R16:composition:8": {
+      "component": "array:art_placements",
+      "id": "P-R16:composition:8",
+      "order": 8,
+      "properties": {
+        "surface_platform": 4
+      }
+    },
+    "P-R16:composition:9": {
+      "component": "array:art_placements",
+      "id": "P-R16:composition:9",
+      "order": 9,
+      "properties": {
+        "surface_platform": 5
+      }
+    },
+    "P-R16:node:./Cache_loft_cache": {
+      "component": "WorldRoomInteraction",
+      "id": "P-R16:node:./Cache_loft_cache",
+      "node_name": "Cache_loft_cache",
+      "node_path": "./Cache_loft_cache",
+      "order": 3,
+      "parent": "",
+      "properties": {
+        "action_id": "open_P16_loft_cache",
+        "label": "打开回铃高阁箱",
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          480.0,
+          206.0
+        ],
+        "radius": 48.0,
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "section_id": "main",
+        "visible": true,
+        "visual": "chest",
+        "z_index": 0
+      }
+    },
+    "P-R16:node:./LoftApproachHook": {
+      "component": "GrappleAnchor",
+      "id": "P-R16:node:./LoftApproachHook",
+      "node_name": "LoftApproachHook",
+      "node_path": "./LoftApproachHook",
+      "order": 1,
+      "parent": "",
+      "properties": {
+        "hang_enabled": true,
+        "material_family": "clockwork",
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          1040.0,
+          576.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "visible": true,
+        "z_index": 0
+      }
+    },
+    "P-R16:node:./LoftRecoilHook": {
+      "component": "GrappleAnchor",
+      "id": "P-R16:node:./LoftRecoilHook",
+      "node_name": "LoftRecoilHook",
+      "node_path": "./LoftRecoilHook",
+      "order": 2,
+      "parent": "",
+      "properties": {
+        "hang_enabled": true,
+        "material_family": "clockwork",
+        "modulate": {
+          "$color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "position": [
+          784.0,
+          416.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+          1.0,
+          1.0
+        ],
+        "visible": true,
+        "z_index": 0
+      }
+    },
+    "P-R16:platforms:1": {
+      "component": "array:platforms",
+      "id": "P-R16:platforms:1",
+      "order": 0,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          448.0,
+          1184.0,
+          96.0,
+          64.0
+        ]
+      }
+    },
+    "P-R16:platforms:2": {
+      "component": "array:platforms",
+      "id": "P-R16:platforms:2",
+      "order": 1,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          32.0,
+          1024.0,
+          288.0,
+          32.0
+        ]
+      }
+    },
+    "P-R16:platforms:2:inner:1": {
+      "component": "array:platforms",
+      "id": "P-R16:platforms:2:inner:1",
+      "order": 2,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          192.0,
+          1056.0,
+          128.0,
+          32.0
+        ]
+      }
+    },
+    "P-R16:platforms:3": {
+      "component": "array:platforms",
+      "id": "P-R16:platforms:3",
+      "order": 3,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          576.0,
+          1024.0,
+          928.0,
+          32.0
+        ]
+      }
+    },
+    "P-R16:platforms:4": {
+      "component": "array:platforms",
+      "id": "P-R16:platforms:4",
+      "order": 4,
+      "properties": {
+        "illustrated": true,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          320.0,
+          1024.0,
+          256.0,
+          24.0
+        ]
+      }
+    },
+    "P-R16:platforms:5": {
+      "component": "array:platforms",
+      "id": "P-R16:platforms:5",
+      "order": 5,
+      "properties": {
+        "illustrated": true,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          320.0,
+          896.0,
+          288.0,
+          32.0
+        ]
+      }
+    },
+    "P-R16:platforms:6": {
+      "component": "array:platforms",
+      "id": "P-R16:platforms:6",
+      "order": 6,
+      "properties": {
+        "illustrated": true,
+        "masonry": false,
+        "one_way": true,
+        "rect": [
+          768.0,
+          768.0,
+          288.0,
+          32.0
+        ]
+      }
+    },
+    "P-R16:platforms:7": {
+      "component": "array:platforms",
+      "id": "P-R16:platforms:7",
+      "order": 7,
+      "properties": {
+        "illustrated": false,
+        "masonry": false,
+        "one_way": false,
+        "rect": [
+          1248.0,
+          704.0,
+          256.0,
+          64.0
+        ]
+      }
+    },
+    "P-R16:r7:upper_coin_bank": {
+      "component": "array:platforms",
+      "id": "P-R16:r7:upper_coin_bank",
+      "order": 8,
+      "properties": {
+        "illustrated": false,
+        "masonry": true,
+        "one_way": false,
+        "rect": [
+          384.0,
+          224.0,
+          288.0,
+          40.0
+        ]
+      }
+    }
+  },
+  "room_id": "P-R16",
+  "root": {
+    "component": "FixedWorldRoom",
+    "properties": {
+      "arena_bounds": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "arena_door_height": 192.0,
+      "arrival_text": "风车外沿廊",
+      "art_profile": "mill",
+      "battle_entry_anchor": [
+        0.0,
+        0.0
+      ],
+      "boss_binding": null,
+      "boss_identity": "",
+      "boss_position": [
+        0.0,
+        0.0
+      ],
+      "defeat_action": "",
+      "defeat_flag": "",
+      "intro_sequence": {},
+      "modulate": {
+        "$color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "onboarding": {},
+      "position": [
+        0.0,
+        0.0
+      ],
+      "region_preview": "",
+      "rest_point": [
+        640.0,
+        1006.0
+      ],
+      "reward_action": "",
+      "reward_point": [
+        0.0,
+        0.0
+      ],
+      "reward_text": "",
+      "room_id": "P-R16",
+      "rotation": 0.0,
+      "route_guide": {
+        "schema": 1.0,
+        "steps": [
+          {
+            "action": "保留底部休息岸与通向东门的原台阶；无H也可按原路到达出口。",
+            "label": "休息与初访主路",
+            "number": 1.0,
+            "path": [
+              [
+                512.0,
+                1166.0
+              ],
+              [
+                448.0,
+                1006.0
+              ],
+              [
+                640.0,
+                1006.0
+              ],
+              [
+                448.0,
+                878.0
+              ],
+              [
+                912.0,
+                750.0
+              ],
+              [
+                1392.0,
+                686.0
+              ]
+            ],
+            "point": [
+              512.0,
+              1166.0
+            ]
+          },
+          {
+            "action": "从上层主路牵引第一环，跳离后钩住左上环，再向右下射击反冲到左侧高岸；高阁箱一次散落20金币，不沿路零散撒币。",
+            "label": "上空钩索与反冲回访",
+            "number": 2.0,
+            "path": [
+              [
+                992.0,
+                750.0
+              ],
+              [
+                1040.0,
+                576.0
+              ],
+              [
+                784.0,
+                416.0
+              ],
+              [
+                608.0,
+                206.0
+              ],
+              [
+                480.0,
+                206.0
+              ]
+            ],
+            "point": [
+              992.0,
+              750.0
+            ]
+          },
+          {
+            "action": "从高岸右端落下可再钩上环稳住，松钩后回原6号宽台；漏钩也落入无刺休息层。",
+            "label": "从高岸回主路",
+            "number": 3.0,
+            "path": [
+              [
+                480.0,
+                206.0
+              ],
+              [
+                704.0,
+                206.0
+              ],
+              [
+                784.0,
+                416.0
+              ],
+              [
+                960.0,
+                750.0
+              ],
+              [
+                1392.0,
+                686.0
+              ]
+            ],
+            "point": [
+              480.0,
+              206.0
+            ]
+          }
+        ]
+      },
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "section_volumes": [],
+      "start_point": [
+        512.0,
+        1166.0
+      ],
+      "story_sequence": {},
+      "traveler_point": [
+        0.0,
+        0.0
+      ],
+      "tutorial_action": "",
+      "tutorial_min_move": 100.0,
+      "tutorial_recoil_finish_x": 1540.0,
+      "tutorial_target": "",
+      "visible": true,
+      "wave_encounter": {},
+      "z_index": 0
+    }
+  },
+  "schema": 2
+}

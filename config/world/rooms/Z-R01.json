@@ -1,0 +1,251 @@
+{
+  "entities": {
+    "Z-R01:art:clockroute:0": {
+      "component": "array:art_placements",
+      "id": "Z-R01:art:clockroute:0",
+      "order": 0,
+      "properties": {
+        "asset": "clockheart_hall",
+        "atmosphere": {
+          "density": 1,
+          "speed": [
+            4,
+            8
+          ],
+          "sway_speed": 0.35
+        },
+        "backdrop": true,
+        "environment": {
+          "ambient": "788791",
+          "restored": "82939d",
+          "threshold_energy": 0.55,
+          "threshold_opacity": 0.12
+        },
+        "layer": -45,
+        "light": true,
+        "point": [
+          768,
+          1056
+        ],
+        "tint": [
+          0.78,
+          0.86,
+          0.92,
+          1
+        ],
+        "window_beam": true
+      }
+    },
+    "Z-R01:art:clockroute:1": {
+      "component": "array:art_placements",
+      "id": "Z-R01:art:clockroute:1",
+      "order": 4,
+      "properties": {
+        "asset": "storage_crates",
+        "layer": -5,
+        "point": [
+          1280,
+          640
+        ],
+        "tint": [
+          0.65,
+          0.73,
+          0.78,
+          1
+        ]
+      }
+    },
+    "Z-R01:art_placements:0": {
+      "component": "array:art_placements",
+      "id": "Z-R01:art_placements:0",
+      "order": 1,
+      "properties": {
+        "asset": "clockheart_ruin",
+        "layer": -4.0,
+        "light": true,
+        "point": [
+          960.0,
+          640.0
+        ]
+      }
+    },
+    "Z-R01:art_placements:1": {
+      "component": "array:art_placements",
+      "id": "Z-R01:art_placements:1",
+      "order": 2,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -2.0,
+        "light": true,
+        "point": [
+          368.0,
+          640.0
+        ]
+      }
+    },
+    "Z-R01:art_placements:2": {
+      "component": "array:art_placements",
+      "id": "Z-R01:art_placements:2",
+      "order": 3,
+      "properties": {
+        "asset": "gear_lamp",
+        "layer": -2.0,
+        "light": true,
+        "point": [
+          1376.0,
+          640.0
+        ]
+      }
+    },
+    "Z-R01:platforms:0": {
+      "component": "array:platforms",
+      "id": "Z-R01:platforms:0",
+      "order": 0,
+      "properties": {
+        "illustrated": false,
+        "masonry": true,
+        "one_way": false,
+        "rect": [
+          32.0,
+          640.0,
+          1472.0,
+          96.0
+        ]
+      }
+    }
+  },
+  "room_id": "Z-R01",
+  "root": {
+    "component": "FixedWorldRoom",
+    "properties": {
+      "arena_bounds": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "arena_door_height": 192.0,
+      "arrival_text": "钟心门厅",
+      "art_profile": "clockheart",
+      "battle_entry_anchor": [
+        0.0,
+        0.0
+      ],
+      "boss_binding": null,
+      "boss_identity": "",
+      "boss_position": [
+        0.0,
+        0.0
+      ],
+      "defeat_action": "",
+      "defeat_flag": "",
+      "intro_sequence": {},
+      "modulate": {
+        "$color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "onboarding": {},
+      "position": [
+        0.0,
+        0.0
+      ],
+      "region_preview": "",
+      "rest_point": [
+        384.0,
+        622.0
+      ],
+      "reward_action": "",
+      "reward_point": [
+        0.0,
+        0.0
+      ],
+      "reward_text": "",
+      "room_id": "Z-R01",
+      "rotation": 0.0,
+      "route_guide": {
+        "schema": 1.0,
+        "steps": [
+          {
+            "action": "进入门厅，靠近损毁钟心听取修钟线索；左侧门可回前庭。",
+            "label": "停摆的心脏",
+            "number": 1.0,
+            "path": [
+              [
+                256.0,
+                622.0
+              ],
+              [
+                736.0,
+                622.0
+              ],
+              [
+                960.0,
+                622.0
+              ]
+            ],
+            "point": [
+              256.0,
+              622.0
+            ]
+          }
+        ]
+      },
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "section_volumes": [],
+      "start_point": [
+        256.0,
+        622.0
+      ],
+      "story_sequence": {
+        "action": "intro_visit_clockheart",
+        "display": [
+          0.0,
+          0.0,
+          1536.0,
+          768.0
+        ],
+        "establish_seconds": 2.2,
+        "focus": [
+          960.0,
+          456.0
+        ],
+        "kind": "clockheart",
+        "lines": [
+          "钟心的主轴已经断了。你听——它连最后一声回响，也发不出来了。",
+          "各地的时律钟还连着它。先让那些钟重新鸣响，才能找回修复钟心的力量。",
+          "风铃平原的风鸣钟，就在小站北侧高地。我会先回去让开旧路。循着风里的铃声走吧。"
+        ],
+        "npc_point": [
+          752.0,
+          622.0
+        ],
+        "speaker": "守钟匠",
+        "trigger": [
+          448.0,
+          544.0,
+          512.0,
+          96.0
+        ]
+      },
+      "traveler_point": [
+        0.0,
+        0.0
+      ],
+      "tutorial_action": "",
+      "tutorial_min_move": 100.0,
+      "tutorial_recoil_finish_x": 1540.0,
+      "tutorial_target": "",
+      "visible": true,
+      "wave_encounter": {},
+      "z_index": 0
+    }
+  },
+  "schema": 2
+}

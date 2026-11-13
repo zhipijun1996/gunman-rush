@@ -1,6 +1,6 @@
 # 工作台数据导出与正式接入
 
-本页说明 [手机关卡工作台](scope.md) 的源码边界和命令。正式镜头由 `construction.json` 的 `camera.zones/links` 持有；旧 `camera_interests` 字段不再导出或接受，旧草稿须先与新版目录比较迁移。正式数据所有权沿用 [世界输入](../../../data/world/README.md)：房间布置由 `.tscn` 持有，世界身份和连接归 `world.json`，门位、落脚和房形归 `construction.json`，收集设计归 `collection_design.json`。网页草稿是这些源的编辑视图，不能成为另一份游戏世界。
+本页说明 [手机关卡工作台](scope.md) 的源码边界和命令。正式镜头由 `construction.json` 的 `camera.zones/links` 持有；旧 `camera_interests` 字段不再导出或接受，旧草稿须先与新版目录比较迁移。正式数据所有权沿用 [世界输入](../../../data/world/README.md)：房间布置由 `config/world/rooms/<ID>.json` 持有，`.tscn` 为同源装载壳，世界身份和连接归 `world.json`，门位、落脚和房形归 `construction.json`，收集设计归 `collection_design.json`。网页草稿是这些源的编辑视图，不能成为另一份游戏世界。
 
 ## 数据来源与精确对应
 
@@ -77,7 +77,7 @@ python3 tools/world/workbench_apply.py accepted-change.json --output-dir build/w
 
 1. 检查包的基线属于当前提交历史，全部来源哈希及存在时的组件合同仍一致，编译内容版本一致，每个房间的内部身份、修订和场景哈希与包一致。
 2. 用共享 Godot 编解码器重新提取当前场景，核对收集宿主和支持的编辑字段。
-3. 在独立候选目录更新明确提交的世界输入；实际场景只由共享 Godot 编解码器保存，再重新载入并比较全部导出字段。
+3. 在独立候选目录更新明确提交的世界输入；实际布置由共享 Godot 编解码器保存为房间JSON，并通过真实装载器重新载入比较；保留无布置的场景壳以兼容直接消费者。
 4. 在隔离候选树运行原 `build(root)`，检查全世界合同、已采用房形、成对门缝和内容版本；再次核对地图位置由提交的门缝推导。
 5. 产生含候选文件 SHA256、场景回读证明和候选内容版本的收据。未指定 `--write` 时正式源不变。
 6. `--write` 再核来源哈希，逐文件以原子替换写入已经核对的候选字节，运行正式编译并比较内容版本。捕获的写入或编译错误会恢复所有已改文件的原字节，并重建派生包；恢复失败单独报告，不谎称源未变化。
