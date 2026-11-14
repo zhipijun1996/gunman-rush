@@ -3,10 +3,11 @@ from pathlib import Path
 import argparse,copy,hashlib,json,subprocess
 from preview_catalog import preview_catalog
 from forest_review import build as forest_blueprint
+from spatial_layout import apply as apply_spatial_layout
 ROOT=Path(__file__).resolve().parents[2]
 def load(path):return json.loads(path.read_text())
 def sha(value):return hashlib.sha256(json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-def export(root=ROOT):
+def export(root=ROOT, spatial_draft=False):
     source=root/'config/world';world=load(source/'world.json');construction=load(source/'construction.json');contracts=load(root/'build/world/contracts.json');runtime=load(root/'build/world/runtime.json');catalog=load(root/'build/editor/catalog.json')
     p={'schema':3,'id':'gunman-rush-world','revision':0,'source':{'repository':'zhipijun1996/gunman-rush','commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'content_version':runtime['content_version'],'protocol':3,'motion_hash':sha(runtime['player']),'catalog_hash':sha(catalog)},'rooms':{},'connections':{},'rewards':{},'npcs':{},'catalog':catalog,'management':{},'locks':[],'metadata':{'name':'失序之钟 · 世界工坊','start':{'room':world['start_room'],'section':world.get('start_section','main')},'initial_tokens':world.get('initial_tokens',[])}}
     preview=preview_catalog(root)
@@ -45,6 +46,20 @@ def export(root=ROOT):
         p['rewards'][key]={'id':key,'action_id':action['id'],'room':room['id'],'section':action.get('section_id','main'),'type':action['type'],'quantity':1,'requires':action.get('requires',[[]]),'host':host,'physical':host is not None,'unique':True,'goal':True,**extra}
     for n in world['npcs']:
         host=next((e['id'] for e in p['rooms'][n['room_id']]['entities'].values() if e['component']=='WorldNpc' and e['properties'].get('npc_id')==n['id']),None);p['npcs'][n['id']]={**copy.deepcopy(n),'host':host}
+    if spatial_draft:apply_spatial_layout(p,root)
+    if spatial_draft:
+        from spatial_adjustments import world_for_draft
+        world=world_for_draft(root,world)
+        draft_actions={a['id']:a for a in world['actions']}
+        for reward in p['rewards'].values():
+            action=draft_actions.get(reward['action_id'])
+            if action:
+                reward.update(room=action['room_id'],section=action.get('section_id','main'),requires=copy.deepcopy(action.get('requires',[[]])))
+                room=p['rooms'][reward['room']]
+                host=next((e['id'] for e in room['entities'].values() if e['properties'].get('action_id',e['properties'].get('parameters',{}).get('reward_action'))==action['id']),None)
+                reward.update(host=host,physical=host is not None)
+        for npc in p['npcs'].values():
+            if npc.get('host') not in p['rooms'][npc['room_id']]['entities']:npc['host']=None
     p['catalog']['actions']=copy.deepcopy(world['actions']);p['catalog']['behavior_source']=p['source']['commit'];p['source']['document_hash']=sha(p['rooms'])
     native=root/'build/editor-native/manifest.json'
     if native.exists():
@@ -53,5 +68,5 @@ def export(root=ROOT):
     return p
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=ROOT/'build/editor/project.json');a=parser.parse_args();project=export();a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(project,ensure_ascii=False,separators=(',',':'))+'\n');print(json.dumps({'rooms':len(project['rooms']),'connections':len(project['connections']),'rewards_and_goals':len(project['rewards']),'authored':sum(r['authored'] for r in project['rooms'].values()),'output':str(a.output)},ensure_ascii=False))
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=ROOT/'build/editor/project.json');parser.add_argument('--spatial-draft',action='store_true',help='Export the explicit world layout proposal for review, not runtime geometry');a=parser.parse_args();project=export(spatial_draft=a.spatial_draft);a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(project,ensure_ascii=False,separators=(',',':'))+'\n');print(json.dumps({'rooms':len(project['rooms']),'connections':len(project['connections']),'rewards_and_goals':len(project['rewards']),'authored':sum(r['authored'] for r in project['rooms'].values()),'output':str(a.output)},ensure_ascii=False))
 if __name__=='__main__':main()

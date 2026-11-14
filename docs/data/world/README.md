@@ -4,9 +4,11 @@
 
 | 所有权 | 当前入口 |
 | --- | --- |
+| 区域重排的占地、邻接与跨区阶段意图 | [region_atlas.json](../../../config/world/region_atlas.json)，当前16区空间草图源；统一坐标记录区域占地、少量功能分区与穿行骨架，再细分房间。coordinate_system声明原点、轴向、规划格与世界单位换算，位置和宽高由outline直接求外接框；尺寸尚未按动作尺度校准。A编号是区域审核接口，不复用正式房间门ID；不直接导入App或运行 |
 | 房间、分区、连接、资格、永久动作身份 | [world.json](../../../config/world/world.json)，以最新 ZIP 主数据为基线，按用户确定的现行设计直接维护 |
 | 施工尺寸、门位、来向落脚、镜头与场景绑定 | [construction.json](../../../config/world/construction.json)；实际碰撞和对象放置由 `config/world/rooms/<ID>.json` 持有，`.tscn` 仅为同源装载壳 |
 | 平原逐房用途与遭遇职责 | [room_design.json](../../../game/world/regions/P/room_design.json)，引用稳定房号和动作，不复制碰撞 |
+| 既有房间空间参考（待按区域图重排） | [spatial_layout.json](../../../config/world/spatial_layout.json)保存16区324房的局部职责／能力／空间参考；不再作为区域体量与邻接的权威。包括改线、增删连接和15间新增房身份；region_programs持有各区地理、地标、首访、能力回访与修钟后变化，审核页及App导出直接消费。森林复用区域源，平原近站风车改线及其余完整房形与逐房体验归spatial_clusters的七份片区源；geometry_schema=2的outline持有完整占地，seam引用共享门口，path仅供路线叠加。`--spatial-draft`显式导出候选，正式运行不变；候选不升级审批 |
 | 森林整区与逐房候选 | [room_design.json](../../../game/world/regions/F/room_design.json)，现行24房/30区内连接/5跨区接口的待审占地与玩法；不自动替换施工源。审核页由 `tools/world/forest_review.py` 派生 |
 | 星桥天门挑战灰盒职责 | [room_design.json](../../../game/world/regions/V/room_design.json)与[设计规范](../../bible/regions/starbridge_gate.md)，当前仅V-R12；真实几何归该房JSON |
 | 收集系统与来源槽 | [collections.json](../../../config/world/collections.json)、[collection_design.json](../../../config/world/collection_design.json)；新版为 50 件装备来源槽，原包未提供全部最终效果、价格与平衡 |
@@ -16,7 +18,15 @@
 | 附件设计参考 | `source-v07/design/` 仅保留未重复的世界设计参考；运行不读取，施工以本表现行源为准 |
 | 编译与正式运行 | `python3 tools/world/build.py` → `build/world/contracts.json`、`runtime.json`；FixedWorldProvider 读取派生包，由 WorldRoomDocument 装载真实组件 |
 
-平原35房使用已审核的真实占地与门位，按人工草稿初审逐房接入正式目录；当前源码与公开运行包的装载范围见[当前状态](../../project/current_state.md)。另按用户明确授权开放Z-R01钟心门厅，另按用户授权接入F-R01、C-R02、M-R02、S-R01、K-R01、N-R02、G-R02七间可往返的区域示例占位；只实现平原接近段与返回，其余266房保留接口，正式路径未声明可玩。Z-R01以既有C07正面入口接入正式游戏及工作台，与前庭采用显式遮挡切换及独立室内地图层；不开启其上层未施工出口。V-R12通过`config/workbench/rooms.json`明确登记为隔离审核灰盒，正式`implemented`仍为false；这不解锁V-R11/V-R13。示例房的后续出口使用连续实体边界；外区示例不冒充整区完成。C02由P27西口接C-R02，工城由P18下层东岸接G-R02，避免穿越平原其它房间。P03原两处下方外区口撤除并补平；C03改为P03左上钩索高洞口接M-R02下口，H门槛由房内高差、索点与侧壁荆棘实现，缺H可预览并退回。C04改为P20左下接S-R01上口，两侧保留基础动作可完成的安全返回。不能把309房合同的通过等同于309房实现。
+正式运行平原35房使用已审核的真实占地与门位，按人工草稿初审逐房接入正式目录；当前源码与公开运行包的装载范围见[当前状态](../../project/current_state.md)。另按用户明确授权开放Z-R01钟心门厅，另按用户授权接入F-R01、C-R02、M-R02、S-R01、K-R01、N-R02、G-R02七间可往返的区域示例占位；只实现平原接近段与返回，其余266房保留接口，正式路径未声明可玩。Z-R01以既有C07正面入口接入正式游戏及工作台，与前庭采用显式遮挡切换及独立室内地图层；不开启其上层未施工出口。V-R12通过`config/workbench/rooms.json`明确登记为隔离审核灰盒，正式`implemented`仍为false；这不解锁V-R11/V-R13。示例房的后续出口使用连续实体边界；外区示例不冒充整区完成。C02由P27西口接C-R02，工城由P18下层东岸接G-R02样房，后续延伸的包围与跨层取舍见世界编辑器交接；样房往返不证明工城主体能够连续展开。P03原两处下方外区口撤除并补平；C03改为P03左上钩索高洞口接M-R02下口，H门槛由房内高差、索点与侧壁荆棘实现，缺H可预览并退回。C04改为P20左下接S-R01上口，两侧保留基础动作可完成的安全返回。不能把309房合同的通过等同于309房实现。
+
+`python3 tools/world/region_atlas.py`输出带坐标轴、网格和16区尺寸表的world-space-sketch.svg，以及同源区域图、离线手机HTML与源JSON。点击区域可查邻接与接口用途，阶段路线显示游历意图，不模拟区内通行。审核后先细化各区街区／层次，再迁移房间；不会把既有房间自动等比塞入轮廓。
+
+`python3 tools/world/world_review.py`仍可重现既有房间参考，按同一坐标输出总图、分区图、跨区接缝图、单文件手机审核页和App导入文件。候选324房、427连接，32对连续跨区口与20处具名配对交通分别显示；校验无重叠、全部候选连续门的实际净宽、共点和相反门向。手机页可查房间职责、能力、Boss、奖励、NPC、休息点、路线、门对与交通原因；选择地区后显示地理、地标、首访、能力回访及修钟后变化，并筛选相关路线。总览图突出地区层级，详细图保留逐房职责。
+
+候选身份与拓扑变更只在spatial_layout.json持有：connection_adjustments调整端点与资格，connection_removals删除冗余连接，additional_rooms/additional_connections声明新增身份，room_identity_adjustments修订已变职责的名称，action_adjustments将开门动作移至实际操作侧，room_section_removals仅删除已无门或动作引用的废弃分区；room_route_adjustments更新房内能力路线及物理意图，room_route_additions/additional_actions持有新分区和本地动作，rope_platforms登记可选断绳落台的因果与替代路线。replanned_rooms明确重新施工的房间，导出清除其旧实例并撤销已开发标记，不能在新占地套用旧关卡。route_review记录当前资格回放的来向调整，复用正式目标并重排能力顺序、来向与本地动作，不复制四套路线；world_routes声明可审核的玩家行程，按指定房序与本地动作验证，不能经全图绕路替代。review_groups提供相连片区筛选。移动入口时连同其entry分区、内部路线和绑定动作迁移；新增入口不得落在能力锁后方绕过资格。编译后的同一候选同时供总图、邻接、端口与App使用，不把两份世界身份都当正式源。
+
+房间参考保留此前用户确认的局部意图，后续按区域图重新落位：P07→G02为田货轨车；G18→G25仍为已确认货梯，M02→M01仍为井内升降。新增泵道、装卸站与观墓前崖用于分段和接近；遗迹排水回路、工城修炉回程使用明确永久条件。W先于H/D的新顺序只在候选中执行；新顺序不能与正式旧地形混装。正式world/construction与运行房间不变，审核后的灰盒施工须统一回写正式源并退出对应候选，不能把排图完成视作关卡实现。
 
 地图接缝、房间形态与真实通行的要求统一见 [房间制作](../../bible/room_authoring.md)。正面建筑入口由construction门对的`front_door`显式标记：配对身份、资格与落脚仍校验，室内坐标层不强行与室外边缘拼接，也不在房界开假洞；普通侧门继续校验实际接缝。宏观图提供空间意图，施工门位、落脚和地图须共同校准；构建检查不能替代连续地区的实际体验审查。
 
