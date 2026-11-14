@@ -20,6 +20,9 @@ func _ready() -> void:
 		encounter = get_parent().get_node_or_null("Encounter") as WindkeeperEncounter
 	if encounter == null:
 		return
+	var arrival:=BossArrivalPresentation.new()
+	arrival.configure(encounter,body,false)
+	add_child(arrival)
 	var phase_screen:=WindkeeperPhaseScreen.new()
 	phase_screen.encounter=encounter as WindkeeperPressureEncounter
 	add_child(phase_screen)

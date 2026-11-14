@@ -12,9 +12,19 @@ const REST_CUES := {
 	&"rest_current": preload("res://assets/player_presentation_01/charging/audio/current.wav"),
 	&"rest_restore": preload("res://assets/player_presentation_01/charging/audio/restore.wav"),
 }
+const RENEWAL_CUES := {
+	&"boss_arrival_land": preload("res://assets/audio/vfx_renewal/boss_land.wav"),
+	&"boss_gate": preload("res://assets/audio/vfx_renewal/gate.wav"),
+	&"boss_arrival_air": preload("res://assets/audio/vfx_renewal/boss_air.wav"),
+	&"boss_impact": preload("res://assets/audio/vfx_renewal/boss_land.wav"),
+	&"chest_reveal": preload("res://assets/audio/vfx_renewal/chest.wav"),
+	&"loot_scatter": preload("res://assets/audio/vfx_renewal/spill.wav"),
+	&"coin_bounce": preload("res://assets/audio/vfx_renewal/bounce.wav"),
+	&"coin": preload("res://assets/audio/vfx_renewal/coin.wav"),
+}
 const FOCUS_CUES := {
-	&"heal_gather": preload("res://assets/player_presentation_01/focus/audio/gather.wav"),
-	&"heal_release": preload("res://assets/player_presentation_01/focus/audio/release.wav"),
+	&"heal_gather": preload("res://assets/audio/vfx_renewal/gather.wav"),
+	&"heal_release": preload("res://assets/audio/vfx_renewal/restore.wav"),
 }
 # Per-origin death timbre; the existing accepted cue still owns timing/pooling.
 const CUE_STREAM_OVERRIDES_META := &"audio_cue_stream_overrides"
@@ -165,7 +175,7 @@ static func cue(origin: Node, id: StringName) -> void:
 		if service.director_profile_for_event(event_id) != "original":
 			service.play_director_event(event_id, "", origin)
 			return
-		service._play_original(id, service._origin_stream_override(origin, id))
+		service._play_original(id, service._origin_stream_override(origin, id),false,origin)
 
 func _origin_stream_override(origin: Node, id: StringName) -> AudioStream:
 	if id != &"enemy_defeat": return null
@@ -242,6 +252,7 @@ func _ready() -> void:
 	_streams[&"clock_resonance"] = CLOCK_RESONANCE
 	_streams.merge(REST_CUES)
 	_streams.merge(FOCUS_CUES)
+	_streams.merge(RENEWAL_CUES,true)
 	for index: int in MAX_VOICES:
 		var voice := AudioStreamPlayer.new()
 		add_child(voice)
@@ -409,6 +420,11 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 	if get_tree().paused and not pause_safe and id not in [&"click", &"confirm", &"denied"]: return false
 	var interval := 0.16 if id in [&"step", &"denied", &"armour"] else 0.055
 	if _clock - float(_last.get(id, -100.0)) < interval: return false
+	if RENEWAL_CUES.has(id):
+		var active:=0
+		for voice:AudioStreamPlayer in _voices:
+			if (voice.playing or voice.stream_paused) and voice.get_meta("cue_id",&"")==id:active+=1
+		if active>=(1 if id in [&"chest_reveal",&"boss_arrival_air",&"boss_arrival_land",&"boss_gate",&"boss_impact"] else 2):return false
 	for voice: AudioStreamPlayer in _voices:
 		if voice.playing or voice.stream_paused: continue
 		_last[id] = _clock
@@ -416,7 +432,7 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 		voice.process_mode = Node.PROCESS_MODE_ALWAYS if pause_safe or id in [&"click", &"confirm", &"denied"] else Node.PROCESS_MODE_PAUSABLE
 		voice.set_meta("cue_id", id)
 		_clear_director_metadata(voice)
-		if FOCUS_CUES.has(id) and is_instance_valid(origin):
+		if (FOCUS_CUES.has(id) or RENEWAL_CUES.has(id)) and is_instance_valid(origin):
 			voice.set_meta("director_event",id)
 			voice.set_meta("director_origin",weakref(origin))
 			voice.set_meta("director_sustained",id==&"heal_gather")

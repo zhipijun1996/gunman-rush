@@ -21,13 +21,13 @@ class ExportContracts(unittest.TestCase):
         result=run('export','gunman','--out',str(OUT))
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)
         directories=sorted((ROOT/'assets/vfx').glob('gunman-*'))
-        self.assertEqual(len(directories),12)
+        self.assertEqual(len(directories),18)
         for directory in directories:
             name=directory.name
             for file in [name+'.png',name+'.json','source.json']:
                 self.assertEqual(digest(directory/file),digest(OUT/name/file),f'rebuild differs: {name}/{file}')
             manifest=json.loads((directory/'source.json').read_text())
-            self.assertIn('src/fx/gunman/_lib.js',manifest['source_dependencies'])
+            self.assertTrue(any(key.startswith('src/fx/gunman/') for key in manifest['source_dependencies']))
             self.assertEqual(manifest['revision'],'5294518ce7c72e48b6100a744596e0acf57f2826')
             resource=(OUT/name/(name+'.tres')).read_text()
             x,y=manifest['pivot']

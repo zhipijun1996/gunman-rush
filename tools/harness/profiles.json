@@ -1967,6 +1967,22 @@
       ],
       "timeout_seconds": 180,
       "success_pattern": "^EDITOR PROTOCOL: passed$"
+    },
+    "vfx-audio": {
+      "mode": "manual",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/vfx/audio_contracts.gd"
+      ],
+      "timeout_seconds": 90,
+      "success_pattern": "^VFX AUDIO: 0 failures$"
     }
   },
   "profiles": {}

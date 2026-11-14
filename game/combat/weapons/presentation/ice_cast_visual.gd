@@ -15,37 +15,20 @@ static func crystal(canvas:Node2D,at:Vector2,length:float,width:float,angle:floa
 	canvas.draw_set_transform(Vector2.ZERO)
 
 static func charge(canvas:Node2D,muzzle:Vector2,axis:Vector2,progress:float)->void:
-	var t:=clampf(progress,0,1)
-	for i:int in 12:
-		var angle:=i*TAU/12+t*3.0
-		var radius:=lerpf(44,9,t)+sin(i*1.7)*3
-		var point:=muzzle+Vector2.from_angle(angle)*radius
-		canvas.draw_line(point.snapped(Vector2(2,2)),(point-Vector2.from_angle(angle)*5).snapped(Vector2(2,2)),Color(BLUE,.25+t*.65),2,false)
-	for i:int in 3:
-		var angle:=axis.angle()+i*TAU/3-t*2
-		crystal(canvas,muzzle+Vector2.from_angle(angle)*(17-8*t),4+6*t,3,axis.angle(),.5+t*.5)
-	PixelVfx.arc(canvas,muzzle,lerpf(27,14,t),t*3,t*3+PI*1.5,Color(EDGE,.45),1)
-	PixelVfx.clip(canvas,&"charge",muzzle,fposmod(t*1.7,.999),0,Color(.58,.88,1,.35+t*.35))
-	crystal(canvas,muzzle,4+10*t,2+5*t,axis.angle())
+	var t:=clampf(progress,0,.98)
+	PixelVfx.clip(canvas,&"focus-gather",muzzle,t,axis.angle(),Color(.65,.86,1,.9),Vector2(.75,.75))
+	PixelVfx.glint(canvas,muzzle,1+3*t,CORE,t)
 
 static func projectile(canvas:Node2D,axis:Vector2,age:float,history:Array[Vector2])->void:
+	# Only the actual swept path can leave a trail. The shaped lance supplies
+	# the front facets and cold-air wake, replacing the old oversized cluster.
 	for i:int in range(1,history.size()):
 		var strength:=float(i)/history.size()
-		var a:=canvas.to_local(history[i-1]).snapped(Vector2(2,2))
-		var b:=canvas.to_local(history[i]).snapped(Vector2(2,2))
-		canvas.draw_line(a,b,Color(EDGE,strength*.32),14*strength,false)
-		canvas.draw_line(a,b,Color(BLUE,strength*.65),5*strength,false)
-	PixelVfx.clip(canvas,&"cold",Vector2.ZERO,fposmod(age/.8,1),axis.angle())
-	var normal:=axis.orthogonal()
-	for i:int in 4:
-		var phase:=fposmod(age*2.5+i*.25,1)
-		var point:Vector2=-axis*(15+phase*46)+normal*sin(age*23+i*2.4)*(7+phase*5)
-		crystal(canvas,point,5-phase*2,2,axis.angle(),(1-phase)*.7)
-	crystal(canvas,Vector2.ZERO,27,11,axis.angle())
-	var glint_at:=axis*lerpf(-9,19,fposmod(age*3.5,1))
-	canvas.draw_line(glint_at-axis*2-normal*2,glint_at+axis*3+normal*2,Color(CORE,.9),1,false)
-	crystal(canvas,-axis*12+normal*10,12,4,axis.angle()+.12,.8)
-	crystal(canvas,-axis*12-normal*10,12,4,axis.angle()-.12,.8)
+		var a:=canvas.to_local(history[i-1]).round()
+		var b:=canvas.to_local(history[i]).round()
+		canvas.draw_line(a,b,Color(EDGE,strength*.25),6*strength,false)
+		canvas.draw_line(a,b,Color(BLUE,strength*.45),2*strength,false)
+	PixelVfx.clip(canvas,&"cold",axis*12,fposmod(age/.8,1),axis.angle())
 
 static func burst(canvas:Node2D,at:Vector2,axis:Vector2,age:float,impact:bool)->void:
 	var t:=clampf(age/.30,0,1)

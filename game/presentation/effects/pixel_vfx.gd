@@ -4,6 +4,12 @@ extends RefCounted
 ## Shared read-only pixels. No nodes, clocks, callbacks, physics or random streams.
 ## Sprite shapes are authored offline with the pinned pixelfx tooling.
 const CLIPS := {
+	&"focus-gather": preload("res://assets/vfx/gunman-focus-gather/gunman-focus-gather.tres"),
+	&"focus-restore": preload("res://assets/vfx/gunman-focus-restore/gunman-focus-restore.tres"),
+	&"boss-land": preload("res://assets/vfx/gunman-boss-land/gunman-boss-land.tres"),
+	&"chest-rays": preload("res://assets/vfx/gunman-chest-rays/gunman-chest-rays.tres"),
+	&"loot-spill": preload("res://assets/vfx/gunman-loot-spill/gunman-loot-spill.tres"),
+	&"coin-turn": preload("res://assets/vfx/gunman-coin-turn/gunman-coin-turn.tres"),
 	&"muzzle": preload("res://assets/vfx/gunman-muzzle/gunman-muzzle.tres"),
 	&"impact": preload("res://assets/vfx/gunman-impact/gunman-impact.tres"),
 	&"dust": preload("res://assets/vfx/gunman-dust/gunman-dust.tres"),

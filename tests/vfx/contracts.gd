@@ -15,9 +15,20 @@ func run() -> void:
   var texture:=clip.get_frame_texture(&"default",0) as AtlasTexture
   var pivot:Vector2=clip.get_meta(&"pivot")
   check(texture!=null and pivot.x>=0 and pivot.y>=0 and pivot.x<=texture.region.size.x and pivot.y<=texture.region.size.y,"preserved anchor "+str(key))
-  check(is_equal_approx(clip.get_animation_speed(&"default"),60),"preserved frame rate "+str(key))
+  check(clip.get_animation_speed(&"default") in [30.0,60.0],"preserved frame rate "+str(key))
   bytes+=int(texture.atlas.get_width()*texture.atlas.get_height()*4)
- check(bytes<8*1024*1024,"all project VFX atlases fit an eight MiB decoded budget: "+str(bytes))
+ # Color silhouettes, not merely white light: catches unconverted painter palettes.
+ for key:StringName in [&"muzzle",&"impact",&"focus-gather",&"focus-restore",&"boss-land",&"chest-rays",&"loot-spill",&"coin-turn"]:
+  var frames:SpriteFrames=PixelVfx.CLIPS[key]
+  var atlas:=frames.get_frame_texture(&"default",0 if key==&"coin-turn" else frames.get_frame_count(&"default")/4) as AtlasTexture
+  var pixels:=atlas.atlas.get_image()
+  var colors:Dictionary={}
+  for y:int in range(int(atlas.region.position.y),int(atlas.region.end.y)):
+   for x:int in range(int(atlas.region.position.x),int(atlas.region.end.x)):
+    var color:=pixels.get_pixel(x,y)
+    if color.a>.3 and (absf(color.r-color.g)>.07 or absf(color.g-color.b)>.07):colors[color.to_rgba32()]=true
+  check(colors.size()>=6,"colored primary silhouette survives export: "+str(key))
+ check(bytes<16*1024*1024,"all project VFX atlases fit a sixteen MiB decoded budget: "+str(bytes))
  var owner:=Node2D.new();root.add_child(owner)
  var leaf:=Node2D.new();owner.add_child(leaf)
  owner.set_meta(&"reduced_vfx",true)

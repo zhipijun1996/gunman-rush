@@ -1,65 +1,105 @@
-[gd_resource type="SpriteFrames" load_steps=14 format=3]
+[gd_resource type="SpriteFrames" load_steps=22 format=3]
 
 [ext_resource type="Texture2D" path="res://assets/vfx/gunman-muzzle/gunman-muzzle.png" id="1"]
 
 [sub_resource type="AtlasTexture" id="Frame_0"]
 atlas = ExtResource("1")
-region = Rect2(0, 0, 64, 40)
+region = Rect2(0, 0, 112, 80)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="Frame_1"]
 atlas = ExtResource("1")
-region = Rect2(64, 0, 64, 40)
+region = Rect2(112, 0, 112, 80)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="Frame_2"]
 atlas = ExtResource("1")
-region = Rect2(128, 0, 64, 40)
+region = Rect2(224, 0, 112, 80)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="Frame_3"]
 atlas = ExtResource("1")
-region = Rect2(0, 40, 64, 40)
+region = Rect2(336, 0, 112, 80)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="Frame_4"]
 atlas = ExtResource("1")
-region = Rect2(64, 40, 64, 40)
+region = Rect2(0, 80, 112, 80)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="Frame_5"]
 atlas = ExtResource("1")
-region = Rect2(128, 40, 64, 40)
+region = Rect2(112, 80, 112, 80)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="Frame_6"]
 atlas = ExtResource("1")
-region = Rect2(0, 80, 64, 40)
+region = Rect2(224, 80, 112, 80)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="Frame_7"]
 atlas = ExtResource("1")
-region = Rect2(64, 80, 64, 40)
+region = Rect2(336, 80, 112, 80)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="Frame_8"]
 atlas = ExtResource("1")
-region = Rect2(128, 80, 64, 40)
+region = Rect2(0, 160, 112, 80)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="Frame_9"]
 atlas = ExtResource("1")
-region = Rect2(0, 120, 64, 40)
+region = Rect2(112, 160, 112, 80)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="Frame_10"]
 atlas = ExtResource("1")
-region = Rect2(64, 120, 64, 40)
+region = Rect2(224, 160, 112, 80)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="Frame_11"]
 atlas = ExtResource("1")
-region = Rect2(128, 120, 64, 40)
+region = Rect2(336, 160, 112, 80)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Frame_12"]
+atlas = ExtResource("1")
+region = Rect2(0, 240, 112, 80)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Frame_13"]
+atlas = ExtResource("1")
+region = Rect2(112, 240, 112, 80)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Frame_14"]
+atlas = ExtResource("1")
+region = Rect2(224, 240, 112, 80)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Frame_15"]
+atlas = ExtResource("1")
+region = Rect2(336, 240, 112, 80)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Frame_16"]
+atlas = ExtResource("1")
+region = Rect2(0, 320, 112, 80)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Frame_17"]
+atlas = ExtResource("1")
+region = Rect2(112, 320, 112, 80)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Frame_18"]
+atlas = ExtResource("1")
+region = Rect2(224, 320, 112, 80)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Frame_19"]
+atlas = ExtResource("1")
+region = Rect2(336, 320, 112, 80)
 filter_clip = true
 
 [resource]
@@ -76,11 +116,19 @@ animations = [{
 { "duration": 1.0, "texture": SubResource("Frame_8") },
 { "duration": 1.0, "texture": SubResource("Frame_9") },
 { "duration": 1.0, "texture": SubResource("Frame_10") },
-{ "duration": 1.0, "texture": SubResource("Frame_11") }
+{ "duration": 1.0, "texture": SubResource("Frame_11") },
+{ "duration": 1.0, "texture": SubResource("Frame_12") },
+{ "duration": 1.0, "texture": SubResource("Frame_13") },
+{ "duration": 1.0, "texture": SubResource("Frame_14") },
+{ "duration": 1.0, "texture": SubResource("Frame_15") },
+{ "duration": 1.0, "texture": SubResource("Frame_16") },
+{ "duration": 1.0, "texture": SubResource("Frame_17") },
+{ "duration": 1.0, "texture": SubResource("Frame_18") },
+{ "duration": 1.0, "texture": SubResource("Frame_19") }
 ],
 "loop": false,
 "name": &"default",
 "speed": 60.0
 }]
-metadata/pivot = Vector2(20, 20)
-metadata/frame_size = Vector2(64, 40)
+metadata/pivot = Vector2(32, 44)
+metadata/frame_size = Vector2(112, 80)

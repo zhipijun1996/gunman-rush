@@ -10,6 +10,9 @@ var _doors: Array[Sprite2D] = []
 var _boss_door: Sprite2D
 var _claimed_times:Dictionary={}
 var _coin_parts:Dictionary={}
+var _coin_history:Dictionary={}
+var _coin_bounce:Dictionary={}
+var _coin_flashes:Array[Dictionary]=[]
 const LOOT_SHADER := preload("res://shaders/plains_loot_02.gdshader")
 var _loot_material := ShaderMaterial.new()
 const LIFE_ORB := preload("res://assets/plains_loot_02/life_orb.png")
@@ -81,6 +84,7 @@ func _sync_pickups() -> void:
 				_coin_parts.erase(key)
 			(_pickup_by_id[key] as Sprite2D).queue_free()
 			_pickup_by_id.erase(key)
+			_coin_history.erase(key);_coin_bounce.erase(key)
 func _make_door(location: Vector2) -> Sprite2D:
 	var sprite := Sprite2D.new()
 	sprite.texture = _texture(&"door")
@@ -92,6 +96,8 @@ func _process(delta: float) -> void:
 	if not is_instance_valid(stage):
 		return
 	_time += delta
+	for flash:Dictionary in _coin_flashes:flash.age+=delta
+	_coin_flashes=_coin_flashes.filter(func(row:Dictionary)->bool:return float(row.age)<.24)
 	_sync_pickups()
 	queue_redraw()
 	for index: int in _pickups.size():
@@ -128,6 +134,16 @@ func _process(delta: float) -> void:
 			sprite.modulate.a=1.0-progress*.6
 			if data.kind!="coin":sprite.scale*=1.0-progress*.65
 		if data.kind=="coin":
+			var bounces:=int(data.get("loot_bounces",0))
+			if _coin_bounce.has(data.id) and bounces>int(_coin_bounce[data.id]):
+				if _coin_flashes.size()<24:_coin_flashes.append({"at":sprite.position,"age":0.0})
+				if bounces==1:GameAudio.cue(self,&"coin_bounce")
+			_coin_bounce[data.id]=bounces
+			var history:Array=_coin_history.get(data.id,[])
+			if history.is_empty() or (history[-1] as Vector2).distance_squared_to(sprite.position)>4:
+				history.append(sprite.position)
+				if history.size()>5:history.pop_front()
+			_coin_history[data.id]=history
 			var cluster:Dictionary=_coin_parts[data.id]
 			var at:=sprite.position
 			for part_index:int in cluster.sprites.size():
@@ -135,11 +151,13 @@ func _process(delta: float) -> void:
 				var value:int=cluster.denominations[part_index]
 				part.visible=sprite.visible
 				part.position=at+Vector2((part_index-(cluster.sprites.size()-1)*.5)*9,0)
-				part.rotation=sprite.rotation
+				part.rotation=0
 				part.modulate=sprite.modulate
-				var width:=24.0 if value==5 else 16.0
-				var spin:=.42+.58*absf(cos(_time*(3.2 if value==5 else 4.6)+index+part_index))
-				part.scale=Vector2(width*spin,width)/part.texture.get_size()
+				var frames:SpriteFrames=PixelVfx.CLIPS[&"coin-turn"]
+				var spin:=fposmod(_time*(1.2 if value==5 else 1.65)+index*.27+part_index*.2,1)
+				part.texture=frames.get_frame_texture(&"default",mini(frames.get_frame_count(&"default")-1,floori(spin*frames.get_frame_count(&"default"))))
+				part.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+				part.scale=Vector2.ONE*(1.3 if value==5 else 1.0)
 	if is_instance_valid(_boss_loot):
 		_boss_loot.visible=stage.reward_available and _pressure_rewards_visible()
 		_boss_loot.position=PlainsCohesionArt.arrival(_boss_origin,stage.reward_position-Vector2(0,16),stage.clock-_boss_born,.85)+Vector2(0,sin(_time*3)*3)
@@ -195,18 +213,19 @@ func _pressure_rewards_visible() -> bool:
 	return stage.clock >= stage.reward_ready_at and float(encounter.combat_metrics().get("death_age", 0)) >= (encounter.definition as WindkeeperPressureDefinition).death_seconds
 
 func _draw() -> void:
-	if not is_instance_valid(stage): return
-	for index: int in _pickups.size():
-		var data: Dictionary=stage.pickups[index]
+	if not is_instance_valid(stage):return
+	for index:int in _pickups.size():
+		var data:Dictionary=stage.pickups[index]
 		var sprite:=_pickups[index]
-		if not sprite.visible: continue
+		if not sprite.visible:continue
+		if data.kind=="coin":
+			var history:Array=_coin_history.get(data.id,[])
+			if history.size()>1 and (not bool(data.get("loot_settled",false)) or data.claimed):
+				for i:int in range(1,history.size()):
+					draw_line((history[i-1] as Vector2).round(),(history[i] as Vector2).round(),Color(1,.76,.25,float(i)/history.size()*.32),1,false)
 		if data.claimed:
 			var duration:=PlainsLootMotion.COLLECT_SECONDS if bool(data.get("loot_motion",false)) else .25
 			var progress:=(_time-float(_claimed_times.get(data.id,-1000)))/duration
-			PixelVfx.clip(self,&"collect",data.get("claimed_position",data.position),progress,0,Color(1,1,1,.65))
-		else:
-			var phase:=fposmod(_time*.38+index*.37,1.0)
-			if phase<.12:
-				PixelVfx.glint(self,sprite.position+Vector2(3,-4),2,Color("f9e5a8"),sin(phase/.12*PI)*.6)
-	if is_instance_valid(_boss_loot) and _boss_loot.visible:
-		PixelVfx.glint(self,_boss_loot.position+Vector2(0,-14),3,Color("fff0b8"),.4+.25*sin(_time*3))
+			PixelVfx.clip(self,&"collect",sprite.position,progress,0,Color(1,1,1,.8))
+	for flash:Dictionary in _coin_flashes:
+		PixelVfx.glint(self,flash.at,3,Color("ffe8a0"),1-float(flash.age)/.24)

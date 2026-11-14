@@ -14,7 +14,7 @@ func record(count:int,label:String) -> void:
   await physics_frame
   if scenario=="heal" and app.story.active:app.story.finish()
   await RenderingServer.frame_post_draw
-  if i in [1,3,8,18,36,60]:root.get_texture().get_image().save_png(output+"/"+label+"-%03d.png"%i)
+  if i in [1,3,8,18,36,60] or (scenario=="boss" and i%12==0):root.get_texture().get_image().save_png(output+"/"+label+"-%03d.png"%i)
 func settle() -> void:
  for i:int in 300:
   await physics_frame
@@ -25,7 +25,7 @@ func run() -> void:
  DirAccess.make_dir_recursive_absolute(output)
  app=preload("res://game/application/world/fixed_world.tscn").instantiate();root.add_child(app)
  app.preferences.value.reduced=false;app._apply_preferences()
- await app.review.begin("P-R10" if scenario=="shot" else "P-R01" if scenario=="heal" else "P-R14","","base")
+ await app.review.begin("P-R10" if scenario=="shot" else "P-R01" if scenario=="heal" else "P-R24" if scenario=="chest" else "P-R21" if scenario=="drop" else "P-R14","","base")
  await settle()
  if app.story.active:app.story.finish();await ticks(2)
  if scenario=="shot":
@@ -58,10 +58,38 @@ func run() -> void:
   app.controller.router.set_focus_heal_held(&"keyboard_mouse",false)
   await record(30,"release")
   check(app.controller.actor_resources.health.current>hp,"recorded committed HP restoration")
+ elif scenario=="chest":
+  for other:EnemyActor in app.room.enemies.values():other.cancel_attacks();other.process_mode=Node.PROCESS_MODE_DISABLED
+  var host:WorldRoomInteraction=app.room.physical_action("open_P24_hidden_chest")
+  await fixture(host.position+Vector2(42,0));await record(30,"closed")
+  app.controller.router.request_action(&"interact")
+  await record(95,"opening")
+  check(app.state.value.receipts.has(host.action_id),"real chest interaction accepted once")
+  var before:=int(app.services.ledger().gold)
+  if not app.room.loot.pickups.is_empty():
+   await fixture(app.room.loot.pickups[0].position);await record(75,"collect")
+  check(int(app.services.ledger().gold)>before,"physical chest coins reach durable wallet")
+ elif scenario=="drop":
+  var target:EnemyActor=app.room.enemies["P-R21:encounter:01"]
+  for other:EnemyActor in app.room.enemies.values():other.cancel_attacks();other.process_mode=Node.PROCESS_MODE_DISABLED
+  await fixture(Vector2(1000,622));target.motor.position=app.player.position+Vector2(125,-18)
+  await record(30,"before")
+  target.damageable.receive_damage({"event_id":"declared_media_kill","amount":99,"source_faction":&"player","source_actor_id":app.player.get_instance_id(),"target_actor_id":target.damageable.actor_id,"target_epoch":target.damageable.damage_epoch})
+  await record(100,"scatter")
+  check(target.health.terminal and not app.room.loot.pickups.is_empty(),"actual accepted enemy death leaves physical gold")
+  var before:=int(app.services.ledger().gold)
+  await fixture(app.room.loot.pickups[0].position);await record(70,"collect")
+  check(int(app.services.ledger().gold)>before,"actual proximity pickup credits gold once")
  else:
-  await fixture(app.room.battle_entry_anchor)
+  await fixture(app.room.battle_entry_anchor+Vector2(240,0)) # Declared closer approach keeps the full guardian in the fixed-zoom review.
   await record(240,"boss")
   check(app.room.battle_started,"recorded actual Boss encounter entry")
+  var boss_audio:=GameAudio.for_origin(app) as GameAudio
+  check((app.camera as WorldCamera)._takeover.is_empty(),"arrival returns the sole camera after completion")
+  check(int(boss_audio.played.get(&"boss_arrival_air",0))==1 and int(boss_audio.played.get(&"boss_arrival_land",0))==1,"formal pressure Boss actually runs one new arrival and landing")
+ var audio:=GameAudio.for_origin(app) as GameAudio
+ if audio!=null:
+  print("VFX AUDIO ROUTING: ",JSON.stringify({"events":audio.director_events,"coin":audio._streams[&"coin"].resource_path,"boss_impact":audio._streams[&"boss_impact"].resource_path}))
  await WorldAudioLifecycle.drain_world(app);app.queue_free();await ticks(3)
  print("VFX WORLD MEDIA: ",scenario," ",failures," failures")
  quit(failures)
