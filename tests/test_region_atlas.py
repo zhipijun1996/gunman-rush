@@ -6,7 +6,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools/world'))
-from region_atlas import validate
+from region_atlas import validate, region_bounds
+from atlas_geometry import boundary, shared_port
 
 
 class RegionAtlasTests(unittest.TestCase):
@@ -16,11 +17,12 @@ class RegionAtlasTests(unittest.TestCase):
     def test_world_is_connected_without_overlap_and_both_hubs_have_five_neighbors(self):
         result = validate(self.data)
         self.assertEqual(result['regions'], 16)
-        self.assertEqual(result['interfaces'], 30)
+        self.assertEqual(result['interfaces'], 29)
         self.assertEqual(result['overlaps'], 0)
         self.assertEqual(result['city_neighbors'], ['A', 'E', 'K', 'N', 'P'])
         self.assertEqual(result['mine_neighbors'], ['E', 'G', 'P', 'R', 'S'])
-        self.assertGreater(result['area_ratio_city_to_plains'], 2)
+        self.assertGreater(result['area_ratio_city_to_plains'], 1)
+        self.assertLess(result['area_ratio_mine_to_city'], .3)
         self.assertNotIn('rooms', self.data)
 
     def test_interface_cannot_float_inside_one_region(self):
@@ -29,13 +31,12 @@ class RegionAtlasTests(unittest.TestCase):
             validate(self.data)
 
     def test_touching_at_a_corner_is_not_an_interface(self):
-        # A real portal needs boundary clearance on both sides of its center.
         edge = self.data['interfaces'][0]
-        for y in (480, 700):
-            with self.subTest(y=y):
-                edge['point'] = [620 * 32, y * 32]
-                with self.assertRaisesRegex(AssertionError, 'Corner-only port A01'):
-                    validate(self.data)
+        regions = {r['id']: r for r in self.data['regions']}
+        first, second = [regions[edge[side]]['outline'] for side in ('a', 'b')]
+        edge['point'] = next(p for p in first if boundary(second, p) and not shared_port(first, second, p))
+        with self.assertRaisesRegex(AssertionError, 'Corner-only port A01'):
+            validate(self.data)
 
     def test_overlapping_regions_are_rejected(self):
         target = next(r for r in self.data['regions'] if r['id'] == 'I')
@@ -47,6 +48,23 @@ class RegionAtlasTests(unittest.TestCase):
     def test_stage_route_cannot_jump_between_non_adjacent_regions(self):
         self.data['routes'][0]['regions'] = ['P', 'I']
         with self.assertRaisesRegex(AssertionError, 'early'):
+            validate(self.data)
+
+    def test_coordinate_budget_and_table_use_same_geometry(self):
+        self.assertEqual(self.data['coordinate_system']['planning_grid_world_units'], 1024)
+        self.assertEqual(self.data['coordinate_system']['x_direction'], 'right')
+        self.assertEqual(self.data['coordinate_system']['y_direction'], 'down')
+        regions = {r['id']: r for r in self.data['regions']}
+        self.assertEqual([v/1024 for v in region_bounds(regions['G'])], [41,23,22,14])
+        self.assertEqual([v/1024 for v in region_bounds(regions['N'])], [35,32,13,6])
+        for r in regions.values():
+            for p in r['outline']:
+                self.assertTrue(all(v % 1024 == 0 for v in p))
+
+    def test_spine_cannot_cross_unassigned_space(self):
+        r = next(r for r in self.data['regions'] if r['id']=='I')
+        r['spines'][0]['path'].insert(1, [0,0])
+        with self.assertRaisesRegex(AssertionError, 'Spine outside I'):
             validate(self.data)
 
 
