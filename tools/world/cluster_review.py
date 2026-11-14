@@ -14,6 +14,8 @@ def markers(r):
         elif a['id']=='get_lamp':m.append('照明')
         elif a['id']=='get_filter':m.append('滤芯')
         elif a['id'].startswith('repair_'):m.append('修钟')
+        elif a['id'].startswith('cut_rope_'):m.append('断绳近路／收藏')
+        elif a.get('type')=='currency_cache':m.append(str(a.get('inventory_grants',{}).get('gold',0))+'金币')
         elif a['id'].startswith('open_'):m.append('开通 '+ ' / '.join(a.get('grants',[])))
     return ' · '.join(m)
 

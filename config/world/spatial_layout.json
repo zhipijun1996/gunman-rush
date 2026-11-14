@@ -33,6 +33,7 @@
     "use": "区域相对位置、层级、体量、生活据点和回环关系参考；现行能力、奖励身份及已制作平原优先，不从图片反推碰撞。"
   },
   "cluster_sources": [
+    "config/world/spatial_clusters/plains.json",
     "config/world/spatial_clusters/underground.json",
     "config/world/spatial_clusters/northwest.json",
     "config/world/spatial_clusters/eastern.json",
@@ -58,7 +59,7 @@
     "Z",
     "G"
   ],
-  "review_summary": "16区统一世界初稿；本轮重排工城—古堡—矿井—熔炉：古堡修钟前进上街，深矿内开回工坊，修炉恢复配重梯；选择hub六条路线审核不同能力顺序与回程。",
+  "review_summary": "W开启第一次世界分流；森林H与地穴D顺序自由。近站风车给冰弹成长，工城早访建立多次返回动机；手里剑断绳只服务近路与收藏。",
   "connection_adjustments": {
     "CITY-P-G-WEST": {
       "a": "P-R07",
@@ -200,6 +201,26 @@
         ]
       ],
       "reason": "供料廊侧也先进入收藏前台，保留HWDQ挑战，不让新增外院路绕过K15收藏资格。"
+    },
+    "L23": {
+      "a": "P-R34",
+      "reason": "把风车成长支路接到小站旁旧集，远田不再是首次技能奖励的必经路。"
+    },
+    "SC-F02": {
+      "requires": [
+        [
+          "rope_F13_cut"
+        ]
+      ],
+      "reason": "手里剑仅用于可选回林下近路；完整游侠原路始终可返回。"
+    },
+    "room-link-111": {
+      "b_section": "entry:service_street",
+      "reason": "早期工坊不应绕过主轴成长门槛；在实际街口设置可预览的能力高差。"
+    },
+    "room-link-112": {
+      "b_section": "entry:service_street",
+      "reason": "早期工坊不应绕过主轴成长门槛；在实际街口设置可预览的能力高差。"
     }
   },
   "connection_removals": {
@@ -833,11 +854,28 @@
       "b_section": "entry:CITY-P-G-WEST",
       "requires": [
         [
-          "clock_P"
+          "station_briefed"
         ]
       ],
       "external": true,
-      "condition_text": "风鸣钟修复后农货轨车复行"
+      "condition_text": "风鸣钟修复后农货轨车复行",
+      "description": "小站东侧已有农货轨车的短访服务：基础动作可进工坊街；矿货、主轴及高庭仍有各自门槛。"
+    },
+    {
+      "id": "P-WINDMILL-RETURN",
+      "a": "P-R11",
+      "b": "P-R10",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        [
+          "boss_P_BELLSTRIDER_defeated"
+        ]
+      ],
+      "direction": "both",
+      "external": false,
+      "kind": "internal",
+      "description": "巡游机胜利开启侧检修门，直接落回武器匠层交付技能芯；不要求回爬原路。"
     }
   ],
   "world_routes": [
@@ -867,39 +905,33 @@
     },
     {
       "id": "hub-first",
-      "label": "H后优先短访：修钟→东门驿车→工坊升级",
+      "label": "早访工坊：基础动作救匠并返回",
       "rooms": [
-        "P-R15",
-        "P-R32",
+        "P-R01",
         "P-R31",
         "G-R02",
         "G-R01",
         "G-R03",
         "G-R01",
         "G-R02",
-        "P-R31"
+        "P-R31",
+        "P-R01"
       ],
       "color": "#e7c984",
       "starting_tokens": [
-        "H"
+        "station_briefed"
       ],
-      "goal": "利用既有修钟回路到P32，再到东门驿车P31直达工坊；完成解救与基础攻击一阶升级即可原车返回，也可继续逛城市。",
-      "failure": "工坊战斗只在控制支室；能回G01整备，首次服务不要求W、D、Q或工城Boss。东部田野不再是赴工坊的必经。",
+      "goal": "短访救匠建立后续升级目标；冰弹仍须巡游机技能芯，攻击台等待修钟。",
+      "failure": "控制间战斗可退出工坊整备；不要求H、D或工城Boss。",
       "actions_at": {
-        "P-R15": [
-          "repair_P",
-          "open_SC_P01"
-        ],
         "G-R03": [
           "release_workshop"
         ]
       },
       "actions_after_visit": {
-        "6": [
+        "5": [
           "rescue_smith",
-          "interact_qg_bench_repaired",
-          "pickup_ATK01",
-          "upgrade_attack_rank_1"
+          "interact_qg_bench_repaired"
         ]
       }
     },
@@ -927,7 +959,7 @@
         "H",
         "W"
       ],
-      "goal": "不要求古堡修钟；从上方认识城市，再从东侧打开回桥。HD可替代HW。",
+      "goal": "W+H从古堡外院进入上街；W+D也是合法替代。",
       "failure": "缺第二种位移能力停在G37来向台，沿古堡外院退出；不落入锁后。",
       "actions_at": {
         "G-R24": [
@@ -937,7 +969,7 @@
     },
     {
       "id": "hub-mine",
-      "label": "HD来访：矿货东站→开桥→回工坊",
+      "label": "WD来访：矿货东站→开桥→回工坊",
       "rooms": [
         "N-R03",
         "N-R04",
@@ -954,10 +986,10 @@
       ],
       "color": "#9bc9ee",
       "starting_tokens": [
-        "H",
+        "W",
         "D"
       ],
-      "goal": "东站来向改变视角；在G24开启回桥后，材料与武器需求把玩家带回西街。HW也可进东站。",
+      "goal": "W+D从东站回工坊；W+H也可通过，不要求先拿钩索。",
       "failure": "未能通过入口能力段可乘货梯返回；会馆、桥庭与工坊提供整备。",
       "actions_at": {
         "G-R24": [
@@ -1076,6 +1108,194 @@
           "open_city_bell_return"
         ]
       }
+    },
+    {
+      "id": "branch-hook-first",
+      "label": "W后选择一：树干钩索→返回林下→地穴二跳",
+      "rooms": [
+        "F-R01",
+        "F-R02",
+        "F-R03",
+        "F-R04",
+        "F-R19",
+        "F-R20",
+        "F-R10",
+        "F-R20",
+        "F-R19",
+        "F-R04",
+        "F-R03",
+        "F-R02",
+        "F-R16",
+        "M-R03",
+        "M-R01",
+        "M-R03",
+        "M-R14",
+        "M-R15",
+        "M-R16",
+        "M-R04",
+        "M-R09"
+      ],
+      "actions_at": {
+        "F-R10": [
+          "get_H"
+        ],
+        "M-R01": [
+          "get_lamp"
+        ],
+        "M-R09": [
+          "defeat_M_MOTHER",
+          "get_D"
+        ]
+      },
+      "starting_tokens": [
+        "W"
+      ],
+      "goal": "先H后D；树冠回来认出林下旧岔路，不把地穴锁在钩索后。",
+      "failure": "所有能力阻隔前保留安全预览台和原路返回；挑战失败回本地恢复点。",
+      "color": "#a9d6bc"
+    },
+    {
+      "id": "branch-double-first",
+      "label": "W后选择二：根下二跳→返回林下→树冠钩索",
+      "rooms": [
+        "F-R01",
+        "F-R02",
+        "F-R16",
+        "M-R03",
+        "M-R01",
+        "M-R03",
+        "M-R14",
+        "M-R15",
+        "M-R16",
+        "M-R04",
+        "M-R09",
+        "M-R04",
+        "M-R16",
+        "M-R15",
+        "M-R14",
+        "M-R03",
+        "M-R01",
+        "M-R03",
+        "F-R16",
+        "F-R02",
+        "F-R03",
+        "F-R04",
+        "F-R19",
+        "F-R20",
+        "F-R10"
+      ],
+      "actions_at": {
+        "M-R01": [
+          "get_lamp"
+        ],
+        "M-R09": [
+          "defeat_M_MOTHER",
+          "get_D"
+        ],
+        "F-R10": [
+          "get_H"
+        ]
+      },
+      "starting_tokens": [
+        "W"
+      ],
+      "goal": "先D后H；从菌廊回林下再登树干，两条能力目标可以互换。",
+      "failure": "所有能力阻隔前保留安全预览台和原路返回；挑战失败回本地恢复点。",
+      "color": "#c7adf0"
+    },
+    {
+      "id": "p-windkeeper",
+      "label": "基础动作：西部实践→牧风者→W修钟",
+      "rooms": [
+        "P-R01",
+        "P-R08",
+        "P-R06",
+        "P-R13",
+        "P-R04",
+        "P-R25",
+        "P-R26",
+        "P-R27",
+        "P-R14",
+        "P-R15"
+      ],
+      "actions_at": {
+        "P-R14": [
+          "defeat_P_WINDKEEPER",
+          "get_W"
+        ],
+        "P-R15": [
+          "repair_P",
+          "open_SC_P01"
+        ]
+      },
+      "starting_tokens": [
+        "intro_complete",
+        "station_briefed",
+        "clockheart_briefed"
+      ],
+      "goal": "P13生命支路和P25精准反冲为可选准备；P26组合实践后打Boss，W在P15立即应用。",
+      "failure": "所有能力阻隔前保留安全预览台和原路返回；挑战失败回本地恢复点。",
+      "color": "#edc47b"
+    },
+    {
+      "id": "p-nearby-ice",
+      "label": "基础动作：近站巡游机→领奖→免费冰弹",
+      "rooms": [
+        "P-R01",
+        "P-R31",
+        "P-R34",
+        "P-R10",
+        "P-R16",
+        "P-R11",
+        "P-R10",
+        "P-R34",
+        "P-R31",
+        "P-R01"
+      ],
+      "actions_at": {
+        "P-R11": [
+          "defeat_P_BELLSTRIDER",
+          "pickup_skill_core_root"
+        ]
+      },
+      "starting_tokens": [
+        "station_briefed"
+      ],
+      "goal": "先见武器匠与上层目标，完成可选挑战后经侧门直接交付；无需远田长途或钩索。",
+      "failure": "所有能力阻隔前保留安全预览台和原路返回；挑战失败回本地恢复点。",
+      "color": "#8bc9ea",
+      "actions_after_visit": {
+        "6": [
+          "install_skill_core_1"
+        ]
+      }
+    },
+    {
+      "id": "rope-ranger",
+      "label": "可选武器：游侠→断绳落桥→林下",
+      "rooms": [
+        "F-R02",
+        "F-R16",
+        "F-R12",
+        "F-R08",
+        "F-R13",
+        "F-R02"
+      ],
+      "actions_at": {
+        "F-R08": [
+          "defeat_F_RANGER",
+          "get_shuriken"
+        ],
+        "F-R13": [
+          "cut_rope_F13"
+        ]
+      },
+      "starting_tokens": [
+        "W"
+      ],
+      "goal": "绳索、吊桥与林下落点同时预告；切绳形成近路，不取武器仍可原路退出。",
+      "failure": "所有能力阻隔前保留安全预览台和原路返回；挑战失败回本地恢复点。",
+      "color": "#e4a696"
     }
   ],
   "room_identity_adjustments": {
@@ -1090,6 +1310,144 @@
     "K-R06": {
       "name": "王家供料廊",
       "purpose": "王家供料廊；外院来路分向工城上街，锁住的偏记室与档案构成回访预览。"
+    },
+    "P-R06": {
+      "purpose": "开阔岔路：主路反冲实践通向西部绕行；看见Boss回程门及森林方向，不把可选收集误当必经。"
+    },
+    "P-R13": {
+      "purpose": "西行二岔：下路普通遭遇，上路逐渐收紧的反冲荆棘挑战；近P04看到HP01奖励后可回入口挑战。"
+    },
+    "P-R04": {
+      "purpose": "西部第一处世界抉择：继续果园准备牧风者，或预览森林的W树干；短登高战斗不拉长走路。"
+    },
+    "P-R25": {
+      "purpose": "主路上方明确展示TG01精准反冲支路；低路可继续，奖励不给无意义绕远。"
+    },
+    "P-R26": {
+      "purpose": "双吊台反冲主路：射铃启动、换台避齿轮、移动落点与敌人组合；保留已认可的房间定位。"
+    },
+    "P-R27": {
+      "purpose": "战前整备与墓园预告：从安全棚辨认牧风者庭；西侧墓道先预览，W后回访。"
+    },
+    "P-R14": {
+      "purpose": "基础反冲与换边战的阶段检验，胜利授予W；场后安全墙面让玩家立即试一次新动作。"
+    },
+    "P-R15": {
+      "purpose": "W的开阔短实践与修钟高潮；回桥返回小站，告知森林钩索／菌廊二跳两个方向，不强制先H。"
+    },
+    "P-R31": {
+      "purpose": "小站东侧选择点：远眺钟心、下行旧集风车支路、农货车短访工坊；三路都有明确收益预告。"
+    },
+    "P-R34": {
+      "purpose": "小站旁旧集：左侧风车工坊的声光提示可选冰弹成长；向东进入湿地与远田，不再只作通廊。"
+    },
+    "P-R10": {
+      "purpose": "近站风车工坊：下层武器匠展示巡游机技能芯目标，上层基础射击恢复冷却挑战；胜利侧门直接回来安装冰弹。"
+    },
+    "P-R16": {
+      "purpose": "风车支路战前缓冲：从高廊下行机匣前的安全歇脚岸，窥见机器运动并选择是否挑战。"
+    },
+    "P-R11": {
+      "purpose": "可选巡游机战与技能芯领奖，战后侧检修门直回P10；无钩索也能完成。"
+    },
+    "P-R17": {
+      "purpose": "风车下层隐藏旁龛：从工坊能察觉异响，提供收藏收益并落回原岸。"
+    },
+    "P-R18": {
+      "purpose": "远田可选探索枢纽：工城田货站、古堡预告、回水洞三方向；不再承担首次技能成长的强制旅行。"
+    },
+    "P-R02": {
+      "purpose": "远田歇脚和矿口准备，回水洞回环回到东境旧田；风车主入口已经移到近站旧集。"
+    },
+    "P-R35": {
+      "purpose": "钟影下的远行汇口：朝古堡与田货站可预览新地区，向下回旧集；高桥H支路作为以后返程。"
+    },
+    "F-R02": {
+      "purpose": "林下二岔：树干上行寻H，根道下行通地穴寻D；两方向以地标预告，可自由选择。"
+    },
+    "F-R04": {
+      "purpose": "W树干攀升主轴：树冠钩索在上，跨腔和根桥留待H回访；不以自身H锁住H奖励。"
+    },
+    "F-R10": {
+      "purpose": "树冠工坊授予H；短索点应用回到树干，在熟悉分岔看见新增路线。"
+    },
+    "F-R16": {
+      "purpose": "林根换向庭：W可下菌廊取得D，也可绕行游侠藏刃；不要求先登树冠。"
+    },
+    "M-R03": {
+      "purpose": "森林根道进入的菌廊前厅；W进入主体，灯光指向营地与D挑战，缺能力可回到林下。"
+    },
+    "G-R02": {
+      "purpose": "基础动作可进入的工坊街门廊；服务可早访，远处展示需W+H或W+D的主轴路线。"
+    },
+    "G-R01": {
+      "purpose": "早访救匠与服务据点；首层冰弹仍需巡游机技能芯，修平原钟后再启动攻击升级台。"
+    },
+    "F-R01": {
+      "purpose": "林缘落脚，确认三种树层"
+    },
+    "F-R03": {
+      "purpose": "树皮侧窗换向，预览根梯捷径"
+    },
+    "F-R05": {
+      "purpose": "根井上下分流与安全整备"
+    },
+    "F-R06": {
+      "purpose": "高冠回望，短战斗换层"
+    },
+    "F-R07": {
+      "purpose": "低根出口，分清圣殿与回林路"
+    },
+    "F-R08": {
+      "purpose": "自愿游侠Boss，取得手里剑"
+    },
+    "F-R09": {
+      "purpose": "荆棘精确换向，可选高压奖励"
+    },
+    "F-R11": {
+      "purpose": "荆冠女王与森林调律终点"
+    },
+    "F-R12": {
+      "purpose": "游侠战前喘息与风险预告"
+    },
+    "F-R13": {
+      "purpose": "藏刃断绳试用与林下近路"
+    },
+    "F-R14": {
+      "purpose": "H后首个大选路空间"
+    },
+    "F-R15": {
+      "purpose": "根桥侧院，地面战和绕后选择"
+    },
+    "F-R17": {
+      "purpose": "局部生长现象与可退的旁支"
+    },
+    "F-R18": {
+      "purpose": "回根大竖井，收束多条回环"
+    },
+    "F-R19": {
+      "purpose": "树腹地面战与墙面换位"
+    },
+    "F-R20": {
+      "purpose": "取得H前最后一次W组合实践"
+    },
+    "F-R21": {
+      "purpose": "女王前最后遭遇，回望旧林路"
+    },
+    "F-R22": {
+      "purpose": "女王前休息，读完整场地入口"
+    },
+    "F-R23": {
+      "purpose": "苗圃支线：上下绕行改变射角"
+    },
+    "F-R24": {
+      "purpose": "装备支路终点，回到根梯"
+    },
+    "P-R29": {
+      "purpose": "旧谷仓遭遇与矿口分岔；手里剑回访可断绳落货盘、取30金币，主路始终可通。"
+    },
+    "G-R16": {
+      "purpose": "洗件池院的街道侧袋；可切吊盘绳索领取30金币，不作为城市推进条件。"
     }
   },
   "world_structure": [
@@ -1145,6 +1503,66 @@
           "visit_room": "S-R13",
           "purpose": "在旧渡堤预览由地穴进入湿地的门槛。"
         }
+      },
+      {
+        "match": {
+          "purpose": "从西广场初见悬钟桥正面"
+        },
+        "replace": {
+          "visit_room": "G-R12",
+          "visit_section": "entry:service_street",
+          "purpose": "从工坊街的安全台看见悬钟；主体需要W+H或W+D。"
+        }
+      },
+      {
+        "match": {
+          "purpose": "实际看到东断口和对岸住宅，W或D未到手"
+        },
+        "replace": {
+          "visit_room": "G-R12",
+          "visit_section": "entry:service_street",
+          "purpose": "先记住城市主街的高差，取得H或D后从这里回访。"
+        }
+      },
+      {
+        "match": {
+          "purpose": "先从平原东田进入门内，看到工房灯火而被H断口挡住"
+        },
+        "replace": {
+          "purpose": "从近站农货车进入基础可通行工坊街，识别服务目标。"
+        }
+      },
+      {
+        "match": {
+          "purpose": "入城门内看见固定铜环跨距"
+        },
+        "replace": {
+          "purpose": "回到工坊街，服务与深层高差区分。"
+        }
+      },
+      {
+        "match": {
+          "purpose": "进入新房入口安全区观察或回访房内障碍；亲眼看到H门L03；H后回访"
+        },
+        "replace": {
+          "purpose": "从入口安全台预览W树干高差；牧风者后回访。"
+        }
+      },
+      {
+        "match": {
+          "purpose": "进入新房入口安全区观察或回访房内障碍；H解锁后回访悬挂风铃环"
+        },
+        "replace": {
+          "purpose": "W解锁后回访树干，向上寻找钩索。"
+        }
+      },
+      {
+        "match": {
+          "purpose": "进入新房入口安全区观察或回访房内障碍；先见W锁L04，再去取得W"
+        },
+        "replace": {
+          "purpose": "先见根桥H跨腔，再上树冠取得钩索。"
+        }
       }
     ],
     "before_targets": [
@@ -1155,6 +1573,22 @@
           "defeat_P_BELLSTRIDER"
         ],
         "reason": "技能芯现归巡游机奖励，领取前必须获得对应击败收据。"
+      }
+    ],
+    "ability_action_order": {
+      "get_H": "get_W",
+      "get_W": "get_H"
+    },
+    "before_actions": {
+      "open_SC_F02": [
+        "cut_rope_F13"
+      ]
+    },
+    "target_moves": [
+      {
+        "route": "B_normal_d_first",
+        "action": "get_H",
+        "before": "defeat_E_FURNACE"
       }
     ]
   },
@@ -1172,6 +1606,222 @@
       "room_id": "N-R19",
       "section_id": "main",
       "description": "从矿井侧打开退水泵廊末端闸门，接通旧城泄洪设施与深矿交班线。"
+    },
+    "get_W": {
+      "room_id": "P-R14",
+      "section_id": "main",
+      "requires": [
+        [
+          "boss_P_WINDKEEPER_defeated"
+        ]
+      ],
+      "boss_prerequisite": "boss_P_WINDKEEPER_defeated",
+      "authored_mobility_access": [
+        []
+      ],
+      "description": "以基础动作击败牧风者，获得贴墙与墙跳；出口以宽落点练习，不要求钩索。"
+    },
+    "get_H": {
+      "room_id": "F-R10",
+      "section_id": "main",
+      "requires": [
+        []
+      ],
+      "boss_prerequisite": null,
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ],
+      "description": "沿树干墙跳登上树冠工坊，取得钩索；不要求二段跳。"
+    },
+    "get_D": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ],
+      "description": "墙面路线抵达蕈母庭，胜利获得二段跳；不要求钩索。"
+    },
+    "get_shuriken": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ],
+      "description": "游侠独立武器支路；手里剑可切断悬台绳索，打开可选近路和收集支路。"
+    },
+    "install_skill_core_1": {
+      "requires": [
+        [
+          "found_skill_core_root"
+        ]
+      ]
+    },
+    "upgrade_attack_rank_1": {
+      "requires": [
+        [
+          "smith",
+          "clock_P"
+        ]
+      ]
+    },
+    "pickup_ATK01": {
+      "requires": [
+        [
+          "smith",
+          "qg_bench_repaired",
+          "clock_P"
+        ]
+      ]
+    },
+    "repair_P": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "get_lamp": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "get_filter": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "open_s03": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "open_s06": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "pickup_EQ_MAP_P02": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "pickup_EQ_MAP_F01": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "pickup_EQ_MAP_K02": {
+      "authored_mobility_access": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ]
+    },
+    "pickup_TG05": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "pickup_TG08": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "pickup_TG09": {
+      "authored_mobility_access": [
+        [
+          "W",
+          "D"
+        ]
+      ]
+    },
+    "pickup_TG10": {
+      "authored_mobility_access": [
+        [
+          "W",
+          "D"
+        ]
+      ]
+    },
+    "pickup_TG13": {
+      "authored_mobility_access": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ]
+    },
+    "pickup_TG18": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "pickup_TG19": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "pickup_HP03": {
+      "authored_mobility_access": [
+        [
+          "W",
+          "D"
+        ]
+      ]
+    },
+    "pickup_CAP02": {
+      "authored_mobility_access": [
+        [
+          "W",
+          "D"
+        ]
+      ]
+    },
+    "open_SC_P01": {
+      "authored_mobility_access": [
+        [
+          "W"
+        ]
+      ]
+    },
+    "open_SC_F02": {
+      "requires": [
+        [
+          "rope_F13_cut"
+        ]
+      ],
+      "description": "断绳后确认返回林下的近路；永久结果由绳索收据持有。"
     }
   },
   "region_programs": {
@@ -1182,11 +1832,16 @@
         "P-R01",
         "P-R32"
       ],
-      "first_visit": "初行草坡完成反冲实践，经小站先调查钟心，再回到北路迎战牧风者。",
-      "return_visit": "H取得后，从熟悉小站选择森林、地穴与其它已预览高口。",
-      "repair_effect": "修钟打开既有P15→P32回程，同时恢复小站东门P31直达工城的农货轨车；武器服务成为可立即兑现的收益，P07田货站与东部探索仍保留。",
+      "first_visit": "基础动作完成教学，调查钟心后自由选择西路牧风者、近站风车冰弹或短访工坊。",
+      "return_visit": "W后从西部林缘分岔进入森林或地穴；H返回草坡井口和长桥，D返回高位收藏。",
+      "repair_effect": "修钟打开P15→P32回桥并启动工坊攻击升级；不把长东线作为武器成长门槛。",
       "route_ids": [
-        "hub-first"
+        "p-west",
+        "p-ice",
+        "p-fields",
+        "hub-first",
+        "p-windkeeper",
+        "p-nearby-ice"
       ],
       "branch_tradeoff": "教学线保持清楚；能力到手后扩大世界选择，支路难度与主路区别可读。"
     },
@@ -1197,15 +1852,18 @@
         "F-R04",
         "F-R11"
       ],
-      "first_visit": "林下看见游侠方向与树冠工坊，H进入树腹取得W。",
-      "return_visit": "W把同一树干变成通往根桥、女王与苗圃的多层枢纽。",
-      "repair_effect": "树心节律与光恢复，已开启根梯收束回程；保留专门荆棘支线。",
+      "first_visit": "W攀树干取H；林下岔路也能先进入地穴，游侠为可选武器。",
+      "return_visit": "H打开树冠跨腔与根桥，D为苗圃等收集提供新高度；从旧岔路回访。",
+      "repair_effect": "调律庭恢复树心声光，根梯回林下；断绳仅缩短游侠回程。",
       "route_ids": [
         "w",
         "queen",
         "root",
         "ranger",
-        "reward"
+        "reward",
+        "branch-hook-first",
+        "branch-double-first",
+        "rope-ranger"
       ],
       "branch_tradeoff": "游侠是独立武器选择；苗圃挑战绕回根梯，根桥能进一步预览圣殿。"
     },
@@ -1216,13 +1874,15 @@
         "M-R01",
         "M-R09"
       ],
-      "first_visit": "先在营地取得照明，再沿根下宽腔与菌台挑战接近D能力庭。",
-      "return_visit": "D后从后庭回到菌幕枢纽，可选主钟、苗床收集及遗迹干岸。",
-      "repair_effect": "菌光恢复并使已开启回营路更易识别，专门弹菇挑战保持。",
+      "first_visit": "W经F16根道进入菌廊，拿灯后挑战蕈母取得D；不依赖H。",
+      "return_visit": "D打开后庭、主钟与收藏侧洞；H后来从P03井口进入，形成新的平原回环。",
+      "repair_effect": "菌光恢复照出回营路线；遗迹干岸与圣殿方向成为下一目标。",
       "route_ids": [
         "m-first",
         "m-clock",
-        "m-loot"
+        "m-loot",
+        "branch-hook-first",
+        "branch-double-first"
       ],
       "branch_tradeoff": "先明确主能力目标，再用新高度打开不同收益的短回环。"
     },
@@ -1233,9 +1893,9 @@
         "S-R11",
         "S-R10"
       ],
-      "first_visit": "从平原或地穴进入干岸，先看毒池阀门；未装滤芯仍能探索外圈、收藏岸与矿道入口。",
-      "return_visit": "装备滤芯后深入深池，主钟和沉舟支线在排污桥分开；闸下接遗迹。",
-      "repair_effect": "净流后SC-S01返回熟悉观潮岸；沉舟回访有独立收益，不重复外圈。",
+      "first_visit": "W由平原渠口或菌廊进入，过滤器在安全岸取得。",
+      "return_visit": "W+H或W+D穿过深沼，收集支路和主钟分开；下方预览遗迹。",
+      "repair_effect": "退水强化安全回环，向遗迹的来向与菌廊回程各有用途。",
       "route_ids": [
         "s-deep",
         "s-loot"
@@ -1249,9 +1909,9 @@
         "T-R02",
         "T-R09"
       ],
-      "first_visit": "从森林或地穴门厅看见根柱，经外庭练习HW，再进入内侧主钟路线。",
-      "return_visit": "根桥开启后回到起始中庭；可决定挑战双卫或从渡岸前往旧城。",
-      "repair_effect": "主调律恢复根脉节律，SC-T01成为真实回程；不削弱双卫支线。",
+      "first_visit": "W+H沿森林根桥或菌廊进入祭殿，辨认根系围绕的中心庭。",
+      "return_visit": "D与Q扩展高台收藏和支路；主殿与可选双生战目标区分。",
+      "repair_effect": "修钟后可挑战双生守卫或携核心回钟心，根桥回程已见可用。",
       "route_ids": [
         "t-core",
         "t-side"
@@ -1264,9 +1924,9 @@
       "landmark_rooms": [
         "Y-R04"
       ],
-      "first_visit": "林缘进入谷底，分辨上行冰川与侧向墓园；通过一次短换墙理解风桥。",
-      "return_visit": "修钟后谷底近路连接桥背，回访收藏崖不再重爬整条谷道。",
-      "repair_effect": "峡风节律恢复，SC-Y01缩短回谷底路径，风压挑战仍有原等待岸。",
+      "first_visit": "W+H从枝冠抵达悬崖，先看风向与下一安全崖岸。",
+      "return_visit": "从墓园反向进入形成另一视角，D可拓展可选高台收藏。",
+      "repair_effect": "修钟恢复崖间回程，继续冰川或回森林，不重复单向长廊。",
       "route_ids": [
         "y-climb",
         "y-clock"
@@ -1280,9 +1940,9 @@
         "I-R05",
         "I-R08"
       ],
-      "first_visit": "山麓先看到高桥门槛，能力齐备后沿镜脊、冻结车站与折桥攀向峰顶。",
-      "return_visit": "沉雪侧洞绕回已见索道，工棚材料支路与峰顶主目标分开。",
-      "repair_effect": "校准后SC-I01恢复便捷回程；镜面、雪光与水车表现变化不改动作参数。",
+      "first_visit": "W+H沿峡谷进入冰川外层，镜像战前设置明确歇脚与目标。",
+      "return_visit": "H+W+D深入主钟，高低层回环再次看见冰层下的收藏。",
+      "repair_effect": "取得冰核心后沿既有回环回世界中枢，极端挑战保持可选。",
       "route_ids": [
         "i-peak",
         "i-loop",
@@ -1297,9 +1957,9 @@
         "C-R05",
         "C-R04"
       ],
-      "first_visit": "平原或森林来向先经过生活痕迹与守夜整备，进入岔庭选择武器支路或灯门。",
-      "return_visit": "取得灯后进入内墓；墓钟的纹章令古堡封门成为新的目标，钟后路可回钟心门厅。",
-      "repair_effect": "送葬钟声恢复并提示已开放回路，外墓仍保留安静纪念空间。",
+      "first_visit": "W可预览墓园下庭，W+H或W+D深入礼仪回廊；灯照见主目标。",
+      "return_visit": "取纹章进入古堡，另一来向接峡谷；奖励支路与送葬主路分开。",
+      "repair_effect": "修钟获王家纹章，旧院回环可回平原，非单一去古堡的走廊。",
       "route_ids": [
         "c-entry",
         "c-clock",
@@ -1314,9 +1974,9 @@
         "K-R02",
         "K-R09"
       ],
-      "first_visit": "外院先看纹章封门，再选庭院收藏或供料路去工城上街；城内入口需HW/HD，先修古堡钟不是前提。",
-      "return_visit": "带纹章进入骑士线获得Q；修钟后偏记室HWDQ收藏、档案记录及直达城市高庭的维护路展开。",
-      "repair_effect": "SC-K01把钟楼接回外庭；档案与检修口改变后期交通，不把Q光幕全部取消。",
+      "first_visit": "W从东田预览外院，W+H或W+D可进入近卫路线；纹章仍是剧情目标。",
+      "return_visit": "取得Q改变相位厅，供料廊可先去工城；档案和收藏保留各自资格。",
+      "repair_effect": "王冠修钟开检修口；与工城上街及钟心形成后期回访。",
       "route_ids": [
         "k-first",
         "k-knight",
@@ -1333,9 +1993,9 @@
         "G-R14",
         "G-R08"
       ],
-      "first_visit": "修复风鸣钟后从小站东门P31乘复行驿车直达G02；H短访工坊，停线救匠人并完成首次攻击升级，然后可原车返西线。P07保留同线田货站。",
-      "return_visit": "HW/HD从古堡外院上街或矿货东站重新进城；深矿从内侧开井盖回工坊。入口位置、收益和视角各不相同。",
-      "repair_effect": "修炉恢复上街配重梯及主轴维护门，从新口回城；打督工后修总钟，开放浮岛和工坊屋顶回程。",
+      "first_visit": "基础短访工坊救人、认识匠人；平原修钟后可升级攻击。",
+      "return_visit": "W+H或W+D从上街／矿货站再入，深矿开盖直回试射室；携材料主动回城。",
+      "repair_effect": "赴炉不强制先打督工；修炉从新口回主轴，再完成总钟和高庭探索。",
       "route_ids": [
         "hub-first",
         "hub-castle",
@@ -1356,9 +2016,9 @@
         "N-R03",
         "N-R06"
       ],
-      "first_visit": "上矿先看爆破支线与深矿入口，取得武器或继续探索由玩家决定。",
-      "return_visit": "HD深入矿井，爆破后分向矿钟、标定素材和工坊回井；上矿货梯与深矿井盖分别到东站和西街，s21由N23内开。",
-      "repair_effect": "SC-N01降低矿钟返程；矿井侧开启s33后，旧泵道成为遗迹与交班台的联运路。",
+      "first_visit": "W可进入矿口与工人站，H+D后深入运输矿段；提前看见深矿目标。",
+      "return_visit": "爆破工具展开矿道，取材料后经检修井回工坊；已有入口仍可退出。",
+      "repair_effect": "修矿钟打开材料回运；可赴熔炉或回旧城，不强制原路长返。",
       "route_ids": [
         "n-clock",
         "n-reward",
@@ -1376,9 +2036,9 @@
         "E-R09",
         "E-R04"
       ],
-      "first_visit": "在装卸站落稳后预览HDQ热闸，沿停炉路径接近主炉，能力不足可返回。",
-      "return_visit": "修炉后可走冷却检修层领取ATK04回城市主轴，也可开炉后矿井路继续采矿；城市供能变化在回程立即看见。",
-      "repair_effect": "原热闸与s34/s35回路按资格开放；专门Q段仍保留安全起手和冷却等待。",
+      "first_visit": "H+D+Q从工城装卸台进入，预告炉心与冷却回路；不要求督工先败。",
+      "return_visit": "矿井侧可再来补材料，冷却支路与炉心压力段交替。",
+      "repair_effect": "修炉恢复城市配重梯，经ATK04新口回城或转入矿井。",
       "route_ids": [
         "e-first",
         "e-ring",
@@ -1395,9 +2055,9 @@
         "R-R15",
         "R-R10"
       ],
-      "first_visit": "从地穴或湿地抵达干街，先认识市场和封闭下巷，再下降到排水中庭。",
-      "return_visit": "排水后从旧街已见缺口进入研究支线，旧泵道和冷却水路成为跨区回访选择。",
-      "repair_effect": "clock_R打开浅庭至上环近路；SC-R01回旧街，悬水退去使旧地标有新入口。",
+      "first_visit": "H+D由菌廊后庭或沼泽下岸进入沉城，沉桥与干岸交替。",
+      "return_visit": "泵道把遗迹与深矿连成回路；先收集再返回渡庭亦可。",
+      "repair_effect": "修钟与排水打开可读的回岸路径，携收获可回矿井或沼泽。",
       "route_ids": [
         "r-dry",
         "r-clock",
@@ -1414,9 +2074,9 @@
         "A-R12",
         "A-R09"
       ],
-      "first_visit": "从工城或古堡来向先落避风台，观察上岛设施后分段登高。",
-      "return_visit": "观测浮桥分向独立奖励与巨像路线；校相后回下岛并开放星桥方向。",
-      "repair_effect": "SC-A01缩短高空返程，稳定器表现恢复；危险短链仍保留恢复岸。",
+      "first_visit": "后期HWDQ进入浮岛，先在安全港辨认主塔和独立远台。",
+      "return_visit": "来自古堡或工城的来向在港口汇合，收集路线回到稳定停靠点。",
+      "repair_effect": "修钟后指向星桥和世界钟心；极限收藏不作为离开条件。",
       "route_ids": [
         "a-first",
         "a-boss",
@@ -1430,9 +2090,9 @@
       "landmark_rooms": [
         "V-R02"
       ],
-      "first_visit": "从前庭预览中央门，左右翼任选顺序；每翼末端返回同一中庭。",
-      "return_visit": "双翼完成后上行主钟与解译台；极限支线明确可选，不绑定成长或结局材料。",
-      "repair_effect": "既有回前庭与钟心接引桥收束长旅行，完成的双翼状态不因失败重置。",
+      "first_visit": "HWD进入星桥观察层，Q进入高压试炼；不把观星支路藏在终局封门后。",
+      "return_visit": "灯塔、观察层和独立极限段分开，缺能力可返回港口。",
+      "repair_effect": "取得终局钥匙后回钟心；额外收藏与最终分支自选。",
       "route_ids": [
         "v-left",
         "v-right",
@@ -1448,9 +2108,9 @@
         "Z-R10",
         "Z-R11"
       ],
-      "first_visit": "初访门厅建立修钟目标；后续从墓园、古堡及星桥回到封印前熟悉空间。",
-      "return_visit": "外轴检修台、观测井与接引露台分段接续星桥，终局主轴仍要求三核等既定资格。",
-      "repair_effect": "世界稳定或真结局沿正式条件；独立保存两场终局战的状态，休息龛保护重试。",
+      "first_visit": "平原初访只调查损毁钟心，给出各地修钟动机并返回小站。",
+      "return_visit": "W+H或W+D后开放基座维护路线，逐步展示更高层与核心安装。",
+      "repair_effect": "核心与区域记录决定终局资格；观测外环与最终封门分别管理。",
       "route_ids": [
         "z-first",
         "z-collect",
@@ -1478,30 +2138,1918 @@
     ]
   },
   "onboarding_guidance": {
-    "goal": "工城是获得H后的优先服务短访；第一次不要求打通工城，不封锁西线。",
-    "arrival": "修复风鸣钟后P31东门驿车直达G02；P07保留同线田货站，步行东部不再是去工坊的必经。",
-    "cues": [
-      {
-        "room": "P-R10",
-        "trigger": "武器匠支线免费安装完成",
-        "message": "这次先替你调好了。往后想改枪，来齿轮工城的工坊找我。",
-        "optional": true
+    "arrival": "小站东口展示三个目标：钟心塔、旧集风车的技能芯、农货车通工坊街；地图不要求先走完整远田。",
+    "service": "先救匠认识升级；冰弹交付巡游机技能芯免费安装，攻击升级台等待风鸣钟恢复供能。",
+    "clock_repair": "W取得后在林下分岔自主选择H或D；不强制顺序。"
+  },
+  "room_route_adjustments": {
+    "IR:P-R15:access:H:approach": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:P-R18:access:H:approach": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:P-R20:access:H:approach": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:Z-R04:entry:L18": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:Z-R04:entry:L18:return": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:S-R01:access:H:approach": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:S-R04:entry:L28": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:S-R04:entry:L28:return": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:S-R12:entry:L06": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:S-R12:entry:L06:return": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:N-R01:entry:C31": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:N-R01:entry:C31:return": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:N-R02:access:H:approach": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:N-R04:entry:C20": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:N-R04:entry:C20:return": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:N-R11:entry:L31": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:N-R11:entry:L31:return": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:N-R13:entry:C32": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:N-R13:entry:C32:return": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:F-R02:access:H:approach": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:F-R04:entry:L03": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:F-R04:entry:L03:return": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:F-R12:entry:L24": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:F-R12:entry:L24:return": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:F-R17:access:H:approach": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:C-R01:entry:C12": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:C-R01:entry:C12:return": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:C-R02:access:H:approach": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:C-R04:entry:L09": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:C-R04:entry:L09:return": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:C-R06:entry:L29": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:C-R06:entry:L29:return": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:C-R14:access:H:approach": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R01:access:H:approach": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R03:entry:C13": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R03:entry:C13:return": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R03:access:H:approach": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R04:entry:L05": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R04:entry:L05:return": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R06:access:H_D:approach": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R08:access:H_D:approach": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R11:entry:L26": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R11:entry:L26:return": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R12:entry:L27": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R12:entry:L27:return": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R14:access:H_D:approach": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:K-R01:entry:C05": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:K-R01:entry:C05:return": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:K-R03:entry:L10": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:K-R03:entry:L10:return": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:K-R10:entry:L37": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:K-R10:entry:L37:return": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:G-R02:entry:CITY-P-G-WEST": {
+      "requires": [
+        []
+      ],
+      "implementation": "基础地面、短阶与普通射击可通行；远处展示尚未开放的主轴路线。",
+      "physical_variants": [
+        {
+          "abilities": [],
+          "fixtures": [
+            "基础地面、短阶与普通射击可通行；远处展示尚未开放的主轴路线。"
+          ]
+        }
+      ]
+    },
+    "IR:G-R07:entry:G-E04-E07": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:G-R07:entry:G-E07-E23": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:M-R18:reward:TG09:approach": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:S-R13:entry:C26": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:S-R13:entry:C26:return": {
+      "requires": [
+        [
+          "W"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。"
+          ]
+        }
+      ]
+    },
+    "IR:S-R16:reward:TG13:approach": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:K-R24:reward:EQ_MAP_K02:approach": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:G-R22:entry:C20": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:G-R24:entry:L11": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:G-R25:entry:G-P18-L25": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:G-R37:entry:C16": {
+      "requires": [
+        [
+          "W",
+          "H"
+        ],
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "H"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        },
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以可见钩索锚点跨越树冠缺口，提供稳定出发与返回岸。 或 以贴墙停靠与墙跳换岸形成高差，途中有安全承接台。 以二段跳改变落点高度，宽台用于调整第二跳。"
+          ]
+        }
+      ]
+    },
+    "IR:N-R05:entry:L12": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "墙面停靠后用二段跳换层进入深矿；钩索不是必需能力。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "分段墙跳与二段高差，入口有稳定承接台"
+          ]
+        }
+      ]
+    },
+    "IR:N-R05:entry:L12:return": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "墙面停靠后用二段跳换层进入深矿；钩索不是必需能力。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "分段墙跳与二段高差，入口有稳定承接台"
+          ]
+        }
+      ]
+    },
+    "IR:N-R12:entry:L32": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "墙面停靠后用二段跳换层进入深矿；钩索不是必需能力。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "分段墙跳与二段高差，入口有稳定承接台"
+          ]
+        }
+      ]
+    },
+    "IR:N-R12:entry:L32:return": {
+      "requires": [
+        [
+          "W",
+          "D"
+        ]
+      ],
+      "implementation": "墙面停靠后用二段跳换层进入深矿；钩索不是必需能力。",
+      "physical_variants": [
+        {
+          "abilities": [
+            "W",
+            "D"
+          ],
+          "fixtures": [
+            "分段墙跳与二段高差，入口有稳定承接台"
+          ]
+        }
+      ]
+    }
+  },
+  "rope_platforms": [
+    {
+      "id": "rope_F13",
+      "room": "F-R13",
+      "cut_section": "main",
+      "landing_section": "rope_landing",
+      "opens": "SC-F02",
+      "purpose": "试用藏刃：切断旧吊桥绳索，桥面落成返回林下的短坡。",
+      "alternate": "F13→F08→F12→F16→F02",
+      "cut_action": "cut_rope_F13",
+      "persistent_flag": "rope_F13_cut",
+      "landing_policy": "固定预设落点；不封主路；落下前预告并为玩家保留退岸",
+      "runtime_status": "design_only"
+    },
+    {
+      "id": "rope_P29",
+      "room": "P-R29",
+      "cut_section": "main",
+      "landing_section": "rope_cache",
+      "purpose": "旧谷仓回访：吊货盘落入低槽，露出一次性金币匣；不阻挡谷仓主路。",
+      "alternate": "不取金币可沿P28↔P29↔P09正常通过",
+      "cut_action": "cut_rope_P29",
+      "persistent_flag": "rope_P29_cut",
+      "landing_policy": "固定预设落点；不封主路；落下前预告并为玩家保留退岸",
+      "runtime_status": "design_only"
+    },
+    {
+      "id": "rope_G16",
+      "room": "G-R16",
+      "cut_section": "main",
+      "landing_section": "rope_cache",
+      "purpose": "洗件池院：切绳后货盘落到池侧，形成可选金币收藏台。",
+      "alternate": "工城街道和所有必需奖励保留原通路",
+      "cut_action": "cut_rope_G16",
+      "persistent_flag": "rope_G16_cut",
+      "landing_policy": "固定预设落点；不封主路；落下前预告并为玩家保留退岸",
+      "runtime_status": "design_only"
+    }
+  ],
+  "room_route_additions": {
+    "F-R13": {
+      "sections": [
+        {
+          "id": "rope_landing",
+          "kind": "optional_reward",
+          "name": "断绳后的安全落台",
+          "safe_return_required": true
+        }
+      ],
+      "routes": [
+        {
+          "id": "IR:F-R13:rope_landing:approach",
+          "from_section": "main",
+          "to_section": "rope_landing",
+          "requires": [
+            [
+              "rope_F13_cut"
+            ]
+          ],
+          "kind": "environment_traversal",
+          "implementation": "试用藏刃：切断旧吊桥绳索，桥面落成返回林下的短坡。"
+        },
+        {
+          "id": "IR:F-R13:rope_landing:return",
+          "from_section": "rope_landing",
+          "to_section": "main",
+          "requires": [
+            []
+          ],
+          "kind": "environment_traversal",
+          "implementation": "基础跳跃或安全单向落回主路，不能困住玩家。"
+        }
+      ]
+    },
+    "P-R29": {
+      "sections": [
+        {
+          "id": "rope_cache",
+          "kind": "optional_reward",
+          "name": "断绳后的安全落台",
+          "safe_return_required": true
+        }
+      ],
+      "routes": [
+        {
+          "id": "IR:P-R29:rope_cache:approach",
+          "from_section": "main",
+          "to_section": "rope_cache",
+          "requires": [
+            [
+              "rope_P29_cut"
+            ]
+          ],
+          "kind": "environment_traversal",
+          "implementation": "旧谷仓回访：吊货盘落入低槽，露出一次性金币匣；不阻挡谷仓主路。"
+        },
+        {
+          "id": "IR:P-R29:rope_cache:return",
+          "from_section": "rope_cache",
+          "to_section": "main",
+          "requires": [
+            []
+          ],
+          "kind": "environment_traversal",
+          "implementation": "基础跳跃或安全单向落回主路，不能困住玩家。"
+        }
+      ]
+    },
+    "G-R16": {
+      "sections": [
+        {
+          "id": "rope_cache",
+          "kind": "optional_reward",
+          "name": "断绳后的安全落台",
+          "safe_return_required": true
+        }
+      ],
+      "routes": [
+        {
+          "id": "IR:G-R16:rope_cache:approach",
+          "from_section": "main",
+          "to_section": "rope_cache",
+          "requires": [
+            [
+              "rope_G16_cut"
+            ]
+          ],
+          "kind": "environment_traversal",
+          "implementation": "洗件池院：切绳后货盘落到池侧，形成可选金币收藏台。"
+        },
+        {
+          "id": "IR:G-R16:rope_cache:return",
+          "from_section": "rope_cache",
+          "to_section": "main",
+          "requires": [
+            []
+          ],
+          "kind": "environment_traversal",
+          "implementation": "基础跳跃或安全单向落回主路，不能困住玩家。"
+        }
+      ]
+    },
+    "G-R12": {
+      "sections": [
+        {
+          "id": "entry:service_street",
+          "kind": "entrance_preview",
+          "name": "工坊街安全预览台",
+          "safe_return_required": true
+        }
+      ],
+      "routes": [
+        {
+          "id": "IR:G-R12:service_street:approach",
+          "from_section": "entry:service_street",
+          "to_section": "main",
+          "requires": [
+            [
+              "W",
+              "H"
+            ],
+            [
+              "W",
+              "D"
+            ]
+          ],
+          "kind": "environment_traversal",
+          "implementation": "街口高差允许W+H跨吊环或W+D换岸；初访可见悬钟、退回工坊。"
+        },
+        {
+          "id": "IR:G-R12:service_street:return",
+          "from_section": "main",
+          "to_section": "entry:service_street",
+          "requires": [
+            []
+          ],
+          "kind": "environment_traversal",
+          "implementation": "从城市侧单向落回服务街安全岸。"
+        }
+      ]
+    }
+  },
+  "additional_actions": [
+    {
+      "id": "cut_rope_F13",
+      "room_id": "F-R13",
+      "section_id": "main",
+      "type": "environment_interaction",
+      "requires": [
+        [
+          "shuriken"
+        ]
+      ],
+      "grants": [
+        "rope_F13_cut"
+      ],
+      "persistent": true,
+      "repeat": false,
+      "description": "试用藏刃：切断旧吊桥绳索，桥面落成返回林下的短坡。"
+    },
+    {
+      "id": "cut_rope_P29",
+      "room_id": "P-R29",
+      "section_id": "main",
+      "type": "environment_interaction",
+      "requires": [
+        [
+          "shuriken"
+        ]
+      ],
+      "grants": [
+        "rope_P29_cut"
+      ],
+      "persistent": true,
+      "repeat": false,
+      "description": "旧谷仓回访：吊货盘落入低槽，露出一次性金币匣；不阻挡谷仓主路。"
+    },
+    {
+      "id": "claim_rope_P29",
+      "room_id": "P-R29",
+      "section_id": "rope_cache",
+      "type": "currency_cache",
+      "requires": [
+        []
+      ],
+      "grants": [
+        "claimed_rope_P29"
+      ],
+      "inventory_grants": {
+        "gold": 30
       },
-      {
-        "room": "P-R15",
-        "trigger": "首次修复风鸣钟；跳过演出也提交获知工坊与驿车状态",
-        "message": "钟声接通了驿车。东门那边，工坊的灯也该亮了。",
-        "optional": false
+      "persistent": true,
+      "repeat": false,
+      "description": "断绳收藏：一次性30金币；不计入必需能力或攻击素材。"
+    },
+    {
+      "id": "cut_rope_G16",
+      "room_id": "G-R16",
+      "section_id": "main",
+      "type": "environment_interaction",
+      "requires": [
+        [
+          "shuriken"
+        ]
+      ],
+      "grants": [
+        "rope_G16_cut"
+      ],
+      "persistent": true,
+      "repeat": false,
+      "description": "洗件池院：切绳后货盘落到池侧，形成可选金币收藏台。"
+    },
+    {
+      "id": "claim_rope_G16",
+      "room_id": "G-R16",
+      "section_id": "rope_cache",
+      "type": "currency_cache",
+      "requires": [
+        []
+      ],
+      "grants": [
+        "claimed_rope_G16"
+      ],
+      "inventory_grants": {
+        "gold": 30
       },
-      {
-        "room": "P-R31",
-        "trigger": "clock_P成立且尚未完成工城初次服务",
-        "message": "东门驿车 · 齿轮工城／武器工坊",
-        "optional": false
-      }
-    ],
-    "map": "首次获知只标工坊服务图标与驿车站，不揭示未知房形、奖励或秘密；任务显示可选整备，不强制弹窗或转向。",
-    "service": "G02→G01→G03→G01；停线救匠人、修工作台、领取ATK01并消费该材料完成基础攻击一阶升级。随后可原车返回或逛庭院。",
-    "limits": "候选引导与交通方案；不增加奖励ID，不重复发材料或免费升级，实际对白、车辆、存档收据与主游戏表现尚未施工。"
+      "persistent": true,
+      "repeat": false,
+      "description": "断绳收藏：一次性30金币；不计入必需能力或攻击素材。"
+    }
+  ],
+  "replanned_rooms": [
+    "P-R10",
+    "P-R11",
+    "P-R16",
+    "P-R17",
+    "P-R34"
+  ],
+  "progression_baseline": {
+    "source": "a884027 candidate",
+    "door_counts": {
+      "P-R11": 9,
+      "P-R14": 8,
+      "G-R01": null
+    },
+    "conditions": "从P01，基础枪、开场与钟心教学已完成；没有移动能力；禁用裂缝传送；只比较最少门数，不作为体验结论。"
+  },
+  "boss_adjustments": {
+    "P_WINDKEEPER": {
+      "bound_existing_actions": [
+        "get_W"
+      ],
+      "primary_reward": {
+        "mode": "direct_unique_reward",
+        "action": "get_W",
+        "reward": "W 贴墙与墙跳",
+        "reward_room": "P-R14",
+        "section_id": "main"
+      },
+      "reward_summary": "W 贴墙与墙跳",
+      "first_reward_demonstration": "战后沿安全宽墙试贴墙、蹬离和反冲换岸，到P15修风鸣钟；H留待森林树冠，不要求未获能力。",
+      "unlock_summary": "战后沿安全宽墙试贴墙、蹬离和反冲换岸，到P15修风鸣钟；H留待森林树冠，不要求未获能力。"
+    }
   }
 }

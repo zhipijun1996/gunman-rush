@@ -60,6 +60,13 @@ def world_for_draft(root,world):
             if section=='main':continue
             room['sections']=[s for s in room['sections'] if s['id']!=section]
             room['internal_routes']=[r for r in room['internal_routes'] if section not in (r['from_section'],r['to_section'])]
+    result['actions'] += copy.deepcopy(manifest.get('additional_actions', []))
+    for rid, additions in manifest.get('room_route_additions', {}).items():
+        rooms[rid]['sections'] += copy.deepcopy(additions.get('sections', []))
+        rooms[rid]['internal_routes'] += copy.deepcopy(additions.get('routes', []))
+    routes={r['id']:r for room in result['rooms'] for r in room['internal_routes']}
+    for route_id, change in manifest.get('room_route_adjustments', {}).items():
+        routes[route_id].update(copy.deepcopy(change))
     actions={a['id']:a for a in result['actions']}
     for aid,change in manifest.get('action_adjustments',{}).items():
         action=actions[aid];action.update(copy.deepcopy(change))
@@ -77,6 +84,12 @@ def world_for_draft(root,world):
         room['sections']=[s for s in room['sections'] if s['id'] not in sections]
         room['internal_routes']=[r for r in room['internal_routes']
                                  if r['from_section'] not in sections and r['to_section'] not in sections]
+    for room in result['rooms']:
+        room['section_count']=len(room['sections'])
+        room['gate_summary']='；'.join(dict.fromkeys(' / '.join('+'.join(g) or '基础' for g in r['requires']) for r in room['internal_routes'] if not r['id'].endswith(':return'))) or '基础通行'
+    for boss in result['boss_plan']['bosses']:
+        boss.update(copy.deepcopy(manifest.get('boss_adjustments',{}).get(boss['id'],{})))
+    result['counts'].update(rooms=len(result['rooms']),connections=len(result['connections']),room_connections=len(result['connections']),sections=sum(len(r['sections']) for r in result['rooms']),internal_directed_routes=sum(len(r['internal_routes']) for r in result['rooms']))
     return result
 
 def apply(root,project):
@@ -142,6 +155,7 @@ def review_route_plans(root):
     plans=json.loads((root/'config/world/routes.json').read_text())['routes']
     edits=json.loads((root/'config/world/spatial_layout.json').read_text()).get('route_review',{})
     for plan in plans:
+        plan['targets']=[edits.get('ability_action_order',{}).get(t,t) if isinstance(t,str) else t for t in plan['targets']]
         for target in plan['targets']:
             if not isinstance(target,dict):continue
             for rule in edits.get('visit_replacements',[]):
@@ -151,6 +165,13 @@ def review_route_plans(root):
             if rule['route']==plan['id']:
                 index=plan['targets'].index(rule['target'])
                 plan['targets'][index:index]=rule['insert']
+        plan['targets']=[item for target in plan['targets']
+                         for item in (edits.get('before_actions',{}).get(target,[])+[target]
+                                      if isinstance(target,str) else [target])]
+        for move in edits.get('target_moves',[]):
+            if move['route']==plan['id']:
+                plan['targets'].remove(move['action'])
+                plan['targets'].insert(plan['targets'].index(move['before']),move['action'])
     return plans
 
 

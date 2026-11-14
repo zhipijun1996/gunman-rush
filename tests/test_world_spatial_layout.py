@@ -15,7 +15,7 @@ class WorldSpatialLayout(unittest.TestCase):
   cls.manifest=json.loads((ROOT/'config/world/spatial_layout.json').read_text())
  def test_complete_world_with_purposeful_new_rooms(self):
   self.assertEqual((len(self.base['rooms']),len(self.base['connections'])),(309,409))
-  self.assertEqual((len(self.p['rooms']),len(self.p['connections'])),(324,426))
+  self.assertEqual((len(self.p['rooms']),len(self.p['connections'])),(324,427))
   self.assertEqual(self.plan['checks'],{'rooms':324,'cross_region_seams':32,'overlaps':0,'unresolved_connections':0})
   self.assertEqual(len(self.plan['transitions']),20)
   for rid,r in self.p['rooms'].items():
@@ -24,12 +24,17 @@ class WorldSpatialLayout(unittest.TestCase):
     self.assertEqual(r['entities'],{});self.assertFalse(r['implemented'])
     self.assertEqual(self.p['management'][rid]['development'],'unbuilt')
  def test_runtime_entities_rewards_npcs_and_approval_are_preserved(self):
-  self.assertEqual(self.p['rewards'],self.base['rewards']);self.assertEqual(self.p['npcs'],self.base['npcs'])
+  self.assertEqual(set(self.p['rewards']),set(self.base['rewards']))
+  self.assertEqual(set(self.p['npcs']),set(self.base['npcs']))
   for rid,r in self.base['rooms'].items():
+   if rid in self.manifest.get('replanned_rooms',[]):
+    self.assertFalse(self.p['rooms'][rid]['implemented']);self.assertEqual(self.p['rooms'][rid]['entities'],{});continue
    for key in ['entities','implemented','authored']:self.assertEqual(self.p['rooms'][rid][key],r[key],(rid,key))
    self.assertEqual(self.p['management'][rid],self.base['management'][rid])
    if rid[0]=='P':
-    for key in ['origin','bounds','spaces']:self.assertEqual(self.p['rooms'][rid][key],r[key],(rid,key))
+    for key in ['origin','bounds']:self.assertEqual(self.p['rooms'][rid][key],r[key],(rid,key))
+    from spatial import room_space
+    self.assertEqual({tuple(p) for p in room_space(self.p['rooms'][rid]['spaces'],r['bounds'][2:])['outline']},{tuple(p) for p in room_space(r['spaces'],r['bounds'][2:])['outline']})
  def test_all_candidate_ports_are_reciprocal_and_bound_to_sections(self):
   for e in self.p['connections'].values():
    for side,other in [('a','b'),('b','a')]:
@@ -105,7 +110,7 @@ class WorldSpatialLayout(unittest.TestCase):
   model=Model(self.world);self.assertEqual(model.warnings,[])
   for origin,target,without,grant in [
    (('E-R15','entry:C22'),('E-R15','main'),{'gun','H','D','smith'},'Q'),
-   (('N-R05','entry:L12'),('N-R05','main'),{'gun','H'},'D')]:
+   (('N-R05','entry:L12'),('N-R05','main'),{'gun','W'},'D')]:
    self.assertIsNone(model.search(State(*origin,tokens=without),targets=[target],allow_teleport=False))
    self.assertIsNotNone(model.search(State(*origin,tokens=without|{grant}),targets=[target],allow_teleport=False))
   self.assertNotIn('entry:C22',self.p['rooms']['E-R12']['sections'])
@@ -121,10 +126,11 @@ class WorldSpatialLayout(unittest.TestCase):
    self.assertTrue(result['success'],(plan['id'],result['failure']))
  def test_city_journeys_follow_the_stated_rooms_and_local_switches(self):
   journeys=[r for r in self.manifest['world_routes'] if 'starting_tokens' in r]
-  self.assertEqual(len(journeys),6)
+  self.assertEqual(len(journeys),11)
   results={r['id']:replay_review_journey(self.world,r) for r in journeys}
   self.assertIn('smith',results['hub-first']['tokens'])
-  self.assertIn('attack_rank_1',results['hub-first']['tokens'])
+  self.assertNotIn('attack_rank_1',results['hub-first']['tokens'])
+  self.assertNotIn('H',results['hub-first']['tokens'])
   self.assertIn('CITY-STATION-G',results['hub-first']['crossed'])
   first=next(r for r in journeys if r['id']=='hub-first')
   self.assertFalse({'P-R35','P-R18','P-R07'} & set(first['rooms']))
@@ -161,23 +167,19 @@ class WorldSpatialLayout(unittest.TestCase):
    journey=copy.deepcopy(next(r for r in self.manifest['world_routes'] if r['id']==rid))
    journey['starting_tokens'].remove(missing)
    with self.assertRaisesRegex(AssertionError,blocked):replay_review_journey(self.world,journey)
- def test_station_service_requires_repaired_clock_and_keeps_hook_entry(self):
-  route={'id':'station-service','rooms':['P-R31','G-R02'],'starting_tokens':['H','clock_P']}
-  self.assertEqual(replay_review_journey(self.world,route)['end_room'],'G-R02')
-  for missing in ['H','clock_P']:
-   blocked=copy.deepcopy(route);blocked['starting_tokens'].remove(missing)
-   with self.assertRaisesRegex(AssertionError,'P-R31 → G-R02'):
-    replay_review_journey(self.world,blocked)
-  edge=self.p['connections']['CITY-STATION-G']
-  for ep in [edge['a'],edge['b']]:
-   room=self.p['rooms'][ep['room']];x,y=room['ports'][ep['port']]['position']
-   self.assertTrue(any(a<=x<=a+w and b<=y<=b+h for a,b,w,h in room['spaces']))
+ def test_early_service_is_open_but_city_requires_second_mobility(self):
+  route={'id':'station-service','rooms':['P-R31','G-R02','G-R01'],'starting_tokens':['station_briefed']}
+  self.assertEqual(replay_review_journey(self.world,route)['end_room'],'G-R01')
+  m=Model(self.world)
+  self.assertIsNone(m.search(State('G-R02'),targets=[('G-R12','main')],allow_teleport=False))
+  for ability in ['H','D']:
+   self.assertIsNotNone(m.search(State('G-R02',tokens={'gun','W',ability}),targets=[('G-R12','main')],allow_teleport=False))
  def test_source_migration_does_not_duplicate_sections_actions_or_rooms(self):
   self.assertEqual(len({r['id'] for r in self.world['rooms']}),len(self.world['rooms']))
   for r in self.world['rooms']:
    self.assertEqual(len({s['id'] for s in r['sections']}),len(r['sections']),r['id'])
    self.assertEqual(len({s['id'] for s in r['internal_routes']}),len(r['internal_routes']),r['id'])
   original=json.loads((ROOT/'config/world/world.json').read_text())
-  self.assertEqual({a['id'] for a in self.world['actions']},{a['id'] for a in original['actions']})
+  self.assertEqual({a['id'] for a in self.world['actions']},{a['id'] for a in original['actions']}|{a['id'] for a in self.manifest['additional_actions']})
 
 if __name__=='__main__':unittest.main()

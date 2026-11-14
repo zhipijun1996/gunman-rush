@@ -50,6 +50,16 @@ def export(root=ROOT, spatial_draft=False):
     if spatial_draft:
         from spatial_adjustments import world_for_draft
         world=world_for_draft(root,world)
+        draft_actions={a['id']:a for a in world['actions']}
+        for reward in p['rewards'].values():
+            action=draft_actions.get(reward['action_id'])
+            if action:
+                reward.update(room=action['room_id'],section=action.get('section_id','main'),requires=copy.deepcopy(action.get('requires',[[]])))
+                room=p['rooms'][reward['room']]
+                host=next((e['id'] for e in room['entities'].values() if e['properties'].get('action_id',e['properties'].get('parameters',{}).get('reward_action'))==action['id']),None)
+                reward.update(host=host,physical=host is not None)
+        for npc in p['npcs'].values():
+            if npc.get('host') not in p['rooms'][npc['room_id']]['entities']:npc['host']=None
     p['catalog']['actions']=copy.deepcopy(world['actions']);p['catalog']['behavior_source']=p['source']['commit'];p['source']['document_hash']=sha(p['rooms'])
     native=root/'build/editor-native/manifest.json'
     if native.exists():

@@ -105,7 +105,7 @@ def build(project=None):
     world=json.loads((ROOT/'config/world/world.json').read_text());from spatial_adjustments import world_for_draft;world=world_for_draft(ROOT,world);identities={r['id']:r for r in world['rooms']};names={r['code']:r['name'] for r in world['regions']}
     rooms=[copy.deepcopy(r) for plan in plans for r in plan['rooms']]
     for row in preview['map_rooms']:
-        if row['id'][0]!='P':continue
+        if row['id'][0]!='P' or any(r['room_id']==row['id'] for r in rooms):continue
         r=p['rooms'][row['id']];x,y=r['origin'];box=max(r['spaces'],key=lambda b:b[2]*b[3])
         design=dict(room_id=r['id'],name=r['name'],purpose=r['purpose'],outline=row['polygon'],label=[x+box[0]+box[2]/2,y+box[1]+box[3]/2],bounds=[x,y,*r['bounds'][2:]],stage='沿用已制作平原；本轮不重新验收玩法',play='玩法与对象保持正式房间配置。',failure='沿用现行安全岸和地形恢复规则；本轮仅检查世界拼接。',exploration='奖励、能力门与剧情沿正式数据。')
         if r['spatial_source']['kind']=='spatial_draft':
@@ -149,6 +149,8 @@ def build(project=None):
 def page(plan,svg):
     nr=len(plan['regions']);nc=len(plan['rooms']);ns=len(plan['seams'])
     text=(ROOT/'tools/world/forest_review.html').read_text()
+    if plan.get('exploration_audit'):
+        text=text.replace('<h2>本版优先审核</h2>',exploration_markup(plan['exploration_audit'])+'<h2>本版优先审核</h2>')
     guidance=plan.get('onboarding_guidance',{})
     if guidance:
         text=text.replace('<h2>本版优先审核</h2>', '<h2>本版优先审核</h2><h3>怎样尽早找到武器匠</h3><p>'+html.escape(guidance['arrival'])+'</p><p>'+html.escape(guidance['service'])+'</p>')
@@ -184,6 +186,27 @@ $('#seam-view').onchange=e=>{const s=plan.seams.find(s=>s.id===e.target.value);i
     text=text.replace('</script>',"$('#labels-view').onclick=e=>{const clean=e.target.getAttribute('aria-pressed')!=='true';e.target.setAttribute('aria-pressed',String(clean));e.target.textContent=clean?'显示标注':'只看轮廓';document.querySelectorAll('#map text').forEach(t=>t.style.visibility=clean?'hidden':'')};</script>")
     text=text.replace('<!-- MAP -->',svg).replace('/* PLAN */',json.dumps(plan,ensure_ascii=False).replace('</','<\\/'))
     return text
+
+def exploration_markup(report):
+    labels={'hook_first':'树冠倾向','double_first':'根道倾向','curious':'岔路探索','cautious':'推迟Boss','no_shuriken':'不取手里剑'}
+    out=['<details id="exploration-audit"><summary>探索模拟：15轮与回访风险</summary><p>'+html.escape(report['method'])+'</p><table><tr><th>倾向</th><th>完整探索过门</th><th>无新收益/选择最长段</th></tr>']
+    for key,label in labels.items():
+        rows=[r for r in report['runs'] if r['profile']==key]
+        span=lambda k:f"{min(r[k] for r in rows)}–{max(r[k] for r in rows)}"
+        out.append(f'<tr><td>{label}</td><td>{span("room_crossings")}</td><td>{span("longest_no_reward_or_new_choice_crossings")}</td></tr>')
+    out.append('</table><p>门数包含全世界探索，不是通关用时。以下长返程需要优先灰盒审查，不通过乱塞奖励掩盖无用路程。</p>')
+    segments=sorted([s for r in report['runs'] for s in r['longest_return_segments']],key=lambda s:s['crossings'],reverse=True)
+    seen=set()
+    for segment in segments:
+        key=tuple(segment['rooms'])
+        if key in seen:continue
+        seen.add(key);out.append('<p>'+html.escape(str(segment['crossings'])+'次过门：'+' → '.join(key))+'</p>')
+        if len(seen)==3:break
+    for rid,metric in report['metrics'].items():
+        fmt=lambda x:'当前能力不可达' if x is None else str(x)
+        out.append('<p>'+html.escape(rid+'最少门数：'+fmt(metric['before'])+' → '+fmt(metric['after']))+'</p>')
+    out.append('<p>'+html.escape(report['limits'])+'</p></details>')
+    return ''.join(out)
 
 def overview_svg(plan):
     """Same physical geometry, with readable region names for phone overview.
@@ -226,10 +249,24 @@ def seam_sheet(plan):
 def main():
     out=ROOT/'build/world-review';out.mkdir(parents=True,exist_ok=True)
     plan,p=build();svg=drawing(plan)
+    from explore_world import audit
+    from spatial_adjustments import world_for_draft
+    manifest=json.loads(MANIFEST.read_text())
+    report=audit(world_for_draft(ROOT,json.loads((ROOT/'config/world/world.json').read_text())),manifest.get('progression_baseline'))
+    (out/'exploration.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    plan['exploration_audit']={**report,'runs':[{k:v for k,v in r.items() if k not in ('actions','tokens','journey','events')} for r in report['runs']]}
     (out/'world-map.svg').write_text(svg);(out/'world-review.html').write_text(page(plan,svg))
     (out/'world-overview.svg').write_text(overview_svg(plan))
     (out/'seams.svg').write_text(seam_sheet(plan))
     (out/'world-project.json').write_text(json.dumps(p,ensure_ascii=False,separators=(',',':'))+'\n')
+    for journey in plan['routes']:
+        if 'starting_tokens' not in journey:continue
+        selected=set(journey['rooms'])
+        sub={**plan,'title':journey['label'],'rooms':[r for r in plan['rooms'] if r['room_id'] in selected],
+             'connections':[c for c in plan['connections'] if c['a'] in selected and c['b'] in selected],
+             'routes':[journey],'attachments':[],'external_ports':[],'pending_connections':[],
+             'transitions':[t for t in plan['transitions'] if t['a']['room'] in selected and t['b']['room'] in selected]}
+        (out/(journey['id']+'.svg')).write_text(drawing(sub).replace('style="display:none"',''))
     for code in plan['focus_regions']:
         filename=code.lower()
         sub={**plan,'rooms':[r for r in plan['rooms'] if r['room_id'][0]==code],'connections':[c for c in plan['connections'] if c['a'][0]==c['b'][0]==code],'routes':[r for r in plan['routes'] if all(x[0]==code for x in r['rooms'])],'attachments':[],'pending_connections':[t for t in plan.get('pending_connections',[]) if any(t[side]['room'][0]==code for side in 'ab')],'transitions':[t for t in plan['transitions'] if any(t[side]['room'][0]==code for side in 'ab')],'external_ports':[e for e in plan['external_ports'] if e['room'][0]==code],'title':next(r['name'] for r in plan['regions'] if r['code']==code)+' · 整区初稿'}
