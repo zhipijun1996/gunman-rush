@@ -51,6 +51,22 @@ def synth(name, duration, design=2):
         w=np.sin(np.pi*t/duration)**1.5
         x=noise(80,2400)*w*.65+noise(2500,7000)*w*.13
         x+=np.sin(2*np.pi*(110*t-35*t*t))*w*.10
+    elif name=='boss_roar':
+        # Glottal pulse train into noisy vocal formants: a long physical growl,
+        # breaking into air, rather than a pitched UI sweep or landing thump.
+        f0=(106-39*(1-np.exp(-t/.15))+5*np.sin(t*19))*shade
+        phase=2*np.pi*np.cumsum(f0)/RATE
+        throat=np.maximum(0,np.sin(phase))**8
+        throat-=np.mean(throat)
+        throat=np.tanh(throat*4+noise(70,6000)*.28)
+        x=np.zeros_like(t)
+        for lo,hi,gain in [(90,290,.65),(350,620,1.6),(850,1250,1.15),(1700,2400,.55)]:
+            x+=sosfilt(butter(2,[lo,hi],btype='bandpass',fs=RATE,output='sos'),throat)*gain
+        hold=(1-np.exp(-t/.009))*(1-.17*t/duration)*np.minimum(1,(duration-t)/.38)
+        x=x*hold*(.86+.14*np.sin(t*31))
+        x+=noise(600,6200)*env(.002,.13)*.8
+        x+=noise(100,2400)*hold*.32+noise(3500,9500)*hold*.08
+        x+=np.sin(phase*.5)*env(.008,.55)*.32
     elif name=='boss_land':
         x=noise(60,750)*env(.001,.16)*1.3+noise(1300,6000)*env(.001,.036)*.55
         x+=np.sin(2*np.pi*(48*t+55*.025*(1-np.exp(-t/.025))))*env(.001,.16)*.7
@@ -78,7 +94,7 @@ def synth(name, duration, design=2):
 
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
-    cues={'shot0':.20,'shot1':.20,'shot2':.20,'hit':.21,'gather':1.04,'restore':.60,'boss_air':.62,'boss_land':.85,'chest':.55,'spill':.28,'bounce':.13,'coin':.22,'gate':.27,'ice':.28}
+    cues={'shot0':.20,'shot1':.20,'shot2':.20,'hit':.21,'gather':1.04,'restore':.60,'boss_air':.62,'boss_land':.85,'chest':.55,'spill':.28,'bounce':.13,'coin':.22,'gate':.27,'ice':.28,'boss_roar':1.65}
     manifest={'license':'CC0-1.0','source':'tools/build_vfx_renewal_audio.py','sample_rate':RATE,'cues':{}}
     for name,duration in cues.items():
         data=synth(name,duration)

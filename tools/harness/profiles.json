@@ -1,6 +1,12 @@
 {
   "schema_version": 1,
   "checks": {
+    "vfx-boss-roar": {
+      "mode": "manual",
+      "argv": ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", ".", "--script", "tests/vfx/boss_roar.gd"],
+      "timeout_seconds": 90,
+      "success_pattern": "^BOSS ROAR: 0 failures$"
+    },
     "vfx-source": {
       "mode": "manual",
       "argv": ["python3", "tools/vfx/pixelfx.py", "check", "gunman"],

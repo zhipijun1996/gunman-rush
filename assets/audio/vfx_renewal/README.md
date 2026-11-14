@@ -6,7 +6,7 @@
 | --- | --- |
 | shot0／1／2、hit、ice | PlayerWeaponFeelAudioV2的实际pulse／machine／hit／ion_start资源，PlayerWeaponFeelAudio保留同源回退；爆鸣、腔体低音与机械尾音分层，命中是更短的干脆撞击。显式SelectedSfxRuntime消费者也替换shot_pulse／enemy_hit候选，不误以为它是固定世界的实际声音入口 |
 | gather、restore | GameAudio.FOCUS_CUES，由WorldFocusHeal接受集气／提交成功调用；集气取消按来源停止，取消及保存失败不发恢复双音 |
-| boss_air、boss_land、gate | 正式WindkeeperPressurePresentation安装BossArrivalPresentation，沿Encounter入场钟触发一次入场风声及落地声；gate由真实BossArenaSeal关闭触发，单独事件避免吞掉落地拍点；boss_impact的现有消费者采用同源重击 |
+| boss_air、boss_roar、boss_land、gate | 正式WindkeeperPressurePresentation安装BossArrivalPresentation，沿Encounter入场钟触发一次吸气及长咆哮；boss_roar由声门脉冲、喉音共振、破音及气流组成，替换牧风者落地声，滚轮机械与普通重击仍可使用boss_land；gate由真实BossArenaSeal关闭触发，单独事件避免吞掉落地拍点；boss_impact的现有消费者采用同源重击 |
 | chest | WorldRoomInteraction.celebrate在存档提交后发chest_reveal；不叠旧item_get／confirm；显式旧SelectedSfx消费者的chest_open采用同源素材 |
 | spill、bounce、coin | WorldCoinDrops在新死亡奖励源出现时发loot_scatter，读档初始同步不重播；PlainsStageVisual观察真实首次弹地发coin_bounce；FixedWorldApp成功入账后发coin |
 

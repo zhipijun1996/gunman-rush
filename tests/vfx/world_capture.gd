@@ -4,8 +4,10 @@ extends "res://tests/world/plains35_fixture.gd"
 var scenario:="shot"
 var output:="res://build/vfx/world-media"
 var shot_count:=0
+var reduced:=false
 func _initialize() -> void:
  for arg:String in OS.get_cmdline_user_args():
+  if arg=="--reduced":reduced=true
   if arg.begins_with("--case="):scenario=arg.trim_prefix("--case=")
   if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
  run.call_deferred()
@@ -24,7 +26,7 @@ func run() -> void:
  root.size=Vector2i(1280,720)
  DirAccess.make_dir_recursive_absolute(output)
  app=preload("res://game/application/world/fixed_world.tscn").instantiate();root.add_child(app)
- app.preferences.value.reduced=false;app._apply_preferences()
+ app.preferences.value.reduced=reduced;app._apply_preferences()
  await app.review.begin("P-R10" if scenario=="shot" else "P-R01" if scenario=="heal" else "P-R24" if scenario=="chest" else "P-R21" if scenario=="drop" else "P-R14","","base")
  await settle()
  if app.story.active:app.story.finish();await ticks(2)
@@ -86,7 +88,7 @@ func run() -> void:
   check(app.room.battle_started,"recorded actual Boss encounter entry")
   var boss_audio:=GameAudio.for_origin(app) as GameAudio
   check((app.camera as WorldCamera)._takeover.is_empty(),"arrival returns the sole camera after completion")
-  check(int(boss_audio.played.get(&"boss_arrival_air",0))==1 and int(boss_audio.played.get(&"boss_arrival_land",0))==1,"formal pressure Boss actually runs one new arrival and landing")
+  check(int(boss_audio.played.get(&"boss_arrival_air",0))==1 and int(boss_audio.played.get(&"boss_arrival_roar",0))==1 and int(boss_audio.played.get(&"boss_arrival_land",0))==0,"formal pressure Boss inhales and roars once without a landing cue")
  var audio:=GameAudio.for_origin(app) as GameAudio
  if audio!=null:
   print("VFX AUDIO ROUTING: ",JSON.stringify({"events":audio.director_events,"coin":audio._streams[&"coin"].resource_path,"boss_impact":audio._streams[&"boss_impact"].resource_path}))
