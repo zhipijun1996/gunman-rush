@@ -1,37 +1,37 @@
-# 实际单房优先的美术Skill修正
+# 实际单房与基础要素／机关共同画法
 
-本轮按用户明确要求修改Skill：先完成一间实际房间里地形、平台、建筑与角色共同成立的画面，再从成品提炼复用。区域套件继续视为待验证假设，不作为强制生产规则。本轮交付为规则与引用修正，没有制作新的房间或素材，也不把文字调整视为美术方法已验证。
+本轮针对用户指出的“机关库和基础要素的美术要保持一致”补齐规范与Skill。此前8a314de已将区域套件降为可选假设，但主流程只明确列出地形、平台、建筑与角色，未把本房机关及其状态过程纳入共同合屏检查。本轮补上该边界，不更改机关行为、注册／实例协议或渲染代码。
 
-分支codex/depth-lab；本轮基线d0c072abba5f7ec34bc7badb79cf5877eb185b24。该提交保留前次三几何实验，其技术复用有局部证据，整体美术自审未通过，用户也明确否定当前方案。先前将套件生产方法提前固化的35339eb／15300cc／6094322可由Git追溯，本轮直接修正文，不追加第二套流程。
+分支codex/depth-lab；本轮基线8a314de9142593a477366504afd9e216239a0fb6。保留实际单房优先、成品后提炼复用；本次没有新画面，也不把规则补齐写成既有机关美术已全部统一。前次三几何实验d0c072a的美术失败结论保持。
 
 ## 当前规则与写集
 
-主入口为.agents/skills/godot-room-art/SKILL.md。整房制作默认以实际可装载房间为单位，在真实相机和角色尺度下共同制作地形、平台、建筑；先看静止合屏，再看整房、沿途机位和受影响动作。代表结构、固定机位与抽象夹具只证明其实际范围，不能关闭整房任务。
+主入口为.agents/skills/godot-room-art/SKILL.md。整房制作默认以实际可装载房间为单位，在真实相机和角色尺度下共同制作地形、平台、建筑与本房实际机关；先看静止合屏，再看整房、沿途机位、受影响动作与已有机关状态。代表结构、固定机位与抽象夹具只证明其实际范围，不能关闭整房任务。
 
 本房整体成立后才按需提炼材质、接头、构件与表现配置。区域套件是可选实验，允许失败后保留单房定制或放弃提炼；不预设普通房全部套件化、地标才可定制，不默认要求横向／竖井／宽厅配额。已有有效素材仍可直接选用，实际任务明确研究复用时仍验证真实候选、目标空间与成本。授权整区制作仍完成全部房间及串联检查，不以单房或套件签收整区。
 
 保留已有可用约束：引擎实帧／相机／角色尺度前置、Tile拓扑与材质画法分开、独立素材完整轮廓与后方覆盖、原样切分与再次生成的区别、实际灯光／水面职责、正式控制器复验、实例分类和来源追溯。引擎约束只帮助减少转译失真，不保证画面好看。
 
-本轮共21份文本文件，集中于上述生产顺序与候选状态：
+本轮仅7份文本文件：
 
-- 主Skill及6份引用：regional-kit-production、engine-first-2d、quality-and-reuse、expansion-workflow、asset-contract、style-and-assembly。regional-kit-production保留路径，正文改为“从成品提炼复用：可选实验”。
-- 7个直接调用Skill仅修相关段落：scene-composer、art-director、godot-recoil-level-design、level-module-creator、region-generator、region-creative-director、game-quality-gate。
-- 5份同步文档：Visual Bible的生产与复用段、world_presentation、content_pipeline、docs索引与current_state对应条目；删除与现行顺序相反的强制表述。
-- 管理记录：任务表原行及本交接。
+- Visual Bible增加“基础要素与机关的共同画法”，作为像素密度、材质细节、环境受光、区域皮肤与状态合屏的唯一视觉标准。不同材料保留特征，功能／危险识别继续清楚，新增要素同样遵守。
+- godot-room-art主Skill将本房实际机关纳入共同制作和实际触发检查；engine-first-2d补机关安装／运动范围和独立响应部件的绘制职责；quality-and-reuse补新增／换皮／调整机关的检查项。
+- 机关库唯一入口docs/data/world_objects.md引用Visual Bible，不另写一份美术标准，不改变基础要素与机关的分类。
+- 管理记录只更新任务表原行及本交接。
 
-AGENTS.md、其余Skill、代码、配置、素材和正式房间未在本轮改动。未加入额外审批、强制独审、房型配额或新的运行时库／房间schema；现有WorldRoomDocument、WorldElementCatalog与单层members协议继续持有实例化，不能把方法文本当作新增代码能力。
+AGENTS.md、其它Skill、代码、配置、素材和正式房间未改。实例化仍沿WorldRoomDocument、WorldElementCatalog与单层members；区域皮肤只按已登记能力使用，不因文字声明新增运行时API或可放置机关。
 
 ## 检查与方法包
 
-按四种入口走读现行文本：实际单房制作优先完成本房；使用已有有效素材不必先做新套件；显式复用实验保留跨目标验证与失败出口；授权整区仍完成逐房及串联范围。此项是文字一致性自审，不是新的游戏或美术实测。
+按本房实际内容走读：有机关时共同校准并检查其已有状态／运动端点；没有机关不强行补全库样本；未实现的伸缩刺、风场、蘑菇等不因规范覆盖便登记为已实现。该项为文本范围检查，不是新的游戏／美术实测。
 
-python3 tools/check_docs.py通过；python3 tools/check_quality.py通过14项核心Skill／模板／当前记录静态检查；python3 tests/test_context_navigation.py的5项通过；git diff --check通过。日志和本轮差异在build/room-first-skill。没有运行游戏／重拍实验，也不借前次CI宣称本轮画面通过。
+python3 tools/check_docs.py、python3 tools/check_quality.py及python3 tests/test_context_navigation.py均通过（文档、14项核心Skill及5项导航检查）；日志和差异在build/mechanism-art-consistency。没有运行游戏或重拍实验，静态检查不认证视觉统一。
 
-重新导出仓库主美术26文件与关卡7文件的方法包：build/room-first-skill/godot-room-art-room-first.zip及godot-recoil-level-design-room-first.zip（另有tar.gz）；归档身份、源码提交、每份源文件哈希与实际包内字节核对见packages.json。它们不包含完整项目素材，也不等价于原云端完整素材包。旧build/art-method-review归档仍对应35339eb，不能当作本轮修正版。
+本轮主美术26文件方法包为build/mechanism-art-consistency/godot-room-art-with-mechanisms.zip（另有tar.gz）；源码提交、各文件哈希和归档字节核对见packages.json。该包不包含完整项目素材，不等价于原云端完整素材包。build/room-first-skill归档仍对应8a314de，build/art-method-review归档仍对应35339eb，均不能当作本轮修正版；关卡Skill本次未改。
 
 ## 云端范围
 
-直接读取了云端godot-room-art当前主文本（skill://user/6aedc27a90608191b8024e564e73d6d2/godot-room-art/SKILL.md）。该版本尚无仓库引入的“区域套件先行”规则，但也尚未包含本轮单房优先修正；保留旧素材／边界等表述，不能认为仓库与云端已同步。
+直接读取了云端godot-room-art当前主文本（skill://user/6aedc27a90608191b8024e564e73d6d2/godot-room-art/SKILL.md）。该版本尚无仓库引入的“区域套件先行”规则，但也尚未包含仓库的单房优先与本轮共同画法修正；保留旧素材／边界等表述，不能认为仓库与云端已同步。
 
 当前skill://目录接口为读取／列举，未提供该个人云端包的写入接口；Notion的技能页是另一类对象，不能冒充该包更新。实际修改仅在项目AGENTS指定的仓库入口，云端未改写。本轮另交修正版方法包，未声称已替换云端。
 
@@ -49,4 +49,4 @@ python3 tools/check_docs.py通过；python3 tools/check_quality.py通过14项核
 
 ## 下一动作
 
-选一个现有实际房间，在真实装载、角色尺度和正常镜头里共同校准地形、平台与建筑，先交完整合屏和沿途结果。当前任务只修Skill，不将此下一制作动作写成已完成；不继续把同一拱廊套更多夹具或预先扩充区域资产族。
+选一个现有实际房间，在真实装载、角色尺度和正常镜头里共同校准地形、平台、建筑与本房实际机关，先交完整合屏、已有状态变化和沿途结果。当前任务只修Skill，不将此下一制作动作写成已完成；不继续把同一拱廊套更多夹具或预先扩充区域资产族。
