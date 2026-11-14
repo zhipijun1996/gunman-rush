@@ -24,6 +24,12 @@ static func units(output: Dictionary, enemy_id: String, origin: Vector2, safe: V
 			var heavy: bool = kind == "coin" and value == 5
 			var velocity := Vector2(side * (34.0 + rng.next_int(24)), -132.0 - rng.next_int(36))
 			if heavy: velocity *= Vector2(0.84,0.90)
+			if enemy_id.begins_with("chest:"):
+				# Chest fan: distinct lanes and heights, unchanged real denominations.
+				var lane:=float(index)/maxi(1,pieces.size()-1)-.5
+				velocity=Vector2(lane*188,-238-48*(1-absf(lane)*2)-rng.next_int(18))
+			elif enemy_id.begins_with("enemy:"):
+				velocity=Vector2(side*(48+rng.next_int(22)),-198-rng.next_int(28))
 			result.append({"id":identity,"kind":kind,"amount":value,"position":origin,"claimed":false,"source":enemy_id,
 				"spawn_origin":origin,"born_at":now,"ready_at":now+PICKUP_DELAY,"loot_motion":true,"loot_velocity":velocity,
 				"loot_age":0.0,"loot_bounces":0,"loot_settled":false,"loot_safe":safe,"loot_rotation":0.0})

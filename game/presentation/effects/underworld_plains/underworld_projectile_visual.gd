@@ -61,20 +61,10 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if ice:
 		IceCastVisual.burst(self,Vector2.ZERO,axis,age,impact);return
-	var strength := 1.0 - age / EFFECT_LIFETIME
-	var color := FRIEND if friendly else HOSTILE
-	color.a = strength
-	var edge := FRIEND_EDGE if friendly else HOSTILE_EDGE
-	edge.a = strength
-	var spread := 3.0 + age * (58.0 if impact else 24.0)
-	var base := axis.angle() + (PI if impact else 0.0)
-	for i: int in 5 if impact else 3:
-		var angle := base + (float(i) - (2.0 if impact else 1.0)) * 0.65
-		var p := (Vector2.from_angle(angle) * spread).snapped(Vector2(2,2))
-		draw_rect(Rect2(p - Vector2.ONE * 2, Vector2.ONE * 4), edge)
-		draw_rect(Rect2(p, Vector2.ONE * 2), color)
-	if age < 0.06:
-		draw_rect(Rect2(-2,-2,4,4), color)
+	var tint := Color.WHITE if friendly else Color("e9a37b")
+	var key := &"impact" if impact else &"muzzle"
+	var direction := -axis if impact else axis
+	PixelVfx.clip(self,key,Vector2.ZERO,age/EFFECT_LIFETIME,direction.angle(),tint)
 
 static func paint(canvas: Node2D, direction: Vector2, radius: float, elapsed: float, trail: Array[Vector2], kind: StringName, is_friendly: bool, skill: bool = false, blade_texture: Texture2D = null) -> void:
 	if kind==&"ice":
@@ -123,6 +113,7 @@ static func paint(canvas: Node2D, direction: Vector2, radius: float, elapsed: fl
 		canvas.draw_colored_polygon(points,INK)
 		canvas.draw_colored_polygon(PackedVector2Array([Vector2(-r-2,0),Vector2(-r+2,-r+2),Vector2(0,-r),Vector2(r,0),Vector2(0,r),Vector2(-r+2,r-2)]),edge)
 		canvas.draw_rect(Rect2(-2,-2,4,4),head)
+		canvas.draw_line(Vector2(-r+1,-1),Vector2(0,-r+2),Color("f7c48e"),1,false)
 		if kind == &"ring":
 			canvas.draw_arc(Vector2.ZERO,r,0,TAU,12,head,2,false)
 	canvas.draw_set_transform(Vector2.ZERO)

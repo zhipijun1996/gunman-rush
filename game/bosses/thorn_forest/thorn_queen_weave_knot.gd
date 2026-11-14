@@ -42,7 +42,7 @@ func _draw() -> void:
 		draw_line(Vector2(-12,-10),Vector2(12,10),Color("776956"),3)
 		return
 	draw_circle(Vector2.ZERO,body_size.x*.5,Color("be8367"))
-	draw_arc(Vector2.ZERO,body_size.x*.5+5,0,TAU,24,Color("f1d9a1"),2)
+	PixelVfx.arc(self,Vector2.ZERO,body_size.x*.5+5,0,TAU,Color("f1d9a1"),1)
 	for n: int in int(health.current): draw_circle(Vector2(-4+n*8,0),2,Color("fff1cd"))
 
 func restore_health(value: float) -> bool:

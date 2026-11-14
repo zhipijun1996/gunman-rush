@@ -1943,6 +1943,7 @@ func _make_ui() -> void:
 	menu.settings_changed.connect(apply_input_settings)
 	menu.presentation_changed.connect(func(reduced: bool, muted: bool) -> void:
 		_reduced_effects = reduced
+		set_meta(&"reduced_vfx",reduced)
 		if stage is ThornForestRegionStage and is_instance_valid((stage as ThornForestRegionStage).ambience):
 			(stage as ThornForestRegionStage).ambience.set_reduced_effects(reduced)
 		if stage is ThornForestRegionStage and is_instance_valid((stage as ThornForestRegionStage).near_scenery):

@@ -280,11 +280,11 @@ func _draw() -> void:
 		for origin: Vector2 in origins:
 			for ring: int in 2:
 				var age := maxf(0.0, opened_time - float(ring) * 0.10)
-				draw_arc(origin, 15.0 + age * 75.0, 0.0, TAU, 32, Color(gold, maxf(0.0, 1.0 - age / 0.55) * 0.7), 1.4)
+				PixelVfx.arc(self,origin,15.0+age*75.0,0,TAU,Color(gold,maxf(0,1-age/.55)*.6))
 			for glint: int in 8:
 				var direction := Vector2.RIGHT.rotated(float(glint) * TAU / 8.0)
 				var point := origin + direction * (12.0 + opened_time * 40.0)
-				draw_line(point, point + direction * 3.0, Color("ffe7a0", maxf(0.0, 1.0 - opened_time / 0.65)), 1.5)
+				PixelVfx.shard(self,point,direction,3,.7,Color("ffe7a0",maxf(0,1-opened_time/.65)))
 	if not formal_presentation:
 		draw_rect(Rect2(bell_position - Vector2(14, 17), Vector2(28, 34)), gold, false, 2)
 	var wire_y := gate_rect.position.y + 40.0

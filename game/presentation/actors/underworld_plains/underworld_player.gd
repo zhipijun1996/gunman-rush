@@ -163,7 +163,7 @@ func _draw() -> void:
 	var hand := Vector2(facing*4,-1)
 	draw_line(hand,muzzle,Color("101816"),4.0,false)
 	draw_line(hand+aim*8-Vector2(0,2),muzzle-Vector2(0,2),Color("9b7740"),2.0,false)
-	if _flash>0: draw_rect(Rect2(muzzle+aim*4-Vector2(2,2),Vector2(6,6)),Color("ead8a3"))
+	if _flash>0: PixelVfx.glint(self,muzzle+aim*3,2,Color("ead8a3"),minf(1,_flash*16))
 
 	# Formal regions deliberately hide PlayerFeedback's legacy particle canvas.
 	# Keep the accepted grapple/guide on this actual visible body, with the

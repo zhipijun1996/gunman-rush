@@ -11,6 +11,6 @@ void fragment() {
 	float bands = pow(max(0.0,sin((UV.y+UV.x*.10-progress*.75)*92.0)),18.0);
 	float edge = smoothstep(.16,.72,radius);
 	vec3 tint = mix(vec3(.34,.65,.61),vec3(.96,.88,.63),burst);
-	float alpha = envelope*(edge*.16+bands*edge*.10+ring*.17)+burst*.12;
+	float alpha = envelope*(edge*.16+bands*edge*.10+ring*.17)+burst*.08*(.25+.75*edge);
 	COLOR = vec4(tint,alpha);
 }

@@ -176,15 +176,13 @@ func _draw() -> void:
 		color.a=(1-progress)*alpha
 		var center := to_local(fx.point)
 		if fx.kind==&"contact":
-			for i: int in 3:
-				var axis: Vector2=fx.axis.rotated((i-1)*.6)
-				var start := (center+axis*(2+progress*float(fx.radius))).snapped(Vector2(2,2))
-				draw_line(start,start+axis*4*(1-progress),color,2,false)
+			PixelVfx.clip(self,&"impact",center,progress,fx.axis.angle(),Color(1,1,1,alpha*.7))
 		else:
-			# Only a thin broken front; original gameplay-owned blast remains.
+			# Thin broken front stays inside the accepted blast envelope.
 			for i: int in 8:
-				var angle := i*TAU/8
-				draw_arc(center,float(fx.radius)*(.2+.6*progress),angle,angle+.22,3,color,2,false)
+				var angle:=i*TAU/8
+				PixelVfx.arc(self,center,float(fx.radius)*(.2+.6*progress),angle,angle+.22,color)
+
 	var beam := runtime.beam_visual_segment()
 	if beam.size()==2:
 		var start := to_local(beam[0])

@@ -179,8 +179,8 @@ static func draw_grapple(canvas: Node2D, controller: PlayerController, hand_worl
 		var color := Color(.55,.95,.85,.65) if controller.traversal.guide_target_valid else Color(.9,.75,.45,.4)
 		for i: int in segments:
 			var t := float(i)/segments
-			canvas.draw_line(origin+offset*t,origin+offset*minf(1,t+.5/segments),color,1.2,true)
-		canvas.draw_arc(finish,8,0,TAU,24,color,1.5,true)
+			canvas.draw_line((origin+offset*t).round(),(origin+offset*minf(1,t+.5/segments)).round(),color,1,false)
+		PixelVfx.arc(canvas,finish,8,0,TAU,color)
 	if controller != null and controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_hang",&"hook_miss",&"hook_retract"]:
 		var traversal := controller.traversal
 		var tip := canvas.to_local(traversal.hook_tip)
@@ -191,11 +191,12 @@ static func draw_grapple(canvas: Node2D, controller: PlayerController, hand_worl
 		for i: int in range(1,13):
 			var t := float(i)/12
 			var point := start.lerp(tip,t)+Vector2(0,sin(t*PI)*sag)
-			canvas.draw_line(previous,point,Color("ddc089"),1.6,true)
+			canvas.draw_line(previous.round(),point.round(),Color("27372c"),3,false)
+			canvas.draw_line(previous.round(),point.round(),Color("ddc089"),1,false)
 			previous = point
 		var angle := traversal.hook_direction.angle()
-		canvas.draw_arc(tip,5,angle-PI*.6,angle+PI*.6,12,Color("ffecc0"),2,true)
-		canvas.draw_line(tip-traversal.hook_direction*7,tip,Color("a78855"),2,true)
+		PixelVfx.arc(canvas,tip,5,angle-PI*.6,angle+PI*.6,Color("ffecc0"))
+		canvas.draw_line((tip-traversal.hook_direction*7).round(),tip.round(),Color("a78855"),2,false)
 
 func _draw() -> void:
 	if _controller != null:
@@ -206,6 +207,11 @@ func _draw() -> void:
 		color.a = (1.0 - particle.age / particle.life) * 0.7
 		if not str(particle.get("art_key", "")).is_empty():
 			var key: StringName = particle.art_key
+			var modern:Dictionary={&"muzzle_flash":&"muzzle",&"hit_spark":&"impact",&"recoil_streak":&"recoil",&"jump_launch":&"dust",&"landing_dust":&"dust",&"coin_sparkle":&"collect"}
+			if modern.has(key):
+				var angle:=float(particle.angle) if key in [&"muzzle_flash",&"hit_spark",&"recoil_streak"] else 0.0
+				PixelVfx.clip(self,modern[key],to_local(particle.point),float(particle.age)/float(particle.life),angle,Color(1,1,1,color.a))
+				continue
 			var rotation_angle: float = float(particle.angle) if key == &"muzzle_flash" else float(particle.angle) + PI if key == &"recoil_streak" else 0.0
 			draw_set_transform(to_local(particle.point), rotation_angle)
 			var destination := PlainsActorAssets.anchored_rect("effects", key, Vector2.ZERO, 0.14)
@@ -219,9 +225,9 @@ func _draw() -> void:
 				draw_line(point - axis, point + axis, color, 1.8)
 			elif particle.kind == &"spark":
 				var velocity: Vector2 = particle.velocity
-				draw_line(point, point - velocity.normalized() * (3.0 + particle.radius), color, 1.4)
+				PixelVfx.streak(self,point,-velocity.normalized(),3.0+float(particle.radius),.65,color)
 			else:
-				draw_circle(point, particle.radius, color)
+				PixelVfx.shard(self,point,Vector2.RIGHT.rotated(float(particle.age)*3),float(particle.radius)*2,.7,color)
 
 func _health_changed(result: ActorResourceResult) -> void:
 	if result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0.0:

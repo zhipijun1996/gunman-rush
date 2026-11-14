@@ -62,6 +62,10 @@ func laser_accumulation() -> void:
 		await fixture(Vector2(100,200));await tick();equip_id("sustained_laser")
 		controller.router.set_aim(&"gamepad",Vector2.DOWN,true)
 		await tick()
+		check(controller.shoot_ability.behavior().phase==&"idle","right-stick aim alone never starts a laser")
+		controller.router.gamepad_primary_held=true
+		controller.router.request_action(&"shoot_release",Vector2.DOWN)
+		await tick()
 		await tick(ceili(.2/dt));var first := -motor.recoil_velocity.y
 		await tick(ceili(.2/dt));var second := -motor.recoil_velocity.y
 		check(second>first*1.8,"held beam accelerates, no recoil decay %sHz" % hz)
@@ -70,6 +74,7 @@ func laser_accumulation() -> void:
 		controller.router.set_aim(&"gamepad",Vector2.RIGHT,true);await tick(ceili(.1/dt))
 		check(motor.recoil_velocity.x < -70,"turn beam adds new reverse direction")
 		var before := motor.recoil_velocity.length()
+		controller.router.gamepad_primary_held=false
 		controller.router.set_aim(&"gamepad",Vector2.RIGHT,false);await tick()
 		check(before>0 and motor.recoil_velocity==Vector2.ZERO,"release immediately clears beam drive")
 		await tick(ceili(.15/dt))

@@ -100,6 +100,7 @@ func _make_ui() -> void:
 	_apply_preferences()
 
 func _apply_preferences() -> void:
+	set_meta(&"reduced_vfx",bool(preferences.value.reduced))
 	preferences.apply(controller)
 	if is_instance_valid(focus_heal):focus_heal.reduced=bool(preferences.value.reduced)
 	if overlay!=null: overlay.update_layout()
@@ -611,7 +612,7 @@ func _commit_action(id: String) -> void:
 		host.celebrate()
 		if id=="repair_P" and is_instance_valid(story):story.play_repair.call_deferred(host.position)
 		if content.action(id).type=="local_return":GameAudio.cue(self,&"bell")
-		else:GameAudio.cue_committed_reward(self,&"item_get",&"confirm")
+		elif content.action(id).type!="chest":GameAudio.cue_committed_reward(self,&"item_get",&"confirm")
 	if id == room.reward_action: GameAudio.cue(self,&"confirm")
 	_apply_capabilities()
 	status=WorldText.text("action."+id,str(content.action(id).get("description","进度已保存")))

@@ -62,6 +62,8 @@ func run() -> void:
 	app.select_weapon(4)
 	await walk_to(240)
 	controller.router.set_aim(&"gamepad",Vector2.RIGHT,true)
+	controller.router.gamepad_primary_held=true
+	controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 	await frames(8)
 	check(runtime.phase==&"beam" and sustained()==1,"accepted laser owns exactly one looping ion voice")
 	paused=true
@@ -69,9 +71,12 @@ func run() -> void:
 	check(runtime.phase==&"idle" and sustained()==0,"original pause input cancellation stops accepted beam and loop")
 	paused=false
 	controller.router.activate_device(&"gamepad")
+	controller.router.gamepad_primary_held=false
 	controller.router.set_aim(&"gamepad",Vector2.RIGHT,false)
 	await frames(20)
 	controller.router.set_aim(&"gamepad",Vector2.RIGHT,true)
+	controller.router.gamepad_primary_held=true
+	controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 	await frames(8)
 	check(runtime.phase==&"beam" and sustained()==1,"fresh post-pause real aim restarts accepted beam")
 	var start_count := voice_count(&"ion_start")
@@ -80,6 +85,7 @@ func run() -> void:
 	check(runtime.audio_override.call(&"focus_start")==false,"OFF delegates original producer audio")
 	app.set_weapon_enabled(true)
 	check(sustained()==1 and voice_count(&"ion_start")==start_count,"ON resumes accepted sustain without replaying attack")
+	controller.router.gamepad_primary_held=false
 	controller.router.set_aim(&"gamepad",Vector2.RIGHT,false)
 	await frames(3)
 	check(runtime.phase==&"idle" and sustained()==0,"release stops looping ion voice")

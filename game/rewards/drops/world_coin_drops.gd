@@ -13,6 +13,8 @@ var exit_positions: Array[Vector2]=[]
 var stage_type:=&"fixed_world"
 var _revision:=-1
 var _by_id: Dictionary={}
+var _births:Array[Dictionary]=[]
+var _sources:Dictionary={}
 func _ready() -> void:
 	set_meta(&"underworld_formal_style",true)
 	z_index=2
@@ -20,6 +22,7 @@ func _ready() -> void:
 func global_player_position() -> Vector2: return controller.motor.global_position
 func sync() -> void:
 	if _revision==services.state.revision: return
+	var restoring:=_revision<0
 	_revision=services.state.revision
 	var drops: Dictionary=services.ledger().get("drops",{})
 	for id: String in drops:
@@ -27,12 +30,21 @@ func sync() -> void:
 		if record.room!=room_id or _by_id.has(id): continue
 		var unit:=PlainsLootMotion.restore(record,clock)
 		_by_id[id]=unit;pickups.append(unit)
+		var source:=str(unit.source)
+		if not _sources.has(source):
+			_sources[source]=true
+			if not restoring and float(unit.loot_age)<.06 and source.begins_with("enemy:"):
+				if _births.size()<12:_births.append({"at":unit.position,"age":0.0})
+				GameAudio.cue(self,&"loot_scatter")
 	for id: String in _by_id:
 		var unit: Dictionary=_by_id[id]
 		if not drops.has(id) and not unit.claimed:
 			unit.claimed=true;unit.claimed_at=clock;unit.claimed_position=unit.position
 func _physics_process(delta: float) -> void:
 	clock+=delta;sync()
+	for birth:Dictionary in _births:birth.age+=delta
+	_births=_births.filter(func(row:Dictionary)->bool:return float(row.age)<.38)
+	queue_redraw()
 	for unit: Dictionary in pickups:
 		if not unit.claimed and arena_bounds.has_area() and str(unit.source).begins_with("boss:") and not arena_bounds.has_point(unit.position): unit.loot_returning=true
 		PlainsLootMotion.advance(unit,delta,self)
@@ -65,3 +77,10 @@ static func create_units(source: String,amount: int,origin: Vector2,safe: Vector
 	for unit: Dictionary in PlainsLootMotion.units(service.settle(StringName(source)),source,origin,safe,0):
 		var record:=PlainsLootMotion.snapshot(unit);record.room=room;result.append(record)
 	return result
+
+func _draw() -> void:
+	for birth:Dictionary in _births:
+		PixelVfx.clip(self,&"loot-spill",birth.at,float(birth.age)/.38)
+
+func _exit_tree() -> void:
+	GameAudio.stop_origin(self,false)

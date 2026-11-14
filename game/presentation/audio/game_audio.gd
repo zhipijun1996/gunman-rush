@@ -12,9 +12,20 @@ const REST_CUES := {
 	&"rest_current": preload("res://assets/player_presentation_01/charging/audio/current.wav"),
 	&"rest_restore": preload("res://assets/player_presentation_01/charging/audio/restore.wav"),
 }
+const RENEWAL_CUES := {
+	&"boss_arrival_roar": preload("res://assets/audio/vfx_renewal/boss_roar.wav"),
+	&"boss_arrival_land": preload("res://assets/audio/vfx_renewal/boss_land.wav"),
+	&"boss_gate": preload("res://assets/audio/vfx_renewal/gate.wav"),
+	&"boss_arrival_air": preload("res://assets/audio/vfx_renewal/boss_air.wav"),
+	&"boss_impact": preload("res://assets/audio/vfx_renewal/boss_land.wav"),
+	&"chest_reveal": preload("res://assets/audio/vfx_renewal/chest.wav"),
+	&"loot_scatter": preload("res://assets/audio/vfx_renewal/spill.wav"),
+	&"coin_bounce": preload("res://assets/audio/vfx_renewal/bounce.wav"),
+	&"coin": preload("res://assets/audio/vfx_renewal/coin.wav"),
+}
 const FOCUS_CUES := {
-	&"heal_gather": preload("res://assets/player_presentation_01/focus/audio/gather.wav"),
-	&"heal_release": preload("res://assets/player_presentation_01/focus/audio/release.wav"),
+	&"heal_gather": preload("res://assets/audio/vfx_renewal/gather.wav"),
+	&"heal_release": preload("res://assets/audio/vfx_renewal/restore.wav"),
 }
 # Per-origin death timbre; the existing accepted cue still owns timing/pooling.
 const CUE_STREAM_OVERRIDES_META := &"audio_cue_stream_overrides"
@@ -165,7 +176,7 @@ static func cue(origin: Node, id: StringName) -> void:
 		if service.director_profile_for_event(event_id) != "original":
 			service.play_director_event(event_id, "", origin)
 			return
-		service._play_original(id, service._origin_stream_override(origin, id))
+		service._play_original(id, service._origin_stream_override(origin, id),false,origin)
 
 func _origin_stream_override(origin: Node, id: StringName) -> AudioStream:
 	if id != &"enemy_defeat": return null
@@ -242,6 +253,7 @@ func _ready() -> void:
 	_streams[&"clock_resonance"] = CLOCK_RESONANCE
 	_streams.merge(REST_CUES)
 	_streams.merge(FOCUS_CUES)
+	_streams.merge(RENEWAL_CUES,true)
 	for index: int in MAX_VOICES:
 		var voice := AudioStreamPlayer.new()
 		add_child(voice)
@@ -409,6 +421,11 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 	if get_tree().paused and not pause_safe and id not in [&"click", &"confirm", &"denied"]: return false
 	var interval := 0.16 if id in [&"step", &"denied", &"armour"] else 0.055
 	if _clock - float(_last.get(id, -100.0)) < interval: return false
+	if RENEWAL_CUES.has(id):
+		var active:=0
+		for voice:AudioStreamPlayer in _voices:
+			if (voice.playing or voice.stream_paused) and voice.get_meta("cue_id",&"")==id:active+=1
+		if active>=(1 if id in [&"chest_reveal",&"boss_arrival_air",&"boss_arrival_land",&"boss_arrival_roar",&"boss_gate",&"boss_impact"] else 2):return false
 	for voice: AudioStreamPlayer in _voices:
 		if voice.playing or voice.stream_paused: continue
 		_last[id] = _clock
@@ -416,7 +433,7 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 		voice.process_mode = Node.PROCESS_MODE_ALWAYS if pause_safe or id in [&"click", &"confirm", &"denied"] else Node.PROCESS_MODE_PAUSABLE
 		voice.set_meta("cue_id", id)
 		_clear_director_metadata(voice)
-		if FOCUS_CUES.has(id) and is_instance_valid(origin):
+		if (FOCUS_CUES.has(id) or RENEWAL_CUES.has(id)) and is_instance_valid(origin):
 			voice.set_meta("director_event",id)
 			voice.set_meta("director_origin",weakref(origin))
 			voice.set_meta("director_sustained",id==&"heal_gather")
@@ -428,12 +445,13 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 			voice.set_meta("committed_reward", true)
 			voice.set_meta("director_event", &"legacy_committed_reward")
 			if is_instance_valid(origin): voice.set_meta("director_origin", weakref(origin))
-		voice.set_meta("audio_priority", 90 if id in [&"hurt", &"death", &"warning", &"enemy_defeat", &"boss_impact", &"mechanism_bell", &"clock_resonance"] else 70 if rest_cinematic else 20 if id == &"step" else 50)
+		voice.set_meta("audio_priority", 90 if id in [&"hurt", &"death", &"warning", &"enemy_defeat", &"boss_impact", &"boss_arrival_roar", &"mechanism_bell", &"clock_resonance"] else 70 if rest_cinematic else 20 if id == &"step" else 50)
 		if FOCUS_CUES.has(id):voice.set_meta("audio_priority",80)
 		voice.bus = &"Ambience" if REGIONAL_CUE_PATHS.has(id) else &"UI" if id in [&"click", &"confirm", &"denied"] else &"SFX"
 		voice.stream = stream_override if stream_override != null else _streams[id]
 		var attenuation := -MECHANISM_BELL_GAIN_DB if id == &"mechanism_bell" else 3.0 if id == &"clock_resonance" else 16.0 if id == &"forest_wind" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &"step" else 10.0 if id in [&"shot", &"land", &"jump", &"click"] else 7.0
 		if FOCUS_CUES.has(id):attenuation=1.0
+		if id==&"boss_arrival_roar":attenuation=2.5
 		voice.set_meta("attenuation", attenuation)
 		voice.volume_db = linear_to_db(volume) - attenuation
 		voice.play()
@@ -441,7 +459,7 @@ func _play_original(id: StringName, stream_override: AudioStream = null, committ
 		return true
 	# A/B keeps unselected critical legacy cues audible under candidate load.
 	# Original profile deliberately retains its existing full-pool drop policy.
-	if rest_cinematic or (audio_profile != "original" and id in [&"death", &"warning", &"boss_impact"]) or id in [&"mechanism_bell", &"clock_resonance"]:
+	if rest_cinematic or (audio_profile != "original" and id in [&"death", &"warning", &"boss_impact"]) or id in [&"mechanism_bell", &"clock_resonance", &"boss_arrival_roar"]:
 		var replaceable: AudioStreamPlayer
 		var lowest_priority := 70 if rest_cinematic else 90
 		for voice: AudioStreamPlayer in _voices:

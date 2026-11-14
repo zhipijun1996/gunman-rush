@@ -94,7 +94,7 @@ func _draw() -> void:
 		if marked:
 			draw_arc(Vector2.ZERO, radius+4, -PI*0.8, -PI*0.2, 8, glow, 1, false)
 	if beam_remaining > 0:
-		draw_line(Vector2.ZERO, to_local(beam_end), Color(0.46,0.83,0.82,0.75), 1.5, false)
+		_delivery_beam()
 
 func visual_snapshot() -> Dictionary:
 	return {"kind":kind,"origin":get_meta("item_definition_id",&""),"age":age,"art_draws":_art_draws,"art_missing":_art_missing,"clip":ItemArtLibrary.entity_clip(kind,StringName(get_meta("item_definition_id",&"")),evolved),"world_shader":ItemArtLibrary.WORLD_SHADER_PATH,"world_material":material==ItemArtLibrary.world_material()}
@@ -125,7 +125,7 @@ func _draw_art_body() -> bool:
 	# The thin delivery beam is owned here exactly once; muzzle and committed
 	# receiver flashes are separate effect-view clips, never a fabricated hit.
 	if beam_remaining > 0:
-		draw_line(Vector2.ZERO,to_local(beam_end),Color(0.46,0.83,0.82,0.75),1.5,false)
+		_delivery_beam()
 	if marked:
 		draw_arc(Vector2.ZERO,radius+4,-PI*0.8,-PI*0.2,8,Color("77d3d1"),1,false)
 	# Authored variants already carry their rank; detached fallback dots would
@@ -144,3 +144,10 @@ func _gear(size: float, edge: Color, inside: Color) -> void:
 	draw_circle(Vector2.ZERO, size, edge)
 	draw_circle(Vector2.ZERO, maxf(1,size-2), inside)
 	draw_circle(Vector2.ZERO, 2, edge)
+
+func _delivery_beam() -> void:
+	var finish:=to_local(beam_end).round()
+	draw_line(Vector2.ZERO,finish,Color("203e3e",.5),3,false)
+	draw_line(Vector2.ZERO,finish,Color(.46,.83,.82,.75),1,false)
+	# Muzzle light is delivery feedback; receiver art still requires HP commit.
+	PixelVfx.glint(self,Vector2.ZERO,2,Color(.7,.95,.87,.65))

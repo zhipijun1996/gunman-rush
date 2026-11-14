@@ -45,7 +45,7 @@ func _physics_process(delta:float)->void:
 	if clock>=.65:
 		closed=true;close_count+=1
 		for wall:StaticBody2D in walls:wall.collision_layer=1
-		GameAudio.cue(self,&"boss_impact")
+		GameAudio.cue(self,&"boss_gate")
 	queue_redraw()
 func _draw()->void:
 	if not armed and not closed:return

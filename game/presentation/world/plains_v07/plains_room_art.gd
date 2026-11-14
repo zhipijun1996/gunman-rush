@@ -34,6 +34,8 @@ static var profiles: Dictionary={}
 var light_settings: Dictionary = {}
 var environment_light: Dictionary = {}
 var atmosphere: Dictionary = {}
+var _wind_cells: Dictionary = {}
+var _wind_signature := ""
 func sprite(id: String,at: Vector2,layer: int=-2) -> Sprite2D:
 	var node:=Sprite2D.new();node.centered=false
 	if props.has(id):
@@ -304,22 +306,35 @@ func _draw() -> void:
 	if camera==null:return
 	var span:=get_viewport_rect().size/camera.zoom
 	var view:=Rect2(camera.get_screen_center_position()-span/2,span).grow(8)
+	var signature:=str(atmosphere)+str(indoor)
+	if signature!=_wind_signature:
+		_wind_cells.clear();_wind_signature=signature
 	for cy:int in range(floori(view.position.y/192)-1,ceili(view.end.y/192)+1):
 		for cx:int in range(floori(view.position.x/256)-1,ceili(view.end.x/256)+1):
-			var rng:=RandomNumberGenerator.new();rng.seed=hash(room.room_id+str(cx)+":"+str(cy))
-			for i:int in int(atmosphere.density):
-				var speed:=rng.randf_range(float(atmosphere.speed[0]),float(atmosphere.speed[1]))
-				var phase:=rng.randf_range(0,256)
-				var travel:=fposmod(phase+clock*speed,256)
-				var at:=Vector2(cx*256+travel,cy*192+rng.randf_range(0,192)+sin(clock*1.4+phase)*5).round()
+			for mote:Dictionary in _air_particles(cx,cy):
+				var travel:=fposmod(float(mote.phase)+clock*float(mote.speed),256)
+				var at:=Vector2(cx*256+travel,cy*192+float(mote.height)+sin(clock*1.4+float(mote.phase))*5).round()
 				if not view.has_point(at) or not _air_open(at):continue
 				var fade:=minf(1,minf(travel/28,(256-travel)/28))
-				var alpha:=rng.randf_range(.5,.9)*fade
-				var tail:=3 if indoor else rng.randi_range(4,8)
+				var alpha:=float(mote.alpha)*fade
+				var tail:=int(mote.tail)
 				for x:int in tail:
 					var point:=at-Vector2(x,0)
 					if _air_open(point):draw_rect(Rect2(point,Vector2.ONE),Color(1,.91,.64,alpha*(1-float(x)/tail)*.55))
 				draw_rect(Rect2(at,Vector2(2,1)),Color(1,.98,.82,alpha))
+
+func _air_particles(cx: int,cy: int) -> Array:
+	var key:=Vector2i(cx,cy)
+	if _wind_cells.has(key):return _wind_cells[key]
+	# Stable world-cell recipes are independent of camera/occlusion culling.
+	# Reusing them removes per-frame RNG allocations and camera-dependent reseeding.
+	if _wind_cells.size()>=64:_wind_cells.erase(_wind_cells.keys()[0])
+	var rng:=RandomNumberGenerator.new();rng.seed=hash(room.room_id+str(cx)+":"+str(cy))
+	var motes:Array[Dictionary]=[]
+	for i:int in int(atmosphere.density):
+		motes.append({"speed":rng.randf_range(float(atmosphere.speed[0]),float(atmosphere.speed[1])),"phase":rng.randf_range(0,256),"height":rng.randf_range(0,192),"alpha":rng.randf_range(.5,.9),"tail":3 if indoor else rng.randi_range(4,8)})
+	_wind_cells[key]=motes
+	return motes
 
 func _support(base: Vector2,height: float) -> void:
 	# Painted stone caps and grass have irregular alpha edges. Embed the footing

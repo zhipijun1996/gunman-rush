@@ -89,50 +89,11 @@ func resolve(accepted: bool) -> void:
 	_pose(5);GameAudio.cue_focus(self,&"heal_release")
 	queue_redraw()
 func _draw() -> void:
-	var center:=Vector2(2,-8)
-	var count:=int(settings.presentation.particles)/(2 if reduced else 1)
-	var strength:=.5 if reduced else 1.0
+	var strength:=.55 if reduced else 1.0
 	if elapsed>0 or _cancel_fade>0:
 		var progress:=ratio() if elapsed>0 else _last_ratio
 		var fade:=1.0 if elapsed>0 else _cancel_fade/float(settings.presentation.cancel_seconds)
-		# Readable inward streams surround, rather than cover, the authored body.
-		for i:int in count:
-			var travel:=fposmod(progress*2+float(i)/count,1)
-			var angle:=float(i)*2.399+travel*.6
-			var radius:=lerpf(float(settings.presentation.gather_radius),3,travel)
-			var at:=(center+Vector2.from_angle(angle)*Vector2(radius*.8,radius)).round()
-			var alpha:=sin(travel*PI)*fade*strength
-			var tail:=(at-center).normalized()*lerpf(5,13,progress)
-			draw_line(at,at+tail,Color(.8,.87,.75,alpha*.7),2)
-			draw_rect(Rect2(at,Vector2(2,3)),Color(1,.96,.77,alpha))
-		# Two tapered upward plumes show sustained concentration at phone scale.
-		for side:float in [-1.0,1.0]:
-			var points:=PackedVector2Array()
-			for i:int in 12:
-				var t:=float(i)/11
-				points.append(Vector2(side*(19+sin(t*PI)*12+sin(t*9-elapsed*12)*2),18-t*(62+progress*24)).round())
-			draw_polyline(points,Color(.81,.86,.72,(.12+progress*.22)*fade*strength),6)
-			draw_polyline(points,Color(1,.95,.76,(.36+progress*.4)*fade*strength),2)
-		var pulse:=(.3+progress*.55)*fade*strength
-		for r:int in range(16,2,-3):
-			draw_circle(center,float(r),Color(.96,.85,.5,pulse*.075))
-		draw_rect(Rect2(center-Vector2(2,3),Vector2(5,6)),Color(1,.98,.82,pulse))
-		draw_line(Vector2(-25,18),Vector2(25,18),Color(.96,.86,.59,pulse*.8),2)
+		PixelVfx.clip(self,&"focus-gather",Vector2(2,-2),minf(.98,progress),0,Color(1,1,1,fade*strength))
 	if flash>0:
 		var progress:=1-flash/float(settings.presentation.release_seconds)
-		var radius:=lerpf(5,float(settings.presentation.release_radius),1-pow(1-progress,3))
-		var alpha:=pow(1-progress,1.4)*strength
-		for side:float in [-1.0,1.0]:
-			var wing:=PackedVector2Array([center+Vector2(side*radius*.08,radius*.04),center+Vector2(side*radius*.7,-radius*.55),center+Vector2(side*radius,-radius*.16),center+Vector2(side*radius*.58,radius*.05),center+Vector2(side*radius*.15,radius*.09)])
-			draw_colored_polygon(wing,Color(1,.96,.8,alpha*.26))
-		for i:int in 8:
-			var angle:=float(i)*TAU/8+.2
-			var radial:=Vector2.from_angle(angle)
-			var side:=radial.orthogonal()
-			var tip:=center+radial*radius
-			var base:=center+radial*maxf(3,radius-18)
-			draw_colored_polygon(PackedVector2Array([tip,base+side*3,base-radial*8,base-side*3]),Color(1,.96,.77,alpha))
-		for i:int in count:
-			var angle:=float(i)*2.399
-			var at:=(center+Vector2.from_angle(angle)*(radius+float(i%3)*4)+Vector2(0,-progress*12)).round()
-			draw_rect(Rect2(at,Vector2(1,2)),Color(.76,.9,.79,alpha*.8))
+		PixelVfx.clip(self,&"focus-restore",Vector2(0,15),progress,0,Color(1,1,1,strength))

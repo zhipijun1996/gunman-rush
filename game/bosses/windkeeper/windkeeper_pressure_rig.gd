@@ -205,9 +205,18 @@ static func sample(data: Dictionary) -> Dictionary:
 		bell_swing += sin(progress*PI*3)*.14
 		core_energy = .95
 	elif mode == &"intro":
-		head_angle -= sin(progress*PI)*.25
-		sail_open *= smoothstep(0,1,progress)
-		body_shift.y += 6*(1-smoothstep(0,.75,progress))
+		var inhale:=BossRoarTimeline.breath(progress)
+		var roar:=BossRoarTimeline.strength(progress)
+		var pulse:=sin(age*39)*roar
+		# Feet stay planted; the rib cage loads, then the neck/head open into a roar.
+		body_shift+=Vector2(3*inhale-7*roar,10*inhale-5*roar+pulse*.7)
+		body_angle+=.055*inhale-.065*roar
+		head_shift+=Vector2(-3*inhale+8*roar,3*inhale-14*roar)
+		head_angle+=.10*inhale-.34*roar+pulse*.012
+		sail_open=.18+.60*roar
+		sail_tension=.22+.64*roar
+		bell_swing+=pulse*.09
+		core_energy=.62+.32*roar
 	if bool(data.get("combo_movement", false)):
 		sail_tension = maxf(sail_tension, .72)
 		core_energy = maxf(core_energy, .85)

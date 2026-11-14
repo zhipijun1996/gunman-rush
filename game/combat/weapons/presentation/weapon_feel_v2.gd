@@ -43,6 +43,8 @@ func _runtime_audio(id: StringName) -> bool:
 
 func _shot(axis: Vector2, serial: int) -> void:
 	super._shot(axis,serial)
+	if controller.shoot_ability.weapon.mode!=WeaponDefinition.Mode.BOMB:
+		_effect(&"recoil",controller.motor.global_position,-axis,.20,12)
 	for projectile: PlayerProjectile in controller.shoot_ability._projectiles:
 		if is_instance_valid(projectile) and projectile.shot_id==serial:
 			projectile.terrain_impacted.connect(_wall.bind(projectile))
@@ -52,6 +54,9 @@ func _contact(point: Vector2, axis: Vector2, projectile: PlayerProjectile, mode:
 	if not enabled_candidate or projectile.art_kind==&"ice": return
 	# Contact spark alone never claims HP loss; only the receipt plays enemy-hit.
 	_effect(&"contact",point,-axis,profile.contact_seconds,10 if mode==WeaponDefinition.Mode.MACHINE else 14)
+	# Formal projectiles already emit this contact at their swept collision.
+	# Keep the receipt/cap/lifetime here without stamping the same art twice.
+	if not effects.is_empty(): effects[-1]["formal_contact"]=UnderworldProjectileVisual.enabled(projectile)
 	events.append({"type":"contact","tick":Engine.get_physics_frames(),"serial":projectile.shot_id,"point":[point.x,point.y]})
 	if events.size()>256: events.pop_front()
 
@@ -133,17 +138,18 @@ func _draw() -> void:
 	for fx: Dictionary in effects:
 		var p := float(fx.age)/float(fx.life)
 		var center := to_local(fx.point)
-		for i: int in 4:
-			var axis: Vector2=fx.axis.rotated((i-1.5)*.5)
-			var start := center+axis*(2+p*float(fx.radius))
-			draw_line(start,start+axis*6*(1-p),Color(1,.9,.65,(1-p)*profile.accent_opacity),2,false)
+		if fx.kind==&"recoil":
+			PixelVfx.clip(self,&"recoil",center,p,fx.axis.angle(),Color(1,1,1,profile.accent_opacity*.55))
+		elif fx.kind==&"contact" and not bool(fx.get("formal_contact",false)):
+			PixelVfx.clip(self,&"impact",center,p,fx.axis.angle(),Color(1,1,1,profile.accent_opacity*.7))
+
 	for entity: WeaponEntity in runtime.entities:
 		if not is_instance_valid(entity) or entity.spent or entity.kind!=&"mine": continue
 		var t := clampf(entity.age/maxf(.01,runtime.definition().mine_fuse_seconds),0,1)
 		var center := to_local(entity.global_position)
 		var strength := .55+.45*sin(entity.age*(7+32*t*t))
-		draw_circle(center+Vector2(0,-10),3,Color(1,.12+.5*(1-t),.08,strength))
-		draw_arc(center,16,0,TAU*t,20,Color(1,.4,.15,.75),2,false)
+		PixelVfx.glint(self,center+Vector2(0,-10),2,Color(1,.12+.5*(1-t),.08,strength))
+		PixelVfx.arc(self,center,16,0,TAU*t,Color(1,.4,.15,.65),1)
 
 func _exit_tree() -> void:
 	if is_instance_valid(controller) and controller.weapon_damage_committed.is_connected(_enemy_hit): controller.weapon_damage_committed.disconnect(_enemy_hit)

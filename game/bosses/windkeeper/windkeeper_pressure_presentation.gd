@@ -20,6 +20,9 @@ func _ready() -> void:
 		encounter = get_parent().get_node_or_null("Encounter") as WindkeeperEncounter
 	if encounter == null:
 		return
+	var arrival:=BossArrivalPresentation.new()
+	arrival.configure(encounter,body,false)
+	add_child(arrival)
 	var phase_screen:=WindkeeperPhaseScreen.new()
 	phase_screen.encounter=encounter as WindkeeperPressureEncounter
 	add_child(phase_screen)
@@ -68,7 +71,7 @@ func _draw() -> void:
 		for index: int in 4:
 			var axis := Vector2.from_angle(float(index) * PI * .5 + .4)
 			var at := (_armour_point + axis * (7 + (1 - _armour_remaining / .1) * 8)).round()
-			draw_rect(Rect2(at, Vector2(2, 2)), Color("ded8ad"))
+			PixelVfx.streak(self,at,axis,3,1,Color("ded8ad"),_armour_remaining/.1)
 
 
 func _exit_tree() -> void:

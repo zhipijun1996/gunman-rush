@@ -14,7 +14,8 @@ func run() -> void:
 		var start := motor.position
 		controller.router.activate_device(&"gamepad")
 		controller.router.set_aim(&"gamepad",Vector2.RIGHT,true)
-		if def.mode!=WeaponDefinition.Mode.LASER:controller.router.request_action(&"shoot_release",Vector2.RIGHT)
+		controller.router.gamepad_primary_held=def.mode==WeaponDefinition.Mode.LASER
+		controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 		await tick(20)
 		if def.mode==WeaponDefinition.Mode.BOOMERANG:
 			for attempt: int in 30:
@@ -31,6 +32,7 @@ func run() -> void:
 		elif def.mode==WeaponDefinition.Mode.SINGULARITY:
 			await tick(15)
 		elif def.mode==WeaponDefinition.Mode.LASER:
+			controller.router.gamepad_primary_held=false
 			controller.router.set_aim(&"gamepad",Vector2.RIGHT,false);await tick(5)
 		check(target.health<100,"%s actually commits damage" % id)
 		check(motor.position.distance_to(start)>5 or def.mode==WeaponDefinition.Mode.MINE,"%s actual Motor displacement" % id)
@@ -43,6 +45,7 @@ func run() -> void:
 			var health_before_skill := target.health
 			controller.combat_energy.current=def.skill_cost
 			controller.action_resources.reset()
+			controller.router.gamepad_primary_held=false
 			controller.router.set_aim(&"gamepad",Vector2.RIGHT,false)
 			check(controller.shoot_ability.behavior().begin(Vector2.RIGHT,true,true),"Lv3 skill accepted once %s" % id)
 			check(controller.combat_energy.current==0,"skill atomically consumes shared combat pool %s" % id)
@@ -92,8 +95,10 @@ func primary_equivalence() -> void:
 			controller.shoot_ability.equip(def)
 			var target := enemy(Vector2(225,670));await physics_frame
 			controller.router.activate_device(&"gamepad");controller.router.set_aim(&"gamepad",Vector2.RIGHT,true)
-			if def.mode!=WeaponDefinition.Mode.LASER:controller.router.request_action(&"shoot_release",Vector2.RIGHT)
+			controller.router.gamepad_primary_held=def.mode==WeaponDefinition.Mode.LASER
+			controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 			await tick(35)
+			controller.router.gamepad_primary_held=false
 			controller.router.set_aim(&"gamepad",Vector2.RIGHT,false)
 			if def.mode in [WeaponDefinition.Mode.MINE,WeaponDefinition.Mode.BOOMERANG]:controller.router.request_action(&"weapon_context")
 			await tick(20)
@@ -104,12 +109,14 @@ func primary_equivalence() -> void:
 func beam_and_failures() -> void:
 	for hz: int in [30,60,120]:
 		Engine.physics_ticks_per_second=hz;dt=1.0/hz
-		await fixture(Vector2(100,682));await tick(3)
+		await fixture(Vector2(100,200));await tick(3)
 		controller.shoot_ability.equip(preload("res://resources/weapons/sustained_laser.tres"))
 		controller.router.activate_device(&"gamepad");controller.router.set_aim(&"gamepad",Vector2.DOWN,true)
+		controller.router.gamepad_primary_held=true
+		controller.router.request_action(&"shoot_release",Vector2.DOWN)
 		var origin := motor.position
 		await tick(ceili(.8/dt))
-		check(motor.position.y<origin.y-15,"continuous downward beam really lifts at %sHz" % hz)
+		check(motor.position.y<origin.y-15,"airborne continuous downward beam really lifts at %sHz" % hz)
 		var def := controller.shoot_ability.weapon
 		await tick(ceili((def.beam_duration+.3)/dt))
 		check(controller.shoot_ability.behavior().phase==&"idle","beam maximum hold ends and requires release")
@@ -157,7 +164,8 @@ func launch_clearance_and_skill_impact() -> void:
 		var target := enemy(Vector2(150,500));await physics_frame
 		controller.shoot_ability.equip(load("res://resources/weapons/%s.tres" % id))
 		controller.router.activate_device(&"gamepad");controller.router.set_aim(&"gamepad",Vector2.RIGHT,true)
-		if id!="sustained_laser":controller.router.request_action(&"shoot_release",Vector2.RIGHT)
+		controller.router.gamepad_primary_held=id=="sustained_laser"
+		controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 		await tick(20)
 		if id=="magnetic_mine":
 			var values := controller.shoot_ability.behavior().current_entities()

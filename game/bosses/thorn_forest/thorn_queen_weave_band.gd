@@ -129,10 +129,10 @@ func _draw() -> void:
 	if config==null or severed or suspended: return
 	if growth>0 and _danger_polygon.size()>=3:
 		var local := PackedVector2Array()
-		for point: Vector2 in _danger_polygon: local.append(to_local(point))
+		for point: Vector2 in _danger_polygon: local.append(to_local(point).round())
 		draw_colored_polygon(local,Color("ab616c"))
 		var current := current_segment(growth)
-		draw_line(to_local(current[0]),to_local(current[1]),Color("e8a9a0"),2,true)
+		draw_line(to_local(current[0]).round(),to_local(current[1]).round(),Color("e8a9a0"),1,false)
 static func polygon_body_sweep_hits(hazard: PackedVector2Array,old_center: Vector2,new_center: Vector2,half: Vector2) -> bool:
 	if hazard.size()<3: return false
 	var sums := PackedVector2Array()

@@ -26,6 +26,7 @@ static func shake(progress: float) -> Vector2:
 func _process(_delta: float) -> void:
 	var playing := is_instance_valid(encounter) and encounter.active and not encounter.health.terminal and encounter.mode==&"phase_transition" and encounter.stage_phase==2
 	overlay.visible = playing
+	overlay.modulate.a=.45 if PixelVfx.reduced(self) else 1.0
 	if not playing:
 		_clear_camera()
 		return

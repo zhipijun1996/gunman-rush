@@ -26,3 +26,5 @@ func _draw() -> void:
 			var opacity:=sin(cycle*PI)*envelope*.64
 			var scale_factor:=.58+float(lane%3)*.08
 			PlainsBossEffects.paint(self,&"wind",3,fposmod(age*2+lane*.21+section*.13,1),Vector2(x,y),Vector2(encounter.locked_direction*scale_factor,.65),0,Color(1,1,1,opacity))
+			var tail:=Vector2(-encounter.locked_direction*12,0)
+			PixelVfx.streak(self,Vector2(x,y)+tail,Vector2(encounter.locked_direction,0),10,1,Color(.91,.93,.78,opacity*.45))

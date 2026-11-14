@@ -34,6 +34,10 @@ func _draw() -> void:
 		var color := Color("c6a970")
 		color.a=t*t*trail_opacity
 		draw_line(to_local(history[i-1]).snapped(Vector2(2,2)),to_local(history[i]).snapped(Vector2(2,2)),color,2 if t>.65 else 1,false)
+	if history.size()>1:
+		var tip:=to_local(history[-1]).round()
+		var previous_tip:=to_local(history[-2]).round()
+		draw_line(previous_tip,tip,Color("f4e2ad",trail_opacity*.65),1,false)
 	if projectile.art_kind==&"blade":
 		# Preserve the equipped blade artwork/rotation; only the trail is revised.
 		var texture := projectile.weapon_blade_texture()

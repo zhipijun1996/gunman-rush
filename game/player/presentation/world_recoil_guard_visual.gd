@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 	protecting=enabled
 	glow=1.0 if protecting else maxf(0,glow-delta*12)
 	if protecting:
-		trail.push_front(global_position)
+		if trail.is_empty() or trail[0].distance_squared_to(global_position)>=9.0:trail.push_front(global_position)
 		if trail.size()>5:trail.pop_back()
 	elif glow<=0:trail.clear()
 	queue_redraw()
@@ -31,6 +31,8 @@ func _draw() -> void:
 	if not protecting:return
 	var shell:=PackedVector2Array([Vector2(-16,-20),Vector2(0,-27),Vector2(16,-20),Vector2(20,3),Vector2(0,20),Vector2(-20,3),Vector2(-16,-20)])
 	draw_polyline(shell,Color(.18,.48,.44,.8),5,false)
-	draw_polyline(shell,Color(.86,1,.82,.95),2,false)
+	draw_polyline(shell,Color(.86,1,.82,.85),1,false)
+	PixelVfx.glint(self,Vector2(0,-27),2,Color(.86,1,.82,.7))
+	PixelVfx.glint(self,Vector2(20,3),1,Color(.86,1,.82,.55))
 	draw_line(Vector2(-26,-12),Vector2(-20,-12),Color("f5ddb1"),2)
 	draw_line(Vector2(20,9),Vector2(26,9),Color("f5ddb1"),2)

@@ -10,6 +10,7 @@ var chest_sprite: Sprite2D
 var animation: WorldSpriteAnimation
 var state: FixedWorldState
 var action: Dictionary = {}
+var _opening_age:=10.0
 func bind(value: FixedWorldState) -> void:
 	state=value;action=state.content.action(action_id)
 	if action.is_empty(): push_error("Unknown action host: "+action_id);return
@@ -30,10 +31,25 @@ func available(player_position: Vector2,section: String) -> bool:
 	return visible and state!=null and (bool(action.get("repeat",false)) or not state.value.receipts.has(action_id)) and section==section_id and player_position.distance_to(position)<=radius and state.holds(action.get("requires",[]))
 func celebrate() -> void:
 	if chest_sprite!=null:
-		var tween:=create_tween()
-		var settled:=chest_sprite.position
-		tween.tween_property(chest_sprite,"position",settled-Vector2(0,5),.09)
-		tween.tween_property(chest_sprite,"position",settled,.18)
+		_opening_age=0
+		GameAudio.cue(self,&"chest_reveal")
+		return
 	if animation!=null:animation.play_event()
 	var burst:=WorldSpriteAnimation.new();burst.asset_id="collection_burst";burst.disposable=true;burst.position=position;burst.z_index=10
 	get_parent().add_child(burst)
+
+func _process(delta:float) -> void:
+	if _opening_age>=.9:return
+	_opening_age+=delta
+	if chest_sprite!=null:
+		# A brisk lid/chest recoil, then a damped settle; no parallel tween.
+		var hop:=-sin(clampf(_opening_age/.18,0,1)*PI)*4
+		chest_sprite.position=Vector2(0,18+hop)
+	queue_redraw()
+
+func _draw() -> void:
+	if chest_sprite!=null and _opening_age<.9:
+		PixelVfx.clip(self,&"chest-rays",Vector2(0,0),_opening_age/.9)
+
+func _exit_tree() -> void:
+	GameAudio.stop_origin(self,false)

@@ -78,4 +78,4 @@ func _draw() -> void:
 	var tint := Color(0.95, 0.8, 0.47) if selected else Color(0.56, 0.59, 0.74)
 	draw_line(Vector2(0, 18), Vector2(0, -38), tint, 3)
 	draw_colored_polygon(PackedVector2Array([Vector2(0, -38), Vector2(30, -27), Vector2(0, -16)]), tint)
-	draw_arc(Vector2(0, 18), 24, PI, TAU, 20, tint, 2)
+	PixelVfx.arc(self,Vector2(0,18),24,PI,TAU,tint)

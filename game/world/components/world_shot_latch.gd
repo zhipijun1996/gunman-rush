@@ -53,7 +53,7 @@ func _draw() -> void:
 	if age<.65:
 		for ring: int in 2:
 			var t:=maxf(0,age-ring*.1)
-			draw_arc(bell_position,15+t*72,0,TAU,32,Color(.92,.78,.46,maxf(0,1-t/.55)),1)
+			PixelVfx.arc(self,bell_position,15+t*72,0,TAU,Color(.92,.78,.46,maxf(0,1-t/.55)))
 	if open_seconds>0:
 		var cable_y:=gate_rect.position.y+12
 		draw_polyline(PackedVector2Array([bell_position,bell_position+Vector2(56,0),Vector2(bell_position.x+56,cable_y),Vector2(gate_rect.get_center().x,cable_y)]),Color("75684d"),2)

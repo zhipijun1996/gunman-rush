@@ -79,10 +79,8 @@ func advance_frozen_contact() -> void:
 
 func _draw() -> void:
 	if landed:
-		var size := behavior.actor.definition.pulse_size
-		draw_rect(Rect2(Vector2(-size.x * .5, -size.y), size), Color(0.8, 0.24, 0.35, .7))
-		for x: int in range(-int(size.x * .5), int(size.x * .5), 12):
-			draw_line(Vector2(x, 0), Vector2(x + 6, -size.y), Color(1, .7, .45), 3)
+		var size:=behavior.actor.definition.pulse_size
+		PixelVfx.hazard_patch(self,Rect2(Vector2(-size.x*.5,-size.y),size),age)
 	else:
-		draw_circle(Vector2.ZERO, radius + 2, Color(.95, .68, .32))
-		draw_line(Vector2(-6, 2), Vector2(5, -3), Color(.3, .15, .12), 2)
+		draw_circle(Vector2.ZERO,radius+2,Color("392c2a"))
+		PixelVfx.shard(self,Vector2.ZERO,Vector2(1,-.3),radius*2, radius*.6,Color("d8a065"))

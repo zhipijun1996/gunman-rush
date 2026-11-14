@@ -27,7 +27,7 @@ func _draw() -> void:
 	var light:=.2+charge*.5+success*.2
 	for side:float in [-1.0,1.0]:
 		var contact:=Vector2(side*16,-25)
-		draw_circle(contact,5,Color(.25,.75,.65,light*.12))
+		PixelVfx.glint(self,contact,2,Color(.25,.75,.65,light*.45))
 		draw_rect(Rect2(contact-Vector2(1,2),Vector2(2,4)),Color(.62,.94,.81,light))
 		if charge>.01:
 			for strand:int in 2:
@@ -38,6 +38,7 @@ func _draw() -> void:
 					path.append(Vector2(roundf(x),roundf(-42+t*30+strand*5)))
 				draw_polyline(path,Color(.45,.9,.8,charge*(.32+.12*sin(age*9+strand))),1)
 	if charge>.01:
+		PixelVfx.clip(self,&"spark",Vector2(0,-25),fposmod(age/.8,1),0,Color(.55,1,.85,charge*.4))
 		var bridge:=PackedVector2Array()
 		for i:int in 7:
 			bridge.append(Vector2(-16+i*5.333, -25+sin(i*2+age*10)*2).round())
@@ -47,5 +48,6 @@ func _draw() -> void:
 		var spark:=bridge[index].lerp(bridge[index+1],travel-index).round()
 		draw_rect(Rect2(spark,Vector2(2,1)),Color(.82,1,.88,charge*.8))
 	if success>0:
-		draw_arc(Vector2(0,-28),22+(1-success)*8,PI*.12,PI*.88,16,Color(.7,.95,.83,success*.5),1)
+		PixelVfx.arc(self,Vector2(0,-28),22+(1-success)*8,PI*.12,PI*.88,Color(.7,.95,.83,success*.5))
+		PixelVfx.clip(self,&"collect",Vector2(0,-28),1-success,0,Color(.7,.95,.83,.55))
 	draw_texture(FRONT,Vector2(-48,-92))

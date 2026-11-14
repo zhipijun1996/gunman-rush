@@ -71,7 +71,7 @@ func _process(delta: float) -> void:
 	if _mode != observed.raw_mode:
 		_mode = observed.raw_mode
 		if _mode in [&"intro", &"phase_transition"]:
-			GameAudio.cue(self, &"roar")
+			if _mode==&"phase_transition":GameAudio.cue(self, &"roar")
 			if (encounter.definition as WindkeeperDefinition).platform_trials:_roar_burst()
 		elif _mode in [&"stomp_warning", &"charge_warning", &"blade_warning", &"pier_warning"]: GameAudio.cue(self, &"warning")
 		elif _mode in [&"stomp", &"pier_impact"]: GameAudio.cue(self, &"boss_impact")

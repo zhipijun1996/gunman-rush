@@ -49,10 +49,11 @@ func _draw() -> void:
 		var progress := 1.0-_counter_flash/.55
 		var impact := to_local(_counter_position)
 		var flash := Color(1,.77,.3,1-progress)
-		draw_arc(impact,30+progress*70,0,TAU,40,flash,4)
+		PixelVfx.arc(self,impact,30+progress*70,0,TAU,flash,2)
+		PixelVfx.clip(self,&"impact",impact,progress,0,Color(1,1,1,.7))
 		for index: int in 8:
 			var direction := Vector2.from_angle(TAU*index/8.0)
-			draw_line(impact+direction*(25+progress*30),impact+direction*(45+progress*65),flash,3)
+			PixelVfx.streak(self,impact+direction*(25+progress*30),direction,20+progress*35,1.5*(1-progress),flash)
 		_draw_visible_label(impact+Vector2(-66,-68-progress*18),"BELL COUNTER  -%s" % int(_counter_amount),16,flash)
 
 func _draw_visible_label(at: Vector2, text: String, font_size: int, color: Color, avoid_bell := false) -> void:

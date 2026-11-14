@@ -1,6 +1,6 @@
 class_name SelectedSfxRuntime
 extends Node
-## Formal-scene assembly only. Original choices/assets and shared12-voice service remain authoritative.
+## Formal-scene assembly only. Current feedback revisions share the existing twelve-voice service.
 const SELECTION_PATH := "res://config/audio_director/selected/selected.json"
 const HURT_SELECTION_PATH := "res://config/audio_director/selected/hurt-20261030.json"
 const MANIFEST_PATH := "res://assets/audio/director_v3/manifest.json"
@@ -193,6 +193,15 @@ func _attach() -> void:
 		validation_error = "existing GameAudio rejected validated selected proposal"
 		_publish_probe()
 		return
+	# User rejected the earlier attack/loot timbres; retain transport/auditions,
+	# replace the live accepted-event candidates with authored renewal audio.
+	for event:StringName in [&"shot_pulse",&"enemy_hit",&"chest_open"]:
+		var paths:Array=[]
+		if event==&"shot_pulse":
+			for i:int in 3:paths.append("res://assets/audio/vfx_renewal/shot%s.wav"%i)
+		else:paths.append("res://assets/audio/vfx_renewal/"+("hit" if event==&"enemy_hit" else "chest")+".wav")
+		if not service.configure_candidate_revision(event,{"id":"vfx_renewal_"+str(event),"variants":paths}):
+			validation_error="renewal candidate rejected: "+str(event);_publish_probe();return
 	_audio = weakref(service)
 	_owner = weakref(app)
 	validation_ok = true

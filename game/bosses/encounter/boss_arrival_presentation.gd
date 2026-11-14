@@ -9,6 +9,14 @@ var duration := 0.0
 var progress := 1.0
 var _was_intro := false
 var _impact_played := false
+var _camera:WorldCamera
+var _camera_token:=-1
+var roar_screen:BossRoarScreen
+
+func _ready() -> void:
+	process_mode=Node.PROCESS_MODE_ALWAYS
+	if not rolling:
+		roar_screen=BossRoarScreen.new();add_child(roar_screen)
 
 func configure(owner_encounter: WindkeeperEncounter, visual: Node2D, wheels: bool) -> void:
 	encounter=owner_encounter
@@ -17,19 +25,39 @@ func configure(owner_encounter: WindkeeperEncounter, visual: Node2D, wheels: boo
 	z_index=1
 
 func _process(delta: float) -> void:
-	if not is_instance_valid(encounter) or not is_instance_valid(subject):return
+	if not is_instance_valid(encounter) or not is_instance_valid(subject):
+		if is_instance_valid(roar_screen):roar_screen.clear()
+		_release_camera();GameAudio.stop_origin(self,false);visible=false;return
 	var observed := encounter.presentation_intro()
-	var intro: bool = observed.active
+	var intro: bool = observed.active and not encounter.health.terminal
+	var audio:=GameAudio.for_origin(self) as GameAudio
+	if audio!=null:audio.pause_origin(self,get_tree().paused)
+	if get_tree().paused and intro:return
 	if intro and not _was_intro:
 		duration = observed.duration
-		_impact_played=(1-float(observed.raw_clock)/duration)>=.64
+		_impact_played=(1-float(observed.raw_clock)/duration)>=(.64 if rolling else BossRoarTimeline.RELEASE)
+		if not _impact_played:
+			GameAudio.cue(self,&"boss_arrival_air")
+			_camera=get_viewport().get_camera_2d() as WorldCamera
+			if _camera!=null and _camera.room!=null and _camera.room.encounter==encounter:
+				# The fixed zoom cannot contain both distant arena ends. Show the
+				# arriving guardian within player visibility through the sole owner.
+				_camera_token=_camera.begin_takeover(self,encounter.motor.global_position+Vector2(0,-80),_camera.room.arena_bounds.grow_individual(0,float(_camera.settings.arena_vertical_padding),0,float(_camera.settings.arena_vertical_padding)),.32)
 	if intro:
 		progress=clampf(1-float(observed.raw_clock)/duration,0,1)
 		subject.position=pose_offset(progress,rolling,int(observed.direction))
-		if progress>=.64 and not _impact_played:
+		if progress>=(.64 if rolling else BossRoarTimeline.RELEASE) and not _impact_played:
 			_impact_played=true
-			GameAudio.cue(self,&"boss_impact")
+			GameAudio.stop_origin(self,false)
+			GameAudio.cue(self,&"boss_arrival_land" if rolling else &"boss_arrival_roar")
+		if is_instance_valid(roar_screen):
+			var size:=get_viewport().get_visible_rect().size
+			var point:=get_global_transform_with_canvas()*_mouth()
+			roar_screen.present(progress,point/size,PixelVfx.reduced(self))
 	else:
+		if _was_intro:GameAudio.stop_origin(self,false)
+		if is_instance_valid(roar_screen):roar_screen.clear()
+		_release_camera()
 		subject.position=subject.position.move_toward(Vector2.ZERO,delta*600)
 		progress=1
 	_was_intro=intro
@@ -38,33 +66,42 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	if not visible:return
-	if PixelFormalActors.pixel_context(self):
-		var burst := sin(clampf((progress-.58)/.35,0,1)*PI)
-		for i: int in 16:
-			var side := -1.0 if i%2==0 else 1.0
-			var p := Vector2(side*(12+burst*(24+i*4)),62-burst*(8+i*2)).snapped(Vector2(2,2))
-			draw_rect(Rect2(p,Vector2(6,2)),Color(PixelFormalActors.MOSS,burst*.7))
+	if not rolling:
+		var power:=BossRoarTimeline.strength(progress)
+		var mouth:=_mouth()
+		for i:int in 3:
+			var phase:=fposmod((progress-BossRoarTimeline.RELEASE)*4+i*.33,1)
+			if power>0:
+				PixelVfx.arc(self,mouth,7+phase*32,PI*.62,PI*1.38,Color(.85,.94,.76,power*(1-phase)*.6),1)
 		return
-	# Painted leaf/dust wake hugs the floor and clears before control resumes.
-	var pulse:=clampf((progress-.58)/.35,0,1)
-	var opacity:=sin(pulse*PI)*.62
-	if opacity>0:
-		var source:Rect2=PlainsCohesionArt.MINI_BURST if rolling else PlainsCohesionArt.WIND_BURST
-		var width:=lerpf(65,240,pulse)
-		draw_texture_rect_region(PlainsCohesionArt.ATLAS,Rect2(-width/2,28,width,52),source,Color(1,1,1,opacity))
-	# Fixed sixteen painted motes: deterministic seed-free choreography, no allocations.
-	for i:int in 16:
-		var t:=clampf((progress-.61-float(i%4)*.014)/.34,0,1)
-		if t<=0 or t>=1:continue
-		var side:float=-1 if i%2==0 else 1
-		var point:=Vector2(side*(12+t*(40+i*4)),62-sin(t*PI)*(12+i*2))
-		draw_set_transform(point,t*side*2)
-		draw_texture_rect_region(PlainsCohesionArt.ATLAS,Rect2(-4,-3,8,6),Rect2(1215,170,36,30),Color(1,1,1,1-t))
-	draw_set_transform(Vector2.ZERO)
+	var floor_point:=Vector2(0,62)
+	if progress<.64:
+		var fall:=clampf((progress-.22)/.42,0,1)
+		for side:float in [-1,1]:
+			for i:int in 3:
+				var at:=floor_point+Vector2(side*(27+i*12)*(1-fall*.4),-30-55*(1-fall))
+				PixelVfx.streak(self,at,Vector2(-side*.28,1),8+fall*18,1,Color(.74,.88,.8,sin(fall*PI)*.55))
+	else:
+		PixelVfx.clip(self,&"boss-land",floor_point,clampf((progress-.64)/.36,0,1))
 
+func _mouth() -> Vector2:
+	if encounter is WindkeeperPressureEncounter:
+		var pose:Dictionary=(encounter as WindkeeperPressureEncounter).rig_pose()
+		var head:Transform2D=pose.head_transform
+		return head*Vector2(24,4)
+	return Vector2(52*encounter.direction,-45)
+
+func _release_camera() -> void:
+	if _camera_token>=0 and is_instance_valid(_camera):_camera.end_takeover(_camera_token)
+	_camera_token=-1
+
+func _exit_tree() -> void:
+	_release_camera()
+	GameAudio.stop_origin(self,false)
 
 static func pose_offset(t:float,wheels:bool,direction:int)->Vector2:
-	# Starts/ends exactly at the dormant pose. A skip settles within .1s.
+	# Windkeeper plants all four feet and roars. Rolling machinery retains its wake.
+	if not wheels:return Vector2.ZERO
 	var arrive:=clampf(t/.64,0,1)
 	var settle:=sin(clampf((t-.64)/.36,0,1)*TAU)*exp(-maxf(0,t-.64)*14)
-	return Vector2(sin(arrive*PI)*18*direction,settle*4) if wheels else Vector2(0,-sin(arrive*PI)*60+settle*6)
+	return Vector2(sin(arrive*PI)*18*direction,settle*4)
