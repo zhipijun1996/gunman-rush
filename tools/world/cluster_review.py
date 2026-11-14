@@ -14,6 +14,7 @@ def markers(r):
         elif a['id']=='get_lamp':m.append('照明')
         elif a['id']=='get_filter':m.append('滤芯')
         elif a['id'].startswith('repair_'):m.append('修钟')
+        elif a['id'].startswith('open_'):m.append('开通 '+ ' / '.join(a.get('grants',[])))
     return ' · '.join(m)
 
 def drawing(plan,context=()):
@@ -52,8 +53,9 @@ def drawing(plan,context=()):
                 continue
             pts=c['path'] if c['a']==a else list(reversed(c['path']));path='M'+'L'.join(f'{x},{y}' for x,y in pts)
             out.append(f'<path class="route" data-route="{rt["id"]}" d="{path}" stroke="{rt["color"]}" stroke-width="28" fill="none" style="display:none"/>')
-        for n,rid in enumerate(rt['rooms']):
-            r=next(r for r in rooms if r['room_id']==rid);a,b=r['label'];out.append(f'<text class="route" data-route="{rt["id"]}" x="{a}" y="{b-135}" text-anchor="middle" fill="{rt["color"]}" font-size="60" style="display:none">{n+1}</text>')
+        for rid in dict.fromkeys(rt['rooms']):
+            visits=' · '.join(str(i+1) for i,room in enumerate(rt['rooms']) if room==rid)
+            r=next(r for r in rooms if r['room_id']==rid);a,b=r['label'];out.append(f'<text class="route" data-route="{rt["id"]}" x="{a}" y="{b-195}" text-anchor="middle" fill="{rt["color"]}" font-size="60" style="display:none">{visits}</text>')
     for p in plan['external_ports']:
         a,b=p['point'];dx,dy={'up':(0,-1),'down':(0,1),'left':(-1,0),'right':(1,0)}[p['direction']]
         out.append(f'<path d="M{a},{b}l{dx*180},{dy*180}" stroke="#edc17b" stroke-width="18"/><text x="{a+dx*220}" y="{b+dy*220}" fill="#edc17b" font-size="44">{p["id"]} → {html.escape(p["region_name"])}</text>')

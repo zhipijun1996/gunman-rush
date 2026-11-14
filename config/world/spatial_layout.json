@@ -58,7 +58,7 @@
     "Z",
     "G"
   ],
-  "review_summary": "以地理与设施组织16地区：平原小站分流，西侧树根—菌床—圣殿相连，干岸水系下接旧城，东侧城镇—矿运—炉区共同运转；钟心与星桥形成高处目标。查看各区首访、能力回访与修钟后的路线变化。",
+  "review_summary": "16区统一世界初稿；本轮重排工城—古堡—矿井—熔炉：古堡修钟前进上街，深矿内开回工坊，修炉恢复配重梯；选择hub六条路线审核不同能力顺序与回程。",
   "connection_adjustments": {
     "CITY-P-G-WEST": {
       "a": "P-R07",
@@ -66,16 +66,13 @@
       "reason": "用户明确将工城入口由P18改为P07；保留原连接身份与资格。"
     },
     "C16": {
-      "a": "K-R11",
-      "b": "G-R31",
+      "a": "K-R06",
+      "b": "G-R37",
       "a_section": "main",
       "requires": [
-        [
-          "royal_sigil",
-          "clock_K"
-        ]
+        []
       ],
-      "reason": "档案侧翼直接接授时院检修层；内廷纹章和修钟资格保护档案，外院不再拖长走廊绕过平原。"
+      "reason": "外院供料路在古堡修钟前进入工城上街；HW/HD入口随C16迁移，首访与档案回访分开。"
     },
     "C18": {
       "a": "G-R35",
@@ -102,9 +99,11 @@
       "reason": "悬钟背架的检修出口落到工人会馆附近，完成高层后快速回整备点。"
     },
     "C21": {
-      "a": "N-R04",
-      "b": "N-R06",
-      "reason": "深矿开放的交班升降机回上层矿岔；工城只保留明确的联运货梯，避免重复跨区长隧道。"
+      "a": "G-R11",
+      "b": "N-R23",
+      "a_section": "main",
+      "b_section": "main",
+      "reason": "恢复第二次矿井入城：从深矿检修井在内侧开启s21，抵达工坊试射室，与东站货梯承担不同回访。"
     },
     "room-link-124": {
       "a": "E-R15",
@@ -183,6 +182,24 @@
     "C25": {
       "a": "Z-R18",
       "reason": "星桥从同高度接引露台进入；原修钟条件保持，入口仍在钟心最终封印之前。"
+    },
+    "room-link-088": {
+      "requires": [
+        [
+          "royal_sigil",
+          "clock_K"
+        ]
+      ],
+      "reason": "外院供料廊开放后，档案入口仍保护内廷修钟回访，不能从物流门绕过。"
+    },
+    "room-link-089": {
+      "b_section": "entry:L30",
+      "requires": [
+        [
+          "clock_K"
+        ]
+      ],
+      "reason": "供料廊侧也先进入收藏前台，保留HWDQ挑战，不让新增外院路绕过K15收藏资格。"
     }
   },
   "connection_removals": {
@@ -355,6 +372,199 @@
         }
       ],
       "internal_routes": []
+    },
+    {
+      "id": "K-R25",
+      "region": "K",
+      "name": "外院交接庭",
+      "purpose": "古堡外院与城市供料廊之间的交接庭；纹章封门前即可选择去城里。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "G-R37",
+      "region": "G",
+      "name": "王家交货台",
+      "purpose": "古堡来向的城市高台；看见下方旧街和未供能配重梯，选择进城或将来登高。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        },
+        {
+          "id": "access:powered_hoist",
+          "kind": "ability_access",
+          "name": "配重梯上台",
+          "counts_as_room_main_visit": false,
+          "safe_return_required": true
+        }
+      ],
+      "internal_routes": [
+        {
+          "id": "IR:G-R37:powered_hoist:up",
+          "from_section": "main",
+          "to_section": "access:powered_hoist",
+          "requires": [
+            [
+              "H",
+              "D",
+              "Q"
+            ]
+          ],
+          "kind": "environment_traversal",
+          "implementation": "配重梯前在稳定台恢复，H+D换到侧墙后以Q穿相位光幕；返程落回安全街台。",
+          "failure_anchor_section": "main",
+          "map_marker": {
+            "room_id": "G-R37",
+            "section_id": "main",
+            "inside_room": true,
+            "kind": "environment_capability_obstacle"
+          }
+        },
+        {
+          "id": "IR:G-R37:powered_hoist:return",
+          "from_section": "access:powered_hoist",
+          "to_section": "main",
+          "requires": [
+            []
+          ],
+          "kind": "environment_traversal",
+          "implementation": "配重梯前在稳定台恢复，H+D换到侧墙后以Q穿相位光幕；返程落回安全街台。",
+          "failure_anchor_section": "access:powered_hoist",
+          "map_marker": {
+            "room_id": "G-R37",
+            "section_id": "access:powered_hoist",
+            "inside_room": true,
+            "kind": "environment_capability_obstacle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G-R39",
+      "region": "G",
+      "name": "观钟廊",
+      "purpose": "上街辨路窗口；连续看见悬钟桥、东站与下方居民庭院。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "G-R38",
+      "region": "G",
+      "name": "落钟街梯",
+      "purpose": "从王家上街落到橱窗旧街，近距离认出首访庭院；留可双向攀行的街梯。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "N-R23",
+      "region": "N",
+      "name": "工坊抽风井",
+      "purpose": "深矿回城的最后一段；抽风井顶是初访见过的工房试射室井盖。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "N-R24",
+      "region": "N",
+      "name": "冷凝检修层",
+      "purpose": "热矿气冷凝成水的检修层；由炉区外壁的管路解释城市与深矿关系。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
+    },
+    {
+      "id": "N-R25",
+      "region": "N",
+      "name": "废轨提升井",
+      "purpose": "矿钟支线分出向城里的旧提升井；标定收藏和回工坊是不同选择。",
+      "primary_role": "ordinary_traversal",
+      "primary_role_zh": "普通通路",
+      "rest_point": false,
+      "rift_machine": false,
+      "reward_ids": [],
+      "npc_ids": [],
+      "sections": [
+        {
+          "id": "main",
+          "kind": "main",
+          "name": "主体",
+          "counts_as_room_main_visit": true
+        }
+      ],
+      "internal_routes": []
     }
   ],
   "additional_connections": [
@@ -467,6 +677,167 @@
       "condition_text": "基础通行；分层检修岸双向返回",
       "description": "封印外观测井的分层接续",
       "kind": "door"
+    },
+    {
+      "id": "K-SUPPLY-18-25",
+      "a": "K-R18",
+      "b": "K-R25",
+      "kind": "internal",
+      "direction": "both",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "external": false,
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "K-SUPPLY-25-06",
+      "a": "K-R25",
+      "b": "K-R06",
+      "kind": "internal",
+      "direction": "both",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "external": false,
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "KG-ARCHIVE-HIGH",
+      "a": "K-R11",
+      "b": "G-R31",
+      "kind": "cross_region",
+      "direction": "both",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        [
+          "royal_sigil",
+          "clock_K"
+        ]
+      ],
+      "external": true,
+      "condition_text": "royal_sigil+clock_K"
+    },
+    {
+      "id": "G-STREET-37-39",
+      "a": "G-R37",
+      "b": "G-R39",
+      "kind": "internal",
+      "direction": "both",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "external": false,
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "G-STREET-39-38",
+      "a": "G-R39",
+      "b": "G-R38",
+      "kind": "internal",
+      "direction": "both",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "external": false,
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "G-STREET-38-15",
+      "a": "G-R38",
+      "b": "G-R15",
+      "kind": "internal",
+      "direction": "both",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "external": false,
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "G-HOIST-37-31",
+      "a": "G-R37",
+      "b": "G-R31",
+      "kind": "internal",
+      "direction": "both",
+      "a_section": "access:powered_hoist",
+      "b_section": "main",
+      "requires": [
+        [
+          "clock_E"
+        ]
+      ],
+      "external": false,
+      "condition_text": "clock_E"
+    },
+    {
+      "id": "N-VENT-23-24",
+      "a": "N-R23",
+      "b": "N-R24",
+      "kind": "internal",
+      "direction": "both",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "external": false,
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "N-VENT-24-25",
+      "a": "N-R24",
+      "b": "N-R25",
+      "kind": "internal",
+      "direction": "both",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "external": false,
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "N-VENT-25-17",
+      "a": "N-R25",
+      "b": "N-R17",
+      "kind": "internal",
+      "direction": "both",
+      "a_section": "main",
+      "b_section": "main",
+      "requires": [
+        []
+      ],
+      "external": false,
+      "condition_text": "基础通行"
+    },
+    {
+      "id": "CITY-STATION-G",
+      "a": "P-R31",
+      "b": "G-R02",
+      "kind": "cross_region",
+      "direction": "both",
+      "a_section": "main",
+      "b_section": "entry:CITY-P-G-WEST",
+      "requires": [
+        [
+          "clock_P"
+        ]
+      ],
+      "external": true,
+      "condition_text": "风鸣钟修复后农货轨车复行"
     }
   ],
   "world_routes": [
@@ -493,16 +864,232 @@
         "C-R01"
       ],
       "color": "#c7b49b"
+    },
+    {
+      "id": "hub-first",
+      "label": "H后优先短访：修钟→东门驿车→工坊升级",
+      "rooms": [
+        "P-R15",
+        "P-R32",
+        "P-R31",
+        "G-R02",
+        "G-R01",
+        "G-R03",
+        "G-R01",
+        "G-R02",
+        "P-R31"
+      ],
+      "color": "#e7c984",
+      "starting_tokens": [
+        "H"
+      ],
+      "goal": "利用既有修钟回路到P32，再到东门驿车P31直达工坊；完成解救与基础攻击一阶升级即可原车返回，也可继续逛城市。",
+      "failure": "工坊战斗只在控制支室；能回G01整备，首次服务不要求W、D、Q或工城Boss。东部田野不再是赴工坊的必经。",
+      "actions_at": {
+        "P-R15": [
+          "repair_P",
+          "open_SC_P01"
+        ],
+        "G-R03": [
+          "release_workshop"
+        ]
+      },
+      "actions_after_visit": {
+        "6": [
+          "rescue_smith",
+          "interact_qg_bench_repaired",
+          "pickup_ATK01",
+          "upgrade_attack_rank_1"
+        ]
+      }
+    },
+    {
+      "id": "hub-castle",
+      "label": "HW来访：古堡外院→上街→熟悉庭院",
+      "rooms": [
+        "K-R01",
+        "K-R18",
+        "K-R25",
+        "K-R06",
+        "G-R37",
+        "G-R39",
+        "G-R38",
+        "G-R15",
+        "G-R12",
+        "G-R13",
+        "G-R14",
+        "G-R24",
+        "G-R18",
+        "G-R19"
+      ],
+      "color": "#a9d6bc",
+      "starting_tokens": [
+        "H",
+        "W"
+      ],
+      "goal": "不要求古堡修钟；从上方认识城市，再从东侧打开回桥。HD可替代HW。",
+      "failure": "缺第二种位移能力停在G37来向台，沿古堡外院退出；不落入锁后。",
+      "actions_at": {
+        "G-R24": [
+          "open_city_east_return"
+        ]
+      }
+    },
+    {
+      "id": "hub-mine",
+      "label": "HD来访：矿货东站→开桥→回工坊",
+      "rooms": [
+        "N-R03",
+        "N-R04",
+        "G-R22",
+        "G-R21",
+        "G-R24",
+        "G-R18",
+        "G-R19",
+        "G-R13",
+        "G-R12",
+        "G-R11",
+        "G-R03",
+        "G-R01"
+      ],
+      "color": "#9bc9ee",
+      "starting_tokens": [
+        "H",
+        "D"
+      ],
+      "goal": "东站来向改变视角；在G24开启回桥后，材料与武器需求把玩家带回西街。HW也可进东站。",
+      "failure": "未能通过入口能力段可乘货梯返回；会馆、桥庭与工坊提供整备。",
+      "actions_at": {
+        "G-R24": [
+          "open_city_east_return"
+        ]
+      }
+    },
+    {
+      "id": "hub-deep-return",
+      "label": "深矿支线：收藏或直接回工坊",
+      "rooms": [
+        "N-R07",
+        "N-R17",
+        "N-R25",
+        "N-R24",
+        "N-R23",
+        "G-R11",
+        "G-R03",
+        "G-R01"
+      ],
+      "color": "#d4acdf",
+      "starting_tokens": [
+        "H",
+        "D",
+        "bomb"
+      ],
+      "goal": "N17可另选N18→N09攻击素材；回井分段攀升，在N23打开s21直达试射室。",
+      "failure": "每段有稳定停靠岸；井盖从矿侧开启后永久双向，不要求Q或修炉。",
+      "actions_at": {
+        "N-R23": [
+          "open_s21"
+        ]
+      }
+    },
+    {
+      "id": "hub-furnace",
+      "label": "赴炉与新回程：供能恢复→主轴回城",
+      "rooms": [
+        "G-R25",
+        "G-R26",
+        "G-R10",
+        "G-R05",
+        "E-R15",
+        "E-R12",
+        "E-R13",
+        "E-R14",
+        "E-R03",
+        "E-R09",
+        "E-R07",
+        "E-R08",
+        "E-R07",
+        "E-R05",
+        "E-R04",
+        "E-R12",
+        "E-R15",
+        "E-R10",
+        "G-R28"
+      ],
+      "color": "#eead84",
+      "starting_tokens": [
+        "H",
+        "D",
+        "Q",
+        "smith",
+        "clock_key"
+      ],
+      "goal": "不必先打工城督工；击败炉心、修炉，打开回料梯和冷却检修门，ATK04后从新口回城。",
+      "failure": "战前在E09整备，修炉后可改走E04→N14继续矿井，避免强制原路回城。",
+      "actions_at": {
+        "E-R07": [
+          "defeat_E_FURNACE"
+        ],
+        "E-R08": [
+          "repair_E"
+        ],
+        "E-R04": [
+          "open_s34",
+          "open_s35",
+          "open_SC_E01"
+        ],
+        "E-R10": [
+          "pickup_ATK04",
+          "open_city_maintenance_return"
+        ]
+      }
+    },
+    {
+      "id": "hub-powered",
+      "label": "修炉回访：上街配重梯→高庭→另一侧下城",
+      "rooms": [
+        "G-R15",
+        "G-R38",
+        "G-R39",
+        "G-R37",
+        "G-R31",
+        "G-R33",
+        "G-R09",
+        "G-R08",
+        "G-R09",
+        "G-R33",
+        "G-R31",
+        "G-R30",
+        "G-R23"
+      ],
+      "color": "#a8dfd2",
+      "starting_tokens": [
+        "H",
+        "D",
+        "Q",
+        "clock_E"
+      ],
+      "goal": "上街实体配重梯恢复，抵达授时院；传动总钟仍需督工已败，未满足时可先回东城挑战。",
+      "failure": "G37相位段前有稳定恢复台；高庭前厅可休息，G30开回程后落回工人会馆。",
+      "actions_at": {
+        "G-R30": [
+          "open_city_bell_return"
+        ]
+      }
     }
   ],
   "room_identity_adjustments": {
     "E-R10": {
       "name": "冷却检修廊",
-      "purpose": "修炉后进入冷却检修层，领取ATK05并接回工城维护侧；首次从工城只能预览。"
+      "purpose": "修炉后进入冷却检修层，领取ATK04并接回工城维护侧；首次从工城只能预览。"
     },
     "Z-R14": {
       "name": "外轴观测井",
       "purpose": "封印外侧分层登高，中段侧台回望主轴与星桥。"
+    },
+    "K-R06": {
+      "name": "王家供料廊",
+      "purpose": "王家供料廊；外院来路分向工城上街，锁住的偏记室与档案构成回访预览。"
     }
   },
   "world_structure": [
@@ -536,9 +1123,9 @@
           "visit_section": "entry:C16"
         },
         "replace": {
-          "visit_room": "G-R02",
-          "visit_section": "main",
-          "purpose": "本轮首访工城经P07田货轨车；古堡高庭口留到修钟后。"
+          "visit_room": "G-R37",
+          "visit_section": "entry:C16",
+          "purpose": "从古堡外院供料路首次进入工城上街，不要求clock_K。"
         }
       },
       {
@@ -573,9 +1160,8 @@
   },
   "action_adjustments": {
     "open_s21": {
-      "room_id": "N-R06",
-      "section_id": "main",
-      "description": "从深矿交班站启动升降笼，之后可直达上矿货运廊。"
+      "room_id": "N-R23",
+      "section_id": "main"
     },
     "open_s24": {
       "room_id": "K-R24",
@@ -598,8 +1184,10 @@
       ],
       "first_visit": "初行草坡完成反冲实践，经小站先调查钟心，再回到北路迎战牧风者。",
       "return_visit": "H取得后，从熟悉小站选择森林、地穴与其它已预览高口。",
-      "repair_effect": "沿已制作时律钟演出与回路；不重排已验证教学、战斗和奖励。",
-      "route_ids": [],
+      "repair_effect": "修钟打开既有P15→P32回程，同时恢复小站东门P31直达工城的农货轨车；武器服务成为可立即兑现的收益，P07田货站与东部探索仍保留。",
+      "route_ids": [
+        "hub-first"
+      ],
       "branch_tradeoff": "教学线保持清楚；能力到手后扩大世界选择，支路难度与主路区别可读。"
     },
     "F": {
@@ -726,36 +1314,40 @@
         "K-R02",
         "K-R09"
       ],
-      "first_visit": "先探索外院与兵械庭，记住封门；取得纹章后从同一庭院进入内廷。",
-      "return_visit": "骑士授Q后从安全厅进入逆相后厅，修钟后再读档案并接高层工城。",
+      "first_visit": "外院先看纹章封门，再选庭院收藏或供料路去工城上街；城内入口需HW/HD，先修古堡钟不是前提。",
+      "return_visit": "带纹章进入骑士线获得Q；修钟后偏记室HWDQ收藏、档案记录及直达城市高庭的维护路展开。",
       "repair_effect": "SC-K01把钟楼接回外庭；档案与检修口改变后期交通，不把Q光幕全部取消。",
       "route_ids": [
         "k-first",
         "k-knight",
         "k-inner",
-        "k-record"
+        "k-record",
+        "hub-castle"
       ],
       "branch_tradeoff": "日常侧翼提供低压力发现，训练翼提供能力，档案翼提供后期信息与接续。"
     },
     "G": {
-      "geography": "西街工坊与铜匠院是生活层，悬钟桥连接东站；下城供能与矿货运输在桥下，上层授时院俯瞰城市。",
+      "geography": "工城是四区反复出入的枢纽：上街承接古堡供料，东站运矿，下城向熔炉送铸件；工坊抽风井连深矿，悬钟贯穿高庭和居民街。",
       "landmark": "悬钟桥与授时院",
       "landmark_rooms": [
         "G-R14",
         "G-R08"
       ],
-      "first_visit": "P07农货轨车到西街，工坊服务后在铜匠院辨认店街支线与悬钟桥。",
-      "return_visit": "HW/HD深入货运和动力沟；恢复炉区后向主轴与授时院登高，返回工坊形成服务循环。",
-      "repair_effect": "修钟开放浮岛方向并支持既有检修回程；主炉恢复与总钟修复保持不同阶段。",
+      "first_visit": "修复风鸣钟后从小站东门P31乘复行驿车直达G02；H短访工坊，停线救匠人并完成首次攻击升级，然后可原车返西线。P07保留同线田货站。",
+      "return_visit": "HW/HD从古堡外院上街或矿货东站重新进城；深矿从内侧开井盖回工坊。入口位置、收益和视角各不相同。",
+      "repair_effect": "修炉恢复上街配重梯及主轴维护门，从新口回城；打督工后修总钟，开放浮岛和工坊屋顶回程。",
       "route_ids": [
-        "G-west",
+        "hub-first",
+        "hub-castle",
+        "hub-mine",
+        "hub-deep-return",
+        "hub-furnace",
+        "hub-powered",
         "g-yard",
         "G-station",
-        "G-power",
-        "G-clock",
         "G-return"
       ],
-      "branch_tradeoff": "车站战斗服务武器支路，赴炉路线可以绕过；住宅回环降低连续机关压力。"
+      "branch_tradeoff": "矿井素材、督工激光分支、工坊任务、古堡档案与赴炉路线互相服务；赴炉不用先打督工，修炉后也可先回工坊。"
     },
     "N": {
       "geography": "上矿搬运层连接平原与干岸，深层交班台控制采时井与矿钟；旧泵道连接遗迹退水设施。",
@@ -765,13 +1357,15 @@
         "N-R06"
       ],
       "first_visit": "上矿先看爆破支线与深矿入口，取得武器或继续探索由玩家决定。",
-      "return_visit": "HW/HD深入交班台，爆破开启采时支线；修钟回台后可选择标定材料与炉底维护口。",
+      "return_visit": "HD深入矿井，爆破后分向矿钟、标定素材和工坊回井；上矿货梯与深矿井盖分别到东站和西街，s21由N23内开。",
       "repair_effect": "SC-N01降低矿钟返程；矿井侧开启s33后，旧泵道成为遗迹与交班台的联运路。",
       "route_ids": [
         "n-clock",
         "n-reward",
         "n-return",
-        "n-pump"
+        "n-pump",
+        "hub-mine",
+        "hub-deep-return"
       ],
       "branch_tradeoff": "长竖井分层给恢复岸，普通运矿遭遇与高压力采时挑战交替。"
     },
@@ -783,12 +1377,14 @@
         "E-R04"
       ],
       "first_visit": "在装卸站落稳后预览HDQ热闸，沿停炉路径接近主炉，能力不足可返回。",
-      "return_visit": "修炉后从冷却检修回工城主轴；炉下回环通矿井，侧线提供独立材料。",
+      "return_visit": "修炉后可走冷却检修层领取ATK04回城市主轴，也可开炉后矿井路继续采矿；城市供能变化在回程立即看见。",
       "repair_effect": "原热闸与s34/s35回路按资格开放；专门Q段仍保留安全起手和冷却等待。",
       "route_ids": [
         "e-first",
         "e-ring",
-        "e-furnace-return"
+        "e-furnace-return",
+        "hub-furnace",
+        "hub-powered"
       ],
       "branch_tradeoff": "主炉目标、工城回程与深处选修分开，不让长热通道代替内容。"
     },
@@ -862,5 +1458,50 @@
       ],
       "branch_tradeoff": "封印前允许探索与撤回；终局攀升不新增能力，旁路不能绕过核心条件。"
     }
+  },
+  "review_groups": [
+    {
+      "id": "industrial-hub",
+      "label": "本轮 · 工城／古堡／矿井／熔炉",
+      "regions": [
+        "G",
+        "K",
+        "N",
+        "E"
+      ],
+      "summary": "先看六条行程：H首访、古堡HW来访、矿井HD来访、深矿回工坊、赴炉与新回程、供能后的高庭回访。路线会在图上显示顺序，并说明收益和退路。"
+    }
+  ],
+  "room_section_removals": {
+    "G-R26": [
+      "access:H_D"
+    ]
+  },
+  "onboarding_guidance": {
+    "goal": "工城是获得H后的优先服务短访；第一次不要求打通工城，不封锁西线。",
+    "arrival": "修复风鸣钟后P31东门驿车直达G02；P07保留同线田货站，步行东部不再是去工坊的必经。",
+    "cues": [
+      {
+        "room": "P-R10",
+        "trigger": "武器匠支线免费安装完成",
+        "message": "这次先替你调好了。往后想改枪，来齿轮工城的工坊找我。",
+        "optional": true
+      },
+      {
+        "room": "P-R15",
+        "trigger": "首次修复风鸣钟；跳过演出也提交获知工坊与驿车状态",
+        "message": "钟声接通了驿车。东门那边，工坊的灯也该亮了。",
+        "optional": false
+      },
+      {
+        "room": "P-R31",
+        "trigger": "clock_P成立且尚未完成工城初次服务",
+        "message": "东门驿车 · 齿轮工城／武器工坊",
+        "optional": false
+      }
+    ],
+    "map": "首次获知只标工坊服务图标与驿车站，不揭示未知房形、奖励或秘密；任务显示可选整备，不强制弹窗或转向。",
+    "service": "G02→G01→G03→G01；停线救匠人、修工作台、领取ATK01并消费该材料完成基础攻击一阶升级。随后可原车返回或逛庭院。",
+    "limits": "候选引导与交通方案；不增加奖励ID，不重复发材料或免费升级，实际对白、车辆、存档收据与主游戏表现尚未施工。"
   }
 }

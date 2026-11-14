@@ -37,6 +37,9 @@ def apply(project,root):
         apply_cluster(project, compile_plan(Path(root),cluster=Path(cluster_source).stem,_cache=cache), cluster_source)
     project['metadata']['spatial_draft']={'source':str(source.relative_to(root)),'status':manifest['status'],'regions':manifest['scope_regions'],'limits':manifest['review_limits']}
     project['planning']['region_programs']=copy.deepcopy(manifest.get('region_programs',{}))
+    project['planning']['world_routes']=copy.deepcopy(manifest.get('world_routes',[]))
+    project['planning']['review_groups']=copy.deepcopy(manifest.get('review_groups',[]))
+    project['planning']['onboarding_guidance']=copy.deepcopy(manifest.get('onboarding_guidance',{}))
 
 
 def apply_cluster(project,plan,source):

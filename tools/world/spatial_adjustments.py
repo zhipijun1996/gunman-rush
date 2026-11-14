@@ -61,7 +61,22 @@ def world_for_draft(root,world):
             room['sections']=[s for s in room['sections'] if s['id']!=section]
             room['internal_routes']=[r for r in room['internal_routes'] if section not in (r['from_section'],r['to_section'])]
     actions={a['id']:a for a in result['actions']}
-    for aid,change in manifest.get('action_adjustments',{}).items():actions[aid].update(copy.deepcopy(change))
+    for aid,change in manifest.get('action_adjustments',{}).items():
+        action=actions[aid];action.update(copy.deepcopy(change))
+        if 'room_id' in change:
+            room=rooms[action['room_id']]
+            action.update(physical_room=room['id'],region=room['region'],room_name=room['name'])
+            for key in ('node','map_anchor','spatial_access_route_id'):
+                action.pop(key,None)
+    for rid,sections in manifest.get('room_section_removals',{}).items():
+        room=rooms[rid]
+        assert not any(a.get('room_id')==rid and a.get('section_id') in sections
+                       for a in result['actions']), f'Occupied action section: {rid}'
+        assert not any(e[side]==rid and e.get(side+'_section','main') in sections
+                       for e in result['connections'] for side in ('a','b')), f'Occupied port section: {rid}'
+        room['sections']=[s for s in room['sections'] if s['id'] not in sections]
+        room['internal_routes']=[r for r in room['internal_routes']
+                                 if r['from_section'] not in sections and r['to_section'] not in sections]
     return result
 
 def apply(root,project):
@@ -137,3 +152,47 @@ def review_route_plans(root):
                 index=plan['targets'].index(rule['target'])
                 plan['targets'][index:index]=rule['insert']
     return plans
+
+
+def replay_review_journey(world, journey):
+    """Check the stated room order and local actions without global detours.
+
+    This checks eligibility and permanent state only, not movement or combat.
+    A route cannot pass by silently searching through a different region.
+    """
+    from collections import defaultdict
+    from simulate_world import Model, State
+    model = Model(world)
+    model.auto_switches = False
+    state = State(journey['rooms'][0], tokens=set(journey['starting_tokens']) | {'gun'})
+    adjacency = model.adj
+    crossed = []
+    actions = journey.get('actions_at', {})
+    for index, room in enumerate(journey['rooms']):
+        assert state.room == room, journey['id']
+        # An action is performed where it is authored, never granted remotely.
+        model.adj = defaultdict(list, {loc: [t for t in ts if t['from'][0] == t['to'][0] == room]
+                                      for loc, ts in adjacency.items()})
+        for aid in actions.get(room, []) + journey.get('actions_after_visit', {}).get(str(index), []):
+            if aid in state.done:
+                continue
+            action = model.actions[aid]
+            assert action['room_id'] == room, f'{journey["id"]}: misplaced action {aid}'
+            path = model.search(state, targets=[(room, action.get('section_id', 'main'))],
+                                action=action, allow_teleport=False)
+            assert path is not None, f'{journey["id"]}: unavailable action {aid}'
+            model.traverse(state, path)
+            model.perform(action, state)
+        if index + 1 == len(journey['rooms']):
+            break
+        target = journey['rooms'][index + 1]
+        pair = {room, target}
+        model.adj = defaultdict(list, {loc: [t for t in ts
+            if t['from'][0] in pair and t['to'][0] in pair]
+            for loc, ts in adjacency.items()})
+        path = model.search(state, targets=[(target, 'main')], allow_teleport=False)
+        assert path is not None, f'{journey["id"]}: blocked {room} → {target}'
+        model.traverse(state, path)
+        crossed.extend(s['edge'] for s in path['steps'] if s['kind'] == 'move')
+    return {'id': journey['id'], 'crossed': crossed, 'actions': sorted(state.done),
+            'tokens': sorted(state.tokens), 'end_room': state.room}

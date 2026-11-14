@@ -136,6 +136,12 @@ def build(project=None):
     plan['checks']=validate_assembly(plan,p)
     plan['topology_changes']={'adjusted':manifest.get('connection_adjustments',{}),'removed':manifest.get('connection_removals',{}),'added_rooms':[{k:r[k] for k in ('id','name','purpose')} for r in manifest.get('additional_rooms',[])]}
     plan['region_programs']=manifest.get('region_programs',{})
+    plan['review_groups']=manifest.get('review_groups',[])
+    plan['onboarding_guidance']=manifest.get('onboarding_guidance',{})
+    plan['routes'].sort(key=lambda r:'starting_tokens' not in r)
+    from spatial_adjustments import replay_review_journey
+    plan['journey_checks']=[replay_review_journey(world,r) for r in manifest.get('world_routes',[])
+                            if 'starting_tokens' in r]
     plan['review_limits'] += [f"待接续 {t['id']}：{t['reason']}" for t in pending]
     plan['attachments']=[dict(id=s['id'],path=[s['point']],label=s['a'][0]+' ↔ '+s['b'][0]) for s in seams]
     return plan,p
@@ -143,22 +149,30 @@ def build(project=None):
 def page(plan,svg):
     nr=len(plan['regions']);nc=len(plan['rooms']);ns=len(plan['seams'])
     text=(ROOT/'tools/world/forest_review.html').read_text()
+    guidance=plan.get('onboarding_guidance',{})
+    if guidance:
+        text=text.replace('<h2>本版优先审核</h2>', '<h2>本版优先审核</h2><h3>怎样尽早找到武器匠</h3><p>'+html.escape(guidance['arrival'])+'</p><p>'+html.escape(guidance['service'])+'</p>')
     text=text.replace('荆棘森林','世界地图').replace('24 房 · 30 条区内连接 · 5 个跨区接口',f'{nr} 地区 · {nc} 房 · {ns} 对跨区接缝').replace("selected='F-R01'",f"selected='{plan['focus_regions'][0]}-R01'").replace('forest-review-notes','world-review-notes').replace('F-Rxx','区域-Rxx')
     text=text.replace('<a class="link" href="/">返回工坊</a>','<span class="muted">世界初稿 / 持续编排</span>')
     text=text.replace('一棵主树连接林下、树腹与根井。主路使用 H 深入并取得 W；游侠武器支路可先去，也可回来挑战；取得 W 后在已见过的岔路展开另一半森林。',plan['summary']).replace('较长的根道','较长的通道').replace('首访、武器支路、W后回环分别查看，比较连续几房的节奏。','选择一条首访、能力回访或奖励支路；也可按区域或跨区接缝逐处查看。')
     text=text.replace('r.room_id.slice(2)','r.room_id').replace('id.slice(2)','id').replace('e.room.slice(2)','e.room')
     text=text.replace('href="forest.svg" download','href="data:image/svg+xml;base64,'+base64.b64encode(svg.encode()).decode()+'" download="world-map.svg"')
     selectors=f'<select id="region-view" aria-label="选择区域"><option value="all">{nr}地区总览</option>'+''.join(f'<option value="{r["code"]}">{r["name"]}</option>' for r in plan['regions'])+f'</select><select id="seam-view" aria-label="选择跨区接缝"><option value="">跨区接缝 · {ns}对</option>'+''.join(f'<option value="{s["id"]}">{s["id"]} · {s["a"]} ↔ {s["b"]}</option>' for s in plan['seams'])+'</select>'
+    group_options=''.join('<option value="group:'+g['id']+'">'+html.escape(g['label'])+'</option>' for g in plan.get('review_groups',[]))
+    selectors=selectors.replace('</select>',group_options+'</select>',1)
     selectors+='<select id="transport-view" aria-label="查看配对交通"><option value="">配对交通 · '+str(len(plan['transitions']))+'处</option>'+''.join('<option value="'+t['id']+'">'+t['id']+' · '+html.escape(t.get('label','配对捷径'))+'</option>' for t in plan['transitions'])+'</select>'
     text=text.replace('<select id="route"',selectors+'<select id="route"')
     text=text.replace("$('#route-summary').textContent=rt?","if(rt)fitRooms(rt.rooms.map(id=>rooms.get(id)));$('#route-summary').textContent=rt?")
+    text=text.replace("rt.label+'：'+rt.rooms.map(id=>id).join(' → ')",
+                      "rt.label+'：'+rt.rooms.map(id=>id).join(' → ')+(rt.goal?'\\n目的：'+rt.goal:'')+(rt.failure?'\\n退路：'+rt.failure:'')")
+    text=text.replace('</style>', '#route-summary{white-space:pre-line}</style>')
     text=text.replace("const pointers=new Map();", "function fitRooms(rs){const bs=rs.map(r=>r.bounds),x=Math.min(...bs.map(b=>b[0])),y=Math.min(...bs.map(b=>b[1])),xx=Math.max(...bs.map(b=>b[0]+b[2])),yy=Math.max(...bs.map(b=>b[1]+b[3]));view=[x-300,y-300,xx-x+600,yy-y+600];renderView()}const pointers=new Map();")
     text=text.replace('<select id="route"', '<select id="pending-view" aria-label="待解决连接"><option value="">待解决连接 · '+str(len(plan.get('pending_connections',[])))+'</option>'+''.join('<option value="'+t['id']+'">'+t['id']+'</option>' for t in plan.get('pending_connections',[]))+'</select><select id="route"')
     handlers="""
 $('#transport-view').onchange=e=>{const t=plan.transitions.find(t=>t.id===e.target.value);if(!t)return;$('#route').value='all';$('#route').dispatchEvent(new Event('change'));select(t.a.room);fitRooms([rooms.get(t.a.room),rooms.get(t.b.room)]);$('#route-summary').textContent=t.id+' · '+t.a.room+' ↔ '+t.b.room+'：'+t.description;document.querySelectorAll('.room').forEach(n=>n.classList.toggle('dim',![t.a.room,t.b.room].includes(n.dataset.room)))};
 $('#pending-view').onchange=e=>{const p=plan.pending_connections.find(p=>p.id===e.target.value);if(!p)return;select(p.a.room);fitRooms([rooms.get(p.a.room),rooms.get(p.b.room)]);$('#route-summary').textContent='待接续：'+p.reason;document.querySelectorAll('.room').forEach(n=>n.classList.toggle('dim',![p.a.room,p.b.room].includes(n.dataset.room)))};
 function showRegionProgram(code){const p=plan.region_programs[code],box=$('#region-program');box.hidden=!p;if(!p)return;box.innerHTML=`<h2>${esc(plan.regions.find(r=>r.code===code).name)} · 地理与探索</h2><p>${esc(p.geography)}</p><p><strong>地标：</strong>${esc(p.landmark)}</p><dl><dt>首访</dt><dd>${esc(p.first_visit)}</dd><dt>能力回访</dt><dd>${esc(p.return_visit)}</dd><dt>修钟后的变化</dt><dd>${esc(p.repair_effect)}</dd><dt>分支为何值得走</dt><dd>${esc(p.branch_tradeoff)}</dd></dl><div class="neighbors">${p.landmark_rooms.map(id=>`<button data-landmark="${id}">${id} · 看地标</button>`).join('')}</div>`;box.querySelectorAll('[data-landmark]').forEach(b=>b.onclick=()=>select(b.dataset.landmark,true))}
-$('#region-view').onchange=e=>{const code=e.target.value;$('#route').value='all';$('#route').dispatchEvent(new Event('change'));$('#seam-view').value='';for(const o of $('#route').options){const rt=plan.routes.find(r=>r.id===o.value);o.hidden=!!rt&&code!=='all'&&!rt.rooms.some(id=>id[0]===code)}showRegionProgram(code);fitRooms(plan.rooms.filter(r=>code==='all'||r.room_id[0]===code&&(code!=='M'||r.room_id!=='M-R02')))};
+$('#region-view').onchange=e=>{const code=e.target.value,group=plan.review_groups?.find(g=>'group:'+g.id===code),codes=group?group.regions:[code];$('#route').value='all';$('#route').dispatchEvent(new Event('change'));$('#seam-view').value='';for(const o of $('#route').options){const rt=plan.routes.find(r=>r.id===o.value);o.hidden=!!rt&&code!=='all'&&!rt.rooms.some(id=>codes.includes(id[0]))}showRegionProgram(code);fitRooms(plan.rooms.filter(r=>code==='all'||codes.includes(r.room_id[0])&&(code!=='M'||r.room_id!=='M-R02')));if(group)$('#route-summary').textContent=group.summary};
 $('#seam-view').onchange=e=>{const s=plan.seams.find(s=>s.id===e.target.value);if(!s)return;$('#route').value='all';$('#route').dispatchEvent(new Event('change'));select(s.a);view=[s.point[0]-1800,s.point[1]-1500,3600,3000];renderView();$('#route-summary').textContent=`${s.id}：${s.a}（${s.directions[0]}） ↔ ${s.b}（${s.directions[1]}） · ${s.condition}`;document.querySelectorAll('.room').forEach(n=>n.classList.toggle('dim',![s.a,s.b].includes(n.dataset.room)))};
 """
     text=text.replace('</script>',handlers+'</script>')
@@ -225,6 +239,6 @@ def main():
             sub['external_ports'].append(dict(id=s['id'],point=s['point'],direction=s['directions'][index],room=host,region_name=other))
         (out/f'{filename}.svg').write_text(drawing(sub))
     # Keep a compact, machine-readable validation/identity record with the delivery.
-    (out/'manifest.json').write_text(json.dumps({'source':p['source'],'draft':p['metadata']['spatial_draft'],'checks':plan['checks'],'seams':plan['seams'],'regions':plan['regions'],'limits':plan['review_limits'],'pending_connections':plan.get('pending_connections',[])},ensure_ascii=False,indent=2)+'\n')
+    (out/'manifest.json').write_text(json.dumps({'source':p['source'],'draft':p['metadata']['spatial_draft'],'checks':plan['checks'],'journeys':plan['journey_checks'],'seams':plan['seams'],'regions':plan['regions'],'limits':plan['review_limits'],'pending_connections':plan.get('pending_connections',[])},ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(plan['checks']))
 if __name__=='__main__':main()

@@ -43,7 +43,7 @@ def compile_plan(root=ROOT,validate=True,cluster="underground",_cache=None):
         r['stage']='；'.join(dict.fromkeys(' / '.join('+'.join(g) or '基础' for g in i['requires']) for i in source['internal_routes'] if not i['id'].endswith(':return'))) or '基础通路；门锁沿世界资格'
         r['gates']=[{k:copy.deepcopy(i[k]) for k in ['id','from_section','to_section','requires']} for i in source['internal_routes'] if not i['id'].endswith(':return')]
         r['bosses']=[b['working_name'] for b in world['boss_plan']['bosses'] if b['physical_room']==rid]
-        r['actions']=[{k:copy.deepcopy(a[k]) for k in ['id','type','grants','section_id'] if k in a} for a in world['actions'] if a.get('room_id')==rid and (a.get('type')=='ability' or a['id'].startswith(('repair_','get_lamp','get_filter','open_SC','open_s03')))]
+        r['actions']=[{k:copy.deepcopy(a[k]) for k in ['id','type','grants','section_id'] if k in a} for a in world['actions'] if a.get('room_id')==rid and (a.get('type')=='ability' or a['id'].startswith(('repair_','get_lamp','get_filter','open_')))]
         for e in edges.values():
             if rid in [e['a'],e['b']]:r['neighbors'].append({'id':e['id'],'room':e['b'] if e['a']==rid else e['a'],'condition':e.get('condition_text','基础通行')})
     preview=preview_catalog(root);forest=forest_build(root,preview)
