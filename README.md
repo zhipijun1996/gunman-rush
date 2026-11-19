@@ -2,9 +2,11 @@
 
 Godot 4.7.2 Standard 固定世界类银河恶魔城项目，以射击反冲、平台动作、永久成长与能力回访为核心。
 
-[公开试玩](https://zhipijun1996.github.io/gunman-rush/) · [当前状态](docs/project/current_state.md) · [模块导航](docs/project/module_map.md)
+当前默认入口运行冻结的风铃平原。重做版从新房间起步，新房间就绪后切换正式入口。平原仍可从固定版本单独恢复。
 
-当前旧原型运行流程（新世界尚未接入）：标题 → 可操作家园 → 平原两图 → 领取 H／钩索 → 荆棘森林两图 → 开发边界。家园支持会话内选择三种 Lv.1 武器和外观，以及永久升级、道具图鉴与出发携带。开发菜单提供动作练习、关卡工坊和 mapgen 候选入口。
+[平原归档与启动](docs/project/worklines/plains_bible_v2_01/scope.md) · [冻结源码 ZIP](https://github.com/zhipijun1996/gunman-rush/archive/4f2bb5e41573e930603789c64b52a0c15a6a3dc4.zip) · [此前发布的平原试玩](https://zhipijun1996.github.io/gunman-rush/) · [当前状态](docs/project/current_state.md)
+
+新房间按[普通房间组装](docs/bible/room_authoring.md#普通房间组装)制作。[TileSet 恢复与使用](docs/project/worklines/plains_bible_v2_01/scope.md#独立-tileset-包)单独保留可复用地形资源。
 
 横屏触控使用左杆移动、右杆瞄准／松手射击、JUMP 短按小跳／长按大跳；键鼠和手柄共用动作意图。手机性能、手感、听感与完整玩法品质仍需实际体验验证。
 

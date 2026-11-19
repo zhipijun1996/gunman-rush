@@ -9,9 +9,9 @@
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
 | NATIVE-PLAYTEST-FIX-01 | 原生0.1.1墙体、手柄校准与最大化呈现设备复核 | — | review | [交接](worklines/native_playtest_fix_01/scope.md) |
-| PLAINS-BIBLE-V2-01 | 平原正式内容与双端发行体验复核 | — | review | [交接](worklines/plains_bible_v2_01/scope.md) |
+| ROOM-REBUILD-01 | 依新设计组装首个普通房间，就绪后切换默认入口 | — | planned | [交接](worklines/plains_bible_v2_01/scope.md) |
 | WORLD-EDITOR-02 | 编辑器运行通道、原生预览与定稿往返复核 | — | review | [交接](worklines/world_editor_02/scope.md) |
-| MOBILE-LEVEL-WORKBENCH-01 | Site V18 / r68：双点出口跳房、37房隔离预览与钟心室内分层；整区审核含森林24房规划 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
+| MOBILE-LEVEL-WORKBENCH-01 | 冻结版 Site V18 / r68 的预览与工具复核 | — | review | [交接](worklines/mobile_level_workbench_01/scope.md) |
 
 
 ## 待验收
@@ -44,14 +44,6 @@
 - `ITEM-V5-01`：先从旧候选选48件，逐件定义永久ID、NPC升级与周期额度；P17/G19仅在选中时解决。
 - `STORY-DESIGN-03`：以固定世界任务、修钟及结局条件重整人物与对白，不继承多Run前提。
 
-## 待排期
-
-| 任务 | 目标 | 依赖 | 状态 | 入口 |
-| --- | --- | --- | --- | --- |
-| FOREST-BIBLE-V2-01 | 24房整区坐标、连接与初版玩法方案；手机审核后进入相连灰盒 | — | review | [交接](worklines/forest_bible_v2_01/scope.md) |
-
-- `FOREST-BIBLE-V2-01`：整区候选先审房形、主支路与收集回程，再选03/04/19/20相连灰盒；保留现有H/W/生态资产。
-
 ## 固定世界迁移
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
@@ -69,5 +61,4 @@
 | MV-RUNTIME-01I | 完整文本/多设备UI、视听与目标平台验收 | MV-RUNTIME-01F | planned | [交接](worklines/mv_migration/scope.md) |
 | MV-DEMO-04 | 统一镜头/入场动作、向上交互、机器人充电站与危险收集物可读性 | MV-DEMO-03 | review | [交接](worklines/mv_migration/scope.md) |
 | MV-DEMO-05 | 修复道具纹理卡顿、竖门实体落点、既有金币掉落接入、对话与分区镜头 | MV-DEMO-04 | review | [交接](worklines/mv_migration/scope.md) |
-| MV-RUNTIME-01J | 不同机制代表房、剩余基础流程与量产准入验收 | MV-DEMO-05 | planned | [交接](worklines/mv_migration/scope.md) |
-| MV-WORLD-GRAYBOX-01 | 309房结构与真实运行路线，按消费者退役旧链 | MV-RUNTIME-01J | planned | [交接](worklines/mv_migration/scope.md) |
+| MV-RUNTIME-01J | 随新设计选代表房，复验共享运行服务 | MV-DEMO-05 | planned | [交接](worklines/mv_migration/scope.md) |
