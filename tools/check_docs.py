@@ -1,6 +1,7 @@
 """Validate project documentation without claiming game runtime coverage."""
 from pathlib import Path
 from quality import task_index_lines
+import argparse
 import json
 import os
 import re
@@ -31,11 +32,23 @@ def document_target_exists(root, source, target, sparse_paths):
     return relative in sparse_paths or any(name.startswith(relative.rstrip("/") + "/") for name in sparse_paths)
 
 
-def validate(root=ROOT):
+ACTIVE_DOCUMENTS = (
+    "README.md", "AGENTS.md", "ROOM-ART-START.md", "docs/README.md",
+    "docs/project/current_state.md", "docs/project/tasks.md",
+    "docs/project/architecture.md", "docs/project/module_map.md",
+    "docs/project/project_management.md", "docs/project/development.md",
+    "docs/bible/room_authoring.md", "docs/bible/terrain_materials.md",
+    "docs/data/world_objects.md", "docs/project/worklines/room_rebuild/scope.md",
+)
+FROZEN_DOCUMENTS = ['README.md', 'AGENTS.md', 'docs/README.md', 'docs/bible/combat_and_recharge.md', 'docs/bible/controls_contract.md', 'docs/bible/damage_and_respawn.md', 'docs/bible/game_design.md', 'docs/bible/home_and_save.md', 'docs/bible/platforming_modules.md', 'docs/bible/player_mechanics.md', 'docs/bible/procedural_generation.md', 'docs/bible/rewards_and_builds.md', 'docs/bible/run_and_routes.md', 'docs/bible/story.md', 'docs/bible/visual_bible.md', 'docs/data/README.md', 'docs/data/abilities.md', 'docs/data/audio.md', 'docs/data/bosses/bellstrider.md', 'docs/data/bosses/rootbell_guardian.md', 'docs/data/bosses/thorn_queen_canopy.md', 'docs/data/bosses/thorn_queen_weave.md', 'docs/data/bosses/windkeeper.md', 'docs/data/enemies/forest.md', 'docs/data/enemies/plains.md', 'docs/data/enemies/plains_charger.md', 'docs/data/player_actions.md', 'docs/data/story/regions.md', 'docs/data/weapons.md', 'docs/data/world_objects.md', 'docs/project/architecture.md', 'docs/project/ci-test-inventory.md', 'docs/project/cloud_production.md', 'docs/project/content_pipeline.md', 'docs/project/current_state.md', 'docs/project/development.md', 'docs/project/enemy_completion.md', 'docs/project/environment.md', 'docs/project/foundry.md', 'docs/project/harness.md', 'docs/project/item_authoring.md', 'docs/project/level_design.md', 'docs/project/level_review.md', 'docs/project/module_map.md', 'docs/project/production_loop.md', 'docs/project/project_management.md', 'docs/project/region_context.md', 'docs/project/review_method.md', 'docs/project/tasks.md', 'docs/project/visual_capture.md', 'docs/project/web_loading.md']
+
+
+def validate(root=ROOT, frozen=False):
     from check_context_storage import validate as validate_storage
     errors = validate_storage(root)
-    errors.extend(validate_world_design(root=root))
-    required = ['README.md', 'AGENTS.md', 'docs/README.md', 'docs/bible/combat_and_recharge.md', 'docs/bible/controls_contract.md', 'docs/bible/damage_and_respawn.md', 'docs/bible/game_design.md', 'docs/bible/home_and_save.md', 'docs/bible/platforming_modules.md', 'docs/bible/player_mechanics.md', 'docs/bible/procedural_generation.md', 'docs/bible/rewards_and_builds.md', 'docs/bible/run_and_routes.md', 'docs/bible/story.md', 'docs/bible/visual_bible.md', 'docs/data/README.md', 'docs/data/abilities.md', 'docs/data/audio.md', 'docs/data/bosses/bellstrider.md', 'docs/data/bosses/rootbell_guardian.md', 'docs/data/bosses/thorn_queen_canopy.md', 'docs/data/bosses/thorn_queen_weave.md', 'docs/data/bosses/windkeeper.md', 'docs/data/enemies/forest.md', 'docs/data/enemies/plains.md', 'docs/data/enemies/plains_charger.md', 'docs/data/player_actions.md', 'docs/data/story/regions.md', 'docs/data/weapons.md', 'docs/data/world_objects.md', 'docs/project/architecture.md', 'docs/project/ci-test-inventory.md', 'docs/project/cloud_production.md', 'docs/project/content_pipeline.md', 'docs/project/current_state.md', 'docs/project/development.md', 'docs/project/enemy_completion.md', 'docs/project/environment.md', 'docs/project/foundry.md', 'docs/project/harness.md', 'docs/project/item_authoring.md', 'docs/project/level_design.md', 'docs/project/level_review.md', 'docs/project/module_map.md', 'docs/project/production_loop.md', 'docs/project/project_management.md', 'docs/project/region_context.md', 'docs/project/review_method.md', 'docs/project/tasks.md', 'docs/project/visual_capture.md', 'docs/project/web_loading.md']
+    required = FROZEN_DOCUMENTS if frozen else ACTIVE_DOCUMENTS
+    if frozen:
+        errors.extend(validate_world_design(root=root))
     for name in required:
         if not (root / name).is_file():
             errors.append(f'Missing {name}')
@@ -52,7 +65,13 @@ def validate(root=ROOT):
 
 
     sparse_paths = sparse_document_targets(root)
-    for path in documentation_paths(root):
+    if frozen:
+        paths = documentation_paths(root)
+    else:
+        paths = {root / name for name in required if (root / name).is_file()}
+        paths.update((root / "docs/data/mechanisms").glob("*.md"))
+        paths.update((root / "production").rglob("*.md"))
+    for path in paths:
         content = path.read_text(encoding='utf-8')
         if not content.strip():
             errors.append(f'Empty {path.relative_to(root)}')
@@ -90,20 +109,22 @@ def validate(root=ROOT):
         visit(task)
         if tasks[task][3] not in {'planned', 'ready', 'in_progress', 'review', 'awaiting-device', 'done', 'blocked'}:
             errors.append(f'Unknown status {task}')
-    contract = json.loads((root / 'docs/bible/design_contract.json').read_text())
-    if contract.get('schema_version') != 2 or contract.get('target') != 'fixed_world_metroidvania':
-        errors.append('Expected fixed-world design contract')
-    if contract.get('implementation', {}).get('fixed_world_runtime') is not False:
-        errors.append('MV-MIGRATION-01 must not claim fixed-world runtime completion')
-    for document in ('world_structure', 'world_progression', 'room_authoring', 'home_and_save'):
-        if not (root / 'docs/bible' / (document + '.md')).is_file():
-            errors.append('Missing current design authority: ' + document)
-    for path in [root / 'AGENTS.md', root / 'docs/project/development.md',
-                 root / 'docs/project/content_pipeline.md', root / '.agents/skills/game-quality-gate/SKILL.md']:
-        if re.search(r'不设(?:置)?灰盒阶段', path.read_text()):
-            errors.append('Obsolete graybox prohibition: ' + str(path))
+    if frozen:
+        contract = json.loads((root / 'docs/bible/design_contract.json').read_text())
+        if contract.get('schema_version') != 2 or contract.get('target') != 'fixed_world_metroidvania':
+            errors.append('Expected fixed-world design contract')
+        if contract.get('implementation', {}).get('fixed_world_runtime') is not False:
+            errors.append('MV-MIGRATION-01 must not claim fixed-world runtime completion')
+        for document in ('world_structure', 'world_progression', 'room_authoring', 'home_and_save'):
+            if not (root / 'docs/bible' / (document + '.md')).is_file():
+                errors.append('Missing current design authority: ' + document)
+        for path in [root / 'AGENTS.md', root / 'docs/project/development.md',
+                     root / 'docs/project/content_pipeline.md', root / '.agents/skills/game-quality-gate/SKILL.md']:
+            if re.search(r'不设(?:置)?灰盒阶段', path.read_text()):
+                errors.append('Obsolete graybox prohibition: ' + str(path))
 
-    tuning = json.loads((root / 'config/player_tuning.json').read_text())
+    project = root if frozen else root / "production"
+    tuning = json.loads((project / 'config/player_tuning.json').read_text())
     if tuning['physics_hz'] != 60 or tuning['max_air_shots'] != 1:
         errors.append('Current D084 time-energy baseline must retain 60Hz and exactly one airborne round')
     if tuning['max_jumps'] < 0 or not tuning['jump_speeds'] or any(v >= 0 for v in tuning['jump_speeds']):
@@ -132,7 +153,7 @@ def validate(root=ROOT):
             errors.append(f'Invalid air focus setting: {name}')
     if not (tuning['focus_stamina_capacity'] > 0 and tuning['focus_stamina_drain'] > 0 and tuning['focus_stamina_recovery'] >= 0 and 0 < tuning['focus_time_scale'] <= 1 and tuning['focus_max_air_duration'] > 0 and 0 <= tuning['focus_rearm_stamina'] <= tuning['focus_stamina_capacity']):
         errors.append('Invalid air focus bounds')
-    profile_path = root / 'config/input_profile.json'
+    profile_path = project / 'config/input_profile.json'
     if not profile_path.is_file():
         errors.append('Missing config/input_profile.json')
     else:
@@ -153,7 +174,9 @@ def validate(root=ROOT):
 
 
 def main():
-    errors = validate()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--frozen", action="store_true", help="Also check the archived topology and legacy documentation contracts")
+    errors = validate(frozen=parser.parse_args().frozen)
     if errors:
         print("\n".join(errors), file=sys.stderr)
         return 1

@@ -12,3 +12,5 @@
 | 验证 | [全新房间数据](../../production/tests/assembly_room.json)、[端到端检查](../../production/tests/ordinary_room.gd)、[运行检查](../../tools/check_ordinary_rooms.py) |
 
 [冻结工程模块导航](https://github.com/zhipijun1996/gunman-rush/blob/4f2bb5e41573e930603789c64b52a0c15a6a3dc4/docs/project/module_map.md)用于复现原版。
+
+重做文档用 `python3 tools/check_docs.py` 检查当前导航、任务依赖和本工程配置。显式复核旧世界时使用 `python3 tools/check_docs.py --frozen`。两套工程的 CI 作业独立运行。
