@@ -15,7 +15,8 @@ func _ready() -> void:
 	var collision := CollisionShape2D.new()
 	var shape := RectangleShape2D.new(); shape.size = bounds.size; collision.shape = shape
 	body.add_child(collision); add_child(body)
-	visual = UnderworldTerrain.build([bounds]); TerrainMaterialRegistry.install_on(visual, appearance); add_child(visual)
+	visual = UnderworldTerrain.build([bounds], {}, TerrainMaterialRegistry.appearance(appearance))
+	add_child(visual)
 
 func element_bind(context: Dictionary) -> void:
 	controller = context.controller

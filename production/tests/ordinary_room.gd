@@ -57,12 +57,16 @@ func run() -> void:
 	await ticks(36)
 	check(bell.is_open and gate.active and gate.body.collision_layer == 0, "player projectile opens gate")
 	check(session.state.value.mechanisms.has("gate"), "gate and bell committed")
+	store.writable = false
 	var actor: EnemyActor = room.enemies.patrol
 	session.player.reset_at(actor.motor.position - Vector2(72, 0))
 	await ticks(4)
 	session.controller.router.request_action(&"shoot_release",(actor.motor.position-session.player.position-Vector2(0,-6)).normalized())
 	await ticks(32)
 	check(actor.health.terminal, "second shot defeats enemy")
+	check(session.services.ledger().drops.is_empty() and not store.payload.enemies.has("patrol"),"failed save keeps death and payout pending together")
+	store.writable = true
+	await ticks(65)
 	check(not session.services.ledger().drops.is_empty() or session.services.ledger().gold > 0, "defeat generates coin")
 	for step: int in 120:
 		if room.loot.pickups.is_empty() or session.services.ledger().gold == session.drop_rules.enemy_gold: break

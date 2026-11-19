@@ -14,6 +14,8 @@ var lifetime := DemoLifetime.new()
 var services := WorldServices.new()
 var drop_rules: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/room_rewards.json"))
 var state := FixedWorldState.new()
+var pending_defeats: Dictionary = {}
+var retry_delay := 0.0
 
 class RoomMemory extends WorldSaveService:
 	func commit(_payload: Dictionary, _revision: int) -> bool:
@@ -167,13 +169,27 @@ func _activate(id: String) -> void:
 func _defeated(actor: EnemyActor, id: String) -> void:
 	if actor.definition.behavior_id == &"chime_target": return
 	var source := "enemy:"+id+":cycle:"+str(state.value.cycle)
-	var amount := int(drop_rules.enemy_gold)
+	var units := WorldCoinDrops.create_units(source, int(drop_rules.enemy_gold), actor.motor.position, player.position, room.room_id)
+	pending_defeats[id] = {"source":source, "units":units, "enemy":room.snapshot()[id]}
+	_settle_defeats()
+
+func _settle_defeats() -> void:
 	var candidate := state.value.duplicate(true)
-	candidate.enemies = room.snapshot()
-	if amount > 0:
-		var units := WorldCoinDrops.create_units(source, amount, actor.motor.position, player.position, room.room_id)
-		candidate = services.drop_candidate(candidate, source, units)
-	if not candidate.is_empty() and state.commit(candidate, state.revision): room.loot.sync()
+	for id: String in pending_defeats:
+		var defeat: Dictionary = pending_defeats[id]
+		if not candidate.receipts.has("income:"+str(defeat.source)):
+			candidate = services.drop_candidate(candidate, defeat.source, defeat.units)
+		candidate.enemies[id] = defeat.enemy
+	if state.commit(candidate, state.revision):
+		pending_defeats.clear()
+		room.loot.sync()
+	else:
+		retry_delay = 1.0
+
+func _physics_process(delta: float) -> void:
+	if pending_defeats.is_empty(): return
+	retry_delay -= delta
+	if retry_delay <= 0: _settle_defeats()
 
 func _collect(id: String) -> void:
 	if not room.loot.can_collect(id): return

@@ -4,7 +4,7 @@
 
 统一细粒度童话像素风。正式地形原生32px／32wu，世界表现1wu采样、nearest；保留Underworld家族的47邻接、精确边界适配及实际光照／材质语言。原图内容、显示尺寸与物理碰撞分别管理。Windows与Web以1280×720内部视口渲染，再适配窗口；最大化和还原不改变内部像素采样或角色尺度。Windows的GL Compatibility通过ANGLE／Direct3D呈现；渲染路径调整须检查实际窗口与房间，不能用无界面启动代替。
 
-当前共享技术参考从 [Bible注册表](../data/creative_direction/bibles/registry.json) 的`shared_style_authority`解析；两区域总谱由同一注册表的`direction_path`定位。画风意图、技术绑定与用户视觉认可分别记录。
+当前共享技术参考从 [Bible注册表](../data/creative_direction/bibles/registry.json) 的`shared_style_authority`解析。原平原与森林总谱只在复现冻结版时使用。画风意图、技术绑定与用户视觉认可分别记录。
 
 ## 空间与功能
 
