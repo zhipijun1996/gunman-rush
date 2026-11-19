@@ -37,11 +37,24 @@ bash tools/archive_tileset.sh
 
 材质接入另取包中的 `config/terrain_materials.json`、`config/surface_styles.json`、图集、制作源与相关渲染代码。共享实现及地形专项可在[固定来源](https://github.com/zhipijun1996/gunman-rush/tree/6af82000eae0c1b8a8fb1f9a36c5ee03b3a7dcd8/game/presentation/world/terrain)复核，接入时按新房间几何选择直接依赖。这些项目级脚本使用原工程的类型。16 套原生资源可独立装载。包内保留已裁出的内角和重烘所需图块；更早的四张内角生成母图原本分包交付，未随 Git 跟踪。
 
+## 独立特效包
+
+取 [PR160 的最终版本](https://github.com/zhipijun1996/gunman-rush/tree/4c0a7e5820f90f4d04283c2fafc7c70ef3fa80a7/assets/vfx)。保留攻击与命中、共鸣回血、牧风者全屏咆哮入场、宝箱喷币和怪物掉币。包中有 18 套图集及 Godot 资源、制作配方、15 个声音、声音生成器、pixelfx 固定版本与许可、专项及原事件接线。查看方法和运行宿主见包内 `docs/project/worklines/vfx_pixelfx_01/scope.md`。
+
+```sh
+git fetch origin 4c0a7e5820f90f4d04283c2fafc7c70ef3fa80a7
+python3 tools/archive_vfx.py
+```
+
+输出为 `build/archives/vfx-4c0a7e58.zip`。在解压目录用 `python3 tests/test_vfx_export.py` 验证图集重建；首次需要网络取得指定版本的 pixelfx。包内 `integration.patch` 保存完整版本差异，包括共享脚本的修改和原资源的删除，用于在独立的冻结基线上恢复参考实现。新游戏按实际事件选择效果，例如回血事务成功才播放恢复音，Boss 入场结束或取消时归还镜头并清理音画。已知射线淡出时像素取整可产生零面积三角形；新入口采用该绘制器时需修正并回归受击与死亡收尾。[问题定位](https://github.com/zhipijun1996/gunman-rush/pull/160#discussion_r4567330312)
+
 ## 归档验证
 
 平原源码包解压至空目录，逐文件比对固定 Git 树，7,829 个文件一致。按工程锁定的 Godot 4.7.2 运行日常四项 CI 全部通过。启动专项从默认标题新开存档进入 P-R03 并确认玩家落地。此轮未在实体手机上试玩。
 
 TileSet 包独立解压后，16 套原生图集重新烘焙为 752 格；锁定引擎在独立工程直接加载包里的既有 TileSet，16 套均通过，256 种原始邻域全部匹配。15 个外区材质族按像素与来源清单核对通过；在固定材质源码检出中，地形专项 544 项断言通过。该结果覆盖资源、接缝及已测装载范围，新房的画面和玩法留到其实例制作时检查。
+
+特效包独立解压后，18 个效果源检查通过，图集重建测试通过，15 个 WAV 重新生成后与归档逐字节相同。将集成差异应用到冻结基线的临时 Git 索引，所得文件树与 PR160 最终提交完全一致。锁定引擎在该提交上通过特效运行、声音及 Boss 咆哮三个专项；本次未重录五组画面或验证实体手机性能。
 
 ## 新房间接续
 
