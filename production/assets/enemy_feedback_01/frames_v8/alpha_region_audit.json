@@ -1,0 +1,352 @@
+{
+  "schema_version": 1,
+  "scope": "read-only source PNG alpha analysis, no raster editing; GPU sampling and visual approval remain unverified",
+  "threshold_explanation": "alpha>16 locates the eight major connected anatomical bodies and H4 basis only; runtime regions partition the whole unmodified image and retain lower-alpha pixels",
+  "anchor_policy": "nominal original cell horizontal centers and a common per-row baseline, expressed relative to each independent region; one scale from H4 body bbox for all eight frames",
+  "styles": {
+    "underworld_charger": {
+      "body_bboxes_alpha_gt16": [
+        [
+          44,
+          156,
+          388,
+          433
+        ],
+        [
+          471,
+          192,
+          860,
+          433
+        ],
+        [
+          933,
+          196,
+          1307,
+          433
+        ],
+        [
+          1380,
+          185,
+          1747,
+          434
+        ],
+        [
+          50,
+          580,
+          441,
+          826
+        ],
+        [
+          498,
+          617,
+          873,
+          826
+        ],
+        [
+          902,
+          653,
+          1307,
+          825
+        ],
+        [
+          1339,
+          661,
+          1754,
+          827
+        ]
+      ],
+      "source_edge_alpha": {
+        "top": {
+          "nonzero_count": 0,
+          "max_alpha": 0,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "bottom": {
+          "nonzero_count": 0,
+          "max_alpha": 0,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "left": {
+          "nonzero_count": 7,
+          "max_alpha": 1,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "right": {
+          "nonzero_count": 0,
+          "max_alpha": 0,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        }
+      },
+      "baselines_global_y": [
+        434,
+        827
+      ],
+      "strong_red_alpha_gt128_count": 0,
+      "halo_note": "legacy diver strong red observed in living eye centers; no opaque red rim identified. Low alpha edge artifacts and actual GPU nearest sampling require runtime review.",
+      "grid_deviation": "1774x887 gives 443.5px nominal cell; independent integer regions split at actual transparent body gutters, no raster rewrite.",
+      "continuity_risk": "nominal cell anchors requested by root; generator placement may still produce translation jitter, especially legacy diver H1; evaluate actual body pivots in motion."
+    },
+    "underworld_diver": {
+      "body_bboxes_alpha_gt16": [
+        [
+          33,
+          22,
+          385,
+          428
+        ],
+        [
+          541,
+          9,
+          799,
+          425
+        ],
+        [
+          911,
+          100,
+          1296,
+          431
+        ],
+        [
+          1378,
+          100,
+          1754,
+          425
+        ],
+        [
+          32,
+          551,
+          337,
+          784
+        ],
+        [
+          547,
+          556,
+          798,
+          813
+        ],
+        [
+          921,
+          668,
+          1310,
+          840
+        ],
+        [
+          1356,
+          694,
+          1744,
+          827
+        ]
+      ],
+      "source_edge_alpha": {
+        "top": {
+          "nonzero_count": 23,
+          "max_alpha": 6,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "bottom": {
+          "nonzero_count": 52,
+          "max_alpha": 1,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "left": {
+          "nonzero_count": 8,
+          "max_alpha": 1,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "right": {
+          "nonzero_count": 0,
+          "max_alpha": 0,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        }
+      },
+      "baselines_global_y": [
+        431,
+        840
+      ],
+      "strong_red_alpha_gt128_count": 0,
+      "halo_note": "legacy diver strong red observed in living eye centers; no opaque red rim identified. Low alpha edge artifacts and actual GPU nearest sampling require runtime review.",
+      "grid_deviation": "1774x887 gives 443.5px nominal cell; independent integer regions split at actual transparent body gutters, no raster rewrite.",
+      "continuity_risk": "nominal cell anchors requested by root; generator placement may still produce translation jitter, especially legacy diver H1; evaluate actual body pivots in motion."
+    },
+    "legacy_charger": {
+      "body_bboxes_alpha_gt16": [
+        [
+          30,
+          93,
+          431,
+          438
+        ],
+        [
+          498,
+          157,
+          871,
+          436
+        ],
+        [
+          912,
+          152,
+          1321,
+          439
+        ],
+        [
+          1370,
+          153,
+          1761,
+          439
+        ],
+        [
+          37,
+          536,
+          441,
+          806
+        ],
+        [
+          482,
+          571,
+          867,
+          812
+        ],
+        [
+          905,
+          616,
+          1323,
+          806
+        ],
+        [
+          1355,
+          615,
+          1755,
+          810
+        ]
+      ],
+      "source_edge_alpha": {
+        "top": {
+          "nonzero_count": 0,
+          "max_alpha": 0,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "bottom": {
+          "nonzero_count": 3,
+          "max_alpha": 1,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "left": {
+          "nonzero_count": 0,
+          "max_alpha": 0,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "right": {
+          "nonzero_count": 0,
+          "max_alpha": 0,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        }
+      },
+      "baselines_global_y": [
+        439,
+        812
+      ],
+      "strong_red_alpha_gt128_count": 0,
+      "halo_note": "legacy diver strong red observed in living eye centers; no opaque red rim identified. Low alpha edge artifacts and actual GPU nearest sampling require runtime review.",
+      "grid_deviation": "1774x887 gives 443.5px nominal cell; independent integer regions split at actual transparent body gutters, no raster rewrite.",
+      "continuity_risk": "nominal cell anchors requested by root; generator placement may still produce translation jitter, especially legacy diver H1; evaluate actual body pivots in motion."
+    },
+    "legacy_diver": {
+      "body_bboxes_alpha_gt16": [
+        [
+          74,
+          86,
+          483,
+          445
+        ],
+        [
+          501,
+          116,
+          884,
+          454
+        ],
+        [
+          909,
+          110,
+          1295,
+          466
+        ],
+        [
+          1322,
+          142,
+          1764,
+          463
+        ],
+        [
+          19,
+          516,
+          433,
+          818
+        ],
+        [
+          487,
+          552,
+          845,
+          813
+        ],
+        [
+          925,
+          597,
+          1328,
+          824
+        ],
+        [
+          1358,
+          635,
+          1744,
+          822
+        ]
+      ],
+      "source_edge_alpha": {
+        "top": {
+          "nonzero_count": 3,
+          "max_alpha": 1,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "bottom": {
+          "nonzero_count": 1,
+          "max_alpha": 1,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "left": {
+          "nonzero_count": 3,
+          "max_alpha": 1,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        },
+        "right": {
+          "nonzero_count": 1,
+          "max_alpha": 1,
+          "alpha_gt16_count": 0,
+          "alpha_gt128_count": 0
+        }
+      },
+      "baselines_global_y": [
+        466,
+        824
+      ],
+      "strong_red_alpha_gt128_count": 645,
+      "halo_note": "legacy diver strong red observed in living eye centers; no opaque red rim identified. Low alpha edge artifacts and actual GPU nearest sampling require runtime review.",
+      "grid_deviation": "1774x887 gives 443.5px nominal cell; independent integer regions split at actual transparent body gutters, no raster rewrite.",
+      "continuity_risk": "nominal cell anchors requested by root; generator placement may still produce translation jitter, especially legacy diver H1; evaluate actual body pivots in motion."
+    }
+  }
+}

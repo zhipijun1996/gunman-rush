@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "behaviors": {
+    "WorldElementSwitch": "res://config/world_elements/behaviors/WorldElementSwitch.json",
+    "WorldElementGate": "res://config/world_elements/behaviors/WorldElementGate.json",
+    "WorldMovingPlatform": "res://config/world_elements/behaviors/WorldMovingPlatform.json",
+    "WorldElementGear": "res://config/world_elements/behaviors/WorldElementGear.json",
+    "array:platforms": "res://config/world_elements/behaviors/array_platforms.json",
+    "array:spike_strips": "res://config/world_elements/behaviors/array_spike_strips.json",
+    "FixedWorldRoom": "res://config/world_elements/behaviors/FixedWorldRoom.json",
+    "GrappleAnchor": "res://config/world_elements/behaviors/GrappleAnchor.json",
+    "WorldReturnLatch": "res://config/world_elements/behaviors/WorldReturnLatch.json",
+    "WorldRoomInteraction": "res://config/world_elements/behaviors/WorldRoomInteraction.json",
+    "array:climbable_walls": "res://config/world_elements/behaviors/array_climbable_walls.json",
+    "array:enemy_placements": "res://config/world_elements/behaviors/array_enemy_placements.json",
+    "array:environment_zones": "res://config/world_elements/behaviors/array_environment_zones.json",
+    "array:hazards": "res://config/world_elements/behaviors/array_hazards.json",
+    "array:hook_points": "res://config/world_elements/behaviors/array_hook_points.json",
+    "array:retry_anchors": "res://config/world_elements/behaviors/array_retry_anchors.json",
+    "array:signs": "res://config/world_elements/behaviors/array_signs.json",
+    "array:terrain_polygons": "res://config/world_elements/behaviors/array_terrain_polygons.json",
+    "WorldRoomFeature": "res://config/world_elements/behaviors/WorldRoomFeature.json",
+    "WorldRoomAssembly": "res://config/world_elements/behaviors/WorldRoomAssembly.json"
+  },
+  "definitions": {
+    "switch.shot": "res://config/world_elements/definitions/switch.shot.json",
+    "gate.masonry": "res://config/world_elements/definitions/gate.masonry.json",
+    "platform.moving": "res://config/world_elements/definitions/platform.moving.json",
+    "hazard.gear": "res://config/world_elements/definitions/hazard.gear.json",
+    "platform.solid": "res://config/world_elements/definitions/platform.solid.json",
+    "platform.one_way": "res://config/world_elements/definitions/platform.one_way.json",
+    "hazard.spikes": "res://config/world_elements/definitions/hazard.spikes.json",
+    "assembly.bell_gate": "res://config/world_elements/definitions/assembly.bell_gate.json",
+    "assembly.bell_carrier": "res://config/world_elements/definitions/assembly.bell_carrier.json",
+    "assembly.masonry_portal": "res://config/world_elements/definitions/assembly.masonry_portal.json",
+    "platform.timber": "res://config/world_elements/definitions/platform.timber.json",
+    "platform.beam": "res://config/world_elements/definitions/platform.beam.json",
+    "room.standard": "res://config/world_elements/definitions/room.standard.json",
+    "traversal.hook": "res://config/world_elements/definitions/traversal.hook.json",
+    "interaction.return_gate": "res://config/world_elements/definitions/interaction.return_gate.json",
+    "interaction.action": "res://config/world_elements/definitions/interaction.action.json",
+    "traversal.climb_wall": "res://config/world_elements/definitions/traversal.climb_wall.json",
+    "zone.environment": "res://config/world_elements/definitions/zone.environment.json",
+    "hazard.area": "res://config/world_elements/definitions/hazard.area.json",
+    "traversal.hook_point": "res://config/world_elements/definitions/traversal.hook_point.json",
+    "recovery.anchor": "res://config/world_elements/definitions/recovery.anchor.json",
+    "interaction.sign": "res://config/world_elements/definitions/interaction.sign.json",
+    "terrain.polygon": "res://config/world_elements/definitions/terrain.polygon.json",
+    "enemy.chime_target": "res://config/world_elements/definitions/enemy.chime_target.json",
+    "enemy.patrol": "res://config/world_elements/definitions/enemy.patrol.json",
+    "enemy.charger": "res://config/world_elements/definitions/enemy.charger.json",
+    "enemy.diver": "res://config/world_elements/definitions/enemy.diver.json",
+    "enemy.hopper": "res://config/world_elements/definitions/enemy.hopper.json",
+    "enemy.sentry": "res://config/world_elements/definitions/enemy.sentry.json",
+    "enemy.fan_sentry": "res://config/world_elements/definitions/enemy.fan_sentry.json",
+    "enemy.ground_fan_sentry": "res://config/world_elements/definitions/enemy.ground_fan_sentry.json",
+    "enemy.root_bell": "res://config/world_elements/definitions/enemy.root_bell.json",
+    "enemy.forest_lantern": "res://config/world_elements/definitions/enemy.forest_lantern.json",
+    "enemy.forest_seed_sentry": "res://config/world_elements/definitions/enemy.forest_seed_sentry.json",
+    "enemy.forest_bark_beetle": "res://config/world_elements/definitions/enemy.forest_bark_beetle.json",
+    "enemy.forest_swing_pod": "res://config/world_elements/definitions/enemy.forest_swing_pod.json",
+    "enemy.forest_thread_spider": "res://config/world_elements/definitions/enemy.forest_thread_spider.json",
+    "enemy.forest_crossbranch": "res://config/world_elements/definitions/enemy.forest_crossbranch.json",
+    "enemy.forest_bible_weaver": "res://config/world_elements/definitions/enemy.forest_bible_weaver.json",
+    "recovery.station": "res://config/world_elements/definitions/recovery.station.json",
+    "internal.room_assembly": "res://config/world_elements/definitions/internal.room_assembly.json"
+  },
+  "libraries": {
+    "terrain": {
+      "name": "地形与静态结构",
+      "documentation": "docs/bible/terrain_materials.md"
+    },
+    "mechanisms": {
+      "name": "可交互元素（机关）",
+      "documentation": "docs/data/world_objects.md"
+    },
+    "enemies": {
+      "name": "怪物与遭遇",
+      "documentation": "docs/data/README.md"
+    },
+    "internal": {
+      "name": "内部组装服务",
+      "documentation": "docs/project/architecture.md"
+    }
+  }
+}

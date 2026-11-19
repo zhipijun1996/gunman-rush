@@ -1,0 +1,16 @@
+{
+  "schema": 3,
+  "room_id": "assembly-check",
+  "bounds": [0, 0, 960, 540],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {"terrain_material": "echo_mines", "start_point": [160, 366]}
+  },
+  "entities": {
+    "floor": {"id":"floor","definition_id":"platform.solid","definition_version":1,"properties":{"rect":[0,384,960,156]}},
+    "bell": {"id":"bell","definition_id":"switch.shot","definition_version":1,"properties":{"position":[272,360],"element_id":"bell","links":[{"output":"active","target":"gate","input":"set_active"}]}},
+    "gate": {"id":"gate","definition_id":"gate.masonry","definition_version":1,"properties":{"bounds":[352,256,32,128],"element_id":"gate"}},
+    "patrol": {"id":"patrol","definition_id":"enemy.patrol","definition_version":1,"properties":{"id":"patrol","point":[516,366],"max_health":1}}
+  }
+}

@@ -1,0 +1,475 @@
+{
+  "version": 1,
+  "style_anchor": "windchime_plains approved 16-biome review",
+  "reference_height": 320,
+  "target_body_height": 104,
+  "uniform_scale": 0.325,
+  "origin": "feet; regions and pivots in source pixels",
+  "body_contains_weapon": false,
+  "independent_gun": true,
+  "near_arm_notes": "Body has small lowered hand beside torso, no baked gun. Independent gun rotates freely; hand itself remains painted and does not track aim. Shoulder anchor is cosmetic approximation; physics and muzzle logic remain consumer-owned.",
+  "states": {
+    "idle": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        {
+          "texture": "res://assets/plains_v3/hero/idle_run.png",
+          "region": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "visible_bounds": [
+            54,
+            93,
+            319,
+            321
+          ],
+          "pivot": [
+            277,
+            414
+          ],
+          "shoulder": [
+            287,
+            268
+          ]
+        },
+        {
+          "texture": "res://assets/plains_v3/hero/idle_run.png",
+          "region": [
+            444,
+            0,
+            443,
+            444
+          ],
+          "visible_bounds": [
+            63,
+            100,
+            314,
+            314
+          ],
+          "pivot": [
+            282,
+            414
+          ],
+          "shoulder": [
+            292,
+            268
+          ]
+        },
+        {
+          "texture": "res://assets/plains_v3/hero/idle_run.png",
+          "region": [
+            887,
+            0,
+            443,
+            444
+          ],
+          "visible_bounds": [
+            11,
+            89,
+            321,
+            325
+          ],
+          "pivot": [
+            255,
+            414
+          ],
+          "shoulder": [
+            265,
+            268
+          ]
+        },
+        {
+          "texture": "res://assets/plains_v3/hero/idle_run.png",
+          "region": [
+            1330,
+            0,
+            444,
+            444
+          ],
+          "visible_bounds": [
+            33,
+            94,
+            317,
+            321
+          ],
+          "pivot": [
+            246,
+            415
+          ],
+          "shoulder": [
+            256,
+            268
+          ]
+        }
+      ]
+    },
+    "run": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        {
+          "texture": "res://assets/plains_v3/hero/idle_run.png",
+          "region": [
+            0,
+            444,
+            444,
+            443
+          ],
+          "visible_bounds": [
+            39,
+            83,
+            365,
+            301
+          ],
+          "pivot": [
+            250,
+            384
+          ],
+          "shoulder": [
+            280,
+            240
+          ]
+        },
+        {
+          "texture": "res://assets/plains_v3/hero/idle_run.png",
+          "region": [
+            444,
+            444,
+            443,
+            443
+          ],
+          "visible_bounds": [
+            56,
+            73,
+            356,
+            296
+          ],
+          "pivot": [
+            260,
+            369
+          ],
+          "shoulder": [
+            290,
+            240
+          ]
+        },
+        {
+          "texture": "res://assets/plains_v3/hero/idle_run.png",
+          "region": [
+            887,
+            444,
+            443,
+            443
+          ],
+          "visible_bounds": [
+            46,
+            83,
+            337,
+            302
+          ],
+          "pivot": [
+            270,
+            385
+          ],
+          "shoulder": [
+            300,
+            240
+          ]
+        },
+        {
+          "texture": "res://assets/plains_v3/hero/idle_run.png",
+          "region": [
+            1330,
+            444,
+            444,
+            443
+          ],
+          "visible_bounds": [
+            32,
+            78,
+            356,
+            306
+          ],
+          "pivot": [
+            266,
+            384
+          ],
+          "shoulder": [
+            296,
+            240
+          ]
+        }
+      ]
+    },
+    "jump": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "texture": "res://assets/plains_v3/hero/actions.png",
+          "region": [
+            0,
+            0,
+            444,
+            480
+          ],
+          "visible_bounds": [
+            61,
+            169,
+            333,
+            276
+          ],
+          "pivot": [
+            263,
+            445
+          ],
+          "shoulder": [
+            280,
+            337
+          ]
+        },
+        {
+          "texture": "res://assets/plains_v3/hero/actions.png",
+          "region": [
+            444,
+            0,
+            443,
+            480
+          ],
+          "visible_bounds": [
+            96,
+            70,
+            297,
+            326
+          ],
+          "pivot": [
+            301,
+            396
+          ],
+          "shoulder": [
+            300,
+            258
+          ]
+        }
+      ]
+    },
+    "fall": {
+      "fps": 1,
+      "loop": false,
+      "frames": [
+        {
+          "texture": "res://assets/plains_v3/hero/actions.png",
+          "region": [
+            887,
+            0,
+            443,
+            480
+          ],
+          "visible_bounds": [
+            39,
+            97,
+            327,
+            354
+          ],
+          "pivot": [
+            267,
+            451
+          ],
+          "shoulder": [
+            290,
+            287
+          ]
+        }
+      ]
+    },
+    "recoil": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "texture": "res://assets/plains_v3/hero/actions.png",
+          "region": [
+            1330,
+            0,
+            444,
+            480
+          ],
+          "visible_bounds": [
+            21,
+            159,
+            383,
+            289
+          ],
+          "pivot": [
+            328,
+            448
+          ],
+          "shoulder": [
+            314,
+            328
+          ]
+        },
+        {
+          "texture": "res://assets/plains_v3/hero/actions.png",
+          "region": [
+            0,
+            480,
+            444,
+            407
+          ],
+          "visible_bounds": [
+            80,
+            48,
+            346,
+            301
+          ],
+          "pivot": [
+            309,
+            349
+          ],
+          "shoulder": [
+            319,
+            221
+          ]
+        }
+      ]
+    },
+    "death": {
+      "fps": 7,
+      "loop": false,
+      "frames": [
+        {
+          "texture": "res://assets/plains_v3/hero/actions.png",
+          "region": [
+            444,
+            480,
+            443,
+            407
+          ],
+          "visible_bounds": [
+            58,
+            94,
+            338,
+            253
+          ],
+          "pivot": [
+            285,
+            347
+          ],
+          "shoulder": [
+            288,
+            250
+          ]
+        },
+        {
+          "texture": "res://assets/plains_v3/hero/actions.png",
+          "region": [
+            887,
+            480,
+            443,
+            407
+          ],
+          "visible_bounds": [
+            25,
+            189,
+            378,
+            158
+          ],
+          "pivot": [
+            270,
+            347
+          ],
+          "shoulder": [
+            260,
+            309
+          ]
+        },
+        {
+          "texture": "res://assets/plains_v3/hero/actions.png",
+          "region": [
+            1330,
+            480,
+            444,
+            407
+          ],
+          "visible_bounds": [
+            25,
+            189,
+            378,
+            158
+          ],
+          "pivot": [
+            270,
+            347
+          ],
+          "shoulder": [
+            260,
+            309
+          ]
+        }
+      ]
+    }
+  },
+  "files": {
+    "idle_run.png": {
+      "texture": "res://assets/plains_v3/hero/idle_run.png",
+      "size": [
+        1774,
+        887
+      ],
+      "sha256": "c581bf8cc0991865aa3eac64644e8a2bed850ff5336350c2ae00241afeb7d00f",
+      "original_source": "exec-a301f24c-3bdf-4ca0-9d31-54f0cf55d4e0.png"
+    },
+    "actions.png": {
+      "texture": "res://assets/plains_v3/hero/actions.png",
+      "size": [
+        1774,
+        887
+      ],
+      "sha256": "fc2402b0ac38caf265ba6339d7a5c2a23ab711801b457d535a082f90120cf51c",
+      "original_source": "exec-3c6d2d4f-4510-4ae9-8511-3dcdec7f938d.png"
+    },
+    "weapon.png": {
+      "texture": "res://assets/plains_v3/hero/weapon.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "0aa68be4e5398d97b9c16e72f04ed19b24ef8c21a7a582f2a3fd50987588657c",
+      "original_source": "exec-0877220c-182d-4d7f-b94e-29df536dc898.png"
+    }
+  },
+  "weapon": {
+    "texture": "res://assets/plains_v3/hero/weapon.png",
+    "region": [
+      0,
+      0,
+      1536,
+      1024
+    ],
+    "visible_bounds": [
+      292,
+      218,
+      1040,
+      601
+    ],
+    "pivot": [
+      630,
+      472
+    ],
+    "muzzle": [
+      1314,
+      384
+    ],
+    "barrel_angle_degrees": 0,
+    "runtime_scale": 0.065,
+    "target_visible_width": 68,
+    "has_hand_or_arm": false,
+    "draw_order": "in front of body unless consumer defines behind aim quadrant",
+    "background_note": "RGB outside gun contains warm haze but alpha is zero. Use normal alpha blending, never ignore alpha."
+  }
+}

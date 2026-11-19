@@ -1,3 +1,3 @@
 # 动作主题入口
 
-可复用的平台、机关、身体包络、落脚与返程方法已整合至 [房间制作](room_authoring.md)。旧模块库仍由原型与开发入口消费，保留资产及版本；新世界不要求八个初始模块或随机扩池。
+本页属于冻结工程。新房开发使用[普通房间制作](room_authoring.md)。原工具、规则和历史任务可从[冻结全文](https://github.com/zhipijun1996/gunman-rush/blob/4f2bb5e41573e930603789c64b52a0c15a6a3dc4/docs/bible/platforming_modules.md)复现。

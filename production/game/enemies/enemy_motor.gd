@@ -1,0 +1,151 @@
+class_name EnemyMotor
+extends CharacterBody2D
+
+var patrol_speed := 0.0
+var _carrier: Node2D
+var _carrier_position := Vector2.ZERO
+var _ground_actor := false
+# Formal world opts into physical settling; standalone/forest movement retains its owner.
+var ground_recovery_enabled := false
+var _ground_fall_speed := 0.0
+var _definition: EnemyDefinition
+var _knockback_requires_floor := false
+var _knockback := Vector2.ZERO
+var _knockback_seconds := 0.0
+var _attraction_tick := -1
+var _attraction := Vector2.ZERO
+var _attraction_limit := 0.0
+
+func _ready() -> void:
+	# Carriers advance at -100; transport the body before the actor chooses its step.
+	process_physics_priority = -50
+
+func _physics_process(delta: float) -> void:
+	if not _ground_actor or collision_layer == 0: return
+	if is_instance_valid(_carrier):
+		var displacement := _carrier.global_position - _carrier_position
+		if not displacement.is_zero_approx(): move_and_collide(displacement)
+	var body_shape := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if body_shape == null or not body_shape.shape is RectangleShape2D: return
+	var feet := body_shape.global_position + Vector2(0, body_shape.shape.size.y * .5)
+	var ray := PhysicsRayQueryParameters2D.create(feet + Vector2(0,-3), feet + Vector2(0,10), 1, [get_rid()])
+	var hit := get_world_2d().direct_space_state.intersect_ray(ray)
+	_carrier = hit.get("collider") as Node2D if hit.get("collider") is WorldMovingPlatform else null
+	if is_instance_valid(_carrier): _carrier_position = _carrier.global_position
+	_recover_ground(delta)
+
+func _recover_ground(delta: float) -> void:
+	if not ground_recovery_enabled: return
+	var actor:=get_node_or_null("Actor") as EnemyActor
+	# The authored hop owns its arc; gravity resumes on recovery, stun or a stale saved position.
+	if actor!=null and actor.definition.behavior_id==&"hopper" and actor.attack_behavior!=null and actor.attack_behavior.state==&"attack":
+		_ground_fall_speed=0;return
+	_ground_fall_speed=minf(_definition.ground_fall_speed,_ground_fall_speed+_definition.ground_fall_acceleration*delta)
+	var collision:=move_and_collide(Vector2(0,_ground_fall_speed*delta))
+	if collision!=null and collision.get_normal().dot(Vector2.UP)>.7:_ground_fall_speed=0
+
+func configure(definition: EnemyDefinition) -> void:
+	_definition=definition
+	patrol_speed = definition.patrol_speed
+	_ground_actor = not definition.aerial
+	var shape := RectangleShape2D.new()
+	shape.size = definition.collision_size
+	($CollisionShape2D as CollisionShape2D).shape = shape
+
+func step(intent: EnemyIntent, delta: float) -> bool:
+	velocity = Vector2.ZERO
+	if intent == null or not is_finite(delta) or delta <= 0.0 or intent.move_axis not in [-1, 0, 1] or not is_finite(intent.travel_limit) or intent.travel_limit < 0.0:
+		return false
+	# Ground locomotion turns at actual support edges; aerial fixtures keep their travel.
+	var distance := minf(patrol_speed * delta, intent.travel_limit)
+	velocity.x = float(intent.move_axis) * distance / delta
+	var attraction := _attraction if _attraction_tick==Engine.get_physics_frames() else Vector2.ZERO
+	var motion := Vector2(float(intent.move_axis)*distance,0)+attraction.limit_length(_attraction_limit/delta)*delta
+	if _knockback_seconds>0:
+		var hit_motion := _knockback*minf(delta,_knockback_seconds)
+		# Ground hit reaction retains the support guard; ordinary recovery
+		# is not permission to launch walking enemies off a ledge.
+		if _knockback_requires_floor and not hit_motion.is_zero_approx() and not _hit_landing_supported(motion+hit_motion):
+			_knockback=Vector2.ZERO
+			hit_motion=Vector2.ZERO
+		motion+=hit_motion
+		_knockback_seconds=maxf(0,_knockback_seconds-delta)
+	_attraction=Vector2.ZERO
+	var edge_blocked := _ground_actor and supported_at(global_position) and not supported_at(global_position + motion)
+	if edge_blocked: motion = Vector2.ZERO
+	velocity = motion / delta
+	var collision := move_and_collide(motion) if not motion.is_zero_approx() else null
+	if collision != null and _knockback.dot(collision.get_normal()) < 0:
+		_knockback = _knockback.slide(collision.get_normal())
+	return edge_blocked or collision != null
+
+func stop() -> void:
+	_knockback_requires_floor = false
+	_knockback=Vector2.ZERO;_knockback_seconds=0;_attraction=Vector2.ZERO;_attraction_tick=-1
+	velocity = Vector2.ZERO
+
+func reset_at(location: Vector2) -> void:
+	_carrier = null
+	_ground_fall_speed=0.0
+	stop()
+	global_position = location
+
+func move_attack(motion: Vector2, require_floor: bool, delta: float) -> bool:
+	if not motion.is_finite() or not is_finite(delta) or delta <= 0: return false
+	if require_floor:
+		var body_shape := get_node_or_null("CollisionShape2D") as CollisionShape2D
+		if body_shape == null or not body_shape.shape is RectangleShape2D: return false
+		var half := (body_shape.shape as RectangleShape2D).size * 0.5
+		# Probe from above the actual sole. Starting exactly on or inside the
+		# floor can miss it; retain the original ten-unit ray length.
+		var feet := global_position + Vector2(signf(motion.x) * (half.x + 1.0), half.y)
+		var ray := PhysicsRayQueryParameters2D.create(feet + motion + Vector2(0, -2), feet + motion + Vector2(0, 8), 1, [get_rid()])
+		if get_world_2d().direct_space_state.intersect_ray(ray).is_empty():
+			velocity = Vector2.ZERO
+			return false
+	velocity = motion / delta
+	return move_and_collide(motion) == null
+
+func request_attraction(center: Vector2, speed: float, stop_ring: float) -> void:
+	var offset := center-global_position
+	_attraction_tick=Engine.get_physics_frames()
+	_attraction_limit=maxf(0,offset.length()-stop_ring)
+	_attraction=offset.normalized()*speed
+
+func request_knockback(velocity_value: Vector2, seconds: float, require_floor: bool = false) -> void:
+	_knockback=velocity_value;_knockback_seconds=seconds
+	_knockback_requires_floor = require_floor and _ground_actor
+
+# Local accepted-hit path only. Ordinary patrol/attack/attraction stay unchanged.
+# Like move_attack(require_floor), probe the next leading foot, but use the
+# actual configured collision volume and a standable normal, not artwork size.
+func _hit_landing_supported(motion: Vector2) -> bool:
+	var collision := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if collision == null or not collision.shape is RectangleShape2D: return false
+	var half := (collision.shape as RectangleShape2D).size*.5
+	var feet := collision.global_position+motion+Vector2(signf(motion.x)*maxf(0,half.x-1),half.y)
+	var ray := PhysicsRayQueryParameters2D.create(feet+Vector2(0,-2),feet+Vector2(0,8),collision_mask,[get_rid()])
+	var hit := get_world_2d().direct_space_state.intersect_ray(ray)
+	return not hit.is_empty() and (hit.normal as Vector2).dot(Vector2.UP)>.7
+
+# Check both feet so a body never drifts half-way beyond a platform lip.
+func supported_at(at: Vector2) -> bool:
+	var shape := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if shape == null or not shape.shape is RectangleShape2D: return false
+	var half := (shape.shape as RectangleShape2D).size * .5
+	for side: float in [-1.0, 1.0]:
+		var foot := at + shape.position + Vector2(side * maxf(0, half.x-1), half.y)
+		var ray := PhysicsRayQueryParameters2D.create(foot-Vector2(0,2),foot+Vector2(0,4),collision_mask,[get_rid()])
+		var hit := get_world_2d().direct_space_state.intersect_ray(ray)
+		if hit.is_empty() or (hit.normal as Vector2).dot(Vector2.UP)<.7: return false
+	return true
+
+func supported_ground_goal(origin: Vector2, wanted: Vector2) -> Vector2:
+	if not supported_at(origin): return origin
+	var result := origin
+	var steps := maxi(1, ceili(absf(wanted.x-origin.x)/4.0))
+	for i: int in range(1,steps+1):
+		var next := origin.lerp(wanted,float(i)/steps)
+		if not supported_at(next): break
+		result=next
+	return result

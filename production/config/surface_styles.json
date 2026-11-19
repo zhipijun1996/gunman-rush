@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "default": "stone_spikes",
+  "styles": {
+    "stone_spikes": {
+      "name": "岩刺",
+      "texture": "res://assets/underworld_plains/hazards/hazard_surface_fine.png",
+      "faces": [
+        "up",
+        "down",
+        "left",
+        "right"
+      ],
+      "tile_size": [
+        32,
+        32
+      ],
+      "danger_depth": 24,
+      "root_depth": 8
+    },
+    "forest_bramble": {
+      "name": "荆棘",
+      "texture": "res://assets/world_elements/native/forest_bramble.png",
+      "faces": [
+        "up",
+        "down",
+        "left",
+        "right"
+      ],
+      "tile_size": [
+        32,
+        32
+      ],
+      "danger_depth": 24,
+      "root_depth": 8
+    },
+    "metal_spikes": {
+      "name": "金属刺",
+      "texture": "res://assets/world_elements/native/metal_spikes.png",
+      "faces": [
+        "up",
+        "down",
+        "left",
+        "right"
+      ],
+      "tile_size": [
+        32,
+        32
+      ],
+      "danger_depth": 24,
+      "root_depth": 8
+    }
+  },
+  "regions": {
+    "P": {
+      "default": "stone_spikes",
+      "materials": {
+        "mill_masonry": "metal_spikes"
+      }
+    },
+    "F": {
+      "default": "forest_bramble"
+    },
+    "K": {
+      "default": "metal_spikes"
+    },
+    "Z": {
+      "default": "metal_spikes"
+    },
+    "G": {
+      "default": "metal_spikes"
+    }
+  }
+}

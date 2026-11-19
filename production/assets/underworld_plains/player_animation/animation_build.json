@@ -1,0 +1,696 @@
+{
+  "schema": "underworld-player-animation-v1",
+  "builder": "tools/build_underworld_player_animation.py",
+  "recipe": "res://assets/underworld_plains/player_animation/recipe.json",
+  "reference": "res://assets/style_exploration/underworld/player.png",
+  "canvas": [
+    80,
+    64
+  ],
+  "anchor": [
+    40,
+    58
+  ],
+  "standing_body_source_height": 46.0,
+  "animations": {
+    "run": {
+      "fps": 16,
+      "loop": true
+    },
+    "idle": {
+      "fps": 3,
+      "loop": true
+    },
+    "rise": {
+      "fps": 6,
+      "loop": false
+    },
+    "fall": {
+      "fps": 6,
+      "loop": false
+    },
+    "land": {
+      "fps": 12,
+      "loop": false
+    },
+    "hurt": {
+      "fps": 12,
+      "loop": false
+    },
+    "death": {
+      "fps": 5,
+      "loop": false
+    }
+  },
+  "frames": [
+    {
+      "state": "run",
+      "index": 0,
+      "atlas": "run_sheet.png",
+      "rect": [
+        0,
+        0,
+        80,
+        64
+      ],
+      "raw_cell": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "translation": [
+        3,
+        5
+      ],
+      "opaque_bounds": [
+        7,
+        11,
+        56,
+        58
+      ],
+      "pixel_sha256": "6d2d0a6806b7cc6db9e9ec1380fbbfc7c4073c241da394aceda57350adddf628",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "run",
+      "index": 1,
+      "atlas": "run_sheet.png",
+      "rect": [
+        80,
+        0,
+        80,
+        64
+      ],
+      "raw_cell": [
+        444,
+        0,
+        887,
+        444
+      ],
+      "translation": [
+        3,
+        5
+      ],
+      "opaque_bounds": [
+        6,
+        13,
+        54,
+        58
+      ],
+      "pixel_sha256": "7ecff36d16f8b3561e0c88523e59a52603b00d27bfa4dbf0acfdd3400efa1a07",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "run",
+      "index": 2,
+      "atlas": "run_sheet.png",
+      "rect": [
+        160,
+        0,
+        80,
+        64
+      ],
+      "raw_cell": [
+        887,
+        0,
+        1330,
+        444
+      ],
+      "translation": [
+        4,
+        5
+      ],
+      "opaque_bounds": [
+        7,
+        12,
+        54,
+        58
+      ],
+      "pixel_sha256": "f6b600a080dd59d05e09020f71bc7862c09a4f342adae62fe84a44008d833a19",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "run",
+      "index": 3,
+      "atlas": "run_sheet.png",
+      "rect": [
+        240,
+        0,
+        80,
+        64
+      ],
+      "raw_cell": [
+        1330,
+        0,
+        1774,
+        444
+      ],
+      "translation": [
+        3,
+        6
+      ],
+      "opaque_bounds": [
+        6,
+        12,
+        55,
+        58
+      ],
+      "pixel_sha256": "14b5cf4f626a0144267b83f4d19e329f41c588b1af5175d3395260bb5935cf90",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "run",
+      "index": 4,
+      "atlas": "run_sheet.png",
+      "rect": [
+        0,
+        64,
+        80,
+        64
+      ],
+      "raw_cell": [
+        0,
+        444,
+        444,
+        887
+      ],
+      "translation": [
+        4,
+        9
+      ],
+      "opaque_bounds": [
+        8,
+        12,
+        56,
+        58
+      ],
+      "pixel_sha256": "bb3ae673c515be329d1c8db8029553e1efb81a08707c2febd9eab60f260c03bb",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "run",
+      "index": 5,
+      "atlas": "run_sheet.png",
+      "rect": [
+        80,
+        64,
+        80,
+        64
+      ],
+      "raw_cell": [
+        444,
+        444,
+        887,
+        887
+      ],
+      "translation": [
+        4,
+        9
+      ],
+      "opaque_bounds": [
+        7,
+        13,
+        54,
+        58
+      ],
+      "pixel_sha256": "15653943b5847fd62213addd9167aef457207715b2dded29ac691022a0f3f792",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "run",
+      "index": 6,
+      "atlas": "run_sheet.png",
+      "rect": [
+        160,
+        64,
+        80,
+        64
+      ],
+      "raw_cell": [
+        887,
+        444,
+        1330,
+        887
+      ],
+      "translation": [
+        4,
+        8
+      ],
+      "opaque_bounds": [
+        6,
+        13,
+        55,
+        58
+      ],
+      "pixel_sha256": "c26c313a1d2b44d9069fd4484b1315f8b5df72521b9a147f985461cb7c372fc3",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "run",
+      "index": 7,
+      "atlas": "run_sheet.png",
+      "rect": [
+        240,
+        64,
+        80,
+        64
+      ],
+      "raw_cell": [
+        1330,
+        444,
+        1774,
+        887
+      ],
+      "translation": [
+        2,
+        8
+      ],
+      "opaque_bounds": [
+        4,
+        11,
+        54,
+        55
+      ],
+      "pixel_sha256": "cdeafe3ed4129f7eb5a7ec93d5c1e953c81d0c0437dbf3d20f6ccdc66062d5b0",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "idle",
+      "index": 0,
+      "atlas": "states_sheet.png",
+      "rect": [
+        0,
+        0,
+        80,
+        64
+      ],
+      "raw_cell": [
+        0,
+        0,
+        362,
+        389
+      ],
+      "translation": [
+        5,
+        2
+      ],
+      "opaque_bounds": [
+        9,
+        12,
+        55,
+        58
+      ],
+      "pixel_sha256": "916595ebff193355301c194a0a74b48719a1daa8e43739161ad4294dc5572637",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "idle",
+      "index": 1,
+      "atlas": "states_sheet.png",
+      "rect": [
+        80,
+        0,
+        80,
+        64
+      ],
+      "raw_cell": [
+        362,
+        0,
+        724,
+        389
+      ],
+      "translation": [
+        5,
+        2
+      ],
+      "opaque_bounds": [
+        8,
+        12,
+        55,
+        58
+      ],
+      "pixel_sha256": "233e0a53f1df544ea0dce533d42010f5e8bc06bd0b19282c2f5e4a315625c1dd",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "rise",
+      "index": 0,
+      "atlas": "states_sheet.png",
+      "rect": [
+        160,
+        0,
+        80,
+        64
+      ],
+      "raw_cell": [
+        724,
+        0,
+        1086,
+        389
+      ],
+      "translation": [
+        5,
+        2
+      ],
+      "opaque_bounds": [
+        8,
+        6,
+        53,
+        54
+      ],
+      "pixel_sha256": "764cacb9d028adb9ce9eb0da9ed18fe2994185a4222dc36a3ca45ba5212eca32",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "rise",
+      "index": 1,
+      "atlas": "states_sheet.png",
+      "rect": [
+        240,
+        0,
+        80,
+        64
+      ],
+      "raw_cell": [
+        1086,
+        0,
+        1448,
+        389
+      ],
+      "translation": [
+        5,
+        2
+      ],
+      "opaque_bounds": [
+        7,
+        6,
+        55,
+        51
+      ],
+      "pixel_sha256": "e1e8a21c962612d983fbe48804727a374a6e5cf1293013086978d99aee1e71d3",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "fall",
+      "index": 0,
+      "atlas": "states_sheet.png",
+      "rect": [
+        0,
+        64,
+        80,
+        64
+      ],
+      "raw_cell": [
+        0,
+        389,
+        362,
+        737
+      ],
+      "translation": [
+        5,
+        8
+      ],
+      "opaque_bounds": [
+        8,
+        10,
+        55,
+        59
+      ],
+      "pixel_sha256": "7afe961216bb5d862020d146517a44027d474b49b0df6ce5c3df27936eeb6c48",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "fall",
+      "index": 1,
+      "atlas": "states_sheet.png",
+      "rect": [
+        80,
+        64,
+        80,
+        64
+      ],
+      "raw_cell": [
+        362,
+        389,
+        724,
+        737
+      ],
+      "translation": [
+        5,
+        8
+      ],
+      "opaque_bounds": [
+        8,
+        14,
+        57,
+        56
+      ],
+      "pixel_sha256": "4d15a03c435c72cb40d0032895f98dbaeb2b61f627f9c84bac80d35a5e57268a",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "land",
+      "index": 0,
+      "atlas": "states_sheet.png",
+      "rect": [
+        160,
+        64,
+        80,
+        64
+      ],
+      "raw_cell": [
+        724,
+        389,
+        1086,
+        737
+      ],
+      "translation": [
+        5,
+        7
+      ],
+      "opaque_bounds": [
+        9,
+        25,
+        56,
+        58
+      ],
+      "pixel_sha256": "23b4023c6b9cb72e6438afc2e996386015b91b58dd0d91c5152072ba08f4944c",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "land",
+      "index": 1,
+      "atlas": "states_sheet.png",
+      "rect": [
+        240,
+        64,
+        80,
+        64
+      ],
+      "raw_cell": [
+        1086,
+        389,
+        1448,
+        737
+      ],
+      "translation": [
+        5,
+        7
+      ],
+      "opaque_bounds": [
+        9,
+        12,
+        55,
+        58
+      ],
+      "pixel_sha256": "61766ed9556b65c060083c3f186454161a7c8e7ec1fedf5a2e09595b2ce4f18f",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "hurt",
+      "index": 0,
+      "atlas": "states_sheet.png",
+      "rect": [
+        0,
+        128,
+        80,
+        64
+      ],
+      "raw_cell": [
+        0,
+        737,
+        362,
+        1086
+      ],
+      "translation": [
+        5,
+        13
+      ],
+      "opaque_bounds": [
+        8,
+        14,
+        57,
+        58
+      ],
+      "pixel_sha256": "2683a499bad997736388624f7208306d82fb54dd633230389ee55a2395a0ff58",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "hurt",
+      "index": 1,
+      "atlas": "states_sheet.png",
+      "rect": [
+        80,
+        128,
+        80,
+        64
+      ],
+      "raw_cell": [
+        362,
+        737,
+        714,
+        1086
+      ],
+      "translation": [
+        5,
+        13
+      ],
+      "opaque_bounds": [
+        9,
+        17,
+        56,
+        58
+      ],
+      "pixel_sha256": "800ffb6e8b565553dc4514cfb249243f69aa7f74eb880963ff4591e4d29f1ee7",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "death",
+      "index": 0,
+      "atlas": "states_sheet.png",
+      "rect": [
+        160,
+        128,
+        80,
+        64
+      ],
+      "raw_cell": [
+        714,
+        737,
+        1050,
+        1086
+      ],
+      "translation": [
+        4,
+        13
+      ],
+      "opaque_bounds": [
+        5,
+        23,
+        51,
+        58
+      ],
+      "pixel_sha256": "6f837330f6b0adfc4e08221ee02c28a6b746a90b6c9ab3196502399b97999af4",
+      "anchor": [
+        40,
+        58
+      ]
+    },
+    {
+      "state": "death",
+      "index": 1,
+      "atlas": "states_sheet.png",
+      "rect": [
+        240,
+        128,
+        80,
+        64
+      ],
+      "raw_cell": [
+        1050,
+        737,
+        1448,
+        1086
+      ],
+      "translation": [
+        9,
+        13
+      ],
+      "opaque_bounds": [
+        11,
+        40,
+        66,
+        58
+      ],
+      "pixel_sha256": "8536e94f0ab8177c03234185bf6b49045b9f67ae312b2e08494e1ef65a26a084",
+      "anchor": [
+        40,
+        58
+      ]
+    }
+  ],
+  "operations": [
+    "exact source cell crops",
+    "one declared nearest scale per source page",
+    "measured pivot+baseline translation into shared transparent canvas",
+    "legal runtime horizontal mirror"
+  ],
+  "generated_keyframes": 20,
+  "synthetic_pose_count": 0,
+  "scope": "Real image-generated body keyframes. Existing weapon remains separate at accepted CourierVisual muzzle. No collision/motor/resource edits."
+}

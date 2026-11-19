@@ -46,7 +46,7 @@ git fetch origin 4c0a7e5820f90f4d04283c2fafc7c70ef3fa80a7
 python3 tools/archive_vfx.py
 ```
 
-输出为 `build/archives/vfx-4c0a7e58.zip`。在解压目录用 `python3 tests/test_vfx_export.py` 验证图集重建；首次需要网络取得指定版本的 pixelfx。包内 `integration.patch` 保存完整版本差异，包括共享脚本的修改和原资源的删除，用于在独立的冻结基线上恢复参考实现。新游戏按实际事件选择效果，例如回血事务成功才播放恢复音，Boss 入场结束或取消时归还镜头并清理音画。已知射线淡出时像素取整可产生零面积三角形；新入口采用该绘制器时需修正并回归受击与死亡收尾。[问题定位](https://github.com/zhipijun1996/gunman-rush/pull/160#discussion_r4567330312)
+输出为 `build/archives/vfx-4c0a7e58.zip`。在解压目录用 `python3 tests/test_vfx_export.py` 验证图集重建；首次需要网络取得指定版本的 pixelfx。包内 `integration.patch` 保存完整版本差异，包括共享脚本的修改和原资源的删除，用于在独立的冻结基线上恢复参考实现。新游戏按实际事件选择效果，例如回血事务成功才播放恢复音，Boss 入场结束或取消时归还镜头并清理音画。原版射线淡出时可能产生零面积多边形；重做工程的绘制器处理取整后的退化图形。[问题定位](https://github.com/zhipijun1996/gunman-rush/pull/160#discussion_r4567330312)
 
 ## 归档验证
 
@@ -58,6 +58,4 @@ TileSet 包独立解压后，16 套原生图集重新烘焙为 752 格；锁定�
 
 ## 新房间接续
 
-普通房间按[房间组装规范](../../../bible/room_authoring.md#普通房间组装)制作。已验证的制作思路可从[机关定义与实例合同](https://github.com/zhipijun1996/gunman-rush/blob/6af82000eae0c1b8a8fb1f9a36c5ee03b3a7dcd8/docs/bible/world_elements.md)取用；该分支的目录与运行实现仍归其版本。新游戏的房表、地图、起点、存档及导出清单独立维护，旧房号、旧布局、审批与实验成果不作为新内容输入。共享地形、机关或物种由新房间显式引用。
-
-新房间就绪后，从新游戏入口实际启动，检查该房与所属地图、使用独立存档，并核对导出清单仅包含新入口用到的资源。随后同步切换默认场景、正式导出和启动冒烟测试。冻结提交始终是回到平原的入口。
+[当前开发工程与模块](../../module_map.md) · [重做工作线](../room_rebuild/scope.md)。上文归档保留固定来源和完整恢复方式。

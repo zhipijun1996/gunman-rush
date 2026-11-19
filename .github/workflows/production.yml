@@ -38,3 +38,5 @@ jobs:
         run: python3 tools/ci.py --check smoke
       - name: Core contracts
         run: python3 tools/ci.py --check contracts
+      - name: Standalone room composition
+        run: python3 tools/check_ordinary_rooms.py

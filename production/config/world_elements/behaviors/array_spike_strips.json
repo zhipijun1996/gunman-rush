@@ -1,0 +1,24 @@
+{
+  "id": "array:spike_strips",
+  "fields": {
+    "bounds": {
+      "type": "rect",
+      "required": true
+    },
+    "facing": {
+      "type": "string",
+      "choices": [
+        "up",
+        "down",
+        "left",
+        "right"
+      ]
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "storage_field": "spike_strips",
+  "category": "hazards",
+  "root": false,
+  "default_definition": "hazard.spikes"
+}
