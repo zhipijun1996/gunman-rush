@@ -5,10 +5,9 @@ static var _data: Dictionary = {}
 static func catalog() -> Dictionary:
 	if _data.is_empty(): _data = JSON.parse_string(FileAccess.get_file_as_string(PATH))
 	return _data
-static func choose(explicit: String, region: String, material_id: String) -> String:
+static func choose(explicit: String, material_id: String) -> String:
 	if not explicit.is_empty(): return explicit
-	var rules: Dictionary = catalog().regions.get(region, {})
-	return str(rules.get("materials",{}).get(material_id,rules.get("default",catalog().default)))
+	return str(catalog().materials.get(material_id, catalog().default))
 static func texture(id: String) -> Texture2D:
 	return TerrainMaterialRegistry.texture(str(catalog().styles[id].texture))
 static func error(id: String, facing: String) -> String:

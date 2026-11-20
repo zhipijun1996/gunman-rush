@@ -2,6 +2,8 @@
 
 默认启动保留冻结的可运行平原。源码基线为 `4f2bb5e41573e930603789c64b52a0c15a6a3dc4`，包含 35 个平原房、钟心门厅和 7 个外区入口。平原归档保留整份工程以恢复共享控制器、资源、配置和工具链锁。历次逐房记录可在[冻结交接](https://github.com/zhipijun1996/gunman-rush/blob/4f2bb5e41573e930603789c64b52a0c15a6a3dc4/docs/project/worklines/plains_bible_v2_01/scope.md)查阅。
 
+冻结试玩的逐房入口、能力阶段与调试参数见[原版开发与内容审查](https://github.com/zhipijun1996/gunman-rush/blob/4f2bb5e41573e930603789c64b52a0c15a6a3dc4/docs/project/development.md)。
+
 ## 恢复平原
 
 [下载固定提交的源码 ZIP](https://github.com/zhipijun1996/gunman-rush/archive/4f2bb5e41573e930603789c64b52a0c15a6a3dc4.zip)。已有仓库可用下面的命令在独立目录恢复同一棵文件树。

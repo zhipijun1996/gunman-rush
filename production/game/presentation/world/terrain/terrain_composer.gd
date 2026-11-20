@@ -38,6 +38,19 @@ static func room_plan(room: FixedWorldRoom) -> Dictionary:
 					TerrainGeometry.paint_rect(partitions,part,"mill_masonry")
 	return {"groups":partitions,"geometry":TerrainGeometry.plan(solids,room.terrain_polygons)}
 
+## Later partitions take precedence where boundaries coincide.
+func material_at(point: Vector2, base_material: String) -> String:
+	for i: int in range(groups.size() - 1, -1, -1):
+		var group := groups[i]
+		for solid: Rect2 in group.solids:
+			if solid.has_point(point): return str(group.material_id)
+		for polygon: Dictionary in group.polygons:
+			var vertices := PackedVector2Array()
+			for vertex: Array in polygon.points:
+				vertices.append(FixedWorldProvider.point(vertex))
+			if Geometry2D.is_point_in_polygon(point, vertices): return str(group.material_id)
+	return base_material
+
 static func build(room: FixedWorldRoom) -> TerrainComposer:
 	return compose(room_plan(room),room.terrain_paint,room.spike_strips,FixedWorldProvider.point(room.contract.world_geometry.get("world_origin",[0,0])))
 

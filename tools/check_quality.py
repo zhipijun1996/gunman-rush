@@ -40,6 +40,10 @@ def validate(root=ROOT):
     for task_type, rule in p['task_types'].items():
         if not set(rule.get('skills', [])) <= names:
             errors.append(f'Unknown task skill: {task_type}')
+    room_skills = {'godot-recoil-level-design', 'godot-room-art'}
+    for kind in ('ordinary_room', 'level_module', 'region'):
+        if not room_skills <= set(p['task_types'].get(kind, {}).get('skills', [])):
+            errors.append(f'{kind}: room authoring needs both level design and room art')
     if p.get('production_routes') != {'random_region': 'retired', 'fixed_world': 'ordinary_task_current_handoff'}:
         errors.append('Production routing must distinguish fixed-world tasks from retired random production')
     for name in p['templates']:

@@ -4,29 +4,20 @@ extends Node2D
 var bands: Array[Dictionary] = []
 var hosts: Array[Rect2] = []
 
-func setup(strips: Array[Dictionary], solids: Array[Rect2], room: FixedWorldRoom = null) -> void:
-	texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
-	z_index=1
-	hosts=solids.duplicate()
+func setup(room: FixedWorldRoom) -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	z_index = 1
+	hosts = room.platforms.duplicate()
 	bands.clear()
-	for strip: Dictionary in strips:
-		var face: String=str(strip.get("facing","up"))
-		var rect:=FixedWorldProvider.rect(strip.bounds)
-		var region := ""
-		var substrate := "windchime_plains"
-		if room != null:
-			substrate = room.terrain_material
-			var root_point := rect.get_center()+Vector2(0,rect.size.y/2+1) if face=="up" else (rect.get_center()-Vector2(0,rect.size.y/2+1) if face=="down" else (rect.get_center()+Vector2(rect.size.x/2+1,0) if face=="left" else rect.get_center()-Vector2(rect.size.x/2+1,0)))
-			var composer := room.get_node_or_null("TerrainComposer") as TerrainComposer
-			if composer != null:
-				for group: Dictionary in composer.groups:
-					for solid: Rect2 in group.solids:
-						if solid.has_point(root_point): substrate = str(group.material_id)
-					for polygon: Dictionary in group.polygons:
-						var vertices := PackedVector2Array()
-						for point: Array in polygon.points: vertices.append(FixedWorldProvider.point(point))
-						if Geometry2D.is_point_in_polygon(root_point,vertices): substrate = str(group.material_id)
-		var style := WorldSurfaceStyles.choose(str(strip.get("appearance","")),region,substrate)
+	var composer := room.get_node("TerrainComposer") as TerrainComposer
+	var inward := {"up": Vector2.DOWN, "down": Vector2.UP, "left": Vector2.RIGHT, "right": Vector2.LEFT}
+	for strip: Dictionary in room.spike_strips:
+		var face := str(strip.get("facing", "up"))
+		var rect := FixedWorldProvider.rect(strip.bounds)
+		var normal: Vector2 = inward[face]
+		var root_point := rect.get_center() + normal * (rect.size * 0.5 + Vector2.ONE)
+		var material_id := composer.material_at(root_point, room.terrain_material)
+		var style := WorldSurfaceStyles.choose(str(strip.get("appearance", "")), material_id)
 		# Adjacent authored strips share one run, without internal end caps.
 		var changed:=true
 		while changed:

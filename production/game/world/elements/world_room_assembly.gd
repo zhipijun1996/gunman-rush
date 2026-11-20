@@ -70,7 +70,7 @@ static func build(room: FixedWorldRoom) -> void:
 	room.add_child(TerrainComposer.build(room))
 	if not room.spike_strips.is_empty():
 		var spikes := WorldSpikeArt.new()
-		spikes.setup(room.spike_strips, room.platforms, room)
+		spikes.setup(room)
 		room.add_child(spikes)
 	for rect: Rect2 in room.climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;room.add_child(wall)

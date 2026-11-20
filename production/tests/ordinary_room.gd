@@ -27,8 +27,36 @@ func ticks(count: int) -> void:
 func _initialize() -> void:
 	run.call_deferred()
 
+func check_spike_materials(source: Dictionary) -> void:
+	var doc := source.duplicate(true)
+	doc.root.properties.terrain_material = "thorn_forest"
+	doc.root.properties.terrain_paint = {"version": 1, "regions": [
+		{"id": "inlay", "material_id": "mill_masonry", "bounds": [640, 384, 64, 64]}
+	]}
+	var strips := {"forest": 576, "inlay_tip": 640, "explicit": 736}
+	for id: String in strips:
+		doc.entities[id] = {"id": id, "definition_id": "hazard.spikes", "definition_version": 1,
+			"properties": {"bounds": [strips[id], 360, 32, 24]}}
+	doc.entities.explicit.properties.appearance = "stone_spikes"
+
+	var session := OrdinaryRoomSession.new()
+	root.add_child(session)
+	var error := session.open(doc)
+	check(error.is_empty(), "spike material room opens: " + error)
+	if error.is_empty():
+		var styles := {}
+		for node in session.room.get_children():
+			if node is WorldSpikeArt:
+				for band: Dictionary in node.bands:
+					styles[int(band.rect.position.x)] = band.style
+		check(styles == {576: "forest_bramble", 640: "metal_spikes", 736: "stone_spikes"},
+			"assembled strips respect base material, local paint and explicit appearance")
+		check(await session.audio_service.shutdown(), "spike room audio released")
+	session.free()
+
 func run() -> void:
 	var doc := WorldRoomDocument.read("res://tests/assembly_room.json")
+	await check_spike_materials(doc)
 	var store := TestStore.new()
 	var session := OrdinaryRoomSession.new()
 	root.add_child(session)
