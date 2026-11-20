@@ -31,7 +31,15 @@
   },
   "acceptance": {
     "target_display": "项目实际游戏尺寸；手机审核可追加 360 px 宽预览",
-    "key_camera_positions": [],
+    "key_camera_positions": [
+      {
+        "viewpoint": "按房间职责选择玩家位置、来向或移动过程",
+        "player_intent": "此时的体验、判断或动作",
+        "perception": "玩家在什么时机应能感知什么，如何辨认结果",
+        "layout_and_composition": "关键地形的用途和场所身份，哪些轮廓、层次或留白支持判断",
+        "playthrough_check": "从该视角实际移动或操作时要核实什么"
+      }
+    ],
     "checks_for_this_change": [],
     "preview_type": "概念、Canvas、Godot 无窗口或 Godot 实机",
     "remaining_limits": [],

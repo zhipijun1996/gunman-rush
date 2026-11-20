@@ -3,7 +3,7 @@
 重做游戏的工程根目录是 `production/`。在这里打开 Godot 4.7.2，所有 `res://` 路径都相对这个目录。仓库顶层的 Godot 工程用于复玩冻结平原。两个工程有各自的资源扫描范围和用户数据目录。
 
 1. 读[当前状态](docs/project/current_state.md)、[任务表](docs/project/tasks.md)对应行及其 `docs/project/worklines/` 交接。
-2. 普通房间按[房间制作](docs/bible/room_authoring.md)和[机关目录](docs/data/world_objects.md)组装。新房的几何、起点、物种和实例连线由新房数据给出。
+2. 设计、新建或重做房间时，默认一起使用仓库内的[关卡设计](.agents/skills/godot-recoil-level-design/SKILL.md)和[房间美术](.agents/skills/godot-room-art/SKILL.md)，由同一份房间设计决定布局与构图。专项任务按请求范围调用。普通房间按[房间制作](docs/bible/room_authoring.md)和[机关目录](docs/data/world_objects.md)组装。新房的几何、起点、物种和实例连线由新房数据给出。
 3. 按[模块导航](docs/project/module_map.md)修改真正消费内容的代码和资源。玩家运动归 PlayerMotor，伤害、掉落和存档由对应系统提交，特效只观察已接受事件。
 4. 在仓库根目录运行 `python3 tools/check_ordinary_rooms.py`。冻结试玩的检查单独运行 `python3 tools/ci.py`。文档链接运行 `python3 tools/check_docs.py`。
 
