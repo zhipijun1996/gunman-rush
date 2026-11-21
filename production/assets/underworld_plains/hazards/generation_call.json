@@ -1,0 +1,26 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "tool": "image_gen.imagegen",
+  "call_count": 1,
+  "prompt": "Create a production reference sprite strip for a 2D pixel art platform game's integrated hazardous thorn terrain, matching the attached Underworld tileset's very dark navy teal rock and sparse tiny moss green clusters. This is a new thorn-covered ROCK SURFACE TILE, not isolated spike props or decorative grass. Output one single horizontal seamless 8-tile-long strip, straight-on orthographic side view, transparent background. At the bottom of the strip, draw 16 pixels tall continuous opaque rock substrate matching the supplied dark navy/teal texture. Dense connected dark burgundy bramble roots are embedded into the top of that rock, growing out naturally. Above the straight rock surface, a continuous interlocked dangerous thorn bramble band of exactly the same width, muted copper and pale amber short sharp pointed thorns, maximum 12 pixels high. Roots and thorns form a continuous readable hazardous surface without safe-looking gaps. At both left and right strip end the rock is straight vertical, no hanging objects outside width. Sparse two-tone pixel clusters, no gradients, no lighting bloom, no shadows outside silhouette, no text, no frame, no other sprite objects. Design logical source resolution 128x28 pixels shown large with crisp square pixel blocks. The horizontal rock texture and root base must be seamless left-to-right. The strip is an integrated replacement for the surface of a solid platform and its thorns; it should never look like spikes simply sitting on top as a separate object.",
+  "referenced_image_paths": [
+    "assets/style_exploration/underworld/source/TileSet.png"
+  ],
+  "reference_sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+  "transparent_background": true,
+  "model": "unknown; not exposed by tool",
+  "tool_output_hint": "/workspace/generated_images/exec-9587926a-3861-4939-a4f1-e11e798f8e85.png",
+  "original_size_px": [
+    2172,
+    724
+  ],
+  "inspection": {
+    "alpha128_bbox_px": [
+      30,
+      272,
+      2144,
+      495
+    ],
+    "result": "Reference provides connected rooted bramble but not exact native pixel or tile layout. Adaptation required; raw image not directly consumed."
+  }
+}

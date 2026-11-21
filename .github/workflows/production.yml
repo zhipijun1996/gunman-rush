@@ -38,3 +38,26 @@ jobs:
         run: python3 tools/ci.py --check smoke
       - name: Core contracts
         run: python3 tools/ci.py --check contracts
+
+  rebuild:
+    name: Rebuild room and documentation
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GUNMAN_TOOLCHAIN_ROOT: /tmp/gunman-toolchains
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: config/ci_python_version.txt
+      - name: Active documentation
+        run: |
+          python3 tools/check_docs.py
+          python3 tools/check_quality.py
+          python3 -m unittest discover -s tests -p test_context_navigation.py
+      - name: Install locked editor
+        run: python3 tools/setup_environment.py --engine-only
+      - name: Standalone room composition
+        run: python3 tools/check_ordinary_rooms.py

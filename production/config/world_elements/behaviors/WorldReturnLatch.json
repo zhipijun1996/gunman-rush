@@ -1,0 +1,35 @@
+{
+  "id": "WorldReturnLatch",
+  "fields": {
+    "action_id": {
+      "type": "string"
+    },
+    "closed_panels": {
+      "type": "array"
+    },
+    "label": {
+      "type": "string"
+    },
+    "metal_hatch": {
+      "type": "bool"
+    },
+    "radius": {
+      "type": "number"
+    },
+    "return_steps": {
+      "type": "array"
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "visual": {
+      "type": "string"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "script": "res://game/world/components/world_return_latch.gd",
+  "category": "interaction",
+  "root": false,
+  "default_definition": "interaction.return_gate"
+}

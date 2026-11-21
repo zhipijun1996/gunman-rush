@@ -1,0 +1,64 @@
+{
+  "id": "WorldMovingPlatform",
+  "script": "res://game/world/components/world_moving_platform.gd",
+  "clock": true,
+  "fields": {
+    "element_id": {
+      "type": "string"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "permanent",
+        "attempt"
+      ]
+    },
+    "position": {
+      "type": "point"
+    },
+    "platform_size": {
+      "type": "point",
+      "min_component": 0.01
+    },
+    "endpoint": {
+      "type": "point"
+    },
+    "period": {
+      "type": "number",
+      "min": 0.051
+    },
+    "phase_offset": {
+      "type": "number",
+      "min": 0
+    },
+    "route": {
+      "type": "points"
+    },
+    "endpoint_dwell": {
+      "type": "number",
+      "min": 0
+    },
+    "one_way": {
+      "type": "bool"
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "state": {
+    "active": {
+      "type": "bool",
+      "required": true
+    },
+    "clock": {
+      "type": "number",
+      "min": 0,
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "platforms",
+  "root": false,
+  "default_definition": "platform.moving"
+}

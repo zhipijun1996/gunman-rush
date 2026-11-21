@@ -1,0 +1,32 @@
+{
+  "id": "terrain.polygon",
+  "name": "多边形实体",
+  "version": 1,
+  "component": "array:terrain_polygons",
+  "defaults": {
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        160,
+        0
+      ],
+      [
+        160,
+        64
+      ],
+      [
+        0,
+        64
+      ]
+    ],
+    "material": "ground"
+  },
+  "placeable": true,
+  "position_field": "polygon",
+  "category": "terrain",
+  "documentation": "docs/bible/terrain_materials.md",
+  "library": "terrain"
+}

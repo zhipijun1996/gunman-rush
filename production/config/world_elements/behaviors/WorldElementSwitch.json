@@ -1,0 +1,57 @@
+{
+  "id": "WorldElementSwitch",
+  "script": "res://game/world/elements/world_element_switch.gd",
+  "fields": {
+    "element_id": {
+      "type": "string"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "permanent",
+        "attempt"
+      ]
+    },
+    "position": {
+      "type": "point"
+    },
+    "duration": {
+      "type": "number",
+      "min": 0
+    },
+    "repeat_enabled": {
+      "type": "bool"
+    },
+    "access_points": {
+      "type": "points"
+    }
+  },
+  "inputs": {},
+  "outputs": {
+    "active": "bool"
+  },
+  "state": {
+    "active": {
+      "type": "bool",
+      "required": true
+    },
+    "clock": {
+      "type": "number",
+      "min": 0,
+      "required": true
+    },
+    "opened_at": {
+      "type": "number",
+      "required": true
+    },
+    "open_count": {
+      "type": "number",
+      "min": 0,
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "switch.shot"
+}

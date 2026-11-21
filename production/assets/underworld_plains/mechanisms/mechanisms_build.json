@@ -1,0 +1,40 @@
+{
+  "schema": "underworld-mechanisms-v1",
+  "carrier": {
+    "texture": "res://assets/underworld_plains/mechanisms/carrier.png",
+    "source": "assets/underworld_plains/mechanisms/source_carrier.png",
+    "source_sha256": "b65c4ad5d4cdd30e2b5beae19ad081891badc84806a29560e68ba99ca54beacf",
+    "sha256": "b2e6cce2846e7d5c902ad6583f33a19b576ede43cdbf4d0a5bc3438031ca3311",
+    "size_px": [
+      96,
+      11
+    ],
+    "pixel_world_scale": 2,
+    "left_px": 8,
+    "right_px": 8,
+    "top_px": 2,
+    "bottom_px": 2,
+    "middle_x_px": 40,
+    "middle_width_px": 16,
+    "operation": "RGBA measured alpha128 bounding crop [70,272,2105,504], proportional nearest to96x11; no recolor, procedural repaint or alpha filling",
+    "prompt_layout_limit": "Requested logical96x16 not returned exactly; measured slab aspect retained in96x11. Runtime independent cap/body repetition supports authored rectangles."
+  },
+  "bell": {
+    "texture": "res://assets/underworld_plains/actors/bell.png",
+    "sha256": "94162f8e2f0e112659885356908e114bec6bd11f6d5a31b7691fd53883e85ad2",
+    "provenance": "assets/underworld_plains/actors/actors_build.json",
+    "visual_bound_wu": [
+      28,
+      34
+    ],
+    "sampling": "uniform fit preserving source aspect",
+    "collision_source": "ShotLatch.setup existing RectangleShape2D28x34, unchanged"
+  },
+  "consumers": [
+    "ModuleMovingPlatform.UnderworldCarrierPaint",
+    "UnderworldTerrain.draw_moving",
+    "ShotLatch main/sequence/access bell and gate/support"
+  ],
+  "physics_mutation": false,
+  "generation_record": "assets/underworld_plains/mechanisms/generation_call.json"
+}

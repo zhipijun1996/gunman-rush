@@ -63,12 +63,15 @@ class NavigationTests(unittest.TestCase):
             self.assertFalse(document_target_exists(root, source, "../input/unknown.json", sparse))
             self.assertFalse(document_target_exists(root, source, "../../external.json", sparse))
 
-    def test_fresh_reader_can_locate_resource_forest_and_mapgen_checks(self):
+    def test_fresh_reader_can_locate_rebuild_sources_and_checks(self):
         navigation = (ROOT / "docs/project/module_map.md").read_text()
         scenarios = {
-            "时间能量／弹药／共鸣": ("time_energy_v2.tres", "combat_and_recharge.md", "core"),
-            "森林默认／版本／状态": ("thorn_forest_region_v2_v15.gd", "room_authoring.md", "run_forest_bible_world_contract.py"),
-            "mapgen风铃／端口／机制": ("runtime_map_v2_provider.gd", "room_authoring.md", "runtime-map-windchime"),
+            "装配和试玩": ("production/rooms/ordinary_room_session.gd", "world_room_document.gd"),
+            "机关、组合与状态": ("production/config/world_elements/index.json", "world_element_runtime.gd", "world_objects.md"),
+            "TileSet、边界与混合材质": ("production/config/terrain_materials.json", "terrain_materials.md"),
+            "敌人与战斗": ("production/game/enemies/enemy_factory.gd", "production/game/rewards/drops"),
+            "特效与声音": ("production/assets/vfx", "production/assets/audio/vfx_renewal"),
+            "验证": ("production/tests/assembly_room.json", "tools/check_ordinary_rooms.py"),
         }
         for topic, required in scenarios.items():
             row = next(line for line in navigation.splitlines() if line.startswith("| " + topic + " |"))

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"forest_lantern_health"
+max_health = 2.0
+initial_current = 2.0
+[resource]
+script = ExtResource("1")
+stable_id = &"forest_lantern"
+health_definition = SubResource("health")
+behavior_id = &"forest_lantern"
+patrol_speed = 46.0
+patrol_half_width = 60.0
+collision_size = Vector2(24, 24)
+aerial = true
+telegraph_duration = 0.5

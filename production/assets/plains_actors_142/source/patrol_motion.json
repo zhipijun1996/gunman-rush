@@ -1,0 +1,11 @@
+{
+  "prompt": "Create 8 NEW articulated animation IN-BETWEEN poses for this EXACT pixel-art game character. Output FOUR columns by TWO rows, true TRANSPARENT RGBA, no background colour, no shadows, no captions/grid. Reference top row is four IDLE key poses, bottom row is four locomotion key poses. Output column1 is HALFWAY between reference columns1 and2 of the corresponding row; output column2 halfway between2 and3; output column3 halfway between3 and4; output column4 halfway between4 and1, closing the loop. We will interleave these new poses between the original keyframes. Preserve the same anatomy, scale, direction facing RIGHT, silhouette, ivory ornament, turquoise textile, dark braided wood, gold details and pixel clusters. Do not simplify, blur, redesign, duplicate reference poses or invent new accessories. Animate the real existing leg/wing/wheel joints and trailing cloth naturally BETWEEN the given poses. Every cell shares a fixed ground line, registration and camera, large transparent margins, no clipped appendages. Keep decorative pale ivory solid but all empty gaps fully transparent. Match this exact species and its existing equipment.",
+  "reference": "patrol",
+  "states": [
+    "idle",
+    "move"
+  ],
+  "interleave_from": "patrol",
+  "generator": "image_gen",
+  "input_reference_commit": "0c59134"
+}
