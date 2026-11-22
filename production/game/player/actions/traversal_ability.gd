@@ -103,6 +103,11 @@ func request_hook(direction: Vector2, intent: Dictionary = {}) -> bool:
 	hook_forward = face
 	hook_direction = direction.normalized() if not direction.is_zero_approx() else Vector2(face,0)
 	hook_start = controller.motor.global_position + Vector2(0,-6)
+	if controller.item_runtime != null:
+		var guided := controller.item_runtime.scene.direction(hook_direction,_effective_hook_range(),true)
+		if controller.item_runtime.scene.lock_direction(_effective_hook_range(),true).is_zero_approx():
+			guided = ShotAimAssist.resolve(controller,hook_start,hook_direction,_effective_hook_range(),true)
+		hook_direction = guided
 	hook_tip = hook_start
 	_session = controller.session_id
 	_serial += 1
@@ -272,7 +277,9 @@ func after_move() -> void:
 		if hook_target is GrappleAnchor and (hook_target as GrappleAnchor).hang_enabled:
 			_hang_offset=motor.global_position-hook_tip
 			_set_state(&"hook_hang")
-		else: _set_state(&"hook_contact_kick")
+		else:
+			if hook_target.get_meta("consumable",false): hook_target.queue_free()
+			_set_state(&"hook_contact_kick")
 	elif motor.get_slide_collision_count() > 0 and distance > definition.hook_stop_distance+2 and _pull_distance_before-distance < 0.05:
 		# Stop only when collision actually prevents approach. A floor may
 		# clip downward velocity while the real body slides toward its edge.
@@ -407,5 +414,4 @@ func _update_guide() -> void:
 
 func _effective_hook_range() -> float:
 	if controller == null or controller.item_runtime == null: return definition.hook_range
-	var params: Dictionary = controller.item_runtime.call("effect", &"B21")
-	return definition.hook_range * float(params.get("hook_range_multiplier", 1.0))
+	return definition.hook_range * controller.item_runtime.p("B21","reach",1)

@@ -14,6 +14,7 @@ var tuning: PlayerTuning
 var stamina_state := StaminaState.new()
 var stamina: float:
 	get: return stamina_state.current
+var support_frames := 0
 var air_time_used := 0.0
 var active := false:
 	set(value):
@@ -40,9 +41,10 @@ func advance(real_delta: float, grounded: bool, aiming: bool, available: bool = 
 	if not available or not enabled or not tuning.air_focus_enabled or not tuning.valid_focus_configuration():
 		stop()
 		return
+	support_frames = support_frames + 1 if grounded else 0
 	if grounded:
 		stop()
-		air_time_used = 0.0
+		if support_frames >= 2: air_time_used = 0.0
 		stamina_state.grant_continuous(tuning.focus_stamina_recovery * real_delta, stamina_state.epoch)
 		if stamina >= tuning.focus_rearm_stamina and stamina > 0.0:
 			exhausted = false

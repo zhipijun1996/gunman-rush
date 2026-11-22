@@ -8,6 +8,7 @@
 | 机关、组合与状态 | [索引](../../production/config/world_elements/index.json)、[行为合同](../../production/config/world_elements/behaviors)、[定义](../../production/config/world_elements/definitions)、[状态分发器](../../production/game/world/elements/world_element_runtime.gd)、[逐项说明](../data/world_objects.md) |
 | TileSet、边界与混合材质 | [材质登记](../../production/config/terrain_materials.json)、[地形合成](../../production/game/presentation/world/terrain)、[地形方法](../bible/terrain_materials.md) |
 | 敌人与战斗 | [物种工厂](../../production/game/enemies/enemy_factory.gd)、[物种资源](../../production/resources/enemies)、[伤害仲裁](../../production/game/combat/damage)、[掉落](../../production/game/rewards/drops) |
+| 永久装备 | [目录](../../production/config/equipment.json)、[来源](../../production/config/equipment_rewards.json)、[运行与界面](../../production/game/equipment)、[房间装配方法](item_authoring.md) |
 | 特效与声音 | [帧资源](../../production/assets/vfx)、[绘制](../../production/game/presentation/effects/pixel_vfx.gd)、[声音](../../production/assets/audio/vfx_renewal)、[制作配方](../../tools/vfx/effects) |
 | 验证 | [全新房间数据](../../production/tests/assembly_room.json)、[端到端检查](../../production/tests/ordinary_room.gd)、[运行检查](../../tools/check_ordinary_rooms.py) |
 

@@ -131,11 +131,15 @@ func resolve_batch() -> Array[DamageResult]:
 		return results
 	var chosen: Dictionary = {}
 	var effects: Array[DamageRequest] = []
+	var attacks: Array[DamageRequest] = []
 	for request: DamageRequest in pending:
 		if not lifetime.accepts(request.token) or request.actor_epoch != lifetime.actor_epoch:
 			continue
 		if request.item_effect_damage:
 			effects.append(request)
+			continue
+		if not _targets[request.target_id].player:
+			attacks.append(request)
 			continue
 		if not chosen.has(request.target_id) or _comes_first(request, chosen[request.target_id]):
 			chosen[request.target_id] = request
@@ -147,8 +151,15 @@ func resolve_batch() -> Array[DamageResult]:
 		var health: HealthState = _targets[id].health
 		var committed := _commit_selected(request,health,bool(_targets[id].player))
 		if committed != null: results.append(committed)
-	# Legacy primary selection/order is unchanged. Only authenticated V5 effects
-	# are additive, and player primary death suppresses their later HP commits.
+	attacks.sort_custom(func(a: DamageRequest,b: DamageRequest) -> bool:
+		if a.target_id != b.target_id: return String(a.target_id) < String(b.target_id)
+		return String(a.event_id).naturalnocasecmp_to(String(b.event_id)) < 0)
+	for attack: DamageRequest in attacks:
+		var health: HealthState = _targets[attack.target_id].health
+		if health.terminal: continue
+		var result := _commit_selected(attack,health,false)
+		if result != null: results.append(result)
+	# Derived damage resolves after the primary hits; death invalidates pending rewards.
 	var primary_player_fatal := false
 	for result: DamageResult in results:
 		if _targets[result.request.target_id].player and result.lethal: primary_player_fatal = true
@@ -178,7 +189,7 @@ func resolve_batch() -> Array[DamageResult]:
 		var runtime := _item_runtime()
 		if runtime != null and runtime.has_method("on_damage"):
 			for result: DamageResult in results:
-				if _targets[result.request.target_id].player and result.hp_lost > 0.0:
+				if _targets[result.request.target_id].player and result.hp_lost > 0.0 and not result.rescued:
 					runtime.call("on_damage",{"event_id":result.request.event_id,"hp_lost":result.hp_lost,"amount":result.request.amount,"barrier_absorbed":result.barrier_absorbed,"kind":result.request.kind,"source":result.request.source_id,"lethal":result.lethal,"point":_player_controller.motor.global_position})
 					result.health = (_targets[result.request.target_id].health as HealthState).snapshot()
 	if not fatal and not return_needed and is_instance_valid(_player_controller):

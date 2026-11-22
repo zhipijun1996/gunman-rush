@@ -83,6 +83,7 @@ func _move_swept(motion: Vector2) -> void:
 	if overlaps.is_empty():
 		var cast := space.cast_motion(query)
 		fraction = cast[1] if cast.size() == 2 else 1.0
+	if behavior.controller.item_runtime != null and behavior.controller.item_runtime.scene.intercept(self,motion,fraction): return
 	if fraction < 1.0 or not overlaps.is_empty():
 		query.transform.origin += query.motion * minf(1, fraction + 0.001)
 		query.motion = Vector2.ZERO

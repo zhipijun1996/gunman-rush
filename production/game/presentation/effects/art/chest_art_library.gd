@@ -4,7 +4,7 @@ extends RefCounted
 ## Six presentation recipes only. No reward, claim, RNG, actor or save ownership.
 const ATLAS := preload("res://assets/objects/chests/chest-tiers-v1.source.png")
 const CONFIG_PATH := "res://config/chest_art.json"
-const WORLD_SHADER := preload("res://shaders/item_v5_world_sprite.gdshader")
+const WORLD_SHADER := preload("res://shaders/world_sprite.gdshader")
 const MAX_TEXTURE_RGBA_BYTES := 8*1024*1024
 const TIERS := [&"medium", &"high", &"region_top"]
 static var _loaded := false

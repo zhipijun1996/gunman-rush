@@ -1,6 +1,11 @@
 class_name WorldMovingPlatform
 extends AnimatableBody2D
 var motion_running := true
+var equipment_time_scale := 1.0
+
+func set_equipment_time(scale: float) -> void:
+	equipment_time_scale = scale
+
 var motion_clock := 0.0
 var bell_controlled := false
 
@@ -63,7 +68,7 @@ func _refresh_activation(_revision: int) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not activation_enabled: return
-	if motion_running:motion_clock+=delta
+	if motion_running:motion_clock+=delta*equipment_time_scale
 	position=sample_position(motion_clock)
 func sample_position(clock: float) -> Vector2:
 	if route.is_empty() or route_length<=0:

@@ -8,6 +8,7 @@ signal died
 @export var faction: StringName = &"target"
 @export var actor_id := 0
 ## Re-forming practice targets still replenish air actions, but are not combat currency sources.
+@export_enum("normal","elite","boss","incompatible") var time_profile := "normal"
 @export var grants_combat_energy := true
 var _legacy_health := 3.0
 var _legacy_active := true
@@ -37,8 +38,9 @@ func apply_chill(seconds:float,speed_scale:float)->void:
 	if is_instance_valid(_chill_body):_chill_body.modulate=_chill_color*Color(.68,1.05,1.4,1)
 	set_physics_process(true)
 
+var equipment_time_scale := 1.0
 func action_time_scale()->float:
-	return chill_speed_scale if chill_remaining>0 and active else 1.0
+	return minf(chill_speed_scale,equipment_time_scale) if chill_remaining>0 and active else equipment_time_scale
 
 func clear_chill()->void:
 	chill_remaining=0;chill_speed_scale=1

@@ -18,6 +18,9 @@ var contact_rect_provider: Callable
 var contact_test_provider: Callable
 # Explicit connected-region legacy pit-plane semantic, not physical thorns.
 var fall_plane := false
+var _guard_touching := false
+var _guard_segment := 0
+var _guard_due := 0.0
 var _was_touching := false
 var _exposure := 0
 var _pulse := 0
@@ -91,6 +94,15 @@ func _physics_process(_delta: float) -> void:
 	var actor_half_size := (collision.shape as RectangleShape2D).size * .5 if collision != null and collision.shape is RectangleShape2D else Vector2(12,18)
 	var size := source_half_size + actor_half_size
 	var protected := kind == DamageRequest.Kind.MONSTER and controller.traversal != null and controller.traversal.protects_contact(get_parent())
+	var gear := controller.item_runtime
+	if kind == DamageRequest.Kind.MONSTER and gear != null and gear.fx.guard_hp > 0 and not gear.scene.drones.is_empty():
+		var guard: Vector2 = gear.scene.drones[0]
+		var overlaps_guard := bool(contact_test_provider.call(source_center,_previous_relative,guard,Vector2(9,9))) if contact_test_provider.is_valid() else Rect2(source_center-source_half_size,source_half_size*2).grow(9).has_point(guard)
+		if enabled and overlaps_guard and (not _guard_touching or policy.clock >= _guard_due):
+			_guard_segment += 1
+			_guard_due = policy.clock + maxf(interval,0.01)
+			gear.scene.guard_hit("%s/%s/%s" % [source_id,life.actor_epoch,_guard_segment],amount)
+		_guard_touching = enabled and overlaps_guard
 	var physical_contact := (_physical_contact_frame == Engine.get_physics_frames()
 		and _physical_contact_epoch == life.actor_epoch and _physical_contact_session == controller.session_id)
 	var touching := false
@@ -118,6 +130,7 @@ func _physics_process(_delta: float) -> void:
 	request.actor_epoch = life.actor_epoch
 	request.health_epoch = controller.actor_resources.health.epoch
 	request.target_id = &"player"
+	request.contact = kind == DamageRequest.Kind.MONSTER
 	request.source_id = source_id
 	request.event_id = StringName("%s:%d:%d:%d" % [source_id, life.actor_epoch, _exposure, _pulse])
 	request.kind = kind

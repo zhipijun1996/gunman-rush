@@ -54,7 +54,9 @@ func _blink_fx(start: Vector2, finish: Vector2) -> void:
 	_fx.append({"kind":"blink","start":start,"end":finish,"age":0.0,"texture":visual.body.texture,"transform":transform,"skill":false})
 	_pose(&"blade_throw",.16)
 	_cue(&"focus_start")
-	if ability.item_runtime() != null: ability.item_runtime().call("on_blink", start, finish)
+	if ability.item_runtime() != null:
+		actor().item_runtime.scene.motion_hits.clear()
+		actor().item_runtime.scene.motion(start,finish)
 func actor() -> PlayerController:return ability.controller
 func definition() -> WeaponDefinition:return ability.weapon
 func art_catalog() -> Dictionary:
@@ -96,6 +98,8 @@ func cancel(reason: StringName) -> void:
 	pose_remaining=0
 func begin(direction_value: Vector2, grounded: bool, skill: bool = false) -> bool:
 	var def := definition()
+	if not skill and actor().item_runtime != null:
+		direction_value = actor().item_runtime.scene.direction(direction_value,def.range_limit)
 	var skill_cost := float(ability.item_runtime().call("skill_cost", def.skill_cost)) if ability.item_runtime() != null else def.skill_cost
 	# Main aim starts a laser primary; a valid skill trigger can take ownership
 	# without refunding the already accepted primary cost. No other busy action is preempted.
@@ -114,7 +118,6 @@ func begin(direction_value: Vector2, grounded: bool, skill: bool = false) -> boo
 		if def.mode==WeaponDefinition.Mode.LASER:_beam_require_release=true
 		var receipt := "%s/skill/%s" % [_session,_packet]
 		if not actor().combat_energy.consume(receipt,skill_cost):return false
-		if ability.item_runtime() != null: ability.item_runtime().call("on_skill_started", StringName(receipt))
 		skill_cooldown=def.skill_cooldown
 		if def.mode in [WeaponDefinition.Mode.PULSE,WeaponDefinition.Mode.MACHINE,WeaponDefinition.Mode.LASER]:
 			_phase(&"charge");_pose(&"weapon_charge",def.skill_charge);return true
@@ -185,6 +188,7 @@ func base_displacement() -> float:
 	return actor().motor.weapon_motion.base_distance(actor().motor.tuning,_fire_grounded)
 func base_recoil() -> void:
 	ability.recoil.execute(direction,_fire_grounded)
+	if ability.recoil.enabled and actor().item_runtime != null: actor().item_runtime.recoil_started(_packet)
 func blink(unit: Vector2, distance: float) -> void:
 	if actor().traversal.busy():actor().traversal.cancel()
 	actor().jump_ability.cancel_ascent()
@@ -193,6 +197,7 @@ func flash(unit: Vector2, speed: float, duration: float) -> void:
 	if actor().traversal.busy():actor().traversal.cancel()
 	actor().motor.reset_motion();actor().jump_ability.cancel_ascent()
 	actor().motor.start_weapon_burst(unit,speed,duration,actor().motor.is_on_floor())
+	if actor().item_runtime != null and speed > 0: actor().item_runtime.recoil_started(_packet)
 func advance(delta: float) -> void:
 	if delta <= 0.0:
 		if not valid_session(_session) and (phase != &"idle" or not current_entities().is_empty()): cancel(&"reset")
@@ -227,7 +232,9 @@ func advance(delta: float) -> void:
 			if _timer<=0:
 				for angle: float in [-.16,0,.16]:ability.emit_special_projectile(direction.rotated(angle),true,&"bullet")
 				actor().motor.start_shot_burst(-direction,def.recoil_scale,actor().motor.is_on_floor())
-				if actor().motor.recoil_burst_remaining>0:actor().motor.recoil_burst_remaining=def.burst_duration
+				if actor().motor.recoil_burst_remaining > 0:
+					actor().motor.recoil_burst_remaining = def.burst_duration
+					if actor().item_runtime != null: actor().item_runtime.recoil_started(_packet)
 				_pose(&"weapon_skill");_rounds-=1;_timer+=def.skill_interval
 				if _rounds<=0:_phase(&"idle")
 		&"fan_wait":
@@ -252,14 +259,14 @@ func advance(delta: float) -> void:
 					_beam_elapsed+=step
 					actor().motor.request_weapon_drive(-direction*distance/delta,-direction*acceleration*_beam_elapsed,actor().motor.is_on_floor())
 					_timer-=step
-					beam_damage(direction,_packet_damage,false,false,_timer<=0)
+					beam_damage(direction,_packet_damage / maxf(1,ceilf(def.beam_duration/def.beam_tick)),false,false,_timer<=0)
 					if _timer<=0:_cue(&"focus_start");_timer+=def.beam_tick
 					if _beam_elapsed>=def.beam_duration-1e-9:_end_beam(true)
 		&"singularity":
 			actor().motor.request_ability_velocity(Vector2.ZERO)
 			actor().jump_ability.cancel_requests()
 			attract(delta)
-			if age>=def.hold_seconds+_singularity_hold_add():
+			if age>=def.hold_seconds:
 				damage_burst(_center,def.blast_radius*(def.skill_multiplier if _skill else 1)*_bomb_radius_multiplier(),_skill)
 				actor().motor.cancel_ability_motion()
 				flash(direction,base_displacement()*(def.skill_multiplier if _skill else 1)/actor().motor.tuning.shot_burst_duration,actor().motor.tuning.shot_burst_duration);_pose(&"weapon_skill");_phase(&"idle")
@@ -296,7 +303,6 @@ func hit(receiver: Damageable, packet: int, serial: int, stage: String, skill: b
 	var context := {"session_id":_session,"event_id":event,"source_actor_id":actor().motor.get_instance_id(),"source_faction":&"player","target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"amount":damage,"damage_type":&"weapon","skill_attack":skill,"hit_point":point,"hit_direction":unit}
 	context.shot_id = packet
 	context.attack_id = packet
-	context.item_stagger_multiplier = float(ability.item_runtime().call("enemy_stagger_multiplier")) if ability.item_runtime() != null and not skill else 1.0
 	if base_bomb:
 		context.shot_id = packet
 		context.attack_id = packet
@@ -319,6 +325,8 @@ func beam_damage(unit: Vector2, amount: float, skill: bool, pierce: bool, commit
 		return
 	var finish := start+unit*definition().range_limit
 	var exclude: Array[RID]=[actor().motor.get_rid()]
+	var extra := ability.controller.item_runtime.extra_pierce() if not skill and ability.controller.item_runtime != null else {}
+	var targets := 0
 	_entity_serial+=1
 	for i: int in 12:
 		var ray := PhysicsRayQueryParameters2D.create(start,finish,0xFFFFFFFF,exclude);ray.collide_with_areas=true
@@ -328,8 +336,10 @@ func beam_damage(unit: Vector2, amount: float, skill: bool, pierce: bool, commit
 		var collider := contact.collider as Node
 		var receiver := collider.get_node_or_null("Damageable") as Damageable if collider!=null else null
 		if receiver!=null and receiver.faction==&"enemy":
-			if commit:hit(receiver,_packet,_entity_serial,"beam",skill,contact.position,unit,amount)
-			if not pierce:break
+			var ratio := float(extra.get("damage_ratio",1)) if targets > 0 and not pierce else 1.0
+			if commit: hit(receiver,_packet,_entity_serial,"beam",skill,contact.position,unit,amount*ratio)
+			targets += 1
+			if not pierce and targets > int(extra.get("count",0)): break
 		elif not collider is Area2D:break
 		exclude.append(contact.rid)
 	if skill:_fx.append({"kind":"beam","start":start,"end":_beam_point,"age":0.0,"skill":skill})
@@ -360,7 +370,6 @@ func damage_burst(point: Vector2, radius: float, skill: bool) -> void:
 			_fx.append({"kind":"arc","start":chain_origin,"end":target.global_position,"age":0.0,"skill":true});chain_count+=1
 		elif not clear_line(point,target.global_position):continue
 		var amount := _packet_damage
-		if def.mode == WeaponDefinition.Mode.SINGULARITY and ability.item_runtime() != null: amount *= float(ability.item_runtime().call("singularity_damage_multiplier"))
 		hit(value.receiver,_packet,_entity_serial,"blast",skill,target.global_position,(target.global_position-point).normalized(),amount)
 		chain_origin=target.global_position
 	_fx.append({"kind":"blast","start":point,"radius":radius,"age":0.0,"skill":skill})
@@ -405,13 +414,10 @@ func beam_visual_segment() -> PackedVector2Array:
 	return PackedVector2Array([start,start+offset.limit_length(definition().range_limit)])
 
 func beam_item_width_scale() -> float:
-	return float(ability.item_runtime().call("laser_width_multiplier")) if ability.item_runtime() != null else 1.0
-
-func _singularity_hold_add() -> float:
-	return float(ability.item_runtime().call("singularity_hold_add")) if ability.item_runtime() != null else 0.0
+	return float(ability.item_range_multiplier()) if ability.item_runtime() != null else 1.0
 
 func _bomb_radius_multiplier() -> float:
-	return float(ability.item_runtime().call("bomb_radius_multiplier")) if ability.item_runtime() != null else 1.0
+	return float(ability.item_range_multiplier()) if ability.item_runtime() != null else 1.0
 
 func _wide_beam_damage(start: Vector2, unit: Vector2, amount: float, skill: bool, pierce: bool, commit: bool) -> void:
 	# Preserve the authored centre line and its terrain clipping. Only the equipped
@@ -445,10 +451,14 @@ func _wide_beam_damage(start: Vector2, unit: Vector2, amount: float, skill: bool
 		if not is_equal_approx(float(a.projection),float(b.projection)): return float(a.projection)<float(b.projection)
 		return (a.receiver as Damageable).get_instance_id()<(b.receiver as Damageable).get_instance_id())
 	_entity_serial += 1
+	var extra := ability.controller.item_runtime.extra_pierce() if not skill and ability.controller.item_runtime != null else {}
+	var targets := 0
 	for candidate: Dictionary in candidates:
 		var point: Vector2 = (candidate.node as Node2D).global_position
-		if commit: hit(candidate.receiver,_packet,_entity_serial,"beam",skill,point,unit,amount)
-		if not pierce:
+		var ratio := float(extra.get("damage_ratio",1)) if targets > 0 and not pierce else 1.0
+		if commit: hit(candidate.receiver,_packet,_entity_serial,"beam",skill,point,unit,amount*ratio)
+		targets += 1
+		if not pierce and targets > int(extra.get("count",0)):
 			_beam_point = start+unit*float(candidate.projection)
 			break
 	if skill: _fx.append({"kind":"beam","start":start,"end":_beam_point,"age":0.0,"skill":true})
@@ -486,7 +496,7 @@ func _draw() -> void:
 			var progress := float(fx.age)/duration
 			PixelVfx.arc(self,to_local(fx.start),float(fx.radius)*(.2+.8*progress),0,TAU,(Color(.57,.58,.43,alpha) if underworld else Color(.45,.65,.8,alpha)) if fx.kind=="fizzle" else Color(1,.65,.25,alpha),2)
 	if phase==&"singularity" and not custom:
-		var center := to_local(_center);var progress := clampf(age/(definition().hold_seconds+_singularity_hold_add()),0,1)
+		var center := to_local(_center);var progress := clampf(age/(definition().hold_seconds),0,1)
 		draw_circle(center,24,Color(.22,.35,.27,.4) if underworld else Color(.3,.1,.5,.4))
 		for i: int in 4:draw_arc(center,12+i*10,age*7+i,age*7+i+PI*1.3,24,Color(.62,.71,.49,.7) if underworld else Color(.6,.5,1,.7),2,not underworld)
 		draw_arc(center,definition().attract_radius,0,TAU*progress,64,Color(.62,.71,.49,.2) if underworld else Color(.6,.55,1,.2),1,not underworld)

@@ -71,7 +71,11 @@ func advance(delta: float) -> bool:
 	var definition := actor.definition
 	if state == &"idle":
 		if cooldown <= 0 and _can_engage():
-			var offset := controller.motor.global_position - actor.motor.global_position
+			var aim_at := controller.motor.global_position
+			if controller.item_runtime != null and not controller.item_runtime.scene.decoy.is_empty():
+				var bait: Vector2 = controller.item_runtime.scene.decoy.point
+				if controller.item_runtime.scene.clear_line(actor.motor.global_position,bait): aim_at = bait
+			var offset := aim_at - actor.motor.global_position
 			locked_direction = offset.normalized() if offset.length_squared() > 0.01 else Vector2.RIGHT
 			actor.brain.direction = 1 if locked_direction.x >= 0 else -1
 			attack_goal = strategy.attack_goal(self)

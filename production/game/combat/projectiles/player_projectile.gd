@@ -47,6 +47,8 @@ var trail: Array[Vector2] = []
 ## Optional sample skin; movement, swept contacts and damage remain here.
 var presentation: CanvasItem
 const ART := preload("res://assets/plains_v4/spatial/actors.png")
+var rebounds := 0
+var rebound_ratio := 1.0
 var _shape := CircleShape2D.new()
 
 func _ready() -> void:
@@ -85,19 +87,10 @@ func advance(delta: float) -> void:
 		advance(0.0) # Same swept collision contract through the short barrel path.
 	if spent:
 		return
-	if not is_instance_valid(owner_controller) or not owner_controller.active or session_id != owner_controller.session_id or (weapon_epoch>=0 and weapon_epoch!=owner_controller.shoot_ability.weapon_epoch):
+	if not is_instance_valid(owner_controller) or not owner_controller.active or session_id != owner_controller.session_id:
 		dispose()
 		return
 	var items := owner_controller.get("item_runtime") as RefCounted
-	if items != null and not skill_attack and art_kind == &"bullet":
-		var pierce: Dictionary = items.call("extra_pierce")
-		extra_enemy_pierces = int(pierce.get("count", 0))
-		pierced_damage_ratio = float(pierce.get("damage_ratio", 1.0))
-		if _pierced > extra_enemy_pierces:
-			dispose()
-			return
-		if base_lifetime > 0.0: lifetime = base_lifetime * float(items.call("projectile_range_multiplier"))
-		if base_distance > 0.0:max_distance=base_distance*float(items.call("projectile_range_multiplier"))
 	_age += delta
 	if _age >= lifetime:
 		dispose()
@@ -170,12 +163,13 @@ func advance(delta: float) -> void:
 		var can_pierce := false
 		if receiver != null:
 			var packet := energy_receipt_id if energy_receipt_id > 0 else shot_id
-			var amount := damage * (pierced_damage_ratio if _pierced > 0 else 1.0)
+			var amount := damage * (pierced_damage_ratio if _pierced > 0 and not pierce_enemies else 1.0)
 			if items != null: amount = float(items.call("modify_direct_damage", amount, receiver, skill_attack, packet))
 			var event := {"session":session_id,"packet":packet,"shot":shot_id,"shot_index":shot_index,"airborne":fired_airborne,"skill":skill_attack,"receiver":receiver,"target_id":(receiver.actor_id if receiver.actor_id != 0 else receiver.get_instance_id()) if receiver.faction == &"enemy" else 0,"point":query.transform.origin,"direction":direction,"amount":amount,"weapon_id":weapon_id,"tier":weapon_tier,"weapon_mode":weapon_mode,"weapon_epoch":weapon_epoch}
+			event.bullet = art_kind == &"bullet"
+			if items != null and event.bullet: owner_controller.item_runtime.scene.mark(query.transform.origin,receiver)
 			event.chill_seconds=chill_seconds;event.chill_speed_scale=chill_speed_scale
 			var context := {"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": amount, "damage_type": &"projectile", "skill_attack": skill_attack, "hit_direction": direction, "fired_airborne": fired_airborne, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.shoot_ability.item_hit_committed.bind(event)}
-			context.item_stagger_multiplier = float(items.call("enemy_stagger_multiplier")) if items != null and not skill_attack else 1.0
 			var accepted := receiver.receive_damage(context)
 			_hit_targets[receiver.get_instance_id()] = true
 			can_pierce = accepted and receiver.faction == &"enemy" and (pierce_enemies or (not skill_attack and art_kind == &"bullet" and _pierced < extra_enemy_pierces))
@@ -183,7 +177,24 @@ func advance(delta: float) -> void:
 		if receiver == null or receiver.impact_style() != &"boss":
 			UnderworldProjectileVisual.emit(self,query.transform.origin,direction,true,true)
 			impacted.emit(query.transform.origin, direction)
-		if receiver == null: terrain_impacted.emit(query.transform.origin,direction)
+		if receiver == null:
+			terrain_impacted.emit(query.transform.origin,direction)
+			if items != null and art_kind == &"bullet":
+				owner_controller.item_runtime.scene.mark(query.transform.origin,null)
+				if not skill_attack and collider is WorldMovingPlatform:
+					var platform := collider as WorldMovingPlatform
+					var packet := energy_receipt_id if energy_receipt_id > 0 else shot_id
+					owner_controller.item_runtime.mechanism_hit(platform,packet)
+				if rebounds > 0:
+					var ray := PhysicsRayQueryParameters2D.create(global_position-direction*radius,query.transform.origin+direction*(radius+2),1,[owner_body.get_rid()])
+					var wall := space.intersect_ray(ray)
+					if not wall.is_empty() and wall.normal != Vector2.ZERO:
+						traveled_distance += global_position.distance_to(wall.position)
+						direction = direction.bounce(wall.normal)
+						global_position = wall.position + wall.normal*(radius+.1)
+						damage *= rebound_ratio
+						rebounds -= 1
+						return
 		if can_pierce:
 			_pierced += 1
 			excluded.append(hit.rid)

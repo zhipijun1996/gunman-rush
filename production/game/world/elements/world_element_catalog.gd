@@ -74,6 +74,7 @@ static func signal_value_valid(type: String, value: Variant) -> bool:
 static func document_error(document: Dictionary) -> String:
 	var entities: Dictionary = document.entities
 	var bindings := {}
+	var reward_sources := {}
 	for id: String in entities:
 		var row: Dictionary = entities[id]
 		if row.get("id") != id: return "element_id_mismatch:"+id
@@ -86,6 +87,18 @@ static func document_error(document: Dictionary) -> String:
 		var error := fields_error(behavior.get("fields", {}), properties)
 		if not error.is_empty(): return id+":"+error
 		var definition: Dictionary = catalog().definitions.get(str(row.get("definition_id","")),{})
+		if kind == "EquipmentSite":
+			var role: String = properties.get("kind","")
+			var source: String = properties.get("source_id","")
+			if role != definition.get("defaults",{}).get("kind"): return "equipment_role_invalid:"+id
+			for clause: Variant in properties.get("requirements",[]):
+				if not clause is Array: return "equipment_requirement_invalid:"+id
+				for flag: Variant in clause:
+					if not flag is String or flag.is_empty(): return "equipment_requirement_invalid:"+id
+			if role == "reward":
+				if not EquipmentCatalog.REWARDS.data.has(source) or reward_sources.has(source): return "equipment_source_invalid:"+id
+				reward_sources[source] = true
+			if role == "secret" and source.is_empty(): return "secret_discovery_flag_required:"+id
 		for field: String in definition.get("room_bindings",{}):
 			if bindings.has(field): return "duplicate_feature_host:"+field
 			bindings[field]=id
@@ -93,6 +106,7 @@ static func document_error(document: Dictionary) -> String:
 			error=fields_error(definition.parameter_fields,properties.get("parameters",{}))
 			if not error.is_empty():return id+":"+error
 		if behavior.has("state") and properties.get("element_id") != id: return "element_identity_mismatch:"+id
+		if kind == "WorldResourcePickup" and properties.get("resource_kind") == "note" and float(properties.amount) != floorf(properties.amount): return "note_quantity_invalid:"+id
 		if kind=="WorldElementGate" and not TerrainMaterialRegistry.known(str(properties.get("appearance","mill_masonry"))): return "gate_material_unknown:"+id
 		if kind=="array:spike_strips" and not str(properties.get("appearance", "")).is_empty():
 			error = WorldSurfaceStyles.error(str(properties.appearance),str(properties.get("facing","up")))

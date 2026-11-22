@@ -16,6 +16,9 @@ var _capacity := 0.0
 var _epoch := 0
 var _receipts: Dictionary = {}
 
+func restore_value(saved: float) -> void:
+	if is_finite(saved): _current = clampf(saved,0,capacity)
+
 func snapshot() -> ActorResourceSnapshot:
 	var result := ActorResourceSnapshot.new()
 	result.kind = _kind

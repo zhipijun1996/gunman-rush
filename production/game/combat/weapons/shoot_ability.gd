@@ -40,7 +40,6 @@ func equip(definition: WeaponDefinition) -> bool:
 	if definition == null or not definition.is_valid(): return false
 	controller.router.clear("weapon_changed")
 	cancel_packet(&"equipment")
-	clear_projectiles()
 	weapon_epoch+=1
 	weapon = definition
 	var visual := controller.motor.get_node_or_null("CourierVisual") as CourierVisual
@@ -86,7 +85,7 @@ func try_fire(direction: Vector2, grounded: bool) -> bool:
 	if not resources.try_consume_shot(grounded):
 		shot_rejected.emit(&"empty")
 		return false
-	packet_direction = direction.normalized()
+	packet_direction = controller.item_runtime.scene.direction(direction.normalized(),tuning.projectile_range * item_range_multiplier()) if controller.item_runtime != null else direction.normalized()
 	packet_id = _shot_serial + 1
 	_packet_session = controller.session_id
 	_packet_grounded=grounded
@@ -111,9 +110,12 @@ func _emit_round(aim: Vector2, grounded: bool) -> void:
 	elif recoil.enabled:
 		var motion := controller.motor.weapon_motion
 		var distance := motion.base_distance(tuning,_packet_grounded)*motion.lv2_total_ratio/weapon.rounds
+		if grounded and controller.item_runtime != null: distance *= controller.item_runtime.p("B07","ground_scale",1)
 		controller.motor.start_weapon_burst(-aim,distance/weapon.burst_duration,weapon.burst_duration,grounded)
 	var projectile := PlayerProjectile.new()
 	projectile.impacted.connect(func(point: Vector2, hit_direction: Vector2) -> void: projectile_impacted.emit(point,hit_direction))
+	if controller.item_runtime != null and recoil.enabled and (controller.motor.recoil_burst_remaining > 0 or tuning.recoil_mode != "shot_burst"):
+		controller.item_runtime.recoil_started(packet_id)
 	projectile.shot_id = _shot_serial
 	projectile.energy_receipt_id = packet_id
 	projectile.owner_id = controller.motor.get_instance_id()
@@ -125,12 +127,15 @@ func _emit_round(aim: Vector2, grounded: bool) -> void:
 	projectile.direction = aim
 	projectile.speed = tuning.projectile_speed
 	projectile.radius = tuning.projectile_radius
-	projectile.damage = tuning.projectile_damage
+	projectile.damage = tuning.projectile_damage * (0.5 if weapon.rounds == 3 else 1.0)
 	projectile.base_lifetime = tuning.projectile_lifetime
 	projectile.lifetime = tuning.projectile_lifetime * item_range_multiplier()
 	projectile.max_distance=tuning.projectile_range*item_range_multiplier()
 	projectile.base_distance=tuning.projectile_range
-	projectile.direction=ShotAimAssist.resolve(controller,muzzle,aim,projectile.max_distance)
+	projectile.direction = ShotAimAssist.resolve(controller,muzzle,aim,projectile.max_distance)
+	if controller.item_runtime != null:
+		projectile.rebounds = int(controller.item_runtime.p("83","bounces"))
+		projectile.rebound_ratio = controller.item_runtime.p("83","retained",1)
 	projectile.weapon_id = weapon.id
 	projectile.weapon_tier = weapon.tier
 	projectile.weapon_mode = weapon.mode
@@ -171,7 +176,7 @@ func reserve_packet(direction: Vector2, grounded: bool, skill: bool = false) -> 
 	_shot_serial+=1;packet_id=_shot_serial;_packet_session=controller.session_id;packet_direction=direction
 	if controller.shot_energy!=null and not controller.shot_energy.consume(packet_id):return false
 	cooldown_remaining=tuning.shot_cooldown * item_cooldown_multiplier()
-	if not skill and item_runtime() != null: item_runtime().call("primary_packet_started", packet_id, direction)
+	if controller.item_runtime != null: controller.item_runtime.primary_packet_started(packet_id,direction)
 	packet_changed.emit(&"started",packet_id)
 	return true
 func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName) -> void:
@@ -191,6 +196,9 @@ func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName) ->
 	projectile.weapon_id=weapon.id;projectile.weapon_tier=weapon.tier;projectile.weapon_mode=weapon.mode
 	projectile.shot_index=0 if skill else _shot_serial-packet_id+1
 	if not skill and art_kind==&"bullet":
+		if controller.item_runtime != null:
+			projectile.rebounds = int(controller.item_runtime.p("83","bounces"))
+			projectile.rebound_ratio = controller.item_runtime.p("83","retained",1)
 		projectile.max_distance=minf(weapon.range_limit,tuning.projectile_range)*item_range_multiplier()
 		projectile.base_distance=minf(weapon.range_limit,tuning.projectile_range)
 		projectile.direction=ShotAimAssist.resolve(controller,controller.motor.global_position,aim,projectile.max_distance)
@@ -220,11 +228,11 @@ func item_range_multiplier() -> float:
 func item_hit_committed(event: Dictionary) -> void:
 	# This callback belongs to the living ability, not the projectile that queues
 	# itself for deletion after submitting to FrameDamagePolicy.
-	if not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or int(event.session) != controller.session_id or (int(event.weapon_epoch) >= 0 and int(event.weapon_epoch) != weapon_epoch): return
+	if not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or int(event.session) != controller.session_id: return
 	var raw: Variant = event.get("receiver")
 	var receiver: Damageable = raw as Damageable if is_instance_valid(raw) else null
 	var target := int(event.get("target_id", 0))
 	if receiver!=null and target!=0 and controller.active and not controller.actor_resources.health.terminal and float(event.get("chill_seconds",0))>0:
 		receiver.damage_policy_owner().apply_chill(float(event.chill_seconds),float(event.chill_speed_scale))
 	controller.on_weapon_damage(int(event.session),int(event.packet),int(event.shot),bool(event.airborne),target,bool(event.skill),receiver,int(event.weapon_epoch))
-	if item_runtime() != null and target != 0 and receiver != null and controller.active and not controller.actor_resources.health.terminal and int(event.session) == controller.session_id and (int(event.weapon_epoch) < 0 or int(event.weapon_epoch) == weapon_epoch): item_runtime().call("on_hit", event)
+	if item_runtime() != null and target != 0 and receiver != null and controller.active and not controller.actor_resources.health.terminal and int(event.session) == controller.session_id: item_runtime().call("on_hit", event)
