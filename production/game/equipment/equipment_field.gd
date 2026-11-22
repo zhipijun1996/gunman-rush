@@ -12,6 +12,7 @@ var anchors: Array[Dictionary] = []
 var decoy := {}
 var winds: Array[Dictionary] = []
 var drones: Array[Vector2] = []
+var rounds: Array[Dictionary] = []
 var flash: Array[Dictionary] = []
 var hint := 0.0
 var hint_wait := 0.0
@@ -21,7 +22,9 @@ var show_ghost := false
 var locked_valid := false
 
 func saved_field() -> Dictionary:
-	var saved := {"clock":clock,"hint_wait":hint_wait,"anchors":[],"rings":[],"winds":[]}
+	var saved := {"clock":clock,"hint_wait":hint_wait,"anchors":[],"rings":[],"winds":[],"rounds":[]}
+	for shot: Dictionary in rounds:
+		saved.rounds.append({"id":shot.id,"point":[shot.point.x,shot.point.y],"direction":[shot.direction.x,shot.direction.y],"damage":shot.damage,"remaining":shot.remaining})
 	for anchor: Dictionary in anchors:
 		if is_instance_valid(anchor.node) and not anchor.node.is_queued_for_deletion():
 			var point: Vector2 = anchor.node.global_position
@@ -37,6 +40,8 @@ func saved_field() -> Dictionary:
 
 func restore_field(saved: Dictionary) -> void:
 	clock = saved.get("clock",0.0)
+	for shot: Dictionary in saved.get("rounds",[]):
+		rounds.append({"id":shot.id,"point":Vector2(shot.point[0],shot.point[1]),"direction":Vector2(shot.direction[0],shot.direction[1]),"damage":shot.damage,"remaining":shot.remaining})
 	hint_wait = saved.get("hint_wait",0.0)
 	for row: Dictionary in saved.get("anchors",[]):
 		add_anchor(Vector2(row.point[0],row.point[1]),row.life)
@@ -196,6 +201,7 @@ func advance(delta: float) -> void:
 			anchors.erase(anchor)
 	for effect in flash: effect.life -= delta
 	flash = flash.filter(func(row): return row.life > 0)
+	advance_rounds(delta)
 	advance_companions(delta)
 	hint = maxf(0,hint-delta); hint_wait = maxf(0,hint_wait-delta)
 	if runtime.has("73") and hint_wait <= 0:
@@ -203,6 +209,33 @@ func advance(delta: float) -> void:
 			if site.kind == "secret" and site.visible and runtime.services.state.holds(site.requirements) and point.distance_to(site.global_position) <= runtime.p("73","radius"):
 				hint = .7; hint_wait = runtime.p("73","cooldown"); GameAudio.cue(self,&"confirm"); break
 	queue_redraw()
+
+func advance_rounds(delta: float) -> void:
+	for shot: Dictionary in rounds.duplicate():
+		var start: Vector2 = shot.point
+		var travel := minf(shot.remaining,delta*runtime.actor.motor.tuning.projectile_speed)
+		var finish: Vector2 = start + shot.direction*travel
+		var ray := PhysicsRayQueryParameters2D.create(start,finish,0xFFFFFFFF,[runtime.actor.motor.get_rid()])
+		ray.hit_from_inside = true
+		ray.collide_with_areas = true
+		var stopped := false
+		while true:
+			var hit := get_world_2d().direct_space_state.intersect_ray(ray)
+			if hit.is_empty(): break
+			var collider: Node = hit.collider
+			var receiver := collider.get_node_or_null("Damageable") as Damageable
+			if receiver != null and receiver.faction == &"enemy" and receiver.can_receive_effects():
+				runtime.strike(receiver,shot.damage,shot.id)
+			elif collider is Area2D:
+				var excluded := ray.exclude
+				excluded.append(hit.rid)
+				ray.exclude = excluded
+				continue
+			stopped = true
+			break
+		shot.point = finish
+		shot.remaining -= travel
+		if stopped or shot.remaining <= 0: rounds.erase(shot)
 
 func advance_companions(delta: float) -> void:
 	drones.clear()
@@ -224,8 +257,9 @@ func advance_companions(delta: float) -> void:
 				var targets := nearby(origin,float(EquipmentCatalog.DATA.data.companion_range))
 				if not targets.is_empty():
 					var enemy: EnemyActor = runtime.session.room.enemies[targets[0]]
-					runtime.strike(enemy.damageable,unit.get("base",runtime.base_damage())*runtime.p(id,"damage"),id)
-					flash.append({"from":origin,"to":enemy.motor.global_position,"radius":0,"life":.12})
+					var direction := origin.direction_to(enemy.motor.global_position)
+					var damage: float = unit.get("base",runtime.base_damage()) * runtime.p(id,"damage")
+					rounds.append({"id":id,"point":origin,"direction":direction,"damage":damage,"remaining":float(EquipmentCatalog.DATA.data.companion_range)})
 				unit.next += interval
 			if id == "P15":
 				unit.life -= delta
@@ -248,7 +282,11 @@ func _draw() -> void:
 		if target.has("point"): point = Vector2(target.point[0],target.point[1])
 		elif runtime.session.room.enemies.has(target.get("target","")): point = runtime.session.room.enemies[target.target].motor.global_position
 		draw_arc(to_local(point),9,0,TAU,16,Color.AQUAMARINE if locked_valid else Color.GRAY,1.5)
-	for point in drones: draw_circle(to_local(point),5,Color("9facbf"))
+	for index in drones.size():
+		var guard: bool = index == 0 and runtime.fx.guard_hp > 0
+		draw_circle(to_local(drones[index]),9 if guard else 5,Color("cab680") if guard else Color("9facbf"))
+	for shot: Dictionary in rounds:
+		draw_line(to_local(shot.point)-shot.direction*5,to_local(shot.point),Color("f3d894"),2)
 	for row in rings: draw_arc(to_local(row.point),runtime.p("B23","radius"),0,TAU,28,Color("d7b67b"),2)
 	for row in winds: draw_polyline(row.path,Color("76c4b2"),3)
 	if not decoy.is_empty(): draw_circle(to_local(decoy.point),12,Color(.6,.8,1,.35))

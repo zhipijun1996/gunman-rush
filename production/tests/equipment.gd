@@ -96,6 +96,20 @@ func combat_checks() -> void:
 		pickup._physics_process(0.016)
 		check(session.state.value.inventory.get("notes",0) == 1 and not pickup.visible,"magnet claims a permanent note once")
 
+	check(submit("unequip","B01") and submit("equip","G19"),"permanent companion equipped")
+	var field := gear.scene
+	var companion_hp := enemy.health.current
+	session.player.global_position = enemy.motor.global_position - Vector2(65,0)
+	field.advance_companions(1.0)
+	check(field.rounds.is_empty(),"companion waits for full attack interval")
+	field.advance_companions(1.5)
+	check(field.rounds.size() == 1 and enemy.health.current == companion_hp,"fired round has a travel interval")
+	session.player.global_position = Vector2(AT[0],AT[1])
+	check(submit("unequip","G19"),"remove companion while its shot is in flight")
+	field.advance_rounds(.5)
+	session.policy.resolve_batch()
+	check(is_equal_approx(enemy.health.current,companion_hp-EquipmentCatalog.parameter("G19",3,"damage")*gear.base_damage()),"in-flight companion round keeps its damage after dismissal")
+
 func _initialize() -> void:
 	run.call_deferred()
 

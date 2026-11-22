@@ -85,6 +85,11 @@ static func valid_effects(effects: Dictionary) -> bool:
 				if not row.get("path") is Array: return false
 				for point: Variant in row.path:
 					if not WorldRoomValidation.vector(point): return false
+	if not field.get("rounds",[]) is Array: return false
+	for shot: Variant in field.get("rounds",[]):
+		if not shot is Dictionary or shot.get("id") not in ["G05","P15","P14","G19"]: return false
+		if not WorldRoomValidation.vector(shot.get("point")) or not WorldRoomValidation.vector(shot.get("direction")): return false
+		if not nonnegative(shot.get("damage")) or not nonnegative(shot.get("remaining")): return false
 	if field.has("decoy"):
 		var decoy: Variant = field.decoy
 		if not decoy is Dictionary or not WorldRoomValidation.vector(decoy.get("point")) or not nonnegative(decoy.get("life")): return false
