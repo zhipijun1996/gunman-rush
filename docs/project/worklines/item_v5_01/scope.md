@@ -1,9 +1,5 @@
-# ITEM_V5_01 当前交接
+# 装备原型归档
 
-目标：筛选永久装备和休息周期效果。进度唯一见 [任务表](../../tasks.md)。
+重做版装备按[装备定稿](../../../data/items.md)及[当前工作线](../permanent_equipment/scope.md)继续开发。世界和房间任务见[任务表](../../tasks.md)。
 
-基线为 main@83a149558e670fc78a177d8f4662a0ec079b4cbf；现行消费者已在main，验收按当前版本重新运行。代码及对象从 [模块导航](../../module_map.md) 按任务读取，固定世界依赖见 [迁移交接](../mv_migration/scope.md)。
-
-下一动作：从50来源槽中保留灯/滤芯，筛选其余48件；逐件记录稳定装备ID、负荷、NPC升级、破损、锁装和周期额度。旧配置仍有原型消费者，不全量机械迁移。
-
-成果以当前main实现为准，不依赖旧任务或旧验收记录。专项按实际选定对象从Harness选择，真实游玩/性能/音画仍待后续对应任务验证。
+[冻结平原的装备原型交接](https://github.com/zhipijun1996/gunman-rush/blob/2245283f05dfce67cacc2c2f5ce5fb49f6c1d546/docs/project/worklines/item_v5_01/scope.md)保留当时的设计、实现和验证记录。

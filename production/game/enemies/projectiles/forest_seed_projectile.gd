@@ -39,6 +39,9 @@ func _physics_process(delta: float) -> void:
 		var target_shape := behavior.controller.motor.get_node("CollisionShape2D") as CollisionShape2D
 		var target_bounds := target_shape.shape.get_rect()
 		target_bounds.position += target_shape.global_position
+		var gear := behavior.controller.item_runtime
+		if gear != null and gear.fx.guard_hp > 0 and not gear.scene.drones.is_empty() and bounds.grow(9).has_point(gear.scene.drones[0]):
+			gear.scene.guard_hit(str(event_id),1)
 		if bounds.intersects(target_bounds):
 			var request := DamageRequest.new()
 			request.token = token
@@ -66,7 +69,10 @@ func advance_frozen_contact() -> void:
 	var target_shape := behavior.controller.motor.get_node("CollisionShape2D") as CollisionShape2D
 	var target_bounds := target_shape.shape.get_rect()
 	target_bounds.position += target_shape.global_position
-	if bounds.intersects(target_bounds):
+	var gear := behavior.controller.item_runtime
+		if gear != null and gear.fx.guard_hp > 0 and not gear.scene.drones.is_empty() and bounds.grow(9).has_point(gear.scene.drones[0]):
+			gear.scene.guard_hit(str(event_id),1)
+		if bounds.intersects(target_bounds):
 		var request := DamageRequest.new()
 		request.token = token
 		request.event_id = event_id

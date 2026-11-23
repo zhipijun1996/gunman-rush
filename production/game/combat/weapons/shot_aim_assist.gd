@@ -2,9 +2,13 @@ class_name ShotAimAssist
 extends RefCounted
 ## A bounded correction at release; never rewrites input or recoil intent.
 static var settings:Dictionary={}
-static func resolve(controller:PlayerController,origin:Vector2,raw:Vector2,reach:float)->Vector2:
+static func resolve(controller:PlayerController,origin:Vector2,raw:Vector2,reach:float,hook:bool=false)->Vector2:
 	if raw.is_zero_approx() or reach<=0:return raw
 	if settings.is_empty():settings=JSON.parse_string(FileAccess.get_file_as_string("res://config/player_aim_assist.json"))
+	if controller.item_runtime != null and not controller.item_runtime.scene.lock_direction(reach,hook).is_zero_approx(): return raw
+	var assist := controller.item_runtime != null and controller.item_runtime.has("139")
+	var degrees := controller.item_runtime.p("139","degrees") if assist else float(settings.cone_degrees)
+	var max_degrees := degrees if assist else float(settings.max_correction_degrees)
 	var direction:=raw.normalized()
 	var shape:=CircleShape2D.new();shape.radius=reach
 	var query:=PhysicsShapeQueryParameters2D.new();query.shape=shape
@@ -23,13 +27,13 @@ static func resolve(controller:PlayerController,origin:Vector2,raw:Vector2,reach
 		var offset:=target.global_position-origin
 		if offset.length()>reach or offset.length()<float(settings.minimum_distance):continue
 		var angle:=direction.angle_to(offset.normalized())
-		if absf(angle)>deg_to_rad(float(settings.cone_degrees)):continue
+		if absf(angle)>deg_to_rad(degrees):continue
 		if not visible(space,controller.motor,origin,target):continue
 		var id:=target.get_instance_id()
 		if absf(angle)<best_angle or (is_equal_approx(absf(angle),best_angle) and id<best_id):
 			best_angle=absf(angle);best_id=id;correction=angle
-	var limit:=deg_to_rad(float(settings.max_correction_degrees))
-	return direction.rotated(clampf(correction*float(settings.strength),-limit,limit))
+	var limit:=deg_to_rad(max_degrees)
+	return direction.rotated(clampf(correction*(controller.item_runtime.p("139","strength") if assist else float(settings.strength)),-limit,limit))
 
 static func visible(space:PhysicsDirectSpaceState2D,owner_body:CollisionObject2D,origin:Vector2,target:CollisionObject2D)->bool:
 	var ray:=PhysicsRayQueryParameters2D.create(origin,target.global_position,0xFFFFFFFF,[owner_body.get_rid()])

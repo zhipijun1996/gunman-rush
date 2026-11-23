@@ -130,6 +130,19 @@ func animation_receipt() -> Dictionary:
 		"damage_remaining":motor.damage_remaining,"damage_velocity":motor.damage_velocity,
 		"dead":_dead,"generated_body_keyframes":int(_build.get("generated_keyframes",0))}
 
+func draw_aim_afterimage(canvas_item: Node2D, point: Vector2) -> void:
+	if _build.is_empty() or not _frames_by_state.has(animation_state): return
+	var frame: Dictionary = _frames_by_state[animation_state][frame_index]
+	var coords: Array = frame.rect
+	var rect := Rect2(coords[0],coords[1],coords[2],coords[3])
+	var canvas: Array = _build.canvas
+	var pivot: Array = _build.anchor
+	var scale_factor := UnderworldActors.HUMANOID_HEIGHT / float(_build.standing_body_source_height)
+	var target := Rect2(Vector2(-float(pivot[0]),-float(pivot[1]))*scale_factor+Vector2(0,18),Vector2(canvas[0],canvas[1])*scale_factor)
+	canvas_item.draw_set_transform(point,0,Vector2(facing,1.0))
+	canvas_item.draw_texture_rect_region(RUN_SHEET if frame.atlas=="run_sheet.png" else STATES_SHEET,target,rect,Color(.68,.85,.98,.42))
+	canvas_item.draw_set_transform(Vector2.ZERO)
+
 func _draw() -> void:
 	if _build.is_empty() or not _frames_by_state.has(animation_state): return
 	var frame: Dictionary = _frames_by_state[animation_state][frame_index]

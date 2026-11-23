@@ -6,6 +6,12 @@ var storage: WorldSaveService
 var content: FixedWorldProvider
 var revision := 0
 var error := ""
+var capture_live: Callable
+
+func candidate() -> Dictionary:
+	var result := value.duplicate(true)
+	if capture_live.is_valid(): capture_live.call(result)
+	return result
 var value: Dictionary = {}
 
 func fresh(max_hp: float) -> Dictionary:
@@ -24,6 +30,8 @@ func restore_profile(loaded: Dictionary) -> bool:
 		error = "no_world_save"
 		return false
 	var candidate: Dictionary = loaded.payload.duplicate(true)
+	if candidate.has("services") and candidate.services is Dictionary:
+		candidate.services = WorldServices.normalize(candidate.services)
 	if not valid(candidate):
 		storage.blocked = true
 		error = "invalid_world_payload"
@@ -53,6 +61,7 @@ func restore_profile(loaded: Dictionary) -> bool:
 	return true
 
 func valid(candidate: Dictionary) -> bool:
+	if not candidate.get("inventory") is Dictionary: return false
 	if candidate.has("mechanisms"):
 		if not candidate.mechanisms is Dictionary:return false
 		for id: Variant in candidate.mechanisms:
@@ -75,7 +84,7 @@ func valid(candidate: Dictionary) -> bool:
 		if candidate.gear_ids.delivered.size()!=int(candidate.get("inventory",{}).get("delivered_gears",0)):return false
 	if candidate.has("combat_energy"):
 		if not (candidate.combat_energy is int or candidate.combat_energy is float) or not is_finite(candidate.combat_energy) or candidate.combat_energy<0: return false
-	if candidate.has("services") and (not candidate.services is Dictionary or not WorldServices.valid_ledger(candidate.services)): return false
+	if candidate.has("services") and (not candidate.services is Dictionary or not WorldServices.valid_ledger(WorldServices.normalize(candidate.services))): return false
 	for key: String in ["flags","explored"]:
 		if not candidate.get(key) is Array: return false
 	for key: String in ["receipts","inventory","enemies","rest"]:
@@ -83,6 +92,9 @@ func valid(candidate: Dictionary) -> bool:
 	for id: Variant in candidate.inventory:
 		var quantity: Variant=candidate.inventory[id]
 		if not id is String or not (quantity is int or quantity is float) or not is_finite(quantity) or quantity<0 or floorf(quantity)!=quantity: return false
+	if candidate.has("services"):
+		var gear := WorldServices.normalize(candidate.services)
+		if not EquipmentCatalog.legal_loadout(gear.owned,gear.equipped,EquipmentCatalog.capacity(candidate.inventory)): return false
 	if not candidate.get("room") is String or not candidate.get("entry") is String: return false
 	if not candidate.rest.get("room") is String or not candidate.rest.get("point") is Array or candidate.rest.point.size()!=2: return false
 	for v: Variant in candidate.rest.point:
@@ -141,6 +153,8 @@ func holds(requirements: Array) -> bool:
 			if ">=" in flag:
 				var parts:=flag.split(">=")
 				if int(value.inventory.get(parts[0],0))<int(parts[1]): accepted=false
+			elif flag.begins_with("equipped:"):
+				if flag.trim_prefix("equipped:") not in value.services.equipped: accepted = false
 			elif not has(flag): accepted = false
 		if accepted: return true
 	return false
@@ -156,7 +170,7 @@ func action_candidate(id: String, room_id: String, section_id: String="main") ->
 			error = "receipt_source_conflict"
 			return {}
 		return value.duplicate(true)
-	var candidate := value.duplicate(true)
+	var candidate := candidate()
 	for item: String in action.get("consumes",{}):
 		var required:=int(action.consumes[item])
 		if required<0 or int(candidate.inventory.get(item,0))<required:

@@ -1,0 +1,27 @@
+{
+  "id": "WorldResourcePickup",
+  "script": "res://game/rewards/drops/world_resource_pickup.gd",
+  "category": "interaction",
+  "fields": {
+    "position": {
+      "type": "point"
+    },
+    "resource_kind": {
+      "type": "string",
+      "choices": [
+        "note",
+        "health",
+        "time_energy",
+        "resonance"
+      ]
+    },
+    "amount": {
+      "type": "number",
+      "min": 1
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "root": false,
+  "default_definition": "reward.resource"
+}

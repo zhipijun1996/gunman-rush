@@ -44,6 +44,10 @@ if __name__ == "__main__":
         output = godot("--fixed-fps", "60", "--script", "res://tests/ordinary_room.gd")
         if "ORDINARY ROOM failures=0" not in output:
             raise RuntimeError(output)
+        equipment = godot("--fixed-fps", "60", "--script", "res://tests/equipment.gd")
+        if "EQUIPMENT failures=0" not in equipment:
+            raise RuntimeError(equipment)
         print(output.strip())
+        print(equipment.strip())
     except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as error:
         sys.exit(str(error))

@@ -39,8 +39,46 @@ ACTIVE_DOCUMENTS = (
     "docs/project/project_management.md", "docs/project/development.md",
     "docs/bible/room_authoring.md", "docs/bible/terrain_materials.md",
     "docs/data/world_objects.md", "docs/project/worklines/room_rebuild/scope.md",
+    "docs/data/README.md", "docs/data/items.md", "docs/project/item_authoring.md",
+    "docs/project/worklines/permanent_equipment/scope.md", "docs/bible/rewards_and_builds.md",
+    "docs/bible/home_and_save.md", "docs/bible/combat_and_recharge.md",
 )
 FROZEN_DOCUMENTS = ['README.md', 'AGENTS.md', 'docs/README.md', 'docs/bible/combat_and_recharge.md', 'docs/bible/controls_contract.md', 'docs/bible/damage_and_respawn.md', 'docs/bible/game_design.md', 'docs/bible/home_and_save.md', 'docs/bible/platforming_modules.md', 'docs/bible/player_mechanics.md', 'docs/bible/procedural_generation.md', 'docs/bible/rewards_and_builds.md', 'docs/bible/run_and_routes.md', 'docs/bible/story.md', 'docs/bible/visual_bible.md', 'docs/data/README.md', 'docs/data/abilities.md', 'docs/data/audio.md', 'docs/data/bosses/bellstrider.md', 'docs/data/bosses/rootbell_guardian.md', 'docs/data/bosses/thorn_queen_canopy.md', 'docs/data/bosses/thorn_queen_weave.md', 'docs/data/bosses/windkeeper.md', 'docs/data/enemies/forest.md', 'docs/data/enemies/plains.md', 'docs/data/enemies/plains_charger.md', 'docs/data/player_actions.md', 'docs/data/story/regions.md', 'docs/data/weapons.md', 'docs/data/world_objects.md', 'docs/project/architecture.md', 'docs/project/ci-test-inventory.md', 'docs/project/cloud_production.md', 'docs/project/content_pipeline.md', 'docs/project/current_state.md', 'docs/project/development.md', 'docs/project/enemy_completion.md', 'docs/project/environment.md', 'docs/project/foundry.md', 'docs/project/harness.md', 'docs/project/item_authoring.md', 'docs/project/level_design.md', 'docs/project/level_review.md', 'docs/project/module_map.md', 'docs/project/production_loop.md', 'docs/project/project_management.md', 'docs/project/region_context.md', 'docs/project/review_method.md', 'docs/project/tasks.md', 'docs/project/visual_capture.md', 'docs/project/web_loading.md']
+
+
+def equipment_document_errors(root):
+    """Match the equipment and smith tables to the names and descriptions shown in game."""
+    spec = (root / "docs/data/items.md").read_text()
+    items = json.loads((root / "production/config/equipment.json").read_text())["items"]
+    catalog = []
+    prices = []
+    for block in spec.split("\n\n"):
+        lines = block.strip().splitlines()
+        if not lines:
+            continue
+        header = [cell.strip() for cell in lines[0].strip("|").split("|")]
+        if header[:3] != ["ID", "装备", "负荷"]:
+            continue
+        rows = prices if header[3:] == ["Lv1→Lv2", "Lv2→Lv3", "升满总价"] else catalog
+        for line in lines[2:]:
+            cells = [cell.strip() for cell in line.strip("|").split("|")]
+            if cells[0] != "**合计**":
+                rows.append(cells)
+    expected_catalog = []
+    expected_prices = []
+    for identity, item in items.items():
+        entry = [identity, item["name"], str(item["load"])]
+        level = item["max_level"]
+        label = "固定" if level == 1 else f"Lv1–{level}"
+        expected_catalog.append(entry + [label, item["description"], item["bounds"]])
+        if level > 1:
+            fees = item["upgrade_prices"]
+            expected_prices.append(entry + [str(n) for n in [*fees, sum(fees)]])
+    errors = []
+    for label, actual, expected in [("catalog", catalog, expected_catalog), ("prices", prices, expected_prices)]:
+        if sorted(actual) != sorted(expected):
+            errors.append(f"Equipment {label} differs between docs/data/items.md and production/config/equipment.json")
+    return errors
 
 
 def validate(root=ROOT, frozen=False):
@@ -49,6 +87,8 @@ def validate(root=ROOT, frozen=False):
     required = FROZEN_DOCUMENTS if frozen else ACTIVE_DOCUMENTS
     if frozen:
         errors.extend(validate_world_design(root=root))
+    elif (root / "docs/data/items.md").is_file():
+        errors.extend(equipment_document_errors(root))
     for name in required:
         if not (root / name).is_file():
             errors.append(f'Missing {name}')

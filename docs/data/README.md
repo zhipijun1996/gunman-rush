@@ -12,7 +12,7 @@
 | 森林 Boss | [根铃守卫](bosses/rootbell_guardian.md)、[棘冠女王迁巢织场](bosses/thorn_queen_weave.md)、[Canopy](bosses/thorn_queen_canopy.md)；版本采用见模块导航 |
 | 武器 | [武器与技能](weapons.md)：三个基础家族、六个二级分支与六个已实现三级技能；[动作入口](player_actions.md) 仅导航相关合同 |
 | 移动能力 | [H/W/D/Q](abilities.md)：永久解锁、行为与恢复；武器本体、攻击等级、分支材料和共用技能芯归 [永久成长](../bible/rewards_and_builds.md) |
-| 道具 | [道具与成长](items.md)：参数目录、关键例外、触发和撤销；逐件身份与参数按稳定 ID 查询配置 |
+| 永久装备 | [60 件装备的效果与适用条件](items.md) · [运行目录](../../production/config/equipment.json) · [房间与美术接入](../project/item_authoring.md) |
 | 机关与交互 | [世界对象](world_objects.md)：铃锁、门、平台、索点、危险、检查点、补给、宝箱与出口 |
 | 声音 | [音频](audio.md)：共用声音规范；对象发声时机归各对象正文 |
 | 叙事 | [地区事件与终战提案](story/regions.md)：集中保存具体情节供讨论；时间规则归 [剧情圣经](../bible/story.md) |
@@ -26,10 +26,9 @@
 | 其余14个地区 | 固定房间、分区、视觉生态、敌人、机关与 Boss 的可开发设计 | 世界源提供房号、分区能力路线与永久事件；选中房间后补 `bible/regions/` 与实际对象，不批量创建空页 |
 | 保留 Boss 身份 | clockwork_guardian、基础 windkeeper、thorn_guardian、thorn_queen 的独立行为／表现说明 | 消费者在模块导航；修改这些入口时先补一页合并规范，不套用现行重制版 |
 | 两个候选普通怪 | lure_guard、crosswind_moth 的正式身份、完整反制与采用决定 | 先在敌人工作线选择是否保留；注册候选不等于批准入池 |
-| 道具 | 本页关键例外以外的复杂互动、逐件画面与声音细节 | 已有配置可查基本效果；按真实任务补入 items.md，避免逐件复制旧原型参数 |
 | 未来机关／Boss | 地区框架和叙事名字对应的真实招式、弱点、危险与解法 | 叙事提案不能代替对象规范，制作前补相关正文 |
 | 剧情交付 | 森林现行 Boss 的叙事动机，以及固定世界任务、修钟及结局的必要事实与可见呈现 | 选择由 STORY-DESIGN-03 交接，未定方案不覆盖对象设计 |
 
-P17 蓄力移动、G19 精英资格、剧情与地图候选的待决定项从 [当前任务](../project/tasks.md) 接续；不在本页复制进度。
+剧情与地图候选的待决定项从 [当前任务](../project/tasks.md) 接续；不在本页复制进度。
 
-`creative_direction/` 是创作工具使用的当前来源与选择元数据，不再定义一套人类规则。必要原始来源独立保存在其 sources/，只在核对来源时读取；当前规则只以对应圣经与对象规范为准。
+`creative_direction/` 是创作工具使用的当前来源与选择元数据，不再定义一套人类规则。必要原始来源独立保存在其 sources/，只在核对来源时读取；装备美术以[重做版图标与接入说明](../project/item_authoring.md)为准。创作工具中绑定的旧装备素材和配置用于复核历史画面。

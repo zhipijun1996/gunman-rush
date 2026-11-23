@@ -28,12 +28,12 @@ func _ready() -> void:
 	shade.material=_dark;add_child(shade)
 func _physics_process(delta: float) -> void:
 	if mode=="dark":
-		var lit:=services.active("lamp")
+		var lit:=services.active("EQ_LAMP")
 		if lit!=_lit:
 			_lit=lit;_dark.set_shader_parameter("darkness",.06 if lit else .38)
 		return
 	if mode not in ["gas","phase_light","thorns","water"] or not bounds.intersects(Rect2(controller.motor.position-Vector2(12,18),Vector2(24,36))): return
-	if mode=="gas" and services.active("filter"): return
+	if mode=="gas" and services.active("EQ_FILTER"): return
 	# A light curtain is solid danger whenever actual recoil protection is absent.
 	# A rejected protected request must not leave a half-second pass for the next
 	# unprotected overlap, including an ended recoil still inside the curtain.

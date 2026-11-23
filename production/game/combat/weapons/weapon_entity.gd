@@ -56,13 +56,13 @@ func _physics_process(delta: float) -> void:
 	elif kind == &"bomb":
 		if age>=def.fuse_seconds:runtime.explode(self)
 	elif kind == &"mine":
-		var remaining := maxf(0,def.range_limit-start_point.distance_to(global_position))
+		var remaining := maxf(0,def.range_limit*runtime.ability.item_range_multiplier()-start_point.distance_to(global_position))
 		if remaining<=.01:runtime.entity_failed(self);dispose();return
 		_sweep(direction*minf(remaining,def.projectile_speed*delta))
 	elif kind == &"boomerang":
 		var speed := def.steering_speed
 		if phase==&"outbound":
-			var remaining := maxf(0,def.range_limit-start_point.distance_to(global_position))
+			var remaining := maxf(0,def.range_limit*runtime.ability.item_range_multiplier()-start_point.distance_to(global_position))
 			if remaining<=.01:
 				phase=&"auto_return";_ignored.clear();runtime.entity_transition.emit(self,&"auto_return")
 			else:

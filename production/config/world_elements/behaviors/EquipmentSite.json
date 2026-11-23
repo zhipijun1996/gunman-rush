@@ -1,0 +1,32 @@
+{
+  "id": "EquipmentSite",
+  "script": "res://game/equipment/equipment_site.gd",
+  "category": "interaction",
+  "fields": {
+    "position": {
+      "type": "point"
+    },
+    "kind": {
+      "type": "string",
+      "choices": [
+        "reward",
+        "smith",
+        "secret"
+      ]
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "radius": {
+      "type": "number",
+      "min": 1
+    },
+    "requirements": {
+      "type": "array"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "root": false,
+  "default_definition": "equipment.reward"
+}

@@ -1,0 +1,827 @@
+{
+  "initial_capacity": 8,
+  "maximum_capacity": 14,
+  "shield_limit": 3,
+  "items": {
+    "B05": {
+      "name": "疾鸣撞针",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "主武器射击冷却 ×0.90。",
+      "bounds": "仅改变合法主攻的发射间隔；不加速技能、伴机、装备内冷却，不突破武器自身最小间隔。",
+      "parameters": {
+        "interval": 0.9
+      }
+    },
+    "B22": {
+      "name": "扩震钟环",
+      "load": 3,
+      "max_level": 3,
+      "upgrade_prices": [
+        80,
+        160
+      ],
+      "description": "有效攻击范围 +10%／18%／25%。",
+      "bounds": "枪械射程、激光宽度、手里剑/回旋刃有效攻击距离、炸弹/奇点伤害范围；不增加反冲、钩索、安放距离或奇点牵引时长。",
+      "parameters": {
+        "range_scale": [
+          1.1,
+          1.18,
+          1.25
+        ]
+      }
+    },
+    "P03": {
+      "name": "术式增幅石",
+      "load": 3,
+      "max_level": 3,
+      "upgrade_prices": [
+        80,
+        160
+      ],
+      "description": "已解锁的武器主动技能直接伤害 ×1.12／1.20／1.28。",
+      "bounds": "仅强化已解锁武器主动技能的直接伤害；普通攻击、装备附伤与伴机使用各自伤害参数。",
+      "parameters": {
+        "damage_scale": [
+          1.12,
+          1.2,
+          1.28
+        ]
+      }
+    },
+    "P08": {
+      "name": "穿响音叉",
+      "load": 3,
+      "max_level": 3,
+      "upgrade_prices": [
+        80,
+        160
+      ],
+      "description": "支持敌人贯穿的主攻弹体额外贯穿 1 名敌人；新增目标保留该弹体直接伤害的 65%／80%／95%。",
+      "bounds": "武器自身可命中的目标按该弹体正常直接伤害结算；额外贯穿目标的伤害按单弹/射线份额缩放，不按整包伤害结算；不穿墙，不改变爆炸形状。",
+      "parameters": {
+        "count": 1,
+        "damage_ratio": [
+          0.65,
+          0.8,
+          0.95
+        ]
+      }
+    },
+    "P29": {
+      "name": "雷丝引线",
+      "load": 2,
+      "max_level": 3,
+      "upgrade_prices": [
+        60,
+        120
+      ],
+      "description": "玩家主动攻击有效命中后，向额外 1／2／2 个目标连锁；各受 0.30／0.30／0.45B；每跳搜索半径 120，冷却 1.5 秒。",
+      "bounds": "主攻、武器主动技和造成有效伤害的钩索均可触发；不返回原目标、不重复跳同一目标、不穿墙；派生伤害不触发。",
+      "parameters": {
+        "targets": [
+          1,
+          2,
+          2
+        ],
+        "damage": [
+          0.3,
+          0.3,
+          0.45
+        ],
+        "radius": 120,
+        "cooldown": 1.5
+      }
+    },
+    "P05": {
+      "name": "末息轮芯",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "当前 HP ≤ 最大 HP 的 40% 时，主攻直接伤害 +30%。",
+      "bounds": "与 P13 的主攻增伤加算；临时护盾不计入生命比例；不放大装备附伤。",
+      "parameters": {
+        "threshold": 0.4,
+        "bonus": 0.3
+      }
+    },
+    "B24": {
+      "name": "余火枪片",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "主攻命中施加 3 秒余火，总伤害 0.90B；全局冷却 3 秒。",
+      "bounds": "分 6 次、每 0.5 秒造成 0.15B；同目标不叠层；已结算伤害不因刷新重算。",
+      "parameters": {
+        "ticks": 6,
+        "damage": 0.15,
+        "interval": 0.5,
+        "cooldown": 3
+      }
+    },
+    "P09": {
+      "name": "弹震继电匣",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "主攻命中处产生半径 88、0.60B 的爆震；全局冷却 3 秒。",
+      "bounds": "每目标每次爆震最多一次，可伤及原命中目标；不产生额外击退、共鸣或其他装备触发。",
+      "parameters": {
+        "radius": 88,
+        "damage": 0.6,
+        "cooldown": 3
+      }
+    },
+    "83": {
+      "name": "折角弹壳",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "普通枪械弹丸碰实体墙可反弹 1 次，反弹后直接伤害保留 70%。",
+      "bounds": "按实际弹体剩余伤害乘算；累计路径消耗原射程，反弹不刷新射程、不复制子弹、不穿墙。",
+      "parameters": {
+        "bounces": 1,
+        "retained": 0.7
+      }
+    },
+    "87": {
+      "name": "逆鸣弹幕",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "玩家主动发射的普通枪械子弹与可拦截敌弹碰撞时，两颗弹体相互消失。",
+      "bounds": "一次碰撞只抵消一颗敌弹；不处理不可拦截招式、激光、怪物本体、地形；不产生伤害奖励或资源。",
+      "parameters": {}
+    },
+    "117": {
+      "name": "追迹定标镜",
+      "load": 3,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "按主动装备键进入设靶状态；下一发射击命中敌人/实体地形后建立 1 个靶点；靶点合法时，后续手动射击朝靶点发射。",
+      "bounds": "再按键取消；敌人靶点跟随敌人，地形靶点固定；不自动开枪、不使弹体追踪转弯；反冲按本次指向靶点的射击方向反向发生。",
+      "parameters": {},
+      "active": true
+    },
+    "P31": {
+      "name": "刻风膛室",
+      "load": 3,
+      "max_level": 3,
+      "upgrade_prices": [
+        80,
+        160
+      ],
+      "description": "空中主攻已产生真实反冲，且同一攻击包命中敌人时，额外造成 0.50／0.70／0.90B；全局冷却 1.5 秒。",
+      "bounds": "反冲在发射时产生，不要求命中才位移；反冲资格随攻击包记录，不因弹丸延迟命中或换武器丢失。",
+      "parameters": {
+        "damage": [
+          0.5,
+          0.7,
+          0.9
+        ],
+        "cooldown": 1.5
+      }
+    },
+    "B07": {
+      "name": "定脚支架",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "地面射击反冲系数 ×0.70。",
+      "bounds": "空中反冲不变；不改射程、射速、跳跃或钩索。",
+      "parameters": {
+        "ground_scale": 0.7
+      }
+    },
+    "B23": {
+      "name": "尾摆齿环",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "真实反冲结束处留下半径 64、持续 0.6 秒的齿环；每目标造成 0.60B；冷却 4 秒。",
+      "bounds": "实际碰撞截停点也可生成；同一齿环每目标一次；不沿整段路径铺圈。",
+      "parameters": {
+        "radius": 64,
+        "duration": 0.6,
+        "damage": 0.6,
+        "cooldown": 4
+      }
+    },
+    "B28": {
+      "name": "逐风鞋簧",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "由移动轴直接控制的地面/空中左右移动速度 +10%。",
+      "bounds": "不增加反冲、钩索、保护冲刺、跳跃、武器技能位移的速度或距离。",
+      "parameters": {
+        "speed": 1.1
+      }
+    },
+    "P12": {
+      "name": "刃影回纹",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "沿真实反冲或武器位移的扫过轨迹，对接触敌人造成 0.25B；每个运动事件对同一目标最多一次。",
+      "bounds": "普通走路、普通跳跃、镜头移动不生成攻击；不穿墙、不提供额外无敌，不把每帧当作一次位移。",
+      "parameters": {
+        "damage": 0.25
+      }
+    },
+    "G01": {
+      "name": "微核回响",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "空中主攻命中留下持续 6 秒的标记；下一不同主攻击包命中该目标，引爆 0.60B；同目标冷却 6 秒。",
+      "bounds": "引爆攻击包不能给同目标挂标记；每包只处理一个合法目标；派生伤害不能挂标或引爆。",
+      "parameters": {
+        "duration": 6,
+        "cooldown": 6,
+        "damage": 0.6
+      }
+    },
+    "B19": {
+      "name": "梦读铭片",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "钩索有效命中敌人时额外获得 6 点共鸣。",
+      "bounds": "钩索包总共鸣封顶 12；同次钩索多段接触只计一次；墙面、虚影和无伤害机关不提供共鸣。",
+      "parameters": {
+        "bonus": 6
+      }
+    },
+    "B21": {
+      "name": "长索绕轮",
+      "load": 3,
+      "max_level": 3,
+      "upgrade_prices": [
+        80,
+        160
+      ],
+      "description": "钩索最大合法距离 ×1.15／1.25／1.35。",
+      "bounds": "仅延长钩索距离；枪械射程、场景遮挡和可用钩点类型遵守基础规则；主线通路须能用基础钩索完成。",
+      "parameters": {
+        "reach": [
+          1.15,
+          1.25,
+          1.35
+        ]
+      }
+    },
+    "P13": {
+      "name": "追索徽记",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "钩索有效命中敌人，留下 4 秒标记；对标记目标的主攻直接伤害 +20%。",
+      "bounds": "重复合法钩中刷新到 4 秒、不累计；与 P05 加算；不增强伴机、DOT或其他派生伤害。",
+      "parameters": {
+        "duration": 4,
+        "bonus": 0.2
+      }
+    },
+    "80": {
+      "name": "裂时观测镜",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "空中瞄准时显示：若现在发射，本次真实反冲结束处的角色虚像。",
+      "bounds": "读取实际运动、碰撞和本次基础射击方向；遇墙提前截断；不预测后续主动操作或遥远落地位置。",
+      "parameters": {}
+    },
+    "84": {
+      "name": "遗响钩环",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "玩家腾空时，归属玩家的真实敌人击杀留下持续 2.5 秒的弹跳钩索虚影；最多同时 2 个。",
+      "bounds": "第三个替换最早者；有效钩中即消耗；只允许弹跳，禁止悬挂；同一死亡事件只生成一次，不算资源目标。",
+      "parameters": {
+        "duration": 2.5,
+        "limit": 2
+      }
+    },
+    "89": {
+      "name": "余响诱影",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "空中反冲起点留下持续3个世界秒的诱敌虚影；从生成时起冷却6个世界秒。",
+      "bounds": "每玩家最多1个；冷却中不重建或续时。仅供支持诱饵的普通敌人新启动瞄准攻击选取；不重定向既有弹体，不挡伤害，不作为钩点。",
+      "parameters": {
+        "duration": 3,
+        "cooldown": 6
+      }
+    },
+    "99": {
+      "name": "风屏留轨",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "空中反冲完成后，实际轨迹留下持续 1 秒的偏弹风屏；冷却 4 秒。",
+      "bounds": "只偏转接触风屏的可拦截敌弹，保留其敌方归属；不将敌弹转为玩家攻击、不删除未接触风屏的敌弹，不抵挡怪物本体接触或地形伤害。",
+      "parameters": {
+        "duration": 1,
+        "width": 16,
+        "angle": 30,
+        "cooldown": 4
+      }
+    },
+    "119": {
+      "name": "追索导标",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "主攻命中敌人后记忆该目标 2 秒；期间玩家主动出钩时，优先朝这个仍合法的目标发射。",
+      "bounds": "记忆可跨出 12°输入扇区；新命中覆盖旧目标；不自动出钩，不增加钩索距离、不穿墙。",
+      "parameters": {
+        "duration": 2
+      }
+    },
+    "139": {
+      "name": "索心校准环",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "武器与钩索获得最大 12°的小角度目标纠偏。",
+      "bounds": "最终纠偏上限为 12°，与基础辅助共用此上限；不记忆目标；枪械只微调弹道，不改原始反冲方向；117/119提供有效目标方向时，该次动作只使用对应方向。",
+      "parameters": {
+        "degrees": 12,
+        "strength": 1
+      }
+    },
+    "P06": {
+      "name": "满月枪歌",
+      "load": 3,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "满 HP 空中瞄准时，世界倍率为 0%；正常消耗时间能量。",
+      "bounds": "每次腾空总计 2 秒瞄准预算；射击/出钩/取消瞄准后结束；不提供环境无敌。",
+      "parameters": {
+        "scale": 0
+      }
+    },
+    "B04": {
+      "name": "省力扳簧",
+      "load": 2,
+      "max_level": 3,
+      "upgrade_prices": [
+        60,
+        120
+      ],
+      "description": "空中武器和钩索瞄准的时间能量消耗降低 15%／25%／35%。",
+      "bounds": "只降低耗能，不增加单次腾空 2 秒预算；与 P06、N01共用同一预算。",
+      "parameters": {
+        "drain": [
+          0.85,
+          0.75,
+          0.65
+        ]
+      }
+    },
+    "B06": {
+      "name": "回声小匣",
+      "load": 2,
+      "max_level": 3,
+      "upgrade_prices": [
+        60,
+        120
+      ],
+      "description": "空中主攻击包命中返还 10／15／20 点时间能量；每次腾空累计返还上限 20／30／40。",
+      "bounds": "每包一次，要求造成实际伤害；命中在地面则不返还；不增加 2 秒瞄准预算，也不溢出能量上限。",
+      "parameters": {
+        "refund": [
+          10,
+          15,
+          20
+        ],
+        "limit": [
+          20,
+          30,
+          40
+        ]
+      }
+    },
+    "B18": {
+      "name": "捕魂音叉",
+      "load": 2,
+      "max_level": 3,
+      "upgrade_prices": [
+        60,
+        120
+      ],
+      "description": "主攻击包有效命中额外获得 2／3／4 点共鸣。",
+      "bounds": "每包总收益封顶 12；多弹、多目标、DOT、召唤物不重复返还。",
+      "parameters": {
+        "bonus": [
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    "B26": {
+      "name": "巨腹储鸣罐",
+      "load": 4,
+      "max_level": 3,
+      "upgrade_prices": [
+        100,
+        200
+      ],
+      "description": "共鸣容量上限增加 40／60／80 点。",
+      "bounds": "装备和升级不补充当前共鸣；卸下时把超出新上限的当前值裁剪。",
+      "parameters": {
+        "capacity": [
+          40,
+          60,
+          80
+        ]
+      }
+    },
+    "P02": {
+      "name": "共鸣整流器",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "主动武器技能及主动装备的共鸣消耗降低 20%。",
+      "bounds": "60→48，P26为80→64，G05为45→36；不减普通回血35、深聚回血50、G04被动救命35或时间能量消耗。",
+      "parameters": {
+        "cost": 0.8
+      }
+    },
+    "N01": {
+      "name": "迟暮钟摆",
+      "load": 1,
+      "max_level": 3,
+      "upgrade_prices": [
+        40,
+        80
+      ],
+      "description": "空中瞄准的世界倍率为 12%／10%／8%。",
+      "bounds": "基础为15%；满HP时P06的0%优先；两者不相乘，不改变耗能或每次腾空2秒上限。",
+      "parameters": {
+        "scale": [
+          0.12,
+          0.1,
+          0.08
+        ]
+      }
+    },
+    "75": {
+      "name": "折返发条",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "同次腾空中第二个不同主攻击包有效命中敌人时，额外返还 8 点共鸣；每次腾空最多一次。",
+      "bounds": "回能类型固定为共鸣；与基础收益/B18一起受每包12上限裁剪；不会返还时间能量或重置动作次数。",
+      "parameters": {
+        "packets": 2,
+        "bonus": 8
+      }
+    },
+    "96": {
+      "name": "折射测距镜",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "空中瞄准显示实际弹道及预计首个碰撞点；有83时显示其一次合法反弹。",
+      "bounds": "读取最终合法指向和弹体碰撞规则，不改实际物理；多弹用中心参考线，不铺满全部子弹预测。",
+      "parameters": {}
+    },
+    "103": {
+      "name": "逐时弹芯",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "开启后，合法普通枪弹命中使普通敌人/兼容机关的局部时间 ×1.50，持续 3 秒。",
+      "bounds": "与104/105互斥；再次命中刷新至3秒、不累加；无额外伤害加成。",
+      "parameters": {
+        "duration": 3,
+        "normal": 1.5,
+        "elite": 1.25,
+        "boss": 1.15,
+        "mechanism": 1.5
+      },
+      "exclusive_group": "time_core",
+      "active": true
+    },
+    "104": {
+      "name": "缓时弹芯",
+      "load": 3,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "开启后，合法普通枪弹命中使普通敌人/兼容机关的局部时间 ×0.60，持续 2.5 秒。",
+      "bounds": "与103/105互斥；再次命中刷新至2.5秒、不累加；不与冰弹乘算；精英/Boss抗性见第5.1节。",
+      "parameters": {
+        "duration": 2.5,
+        "normal": 0.6,
+        "elite": 0.75,
+        "boss": 0.85,
+        "mechanism": 0.6
+      },
+      "exclusive_group": "time_core",
+      "active": true
+    },
+    "105": {
+      "name": "零刻弹芯",
+      "load": 4,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "开启后，普通敌人局部时停 0.60 秒；同一目标两次有效时停的开始时刻至少间隔 5 秒。",
+      "bounds": "期间命中不续时；精英0.30秒、Boss0.15秒、标准可时控机关3秒；不可控阶段无效，完整目标档见第5.1节。",
+      "parameters": {
+        "cooldown": 5,
+        "normal": 0.6,
+        "elite": 0.3,
+        "boss": 0.15,
+        "mechanism": 3
+      },
+      "exclusive_group": "time_core",
+      "active": true
+    },
+    "141": {
+      "name": "时律续刻片",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "把103/104/105该次合法时间附魔的持续时间直接延长 25%。",
+      "bounds": "不提高倍率、不缩短105的5秒间隔、不改变瞄准预算；没有时间弹芯时无效果。",
+      "parameters": {
+        "duration_scale": 1.25
+      }
+    },
+    "P17": {
+      "name": "游鸣聚能体",
+      "load": 2,
+      "max_level": 3,
+      "upgrade_prices": [
+        60,
+        120
+      ],
+      "description": "共鸣蓄力回血时，允许以基础水平移动速度的 40%／55%／70%移动。",
+      "bounds": "仅作用于回血蓄力；移动时可继续回血，跳跃、攻击、出钩或受伤会取消回血；与B28相乘，不增加其他位移速度。",
+      "parameters": {
+        "move": [
+          0.4,
+          0.55,
+          0.7
+        ]
+      }
+    },
+    "143": {
+      "name": "深聚心核",
+      "load": 3,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "共鸣回血消耗50共鸣，蓄力2个有效真实秒，完成时一次回复2HP。",
+      "bounds": "可与144同装；未完成不扣款、不回血；缺1HP时费用仍为50共鸣，回复量不超出生命上限。",
+      "parameters": {
+        "cost": 50,
+        "seconds": 2,
+        "heal": 2
+      }
+    },
+    "144": {
+      "name": "疾聚心核",
+      "load": 3,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "共鸣回血蓄力时间×0.65，普通回血为0.65个有效真实秒；配143时为1.30秒。",
+      "bounds": "不改变共鸣费用与回复量；只缩短回血蓄力，不影响武器蓄力或装备冷却；与143同装总负荷6。",
+      "parameters": {
+        "seconds_scale": 0.65
+      }
+    },
+    "B11": {
+      "name": "心室木匣",
+      "load": 2,
+      "max_level": 3,
+      "upgrade_prices": [
+        60,
+        120
+      ],
+      "description": "最大 HP 增加 1／2／3 点。",
+      "bounds": "升级/装备不治疗，卸下裁剪超出上限的当前HP；P18结算顺序见第5.3节。",
+      "parameters": {
+        "capacity": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    "B13": {
+      "name": "晨露护片",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "真正休息完成后，共享临时护盾至少补至 2 点；共享上限 3。",
+      "bounds": "执行shield=max(shield,2)；已有3点保持；开菜单、跨房、重装备不授盾。",
+      "parameters": {
+        "shields": 2
+      }
+    },
+    "B14": {
+      "name": "苦痛铃歌",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "每次真实 HP 受伤获得 12 点共鸣。",
+      "bounds": "按伤害事件一次，非每扣1HP一次；护盾/无敌/救命保护事件不触发；不得自行递归。",
+      "parameters": {
+        "gain": 12
+      }
+    },
+    "B27": {
+      "name": "顽固护壳",
+      "load": 3,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "普通受伤后的无敌时间 ×1.50。",
+      "bounds": "只延长既有普通受伤无敌；不延长Q保护、P26时长，不免疫地形。",
+      "parameters": {
+        "duration_scale": 1.5
+      }
+    },
+    "P18": {
+      "name": "暮钟心契",
+      "load": 5,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "最大 HP =（永久基础上限 + B11固定加值）×2；禁用普通治疗和共鸣回血，真正休息仍回满。",
+      "bounds": "不吸收地面治疗；在真正休息流程中确认装配及生命上限，再结算休息回血；离开休息区后装配锁定。",
+      "parameters": {
+        "capacity_scale": 2
+      }
+    },
+    "P26": {
+      "name": "回声护幕",
+      "load": 3,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "主动消耗 80 共鸣，获得 3 个有效真实秒的敌方伤害防护；冷却 30 个有效真实秒。",
+      "bounds": "P02后64；保护不延长已有其他无敌；不挡坠落、尖刺等强制地形失败；受保护的攻击不消耗其他护盾额度。",
+      "parameters": {
+        "cost": 80,
+        "duration": 3,
+        "cooldown": 30
+      },
+      "active": true
+    },
+    "G02": {
+      "name": "无忧余音",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "累计 3 次真实 HP 受伤获得 1 点共享临时护盾；上限3。",
+      "bounds": "只计伤害事件；触发后计数清零，已满盾时也清零；跨房保留，休息清零；不按损失HP点数多计。",
+      "parameters": {
+        "hits": 3
+      }
+    },
+    "G04": {
+      "name": "零时护心",
+      "load": 3,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "遭受敌方致命伤且当前共鸣≥35时，消耗35共鸣保留1HP；每次真正休息后可成功触发1次。",
+      "bounds": "P02不减耗；无共鸣不救命；保护后给标准受伤无敌，不触发B14/G02；不挡世界强制失败。",
+      "parameters": {
+        "cost": 35,
+        "hp": 1
+      }
+    },
+    "P16": {
+      "name": "循时梦盾",
+      "load": 5,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "实际盾体持续拦截接触它的普通敌弹；玩家本体受到合格怪物接触伤害时，抵挡该次伤害并冷却12秒。",
+      "bounds": "拦弹不消耗次数；盾体单独扫过怪物不触发冷却；冷却时全部保护失效；不挡不可拦截招式或强制地形失败。",
+      "parameters": {
+        "cooldown": 12
+      }
+    },
+    "P14": {
+      "name": "游钟机群",
+      "load": 3,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "常驻3台小型游钟机；各每1.5秒攻击一次，每击0.10B。",
+      "bounds": "首击须等待自身间隔；每台独立瞄准，墙体阻挡；卸装消失，不产共鸣。",
+      "parameters": {
+        "count": 3,
+        "interval": 1.5,
+        "damage": 0.1
+      }
+    },
+    "P15": {
+      "name": "续鸣装配匣",
+      "load": 3,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "装备期间每累计实际消耗45共鸣，生成1台临时无人机；存在8秒、每1.5秒0.35B，最多2台。",
+      "bounds": "首击在生成1.5秒后，最多5击；按折后实际支付计入；并发满时的进度规则见第5.5节。",
+      "parameters": {
+        "limit": 2,
+        "cost": 45,
+        "duration": 8,
+        "interval": 1.5,
+        "damage": 0.35
+      }
+    },
+    "G05": {
+      "name": "永恒钟卫",
+      "load": 5,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "主动消耗45共鸣，召唤1台拥有6HP的大型钟卫；生命归零时消失，无时间寿命。每1.8秒攻击0.75B；召唤冷却12秒。",
+      "bounds": "P02后36；最多1台；存活时重按不扣费、不补血；有效受伤后无敌0.5秒；首击及存续规则见第5.5节。",
+      "parameters": {
+        "cost": 45,
+        "hp": 6,
+        "interval": 1.8,
+        "damage": 0.75,
+        "iframe": 0.5,
+        "cooldown": 12
+      },
+      "active": true
+    },
+    "G19": {
+      "name": "灰铃侍钟机",
+      "load": 4,
+      "max_level": 3,
+      "upgrade_prices": [
+        100,
+        200
+      ],
+      "description": "常驻1台侍钟机；每2.5秒攻击一次，Lv1/2/3每击0.60／0.72／0.84B。",
+      "bounds": "通过NPC金币强化提高攻击伤害；攻击遵守伴机射程、视线与墙体阻挡。",
+      "parameters": {
+        "interval": 2.5,
+        "damage": [
+          0.6,
+          0.72,
+          0.84
+        ]
+      }
+    },
+    "B01": {
+      "name": "拾铃磁盘",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "半径200内自动吸取可直接拾取的金币、永久音符、HP和能量。",
+      "bounds": "不穿实体墙，不自动开宝箱/领取装备；回复仍按资源规则，不能绕过P18治疗禁用。",
+      "parameters": {
+        "radius": 200
+      }
+    },
+    "P39": {
+      "name": "盗贼旧誓",
+      "load": 2,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "玩家合法击杀奖励中的金币 ×1.25。",
+      "bounds": "小数余量跨击杀、跨房保存；其他金币来源按各自数值结算。",
+      "parameters": {
+        "gold_bonus": 0.25
+      }
+    },
+    "73": {
+      "name": "听壁铜铃",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "距尚未发现的隐藏入口160单位内给予轻微铃声/图标提示。",
+      "bounds": "不显示精确入口、不打开通路、不代替能力锁；优先最近一个，每2秒最多提示一次，已发现入口静默。",
+      "parameters": {
+        "radius": 160,
+        "cooldown": 2
+      }
+    },
+    "EQ_LAMP": {
+      "name": "发光灯",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "装备时启用发光工具的增强照明，并满足明确要求发光灯的物品门。",
+      "bounds": "可装卸工具，照明范围由灯光资源参数定义；玩家基础弱光不满足此装备的物品门；固定效果，不升级。",
+      "parameters": {}
+    },
+    "EQ_FILTER": {
+      "name": "抗毒滤芯",
+      "load": 1,
+      "max_level": 1,
+      "upgrade_prices": [],
+      "description": "装备时满足明确要求滤芯的物品门，并免除标记为可过滤环境的毒雾累积。",
+      "bounds": "只作用filterable环境；不免疫敌人毒攻击、尖刺、岩浆或普通危险地形；Q不能代替；固定效果，不升级。",
+      "parameters": {}
+    }
+  },
+  "companion_range": 320
+}

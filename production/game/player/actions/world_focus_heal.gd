@@ -67,11 +67,12 @@ func _physics_process(delta: float) -> void:
 		if elapsed>0:cancel(false)
 		blocked=false;return
 	if blocked or pending: return
-	if not available() or absf(controller.router.axis)>.01 or controller.router.aim_engaged or controller.traversal.busy() or absf(controller.motor.velocity.x)>10:
+	var mobile := controller.item_runtime != null and controller.item_runtime.has("P17")
+	if not available() or controller.router.aim_engaged or controller.traversal.busy() or (not mobile and (absf(controller.router.axis)>.01 or absf(controller.motor.velocity.x)>10)):
 		cancel(true);return
 	var starting:=elapsed<=0
 	if starting: _origin=controller.motor.position
-	if controller.motor.position.distance_to(_origin)>2: cancel(true);return
+	if not mobile and controller.motor.position.distance_to(_origin)>2: cancel(true);return
 	elapsed+=delta/Engine.time_scale
 	if starting:GameAudio.cue_focus(self,&"heal_gather")
 	_pose(1 if ratio()<.16 else 2 if ratio()<.4 else 3+posmod(int(elapsed*7),2))

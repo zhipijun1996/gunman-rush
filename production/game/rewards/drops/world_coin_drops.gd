@@ -57,7 +57,9 @@ func can_collect(id: String) -> bool:
 	if not _by_id.has(id): return false
 	var unit: Dictionary=_by_id[id]
 	if unit.claimed or clock<float(unit.ready_at) or controller.actor_resources.health.terminal: return false
-	if controller.motor.position.distance_to(unit.position)>=float(services.definitions.coin_pickup_radius): return false
+	var reach := float(services.definitions.coin_pickup_radius)
+	if controller.item_runtime != null: reach = maxf(reach,controller.item_runtime.p("B01","radius"))
+	if controller.motor.position.distance_to(unit.position)>=reach: return false
 	var ray:=PhysicsRayQueryParameters2D.create(global_player_position(),to_global(unit.position),1)
 	ray.collide_with_areas=false
 	return get_world_2d().direct_space_state.intersect_ray(ray).is_empty()

@@ -5,7 +5,7 @@ const WEAPON_PROFILE := preload("res://game/combat/weapons/presentation/resource
 
 class WeaponFeel extends PlayerWeaponFeelV2:
 	func _valid_projectile(projectile: PlayerProjectile) -> bool:
-		return is_instance_valid(projectile) and is_instance_valid(controller) and controller.active and projectile.owner_id == controller.motor.get_instance_id() and projectile.session_id == controller.session_id and projectile.weapon_epoch == controller.shoot_ability.weapon_epoch
+		return is_instance_valid(projectile) and is_instance_valid(controller) and controller.active and projectile.owner_id == controller.motor.get_instance_id() and projectile.session_id == controller.session_id
 	func _contact(point: Vector2, axis: Vector2, projectile: PlayerProjectile, mode: int) -> void:
 		if _valid_projectile(projectile): super._contact(point, axis, projectile, mode)
 	func _wall(point: Vector2, axis: Vector2, projectile: PlayerProjectile) -> void:
