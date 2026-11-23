@@ -6,7 +6,7 @@
 
 每件装备交付一张以永久 ID 命名的 64×64 透明 PNG，保存在[图标目录](../../production/assets/equipment/icons)。在 [EquipmentCatalog.ICONS](../../production/game/equipment/equipment_catalog.gd) 登记纹理后，装备列表和房间领取点均按 32×32 显示；详情使用同一张图，名称、效果与适用条件从装备目录读取。强化师使用独立的六帧角色动画。新增或替换时在这三处按实际显示尺寸检查轮廓、透明边缘及文字布局。
 
-沿用的 40 件从[既有图集登记](../../config/item_v5_art.json)按同一永久 ID 的区域提取、裁去留白后归一到 64×64；原画来源见[图集记录](../../assets/items/v5/manifest.json)。本次为 73、75、80、83、84、87、89、96、99、103、104、105、117、119、139、141、143、144、EQ_LAMP、EQ_FILTER 使用 ImageGen 制作独立图案并按同一规格导入。强化师复用[原角色素材](../../assets/plains_v07/native/weaponsmith.png)，保留六帧、锚点与每秒六帧的播放节奏。
+沿用的 40 件从[既有图集登记](https://github.com/zhipijun1996/gunman-rush/blob/4f2bb5e41573e930603789c64b52a0c15a6a3dc4/config/item_v5_art.json)按同一永久 ID 的区域提取、裁去留白后归一到 64×64；原画来源见[图集记录](../../assets/items/v5/manifest.json)。本次为 73、75、80、83、84、87、89、96、99、103、104、105、117、119、139、141、143、144、EQ_LAMP、EQ_FILTER 使用 ImageGen 制作独立图案并按同一规格导入。强化师复用[原角色素材](../../assets/plains_v07/native/weaponsmith.png)，保留六帧、锚点与每秒六帧的播放节奏。
 
 ## 房间装配
 
