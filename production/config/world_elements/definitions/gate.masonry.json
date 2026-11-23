@@ -10,12 +10,15 @@
       32,
       128
     ],
-    "appearance": "mill_masonry",
+    "appearance": "inherit",
     "state_scope": "permanent"
   },
   "position_field": "bounds",
   "category": "interaction",
   "placeable": true,
   "documentation": "docs/data/mechanisms/gate.masonry.md",
-  "library": "mechanisms"
+  "library": "mechanisms",
+  "region_skin_fields": {
+    "material": "terrain_material"
+  }
 }

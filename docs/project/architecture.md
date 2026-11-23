@@ -4,7 +4,7 @@
 
 | 所有者 | 输入与结果 |
 | --- | --- |
-| WorldRoomDocument / WorldElementCatalog | 解析带版本的稳定定义和实例，校验引用、字段、端口类型、作用域和连线；装配前报告错误 |
+| WorldRoomDocument / WorldElementCatalog | 解析带版本的稳定定义和实例，校验引用、字段、端口类型、作用域和连线；依据房间区域校验机关和组合来源，装配前报告错误 |
 | WorldRoomAssembly / TerrainComposer | 同一份几何生成碰撞和绘制；按明确的材质生成邻接、边界与接缝 |
 | PlayerMotor / EnemyFactory / FrameDamagePolicy | 控制器消费输入，物种实例拥有行为与生命，伤害请求经统一仲裁 |
 | WorldElementRuntime | 校验发送者与接收者后提出成组变化；持久状态写入成功后一起作用于房内节点。恢复时不重放命中 |

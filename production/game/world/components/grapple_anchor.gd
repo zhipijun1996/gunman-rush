@@ -2,7 +2,7 @@ class_name GrappleAnchor
 extends Area2D
 ## Clockwork spring (bounce) and closed cradle (hang) share function silhouettes across regions.
 @export var hang_enabled := false
-@export_enum("clockwork", "rootbound") var material_family := "clockwork"
+@export_enum("inherit", "clockwork", "rootbound") var material_family := "inherit"
 var clock := 0.0
 var struck := 0.0
 var artwork: Sprite2D
@@ -13,7 +13,11 @@ func _ready() -> void:
  var circle:=CircleShape2D.new();circle.radius=12;collision.shape=circle;add_child(collision)
  artwork=Sprite2D.new();artwork.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
  var kind:="hang" if hang_enabled else "bounce"
- artwork.texture=load("res://assets/world_traversal/native/"+material_family+"_"+kind+".png")
+ var texture_path := "res://assets/world_traversal/native/%s_%s.png" % [material_family, kind]
+ if material_family == "inherit":
+  var fallback := "res://assets/world_traversal/native/clockwork_%s.png" % kind
+  texture_path = WorldElementCatalog.skin_value(self, str(get_meta("definition_id", "traversal.hook")), kind+"_texture", fallback)
+ artwork.texture = load(texture_path)
  artwork.offset=Vector2(1,3) if hang_enabled else Vector2(1,-7)
  add_child(artwork)
 func hook_feedback() -> void:

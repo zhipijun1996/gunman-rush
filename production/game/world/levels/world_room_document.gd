@@ -56,6 +56,8 @@ static func view(source: Dictionary) -> Dictionary:
 	for key: Variant in source.entities:
 		var row: Variant = source.entities[key]
 		if not row is Dictionary or row.get("id")!=key or not row.get("properties") is Dictionary: return {"error":"entity_shape_invalid"}
+	var region: Variant = source.root.properties.get("region_id","")
+	if not WorldElementCatalog.region_known(region): return {"error":"unknown_room_region:"+str(region)}
 	var reserved:Array=entity_fields()+["entity_ids","platform_appearances","one_way_indices","masonry_platform_indices","illustrated_platform_indices"]
 	for definition:Dictionary in WorldElementCatalog.catalog().definitions.values():reserved.append_array(definition.get("room_bindings",{}).keys())
 	for field:String in reserved:
@@ -68,6 +70,13 @@ static func view(source: Dictionary) -> Dictionary:
 	for row: Dictionary in rows:
 		var definition: Dictionary = WorldElementCatalog.catalog().definitions.get(str(row.get("definition_id","")),{})
 		if definition.is_empty() or definition.has("members") or row.get("definition_version")!=definition.version: return {"error":"instance_definition_invalid"}
+		if not WorldElementCatalog.permitted(definition,region): return {"error":"mechanism_outside_region:"+str(definition.id)}
+		if row.has("assembly_definition_id"):
+			var assembly: Dictionary = WorldElementCatalog.catalog().definitions.get(row.assembly_definition_id,{})
+			if not assembly.has("members") or not WorldElementCatalog.permitted(assembly,region):
+				return {"error":"assembly_invalid_for_region:"+str(row.assembly_definition_id)}
+			var matches: bool = assembly.members.any(func(member): return member.definition == definition.id and str(row.get("assembly_id",""))+"/"+str(member.id) == str(row.get("id","")))
+			if not matches: return {"error":"assembly_member_mismatch:"+str(row.get("id",""))}
 		if row.has("component") and row.component!=definition.component: return {"error":"derived_component_mismatch"}
 		var behavior:Dictionary=WorldElementCatalog.catalog().behaviors.get(str(definition.component),{})
 		if behavior.get("internal_service",false) or bool(behavior.get("root",false))!=not row.has("id"): return {"error":"definition_role_invalid"}
@@ -237,7 +246,7 @@ static func extract(packed: PackedScene) -> Dictionary:
 	var element_rows: Dictionary = source.get_meta("editor_element_rows", {})
 	for id: String in document.entities:
 		if not element_rows.has(id): continue
-		for key: String in ["definition_id", "definition_version", "assembly_id", "order"]:
+		for key: String in ["definition_id", "definition_version", "assembly_id", "assembly_definition_id", "order"]:
 			if element_rows[id].has(key): document.entities[id][key] = element_rows[id][key]
 		if document.entities[id].component=="array:platforms" and source.platform_appearances.has(id): document.entities[id].properties.appearance = source.platform_appearances[id]
 	# Codec metadata is persisted on the packed root, never duplicated in JSON.

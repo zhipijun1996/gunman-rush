@@ -13,7 +13,34 @@ static func catalog() -> Dictionary:
 				var entry: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(str(index[group][id])))
 				assert(entry.get("id")==id,"Catalog identity mismatch: "+id)
 				_data[group][id] = entry
+		var libraries: Dictionary = index.mechanism_libraries
+		_data.common_mechanisms = JSON.parse_string(FileAccess.get_file_as_string(libraries.common)).definitions
+		_data.mechanism_regions = {}
+		for region: String in libraries.regions:
+			var profile: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(libraries.regions[region]))
+			_data.mechanism_regions[region] = profile
 	return _data
+
+## A room without a region uses the common library and the original default art.
+static func region_known(region: Variant) -> bool:
+	return region is String and (region.is_empty() or catalog().mechanism_regions.has(region))
+
+static func mechanism_palette(region: String) -> Dictionary:
+	if not region_known(region): return {"error":"unknown_room_region:"+region}
+	var profile: Dictionary = catalog().mechanism_regions.get(region,{})
+	return {"common":catalog().common_mechanisms.duplicate(),"regional":profile.get("definitions",[]).duplicate()}
+
+static func permitted(definition: Dictionary, region: String) -> bool:
+	if definition.library != "mechanisms" or definition.id in catalog().common_mechanisms: return true
+	return definition.id in catalog().mechanism_regions.get(region,{}).get("definitions",[])
+
+static func skin_value(node: Node, definition_id: String, field: String, fallback: String) -> String:
+	var ancestor := node.get_parent()
+	while ancestor != null and not ancestor is FixedWorldRoom:
+		ancestor = ancestor.get_parent()
+	if ancestor == null: return fallback
+	var profile: Dictionary = catalog().mechanism_regions.get((ancestor as FixedWorldRoom).region_id,{})
+	return profile.get("skins",{}).get(definition_id,{}).get(field,fallback)
 
 static func component_path(kind: String) -> String:
 	return str(catalog().behaviors.get(kind, {}).get("script", ""))
@@ -107,7 +134,7 @@ static func document_error(document: Dictionary) -> String:
 			if not error.is_empty():return id+":"+error
 		if behavior.has("state") and properties.get("element_id") != id: return "element_identity_mismatch:"+id
 		if kind == "WorldResourcePickup" and properties.get("resource_kind") == "note" and float(properties.amount) != floorf(properties.amount): return "note_quantity_invalid:"+id
-		if kind=="WorldElementGate" and not TerrainMaterialRegistry.known(str(properties.get("appearance","mill_masonry"))): return "gate_material_unknown:"+id
+		if kind=="WorldElementGate" and properties.get("appearance","inherit") != "inherit" and not TerrainMaterialRegistry.known(str(properties.get("appearance","inherit"))): return "gate_material_unknown:"+id
 		if kind=="array:spike_strips" and not str(properties.get("appearance", "")).is_empty():
 			error = WorldSurfaceStyles.error(str(properties.appearance),str(properties.get("facing","up")))
 			if not error.is_empty(): return error+":"+id
@@ -149,15 +176,18 @@ static func _cyclic(id: String, rows: Dictionary, visiting: Dictionary, visited:
 	visiting.erase(id); visited[id] = true
 	return false
 
-static func instantiate_definition(definition_id: String, instance_id: String, at: Vector2) -> Dictionary:
+static func instantiate_definition(definition_id: String, instance_id: String, at: Vector2, region_id: String = "") -> Dictionary:
+	if not region_known(region_id): return {"error":"unknown_room_region:"+region_id}
 	var definition: Dictionary = catalog().definitions.get(definition_id, {})
 	if definition.is_empty(): return {"error":"definition_unknown"}
+	if not permitted(definition,region_id): return {"error":"mechanism_outside_region:"+definition_id}
 	if instance_id.is_empty(): return {"error":"instance_id_missing"}
 	var result: Dictionary = {}
 	var members: Array = definition.get("members", [{"id":"", "definition":definition_id, "offset":[0,0]}])
 	for member: Dictionary in members:
 		var child: Dictionary = catalog().definitions.get(str(member.definition), {})
 		if child.is_empty() or child.has("members"): return {"error":"nested_definition_invalid"}
+		if not permitted(child,region_id): return {"error":"mechanism_outside_region:"+str(child.id)}
 		var id := instance_id if str(member.id).is_empty() else instance_id+"/"+str(member.id)
 		var props: Dictionary = child.get("defaults", {}).duplicate(true)
 		props.merge(member.get("properties", {}), true)
@@ -175,7 +205,9 @@ static func instantiate_definition(definition_id: String, instance_id: String, a
 			row.node_name = "Element_"+id.sha256_text().substr(0,16); row.parent = ""
 			if catalog().behaviors.get(str(child.component), {}).get("state", {}).size()>0: props["element_id"] = id
 		elif str(child.component) not in ["array:platforms", "array:hook_points", "array:climbable_walls", "array:hazards"]: props["id"] = id
-		if definition.has("members"): row["assembly_id"] = instance_id
+		if definition.has("members"):
+			row["assembly_id"] = instance_id
+			row["assembly_definition_id"] = definition_id
 		result[id] = row
 	for link: Dictionary in definition.get("links", []):
 		var source: Dictionary = result[instance_id+"/"+str(link.source)].properties
