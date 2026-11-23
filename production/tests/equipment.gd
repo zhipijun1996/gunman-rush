@@ -113,6 +113,28 @@ func combat_checks() -> void:
 func _initialize() -> void:
 	run.call_deferred()
 
+func check_artwork() -> void:
+	var menu := session.equipment_menu
+	var sites := {}
+	var files := {}
+	for site: EquipmentSite in session.equipment_sites:
+		if site.kind == "reward": sites[EquipmentCatalog.REWARDS.data[site.source_id]] = site
+	menu.open("smith")
+	check(menu.list.item_count == EquipmentCatalog.ICONS.size(),"all and only catalog icons listed")
+	for index in menu.list.item_count:
+		var id := str(menu.list.get_item_metadata(index))
+		var icon := menu.list.get_item_icon(index)
+		check(icon != null and icon.get_size() == Vector2(64,64),"inventory texture "+id)
+		if icon == null: continue
+		check(not files.has(icon.resource_path),"unique artwork "+id)
+		files[icon.resource_path] = true
+		menu.list.select(index)
+		menu.list.item_selected.emit(index)
+		var item := EquipmentCatalog.item(id)
+		check(menu.item_name.text == item.name and menu.detail.text.begins_with(item.description) and menu.portrait.texture == icon,"selected item art and description "+id)
+		check(sites.has(id) and sites[id].reward_icon() == icon,"world reward and inventory share artwork "+id)
+	menu.close()
+
 func run() -> void:
 	var doc := document()
 	var invalid := doc.duplicate(true)
@@ -129,6 +151,7 @@ func run() -> void:
 		check(submit("claim",source),source)
 		check(not submit("claim",source),"unique "+source)
 	check(session.services.ledger().owned.size() == 60,"collection size")
+	check_artwork()
 	session.player.position += Vector2(180,0)
 	check(not submit("equip","B11") and not submit("upgrade","B11"),"services require physical access")
 	session.player.position = Vector2(AT[0],AT[1])

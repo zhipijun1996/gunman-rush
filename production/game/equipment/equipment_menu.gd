@@ -7,6 +7,9 @@ var mode := ""
 var panel := PanelContainer.new()
 var list := ItemList.new()
 var detail := Label.new()
+var portrait := TextureRect.new()
+var item_name := Label.new()
+var ledger_summary := Label.new()
 var title := Label.new()
 var apply := Button.new()
 var rest := Button.new()
@@ -20,20 +23,69 @@ func _ready() -> void:
 	theme.default_font = UI_FONT
 	theme.default_font_size = 18
 	panel.theme = theme
+	panel.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var background := StyleBoxFlat.new()
+	background.bg_color = Color("201e22")
+	background.border_color = Color("857047")
+	background.set_border_width_all(2)
+	background.content_margin_left = 20
+	background.content_margin_right = 20
+	background.content_margin_top = 16
+	background.content_margin_bottom = 16
+	panel.add_theme_stylebox_override("panel",background)
 	add_child(panel)
 	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	panel.offset_left = -305; panel.offset_top = -245
-	panel.offset_right = 305; panel.offset_bottom = 245
-	var box := VBoxContainer.new()
-	panel.add_child(box)
-	box.add_child(title); box.add_child(list)
-	list.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	panel.offset_left = -424
+	panel.offset_top = -248
+	panel.offset_right = 424
+	panel.offset_bottom = 248
+	var layout := VBoxContainer.new()
+	layout.add_theme_constant_override("separation",12)
+	panel.add_child(layout)
+	var header := HBoxContainer.new()
+	layout.add_child(header)
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	title.add_theme_font_size_override("font_size",24)
+	title.add_theme_color_override("font_color",Color("f2d394"))
+	header.add_child(title)
+	header.add_child(ledger_summary)
+	layout.add_child(HSeparator.new())
+	var content := HBoxContainer.new()
+	content.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	content.add_theme_constant_override("separation",20)
+	layout.add_child(content)
+	list.custom_minimum_size.x = 342
+	list.fixed_icon_size = Vector2i(32,32)
+	list.add_theme_constant_override("v_separation",4)
+	content.add_child(list)
 	list.item_selected.connect(func(index: int): selected = str(list.get_item_metadata(index)); show_detail())
-	box.add_child(detail); detail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	box.add_child(apply); apply.pressed.connect(accept)
-	box.add_child(rest); rest.text = "休息并恢复"; rest.pressed.connect(func(): submit("rest",""))
+	var info := VBoxContainer.new()
+	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	info.add_theme_constant_override("separation",12)
+	content.add_child(info)
+	portrait.custom_minimum_size = Vector2(80,80)
+	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	info.add_child(portrait)
+	item_name.add_theme_font_size_override("font_size",24)
+	item_name.add_theme_color_override("font_color",Color("f2d394"))
+	info.add_child(item_name)
+	detail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	info.add_child(detail)
+	var actions := HBoxContainer.new()
+	actions.alignment = BoxContainer.ALIGNMENT_END
+	actions.add_theme_constant_override("separation",10)
+	layout.add_child(actions)
+	actions.add_child(rest)
+	rest.text = "休息并恢复"
+	rest.pressed.connect(func(): submit("rest",""))
+	actions.add_child(apply)
+	apply.pressed.connect(accept)
 	var close_button := Button.new()
-	close_button.text = "返回"; box.add_child(close_button); close_button.pressed.connect(close)
+	close_button.text = "返回"
+	actions.add_child(close_button)
+	close_button.pressed.connect(close)
 	panel.hide()
 	var shortcut := Button.new()
 	shortcut.theme = theme
@@ -63,26 +115,34 @@ func close() -> void:
 func refresh() -> void:
 	var services := session.services
 	quote = session.state.revision
-	title.text = "%s    负荷 %d / %d    金币 %d" % [{"smith":"装备强化","rest":"休息区装配","select":"快捷功能"}[mode],EquipmentCatalog.load_used(services.ledger().equipped),services.capacity(),services.ledger().gold]
+	title.text = {"smith":"装备强化","rest":"休息区装配","select":"快捷功能"}[mode]
+	ledger_summary.text = "负荷 %d / %d    金币 %d" % [EquipmentCatalog.load_used(services.ledger().equipped),services.capacity(),services.ledger().gold]
 	var remembered := selected
 	list.clear(); selected = ""
 	for id: String in EquipmentCatalog.DATA.data.items:
 		if not services.ledger().owned.has(id): continue
 		var item := EquipmentCatalog.item(id)
 		var level := int(services.ledger().owned[id])
-		var index := list.add_item("%s  %s  Lv%d  ·  负荷 %d" % ["◆" if services.active(id) else "◇",item.name,level,item.load])
+		var index := list.add_item("%s  %s  Lv%d  ·  负荷 %d" % ["◆" if services.active(id) else "◇",item.name,level,item.load],EquipmentCatalog.ICONS[id])
 		list.set_item_metadata(index,id)
 		if selected == "" or remembered == id: list.select(index); selected = id
+	if not selected.is_empty(): list.ensure_current_is_visible.call_deferred()
 	rest.visible = mode == "rest"
 	show_detail()
 
 func show_detail() -> void:
+	portrait.visible = not selected.is_empty()
+	item_name.visible = not selected.is_empty()
 	if selected.is_empty():
+		portrait.texture = null
+		item_name.text = ""
 		detail.text = "尚未获得装备"; apply.hide(); return
 	var gear := session.services.ledger()
 	var item := EquipmentCatalog.item(selected)
 	var level := int(gear.owned[selected])
-	detail.text = "%s\n%s" % [item.description,item.bounds]
+	portrait.texture = EquipmentCatalog.ICONS[selected]
+	item_name.text = item.name
+	detail.text = "%s\n\n%s" % [item.description,item.bounds]
 	apply.show(); apply.disabled = false
 	match mode:
 		"smith":
