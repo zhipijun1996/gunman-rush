@@ -107,7 +107,19 @@ func element_restore(data: Dictionary) -> void:
 		wait_left = respawn_delay_s
 
 func _draw() -> void:
-	if stage in ["cooldown","spawn_wait"]: return
-	draw_circle(Vector2.ZERO,bubble_radius,Color(.35,.76,.79,.2))
-	draw_arc(Vector2.ZERO,bubble_radius,0,TAU,40,Color("83bdc4"),2)
-	draw_arc(Vector2.ZERO,bubble_radius-4,3.65,4.45,9,Color("d1ece5"),2)
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var socket := origin-position+Vector2.DOWN*(bubble_radius*.81)
+	var base_size := Vector2(bubble_radius*1.14,bubble_radius*.34)
+	MechanismRegionArt.stamp(self,"mount",socket,base_size)
+	MechanismRegionArt.stamp(self,"finial",socket+Vector2.UP*2,base_size*Vector2(.66,.85))
+	if stage in ["cooldown","spawn_wait"]:
+		for i: int in 3:
+			var p := socket+Vector2(sin(wait_left*3+i*2.3)*5,-5-i*5)
+			draw_rect(Rect2(p.round(),Vector2(2,2)),Color("84b8ab"))
+		return
+	var diameter := Vector2.ONE*bubble_radius*2
+	TraversalMechanismArt.sprite(self,TraversalMechanismArt.BUBBLE,Vector2.ZERO,diameter)
+	if stage=="rising":
+		for i: int in 3:
+			var p := Vector2(sin(position.y*.035+i*2.2)*bubble_radius*.50,bubble_radius+2+i*5)
+			draw_rect(Rect2(p.round(),Vector2(2,2)),Color("b0e1ce"))

@@ -35,8 +35,18 @@ func set_equipment_time(value: float) -> void:
 	equipment_time_scale = value
 
 func _draw() -> void:
-	if one_way: UnderworldTerrain.draw_one_way(self,Rect2(-platform_size/2,platform_size))
-	else: UnderworldTerrain.draw_moving(self,Rect2(-platform_size/2,platform_size))
+	var rect := Rect2(-platform_size/2,platform_size)
+	if one_way:
+		UnderworldTerrain.draw_one_way(self,rect)
+		rect.size.y = minf(8,rect.size.y)
+	else:
+		UnderworldTerrain.draw_moving(self,rect)
+	# The native iron caps grip interchangeable regional cladding. Keep the
+	# top surface exactly on the player's support plane, including thin decks.
+	var cap := minf(6,rect.size.x*.12)
+	var trim := minf(2,rect.size.y*.16)
+	var insert := Rect2(rect.position+Vector2(cap,trim),rect.size-Vector2(2*cap,2*trim))
+	MechanismRegionArt.panel(self,insert)
 
 func jump_to(point: Vector2) -> void:
 	sync_to_physics = false

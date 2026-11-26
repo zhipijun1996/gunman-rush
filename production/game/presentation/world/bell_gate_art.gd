@@ -18,8 +18,20 @@ const INK := Color("#322b31")
 const BRONZE := Color("#88704f")
 const AMBER := Color("#f1ca7d")
 
+## Bound spars for growth-based regions, long spars and lashings for open-air
+## rigging, stepped masonry arches for stonework, pinned trusses for machinery.
+static func structure(canvas: CanvasItem) -> String:
+	match MechanismRegionArt.region_id(canvas):
+		"thorn_forest","root_sanctuary","mushroom_caverns","firefly_marsh": return "woven"
+		"windchime_plains","windswept_canyon","shattered_isles": return "rigged"
+		"frostmirror_glacier","sunken_ruins","moonshadow_cemetery","moon_crown_castle","starbridge_gate": return "vaulted"
+	return "riveted"
+
 static func stamp(canvas: CanvasItem,part: Rect2,position: Vector2,tint := Color.WHITE) -> void:
 	canvas.draw_texture_rect_region(texture(),Rect2(position.round(),part.size),part,tint)
+
+static func stamp_scaled_wheel(canvas: CanvasItem,center: Vector2,size: Vector2) -> void:
+	canvas.draw_texture_rect_region(texture(),Rect2((center-size*.5).round(),size),WHEEL)
 
 static func chain(canvas: CanvasItem,x: float,top: float,bottom: float) -> void:
 	canvas.draw_line(Vector2(x,top),Vector2(x,bottom),INK,3)
@@ -29,7 +41,25 @@ static func chain(canvas: CanvasItem,x: float,top: float,bottom: float) -> void:
 
 static func bell(canvas: CanvasItem,at: Vector2,age: float,open: bool) -> void:
 	at = at.round()
-	stamp(canvas,BRACKET,at+Vector2(-29,-65))
+	# Keep the striking bell and its clear swing common. Each construction
+	# carries the load back from the same hook into its own wall attachment.
+	match structure(canvas):
+		"woven":
+			MechanismRegionArt.stamp(canvas,"finial",at+Vector2(-12,-45),Vector2(51,49))
+			canvas.draw_line(at+Vector2(-5,-48),at+Vector2(0,-39),BRONZE,3)
+		"vaulted":
+			MechanismRegionArt.panel(canvas,Rect2(at+Vector2(-31,-57),Vector2(36,9)))
+			MechanismRegionArt.stamp(canvas,"mount",at+Vector2(-23,-44),Vector2(23,29))
+			chain(canvas,at.x,at.y-49,at.y-39)
+		"rigged":
+			MechanismRegionArt.panel(canvas,Rect2(at+Vector2(-34,-52),Vector2(40,6)))
+			canvas.draw_line(at+Vector2(-28,-31),at+Vector2(-6,-48),BRONZE,3)
+			MechanismRegionArt.stamp(canvas,"finial",at+Vector2(-27,-41),Vector2(17,26))
+			chain(canvas,at.x,at.y-46,at.y-39)
+		_:
+			MechanismRegionArt.stamp(canvas,"finial",at+Vector2(-14,-50),Vector2(43,40))
+			stamp(canvas,BRACKET,at+Vector2(-29,-65),Color("#c5bdab"))
+			MechanismRegionArt.stamp(canvas,"mount",at+Vector2(-21,-31),Vector2(21,25))
 	var pivot := at+Vector2(0,-39)
 	var strike := sin(age*24)*.22*maxf(0,1-age/.65)
 	canvas.draw_set_transform(pivot,strike)
@@ -64,7 +94,22 @@ static func gate(canvas: CanvasItem,box: Rect2,open: bool,turn: float) -> void:
 			var piece := GUIDE
 			piece.size.y = minf(piece.size.y,bottom-y)
 			stamp(canvas,piece,Vector2(x,y),Color("#beb5a6"))
+	var style := structure(canvas)
+	for x: float in [left-3,right+2]:
+		match style:
+			"woven":
+				for y: int in range(roundi(top+9),roundi(bottom-4),24):
+					MechanismRegionArt.stamp(canvas,"finial",Vector2(x,y),Vector2(11,24))
+			"vaulted":
+				for y: int in range(roundi(top+5),roundi(bottom-4),25):
+					MechanismRegionArt.panel(canvas,Rect2(x-3,y,6,minf(23,bottom-y)),Color("#b6b5aa"))
+			"rigged":
+				chain(canvas,x,top,bottom-2)
 	if not open:
+		# Alternate the solid's masonry with thinner bands of the local door material.
+		for y: int in range(roundi(top+9),roundi(bottom-5),24):
+			var height := minf(9,bottom-y)
+			MechanismRegionArt.panel(canvas,Rect2(left,y,box.size.x,height))
 		for y: int in range(roundi(top+14),roundi(bottom-8),24):
 			cropped_center(canvas,CLEAT,Vector2(mid,y),box.size.x-1)
 	elif turn < 1:
@@ -82,6 +127,8 @@ static func gate(canvas: CanvasItem,box: Rect2,open: bool,turn: float) -> void:
 		canvas.draw_texture_rect_region(texture(),Rect2(x,top-16,width,16),Rect2(25,54,width,16))
 	stamp(canvas,Rect2(CASE.position,Vector2(32,CASE.size.y)),Vector2(mid-head_width*.5,top-20))
 	stamp(canvas,Rect2(CASE.position+Vector2(32,0),Vector2(32,CASE.size.y)),Vector2(mid+head_width*.5-32,top-20))
+	MechanismRegionArt.panel(canvas,Rect2(mid-head_width*.5+7,top-15,head_width-14,12))
+	MechanismRegionArt.stamp(canvas,"finial",Vector2(mid+head_width*.5-6,top-13),Vector2(24,23))
 	var axle := Vector2(mid-head_width*.5+13,top-9)
 	canvas.draw_set_transform(axle,turn*PI*.80)
 	stamp(canvas,WHEEL,-WHEEL.size*.5)

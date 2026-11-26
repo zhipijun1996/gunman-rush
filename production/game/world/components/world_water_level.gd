@@ -24,6 +24,7 @@ func _ready() -> void:
 func element_bind(context: Dictionary) -> void:
 	volume = WorldEnvironmentZone.new()
 	volume.mode = "water"
+	volume.show_behind_parent = true
 	volume.services = context.room.services
 	volume.controller = context.controller
 	volume.policy = context.policy
@@ -39,6 +40,24 @@ func refresh_volume() -> void:
 	volume.visible = volume.bounds.has_area()
 	volume.set_physics_process(volume.visible)
 	volume.queue_redraw()
+	queue_redraw()
+
+func _draw() -> void:
+	# Wet masonry and the level gauge are fixed to the basin, behind the water.
+	var size := bounds.size
+	var rim := minf(8.0,size.x*.08)
+	for x: float in [0.0,size.x-rim]:
+		MechanismRegionArt.panel(self,Rect2(x,0,rim,size.y))
+	MechanismRegionArt.panel(self,Rect2(0,size.y-minf(7.0,size.y),size.x,minf(7.0,size.y)))
+	if size.x<36: return
+	var gauge := Vector2(size.x-rim-11,0)
+	draw_rect(Rect2(gauge,Vector2(5,size.y)),Color("#444747"))
+	for y: int in range(3,int(size.y),8):
+		var width := 7 if (y-3)%32==0 else 4
+		draw_rect(Rect2(gauge+Vector2(0,y),Vector2(width,1)),Color("#b6af88"))
+	var marker := gauge+Vector2(0,level)
+	draw_colored_polygon(PackedVector2Array([marker,marker+Vector2(-6,-3),marker+Vector2(-6,3)]),MechanismRegionArt.accent(self))
+
 
 func _physics_process(delta: float) -> void:
 	var next := move_toward(level,high_surface_y if high else low_surface_y,surface_speed*delta)

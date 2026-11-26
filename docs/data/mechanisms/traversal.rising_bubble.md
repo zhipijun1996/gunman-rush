@@ -4,4 +4,6 @@
 - **变化**：泡体大小、上浮速度、上升距离和再生间隔；实际路线由起点向上派生。
 - **恢复**：破泡释放、动作次数和冷却分别沿正式角色规则；当前挑战复位后恢复原位待发形态。
 
+薄膜保留透明中心和偏心反光，升浮时泡下出现细小气珠。发生器底座留在原位；再生等待期间可见微气泡。
+
 [运行合同与验收](../失序之钟_基本机关库.md#g26) · [定义与默认参数](../../../production/config/world_elements/definitions/traversal.rising_bubble.json) · [行为与端口](../../../production/config/world_elements/behaviors/WorldRisingBubble.json)

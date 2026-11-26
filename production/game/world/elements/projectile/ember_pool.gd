@@ -83,6 +83,15 @@ func _physics_process(delta: float) -> void:
 	if remaining<=0: queue_free()
 	queue_redraw()
 func _draw() -> void:
-	var n := start.direction_to(end).orthogonal()
-	draw_colored_polygon(PackedVector2Array([start,end,end+n*depth,start+n*depth]),Color(Color(resource.color),.72))
-	draw_line(start+n*2,end+n*2,Color("ffd081"),3)
+	var span := start.distance_to(end)
+	var fade := clampf(remaining/.18,0,1)
+	var pulse := sin(elapsed*11)*.10
+	draw_set_transform(start,start.direction_to(end).angle())
+	var hot_band := Rect2(0,-depth,span,depth)
+	ProjectileMechanismArt.beam(self,hot_band,ProjectileMechanismArt.COALS,10,false,Color(1,.84+pulse,.72,fade))
+	draw_set_transform_matrix(Transform2D.IDENTITY)
+	for i: int in maxi(1,ceili(span/26)):
+		var fraction := fmod(float(i)*.37+.21,1.)
+		var center := start.lerp(end,fraction)
+		var normal := start.direction_to(end).orthogonal()
+		PixelVfx.clip(self,&"ember",center+normal*depth*.3,fmod(elapsed*1.7+fraction,.92),0.,Color(1,.85,.62,fade),Vector2.ONE*.20)

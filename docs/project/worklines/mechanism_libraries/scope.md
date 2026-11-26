@@ -34,6 +34,12 @@ bash tools/godot.sh --path production --fixed-fps 60 --write-movie /tmp/carrier.
 
 ## 美术快审
 
-前三段短片分别检视引路灯虫与感光花、配重与风车、风铃与机关门。播放用的均为上表同一测试房和正式输入。森林片使用四张已有 v2 森林候选素材摆放远景、根岸与附着枝条，源文件位于 `art/world-art-v2/assets/pixel/v2/`，重做工程的同名运行副本位于 `production/assets/world_elements/forest_stage/`。这些景物由感知演示场景持有。
+[美术快审](https://clockwork-mechanisms-pr165.zhipijun1996.chatgpt.site)提供两种实机视角。区域对照使用同一普通房、取景、输入和时间轴，可以暂停后切换任意区域，对比风铃、门框、支座、灯盘及转梁。11 段分类录像展示机关运动、攻击反馈、危险边缘及世界交互，其中[月冠古堡交互实录脚本](../../../../production/tests/mechanism_services_showcase.gd)用同一条连续路线走过恢复点、打开宝箱和捷径并到达充电站。房间使用正式实例；录制时按区域加载已登记的背景原图，位于 `art/world-art-v2/`。
 
-同角度复验森林片时，运行 `res://tests/perception_showcase.gd`。加参数 `-- graybox` 即可只看同一套新版机关在原灰盒中的表现。灯虫、感光花、诱敌吊坠与响叶素材的生成源、裁切位置和原生尺寸存于 [灯具来源](../../../../art/mechanisms/guide-light/provenance.json)和[植丛来源](../../../../art/mechanisms/forest-reeds/provenance.json)。风铃门的复用来源见[部件清单](../../../../art/mechanisms/bell_gate/sources.json)。
+从仓库根目录复验 16 区的区域解析、材质及射击开门，运行：
+
+```sh
+bash tools/godot.sh --headless --path production --fixed-fps 60 --script res://tests/regional_mechanism_art.gd
+```
+
+在有显示设备的环境下移除 `--headless`，加 `--resolution 960x540` 和用户参数 `-- capture=/绝对路径`，即可按区域输出 30 fps 的实机帧序列。每区 72 帧，第 20 个物理帧通过正式输入开枪。分类场景及独立玩法回归入口见上表。

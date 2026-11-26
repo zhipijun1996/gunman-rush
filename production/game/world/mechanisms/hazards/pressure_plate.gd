@@ -95,10 +95,20 @@ func accept_committed() -> void:
 
 func _draw() -> void:
 	var rect := Rect2(-plate_size*.5,plate_size)
-	draw_rect(rect,Color("48483e"))
-	var y := rect.position.y + (3 if occupied else 0)
-	draw_rect(Rect2(rect.position.x,y,plate_size.x,minf(4,plate_size.y)),Color("d7bc85"))
-	draw_rect(Rect2(-4,rect.end.y-3,8,3),Color("84dcc7") if active else Color("76624e"))
+	var travel := minf(3,rect.size.y*.27) if occupied else 0.0
+	var bed := Rect2(rect.position+Vector2(0,rect.size.y*.48),Vector2(rect.size.x,rect.size.y*.52))
+	MechanismRegionArt.panel(self,bed,Color(.72,.72,.72))
+	var cap := Rect2(rect.position+Vector2(0,travel),Vector2(rect.size.x,maxf(1,rect.size.y*.45)))
+	for ratio: float in [.17,.83]:
+		var pivot := Vector2(rect.position.x+rect.size.x*ratio,rect.get_center().y+travel*.4)
+		MechanismRegionArt.stamp(self,"mount",pivot,Vector2(minf(12,rect.size.x*.16),minf(10,rect.size.y)))
+	MechanismRegionArt.panel(self,cap)
+	var lamp := Color("8df5be") if occupied else Color("e9bd6c") if active else Color("777063")
+	var cells := 4 if active else 1
+	if active and not occupied and release_hold_s>0: cells = maxi(1,ceili(4*remaining/release_hold_s))
+	var pitch := minf(3,rect.size.x/12)
+	for i: int in cells:
+		draw_rect(Rect2(rect.get_center().x+(i-1.5)*pitch,bed.get_center().y,maxf(1,pitch-1),2),lamp)
 	if runtime == null: return
 	for link: Dictionary in links:
 		var node: Node2D = runtime.nodes.get(link.target)

@@ -5,3 +5,5 @@
 任一栈板无法继续时保持整组时间与姿态，释放后续行。收起全部栈板后重新待发。
 
 [定义与参数](../../../production/config/world_elements/definitions/internal.sequence_wave.json) · [设计合同](../失序之钟_基本机关库.md) · [机关目录](../world_objects.md)
+
+控制座保留顺序灯纹，每块板的铰点灯随该成员实际展开窗口变化。

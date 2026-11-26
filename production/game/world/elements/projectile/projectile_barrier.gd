@@ -10,6 +10,7 @@ extends ProjectileField
 var active := true
 var spark := Vector2.ZERO
 var flash := 0.0
+var field_age := 0.0
 
 func _ready() -> void:
 	active = initial_active
@@ -42,7 +43,8 @@ func dissipate(point: Vector2) -> void:
 	queue_redraw()
 
 func _process(delta: float) -> void:
-	if flash > 0:
+	field_age = fmod(field_age+delta,TAU)
+	if active or flash>0:
 		flash = maxf(0,flash-delta)
 		queue_redraw()
 
@@ -67,9 +69,24 @@ func consume_inside(projectile: Node2D,faction: String) -> bool:
 	return false
 
 func _draw() -> void:
-	var normal := line_points[0].direction_to(line_points[1]).orthogonal()*thickness/2
+	var axis := line_points[0].direction_to(line_points[1])
+	var span := line_points[0].distance_to(line_points[1])
+	var orientation := axis.angle()-PI/2
+	draw_set_transform(line_points[0],orientation)
 	if active:
-		draw_colored_polygon(PackedVector2Array([line_points[0]+normal,line_points[1]+normal,line_points[1]-normal,line_points[0]-normal]),Color("8fcfe790"))
-	for d: float in [-1.,1.]:
-		draw_line(line_points[0]+normal*d,line_points[1]+normal*d,Color("99c5cd") if active else Color("61747e"),1.5)
-	if flash>0: draw_circle(spark,2+(0.12-flash)*65,Color.WHITE,false,1)
+		var light := Color("c4eaff").lerp(MechanismRegionArt.accent(self),.55)
+		var tint := Color(light,.84+.1*sin(field_age*4))
+		ProjectileMechanismArt.beam(self,Rect2(-thickness/2,0,thickness,span),ProjectileMechanismArt.VEIL,8,true,tint)
+	for side: float in [-1.,1.]:
+		var rim := side*thickness/2
+		draw_dashed_line(Vector2(rim,2),Vector2(rim,maxf(2,span-2)),Color("9fcbd45c") if active else Color("78939453"),1,5)
+	draw_set_transform_matrix(Transform2D.IDENTITY)
+	for i: int in 2:
+		var point := line_points[i]
+		var inward := axis if i==0 else -axis
+		MechanismRegionArt.stamp(self,"finial",point,Vector2(21,22),Color.WHITE if active else Color("89909a"))
+		draw_set_transform(point,inward.angle())
+		ProjectileMechanismArt.paint(self,Rect2(-11,-5,19,10),ProjectileMechanismArt.LENS,Color.WHITE if active else Color("616473"))
+		draw_set_transform_matrix(Transform2D.IDENTITY)
+	if flash>0:
+		PixelVfx.clip(self,&"spark",spark,1-flash/.12,orientation,Color("a6e6ff"),Vector2.ONE*.48)

@@ -5,3 +5,5 @@
 启停、附魔缩放与安全等待保留当前阶段进度；普通侧面和乘客受挤时保持上一安全位置。
 
 [定义与参数](../../../production/config/world_elements/definitions/hazard.cyclic_press.json) · [设计合同](../失序之钟_基本机关库.md) · [机关目录](../world_objects.md)
+
+导套固定在行程起点，伸缩杆追随压头。压头正面用区域材质，左右端为本区压肩，预告灯位于安全面，齿尖贴合实际下表面的危险深度。

@@ -34,8 +34,8 @@ static func validate_configuration(p: Dictionary,_row: Dictionary,_doc: Dictiona
 
 func element_bind(context: Dictionary) -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	charm_art = load(WorldElementCatalog.skin_value(self,"interaction.sound_lure","charm_texture",CHARM.resource_path))
-	mat_art = load(WorldElementCatalog.skin_value(self,"interaction.sound_lure","mat_texture",MAT.resource_path))
+	charm_art = LightInstrumentArt.bank_texture(self,"interaction.sound_lure","charm_texture",CHARM,LightInstrumentArt.CHARM)
+	mat_art = LightInstrumentArt.bank_texture(self,"interaction.sound_lure","mat_texture",MAT,LightInstrumentArt.MAT)
 	room = context.room; controller = context.controller; lifetime = context.lifetime
 	process_physics_priority = 1150
 	body = StaticBody2D.new()

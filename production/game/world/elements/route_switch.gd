@@ -29,6 +29,7 @@ func _ready() -> void:
 	accepted = initial_route == "B"
 	requested = accepted
 func element_bind(context: Dictionary) -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	runtime = context.runtime
 	lifetime = context.lifetime
 	submit = context.submit
@@ -175,7 +176,7 @@ func _physics_process(delta: float) -> void:
 			if complete: phase = "idle"
 	queue_redraw()
 func _draw() -> void:
-	draw_circle(Vector2.ZERO,8,Color("e9ad5d") if phase != "idle" else Color("a8c19d"))
+	BeamHardware.signal_dial(self,requested,blocked,false)
 	if phase in ["warning","ready","executing"]:
 		var progress := clampf(elapsed/maxf(warning_duration,0.001),0,1)
 		if phase == "executing" and motion_mode == "synchronized_beams": progress = clampf(elapsed/turn_duration,0,1)

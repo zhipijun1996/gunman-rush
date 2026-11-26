@@ -48,6 +48,15 @@ func configuration() -> void:
 	var invalid_binding := WorldRoomDocument.instantiate(doc)
 	check(invalid_binding.has("error"),"reject foreign section shelter")
 	if invalid_binding.has("room"): invalid_binding.room.free()
+	var with_strip := fixture()
+	with_strip.entities.strip = make_row("strip","hazard.spikes",{"bounds":[624,376,72,24],"facing":"up","host_id":"floor"})
+	var supported_strip := WorldRoomDocument.instantiate(with_strip)
+	check(supported_strip.has("room"),"authored C05 explicit supporting surface is legal")
+	if supported_strip.has("room"): supported_strip.room.free()
+	with_strip.entities.strip.properties.bounds = [624,348,72,24]
+	var detached_strip := WorldRoomDocument.instantiate(with_strip)
+	check(str(detached_strip.get("error","")).contains("spike_attachment_invalid"),"authored C05 rejects a gap below the spike roots")
+	if detached_strip.has("room"): detached_strip.room.free()
 	var host := {"component":"array:platforms","properties":{"rect":[32,32,64,64]}}
 	var faces := {"up":[32,16,64,16],"down":[32,96,64,16],"left":[16,32,16,64],"right":[96,32,16,64]}
 	for face: String in faces:
@@ -395,6 +404,15 @@ func shield_scope(definition: String, properties: Dictionary) -> void:
 func showcase() -> void:
 	var doc := fixture()
 	var shield_route := "shield" in OS.get_cmdline_user_args()
+	for option: String in OS.get_cmdline_user_args():
+		if option.begins_with("region="):
+			var region := option.trim_prefix("region=")
+			if not WorldElementCatalog.region_known(region):
+				printerr("Unknown showcase region ",region)
+				quit(1)
+				return
+			doc.root.properties.region_id = region
+			doc.root.properties.terrain_material = region
 	if shield_route:
 		doc.root.properties.start_point = [904,381]
 		doc.entities.heat.properties.start_phase01 = .55

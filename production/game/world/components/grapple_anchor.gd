@@ -108,6 +108,20 @@ func hook_feedback() -> void:
 	struck = 1.0
 
 func _draw() -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var depth := Color.WHITE if remaining <= 0 else Color("68646a")
+	var bracket := Vector2(0,-14) if hang_enabled else Vector2(0,10)
+	MechanismRegionArt.stamp(self,"mount",bracket,Vector2(26,16),depth)
+	if hang_enabled:
+		TraversalMechanismArt.chain(self,bracket+Vector2(0,-2),Vector2(0,-7),3)
+	else:
+		MechanismRegionArt.stamp(self,"finial",Vector2(0,-18),Vector2(14,12),depth)
+	var color := Color("ffd790") if remaining <= 0 else Color("57525a")
+	if remaining > 0 and remaining < reactivate_warning_s: color = color.lerp(Color("ffd790"),absf(sin(clock*12)))
+	for side: int in [-1,1]:
+		var pin := Vector2(side*10,0)
+		draw_rect(Rect2(pin-Vector2(2,2),Vector2(4,4)),Color("302e32"))
+		draw_rect(Rect2(pin-Vector2.ONE,Vector2(2,2)),color)
 	if struck <= 0: return
 	for i: int in 5:
 		var direction := Vector2.from_angle(float(i)*TAU/5)

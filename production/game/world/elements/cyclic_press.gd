@@ -79,12 +79,5 @@ func element_restore(data: Dictionary) -> void:
 
 func _draw() -> void:
 	if body == null: return
-	draw_line(Vector2(0,-body_size.y/2-12),body.position,Color("625c53"),10)
-	draw_block(Rect2(body.position-body_size/2,body_size),Color("58616b"),Color("bcc0ad"))
-	draw_circle(body.position,5,Color("faac56") if phase == "warning" or blocked else Color("78826b"))
-	var count := maxi(1,ceili(body_size.x/12))
-	var y := body.position.y+body_size.y/2
-	for i: int in count:
-		var w := body_size.x/count
-		var x := -body_size.x/2+i*w
-		draw_colored_polygon(PackedVector2Array([Vector2(x,y),Vector2(x+w/2,y+hazard_depth),Vector2(x+w,y)]),Color("c3a48d"))
+	var rect := Rect2(body.position-body_size/2,body_size)
+	BeamHardware.press(self,rect,Vector2(0,-body_size.y/2-18),hazard_depth,phase=="warning" or blocked)

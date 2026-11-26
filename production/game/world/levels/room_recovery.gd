@@ -6,6 +6,7 @@ var section := ""
 var occupied := {}
 
 func observe(room: FixedWorldRoom,player: PlayerMotor) -> void:
+	var prior := str(selected.get("id",""))
 	var area := room.section_at(player.position)
 	if area != section:
 		section = area
@@ -19,6 +20,13 @@ func observe(room: FixedWorldRoom,player: PlayerMotor) -> void:
 			var point := FixedWorldProvider.point(anchor.point)
 			if room.section_at(point) == section and safe(room,player,point,true): selected = anchor
 		occupied[id] = inside
+	var current := str(selected.get("id",""))
+	if prior != current:
+		for id: String in [prior,current]:
+			var marker: RoomWaymarker = room.recovery_markers.get(id)
+			if marker:
+				marker.selected = id == current
+				marker.queue_redraw()
 
 func safe(room: FixedWorldRoom, player: PlayerMotor, point: Vector2, check_approach := false) -> bool:
 	var shape := player.get_node("CollisionShape2D") as CollisionShape2D

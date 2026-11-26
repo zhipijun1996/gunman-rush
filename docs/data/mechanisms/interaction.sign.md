@@ -5,3 +5,7 @@
 [行为与字段合同](../../../production/config/world_elements/behaviors/array_signs.json)
 
 [版本和默认参数](../../../production/config/world_elements/definitions/interaction.sign.json) · [机关目录](../world_objects.md)
+
+## 区域外观
+
+告示根据下方可承托的地形落地。立柱、边框与顶饰跟随房间区域，浅色纸面和笔画标识阅读位置。

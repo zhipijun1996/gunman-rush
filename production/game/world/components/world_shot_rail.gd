@@ -81,12 +81,21 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	if stations.size() >= 2:
-		for i: int in range(1,stations.size()):
-			draw_line(origin-position+stations[i-1],origin-position+stations[i],Color("887156"),3)
+	var hardware := preload("res://game/presentation/world/carrier_hardware.gd")
+	for i: int in range(1,stations.size()):
+		hardware.Track.segment(self,origin-position+stations[i-1],origin-position+stations[i])
+	for stop in stations: hardware.stop_block(self,origin-position+stop)
 	super()
 	for side: int in [-1,1]:
-		draw_rect(Rect2(side*(platform_size.x*.5-4)-5,-platform_size.y*.5-27,10,28),Color("bca35e"))
+		var center := Vector2(side*(platform_size.x*.5-4),-platform_size.y*.5-13)
+		var face := Rect2(center-Vector2(5,14),Vector2(10,28))
+		draw_rect(face,Color("#352e2c"))
+		MechanismRegionArt.panel(self,face.grow(-1))
+		draw_rect(Rect2(center+Vector2(side*3-1,-11),Vector2(2,22)),Color("#d2ac67"))
+		for y: float in [-8,0,8]:
+			draw_rect(Rect2(center+Vector2(-3,y),Vector2(6,2)),Color("#eac679"))
+			draw_rect(Rect2(center+Vector2(-2,y+2),Vector2(4,1)),Color("#775942"))
+		hardware.stop_block(self,center+Vector2(0,15))
 
 	if flash_left > 0 and is_instance_valid(impact_face):
 		var fade := flash_left/.14

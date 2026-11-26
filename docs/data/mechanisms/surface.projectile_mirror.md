@@ -4,4 +4,6 @@
 
 [参数与模式合同](../失序之钟_基本机关库.md#g32) · [实例定义](../../../production/config/world_elements/definitions/surface.projectile_mirror.json) · [行为与端口](../../../production/config/world_elements/behaviors/ProjectileMirror.json)
 
+分片冰镜的银亮受光边标出反射侧；区域轴座、连杆及固定表盘承托镜框，拨档、转动和真实受击各自更新可见状态。 [像素部件来源](../../../art/mechanisms/projectile-library/sources.json)
+
 [可玩验收房](../../../production/tests/projectile_library_demo.tscn) · [Godot 回归](../../../production/tests/projectile_library.gd)

@@ -176,10 +176,23 @@ func element_restore(data: Dictionary) -> void:
 	if stage == "linked" and (ring.session != data.session or not is_instance_valid(ring.holder)): begin_return()
 
 func _draw() -> void:
-	var start := Vector2.ZERO
-	draw_line(start,start+endpoint,Color("6a6255"),4)
-	draw_set_transform(endpoint.normalized()*progress,0)
-	draw_rect(Rect2(-body_size*.5,body_size),Color("555d62"))
-	draw_rect(Rect2(-body_size*.5,body_size),Color("b39c77"),false,2)
-	draw_line(Vector2(0,-body_size.y*.5),ring_offset,Color("a38151"),3)
-	draw_arc(ring_offset,ring_radius,0,TAU,24,Color("fed58a") if stage=="linked" else Color("bda572"),3)
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var axis := endpoint.normalized()
+	for side: int in [-1,1]:
+		var offset := axis.orthogonal()*4*side
+		TraversalMechanismArt.chain(self,offset,endpoint+offset,3,Color("897758"))
+	for point: Vector2 in [Vector2.ZERO,endpoint]:
+		MechanismRegionArt.stamp(self,"mount",point,Vector2(20,17))
+	var center := axis*progress
+	var box := Rect2(center-body_size*.5,body_size)
+	MechanismRegionArt.panel(self,box)
+	var drive_size := minf(body_size.y*.7,body_size.x*.42)
+	for side: int in [-1,1]:
+		var point := center+Vector2(side*(body_size.x*.5-drive_size*.67),0)
+		TraversalMechanismArt.wheel(self,point,drive_size,progress*.05)
+	var face := Vector2(clampf(ring_offset.x,-body_size.x*.5,body_size.x*.5),clampf(ring_offset.y,-body_size.y*.5,body_size.y*.5))
+	TraversalMechanismArt.chain(self,center+face,center+ring_offset,4)
+	var ring_tint := Color("ffe0a6") if stage=="linked" else Color.WHITE
+	var ring_art := preload("res://assets/world_traversal/native/clockwork_hang.png")
+	TraversalMechanismArt.sprite(self,ring_art,center+ring_offset,Vector2.ONE*(ring_radius*2.75),ring_tint)
+	MechanismRegionArt.stamp(self,"lamp",center,Vector2(13,12),Color("d98b6a") if blocked else ring_tint)

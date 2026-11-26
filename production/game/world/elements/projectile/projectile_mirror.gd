@@ -23,6 +23,8 @@ var frame_span := 0.0
 var frame_turn_end := 1.0
 var frame_turn_start := 0.0
 var receipts := {}
+var glint_at := Vector2.ZERO
+var hit_age := 1.0
 var prior_turns: Array[Dictionary] = []
 
 func _ready() -> void:
@@ -38,7 +40,15 @@ func arc() -> float:
 	var difference := angle_difference(start,deg_to_rad(normal_angles_deg[target]))
 	return PI if is_equal_approx(absf(difference),PI) else difference
 
+func surface_contact(point: Vector2) -> void:
+	glint_at = to_local(point)
+	hit_age = 0
+	queue_redraw()
+
 func _physics_process(delta: float) -> void:
+	if hit_age<.18:
+		hit_age += delta
+		queue_redraw()
 	prior_turns.clear()
 	frame_start = angle
 	frame_turn_start = 0.0
@@ -83,6 +93,7 @@ func command_turn(packet: Dictionary) -> void:
 	queue_redraw()
 
 func cancel_pending() -> void:
+	hit_age = 1
 	receipts.clear()
 	prior_turns.clear()
 
@@ -140,15 +151,24 @@ func contact(at: Vector2, motion: Vector2, radius: float, _faction: String, elap
 	return result
 
 func _draw() -> void:
-	var n := Vector2.from_angle(angle)
-	var edge := n.orthogonal()*mirror_length/2
-	draw_line(-edge,edge,Color("38546b"),5)
-	draw_line(-edge+n*2,edge+n*2,Color("c5eff5"),2)
-	if two_sided: draw_line(-edge-n*2,edge-n*2,Color("c5eff5"),2)
+	MechanismRegionArt.stamp(self,"mount",Vector2.ZERO,Vector2(32,30))
 	if orientation_mode=="indexed":
-		draw_line(Vector2.ZERO,control_offset,Color("626c72"),2)
-		draw_circle(control_offset,control_radius,Color("39474c"))
-		draw_arc(control_offset,control_radius,0,TAU,24,Color("e7c875"),2)
+		draw_set_transform(Vector2.ZERO,control_offset.angle())
+		MechanismRegionArt.panel(self,Rect2(0,-3,control_offset.length(),6),Color("a8aaa7"))
+		draw_set_transform_matrix(Transform2D.IDENTITY)
+		MechanismRegionArt.stamp(self,"finial",control_offset,Vector2.ONE*(control_radius*2+7))
+		ProjectileMechanismArt.paint(self,Rect2(control_offset-Vector2.ONE*control_radius,Vector2.ONE*control_radius*2),ProjectileMechanismArt.DIAL)
 		for i: int in normal_angles_deg.size():
 			var notch := Vector2.from_angle(deg_to_rad(normal_angles_deg[i]))
-			draw_line(control_offset+notch*(control_radius-3),control_offset+notch*(control_radius+3),Color.WHITE if i==target else Color("848483"),2)
+			var tick := (control_offset+notch*(control_radius-1)).round()
+			draw_line(tick,tick+notch*4,MechanismRegionArt.accent(self).lightened(.22) if i==target else Color("96846c"),2)
+	draw_set_transform(Vector2.ZERO,angle)
+	var width := minf(13.,mirror_length*.18)
+	ProjectileMechanismArt.beam(self,Rect2(-width*.78,-mirror_length/2,width,mirror_length),ProjectileMechanismArt.MIRROR,12,true)
+	if two_sided:
+		draw_set_transform(Vector2.ZERO,angle+PI)
+		ProjectileMechanismArt.beam(self,Rect2(-2.,-mirror_length/2,width*.43,mirror_length),ProjectileMechanismArt.MIRROR,12,true,Color("abcce1"))
+	draw_set_transform_matrix(Transform2D.IDENTITY)
+	ProjectileMechanismArt.paint(self,Rect2(-5,-5,10,10),ProjectileMechanismArt.DIAL)
+	if hit_age<.18:
+		PixelVfx.clip(self,&"ice",glint_at,hit_age/.18,angle,Color("b7e8ff"),Vector2.ONE*.43)

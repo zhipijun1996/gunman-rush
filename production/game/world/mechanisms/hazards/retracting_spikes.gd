@@ -171,14 +171,21 @@ func set_equipment_time(value: float) -> void:
 func _draw() -> void:
 	if not is_instance_valid(body): _initial_phase()
 	var horizontal := facing in ["up","down"]
-	var root_rect := envelope(0)
-	var origin := root_rect.position
-	var direction := Vector2.RIGHT if horizontal else Vector2.DOWN
+	var base := envelope(0)
 	var length := bounds.size.x if horizontal else bounds.size.y
-	var color := Color("eda354") if phase == "warning" else Color("638080")
-	draw_line(origin,origin+direction*length,color,2)
-	var socket_size := Vector2(minf(length,12),6) if horizontal else Vector2(6,minf(length,12))
-	draw_rect(Rect2(root_rect.get_center()-socket_size*.5,socket_size),color.lightened(.2))
+	var outward: Vector2 = {"up":Vector2.UP,"down":Vector2.DOWN,"left":Vector2.LEFT,"right":Vector2.RIGHT}[facing]
+	var across := outward.orthogonal()
+	var center := base.get_center()
+	draw_set_transform(center,across.angle(),Vector2.ONE)
+	var lip := minf(7,bounds.size.y if horizontal else bounds.size.x)
+	MechanismRegionArt.panel(self,Rect2(-length/2,-lip*.35,length,lip))
+	var n := maxi(1,ceili(length/28))
+	var warning := clampf(elapsed/warning_s,0,1) if phase=="warning" else 0.0
+	for i: int in n:
+		var x := (float(i)+.5)*length/n-length/2
+		MechanismRegionArt.stamp(self,"mount",Vector2(x,lip*.3),Vector2(minf(14,length/n),lip))
+		draw_rect(Rect2(x-2,-1,4,2),Color("ffd184") if warning>(i+.1)/n else Color("382e28"))
+	draw_set_transform_matrix(Transform2D.IDENTITY)
 	var raised := extension()
 	if raised <= 0: return
 	var face: int = {"up":PlatformThornDefinition.Face.TOP, "down":PlatformThornDefinition.Face.BOTTOM,

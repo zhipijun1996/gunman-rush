@@ -412,10 +412,12 @@ func verify_enchantment() -> void:
 
 func demonstrate() -> void:
 	var camera := session.player.get_viewport().get_camera_2d()
-	camera.zoom = Vector2(1.4,1.4)
+	camera.zoom = Vector2(1.45,1.45)
+	camera.offset = Vector2(240,-80)
 	await ticks(26)
 	session.controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 	await ticks(194)
+	camera.offset = Vector2(0,-70)
 	session.player.reset_at(Vector2(1040,494))
 	await ticks(24)
 	session.controller.router.request_action(&"shoot_release",Vector2.UP)
@@ -436,11 +438,36 @@ func demonstrate() -> void:
 	session.controller.router.set_move_axis(0)
 	await ticks(24)
 
+	for shot_view: Array in [[Vector2(2484,494),Vector2(-200,-70)],[Vector2(2622,494),Vector2(120,-55)],[Vector2(3140,494),Vector2(95,-70)]]:
+		camera.offset = shot_view[1]
+		await fire_from(shot_view[0],Vector2.UP)
+		await ticks(53)
+	camera.offset = Vector2(0,-35)
+	session.player.reset_at(Vector2(3678,345))
+	await ticks(58)
+	check(nodes.balance.angle>0,"filmed real load shifts balance beam")
+	session.player.reset_at(Vector2(3930,340))
+	await ticks(11)
+	session.player.reset_at(Vector2(3850,494))
+	await ticks(64)
+	check(nodes.spiked.stage=="danger","filmed contact flip exposes spikes")
+	await fire_from(Vector2(4100,484),Vector2.RIGHT)
+	await ticks(47)
+	camera.offset = Vector2(100,-55)
+	await fire_from(Vector2(4480,494),Vector2.RIGHT)
+	await ticks(55)
+	check(nodes["shortcut/coordinator"].phase=="completed","filmed one-shot passage committed")
+
+
 func run() -> void:
 	check_contracts()
 	session = OrdinaryRoomSession.new()
 	root.add_child(session)
-	var error := session.open(Foundry.layout())
+	var film := "--film" in OS.get_cmdline_user_args()
+	var region := "gear_city"
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("region="): region = argument.trim_prefix("region=")
+	var error := session.open(Foundry.layout(region,film))
 	check(error.is_empty(),"open real foundry: "+error)
 	if error.is_empty():
 		nodes = session.room.element_runtime.nodes

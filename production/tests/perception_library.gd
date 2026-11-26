@@ -209,6 +209,35 @@ func check_controller_shots() -> void:
 	check(await real.audio_service.shutdown(),"controller demonstration audio shutdown")
 	real.free()
 
+func check_regional_art() -> void:
+	var atlases := {}
+	var foregrounds := {}
+	var doc := WorldRoomDocument.read("res://tests/perception_demo.json")
+	for region: String in WorldElementCatalog.catalog().mechanism_regions:
+		doc.root.properties.region_id = region
+		doc.root.properties.terrain_material = region
+		var preview := OrdinaryRoomSession.new()
+		root.add_child(preview)
+		var error := preview.open(doc)
+		if not error.is_empty():
+			check(false,"regional room "+region+" "+error)
+			preview.free()
+			continue
+		var nodes := preview.room.element_runtime.nodes
+		var atlas := (nodes.guide.art as Texture2D)
+		atlases[atlas.resource_path] = true
+		foregrounds[nodes.vines.skin.resource_path] = true
+		check(nodes.flower.art == atlas,"regional flower and moving light use the same physical instrument family: "+region)
+		if region == "thorn_forest":
+			check(nodes.reeds.tall_art == WorldSightReeds.TALL and nodes.mat.mat_art == WorldSoundLure.MAT and atlas == LightInstrumentArt.ATLAS,"native forest art is retained")
+		else:
+			check(atlas.get_width() >= 5*LightInstrumentArt.CELL and nodes.reeds.tall_art is AtlasTexture and nodes.mat.charm_art is AtlasTexture,"regional lamp, shoot and sound-part frames: "+region)
+			if nodes.reeds.tall_art is AtlasTexture and nodes.mat.charm_art is AtlasTexture:
+				check(nodes.reeds.tall_art.atlas == atlas and nodes.reeds.cut_art.region == LightInstrumentArt.CUT_BANK and nodes.mat.charm_art.atlas == atlas and nodes.mat.mat_art.region == LightInstrumentArt.MAT,"real consumer uses corresponding sheet windows: "+region)
+		await preview.audio_service.shutdown()
+		preview.free()
+	check(atlases.size()==16 and foregrounds.size()==16,"all regions have distinct instrument and foreground artwork")
+
 func run() -> void:
 	check_cycles()
 	session = OrdinaryRoomSession.new(); root.add_child(session)
@@ -227,5 +256,6 @@ func run() -> void:
 	check(await session.audio_service.shutdown(),"audio shutdown")
 	session.free()
 	await check_controller_shots()
+	await check_regional_art()
 	print("PERCEPTION LIBRARY failures=",failures," checks=",checks)
 	quit(1 if failures else 0)

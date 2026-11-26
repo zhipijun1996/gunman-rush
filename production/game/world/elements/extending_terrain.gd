@@ -73,8 +73,7 @@ func element_restore(data: Dictionary) -> void:
 
 func _draw() -> void:
 	draw_set_transform(offset_for(length_now),axis.angle())
-	draw_block(Rect2(-Vector2(length_now,thickness)/2,Vector2(length_now,thickness)),Color("52674e"),Color("b8c67e"))
+	BeamHardware.growth(self,length_now,thickness,growth_mode == "rooted")
 	draw_set_transform(Vector2.ZERO)
 	if hit_part != null:
-		draw_circle(hit_part.position,12,Color("4e443a"))
-		draw_circle(hit_part.position,7,Color("e3a261") if blocked else Color("e7ce89"))
+		BeamHardware.growth_bud(self,hit_part.position,blocked)

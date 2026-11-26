@@ -116,8 +116,10 @@ func install_terminal(kind: String) -> void:
 
 func _draw() -> void:
 	if body == null: return
+	var top := Vector2(0,-body_size.y*.5)
+	MechanismRegionArt.stamp(self,"mount",top+Vector2.UP*26,Vector2(33,20))
 	if phase in ["hanging","warning"]:
-		draw_line(Vector2(0,-body_size.y/2-20),Vector2.UP*body_size.y/2,Color("ad9571"),3)
-		draw_circle(Vector2(0,-body_size.y/2-9),9,Color("e89057") if phase=="warning" else Color("cbaf7c"))
-	draw_block(Rect2(body.position-body_size/2,body_size),Color("606570"),Color("a9b3ba"))
-	if pressure_weight: draw_circle(body.position,5,Color("ddb25e"))
+		BellGateArt.chain(self,0,top.y-22,top.y)
+		BeamHardware.part(self,BeamHardware.BOSS,top+Vector2.UP*9,Vector2(19,19))
+		draw_rect(Rect2(-2,top.y-10,4,3),BeamHardware.SIGNAL if phase=="warning" else BeamHardware.BRASS)
+	BeamHardware.ballast(self,Rect2(body.position-body_size/2,body_size),pressure_weight,false)

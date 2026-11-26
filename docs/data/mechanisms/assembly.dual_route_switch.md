@@ -5,3 +5,5 @@
 所有成员共享挑战分区及尝试寿命。预告、门区防夹及动作完成后接受下一次切换。
 
 [定义与参数](../../../production/config/world_elements/definitions/assembly.dual_route_switch.json) · [设计合同](../失序之钟_预组与组合推荐.md) · [机关目录](../world_objects.md)
+
+区域安装座上的拨杆提示当前请求的分组，线路通向展开后的真实门、平台与机关。警示弧沿预告进度填充，阻挡时变橙。

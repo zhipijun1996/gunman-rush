@@ -11,3 +11,5 @@
 [版本和默认参数](../../../production/config/world_elements/definitions/gate.masonry.json) · [机关目录](../world_objects.md)
 
 闭合时，横向锁片沿门高排列，侧轨和卷扬箱界定洞口。开门立即露出通道，齿轮转动、配重下降，侧边锁舌上收；关门时配重回升。区域砌体仍由 `appearance` 选择。 [美术来源](../../../art/mechanisms/bell_gate/sources.json)
+
+门叶采用区域材质条带；束根门沿、石柱门框、绳导轨或铰接机架随区域变化。开门后留下对应的空门框和卷扬机构。

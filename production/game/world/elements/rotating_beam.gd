@@ -287,18 +287,21 @@ func install_terminal(kind: String) -> void:
 	place_angle(angles_deg[0])
 
 func _draw() -> void:
+	if rotation_mode == "indexed":
+		for mark: float in angles_deg:
+			var axis := Vector2.from_angle(deg_to_rad(mark))
+			draw_line(axis*(beam_thickness*.5+7),axis*(beam_thickness*.5+11),BeamHardware.BRASS,2)
 	draw_set_transform(Vector2.ZERO,deg_to_rad(angle))
 	var rect := Rect2(Vector2(-pivot_fraction*beam_length,-beam_thickness/2),Vector2(beam_length,beam_thickness))
-	draw_block(rect,Color("736249"),Color("d8bd83"))
+	BeamHardware.beam(self,rect,BellGateArt.structure(self))
 	if rotation_mode == "contact_flip":
-		var count := maxi(1,ceili(beam_length/12))
-		for i: int in count:
-			var x := rect.position.x+beam_length*i/count
-			var w := beam_length/count
-			draw_colored_polygon(PackedVector2Array([Vector2(x,rect.end.y),Vector2(x+w/2,rect.end.y+hazard_depth),Vector2(x+w,rect.end.y)]),Color("b99480"))
-	draw_circle(Vector2.ZERO,beam_thickness*0.5+5,Color("392e2d"))
-	draw_circle(Vector2.ZERO,beam_thickness*0.5,Color("ed9b57") if stage=="warning" or blocked else Color("b4ae88"))
-	draw_line(Vector2.ZERO,Vector2(beam_thickness*0.48,0),Color("382b25"),2)
+		BeamHardware.teeth(self,Vector2(rect.position.x,rect.end.y),beam_length,hazard_depth)
+	elif rotation_mode == "load_tilt":
+		for side: int in [-1,1]:
+			var load_at := Vector2(side*minf(balance_half_width,beam_length*.22),0)
+			var loaded := load_side == ("left" if side<0 else "right")
+			MechanismRegionArt.stamp(self,"lamp",load_at,Vector2(8,beam_thickness*.65),Color.WHITE if loaded else Color("#777a75"))
+	BeamHardware.bearing(self,beam_thickness+6,stage=="warning" or blocked)
 	if stage == "warning":
 		var duration := contact_delay_s if rotation_mode == "contact_flip" else warning_s
 		var progress := clampf(1.0-remaining/maxf(duration,0.001),0,1)

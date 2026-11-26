@@ -5,3 +5,5 @@
 换路时全组同一次预告、同一转动进度。任意板的实体转动空间被占据时整组等待。
 
 [定义与参数](../../../production/config/world_elements/definitions/assembly.windchime_flip_bridge.json) · [设计合同](../失序之钟_预组与组合推荐.md) · [机关目录](../world_objects.md)
+
+两组桥的梁面沿用当前区域的结构与端帽，根部大轴与组内协调器使用同一套金属受力件。共用进度同时改变真实板角和板面。

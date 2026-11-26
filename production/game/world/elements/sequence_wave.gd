@@ -21,6 +21,7 @@ var motion_clock: float:
 	get: return elapsed
 
 func element_bind(context: Dictionary) -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	runtime = context.runtime
 	lifetime = context.lifetime
 	process_physics_priority = -115
@@ -85,10 +86,11 @@ func _physics_process(delta: float) -> void:
 	install(at)
 	running = at < total_duration()
 func _draw() -> void:
-	draw_circle(Vector2.ZERO,8,Color("e9b66d") if blocked else Color("899997"))
+	BeamHardware.signal_dial(self,running,blocked,true)
 	if runtime == null: return
 	for i: int in members_order.size():
 		var beam: WorldRotatingBeam = runtime.nodes[members_order[i]]
 		var point := to_local(beam.global_position)
 		draw_dashed_line(Vector2.ZERO,point,Color("82745d"),1,7)
-		draw_circle(point,4,Color("e6c584") if fraction(elapsed,i)>0 else Color("837355"))
+		var lamp := point+Vector2(0,-beam.beam_thickness*.5-9)
+		MechanismRegionArt.stamp(self,"lamp",lamp,Vector2(10,13),Color.WHITE if fraction(elapsed,i)>0 else Color("#868982"))

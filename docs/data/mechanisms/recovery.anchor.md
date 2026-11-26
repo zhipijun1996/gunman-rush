@@ -7,3 +7,7 @@ C12 只在玩家实际进入本分区的范围后登记候选点。恢复坐标�
 [行为与字段合同](../../../production/config/world_elements/behaviors/array_retry_anchors.json)
 
 [版本和默认参数](../../../production/config/world_elements/definitions/recovery.anchor.json) · [机关目录](../world_objects.md)
+
+## 区域外观
+
+脚边的小型轴座与菱形灯芯指示恢复点，玩家选中的锚点亮起，切换锚点会同步更新前一个灯芯。

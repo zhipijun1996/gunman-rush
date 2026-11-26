@@ -73,5 +73,8 @@ func _move_swept(motion: Vector2) -> void:
 func advance_frozen_contact() -> void:
 	if not spent and host.controller.active: _move_swept(Vector2.ZERO)
 func _draw() -> void:
-	draw_circle(Vector2.ZERO,radius,Color("ffd078") if settings.impact_effect=="ember_pool" else Color("e0be96"))
-	draw_line(-direction*radius*2,Vector2.ZERO,Color("bf7648"),radius*0.8)
+	var ember: bool = settings.impact_effect=="ember_pool"
+	var age := float(settings.lifetime)-remaining
+	if ember:
+		PixelVfx.clip(self,&"ember",-direction*radius,fmod(maxf(0,age)*5.,.86),direction.angle(),Color.WHITE,Vector2.ONE*radius/17.)
+	ProjectileArt.paint(self,0 if ember else 2,direction,radius)

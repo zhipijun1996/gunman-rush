@@ -5,3 +5,5 @@
 箱体对墙、玩家、受挤乘员执行扫掠；落稳的标记货箱可压住踏板。尝试级快照保留位移及下落速度。
 
 [定义与参数](../../../production/config/world_elements/definitions/terrain.push_crate.json) · [设计合同](../失序之钟_基本机关库.md) · [机关目录](../world_objects.md)
+
+箱面、上沿和底托使用区域材料。结构随区域采用束根、石箍、交叉绑索或铆接斜撑；有承压资格的货箱中央带秤砣标记。

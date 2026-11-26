@@ -38,5 +38,11 @@ func _draw() -> void:
 		for host: Rect2 in hosts:
 			if not (band.rect as Rect2).grow(8).intersects(host): continue
 			UnderworldHazardTiles.draw_band(self,band.rect,face,host,WorldSurfaceStyles.texture(band.style))
+			for part: Dictionary in UnderworldHazardTiles.surface_plan(band.rect,face,host):
+				var foot: Rect2 = part.root_world
+				if not foot.has_area(): continue
+				# Hardware stays wholly inside the supporting wall, even on shallow strips.
+				var join := Vector2(minf(14,foot.size.x),minf(6,foot.size.y)) if band.face in ["up","down"] else Vector2(minf(6,foot.size.x),minf(14,foot.size.y))
+				MechanismRegionArt.stamp(self,"mount",foot.get_center(),join)
 			drawn=true
 		if not drawn: UnderworldHazardTiles.draw_band(self,band.rect,face,Rect2(),WorldSurfaceStyles.texture(band.style))

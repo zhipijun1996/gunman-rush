@@ -4,4 +4,6 @@
 - **变化**：块体尺寸、导槽两端、拉环位置与大小、休止位置、牵引速度、回位速度和松钩等待时间。
 - **恢复**：反复牵拉与归位；玩家通过现有跳跃、射击或新的钩索操作离开本次连接，动作资格沿正式系统。挑战复位恢复休止位置。**时控：块体牵引、回位与松钩等待。**
 
+导槽由双层链轨和固定端座构成。区域材质构成承重块，轮组随实际进度转动；牵引环跟随块体，中央指示灯标明受阻。
+
 [运行合同与验收](../失序之钟_基本机关库.md#g35) · [定义与默认参数](../../../production/config/world_elements/definitions/traversal.pull_block.json) · [行为与端口](../../../production/config/world_elements/behaviors/WorldPullBlock.json)

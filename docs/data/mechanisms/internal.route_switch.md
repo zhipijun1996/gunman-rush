@@ -5,3 +5,5 @@
 占用等待期间保持原布局。待有限动作完成后重新待发，重复射击沿当前请求处理。
 
 [定义与参数](../../../production/config/world_elements/definitions/internal.route_switch.json) · [设计合同](../失序之钟_基本机关库.md) · [机关目录](../world_objects.md)
+
+区域安装座承载 A/B 拨杆，显示当前请求和受阻状态；目标仍用自身门、梁和载台的可见形态。

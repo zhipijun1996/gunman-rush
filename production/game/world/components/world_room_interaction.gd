@@ -52,6 +52,12 @@ func _process(delta:float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	if state == null or not action_owner_id.is_empty(): return
+	# A grounded socket frames the authored action artwork. The reward, lever
+	# or chest animation keeps its own silhouette and committed-action timing.
+	var width := 48.0 if visual in ["chest","clock_altar"] else 28.0
+	MechanismRegionArt.panel(self,Rect2(-width/2,15,width,8))
+	MechanismRegionArt.stamp(self,"finial",Vector2(-width/2+3,11),Vector2(10,18))
 	if chest_sprite!=null and _opening_age<.9:
 		PixelVfx.clip(self,&"chest-rays",Vector2(0,0),_opening_age/.9)
 

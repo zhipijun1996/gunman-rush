@@ -17,6 +17,7 @@ var shot_receipts := {}
 var hit_part: Area2D
 
 func make_solid(size: Vector2, local_center := Vector2.ZERO) -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	body = StaticBody2D.new()
 	collision = CollisionShape2D.new()
 	body.collision_layer = 1
@@ -123,12 +124,3 @@ func make_hazard(rect: Rect2) -> DemoContactEmitter:
 	var emitter := DemoContactEmitter.environment_rect(rect,policy,controller,StringName(element_id))
 	add_child(emitter)
 	return emitter
-
-func draw_block(rect: Rect2, fill: Color, edge: Color) -> void:
-	draw_rect(rect,Color("1a2129"))
-	if rect.size.x > 5 and rect.size.y > 5:
-		draw_rect(rect.grow(-2), fill)
-		draw_line(rect.position+Vector2(2,2),Vector2(rect.end.x-2,rect.position.y+2),edge,2)
-	for x: float in [rect.position.x+5,rect.end.x-5]:
-		for y: float in [rect.position.y+5,rect.end.y-5]:
-			draw_rect(Rect2(Vector2(x,y)-Vector2.ONE,Vector2(2,2)),Color("272a2f"))

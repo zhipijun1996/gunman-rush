@@ -26,9 +26,14 @@ func walk_velocity(current: float, axis: float, speed: float, acceleration: floa
 	return move_toward(current,axis*speed,acceleration*delta)
 
 func _draw() -> void:
-	draw_rect(bounds,Color("463e4b") if surface_mode=="sticky" else Color("43849a"))
-	draw_line(bounds.position,Vector2(bounds.end.x,bounds.position.y),Color("aaa364") if surface_mode=="sticky" else Color("b4eff0"),3)
-	for x: int in range(8,int(bounds.size.x)-8,17):
-		var at := bounds.position+Vector2(x,5)
-		if surface_mode=="sticky": draw_circle(at,3,Color("8b8557"))
-		else: draw_line(at,at+Vector2(6,-3),Color("8acee1"),2)
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	MechanismRegionArt.panel(self,bounds)
+	var sheet := TraversalMechanismArt.RESIN if surface_mode=="sticky" else TraversalMechanismArt.ICE
+	var depth := minf(sheet.get_height(),bounds.size.y)
+	var width := float(sheet.get_width())
+	var offset := 0.0
+	while offset < bounds.size.x:
+		var span := minf(width,bounds.size.x-offset)
+		var dst := Rect2(bounds.position+Vector2(offset,0),Vector2(span,depth))
+		draw_texture_rect_region(sheet,dst,Rect2(0,0,span,sheet.get_height()))
+		offset += span

@@ -4,4 +4,6 @@
 
 [参数与模式合同](../失序之钟_基本机关库.md#g02) · [实例定义](../../../production/config/world_elements/definitions/terrain.breakable.json) · [行为与端口](../../../production/config/world_elements/behaviors/BreakableTerrain.json)
 
+每块现存地形按本区材面铺设，裂隙随剩余耐久加深。损伤实际提交后，受击格冒出冲击碎屑，移除的格子扬尘。 [像素部件来源](../../../art/mechanisms/projectile-library/sources.json)
+
 [可玩验收房](../../../production/tests/projectile_library_demo.tscn) · [Godot 回归](../../../production/tests/projectile_library.gd)

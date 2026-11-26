@@ -1,5 +1,7 @@
 """Check the rebuild's catalog, documentation and real standalone Godot room."""
 from pathlib import Path
+import hashlib
+import struct
 import json
 import re
 import subprocess
@@ -68,10 +70,19 @@ def check_mechanism_libraries():
             scopes[key] &= scopes[child["id"]]
         if not scopes[key]:
             raise ValueError(f"No usable region for {key}")
+    hardware_hashes = set()
     for region, path in libraries["regions"].items():
         profile = load(path)
         if profile["region_id"] != region:
             raise ValueError(f"Region identity mismatch in {path}")
+        expected_atlas = f"res://assets/mechanisms/regional/{region}.png"
+        if profile.get("hardware_atlas") != expected_atlas or not re.fullmatch(r"#[0-9a-fA-F]{6}",profile.get("hardware_light","")):
+            raise ValueError(f"Invalid hardware atlas or light for {region}")
+        data = (PROJECT / expected_atlas.removeprefix("res://")).read_bytes()
+        signature = hashlib.sha256(data).digest()
+        if data[:8] != b"\x89PNG\r\n\x1a\n" or struct.unpack(">II",data[16:24]) != (148,36) or signature in hardware_hashes:
+            raise ValueError(f"Invalid or duplicate regional material for {region}")
+        hardware_hashes.add(signature)
         for key, skin in profile["skins"].items():
             if key not in scopes or region not in scopes[key] or definitions[key]["library"] != "mechanisms":
                 raise ValueError(f"Skin for inaccessible mechanism {key} in {region}")
@@ -113,6 +124,8 @@ if __name__ == "__main__":
             "perception_library": "PERCEPTION LIBRARY",
             "projectile_library": "PROJECTILE LIBRARY",
             "traversal_library": "TRAVERSAL LIBRARY",
+            "mechanism_services_showcase": "MECHANISM SERVICES SHOWCASE",
+            "regional_mechanism_art": "REGIONAL MECHANISM ART",
             "beam_library": "BEAM LIBRARY",
         }
         for script, label in suites.items():

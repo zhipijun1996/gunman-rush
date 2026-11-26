@@ -5,3 +5,5 @@
 单个顺序驱动持有进度；每一轮结束后各成员保持收起，正反两次铃变化均可触发新一轮。
 
 [定义与参数](../../../production/config/world_elements/definitions/assembly.windchime_bell_walkway.json) · [设计合同](../失序之钟_预组与组合推荐.md) · [机关目录](../world_objects.md)
+
+各段采用房间区域的梁面和端帽。铰点旁的小灯按该段的展开窗口点亮，控制座上的三段刻度区别于互斥拨杆。

@@ -119,6 +119,7 @@ func advance(projectile: Node2D, owner_node: Node, faction: String, velocity: Ve
 		if projectile.spent: return
 		projectile.global_position = point
 		if contact.get("kind") == "mirror":
+			if not projecting: contact.field.surface_contact(point)
 			var key: int = contact.field.get_instance_id()
 			mirror_contacts[key] = true
 			if reflections == 0 and contact.reflect:

@@ -41,6 +41,7 @@ func rebase() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if not live(): return
+	if active: queue_redraw()
 	var box := player_box()
 	var current := box.get_center()
 	if locked >= 0 and not overlaps(locked,box): locked = -1
@@ -95,15 +96,30 @@ func element_restore(data: Dictionary) -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	for i: int in 2:
 		var p := Vector2.ZERO if i==0 else paired_offset
 		var normal: Vector2 = NORMALS[facings[i]]
-		var tangent := normal.orthogonal()
-		var color := Color("d0aa72") if active else Color("55595b")
-		if blocked: color = Color("d38070")
-		var edge := p+normal*portal_size.x*.5
-		draw_line(edge-tangent*portal_size.y*.5,edge+tangent*portal_size.y*.5,color,3)
-		for side: float in [-1.0,1.0]:
-			var corner := edge+tangent*portal_size.y*.5*side
-			draw_line(corner,corner-normal*portal_size.x,color,4)
-		draw_line(p,p+normal*8,color,2)
+		var span := portal_size.y*.5
+		var depth := portal_size.x
+		var metal := Color.WHITE if active else Color("6e6973")
+		var bloom := Color("ed946d") if blocked else Color("d1a7ef")
+		draw_set_transform(p,Vector2.RIGHT.angle_to(normal))
+		for side: int in [-1,1]:
+			var bracket := Vector2(-depth*.18,side*span)
+			MechanismRegionArt.stamp(self,"mount",bracket,Vector2(depth*1.4,minf(25,span*.56)),metal)
+		var frame_size := Vector2(minf(depth*1.75,(span*2+12)*.57),span*2+12)
+		TraversalMechanismArt.sprite(self,TraversalMechanismArt.CAP,Vector2(depth*.5-frame_size.x*.5,0),frame_size,metal)
+		MechanismRegionArt.stamp(self,"lamp",Vector2(depth*.5-frame_size.x+3,0),Vector2(9,12),bloom if active else metal)
+		if active:
+			var elapsed := float(Engine.get_physics_frames()%120)/120.0
+			for j: int in 3:
+				var x := depth*.5-j*3
+				var start := Vector2(x,-span+5)
+				var end := Vector2(x,span-5)
+				draw_line(start,end,Color(bloom,.23-.05*j),1)
+			for mote: int in 7:
+				var fraction := fposmod(elapsed+mote/7.0,1.0)
+				var v := Vector2(depth*.5-3+sin(fraction*TAU*2)*2,lerpf(-span+7,span-7,fraction))
+				draw_rect(Rect2(v.round(),Vector2(2,3)),Color(bloom,.5+sin(fraction*PI)*.42))
+		draw_set_transform(Vector2.ZERO,0)

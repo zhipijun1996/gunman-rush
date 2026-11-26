@@ -226,18 +226,35 @@ func element_restore(data: Dictionary) -> void:
 
 func _draw() -> void:
 	var dir := Vector2.from_angle(angle)
-	var side := dir.orthogonal()
 	if phase=="streaming" and active and stream_length>0:
-		var stream_dir := Vector2.from_angle(stream_angle)
-		var tip := stream_dir*stream_length
-		var edge := stream_dir.orthogonal()*stream_width/2
-		draw_colored_polygon(PackedVector2Array([edge,tip+edge,tip-edge,-edge]),Color(Color(profile_data.color),.7))
-	if phase=="warning" and active:
-		draw_dashed_line(Vector2.ZERO,dir*(stream_range if emit_mode=="stream" else 72),Color("ffbd6a"),2,6)
-	draw_circle(Vector2.ZERO,16,Color("48434a"))
-	draw_line(Vector2.ZERO,dir*23,Color("bd9b71"),9)
+		draw_set_transform(Vector2.ZERO,stream_angle)
+		var region := Rect2(0,-stream_width/2,stream_length,stream_width)
+		var gas := stream_profile=="vent_gas"
+		var ink := Color(profile_data.color)
+		var source := ProjectileMechanismArt.MIST if gas else ProjectileMechanismArt.FLAME
+		ProjectileMechanismArt.beam(self,region,source,16,false,Color.WHITE.lerp(ink,.22))
+		var ripple := sin(clock*18.)*stream_width*.12
+		var core := Rect2(0,-stream_width*.25+ripple,stream_length,stream_width*.5)
+		ProjectileMechanismArt.beam(self,core,source,18,false,Color(ink, .56))
+		draw_set_transform_matrix(Transform2D.IDENTITY)
+	if active and phase in ["warning","tracking"]:
+		var at := dir*23
+		var progress := clampf(phase_time/maxf(.001,warning_time),0,1)
+		if phase=="warning":
+			var reach := stream_range if emit_mode=="stream" else 72.
+			for i: int in range(1,6):
+				var offset := dir*reach*i/6.
+				PixelVfx.streak(self,offset,dir,maxf(2.,reach*.022),1.,Color(1,.68,.36,.35+.6*progress))
+		PixelVfx.clip(self,&"charge",at,fmod(clock*1.9,.9),0.,Color("ffba78"),Vector2.ONE*.30)
+	MechanismRegionArt.stamp(self,"mount",Vector2.ZERO,Vector2(39,37))
+	draw_set_transform(Vector2.ZERO,angle)
+	ProjectileMechanismArt.paint(self,Rect2(-11,-9,35,18),ProjectileMechanismArt.LENS if emit_mode=="projectile" else ProjectileMechanismArt.NOZZLE)
+	MechanismRegionArt.panel(self,Rect2(7,-6,5,12))
+	draw_set_transform_matrix(Transform2D.IDENTITY)
 	if aim_mode=="manual_index":
-		draw_arc(Vector2.ZERO,13,0,TAU,32,Color("ecca7e"),2)
-		for offset: float in manual_angles_deg:
-			var v := Vector2.from_angle(base_direction.angle()+deg_to_rad(offset))
-			draw_line(v*15,v*19,Color("d1d1c0"),2)
+		ProjectileMechanismArt.paint(self,Rect2(-13,-13,26,26),ProjectileMechanismArt.DIAL)
+		for i: int in manual_angles_deg.size():
+			var v := Vector2.from_angle(base_direction.angle()+deg_to_rad(manual_angles_deg[i]))
+			draw_line((v*11).round(),(v*14).round(),Color("ffd393") if i==index else Color("887b66"),2)
+	else:
+		MechanismRegionArt.stamp(self,"finial",-dir*8,Vector2(15,17))

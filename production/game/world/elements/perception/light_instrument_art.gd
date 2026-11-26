@@ -4,10 +4,25 @@ extends RefCounted
 
 const ATLAS := preload("res://assets/world_elements/guide_light/forest_instruments.png")
 const CELL := 64
-enum Frame { MOTH, BUD, BLOOM, COCOON }
+enum Frame { MOTH, BUD, BLOOM, COCOON, FIXED_LAMP }
+const TALL_BANK := Rect2(0,64,96,96)
+const CUT_BANK := Rect2(96,64,96,32)
+const MAT := Rect2(96,98,64,16)
+const CHARM := Rect2(205,66,40,52)
 
 static func texture(node: Node, definition: String) -> Texture2D:
 	return load(WorldElementCatalog.skin_value(node,definition,"instrument_atlas",ATLAS.resource_path))
+
+static func bank_texture(node: Node, definition: String, slot: String, fallback: Texture2D, region: Rect2) -> Texture2D:
+	var override_path := WorldElementCatalog.skin_value(node,definition,slot,"")
+	if not override_path.is_empty(): return load(override_path)
+	var sheet := WorldElementCatalog.skin_value(node,definition,"bank_atlas","")
+	if sheet.is_empty(): return fallback
+	var texture_art := AtlasTexture.new()
+	texture_art.atlas = load(sheet)
+	texture_art.region = region
+	texture_art.filter_clip = true
+	return texture_art
 
 static func draw(node: Node2D, atlas: Texture2D, frame: Frame, center: Vector2, tint := Color.WHITE, scale_factor := 1.0) -> void:
 	var size := Vector2.ONE * CELL * scale_factor

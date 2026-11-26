@@ -6,6 +6,8 @@
 
 C07 固定为停留型，与 C06 共用离钩冷却、初始资格、复明预告及挑战恢复。普通房 JSON 和 PackedScene 均保留实例字段；历史位置数组沿原索引装配。新房间使用独立实例 ID 配置位置与冷却。
 
+固定座压住环肩，环内留空形成 H 的瞄准点。两颗销灯标示可用、冷却与复明。
+
 [行为与字段合同](../../../production/config/world_elements/behaviors/array_hook_points.json)
 
 [版本和默认参数](../../../production/config/world_elements/definitions/traversal.hook_point.json) · [机关目录](../world_objects.md)

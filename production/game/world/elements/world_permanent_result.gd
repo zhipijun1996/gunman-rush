@@ -11,9 +11,13 @@ var host: WorldRoomInteraction
 var session: OrdinaryRoomSession
 var latch: WorldElementSwitch
 var before := {}
-var phase := "ready"
+var phase := "ready":
+	set(value):
+		phase = value
+		queue_redraw()
 
 func element_bind(context: Dictionary) -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	session = context.room.get_parent() as OrdinaryRoomSession
 	target = context.runtime.nodes[result_target_id]
 	if target is MechanismSolid: target.result_owned = true
@@ -76,6 +80,15 @@ func element_propose(_input: String,_value: bool) -> Dictionary:
 func element_restore(data: Dictionary) -> void:
 	phase = "completed" if data.completed and session.state.value.receipts.has(host.action_id) else "ready"
 	if phase == "completed": target.install_terminal(result_kind)
+
+func _draw() -> void:
+	MechanismRegionArt.stamp(self,"mount",Vector2.ZERO,Vector2(38,31))
+	# Two retaining jaws meet until the permanent outcome has been received.
+	var spread := 9 if phase == "completed" else 4
+	for sign_x: int in [-1,1]:
+		MechanismRegionArt.stamp(self,"finial",Vector2(sign_x*spread,-3),Vector2(13,22))
+	var lit := phase in ["executing","committing","completed"]
+	MechanismRegionArt.stamp(self,"lamp",Vector2(0,-2),Vector2(11,16),Color.WHITE if lit else Color("#757774"))
 
 static func validate_configuration(p: Dictionary,row: Dictionary,doc: Dictionary) -> String:
 	var hosts: Array = doc.entities.values().filter(func(other): return other.definition_id=="interaction.action" and other.properties.get("action_owner_id")==row.id)

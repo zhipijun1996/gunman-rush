@@ -100,18 +100,30 @@ func element_restore(data: Dictionary) -> void:
 	serial = data.serial
 
 func _draw() -> void:
-	var amber := Color("bbdb89") if not latched else Color("f1c36d")
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var tint := Color("a69788") if spawn_wait else Color.WHITE
 	if launch_mode == "surface_normal":
-		draw_circle(Vector2.ZERO,sphere_radius,Color("59684d"))
-		draw_arc(Vector2.ZERO,sphere_radius-1,0,TAU,32,amber,3)
+		var diameter := Vector2.ONE*sphere_radius*2
+		MechanismRegionArt.stamp(self,"mount",Vector2(0,sphere_radius*.72),diameter*Vector2(.9,.40),tint)
+		TraversalMechanismArt.sprite(self,TraversalMechanismArt.FUNGUS,Vector2.ZERO,diameter,tint)
+		if latched: draw_arc(Vector2.ZERO,sphere_radius-1,PI*1.12,PI*1.77,18,Color("f9d99a"),2)
 	elif launch_mode == "contact":
-		draw_rect(Rect2(-face_size/2,face_size),Color("536554"))
-		var dir := launch_direction.normalized()
-		draw_line(-dir*6,dir*11,amber,3)
-		draw_line(dir*11,dir*11-dir.rotated(.55)*7,amber,2)
-		draw_line(dir*11,dir*11-dir.rotated(-.55)*7,amber,2)
+		var body := Rect2(-face_size/2,face_size)
+		MechanismRegionArt.panel(self,body,tint)
+		TraversalMechanismArt.sprite(self,TraversalMechanismArt.SPRING,Vector2.ZERO,face_size,tint)
+		var direction := launch_direction.normalized()
+		var point := direction*minf(face_size.x,face_size.y)*.36
+		for i: int in 2:
+			var tip := point+direction*(5+5*i)
+			var back := tip-direction*4
+			draw_polyline(PackedVector2Array([(back+direction.orthogonal()*4).round(),tip.round(),(back-direction.orthogonal()*4).round()]),Color("ffe69b") if not latched else Color("d38d56"),2)
 	else:
-		draw_circle(Vector2.ZERO,11,Color("546954"))
 		var warning := clampf((elapsed-(pulse_interval_s-pulse_warning_s))/pulse_warning_s,0,1)
-		draw_arc(Vector2.ZERO,pulse_radius,0,TAU,48,Color(amber,.20+warning*.75),2)
-		draw_circle(Vector2.ZERO,5+warning*5,amber)
+		MechanismRegionArt.stamp(self,"mount",Vector2.ZERO,Vector2(48,42))
+		TraversalMechanismArt.sprite(self,TraversalMechanismArt.EMITTER,Vector2.ZERO,Vector2(35,35))
+		var pulse := Color("c7edc6")
+		for sector: int in 12:
+			var angle := float(sector)*TAU/12.0
+			draw_arc(Vector2.ZERO,pulse_radius,angle,angle+.21,8,Color(pulse,.26+.50*warning),1)
+			if warning>0:
+				draw_arc(Vector2.ZERO,lerpf(16,pulse_radius,warning),angle,angle+.34,8,Color(pulse,.42+.4*warning),2)

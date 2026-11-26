@@ -168,26 +168,50 @@ func _draw() -> void:
 		_initial_phase()
 		solid = phase in ["solid","cracking","idle"]
 	var rect := Rect2(-platform_size*.5,platform_size)
-	if solid:
-		UnderworldTerrain.draw_moving(self,rect)
-		var count := maxi(1,ceili(platform_size.x/32))
-		for i: int in count:
-			var x := rect.position.x+(i+.5)*platform_size.x/count
-			var strength := clampf(elapsed/maxf(crack_s,.00001),0,1) if phase in ["cracking","vanishing"] else 0.0
-			draw_polyline(PackedVector2Array([Vector2(x,rect.position.y),Vector2(x-3,0),Vector2(x+2,rect.end.y*strength)]),Color("d39664").darkened(.5-.45*strength),1)
-	else:
-		var color := Color("d9ac74") if phase in ["appearing","reforming","reform_wait"] else Color("65777a")
-		draw_rect(rect,Color(color,.2))
-		draw_rect(rect,color,false,1)
-	if trigger_mode == "jump_toggle": draw_circle(rect.get_center(),2,Color("b5efc3") if desired else Color("af8577"))
+	var vertical := platform_size.y>platform_size.x
+	var length := platform_size.y if vertical else platform_size.x
+	var depth := platform_size.x if vertical else platform_size.y
+	var count := maxi(1,ceili(length/32))
+	var advance := length/count
+	var cracking := phase in ["cracking","vanishing"]
+	var forming := phase in ["appearing","reforming","reform_wait"]
+	var progress := clampf(elapsed/maxf(.00001,crack_s if cracking else reform_s),0,1)
+	# Each real segment has a socket, cap and fracture seam at native-pixel scale.
+	draw_set_transform(Vector2.ZERO,PI/2 if vertical else 0.0,Vector2.ONE)
+	for i: int in count:
+		var block := Rect2(-length/2+i*advance,-depth/2,advance,depth)
+		if solid:
+			MechanismRegionArt.panel(self,block)
+			var face_size := Vector2(minf(12,advance*.5),minf(10,depth*.58))
+			MechanismRegionArt.stamp(self,"mount",block.get_center()+Vector2(0,depth*.14),face_size)
+			if i>0:
+				var x := block.position.x
+				var crack := PackedVector2Array([Vector2(x,-depth/2),Vector2(x-2,-depth*.23),Vector2(x+2,1)])
+				var reach := depth*(.12+.38*(progress if cracking else 0.0))
+				crack.append(Vector2(x-2,reach))
+				draw_polyline(crack,Color("30292b"),2)
+				if cracking: draw_polyline(crack,Color("e1a166",.35+.65*progress),1)
+		else:
+			var alpha := .15 if not forming else .24+.38*progress
+			if phase=="reform_wait": alpha=.48
+			var edge := Color("eac399",alpha+.20) if forming else Color("96bbb8",.38)
+			MechanismRegionArt.panel(self,block,Color(.7,.8,.82,alpha))
+			var reach := minf(7,advance*.22)
+			draw_line(block.position,block.position+Vector2(reach,0),edge,1)
+			draw_line(block.end,block.end-Vector2(reach,0),edge,1)
+			if forming: MechanismRegionArt.stamp(self,"mount",block.get_center(),Vector2(minf(9,advance),minf(8,depth)),Color(edge,.75))
+	draw_set_transform_matrix(Transform2D.IDENTITY)
+	if trigger_mode == "jump_toggle":
+		var size := minf(10,minf(rect.size.x,rect.size.y))
+		MechanismRegionArt.stamp(self,"lamp",rect.get_center(),Vector2.ONE*size,Color.WHITE if desired else Color(.7,.77,.8,.7))
 
 	if trigger_mode == "wall_attach":
 		for side: String in ["left","right"]:
 			if attach_face != "both" and attach_face != side: continue
 			var x := rect.position.x if side == "left" else rect.end.x
 			var inset := minf(4,rect.size.x/2)*(1 if side == "left" else -1)
-			var count := maxi(1,ceili(rect.size.y/28))
-			for i: int in count:
-				var y := rect.position.y+(i+.5)*rect.size.y/count
-				var height := minf(5,rect.size.y/count*.5)
+			var hooks := maxi(1,ceili(rect.size.y/28))
+			for i: int in hooks:
+				var y := rect.position.y+(i+.5)*rect.size.y/hooks
+				var height := minf(5,rect.size.y/hooks*.5)
 				draw_polyline(PackedVector2Array([Vector2(x,y-height),Vector2(x+inset,y),Vector2(x,y+height)]),Color("ce9765"),1)

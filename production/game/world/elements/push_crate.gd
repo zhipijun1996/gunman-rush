@@ -56,6 +56,4 @@ func element_restore(data: Dictionary) -> void:
 func _draw() -> void:
 	if body == null: return
 	var bounds := Rect2(body.position-body_size/2,body_size)
-	draw_block(bounds,Color("75624a"),Color("c2a47a"))
-	draw_line(bounds.position+Vector2(6,6),bounds.end-Vector2(6,6),Color("493a34"),4)
-	if pressure_weight: draw_circle(body.position,5,Color("ddb25e"))
+	BeamHardware.ballast(self,bounds,pressure_weight,true)

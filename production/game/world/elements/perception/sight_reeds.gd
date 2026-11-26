@@ -18,8 +18,8 @@ var network: WorldLightNetwork
 
 func element_bind(context: Dictionary) -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	tall_art = load(WorldElementCatalog.skin_value(self,"zone.sight_occluder","tall_texture",TALL.resource_path))
-	cut_art = load(WorldElementCatalog.skin_value(self,"zone.sight_occluder","cut_texture",CUT.resource_path))
+	tall_art = LightInstrumentArt.bank_texture(self,"zone.sight_occluder","tall_texture",TALL,LightInstrumentArt.TALL_BANK)
+	cut_art = LightInstrumentArt.bank_texture(self,"zone.sight_occluder","cut_texture",CUT,LightInstrumentArt.CUT_BANK)
 	active = initial_active
 	network = WorldLightNetwork.of(context.room)
 	network.reeds.append(self)

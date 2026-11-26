@@ -53,8 +53,12 @@ func _ready() -> void:
 
 func _draw() -> void:
 	if motion_mode == "manual_cart": HARDWARE.bogie(self,platform_size,cart_distance)
+	if motion_mode == "follow_water":
+		HARDWARE.pontoons(self,platform_size)
 	super()
 	if not drive_id.is_empty(): HARDWARE.deck_pin(self,platform_size)
+	if motion_mode=="follow_water" and is_instance_valid(water):
+		HARDWARE.waterline(self,platform_size,water.actual_surface_y-position.y)
 	if motion_mode != "manual_cart" or path.points.is_empty(): return
 	var distance := maxf(cart_distance-1,0)
 	var forward := path.sample(minf(distance+2,path.length),false)-path.sample(distance,false)
@@ -113,6 +117,7 @@ func _physics_process(delta: float) -> void:
 			var target := Vector2(origin.x,water.actual_surface_y + draft_offset)
 			var next := position.move_toward(target,water.surface_speed * delta)
 			position = position.lerp(next,safe_fraction(next))
+			queue_redraw()
 		"call_dock":
 			if not motion_running: return
 			var next_progress := move_toward(dock_progress,float(target_dock),2.0*delta*equipment_time_scale/period)

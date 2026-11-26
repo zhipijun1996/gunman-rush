@@ -4,4 +4,6 @@
 - **变化**：地面模式、表面范围，黏滞模式的行走速度和加速度倍率，或冰面的制动与反向加速度倍率。
 - **恢复**：固定实体持续存在，效果由实际脚底支撑决定；接触结束当步解除表面修正，当前速度按正式离面规则延续，复位按真实支撑重建。
 
+黏滞面沿可站立边缘重复树脂蜂窝与下垂滴痕，冰面使用尖棱分明的蓝冰壳。材质覆盖的宽度与实体顶面一致。
+
 [运行合同与验收](../失序之钟_基本机关库.md#g22) · [定义与默认参数](../../../production/config/world_elements/definitions/surface.motion.json) · [行为与端口](../../../production/config/world_elements/behaviors/WorldMotionSurface.json)

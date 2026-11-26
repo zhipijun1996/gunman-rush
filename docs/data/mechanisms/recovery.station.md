@@ -5,3 +5,7 @@
 [行为与字段合同](../../../production/config/world_elements/behaviors/WorldRoomFeature.json)
 
 [版本和默认参数](../../../production/config/world_elements/definitions/recovery.station.json) · [机关目录](../world_objects.md)
+
+## 区域外观
+
+充电站的站台、立柱和灯座使用所在区域的材质，中央充电装置继续显示服务和蓄能状态。

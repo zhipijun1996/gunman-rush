@@ -18,6 +18,7 @@ var latched := false
 var last_side := 0
 var previous := Vector2.ZERO
 var touched_line := false
+var flash_remaining := 0.0
 var pending := false
 var player_shape: CollisionShape2D
 var controller: PlayerController
@@ -50,8 +51,11 @@ func rebase() -> void:
 	touched_line = false
 	pending = false
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not is_instance_valid(controller) or not lifetime.active or not controller.active: return
+	if flash_remaining>0:
+		flash_remaining = maxf(0,flash_remaining-delta)
+		queue_redraw()
 	var current := to_local(player_shape.global_position)
 	var next_side := side(current)
 	if current != previous:
@@ -88,6 +92,7 @@ func element_signal() -> Dictionary:
 	return {"output":"active", "value":not active}
 
 func element_restore(data: Dictionary) -> void:
+	flash_remaining = 0
 	active = data.active
 	last_side = int(data.side)
 	latched = data.latched
@@ -95,16 +100,39 @@ func element_restore(data: Dictionary) -> void:
 
 func accept_committed() -> void:
 	pending = false
+	flash_remaining = .38
+	queue_redraw()
 
 func _draw() -> void:
 	if line_points.size() != 2: return
 	var color := Color("8bdec2") if active else Color("ebbd70")
 	var a := line_points[0]
 	var b := line_points[1]
-	draw_dashed_line(a, b, color, 2, 6)
-	for point: Vector2 in line_points:
-		draw_rect(Rect2(point-Vector2(4,4), Vector2(8,8)), Color("483c37"))
-		draw_rect(Rect2(point-Vector2(2,2), Vector2(4,4)), color)
+	var axis := a.direction_to(b)
+	var tangent := axis.orthogonal()
+	var strength := flash_remaining/.38
+	draw_line(a,b,Color(color,.22+.13*strength),3)
+	draw_dashed_line(a,b,Color(color,.68+.32*strength),1,4 if active else 7)
+	if strength>0:
+		var pulse := a.lerp(b,1-strength)
+		PixelVfx.glint(self,pulse,4,color,strength)
+	for i: int in 2:
+		var tip := a if i==0 else b
+		var inward := axis if i==0 else -axis
+		# Opposed optical heads aim into the actual sensing segment.
+		draw_set_transform(tip,inward.angle(),Vector2.ONE)
+		MechanismRegionArt.stamp(self,"mount",Vector2(-6,0),Vector2(17,19))
+		MechanismRegionArt.stamp(self,"finial",Vector2(-3,0),Vector2(13,15))
+		for sign_y: float in [-1.0,1.0]:
+			draw_texture_rect_region(BellGateArt.texture(),Rect2(-4,sign_y*4-2,9,4),BellGateArt.GUIDE)
+		MechanismRegionArt.stamp(self,"lamp",Vector2(2,0),Vector2(7,8))
+		draw_rect(Rect2(4,-2,2,4),color)
+		draw_set_transform_matrix(Transform2D.IDENTITY)
+	if cross_direction != "both":
+		var normal := tangent if cross_direction=="negative_to_positive" else -tangent
+		var anchor := a+axis*minf(15,a.distance_to(b)*.28)
+		var nose := anchor+normal*4
+		draw_polyline(PackedVector2Array([anchor-axis*3,nose,anchor+axis*3]),color,1)
 	if runtime == null: return
 	for link: Dictionary in links:
 		var target: Node2D = runtime.nodes.get(link.target)

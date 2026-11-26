@@ -75,20 +75,29 @@ func refresh_position() -> void:
 	wheel.rotation=TAU*clock/2.4
 
 func _draw() -> void:
-	# The fixed axle guide exposes the complete swept corridor before entry.
-	var a:=origin-travel;var b:=origin+travel
+	if wheel == null: return
+	var shaft := wheel.position-origin
 	if path_mode == "arc":
-		draw_arc(origin, arc_radius, deg_to_rad(minf(arc_angles_deg.x,arc_angles_deg.y)), deg_to_rad(maxf(arc_angles_deg.x,arc_angles_deg.y)), 48, Color("697076"), 2)
-		draw_line(origin,wheel.position,Color("857349"),3)
-		draw_circle(origin,6,Color("bfa070"))
+		var lo := deg_to_rad(minf(arc_angles_deg.x,arc_angles_deg.y))
+		var hi := deg_to_rad(maxf(arc_angles_deg.x,arc_angles_deg.y))
+		draw_arc(origin,arc_radius,lo,hi,48,Color("534d46"),2)
+		for angle: float in [lo,hi]:
+			MechanismRegionArt.stamp(self,"mount",origin+Vector2.from_angle(angle)*arc_radius,Vector2(12,12))
+		draw_set_transform(origin,shaft.angle(),Vector2.ONE)
+		MechanismRegionArt.panel(self,Rect2(0,-4,shaft.length(),8))
+		draw_set_transform_matrix(Transform2D.IDENTITY)
+		MechanismRegionArt.stamp(self,"finial",origin,Vector2(23,23))
 	elif not travel.is_zero_approx():
-		draw_line(a,b,Color("17232a"),10)
-		draw_line(a,b,Color("697076"),3)
-		for at: Vector2 in [a,b]:
-			draw_rect(Rect2(at-Vector2(7,7),Vector2(14,14)),Color("26323c"))
-			draw_rect(Rect2(at-Vector2(2,2),Vector2(4,4)),Color("bfa070"))
-	if spark_remaining>0 and wheel!=null:
-		var at:=wheel.position+Vector2(0,RADIUS)
-		var spread:=4+(1-spark_remaining/.14)*12
-		for direction: Vector2 in [Vector2(-1,.5),Vector2(1,.3),Vector2(.3,1)]:
-			draw_rect(Rect2((at+direction*spread).round(),Vector2(2,1)),Color("e9c284"))
+		var a := origin-travel
+		var b := origin+travel
+		draw_set_transform(a,travel.angle(),Vector2.ONE)
+		MechanismRegionArt.panel(self,Rect2(0,-4,2*travel.length(),8),Color(.75,.75,.75))
+		draw_set_transform_matrix(Transform2D.IDENTITY)
+		for at: Vector2 in [a,b]: MechanismRegionArt.stamp(self,"mount",at,Vector2(18,18))
+	else: MechanismRegionArt.stamp(self,"mount",origin,Vector2(28,28))
+	# An inset boss turns with the original mill wheel, entirely inside its teeth.
+	draw_set_transform(wheel.position,wheel.rotation,Vector2.ONE)
+	MechanismRegionArt.stamp(self,"hazard",Vector2.ZERO,Vector2(32,32))
+	draw_set_transform_matrix(Transform2D.IDENTITY)
+	if spark_remaining>0:
+		PixelVfx.clip(self,&"spark",wheel.position+Vector2(0,RADIUS-2),1-spark_remaining/.14,0,Color("efbe80"),Vector2.ONE*.48)

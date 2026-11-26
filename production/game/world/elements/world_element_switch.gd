@@ -128,10 +128,12 @@ func _draw() -> void:
 	for link: Dictionary in links:
 		var target: Node = elements.nodes.get(str(link.target))
 		if target is WorldMovingPlatform:
-			var start := to_local(target.get_parent().to_global(target.origin))-Vector2(0,12)
-			var end := to_local(target.get_parent().to_global(target.origin+target.endpoint))-Vector2(0,12)
-			if target.route.is_empty(): draw_line(start,end,Color("685c48"),3)
-			for at: Vector2 in [start,end]: draw_circle(at,5,Color("b39358"),false,2)
+			var hardware := preload("res://game/presentation/world/carrier_hardware.gd")
+			var start := to_local(target.get_parent().to_global(target.origin))
+			var last: Vector2 = target.route.back() if not target.route.is_empty() else target.endpoint
+			var end := to_local(target.get_parent().to_global(target.origin+last))
+			if target.route.is_empty(): hardware.Track.segment(self,start,end)
+			for at: Vector2 in [start,end]: hardware.stop_block(self,at)
 		elif target is WorldElementGate and duration>0:
 			var corner := to_local(target.to_global(target.bounds.position))
 			var left := clampf(1-(_clock-_opened_at)/duration,0,1) if is_open else 0.0

@@ -5,3 +5,7 @@
 [行为与字段合同](../../../production/config/world_elements/behaviors/WorldRoomInteraction.json)
 
 [版本和默认参数](../../../production/config/world_elements/definitions/interaction.action.json) · [机关目录](../world_objects.md)
+
+## 区域外观
+
+可直接交互的世界行动在底座上显示区域支座和顶饰；由预组代办的行动仍通过该组的可见机关呈现。

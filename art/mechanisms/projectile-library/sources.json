@@ -1,0 +1,177 @@
+{
+  "sources": {
+    "clockwork": {
+      "file": "clockwork.webp",
+      "sha256": "1ae6f44be2d0404f06308fd0d89ed3e8886612d72cbb428a3009d41869d56d2e",
+      "source": "OpenAI ImageGen",
+      "brief": "Orthographic 3 by 2 side-view mechanical sprite sheet, aged copper and blue iron. Six isolated assets: explosive red enamel barrel with burning fuse, right-facing turret barrel, astrolabe dial, narrow vertical ice mirror, wrought-iron grate, and ceramic teal lens. Dark-fantasy hard pixel clusters and transparent silhouettes."
+    },
+    "phenomena": {
+      "file": "phenomena.webp",
+      "sha256": "3fa6e5168a1dca70b9dfd4cad1ed52d3251e093a6a6bd57b089637bdd9a41355",
+      "source": "OpenAI ImageGen",
+      "brief": "Four side-view pixel effects: horizontal lavender slowing mist, upright electric cyan veil, rightward continuous flame and narrow coal bed. Irregular silhouettes and transparent background."
+    }
+  },
+  "atlas": {
+    "path": "production/assets/mechanisms/projectile_library/projectiles.png",
+    "sha256": "558102ef10a89bee7b62f4859b5d20ff7b9023786e40c0b319ff66858d249bd4",
+    "size": [
+      256,
+      192
+    ]
+  },
+  "bake": "Hardware: remove source alpha under 180, Lanczos-bake at final world-pixel size, harden alpha at 128, quantize to 40 colors. FX: isolate chromatic elements from gray matte, preserve charcoal in coal bed, bake to 28 colors and retain translucent edges. Transparent padding between cells. All entries use local-rect placement.",
+  "parts": {
+    "vessel": {
+      "source": "clockwork",
+      "crop_ltrb": [
+        112,
+        32,
+        402,
+        469
+      ],
+      "atlas_xywh": [
+        0,
+        0,
+        32,
+        48
+      ]
+    },
+    "nozzle": {
+      "source": "clockwork",
+      "crop_ltrb": [
+        545,
+        173,
+        972,
+        373
+      ],
+      "atlas_xywh": [
+        36,
+        0,
+        45,
+        21
+      ]
+    },
+    "dial": {
+      "source": "clockwork",
+      "crop_ltrb": [
+        1075,
+        51,
+        1482,
+        468
+      ],
+      "atlas_xywh": [
+        86,
+        0,
+        29,
+        29
+      ]
+    },
+    "mirror": {
+      "source": "clockwork",
+      "crop_ltrb": [
+        193,
+        528,
+        305,
+        993
+      ],
+      "atlas_xywh": [
+        120,
+        0,
+        18,
+        82
+      ]
+    },
+    "wrought_rod": {
+      "source": "clockwork",
+      "crop_ltrb": [
+        722,
+        528,
+        814,
+        992
+      ],
+      "atlas_xywh": [
+        142,
+        0,
+        9,
+        54
+      ]
+    },
+    "lens": {
+      "source": "clockwork",
+      "crop_ltrb": [
+        1078,
+        673,
+        1463,
+        842
+      ],
+      "atlas_xywh": [
+        157,
+        0,
+        36,
+        16
+      ]
+    },
+    "mist": {
+      "source": "phenomena",
+      "crop_ltrb": [
+        16,
+        140,
+        873,
+        381
+      ],
+      "atlas_xywh": [
+        0,
+        88,
+        120,
+        35
+      ]
+    },
+    "veil": {
+      "source": "phenomena",
+      "crop_ltrb": [
+        1200,
+        1,
+        1415,
+        439
+      ],
+      "atlas_xywh": [
+        204,
+        0,
+        17,
+        80
+      ]
+    },
+    "flame": {
+      "source": "phenomena",
+      "crop_ltrb": [
+        4,
+        574,
+        862,
+        772
+      ],
+      "atlas_xywh": [
+        0,
+        128,
+        125,
+        28
+      ]
+    },
+    "coals": {
+      "source": "phenomena",
+      "crop_ltrb": [
+        913,
+        661,
+        1754,
+        746
+      ],
+      "atlas_xywh": [
+        0,
+        161,
+        96,
+        17
+      ]
+    }
+  }
+}

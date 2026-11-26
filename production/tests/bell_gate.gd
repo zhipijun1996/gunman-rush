@@ -63,6 +63,11 @@ func check_authoring() -> void:
 
 func check_play() -> void:
 	var doc := WorldRoomDocument.read(ROOM)
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("region="):
+			var region := argument.trim_prefix("region=")
+			doc.root.properties.region_id = region
+			doc.root.properties.terrain_material = region
 	var generated := create({"mode":"timed","member_offsets":{"gate":[96,-104]}})
 	var from_catalog := doc.duplicate(true)
 	from_catalog.entities.merge(generated.entities, true)

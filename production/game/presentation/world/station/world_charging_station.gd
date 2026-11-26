@@ -51,3 +51,8 @@ func _draw() -> void:
 		PixelVfx.arc(self,Vector2(0,-28),22+(1-success)*8,PI*.12,PI*.88,Color(.7,.95,.83,success*.5))
 		PixelVfx.clip(self,&"collect",Vector2(0,-28),1-success,0,Color(.7,.95,.83,.55))
 	draw_texture(FRONT,Vector2(-48,-92))
+	MechanismRegionArt.panel(self,Rect2(-43,-7,86,8))
+	for side: float in [-1.0,1.0]:
+		MechanismRegionArt.panel(self,Rect2(side*32-4,-58,8,49))
+		MechanismRegionArt.stamp(self,"lamp",Vector2(side*32,-61),Vector2(17,28))
+		MechanismRegionArt.stamp(self,"mount",Vector2(side*32,-14),Vector2(12,12))

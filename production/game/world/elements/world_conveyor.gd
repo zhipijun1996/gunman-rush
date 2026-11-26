@@ -8,6 +8,7 @@ extends TraversalMechanism
 @export var initial_active := true
 var active := true
 var tread_offset := 0.0
+var wheel_angle := 0.0
 
 func _ready() -> void:
 	active = initial_active
@@ -28,7 +29,12 @@ func transport(normal: Vector2, attached_to_wall: bool) -> Vector2:
 
 func _process(delta: float) -> void:
 	if not active: return
-	tread_offset = fposmod(tread_offset + surface_speed*delta,12)
+	var travel := surface_speed*delta
+	tread_offset = fposmod(tread_offset+travel,12)
+	var depth := bounds.size.y if surface_mode=="floor" else bounds.size.x
+	var radius := maxf(1,minf(depth-2,20)*.5)
+	var winding := -1 if surface_mode=="wall" and wall_face=="left" else 1
+	wheel_angle = fposmod(wheel_angle+winding*travel/radius,TAU)
 	queue_redraw()
 
 func element_state() -> Dictionary:
@@ -38,12 +44,31 @@ func element_restore(data: Dictionary) -> void:
 	active = data.active
 
 func _draw() -> void:
-	draw_rect(bounds,Color("424b48"))
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	MechanismRegionArt.panel(self,bounds)
 	var direction := Vector2.RIGHT if surface_mode=="floor" else Vector2.DOWN
-	var edge := bounds.position
-	if surface_mode=="wall" and wall_face=="right": edge.x += bounds.size.x-3
+	var inward := Vector2.DOWN if surface_mode=="floor" else Vector2.RIGHT if wall_face=="left" else Vector2.LEFT
 	var length := bounds.size.dot(direction)
-	var at := tread_offset
-	while at+5 < length:
-		draw_line(edge+direction*at,edge+direction*(at+5),Color("d8b774") if active else Color("8b826d"),4)
+	var depth := bounds.size.dot(inward.abs())
+	var start := bounds.position if inward != Vector2.LEFT else Vector2(bounds.end.x,bounds.position.y)
+	var roller := minf(depth-2,20)
+	if roller < 1: return
+	var face := minf(6,depth*.32)
+	var rail := start+inward*face
+	draw_line(rail,rail+direction*length,Color("241e24"),maxf(2,face))
+	var metal := Color("d1ba83") if active else Color("756d68")
+	var at := tread_offset-12
+	while at < length:
+		var left := maxf(at,0)
+		var right := minf(length,at+8)
+		if roundf(left) < roundf(right):
+			var a := start+direction*left
+			var b := start+direction*right
+			draw_line((a+inward*face*.5).round(),(b+inward*face*.5).round(),metal.darkened(.4),maxf(1,face))
+			draw_line(a.round(),b.round(),metal,2)
 		at += 12
+	var count := maxi(2,ceili(length/48))
+	for index: int in count:
+		var along := lerpf(roller*.5,length-roller*.5,float(index)/(count-1))
+		var point := start+direction*along+inward*(depth-roller*.5)
+		TraversalMechanismArt.wheel(self,point,roller,wheel_angle,Color.WHITE if active else Color("97929b"))

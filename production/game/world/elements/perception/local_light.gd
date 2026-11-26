@@ -135,8 +135,11 @@ func _draw() -> void:
 				draw_dashed_line(previous,point,Color("9d9272"),1,6)
 				previous = point
 	else:
-		draw_rect(Rect2(-4,8,8,13),Color("493f3a"))
-		draw_rect(Rect2(-8,19,16,4),Color("8c7854"))
 		if active: LightInstrumentArt.glow(self,Vector2.ZERO,brightness,21)
-		LightInstrumentArt.draw(self,art,LightInstrumentArt.Frame.COCOON,Vector2.ZERO,metal)
+		if art != null and art.get_width() >= LightInstrumentArt.CELL*5:
+			LightInstrumentArt.draw(self,art,LightInstrumentArt.Frame.FIXED_LAMP,Vector2.ZERO,metal)
+		else:
+			draw_rect(Rect2(-4,8,8,13),Color("493f3a"))
+			draw_rect(Rect2(-8,19,16,4),Color("8c7854"))
+			LightInstrumentArt.draw(self,art,LightInstrumentArt.Frame.COCOON,Vector2.ZERO,metal)
 	if Engine.is_editor_hint(): draw_arc(current,light_radius,0,TAU,64,Color("b29f6970"),1)

@@ -16,6 +16,7 @@ var receipts := {}
 var queue: Array[Dictionary] = []
 var submit: Callable
 var controller: PlayerController
+var fragments: Array[Dictionary] = []
 
 func _ready() -> void:
 	var count := Vector2i.ONE if break_mode=="whole" else Vector2i(bounds.size/float(cell_size))
@@ -63,13 +64,14 @@ func enqueue(packet: Dictionary, point: Vector2) -> bool:
 			cells.append(i)
 	if cells.is_empty(): return false
 	receipts[id] = true
-	queue.append({"cells":cells})
+	queue.append({"cells":cells,"contact":point})
 	submit.call(element_id)
 	return true
 
 func cancel_pending() -> void:
 	receipts.clear()
 	queue.clear()
+	fragments.clear()
 
 func can_commit() -> bool: return not queue.is_empty()
 func element_state() -> Dictionary: return {"hp":hp.duplicate()}
@@ -82,14 +84,38 @@ func element_restore(data: Dictionary) -> void:
 	hp = data.hp.duplicate()
 	for i in hp.size(): pieces[i].collision_layer = 1 if hp[i]>0 else 0
 	queue_redraw()
-func accept_committed() -> void: queue.pop_front()
-func _physics_process(_delta: float) -> void:
+func accept_committed() -> void:
+	var work := queue.pop_front() as Dictionary
+	var stride := maxi(1,ceili(work.cells.size()/12.))
+	for index: int in range(0,work.cells.size(),stride):
+		var i: int = work.cells[index]
+		var point: Vector2 = work.contact if break_mode=="whole" else rectangles[i].get_center()
+		fragments.append({"point":point,"age":0.0,"broken":hp[i]==0})
+func _physics_process(delta: float) -> void:
+	if not fragments.is_empty():
+		for i: int in range(fragments.size()-1,-1,-1):
+			fragments[i].age += delta
+			if fragments[i].age>=.28: fragments.remove_at(i)
+		queue_redraw()
 	if not queue.is_empty() and controller.active: submit.call(element_id)
 func _draw() -> void:
 	for i in hp.size():
 		if hp[i]<=0: continue
 		var rect := rectangles[i]
-		draw_rect(rect,Color("66616a"))
-		draw_rect(rect.grow(-1),Color("aea08b"),false,2)
-		if hp[i]<hits_required:
-			draw_polyline(PackedVector2Array([rect.position,rect.get_center(),rect.get_center()-Vector2(rect.size.x*.15,0),rect.end]),Color("342f3a"),2)
+		var strength := float(hp[i])/hits_required
+		MechanismRegionArt.panel(self,rect,Color.WHITE.lerp(Color("a18f91"),1.-strength))
+		var seed_angle := sin(float(i*23+41))
+		var points := PackedVector2Array()
+		for offset: Vector2 in [Vector2(.13,0),Vector2(.29,.22),Vector2(.23,.34),Vector2(.43,.48),Vector2(.39,.58)]:
+			var unit := Vector2(.5+(offset.x-.5)*seed_angle,offset.y)
+			points.append((rect.position+unit*rect.size).round())
+		draw_polyline(points,Color("1b182899"),1)
+		var last := points[points.size()-1]
+		if strength<1:
+			var end := (rect.position+rect.size*Vector2(.79,.95)).round()
+			draw_polyline(PackedVector2Array([last,last.lerp(end,.30)+Vector2(2,-2),last.lerp(end,.58)-Vector2(3,0),end]),Color("211b27"),2)
+			draw_line(last,last.lerp(rect.position,.54)+Vector2(4,0),Color("4c3c3b"),1)
+		if rect.size.x>=22 and rect.size.y>=20 and (i%5==1 or break_mode=="whole"):
+			MechanismRegionArt.stamp(self,"hazard",rect.get_center()+Vector2(2,2),Vector2(13,11),Color("ada29a"))
+	for effect: Dictionary in fragments:
+		PixelVfx.clip(self,&"dust" if effect.broken else &"impact",effect.point,effect.age/.28,0.,Color("ceb384"),Vector2.ONE*(.55 if effect.broken else .32))

@@ -176,11 +176,32 @@ func element_restore(data: Dictionary) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	super._draw()
 	var start := origin-position
 	var points: Array[Vector2] = [start]
 	if motion_mode == "cycle" and not route.is_empty():
 		for point: Vector2 in route: points.append(start+point)
 	else: points.append(start+endpoint)
-	for i: int in range(1,points.size()): draw_dashed_line(points[i-1],points[i],Color("726345"),2,9)
-	if motion_mode == "retract": draw_line(start,Vector2.ZERO,Color("699154") if stage!="retract_warning" else Color("edbd68"),4)
+	for i: int in range(1,points.size()):
+		var a := points[i-1]
+		var b := points[i]
+		if motion_mode == "retract":
+			draw_dashed_line(a,b,Color("625f54"),1,8)
+		else:
+			var off := (b-a).normalized().orthogonal()*2
+			draw_line(a-off,b-off,Color("373637"),2)
+			TraversalMechanismArt.chain(self,a+off,b+off,2,Color("a1957c"))
+	for station: Vector2 in points:
+		MechanismRegionArt.stamp(self,"mount",station,Vector2(24,20))
+		if motion_mode != "retract":
+			TraversalMechanismArt.sprite(self,TraversalMechanismArt.WHEEL,station,Vector2(15,15))
+	if motion_mode == "retract":
+		var bark := Color("e2ae68") if stage=="retract_warning" else Color("807a4d")
+		TraversalMechanismArt.chain(self,start,Vector2.ZERO,5,bark)
+		var axis := (-start).normalized()
+		for step: int in range(10,int(start.length())-5,15):
+			var point := start+axis*step
+			var side := axis.orthogonal()*signf(sin(step*1.3))
+			draw_line(point,point+side*4-axis*4,bark.darkened(.28),3)
+	elif motion_mode == "zipline":
+		TraversalMechanismArt.wheel(self,Vector2(0,-5),18,distance*.10)
+	super._draw()

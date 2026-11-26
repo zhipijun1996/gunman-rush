@@ -154,12 +154,33 @@ func _draw() -> void:
 	var enabled := phase == "active"
 	if enabled and remaining < expiry_warning_s: color = color.lerp(Color.WHITE,absf(sin(remaining*20)))
 	if enabled:
-		draw_circle(Vector2.ZERO,shield_radius,Color(color,.13))
-		draw_arc(Vector2.ZERO,shield_radius,0,TAU,64,color,2)
-		if body != null and _containment_interval(WorldHazardGeometry.body_rect(body),WorldHazardGeometry.body_rect(body)).x == 0:
-			draw_arc(Vector2.ZERO,shield_radius-4,0,TAU,64,Color(color,.6),1)
-	draw_circle(Vector2.ZERO,control_radius,color.darkened(.55) if phase == "cooldown" else color)
-	draw_arc(Vector2.ZERO,control_radius*.6,PI,TAU,12,Color("493628"),2)
+		draw_circle(Vector2.ZERO,shield_radius,Color(color,.105))
+		draw_arc(Vector2.ZERO,shield_radius,0,TAU,96,Color(color,.78),2)
+		var inside := body!=null and _containment_interval(WorldHazardGeometry.body_rect(body),WorldHazardGeometry.body_rect(body)).x==0
+		var inner := maxf(1,shield_radius-3)
+		var turn := fposmod((active_s-remaining)*.22,TAU/12)
+		for i: int in 12:
+			var angle := i*TAU/12+turn
+			var point := Vector2.from_angle(angle)
+			draw_arc(Vector2.ZERO,inner,angle+.07,angle+.34,8,Color(color,.8 if inside else .32),1)
+			draw_line(point*(shield_radius-6),point*(shield_radius-2),Color(color,.85),2)
+		if inside: draw_arc(Vector2.ZERO,shield_radius-5,0,TAU,96,Color(color,.34),1)
+	var radius := control_radius
+	var iris_tint := Color(.56,.61,.61) if phase=="cooldown" else Color.WHITE
+	for i: int in 4:
+		var angle := PI*.25+i*PI*.5
+		var normal := Vector2.from_angle(angle)
+		draw_set_transform(Vector2.ZERO,angle,Vector2.ONE)
+		var outer := radius*1.52 if enabled else radius*1.10 if phase=="ready" else radius*.83
+		draw_texture_rect_region(BellGateArt.texture(),Rect2(radius*.52,-radius*.18,outer-radius*.25,radius*.36),BellGateArt.GUIDE,iris_tint)
+		MechanismRegionArt.stamp(self,"mount",Vector2(outer,0),Vector2(radius*.8,radius*.72),iris_tint)
+		if enabled: draw_rect(Rect2(outer-radius*.10,-1,3,2),color)
+	draw_set_transform_matrix(Transform2D.IDENTITY)
+	MechanismRegionArt.stamp(self,"finial",Vector2.ZERO,Vector2.ONE*radius*1.90,iris_tint)
+	draw_circle(Vector2.ZERO,radius*.51,Color("282d31"))
+	MechanismRegionArt.stamp(self,"lamp",Vector2.ZERO,Vector2(radius*.94,radius*1.17),iris_tint)
+	if phase!="cooldown":
+		PixelVfx.glint(self,Vector2(0,-1),minf(4,radius*.3),color,.82 if enabled else .52)
 	var slice := TAU/maxi(1,source_nodes.size())
 	for i: int in source_nodes.size():
 		if not is_instance_valid(source_nodes[i]): continue
