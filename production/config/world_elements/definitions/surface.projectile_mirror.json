@@ -1,0 +1,43 @@
+{
+  "id": "surface.projectile_mirror",
+  "name": "反射冰镜",
+  "version": 1,
+  "component": "ProjectileMirror",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "mirror_length": 128,
+    "orientation_mode": "fixed",
+    "normal_deg": 0,
+    "normal_angles_deg": [
+      0,
+      45,
+      90,
+      135
+    ],
+    "initial_index": 0,
+    "turn_s": 0.35,
+    "control_offset": [
+      0,
+      -88
+    ],
+    "control_radius": 10,
+    "two_sided": false,
+    "projectile_categories": [
+      "ordinary"
+    ],
+    "state_scope": "attempt",
+    "section_id": "main"
+  },
+  "position_field": "position",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/surface.projectile_mirror.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible"
+}

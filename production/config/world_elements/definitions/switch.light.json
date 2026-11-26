@@ -1,0 +1,31 @@
+{
+  "id": "switch.light",
+  "name": "感光花盘",
+  "version": 1,
+  "component": "WorldLightFlower",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "light_source_types": [
+      "local_light",
+      "equipped_light"
+    ],
+    "light_threshold": 0.5,
+    "activate_delay_s": 0.2,
+    "release_hold_s": 0.4,
+    "links": [],
+    "section_id": "main",
+    "state_scope": "attempt"
+  },
+  "time_profile": "incompatible",
+  "usable_regions": [
+    "*"
+  ],
+  "position_field": "position",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/switch.light.md",
+  "library": "mechanisms"
+}

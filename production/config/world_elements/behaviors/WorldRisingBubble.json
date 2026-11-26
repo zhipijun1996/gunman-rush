@@ -1,0 +1,66 @@
+{
+  "id": "WorldRisingBubble",
+  "script": "res://game/world/elements/world_rising_bubble.gd",
+  "fields": {
+    "element_id": {
+      "type": "string"
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "bubble_radius": {
+      "type": "number",
+      "label": "气泡半径",
+      "unit": "px"
+    },
+    "rise_speed": {
+      "type": "number",
+      "label": "上浮速度",
+      "unit": "px/s"
+    },
+    "rise_distance": {
+      "type": "number",
+      "label": "上浮行程",
+      "unit": "px"
+    },
+    "respawn_delay_s": {
+      "type": "number",
+      "label": "再生等待",
+      "unit": "s"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "category": "traversal",
+  "root": false,
+  "default_definition": "traversal.rising_bubble",
+  "validator_script": "res://game/world/elements/traversal_mechanism_config.gd",
+  "state_version": 1,
+  "state": {
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "position": {
+      "type": "point",
+      "required": true
+    },
+    "remaining": {
+      "type": "number",
+      "required": true
+    }
+  }
+}

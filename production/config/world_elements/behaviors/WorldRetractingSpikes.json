@@ -1,0 +1,111 @@
+{
+  "id": "WorldRetractingSpikes",
+  "script": "res://game/world/mechanisms/hazards/retracting_spikes.gd",
+  "validator_script": "res://game/world/mechanisms/hazards/retracting_spikes.gd",
+  "fields": {
+    "element_id": {
+      "type": "string",
+      "label": "实例 ID"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "label": "状态寿命",
+      "choices": [
+        "attempt"
+      ]
+    },
+    "bounds": {
+      "type": "rect",
+      "label": "范围",
+      "unit": "px"
+    },
+    "facing": {
+      "type": "string",
+      "label": "朝向",
+      "choices": [
+        "up",
+        "down",
+        "left",
+        "right"
+      ]
+    },
+    "mode": {
+      "type": "string",
+      "label": "驱动",
+      "choices": [
+        "cycle",
+        "signal"
+      ]
+    },
+    "retracted_s": {
+      "type": "number",
+      "label": "收起保持",
+      "unit": "秒",
+      "min": 0
+    },
+    "warning_s": {
+      "type": "number",
+      "label": "预告",
+      "unit": "秒",
+      "min": 0
+    },
+    "extend_s": {
+      "type": "number",
+      "label": "伸出",
+      "unit": "秒",
+      "min": 0
+    },
+    "exposed_s": {
+      "type": "number",
+      "label": "外露保持",
+      "unit": "秒",
+      "min": 0
+    },
+    "retract_s": {
+      "type": "number",
+      "label": "缩回",
+      "unit": "秒",
+      "min": 0
+    },
+    "start_phase01": {
+      "type": "number",
+      "label": "初始周期比例",
+      "unit": "比例",
+      "min": 0
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "state": {
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "elapsed": {
+      "type": "number",
+      "required": true
+    },
+    "target": {
+      "type": "bool",
+      "required": true
+    },
+    "running": {
+      "type": "bool",
+      "required": true
+    },
+    "exposure": {
+      "type": "dict",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "hazards",
+  "root": false,
+  "default_definition": "hazard.retracting_spikes"
+}

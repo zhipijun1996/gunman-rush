@@ -1,0 +1,30 @@
+{
+  "id": "internal.mechanism_orbit",
+  "name": "共轴运动",
+  "version": 1,
+  "component": "WorldOrbitDrive",
+  "defaults": {
+    "state_scope": "attempt",
+    "section_id": "main",
+    "position": [
+      0,
+      0
+    ],
+    "radius": 160,
+    "angle_offsets_deg": {},
+    "period": 8,
+    "initial_angle_deg": 0,
+    "direction": "clockwise",
+    "initial_running": false,
+    "carrier_ids": {}
+  },
+  "position_field": "position",
+  "category": "internal",
+  "placeable": false,
+  "documentation": "docs/data/mechanisms/internal.mechanism_orbit.md",
+  "library": "internal",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "mechanism"
+}

@@ -1,6 +1,7 @@
 class_name WorldRoomInteraction
 extends Node2D
 ## One authored physical host for one canonical world action.
+@export var action_owner_id := ""
 @export var action_id := ""
 @export var section_id := "main"
 @export var label := "拾取"
@@ -15,6 +16,9 @@ func bind(value: FixedWorldState) -> void:
 	state=value;action=state.content.action(action_id)
 	if action.is_empty(): push_error("Unknown action host: "+action_id);return
 	if str(action.get("section_id","main"))!=section_id: push_error("Action section mismatch: "+action_id)
+	if not action_owner_id.is_empty():
+		visible = false
+		return
 	if visual=="chest":
 		chest_sprite=Sprite2D.new();add_child(chest_sprite)
 	else:

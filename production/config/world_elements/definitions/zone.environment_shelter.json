@@ -1,0 +1,29 @@
+{
+  "id": "zone.environment_shelter",
+  "name": "定点避害罩",
+  "version": 1,
+  "component": "WorldEnvironmentShelter",
+  "defaults": {
+    "section_id": "main",
+    "state_scope": "attempt",
+    "position": [
+      0,
+      0
+    ],
+    "control_radius": 14,
+    "shield_radius": 96,
+    "protected_sources": [],
+    "active_s": 3,
+    "expiry_warning_s": 0.6,
+    "cooldown_s": 2
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible",
+  "position_field": "position",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/zone.environment_shelter.md",
+  "library": "mechanisms"
+}

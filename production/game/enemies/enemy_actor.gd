@@ -17,6 +17,45 @@ var _restoring_instance := false
 var damage_feedback: DamageFeedbackDefinition = preload("res://game/combat/damage/feedback.tres")
 var _damage_stun_remaining := 0.0
 
+## A sound source can temporarily redirect an ordinary ground patrol's intent.
+var investigation_owner: Node
+var investigation_goal := Vector2.ZERO
+var investigation_left := 0.0
+
+func investigate(source: Node, sound: Vector2, radius: float, hold: float) -> bool:
+	if health.terminal or definition.aerial or definition.patrol_speed <= 0 or _damage_stun_remaining > 0 or _stagger_remaining > 0:
+		return false
+	if is_instance_valid(investigation_owner): return false
+	if attack_behavior != null and (attack_behavior.state != &"idle" or attack_behavior._can_engage()): return false
+	var at := motor.global_position
+	if not motor.supported_at(at): return false
+	var goal := motor.supported_ground_goal(at, Vector2(sound.x,at.y))
+	var collision := KinematicCollision2D.new()
+	if motor.test_move(motor.global_transform,goal-at,collision): goal = at + collision.get_travel()
+	if goal.distance_to(sound) > radius: return false
+	investigation_owner = source; investigation_goal = goal; investigation_left = hold
+	return true
+
+func cancel_investigation() -> void:
+	investigation_owner = null
+	investigation_left = 0.0
+
+func _advance_investigation(delta: float) -> bool:
+	if not is_instance_valid(investigation_owner): return false
+	if attack_behavior != null and attack_behavior._can_engage():
+		cancel_investigation()
+		return false
+	var difference := investigation_goal.x-motor.global_position.x
+	var intent := EnemyIntent.new()
+	if absf(difference) > 1.0:
+		intent.move_axis = int(signf(difference)); intent.travel_limit = absf(difference)
+		brain.direction = intent.move_axis
+	else:
+		investigation_left -= delta
+		if investigation_left <= 0: cancel_investigation()
+	if motor.step(intent,delta): cancel_investigation()
+	return true
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	if definition == null or not definition.is_valid() or motor == null or brain == null or damageable == null:
@@ -51,6 +90,7 @@ func physics_tick(delta: float) -> void:
 	if _stagger_remaining>0:
 		_stagger_remaining=maxf(0,_stagger_remaining-delta)
 		motor.step(EnemyIntent.new(),delta);return
+	if _advance_investigation(delta): return
 	if attack_behavior != null and attack_behavior.advance(delta):
 		return
 	var intent := brain.sample_intent(motor.global_position)
@@ -61,6 +101,7 @@ func cancel_attacks() -> void:
 	if attack_behavior != null: attack_behavior.cancel()
 
 func reset(_policy: StringName = &"legacy_test") -> void:
+	cancel_investigation()
 	# Only new-stage or explicit historical graybox restart. Segment returns will
 	# retain this actor's health and phase, not invoke reset on all world objects.
 	if definition == null or not definition.is_valid():
@@ -77,6 +118,7 @@ func reset(_policy: StringName = &"legacy_test") -> void:
 	set_physics_process(not health.terminal)
 
 func _on_death() -> void:
+	cancel_investigation()
 	if not _restoring_instance:
 		if PlainsEnemyAudio.supports(self): PlainsEnemyAudio.defeated(self)
 		else: GameAudio.cue(self, &"enemy_defeat")
@@ -223,6 +265,7 @@ func apply_skill_impact(unit: Vector2, stagger_seconds: float, stagger_cooldown:
 	if knockback_speed>0:motor.request_knockback(unit.normalized()*knockback_speed,knockback_seconds)
 
 func _accepted_hit(context: Dictionary) -> void:
+	cancel_investigation()
 	if health.terminal or _restoring_instance: return
 	var raw_direction: Variant = context.get("hit_direction", Vector2.ZERO)
 	if not raw_direction is Vector2 or not (raw_direction as Vector2).is_finite(): return

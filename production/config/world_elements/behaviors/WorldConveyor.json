@@ -1,0 +1,69 @@
+{
+  "id": "WorldConveyor",
+  "script": "res://game/world/elements/world_conveyor.gd",
+  "fields": {
+    "element_id": {
+      "type": "string"
+    },
+    "bounds": {
+      "type": "rect",
+      "label": "范围",
+      "unit": "px"
+    },
+    "surface_mode": {
+      "type": "string",
+      "choices": [
+        "floor",
+        "wall"
+      ],
+      "label": "表面模式"
+    },
+    "wall_face": {
+      "type": "string",
+      "choices": [
+        "left",
+        "right"
+      ],
+      "label": "墙面朝向"
+    },
+    "surface_speed": {
+      "type": "number",
+      "label": "表面速度",
+      "unit": "px/s"
+    },
+    "initial_active": {
+      "type": "bool",
+      "label": "初始启用"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "category": "traversal",
+  "root": false,
+  "default_definition": "platform.conveyor",
+  "validator_script": "res://game/world/elements/traversal_mechanism_config.gd",
+  "state_version": 1,
+  "state": {
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "active": {
+      "type": "bool",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "surface.motion",
+  "name": "黏滞与光滑地面",
+  "version": 1,
+  "component": "WorldMotionSurface",
+  "defaults": {
+    "bounds": [
+      0,
+      0,
+      192,
+      16
+    ],
+    "surface_mode": "sticky",
+    "walk_speed_scale": 0.5,
+    "walk_acceleration_scale": 0.5,
+    "brake_scale": 0.15,
+    "reverse_acceleration_scale": 0.35
+  },
+  "category": "traversal",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/surface.motion.md",
+  "library": "mechanisms",
+  "position_field": "bounds",
+  "time_profile": "incompatible",
+  "usable_regions": [
+    "*"
+  ]
+}

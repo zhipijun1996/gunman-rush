@@ -1,0 +1,82 @@
+{
+  "id": "WorldSoundLure",
+  "script": "res://game/world/elements/perception/sound_lure.gd",
+  "fields": {
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "bounds": {
+      "type": "rect",
+      "label": "房间范围",
+      "unit": "px"
+    },
+    "trigger_mode": {
+      "type": "string",
+      "label": "发声方式",
+      "choices": [
+        "shot",
+        "ground_contact"
+      ]
+    },
+    "audible_radius": {
+      "type": "number",
+      "label": "听觉半径",
+      "unit": "px",
+      "min": 0
+    },
+    "investigation_s": {
+      "type": "number",
+      "label": "调查停留",
+      "unit": "s",
+      "min": 0
+    },
+    "cooldown_s": {
+      "type": "number",
+      "label": "冷却",
+      "unit": "s",
+      "min": 0
+    },
+    "stand_search_radius": {
+      "type": "number",
+      "label": "站位搜索半径",
+      "unit": "px",
+      "min": 0
+    },
+    "element_id": {
+      "type": "string",
+      "label": "实例身份"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "label": "状态寿命",
+      "choices": [
+        "attempt"
+      ]
+    }
+  },
+  "inputs": {
+    "sound": "pulse"
+  },
+  "outputs": {},
+  "state": {
+    "serial": {
+      "type": "number",
+      "required": true
+    },
+    "cooldown": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "interaction.sound_lure",
+  "validator_script": "res://game/world/elements/perception/sound_lure.gd"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "internal.route_switch",
+  "name": "互斥切换驱动",
+  "version": 1,
+  "component": "WorldRouteSwitch",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "state_scope": "attempt",
+    "section_id": "main",
+    "motion_mode": "targets",
+    "groups": {
+      "A": [],
+      "B": []
+    },
+    "target_bindings": {},
+    "initial_route": "A",
+    "warning_duration": 0.25,
+    "turn_duration": 0.4
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible",
+  "position_field": "position",
+  "category": "internal",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/internal.route_switch.md",
+  "library": "internal",
+  "time_profiles": {
+    "targets": "incompatible",
+    "synchronized_beams": "mechanism"
+  }
+}

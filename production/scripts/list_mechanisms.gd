@@ -1,4 +1,5 @@
 extends SceneTree
+const Info := preload("res://addons/mechanism_library/catalog_info.gd")
 ## Show the same library used to authorize placement and load room documents.
 func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -41,9 +42,7 @@ func show_entries(ids: Array) -> void:
 func print_definition(definition: Dictionary) -> void:
 	print(definition.name, "  ", definition.id, "  v", definition.version)
 	print("声明区域  ", JSON.stringify(definition.get("usable_regions", ["*"])))
-	var fields: Dictionary = definition.get("creation_fields", {})
-	if definition.has("component"):
-		fields = WorldElementCatalog.catalog().behaviors[definition.component].fields
+	var fields := Info.fields(definition)
 	for key: String in fields:
 		var field: Dictionary = fields[key]
 		var value: Variant = definition.get("defaults", {}).get(key, field.get("default"))
@@ -51,6 +50,7 @@ func print_definition(definition: Dictionary) -> void:
 		var detail := str(field.type) + " " + str(field.get("unit", ""))
 		if value != null: detail += "  默认 " + JSON.stringify(value)
 		if field.has("choices"): detail += "  " + JSON.stringify(field.choices)
+		if not str(field.hint).is_empty(): detail += "  " + str(field.hint)
 		print(display, "  ", detail)
 	for mode: String in definition.get("mode_defaults", {}):
 		print(mode, "  ", JSON.stringify(definition.mode_defaults[mode]))

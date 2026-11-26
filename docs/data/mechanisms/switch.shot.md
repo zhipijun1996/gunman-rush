@@ -7,3 +7,5 @@
 [完整合同](../失序之钟_基本机关库.md#c01) · [行为与字段合同](../../../production/config/world_elements/behaviors/WorldElementSwitch.json)。输出 active (bool)
 
 [版本和默认参数](../../../production/config/world_elements/definitions/switch.shot.json) · [机关目录](../world_objects.md)
+
+主铃与附加铃共享同一个攻击包收据。三连机关枪同一次扳机产生的三发弹体只切换一次，下一次独立射击可以再次驱动切换型风铃。

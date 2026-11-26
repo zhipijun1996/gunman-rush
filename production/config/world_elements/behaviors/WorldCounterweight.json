@@ -1,0 +1,56 @@
+{
+  "id": "WorldCounterweight",
+  "script": "res://game/world/components/world_counterweight.gd",
+  "fields": {
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ]
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "element_id": {
+      "type": "string"
+    },
+    "position": {
+      "type": "point"
+    },
+    "rest_progress": {
+      "type": "number"
+    },
+    "loaded_rate": {
+      "type": "number"
+    },
+    "return_rate": {
+      "type": "number"
+    },
+    "stroke": {
+      "type": "point"
+    },
+    "carrier_ids": {
+      "type": "array",
+      "label": "联动踏台身份"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "state": {
+    "progress": {
+      "type": "number"
+    },
+    "clock": {
+      "type": "number"
+    },
+    "blocked": {
+      "type": "bool"
+    }
+  },
+  "state_version": 1,
+  "category": "platforms",
+  "root": false,
+  "default_definition": "internal.counterweight",
+  "validator_script": "res://game/world/elements/carrier_configuration.gd",
+  "clock": true
+}

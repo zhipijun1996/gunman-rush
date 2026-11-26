@@ -11,6 +11,7 @@ extends WorldShotLatch
 @export var duration := 0.0
 var elements: WorldElementRuntime
 var expiration_pending := false
+var packet_receipts := {}
 
 func element_bind(context: Dictionary) -> void:
 	elements = context.runtime
@@ -27,14 +28,47 @@ func element_bind(context: Dictionary) -> void:
 func accepts_activation() -> bool:
 	return not is_open or repeat_enabled
 
+func _register_shot(direction: Vector2, shot_id: int) -> void:
+	super._register_shot(direction,shot_id)
+	var key := "%s:%s" % [controller.session_id,shot_id]
+	if not _eligible_shots.has(key): return
+	var packet := "%s:%s" % [controller.session_id,controller.shoot_ability.packet_id]
+	var shot: Dictionary = _eligible_shots[key]
+	shot.packet = packet
+	# All receivers of this bell share the receipt through the last round's lifetime.
+	var receipt: Dictionary = packet_receipts.get(packet,{"accepted":false})
+	receipt.expires = shot.expires
+	packet_receipts[packet] = receipt
+
+func _receive_projectile(context: Dictionary) -> bool:
+	var key := "%s:%s" % [context.get("session_id",-1),context.get("shot_id",-1)]
+	var shot: Dictionary = _eligible_shots.get(key,{})
+	if not shot.has("packet") or packet_receipts[shot.packet].accepted: return false
+	if not super._receive_projectile(context): return false
+	packet_receipts[shot.packet].accepted = true
+	return true
+
 func _commit_open(request: Dictionary) -> void:
+	if not pending_commit.is_empty() and elements != null:
+		if elements.request_reserved(element_id): return
+		for link: Dictionary in links:
+			var receiver: Node = elements.nodes.get(link.target)
+			if receiver is WorldPermanentResult and receiver.phase == "executing": return
 	pending_commit = request
+	for link: Dictionary in links:
+		var receiver: Node = elements.nodes.get(link.target)
+		if receiver is WorldPermanentResult:
+			receiver.begin(self)
+			return
 	if can_commit(): activation_requested.emit(element_id)
 
 func can_commit() -> bool:
 	if expiration_pending: return is_open and lifetime.active and controller.active and not _cancelled and elements.can_signal(self, false)
+	return request_is_live() and elements.can_signal(self, not is_open if repeat_enabled else true)
+
+func request_is_live() -> bool:
 	var request := pending_commit
-	return not request.is_empty() and request.get("request_epoch",-1)==_request_epoch and not _cancelled and accepts_activation() and lifetime.accepts(request.token) and controller.active and not controller.actor_resources.health.terminal and controller.session_id==request.session and health.epoch==request.health_epoch and elements.can_signal(self, not is_open if repeat_enabled else true)
+	return not request.is_empty() and request.get("request_epoch",-1)==_request_epoch and not _cancelled and accepts_activation() and lifetime.accepts(request.token) and controller.active and not controller.actor_resources.health.terminal and controller.session_id==request.session and health.epoch==request.health_epoch
 
 func element_state() -> Dictionary:
 	return {"active":is_open,"clock":_clock,"opened_at":_opened_at,"open_count":open_count}
@@ -53,19 +87,23 @@ func element_restore(data: Dictionary) -> void:
 
 func accept_committed() -> void:
 	var expired := expiration_pending
-	pending_commit = {}; _eligible_shots.clear(); _seen.clear(); expiration_pending = false
+	pending_commit = {}; _seen.clear(); expiration_pending = false
 	if expired: GameAudio.cue(self, &"armour")
 	else: _play_bell(); opened.emit()
 
 func cancel_pending() -> void:
 	expiration_pending = false
+	packet_receipts.clear()
 	super.cancel_pending()
 
 func _physics_process(delta: float) -> void:
 	if elements == null: return
 	_clock += delta
-	if is_open and duration > 0 and _clock-_opened_at >= duration and not expiration_pending and elements.can_signal(self,false):
-		expiration_pending = true; activation_requested.emit(element_id)
+	if is_open and duration > 0 and _clock-_opened_at >= duration:
+		expiration_pending = true
+		if can_commit(): activation_requested.emit(element_id)
+	for packet: String in packet_receipts.keys():
+		if packet_receipts[packet].expires < _clock: packet_receipts.erase(packet)
 	for key: String in _eligible_shots.keys():
 		if _eligible_shots[key].expires < _clock: _eligible_shots.erase(key)
 	if not _pending.is_empty():

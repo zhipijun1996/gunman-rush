@@ -1,6 +1,6 @@
 # 移动齿轮
 
-在轨迹两端预留可读的安全位置。齿轮可用自身时钟，也可通过 drive_id 读取载台的时钟；碰撞伤害归统一伤害系统。
+直线模式沿中心两侧的半程移动，圆弧模式绕可见支点在两个角度之间摆动。两端可独立于移动时长停顿。齿轮通过 `drive_id` 共享运动所有者的时间，也可用自己的时钟。暂停时齿面仍按真实位置造成接触伤害。
 
 [行为与字段合同](../../../production/config/world_elements/behaviors/WorldElementGear.json)。输入 set_active (bool)
 

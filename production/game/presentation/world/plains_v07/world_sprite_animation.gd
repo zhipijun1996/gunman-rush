@@ -8,8 +8,12 @@ var spec: Dictionary
 var disposable := false
 var activated := false
 static var catalog: Dictionary = {}
-func _ready() -> void:
+static func has_asset(key: String) -> bool:
 	if catalog.is_empty(): catalog = JSON.parse_string(FileAccess.get_file_as_string("res://assets/plains_v07/manifest.json")).assets
+	return catalog.has(key)
+
+func _ready() -> void:
+	if not has_asset(asset_id): return
 	spec = catalog[asset_id]
 	texture = load("res://" + str(spec.image)) as Texture2D
 	hframes = int(spec.frames)

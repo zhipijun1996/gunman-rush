@@ -1,0 +1,69 @@
+{
+  "id": "WorldDandelionPlatform",
+  "script": "res://game/world/components/world_dandelion_platform.gd",
+  "fields": {
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ]
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "element_id": {
+      "type": "string"
+    },
+    "position": {
+      "type": "point"
+    },
+    "platform_size": {
+      "type": "point"
+    },
+    "one_way": {
+      "type": "bool"
+    },
+    "endpoint": {
+      "type": "point"
+    },
+    "route": {
+      "type": "points"
+    },
+    "period": {
+      "type": "number",
+      "min": 0.051
+    },
+    "endpoint_dwell": {
+      "type": "number",
+      "min": 0
+    },
+    "phase_offset": {
+      "type": "number",
+      "min": 0
+    },
+    "sink_speed": {
+      "type": "number"
+    },
+    "rise_speed": {
+      "type": "number"
+    },
+    "max_sink": {
+      "type": "number"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "state": {
+    "clock": {
+      "type": "number"
+    },
+    "sink": {
+      "type": "number"
+    }
+  },
+  "state_version": 1,
+  "category": "platforms",
+  "root": false,
+  "default_definition": "platform.windchime_dandelion",
+  "validator_script": "res://game/world/elements/carrier_configuration.gd"
+}

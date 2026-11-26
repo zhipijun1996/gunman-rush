@@ -1,0 +1,126 @@
+{
+  "id": "assembly.counterweight_pair",
+  "name": "配重双台",
+  "version": 1,
+  "members": [
+    {
+      "id": "drive",
+      "definition": "internal.counterweight",
+      "offset": [
+        0,
+        0
+      ],
+      "instance_refs": {
+        "carrier_ids": [
+          "A",
+          "B"
+        ]
+      }
+    },
+    {
+      "id": "A",
+      "definition": "platform.moving",
+      "offset": [
+        0,
+        0
+      ],
+      "instance_refs": {
+        "drive_id": "drive"
+      }
+    },
+    {
+      "id": "B",
+      "definition": "platform.moving",
+      "offset": [
+        0,
+        0
+      ],
+      "instance_refs": {
+        "drive_id": "drive"
+      }
+    }
+  ],
+  "links": [],
+  "category": "assemblies",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/assembly.counterweight_pair.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "creation_adapter": "res://game/world/elements/carrier_presets.gd",
+  "creation_fields": {
+    "section_id": {
+      "type": "string",
+      "default": "main",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "default": "attempt",
+      "label": "状态寿命"
+    },
+    "driver_offset": {
+      "type": "point",
+      "default": [
+        0,
+        -144
+      ],
+      "label": "驱动参考点"
+    },
+    "upper_offsets": {
+      "type": "dict",
+      "default": {
+        "A": [
+          -128,
+          -96
+        ],
+        "B": [
+          128,
+          -96
+        ]
+      },
+      "label": "双台上端点"
+    },
+    "stroke": {
+      "type": "dict",
+      "default": {
+        "A": 192,
+        "B": 192
+      },
+      "label": "各台行程"
+    },
+    "platform_sizes": {
+      "type": "dict",
+      "default": {
+        "A": [
+          128,
+          24
+        ],
+        "B": [
+          128,
+          24
+        ]
+      },
+      "label": "两台尺寸"
+    },
+    "rest_progress": {
+      "type": "number",
+      "default": 0.5,
+      "label": "静息进度"
+    },
+    "loaded_rate": {
+      "type": "number",
+      "default": 0.35,
+      "label": "受载速率"
+    },
+    "return_rate": {
+      "type": "number",
+      "default": 0.15,
+      "label": "归位速率"
+    }
+  }
+}

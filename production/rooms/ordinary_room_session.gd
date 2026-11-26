@@ -14,6 +14,8 @@ var heal_base: Dictionary
 var focus_heal: WorldFocusHeal
 var audio_service: PlayerWeaponFeelAudioV2
 signal sign_read(text: String)
+var sign_reader: RoomSignReader
+var recovery := RoomRecovery.new()
 var room: FixedWorldRoom
 var player: PlayerMotor
 var controller: PlayerController
@@ -178,8 +180,8 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	policy.player_fatal.connect(_player_died)
 	add_child(room)
 	room.install(controller, policy, lifetime, state.value.enemies, at)
-	room.install_mechanisms(controller, lifetime, state.value.mechanisms, _activate)
 	room.services = services
+	room.install_mechanisms(controller, lifetime, state.value.mechanisms, _activate)
 	for site: Node in room.find_children("*","",true,false):
 		if site is EquipmentSite:
 			site.services = services
@@ -193,12 +195,18 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	equipment_menu = EquipmentMenu.new()
 	equipment_menu.session = self
 	add_child(equipment_menu)
+	if not room.signs.is_empty():
+		sign_reader = RoomSignReader.new()
+		sign_reader.session = self
+		add_child(sign_reader)
+		sign_read.connect(sign_reader.open)
+	if not room.retry_anchors.is_empty(): policy.environment_return_requested.connect(func(): recovery.retry(self))
 	for node: Node in room.find_children("*","",true,false):
 		if node is WorldResourcePickup: node.bind(self)
 		if node is WorldMovingPlatform: node.bind_activation(state)
 		if node is WorldRoomInteraction:
 			node.bind(state)
-			room.interaction_hosts.append(node)
+			if node.action_owner_id.is_empty(): room.interaction_hosts.append(node)
 	if room.rest_point != Vector2.ZERO or room.get_meta("editor_element_rows",{}).values().any(func(element): return element.get("definition_id") == "recovery.station"):
 		room.station_animation = WorldChargingStation.new()
 		room.station_animation.position = room.rest_point
@@ -207,6 +215,12 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		var fixture := WorldEnvironmentZone.new()
 		fixture.bounds = FixedWorldProvider.rect(zone.bounds)
 		fixture.mode = zone.mode
+		if fixture.mode == "wind":
+			fixture.wind_pattern = zone.wind_pattern
+			fixture.wind_direction = FixedWorldProvider.point(zone.wind_direction)
+			fixture.wind_acceleration = zone.wind_acceleration
+			fixture.wind_speed_cap = zone.wind_speed_cap
+			fixture.vortex_direction = zone.vortex_direction
 		fixture.services = services
 		fixture.controller = controller
 		fixture.policy = policy
@@ -265,6 +279,8 @@ func _interact() -> void:
 			var candidate := state.action_candidate(host.action_id, room.room_id, section)
 			if not candidate.is_empty() and state.commit(candidate,state.revision): host.celebrate()
 			return
+	for mechanism: Node in room.element_runtime.nodes.values():
+		if mechanism is WorldMovingPlatform and mechanism.interact(): return
 	for sign_data: Dictionary in room.signs:
 		if player.position.distance_to(sign_data.interaction_point) <= 60:
 			sign_read.emit(str(sign_data.text))
@@ -294,10 +310,17 @@ func _activate(id: String) -> void:
 	var changes := room.element_runtime.proposal(id)
 	if changes.is_empty(): return
 	var candidate := state.candidate()
+	var world_result := false
+	for target_id: String in changes:
+		var receiver: Node = room.element_runtime.nodes[target_id]
+		if receiver is WorldPermanentResult:
+			candidate = receiver.world_candidate()
+			if candidate.is_empty(): return
+			world_result = true
 	for target: String in changes:
 		if room.element_runtime.nodes[target].state_scope == "permanent":
 			candidate.mechanisms[target] = changes[target]
-	if candidate.mechanisms == state.value.mechanisms or state.commit(candidate, state.revision):
+	if (not world_result and candidate.mechanisms == state.value.mechanisms) or state.commit(candidate, state.revision):
 		room.element_runtime.accept(id, changes)
 
 func _defeated(actor: EnemyActor, id: String) -> void:
@@ -339,6 +362,7 @@ func _settle_death() -> void:
 	else: retry_delay = 1.0
 
 func _physics_process(delta: float) -> void:
+	if room != null and controller != null and controller.active and not room.retry_anchors.is_empty(): recovery.observe(room,player)
 	if not pending_death.is_empty():
 		retry_delay -= delta
 		if retry_delay <= 0: _settle_death()

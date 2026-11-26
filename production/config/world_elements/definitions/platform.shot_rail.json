@@ -1,0 +1,45 @@
+{
+  "id": "platform.shot_rail",
+  "name": "受击滑轨台",
+  "version": 1,
+  "component": "WorldShotRail",
+  "defaults": {
+    "state_scope": "attempt",
+    "section_id": "main",
+    "position": [
+      0,
+      0
+    ],
+    "platform_size": [
+      128,
+      24
+    ],
+    "stations": [
+      [
+        0,
+        0
+      ],
+      [
+        192,
+        0
+      ],
+      [
+        384,
+        0
+      ]
+    ],
+    "start_station": 0,
+    "move_speed": 160,
+    "settle_s": 0.1,
+    "direction_dot_min": 0.5
+  },
+  "position_field": "position",
+  "category": "platforms",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/platform.shot_rail.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "mechanism"
+}

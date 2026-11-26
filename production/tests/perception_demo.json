@@ -1,0 +1,18 @@
+{
+  "schema": 3,
+  "room_id": "perception-demo",
+  "bounds": [0,0,1152,540],
+  "root": {"definition_id":"room.standard","definition_version":1,"properties":{"region_id":"thorn_forest","terrain_material":"thorn_forest","start_point":[160,366]}},
+  "entities": {
+    "floor": {"id":"floor","definition_id":"platform.solid","definition_version":1,"properties":{"rect":[0,384,749,156]}},
+    "far_floor": {"id":"far_floor","definition_id":"platform.solid","definition_version":1,"properties":{"rect":[829,384,323,156]}},
+    "reeds": {"id":"reeds","definition_id":"zone.sight_occluder","definition_version":1,"properties":{"bounds":[240,292,80,92]}},
+    "guide": {"id":"guide","definition_id":"environment.local_light","definition_version":1,"properties":{"position":[350,360],"light_mode":"guide","light_radius":105,"route":[[76,-80],[196,-80]],"move_speed":100,"waypoint_dwell_s":0.35,"end_behavior":"dock"}},
+    "flower": {"id":"flower","definition_id":"switch.light","definition_version":1,"properties":{"position":[570,326],"light_source_types":["local_light"],"links":[{"output":"active","target":"gate","input":"set_active"}]}},
+    "gate": {"id":"gate","definition_id":"gate.masonry","definition_version":1,"properties":{"bounds":[648,248,32,136],"state_scope":"attempt"}},
+    "mat": {"id":"mat","definition_id":"interaction.sound_lure","definition_version":1,"properties":{"trigger_mode":"ground_contact","bounds":[749,384,80,12]}},
+    "patrol": {"id":"patrol","definition_id":"enemy.patrol","definition_version":1,"properties":{"point":[936,368]}},
+    "vines": {"id":"vines","definition_id":"zone.foreground_cover","definition_version":1,"properties":{"bounds":[886,240,180,144]}},
+    "dark": {"id":"dark","definition_id":"zone.environment","definition_version":1,"properties":{"bounds":[380,170,310,214],"mode":"dark"}}
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "ProjectileDrag",
+  "script": "res://game/world/elements/projectile/projectile_drag.gd",
+  "fields": {
+    "bounds": {
+      "type": "rect"
+    },
+    "speed_scale": {
+      "type": "number",
+      "positive": true,
+      "max": 1
+    },
+    "projectile_categories": {
+      "type": "array"
+    },
+    "factions": {
+      "type": "array"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "category": "interaction",
+  "root": false,
+  "default_definition": "zone.projectile_drag",
+  "validator_script": "res://game/world/elements/projectile/projectile_contract.gd"
+}

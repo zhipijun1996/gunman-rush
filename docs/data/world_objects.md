@@ -22,26 +22,65 @@ bash tools/godot.sh --headless --path production --script res://scripts/list_mec
 
 ## 公有机关目录
 
-目录包括 15 个可直接放置的单项和 2 个可展开的组合件。组合件中的风铃、门和载台继续使用各自的单项定义。
+46 个基本件与 8 个预组均向 16 个区域开放。房间保存预组展开后的成员、参数、稳定 ID 和连线。
 
-| 定义 ID | 对象说明 |
-| --- | --- |
-| `switch.crossing` | [通过感应器](mechanisms/switch.crossing.md) |
-| `switch.shot` | [射击风铃](mechanisms/switch.shot.md) |
-| `gate.masonry` | [砌体机关门](mechanisms/gate.masonry.md) |
-| `platform.moving` | [移动载台](mechanisms/platform.moving.md) |
-| `hazard.gear` | [移动齿轮](mechanisms/hazard.gear.md) |
-| `hazard.spikes` | [附着尖刺](mechanisms/hazard.spikes.md) |
-| `assembly.bell_gate` | [风铃与机关门](mechanisms/assembly.bell_gate.md) |
-| `assembly.bell_carrier` | [风铃与升降台](mechanisms/assembly.bell_carrier.md) |
-| `traversal.hook` | [钩索锚点](mechanisms/traversal.hook.md) |
-| `interaction.return_gate` | [捷径门](mechanisms/interaction.return_gate.md) |
-| `interaction.action` | [世界行动宿主](mechanisms/interaction.action.md) |
-| `zone.environment` | [环境区域](mechanisms/zone.environment.md) |
-| `hazard.area` | [危险区域](mechanisms/hazard.area.md) |
-| `traversal.hook_point` | [固定钩索点](mechanisms/traversal.hook_point.md) |
-| `recovery.anchor` | [安全恢复点](mechanisms/recovery.anchor.md) |
-| `interaction.sign` | [告示](mechanisms/interaction.sign.md) |
-| `recovery.station` | [充电保存站](mechanisms/recovery.station.md) |
+| 编号 | 对象说明 | 定义 ID |
+| --- | --- | --- |
+| C01 | [射击风铃](mechanisms/switch.shot.md) | `switch.shot` |
+| C02 | [砌体机关门](mechanisms/gate.masonry.md) | `gate.masonry` |
+| C03 | [移动载台](mechanisms/platform.moving.md) | `platform.moving` |
+| C04 | [移动齿轮](mechanisms/hazard.gear.md) | `hazard.gear` |
+| C05 | [附着尖刺](mechanisms/hazard.spikes.md) | `hazard.spikes` |
+| C06 | [钩索锚点](mechanisms/traversal.hook.md) | `traversal.hook` |
+| C07 | [固定钩索点](mechanisms/traversal.hook_point.md) | `traversal.hook_point` |
+| C08 | [捷径门](mechanisms/interaction.return_gate.md) | `interaction.return_gate` |
+| C09 | [世界行动宿主](mechanisms/interaction.action.md) | `interaction.action` |
+| C10 | [环境区域](mechanisms/zone.environment.md) | `zone.environment` |
+| C11 | [危险区域](mechanisms/hazard.area.md) | `hazard.area` |
+| C12 | [安全恢复点](mechanisms/recovery.anchor.md) | `recovery.anchor` |
+| C13 | [告示](mechanisms/interaction.sign.md) | `interaction.sign` |
+| C14 | [充电保存站](mechanisms/recovery.station.md) | `recovery.station` |
+| G01 | [坍塌与显隐台](mechanisms/platform.crumble.md) | `platform.crumble` |
+| G02 | [可击碎障碍](mechanisms/terrain.breakable.md) | `terrain.breakable` |
+| G03 | [受击滑轨台](mechanisms/platform.shot_rail.md) | `platform.shot_rail` |
+| G04 | [移动钩点](mechanisms/traversal.moving_hook.md) | `traversal.moving_hook` |
+| G05 | [伸缩刺](mechanisms/hazard.retracting_spikes.md) | `hazard.retracting_spikes` |
+| G06 | [压力踏板](mechanisms/switch.pressure.md) | `switch.pressure` |
+| G07 | [弹射器](mechanisms/traversal.launcher.md) | `traversal.launcher` |
+| G08 | [转向梁与旋转指针](mechanisms/platform.rotating_beam.md) | `platform.rotating_beam` |
+| G09 | [传送带](mechanisms/platform.conveyor.md) | `platform.conveyor` |
+| G10 | [悬挂重物](mechanisms/hazard.falling_weight.md) | `hazard.falling_weight` |
+| G11 | [可引爆容器](mechanisms/hazard.explosive_container.md) | `hazard.explosive_container` |
+| G13 | [周期发射口](mechanisms/hazard.periodic_emitter.md) | `hazard.periodic_emitter` |
+| G15 | [通过感应器](mechanisms/switch.crossing.md) | `switch.crossing` |
+| G17 | [诱敌声源与响叶地毯](mechanisms/interaction.sound_lure.md) | `interaction.sound_lure` |
+| G20 | [周期冲压机](mechanisms/hazard.cyclic_press.md) | `hazard.cyclic_press` |
+| G21 | [推行货箱](mechanisms/terrain.push_crate.md) | `terrain.push_crate` |
+| G22 | [黏滞与光滑地面](mechanisms/surface.motion.md) | `surface.motion` |
+| G23 | [滞弹雾](mechanisms/zone.projectile_drag.md) | `zone.projectile_drag` |
+| G24 | [消弹薄幕](mechanisms/zone.projectile_barrier.md) | `zone.projectile_barrier` |
+| G25 | [遮视芦苇](mechanisms/zone.sight_occluder.md) | `zone.sight_occluder` |
+| G26 | [升浮气泡](mechanisms/traversal.rising_bubble.md) | `traversal.rising_bubble` |
+| G27 | [局部灯台与引路灯虫](mechanisms/environment.local_light.md) | `environment.local_light` |
+| G28 | [可射穿栅栏](mechanisms/terrain.projectile_grate.md) | `terrain.projectile_grate` |
+| G29 | [同房折跃门](mechanisms/traversal.portal_pair.md) | `traversal.portal_pair` |
+| G30 | [可控水位](mechanisms/zone.water_level.md) | `zone.water_level` |
+| G31 | [伸展菌伞与生长根柱](mechanisms/terrain.extending.md) | `terrain.extending` |
+| G32 | [反射冰镜](mechanisms/surface.projectile_mirror.md) | `surface.projectile_mirror` |
+| G33 | [感光花盘](mechanisms/switch.light.md) | `switch.light` |
+| G34 | [可穿遮掩藤幕](mechanisms/zone.foreground_cover.md) | `zone.foreground_cover` |
+| G35 | [钩索牵引块](mechanisms/traversal.pull_block.md) | `traversal.pull_block` |
+| G36 | [定点避害罩](mechanisms/zone.environment_shelter.md) | `zone.environment_shelter` |
+| P06 | [蒲公英浮台](mechanisms/platform.windchime_dandelion.md) | `platform.windchime_dandelion` |
+| C15 | [风铃与机关门](mechanisms/assembly.bell_gate.md) | `assembly.bell_gate` |
+| C16 | [风铃与升降台](mechanisms/assembly.bell_carrier.md) | `assembly.bell_carrier` |
+| G12 | [配重双台](mechanisms/assembly.counterweight_pair.md) | `assembly.counterweight_pair` |
+| G14 | [双路切换组](mechanisms/assembly.dual_route_switch.md) | `assembly.dual_route_switch` |
+| G16 | [一次性开路组](mechanisms/assembly.one_shot_route.md) | `assembly.one_shot_route` |
+| P01 | [风车渡台](mechanisms/assembly.windchime_windmill.md) | `assembly.windchime_windmill` |
+| P02 | [交替翻板桥](mechanisms/assembly.windchime_flip_bridge.md) | `assembly.windchime_flip_bridge` |
+| P04 | [传铃栈道](mechanisms/assembly.windchime_bell_walkway.md) | `assembly.windchime_bell_walkway` |
+
+运动和状态协调器随预组装配。组合多个布尔端口时可引用[条件驱动](mechanisms/internal.bool_condition.md)。
 
 [机器索引](../../production/config/world_elements/index.json) · [房间组装](../bible/room_authoring.md)

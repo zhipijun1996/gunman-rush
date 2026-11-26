@@ -22,10 +22,19 @@ func bind(value: FixedWorldState) -> void:
 		add_child(closed_terrain)
 	_refresh(0)
 
+func available(player_position: Vector2, section: String) -> bool:
+	if not super.available(player_position,section): return false
+	var from := get_parent().to_global(player_position) as Vector2
+	var distance := from.distance_to(global_position)
+	if distance < 1: return true
+	var query := PhysicsRayQueryParameters2D.create(from,global_position.move_toward(from,1.0),1)
+	return get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+
 func _body(rect: Rect2,one_way: bool) -> StaticBody2D:
 	var body:=StaticBody2D.new()
 	body.position=rect.get_center()
 	body.collision_mask=0
+	body.collision_layer = 1 if one_way == state.value.receipts.has(action_id) else 0
 	var shape:=RectangleShape2D.new();shape.size=rect.size
 	var collision:=CollisionShape2D.new();collision.name="CollisionShape2D";collision.shape=shape
 	collision.one_way_collision=one_way
@@ -35,7 +44,8 @@ func _body(rect: Rect2,one_way: bool) -> StaticBody2D:
 
 func _refresh(revision: int) -> void:
 	super._refresh(revision)
-	var opened: bool=state.has(action_id)
+	var opened: bool=state.value.receipts.has(action_id)
+	visible = true
 	hatch_target=1.0 if opened else 0.0
 	if not hatch_initialized:
 		hatch_opening=hatch_target;hatch_initialized=true
@@ -56,5 +66,5 @@ func _draw() -> void:
 			draw_set_transform(rect.position,hatch_opening*PI*.5)
 			UnderworldTerrain.draw_moving(self,Rect2(Vector2.ZERO,rect.size))
 		draw_set_transform(Vector2.ZERO)
-	if state.has(action_id):
+	if state.value.receipts.has(action_id):
 		for rect: Rect2 in return_steps:UnderworldTerrain.draw_one_way(self,rect)

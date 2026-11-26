@@ -1,14 +1,33 @@
 # 基本机关与预组制作交接
 
-本批基于合入 PR #163、#164 后的 main `2b8be9a9`，分支 `feat/basic-mechanism-library`。行为定稿见[基本机关库](../../../data/失序之钟_基本机关库.md)，装配合同见[预组与组合推荐](../../../data/失序之钟_预组与组合推荐.md)。总范围 46 个基本定义、8 个预组及依赖的共用驱动。[游戏对象目录](../../../data/world_objects.md)只列实际可创建的定义。
+PR #165 在 PR #163、#164 已合入的 main 上接入两份定稿。重做工程为 `production/`，当前分支为 `feat/basic-mechanism-library`，基线为 `2b8be9a9`。[逐件目录](../../../data/world_objects.md)列出全部 46 个基本件与 8 个预组，每个定义对应一页对象说明。[基本件合同](../../../data/失序之钟_基本机关库.md)和[预组合同](../../../data/失序之钟_预组与组合推荐.md)持有验收要求。
 
-| 条目或接口 | 本批交付与实机证据 |
+## 房间作者入口
+
+在 Godot 4.7.2 打开 `production/project.godot`。机关库面板打开 schema 3 房间 JSON 后，可以按编号、中文名或定义 ID 找件，选模式、设参数，校验并预览后写入。单个成员可继续编辑，预组可整体移动、复制或解除分组。复制涉及外部世界行动时须指定新组要绑定的行动。命令行查询和 16 区域的可用范围见[机关目录](../../../data/world_objects.md)。
+
+房间数据持有稳定 ID、版本、位置、成员参数与连线。运行时以同一目录检查区域、实例引用、带类型端口、分区和状态寿命。射击、交互、运动、战斗与世界行动复用普通房间中的正式消费者。以下独立场景在 Godot 里打开后可按 F6 试玩。它们位于测试目录，正式世界内容由房间设计工作线独立交付。
+
+## 核对与复验
+
+在仓库根目录运行 `python3 tools/check_ordinary_rooms.py`。它核对设计对照表与机器目录、逐文件说明及区域贴图，导入工程并运行下列真实 Godot 验证。单独复验可运行 `bash tools/godot.sh --headless --path production --fixed-fps 60 --script res://tests/脚本名.gd`。世界内容与经济回归入口为 `python3 tools/check_content_channel.py`。
+
+| 实现范围 | 实际验证与可玩入口 |
 | --- | --- |
-| 区域范围 | 游戏目录、作者查询、创建与房间加载共享定义级 `usable_regions`。指定多区及组合的有效范围取交集；区域外观仍按单独区域配置读取。 |
-| C01 射击风铃、C02 砌体机关门 | 验证 C15 所用的永久一次／临时限时信号、重复命中、延迟关闭、实际身体碰撞与存储恢复。风铃增加切换初态；门的房内单向模式待实现。 |
-| C15 风铃与机关门 | once／timed 的开放参数、两成员位置和连线、原来源版本及场景往返。正式控制器射中风铃并穿过实体门，门中等待超过时限后离开，门关闭。[可运行场景](../../../../production/tests/bell_gate_demo.tscn) |
-| G15 通过感应器 | 真实角色跨线驱动实体门，覆盖双向、两个单向、一次、切换、空中高速、端点之外、停在线上、重新定位及重入。[可运行场景](../../../../production/tests/crossing_sensor_demo.tscn) |
+| C01、C02、C15、G15 | 风铃实际中弹、一次与限时开门、防夹和过期释放。四个单向入口、延迟关闭，感应线的方向、端点、重复与重入。[风铃门](../../../../production/tests/bell_gate_demo.tscn) · [通过感应器](../../../../production/tests/crossing_sensor_demo.tscn) |
+| C03、C16、G03、G12、G30、P01、P06 | 循环、两岸呼叫、驾驶、浮水载台；滑轨受击换站、配重、风车同轴、载人下沉与离台回升。路径、载荷、水面和时钟使用正式碰撞及输入。[载台脚本](../../../../production/tests/carrier_library.gd) · [试玩](../../../../production/tests/carrier_demo.tscn) |
+| C04、C08、C09、C13、G16 | 齿轮直线及圆弧、捷径挡板和返程踏台、读牌关闭、行动宿主；一次开路三种终态的拒写回滚、重试、分区复位及载入。预组复制核对引用与行动归属。[集成脚本](../../../../production/tests/mechanism_integration.gd) |
+| C05、C11、G01、G05、G06、G36 | 附着与伸缩刺、坍塌和恢复、顶面承压及重物资格、两路输出与关门防夹；局部护罩仅拦截关联危险实例。[危险与开关脚本](../../../../production/tests/hazard_library.gd) · [试玩](../../../../production/tests/hazard_library_demo.tscn) |
+| C06、C07、C10、C12、G04、G07、G09、G22、G26、G29、G35 | 固定与移动钩点、弹射、传送带、运动表面、环境区、上升泡、成对传送及钩拉块；失败时按实际进入侧选择可站立恢复点，释放运动占用并按区复位。[穿越脚本](../../../../production/tests/traversal_library.gd) · [试玩](../../../../production/tests/traversal_mechanisms_demo.tscn) |
+| C14 | 保存站的真实交互、恢复、休息、装配和读档在已有装备及普通房回归运行。[装备回归](../../../../production/tests/equipment.gd) |
+| G02、G11、G13、G23、G24、G28、G32 | 分格破坏、爆炸、周期喷射／弹体、弹道减速、选择性屏障、格栅和动态反射。实际玩家与敌方弹体共用路径查询，覆盖薄几何、筛选、同帧接触顺序和存储失败重试。[弹道脚本](../../../../production/tests/projectile_library.gd) · [试玩](../../../../production/tests/projectile_library_demo.tscn) |
+| G08、G10、G14、G20、G21、G31、P02、P04 | 转梁、落块、切换路线、冲压机、推箱及伸展台；双路、同步翻桥和顺序走廊验证预告、受阻、真实承载与状态恢复。[梁与路线脚本](../../../../production/tests/beam_library.gd) · [试玩](../../../../production/tests/beam_library_demo.tscn) |
+| G17、G25、G27、G33、G34 | 声音调查、视线遮挡、固定灯与引路灯虫、受光开关、前景显露。从正式角色、怪物感知、光源与相机取样。[感知脚本](../../../../production/tests/perception_library.gd) · [试玩](../../../../production/tests/perception_demo.tscn) |
 
-运行 `python3 tools/check_ordinary_rooms.py` 复验上述交互、普通房间和装备，`python3 tools/check_content_channel.py` 复验世界内容接入。两间演示可在 Godot 中单独打开运行，均使用正式角色与普通房间宿主。可在有显示设备的环境运行 `bash tools/godot.sh --path production --fixed-fps 60 --write-movie /tmp/bell.avi --script res://tests/bell_gate.gd` 录制实机过程；感应器验证脚本为 `res://tests/crossing_sensor.gd`。
+六个内部驱动各自有定义、运行组件与说明。配重及共轴驱动归载台回归，顺序波和路线切换归梁与路线回归，布尔条件与永久结果归集成回归。布尔组合以同次候选状态计算，G16 等待实体结果及世界行动成功提交后确认永久完成。演示和验证均可从本 PR 源码重跑。下一项内容工作是以这些组件制作首个新房间，默认游戏入口待新房就绪后切换。
 
-后续先完成 C02 单向通行和 C03 载台各运动模式，复验其余已有定义，再按共用时钟、玩家运动、弹体类别与世界行动依赖接入剩余基本件和预组。目录中已有定义只说明可摆放；未经逐模式验证的条目保留待验。
+编辑器的检索、中文字段、模式、放置、重编成员、整组操作及并发写入保护由[作者侧栏回归](../../../../production/tests/mechanism_editor.gd)验证。独立录制时可用 Godot 的 Movie Maker，例如在有显示设备的环境运行下面的命令，可得到真实控制器乘坐配重台和风车的短片。
+
+```sh
+bash tools/godot.sh --path production --fixed-fps 60 --write-movie /tmp/carrier.avi --script res://tests/carrier_showcase.gd -- drives
+```

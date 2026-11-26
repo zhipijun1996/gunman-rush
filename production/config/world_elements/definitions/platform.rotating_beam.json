@@ -1,0 +1,47 @@
+{
+  "id": "platform.rotating_beam",
+  "name": "转向梁与旋转指针",
+  "version": 1,
+  "component": "WorldRotatingBeam",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "state_scope": "attempt",
+    "section_id": "main",
+    "beam_length": 160,
+    "beam_thickness": 20,
+    "pivot_fraction": 0.5,
+    "rotation_mode": "step",
+    "angles_deg": [
+      0,
+      90
+    ],
+    "initial_pose": 0,
+    "warning_s": 0.2,
+    "rotate_s": 0.35,
+    "rotation_direction": "clockwise",
+    "angular_speed_deg": 45,
+    "initial_angle_deg": 0,
+    "initial_running": true,
+    "rest_angle_deg": 0,
+    "max_tilt_deg": 25,
+    "tilt_speed_deg": 30,
+    "return_speed_deg": 20,
+    "balance_half_width": 12,
+    "contact_delay_s": 0.6,
+    "danger_hold_s": 1.5,
+    "hazard_depth": 12,
+    "drive_id": ""
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "mechanism",
+  "position_field": "position",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/platform.rotating_beam.md",
+  "library": "mechanisms"
+}

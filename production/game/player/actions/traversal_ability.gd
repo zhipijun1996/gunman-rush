@@ -28,6 +28,7 @@ var _refill_wall_id := 0
 var _refill_wall_x := 0.0
 var _serial := 0
 var _session := 0
+var target_receipt := ""
 var _pull_step_requested := false
 var _pull_distance_before := 0.0
 var _hang_offset := Vector2.ZERO
@@ -84,9 +85,10 @@ func request_hook(direction: Vector2, intent: Dictionary = {}) -> bool:
 	# A manual held-anchor jump follows normal gravity, so there is no burst
 	# to finish before another cast. Sample the new direction at its real input
 	# time; only automatic contact kicks retain the bounded tail queue above.
+	if state == &"object_pull": _set_state(&"free")
 	var jumping_from_anchor := state == &"hook_kick" and _anchor_jump_departure
 	if not hook_enabled or (state not in [&"free", &"hook_hang"] and not jumping_from_anchor) or not controller.active or not direction.is_finite(): return false
-	if hook_used and not controller.motor.is_on_floor(): return false
+	if hook_used and not controller.motor.grounded_contact(): return false
 	if jumping_from_anchor and not intent.is_empty():
 		var jump_now := Time.get_ticks_usec()/1000000.0
 		var jump_issued_at := float(intent.get("timestamp",jump_now))
@@ -96,6 +98,8 @@ func request_hook(direction: Vector2, intent: Dictionary = {}) -> bool:
 	if state == &"hook_hang":
 		controller.motor.cancel_ability_motion()
 		_set_state(&"free")
+	controller.motor.exit_bubble()
+	controller.motor.last_action_step = Engine.get_physics_frames()
 	hook_used = true
 	var face := signf(direction.x)
 	if is_zero_approx(direction.x):
@@ -129,6 +133,7 @@ func wall_jump() -> bool:
 	_kick_x = motor.global_position.x
 	restore_air_actions()
 	_set_state(&"wall_kick")
+	controller.jump_ability.publish_jump(&"wall",motor)
 	return true
 
 func advance(delta: float) -> void:
@@ -139,14 +144,14 @@ func advance(delta: float) -> void:
 	motor.wall_slide_limit = -1
 	if _session != controller.session_id:
 		cancel()
-	if motor.is_on_floor(): wall_ready = true; _separated = true
+	if motor.grounded_contact(): wall_ready = true; _separated = true
 	state_age += delta
 	if not controller.active: cancel(); return
 	if not _separated and absf(motor.global_position.x-_kick_x) >= definition.wall_separation:
 		_separated = true
 	# Pose cancellation (including recoil into the same wall) cannot rearm a
 	# refill. Require real clearance, using the wall-kick separation distance.
-	if _refill_wall_id != 0 and not motor.is_on_wall() and absf(motor.global_position.x-_refill_wall_x) >= definition.wall_separation:
+	if _refill_wall_id != 0 and not motor.wall_contact() and absf(motor.global_position.x-_refill_wall_x) >= definition.wall_separation:
 		_refill_wall_id = 0
 	if state == &"wall_kick" and state_age >= definition.wall_detach_seconds: _set_state(&"free")
 	if state == &"hook_kick":
@@ -192,8 +197,12 @@ func advance(delta: float) -> void:
 			if absf(hook_direction.x) <= definition.hook_vertical_kick_deadzone: kick_side=0.0
 			var node := hit.collider as Node2D
 			if node != null and node.is_in_group(&"grapple_target"):
+				var receipt := "%s/%s/%s" % [motor.get_instance_id(),_session,_serial]
+				if node.has_method("hook_begin") and not node.call("hook_begin",self,receipt):
+					_set_state(&"hook_miss")
+					return
 				hook_target = node
-				if node is GrappleAnchor:(node as GrappleAnchor).hook_feedback()
+				target_receipt = receipt
 				_contact_target = node
 				_contact_remaining = definition.hook_contact_grace
 				hook_local = node.to_local(hook_tip)
@@ -202,11 +211,18 @@ func advance(delta: float) -> void:
 				# A confirmed hook hit restores charges immediately; arrival does not refill again.
 				_refill_traversal_resources(&"hook_hit")
 				hook_contact.emit(hook_tip)
-				_set_state(&"hook_pull")
+				_set_state(&"object_pull" if node.has_method("is_pull_ring") else &"hook_pull")
 			else: _set_state(&"hook_miss")
 		else:
 			hook_tip = finish
 			if hook_start.distance_to(hook_tip) >= _effective_hook_range()-0.01: _set_state(&"hook_miss")
+		return
+	if state in [&"hook_pull",&"hook_hang",&"object_pull"] and not connection_clear():
+		_set_state(&"hook_miss")
+		return
+	if state == &"object_pull":
+		hook_tip = hook_target.global_position
+		if hook_target.call("must_release",self): _set_state(&"free")
 		return
 	if state == &"hook_hang":
 		if not is_instance_valid(hook_target) or not hook_target.is_inside_tree():
@@ -227,7 +243,7 @@ func advance(delta: float) -> void:
 		motor.request_ability_velocity(offset.normalized()*minf(definition.hook_pull_speed,maxf(0,offset.length()-definition.hook_stop_distance)/delta))
 		return
 	if state == &"free" or state == &"wall_attach":
-		var touching := wall_enabled and not motor.is_on_floor() and motor.is_on_wall() and motor.recoil_burst_remaining <= 0
+		var touching := wall_enabled and not motor.grounded_contact() and motor.wall_contact() and motor.recoil_burst_remaining <= 0
 		var normal := 0.0
 		var surface_id := 0
 		if touching:
@@ -275,6 +291,7 @@ func after_move() -> void:
 		if receiver != null:
 			receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction,"on_committed":controller.on_grapple_damage.bind(_session,_serial,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0,receiver)})
 		if hook_target is GrappleAnchor and (hook_target as GrappleAnchor).hang_enabled:
+			hook_target.hook_arrive(target_receipt)
 			_hang_offset=motor.global_position-hook_tip
 			_set_state(&"hook_hang")
 		else:
@@ -301,7 +318,33 @@ func release_hang_for_jump() -> bool:
 	_anchor_jump_departure = true
 	return true
 
+func connection_clear() -> bool:
+	if not is_instance_valid(hook_target) or not hook_target.is_inside_tree(): return false
+	var motor := controller.motor
+	var start := motor.global_position+Vector2(0,-6)
+	var end := hook_target.to_global(hook_local)
+	if start.distance_to(end) > _effective_hook_range()+definition.hook_capture_radius: return false
+	var query := PhysicsRayQueryParameters2D.create(start,end,1,[motor.get_rid()])
+	var hit := motor.get_world_2d().direct_space_state.intersect_ray(query)
+	return hit.is_empty() or hit.collider == hook_target
+
+func release_target() -> void:
+	if not target_receipt.is_empty() and is_instance_valid(hook_target) and hook_target.has_method("hook_end"):
+		hook_target.call("hook_end",target_receipt)
+	target_receipt = ""
+
+func detach_for_transfer() -> void:
+	release_target()
+	_pending_hook.clear()
+	_contact_target = null
+	_contact_remaining = 0
+	hook_target = null
+	_released_hang_target = null
+	controller.motor.wall_slide_limit = -1
+	_set_state(&"free")
+
 func cancel() -> void:
+	release_target()
 	_pending_hook.clear()
 	guide_active=false;guide_target_valid=false
 	_contact_target = null
@@ -322,6 +365,8 @@ func cancel() -> void:
 
 func _set_state(next: StringName) -> void:
 	if state == next: return
+	if state in [&"hook_pull",&"hook_contact_kick",&"hook_hang",&"object_pull"] and next not in [&"hook_pull",&"hook_contact_kick",&"hook_hang",&"object_pull"]:
+		release_target()
 	state = next
 	if next != &"hook_kick": _anchor_jump_departure = false
 	if next == &"hook_kick": _contact_remaining = definition.hook_launch_seconds + definition.hook_contact_grace
@@ -343,12 +388,14 @@ func protects_contact(source: Node) -> bool:
 	return source == _contact_target or _contact_target.is_ancestor_of(source)
 
 func on_weapon_fired() -> void:
+	controller.motor.exit_bubble()
+	controller.motor.last_action_step = Engine.get_physics_frames()
 	_pending_hook.clear()
 	# The accepted recoil takes over from wall adhesion/kick recovery. Keep the
 	# detach token; cancelling a pose must never grant another wall kick.
 	controller.motor.wall_slide_limit = -1
 	if state == &"hook_hang": controller.motor.cancel_ability_motion()
-	if state in [&"wall_attach",&"wall_kick",&"hook_kick",&"hook_hang"]: _set_state(&"free")
+	if state in [&"wall_attach",&"wall_kick",&"hook_kick",&"hook_hang",&"object_pull"]: _set_state(&"free")
 
 func on_jump_executed() -> void:
 	_pending_hook.clear()
@@ -372,7 +419,7 @@ func _probe_segment(start: Vector2, finish: Vector2) -> Dictionary:
 		_hook_probe=ShapeCast2D.new()
 		var shape := CircleShape2D.new();shape.radius=definition.hook_capture_radius
 		_hook_probe.shape=shape;_hook_probe.enabled=false;_hook_probe.exclude_parent=false
-		_hook_probe.collision_mask=0xFFFFFFFF;_hook_probe.collide_with_areas=true
+		_hook_probe.collision_mask=0xFFFFFFFF ^ TraversalMechanism.SHOT_ONLY_LAYER;_hook_probe.collide_with_areas=true
 		add_child(_hook_probe);_hook_probe.add_exception(controller.motor)
 	# Exclude the departed ring before sweeping: skipping result entries alone
 	# cannot reveal a farther target behind an initial overlap.
@@ -382,7 +429,18 @@ func _probe_segment(start: Vector2, finish: Vector2) -> Dictionary:
 	if state in [&"hook_cast",&"hook_fly"] and is_instance_valid(_released_hang_target): _hook_probe.add_exception(_released_hang_target)
 	_hook_probe.global_position=start
 	_hook_probe.target_position=_hook_probe.to_local(finish)
+	# The wide capture sweep can graze the top of a pull block before
+	# reaching a tangent ring. Its solid body blocks the actual tether ray.
 	_hook_probe.force_shapecast_update()
+	for i: int in _hook_probe.get_collision_count():
+		var candidate := _hook_probe.get_collider(i) as Node
+		if candidate != null and candidate.has_meta("pull_block"):
+			var actual := PhysicsRayQueryParameters2D.create(start,finish,1,[controller.motor.get_rid()])
+			var hit := controller.motor.get_world_2d().direct_space_state.intersect_ray(actual)
+			if hit.is_empty() or hit.collider != candidate:
+				_hook_probe.add_exception(candidate)
+				_hook_probe.force_shapecast_update()
+			break
 	var chosen: Dictionary={};var nearest := INF
 	for i: int in _hook_probe.get_collision_count():
 		var point := _hook_probe.get_collision_point(i)

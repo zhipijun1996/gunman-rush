@@ -312,6 +312,12 @@ func hit(receiver: Damageable, packet: int, serial: int, stage: String, skill: b
 		var hit_event := {"session":_session,"packet":packet,"shot":packet if base_bomb else serial,"shot_index":0,"airborne":_base_bomb_airborne if base_bomb else not actor().motor.is_on_floor(),"skill":skill,"receiver":receiver,"target_id":target_id,"point":point,"direction":unit,"amount":damage,"weapon_id":definition().id,"tier":definition().tier,"weapon_mode":definition().mode,"weapon_epoch":ability.weapon_epoch}
 		context.on_committed = ability.item_hit_committed.bind(hit_event)
 	return receiver.receive_damage(context)
+func beam_terrain(collider: Node, point: Vector2, skill: bool, unit: Vector2) -> void:
+	var target := collider.get_parent() as BreakableTerrain
+	if target != null:
+		target.mechanism_shot({"controller":actor(),"collider":collider,"attack_kind":"charged_shot" if skill else "shot",
+			"packet_id":"%d:%d:%d" % [actor().motor.get_instance_id(),_session,_packet],"hit_point":point,"hit_direction":unit})
+
 func beam_damage(unit: Vector2, amount: float, skill: bool, pierce: bool, commit: bool = true) -> void:
 	var visual := actor().motor.get_node("CourierVisual") as CourierVisual
 	var start := visual.muzzle_position(unit)
@@ -319,7 +325,10 @@ func beam_damage(unit: Vector2, amount: float, skill: bool, pierce: bool, commit
 	var barrel := PhysicsRayQueryParameters2D.create(actor().motor.global_position,start,1,[actor().motor.get_rid()])
 	var obstruction := get_world_2d().direct_space_state.intersect_ray(barrel)
 	if not obstruction.is_empty():
-		_beam_start=obstruction.position;_beam_point=obstruction.position;return
+		_beam_start = obstruction.position
+		_beam_point = obstruction.position
+		if commit: beam_terrain(obstruction.collider,obstruction.position,skill,unit)
+		return
 	if beam_item_width_scale() > 1.0:
 		_wide_beam_damage(start, unit, amount, skill, pierce, commit)
 		return
@@ -340,7 +349,9 @@ func beam_damage(unit: Vector2, amount: float, skill: bool, pierce: bool, commit
 			if commit: hit(receiver,_packet,_entity_serial,"beam",skill,contact.position,unit,amount*ratio)
 			targets += 1
 			if not pierce and targets > int(extra.get("count",0)): break
-		elif not collider is Area2D:break
+		elif not collider is Area2D:
+			if commit: beam_terrain(collider,contact.position,skill,unit)
+			break
 		exclude.append(contact.rid)
 	if skill:_fx.append({"kind":"beam","start":start,"end":_beam_point,"age":0.0,"skill":skill})
 func receivers(point: Vector2, radius: float, include_mechanisms := false) -> Array[Dictionary]:
@@ -359,6 +370,8 @@ func clear_line(start: Vector2, finish: Vector2) -> bool:
 	var ray := PhysicsRayQueryParameters2D.create(start,finish,1,[actor().motor.get_rid()])
 	return get_world_2d().direct_space_state.intersect_ray(ray).is_empty()
 func damage_burst(point: Vector2, radius: float, skill: bool) -> void:
+	ProjectileImpact.blast_mechanisms(actor(),point,radius,{"packet_id":"%d:%d:%d" % [actor().motor.get_instance_id(),_session,_packet],
+		"attack_kind":"bomb" if definition().id == &"recoil_bomb" else "explosion","controller":actor()})
 	_entity_serial+=1
 	var def := definition()
 	var chain_count := 0;var chain_origin := point
@@ -461,6 +474,7 @@ func _wide_beam_damage(start: Vector2, unit: Vector2, amount: float, skill: bool
 		if not pierce and targets > int(extra.get("count",0)):
 			_beam_point = start+unit*float(candidate.projection)
 			break
+	if commit and not contact.is_empty() and _beam_point.is_equal_approx(finish): beam_terrain(contact.collider,finish,skill,unit)
 	if skill: _fx.append({"kind":"beam","start":start,"end":_beam_point,"age":0.0,"skill":true})
 func _draw() -> void:
 	var underworld := UnderworldProjectileVisual.enabled(self)

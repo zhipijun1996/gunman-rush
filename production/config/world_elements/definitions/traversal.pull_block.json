@@ -1,0 +1,40 @@
+{
+  "id": "traversal.pull_block",
+  "name": "钩索牵引块",
+  "version": 1,
+  "component": "WorldPullBlock",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "endpoint": [
+      192,
+      0
+    ],
+    "body_size": [
+      96,
+      64
+    ],
+    "ring_offset": [
+      0,
+      -44
+    ],
+    "ring_radius": 12.0,
+    "rest_progress": 0.0,
+    "pull_speed": 128.0,
+    "return_speed": 64.0,
+    "return_delay_s": 0.5,
+    "state_scope": "attempt",
+    "section_id": "main"
+  },
+  "category": "traversal",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/traversal.pull_block.md",
+  "library": "mechanisms",
+  "position_field": "position",
+  "time_profile": "mechanism",
+  "usable_regions": [
+    "*"
+  ]
+}

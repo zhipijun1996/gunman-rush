@@ -1,0 +1,65 @@
+{
+  "id": "WorldOrbitDrive",
+  "script": "res://game/world/components/world_orbit_drive.gd",
+  "fields": {
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ]
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "element_id": {
+      "type": "string"
+    },
+    "position": {
+      "type": "point"
+    },
+    "radius": {
+      "type": "number"
+    },
+    "angle_offsets_deg": {
+      "type": "dict"
+    },
+    "period": {
+      "type": "number"
+    },
+    "initial_angle_deg": {
+      "type": "number"
+    },
+    "direction": {
+      "type": "string",
+      "choices": [
+        "clockwise",
+        "counterclockwise"
+      ]
+    },
+    "initial_running": {
+      "type": "bool"
+    },
+    "carrier_ids": {
+      "type": "dict",
+      "label": "联动踏台身份"
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "state": {
+    "active": {
+      "type": "bool"
+    },
+    "clock": {
+      "type": "number"
+    }
+  },
+  "state_version": 1,
+  "category": "platforms",
+  "root": false,
+  "default_definition": "internal.mechanism_orbit",
+  "validator_script": "res://game/world/elements/carrier_configuration.gd",
+  "clock": true
+}

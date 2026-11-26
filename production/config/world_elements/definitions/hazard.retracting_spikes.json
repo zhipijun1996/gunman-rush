@@ -1,0 +1,36 @@
+{
+  "id": "hazard.retracting_spikes",
+  "name": "伸缩刺",
+  "version": 1,
+  "component": "WorldRetractingSpikes",
+  "defaults": {
+    "section_id": "main",
+    "state_scope": "attempt",
+    "bounds": [
+      0,
+      0,
+      96,
+      24
+    ],
+    "facing": "up",
+    "mode": "cycle",
+    "retracted_s": 1.5,
+    "warning_s": 0.35,
+    "extend_s": 0.15,
+    "exposed_s": 1,
+    "retract_s": 0.2,
+    "start_phase01": 0
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "mechanism",
+  "position_field": "bounds",
+  "category": "hazards",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/hazard.retracting_spikes.md",
+  "library": "mechanisms",
+  "region_skin_fields": {
+    "material": "terrain_material"
+  }
+}

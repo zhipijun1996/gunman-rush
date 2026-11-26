@@ -1,0 +1,97 @@
+{
+  "id": "ProjectileMirror",
+  "script": "res://game/world/elements/projectile/projectile_mirror.gd",
+  "fields": {
+    "position": {
+      "type": "point"
+    },
+    "mirror_length": {
+      "type": "number",
+      "positive": true
+    },
+    "orientation_mode": {
+      "type": "string",
+      "choices": [
+        "fixed",
+        "indexed"
+      ]
+    },
+    "normal_deg": {
+      "type": "number"
+    },
+    "normal_angles_deg": {
+      "type": "array"
+    },
+    "initial_index": {
+      "type": "number",
+      "integer": true,
+      "min": 0
+    },
+    "turn_s": {
+      "type": "number",
+      "positive": true
+    },
+    "control_offset": {
+      "type": "point"
+    },
+    "control_radius": {
+      "type": "number",
+      "positive": true
+    },
+    "two_sided": {
+      "type": "bool"
+    },
+    "projectile_categories": {
+      "type": "array"
+    },
+    "element_id": {
+      "type": "string"
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ]
+    }
+  },
+  "inputs": {
+    "set_index": "number"
+  },
+  "outputs": {},
+  "category": "interaction",
+  "root": false,
+  "default_definition": "surface.projectile_mirror",
+  "validator_script": "res://game/world/elements/projectile/projectile_contract.gd",
+  "state": {
+    "angle": {
+      "type": "number",
+      "required": true
+    },
+    "index": {
+      "type": "number",
+      "integer": true,
+      "min": 0,
+      "required": true
+    },
+    "target": {
+      "type": "number",
+      "integer": true,
+      "min": 0,
+      "required": true
+    },
+    "start": {
+      "type": "number",
+      "required": true
+    },
+    "progress": {
+      "type": "number",
+      "min": 0,
+      "max": 1,
+      "required": true
+    }
+  },
+  "state_version": 1
+}

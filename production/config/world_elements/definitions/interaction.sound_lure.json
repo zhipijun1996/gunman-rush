@@ -1,0 +1,37 @@
+{
+  "id": "interaction.sound_lure",
+  "name": "诱敌声源与响叶地毯",
+  "version": 1,
+  "component": "WorldSoundLure",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "bounds": [
+      0,
+      0,
+      160,
+      16
+    ],
+    "trigger_mode": "shot",
+    "audible_radius": 320,
+    "investigation_s": 3,
+    "cooldown_s": 2,
+    "stand_search_radius": 96,
+    "section_id": "main",
+    "state_scope": "attempt"
+  },
+  "time_profile": "incompatible",
+  "usable_regions": [
+    "*"
+  ],
+  "position_field": "position",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/interaction.sound_lure.md",
+  "library": "mechanisms",
+  "offset_fields": [
+    "bounds"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "clockwork_bolt": {
+    "radius": 4,
+    "amount": 1,
+    "lifetime": 3.0,
+    "gravity": 0,
+    "impact_effect": "none"
+  },
+  "ember_shot": {
+    "radius": 4,
+    "amount": 1,
+    "lifetime": 3.0,
+    "gravity": 480,
+    "impact_effect": "ember_pool",
+    "ember_pool": {
+      "width": 96,
+      "depth": 12,
+      "duration_s": 2.0,
+      "hazard_profile": "inherit"
+    },
+    "bindings": {
+      "ember_hazard_profile": "heat_wave"
+    }
+  },
+  "blast": {
+    "amount": 1,
+    "category": "solid"
+  }
+}

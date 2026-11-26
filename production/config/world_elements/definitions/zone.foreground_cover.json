@@ -1,0 +1,32 @@
+{
+  "id": "zone.foreground_cover",
+  "name": "可穿遮掩藤幕",
+  "version": 1,
+  "component": "WorldForegroundCover",
+  "defaults": {
+    "bounds": [
+      0,
+      0,
+      192,
+      160
+    ],
+    "reveal_radius": 80,
+    "revealed_alpha": 0.15,
+    "fade_out_s": 0.2,
+    "restore_s": 0.35,
+    "section_id": "main",
+    "state_scope": "attempt"
+  },
+  "time_profile": "incompatible",
+  "usable_regions": [
+    "*"
+  ],
+  "position_field": "bounds",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/zone.foreground_cover.md",
+  "library": "mechanisms",
+  "region_skin_fields": {
+    "texture": "texture"
+  }
+}

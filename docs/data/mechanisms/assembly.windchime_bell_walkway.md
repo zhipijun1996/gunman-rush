@@ -1,0 +1,7 @@
+# P04 传铃栈道
+
+按有序成员列表展开默认三段栈道。射击控制铃后一段接一段展开、保持并收回。相邻等待、重叠与稳定窗口由各阶段时长派生。
+
+单个顺序驱动持有进度；每一轮结束后各成员保持收起，正反两次铃变化均可触发新一轮。
+
+[定义与参数](../../../production/config/world_elements/definitions/assembly.windchime_bell_walkway.json) · [设计合同](../失序之钟_预组与组合推荐.md) · [机关目录](../world_objects.md)

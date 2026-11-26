@@ -6,16 +6,25 @@ extends Node2D
 @export var period := 4.8
 @export var phase := 0.0
 @export var drive_id := ""
+@export var section_id := "main"
+@export_enum("linear","arc") var path_mode := "linear"
+@export var arc_radius := 128.0
+@export var arc_angles_deg := Vector2(45,135)
+@export var endpoint_dwell := 0.0
 var hazard: WorldGearObstacle
 var active := true
 
 func element_bind(context: Dictionary) -> void:
 	hazard = WorldGearObstacle.new()
 	hazard.definition = {"id":element_id,"point":[0,0],"travel":[travel.x,travel.y],"period":period,"phase":phase}
+	hazard.path_mode = path_mode
+	hazard.arc_radius = arc_radius
+	hazard.arc_angles_deg = arc_angles_deg
+	hazard.endpoint_dwell = endpoint_dwell
 	hazard.controller = context.controller; hazard.policy = context.policy
 	hazard.source_room_id = str(context.room.room_id)
 	add_child(hazard)
-	if not drive_id.is_empty(): hazard.clock_source = context.runtime.nodes[drive_id]
+	if not drive_id.is_empty(): hazard.clock_source = context.runtime.motion_owner(self)
 
 func element_state() -> Dictionary:
 	return {"active":active,"clock":hazard.clock}
@@ -29,3 +38,6 @@ func element_propose(_input: String, value: bool) -> Dictionary:
 func element_restore(data: Dictionary) -> void:
 	active = bool(data.active); hazard.clock = float(data.clock); hazard.motion_running = active
 	hazard.refresh_position()
+
+func set_equipment_time(scale: float) -> void:
+	hazard.time_scale = scale

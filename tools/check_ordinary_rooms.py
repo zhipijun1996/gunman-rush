@@ -43,6 +43,14 @@ def check_mechanism_libraries():
     if profiles != set(libraries["regions"].values()):
         raise ValueError("Region index differs from the mechanism profiles on disk")
     definitions = {key: load(path) for key, path in index["definitions"].items()}
+    for filename, assemblies in (("失序之钟_基本机关库.md", False), ("失序之钟_预组与组合推荐.md", True)):
+        reference = (ROOT / "docs/data" / filename).read_text().split("定义 ID 对照")[-1]
+        specified = {identity for line in reference.splitlines() if line.startswith("| ")
+                     for identity in re.findall(r"`([a-z_]+\.[a-z_]+)`", line)}
+        registered = {key for key, definition in definitions.items()
+                      if definition["library"] == "mechanisms" and ("members" in definition) == assemblies}
+        if specified != registered:
+            raise ValueError(f"{filename} and public catalog differ: {sorted(specified ^ registered)}")
     regions = set(libraries["regions"])
     scopes = {}
     for key, definition in definitions.items():
@@ -98,6 +106,14 @@ if __name__ == "__main__":
             "mechanism_libraries": "MECHANISM LIBRARIES",
             "bell_gate": "BELL GATE",
             "crossing_sensor": "CROSSING SENSOR",
+            "mechanism_integration": "MECHANISM INTEGRATION",
+            "mechanism_editor": "MECHANISM EDITOR",
+            "carrier_library": "CARRIER LIBRARY",
+            "hazard_library": "HAZARD LIBRARY",
+            "perception_library": "PERCEPTION LIBRARY",
+            "projectile_library": "PROJECTILE LIBRARY",
+            "traversal_library": "TRAVERSAL LIBRARY",
+            "beam_library": "BEAM LIBRARY",
         }
         for script, label in suites.items():
             output = godot("--fixed-fps", "60", "--script", f"res://tests/{script}.gd")

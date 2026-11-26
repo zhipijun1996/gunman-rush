@@ -1,0 +1,98 @@
+{
+  "id": "WorldRouteSwitch",
+  "script": "res://game/world/elements/route_switch.gd",
+  "fields": {
+    "element_id": {
+      "type": "string",
+      "label": "实例ID"
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "motion_mode": {
+      "type": "string",
+      "choices": [
+        "targets",
+        "synchronized_beams"
+      ],
+      "label": "运动模式"
+    },
+    "groups": {
+      "type": "dict",
+      "label": "分组"
+    },
+    "target_bindings": {
+      "type": "dict",
+      "label": "成员目标"
+    },
+    "initial_route": {
+      "type": "string",
+      "choices": [
+        "A",
+        "B"
+      ],
+      "label": "初始线路"
+    },
+    "warning_duration": {
+      "type": "number",
+      "min": 0,
+      "label": "预告时间",
+      "unit": "s"
+    },
+    "turn_duration": {
+      "type": "number",
+      "positive": true,
+      "label": "同步翻转时长",
+      "unit": "s"
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "state": {
+    "requested": {
+      "type": "bool",
+      "required": true
+    },
+    "accepted": {
+      "type": "bool",
+      "required": true
+    },
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "clock": {
+      "type": "number",
+      "required": true
+    },
+    "elapsed": {
+      "type": "number",
+      "required": true
+    },
+    "blocked": {
+      "type": "bool",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "internal",
+  "root": false,
+  "default_definition": "internal.route_switch",
+  "validator_script": "res://game/world/elements/solid_configuration.gd",
+  "clock": true
+}

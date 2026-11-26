@@ -1,0 +1,37 @@
+{
+  "id": "environment.local_light",
+  "name": "局部灯台与引路灯虫",
+  "version": 1,
+  "component": "WorldLocalLight",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "light_radius": 160,
+    "brightness": 1,
+    "edge_falloff": 0.35,
+    "initial_active": true,
+    "light_mode": "fixed",
+    "endpoint": [
+      320,
+      0
+    ],
+    "route": [],
+    "move_speed": 80,
+    "waypoint_dwell_s": 0.4,
+    "end_behavior": "return",
+    "cocoon_radius": 12,
+    "section_id": "main",
+    "state_scope": "attempt"
+  },
+  "time_profile": "incompatible",
+  "usable_regions": [
+    "*"
+  ],
+  "position_field": "position",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/environment.local_light.md",
+  "library": "mechanisms"
+}

@@ -94,7 +94,7 @@ static func validate_room(room: FixedWorldRoom) -> String:
 				if row.has("max_health") and (not number(row.max_health) or float(row.max_health) <= 0): return "enemy_health_invalid"
 			if key in ["spike_strips", "environment_zones"] and not rectangle(row.get("bounds")): return "bounds_invalid:"+key
 			if key == "spike_strips" and str(row.get("facing", "up")) not in ["up", "down", "left", "right"]: return "spike_facing_invalid"
-			if key == "environment_zones" and str(row.get("mode", "")) not in ["gas", "dark", "phase_light", "thorns", "water"]: return "environment_mode_invalid"
+			if key == "environment_zones" and str(row.get("mode", "")) not in ["gas", "dark", "phase_light", "thorns", "water", "wind"]: return "environment_mode_invalid"
 	for key: String in ["retry_anchors", "section_volumes"]:
 		for row: Dictionary in properties.get(key, room.get(key)):
 			if not rectangle(row.get("bounds")): return "bounds_invalid:"+key

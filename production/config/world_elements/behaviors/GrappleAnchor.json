@@ -11,6 +11,41 @@
         "clockwork",
         "rootbound"
       ]
+    },
+    "cooldown_s": {
+      "type": "number",
+      "min": 0,
+      "label": "离钩冷却",
+      "unit": "s"
+    },
+    "initial_available": {
+      "type": "bool",
+      "label": "初始可钩"
+    },
+    "reactivate_warning_s": {
+      "type": "number",
+      "min": 0,
+      "label": "复明预告",
+      "unit": "s"
+    },
+    "element_id": {
+      "type": "string"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "label": "状态寿命"
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
     }
   },
   "inputs": {},
@@ -18,5 +53,17 @@
   "script": "res://game/world/components/grapple_anchor.gd",
   "category": "traversal",
   "root": false,
-  "default_definition": "traversal.hook"
+  "default_definition": "traversal.hook",
+  "validator_script": "res://game/world/elements/traversal_mechanism_config.gd",
+  "state_version": 1,
+  "state": {
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "eligibility": {
+      "type": "dict",
+      "required": true
+    }
+  }
 }

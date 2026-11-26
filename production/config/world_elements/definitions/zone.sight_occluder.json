@@ -1,0 +1,26 @@
+{
+  "id": "zone.sight_occluder",
+  "name": "遮视芦苇",
+  "version": 1,
+  "component": "WorldSightReeds",
+  "defaults": {
+    "bounds": [
+      0,
+      0,
+      160,
+      128
+    ],
+    "initial_active": true,
+    "section_id": "main",
+    "state_scope": "attempt"
+  },
+  "time_profile": "incompatible",
+  "usable_regions": [
+    "*"
+  ],
+  "position_field": "bounds",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/zone.sight_occluder.md",
+  "library": "mechanisms"
+}

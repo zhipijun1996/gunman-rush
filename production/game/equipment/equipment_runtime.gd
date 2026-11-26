@@ -203,12 +203,21 @@ func enchant(id: String, kind: String, shot: Dictionary) -> void:
 		if stop: fx.cooldowns["105:"+str(session.room.room_id)+"/"+id] = shot_parameter(shot,core,"cooldown")
 	fx.time[id] = effects
 
-func mechanism_hit(platform: WorldMovingPlatform, packet: int) -> void:
-	if not packets.has(packet) or not packets[packet].enchantment: return
-	var key := "time:" + platform.element_id
+func mechanism_hit(member: Node, packet: int) -> void:
+	if not packets.has(packet) or not packets[packet].enchantment or session.room == null: return
+	var elements: WorldElementRuntime = session.room.element_runtime
+	var owner := elements.motion_owner(member)
+	if owner == null or not owner.has_method("set_equipment_time"): return
+	var id := str(owner.get("element_id"))
+	var definition: Dictionary = WorldElementCatalog.catalog().definitions.get(str(owner.get_meta("definition_id","")), {})
+	var profile: String = definition.get("time_profile","mechanism")
+	if definition.has("time_profiles"):
+		profile = definition.time_profiles.get(str(owner.get("motion_mode")), "incompatible")
+	if profile != "mechanism": return
+	var key := "time:" + id
 	if packets[packet].seen.has(key): return
 	packets[packet].seen[key] = true
-	enchant(platform.element_id,"mechanism",packets[packet])
+	enchant(id,profile,packets[packet])
 
 func on_hook_hit(receiver: Damageable, packet: int) -> void:
 	var id := target_id(receiver)

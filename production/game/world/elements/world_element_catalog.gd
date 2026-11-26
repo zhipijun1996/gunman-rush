@@ -74,6 +74,9 @@ static func fields_error(fields: Dictionary, values: Dictionary) -> String:
 			"number":
 				if not WorldRoomValidation.number(value): return "number_invalid:"+key
 				if spec.has("min") and float(value) < float(spec.min): return "number_too_small:"+key
+				if spec.has("max") and float(value) > float(spec.max): return "number_too_large:"+key
+				if spec.get("integer",false) and float(value) != floorf(value): return "integer_required:"+key
+				if spec.get("positive",false) and float(value) <= 0: return "positive_required:"+key
 			"bool":
 				if not value is bool: return "bool_invalid:"+key
 			"point":
@@ -106,10 +109,13 @@ static func signal_value_valid(type: String, value: Variant) -> bool:
 		"pulse": return value == null
 	return false
 
-static func document_error(document: Dictionary) -> String:
+static func document_error(document: Dictionary, control_order: Array[String] = []) -> String:
 	var entities: Dictionary = document.entities
 	var bindings := {}
 	var reward_sources := {}
+	var graph := {}
+	var validators := {}
+	for id: String in entities: graph[id] = []
 	var boolean_writers := {}
 	var sections := {"main":true}
 	var volumes: Variant = document.root.properties.get("section_volumes", [])
@@ -127,17 +133,51 @@ static func document_error(document: Dictionary) -> String:
 		var properties: Dictionary = row.get("properties", {})
 		var error := fields_error(behavior.get("fields", {}), properties)
 		if not error.is_empty(): return id+":"+error
+	# Cross-instance validators may read any row in the room.
+	for id: String in entities:
+		var row: Dictionary = entities[id]
+		var kind: String = row.component
+		var behavior: Dictionary = catalog().behaviors[kind]
+		var properties: Dictionary = row.properties
+		var error := ""
 		var definition: Dictionary = catalog().definitions.get(str(row.get("definition_id","")),{})
+		if definition.get("library") in ["mechanisms","internal"]:
+			var authored := WorldRoomDocument.authored_defaults(kind)
+			for key: String in properties:
+				if key == "id" or key.begins_with("metadata/") or behavior.fields.has(key) or authored.has(key): continue
+				return "unknown_mechanism_field:"+id+":"+key
+		if behavior.has("validator_script"):
+			var validator: Script = load(behavior.validator_script)
+			error = validator.validate_configuration(properties, row, document)
+			if not error.is_empty(): return id+":"+error
+			validators[behavior.validator_script] = validator
 		if properties.has("section_id") and not sections.has(properties.section_id):
 			return "unknown_section_id:"+id
+		if kind == "array:retry_anchors" and not sections.has(properties.section): return "unknown_anchor_section:"+id
 		if kind == "WorldCrossingSensor":
 			var points: Array = properties.line_points
 			if points.size() != 2 or FixedWorldProvider.point(points[0]) == FixedWorldProvider.point(points[1]):
 				return "line_points:distinct_pair_required:"+id
+		if kind == "WorldElementGear" and properties.path_mode == "arc" and properties.arc_angles_deg[0] == properties.arc_angles_deg[1]: return "arc_angles_deg:distinct_required:"+id
+		if kind == "WorldElementGate" and properties.gate_mode == "directional" and properties.state_scope != "attempt": return "directional_gate_requires_attempt:"+id
 		if kind == "WorldElementSwitch":
 			if properties.duration > 0 and (properties.repeat_enabled or properties.state_scope != "attempt"):
 				return "duration:invalid_switch_mode:"+id
 			if properties.initial_active and not properties.repeat_enabled: return "initial_active:requires_toggle:"+id
+		if kind in ["WorldRoomInteraction","WorldReturnLatch"]:
+			var action_id: String = properties.action_id
+			var actions: Array = document.get("actions",[]).filter(func(action): return action is Dictionary and action.get("id") == action_id)
+			if action_id.is_empty() or actions.size()!=1: return "action_id:registered_action_required:"+id
+			var action: Dictionary = actions[0]
+			if document.room_id not in action.get("service_rooms",[action.get("room_id")]) or action.get("section_id","main") != properties.section_id: return "action_id:wrong_room_or_section:"+id
+			var owner: String = properties.get("action_owner_id","")
+			if not owner.is_empty() and entities.get(owner,{}).get("definition_id") != "internal.permanent_result": return "action_owner_id:invalid:"+id
+			if kind == "WorldReturnLatch" and action.get("repeat",false): return "action_id:single_use_required:"+id
+			if kind == "WorldReturnLatch":
+				for panel: Variant in properties.closed_panels + properties.return_steps:
+					if not WorldRoomValidation.rectangle(panel): return "return_gate:invalid_rectangle:"+id
+			if properties.visual != "chest" and not WorldSpriteAnimation.has_asset(properties.visual): return "visual:unknown_asset:"+id
+			if properties.radius <= 0: return "radius:positive_required:"+id
 		if kind == "EquipmentSite":
 			var role: String = properties.get("kind","")
 			var source: String = properties.get("source_id","")
@@ -154,6 +194,8 @@ static func document_error(document: Dictionary) -> String:
 			if bindings.has(field): return "duplicate_feature_host:"+field
 			bindings[field]=id
 		if definition.has("parameter_fields"):
+			for key: String in properties.get("parameters",{}):
+				if not definition.parameter_fields.has(key): return "unknown_parameter:"+id+":"+key
 			error=fields_error(definition.parameter_fields,properties.get("parameters",{}))
 			if not error.is_empty():return id+":"+error
 		if behavior.has("state") and properties.get("element_id") != id: return "element_identity_mismatch:"+id
@@ -179,32 +221,70 @@ static func document_error(document: Dictionary) -> String:
 			if not behavior.get("outputs", {}).has(output) or not receiver.get("inputs", {}).has(input): return "signal_port_invalid:"+id
 			if behavior.outputs[output] != receiver.inputs[input]: return "signal_type_mismatch:"+id
 			if input == "set_active" and receiver.inputs[input] == "bool":
-				var writer_key := str(link.target)+":"+input
+				var owner := target
+				if target.component == "WorldElementGear" or (target.component == "WorldRotatingBeam" and entities.get(target.properties.drive_id,{}).get("component") == "WorldRotatingBeam"):
+					owner = effective_clock_owner(target,entities)
+				if owner.is_empty() or not catalog().behaviors[owner.component].inputs.has(input): return "clock_owner_input_unavailable:"+id
+				var writer_key := str(owner.id)+":"+input
+				if owner.id != target.id: graph[id].append(owner.id)
 				if boolean_writers.has(writer_key): return "multiple_boolean_sources:"+writer_key
 				boolean_writers[writer_key] = id
 			if properties.get("state_scope") == "attempt" and properties.get("section_id","main") != target.properties.get("section_id","main"):
 				return "signal_section_mismatch:"+id
-			var signature := str(link.target)+":"+output
+			graph[id].append(str(link.target))
+			var signature := str(link.target)+":"+input+":"+output
 			if linked.has(signature): return "signal_duplicate:"+id
 			linked[signature] = true
 			if properties.get("state_scope","permanent") != target.get("properties",{}).get("state_scope","permanent"): return "signal_state_scope_mismatch:"+id
 		if properties.has("drive_id") and not str(properties.drive_id).is_empty():
 			var target: Dictionary = entities.get(str(properties.drive_id), {})
 			if not catalog().behaviors.get(str(target.get("component", "")), {}).get("clock", false): return "motion_source_invalid:"+id
-	# Registered receivers currently have no immediate outputs. Future additions
-	# still pass cycle validation, rather than relying on scene-tree callback order.
-	for id: String in entities:
-		if _cyclic(id, entities, {}, {}): return "signal_cycle:"+id
+			if target.properties.get("state_scope") != properties.get("state_scope") or target.properties.get("section_id","main") != properties.get("section_id","main"): return "motion_source_scope_mismatch:"+id
+			if kind == "WorldElementGear":
+				var clock := effective_clock_owner(target,entities)
+				if clock.is_empty() or clock.properties.get("motion_mode","") in ["manual_cart","follow_water","targets"]: return "motion_source_has_no_path_clock:"+id
+			graph[target.id].append(id)
+	for validator: Script in validators.values():
+		if not validator.has_method("control_dependencies"): continue
+		var dependencies: Dictionary = validator.control_dependencies(document)
+		for target: String in dependencies:
+			for source: String in dependencies[target]:
+				if not graph.has(source) or not graph.has(target): return "unknown_control_dependency:"+target
+				graph[source].append(target)
+	var visited := {}
+	for id: String in graph:
+		if _cyclic(id, graph, {}, visited): return "signal_cycle:"+id
+	# Edges point from controller to consumer. DFS finishes consumers first.
+	control_order.assign(visited.keys())
+	control_order.reverse()
 	return ""
 
-static func _cyclic(id: String, rows: Dictionary, visiting: Dictionary, visited: Dictionary) -> bool:
+static func effective_clock_owner(row: Dictionary, entities: Dictionary) -> Dictionary:
+	var seen := {}
+	while not row.is_empty() and not str(row.properties.get("drive_id","")).is_empty():
+		if seen.has(row.id): return {}
+		seen[row.id] = true
+		row = entities.get(row.properties.drive_id,{})
+	return row
+
+static func _cyclic(id: String, graph: Dictionary, visiting: Dictionary, visited: Dictionary) -> bool:
 	if visiting.has(id): return true
 	if visited.has(id): return false
 	visiting[id] = true
-	for link: Dictionary in rows[id].get("properties", {}).get("links", []):
-		if _cyclic(str(link.target), rows, visiting, visited): return true
-	visiting.erase(id); visited[id] = true
+	for next: String in graph[id]:
+		if _cyclic(next, graph, visiting, visited): return true
+	visiting.erase(id)
+	visited[id] = true
 	return false
+
+static func qualify_reference(value: Variant, instance_id: String) -> Variant:
+	if value is Array:
+		return value.map(func(item): return qualify_reference(item, instance_id))
+	if value is Dictionary:
+		var result := {}
+		for key: String in value: result[key] = qualify_reference(value[key], instance_id)
+		return result
+	return instance_id+"/"+str(value)
 
 static func instantiate_definition(definition_id: String, instance_id: String, at: Vector2, region_id: String = "", options: Dictionary = {}) -> Dictionary:
 	if not region_known(region_id): return {"error":"unknown_room_region:"+region_id}
@@ -230,12 +310,20 @@ static func instantiate_definition(definition_id: String, instance_id: String, a
 		if child.is_empty() or child.has("members"): return {"error":"nested_definition_invalid"}
 		if not permitted(child,region_id): return {"error":"mechanism_outside_region:"+str(child.id)}
 		var id := instance_id if str(member.id).is_empty() else instance_id+"/"+str(member.id)
+		if result.has(id): return {"error":"duplicate_assembly_member:"+id}
 		var props: Dictionary = child.get("defaults", {}).duplicate(true)
-		props.merge(member.get("properties", {}), true)
+		props.merge(member.get("properties", {}).duplicate(true), true)
+		for field: String in member.get("instance_refs", {}):
+			props[field] = qualify_reference(member.instance_refs[field], instance_id)
 		var offset := at+FixedWorldProvider.point(member.get("offset", [0,0]))
+		for group_field: String in member.get("group_points",{}):
+			var positions := []
+			for point: Array in member.group_points[group_field]: positions.append([at.x+point[0],at.y+point[1]])
+			props[group_field] = positions
 		var position_field := str(child.get("position_field", "position"))
 		for field: String in child.get("offset_fields",[]):
-			props[field] = [float(props[field][0])+offset.x,float(props[field][1])+offset.y]
+			props[field][0] += offset.x
+			props[field][1] += offset.y
 		if position_field=="polygon":
 			for point: Array in props.points: point[0]+=offset.x;point[1]+=offset.y
 		elif position_field in ["rect", "bounds"]:

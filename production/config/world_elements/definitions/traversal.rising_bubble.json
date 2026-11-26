@@ -1,0 +1,27 @@
+{
+  "id": "traversal.rising_bubble",
+  "name": "升浮气泡",
+  "version": 1,
+  "component": "WorldRisingBubble",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "bubble_radius": 40.0,
+    "rise_speed": 80.0,
+    "rise_distance": 256.0,
+    "respawn_delay_s": 2.0,
+    "state_scope": "attempt",
+    "section_id": "main"
+  },
+  "category": "traversal",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/traversal.rising_bubble.md",
+  "library": "mechanisms",
+  "position_field": "position",
+  "time_profile": "incompatible",
+  "usable_regions": [
+    "*"
+  ]
+}

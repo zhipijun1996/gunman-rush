@@ -150,6 +150,7 @@ func _emit_round(aim: Vector2, grounded: bool) -> void:
 	_projectiles.append(projectile)
 	shot_fired.emit(aim,_shot_serial)
 	if visual: projectile.launch_motion = muzzle-projectile.global_position
+	ProjectileFlight.register_at(projectile,controller,"player")
 
 func get_projectiles() -> Array[PlayerProjectile]:
 	var current: Array[PlayerProjectile] = []
@@ -215,6 +216,7 @@ func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName) ->
 	elif weapon.mode==WeaponDefinition.Mode.MACHINE:visual.set_state(&"machine_recoil")
 	projectile.launch_motion=visual.muzzle_position(aim)-origin
 	_projectiles.append(projectile);last_muzzle=origin+projectile.launch_motion;shot_fired.emit(aim,_shot_serial)
+	if art_kind==&"bullet": ProjectileFlight.register_at(projectile,controller,"player")
 
 func item_runtime() -> RefCounted:
 	return controller.get("item_runtime") as RefCounted if is_instance_valid(controller) else null

@@ -1,0 +1,7 @@
+# G31 伸展菌伞与生长根柱
+
+射击菌柄或根部可累加目标长度；菌伞两侧对称伸展，根柱从固定根部沿轴长出。目标与实际长度分别保存。
+
+端面乘客随真实端面运输；受阻保留安全长度，最后一次射击后的延迟结束则缩回。
+
+[定义与参数](../../../production/config/world_elements/definitions/terrain.extending.json) · [设计合同](../失序之钟_基本机关库.md) · [机关目录](../world_objects.md)

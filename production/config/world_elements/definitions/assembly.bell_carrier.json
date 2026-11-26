@@ -1,14 +1,14 @@
 {
   "id": "assembly.bell_carrier",
   "name": "风铃与升降台",
-  "version": 1,
+  "version": 2,
   "members": [
     {
-      "id": "switch",
+      "id": "bell",
       "definition": "switch.shot",
       "offset": [
-        0,
-        0
+        -96,
+        -32
       ],
       "properties": {
         "repeat_enabled": true
@@ -18,17 +18,14 @@
       "id": "carrier",
       "definition": "platform.moving",
       "offset": [
-        128,
-        32
-      ],
-      "properties": {
-        "state_scope": "permanent"
-      }
+        0,
+        0
+      ]
     }
   ],
   "links": [
     {
-      "source": "switch",
+      "source": "bell",
       "target": "carrier",
       "input": "set_active",
       "output": "active"
@@ -40,5 +37,86 @@
   "library": "mechanisms",
   "usable_regions": [
     "*"
-  ]
+  ],
+  "creation_adapter": "res://game/world/elements/carrier_presets.gd",
+  "creation_fields": {
+    "section_id": {
+      "type": "string",
+      "default": "main",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "default": "attempt",
+      "label": "状态寿命"
+    },
+    "member_offsets": {
+      "type": "dict",
+      "default": {
+        "bell": [
+          -96,
+          -32
+        ],
+        "carrier": [
+          0,
+          0
+        ]
+      },
+      "label": "成员偏移"
+    },
+    "carrier.platform_size": {
+      "type": "point",
+      "min_component": 0.001,
+      "default": [
+        128,
+        24
+      ],
+      "label": "台面尺寸"
+    },
+    "carrier.endpoint": {
+      "type": "point",
+      "default": [
+        0,
+        -192
+      ],
+      "label": "终点位移"
+    },
+    "carrier.route": {
+      "type": "points",
+      "default": [],
+      "label": "局部路线"
+    },
+    "carrier.period": {
+      "type": "number",
+      "min": 0.051,
+      "default": 5,
+      "label": "往返时长"
+    },
+    "carrier.endpoint_dwell": {
+      "type": "number",
+      "min": 0,
+      "default": 0.2,
+      "label": "端点停留"
+    },
+    "carrier.phase_offset": {
+      "type": "number",
+      "min": 0,
+      "default": 0,
+      "label": "起始时钟"
+    },
+    "initial_running": {
+      "type": "bool",
+      "default": false,
+      "label": "初始运行"
+    }
+  },
+  "prior_members": {
+    "1": {
+      "switch": "switch.shot",
+      "carrier": "platform.moving"
+    }
+  }
 }

@@ -1,0 +1,125 @@
+{
+  "id": "WorldLocalLight",
+  "script": "res://game/world/elements/perception/local_light.gd",
+  "fields": {
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "light_radius": {
+      "type": "number",
+      "label": "照明半径",
+      "unit": "px",
+      "min": 0
+    },
+    "brightness": {
+      "type": "number",
+      "label": "亮度",
+      "min": 0
+    },
+    "edge_falloff": {
+      "type": "number",
+      "label": "边缘衰减",
+      "min": 0
+    },
+    "initial_active": {
+      "type": "bool",
+      "label": "初始启用"
+    },
+    "light_mode": {
+      "type": "string",
+      "label": "灯光形态",
+      "choices": [
+        "fixed",
+        "guide"
+      ]
+    },
+    "endpoint": {
+      "type": "point",
+      "label": "终点",
+      "unit": "px"
+    },
+    "route": {
+      "type": "points",
+      "label": "局部路线",
+      "unit": "px"
+    },
+    "move_speed": {
+      "type": "number",
+      "label": "移动速度",
+      "unit": "px/s",
+      "min": 0
+    },
+    "waypoint_dwell_s": {
+      "type": "number",
+      "label": "路点停留",
+      "unit": "s",
+      "min": 0
+    },
+    "end_behavior": {
+      "type": "string",
+      "label": "到站行为",
+      "choices": [
+        "return",
+        "dock"
+      ]
+    },
+    "cocoon_radius": {
+      "type": "number",
+      "label": "灯囊半径",
+      "unit": "px",
+      "min": 0
+    },
+    "element_id": {
+      "type": "string",
+      "label": "实例身份"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "label": "状态寿命",
+      "choices": [
+        "attempt"
+      ]
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "state": {
+    "active": {
+      "type": "bool",
+      "required": true
+    },
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "current": {
+      "type": "point",
+      "required": true
+    },
+    "destination": {
+      "type": "number",
+      "required": true
+    },
+    "direction": {
+      "type": "number",
+      "required": true
+    },
+    "wait_left": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "environment.local_light",
+  "validator_script": "res://game/world/elements/perception/local_light.gd"
+}

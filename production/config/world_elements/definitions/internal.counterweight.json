@@ -1,0 +1,31 @@
+{
+  "id": "internal.counterweight",
+  "name": "配重驱动",
+  "version": 1,
+  "component": "WorldCounterweight",
+  "defaults": {
+    "state_scope": "attempt",
+    "section_id": "main",
+    "position": [
+      0,
+      0
+    ],
+    "rest_progress": 0.5,
+    "loaded_rate": 0.35,
+    "return_rate": 0.15,
+    "stroke": [
+      192,
+      192
+    ],
+    "carrier_ids": []
+  },
+  "position_field": "position",
+  "category": "internal",
+  "placeable": false,
+  "documentation": "docs/data/mechanisms/internal.counterweight.md",
+  "library": "internal",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "mechanism"
+}

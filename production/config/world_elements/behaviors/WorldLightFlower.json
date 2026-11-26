@@ -1,0 +1,74 @@
+{
+  "id": "WorldLightFlower",
+  "script": "res://game/world/elements/perception/light_flower.gd",
+  "fields": {
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "light_source_types": {
+      "type": "array",
+      "label": "光源类别"
+    },
+    "light_threshold": {
+      "type": "number",
+      "label": "受光阈值",
+      "min": 0
+    },
+    "activate_delay_s": {
+      "type": "number",
+      "label": "点亮延迟",
+      "unit": "s",
+      "min": 0
+    },
+    "release_hold_s": {
+      "type": "number",
+      "label": "失光保持",
+      "unit": "s",
+      "min": 0
+    },
+    "links": {
+      "type": "array",
+      "label": "输出连线"
+    },
+    "element_id": {
+      "type": "string",
+      "label": "实例身份"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "label": "状态寿命",
+      "choices": [
+        "attempt"
+      ]
+    }
+  },
+  "inputs": {},
+  "outputs": {
+    "active": "bool"
+  },
+  "state": {
+    "active": {
+      "type": "bool",
+      "required": true
+    },
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "elapsed": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "switch.light",
+  "validator_script": "res://game/world/elements/perception/light_flower.gd"
+}

@@ -1,0 +1,175 @@
+{
+  "schema": 3,
+  "room_id": "projectile-library-demo",
+  "bounds": [
+    0,
+    0,
+    960,
+    540
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "echo_mines",
+      "start_point": [
+        125,
+        361
+      ]
+    }
+  },
+  "entities": {
+    "floor": {
+      "id": "floor",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          0,
+          384,
+          960,
+          156
+        ]
+      }
+    },
+    "grate": {
+      "id": "grate",
+      "definition_id": "terrain.projectile_grate",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          245,
+          297,
+          22,
+          87
+        ]
+      }
+    },
+    "mist": {
+      "id": "mist",
+      "definition_id": "zone.projectile_drag",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          266,
+          289,
+          90,
+          93
+        ],
+        "speed_scale": 0.35
+      }
+    },
+    "barrel": {
+      "id": "barrel",
+      "definition_id": "hazard.explosive_container",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          377,
+          361
+        ],
+        "fuse_s": 0.65,
+        "blast_radius": 92
+      }
+    },
+    "earth": {
+      "id": "earth",
+      "definition_id": "terrain.breakable",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          428,
+          288,
+          96,
+          96
+        ],
+        "break_mode": "local_cells",
+        "dig_radius": 46
+      }
+    },
+    "mirror": {
+      "id": "mirror",
+      "definition_id": "surface.projectile_mirror",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          680,
+          276
+        ],
+        "orientation_mode": "indexed",
+        "normal_angles_deg": [
+          145,
+          45,
+          10,
+          90
+        ],
+        "two_sided": true
+      }
+    },
+    "shield": {
+      "id": "shield",
+      "definition_id": "zone.projectile_barrier",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          748,
+          258
+        ],
+        "line_points": [
+          [
+            0,
+            -64
+          ],
+          [
+            0,
+            66
+          ]
+        ]
+      }
+    },
+    "embers": {
+      "id": "embers",
+      "definition_id": "hazard.periodic_emitter",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          552,
+          184
+        ],
+        "base_direction": [
+          1,
+          -0.5
+        ],
+        "projectile_speed": 180,
+        "projectile_profile": "ember_shot",
+        "burst_count": 2,
+        "shot_interval": 0.25,
+        "cycle_cooldown": 2.25
+      }
+    },
+    "stream": {
+      "id": "stream",
+      "definition_id": "hazard.periodic_emitter",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          112,
+          173
+        ],
+        "base_direction": [
+          1,
+          0
+        ],
+        "emit_mode": "stream",
+        "aim_mode": "manual_index",
+        "manual_angles_deg": [
+          0,
+          45,
+          270
+        ],
+        "stream_range": 210,
+        "stream_width": 16
+      }
+    }
+  }
+}
