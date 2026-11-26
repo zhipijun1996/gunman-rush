@@ -44,6 +44,4 @@ func element_restore(data: Dictionary) -> void:
 	if upper.size() == 2: apply_targets(targets_at(progress),true)
 
 func _draw() -> void:
-	for carrier in carriers:
-		draw_line(Vector2.ZERO,to_local(carrier.global_position),Color("907d5b"),2)
-	draw_circle(Vector2.ZERO,10,Color("867959"))
+	preload("res://game/presentation/world/carrier_hardware.gd").counterweight(self,carriers,upper,progress,stroke)

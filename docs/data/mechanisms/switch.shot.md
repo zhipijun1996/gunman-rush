@@ -9,3 +9,5 @@
 [版本和默认参数](../../../production/config/world_elements/definitions/switch.shot.json) · [机关目录](../world_objects.md)
 
 主铃与附加铃共享同一个攻击包收据。三连机关枪同一次扳机产生的三发弹体只切换一次，下一次独立射击可以再次驱动切换型风铃。
+
+黄铜铃唇和悬链标出可射击的铃身。主铃与附加射击点使用同一张原生贴图；受理后绕悬点短摆，声纹从铃口两侧展开。 [美术来源](../../../art/mechanisms/bell_gate/sources.json)

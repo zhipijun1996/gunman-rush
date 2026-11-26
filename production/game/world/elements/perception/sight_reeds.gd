@@ -9,10 +9,17 @@ extends Node2D
 		bounds = value
 		queue_redraw()
 @export var initial_active := true
+const TALL := preload("res://assets/world_elements/guide_light/reed_bank.png")
+const CUT := preload("res://assets/world_elements/guide_light/cut_reeds.png")
+var tall_art: Texture2D = TALL
+var cut_art: Texture2D = CUT
 var active := true
 var network: WorldLightNetwork
 
 func element_bind(context: Dictionary) -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	tall_art = load(WorldElementCatalog.skin_value(self,"zone.sight_occluder","tall_texture",TALL.resource_path))
+	cut_art = load(WorldElementCatalog.skin_value(self,"zone.sight_occluder","cut_texture",CUT.resource_path))
 	active = initial_active
 	network = WorldLightNetwork.of(context.room)
 	network.reeds.append(self)
@@ -28,18 +35,7 @@ func element_restore(data: Dictionary) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	var amount := 1.0 if active else 0.23
-	var height := bounds.size.y*amount
-	var spacing := maxf(5, bounds.size.x/256)
-	var i := 0
-	var x := bounds.position.x
-	while x < bounds.end.x:
-		var sway := sin(i*2.47)
-		var base := Vector2(x,bounds.end.y)
-		var tip := Vector2(clampf(x+8*sway,bounds.position.x,bounds.end.x),bounds.end.y-height*(0.76+0.24*absf(sway)))
-		var mid := base.lerp(tip,0.56)
-		var color := Color("536849") if active else Color("685947")
-		draw_line(base,tip,color,2)
-		draw_line(mid,Vector2(clampf(mid.x+8*sway,bounds.position.x,bounds.end.x),mid.y-0.23*height),color.lightened(0.15),2)
-		draw_rect(Rect2(tip,Vector2(minf(3,bounds.end.x-tip.x),minf(7,height))),Color("9a8962"))
-		x += spacing; i += 1
+	var texture := tall_art if active else cut_art
+	var height := bounds.size.y if active else minf(bounds.size.y*0.24,texture.get_height())
+	var rect := Rect2(Vector2(bounds.position.x,bounds.end.y-height),Vector2(bounds.size.x,height))
+	LightInstrumentArt.draw_bank(self,texture,rect)

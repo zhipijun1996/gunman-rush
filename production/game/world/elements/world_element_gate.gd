@@ -14,8 +14,13 @@ var active := false
 var body: StaticBody2D
 var visual: UnderworldTerrain
 var controller: PlayerController
+var hardware: Node2D
+var winding_pose := 0.0
+var winding_motion: Tween
+var creation_frame := -1
 
 func _ready() -> void:
+	creation_frame = Engine.get_physics_frames()
 	body = StaticBody2D.new(); body.collision_layer = 1; body.collision_mask = 0
 	body.position = bounds.get_center()
 	var collision := CollisionShape2D.new()
@@ -26,6 +31,11 @@ func _ready() -> void:
 		material_id = WorldElementCatalog.skin_value(self,str(get_meta("definition_id","gate.masonry")),"material","mill_masonry")
 	visual = UnderworldTerrain.build([bounds], {}, TerrainMaterialRegistry.appearance(material_id))
 	add_child(visual)
+	hardware = Node2D.new()
+	hardware.name = "WindingGear"
+	hardware.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	add_child(hardware)
+	hardware.draw.connect(func(): BellGateArt.gate(hardware,bounds,active,winding_pose))
 
 func element_bind(context: Dictionary) -> void:
 	controller = context.controller
@@ -50,10 +60,23 @@ func element_restore(data: Dictionary) -> void:
 	set_open(data.active)
 
 func set_open(value: bool) -> void:
+	var changed := value != active
 	active = value
+	if changed and creation_frame == Engine.get_physics_frames():
+		set_winding_pose(1.0 if active else 0.0)
+	elif changed:
+		if winding_motion != null: winding_motion.kill()
+		winding_motion = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+		winding_motion.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		winding_motion.tween_method(set_winding_pose,winding_pose,1.0 if active else 0.0,.23)
+	hardware.queue_redraw()
 	queue_redraw()
 	body.collision_layer = 0 if active else 1
 	visual.visible = not active
+
+func set_winding_pose(value: float) -> void:
+	winding_pose = value
+	hardware.queue_redraw()
 
 func _physics_process(delta: float) -> void:
 	if gate_mode != "directional" or not is_instance_valid(controller) or not controller.active: return

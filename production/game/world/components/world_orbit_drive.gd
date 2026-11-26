@@ -42,6 +42,5 @@ func element_restore(data: Dictionary) -> void:
 	apply_targets(targets_at(motion_clock),true)
 
 func _draw() -> void:
-	for carrier in carriers:
-		draw_line(Vector2.ZERO,to_local(carrier.global_position),Color("645747"),4)
-	draw_circle(Vector2.ZERO,14,Color("9f8659"))
+	var spin := motion_clock*TAU/period
+	preload("res://game/presentation/world/carrier_hardware.gd").orbit(self,carriers,radius,deg_to_rad(initial_angle_deg)+(spin if direction=="clockwise" else -spin))

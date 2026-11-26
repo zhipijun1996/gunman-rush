@@ -9,6 +9,8 @@ func ticks(count: int) -> void:
 func run() -> void:
 	var session := preload("res://tests/perception_demo.tscn").instantiate() as OrdinaryRoomSession
 	root.add_child(session)
+	if "graybox" in OS.get_cmdline_user_args():
+		for layer in get_nodes_in_group("review_scenery"): layer.hide()
 	var camera := root.get_camera_2d()
 	if camera: camera.zoom = Vector2.ONE*1.45
 	await ticks(32)

@@ -11,6 +11,8 @@ var motion_running := true
 
 func element_bind(context: Dictionary) -> void:
 	process_physics_priority = -110
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	z_index = -1
 	for node: Node in context.runtime.nodes.values():
 		if node is WorldMovingPlatform and node.drive_id == element_id:
 			carriers.append(node)

@@ -1,6 +1,7 @@
 class_name WorldMovingPlatform
 extends WorldCarrierSurface
 ## Owns one collision surface. A driver may own its pose, never a second clock.
+const HARDWARE := preload("res://game/presentation/world/carrier_hardware.gd")
 
 @export var endpoint := Vector2(384,0)
 @export var period := 5.0
@@ -41,25 +42,19 @@ func _ready() -> void:
 	visible = activation_enabled
 	collision_layer = 1 if activation_enabled else 0
 	if drive_id.is_empty() and motion_mode in ["cycle","call_dock","manual_cart"] and (not route.is_empty() or motion_mode != "cycle"):
-		var rail := Line2D.new()
-		rail.points = PackedVector2Array([Vector2.ZERO] + path.points)
-		rail.width = 3
-		rail.default_color = Color("857349")
+		var rail := HARDWARE.Track.new()
+		rail.points = path.points
+		if motion_mode == "call_dock": rail.call_points = call_points
 		rail.z_index = -3
 		add_child(rail)
 		rail.top_level = true
 		rail.global_position = global_position
-		if motion_mode == "call_dock":
-			for at in call_points:
-				var post := Line2D.new()
-				post.points = PackedVector2Array([at+Vector2(-5,-10),at+Vector2(5,-10),at+Vector2(0,-16),at+Vector2(-5,-10),at+Vector2(0,-10),at])
-				post.width = 3
-				post.default_color = Color("d4ae69")
-				rail.add_child(post)
 	reset_motion()
 
 func _draw() -> void:
+	if motion_mode == "manual_cart": HARDWARE.bogie(self,platform_size,cart_distance)
 	super()
+	if not drive_id.is_empty(): HARDWARE.deck_pin(self,platform_size)
 	if motion_mode != "manual_cart" or path.points.is_empty(): return
 	var distance := maxf(cart_distance-1,0)
 	var forward := path.sample(minf(distance+2,path.length),false)-path.sample(distance,false)

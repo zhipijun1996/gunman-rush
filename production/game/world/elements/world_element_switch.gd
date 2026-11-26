@@ -12,6 +12,7 @@ extends WorldShotLatch
 var elements: WorldElementRuntime
 var expiration_pending := false
 var packet_receipts := {}
+var ring_age := 1.0
 
 func element_bind(context: Dictionary) -> void:
 	elements = context.runtime
@@ -20,7 +21,11 @@ func element_bind(context: Dictionary) -> void:
 	gate_body.free(); gate_body = null; gate_shape = null
 	gate_visual_enabled = false
 	open_seconds = 0
-	for point: Vector2 in access_points: add_access_bell(point-position)
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	for point: Vector2 in access_points:
+		add_access_bell(point-position)
+		# Paint every shooting point with the same suspended native bell.
+		(get_child(-1) as Sprite2D).hide()
 	is_open = initial_active
 	activation_requested.connect(context.submit)
 	controller.router.cancelled.connect(on_router_cancelled)
@@ -89,9 +94,14 @@ func accept_committed() -> void:
 	var expired := expiration_pending
 	pending_commit = {}; _seen.clear(); expiration_pending = false
 	if expired: GameAudio.cue(self, &"armour")
-	else: _play_bell(); opened.emit()
+	else:
+		ring_age = 0.0
+		_play_bell()
+		opened.emit()
 
 func cancel_pending() -> void:
+	ring_age = 1.0
+	queue_redraw()
 	expiration_pending = false
 	packet_receipts.clear()
 	super.cancel_pending()
@@ -99,6 +109,7 @@ func cancel_pending() -> void:
 func _physics_process(delta: float) -> void:
 	if elements == null: return
 	_clock += delta
+	ring_age = minf(1.0,ring_age+delta)
 	if is_open and duration > 0 and _clock-_opened_at >= duration:
 		expiration_pending = true
 		if can_commit(): activation_requested.emit(element_id)
@@ -108,13 +119,12 @@ func _physics_process(delta: float) -> void:
 		if _eligible_shots[key].expires < _clock: _eligible_shots.erase(key)
 	if not _pending.is_empty():
 		var request := _pending; _pending = {}; _commit_open.call_deferred(request)
-	for child: Node in get_children():
-		if child is Sprite2D and child.get_meta("underworld_access_bell",false): child.rotation = _underworld_bell_swing()
-	if duration>0 or (_opened_at >= 0 and _clock-_opened_at < .8): queue_redraw()
+	if duration>0 or ring_age < .8: queue_redraw()
 
 func _draw() -> void:
-	super._draw()
 	if elements == null: return
+	BellGateArt.bell(self,bell_position,ring_age,is_open)
+	for point: Vector2 in access_positions: BellGateArt.bell(self,point,ring_age,is_open)
 	for link: Dictionary in links:
 		var target: Node = elements.nodes.get(str(link.target))
 		if target is WorldMovingPlatform:
@@ -125,4 +135,4 @@ func _draw() -> void:
 		elif target is WorldElementGate and duration>0:
 			var corner := to_local(target.to_global(target.bounds.position))
 			var left := clampf(1-(_clock-_opened_at)/duration,0,1) if is_open else 0.0
-			for i: int in 6: draw_rect(Rect2(corner+Vector2(target.bounds.size.x+6,12+i*9),Vector2(6,4)),Color("efd78d") if left>float(i)/6 else Color("423e32"))
+			BellGateArt.countdown(self,corner+Vector2(target.bounds.size.x,0),left)

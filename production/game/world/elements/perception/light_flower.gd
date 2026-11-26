@@ -9,6 +9,7 @@ extends Node2D
 @export var light_threshold := 0.50
 @export var activate_delay_s := 0.20
 @export var release_hold_s := 0.40
+var art: Texture2D
 var network: WorldLightNetwork
 var runtime: WorldElementRuntime
 var submit: Callable
@@ -30,6 +31,8 @@ static func control_dependencies(doc: Dictionary) -> Dictionary:
 	return WorldLightNetwork.control_dependencies(doc)
 
 func element_bind(context: Dictionary) -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	art = LightInstrumentArt.texture(self,"switch.light")
 	network = WorldLightNetwork.of(context.room)
 	network.controller = context.controller
 	network.register_light_object(element_id,self,network.flowers)
@@ -68,16 +71,22 @@ func reset_attempt() -> void:
 func accept_committed() -> void: queue_redraw()
 
 func _draw() -> void:
-	var aperture := 1.0 if desired else (elapsed/maxf(activate_delay_s,0.001) if phase == "charging" else 0.0)
-	draw_line(Vector2.ZERO,Vector2(0,16),Color("6c775c"),3)
-	# The base identifies accepted light families even while the petals are closed.
+	var charge := 1.0 if desired else 0.0
+	if phase == "charging": charge = clampf(elapsed/maxf(activate_delay_s,0.001),0,1)
+	if charge > 0.0: LightInstrumentArt.glow(self,Vector2.ZERO,charge,18)
+	# Both exposures share their roots; the head sits over the light sample point.
+	var center := Vector2(0,10)
+	if charge < 1.0:
+		LightInstrumentArt.draw(self,art,LightInstrumentArt.Frame.BUD,center)
+	if charge > 0.0:
+		LightInstrumentArt.draw(self,art,LightInstrumentArt.Frame.BLOOM,center,Color(1,1,1,charge))
+	# Gold and blue inlays at the foot identify the light families this flower reads.
 	if "local_light" in light_source_types:
-		draw_rect(Rect2(-7,12,4,5),Color("dbb76c"))
+		draw_rect(Rect2(-6,30,3,3),Color("e6b770"))
 	if "equipped_light" in light_source_types:
-		draw_colored_polygon(PackedVector2Array([Vector2(3,14),Vector2(8,11),Vector2(8,17)]),Color("a5c7cb"))
-	for i: int in 6:
-		var axis := Vector2.RIGHT.rotated(i*TAU/6)
-		var tip := axis*(7.0+aperture*8.0)
-		draw_colored_polygon(PackedVector2Array([axis*2,axis*5+axis.orthogonal()*3,tip,axis*5-axis.orthogonal()*3]),Color("9c8c65").lerp(Color("f6df8c"),aperture))
-	draw_circle(Vector2.ZERO,3,Color("534c48").lerp(Color("fff1b6"),brightness))
-	if desired != accepted: draw_arc(Vector2.ZERO,17,0,TAU,24,Color("d29c62"),1)
+		draw_colored_polygon(PackedVector2Array([Vector2(3,32),Vector2(6,29),Vector2(8,32),Vector2(5,35)]),Color("9fcbd0"))
+	if brightness > 0.0:
+		draw_rect(Rect2(-2,-2,4,3),Color("756044").lerp(Color("fff2be"),brightness))
+	if desired != accepted:
+		draw_arc(Vector2.ZERO,17,-PI*0.8,-PI*0.2,10,Color("dfaf6e"),1)
+		draw_arc(Vector2.ZERO,17,PI*0.2,PI*0.8,10,Color("dfaf6e"),1)

@@ -31,3 +31,9 @@ PR #165 在 PR #163、#164 已合入的 main 上接入两份定稿。重做工�
 ```sh
 bash tools/godot.sh --path production --fixed-fps 60 --write-movie /tmp/carrier.avi --script res://tests/carrier_showcase.gd -- drives
 ```
+
+## 美术快审
+
+前三段短片分别检视引路灯虫与感光花、配重与风车、风铃与机关门。播放用的均为上表同一测试房和正式输入。森林片使用四张已有 v2 森林候选素材摆放远景、根岸与附着枝条，源文件位于 `art/world-art-v2/assets/pixel/v2/`，重做工程的同名运行副本位于 `production/assets/world_elements/forest_stage/`。这些景物由感知演示场景持有。
+
+同角度复验森林片时，运行 `res://tests/perception_showcase.gd`。加参数 `-- graybox` 即可只看同一套新版机关在原灰盒中的表现。灯虫、感光花、诱敌吊坠与响叶素材的生成源、裁切位置和原生尺寸存于 [灯具来源](../../../../art/mechanisms/guide-light/provenance.json)和[植丛来源](../../../../art/mechanisms/forest-reeds/provenance.json)。风铃门的复用来源见[部件清单](../../../../art/mechanisms/bell_gate/sources.json)。

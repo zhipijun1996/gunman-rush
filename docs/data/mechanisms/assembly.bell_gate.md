@@ -14,3 +14,5 @@ var placed := WorldElementCatalog.instantiate_definition(
 `mode` 推导两个成员的状态寿命。`bell.duration` 可覆盖限时时长，`gate.bounds` 可指定局部矩形，`section_id` 绑定房内挑战分区。房间保存展开的实际值、稳定 ID、连线及来源版本。已经放置的第一版保留原来的 `switch` 子 ID 和布局；新版新放置的铃使用 `bell`。
 
 [定义及开放参数](../../../production/config/world_elements/definitions/assembly.bell_gate.json) · [射击风铃](switch.shot.md) · [砌体门](gate.masonry.md) · [限时试玩](../../../production/tests/bell_gate_demo.tscn)
+
+铃与门共享黄铜受光色。中弹后的摆铃和声纹对应开门，洞口右侧的六格灯显示限时门剩余时间。角色留在洞口时，灯熄后空门框继续表示可通行。 [美术来源](../../../art/mechanisms/bell_gate/sources.json)

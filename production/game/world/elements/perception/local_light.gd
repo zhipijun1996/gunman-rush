@@ -23,6 +23,7 @@ var destination := 0
 var direction := 1
 var wait_left := 0.0
 var receipts := {}
+var art: Texture2D
 var network: WorldLightNetwork
 
 static func validate_configuration(p: Dictionary,_row: Dictionary,_doc: Dictionary) -> String:
@@ -35,6 +36,8 @@ static func validate_configuration(p: Dictionary,_row: Dictionary,_doc: Dictiona
 	return ""
 
 func element_bind(context: Dictionary) -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	art = LightInstrumentArt.texture(self,"environment.local_light")
 	active = initial_active
 	network = WorldLightNetwork.of(context.room)
 	network.controller = context.controller
@@ -109,11 +112,22 @@ func element_restore(data: Dictionary) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	var gold := Color("f5db8b") if active else Color("666858")
+	var metal := Color.WHITE if active else Color("77746e")
 	if light_mode == "guide":
-		draw_circle(Vector2.ZERO,cocoon_radius,Color("524d3d"))
-		draw_arc(Vector2.ZERO,cocoon_radius,-2.7,2.7,18,Color("a58a58"),2)
-		draw_line(Vector2(-cocoon_radius*0.65,3),Vector2(cocoon_radius*0.7,-3),gold,2)
+		var size_factor := cocoon_radius / 12.0
+		LightInstrumentArt.draw(self,art,LightInstrumentArt.Frame.COCOON,Vector2.ZERO,metal,size_factor)
+		# The brass cradle follows the circular shootable envelope on either side.
+		for side in [0.0,PI]:
+			draw_arc(Vector2.ZERO,cocoon_radius,side-0.62,side+0.62,8,Color("a98a56"),1.0)
+		if phase != "home":
+			var at := current.round()
+			if active: LightInstrumentArt.glow(self,at,brightness,18)
+			var facing_left := not path.is_empty() and destination < path.size() and path[destination].x < current.x
+			draw_set_transform(at,0.0,Vector2(-1,1) if facing_left else Vector2.ONE)
+			LightInstrumentArt.draw(self,art,LightInstrumentArt.Frame.MOTH,Vector2.ZERO,metal)
+			draw_set_transform(Vector2.ZERO)
+		elif active:
+			LightInstrumentArt.glow(self,Vector2.ZERO,brightness,cocoon_radius*1.4)
 		if Engine.is_editor_hint():
 			var previous := Vector2.ZERO
 			var route_points: Array = [endpoint] if route.is_empty() else route
@@ -121,10 +135,8 @@ func _draw() -> void:
 				draw_dashed_line(previous,point,Color("9d9272"),1,6)
 				previous = point
 	else:
-		draw_rect(Rect2(-4,6,8,15),Color("69604c"))
-		draw_rect(Rect2(-10,19,20,4),Color("766a53"))
-	if active:
-		draw_circle(current,16,Color(gold,0.12*brightness))
-		draw_circle(current,9,Color(gold,0.25*brightness))
-	draw_rect(Rect2(current-Vector2(3,4),Vector2(6,8)),gold)
-	if Engine.is_editor_hint(): draw_arc(current,light_radius,0,TAU,64,Color(gold,0.35),1)
+		draw_rect(Rect2(-4,8,8,13),Color("493f3a"))
+		draw_rect(Rect2(-8,19,16,4),Color("8c7854"))
+		if active: LightInstrumentArt.glow(self,Vector2.ZERO,brightness,21)
+		LightInstrumentArt.draw(self,art,LightInstrumentArt.Frame.COCOON,Vector2.ZERO,metal)
+	if Engine.is_editor_hint(): draw_arc(current,light_radius,0,TAU,64,Color("b29f6970"),1)

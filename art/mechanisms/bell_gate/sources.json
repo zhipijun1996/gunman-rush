@@ -1,0 +1,150 @@
+{
+  "sources": {
+    "bell": {
+      "file": "production/assets/underworld_plains/actors/bell.png",
+      "sha256": "94162f8e2f0e112659885356908e114bec6bd11f6d5a31b7691fd53883e85ad2"
+    },
+    "press": {
+      "file": "art/world-art-v2/assets/pixel/v2/gear_city_v2_piston_press.png",
+      "sha256": "579dd0a52f42bba26600b88ead5546a2a3a30178397736523cf9dbb35503641a"
+    },
+    "gears": {
+      "file": "art/world-art-v2/assets/pixel/v2/gear_city_v2_gear_conveyor.png",
+      "sha256": "da5807d46e64173f602cf5d2be90c6c9fcfad62a779462686d1d4ba8788e41cf"
+    }
+  },
+  "parts": {
+    "clapper_bell": {
+      "source": "bell",
+      "crop_ltrb": [
+        0,
+        13,
+        28,
+        47
+      ],
+      "atlas_xywh": [
+        0,
+        0,
+        28,
+        34
+      ],
+      "treatment": "cast_brass"
+    },
+    "wall_bracket": {
+      "source": "press",
+      "crop_ltrb": [
+        0,
+        0,
+        77,
+        89
+      ],
+      "atlas_xywh": [
+        32,
+        0,
+        42,
+        48
+      ],
+      "treatment": "original_rgba"
+    },
+    "ratchet": {
+      "source": "gears",
+      "crop_ltrb": [
+        12,
+        12,
+        40,
+        40
+      ],
+      "atlas_xywh": [
+        80,
+        0,
+        26,
+        26
+      ],
+      "treatment": "rim_mask"
+    },
+    "winding_case": {
+      "source": "gears",
+      "crop_ltrb": [
+        0,
+        0,
+        146,
+        53
+      ],
+      "atlas_xywh": [
+        0,
+        50,
+        64,
+        23
+      ],
+      "treatment": "original_rgba"
+    },
+    "guide": {
+      "source": "press",
+      "crop_ltrb": [
+        76,
+        23,
+        86,
+        61
+      ],
+      "atlas_xywh": [
+        66,
+        50,
+        5,
+        19
+      ],
+      "treatment": "original_rgba"
+    },
+    "shutter_cleat": {
+      "source": "press",
+      "crop_ltrb": [
+        40,
+        71,
+        67,
+        81
+      ],
+      "atlas_xywh": [
+        78,
+        50,
+        27,
+        10
+      ],
+      "treatment": "original_rgba"
+    },
+    "sill": {
+      "source": "press",
+      "crop_ltrb": [
+        36,
+        99,
+        75,
+        109
+      ],
+      "atlas_xywh": [
+        0,
+        76,
+        39,
+        10
+      ],
+      "treatment": "original_rgba"
+    },
+    "counterweight": {
+      "source": "press",
+      "crop_ltrb": [
+        46,
+        5,
+        69,
+        47
+      ],
+      "atlas_xywh": [
+        48,
+        76,
+        7,
+        12
+      ],
+      "treatment": "original_rgba"
+    }
+  },
+  "native_scale": "One atlas pixel per world pixel. Narrow apertures crop the panel edge; casing caps retain their native dimensions.",
+  "sampling": "nearest",
+  "cast_brass": "For nonblack source (r,g,b), let l=max(r,g,b)/255. RGB = round([20+.79r+52l^.35, 8+.84g+46l^.5, .83b+28l^.7]); caps 255/242/178. Deep outline RGB 25/18/25, source alpha.",
+  "art_direction": "Project Underworld bell and gear-city piston/conveyor. Regional TileSet remains the shutter infill. The bracket, clapper, housing, ratchet, guides and sill remain independent."
+}

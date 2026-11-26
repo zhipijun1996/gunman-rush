@@ -10,6 +10,10 @@ extends Node2D
 @export var investigation_s := 3.0
 @export var cooldown_s := 2.0
 @export var stand_search_radius := 96.0
+const CHARM := preload("res://assets/world_elements/guide_light/sound_charm.png")
+const MAT := preload("res://assets/world_elements/guide_light/leaf_mat.png")
+var charm_art: Texture2D = CHARM
+var mat_art: Texture2D = MAT
 var room: FixedWorldRoom
 var controller: PlayerController
 var lifetime: DemoLifetime
@@ -29,6 +33,9 @@ static func validate_configuration(p: Dictionary,_row: Dictionary,_doc: Dictiona
 	return ""
 
 func element_bind(context: Dictionary) -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	charm_art = load(WorldElementCatalog.skin_value(self,"interaction.sound_lure","charm_texture",CHARM.resource_path))
+	mat_art = load(WorldElementCatalog.skin_value(self,"interaction.sound_lure","mat_texture",MAT.resource_path))
 	room = context.room; controller = context.controller; lifetime = context.lifetime
 	process_physics_priority = 1150
 	body = StaticBody2D.new()
@@ -119,15 +126,10 @@ func element_restore(data: Dictionary) -> void:
 
 func _draw() -> void:
 	if trigger_mode == "shot":
-		draw_circle(Vector2.ZERO,12,Color("645e4c")); draw_arc(Vector2.ZERO,9,0,TAU,20,Color("cfb275"),2)
-		draw_rect(Rect2(-2,-5,4,10),Color("c4b991"))
+		var origin := -(charm_art.get_size()*Vector2(0.80,0.62)).round()
+		draw_texture(charm_art,origin,Color("b1a48e") if cooldown_left > 0 else Color.WHITE)
 	else:
 		var rect := Rect2(bounds.position-position,bounds.size)
-		draw_rect(rect,Color("45563e"))
-		var step := maxf(8,rect.size.x/128)
-		var x := rect.position.x
-		while x < rect.end.x:
-			draw_line(Vector2(x,rect.position.y+3),Vector2(minf(x+5,rect.end.x),rect.position.y),Color("b3a569"),3)
-			x += step
+		LightInstrumentArt.draw_bank(self,mat_art,rect)
 	if ripple < 1.0:
 		draw_arc(to_local(last_emission),maxf(1,audible_radius*ripple),0,TAU,48,Color(0.9,0.78,0.52,1-ripple),2)
