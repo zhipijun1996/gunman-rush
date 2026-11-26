@@ -25,13 +25,13 @@ func round_trip(doc: Dictionary) -> Dictionary:
 func check_scope(source: Dictionary) -> void:
 	var db := WorldElementCatalog.catalog()
 	# Test a local unit and a local combination of common units without publishing fixture designs.
-	var owner: Array = db.mechanism_regions.gear_city.definitions
 	for id: String in ["gate.masonry", "assembly.bell_gate"]:
 		var fixture_id := "fixture." + id
 		var definition: Dictionary = db.definitions[id].duplicate(true)
 		definition.id = fixture_id
+		definition.usable_regions = ["gear_city","echo_mines"]
 		db.definitions[fixture_id] = definition
-		owner.append(fixture_id)
+		check(fixture_id in WorldElementCatalog.mechanism_palette("echo_mines").regional, "second allowed region")
 		check(fixture_id in WorldElementCatalog.mechanism_palette("gear_city").regional, "owner lists " + id)
 		check(fixture_id not in WorldElementCatalog.mechanism_palette("thorn_forest").regional, "other area hides " + id)
 		var doc := source.duplicate(true)
@@ -44,8 +44,14 @@ func check_scope(source: Dictionary) -> void:
 				saved.root.properties.region_id = region
 				check(WorldRoomDocument.instantiate(saved).has("error"), "document rejects foreign " + id)
 				check(WorldElementCatalog.instantiate_definition(fixture_id, "local", Vector2.ZERO, region).has("error"), "placement rejects foreign " + id)
-		owner.erase(fixture_id)
 		db.definitions.erase(fixture_id)
+	var shared_gate: Dictionary = db.definitions["gate.masonry"]
+	var original_scope: Array = shared_gate.usable_regions
+	shared_gate.usable_regions = ["gear_city"]
+	check("assembly.bell_gate" in WorldElementCatalog.mechanism_palette("gear_city").regional, "member narrows common assembly")
+	check("assembly.bell_gate" not in WorldElementCatalog.mechanism_palette("").common, "member excludes common palette")
+	check(WorldElementCatalog.instantiate_definition("assembly.bell_gate", "local", Vector2.ZERO, "thorn_forest").has("error"), "member narrows creation")
+	shared_gate.usable_regions = original_scope
 	for bad_region: Variant in ["unknown_region", 4, null]:
 		var doc := source.duplicate(true)
 		doc.root.properties.region_id = bad_region

@@ -27,6 +27,27 @@
     },
     "drive_id": {
       "type": "string"
+    },
+    "path_mode": {
+      "type": "string",
+      "choices": [
+        "linear",
+        "arc"
+      ]
+    },
+    "arc_radius": {
+      "type": "number",
+      "positive": true
+    },
+    "arc_angles_deg": {
+      "type": "point"
+    },
+    "endpoint_dwell": {
+      "type": "number",
+      "min": 0
+    },
+    "section_id": {
+      "type": "string"
     }
   },
   "inputs": {

@@ -135,8 +135,18 @@ func run() -> void:
 		var palette := WorldElementCatalog.mechanism_palette(region)
 		var entries: Array = palette.common if region.is_empty() else palette.regional
 		for id: String in entries:
-			var made := WorldElementCatalog.instantiate_definition(id, "probe", Vector2(128,128), region)
+			var options := {"action_id":"repair"} if id == "assembly.one_shot_route" else {}
+			var made := WorldElementCatalog.instantiate_definition(id, "probe", Vector2(128,128), region,options)
 			var model := {"schema":3,"room_id":"independent","root":{"definition_id":"room.standard","definition_version":1,"properties":{"terrain_material":"gear_city","region_id":region}},"entities":made.entities}
+			if id in ["interaction.action","interaction.return_gate","assembly.one_shot_route"]:
+				model.actions = [{"id":"repair","room_id":"independent","section_id":"main","grants":["repair"]}]
+				if id != "assembly.one_shot_route": model.entities.probe.properties.action_id = "repair"
+			if id == "zone.environment_shelter":
+				model.entities.merge(WorldElementCatalog.instantiate_definition("hazard.area","vent",Vector2.ZERO).entities)
+				model.entities.vent.properties.hazard_profile = "heat_wave"
+				model.entities.probe.properties.protected_sources = ["vent"]
+			if id == "hazard.falling_weight":
+				model.entities.base = {"id":"base","definition_id":"platform.solid","definition_version":1,"properties":{"rect":[0,352,512,32]}}
 			var result := WorldRoomDocument.instantiate(model)
 			check(result.has("room"), id+" "+str(result.get("error","")))
 			if result.has("room"): result.room.free()

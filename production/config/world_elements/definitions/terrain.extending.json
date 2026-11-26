@@ -1,0 +1,35 @@
+{
+  "id": "terrain.extending",
+  "name": "伸展菌伞与生长根柱",
+  "version": 1,
+  "component": "WorldExtendingTerrain",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "state_scope": "attempt",
+    "section_id": "main",
+    "growth_mode": "centered",
+    "growth_axis": [
+      0,
+      -1
+    ],
+    "thickness": 24,
+    "initial_length": 96,
+    "max_length": 224,
+    "growth_per_hit": 32,
+    "growth_speed": 128,
+    "retract_delay_s": 1.5,
+    "retract_speed": 64
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible",
+  "position_field": "position",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/terrain.extending.md",
+  "library": "mechanisms"
+}

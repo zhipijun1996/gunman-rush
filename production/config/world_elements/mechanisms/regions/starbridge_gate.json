@@ -1,9 +1,25 @@
 {
   "region_id": "starbridge_gate",
-  "definitions": [],
   "skins": {
     "gate.masonry": {
       "material": "starbridge_gate"
+    },
+    "interaction.sound_lure": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/starbridge_gate.png"
+    },
+    "zone.sight_occluder": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/starbridge_gate.png"
+    },
+    "zone.foreground_cover": {
+      "texture": "res://assets/world_elements/perception_regions/starbridge_gate_veil.png"
+    },
+    "environment.local_light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/starbridge_gate.png"
+    },
+    "switch.light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/starbridge_gate.png"
     }
-  }
+  },
+  "hardware_atlas": "res://assets/mechanisms/regional/starbridge_gate.png",
+  "hardware_light": "#8aa6ff"
 }

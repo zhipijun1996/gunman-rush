@@ -1,0 +1,185 @@
+{
+  "id": "PeriodicEmitter",
+  "script": "res://game/world/elements/projectile/periodic_emitter.gd",
+  "fields": {
+    "position": {
+      "type": "point"
+    },
+    "emit_mode": {
+      "type": "string",
+      "choices": [
+        "projectile",
+        "stream"
+      ]
+    },
+    "aim_mode": {
+      "type": "string",
+      "choices": [
+        "fixed",
+        "track_lock",
+        "manual_index"
+      ]
+    },
+    "base_direction": {
+      "type": "point"
+    },
+    "projectile_profile": {
+      "type": "string"
+    },
+    "projectile_speed": {
+      "type": "number",
+      "positive": true
+    },
+    "warning_time": {
+      "type": "number",
+      "positive": true
+    },
+    "burst_count": {
+      "type": "number",
+      "integer": true,
+      "min": 1
+    },
+    "shot_interval": {
+      "type": "number",
+      "positive": true
+    },
+    "cycle_cooldown": {
+      "type": "number",
+      "min": 0
+    },
+    "acquire_range": {
+      "type": "number",
+      "positive": true
+    },
+    "aim_arc_deg": {
+      "type": "number",
+      "positive": true,
+      "max": 360
+    },
+    "track_duration": {
+      "type": "number",
+      "positive": true
+    },
+    "turn_speed_deg": {
+      "type": "number",
+      "positive": true
+    },
+    "manual_angles_deg": {
+      "type": "array"
+    },
+    "initial_aim_index": {
+      "type": "number",
+      "integer": true,
+      "min": 0
+    },
+    "manual_turn_s": {
+      "type": "number",
+      "positive": true
+    },
+    "stream_profile": {
+      "type": "string"
+    },
+    "stream_range": {
+      "type": "number",
+      "positive": true
+    },
+    "stream_width": {
+      "type": "number",
+      "positive": true
+    },
+    "stream_duration_s": {
+      "type": "number",
+      "positive": true
+    },
+    "initial_active": {
+      "type": "bool"
+    },
+    "time_profile": {
+      "type": "string",
+      "choices": [
+        "incompatible"
+      ]
+    },
+    "element_id": {
+      "type": "string"
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ]
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "category": "hazards",
+  "root": false,
+  "default_definition": "hazard.periodic_emitter",
+  "validator_script": "res://game/world/elements/projectile/projectile_contract.gd",
+  "state": {
+    "active": {
+      "type": "bool",
+      "required": true
+    },
+    "phase": {
+      "type": "string",
+      "choices": [
+        "warning",
+        "idle",
+        "tracking",
+        "burst",
+        "streaming",
+        "cooldown"
+      ],
+      "required": true
+    },
+    "phase_time": {
+      "type": "number",
+      "min": 0,
+      "required": true
+    },
+    "angle": {
+      "type": "number",
+      "required": true
+    },
+    "index": {
+      "type": "number",
+      "integer": true,
+      "min": 0,
+      "required": true
+    },
+    "turn_start": {
+      "type": "number",
+      "required": true
+    },
+    "turn_arc": {
+      "type": "number",
+      "required": true
+    },
+    "turn_age": {
+      "type": "number",
+      "min": 0,
+      "required": true
+    },
+    "turning": {
+      "type": "bool",
+      "required": true
+    },
+    "rounds": {
+      "type": "number",
+      "integer": true,
+      "min": 0,
+      "required": true
+    },
+    "locked": {
+      "type": "point",
+      "required": true
+    }
+  },
+  "state_version": 1
+}

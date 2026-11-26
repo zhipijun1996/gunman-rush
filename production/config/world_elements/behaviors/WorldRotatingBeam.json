@@ -1,0 +1,213 @@
+{
+  "id": "WorldRotatingBeam",
+  "script": "res://game/world/elements/rotating_beam.gd",
+  "fields": {
+    "element_id": {
+      "type": "string",
+      "label": "实例ID"
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "beam_length": {
+      "type": "number",
+      "positive": true,
+      "label": "梁长",
+      "unit": "px"
+    },
+    "beam_thickness": {
+      "type": "number",
+      "positive": true,
+      "label": "梁厚",
+      "unit": "px"
+    },
+    "rotate_s": {
+      "type": "number",
+      "positive": true,
+      "label": "转动耗时",
+      "unit": "s"
+    },
+    "angular_speed_deg": {
+      "type": "number",
+      "positive": true,
+      "label": "角速度",
+      "unit": "°/s"
+    },
+    "max_tilt_deg": {
+      "type": "number",
+      "positive": true,
+      "label": "最大倾角",
+      "unit": "°"
+    },
+    "tilt_speed_deg": {
+      "type": "number",
+      "positive": true,
+      "label": "倾斜角速度",
+      "unit": "°/s"
+    },
+    "return_speed_deg": {
+      "type": "number",
+      "positive": true,
+      "label": "回正角速度",
+      "unit": "°/s"
+    },
+    "balance_half_width": {
+      "type": "number",
+      "positive": true,
+      "label": "平衡半宽",
+      "unit": "px"
+    },
+    "contact_delay_s": {
+      "type": "number",
+      "positive": true,
+      "label": "踩压预告",
+      "unit": "s"
+    },
+    "hazard_depth": {
+      "type": "number",
+      "positive": true,
+      "label": "刺面厚度",
+      "unit": "px"
+    },
+    "pivot_fraction": {
+      "type": "number",
+      "min": 0,
+      "max": 1,
+      "label": "轴心比例"
+    },
+    "rotation_mode": {
+      "type": "string",
+      "choices": [
+        "step",
+        "indexed",
+        "continuous",
+        "load_tilt",
+        "contact_flip"
+      ],
+      "label": "旋转模式"
+    },
+    "angles_deg": {
+      "type": "array",
+      "label": "停靠角度",
+      "unit": "°"
+    },
+    "initial_pose": {
+      "type": "number",
+      "min": 0,
+      "label": "初始档位"
+    },
+    "warning_s": {
+      "type": "number",
+      "min": 0,
+      "label": "预告时间",
+      "unit": "s"
+    },
+    "rotation_direction": {
+      "type": "string",
+      "choices": [
+        "clockwise",
+        "counterclockwise"
+      ],
+      "label": "旋转方向"
+    },
+    "initial_angle_deg": {
+      "type": "number",
+      "label": "初始角度",
+      "unit": "°"
+    },
+    "initial_running": {
+      "type": "bool",
+      "label": "初始运行"
+    },
+    "rest_angle_deg": {
+      "type": "number",
+      "label": "休止角",
+      "unit": "°"
+    },
+    "danger_hold_s": {
+      "type": "number",
+      "min": 0,
+      "label": "危险保持",
+      "unit": "s"
+    },
+    "drive_id": {
+      "type": "string",
+      "label": "驱动实例"
+    }
+  },
+  "inputs": {
+    "toggle": "pulse",
+    "set_pose": "number",
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "state": {
+    "angle": {
+      "type": "number",
+      "required": true
+    },
+    "pose": {
+      "type": "number",
+      "required": true
+    },
+    "target_pose": {
+      "type": "number",
+      "required": true
+    },
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "remaining": {
+      "type": "number",
+      "required": true
+    },
+    "start_angle": {
+      "type": "number",
+      "required": true
+    },
+    "goal_angle": {
+      "type": "number",
+      "required": true
+    },
+    "running": {
+      "type": "bool",
+      "required": true
+    },
+    "load": {
+      "type": "string",
+      "required": true
+    },
+    "blocked": {
+      "type": "bool",
+      "required": true
+    },
+    "receipts": {
+      "type": "dict",
+      "required": true
+    },
+    "clock": {
+      "type": "number",
+      "min": 0
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "platform.rotating_beam",
+  "validator_script": "res://game/world/elements/solid_configuration.gd",
+  "clock": true
+}

@@ -1,0 +1,61 @@
+{
+  "id": "ExplosiveContainer",
+  "script": "res://game/world/elements/projectile/explosive_container.gd",
+  "fields": {
+    "position": {
+      "type": "point"
+    },
+    "body_size": {
+      "type": "point",
+      "min_component": 0.001
+    },
+    "blast_radius": {
+      "type": "number",
+      "positive": true
+    },
+    "fuse_s": {
+      "type": "number",
+      "positive": true
+    },
+    "chain_enabled": {
+      "type": "bool"
+    },
+    "element_id": {
+      "type": "string"
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ]
+    }
+  },
+  "inputs": {
+    "ignite": "pulse"
+  },
+  "outputs": {},
+  "category": "hazards",
+  "root": false,
+  "default_definition": "hazard.explosive_container",
+  "validator_script": "res://game/world/elements/projectile/projectile_contract.gd",
+  "state": {
+    "stage": {
+      "type": "string",
+      "choices": [
+        "intact",
+        "warning",
+        "spent"
+      ],
+      "required": true
+    },
+    "elapsed": {
+      "type": "number",
+      "min": 0,
+      "required": true
+    }
+  },
+  "state_version": 1
+}

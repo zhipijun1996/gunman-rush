@@ -1,0 +1,36 @@
+{
+  "id": "switch.crossing",
+  "name": "通过感应器",
+  "version": 1,
+  "component": "WorldCrossingSensor",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "line_points": [
+      [
+        0,
+        -48
+      ],
+      [
+        0,
+        48
+      ]
+    ],
+    "cross_direction": "both",
+    "trigger_mode": "once",
+    "state_scope": "attempt",
+    "section_id": "main",
+    "links": []
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible",
+  "position_field": "position",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/switch.crossing.md",
+  "library": "mechanisms"
+}

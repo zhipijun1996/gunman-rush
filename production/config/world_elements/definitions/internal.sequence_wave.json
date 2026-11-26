@@ -1,0 +1,29 @@
+{
+  "id": "internal.sequence_wave",
+  "name": "顺序波次驱动",
+  "version": 1,
+  "component": "WorldSequenceWave",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "state_scope": "attempt",
+    "section_id": "main",
+    "members_order": [],
+    "warning_duration": 0.25,
+    "deploy_duration": 0.25,
+    "start_interval": 0.6,
+    "hold_duration": 1.2,
+    "retract_duration": 0.25
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "mechanism",
+  "position_field": "position",
+  "category": "internal",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/internal.sequence_wave.md",
+  "library": "internal"
+}

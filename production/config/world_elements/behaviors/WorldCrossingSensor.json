@@ -1,0 +1,77 @@
+{
+  "id": "WorldCrossingSensor",
+  "script": "res://game/world/elements/world_crossing_sensor.gd",
+  "fields": {
+    "element_id": {
+      "type": "string"
+    },
+    "position": {
+      "type": "point",
+      "unit": "px",
+      "label": "位置"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ]
+    },
+    "line_points": {
+      "type": "points",
+      "unit": "px",
+      "label": "局部感应线端点"
+    },
+    "cross_direction": {
+      "type": "string",
+      "choices": [
+        "both",
+        "negative_to_positive",
+        "positive_to_negative"
+      ],
+      "label": "通过方向"
+    },
+    "trigger_mode": {
+      "type": "string",
+      "choices": [
+        "once",
+        "toggle"
+      ],
+      "label": "触发方式"
+    },
+    "links": {
+      "type": "array",
+      "label": "输出连线"
+    }
+  },
+  "inputs": {},
+  "outputs": {
+    "active": "bool"
+  },
+  "state": {
+    "active": {
+      "type": "bool",
+      "required": true
+    },
+    "side": {
+      "type": "number",
+      "choices": [
+        -1,
+        0,
+        1
+      ],
+      "required": true
+    },
+    "latched": {
+      "type": "bool",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "switch.crossing"
+}

@@ -5,7 +5,45 @@
       "type": "rect"
     },
     "mode": {
-      "type": "string"
+      "type": "string",
+      "choices": [
+        "water",
+        "wind",
+        "gas",
+        "dark",
+        "phase_light",
+        "thorns"
+      ]
+    },
+    "wind_pattern": {
+      "type": "string",
+      "choices": [
+        "directional",
+        "vortex"
+      ],
+      "label": "风场形状"
+    },
+    "wind_direction": {
+      "type": "point",
+      "label": "风向"
+    },
+    "wind_acceleration": {
+      "type": "number",
+      "label": "风加速度",
+      "unit": "px/s²"
+    },
+    "wind_speed_cap": {
+      "type": "number",
+      "label": "风速上限",
+      "unit": "px/s"
+    },
+    "vortex_direction": {
+      "type": "string",
+      "choices": [
+        "clockwise",
+        "counterclockwise"
+      ],
+      "label": "旋向"
     }
   },
   "inputs": {},
@@ -13,5 +51,6 @@
   "storage_field": "environment_zones",
   "category": "zones",
   "root": false,
-  "default_definition": "zone.environment"
+  "default_definition": "zone.environment",
+  "validator_script": "res://game/world/elements/traversal_mechanism_config.gd"
 }

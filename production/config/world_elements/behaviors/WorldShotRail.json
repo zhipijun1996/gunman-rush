@@ -1,0 +1,61 @@
+{
+  "id": "WorldShotRail",
+  "script": "res://game/world/components/world_shot_rail.gd",
+  "fields": {
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ]
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "element_id": {
+      "type": "string"
+    },
+    "position": {
+      "type": "point"
+    },
+    "platform_size": {
+      "type": "point"
+    },
+    "stations": {
+      "type": "points"
+    },
+    "start_station": {
+      "type": "number"
+    },
+    "move_speed": {
+      "type": "number"
+    },
+    "settle_s": {
+      "type": "number",
+      "min": 0
+    },
+    "direction_dot_min": {
+      "type": "number"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "state": {
+    "station": {
+      "type": "number"
+    },
+    "destination": {
+      "type": "number"
+    },
+    "progress": {
+      "type": "number"
+    },
+    "settle": {
+      "type": "number"
+    }
+  },
+  "state_version": 1,
+  "category": "platforms",
+  "root": false,
+  "default_definition": "platform.shot_rail",
+  "validator_script": "res://game/world/elements/carrier_configuration.gd"
+}

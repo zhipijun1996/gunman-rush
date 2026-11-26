@@ -16,15 +16,16 @@ func _physics_process(delta: float) -> void:
 	age += delta
 	if not landed:
 		var t := clampf(age / flight_seconds, 0, 1)
-		var next := origin.lerp(goal, t) + Vector2(0, -sin(PI * t) * arc_height)
-		var ray := PhysicsRayQueryParameters2D.create(global_position, next, 1, [behavior.actor.motor.get_rid(), behavior.controller.motor.get_rid()])
-		var hit := get_world_2d().direct_space_state.intersect_ray(ray)
-		if not hit.is_empty() and (hit.position as Vector2).distance_to(goal) > radius * 2:
-			dispose()
-			return
-		global_position = next
+		var previous_t := clampf((age-delta)/flight_seconds,0,1)
+		var velocity := ((goal-origin)*(t-previous_t) + Vector2.UP*(sin(PI*t)-sin(PI*previous_t))*arc_height)/maxf(delta,0.000001)
+		if flight.reflections>0: velocity = velocity.bounce(flight.reflection_normal)
+		direction = velocity.normalized()
+		flight.advance(self,behavior.controller,"enemy",velocity,delta,_move_ballistic)
+		if spent: return
 		if t >= 1:
 			landed = true
+			remove_from_group(&"ordinary_flight_enemy")
+			goal = global_position
 			age = 0
 			GameAudio.cue(self, &"bell")
 	if landed:
@@ -53,6 +54,18 @@ func _physics_process(delta: float) -> void:
 			request.health_epoch = behavior.controller.actor_resources.health.epoch
 			behavior.policy.submit(request)
 	queue_redraw()
+func _move_ballistic(motion: Vector2) -> void:
+	var excluded: Array[RID] = flight.grate_excludes.duplicate()
+	excluded.append(behavior.actor.motor.get_rid())
+	excluded.append(behavior.controller.motor.get_rid())
+	var next := global_position+motion
+	var ray := PhysicsRayQueryParameters2D.create(global_position,next,1,excluded)
+	var hit := get_world_2d().direct_space_state.intersect_ray(ray)
+	if not hit.is_empty() and (hit.position as Vector2).distance_to(goal)>radius*2:
+		dispose()
+		return
+	global_position = next
+
 # This ballistic seed is dangerous only after landing in the original rules.
 # Frozen flight must not acquire a new midair damage behavior.
 func advance_frozen_contact() -> void:
@@ -70,9 +83,9 @@ func advance_frozen_contact() -> void:
 	var target_bounds := target_shape.shape.get_rect()
 	target_bounds.position += target_shape.global_position
 	var gear := behavior.controller.item_runtime
-		if gear != null and gear.fx.guard_hp > 0 and not gear.scene.drones.is_empty() and bounds.grow(9).has_point(gear.scene.drones[0]):
-			gear.scene.guard_hit(str(event_id),1)
-		if bounds.intersects(target_bounds):
+	if gear != null and gear.fx.guard_hp > 0 and not gear.scene.drones.is_empty() and bounds.grow(9).has_point(gear.scene.drones[0]):
+		gear.scene.guard_hit(str(event_id),1)
+	if bounds.intersects(target_bounds):
 		var request := DamageRequest.new()
 		request.token = token
 		request.event_id = event_id

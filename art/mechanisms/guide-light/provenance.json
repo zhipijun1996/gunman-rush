@@ -1,0 +1,82 @@
+{
+  "source": "source.png",
+  "source_sha256": "c9ffa613573994a515ed14baa94f48466984e90c3bbab44e47f9e82984f265fb",
+  "reference": ".agents/skills/godot-room-art/assets/approved-tiles-and-props.png",
+  "generation": "ImageGen. Transparent 2-by-2 side-view sprites, tarnished bronze mechanical firefly with ivory wings, closed and open states of the same rooted amber iris flower, shootable banded amber cocoon. Match the fine pixel clusters, sparse rim lighting and dark metal outlines of the regional prop reference.",
+  "native_atlas": "production/assets/world_elements/guide_light/forest_instruments.png",
+  "cell_size": [
+    64,
+    64
+  ],
+  "bake": "Lanczos to fit target, alpha cutoff 100, RGB gamma .83 and 6-level-step rounding. Flowers share a root at (32,60); cocoon body and moth centered in their cells.",
+  "sprites": {
+    "moth": {
+      "source_crop": [
+        147,
+        108,
+        500,
+        513
+      ],
+      "size": [
+        26,
+        30
+      ],
+      "sheet_origin": [
+        19,
+        17
+      ],
+      "cell": 0
+    },
+    "bud": {
+      "source_crop": [
+        800,
+        119,
+        1073,
+        542
+      ],
+      "size": [
+        31,
+        48
+      ],
+      "sheet_origin": [
+        80,
+        12
+      ],
+      "cell": 1
+    },
+    "bloom": {
+      "source_crop": [
+        173,
+        697,
+        482,
+        1170
+      ],
+      "size": [
+        31,
+        48
+      ],
+      "sheet_origin": [
+        144,
+        12
+      ],
+      "cell": 2
+    },
+    "cocoon": {
+      "source_crop": [
+        848,
+        791,
+        1024,
+        1080
+      ],
+      "size": [
+        18,
+        29
+      ],
+      "sheet_origin": [
+        215,
+        17
+      ],
+      "cell": 3
+    }
+  }
+}

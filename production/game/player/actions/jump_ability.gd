@@ -2,6 +2,8 @@ class_name JumpAbility
 extends Node
 
 signal jumped
+signal accepted_jump(kind: StringName, serial: int, center: Vector2)
+var accepted_serial := 0
 signal deactivated
 
 @export var enabled := true:
@@ -51,8 +53,14 @@ func try_jump(motor: PlayerMotor) -> bool:
 	_coyote_remaining = 0.0
 	_buffer_remaining = 0.0
 	_immediate_request = false
+	publish_jump(&"ground" if used_jumps == 1 else &"double",motor)
 	jumped.emit()
 	return true
+
+func publish_jump(kind: StringName, motor: PlayerMotor) -> void:
+	accepted_serial += 1
+	var center := (motor.get_node("CollisionShape2D") as CollisionShape2D).global_position
+	accepted_jump.emit(kind,accepted_serial,center)
 
 func jump_from_anchor(motor: PlayerMotor) -> bool:
 	# A held fixed anchor supplies the departure, not another air-jump charge.

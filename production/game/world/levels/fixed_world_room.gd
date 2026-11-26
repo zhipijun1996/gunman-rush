@@ -42,6 +42,7 @@ var rest_point := Vector2.ZERO
 @export var hook_points: Array[Vector2] = []
 @export var climbable_walls: Array[Rect2] = []
 @export var environment_zones: Array[Dictionary] = []
+var recovery_markers := {}
 var loot: WorldCoinDrops
 var services: WorldServices
 var interaction_point:=Vector2.INF

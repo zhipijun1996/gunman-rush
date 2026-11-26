@@ -1,0 +1,57 @@
+{
+  "id": "hazard.periodic_emitter",
+  "name": "周期发射口",
+  "version": 1,
+  "component": "PeriodicEmitter",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "emit_mode": "projectile",
+    "aim_mode": "fixed",
+    "base_direction": [
+      1,
+      0
+    ],
+    "projectile_profile": "inherit",
+    "projectile_speed": 300,
+    "warning_time": 0.5,
+    "burst_count": 1,
+    "shot_interval": 0.15,
+    "cycle_cooldown": 1.5,
+    "acquire_range": 480,
+    "aim_arc_deg": 120,
+    "track_duration": 0.8,
+    "turn_speed_deg": 180,
+    "manual_angles_deg": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "initial_aim_index": 0,
+    "manual_turn_s": 0.35,
+    "stream_profile": "inherit",
+    "stream_range": 320,
+    "stream_width": 24,
+    "stream_duration_s": 1,
+    "initial_active": true,
+    "time_profile": "incompatible",
+    "state_scope": "attempt",
+    "section_id": "main"
+  },
+  "position_field": "position",
+  "category": "hazards",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/hazard.periodic_emitter.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible",
+  "bindings": {
+    "projectile_profile": "clockwork_bolt",
+    "stream_profile": "heat_wave"
+  }
+}

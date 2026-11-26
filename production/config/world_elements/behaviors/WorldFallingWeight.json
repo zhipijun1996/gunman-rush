@@ -1,0 +1,83 @@
+{
+  "id": "WorldFallingWeight",
+  "script": "res://game/world/elements/falling_weight.gd",
+  "fields": {
+    "element_id": {
+      "type": "string",
+      "label": "实例ID"
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt",
+        "permanent"
+      ],
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "body_size": {
+      "type": "point",
+      "min_component": 0.001,
+      "label": "实体尺寸",
+      "unit": "px"
+    },
+    "landing_offset": {
+      "type": "point",
+      "label": "落点偏移",
+      "unit": "px"
+    },
+    "release_delay_s": {
+      "type": "number",
+      "positive": true,
+      "label": "释放延迟",
+      "unit": "s"
+    },
+    "pressure_weight": {
+      "type": "bool",
+      "label": "可压踏板"
+    }
+  },
+  "inputs": {
+    "release": "pulse"
+  },
+  "outputs": {},
+  "state": {
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "remaining": {
+      "type": "number",
+      "required": true
+    },
+    "speed": {
+      "type": "number",
+      "required": true
+    },
+    "offset_y": {
+      "type": "number",
+      "required": true
+    },
+    "receipts": {
+      "type": "dict",
+      "required": true
+    },
+    "struck": {
+      "type": "dict",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "hazard.falling_weight",
+  "validator_script": "res://game/world/elements/solid_configuration.gd"
+}

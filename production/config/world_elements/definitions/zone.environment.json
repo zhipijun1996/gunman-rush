@@ -10,11 +10,22 @@
       128,
       96
     ],
-    "mode": "water"
+    "mode": "water",
+    "wind_pattern": "directional",
+    "wind_direction": [
+      0,
+      -1
+    ],
+    "wind_acceleration": 900.0,
+    "wind_speed_cap": 240.0,
+    "vortex_direction": "clockwise"
   },
   "placeable": true,
   "position_field": "bounds",
   "category": "zones",
   "documentation": "docs/data/mechanisms/zone.environment.md",
-  "library": "mechanisms"
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ]
 }

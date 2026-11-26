@@ -1,0 +1,26 @@
+{
+  "schema": 3,
+  "room_id": "bell-gate-demonstration",
+  "bounds": [0, 0, 1280, 640],
+  "root": {
+    "definition_id": "room.standard", "definition_version": 1,
+    "properties": {"start_point":[160,366], "region_id":"gear_city", "terrain_material":"gear_city"}
+  },
+  "entities": {
+    "floor": {
+      "id":"floor", "definition_id":"platform.solid", "definition_version":1,
+      "properties":{"rect":[0,384,1280,256]}
+    },
+    "shutter/bell": {
+      "id":"shutter/bell", "definition_id":"switch.shot", "definition_version":1,
+      "assembly_id":"shutter", "assembly_definition_id":"assembly.bell_gate", "assembly_definition_version":2,
+      "properties":{"position":[272,360], "element_id":"shutter/bell", "section_id":"main", "duration":3.0, "state_scope":"attempt",
+        "links":[{"output":"active","target":"shutter/gate","input":"set_active"}]}
+    },
+    "shutter/gate": {
+      "id":"shutter/gate", "definition_id":"gate.masonry", "definition_version":1,
+      "assembly_id":"shutter", "assembly_definition_id":"assembly.bell_gate", "assembly_definition_version":2,
+      "properties":{"bounds":[464,256,32,128], "element_id":"shutter/gate", "section_id":"main", "state_scope":"attempt"}
+    }
+  }
+}

@@ -74,12 +74,20 @@ static func build(room: FixedWorldRoom) -> void:
 		room.add_child(spikes)
 	for rect: Rect2 in room.climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;room.add_child(wall)
-	for point: Vector2 in room.hook_points:
-		var anchor:=GrappleAnchor.new();anchor.position=point;anchor.hang_enabled=true;room.add_child(anchor)
+	for index: int in room.hook_points.size():
+		var anchor := GrappleAnchor.new()
+		anchor.position = room.hook_points[index]
+		anchor.hang_enabled = true
+		var ids: Array = room.entity_ids.get("hook_points",[])
+		if index < ids.size():
+			anchor.element_id = ids[index]
+			var props: Dictionary = room.get_meta("editor_element_rows",{}).get(ids[index],{}).get("properties",{})
+			for field: String in ["cooldown_s","initial_available","reactivate_warning_s","section_id","state_scope"]:
+				if props.has(field): anchor.set(field,props[field])
+		room.add_child(anchor)
 	for sign: Dictionary in room.signs:
-		var marker:=Sprite2D.new()
-		marker.texture=WorldProps.prop("notice_board")
-		marker.scale=Vector2.ONE*40/marker.texture.get_height()
+		var marker := RoomWaymarker.new()
+		marker.notice = true
 		var point:=FixedWorldProvider.point(sign.point)
 		var support:=INF
 		for platform: Rect2 in room.platforms:
@@ -88,9 +96,15 @@ static func build(room: FixedWorldRoom) -> void:
 		for polygon: Dictionary in room.terrain_polygons:
 			support = minf(support, UnderworldPolygonTerrain.surface_below(polygon.points, point))
 		if is_inf(support): support=point.y+40
-		marker.position=Vector2(point.x,support-20)
+		marker.position=Vector2(point.x,support)
 		sign["interaction_point"]=Vector2(point.x,support-18)
 		room.add_child(marker)
+	for anchor: Dictionary in room.retry_anchors:
+		var marker := RoomWaymarker.new()
+		marker.position = FixedWorldProvider.point(anchor.point)+Vector2(0,18)
+		marker.z_index = -1
+		room.add_child(marker)
+		room.recovery_markers[anchor.id] = marker
 
 
 static func spawn_enemy(room: FixedWorldRoom, placement: Dictionary,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime,saved: Dictionary,entry_anchor: Vector2) -> EnemyActor:

@@ -1,0 +1,30 @@
+{
+  "id": "hazard.explosive_container",
+  "name": "可引爆容器",
+  "version": 1,
+  "component": "ExplosiveContainer",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "body_size": [
+      32,
+      48
+    ],
+    "blast_radius": 96,
+    "fuse_s": 0.45,
+    "chain_enabled": true,
+    "state_scope": "attempt",
+    "section_id": "main"
+  },
+  "position_field": "position",
+  "category": "hazards",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/hazard.explosive_container.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible"
+}

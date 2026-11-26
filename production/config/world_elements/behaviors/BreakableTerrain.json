@@ -1,0 +1,59 @@
+{
+  "id": "BreakableTerrain",
+  "script": "res://game/world/elements/projectile/breakable_terrain.gd",
+  "fields": {
+    "bounds": {
+      "type": "rect"
+    },
+    "break_mode": {
+      "type": "string",
+      "choices": [
+        "whole",
+        "local_cells"
+      ]
+    },
+    "hits_required": {
+      "type": "number",
+      "integer": true,
+      "min": 1
+    },
+    "accepted_attacks": {
+      "type": "array"
+    },
+    "cell_size": {
+      "type": "number",
+      "integer": true,
+      "min": 1
+    },
+    "dig_radius": {
+      "type": "number",
+      "positive": true
+    },
+    "element_id": {
+      "type": "string"
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt",
+        "permanent"
+      ]
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "category": "interaction",
+  "root": false,
+  "default_definition": "terrain.breakable",
+  "validator_script": "res://game/world/elements/projectile/projectile_contract.gd",
+  "state": {
+    "hp": {
+      "type": "array",
+      "required": true
+    }
+  },
+  "state_version": 1
+}

@@ -1,0 +1,57 @@
+{
+  "id": "WorldForegroundCover",
+  "script": "res://game/world/elements/perception/foreground_cover.gd",
+  "fields": {
+    "bounds": {
+      "type": "rect",
+      "label": "房间范围",
+      "unit": "px"
+    },
+    "reveal_radius": {
+      "type": "number",
+      "label": "显露半径",
+      "unit": "px",
+      "min": 0
+    },
+    "revealed_alpha": {
+      "type": "number",
+      "label": "显露后透明度",
+      "min": 0
+    },
+    "fade_out_s": {
+      "type": "number",
+      "label": "淡出时长",
+      "unit": "s",
+      "min": 0
+    },
+    "restore_s": {
+      "type": "number",
+      "label": "恢复时长",
+      "unit": "s",
+      "min": 0
+    },
+    "element_id": {
+      "type": "string",
+      "label": "实例身份"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "label": "状态寿命",
+      "choices": [
+        "attempt"
+      ]
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "state": {},
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "zone.foreground_cover",
+  "validator_script": "res://game/world/elements/perception/foreground_cover.gd"
+}

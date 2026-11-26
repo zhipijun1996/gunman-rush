@@ -1,0 +1,31 @@
+{
+  "id": "zone.projectile_drag",
+  "name": "滞弹雾",
+  "version": 1,
+  "component": "ProjectileDrag",
+  "defaults": {
+    "bounds": [
+      0,
+      0,
+      192,
+      128
+    ],
+    "speed_scale": 0.35,
+    "projectile_categories": [
+      "ordinary"
+    ],
+    "factions": [
+      "player",
+      "enemy"
+    ]
+  },
+  "position_field": "bounds",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/zone.projectile_drag.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible"
+}

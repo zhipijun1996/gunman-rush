@@ -1,0 +1,145 @@
+{
+  "id": "assembly.dual_route_switch",
+  "name": "双路切换组",
+  "version": 1,
+  "members": [
+    {
+      "id": "bell",
+      "definition": "switch.shot",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "driver",
+      "definition": "internal.route_switch",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "gate_a",
+      "definition": "gate.masonry",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "gate_b",
+      "definition": "gate.masonry",
+      "offset": [
+        0,
+        0
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": "bell",
+      "target": "driver",
+      "input": "set_active",
+      "output": "active"
+    }
+  ],
+  "creation_adapter": "res://game/world/elements/beam_preset.gd",
+  "creation_fields": {
+    "groups": {
+      "type": "dict",
+      "default": {
+        "A": [
+          "gate_a"
+        ],
+        "B": [
+          "gate_b"
+        ]
+      },
+      "label": "分组"
+    },
+    "target_bindings": {
+      "type": "dict",
+      "default": {},
+      "label": "成员目标"
+    },
+    "initial_route": {
+      "type": "string",
+      "choices": [
+        "A",
+        "B"
+      ],
+      "default": "A",
+      "label": "初始线路"
+    },
+    "warning_duration": {
+      "type": "number",
+      "min": 0,
+      "default": 0.25,
+      "label": "预告时间",
+      "unit": "s"
+    },
+    "member_offsets": {
+      "type": "dict",
+      "default": {
+        "bell": [
+          -128,
+          0
+        ],
+        "driver": [
+          0,
+          -96
+        ],
+        "gate_a": [
+          64,
+          -64
+        ],
+        "gate_b": [
+          160,
+          -64
+        ]
+      },
+      "label": "member_offsets"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "default": "attempt",
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "default": "main",
+      "label": "挑战分区"
+    }
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "category": "assemblies",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/assembly.dual_route_switch.md",
+  "library": "mechanisms",
+  "member_families": {
+    "": [
+      "gate.masonry",
+      "platform.moving",
+      "platform.rotating_beam",
+      "hazard.periodic_emitter"
+    ],
+    "gate_a": [
+      "gate.masonry",
+      "platform.moving",
+      "platform.rotating_beam",
+      "hazard.periodic_emitter"
+    ],
+    "gate_b": [
+      "gate.masonry",
+      "platform.moving",
+      "platform.rotating_beam",
+      "hazard.periodic_emitter"
+    ]
+  }
+}

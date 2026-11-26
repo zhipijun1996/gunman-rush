@@ -18,6 +18,11 @@ var drive: WorldMovingPlatform
 var clock_source: Node
 var source_room_id := ""
 var motion_running := true
+var path_mode := "linear"
+var arc_radius := 128.0
+var arc_angles_deg := Vector2(45,135)
+var endpoint_dwell := 0.0
+var time_scale := 1.0
 
 func _ready() -> void:
 	process_physics_priority=100
@@ -27,7 +32,17 @@ func _ready() -> void:
 	if definition.has("drive"):drive=get_parent().get_node(str(definition.drive)) as WorldMovingPlatform
 	tooth_tick=floori(phase*2+.5)
 	wheel=Sprite2D.new();wheel.texture=TEXTURE;wheel.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
-	wheel.position=origin+travel*sin(phase*TAU);add_child(wheel)
+	add_child(wheel)
+	refresh_position()
+	var receiver := Area2D.new()
+	receiver.collision_layer = 8
+	receiver.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	var circle := CircleShape2D.new()
+	circle.radius = RADIUS
+	shape.shape = circle
+	receiver.add_child(shape)
+	wheel.add_child(receiver)
 	var contact:=DemoContactEmitter.new()
 	contact.policy=policy;contact.controller=controller;contact.kind=DamageRequest.Kind.ENVIRONMENT
 	contact.source_id=StringName((str(get_parent().room_id) if source_room_id.is_empty() else source_room_id)+":"+str(definition.id))
@@ -38,7 +53,7 @@ func _ready() -> void:
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
-	clock=float(clock_source.get("motion_clock")) if is_instance_valid(clock_source) else (drive.motion_clock if drive!=null else clock+(delta if motion_running else 0.0))
+	clock=float(clock_source.get("motion_clock")) if is_instance_valid(clock_source) else (drive.motion_clock if drive!=null else clock+(delta*time_scale if motion_running else 0.0))
 	spark_remaining=maxf(0,spark_remaining-delta)
 	refresh_position()
 	var next_tick:=floori((clock/period+phase)*2+.5)
@@ -49,20 +64,40 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 
 func refresh_position() -> void:
-	wheel.position=(origin+travel*sin(TAU*(clock/period+phase))).round()
+	var cycle := period+2.0*endpoint_dwell
+	var elapsed := fposmod(clock+phase*cycle,cycle)
+	var moving := elapsed-clampf(elapsed-period*0.25,0,endpoint_dwell)-clampf(elapsed-period*0.75-endpoint_dwell,0,endpoint_dwell)
+	var swing := sin(TAU*moving/period)
+	if path_mode == "arc":
+		var angle := lerpf(arc_angles_deg.x, arc_angles_deg.y, (1.0+swing)*0.5)
+		wheel.position = origin+Vector2.from_angle(deg_to_rad(angle))*arc_radius
+	else: wheel.position = origin+travel*swing
 	wheel.rotation=TAU*clock/2.4
 
 func _draw() -> void:
-	# The fixed axle guide exposes the complete swept corridor before entry.
-	var a:=origin-travel;var b:=origin+travel
-	if not travel.is_zero_approx():
-		draw_line(a,b,Color("17232a"),10)
-		draw_line(a,b,Color("697076"),3)
-		for at: Vector2 in [a,b]:
-			draw_rect(Rect2(at-Vector2(7,7),Vector2(14,14)),Color("26323c"))
-			draw_rect(Rect2(at-Vector2(2,2),Vector2(4,4)),Color("bfa070"))
-	if spark_remaining>0 and wheel!=null:
-		var at:=wheel.position+Vector2(0,RADIUS)
-		var spread:=4+(1-spark_remaining/.14)*12
-		for direction: Vector2 in [Vector2(-1,.5),Vector2(1,.3),Vector2(.3,1)]:
-			draw_rect(Rect2((at+direction*spread).round(),Vector2(2,1)),Color("e9c284"))
+	if wheel == null: return
+	var shaft := wheel.position-origin
+	if path_mode == "arc":
+		var lo := deg_to_rad(minf(arc_angles_deg.x,arc_angles_deg.y))
+		var hi := deg_to_rad(maxf(arc_angles_deg.x,arc_angles_deg.y))
+		draw_arc(origin,arc_radius,lo,hi,48,Color("534d46"),2)
+		for angle: float in [lo,hi]:
+			MechanismRegionArt.stamp(self,"mount",origin+Vector2.from_angle(angle)*arc_radius,Vector2(12,12))
+		draw_set_transform(origin,shaft.angle(),Vector2.ONE)
+		MechanismRegionArt.panel(self,Rect2(0,-4,shaft.length(),8))
+		draw_set_transform_matrix(Transform2D.IDENTITY)
+		MechanismRegionArt.stamp(self,"finial",origin,Vector2(23,23))
+	elif not travel.is_zero_approx():
+		var a := origin-travel
+		var b := origin+travel
+		draw_set_transform(a,travel.angle(),Vector2.ONE)
+		MechanismRegionArt.panel(self,Rect2(0,-4,2*travel.length(),8),Color(.75,.75,.75))
+		draw_set_transform_matrix(Transform2D.IDENTITY)
+		for at: Vector2 in [a,b]: MechanismRegionArt.stamp(self,"mount",at,Vector2(18,18))
+	else: MechanismRegionArt.stamp(self,"mount",origin,Vector2(28,28))
+	# An inset boss turns with the original mill wheel, entirely inside its teeth.
+	draw_set_transform(wheel.position,wheel.rotation,Vector2.ONE)
+	MechanismRegionArt.stamp(self,"hazard",Vector2.ZERO,Vector2(32,32))
+	draw_set_transform_matrix(Transform2D.IDENTITY)
+	if spark_remaining>0:
+		PixelVfx.clip(self,&"spark",wheel.position+Vector2(0,RADIUS-2),1-spark_remaining/.14,0,Color("efbe80"),Vector2.ONE*.48)

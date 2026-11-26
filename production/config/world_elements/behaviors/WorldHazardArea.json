@@ -1,0 +1,79 @@
+{
+  "id": "WorldHazardArea",
+  "script": "res://game/world/mechanisms/hazards/hazard_area.gd",
+  "validator_script": "res://game/world/mechanisms/hazards/hazard_area.gd",
+  "fields": {
+    "element_id": {
+      "type": "string",
+      "label": "实例 ID"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "label": "状态寿命",
+      "choices": [
+        "attempt"
+      ]
+    },
+    "rect": {
+      "type": "rect",
+      "label": "范围",
+      "unit": "px"
+    },
+    "hazard_profile": {
+      "type": "string",
+      "label": "环境危险档案"
+    },
+    "hazard_mode": {
+      "type": "string",
+      "label": "危险模式",
+      "choices": [
+        "steady",
+        "cycle"
+      ]
+    },
+    "inactive_s": {
+      "type": "number",
+      "label": "安全间歇",
+      "unit": "秒",
+      "min": 0
+    },
+    "warning_s": {
+      "type": "number",
+      "label": "预告",
+      "unit": "秒",
+      "min": 0
+    },
+    "active_s": {
+      "type": "number",
+      "label": "危险持续",
+      "unit": "秒",
+      "min": 0
+    },
+    "start_phase01": {
+      "type": "number",
+      "label": "初始周期比例",
+      "unit": "比例",
+      "min": 0
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "state": {
+    "clock": {
+      "type": "number",
+      "required": true
+    },
+    "exposure": {
+      "type": "dict",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "hazards",
+  "root": false,
+  "default_definition": "hazard.area"
+}

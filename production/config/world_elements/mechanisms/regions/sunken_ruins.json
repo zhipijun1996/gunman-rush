@@ -1,9 +1,25 @@
 {
   "region_id": "sunken_ruins",
-  "definitions": [],
   "skins": {
     "gate.masonry": {
       "material": "sunken_ruins"
+    },
+    "interaction.sound_lure": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/sunken_ruins.png"
+    },
+    "zone.sight_occluder": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/sunken_ruins.png"
+    },
+    "zone.foreground_cover": {
+      "texture": "res://assets/world_elements/perception_regions/sunken_ruins_veil.png"
+    },
+    "environment.local_light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/sunken_ruins.png"
+    },
+    "switch.light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/sunken_ruins.png"
     }
-  }
+  },
+  "hardware_atlas": "res://assets/mechanisms/regional/sunken_ruins.png",
+  "hardware_light": "#85e0ff"
 }

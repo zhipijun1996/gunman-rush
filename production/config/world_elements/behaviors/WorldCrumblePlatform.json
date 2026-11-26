@@ -1,0 +1,135 @@
+{
+  "id": "WorldCrumblePlatform",
+  "script": "res://game/world/mechanisms/hazards/crumble_platform.gd",
+  "validator_script": "res://game/world/mechanisms/hazards/crumble_platform.gd",
+  "fields": {
+    "element_id": {
+      "type": "string",
+      "label": "实例 ID"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "label": "状态寿命",
+      "choices": [
+        "attempt"
+      ]
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "platform_size": {
+      "type": "point",
+      "label": "尺寸",
+      "unit": "px",
+      "min_component": 0.001
+    },
+    "one_way": {
+      "type": "bool",
+      "label": "单向承载"
+    },
+    "trigger_mode": {
+      "type": "string",
+      "label": "触发方式",
+      "choices": [
+        "step",
+        "wall_attach",
+        "cycle",
+        "jump_toggle"
+      ]
+    },
+    "attach_face": {
+      "type": "string",
+      "label": "附墙面",
+      "choices": [
+        "left",
+        "right",
+        "both"
+      ]
+    },
+    "solid_s": {
+      "type": "number",
+      "label": "稳定实体",
+      "unit": "秒",
+      "min": 0
+    },
+    "crack_s": {
+      "type": "number",
+      "label": "开裂预告",
+      "unit": "秒",
+      "min": 0
+    },
+    "absent_s": {
+      "type": "number",
+      "label": "空缺",
+      "unit": "秒",
+      "min": 0
+    },
+    "reform_s": {
+      "type": "number",
+      "label": "再生预告",
+      "unit": "秒",
+      "min": 0
+    },
+    "start_phase01": {
+      "type": "number",
+      "label": "初始周期比例",
+      "unit": "比例",
+      "min": 0
+    },
+    "jump_bounds": {
+      "type": "rect",
+      "label": "范围",
+      "unit": "px"
+    },
+    "jump_types": {
+      "type": "array",
+      "label": "受理跳跃"
+    },
+    "initial_solid": {
+      "type": "bool",
+      "label": "初始实体"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "state": {
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "elapsed": {
+      "type": "number",
+      "required": true
+    },
+    "solid": {
+      "type": "bool",
+      "required": true
+    },
+    "desired": {
+      "type": "bool",
+      "required": true
+    },
+    "resume_phase": {
+      "type": "string",
+      "required": true
+    },
+    "resume_elapsed": {
+      "type": "number",
+      "required": true
+    },
+    "jump_serial": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "platforms",
+  "root": false,
+  "default_definition": "platform.crumble"
+}

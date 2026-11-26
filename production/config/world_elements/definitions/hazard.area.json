@@ -2,18 +2,33 @@
   "id": "hazard.area",
   "name": "危险区域",
   "version": 1,
-  "component": "array:hazards",
+  "component": "WorldHazardArea",
   "defaults": {
+    "section_id": "main",
+    "state_scope": "attempt",
     "rect": [
       0,
       0,
       128,
       24
-    ]
+    ],
+    "hazard_profile": "inherit",
+    "hazard_mode": "steady",
+    "inactive_s": 1.8,
+    "warning_s": 0.4,
+    "active_s": 1.2,
+    "start_phase01": 0
   },
-  "placeable": true,
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible",
   "position_field": "rect",
   "category": "hazards",
+  "placeable": true,
   "documentation": "docs/data/mechanisms/hazard.area.md",
-  "library": "mechanisms"
+  "library": "mechanisms",
+  "bindings": {
+    "hazard_profile": "contact"
+  }
 }

@@ -1,0 +1,60 @@
+{
+  "source_catalog": "art/world-art-v2/region-catalog.json",
+  "native_sources": {
+    "art/world-art-v2/native-assets-report.json": "e6b667d0d07d83f999628af52002eacf26ecf0d757a3f45d14dc5f40f2ffe55f",
+    "art/world-art-v2/v2-assets-report.json": "1f487c8ea88e64c11dbec3acbcb49fda3ac669823d6119aaaac531c6bc094a7d"
+  },
+  "bake": "art/mechanisms/regional-perception/bake.py",
+  "output": "production/assets/world_elements/perception_regions",
+  "unchanged_forest": [
+    "art/mechanisms/guide-light/provenance.json",
+    "art/mechanisms/forest-reeds/provenance.json",
+    "production/assets/world_elements/native/hanging_vines.png"
+  ],
+  "layout_px": {
+    "instrument_sheet": [
+      320,
+      160
+    ],
+    "instrument_cells_from_left": [
+      "travelling_lamp",
+      "closed_receiver",
+      "open_receiver",
+      "shootable_cocoon",
+      "fixed_lamp"
+    ],
+    "instrument_cell_size": [
+      64,
+      64
+    ],
+    "occluder": [
+      0,
+      64,
+      96,
+      96
+    ],
+    "flattened_occluder": [
+      96,
+      64,
+      96,
+      32
+    ],
+    "sound_mat": [
+      96,
+      98,
+      64,
+      16
+    ],
+    "shootable_sound_charm": [
+      205,
+      66,
+      40,
+      52
+    ],
+    "hanging_foreground": [
+      96,
+      96
+    ]
+  },
+  "anchors": "The source crop and optical center of each regional lamp are recorded in REGIONS. The receiver sampling point is (32,22) in both cells. Foreground patches repeat in room space and use the existing per-player reveal mask. All cuts are in native pixels."
+}

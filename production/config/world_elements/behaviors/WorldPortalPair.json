@@ -1,0 +1,71 @@
+{
+  "id": "WorldPortalPair",
+  "script": "res://game/world/elements/world_portal_pair.gd",
+  "fields": {
+    "element_id": {
+      "type": "string"
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "paired_offset": {
+      "type": "point",
+      "label": "另一端位移",
+      "unit": "px"
+    },
+    "portal_size": {
+      "type": "point",
+      "label": "门口尺寸",
+      "unit": "px"
+    },
+    "facings": {
+      "type": "array",
+      "label": "两端朝向"
+    },
+    "exit_clearance": {
+      "type": "number",
+      "label": "出口净距",
+      "unit": "px"
+    },
+    "initial_active": {
+      "type": "bool",
+      "label": "初始启用"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "category": "traversal",
+  "root": false,
+  "default_definition": "traversal.portal_pair",
+  "validator_script": "res://game/world/elements/traversal_mechanism_config.gd",
+  "state_version": 1,
+  "state": {
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "active": {
+      "type": "bool",
+      "required": true
+    },
+    "arrival": {
+      "type": "number",
+      "required": true
+    }
+  }
+}

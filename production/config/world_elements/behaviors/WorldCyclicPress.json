@@ -1,0 +1,101 @@
+{
+  "id": "WorldCyclicPress",
+  "script": "res://game/world/elements/cyclic_press.gd",
+  "fields": {
+    "element_id": {
+      "type": "string",
+      "label": "实例ID"
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "stroke": {
+      "type": "number",
+      "positive": true,
+      "label": "行程",
+      "unit": "px"
+    },
+    "down_speed": {
+      "type": "number",
+      "positive": true,
+      "label": "下压速度",
+      "unit": "px/s"
+    },
+    "up_speed": {
+      "type": "number",
+      "positive": true,
+      "label": "回升速度",
+      "unit": "px/s"
+    },
+    "warning_time": {
+      "type": "number",
+      "positive": true,
+      "label": "预告时长",
+      "unit": "s"
+    },
+    "hazard_depth": {
+      "type": "number",
+      "positive": true,
+      "label": "刺面厚度",
+      "unit": "px"
+    },
+    "body_size": {
+      "type": "point",
+      "min_component": 0.001,
+      "label": "实体尺寸",
+      "unit": "px"
+    },
+    "top_hold": {
+      "type": "number",
+      "min": 0,
+      "label": "上位停留",
+      "unit": "s"
+    },
+    "bottom_hold": {
+      "type": "number",
+      "min": 0,
+      "label": "下位停留",
+      "unit": "s"
+    },
+    "initial_running": {
+      "type": "bool",
+      "label": "初始运行"
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "state": {
+    "running": {
+      "type": "bool",
+      "required": true
+    },
+    "clock": {
+      "type": "number",
+      "required": true
+    },
+    "blocked": {
+      "type": "bool",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "hazard.cyclic_press",
+  "validator_script": "res://game/world/elements/solid_configuration.gd"
+}

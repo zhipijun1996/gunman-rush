@@ -9,6 +9,7 @@ var speed := 0.0
 var radius := 0.0
 var lifetime := 0.0
 var spent := false
+var flight := ProjectileFlight.new()
 var _target: Node2D
 var _owner_body: PhysicsBody2D
 var _shape := CircleShape2D.new()
@@ -50,8 +51,9 @@ func _physics_process(delta: float) -> void:
 func advance(delta: float) -> void:
 	if spent or not is_inside_tree() or not is_finite(delta) or delta <= 0.0:
 		return
+	var step := minf(lifetime,delta)
 	lifetime -= delta
-	if lifetime <= 0.0:
+	if step <= 0.0:
 		dispose()
 		return
 	_visual_age += delta
@@ -61,13 +63,17 @@ func advance(delta: float) -> void:
 		_visual_launched = true
 		if _visible_attack(): _emit_visual(global_position,false)
 	queue_redraw()
+	flight.advance(self,_target,"enemy",direction*speed,step,_move_swept)
+	if not spent and lifetime<=0: dispose()
+
+func _move_swept(motion: Vector2) -> void:
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
 	query.transform = Transform2D(0.0, global_position)
-	var motion := direction * speed * delta
 	query.collision_mask = 1
-	if is_instance_valid(_owner_body):
-		query.exclude = [_owner_body.get_rid()]
+	var excluded: Array[RID] = flight.grate_excludes.duplicate()
+	if is_instance_valid(_owner_body): excluded.append(_owner_body.get_rid())
+	query.exclude = excluded
 	var space := get_world_2d().direct_space_state
 	var initial := space.intersect_shape(query, 8)
 	var fraction := 0.0 if not initial.is_empty() else 1.0
@@ -108,7 +114,9 @@ func advance_frozen_contact() -> void:
 	query.shape = _shape
 	query.transform = Transform2D(0.0,global_position)
 	query.collision_mask = 1
-	query.exclude = [_owner_body.get_rid()]
+	var excluded: Array[RID] = flight.grate_excludes.duplicate()
+	excluded.append(_owner_body.get_rid())
+	query.exclude = excluded
 	var contacts := get_world_2d().direct_space_state.intersect_shape(query,8)
 	if contacts.is_empty(): return
 	# An overlapping wall wins even if the player is also in the shape.

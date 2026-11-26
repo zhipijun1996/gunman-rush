@@ -16,9 +16,20 @@
 
 1. 在新工程中编写 schema 3 房间文档。给出独立的 `room_id`、`bounds`，以 `room.standard` 为根，明确 `start_point` 和 `terrain_material`，在 `root.properties.region_id` 写所属区域。从[组装夹具](../../production/tests/assembly_room.json)可看到最小可运行数据。
 2. 用 `platform.solid`、单向平台或地形多边形确定碰撞；材质绘制消费同一几何。可用材质与接缝见[地形规范](terrain_materials.md)。
-3. 从[机关库](../data/world_objects.md)选择公有件或本区专属件。调用 `WorldElementCatalog.instantiate_definition` 时传入房间的 `region_id`。公有机关的区域外观由库解析，拼装时可直接检视它与平台和背景的关系。实例写稳定 ID、定义 ID／版本与局部属性。连线写目标实例 ID 和输入输出名。同类机关可多次摆放。组合件创建时展开为可单独移动、配置和保存的子实例。
+3. 按[基本库索引](../data/失序之钟_基本机关库.md#room-design)从房间职责、来向能力和玩家判断出发，再从[已接入机关](../data/world_objects.md)选件。需要可复用联动时查[预组合同](../data/失序之钟_预组与组合推荐.md)。调用 `WorldElementCatalog.instantiate_definition` 时传入房间的 `region_id`。公有机关的区域外观由库解析，拼装时可直接检视它与平台和背景的关系。实例写稳定 ID、定义 ID／版本与局部属性。连线写目标实例 ID 和输入输出名。同类机关可多次摆放。组合件创建时展开为可单独移动、配置和保存的子实例。
 4. 给怪物出生点指定 `enemy.<物种>`、实例 ID 与位置。物种行为、受击、死亡和掉落由共享系统执行。需要新玩法时，先增加共用行为及定义，再在房间中引用。
 5. 用 `OrdinaryRoomSession` 的 `document_path` 打开同一份数据。试玩用内存状态；显式提供持久化宿主后才读写对应存档。表现响应仲裁和提交结果，恢复既有状态时保持安静。
+
+## 在 Godot 中放置机关
+
+用项目指定的 Godot 打开 `production/project.godot`，在右侧选择「机关库」停靠面板，点击「打开房间 JSON」。面板读取房间的 `root.properties.region_id`。搜索审核编号、中文名或定义 ID，可以看到当前区域可用的基本件和预组。
+
+1. 选择「放置机关或预组」，填稳定实例 ID 和房间坐标。基本件的矩形原点及预组的成员偏移相对这次放置原点；已经放在房间里的成员用房间坐标编辑。字段旁显示单位、模式约束和合法范围，点、矩形、成员列表与连线可以直接填 JSON。
+2. 选择「校验并预览」。校验器使用正式房间装配入口，检查区域、字段、端口、分区、世界行动以及引用。预览显示将变动的实际实例、预组来源与派生结果，例如行程用时和稳定窗口。改参数后再次校验；通过后用「写入房间」保存。若另一位作者或外部工具先修改了文件，重新打开该房间，再预览本次改动。
+3. 选择「编辑现有成员」调整已展开的单个实例。选择整个预组可以平移、复制或解除分组；复制会重接内部连线。外部引用映射按“旧外部实例 ID → 新外部实例 ID”填写，世界行动使用 `action:<旧行动 ID>` 作键。解除分组保留实际位置、参数和连线。
+4. 打开引用该 JSON 的试玩场景，重新进入房间，用真实控制器走一遍改动的路线与失败恢复。
+
+命令行可用 `bash tools/godot.sh --headless --path production --script res://scripts/list_mechanisms.gd -- <region_id>` 检索区域，或在 `--` 后传入 `--describe <definition_id>` 查看定义。[机关目录](../data/world_objects.md)
 
 ## 接入世界设计
 

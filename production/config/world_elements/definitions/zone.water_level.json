@@ -1,0 +1,29 @@
+{
+  "id": "zone.water_level",
+  "name": "可控水位",
+  "version": 1,
+  "component": "WorldWaterLevel",
+  "defaults": {
+    "state_scope": "attempt",
+    "section_id": "main",
+    "bounds": [
+      0,
+      0,
+      320,
+      192
+    ],
+    "low_surface_y": 160,
+    "high_surface_y": 32,
+    "surface_speed": 48,
+    "initial_level": "low"
+  },
+  "position_field": "bounds",
+  "category": "platforms",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/zone.water_level.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible"
+}

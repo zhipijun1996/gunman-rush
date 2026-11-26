@@ -9,6 +9,7 @@ var speed := 240.0
 var radius := 4.0
 var remaining := 0.9
 var spent := false
+var flight := ProjectileFlight.new()
 var _shape := CircleShape2D.new()
 var _visual_age := 0.0
 var _visual_launched := false
@@ -32,12 +33,9 @@ func _physics_process(delta: float) -> void:
 	if not is_instance_valid(behavior) or not behavior._active() or not behavior.lifetime.accepts(token):
 		dispose()
 		return
+	var step := minf(delta,remaining)
 	remaining -= delta
-	if remaining <= 0:
-		dispose()
-		return
-	var motion := direction * speed * delta
-	if _crosses_protected_point(motion):
+	if step <= 0:
 		dispose()
 		return
 	_visual_age += delta
@@ -47,7 +45,8 @@ func _physics_process(delta: float) -> void:
 		_visual_launched = true
 		UnderworldProjectileVisual.emit(self,global_position,direction,false,false)
 	queue_redraw()
-	_move_swept(motion)
+	flight.advance(self,behavior.controller,"enemy",direction*speed,step,_move_swept)
+	if not spent and remaining <= 0: dispose()
 
 ## Placement clearance only: no flight/lifetime/visual clock advances. Reuses
 ## the ordinary real-volume sweep and original damage Policy/contact handling.
@@ -58,10 +57,7 @@ func launch_to_muzzle(destination: Vector2) -> bool:
 		return false
 	var motion := destination-global_position
 	if motion.is_zero_approx(): return true
-	if _crosses_protected_point(motion):
-		dispose()
-		return false
-	_move_swept(motion)
+	flight.advance(self,behavior.controller,"enemy",motion,1.0,_move_swept,{},INF,true)
 	return not spent
 
 func _crosses_protected_point(motion: Vector2) -> bool:
@@ -71,14 +67,21 @@ func _crosses_protected_point(motion: Vector2) -> bool:
 	return false
 
 func _move_swept(motion: Vector2) -> void:
+	if _crosses_protected_point(motion):
+		dispose()
+		return
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
 	query.transform = Transform2D(0, global_position)
 	query.motion = motion
 	query.collision_mask = 1
-	query.exclude = [behavior.actor.motor.get_rid()]
+	var exclusions: Array[RID] = flight.grate_excludes.duplicate()
+	exclusions.append(behavior.actor.motor.get_rid())
+	query.exclude = exclusions
 	var space := get_world_2d().direct_space_state
+	query.motion = Vector2.ZERO
 	var overlaps := space.intersect_shape(query, 8)
+	query.motion = motion
 	var fraction := 0.0 if not overlaps.is_empty() else 1.0
 	if overlaps.is_empty():
 		var cast := space.cast_motion(query)
@@ -126,7 +129,9 @@ func advance_frozen_contact() -> void:
 	query.shape = _shape
 	query.transform = Transform2D(0.0,global_position)
 	query.collision_mask = 1
-	query.exclude = [behavior.actor.motor.get_rid()]
+	var exclusions: Array[RID] = flight.grate_excludes.duplicate()
+	exclusions.append(behavior.actor.motor.get_rid())
+	query.exclude = exclusions
 	var hits := get_world_2d().direct_space_state.intersect_shape(query,8)
 	if hits.is_empty(): return
 	if hits.any(func(contact: Dictionary) -> bool: return contact.get("collider") != behavior.controller.motor):

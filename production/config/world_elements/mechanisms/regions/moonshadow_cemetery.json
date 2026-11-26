@@ -1,9 +1,25 @@
 {
   "region_id": "moonshadow_cemetery",
-  "definitions": [],
   "skins": {
     "gate.masonry": {
       "material": "moonshadow_cemetery"
+    },
+    "interaction.sound_lure": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/moonshadow_cemetery.png"
+    },
+    "zone.sight_occluder": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/moonshadow_cemetery.png"
+    },
+    "zone.foreground_cover": {
+      "texture": "res://assets/world_elements/perception_regions/moonshadow_cemetery_veil.png"
+    },
+    "environment.local_light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/moonshadow_cemetery.png"
+    },
+    "switch.light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/moonshadow_cemetery.png"
     }
-  }
+  },
+  "hardware_atlas": "res://assets/mechanisms/regional/moonshadow_cemetery.png",
+  "hardware_light": "#b0c9ff"
 }

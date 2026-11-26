@@ -1,0 +1,11 @@
+{
+  "schema":3,
+  "room_id":"crossing-sensor-demonstration",
+  "bounds":[0,0,1280,640],
+  "root":{"definition_id":"room.standard","definition_version":1,"properties":{"start_point":[160,366],"region_id":"gear_city","terrain_material":"gear_city"}},
+  "entities":{
+    "floor":{"id":"floor","definition_id":"platform.solid","definition_version":1,"properties":{"rect":[0,384,1280,256]}},
+    "trip":{"id":"trip","definition_id":"switch.crossing","definition_version":1,"properties":{"position":[320,346],"trigger_mode":"toggle","links":[{"output":"active","target":"gate","input":"set_active"}]}},
+    "gate":{"id":"gate","definition_id":"gate.masonry","definition_version":1,"properties":{"bounds":[496,256,32,128],"state_scope":"attempt"}}
+  }
+}

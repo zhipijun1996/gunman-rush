@@ -1,0 +1,29 @@
+{
+  "id": "platform.conveyor",
+  "name": "传送带",
+  "version": 1,
+  "component": "WorldConveyor",
+  "defaults": {
+    "bounds": [
+      0,
+      0,
+      192,
+      20
+    ],
+    "surface_mode": "floor",
+    "wall_face": "left",
+    "surface_speed": 80.0,
+    "initial_active": true,
+    "state_scope": "attempt",
+    "section_id": "main"
+  },
+  "category": "traversal",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/platform.conveyor.md",
+  "library": "mechanisms",
+  "position_field": "bounds",
+  "time_profile": "incompatible",
+  "usable_regions": [
+    "*"
+  ]
+}

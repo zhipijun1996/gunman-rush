@@ -1,0 +1,82 @@
+{
+  "id": "WorldPressurePlate",
+  "script": "res://game/world/mechanisms/hazards/pressure_plate.gd",
+  "validator_script": "res://game/world/mechanisms/hazards/pressure_plate.gd",
+  "fields": {
+    "element_id": {
+      "type": "string",
+      "label": "实例 ID"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "label": "状态寿命",
+      "choices": [
+        "attempt"
+      ]
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "plate_size": {
+      "type": "point",
+      "label": "尺寸",
+      "unit": "px",
+      "min_component": 0.001
+    },
+    "release_hold_s": {
+      "type": "number",
+      "label": "离板保持",
+      "unit": "秒",
+      "min": 0
+    },
+    "accepted_load": {
+      "type": "string",
+      "label": "承压来源",
+      "choices": [
+        "player",
+        "player_and_marked_weight"
+      ]
+    },
+    "links": {
+      "type": "array",
+      "label": "输出连线"
+    }
+  },
+  "inputs": {},
+  "outputs": {
+    "occupied": "bool",
+    "active": "bool"
+  },
+  "state": {
+    "occupied": {
+      "type": "bool",
+      "required": true
+    },
+    "active": {
+      "type": "bool",
+      "required": true
+    },
+    "remaining": {
+      "type": "number",
+      "required": true
+    },
+    "sent_occupied": {
+      "type": "bool",
+      "required": true
+    },
+    "sent_active": {
+      "type": "bool",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "switch.pressure"
+}

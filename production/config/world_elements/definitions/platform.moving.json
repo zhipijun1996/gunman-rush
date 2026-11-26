@@ -22,11 +22,42 @@
     "state_scope": "attempt",
     "route": [],
     "endpoint_dwell": 0,
-    "activation_flag": ""
+    "activation_flag": "",
+    "section_id": "main",
+    "motion_mode": "cycle",
+    "initial_running": true,
+    "initial_dock": 0,
+    "call_points": [
+      [
+        -96,
+        0
+      ],
+      [
+        480,
+        0
+      ]
+    ],
+    "call_radius": 60,
+    "cart_max_speed": 160,
+    "cart_acceleration": 320,
+    "cart_deceleration": 400,
+    "initial_path_progress": 0,
+    "water_source_id": "",
+    "draft_offset": 0,
+    "drive_id": ""
   },
   "position_field": "position",
   "category": "platforms",
   "placeable": true,
   "documentation": "docs/data/mechanisms/platform.moving.md",
-  "library": "mechanisms"
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profiles": {
+    "cycle": "mechanism",
+    "call_dock": "mechanism",
+    "manual_cart": "incompatible",
+    "follow_water": "incompatible"
+  }
 }

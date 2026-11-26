@@ -1,9 +1,25 @@
 {
   "region_id": "frostmirror_glacier",
-  "definitions": [],
   "skins": {
     "gate.masonry": {
       "material": "frostmirror_glacier"
+    },
+    "interaction.sound_lure": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/frostmirror_glacier.png"
+    },
+    "zone.sight_occluder": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/frostmirror_glacier.png"
+    },
+    "zone.foreground_cover": {
+      "texture": "res://assets/world_elements/perception_regions/frostmirror_glacier_veil.png"
+    },
+    "environment.local_light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/frostmirror_glacier.png"
+    },
+    "switch.light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/frostmirror_glacier.png"
     }
-  }
+  },
+  "hardware_atlas": "res://assets/mechanisms/regional/frostmirror_glacier.png",
+  "hardware_light": "#a6d6ff"
 }

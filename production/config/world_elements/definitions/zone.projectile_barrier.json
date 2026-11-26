@@ -1,0 +1,42 @@
+{
+  "id": "zone.projectile_barrier",
+  "name": "消弹薄幕",
+  "version": 1,
+  "component": "ProjectileBarrier",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "line_points": [
+      [
+        0,
+        -80
+      ],
+      [
+        0,
+        80
+      ]
+    ],
+    "thickness": 12,
+    "initial_active": true,
+    "projectile_categories": [
+      "ordinary"
+    ],
+    "factions": [
+      "player",
+      "enemy"
+    ],
+    "state_scope": "attempt",
+    "section_id": "main"
+  },
+  "position_field": "position",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/zone.projectile_barrier.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible"
+}

@@ -1,5 +1,7 @@
 """Check the rebuild's catalog, documentation and real standalone Godot room."""
 from pathlib import Path
+import hashlib
+import struct
 import json
 import re
 import subprocess
@@ -43,22 +45,46 @@ def check_mechanism_libraries():
     if profiles != set(libraries["regions"].values()):
         raise ValueError("Region index differs from the mechanism profiles on disk")
     definitions = {key: load(path) for key, path in index["definitions"].items()}
-    owners = {}
-
-    def register(ids, owner):
-        for key in ids:
-            if key in owners or definitions.get(key, {}).get("library") != "mechanisms":
-                raise ValueError(f"Invalid or duplicate mechanism {key} in {owner}")
-            owners[key] = owner
-
-    register(load(libraries["common"])["definitions"], "common")
+    for filename, assemblies in (("失序之钟_基本机关库.md", False), ("失序之钟_预组与组合推荐.md", True)):
+        reference = (ROOT / "docs/data" / filename).read_text().split("定义 ID 对照")[-1]
+        specified = {identity for line in reference.splitlines() if line.startswith("| ")
+                     for identity in re.findall(r"`([a-z_]+\.[a-z_]+)`", line)}
+        registered = {key for key, definition in definitions.items()
+                      if definition["library"] == "mechanisms" and ("members" in definition) == assemblies}
+        if specified != registered:
+            raise ValueError(f"{filename} and public catalog differ: {sorted(specified ^ registered)}")
+    regions = set(libraries["regions"])
+    scopes = {}
+    for key, definition in definitions.items():
+        allowed = definition.get("usable_regions", ["*"])
+        if not isinstance(allowed, list) or not allowed or any(not isinstance(item, str) for item in allowed):
+            raise ValueError(f"Invalid usable_regions in {key}")
+        if len(allowed) != len(set(allowed)) or (allowed != ["*"] and not set(allowed) <= regions):
+            raise ValueError(f"Unknown, repeated or mixed usable_regions in {key}")
+        scopes[key] = regions.copy() if allowed == ["*"] else set(allowed)
+    for key, definition in definitions.items():
+        for member in definition.get("members", []):
+            child = definitions.get(member["definition"])
+            if not child or "members" in child:
+                raise ValueError(f"Invalid assembly member in {key}")
+            scopes[key] &= scopes[child["id"]]
+        if not scopes[key]:
+            raise ValueError(f"No usable region for {key}")
+    hardware_hashes = set()
     for region, path in libraries["regions"].items():
         profile = load(path)
         if profile["region_id"] != region:
             raise ValueError(f"Region identity mismatch in {path}")
-        register(profile["definitions"], region)
+        expected_atlas = f"res://assets/mechanisms/regional/{region}.png"
+        if profile.get("hardware_atlas") != expected_atlas or not re.fullmatch(r"#[0-9a-fA-F]{6}",profile.get("hardware_light","")):
+            raise ValueError(f"Invalid hardware atlas or light for {region}")
+        data = (PROJECT / expected_atlas.removeprefix("res://")).read_bytes()
+        signature = hashlib.sha256(data).digest()
+        if data[:8] != b"\x89PNG\r\n\x1a\n" or struct.unpack(">II",data[16:24]) != (148,36) or signature in hardware_hashes:
+            raise ValueError(f"Invalid or duplicate regional material for {region}")
+        hardware_hashes.add(signature)
         for key, skin in profile["skins"].items():
-            if owners.get(key) not in ("common", region):
+            if key not in scopes or region not in scopes[key] or definitions[key]["library"] != "mechanisms":
                 raise ValueError(f"Skin for inaccessible mechanism {key} in {region}")
             slots = definitions[key].get("region_skin_fields", {})
             for field, value in skin.items():
@@ -69,13 +95,6 @@ def check_mechanism_libraries():
                     if resource.suffix == ".png" and resource.is_file() and resource.resolve().is_relative_to(PROJECT / "assets"):
                         continue
                 raise ValueError(f"Unknown visual field or resource {key}.{field} in {region}")
-    if set(owners) != {key for key, definition in definitions.items() if definition["library"] == "mechanisms"}:
-        raise ValueError("Each mechanism definition must belong to exactly one library")
-    for key, definition in definitions.items():
-        for member in definition.get("members", []):
-            owner = owners.get(member["definition"], "common")
-            if owner not in ("common", owners.get(key)):
-                raise ValueError(f"{key} includes a mechanism restricted to {owner}")
 
 
 def godot(*args):
@@ -92,17 +111,27 @@ if __name__ == "__main__":
         check_catalog()
         check_mechanism_libraries()
         godot("--import")
-        output = godot("--fixed-fps", "60", "--script", "res://tests/ordinary_room.gd")
-        if "ORDINARY ROOM failures=0" not in output:
-            raise RuntimeError(output)
-        equipment = godot("--fixed-fps", "60", "--script", "res://tests/equipment.gd")
-        if "EQUIPMENT failures=0" not in equipment:
-            raise RuntimeError(equipment)
-        mechanisms = godot("--fixed-fps", "60", "--script", "res://tests/mechanism_libraries.gd")
-        if "MECHANISM LIBRARIES failures=0" not in mechanisms:
-            raise RuntimeError(mechanisms)
-        print(mechanisms.strip())
-        print(output.strip())
-        print(equipment.strip())
+        suites = {
+            "ordinary_room": "ORDINARY ROOM",
+            "equipment": "EQUIPMENT",
+            "mechanism_libraries": "MECHANISM LIBRARIES",
+            "bell_gate": "BELL GATE",
+            "crossing_sensor": "CROSSING SENSOR",
+            "mechanism_integration": "MECHANISM INTEGRATION",
+            "mechanism_editor": "MECHANISM EDITOR",
+            "carrier_library": "CARRIER LIBRARY",
+            "hazard_library": "HAZARD LIBRARY",
+            "perception_library": "PERCEPTION LIBRARY",
+            "projectile_library": "PROJECTILE LIBRARY",
+            "traversal_library": "TRAVERSAL LIBRARY",
+            "mechanism_services_showcase": "MECHANISM SERVICES SHOWCASE",
+            "regional_mechanism_art": "REGIONAL MECHANISM ART",
+            "beam_library": "BEAM LIBRARY",
+        }
+        for script, label in suites.items():
+            output = godot("--fixed-fps", "60", "--script", f"res://tests/{script}.gd")
+            if f"{label} failures=0" not in output:
+                raise RuntimeError(output)
+            print(output.strip())
     except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as error:
         sys.exit(str(error))

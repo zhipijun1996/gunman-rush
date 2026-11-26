@@ -1,0 +1,166 @@
+{
+  "id": "assembly.windchime_windmill",
+  "name": "风车渡台",
+  "version": 1,
+  "members": [
+    {
+      "id": "drive",
+      "definition": "internal.mechanism_orbit",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bell",
+      "definition": "switch.shot",
+      "offset": [
+        -224,
+        0
+      ],
+      "properties": {
+        "repeat_enabled": true
+      }
+    },
+    {
+      "id": "carrier_0",
+      "definition": "platform.moving",
+      "offset": [
+        0,
+        0
+      ],
+      "instance_refs": {
+        "drive_id": "drive"
+      }
+    },
+    {
+      "id": "carrier_1",
+      "definition": "platform.moving",
+      "offset": [
+        0,
+        0
+      ],
+      "instance_refs": {
+        "drive_id": "drive"
+      }
+    },
+    {
+      "id": "carrier_2",
+      "definition": "platform.moving",
+      "offset": [
+        0,
+        0
+      ],
+      "instance_refs": {
+        "drive_id": "drive"
+      }
+    },
+    {
+      "id": "carrier_3",
+      "definition": "platform.moving",
+      "offset": [
+        0,
+        0
+      ],
+      "instance_refs": {
+        "drive_id": "drive"
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "bell",
+      "target": "drive",
+      "input": "set_active",
+      "output": "active"
+    }
+  ],
+  "category": "assemblies",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/assembly.windchime_windmill.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "creation_adapter": "res://game/world/elements/carrier_presets.gd",
+  "creation_fields": {
+    "section_id": {
+      "type": "string",
+      "default": "main",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "default": "attempt",
+      "label": "状态寿命"
+    },
+    "member_offsets": {
+      "type": "dict",
+      "default": {
+        "drive": [
+          0,
+          0
+        ],
+        "bell": [
+          -224,
+          0
+        ]
+      },
+      "label": "成员偏移"
+    },
+    "radius": {
+      "type": "number",
+      "default": 160,
+      "label": "半径"
+    },
+    "angle_offsets_deg": {
+      "type": "array",
+      "default": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "label": "踏台相位"
+    },
+    "initial_angle_deg": {
+      "type": "number",
+      "default": 0,
+      "label": "起始角"
+    },
+    "period": {
+      "type": "number",
+      "default": 8,
+      "label": "整圈时长"
+    },
+    "direction": {
+      "type": "string",
+      "choices": [
+        "clockwise",
+        "counterclockwise"
+      ],
+      "default": "clockwise",
+      "label": "旋转方向"
+    },
+    "platform_size": {
+      "type": "point",
+      "min_component": 0.001,
+      "default": [
+        128,
+        24
+      ],
+      "label": "踏台尺寸"
+    },
+    "initial_running": {
+      "type": "bool",
+      "default": false,
+      "label": "初始运行"
+    }
+  },
+  "member_families": {
+    "carrier_": "platform.moving"
+  }
+}

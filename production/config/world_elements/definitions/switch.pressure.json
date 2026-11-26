@@ -1,0 +1,30 @@
+{
+  "id": "switch.pressure",
+  "name": "压力踏板",
+  "version": 1,
+  "component": "WorldPressurePlate",
+  "defaults": {
+    "section_id": "main",
+    "state_scope": "attempt",
+    "position": [
+      0,
+      0
+    ],
+    "plate_size": [
+      64,
+      12
+    ],
+    "release_hold_s": 0.6,
+    "accepted_load": "player",
+    "links": []
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible",
+  "position_field": "position",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/switch.pressure.md",
+  "library": "mechanisms"
+}

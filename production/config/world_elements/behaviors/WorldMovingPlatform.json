@@ -17,8 +17,7 @@
       "type": "point"
     },
     "platform_size": {
-      "type": "point",
-      "min_component": 0.01
+      "type": "point"
     },
     "endpoint": {
       "type": "point"
@@ -40,10 +39,59 @@
     },
     "one_way": {
       "type": "bool"
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "activation_flag": {
+      "type": "string"
+    },
+    "motion_mode": {
+      "type": "string",
+      "choices": [
+        "cycle",
+        "call_dock",
+        "manual_cart",
+        "follow_water"
+      ]
+    },
+    "initial_running": {
+      "type": "bool"
+    },
+    "initial_dock": {
+      "type": "number"
+    },
+    "call_points": {
+      "type": "points"
+    },
+    "call_radius": {
+      "type": "number"
+    },
+    "cart_max_speed": {
+      "type": "number"
+    },
+    "cart_acceleration": {
+      "type": "number"
+    },
+    "cart_deceleration": {
+      "type": "number"
+    },
+    "initial_path_progress": {
+      "type": "number"
+    },
+    "water_source_id": {
+      "type": "string"
+    },
+    "draft_offset": {
+      "type": "number"
+    },
+    "drive_id": {
+      "type": "string"
     }
   },
   "inputs": {
-    "set_active": "bool"
+    "set_active": "bool",
+    "call_dock": "number"
   },
   "outputs": {},
   "state": {
@@ -55,10 +103,26 @@
       "type": "number",
       "min": 0,
       "required": true
+    },
+    "distance": {
+      "type": "number"
+    },
+    "speed": {
+      "type": "number"
+    },
+    "progress": {
+      "type": "number"
+    },
+    "dock": {
+      "type": "number"
+    },
+    "height": {
+      "type": "number"
     }
   },
   "state_version": 1,
   "category": "platforms",
   "root": false,
-  "default_definition": "platform.moving"
+  "default_definition": "platform.moving",
+  "validator_script": "res://game/world/elements/carrier_configuration.gd"
 }

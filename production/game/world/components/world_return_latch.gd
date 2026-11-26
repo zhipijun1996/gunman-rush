@@ -17,15 +17,25 @@ func bind(value: FixedWorldState) -> void:
 	for rect: Rect2 in closed_panels: closed_bodies.append(_body(rect,false))
 	if not metal_hatch:
 		closed_terrain=UnderworldTerrain.build(closed_panels)
+		closed_terrain.show_behind_parent = true
 		var room:=get_parent() as FixedWorldRoom
 		if room != null: TerrainMaterialRegistry.install_on(closed_terrain,room.terrain_material)
 		add_child(closed_terrain)
 	_refresh(0)
 
+func available(player_position: Vector2, section: String) -> bool:
+	if not super.available(player_position,section): return false
+	var from := get_parent().to_global(player_position) as Vector2
+	var distance := from.distance_to(global_position)
+	if distance < 1: return true
+	var query := PhysicsRayQueryParameters2D.create(from,global_position.move_toward(from,1.0),1)
+	return get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+
 func _body(rect: Rect2,one_way: bool) -> StaticBody2D:
 	var body:=StaticBody2D.new()
 	body.position=rect.get_center()
 	body.collision_mask=0
+	body.collision_layer = 1 if one_way == state.value.receipts.has(action_id) else 0
 	var shape:=RectangleShape2D.new();shape.size=rect.size
 	var collision:=CollisionShape2D.new();collision.name="CollisionShape2D";collision.shape=shape
 	collision.one_way_collision=one_way
@@ -35,7 +45,8 @@ func _body(rect: Rect2,one_way: bool) -> StaticBody2D:
 
 func _refresh(revision: int) -> void:
 	super._refresh(revision)
-	var opened: bool=state.has(action_id)
+	var opened: bool=state.value.receipts.has(action_id)
+	visible = true
 	hatch_target=1.0 if opened else 0.0
 	if not hatch_initialized:
 		hatch_opening=hatch_target;hatch_initialized=true
@@ -51,10 +62,24 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	if state==null:return
+	super._draw()
 	if metal_hatch:
 		for rect: Rect2 in closed_panels:
 			draw_set_transform(rect.position,hatch_opening*PI*.5)
-			UnderworldTerrain.draw_moving(self,Rect2(Vector2.ZERO,rect.size))
+			MechanismRegionArt.panel(self,Rect2(Vector2.ZERO,rect.size))
+			MechanismRegionArt.stamp(self,"mount",Vector2(rect.size.x*0.5,4),Vector2(15,15))
 		draw_set_transform(Vector2.ZERO)
-	if state.has(action_id):
-		for rect: Rect2 in return_steps:UnderworldTerrain.draw_one_way(self,rect)
+	elif not state.value.receipts.has(action_id):
+		for rect: Rect2 in closed_panels:
+			# The inset stone matches the adjacent terrain. Retaining straps
+			# and the load-bearing jamb use the room's mechanism material.
+			var rail := minf(6,rect.size.x/2)
+			MechanismRegionArt.panel(self,Rect2(rect.position,Vector2(rail,rect.size.y)))
+			for height: float in [.18,.78]:
+				var corner := rect.position+Vector2(0,height*rect.size.y)
+				MechanismRegionArt.panel(self,Rect2(corner,Vector2(rect.size.x,4)))
+				MechanismRegionArt.stamp(self,"mount",corner+Vector2(rail/2,2),Vector2(12,12))
+	if state.value.receipts.has(action_id):
+		for rect: Rect2 in return_steps:
+			MechanismRegionArt.panel(self,rect)
+			MechanismRegionArt.stamp(self,"mount",Vector2(rect.get_center().x,rect.end.y),Vector2(10,10))

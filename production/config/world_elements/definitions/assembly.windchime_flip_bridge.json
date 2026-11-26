@@ -1,0 +1,161 @@
+{
+  "id": "assembly.windchime_flip_bridge",
+  "name": "交替翻板桥",
+  "version": 1,
+  "members": [
+    {
+      "id": "bell",
+      "definition": "switch.shot",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "drive",
+      "definition": "internal.route_switch",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bridge_a",
+      "definition": "platform.rotating_beam",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bridge_b",
+      "definition": "platform.rotating_beam",
+      "offset": [
+        0,
+        0
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": "bell",
+      "target": "drive",
+      "input": "set_active",
+      "output": "active"
+    }
+  ],
+  "creation_adapter": "res://game/world/elements/beam_preset.gd",
+  "creation_fields": {
+    "bell.access_points": {
+      "type": "points",
+      "default": [
+        [
+          224,
+          32
+        ]
+      ],
+      "label": "bell.access_points"
+    },
+    "groups": {
+      "type": "dict",
+      "default": {
+        "A": [
+          "bridge_a"
+        ],
+        "B": [
+          "bridge_b"
+        ]
+      },
+      "label": "分组"
+    },
+    "beam_size": {
+      "type": "point",
+      "min_component": 0.001,
+      "default": [
+        128,
+        24
+      ],
+      "label": "beam_size"
+    },
+    "deployed_angles_deg": {
+      "type": "dict",
+      "default": {},
+      "label": "deployed_angles_deg",
+      "unit": "°"
+    },
+    "folded_angles_deg": {
+      "type": "dict",
+      "default": {},
+      "label": "folded_angles_deg",
+      "unit": "°"
+    },
+    "initial_route": {
+      "type": "string",
+      "choices": [
+        "A",
+        "B"
+      ],
+      "default": "A",
+      "label": "初始线路"
+    },
+    "warning_duration": {
+      "type": "number",
+      "min": 0,
+      "default": 0.25,
+      "label": "预告时间",
+      "unit": "s"
+    },
+    "turn_duration": {
+      "type": "number",
+      "positive": true,
+      "default": 0.4,
+      "label": "同步翻转时长",
+      "unit": "s"
+    },
+    "member_offsets": {
+      "type": "dict",
+      "default": {
+        "bell": [
+          -224,
+          32
+        ],
+        "drive": [
+          0,
+          -64
+        ],
+        "bridge_a": [
+          -160,
+          0
+        ],
+        "bridge_b": [
+          32,
+          0
+        ]
+      },
+      "label": "member_offsets"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "default": "attempt",
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "default": "main",
+      "label": "挑战分区"
+    }
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "category": "assemblies",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/assembly.windchime_flip_bridge.md",
+  "library": "mechanisms",
+  "member_families": {
+    "": "platform.rotating_beam"
+  }
+}

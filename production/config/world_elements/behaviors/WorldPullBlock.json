@@ -1,0 +1,93 @@
+{
+  "id": "WorldPullBlock",
+  "script": "res://game/world/elements/world_pull_block.gd",
+  "fields": {
+    "element_id": {
+      "type": "string"
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "endpoint": {
+      "type": "point",
+      "label": "行程",
+      "unit": "px"
+    },
+    "body_size": {
+      "type": "point",
+      "label": "实体尺寸",
+      "unit": "px"
+    },
+    "ring_offset": {
+      "type": "point",
+      "label": "拉环偏移",
+      "unit": "px"
+    },
+    "ring_radius": {
+      "type": "number",
+      "label": "拉环半径",
+      "unit": "px"
+    },
+    "rest_progress": {
+      "type": "number",
+      "label": "休止进度"
+    },
+    "pull_speed": {
+      "type": "number",
+      "label": "牵拉速度",
+      "unit": "px/s"
+    },
+    "return_speed": {
+      "type": "number",
+      "label": "回位速度",
+      "unit": "px/s"
+    },
+    "return_delay_s": {
+      "type": "number",
+      "label": "回位等待",
+      "unit": "s"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "category": "traversal",
+  "root": false,
+  "default_definition": "traversal.pull_block",
+  "validator_script": "res://game/world/elements/traversal_mechanism_config.gd",
+  "state_version": 1,
+  "state": {
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "progress": {
+      "type": "number",
+      "required": true
+    },
+    "wait": {
+      "type": "number",
+      "required": true
+    },
+    "blocked": {
+      "type": "bool",
+      "required": true
+    },
+    "session": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -19,6 +19,7 @@ signal weapon_damage_committed(packet: int, shot: int, receiver: Damageable, sou
 var action_resource_view := PlayerActionResourceView.new()
 var combat_energy := CombatEnergyState.new()
 var item_runtime: EquipmentRuntime
+var driven_cart: WorldMovingPlatform
 var traversal: TraversalAbility
 var shot_energy: ShotEnergyPolicy
 var active := true
@@ -58,10 +59,15 @@ func _ready() -> void:
 	shoot_ability.recoil = recoil_ability
 	shoot_ability.tuning = tuning
 	router.cancelled.connect(_cancel)
+	motor.repositioned.connect(_repositioned)
 	jump_ability.jumped.connect(traversal.on_jump_executed)
 	jump_ability.deactivated.connect(_on_jump_disabled)
 	shoot_ability.deactivated.connect(_on_shoot_disabled)
 	shoot_ability.shot_fired.connect(_on_shot_fired)
+
+func _repositioned() -> void:
+	_was_grounded = false
+	driven_cart = null
 
 func _physics_process(delta: float) -> void:
 	var real_delta := delta / Engine.time_scale
@@ -103,6 +109,12 @@ func physics_tick(delta: float) -> void:
 	var dropped := false
 	for action: Dictionary in actions:
 		if action.type == &"jump":
+			driven_cart = null
+			if traversal.state == &"object_pull": traversal.cancel()
+			if motor.exit_bubble():
+				motor.last_action_step = Engine.get_physics_frames()
+				jump_ability.cancel_requests()
+				continue
 			if not shoot_ability.behavior().locks_movement():
 				if bool(action.get("down_held",false)) and motor.request_drop_through():
 					dropped = true
@@ -138,11 +150,14 @@ func physics_tick(delta: float) -> void:
 		shoot_ability.try_fire(router.aim_direction,started_grounded)
 	jump_ability.update_hold(delta, motor)
 	var requested_recoil := motor.recoil_velocity
-	var move_axis := router.sample_axes()
+	if traversal.busy() or weapon_locked or dropped: driven_cart = null
+	var move_axis := 0.0 if is_instance_valid(driven_cart) else router.sample_axes()
 	if item_runtime != null:
 		move_axis *= item_runtime.p("B28","speed",1)
 		if router.focus_heal_held() and item_runtime.session.focus_heal.available():
 			move_axis *= item_runtime.p("P17","move",1)
+	motor.wall_transport = traversal.state == &"wall_attach"
+	if jumped: motor.last_action_step = Engine.get_physics_frames()
 	motor.step(move_axis, delta)
 	traversal.after_move()
 	if motor.get_slide_collision_count() > 0 and shoot_ability.rounds_remaining > 0:
@@ -211,6 +226,7 @@ func on_weapon_damage(expected_session: int, packet: int, shot: int, airborne: b
 	if target!=0 and is_instance_valid(receiver): weapon_damage_committed.emit(packet,shot,receiver,expected_session,weapon_epoch)
 
 func die() -> void:
+	driven_cart = null
 	if item_runtime != null: item_runtime.call("clear")
 	combat_energy.reset()
 	if not active:
@@ -257,11 +273,13 @@ func return_to_segment(location: Vector2) -> bool:
 	air_focus_ability.stop()
 	session_id += 1
 	_air_hit_receipts.clear()
+	var hook_spent := traversal.hook_used
 	router.clear("segment_return")
+	traversal.hook_used = hook_spent
 	motor.reset_at(location)
-	jump_ability.reset()
+	jump_ability.cancel_requests()
 	shoot_ability.clear_projectiles()
-	action_resources.reset()
+	action_resources.pending_ground_shots = 0
 	for grant: Dictionary in received_resource_grants:
 		if grant.get("on_resolved", Callable()).is_valid():
 			grant.on_resolved.call(0)

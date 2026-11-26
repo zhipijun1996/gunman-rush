@@ -1,0 +1,38 @@
+{
+  "id": "traversal.launcher",
+  "name": "弹射器",
+  "version": 1,
+  "component": "WorldLauncher",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "launch_mode": "contact",
+    "face_size": [
+      64,
+      20
+    ],
+    "launch_direction": [
+      0,
+      -1
+    ],
+    "sphere_radius": 32.0,
+    "rearm_distance": 4.0,
+    "launch_speed": 640.0,
+    "pulse_radius": 128.0,
+    "pulse_interval_s": 2.0,
+    "pulse_warning_s": 0.4,
+    "state_scope": "attempt",
+    "section_id": "main"
+  },
+  "category": "traversal",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/traversal.launcher.md",
+  "library": "mechanisms",
+  "position_field": "position",
+  "time_profile": "incompatible",
+  "usable_regions": [
+    "*"
+  ]
+}

@@ -35,6 +35,7 @@ func advance(delta: float) -> bool:
 		seed.zone_seconds = actor.definition.forest_zone_seconds
 		actor.motor.get_parent().add_child(seed)
 		seed.global_position = seed.origin
+		ProjectileFlight.register_at(seed,controller,"enemy")
 		_projectiles.append(seed)
 		GameAudio.cue(self, &"enemy_shot")
 		_set_state(&"attack")

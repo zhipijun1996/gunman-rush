@@ -1,9 +1,25 @@
 {
   "region_id": "root_sanctuary",
-  "definitions": [],
   "skins": {
     "gate.masonry": {
       "material": "root_sanctuary"
+    },
+    "interaction.sound_lure": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/root_sanctuary.png"
+    },
+    "zone.sight_occluder": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/root_sanctuary.png"
+    },
+    "zone.foreground_cover": {
+      "texture": "res://assets/world_elements/perception_regions/root_sanctuary_veil.png"
+    },
+    "environment.local_light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/root_sanctuary.png"
+    },
+    "switch.light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/root_sanctuary.png"
     }
-  }
+  },
+  "hardware_atlas": "res://assets/mechanisms/regional/root_sanctuary.png",
+  "hardware_light": "#ffe8a6"
 }

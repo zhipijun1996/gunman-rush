@@ -1,0 +1,59 @@
+{
+  "id": "WorldPushCrate",
+  "script": "res://game/world/elements/push_crate.gd",
+  "fields": {
+    "element_id": {
+      "type": "string",
+      "label": "实例ID"
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "body_size": {
+      "type": "point",
+      "min_component": 0.001,
+      "label": "实体尺寸",
+      "unit": "px"
+    },
+    "max_push_speed": {
+      "type": "number",
+      "positive": true,
+      "label": "推速上限",
+      "unit": "px/s"
+    },
+    "pressure_weight": {
+      "type": "bool",
+      "label": "可压踏板"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "state": {
+    "offset": {
+      "type": "array",
+      "required": true
+    },
+    "fall_speed": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "terrain.push_crate",
+  "validator_script": "res://game/world/elements/solid_configuration.gd"
+}

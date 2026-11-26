@@ -1,0 +1,16 @@
+{
+  "schema":3,
+  "room_id":"hazard-library-demonstration",
+  "bounds":[0,0,1536,680],
+  "root":{"definition_id":"room.standard","definition_version":1,"properties":{"start_point":[144,326],"region_id":"gear_city","terrain_material":"gear_city"}},
+  "entities":{
+    "floor":{"id":"floor","definition_id":"platform.solid","definition_version":1,"properties":{"rect":[0,400,1536,280]}},
+    "plate":{"id":"plate","definition_id":"switch.pressure","definition_version":1,"properties":{"position":[144,372],"links":[{"output":"active","target":"gate","input":"set_active"}]}},
+    "gate":{"id":"gate","definition_id":"gate.masonry","definition_version":1,"properties":{"state_scope":"attempt","bounds":[244,292,32,108]}},
+    "step":{"id":"step","definition_id":"platform.crumble","definition_version":1,"properties":{"position":[360,360]}},
+    "blink":{"id":"blink","definition_id":"platform.crumble","definition_version":1,"properties":{"position":[472,336],"trigger_mode":"jump_toggle","initial_solid":false}},
+    "teeth":{"id":"teeth","definition_id":"hazard.retracting_spikes","definition_version":1,"properties":{"bounds":[600,376,96,24],"mode":"cycle"}},
+    "heat":{"id":"heat","definition_id":"hazard.area","definition_version":1,"properties":{"rect":[946,336,200,64],"hazard_mode":"cycle","hazard_profile":"heat_wave"}},
+    "shelter":{"id":"shelter","definition_id":"zone.environment_shelter","definition_version":1,"properties":{"position":[1020,366],"protected_sources":["heat"]}}
+  }
+}

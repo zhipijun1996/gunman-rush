@@ -1,0 +1,98 @@
+{
+  "id": "WorldLauncher",
+  "script": "res://game/world/elements/world_launcher.gd",
+  "fields": {
+    "element_id": {
+      "type": "string"
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "launch_mode": {
+      "type": "string",
+      "choices": [
+        "contact",
+        "surface_normal",
+        "radial_pulse"
+      ],
+      "label": "弹出方式"
+    },
+    "face_size": {
+      "type": "point",
+      "label": "受力面尺寸",
+      "unit": "px"
+    },
+    "launch_direction": {
+      "type": "point",
+      "label": "弹出方向"
+    },
+    "sphere_radius": {
+      "type": "number",
+      "label": "球半径",
+      "unit": "px"
+    },
+    "rearm_distance": {
+      "type": "number",
+      "label": "重新就绪净距",
+      "unit": "px"
+    },
+    "launch_speed": {
+      "type": "number",
+      "label": "弹出速度",
+      "unit": "px/s"
+    },
+    "pulse_radius": {
+      "type": "number",
+      "label": "脉冲半径",
+      "unit": "px"
+    },
+    "pulse_interval_s": {
+      "type": "number",
+      "label": "脉冲周期",
+      "unit": "s"
+    },
+    "pulse_warning_s": {
+      "type": "number",
+      "label": "脉冲预告",
+      "unit": "s"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "category": "traversal",
+  "root": false,
+  "default_definition": "traversal.launcher",
+  "validator_script": "res://game/world/elements/traversal_mechanism_config.gd",
+  "state_version": 1,
+  "state": {
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "latched": {
+      "type": "bool",
+      "required": true
+    },
+    "elapsed": {
+      "type": "number",
+      "required": true
+    },
+    "serial": {
+      "type": "number",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "id": "WorldEnvironmentShelter",
+  "script": "res://game/world/mechanisms/hazards/environment_shelter.gd",
+  "validator_script": "res://game/world/mechanisms/hazards/environment_shelter.gd",
+  "fields": {
+    "element_id": {
+      "type": "string",
+      "label": "实例 ID"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "label": "状态寿命",
+      "choices": [
+        "attempt"
+      ]
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "control_radius": {
+      "type": "number",
+      "label": "受击钮半径",
+      "unit": "px",
+      "min": 0
+    },
+    "shield_radius": {
+      "type": "number",
+      "label": "保护半径",
+      "unit": "px",
+      "min": 0
+    },
+    "protected_sources": {
+      "type": "array",
+      "label": "受保护的本区危险实例"
+    },
+    "active_s": {
+      "type": "number",
+      "label": "保护时长",
+      "unit": "秒",
+      "min": 0
+    },
+    "expiry_warning_s": {
+      "type": "number",
+      "label": "结束预告",
+      "unit": "秒",
+      "min": 0
+    },
+    "cooldown_s": {
+      "type": "number",
+      "label": "冷却时长",
+      "unit": "秒",
+      "min": 0
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "state": {
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "remaining": {
+      "type": "number",
+      "required": true
+    },
+    "receipts": {
+      "type": "dict",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "zone.environment_shelter"
+}

@@ -47,6 +47,8 @@ var trail: Array[Vector2] = []
 ## Optional sample skin; movement, swept contacts and damage remain here.
 var presentation: CanvasItem
 const ART := preload("res://assets/plains_v4/spatial/actors.png")
+var flight := ProjectileFlight.new()
+var ordered_frame := -1
 var rebounds := 0
 var rebound_ratio := 1.0
 var _shape := CircleShape2D.new()
@@ -77,7 +79,7 @@ func _draw() -> void:
 	draw_set_transform(Vector2.ZERO)
 
 func _physics_process(delta: float) -> void:
-	advance(delta)
+	if ordered_frame != Engine.get_physics_frames(): advance(delta)
 
 func advance(delta: float) -> void:
 	trail.append(global_position)
@@ -90,27 +92,42 @@ func advance(delta: float) -> void:
 	if not is_instance_valid(owner_controller) or not owner_controller.active or session_id != owner_controller.session_id:
 		dispose()
 		return
-	var items := owner_controller.get("item_runtime") as RefCounted
+	var live_delta := minf(delta,maxf(0,lifetime-_age))
 	_age += delta
-	if _age >= lifetime:
+	if live_delta <= 0 and delta > 0:
 		dispose()
 		return
 	if not _visual_launched:
 		_visual_launched = true
 		UnderworldProjectileVisual.emit(self,global_position+launch_motion,direction,true,false)
+	var barrel_sweep := not launch_motion.is_zero_approx()
+	var remaining := maxf(0,max_distance-traveled_distance) if max_distance>0 and not barrel_sweep else INF
+	if remaining <= 0: dispose(); return
+	var move := launch_motion if barrel_sweep else direction*speed
+	launch_motion = Vector2.ZERO
+	var sweep := func(motion: Vector2): _move_swept(motion, barrel_sweep)
+	if art_kind == &"bullet":
+		flight.advance(self, owner_controller, "player", move, 1.0 if barrel_sweep else live_delta, sweep, mechanism_packet(), remaining, barrel_sweep)
+	else:
+		sweep.call(move if barrel_sweep else move.normalized()*minf(remaining,move.length()*live_delta))
+	if not spent and _age >= lifetime: dispose()
+
+func mechanism_packet() -> Dictionary:
+	var packet := energy_receipt_id if energy_receipt_id > 0 else shot_id
+	return {"packet_id":"%d:%d:%d" % [owner_id,session_id,packet], "attack_id":packet, "shot_id":shot_id,
+		"source_faction":"player", "controller":owner_controller, "hit_direction":direction,
+		"attack_kind":"charged_shot" if skill_attack and weapon_mode in [WeaponDefinition.Mode.PULSE,WeaponDefinition.Mode.MACHINE] else "shot"}
+
+func _move_swept(motion: Vector2, barrel_sweep: bool) -> void:
+	var items := owner_controller.get("item_runtime") as RefCounted
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
 	query.transform = Transform2D(0.0, global_position)
-	var barrel_sweep:=not launch_motion.is_zero_approx()
-	var remaining:=maxf(0,max_distance-traveled_distance)
-	if not barrel_sweep and max_distance>0 and remaining<=0:
-		dispose();return
-	query.motion = launch_motion if barrel_sweep else direction * minf(speed*delta,remaining) if max_distance>0 else direction*speed*delta
-	launch_motion = Vector2.ZERO
+	query.motion = motion
 	query.collision_mask = 0xFFFFFFFF
 	query.collide_with_areas = true
 	query.collide_with_bodies = true
-	var excluded: Array[RID] = []
+	var excluded: Array[RID] = flight.grate_excludes.duplicate()
 	if is_instance_valid(owner_body):
 		excluded.append(owner_body.get_rid())
 	var space := get_world_2d().direct_space_state
@@ -126,7 +143,7 @@ func advance(delta: float) -> void:
 		query.motion=travel
 		var hit: Dictionary = {}
 		if not overlaps.is_empty():
-			hit = overlaps[0]
+			hit = choose_contact(overlaps,global_position)
 		else:
 			var fractions := space.cast_motion(query)
 			if fractions.size() != 2 or fractions[0] >= 1.0:
@@ -143,11 +160,27 @@ func advance(delta: float) -> void:
 			if contacts.is_empty():
 				dispose()
 				return
-			hit = contacts[0]
+			hit = choose_contact(contacts,query.transform.origin)
 		var collider: Object = hit.get("collider")
 		var receiver: Damageable = null
 		if collider is Node:
 			receiver = (collider as Node).get_node_or_null("Damageable") as Damageable
+		var mechanism := collider as Node
+		while mechanism != null and not mechanism.has_method("mechanism_shot") and not mechanism.has_method("set_equipment_time"):
+			mechanism = mechanism.get_parent()
+		if mechanism != null:
+			var packet := mechanism_packet()
+			packet.collider = collider
+			packet.hit_point = query.transform.origin
+			packet.hit_fraction = flight.frame_start + flight.frame_length * clampf(global_position.distance_to(query.transform.origin)/maxf(motion.length(),0.00001),0,1)
+			if mechanism.has_method("mechanism_shot"): mechanism.call("mechanism_shot",packet)
+			var equipment_target := not mechanism.has_method("equipment_hit_part") or bool(mechanism.call("equipment_hit_part",collider))
+			if items != null and equipment_target and art_kind == &"bullet" and not skill_attack:
+				owner_controller.item_runtime.mechanism_hit(mechanism,packet.attack_id)
+			UnderworldProjectileVisual.emit(self,packet.hit_point,direction,true,true)
+			impacted.emit(packet.hit_point,direction)
+			dispose()
+			return
 		if collider is Area2D and receiver == null:
 			excluded.append(hit.rid)
 			query.transform.origin = global_position
@@ -181,10 +214,6 @@ func advance(delta: float) -> void:
 			terrain_impacted.emit(query.transform.origin,direction)
 			if items != null and art_kind == &"bullet":
 				owner_controller.item_runtime.scene.mark(query.transform.origin,null)
-				if not skill_attack and collider is WorldMovingPlatform:
-					var platform := collider as WorldMovingPlatform
-					var packet := energy_receipt_id if energy_receipt_id > 0 else shot_id
-					owner_controller.item_runtime.mechanism_hit(platform,packet)
 				if rebounds > 0:
 					var ray := PhysicsRayQueryParameters2D.create(global_position-direction*radius,query.transform.origin+direction*(radius+2),1,[owner_body.get_rid()])
 					var wall := space.intersect_ray(ray)
@@ -204,6 +233,25 @@ func advance(delta: float) -> void:
 		return
 	# Pathological overlapping geometry fails closed rather than tunnelling.
 	dispose()
+
+func choose_contact(hits: Array[Dictionary], center: Vector2) -> Dictionary:
+	var first := hits[0]
+	var body := first.collider as Node2D
+	if hits.size()<2 or body==null or not body.get_parent() is BreakableTerrain: return first
+	var terrain: BreakableTerrain = body.get_parent()
+	var nearest := INF
+	var cell_index := -1
+	for hit: Dictionary in hits:
+		var index := terrain.pieces.find(hit.collider)
+		if index<0: continue
+		var rect := terrain.rectangles[index]
+		var point := terrain.to_local(center).clamp(rect.position,rect.end)
+		var distance := terrain.to_global(point).distance_squared_to(global_position)
+		if distance<nearest or (is_equal_approx(distance,nearest) and index<cell_index):
+			first = hit
+			nearest = distance
+			cell_index = index
+	return first
 
 func dispose() -> void:
 	spent = true

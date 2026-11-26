@@ -1,6 +1,7 @@
 class_name WorldRoomInteraction
 extends Node2D
 ## One authored physical host for one canonical world action.
+@export var action_owner_id := ""
 @export var action_id := ""
 @export var section_id := "main"
 @export var label := "拾取"
@@ -15,6 +16,9 @@ func bind(value: FixedWorldState) -> void:
 	state=value;action=state.content.action(action_id)
 	if action.is_empty(): push_error("Unknown action host: "+action_id);return
 	if str(action.get("section_id","main"))!=section_id: push_error("Action section mismatch: "+action_id)
+	if not action_owner_id.is_empty():
+		visible = false
+		return
 	if visual=="chest":
 		chest_sprite=Sprite2D.new();add_child(chest_sprite)
 	else:
@@ -48,6 +52,12 @@ func _process(delta:float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	if state == null or not action_owner_id.is_empty(): return
+	# A grounded socket frames the authored action artwork. The reward, lever
+	# or chest animation keeps its own silhouette and committed-action timing.
+	var width := 48.0 if visual in ["chest","clock_altar"] else 28.0
+	MechanismRegionArt.panel(self,Rect2(-width/2,15,width,8))
+	MechanismRegionArt.stamp(self,"finial",Vector2(-width/2+3,11),Vector2(10,18))
 	if chest_sprite!=null and _opening_age<.9:
 		PixelVfx.clip(self,&"chest-rays",Vector2(0,0),_opening_age/.9)
 

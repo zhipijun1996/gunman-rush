@@ -94,6 +94,7 @@ func _fire() -> void:
 		projectile_created.emit(projectile)
 		motor.get_parent().add_child(projectile)
 		projectile.global_position = motor.global_position + aim.rotated(offset) * (definition.collision_size.x * 0.6)
+		ProjectileFlight.register_at(projectile,_target,"enemy")
 
 func _cancel_projectiles() -> void:
 	for projectile: BossProjectile in _projectiles:

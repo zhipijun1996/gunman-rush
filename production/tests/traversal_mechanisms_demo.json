@@ -1,0 +1,157 @@
+{
+  "schema": 3,
+  "room_id": "traversal-mechanism-demonstration",
+  "bounds": [
+    0,
+    0,
+    1280,
+    640
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "start_point": [
+        125,
+        345
+      ],
+      "region_id": "gear_city",
+      "terrain_material": "gear_city"
+    }
+  },
+  "entities": {
+    "floor": {
+      "id": "floor",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          0,
+          384,
+          140,
+          256
+        ]
+      }
+    },
+    "belt": {
+      "id": "belt",
+      "definition_id": "platform.conveyor",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          140,
+          384,
+          170,
+          24
+        ],
+        "surface_speed": 85
+      }
+    },
+    "plate": {
+      "id": "plate",
+      "definition_id": "traversal.launcher",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          355,
+          394
+        ],
+        "launch_direction": [
+          0.38,
+          -1
+        ],
+        "launch_speed": 575,
+        "face_size": [
+          90,
+          20
+        ]
+      }
+    },
+    "bubble": {
+      "id": "bubble",
+      "definition_id": "traversal.rising_bubble",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          545,
+          312
+        ],
+        "bubble_radius": 36,
+        "rise_speed": 80,
+        "rise_distance": 118
+      }
+    },
+    "pair": {
+      "id": "pair",
+      "definition_id": "traversal.portal_pair",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          660,
+          345
+        ],
+        "paired_offset": [
+          275,
+          0
+        ]
+      }
+    },
+    "vine": {
+      "id": "vine",
+      "definition_id": "traversal.moving_hook",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          735,
+          100
+        ],
+        "motion_mode": "retract",
+        "endpoint": [
+          0,
+          120
+        ]
+      }
+    },
+    "loop": {
+      "id": "loop",
+      "definition_id": "traversal.moving_hook",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          390,
+          192
+        ],
+        "endpoint": [
+          130,
+          -60
+        ],
+        "hang_enabled": true
+      }
+    },
+    "fixed": {
+      "id": "fixed",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          1020,
+          230
+        ],
+        "cooldown_s": 1
+      }
+    },
+    "far_floor": {
+      "id": "far_floor",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          400,
+          384,
+          880,
+          256
+        ]
+      }
+    }
+  }
+}

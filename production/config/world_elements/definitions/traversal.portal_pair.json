@@ -1,0 +1,37 @@
+{
+  "id": "traversal.portal_pair",
+  "name": "同房折跃门",
+  "version": 1,
+  "component": "WorldPortalPair",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "paired_offset": [
+      320,
+      0
+    ],
+    "portal_size": [
+      24,
+      96
+    ],
+    "facings": [
+      "left",
+      "right"
+    ],
+    "exit_clearance": 4.0,
+    "initial_active": true,
+    "state_scope": "attempt",
+    "section_id": "main"
+  },
+  "category": "traversal",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/traversal.portal_pair.md",
+  "library": "mechanisms",
+  "position_field": "position",
+  "time_profile": "incompatible",
+  "usable_regions": [
+    "*"
+  ]
+}

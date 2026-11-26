@@ -17,6 +17,31 @@
     },
     "appearance": {
       "type": "string"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "gate_mode": {
+      "type": "string",
+      "choices": [
+        "signal",
+        "directional"
+      ],
+      "label": "门控制方式"
+    },
+    "pass_direction": {
+      "type": "string",
+      "choices": [
+        "left",
+        "right",
+        "up",
+        "down"
+      ]
+    },
+    "close_delay": {
+      "type": "number",
+      "min": 0
     }
   },
   "inputs": {

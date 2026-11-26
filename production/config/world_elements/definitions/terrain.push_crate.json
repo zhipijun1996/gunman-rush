@@ -1,0 +1,29 @@
+{
+  "id": "terrain.push_crate",
+  "name": "推行货箱",
+  "version": 1,
+  "component": "WorldPushCrate",
+  "defaults": {
+    "position": [
+      0,
+      0
+    ],
+    "state_scope": "attempt",
+    "section_id": "main",
+    "body_size": [
+      64,
+      64
+    ],
+    "max_push_speed": 100,
+    "pressure_weight": false
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible",
+  "position_field": "position",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/terrain.push_crate.md",
+  "library": "mechanisms"
+}

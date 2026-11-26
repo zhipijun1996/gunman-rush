@@ -1,0 +1,47 @@
+{
+  "id": "platform.crumble",
+  "name": "坍塌与显隐台",
+  "version": 1,
+  "component": "WorldCrumblePlatform",
+  "defaults": {
+    "section_id": "main",
+    "state_scope": "attempt",
+    "position": [
+      0,
+      0
+    ],
+    "platform_size": [
+      96,
+      16
+    ],
+    "one_way": true,
+    "trigger_mode": "step",
+    "attach_face": "both",
+    "solid_s": 2,
+    "crack_s": 0.6,
+    "absent_s": 2,
+    "reform_s": 0.25,
+    "start_phase01": 0,
+    "jump_bounds": [
+      -384,
+      -256,
+      768,
+      512
+    ],
+    "jump_types": [
+      "ground",
+      "double",
+      "wall"
+    ],
+    "initial_solid": true
+  },
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "mechanism",
+  "position_field": "position",
+  "category": "platforms",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/platform.crumble.md",
+  "library": "mechanisms"
+}

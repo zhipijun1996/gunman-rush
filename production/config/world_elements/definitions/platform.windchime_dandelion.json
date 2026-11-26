@@ -1,0 +1,39 @@
+{
+  "id": "platform.windchime_dandelion",
+  "name": "蒲公英浮台",
+  "version": 1,
+  "component": "WorldDandelionPlatform",
+  "defaults": {
+    "state_scope": "attempt",
+    "section_id": "main",
+    "position": [
+      0,
+      0
+    ],
+    "platform_size": [
+      96,
+      24
+    ],
+    "one_way": true,
+    "endpoint": [
+      160,
+      0
+    ],
+    "route": [],
+    "period": 8,
+    "endpoint_dwell": 0.3,
+    "phase_offset": 0,
+    "sink_speed": 24,
+    "rise_speed": 32,
+    "max_sink": 96
+  },
+  "position_field": "position",
+  "category": "platforms",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/platform.windchime_dandelion.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "mechanism"
+}

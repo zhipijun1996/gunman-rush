@@ -1,0 +1,33 @@
+{
+  "id": "terrain.breakable",
+  "name": "可击碎障碍",
+  "version": 1,
+  "component": "BreakableTerrain",
+  "defaults": {
+    "bounds": [
+      0,
+      0,
+      96,
+      96
+    ],
+    "break_mode": "whole",
+    "hits_required": 1,
+    "accepted_attacks": [
+      "shot",
+      "explosion"
+    ],
+    "cell_size": 32,
+    "dig_radius": 24,
+    "state_scope": "permanent",
+    "section_id": "main"
+  },
+  "position_field": "bounds",
+  "category": "interaction",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/terrain.breakable.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "incompatible"
+}

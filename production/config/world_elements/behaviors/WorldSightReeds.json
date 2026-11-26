@@ -1,0 +1,44 @@
+{
+  "id": "WorldSightReeds",
+  "script": "res://game/world/elements/perception/sight_reeds.gd",
+  "fields": {
+    "bounds": {
+      "type": "rect",
+      "label": "房间范围",
+      "unit": "px"
+    },
+    "initial_active": {
+      "type": "bool",
+      "label": "初始启用"
+    },
+    "element_id": {
+      "type": "string",
+      "label": "实例身份"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    },
+    "state_scope": {
+      "type": "string",
+      "label": "状态寿命",
+      "choices": [
+        "attempt"
+      ]
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "state": {
+    "active": {
+      "type": "bool",
+      "required": true
+    }
+  },
+  "state_version": 1,
+  "category": "interaction",
+  "root": false,
+  "default_definition": "zone.sight_occluder"
+}

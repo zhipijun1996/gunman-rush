@@ -15,11 +15,23 @@
     "period": 4.8,
     "phase": 0,
     "drive_id": "",
-    "state_scope": "attempt"
+    "state_scope": "attempt",
+    "path_mode": "linear",
+    "arc_radius": 128,
+    "arc_angles_deg": [
+      45,
+      135
+    ],
+    "endpoint_dwell": 0,
+    "section_id": "main"
   },
   "position_field": "position",
   "category": "hazards",
   "placeable": true,
   "documentation": "docs/data/mechanisms/hazard.gear.md",
-  "library": "mechanisms"
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "time_profile": "mechanism"
 }

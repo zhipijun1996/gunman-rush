@@ -94,6 +94,8 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 	receiver = Damageable.new()
 	receiver.name = "Damageable"
 	receiver.faction = &"mechanism"
+	receiver.grants_combat_energy = false
+	receiver.time_profile = "incompatible"
 	receiver.actor_id = bell_body.get_instance_id()
 	bell_body.add_child(receiver)
 	add_child(bell_body)
@@ -111,6 +113,8 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 		_second_receiver = Damageable.new()
 		_second_receiver.name = "Damageable"
 		_second_receiver.faction = &"mechanism"
+		_second_receiver.grants_combat_energy = false
+		_second_receiver.time_profile = "incompatible"
 		_second_receiver.actor_id = _second_body.get_instance_id()
 		_second_body.add_child(_second_receiver)
 		add_child(_second_body)
@@ -380,6 +384,8 @@ func add_access_bell(location: Vector2, second := false, return_side_only := fal
 	var access := Damageable.new()
 	access.name = "Damageable"
 	access.faction = &"mechanism"
+	access.grants_combat_energy = false
+	access.time_profile = "incompatible"
 	access.actor_id = primary.actor_id
 	body.add_child(access)
 	add_child(body)

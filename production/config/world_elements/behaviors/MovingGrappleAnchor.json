@@ -1,0 +1,152 @@
+{
+  "id": "MovingGrappleAnchor",
+  "script": "res://game/world/elements/moving_grapple_anchor.gd",
+  "fields": {
+    "element_id": {
+      "type": "string"
+    },
+    "position": {
+      "type": "point",
+      "label": "位置",
+      "unit": "px"
+    },
+    "endpoint": {
+      "type": "point",
+      "label": "行程",
+      "unit": "px"
+    },
+    "route": {
+      "type": "points",
+      "label": "局部路线",
+      "unit": "px"
+    },
+    "motion_mode": {
+      "type": "string",
+      "choices": [
+        "cycle",
+        "zipline",
+        "retract"
+      ],
+      "label": "运动模式"
+    },
+    "period": {
+      "type": "number",
+      "label": "往返时长",
+      "unit": "s"
+    },
+    "endpoint_dwell": {
+      "type": "number",
+      "label": "端点停靠",
+      "unit": "s"
+    },
+    "phase_offset": {
+      "type": "number",
+      "label": "初始时钟",
+      "unit": "s"
+    },
+    "hang_enabled": {
+      "type": "bool",
+      "label": "可悬挂"
+    },
+    "zipline_speed": {
+      "type": "number",
+      "label": "滑行速度",
+      "unit": "px/s"
+    },
+    "return_speed": {
+      "type": "number",
+      "label": "回位速度",
+      "unit": "px/s"
+    },
+    "return_delay_s": {
+      "type": "number",
+      "label": "回位等待",
+      "unit": "s"
+    },
+    "retract_warning_s": {
+      "type": "number",
+      "label": "收缩预告",
+      "unit": "s"
+    },
+    "retract_speed": {
+      "type": "number",
+      "label": "收缩速度",
+      "unit": "px/s"
+    },
+    "retracted_length": {
+      "type": "number",
+      "label": "内端长度",
+      "unit": "px"
+    },
+    "initial_active": {
+      "type": "bool",
+      "label": "初始启用"
+    },
+    "cooldown_s": {
+      "type": "number",
+      "min": 0,
+      "label": "离钩冷却",
+      "unit": "s"
+    },
+    "initial_available": {
+      "type": "bool",
+      "label": "初始可钩"
+    },
+    "reactivate_warning_s": {
+      "type": "number",
+      "min": 0,
+      "label": "复明预告",
+      "unit": "s"
+    },
+    "state_scope": {
+      "type": "string",
+      "choices": [
+        "attempt"
+      ],
+      "label": "状态寿命"
+    },
+    "section_id": {
+      "type": "string",
+      "label": "挑战分区"
+    }
+  },
+  "inputs": {
+    "set_active": "bool"
+  },
+  "outputs": {},
+  "category": "traversal",
+  "root": false,
+  "default_definition": "traversal.moving_hook",
+  "validator_script": "res://game/world/elements/traversal_mechanism_config.gd",
+  "state_version": 1,
+  "state": {
+    "phase": {
+      "type": "string",
+      "required": true
+    },
+    "active": {
+      "type": "bool",
+      "required": true
+    },
+    "clock": {
+      "type": "number",
+      "required": true
+    },
+    "distance": {
+      "type": "number",
+      "required": true
+    },
+    "wait": {
+      "type": "number",
+      "required": true
+    },
+    "blocked": {
+      "type": "bool",
+      "required": true
+    },
+    "eligibility": {
+      "type": "dict",
+      "required": true
+    }
+  }
+}

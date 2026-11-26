@@ -1,0 +1,41 @@
+{
+  "id": "WorldMotionSurface",
+  "script": "res://game/world/elements/world_motion_surface.gd",
+  "fields": {
+    "bounds": {
+      "type": "rect",
+      "label": "范围",
+      "unit": "px"
+    },
+    "surface_mode": {
+      "type": "string",
+      "choices": [
+        "sticky",
+        "ice"
+      ],
+      "label": "表面模式"
+    },
+    "walk_speed_scale": {
+      "type": "number",
+      "label": "行走速度倍率"
+    },
+    "walk_acceleration_scale": {
+      "type": "number",
+      "label": "起步加速度倍率"
+    },
+    "brake_scale": {
+      "type": "number",
+      "label": "制动倍率"
+    },
+    "reverse_acceleration_scale": {
+      "type": "number",
+      "label": "反向制动倍率"
+    }
+  },
+  "inputs": {},
+  "outputs": {},
+  "category": "traversal",
+  "root": false,
+  "default_definition": "surface.motion",
+  "validator_script": "res://game/world/elements/traversal_mechanism_config.gd"
+}

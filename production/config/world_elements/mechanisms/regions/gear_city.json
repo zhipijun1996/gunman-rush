@@ -1,9 +1,25 @@
 {
   "region_id": "gear_city",
-  "definitions": [],
   "skins": {
     "gate.masonry": {
       "material": "gear_city"
+    },
+    "interaction.sound_lure": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/gear_city.png"
+    },
+    "zone.sight_occluder": {
+      "bank_atlas": "res://assets/world_elements/perception_regions/gear_city.png"
+    },
+    "zone.foreground_cover": {
+      "texture": "res://assets/world_elements/perception_regions/gear_city_veil.png"
+    },
+    "environment.local_light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/gear_city.png"
+    },
+    "switch.light": {
+      "instrument_atlas": "res://assets/world_elements/perception_regions/gear_city.png"
     }
-  }
+  },
+  "hardware_atlas": "res://assets/mechanisms/regional/gear_city.png",
+  "hardware_light": "#ff8f38"
 }

@@ -131,6 +131,7 @@ func _can_engage() -> bool:
 	if target.distance_to(detection_origin) > actor.definition.activation_range: return false
 	for point: Vector2 in protected_points:
 		if target.distance_to(point) < actor.definition.protected_radius: return false
+	if WorldLightNetwork.sight_blocked(actor.motor.get_parent(),actor.motor.global_position,target): return false
 	var ray := PhysicsRayQueryParameters2D.create(actor.motor.global_position, target, 1, [actor.motor.get_rid()])
 	var hit := actor.motor.get_world_2d().direct_space_state.intersect_ray(ray)
 	return hit.is_empty() or hit.get("collider") == controller.motor
@@ -154,6 +155,7 @@ func _fire() -> void:
 		shot.configure(self, StringName("%s:seed:%s" % [source_id, _serial]), locked_direction.rotated(angle))
 		actor.motor.get_parent().add_child(shot)
 		shot.global_position = origin
+		ProjectileFlight.register_at(shot,controller,"enemy")
 		# Clearance from the body to the configured mouth uses the real seed
 		# volume. A wall or close player cannot be skipped by spawning beyond it.
 		if not muzzle.is_equal_approx(origin): shot.launch_to_muzzle(muzzle)

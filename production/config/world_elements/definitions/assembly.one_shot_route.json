@@ -1,0 +1,100 @@
+{
+  "id": "assembly.one_shot_route",
+  "name": "一次性开路组",
+  "version": 1,
+  "category": "assemblies",
+  "placeable": true,
+  "documentation": "docs/data/mechanisms/assembly.one_shot_route.md",
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "result_types": {
+    "open_gate": "gate.masonry",
+    "lower_beam": "platform.rotating_beam",
+    "settle_block": "hazard.falling_weight"
+  },
+  "member_families": {
+    "result": [
+      "gate.masonry",
+      "platform.rotating_beam",
+      "hazard.falling_weight"
+    ]
+  },
+  "creation_adapter": "res://game/world/elements/permanent_result_preset.gd",
+  "creation_fields": {
+    "action_id": {
+      "type": "string"
+    },
+    "result_kind": {
+      "type": "string",
+      "choices": [
+        "open_gate",
+        "lower_beam",
+        "settle_block"
+      ]
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "member_offsets": {
+      "type": "dict"
+    }
+  },
+  "members": [
+    {
+      "id": "latch",
+      "definition": "switch.shot",
+      "offset": [
+        -96,
+        0
+      ],
+      "properties": {},
+      "instance_refs": {}
+    },
+    {
+      "id": "action",
+      "definition": "interaction.action",
+      "offset": [
+        -96,
+        32
+      ],
+      "properties": {},
+      "instance_refs": {
+        "action_owner_id": "coordinator"
+      }
+    },
+    {
+      "id": "coordinator",
+      "definition": "internal.permanent_result",
+      "offset": [
+        0,
+        -64
+      ],
+      "properties": {},
+      "instance_refs": {
+        "result_target_id": "result"
+      }
+    },
+    {
+      "id": "result",
+      "definition": "gate.masonry",
+      "offset": [
+        96,
+        -64
+      ],
+      "properties": {
+        "state_scope": "attempt"
+      },
+      "instance_refs": {}
+    }
+  ],
+  "links": [
+    {
+      "source": "latch",
+      "output": "active",
+      "target": "coordinator",
+      "input": "request"
+    }
+  ]
+}

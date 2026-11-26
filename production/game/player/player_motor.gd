@@ -25,7 +25,22 @@ var damage_remaining := 0.0
 var _blink_motion := Vector2.ZERO
 var _blink_requested := false
 var _sustained_recoil := false
+var wind_velocity := Vector2.ZERO
+var wind_acceleration := Vector2.ZERO
+var wind_cap := 0.0
+var bubble_carrier: Node
+var contacts_current := true
+var last_portal_step := -1
+var last_action_step := -1
+var wall_transport := false
+signal repositioned
 signal weapon_blinked(start: Vector2, finish: Vector2)
+
+func grounded_contact() -> bool:
+	return contacts_current and is_on_floor()
+
+func wall_contact() -> bool:
+	return contacts_current and is_on_wall()
 
 func step(move_axis: float, delta: float) -> void:
 	# Accepted hurt owns its short motion window. Firing remains legal, but a
@@ -34,12 +49,36 @@ func step(move_axis: float, delta: float) -> void:
 		cancel_ability_motion()
 		clear_recoil()
 		cancel_weapon_apex()
+	var ability_takes_step := _ability_requested
 	var blink_committing := _blink_requested
 	_advance_drop(delta)
-	var acceleration := tuning.ground_acceleration if is_on_floor() else tuning.air_acceleration
-	if is_zero_approx(move_axis) and is_on_floor():
+	var acceleration := tuning.ground_acceleration if grounded_contact() else tuning.air_acceleration
+	if is_zero_approx(move_axis) and grounded_contact():
 		acceleration = tuning.ground_deceleration
-	normal_velocity.x = move_toward(normal_velocity.x, move_axis * tuning.ground_speed, acceleration * delta)
+	var support: Node = null
+	var conveyor := Vector2.ZERO
+	var best_depth := -INF
+	var best_id := ""
+	for index: int in (get_slide_collision_count() if contacts_current else 0):
+		var contact := get_slide_collision(index)
+		var body := contact.get_collider() as Node
+		if body == null: continue
+		var normal := contact.get_normal()
+		if grounded_contact() and normal.y < -.7 and normal_velocity.y >= 0:
+			var id := str(body.get_meta("editor_entity_id",body.name))
+			var depth := contact.get_depth()
+			if depth > best_depth or (is_equal_approx(depth,best_depth) and id < best_id):
+				support = body
+				best_depth = depth
+				best_id = id
+		if wall_transport and body.has_meta("conveyor"):
+			conveyor = body.get_meta("conveyor").transport(normal,true)
+	if support != null and support.has_meta("motion_surface"):
+		normal_velocity.x = support.get_meta("motion_surface").walk_velocity(normal_velocity.x,move_axis,tuning.ground_speed,acceleration,delta)
+	else:
+		normal_velocity.x = move_toward(normal_velocity.x, move_axis * tuning.ground_speed, acceleration * delta)
+	if support != null and support.has_meta("conveyor"):
+		conveyor = support.get_meta("conveyor").transport(Vector2.UP,false)
 	if _horizontal_lock > 0:
 		normal_velocity.x = _horizontal_value
 		_horizontal_lock = maxf(0,_horizontal_lock-delta)
@@ -86,10 +125,25 @@ func step(move_axis: float, delta: float) -> void:
 		velocity = Vector2(lerpf(normal_velocity.x,damage_velocity.x,fraction),normal_velocity.y+damage_velocity.y*fraction)
 		damage_remaining = maxf(0.0, damage_remaining - delta)
 		if damage_remaining <= 0: damage_velocity = Vector2.ZERO
+	if grounded_contact() or wall_transport or ability_takes_step or is_instance_valid(bubble_carrier):
+		wind_velocity = Vector2.ZERO
+	elif wind_cap > 0:
+		wind_velocity = (wind_velocity + wind_acceleration*delta).limit_length(wind_cap)
+	else:
+		wind_velocity *= exp(-delta/maxf(tuning.recoil_tau,0.001))
+	wind_acceleration = Vector2.ZERO
+	wind_cap = 0
+	velocity += wind_velocity + conveyor
+	if is_instance_valid(bubble_carrier):
+		velocity = bubble_carrier.passenger_velocity(self,delta)
+		if is_instance_valid(bubble_carrier): normal_velocity = Vector2.ZERO
 	motion_steps += 1
 	move_and_slide()
+	contacts_current = true
 	for index: int in get_slide_collision_count():
 		var normal := get_slide_collision(index).get_normal()
+		if wind_velocity.dot(normal) < 0.0:
+			wind_velocity = wind_velocity.slide(normal)
 		if damage_velocity.dot(normal) < 0.0:
 			damage_velocity = damage_velocity.slide(normal)
 		if normal_velocity.dot(normal) < 0.0:
@@ -109,9 +163,15 @@ func step(move_axis: float, delta: float) -> void:
 func reset_at(location: Vector2) -> void:
 	_clear_drop()
 	position = location
+	contacts_current = false
 	reset_motion()
+	repositioned.emit()
 
 func reset_motion() -> void:
+	exit_bubble()
+	wind_velocity = Vector2.ZERO
+	wind_acceleration = Vector2.ZERO
+	wind_cap = 0
 	damage_velocity = Vector2.ZERO
 	damage_remaining = 0.0
 	cancel_ability_motion()
@@ -149,7 +209,7 @@ func clear_recoil() -> void:
 	recoil_burst_remaining = 0.0
 
 func request_drop_through() -> bool:
-	if not is_on_floor() or is_instance_valid(_drop_body):
+	if not grounded_contact() or is_instance_valid(_drop_body):
 		return false
 	for index: int in get_slide_collision_count():
 		var collision := get_slide_collision(index)
@@ -274,3 +334,44 @@ func accept_damage_knockback(incoming: Vector2) -> void:
 	normal_velocity = Vector2.ZERO
 	damage_velocity = Vector2(side * damage_feedback.player_knockback.x, damage_feedback.player_knockback.y)
 	damage_remaining = damage_feedback.player_knockback_seconds
+
+func exit_bubble() -> bool:
+	if not is_instance_valid(bubble_carrier): return false
+	var old := bubble_carrier
+	bubble_carrier = null
+	old.release_passenger(self)
+	return true
+
+func world_launch(speed: Vector2) -> void:
+	exit_bubble()
+	cancel_ability_motion()
+	clear_recoil()
+	normal_velocity = speed
+	velocity = speed
+
+func portal_move(at: Vector2, rotation_delta: float) -> bool:
+	var frame := Engine.get_physics_frames()
+	if last_portal_step == frame: return false
+	last_portal_step = frame
+	wind_acceleration = Vector2.ZERO
+	wind_cap = 0
+	var actual := get_real_velocity().rotated(rotation_delta)
+	exit_bubble()
+	normal_velocity = normal_velocity.rotated(rotation_delta)
+	recoil_velocity = recoil_velocity.rotated(rotation_delta)
+	damage_velocity = damage_velocity.rotated(rotation_delta)
+	wind_velocity = wind_velocity.rotated(rotation_delta)
+	_local_velocity = _local_velocity.rotated(rotation_delta)
+	_ability_velocity = _ability_velocity.rotated(rotation_delta)
+	_horizontal_lock = 0
+	velocity = actual
+	# Transport velocity is folded in exactly once, including a moving support.
+	if damage_remaining <= 0 and recoil_burst_remaining <= 0:
+		normal_velocity = actual - recoil_velocity - wind_velocity
+		if _local_duration > 0: normal_velocity -= _local_velocity
+	global_position = at
+	contacts_current = false
+	wall_transport = false
+	_clear_drop()
+	repositioned.emit()
+	return true
