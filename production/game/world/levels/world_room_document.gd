@@ -64,6 +64,7 @@ static func view(source: Dictionary) -> Dictionary:
 		if source.root.properties.has(field):return {"error":"root_field_owned_by_instance:"+field}
 	if source.has("bounds") and not WorldRoomValidation.rectangle(source.bounds): return {"error":"invalid_room_bounds"}
 	if source.has("actions") and not source.actions is Array: return {"error":"invalid_room_actions"}
+	if source.has("content_bindings") and not source.content_bindings is Dictionary: return {"error":"invalid_content_bindings"}
 	var document := source.duplicate(true)
 	var rows: Array = [document.root]
 	rows.append_array(document.entities.values())
@@ -289,7 +290,7 @@ static func apply(room: Node, document: Dictionary) -> String:
 	error = WorldElementCatalog.document_error(document)
 	if not error.is_empty(): return error
 	var header := {}
-	for key: String in ["bounds", "actions"]:
+	for key: String in ["bounds", "actions", "content_bindings"]:
 		if document.has(key): header[key] = document[key].duplicate(true)
 	room.set_meta("editor_room_header",header)
 	room.set_meta("editor_element_rows", document.entities.duplicate(true))

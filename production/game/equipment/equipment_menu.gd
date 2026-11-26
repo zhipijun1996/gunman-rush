@@ -149,8 +149,14 @@ func show_detail() -> void:
 			if item.max_level == 1: apply.hide(); detail.text += "\n固定效果"
 			elif level >= item.max_level: apply.hide(); detail.text += "\n已强化至最高等级"
 			else:
-				apply.text = "强化至 Lv%d · %d 金币" % [level+1,item.upgrade_prices[level-1]]
-				apply.disabled = gear.gold < item.upgrade_prices[level-1]
+				var upgrade_quote := session.services.equipment_upgrade_quote(selected, level + 1)
+				if not upgrade_quote.get("ok", false):
+					apply.text = "强化不可用"
+					apply.disabled = true
+					detail.text += "\n当前装备的强化报价不可用。"
+					return
+				apply.text = "强化至 Lv%d · %d 金币" % [level+1,int(upgrade_quote.price)]
+				apply.disabled = gear.gold < int(upgrade_quote.price)
 				var effects := PackedStringArray()
 				for key: String in item.parameters:
 					var values: Variant = item.parameters[key]

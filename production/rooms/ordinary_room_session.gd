@@ -8,6 +8,9 @@ var equipment := EquipmentRuntime.new()
 var equipment_menu: EquipmentMenu
 var equipment_sites: Array[EquipmentSite] = []
 var heal_base: Dictionary
+@export var content_room_id := ""
+@export_file("*.json") var content_lock_path := "res://config/imported_world/current.lock.json"
+@export_file("*.json") var content_bindings_path := "res://config/imported_world/bindings.json"
 var focus_heal: WorldFocusHeal
 var audio_service: PlayerWeaponFeelAudioV2
 signal sign_read(text: String)
@@ -22,23 +25,50 @@ var state := FixedWorldState.new()
 var pending_defeats: Dictionary = {}
 var pending_death := {}
 var retry_delay := 0.0
+var content_catalog: WorldContentCatalog
+var content_context: Dictionary = {}
+var content_enemy_gold: Dictionary = {}
 
 class RoomMemory extends WorldSaveService:
 	func commit(_payload: Dictionary, _revision: int) -> bool:
 		return true
 
 func _ready() -> void:
-	if not document_path.is_empty():
-		var storage: WorldSaveService
-		if not profile_slot.is_empty():
-			storage = WorldSaveService.new()
-			storage.configure("user://equipment_%s.json" % profile_slot,OS.has_feature("web"),profile_slot)
-		var error := open(WorldRoomDocument.read(document_path),storage)
+	var storage: WorldSaveService
+	if not profile_slot.is_empty():
+		storage = WorldSaveService.new()
+		storage.configure("user://equipment_%s.json" % profile_slot,OS.has_feature("web"),profile_slot)
+	if not content_room_id.is_empty():
+		var error := open_content(content_room_id, content_lock_path, content_bindings_path, storage)
+		if not error.is_empty(): push_error(error)
+	elif not document_path.is_empty():
+		var error := open(WorldRoomDocument.read(document_path), storage)
 		if not error.is_empty(): push_error(error)
 
-func open(document: Dictionary, storage: WorldSaveService = null, previous: OrdinaryRoomSession = null) -> String:
+func open_content(room_id: String, lock_path := "res://config/imported_world/current.lock.json", bindings_path := "res://config/imported_world/bindings.json", storage: WorldSaveService = null, allow_test_bindings := false, previous: OrdinaryRoomSession = null) -> String:
+	if room != null: return "room_already_open"
+	var catalog := WorldContentCatalog.new()
+	var result := catalog.load_locked(lock_path)
+	if not result.get("ok", false): return str(result.error)
+	result = catalog.load_bindings(bindings_path, allow_test_bindings)
+	if not result.get("ok", false): return str(result.error)
+	result = catalog.room_document(room_id)
+	if not result.get("ok", false): return str(result.error)
+	return open(WorldRoomDocument.read(result.path), storage, previous, catalog)
+
+func open(document: Dictionary, storage: WorldSaveService = null, previous: OrdinaryRoomSession = null, catalog: WorldContentCatalog = null) -> String:
 	if room != null: return "room_already_open"
 	if document.has("error"): return str(document.error)
+	if previous != null:
+		var before := previous.content_catalog.bundle_sha256 if previous.content_catalog != null else ""
+		var after := catalog.bundle_sha256 if catalog != null else ""
+		if before != after: return "room_content_version_mismatch"
+	var prepared := {}
+	if catalog != null:
+		prepared = WorldContentRoomBridge.prepare(document, catalog)
+		if not prepared.get("ok", false): return str(prepared.error)
+	elif document.has("content_bindings"):
+		return "content_catalog_required"
 	var root_row: Variant = document.get("root")
 	if not root_row is Dictionary or not root_row.get("properties") is Dictionary: return "room_root_required"
 	if not WorldRoomValidation.vector(root_row.properties.get("start_point")):
@@ -57,8 +87,9 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	var row := {"doors":[],"camera":{},"world_geometry":{"boundary":[],"bounds_world_units":bounds_data,"space_rects":[bounds_data]}}
 	room.configure(row)
 	state.content = FixedWorldProvider.new()
+	var content_identity := JSON.stringify(document) + (":" + catalog.bundle_sha256 if catalog != null else "")
 	state.content.data = {"rooms":{room.room_id:row},"actions":document.get("actions",[]),
-		"start_room":room.room_id,"start_point":[at.x,at.y],"content_version":JSON.stringify(document).sha256_text()}
+		"start_room":room.room_id,"start_point":[at.x,at.y],"content_version":content_identity.sha256_text()}
 	if previous != null:
 		if previous.room == null or not previous.lifetime.active or previous.room.room_id == room.room_id or not previous.pending_defeats.is_empty() or previous.controller.has_pending_damage():
 			room.free()
@@ -99,13 +130,21 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		previous.queue_free()
 	elif storage != null:
 		var saved := storage.load_profile()
+		if catalog != null and saved.get("payload") is Dictionary and not saved.payload.is_empty() and saved.payload.get("content_version") != state.content.data.content_version:
+			room.free()
+			room = null
+			return "room_content_save_version_mismatch"
 		if not saved.get("accepted", false) or (not saved.payload.is_empty() and (saved.payload.get("room") != room.room_id or not state.restore_profile(saved))):
 			room.free()
 			room = null
 			return "room_save_unavailable"
+	content_catalog = catalog
+	content_enemy_gold = prepared.get("enemy_gold", {})
+	content_context = prepared.get("room_context", {})
 
 	services.state = state
 	services.definitions = drop_rules
+	services.content_catalog = catalog
 	audio_service = PlayerWeaponFeelAudioV2.new()
 	add_child(audio_service)
 	player = preload("res://game/player/player.tscn").instantiate()
@@ -265,7 +304,9 @@ func _defeated(actor: EnemyActor, id: String) -> void:
 	if actor.definition.behavior_id == &"chime_target": return
 	var source := "enemy:"+str(room.room_id)+"/"+id+":cycle:"+str(state.value.cycle)
 	equipment.scene.killed(actor.motor.global_position)
-	pending_defeats[id] = {"source":source, "bonus":equipment.p("P39","gold_bonus"),"position":actor.motor.position, "enemy":room.snapshot()[id]}
+	# Imported per-enemy base participates in the existing equipment bonus transaction.
+	var base_gold := int(content_enemy_gold[id]) if content_catalog != null else int(drop_rules.enemy_gold)
+	pending_defeats[id] = {"source":source, "base_gold":base_gold, "bonus":equipment.p("P39","gold_bonus"),"position":actor.motor.position, "enemy":room.snapshot()[id]}
 	_settle_defeats()
 
 func _settle_defeats() -> void:
@@ -273,7 +314,7 @@ func _settle_defeats() -> void:
 	for id: String in pending_defeats:
 		var defeat: Dictionary = pending_defeats[id]
 		if not candidate.receipts.has("income:"+str(defeat.source)):
-			var total := float(drop_rules.enemy_gold) * (1.0 + float(defeat.bonus)) + float(candidate.services.effects.get("gold_fraction",equipment.fx.gold_fraction))
+			var total := float(defeat.base_gold) * (1.0 + float(defeat.bonus)) + float(candidate.services.effects.get("gold_fraction",equipment.fx.gold_fraction))
 			var units := WorldCoinDrops.create_units(defeat.source,floori(total),defeat.position,player.position,room.room_id)
 			candidate = services.drop_candidate(candidate, defeat.source, units)
 			candidate.services.effects.gold_fraction = total - floorf(total)

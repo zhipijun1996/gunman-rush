@@ -3,6 +3,7 @@ extends RefCounted
 ## Permanent service domain. Candidates use the same durable world revision as HP/facts.
 var state: FixedWorldState
 var definitions: Dictionary
+var content_catalog: WorldContentCatalog
 var error := ""
 var can_access: Callable
 var stage_resources: Callable
@@ -69,7 +70,26 @@ func active(id: String) -> bool:
 func capacity() -> int:
 	return EquipmentCatalog.capacity(state.value.inventory)
 
+func equipment_upgrade_quote(id: String, target_level: int) -> Dictionary:
+	# A pinned world owns its prices. A missing/invalid content quote must never
+	# silently switch the transaction back to independent-room fixture prices.
+	if content_catalog != null: return content_catalog.upgrade_quote(id, target_level)
+	var definition := EquipmentCatalog.item(id)
+	if definition.is_empty(): return {"ok":false,"error":"equipment_id_unknown","equipment_id":id}
+	var prices: Variant = definition.get("upgrade_prices")
+	if target_level < 2 or target_level > int(definition.max_level) or not prices is Array or target_level - 2 >= prices.size():
+		return {"ok":false,"error":"upgrade_target_invalid","equipment_id":id,"target_level":target_level}
+	var price: Variant = prices[target_level - 2]
+	if not WorldRoomValidation.number(price) or price <= 0 or floorf(price) != price:
+		return {"ok":false,"error":"equipment_upgrade_price_invalid","equipment_id":id,"target_level":target_level}
+	return {"ok":true,"equipment_id":id,"target_level":target_level,"price":int(price),"bundle_sha256":""}
+
 func transact(kind: String, id: String, receipt: String, expected_revision: int) -> bool:
+	error = ""
+	# Existing local reward sources have no world reward/shop binding yet.
+	if content_catalog != null and kind == "claim":
+		error = "channel_reward_binding_unsupported"
+		return false
 	if receipt.is_empty(): return false
 	var key := "equipment:" + receipt
 	var fingerprint := JSON.stringify([kind,id]).sha256_text()
@@ -98,7 +118,11 @@ func transact(kind: String, id: String, receipt: String, expected_revision: int)
 		"upgrade":
 			var current := int(gear.owned.get(id, 0))
 			if definition.is_empty() or current < 1 or current >= definition.max_level: return false
-			var price := int(definition.upgrade_prices[current - 1])
+			var quoted := equipment_upgrade_quote(id, current + 1)
+			if not quoted.get("ok", false):
+				error = str(quoted.get("error", "equipment_upgrade_quote_failed"))
+				return false
+			var price := int(quoted.price)
 			if gear.gold < price: return false
 			gear.gold -= price
 			gear.owned[id] = current + 1

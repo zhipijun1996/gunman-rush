@@ -7,6 +7,8 @@
 3. 按[模块导航](docs/project/module_map.md)修改真正消费内容的代码和资源。玩家运动归 PlayerMotor，伤害、掉落和存档由对应系统提交，特效只观察已接受事件。
 4. 在仓库根目录运行 `python3 tools/check_ordinary_rooms.py`。冻结试玩的检查单独运行 `python3 tools/ci.py`。文档链接运行 `python3 tools/check_docs.py`。
 
+世界设计输入来自[内容通道](docs/data/world/content_channel.md)。用 `python3 tools/content_channel/sync.py --check` 检查网页更新，再显式导入版本；游戏读取已锁定的本地包。房间 schema 3 持有实际地形、怪物组合、数量和位置，网页敌群只作规划预算。修改接入、绑定或掉落消费者后运行 `python3 tools/check_content_channel.py`。
+
 ## 设计与交付
 
 以最终交付件维护正文、Definition 与消费者。同一数字只在实际配置里定义；行为说明写触发、可见结果、反制、恢复和状态归属。修改机关时同步其独立定义、行为合同、对象页和适用验证。任务进度由任务表持有，工作线保存结果与下一步。
