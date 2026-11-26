@@ -5,7 +5,7 @@
   "component": "GrappleAnchor",
   "defaults": {
     "hang_enabled": false,
-    "material_family": "clockwork",
+    "material_family": "inherit",
     "position": [
       0,
       0
@@ -14,5 +14,9 @@
   "placeable": true,
   "category": "traversal",
   "documentation": "docs/data/mechanisms/traversal.hook.md",
-  "library": "mechanisms"
+  "library": "mechanisms",
+  "region_skin_fields": {
+    "bounce_texture": "texture",
+    "hang_texture": "texture"
+  }
 }
