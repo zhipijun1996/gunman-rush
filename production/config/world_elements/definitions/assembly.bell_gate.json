@@ -1,13 +1,13 @@
 {
   "id": "assembly.bell_gate",
   "name": "风铃与机关门",
-  "version": 1,
+  "version": 2,
   "members": [
     {
-      "id": "switch",
+      "id": "bell",
       "definition": "switch.shot",
       "offset": [
-        0,
+        -96,
         0
       ]
     },
@@ -15,14 +15,14 @@
       "id": "gate",
       "definition": "gate.masonry",
       "offset": [
-        128,
+        96,
         -64
       ]
     }
   ],
   "links": [
     {
-      "source": "switch",
+      "source": "bell",
       "target": "gate",
       "input": "set_active",
       "output": "active"
@@ -31,5 +31,57 @@
   "category": "assemblies",
   "placeable": true,
   "documentation": "docs/data/mechanisms/assembly.bell_gate.md",
-  "library": "mechanisms"
+  "library": "mechanisms",
+  "usable_regions": [
+    "*"
+  ],
+  "prior_members": {
+    "1": {
+      "switch": "switch.shot",
+      "gate": "gate.masonry"
+    }
+  },
+  "creation_fields": {
+    "mode": {
+      "type": "string",
+      "choices": [
+        "once",
+        "timed"
+      ],
+      "default": "once",
+      "label": "开启方式"
+    },
+    "bell.duration": {
+      "type": "number",
+      "min": 0,
+      "unit": "s",
+      "label": "开启时长"
+    },
+    "gate.bounds": {
+      "type": "rect",
+      "unit": "px",
+      "label": "门的局部矩形"
+    },
+    "member_offsets": {
+      "type": "dict",
+      "unit": "px",
+      "label": "成员偏移"
+    },
+    "section_id": {
+      "type": "string",
+      "default": "main",
+      "label": "挑战分区"
+    }
+  },
+  "mode_defaults": {
+    "once": {
+      "duration": 0,
+      "state_scope": "permanent"
+    },
+    "timed": {
+      "duration": 3.0,
+      "state_scope": "attempt"
+    }
+  },
+  "creation_adapter": "res://game/world/elements/bell_gate_preset.gd"
 }

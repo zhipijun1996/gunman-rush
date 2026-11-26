@@ -16,7 +16,7 @@
 
 1. 在新工程中编写 schema 3 房间文档。给出独立的 `room_id`、`bounds`，以 `room.standard` 为根，明确 `start_point` 和 `terrain_material`，在 `root.properties.region_id` 写所属区域。从[组装夹具](../../production/tests/assembly_room.json)可看到最小可运行数据。
 2. 用 `platform.solid`、单向平台或地形多边形确定碰撞；材质绘制消费同一几何。可用材质与接缝见[地形规范](terrain_materials.md)。
-3. 从[机关库](../data/world_objects.md)选择公有件或本区专属件。调用 `WorldElementCatalog.instantiate_definition` 时传入房间的 `region_id`。公有机关的区域外观由库解析，拼装时可直接检视它与平台和背景的关系。实例写稳定 ID、定义 ID／版本与局部属性。连线写目标实例 ID 和输入输出名。同类机关可多次摆放。组合件创建时展开为可单独移动、配置和保存的子实例。
+3. 按[基本库索引](../data/失序之钟_基本机关库.md#room-design)从房间职责、来向能力和玩家判断出发，再从[已接入机关](../data/world_objects.md)选件。需要可复用联动时查[预组合同](../data/失序之钟_预组与组合推荐.md)。调用 `WorldElementCatalog.instantiate_definition` 时传入房间的 `region_id`。公有机关的区域外观由库解析，拼装时可直接检视它与平台和背景的关系。实例写稳定 ID、定义 ID／版本与局部属性。连线写目标实例 ID 和输入输出名。同类机关可多次摆放。组合件创建时展开为可单独移动、配置和保存的子实例。
 4. 给怪物出生点指定 `enemy.<物种>`、实例 ID 与位置。物种行为、受击、死亡和掉落由共享系统执行。需要新玩法时，先增加共用行为及定义，再在房间中引用。
 5. 用 `OrdinaryRoomSession` 的 `document_path` 打开同一份数据。试玩用内存状态；显式提供持久化宿主后才读写对应存档。表现响应仲裁和提交结果，恢复既有状态时保持安静。
 

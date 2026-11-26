@@ -4,6 +4,8 @@
 
 `appearance` 默认为 `inherit`，从所属区域清单的 `gate.masonry.material` 选择门体的 TileSet。实例可显式指定注册材质。未指定区域时使用磨坊砌体。开关状态、端口和碰撞尺寸由同一行为持有。
 
-[行为与字段合同](../../../production/config/world_elements/behaviors/WorldElementGate.json)。输入 set_active (bool)
+当前可用模式为信号控制。关门时使用门体与玩家实际碰撞形状检查占用。限时风铃等待可安全关闭后一起释放，允许玩家留在门中再离开。
+
+[完整合同](../失序之钟_基本机关库.md#c02) · [行为与字段合同](../../../production/config/world_elements/behaviors/WorldElementGate.json)。输入 set_active (bool)
 
 [版本和默认参数](../../../production/config/world_elements/definitions/gate.masonry.json) · [机关目录](../world_objects.md)

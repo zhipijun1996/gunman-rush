@@ -25,6 +25,7 @@ var damage_remaining := 0.0
 var _blink_motion := Vector2.ZERO
 var _blink_requested := false
 var _sustained_recoil := false
+signal repositioned
 signal weapon_blinked(start: Vector2, finish: Vector2)
 
 func step(move_axis: float, delta: float) -> void:
@@ -110,6 +111,7 @@ func reset_at(location: Vector2) -> void:
 	_clear_drop()
 	position = location
 	reset_motion()
+	repositioned.emit()
 
 func reset_motion() -> void:
 	damage_velocity = Vector2.ZERO

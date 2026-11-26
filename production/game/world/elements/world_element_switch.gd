@@ -6,6 +6,8 @@ extends WorldShotLatch
 @export var access_points: Array[Vector2] = []
 @export var links: Array[Dictionary] = []
 @export var repeat_enabled := false
+@export var initial_active := false
+@export var section_id := "main"
 @export var duration := 0.0
 var elements: WorldElementRuntime
 var expiration_pending := false
@@ -18,6 +20,7 @@ func element_bind(context: Dictionary) -> void:
 	gate_visual_enabled = false
 	open_seconds = 0
 	for point: Vector2 in access_points: add_access_bell(point-position)
+	is_open = initial_active
 	activation_requested.connect(context.submit)
 	controller.router.cancelled.connect(on_router_cancelled)
 

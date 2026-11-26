@@ -1,7 +1,16 @@
-# 风铃与机关门
+# C15 风铃与机关门
 
-一次放置会生成铃、门和布尔连线。作者可分别移动两个子实例；同一房间可再放置第二组，子 ID 随组合实例区分。
+一次放置会生成 `bell`、`gate` 两个子实例和一条布尔连线。默认 `once` 永久开路。`timed` 由风铃掌握到期时刻，门内有人时延迟关闭，通路清空后恢复，下一次射击可再次开门。
 
-组合成员为 [switch.shot](switch.shot.md)、[gate.masonry](gate.masonry.md)。子实例继承各自行为的端口与状态规则。
+从作者 API 指定预组原点和创建参数。下面的配置生成一个三秒窗口，门的局部边界随成员偏移只平移一次。
 
-[版本和默认参数](../../../production/config/world_elements/definitions/assembly.bell_gate.json) · [机关目录](../world_objects.md)
+```gdscript
+var placed := WorldElementCatalog.instantiate_definition(
+    "assembly.bell_gate", "shutter", Vector2(368,360), "gear_city",
+    {"mode":"timed", "member_offsets":{"gate":[96,-104]}}
+)
+```
+
+`mode` 推导两个成员的状态寿命。`bell.duration` 可覆盖限时时长，`gate.bounds` 可指定局部矩形，`section_id` 绑定房内挑战分区。房间保存展开的实际值、稳定 ID、连线及来源版本。已经放置的第一版保留原来的 `switch` 子 ID 和布局；新版新放置的铃使用 `bell`。
+
+[定义及开放参数](../../../production/config/world_elements/definitions/assembly.bell_gate.json) · [射击风铃](switch.shot.md) · [砌体门](gate.masonry.md) · [限时试玩](../../../production/tests/bell_gate_demo.tscn)

@@ -2,8 +2,17 @@ extends SceneTree
 ## Show the same library used to authorize placement and load room documents.
 func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
+	if args.size() == 2 and args[0] == "--describe":
+		var definition: Dictionary = WorldElementCatalog.catalog().definitions.get(args[1], {})
+		if definition.get("library") != "mechanisms":
+			printerr("未知机关：", args[1])
+			quit(1)
+			return
+		print_definition(definition)
+		quit()
+		return
 	if args.size() > 1:
-		printerr("用法：list_mechanisms.gd -- [region_id | --regions]")
+		printerr("用法：list_mechanisms.gd -- [region_id | --regions | --describe definition_id]")
 		quit(1)
 		return
 	var region := "" if args.is_empty() else args[0]
@@ -28,3 +37,21 @@ func show_entries(ids: Array) -> void:
 	for id: String in ids:
 		var definition: Dictionary = WorldElementCatalog.catalog().definitions[id]
 		print(id,"  ",definition.name,"  ",definition.documentation)
+
+func print_definition(definition: Dictionary) -> void:
+	print(definition.name, "  ", definition.id, "  v", definition.version)
+	print("声明区域  ", JSON.stringify(definition.get("usable_regions", ["*"])))
+	var fields: Dictionary = definition.get("creation_fields", {})
+	if definition.has("component"):
+		fields = WorldElementCatalog.catalog().behaviors[definition.component].fields
+	for key: String in fields:
+		var field: Dictionary = fields[key]
+		var value: Variant = definition.get("defaults", {}).get(key, field.get("default"))
+		var display := str(field.get("label", key)) + " (" + key + ")"
+		var detail := str(field.type) + " " + str(field.get("unit", ""))
+		if value != null: detail += "  默认 " + JSON.stringify(value)
+		if field.has("choices"): detail += "  " + JSON.stringify(field.choices)
+		print(display, "  ", detail)
+	for mode: String in definition.get("mode_defaults", {}):
+		print(mode, "  ", JSON.stringify(definition.mode_defaults[mode]))
+	print(definition.documentation)

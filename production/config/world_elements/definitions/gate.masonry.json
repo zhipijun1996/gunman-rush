@@ -11,7 +11,9 @@
       128
     ],
     "appearance": "inherit",
-    "state_scope": "permanent"
+    "state_scope": "permanent",
+    "section_id": "main",
+    "gate_mode": "signal"
   },
   "position_field": "bounds",
   "category": "interaction",
@@ -20,5 +22,8 @@
   "library": "mechanisms",
   "region_skin_fields": {
     "material": "terrain_material"
-  }
+  },
+  "usable_regions": [
+    "*"
+  ]
 }

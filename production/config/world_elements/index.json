@@ -22,7 +22,8 @@
     "WorldRoomFeature": "res://config/world_elements/behaviors/WorldRoomFeature.json",
     "WorldRoomAssembly": "res://config/world_elements/behaviors/WorldRoomAssembly.json",
     "EquipmentSite": "res://config/world_elements/behaviors/EquipmentSite.json",
-    "WorldResourcePickup": "res://config/world_elements/behaviors/WorldResourcePickup.json"
+    "WorldResourcePickup": "res://config/world_elements/behaviors/WorldResourcePickup.json",
+    "WorldCrossingSensor": "res://config/world_elements/behaviors/WorldCrossingSensor.json"
   },
   "definitions": {
     "switch.shot": "res://config/world_elements/definitions/switch.shot.json",
@@ -69,7 +70,8 @@
     "equipment.reward": "res://config/world_elements/definitions/equipment.reward.json",
     "equipment.smith": "res://config/world_elements/definitions/equipment.smith.json",
     "equipment.secret": "res://config/world_elements/definitions/equipment.secret.json",
-    "reward.resource": "res://config/world_elements/definitions/reward.resource.json"
+    "reward.resource": "res://config/world_elements/definitions/reward.resource.json",
+    "switch.crossing": "res://config/world_elements/definitions/switch.crossing.json"
   },
   "libraries": {
     "terrain": {
@@ -90,7 +92,6 @@
     }
   },
   "mechanism_libraries": {
-    "common": "res://config/world_elements/mechanisms/common.json",
     "regions": {
       "windchime_plains": "res://config/world_elements/mechanisms/regions/windchime_plains.json",
       "thorn_forest": "res://config/world_elements/mechanisms/regions/thorn_forest.json",

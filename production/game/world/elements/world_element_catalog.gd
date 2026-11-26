@@ -14,7 +14,6 @@ static func catalog() -> Dictionary:
 				assert(entry.get("id")==id,"Catalog identity mismatch: "+id)
 				_data[group][id] = entry
 		var libraries: Dictionary = index.mechanism_libraries
-		_data.common_mechanisms = JSON.parse_string(FileAccess.get_file_as_string(libraries.common)).definitions
 		_data.mechanism_regions = {}
 		for region: String in libraries.regions:
 			var profile: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(libraries.regions[region]))
@@ -27,12 +26,21 @@ static func region_known(region: Variant) -> bool:
 
 static func mechanism_palette(region: String) -> Dictionary:
 	if not region_known(region): return {"error":"unknown_room_region:"+region}
-	var profile: Dictionary = catalog().mechanism_regions.get(region,{})
-	return {"common":catalog().common_mechanisms.duplicate(),"regional":profile.get("definitions",[]).duplicate()}
+	var common := []
+	var regional := []
+	for definition: Dictionary in catalog().definitions.values():
+		if definition.library != "mechanisms" or not permitted(definition, region): continue
+		if permitted(definition, ""): common.append(definition.id)
+		else: regional.append(definition.id)
+	return {"common": common, "regional": regional}
 
 static func permitted(definition: Dictionary, region: String) -> bool:
-	if definition.library != "mechanisms" or definition.id in catalog().common_mechanisms: return true
-	return definition.id in catalog().mechanism_regions.get(region,{}).get("definitions",[])
+	var regions: Array = definition.get("usable_regions", ["*"])
+	if "*" not in regions and region not in regions: return false
+	for member: Dictionary in definition.get("members", []):
+		var child: Dictionary = catalog().definitions.get(member.definition, {})
+		if child.is_empty() or child.has("members") or not permitted(child, region): return false
+	return true
 
 static func skin_value(node: Node, definition_id: String, field: String, fallback: String) -> String:
 	var ancestor := node.get_parent()
@@ -79,7 +87,7 @@ static func fields_error(fields: Dictionary, values: Dictionary) -> String:
 				if not value is Array: return "points_invalid:"+key
 				for point: Variant in value:
 					if not WorldRoomValidation.vector(point): return "point_invalid:"+key
-		if spec.has("choices") and value not in spec.choices: return "choice_invalid:"+key
+		if spec.has("choices") and not spec.choices.any(func(choice): return choice == value): return "choice_invalid:"+key
 	return ""
 
 static func state_error(packet: Dictionary) -> String:
@@ -102,6 +110,12 @@ static func document_error(document: Dictionary) -> String:
 	var entities: Dictionary = document.entities
 	var bindings := {}
 	var reward_sources := {}
+	var boolean_writers := {}
+	var sections := {"main":true}
+	var volumes: Variant = document.root.properties.get("section_volumes", [])
+	if not volumes is Array: return "section_volumes:array_required"
+	for volume: Variant in volumes:
+		if volume is Dictionary: sections[volume.get("id","")] = true
 	for id: String in entities:
 		var row: Dictionary = entities[id]
 		if row.get("id") != id: return "element_id_mismatch:"+id
@@ -114,6 +128,16 @@ static func document_error(document: Dictionary) -> String:
 		var error := fields_error(behavior.get("fields", {}), properties)
 		if not error.is_empty(): return id+":"+error
 		var definition: Dictionary = catalog().definitions.get(str(row.get("definition_id","")),{})
+		if properties.has("section_id") and not sections.has(properties.section_id):
+			return "unknown_section_id:"+id
+		if kind == "WorldCrossingSensor":
+			var points: Array = properties.line_points
+			if points.size() != 2 or FixedWorldProvider.point(points[0]) == FixedWorldProvider.point(points[1]):
+				return "line_points:distinct_pair_required:"+id
+		if kind == "WorldElementSwitch":
+			if properties.duration > 0 and (properties.repeat_enabled or properties.state_scope != "attempt"):
+				return "duration:invalid_switch_mode:"+id
+			if properties.initial_active and not properties.repeat_enabled: return "initial_active:requires_toggle:"+id
 		if kind == "EquipmentSite":
 			var role: String = properties.get("kind","")
 			var source: String = properties.get("source_id","")
@@ -154,6 +178,12 @@ static func document_error(document: Dictionary) -> String:
 			var input := str(link.get("input", "set_active"))
 			if not behavior.get("outputs", {}).has(output) or not receiver.get("inputs", {}).has(input): return "signal_port_invalid:"+id
 			if behavior.outputs[output] != receiver.inputs[input]: return "signal_type_mismatch:"+id
+			if input == "set_active" and receiver.inputs[input] == "bool":
+				var writer_key := str(link.target)+":"+input
+				if boolean_writers.has(writer_key): return "multiple_boolean_sources:"+writer_key
+				boolean_writers[writer_key] = id
+			if properties.get("state_scope") == "attempt" and properties.get("section_id","main") != target.properties.get("section_id","main"):
+				return "signal_section_mismatch:"+id
 			var signature := str(link.target)+":"+output
 			if linked.has(signature): return "signal_duplicate:"+id
 			linked[signature] = true
@@ -176,7 +206,7 @@ static func _cyclic(id: String, rows: Dictionary, visiting: Dictionary, visited:
 	visiting.erase(id); visited[id] = true
 	return false
 
-static func instantiate_definition(definition_id: String, instance_id: String, at: Vector2, region_id: String = "") -> Dictionary:
+static func instantiate_definition(definition_id: String, instance_id: String, at: Vector2, region_id: String = "", options: Dictionary = {}) -> Dictionary:
 	if not region_known(region_id): return {"error":"unknown_room_region:"+region_id}
 	var definition: Dictionary = catalog().definitions.get(definition_id, {})
 	if definition.is_empty(): return {"error":"definition_unknown"}
@@ -184,6 +214,17 @@ static func instantiate_definition(definition_id: String, instance_id: String, a
 	if instance_id.is_empty(): return {"error":"instance_id_missing"}
 	var result: Dictionary = {}
 	var members: Array = definition.get("members", [{"id":"", "definition":definition_id, "offset":[0,0]}])
+	if not options.is_empty() or definition.has("creation_fields"):
+		var fields: Dictionary = definition.get("creation_fields", {})
+		for key: Variant in options:
+			if not fields.has(key): return {"error":"unknown_creation_field:"+str(key)}
+		var error := fields_error(fields, options)
+		if not error.is_empty(): return {"error":error}
+		if definition.has("creation_adapter"):
+			members = members.duplicate(true)
+			var adapter: Script = load(definition.creation_adapter)
+			error = adapter.configure(definition, members, options)
+			if not error.is_empty(): return {"error":error}
 	for member: Dictionary in members:
 		var child: Dictionary = catalog().definitions.get(str(member.definition), {})
 		if child.is_empty() or child.has("members"): return {"error":"nested_definition_invalid"}
@@ -198,7 +239,7 @@ static func instantiate_definition(definition_id: String, instance_id: String, a
 		if position_field=="polygon":
 			for point: Array in props.points: point[0]+=offset.x;point[1]+=offset.y
 		elif position_field in ["rect", "bounds"]:
-			props[position_field][0] = offset.x; props[position_field][1] = offset.y
+			props[position_field][0] += offset.x; props[position_field][1] += offset.y
 		else: props[position_field] = [offset.x, offset.y]
 		var row := {"id":id,"definition_id":member.definition,"definition_version":child.version,"component":child.component,"order":result.size(),"properties":props}
 		if not str(child.component).begins_with("array:"):
@@ -208,6 +249,7 @@ static func instantiate_definition(definition_id: String, instance_id: String, a
 		if definition.has("members"):
 			row["assembly_id"] = instance_id
 			row["assembly_definition_id"] = definition_id
+			row["assembly_definition_version"] = definition.version
 		result[id] = row
 	for link: Dictionary in definition.get("links", []):
 		var source: Dictionary = result[instance_id+"/"+str(link.source)].properties

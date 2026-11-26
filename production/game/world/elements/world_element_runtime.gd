@@ -16,6 +16,16 @@ func bind(room: FixedWorldRoom, controller: PlayerController, policy: FrameDamag
 		if str(nodes[id].get("state_scope")) == "permanent" and saved.has(id) and saved[id] is Dictionary and saved[id].get("type") == kinds[id] and WorldElementCatalog.state_error(saved[id]).is_empty(): nodes[id].call("element_restore",saved[id].data)
 		if nodes[id].has_method("can_commit"): room.mechanisms[id] = nodes[id]
 
+	# Fresh, authored toggle states use the same output as accepted shots.
+	for source: Node in nodes.values():
+		if not source is WorldElementSwitch or not source.repeat_enabled: continue
+		for link: Dictionary in source.links:
+			var target: Node = nodes[link.target]
+			if target.state_scope == "permanent" and saved.has(link.target): continue
+			var input := str(link.get("input", "set_active"))
+			if target.element_can_receive(input, source.is_open):
+				target.element_restore(target.element_propose(input, source.is_open))
+
 func can_signal(source: Node, value: Variant, output := "active") -> bool:
 	var source_kind := WorldElementCatalog.component_for(source.get_script())
 	var type := str(WorldElementCatalog.catalog().behaviors[source_kind].get("outputs",{}).get(output,""))

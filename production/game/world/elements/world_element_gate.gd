@@ -2,6 +2,8 @@ class_name WorldElementGate
 extends Node2D
 @export var element_id := ""
 @export_enum("permanent", "attempt") var state_scope := "permanent"
+@export var section_id := "main"
+@export_enum("signal") var gate_mode := "signal"
 @export var bounds := Rect2(0,0,32,128)
 @export var appearance := "inherit"
 var active := false
@@ -29,7 +31,10 @@ func element_state() -> Dictionary:
 
 func element_can_receive(input: String, value: bool) -> bool:
 	if input != "set_active": return false
-	return value or not is_instance_valid(controller) or not bounds.grow(24).has_point(to_local(controller.motor.global_position))
+	if value or not is_instance_valid(controller): return true
+	var player_shape := controller.motor.get_node("CollisionShape2D") as CollisionShape2D
+	var gate_shape := body.get_child(0) as CollisionShape2D
+	return not gate_shape.shape.collide(gate_shape.global_transform, player_shape.shape, player_shape.global_transform)
 
 func element_propose(_input: String, value: bool) -> Dictionary:
 	return {"active":value}

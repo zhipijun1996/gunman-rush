@@ -76,8 +76,19 @@ static func view(source: Dictionary) -> Dictionary:
 			var assembly: Dictionary = WorldElementCatalog.catalog().definitions.get(row.assembly_definition_id,{})
 			if not assembly.has("members") or not WorldElementCatalog.permitted(assembly,region):
 				return {"error":"assembly_invalid_for_region:"+str(row.assembly_definition_id)}
-			var matches: bool = assembly.members.any(func(member): return member.definition == definition.id and str(row.get("assembly_id",""))+"/"+str(member.id) == str(row.get("id","")))
-			if not matches: return {"error":"assembly_member_mismatch:"+str(row.get("id",""))}
+			var source_version: Variant = row.get("assembly_definition_version", 1)
+			if not WorldRoomValidation.number(source_version) or float(source_version) != floorf(source_version):
+				return {"error":"assembly_version_invalid"}
+			var roles := {}
+			if source_version == assembly.version:
+				for member: Dictionary in assembly.members: roles[member.id] = member.definition
+			else:
+				roles = assembly.get("prior_members", {}).get(str(int(source_version)), {})
+			var prefix := str(row.get("assembly_id", ""))+"/"
+			var id := str(row.get("id", ""))
+			if prefix == "/" or not id.begins_with(prefix) or roles.get(id.trim_prefix(prefix)) != definition.id:
+				return {"error":"assembly_member_mismatch:"+id}
+			row.assembly_definition_version = int(source_version)
 		if row.has("component") and row.component!=definition.component: return {"error":"derived_component_mismatch"}
 		var behavior:Dictionary=WorldElementCatalog.catalog().behaviors.get(str(definition.component),{})
 		if behavior.get("internal_service",false) or bool(behavior.get("root",false))!=not row.has("id"): return {"error":"definition_role_invalid"}
@@ -247,7 +258,7 @@ static func extract(packed: PackedScene) -> Dictionary:
 	var element_rows: Dictionary = source.get_meta("editor_element_rows", {})
 	for id: String in document.entities:
 		if not element_rows.has(id): continue
-		for key: String in ["definition_id", "definition_version", "assembly_id", "assembly_definition_id", "order"]:
+		for key: String in ["definition_id", "definition_version", "assembly_id", "assembly_definition_id", "assembly_definition_version", "order"]:
 			if element_rows[id].has(key): document.entities[id][key] = element_rows[id][key]
 		if document.entities[id].component=="array:platforms" and source.platform_appearances.has(id): document.entities[id].properties.appearance = source.platform_appearances[id]
 	# Codec metadata is persisted on the packed root, never duplicated in JSON.
