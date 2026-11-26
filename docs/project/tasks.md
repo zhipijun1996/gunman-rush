@@ -2,6 +2,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
+| MECHANISM-LIBRARIES-01 | 区分公有与区域专属机关，让同一行为支持区域外观 | — | review | [交接](worklines/mechanism_libraries/scope.md) |
 | EQUIPMENT-01 | 按定稿交付重做版永久装备、房间服务和运行验证 | — | review | [交接](worklines/permanent_equipment/scope.md) |
 | ROOM-REBUILD-01 | 使用现有组件完成首个正式房间，批准后切换默认入口 | — | planned | [交接](worklines/room_rebuild/scope.md) |
 

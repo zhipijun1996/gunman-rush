@@ -75,7 +75,7 @@ static func build(room: FixedWorldRoom) -> void:
 	for rect: Rect2 in room.climbable_walls:
 		var wall:=WorldClimbableWall.new();wall.bounds=rect;room.add_child(wall)
 	for point: Vector2 in room.hook_points:
-		var anchor:=GrappleAnchor.new();anchor.position=point;anchor.hang_enabled=true;anchor.material_family="clockwork";room.add_child(anchor)
+		var anchor:=GrappleAnchor.new();anchor.position=point;anchor.hang_enabled=true;room.add_child(anchor)
 	for sign: Dictionary in room.signs:
 		var marker:=Sprite2D.new()
 		marker.texture=WorldProps.prop("notice_board")

@@ -2,6 +2,25 @@
 
 每项机关／组合件有一个定义文件与一页对象说明。定义声明版本、可配置值和行为，行为合同声明合法字段、输入输出与可保存状态；房间只记录实例、连线与覆盖参数。定义中的 documentation 以仓库根目录为基准。
 
+## 制作时怎样选库
+
+正式房间在 `root.properties.region_id` 指定所属区域。可以摆放的机关来自[公有清单](../../production/config/world_elements/mechanisms/common.json)和[所属区域的清单](../../production/config/world_elements/mechanisms/regions)。未指定区域的房间只取公有清单，未知区域或越区引用会在装配前报错。区域 ID 与[地形登记表](../../production/config/terrain_materials.json)一致。房间可独立选择地形材质。
+
+在仓库根目录查询作者可用的机关，每项输出定义 ID、中文名和对象页。省略区域只列公有库。
+
+```sh
+bash tools/godot.sh --headless --path production --script res://scripts/list_mechanisms.gd -- --regions
+bash tools/godot.sh --headless --path production --script res://scripts/list_mechanisms.gd -- thorn_forest
+```
+
+- **公有机关**承担跨区通用的动作、交互或组合。各区引用同一份定义及行为合同。区域清单的 `skins` 按定义 ID 提供外观，只能填写该定义声明的 `region_skin_fields`。材质引用地形登记表，贴图引用游戏实际导入的 PNG。未配置的外观沿用机关自身默认值。
+- **区域特色机关**用于该区独有的玩法，或具有区域特色、应能整体复用的组合。先创建独立定义和对象页，在机器索引和所属区域的 `definitions` 各登记一次。能由现有组件实现的组合直接引用其定义和端口。区域组合可以引用公有件及本区件，公有组合只能引用公有件。创建组合时将来源定义随子实例保存，换区后重新校验。
+- **判断归属**时先看玩家动作、触发条件、反馈和恢复方式。只变化贴图或材质就在区域清单配置外观；单房的位置、速度、行程和连线写入实例。改变共用行为合同或新增独特玩法时，再评估是否需要独立定义。
+
+## 公有机关目录
+
+目录包括 14 个可直接放置的单项和 2 个可展开的组合件。组合件中的风铃、门和载台继续使用各自的单项定义。
+
 | 定义 ID | 对象说明 |
 | --- | --- |
 | `switch.shot` | [射击风铃](mechanisms/switch.shot.md) |

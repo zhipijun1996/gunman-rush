@@ -3,7 +3,7 @@ extends Node2D
 @export var element_id := ""
 @export_enum("permanent", "attempt") var state_scope := "permanent"
 @export var bounds := Rect2(0,0,32,128)
-@export var appearance := "mill_masonry"
+@export var appearance := "inherit"
 var active := false
 var body: StaticBody2D
 var visual: UnderworldTerrain
@@ -15,7 +15,10 @@ func _ready() -> void:
 	var collision := CollisionShape2D.new()
 	var shape := RectangleShape2D.new(); shape.size = bounds.size; collision.shape = shape
 	body.add_child(collision); add_child(body)
-	visual = UnderworldTerrain.build([bounds], {}, TerrainMaterialRegistry.appearance(appearance))
+	var material_id := appearance
+	if material_id == "inherit":
+		material_id = WorldElementCatalog.skin_value(self,str(get_meta("definition_id","gate.masonry")),"material","mill_masonry")
+	visual = UnderworldTerrain.build([bounds], {}, TerrainMaterialRegistry.appearance(material_id))
 	add_child(visual)
 
 func element_bind(context: Dictionary) -> void:

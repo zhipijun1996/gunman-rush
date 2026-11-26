@@ -14,6 +14,7 @@ var document_error := ""
 @export var retry_anchors: Array[Dictionary] = []
 var camera_concealers: Dictionary = {}
 var boundary_art_rock: Array[Rect2] = []
+@export var region_id := ""
 @export var terrain_material := ""
 var mechanisms: Dictionary={}
 var element_runtime := WorldElementRuntime.new()

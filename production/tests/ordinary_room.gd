@@ -129,14 +129,17 @@ func run() -> void:
 		var enemy := EnemyFactory.create_for_behavior(behavior)
 		check(enemy != null, "registered species "+str(behavior))
 		if enemy != null: enemy.free()
-	for id: String in WorldElementCatalog.catalog().definitions:
-		var definition: Dictionary = WorldElementCatalog.catalog().definitions[id]
-		if definition.library != "mechanisms": continue
-		var made := WorldElementCatalog.instantiate_definition(id, "probe", Vector2(128,128))
-		var model := {"schema":3,"room_id":"independent","root":{"definition_id":"room.standard","definition_version":1,"properties":{"terrain_material":"gear_city"}},"entities":made.entities}
-		var result := WorldRoomDocument.instantiate(model)
-		check(result.has("room"), id+" "+str(result.get("error","")))
-		if result.has("room"): result.room.free()
+	var regions: Array = TerrainMaterialRegistry.catalog().regions.keys()
+	regions.push_front("")
+	for region: String in regions:
+		var palette := WorldElementCatalog.mechanism_palette(region)
+		var entries: Array = palette.common if region.is_empty() else palette.regional
+		for id: String in entries:
+			var made := WorldElementCatalog.instantiate_definition(id, "probe", Vector2(128,128), region)
+			var model := {"schema":3,"room_id":"independent","root":{"definition_id":"room.standard","definition_version":1,"properties":{"terrain_material":"gear_city","region_id":region}},"entities":made.entities}
+			var result := WorldRoomDocument.instantiate(model)
+			check(result.has("room"), id+" "+str(result.get("error","")))
+			if result.has("room"): result.room.free()
 	check(await session.audio_service.shutdown(), "audio backend released")
 	session.queue_free()
 	await process_frame
