@@ -1,6 +1,6 @@
 class_name P02ConnectionRoom
 extends Node2D
-## Landing scenery and two local P16 claims. The pilot owns crossing and saving.
+## Room scenery and active pickups. Item identity and value come from the locked world.
 const SHARD := "wr_P16_primary"
 const PURSE := "coin20_P16"
 const REACH := 42.0
@@ -8,16 +8,20 @@ var host: OrdinaryRoomSession
 var catalog: WorldContentCatalog
 var points := {}
 var objects := {}
-var label := Label.new()
+var offers := {}
+var label: Label
 var notification := 0.0
 
 static func install(session: OrdinaryRoomSession, document: Dictionary, source: WorldContentCatalog) -> P02ConnectionRoom:
+	if session.room_dressing != null: return session.room_dressing as P02ConnectionRoom
 	var result := P02ConnectionRoom.new()
+	session.room_dressing = result
 	result.host=session
-	session.controller.router.set_meta(&"world_up_interaction",true)
 	result.catalog=source
 	session.room.add_child(result)
 	result.populate(document)
+	if document.exits.has("d223"):
+		preload("res://rooms/world/p02_connections/forest_shortcut_gate.gd").mount(session,document)
 	return result
 
 func populate(doc: Dictionary) -> void:
@@ -36,6 +40,7 @@ func populate(doc: Dictionary) -> void:
 		wall.z_index=-65
 		add_child(wall)
 	for piece: Dictionary in doc.scenery.pieces:
+		if not piece.has("texture"): continue # The P02 bell and its field pieces have a dedicated renderer.
 		var spr := Sprite2D.new()
 		spr.texture=load(piece.texture)
 		var height := float(spr.texture.get_height())
@@ -46,10 +51,21 @@ func populate(doc: Dictionary) -> void:
 		spr.offset.y=-height*.5
 		spr.position=FixedWorldProvider.point(piece.at)
 		spr.flip_h=piece.get("flip",false)
-		spr.z_index=-3
+		spr.z_index=int(piece.get("z_index",-3))
 		add_child(spr)
+	# Authored sites place the objects; the imported catalog owns their rules.
+	for table: String in ["coin_caches", "rewards"]:
+		for row: Dictionary in host.content_context.get(table, []):
+			if not doc.get("sites", {}).has(row.id): continue
+			if table == "rewards" and row.get("reward_kind") not in ["health_fragment", "lost_gear"]: continue
+			offers[row.id] = row
+	if offers.is_empty() and doc.room_id != "P19":
+		set_physics_process(false)
+		return
+	host.controller.router.set_meta(&"world_up_interaction",true)
 	var ui := CanvasLayer.new()
 	add_child(ui)
+	label = Label.new()
 	ui.add_child(label)
 	label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 	label.offset_left=-330
@@ -63,15 +79,15 @@ func populate(doc: Dictionary) -> void:
 	if doc.room_id=="P19":
 		label.text="头顶的井通往田埂。站在井底跳起，再沿左壁石阶上行。"
 		notification=5.0
-	if doc.room_id!="P16": return
-	for id: String in doc.sites:
+	if offers.is_empty(): return
+	for id: String in offers:
 		points[id]=FixedWorldProvider.point(doc.sites[id].at)
 		var node := Node2D.new()
 		node.position=points[id]+Vector2(0,18)
 		add_child(node)
-		if id==SHARD:
+		if offers[id].has("reward_kind"):
 			var relic := WorldSpriteAnimation.new()
-			relic.asset_id="health_shard"
+			relic.asset_id="time_gear" if offers[id].reward_kind=="lost_gear" else "health_shard"
 			relic.position.y=-8
 			node.add_child(relic)
 			var seat := Sprite2D.new()
@@ -96,13 +112,21 @@ func populate(doc: Dictionary) -> void:
 			coin.scale=Vector2(.19,.09)
 			coin.position=Vector2(9,-2)
 			node.add_child(coin)
+		else:
+			# Loose money rests in the grass on the same scale as enemy drops.
+			for at: Vector2 in [Vector2(-7,-2),Vector2(0,-3),Vector2(6,-2)]:
+				var coin := Sprite2D.new()
+				coin.texture = UnderworldActors.icon_texture("coin")
+				coin.scale = Vector2(.22,.15)
+				coin.position = at
+				node.add_child(coin)
 		objects[id]=node
 	refresh(0)
 	host.state.committed.connect(refresh)
 	host.controller.interact_requested.connect(interact)
 
 func receipt(id: String) -> String:
-	return "income:"+id if id==PURSE else id
+	return "income:"+id if offers.get(id,{}).has("amount") else id
 
 func refresh(_revision: int) -> void:
 	for id: String in objects:
@@ -123,22 +147,32 @@ func interact() -> void:
 
 func claim(id: String, revision: int) -> bool:
 	if revision!=host.state.revision or not in_reach(id) or host.state.value.receipts.has(receipt(id)): return false
-	var source := catalog.lookup("rewards" if id==SHARD else "coin_caches",id)
-	if not source.ok or source.row.room!=host.room.room_id: return false
-	var row: Dictionary=source.row
+	var row: Dictionary=offers.get(id,{})
+	if row.get("room")!=host.room.room_id: return false
 	var conditions: Dictionary={"requires":row.get("requires",[])+row.get("completion_requires",[]),"excludes":row.get("excludes",[])}
 	var eligible := catalog.condition_match(conditions,host.state.value.flags,host.services.ledger().equipped)
 	if not eligible.ok or not eligible.matches: return false
 	var next := host.state.candidate()
-	if id==SHARD and row.formal_item_id=="HP01" and row.reward_kind=="health_fragment" and row.delivery_mode=="collection" and row.permanent_unique:
-		next.inventory["health_shard"]=int(next.inventory.get("health_shard",0))+int(row.quantity)
+	var message: String
+	if row.has("reward_kind"):
+		if row.delivery_mode!="collection" or not row.permanent_unique: return false
+		if row.reward_kind=="lost_gear":
+			var gear: String=row.formal_item_id
+			if row.quantity!=1 or gear in next.gear_ids.carried or gear in next.gear_ids.delivered: return false
+			next.gear_ids.carried.append(gear)
+			next.inventory["time_gear"]=int(next.inventory.get("time_gear",0))+1
+			message="取得"+str(row.display_name)
+		else:
+			next.inventory["health_shard"]=int(next.inventory.get("health_shard",0))+int(row.quantity)
+			message="取得生命碎片　共 %d 枚" % int(next.inventory.health_shard)
 		next.receipts[id]={"source":id,"source_hash":MetaSaveService.canonical_json(row).sha256_text(),"revision":revision+1}
-	elif id==PURSE and row.one_time:
+	elif row.get("one_time",false):
 		next=host.services.earned_candidate(next,id,int(row.amount))
+		message="拾取 %d 金币" % int(row.amount)
 	else: return false
 	if not host.state.commit(next,revision): return false
-	label.text=("取得生命碎片　共 %d 枚" % int(next.inventory.health_shard)) if id==SHARD else ("找到沟谷旅费　+%d 金币" % int(row.amount))
-	GameAudio.cue_committed_reward(self,&"item_get" if id==SHARD else &"chest_open",&"confirm")
+	label.text=message
+	GameAudio.cue_committed_reward(self,&"item_get" if row.has("reward_kind") else &"chest_open",&"confirm")
 	return true
 
 func _physics_process(delta: float) -> void:
@@ -148,5 +182,8 @@ func _physics_process(delta: float) -> void:
 	label.text=""
 	for id: String in points:
 		if objects[id].visible and in_reach(id):
-			label.text="↑ / W　取下生命碎片" if id==SHARD else "↑ / W　调查旧钱袋"
+			var row: Dictionary=offers[id]
+			if id==SHARD: label.text=host.controller.router.interact_prompt("取下生命碎片")
+			elif id==PURSE: label.text=host.controller.router.interact_prompt("调查旧钱袋")
+			else: label.text=host.controller.router.interact_prompt("拾取"+str(row.get("display_name",row.get("name",""))))
 			return

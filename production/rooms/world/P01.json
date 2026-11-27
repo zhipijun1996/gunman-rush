@@ -1,0 +1,222 @@
+{
+  "schema": 3,
+  "room_id": "P01",
+  "bounds": [
+    -368,
+    10,
+    1088,
+    520
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windchime_plains",
+      "terrain_material": "windchime_plains",
+      "start_point": [
+        110,
+        270
+      ]
+    }
+  },
+  "entities": {
+    "low_forest_verge": {
+      "id": "low_forest_verge",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -400,
+          336,
+          312,
+          240
+        ]
+      }
+    },
+    "verge_step": {
+      "id": "verge_step",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -88,
+          312,
+          64,
+          264
+        ]
+      }
+    },
+    "windward_field": {
+      "id": "windward_field",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -24,
+          288,
+          792,
+          288
+        ]
+      }
+    },
+    "practice_loft": {
+      "id": "practice_loft",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          254,
+          120,
+          168,
+          8
+        ]
+      }
+    },
+    "practice_notice": {
+      "id": "practice_notice",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          192,
+          288
+        ],
+        "text": "风坡试枪台\n跳起，朝脚下瞄准并开枪。子弹向下，反冲会把你抬上木台。落稳后，打开风旗旁的木箱。"
+      }
+    },
+    "loft_coin_chest": {
+      "id": "loft_coin_chest",
+      "definition_id": "interaction.action",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          364,
+          102
+        ],
+        "action_id": "p01_loft_coin_chest",
+        "label": "打开木箱",
+        "visual": "chest",
+        "radius": 42
+      }
+    }
+  },
+  "exits": {
+    "d001": {
+      "point": [
+        718,
+        270
+      ],
+      "spawn": [
+        688,
+        270
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        -96,
+        294
+      ]
+    },
+    "d223": {
+      "point": [
+        -366,
+        318
+      ],
+      "spawn": [
+        -276,
+        318
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        232,
+        342
+      ]
+    }
+  },
+  "sites": {
+    "p01_sidearm": {
+      "at": [
+        157,
+        270
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/p01/p01_forest_distance.png",
+        "at": [
+          -219,
+          373
+        ]
+      },
+      {
+        "texture": "res://assets/scenery/p01/p01_forest_verge.png",
+        "at": [
+          -250,
+          337
+        ]
+      },
+      {
+        "texture": "res://assets/scenery/p01/p01_loft_frame.png",
+        "at": [
+          338,
+          290
+        ]
+      },
+      {
+        "texture": "res://assets/scenery/p01/p01_wind_ribbon.png",
+        "at": [
+          404,
+          121
+        ]
+      },
+      {
+        "texture": "res://assets/scenery/p01/p01_verge_fence.png",
+        "at": [
+          548,
+          289
+        ]
+      }
+    ]
+  },
+  "actions": [
+    {
+      "id": "p01_wake",
+      "room_id": "P01",
+      "grants": [
+        "p01_awake"
+      ]
+    },
+    {
+      "id": "p01_take_sidearm",
+      "room_id": "P01",
+      "requires": [
+        [
+          "p01_awake"
+        ]
+      ],
+      "grants": [
+        "gun"
+      ]
+    },
+    {
+      "id": "p01_loft_coin_chest",
+      "room_id": "P01",
+      "type": "coin_chest",
+      "amount": 5,
+      "support_id": "practice_loft"
+    }
+  ],
+  "lesson": {
+    "introduce": "角色在草地醒来，在出生点右边亲手拾起枪。木架、风旗和架脚的告示给第一次朝下射击提供高度参照。",
+    "practice": "在木台下跳起，瞄准脚下松开射击。反冲将角色推过单向木台，落在风旗旁。",
+    "check": "台顶能同时看到西边林缘和东边田埂。从台沿直接走落即可回到草地，继续向东进入 P02。",
+    "retry": "练习下方整面草地可站立。向西下两级草台能看到从 F08 内侧打开的林缘栅门。"
+  }
+}

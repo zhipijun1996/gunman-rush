@@ -89,7 +89,7 @@ production/config/imported_world/
 
 ## 实机绑定
 
-绑定表有 `rooms`、`npcs`、`enemy_species`、`equipment_effects`、`event_triggers` 五个部分。P02 已绑定至可独立试玩的房间文档。绑定使宿主能够装载此房间；试玩评审及发布状态见[当前开发基线](../../project/current_state.md)。
+绑定表有 `rooms`、`npcs`、`enemy_species`、`equipment_effects`、`event_triggers` 五个部分。P01、P02、P03 已绑定至各自的正式房间文档。相邻接收段承接门的另一端。d223 的开启侧由锁定地图提供，开栅后两侧共用同一持久旗标。d017 是普通门，东龛的墙面承担壁攀条件，齿轮领取另核其世界奖励条件。绑定使宿主能够装载此房间；试玩评审及发布状态见[当前开发基线](../../project/current_state.md)。
 
 房间绑定示例：
 

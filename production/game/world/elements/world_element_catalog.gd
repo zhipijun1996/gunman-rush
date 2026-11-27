@@ -172,6 +172,17 @@ static func document_error(document: Dictionary, control_order: Array[String] = 
 			if document.room_id not in action.get("service_rooms",[action.get("room_id")]) or action.get("section_id","main") != properties.section_id: return "action_id:wrong_room_or_section:"+id
 			var owner: String = properties.get("action_owner_id","")
 			if not owner.is_empty() and entities.get(owner,{}).get("definition_id") != "internal.permanent_result": return "action_owner_id:invalid:"+id
+			if action.get("type") == "coin_chest":
+				if kind != "WorldRoomInteraction" or properties.visual != "chest" or not owner.is_empty() or action.get("repeat",false): return "coin_chest:independent_single_use_required:"+id
+				var amount: Variant = action.get("amount")
+				if not WorldRoomValidation.number(amount) or amount <= 0 or floorf(amount) != amount: return "coin_chest:positive_integer_amount_required:"+id
+				var support_id: Variant = action.get("support_id")
+				if not support_id is String: return "coin_chest:platform_required:"+id
+				var support: Dictionary = entities.get(support_id,{})
+				if support.get("component") != "array:platforms" or not WorldRoomValidation.rectangle(support.properties.get("rect")): return "coin_chest:platform_required:"+id
+				var top := FixedWorldProvider.rect(support.properties.rect)
+				var foot := FixedWorldProvider.point(properties.position)+Vector2.DOWN*18
+				if not is_equal_approx(foot.y,top.position.y) or foot.x<top.position.x or foot.x>top.end.x: return "coin_chest:foot_off_platform:"+id
 			if kind == "WorldReturnLatch" and action.get("repeat",false): return "action_id:single_use_required:"+id
 			if kind == "WorldReturnLatch":
 				for panel: Variant in properties.closed_panels + properties.return_steps:

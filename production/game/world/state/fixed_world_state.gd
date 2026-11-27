@@ -14,8 +14,8 @@ func candidate() -> Dictionary:
 	return result
 var value: Dictionary = {}
 
-func fresh(max_hp: float) -> Dictionary:
-	return {"services":WorldServices.empty_ledger(),"gear_ids":{"carried":[],"delivered":[]},"story_hosts":{},"mechanisms":{},"flags":["gun"],"receipts":{},"inventory":{},"cycle":1,"enemies":{},
+func fresh(max_hp: float, armed := true) -> Dictionary:
+	return {"services":WorldServices.empty_ledger(),"gear_ids":{"carried":[],"delivered":[]},"story_hosts":{},"mechanisms":{},"flags":["gun"] if armed else [],"receipts":{},"inventory":{},"cycle":1,"enemies":{},
 		"hp":max_hp,"combat_energy":0.0,"rest":{"room":str(content.data.start_room),"entry":"","point":content.data.start_point.duplicate()},
 		"room":str(content.data.start_room),"entry":"","explored":[],"content_version":content.data.content_version}
 

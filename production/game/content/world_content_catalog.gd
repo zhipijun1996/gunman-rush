@@ -342,6 +342,33 @@ func physical_passage(room_id: String, door_id: String) -> Dictionary:
 	var normal: Vector2 = _physical_normals[door_id]
 	return {"ok":true, "direction":normal if from_a else -normal, "destination":row.b if from_a else row.a, "seam":row.door.duplicate(true)}
 
+## Walking through a held shortcut requires its committed world fact on both
+## sides. Pulling its latch is a separate, side-specific action.
+func passage_access(room_id: String, door_id: String, flags: Array, equipped: Array = []) -> Dictionary:
+	var passage := physical_passage(room_id,door_id)
+	if not passage.ok: return {"ok":false,"matches":false,"error":passage.error}
+	var door: Dictionary = _tables.doors[door_id]
+	var result := condition_match(door,flags,equipped)
+	if not result.ok: return {"ok":false,"matches":false,"error":result.error}
+	var unlock: Variant = door.get("unlock_flag")
+	if unlock != null and unlock not in flags:
+		if unlock not in result.missing: result.missing.append(unlock)
+		result.matches = false
+	return result
+
+func shortcut_candidate(state: FixedWorldState, room_id: String, door_id: String) -> Dictionary:
+	var found := lookup("doors",door_id)
+	if not found.ok or state.value.room != room_id: return {}
+	var door: Dictionary = found.row
+	var unlock: Variant = door.get("unlock_flag")
+	if door.get("one_way_from") != room_id or unlock == null or state.has(unlock): return {}
+	var eligible := condition_match(door,state.value.flags,state.value.services.equipped)
+	if not eligible.ok or not eligible.matches: return {}
+	var candidate := state.candidate()
+	candidate.flags.append(unlock)
+	candidate.receipts[unlock] = {"source":unlock,"source_hash":MetaSaveService.canonical_json(door).sha256_text(),"revision":state.revision+1}
+	return candidate
+
 func connections(room_id: String) -> Dictionary:
 	var checked := lookup("rooms",room_id)
 	if not checked.ok: return checked

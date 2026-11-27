@@ -63,6 +63,10 @@ static func view(source: Dictionary) -> Dictionary:
 	for field:String in reserved:
 		if source.root.properties.has(field):return {"error":"root_field_owned_by_instance:"+field}
 	if source.has("bounds") and not WorldRoomValidation.rectangle(source.bounds): return {"error":"invalid_room_bounds"}
+	var scenery: Variant = source.get("scenery",{})
+	if not scenery is Dictionary: return {"error":"room_scenery_invalid"}
+	if scenery.has("camera_landmark") and not WorldRoomValidation.valid_camera_landmark(scenery.camera_landmark,source.get("sites",{})):
+		return {"error":"camera_landmark_invalid"}
 	var passage_error := WorldRoomValidation.passage_error(source.get("exits", {}))
 	if not passage_error.is_empty(): return {"error":passage_error}
 	if source.has("actions") and not source.actions is Array: return {"error":"invalid_room_actions"}

@@ -42,6 +42,10 @@ var sequence := 0
 var _queue: Array[Dictionary] = []
 var _last_tick := -1
 
+func interact_prompt(action: String) -> String:
+	if touch_enabled and current_device == &"touch": return "互动　"+action
+	return ("↑ / W　" if get_meta(&"world_up_interaction",false) else "W　")+action
+
 func sample_axes() -> float:
 	return axis
 

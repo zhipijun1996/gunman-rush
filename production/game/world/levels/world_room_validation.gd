@@ -27,6 +27,15 @@ static func passage_error(exits: Variant) -> String:
 static func rectangle(value: Variant, allow_empty := false) -> bool:
 	return value is Array and value.size() == 4 and number(value[0]) and number(value[1]) and number(value[2]) and number(value[3]) and (float(value[2]) >= 0.0 if allow_empty else float(value[2]) > 0.0) and (float(value[3]) >= 0.0 if allow_empty else float(value[3]) > 0.0)
 
+static func valid_camera_landmark(landmark: Variant, sites: Variant) -> bool:
+	if not landmark is Dictionary or not sites is Dictionary: return false
+	if not rectangle(landmark.get("bounds")) or not landmark.get("site") is String: return false
+	var target: Variant = sites.get(landmark.site)
+	if not target is Dictionary or not vector(target.get("at")): return false
+	for key: String in ["approach_width","framing","ease_seconds"]:
+		if not number(landmark.get(key)) or landmark[key] <= 0: return false
+	return landmark.framing <= 1 and landmark.approach_width <= landmark.bounds[2]
+
 static func json_error(value: Variant, depth := 0) -> String:
 	if depth > 16: return "data_too_deep"
 	if value == null or value is bool: return ""

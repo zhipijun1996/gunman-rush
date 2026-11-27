@@ -1,0 +1,243 @@
+{
+  "schema": 3,
+  "room_id": "P13",
+  "bounds": [
+    -208,
+    10,
+    928,
+    520
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windchime_plains",
+      "terrain_material": "windchime_plains",
+      "start_point": [
+        -117,
+        270
+      ]
+    }
+  },
+  "entities": {
+    "crevice_tread": {
+      "id": "crevice_tread",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -250,
+          288,
+          1010,
+          284
+        ]
+      }
+    },
+    "crevice_roof": {
+      "id": "crevice_roof",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            440,
+            149
+          ],
+          [
+            465,
+            129
+          ],
+          [
+            498,
+            131
+          ],
+          [
+            570,
+            97
+          ],
+          [
+            605,
+            99
+          ],
+          [
+            651,
+            74
+          ],
+          [
+            752,
+            59
+          ],
+          [
+            752,
+            262
+          ],
+          [
+            666,
+            262
+          ],
+          [
+            667,
+            194
+          ],
+          [
+            632,
+            181
+          ],
+          [
+            591,
+            177
+          ],
+          [
+            562,
+            185
+          ],
+          [
+            519,
+            176
+          ],
+          [
+            482,
+            171
+          ],
+          [
+            451,
+            160
+          ]
+        ]
+      }
+    },
+    "recess_step": {
+      "id": "recess_step",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          231,
+          272,
+          526,
+          16
+        ]
+      }
+    },
+    "furthest_shelf": {
+      "id": "furthest_shelf",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          313,
+          256,
+          447,
+          16
+        ]
+      }
+    },
+    "eastern_stone_root": {
+      "id": "eastern_stone_root",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            543,
+            256
+          ],
+          [
+            560,
+            235
+          ],
+          [
+            596,
+            219
+          ],
+          [
+            656,
+            219
+          ],
+          [
+            690,
+            201
+          ],
+          [
+            759,
+            196
+          ],
+          [
+            759,
+            256
+          ]
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d017": {
+      "point": [
+        -206,
+        270
+      ],
+      "spawn": [
+        -174,
+        270
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        178,
+        290
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://rooms/world/p02_connections/ridge_backwall.webp",
+        "at": [
+          253,
+          530
+        ],
+        "z_index": -58
+      },
+      {
+        "texture": "res://rooms/world/p02_connections/stone.png",
+        "at": [
+          194,
+          290
+        ],
+        "flip": false,
+        "z_index": -3
+      },
+      {
+        "texture": "res://rooms/world/p02_connections/seed_stems.png",
+        "at": [
+          211,
+          290
+        ],
+        "flip": false,
+        "z_index": -3
+      },
+      {
+        "texture": "res://assets/scenery/p02/p02_slope_grass.png",
+        "at": [
+          310,
+          272
+        ],
+        "layer": "attached",
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/p02/p02_slope_grass.png",
+        "at": [
+          506,
+          256
+        ],
+        "layer": "attached",
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

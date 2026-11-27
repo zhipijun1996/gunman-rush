@@ -3,7 +3,6 @@ extends Control
 ## The folded map uses the locked world's outlines. A concealed passage is drawn
 ## only after its discovery event. The room host owns travel and progression.
 const FONT := preload("res://assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proportional-zh_hans.otf")
-const FIELD := "P02"
 const INK := Color("#c4d2bc")
 const GOLD := Color("#f3ce80")
 const PAPER := Color("#18262b")
@@ -12,7 +11,7 @@ var host: Node
 var rooms: Dictionary
 var doors: Array
 var area: Rect2
-var focus_room := FIELD
+var focus_room := ""
 
 static func mount(owner_node: Node) -> P02RouteMap:
 	var layer := CanvasLayer.new()
@@ -30,22 +29,44 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var session: OrdinaryRoomSession = host.get("active")
 	focus_room = session.room.room_id
+	session.touch_controls.map_requested.connect(open)
 	host.connect("room_changed", arrive)
-	doors = session.content_catalog.connections(FIELD).rows
-	for door: Dictionary in doors:
-		for id: String in [door.a, door.b]:
-			if rooms.has(id):
-				continue
-			var row: Dictionary = session.content_catalog.lookup("rooms", id).row
-			var bounds := FixedWorldProvider.rect(row.rect)
-			area = bounds if rooms.is_empty() else area.merge(bounds)
-			rooms[id] = row
+	# Include the full rooms reachable in this build and their receiving segments.
+	# Traversing a stub's other world links would advertise unfinished rooms.
+	var catalog := session.content_catalog
+	var pending: Array[String] = [focus_room]
+	var mapped_doors := {}
+	while not pending.is_empty():
+		var id: String = pending.pop_back()
+		if rooms.has(id): continue
+		var row: Dictionary = catalog.lookup("rooms", id).row
+		var bounds := FixedWorldProvider.rect(row.rect)
+		area = bounds if rooms.is_empty() else area.merge(bounds)
+		rooms[id] = row
+		if not catalog.binding("rooms", id).ok: continue
+		for door: Dictionary in catalog.connections(id).rows:
+			if door.connection_type != "physical" or mapped_doors.has(door.id): continue
+			mapped_doors[door.id] = true
+			doors.append(door)
+			pending.append(door.b if door.a == id else door.a)
 
 func arrive(id: String) -> void:
 	focus_room = id
+	host.active.touch_controls.map_requested.connect(open)
+	queue_redraw()
+
+func open() -> void:
+	if get_tree().paused or host.crossing: return
+	show()
+	get_tree().paused = true
 	queue_redraw()
 
 func _input(event: InputEvent) -> void:
+	if visible and event is InputEventScreenTouch and event.pressed:
+		hide()
+		get_tree().paused = false
+		get_viewport().set_input_as_handled()
+		return
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
 	if event.physical_keycode == KEY_M and (visible or not get_tree().paused):
@@ -67,7 +88,7 @@ func known_rooms() -> Dictionary:
 			known[room_id] = true
 	for door: Dictionary in doors:
 		if door.has("discovery") and session.state.has(str(door.discovery.event)):
-			known[door.b if door.a == FIELD else door.a] = true
+			known[door.b if door.a == door.discovery.source_room else door.a] = true
 	return known
 
 func _draw() -> void:
@@ -75,8 +96,10 @@ func _draw() -> void:
 	draw_rect(Rect2(Vector2.ZERO, size), Color(0.035, 0.06, 0.07, 0.85))
 	draw_rect(panel, PAPER)
 	draw_rect(panel, Color("#718373"), false, 2)
-	draw_string(FONT, panel.position + Vector2(28, 42), "风铃平原", HORIZONTAL_ALIGNMENT_LEFT, -1, 27, INK)
-	draw_string(FONT, Vector2(panel.end.x - 180, panel.position.y + 40), "M / Esc  收起", HORIZONTAL_ALIGNMENT_RIGHT, 150, 18, INK)
+	var catalog: WorldContentCatalog = host.active.content_catalog
+	var region_name: String = catalog.lookup("regions",rooms[focus_room].region).row.name
+	draw_string(FONT, panel.position + Vector2(28, 42), region_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 27, INK)
+	draw_string(FONT, Vector2(panel.end.x - 180, panel.position.y + 40), "轻触收起" if host.active.controller.router.touch_enabled else "M / Esc  收起", HORIZONTAL_ALIGNMENT_RIGHT, 150, 18, INK)
 	var box := Rect2(panel.position + Vector2(58, 62), panel.size - Vector2(116, 136))
 	var scale_factor := minf(box.size.x / area.size.x, box.size.y / area.size.y)
 	var origin := box.get_center() - area.get_center() * scale_factor

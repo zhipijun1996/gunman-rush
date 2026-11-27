@@ -75,7 +75,7 @@ func check_arrival_state() -> void:
 	var origin := OrdinaryRoomSession.new()
 	root.add_child(origin)
 	var source := WorldRoomDocument.read("res://rooms/world/P02.json")
-	var target := WorldRoomDocument.read("res://rooms/world/p02_connections/P01.json")
+	var target := WorldRoomDocument.read("res://rooms/world/P01.json")
 	var malformed := source.duplicate(true)
 	malformed.exits.d001.span = [42, 12]
 	check(WorldRoomDocument.instantiate(malformed).get("error") == "room_door_geometry_invalid", "reject reversed door spans before assembly")

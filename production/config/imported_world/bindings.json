@@ -3,8 +3,16 @@
   "schema_version": 1,
   "world_id": "clock-world",
   "rooms": {
+    "P01": {
+      "document_path": "res://rooms/world/P01.json",
+      "status": "authored"
+    },
     "P02": {
       "document_path": "res://rooms/world/P02.json",
+      "status": "authored"
+    },
+    "P03": {
+      "document_path": "res://rooms/world/P03.json",
       "status": "authored"
     }
   },
@@ -12,6 +20,9 @@
   "enemy_species": {
     "species.2411e8295a35": {
       "definition_id": "enemy.patrol"
+    },
+    "species.7aa003bee373": {
+      "definition_id": "enemy.sentry"
     }
   },
   "equipment_effects": {},

@@ -149,6 +149,11 @@ func observe_current_key_neutral() -> void:
 	if not Input.is_mouse_button_pressed(int(router.profile.values.mouse_shoot_button)):
 		_mouse_blocked = false
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_UNPAUSED and is_instance_valid(router):
+		# A modal can consume the release of the very key that opened it.
+		observe_current_key_neutral()
+
 func _hook_edge(pressed: bool, direction: Vector2, source: int = 0) -> void:
 	if _hook_blocked:
 		if not pressed:
