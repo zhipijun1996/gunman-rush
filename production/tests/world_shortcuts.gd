@@ -57,6 +57,10 @@ func press_up(s: OrdinaryRoomSession) -> void:
 func shut_from_plains() -> void:
 	var room := await open_room("P01",Storage.new())
 	if room.controller == null: await close(room); return
+	for frame in 180:
+		if room.controller.active and room.player.is_on_floor(): break
+		await physics_frame
+	check(room.controller.active and room.player.is_on_floor(),"the opening returns control before approaching the outside gate")
 	var gate := room.room.get_node("ForestShortcutGate")
 	room.player.reset_at(gate.position+Vector2(63,-18))
 	room.controller.router.set_move_axis(-1)
