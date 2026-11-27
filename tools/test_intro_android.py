@@ -47,9 +47,17 @@ def main():
     component = shell("cmd", "package", "resolve-activity", "--brief", PACKAGE).splitlines()[-1]
     if not component.startswith(PACKAGE + "/"):
         raise RuntimeError("Android launcher not found: " + component)
-    print(shell("am", "start", "-W", "-n", component), flush=True)
-    pid = shell("pidof", PACKAGE).split()[0]
+    pid = ""
     try:
+        print(shell("am", "start", "-n", component), flush=True)
+        for _ in range(45):
+            running = subprocess.run(adb + ["shell", "pidof", PACKAGE], capture_output=True, text=True).stdout.split()
+            if running:
+                pid = running[0]
+                break
+            time.sleep(.12)
+        if not pid:
+            raise RuntimeError("Android did not leave a running game process after launch")
         for _ in range(45):
             time.sleep(1)
             before = screenshot("01-spawn")
@@ -131,7 +139,14 @@ def main():
         print(json.dumps(receipt, indent=2),flush=True)
         (evidence / "device.json").write_text(json.dumps(receipt, indent=2)+"\n")
     finally:
-        log = command("logcat", "-d", "-T", start_second + ".000", "--pid=" + pid)
+        if pid:
+            log = command("logcat", "-d", "-T", start_second + ".000", "--pid=" + pid)
+        else:
+            tags = ["Godot:D", "godot:D", "AndroidRuntime:E", "libc:F", "ActivityTaskManager:I"]
+            log = command("logcat", "-d", "-T", start_second + ".000", "-s", *tags)
+        crash = command("logcat", "-b", "crash", "-d", "-T", start_second + ".000")
+        if PACKAGE.encode() in crash:
+            (evidence / "android-crash.txt").write_bytes(crash)
         (evidence / "logcat.txt").write_bytes(log)
         errors = [line.decode(errors="replace") for line in log.splitlines()
                   if b"FATAL EXCEPTION" in line or (b"godot" in line.lower() and

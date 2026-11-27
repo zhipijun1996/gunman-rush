@@ -9,6 +9,9 @@ mkdir -p "$out"
 "$adb_bin" -s "$serial" shell getprop ro.product.cpu.abilist
 "$adb_bin" -s "$serial" shell wm dismiss-keyguard
 "$adb_bin" -s "$serial" shell wm size 540x960
+"$adb_bin" -s "$serial" shell settings put secure immersive_mode_confirmations confirmed
+"$adb_bin" -s "$serial" shell settings put system accelerometer_rotation 0
+"$adb_bin" -s "$serial" shell settings put system user_rotation 1
 "$adb_bin" -s "$serial" shell screenrecord --time-limit 90 --bit-rate 3000000 /data/local/tmp/opening-review.mp4 > /dev/null 2>&1 &
 finish_recording() {
     "$adb_bin" -s "$serial" shell pkill -2 screenrecord || true

@@ -13,38 +13,11 @@ permissions:
   actions: read
   contents: read
 jobs:
-  build:
-    if: ${{ !inputs.apk_run }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    env:
-      GUNMAN_TOOLCHAIN_ROOT: /tmp/gunman-android-toolchain
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-      - uses: actions/setup-python@v5
-        with:
-          python-version-file: config/ci_python_version.txt
-      - name: Build and verify signed production APK
-        run: |
-          bash tools/cloud_setup.sh --godot-only
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'build-tools;35.0.1' 'platform-tools' 'platforms;android-35'
-          python tools/export_intro_android.py build/intro-android/Plains-review.apk
-          git rev-parse HEAD:production > build/intro-android/production-tree.txt
-          cd build/intro-android && sha256sum Plains-review.apk > SHA256SUMS
-      - uses: actions/upload-artifact@v4
-        with:
-          name: opening-android-apk
-          path: build/intro-android/
-          retention-days: 7
   device:
-    if: ${{ always() && (needs.build.result == 'success' || (needs.build.result == 'skipped' && inputs.apk_run)) }}
-    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [30, 35]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -60,7 +33,7 @@ jobs:
           name: opening-android-apk
           path: build/intro-android/
           github-token: ${{ github.token }}
-          run-id: ${{ inputs.apk_run || github.run_id }}
+          run-id: 45955726890
       - uses: actions/setup-python@v5
         with:
           python-version-file: config/ci_python_version.txt
@@ -71,21 +44,24 @@ jobs:
           mkdir -p "$ANDROID_AVD_HOME" device
           python -m pip install Pillow
           "$ANDROID_HOME/platform-tools/adb" start-server
+          Xvfb :97 -ac -screen 0 1280x720x24 +extension GLX > /tmp/xvfb.log 2>&1 &
+          echo 'DISPLAY=:97' >> "$GITHUB_ENV"
+          echo 'LIBGL_ALWAYS_SOFTWARE=1' >> "$GITHUB_ENV"
       - name: Exercise the exact APK on Android 11
         uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d
         with:
-          api-level: 30
+          api-level: ${{ matrix.api }}
           target: google_apis
           arch: x86_64
           profile: pixel_2
           disable-animations: true
           emulator-boot-timeout: 360
-          emulator-options: -no-window -no-snapshot -no-audio -no-boot-anim -gpu swiftshader_indirect -accel on
+          emulator-options: -no-window -no-snapshot -no-audio -no-boot-anim -gpu host -accel on -feature -Vulkan
           script: bash tools/run_intro_android_device.sh
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: opening-android-device
+          name: opening-android-device-api${{ matrix.api }}
           path: build/intro-android/device/
           retention-days: 7
           if-no-files-found: warn
