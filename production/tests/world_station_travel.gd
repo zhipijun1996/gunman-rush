@@ -81,10 +81,15 @@ func run() -> void:
 	await open(slot)
 	var stations: Array=host.catalog.object("transport").value.stations
 	test(stations.size()==12,"read twelve stations from the locked transport table")
+	var map := host.route_map as WorldRouteMap
+	test(map.known_markers("G12").has("rest") and not map.known_markers("G12").has("station") and map.known_markers("K08").is_empty(),"the visited city shows its actual bench, with no undiscovered station or castle markers")
+	var first_pin := map.map_position("G12",host.active.player.position)
 	await approach("tp_G12")
+	test(first_pin.distance_to(map.map_position("G12",host.active.player.position))>0.01,"actual walking changes the player pin inside the city's surveyed outline")
 	test(not host.active.state.value.receipts.has("tp_G12"),"visiting a stop does not activate it")
 	await ring("tp_G12")
 	test(host.active.state.value.receipts.has("tp_G12") and host.active.state.has("travel_G12"),"safe interaction activates the first station")
+	test(map.known_markers("G12").get("station")==map.map_position("G12",FixedWorldProvider.point(host.active_doc.sites.tp_G12.at)),"the real station pin appears at the activated platform")
 	test(host.active.content_sites.menu.choices.get_child_count()==0,"an unopened destination cannot be selected")
 	host.active.content_sites.menu.close()
 	# Independent arrival on foot from the outer court. This fixture only selects

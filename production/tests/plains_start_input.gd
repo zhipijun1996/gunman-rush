@@ -1,7 +1,7 @@
 extends RefCounted
 ## A fresh-save prelude for downstream field regression and camera takes. Move to
 ## the P01 ground weapon and use the same interaction as an ordinary player.
-static func take_ground_gun(pilot: FieldTerracePilot) -> bool:
+static func take_ground_gun(pilot: WorldGameHost) -> bool:
 	if not is_instance_valid(pilot.active) or pilot.active.room.room_id!="P01": return false
 	var room:=pilot.active
 	for i: int in 180:

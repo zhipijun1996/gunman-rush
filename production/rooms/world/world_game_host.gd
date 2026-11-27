@@ -22,10 +22,12 @@ var terrace: TerraceLesson
 var lesson_progress := {}
 var storage: WorldSaveService
 var reset_dialog: WorldNewGameDialog
+var request_new_game: Callable
 var startup_panel: VBoxContainer
 var notice := Label.new()
 var room_title := Label.new()
 var title_remaining := 0.0
+var game_hud: DemoGameHud
 var route_map: Control
 var crossing := false
 var curtain := ColorRect.new()
@@ -70,6 +72,7 @@ func _ready() -> void:
 	curtain.color = Color.BLACK
 	curtain.mouse_filter = Control.MOUSE_FILTER_STOP
 	curtain.hide()
+	game_hud = DemoGameHud.mount(self)
 	start_world()
 
 func start_world() -> void:
@@ -110,7 +113,7 @@ func new_game_button() -> Button:
 	button.text = "重新开局"
 	button.custom_minimum_size = Vector2(145,46)
 	button.add_theme_font_override("font",FONT)
-	button.pressed.connect(reset_dialog.open)
+	button.pressed.connect(request_new_game if request_new_game.is_valid() else reset_dialog.open)
 	return button
 
 func binding_path() -> String:
@@ -176,6 +179,9 @@ func enter_room(id: String, edge: String, prepared: Dictionary = {}, received :=
 	room_title.text = id+" · "+room_name+("" if catalog.binding("rooms", id).ok else " · 接入段")
 	title_remaining = 2.5
 	room_title.modulate.a = 1.0
+	var region := catalog.lookup("regions",catalog.lookup("rooms",id).row.region)
+	game_hud.bind_session(active,str(region.row.name)+" · "+room_name)
+	room_title.hide()
 	room_changed.emit(id)
 
 func _process(delta: float) -> void:
