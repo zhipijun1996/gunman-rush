@@ -8,14 +8,14 @@
 
 | 物种 | 玩家能观察到的行为 | 应对与出手机会 | 数值配置 |
 | --- | --- | --- | --- |
-| 巡逻体 | 在出生地附近往返，以身体接触形成路线压力，没有主动远程招式 | 观察往返空隙，跳过、绕行或先清除 | [patrol_drone](../../../resources/enemies/patrol_drone.tres) |
-| 俯冲体 | 在巢区二维巡飞，横纵均有明显位移；较宽视野内主动预告，锁定玩家当时的实际位置与冲线，出手后直接冲向该位置，冲程足以到达锁定点，随后返回巢点，不在途中持续追人转弯 | 预告后离开冲线，利用冲过与回巢间隙反击 | [plains_diver](../../../resources/enemies/plains_diver.tres) |
-| 跃击体 | 锁定巡逻范围内的落点，以弧线跃出并回到原活动区 | 看清起跳和落点，换层或让开落区，落定与回程时攻击 | [plains_hopper](../../../resources/enemies/plains_hopper.tres) |
-| 单发哨兵 | 定点预告，朝承诺方向发出弹体，再恢复 | 用实体遮挡、跳跃或反冲离开射线，恢复期接近 | [plains_sentry](../../../resources/enemies/plains_sentry.tres) |
-| 飞羽铃哨 | 飞翼与悬挂三铃明确表达悬空身份；悬停预告后向承诺方向发出三枚扇形弹 | 看清扇面、换层或利用遮挡，收势期反击 | [plains_fan_sentry](../../../resources/enemies/plains_fan_sentry.tres) |
-| 行枝铃哨 | 保留原木根、骨白披羽、青绿披布与三铃美术；在地面巡行，停步预告并发出同样的三枚扇形弹，收势后继续走位；平台边缘转向 | 避开扇面，在收势与巡行时接近；不能依靠它走落平台消除威胁 | [plains_ground_fan_sentry](../../../resources/enemies/plains_ground_fan_sentry.tres) |
-| 浮铃芽 | 苔绿叶翼与旧黄铜铃腹，在固定高度附近轻轻悬浮；无弹幕、无冲锋、无接触伤害 | 作为基础枪空中命中续枪的稳定目标；两枪消散后在原位重新凝聚，不掉金币、不提供共鸣 | [chime_target](../../../resources/enemies/chime_target.tres) |
-| 根铃 | 对站在同层实体地面上的玩家标记固定落区；预告后地面短促脉冲，不追随已经离开的玩家 | 离开标记或跳起；预告期造成真实生命伤害可打断，打在护甲上不算。没有合适支撑时不隔空生成地面攻击 | [plains_root_bell](../../../resources/enemies/plains_root_bell.tres) |
+| 巡逻体 | 在出生地附近往返，以身体接触形成路线压力，没有主动远程招式 | 观察往返空隙，跳过、绕行或先清除 | [patrol_drone](../../../production/resources/enemies/patrol_drone.tres) |
+| 俯冲体 | 在巢区二维巡飞，横纵均有明显位移；较宽视野内主动预告，锁定玩家当时的实际位置与冲线，出手后直接冲向该位置，冲程足以到达锁定点，随后返回巢点，不在途中持续追人转弯 | 预告后离开冲线，利用冲过与回巢间隙反击 | [plains_diver](../../../production/resources/enemies/plains_diver.tres) |
+| 跃击体 | 锁定巡逻范围内的落点，以弧线跃出并回到原活动区 | 看清起跳和落点，换层或让开落区，落定与回程时攻击 | [plains_hopper](../../../production/resources/enemies/plains_hopper.tres) |
+| 单发哨兵 | 定点预告，朝承诺方向发出弹体，再恢复 | 用实体遮挡、跳跃或反冲离开射线，恢复期接近 | [plains_sentry](../../../production/resources/enemies/plains_sentry.tres) |
+| 飞羽铃哨 | 飞翼与悬挂三铃明确表达悬空身份；悬停预告后向承诺方向发出三枚扇形弹 | 看清扇面、换层或利用遮挡，收势期反击 | [plains_fan_sentry](../../../production/resources/enemies/plains_fan_sentry.tres) |
+| 行枝铃哨 | 保留原木根、骨白披羽、青绿披布与三铃美术；在地面巡行，停步预告并发出同样的三枚扇形弹，收势后继续走位；平台边缘转向 | 避开扇面，在收势与巡行时接近；不能依靠它走落平台消除威胁 | [plains_ground_fan_sentry](../../../production/resources/enemies/plains_ground_fan_sentry.tres) |
+| 浮铃芽 | 苔绿叶翼与旧黄铜铃腹，在固定高度附近轻轻悬浮；无弹幕、无冲锋、无接触伤害 | 作为基础枪空中命中续枪的稳定目标；两枪消散后在原位重新凝聚，不掉金币、不提供共鸣 | [chime_target](../../../production/resources/enemies/chime_target.tres) |
+| 根铃 | 对站在同层实体地面上的玩家标记固定落区；预告后地面短促脉冲，不追随已经离开的玩家 | 离开标记或跳起；预告期造成真实生命伤害可打断，打在护甲上不算。没有合适支撑时不隔空生成地面攻击 | [plains_root_bell](../../../production/resources/enemies/plains_root_bell.tres) |
 
 封场波次的入场预警结束后不再把玩家出生点当永久免战位置；战斗必须由主动威胁形成换位压力。俯冲、冲锋提高追击频率和速度，同时保留可读前摇与锁定后的躲避机会，参数归对应Definition。
 

@@ -1,8 +1,12 @@
 # 普通房间重做
 
-## 平原开场与三房触控录屏 · 待整房评审
+## 固定世界接续施工
 
-试玩使用锁定的 `world-room-model-27`。安卓横屏上左侧移动，右侧拖动瞄准、松手射击，跳跃和互动各有独立按钮。地图按钮可查看已到访地点，轻触地图返回。编辑器的入口为 `production/rooms/world/P02.tscn`。
+在 #166 的 P02 样板和 #167 的开场三房基础上，使用[世界版本锁](../../../../production/config/imported_world/current.lock.json)内的房号、门线、分区能力与事件。世界输入覆盖 16 区、310 房和 392 条连接。[运行绑定](../../../../production/config/imported_world/bindings.json)列出正式房间文档，按绑定核对实际地形、门端、交互和回访验证。新进度在 [world.tscn](../../../../production/rooms/world/world.tscn) 从 P01 开始。整房质量认可保留对应的历史提交。
+
+## #167 平原开场与三房触控评审记录
+
+试玩使用锁定的 `world-room-model-27`。横屏触控布局中左侧移动，右侧拖动瞄准、松手射击，跳跃和互动各有独立按钮。地图按钮可查看已到访地点，轻触地图返回。该版本的编辑器入口为 `production/rooms/world/P02.tscn`。
 
 | 房间 | 玩家第一次要做的决定 | 折返与验证 |
 | --- | --- | --- |
@@ -10,7 +14,7 @@
 | [P02 田埂反冲教学](../../../../production/rooms/world/P02.json) | 上路用反冲越断口、落稳钟台。下路尽头的岩脚封住西侧，近处的草缝向下接 P16。 | 西上方 d001 接 P01，左下的 d009 向下穿越。实走靠近草缝、下井和向上返程，复查近看与退远两种画面。 |
 | [P03 沟谷升坡](../../../../production/rooms/world/P03.json) | 遇到谷底巡虫后向东登阶，在转角越过 78 世界单位的水平缺口，折回时观察平原哨兵的瞄准和恢复再前进。从上层向西 d003 前往 P04。 | 东壁、岩缝风草和龛内齿轮可在井底同框观察。首访从上层和井底尝试绕入，带壁攀回访时可取 TG02 并由 d017 到 P13。 |
 
-以正常机位检查前景是否接地、地形尽头是否读成门，以及角色是否可以在敌人的射程外先看到落点。验收分别覆盖触控输入、真实控制器、世界门的 14 个端点、收集与写入失败重试。G08 获得壁攀和从森林内部来到 F08 使用明确的回访进度。三房以外的直接邻房提供门侧接收段。[三房回归](../../../../production/tests/plains_intro_rooms.gd) · [接收段与素材](../../../../art/rooms/plains_intro/README.md)
+以正常机位检查前景是否接地、地形尽头是否读成门，以及角色是否可以在敌人的射程外先看到落点。验收分别覆盖触控输入、真实控制器、世界门的 14 个端点、收集与写入失败重试。G08 获得壁攀和从森林内部来到 F08 使用明确的回访进度。在这次三房评审版本中，直接邻房以门侧接收段参加验证。[三房回归](../../../../production/tests/plains_intro_rooms.gd) · [接收段与素材](../../../../art/rooms/plains_intro/README.md)
 
 前版的独立首玩揭示了读牌按键和井底目标的可读性问题。当前近牌时按设备显示操作，东壁下方的正常跟随镜头同时容下玩家、攀面与实际齿轮。P02 第 6 版的认可和影片对应下面的历史样板。[三房审核入口](https://plains-p02-room-review.zhipijun1996.chatgpt.site/)
 
@@ -18,9 +22,9 @@
 
 审核页按房间配对展示一段原速游玩和一张完整场景图。三段短片在 Godot 中使用横屏触控布局录制，分别为 14 秒、10 秒和 13 秒。P03 片尾标明持有壁攀能力的回访进度。[录制脚本](../../../../art/rooms/plains_intro/record.sh)可从正式场景重录；三房连续触控回归可用 `bash tools/godot.sh --headless --path production --fixed-fps 60 --script res://tests/plains_intro_rooms.gd -- --touch` 复现。
 
-## P02 田埂反冲教学 · 整房已认可
+## #166 历史样板 · P02 第 6 版整房已认可
 
-地图依据为 `world-room-model-27`。制作范围是一间完整 P02，以及四个邻房门槛以内的接收段。根工程继续运行冻结平原。用 Godot 4.7.2 打开 `production/project.godot`，选 [P02.tscn](../../../../production/rooms/world/P02.tscn) 后按 F6，从 P01 接近西田埂。A/D 或方向键移动，空格跳，鼠标瞄准、松开左键射击，M 打开局部地图。
+地图依据为 `world-room-model-27`。该版本的范围是一间完整 P02，以及四个邻房门槛以内的接收段。根工程继续运行冻结平原。用 Godot 4.7.2 打开 `production/project.godot`，选 [P02.tscn](../../../../production/rooms/world/P02.tscn) 后按 F6，从 P01 接近西田埂。A/D 或方向键移动，空格跳，鼠标瞄准、松开左键射击，M 打开局部地图。
 
 v26 和 v27 的四条门线及房号相同。d009 在世界地图沿 y=39 的水平边界跨接两房，P02 在上、P16 在下。房间说明中的“侧通道”是主路线的探索分支，草台接近方向和最终跨房方向见下表。
 
@@ -47,7 +51,7 @@ v26 和 v27 的四条门线及房号相同。d009 在世界地图沿 y=39 的水
 
 ## 样板复盘
 
-2026-11-27，用户认可 P02 整体。对应第 6 版试玩，游戏提交为 [d7e0fd85](https://github.com/zhipijun1996/gunman-rush/commit/d7e0fd853ca985c7e8bfad3fbf07de6964c7549e)。范围是一间完整房和四个接收段。[整房、短片与试玩](https://plains-p02-room-review.zhipijun1996.chatgpt.site/)
+2026-11-27，用户认可 P02 整体。对应第 6 版试玩，游戏提交为 [d7e0fd85](https://github.com/zhipijun1996/gunman-rush/commit/d7e0fd853ca985c7e8bfad3fbf07de6964c7549e)。范围是一间完整房和四个接收段。[第 6 版整房与短片](https://plains-p02-room-review.zhipijun1996.chatgpt.site/p02.html)
 
 | 返工处 | 为什么当时没发现 | 这次用什么判定修好 |
 | --- | --- | --- |

@@ -27,7 +27,7 @@ description: 为《失序之钟》/ gunman-rush 及 Godot 类银河恶魔城规�
 
 读仓库 `AGENTS.md`、当前工作线与模块导航，核对分支、未提交改动、实际运行入口和引擎版本。以本次用户指令确定范围；按项目现行权威关系读取世界、区域、动作、敌人及状态规则。核实文档所称“已接入/未接入”是否与真实消费者一致。
 
-在 gunman-rush 中，新房使用 `production/` 的 Godot 资源根。按[房间制作](../../../docs/bible/room_authoring.md)选择 TileSet、机关定义和物种，检查实例 ID、来源、位置、状态及端口。启动宿主为 OrdinaryRoomSession；参考 `production/tests/assembly_room.json` 与 `tools/check_ordinary_rooms.py`。从项目锁定的世界包提取本房及直接邻房的门线、房形、通行条件和能力授予。灰盒阶段即按世界门号检查实际越界方向。
+在 gunman-rush 中，新房使用 `production/` 的 Godot 资源根。按[房间制作](../../../docs/bible/room_authoring.md)选择 TileSet、机关定义和物种，检查实例 ID、来源、位置、状态及端口。世界试玩入口及当前状态见[模块导航](../../../docs/project/module_map.md)。OrdinaryRoomSession 装配单房，`production/tests/assembly_room.json` 与 `tools/check_ordinary_rooms.py` 用于组件回归。从项目锁定的世界包提取本房及直接邻房的门线、房形、通行条件和能力授予。灰盒阶段即按世界门号检查实际越界方向。
 
 ### 2. 编排整个区域
 

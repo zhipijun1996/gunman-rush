@@ -1,6 +1,8 @@
 # 验证范围
 
-日常 CI 只有 project／import／smoke／contracts 四项，由 `tools/ci.py` 和 production.yml 定义。它不读取历史任务、证据索引或手动专项表。
+重做工程另由 [rebuild 作业](../../.github/workflows/production.yml)检查活动文档、质量、上下文导航、普通房间和锁定内容通道。下面列出的根工程场景和运行资源用于冻结试玩。
+
+冻结根工程的 affected 作业执行 project／import／smoke／contracts 四项，由 `tools/ci.py` 和 production.yml 定义。它不读取历史任务、证据索引或手动专项表。
 
 手动检查从 `tools/harness/profiles.json` 的现存 manual ID 选择；只记录命令、超时和成功标记。大专项、长路线、画面音频、浏览器、发布和历史复现按本次任务显式执行，方法见 [Harness](harness.md)。
 

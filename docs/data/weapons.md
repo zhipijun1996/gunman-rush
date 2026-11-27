@@ -4,7 +4,7 @@
 
 ## 完整攻击预算
 
-已确认：一枪为一次完整攻击。三连三弹合计、激光一次有限射线预算均为同档普通枪B的1.5倍，不是每弹/每tick各1.5B；小数精度不逐弹上取整。发射时长与节奏待实际动作校准，不靠延长照射抵消倍率。普通枪5/9/13/17/21是试制档位，新世界首个环路采用 [起始参数](../../config/world/player.json) 的5伤害试制值；旧原型保持原参数，其余成长档位及升级消费者待后续适配。
+已确认：一枪为一次完整攻击。三连三弹合计、激光一次有限射线预算均为同档普通枪B的1.5倍，不是每弹/每tick各1.5B；小数精度不逐弹上取整。发射时长与节奏待实际动作校准，不靠延长照射抵消倍率。重做版基础弹伤害取自[人物调校](../../production/config/player_tuning.json)的 `projectile_damage`，武器与装备再结算各自倍率。冻结版首环采用的[试制档位](../../config/world/player.json)随原工程保留。
 
 ## 攻击与移动
 
@@ -19,7 +19,7 @@
 
 ### 普通枪主动技能：冰弹
 
-平原武器匠免费安装技能素材后，普通枪保留原单发普攻，并开放独立主动技能「冰弹」。冰弹复用现有技能键和主瞄准，作为独立主动大招：短暂屈身聚能，冰晶向枪口收拢，随后释放宽体冰晶贯穿弹，伴随发射展开环、晶体尾流和碎冰命中。蓄势与发射使用已校准同体动作帧，不旋转或放大整个人物。蓄势不冻结角色物理，换房、死亡与取消不遗留蓄能或延迟发射。弹丸贯穿敌人，同一目标每弹只结算一次，不因穿透衰减；实体墙和不接受伤害的实体护甲仍截止。一次命中造成当前普通枪完整单发伤害的3倍；只有实际伤害提交后，存活敌人才出现明亮的蓝色霜层并减速。重复命中刷新时长，不叠乘减速；到期、死亡或重置清除，暂停不计时。
+冻结平原中，武器匠免费安装技能素材后，普通枪保留原单发普攻，并开放独立主动技能「冰弹」。冰弹复用现有技能键和主瞄准，作为独立主动大招：短暂屈身聚能，冰晶向枪口收拢，随后释放宽体冰晶贯穿弹，伴随发射展开环、晶体尾流和碎冰命中。蓄势与发射使用已校准同体动作帧，不旋转或放大整个人物。蓄势不冻结角色物理，换房、死亡与取消不遗留蓄能或延迟发射。弹丸贯穿敌人，同一目标每弹只结算一次，不因穿透衰减；实体墙和不接受伤害的实体护甲仍截止。一次命中造成当前普通枪完整单发伤害的3倍；只有实际伤害提交后，存活敌人才出现明亮的蓝色霜层并减速。重复命中刷新时长，不叠乘减速；到期、死亡或重置清除，暂停不计时。
 
 消耗、技能冷却、减速比例和持续时间唯一归 [冰弹定义](../../resources/weapons/pulse_ice.tres)。技能沿已有弹药、共鸣和反冲规则，技能伤害不自充共鸣；普通射击与空中命中补弹保持原行为。空中命中恢复一发空中弹药，不清空射击冷却，教程不得把两者混称。敌人行动按同一减速时钟推进，已射出的弹丸保持原速度；减速不是定身。
 
@@ -36,7 +36,7 @@
 | 磁吸遥爆雷／磁暴猎杀雷 | 投出可附着的强化磁雷，可遥爆并在合法邻近目标间连锁；借爆仍受距离和遮挡限制 | [magnetic_storm](../../resources/weapons/magnetic_storm.tres) |
 | 坍缩奇点／吞星坍缩 | 在当前位置保持有限固定与扩大牵引，结束爆发并沿选择方向弹射；不能无限延长固定 | [star_collapse](../../resources/weapons/star_collapse.tres) |
 
-基础与二级数值分别见 [普通枪](../../resources/weapons/pulse_gun.tres)、[影步](../../resources/weapons/shadow_shuriken.tres)、[反冲炸弹](../../resources/weapons/recoil_bomb.tres)、[三连](../../resources/weapons/triple_machine_gun.tres)、[激光](../../resources/weapons/sustained_laser.tres)、[散华](../../resources/weapons/fan_shuriken.tres)、[回旋刃](../../resources/weapons/remote_boomerang.tres)、[磁雷](../../resources/weapons/magnetic_mine.tres)、[奇点](../../resources/weapons/collapse_singularity.tres)。
+基础与二级数值分别见 [普通枪](../../production/resources/weapons/pulse_gun.tres)、[影步](../../production/resources/weapons/shadow_shuriken.tres)、[反冲炸弹](../../production/resources/weapons/recoil_bomb.tres)、[三连](../../resources/weapons/triple_machine_gun.tres)、[激光](../../resources/weapons/sustained_laser.tres)、[散华](../../resources/weapons/fan_shuriken.tres)、[回旋刃](../../resources/weapons/remote_boomerang.tres)、[磁雷](../../resources/weapons/magnetic_mine.tres)、[奇点](../../resources/weapons/collapse_singularity.tres)。
 
 ## 手感与输入
 
@@ -48,4 +48,4 @@
 
 预告、出手、弹体、真实命中、回收和爆发保持同一身体与武器身份，声音和运动时序对应实际结果。贴墙出手不能越墙生成实体，爆炸范围、激光截止和牵引停止可读。
 
-数值唯一在 `resources/weapons/` 及实际武器／运动 Definition 中维护，位移、时长、伤害、射程和共鸣成本不在多页重复设默认值。实现、练习入口和检查见 [模块导航](../project/module_map.md)。
+重做数值归[生产资源](../../production/resources/weapons)与 [ShootAbility](../../production/game/combat/weapons/shoot_ability.gd)使用的 Definition；本页指向根工程的技能资源用于复现对应历史实现，位移、时长、伤害、射程和共鸣成本不在多页重复设默认值。实现、练习入口和检查见 [模块导航](../project/module_map.md)。

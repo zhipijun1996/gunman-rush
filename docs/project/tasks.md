@@ -2,6 +2,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 入口 |
 | --- | --- | --- | --- | --- |
+| PLAYABLE-WORLD | 按锁定地图制作实体房间，接入跨房、持久进度与内容交互，按实机覆盖交接 | CONTENT-CHANNEL-V1 | in_progress | [世界施工与样板](worklines/room_rebuild/scope.md) |
 | PLAINS-INTRO | 用 P01、P03 验证连续教学、能力回访和整房构图 | CONTENT-CHANNEL-V1 | review | [房间与联测](worklines/room_rebuild/scope.md) |
 | MECHANISM-LIBRARIES-01 | 按基本库与预组定稿逐模式交付机关、实机验证和可复用预组 | — | review | [交接](worklines/mechanism_libraries/scope.md) |
 | EQUIPMENT-01 | 按定稿交付重做版永久装备、房间服务和运行验证 | — | review | [交接](worklines/permanent_equipment/scope.md) |

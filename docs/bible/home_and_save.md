@@ -1,5 +1,7 @@
 # 安全服务、休息与保存
 
+连续世界使用[独立存档](../../production/game/platform/persistence/playable_world_save.gd)。首次从 P01 开始，继续游戏读取保存的房号与进度；有效备份与重新开局分别由存档服务及宿主处理。房间服务按下列状态寿命提交，实际可使用的服务取决于[房间绑定](../../production/config/imported_world/bindings.json)及该房的实体。
+
 小站和地区安全区承载NPC、休息、交通与装配。交通抵达、进入安全房、对话、购物、锻造、强化、交付与自动保存均不是休息。重做版房间按[装备制作](../project/item_authoring.md)放置服务。
 
 ## 四种状态寿命

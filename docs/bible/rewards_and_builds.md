@@ -4,7 +4,7 @@
 
 重做版采用[装备系统定稿](../data/items.md)。装备在首次领取时以永久 ID 登记所有权，来源同时记为已领取。60 件中有 14 件可由强化师升至 Lv3，其余 46 件使用固定效果。每一级的费用和触发参数见[运行目录](../../production/config/equipment.json)。全部强化共计 3,000 金币。
 
-玩家在休息站装卸装备，在已装配的主动功能中选择快捷动作。负荷容量从 8 起，通过永久成长提高至 14。发光灯和抗毒滤芯分别以 `equipped:EQ_LAMP`、`equipped:EQ_FILTER` 满足对应的物品门。房间使用[登记来源](../../production/config/equipment_rewards.json)放置领取点，具体可达位置由新地图决定。装配、休息和资源恢复的边界见[保存规则](home_and_save.md)。
+玩家在休息站装卸装备，在已装配的主动功能中选择快捷动作。负荷容量从 8 起，通过永久成长提高至 14。发光灯和抗毒滤芯分别以 `equipped:EQ_LAMP`、`equipped:EQ_FILTER` 满足对应的物品门。房间使用[登记来源](../../production/config/equipment_rewards.json)放置领取点，世界内来源与授予条件取自[锁定设计](../data/world/README.md)，具体可达位置由实体房间落实。装配、休息和资源恢复的边界见[保存规则](home_and_save.md)。
 
 金币由敌人掉落并在拾取后入账。强化按永久装备 ID 扣除金币并提升等级，保存与界面共用同一交易结果。房间服务的使用方式见[装备制作](../project/item_authoring.md)。
 

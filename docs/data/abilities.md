@@ -36,4 +36,4 @@ Q的关卡门槛应接在可稳定等待的墙面、停留钩点或安全平台�
 
 钩索辅助线与实际钩头探测一致，落空有快速回收；踢跳方向由来侧决定，结束时改瞄准不暗改已承诺动作。额外跳跃、钩索剩余与恢复反馈清楚，取消立即释放旧保护和未完成请求。
 
-参数取 [traversal配置](../../resources/player/traversal.tres) 与实际动作资源；具体按钮只在 [输入合同](../bible/controls_contract.md) 维护。代码和验证见 [模块导航](../project/module_map.md)。
+参数取 [traversal配置](../../production/resources/player/traversal.tres) 与实际动作资源；具体按钮只在 [输入合同](../bible/controls_contract.md) 维护。代码和验证见 [模块导航](../project/module_map.md)。

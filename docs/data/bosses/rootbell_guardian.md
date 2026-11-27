@@ -1,5 +1,7 @@
 # 根铃守卫
 
+本页记录冻结工程的 Boss 设计与当时采用的资源。重做版对应房间的遭遇身份、完成条件和实体实现按[锁定世界包](../world/README.md)、[运行绑定](../../../production/config/imported_world/bindings.json)和[遭遇消费者](../../../production/game/content/world_room_encounter.gd)核对。
+
 森林根铃守卫，固定房间位置以世界源为准。身体扑越与独立实体铃共同构成“借铃返击”的判断：玩家辨认攻势、移动接收者与反击时机，选择躲避、普通攻击或使用已授予的 H。
 
 ## 招式与阶段

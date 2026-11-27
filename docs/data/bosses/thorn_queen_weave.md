@@ -1,5 +1,7 @@
 # 棘冠女王 · 迁巢织场
 
+本页记录冻结工程的 Boss 设计与当时采用的资源。重做版对应房间的遭遇身份、完成条件和实体实现按[锁定世界包](../world/README.md)、[运行绑定](../../../production/config/imported_world/bindings.json)和[遭遇消费者](../../../production/game/content/world_room_encounter.gd)核对。
+
 森林女王的独立织场版本。通过移动、织结和连续空间压力，让玩家在保留借用目标、剪断威胁和换岸之间选择；它不与 Canopy 版合写成同一套招式。
 
 ## 织结与路线

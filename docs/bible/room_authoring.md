@@ -40,7 +40,7 @@
 
 ## 接入世界设计
 
-使用网页世界内容时，按[内容通道](../data/world/content_channel.md)将稳定房号绑定到已施工文档，并用 `open_content(room_id)` 打开。`content_bindings.enemy_instances` 为各实际敌人引用 `species_id` 与 `drop_profile_id`；单只掉币从统一档案读取。
+在[运行绑定](../../production/config/imported_world/bindings.json)登记稳定房号与正式文档，在 [world.tscn](../../production/rooms/world/world.tscn) 从实际邻房越门。单房装配可用 `open_content(room_id)` 定位验证。[内容通道](../data/world/content_channel.md)说明版本与联接规则。`content_bindings.enemy_instances` 为各实际敌人引用 `species_id` 与 `drop_profile_id`；单只掉币从统一档案读取。
 
 房间作者根据地形、镜头、战斗和动作节奏决定怪物组合、数量及位置，可以选择该房间候选组以外的已注册物种。网页敌群数量和总金币是规划估算，允许增减、换组或保留空房；`enemy_budget_review` 返回实际实例与候选预算的差异用于路线经济复核，不作为房间装载门槛。散币的规划锚点也是参考，实际位置应服务观察、绕路和失败恢复。
 
