@@ -1,29 +1,15 @@
-name: Production opening Android review
+name: Native ARM Android device recheck
 on:
-  workflow_dispatch:
-    inputs:
-      apk_run:
-        description: Prior successful build job to reuse for a device-only recheck
-        type: string
-        required: false
   push:
     branches:
-      - review/plains-android-device
+      - review/plains-arm64-device
 permissions:
-  actions: read
   contents: read
+  actions: read
 jobs:
-  device:
-    strategy:
-      fail-fast: false
-      matrix:
-        api: [30, 35]
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    env:
-      ANDROID_USER_HOME: /home/runner/.android
-      ANDROID_EMULATOR_HOME: /home/runner/.android
-      ANDROID_AVD_HOME: /home/runner/.android/avd
+  arm:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,37 +17,53 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: opening-android-apk
-          path: build/intro-android/
+          path: build/intro-android
           github-token: ${{ github.token }}
           run-id: 45955726890
       - uses: actions/setup-python@v5
         with:
           python-version-file: config/ci_python_version.txt
-      - name: Prepare KVM and ADB
+      - name: Prepare the native ARM Android host
         run: |
+          set -euxo pipefail
+          uname -am
+          mkdir -p build/intro-android/device
           cd build/intro-android && sha256sum -c SHA256SUMS && test "$(cat production-tree.txt)" = "$(git rev-parse HEAD:production)"
-          sudo chmod 666 /dev/kvm
-          mkdir -p "$ANDROID_AVD_HOME" device
+          grep ANDROID_BINDER /boot/config-"$(uname -r)" || true
+          sudo apt-get -qy update
+          sudo apt-get -qy install adb
           python -m pip install Pillow
-          "$ANDROID_HOME/platform-tools/adb" start-server
-          Xvfb :97 -ac -screen 0 1280x720x24 +extension GLX > /tmp/xvfb.log 2>&1 &
-          echo 'DISPLAY=:97' >> "$GITHUB_ENV"
-          echo 'LIBGL_ALWAYS_SOFTWARE=1' >> "$GITHUB_ENV"
-      - name: Exercise the exact APK on Android 11
-        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d
-        with:
-          api-level: ${{ matrix.api }}
-          target: google_apis
-          arch: x86_64
-          profile: pixel_2
-          disable-animations: true
-          emulator-boot-timeout: 360
-          emulator-options: -no-window -no-snapshot -no-audio -no-boot-anim -gpu host -accel on -feature -Vulkan
-          script: bash tools/run_intro_android_device.sh
+          if ! sudo modprobe binder_linux devices=binder,hwbinder,vndbinder; then
+            sudo apt-get -qy install "linux-modules-extra-$(uname -r)"
+            sudo modprobe binder_linux devices=binder,hwbinder,vndbinder
+          fi
+          stat /dev/binder || true
+          sudo docker run -d --name android --privileged -p 127.0.0.1:5555:5555 redroid/redroid@sha256:3c7f9450188226bf8042c0159b9b38abe2106f1ceb0dfa45fae1cbc6409cd9bb androidboot.redroid_gpu_mode=guest androidboot.use_memfd=1 androidboot.redroid_width=540 androidboot.redroid_height=960 androidboot.redroid_dpi=240
+          for tick in $(seq 1 80); do
+            adb connect 127.0.0.1:5555 || true
+            if [ "$(adb -s 127.0.0.1:5555 shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = 1 ]; then break; fi
+            sleep 3
+          done
+          adb -s 127.0.0.1:5555 shell getprop ro.product.cpu.abilist
+      - name: Exercise the unchanged game APK
+        run: |
+          set -eu
+          serial=127.0.0.1:5555
+          adb -s "$serial" shell settings put secure immersive_mode_confirmations confirmed
+          adb -s "$serial" shell settings put system accelerometer_rotation 0
+          adb -s "$serial" shell settings put system user_rotation 1
+          adb -s "$serial" shell wm dismiss-keyguard
+          adb -s "$serial" shell screenrecord --time-limit 90 --bit-rate 3000000 /data/local/tmp/intro-review.mp4 &
+          trap 'adb -s "$serial" shell pkill -2 screenrecord || true; sleep 1; adb -s "$serial" pull /data/local/tmp/intro-review.mp4 build/intro-android/device/arm-touch.mp4 || true' EXIT
+          python tools/test_intro_android.py build/intro-android/Plains-review.apk build/intro-android/device --serial "$serial"
+      - name: Retain guest startup diagnostics
+        if: always()
+        run: |
+          mkdir -p build/intro-android/device
+          sudo docker logs android > build/intro-android/device/android-container.log 2>&1 || true
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: opening-android-device-api${{ matrix.api }}
+          name: opening-android-native-arm-device
           path: build/intro-android/device/
           retention-days: 7
-          if-no-files-found: warn
