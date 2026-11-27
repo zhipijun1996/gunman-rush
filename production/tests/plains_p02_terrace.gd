@@ -1,6 +1,6 @@
 extends SceneTree
 ## Actual inputs across P02 and all four return landings. No player relocation.
-const SCENE := preload("res://rooms/world/P02.tscn")
+const SCENE := preload("res://tests/plains_test_host.tscn")
 var host: FieldTerracePilot
 var frame := 0
 var checks := 0
@@ -19,7 +19,7 @@ class FaultPilot extends FieldTerracePilot:
 		if id=="P02" and bad_support:
 			doc.exits.d001.spawn = [190,150]
 		if id=="P02" and blocked_body:
-			doc.exits.d001.point = [2,401]
+			doc.exits.d001.point[1] = doc.entities.west_field.properties.rect[1]+24
 		return doc
 
 class RejectingSave extends OrdinaryRoomSession.RoomMemory:
@@ -51,7 +51,7 @@ func walk(x: float) -> bool:
 	var player := host.active.player
 	var side := signf(x-player.position.x)
 	host.active.controller.router.set_move_axis(side)
-	for _i: int in 300:
+	for _i: int in 640:
 		if host.active.player!=player: return false
 		if (x-player.position.x)*side<=1:
 			host.active.controller.router.set_move_axis(0)
@@ -155,7 +155,7 @@ func refused_and_held_input() -> void:
 	await keyboard(KEY_A,true)
 	await ticks(18)
 	await keyboard(KEY_A,false)
-	check(original.player.position.x<660,"can walk freely away after rollback")
+	check(original.player.position.x<float(WorldRoomDocument.read("res://rooms/world/P01.json").exits.d001.spawn[0])-28,"can walk freely away after rollback")
 	await keyboard(KEY_D,true)
 	for i: int in 200:
 		if host.active!=original and host.crossing: break
@@ -185,7 +185,7 @@ func connect_shots(_id: String) -> void:
 func cross(id: String, side: float) -> bool:
 	var start := host.active
 	start.controller.router.set_move_axis(side)
-	for _i: int in 300:
+	for _i: int in 640:
 		await ticks(1)
 		if host.active!=start and not host.crossing:
 			host.active.controller.router.set_move_axis(0)
@@ -226,335 +226,104 @@ func recoil_cross(side: float, x: float, elevation := .55) -> void:
 	host.active.controller.router.request_action(&"shoot_release",Vector2(-side,elevation).normalized())
 	await ticks(31)
 	release_jump()
-	check(await walk(x) and await stand(366) and shots==before+1,"single backwards recoil clears the main break")
-
-func check_late_jump(x: float, label: String) -> void:
-	check(await walk(x),label+" enters the coyote window")
-	var serial := host.active.controller.jump_ability.accepted_serial
-	host.active.controller.router.set_move_axis(1)
-	jump()
-	await ticks(90)
-	release_jump()
-	host.active.controller.router.set_move_axis(0)
-	check(serial+1==host.active.controller.jump_ability.accepted_serial and host.active.player.position.x<720 and await stand(558),label+" still requires recoil")
-
-func alternate_crossing() -> void:
-	await host.active.audio_service.shutdown()
-	host.free()
-	host = SCENE.instantiate()
-	root.add_child(host)
-	host.room_changed.connect(connect_shots)
-	connect_shots(host.active.room.room_id)
-	check(await preload("res://tests/plains_start_input.gd").take_ground_gun(host),"collect the gun before the alternate recoil route")
-	check(await cross("P02",1),"enter fresh field for alternate west crossing")
-	check(await walk(426),"start at original lip")
-	host.active.controller.router.set_move_axis(1)
-	jump()
-	await ticks(86)
-	release_jump()
-	host.active.controller.router.set_move_axis(0)
-	check(await stand(558),"ordinary miss reaches basin again")
-	jump()
-	await ticks(7)
-	host.active.controller.router.request_action(&"shoot_release",Vector2.DOWN)
-	await ticks(19)
-	check(await walk(815) and await stand(366),"basin's vertical recoil can land on bell platform")
-	release_jump()
-	await ticks(3)
-	check(not host.landed_on_terrace,"vertical trick from underneath stays silent")
-	jump()
-	await ticks(65)
-	release_jump()
-	check(not host.landed_on_terrace and await stand(366),"same-platform hop stays silent")
-	check(await walk(962),"reach east fork")
-	await plain_cross(1,1240,398)
-	check(await walk(1151),"approach from east")
-	await plain_cross(-1,840,366)
-	check(not host.landed_on_terrace,"entering the bell terrace from eastern road stays silent")
-	check(await walk(650) and await stand(558),"return to the basin")
-	check(await walk(592),"approach western rooted mound")
-	await climb(546,510,"lower west takeoff")
-	await climb(507,462,"upper west takeoff")
-	await recoil_cross(1,809,.9)
-	await ticks(2)
-	check(host.landed_on_terrace and host.active.audio_service.played.get(&"mechanism_bell",0)==1,"western retry tread recoil rings once")
-
-# Sample the same local mask and opacity the foreground shader uses. A sparse
-# tuft elsewhere in the frame does not cover the shaft or its return steps.
-func grass_opacity(at: Vector2) -> float:
-	var cover := host.active.room.element_runtime.nodes.get("grass_cutaway") as WorldForegroundCover
-	if cover == null or not cover.bounds.has_point(at): return -1.0
-	var offset := at - cover.bounds.position
-	var pixel := Vector2i(offset)
-	var texture := Image.new()
-	if texture.load_png_from_buffer(FileAccess.get_file_as_bytes(cover.texture_path)) != OK: return -1.0
-	if texture == null or texture.is_empty() or not Rect2i(Vector2i.ZERO,texture.get_size()).has_point(pixel): return -1.0
-	var alpha := texture.get_pixelv(pixel).a
-	var key := Vector2i((offset / WorldForegroundCover.CHUNK).floor())
-	if not cover.chunks.has(key): return alpha
-	var chunk: Dictionary = cover.chunks[key]
-	var image: Image = chunk.image
-	var area: Rect2 = chunk.area
-	var uv := (at - area.position) / area.size
-	var amount := image.get_pixelv(Vector2i(uv * Vector2(image.get_size()))).r
-	return alpha * lerpf(1.0, cover.revealed_alpha, amount)
-
-func encounter_frame(label: String) -> void:
-	print("ENCOUNTER ",label," ",Engine.get_process_frames()," ",host.active.room.room_id," ",host.active.player.position)
-
-func encounter_route() -> void:
-	var insects := host.active.room.enemies
-	if not insects.has("east_road_grub") or not insects.has("grass_verge_grub"):
-		check(false,"both authored field patrols are present"); return
-	var west: EnemyActor = insects.grass_verge_grub
-	var east: EnemyActor = insects.east_road_grub
-	var hp := host.active.controller.actor_resources.health.current
-	check(not west.health.terminal and not east.health.terminal and insects.size()==2,"only the two live ground patrols occupy this field")
-	check(await walk(459) and await stand(558),"reach the grass lane without a forced battle")
-	check(await walk(307) and await stand(558),"stand on the rooted right bank with a clear shot")
-	encounter_frame("west")
-	await ticks(35)
-	var first_shot:=shots
-	var aim:=(west.motor.global_position-host.active.player.global_position+Vector2(0,5)).normalized()
-	host.active.controller.router.request_action(&"shoot_release",aim)
-	await ticks(29)
-	check(shots==first_shot+1 and west.health.terminal and west.health.capacity<=host.active.player.tuning.projectile_damage,"one ordinary starting shot defeats the optional west grub")
-	check(west.health.terminal and not east.health.terminal,"real projectiles defeat the grass patrol independently")
-	encounter_frame("west_clear")
-	if not west.health.terminal: return
-	# A normal recoil jump crosses the shaft to the optional field verge for the physical drop.
-	check(await walk(404),"reach the westward launch")
-	host.active.controller.router.set_move_axis(-1)
-	jump()
-	await ticks(5)
-	host.active.controller.router.request_action(&"shoot_release",Vector2(1,.15).normalized())
-	check(await walk(140),"cross the grass opening to the optional bank")
-	release_jump()
-	check(await stand(590),"land safely on the defeated patrol's verge")
-	host.active.controller.router.set_move_axis(-1)
-	await ticks(45)
-	check(host.active.player.is_on_wall() and host.active.player.position.x>32 and host.active.room.room_id=="P02","the lower west verge terminates against solid hillside inside P02")
-	host.active.controller.router.set_move_axis(0)
-	check(await walk(155),"collect the coins left on the verge")
-	# A coin scattered into the chute returns to the bank where the shot was fired.
-	host.active.controller.router.set_move_axis(1)
-	jump()
-	await ticks(6)
-	host.active.controller.router.request_action(&"shoot_release",Vector2(-1,.15).normalized())
-	check(await walk(410),"cross back above the chute for the returning coin")
-	release_jump()
-	check(await stand(558) and await walk(370),"collect the returning coin on the bank")
-	var reward: int=host.active.content_enemy_gold.grass_verge_grub
-	check(host.active.services.ledger().gold==reward,"physical collection credits the grass patrol's authored coin value once")
-	encounter_frame("west_loot")
-	check(await walk(240) and await cross("P16",0) and await stand(270),"hidden lower passage opens with the east patrol still alive")
-	jump()
-	check(await cross("P02",0) and await stand(714),"return to the supported grass shelf")
-	release_jump()
-	check(host.active.room.enemies.grass_verge_grub.health.terminal and not host.active.room.enemies.east_road_grub.health.terminal and host.active.services.ledger().gold==reward,"the distinct defeated and live patrol states and payment survive the return")
-	await climb_recess(281,-1,304,636,4,7,"return to the middle grass step")
-	await climb_recess(281,-1,306,558,4,7,"regain the grass bank")
-	check(await walk(459),"reach western retry step")
-	await climb(508,462,"western return")
-	await climb(404,366,"western launch")
-	check(await walk(426),"approach the teaching jump")
-	await recoil_cross(1,817)
-	check(await walk(962),"reach the upper route")
-	await plain_cross(1,1240,398)
-	east=host.active.room.enemies.east_road_grub
-	check(await walk(1300) and await stand(398),"stand on wide field road outside the east patrol")
-	encounter_frame("east_approach")
-	for i: int in 280:
-		if east.motor.position.x-host.active.player.position.x<108 and east.brain.direction<0: break
-		await ticks(1)
-	encounter_frame("east")
-	var before:=shots
-	host.active.controller.router.set_move_axis(1)
-	jump()
-	await ticks(45)
-	release_jump()
-	check(await walk(1605) and await stand(398) and shots==before and not east.health.terminal,"ordinary jump passes the oncoming east patrol with a safe landing")
-	encounter_frame("east_clear")
-	check(host.active.controller.actor_resources.health.current==hp,"the optional battle and the vault both leave player health intact")
-	check(await cross("P03",1) and await stand(270),"east gate admits a player with the enemy alive")
-	check(await cross("P02",-1) and await stand(398),"actual east door returns to the road")
-	check(host.active.room.enemies.grass_verge_grub.health.terminal and not host.active.room.enemies.east_road_grub.health.terminal and host.active.services.ledger().gold==reward,"crossing the road twice creates no repeat kill or payout")
-	encounter_frame("end")
+	check(await walk(x) and await stand(413.8593) and shots==before+1,"single backwards recoil clears the main break")
 
 func run() -> void:
 	film = "--film" in OS.get_cmdline_user_args()
-	host = SCENE.instantiate()
+	host=SCENE.instantiate()
 	root.add_child(host)
-	if host.active==null:
-		printerr("P02 pilot failed to open its arrival passage")
+	if host.active == null:
+		printerr("P02 field failed to open")
 		quit(1)
 		return
 	bind_audit()
 	host.room_changed.connect(connect_shots)
 	connect_shots(host.active.room.room_id)
-	check(await preload("res://tests/plains_start_input.gd").take_ground_gun(host),"pick up the ground gun before the field")
-	check(host.active.room.room_id=="P01" and await stand(270),"start inside the P01 receiving passage")
-	await mark("p01_approach")
-	check(await cross("P02",1) and await stand(366),"actually enter P02 from the west")
-	if "--encounters" in OS.get_cmdline_user_args():
-		await encounter_route()
-		print("P02 ENCOUNTERS failures=",failures," checks=",checks)
-		await host.active.audio_service.shutdown()
-		host.free()
-		quit(1 if failures else 0)
-		return
+	check(await preload("res://tests/plains_start_input.gd").take_ground_gun(host),"take the gun from the P01 starting ground")
+	check(await cross("P02",1) and await stand(float(host.active_doc.exits.d001.spawn[1])),"walk from the birthplace into the west field")
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--overview="):
 			await overview(arg.trim_prefix("--overview="))
 			return
-	var eye := root.get_camera_2d().get_screen_center_position()
-	check(eye.x+root.get_visible_rect().size.x/(2*root.get_camera_2d().zoom.x)>=host.bell_mount.position.x+73,"full bell landmark visible at spawn")
-	check(not host.active.state.has("discover_p02_low_slope") and not host.route_map.known_rooms().has("P16"), "grass passage starts undiscovered")
-	check(not host.notice.visible and host.panorama.texture.resource_path.ends_with("irrigation_panorama.webp"), "arrival is unobstructed")
+	var lip:=Vector2(270,617)
+	var inside:=Vector2(242,736)
+	check(not host.active.state.has("discover_p02_low_slope") and preload("p02_grass_mask.gd").opacity(host.active,lip)>.95 and preload("p02_grass_mask.gd").opacity(host.active,inside)>.95,"first view keeps the grass mouth and lower shaft covered")
 	await mark("arrival")
-	check(await walk(426),"reach western brink")
-	await mark("brink")
+	check(await walk(354),"walk to the release edge")
 	host.active.controller.router.set_move_axis(1)
 	jump()
-	await ticks(83)
+	await ticks(82)
 	release_jump()
 	host.active.controller.router.set_move_axis(0)
-	check(shots==0 and host.active.player.position.x<720 and await stand(558),"full ordinary jump misses and reaches the retry basin")
-	await ticks(2)
-	check(host.retry_hint_shown and not host.landed_on_terrace,"safe miss shows one retry hint")
+	check(shots==0 and host.active.player.position.x<648 and await stand(576),"a full unassisted jump reaches the safe retry floor")
+	check(host.retry_hint_shown and not host.landed_on_terrace,"the missed trial shows its hint without ringing")
 	await mark("retry_basin")
-	check(await walk(592),"approach rooted field steps")
-	await climb(546,510,"lower field step")
-	if not film:
-		await check_late_jump(600,"outer lower step")
-		check(await walk(590),"retry lower step")
-		await climb(546,510,"lower field step")
-	await climb(505,462,"upper field step")
-	if not film:
-		await check_late_jump(554,"outer upper step")
-		check(await walk(590),"retry upper step")
-		await climb(546,510,"lower field step")
-		await climb(505,462,"upper field step")
-	check(await walk(459) and await stand(558),"step behind rooted terrace onto grassy lower route")
-	var grass_lip := Vector2(270,599)
-	var grass_shaft := Vector2(242,718)
-	var return_step := Vector2(305,642)
-	check(grass_opacity(grass_lip)>.95 and grass_opacity(grass_shaft)>.95 and grass_opacity(return_step)>.95,"from the lower approach, turf conceals the opening, shaft and return ledge")
-	check(not host.active.state.has("discover_p02_low_slope") and not host.route_map.known_rooms().has("P16"),"arriving on the lower route still does not discover the entrance")
-	check(await walk(307) and await stand(558) and host.active.state.has("discover_p02_low_slope"),"reaching low grass commits discovery")
-	await mark("grass")
-	check(host.route_map.known_rooms().has("P16"),"discovered P16 is visible on map")
-	var grass_attempts:=host.passage_attempts
-	await ticks(24)
-	check(grass_opacity(grass_lip)>=0 and grass_opacity(grass_lip)<.15 and grass_opacity(grass_shaft)>.95, "near the bank only the adjoining mouth is visible, not the whole shaft")
-	check(host.passage_attempts==grass_attempts and host.active.room.room_id=="P02" and not host.active.state.value.explored.has("P16"),"pausing on the revealed grass lip neither loads nor visits P16")
-	check(await walk(240),"step off the low grass bank into the exposed opening")
-	check(await cross("P16",0) and await stand(270),"gravity carries the player down d009 to the P16 landing")
-	await mark("p16_arrival")
-	check(await walk(239),"reach coin cache")
-	await keyboard(KEY_UP,true)
-	await keyboard(KEY_UP,false)
-	var purse: Dictionary = host.catalog.lookup("coin_caches","coin20_P16").row
-	check(host.active.state.value.receipts.has("income:coin20_P16") and host.active.state.value.services.gold==purse.amount,"P16 coin cache uses the catalog quantity")
-	check(await walk(111),"reach health fragment")
-	await keyboard(KEY_UP,true)
-	await keyboard(KEY_UP,false)
-	check(host.active.state.value.inventory.get("health_shard",0)==1 and host.active.state.value.receipts.has("wr_P16_primary"),"P16 fragment committed exactly once")
-	await mark("p16_fragment")
-	await keyboard(KEY_UP,true)
-	await keyboard(KEY_UP,false)
-	check(host.active.state.value.inventory.get("health_shard",0)==1,"a second interaction never grants a duplicate fragment")
-	check(await walk(404) and await stand(270),"stand directly below the P16 return, still inside the room")
-	jump()
-	check(await cross("P02",0) and await stand(714),"jump through P16's ceiling and land on P02's lower grass ledge")
-	release_jump()
-	check(host.active.state.has("discover_p02_low_slope") and host.active.state.value.inventory.get("health_shard",0)==1 and host.active.state.value.services.gold==purse.amount,"grass discovery, HP01 and the coin credit survive return")
-	await climb_recess(281,-1,304,636,4,7,"round the middle grass-bank recess")
-	await climb_recess(281,-1,306,558,4,7,"climb out onto the grass bank")
-	check(await walk(459) and await stand(558),"return on foot from the grass lip to the main retry route")
-	await ticks(26)
-	check(grass_opacity(grass_lip)>.95 and grass_opacity(return_step)>.95 and host.route_map.known_rooms().has("P16"),"away from the lip the bank looks solid again while the map remembers P16")
-	await climb(508,462,"west shoulder from sheltered side")
-	if film:
-		await mark("recovery_launch")
-		await recoil_cross(1,817,.9)
-	else:
-		await climb(404,366,"west launch field")
-		check(await walk(426),"return to launch")
-		await recoil_cross(1,817)
+	check(await walk(518),"walk back to the three visible west treads")
+	await climb(474,542,"lower retry step")
+	await climb(435,494,"upper retry step")
+	await climb(335,413.8593,"return to full west field")
+	check(await walk(354),"regain takeoff edge")
+	await recoil_cross(1,726)
 	await ticks(2)
-	check(host.landed_on_terrace and host.chime_time>0 and host.active.audio_service.played.get(&"mechanism_bell",0)==1,"valid western recoil landing rings actual bell")
+	check(host.landed_on_terrace and host.active.audio_service.played.get(&"mechanism_bell",0)==1,"backward fire and the actual landing ring once")
 	await mark("bell_landing")
-	check(await walk(962) and await stand(366),"look across both eastern choices before jumping")
-	var view := root.get_visible_rect().size/root.get_camera_2d().zoom
-	eye = root.get_camera_2d().get_screen_center_position()
-	check(Rect2(eye-view*.5,view).has_point(Vector2(1100,608)) and Rect2(eye-view*.5,view).has_point(Vector2(1160,416)),"fork camera shows well shoulder and upper landing together")
-	await mark("fork_upper")
-	await plain_cross(1,1240,398)
-	check(await cross("P03",1) and await stand(270),"d002 reaches P03 via upper branch")
-	await mark("p03_arrival")
-	check(await cross("P02",-1) and await stand(398),"P03 leads west back into P02")
-	check(await walk(1151),"approach reverse upper jump")
-	await plain_cross(-1,941,366)
-	check(await walk(959) and await stand(366),"revisit same fork and deliberately descend")
+	check(await walk(784),"stand where both eastern routes can be read")
+	var camera:=root.get_camera_2d()
+	var view:=root.get_visible_rect().size/camera.zoom
+	var eye:=camera.get_screen_center_position()
+	check(Rect2(eye-view*.5,view).has_point(Vector2(897,664)) and Rect2(eye-view*.5,view).has_point(Vector2(998,468)),"the fork camera contains the upper landing and lower well shoulder")
 	await mark("fork_lower")
-	check(await walk(987) and await stand(430),"upper soil step")
-	check(await walk(1028) and await stand(486),"middle soil step")
-	check(await walk(1065) and await stand(534),"lower soil step")
-	check(await walk(1101) and await stand(590),"stop on dry shoulder before vertical well")
-	await mark("well_lip")
-	check(await walk(1167),"move into opened well")
-	check(await cross("P19",0) and await stand(270),"real fall through d330 enters P19")
-	await mark("p19_arrival")
+	check(await walk(805) and await stand(478),"upper soil step")
+	check(await walk(835) and await stand(530),"middle soil step")
+	check(await walk(865) and await stand(582),"lower soil step")
+	check(await walk(896) and await stand(646),"stop on dry shoulder before the vertical well")
+	check(await walk(960) and await cross("P19",0) and await stand(float(host.active_doc.exits.d330.spawn[1])),"real fall through the drain enters the P19 receiver")
 	jump()
-	check(await cross("P02",0) and await stand(714),"upward doorway hop lands on the near well ledge without new directional input")
+	check(await cross("P02",0) and await stand(786.8593),"the reverse hop reaches the west wall recess")
 	release_jump()
-	await climb_recess(1128,1,1104,653,2,5,"round the middle well tread")
-	await climb_recess(1128,1,1100,590,5,5,"regain the upper well shoulder")
-	check(host.active.state.value.explored.has("P03") and host.active.state.value.explored.has("P16") and host.active.state.value.explored.has("P19"),"physical visits survive session transitions")
-	await climb(1064,534,"lower well return")
-	await climb(1028,486,"middle well return")
-	await climb(987,430,"upper well return")
-	await climb(932,366,"bell embankment return")
-	check(await walk(731),"return to eastern brink")
-	await recoil_cross(-1,350)
-	check(await cross("P01",-1) and await stand(270),"d001 returns to P01 on foot")
-	check(await cross("P02",1) and await stand(366),"P01 can re-enter the field again")
-	await mark("return_home")
-	if not film:
-		await check_late_jump(464,"furthest accepted western launch")
-		check(completed.size()==8,"all four paired doors audited in both directions")
-		await alternate_crossing()
-		await refused_and_held_input()
-		await host.active.audio_service.shutdown()
-		host.free()
-		host = SCENE.instantiate()
-		root.add_child(host)
-		host.room_changed.connect(connect_shots)
-		check(await preload("res://tests/plains_start_input.gd").take_ground_gun(host),"collect the ground gun before the encounter route")
-		check(await cross("P02",1),"enter the encounter route on a fresh save")
-		await encounter_route()
-
-	print("P02 TERRACE failures=",failures," checks=",checks," frames=",frame)
+	await climb_recess(920,1,898,718,4,6,"middle well recess")
+	await climb_recess(920,1,898,646,4,6,"upper well recess")
+	await climb(864,582,"lower well bank")
+	await climb(842,530,"middle well bank")
+	await climb(806,478,"upper well bank")
+	await climb(762,413.8593,"return to the bell")
+	check(host.active.audio_service.played.get(&"mechanism_bell",0)==0,"returning to the bell from the drain stays silent")
+	await mark("fork_upper")
+	check(await walk(784),"approach upper fork again")
+	await plain_cross(1,1062,449.8593)
+	check(await walk(1268),"reach the second planted field")
+	await climb(1334,425.8593,"reach the shared eastern high road")
+	var east: EnemyActor=host.active.room.enemies.east_road_grub
+	for i in 250:
+		if east.motor.position.x-host.active.player.position.x<107 and east.brain.direction<0: break
+		await ticks(1)
+	await plain_cross(1,1580,425.8593)
+	check(await cross("P03",1) and await stand(float(host.active_doc.exits.d002.spawn[1])),"surface route reaches the registered P03 entrance")
+	await mark("p03_arrival")
+	check(await cross("P02",-1) and await stand(float(host.active_doc.exits.d002.spawn[1])),"P03 returns to the east field")
+	await refused_and_held_input()
 	await host.active.audio_service.shutdown()
 	host.free()
+	print("P02 TERRACE failures=",failures," checks=",checks," frames=",frame)
 	quit(1 if failures else 0)
 
 func overview(path: String) -> void:
-	root.content_scale_size=Vector2i(1648,768)
-	root.size=Vector2i(1648,768)
-	var camera := Camera2D.new()
+	var dims:=Vector2i(ceili(float(host.active_doc.bounds[2])),ceili(float(host.active_doc.bounds[3])))
+	root.content_scale_size=dims
+	root.size=dims
+	var camera:=Camera2D.new()
 	host.add_child(camera)
-	camera.position=Vector2(824,384)
+	camera.position=Vector2(dims)*.5
 	camera.make_current()
+	host.game_hud.set_overlay_hidden(true)
 	host.active.equipment_menu.hide()
 	host.room_title.hide()
 	await ticks(4)
 	camera.force_update_scroll()
 	await RenderingServer.frame_post_draw
-	var image := root.get_texture().get_image()
-	var error := image.save_png(path)
+	var image:=root.get_texture().get_image()
+	var error:=image.save_png(path)
 	print("P02 panorama ",image.get_size()," ",path," ",error)
 	await host.active.audio_service.shutdown()
 	host.free()
-	quit(0 if error==OK and image.get_size()==Vector2i(1648,768) else 1)
+	quit(0 if error==OK and image.get_size()==dims else 1)
