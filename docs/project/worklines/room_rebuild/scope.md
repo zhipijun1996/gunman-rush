@@ -1,6 +1,6 @@
 # 普通房间重做
 
-## 平原开场与三房安卓试玩 · 待整房评审
+## 平原开场与三房触控录屏 · 待整房评审
 
 试玩使用锁定的 `world-room-model-27`。安卓横屏上左侧移动，右侧拖动瞄准、松手射击，跳跃和互动各有独立按钮。地图按钮可查看已到访地点，轻触地图返回。编辑器的入口为 `production/rooms/world/P02.tscn`。
 
@@ -14,11 +14,9 @@
 
 前版的独立首玩揭示了读牌按键和井底目标的可读性问题。当前近牌时按设备显示操作，东壁下方的正常跟随镜头同时容下玩家、攀面与实际齿轮。P02 第 6 版的认可和影片对应下面的历史样板。[三房审核入口](https://plains-p02-room-review.zhipijun1996.chatgpt.site/)
 
-### 安卓试玩与复验
+### 本轮审核与复验
 
-在安装好项目指定 Godot、导出模板、JDK 17 和 Android SDK 的环境运行 `python3 tools/export_intro_android.py build/Plains-review.apk`，会生成从 P01 开始的 ARM64 横屏试玩包。试玩应用 ID 为 `org.gunmanrush.review.plains`。同一工作环境沿用自己的试玩签名，适合向安装了相同签名的设备发送更新。
-
-连接支持 ARM64 的安卓设备后，运行 `python3 tools/test_intro_android.py build/Plains-review.apk build/android-evidence` 可复验安装、横屏启动、地图开合、触控移动和拾枪。设备型号、系统、实测画面和结果保存在指定目录。三房路线采用正常视口的多指输入复验，命令为 `bash tools/godot.sh --headless --path production --fixed-fps 60 --script res://tests/plains_intro_rooms.gd -- --touch`。审核页的三段短片来自 Godot 正常镜头的原速触控回放。
+审核页按房间配对展示一段原速游玩和一张完整场景图。三段短片在 Godot 中使用横屏触控布局录制，分别为 14 秒、10 秒和 13 秒。P03 片尾标明持有壁攀能力的回访进度。[录制脚本](../../../../art/rooms/plains_intro/record.sh)可从正式场景重录；三房连续触控回归可用 `bash tools/godot.sh --headless --path production --fixed-fps 60 --script res://tests/plains_intro_rooms.gd -- --touch` 复现。
 
 ## P02 田埂反冲教学 · 整房已认可
 
