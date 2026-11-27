@@ -100,10 +100,13 @@ def main():
              "androiddebugkey", "--out", signed, aligned], env)
         run([signer, "verify", "--verbose", signed], env)
         run([zipalign, "-c", "-P", "16", "4", signed], env)
-        badging = subprocess.check_output([aapt, "dump", "badging", signed], env=env, text=True)
-        if f"package: name='{PACKAGE}'" not in badging or "native-code: 'arm64-v8a'" not in badging:
-            raise ValueError("Review package or ABI differs from the preset")
+        manifest = subprocess.check_output([aapt, "dump", "xmltree", signed, "AndroidManifest.xml"], env=env, text=True)
+        if f'package="{PACKAGE}"' not in manifest:
+            raise ValueError("Review package ID differs from the preset")
         with zipfile.ZipFile(signed) as apk:
+            libraries = {name.split("/")[1] for name in apk.namelist() if name.endswith("/libgodot_android.so")}
+            if libraries != {"arm64-v8a"}:
+                raise ValueError(f"Unexpected Godot libraries in APK: {libraries}")
             for room in ("P01", "P02", "P03"):
                 rel = f"rooms/world/{room}.json"
                 if apk.read("assets/" + rel) != (stage / rel).read_bytes():
