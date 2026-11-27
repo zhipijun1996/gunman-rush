@@ -17,6 +17,7 @@ signal sign_read(text: String)
 signal respawn_requested
 var sign_reader: RoomSignReader
 var recovery := RoomRecovery.new()
+var room_dressing: Node2D
 var room: FixedWorldRoom
 var player: PlayerMotor
 var controller: PlayerController
@@ -228,6 +229,9 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	services.can_access = _equipment_access
 	services.stage_resources = equipment.stage
 	equipment.bind(self)
+	if catalog != null:
+		state.committed.connect(_sync_world_abilities)
+		_sync_world_abilities(state.revision)
 	state.capture_live = capture_live
 	equipment_menu = EquipmentMenu.new()
 	equipment_menu.session = self
@@ -273,7 +277,16 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	for id: String in room.enemies:
 		var actor: EnemyActor = room.enemies[id]
 		actor.defeated.connect(_defeated.bind(id))
+	if catalog != null and document.has("scenery"):
+		preload("res://rooms/world/p02_connections/connection_room.gd").install(self,document,catalog)
 	return ""
+
+## The G08 acquisition owns W. Entering a room only restores the saved right
+## to attach to authored walls and kick off them through the real Controller.
+func _sync_world_abilities(_revision: int) -> void:
+	var owns_wall_climb := state.has("W")
+	if controller.traversal.has_capability(&"wall_climb") != owns_wall_climb:
+		controller.traversal.grant(&"wall_climb",owns_wall_climb)
 
 func capture_live(candidate: Dictionary) -> void:
 	candidate.services.effects = equipment.snapshot()

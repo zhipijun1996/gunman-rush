@@ -26,6 +26,10 @@ func expect(value: bool, description: String) -> void:
 		failures+=1
 		printerr("FAIL P02 landing ",description)
 
+func landing_document(id: String) -> Dictionary:
+	var binding := catalog.room_document(id)
+	return WorldRoomDocument.read(binding.path if binding.ok else SEGMENTS+id+".json")
+
 func frames(n: int) -> void:
 	for _n: int in n: await physics_frame
 
@@ -52,7 +56,7 @@ func press_up(host: OrdinaryRoomSession) -> void:
 		await frames(2)
 
 func enter(id: String, storage: TestStorage, viewport: Viewport=null) -> OrdinaryRoomSession:
-	var doc:=WorldRoomDocument.read(SEGMENTS+id+".json")
+	var doc:=landing_document(id)
 	var edge: String=LANDINGS[id]
 	var side:=catalog.lookup("doors",edge)
 	expect(side.ok and id in [side.row.a,side.row.b] and "P02" in [side.row.a,side.row.b],"authority for "+edge)
@@ -61,7 +65,8 @@ func enter(id: String, storage: TestStorage, viewport: Viewport=null) -> Ordinar
 	var error:=host.open(doc,storage,null,catalog,edge)
 	expect(error.is_empty(),id+" "+error)
 	if not error.is_empty(): return host
-	Connection.install(host,doc,catalog)
+	if not catalog.room_document(id).ok:
+		Connection.install(host,doc,catalog)
 	await frames(2)
 	for _i: int in 40:
 		if host.player.is_on_floor(): break
@@ -79,7 +84,7 @@ func route(id: String) -> void:
 		await leave(host)
 		return
 	expect(host.player.is_on_floor(),id+" lands on real geometry")
-	var doc:=WorldRoomDocument.read(SEGMENTS+id+".json")
+	var doc:=landing_document(id)
 	var door: Dictionary=doc.exits[LANDINGS[id]]
 	var target:=FixedWorldProvider.point(door.point)
 	if door.direction[1]<0:
@@ -171,7 +176,7 @@ func paired_sections() -> void:
 	for id: String in LANDINGS:
 		var edge: String=LANDINGS[id]
 		var side: Dictionary=original.exits[edge]
-		var doc:=WorldRoomDocument.read(SEGMENTS+id+".json")
+		var doc:=landing_document(id)
 		var other: Dictionary=doc.exits[edge]
 		var direction:=FixedWorldProvider.point(side.direction)
 		var axis:=0 if direction.y!=0 else 1
@@ -220,7 +225,7 @@ func shaft_motion(id: String, edge: String) -> void:
 	pilot.enter_room("P02","d001")
 	var field:=WorldRoomDocument.read("res://rooms/world/P02.json")
 	var top: Dictionary=field.exits[edge]
-	var bottom: Dictionary=WorldRoomDocument.read(SEGMENTS+id+".json").exits[edge]
+	var bottom: Dictionary=landing_document(id).exits[edge]
 	var upper:=FixedWorldProvider.point(top.point)
 	var lower:=FixedWorldProvider.point(bottom.point)
 	if not catalog.condition_match(catalog.lookup("doors",edge).row,pilot.active.state.value.flags).matches:

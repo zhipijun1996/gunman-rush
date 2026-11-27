@@ -1,6 +1,6 @@
 class_name FieldTerracePilot
 extends Node2D
-## The field and its four receiving passages use actual room sessions and one
+## The opening rooms and their receiving passages use ordinary sessions and one
 ## world-state ledger. Crossings are taken by movement through an authored edge.
 signal room_changed(room_id: String)
 signal crossing_started(source: String, edge: String, destination: String)
@@ -8,7 +8,6 @@ signal crossing_finished(room_id: String, edge: String, ok: bool)
 
 const Passage := preload("res://rooms/world/p02_passage_transition.gd")
 
-const DOCUMENT := "res://rooms/world/P02.json"
 const CONNECTIONS := "res://rooms/world/p02_connections/"
 const CHIME_SHADER := preload("res://rooms/world/p02_chime.gdshader")
 const FONT := preload("res://assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proportional-zh_hans.otf")
@@ -89,7 +88,11 @@ func _ready() -> void:
 		route_map = MAP.mount(self)
 
 func read_destination(id: String) -> Dictionary:
-	return WorldRoomDocument.read(DOCUMENT if id=="P02" else CONNECTIONS + id + ".json")
+	var bound := catalog.room_document(id)
+	if bound.ok:
+		return WorldRoomDocument.read(bound.path)
+	if bound.error != "room_not_bound": return bound
+	return WorldRoomDocument.read(CONNECTIONS + id + ".json")
 
 func enter_room(id: String, edge: String, prepared: Dictionary = {}, received := Vector2.INF, respawning := false) -> void:
 	var doc := read_destination(id) if prepared.is_empty() else prepared
@@ -104,7 +107,12 @@ func enter_room(id: String, edge: String, prepared: Dictionary = {}, received :=
 		next.queue_free()
 		if active==null: push_error(last_error)
 		return
+	var sky_offset := Vector2.INF
 	if active != null:
+		if not edge.is_empty() and active_doc.exits.has(edge):
+			sky_offset = passage_sky.get("offset",Vector2.ZERO) + FixedWorldProvider.point(active_doc.exits[edge].point) - FixedWorldProvider.point(doc.exits[edge].point)
+		else:
+			passage_sky.clear()
 		active.hide()
 	active = next
 	active.respawn_requested.connect(_respawn)
@@ -142,12 +150,12 @@ func enter_room(id: String, edge: String, prepared: Dictionary = {}, received :=
 		active.controller.shoot_ability.shot_fired.connect(_shot)
 		install_field_art()
 	else:
-		connection = preload("res://rooms/world/p02_connections/connection_room.gd").install(active,doc,catalog)
+		connection = active.room_dressing
 	if crossing: _lock_session(true)
 	follow_camera.force_update_scroll()
-	panorama = preload("res://rooms/world/p02_passage_scenery.gd").mount(active,doc,passage_sky).panorama
+	panorama = preload("res://rooms/world/p02_passage_scenery.gd").mount(active,doc,passage_sky,sky_offset).panorama
 	var room_name := str(catalog.lookup("rooms",id).row.name)
-	room_title.text = id+" · "+room_name+(" · 接入段" if id!="P02" else "")
+	room_title.text = id+" · "+room_name+("" if catalog.binding("rooms", id).ok else " · 接入段")
 	title_remaining = 2.5
 	room_title.modulate.a = 1.0
 	room_changed.emit(id)
@@ -243,7 +251,7 @@ func _physics_process(delta: float) -> void:
 			continue
 		var passage := catalog.physical_passage(active.room.room_id,id)
 		if not passage.ok: continue
-		transfer(id,passage.destination,catalog.lookup("doors",id).row)
+		transfer(id,passage.destination)
 		break
 
 func _lock_session(value: bool) -> void:
@@ -306,7 +314,7 @@ func _respawn() -> void:
 	_lock_session(false)
 	crossing = false
 
-func transfer(edge: String, destination: String, door: Dictionary) -> void:
+func transfer(edge: String, destination: String) -> void:
 	var from: String = active.room.room_id
 	var source_gate: Dictionary = active_doc.exits[edge]
 	var incoming := active.player.velocity
@@ -325,7 +333,7 @@ func transfer(edge: String, destination: String, door: Dictionary) -> void:
 	await get_tree().process_frame
 	var doc := read_destination(destination)
 	var at := Vector2.ZERO
-	if not catalog.condition_match(door,active.state.value.flags,active.state.value.services.equipped).matches:
+	if not catalog.passage_access(from,edge,active.state.value.flags,active.state.value.services.equipped).matches:
 		last_error = "passage_requirements_unmet"
 	elif doc.has("error") or not doc.get("exits") is Dictionary or not doc.exits.has(edge):
 		last_error = "passage_destination_missing"

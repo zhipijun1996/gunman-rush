@@ -117,6 +117,8 @@ if __name__ == "__main__":
             "plains_p02_terrace": "P02 TERRACE",
             "p02_death_recovery": "P02 DEATH RECOVERY",
             "p02_connections": "P02 CONNECTIONS",
+            "plains_intro_rooms": "PLAINS INTRO",
+            "world_shortcuts": "WORLD SHORTCUTS",
             "equipment": "EQUIPMENT",
             "mechanism_libraries": "MECHANISM LIBRARIES",
             "bell_gate": "BELL GATE",

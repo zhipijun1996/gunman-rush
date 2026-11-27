@@ -14,18 +14,26 @@ var first_eye := Vector2.ZERO
 var initial_correction := Vector2.ZERO
 var fresh := true
 
-static func mount(session: OrdinaryRoomSession, doc: Dictionary, sky_state: Dictionary) -> P02PassageScenery:
+static func mount(session: OrdinaryRoomSession, doc: Dictionary, sky_state: Dictionary, offset := Vector2.INF) -> P02PassageScenery:
 	var field := doc if doc.room_id == "P02" else WorldRoomDocument.read(FIELD)
 	var result := P02PassageScenery.new()
 	result.name = "PassageScenery"
 	result.host = session
 	result.phase = sky_state
 	result.field_center = FixedWorldProvider.rect(field.bounds).get_center()
-	for edge: String in doc.exits:
-		if field.exits.has(edge):
-			result.door_offset = FixedWorldProvider.point(field.exits[edge].point)-FixedWorldProvider.point(doc.exits[edge].point)
-			break
-	result.panorama.texture = load(field.scenery.backdrop)
+	if offset.is_finite():
+		result.door_offset = offset
+	else:
+		for edge: String in doc.exits:
+			if field.exits.has(edge):
+				result.door_offset = FixedWorldProvider.point(field.exits[edge].point)-FixedWorldProvider.point(doc.exits[edge].point)
+				break
+	var backdrop: String = doc.scenery.get("backdrop",field.scenery.backdrop)
+	if sky_state.get("backdrop","") != backdrop:
+		sky_state.erase("center_native")
+	sky_state.backdrop = backdrop
+	sky_state.offset = result.door_offset
+	result.panorama.texture = load(backdrop)
 	result.panorama.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	result.panorama.centered = false
 	result.panorama.z_index = -90
