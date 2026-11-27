@@ -14,6 +14,7 @@ var heal_base: Dictionary
 var focus_heal: WorldFocusHeal
 var audio_service: PlayerWeaponFeelAudioV2
 signal sign_read(text: String)
+signal respawn_requested
 var sign_reader: RoomSignReader
 var recovery := RoomRecovery.new()
 var room: FixedWorldRoom
@@ -59,7 +60,7 @@ func open_content(room_id: String, lock_path := "res://config/imported_world/cur
 	if not result.get("ok", false): return str(result.error)
 	return open(WorldRoomDocument.read(result.path), storage, previous, catalog, entry_door_id)
 
-func open(document: Dictionary, storage: WorldSaveService = null, previous: OrdinaryRoomSession = null, catalog: WorldContentCatalog = null, entry_door_id := "") -> String:
+func open(document: Dictionary, storage: WorldSaveService = null, previous: OrdinaryRoomSession = null, catalog: WorldContentCatalog = null, entry_door_id := "", respawning := false) -> String:
 	if room != null: return "room_already_open"
 	if document.has("error"): return str(document.error)
 	if previous != null:
@@ -88,6 +89,12 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	var at := room.start_point
 	if not entry_door_id.is_empty():
 		at = FixedWorldProvider.point(exits[entry_door_id].spawn)
+	if respawning:
+		if previous == null or previous.lifetime.active or not previous.controller.actor_resources.health.terminal or previous.state.value.rest.room != room.room_id or not entry_door_id.is_empty():
+			room.free()
+			room = null
+			return "room_respawn_unavailable"
+		at = FixedWorldProvider.point(previous.state.value.rest.point)
 	var bounds := FixedWorldProvider.rect(bounds_data)
 	if not bounds.has_point(at):
 		room.free()
@@ -101,7 +108,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	state.content.data = {"rooms":{room.room_id:row},"actions":document.get("actions",[]),
 		"start_room":room.room_id,"start_point":[room.start_point.x,room.start_point.y],"content_version":content_identity.sha256_text()}
 	if previous != null:
-		if previous.room == null or not previous.lifetime.active or previous.room.room_id == room.room_id or not previous.pending_defeats.is_empty() or previous.controller.has_pending_damage():
+		if not respawning and (previous.room == null or not previous.lifetime.active or previous.room.room_id == room.room_id or not previous.pending_defeats.is_empty() or previous.controller.has_pending_damage()):
 			room.free()
 			room = null
 			return "room_transition_unavailable"
@@ -114,6 +121,14 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		var next := previous.state.candidate()
 		var rooms: Dictionary = next.get("visited_states",{})
 		rooms[previous.room.room_id] = {"enemies":previous.room.snapshot(),"mechanisms":next.mechanisms}
+		if respawning:
+			# Advancing the cycle refreshes regular enemies in every visited room.
+			# The dead controller already cleared its summons and combat energy.
+			previous.equipment.stage(next,"rest","")
+			next = previous._stage_defeats(next)
+			next.cycle += 1
+			for visit: Dictionary in rooms.values():
+				visit.enemies = {}
 		var destination: Dictionary = rooms.get(room.room_id,{})
 		next.visited_states = rooms
 		next.enemies = destination.get("enemies",{}).duplicate(true)
@@ -354,8 +369,7 @@ func _defeated(actor: EnemyActor, id: String) -> void:
 	pending_defeats[id] = {"source":source, "base_gold":base_gold, "bonus":equipment.p("P39","gold_bonus"),"position":actor.motor.position, "enemy":room.snapshot()[id]}
 	_settle_defeats()
 
-func _settle_defeats() -> void:
-	var candidate := state.candidate()
+func _stage_defeats(candidate: Dictionary) -> Dictionary:
 	for id: String in pending_defeats:
 		var defeat: Dictionary = pending_defeats[id]
 		if not candidate.receipts.has("income:"+str(defeat.source)):
@@ -364,6 +378,10 @@ func _settle_defeats() -> void:
 			candidate = services.drop_candidate(candidate, defeat.source, units)
 			candidate.services.effects.gold_fraction = total - floorf(total)
 		candidate.enemies[id] = defeat.enemy
+	return candidate
+
+func _settle_defeats() -> void:
+	var candidate := _stage_defeats(state.candidate())
 	if state.commit(candidate, state.revision):
 		equipment.fx.gold_fraction = state.value.services.effects.get("gold_fraction",0.0)
 		pending_defeats.clear()
@@ -373,6 +391,9 @@ func _settle_defeats() -> void:
 
 func _player_died() -> void:
 	controller.die()
+	if respawn_requested.has_connections():
+		respawn_requested.emit()
+		return
 	# Reload at the last living checkpoint, with the death's resource and summon state.
 	pending_death = state.value.duplicate(true)
 	pending_death.services.effects = equipment.snapshot()

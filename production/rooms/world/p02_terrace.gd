@@ -91,7 +91,7 @@ func _ready() -> void:
 func read_destination(id: String) -> Dictionary:
 	return WorldRoomDocument.read(DOCUMENT if id=="P02" else CONNECTIONS + id + ".json")
 
-func enter_room(id: String, edge: String, prepared: Dictionary = {}, received := Vector2.INF) -> void:
+func enter_room(id: String, edge: String, prepared: Dictionary = {}, received := Vector2.INF, respawning := false) -> void:
 	var doc := read_destination(id) if prepared.is_empty() else prepared
 	if doc.has("error"):
 		last_error = doc.error
@@ -99,7 +99,7 @@ func enter_room(id: String, edge: String, prepared: Dictionary = {}, received :=
 		return
 	var next := OrdinaryRoomSession.new()
 	add_child(next)
-	last_error = next.open(doc,null,active,catalog,edge)
+	last_error = next.open(doc,null,active,catalog,edge,respawning)
 	if not last_error.is_empty():
 		next.queue_free()
 		if active==null: push_error(last_error)
@@ -107,6 +107,7 @@ func enter_room(id: String, edge: String, prepared: Dictionary = {}, received :=
 	if active != null:
 		active.hide()
 	active = next
+	active.respawn_requested.connect(_respawn)
 	active_doc = doc
 	# Enter on the destination's receiving apron before its first physics tick.
 	# Keep its document unchanged so every door has the same content identity.
@@ -228,7 +229,7 @@ func _reset_sample() -> void:
 	previous_center = active.player.position
 
 func _physics_process(delta: float) -> void:
-	if active==null or crossing or not active.controller.active: return
+	if active==null or crossing or not active.controller.active or active.controller.has_pending_damage(): return
 	if active.room.room_id=="P02": update_field(delta)
 	var before := previous_center
 	var at := active.player.position
@@ -254,11 +255,56 @@ func _lock_session(value: bool) -> void:
 	if value:
 		active.controller.shoot_ability.clear_projectiles()
 
-func _uncover() -> void:
+func _uncover(seconds := Passage.REVEAL_SECONDS) -> void:
 	var tween := create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-	tween.tween_property(curtain,"color:a",0.0,Passage.REVEAL_SECONDS)
+	tween.tween_property(curtain,"color:a",0.0,seconds)
 	await tween.finished
 	curtain.hide()
+
+func _respawn() -> void:
+	crossing = true
+	waiting_for_clearance = ""
+	_lock_session(true)
+	var source := active
+	var settings := source.player.damage_feedback
+	var dt := 1.0 / Engine.physics_ticks_per_second
+	# Let the original body finish its death pose and fall onto real terrain.
+	var age := 0.0
+	while age < settings.death_body_seconds + settings.death_conceal_seconds:
+		await get_tree().physics_frame
+		if not source.controller.router.has_application_focus: continue
+		if not source.player.is_on_floor(): source.player.step(0.0,dt)
+		age += dt
+		if age > settings.death_body_seconds:
+			curtain.color = Color(0,0,0,clampf((age-settings.death_body_seconds)/settings.death_conceal_seconds,0,1))
+			curtain.show()
+	var rest: Dictionary = source.state.value.rest
+	var doc := read_destination(rest.room)
+	var at := FixedWorldProvider.point(rest.point)
+	while active == source:
+		last_error = str(doc.get("error",""))
+		if last_error.is_empty():
+			last_error = await Passage.validate_landing(self,doc,{"spawn":rest.point},at,source.player)
+		if last_error.is_empty():
+			enter_room(rest.room,"",doc,at,true)
+		if active != source: break
+		# A storage failure leaves the original ledger authoritative. Retry the
+		# same death after a delay, without spending a second cycle or receipt.
+		curtain.hide()
+		notice.text = "复活点暂时无法恢复，稍后自动重试。"
+		notice.modulate.a = 1.0
+		notice.show()
+		await get_tree().create_timer(1.0,false,true).timeout
+		curtain.color = Color.BLACK
+		curtain.show()
+	for frame in 30:
+		await get_tree().physics_frame
+		active.player.step(0.0,dt)
+		if active.player.is_on_floor(): break
+	await _uncover(settings.death_reveal_seconds)
+	active.policy.protect_player()
+	_lock_session(false)
+	crossing = false
 
 func transfer(edge: String, destination: String, door: Dictionary) -> void:
 	var from: String = active.room.room_id
