@@ -1,0 +1,246 @@
+{
+  "schema": 3,
+  "room_id": "P14",
+  "bounds": [
+    0,
+    -90,
+    1120,
+    700
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "windchime_plains",
+      "region_id": "windchime_plains",
+      "start_point": [
+        34,
+        342
+      ]
+    }
+  },
+  "exits": {
+    "d018": {
+      "point": [
+        2,
+        342
+      ],
+      "spawn": [
+        34,
+        342
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        232,
+        362
+      ]
+    },
+    "d221": {
+      "point": [
+        1118,
+        226
+      ],
+      "spawn": [
+        1086,
+        226
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        116,
+        246
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/plains_trail/longbridge_crane.png",
+        "at": [
+          600,
+          432
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/mill_drive_frame.png",
+        "at": [
+          941,
+          351
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/carriage.png",
+        "at": [
+          111,
+          360
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/storage_crates.png",
+        "at": [
+          736,
+          403
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/plains_trail/lowlands.webp"
+  },
+  "entities": {
+    "ore_cart_track": {
+      "id": "ore_cart_track",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -40,
+            360
+          ],
+          [
+            240,
+            360
+          ],
+          [
+            260,
+            383
+          ],
+          [
+            300,
+            383
+          ],
+          [
+            300,
+            432
+          ],
+          [
+            716,
+            432
+          ],
+          [
+            757,
+            403
+          ],
+          [
+            820,
+            403
+          ],
+          [
+            820,
+            351
+          ],
+          [
+            912,
+            351
+          ],
+          [
+            912,
+            293
+          ],
+          [
+            990,
+            293
+          ],
+          [
+            990,
+            244
+          ],
+          [
+            1160,
+            244
+          ],
+          [
+            1160,
+            642
+          ],
+          [
+            -40,
+            642
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "crane_boom": {
+      "id": "crane_boom",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          378,
+          267,
+          240,
+          14
+        ]
+      }
+    },
+    "chain_ferry_loading": {
+      "id": "chain_ferry_loading",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          238,
+          320,
+          125,
+          14
+        ]
+      }
+    },
+    "ore_bucket": {
+      "id": "ore_bucket",
+      "definition_id": "platform.moving",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          606,
+          327
+        ],
+        "endpoint": [
+          852,
+          282
+        ],
+        "platform_size": [
+          90,
+          18
+        ],
+        "one_way": true,
+        "period": 6.4,
+        "endpoint_dwell": 0.85
+      }
+    },
+    "low_cart_marksman": {
+      "id": "low_cart_marksman",
+      "definition_id": "enemy.sentry",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          532,
+          412
+        ]
+      }
+    }
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "low_cart_marksman": {
+        "species_id": "species.7aa003bee373",
+        "drop_profile_id": "drop.7aa003bee373.t0"
+      }
+    }
+  }
+}

@@ -1,0 +1,388 @@
+{
+  "schema": 3,
+  "room_id": "P16",
+  "bounds": [
+    -208,
+    203,
+    928,
+    520
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windchime_plains",
+      "terrain_material": "windchime_plains",
+      "start_point": [
+        404,
+        270
+      ]
+    }
+  },
+  "entities": {
+    "landing": {
+      "id": "landing",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -240,
+            392
+          ],
+          [
+            140,
+            392
+          ],
+          [
+            164,
+            378
+          ],
+          [
+            190,
+            360
+          ],
+          [
+            211,
+            350
+          ],
+          [
+            258,
+            350
+          ],
+          [
+            282,
+            334
+          ],
+          [
+            303,
+            320
+          ],
+          [
+            318,
+            320
+          ],
+          [
+            342,
+            303
+          ],
+          [
+            362,
+            288
+          ],
+          [
+            810,
+            288
+          ],
+          [
+            810,
+            750
+          ],
+          [
+            -240,
+            750
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "west_retain": {
+      "id": "west_retain",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -254,
+          -140,
+          20,
+          920
+        ]
+      }
+    },
+    "east_retain": {
+      "id": "east_retain",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          760,
+          -140,
+          20,
+          920
+        ]
+      }
+    },
+    "root_ceiling": {
+      "id": "root_ceiling",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -240,
+            -140
+          ],
+          [
+            356,
+            -140
+          ],
+          [
+            356,
+            225
+          ],
+          [
+            335,
+            228
+          ],
+          [
+            304,
+            224
+          ],
+          [
+            267,
+            226
+          ],
+          [
+            228,
+            214
+          ],
+          [
+            175,
+            220
+          ],
+          [
+            134,
+            218
+          ],
+          [
+            90,
+            227
+          ],
+          [
+            38,
+            232
+          ],
+          [
+            14,
+            250
+          ],
+          [
+            -240,
+            250
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "root_west_wall": {
+      "id": "root_west_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -240,
+          226,
+          283,
+          177
+        ]
+      }
+    },
+    "field_above_return": {
+      "id": "field_above_return",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            452,
+            -140
+          ],
+          [
+            760,
+            -140
+          ],
+          [
+            760,
+            244
+          ],
+          [
+            668,
+            244
+          ],
+          [
+            606,
+            234
+          ],
+          [
+            556,
+            230
+          ],
+          [
+            524,
+            224
+          ],
+          [
+            470,
+            226
+          ],
+          [
+            452,
+            221
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "root_east_wall": {
+      "id": "root_east_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          634,
+          232,
+          126,
+          90
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d009": {
+      "point": [
+        404,
+        205
+      ],
+      "spawn": [
+        404,
+        270
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        356,
+        452
+      ]
+    }
+  },
+  "sites": {
+    "wr_P16_primary": {
+      "at": [
+        111,
+        374
+      ]
+    },
+    "coin20_P16": {
+      "at": [
+        239,
+        332
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/p02/p02_root_throat.png",
+        "at": [
+          422,
+          289
+        ]
+      },
+      {
+        "texture": "res://rooms/world/p02_connections/stone.png",
+        "at": [
+          59,
+          392
+        ]
+      },
+      {
+        "texture": "res://rooms/world/p02_connections/seed_stems.png",
+        "at": [
+          470,
+          288
+        ]
+      },
+      {
+        "texture": "res://rooms/world/p02_connections/bank_moss.png",
+        "at": [
+          165,
+          255
+        ]
+      },
+      {
+        "texture": "res://rooms/world/p02_connections/bank_moss.png",
+        "at": [
+          570,
+          269
+        ],
+        "flip": true
+      }
+    ],
+    "wall": {
+      "texture": "res://rooms/world/p02_connections/bank_subsoil.png",
+      "points": [
+        [
+          -240,
+          170
+        ],
+        [
+          760,
+          170
+        ],
+        [
+          760,
+          454
+        ],
+        [
+          665,
+          478
+        ],
+        [
+          588,
+          492
+        ],
+        [
+          504,
+          511
+        ],
+        [
+          445,
+          530
+        ],
+        [
+          348,
+          546
+        ],
+        [
+          280,
+          540
+        ],
+        [
+          188,
+          532
+        ],
+        [
+          133,
+          516
+        ],
+        [
+          73,
+          507
+        ],
+        [
+          12,
+          485
+        ],
+        [
+          -240,
+          469
+        ]
+      ],
+      "tint": "c8c1b8"
+    }
+  },
+  "actions": []
+}

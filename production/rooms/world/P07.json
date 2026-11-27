@@ -1,0 +1,327 @@
+{
+  "schema": 3,
+  "room_id": "P07",
+  "bounds": [
+    0,
+    0,
+    1696,
+    602
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "windchime_plains",
+      "region_id": "windchime_plains",
+      "start_point": [
+        36,
+        326
+      ]
+    }
+  },
+  "exits": {
+    "d006": {
+      "point": [
+        2,
+        326
+      ],
+      "spawn": [
+        34,
+        326
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        216,
+        346
+      ]
+    },
+    "d007": {
+      "point": [
+        1694,
+        342
+      ],
+      "spawn": [
+        1662,
+        342
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        232,
+        362
+      ]
+    }
+  },
+  "sites": {
+    "enc_P07": {
+      "at": [
+        1490,
+        342
+      ],
+      "waves": [
+        [
+          "courier_road_runner"
+        ],
+        [
+          "lookout_marksman",
+          "east_yard_guard"
+        ]
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/plains_trail/carriage.png",
+        "at": [
+          370,
+          388
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/orchard_fence.png",
+        "at": [
+          795,
+          336
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/opening_guard_gallery.png",
+        "at": [
+          1081,
+          414
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/hanging_chime.png",
+        "at": [
+          1490,
+          308
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/barrel.png",
+        "at": [
+          609,
+          388
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/well_winch_mount.png",
+        "at": [
+          1606,
+          360
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/plains_trail/market_field.webp"
+  },
+  "entities": {
+    "west_yard": {
+      "id": "west_yard",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -40,
+            344
+          ],
+          [
+            285,
+            344
+          ],
+          [
+            285,
+            388
+          ],
+          [
+            600,
+            388
+          ],
+          [
+            643,
+            365
+          ],
+          [
+            699,
+            365
+          ],
+          [
+            733,
+            336
+          ],
+          [
+            850,
+            336
+          ],
+          [
+            850,
+            370
+          ],
+          [
+            943,
+            370
+          ],
+          [
+            943,
+            414
+          ],
+          [
+            1214,
+            414
+          ],
+          [
+            1254,
+            390
+          ],
+          [
+            1303,
+            390
+          ],
+          [
+            1343,
+            360
+          ],
+          [
+            1736,
+            360
+          ],
+          [
+            1736,
+            634
+          ],
+          [
+            -40,
+            634
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "western_hay_wagon": {
+      "id": "western_hay_wagon",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          311,
+          311,
+          118,
+          14
+        ]
+      }
+    },
+    "gallery_shooter_deck": {
+      "id": "gallery_shooter_deck",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          970,
+          291,
+          188,
+          14
+        ]
+      }
+    },
+    "courier_forestep": {
+      "id": "courier_forestep",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          905,
+          348,
+          95,
+          14
+        ]
+      }
+    },
+    "courier_road_runner": {
+      "id": "courier_road_runner",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          454,
+          368
+        ]
+      }
+    },
+    "lookout_marksman": {
+      "id": "lookout_marksman",
+      "definition_id": "enemy.sentry",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1063,
+          271
+        ]
+      }
+    },
+    "east_yard_guard": {
+      "id": "east_yard_guard",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1171,
+          394
+        ]
+      }
+    },
+    "between_yards": {
+      "id": "between_yards",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          763,
+          252,
+          96,
+          84
+        ],
+        "point": [
+          811,
+          318
+        ],
+        "section": "main"
+      }
+    }
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "courier_road_runner": {
+        "species_id": "species.2411e8295a35",
+        "drop_profile_id": "drop.2411e8295a35.t0"
+      },
+      "lookout_marksman": {
+        "species_id": "species.7aa003bee373",
+        "drop_profile_id": "drop.7aa003bee373.t0"
+      },
+      "east_yard_guard": {
+        "species_id": "species.2411e8295a35",
+        "drop_profile_id": "drop.2411e8295a35.t0"
+      }
+    }
+  }
+}

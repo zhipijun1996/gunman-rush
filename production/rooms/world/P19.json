@@ -1,0 +1,486 @@
+{
+  "schema": 3,
+  "room_id": "P19",
+  "bounds": [
+    -600,
+    203,
+    1320,
+    557
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "windchime_plains",
+      "region_id": "windchime_plains",
+      "start_point": [
+        320,
+        270
+      ],
+      "terrain_paint": {
+        "version": 1,
+        "regions": [
+          {
+            "id": "west_iron_masonry",
+            "material_id": "mill_masonry",
+            "bounds": [
+              240,
+              188,
+              32,
+              100
+            ]
+          },
+          {
+            "id": "east_iron_masonry",
+            "material_id": "mill_masonry",
+            "bounds": [
+              368,
+              188,
+              32,
+              100
+            ]
+          },
+          {
+            "id": "dry_catwalk",
+            "material_id": "mill_masonry",
+            "bounds": [
+              45,
+              288,
+              506,
+              22
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d330": {
+      "point": [
+        320,
+        205
+      ],
+      "spawn": [
+        320,
+        270
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        272,
+        368
+      ]
+    },
+    "d331": {
+      "point": [
+        -245,
+        742
+      ],
+      "spawn": [
+        -187,
+        706
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        -293,
+        -197
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/plains_trail/stone_cellar.webp",
+    "pieces": [
+      {
+        "texture": "res://rooms/world/p02_connections/stone.png",
+        "at": [
+          124,
+          288
+        ]
+      },
+      {
+        "texture": "res://assets/scenery/p02/p02_well_lining.png",
+        "source_rect": [
+          40,
+          152,
+          96,
+          160
+        ],
+        "at": [
+          320,
+          223
+        ]
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/well_winch_mount.png",
+        "at": [
+          -118,
+          349
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/barrel.png",
+        "at": [
+          174,
+          288
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "wall": {
+      "texture": "res://rooms/world/p02_connections/well_back.png",
+      "points": [
+        [
+          -240,
+          173
+        ],
+        [
+          760,
+          173
+        ],
+        [
+          760,
+          520
+        ],
+        [
+          -240,
+          520
+        ]
+      ],
+      "tint": "b8c4be"
+    }
+  },
+  "entities": {
+    "east_bank_crown": {
+      "id": "east_bank_crown",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            368,
+            -144
+          ],
+          [
+            760,
+            -144
+          ],
+          [
+            760,
+            255
+          ],
+          [
+            536,
+            255
+          ],
+          [
+            515,
+            238
+          ],
+          [
+            414,
+            238
+          ],
+          [
+            397,
+            224
+          ],
+          [
+            368,
+            224
+          ]
+        ]
+      }
+    },
+    "west_channel_crown": {
+      "id": "west_channel_crown",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -640,
+            80
+          ],
+          [
+            272,
+            80
+          ],
+          [
+            272,
+            224
+          ],
+          [
+            224,
+            224
+          ],
+          [
+            202,
+            212
+          ],
+          [
+            115,
+            195
+          ],
+          [
+            -138,
+            190
+          ],
+          [
+            -210,
+            218
+          ],
+          [
+            -396,
+            218
+          ],
+          [
+            -445,
+            241
+          ],
+          [
+            -640,
+            241
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "well_base": {
+      "id": "well_base",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          156,
+          288,
+          604,
+          28
+        ]
+      }
+    },
+    "mid_stone": {
+      "id": "mid_stone",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          59,
+          349,
+          116,
+          28
+        ]
+      }
+    },
+    "water_gate_deck": {
+      "id": "water_gate_deck",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -218,
+          349,
+          151,
+          26
+        ]
+      }
+    },
+    "reeded_swale": {
+      "id": "reeded_swale",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -168,
+            484
+          ],
+          [
+            -12,
+            484
+          ],
+          [
+            24,
+            460
+          ],
+          [
+            190,
+            460
+          ],
+          [
+            244,
+            433
+          ],
+          [
+            760,
+            433
+          ],
+          [
+            760,
+            792
+          ],
+          [
+            -168,
+            792
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "lower_mill_run": {
+      "id": "lower_mill_run",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -640,
+            419
+          ],
+          [
+            -458,
+            419
+          ],
+          [
+            -430,
+            447
+          ],
+          [
+            -359,
+            447
+          ],
+          [
+            -359,
+            483
+          ],
+          [
+            -300,
+            483
+          ],
+          [
+            -300,
+            581
+          ],
+          [
+            -292,
+            581
+          ],
+          [
+            -292,
+            792
+          ],
+          [
+            -640,
+            792
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "drain_pocket_lip": {
+      "id": "drain_pocket_lip",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -198,
+          562,
+          31,
+          14
+        ]
+      }
+    },
+    "d331_receiving_tread": {
+      "id": "d331_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -206,
+          724,
+          38,
+          14
+        ]
+      }
+    },
+    "d331_rung_0": {
+      "id": "d331_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -206,
+          656,
+          38,
+          14
+        ]
+      }
+    },
+    "d331_rung_1": {
+      "id": "d331_rung_1",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -206,
+          592,
+          38,
+          14
+        ]
+      }
+    },
+    "back_drain_rung": {
+      "id": "back_drain_rung",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -170,
+          522,
+          65,
+          14
+        ]
+      }
+    },
+    "reed_approach": {
+      "id": "reed_approach",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -366,
+          411,
+          131,
+          14
+        ]
+      }
+    },
+    "dry_sluice": {
+      "id": "dry_sluice",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          157,
+          204,
+          96,
+          84
+        ],
+        "point": [
+          205,
+          270
+        ],
+        "section": "main"
+      }
+    }
+  },
+  "actions": []
+}

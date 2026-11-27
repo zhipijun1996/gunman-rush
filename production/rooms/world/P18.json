@@ -1,0 +1,263 @@
+{
+  "schema": 3,
+  "room_id": "P18",
+  "bounds": [
+    0,
+    0,
+    900,
+    612
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "windchime_plains",
+      "region_id": "windchime_plains",
+      "start_point": [
+        35,
+        341
+      ]
+    }
+  },
+  "exits": {
+    "d401": {
+      "point": [
+        2,
+        341
+      ],
+      "spawn": [
+        34,
+        341
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        231,
+        361
+      ]
+    },
+    "d011": {
+      "point": [
+        470,
+        2
+      ],
+      "spawn": [
+        470,
+        66
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        422,
+        518
+      ]
+    }
+  },
+  "sites": {
+    "intro_active_skill": {
+      "at": [
+        353,
+        375
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/plains_trail/merchant_counter.png",
+        "at": [
+          342,
+          378
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/mill_timber_bent.png",
+        "at": [
+          504,
+          393
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/mill_window_bay.png",
+        "at": [
+          788,
+          393
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/plains_trail/mill_attic.webp"
+  },
+  "entities": {
+    "tuning_floor": {
+      "id": "tuning_floor",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -40,
+            359
+          ],
+          [
+            205,
+            359
+          ],
+          [
+            233,
+            378
+          ],
+          [
+            330,
+            378
+          ],
+          [
+            352,
+            393
+          ],
+          [
+            940,
+            393
+          ],
+          [
+            940,
+            644
+          ],
+          [
+            -40,
+            644
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "toolbench": {
+      "id": "toolbench",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          377,
+          319,
+          154,
+          14
+        ]
+      }
+    },
+    "tuning_gantry": {
+      "id": "tuning_gantry",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          489,
+          248,
+          140,
+          14
+        ]
+      }
+    },
+    "shaft_brace": {
+      "id": "shaft_brace",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          406,
+          179,
+          145,
+          14
+        ]
+      }
+    },
+    "shaft_ladder": {
+      "id": "shaft_ladder",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          546,
+          120,
+          119,
+          14
+        ]
+      }
+    },
+    "upper_passage": {
+      "id": "upper_passage",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          404,
+          84,
+          131,
+          14
+        ]
+      }
+    },
+    "tuning_bell": {
+      "id": "tuning_bell",
+      "definition_id": "switch.shot",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          745,
+          307
+        ],
+        "repeat_enabled": true
+      }
+    },
+    "workbench_notes": {
+      "id": "workbench_notes",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          628,
+          375
+        ],
+        "text": "试音区的木靶放在东侧地面。朝木靶释放共鸣脉冲，听它回响。"
+      }
+    },
+    "tuning_bench": {
+      "id": "tuning_bench",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          144,
+          275,
+          96,
+          84
+        ],
+        "point": [
+          192,
+          341
+        ],
+        "section": "main"
+      }
+    },
+    "floor_tuning_dummy": {
+      "id": "floor_tuning_dummy",
+      "definition_id": "enemy.chime_target",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          730,
+          374
+        ]
+      }
+    }
+  },
+  "actions": []
+}

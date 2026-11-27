@@ -1,0 +1,168 @@
+{
+  "schema": 3,
+  "room_id": "P20",
+  "bounds": [
+    0,
+    0,
+    812,
+    446
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "windchime_plains",
+      "region_id": "windchime_plains",
+      "start_point": [
+        448,
+        66
+      ]
+    }
+  },
+  "exits": {
+    "d331": {
+      "point": [
+        448,
+        2
+      ],
+      "spawn": [
+        448,
+        66
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        400,
+        496
+      ]
+    }
+  },
+  "sites": {
+    "wr_TG03": {
+      "at": [
+        127,
+        224
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/plains_trail/storage_crates.png",
+        "at": [
+          80,
+          242
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/mill_drive_frame.png",
+        "at": [
+          175,
+          242
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/barrel.png",
+        "at": [
+          678,
+          205
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/travel_bundle.png",
+        "at": [
+          331,
+          169
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/plains_trail/store_shed.webp"
+  },
+  "entities": {
+    "stacked_tool_floor": {
+      "id": "stacked_tool_floor",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -40,
+            242
+          ],
+          [
+            216,
+            242
+          ],
+          [
+            216,
+            202
+          ],
+          [
+            271,
+            202
+          ],
+          [
+            294,
+            169
+          ],
+          [
+            357,
+            169
+          ],
+          [
+            357,
+            123
+          ],
+          [
+            397,
+            123
+          ],
+          [
+            397,
+            84
+          ],
+          [
+            527,
+            84
+          ],
+          [
+            527,
+            141
+          ],
+          [
+            615,
+            141
+          ],
+          [
+            615,
+            205
+          ],
+          [
+            852,
+            205
+          ],
+          [
+            852,
+            478
+          ],
+          [
+            -40,
+            478
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": []
+}

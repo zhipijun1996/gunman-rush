@@ -1,0 +1,430 @@
+{
+  "schema": 3,
+  "room_id": "P08",
+  "bounds": [
+    0,
+    -96,
+    1704,
+    630
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "windchime_plains",
+      "region_id": "windchime_plains",
+      "start_point": [
+        34,
+        288
+      ]
+    }
+  },
+  "exits": {
+    "d007": {
+      "point": [
+        2,
+        288
+      ],
+      "spawn": [
+        34,
+        288
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        178,
+        308
+      ]
+    },
+    "d008": {
+      "point": [
+        1702,
+        288
+      ],
+      "spawn": [
+        1670,
+        288
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        178,
+        308
+      ]
+    },
+    "d016": {
+      "point": [
+        543,
+        -94
+      ],
+      "spawn": [
+        543,
+        -30
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        495,
+        591
+      ]
+    },
+    "d400": {
+      "point": [
+        626,
+        516
+      ],
+      "spawn": [
+        684,
+        480
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        578,
+        674
+      ]
+    }
+  },
+  "sites": {
+    "town_arrival": {
+      "at": [
+        910,
+        288
+      ]
+    },
+    "npc20_town": {
+      "at": [
+        1010,
+        288
+      ]
+    },
+    "npc.freight_worker": {
+      "at": [
+        1452,
+        288
+      ]
+    },
+    "read_sign_p08": {
+      "at": [
+        192,
+        288
+      ]
+    },
+    "tp_P08": {
+      "at": [
+        1230,
+        288
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/plains_trail/station_houses.png",
+        "at": [
+          890,
+          302
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/market_stalls.png",
+        "at": [
+          908,
+          306
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/merchant_counter.png",
+        "at": [
+          1035,
+          306
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/aqi_bench.png",
+        "at": [
+          1170,
+          306
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/storage_crates.png",
+        "at": [
+          1450,
+          306
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/mill_timber_bent.png",
+        "at": [
+          540,
+          283
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/plains_trail/orchard_fence.png",
+        "at": [
+          95,
+          306
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/plains_trail/market_field.webp"
+  },
+  "entities": {
+    "market_west": {
+      "id": "market_west",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -40,
+            306
+          ],
+          [
+            479,
+            306
+          ],
+          [
+            479,
+            342
+          ],
+          [
+            561,
+            342
+          ],
+          [
+            561,
+            396
+          ],
+          [
+            569,
+            396
+          ],
+          [
+            569,
+            566
+          ],
+          [
+            -40,
+            566
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "market_east": {
+      "id": "market_east",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            706,
+            396
+          ],
+          [
+            754,
+            396
+          ],
+          [
+            754,
+            350
+          ],
+          [
+            818,
+            350
+          ],
+          [
+            818,
+            306
+          ],
+          [
+            1744,
+            306
+          ],
+          [
+            1744,
+            566
+          ],
+          [
+            706,
+            566
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "market_hatch_cap": {
+      "id": "market_hatch_cap",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          674,
+          396,
+          34,
+          14
+        ]
+      }
+    },
+    "d400_receiving_tread": {
+      "id": "d400_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          665,
+          498,
+          38,
+          14
+        ]
+      }
+    },
+    "d400_rung_0": {
+      "id": "d400_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          665,
+          430,
+          38,
+          14
+        ]
+      }
+    },
+    "covered_market_walk": {
+      "id": "covered_market_walk",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          467,
+          283,
+          353,
+          14
+        ]
+      }
+    },
+    "vendor_step": {
+      "id": "vendor_step",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          322,
+          234,
+          123,
+          14
+        ]
+      }
+    },
+    "west_sunshade": {
+      "id": "west_sunshade",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          395,
+          172,
+          152,
+          14
+        ]
+      }
+    },
+    "counter_roof": {
+      "id": "counter_roof",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          522,
+          110,
+          130,
+          14
+        ]
+      }
+    },
+    "clock_ladder": {
+      "id": "clock_ladder",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          638,
+          48,
+          101,
+          14
+        ]
+      }
+    },
+    "balcony_top": {
+      "id": "balcony_top",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          488,
+          -12,
+          173,
+          14
+        ]
+      }
+    },
+    "market_street_board": {
+      "id": "market_street_board",
+      "definition_id": "interaction.sign",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          195,
+          288
+        ],
+        "text": "旧风车院在集市下层。高处露台通往风铃上路。铃铺在东街。"
+      }
+    },
+    "town_bench": {
+      "id": "town_bench",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          1132,
+          222,
+          96,
+          84
+        ],
+        "point": [
+          1180,
+          288
+        ],
+        "section": "main"
+      }
+    }
+  },
+  "actions": []
+}
