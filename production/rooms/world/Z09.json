@@ -1,0 +1,219 @@
+{
+  "schema": 3,
+  "room_id": "Z09",
+  "bounds": [
+    0,
+    0,
+    1008,
+    880
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "world_clockheart",
+      "terrain_material": "world_clockheart",
+      "start_point": [
+        88,
+        219
+      ]
+    }
+  },
+  "exits": {
+    "d447": {
+      "point": [
+        2,
+        219
+      ],
+      "spawn": [
+        88,
+        219
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        97,
+        240
+      ]
+    },
+    "d448": {
+      "point": [
+        678,
+        859
+      ],
+      "spawn": [
+        614,
+        823
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        630,
+        726
+      ]
+    }
+  },
+  "sites": {
+    "d448": {
+      "at": [
+        570,
+        823
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/clockheart/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/clockheart/weights.png",
+        "at": [
+          793,
+          635
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/gauge.png",
+        "at": [
+          203,
+          237
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "service_floor": {
+      "id": "service_floor",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            237
+          ],
+          [
+            306,
+            237
+          ],
+          [
+            306,
+            284
+          ],
+          [
+            0,
+            284
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "foot_plate": {
+      "id": "foot_plate",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            841
+          ],
+          [
+            630,
+            841
+          ],
+          [
+            630,
+            920
+          ],
+          [
+            0,
+            920
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "bottom_stop": {
+      "id": "bottom_stop",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            726,
+            841
+          ],
+          [
+            1008,
+            841
+          ],
+          [
+            1008,
+            920
+          ],
+          [
+            726,
+            920
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "maintenance_cage": {
+      "id": "maintenance_cage",
+      "definition_id": "platform.moving",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          382,
+          253
+        ],
+        "endpoint": [
+          604,
+          763
+        ],
+        "platform_size": [
+          145,
+          19
+        ],
+        "period": 8,
+        "endpoint_dwell": 1.0
+      }
+    },
+    "brake_bay": {
+      "id": "brake_bay",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          218,
+          504,
+          184,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "counterweight_toe": {
+      "id": "counterweight_toe",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          738,
+          635,
+          167,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    }
+  },
+  "actions": []
+}

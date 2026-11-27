@@ -1,0 +1,231 @@
+{
+  "schema": 3,
+  "room_id": "A10",
+  "bounds": [
+    0,
+    0,
+    1220,
+    640
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "shattered_isles",
+      "terrain_material": "shattered_isles",
+      "start_point": [
+        1132,
+        288
+      ]
+    }
+  },
+  "exits": {
+    "d184": {
+      "point": [
+        1218,
+        288
+      ],
+      "spawn": [
+        1132,
+        288
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        166,
+        309
+      ]
+    },
+    "d316": {
+      "point": [
+        2,
+        454
+      ],
+      "spawn": [
+        88,
+        454
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        332,
+        475
+      ]
+    }
+  },
+  "sites": {
+    "d316": {
+      "at": [
+        186,
+        454
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/shattered_isles/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/shattered_isles/ropes.png",
+        "at": [
+          161,
+          472
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/shattered_isles/bridge.png",
+        "at": [
+          1006,
+          306
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/shattered_isles/stone.png",
+        "at": [
+          619,
+          529
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "west_socket": {
+      "id": "west_socket",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            472
+          ],
+          [
+            385,
+            472
+          ],
+          [
+            385,
+            680
+          ],
+          [
+            0,
+            680
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "counterweight_plinth": {
+      "id": "counterweight_plinth",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            413,
+            529
+          ],
+          [
+            782,
+            529
+          ],
+          [
+            782,
+            555
+          ],
+          [
+            741,
+            596
+          ],
+          [
+            678,
+            625
+          ],
+          [
+            634,
+            618
+          ],
+          [
+            567,
+            680
+          ],
+          [
+            531,
+            642
+          ],
+          [
+            479,
+            628
+          ],
+          [
+            438,
+            587
+          ],
+          [
+            413,
+            555
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "upper_winch": {
+      "id": "upper_winch",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            906,
+            306
+          ],
+          [
+            1220,
+            306
+          ],
+          [
+            1220,
+            680
+          ],
+          [
+            906,
+            680
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "link_pin": {
+      "id": "link_pin",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          702,
+          401,
+          151,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "captive_line": {
+      "id": "captive_line",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          797,
+          245
+        ]
+      }
+    }
+  },
+  "actions": []
+}

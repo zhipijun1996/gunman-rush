@@ -1,0 +1,303 @@
+{
+  "schema": 3,
+  "room_id": "Z03",
+  "bounds": [
+    0,
+    0,
+    1408,
+    848
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "world_clockheart",
+      "terrain_material": "world_clockheart",
+      "start_point": [
+        339,
+        785
+      ]
+    }
+  },
+  "exits": {
+    "d214": {
+      "point": [
+        275,
+        821
+      ],
+      "spawn": [
+        339,
+        785
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        227,
+        323
+      ]
+    },
+    "d457": {
+      "point": [
+        1406,
+        500
+      ],
+      "spawn": [
+        1320,
+        500
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        378,
+        521
+      ]
+    },
+    "d215": {
+      "point": [
+        504,
+        21
+      ],
+      "spawn": [
+        504,
+        128
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        456,
+        552
+      ]
+    }
+  },
+  "sites": {
+    "lore22_heart_return": {
+      "at": [
+        1084,
+        500
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/clockheart/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/clockheart/clock.png",
+        "at": [
+          631,
+          699
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/frame.png",
+        "at": [
+          1082,
+          518
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/gauge.png",
+        "at": [
+          1297,
+          518
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "outer_shell": {
+      "id": "outer_shell",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            803
+          ],
+          [
+            227,
+            803
+          ],
+          [
+            227,
+            888
+          ],
+          [
+            0,
+            888
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "ring_base": {
+      "id": "ring_base",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            323,
+            803
+          ],
+          [
+            1408,
+            803
+          ],
+          [
+            1408,
+            888
+          ],
+          [
+            323,
+            888
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "story_spindle": {
+      "id": "story_spindle",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1016,
+            518
+          ],
+          [
+            1408,
+            518
+          ],
+          [
+            1408,
+            888
+          ],
+          [
+            1016,
+            888
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "round_inspection": {
+      "id": "round_inspection",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          495,
+          699,
+          264,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "axle_step": {
+      "id": "axle_step",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          733,
+          602,
+          147,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "inside_rim": {
+      "id": "inside_rim",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          678,
+          422,
+          202,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "wheel_lip": {
+      "id": "wheel_lip",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          379,
+          290,
+          185,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "high_bearing": {
+      "id": "high_bearing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          421,
+          146,
+          187,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "axle_link": {
+      "id": "axle_link",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          671,
+          206
+        ]
+      }
+    },
+    "rim_grip": {
+      "id": "rim_grip",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          996,
+          512,
+          28,
+          283
+        ]
+      }
+    },
+    "wheel_inspection_light": {
+      "id": "wheel_inspection_light",
+      "definition_id": "environment.local_light",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          640,
+          635
+        ],
+        "light_radius": 123,
+        "brightness": 0.85
+      }
+    }
+  },
+  "actions": []
+}

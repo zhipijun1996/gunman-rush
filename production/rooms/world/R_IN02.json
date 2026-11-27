@@ -1,0 +1,138 @@
+{
+  "schema": 3,
+  "room_id": "R_IN02",
+  "bounds": [
+    0,
+    0,
+    1060,
+    684
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "sunken_ruins",
+      "terrain_material": "sunken_ruins",
+      "start_point": [
+        116,
+        473
+      ]
+    }
+  },
+  "entities": {
+    "quay_foundation_0": {
+      "id": "quay_foundation_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -40,
+          491,
+          1140,
+          229
+        ]
+      }
+    },
+    "dressed_pier_0": {
+      "id": "dressed_pier_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          256,
+          402,
+          230,
+          12
+        ]
+      }
+    },
+    "dressed_pier_1": {
+      "id": "dressed_pier_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          598,
+          335,
+          258,
+          12
+        ]
+      }
+    }
+  },
+  "exits": {},
+  "sites": {
+    "s21_sunken_archive_study": {
+      "at": [
+        268,
+        473
+      ]
+    },
+    "story21_r_in02": {
+      "at": [
+        353,
+        473
+      ]
+    },
+    "npc.mopo": {
+      "at": [
+        706,
+        473
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/sunken_ruins/sunken_ruins-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_ruin_door.png",
+        "at": [
+          268,
+          491
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_ruin_door.png",
+        "at": [
+          727,
+          335
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_lamp.png",
+        "at": [
+          727,
+          335
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_landmark.png",
+        "at": [
+          869,
+          491
+        ],
+        "z_index": -8
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_ruin_door.png",
+        "at": [
+          275,
+          491
+        ],
+        "z_index": -6
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_lamp.png",
+        "at": [
+          720,
+          491
+        ],
+        "z_index": -4
+      }
+    ]
+  },
+  "actions": []
+}

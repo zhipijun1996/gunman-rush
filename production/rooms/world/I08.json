@@ -1,0 +1,217 @@
+{
+  "schema": 3,
+  "room_id": "I08",
+  "bounds": [
+    0,
+    0,
+    1392,
+    726
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "frostmirror_glacier",
+      "terrain_material": "frostmirror_glacier",
+      "start_point": [
+        125,
+        521
+      ]
+    }
+  },
+  "entities": {
+    "d099_upper_landing": {
+      "id": "d099_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          887,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "bedrock_0": {
+      "id": "bedrock_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          539,
+          1456,
+          283
+        ]
+      }
+    },
+    "ledge_1": {
+      "id": "ledge_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          842,
+          205,
+          155,
+          16
+        ]
+      }
+    },
+    "ledge_2": {
+      "id": "ledge_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          981,
+          322,
+          147,
+          16
+        ]
+      }
+    },
+    "ledge_3": {
+      "id": "ledge_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          814,
+          428,
+          159,
+          16
+        ]
+      }
+    },
+    "enemy22_I08_1": {
+      "id": "enemy22_I08_1",
+      "definition_id": "enemy.hopper",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          449,
+          525
+        ]
+      }
+    },
+    "enemy22_I08_2": {
+      "id": "enemy22_I08_2",
+      "definition_id": "enemy.hopper",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          638,
+          525
+        ]
+      }
+    },
+    "enemy22_I08_3": {
+      "id": "enemy22_I08_3",
+      "definition_id": "enemy.sentry",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1125,
+          525
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d099": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        951,
+        4
+      ],
+      "spawn": [
+        951,
+        91
+      ],
+      "span": [
+        903,
+        999
+      ]
+    },
+    "d100": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        521
+      ],
+      "spawn": [
+        86,
+        521
+      ],
+      "span": [
+        441,
+        544
+      ]
+    }
+  },
+  "sites": {
+    "d100": {
+      "at": [
+        116,
+        521
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier_v2_ice_span.png",
+        "at": [
+          509,
+          539
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier_v2_ice_column.png",
+        "at": [
+          1084,
+          539
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier_v2_frozen_bell.png",
+        "at": [
+          909,
+          205
+        ],
+        "z_index": -15,
+        "flip": false
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "enemy22_I08_1": {
+        "species_id": "species.429c96f98eb6",
+        "drop_profile_id": "drop.429c96f98eb6.t3"
+      },
+      "enemy22_I08_2": {
+        "species_id": "species.429c96f98eb6",
+        "drop_profile_id": "drop.429c96f98eb6.t3"
+      },
+      "enemy22_I08_3": {
+        "species_id": "species.9d57e9107462",
+        "drop_profile_id": "drop.9d57e9107462.t3"
+      }
+    }
+  }
+}

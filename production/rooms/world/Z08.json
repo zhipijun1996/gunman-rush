@@ -1,0 +1,235 @@
+{
+  "schema": 3,
+  "room_id": "Z08",
+  "bounds": [
+    0,
+    0,
+    1312,
+    627
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "world_clockheart",
+      "terrain_material": "world_clockheart",
+      "start_point": [
+        323,
+        569
+      ]
+    }
+  },
+  "exits": {
+    "d219": {
+      "point": [
+        259,
+        605
+      ],
+      "spawn": [
+        323,
+        569
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        211,
+        307
+      ]
+    },
+    "d446": {
+      "point": [
+        1310,
+        445
+      ],
+      "spawn": [
+        1224,
+        445
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        323,
+        466
+      ]
+    }
+  },
+  "sites": {
+    "wr_Z08_primary": {
+      "at": [
+        952,
+        445
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/clockheart/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/clockheart/frame.png",
+        "at": [
+          951,
+          463
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/gauge.png",
+        "at": [
+          953,
+          463
+        ],
+        "z_index": -2
+      }
+    ]
+  },
+  "entities": {
+    "western_skirt": {
+      "id": "western_skirt",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            587
+          ],
+          [
+            211,
+            587
+          ],
+          [
+            211,
+            667
+          ],
+          [
+            0,
+            667
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "access_stone": {
+      "id": "access_stone",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            307,
+            587
+          ],
+          [
+            536,
+            587
+          ],
+          [
+            536,
+            667
+          ],
+          [
+            307,
+            667
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "first_step": {
+      "id": "first_step",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            536,
+            538
+          ],
+          [
+            671,
+            538
+          ],
+          [
+            671,
+            667
+          ],
+          [
+            536,
+            667
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "second_step": {
+      "id": "second_step",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            671,
+            500
+          ],
+          [
+            792,
+            500
+          ],
+          [
+            792,
+            667
+          ],
+          [
+            671,
+            667
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "clockheart_dais": {
+      "id": "clockheart_dais",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            792,
+            463
+          ],
+          [
+            1312,
+            463
+          ],
+          [
+            1312,
+            667
+          ],
+          [
+            792,
+            667
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "terminal_amber": {
+      "id": "terminal_amber",
+      "definition_id": "environment.local_light",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          953,
+          380
+        ],
+        "light_radius": 151,
+        "brightness": 0.85
+      }
+    }
+  },
+  "actions": []
+}

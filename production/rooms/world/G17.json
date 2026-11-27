@@ -1,0 +1,334 @@
+{
+  "schema": 3,
+  "room_id": "G17",
+  "bounds": [
+    0,
+    0,
+    1616,
+    796
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        110,
+        417
+      ]
+    }
+  },
+  "entities": {
+    "d048_socket": {
+      "id": "d048_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          800,
+          743,
+          60,
+          84
+        ]
+      }
+    },
+    "d049_threshold": {
+      "id": "d049_threshold",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -24,
+          435,
+          234,
+          40
+        ]
+      }
+    },
+    "d332_threshold": {
+      "id": "d332_threshold",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1406,
+          275,
+          234,
+          40
+        ]
+      }
+    },
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          626,
+          725,
+          266
+        ]
+      }
+    },
+    "machine_bed_1": {
+      "id": "machine_bed_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          851,
+          626,
+          797,
+          266
+        ]
+      }
+    },
+    "western_window": {
+      "id": "western_window",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          167,
+          435,
+          220,
+          195
+        ]
+      }
+    },
+    "east_suspension_base": {
+      "id": "east_suspension_base",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1295,
+          275,
+          82,
+          355
+        ]
+      }
+    },
+    "outer_beam": {
+      "id": "outer_beam",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1375,
+          275,
+          115,
+          16
+        ]
+      }
+    },
+    "inspection_pediment": {
+      "id": "inspection_pediment",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          979,
+          452,
+          155,
+          16
+        ]
+      }
+    },
+    "window_sill": {
+      "id": "window_sill",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          498,
+          367,
+          163,
+          16
+        ]
+      }
+    },
+    "tie_west": {
+      "id": "tie_west",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          566,
+          194
+        ]
+      }
+    },
+    "tie_center": {
+      "id": "tie_center",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          943,
+          218
+        ]
+      }
+    },
+    "tie_east": {
+      "id": "tie_east",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          1222,
+          127
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d048": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        749,
+        786
+      ],
+      "spawn": [
+        824,
+        725
+      ],
+      "span": [
+        701,
+        797
+      ]
+    },
+    "d049": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        417
+      ],
+      "spawn": [
+        86,
+        417
+      ],
+      "span": [
+        337,
+        440
+      ]
+    },
+    "d332": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1614,
+        257
+      ],
+      "spawn": [
+        1530,
+        257
+      ],
+      "span": [
+        177,
+        280
+      ]
+    },
+    "d452": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1614,
+        608
+      ],
+      "spawn": [
+        1530,
+        608
+      ],
+      "span": [
+        528,
+        631
+      ]
+    }
+  },
+  "sites": {
+    "d049": {
+      "at": [
+        116,
+        417
+      ]
+    },
+    "scatter22_G17": {
+      "at": [
+        541,
+        349
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/bridge_district.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G17.png",
+        "at": [
+          994.0,
+          627
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_near.png",
+        "at": [
+          257,
+          435
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          540,
+          367
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_gear_conveyor.png",
+        "at": [
+          1044,
+          452
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_mid_v2.png",
+        "at": [
+          1220,
+          626
+        ],
+        "z_index": -34,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_pipe_junction.png",
+        "at": [
+          1326,
+          275
+        ],
+        "z_index": -4,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

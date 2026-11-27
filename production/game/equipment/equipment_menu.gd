@@ -13,6 +13,7 @@ var ledger_summary := Label.new()
 var title := Label.new()
 var apply := Button.new()
 var rest := Button.new()
+var weapons := OptionButton.new()
 var selected := ""
 var quote := 0
 
@@ -48,6 +49,8 @@ func _ready() -> void:
 	title.add_theme_font_size_override("font_size",24)
 	title.add_theme_color_override("font_color",Color("f2d394"))
 	header.add_child(title)
+	header.add_child(weapons)
+	weapons.item_selected.connect(func(index: int): session.select_world_weapon(weapons.get_item_metadata(index),quote); refresh())
 	header.add_child(ledger_summary)
 	layout.add_child(HSeparator.new())
 	var content := HBoxContainer.new()
@@ -117,6 +120,15 @@ func refresh() -> void:
 	quote = session.state.revision
 	title.text = {"smith":"装备强化","rest":"休息区装配","select":"快捷功能"}[mode]
 	ledger_summary.text = "负荷 %d / %d    金币 %d" % [EquipmentCatalog.load_used(services.ledger().equipped),services.capacity(),services.ledger().gold]
+	weapons.clear()
+	if session.content_catalog!=null:
+		for flag: String in session.WORLD_WEAPONS:
+			if not session.state.has(flag): continue
+			var definition: WeaponDefinition=session.WORLD_WEAPONS[flag]
+			weapons.add_item(definition.display_name)
+			weapons.set_item_metadata(weapons.item_count-1,flag)
+			if definition==session.controller.shoot_ability.weapon: weapons.select(weapons.item_count-1)
+	weapons.visible=weapons.item_count>1
 	var remembered := selected
 	list.clear(); selected = ""
 	for id: String in EquipmentCatalog.DATA.data.items:

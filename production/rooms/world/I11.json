@@ -1,0 +1,168 @@
+{
+  "schema": 3,
+  "room_id": "I11",
+  "bounds": [
+    0,
+    0,
+    1170,
+    716
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "frostmirror_glacier",
+      "terrain_material": "frostmirror_glacier",
+      "start_point": [
+        125,
+        505
+      ]
+    }
+  },
+  "entities": {
+    "d356_socket": {
+      "id": "d356_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          346,
+          663,
+          60,
+          84
+        ]
+      }
+    },
+    "bedrock_0": {
+      "id": "bedrock_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          523,
+          271,
+          289
+        ]
+      }
+    },
+    "bedrock_1": {
+      "id": "bedrock_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          397,
+          523,
+          805,
+          289
+        ]
+      }
+    },
+    "stove_hearth": {
+      "id": "stove_hearth",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          563,
+          450,
+          238,
+          77
+        ]
+      }
+    },
+    "ledge_1": {
+      "id": "ledge_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          854,
+          371,
+          162,
+          16
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d356": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        295,
+        706
+      ],
+      "spawn": [
+        370,
+        645
+      ],
+      "span": [
+        247,
+        343
+      ]
+    }
+  },
+  "sites": {
+    "wr_I11_primary": {
+      "at": [
+        651,
+        432
+      ]
+    },
+    "lore24_i11_second_cup": {
+      "at": [
+        761,
+        432
+      ]
+    },
+    "coin20_I11": {
+      "at": [
+        932,
+        353
+      ]
+    },
+    "discover_i04_ice_lodging": {
+      "at": [
+        399,
+        505
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier_landmark.png",
+        "at": [
+          672,
+          450
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier_lamp.png",
+        "at": [
+          759,
+          450
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier_v2_frozen_bell.png",
+        "at": [
+          957,
+          371
+        ],
+        "z_index": -15,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

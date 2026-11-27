@@ -1,0 +1,242 @@
+{
+  "schema": 3,
+  "room_id": "I04",
+  "bounds": [
+    0,
+    0,
+    1620,
+    848
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "frostmirror_glacier",
+      "terrain_material": "frostmirror_glacier",
+      "start_point": [
+        125,
+        608
+      ]
+    }
+  },
+  "entities": {
+    "d095_socket": {
+      "id": "d095_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          343,
+          795,
+          60,
+          84
+        ]
+      }
+    },
+    "d356_upper_landing": {
+      "id": "d356_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1085,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "bedrock_0": {
+      "id": "bedrock_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          626,
+          268,
+          318
+        ]
+      }
+    },
+    "bedrock_1": {
+      "id": "bedrock_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          394,
+          626,
+          1258,
+          318
+        ]
+      }
+    },
+    "dawn_ridge": {
+      "id": "dawn_ridge",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          698,
+          474,
+          207,
+          156
+        ]
+      }
+    },
+    "ledge_1": {
+      "id": "ledge_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          948,
+          388,
+          145,
+          16
+        ]
+      }
+    },
+    "ledge_2": {
+      "id": "ledge_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          822,
+          266,
+          116,
+          16
+        ]
+      }
+    },
+    "ledge_3": {
+      "id": "ledge_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1026,
+          193,
+          137,
+          16
+        ]
+      }
+    },
+    "windbreak_anchor": {
+      "id": "windbreak_anchor",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          1045,
+          145
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d095": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        292,
+        838
+      ],
+      "spawn": [
+        367,
+        777
+      ],
+      "span": [
+        244,
+        340
+      ]
+    },
+    "d096": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1618,
+        608
+      ],
+      "spawn": [
+        1534,
+        608
+      ],
+      "span": [
+        528,
+        631
+      ]
+    },
+    "d356": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        1149,
+        4
+      ],
+      "spawn": [
+        1149,
+        91
+      ],
+      "span": [
+        1101,
+        1197
+      ]
+    }
+  },
+  "sites": {
+    "discover_i04_ice_lodging": {
+      "at": [
+        1092,
+        175
+      ]
+    },
+    "scatter22_I04": {
+      "at": [
+        770,
+        456
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier_v2_ice_column.png",
+        "at": [
+          748,
+          474
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier_v2_frozen_bell.png",
+        "at": [
+          1098,
+          193
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/frostmirror_glacier/frostmirror_glacier_landmark.png",
+        "at": [
+          1383,
+          626
+        ],
+        "z_index": -15,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

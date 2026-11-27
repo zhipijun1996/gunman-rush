@@ -1,0 +1,299 @@
+{
+  "schema": 3,
+  "room_id": "A04",
+  "bounds": [
+    0,
+    0,
+    1632,
+    814
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "shattered_isles",
+      "terrain_material": "shattered_isles",
+      "start_point": [
+        88,
+        647
+      ]
+    }
+  },
+  "exits": {
+    "d177": {
+      "point": [
+        2,
+        647
+      ],
+      "spawn": [
+        88,
+        647
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        525,
+        668
+      ]
+    },
+    "d497": {
+      "point": [
+        1630,
+        575
+      ],
+      "spawn": [
+        1544,
+        575
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        453,
+        596
+      ]
+    },
+    "d178": {
+      "point": [
+        907,
+        33
+      ],
+      "spawn": [
+        907,
+        140
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        859,
+        955
+      ]
+    }
+  },
+  "sites": {
+    "tp_A04": {
+      "at": [
+        570,
+        647
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/shattered_isles/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/shattered_isles/pavilion.png",
+        "at": [
+          545,
+          665
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/shattered_isles/lamp.png",
+        "at": [
+          661,
+          665
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/shattered_isles/ropes.png",
+        "at": [
+          1052,
+          375
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/shattered_isles/ribbon.png",
+        "at": [
+          1366,
+          593
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "west_meadow": {
+      "id": "west_meadow",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            665
+          ],
+          [
+            765,
+            665
+          ],
+          [
+            765,
+            854
+          ],
+          [
+            0,
+            854
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "wind_station": {
+      "id": "wind_station",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            765,
+            636
+          ],
+          [
+            1214,
+            636
+          ],
+          [
+            1214,
+            662
+          ],
+          [
+            1164,
+            719
+          ],
+          [
+            1088,
+            754
+          ],
+          [
+            1034,
+            745
+          ],
+          [
+            953,
+            821
+          ],
+          [
+            908,
+            774
+          ],
+          [
+            845,
+            758
+          ],
+          [
+            796,
+            708
+          ],
+          [
+            765,
+            662
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "nest_approach": {
+      "id": "nest_approach",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1214,
+            593
+          ],
+          [
+            1632,
+            593
+          ],
+          [
+            1632,
+            854
+          ],
+          [
+            1214,
+            854
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "station_eave": {
+      "id": "station_eave",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          626,
+          497,
+          248,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "weather_post": {
+      "id": "weather_post",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          973,
+          375,
+          151,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "return_porch": {
+      "id": "return_porch",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          716,
+          270,
+          197,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "high_island": {
+      "id": "high_island",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          806,
+          158,
+          244,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "wind_station_bell": {
+      "id": "wind_station_bell",
+      "definition_id": "recovery.station",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          570,
+          647
+        ]
+      }
+    }
+  },
+  "actions": []
+}

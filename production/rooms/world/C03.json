@@ -1,0 +1,254 @@
+{
+  "schema": 3,
+  "room_id": "C03",
+  "bounds": [
+    0,
+    0,
+    1552,
+    660
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "moonshadow_cemetery",
+      "terrain_material": "moonshadow_cemetery",
+      "start_point": [
+        125,
+        468
+      ]
+    }
+  },
+  "entities": {
+    "d187_socket": {
+      "id": "d187_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          793,
+          607,
+          60,
+          84
+        ]
+      }
+    },
+    "d353_threshold": {
+      "id": "d353_threshold",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -24,
+          370,
+          234,
+          40
+        ]
+      }
+    },
+    "bedrock_0": {
+      "id": "bedrock_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          486,
+          718,
+          270
+        ]
+      }
+    },
+    "bedrock_1": {
+      "id": "bedrock_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          844,
+          486,
+          740,
+          270
+        ]
+      }
+    },
+    "breached_sarcophagus": {
+      "id": "breached_sarcophagus",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          203,
+          370,
+          194,
+          120
+        ]
+      }
+    },
+    "ledge_1": {
+      "id": "ledge_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          430,
+          418,
+          150,
+          16
+        ]
+      }
+    },
+    "ledge_2": {
+      "id": "ledge_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          902,
+          387,
+          185,
+          16
+        ]
+      }
+    },
+    "enemy22_C03_1": {
+      "id": "enemy22_C03_1",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          448,
+          472
+        ]
+      }
+    },
+    "enemy22_C03_2": {
+      "id": "enemy22_C03_2",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1070,
+          472
+        ]
+      }
+    },
+    "enemy22_C03_3": {
+      "id": "enemy22_C03_3",
+      "definition_id": "enemy.sentry",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1260,
+          472
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d186": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1550,
+        468
+      ],
+      "spawn": [
+        1466,
+        468
+      ],
+      "span": [
+        388,
+        491
+      ]
+    },
+    "d187": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        742,
+        650
+      ],
+      "spawn": [
+        817,
+        589
+      ],
+      "span": [
+        694,
+        790
+      ]
+    },
+    "d353": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        352
+      ],
+      "spawn": [
+        86,
+        352
+      ],
+      "span": [
+        272,
+        375
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_sarcophagus.png",
+        "at": [
+          300,
+          370
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_sarcophagus.png",
+        "at": [
+          959,
+          387
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_lamp.png",
+        "at": [
+          1358,
+          486
+        ],
+        "z_index": -15,
+        "flip": false
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "enemy22_C03_1": {
+        "species_id": "species.cbce39e88119",
+        "drop_profile_id": "drop.cbce39e88119.t1"
+      },
+      "enemy22_C03_2": {
+        "species_id": "species.cbce39e88119",
+        "drop_profile_id": "drop.cbce39e88119.t1"
+      },
+      "enemy22_C03_3": {
+        "species_id": "species.d44f4f270319",
+        "drop_profile_id": "drop.d44f4f270319.t1"
+      }
+    }
+  }
+}

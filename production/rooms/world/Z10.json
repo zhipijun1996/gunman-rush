@@ -1,0 +1,184 @@
+{
+  "schema": 3,
+  "room_id": "Z10",
+  "bounds": [
+    0,
+    0,
+    1248,
+    470
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "world_clockheart",
+      "terrain_material": "world_clockheart",
+      "start_point": [
+        88,
+        336
+      ]
+    }
+  },
+  "exits": {
+    "d446": {
+      "point": [
+        2,
+        336
+      ],
+      "spawn": [
+        88,
+        336
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        214,
+        357
+      ]
+    },
+    "d447": {
+      "point": [
+        1246,
+        336
+      ],
+      "spawn": [
+        1160,
+        336
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        214,
+        357
+      ]
+    }
+  },
+  "sites": {
+    "scatter22_Z10": {
+      "at": [
+        600,
+        411
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/clockheart/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/clockheart/balustrade.png",
+        "at": [
+          166,
+          354
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/lamp.png",
+        "at": [
+          862,
+          354
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "west_balcony": {
+      "id": "west_balcony",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            354
+          ],
+          [
+            376,
+            354
+          ],
+          [
+            376,
+            510
+          ],
+          [
+            0,
+            510
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "maintenance_bay": {
+      "id": "maintenance_bay",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            376,
+            429
+          ],
+          [
+            809,
+            429
+          ],
+          [
+            809,
+            510
+          ],
+          [
+            376,
+            510
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "east_balcony": {
+      "id": "east_balcony",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            809,
+            354
+          ],
+          [
+            1248,
+            354
+          ],
+          [
+            1248,
+            510
+          ],
+          [
+            809,
+            510
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "suspended_grating": {
+      "id": "suspended_grating",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          469,
+          327,
+          234,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    }
+  },
+  "actions": []
+}

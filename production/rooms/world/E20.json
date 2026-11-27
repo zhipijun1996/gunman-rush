@@ -1,0 +1,277 @@
+{
+  "schema": 3,
+  "room_id": "E20",
+  "bounds": [
+    0,
+    0,
+    1500,
+    933
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "ember_depths",
+      "terrain_material": "ember_depths",
+      "start_point": [
+        116,
+        657
+      ]
+    }
+  },
+  "entities": {
+    "d451_landing": {
+      "id": "d451_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1042,
+          93,
+          133,
+          12
+        ]
+      }
+    },
+    "basalt_bench_0": {
+      "id": "basalt_bench_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -40,
+          675,
+          1580,
+          294
+        ]
+      }
+    },
+    "fault_shelf_0": {
+      "id": "fault_shelf_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          316,
+          590,
+          224,
+          12
+        ]
+      }
+    },
+    "fault_shelf_1": {
+      "id": "fault_shelf_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          632,
+          497,
+          208,
+          12
+        ]
+      }
+    },
+    "fault_shelf_2": {
+      "id": "fault_shelf_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          995,
+          271,
+          211,
+          12
+        ]
+      }
+    },
+    "d451_return_step_1": {
+      "id": "d451_return_step_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          961,
+          586,
+          155,
+          12
+        ]
+      }
+    },
+    "d451_return_step_2": {
+      "id": "d451_return_step_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1111,
+          497,
+          155,
+          12
+        ]
+      }
+    },
+    "d451_return_step_3": {
+      "id": "d451_return_step_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          961,
+          408,
+          155,
+          12
+        ]
+      }
+    },
+    "d451_return_step_4": {
+      "id": "d451_return_step_4",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1111,
+          319,
+          155,
+          12
+        ]
+      }
+    },
+    "d451_return_step_5": {
+      "id": "d451_return_step_5",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          961,
+          230,
+          155,
+          12
+        ]
+      }
+    },
+    "d451_return_step_6": {
+      "id": "d451_return_step_6",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1111,
+          141,
+          155,
+          12
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d271": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1498,
+        657
+      ],
+      "spawn": [
+        1406,
+        657
+      ],
+      "span": [
+        555,
+        679
+      ]
+    },
+    "d451": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        1106,
+        10
+      ],
+      "spawn": [
+        1106,
+        75
+      ],
+      "span": [
+        1057,
+        1155
+      ]
+    }
+  },
+  "sites": {
+    "wr_E20_primary": {
+      "at": [
+        512,
+        657
+      ]
+    },
+    "wr_E20_revisit_D": {
+      "at": [
+        1162,
+        253
+      ]
+    },
+    "scatter22_E20": {
+      "at": [
+        1125,
+        657
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/ember_depths/ember-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_depths_v2_chain_stand.png",
+        "at": [
+          736,
+          497
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_lamp.png",
+        "at": [
+          1100,
+          271
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_landmark.png",
+        "at": [
+          1230,
+          675
+        ],
+        "z_index": -8
+      },
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_depths_v2_chain_stand.png",
+        "at": [
+          390,
+          675
+        ],
+        "z_index": -6
+      }
+    ]
+  },
+  "actions": [],
+  "zone_areas": {
+    "E20_view": [
+      0,
+      386,
+      1500,
+      547
+    ],
+    "E20_high": [
+      0,
+      0,
+      1500,
+      386
+    ]
+  }
+}

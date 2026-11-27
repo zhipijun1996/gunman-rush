@@ -1,0 +1,272 @@
+{
+  "schema": 3,
+  "room_id": "R15",
+  "bounds": [
+    0,
+    0,
+    1510,
+    810
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "sunken_ruins",
+      "terrain_material": "sunken_ruins",
+      "start_point": [
+        116,
+        565
+      ]
+    }
+  },
+  "entities": {
+    "d254_portal_cornice": {
+      "id": "d254_portal_cornice",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1245,
+          375,
+          297,
+          23
+        ]
+      }
+    },
+    "d254_access_1": {
+      "id": "d254_access_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1090,
+          492,
+          193,
+          12
+        ]
+      }
+    },
+    "d254_access_2": {
+      "id": "d254_access_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1090,
+          401,
+          193,
+          12
+        ]
+      }
+    },
+    "quay_foundation_0": {
+      "id": "quay_foundation_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -40,
+          583,
+          1590,
+          263
+        ]
+      }
+    },
+    "dressed_pier_0": {
+      "id": "dressed_pier_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          224,
+          485,
+          221,
+          12
+        ]
+      }
+    },
+    "dressed_pier_1": {
+      "id": "dressed_pier_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          510,
+          401,
+          242,
+          12
+        ]
+      }
+    },
+    "dressed_pier_2": {
+      "id": "dressed_pier_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          850,
+          464,
+          211,
+          12
+        ]
+      }
+    },
+    "dressed_pier_3": {
+      "id": "dressed_pier_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1115,
+          369,
+          206,
+          12
+        ]
+      }
+    },
+    "patrol_1": {
+      "id": "patrol_1",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          543,
+          565
+        ]
+      }
+    },
+    "patrol_2": {
+      "id": "patrol_2",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          868,
+          565
+        ]
+      }
+    },
+    "patrol_3": {
+      "id": "patrol_3",
+      "definition_id": "enemy.ground_fan_sentry",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1192,
+          565
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d253": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        565
+      ],
+      "spawn": [
+        94,
+        565
+      ],
+      "span": [
+        463,
+        587
+      ]
+    },
+    "d254": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1508,
+        357
+      ],
+      "spawn": [
+        1416,
+        357
+      ],
+      "span": [
+        255,
+        379
+      ]
+    },
+    "d260": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1508,
+        565
+      ],
+      "spawn": [
+        1416,
+        565
+      ],
+      "span": [
+        463,
+        587
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/sunken_ruins/sunken_ruins-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_fluted_column.png",
+        "at": [
+          631,
+          401
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_lamp.png",
+        "at": [
+          1218,
+          369
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_landmark.png",
+        "at": [
+          1238,
+          583
+        ],
+        "z_index": -8
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_fluted_column.png",
+        "at": [
+          392,
+          583
+        ],
+        "z_index": -6
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "patrol_1": {
+        "species_id": "species.bcdd5a1b3cc9",
+        "drop_profile_id": "drop.bcdd5a1b3cc9.t2"
+      },
+      "patrol_2": {
+        "species_id": "species.bcdd5a1b3cc9",
+        "drop_profile_id": "drop.bcdd5a1b3cc9.t2"
+      },
+      "patrol_3": {
+        "species_id": "species.80276ebcb29b",
+        "drop_profile_id": "drop.80276ebcb29b.t2"
+      }
+    }
+  }
+}

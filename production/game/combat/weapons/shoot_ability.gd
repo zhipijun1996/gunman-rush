@@ -180,28 +180,29 @@ func reserve_packet(direction: Vector2, grounded: bool, skill: bool = false) -> 
 	if controller.item_runtime != null: controller.item_runtime.primary_packet_started(packet_id,direction)
 	packet_changed.emit(&"started",packet_id)
 	return true
-func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName) -> void:
+func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName, source: WeaponDefinition=null) -> void:
+	var definition:=source if source!=null else weapon
 	_shot_serial+=1
 	var projectile := PlayerProjectile.new()
 	projectile.impacted.connect(func(point: Vector2, unit: Vector2)->void:projectile_impacted.emit(point,unit))
 	projectile.shot_id=_shot_serial;projectile.energy_receipt_id=packet_id;projectile.owner_id=controller.motor.get_instance_id();projectile.session_id=controller.session_id
 	projectile.weapon_epoch=weapon_epoch
 	projectile.owner_controller=controller;projectile.owner_body=controller.motor;projectile.fired_airborne=not controller.motor.is_on_floor()
-	projectile.direction=aim;projectile.speed=weapon.projectile_speed;projectile.damage=(weapon.skill_damage if skill else weapon.damage)*tuning.projectile_damage;projectile.lifetime=weapon.range_limit/weapon.projectile_speed
+	projectile.direction=aim;projectile.speed=definition.projectile_speed;projectile.damage=(definition.skill_damage if skill else definition.damage)*tuning.projectile_damage;projectile.lifetime=definition.range_limit/definition.projectile_speed
 	projectile.art_kind=art_kind;projectile.skill_attack=skill;projectile.radius=5 if art_kind==&"blade" else tuning.projectile_radius
 	if art_kind==&"ice":
 		projectile.pierce_enemies=true;projectile.pierced_damage_ratio=1.0
-		projectile.radius=weapon.skill_projectile_radius;projectile.lifetime=weapon.skill_projectile_range/weapon.projectile_speed
-		projectile.chill_seconds=weapon.chill_seconds;projectile.chill_speed_scale=weapon.chill_speed_scale
+		projectile.radius=definition.skill_projectile_radius;projectile.lifetime=definition.skill_projectile_range/definition.projectile_speed
+		projectile.chill_seconds=definition.chill_seconds;projectile.chill_speed_scale=definition.chill_speed_scale
 		projectile.set_meta(&"ice_projectile",true)
-	projectile.weapon_id=weapon.id;projectile.weapon_tier=weapon.tier;projectile.weapon_mode=weapon.mode
+	projectile.weapon_id=definition.id;projectile.weapon_tier=definition.tier;projectile.weapon_mode=definition.mode
 	projectile.shot_index=0 if skill else _shot_serial-packet_id+1
 	if not skill and art_kind==&"bullet":
 		if controller.item_runtime != null:
 			projectile.rebounds = int(controller.item_runtime.p("83","bounces"))
 			projectile.rebound_ratio = controller.item_runtime.p("83","retained",1)
-		projectile.max_distance=minf(weapon.range_limit,tuning.projectile_range)*item_range_multiplier()
-		projectile.base_distance=minf(weapon.range_limit,tuning.projectile_range)
+		projectile.max_distance=minf(definition.range_limit,tuning.projectile_range)*item_range_multiplier()
+		projectile.base_distance=minf(definition.range_limit,tuning.projectile_range)
 		projectile.direction=ShotAimAssist.resolve(controller,controller.motor.global_position,aim,projectile.max_distance)
 		projectile.base_lifetime = projectile.lifetime
 		projectile.lifetime *= item_range_multiplier()
@@ -213,7 +214,7 @@ func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName) ->
 	var visual := controller.motor.get_node("CourierVisual") as CourierVisual
 	if art_kind==&"blade":
 		visual.set_state(&"blade_throw");visual.elapsed=maxf(visual.elapsed,1.0/float(visual._action_catalog.states.blade_throw.fps))
-	elif weapon.mode==WeaponDefinition.Mode.MACHINE:visual.set_state(&"machine_recoil")
+	elif definition.mode==WeaponDefinition.Mode.MACHINE:visual.set_state(&"machine_recoil")
 	projectile.launch_motion=visual.muzzle_position(aim)-origin
 	_projectiles.append(projectile);last_muzzle=origin+projectile.launch_motion;shot_fired.emit(aim,_shot_serial)
 	if art_kind==&"bullet": ProjectileFlight.register_at(projectile,controller,"player")

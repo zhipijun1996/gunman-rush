@@ -1,0 +1,333 @@
+{
+  "schema": 3,
+  "room_id": "E01",
+  "bounds": [
+    0,
+    0,
+    1580,
+    840
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "ember_depths",
+      "terrain_material": "ember_depths",
+      "start_point": [
+        116,
+        587
+      ]
+    }
+  },
+  "entities": {
+    "d172_mouth_shoulder": {
+      "id": "d172_mouth_shoulder",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          839,
+          605,
+          112,
+          23
+        ]
+      }
+    },
+    "d172_return_toe": {
+      "id": "d172_return_toe",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          839,
+          796,
+          98,
+          76
+        ]
+      }
+    },
+    "d172_inset_1": {
+      "id": "d172_inset_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          743,
+          714,
+          41,
+          12
+        ]
+      }
+    },
+    "d172_inset_2": {
+      "id": "d172_inset_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          795,
+          632,
+          41,
+          12
+        ]
+      }
+    },
+    "d242_landing": {
+      "id": "d242_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          726,
+          93,
+          133,
+          12
+        ]
+      }
+    },
+    "basalt_bench_0": {
+      "id": "basalt_bench_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -40,
+          605,
+          781,
+          271
+        ]
+      }
+    },
+    "basalt_bench_1": {
+      "id": "basalt_bench_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          950,
+          605,
+          670,
+          271
+        ]
+      }
+    },
+    "fault_shelf_0": {
+      "id": "fault_shelf_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          248,
+          525,
+          260,
+          12
+        ]
+      }
+    },
+    "fault_shelf_1": {
+      "id": "fault_shelf_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          620,
+          437,
+          235,
+          12
+        ]
+      }
+    },
+    "fault_shelf_2": {
+      "id": "fault_shelf_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1020,
+          357,
+          208,
+          12
+        ]
+      }
+    },
+    "d242_return_step_1": {
+      "id": "d242_return_step_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          645,
+          516,
+          155,
+          12
+        ]
+      }
+    },
+    "d242_return_step_2": {
+      "id": "d242_return_step_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          795,
+          427,
+          155,
+          12
+        ]
+      }
+    },
+    "d242_return_step_3": {
+      "id": "d242_return_step_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          645,
+          338,
+          155,
+          12
+        ]
+      }
+    },
+    "d242_return_step_4": {
+      "id": "d242_return_step_4",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          795,
+          249,
+          155,
+          12
+        ]
+      }
+    },
+    "d242_return_step_5": {
+      "id": "d242_return_step_5",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          645,
+          160,
+          155,
+          12
+        ]
+      }
+    },
+    "safe_bench": {
+      "id": "safe_bench",
+      "definition_id": "recovery.station",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          151,
+          587
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d164": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1578,
+        587
+      ],
+      "spawn": [
+        1486,
+        587
+      ],
+      "span": [
+        485,
+        609
+      ]
+    },
+    "d172": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        790,
+        832
+      ],
+      "spawn": [
+        868,
+        778
+      ],
+      "span": [
+        742,
+        838
+      ]
+    },
+    "d242": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        790,
+        10
+      ],
+      "spawn": [
+        790,
+        75
+      ],
+      "span": [
+        741,
+        839
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/ember_depths/ember-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_depths_v2_obsidian_fangs.png",
+        "at": [
+          737,
+          437
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_lamp.png",
+        "at": [
+          1124,
+          357
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_landmark.png",
+        "at": [
+          1295,
+          605
+        ],
+        "z_index": -8
+      },
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_depths_v2_obsidian_fangs.png",
+        "at": [
+          410,
+          605
+        ],
+        "z_index": -6
+      },
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_lamp.png",
+        "at": [
+          151,
+          605
+        ],
+        "z_index": -4
+      }
+    ]
+  },
+  "actions": []
+}

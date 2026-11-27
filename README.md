@@ -6,7 +6,7 @@ Godot 4.7.2 类银河恶魔城。重做开发从 `production/project.godot` 开�
 | --- | --- |
 | 接续世界 | [地图输入及版本](docs/data/world/README.md) · [实际房间](production/rooms/world) |
 | 制作新房 | [普通房间规范](docs/bible/room_authoring.md) · [机关目录](docs/data/world_objects.md) · [代码与素材](docs/project/module_map.md) |
-| 接续项目 | [开发入口](AGENTS.md) · [当前状态](docs/project/current_state.md) · [任务表](docs/project/tasks.md) |
+| 接续项目 | [开发入口](AGENTS.md) · [当前状态](docs/project/current_state.md) · [旧 demo 迁移核对](docs/project/worklines/room_rebuild/runtime-inheritance.md) · [任务表](docs/project/tasks.md) |
 | 复玩平原 | [启动、归档与独立恢复](docs/project/worklines/plains_bible_v2_01/scope.md) · [原有线上试玩](https://zhipijun1996.github.io/gunman-rush/) |
 
 在仓库根目录运行：

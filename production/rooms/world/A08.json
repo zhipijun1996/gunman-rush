@@ -1,0 +1,278 @@
+{
+  "schema": 3,
+  "room_id": "A08",
+  "bounds": [
+    0,
+    0,
+    1360,
+    699
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "shattered_isles",
+      "terrain_material": "shattered_isles",
+      "start_point": [
+        302,
+        592
+      ]
+    }
+  },
+  "exits": {
+    "d181": {
+      "point": [
+        238,
+        628
+      ],
+      "spawn": [
+        302,
+        592
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        190,
+        286
+      ]
+    },
+    "d245": {
+      "point": [
+        1358,
+        398
+      ],
+      "spawn": [
+        1272,
+        398
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        276,
+        419
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/shattered_isles/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/shattered_isles/pavilion.png",
+        "at": [
+          1246,
+          416
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/shattered_isles/ribbon.png",
+        "at": [
+          817,
+          495
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/shattered_isles/ropes.png",
+        "at": [
+          497,
+          610
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "threshold_skirt": {
+      "id": "threshold_skirt",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            610
+          ],
+          [
+            190,
+            610
+          ],
+          [
+            190,
+            739
+          ],
+          [
+            0,
+            739
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "departure_shelf": {
+      "id": "departure_shelf",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            286,
+            610
+          ],
+          [
+            609,
+            610
+          ],
+          [
+            609,
+            636
+          ],
+          [
+            573,
+            668
+          ],
+          [
+            518,
+            692
+          ],
+          [
+            479,
+            686
+          ],
+          [
+            421,
+            739
+          ],
+          [
+            389,
+            706
+          ],
+          [
+            344,
+            695
+          ],
+          [
+            308,
+            660
+          ],
+          [
+            286,
+            636
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "observation_isle": {
+      "id": "observation_isle",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            759,
+            495
+          ],
+          [
+            1016,
+            495
+          ],
+          [
+            1016,
+            521
+          ],
+          [
+            987,
+            543
+          ],
+          [
+            944,
+            563
+          ],
+          [
+            913,
+            558
+          ],
+          [
+            866,
+            602
+          ],
+          [
+            841,
+            575
+          ],
+          [
+            805,
+            565
+          ],
+          [
+            776,
+            536
+          ],
+          [
+            759,
+            521
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "gate_pier": {
+      "id": "gate_pier",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1147,
+            416
+          ],
+          [
+            1360,
+            416
+          ],
+          [
+            1360,
+            739
+          ],
+          [
+            1147,
+            739
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "threshold_glimmer": {
+      "id": "threshold_glimmer",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          1050,
+          312,
+          25,
+          218
+        ],
+        "mode": "phase_light"
+      }
+    },
+    "sky_ring": {
+      "id": "sky_ring",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          961,
+          246
+        ]
+      }
+    }
+  },
+  "actions": []
+}

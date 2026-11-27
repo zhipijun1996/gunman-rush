@@ -1,0 +1,257 @@
+{
+  "schema": 3,
+  "room_id": "V07",
+  "bounds": [
+    0,
+    0,
+    1872,
+    735
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "starbridge_gate",
+      "terrain_material": "starbridge_gate",
+      "start_point": [
+        88,
+        483
+      ]
+    }
+  },
+  "exits": {
+    "d210": {
+      "point": [
+        2,
+        483
+      ],
+      "spawn": [
+        88,
+        483
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        361,
+        504
+      ]
+    },
+    "d211": {
+      "point": [
+        1870,
+        438
+      ],
+      "spawn": [
+        1784,
+        438
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        316,
+        459
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/starbridge_gate/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/starbridge_gate/glass.png",
+        "at": [
+          314,
+          501
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/starbridge_gate/anchor.png",
+        "at": [
+          752,
+          451
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/starbridge_gate/portal.png",
+        "at": [
+          1542,
+          456
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/starbridge_gate/lamp.png",
+        "at": [
+          1628,
+          456
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "west_span": {
+      "id": "west_span",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            501
+          ],
+          [
+            396,
+            501
+          ],
+          [
+            396,
+            775
+          ],
+          [
+            0,
+            775
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "center_block": {
+      "id": "center_block",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            635,
+            451
+          ],
+          [
+            892,
+            451
+          ],
+          [
+            892,
+            775
+          ],
+          [
+            635,
+            775
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "eastern_station": {
+      "id": "eastern_station",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1248,
+            456
+          ],
+          [
+            1872,
+            456
+          ],
+          [
+            1872,
+            775
+          ],
+          [
+            1248,
+            775
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "vault_brace": {
+      "id": "vault_brace",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1002,
+          532,
+          151,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "catch_grating": {
+      "id": "catch_grating",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          506,
+          661,
+          257,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "vault_rivet": {
+      "id": "vault_rivet",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          965,
+          304
+        ]
+      }
+    },
+    "flickering_bar": {
+      "id": "flickering_bar",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          1101,
+          318,
+          24,
+          217
+        ],
+        "mode": "phase_light"
+      }
+    },
+    "gate_bell": {
+      "id": "gate_bell",
+      "definition_id": "recovery.station",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          1577,
+          438
+        ]
+      }
+    }
+  },
+  "actions": [],
+  "zone_areas": {
+    "V07_trial": [
+      0,
+      0,
+      1344,
+      735
+    ],
+    "V07_rest": [
+      1344,
+      0,
+      528,
+      735
+    ]
+  }
+}

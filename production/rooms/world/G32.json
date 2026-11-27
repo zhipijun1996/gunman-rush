@@ -1,0 +1,247 @@
+{
+  "schema": 3,
+  "room_id": "G32",
+  "bounds": [
+    0,
+    0,
+    920,
+    1220
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        146,
+        552
+      ]
+    }
+  },
+  "entities": {
+    "d451_socket": {
+      "id": "d451_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          517,
+          1167,
+          60,
+          84
+        ]
+      }
+    },
+    "d452_threshold": {
+      "id": "d452_threshold",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -24,
+          570,
+          234,
+          40
+        ]
+      }
+    },
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          1038,
+          442,
+          278
+        ]
+      }
+    },
+    "machine_bed_1": {
+      "id": "machine_bed_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          568,
+          1038,
+          384,
+          278
+        ]
+      }
+    },
+    "chimney_step": {
+      "id": "chimney_step",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          219,
+          570,
+          72,
+          472
+        ]
+      }
+    },
+    "cleaning_hook": {
+      "id": "cleaning_hook",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          307,
+          674,
+          127,
+          16
+        ]
+      }
+    },
+    "soot_ledges": {
+      "id": "soot_ledges",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          210,
+          782,
+          120,
+          16
+        ]
+      }
+    },
+    "loader_rail": {
+      "id": "loader_rail",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          463,
+          875,
+          146,
+          16
+        ]
+      }
+    },
+    "coolant_hoist": {
+      "id": "coolant_hoist",
+      "definition_id": "platform.moving",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          564,
+          980
+        ],
+        "platform_size": [
+          124,
+          20
+        ],
+        "endpoint": [
+          0,
+          -420
+        ],
+        "period": 5.7,
+        "one_way": true,
+        "endpoint_dwell": 0.65,
+        "activation_flag": ""
+      }
+    }
+  },
+  "exits": {
+    "d451": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        466,
+        1210
+      ],
+      "spawn": [
+        541,
+        1149
+      ],
+      "span": [
+        418,
+        514
+      ]
+    },
+    "d452": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        552
+      ],
+      "spawn": [
+        86,
+        552
+      ],
+      "span": [
+        472,
+        575
+      ]
+    }
+  },
+  "sites": {
+    "d452": {
+      "at": [
+        116,
+        552
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/pump_gallery.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G32.png",
+        "at": [
+          409.5,
+          1220
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_pipe_junction.png",
+        "at": [
+          228,
+          570
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_near.png",
+        "at": [
+          273,
+          782
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          520,
+          875
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_near_v2.png",
+        "at": [
+          748,
+          1038
+        ],
+        "z_index": -34,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

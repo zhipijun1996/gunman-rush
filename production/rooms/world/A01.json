@@ -1,0 +1,338 @@
+{
+  "schema": 3,
+  "room_id": "A01",
+  "bounds": [
+    0,
+    0,
+    1472,
+    860
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "shattered_isles",
+      "terrain_material": "shattered_isles",
+      "start_point": [
+        404,
+        772
+      ]
+    }
+  },
+  "exits": {
+    "d244": {
+      "point": [
+        340,
+        808
+      ],
+      "spawn": [
+        404,
+        772
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        292,
+        388
+      ]
+    },
+    "d175": {
+      "point": [
+        1470,
+        558
+      ],
+      "spawn": [
+        1384,
+        558
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        436,
+        579
+      ]
+    },
+    "d183": {
+      "point": [
+        512,
+        67
+      ],
+      "spawn": [
+        512,
+        174
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        464,
+        560
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/shattered_isles/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/shattered_isles/ropes.png",
+        "at": [
+          650,
+          646
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/shattered_isles/ribbon.png",
+        "at": [
+          1328,
+          576
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/shattered_isles/stone.png",
+        "at": [
+          509,
+          192
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "outer_toe": {
+      "id": "outer_toe",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            790
+          ],
+          [
+            292,
+            790
+          ],
+          [
+            292,
+            900
+          ],
+          [
+            0,
+            900
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "landing": {
+      "id": "landing",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            388,
+            790
+          ],
+          [
+            714,
+            790
+          ],
+          [
+            714,
+            816
+          ],
+          [
+            678,
+            839
+          ],
+          [
+            622,
+            860
+          ],
+          [
+            583,
+            854
+          ],
+          [
+            524,
+            900
+          ],
+          [
+            492,
+            872
+          ],
+          [
+            446,
+            862
+          ],
+          [
+            410,
+            832
+          ],
+          [
+            388,
+            816
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "adjacent_isle": {
+      "id": "adjacent_isle",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            900,
+            678
+          ],
+          [
+            1124,
+            678
+          ],
+          [
+            1124,
+            704
+          ],
+          [
+            1099,
+            720
+          ],
+          [
+            1061,
+            738
+          ],
+          [
+            1034,
+            733
+          ],
+          [
+            994,
+            772
+          ],
+          [
+            971,
+            748
+          ],
+          [
+            940,
+            740
+          ],
+          [
+            915,
+            714
+          ],
+          [
+            900,
+            704
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "east_bluff": {
+      "id": "east_bluff",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1200,
+            576
+          ],
+          [
+            1472,
+            576
+          ],
+          [
+            1472,
+            900
+          ],
+          [
+            1200,
+            900
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "updraft_lip": {
+      "id": "updraft_lip",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          556,
+          646,
+          165,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "root_balcony": {
+      "id": "root_balcony",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          382,
+          486,
+          177,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "chain_foot": {
+      "id": "chain_foot",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          647,
+          341,
+          152,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "island_roof": {
+      "id": "island_roof",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          417,
+          192,
+          195,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "anchor_in_stone": {
+      "id": "anchor_in_stone",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          808,
+          287
+        ]
+      }
+    }
+  },
+  "actions": []
+}

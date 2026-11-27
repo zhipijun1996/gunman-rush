@@ -1,0 +1,358 @@
+{
+  "schema": 3,
+  "room_id": "G20",
+  "bounds": [
+    0,
+    0,
+    1990,
+    782
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        125,
+        577
+      ]
+    }
+  },
+  "entities": {
+    "d041_socket": {
+      "id": "d041_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          524,
+          729,
+          60,
+          84
+        ]
+      }
+    },
+    "d043_upper_landing": {
+      "id": "d043_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1466,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "d460_upper_landing": {
+      "id": "d460_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          759,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          595,
+          449,
+          283
+        ]
+      }
+    },
+    "machine_bed_1": {
+      "id": "machine_bed_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          575,
+          595,
+          1447,
+          283
+        ]
+      }
+    },
+    "generator_return_face": {
+      "id": "generator_return_face",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          846,
+          153,
+          67,
+          446
+        ]
+      }
+    },
+    "east_pier": {
+      "id": "east_pier",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1629,
+          290,
+          99,
+          309
+        ]
+      }
+    },
+    "gear_niche": {
+      "id": "gear_niche",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          702,
+          252,
+          142,
+          16
+        ]
+      }
+    },
+    "channel_grate": {
+      "id": "channel_grate",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1059,
+          512,
+          249,
+          16
+        ]
+      }
+    },
+    "overhead_return": {
+      "id": "overhead_return",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1498,
+          192,
+          135,
+          16
+        ]
+      }
+    },
+    "power_channel_belt": {
+      "id": "power_channel_belt",
+      "definition_id": "platform.conveyor",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          1115,
+          585,
+          315,
+          20
+        ],
+        "surface_speed": 76
+      }
+    },
+    "lower_wheel_anchor": {
+      "id": "lower_wheel_anchor",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          831,
+          120
+        ]
+      }
+    },
+    "freight_hanger": {
+      "id": "freight_hanger",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          1504,
+          176
+        ]
+      }
+    },
+    "power_lane_crawler": {
+      "id": "power_lane_crawler",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          568,
+          581
+        ]
+      }
+    },
+    "drive_watch": {
+      "id": "drive_watch",
+      "definition_id": "enemy.sentry",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1500,
+          581
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d041": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        473,
+        772
+      ],
+      "spawn": [
+        548,
+        711
+      ],
+      "span": [
+        425,
+        521
+      ]
+    },
+    "d043": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        1530,
+        4
+      ],
+      "spawn": [
+        1530,
+        91
+      ],
+      "span": [
+        1482,
+        1578
+      ]
+    },
+    "d460": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        823,
+        4
+      ],
+      "spawn": [
+        823,
+        91
+      ],
+      "span": [
+        775,
+        871
+      ]
+    }
+  },
+  "sites": {
+    "wr_TG07": {
+      "at": [
+        753,
+        234
+      ]
+    },
+    "scatter22_G20": {
+      "at": [
+        1157,
+        494
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/pump_gallery.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G20.png",
+        "at": [
+          1167.5,
+          596
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_mid_v2.png",
+        "at": [
+          240,
+          595
+        ],
+        "z_index": -34,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          759,
+          252
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_gear_conveyor.png",
+        "at": [
+          1208,
+          512
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_piston_press.png",
+        "at": [
+          1700,
+          595
+        ],
+        "z_index": -4,
+        "flip": false
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "power_lane_crawler": {
+        "species_id": "species.e892ad899eba",
+        "drop_profile_id": "drop.e892ad899eba.t1"
+      },
+      "drive_watch": {
+        "species_id": "species.7aa003bee373",
+        "drop_profile_id": "drop.7aa003bee373.t1"
+      }
+    }
+  },
+  "zone_areas": {
+    "G20_main": [
+      0,
+      310,
+      1990,
+      472
+    ],
+    "G20_niche": [
+      0,
+      0,
+      1990,
+      310
+    ]
+  }
+}

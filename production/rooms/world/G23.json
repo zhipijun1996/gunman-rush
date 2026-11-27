@@ -1,0 +1,304 @@
+{
+  "schema": 3,
+  "room_id": "G23",
+  "bounds": [
+    0,
+    0,
+    1190,
+    718
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        125,
+        530
+      ]
+    }
+  },
+  "entities": {
+    "d037_socket": {
+      "id": "d037_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          929,
+          665,
+          60,
+          84
+        ]
+      }
+    },
+    "d402_upper_landing": {
+      "id": "d402_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          216,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          548,
+          854,
+          266
+        ]
+      }
+    },
+    "machine_bed_1": {
+      "id": "machine_bed_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          980,
+          548,
+          242,
+          266
+        ]
+      }
+    },
+    "ladder_low": {
+      "id": "ladder_low",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          352,
+          440,
+          137,
+          16
+        ]
+      }
+    },
+    "ladder_mid": {
+      "id": "ladder_mid",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          225,
+          338,
+          154,
+          16
+        ]
+      }
+    },
+    "ladder_upper": {
+      "id": "ladder_upper",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          348,
+          239,
+          127,
+          16
+        ]
+      }
+    },
+    "ladder_return": {
+      "id": "ladder_return",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          246,
+          157,
+          132,
+          16
+        ]
+      }
+    },
+    "valve_bed": {
+      "id": "valve_bed",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          504,
+          463,
+          227,
+          89
+        ]
+      }
+    },
+    "valve_crawler": {
+      "id": "valve_crawler",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          446,
+          534
+        ]
+      }
+    },
+    "pipe_watch": {
+      "id": "pipe_watch",
+      "definition_id": "enemy.sentry",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          776,
+          534
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d036": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1188,
+        530
+      ],
+      "spawn": [
+        1104,
+        530
+      ],
+      "span": [
+        450,
+        553
+      ]
+    },
+    "d037": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        878,
+        708
+      ],
+      "spawn": [
+        953,
+        647
+      ],
+      "span": [
+        830,
+        926
+      ]
+    },
+    "d402": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        280,
+        4
+      ],
+      "spawn": [
+        280,
+        91
+      ],
+      "span": [
+        232,
+        328
+      ]
+    }
+  },
+  "sites": {
+    "factory_pump_restored": {
+      "at": [
+        573,
+        445
+      ]
+    },
+    "quest22_shift_signal": {
+      "at": [
+        1000,
+        530
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/pump_gallery.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G23.png",
+        "at": [
+          352.5,
+          549
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_mid_v2.png",
+        "at": [
+          188,
+          548
+        ],
+        "z_index": -34,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_piston_press.png",
+        "at": [
+          535,
+          463
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_valve_panel.png",
+        "at": [
+          676,
+          463
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          1000,
+          548
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_pipe_junction.png",
+        "at": [
+          800,
+          548
+        ],
+        "z_index": -4,
+        "flip": false
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "valve_crawler": {
+        "species_id": "species.e892ad899eba",
+        "drop_profile_id": "drop.e892ad899eba.t0"
+      },
+      "pipe_watch": {
+        "species_id": "species.7aa003bee373",
+        "drop_profile_id": "drop.7aa003bee373.t0"
+      }
+    }
+  }
+}

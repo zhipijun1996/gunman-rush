@@ -22,7 +22,7 @@ func fresh(max_hp: float, armed := true) -> Dictionary:
 func restore() -> bool:
 	return restore_profile(storage.load_profile())
 
-func restore_profile(loaded: Dictionary) -> bool:
+func restore_profile(loaded: Dictionary, catalog: WorldContentCatalog = null) -> bool:
 	if not loaded.get("accepted",false):
 		error = storage.status
 		return false
@@ -38,7 +38,7 @@ func restore_profile(loaded: Dictionary) -> bool:
 		return false
 	# Stable facts survive compatible content revisions; unavailable positions return
 	# to an implemented registered rest, then the campaign start. Never overwrite on read.
-	if content.room(str(candidate.rest.room)).is_empty():
+	if content.room(str(candidate.rest.room)).is_empty() and (catalog==null or not catalog.lookup("rooms",str(candidate.rest.room)).ok):
 		candidate.rest = fresh(float(candidate.hp)).rest
 	if content.room(str(candidate.room)).is_empty() or not valid_entry(str(candidate.room),str(candidate.entry)):
 		var rest: Dictionary = candidate.rest

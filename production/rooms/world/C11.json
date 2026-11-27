@@ -1,0 +1,210 @@
+{
+  "schema": 3,
+  "room_id": "C11",
+  "bounds": [
+    0,
+    0,
+    1540,
+    820
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "moonshadow_cemetery",
+      "terrain_material": "moonshadow_cemetery",
+      "start_point": [
+        1435,
+        437
+      ]
+    }
+  },
+  "entities": {
+    "d410_threshold": {
+      "id": "d410_threshold",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1330,
+          455,
+          234,
+          40
+        ]
+      }
+    },
+    "d411_threshold": {
+      "id": "d411_threshold",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -24,
+          391,
+          234,
+          40
+        ]
+      }
+    },
+    "bedrock_0": {
+      "id": "bedrock_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          643,
+          1604,
+          273
+        ]
+      }
+    },
+    "western_levy": {
+      "id": "western_levy",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          0,
+          391,
+          452,
+          256
+        ]
+      }
+    },
+    "eastern_levy": {
+      "id": "eastern_levy",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1054,
+          455,
+          486,
+          192
+        ]
+      }
+    },
+    "damp_pier": {
+      "id": "damp_pier",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          708,
+          593,
+          72,
+          54
+        ]
+      }
+    },
+    "high_chain": {
+      "id": "high_chain",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          802,
+          191
+        ]
+      }
+    },
+    "western_chain": {
+      "id": "western_chain",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          569,
+          200
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d410": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1538,
+        437
+      ],
+      "spawn": [
+        1454,
+        437
+      ],
+      "span": [
+        357,
+        460
+      ]
+    },
+    "d411": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        373
+      ],
+      "spawn": [
+        86,
+        373
+      ],
+      "span": [
+        293,
+        396
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_broken_gate.png",
+        "at": [
+          1297,
+          455
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_urn_flowers.png",
+        "at": [
+          323,
+          391
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_landmark.png",
+        "at": [
+          751,
+          593
+        ],
+        "z_index": -15,
+        "flip": false
+      }
+    ]
+  },
+  "actions": [],
+  "zone_areas": {
+    "C11_west": [
+      0,
+      0,
+      700,
+      820
+    ],
+    "C11_east": [
+      700,
+      0,
+      840,
+      820
+    ]
+  }
+}

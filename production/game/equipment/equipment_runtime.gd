@@ -44,11 +44,11 @@ func p(id: String, key: String, fallback: float = 0) -> float:
 
 func sync_resources(restore: bool = false) -> void:
 	var health := actor.actor_resources.health
-	var maximum := (base_hp + p("B11","capacity")) * p("P18","capacity_scale",1)
+	var maximum := (base_hp + fragment_bonus("health",services.state.value.inventory) + p("B11","capacity")) * p("P18","capacity_scale",1)
 	if maximum != health.capacity:
 		health.set_max(ActorResourceRequest.new(StringName("equip_max:%s" % services.state.revision),health.epoch,maximum,health.get_instance_id()))
 	health.normal_healing_blocked = has("P18")
-	actor.combat_energy.set_capacity_bonus(p("B26","capacity"))
+	actor.combat_energy.set_capacity_bonus(fragment_bonus("resonance",services.state.value.inventory)+p("B26","capacity"))
 	if restore:
 		health.restore_value(services.state.value.hp)
 		actor.combat_energy.current = minf(services.state.value.combat_energy,actor.combat_energy.capacity())
@@ -64,14 +64,20 @@ func snapshot() -> Dictionary:
 	result.stamina = actor.actor_resources.stamina.current
 	return result
 
+func fragment_bonus(kind: String, inventory: Dictionary) -> float:
+	var rule: Dictionary=session.drop_rules[kind]
+	var hp:=kind=="health"
+	var qty:=int(inventory.get("health_shard" if hp else "resonance_shard",0))
+	return floorf(float(qty)/rule.shards_per_upgrade)*float(rule.max_gain_each if hp else rule.capacity_gain_each)
+
 func stage(candidate: Dictionary, kind: String, id: String) -> void:
 	var gear: Dictionary = candidate.services
 	var saved := snapshot()
 	var equipped: Array = gear.equipped
 	var level := int(gear.owned.get("B11",0)) if "B11" in equipped else 0
-	var maximum := (base_hp + EquipmentCatalog.parameter("B11",level,"capacity")) * EquipmentCatalog.parameter("P18",int(gear.owned.get("P18",0)) if "P18" in equipped else 0,"capacity_scale",1)
+	var maximum := (base_hp + fragment_bonus("health",candidate.inventory) + EquipmentCatalog.parameter("B11",level,"capacity")) * EquipmentCatalog.parameter("P18",int(gear.owned.get("P18",0)) if "P18" in equipped else 0,"capacity_scale",1)
 	candidate.hp = minf(actor.actor_resources.health.current,maximum)
-	var bonus := EquipmentCatalog.parameter("B26",int(gear.owned.get("B26",0)) if "B26" in equipped else 0,"capacity")
+	var bonus := fragment_bonus("resonance",candidate.inventory) + EquipmentCatalog.parameter("B26",int(gear.owned.get("B26",0)) if "B26" in equipped else 0,"capacity")
 	candidate.combat_energy = minf(actor.combat_energy.current,actor.combat_energy.definition.capacity + bonus)
 	if kind == "unequip":
 		var spatial := {"B23":"rings","99":"winds","89":"decoy","84":"anchors"}

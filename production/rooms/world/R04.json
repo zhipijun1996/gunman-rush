@@ -1,0 +1,388 @@
+{
+  "schema": 3,
+  "room_id": "R04",
+  "bounds": [
+    0,
+    0,
+    1590,
+    887
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "sunken_ruins",
+      "terrain_material": "sunken_ruins",
+      "start_point": [
+        116,
+        622
+      ]
+    }
+  },
+  "entities": {
+    "d137_mouth_shoulder": {
+      "id": "d137_mouth_shoulder",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          829,
+          640,
+          112,
+          23
+        ]
+      }
+    },
+    "d137_return_toe": {
+      "id": "d137_return_toe",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          829,
+          843,
+          98,
+          76
+        ]
+      }
+    },
+    "d137_inset_1": {
+      "id": "d137_inset_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          733,
+          761,
+          41,
+          12
+        ]
+      }
+    },
+    "d137_inset_2": {
+      "id": "d137_inset_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          785,
+          679,
+          41,
+          12
+        ]
+      }
+    },
+    "d239_landing": {
+      "id": "d239_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          776,
+          93,
+          133,
+          12
+        ]
+      }
+    },
+    "quay_foundation_0": {
+      "id": "quay_foundation_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -40,
+          640,
+          771,
+          283
+        ]
+      }
+    },
+    "quay_foundation_1": {
+      "id": "quay_foundation_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          940,
+          640,
+          690,
+          283
+        ]
+      }
+    },
+    "dressed_pier_0": {
+      "id": "dressed_pier_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          230,
+          554,
+          228,
+          12
+        ]
+      }
+    },
+    "dressed_pier_1": {
+      "id": "dressed_pier_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          510,
+          471,
+          195,
+          12
+        ]
+      }
+    },
+    "dressed_pier_2": {
+      "id": "dressed_pier_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1170,
+          546,
+          252,
+          12
+        ]
+      }
+    },
+    "d239_return_step_1": {
+      "id": "d239_return_step_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          695,
+          551,
+          155,
+          12
+        ]
+      }
+    },
+    "d239_return_step_2": {
+      "id": "d239_return_step_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          845,
+          462,
+          155,
+          12
+        ]
+      }
+    },
+    "d239_return_step_3": {
+      "id": "d239_return_step_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          695,
+          373,
+          155,
+          12
+        ]
+      }
+    },
+    "d239_pulley": {
+      "id": "d239_pulley",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          840,
+          56
+        ]
+      }
+    },
+    "suspension_eye_0": {
+      "id": "suspension_eye_0",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          315,
+          400
+        ]
+      }
+    },
+    "suspension_eye_1": {
+      "id": "suspension_eye_1",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          1255,
+          389
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d136": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        622
+      ],
+      "spawn": [
+        94,
+        622
+      ],
+      "span": [
+        520,
+        644
+      ]
+    },
+    "d137": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        780,
+        879
+      ],
+      "spawn": [
+        858,
+        825
+      ],
+      "span": [
+        732,
+        828
+      ]
+    },
+    "d239": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        840,
+        10
+      ],
+      "spawn": [
+        840,
+        75
+      ],
+      "span": [
+        791,
+        889
+      ]
+    },
+    "d240": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1588,
+        622
+      ],
+      "spawn": [
+        1496,
+        622
+      ],
+      "span": [
+        520,
+        644
+      ]
+    }
+  },
+  "sites": {
+    "d239": {
+      "at": [
+        840,
+        75
+      ]
+    },
+    "scatter22_R04": {
+      "at": [
+        993,
+        622
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/sunken_ruins/sunken_ruins-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_fluted_column.png",
+        "at": [
+          877,
+          640
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_fluted_column.png",
+        "at": [
+          937,
+          640
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_air_bell.png",
+        "at": [
+          607,
+          471
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_lamp.png",
+        "at": [
+          1296,
+          546
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_landmark.png",
+        "at": [
+          1303,
+          640
+        ],
+        "z_index": -8
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_air_bell.png",
+        "at": [
+          413,
+          640
+        ],
+        "z_index": -6
+      }
+    ]
+  },
+  "actions": [],
+  "zone_areas": {
+    "R04_roof": [
+      0,
+      285,
+      1590,
+      410
+    ],
+    "R04_hoist": [
+      0,
+      695,
+      1590,
+      192
+    ],
+    "R04_counterweight": [
+      0,
+      0,
+      1590,
+      285
+    ]
+  }
+}

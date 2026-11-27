@@ -1,0 +1,301 @@
+{
+  "schema": 3,
+  "room_id": "A11",
+  "bounds": [
+    0,
+    0,
+    1816,
+    804
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "shattered_isles",
+      "terrain_material": "shattered_isles",
+      "start_point": [
+        88,
+        622
+      ]
+    }
+  },
+  "exits": {
+    "d497": {
+      "point": [
+        2,
+        622
+      ],
+      "spawn": [
+        88,
+        622
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        500,
+        643
+      ]
+    }
+  },
+  "sites": {
+    "enc_A11": {
+      "at": [
+        1385,
+        672
+      ],
+      "start_at": [
+        491,
+        672
+      ],
+      "waves": [
+        [
+          "broken_wing"
+        ]
+      ],
+      "victory_only": [
+        "broken_wing"
+      ]
+    },
+    "wr20_equipment_87": {
+      "at": [
+        1658,
+        620
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/shattered_isles/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/shattered_isles/ropes.png",
+        "at": [
+          603,
+          564
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/shattered_isles/ribbon.png",
+        "at": [
+          1148,
+          553
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/shattered_isles/stone.png",
+        "at": [
+          1654,
+          638
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "sheltered_approach": {
+      "id": "sheltered_approach",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            640
+          ],
+          [
+            412,
+            640
+          ],
+          [
+            412,
+            844
+          ],
+          [
+            0,
+            844
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "outer_nest": {
+      "id": "outer_nest",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            412,
+            690
+          ],
+          [
+            1446,
+            690
+          ],
+          [
+            1446,
+            716
+          ],
+          [
+            1332,
+            759
+          ],
+          [
+            1156,
+            788
+          ],
+          [
+            1032,
+            780
+          ],
+          [
+            846,
+            844
+          ],
+          [
+            742,
+            805
+          ],
+          [
+            598,
+            791
+          ],
+          [
+            484,
+            750
+          ],
+          [
+            412,
+            716
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "prize_nest": {
+      "id": "prize_nest",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1446,
+            638
+          ],
+          [
+            1816,
+            638
+          ],
+          [
+            1816,
+            844
+          ],
+          [
+            1446,
+            844
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "low_west_perch": {
+      "id": "low_west_perch",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          481,
+          564,
+          219,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "upper_nest": {
+      "id": "upper_nest",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          744,
+          419,
+          215,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "low_east_perch": {
+      "id": "low_east_perch",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1086,
+          553,
+          261,
+          14
+        ],
+        "appearance": "island_shelf"
+      }
+    },
+    "west_nest_line": {
+      "id": "west_nest_line",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          669,
+          337
+        ]
+      }
+    },
+    "east_nest_line": {
+      "id": "east_nest_line",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          1120,
+          315
+        ]
+      }
+    },
+    "broken_wing": {
+      "id": "broken_wing",
+      "definition_id": "enemy.island_windbird",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          954,
+          460
+        ]
+      }
+    }
+  },
+  "actions": [],
+  "zone_areas": {
+    "A11_entry": [
+      0,
+      0,
+      415,
+      804
+    ],
+    "A11_arena": [
+      415,
+      0,
+      1031,
+      804
+    ],
+    "A11_nest": [
+      1446,
+      0,
+      370,
+      804
+    ]
+  }
+}

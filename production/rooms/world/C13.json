@@ -1,0 +1,286 @@
+{
+  "schema": 3,
+  "room_id": "C13",
+  "bounds": [
+    0,
+    0,
+    1338,
+    797
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "moonshadow_cemetery",
+      "terrain_material": "moonshadow_cemetery",
+      "start_point": [
+        125,
+        601
+      ]
+    }
+  },
+  "entities": {
+    "d412_socket": {
+      "id": "d412_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          326,
+          744,
+          60,
+          84
+        ]
+      }
+    },
+    "d414_upper_landing": {
+      "id": "d414_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          960,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "bedrock_0": {
+      "id": "bedrock_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          619,
+          251,
+          274
+        ]
+      }
+    },
+    "bedrock_1": {
+      "id": "bedrock_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          377,
+          619,
+          993,
+          274
+        ]
+      }
+    },
+    "ledge_1": {
+      "id": "ledge_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          861,
+          523,
+          138,
+          16
+        ]
+      }
+    },
+    "ledge_2": {
+      "id": "ledge_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          744,
+          429,
+          142,
+          16
+        ]
+      }
+    },
+    "ledge_3": {
+      "id": "ledge_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          915,
+          324,
+          133,
+          16
+        ]
+      }
+    },
+    "ledge_4": {
+      "id": "ledge_4",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          977,
+          216,
+          146,
+          16
+        ]
+      }
+    },
+    "enemy22_C13_1": {
+      "id": "enemy22_C13_1",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          480,
+          605
+        ]
+      }
+    },
+    "enemy22_C13_2": {
+      "id": "enemy22_C13_2",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          671,
+          605
+        ]
+      }
+    },
+    "enemy22_C13_3": {
+      "id": "enemy22_C13_3",
+      "definition_id": "enemy.sentry",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          835,
+          605
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d412": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        275,
+        787
+      ],
+      "spawn": [
+        350,
+        726
+      ],
+      "span": [
+        227,
+        323
+      ]
+    },
+    "d413": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1336,
+        601
+      ],
+      "spawn": [
+        1252,
+        601
+      ],
+      "span": [
+        521,
+        624
+      ]
+    },
+    "d414": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        1024,
+        4
+      ],
+      "spawn": [
+        1024,
+        91
+      ],
+      "span": [
+        976,
+        1072
+      ]
+    }
+  },
+  "sites": {
+    "d413": {
+      "at": [
+        1222,
+        601
+      ]
+    },
+    "coin20_C13": {
+      "at": [
+        794,
+        411
+      ]
+    },
+    "wr_TG32": {
+      "at": [
+        1052,
+        198
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_broken_gate.png",
+        "at": [
+          1135,
+          619
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_bell_memorial.png",
+        "at": [
+          1032,
+          216
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_urn_flowers.png",
+        "at": [
+          791,
+          429
+        ],
+        "z_index": -15,
+        "flip": false
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "enemy22_C13_1": {
+        "species_id": "species.cbce39e88119",
+        "drop_profile_id": "drop.cbce39e88119.t1"
+      },
+      "enemy22_C13_2": {
+        "species_id": "species.cbce39e88119",
+        "drop_profile_id": "drop.cbce39e88119.t1"
+      },
+      "enemy22_C13_3": {
+        "species_id": "species.d44f4f270319",
+        "drop_profile_id": "drop.d44f4f270319.t1"
+      }
+    }
+  }
+}

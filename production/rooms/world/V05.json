@@ -1,0 +1,315 @@
+{
+  "schema": 3,
+  "room_id": "V05",
+  "bounds": [
+    0,
+    0,
+    1544,
+    871
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "starbridge_gate",
+      "terrain_material": "starbridge_gate",
+      "start_point": [
+        1456,
+        667
+      ]
+    }
+  },
+  "exits": {
+    "d208": {
+      "point": [
+        1542,
+        667
+      ],
+      "spawn": [
+        1456,
+        667
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        545,
+        688
+      ]
+    },
+    "d247": {
+      "point": [
+        2,
+        569
+      ],
+      "spawn": [
+        88,
+        569
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        447,
+        590
+      ]
+    },
+    "d209": {
+      "point": [
+        600,
+        67
+      ],
+      "spawn": [
+        600,
+        174
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        552,
+        648
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/starbridge_gate/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/starbridge_gate/lens.png",
+        "at": [
+          411,
+          659
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/starbridge_gate/pier.png",
+        "at": [
+          890,
+          659
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/starbridge_gate/anchor.png",
+        "at": [
+          603,
+          192
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "western_lock": {
+      "id": "western_lock",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            587
+          ],
+          [
+            374,
+            587
+          ],
+          [
+            374,
+            911
+          ],
+          [
+            0,
+            911
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "central_muster": {
+      "id": "central_muster",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            374,
+            659
+          ],
+          [
+            1098,
+            659
+          ],
+          [
+            1098,
+            911
+          ],
+          [
+            374,
+            911
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "eastern_approach": {
+      "id": "eastern_approach",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1098,
+            685
+          ],
+          [
+            1544,
+            685
+          ],
+          [
+            1544,
+            911
+          ],
+          [
+            1098,
+            911
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "hanging_web": {
+      "id": "hanging_web",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            768,
+            356
+          ],
+          [
+            816,
+            356
+          ],
+          [
+            816,
+            601
+          ],
+          [
+            768,
+            601
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "fixed_grip": {
+      "id": "fixed_grip",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          756,
+          349,
+          28,
+          252
+        ]
+      }
+    },
+    "first_recovery": {
+      "id": "first_recovery",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          484,
+          534,
+          215,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "wall_head": {
+      "id": "wall_head",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          667,
+          355,
+          185,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "outer_crown": {
+      "id": "outer_crown",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          502,
+          192,
+          214,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "western_hitch": {
+      "id": "western_hitch",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          540,
+          266
+        ]
+      }
+    },
+    "star_mote": {
+      "id": "star_mote",
+      "definition_id": "enemy.diver",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          800,
+          521
+        ]
+      }
+    },
+    "span_guard": {
+      "id": "span_guard",
+      "definition_id": "enemy.ground_fan_sentry",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          955,
+          634
+        ]
+      }
+    }
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "star_mote": {
+        "species_id": "species.6083fca42e68",
+        "drop_profile_id": "drop.6083fca42e68.t3"
+      },
+      "span_guard": {
+        "species_id": "species.015575c0772f",
+        "drop_profile_id": "drop.015575c0772f.t3"
+      }
+    }
+  }
+}

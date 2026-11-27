@@ -1,0 +1,222 @@
+{
+  "schema": 3,
+  "room_id": "G11",
+  "bounds": [
+    0,
+    0,
+    1408,
+    673
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        125,
+        481
+      ]
+    }
+  },
+  "entities": {
+    "d029_socket": {
+      "id": "d029_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          797,
+          620,
+          60,
+          84
+        ]
+      }
+    },
+    "d049_threshold": {
+      "id": "d049_threshold",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1198,
+          345,
+          234,
+          40
+        ]
+      }
+    },
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          499,
+          722,
+          270
+        ]
+      }
+    },
+    "machine_bed_1": {
+      "id": "machine_bed_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          848,
+          499,
+          592,
+          270
+        ]
+      }
+    },
+    "east_gate_sill": {
+      "id": "east_gate_sill",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1127,
+          345,
+          136,
+          158
+        ]
+      }
+    },
+    "step_to_return": {
+      "id": "step_to_return",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          989,
+          429,
+          133,
+          16
+        ]
+      }
+    },
+    "survey_bay": {
+      "id": "survey_bay",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          515,
+          390,
+          166,
+          16
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d029": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        746,
+        663
+      ],
+      "spawn": [
+        821,
+        602
+      ],
+      "span": [
+        698,
+        794
+      ]
+    },
+    "d030": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        481
+      ],
+      "spawn": [
+        86,
+        481
+      ],
+      "span": [
+        401,
+        504
+      ]
+    },
+    "d049": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1406,
+        327
+      ],
+      "spawn": [
+        1322,
+        327
+      ],
+      "span": [
+        247,
+        350
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/wheel_hall.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G11.png",
+        "at": [
+          818.5,
+          500
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_pipe_junction.png",
+        "at": [
+          267,
+          499
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          600,
+          390
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_gear_conveyor.png",
+        "at": [
+          882,
+          499
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_landmark.png",
+        "at": [
+          1235,
+          345
+        ],
+        "z_index": -4,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

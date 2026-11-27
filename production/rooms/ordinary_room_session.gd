@@ -4,6 +4,9 @@ extends Node2D
 ## progression; the standalone room never discovers a campaign or an old save.
 @export_file("*.json") var document_path := ""
 @export var profile_slot := ""
+const WORLD_WEAPONS := {"gun":preload("res://resources/weapons/pulse_gun.tres"),"B":preload("res://resources/weapons/recoil_bomb.tres"),"weapon_shuriken":preload("res://resources/weapons/shadow_shuriken.tres")}
+var content_sites: WorldContentSites
+var recoil_guard: WorldRecoilGuard
 var equipment := EquipmentRuntime.new()
 var equipment_menu: EquipmentMenu
 var equipment_sites: Array[EquipmentSite] = []
@@ -11,6 +14,7 @@ var heal_base: Dictionary
 @export var content_room_id := ""
 @export_file("*.json") var content_lock_path := "res://config/imported_world/current.lock.json"
 @export_file("*.json") var content_bindings_path := "res://config/imported_world/bindings.json"
+var encounters: Array[WorldRoomEncounter] = []
 var opening: PlainsOpening
 var focus_heal: WorldFocusHeal
 var audio_service: PlayerWeaponFeelAudioV2
@@ -35,6 +39,7 @@ var content_catalog: WorldContentCatalog
 var content_context: Dictionary = {}
 var content_enemy_gold: Dictionary = {}
 var passage_discoveries: Array = []
+var blast_passages: Dictionary = {}
 
 class RoomMemory extends WorldSaveService:
 	func commit(_payload: Dictionary, _revision: int) -> bool:
@@ -72,7 +77,18 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		if before != after: return "room_content_version_mismatch"
 	if not document.get("exits", {}) is Dictionary: return "room_exits_invalid"
 	var exits: Dictionary = document.get("exits", {})
-	if not entry_door_id.is_empty() and not exits.has(entry_door_id):
+	var entries: Dictionary = exits.duplicate()
+	if catalog != null:
+		for link: Dictionary in catalog.connections(str(document.room_id)).get("rows",[]):
+			if link.connection_type != "interior": continue
+			var site: Dictionary = document.get("sites",{}).get(link.id,{})
+			if WorldRoomValidation.vector(site.get("at")):
+				entries[link.id] = {"spawn":site.at}
+		for station: Dictionary in catalog.object("transport").value.stations:
+			if station.room != document.room_id: continue
+			var site: Dictionary = document.get("sites",{}).get(station.id,{})
+			if WorldRoomValidation.vector(site.get("at")): entries[station.id] = {"spawn":site.at}
+	if not entry_door_id.is_empty() and not entries.has(entry_door_id):
 		return "room_entry_unknown"
 	var prepared := {}
 	if catalog != null:
@@ -91,7 +107,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	room = result.room
 	var at := room.start_point
 	if not entry_door_id.is_empty():
-		at = FixedWorldProvider.point(exits[entry_door_id].spawn)
+		at = FixedWorldProvider.point(entries[entry_door_id].spawn)
 	if respawning:
 		if previous == null or previous.lifetime.active or not previous.controller.actor_resources.health.terminal or previous.state.value.rest.room != room.room_id or not entry_door_id.is_empty():
 			room.free()
@@ -104,7 +120,11 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		room = null
 		return "spawn_outside_room"
 	var row := {"doors":[],"camera":{},"world_geometry":WorldRoomSpace.document_geometry(bounds_data,exits)}
-	row["exits"] = exits
+	row["exits"] = entries
+	var sections: Array[Dictionary] = []
+	for zone: String in document.get("zone_areas",{}):
+		sections.append({"id":zone,"bounds":document.zone_areas[zone]})
+	row["sections"] = sections
 	room.configure(row)
 	state.content = FixedWorldProvider.new()
 	var content_identity := JSON.stringify(document) + (":" + catalog.bundle_sha256 if catalog != null else "")
@@ -138,7 +158,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		next.mechanisms = destination.get("mechanisms",{}).duplicate(true)
 		next.room = room.room_id
 		next.entry = entry_door_id
-		if not exits.is_empty() and room.room_id not in next.explored:
+		if not entries.is_empty() and room.room_id not in next.explored:
 			next.explored.append(room.room_id)
 		next.content_version = state.content.data.content_version
 		var effects: Dictionary = next.services.effects
@@ -154,6 +174,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 			room.free()
 			room = null
 			return "room_transition_save_failed"
+		previous.controller.shoot_ability.cancel_packet(&"scene_changed")
 		previous.controller.air_focus_ability.stop()
 		previous.lifetime.end()
 		previous.process_mode = Node.PROCESS_MODE_DISABLED
@@ -164,12 +185,16 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 			room.free()
 			room = null
 			return "room_content_save_version_mismatch"
-		if not saved.get("accepted", false) or (not saved.payload.is_empty() and (saved.payload.get("room") != room.room_id or not state.restore_profile(saved))):
+		if not saved.get("accepted", false) or (not saved.payload.is_empty() and (saved.payload.get("room") != room.room_id or not state.restore_profile(saved,catalog))):
 			room.free()
 			room = null
 			return "room_save_unavailable"
-	if previous == null and state.value.get("entry","") in exits:
-		var saved_spawn := FixedWorldProvider.point(exits[state.value.entry].spawn)
+	if previous == null and not state.value.is_empty():
+		var saved_spawn := at
+		if state.value.entry in entries:
+			saved_spawn = FixedWorldProvider.point(entries[state.value.entry].spawn)
+		elif state.value.entry.is_empty() and state.value.rest.room==room.room_id:
+			saved_spawn = FixedWorldProvider.point(state.value.rest.point)
 		if not bounds.has_point(saved_spawn):
 			room.free()
 			room = null
@@ -178,6 +203,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	content_catalog = catalog
 	content_enemy_gold = prepared.get("enemy_gold", {})
 	passage_discoveries = prepared.get("passage_discoveries", [])
+	blast_passages=prepared.get("blast_passages",{})
 	content_context = prepared.get("room_context", {})
 
 	services.state = state
@@ -191,7 +217,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	controller.enable_shot_energy()
 	if state.value.is_empty():
 		state.value = state.fresh(controller.actor_resources.health.capacity, not document.get("sites",{}).has(PlainsOpening.SITE))
-		if not exits.is_empty():
+		if not entries.is_empty():
 			state.value.entry = entry_door_id
 			state.value.explored.append(room.room_id)
 	var health_definition := controller.actor_resources.health_definition.duplicate(true) as HealthDefinition
@@ -220,6 +246,11 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	policy.register_player_controller(controller)
 	policy.player_fatal.connect(_player_died)
 	add_child(room)
+	for row_encounter: Dictionary in content_context.get("encounters",[]):
+		if document.get("sites",{}).has(row_encounter.id):
+			var encounter := WorldRoomEncounter.new()
+			encounter.configure(self,row_encounter,document.sites[row_encounter.id])
+			encounters.append(encounter)
 	room.install(controller, policy, lifetime, state.value.enemies, at)
 	room.services = services
 	room.install_mechanisms(controller, lifetime, state.value.mechanisms, _activate)
@@ -230,11 +261,21 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 			state.committed.connect(site.refresh)
 			site.refresh()
 	services.can_access = _equipment_access
-	services.stage_resources = equipment.stage
+	services.stage_resources = _stage_station_transaction
 	equipment.bind(self)
 	state.committed.connect(_sync_sidearm)
 	_sync_sidearm(state.revision)
 	if catalog != null:
+		recoil_guard=WorldRecoilGuard.new()
+		recoil_guard.controller=controller
+		if previous!=null and previous.recoil_guard!=null and not respawning:
+			recoil_guard.cooldown=previous.recoil_guard.cooldown
+			recoil_guard.landing_ready=previous.recoil_guard.landing_ready
+		add_child(recoil_guard)
+		var glow:=WorldRecoilGuardVisual.new()
+		glow.guard=recoil_guard
+		player.add_child(glow)
+		policy.transient_protection=recoil_guard.protects
 		state.committed.connect(_sync_world_abilities)
 		_sync_world_abilities(state.revision)
 	state.capture_live = capture_live
@@ -285,7 +326,11 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		var actor: EnemyActor = room.enemies[id]
 		actor.defeated.connect(_defeated.bind(id))
 	if catalog != null and document.has("scenery"):
-		preload("res://rooms/world/p02_connections/connection_room.gd").install(self,document,catalog)
+		preload("res://rooms/world/world_room_dressing.gd").install(self,document,catalog)
+	if catalog != null and not document.get("sites",{}).is_empty():
+		content_sites=WorldContentSites.new()
+		room.add_child(content_sites)
+		content_sites.install(self,document)
 	if document.get("sites",{}).has(PlainsOpening.SITE) and not state.has("gun"):
 		opening = PlainsOpening.new()
 		opening.install(self,FixedWorldProvider.point(document.sites[PlainsOpening.SITE].at))
@@ -296,12 +341,24 @@ func _sync_sidearm(_revision: int) -> void:
 	if controller.shoot_ability.enabled!=armed:
 		controller.shoot_ability.enabled=armed
 
-## The G08 acquisition owns W. Entering a room only restores the saved right
-## to attach to authored walls and kick off them through the real Controller.
 func _sync_world_abilities(_revision: int) -> void:
-	var owns_wall_climb := state.has("W")
-	if controller.traversal.has_capability(&"wall_climb") != owns_wall_climb:
-		controller.traversal.grant(&"wall_climb",owns_wall_climb)
+	var abilities := {"W":&"wall_climb","H":&"grapple","D":&"double_jump"}
+	for flag: String in abilities:
+		if controller.traversal.has_capability(abilities[flag])!=state.has(flag):
+			controller.traversal.grant(abilities[flag],state.has(flag))
+	recoil_guard.owned=state.has("Q")
+	controller.shoot_ability.behavior().intro_pulse_owned=state.has("intro_active_skill")
+	var selected: String=state.value.story_hosts.get("selected_weapon","gun")
+	if WORLD_WEAPONS.has(selected) and state.has(selected) and controller.shoot_ability.weapon!=WORLD_WEAPONS[selected]:
+		controller.shoot_ability.equip(WORLD_WEAPONS[selected])
+	equipment.sync_resources()
+
+func select_world_weapon(id: String, revision: int) -> bool:
+	if content_catalog==null or not WORLD_WEAPONS.has(id) or not state.has(id) or revision!=state.revision: return false
+	if not controller.active or controller.has_pending_damage() or not pending_defeats.is_empty(): return false
+	var next:=state.candidate()
+	next.story_hosts["selected_weapon"]=id
+	return state.commit(next,revision)
 
 func capture_live(candidate: Dictionary) -> void:
 	candidate.services.effects = equipment.snapshot()
@@ -310,19 +367,28 @@ func capture_live(candidate: Dictionary) -> void:
 	if room.loot != null: room.loot.persist_into(candidate)
 
 func checkpoint() -> bool:
-	if controller == null or controller.actor_resources.health.terminal: return false
-	return state.commit(state.candidate(),state.revision)
+	if controller == null or controller.actor_resources.health.terminal or controller.has_pending_damage() or not pending_defeats.is_empty(): return false
+	var next := state.candidate()
+	next.enemies = room.snapshot()
+	return state.commit(next,state.revision)
 
 func _equipment_access(kind: String, id: String) -> bool:
 	if not controller.active or controller.has_pending_damage(): return false
 	if kind in ["equip","unequip","rest"]:
 		return room.station_animation != null and player.position.distance_to(room.rest_point) <= 52
 	if kind == "select": return true
+	if kind=="upgrade" and content_sites!=null and content_sites.smith_available(): return true
 	for site: EquipmentSite in equipment_sites:
 		if not site.available(player.global_position): continue
 		if kind == "upgrade" and site.kind == "smith": return true
 		if kind == "claim" and site.kind == "reward" and site.source_id == id: return true
 	return false
+
+func _stage_station_transaction(candidate: Dictionary, kind: String, id: String) -> void:
+	equipment.stage(candidate,kind,id)
+	if kind=="rest":
+		candidate.rest = {"room":room.room_id,"entry":"","point":[room.rest_point.x,room.rest_point.y]}
+		candidate.entry = ""
 
 func equipment_transaction(kind: String,id: String,revision: int) -> bool:
 	var receipt := "%s/%s/%s" % [kind,id,revision]
@@ -334,6 +400,9 @@ func equipment_transaction(kind: String,id: String,revision: int) -> bool:
 func _interact() -> void:
 	if opening!=null and opening.interact(): return
 	if room == null or controller.actor_resources.health.terminal: return
+	for encounter: WorldRoomEncounter in encounters:
+		if encounter.confirm(): return
+	if content_sites!=null and content_sites.interact(): return
 	for site: EquipmentSite in equipment_sites:
 		if not site.available(player.global_position): continue
 		if site.kind == "reward": equipment_transaction("claim",site.source_id,state.revision); return
@@ -395,6 +464,7 @@ func _activate(id: String) -> void:
 	for target: String in changes:
 		if room.element_runtime.nodes[target].state_scope == "permanent":
 			candidate.mechanisms[target] = changes[target]
+			if not WorldBlastPassage.stage(self,candidate,target,changes[target]): return
 	if (not world_result and candidate.mechanisms == state.value.mechanisms) or state.commit(candidate, state.revision):
 		room.element_runtime.accept(id, changes)
 
@@ -412,7 +482,8 @@ func _stage_defeats(candidate: Dictionary) -> Dictionary:
 		var defeat: Dictionary = pending_defeats[id]
 		if not candidate.receipts.has("income:"+str(defeat.source)):
 			var total := float(defeat.base_gold) * (1.0 + float(defeat.bonus)) + float(candidate.services.effects.get("gold_fraction",equipment.fx.gold_fraction))
-			var units := WorldCoinDrops.create_units(defeat.source,floori(total),defeat.position,player.position,room.room_id)
+			var units: Array[Dictionary] = []
+			if total >= 1: units = WorldCoinDrops.create_units(defeat.source,floori(total),defeat.position,player.position,room.room_id)
 			candidate = services.drop_candidate(candidate, defeat.source, units)
 			candidate.services.effects.gold_fraction = total - floorf(total)
 		candidate.enemies[id] = defeat.enemy
@@ -456,6 +527,7 @@ func _observe_passages() -> void:
 			if not next.is_empty(): state.commit(next, state.revision)
 
 func _physics_process(delta: float) -> void:
+	if not blast_passages.is_empty(): WorldBlastPassage.observe(self)
 	if not passage_discoveries.is_empty() and lifetime.active and controller.active:
 		_observe_passages()
 	if room != null and controller != null and controller.active and not room.retry_anchors.is_empty(): recovery.observe(room,player)

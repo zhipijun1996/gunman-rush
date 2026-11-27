@@ -1,6 +1,8 @@
 class_name WeaponActionRuntime
 extends Node2D
 ## Stateful behaviors for the single equipped weapon. Visual methods only read accepted state.
+const PULSE: WeaponDefinition=preload("res://resources/weapons/pulse_gun.tres")
+var intro_pulse_owned:=false
 signal blast_fired(point: Vector2)
 signal phase_changed(phase: StringName)
 signal entity_transition(entity: WeaponEntity, action: StringName)
@@ -69,7 +71,7 @@ func occupied() -> bool:
 func locks_movement() -> bool:return phase==&"singularity"
 func visual_state() -> StringName:
 	if phase==&"singularity":return &"singularity_hold"
-	if phase==&"charge":return &"weapon_charge"
+	if phase in [&"charge",&"intro_pulse"]:return &"weapon_charge"
 	if phase==&"throw_windup":return &"blade_throw"
 	if phase==&"beam":return &"laser_fire"
 	if actor().motor.weapon_pause_remaining>0:return &"blade_throw"
@@ -93,11 +95,22 @@ func cancel(reason: StringName) -> void:
 		_base_bomb_session = -1
 		for item: WeaponEntity in current_entities():item.dispose()
 		entities.clear();_fx.clear()
-	if phase in [&"beam",&"charge",&"storm",&"fan_wait",&"throw_windup",&"singularity"]:
+	if phase in [&"beam",&"charge",&"intro_pulse",&"storm",&"fan_wait",&"throw_windup",&"singularity"]:
 		_phase(&"idle");actor().motor.cancel_ability_motion()
 	pose_remaining=0
 func begin(direction_value: Vector2, grounded: bool, skill: bool = false) -> bool:
 	var def := definition()
+	if skill and def.tier<3 and intro_pulse_owned:
+		if occupied() or skill_cooldown>0 or not direction_value.is_finite() or direction_value.is_zero_approx(): return false
+		direction=direction_value.normalized()
+		if not ability.reserve_packet(direction,grounded,true): return false
+		_session=actor().session_id
+		_packet=ability.packet_id
+		skill_cooldown=PULSE.skill_cooldown
+		_phase(&"intro_pulse")
+		_pose(&"weapon_charge",PULSE.skill_charge)
+		_cue(&"focus_start")
+		return true
 	if not skill and actor().item_runtime != null:
 		direction_value = actor().item_runtime.scene.direction(direction_value,def.range_limit)
 	var skill_cost := float(ability.item_runtime().call("skill_cost", def.skill_cost)) if ability.item_runtime() != null else def.skill_cost
@@ -213,11 +226,19 @@ func advance(delta: float) -> void:
 	age+=delta
 	var aim := actor().router.aim_direction
 	if not actor().router.primary_aim_held() or actor().router.aim_mode==&"grapple":_beam_require_release=false
-	if not aim.is_zero_approx() and actor().router.aim_mode in [&"attack",&"singularity_launch"]:direction=aim
+	if phase!=&"intro_pulse" and not aim.is_zero_approx() and actor().router.aim_mode in [&"attack",&"singularity_launch"]:direction=aim
 	if actor().router.aim_mode!=&"grapple":
 		actor().router.aim_mode=&"singularity_launch" if phase==&"singularity" else &"steer_blade" if not current_entities().is_empty() and current_entities()[0].kind==&"boomerang" else &"attack"
 	var def := definition()
 	match phase:
+		&"intro_pulse":
+			if age>=PULSE.skill_charge:
+				actor().traversal.on_weapon_fired()
+				actor().jump_ability.cancel_ascent()
+				ability.emit_special_projectile(direction,true,&"bullet",PULSE)
+				ability.recoil.execute(direction,actor().motor.is_on_floor())
+				_pose(&"weapon_skill")
+				_phase(&"idle")
 		&"throw_windup":
 			if age>=def.throw_windup:_release(actor().motor.is_on_floor())
 		&"charge":

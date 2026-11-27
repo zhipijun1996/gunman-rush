@@ -1,0 +1,367 @@
+{
+  "schema": 3,
+  "room_id": "R20",
+  "bounds": [
+    0,
+    0,
+    1690,
+    751
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "sunken_ruins",
+      "terrain_material": "sunken_ruins",
+      "start_point": [
+        116,
+        508
+      ]
+    }
+  },
+  "entities": {
+    "d313_landing": {
+      "id": "d313_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          106,
+          93,
+          133,
+          12
+        ]
+      }
+    },
+    "retained_tide_573": {
+      "id": "retained_tide_573",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          573,
+          569,
+          66,
+          76
+        ],
+        "mode": "water"
+      }
+    },
+    "tide_bed_573": {
+      "id": "tide_bed_573",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          573,
+          632,
+          66,
+          145
+        ]
+      }
+    },
+    "retained_tide_1028": {
+      "id": "retained_tide_1028",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          1028,
+          569,
+          48,
+          76
+        ],
+        "mode": "water"
+      }
+    },
+    "tide_bed_1028": {
+      "id": "tide_bed_1028",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1028,
+          632,
+          48,
+          145
+        ]
+      }
+    },
+    "quay_foundation_0": {
+      "id": "quay_foundation_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -40,
+          526,
+          613,
+          261
+        ]
+      }
+    },
+    "quay_foundation_1": {
+      "id": "quay_foundation_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          639,
+          526,
+          389,
+          261
+        ]
+      }
+    },
+    "quay_foundation_2": {
+      "id": "quay_foundation_2",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1076,
+          526,
+          654,
+          261
+        ]
+      }
+    },
+    "dressed_pier_0": {
+      "id": "dressed_pier_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          402,
+          431,
+          182,
+          12
+        ]
+      }
+    },
+    "dressed_pier_1": {
+      "id": "dressed_pier_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1078,
+          427,
+          214,
+          12
+        ]
+      }
+    },
+    "d313_return_step_1": {
+      "id": "d313_return_step_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          46,
+          437,
+          132,
+          12
+        ]
+      }
+    },
+    "d313_return_step_2": {
+      "id": "d313_return_step_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          175,
+          348,
+          132,
+          12
+        ]
+      }
+    },
+    "d313_return_step_3": {
+      "id": "d313_return_step_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          46,
+          259,
+          132,
+          12
+        ]
+      }
+    },
+    "d313_return_step_4": {
+      "id": "d313_return_step_4",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          175,
+          170,
+          132,
+          12
+        ]
+      }
+    },
+    "harbor_warden": {
+      "id": "harbor_warden",
+      "definition_id": "enemy.harbor_warden",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          838,
+          485
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d258": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1688,
+        508
+      ],
+      "spawn": [
+        1596,
+        508
+      ],
+      "span": [
+        406,
+        530
+      ]
+    },
+    "d259": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        508
+      ],
+      "spawn": [
+        94,
+        508
+      ],
+      "span": [
+        406,
+        530
+      ]
+    },
+    "d313": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        170,
+        10
+      ],
+      "spawn": [
+        170,
+        75
+      ],
+      "span": [
+        121,
+        219
+      ]
+    }
+  },
+  "sites": {
+    "d313": {
+      "at": [
+        170,
+        75
+      ]
+    },
+    "wr_R20_primary": {
+      "at": [
+        1453,
+        508
+      ]
+    },
+    "wr_TG22": {
+      "at": [
+        1539,
+        508
+      ]
+    },
+    "enc_R20": {
+      "at": [
+        1328,
+        508
+      ],
+      "waves": [
+        [
+          "harbor_warden"
+        ]
+      ],
+      "victory_only": [
+        "harbor_warden"
+      ],
+      "start_at": [
+        300,
+        508
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/sunken_ruins/sunken_ruins-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_fluted_column.png",
+        "at": [
+          267,
+          526
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_air_bell.png",
+        "at": [
+          493,
+          431
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_air_bell.png",
+        "at": [
+          1185,
+          427
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_lamp.png",
+        "at": [
+          1185,
+          427
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_landmark.png",
+        "at": [
+          1385,
+          526
+        ],
+        "z_index": -8
+      },
+      {
+        "texture": "res://assets/scenery/sunken_ruins/sunken_ruins_v2_air_bell.png",
+        "at": [
+          439,
+          526
+        ],
+        "z_index": -6
+      }
+    ]
+  },
+  "actions": []
+}

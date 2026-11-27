@@ -1,0 +1,212 @@
+{
+  "schema": 3,
+  "room_id": "G31",
+  "bounds": [
+    0,
+    0,
+    830,
+    1030
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        125,
+        848
+      ]
+    }
+  },
+  "entities": {
+    "d444_upper_landing": {
+      "id": "d444_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          269,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "d445_socket": {
+      "id": "d445_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          585,
+          977,
+          60,
+          84
+        ]
+      }
+    },
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          866,
+          510,
+          260
+        ]
+      }
+    },
+    "machine_bed_1": {
+      "id": "machine_bed_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          636,
+          866,
+          226,
+          260
+        ]
+      }
+    },
+    "bridge_descent": {
+      "id": "bridge_descent",
+      "definition_id": "platform.moving",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          334,
+          828
+        ],
+        "platform_size": [
+          130,
+          20
+        ],
+        "endpoint": [
+          0,
+          -719
+        ],
+        "period": 7,
+        "one_way": true,
+        "endpoint_dwell": 0.65,
+        "activation_flag": ""
+      }
+    },
+    "bell_window": {
+      "id": "bell_window",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          403,
+          563,
+          152,
+          16
+        ]
+      }
+    },
+    "door_overlook": {
+      "id": "door_overlook",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          217,
+          274,
+          126,
+          16
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d444": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        333,
+        4
+      ],
+      "spawn": [
+        333,
+        91
+      ],
+      "span": [
+        285,
+        381
+      ]
+    },
+    "d445": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        534,
+        1020
+      ],
+      "spawn": [
+        609,
+        959
+      ],
+      "span": [
+        486,
+        582
+      ]
+    }
+  },
+  "sites": {
+    "d445": {
+      "at": [
+        637,
+        959
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/bridge_district.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G31.png",
+        "at": [
+          386.0,
+          1030
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          456,
+          563
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_valve_panel.png",
+        "at": [
+          382,
+          866
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_near.png",
+        "at": [
+          275,
+          274
+        ],
+        "z_index": -4,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

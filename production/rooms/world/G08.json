@@ -1,0 +1,251 @@
+{
+  "schema": 3,
+  "room_id": "G08",
+  "bounds": [
+    0,
+    0,
+    1152,
+    724
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        125,
+        558
+      ]
+    }
+  },
+  "entities": {
+    "d027_threshold": {
+      "id": "d027_threshold",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          942,
+          232,
+          234,
+          40
+        ]
+      }
+    },
+    "d033_upper_landing": {
+      "id": "d033_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          800,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          576,
+          1216,
+          244
+        ]
+      }
+    },
+    "service_wall": {
+      "id": "service_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          594,
+          232,
+          140,
+          348
+        ]
+      }
+    },
+    "workshop_walkway": {
+      "id": "workshop_walkway",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          726,
+          232,
+          252,
+          16
+        ]
+      }
+    },
+    "hoist_hitch": {
+      "id": "hoist_hitch",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          812,
+          158,
+          113,
+          16
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d026": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        558
+      ],
+      "spawn": [
+        86,
+        558
+      ],
+      "span": [
+        478,
+        581
+      ]
+    },
+    "d027": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1150,
+        214
+      ],
+      "spawn": [
+        1066,
+        214
+      ],
+      "span": [
+        134,
+        237
+      ]
+    },
+    "d033": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        864,
+        4
+      ],
+      "spawn": [
+        864,
+        91
+      ],
+      "span": [
+        816,
+        912
+      ]
+    }
+  },
+  "sites": {
+    "d033": {
+      "at": [
+        864,
+        91
+      ]
+    },
+    "W": {
+      "at": [
+        355,
+        558
+      ]
+    },
+    "read_sign_g08": {
+      "at": [
+        776,
+        214
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/wheel_hall.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G08.png",
+        "at": [
+          852.0,
+          577
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_landmark.png",
+        "at": [
+          171,
+          576
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_valve_panel.png",
+        "at": [
+          352,
+          576
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          675,
+          232
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_gear_conveyor.png",
+        "at": [
+          800,
+          232
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_pipe_junction.png",
+        "at": [
+          966,
+          576
+        ],
+        "z_index": -4,
+        "flip": false
+      }
+    ]
+  },
+  "actions": [],
+  "zone_areas": {
+    "G08_bench": [
+      0,
+      304,
+      1152,
+      420
+    ],
+    "G08_catwalk": [
+      0,
+      0,
+      1152,
+      304
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ArenaBossDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/bosses/arena/arena_boss_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bosses/crypt_and_frost/mirror_bell_warden.png" id="3"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"mirror_bell_warden_health"
+max_health = 38
+initial_current = 38
+[resource]
+script = ExtResource("1")
+stable_id = &"mirror_bell_warden"
+behavior_id = &"mirror_bell_warden"
+health_definition = SubResource("health")
+collision_size = Vector2(62, 106)
+aerial = false
+telegraph_duration = 0.76
+attack_duration = 1.11
+recovery_duration = 1.44
+attack_speed = 475.0
+floor_offset = 53.0
+arena_half_width = 530.0
+engagement_limits = Vector2(-468, 400)
+engagement_height = 310.0
+reach = 300.0
+first_cycle = PackedStringArray("mirror_fall", "converge")
+second_cycle = PackedStringArray("split_note", "mirror_fall", "converge")
+body_art = ExtResource("3")

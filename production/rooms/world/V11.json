@@ -1,0 +1,337 @@
+{
+  "schema": 3,
+  "room_id": "V11",
+  "bounds": [
+    0,
+    0,
+    1656,
+    868
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "starbridge_gate",
+      "terrain_material": "starbridge_gate",
+      "start_point": [
+        1568,
+        361
+      ]
+    }
+  },
+  "exits": {
+    "d249": {
+      "point": [
+        1654,
+        361
+      ],
+      "spawn": [
+        1568,
+        361
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        239,
+        382
+      ]
+    },
+    "d250": {
+      "point": [
+        2,
+        367
+      ],
+      "spawn": [
+        88,
+        367
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        245,
+        388
+      ]
+    }
+  },
+  "sites": {
+    "discover_v11_bridge_underwork": {
+      "at": [
+        1197,
+        539
+      ],
+      "approach_radius": 62,
+      "passage_rect": [
+        1110,
+        489,
+        176,
+        141
+      ]
+    },
+    "lore24_v11_chalk": {
+      "at": [
+        684,
+        698
+      ]
+    },
+    "wr_lore24_v11_chalk": {
+      "at": [
+        680,
+        698
+      ]
+    },
+    "wr_TG40": {
+      "at": [
+        748,
+        698
+      ]
+    },
+    "coin20_V11": {
+      "at": [
+        830,
+        698
+      ]
+    },
+    "scatter22_V11": {
+      "at": [
+        917,
+        698
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/starbridge_gate/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/starbridge_gate/pier.png",
+        "at": [
+          1408,
+          379
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/starbridge_gate/anchor.png",
+        "at": [
+          403,
+          385
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/starbridge_gate/lamp.png",
+        "at": [
+          738,
+          716
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "west_deck": {
+      "id": "west_deck",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            385
+          ],
+          [
+            700,
+            385
+          ],
+          [
+            700,
+            473
+          ],
+          [
+            0,
+            473
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "east_deck": {
+      "id": "east_deck",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            868,
+            379
+          ],
+          [
+            1656,
+            379
+          ],
+          [
+            1656,
+            470
+          ],
+          [
+            868,
+            470
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "surface_grate": {
+      "id": "surface_grate",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          697,
+          384,
+          172,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "investigation_balcony": {
+      "id": "investigation_balcony",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            606,
+            716
+          ],
+          [
+            1088,
+            716
+          ],
+          [
+            1088,
+            797
+          ],
+          [
+            606,
+            797
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "tower_web": {
+      "id": "tower_web",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            441,
+            513
+          ],
+          [
+            483,
+            513
+          ],
+          [
+            483,
+            755
+          ],
+          [
+            441,
+            755
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "tower_grip": {
+      "id": "tower_grip",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          467,
+          509,
+          28,
+          254
+        ]
+      }
+    },
+    "access_seat": {
+      "id": "access_seat",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1224,
+          557,
+          172,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "underdeck_eye": {
+      "id": "underdeck_eye",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          1081,
+          505
+        ]
+      }
+    },
+    "underwork_bar": {
+      "id": "underwork_bar",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          982,
+          576,
+          19,
+          142
+        ],
+        "mode": "phase_light"
+      }
+    },
+    "hanging_glass": {
+      "id": "hanging_glass",
+      "definition_id": "zone.foreground_cover",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          1089,
+          490,
+          156,
+          160
+        ],
+        "texture_path": "res://assets/scenery/starbridge_gate/glass.png",
+        "reveal_radius": 86,
+        "revealed_alpha": 0.19
+      }
+    }
+  },
+  "actions": [],
+  "zone_areas": {
+    "V11_main": [
+      0,
+      0,
+      1656,
+      484
+    ],
+    "V11_cache": [
+      340,
+      485,
+      1059,
+      383
+    ]
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "schema": 3,
+  "room_id": "G33",
+  "bounds": [
+    0,
+    0,
+    930,
+    750
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        125,
+        556
+      ]
+    }
+  },
+  "entities": {
+    "d455_upper_landing": {
+      "id": "d455_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          318,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          574,
+          994,
+          272
+        ]
+      }
+    },
+    "workers_return_cage": {
+      "id": "workers_return_cage",
+      "definition_id": "platform.moving",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          383,
+          526
+        ],
+        "platform_size": [
+          117,
+          20
+        ],
+        "endpoint": [
+          0,
+          -406
+        ],
+        "period": 4.7,
+        "one_way": true,
+        "endpoint_dwell": 0.65,
+        "activation_flag": "freight_street_return_open"
+      }
+    },
+    "lockers": {
+      "id": "lockers",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          595,
+          492,
+          163,
+          86
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d454": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        928,
+        556
+      ],
+      "spawn": [
+        844,
+        556
+      ],
+      "span": [
+        476,
+        579
+      ]
+    },
+    "d455": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        382,
+        4
+      ],
+      "spawn": [
+        382,
+        91
+      ],
+      "span": [
+        334,
+        430
+      ]
+    }
+  },
+  "sites": {
+    "d455": {
+      "at": [
+        383,
+        556
+      ]
+    },
+    "freight_worker_rescued": {
+      "at": [
+        626,
+        474
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/gear-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G33.png",
+        "at": [
+          382.0,
+          575
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_mid_v2.png",
+        "at": [
+          218,
+          574
+        ],
+        "z_index": -34,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          658,
+          492
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_valve_panel.png",
+        "at": [
+          767,
+          574
+        ],
+        "z_index": -4,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

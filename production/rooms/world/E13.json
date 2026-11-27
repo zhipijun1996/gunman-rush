@@ -1,0 +1,270 @@
+{
+  "schema": 3,
+  "room_id": "E13",
+  "bounds": [
+    0,
+    0,
+    1440,
+    750
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "ember_depths",
+      "terrain_material": "ember_depths",
+      "start_point": [
+        116,
+        521
+      ]
+    }
+  },
+  "entities": {
+    "d499_mouth_shoulder": {
+      "id": "d499_mouth_shoulder",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          769,
+          539,
+          112,
+          23
+        ]
+      }
+    },
+    "d499_return_toe": {
+      "id": "d499_return_toe",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          769,
+          706,
+          98,
+          76
+        ]
+      }
+    },
+    "d499_inset_1": {
+      "id": "d499_inset_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          673,
+          624,
+          41,
+          12
+        ]
+      }
+    },
+    "d499_inset_2": {
+      "id": "d499_inset_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          725,
+          542,
+          41,
+          12
+        ]
+      }
+    },
+    "basalt_bench_0": {
+      "id": "basalt_bench_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -40,
+          539,
+          711,
+          247
+        ]
+      }
+    },
+    "basalt_bench_1": {
+      "id": "basalt_bench_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          880,
+          539,
+          600,
+          247
+        ]
+      }
+    },
+    "fault_shelf_0": {
+      "id": "fault_shelf_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          302,
+          455,
+          207,
+          12
+        ]
+      }
+    },
+    "fault_shelf_1": {
+      "id": "fault_shelf_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          640,
+          394,
+          194,
+          12
+        ]
+      }
+    },
+    "fault_shelf_2": {
+      "id": "fault_shelf_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1021,
+          457,
+          221,
+          12
+        ]
+      }
+    },
+    "patrol_1": {
+      "id": "patrol_1",
+      "definition_id": "enemy.hopper",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          518,
+          521
+        ]
+      }
+    },
+    "patrol_2": {
+      "id": "patrol_2",
+      "definition_id": "enemy.charger",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1137,
+          521
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d263": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        521
+      ],
+      "spawn": [
+        94,
+        521
+      ],
+      "span": [
+        419,
+        543
+      ]
+    },
+    "d264": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1438,
+        521
+      ],
+      "spawn": [
+        1346,
+        521
+      ],
+      "span": [
+        419,
+        543
+      ]
+    },
+    "d499": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        720,
+        742
+      ],
+      "spawn": [
+        798,
+        688
+      ],
+      "span": [
+        672,
+        768
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/ember_depths/ember-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_depths_v2_fissure_vent.png",
+        "at": [
+          737,
+          394
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_lamp.png",
+        "at": [
+          1131,
+          457
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_landmark.png",
+        "at": [
+          1180,
+          539
+        ],
+        "z_index": -8
+      },
+      {
+        "texture": "res://assets/scenery/ember_depths/ember_depths_v2_fissure_vent.png",
+        "at": [
+          374,
+          539
+        ],
+        "z_index": -6
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "patrol_1": {
+        "species_id": "species.423cc30816c3",
+        "drop_profile_id": "drop.423cc30816c3.t2"
+      },
+      "patrol_2": {
+        "species_id": "species.5ae97d6c44f4",
+        "drop_profile_id": "drop.5ae97d6c44f4.t2"
+      }
+    }
+  }
+}

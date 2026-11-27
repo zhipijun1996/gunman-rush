@@ -1,0 +1,140 @@
+{
+  "schema": 3,
+  "room_id": "G_IN01",
+  "bounds": [
+    0,
+    0,
+    958,
+    570
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        125,
+        394
+      ]
+    }
+  },
+  "entities": {
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          412,
+          1022,
+          254
+        ]
+      }
+    },
+    "shift_wicket": {
+      "id": "shift_wicket",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          553,
+          342,
+          174,
+          16
+        ]
+      }
+    },
+    "record_shelf": {
+      "id": "record_shelf",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          701,
+          282,
+          127,
+          16
+        ]
+      }
+    }
+  },
+  "exits": {},
+  "sites": {
+    "s21_factory_watchroom": {
+      "at": [
+        158,
+        394
+      ]
+    },
+    "npc.chihe": {
+      "at": [
+        456,
+        394
+      ]
+    },
+    "story21_g_in01": {
+      "at": [
+        620,
+        324
+      ]
+    },
+    "wr20_equipment_83": {
+      "at": [
+        751,
+        264
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/bridge_district.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G_IN01.png",
+        "at": [
+          690.5,
+          413
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_landmark.png",
+        "at": [
+          201,
+          412
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          520,
+          412
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_valve_panel.png",
+        "at": [
+          636,
+          342
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_pipe_junction.png",
+        "at": [
+          805,
+          412
+        ],
+        "z_index": -4,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

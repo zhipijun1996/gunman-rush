@@ -1,0 +1,458 @@
+{
+  "schema": 3,
+  "room_id": "Z01",
+  "bounds": [
+    0,
+    0,
+    1568,
+    832
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "world_clockheart",
+      "terrain_material": "world_clockheart",
+      "start_point": [
+        384,
+        774
+      ]
+    }
+  },
+  "exits": {
+    "d246": {
+      "point": [
+        320,
+        810
+      ],
+      "spawn": [
+        384,
+        774
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        272,
+        368
+      ]
+    },
+    "d213": {
+      "point": [
+        1000,
+        11
+      ],
+      "spawn": [
+        1000,
+        118
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        952,
+        1048
+      ]
+    }
+  },
+  "sites": {
+    "read_sign_z01": {
+      "at": [
+        432,
+        774
+      ]
+    },
+    "heart_inspected": {
+      "at": [
+        693,
+        726
+      ]
+    },
+    "discover_z01_workbench": {
+      "at": [
+        1254,
+        726
+      ],
+      "approach_radius": 42,
+      "passage_rect": [
+        1220,
+        625,
+        112,
+        123
+      ]
+    },
+    "lore24_z01_blank_time": {
+      "at": [
+        1458,
+        726
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/clockheart/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/clockheart/frame.png",
+        "at": [
+          700,
+          744
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/gauge.png",
+        "at": [
+          685,
+          744
+        ],
+        "z_index": -2
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/weights.png",
+        "at": [
+          850,
+          354
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/balustrade.png",
+        "at": [
+          1150,
+          744
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/gauge.png",
+        "at": [
+          1460,
+          744
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/lamp.png",
+        "at": [
+          392,
+          792
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "west_threshold": {
+      "id": "west_threshold",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            792
+          ],
+          [
+            272,
+            792
+          ],
+          [
+            272,
+            872
+          ],
+          [
+            0,
+            872
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "intake_lip": {
+      "id": "intake_lip",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            368,
+            792
+          ],
+          [
+            581,
+            792
+          ],
+          [
+            581,
+            872
+          ],
+          [
+            368,
+            872
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "main_work_floor": {
+      "id": "main_work_floor",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            581,
+            744
+          ],
+          [
+            1568,
+            744
+          ],
+          [
+            1568,
+            872
+          ],
+          [
+            581,
+            872
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "gauge_step": {
+      "id": "gauge_step",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            530,
+            769
+          ],
+          [
+            585,
+            769
+          ],
+          [
+            585,
+            872
+          ],
+          [
+            530,
+            872
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "shaft_jamb": {
+      "id": "shaft_jamb",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            825,
+            354
+          ],
+          [
+            867,
+            354
+          ],
+          [
+            867,
+            744
+          ],
+          [
+            825,
+            744
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "shaft_track": {
+      "id": "shaft_track",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          813,
+          344,
+          28,
+          396
+        ]
+      }
+    },
+    "first_counterbrace": {
+      "id": "first_counterbrace",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          675,
+          633,
+          159,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "winder_shoulder": {
+      "id": "winder_shoulder",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          884,
+          536,
+          178,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "housing_ledge": {
+      "id": "housing_ledge",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          746,
+          441,
+          143,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "east_service_walk": {
+      "id": "east_service_walk",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          961,
+          350,
+          171,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "crown_jamb": {
+      "id": "crown_jamb",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1110,
+            180
+          ],
+          [
+            1158,
+            180
+          ],
+          [
+            1158,
+            354
+          ],
+          [
+            1110,
+            354
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "crown_track": {
+      "id": "crown_track",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1100,
+          178,
+          28,
+          180
+        ]
+      }
+    },
+    "upper_receiver": {
+      "id": "upper_receiver",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          908,
+          136,
+          184,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "record_canopy": {
+      "id": "record_canopy",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1232,
+          617,
+          336,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "brass_reading_light": {
+      "id": "brass_reading_light",
+      "definition_id": "environment.local_light",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          685,
+          682
+        ],
+        "light_radius": 95,
+        "brightness": 0.85
+      }
+    },
+    "ruler_screen": {
+      "id": "ruler_screen",
+      "definition_id": "zone.foreground_cover",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          1212,
+          626,
+          125,
+          118
+        ],
+        "texture_path": "res://assets/scenery/clockheart/weights.png",
+        "reveal_radius": 77,
+        "revealed_alpha": 0.16
+      }
+    }
+  },
+  "actions": [],
+  "zone_areas": {
+    "Z01_hall": [
+      0,
+      0,
+      1270,
+      832
+    ],
+    "Z01_workbench24": [
+      1270,
+      599,
+      298,
+      233
+    ]
+  }
+}

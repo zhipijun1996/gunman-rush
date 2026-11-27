@@ -1,0 +1,304 @@
+{
+  "schema": 3,
+  "room_id": "Z02",
+  "bounds": [
+    0,
+    0,
+    912,
+    1080
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "world_clockheart",
+      "terrain_material": "world_clockheart",
+      "start_point": [
+        300,
+        1016
+      ]
+    }
+  },
+  "exits": {
+    "d213": {
+      "point": [
+        236,
+        1052
+      ],
+      "spawn": [
+        300,
+        1016
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        188,
+        284
+      ]
+    },
+    "d214": {
+      "point": [
+        707,
+        19
+      ],
+      "spawn": [
+        707,
+        126
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        659,
+        755
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/clockheart/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/clockheart/weights.png",
+        "at": [
+          646,
+          275
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/lamp.png",
+        "at": [
+          368,
+          932
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/balustrade.png",
+        "at": [
+          704,
+          144
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "lower_brake": {
+      "id": "lower_brake",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            1034
+          ],
+          [
+            188,
+            1034
+          ],
+          [
+            188,
+            1120
+          ],
+          [
+            0,
+            1120
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "lower_bearing": {
+      "id": "lower_bearing",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            284,
+            1034
+          ],
+          [
+            912,
+            1034
+          ],
+          [
+            912,
+            1120
+          ],
+          [
+            284,
+            1120
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "west_guide": {
+      "id": "west_guide",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            130,
+            560
+          ],
+          [
+            178,
+            560
+          ],
+          [
+            178,
+            980
+          ],
+          [
+            130,
+            980
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "west_run": {
+      "id": "west_run",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          159,
+          560,
+          28,
+          420
+        ]
+      }
+    },
+    "right_guide": {
+      "id": "right_guide",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            617,
+            275
+          ],
+          [
+            675,
+            275
+          ],
+          [
+            675,
+            795
+          ],
+          [
+            617,
+            795
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "east_run": {
+      "id": "east_run",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          600,
+          269,
+          28,
+          531
+        ]
+      }
+    },
+    "first_flange": {
+      "id": "first_flange",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          352,
+          932,
+          180,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "repair_stand": {
+      "id": "repair_stand",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          201,
+          725,
+          218,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "countershaft": {
+      "id": "countershaft",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          474,
+          566,
+          178,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "oil_gallery": {
+      "id": "oil_gallery",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          238,
+          407,
+          182,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "crown_stand": {
+      "id": "crown_stand",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          598,
+          144,
+          230,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "chain_eye": {
+      "id": "chain_eye",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          410,
+          276
+        ]
+      }
+    }
+  },
+  "actions": []
+}

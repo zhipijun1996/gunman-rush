@@ -1,0 +1,246 @@
+{
+  "schema": 3,
+  "room_id": "C09",
+  "bounds": [
+    0,
+    0,
+    910,
+    1030
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "moonshadow_cemetery",
+      "terrain_material": "moonshadow_cemetery",
+      "start_point": [
+        125,
+        808
+      ]
+    }
+  },
+  "entities": {
+    "d193_socket": {
+      "id": "d193_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          343,
+          977,
+          60,
+          84
+        ]
+      }
+    },
+    "d228_upper_landing": {
+      "id": "d228_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          564,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "bedrock_0": {
+      "id": "bedrock_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          826,
+          268,
+          300
+        ]
+      }
+    },
+    "bedrock_1": {
+      "id": "bedrock_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          394,
+          826,
+          548,
+          300
+        ]
+      }
+    },
+    "east_well_cheek": {
+      "id": "east_well_cheek",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          718,
+          173,
+          110,
+          657
+        ]
+      }
+    },
+    "lower_well_cheek": {
+      "id": "lower_well_cheek",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          287,
+          515,
+          106,
+          315
+        ]
+      }
+    },
+    "ledge_1": {
+      "id": "ledge_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          443,
+          710,
+          120,
+          16
+        ]
+      }
+    },
+    "ledge_2": {
+      "id": "ledge_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          347,
+          615,
+          144,
+          16
+        ]
+      }
+    },
+    "ledge_3": {
+      "id": "ledge_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          450,
+          425,
+          128,
+          16
+        ]
+      }
+    },
+    "ledge_4": {
+      "id": "ledge_4",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          519,
+          326,
+          126,
+          16
+        ]
+      }
+    },
+    "ledge_5": {
+      "id": "ledge_5",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          618,
+          221,
+          122,
+          16
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d193": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        292,
+        1020
+      ],
+      "spawn": [
+        367,
+        959
+      ],
+      "span": [
+        244,
+        340
+      ]
+    },
+    "d228": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        628,
+        4
+      ],
+      "spawn": [
+        628,
+        91
+      ],
+      "span": [
+        580,
+        676
+      ]
+    }
+  },
+  "sites": {
+    "d228": {
+      "at": [
+        628,
+        91
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_broken_gate.png",
+        "at": [
+          624,
+          109
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_urn_flowers.png",
+        "at": [
+          477,
+          425
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_lamp.png",
+        "at": [
+          333,
+          515
+        ],
+        "z_index": -15,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

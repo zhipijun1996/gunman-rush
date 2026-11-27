@@ -1,0 +1,280 @@
+{
+  "schema": 3,
+  "room_id": "Z06",
+  "bounds": [
+    0,
+    0,
+    1568,
+    848
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "world_clockheart",
+      "terrain_material": "world_clockheart",
+      "start_point": [
+        208,
+        674
+      ]
+    }
+  },
+  "exits": {
+    "d217": {
+      "point": [
+        144,
+        710
+      ],
+      "spawn": [
+        208,
+        674
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        96,
+        192
+      ]
+    },
+    "d218": {
+      "point": [
+        1264,
+        55
+      ],
+      "spawn": [
+        1264,
+        162
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        1216,
+        1312
+      ]
+    }
+  },
+  "sites": {
+    "enc_Z06": {
+      "at": [
+        1230,
+        674
+      ],
+      "waves": [
+        [
+          "regulator"
+        ]
+      ],
+      "victory_only": [
+        "regulator"
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/clockheart/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/clockheart/weights.png",
+        "at": [
+          1346,
+          402
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/clock.png",
+        "at": [
+          1195,
+          180
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "shaft_left": {
+      "id": "shaft_left",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            692
+          ],
+          [
+            96,
+            692
+          ],
+          [
+            96,
+            888
+          ],
+          [
+            0,
+            888
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "calibration_floor": {
+      "id": "calibration_floor",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            192,
+            692
+          ],
+          [
+            1568,
+            692
+          ],
+          [
+            1568,
+            888
+          ],
+          [
+            192,
+            888
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "west_measuring_table": {
+      "id": "west_measuring_table",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          238,
+          571,
+          230,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "east_measuring_table": {
+      "id": "east_measuring_table",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1042,
+          568,
+          246,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "return_rim": {
+      "id": "return_rim",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1222,
+          402,
+          205,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "upper_drive": {
+      "id": "upper_drive",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1101,
+          180,
+          295,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "west_pendulum": {
+      "id": "west_pendulum",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          536,
+          299
+        ]
+      }
+    },
+    "east_pendulum": {
+      "id": "east_pendulum",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          994,
+          282
+        ]
+      }
+    },
+    "inspection_wall": {
+      "id": "inspection_wall",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1408,
+          243,
+          28,
+          440
+        ]
+      }
+    },
+    "inspection_column": {
+      "id": "inspection_column",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1432,
+            240
+          ],
+          [
+            1491,
+            240
+          ],
+          [
+            1491,
+            696
+          ],
+          [
+            1432,
+            696
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "regulator": {
+      "id": "regulator",
+      "definition_id": "enemy.clock_regulator",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          770,
+          628
+        ]
+      }
+    }
+  },
+  "actions": []
+}

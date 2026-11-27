@@ -98,7 +98,9 @@ func _draw() -> void:
 		if i in one_way_indices:
 			var platform_ids: Array = entity_ids.get("platforms",[])
 			var style := str(platform_appearances.get(platform_ids[i],"")) if i < platform_ids.size() else ""
-			if style in ["forest_branch","forest_branch_left","forest_vine"]:
+			if style in ["island_shelf","star_truss","clock_brace"]:
+				preload("res://game/presentation/world/art/sky_ledge.gd").paint(self,platforms[i],style)
+			elif style in ["forest_branch","forest_branch_left","forest_vine"]:
 				preload("res://game/presentation/world/art/forest_branch.gd").paint(self,platforms[i],style)
 			else:
 				UnderworldTerrain.draw_one_way(self,platforms[i])

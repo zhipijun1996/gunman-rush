@@ -22,6 +22,7 @@ var hook_radius := 0.0
 var context_center := Vector2.ZERO
 var skill_center := Vector2.ZERO
 var item_skill_center := Vector2.ZERO
+var _last_weapon_skill := ""
 var _last_item_skill_available := false
 var _last_item_skill_label := ""
 var _hook_idle := Vector2.ZERO
@@ -130,6 +131,10 @@ func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
 func _process(_delta: float) -> void:
 	if enabled and _layout_size != get_viewport_rect().size:
 		router.clear("touch_viewport_changed")
+	var weapon_label:=router.weapon_skill_label if router.weapon_skill_available else ""
+	if enabled and weapon_label!=_last_weapon_skill:
+		_last_weapon_skill=weapon_label
+		queue_redraw()
 	if enabled and (_last_item_skill_available != router.item_skill_available or _last_item_skill_label != router.item_skill_label):
 		_last_item_skill_available = router.item_skill_available
 		_last_item_skill_label = router.item_skill_label
@@ -387,7 +392,7 @@ func _draw() -> void:
 				draw_line(skill_center+Vector2(0,-7)-arm,skill_center+Vector2(0,-7)+arm,Color("91d6ff"),2)
 			var size:=FONT.get_string_size("冰弹",HORIZONTAL_ALIGNMENT_LEFT,-1,11)
 			draw_string(FONT,skill_center+Vector2(-size.x*.5,15),"冰弹",HORIZONTAL_ALIGNMENT_LEFT,-1,11,TEXT)
-		else:draw_string(FONT,skill_center+Vector2(-16,4),"技能",HORIZONTAL_ALIGNMENT_LEFT,-1,11,TEXT)
+		else:draw_string(FONT,skill_center+Vector2(-16,4),"脉冲" if router.weapon_skill_label=="共鸣脉冲" else "技能",HORIZONTAL_ALIGNMENT_LEFT,-1,11,TEXT)
 		if router.weapon_skill_cooldown_ratio>0:
 			draw_arc(skill_center,hook_radius*.8-3,-PI/2,-PI/2+TAU*router.weapon_skill_cooldown_ratio,32,Color("91d6ff"),2)
 	if not enabled:

@@ -1,0 +1,293 @@
+{
+  "schema": 3,
+  "room_id": "G22",
+  "bounds": [
+    0,
+    0,
+    1580,
+    748
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        125,
+        554
+      ]
+    }
+  },
+  "entities": {
+    "d038_socket": {
+      "id": "d038_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1121,
+          695,
+          60,
+          84
+        ]
+      }
+    },
+    "d403_upper_landing": {
+      "id": "d403_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          446,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          572,
+          1046,
+          272
+        ]
+      }
+    },
+    "machine_bed_1": {
+      "id": "machine_bed_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1172,
+          572,
+          440,
+          272
+        ]
+      }
+    },
+    "service_bench": {
+      "id": "service_bench",
+      "definition_id": "recovery.station",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          312,
+          554
+        ]
+      }
+    },
+    "drained_maintenance_lift": {
+      "id": "drained_maintenance_lift",
+      "definition_id": "platform.moving",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          508,
+          526
+        ],
+        "platform_size": [
+          150,
+          20
+        ],
+        "endpoint": [
+          0,
+          -418
+        ],
+        "period": 5,
+        "one_way": true,
+        "endpoint_dwell": 0.65,
+        "activation_flag": "factory_pump_restored"
+      }
+    },
+    "service_dock": {
+      "id": "service_dock",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          650,
+          452,
+          181,
+          16
+        ]
+      }
+    },
+    "crate_scale": {
+      "id": "crate_scale",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1190,
+          489,
+          133,
+          16
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d035": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1578,
+        554
+      ],
+      "spawn": [
+        1494,
+        554
+      ],
+      "span": [
+        474,
+        577
+      ]
+    },
+    "d036": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        554
+      ],
+      "spawn": [
+        86,
+        554
+      ],
+      "span": [
+        474,
+        577
+      ]
+    },
+    "d038": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        1070,
+        738
+      ],
+      "spawn": [
+        1145,
+        677
+      ],
+      "span": [
+        1022,
+        1118
+      ]
+    },
+    "d403": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        510,
+        4
+      ],
+      "spawn": [
+        510,
+        91
+      ],
+      "span": [
+        462,
+        558
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/pump_gallery.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G22.png",
+        "at": [
+          884.5,
+          575
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_landmark.png",
+        "at": [
+          174,
+          572
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          375,
+          572
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_piston_press.png",
+        "at": [
+          661,
+          572
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_gear_conveyor.png",
+        "at": [
+          826,
+          452
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_pipe_junction.png",
+        "at": [
+          1232,
+          489
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_near_v2.png",
+        "at": [
+          1432,
+          572
+        ],
+        "z_index": -34,
+        "flip": false
+      }
+    ]
+  },
+  "actions": [],
+  "zone_areas": {
+    "G22_freight": [
+      0,
+      0,
+      930,
+      748
+    ],
+    "G22_maintenance": [
+      930,
+      0,
+      650,
+      748
+    ]
+  }
+}

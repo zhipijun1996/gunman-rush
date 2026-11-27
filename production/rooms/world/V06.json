@@ -1,0 +1,330 @@
+{
+  "schema": 3,
+  "room_id": "V06",
+  "bounds": [
+    0,
+    0,
+    984,
+    1088
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "starbridge_gate",
+      "terrain_material": "starbridge_gate",
+      "start_point": [
+        301,
+        1005
+      ]
+    }
+  },
+  "exits": {
+    "d209": {
+      "point": [
+        237,
+        1041
+      ],
+      "spawn": [
+        301,
+        1005
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        189,
+        285
+      ]
+    },
+    "d210": {
+      "point": [
+        982,
+        178
+      ],
+      "spawn": [
+        896,
+        178
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        56,
+        199
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/starbridge_gate/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/starbridge_gate/glass.png",
+        "at": [
+          381,
+          870
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/starbridge_gate/anchor.png",
+        "at": [
+          609,
+          418
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/starbridge_gate/pier.png",
+        "at": [
+          829,
+          196
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "lower_tie_west": {
+      "id": "lower_tie_west",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            1023
+          ],
+          [
+            189,
+            1023
+          ],
+          [
+            189,
+            1128
+          ],
+          [
+            0,
+            1128
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "lower_tie_east": {
+      "id": "lower_tie_east",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            285,
+            1023
+          ],
+          [
+            984,
+            1023
+          ],
+          [
+            984,
+            1128
+          ],
+          [
+            285,
+            1128
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "western_stile": {
+      "id": "western_stile",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            178,
+            431
+          ],
+          [
+            241,
+            431
+          ],
+          [
+            241,
+            881
+          ],
+          [
+            178,
+            881
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "west_flange": {
+      "id": "west_flange",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          224,
+          425,
+          28,
+          462
+        ]
+      }
+    },
+    "east_stile": {
+      "id": "east_stile",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            723,
+            289
+          ],
+          [
+            784,
+            289
+          ],
+          [
+            784,
+            709
+          ],
+          [
+            723,
+            709
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "east_flange": {
+      "id": "east_flange",
+      "definition_id": "traversal.climb_wall",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          710,
+          284,
+          28,
+          428
+        ]
+      }
+    },
+    "door_girder": {
+      "id": "door_girder",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            734,
+            196
+          ],
+          [
+            984,
+            196
+          ],
+          [
+            984,
+            268
+          ],
+          [
+            734,
+            268
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "west_springboard": {
+      "id": "west_springboard",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          300,
+          870,
+          195,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "lower_crossbeam": {
+      "id": "lower_crossbeam",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          529,
+          735,
+          208,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "west_recovery": {
+      "id": "west_recovery",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          248,
+          582,
+          196,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "upper_crossbeam": {
+      "id": "upper_crossbeam",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          513,
+          418,
+          215,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "high_landing": {
+      "id": "high_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          330,
+          273,
+          188,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "upper_tie": {
+      "id": "upper_tie",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          574,
+          217
+        ]
+      }
+    }
+  },
+  "actions": []
+}

@@ -41,12 +41,13 @@ func _ready() -> void:
 	collision.position.y = -shape.size.y*.5
 	wall.add_child(collision)
 	add_child(wall)
+	var hardware: Dictionary = WorldElementCatalog.catalog().mechanism_regions.get(session.room.region_id,{}).get("shortcut_gate",{})
 	var post := Sprite2D.new()
-	post.texture = load(POST)
+	post.texture = load(hardware.get("post",POST))
 	post.centered = false
 	post.position = Vector2(-20,-108)
 	add_child(post)
-	leaf.texture = load(LEAF)
+	leaf.texture = load(hardware.get("leaf",LEAF))
 	leaf.centered = false
 	leaf.position = Vector2(-16,-100)
 	add_child(leaf)

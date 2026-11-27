@@ -1,0 +1,247 @@
+{
+  "schema": 3,
+  "room_id": "C08",
+  "bounds": [
+    0,
+    0,
+    1560,
+    730
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "moonshadow_cemetery",
+      "terrain_material": "moonshadow_cemetery",
+      "start_point": [
+        125,
+        532
+      ]
+    }
+  },
+  "entities": {
+    "d190_upper_landing": {
+      "id": "d190_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          590,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "bedrock_0": {
+      "id": "bedrock_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          550,
+          1624,
+          276
+        ]
+      }
+    },
+    "ledge_1": {
+      "id": "ledge_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          699,
+          206,
+          147,
+          16
+        ]
+      }
+    },
+    "ledge_2": {
+      "id": "ledge_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          565,
+          326,
+          163,
+          16
+        ]
+      }
+    },
+    "ledge_3": {
+      "id": "ledge_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          710,
+          442,
+          148,
+          16
+        ]
+      }
+    },
+    "burial_altar": {
+      "id": "burial_altar",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          912,
+          483,
+          153,
+          71
+        ]
+      }
+    },
+    "enemy22_C08_1": {
+      "id": "enemy22_C08_1",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          510,
+          536
+        ]
+      }
+    },
+    "enemy22_C08_2": {
+      "id": "enemy22_C08_2",
+      "definition_id": "enemy.sentry",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          802,
+          536
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d190": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        654,
+        4
+      ],
+      "spawn": [
+        654,
+        91
+      ],
+      "span": [
+        606,
+        702
+      ]
+    },
+    "d410": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        532
+      ],
+      "spawn": [
+        86,
+        532
+      ],
+      "span": [
+        452,
+        555
+      ]
+    }
+  },
+  "sites": {
+    "discover_c08_burial_recess": {
+      "at": [
+        281,
+        532
+      ]
+    },
+    "wr_C08_primary": {
+      "at": [
+        976,
+        465
+      ]
+    },
+    "wr_C08_revisit_Q": {
+      "at": [
+        1390,
+        532
+      ]
+    },
+    "scatter22_C08": {
+      "at": [
+        1492,
+        532
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_broken_gate.png",
+        "at": [
+          300,
+          550
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_sarcophagus.png",
+        "at": [
+          977,
+          483
+        ],
+        "z_index": -15,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/moonshadow_cemetery/moonshadow_cemetery_v2_urn_flowers.png",
+        "at": [
+          1429,
+          550
+        ],
+        "z_index": -15,
+        "flip": false
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "enemy22_C08_1": {
+        "species_id": "species.cbce39e88119",
+        "drop_profile_id": "drop.cbce39e88119.t1"
+      },
+      "enemy22_C08_2": {
+        "species_id": "species.d44f4f270319",
+        "drop_profile_id": "drop.d44f4f270319.t1"
+      }
+    }
+  },
+  "zone_areas": {
+    "C08_tomb": [
+      0,
+      0,
+      1152,
+      730
+    ],
+    "C08_sealed": [
+      1152,
+      0,
+      408,
+      730
+    ]
+  }
+}

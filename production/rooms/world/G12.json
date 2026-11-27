@@ -1,0 +1,324 @@
+{
+  "schema": 3,
+  "room_id": "G12",
+  "bounds": [
+    0,
+    0,
+    1776,
+    774
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        125,
+        585
+      ]
+    }
+  },
+  "entities": {
+    "d044_upper_landing": {
+      "id": "d044_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1376,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "d440_socket": {
+      "id": "d440_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          463,
+          721,
+          60,
+          84
+        ]
+      }
+    },
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          603,
+          388,
+          267
+        ]
+      }
+    },
+    "machine_bed_1": {
+      "id": "machine_bed_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          514,
+          603,
+          1294,
+          267
+        ]
+      }
+    },
+    "service_bench": {
+      "id": "service_bench",
+      "definition_id": "recovery.station",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          718,
+          585
+        ]
+      }
+    },
+    "hoist_column": {
+      "id": "hoist_column",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1505,
+          247,
+          82,
+          360
+        ]
+      }
+    },
+    "hoist_arm": {
+      "id": "hoist_arm",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1398,
+          183,
+          133,
+          16
+        ]
+      }
+    },
+    "stockroom_mezzanine": {
+      "id": "stockroom_mezzanine",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1049,
+          459,
+          250,
+          16
+        ]
+      }
+    },
+    "clock_steps": {
+      "id": "clock_steps",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          941,
+          528,
+          127,
+          16
+        ]
+      }
+    },
+    "workshop_overhead_hook": {
+      "id": "workshop_overhead_hook",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          1360,
+          160
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d030": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1774,
+        585
+      ],
+      "spawn": [
+        1690,
+        585
+      ],
+      "span": [
+        505,
+        608
+      ]
+    },
+    "d031": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        585
+      ],
+      "spawn": [
+        86,
+        585
+      ],
+      "span": [
+        505,
+        608
+      ]
+    },
+    "d044": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        1440,
+        4
+      ],
+      "spawn": [
+        1440,
+        91
+      ],
+      "span": [
+        1392,
+        1488
+      ]
+    },
+    "d440": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        412,
+        764
+      ],
+      "spawn": [
+        487,
+        703
+      ],
+      "span": [
+        364,
+        460
+      ]
+    }
+  },
+  "sites": {
+    "s21_factory_watchroom": {
+      "at": [
+        1174,
+        585
+      ]
+    },
+    "npc20_workshop": {
+      "at": [
+        855,
+        585
+      ]
+    },
+    "smith": {
+      "at": [
+        639,
+        585
+      ]
+    },
+    "tp_G12": {
+      "at": [
+        266,
+        585
+      ]
+    },
+    "read_sign_g12": {
+      "at": [
+        454,
+        585
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/bridge_district.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G12.png",
+        "at": [
+          1236.0,
+          604
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_landmark.png",
+        "at": [
+          168,
+          603
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          296,
+          603
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_valve_panel.png",
+        "at": [
+          631,
+          603
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_piston_press.png",
+        "at": [
+          900,
+          603
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_pipe_junction.png",
+        "at": [
+          1234,
+          459
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_mid_v2.png",
+        "at": [
+          1444,
+          603
+        ],
+        "z_index": -34,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

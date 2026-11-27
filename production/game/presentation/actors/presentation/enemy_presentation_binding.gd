@@ -9,13 +9,27 @@ const RENDERERS := {
 	&"underworld": "res://game/presentation/actors/underworld_plains/underworld_enemy.gd"
 }
 const BODY_KEYS := {
+	&"frost_echo_doll": &"frost_echo_doll",
+	&"mirror_bell_warden": &"mirror_bell_warden",
+	&"royal_bell_bearer": &"royal_bell_bearer",
 	&"ember_molter": &"ember_molter",
+	&"harbor_warden": &"harbor_warden",
+	&"thermal_bell_keeper": &"thermal_bell_keeper",
 	&"tide_pump_bell": &"tide_pump_bell",
+	&"star_gatekeeper": &"star_gatekeeper",
+	&"island_windbird": &"island_windbird",
 	&"borer_three": &"borer_three",
 	&"stone_curtain_lord": &"stone_curtain_lord",
+	&"spore_larva": &"spore_larva",
+	&"mycelium_shell": &"mycelium_shell",
+	&"rail_crawler": &"rail_crawler",
+	&"stray_excavator": &"stray_excavator",
+
 	&"clock_regulator": &"clock_regulator",
 	&"traction_engine": &"traction_engine",
 	&"gear_overseer": &"gear_overseer",
+	&"crown_strider": &"crown_strider",
+	&"star_warden": &"star_warden",
 	&"chime_target": &"chime_target",
 	&"forest_antler": &"forest_antler", &"forest_mentor": &"forest_mentor",
 	&"patrol": &"patrol", &"charger": &"charger", &"diver": &"aerial",
@@ -80,7 +94,7 @@ static func replace(actor: Node, profile: StringName) -> bool:
 	if actor.definition.behavior_id in [&"forest_bark_beetle",&"forest_crossbranch"]:
 		bind_existing(actor,motor.get_node("Presentation"),profile,&"forest_bible")
 		return false
-	if actor.definition is ArenaBossDefinition or actor.definition.behavior_id in [&"chime_target", &"forest_antler", &"forest_mentor"]:
+	if actor.definition is ArenaBossDefinition or actor.definition.behavior_id in [&"spore_larva", &"mycelium_shell", &"rail_crawler", &"stray_excavator", &"chime_target", &"forest_antler", &"forest_mentor"]:
 		bind_existing(actor,motor.get_node("Presentation"),profile)
 		return false
 	var old := motor.get_node_or_null("Presentation")

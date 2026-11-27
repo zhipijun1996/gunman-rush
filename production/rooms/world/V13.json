@@ -1,0 +1,321 @@
+{
+  "schema": 3,
+  "room_id": "V13",
+  "bounds": [
+    0,
+    0,
+    1536,
+    909
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "starbridge_gate",
+      "terrain_material": "starbridge_gate",
+      "start_point": [
+        1448,
+        550
+      ]
+    }
+  },
+  "exits": {
+    "d251": {
+      "point": [
+        1534,
+        550
+      ],
+      "spawn": [
+        1448,
+        550
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        428,
+        571
+      ]
+    },
+    "d252": {
+      "point": [
+        2,
+        543
+      ],
+      "spawn": [
+        88,
+        543
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        421,
+        564
+      ]
+    },
+    "d444": {
+      "point": [
+        759,
+        855
+      ],
+      "spawn": [
+        823,
+        819
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        711,
+        807
+      ]
+    },
+    "d448": {
+      "point": [
+        916,
+        50
+      ],
+      "spawn": [
+        916,
+        157
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        868,
+        964
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/starbridge_gate/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/starbridge_gate/portal.png",
+        "at": [
+          252,
+          561
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/starbridge_gate/anchor.png",
+        "at": [
+          934,
+          175
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/starbridge_gate/lens.png",
+        "at": [
+          1279,
+          568
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "tower_hall": {
+      "id": "tower_hall",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            561
+          ],
+          [
+            556,
+            561
+          ],
+          [
+            556,
+            693
+          ],
+          [
+            0,
+            693
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "eastern_return": {
+      "id": "eastern_return",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            989,
+            568
+          ],
+          [
+            1536,
+            568
+          ],
+          [
+            1536,
+            694
+          ],
+          [
+            989,
+            694
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "cage_west": {
+      "id": "cage_west",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            837
+          ],
+          [
+            711,
+            837
+          ],
+          [
+            711,
+            949
+          ],
+          [
+            0,
+            949
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "cage_east": {
+      "id": "cage_east",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            807,
+            837
+          ],
+          [
+            1536,
+            837
+          ],
+          [
+            1536,
+            949
+          ],
+          [
+            807,
+            949
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "center_foot": {
+      "id": "center_foot",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          641,
+          628,
+          227,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "upper_hoistway": {
+      "id": "upper_hoistway",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          682,
+          454,
+          219,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "maintenance_rest": {
+      "id": "maintenance_rest",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          944,
+          333,
+          205,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "upper_lintel": {
+      "id": "upper_lintel",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          824,
+          175,
+          231,
+          14
+        ],
+        "appearance": "star_truss"
+      }
+    },
+    "shaft_ring": {
+      "id": "shaft_ring",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          832,
+          276
+        ]
+      }
+    },
+    "freight_cradle": {
+      "id": "freight_cradle",
+      "definition_id": "platform.moving",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          490,
+          724
+        ],
+        "endpoint": [
+          584,
+          587
+        ],
+        "platform_size": [
+          144,
+          16
+        ],
+        "period": 5.5,
+        "endpoint_dwell": 0.8
+      }
+    }
+  },
+  "actions": []
+}

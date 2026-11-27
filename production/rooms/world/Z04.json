@@ -1,0 +1,233 @@
+{
+  "schema": 3,
+  "room_id": "Z04",
+  "bounds": [
+    0,
+    0,
+    1360,
+    672
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "world_clockheart",
+      "terrain_material": "world_clockheart",
+      "start_point": [
+        315,
+        600
+      ]
+    }
+  },
+  "exits": {
+    "d215": {
+      "point": [
+        251,
+        636
+      ],
+      "spawn": [
+        315,
+        600
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        203,
+        299
+      ]
+    },
+    "d216": {
+      "point": [
+        1358,
+        420
+      ],
+      "spawn": [
+        1272,
+        420
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        298,
+        441
+      ]
+    }
+  },
+  "sites": {
+    "coin20_Z04": {
+      "at": [
+        908,
+        600
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/clockheart/vault.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/clockheart/coil.png",
+        "at": [
+          561,
+          547
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/coil.png",
+        "at": [
+          782,
+          491
+        ],
+        "z_index": -5
+      },
+      {
+        "texture": "res://assets/scenery/clockheart/lamp.png",
+        "at": [
+          1043,
+          438
+        ],
+        "z_index": -5
+      }
+    ]
+  },
+  "entities": {
+    "entry_lintel": {
+      "id": "entry_lintel",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            0,
+            618
+          ],
+          [
+            203,
+            618
+          ],
+          [
+            203,
+            712
+          ],
+          [
+            0,
+            712
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "observation_floor": {
+      "id": "observation_floor",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            299,
+            618
+          ],
+          [
+            1360,
+            618
+          ],
+          [
+            1360,
+            712
+          ],
+          [
+            299,
+            712
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "exit_plinth": {
+      "id": "exit_plinth",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            994,
+            438
+          ],
+          [
+            1360,
+            438
+          ],
+          [
+            1360,
+            712
+          ],
+          [
+            994,
+            712
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "first_pulse_shelf": {
+      "id": "first_pulse_shelf",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          423,
+          547,
+          224,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "grounding_pad": {
+      "id": "grounding_pad",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          706,
+          491,
+          166,
+          14
+        ],
+        "appearance": "clock_brace"
+      }
+    },
+    "phase_curtain": {
+      "id": "phase_curtain",
+      "definition_id": "zone.environment",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          670,
+          235,
+          23,
+          383
+        ],
+        "mode": "phase_light"
+      }
+    },
+    "curtain_glow": {
+      "id": "curtain_glow",
+      "definition_id": "environment.local_light",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          678,
+          399
+        ],
+        "light_radius": 120,
+        "brightness": 0.85
+      }
+    }
+  },
+  "actions": []
+}

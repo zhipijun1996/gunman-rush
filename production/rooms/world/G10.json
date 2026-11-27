@@ -1,0 +1,266 @@
+{
+  "schema": 3,
+  "room_id": "G10",
+  "bounds": [
+    0,
+    0,
+    1664,
+    1072
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "gear_city",
+      "terrain_material": "gear_city",
+      "start_point": [
+        125,
+        870
+      ]
+    }
+  },
+  "entities": {
+    "d028_socket": {
+      "id": "d028_socket",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          341,
+          1019,
+          60,
+          84
+        ]
+      }
+    },
+    "d029_upper_landing": {
+      "id": "d029_upper_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          996,
+          109,
+          128,
+          16
+        ]
+      }
+    },
+    "machine_bed_0": {
+      "id": "machine_bed_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          888,
+          266,
+          280
+        ]
+      }
+    },
+    "machine_bed_1": {
+      "id": "machine_bed_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          392,
+          888,
+          1304,
+          280
+        ]
+      }
+    },
+    "rim_foot": {
+      "id": "rim_foot",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          554,
+          701,
+          206,
+          191
+        ]
+      }
+    },
+    "drive_column": {
+      "id": "drive_column",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          857,
+          284,
+          96,
+          608
+        ]
+      }
+    },
+    "service_rung": {
+      "id": "service_rung",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          421,
+          802,
+          138,
+          16
+        ]
+      }
+    },
+    "wheel_inlet": {
+      "id": "wheel_inlet",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          739,
+          559,
+          132,
+          16
+        ]
+      }
+    },
+    "wheel_axle": {
+      "id": "wheel_axle",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          860,
+          413,
+          145,
+          16
+        ]
+      }
+    },
+    "tool_balcony": {
+      "id": "tool_balcony",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          999,
+          211,
+          171,
+          16
+        ]
+      }
+    },
+    "turning_rim": {
+      "id": "turning_rim",
+      "definition_id": "platform.rotating_beam",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          721,
+          543
+        ],
+        "beam_length": 211,
+        "rotation_mode": "continuous",
+        "angular_speed_deg": 21
+      }
+    }
+  },
+  "exits": {
+    "d028": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        290,
+        1062
+      ],
+      "spawn": [
+        365,
+        1001
+      ],
+      "span": [
+        242,
+        338
+      ]
+    },
+    "d029": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        1060,
+        4
+      ],
+      "spawn": [
+        1060,
+        91
+      ],
+      "span": [
+        1012,
+        1108
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/gear_city/wheel_hall.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/gear_city/frame_G10.png",
+        "at": [
+          795.5,
+          889
+        ],
+        "z_index": -19
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_landmark.png",
+        "at": [
+          1205,
+          888
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_mid_v2.png",
+        "at": [
+          462,
+          888
+        ],
+        "z_index": -34,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_v2_valve_panel.png",
+        "at": [
+          620,
+          701
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_city_near.png",
+        "at": [
+          905,
+          284
+        ],
+        "z_index": -4,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/gear_city/gear_lamp.png",
+        "at": [
+          1063,
+          211
+        ],
+        "z_index": -4,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}
