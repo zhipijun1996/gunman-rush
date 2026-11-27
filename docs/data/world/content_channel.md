@@ -88,7 +88,7 @@ production/config/imported_world/
 
 ## 实机绑定
 
-绑定表有 `rooms`、`npcs`、`enemy_species`、`equipment_effects`、`event_triggers` 五个部分。初始正式表为空，代表内容已导入但尚未声明实机房间完成。
+绑定表有 `rooms`、`npcs`、`enemy_species`、`equipment_effects`、`event_triggers` 五个部分。P02 已绑定至可独立试玩的房间文档。绑定使宿主能够装载此房间；试玩评审及发布状态见[当前开发基线](../../project/current_state.md)。
 
 房间绑定示例：
 

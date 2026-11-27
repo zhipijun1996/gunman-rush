@@ -318,7 +318,7 @@ static func apply(room: Node, document: Dictionary) -> String:
 	error = WorldElementCatalog.document_error(document,control_order)
 	if not error.is_empty(): return error
 	var header := {}
-	for key: String in ["bounds", "actions", "content_bindings"]:
+	for key: String in ["bounds", "actions", "content_bindings", "exits", "sites", "lesson", "scenery"]:
 		if document.has(key): header[key] = document[key].duplicate(true)
 	room.set_meta("mechanism_control_order",control_order)
 	room.set_meta("editor_room_header",header)
