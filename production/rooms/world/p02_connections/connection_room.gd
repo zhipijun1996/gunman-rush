@@ -22,23 +22,6 @@ static func install(session: OrdinaryRoomSession, document: Dictionary, source: 
 
 func populate(doc: Dictionary) -> void:
 	texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
-	var bounds := FixedWorldProvider.rect(doc.bounds)
-	var camera := host.player.get_node_or_null("Camera2D") as Camera2D
-	if camera!=null:
-		camera.zoom=Vector2.ONE*1.40
-		camera.limit_left=int(bounds.position.x)
-		camera.limit_top=int(bounds.position.y)
-		camera.limit_right=int(bounds.end.x)
-		camera.limit_bottom=int(bounds.end.y)
-	var background := Sprite2D.new()
-	background.texture=load(doc.scenery.backdrop)
-	background.region_enabled=true
-	background.region_rect=FixedWorldProvider.rect(doc.scenery.view)
-	background.centered=false
-	background.position=bounds.position
-	background.z_index=-90
-
-	add_child(background)
 	if doc.scenery.has("wall"):
 		var wall := Polygon2D.new()
 		var spec: Dictionary = doc.scenery.wall
@@ -55,7 +38,12 @@ func populate(doc: Dictionary) -> void:
 	for piece: Dictionary in doc.scenery.pieces:
 		var spr := Sprite2D.new()
 		spr.texture=load(piece.texture)
-		spr.offset.y=-spr.texture.get_height()*.5
+		var height := float(spr.texture.get_height())
+		if piece.has("source_rect"):
+			spr.region_enabled=true
+			spr.region_rect=FixedWorldProvider.rect(piece.source_rect)
+			height=spr.region_rect.size.y
+		spr.offset.y=-height*.5
 		spr.position=FixedWorldProvider.point(piece.at)
 		spr.flip_h=piece.get("flip",false)
 		spr.z_index=-3
@@ -73,7 +61,7 @@ func populate(doc: Dictionary) -> void:
 	label.add_theme_constant_override("outline_size",5)
 	label.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	if doc.room_id=="P19":
-		label.text="井口透着田野的光。站在井底，朝上跳回田埂。"
+		label.text="头顶的井通往田埂。站在井底跳起，再沿左壁石阶上行。"
 		notification=5.0
 	if doc.room_id!="P16": return
 	for id: String in doc.sites:

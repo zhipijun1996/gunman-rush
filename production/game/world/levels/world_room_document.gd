@@ -63,6 +63,8 @@ static func view(source: Dictionary) -> Dictionary:
 	for field:String in reserved:
 		if source.root.properties.has(field):return {"error":"root_field_owned_by_instance:"+field}
 	if source.has("bounds") and not WorldRoomValidation.rectangle(source.bounds): return {"error":"invalid_room_bounds"}
+	var passage_error := WorldRoomValidation.passage_error(source.get("exits", {}))
+	if not passage_error.is_empty(): return {"error":passage_error}
 	if source.has("actions") and not source.actions is Array: return {"error":"invalid_room_actions"}
 	if source.has("content_bindings") and not source.content_bindings is Dictionary: return {"error":"invalid_content_bindings"}
 	var document := source.duplicate(true)

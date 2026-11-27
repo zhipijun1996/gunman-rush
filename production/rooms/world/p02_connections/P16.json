@@ -3,7 +3,7 @@
   "room_id": "P16",
   "bounds": [
     -208,
-    -112,
+    -72,
     928,
     520
   ],
@@ -29,7 +29,7 @@
           -240,
           288,
           1000,
-          164
+          204
         ]
       }
     },
@@ -148,21 +148,106 @@
           142
         ]
       }
+    },
+    "field_above_return": {
+      "id": "field_above_return",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            406,
+            120
+          ],
+          [
+            450,
+            112
+          ],
+          [
+            503,
+            95
+          ],
+          [
+            551,
+            94
+          ],
+          [
+            598,
+            78
+          ],
+          [
+            638,
+            74
+          ],
+          [
+            665,
+            64
+          ],
+          [
+            760,
+            64
+          ],
+          [
+            760,
+            156
+          ],
+          [
+            692,
+            156
+          ],
+          [
+            647,
+            161
+          ],
+          [
+            611,
+            165
+          ],
+          [
+            570,
+            165
+          ],
+          [
+            539,
+            174
+          ],
+          [
+            520,
+            171
+          ],
+          [
+            488,
+            155
+          ],
+          [
+            439,
+            147
+          ],
+          [
+            406,
+            137
+          ]
+        ]
+      }
     }
   },
   "exits": {
     "d009": {
       "point": [
-        466,
+        718,
         270
       ],
       "spawn": [
-        374,
+        688,
         270
       ],
       "direction": [
         1,
         0
+      ],
+      "span": [
+        174,
+        288
       ]
     }
   },
@@ -190,13 +275,6 @@
         ]
       },
       {
-        "texture": "res://rooms/world/p02_connections/plains_arch.png",
-        "at": [
-          421,
-          288
-        ]
-      },
-      {
         "texture": "res://rooms/world/p02_connections/seed_stems.png",
         "at": [
           355,
@@ -216,15 +294,22 @@
           128,
           207
         ]
+      },
+      {
+        "texture": "res://rooms/world/p02_connections/bank_moss.png",
+        "at": [
+          684,
+          194
+        ]
+      },
+      {
+        "texture": "res://assets/scenery/p02/p02_grass_bank_west.png",
+        "at": [
+          598,
+          290
+        ]
       }
     ],
-    "view": [
-      145,
-      112,
-      928,
-      520
-    ],
-    "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
     "wall": {
       "texture": "res://rooms/world/p02_connections/bank_subsoil.png",
       "points": [

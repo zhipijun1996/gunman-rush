@@ -54,7 +54,56 @@ func check_spike_materials(source: Dictionary) -> void:
 		check(await session.audio_service.shutdown(), "spike room audio released")
 	session.free()
 
+func check_door_channels() -> void:
+	var exits := {
+		"west":{"direction":[-1,0],"point":[2,190],"span":[160,224]},
+		"east":{"direction":[1,0],"point":[382,190],"span":[160,224]},
+		"north":{"direction":[0,-1],"point":[192,2],"span":[144,240]},
+		"south":{"direction":[0,1],"point":[192,318],"span":[144,240]}
+	}
+	var geometry := WorldRoomSpace.document_geometry([0,0,384,320], exits)
+	var walls := WorldRoomSpace.exterior_fill(geometry, [])
+	for point: Vector2 in [Vector2(-4,190),Vector2(388,190),Vector2(192,-4),Vector2(192,324)]:
+		check(not walls.any(func(wall: Rect2): return wall.has_point(point)), "passage through exterior at "+str(point))
+	for point: Vector2 in [Vector2(-4,110),Vector2(388,110),Vector2(100,-4),Vector2(100,324)]:
+		check(walls.any(func(wall: Rect2): return wall.has_point(point)), "wall beside passage at "+str(point))
+
+func check_arrival_state() -> void:
+	var catalog := WorldContentCatalog.new()
+	check(catalog.load_locked().ok, "load world for doorway save")
+	var store := TestStore.new()
+	var origin := OrdinaryRoomSession.new()
+	root.add_child(origin)
+	var source := WorldRoomDocument.read("res://rooms/world/P02.json")
+	var target := WorldRoomDocument.read("res://rooms/world/p02_connections/P01.json")
+	var malformed := source.duplicate(true)
+	malformed.exits.d001.span = [42, 12]
+	check(WorldRoomDocument.instantiate(malformed).get("error") == "room_door_geometry_invalid", "reject reversed door spans before assembly")
+	check(origin.open(source, store, null, catalog).is_empty(), "open starting room")
+	var before := origin.state.value.duplicate(true)
+	var destination := OrdinaryRoomSession.new()
+	root.add_child(destination)
+	check(destination.open(target, null, origin, catalog, "missing") == "room_entry_unknown", "reject missing receiving door")
+	check(destination.open(target, null, origin, catalog, "d001") == "room_transition_save_failed", "reject unwritable transition")
+	check(origin.state.value == before and origin.lifetime.active and not origin.is_queued_for_deletion(), "on failure the original room retains control and state")
+	store.writable = true
+	var prior_revision := origin.state.revision
+	check(destination.open(target, null, origin, catalog, "d001").is_empty(), "retry arrival after save becomes available")
+	check(store.revision == prior_revision + 1 and store.payload.room == "P01" and store.payload.entry == "d001", "one save contains both room and door")
+	check(store.payload.explored.has("P02") and store.payload.explored.has("P01") and destination.state.valid_entry("P01", "d001"), "destination retains discovered rooms and recognizes the paired door")
+	check(destination.player.position == FixedWorldProvider.point(target.exits.d001.spawn), "destination uses the receiving door anchor")
+	await destination.audio_service.shutdown()
+	destination.free()
+	var restored := OrdinaryRoomSession.new()
+	root.add_child(restored)
+	check(restored.open(target, store, null, catalog).is_empty(), "reopen saved receiving room")
+	check(restored.player.position == FixedWorldProvider.point(target.exits.d001.spawn), "reloading returns to the saved safe door landing")
+	await restored.audio_service.shutdown()
+	restored.free()
+
 func run() -> void:
+	check_door_channels()
+	await check_arrival_state()
 	var doc := WorldRoomDocument.read("res://tests/assembly_room.json")
 	await check_spike_materials(doc)
 	var store := TestStore.new()

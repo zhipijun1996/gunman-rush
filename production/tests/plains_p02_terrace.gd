@@ -7,6 +7,26 @@ var checks := 0
 var failures := 0
 var shots := 0
 var film := false
+var departures := {}
+var completed := {}
+
+class FaultPilot extends FieldTerracePilot:
+	var bad_support := false
+	var blocked_body := false
+
+	func read_destination(id: String) -> Dictionary:
+		var doc := super.read_destination(id)
+		if id=="P02" and bad_support:
+			doc.exits.d001.spawn = [190,150]
+		if id=="P02" and blocked_body:
+			doc.exits.d001.point = [2,401]
+		return doc
+
+class RejectingSave extends OrdinaryRoomSession.RoomMemory:
+	var refusing := true
+
+	func commit(payload: Dictionary,revision: int) -> bool:
+		return false if refusing else super.commit(payload,revision)
 
 func _initialize() -> void:
 	run.call_deferred()
@@ -52,6 +72,113 @@ func jump() -> void:
 func release_jump() -> void:
 	host.active.controller.router.request_action(&"jump_release")
 
+func audit_departure(source: String, edge: String, to: String) -> void:
+	var gate: Dictionary = host.active_doc.exits[edge]
+	var outward := FixedWorldProvider.point(gate.direction)
+	var overshoot := (host.active.player.position-FixedWorldProvider.point(gate.point)).dot(outward)
+	check(overshoot>=-.01 and overshoot<16,"physical center has just crossed "+source+"/"+edge)
+	check(host.crossing and host.curtain.visible and host.curtain.color.a==1 and not host.active.controller.active,"cover locks source controls before handoff")
+	departures = {"source":source,"edge":edge,"destination":to,"position":host.active.player.position,"source_gate":gate,"revision":host.active.state.revision}
+
+func audit_swap(id: String) -> void:
+	if departures.is_empty(): return
+	var gate: Dictionary = host.active_doc.exits[departures.edge]
+	var mapped := FieldTerracePilot.Passage.mapped_position(departures.source_gate,gate,departures.position)
+	check(host.curtain.visible and host.curtain.color.a==1 and not host.active.controller.active and root.get_camera_2d()==host.follow_camera,"camera and receiving session changed under full cover")
+	check(host.active.player.position.distance_to(mapped)<.1,"receiving actor preserves tangent and crossing overshoot")
+	check(id==departures.destination and host.active.state.value.entry==departures.edge and host.active.state.revision==departures.revision+1,"one commit records door, room and exploration")
+
+func audit_arrival(id: String, edge: String, ok: bool) -> void:
+	check(ok and host.last_error.is_empty(),"entry finishes without fallback for "+id+"/"+edge)
+	check(not host.crossing and not host.curtain.visible and host.active.controller.active and host.active.player.is_on_floor(),"controls return only after uncovered actor has physical support")
+	var first: Vector2 = host.entry_trace.front()
+	var last: Vector2 = host.entry_trace.back()
+	var outward := FixedWorldProvider.point(host.active_doc.exits[edge].direction)
+	if outward.x!=0:
+		var displacement := (last-first).dot(-outward)
+		check(displacement>=12 and displacement<=36,"after reveal a horizontal arrival walks one body width")
+	elif outward.y<0:
+		check(last.y-first.y>28 and absf(last.x-first.x)<1,"downward arrival falls in line into the well")
+	else:
+		check(first.y-last.y>=20 and absf(last.y-FixedWorldProvider.point(host.active_doc.exits[edge].spawn).y)<3,"upward arrival completes a real hop to its ledge")
+	completed[str(departures.source)+"/"+edge+"/"+id]=true
+	departures={}
+
+func bind_audit() -> void:
+	host.crossing_started.connect(audit_departure)
+	host.room_changed.connect(audit_swap)
+	host.crossing_finished.connect(audit_arrival)
+
+func keyboard(code: Key, pressed: bool, echo := false) -> void:
+	var key := InputEventKey.new()
+	key.keycode = code
+	key.pressed = pressed
+	key.echo = echo
+	Input.parse_input_event(key)
+	await ticks(2)
+
+func wait_attempt(number: int) -> bool:
+	for i: int in 400:
+		await ticks(1)
+		if host.passage_attempts>=number and not host.crossing: return true
+	return false
+
+func refused_and_held_input() -> void:
+	await host.active.audio_service.shutdown()
+	host.free()
+	var broken := FaultPilot.new()
+	host = broken
+	root.add_child(host)
+	await ticks(5)
+	var original := host.active
+	var revision := original.state.revision
+	broken.bad_support=true
+	await keyboard(KEY_D,true)
+	check(await wait_attempt(1) and host.last_error=="arrival_support_missing","missing physical support rejects destination")
+	check(host.active==original and original.state.revision==revision and original.controller.active and not host.curtain.visible,"bad receiver preserves source, ledger, camera and control")
+	await ticks(40)
+	check(host.passage_attempts==1,"holding direction at a refused passage never loops the curtain")
+	await keyboard(KEY_D,false)
+	broken.bad_support=false
+	broken.blocked_body=true
+	await keyboard(KEY_D,true)
+	check(await wait_attempt(2) and host.last_error=="arrival_body_obstructed","actual solid over mapped entry blocks the full body")
+	await keyboard(KEY_D,false)
+	broken.blocked_body=false
+	var save := RejectingSave.new()
+	original.state.storage=save
+	await keyboard(KEY_D,true)
+	check(await wait_attempt(3) and host.last_error=="room_transition_save_failed","refused atomic save returns to live source")
+	check(original.state.revision==revision and "P02" not in original.state.value.explored,"refused transition records no exploration")
+	await keyboard(KEY_D,false)
+	save.refusing=false
+	await keyboard(KEY_A,true)
+	await ticks(18)
+	await keyboard(KEY_A,false)
+	check(original.player.position.x<660,"can walk freely away after rollback")
+	await keyboard(KEY_D,true)
+	for i: int in 200:
+		if host.active!=original and host.crossing: break
+		await ticks(1)
+	check(host.active!=original and host.crossing and not host.active.controller.active,"the real receiver is still locked during the visible entry")
+	var fired := [0]
+	host.active.controller.shoot_ability.shot_fired.connect(func(_dir: Vector2,_serial: int):fired[0]+=1)
+	await keyboard(KEY_A,true)
+	host.active.controller.router.request_action(&"jump")
+	host.active.controller.router.request_action(&"shoot_release",Vector2.RIGHT)
+	check(await wait_attempt(4) and host.active.room.room_id=="P02" and host.active.player.is_on_floor(),"fresh real approach succeeds after failure")
+	var arrived := host.active.player.position
+	await keyboard(KEY_D,true,true)
+	await ticks(35)
+	check(host.active.player.position.distance_to(arrived)<1 and host.passage_attempts==4,"held physical key and its OS repeats neither walk on nor bounce back")
+	check(host.active.player.is_on_floor() and fired[0]==0 and is_zero_approx(host.active.controller.router.axis),"movement, jump and gun requests made under cover do not leak into restored control")
+	await keyboard(KEY_A,false)
+	await keyboard(KEY_D,false)
+	await keyboard(KEY_D,true)
+	await ticks(15)
+	check(host.active.player.position.x>arrived.x+40,"release and fresh press restore normal player movement")
+	await keyboard(KEY_D,false)
+
 func connect_shots(_id: String) -> void:
 	host.active.controller.shoot_ability.shot_fired.connect(func(_direction: Vector2,_packet: int): shots += 1)
 
@@ -60,10 +187,9 @@ func cross(id: String, side: float) -> bool:
 	start.controller.router.set_move_axis(side)
 	for _i: int in 300:
 		await ticks(1)
-		if host.active!=start:
+		if host.active!=start and not host.crossing:
 			host.active.controller.router.set_move_axis(0)
-			await ticks(4)
-			return host.active.room.room_id==id and host.active.state.value.room==id
+			return host.last_error.is_empty() and host.active.player.is_on_floor() and host.active.room.room_id==id and host.active.state.value.room==id
 	start.controller.router.set_move_axis(0)
 	return false
 
@@ -151,6 +277,7 @@ func run() -> void:
 		printerr("P02 pilot failed to open its arrival passage")
 		quit(1)
 		return
+	bind_audit()
 	host.room_changed.connect(connect_shots)
 	connect_shots(host.active.room.room_id)
 	await ticks(8)
@@ -245,7 +372,23 @@ func run() -> void:
 	check(await cross("P19",0) and await stand(270),"real fall through d330 enters P19")
 	await mark("p19_arrival")
 	jump()
-	check(await cross("P02",0) and await stand(590),"upward jump returns to safe P02 well shoulder")
+	check(await cross("P02",0) and await stand(714),"upward doorway hop lands on the near well ledge without new directional input")
+	release_jump()
+	check(await walk(1128),"approach the outer edge of the receiving stone")
+	jump()
+	host.active.controller.router.set_move_axis(1)
+	await ticks(2)
+	host.active.controller.router.set_move_axis(0)
+	await ticks(5)
+	release_jump()
+	check(await walk(1104) and await stand(653),"short player-controlled jump rounds the middle recessed well tread")
+	check(await walk(1128),"reach the filtered shaft from middle tread")
+	jump()
+	host.active.controller.router.set_move_axis(1)
+	await ticks(5)
+	host.active.controller.router.set_move_axis(0)
+	await ticks(5)
+	check(await walk(1100) and await stand(590),"regain upper well shoulder")
 	release_jump()
 	check(host.active.state.value.explored.has("P03") and host.active.state.value.explored.has("P16") and host.active.state.value.explored.has("P19"),"physical visits survive session transitions")
 	await climb(1064,534,"lower well return")
@@ -259,7 +402,9 @@ func run() -> void:
 	await mark("return_home")
 	if not film:
 		await check_late_jump(464,"furthest accepted western launch")
+		check(completed.size()==8,"all four paired doors audited in both directions")
 		await alternate_crossing()
+		await refused_and_held_input()
 
 	print("P02 TERRACE failures=",failures," checks=",checks," frames=",frame)
 	await host.active.audio_service.shutdown()

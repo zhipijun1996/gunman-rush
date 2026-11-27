@@ -3,6 +3,10 @@ extends Node2D
 ## The field and its four receiving passages use actual room sessions and one
 ## world-state ledger. Crossings are taken by movement through an authored edge.
 signal room_changed(room_id: String)
+signal crossing_started(source: String, edge: String, destination: String)
+signal crossing_finished(room_id: String, edge: String, ok: bool)
+
+const Passage := preload("res://rooms/world/p02_passage_transition.gd")
 
 const DOCUMENT := "res://rooms/world/P02.json"
 const CONNECTIONS := "res://rooms/world/p02_connections/"
@@ -16,6 +20,7 @@ var connection: Node
 var active_doc := {}
 var last_error := ""
 var follow_camera: Camera2D
+var passage_sky := {}
 var panorama: Sprite2D
 var veil: Sprite2D
 var bell_mount: Sprite2D
@@ -33,6 +38,12 @@ var room_title := Label.new()
 var title_remaining := 0.0
 var route_map: Control
 var crossing := false
+var curtain := ColorRect.new()
+var previous_center := Vector2.ZERO
+var waiting_for_clearance := ""
+var passage_attempts := 0
+var issue_remaining := 0.0
+var entry_trace: Array[Vector2] = []
 
 func _ready() -> void:
 	var result := catalog.load_locked()
@@ -67,23 +78,33 @@ func _ready() -> void:
 	room_title.add_theme_constant_override("outline_size",4)
 	room_title.add_theme_color_override("font_outline_color",Color("232a2b"))
 	room_title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var cover_layer := CanvasLayer.new()
+	cover_layer.layer = 100
+	add_child(cover_layer)
+	cover_layer.add_child(curtain)
+	curtain.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	curtain.color = Color.BLACK
+	curtain.mouse_filter = Control.MOUSE_FILTER_STOP
+	curtain.hide()
 	enter_room("P01","")
 	if active != null:
 		route_map = MAP.mount(self)
 
-func enter_room(id: String, edge: String) -> void:
-	var path := DOCUMENT if id=="P02" else CONNECTIONS + id + ".json"
-	var doc := WorldRoomDocument.read(path)
+func read_destination(id: String) -> Dictionary:
+	return WorldRoomDocument.read(DOCUMENT if id=="P02" else CONNECTIONS + id + ".json")
+
+func enter_room(id: String, edge: String, prepared: Dictionary = {}, received := Vector2.INF) -> void:
+	var doc := read_destination(id) if prepared.is_empty() else prepared
 	if doc.has("error"):
 		last_error = doc.error
-		push_error(last_error)
+		if active==null: push_error(last_error)
 		return
 	var next := OrdinaryRoomSession.new()
 	add_child(next)
-	last_error = next.open(doc,null,active,catalog)
+	last_error = next.open(doc,null,active,catalog,edge)
 	if not last_error.is_empty():
 		next.queue_free()
-		push_error(last_error)
+		if active==null: push_error(last_error)
 		return
 	if active != null:
 		active.hide()
@@ -92,12 +113,9 @@ func enter_room(id: String, edge: String) -> void:
 	# Enter on the destination's receiving apron before its first physics tick.
 	# Keep its document unchanged so every door has the same content identity.
 	if not edge.is_empty():
-		active.player.reset_at(FixedWorldProvider.point(doc.exits[edge].spawn))
-	var candidate := active.state.candidate()
-	candidate.entry = edge
-	if id not in candidate.explored:
-		candidate.explored.append(id)
-	active.state.commit(candidate,active.state.revision)
+		active.player.reset_at(received if received.is_finite() else FixedWorldProvider.point(doc.exits[edge].spawn))
+	previous_center = active.player.position
+	active.player.repositioned.connect(_reset_sample)
 	var cameras := active.player.find_children("*","Camera2D",false,false)
 	follow_camera = cameras.front()
 	follow_camera.make_current()
@@ -106,7 +124,7 @@ func enter_room(id: String, edge: String) -> void:
 	follow_camera.limit_top = roundi(bounds.position.y)
 	follow_camera.limit_right = roundi(bounds.end.x)
 	follow_camera.limit_bottom = roundi(bounds.end.y)
-	follow_camera.zoom = Vector2.ONE * maxf(1.40,get_viewport_rect().size.x/bounds.size.x)
+	follow_camera.zoom = Vector2.ONE * 1.40
 	grounded_on_west = false
 	west_jump = false
 	west_recoil = false
@@ -119,15 +137,17 @@ func enter_room(id: String, edge: String) -> void:
 	bell_mount = null
 	veil = null
 	if id=="P02":
-		if not edge.is_empty() and doc.exits[edge].direction[0] != 0:
-			look_direction = -signf(float(doc.exits[edge].direction[0]))
+		# A vertical doorway has no horizontal approach to look ahead of.
+		look_direction = 1.0 if edge.is_empty() else -signf(float(doc.exits[edge].direction[0]))
 		follow_camera.position.x = look_direction * 78
 		active.controller.jump_ability.accepted_jump.connect(_jumped)
 		active.controller.shoot_ability.shot_fired.connect(_shot)
 		install_field_art()
 	else:
 		connection = preload("res://rooms/world/p02_connections/connection_room.gd").install(active,doc,catalog)
+	if crossing: _lock_session(true)
 	follow_camera.force_update_scroll()
+	panorama = preload("res://rooms/world/p02_passage_scenery.gd").mount(active,doc,passage_sky).panorama
 	var room_name := str(catalog.lookup("rooms",id).row.name)
 	room_title.text = id+" · "+room_name+(" · 接入段" if id!="P02" else "")
 	title_remaining = 2.5
@@ -135,12 +155,6 @@ func enter_room(id: String, edge: String) -> void:
 	room_changed.emit(id)
 
 func install_field_art() -> void:
-	panorama = Sprite2D.new()
-	panorama.texture = load(str(active_doc.scenery.backdrop))
-	panorama.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	panorama.centered = false
-	panorama.z_index = -90
-	active.add_child(panorama)
 	for piece: Dictionary in active_doc.scenery.pieces:
 		var sprite := Sprite2D.new()
 		sprite.texture = load("res://assets/scenery/p02/"+str(piece.asset)+".png")
@@ -160,29 +174,15 @@ func install_field_art() -> void:
 			var ringing := ShaderMaterial.new()
 			ringing.shader = CHIME_SHADER
 			sprite.material = ringing
-	place_panorama()
-
-func place_panorama() -> void:
-	var camera := get_viewport().get_camera_2d()
-	if camera == null or panorama == null:
-		return
-	var eye := camera.get_screen_center_position()
-	var view_size := camera.get_viewport_rect().size/camera.zoom
-	var texture_size := panorama.texture.get_size()
-	var cover := maxf(1.0,maxf(view_size.x/texture_size.x,view_size.y/texture_size.y))
-	panorama.scale = Vector2.ONE*cover
-	var size := texture_size*cover
-	var corner := eye-view_size*.5
-	var center_x := float(active_doc.bounds[2])*.5
-	var desired := Vector2(center_x-size.x*.5+(eye.x-center_x)*.43,-19+(eye.y-380)*.12)
-	panorama.position = desired.clamp(corner+view_size-size,corner).round()
 
 func _process(delta: float) -> void:
 	title_remaining = maxf(0.0,title_remaining-delta)
 	room_title.modulate.a = clampf(title_remaining/.5,0.0,1.0)
+	if issue_remaining>0:
+		issue_remaining = maxf(0.0,issue_remaining-delta)
+		notice.visible = issue_remaining>0
 	if active == null or active.room.room_id!="P02":
 		return
-	place_panorama()
 	if veil != null:
 		veil.modulate.a = move_toward(veil.modulate.a,.17 if active.state.has(DISCOVERY) else 1.0,delta*1.8)
 	chime_time = maxf(0.0,chime_time-delta)
@@ -227,6 +227,7 @@ func update_field(delta: float) -> void:
 	if was_airborne and floor_contact:
 		if not landed_on_terrace and not retry_hint_shown and feet.x>west.end.x and feet.x<basin.end.x and absf(feet.y-basin.position.y)<4:
 			retry_hint_shown = true
+			notice.text = "回到田埂，跳起后朝身后偏下开枪。"
 			hint_remaining = 3.4
 		if west_recoil and not landed_on_terrace and feet.x>=pier.position.x and feet.x<=cap.end.x and absf(feet.y-pier.position.y)<4:
 			landed_on_terrace = true
@@ -235,31 +236,146 @@ func update_field(delta: float) -> void:
 		west_jump = false
 		west_recoil = false
 	was_airborne = not floor_contact
+	if issue_remaining>0: return
 	notice.visible = hint_remaining>0
 	notice.modulate.a = clampf(hint_remaining/.4,0,1)
 
+func _reset_sample() -> void:
+	previous_center = active.player.position
+
 func _physics_process(delta: float) -> void:
-	if active==null or crossing or not active.controller.active:
-		return
-	if active.room.room_id=="P02":
-		update_field(delta)
+	if active==null or crossing or not active.controller.active: return
+	if active.room.room_id=="P02": update_field(delta)
+	var before := previous_center
+	var at := active.player.position
+	previous_center = at
+	if not waiting_for_clearance.is_empty():
+		if Passage.is_inside(active_doc.exits[waiting_for_clearance],at):
+			waiting_for_clearance = ""
 	for id: String in active_doc.exits:
 		var gate: Dictionary = active_doc.exits[id]
-		var direction := FixedWorldProvider.point(gate.direction)
-		var to_player := active.player.position-FixedWorldProvider.point(gate.point)
-		# Supporting floors are continuous on walk-in edges. The well crosses
-		# on descent and its receiving passage returns only on a real ascent.
-		var across := active.player.position.y if direction.x!=0 else active.player.position.x
-		var within := absf(to_player.dot(direction.orthogonal()))<=32
-		if gate.has("span"):
-			within = across>=float(gate.span[0]) and across<=float(gate.span[1])
-		if active.player.velocity.dot(direction)<=0 or to_player.dot(direction)<0 or not within:
+		if not gate.has("span") or waiting_for_clearance==id or not Passage.crossed(gate,before,at):
 			continue
 		var door := catalog.lookup("doors",id)
-		if not door.ok or not catalog.condition_match(door.row,active.state.value.flags,active.state.value.services.equipped).matches:
-			continue
 		var destination: String = door.row.b if door.row.a==active.room.room_id else door.row.a
-		crossing = true
-		enter_room(destination,id)
+		transfer(id,destination,door.row)
+		break
+
+func _lock_session(value: bool) -> void:
+	active.controller.router.clear("world_handoff" if value else "world_control_restored")
+	active.controller.active = not value
+	active.equipment_menu.set_process_input(not value)
+	if is_instance_valid(route_map):
+		route_map.set_process_input(not value)
+	if value:
+		active.controller.shoot_ability.clear_projectiles()
+
+func _uncover() -> void:
+	var tween := create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	tween.tween_property(curtain,"color:a",0.0,Passage.REVEAL_SECONDS)
+	await tween.finished
+	curtain.hide()
+
+func transfer(edge: String, destination: String, door: Dictionary) -> void:
+	var from: String = active.room.room_id
+	var source_gate: Dictionary = active_doc.exits[edge]
+	var incoming := active.player.velocity
+	var current := active.player.position
+	var rollback := FixedWorldProvider.point(source_gate.spawn)
+	crossing = true
+	waiting_for_clearance = edge
+	passage_attempts += 1
+	last_error = ""
+	_lock_session(true)
+	curtain.color = Color.BLACK
+	curtain.show()
+	crossing_started.emit(from,edge,destination)
+	# Keep one complete covered frame before moving the camera or changing worlds.
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var doc := read_destination(destination)
+	var at := Vector2.ZERO
+	if not catalog.condition_match(door,active.state.value.flags,active.state.value.services.equipped).matches:
+		last_error = "passage_requirements_unmet"
+	elif doc.has("error") or not doc.get("exits") is Dictionary or not doc.exits.has(edge):
+		last_error = "passage_destination_missing"
+	elif not WorldRoomValidation.passage_error(doc.exits).is_empty() or not doc.exits[edge].has("span"):
+		last_error = "passage_geometry_invalid"
+	else:
+		var receiving: Dictionary = doc.exits[edge]
+		if FixedWorldProvider.point(receiving.direction)!=-FixedWorldProvider.point(source_gate.direction):
+			last_error = "passage_direction_mismatch"
+		else:
+			at = Passage.mapped_position(source_gate,receiving,current)
+			last_error = await Passage.validate_landing(self,doc,receiving,at,active.player)
+	if last_error.is_empty():
+		enter_room(destination,edge,doc,at)
+	if not last_error.is_empty():
+		active.player.reset_at(rollback+Vector2.UP)
+		for frame: int in 30:
+			await get_tree().physics_frame
+			active.player.step(0,get_physics_process_delta_time())
+			if active.player.is_on_floor(): break
+		follow_camera.force_update_scroll()
+		await _uncover()
+		issue_remaining = 2.5
+		notice.text = "入口暂不可通行。可离开门口，再走回来重试。"
+		notice.modulate.a = 1.0
+		notice.show()
+		_lock_session(false)
 		crossing = false
+		crossing_finished.emit(from,edge,false)
 		return
+	var direction := FixedWorldProvider.point(source_gate.direction)
+	follow_camera.force_update_scroll()
+	await _uncover()
+	var target := FixedWorldProvider.point(doc.exits[edge].spawn)
+	entry_trace = [at]
+	var stable := await land_after_crossing(direction,incoming,target)
+	if not stable:
+		# The fallback was checked in the destination physics world before the
+		# commit. Re-cover any interrupted entry before restoring its safe apron.
+		curtain.color = Color.BLACK
+		curtain.show()
+		active.player.reset_at(target+Vector2.UP)
+		for i: int in 30:
+			await get_tree().physics_frame
+			active.player.step(0,get_physics_process_delta_time())
+			if active.player.is_on_floor(): break
+		follow_camera.force_update_scroll()
+		await _uncover()
+		last_error = "arrival_motion_interrupted"
+	active.player.reset_motion()
+	active.controller.jump_ability.on_landed()
+	previous_center = active.player.position
+	_lock_session(false)
+	crossing = false
+	crossing_finished.emit(destination,edge,true)
+
+func land_after_crossing(direction: Vector2, incoming: Vector2, target: Vector2) -> bool:
+	var body := active.player
+	var dt := 1.0/Engine.physics_ticks_per_second
+	var stride_frames := ceili(Passage.WALK_SECONDS/dt)
+	body.normal_velocity.y = incoming.y
+	if direction.y<0:
+		# A paired upward door shows a short, steered physical hop out of the
+		# opening. Its nearest safe shoulder was checked before committing.
+		# Use the incoming ascent with a short arc calculated from the nearest
+		# lip. A long held jump would enter the next recess before this landing.
+		var half_height := ((body.get_node("CollisionShape2D") as CollisionShape2D).shape as RectangleShape2D).size.y*.5
+		var rise := maxf(half_height,body.position.y-target.y) + half_height
+		var speed := sqrt(2.0*body.tuning.gravity*rise)
+		body.normal_velocity.y = -clampf(-incoming.y,speed,speed+65.0)
+	for frame: int in ceili(1.4/dt):
+		await get_tree().physics_frame
+		var axis := 0.0
+		if direction.x!=0 and frame<stride_frames:
+			axis = direction.x*Passage.WALK_AXIS
+		elif direction.y<0:
+			axis = clampf((target.x-body.position.x)/12.0,-1.0,1.0)
+		body.step(axis,dt)
+		entry_trace.append(body.position)
+		if direction.y<0:
+			if absf(target.x-body.position.x)>4 or absf(target.y-body.position.y)>4: continue
+		if (direction.x==0 or frame+1>=stride_frames) and body.is_on_floor(): return true
+	return false

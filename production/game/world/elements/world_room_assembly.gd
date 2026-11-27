@@ -3,8 +3,7 @@ extends RefCounted
 ## Internal registered assembly service. Room data is already resolved by the catalog.
 ## Batches terrain for continuous surfaces; gameplay hosts keep stable instance IDs.
 
-static func build(room: FixedWorldRoom) -> void:
-	room.z_index = -1
+static func build_collision(room: FixedWorldRoom, parent: Node) -> void:
 	var boundary:=WorldRoomSpace.boundary_platforms(room.contract.world_geometry,room.doors)
 	var exterior_solid:=WorldRoomSpace.exterior_fill(room.contract.world_geometry,room.doors)
 	room.boundary_art_rock=exterior_solid.duplicate()
@@ -28,7 +27,7 @@ static func build(room: FixedWorldRoom) -> void:
 		collision.one_way_collision = index in room.one_way_indices
 		if collision.one_way_collision: body.add_to_group("one_way_platform")
 		body.add_child(collision)
-		room.add_child(body)
+		parent.add_child(body)
 	for polygon: Dictionary in room.terrain_polygons:
 		var body := StaticBody2D.new()
 		body.name = "Polygon_"+str(polygon.id).replace(":", "_")
@@ -40,7 +39,7 @@ static func build(room: FixedWorldRoom) -> void:
 		for pair: Array in polygon.points: points.append(FixedWorldProvider.point(pair))
 		shape.polygon = points
 		body.add_child(shape)
-		room.add_child(body)
+		parent.add_child(body)
 	for door: Dictionary in room.doors:
 		var blocker := StaticBody2D.new()
 		blocker.position = FixedWorldProvider.point(door.position_candidate.local_world_units)
@@ -50,8 +49,12 @@ static func build(room: FixedWorldRoom) -> void:
 		var collision := CollisionShape2D.new()
 		collision.shape = shape
 		blocker.add_child(collision)
-		room.add_child(blocker)
+		parent.add_child(blocker)
 		room.door_blocks[door.id] = blocker
+
+static func build(room: FixedWorldRoom) -> void:
+	room.z_index = -1
+	build_collision(room, room)
 	for zone: Dictionary in room.contract.camera.get("zones",[]):
 		var conceal: Array[Rect2] = []
 		for raw: Array in zone.get("conceal",[]):conceal.append(FixedWorldProvider.rect(raw))
@@ -62,7 +65,7 @@ static func build(room: FixedWorldRoom) -> void:
 		room.add_child(mask);room.camera_concealers[str(zone.id)]=mask
 	# Existing textured rock covers the near exterior. Deep opaque rock continues
 	# past it at extreme aspect ratios without allocating an unbounded tile field.
-	var exterior:=FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).grow(512)
+	var exterior:=FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).grow(WorldRoomSpace.EXTERIOR_DEPTH)
 	for fill: Rect2 in [Rect2(-100000,-100000,200000,exterior.position.y+100000),Rect2(-100000,exterior.end.y,200000,100000),Rect2(-100000,exterior.position.y,exterior.position.x+100000,exterior.size.y),Rect2(exterior.end.x,exterior.position.y,100000,exterior.size.y)]:
 		var backing:=Polygon2D.new()
 		backing.polygon=PackedVector2Array([fill.position,Vector2(fill.end.x,fill.position.y),fill.end,Vector2(fill.position.x,fill.end.y)])

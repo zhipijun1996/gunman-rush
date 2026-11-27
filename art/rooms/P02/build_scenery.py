@@ -96,6 +96,35 @@ def inner_bank(output):
     bank.save(output / "p02_grass_bank.png",optimize=True)
 
 
+    # Continue the same donor coordinates across d009. P16's local x716 maps to
+    # P02's x0; the last four columns overlap the published bank exactly.
+    length = 240
+    grain_scale = 1066 / width
+    pad = 600
+    padded = Image.new("L",(native.width+pad,native.height))
+    padded.paste(ImageOps.mirror(native.crop((0,0,pad,native.height))),(0,0))
+    padded.paste(native,(pad,0))
+    west = padded.resize((length+4,height),Image.Resampling.LANCZOS,
+                         box=(pad+86-length*grain_scale,203,pad+86+4*grain_scale,640))
+    west_y,west_x=np.indices((height,length+4))
+    west_relief=np.clip((np.asarray(west,dtype=float)-lo)/(hi-lo),0,1)
+    west_rgb=np.stack([np.interp(west_relief,[0,.25,.5,.78,1],colors[:,i]) for i in range(3)],axis=-1)
+    w_ceiling=np.clip((west_y + top-476)/45,0,1)
+    w_light=np.exp(-np.abs(west_x-length)/106) + .18*np.exp(-west_x/68)
+    w_bounce=.8*np.exp(-((west_y+top-608+17)/24)**2)
+    west_rgb*= (.68+.29*w_ceiling+.17*w_light)[:,:,None]
+    west_rgb+=(w_light*w_ceiling+w_bounce*.23)[:,:,None]*np.array([17,12,6])
+    west=Image.fromarray(np.uint8(np.clip(west_rgb,0,255))).convert("RGBA")
+    left_mask=Image.new("L",west.size)
+    # Broken edge overlaps the receiving bank, exposing daylight at the west toe.
+    ImageDraw.Draw(left_mask).polygon([(24,0),(244,0),(244,184),(0,184),(1,163),
+        (10,151),(17,145),(16,131),(24,117),(29,94),(25,82),(16,73),(12,59),
+        (18,46),(23,38)],fill=255)
+    west.putalpha(left_mask)
+    west.paste(bank.crop((0,0,4,height)),(length,0))
+    west.save(output/"p02_grass_bank_west.png",optimize=True)
+
+
 def drainage_well(output):
     """The stone shoulder is bonded behind the right bank; its open shaft continues down."""
     left,top=1080,456

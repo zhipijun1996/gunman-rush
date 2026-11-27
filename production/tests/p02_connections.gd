@@ -51,19 +51,21 @@ func press_up(host: OrdinaryRoomSession) -> void:
 		input._unhandled_input(key)
 		await frames(2)
 
-func enter(id: String, storage: TestStorage) -> OrdinaryRoomSession:
+func enter(id: String, storage: TestStorage, viewport: Viewport=null) -> OrdinaryRoomSession:
 	var doc:=WorldRoomDocument.read(SEGMENTS+id+".json")
 	var edge: String=LANDINGS[id]
 	var side:=catalog.lookup("doors",edge)
 	expect(side.ok and id in [side.row.a,side.row.b] and "P02" in [side.row.a,side.row.b],"authority for "+edge)
-	doc.root.properties.start_point=doc.exits[edge].spawn
 	var host:=OrdinaryRoomSession.new()
-	root.add_child(host)
-	var error:=host.open(doc,storage,null,catalog)
+	(viewport if viewport!=null else root).add_child(host)
+	var error:=host.open(doc,storage,null,catalog,edge)
 	expect(error.is_empty(),id+" "+error)
 	if not error.is_empty(): return host
 	Connection.install(host,doc,catalog)
-	await frames(6)
+	await frames(2)
+	for _i: int in 40:
+		if host.player.is_on_floor(): break
+		await physics_frame
 	return host
 
 func leave(host: OrdinaryRoomSession) -> void:
@@ -118,7 +120,7 @@ func p16() -> void:
 	await press_up(host)
 	expect(fragment.ok and fragment.row.formal_item_id=="HP01" and host.state.value.inventory.health_shard==fragment.row.quantity and host.state.value.receipts.has(Connection.SHARD),"HP01 lives in permanent fragment inventory")
 	expect(not site.claim(Connection.SHARD,host.state.revision),"fragment cannot issue twice")
-	expect(await walk(host,466),"walk out to P02 with both claims")
+	expect(await walk(host,WorldRoomDocument.read(SEGMENTS+"P16.json").exits.d009.point[0]),"walk through the P16 threshold with both claims")
 	await leave(host)
 	host=await enter("P16",storage)
 	if host.controller==null:
@@ -128,12 +130,117 @@ func p16() -> void:
 	expect(host.services.ledger().gold==coins.row.amount and host.state.value.inventory.health_shard==1 and not site.objects[Connection.PURSE].visible and not site.objects[Connection.SHARD].visible,"reload restores both independent permanent claims")
 	await leave(host)
 
+func ray(host: OrdinaryRoomSession, start: Vector2, end: Vector2) -> Vector2:
+	var query:=PhysicsRayQueryParameters2D.create(start,end,1,[host.player.get_rid()])
+	var hit:=host.get_world_2d().direct_space_state.intersect_ray(query)
+	return hit.get("position",Vector2.INF)
+
+func measured_section(host: OrdinaryRoomSession, side: Dictionary) -> PackedFloat32Array:
+	var point:=FixedWorldProvider.point(side.point)
+	var sample:=PackedFloat32Array()
+	if side.direction[0]!=0:
+		for dx: float in [-24.0,0.0,24.0]:
+			var start:=point+Vector2(dx,0)
+			var ground:=ray(host,start,start+Vector2(0,64))
+			sample.append(ground.y-point.y)
+	else:
+		for dy: float in [-12.0,0.0,12.0]:
+			var start:=point+Vector2(0,dy)
+			var west:=ray(host,start,start+Vector2(-80,0))
+			var east:=ray(host,start,start+Vector2(80,0))
+			sample.append(west.x-point.x)
+			sample.append(east.x-point.x)
+	return sample
+
+func paired_sections() -> void:
+	var original:=WorldRoomDocument.read("res://rooms/world/P02.json")
+	var field:=OrdinaryRoomSession.new()
+	root.add_child(field)
+	var error:=field.open(original,null,null,catalog)
+	expect(error.is_empty(),"P02 seam geometry opens "+error)
+	if not error.is_empty():
+		await leave(field)
+		return
+	await frames(3)
+	for id: String in LANDINGS:
+		var edge: String=LANDINGS[id]
+		var side: Dictionary=original.exits[edge]
+		var doc:=WorldRoomDocument.read(SEGMENTS+id+".json")
+		var other: Dictionary=doc.exits[edge]
+		var direction:=FixedWorldProvider.point(side.direction)
+		var axis:=0 if direction.y!=0 else 1
+		expect(direction==-FixedWorldProvider.point(other.direction),edge+" normals oppose")
+		for i: int in 2:
+			expect(side.span[i]-side.point[axis]==other.span[i]-other.point[axis],edge+" aperture limits coincide")
+		var isolated:=SubViewport.new()
+		isolated.world_2d=World2D.new()
+		root.add_child(isolated)
+		var receiver:=await enter(id,TestStorage.new(),isolated)
+		if receiver.controller!=null:
+			var a:=measured_section(field,side)
+			var b:=measured_section(receiver,other)
+			var expected:=PackedFloat32Array([-48,48,-48,48,-48,48]) if edge=="d330" else PackedFloat32Array([18,18,18])
+			expect(a==expected and b==expected,"%s matched actual floor/walls over both adjacent strips: %s and %s" % [edge,a,b])
+			if edge=="d330":
+				receiver.player.reset_at(receiver.player.position+Vector2(60,0))
+				await frames(2)
+				for host: OrdinaryRoomSession in [field,receiver]:
+					var gate: Dictionary=side if host==field else other
+					var center:=FixedWorldProvider.point(gate.point)
+					var collider: CollisionShape2D=host.player.get_node("CollisionShape2D")
+					var space:=host.get_world_2d().direct_space_state
+					for x: float in [-34.0,0.0,34.0]:
+						expect(P02PassageTransition.clearance(space,center+Vector2(x,0),collider,1),host.room.room_id+" full player body clears the shaft at x-offset "+str(x))
+					expect(P02PassageTransition.supported(space,FixedWorldProvider.point(gate.spawn),collider,1),host.room.room_id+" actual safe seat supports both feet")
+		await leave(receiver)
+		isolated.free()
+	await leave(field)
+
+func wait_for_arrival(pilot: FieldTerracePilot, room: String) -> bool:
+	for _frame: int in 180:
+		await physics_frame
+		if not pilot.crossing and pilot.active.room.room_id==room:
+			return pilot.last_error.is_empty() and pilot.active.player.is_on_floor()
+	return false
+
+func well_motion() -> void:
+	var pilot:=FieldTerracePilot.new()
+	root.add_child(pilot)
+	pilot.enter_room("P02","d001")
+	var top:=WorldRoomDocument.read("res://rooms/world/P02.json").exits.d330 as Dictionary
+	var bottom:=WorldRoomDocument.read(SEGMENTS+"P19.json").exits.d330 as Dictionary
+	var upper:=FixedWorldProvider.point(top.point)
+	var lower:=FixedWorldProvider.point(bottom.point)
+	for offset: float in [-34.0,0.0,34.0]:
+		# Start a full player body clear of both well cheeks. From this moment
+		# the unchanged production controller owns gravity, jump and reception.
+		pilot.active.player.reset_at(upper+Vector2(offset,-100))
+		expect(await wait_for_arrival(pilot,"P19"),"gravity carries the whole body through the lower seam at "+str(offset))
+		if pilot.active.room.room_id!="P19": break
+		expect(absf(pilot.active.player.position.x-(lower.x+offset))<1 and absf(pilot.active.player.position.y-bottom.spawn[1])<1,"descent lands under its own lane")
+		pilot.active.controller.router.request_action(&"jump")
+		expect(await wait_for_arrival(pilot,"P02"),"jump returns to the actual near-side ledge")
+		if pilot.active.room.room_id!="P02": break
+		var first: Vector2=pilot.entry_trace[0]
+		var continuous:=absf(first.x-(upper.x+offset))<1
+		for i: int in range(1,pilot.entry_trace.size()):
+			var before: Vector2=pilot.entry_trace[i-1]
+			var after: Vector2=pilot.entry_trace[i]
+			continuous=continuous and before.distance_to(after)<16
+		expect(continuous and pilot.active.player.position.distance_to(FixedWorldProvider.point(top.spawn))<4,"return starts on the same shaft axis and reaches the shelf through consecutive physics poses")
+		await frames(3)
+	await pilot.active.audio_service.shutdown()
+	pilot.free()
+	await frames(2)
+
 func run() -> void:
 	var locked:=catalog.load_locked()
 	expect(locked.ok,"locked world model")
 	if locked.ok:
 		for id: String in LANDINGS: await route(id)
 		await p16()
-	expect(checks>=26,"every landing and both P16 sources finished")
+		await paired_sections()
+		await well_motion()
+	expect(checks>=78,"four paired openings, permanent claims and three well lanes completed")
 	print("P02 CONNECTIONS failures=",failures," checks=",checks)
 	quit(0 if failures==0 else 1)

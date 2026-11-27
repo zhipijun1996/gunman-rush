@@ -125,7 +125,9 @@ func valid(candidate: Dictionary) -> bool:
 
 func valid_entry(room_id: String, door_id: String) -> bool:
 	if door_id.is_empty(): return true
-	for door: Dictionary in content.room(room_id).get("doors",[]):
+	var room := content.room(room_id)
+	if room.get("exits", {}).has(door_id): return true
+	for door: Dictionary in room.get("doors",[]):
 		if door.id == door_id: return true
 	return false
 

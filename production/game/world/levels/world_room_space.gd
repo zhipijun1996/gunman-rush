@@ -1,6 +1,33 @@
 class_name WorldRoomSpace
 extends RefCounted
 ## Boundary collision consumes the same traced chamber union as the region map.
+const EXTERIOR_DEPTH := 512.0
+
+static func document_geometry(bounds: Array, exits: Dictionary) -> Dictionary:
+	var outer := FixedWorldProvider.rect(bounds).grow(EXTERIOR_DEPTH)
+	var channels: Array[Rect2] = []
+	for gate: Dictionary in exits.values():
+		if not gate.has("span"): continue
+		var point := FixedWorldProvider.point(gate.point)
+		var extent := FixedWorldProvider.point(gate.span)
+		var direction := FixedWorldProvider.point(gate.direction)
+		var start := Vector2(point.x, extent.x)
+		var end := Vector2(outer.end.x, extent.y)
+		if direction == Vector2.LEFT:
+			start.x = outer.position.x
+			end.x = point.x
+		elif direction == Vector2.UP:
+			start = Vector2(extent.x, outer.position.y)
+			end = Vector2(extent.y, point.y)
+		elif direction == Vector2.DOWN:
+			start = Vector2(extent.x, point.y)
+			end = Vector2(extent.y, outer.end.y)
+		elif direction != Vector2.RIGHT:
+			continue
+		var channel := Rect2(start, end-start).intersection(outer)
+		if channel.has_area(): channels.append(channel)
+	return {"bounds_world_units":bounds, "space_rects":[bounds], "boundary":[], "door_channels":channels}
+
 static func boundary_platforms(geometry: Dictionary, doors: Array) -> Array[Rect2]:
 	var result: Array[Rect2] = []
 	for edge: Dictionary in geometry.boundary:
@@ -30,9 +57,10 @@ static func boundary_platforms(geometry: Dictionary, doors: Array) -> Array[Rect
 static func exterior_fill(geometry: Dictionary, doors: Array) -> Array[Rect2]:
 	# Shared physical/presentation mass: room rock continues beyond the chamber.
 	# Actual doorway apertures remain open through the surrounding mass.
-	var outer:=FixedWorldProvider.rect(geometry.bounds_world_units).grow(512)
+	var outer:=FixedWorldProvider.rect(geometry.bounds_world_units).grow(EXTERIOR_DEPTH)
 	var open: Array[Rect2]=[]
 	for raw: Array in geometry.space_rects:open.append(FixedWorldProvider.rect(raw))
+	open.append_array(geometry.get("door_channels", []))
 	for door: Dictionary in doors:
 		if door.get("front_door",false):continue
 		var p:=FixedWorldProvider.point(door.position_candidate.local_world_units)

@@ -47,7 +47,7 @@ func _ready() -> void:
 		var error := open(WorldRoomDocument.read(document_path), storage)
 		if not error.is_empty(): push_error(error)
 
-func open_content(room_id: String, lock_path := "res://config/imported_world/current.lock.json", bindings_path := "res://config/imported_world/bindings.json", storage: WorldSaveService = null, allow_test_bindings := false, previous: OrdinaryRoomSession = null) -> String:
+func open_content(room_id: String, lock_path := "res://config/imported_world/current.lock.json", bindings_path := "res://config/imported_world/bindings.json", storage: WorldSaveService = null, allow_test_bindings := false, previous: OrdinaryRoomSession = null, entry_door_id := "") -> String:
 	if room != null: return "room_already_open"
 	var catalog := WorldContentCatalog.new()
 	var result := catalog.load_locked(lock_path)
@@ -56,15 +56,19 @@ func open_content(room_id: String, lock_path := "res://config/imported_world/cur
 	if not result.get("ok", false): return str(result.error)
 	result = catalog.room_document(room_id)
 	if not result.get("ok", false): return str(result.error)
-	return open(WorldRoomDocument.read(result.path), storage, previous, catalog)
+	return open(WorldRoomDocument.read(result.path), storage, previous, catalog, entry_door_id)
 
-func open(document: Dictionary, storage: WorldSaveService = null, previous: OrdinaryRoomSession = null, catalog: WorldContentCatalog = null) -> String:
+func open(document: Dictionary, storage: WorldSaveService = null, previous: OrdinaryRoomSession = null, catalog: WorldContentCatalog = null, entry_door_id := "") -> String:
 	if room != null: return "room_already_open"
 	if document.has("error"): return str(document.error)
 	if previous != null:
 		var before := previous.content_catalog.bundle_sha256 if previous.content_catalog != null else ""
 		var after := catalog.bundle_sha256 if catalog != null else ""
 		if before != after: return "room_content_version_mismatch"
+	if not document.get("exits", {}) is Dictionary: return "room_exits_invalid"
+	var exits: Dictionary = document.get("exits", {})
+	if not entry_door_id.is_empty() and not exits.has(entry_door_id):
+		return "room_entry_unknown"
 	var prepared := {}
 	if catalog != null:
 		prepared = WorldContentRoomBridge.prepare(document, catalog)
@@ -81,17 +85,20 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	if result.has("error"): return str(result.error)
 	room = result.room
 	var at := room.start_point
+	if not entry_door_id.is_empty():
+		at = FixedWorldProvider.point(exits[entry_door_id].spawn)
 	var bounds := FixedWorldProvider.rect(bounds_data)
 	if not bounds.has_point(at):
 		room.free()
 		room = null
 		return "spawn_outside_room"
-	var row := {"doors":[],"camera":{},"world_geometry":{"boundary":[],"bounds_world_units":bounds_data,"space_rects":[bounds_data]}}
+	var row := {"doors":[],"camera":{},"world_geometry":WorldRoomSpace.document_geometry(bounds_data,exits)}
+	row["exits"] = exits
 	room.configure(row)
 	state.content = FixedWorldProvider.new()
 	var content_identity := JSON.stringify(document) + (":" + catalog.bundle_sha256 if catalog != null else "")
 	state.content.data = {"rooms":{room.room_id:row},"actions":document.get("actions",[]),
-		"start_room":room.room_id,"start_point":[at.x,at.y],"content_version":content_identity.sha256_text()}
+		"start_room":room.room_id,"start_point":[room.start_point.x,room.start_point.y],"content_version":content_identity.sha256_text()}
 	if previous != null:
 		if previous.room == null or not previous.lifetime.active or previous.room.room_id == room.room_id or not previous.pending_defeats.is_empty() or previous.controller.has_pending_damage():
 			room.free()
@@ -111,7 +118,9 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		next.enemies = destination.get("enemies",{}).duplicate(true)
 		next.mechanisms = destination.get("mechanisms",{}).duplicate(true)
 		next.room = room.room_id
-		next.entry = ""
+		next.entry = entry_door_id
+		if not exits.is_empty() and room.room_id not in next.explored:
+			next.explored.append(room.room_id)
 		next.content_version = state.content.data.content_version
 		var effects: Dictionary = next.services.effects
 		effects.erase("field")
@@ -140,6 +149,13 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 			room.free()
 			room = null
 			return "room_save_unavailable"
+	if previous == null and state.value.get("entry","") in exits:
+		var saved_spawn := FixedWorldProvider.point(exits[state.value.entry].spawn)
+		if not bounds.has_point(saved_spawn):
+			room.free()
+			room = null
+			return "spawn_outside_room"
+		at = saved_spawn
 	content_catalog = catalog
 	content_enemy_gold = prepared.get("enemy_gold", {})
 	content_context = prepared.get("room_context", {})
@@ -153,7 +169,11 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	add_child(player)
 	controller = player.get_node("Controller")
 	controller.enable_shot_energy()
-	if state.value.is_empty(): state.value = state.fresh(controller.actor_resources.health.capacity)
+	if state.value.is_empty():
+		state.value = state.fresh(controller.actor_resources.health.capacity)
+		if not exits.is_empty():
+			state.value.entry = entry_door_id
+			state.value.explored.append(room.room_id)
 	var health_definition := controller.actor_resources.health_definition.duplicate(true) as HealthDefinition
 	health_definition.initial_current = clampf(state.value.hp, 1, health_definition.max_health)
 	controller.actor_resources.health.configure(health_definition)

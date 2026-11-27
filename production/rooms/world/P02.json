@@ -53,11 +53,11 @@
   "exits": {
     "d001": {
       "point": [
-        30,
+        2,
         366
       ],
       "spawn": [
-        139,
+        32,
         366
       ],
       "direction": [
@@ -65,17 +65,17 @@
         0
       ],
       "span": [
-        -1024,
-        442
+        0,
+        390
       ]
     },
     "d002": {
       "point": [
-        1616,
+        1646,
         398
       ],
       "spawn": [
-        1512,
+        1616,
         398
       ],
       "direction": [
@@ -83,17 +83,17 @@
         0
       ],
       "span": [
-        -1024,
-        480
+        0,
+        420
       ]
     },
     "d009": {
       "point": [
-        32,
+        2,
         590
       ],
       "spawn": [
-        106,
+        32,
         590
       ],
       "direction": [
@@ -101,18 +101,18 @@
         0
       ],
       "span": [
-        475,
-        640
+        494,
+        608
       ]
     },
     "d330": {
       "point": [
         1168,
-        704
+        750
       ],
       "spawn": [
-        1100,
-        590
+        1104,
+        714
       ],
       "direction": [
         0,
@@ -311,14 +311,58 @@
     },
     "well_west_lip": {
       "id": "well_west_lip",
-      "definition_id": "platform.solid",
+      "definition_id": "terrain.polygon",
       "definition_version": 1,
       "properties": {
-        "rect": [
-          1080,
-          608,
-          40,
-          160
+        "points": [
+          [
+            1080,
+            608
+          ],
+          [
+            1120,
+            608
+          ],
+          [
+            1120,
+            618
+          ],
+          [
+            1086,
+            618
+          ],
+          [
+            1086,
+            671
+          ],
+          [
+            1120,
+            671
+          ],
+          [
+            1120,
+            678
+          ],
+          [
+            1086,
+            678
+          ],
+          [
+            1086,
+            732
+          ],
+          [
+            1120,
+            732
+          ],
+          [
+            1120,
+            768
+          ],
+          [
+            1080,
+            768
+          ]
         ]
       }
     },
@@ -384,6 +428,45 @@
           504,
           40,
           264
+        ]
+      }
+    },
+    "west_field_seam": {
+      "id": "west_field_seam",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -48,
+          384,
+          48,
+          92
+        ]
+      }
+    },
+    "grass_floor_seam": {
+      "id": "grass_floor_seam",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -48,
+          608,
+          48,
+          160
+        ]
+      }
+    },
+    "east_road_seam": {
+      "id": "east_road_seam",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1648,
+          416,
+          48,
+          352
         ]
       }
     }

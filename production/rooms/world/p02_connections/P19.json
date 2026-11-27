@@ -3,7 +3,7 @@
   "room_id": "P19",
   "bounds": [
     -208,
-    -112,
+    203,
     928,
     520
   ],
@@ -16,7 +16,42 @@
       "start_point": [
         320,
         270
-      ]
+      ],
+      "terrain_paint": {
+        "version": 1,
+        "regions": [
+          {
+            "id": "west_iron_masonry",
+            "material_id": "mill_masonry",
+            "bounds": [
+              240,
+              188,
+              32,
+              100
+            ]
+          },
+          {
+            "id": "east_iron_masonry",
+            "material_id": "mill_masonry",
+            "bounds": [
+              368,
+              188,
+              32,
+              100
+            ]
+          },
+          {
+            "id": "dry_catwalk",
+            "material_id": "mill_masonry",
+            "bounds": [
+              45,
+              288,
+              506,
+              22
+            ]
+          }
+        ]
+      }
     }
   },
   "entities": {
@@ -29,7 +64,7 @@
           -240,
           288,
           1000,
-          164
+          24
         ]
       }
     },
@@ -67,51 +102,35 @@
         "points": [
           [
             -240,
-            97
-          ],
-          [
-            -50,
-            97
-          ],
-          [
-            -40,
-            105
-          ],
-          [
-            127,
-            105
-          ],
-          [
-            139,
-            95
+            -144
           ],
           [
             272,
-            95
+            -144
           ],
           [
             272,
-            127
+            224
           ],
           [
-            222,
-            127
+            236,
+            224
           ],
           [
-            199,
-            143
+            216,
+            235
           ],
           [
-            53,
-            148
+            56,
+            235
           ],
           [
             24,
-            165
+            252
           ],
           [
             -240,
-            165
+            252
           ]
         ]
       }
@@ -124,43 +143,35 @@
         "points": [
           [
             368,
-            95
-          ],
-          [
-            518,
-            95
-          ],
-          [
-            533,
-            106
+            -144
           ],
           [
             760,
-            106
+            -144
           ],
           [
             760,
-            166
+            255
           ],
           [
-            532,
-            166
+            536,
+            255
           ],
           [
-            503,
-            146
+            515,
+            238
           ],
           [
-            445,
-            144
+            414,
+            238
           ],
           [
-            427,
-            129
+            397,
+            224
           ],
           [
             368,
-            129
+            224
           ]
         ]
       }
@@ -172,9 +183,9 @@
       "properties": {
         "rect": [
           -240,
-          143,
+          224,
           289,
-          162
+          81
         ]
       }
     },
@@ -185,9 +196,92 @@
       "properties": {
         "rect": [
           533,
-          153,
+          230,
           227,
-          152
+          75
+        ]
+      }
+    },
+    "inspection_west_pier": {
+      "id": "inspection_west_pier",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -240,
+          312,
+          385,
+          147
+        ]
+      }
+    },
+    "inspection_east_pier": {
+      "id": "inspection_east_pier",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          451,
+          312,
+          309,
+          150
+        ]
+      }
+    },
+    "tail_drain_invert": {
+      "id": "tail_drain_invert",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -240,
+            439
+          ],
+          [
+            145,
+            439
+          ],
+          [
+            183,
+            460
+          ],
+          [
+            223,
+            476
+          ],
+          [
+            260,
+            487
+          ],
+          [
+            342,
+            492
+          ],
+          [
+            382,
+            479
+          ],
+          [
+            415,
+            461
+          ],
+          [
+            452,
+            444
+          ],
+          [
+            760,
+            444
+          ],
+          [
+            760,
+            744
+          ],
+          [
+            -240,
+            744
+          ]
         ]
       }
     }
@@ -205,6 +299,10 @@
       "direction": [
         0,
         -1
+      ],
+      "span": [
+        272,
+        368
       ]
     }
   },
@@ -219,74 +317,37 @@
         ]
       },
       {
-        "texture": "res://rooms/world/p02_connections/well_headgear.png",
+        "texture": "res://assets/scenery/p02/p02_well_lining.png",
+        "source_rect": [
+          40,
+          152,
+          96,
+          160
+        ],
         "at": [
-          417,
-          95
+          320,
+          223
         ]
       }
     ],
-    "view": [
-      368,
-      66,
-      928,
-      520
-    ],
-    "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
     "wall": {
       "texture": "res://rooms/world/p02_connections/well_back.png",
       "points": [
         [
-          39,
-          120
+          -240,
+          173
         ],
         [
-          225,
-          118
+          760,
+          173
         ],
         [
-          267,
-          118
+          760,
+          520
         ],
         [
-          278,
-          125
-        ],
-        [
-          292,
-          139
-        ],
-        [
-          310,
-          150
-        ],
-        [
-          330,
-          152
-        ],
-        [
-          352,
-          139
-        ],
-        [
-          372,
-          116
-        ],
-        [
-          451,
-          122
-        ],
-        [
-          547,
-          136
-        ],
-        [
-          554,
-          299
-        ],
-        [
-          39,
-          299
+          -240,
+          520
         ]
       ],
       "tint": "b8c4be"
