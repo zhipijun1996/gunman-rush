@@ -6,6 +6,8 @@ extends RefCounted
 # remains in its Manifest; only the finite resolver selects retained bytes.
 const CHARGER_V2_REVISION := "1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0"
 const BEHAVIORS := {
+	&"borer_three": {"family":&"depth_boss", "script":"res://game/bosses/depths/borer_behavior.gd", "definition":"res://resources/enemies/borer_three.tres", "scene":"res://game/bosses/depths/borer_three.tscn"},
+	&"stone_curtain_lord": {"family":&"depth_boss", "script":"res://game/bosses/depths/stone_curtain_behavior.gd", "definition":"res://resources/enemies/stone_curtain_lord.tres", "scene":"res://game/bosses/depths/stone_curtain_lord.tscn"},
 	&"clock_regulator": {"family":&"machine", "script":"res://game/bosses/machines/machine_behavior.gd", "definition":"res://resources/enemies/clock_regulator.tres", "scene":"res://game/bosses/machines/clock_regulator.tscn"},
 	&"traction_engine": {"family":&"machine", "script":"res://game/bosses/machines/machine_behavior.gd", "definition":"res://resources/enemies/traction_engine.tres", "scene":"res://game/bosses/machines/traction_engine.tscn"},
 	&"gear_overseer": {"family":&"machine", "script":"res://game/bosses/machines/machine_behavior.gd", "definition":"res://resources/enemies/gear_overseer.tres", "scene":"res://game/bosses/machines/gear_overseer.tscn"},

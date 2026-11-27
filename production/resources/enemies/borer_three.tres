@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ArenaBossDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/bosses/arena/arena_boss_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bosses/depths/borer_three.png" id="3"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"borer_three_health"
+max_health = 22.0
+initial_current = 22.0
+[resource]
+script = ExtResource("1")
+stable_id = &"borer_three"
+behavior_id = &"borer_three"
+health_definition = SubResource("health")
+collision_size = Vector2(138, 72)
+aerial = false
+telegraph_duration = 0.88
+attack_duration = 0.91
+recovery_duration = 1.62
+attack_speed = 475.0
+floor_offset = 36.0
+arena_half_width = 505.0
+engagement_limits = Vector2(-505, 409)
+engagement_height = 135.0
+reach = 292.0
+first_cycle = PackedStringArray("bore", "bore")
+second_cycle = PackedStringArray("short_bore", "short_bore", "shale")
+body_art = ExtResource("3")

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ArenaBossDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/bosses/arena/arena_boss_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bosses/depths/stone_curtain_lord.png" id="3"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"stone_curtain_lord_health"
+max_health = 20.0
+initial_current = 20.0
+[resource]
+script = ExtResource("1")
+stable_id = &"stone_curtain_lord"
+behavior_id = &"stone_curtain_lord"
+health_definition = SubResource("health")
+collision_size = Vector2(116, 74)
+aerial = false
+telegraph_duration = 0.83
+attack_duration = 1.07
+recovery_duration = 1.52
+attack_speed = 475.0
+floor_offset = 37.0
+arena_half_width = 530.0
+engagement_limits = Vector2(-530, 320)
+engagement_height = 170.0
+reach = 300.0
+first_cycle = PackedStringArray("spores", "stonefall")
+second_cycle = PackedStringArray("fan", "stonefall", "spores")
+body_art = ExtResource("3")

@@ -71,7 +71,7 @@ func exercise(room: String, member: String, identity: String) -> void:
 	if actor==null:
 		session.free()
 		return
-	var b := actor.attack_behavior as MachineBossBehavior
+	var b := actor.attack_behavior as ArenaBossBehavior
 	check(b!=null and actor.definition.behavior_id==StringName(identity) and actor.damageable.time_profile=="boss",room+" authored behavior")
 	check(EnemyPresentationBinding.view(actor.motor.get_node("Presentation")).body_key==StringName(identity),room+" unique visual binding")
 	var floor_y := b.floor_y
@@ -94,7 +94,7 @@ func exercise(room: String, member: String, identity: String) -> void:
 		if b.state==&"attack": break
 	check(b.state==&"attack" and session.controller.actor_resources.health.current==hp,room+" warning does no damage")
 	# Place the physical player across the committed head. Body contact is not advanced here.
-	var probe := b.active_rect(0).get_center()
+	var probe := b.hit_rects(0)[0].get_center()
 	session.player.reset_at(probe)
 	session.policy.clock+=2
 	for i in 6: b.advance(1.0/60.0)
@@ -110,12 +110,19 @@ func exercise(room: String, member: String, identity: String) -> void:
 		if b.state==&"recovery": break
 	check(b.state==&"recovery" and actor.damageable.can_receive_effects(),room+" exposed recovery")
 	# Fire a travelling production bullet from just outside the hitbox.
-	var from := actor.motor.global_position-Vector2(actor.definition.collision_size.x/2+56,0)
+	var fire_direction := Vector2(actor.brain.direction,0) if identity=="borer_three" else Vector2.RIGHT
+	var from := actor.motor.global_position-fire_direction*(actor.definition.collision_size.x/2+56)
 	session.player.reset_at(from)
-	var fired := session.controller.shoot_ability.try_fire(Vector2.RIGHT,true)
+	var fired := session.controller.shoot_ability.try_fire(fire_direction,true)
 	await frames(14)
 	check(fired and actor.health.current<full,room+" recovery admits real sidearm shot")
-	check(actor.damageable.receive_damage(shot_context(actor,room+"-phase",full*0.5)),room+" accepted half-health hit")
+	var phase_hit := shot_context(actor,room+"-phase",full*0.5)
+	phase_hit.hit_direction = fire_direction
+	if identity=="borer_three":
+		var frontal := phase_hit.duplicate()
+		frontal.hit_direction = -fire_direction
+		check(not actor.damageable.receive_damage(frontal),room+" frontal plate protects the axle while retracting")
+	check(actor.damageable.receive_damage(phase_hit),room+" accepted half-health hit")
 	session.policy.resolve_batch()
 	session.player.reset_at(placed)
 	b.advance(1.0/60.0)
@@ -132,7 +139,9 @@ func exercise(room: String, member: String, identity: String) -> void:
 			if b.state==&"recovery": break
 	check(moves.size()>=3,room+" combined patterns")
 	await snapshot(room+"-core")
-	check(actor.damageable.receive_damage(shot_context(actor,room+"-finish",full)),room+" genuine final incoming hit")
+	var finish_hit := shot_context(actor,room+"-finish",full)
+	finish_hit.hit_direction = Vector2(actor.brain.direction,0)
+	check(actor.damageable.receive_damage(finish_hit),room+" genuine final incoming hit")
 	session.policy.resolve_batch()
 	await frames(8)
 	check(actor.health.terminal and not session.state.has(row.completion_flag),room+" defeat pending explicit victory")
@@ -152,5 +161,7 @@ func run() -> void:
 	await exercise("G07","inspection_overseer","gear_overseer")
 	await exercise("G19","traction_engine","traction_engine")
 	await exercise("Z06","regulator","clock_regulator")
+	await exercise("M06","stone_curtain_lord","stone_curtain_lord")
+	await exercise("N23","borer_three","borer_three")
 	print("MACHINE BOSSES checks=",checks," failures=",failures)
 	quit(1 if failures else 0)

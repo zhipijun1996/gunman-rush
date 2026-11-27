@@ -23,7 +23,7 @@ func synchronize_presentation() -> void:
 
 func _draw() -> void:
 	if not is_instance_valid(actor) or actor.definition==null: return
-	var machine := actor.definition as MachineBossDefinition
+	var machine := actor.definition as ArenaBossDefinition
 	var behavior := actor.attack_behavior as MachineBossBehavior
 	var tex := machine.body_art
 	var origin := -tex.get_size()/2
