@@ -355,6 +355,7 @@ func _interact() -> void:
 	if not nearby.is_empty(): sign_read.emit(str(nearby.text))
 
 func readable_sign() -> Dictionary:
+	if opening!=null and not state.has("gun") and opening.can_reach(): return {}
 	for sign_data: Dictionary in room.signs:
 		if player.position.distance_to(sign_data.interaction_point) <= 60:
 			return sign_data
