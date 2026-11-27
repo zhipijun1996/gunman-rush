@@ -228,7 +228,7 @@ func shaft_motion(id: String, edge: String) -> void:
 		# observation area. Walk off the lip with the actual movement controller.
 		pilot.active.player.reset_at(Vector2(top.span[0]-26,560))
 		await frames(30)
-		expect(pilot.active.player.is_on_floor() and not pilot.active.state.has(pilot.DISCOVERY),"opposite grass bank starts outside the watch point")
+		expect(pilot.active.player.is_on_floor() and not pilot.active.state.has("discover_p02_low_slope"),"opposite grass bank starts outside the watch point")
 		pilot.active.controller.router.set_move_axis(1)
 		for i: int in 30:
 			await physics_frame
@@ -236,8 +236,8 @@ func shaft_motion(id: String, edge: String) -> void:
 		pilot.active.controller.router.set_move_axis(0)
 		for i: int in 60:
 			await physics_frame
-			if pilot.active.state.has(pilot.DISCOVERY): break
-		expect(pilot.active.player.position.y<upper.y and pilot.active.room.room_id=="P02" and not pilot.crossing and pilot.active.state.has(pilot.DISCOVERY),"entering the actual root channel from the opposite bank records discovery before its door")
+			if pilot.active.state.has("discover_p02_low_slope"): break
+		expect(pilot.active.player.position.y<upper.y and pilot.active.room.room_id=="P02" and not pilot.crossing and pilot.active.state.has("discover_p02_low_slope"),"entering the actual root channel from the opposite bank records discovery before its door")
 		expect(not pilot.active.state.value.explored.has(id) and not pilot.active.state.value.receipts.has(Connection.SHARD),"seeing the hidden route grants no visit or reward")
 		expect(await wait_for_arrival(pilot,id),"gravity takes the discovered alternate approach to the hidden room")
 		pilot.active.controller.router.request_action(&"jump")

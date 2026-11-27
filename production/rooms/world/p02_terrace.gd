@@ -10,7 +10,6 @@ const Passage := preload("res://rooms/world/p02_passage_transition.gd")
 
 const DOCUMENT := "res://rooms/world/P02.json"
 const CONNECTIONS := "res://rooms/world/p02_connections/"
-const DISCOVERY := "discover_p02_low_slope"
 const CHIME_SHADER := preload("res://rooms/world/p02_chime.gdshader")
 const FONT := preload("res://assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proportional-zh_hans.otf")
 const MAP := preload("res://rooms/world/p02_route_map.gd")
@@ -22,7 +21,6 @@ var last_error := ""
 var follow_camera: Camera2D
 var passage_sky := {}
 var panorama: Sprite2D
-var veil: Sprite2D
 var bell_mount: Sprite2D
 var look_direction := 1.0
 var grounded_on_west := false
@@ -135,7 +133,6 @@ func enter_room(id: String, edge: String, prepared: Dictionary = {}, received :=
 	connection = null
 	panorama = null
 	bell_mount = null
-	veil = null
 	if id=="P02":
 		# A vertical doorway has no horizontal approach to look ahead of.
 		look_direction = 1.0 if edge.is_empty() else -signf(float(doc.exits[edge].direction[0]))
@@ -165,10 +162,6 @@ func install_field_art() -> void:
 		sprite.z_index = 5 if piece.layer=="front" else -3
 		sprite.flip_h = piece.get("flip",false)
 		active.room.add_child(sprite)
-		if piece.get("discover","")==DISCOVERY:
-			veil = sprite
-			if active.state.has(DISCOVERY):
-				veil.modulate.a = .17
 		if piece.asset=="windchime_plains_v2_chime_span":
 			bell_mount = sprite
 			var ringing := ShaderMaterial.new()
@@ -183,8 +176,6 @@ func _process(delta: float) -> void:
 		notice.visible = issue_remaining>0
 	if active == null or active.room.room_id!="P02":
 		return
-	if veil != null:
-		veil.modulate.a = move_toward(veil.modulate.a,.17 if active.state.has(DISCOVERY) else 1.0,delta*1.8)
 	chime_time = maxf(0.0,chime_time-delta)
 	if bell_mount != null:
 		bell_mount.material.set_shader_parameter("age",1.0-chime_time)
@@ -203,15 +194,6 @@ func update_field(delta: float) -> void:
 	if absf(active.player.velocity.x)>18:
 		look_direction = signf(active.player.velocity.x)
 	follow_camera.position.x = move_toward(follow_camera.position.x,look_direction*78,delta*180)
-	var site: Dictionary = active_doc.sites[DISCOVERY]
-	var observing := at.distance_to(FixedWorldProvider.point(site.at))<=40
-	var inside_passage := FixedWorldProvider.rect(site.passage_rect).has_point(at)
-	if not active.state.has(DISCOVERY) and (observing or inside_passage):
-		var event := catalog.lookup("events",DISCOVERY)
-		if event.ok and catalog.condition_match(event.row,active.state.value.flags).matches:
-			var candidate := active.state.action_candidate(DISCOVERY,"P02")
-			if not candidate.is_empty():
-				active.state.commit(candidate,active.state.revision)
 	var west := FixedWorldProvider.rect(active_doc.entities.west_field.properties.rect)
 	var basin := FixedWorldProvider.rect(active_doc.entities.retry_basin_floor.properties.rect)
 	var pier := FixedWorldProvider.rect(active_doc.entities.bell_terrace_pier.properties.rect)

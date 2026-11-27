@@ -1,5 +1,6 @@
 """Export the regional artwork used by P02 at its native in-game pixel scale."""
 import argparse
+import json
 from pathlib import Path
 from shutil import copyfile
 
@@ -53,6 +54,38 @@ def field_grasses(output):
         else:
             grass[:, x] = array[:, x]
     Image.fromarray(grass).save(output / "p02_slope_grass.png", optimize=True)
+
+
+def grass_cutaway(output):
+    """Native ground cover for G34, baked at P02 world phase, one pixel per unit."""
+    terrain = json.loads((ROOT/"production/config/terrain_materials.json").read_text())
+    plains = terrain["materials"]["windchime_plains"]
+    source = np.asarray(Image.open(ROOT/"production"/plains["source"].removeprefix("res://")).convert("RGBA"))
+    left, top, width, height = 128, 544, 224, 256
+    ys, xs = np.indices((height,width))
+    world_x, world_y = xs+left, ys+top
+    # The grass head meets visible ground at both ends. The foreground crosses
+    # above the old lip; the soil below it continues past the bottom of the room.
+    profile = [(128,608),(151,608),(167,606),(183,602),(205,598),
+               (221,593),(243,590),(264,585),(282,579),(300,576),(352,576)]
+    crest = np.rint(np.interp(world_x,*zip(*profile))).astype(int)
+    depth = world_y-crest
+    # Same three 32-pixel variants, source rectangles and world-space phase as
+    # formal_fine_boundary.gdshader: outer grass row, then the interior albedo.
+    column = 64 + 352*((world_x//32)%3) + world_x%32
+    trim = int(plains["surface_y"])
+    row = np.where(depth<16,np.clip(depth+trim,0,31),32+world_y%32)
+    pixels = source[row,column].copy()
+    overlap = np.minimum(np.clip((world_x-left)/16,0,1),np.clip((left+width-1-world_x)/16,0,1))
+    pixels[:,:,3] = np.uint8(pixels[:,:,3]*overlap*(depth>=-trim))
+    cover = Image.fromarray(pixels)
+    # A few wind-bent leaf tips give the closed bank a clue at actor scale.
+    # Their base is buried in the existing grass crown, not outlined as a portal.
+    herb = Image.open(NATIVE/"concealing_grass.png").convert("RGBA")
+    herb = ImageOps.mirror(herb.resize((34,18),Image.Resampling.LANCZOS))
+    herb.putalpha(herb.getchannel("A").point(lambda v: 0 if v<32 else v))
+    cover.alpha_composite(herb,(269-left,582-18-top))
+    cover.save(output/"p02_grass_cutaway.png",optimize=True)
 
 
 def inner_bank(output):
@@ -180,6 +213,7 @@ if __name__ == "__main__":
     field_grasses(output)
     inner_bank(output)
     grass_throat(output)
+    grass_cutaway(output)
     drainage_well(output)
     bell = "windchime_plains_v2_chime_span.png"
     copyfile(REGIONAL / "v2" / bell, output / bell)

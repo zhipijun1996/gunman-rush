@@ -11,6 +11,8 @@ static func prepare(document: Dictionary, catalog: WorldContentCatalog) -> Dicti
 	var complete: bool = room_binding.ok and room_binding.row.status == "authored"
 	var doors := check_passages(document, catalog, complete)
 	if not doors.ok: return doors
+	var discoveries := _passage_discoveries(document, context.connections, catalog)
+	if not discoveries.ok: return discoveries
 	var refs: Variant = document.get("content_bindings", {})
 	if not refs is Dictionary: return {"ok": false, "error": "content_bindings_invalid"}
 	if refs.keys().any(func(key: Variant) -> bool: return key != "enemy_instances"):
@@ -58,8 +60,34 @@ static func prepare(document: Dictionary, catalog: WorldContentCatalog) -> Dicti
 		"planned_coin_total": planned_gold, "authored_coin_total": authored_gold,
 		"count_delta": amounts.size() - planned_count, "coin_delta": authored_gold - planned_gold,
 	}
-	return {"ok": true, "enemy_gold": amounts, "room_context": context}
+	return {"ok": true, "enemy_gold": amounts, "room_context": context, "passage_discoveries": discoveries.sites}
 
+
+## A grass screen can hide a mapped passage. Its local observation points earn
+## the world discovery; G34 independently reveals scenery around the player.
+static func _passage_discoveries(doc: Dictionary, links: Array, catalog: WorldContentCatalog) -> Dictionary:
+	var sites: Variant = doc.get("sites", {})
+	if not sites is Dictionary: return {"ok":false, "error":"room_sites_invalid"}
+	var triggers: Array[Dictionary] = []
+	for link: Dictionary in links:
+		var discovery: Dictionary = link.get("discovery", {})
+		if discovery.get("source_room") != doc.room_id or discovery.get("kind") != "grass_screen": continue
+		var id: String = discovery.event
+		if not doc.get("exits", {}).has(link.id): continue
+		var site: Variant = sites.get(id)
+		if not site is Dictionary or not WorldRoomValidation.vector(site.get("at")) or not WorldRoomValidation.rectangle(site.get("passage_rect")):
+			return {"ok":false, "error":"grass_discovery_site_required:" + id}
+		var radius: Variant = site.get("approach_radius", 40.0)
+		if not WorldRoomValidation.number(radius) or radius <= 0 or not site.get("other_approaches", []) is Array:
+			return {"ok":false, "error":"grass_discovery_approach_invalid:" + id}
+		var points := PackedVector2Array([FixedWorldProvider.point(site.at)])
+		for at: Variant in site.get("other_approaches", []):
+			if not WorldRoomValidation.vector(at): return {"ok":false, "error":"grass_discovery_approach_invalid:" + id}
+			points.append(FixedWorldProvider.point(at))
+		var event := catalog.lookup("events", id)
+		if not event.ok: return event
+		triggers.append({"id":id, "points":points, "radius":radius, "passage":FixedWorldProvider.rect(site.passage_rect), "event":event.row})
+	return {"ok":true, "sites":triggers}
 
 ## Compare each traversable opening to the locked world independently of the
 ## receiving document. Two local rooms can agree with each other and both be wrong.

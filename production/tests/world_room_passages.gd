@@ -46,6 +46,13 @@ func counterexamples() -> void:
 		var wrong := doc.duplicate(true)
 		wrong.exits.d009.direction = [-1,0] if doc.room_id == "P02" else [1,0]
 		check(WorldContentRoomBridge.prepare(wrong, catalog).get("error","").begins_with("content_door_direction_mismatch:"), "reject individually incorrect directions " + str(doc.room_id))
+	var invalid_site := field.duplicate(true)
+	var observation: Dictionary = invalid_site.sites.discover_p02_low_slope
+	observation.other_approaches = [[186]]
+	check(WorldContentRoomBridge.prepare(invalid_site, catalog).get("error") == "grass_discovery_approach_invalid:discover_p02_low_slope", "reject malformed second approach to the grass mouth")
+	observation.erase("other_approaches")
+	observation.approach_radius = 0
+	check(WorldContentRoomBridge.prepare(invalid_site, catalog).get("error") == "grass_discovery_approach_invalid:discover_p02_low_slope", "require a positive grass observation radius")
 	var wrong_side := grass.duplicate(true)
 	wrong_side.exits.d009.direction = [0,1]
 	check(not WorldContentRoomBridge.prepare(wrong_side,catalog).ok, "the correct axis still needs the correct outward side")

@@ -30,6 +30,7 @@ var retry_delay := 0.0
 var content_catalog: WorldContentCatalog
 var content_context: Dictionary = {}
 var content_enemy_gold: Dictionary = {}
+var passage_discoveries: Array = []
 
 class RoomMemory extends WorldSaveService:
 	func commit(_payload: Dictionary, _revision: int) -> bool:
@@ -158,6 +159,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		at = saved_spawn
 	content_catalog = catalog
 	content_enemy_gold = prepared.get("enemy_gold", {})
+	passage_discoveries = prepared.get("passage_discoveries", [])
 	content_context = prepared.get("room_context", {})
 
 	services.state = state
@@ -381,7 +383,22 @@ func _settle_death() -> void:
 	if state.commit(pending_death,state.revision): pending_death = {}
 	else: retry_delay = 1.0
 
+func _observe_passages() -> void:
+	for site: Dictionary in passage_discoveries:
+		if state.has(site.id): continue
+		var at := player.position
+		var reached: bool = site.passage.has_point(at)
+		for point: Vector2 in site.points:
+			if at.distance_squared_to(point) <= site.radius * site.radius:
+				reached = true
+				break
+		if reached and content_catalog.condition_match(site.event, state.value.flags).matches:
+			var next := state.action_candidate(site.id, room.room_id, room.section_at(at))
+			if not next.is_empty(): state.commit(next, state.revision)
+
 func _physics_process(delta: float) -> void:
+	if not passage_discoveries.is_empty() and lifetime.active and controller.active:
+		_observe_passages()
 	if room != null and controller != null and controller.active and not room.retry_anchors.is_empty(): recovery.observe(room,player)
 	if not pending_death.is_empty():
 		retry_delay -= delta

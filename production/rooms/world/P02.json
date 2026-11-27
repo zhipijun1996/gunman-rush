@@ -127,7 +127,7 @@
   "sites": {
     "discover_p02_low_slope": {
       "at": [
-        317,
+        304,
         558
       ],
       "passage_rect": [
@@ -135,6 +135,13 @@
         610,
         96,
         140
+      ],
+      "approach_radius": 20,
+      "other_approaches": [
+        [
+          186,
+          604
+        ]
       ]
     }
   },
@@ -164,15 +171,6 @@
           385
         ],
         "layer": "attached"
-      },
-      {
-        "asset": "p02_reed_screen",
-        "at": [
-          307,
-          577
-        ],
-        "layer": "front",
-        "discover": "discover_p02_low_slope"
       },
       {
         "asset": "p02_well_lining",
@@ -543,6 +541,24 @@
           ]
         ],
         "material": "ground"
+      }
+    },
+    "grass_cutaway": {
+      "id": "grass_cutaway",
+      "definition_id": "zone.foreground_cover",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          128,
+          544,
+          224,
+          256
+        ],
+        "texture_path": "res://assets/scenery/p02/p02_grass_cutaway.png",
+        "reveal_radius": 84,
+        "revealed_alpha": 0.03,
+        "fade_out_s": 0.12,
+        "restore_s": 0.32
       }
     }
   },

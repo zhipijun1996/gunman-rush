@@ -279,6 +279,26 @@ func alternate_crossing() -> void:
 	await ticks(2)
 	check(host.landed_on_terrace and host.active.audio_service.played.get(&"mechanism_bell",0)==1,"western retry tread recoil rings once")
 
+# Sample the same local mask and opacity the foreground shader uses. A sparse
+# tuft elsewhere in the frame does not cover the shaft or its return steps.
+func grass_opacity(at: Vector2) -> float:
+	var cover := host.active.room.element_runtime.nodes.get("grass_cutaway") as WorldForegroundCover
+	if cover == null or not cover.bounds.has_point(at): return -1.0
+	var offset := at - cover.bounds.position
+	var pixel := Vector2i(offset)
+	var texture := Image.new()
+	if texture.load_png_from_buffer(FileAccess.get_file_as_bytes(cover.texture_path)) != OK: return -1.0
+	if texture == null or texture.is_empty() or not Rect2i(Vector2i.ZERO,texture.get_size()).has_point(pixel): return -1.0
+	var alpha := texture.get_pixelv(pixel).a
+	var key := Vector2i((offset / WorldForegroundCover.CHUNK).floor())
+	if not cover.chunks.has(key): return alpha
+	var chunk: Dictionary = cover.chunks[key]
+	var image: Image = chunk.image
+	var area: Rect2 = chunk.area
+	var uv := (at - area.position) / area.size
+	var amount := image.get_pixelv(Vector2i(uv * Vector2(image.get_size()))).r
+	return alpha * lerpf(1.0, cover.revealed_alpha, amount)
+
 func run() -> void:
 	film = "--film" in OS.get_cmdline_user_args()
 	host = SCENE.instantiate()
@@ -300,7 +320,7 @@ func run() -> void:
 			return
 	var eye := root.get_camera_2d().get_screen_center_position()
 	check(eye.x+root.get_visible_rect().size.x/(2*root.get_camera_2d().zoom.x)>=host.bell_mount.position.x+73,"full bell landmark visible at spawn")
-	check(not host.active.state.has(host.DISCOVERY) and not host.route_map.known_rooms().has("P16"), "grass passage starts undiscovered")
+	check(not host.active.state.has("discover_p02_low_slope") and not host.route_map.known_rooms().has("P16"), "grass passage starts undiscovered")
 	check(not host.notice.visible and host.panorama.texture.resource_path.ends_with("irrigation_panorama.webp"), "arrival is unobstructed")
 	await mark("arrival")
 	check(await walk(426),"reach western brink")
@@ -327,11 +347,17 @@ func run() -> void:
 		await climb(546,510,"lower field step")
 		await climb(505,462,"upper field step")
 	check(await walk(459) and await stand(558),"step behind rooted terrace onto grassy lower route")
-	check(await walk(307) and await stand(558) and host.active.state.has(host.DISCOVERY),"reaching low grass commits discovery")
+	var grass_lip := Vector2(270,599)
+	var grass_shaft := Vector2(242,718)
+	var return_step := Vector2(305,642)
+	check(grass_opacity(grass_lip)>.95 and grass_opacity(grass_shaft)>.95 and grass_opacity(return_step)>.95,"from the lower approach, turf conceals the opening, shaft and return ledge")
+	check(not host.active.state.has("discover_p02_low_slope") and not host.route_map.known_rooms().has("P16"),"arriving on the lower route still does not discover the entrance")
+	check(await walk(307) and await stand(558) and host.active.state.has("discover_p02_low_slope"),"reaching low grass commits discovery")
 	await mark("grass")
 	check(host.route_map.known_rooms().has("P16"),"discovered P16 is visible on map")
 	var grass_attempts:=host.passage_attempts
 	await ticks(24)
+	check(grass_opacity(grass_lip)>=0 and grass_opacity(grass_lip)<.15 and grass_opacity(grass_shaft)>.95, "near the bank only the adjoining mouth is visible, not the whole shaft")
 	check(host.passage_attempts==grass_attempts and host.active.room.room_id=="P02" and not host.active.state.value.explored.has("P16"),"pausing on the revealed grass lip neither loads nor visits P16")
 	check(await walk(240),"step off the low grass bank into the exposed opening")
 	check(await cross("P16",0) and await stand(270),"gravity carries the player down d009 to the P16 landing")
@@ -353,10 +379,12 @@ func run() -> void:
 	jump()
 	check(await cross("P02",0) and await stand(714),"jump through P16's ceiling and land on P02's lower grass ledge")
 	release_jump()
-	check(host.active.state.has(host.DISCOVERY) and host.veil.modulate.a<=.18 and host.active.state.value.inventory.get("health_shard",0)==1 and host.active.state.value.services.gold==purse.amount,"grass discovery, HP01 and the coin credit survive return")
+	check(host.active.state.has("discover_p02_low_slope") and host.active.state.value.inventory.get("health_shard",0)==1 and host.active.state.value.services.gold==purse.amount,"grass discovery, HP01 and the coin credit survive return")
 	await climb_recess(281,-1,304,636,4,7,"round the middle grass-bank recess")
 	await climb_recess(281,-1,306,558,4,7,"climb out onto the grass bank")
 	check(await walk(459) and await stand(558),"return on foot from the grass lip to the main retry route")
+	await ticks(26)
+	check(grass_opacity(grass_lip)>.95 and grass_opacity(return_step)>.95 and host.route_map.known_rooms().has("P16"),"away from the lip the bank looks solid again while the map remembers P16")
 	await climb(508,462,"west shoulder from sheltered side")
 	if film:
 		await mark("recovery_launch")
