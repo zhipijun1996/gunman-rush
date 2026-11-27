@@ -20,7 +20,6 @@ func _ready() -> void:
 	hint.add_theme_font_size_override("font_size", 22)
 	hint.add_theme_constant_override("outline_size", 5)
 	hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	hint.text = "↑ / W　阅读告示" if session.controller.router.get_meta(&"world_up_interaction",false) else "W　阅读告示"
 	hint.hide()
 	add_child(panel)
 	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
@@ -43,6 +42,7 @@ func _ready() -> void:
 	panel.hide()
 
 func _physics_process(_delta: float) -> void:
+	hint.text = session.controller.router.interact_prompt("阅读告示")
 	hint.visible = (not get_tree().paused and session.is_visible_in_tree() and session.controller.active
 		and session.lifetime.active and not session.controller.has_pending_damage() and not session.readable_sign().is_empty())
 

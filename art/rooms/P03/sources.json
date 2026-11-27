@@ -3,18 +3,13 @@
   "sha256": "bcef8dab46fe908210210bef2b460c55dd3488e33e551d461b97debdf300ad13",
   "origin": "OpenAI ImageGen, upright side-elevation environment plate, 2026-11-27",
   "prompt": "Weathered temperate prairie limestone ravine in side elevation, horizontal sediment beds, sparse moss and grass roots, recessed cool olive-grey surfaces with fine pixel clusters, shadow beneath the right shoulder, no figures, typography, platforms or skyline.",
-  "process": "bake_ravine.py fits the strata to the recessed ravine silhouette, bakes foreground weathering within actual room polygons and retains the translucent kit edges on native mushrooms. All sprites are bottom-center anchored at the coordinates held by the room.",
+  "process": "bake_ravine.py retains the P02 valley skyline, fits the recessed limestone silhouette around the switchback opening, and masks the front strata and sunlit branching fault to the real cliff polygons.",
   "additional_sources": {
-    "grain": "production/rooms/world/p02_connections/stone.png",
-    "fungal_seam": "art/world-art-v2/assets/pixel/mushroom_caverns_near.png",
-    "seam_bracket": "art/world-art-v2/assets/pixel/mushroom_caverns_near.png",
-    "seam_lantern": "art/world-art-v2/assets/pixel/mushroom_lamp.png"
+    "grain_and_ledge_boulders": "production/rooms/world/p02_connections/stone.png",
+    "rooted_wind_grass": "production/rooms/world/p02_connections/seed_stems.png"
   },
   "game_assets": {
-    "fungal_seam.png": "910164ef6967f065fb544151808b379326cd9c72748ea1720f54c64d9ac7ac9e",
-    "ravine_backwall.webp": "dbb87bb53693f90e9e3bf49ddbad514f1bd7cb7d5f13f282eb0f6b4e4237983b",
-    "ravine_rock_faces.webp": "fcf6547c1b924151f4e8b894fb30dfda836707f4bc2642061dc7dbe82d99dc9e",
-    "seam_bracket.png": "859ed650e26c2fc3cb63db1ab39881e5cf1c4f46506370df8b6c377d6fb09568",
-    "seam_lantern.png": "b4b50e30b5c24bf5b6162deac7d553a9bb498d2b7251a20ecc085ad0c0b8050b"
+    "ravine_backwall.webp": "594965aa61be1f073eca79a4a8fa391c5545edb62ce59ccbce61ebba7950b4fb",
+    "ravine_rock_faces.webp": "cbcc947042d7ee8579b2721e025966b545a4168099bbff4795cea7f7c13c0878"
   }
 }

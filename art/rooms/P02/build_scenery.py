@@ -104,9 +104,11 @@ def inner_bank(output):
     floor_y = np.interp(x,[0,144,192,240,460],[608,608,624,576,576])
     ceiling_y = np.where(x<152,476,448)
     ceiling = np.clip((world_y-ceiling_y)/45,0,1)
-    side_light = np.exp(-x/106) + .95*np.exp(-(width-x)/68)
+    side_light = .95*np.exp(-(width-x)/68)
+    # The inset now closes on the western rock spur; daylight only enters from the basin.
+    recess_light = .68+.32*np.clip((x-65)/135,0,1)
     low_bounce = .8*np.exp(-((world_y-floor_y+17)/24)**2)
-    rgb = rgb*(.68+.29*ceiling+.17*side_light)[:,:,None]
+    rgb = rgb*((.68+.29*ceiling+.17*side_light)*recess_light)[:,:,None]
     rgb += (side_light*ceiling+low_bounce*.23)[:,:,None]*np.array([17,12,6])
     bank = Image.fromarray(np.uint8(np.clip(rgb,0,255))).convert("RGBA")
     moss = Image.open(NATIVE/"bank_moss.png").convert("RGBA")
@@ -127,6 +129,37 @@ def inner_bank(output):
     ImageDraw.Draw(mask).polygon([(px-left,py-top) for px,py in path],fill=255)
     bank.putalpha(mask)
     bank.save(output / "p02_grass_bank.png",optimize=True)
+
+
+def footwall(output):
+    """Skin the solid spur with native rock, fitted to its collision silhouette."""
+    document = json.loads((ROOT / "production/rooms/world/P02.json").read_text())
+    vertices = document["entities"]["west_hillside_foot"]["properties"]["points"]
+    face = vertices[1:-1]
+    width, bottom = face[-1]
+    top = face[0][1] - 8
+    height = bottom + 7 - top
+    y, x = np.indices((height, width))
+    world_y = y + top
+    edge = np.interp(world_y, [p[1] for p in face], [p[0] for p in face])
+    inset = edge - x
+    source = Image.open(ROOT / "assets/plains_v3/terrain/organic_cliff_fill.png").convert("L")
+    sample = source.crop((390, 298, 770, 688)).resize((width, height), Image.Resampling.LANCZOS)
+    rock = np.asarray(sample, dtype=float)
+    low, high = np.quantile(rock, [.03, .96])
+    relief = np.clip((rock-low)/(high-low), 0, 1)
+    # A cool near face against the warmer back cut. The exposed side faces
+    # daylight from the right; shadow returns to the upper and lower solid.
+    tones = np.array([[20, 23, 34], [33, 37, 47], [47, 50, 57], [67, 70, 73], [88, 88, 85]])
+    rgb = np.stack([np.interp(relief, [0, .29, .55, .78, 1], tones[:, i]) for i in range(3)], axis=-1)
+    exposure = np.clip((65-inset)/55, 0, 1)
+    rgb *= (.66 + .34*exposure)[:, :, None]
+    blend = np.clip((78-inset)/35, 0, 1)
+    blend *= np.clip((world_y-top)/16, 0, 1)*np.clip((bottom+7-world_y)/12, 0, 1)
+    alpha = np.uint8(255*blend*(inset>=0))
+    image = Image.fromarray(np.uint8(rgb))
+    image.putalpha(Image.fromarray(alpha))
+    image.save(output / "p02_footwall.png", optimize=True)
 
 
 def grass_throat(output):
@@ -212,6 +245,7 @@ if __name__ == "__main__":
     irrigation_panorama(output)
     field_grasses(output)
     inner_bank(output)
+    footwall(output)
     grass_throat(output)
     grass_cutaway(output)
     drainage_well(output)

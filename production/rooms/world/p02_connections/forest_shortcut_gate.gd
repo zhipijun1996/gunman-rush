@@ -84,7 +84,7 @@ func _physics_process(_delta: float) -> void:
 		failed = false
 		return
 	if _at_latch():
-		hint.text = "门闩尚未开启，再按 ↑ / W 重试" if failed else "↑ / W　提起林缘栅门的内闩"
+		hint.text = session.controller.router.interact_prompt("再试门闩" if failed else "提起林缘栅门的内闩")
 	elif not latch.is_finite():
 		hint.text = "林缘栅门的横闩在另一侧。"
 	else:

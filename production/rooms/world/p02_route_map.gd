@@ -29,6 +29,7 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var session: OrdinaryRoomSession = host.get("active")
 	focus_room = session.room.room_id
+	session.touch_controls.map_requested.connect(open)
 	host.connect("room_changed", arrive)
 	# Include the full rooms reachable in this build and their receiving segments.
 	# Traversing a stub's other world links would advertise unfinished rooms.
@@ -51,9 +52,21 @@ func _ready() -> void:
 
 func arrive(id: String) -> void:
 	focus_room = id
+	host.active.touch_controls.map_requested.connect(open)
+	queue_redraw()
+
+func open() -> void:
+	if get_tree().paused or host.crossing: return
+	show()
+	get_tree().paused = true
 	queue_redraw()
 
 func _input(event: InputEvent) -> void:
+	if visible and event is InputEventScreenTouch and event.pressed:
+		hide()
+		get_tree().paused = false
+		get_viewport().set_input_as_handled()
+		return
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
 	if event.physical_keycode == KEY_M and (visible or not get_tree().paused):
@@ -86,7 +99,7 @@ func _draw() -> void:
 	var catalog: WorldContentCatalog = host.active.content_catalog
 	var region_name: String = catalog.lookup("regions",rooms[focus_room].region).row.name
 	draw_string(FONT, panel.position + Vector2(28, 42), region_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 27, INK)
-	draw_string(FONT, Vector2(panel.end.x - 180, panel.position.y + 40), "M / Esc  收起", HORIZONTAL_ALIGNMENT_RIGHT, 150, 18, INK)
+	draw_string(FONT, Vector2(panel.end.x - 180, panel.position.y + 40), "轻触收起" if host.active.controller.router.touch_enabled else "M / Esc  收起", HORIZONTAL_ALIGNMENT_RIGHT, 150, 18, INK)
 	var box := Rect2(panel.position + Vector2(58, 62), panel.size - Vector2(116, 136))
 	var scale_factor := minf(box.size.x / area.size.x, box.size.y / area.size.y)
 	var origin := box.get_center() - area.get_center() * scale_factor

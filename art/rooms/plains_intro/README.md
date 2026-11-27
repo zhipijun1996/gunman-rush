@@ -4,7 +4,7 @@
 | --- | --- | --- |
 | F08 林缘回廊东口 | 门前是一段平坦林间道。低矮根冠和中景倒木让角色与地上的门闩保持可见。门两侧地表均为 y=336。 | [F08 房间](../../../production/rooms/world/p02_connections/F08.json) · [森林远景与近中景根木](../../../production/assets/world_elements/forest_stage) · [森林正式 TileSet](../../../production/terrain47/thorn_forest.tres) |
 | P04 折返旧路东口 | 从 P03 上层旧路向西踏上折返道，进入两级低矮田埂后可沿原路返回。田埂与门口齐高，路旁苇草在步行面上扎根。 | [P04 房间](../../../production/rooms/world/p02_connections/P04.json) · [平原苇丛与坡草](../../../production/assets/scenery/p02) · [平原正式 TileSet](../../../production/terrain47/windchime_plains.tres) |
-| P13 壁缝回访路西口 | 从 P03 东壁龛向东，先经过开阔的贴壁小路，再进入折返石檐。菌丝和远墙延续进门前看到的岩层。 | [P13 房间](../../../production/rooms/world/p02_connections/P13.json) · [沟谷远墙与菌丝](../../../production/assets/scenery/p03) · [接收段远墙](../../../production/rooms/world/p02_connections/ridge_backwall.webp) |
+| P13 壁缝回访路西口 | 从 P03 东壁龛向东，先经过开阔的贴壁小路，再进入折返石檐。门口的风草和层石延续同一片平原背岩。 | [P13 房间](../../../production/rooms/world/p02_connections/P13.json) · [沟谷远墙和岩面](../../../production/assets/scenery/p03) · [接收段远墙](../../../production/rooms/world/p02_connections/ridge_backwall.webp) |
 
 P13 的远墙裁自 P03 的 1920 × 1024 沟谷背壁图。两侧门线对应原图横坐标 1686。接收段在原生像素比例下继续向东取样，抵达原图右缘后沿反向岩纹延展。门口两侧因此保留相同的岩脊剪影和纹理高度。[P03 远墙原图](../../../production/assets/scenery/p03/ravine_backwall.webp)
 

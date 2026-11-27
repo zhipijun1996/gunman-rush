@@ -11,12 +11,14 @@ var heal_base: Dictionary
 @export var content_room_id := ""
 @export_file("*.json") var content_lock_path := "res://config/imported_world/current.lock.json"
 @export_file("*.json") var content_bindings_path := "res://config/imported_world/bindings.json"
+var opening: PlainsOpening
 var focus_heal: WorldFocusHeal
 var audio_service: PlayerWeaponFeelAudioV2
 signal sign_read(text: String)
 signal respawn_requested
 var sign_reader: RoomSignReader
 var recovery := RoomRecovery.new()
+var touch_controls: RoomTouchControls
 var room_dressing: Node2D
 var room: FixedWorldRoom
 var player: PlayerMotor
@@ -188,7 +190,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	controller = player.get_node("Controller")
 	controller.enable_shot_energy()
 	if state.value.is_empty():
-		state.value = state.fresh(controller.actor_resources.health.capacity)
+		state.value = state.fresh(controller.actor_resources.health.capacity, not document.get("sites",{}).has(PlainsOpening.SITE))
 		if not exits.is_empty():
 			state.value.entry = entry_door_id
 			state.value.explored.append(room.room_id)
@@ -210,6 +212,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	player.reset_at(at)
 	var camera := Camera2D.new()
 	player.add_child(camera)
+	touch_controls = RoomTouchControls.mount(self)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime
 	add_child(policy)
@@ -229,6 +232,8 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	services.can_access = _equipment_access
 	services.stage_resources = equipment.stage
 	equipment.bind(self)
+	state.committed.connect(_sync_sidearm)
+	_sync_sidearm(state.revision)
 	if catalog != null:
 		state.committed.connect(_sync_world_abilities)
 		_sync_world_abilities(state.revision)
@@ -248,6 +253,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		if node is WorldMovingPlatform: node.bind_activation(state)
 		if node is WorldRoomInteraction:
 			node.bind(state)
+			if node.action.get("type") == "coin_chest": node.bind_coin_chest(self)
 			if node.action_owner_id.is_empty(): room.interaction_hosts.append(node)
 	if room.rest_point != Vector2.ZERO or room.get_meta("editor_element_rows",{}).values().any(func(element): return element.get("definition_id") == "recovery.station"):
 		room.station_animation = WorldChargingStation.new()
@@ -280,7 +286,15 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		actor.defeated.connect(_defeated.bind(id))
 	if catalog != null and document.has("scenery"):
 		preload("res://rooms/world/p02_connections/connection_room.gd").install(self,document,catalog)
+	if document.get("sites",{}).has(PlainsOpening.SITE) and not state.has("gun"):
+		opening = PlainsOpening.new()
+		opening.install(self,FixedWorldProvider.point(document.sites[PlainsOpening.SITE].at))
 	return ""
+
+func _sync_sidearm(_revision: int) -> void:
+	var armed := state.has("gun")
+	if controller.shoot_ability.enabled!=armed:
+		controller.shoot_ability.enabled=armed
 
 ## The G08 acquisition owns W. Entering a room only restores the saved right
 ## to attach to authored walls and kick off them through the real Controller.
@@ -318,6 +332,7 @@ func equipment_transaction(kind: String,id: String,revision: int) -> bool:
 	return true
 
 func _interact() -> void:
+	if opening!=null and opening.interact(): return
 	if room == null or controller.actor_resources.health.terminal: return
 	for site: EquipmentSite in equipment_sites:
 		if not site.available(player.global_position): continue
@@ -328,6 +343,10 @@ func _interact() -> void:
 	for host: WorldRoomInteraction in room.interaction_hosts:
 		if host.available(player.position, section):
 			var candidate := state.action_candidate(host.action_id, room.room_id, section)
+			if not candidate.is_empty() and host.action.get("type") == "coin_chest":
+				var source := "chest:%s/%s" % [room.room_id,host.action_id]
+				var units := WorldCoinDrops.create_units(source,host.action.amount,host.position,player.position,room.room_id)
+				candidate = services.drop_candidate(candidate,source,units)
 			if not candidate.is_empty() and state.commit(candidate,state.revision): host.celebrate()
 			return
 	for mechanism: Node in room.element_runtime.nodes.values():

@@ -183,7 +183,7 @@ func _physics_process(delta: float) -> void:
 	for id: String in points:
 		if objects[id].visible and in_reach(id):
 			var row: Dictionary=offers[id]
-			if id==SHARD: label.text="↑ / W　取下生命碎片"
-			elif id==PURSE: label.text="↑ / W　调查旧钱袋"
-			else: label.text="↑ / W　拾取"+str(row.get("display_name",row.get("name","")))
+			if id==SHARD: label.text=host.controller.router.interact_prompt("取下生命碎片")
+			elif id==PURSE: label.text=host.controller.router.interact_prompt("调查旧钱袋")
+			else: label.text=host.controller.router.interact_prompt("拾取"+str(row.get("display_name",row.get("name",""))))
 			return
