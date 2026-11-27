@@ -21,13 +21,21 @@ static func install(session: OrdinaryRoomSession, document: Dictionary, source: 
 	session.room.add_child(result)
 	result.populate(document)
 	for door: Dictionary in session.content_context.get("connections",[]):
+		var hatch: String = door.get("physical_gate_contract",{}).get("upstream_hatch_event","")
+		var handle: Dictionary = document.get("sites",{}).get(hatch,{})
+		if handle.has("hatch_rect"):
+			var event := source.lookup("events",hatch)
+			if event.ok and event.row.room == document.room_id:
+				var plate := preload("res://rooms/world/world_access_hatch.gd").new()
+				plate.install(session,event.row,handle)
 		if door.get("one_way_from") == null or not document.exits.has(door.id): continue
 		if doc_has_handle(document,door):
 			preload("res://rooms/world/world_shortcut_gate.gd").mount(session,document,door)
 	return result
 
 static func doc_has_handle(doc: Dictionary, door: Dictionary) -> bool:
-	return doc.room_id != door.one_way_from or WorldRoomValidation.vector(doc.get("sites",{}).get(door.id,{}).get("at"))
+	var handle: Dictionary = doc.get("sites",{}).get(door.id,{})
+	return not handle.has("breakable") and (doc.room_id != door.one_way_from or WorldRoomValidation.vector(handle.get("at")))
 
 func populate(doc: Dictionary) -> void:
 	texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST

@@ -78,4 +78,3 @@ func update_field(delta: float) -> void:
 	if host.issue_remaining>0: return
 	host.notice.visible = hint_remaining>0
 	host.notice.modulate.a = clampf(hint_remaining/.4,0,1)
-

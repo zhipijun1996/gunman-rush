@@ -26,6 +26,8 @@ static func mapped_position(source: Dictionary, destination: Dictionary, at: Vec
 static func clearance(space: PhysicsDirectSpaceState2D, at: Vector2, collider: CollisionShape2D, mask: int) -> bool:
 	var q := PhysicsShapeQueryParameters2D.new()
 	q.shape = collider.shape
+	var body := collider.get_parent() as CollisionObject2D
+	if body != null: q.exclude = [body.get_rid()]
 	q.collision_mask = mask
 	q.transform = Transform2D(0,at+collider.position+Vector2.UP*.1)
 	return space.intersect_shape(q,1).is_empty()
@@ -36,6 +38,8 @@ static func supported(space: PhysicsDirectSpaceState2D, at: Vector2, collider: C
 	var feet := at+collider.position+Vector2.DOWN*half.y
 	for x: float in [1-half.x,0.0,half.x-1]:
 		var ray := PhysicsRayQueryParameters2D.create(feet+Vector2(x,-.2),feet+Vector2(x,8),mask)
+		var body := collider.get_parent() as CollisionObject2D
+		if body != null: ray.exclude = [body.get_rid()]
 		var hit := space.intersect_ray(ray)
 		if hit.is_empty() or Vector2(hit.normal).dot(Vector2.UP)<.7: return false
 	return true

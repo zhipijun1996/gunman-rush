@@ -154,6 +154,7 @@ func enter_room(id: String, edge: String, prepared: Dictionary = {}, received :=
 		active.hide()
 	active = next
 	active.respawn_requested.connect(_respawn)
+	if active.content_sites != null: active.content_sites.station_departure.connect(travel_station)
 	active_doc = doc
 	camera_landmark = doc.get("scenery",{}).get("camera_landmark",{})
 	# Enter on the destination's receiving apron before its first physics tick.
@@ -296,23 +297,38 @@ func enter_interior(door: Dictionary) -> void:
 	var from := active.room.room_id
 	if from not in [door.a,door.b] or not active_doc.get("sites",{}).has(door.id): return
 	var destination: String = door.b if from == door.a else door.a
+	await _transfer_to_site(from,door.id,destination,door.id)
+
+func travel_station(origin: String, target: String, revision: int) -> void:
+	if crossing or revision != active.state.revision or origin == target: return
+	var sites := active.content_sites
+	if sites == null or not sites.near(origin) or not active.player.is_on_floor(): return
+	if not active.state.value.receipts.has(origin) or not active.state.value.receipts.has(target): return
+	var stations: Array = catalog.object("transport").value.stations
+	var from := active.room.room_id
+	var departure := stations.filter(func(s: Dictionary): return s.id == origin and s.room == from)
+	var arrivals := stations.filter(func(s: Dictionary): return s.id == target)
+	if departure.size() != 1 or arrivals.size() != 1 or not has_room(arrivals[0].room): return
+	await _transfer_to_site(from,origin,arrivals[0].room,target)
+
+func _transfer_to_site(from: String, departure: String, destination: String, arrival: String) -> void:
 	crossing = true
 	passage_attempts += 1
 	_lock_session(true)
 	curtain.color = Color.BLACK
 	curtain.show()
-	crossing_started.emit(from,door.id,destination)
+	crossing_started.emit(from,departure,destination)
 	await get_tree().process_frame
 	await get_tree().process_frame
 	var doc := read_destination(destination)
 	var at := Vector2.ZERO
-	var site: Dictionary = doc.get("sites",{}).get(door.id,{})
-	last_error = "interior_receiving_site_missing"
+	var site: Dictionary = doc.get("sites",{}).get(arrival,{})
+	last_error = "receiving_site_missing"
 	if WorldRoomValidation.vector(site.get("at")):
 		at = FixedWorldProvider.point(site.at)
 		last_error = await Passage.validate_landing(self,doc,{"spawn":site.at},at,active.player)
 	if last_error.is_empty():
-		enter_room(destination,door.id,doc,at)
+		enter_room(destination,arrival,doc,at)
 		if last_error.is_empty():
 			for i: int in 12:
 				await get_tree().physics_frame
@@ -327,7 +343,7 @@ func enter_interior(door: Dictionary) -> void:
 	previous_center = active.player.position
 	_lock_session(false)
 	crossing = false
-	crossing_finished.emit(active.room.room_id,door.id,last_error.is_empty())
+	crossing_finished.emit(active.room.room_id,arrival,last_error.is_empty())
 
 func transfer(edge: String, destination: String) -> void:
 	var from: String = active.room.room_id
@@ -348,7 +364,11 @@ func transfer(edge: String, destination: String) -> void:
 	await get_tree().process_frame
 	var doc := read_destination(destination)
 	var at := Vector2.ZERO
-	if not catalog.passage_access(from,edge,active.state.value.flags,active.state.value.services.equipped).matches:
+	var contract: Dictionary = catalog.lookup("doors",edge).row
+	var cover: String = contract.get("discovery",{}).get("runtime_plan",{}).get("kind","")
+	if cover == "breakable_cover" and not active.state.value.receipts.has("passage_break:"+edge):
+		last_error = "passage_requirements_unmet"
+	elif not catalog.passage_access(from,edge,active.state.value.flags,active.state.value.services.equipped).matches:
 		last_error = "passage_requirements_unmet"
 	elif doc.has("error") or not doc.get("exits") is Dictionary or not doc.exits.has(edge):
 		last_error = "passage_destination_missing"
