@@ -12,7 +12,7 @@
 | 玩家偏好 | 沿用旧设置封包，独立保存总音量、减效、触控移动方式及手柄校准。原生平台读取有效旧偏好后写入新工程的设置槽。总音量作用于 Master，减效应用到治疗、慢瞄画面、受击镜震与落地。 | [偏好读取与应用](../../../../production/game/platform/settings/world_settings.gd) · [测试](../../../../production/tests/player_settings.gd) |
 | 人物与战斗 | 复用玩家碰撞和运动、跳跃、瞄准、射击反冲、慢瞄、攀墙、钩索、二段跳、受击与死亡、战斗资源和聚焦治疗。获得枪和能力的时刻由新世界进度决定。随身灯、瞄准线和聚焦暗角随当前玩家重建。 | [普通房会话](../../../../production/rooms/ordinary_room_session.gd) · [玩家](../../../../production/game/player/player.tscn) |
 | 镜头与过门 | 沿用 WorldCamera、参数与分区求解。新门提供过线方向、接收几何和房间边界，黑幕内完成机位交接。 | [房间镜头合同](../../../../production/tests/room_camera_contract.gd) · [跨房](../../../../production/rooms/world/world_passage.gd) |
-| 地形受伤、休息与复活 | 有局部重试点的房按触发区和有效站位返回。没有局部点时，尖刺、地形边界及无保护穿越光幕等地形失败使用本次进房的可站位置；热区持续暴露、水位与普通机械接触保留各自的伤害节奏，复用原控制器的局部重置并保留已消耗的空中动作。休息站用旧靠近、入站、充电和退出时间线，只在充电成功时结算。死亡按新世界最近的休息点开启下一周期。P08 广场休息与交通分开互动，Y23 的休息台归入领奖区。 | [地形恢复](../../../../production/game/world/levels/room_recovery.gd) · [充电演出](../../../../production/game/application/world_rest_sequence.gd) · [休息及失败重试](../../../../production/tests/world_recovery_presentation.gd) |
+| 地形受伤、休息与复活 | 有局部重试点的房按触发区和有效站位返回。没有局部点时，尖刺、地形边界及无保护穿越光幕等地形失败使用本次进房的可站位置；热区持续暴露、水位与普通机械接触保留各自的伤害节奏，正式宿主在黑幕下调用原控制器的局部重置并保留已消耗的空中动作。休息站用旧靠近、入站、充电和退出时间线，只在充电成功时结算。死亡按新世界最近的休息点开启下一周期。P08 广场休息与交通分开互动，Y23 的休息台归入领奖区。 | [地形恢复](../../../../production/game/world/levels/room_recovery.gd) · [充电演出](../../../../production/game/application/world_rest_sequence.gd) · [充电与失败重试](../../../../production/tests/world_recovery_presentation.gd) · [安全回退演出](../../../../production/tests/world_terrain_return.gd) |
 | 音乐、环境音、战斗音效与特效 | 五首已有音乐按标题、探索和实战调度，16 区共用平原、森林两套探索／战斗曲。两条原有环境底音按区域选择。角色、怪物、机关和恢复的音效继续从对应事件发出。 | [曲目、区域和来源](../../../data/audio/playable_world.md) · [音频回归](../../../../production/tests/playable_world_audio.gd) |
 | 怪物、区域首领、奖励 | 公用怪物运动、攻击、伤害仲裁、掉落和拾取；房间配置物种和站位。战区负责进入、结束与确认，状态账本记录胜利、奖励及已拾取物。死亡重开周期刷新普通怪。 | [遭遇](../../../../production/game/content/world_room_encounter.gd) · [死亡及复活](../../../../production/tests/p02_death_recovery.gd) |
 | 武器、装备与经济 | 保留三类基础武器及已有分支动作。工坊从 v27 读取材料、费用、等级和门槛；G08、G12、Y11 可办理共用成长，六种分支在 G12 铸造。60 件永久装备另有领取、负荷、互斥、装配、强化及战斗效果。 | [工坊](../../../../production/game/content/world_weapon_workshop.gd) · [装备](../../../../production/game/equipment/equipment_catalog.gd) |
@@ -34,7 +34,7 @@
 
 此前重做版已存在的 G08、P08、Y23 存档，按房号、v27 包以及变更前后确认过的文档摘要兼容。读取只恢复内存状态，下次成功保存才升级文件；原生备份保留此前数据。[变更前存档回归](../../../../production/tests/world_save_compatibility.gd)
 
-已登记 272 房、682 个门端。该数量是装配与接收点覆盖。T、S 两区仍有 38 个规划房待制作。实体手柄、Android 真机和真实浏览器的体验需与桌面 Godot 事件回归分别记录。
+已登记 272 房、682 个门端。该数量是装配与接收点覆盖。已施工房间覆盖 12 个规划交通站中的 10 个。T、S 两区仍有 38 个规划房待制作，含 T06、S07 两站及 T13 的第八份合金。实体手柄、Android 真机和真实浏览器的体验需与桌面 Godot 事件回归分别记录。
 
 ## 旧镜头与新房构图对照
 

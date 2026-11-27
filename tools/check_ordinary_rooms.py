@@ -134,6 +134,7 @@ if __name__ == "__main__":
             "world_play_hud": "WORLD PLAY HUD",
             "playable_world_audio": "PLAYABLE WORLD AUDIO",
             "player_settings": "PLAYER SETTINGS",
+            "world_terrain_return": "WORLD TERRAIN RETURN",
             "world_recovery_presentation": "WORLD RECOVERY PRESENTATION",
             "ordinary_room": "ORDINARY ROOM",
             "room_camera_contract": "ROOM CAMERA CONTRACT",
