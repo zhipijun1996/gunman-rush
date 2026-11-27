@@ -33,6 +33,14 @@ bash tools/godot.sh --path production --fixed-fps 60 --write-movie /tmp/grass-ro
 python3 art/rooms/P02/cut_grass_route.py /tmp/grass-route.avi /tmp/grass-route.log /tmp/P02-grass-shaft.mp4
 ```
 
+要复核整房布怪，可从新进度录下西岸射击与东田跳越。两段剪辑保留游戏的正常速度和声音，封面取自东田跳越的实机帧。
+
+```sh
+bash tools/godot.sh --path production --fixed-fps 60 --write-movie /tmp/encounters.avi \
+  --script res://tests/plains_p02_terrace.gd -- --encounters > /tmp/encounters.log
+python3 art/rooms/P02/cut_encounters.py /tmp/encounters.avi /tmp/encounters.log /tmp/P02-encounters.mp4
+```
+
 ## 原生素材与导出
 
 运行图位于 [production/assets/scenery/p02](../../../production/assets/scenery/p02)，均可在仓库根目录执行以下命令重建。脚本使用 Pillow 与 NumPy。
