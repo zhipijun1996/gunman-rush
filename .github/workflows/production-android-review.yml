@@ -47,6 +47,8 @@ jobs:
           adb shell settings put global transition_animation_scale 0
           adb shell settings put global animator_duration_scale 0
           adb shell getprop ro.product.cpu.abilist
+          adb shell screenrecord --time-limit 90 --bit-rate 3000000 /data/local/tmp/opening-review.mp4 >/dev/null 2>&1 &
+          trap 'adb shell pkill -2 screenrecord || true; sleep 1; adb pull /data/local/tmp/opening-review.mp4 build/intro-android/device/touch.mp4 || true' EXIT
           python tools/test_intro_android.py build/intro-android/Plains-review.apk build/intro-android/device
       - uses: actions/upload-artifact@v4
         if: always()
