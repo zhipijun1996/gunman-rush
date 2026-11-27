@@ -47,8 +47,12 @@ func open(doc: Dictionary,store: WorldSaveService = null) -> OrdinaryRoomSession
 	check(error.is_empty(),"ordinary session opens "+error)
 	return session
 
+func drain_audio(session: OrdinaryRoomSession) -> void:
+	if session.audio_service != null:
+		check(await session.audio_service.shutdown(),"room audio playback released before disposal")
+
 func finish(session: OrdinaryRoomSession) -> void:
-	if session.audio_service != null: await session.audio_service.shutdown()
+	await drain_audio(session)
 	session.free()
 
 func fire(session: OrdinaryRoomSession) -> void:
@@ -172,12 +176,16 @@ func world_results() -> void:
 		adjacent.actions = []
 		var next := OrdinaryRoomSession.new()
 		root.add_child(next)
+		# A successful handoff takes ownership and queues its source for deletion.
+		# Wait for that source's audio mixer before giving it to open().
+		await drain_audio(session)
 		var transition := next.open(adjacent,null,session)
 		check(transition.is_empty(),kind+" exit via ordinary room transition "+transition)
 		if transition.is_empty():
 			await ticks(2)
 			session = OrdinaryRoomSession.new()
 			root.add_child(session)
+			await drain_audio(next)
 			transition = session.open(doc,null,next)
 			check(transition.is_empty() and session.state.value.receipts.has("repair") and session.room.element_runtime.nodes["bridge/result"].result_at_terminal(kind),kind+" return restores physical route "+transition)
 			if not transition.is_empty(): await finish(next)
