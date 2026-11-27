@@ -1,0 +1,80 @@
+{
+  "schema": 3,
+  "room_id": "F08",
+  "reception": true,
+  "bounds": [
+    0,
+    0,
+    600,
+    1155
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "thorn_forest",
+      "terrain_material": "thorn_forest",
+      "start_point": [
+        520,
+        1122
+      ]
+    }
+  },
+  "exits": {
+    "d223": {
+      "point": [
+        600,
+        1122
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        945,
+        1155
+      ],
+      "spawn": [
+        520,
+        1122
+      ]
+    }
+  },
+  "sites": {
+    "d223": {
+      "at": [
+        510,
+        1122
+      ]
+    }
+  },
+  "entities": {
+    "landing": {
+      "id": "landing",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          230,
+          1140,
+          402,
+          15
+        ]
+      }
+    },
+    "back_wall": {
+      "id": "back_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          230,
+          0,
+          32,
+          1140
+        ]
+      }
+    }
+  },
+  "actions": []
+}

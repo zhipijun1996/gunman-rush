@@ -195,7 +195,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		if catalog != null and saved.get("payload") is Dictionary and not saved.payload.is_empty():
 			var saved_version: String=str(saved.payload.get("content_version",""))
 			var current_version: String=state.content.data.content_version
-			if saved_version!=current_version and not (storage is PlayableWorldSave and PlayableWorldSave.accepts_previous_room(room.room_id,catalog.bundle_sha256,saved_version,current_version)):
+			if saved_version != current_version:
 				room.free()
 				room = null
 				return "room_content_save_version_mismatch"
@@ -348,7 +348,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	for id: String in room.enemies:
 		var actor: EnemyActor = room.enemies[id]
 		actor.defeated.connect(_defeated.bind(id))
-	if catalog != null and document.has("scenery"):
+	if catalog != null:
 		preload("res://rooms/world/world_room_dressing.gd").install(self,document,catalog)
 	if catalog != null and not document.get("sites",{}).is_empty():
 		content_sites=WorldContentSites.new()

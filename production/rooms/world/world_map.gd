@@ -175,6 +175,7 @@ func _draw() -> void:
 	var region_name: String = catalog.lookup("regions",rooms[focus_room].region).row.name
 	draw_string(FONT, panel.position + Vector2(28, 42), region_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 27, INK)
 	var caption := focus_room + "　" + str(rooms[focus_room].name)
+	if host.active_doc.get("reception",false): caption += " · 接收段"
 	draw_string(FONT,panel.position+Vector2(28,panel.size.y-55),caption,HORIZONTAL_ALIGNMENT_LEFT,-1,22,GOLD)
 	draw_string(FONT,panel.position+Vector2(28,panel.size.y-23),"● 位置　▱ 歇脚处　◎ 已启用钟站",HORIZONTAL_ALIGNMENT_LEFT,-1,16,INK)
 

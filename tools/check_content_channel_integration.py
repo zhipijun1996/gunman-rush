@@ -180,6 +180,25 @@ def main(argv=None):
                     f"{group['id']}: planning member disagrees with its independent drop profile")
     results.append("independent_drop_profiles_and_advisory_room_budgets")
 
+    sys.path.insert(0, str(importer.parent))
+    from sync import check_room_content_links, ContractError
+    registry = load(game_root / "production/config/imported_world/bindings.json")
+    encounter = bundle["data"]["encounters"][0]
+    test_opponent = {"definition_id": "enemy.test_opponent"}
+    site = {"waves": [["opponent"]], "victory_only": ["opponent"]}
+    fixture = {"room_id": encounter["room"], "sites": {encounter["id"]: site},
+               "entities": {"target": {"definition_id": "enemy.chime_target"}, "opponent": test_opponent}}
+    check_room_content_links(fixture, bundle, registry)
+    site["victory_only"].clear()
+    try:
+        check_room_content_links(fixture, bundle, registry)
+    except ContractError as error:
+        require(str(error) == "room_enemy_unbound:opponent", str(error))
+    else:
+        raise AssertionError("a wave member without a species or victory purse was accepted")
+    results.append("practice_targets_and_declared_encounter_purses")
+
+
     with tempfile.TemporaryDirectory(prefix="clock-content-check-") as temporary:
         base = Path(temporary)
         destination = base / "installed"
@@ -226,6 +245,22 @@ def main(argv=None):
             (folder / "content.json").write_bytes(content)
             (folder / "manifest.json").write_bytes(encoded(description))
             return folder / "manifest.json"
+
+        live_registry = game_root / "production/config/imported_world/bindings.json"
+        registered = load(live_registry)["rooms"]
+        staged = base / "bound"
+        staged.mkdir()
+        (staged / "bindings.json").write_bytes(live_registry.read_bytes())
+        run(dest=staged)
+        staged_lock = (staged / "current.lock.json").read_bytes()
+        candidate = deepcopy(bundle)
+        receiver = next(key for key, binding in registered.items() if binding["status"] == "placeholder")
+        by_id(candidate["data"]["rooms"])[receiver]["authoring"]["construction"]["bounds_world"][2] += 32
+        error = run(repack("changed-receiver-envelope", candidate), dest=staged, ok=False)
+        require(error["error"] == f"room_construction_bounds_mismatch:{receiver}"
+                and (staged / "current.lock.json").read_bytes() == staged_lock,
+                "an incompatible receiver displaced the playable release")
+        results.append("active_room_bindings_and_atomic_receiver_geometry_rejection")
 
         def rejected(name, mutate=None, *, raw_override=None, manifest_change=None):
             candidate = deepcopy(bundle)

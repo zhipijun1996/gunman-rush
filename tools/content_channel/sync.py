@@ -158,9 +158,9 @@ def check_bindings(bundle: dict, bindings_path: Path) -> None:
     for section, table in sections.items():
         rows = bindings.get(section)
         require(isinstance(rows, dict), f"bindings_{section}_object_required")
-        ids = {row["id"] for row in bundle["data"][table]}
+        indexed = {row["id"]: row for row in bundle["data"][table]}
         for identifier, row in rows.items():
-            require(identifier in ids and isinstance(row, dict), f"binding_unknown_id:{section}:{identifier}")
+            require(identifier in indexed and isinstance(row, dict), f"binding_unknown_id:{section}:{identifier}")
             if section == "rooms":
                 resource = row.get("document_path", "")
                 require(isinstance(resource, str) and resource.startswith(("res://rooms/", "res://tests/")), "room_binding_path_invalid")
@@ -171,8 +171,53 @@ def check_bindings(bundle: dict, bindings_path: Path) -> None:
                 document = load_json_bytes(path.read_bytes())
                 require(document.get("schema") == 3 and document.get("room_id") == identifier,
                         f"room_binding_identity_mismatch:{identifier}")
-                require(row.get("status") in ("authored", "integration_test"), "room_binding_status_required")
+                status = row.get("status")
+                require(status in ("authored", "placeholder", "integration_test"), "room_binding_status_required")
+                require(document.get("reception", False) is (status == "placeholder"), "room_reception_status_mismatch")
+                if status in ("authored", "placeholder"):
+                    directory = "rooms/world/receivers" if status == "placeholder" else "rooms/world"
+                    require(relative == f"{directory}/{identifier}.json", "room_binding_path_invalid")
+                    check_room_construction(document, indexed[identifier], status, rows)
                 check_room_content_links(document, bundle, bindings)
+
+
+def check_room_construction(document: dict, room: dict, status: str, bindings: dict) -> None:
+    """Only the installed rooms constrain a release's new construction data."""
+    rid = room["id"]
+    authoring = room.get("authoring")
+    construction = authoring.get("construction") if isinstance(authoring, dict) else None
+    require(isinstance(construction, dict), f"room_construction_required:{rid}")
+    scale = construction.get("scale")
+    require(isinstance(scale, dict) and scale.get("isotropic") is True and scale.get("x") == scale.get("y") == 300,
+            f"room_construction_scale_invalid:{rid}")
+    bounds = construction.get("bounds_world")
+    require(isinstance(bounds, list) and len(bounds) == 4 and document.get("bounds") == bounds,
+            f"room_construction_bounds_mismatch:{rid}")
+    doors = construction.get("doors")
+    exits = document.get("exits", {})
+    require(isinstance(doors, list) and isinstance(exits, dict), f"room_construction_doors_invalid:{rid}")
+    openings = {d["id"]: d for d in doors if isinstance(d, dict) and d.get("kind") == "physical" and "id" in d}
+    if status == "authored":
+        require(openings.keys() <= exits.keys(), f"room_construction_door_missing:{rid}")
+    else:
+        expected = {key for key, door in openings.items()
+                    if bindings.get(door.get("other_room"), {}).get("status") == "authored"}
+        require(exits.keys() == expected and expected, f"room_reception_exits_mismatch:{rid}")
+    for key, gate in exits.items():
+        if key not in openings and isinstance(gate, dict) and "span" not in gate:
+            continue  # Interior transitions are site interactions.
+        label = f"room_construction_opening_mismatch:{rid}/{key}"
+        opening = openings.get(key, {})
+        endpoints = opening.get("opening_world")
+        require(opening.get("axis") in ("h", "v") and isinstance(endpoints, list) and len(endpoints) == 2,
+                label)
+        require(isinstance(gate, dict) and all(isinstance(pair, list) and len(pair) == 2
+                and all(type(value) in (int, float) for value in pair)
+                for pair in [*endpoints, gate.get("point"), gate.get("span")]), label)
+        along = 0 if opening["axis"] == "h" else 1
+        normal = 1 - along
+        require(abs(gate["point"][normal] - endpoints[0][normal]) <= .01
+                and all(abs(gate["span"][i] - endpoints[i][along]) <= .01 for i in (0, 1)), label)
 
 
 def check_room_content_links(document: dict, bundle: dict, bindings: dict) -> None:
@@ -208,10 +253,42 @@ def check_room_content_links(document: dict, bundle: dict, bindings: dict) -> No
                 and entity["definition_id"].startswith("enemy.")
                 and entity["definition_id"] == mapped.get("definition_id"),
                 f"room_enemy_definition_mismatch:{instance_id}")
+    encounters = {row["id"]: row for row in bundle["data"]["encounters"]}
+    assigned = set()
+    exclusive = set()
+    sites = document.get("sites", {})
+    require(isinstance(sites, dict), "room_sites_invalid")
+    for key, site in sites.items():
+        if not key.startswith("enc_"):
+            continue
+        encounter = encounters.get(key, {})
+        require(encounter.get("room") == document["room_id"] and isinstance(site, dict),
+                f"encounter_room_mismatch:{key}")
+        waves = site.get("waves")
+        require(isinstance(waves, list) and waves, f"encounter_waves_required:{key}")
+        members = set()
+        for wave in waves:
+            require(isinstance(wave, list) and wave, f"encounter_empty_wave:{key}")
+            for member in wave:
+                require(isinstance(member, str) and member not in assigned, f"encounter_member_invalid:{key}")
+                entity = entities.get(member)
+                require(isinstance(entity, dict) and str(entity.get("definition_id", "")).startswith("enemy.")
+                        and entity["definition_id"] != "enemy.chime_target", f"encounter_enemy_required:{member}")
+                assigned.add(member)
+                members.add(member)
+        purse = site.get("victory_only", [])
+        require(isinstance(purse, list), f"encounter_purse_invalid:{key}")
+        for member in purse:
+            require(isinstance(member, str) and member in members and member not in links,
+                    f"encounter_purse_member_invalid:{member}")
+            exclusive.add(member)
+
     for instance_id, entity in entities.items():
         require(isinstance(entity, dict), f"room_entity_invalid:{instance_id}")
-        if str(entity.get("definition_id", "")).startswith("enemy."):
-            require(instance_id in links, f"room_enemy_unbound:{instance_id}")
+        if entity.get("definition_id") == "enemy.chime_target":
+            require(instance_id not in links, f"practice_target_drop_not_allowed:{instance_id}")
+        elif str(entity.get("definition_id", "")).startswith("enemy."):
+            require(instance_id in links or instance_id in exclusive, f"room_enemy_unbound:{instance_id}")
 
 
 def make_lock(manifest: dict, source: str) -> dict:

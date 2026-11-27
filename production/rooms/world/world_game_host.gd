@@ -179,7 +179,8 @@ func enter_room(id: String, edge: String, prepared: Dictionary = {}, received :=
 	follow_camera.force_update_scroll()
 	panorama = preload("res://rooms/world/world_backdrop.gd").mount(active,doc,passage_sky,sky_offset).panorama
 	var room_name := str(catalog.lookup("rooms",id).row.name)
-	room_title.text = id+" · "+room_name+("" if catalog.binding("rooms", id).ok else " · 接入段")
+	if doc.get("reception",false): room_name += " · 接收段"
+	room_title.text = id+" · "+room_name
 	title_remaining = 2.5
 	room_title.modulate.a = 1.0
 	var region := catalog.lookup("regions",catalog.lookup("rooms",id).row.region)

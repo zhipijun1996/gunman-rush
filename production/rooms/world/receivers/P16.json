@@ -1,0 +1,112 @@
+{
+  "schema": 3,
+  "room_id": "P16",
+  "reception": true,
+  "bounds": [
+    0,
+    0,
+    750,
+    480
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windchime_plains",
+      "terrain_material": "windchime_plains",
+      "start_point": [
+        495,
+        60
+      ]
+    }
+  },
+  "exits": {
+    "d009": {
+      "point": [
+        495,
+        0
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        375,
+        615
+      ],
+      "spawn": [
+        495,
+        60
+      ]
+    }
+  },
+  "sites": {},
+  "entities": {
+    "landing": {
+      "id": "landing",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          375,
+          78,
+          240,
+          100
+        ]
+      }
+    },
+    "west_wall": {
+      "id": "west_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          375,
+          0,
+          16,
+          78
+        ]
+      }
+    },
+    "east_wall": {
+      "id": "east_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          599,
+          0,
+          16,
+          78
+        ]
+      }
+    },
+    "west_lip": {
+      "id": "west_lip",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          391,
+          0,
+          56,
+          20
+        ]
+      }
+    },
+    "east_lip": {
+      "id": "east_lip",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          543,
+          0,
+          56,
+          20
+        ]
+      }
+    }
+  },
+  "actions": []
+}

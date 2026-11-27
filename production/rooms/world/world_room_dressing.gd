@@ -73,7 +73,7 @@ func populate(doc: Dictionary) -> void:
 			if not doc.get("sites", {}).has(row.id): continue
 			if table == "rewards" and row.get("reward_kind") not in ["health_fragment", "lost_gear"]: continue
 			offers[row.id] = row
-	if offers.is_empty() and doc.room_id != "P19":
+	if offers.is_empty():
 		set_physics_process(false)
 		return
 	host.controller.router.set_meta(&"world_up_interaction",true)
@@ -90,10 +90,6 @@ func populate(doc: Dictionary) -> void:
 	label.add_theme_font_size_override("font_size",22)
 	label.add_theme_constant_override("outline_size",5)
 	label.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	if doc.room_id=="P19":
-		label.text="头顶的井通往田埂。站在井底跳起，再沿左壁石阶上行。"
-		notification=5.0
-	if offers.is_empty(): return
 	for id: String in offers:
 		points[id]=FixedWorldProvider.point(doc.sites[id].at)
 		var node := Node2D.new()
