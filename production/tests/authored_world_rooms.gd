@@ -26,6 +26,7 @@ func verify(doc: Dictionary) -> void:
 		var collision := session.player.get_node("CollisionShape2D") as CollisionShape2D
 		var space := session.room.get_world_2d().direct_space_state
 		for row: Dictionary in catalog.connections(doc.room_id).rows:
+			if doc.get("reception",false) and not doc.exits.has(row.id): continue
 			var location: Vector2
 			if row.connection_type == "physical":
 				location = FixedWorldProvider.point(doc.exits[row.id].spawn)
@@ -45,16 +46,13 @@ func verify(doc: Dictionary) -> void:
 func run() -> void:
 	check(catalog.load_locked().ok and catalog.load_bindings("res://config/imported_world/bindings.json").ok,"load current world")
 	if not failures:
-		var files := DirAccess.get_files_at("res://rooms/world")
-		for filename in files:
-			if not filename.ends_with(".json"): continue
-			var id := filename.get_basename()
+		for id: String in ["P01","P02","P03","F08","P04","P13","P16","P19"]:
 			var binding := catalog.room_document(id)
-			if not binding.ok:
-				check(false,id+" room document not registered for production")
-				continue
+			check(binding.ok, id+" needs a registered arrival")
+			if not binding.ok: continue
 			var doc := WorldRoomDocument.read(binding.path)
 			check(doc.get("room_id","") == id,id+" identity mismatch")
 			if doc.get("room_id","") == id: await verify(doc)
+		check(loaded==8 and endpoints==14, "three rooms, five receiving aprons and both ends of seven doors")
 	print("AUTHORED WORLD failures=",failures," rooms=",loaded," arrival_points=",endpoints)
 	quit(1 if failures else 0)

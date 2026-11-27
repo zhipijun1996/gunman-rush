@@ -28,7 +28,7 @@ static func install(session: OrdinaryRoomSession, document: Dictionary, source: 
 			if event.ok and event.row.room == document.room_id:
 				var plate := preload("res://rooms/world/world_access_hatch.gd").new()
 				plate.install(session,event.row,handle)
-		if door.get("one_way_from") == null or not document.exits.has(door.id): continue
+		if door.get("one_way_from") == null or not document.get("exits",{}).has(door.id): continue
 		if doc_has_handle(document,door):
 			preload("res://rooms/world/world_shortcut_gate.gd").mount(session,document,door)
 	return result

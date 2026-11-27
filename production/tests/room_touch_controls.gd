@@ -1,6 +1,7 @@
 extends SceneTree
 ## Exercise the same viewport dispatch as an Android finger, including modal map input.
-const FIELD := preload("res://rooms/world/P02.tscn")
+class Field extends WorldGameHost:
+	func startup_destination() -> Dictionary: return {"ok":true,"room":"P02"}
 var failures := 0
 
 func check(ok: bool, label: String) -> void:
@@ -26,7 +27,7 @@ func _initialize() -> void:
 	run.call_deferred()
 
 func run() -> void:
-	var field: FieldTerracePilot = FIELD.instantiate()
+	var field := Field.new()
 	root.add_child(field)
 	for tick: int in 150: await physics_frame
 	if field.active == null:

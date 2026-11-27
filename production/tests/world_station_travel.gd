@@ -14,6 +14,14 @@ class Slot extends WorldSaveService:
 		return {"accepted":true,"payload":value.duplicate(true),"revision":revision}
 
 class StationHost extends WorldGameHost:
+	func has_room(id: String) -> bool:
+		return id in ["G12","K08","Y23"] or super.has_room(id)
+	func read_destination(id: String) -> Dictionary:
+		if id not in ["G12","K08","Y23"]: return super.read_destination(id)
+		var doc := preload("system_room_fixture.gd").flat(id)
+		doc.sites["tp_"+id] = {"at":[430,585]}
+		doc.entities.bench={"id":"bench","definition_id":"recovery.station","definition_version":1,"properties":{"position":[210,585]}}
+		return doc
 	func startup_destination() -> Dictionary:
 		return {"ok":true,"room":(storage as Slot).value.get("room","G12")}
 

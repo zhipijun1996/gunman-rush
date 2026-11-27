@@ -1,5 +1,5 @@
 extends SceneTree
-## Start from an explicitly reached F19. Knock on the real registered handle,
+## Rehearse the F19 scene door on two independent standing platforms. Knock,
 ## travel to its independent interior, restore that entrance and walk back.
 const EDGE := "s_ninja_home"
 const FLAG := "discover_f19_bamboo_door"
@@ -22,6 +22,13 @@ class Slot extends WorldSaveService:
 		return {"accepted":true,"payload":saved.duplicate(true),"revision":latest}
 
 class ReachedForest extends WorldGameHost:
+	func has_room(id: String) -> bool:
+		return id in ["F19","F_IN01"] or super.has_room(id)
+	func read_destination(id: String) -> Dictionary:
+		if id not in ["F19","F_IN01"]: return super.read_destination(id)
+		var doc := preload("system_room_fixture.gd").flat(id)
+		doc.sites["s_ninja_home"] = {"at":doc.root.properties.start_point}
+		return doc
 	func startup_destination() -> Dictionary:
 		var slot := storage as Slot
 		return {"ok":true,"room":slot.saved.get("room","F19")}

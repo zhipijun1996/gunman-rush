@@ -44,6 +44,14 @@ def validate_pack(pack_path):
         raise ValueError("The Android PCK includes a different world version from its release lock")
     bindings = json.loads((PROJECT / lock_root / "bindings.json").read_text())
     rooms = {row["document_path"].removeprefix("res://") for row in bindings["rooms"].values() if "document_path" in row}
+    full_paths = {f"rooms/world/{name}.json" for name in ("P01", "P02", "P03")}
+    apron_paths = {f"rooms/world/receivers/{name}.json" for name in ("F08", "P16", "P19", "P04", "P13")}
+    actual = {name for name in pack.entries if name.startswith("rooms/world/") and name.endswith(".json")}
+    expected = full_paths | apron_paths
+    if rooms != expected:
+        raise ValueError(f"World binding path differences: {sorted(rooms ^ expected)}")
+    if actual != expected:
+        raise ValueError(f"Packed room path differences: {sorted(actual ^ expected)}")
     required = selected | rooms | {lock_root + "current.lock.json", lock_root + "bindings.json",
                                    "assets/ui/demo_ui_01/r2/fonts/OFL.txt", "assets/vfx/LICENSE.pixelfx",
                                    "assets/player_presentation_01/weapon_audio_v2/sources/COPYING.adoc",
@@ -56,7 +64,7 @@ def validate_pack(pack_path):
     for name in pack.entries:
         if name.startswith(forbidden) or name.endswith(".zip"):
             raise ValueError("Android PCK contains development-only source: " + name)
-    return len(rooms)
+    return len(full_paths), len(apron_paths)
 
 
 def run():
@@ -74,8 +82,8 @@ def run():
                 raise RuntimeError(log[-12000:])
             if "--script" in args and not re.search(r"^ANDROID FOUNDATION checks=\d+ failures=0$", log, re.MULTILINE):
                 raise RuntimeError(log[-4000:])
-        rooms = validate_pack(path)
-        print(f"ANDROID PCK rooms={rooms} failures=0")
+        rooms, aprons = validate_pack(path)
+        print(f"ANDROID PCK rooms={rooms} aprons={aprons} failures=0")
 
 
 if __name__ == "__main__":

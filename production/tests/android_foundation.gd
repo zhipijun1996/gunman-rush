@@ -111,13 +111,12 @@ func run() -> void:
 	check(AudioServer.is_bus_mute(0) and paused and audio.ambience._beds.any(func(v: AudioStreamPlayer): return v.stream != null and v.stream_paused), "resume respects the user's mute and the open pause menu")
 	bridge.notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST)
 	check(shell.page == &"play" and not paused, "system back from gameplay pause resumes the room")
-	scene.enter_room("P08","")
-	var content := scene.active.content_sites.menu
-	content.notice("告示","路牌")
+	session.equipment_menu.open("select")
+	check(session.equipment_menu.panel.visible and paused, "inventory opens a real paused room overlay")
 	bridge.notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST)
-	check(not content.visible_panel() and not paused and shell.page == &"play", "system back dismisses world content without opening a second menu")
+	check(not session.equipment_menu.panel.visible and not paused and shell.page == &"play", "system back dismisses the active room overlay")
 	if "--packed" in OS.get_cmdline_user_args():
-		check(not FileAccess.file_exists("res://tests/fixtures/plains_receivers/P01.json") and not ResourceLoader.exists("res://rooms/world/P02.tscn"), "runtime uses the exported pack, with the old review scene excluded")
+		check(not ResourceLoader.exists("res://tests/plains_test_host.tscn") and not ResourceLoader.exists("res://rooms/world/P02.tscn"), "runtime uses the exported pack, with the old review scene excluded")
 	check(await preload("world_audio_cleanup.gd").drain(shell), "shutdown releases shell and room audio")
 	shell.free()
 	for suffix: String in ["", ".backup", ".tmp", ".corrupt"]:

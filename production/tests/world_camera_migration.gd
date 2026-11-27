@@ -131,7 +131,7 @@ func damage_feedback() -> void:
 	var feedback := preload("res://game/combat/damage/feedback.tres") as DamageFeedbackDefinition
 	check(health.current<hp and peak>.1 and peak<=minf(feedback.impact_shake,float(c.settings.shake_max))+.01,"accepted health loss produces actual camera displacement within the configured impact strength")
 	var departing_shake := tremor(c)
-	host.enter_room("G23","")
+	host.enter_room("G23","",preload("system_room_fixture.gd").flat("G23"))
 	var arriving := camera()
 	var residual := 0.0
 	for i in 8:
@@ -141,7 +141,7 @@ func damage_feedback() -> void:
 	print("WORLD CAMERA IMPACT protected=",protected_peak," hit=",peak," outgoing=",departing_shake," destination=",residual)
 
 func room_limits() -> void:
-	host.enter_room("G_IN01","")
+	host.enter_room("G_IN01","",preload("system_room_fixture.gd").flat("G_IN01",Vector2i(958,570),412))
 	await place(Vector2(312,394))
 	var c := camera()
 	var bounds := FixedWorldProvider.rect(host.active_doc.bounds)
@@ -163,22 +163,23 @@ func landmarks() -> void:
 		check(false,"open authored P03 "+host.last_error)
 		return
 	var document := host.active_doc.duplicate(true)
-	await place(Vector2(1350,334))
+	await place(FixedWorldProvider.rect(document.scenery.camera_landmark.bounds).get_center())
 	var with_landmark := camera().get_screen_center_position()
+	var observer := host.active.player.position
 	document.scenery.erase("camera_landmark")
-	host.enter_room("G12","")
+	host.enter_room("G12","",preload("system_room_fixture.gd").flat("G12"))
 	host.enter_room("P03","",document)
-	await place(Vector2(1350,334))
+	await place(observer)
 	var ordinary := camera().get_screen_center_position()
 	print("WORLD CAMERA LANDMARK baseline=",ordinary," framed=",with_landmark," body=",host.active.player.position," error=",host.last_error)
 	check(with_landmark.x>ordinary.x+12 or with_landmark.y<ordinary.y-14,"the actual P03 ledge frames the unclaimed elevated collectible")
-	await place(Vector2(160,-236))
-	check(camera().zones.active_id=="old_road" and camera().zoom.is_equal_approx(Vector2.ONE*1.40),"P03 upper road selects its own composition at the plains scale")
+	await place(FixedWorldProvider.point(host.active_doc.exits.d003.spawn))
+	check(camera().zones.active_id=="old_road" and camera().zoom.is_equal_approx(Vector2.ONE*float(document.camera.zoom)),"P03 upper road selects its own composition at the plains scale")
 
 func zoom_and_conceal() -> void:
-	# Keep the real, empty G12 factory street and author two camera areas around it.
+	# Build two camera areas on the flat rehearsal floor.
 	# A single continuous walk changes the active viewing area; no camera reset during the walk.
-	var doc := host.read_destination("G12")
+	var doc := preload("system_room_fixture.gd").flat("G12")
 	doc.camera = {"profile":"bounded_follow","zones":[
 		{"id":"street","trigger":[0,0,820,774],"display":[0,0,1120,774],"profile":"bounded_follow","zoom":1.6},
 		{"id":"hall","trigger":[820,0,956,774],"display":[656,0,1120,774],"profile":"bounded_follow","zoom":1.85,"conceal":[[872,265,238,95]]}
@@ -204,7 +205,7 @@ func zoom_and_conceal() -> void:
 	check(intermediate and band_visible and mask!=null and not mask.visible and c.zones.active_id=="hall" and is_equal_approx(snappedf(c.zoom.x,.01),1.85),"walking through a real portal reveals the linked room and eases to its authored zoom")
 
 func forest_duel() -> void:
-	host.enter_room("F11","")
+	host.enter_room("F11","",preload("system_room_fixture.gd").duel("F11","enc_F11","enemy.forest_antler","hollow_antler"))
 	if host.last_error!="" or host.active.room.room_id!="F11":
 		check(false,"enter the forest duel "+host.last_error)
 		return
@@ -222,10 +223,10 @@ func forest_duel() -> void:
 	if antler==null:
 		check(false,"the invited forest opponent actually enters")
 		return
-	check(fight.battle_active() and c.zones.active_id=="antler_floor","a deployed duel participant activates the floor's camera zone")
+	check(fight.battle_active() and c.zones.active_id=="arena","a deployed duel participant activates the floor's camera zone")
 	key(KEY_UP,true)
 	await ticks(42)
-	check(not c.looking and c.zones.active_id=="antler_floor","manual observation is suppressed while fighting in the bounded arena")
+	check(not c.looking and c.zones.active_id=="arena","manual observation is suppressed while fighting in the bounded arena")
 	key(KEY_UP,false)
 	# This probe needs the real victory transition. Attack patterns are covered independently.
 	var accepted := antler.damageable.receive_damage({"event_id":"camera_forest_finish","amount":antler.health.current,
@@ -287,7 +288,7 @@ func run() -> void:
 	await ticks(6)
 	check(host.active!=null and host.active.room.room_id=="P01" and camera()!=null and camera()==host.follow_camera and camera().target==host.active.player,"the world opens P01 with the original WorldCamera following the live player")
 	if camera()!=null:
-		host.enter_room("G12","")
+		host.enter_room("G12","",preload("system_room_fixture.gd").flat("G12"))
 		await inspection(false)
 		await inspection(true)
 		await damage_feedback()

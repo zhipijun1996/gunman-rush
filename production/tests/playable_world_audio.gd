@@ -46,7 +46,7 @@ func run() -> void:
 	host.enter_room("P02","d001")
 	await frames(5)
 	check(host.active.room.room_id=="P02" and music.starts==starts and bed.starts==beds,"normal same-region replacement retains score and wind")
-	host.enter_room("F01","")
+	host.enter_room("F08","d223")
 	await frames(95)
 	check(music.requested_track==&"forest" and bed.candidate=="woods_a","forest selects its own music and selected bird bed")
 	check(music._ids.count(&"")==1 and bed._bed_ids.count("")==1,"outgoing streams released after fades")
@@ -64,7 +64,7 @@ func run() -> void:
 	next.volume=0.35
 	check(settings.save(next) and not AudioServer.is_bus_mute(0) and is_equal_approx(db_to_linear(AudioServer.get_bus_volume_db(0)),0.35),"saved volume restores without double scaling")
 	check(host.active.state.revision==revision_at_mute,"preferences do not commit the world")
-	host.enter_room("G19","")
+	host.enter_room("G19","",preload("system_room_fixture.gd").duel("G19","enc_G19","enemy.traction_engine","traction_engine"))
 	await frames(12)
 	var fight: WorldRoomEncounter=host.active.encounters[0]
 	check(music.requested_track==&"plains" and bed.candidate=="draft_a" and not fight.battle_active(),"quiet optional arena before challenge")
@@ -88,7 +88,7 @@ func run() -> void:
 	var catalog:=WorldContentCatalog.new()
 	catalog.load_locked()
 	for region: Dictionary in catalog.table("regions").rows:
-		check(PlayableWorldAudio.REGION.has(region.id),"v27 region "+str(region.id))
+		check(PlayableWorldAudio.REGION.has(region.id),"locked region "+str(region.id))
 	var playbacks:=music._playbacks.duplicate()
 	check(await music.shutdown() and await bed.shutdown(),"audio backends release before shutdown")
 	shell.free()

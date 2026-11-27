@@ -31,18 +31,18 @@ func run() -> void:
 	var road := WorldRoomDocument.read("res://rooms/world/P03.json")
 	var compiler := Contract.resolve(road)
 	check(Contract.validate(road.camera,road.bounds).is_empty(),"P03 camera validates")
-	check(compiler.zones[0].zoom==1.4 and compiler.zones[1].zoom==1.4,"both approved wide-screen compositions inherit 1.40")
+	check(compiler.zones[0].zoom==road.camera.zoom and compiler.zones[1].zoom==road.camera.zoom,"both compositions inherit the room zoom")
 	check(FixedWorldProvider.point(compiler.zones[1].offset)==Vector2(0,-52) and compiler.links[0].direction==-1,"upper-road shift and reverse vertical passage")
 	var doc := road.duplicate(true)
 	doc.erase("camera")
 	var plain := Contract.resolve(doc)
-	check(plain.zones[0].trigger==road.bounds and plain.zones[0].display==road.bounds and not plain.zones[0].has("zoom"),"legacy bounds preserve negative coordinates and global zoom")
+	check(plain.zones[0].trigger==road.bounds and plain.zones[0].display==road.bounds and not plain.zones[0].has("zoom"),"unconfigured camera inherits the full room bounds and global zoom")
 	for id: String in ["P01","P02"]:
 		var pilot := WorldRoomDocument.read("res://rooms/world/"+id+".json")
-		check(Contract.resolve(pilot).zones[0].zoom==1.4,id+" retains its accepted frame")
+		check(Contract.resolve(pilot).zones[0].zoom==pilot.camera.zoom,id+" retains its accepted frame")
 	var camera: Dictionary = road.camera.duplicate(true)
 	camera.zones[1].zoom = 1.8
-	camera.zones[1].conceal = [[140,-225,42,25]]
+	camera.zones[1].conceal = [[140,135,42,25]]
 	check(Contract.resolve({"bounds":road.bounds,"camera":camera}).zones[1].zoom==1.8,"authored per-zone zoom overrides its room value")
 	doc.camera = camera
 	var made := WorldRoomDocument.instantiate(doc)
@@ -73,7 +73,7 @@ func run() -> void:
 		var wrong := camera.duplicate(true)
 		wrong.links[0][field] = {"a":"old_road","b":"missing","band":[0,0,4,-12],"display":[0,400,32,32],"axis":"diagonal","direction":1}[field]
 		reject(road,wrong,"link "+field+" rejected")
-	var forest := WorldRoomDocument.read("res://rooms/world/F11.json")
+	var forest := preload("system_room_fixture.gd").duel("F11","enc_F11","enemy.forest_antler","hollow_antler")
 	var fight: Dictionary = forest.camera.zones[1]
 	check(Contract.validate(forest.camera,forest.bounds,forest.sites).is_empty(),"real forest boss has a matching authored arena")
 	var arena: Dictionary = Contract.resolve(forest).zones[1]

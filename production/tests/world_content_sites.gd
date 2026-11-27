@@ -21,25 +21,25 @@ func check(result: bool, message: String)->void:
 		failures+=1
 		printerr("FAIL ",message)
 
-func ice_lodging_discovery() -> void:
+func grass_entrance_discovery() -> void:
 	var room := OrdinaryRoomSession.new()
 	var store := Storage.new()
 	root.add_child(room)
-	var doc := WorldRoomDocument.read("res://rooms/world/I04.json")
+	var doc := WorldRoomDocument.read("res://rooms/world/P02.json")
 	var opened := room.open(doc,store,null,catalog)
-	check(opened.is_empty(),"open the glacier's mapped approach")
+	check(opened.is_empty(),"open the registered P02 grass approach")
 	if opened.is_empty():
-		var flag := "discover_i04_ice_lodging"
-		room.player.reset_at(Vector2(1092,175))
+		var flag := "discover_p02_low_slope"
+		room.player.reset_at(FixedWorldProvider.point(doc.exits.d001.spawn))
 		await frames(6)
 		check(not room.state.has(flag),"the lower approach preserves the secret")
 		store.writable=false
-		room.player.reset_at(Vector2(1149,91))
+		room.player.reset_at(FixedWorldProvider.point(doc.sites[flag].at))
 		await frames(6)
 		check(not room.state.has(flag),"an unrecorded discovery stays retryable")
 		store.writable=true
 		await frames(6)
-		check(room.state.has(flag) and store.saved.receipts.has(flag),"the upper ice ledge records the locked discovery")
+		check(room.state.has(flag) and store.saved.receipts.has(flag),"the grass entrance records the locked discovery")
 		await room.audio_service.shutdown()
 	room.free()
 	await frames(3)
@@ -76,13 +76,16 @@ func prior_flags(room: OrdinaryRoomSession,flags: Array)->void:
 func act(room: OrdinaryRoomSession,id:String)->bool:
 	return room.content_sites.claim(id,room.state.revision)
 
-func authored_pulse_trial() -> void:
+func practice_target_trial() -> void:
 	var official:=WorldContentCatalog.new()
-	check(official.load_locked().ok and official.load_bindings("res://config/imported_world/bindings.json").ok,"authored P18 catalog")
+	check(official.load_locked().ok and official.load_bindings("res://config/imported_world/bindings.json").ok,"locked catalog and production bindings for the reward test")
 	var room:=OrdinaryRoomSession.new()
 	root.add_child(room)
-	var loaded:=room.open(WorldRoomDocument.read("res://rooms/world/P18.json"),Storage.new(),null,official)
-	check(loaded.is_empty(),"authored P18: "+loaded)
+	var doc:=preload("system_room_fixture.gd").flat("P18")
+	doc.sites["intro_active_skill"]={"at":[350,585]}
+	doc.entities.floor_tuning_dummy={"id":"floor_tuning_dummy","definition_id":"enemy.chime_target","definition_version":1,"properties":{"point":[534,585]}}
+	var loaded:=room.open(doc,Storage.new(),null,official)
+	check(loaded.is_empty(),"isolated reward and practice target room: "+loaded)
 	if not loaded.is_empty(): room.free(); return
 	await frames(6)
 	var at: Vector2=room.content_sites.positions.intro_active_skill
@@ -93,7 +96,7 @@ func authored_pulse_trial() -> void:
 	room.controller.router.set_move_axis(0)
 	await frames(10)
 	prior_flags(room,["encounter_P21_clear"])
-	check(act(room,"intro_active_skill"),"walk to the actual P18 fixture and take the pulse")
+	check(act(room,"intro_active_skill"),"walk to the bound active-skill site and take the pulse")
 	var target: EnemyActor=room.room.enemies.floor_tuning_dummy
 	var hits: Array=[]
 	target.health.changed.connect(func(result: ActorResourceResult):
@@ -230,6 +233,6 @@ func run()->void:
 	check(s.controller.shoot_ability.behavior().phase==&"idle" and s.controller.shoot_ability.get_projectiles().is_empty(),"death cancels charge and clears shots")
 	s.free()
 	await frames(3)
-	await authored_pulse_trial()
-	await ice_lodging_discovery()
+	await practice_target_trial()
+	await grass_entrance_discovery()
 	print("WORLD CONTENT SITES failures=%d checks=%d" % [failures,checks]);quit(1 if failures else 0)

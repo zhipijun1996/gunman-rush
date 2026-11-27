@@ -136,7 +136,7 @@ func healing_and_skills() -> void:
 	touch(point,true)
 	await frames(5)
 	check(session.focus_heal.ratio()>0,"second heal is still charging at handoff")
-	shell.world.enter_room("G23","")
+	shell.world.enter_room("G23","",preload("system_room_fixture.gd").flat("G23"))
 	await frames(3)
 	session=shell.world.active
 	controls=session.touch_controls
@@ -192,7 +192,10 @@ func run() -> void:
 		shell.free()
 		quit(1)
 		return
-	shell.world.enter_room("G12","")
+	# Give the controls an unobstructed rehearsal floor and the overlay its corresponding map identity.
+	for fixture: String in ["G12","G23"]:
+		shell.world.route_map.rooms[fixture]=shell.world.catalog.lookup("rooms",fixture).row
+	shell.world.enter_room("G12","",preload("system_room_fixture.gd").flat("G12"))
 	await frames(10)
 	var session:=shell.world.active
 	var router:=session.controller.router

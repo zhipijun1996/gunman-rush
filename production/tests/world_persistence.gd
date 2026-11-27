@@ -1,7 +1,7 @@
 extends SceneTree
 ## The same native slot is reopened by separate Godot processes. The additional
 ## bench exercises a second registered rest without editing the production room.
-const BENCH := Vector2(150,366)
+var bench: Vector2
 var checks := 0
 var failures := 0
 var slot: PlayableWorldSave
@@ -12,7 +12,7 @@ class WithBench extends WorldGameHost:
 	func read_destination(id: String) -> Dictionary:
 		var doc := super.read_destination(id)
 		if id=="P02" and not doc.has("error"):
-			doc.entities.test_station = {"definition_id":"recovery.station","definition_version":1,"id":"test_station","properties":{"position":[150,366]}}
+			doc.entities.test_station = {"definition_id":"recovery.station","definition_version":1,"id":"test_station","properties":{"position":doc.exits.d001.spawn}}
 		return doc
 
 func _initialize() -> void:
@@ -71,8 +71,9 @@ func write_first_game() -> void:
 	check(s.services.ledger().gold==5 and s.state.value.receipts.has("p01_loft_coin_chest"),"open actual chest and collect all issued coins")
 	host.enter_room("P02","d001")
 	check(host.active.room.room_id=="P02","commit cross-room transfer")
+	bench=FixedWorldProvider.point(host.active_doc.exits.d001.spawn)
 	var field:=host.active
-	field.player.reset_at(BENCH)
+	field.player.reset_at(bench)
 	await ticks(4)
 	var before:=FileAccess.get_file_as_string(slot.path)
 	DirAccess.make_dir_absolute(slot.path+".tmp")
@@ -80,17 +81,18 @@ func write_first_game() -> void:
 	host.enter_room("P03","d002")
 	check(host.active==field and field.lifetime.active and FileAccess.get_file_as_string(slot.path)==before,"rejected door write leaves source playable and old file intact")
 	DirAccess.remove_absolute(slot.path+".tmp")
-	check(field.equipment_transaction("rest","",field.state.revision) and FixedWorldProvider.point(field.state.value.rest.point)==BENCH,"rest transaction registers exact supported bench after retry")
+	check(field.equipment_transaction("rest","",field.state.revision) and FixedWorldProvider.point(field.state.value.rest.point)==bench,"rest transaction registers exact supported bench after retry")
 	host.enter_room("P03","d002")
 	check(host.active.room.room_id=="P03" and host.active.checkpoint(),"durable room entrance and live checkpoint")
 	await close_host()
 
 func resume_and_die() -> void:
+	bench=FixedWorldProvider.point(WorldRoomDocument.read("res://rooms/world/P02.json").exits.d001.spawn)
 	check(slot.startup_room().room=="P03","new process reads last room")
 	if not await open_host():return
 	var s:=host.active
 	check(s.state.has("gun") and s.services.ledger().gold==5 and s.state.value.receipts.has("p01_loft_coin_chest"),"permanent weapon, wallet and paid chest survive process exit")
-	check(s.state.value.rest.room=="P02" and FixedWorldProvider.point(s.state.value.rest.point)==BENCH and s.state.value.entry=="d002","foreign rest and last entrance both survive")
+	check(s.state.value.rest.room=="P02" and FixedWorldProvider.point(s.state.value.rest.point)==bench and s.state.value.entry=="d002","foreign rest and last entrance both survive")
 	var health:=s.controller.actor_resources.health
 	var hit:=DamageRequest.new()
 	hit.target_id=&"player"
@@ -106,13 +108,14 @@ func resume_and_die() -> void:
 	for i in 200:
 		await physics_frame
 		if host.active!=s and not host.crossing:break
-	check(host.active!=s and host.active.room.room_id=="P02" and host.active.state.value.cycle==cycle+1 and host.active.player.position.distance_to(BENCH)<2,"death returns to precise bench in other room")
+	check(host.active!=s and host.active.room.room_id=="P02" and host.active.state.value.cycle==cycle+1 and host.active.player.position.distance_to(bench)<2,"death returns to precise bench in other room")
 	check(host.active.controller.actor_resources.health.current==host.active.controller.actor_resources.health.capacity and host.active.state.has("gun") and host.active.services.ledger().gold==5,"respawn restores health and keeps permanent progress")
 	await close_host()
 
 func replacement() -> void:
+	bench=FixedWorldProvider.point(WorldRoomDocument.read("res://rooms/world/P02.json").exits.d001.spawn)
 	if not await open_host():return
-	check(host.active.room.room_id=="P02" and host.active.player.position.distance_to(BENCH)<2,"restart immediately after death stands at registered bench")
+	check(host.active.room.room_id=="P02" and host.active.player.position.distance_to(bench)<2,"restart immediately after death stands at registered bench")
 	var old_host:=host.active
 	var before:=FileAccess.get_file_as_string(slot.path)
 	var dialog:=WorldNewGameDialog.mount(host)
