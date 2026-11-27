@@ -63,7 +63,14 @@ def main():
     with tempfile.TemporaryDirectory(prefix="gunman-intro-android-") as work:
         base = Path(work)
         stage = base / "project"
-        shutil.copytree(source, stage, ignore=shutil.ignore_patterns(".godot", ".gdignore", "addons", "tests"))
+        def excluded(folder, names):
+            parent = Path(folder)
+            skipped = {name for name in names if (parent / name / ".gdignore").is_file()}
+            if parent == source:
+                skipped.update((".godot", ".gdignore", "addons", "tests"))
+            return skipped
+
+        shutil.copytree(source, stage, ignore=excluded)
         project = stage / "project.godot"
         settings = project.read_text().splitlines()
         settings = [line for line in settings if not line.startswith("run/main_scene=")]
