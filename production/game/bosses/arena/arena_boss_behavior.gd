@@ -12,6 +12,7 @@ var floor_y := 0.0
 func configure(owner_actor: EnemyActor, target: PlayerController, damage_policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:
 	super.configure(owner_actor,target,damage_policy,scope,id,safe_points)
 	machine = actor.definition as ArenaBossDefinition
+	phases.threshold = machine.phase_two_at
 	home = actor._spawn
 	floor_y = home.y + machine.floor_offset
 
@@ -29,7 +30,7 @@ func advance(delta: float) -> bool:
 		if state != &"idle": _set_state(&"idle")
 		cooldown = 0.4
 		return true
-	if phases.update(actor.health.current,machine.health_definition.max_health):
+	if update_phase():
 		pattern_step = 0
 		GameAudio.cue(self,&"bell")
 	state_time += delta
@@ -38,7 +39,7 @@ func advance(delta: float) -> bool:
 			cooldown -= delta
 			if cooldown <= 0: _prepare()
 		&"telegraph":
-			if state_time >= machine.telegraph_duration:
+			if state_time >= warning_seconds():
 				_set_state(&"attack")
 				GameAudio.cue(self,attack_sound())
 		&"attack":
@@ -55,8 +56,19 @@ func advance(delta: float) -> bool:
 			if state_time >= machine.recovery_duration: _set_state(&"idle")
 	return true
 
+func warning_seconds() -> float:
+	return machine.telegraph_duration
+
+func update_phase() -> bool:
+	var changed := phases.update(actor.health.current,machine.health_definition.max_health)
+	if phases.phase==2 and not machine.third_cycle.is_empty() and actor.health.current>0 and actor.health.current<=actor.health.capacity*machine.phase_three_at:
+		phases.phase=3
+		return true
+	return changed
+
 func _prepare() -> void:
 	var cycle := machine.first_cycle if phases.phase==1 else machine.second_cycle
+	if phases.phase==3: cycle=machine.third_cycle
 	move_id = StringName(cycle[pattern_step % cycle.size()])
 	pattern_step += 1
 	_serial += 1
@@ -110,7 +122,7 @@ func restore_region_state(saved: Dictionary) -> bool:
 	# A rebuilt room starts with a fresh readable warning, never a half-completed blow.
 	home = actor._spawn
 	floor_y = home.y + machine.floor_offset
-	phases.update(actor.health.current,machine.health_definition.max_health)
+	update_phase()
 	_serial = int(saved.get("serial",0))
 	pattern_step = _serial
 	cooldown = 0.5

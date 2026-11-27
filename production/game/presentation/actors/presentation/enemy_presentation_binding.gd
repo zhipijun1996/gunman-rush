@@ -9,6 +9,8 @@ const RENDERERS := {
 	&"underworld": "res://game/presentation/actors/underworld_plains/underworld_enemy.gd"
 }
 const BODY_KEYS := {
+	&"ember_molter": &"ember_molter",
+	&"tide_pump_bell": &"tide_pump_bell",
 	&"borer_three": &"borer_three",
 	&"stone_curtain_lord": &"stone_curtain_lord",
 	&"clock_regulator": &"clock_regulator",

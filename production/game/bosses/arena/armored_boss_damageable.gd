@@ -1,5 +1,5 @@
 extends Damageable
-## Plated chassis stops projectiles. Only a stopped machine exposes its mechanism.
+## Shell or armour protects the body until the recovery animation exposes a weak point.
 func can_receive_effects() -> bool:
 	var actor := get_parent().get_node_or_null("Actor") as EnemyActor
 	return active and actor != null and actor.attack_behavior != null and actor.attack_behavior.state == &"recovery"
@@ -11,4 +11,7 @@ func physical_impact(_point: Vector2) -> void:
 	if active and not can_receive_effects(): GameAudio.cue(self,&"armour")
 
 func receive_damage(context: Dictionary) -> bool:
-	return can_receive_effects() and super.receive_damage(context)
+	if can_receive_effects(): return super.receive_damage(context)
+	if active and context.get("source_faction") == &"player":
+		physical_impact(context.get("hit_point",Vector2.ZERO))
+	return false

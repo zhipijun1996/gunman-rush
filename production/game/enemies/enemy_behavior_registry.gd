@@ -6,6 +6,8 @@ extends RefCounted
 # remains in its Manifest; only the finite resolver selects retained bytes.
 const CHARGER_V2_REVISION := "1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0"
 const BEHAVIORS := {
+	&"ember_molter": {"family":&"depth_boss", "script":"res://game/bosses/tide_and_ember/molter_behavior.gd", "definition":"res://resources/enemies/ember_molter.tres", "scene":"res://game/bosses/tide_and_ember/ember_molter.tscn"},
+	&"tide_pump_bell": {"family":&"depth_boss", "script":"res://game/bosses/tide_and_ember/pump_keeper.gd", "definition":"res://resources/enemies/tide_pump_bell.tres", "scene":"res://game/bosses/tide_and_ember/tide_pump_bell.tscn"},
 	&"borer_three": {"family":&"depth_boss", "script":"res://game/bosses/depths/borer_behavior.gd", "definition":"res://resources/enemies/borer_three.tres", "scene":"res://game/bosses/depths/borer_three.tscn"},
 	&"stone_curtain_lord": {"family":&"depth_boss", "script":"res://game/bosses/depths/stone_curtain_behavior.gd", "definition":"res://resources/enemies/stone_curtain_lord.tres", "scene":"res://game/bosses/depths/stone_curtain_lord.tscn"},
 	&"clock_regulator": {"family":&"machine", "script":"res://game/bosses/machines/machine_behavior.gd", "definition":"res://resources/enemies/clock_regulator.tres", "scene":"res://game/bosses/machines/clock_regulator.tscn"},
