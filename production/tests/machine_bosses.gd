@@ -205,5 +205,5 @@ func run() -> void:
 	await exercise("N23","borer_three","borer_three")
 	await exercise("R23","tide_pump_bell","tide_pump_bell")
 	await exercise("E21","ember_molter","ember_molter")
-	print("MACHINE BOSSES checks=",checks," failures=",failures)
+	print("MACHINE BOSSES failures=",failures," checks=",checks)
 	quit(1 if failures else 0)
