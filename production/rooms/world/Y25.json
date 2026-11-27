@@ -1,0 +1,186 @@
+{
+  "schema": 3,
+  "room_id": "Y25",
+  "bounds": [
+    0,
+    0,
+    1530,
+    710
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windswept_canyon",
+      "terrain_material": "windswept_canyon",
+      "start_point": [
+        154,
+        530
+      ]
+    }
+  },
+  "entities": {
+    "basalt_foot_0": {
+      "id": "basalt_foot_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -48,
+          548,
+          1626,
+          218
+        ]
+      }
+    },
+    "vault_rib_0": {
+      "id": "vault_rib_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          251,
+          466,
+          241,
+          14
+        ]
+      }
+    },
+    "vault_rib_1": {
+      "id": "vault_rib_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          594,
+          380,
+          221,
+          14
+        ]
+      }
+    },
+    "vault_rib_2": {
+      "id": "vault_rib_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          947,
+          310,
+          239,
+          14
+        ]
+      }
+    },
+    "low_patrol": {
+      "id": "low_patrol",
+      "definition_id": "enemy.hopper",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          566,
+          534
+        ]
+      }
+    },
+    "verge_watch": {
+      "id": "verge_watch",
+      "definition_id": "enemy.charger",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1178,
+          534
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d429": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        530
+      ],
+      "spawn": [
+        68,
+        530
+      ],
+      "span": [
+        440,
+        552
+      ]
+    },
+    "d430": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1528,
+        530
+      ],
+      "spawn": [
+        1436,
+        530
+      ],
+      "span": [
+        440,
+        552
+      ]
+    }
+  },
+  "sites": {
+    "d430": {
+      "at": [
+        1421,
+        530
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/windswept_canyon/windswept_canyon-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_lamp.png",
+        "at": [
+          704,
+          380
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_lamp.png",
+        "at": [
+          289,
+          466
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_lamp.png",
+        "at": [
+          1255,
+          548
+        ],
+        "z_index": -4
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "low_patrol": {
+        "species_id": "species.07a6949651f8",
+        "drop_profile_id": "drop.07a6949651f8.t2"
+      },
+      "verge_watch": {
+        "species_id": "species.54db39921c66",
+        "drop_profile_id": "drop.54db39921c66.t2"
+      }
+    }
+  }
+}

@@ -1,0 +1,295 @@
+{
+  "schema": 3,
+  "room_id": "Y15",
+  "bounds": [
+    0,
+    0,
+    1660,
+    857
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windswept_canyon",
+      "terrain_material": "windswept_canyon",
+      "start_point": [
+        154,
+        645
+      ]
+    }
+  },
+  "entities": {
+    "d416_head_landing": {
+      "id": "d416_head_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          751,
+          95,
+          158,
+          14
+        ]
+      }
+    },
+    "basalt_foot_0": {
+      "id": "basalt_foot_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -48,
+          663,
+          1756,
+          250
+        ]
+      }
+    },
+    "bearing_0": {
+      "id": "bearing_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          279,
+          602,
+          38,
+          73
+        ]
+      }
+    },
+    "stone_crown_0": {
+      "id": "stone_crown_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          259,
+          590,
+          182,
+          24
+        ]
+      }
+    },
+    "vault_rib_1": {
+      "id": "vault_rib_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          513,
+          514,
+          205,
+          14
+        ]
+      }
+    },
+    "bearing_2": {
+      "id": "bearing_2",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          832,
+          428,
+          38,
+          247
+        ]
+      }
+    },
+    "stone_crown_2": {
+      "id": "stone_crown_2",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          812,
+          416,
+          198,
+          24
+        ]
+      }
+    },
+    "vault_rib_3": {
+      "id": "vault_rib_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1111,
+          312,
+          228,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_1": {
+      "id": "shaft_avoidance_0_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          685,
+          558,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_2": {
+      "id": "shaft_avoidance_0_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          855,
+          453,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_3": {
+      "id": "shaft_avoidance_0_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          685,
+          348,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_4": {
+      "id": "shaft_avoidance_0_4",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          855,
+          243,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_5": {
+      "id": "shaft_avoidance_0_5",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          685,
+          138,
+          192,
+          14
+        ]
+      }
+    },
+    "low_patrol": {
+      "id": "low_patrol",
+      "definition_id": "enemy.hopper",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          614,
+          649
+        ]
+      }
+    },
+    "verge_watch": {
+      "id": "verge_watch",
+      "definition_id": "enemy.charger",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1278,
+          649
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d415": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1658,
+        645
+      ],
+      "spawn": [
+        1592,
+        645
+      ],
+      "span": [
+        555,
+        667
+      ]
+    },
+    "d416": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        830,
+        14
+      ],
+      "spawn": [
+        830,
+        77
+      ],
+      "span": [
+        782,
+        878
+      ]
+    }
+  },
+  "sites": {
+    "wr_TG10": {
+      "at": [
+        830,
+        645
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/windswept_canyon/windswept_canyon-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_v2_bearing_stone.png",
+        "at": [
+          911,
+          416
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_lamp.png",
+        "at": [
+          297,
+          590
+        ],
+        "z_index": -4
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "low_patrol": {
+        "species_id": "species.07a6949651f8",
+        "drop_profile_id": "drop.07a6949651f8.t1"
+      },
+      "verge_watch": {
+        "species_id": "species.54db39921c66",
+        "drop_profile_id": "drop.54db39921c66.t1"
+      }
+    }
+  }
+}

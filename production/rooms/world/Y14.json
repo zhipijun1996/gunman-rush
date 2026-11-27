@@ -1,0 +1,202 @@
+{
+  "schema": 3,
+  "room_id": "Y14",
+  "bounds": [
+    0,
+    0,
+    1390,
+    792
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windswept_canyon",
+      "terrain_material": "windswept_canyon",
+      "start_point": [
+        154,
+        572
+      ]
+    }
+  },
+  "entities": {
+    "d414_shaft_toe": {
+      "id": "d414_shaft_toe",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          745,
+          742,
+          110,
+          90
+        ]
+      }
+    },
+    "d414_shaft_step": {
+      "id": "d414_shaft_step",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          708,
+          666,
+          50,
+          14
+        ]
+      }
+    },
+    "basalt_foot_0": {
+      "id": "basalt_foot_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -48,
+          590,
+          693,
+          258
+        ]
+      }
+    },
+    "basalt_foot_1": {
+      "id": "basalt_foot_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          829,
+          590,
+          609,
+          258
+        ]
+      }
+    },
+    "bearing_0": {
+      "id": "bearing_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          272,
+          537,
+          38,
+          65
+        ]
+      }
+    },
+    "stone_crown_0": {
+      "id": "stone_crown_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          252,
+          525,
+          180,
+          24
+        ]
+      }
+    },
+    "vault_rib_1": {
+      "id": "vault_rib_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          478,
+          476,
+          206,
+          14
+        ]
+      }
+    },
+    "bearing_2": {
+      "id": "bearing_2",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          795,
+          417,
+          38,
+          185
+        ]
+      }
+    },
+    "stone_crown_2": {
+      "id": "stone_crown_2",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          775,
+          405,
+          246,
+          24
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d414": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        695,
+        782
+      ],
+      "spawn": [
+        771,
+        724
+      ],
+      "span": [
+        647,
+        743
+      ]
+    },
+    "d415": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        572
+      ],
+      "spawn": [
+        68,
+        572
+      ],
+      "span": [
+        482,
+        594
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/windswept_canyon/windswept_canyon-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_v2_bearing_stone.png",
+        "at": [
+          581,
+          476
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_lamp.png",
+        "at": [
+          290,
+          525
+        ],
+        "z_index": -4
+      }
+    ]
+  },
+  "actions": []
+}

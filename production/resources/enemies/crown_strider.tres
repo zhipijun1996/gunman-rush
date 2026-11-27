@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ArenaBossDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/bosses/arena/arena_boss_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bosses/machines/crown_strider.png" id="3"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"crown_strider_health"
+max_health = 20.0
+initial_current = 20.0
+[resource]
+script = ExtResource("1")
+stable_id = &"crown_strider"
+behavior_id = &"crown_strider"
+health_definition = SubResource("health")
+collision_size = Vector2(100, 70)
+aerial = false
+telegraph_duration = 0.82
+attack_duration = 0.85
+recovery_duration = 1.6
+attack_speed = 475.0
+floor_offset = 35.0
+arena_half_width = 520.0
+reach = 320.0
+first_cycle = PackedStringArray("sweep", "rail")
+second_cycle = PackedStringArray("rail", "stamp", "backswing")
+projectile_speed = 248.0
+projectile_lifetime = 2.2
+projectile_muzzle_pivot = Vector2(26,-9)
+body_art = ExtResource("3")

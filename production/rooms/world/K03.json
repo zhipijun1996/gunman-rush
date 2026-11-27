@@ -1,0 +1,262 @@
+{
+  "schema": 3,
+  "room_id": "K03",
+  "bounds": [
+    0,
+    0,
+    1490,
+    813
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "moon_crown_castle",
+      "terrain_material": "moon_crown_castle",
+      "start_point": [
+        154,
+        603
+      ]
+    }
+  },
+  "entities": {
+    "d081_head_landing": {
+      "id": "d081_head_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          666,
+          95,
+          158,
+          14
+        ]
+      }
+    },
+    "basalt_foot_0": {
+      "id": "basalt_foot_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -48,
+          621,
+          1586,
+          248
+        ]
+      }
+    },
+    "vault_rib_0": {
+      "id": "vault_rib_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          238,
+          534,
+          189,
+          14
+        ]
+      }
+    },
+    "vault_rib_1": {
+      "id": "vault_rib_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          503,
+          444,
+          187,
+          14
+        ]
+      }
+    },
+    "vault_rib_2": {
+      "id": "vault_rib_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          844,
+          346,
+          177,
+          14
+        ]
+      }
+    },
+    "vault_rib_3": {
+      "id": "vault_rib_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1087,
+          264,
+          203,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_1": {
+      "id": "shaft_avoidance_0_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          600,
+          516,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_2": {
+      "id": "shaft_avoidance_0_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          770,
+          411,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_3": {
+      "id": "shaft_avoidance_0_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          600,
+          306,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_4": {
+      "id": "shaft_avoidance_0_4",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          770,
+          201,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_5": {
+      "id": "shaft_avoidance_0_5",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          600,
+          96,
+          192,
+          14
+        ]
+      }
+    },
+    "low_patrol": {
+      "id": "low_patrol",
+      "definition_id": "enemy.diver",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          551,
+          492
+        ]
+      }
+    },
+    "verge_watch": {
+      "id": "verge_watch",
+      "definition_id": "enemy.ground_fan_sentry",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1147,
+          607
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d080": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        603
+      ],
+      "spawn": [
+        68,
+        603
+      ],
+      "span": [
+        513,
+        625
+      ]
+    },
+    "d081": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        745,
+        14
+      ],
+      "spawn": [
+        745,
+        77
+      ],
+      "span": [
+        697,
+        793
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/moon_crown_castle/moon_crown_castle-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/moon_crown_castle/moon_crown_castle_v2_royal_banner.png",
+        "at": [
+          932,
+          346
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/moon_crown_castle/moon_crown_castle_lamp.png",
+        "at": [
+          276,
+          534
+        ],
+        "z_index": -4
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "low_patrol": {
+        "species_id": "species.1203cf9f0fa5",
+        "drop_profile_id": "drop.1203cf9f0fa5.t1"
+      },
+      "verge_watch": {
+        "species_id": "species.6438c1441a4e",
+        "drop_profile_id": "drop.6438c1441a4e.t1"
+      }
+    }
+  }
+}

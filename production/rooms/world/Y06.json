@@ -1,0 +1,241 @@
+{
+  "schema": 3,
+  "room_id": "Y06",
+  "bounds": [
+    0,
+    0,
+    1530,
+    720
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windswept_canyon",
+      "terrain_material": "windswept_canyon",
+      "start_point": [
+        154,
+        522
+      ]
+    }
+  },
+  "entities": {
+    "d200_head_landing": {
+      "id": "d200_head_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          686,
+          95,
+          158,
+          14
+        ]
+      }
+    },
+    "basalt_foot_0": {
+      "id": "basalt_foot_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -48,
+          540,
+          1626,
+          236
+        ]
+      }
+    },
+    "bearing_0": {
+      "id": "bearing_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          300,
+          458,
+          38,
+          94
+        ]
+      }
+    },
+    "stone_crown_0": {
+      "id": "stone_crown_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          280,
+          446,
+          185,
+          24
+        ]
+      }
+    },
+    "vault_rib_1": {
+      "id": "vault_rib_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          615,
+          352,
+          248,
+          14
+        ]
+      }
+    },
+    "bearing_2": {
+      "id": "bearing_2",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1050,
+          419,
+          38,
+          133
+        ]
+      }
+    },
+    "stone_crown_2": {
+      "id": "stone_crown_2",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1030,
+          407,
+          213,
+          24
+        ]
+      }
+    },
+    "shaft_avoidance_0_1": {
+      "id": "shaft_avoidance_0_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          620,
+          435,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_2": {
+      "id": "shaft_avoidance_0_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          790,
+          330,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_3": {
+      "id": "shaft_avoidance_0_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          620,
+          225,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_4": {
+      "id": "shaft_avoidance_0_4",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          790,
+          120,
+          192,
+          14
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d199": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1528,
+        522
+      ],
+      "spawn": [
+        1462,
+        522
+      ],
+      "span": [
+        432,
+        544
+      ]
+    },
+    "d200": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        765,
+        14
+      ],
+      "spawn": [
+        765,
+        77
+      ],
+      "span": [
+        717,
+        813
+      ]
+    }
+  },
+  "sites": {
+    "wr_TG29": {
+      "at": [
+        510,
+        522
+      ]
+    },
+    "scatter22_Y06": {
+      "at": [
+        1020,
+        522
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/windswept_canyon/windswept_canyon-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_v2_weather_vane.png",
+        "at": [
+          739,
+          352
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_lamp.png",
+        "at": [
+          318,
+          446
+        ],
+        "z_index": -4
+      }
+    ]
+  },
+  "actions": []
+}

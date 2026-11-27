@@ -1,0 +1,152 @@
+{
+  "schema": 3,
+  "room_id": "K06",
+  "bounds": [
+    0,
+    0,
+    1420,
+    674
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "moon_crown_castle",
+      "terrain_material": "moon_crown_castle",
+      "start_point": [
+        154,
+        483
+      ]
+    }
+  },
+  "entities": {
+    "basalt_foot_0": {
+      "id": "basalt_foot_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -48,
+          501,
+          1516,
+          229
+        ]
+      }
+    },
+    "vault_rib_0": {
+      "id": "vault_rib_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          288,
+          424,
+          215,
+          14
+        ]
+      }
+    },
+    "vault_rib_1": {
+      "id": "vault_rib_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          649,
+          359,
+          338,
+          14
+        ]
+      }
+    },
+    "vault_rib_2": {
+      "id": "vault_rib_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1063,
+          437,
+          147,
+          14
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d090": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1418,
+        483
+      ],
+      "spawn": [
+        1352,
+        483
+      ],
+      "span": [
+        393,
+        505
+      ]
+    },
+    "d091": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        483
+      ],
+      "spawn": [
+        68,
+        483
+      ],
+      "span": [
+        393,
+        505
+      ]
+    }
+  },
+  "sites": {
+    "scatter22_K06": {
+      "at": [
+        710,
+        483
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/moon_crown_castle/moon_crown_castle-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/moon_crown_castle/moon_crown_castle_v2_armor_pedestal.png",
+        "at": [
+          818,
+          359
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/moon_crown_castle/moon_crown_castle_lamp.png",
+        "at": [
+          326,
+          424
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/moon_crown_castle/moon_crown_castle_lamp.png",
+        "at": [
+          1164,
+          501
+        ],
+        "z_index": -4
+      }
+    ]
+  },
+  "actions": []
+}

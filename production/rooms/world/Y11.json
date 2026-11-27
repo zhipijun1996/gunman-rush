@@ -1,0 +1,290 @@
+{
+  "schema": 3,
+  "room_id": "Y11",
+  "bounds": [
+    0,
+    0,
+    1740,
+    758
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windswept_canyon",
+      "terrain_material": "windswept_canyon",
+      "start_point": [
+        154,
+        552
+      ]
+    }
+  },
+  "entities": {
+    "d195_head_landing": {
+      "id": "d195_head_landing",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          791,
+          95,
+          158,
+          14
+        ]
+      }
+    },
+    "basalt_foot_0": {
+      "id": "basalt_foot_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -48,
+          570,
+          1836,
+          244
+        ]
+      }
+    },
+    "vault_rib_0": {
+      "id": "vault_rib_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          349,
+          493,
+          242,
+          14
+        ]
+      }
+    },
+    "vault_rib_1": {
+      "id": "vault_rib_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          680,
+          424,
+          310,
+          14
+        ]
+      }
+    },
+    "vault_rib_2": {
+      "id": "vault_rib_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1134,
+          491,
+          256,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_1": {
+      "id": "shaft_avoidance_0_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          725,
+          465,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_2": {
+      "id": "shaft_avoidance_0_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          895,
+          360,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_3": {
+      "id": "shaft_avoidance_0_3",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          725,
+          255,
+          192,
+          14
+        ]
+      }
+    },
+    "shaft_avoidance_0_4": {
+      "id": "shaft_avoidance_0_4",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          895,
+          150,
+          192,
+          14
+        ]
+      }
+    },
+    "waystation_bench": {
+      "id": "waystation_bench",
+      "definition_id": "recovery.station",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          1607,
+          552
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d194": {
+      "direction": [
+        1,
+        0
+      ],
+      "point": [
+        1738,
+        552
+      ],
+      "spawn": [
+        1672,
+        552
+      ],
+      "span": [
+        462,
+        574
+      ]
+    },
+    "d195": {
+      "direction": [
+        0,
+        -1
+      ],
+      "point": [
+        870,
+        14
+      ],
+      "spawn": [
+        870,
+        77
+      ],
+      "span": [
+        822,
+        918
+      ]
+    },
+    "d420": {
+      "direction": [
+        -1,
+        0
+      ],
+      "point": [
+        2,
+        552
+      ],
+      "spawn": [
+        68,
+        552
+      ],
+      "span": [
+        462,
+        574
+      ]
+    }
+  },
+  "sites": {
+    "read_sign_y11": {
+      "at": [
+        218,
+        552
+      ]
+    },
+    "wr20_equipment_144": {
+      "at": [
+        435,
+        552
+      ]
+    },
+    "wr20_equipment_B27": {
+      "at": [
+        652,
+        552
+      ]
+    },
+    "wr20_equipment_B28": {
+      "at": [
+        870,
+        552
+      ]
+    },
+    "wr_Y13_primary": {
+      "at": [
+        1088,
+        552
+      ]
+    },
+    "npc20_canyon": {
+      "at": [
+        1305,
+        552
+      ]
+    },
+    "tp_Y11": {
+      "at": [
+        1522,
+        552
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/windswept_canyon/windswept_canyon-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_lamp.png",
+        "at": [
+          835,
+          424
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_lamp.png",
+        "at": [
+          387,
+          493
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_landmark.png",
+        "at": [
+          1607,
+          570
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/windswept_canyon/windswept_canyon_lamp.png",
+        "at": [
+          1427,
+          570
+        ],
+        "z_index": -4
+      }
+    ]
+  },
+  "actions": []
+}

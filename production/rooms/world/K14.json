@@ -1,0 +1,185 @@
+{
+  "schema": 3,
+  "room_id": "K14",
+  "bounds": [
+    0,
+    0,
+    1240,
+    789
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "moon_crown_castle",
+      "terrain_material": "moon_crown_castle",
+      "start_point": [
+        154,
+        574
+      ]
+    }
+  },
+  "entities": {
+    "d354_shaft_toe": {
+      "id": "d354_shaft_toe",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          670,
+          739,
+          110,
+          90
+        ]
+      }
+    },
+    "d354_shaft_step": {
+      "id": "d354_shaft_step",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          633,
+          665,
+          50,
+          14
+        ]
+      }
+    },
+    "basalt_foot_0": {
+      "id": "basalt_foot_0",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -48,
+          592,
+          618,
+          253
+        ]
+      }
+    },
+    "basalt_foot_1": {
+      "id": "basalt_foot_1",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          754,
+          592,
+          534,
+          253
+        ]
+      }
+    },
+    "vault_rib_0": {
+      "id": "vault_rib_0",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          279,
+          509,
+          234,
+          14
+        ]
+      }
+    },
+    "vault_rib_1": {
+      "id": "vault_rib_1",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          598,
+          424,
+          266,
+          14
+        ]
+      }
+    },
+    "vault_rib_2": {
+      "id": "vault_rib_2",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          914,
+          344,
+          181,
+          14
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d354": {
+      "direction": [
+        0,
+        1
+      ],
+      "point": [
+        620,
+        779
+      ],
+      "spawn": [
+        696,
+        721
+      ],
+      "span": [
+        572,
+        668
+      ]
+    }
+  },
+  "sites": {
+    "wr_K14_primary": {
+      "at": [
+        310,
+        574
+      ]
+    },
+    "coin20_K14": {
+      "at": [
+        726,
+        574
+      ]
+    },
+    "scatter22_K14": {
+      "at": [
+        930,
+        574
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/moon_crown_castle/moon_crown_castle-background.png",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/moon_crown_castle/moon_crown_castle_v2_armor_pedestal.png",
+        "at": [
+          731,
+          424
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/moon_crown_castle/moon_crown_castle_lamp.png",
+        "at": [
+          317,
+          509
+        ],
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/moon_crown_castle/moon_crown_castle_lamp.png",
+        "at": [
+          1017,
+          592
+        ],
+        "z_index": -4
+      }
+    ]
+  },
+  "actions": []
+}
