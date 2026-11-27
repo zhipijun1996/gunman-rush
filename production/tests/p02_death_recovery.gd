@@ -52,6 +52,7 @@ func run() -> void:
 	root.add_child(pilot)
 	var storage := Storage.new()
 	pilot.active.state.storage = storage
+	check(await preload("res://tests/plains_start_input.gd").take_ground_gun(pilot),"claim the gun before entering the danger route")
 	check(await enter_field(),"real P01 crossing enters the field")
 	# Collect the two actual P16 services. The passage suites exercise the journeys.
 	pilot.enter_room("P16","d009")

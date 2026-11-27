@@ -7,6 +7,8 @@ var failures := 0
 var checks := 0
 var fired := 0
 var wall_kicks := 0
+var touch
+var low_coin_total := 0
 
 func _initialize() -> void:
 	run.call_deferred()
@@ -26,12 +28,20 @@ func mark(id: String) -> void:
 	print("INTRO_FRAME ",id," ",Engine.get_process_frames()," ",field.active.room.room_id," ",at)
 
 func input_axis(axis: float) -> void:
+	if touch!=null:
+		touch.move(axis)
+		return
 	field.active.controller.router.set_move_axis(axis)
 
 func action(name: StringName, aim := Vector2.ZERO) -> void:
+	if touch!=null:
+		if name==&"shoot_release": touch.fire(aim)
+		elif name==&"jump" or name==&"jump_release": touch.jump(name==&"jump")
+		return
 	field.active.controller.router.request_action(name,aim)
 
 func bind_controller(_room: String) -> void:
+	if touch!=null: touch.attach(field.active)
 	field.active.controller.shoot_ability.shot_fired.connect(func(_aim: Vector2,_packet: int): fired+=1)
 	field.active.controller.jump_ability.accepted_jump.connect(func(kind: StringName,_serial: int,_at: Vector2):
 		if kind==&"wall": wall_kicks+=1)
@@ -67,6 +77,10 @@ func cross(to: String, side: float) -> bool:
 	return false
 
 func interact() -> void:
+	if touch!=null:
+		touch.tap(touch.controls.interact_center)
+		await tick(4)
+		return
 	for pressed: bool in [true,false]:
 		var event:=InputEventKey.new()
 		event.keycode=KEY_UP
@@ -86,29 +100,43 @@ func jump_toward(x: float, y: float, label: String, recoil := Vector2.ZERO, hold
 	return require(reached and await ground(y),label)
 
 func p01_practice() -> void:
+	mark("p01_start")
 	if not require(field.active.room.room_id=="P01" and await ground(270),"new play begins on the actual P01 field"): return
 	var hp:=field.active.controller.actor_resources.health.current
 	var sign_reader:=field.active.sign_reader
 	if not require(sign_reader!=null and not sign_reader.hint.visible,"the reading key does not appear at the distant spawn"): return
-	mark("p01_start")
-	await tick(65)
+	if not require(not field.active.state.has("gun") and not field.active.controller.shoot_ability.enabled,"P01 begins unarmed"): return
+	await tick(18)
+	var unarmed_shots:=fired
+	action(&"shoot_release",Vector2.DOWN)
+	await tick(6)
+	if not require(fired==unarmed_shots and await ground(270),"pulling the trigger before pickup cannot fire or launch the player"): return
+	if not require(await go(155),"walk to the visible weapon after standing up"): return
+	await interact()
+	if not require(field.active.state.has("gun") and field.active.controller.shoot_ability.enabled and not sign_reader.reading,"interaction at the loose gun equips it without opening the sign"): return
+	mark("p01_gun")
 	if not require(await go(162),"walk out from the registered birthplace"): return
 	await tick(64)
 	mark("p01_read_prompt")
-	if not require(sign_reader.hint.visible and "↑" in sign_reader.hint.text and "W" in sign_reader.hint.text,"the nearby board shows the available reading keys before any interaction"): return
+	if not require(sign_reader.hint.visible and (touch!=null or ("↑" in sign_reader.hint.text and "W" in sign_reader.hint.text)),"the nearby board shows the available reading keys before any interaction"): return
 	await interact()
 	if not require(sign_reader.reading and "反冲" in sign_reader.message.text,"the sign teaches the downward shot at the first safe field"): return
 	if not require(not sign_reader.hint.visible,"reading the open notice hides its approach prompt"): return
 	await tick(70)
-	var escape:=InputEventKey.new()
-	escape.keycode=KEY_ESCAPE
-	escape.pressed=true
-	Input.parse_input_event(escape)
-	await tick(2)
-	escape=escape.duplicate()
-	escape.pressed=false
-	Input.parse_input_event(escape)
-	await tick(2)
+	if touch!=null:
+		var close_button:=sign_reader.panel.find_children("*","Button",true,false)[0] as Button
+		touch.tap(close_button.get_global_rect().get_center())
+		await tick(3)
+	else:
+		var escape:=InputEventKey.new()
+		escape.keycode=KEY_ESCAPE
+		escape.pressed=true
+		Input.parse_input_event(escape)
+		await tick(2)
+		escape=escape.duplicate()
+		escape.pressed=false
+		Input.parse_input_event(escape)
+		await tick(2)
 	if not require(not sign_reader.reading and not paused,"close the sign and resume normal play"): return
 	# Same launch point and initial jump. Measure the extra motion from firing.
 	action(&"jump")
@@ -138,7 +166,19 @@ func p01_practice() -> void:
 	action(&"jump_release")
 	if not require(await ground(102),"the training board receives the recoil jumper"): return
 	mark("p01_deck")
-	await tick(45)
+	if not require(await go(364) and await ground(102),"stand beside the physical loft chest"): return
+	var old_gold:int=field.active.services.ledger().gold
+	await tick(8)
+	await interact()
+	# Coins follow the normal pickup physics, so walk the top after opening.
+	await tick(60)
+	if not require(await go(402) and await go(267) and await go(364),"walk the practice loft to pick up the actual bouncing money bag"): return
+	await tick(20)
+	if not require(field.active.services.ledger().gold==old_gold+5,"the opened chest awards precisely five physically collected coins"): return
+	mark("p01_chest")
+	await interact()
+	await tick(16)
+	if not require(field.active.services.ledger().gold==old_gold+5,"the open chest cannot issue a second drop"): return
 	if not require(await go(440) and await ground(270),"stepping off the deck returns to supported grass"): return
 	var destination:=field.passage_attempts
 	if not require(await go(650) and field.passage_attempts==destination and field.active.controller.actor_resources.health.current==hp,"practice and its fall do not cost health or trigger a distant gate"): return
@@ -146,9 +186,59 @@ func p01_practice() -> void:
 	if not require(await cross("P02",1),"walk from P01 east into P02"): return
 	mark("p01_end")
 
+func climb_grass_recess(y: float) -> bool:
+	if not require(await go(281),"take off from the open side of the grass ledge"): return false
+	input_axis(-1)
+	action(&"jump")
+	await tick(4)
+	input_axis(0)
+	await tick(7)
+	action(&"jump_release")
+	return require(await go(304) and await ground(y),"steer back onto the next grass-bank tread")
+
+func hidden_field_detour() -> bool:
+	if not require(await go(459) and await ground(558),"step off the upper field into its drainage channel"): return false
+	if not require(await go(307) and field.active.state.has("discover_p02_low_slope"),"find the root passage on foot"): return false
+	mark("p02_grass")
+	var bug:EnemyActor=field.active.room.enemies.grass_verge_grub
+	for i: int in 7:
+		if bug.health.terminal: break
+		if not require(await go(307),"steady the shot on the bank"): return false
+		action(&"shoot_release",(bug.motor.position-field.active.player.position+Vector2(0,5)).normalized())
+		await tick(28)
+	if not require(bug.health.terminal,"clear the low grass patrol with the gun picked up in P01"): return false
+	if not await go(404): return false
+	input_axis(-1)
+	action(&"jump")
+	await tick(5)
+	action(&"shoot_release",Vector2(1,.15).normalized())
+	if not require(await go(140),"vault the opening toward the lower west bank"): return false
+	action(&"jump_release")
+	if not require(await ground(590),"land on the west bank before the sealed hillside"): return false
+	mark("p02_bank")
+	input_axis(-1)
+	await tick(52)
+	if not require(field.active.player.is_on_wall() and field.active.player.position.x>35,"the west bank ends at the actual rock face before the screen edge"): return false
+	mark("p02_foot")
+	input_axis(0)
+	await tick(36)
+	if not require(await go(240) and await cross("P16",0) and await ground(270),"follow the real chute into P16"): return false
+	action(&"jump")
+	if not require(await cross("P02",0) and await ground(714),"P16 returns to a supported P02 ledge"): return false
+	action(&"jump_release")
+	if not await climb_grass_recess(636) or not await climb_grass_recess(558): return false
+	if not require(await go(459) and await ground(558),"leave the optional passage on foot"): return false
+	if not await jump_toward(508,462,"use the western shoulder to regain the upper field"): return false
+	return await jump_toward(404,366,"return from the drainage route to the main western takeoff")
+
 func cross_field_east() -> bool:
+	if not await hidden_field_detour(): return false
+	mark("p02_launch")
+	await tick(35)
 	if not require(await go(426) and await ground(366),"P02 western takeoff is reached on foot"): return false
 	if not await jump_toward(817,366,"backward recoil clears the central break",Vector2(-1,.55),12): return false
+	mark("p02_bell")
+	await tick(40)
 	if not await go(962): return false
 	if not await jump_toward(1240,398,"ordinary jump lands on P02 upper east road",Vector2.ZERO,32): return false
 	if not await go(1300): return false
@@ -157,6 +247,7 @@ func cross_field_east() -> bool:
 		if grub.motor.position.x-field.active.player.position.x<106 and grub.brain.direction<0: break
 		await tick()
 	if not await jump_toward(1600,398,"vault the field patrol on the shared road",Vector2.ZERO,35): return false
+	mark("p02_east")
 	return require(await cross("P03",1),"move across the real P02–P03 west doorway")
 
 func forest_shortcut() -> void:
@@ -227,40 +318,55 @@ func p03_stairway() -> bool:
 	var shots_before:=fired
 	var walls_before:=wall_kicks
 	var hp:=field.active.controller.actor_resources.health.current
-	if not require(await go(494) and await ground(334),"descend the ravine and stop by its five loose coins"): return false
+	if not require(await go(190) and await ground(302),"approach the ravine patrol from the lower entry shelf"): return false
+	var grub: EnemyActor=field.active.room.enemies.ravine_floor_grub
+	for i: int in 250:
+		if grub.motor.position.x-field.active.player.position.x<114 and grub.brain.direction<0: break
+		await tick()
+	mark("p03_grub")
+	if not await jump_toward(494,334,"jump over the approaching ravine grub and land beside the loose coins",Vector2.ZERO,36): return false
+	if not require(not grub.health.terminal and field.active.controller.actor_resources.health.current==hp,"the grass patrol can be left alive without a contact hit"): return false
 	var gold_before:int=field.active.services.ledger().gold
 	await interact()
 	if not require(field.active.services.ledger().gold==gold_before+5,"approaching and then interacting collects exactly five coins"): return false
 	await interact()
-	if not require(field.active.services.ledger().gold==gold_before+5,"the same loose coin group cannot be collected twice"): return false
+	low_coin_total=gold_before+5
+	if not require(field.active.services.ledger().gold==low_coin_total,"the same loose coin group cannot be collected twice"): return false
 	mark("p03_bottom")
 	await tick(28)
 	if not await jump_toward(602,268,"land on the first supported switchback step"): return false
 	if not require(await go(510) and await ground(334) and field.active.controller.actor_resources.health.current==hp,"a missed climb returns on foot to the same safe ravine floor"): return false
 	mark("p03_retry")
 	if not await jump_toward(614,268,"retry the lower rock"): return false
-	for landing: Vector2 in [Vector2(758,200),Vector2(880,130),Vector2(1014,62)]:
+	for landing: Vector2 in [Vector2(759,200),Vector2(894,144),Vector2(1028,80)]:
 		if not require(await go(landing.x-68),"walk to the next takeoff near its riser"): return false
 		if not await jump_toward(landing.x,landing.y,"step up the east-bound switchback"): return false
 	mark("p03_turn")
 	await tick(32)
-	for landing: Vector2 in [Vector2(899,-6),Vector2(732,-72),Vector2(600,-140),Vector2(460,-206),Vector2(340,-274)]:
-		if not await jump_toward(landing.x,landing.y,"climb the westbound return above the ravine"): return false
-	if not require(fired==shots_before and wall_kicks==walls_before and not field.active.controller.traversal.wall_enabled,"the first climb succeeds with ordinary jumps and without W or weapon boosts"): return false
+	if not require(await go(976),"stand near the western lip of the turning shelf"): return false
+	if not await jump_toward(874,28,"reverse course and clear the open cut to the armed west road"): return false
+	if not require(fired==shots_before and wall_kicks==walls_before and not field.active.controller.traversal.wall_enabled,"the ordinary jump route reaches the upper road without W or weapon boosts"): return false
+	var sentry: EnemyActor=field.active.room.enemies.ridge_watch_sentry
+	mark("p03_sentry")
+	for i: int in 7:
+		if sentry.health.terminal: break
+		if not require(await go(798),"take a supported firing stance on the upper road"): return false
+		var aim:Vector2=(sentry.motor.global_position-field.active.player.global_position+Vector2(0,6)).normalized()
+		action(&"shoot_release",aim)
+		await tick(28)
+	if not require(sentry.health.terminal and field.active.player.is_on_floor(),"aimed shots clear the upper sentry while the player stays supported"): return false
+	mark("p03_sentry_clear")
+	for landing: Vector2 in [Vector2(520,-46),Vector2(389,-116),Vector2(259,-182),Vector2(145,-236),Vector2(10,-274)]:
+		if not require(await go(landing.x+83),"walk to the next westbound rising ledge"): return false
+		if not await jump_toward(landing.x,landing.y,"climb the westbound return high above the ravine"): return false
 	mark("p03_road")
-	if not await go(215): return false
-	var grub: EnemyActor=field.active.room.enemies.old_road_grub
-	for i: int in 220:
-		if field.active.player.position.x-grub.motor.position.x<112 and grub.brain.direction>0: break
-		await tick()
-	if not await jump_toward(-90,-274,"vault the old-road patrol and keep the westward heading",Vector2.ZERO,32): return false
 	if not require(await cross("P04",-1),"the upper road physically opens the next room on the west"): return false
 	mark("p03_end")
 	return true
 
 func p03_east_return() -> bool:
 	if not require(await cross("P03",1),"P04 returns to the P03 old road"): return false
-	if not require(await go(951) and await ground(-6),"descend the old road to its outer lip"): return false
+	if not require(await go(878) and await ground(28),"descend the old road to its outer lip"): return false
 	var furthest:=field.active.player.position.x
 	input_axis(1)
 	action(&"jump")
@@ -271,10 +377,11 @@ func p03_east_return() -> bool:
 		furthest=maxf(furthest,field.active.player.position.x)
 	input_axis(0)
 	action(&"jump_release")
-	if not require(furthest<1300 and await ground(62),"even from the high switchback the physical ridge stops a forward recoil and returns the player to the turning platform"): return false
+	if not require(furthest<1300 and await ground(80),"even from the high switchback the physical ridge stops a forward recoil and returns the player to the turning platform"): return false
 	if not require(await go(504) and await ground(334),"descend the east stairs to the original ravine floor"): return false
+	var revisited_gold:int=field.active.services.ledger().gold
 	await interact()
-	if not require(field.active.services.ledger().gold==5,"re-entering from the high road cannot pay the low coins again"): return false
+	if not require(revisited_gold>=low_coin_total and field.active.services.ledger().gold==revisited_gold,"re-entering from the high road cannot pay the low coins again"): return false
 	if not require(await go(1434) and await ground(334),"walk under the overhang to the foot of the eastern rock wall"): return false
 	await tick(86)
 	var view:=root.get_visible_rect()
@@ -325,13 +432,20 @@ func run() -> void:
 		printerr("Cannot start the official plains entrance: ",field.last_error)
 		quit(1)
 		return
+	if "--touch" in OS.get_cmdline_user_args():
+		touch=preload("res://tests/plains_touch_driver.gd").new()
 	field.room_changed.connect(bind_controller)
 	bind_controller(field.active.room.room_id)
 	await tick(8)
 	var args:=OS.get_cmdline_user_args()
-	if "--film-p03" in args:
+	if "--film-p02" in args:
+		if not require(await preload("res://tests/plains_start_input.gd").take_ground_gun(field),"take the ground weapon before the P02 review"): quit(1); return
+		if require(await cross("P02",1),"walk through P01's real east gate to begin the field review"):
+			require(await cross_field_east(),"complete the P02 review")
+	elif "--film-p03" in args:
 		# Begin this camera take at the real d002 receiving anchor. The full
 		# regression below separately traverses the entire P01→P02→P03 journey.
+		if not require(await preload("res://tests/plains_start_input.gd").take_ground_gun(field),"collect the P01 ground gun before the separate P03 recording"): quit(1); return
 		field.enter_room("P03","d002")
 		await tick(5)
 		if await p03_stairway(): await p03_east_return()

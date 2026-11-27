@@ -119,6 +119,9 @@ if __name__ == "__main__":
             "p02_connections": "P02 CONNECTIONS",
             "plains_intro_rooms": "PLAINS INTRO",
             "world_shortcuts": "WORLD SHORTCUTS",
+            "room_touch_controls": "ROOM TOUCH CONTROLS",
+            "p01_loft_chest": "P01 LOFT CHEST",
+            "p01_opening": "P01 OPENING",
             "equipment": "EQUIPMENT",
             "mechanism_libraries": "MECHANISM LIBRARIES",
             "bell_gate": "BELL GATE",
@@ -139,5 +142,9 @@ if __name__ == "__main__":
             if f"{label} failures=0" not in output:
                 raise RuntimeError(output)
             print(output.strip())
+        touch = godot("--fixed-fps", "60", "--script", "res://tests/plains_intro_rooms.gd", "--", "--touch")
+        if "PLAINS INTRO failures=0" not in touch:
+            raise RuntimeError(touch)
+        print(touch.strip())
     except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as error:
         sys.exit(str(error))
