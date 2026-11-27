@@ -222,10 +222,10 @@ func _layout(touch: RoomTouchControls) -> void:
 	money.position = Vector2(_map_rect.position.x,_map_rect.end.y+7)
 	location.scale = Vector2.ONE*factor
 	location.size = location.get_minimum_size()
-	var bottom := safe.end.y-margin.y
+	var left := rows.position.x
 	if touch.enabled:
-		bottom = minf(touch.left_center.y-touch.radius,touch.healing_button.position.y)-10
-	location.position = Vector2(rows.position.x,bottom-location.size.y*factor)
+		left = maxf(touch.healing_button.end.x,safe.position.x+touch.radius*2.0+24)+margin.x
+	location.position = Vector2(left,safe.end.y-margin.y-location.size.y*factor)
 
 static func number(value: float) -> String:
 	return ("%.2f" % value).trim_suffix("0").trim_suffix("0").trim_suffix(".")

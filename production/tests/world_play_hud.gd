@@ -69,9 +69,9 @@ func run() -> void:
 	check(hud.map_card.get_global_rect().is_equal_approx(host.active.touch_controls.map_button),"touch map rectangle")
 	check(not hud.map_card.get_global_rect().intersects(host.active.touch_controls.pause_button),"pause reservation")
 	check(not hud.rows.get_global_rect().intersects(hud.map_card.get_global_rect()) and not hud.skill_text.visible,"phone layout and device-specific hints")
-	var location_bottom:=hud.location.get_global_rect().end.y
-	check(location_bottom<host.active.touch_controls.left_center.y-host.active.touch_controls.radius,"location clears movement pad")
-	check(location_bottom<host.active.touch_controls.healing_button.position.y,"location clears the original healing control")
+	var location_rect:=hud.location.get_global_rect()
+	check(location_rect.position.x>host.active.touch_controls.left_center.x+host.active.touch_controls.radius,"location clears movement pad")
+	check(not location_rect.intersects(host.active.touch_controls.healing_button),"location clears the original healing control")
 	var label_center := hud.location.get_global_rect().get_center()
 	touch.finger(touch.MOVE,label_center,true)
 	await tick()
