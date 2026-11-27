@@ -15,6 +15,7 @@ const BODY_KEYS := {
 	&"traction_engine": &"traction_engine",
 	&"gear_overseer": &"gear_overseer",
 	&"chime_target": &"chime_target",
+	&"forest_antler": &"forest_antler", &"forest_mentor": &"forest_mentor",
 	&"patrol": &"patrol", &"charger": &"charger", &"diver": &"aerial",
 	&"hopper": &"hopper", &"sentry": &"sentry", &"fan_sentry": &"aerial", &"ground_fan_sentry": &"sentry",
 	&"root_bell": &"root_bell",
@@ -74,7 +75,10 @@ static func view(host: Node) -> Dictionary:
 static func replace(actor: Node, profile: StringName) -> bool:
 	if actor == null or not RENDERERS.has(profile): return false
 	var motor: Node = actor.motor
-	if actor.definition is ArenaBossDefinition or actor.definition.behavior_id == &"chime_target":
+	if actor.definition.behavior_id in [&"forest_bark_beetle",&"forest_crossbranch"]:
+		bind_existing(actor,motor.get_node("Presentation"),profile,&"forest_bible")
+		return false
+	if actor.definition is ArenaBossDefinition or actor.definition.behavior_id in [&"chime_target", &"forest_antler", &"forest_mentor"]:
 		bind_existing(actor,motor.get_node("Presentation"),profile)
 		return false
 	var old := motor.get_node_or_null("Presentation")

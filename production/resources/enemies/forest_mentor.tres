@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"forest_mentor_health"
+max_health = 16.0
+initial_current = 16.0
+[resource]
+script = ExtResource("1")
+stable_id = &"forest_mentor"
+health_definition = SubResource("health")
+behavior_id = &"forest_mentor"
+collision_size = Vector2(25, 40)
+telegraph_duration = 0.76
+attack_duration = 0.82
+recovery_duration = 1.1
+activation_range = 540.0
+patrol_half_width = 320.0
+projectile_speed = 315.0
+projectile_lifetime = 1.8
+projectile_muzzle_pivot = Vector2(10, -3)

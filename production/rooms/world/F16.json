@@ -1,0 +1,425 @@
+{
+  "schema": 3,
+  "room_id": "F16",
+  "bounds": [
+    0,
+    0,
+    1650,
+    920
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "thorn_forest",
+      "terrain_material": "thorn_forest",
+      "start_point": [
+        1518,
+        368
+      ]
+    }
+  },
+  "entities": {
+    "west_return": {
+      "id": "west_return",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          611,
+          541,
+          130
+        ]
+      }
+    },
+    "wind_exit": {
+      "id": "wind_exit",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          271,
+          387,
+          87
+        ]
+      }
+    },
+    "east_canopy": {
+      "id": "east_canopy",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1186,
+          386,
+          502,
+          100
+        ]
+      }
+    },
+    "fallen_fork": {
+      "id": "fallen_fork",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          725,
+          618,
+          340,
+          93
+        ]
+      }
+    },
+    "high_rest": {
+      "id": "high_rest",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          671,
+          269,
+          227,
+          66
+        ]
+      }
+    },
+    "lower_west": {
+      "id": "lower_west",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          805,
+          745,
+          171
+        ]
+      }
+    },
+    "lower_east": {
+      "id": "lower_east",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          852,
+          805,
+          833,
+          178
+        ]
+      }
+    },
+    "upper_curl": {
+      "id": "upper_curl",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          388,
+          350,
+          160,
+          20
+        ],
+        "appearance": "forest_vine"
+      }
+    },
+    "short_cross": {
+      "id": "short_cross",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          588,
+          438,
+          176,
+          20
+        ],
+        "appearance": "forest_branch_left"
+      }
+    },
+    "middle_lane": {
+      "id": "middle_lane",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          838,
+          507,
+          190,
+          20
+        ],
+        "appearance": "forest_branch"
+      }
+    },
+    "east_wrist": {
+      "id": "east_wrist",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1034,
+          449,
+          173,
+          20
+        ],
+        "appearance": "forest_vine"
+      }
+    },
+    "windbridge": {
+      "id": "windbridge",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          492,
+          219,
+          150,
+          20
+        ],
+        "appearance": "forest_branch_left"
+      }
+    },
+    "root_stair": {
+      "id": "root_stair",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          579,
+          716,
+          215,
+          20
+        ],
+        "appearance": "forest_branch"
+      }
+    },
+    "low_crotch": {
+      "id": "low_crotch",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          370,
+          531,
+          184,
+          20
+        ],
+        "appearance": "forest_vine"
+      }
+    },
+    "west_slack": {
+      "id": "west_slack",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          523,
+          164
+        ]
+      }
+    },
+    "crown_tendon": {
+      "id": "crown_tendon",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          959,
+          264
+        ]
+      }
+    },
+    "high_road": {
+      "id": "high_road",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          1328,
+          338,
+          76,
+          40
+        ],
+        "point": [
+          1366,
+          368
+        ],
+        "section": "main"
+      }
+    }
+  },
+  "exits": {
+    "d315": {
+      "point": [
+        2,
+        593
+      ],
+      "spawn": [
+        68,
+        593
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        507,
+        617
+      ]
+    },
+    "d480": {
+      "point": [
+        2,
+        253
+      ],
+      "spawn": [
+        168,
+        253
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        167,
+        277
+      ]
+    },
+    "d224": {
+      "point": [
+        1648,
+        368
+      ],
+      "spawn": [
+        1582,
+        368
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        282,
+        392
+      ]
+    },
+    "d067": {
+      "point": [
+        782,
+        918
+      ],
+      "spawn": [
+        908,
+        787
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        734,
+        830
+      ]
+    }
+  },
+  "sites": {
+    "d315": {
+      "at": [
+        93,
+        593
+      ]
+    },
+    "wr_F16_primary": {
+      "at": [
+        779,
+        251
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/forest/high_canopy.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/forest/leaning_root.png",
+        "at": [
+          679,
+          805
+        ],
+        "z_index": -18
+      },
+      {
+        "texture": "res://assets/scenery/forest/old_trunk.png",
+        "at": [
+          877,
+          587
+        ],
+        "z_index": -24
+      },
+      {
+        "texture": "res://assets/scenery/forest/old_trunk.png",
+        "at": [
+          877,
+          805
+        ],
+        "z_index": -24
+      },
+      {
+        "texture": "res://assets/scenery/forest/thorn_forest_v2_hook_root.png",
+        "at": [
+          778,
+          269
+        ],
+        "z_index": -3,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/forest/thorn_forest_v2_root_bell.png",
+        "at": [
+          155,
+          611
+        ],
+        "z_index": -3,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/forest/forest_arch.png",
+        "at": [
+          1459,
+          386
+        ],
+        "z_index": -3,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/world_elements/forest_stage/thorn_forest_mid_v2.png",
+        "at": [
+          932,
+          618
+        ],
+        "z_index": -36,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/forest/thorn_forest_v2_seed_pods.png",
+        "at": [
+          169,
+          271
+        ],
+        "z_index": -3,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/world_elements/forest_stage/thorn_forest_v2_thorn_log.png",
+        "at": [
+          1104,
+          805
+        ],
+        "z_index": -3,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

@@ -1,0 +1,343 @@
+{
+  "schema": 3,
+  "room_id": "F12",
+  "bounds": [
+    0,
+    0,
+    1240,
+    795
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "thorn_forest",
+      "terrain_material": "thorn_forest",
+      "start_point": [
+        1115,
+        312
+      ]
+    }
+  },
+  "entities": {
+    "upper_silt": {
+      "id": "upper_silt",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          792,
+          330,
+          482,
+          110
+        ]
+      }
+    },
+    "low_crypt": {
+      "id": "low_crypt",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          653,
+          1305,
+          208
+        ]
+      }
+    },
+    "ruin_plinth": {
+      "id": "ruin_plinth",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          482,
+          525,
+          255,
+          130
+        ]
+      }
+    },
+    "buried_cover": {
+      "id": "buried_cover",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -12,
+          402,
+          287,
+          88
+        ]
+      }
+    },
+    "old_grave_lintel": {
+      "id": "old_grave_lintel",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          303,
+          295,
+          148,
+          83
+        ]
+      }
+    },
+    "broken_column": {
+      "id": "broken_column",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          223,
+          559,
+          155,
+          20
+        ],
+        "appearance": "forest_branch_left"
+      }
+    },
+    "crossing_root": {
+      "id": "crossing_root",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          630,
+          422,
+          186,
+          20
+        ],
+        "appearance": "forest_branch"
+      }
+    },
+    "crypt_beetle": {
+      "id": "crypt_beetle",
+      "definition_id": "enemy.forest_bark_beetle",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          880,
+          641
+        ]
+      }
+    },
+    "grave_keeper": {
+      "id": "grave_keeper",
+      "definition_id": "enemy.forest_crossbranch",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          364,
+          637
+        ],
+        "shore_rows": [
+          {
+            "id": "rest",
+            "rect": [
+              324,
+              653,
+              80,
+              22
+            ],
+            "position": [
+              364,
+              637
+            ]
+          },
+          {
+            "id": "opposite",
+            "rect": [
+              134,
+              653,
+              80,
+              22
+            ],
+            "position": [
+              174,
+              637
+            ]
+          }
+        ]
+      }
+    },
+    "crypt_mouth": {
+      "id": "crypt_mouth",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          177,
+          605,
+          76,
+          40
+        ],
+        "point": [
+          215,
+          635
+        ],
+        "section": "main"
+      }
+    },
+    "vault_doorway": {
+      "id": "vault_doorway",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          993,
+          496,
+          287,
+          60
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d063": {
+      "point": [
+        1238,
+        312
+      ],
+      "spawn": [
+        1172,
+        312
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        226,
+        336
+      ]
+    },
+    "d227": {
+      "point": [
+        2,
+        635
+      ],
+      "spawn": [
+        68,
+        635
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        549,
+        659
+      ]
+    },
+    "d472": {
+      "point": [
+        1238,
+        478
+      ],
+      "spawn": [
+        1080,
+        478
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        392,
+        502
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "backdrop": "res://assets/scenery/forest/buried_arcade.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/forest/leaning_root.png",
+        "at": [
+          536,
+          653
+        ],
+        "z_index": -18
+      },
+      {
+        "texture": "res://assets/scenery/forest/old_trunk.png",
+        "at": [
+          547,
+          650
+        ],
+        "z_index": -24
+      },
+      {
+        "texture": "res://assets/scenery/forest/forest_slab.png",
+        "at": [
+          159,
+          653
+        ],
+        "z_index": -36,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/forest/forest_arch.png",
+        "at": [
+          938,
+          330
+        ],
+        "z_index": -3,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/forest/forest_slab.png",
+        "at": [
+          576,
+          525
+        ],
+        "z_index": -36,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/forest/thorn_forest_v2_root_bell.png",
+        "at": [
+          138,
+          402
+        ],
+        "z_index": -3,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/forest/forest_plant.png",
+        "at": [
+          704,
+          422
+        ],
+        "z_index": -3,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/forest/thorn_forest_v2_root_bell.png",
+        "at": [
+          1175,
+          496
+        ],
+        "z_index": -3,
+        "flip": false
+      }
+    ]
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "crypt_beetle": {
+        "species_id": "species.d91cabc0378c",
+        "drop_profile_id": "drop.d91cabc0378c.t1"
+      },
+      "grave_keeper": {
+        "species_id": "species.76b4d6bf4b9a",
+        "drop_profile_id": "drop.76b4d6bf4b9a.t1"
+      }
+    }
+  }
+}

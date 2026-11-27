@@ -38,7 +38,7 @@ func _recover_ground(delta: float) -> void:
 	if not ground_recovery_enabled: return
 	var actor:=get_node_or_null("Actor") as EnemyActor
 	# The authored hop owns its arc; gravity resumes on recovery, stun or a stale saved position.
-	if actor!=null and actor.definition.behavior_id==&"hopper" and actor.attack_behavior!=null and actor.attack_behavior.state==&"attack":
+	if actor!=null and actor.definition.behavior_id in [&"hopper",&"forest_antler",&"forest_mentor"] and actor.attack_behavior!=null and actor.attack_behavior.state==&"attack":
 		_ground_fall_speed=0;return
 	_ground_fall_speed=minf(_definition.ground_fall_speed,_ground_fall_speed+_definition.ground_fall_acceleration*delta)
 	var collision:=move_and_collide(Vector2(0,_ground_fall_speed*delta))

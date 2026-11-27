@@ -156,6 +156,9 @@ func dispose() -> void:
 	queue_free()
 
 func _draw() -> void:
+	if is_instance_valid(behavior) and behavior.actor.definition.behavior_id in [&"forest_antler",&"forest_mentor"]:
+		paint_forest_attack()
+		return
 	if UnderworldProjectileVisual.enabled(self):
 		UnderworldProjectileVisual.paint(self,direction,radius,_visual_age,_visual_trail,&"seed",false)
 		return
@@ -163,3 +166,17 @@ func _draw() -> void:
 		PixelFormalActors.projectile(self,radius,direction)
 		return
 	ProjectileArt.paint(self, 0, direction, radius)
+
+
+func paint_forest_attack() -> void:
+	if behavior.actor.definition.behavior_id == &"forest_mentor":
+		draw_set_transform(Vector2.ZERO,_visual_age*12.0)
+		for i: int in 4:
+			var vane := PackedVector2Array([Vector2(0,0),Vector2(4,-2),Vector2(6,-7),Vector2(1,-4)])
+			for j: int in vane.size(): vane[j] = vane[j].rotated(i*PI/2.0)
+			draw_colored_polygon(vane,Color("dce3c8") if i%2 else Color("798a85"))
+		draw_circle(Vector2.ZERO,1.5,Color("474f49"))
+	else:
+		draw_set_transform(Vector2.ZERO,0,Vector2(signf(direction.x),1))
+		draw_colored_polygon(PackedVector2Array([Vector2(-11,4),Vector2(-7,0),Vector2(-8,-8),Vector2(-3,-4),Vector2(1,0),Vector2(3,-10),Vector2(6,-3),Vector2(9,-5),Vector2(6,4)]),Color("795236"))
+		draw_polyline(PackedVector2Array([Vector2(-9,3),Vector2(-3,-1),Vector2(2,1),Vector2(5,-6)]),Color("ced99c"),1)

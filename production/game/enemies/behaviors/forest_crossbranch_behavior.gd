@@ -83,7 +83,7 @@ func advance(delta: float) -> bool:
 		# A real narrow edge may physically hold one foot. Walk inward on that
 		# actual static surface, then re-query all three feet; never snap to it.
 		if recovery_support.is_empty() and not recovery_budget_failed and is_instance_valid(obstruction_body) and obstruction_body is StaticBody2D and obstruction.get("normal",[0,0])[1]<-.5:
-			var surface: Variant=obstruction_body.get_meta("support_world_rect",null)
+			var surface: Variant=_support_rect(obstruction_body)
 			if surface is Rect2:
 				var rect: Rect2=surface
 				var half:=actor.definition.collision_size*.5
@@ -155,6 +155,11 @@ func _recovery_move(motion: Vector2,delta: float,part: String) -> void:
 	var moved:=_actual_move(motion,delta)
 	ledger.append({"event":"recovery_move","part":part,"elapsed":state_time,"physics_frame":Engine.get_physics_frames(),"requested":[motion.x,motion.y],"from":[before.x,before.y],"to":[actor.motor.global_position.x,actor.motor.global_position.y],"unblocked":moved,"collision":obstruction.duplicate(true)})
 
+func _support_rect(body: Node) -> Variant:
+	for key: StringName in [&"support_world_rect", &"world_ground"]:
+		if body.has_meta(key): return body.get_meta(key)
+	return null
+
 func _static_full_support() -> Dictionary:
 	var half:=actor.definition.collision_size*.5
 	var body: StaticBody2D
@@ -167,7 +172,7 @@ func _static_full_support() -> Dictionary:
 		if body!=null and body!=hit.collider:return {}
 		body=hit.collider
 		feet.append([hit.position.x,hit.position.y])
-	var value: Variant=body.get_meta("support_world_rect",null)
+	var value: Variant=_support_rect(body)
 	if not value is Rect2:return {}
 	var rect: Rect2=value
 	var at:=actor.motor.global_position

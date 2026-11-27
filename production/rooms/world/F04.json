@@ -1,0 +1,281 @@
+{
+  "schema": 3,
+  "room_id": "F04",
+  "bounds": [
+    0,
+    0,
+    1100,
+    780
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "thorn_forest",
+      "terrain_material": "thorn_forest",
+      "start_point": [
+        986,
+        532
+      ]
+    }
+  },
+  "entities": {
+    "canyon_crest": {
+      "id": "canyon_crest",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -28,
+          252,
+          374,
+          123
+        ]
+      }
+    },
+    "forest_shelf": {
+      "id": "forest_shelf",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          726,
+          550,
+          406,
+          279
+        ]
+      }
+    },
+    "canyon_scree": {
+      "id": "canyon_scree",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -32,
+          660,
+          533,
+          176
+        ]
+      }
+    },
+    "west_slab": {
+      "id": "west_slab",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          268,
+          450,
+          124,
+          212
+        ]
+      }
+    },
+    "stone_notch": {
+      "id": "stone_notch",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          371,
+          360,
+          163,
+          20
+        ],
+        "appearance": "forest_vine"
+      }
+    },
+    "lookout": {
+      "id": "lookout",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          557,
+          457,
+          168,
+          20
+        ],
+        "appearance": "forest_branch_left"
+      }
+    },
+    "coin_nook": {
+      "id": "coin_nook",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          89,
+          561,
+          164,
+          20
+        ],
+        "appearance": "forest_branch"
+      }
+    },
+    "root_fringe": {
+      "id": "root_fringe",
+      "definition_id": "platform.one_way",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          474,
+          580,
+          136,
+          20
+        ],
+        "appearance": "forest_vine"
+      }
+    },
+    "inside_margin": {
+      "id": "inside_margin",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          878,
+          502,
+          76,
+          40
+        ],
+        "point": [
+          916,
+          532
+        ],
+        "section": "main"
+      }
+    }
+  },
+  "exits": {
+    "d229": {
+      "point": [
+        2,
+        234
+      ],
+      "spawn": [
+        68,
+        234
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        148,
+        258
+      ]
+    },
+    "d052": {
+      "point": [
+        1098,
+        532
+      ],
+      "spawn": [
+        1032,
+        532
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        446,
+        556
+      ]
+    },
+    "d061": {
+      "point": [
+        616,
+        778
+      ],
+      "spawn": [
+        775,
+        532
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        568,
+        664
+      ]
+    }
+  },
+  "sites": {
+    "scatter22_F04": {
+      "at": [
+        167,
+        543
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/forest/buried_arcade.webp",
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/forest/leaning_root.png",
+        "at": [
+          314,
+          660
+        ],
+        "z_index": -18
+      },
+      {
+        "texture": "res://assets/scenery/forest/old_trunk.png",
+        "at": [
+          337,
+          660
+        ],
+        "z_index": -24
+      },
+      {
+        "texture": "res://assets/scenery/forest/forest_slab.png",
+        "at": [
+          182,
+          252
+        ],
+        "z_index": -36,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/forest/forest_arch.png",
+        "at": [
+          934,
+          550
+        ],
+        "z_index": -3,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/forest/forest_plant.png",
+        "at": [
+          420,
+          360
+        ],
+        "z_index": -3,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/scenery/forest/thorn_forest_v2_seed_pods.png",
+        "at": [
+          184,
+          561
+        ],
+        "z_index": -3,
+        "flip": false
+      },
+      {
+        "texture": "res://assets/world_elements/forest_stage/thorn_forest_mid_v2.png",
+        "at": [
+          251,
+          660
+        ],
+        "z_index": -36,
+        "flip": false
+      }
+    ]
+  },
+  "actions": []
+}

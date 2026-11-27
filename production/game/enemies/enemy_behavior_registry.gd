@@ -27,6 +27,8 @@ const BEHAVIORS := {
 	&"forest_thread_spider": {"family":&"forest", "script":"res://game/enemies/behaviors/forest_thread_spider_behavior.gd", "definition":"res://resources/enemies/forest_thread_spider.tres", "scene":"res://game/enemies/species/scenes/forest_thread_spider.tscn"},
 	&"forest_crossbranch": {"family":&"forest", "script":"res://game/enemies/behaviors/forest_crossbranch_behavior.gd", "definition":"res://resources/enemies/forest_crossbranch.tres", "scene":"res://game/enemies/species/scenes/forest_crossbranch.tscn"},
 	&"forest_bible_weaver": {"family":&"weaver", "script":"res://game/enemies/behaviors/forest_bible_weaver_behavior.gd", "definition":"res://resources/enemies/forest_bible_weaver.tres", "scene":"res://game/enemies/species/scenes/forest_bible_weaver.tscn"},
+	&"forest_antler": {"family":&"base", "strategy":"res://game/enemies/behaviors/forest_antler_strategy.gd", "script":"res://game/enemies/behaviors/enemy_attack_behavior.gd", "definition":"res://resources/enemies/forest_antler.tres", "scene":"res://game/enemies/species/scenes/forest_antler.tscn"},
+	&"forest_mentor": {"family":&"base", "strategy":"res://game/enemies/behaviors/forest_mentor_strategy.gd", "script":"res://game/enemies/behaviors/enemy_attack_behavior.gd", "definition":"res://resources/enemies/forest_mentor.tres", "scene":"res://game/enemies/species/scenes/forest_mentor.tscn"},
 }
 static func behavior_ids() -> Array[StringName]:
 	var result: Array[StringName] = []
