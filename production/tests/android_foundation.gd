@@ -65,6 +65,8 @@ func run() -> void:
 	var scene := shell.world
 	check(scene != null and scene.active != null, "tap starts an ordinary real P01")
 	if not is_instance_valid(scene):
+		await preload("world_audio_cleanup.gd").drain(shell)
+		shell.free()
 		quit(1)
 		return
 	var session := scene.active
@@ -116,8 +118,8 @@ func run() -> void:
 	check(not content.visible_panel() and not paused and shell.page == &"play", "system back dismisses world content without opening a second menu")
 	if "--packed" in OS.get_cmdline_user_args():
 		check(not FileAccess.file_exists("res://tests/fixtures/plains_receivers/P01.json") and not ResourceLoader.exists("res://rooms/world/P02.tscn"), "runtime uses the exported pack, with the old review scene excluded")
-	shell.queue_free()
-	await ticks(12)
+	check(await preload("world_audio_cleanup.gd").drain(shell), "shutdown releases shell and room audio")
+	shell.free()
 	for suffix: String in ["", ".backup", ".tmp", ".corrupt"]:
 		DirAccess.remove_absolute(base + ".json" + suffix)
 		DirAccess.remove_absolute(base + "_settings.json" + suffix)

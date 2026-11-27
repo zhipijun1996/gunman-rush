@@ -112,6 +112,7 @@ func run() -> void:
 	await press("BeginAdventure")
 	await press("ReplaceProgress")
 	check(shell.page==&"play" and not shell.world.active.state.has("gun") and not slot.load_profile().payload.flags.has("gun"),"confirmed replacement opens a fresh real P01 and atomically replaces the old save")
+	check(await preload("world_audio_cleanup.gd").drain(shell),"shutdown releases shell and room audio")
 	shell.free()
 	await process_frame
 	for suffix: String in ["",".backup",".tmp",".corrupt"]:

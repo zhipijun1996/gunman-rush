@@ -188,6 +188,7 @@ func run() -> void:
 		await physics_frame
 	check(shell.world!=null and shell.page==&"play","native confirm starts the real P01 game")
 	if shell.world==null:
+		await preload("world_audio_cleanup.gd").drain(shell)
 		shell.free()
 		quit(1)
 		return
@@ -281,7 +282,7 @@ func run() -> void:
 	await tap(JOY_BUTTON_START)
 	check(shell.page==&"play" and not paused,"Start closes pause after visiting help")
 	await healing_and_skills()
-	await shell.world.active.audio_service.shutdown()
+	check(await preload("world_audio_cleanup.gd").drain(shell),"shutdown releases shell and room audio")
 	shell.free()
 	print("WORLD GAMEPAD failures=",failures," checks=",checks)
 	quit(1 if failures else 0)

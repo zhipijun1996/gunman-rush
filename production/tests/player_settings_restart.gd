@@ -56,9 +56,10 @@ func run() -> void:
 		shell.handle_back()
 		ck(shell.page==&"settings" and pause_view.calibration_modal == null, "system return from calibration preserves paused settings draft")
 		shell.handle_back()
+		ck(await session.audio_service.shutdown(), "room audio releases before returning to title")
 		shell.return_title()
 		ck(shell.page == &"title" and shell.world == null and shell.page_host.get_node("TitleBackdrop").reduced_effects, "save and return to title retains reduced presentation")
-	shell.queue_free()
-	for i in 30: await process_frame
+	ck(await preload("world_audio_cleanup.gd").drain(shell), "title audio releases before process restart")
+	shell.free()
 	print("SETTINGS RESTART failures=",fail)
 	quit(1 if fail else 0)
