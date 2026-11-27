@@ -85,6 +85,7 @@ def main():
         config = base / "editor/godot/editor_settings-4.7.tres"
         config.parent.mkdir(parents=True)
         config.write_text('[gd_resource type="EditorSettings" format=3]\n\n[resource]\n'
+                          'export/android/shutdown_adb_on_exit = false\n'
                           f'export/android/android_sdk_path = {json.dumps(str(sdk))}\n'
                           f'export/android/java_sdk_path = {json.dumps(str(java))}\n')
         godot = [engine, "--headless", "--path", stage]

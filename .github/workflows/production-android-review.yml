@@ -1,15 +1,22 @@
 name: Production opening Android review
 on:
   workflow_dispatch:
+    inputs:
+      apk_run:
+        description: Prior successful build job to reuse for a device-only recheck
+        type: string
+        required: false
   push:
     branches:
       - review/plains-android-device
 permissions:
+  actions: read
   contents: read
 jobs:
-  android:
+  build:
+    if: ${{ !inputs.apk_run }}
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 20
     env:
       GUNMAN_TOOLCHAIN_ROOT: /tmp/gunman-android-toolchain
     steps:
@@ -23,44 +30,62 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version-file: config/ci_python_version.txt
-      - name: Set up project engine and Android
+      - name: Build and verify signed production APK
         run: |
           bash tools/cloud_setup.sh --godot-only
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'build-tools;35.0.1' 'platform-tools' 'platforms;android-35' 'emulator' 'system-images;android-30;google_apis;x86_64'
-          python -m pip install Pillow
-      - name: Start Android 11 with KVM
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'build-tools;35.0.1' 'platform-tools' 'platforms;android-35'
+          python tools/export_intro_android.py build/intro-android/Plains-review.apk
+          git rev-parse HEAD:production > build/intro-android/production-tree.txt
+          cd build/intro-android && sha256sum Plains-review.apk > SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: opening-android-apk
+          path: build/intro-android/
+          retention-days: 7
+  device:
+    if: ${{ always() && (needs.build.result == 'success' || (needs.build.result == 'skipped' && inputs.apk_run)) }}
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      ANDROID_USER_HOME: /home/runner/.android
+      ANDROID_EMULATOR_HOME: /home/runner/.android
+      ANDROID_AVD_HOME: /home/runner/.android/avd
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: opening-android-apk
+          path: build/intro-android/
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.apk_run || github.run_id }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: config/ci_python_version.txt
+      - name: Prepare KVM and ADB
         run: |
-          set -eu
+          cd build/intro-android && sha256sum -c SHA256SUMS && test "$(cat production-tree.txt)" = "$(git rev-parse HEAD:production)"
           sudo chmod 666 /dev/kvm
-          mkdir -p build/intro-android/device
-          export ANDROID_USER_HOME="$RUNNER_TEMP/plains-android-user"
-          export ANDROID_EMULATOR_HOME="$ANDROID_USER_HOME"
-          export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"
-          mkdir -p "$ANDROID_AVD_HOME"
-          echo no | "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd --force -n opening --path "$ANDROID_AVD_HOME/opening.avd" -k 'system-images;android-30;google_apis;x86_64' --device pixel_2
-          test -s "$ANDROID_AVD_HOME/opening.avd/config.ini"
-          printf 'avd.ini.encoding=UTF-8\npath=%s\ntarget=android-30\n' "$ANDROID_AVD_HOME/opening.avd" > "$ANDROID_AVD_HOME/opening.ini"
-          "$ANDROID_HOME/emulator/emulator" -list-avds | grep -Fx opening
-          nohup "$ANDROID_HOME/emulator/emulator" -avd opening -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect -accel on > build/intro-android/device/emulator.log 2>&1 &
-      - name: Build and verify signed production APK
-        run: python tools/export_intro_android.py build/intro-android/Plains-review.apk
-      - name: Verify ARM64 support, launch and touch
-        run: |
-          set -eu
-          timeout 280 bash -c 'until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = 1 ]; do sleep 3; done' || { tail -80 build/intro-android/device/emulator.log; exit 1; }
-          adb shell wm dismiss-keyguard
-          adb shell wm size 540x960
-          adb shell settings put global window_animation_scale 0
-          adb shell settings put global transition_animation_scale 0
-          adb shell settings put global animator_duration_scale 0
-          adb shell getprop ro.product.cpu.abilist
-          adb shell screenrecord --time-limit 90 --bit-rate 3000000 /data/local/tmp/opening-review.mp4 >/dev/null 2>&1 &
-          trap 'adb shell pkill -2 screenrecord || true; sleep 1; adb pull /data/local/tmp/opening-review.mp4 build/intro-android/device/touch.mp4 || true' EXIT
-          python tools/test_intro_android.py build/intro-android/Plains-review.apk build/intro-android/device
+          mkdir -p "$ANDROID_AVD_HOME" device
+          python -m pip install Pillow
+          "$ANDROID_HOME/platform-tools/adb" start-server
+      - name: Exercise the exact APK on Android 11
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d
+        with:
+          api-level: 30
+          target: google_apis
+          arch: x86_64
+          profile: pixel_2
+          disable-animations: true
+          emulator-boot-timeout: 360
+          emulator-options: -no-window -no-snapshot -no-audio -no-boot-anim -gpu swiftshader_indirect -accel on
+          script: bash tools/run_intro_android_device.sh
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: opening-android-review
-          path: build/intro-android/
+          name: opening-android-device
+          path: build/intro-android/device/
           retention-days: 7
-          if-no-files-found: error
+          if-no-files-found: warn
