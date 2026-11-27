@@ -20,6 +20,13 @@ class Storage extends WorldSaveService:
 	func load_profile() -> Dictionary:
 		return {"accepted":true,"payload":payload.duplicate(true),"revision":revision}
 
+# Use the registered shipping documents and real passage controller, with an
+# isolated fresh slot for every run.
+class OpeningHost extends WorldGameHost:
+	func startup_destination() -> Dictionary:
+		storage = Storage.new()
+		return {"ok":true,"room":"P01"}
+
 func _initialize() -> void:
 	run.call_deferred()
 
@@ -61,8 +68,65 @@ func wait_for_room_audio() -> bool:
 		await process_frame
 	return true
 
+func cross_latch(pilot: WorldGameHost, side: float, destination: String) -> bool:
+	var source:=pilot.active
+	source.controller.router.set_move_axis(side)
+	for frame in 180:
+		await physics_frame
+		if pilot.active!=source and not pilot.crossing: break
+	pilot.active.controller.router.set_move_axis(0)
+	await frames(4)
+	return pilot.active.room.room_id==destination and pilot.active.player.is_on_floor() and pilot.last_error.is_empty()
+
+func visit_forest_latch(pilot: WorldGameHost) -> void:
+	var meadow:=pilot.active
+	meadow.controller.router.set_move_axis(-1)
+	await frames(105)
+	meadow.controller.router.set_move_axis(0)
+	meadow.controller.router.request_action(&"interact")
+	await frames(4)
+	var gate:=meadow.room.get_node("ForestShortcutGate") as Node2D
+	check(pilot.active==meadow and meadow.player.position.distance_to(gate.position+Vector2.UP*18)<45 and not meadow.state.has("forest_slope_return_open"),"following the downhill grass reaches the physical gate but its latch cannot be operated from P01")
+	# Begin a separate return trip at the registered forest-side receiving area.
+	pilot.enter_room("F08","")
+	await frames(8)
+	if pilot.active.room.room_id!="F08":
+		check(false,"the v29 forest-side receiving area loads")
+		return
+	var forest:=pilot.active
+	var lever:=FixedWorldProvider.point(pilot.active_doc.sites.d223.at)
+	var heading:=signf(lever.x-forest.player.position.x)
+	forest.controller.router.set_move_axis(heading)
+	for frame in 90:
+		await physics_frame
+		if (lever.x-forest.player.position.x)*heading<=1: break
+	forest.controller.router.set_move_axis(0)
+	await frames(3)
+	forest.controller.router.request_action(&"interact")
+	await frames(5)
+	check(forest.state.has("forest_slope_return_open"),"interacting on the registered forest side opens the latch")
+	check(await cross_latch(pilot,1,"P01"),"enter P01 west through the open gate and regain control on supported grass")
+	check(await cross_latch(pilot,-1,"F08"),"walk back through the open forest gate while retaining its receipt")
+	if not await cross_latch(pilot,1,"P01"):
+		check(false,"the forest remains linked to the meadow")
+		return
+	var home:=pilot.active
+	var start_at:=home.room.start_point
+	home.controller.router.set_move_axis(1)
+	for frame in 65:
+		await physics_frame
+		if home.player.position.x>=132: break
+	home.controller.router.request_action(&"jump")
+	for frame in 85:
+		await physics_frame
+		if home.player.position.x>=start_at.x: break
+	home.controller.router.set_move_axis(0)
+	home.controller.router.request_action(&"jump_release")
+	await frames(28)
+	check(home.player.is_on_floor() and home.player.position.distance_to(start_at)<12,"a returning player reaches the original training field from the forest tread with one ordinary jump")
+
 func route_and_respawn() -> void:
-	var pilot: FieldTerracePilot=load("res://rooms/world/P02.tscn").instantiate()
+	var pilot:=OpeningHost.new()
 	node_removed.connect(observe_room_audio)
 	root.add_child(pilot)
 	var source:=pilot.active
@@ -84,7 +148,7 @@ func route_and_respawn() -> void:
 	source.controller.router.set_move_axis(-1)
 	for i in 320:
 		await physics_frame
-		if source.player.position.x<168: break
+		if source.player.position.x<source.opening.position.x+8: break
 	source.controller.router.set_move_axis(0)
 	await frames(2)
 	source.controller.router.request_action(&"interact")
@@ -104,14 +168,15 @@ func route_and_respawn() -> void:
 		await physics_frame
 		if pilot.active!=source and not pilot.crossing: break
 	check(pilot.active!=source and pilot.active.state.value.cycle==2 and pilot.active.state.has("gun") and pilot.active.controller.shoot_ability.enabled and pilot.active.opening==null,"real death returns to standing armed spawn without another pickup")
-	check(await pilot.active.audio_service.shutdown(),"respawned room releases its audio")
+	await visit_forest_latch(pilot)
+	check(await pilot.active.audio_service.shutdown(),"last room releases its audio")
 	pilot.free()
 	node_removed.disconnect(observe_room_audio)
 	check(await wait_for_room_audio(),"previous P01 and P02 room playbacks have left the mixer")
 	await frames(3)
 
 func run() -> void:
-	check(catalog.load_locked().ok and catalog.load_bindings("res://config/imported_world/bindings.json").ok,"load v27")
+	check(catalog.load_locked().ok and catalog.load_bindings("res://config/imported_world/bindings.json").ok,"load the locked world and bindings")
 	var store:=Storage.new()
 	var s:=open_room(store)
 	if s.room==null:
@@ -147,7 +212,7 @@ func run() -> void:
 	input.move(1)
 	for i in 45:
 		await physics_frame
-		if s.player.position.x>=151: break
+		if s.player.position.x>=s.opening.position.x-5: break
 	input.move(0)
 	await frames(3)
 	check(s.opening.can_reach() and "互动" in s.opening.prompt.text and not s.sign_reader.hint.visible,"mobile approach exposes device-specific pickup near actual gun")

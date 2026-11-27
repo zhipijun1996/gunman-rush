@@ -5,10 +5,10 @@
     "zoom": 1.4
   },
   "bounds": [
-    -368,
-    10,
-    1088,
-    520
+    0,
+    0,
+    1560,
+    825
   ],
   "root": {
     "definition_id": "room.standard",
@@ -17,8 +17,8 @@
       "region_id": "windchime_plains",
       "terrain_material": "windchime_plains",
       "start_point": [
-        110,
-        270
+        324,
+        510
       ]
     }
   },
@@ -29,10 +29,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          -400,
-          336,
-          312,
-          240
+          -48,
+          570,
+          212,
+          304
         ]
       }
     },
@@ -42,10 +42,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          -88,
-          312,
-          64,
-          264
+          164,
+          548,
+          86,
+          326
         ]
       }
     },
@@ -55,10 +55,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          -24,
-          288,
-          792,
-          288
+          250,
+          528,
+          694,
+          346
         ]
       }
     },
@@ -68,8 +68,8 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          254,
-          120,
+          584,
+          360,
           168,
           8
         ]
@@ -81,8 +81,8 @@
       "definition_version": 1,
       "properties": {
         "point": [
-          192,
-          288
+          500,
+          528
         ],
         "text": "风坡试枪台\n跳起，朝脚下瞄准并开枪。子弹向下，反冲会把你抬上木台。落稳后，打开风旗旁的木箱。"
       }
@@ -93,59 +93,105 @@
       "definition_version": 1,
       "properties": {
         "position": [
-          364,
-          102
+          694,
+          342
         ],
         "action_id": "p01_loft_coin_chest",
         "label": "打开木箱",
         "visual": "chest",
         "radius": 42
       }
+    },
+    "eastern_bank": {
+      "id": "eastern_bank",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            944,
+            528
+          ],
+          [
+            972,
+            528
+          ],
+          [
+            1092,
+            576
+          ],
+          [
+            1120,
+            576
+          ],
+          [
+            1120,
+            874
+          ],
+          [
+            944,
+            874
+          ]
+        ]
+      }
+    },
+    "eastern_field": {
+      "id": "eastern_field",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1120,
+          576,
+          488,
+          298
+        ]
+      }
     }
   },
   "exits": {
     "d001": {
       "point": [
-        718,
-        270
+        1560,
+        558
       ],
       "spawn": [
-        688,
-        270
+        1500,
+        558
       ],
       "direction": [
         1,
         0
       ],
       "span": [
-        -96,
-        294
+        360,
+        600
       ]
     },
     "d223": {
       "point": [
-        -366,
-        318
+        0,
+        552
       ],
       "spawn": [
-        -276,
-        318
+        96,
+        552
       ],
       "direction": [
         -1,
         0
       ],
       "span": [
-        232,
-        342
+        375,
+        585
       ]
     }
   },
   "sites": {
     "p01_sidearm": {
       "at": [
-        157,
-        270
+        399,
+        510
       ]
     }
   },
@@ -155,36 +201,36 @@
       {
         "texture": "res://assets/scenery/p01/p01_forest_distance.png",
         "at": [
-          -219,
-          373
+          116,
+          605
         ]
       },
       {
         "texture": "res://assets/scenery/p01/p01_forest_verge.png",
         "at": [
-          -250,
-          337
+          86,
+          571
         ]
       },
       {
         "texture": "res://assets/scenery/p01/p01_loft_frame.png",
         "at": [
-          338,
-          290
+          668,
+          530
         ]
       },
       {
         "texture": "res://assets/scenery/p01/p01_wind_ribbon.png",
         "at": [
-          404,
-          121
+          734,
+          361
         ]
       },
       {
         "texture": "res://assets/scenery/p01/p01_verge_fence.png",
         "at": [
-          548,
-          289
+          1236,
+          577
         ]
       }
     ]
@@ -220,7 +266,7 @@
   "lesson": {
     "introduce": "角色在草地醒来，在出生点右边亲手拾起枪。木架、风旗和架脚的告示给第一次朝下射击提供高度参照。",
     "practice": "在木台下跳起，瞄准脚下松开射击。反冲将角色推过单向木台，落在风旗旁。",
-    "check": "台顶能同时看到西边林缘和东边田埂。从台沿直接走落即可回到草地，继续向东进入 P02。",
+    "check": "平地起跳够不到台面；空中朝下开枪能落在风旗旁。开箱后可拾起五枚金币，从任一台沿走落回到草地，向东沿一道低缓田岸走入 P02。",
     "retry": "练习下方整面草地可站立。向西下两级草台能看到从 F08 内侧打开的林缘栅门。"
   }
 }

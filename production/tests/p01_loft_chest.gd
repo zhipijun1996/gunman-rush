@@ -86,7 +86,7 @@ func run() -> void:
 	var amount: int = chest.action.amount
 	var baseline: int = session.services.ledger().gold
 	var chest_source := "income:chest:P01/"+ID
-	session.player.reset_at(Vector2(at.x,270))
+	session.player.reset_at(Vector2(at.x,session.room.start_point.y))
 	await frames(4)
 	await press_touch(session)
 	check(session.player.grounded_contact() and not session.state.value.receipts.has(ID),"touch below the loft cannot open it")
