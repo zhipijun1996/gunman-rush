@@ -113,10 +113,13 @@ func populate(doc: Dictionary) -> void:
 			coin.position=Vector2(9,-2)
 			node.add_child(coin)
 		else:
-			var coin := Sprite2D.new()
-			coin.texture = UnderworldActors.icon_texture("coin")
-			coin.position = Vector2(0, -coin.texture.get_height()*.5)
-			node.add_child(coin)
+			# Loose money rests in the grass on the same scale as enemy drops.
+			for at: Vector2 in [Vector2(-7,-2),Vector2(0,-3),Vector2(6,-2)]:
+				var coin := Sprite2D.new()
+				coin.texture = UnderworldActors.icon_texture("coin")
+				coin.scale = Vector2(.22,.15)
+				coin.position = at
+				node.add_child(coin)
 		objects[id]=node
 	refresh(0)
 	host.state.committed.connect(refresh)

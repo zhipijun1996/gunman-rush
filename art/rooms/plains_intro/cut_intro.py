@@ -21,6 +21,7 @@ def export(room: str, movie: Path, log: Path, folder: Path) -> None:
         cover = frames["p01_deck"] - 36
     else:
         segments = [(frames["p03_bottom"]-32, frames["p03_road"]+20, "初访　沟谷折返"),
+                    (frames["p03_look"], frames["p03_look_end"], "初访　从井底望向岩脊"),
                     (frames["p03_w_start"], frames["p03_w_end"], "取得 W 后回访　东侧岩脊")]
         cover = frames["p03_turn"] - 21
     seconds = sum((end - begin)/60 for begin, end, _ in segments)

@@ -18,6 +18,7 @@ var connection: Node
 var active_doc := {}
 var last_error := ""
 var follow_camera: Camera2D
+var camera_landmark := {}
 var passage_sky := {}
 var panorama: Sprite2D
 var bell_mount: Sprite2D
@@ -117,6 +118,7 @@ func enter_room(id: String, edge: String, prepared: Dictionary = {}, received :=
 	active = next
 	active.respawn_requested.connect(_respawn)
 	active_doc = doc
+	camera_landmark = doc.get("scenery",{}).get("camera_landmark",{})
 	# Enter on the destination's receiving apron before its first physics tick.
 	# Keep its document unchanged so every door has the same content identity.
 	if not edge.is_empty():
@@ -233,12 +235,28 @@ func update_field(delta: float) -> void:
 	notice.visible = hint_remaining>0
 	notice.modulate.a = clampf(hint_remaining/.4,0,1)
 
+## Let a nearby collectible and the player share the frame as the player
+## approaches its overlook. Collision, movement and the camera zoom stay live.
+func frame_landmark(delta: float) -> void:
+	var body := active.player.position
+	var area := FixedWorldProvider.rect(camera_landmark.bounds)
+	var site: String = camera_landmark.site
+	var desired := Vector2.ZERO
+	if area.has_point(body) and not active.state.value.receipts.has(site):
+		var ahead := smoothstep(area.position.x,area.position.x+float(camera_landmark.approach_width),body.x)
+		var below := smoothstep(area.position.y,area.get_center().y,body.y)
+		var target := FixedWorldProvider.point(active_doc.sites[site].at)
+		desired = (target-body)*float(camera_landmark.framing)*ahead*below
+	var weight := 1.0-exp(-delta/float(camera_landmark.ease_seconds))
+	follow_camera.position = follow_camera.position.lerp(desired,weight)
+
 func _reset_sample() -> void:
 	previous_center = active.player.position
 
 func _physics_process(delta: float) -> void:
 	if active==null or crossing or not active.controller.active or active.controller.has_pending_damage(): return
 	if active.room.room_id=="P02": update_field(delta)
+	if not camera_landmark.is_empty(): frame_landmark(delta)
 	var before := previous_center
 	var at := active.player.position
 	previous_center = at
