@@ -71,6 +71,7 @@ func run() -> void:
 	check(not hud.rows.get_global_rect().intersects(hud.map_card.get_global_rect()) and not hud.skill_text.visible,"phone layout and device-specific hints")
 	var location_bottom:=hud.location.get_global_rect().end.y
 	check(location_bottom<host.active.touch_controls.left_center.y-host.active.touch_controls.radius,"location clears movement pad")
+	check(location_bottom<host.active.touch_controls.healing_button.position.y,"location clears the original healing control")
 	var label_center := hud.location.get_global_rect().get_center()
 	touch.finger(touch.MOVE,label_center,true)
 	await tick()
@@ -82,7 +83,7 @@ func run() -> void:
 	touch.tap(host.active.touch_controls.map_button.get_center())
 	await tick()
 	check(paused and host.route_map.visible and not hud.visible,"viewport finger opens map once")
-	touch.tap(Vector2(400,260));await tick()
+	touch.tap(host.route_map.close_button.get_global_rect().get_center());await tick()
 	check(not paused and not host.route_map.visible and hud.visible,"viewport finger closes map")
 	hud.set_overlay_hidden(true);await tick()
 	check(not hud.visible,"shell can suppress HUD")

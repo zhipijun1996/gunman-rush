@@ -127,10 +127,14 @@ func _ready() -> void:
 	hide()
 
 func bind_session(value: OrdinaryRoomSession, place: String) -> void:
-	if is_instance_valid(session) and session.state.committed.is_connected(_world_changed):
-		session.state.committed.disconnect(_world_changed)
+	if is_instance_valid(session):
+		if session.state.committed.is_connected(_world_changed):
+			session.state.committed.disconnect(_world_changed)
+		if session.touch_controls.visibility_changed.is_connected(_touch_visibility_changed):
+			session.touch_controls.visibility_changed.disconnect(_touch_visibility_changed)
 	session = value
 	session.state.committed.connect(_world_changed)
+	session.touch_controls.visibility_changed.connect(_touch_visibility_changed)
 	session.touch_controls.map_drawn_by_hud = true
 	session.touch_controls.queue_redraw()
 	session.equipment_menu.shortcut.hide()
@@ -142,6 +146,10 @@ func bind_session(value: OrdinaryRoomSession, place: String) -> void:
 	_layout_size = Vector2.ZERO
 	_world_changed(session.state.revision)
 	_sync_visibility()
+
+func _touch_visibility_changed() -> void:
+	if is_instance_valid(session) and is_instance_valid(session.touch_controls):
+		_layout(session.touch_controls)
 
 func set_overlay_hidden(value: bool) -> void:
 	_overlay_hidden = value
@@ -214,7 +222,9 @@ func _layout(touch: RoomTouchControls) -> void:
 	money.position = Vector2(_map_rect.position.x,_map_rect.end.y+7)
 	location.scale = Vector2.ONE*factor
 	location.size = location.get_minimum_size()
-	var bottom := touch.left_center.y-touch.radius-10 if touch.enabled else safe.end.y-margin.y
+	var bottom := safe.end.y-margin.y
+	if touch.enabled:
+		bottom = minf(touch.left_center.y-touch.radius,touch.healing_button.position.y)-10
 	location.position = Vector2(rows.position.x,bottom-location.size.y*factor)
 
 static func number(value: float) -> String:
