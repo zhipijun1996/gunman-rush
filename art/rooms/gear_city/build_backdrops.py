@@ -122,53 +122,5 @@ def metalwork():
     shutter.save(OUT/"shortcut_leaf.png")
 
 
-def build_frames():
-    # Every non-solid steel catwalk visibly transfers load to the first
-    # authored bearing below. Lattice openings stay transparent to actors.
-    import json
-    folder=ROOT/"production/rooms/world"
-    print("Building open frames from authored catwalks")
-    for path in sorted(folder.glob("G*.json")):
-        doc=json.loads(path.read_text())
-        _,_,width,height=doc["bounds"]
-        beams=[]
-        blocks=[]
-        for obj in doc["entities"].values():
-            if obj["definition_id"] in ["platform.solid","platform.one_way"]:
-                x,y,w,h=obj["properties"]["rect"]
-                blocks.append((x,y,w,h))
-                if obj["definition_id"]=="platform.one_way": beams.append((x,y,w,h))
-        filename="frame_"+doc["room_id"]+".png"
-        pieces=doc["scenery"]["pieces"]
-        pieces[:]=[row for row in pieces if not row.get("texture","").endswith("/"+filename)]
-        if not beams: continue
-        img=Image.new("RGBA",(width,height))
-        pen=ImageDraw.Draw(img)
-        for x,y,w,h in beams:
-            left,right=x+11,x+w-11
-            bottom=min([s[1] for s in blocks if s[1]>y and s[0]<=left and right<=s[0]+s[2]]+[height])
-            if bottom<=y+h+6: continue
-            # Bolt a narrow triangular knee beneath each end of the walkway.
-            for side,sign in [(left,1),(right,-1)]:
-                bearing=min([s[1] for s in blocks if s[1]>y and s[0]<=side<=s[0]+s[2]]+[height])
-                p=y+h-4
-                for xx,color,sw in [(side,"#222a30",6),(side-1,"#535157",2),(side+1,"#343941",1)]:
-                    pen.line((xx,p,xx,bearing),fill=color,width=sw)
-                length=min(37,(w-24)//3,bearing-p)
-                pen.line((side,p+length,side+sign*length,p),fill="#30343b",width=5)
-                pen.line((side-1,p+length-2,side+sign*length-1,p),fill="#67605a",width=1)
-                for bolt in range(p+9,bearing,49):
-                    pen.rectangle((side-3,bolt,side+2,bolt+3),fill="#434347")
-                    pen.point((side-2,bolt),fill="#81776c")
-                pen.rectangle((side-5,bearing-3,side+4,bearing),fill="#343940")
-        box=img.getbbox()
-        if not box:continue
-        sprite=img.crop(box)
-        sprite.save(OUT/filename,optimize=True)
-        pieces.insert(0,{"texture":"res://assets/scenery/gear_city/"+filename,"at":[(box[0]+box[2])/2,box[3]],"z_index":-19})
-        path.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+"\n")
-
-
 if __name__ == "__main__":
     metalwork()
-    build_frames()

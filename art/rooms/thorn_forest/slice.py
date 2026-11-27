@@ -55,20 +55,3 @@ sky=Image.open(HERE/"forest_depths_source.webp")
 w,h=sky.size
 for name,box in [("hollow",(0,0,w//2,h//2)),("high_canopy",(w//2,0,w,h//2)),("mire",(0,h//2,w//2,h)),("buried_arcade",(w//2,h//2,w,h))]:
     sky.crop(box).resize((640,360),Image.Resampling.NEAREST).save(OUT/(name+".webp"),lossless=True,method=4)
-
-# A single continuous room sized wall, one sunlight window and one pair of targets.
-# The framing bays are dark lumber taken from the same source, with no stacked floors.
-from PIL import ImageEnhance
-wall=Image.open(OUT/"practice_wall.png")
-interior=Image.new("RGB",(1400,450),"#24231b")
-roof=wall.crop((25,0,150,35)).convert("RGB").resize((230,100),Image.Resampling.NEAREST)
-timber=wall.crop((17,46,60,160)).convert("RGB").resize((124,308),Image.Resampling.NEAREST)
-for x in range(0,1400,124):interior.paste(ImageEnhance.Brightness(timber).enhance(.65),(x,107))
-for x in range(0,1400,230):interior.paste(roof,(x,12))
-base=wall.crop((12,wall.height-21,wall.width-12,wall.height-6)).convert("RGB").resize((490,42),Image.Resampling.NEAREST)
-for x in range(0,1400,490):interior.paste(base,(x,408))
-main=wall.resize((826,355),Image.Resampling.NEAREST)
-interior.paste(main,(287,95),main)
-post=wall.crop((0,7,22,wall.height)).resize((37,408),Image.Resampling.NEAREST)
-for x in (106,1280):interior.paste(post,(x,42),post)
-interior.save(OUT/"practice_hall.webp",lossless=True)

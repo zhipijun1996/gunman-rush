@@ -40,15 +40,6 @@ for name,width in WIDTHS.items():
         art = art.resize((width,round(art.height*width/art.width)), Image.Resampling.LANCZOS)
         art.putalpha(art.getchannel("A").point(lambda alpha: 0 if alpha<40 else alpha))
     art.save(OUT / (name+".png"), optimize=True)
-# The cracked canvas crosses the mouth below the shelter. Sample real woven canopy
-# and soil from the plains archive; both are muted under the old carriage.
-canvas = Image.open(SOURCE/"market_stalls.png").convert("RGBA")
-panel = Image.new("RGBA",(126,160))
-panel.alpha_composite(canvas.crop((17,2,95,42)).resize((126,72),Image.Resampling.LANCZOS),(0,0))
-wall = Image.open(SOURCE/"opening_hidden_wall.png").convert("RGBA")
-panel.alpha_composite(wall.crop((40,27,166,147)),(0,40))
-panel.save(OUT/"wagon_skirt.png", optimize=True)
-
 # Recombine the existing field sky and transparent regional midground at native scale.
 # The three silhouettes place the canal, meadow or clock tower behind the playable road.
 field = Image.open(ROOT/"production/assets/scenery/p02/irrigation_panorama.webp").convert("RGBA")
