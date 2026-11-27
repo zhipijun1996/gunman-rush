@@ -149,54 +149,66 @@
     "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
     "pieces": [
       {
-        "asset": "p02_root_throat",
         "at": [
           258,
           834
         ],
-        "layer": "attached"
+        "texture": "res://assets/scenery/p02/p02_root_throat.png",
+        "z_index": -3
       },
       {
-        "asset": "p02_grass_bank",
         "at": [
           230,
           628
         ],
-        "layer": "attached"
+        "texture": "res://assets/scenery/p02/p02_grass_bank.png",
+        "z_index": -3
       },
       {
-        "asset": "p02_footwall",
         "at": [
           59,
           615
         ],
-        "layer": "front"
+        "texture": "res://assets/scenery/p02/p02_footwall.png",
+        "z_index": 5
       },
       {
-        "asset": "windchime_plains_v2_chime_span",
         "at": [
           817,
           385
         ],
-        "layer": "attached"
+        "texture": "res://assets/scenery/p02/windchime_plains_v2_chime_span.png",
+        "z_index": -3,
+        "name": "TerraceBell"
       },
       {
-        "asset": "p02_well_lining",
         "at": [
           1149,
           768
         ],
-        "layer": "attached"
+        "texture": "res://assets/scenery/p02/p02_well_lining.png",
+        "z_index": -3
       },
       {
-        "asset": "p02_slope_grass",
         "at": [
           146,
           608
         ],
-        "layer": "attached"
+        "texture": "res://assets/scenery/p02/p02_slope_grass.png",
+        "z_index": -3
       }
-    ]
+    ],
+    "terrace_lesson": {
+      "takeoffs": [
+        "west_field",
+        "west_upper_return",
+        "west_lower_return"
+      ],
+      "retry_floor": "retry_basin_floor",
+      "landing": "bell_terrace_pier",
+      "cap": "bell_terrace_cap",
+      "bell": "TerraceBell"
+    }
   },
   "entities": {
     "west_field": {

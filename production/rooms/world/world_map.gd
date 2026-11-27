@@ -1,4 +1,4 @@
-class_name P02RouteMap
+class_name WorldRouteMap
 extends Control
 ## The folded map uses the locked world's outlines. A concealed passage is drawn
 ## only after its discovery event. The room host owns travel and progression.
@@ -10,14 +10,14 @@ const PAPER := Color("#18262b")
 var host: Node
 var rooms: Dictionary
 var doors: Array
-var area: Rect2
 var focus_room := ""
+var new_game: Button
 
-static func mount(owner_node: Node) -> P02RouteMap:
+static func mount(owner_node: Node) -> WorldRouteMap:
 	var layer := CanvasLayer.new()
 	layer.layer = 8
 	owner_node.add_child(layer)
-	var map := P02RouteMap.new()
+	var map := WorldRouteMap.new()
 	map.host = owner_node
 	layer.add_child(map)
 	return map
@@ -31,24 +31,21 @@ func _ready() -> void:
 	focus_room = session.room.room_id
 	session.touch_controls.map_requested.connect(open)
 	host.connect("room_changed", arrive)
-	# Include the full rooms reachable in this build and their receiving segments.
-	# Traversing a stub's other world links would advertise unfinished rooms.
+	if host.reset_dialog != null:
+		new_game = host.new_game_button()
+		add_child(new_game)
+		new_game.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+		new_game.offset_left = -220
+		new_game.offset_right = -65
+		new_game.offset_top = -95
+		new_game.offset_bottom = -47
 	var catalog := session.content_catalog
-	var pending: Array[String] = [focus_room]
-	var mapped_doors := {}
-	while not pending.is_empty():
-		var id: String = pending.pop_back()
-		if rooms.has(id): continue
-		var row: Dictionary = catalog.lookup("rooms", id).row
-		var bounds := FixedWorldProvider.rect(row.rect)
-		area = bounds if rooms.is_empty() else area.merge(bounds)
-		rooms[id] = row
-		if not catalog.binding("rooms", id).ok: continue
-		for door: Dictionary in catalog.connections(id).rows:
-			if door.connection_type != "physical" or mapped_doors.has(door.id): continue
-			mapped_doors[door.id] = true
+	for row: Dictionary in catalog.table("rooms").rows:
+		if host.has_room(row.id):
+			rooms[row.id] = row
+	for door: Dictionary in catalog.table("doors").rows:
+		if rooms.has(door.a) and rooms.has(door.b):
 			doors.append(door)
-			pending.append(door.b if door.a == id else door.a)
 
 func arrive(id: String) -> void:
 	focus_room = id
@@ -63,6 +60,7 @@ func open() -> void:
 
 func _input(event: InputEvent) -> void:
 	if visible and event is InputEventScreenTouch and event.pressed:
+		if new_game != null and new_game.get_global_rect().has_point(event.position): return
 		hide()
 		get_tree().paused = false
 		get_viewport().set_input_as_handled()
@@ -101,9 +99,16 @@ func _draw() -> void:
 	draw_string(FONT, panel.position + Vector2(28, 42), region_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 27, INK)
 	draw_string(FONT, Vector2(panel.end.x - 180, panel.position.y + 40), "轻触收起" if host.active.controller.router.touch_enabled else "M / Esc  收起", HORIZONTAL_ALIGNMENT_RIGHT, 150, 18, INK)
 	var box := Rect2(panel.position + Vector2(58, 62), panel.size - Vector2(116, 136))
+	var known := known_rooms()
+	var area := FixedWorldProvider.rect(rooms[focus_room].rect)
+	for id: String in known.keys():
+		if rooms[id].region != rooms[focus_room].region or (rooms[id].get("map_layer") != rooms[focus_room].get("map_layer")):
+			known.erase(id)
+			continue
+		area = area.merge(FixedWorldProvider.rect(rooms[id].rect))
+	area = area.grow(1.0)
 	var scale_factor := minf(box.size.x / area.size.x, box.size.y / area.size.y)
 	var origin := box.get_center() - area.get_center() * scale_factor
-	var known := known_rooms()
 	for id: String in known:
 		var row: Dictionary = rooms[id]
 		var shape := PackedVector2Array()
@@ -114,8 +119,14 @@ func _draw() -> void:
 		shape.append(shape[0])
 		draw_polyline(shape, GOLD if current else INK, 2, true)
 	for door: Dictionary in doors:
-		if not known.has(door.a) or not known.has(door.b):
+		if door.has("discovery") and not host.active.state.has(str(door.discovery.event)): continue
+		if door.connection_type == "interior":
+			for id: String in [door.a,door.b]:
+				if known.has(id):
+					var pin := origin + FixedWorldProvider.point(door.entrances[id].anchor) * scale_factor
+					draw_rect(Rect2(pin-Vector2(3,4),Vector2(6,8)),GOLD,false,2)
 			continue
+		if not known.has(door.a) or not known.has(door.b): continue
 		var seam: Dictionary = door.door
 		var a := Vector2(seam.fixed, seam.start)
 		var b := Vector2(seam.fixed, seam.end)

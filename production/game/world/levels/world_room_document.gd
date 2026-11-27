@@ -63,6 +63,11 @@ static func view(source: Dictionary) -> Dictionary:
 	for field:String in reserved:
 		if source.root.properties.has(field):return {"error":"root_field_owned_by_instance:"+field}
 	if source.has("bounds") and not WorldRoomValidation.rectangle(source.bounds): return {"error":"invalid_room_bounds"}
+	var zones: Variant = source.get("zone_areas",{})
+	if not zones is Dictionary: return {"error":"room_zone_areas_invalid"}
+	for zone: Variant in zones:
+		if not zone is String or zone.is_empty() or not WorldRoomValidation.rectangle(zones[zone]):
+			return {"error":"room_zone_areas_invalid"}
 	var scenery: Variant = source.get("scenery",{})
 	if not scenery is Dictionary: return {"error":"room_scenery_invalid"}
 	if scenery.has("camera_landmark") and not WorldRoomValidation.valid_camera_landmark(scenery.camera_landmark,source.get("sites",{})):
@@ -324,7 +329,7 @@ static func apply(room: Node, document: Dictionary) -> String:
 	error = WorldElementCatalog.document_error(document,control_order)
 	if not error.is_empty(): return error
 	var header := {}
-	for key: String in ["bounds", "actions", "content_bindings", "exits", "sites", "lesson", "scenery"]:
+	for key: String in ["bounds", "actions", "content_bindings", "exits", "sites", "lesson", "scenery", "zone_areas"]:
 		if document.has(key): header[key] = document[key].duplicate(true)
 	room.set_meta("mechanism_control_order",control_order)
 	room.set_meta("editor_room_header",header)

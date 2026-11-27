@@ -1,7 +1,7 @@
 extends SceneTree
 ## The P01/F08 latch, receiving geometry and the consumption of a saved G08 right.
 const ROOT := "res://rooms/world/"
-const SIDES := ROOT+"p02_connections/"
+const SIDES := "res://tests/fixtures/plains_receivers/"
 const FLAG := "forest_slope_return_open"
 var catalog := WorldContentCatalog.new()
 var failures := 0
@@ -129,7 +129,7 @@ func ability_and_receivers() -> void:
 	await close(room)
 
 func run() -> void:
-	check(catalog.load_locked().ok and catalog.load_bindings("res://config/imported_world/bindings.json").ok,"load world contract")
+	check(catalog.load_locked().ok and catalog.load_bindings("res://tests/fixtures/plains_receivers/bindings.json").ok,"load world contract")
 	if failures==0:
 		await shut_from_plains()
 		await forest_latch()

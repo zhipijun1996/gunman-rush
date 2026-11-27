@@ -11,15 +11,12 @@ func check(ok: bool, message: String) -> void:
 		failures += 1
 		printerr("FAIL ", message)
 
-func collect(directory: String) -> void:
-	for name: String in DirAccess.get_directories_at(directory):
-		collect(directory.path_join(name))
-	for name: String in DirAccess.get_files_at(directory):
-		if name.get_extension() != "json": continue
-		var doc := WorldRoomDocument.read(directory.path_join(name))
-		if doc.get("schema") != 3 or not doc.has("room_id"): continue
-		check(not documents.has(doc.room_id), "duplicate production room: " + str(doc.room_id))
-		documents[doc.room_id] = doc
+func collect() -> void:
+	for room: Dictionary in catalog.table("rooms").rows:
+		if not catalog.binding("rooms",room.id).ok: continue
+		var registered := catalog.room_document(room.id)
+		check(registered.ok, "registered room document: "+str(room.id))
+		if registered.ok: documents[room.id] = WorldRoomDocument.read(registered.path)
 
 func check_rooms() -> void:
 	for room_id: String in documents:
@@ -32,7 +29,9 @@ func check_rooms() -> void:
 			if link.connection_type != "physical": continue
 			var expected := catalog.physical_passage(room_id, link.id)
 			var exists: bool = doc.get("exits", {}).has(link.id)
-			if not exists and not documents.has(expected.destination): continue
+			if not documents.has(expected.destination):
+				check(exists,room_id+" includes its world boundary "+str(link.id))
+				continue
 			check(exists and documents.get(expected.destination, {}).get("exits", {}).has(link.id),
 				"%s/%s must pair with %s" % [room_id, link.id, expected.destination])
 			checked_ends += 1
@@ -73,7 +72,7 @@ func counterexamples() -> void:
 func _init() -> void:
 	check(catalog.load_locked().ok and catalog.load_bindings("res://config/imported_world/bindings.json").ok,"load locked map and current room bindings")
 	if failures == 0:
-		collect("res://rooms")
+		collect()
 		check(documents.has("P02") and documents.has("P16"), "pilot and receiving segment found")
 		check_rooms()
 		if documents.has("P02") and documents.has("P16"): counterexamples()

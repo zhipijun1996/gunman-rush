@@ -20,7 +20,7 @@ def anchor(document, texture):
 
 def bake():
     source_doc = json.loads((WORLD / "P03.json").read_text())
-    target_doc = json.loads((WORLD / "p02_connections/P13.json").read_text())
+    target_doc = json.loads((WORLD.parents[1] / "tests/fixtures/plains_receivers/P13.json").read_text())
     source_at = anchor(source_doc, SOURCE_ASSET)
     target_at = anchor(target_doc, TARGET_ASSET)
     source_gate = source_doc["exits"]["d017"]["point"]

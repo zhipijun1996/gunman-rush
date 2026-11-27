@@ -385,7 +385,7 @@ func p03_east_return() -> bool:
 	if not require(await go(1434) and await ground(334),"walk under the overhang to the foot of the eastern rock wall"): return false
 	await tick(86)
 	var view:=root.get_visible_rect()
-	var content:=field.connection as P02ConnectionRoom
+	var content:=field.connection as WorldRoomDressing
 	var relic:=content.objects.wr_TG02.get_child(0) as WorldSpriteAnimation
 	var character_shape:=field.active.player.get_node("CollisionShape2D") as CollisionShape2D
 	var player_on_screen:=character_shape.get_global_transform_with_canvas()*character_shape.shape.get_rect()

@@ -1,6 +1,6 @@
 extends SceneTree
 ## Check accepted contact damage, failed storage, unique claims and the playable return.
-const Connection := preload("res://rooms/world/p02_connections/connection_room.gd")
+const Connection := preload("res://rooms/world/world_room_dressing.gd")
 var failures := 0
 var checks := 0
 var pilot: FieldTerracePilot
@@ -57,7 +57,7 @@ func run() -> void:
 	# Collect the two actual P16 services. The passage suites exercise the journeys.
 	pilot.enter_room("P16","d009")
 	await frames(4)
-	var site := pilot.connection as P02ConnectionRoom
+	var site := pilot.connection as WorldRoomDressing
 	for id: String in [Connection.SHARD,Connection.PURSE]:
 		pilot.active.player.reset_at(site.points[id])
 		await frames(6)

@@ -1,8 +1,8 @@
 extends SceneTree
 
-const SEGMENTS := "res://rooms/world/p02_connections/"
+const SEGMENTS := "res://tests/fixtures/plains_receivers/"
 const LANDINGS := {"P01":"d001","P03":"d002","P16":"d009","P19":"d330"}
-const Connection := preload("res://rooms/world/p02_connections/connection_room.gd")
+const Connection := preload("res://rooms/world/world_room_dressing.gd")
 var catalog := WorldContentCatalog.new()
 var checks := 0
 var failures := 0
@@ -106,7 +106,7 @@ func p16() -> void:
 	if host.controller==null:
 		await leave(host)
 		return
-	var site: P02ConnectionRoom=host.room.find_children("*","P02ConnectionRoom",true,false)[0]
+	var site: WorldRoomDressing=host.room.find_children("*","WorldRoomDressing",true,false)[0]
 	var coins:=catalog.lookup("coin_caches",Connection.PURSE)
 	var fragment:=catalog.lookup("rewards",Connection.SHARD)
 	expect(not site.claim(Connection.SHARD,host.state.revision) and not site.claim(Connection.PURSE,host.state.revision),"arrival issues nothing")
@@ -137,7 +137,7 @@ func p16() -> void:
 	if host.controller==null:
 		await leave(host)
 		return
-	site=host.room.find_children("*","P02ConnectionRoom",true,false)[0]
+	site=host.room.find_children("*","WorldRoomDressing",true,false)[0]
 	expect(host.services.ledger().gold==coins.row.amount and host.state.value.inventory.health_shard==1 and not site.objects[Connection.PURSE].visible and not site.objects[Connection.SHARD].visible,"reload restores both independent permanent claims")
 	await leave(host)
 
@@ -277,7 +277,7 @@ func shaft_motion(id: String, edge: String) -> void:
 
 func run() -> void:
 	var loaded := catalog.load_locked()
-	if loaded.ok: loaded = catalog.load_bindings("res://config/imported_world/bindings.json")
+	if loaded.ok: loaded = catalog.load_bindings("res://tests/fixtures/plains_receivers/bindings.json")
 	expect(loaded.ok,"locked world model and current species bindings")
 	if loaded.ok:
 		for id: String in LANDINGS: await route(id)
