@@ -1,2 +1,0 @@
-class_name P02ConnectionRoom
-extends WorldRoomDressing
