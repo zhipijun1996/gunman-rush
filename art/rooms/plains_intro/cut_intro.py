@@ -40,9 +40,12 @@ def export(room: str, movie: Path, log: Path, folder: Path) -> None:
     filters.append(f"{chain}concat=n={len(segments)}:v=1:a=1[v][a]")
     folder.mkdir(parents=True, exist_ok=True)
     output = folder / f"{room}-play.mp4"
+    # The scrolling native rock faces need a delivery bitrate ceiling. Keep
+    # the simpler P01 recording at its original constant-quality settings.
+    video_quality = ["-crf", "25"] if room == "P01" else ["-crf", "27", "-maxrate", "1350k", "-bufsize", "1350k"]
     subprocess.run(
         ["ffmpeg", "-v", "error", "-y", "-i", str(movie), "-filter_complex", ";".join(filters),
-         "-map", "[v]", "-map", "[a]", "-threads", "2", "-c:v", "libx264", "-crf", "25",
+         "-map", "[v]", "-map", "[a]", "-threads", "2", "-c:v", "libx264", *video_quality,
          "-preset", "veryfast", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "96k",
          "-movflags", "+faststart", str(output)], check=True)
     if output.stat().st_size >= 3_000_000:
