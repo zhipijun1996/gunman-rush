@@ -4,4 +4,4 @@ Z06 的瓷面座钟反复执行旧校时指令。玩家以墙、吊点、反冲�
 
 机体有 32 点耐久。每次动作后下部齿轮开合，青色核心暴露 1.95 秒。半程后先出移动光帘，紧接压锤与换向扫臂。胜利在独立确认点结算 240 币。王得到释放后的结果观察与终局选择分别在 Z07、Z08 办理。
 
-瓷柱取自 world_clockheart_v2_porcelain_coil，齿轮箱面板取自 world_clockheart_v2_regulator_panel。原生像素表盘和框架与可动校准头共用正式碰撞坐标。生成脚本为 art/bosses/machines/build.py，实房测试为 production/tests/machine_bosses.gd。
+瓷柱取自 world_clockheart_v2_porcelain_coil，齿轮箱面板取自 world_clockheart_v2_regulator_panel。原生像素表盘和框架与可动校准头共用正式碰撞坐标。生成脚本为 art/bosses/machines/build.py。独立平地测试场按 Z06 遭遇条件装入机组，验证预告与伤害判定、核心枪击、半程攻击顺序和胜利结算。[首领回归](../../../production/tests/machine_bosses.gd)

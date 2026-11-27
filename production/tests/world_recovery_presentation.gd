@@ -23,6 +23,31 @@ func check(condition: bool, label: String) -> void:
 func ticks(count: int) -> void:
 	for frame in count: await physics_frame
 
+func cross_phase_curtain(session: OrdinaryRoomSession, area: Rect2, guarded: bool) -> void:
+	var profile := session.state.candidate()
+	if "gun" not in profile.flags: profile.flags.append("gun")
+	if guarded: profile.flags.append("Q")
+	check(session.state.commit(profile,session.state.revision),"restore the requested recoil loadout")
+	session.player.reset_at(Vector2(area.end.x+50,session.room.start_point.y))
+	await ticks(140)
+	var hp := session.controller.actor_resources.health.current
+	var epoch := session.lifetime.actor_epoch
+	session.controller.router.request_action(&"jump")
+	await ticks(4)
+	session.controller.router.request_action(&"shoot_release",Vector2.RIGHT)
+	session.controller.router.set_move_axis(-1)
+	var protected_inside := false
+	for i in 48:
+		await physics_frame
+		protected_inside = protected_inside or (area.has_point(session.player.position) and session.recoil_guard.is_protecting())
+		if session.lifetime.actor_epoch!=epoch or session.player.position.x<area.position.x-17: break
+	session.controller.router.set_move_axis(0)
+	session.controller.router.request_action(&"jump_release")
+	if guarded:
+		check(protected_inside and session.lifetime.actor_epoch==epoch and session.controller.actor_resources.health.current==hp and session.player.position.x<area.position.x-17,"active recoil carries the player through the full light curtain without injury")
+	else:
+		check(not protected_inside and session.lifetime.actor_epoch==epoch+1 and session.controller.actor_resources.health.current==hp-1 and session.player.position.distance_to(session.recovery.entry_point)<4,"the same jump and shot without Q trigger damage and return to supported ground")
+
 func check_service_sites() -> void:
 	for id: String in ["P08","Y23","E03","E09"]:
 		var session := OrdinaryRoomSession.new()
@@ -48,6 +73,8 @@ func check_service_sites() -> void:
 			session.player.reset_at(FixedWorldProvider.rect(zone.bounds).get_center())
 			await ticks(5)
 			check(session.controller.actor_resources.health.current==hp-1 and session.lifetime.actor_epoch==epoch+1 and session.player.position.distance_to(session.recovery.entry_point)<4,"phase curtain returns to the actual d173 receiving platform")
+			for guarded: bool in [false,true]:
+				await cross_phase_curtain(session,FixedWorldProvider.rect(zone.bounds),guarded)
 		else:
 			session.player.reset_at(session.room.rest_point)
 			await ticks(20)

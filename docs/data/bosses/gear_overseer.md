@@ -4,4 +4,4 @@ G07 检修总机沿主战场底面的钢轨运行。泵站恢复后，黄色轴�
 
 机体有 16 点耐久。每次动作后停机 1.6 秒，前灯变为展开的青色芯轴，可打普通枪或主动技。耐久降至一半时铃响，逆向扫臂加入冲轨循环，先前的安全侧会改变。主线只使用已取得的枪与反冲。打停机体后在胜利点确认领取 80 币，壁攀装置由 G08 的独立来源发放。
 
-机关本体由独立资源、行为与原生轮式检修车图组成。美术母件为 gear_city_v2_piston_press，通过 art/bosses/machines/build.py 可重新得到运行用贴图。实房测试在 production/tests/machine_bosses.gd。
+机关本体由独立资源、行为与原生轮式检修车图组成。美术母件为 gear_city_v2_piston_press，通过 art/bosses/machines/build.py 可重新得到运行用贴图。独立平地测试场按 G07 遭遇条件装入正式首领，验证预警与伤害阶段、停机时枪弹命中、半程换招和 80 币首胜结算。[首领回归](../../../production/tests/machine_bosses.gd)

@@ -1,5 +1,7 @@
 extends SceneTree
-## Three real room documents, the standard encounter, controller and projectile endpoint.
+## Reusable arena enemies, exercised in an isolated flat chamber. The registered
+## enemy definition, encounter eligibility, player, damage batches and save are real.
+const Fixture := preload("res://tests/system_room_fixture.gd")
 var failures := 0
 var checks := 0
 var catalog := WorldContentCatalog.new()
@@ -7,7 +9,9 @@ var catalog := WorldContentCatalog.new()
 class Storage extends WorldSaveService:
 	var data := {}
 	var seq := 0
+	var writable := true
 	func commit(next: Dictionary, revision: int) -> bool:
+		if not writable: return false
 		data=next.duplicate(true)
 		seq=revision
 		return true
@@ -26,12 +30,6 @@ func check(ok: bool, message: String) -> void:
 func frames(n: int) -> void:
 	for i in n: await physics_frame
 
-func snapshot(tag: String) -> void:
-	var path := OS.get_environment("MACHINE_BOSS_CAPTURE_DIR")
-	if path.is_empty() or DisplayServer.get_name()=="headless": return
-	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png(path.path_join(tag+".png"))
-
 func shot_context(actor: EnemyActor, id: String, amount: float) -> Dictionary:
 	return {"event_id":id,"amount":amount,"source_faction":&"player","target_actor_id":actor.damageable.actor_id,"target_epoch":actor.damageable.damage_epoch,"hit_direction":Vector2.RIGHT}
 
@@ -39,22 +37,24 @@ func exercise(room: String, member: String, identity: String) -> void:
 	var storage := Storage.new()
 	var session := OrdinaryRoomSession.new()
 	root.add_child(session)
-	var document := WorldRoomDocument.read("res://rooms/world/"+room+".json")
+	var definition_id := "enemy."+identity
+	var definition := EnemyFactory.definition_for_behavior(StringName(identity)) as ArenaBossDefinition
+	var locked := catalog.lookup("encounters","enc_"+room)
+	if definition == null or not locked.get("ok",false):
+		check(false,room+" registered boss definition and encounter must exist")
+		session.free()
+		return
+	var document := Fixture.duel(room,"enc_"+room,definition_id,member)
+	var floor_rect := FixedWorldProvider.rect(document.entities.floor.properties.rect)
+	document.entities[member].properties.point[1] = floor_rect.position.y-definition.floor_offset
+	var encounter := locked.row as Dictionary
+	if encounter.kind != "optional_boss":
+		document.sites["enc_"+room].erase("start_at")
 	var error := session.open(document,storage,null,catalog)
 	check(error.is_empty(),room+" open "+error)
 	if not error.is_empty():
 		session.free()
 		return
-	if not OS.get_environment("MACHINE_BOSS_CAPTURE_DIR").is_empty():
-		var camera := session.player.find_children("*","Camera2D",false,false).front() as Camera2D
-		var bounds := FixedWorldProvider.rect(document.bounds)
-		camera.limit_left=roundi(bounds.position.x)
-		camera.limit_top=roundi(bounds.position.y)
-		camera.limit_right=roundi(bounds.end.x)
-		camera.limit_bottom=roundi(bounds.end.y)
-		camera.zoom=Vector2.ONE*1.40
-		camera.make_current()
-		WorldBackdrop.mount(session,document,{})
 	await frames(6)
 	var fight: WorldRoomEncounter = session.encounters.front()
 	var row := fight.encounter
@@ -68,8 +68,11 @@ func exercise(room: String, member: String, identity: String) -> void:
 		check(not catalog.condition_match(fight.eligibility,partial).matches,room+" requires "+missing)
 	var candidate := session.state.candidate()
 	candidate.flags.append_array(required)
+	if "gun" not in candidate.flags: candidate.flags.append("gun")
 	check(session.state.commit(candidate,session.state.revision),room+" qualified state")
 	await frames(5)
+	var traversal := session.controller.traversal
+	check(session.controller.shoot_ability.enabled and traversal.wall_enabled==("W" in required) and traversal.hook_enabled==("H" in required) and traversal.double_enabled==("D" in required) and session.recoil_guard.owned==("Q" in required),room+" qualified save configures the actual player abilities")
 	if fight.awaiting_challenge:
 		check(not session.room.enemies.has(member),room+" quiet before explicit challenge")
 		session.player.reset_at(fight.position+fight.start_offset)
@@ -83,6 +86,10 @@ func exercise(room: String, member: String, identity: String) -> void:
 		return
 	var b := actor.attack_behavior as ArenaBossBehavior
 	check(b!=null and actor.definition.behavior_id==StringName(identity) and actor.damageable.time_profile=="boss",room+" authored behavior")
+	if b==null:
+		await session.audio_service.shutdown()
+		session.free()
+		return
 	check(EnemyPresentationBinding.view(actor.motor.get_node("Presentation")).body_key==StringName(identity),room+" unique visual binding")
 	var floor_y := b.floor_y
 	var full := actor.health.current
@@ -96,8 +103,10 @@ func exercise(room: String, member: String, identity: String) -> void:
 		b.advance(1.0/60.0)
 		if b.state==&"telegraph": break
 	check(b.state==&"telegraph" and not fight.confirm(),room+" windup locks shot and victory")
+	if identity in ["island_windbird","star_gatekeeper"]:
+		var heads := b.hit_rects(.04)
+		check(heads.size()==(3 if identity=="island_windbird" else 1) and heads!=b.hit_rects(.60),room+" moving attack formation")
 	check(not actor.damageable.receive_damage(shot_context(actor,room+"-armor",2)),room+" armour blocks incoming damage")
-	await snapshot(room+"-warning")
 	var hp := session.controller.actor_resources.health.current
 	for i in 120:
 		b.advance(1.0/60.0)
@@ -123,11 +132,10 @@ func exercise(room: String, member: String, identity: String) -> void:
 	var fire_direction := Vector2(actor.brain.direction,0) if identity=="borer_three" else Vector2.RIGHT
 	var from := actor.motor.global_position-fire_direction*(actor.definition.collision_size.x/2+56)
 	if identity=="thermal_bell_keeper":
-		# The western muzzle position is inside the live phase curtain. Stand on
-		# the eastern lip of the central basalt platform to hit the exposed core.
+		# Aim at the exposed thermal core from a supported position to its east.
 		fire_direction=Vector2.LEFT
 		from=Vector2(b.home.x+110,floor_y-18)
-		check(session.recovery.safe(session.room,session.player,from),room+" supported firing stance outside lava and light")
+		check(session.recovery.safe(session.room,session.player,from),room+" supported eastern firing stance")
 	session.player.reset_at(from)
 	var fired := session.controller.shoot_ability.try_fire(fire_direction,true)
 	await frames(14)
@@ -164,6 +172,9 @@ func exercise(room: String, member: String, identity: String) -> void:
 			var shell_at:=shell.global_position
 			var ray:=PhysicsRayQueryParameters2D.create(shell_at-Vector2(0,55),shell_at+Vector2(0,5),1)
 			check(session.player.get_world_2d().direct_space_state.intersect_ray(ray).get("collider")==shell,room+" real stable shell support")
+			session.player.reset_at(shell_at+Vector2.UP*75)
+			await frames(32)
+			check(session.player.is_on_floor() and absf(session.player.position.x-shell_at.x)<24 and session.player.position.y<shell_at.y-40,room+" player settles on the discarded shell above the chamber floor")
 			session.player.reset_at(Vector2(b.home.x-195,b.floor_y-18))
 			b.advance(0.15)
 			check(shell.global_position==shell_at,room+" terrain shell stays on its marked side")
@@ -186,7 +197,6 @@ func exercise(room: String, member: String, identity: String) -> void:
 				if b.state==&"recovery": break
 		check(lanes.size()==3 and warning_times.size()==2,room+" three fixed pump positions and staggered timing")
 
-	await snapshot(room+"-core")
 	var finish_hit := shot_context(actor,room+"-finish",full)
 	finish_hit.hit_direction = Vector2(actor.brain.direction,0)
 	check(actor.damageable.receive_damage(finish_hit),room+" genuine final incoming hit")
@@ -196,9 +206,18 @@ func exercise(room: String, member: String, identity: String) -> void:
 	session.player.reset_at(fight.position)
 	await frames(10)
 	var coins: int = session.services.ledger().gold
+	var receipt := "income:"+str(row.id)
+	storage.writable = false
+	session.controller.router.request_action(&"interact")
+	await frames(3)
+	check(not session.state.has(row.completion_flag) and not session.state.value.receipts.has(receipt) and session.services.ledger().gold==coins,room+" rejected settlement retains the unclaimed victory")
+	storage.writable = true
 	session.controller.router.request_action(&"interact")
 	await frames(4)
 	check(session.state.has(row.completion_flag) and session.services.ledger().gold==coins+int(row.coin_reward),room+" unlock and exact one-time purse")
+	var victory: Dictionary = storage.data.receipts.get(row.completion_flag,{})
+	var income: Dictionary = storage.data.receipts.get(receipt,{})
+	check(victory.get("source")==row.completion_flag and income.get("source")==receipt and income.get("revision")==victory.get("revision") and int(income.get("revision",-1))==storage.seq,room+" victory and payout receipts share the saved revision")
 	check(not fight.confirm(),room+" cannot reopen cleared reward")
 	await session.audio_service.shutdown()
 	session.free()
@@ -213,5 +232,9 @@ func run() -> void:
 	await exercise("N23","borer_three","borer_three")
 	await exercise("R23","tide_pump_bell","tide_pump_bell")
 	await exercise("E21","ember_molter","ember_molter")
+	await exercise("R20","harbor_warden","harbor_warden")
+	await exercise("E09","thermal_bell_keeper","thermal_bell_keeper")
+	await exercise("A11","broken_wing","island_windbird")
+	await exercise("V08","gatekeeper","star_gatekeeper")
 	print("MACHINE BOSSES failures=",failures," checks=",checks)
 	quit(1 if failures else 0)
