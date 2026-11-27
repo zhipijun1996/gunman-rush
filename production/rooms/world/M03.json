@@ -1,0 +1,392 @@
+{
+  "schema": 3,
+  "room_id": "M03",
+  "bounds": [
+    0,
+    0,
+    801,
+    756
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "mushroom_caverns",
+      "region_id": "mushroom_caverns",
+      "start_point": [
+        458,
+        702
+      ]
+    }
+  },
+  "exits": {
+    "d106": {
+      "point": [
+        400,
+        738
+      ],
+      "spawn": [
+        458,
+        702
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        352,
+        448
+      ]
+    },
+    "d105": {
+      "point": [
+        799,
+        179
+      ],
+      "spawn": [
+        767,
+        179
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        69,
+        199
+      ]
+    },
+    "d116": {
+      "point": [
+        799,
+        521
+      ],
+      "spawn": [
+        767,
+        521
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        411,
+        541
+      ]
+    },
+    "d120": {
+      "point": [
+        2,
+        521
+      ],
+      "spawn": [
+        34,
+        521
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        411,
+        541
+      ]
+    }
+  },
+  "sites": {
+    "read_sign_m03": {
+      "at": [
+        268,
+        594
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/fungal_arch.png",
+        "at": [
+          216,
+          549
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/glowcap.png",
+        "at": [
+          545,
+          552
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/mushroom_caverns/entrance.webp"
+  },
+  "entities": {
+    "pillar_crossing_bed": {
+      "id": "pillar_crossing_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            539
+          ],
+          [
+            0,
+            539
+          ],
+          [
+            136,
+            539
+          ],
+          [
+            240,
+            552
+          ],
+          [
+            264,
+            612
+          ],
+          [
+            331,
+            612
+          ],
+          [
+            331,
+            788
+          ],
+          [
+            -34,
+            788
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "pillar_crossing_toe_1": {
+      "id": "pillar_crossing_toe_1",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            478,
+            612
+          ],
+          [
+            513,
+            612
+          ],
+          [
+            545,
+            552
+          ],
+          [
+            665,
+            539
+          ],
+          [
+            801,
+            539
+          ],
+          [
+            835,
+            539
+          ],
+          [
+            835,
+            788
+          ],
+          [
+            478,
+            788
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d106_receiving_tread": {
+      "id": "d106_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          439,
+          720,
+          38,
+          14
+        ]
+      }
+    },
+    "d106_rung_0": {
+      "id": "d106_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          439,
+          652,
+          38,
+          14
+        ]
+      }
+    },
+    "d106_lower_sill": {
+      "id": "d106_lower_sill",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          447,
+          612,
+          35,
+          14
+        ]
+      }
+    },
+    "d105_gallery": {
+      "id": "d105_gallery",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          633,
+          197,
+          196,
+          14
+        ]
+      }
+    },
+    "d105_approach_0": {
+      "id": "d105_approach_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          570,
+          270,
+          126,
+          14
+        ]
+      }
+    },
+    "d105_approach_1": {
+      "id": "d105_approach_1",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          483,
+          343,
+          126,
+          14
+        ]
+      }
+    },
+    "d105_approach_2": {
+      "id": "d105_approach_2",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          570,
+          416,
+          126,
+          14
+        ]
+      }
+    },
+    "d105_approach_3": {
+      "id": "d105_approach_3",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          483,
+          489,
+          126,
+          14
+        ]
+      }
+    },
+    "seam_light": {
+      "id": "seam_light",
+      "definition_id": "environment.local_light",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          489,
+          532
+        ],
+        "light_radius": 118,
+        "brightness": 0.76
+      }
+    },
+    "spore_larva_on_near_bank": {
+      "id": "spore_larva_on_near_bank",
+      "definition_id": "enemy.spore_larva",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          216,
+          529
+        ]
+      }
+    },
+    "upper_stone_fold": {
+      "id": "upper_stone_fold",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            128,
+            -27
+          ],
+          [
+            320,
+            -27
+          ],
+          [
+            320,
+            73
+          ],
+          [
+            283,
+            105
+          ],
+          [
+            261,
+            120
+          ],
+          [
+            237,
+            95
+          ],
+          [
+            175,
+            91
+          ],
+          [
+            128,
+            68
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "spore_larva_on_near_bank": {
+        "species_id": "species.f3954ee9cefc",
+        "drop_profile_id": "drop.f3954ee9cefc.t1"
+      }
+    }
+  }
+}

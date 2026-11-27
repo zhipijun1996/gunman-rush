@@ -1,0 +1,431 @@
+{
+  "schema": 3,
+  "room_id": "M13",
+  "bounds": [
+    0,
+    0,
+    1335,
+    756
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "mushroom_caverns",
+      "region_id": "mushroom_caverns",
+      "start_point": [
+        668,
+        66
+      ]
+    }
+  },
+  "exits": {
+    "d119": {
+      "point": [
+        668,
+        2
+      ],
+      "spawn": [
+        668,
+        66
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        620,
+        716
+      ]
+    },
+    "d235": {
+      "point": [
+        668,
+        738
+      ],
+      "spawn": [
+        726,
+        702
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        620,
+        716
+      ]
+    },
+    "d110": {
+      "point": [
+        2,
+        615
+      ],
+      "spawn": [
+        34,
+        615
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        505,
+        635
+      ]
+    },
+    "d111": {
+      "point": [
+        1333,
+        426
+      ],
+      "spawn": [
+        1301,
+        426
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        316,
+        446
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/hyphae.png",
+        "at": [
+          797,
+          238
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/wall_gills.png",
+        "at": [
+          320,
+          480
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/spore_pods.png",
+        "at": [
+          501,
+          514
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/glowcap.png",
+        "at": [
+          1108,
+          503
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/mushroom_caverns/hollow.webp"
+  },
+  "entities": {
+    "bored_throat_bed": {
+      "id": "bored_throat_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            633
+          ],
+          [
+            0,
+            633
+          ],
+          [
+            178,
+            633
+          ],
+          [
+            280,
+            454
+          ],
+          [
+            374,
+            514
+          ],
+          [
+            521,
+            514
+          ],
+          [
+            599,
+            565
+          ],
+          [
+            599,
+            788
+          ],
+          [
+            -34,
+            788
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "bored_throat_toe_1": {
+      "id": "bored_throat_toe_1",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            746,
+            575
+          ],
+          [
+            814,
+            575
+          ],
+          [
+            908,
+            476
+          ],
+          [
+            1068,
+            476
+          ],
+          [
+            1135,
+            522
+          ],
+          [
+            1335,
+            522
+          ],
+          [
+            1369,
+            522
+          ],
+          [
+            1369,
+            788
+          ],
+          [
+            746,
+            788
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d119_apron": {
+      "id": "d119_apron",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          602,
+          84,
+          132,
+          14
+        ]
+      }
+    },
+    "d119_climbing_0": {
+      "id": "d119_climbing_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          652,
+          164,
+          121,
+          14
+        ]
+      }
+    },
+    "d119_climbing_1": {
+      "id": "d119_climbing_1",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          738,
+          238,
+          121,
+          14
+        ]
+      }
+    },
+    "d119_climbing_2": {
+      "id": "d119_climbing_2",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          680,
+          312,
+          121,
+          14
+        ]
+      }
+    },
+    "d119_climbing_3": {
+      "id": "d119_climbing_3",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          766,
+          386,
+          121,
+          14
+        ]
+      }
+    },
+    "d119_climbing_4": {
+      "id": "d119_climbing_4",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          694,
+          460,
+          121,
+          14
+        ]
+      }
+    },
+    "d119_climbing_5": {
+      "id": "d119_climbing_5",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          766,
+          534,
+          121,
+          14
+        ]
+      }
+    },
+    "d235_receiving_tread": {
+      "id": "d235_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          707,
+          720,
+          38,
+          14
+        ]
+      }
+    },
+    "d235_rung_0": {
+      "id": "d235_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          707,
+          652,
+          38,
+          14
+        ]
+      }
+    },
+    "d235_lower_sill": {
+      "id": "d235_lower_sill",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          715,
+          575,
+          35,
+          14
+        ]
+      }
+    },
+    "d111_gallery": {
+      "id": "d111_gallery",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1118,
+          444,
+          245,
+          14
+        ]
+      }
+    },
+    "seam_light": {
+      "id": "seam_light",
+      "definition_id": "environment.local_light",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          814,
+          495
+        ],
+        "light_radius": 118,
+        "brightness": 0.76
+      }
+    },
+    "upper_stone_fold": {
+      "id": "upper_stone_fold",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            881,
+            -27
+          ],
+          [
+            1254,
+            -27
+          ],
+          [
+            1254,
+            87
+          ],
+          [
+            1217,
+            119
+          ],
+          [
+            1195,
+            134
+          ],
+          [
+            1171,
+            109
+          ],
+          [
+            928,
+            105
+          ],
+          [
+            881,
+            82
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": []
+}

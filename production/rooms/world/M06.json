@@ -1,0 +1,453 @@
+{
+  "schema": 3,
+  "room_id": "M06",
+  "bounds": [
+    0,
+    0,
+    1560,
+    922
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "mushroom_caverns",
+      "region_id": "mushroom_caverns",
+      "start_point": [
+        38,
+        342
+      ]
+    }
+  },
+  "exits": {
+    "d117": {
+      "point": [
+        2,
+        342
+      ],
+      "spawn": [
+        34,
+        342
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        232,
+        362
+      ]
+    },
+    "d442": {
+      "point": [
+        1558,
+        342
+      ],
+      "spawn": [
+        1526,
+        342
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        232,
+        362
+      ]
+    },
+    "d118": {
+      "point": [
+        303,
+        904
+      ],
+      "spawn": [
+        361,
+        868
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        255,
+        351
+      ]
+    }
+  },
+  "sites": {
+    "cave_curtain_hatch_open": {
+      "at": [
+        1156,
+        79
+      ],
+      "other_approaches": [
+        [
+          361,
+          868
+        ]
+      ],
+      "hatch_rect": [
+        231,
+        680,
+        154,
+        28
+      ]
+    },
+    "wr_T17_primary": {
+      "at": [
+        493,
+        662
+      ]
+    },
+    "enc_M06": {
+      "at": [
+        606,
+        662
+      ],
+      "waves": [
+        [
+          "stone_curtain_lord"
+        ]
+      ],
+      "victory_only": [
+        "stone_curtain_lord"
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/fungal_arch.png",
+        "at": [
+          197,
+          360
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/hyphae.png",
+        "at": [
+          928,
+          360
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/glowcap.png",
+        "at": [
+          486,
+          680
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/wall_gills.png",
+        "at": [
+          1085,
+          436
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/cap_cluster.png",
+        "at": [
+          1318,
+          680
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/spore_bed.png",
+        "at": [
+          789,
+          680
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/mushroom_caverns/hollow.webp"
+  },
+  "entities": {
+    "d118_receiving_tread": {
+      "id": "d118_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          342,
+          886,
+          38,
+          14
+        ]
+      }
+    },
+    "d118_rung_0": {
+      "id": "d118_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          342,
+          818,
+          38,
+          14
+        ]
+      }
+    },
+    "d118_rung_1": {
+      "id": "d118_rung_1",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          342,
+          754,
+          38,
+          14
+        ]
+      }
+    },
+    "western_rootbank": {
+      "id": "western_rootbank",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -50,
+            360
+          ],
+          [
+            266,
+            360
+          ],
+          [
+            266,
+            467
+          ],
+          [
+            226,
+            495
+          ],
+          [
+            226,
+            680
+          ],
+          [
+            237,
+            680
+          ],
+          [
+            237,
+            954
+          ],
+          [
+            -50,
+            954
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "boss_arena_and_curb": {
+      "id": "boss_arena_and_curb",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            377,
+            680
+          ],
+          [
+            1340,
+            680
+          ],
+          [
+            1385,
+            640
+          ],
+          [
+            1488,
+            640
+          ],
+          [
+            1488,
+            591
+          ],
+          [
+            1600,
+            591
+          ],
+          [
+            1600,
+            954
+          ],
+          [
+            377,
+            954
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "root_hatch_right_toe": {
+      "id": "root_hatch_right_toe",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          348,
+          680,
+          33,
+          14
+        ]
+      }
+    },
+    "curtain_front_walk": {
+      "id": "curtain_front_walk",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          226,
+          360,
+          792,
+          14
+        ]
+      }
+    },
+    "east_bypass": {
+      "id": "east_bypass",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1124,
+          360,
+          485,
+          14
+        ]
+      }
+    },
+    "broken_fan": {
+      "id": "broken_fan",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1012,
+          436,
+          126,
+          14
+        ]
+      }
+    },
+    "stone_lily": {
+      "id": "stone_lily",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1102,
+          510,
+          158,
+          14
+        ]
+      }
+    },
+    "inner_ring_return": {
+      "id": "inner_ring_return",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1219,
+          579,
+          167,
+          14
+        ]
+      }
+    },
+    "upper_control_dais": {
+      "id": "upper_control_dais",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1080,
+          97,
+          192,
+          14
+        ]
+      }
+    },
+    "hook_in_the_curtain": {
+      "id": "hook_in_the_curtain",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          1134,
+          48
+        ]
+      }
+    },
+    "stone_curtain_lord": {
+      "id": "stone_curtain_lord",
+      "definition_id": "enemy.stone_curtain_lord",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1000,
+          643
+        ]
+      }
+    },
+    "dry_vestibule": {
+      "id": "dry_vestibule",
+      "definition_id": "recovery.station",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          152,
+          342
+        ]
+      }
+    }
+  },
+  "actions": [],
+  "zone_areas": {
+    "M06_vestibule": [
+      0,
+      202,
+      1560,
+      235
+    ],
+    "M06_hall": [
+      397,
+      444,
+      1163,
+      300
+    ],
+    "M06_lower": [
+      0,
+      555,
+      392,
+      367
+    ],
+    "M06_hook_ledge": [
+      998,
+      0,
+      455,
+      175
+    ]
+  }
+}

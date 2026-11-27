@@ -1,0 +1,403 @@
+{
+  "schema": 3,
+  "room_id": "M17",
+  "bounds": [
+    0,
+    0,
+    1068,
+    567
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "mushroom_caverns",
+      "region_id": "mushroom_caverns",
+      "start_point": [
+        405,
+        513
+      ]
+    }
+  },
+  "exits": {
+    "d338": {
+      "point": [
+        347,
+        549
+      ],
+      "spawn": [
+        405,
+        513
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        299,
+        395
+      ]
+    },
+    "d339": {
+      "point": [
+        227,
+        2
+      ],
+      "spawn": [
+        227,
+        66
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        179,
+        275
+      ]
+    }
+  },
+  "sites": {
+    "wr20_equipment_P03": {
+      "at": [
+        534,
+        396
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/hyphae.png",
+        "at": [
+          356,
+          238
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/wall_gills.png",
+        "at": [
+          150,
+          352
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/fungal_arch.png",
+        "at": [
+          801,
+          448
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/closed_cap.png",
+        "at": [
+          607,
+          199
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/mushroom_caverns/deep.webp"
+  },
+  "entities": {
+    "back_curtain_bed": {
+      "id": "back_curtain_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            352
+          ],
+          [
+            0,
+            352
+          ],
+          [
+            278,
+            352
+          ],
+          [
+            278,
+            599
+          ],
+          [
+            -34,
+            599
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "back_curtain_toe_1": {
+      "id": "back_curtain_toe_1",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            425,
+            414
+          ],
+          [
+            566,
+            414
+          ],
+          [
+            619,
+            454
+          ],
+          [
+            790,
+            454
+          ],
+          [
+            876,
+            408
+          ],
+          [
+            1068,
+            408
+          ],
+          [
+            1102,
+            408
+          ],
+          [
+            1102,
+            599
+          ],
+          [
+            425,
+            599
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d338_receiving_tread": {
+      "id": "d338_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          386,
+          531,
+          38,
+          14
+        ]
+      }
+    },
+    "d338_rung_0": {
+      "id": "d338_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          386,
+          463,
+          38,
+          14
+        ]
+      }
+    },
+    "d338_lower_sill": {
+      "id": "d338_lower_sill",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          394,
+          414,
+          35,
+          14
+        ]
+      }
+    },
+    "d339_apron": {
+      "id": "d339_apron",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          161,
+          84,
+          132,
+          14
+        ]
+      }
+    },
+    "d339_climbing_0": {
+      "id": "d339_climbing_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          211,
+          164,
+          121,
+          14
+        ]
+      }
+    },
+    "d339_climbing_1": {
+      "id": "d339_climbing_1",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          297,
+          238,
+          121,
+          14
+        ]
+      }
+    },
+    "d339_climbing_2": {
+      "id": "d339_climbing_2",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          239,
+          312,
+          121,
+          14
+        ]
+      }
+    },
+    "hook_gap_upper_shelf": {
+      "id": "hook_gap_upper_shelf",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          509,
+          199,
+          167,
+          14
+        ]
+      }
+    },
+    "hook_gap_root_loop": {
+      "id": "hook_gap_root_loop",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          661,
+          113
+        ]
+      }
+    },
+    "west_root_buttress": {
+      "id": "west_root_buttress",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -26,
+            -30
+          ],
+          [
+            100,
+            -30
+          ],
+          [
+            114,
+            96
+          ],
+          [
+            82,
+            147
+          ],
+          [
+            65,
+            255
+          ],
+          [
+            47,
+            340
+          ],
+          [
+            67,
+            408
+          ],
+          [
+            122,
+            482
+          ],
+          [
+            127,
+            591
+          ],
+          [
+            -26,
+            591
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "east_stone_buttress": {
+      "id": "east_stone_buttress",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1094,
+            591
+          ],
+          [
+            941,
+            591
+          ],
+          [
+            946,
+            482
+          ],
+          [
+            1001,
+            408
+          ],
+          [
+            1021,
+            340
+          ],
+          [
+            1003,
+            255
+          ],
+          [
+            986,
+            147
+          ],
+          [
+            954,
+            96
+          ],
+          [
+            968,
+            -30
+          ],
+          [
+            1094,
+            -30
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": []
+}

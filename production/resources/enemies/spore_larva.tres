@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_definition.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/enemies/patrol_health.tres" id="2"]
+[resource]
+script = ExtResource("1")
+stable_id = &"spore_larva"
+definition_version = 2
+health_definition = ExtResource("2")
+faction = &"enemy"
+patrol_speed = 47
+patrol_half_width = 112
+initial_direction = 1
+collision_size = Vector2(29, 27)
+
+behavior_id = &"spore_larva"
+telegraph_duration = 0.63
+attack_duration = 0.7
+recovery_duration = 0.7
+attack_speed = 360.0
+
+activation_range = 302.0

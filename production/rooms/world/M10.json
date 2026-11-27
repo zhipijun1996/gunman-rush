@@ -1,0 +1,354 @@
+{
+  "schema": 3,
+  "room_id": "M10",
+  "bounds": [
+    0,
+    0,
+    1335,
+    567
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "mushroom_caverns",
+      "region_id": "mushroom_caverns",
+      "start_point": [
+        400,
+        66
+      ]
+    }
+  },
+  "exits": {
+    "d107": {
+      "point": [
+        400,
+        2
+      ],
+      "spawn": [
+        400,
+        66
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        352,
+        448
+      ]
+    },
+    "d108": {
+      "point": [
+        2,
+        332
+      ],
+      "spawn": [
+        34,
+        332
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        222,
+        352
+      ]
+    },
+    "d443": {
+      "point": [
+        1333,
+        143
+      ],
+      "spawn": [
+        1301,
+        143
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        33,
+        163
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/hyphae.png",
+        "at": [
+          529,
+          238
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/hyphae.png",
+        "at": [
+          294,
+          388
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/spore_pods.png",
+        "at": [
+          774,
+          418
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/mushroom_caverns/hollow.webp"
+  },
+  "entities": {
+    "turning_shoulder_bed": {
+      "id": "turning_shoulder_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            350
+          ],
+          [
+            0,
+            350
+          ],
+          [
+            178,
+            350
+          ],
+          [
+            320,
+            397
+          ],
+          [
+            374,
+            437
+          ],
+          [
+            734,
+            437
+          ],
+          [
+            868,
+            374
+          ],
+          [
+            1028,
+            374
+          ],
+          [
+            1108,
+            312
+          ],
+          [
+            1335,
+            312
+          ],
+          [
+            1369,
+            312
+          ],
+          [
+            1369,
+            599
+          ],
+          [
+            -34,
+            599
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d107_apron": {
+      "id": "d107_apron",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          334,
+          84,
+          132,
+          14
+        ]
+      }
+    },
+    "d107_climbing_0": {
+      "id": "d107_climbing_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          384,
+          164,
+          121,
+          14
+        ]
+      }
+    },
+    "d107_climbing_1": {
+      "id": "d107_climbing_1",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          470,
+          238,
+          121,
+          14
+        ]
+      }
+    },
+    "d107_climbing_2": {
+      "id": "d107_climbing_2",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          412,
+          312,
+          121,
+          14
+        ]
+      }
+    },
+    "d107_climbing_3": {
+      "id": "d107_climbing_3",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          498,
+          386,
+          121,
+          14
+        ]
+      }
+    },
+    "d443_gallery": {
+      "id": "d443_gallery",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1118,
+          161,
+          245,
+          14
+        ]
+      }
+    },
+    "d443_approach_0": {
+      "id": "d443_approach_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1055,
+          234,
+          126,
+          14
+        ]
+      }
+    },
+    "d443_approach_1": {
+      "id": "d443_approach_1",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          968,
+          307,
+          126,
+          14
+        ]
+      }
+    },
+    "observation_shelf": {
+      "id": "observation_shelf",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          307,
+          364,
+          179,
+          14
+        ]
+      }
+    },
+    "spore_larva_on_near_bank": {
+      "id": "spore_larva_on_near_bank",
+      "definition_id": "enemy.spore_larva",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          894,
+          354
+        ]
+      }
+    },
+    "upper_stone_fold": {
+      "id": "upper_stone_fold",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            760,
+            -27
+          ],
+          [
+            1121,
+            -27
+          ],
+          [
+            1121,
+            57
+          ],
+          [
+            1084,
+            89
+          ],
+          [
+            1062,
+            104
+          ],
+          [
+            1038,
+            79
+          ],
+          [
+            807,
+            75
+          ],
+          [
+            760,
+            52
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "spore_larva_on_near_bank": {
+        "species_id": "species.f3954ee9cefc",
+        "drop_profile_id": "drop.f3954ee9cefc.t2"
+      }
+    }
+  }
+}

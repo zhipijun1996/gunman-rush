@@ -1,0 +1,307 @@
+{
+  "schema": 3,
+  "room_id": "N09",
+  "bounds": [
+    0,
+    0,
+    1225,
+    480
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "echo_mines",
+      "region_id": "echo_mines",
+      "start_point": [
+        670,
+        426
+      ]
+    }
+  },
+  "exits": {
+    "d242": {
+      "point": [
+        612,
+        462
+      ],
+      "spawn": [
+        670,
+        426
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        564,
+        660
+      ]
+    },
+    "d156": {
+      "point": [
+        2,
+        306
+      ],
+      "spawn": [
+        34,
+        306
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        196,
+        326
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/echo_mines/headframe.png",
+        "at": [
+          184,
+          322
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/echo_mines/ore_cluster.png",
+        "at": [
+          968,
+          374
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/echo_mines/hollow.webp"
+  },
+  "entities": {
+    "firefront_cut_bed": {
+      "id": "firefront_cut_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            324
+          ],
+          [
+            0,
+            324
+          ],
+          [
+            178,
+            324
+          ],
+          [
+            380,
+            269
+          ],
+          [
+            478,
+            331
+          ],
+          [
+            543,
+            331
+          ],
+          [
+            543,
+            512
+          ],
+          [
+            -34,
+            512
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "firefront_cut_toe_1": {
+      "id": "firefront_cut_toe_1",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            690,
+            333
+          ],
+          [
+            796,
+            374
+          ],
+          [
+            1225,
+            374
+          ],
+          [
+            1259,
+            374
+          ],
+          [
+            1259,
+            512
+          ],
+          [
+            690,
+            512
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d242_receiving_tread": {
+      "id": "d242_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          651,
+          444,
+          38,
+          14
+        ]
+      }
+    },
+    "d242_rung_0": {
+      "id": "d242_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          651,
+          376,
+          38,
+          14
+        ]
+      }
+    },
+    "d242_lower_sill": {
+      "id": "d242_lower_sill",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          659,
+          333,
+          35,
+          14
+        ]
+      }
+    },
+    "seam_light": {
+      "id": "seam_light",
+      "definition_id": "environment.local_light",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          747,
+          275
+        ],
+        "light_radius": 118,
+        "brightness": 0.76
+      }
+    },
+    "east_retaining_wall": {
+      "id": "east_retaining_wall",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1250,
+            504
+          ],
+          [
+            1113,
+            504
+          ],
+          [
+            1113,
+            370
+          ],
+          [
+            1168,
+            370
+          ],
+          [
+            1168,
+            293
+          ],
+          [
+            1147,
+            293
+          ],
+          [
+            1147,
+            106
+          ],
+          [
+            1125,
+            106
+          ],
+          [
+            1125,
+            -30
+          ],
+          [
+            1250,
+            -30
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "upper_cut_face": {
+      "id": "upper_cut_face",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            661,
+            -25
+          ],
+          [
+            967,
+            -25
+          ],
+          [
+            967,
+            46
+          ],
+          [
+            918,
+            46
+          ],
+          [
+            918,
+            67
+          ],
+          [
+            691,
+            67
+          ],
+          [
+            691,
+            52
+          ],
+          [
+            661,
+            52
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": []
+}

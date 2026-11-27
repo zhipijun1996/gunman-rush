@@ -1,0 +1,497 @@
+{
+  "schema": 3,
+  "room_id": "M07",
+  "bounds": [
+    0,
+    0,
+    1068,
+    756
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "mushroom_caverns",
+      "region_id": "mushroom_caverns",
+      "start_point": [
+        859,
+        702
+      ]
+    }
+  },
+  "exits": {
+    "d114": {
+      "point": [
+        801,
+        738
+      ],
+      "spawn": [
+        859,
+        702
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        753,
+        849
+      ]
+    },
+    "d115": {
+      "point": [
+        267,
+        2
+      ],
+      "spawn": [
+        267,
+        66
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        219,
+        315
+      ]
+    },
+    "d233": {
+      "point": [
+        1066,
+        426
+      ],
+      "spawn": [
+        966,
+        426
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        316,
+        446
+      ]
+    },
+    "d442": {
+      "point": [
+        2,
+        332
+      ],
+      "spawn": [
+        34,
+        332
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        222,
+        352
+      ]
+    }
+  },
+  "sites": {
+    "d233": {
+      "at": [
+        966,
+        426
+      ]
+    },
+    "cave_city_hatch_open": {
+      "at": [
+        624,
+        258
+      ],
+      "other_approaches": [
+        [
+          859,
+          702
+        ]
+      ],
+      "hatch_rect": [
+        729,
+        582,
+        154,
+        28
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/hyphae.png",
+        "at": [
+          396,
+          238
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/glowcap.png",
+        "at": [
+          235,
+          485
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/fungal_arch.png",
+        "at": [
+          587,
+          507
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/hyphae.png",
+        "at": [
+          701,
+          507
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/closed_cap.png",
+        "at": [
+          639,
+          276
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/mushroom_caverns/entrance.webp"
+  },
+  "entities": {
+    "breaker_tunnel_bed": {
+      "id": "breaker_tunnel_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            491
+          ],
+          [
+            0,
+            491
+          ],
+          [
+            224,
+            491
+          ],
+          [
+            320,
+            438
+          ],
+          [
+            502,
+            438
+          ],
+          [
+            587,
+            507
+          ],
+          [
+            726,
+            507
+          ],
+          [
+            732,
+            515
+          ],
+          [
+            732,
+            788
+          ],
+          [
+            -34,
+            788
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "breaker_tunnel_toe_1": {
+      "id": "breaker_tunnel_toe_1",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            879,
+            582
+          ],
+          [
+            1068,
+            582
+          ],
+          [
+            1102,
+            582
+          ],
+          [
+            1102,
+            788
+          ],
+          [
+            879,
+            788
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d114_receiving_tread": {
+      "id": "d114_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          840,
+          720,
+          38,
+          14
+        ]
+      }
+    },
+    "d114_rung_0": {
+      "id": "d114_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          840,
+          652,
+          38,
+          14
+        ]
+      }
+    },
+    "d114_lower_sill": {
+      "id": "d114_lower_sill",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          848,
+          582,
+          35,
+          14
+        ]
+      }
+    },
+    "d115_apron": {
+      "id": "d115_apron",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          201,
+          84,
+          132,
+          14
+        ]
+      }
+    },
+    "d115_climbing_0": {
+      "id": "d115_climbing_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          251,
+          164,
+          121,
+          14
+        ]
+      }
+    },
+    "d115_climbing_1": {
+      "id": "d115_climbing_1",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          337,
+          238,
+          121,
+          14
+        ]
+      }
+    },
+    "d115_climbing_2": {
+      "id": "d115_climbing_2",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          279,
+          312,
+          121,
+          14
+        ]
+      }
+    },
+    "d115_climbing_3": {
+      "id": "d115_climbing_3",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          365,
+          386,
+          121,
+          14
+        ]
+      }
+    },
+    "d233_gallery": {
+      "id": "d233_gallery",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          851,
+          444,
+          245,
+          14
+        ]
+      }
+    },
+    "d233_approach_0": {
+      "id": "d233_approach_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          788,
+          517,
+          126,
+          14
+        ]
+      }
+    },
+    "d442_gallery": {
+      "id": "d442_gallery",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -28,
+          350,
+          245,
+          14
+        ]
+      }
+    },
+    "d442_approach_0": {
+      "id": "d442_approach_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          154,
+          423,
+          126,
+          14
+        ]
+      }
+    },
+    "city_hatch_upper_shelf": {
+      "id": "city_hatch_upper_shelf",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          541,
+          276,
+          167,
+          14
+        ]
+      }
+    },
+    "city_hatch_root_loop": {
+      "id": "city_hatch_root_loop",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          693,
+          190
+        ]
+      }
+    },
+    "upper_stone_fold": {
+      "id": "upper_stone_fold",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            651,
+            -27
+          ],
+          [
+            939,
+            -27
+          ],
+          [
+            939,
+            87
+          ],
+          [
+            902,
+            119
+          ],
+          [
+            880,
+            134
+          ],
+          [
+            856,
+            109
+          ],
+          [
+            698,
+            105
+          ],
+          [
+            651,
+            82
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": [],
+  "zone_areas": {
+    "M07_upper": [
+      199,
+      319,
+      296,
+      139
+    ],
+    "M07_lower": [
+      711,
+      601,
+      296,
+      139
+    ],
+    "M07_hook_ledge": [
+      476,
+      157,
+      296,
+      139
+    ]
+  }
+}

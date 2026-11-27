@@ -1,0 +1,353 @@
+{
+  "schema": 3,
+  "room_id": "M19",
+  "bounds": [
+    0,
+    0,
+    801,
+    480
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "mushroom_caverns",
+      "region_id": "mushroom_caverns",
+      "start_point": [
+        245,
+        426
+      ]
+    }
+  },
+  "exits": {
+    "d340": {
+      "point": [
+        187,
+        462
+      ],
+      "spawn": [
+        245,
+        426
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        139,
+        235
+      ]
+    }
+  },
+  "sites": {
+    "wr_M19_primary": {
+      "at": [
+        577,
+        280
+      ]
+    },
+    "scatter22_M19": {
+      "at": [
+        632,
+        275
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/glowcap.png",
+        "at": [
+          84,
+          298
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/closed_cap.png",
+        "at": [
+          529,
+          331
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/spore_pods.png",
+        "at": [
+          593,
+          293
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/mushroom_caverns/hollow.webp"
+  },
+  "entities": {
+    "crystal_pocket_bed": {
+      "id": "crystal_pocket_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            298
+          ],
+          [
+            0,
+            298
+          ],
+          [
+            118,
+            298
+          ],
+          [
+            118,
+            512
+          ],
+          [
+            -34,
+            512
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "crystal_pocket_toe_1": {
+      "id": "crystal_pocket_toe_1",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            265,
+            336
+          ],
+          [
+            521,
+            336
+          ],
+          [
+            585,
+            293
+          ],
+          [
+            801,
+            293
+          ],
+          [
+            835,
+            293
+          ],
+          [
+            835,
+            512
+          ],
+          [
+            265,
+            512
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d340_receiving_tread": {
+      "id": "d340_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          226,
+          444,
+          38,
+          14
+        ]
+      }
+    },
+    "d340_rung_0": {
+      "id": "d340_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          226,
+          376,
+          38,
+          14
+        ]
+      }
+    },
+    "d340_lower_sill": {
+      "id": "d340_lower_sill",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          234,
+          336,
+          35,
+          14
+        ]
+      }
+    },
+    "seam_light": {
+      "id": "seam_light",
+      "definition_id": "environment.local_light",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          489,
+          256
+        ],
+        "light_radius": 118,
+        "brightness": 0.76
+      }
+    },
+    "west_root_buttress": {
+      "id": "west_root_buttress",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -26,
+            -30
+          ],
+          [
+            42,
+            -30
+          ],
+          [
+            56,
+            82
+          ],
+          [
+            24,
+            125
+          ],
+          [
+            7,
+            216
+          ],
+          [
+            -11,
+            288
+          ],
+          [
+            9,
+            346
+          ],
+          [
+            64,
+            408
+          ],
+          [
+            69,
+            504
+          ],
+          [
+            -26,
+            504
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "east_stone_buttress": {
+      "id": "east_stone_buttress",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            827,
+            504
+          ],
+          [
+            638,
+            504
+          ],
+          [
+            643,
+            408
+          ],
+          [
+            698,
+            346
+          ],
+          [
+            718,
+            288
+          ],
+          [
+            700,
+            216
+          ],
+          [
+            683,
+            125
+          ],
+          [
+            651,
+            82
+          ],
+          [
+            665,
+            -30
+          ],
+          [
+            827,
+            -30
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "upper_stone_fold": {
+      "id": "upper_stone_fold",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            112,
+            -27
+          ],
+          [
+            376,
+            -27
+          ],
+          [
+            376,
+            43
+          ],
+          [
+            339,
+            75
+          ],
+          [
+            317,
+            90
+          ],
+          [
+            293,
+            65
+          ],
+          [
+            159,
+            61
+          ],
+          [
+            112,
+            38
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": []
+}

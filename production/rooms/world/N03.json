@@ -1,0 +1,320 @@
+{
+  "schema": 3,
+  "room_id": "N03",
+  "bounds": [
+    0,
+    0,
+    1960,
+    480
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "echo_mines",
+      "region_id": "echo_mines",
+      "start_point": [
+        670,
+        426
+      ]
+    }
+  },
+  "exits": {
+    "d343": {
+      "point": [
+        612,
+        462
+      ],
+      "spawn": [
+        670,
+        426
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        564,
+        660
+      ]
+    },
+    "d151": {
+      "point": [
+        1958,
+        306
+      ],
+      "spawn": [
+        1926,
+        306
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        196,
+        326
+      ]
+    },
+    "d152": {
+      "point": [
+        2,
+        306
+      ],
+      "spawn": [
+        34,
+        306
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        196,
+        326
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/echo_mines/rope_span.png",
+        "at": [
+          490,
+          317
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/echo_mines/steel_jack.png",
+        "at": [
+          1117,
+          313
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/echo_mines/ore_cart.png",
+        "at": [
+          1548,
+          320
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/echo_mines/hollow.webp"
+  },
+  "entities": {
+    "east_transit_rail_bed": {
+      "id": "east_transit_rail_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            324
+          ],
+          [
+            0,
+            324
+          ],
+          [
+            178,
+            324
+          ],
+          [
+            543,
+            316
+          ],
+          [
+            543,
+            512
+          ],
+          [
+            -34,
+            512
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "east_transit_rail_toe_1": {
+      "id": "east_transit_rail_toe_1",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            690,
+            313
+          ],
+          [
+            745,
+            312
+          ],
+          [
+            804,
+            350
+          ],
+          [
+            1019,
+            350
+          ],
+          [
+            1058,
+            312
+          ],
+          [
+            1782,
+            324
+          ],
+          [
+            1960,
+            324
+          ],
+          [
+            1994,
+            324
+          ],
+          [
+            1994,
+            512
+          ],
+          [
+            690,
+            512
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d343_receiving_tread": {
+      "id": "d343_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          651,
+          444,
+          38,
+          14
+        ]
+      }
+    },
+    "d343_rung_0": {
+      "id": "d343_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          651,
+          376,
+          38,
+          14
+        ]
+      }
+    },
+    "d343_lower_sill": {
+      "id": "d343_lower_sill",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          659,
+          313,
+          35,
+          14
+        ]
+      }
+    },
+    "survey_trolley": {
+      "id": "survey_trolley",
+      "definition_id": "platform.moving",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          902,
+          278
+        ],
+        "endpoint": [
+          1431,
+          278
+        ],
+        "platform_size": [
+          90,
+          16
+        ],
+        "period": 5.8,
+        "one_way": true,
+        "endpoint_dwell": 1.05
+      }
+    },
+    "rail_crawler_on_near_bank": {
+      "id": "rail_crawler_on_near_bank",
+      "definition_id": "enemy.rail_crawler",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          495,
+          297
+        ]
+      }
+    },
+    "upper_cut_face": {
+      "id": "upper_cut_face",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            490,
+            -25
+          ],
+          [
+            921,
+            -25
+          ],
+          [
+            921,
+            46
+          ],
+          [
+            872,
+            46
+          ],
+          [
+            872,
+            67
+          ],
+          [
+            520,
+            67
+          ],
+          [
+            520,
+            52
+          ],
+          [
+            490,
+            52
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": [],
+  "content_bindings": {
+    "enemy_instances": {
+      "rail_crawler_on_near_bank": {
+        "species_id": "species.769f59f93e6a",
+        "drop_profile_id": "drop.769f59f93e6a.t1"
+      }
+    }
+  }
+}

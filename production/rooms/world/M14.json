@@ -1,0 +1,353 @@
+{
+  "schema": 3,
+  "room_id": "M14",
+  "bounds": [
+    0,
+    0,
+    1602,
+    756
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "mushroom_caverns",
+      "region_id": "mushroom_caverns",
+      "start_point": [
+        935,
+        66
+      ]
+    }
+  },
+  "exits": {
+    "d314": {
+      "point": [
+        935,
+        2
+      ],
+      "spawn": [
+        935,
+        66
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        887,
+        983
+      ]
+    },
+    "d111": {
+      "point": [
+        2,
+        426
+      ],
+      "spawn": [
+        34,
+        426
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        316,
+        446
+      ]
+    },
+    "d112": {
+      "point": [
+        1600,
+        426
+      ],
+      "spawn": [
+        1568,
+        426
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        316,
+        446
+      ]
+    }
+  },
+  "sites": {
+    "d314": {
+      "at": [
+        935,
+        66
+      ]
+    },
+    "discover_m14_high_hollow": {
+      "at": [
+        945,
+        511
+      ]
+    },
+    "wr20_equipment_P13": {
+      "at": [
+        470,
+        338
+      ]
+    },
+    "wr_M14_primary": {
+      "at": [
+        993,
+        511
+      ]
+    },
+    "scatter22_M14": {
+      "at": [
+        525,
+        338
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/hyphae.png",
+        "at": [
+          806,
+          238
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/spore_bed.png",
+        "at": [
+          465,
+          567
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/fungal_arch.png",
+        "at": [
+          929,
+          529
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/cap_cluster.png",
+        "at": [
+          1298,
+          453
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/closed_cap.png",
+        "at": [
+          485,
+          356
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/mushroom_caverns/hollow.webp"
+  },
+  "entities": {
+    "old_cap_bed_bed": {
+      "id": "old_cap_bed_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            444
+          ],
+          [
+            0,
+            444
+          ],
+          [
+            178,
+            444
+          ],
+          [
+            336,
+            514
+          ],
+          [
+            449,
+            567
+          ],
+          [
+            833,
+            567
+          ],
+          [
+            929,
+            529
+          ],
+          [
+            1153,
+            529
+          ],
+          [
+            1282,
+            454
+          ],
+          [
+            1424,
+            444
+          ],
+          [
+            1602,
+            444
+          ],
+          [
+            1636,
+            444
+          ],
+          [
+            1636,
+            788
+          ],
+          [
+            -34,
+            788
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d314_apron": {
+      "id": "d314_apron",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          869,
+          84,
+          132,
+          14
+        ]
+      }
+    },
+    "d314_climbing_0": {
+      "id": "d314_climbing_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          833,
+          164,
+          121,
+          14
+        ]
+      }
+    },
+    "d314_climbing_1": {
+      "id": "d314_climbing_1",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          747,
+          238,
+          121,
+          14
+        ]
+      }
+    },
+    "d314_climbing_2": {
+      "id": "d314_climbing_2",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          805,
+          312,
+          121,
+          14
+        ]
+      }
+    },
+    "d314_climbing_3": {
+      "id": "d314_climbing_3",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          719,
+          386,
+          121,
+          14
+        ]
+      }
+    },
+    "d314_climbing_4": {
+      "id": "d314_climbing_4",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          791,
+          460,
+          121,
+          14
+        ]
+      }
+    },
+    "suspended_cap_upper_shelf": {
+      "id": "suspended_cap_upper_shelf",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          387,
+          356,
+          167,
+          14
+        ]
+      }
+    },
+    "spore_larva_on_near_bank": {
+      "id": "spore_larva_on_near_bank",
+      "definition_id": "enemy.spore_larva",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1009,
+          509
+        ]
+      }
+    }
+  },
+  "actions": [],
+  "zone_areas": {
+    "M14_bed": [
+      653,
+      448,
+      296,
+      139
+    ],
+    "M14_hollow": [
+      322,
+      237,
+      296,
+      139
+    ]
+  },
+  "content_bindings": {
+    "enemy_instances": {
+      "spore_larva_on_near_bank": {
+        "species_id": "species.f3954ee9cefc",
+        "drop_profile_id": "drop.f3954ee9cefc.t2"
+      }
+    }
+  }
+}

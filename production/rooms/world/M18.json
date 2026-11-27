@@ -1,0 +1,371 @@
+{
+  "schema": 3,
+  "room_id": "M18",
+  "bounds": [
+    0,
+    0,
+    975,
+    480
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "mushroom_caverns",
+      "region_id": "mushroom_caverns",
+      "start_point": [
+        819,
+        426
+      ]
+    }
+  },
+  "exits": {
+    "d339": {
+      "point": [
+        761,
+        462
+      ],
+      "spawn": [
+        819,
+        426
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        713,
+        809
+      ]
+    },
+    "d481": {
+      "point": [
+        2,
+        369
+      ],
+      "spawn": [
+        102,
+        369
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        259,
+        389
+      ]
+    }
+  },
+  "sites": {
+    "wr_M18_primary": {
+      "at": [
+        576,
+        258
+      ]
+    },
+    "coin20_M18": {
+      "at": [
+        631,
+        258
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/spore_pods.png",
+        "at": [
+          185,
+          344
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/hyphae.png",
+        "at": [
+          582,
+          266
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/closed_cap.png",
+        "at": [
+          654,
+          127
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/mushroom_caverns/hollow.webp"
+  },
+  "entities": {
+    "echo_nest_bed": {
+      "id": "echo_nest_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            387
+          ],
+          [
+            0,
+            387
+          ],
+          [
+            166,
+            387
+          ],
+          [
+            214,
+            278
+          ],
+          [
+            283,
+            374
+          ],
+          [
+            517,
+            374
+          ],
+          [
+            595,
+            245
+          ],
+          [
+            692,
+            245
+          ],
+          [
+            692,
+            512
+          ],
+          [
+            -34,
+            512
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "echo_nest_toe_1": {
+      "id": "echo_nest_toe_1",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            839,
+            245
+          ],
+          [
+            975,
+            245
+          ],
+          [
+            1009,
+            245
+          ],
+          [
+            1009,
+            512
+          ],
+          [
+            839,
+            512
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d339_receiving_tread": {
+      "id": "d339_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          800,
+          444,
+          38,
+          14
+        ]
+      }
+    },
+    "d339_rung_0": {
+      "id": "d339_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          800,
+          376,
+          38,
+          14
+        ]
+      }
+    },
+    "d339_rung_1": {
+      "id": "d339_rung_1",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          800,
+          312,
+          38,
+          14
+        ]
+      }
+    },
+    "d339_lower_sill": {
+      "id": "d339_lower_sill",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          808,
+          245,
+          35,
+          14
+        ]
+      }
+    },
+    "nest_upper_shelf": {
+      "id": "nest_upper_shelf",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          556,
+          127,
+          167,
+          14
+        ]
+      }
+    },
+    "nest_root_loop": {
+      "id": "nest_root_loop",
+      "definition_id": "traversal.hook_point",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          708,
+          41
+        ]
+      }
+    },
+    "east_stone_buttress": {
+      "id": "east_stone_buttress",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1001,
+            504
+          ],
+          [
+            830,
+            504
+          ],
+          [
+            835,
+            408
+          ],
+          [
+            890,
+            346
+          ],
+          [
+            910,
+            288
+          ],
+          [
+            892,
+            216
+          ],
+          [
+            875,
+            125
+          ],
+          [
+            843,
+            82
+          ],
+          [
+            857,
+            -30
+          ],
+          [
+            1001,
+            -30
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "upper_stone_fold": {
+      "id": "upper_stone_fold",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            477,
+            -27
+          ],
+          [
+            711,
+            -27
+          ],
+          [
+            711,
+            35
+          ],
+          [
+            674,
+            67
+          ],
+          [
+            652,
+            82
+          ],
+          [
+            628,
+            57
+          ],
+          [
+            524,
+            53
+          ],
+          [
+            477,
+            30
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": [],
+  "zone_areas": {
+    "M18_lip": [
+      26,
+      250,
+      296,
+      139
+    ],
+    "M18_nest": [
+      560,
+      126,
+      296,
+      139
+    ]
+  }
+}

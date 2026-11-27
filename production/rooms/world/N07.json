@@ -1,0 +1,372 @@
+{
+  "schema": 3,
+  "room_id": "N07",
+  "bounds": [
+    0,
+    0,
+    790,
+    1120
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "echo_mines",
+      "region_id": "echo_mines",
+      "start_point": [
+        395,
+        66
+      ]
+    }
+  },
+  "exits": {
+    "d155": {
+      "point": [
+        395,
+        2
+      ],
+      "spawn": [
+        395,
+        66
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        347,
+        443
+      ]
+    },
+    "d240": {
+      "point": [
+        2,
+        918
+      ],
+      "spawn": [
+        34,
+        918
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        808,
+        938
+      ]
+    }
+  },
+  "sites": {
+    "scatter22_N07": {
+      "at": [
+        395,
+        912
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/echo_mines/rope_span.png",
+        "at": [
+          524,
+          238
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/echo_mines/wick.png",
+        "at": [
+          126,
+          936
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/echo_mines/lift_cage.png",
+        "at": [
+          569,
+          806
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/echo_mines/hollow.webp"
+  },
+  "entities": {
+    "harbor_service_shaft_bed": {
+      "id": "harbor_service_shaft_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            936
+          ],
+          [
+            0,
+            936
+          ],
+          [
+            134,
+            936
+          ],
+          [
+            237,
+            840
+          ],
+          [
+            284,
+            930
+          ],
+          [
+            529,
+            930
+          ],
+          [
+            561,
+            806
+          ],
+          [
+            790,
+            806
+          ],
+          [
+            824,
+            806
+          ],
+          [
+            824,
+            1152
+          ],
+          [
+            -34,
+            1152
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d155_apron": {
+      "id": "d155_apron",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          329,
+          84,
+          132,
+          14
+        ]
+      }
+    },
+    "d155_climbing_0": {
+      "id": "d155_climbing_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          379,
+          164,
+          121,
+          14
+        ]
+      }
+    },
+    "d155_climbing_1": {
+      "id": "d155_climbing_1",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          465,
+          238,
+          121,
+          14
+        ]
+      }
+    },
+    "d155_climbing_2": {
+      "id": "d155_climbing_2",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          407,
+          312,
+          121,
+          14
+        ]
+      }
+    },
+    "d155_climbing_3": {
+      "id": "d155_climbing_3",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          493,
+          386,
+          121,
+          14
+        ]
+      }
+    },
+    "d155_climbing_4": {
+      "id": "d155_climbing_4",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          421,
+          460,
+          121,
+          14
+        ]
+      }
+    },
+    "d155_climbing_5": {
+      "id": "d155_climbing_5",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          493,
+          534,
+          121,
+          14
+        ]
+      }
+    },
+    "d155_climbing_6": {
+      "id": "d155_climbing_6",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          421,
+          608,
+          121,
+          14
+        ]
+      }
+    },
+    "d155_climbing_7": {
+      "id": "d155_climbing_7",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          493,
+          682,
+          121,
+          14
+        ]
+      }
+    },
+    "d155_climbing_8": {
+      "id": "d155_climbing_8",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          421,
+          756,
+          121,
+          14
+        ]
+      }
+    },
+    "d155_climbing_9": {
+      "id": "d155_climbing_9",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          493,
+          830,
+          121,
+          14
+        ]
+      }
+    },
+    "suspended_car": {
+      "id": "suspended_car",
+      "definition_id": "platform.moving",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          427,
+          892
+        ],
+        "endpoint": [
+          446,
+          609
+        ],
+        "platform_size": [
+          111,
+          16
+        ],
+        "period": 5.8,
+        "one_way": true,
+        "endpoint_dwell": 1.05
+      }
+    },
+    "east_retaining_wall": {
+      "id": "east_retaining_wall",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            815,
+            1144
+          ],
+          [
+            642,
+            1144
+          ],
+          [
+            642,
+            862
+          ],
+          [
+            697,
+            862
+          ],
+          [
+            697,
+            683
+          ],
+          [
+            676,
+            683
+          ],
+          [
+            676,
+            246
+          ],
+          [
+            654,
+            246
+          ],
+          [
+            654,
+            -30
+          ],
+          [
+            815,
+            -30
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": []
+}

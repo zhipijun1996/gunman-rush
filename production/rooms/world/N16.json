@@ -1,0 +1,361 @@
+{
+  "schema": 3,
+  "room_id": "N16",
+  "bounds": [
+    0,
+    0,
+    1225,
+    480
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "echo_mines",
+      "region_id": "echo_mines",
+      "start_point": [
+        670,
+        426
+      ]
+    }
+  },
+  "exits": {
+    "d161": {
+      "point": [
+        612,
+        462
+      ],
+      "spawn": [
+        670,
+        426
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        564,
+        660
+      ]
+    }
+  },
+  "sites": {
+    "wr20_equipment_B19": {
+      "at": [
+        355,
+        260
+      ]
+    },
+    "scatter22_N16": {
+      "at": [
+        410,
+        299
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/echo_mines/ore_cluster.png",
+        "at": [
+          196,
+          278
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/echo_mines/ore_cart.png",
+        "at": [
+          598,
+          331
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/echo_mines/wick.png",
+        "at": [
+          1004,
+          365
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/echo_mines/deep.webp"
+  },
+  "entities": {
+    "payroll_stope_bed": {
+      "id": "payroll_stope_bed",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -34,
+            278
+          ],
+          [
+            0,
+            278
+          ],
+          [
+            355,
+            278
+          ],
+          [
+            429,
+            331
+          ],
+          [
+            543,
+            331
+          ],
+          [
+            543,
+            512
+          ],
+          [
+            -34,
+            512
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "payroll_stope_toe_1": {
+      "id": "payroll_stope_toe_1",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            690,
+            331
+          ],
+          [
+            723,
+            331
+          ],
+          [
+            808,
+            365
+          ],
+          [
+            1225,
+            365
+          ],
+          [
+            1259,
+            365
+          ],
+          [
+            1259,
+            512
+          ],
+          [
+            690,
+            512
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "d161_receiving_tread": {
+      "id": "d161_receiving_tread",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          651,
+          444,
+          38,
+          14
+        ]
+      }
+    },
+    "d161_rung_0": {
+      "id": "d161_rung_0",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          651,
+          376,
+          38,
+          14
+        ]
+      }
+    },
+    "d161_lower_sill": {
+      "id": "d161_lower_sill",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          659,
+          331,
+          35,
+          14
+        ]
+      }
+    },
+    "ore_sorting_rack": {
+      "id": "ore_sorting_rack",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          698,
+          259,
+          146,
+          14
+        ]
+      }
+    },
+    "west_retaining_wall": {
+      "id": "west_retaining_wall",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -25,
+            -30
+          ],
+          [
+            82,
+            -30
+          ],
+          [
+            82,
+            106
+          ],
+          [
+            60,
+            106
+          ],
+          [
+            60,
+            293
+          ],
+          [
+            39,
+            293
+          ],
+          [
+            39,
+            370
+          ],
+          [
+            94,
+            370
+          ],
+          [
+            94,
+            504
+          ],
+          [
+            -25,
+            504
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "east_retaining_wall": {
+      "id": "east_retaining_wall",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1250,
+            504
+          ],
+          [
+            1131,
+            504
+          ],
+          [
+            1131,
+            370
+          ],
+          [
+            1186,
+            370
+          ],
+          [
+            1186,
+            293
+          ],
+          [
+            1165,
+            293
+          ],
+          [
+            1165,
+            106
+          ],
+          [
+            1143,
+            106
+          ],
+          [
+            1143,
+            -30
+          ],
+          [
+            1250,
+            -30
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "upper_cut_face": {
+      "id": "upper_cut_face",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            281,
+            -25
+          ],
+          [
+            588,
+            -25
+          ],
+          [
+            588,
+            54
+          ],
+          [
+            539,
+            54
+          ],
+          [
+            539,
+            75
+          ],
+          [
+            311,
+            75
+          ],
+          [
+            311,
+            60
+          ],
+          [
+            281,
+            60
+          ]
+        ],
+        "material": "ground"
+      }
+    }
+  },
+  "actions": []
+}

@@ -1,0 +1,324 @@
+{
+  "schema": 3,
+  "room_id": "M02",
+  "bounds": [
+    0,
+    0,
+    1450,
+    698
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "mushroom_caverns",
+      "region_id": "mushroom_caverns",
+      "start_point": [
+        1408,
+        272
+      ]
+    }
+  },
+  "exits": {
+    "d104": {
+      "point": [
+        1448,
+        272
+      ],
+      "spawn": [
+        1416,
+        272
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        162,
+        292
+      ]
+    },
+    "d105": {
+      "point": [
+        2,
+        499
+      ],
+      "spawn": [
+        34,
+        499
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        389,
+        519
+      ]
+    },
+    "d340": {
+      "point": [
+        591,
+        2
+      ],
+      "spawn": [
+        591,
+        66
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        543,
+        639
+      ]
+    }
+  },
+  "sites": {
+    "discover_m02_crystal_niche": {
+      "at": [
+        556,
+        154
+      ],
+      "approach_radius": 28,
+      "passage_rect": [
+        542,
+        1,
+        92,
+        166
+      ]
+    },
+    "npc20_mushroom": {
+      "at": [
+        708,
+        438
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/fungal_arch.png",
+        "at": [
+          682,
+          456
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/spore_bed.png",
+        "at": [
+          916,
+          411
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/glowcap.png",
+        "at": [
+          320,
+          517
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/closed_cap.png",
+        "at": [
+          499,
+          485
+        ],
+        "flip": false,
+        "z_index": -4
+      },
+      {
+        "texture": "res://assets/scenery/mushroom_caverns/wall_gills.png",
+        "at": [
+          563,
+          172
+        ],
+        "flip": false,
+        "z_index": -4
+      }
+    ],
+    "backdrop": "res://assets/scenery/mushroom_caverns/entrance.webp"
+  },
+  "entities": {
+    "d340_apron": {
+      "id": "d340_apron",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          525,
+          84,
+          132,
+          14
+        ]
+      }
+    },
+    "growers_dry_recess": {
+      "id": "growers_dry_recess",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -40,
+            517
+          ],
+          [
+            405,
+            517
+          ],
+          [
+            447,
+            485
+          ],
+          [
+            566,
+            485
+          ],
+          [
+            566,
+            456
+          ],
+          [
+            740,
+            456
+          ],
+          [
+            782,
+            411
+          ],
+          [
+            918,
+            411
+          ],
+          [
+            918,
+            361
+          ],
+          [
+            1068,
+            361
+          ],
+          [
+            1118,
+            319
+          ],
+          [
+            1236,
+            319
+          ],
+          [
+            1236,
+            290
+          ],
+          [
+            1490,
+            290
+          ],
+          [
+            1490,
+            730
+          ],
+          [
+            -40,
+            730
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "crystal_shaft_west": {
+      "id": "crystal_shaft_west",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            380,
+            165
+          ],
+          [
+            481,
+            165
+          ],
+          [
+            481,
+            382
+          ],
+          [
+            439,
+            411
+          ],
+          [
+            380,
+            405
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "under_the_crystal": {
+      "id": "under_the_crystal",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          528,
+          172,
+          124,
+          14
+        ]
+      }
+    },
+    "capped_sill": {
+      "id": "capped_sill",
+      "definition_id": "platform.timber",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          458,
+          250,
+          132,
+          14
+        ]
+      }
+    },
+    "cultivator_rest": {
+      "id": "cultivator_rest",
+      "definition_id": "recovery.anchor",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          801,
+          327,
+          96,
+          84
+        ],
+        "point": [
+          849,
+          393
+        ],
+        "section": "main"
+      }
+    },
+    "cultivators_bed": {
+      "id": "cultivators_bed",
+      "definition_id": "recovery.station",
+      "definition_version": 1,
+      "properties": {
+        "position": [
+          810,
+          393
+        ]
+      }
+    }
+  },
+  "actions": []
+}
