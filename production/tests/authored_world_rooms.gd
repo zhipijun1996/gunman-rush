@@ -22,6 +22,7 @@ func verify(doc: Dictionary) -> void:
 		loaded += 1
 		await physics_frame
 		await physics_frame
+		check(root.get_camera_2d() == session.camera and session.camera.target == session.player and session.camera.room == session.room,doc.room_id+" active world camera")
 		var collision := session.player.get_node("CollisionShape2D") as CollisionShape2D
 		var space := session.room.get_world_2d().direct_space_state
 		for row: Dictionary in catalog.connections(doc.room_id).rows:

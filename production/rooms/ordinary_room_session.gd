@@ -551,9 +551,16 @@ func _observe_passages() -> void:
 			if at.distance_squared_to(point) <= site.radius * site.radius:
 				reached = true
 				break
-		if reached and content_catalog.condition_match(site.event, state.value.flags).matches:
-			var next := state.action_candidate(site.id, room.room_id, room.section_at(at))
-			if not next.is_empty(): state.commit(next, state.revision)
+		if not reached or not content_catalog.condition_match(site.event,state.value.flags,state.value.services.equipped).matches: continue
+		var next: Dictionary
+		if state.content.action(site.id).is_empty():
+			# The locked discovery owns the flag even when the room has no extra local action.
+			next = state.candidate()
+			next.flags.append(site.id)
+			next.receipts[site.id] = {"source":site.id,"source_hash":MetaSaveService.canonical_json(site.event).sha256_text(),"revision":state.revision+1}
+		else:
+			next = state.action_candidate(site.id,room.room_id,room.section_at(at))
+		if not next.is_empty(): state.commit(next,state.revision)
 
 func _physics_process(delta: float) -> void:
 	if not blast_passages.is_empty(): WorldBlastPassage.observe(self)

@@ -21,6 +21,29 @@ func check(result: bool, message: String)->void:
 		failures+=1
 		printerr("FAIL ",message)
 
+func ice_lodging_discovery() -> void:
+	var room := OrdinaryRoomSession.new()
+	var store := Storage.new()
+	root.add_child(room)
+	var doc := WorldRoomDocument.read("res://rooms/world/I04.json")
+	var opened := room.open(doc,store,null,catalog)
+	check(opened.is_empty(),"open the glacier's mapped approach")
+	if opened.is_empty():
+		var flag := "discover_i04_ice_lodging"
+		room.player.reset_at(Vector2(1092,175))
+		await frames(6)
+		check(not room.state.has(flag),"the lower approach preserves the secret")
+		store.writable=false
+		room.player.reset_at(Vector2(1149,91))
+		await frames(6)
+		check(not room.state.has(flag),"an unrecorded discovery stays retryable")
+		store.writable=true
+		await frames(6)
+		check(room.state.has(flag) and store.saved.receipts.has(flag),"the upper ice ledge records the locked discovery")
+		await room.audio_service.shutdown()
+	room.free()
+	await frames(3)
+
 func _initialize()->void: run.call_deferred()
 
 func frames(count:int)->void:
@@ -208,4 +231,5 @@ func run()->void:
 	s.free()
 	await frames(3)
 	await authored_pulse_trial()
+	await ice_lodging_discovery()
 	print("WORLD CONTENT SITES failures=%d checks=%d" % [failures,checks]);quit(1 if failures else 0)
