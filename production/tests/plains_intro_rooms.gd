@@ -386,7 +386,9 @@ func p03_stairway() -> bool:
 	var body:=field.active.player.get_node("CollisionShape2D") as CollisionShape2D
 	if not require(relic.is_visible_in_tree() and view.encloses(relic.get_global_transform_with_canvas()*relic.get_rect()) and view.encloses(body.get_global_transform_with_canvas()*body.shape.get_rect()),"the first-visit traverse frames both the standing player and the actual glint across the ridge"): return false
 	mark("p03_look_end")
-	if not await switch_jump(382,435,743): return false
+	# Leave room for the whole head and the last horizontal physics step
+	# below the overhanging east lip before steering across.
+	if not await switch_jump(364,435,743): return false
 	if not await switch_jump(411,353,645): return false
 	if not await switch_jump(291,226,540): return false
 	if not await switch_jump(238,300,442): return false
