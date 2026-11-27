@@ -54,8 +54,100 @@ func check_spike_materials(source: Dictionary) -> void:
 		check(await session.audio_service.shutdown(), "spike room audio released")
 	session.free()
 
+func check_door_channels() -> void:
+	var exits := {
+		"west":{"direction":[-1,0],"point":[2,190],"span":[160,224]},
+		"east":{"direction":[1,0],"point":[382,190],"span":[160,224]},
+		"north":{"direction":[0,-1],"point":[192,2],"span":[144,240]},
+		"south":{"direction":[0,1],"point":[192,318],"span":[144,240]}
+	}
+	var geometry := WorldRoomSpace.document_geometry([0,0,384,320], exits)
+	var walls := WorldRoomSpace.exterior_fill(geometry, [])
+	for point: Vector2 in [Vector2(-4,190),Vector2(388,190),Vector2(192,-4),Vector2(192,324)]:
+		check(not walls.any(func(wall: Rect2): return wall.has_point(point)), "passage through exterior at "+str(point))
+	for point: Vector2 in [Vector2(-4,110),Vector2(388,110),Vector2(100,-4),Vector2(100,324)]:
+		check(walls.any(func(wall: Rect2): return wall.has_point(point)), "wall beside passage at "+str(point))
+
+func check_arrival_state() -> void:
+	var catalog := WorldContentCatalog.new()
+	check(catalog.load_locked().ok and catalog.load_bindings("res://config/imported_world/bindings.json").ok, "load world and species bindings for doorway save")
+	var store := TestStore.new()
+	var origin := OrdinaryRoomSession.new()
+	root.add_child(origin)
+	var source := WorldRoomDocument.read("res://rooms/world/P02.json")
+	var target := WorldRoomDocument.read("res://rooms/world/p02_connections/P01.json")
+	var malformed := source.duplicate(true)
+	malformed.exits.d001.span = [42, 12]
+	check(WorldRoomDocument.instantiate(malformed).get("error") == "room_door_geometry_invalid", "reject reversed door spans before assembly")
+	check(origin.open(source, store, null, catalog).is_empty(), "open starting room")
+	var before := origin.state.value.duplicate(true)
+	var destination := OrdinaryRoomSession.new()
+	root.add_child(destination)
+	check(destination.open(target, null, origin, catalog, "missing") == "room_entry_unknown", "reject missing receiving door")
+	check(destination.open(target, null, origin, catalog, "d001") == "room_transition_save_failed", "reject unwritable transition")
+	check(origin.state.value == before and origin.lifetime.active and not origin.is_queued_for_deletion(), "on failure the original room retains control and state")
+	store.writable = true
+	var prior_revision := origin.state.revision
+	check(destination.open(target, null, origin, catalog, "d001").is_empty(), "retry arrival after save becomes available")
+	check(store.revision == prior_revision + 1 and store.payload.room == "P01" and store.payload.entry == "d001", "one save contains both room and door")
+	check(store.payload.explored.has("P02") and store.payload.explored.has("P01") and destination.state.valid_entry("P01", "d001"), "destination retains discovered rooms and recognizes the paired door")
+	check(destination.player.position == FixedWorldProvider.point(target.exits.d001.spawn), "destination uses the receiving door anchor")
+	await destination.audio_service.shutdown()
+	destination.free()
+	var restored := OrdinaryRoomSession.new()
+	root.add_child(restored)
+	check(restored.open(target, store, null, catalog).is_empty(), "reopen saved receiving room")
+	check(restored.player.position == FixedWorldProvider.point(target.exits.d001.spawn), "reloading returns to the saved safe door landing")
+	await restored.audio_service.shutdown()
+	restored.free()
+
+func check_live_patrol_revisits(doc: Dictionary) -> void:
+	var side := doc.duplicate(true)
+	side.room_id = "patrol-return-check"
+	side.entities.erase("patrol")
+	var current := OrdinaryRoomSession.new()
+	root.add_child(current)
+	check(current.open(doc).is_empty(),"open patrol fixture")
+	var actor: EnemyActor = current.room.enemies.patrol
+	var origin_x := actor.motor.global_position.x
+	var radius := actor.definition.patrol_half_width
+	actor.restore_instance_health(.5)
+	# Leave partway through one rightward and one leftward trip.
+	for facing: int in [1,-1]:
+		for i: int in 240:
+			await physics_frame
+			if actor.brain.direction==facing and (actor.motor.global_position.x-origin_x)*facing>radius*.4:
+				break
+		await process_frame
+		var position := actor.motor.global_position
+		check(actor.brain.direction==facing and absf(position.x-origin_x)>radius*.4,"patrol moves away from authored origin before saving")
+		var away := OrdinaryRoomSession.new()
+		root.add_child(away)
+		check(away.open(side,null,current).is_empty(),"visit adjacent room with moving enemy")
+		await ticks(2)
+		await process_frame
+		current = OrdinaryRoomSession.new()
+		root.add_child(current)
+		check(current.open(doc,null,away).is_empty(),"revisit patrol room")
+		actor = current.room.enemies.patrol
+		check(actor.motor.global_position.is_equal_approx(position) and actor.brain.direction==facing and actor.health.current==.5,
+				"revisit restores exact live position, direction and remaining health")
+		var edge := position.x
+		for i: int in 210:
+			await physics_frame
+			var x := actor.motor.global_position.x
+			edge = maxf(edge,x) if facing>0 else minf(edge,x)
+			if actor.brain.direction!=facing: break
+		check(absf(edge-(origin_x+facing*radius))<.1,"revisited patrol turns at authored boundary; x="+str(edge))
+	await current.audio_service.shutdown()
+	current.free()
+
+
 func run() -> void:
+	check_door_channels()
+	await check_arrival_state()
 	var doc := WorldRoomDocument.read("res://tests/assembly_room.json")
+	await check_live_patrol_revisits(doc)
 	await check_spike_materials(doc)
 	var store := TestStore.new()
 	var session := OrdinaryRoomSession.new()
@@ -105,6 +197,26 @@ func run() -> void:
 		await ticks(1)
 	check(session.services.ledger().gold == session.drop_rules.enemy_gold, "coin collected once")
 	check(session.player.has_node("WeaponFeel") and PixelVfx.CLIPS.size() == 18, "weapon feedback and imported effects")
+	# A single short slope must not switch distant banks to an unbatched skin.
+	var bank: Array[Rect2] = [Rect2(0, 0, 640, 320)]
+	var slope: Array[Dictionary] = [{"points":[[640,0],[736,64],[736,320],[640,320]]}]
+	var plains := TerrainMaterialRegistry.appearance("windchime_plains")
+	var level_bank := UnderworldTerrain.build(bank, {}, plains)
+	var sloped_bank := UnderworldTerrain.build_with_polygons(bank, slope, {}, plains)
+	var interior := Vector2i(5, 4)
+	check(sloped_bank.core_layer.get_cell_source_id(interior) == 0 and sloped_bank.core_layer.tile_set == plains.tileset, "slope room uses native plains atlas inside solid bank")
+	check(sloped_bank.core_layer.get_cell_atlas_coords(interior) == level_bank.core_layer.get_cell_atlas_coords(interior), "a distant slope preserves the flat bank's atlas variant")
+	check(sloped_bank.core_layer.get_cell_source_id(Vector2i(20,0)) == -1, "sloped outline stays exact")
+	level_bank.free()
+	sloped_bank.free()
+	var terrace := WorldRoomDocument.read("res://rooms/world/P02.json")
+	var terrace_model := WorldRoomDocument.instantiate(terrace)
+	var terrace_scene := PackedScene.new()
+	check(terrace_scene.pack(terrace_model.room) == OK, "pack authored terrace")
+	terrace_model.room.free()
+	var saved_terrace := WorldRoomDocument.extract(terrace_scene)
+	for field: String in ["scenery", "lesson", "sites", "exits"]:
+		check(saved_terrace.get(field) == terrace[field], "editor preserves terrace " + field)
 	var model_copy := WorldRoomDocument.instantiate(doc)
 	var packed := PackedScene.new()
 	check(packed.pack(model_copy.room) == OK,"pack document")

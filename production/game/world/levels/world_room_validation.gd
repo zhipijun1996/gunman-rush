@@ -9,6 +9,21 @@ static func number(value: Variant) -> bool:
 static func vector(value: Variant) -> bool:
 	return value is Array and value.size() == 2 and number(value[0]) and number(value[1])
 
+static func passage_error(exits: Variant) -> String:
+	if not exits is Dictionary: return "room_exits_invalid"
+	for id: Variant in exits:
+		var gate: Variant = exits[id]
+		if not id is String or id.is_empty() or not gate is Dictionary: return "room_exits_invalid"
+		if not vector(gate.get("spawn")): return "room_entry_spawn_required"
+		# Older documents recorded door anchors without opening a physical channel.
+		if not gate.has("span"): continue
+		if not vector(gate.get("point")) or not vector(gate.get("direction")) or not vector(gate.span):
+			return "room_door_geometry_invalid"
+		var direction := FixedWorldProvider.point(gate.direction)
+		if direction not in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN] or gate.span[0] >= gate.span[1]:
+			return "room_door_geometry_invalid"
+	return ""
+
 static func rectangle(value: Variant, allow_empty := false) -> bool:
 	return value is Array and value.size() == 4 and number(value[0]) and number(value[1]) and number(value[2]) and number(value[3]) and (float(value[2]) >= 0.0 if allow_empty else float(value[2]) > 0.0) and (float(value[3]) >= 0.0 if allow_empty else float(value[3]) > 0.0)
 

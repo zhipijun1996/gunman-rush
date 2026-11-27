@@ -79,7 +79,8 @@ static func build(solids: Array[Rect2], shared: Dictionary = {}, appearance: Dic
 		# A full shared cell may straddle a material split. Only a cell wholly
 		# owned by this partition can be batched; the rest uses exact clipping.
 		if not is_equal_approx(float(owned_areas.get(key,0.0)), float(cell*cell)): safe = false
-		if shared.get("has_polygons",false): safe = false
+		if TerrainGeometry.touches_polygon(Rect2(Vector2(key)*cell, Vector2.ONE*cell).grow(cell), shared.get("polygon_bounds", [])):
+			safe = false
 		# Surface alignment samples the outer edge without translating the solid.
 		# Those cells use the exact adapter; internal cells remain batched.
 		if not appearance.is_empty() and (bool(appearance.get("bare", false)) or float(appearance.get("surface_y", 0)) != 0.0):
@@ -158,22 +159,9 @@ static func build(solids: Array[Rect2], shared: Dictionary = {}, appearance: Dic
 
 static func build_with_polygons(solids: Array[Rect2], polygons: Array[Dictionary], shared: Dictionary = {}, appearance: Dictionary = {}) -> UnderworldTerrain:
 	if polygons.is_empty(): return build(solids, shared, appearance)
-	var node := UnderworldTerrain.new()
-	node.name = "UnderworldTerrain"
-	node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	var spec := specification()
-	node.set_meta("art_pixel_world_units", float(spec.world_tile_wu)/int(spec.tile_px))
-	node.union_pieces.assign(geometry_plan(solids).pieces)
-	# Retain the normal Terrain identity for lighting/material/foreground consumers.
-	node.core_layer = TileMapLayer.new()
-	node.core_layer.name = "PolygonInterior"
-	node.core_layer.tile_set = appearance.get("tileset", load(spec.tileset)) as TileSet
-	node.core_layer.collision_enabled = false
-	var material := ShaderMaterial.new()
-	material.shader = CORE_SHADER
-	node.core_layer.material = material
-	node.add_child(node.core_layer)
-	UnderworldPolygonTerrain.install(node, node.union_pieces, polygons, spec, appearance.get("texture", source_texture()), SHADER, shared, appearance)
+	var outline := TerrainGeometry.plan(solids, polygons) if shared.is_empty() else shared
+	var node := build(solids, outline, appearance)
+	UnderworldPolygonTerrain.install(node, [], polygons, specification(), appearance.get("texture", source_texture()), SHADER, outline, appearance)
 	return node
 
 ## Physics-semantic sibling interfaces: thin open decks and copper carriers.

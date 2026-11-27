@@ -17,6 +17,7 @@ var content_version := ""
 var source_model_sha256 := ""
 var _bundle: Dictionary = {}
 var _tables: Dictionary = {}
+var _physical_normals: Dictionary = {}
 var _bindings: Dictionary = {}
 var _bindings_path := ""
 var _allow_test_bindings := false
@@ -106,6 +107,7 @@ func load_locked(lock_path: String = DEFAULT_LOCK) -> Dictionary:
 	# previously loaded catalog and bindings intact.
 	_bundle = proposed
 	_tables = checked.tables
+	_physical_normals = checked.physical_normals
 	bundle_sha256 = sha
 	content_version = proposed.content_version
 	source_model_sha256 = proposed.source_model_sha256
@@ -180,14 +182,19 @@ static func _index_bundle(bundle: Dictionary) -> Dictionary:
 	if indexes.rooms.is_empty() or indexes.regions.is_empty() or indexes.flags.is_empty() or not indexes.map_layers.has("world"):
 		return failure("content_world_empty")
 	var zones := {}
+	var outlines := {}
+	var normals := {}
 	for room: Dictionary in indexes.rooms.values():
 		if not indexes.regions.has(room.get("region")) or not indexes.map_layers.has(room.get("map_layer")):
 			return failure("content_room_reference_invalid",room.id)
 		var navigation: Variant = room.get("navigation")
 		if not navigation is Dictionary or not navigation.get("polygon") is Array or navigation.polygon.size() < 3 or not _point(navigation.get("label_anchor")):
 			return failure("content_layout_invalid",room.id)
+		var outline := PackedVector2Array()
 		for point: Variant in navigation.polygon:
 			if not _point(point): return failure("content_layout_point_invalid",room.id)
+			outline.append(Vector2(point[0], point[1]))
+		outlines[room.id] = outline
 		if not room.get("zones") is Array or not room.get("zone_links") is Array: return failure("content_sections_missing",room.id)
 		var local := {}
 		for zone: Variant in room.zones:
@@ -221,6 +228,10 @@ static func _index_bundle(bundle: Dictionary) -> Dictionary:
 			for key: String in ["fixed","start","end"]:
 				if not (mouth.get(key) is int or mouth.get(key) is float) or not is_finite(mouth[key]): return failure("content_door_geometry_invalid",door.id)
 			if mouth.start >= mouth.end: return failure("content_door_geometry_invalid",door.id)
+			var direction := _outward_normal(mouth, outlines[door.a])
+			if direction == Vector2.ZERO or _outward_normal(mouth, outlines[door.b]) != -direction:
+				return failure("content_door_boundary_mismatch", door.id)
+			normals[door.id] = direction
 		else:
 			if door.get("door") != null or indexes.rooms[door.a].map_layer == indexes.rooms[door.b].map_layer or not door.get("entrances") is Dictionary:
 				return failure("content_interior_door_invalid",door.id)
@@ -291,7 +302,7 @@ static func _index_bundle(bundle: Dictionary) -> Dictionary:
 		if seen_bindings.has(key): return failure("content_binding_duplicate",key)
 		seen_bindings[key] = true
 	if seen_bindings.size() != expected_bindings: return failure("content_binding_incomplete")
-	return {"ok":true,"tables":indexes,"counts":counts}
+	return {"ok":true,"tables":indexes,"counts":counts,"physical_normals":normals}
 
 func table(table_name: String) -> Dictionary:
 	if _bundle.is_empty(): return failure("content_not_loaded")
@@ -308,6 +319,28 @@ func lookup(table_name: String, id: String) -> Dictionary:
 	if not _tables.has(table_name): return failure("content_table_unknown",table_name)
 	if not _tables[table_name].has(id): return failure("content_id_unknown",table_name+":"+id)
 	return {"ok":true,"row":_tables[table_name][id].duplicate(true)}
+
+## The seam is drawn along the boundary. Its normal points out of this room;
+## the endpoint order and either room's bounding-box center do not define it.
+static func _outward_normal(mouth: Dictionary, outline: PackedVector2Array) -> Vector2:
+	var middle := (float(mouth.start) + float(mouth.end)) * 0.5
+	var horizontal: bool = mouth.axis == "h"
+	var center := Vector2(middle, mouth.fixed) if horizontal else Vector2(mouth.fixed, middle)
+	var normal := Vector2.DOWN if horizontal else Vector2.RIGHT
+	# Sample either side, in planning units, clear of polygon boundary rounding.
+	var probe := normal * minf(0.001, (float(mouth.end) - float(mouth.start)) * 0.01)
+	var positive := Geometry2D.is_point_in_polygon(center + probe, outline)
+	var negative := Geometry2D.is_point_in_polygon(center - probe, outline)
+	if positive == negative: return Vector2.ZERO
+	return normal if negative else -normal
+
+func physical_passage(room_id: String, door_id: String) -> Dictionary:
+	var row: Dictionary = _tables.get("doors", {}).get(door_id, {})
+	if room_id not in [row.get("a"), row.get("b")]: return failure("content_door_not_in_room", room_id + "/" + door_id)
+	if not _physical_normals.has(door_id): return failure("content_door_not_physical", room_id + "/" + door_id)
+	var from_a: bool = room_id == row.a
+	var normal: Vector2 = _physical_normals[door_id]
+	return {"ok":true, "direction":normal if from_a else -normal, "destination":row.b if from_a else row.a, "seam":row.door.duplicate(true)}
 
 func connections(room_id: String) -> Dictionary:
 	var checked := lookup("rooms",room_id)

@@ -3,8 +3,7 @@ extends RefCounted
 ## Internal registered assembly service. Room data is already resolved by the catalog.
 ## Batches terrain for continuous surfaces; gameplay hosts keep stable instance IDs.
 
-static func build(room: FixedWorldRoom) -> void:
-	room.z_index = -1
+static func build_collision(room: FixedWorldRoom, parent: Node) -> void:
 	var boundary:=WorldRoomSpace.boundary_platforms(room.contract.world_geometry,room.doors)
 	var exterior_solid:=WorldRoomSpace.exterior_fill(room.contract.world_geometry,room.doors)
 	room.boundary_art_rock=exterior_solid.duplicate()
@@ -28,7 +27,7 @@ static func build(room: FixedWorldRoom) -> void:
 		collision.one_way_collision = index in room.one_way_indices
 		if collision.one_way_collision: body.add_to_group("one_way_platform")
 		body.add_child(collision)
-		room.add_child(body)
+		parent.add_child(body)
 	for polygon: Dictionary in room.terrain_polygons:
 		var body := StaticBody2D.new()
 		body.name = "Polygon_"+str(polygon.id).replace(":", "_")
@@ -40,7 +39,7 @@ static func build(room: FixedWorldRoom) -> void:
 		for pair: Array in polygon.points: points.append(FixedWorldProvider.point(pair))
 		shape.polygon = points
 		body.add_child(shape)
-		room.add_child(body)
+		parent.add_child(body)
 	for door: Dictionary in room.doors:
 		var blocker := StaticBody2D.new()
 		blocker.position = FixedWorldProvider.point(door.position_candidate.local_world_units)
@@ -50,8 +49,12 @@ static func build(room: FixedWorldRoom) -> void:
 		var collision := CollisionShape2D.new()
 		collision.shape = shape
 		blocker.add_child(collision)
-		room.add_child(blocker)
+		parent.add_child(blocker)
 		room.door_blocks[door.id] = blocker
+
+static func build(room: FixedWorldRoom) -> void:
+	room.z_index = -1
+	build_collision(room, room)
 	for zone: Dictionary in room.contract.camera.get("zones",[]):
 		var conceal: Array[Rect2] = []
 		for raw: Array in zone.get("conceal",[]):conceal.append(FixedWorldProvider.rect(raw))
@@ -62,7 +65,7 @@ static func build(room: FixedWorldRoom) -> void:
 		room.add_child(mask);room.camera_concealers[str(zone.id)]=mask
 	# Existing textured rock covers the near exterior. Deep opaque rock continues
 	# past it at extreme aspect ratios without allocating an unbounded tile field.
-	var exterior:=FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).grow(512)
+	var exterior:=FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units).grow(WorldRoomSpace.EXTERIOR_DEPTH)
 	for fill: Rect2 in [Rect2(-100000,-100000,200000,exterior.position.y+100000),Rect2(-100000,exterior.end.y,200000,100000),Rect2(-100000,exterior.position.y,exterior.position.x+100000,exterior.size.y),Rect2(exterior.end.x,exterior.position.y,100000,exterior.size.y)]:
 		var backing:=Polygon2D.new()
 		backing.polygon=PackedVector2Array([fill.position,Vector2(fill.end.x,fill.position.y),fill.end,Vector2(fill.position.x,fill.end.y)])
@@ -107,13 +110,23 @@ static func build(room: FixedWorldRoom) -> void:
 		room.recovery_markers[anchor.id] = marker
 
 
+# Some placements and older saves use player-height references. Preserve x and
+# settle the actual enemy sole only when it already lies near a platform top.
+static func _settled_enemy_point(room: FixedWorldRoom, definition: EnemyDefinition, point: Vector2) -> Vector2:
+	if definition.aerial: return point
+	var half_height := definition.collision_size.y*.5
+	for surface: Rect2 in room.platforms:
+		if absf(point.y+half_height-surface.position.y)<=8 and point.x>=surface.position.x and point.x<=surface.end.x:
+			return Vector2(point.x,surface.position.y-half_height)
+	return point
+
+
 static func spawn_enemy(room: FixedWorldRoom, placement: Dictionary,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime,saved: Dictionary,entry_anchor: Vector2) -> EnemyActor:
 	var id := str(placement.id)
 	# Practice targets always return to their authored perch, including old saves
 	# that recorded a former combat flyer under the same placement identity.
 	if str(placement.behavior) == "chime_target": saved = {}
 	var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
-	body.position = FixedWorldProvider.point(saved.get("position",placement.point))
 	var actor := body.get_node("Actor") as EnemyActor
 	body.ground_recovery_enabled=true
 	actor.set_meta(&"world_persistent_corpse",true)
@@ -121,15 +134,12 @@ static func spawn_enemy(room: FixedWorldRoom, placement: Dictionary,controller: 
 		actor.definition=actor.definition.duplicate(true) as EnemyDefinition
 		actor.definition.health_definition.max_health=float(placement.max_health)
 		actor.definition.health_definition.initial_current=float(placement.max_health)
-	# Authored points and older saves can use player-height references; settle the actual enemy sole
-	# onto its nearby authored platform before home/AI/visual anchors are bound.
-	if not actor.definition.aerial:
-		var sole := body.position.y + actor.definition.collision_size.y*.5
-		for surface: Rect2 in room.platforms:
-			if absf(surface.position.y-sole)<=8 and body.position.x>=surface.position.x and body.position.x<=surface.end.x:
-				body.position.y=surface.position.y-actor.definition.collision_size.y*.5
-				break
+	# _ready binds the patrol's home. The persisted motor position describes
+	# where its current trip resumes, even after several visits to this room.
+	body.position = _settled_enemy_point(room,actor.definition,FixedWorldProvider.point(placement.point))
 	room.add_child(body)
+	if saved.has("position"):
+		body.position = _settled_enemy_point(room,actor.definition,FixedWorldProvider.point(saved.position))
 	EnemyPresentationBinding.replace(actor,&"underworld")
 	policy.bind_damageable(StringName(id),actor.damageable,actor.health)
 	actor.bind_encounter(controller,policy,lifetime,StringName(id),[entry_anchor])

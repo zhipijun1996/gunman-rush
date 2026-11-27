@@ -1,5 +1,6 @@
 extends SceneTree
 
+const CUSTOM_COVER := "res://assets/world_elements/native/forest_bramble.png"
 var failures := 0
 var checks := 0
 var session: OrdinaryRoomSession
@@ -30,6 +31,7 @@ func document() -> Dictionary:
 	doc.entities.lure = row("lure","interaction.sound_lure",{"position":[416,350],"cooldown_s":0.2})
 	doc.entities.mat = row("mat","interaction.sound_lure",{"trigger_mode":"ground_contact","bounds":[216,372,96,12],"cooldown_s":0.2})
 	doc.entities.vines = row("vines","zone.foreground_cover",{"bounds":[130,270,232,114],"fade_out_s":0.2,"restore_s":0.3,"revealed_alpha":0.2})
+	doc.entities.grove = row("grove","zone.foreground_cover",{"bounds":[136,276,232,114],"texture_path":CUSTOM_COVER})
 	doc.entities.station = row("station","recovery.station",{"position":[160,366]})
 	doc.entities.reward = row("reward","equipment.reward",{"position":[160,366],"source_id":"equipment.EQ_LAMP"})
 	doc.entities.gear_follower = row("gear_follower","hazard.gear",{"position":[40,40],"drive_id":"carrier_clock"})
@@ -61,6 +63,16 @@ func check_cycles() -> void:
 	check_reject("environment.local_light",{"light_mode":"guide","route":[[45,0],[45,0]]},"zero path segment")
 	check_reject("switch.light",{"light_source_types":["equipped_light","equipped_light"]},"duplicate light source")
 	check_reject("zone.foreground_cover",{"revealed_alpha":1.1},"alpha range")
+	for path: String in ["res://assets/missing_cover.png","user://foreign.png","res://assets/../assets/world_elements/native/forest_bramble.png","res://game/player/player.tscn"]:
+		check_reject("zone.foreground_cover",{"texture_path":path},"reject foreground resource "+path)
+	var setup := WorldRoomDocument.instantiate(document())
+	if setup.has("room"):
+		var packed := PackedScene.new()
+		check(packed.pack(setup.room)==OK,"pack instance artwork in editor")
+		setup.room.free()
+		var restored := WorldRoomDocument.extract(packed)
+		check(restored.entities.grove.properties.texture_path==CUSTOM_COVER and restored.entities.vines.properties.get("texture_path","")=="","custom and inherited v1 fields survive scene export")
+	else: check(false,"valid custom Texture2D instantiates")
 	check_reject("interaction.sound_lure",{"audible_radius":0},"lure radius")
 	check_reject("zone.sight_occluder",{"bounds":[0,0,0,8]},"reeds bounds")
 
@@ -176,6 +188,30 @@ func check_cover(nodes: Dictionary) -> void:
 	check(image.get_pixel(8,14).r8 == 255,"zero transition reveals immediately")
 	cover.element_restore({})
 	check(cover.chunks.is_empty(),"attempt reset clears old mask")
+	check(cover.closed_regions()==[cover.bounds],"entire foreground visible immediately at reset before camera processing")
+	var custom: WorldForegroundCover=nodes.grove
+	check(custom.skin.resource_path==CUSTOM_COVER and cover.skin.resource_path!=CUSTOM_COVER,"individual texture overrides the regional default only on its own instance")
+	custom.element_restore({})
+	check(custom.closed_regions()==[custom.bounds],"initial view is fully covered even if camera has not solved")
+	session.player.reset_at(Vector2(180,354))
+	custom._process(1)
+	var masked: Dictionary=custom.chunks[Vector2i.ZERO]
+	var mat: ShaderMaterial=masked.rect.material
+	check(mat.get_shader_parameter("vines")==custom.skin and mat.get_shader_parameter("texture_origin")==Vector2.ZERO,"shader uses the instance texture from the local top left")
+	check(mat.get_shader_parameter("texture_span").is_equal_approx(masked.area.size/custom.skin.get_size()),"render samples one source pixel per world unit")
+	var area_sum := 0.0
+	for rect: Rect2 in custom.closed_regions(): area_sum+=rect.get_area()
+	for part: Dictionary in custom.chunks.values():
+		area_sum+=part.area.get_area()
+		for rect: Rect2 in custom.closed_regions(): check(not rect.intersects(part.area),"unmasked art never draws beneath an open tile")
+	check(is_equal_approx(area_sum,custom.bounds.get_area()),"mask tiles and closed fill exactly cover the rectangle")
+	check(masked.image.get_pixel(7,13).r8==255,"custom foreground opens under the player")
+	var candidate:=session.state.candidate()
+	candidate.flags.append("discovered_path")
+	check(session.state.commit(candidate,session.state.revision),"discover path while nearby")
+	session.player.reset_at(Vector2(700,350))
+	custom._process(1)
+	check(masked.image.get_pixel(7,13).r8==0 and session.state.has("discovered_path"),"distant cover is closed while the separate discovery remains saved")
 
 func check_controller_shots() -> void:
 	var doc := WorldRoomDocument.read("res://tests/perception_demo.json")

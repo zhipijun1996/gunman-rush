@@ -13,7 +13,7 @@
 | 内容身份到实机定义、房间文档的绑定 | `production/config/imported_world/bindings.json` |
 | 战斗、拾取、支付、永久进度和保存 | 现有游戏所有者与正式世界宿主 |
 
-地图坐标是规划单位，不能直接作为碰撞或怪物出生点。内容包描述尚未施工的房间是合法的；请求装载该房时必须有明确的实机文档绑定。网页敌群是规划建议，实际布怪种类、数量和位置由 schema 3 房间设计决定，不以建议数作为上限或自动填怪配额，也不要求实机组合属于本房的规划敌群。普通敌群总金币只用于估算，实际游戏按每只死亡生成掉落、实际拾取后入账；`coin_each`由独立的 `enemy_drop_profiles` 提供。网页探索存档不作为游戏存档导入。
+世界地图的物理邻接、共用门线和出入侧约束施工。门线的轴标记描述线的走向；真实角色沿垂直于这条线的方向跨房。房间内的碰撞、平台尺寸与怪物出生点使用局部游戏单位。内容包描述尚未施工的房间是合法的；请求装载该房时必须有明确的实机文档绑定。网页敌群是规划建议，实际布怪种类、数量和位置由 schema 3 房间设计决定，不以建议数作为上限或自动填怪配额，也不要求实机组合属于本房的规划敌群。普通敌群总金币只用于估算，实际游戏按每只死亡生成掉落、实际拾取后入账；`coin_each`由独立的 `enemy_drop_profiles` 提供。网页探索存档不作为游戏存档导入。
 
 ## 固定协议
 
@@ -75,6 +75,7 @@ production/config/imported_world/
 | `table(name)`、`lookup(table, id)` | 返回独立数据副本；未知表或ID拒绝 |
 | `room_context(room_id)` | 房间、连接、当地内容及多地交互事件 |
 | `connections(room_id)` | 保留首开侧、永久旗标、门口分区等字段 |
+| `physical_passage(room_id, door_id)` | 由锁定门线及两侧房间轮廓给出本端向外方向、对端房号和地图门段。室内正面门另读 `entrances` |
 | `condition_match(row, flags, equipped)` | 已知条件的满足情况、缺失与排除项；未知条件拒绝 |
 | `dialogues_for(room, flags, equipped, zone)` | 按位置和状态选取各说话者最高优先级对白；相同优先级采用源顺序中最后匹配的一行 |
 | `quest_status(id, flags)` | 步骤、发现、接受、完成和下一步；普通核心状态不泄露未遇见的地方任务 |
@@ -88,7 +89,7 @@ production/config/imported_world/
 
 ## 实机绑定
 
-绑定表有 `rooms`、`npcs`、`enemy_species`、`equipment_effects`、`event_triggers` 五个部分。初始正式表为空，代表内容已导入但尚未声明实机房间完成。
+绑定表有 `rooms`、`npcs`、`enemy_species`、`equipment_effects`、`event_triggers` 五个部分。P02 已绑定至可独立试玩的房间文档。绑定使宿主能够装载此房间；试玩评审及发布状态见[当前开发基线](../../project/current_state.md)。
 
 房间绑定示例：
 
@@ -101,7 +102,7 @@ production/config/imported_world/
 
 绑定的键为内容房间ID，目标文档必须为 schema 3 且 `room_id` 相同。用于验证的绑定使用 `status: integration_test`，只有显式允许测试绑定时可用。测试房不会自动成为正式地图。
 
-物种绑定使用 `definition_id`，例如 `enemy.patrol`；内容物种身份与显示名称分开。房内具体实例继续由 schema 3 数据摆放，文档的 `content_bindings.enemy_instances` 将实例ID映射为 `{species_id, drop_profile_id}`。接入桥核对实例实机定义、物种身份与掉落档案的物种一致性。该映射不引用规划敌群，不把宏观敌群锚点当成实机出生点。
+田埂小虫的世界物种绑定到 `enemy.patrol`，P02 的房内实例引用该物种及其基础掉落档案。物种身份与显示名称分开。房内具体实例继续由 schema 3 数据摆放，文档的 `content_bindings.enemy_instances` 将实例ID映射为 `{species_id, drop_profile_id}`。接入桥核对实例实机定义、物种身份与掉落档案的物种一致性。该映射不引用规划敌群，不把宏观敌群锚点当成实机出生点。
 
 掉落档案提供稳定的 `id`、`species_id`、`tier` 和 `coin_each`。规划敌群的每个敌人项通过 `drop_profile_id` 引用同一档案，其数量和总收益仍用于设计估算。房间可以使用任意已登记且绑定到正确实机定义的物种及其档案；增加新物种或新经济档位时明确增加内容定义，不从显示名称或金币数临时推断身份。实际布怪数量与估算的差异可以报告给设计者，不作为装载门槛。
 

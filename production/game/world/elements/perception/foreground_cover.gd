@@ -9,6 +9,10 @@ const DEFAULT_VINES := preload("res://assets/world_elements/native/hanging_vines
 @export var state_scope := "attempt"
 @export var section_id := "main"
 @export var bounds := Rect2(0,0,192,160)
+@export_file var texture_path := "":
+	set(value):
+		texture_path = value
+		queue_redraw()
 @export var reveal_radius := 80.0
 @export var revealed_alpha := 0.15
 @export var fade_out_s := 0.20
@@ -20,11 +24,24 @@ var chunks := {}
 static func validate_configuration(p: Dictionary,_row: Dictionary,_doc: Dictionary) -> String:
 	if p.reveal_radius <= 0: return "reveal_radius:positive_required"
 	if p.revealed_alpha > 1.0: return "revealed_alpha:maximum_one"
+	var path: String = p.get("texture_path","")
+	if not path.is_empty() and load_instance_texture(path)==null: return "texture_path:project_texture_required"
 	return ""
+
+static func load_instance_texture(path: String) -> Texture2D:
+	if not path.begins_with("res://") or path.contains("\\") or path.contains("::") or path!=path.simplify_path(): return null
+	if not ResourceLoader.exists(path,"Texture2D"): return null
+	return ResourceLoader.load(path,"Texture2D") as Texture2D
+
+func resolved_texture() -> Texture2D:
+	if not texture_path.is_empty(): return load_instance_texture(texture_path)
+	return load(WorldElementCatalog.skin_value(self,"zone.foreground_cover","texture",DEFAULT_VINES.resource_path))
 
 func element_bind(context: Dictionary) -> void:
 	player = context.controller.motor.get_node("CollisionShape2D")
-	skin = load(WorldElementCatalog.skin_value(self,"zone.foreground_cover","texture",DEFAULT_VINES.resource_path))
+	skin = resolved_texture()
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 	z_index = 6
 	queue_redraw()
 
@@ -32,6 +49,7 @@ func element_state() -> Dictionary: return {}
 func element_restore(_state: Dictionary) -> void:
 	for tile: Dictionary in chunks.values(): tile.rect.free()
 	chunks.clear()
+	queue_redraw()
 
 func make_tile(at: Vector2i) -> Dictionary:
 	var area := Rect2(bounds.position+Vector2(at)*CHUNK,Vector2.ONE*CHUNK).intersection(bounds)
@@ -59,6 +77,7 @@ func _process(delta: float) -> void:
 	var visible_area := get_global_transform_with_canvas().affine_inverse()*get_viewport_rect()
 	var cropped := visible_area.intersection(bounds)
 	var visible_tiles := {}
+	var changed := false
 	if cropped.has_area():
 		var first := Vector2i(((cropped.position-bounds.position)/CHUNK).floor())
 		var end := Vector2i(((cropped.end-bounds.position)/CHUNK).ceil())
@@ -66,7 +85,9 @@ func _process(delta: float) -> void:
 			for x: int in range(first.x,end.x):
 				var key := Vector2i(x,y)
 				visible_tiles[key] = true
-				if not chunks.has(key): chunks[key] = make_tile(key)
+				if not chunks.has(key):
+					chunks[key] = make_tile(key)
+					changed = true
 	for key: Vector2i in chunks.keys():
 		var tile: Dictionary = chunks[key]
 		var area: Rect2 = tile.area
@@ -74,6 +95,8 @@ func _process(delta: float) -> void:
 		if intersects or tile.open: advance_tile(tile,at,delta)
 		if not visible_tiles.has(key) and not tile.open:
 			tile.rect.free(); chunks.erase(key)
+			changed = true
+	if changed: queue_redraw()
 
 func advance_tile(tile: Dictionary, at: Vector2, delta: float) -> void:
 	var area: Rect2 = tile.area
@@ -99,5 +122,37 @@ func advance_tile(tile: Dictionary, at: Vector2, delta: float) -> void:
 	tile.open = opened
 	if dirty: tile.texture.update(image)
 
+## Paint the unopened parts of the bounds even before the first process tick,
+## after a reset, or when a cut places the camera over previously unseen tiles.
+## Each position belongs to either a masked chunk or the closed artwork.
+func closed_regions() -> Array[Rect2]:
+	var regions: Array[Rect2] = []
+	var columns := {}
+	for key: Vector2i in chunks:
+		if not columns.has(key.y): columns[key.y]=[]
+		columns[key.y].append(key.x)
+	var rows := columns.keys()
+	rows.sort()
+	var bottom := bounds.position.y
+	for y: int in rows:
+		var top := bounds.position.y+y*CHUNK
+		if top>bottom: regions.append(Rect2(bounds.position.x,bottom,bounds.size.x,top-bottom))
+		bottom=minf(top+CHUNK,bounds.end.y)
+		var left := bounds.position.x
+		columns[y].sort()
+		for x: int in columns[y]:
+			var area: Rect2=chunks[Vector2i(x,y)].area
+			if area.position.x>left: regions.append(Rect2(left,top,area.position.x-left,bottom-top))
+			left=area.end.x
+		if left<bounds.end.x: regions.append(Rect2(left,top,bounds.end.x-left,bottom-top))
+	if bottom<bounds.end.y: regions.append(Rect2(bounds.position.x,bottom,bounds.size.x,bounds.end.y-bottom))
+	return regions
+
 func _draw() -> void:
-	if Engine.is_editor_hint(): draw_texture_rect(DEFAULT_VINES,bounds,true)
+	if Engine.is_editor_hint():
+		var preview := resolved_texture()
+		if preview!=null: draw_texture_rect(preview,bounds,true)
+		return
+	if skin==null: return
+	for area: Rect2 in closed_regions():
+		draw_texture_rect_region(skin,area,Rect2(area.position-bounds.position,area.size),Color.WHITE,false,false)

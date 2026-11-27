@@ -1,0 +1,609 @@
+{
+  "schema": 3,
+  "room_id": "P02",
+  "bounds": [
+    0,
+    0,
+    1648,
+    768
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "terrain_material": "windchime_plains",
+      "region_id": "windchime_plains",
+      "start_point": [
+        139,
+        366
+      ],
+      "terrain_paint": {
+        "version": 1,
+        "regions": [
+          {
+            "id": "west_shaft_coping",
+            "material_id": "mill_masonry",
+            "bounds": [
+              1088,
+              608,
+              32,
+              160
+            ]
+          },
+          {
+            "id": "east_shaft_coping",
+            "material_id": "mill_masonry",
+            "bounds": [
+              1216,
+              608,
+              32,
+              160
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "lesson": {
+    "introduce": "走过出生草坡接入段，在西田埂先读出断口和同高钟架落点。",
+    "practice": "从西岸朝东跑跳，空中向左后方射击。未过断口会落到能走回的沟底。",
+    "check": "从西岸完成反冲并站稳东岸，钟响一次。钟架后可普通跳直达东田，或下到井口前选择进田渠。",
+    "retry": "未落上钟台可沿西岸田阶回到发射线。沟底西侧的草幕可走近查看，沿根间落口进入藏物窝；返回时从土壁凹阶跳回原路。"
+  },
+  "exits": {
+    "d001": {
+      "point": [
+        2,
+        366
+      ],
+      "spawn": [
+        32,
+        366
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        0,
+        390
+      ]
+    },
+    "d002": {
+      "point": [
+        1646,
+        398
+      ],
+      "spawn": [
+        1616,
+        398
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        0,
+        420
+      ]
+    },
+    "d009": {
+      "point": [
+        240,
+        750
+      ],
+      "spawn": [
+        304,
+        714
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        192,
+        288
+      ]
+    },
+    "d330": {
+      "point": [
+        1168,
+        750
+      ],
+      "spawn": [
+        1104,
+        714
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        1120,
+        1216
+      ]
+    }
+  },
+  "sites": {
+    "discover_p02_low_slope": {
+      "at": [
+        304,
+        558
+      ],
+      "passage_rect": [
+        192,
+        610,
+        96,
+        140
+      ],
+      "approach_radius": 20,
+      "other_approaches": [
+        [
+          186,
+          604
+        ]
+      ]
+    }
+  },
+  "scenery": {
+    "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
+    "pieces": [
+      {
+        "asset": "p02_root_throat",
+        "at": [
+          258,
+          834
+        ],
+        "layer": "attached"
+      },
+      {
+        "asset": "p02_grass_bank",
+        "at": [
+          230,
+          628
+        ],
+        "layer": "attached"
+      },
+      {
+        "asset": "windchime_plains_v2_chime_span",
+        "at": [
+          817,
+          385
+        ],
+        "layer": "attached"
+      },
+      {
+        "asset": "p02_well_lining",
+        "at": [
+          1149,
+          768
+        ],
+        "layer": "attached"
+      },
+      {
+        "asset": "p02_slope_grass",
+        "at": [
+          146,
+          608
+        ],
+        "layer": "attached"
+      }
+    ]
+  },
+  "entities": {
+    "west_field": {
+      "id": "west_field",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          0,
+          384,
+          432,
+          64
+        ]
+      }
+    },
+    "west_ridge_shoulder": {
+      "id": "west_ridge_shoulder",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          0,
+          448,
+          152,
+          28
+        ]
+      }
+    },
+    "west_upper_return": {
+      "id": "west_upper_return",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          488,
+          480,
+          38,
+          288
+        ]
+      }
+    },
+    "west_lower_return": {
+      "id": "west_lower_return",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          526,
+          528,
+          42,
+          240
+        ]
+      }
+    },
+    "west_grass_apron": {
+      "id": "west_grass_apron",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          0,
+          608,
+          144,
+          160
+        ]
+      }
+    },
+    "grass_runoff": {
+      "id": "grass_runoff",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            144,
+            608
+          ],
+          [
+            158,
+            608
+          ],
+          [
+            181,
+            619
+          ],
+          [
+            192,
+            624
+          ],
+          [
+            192,
+            768
+          ],
+          [
+            144,
+            768
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "retry_basin_floor": {
+      "id": "retry_basin_floor",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          325,
+          576,
+          395,
+          192
+        ]
+      }
+    },
+    "bell_terrace_pier": {
+      "id": "bell_terrace_pier",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          720,
+          384,
+          144,
+          384
+        ]
+      }
+    },
+    "bell_terrace_cap": {
+      "id": "bell_terrace_cap",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          864,
+          384,
+          104,
+          384
+        ]
+      }
+    },
+    "well_west_lip": {
+      "id": "well_west_lip",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            1080,
+            608
+          ],
+          [
+            1120,
+            608
+          ],
+          [
+            1120,
+            618
+          ],
+          [
+            1086,
+            618
+          ],
+          [
+            1086,
+            671
+          ],
+          [
+            1120,
+            671
+          ],
+          [
+            1120,
+            678
+          ],
+          [
+            1086,
+            678
+          ],
+          [
+            1086,
+            732
+          ],
+          [
+            1120,
+            732
+          ],
+          [
+            1120,
+            768
+          ],
+          [
+            1080,
+            768
+          ]
+        ]
+      }
+    },
+    "east_road_pier": {
+      "id": "east_road_pier",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1216,
+          416,
+          432,
+          352
+        ]
+      }
+    },
+    "east_road_cap": {
+      "id": "east_road_cap",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1144,
+          416,
+          72,
+          48
+        ]
+      }
+    },
+    "drain_upper_return": {
+      "id": "drain_upper_return",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          968,
+          448,
+          40,
+          320
+        ]
+      }
+    },
+    "drain_lower_return": {
+      "id": "drain_lower_return",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1048,
+          552,
+          32,
+          216
+        ]
+      }
+    },
+    "drain_middle_return": {
+      "id": "drain_middle_return",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1008,
+          504,
+          40,
+          264
+        ]
+      }
+    },
+    "west_field_seam": {
+      "id": "west_field_seam",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -48,
+          384,
+          48,
+          92
+        ]
+      }
+    },
+    "east_road_seam": {
+      "id": "east_road_seam",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1648,
+          416,
+          48,
+          352
+        ]
+      }
+    },
+    "grass_return_pockets": {
+      "id": "grass_return_pockets",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            288,
+            576
+          ],
+          [
+            326,
+            576
+          ],
+          [
+            326,
+            768
+          ],
+          [
+            288,
+            768
+          ],
+          [
+            288,
+            732
+          ],
+          [
+            323,
+            732
+          ],
+          [
+            323,
+            664
+          ],
+          [
+            295,
+            664
+          ],
+          [
+            288,
+            661
+          ],
+          [
+            288,
+            654
+          ],
+          [
+            323,
+            654
+          ],
+          [
+            323,
+            586
+          ],
+          [
+            298,
+            586
+          ],
+          [
+            288,
+            582
+          ]
+        ],
+        "material": "ground"
+      }
+    },
+    "grass_cutaway": {
+      "id": "grass_cutaway",
+      "definition_id": "zone.foreground_cover",
+      "definition_version": 1,
+      "properties": {
+        "bounds": [
+          128,
+          544,
+          224,
+          256
+        ],
+        "texture_path": "res://assets/scenery/p02/p02_grass_cutaway.png",
+        "reveal_radius": 84,
+        "revealed_alpha": 0.03,
+        "fade_out_s": 0.12,
+        "restore_s": 0.32
+      }
+    },
+    "grass_verge_grub": {
+      "id": "grass_verge_grub",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          60,
+          592
+        ]
+      }
+    },
+    "east_road_grub": {
+      "id": "east_road_grub",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1448,
+          400
+        ]
+      }
+    }
+  },
+  "actions": [
+    {
+      "id": "discover_p02_low_slope",
+      "room_id": "P02",
+      "type": "discovery",
+      "grants": [
+        "discover_p02_low_slope"
+      ]
+    }
+  ],
+  "content_bindings": {
+    "enemy_instances": {
+      "grass_verge_grub": {
+        "species_id": "species.2411e8295a35",
+        "drop_profile_id": "drop.2411e8295a35.t0"
+      },
+      "east_road_grub": {
+        "species_id": "species.2411e8295a35",
+        "drop_profile_id": "drop.2411e8295a35.t0"
+      }
+    }
+  }
+}

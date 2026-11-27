@@ -4,17 +4,32 @@ extends RefCounted
 static func plan(solids: Array[Rect2], polygons: Array[Dictionary]) -> Dictionary:
 	var result := UnderworldTerrain.geometry_plan(solids)
 	var shapes: Array[PackedVector2Array] = []
+	var polygon_bounds: Array[Rect2] = []
+	var rect_corners := UnderworldTerrain._corners(result.edges, result.pieces)
 	for rect: Rect2 in result.pieces: shapes.append(UnderworldPolygonTerrain.rectangle_points(rect))
 	for row: Dictionary in polygons:
 		var points := PackedVector2Array()
 		for pair: Array in row.points: points.append(Vector2(float(pair[0]), float(pair[1])))
 		shapes.append(UnderworldPolygonTerrain.clockwise(points))
+		polygon_bounds.append(UnderworldPolygonTerrain.bounds(points))
 	if not polygons.is_empty(): result.edges = UnderworldPolygonTerrain.boundary(shapes)
-	result["has_polygons"] = not polygons.is_empty()
+	result["polygon_bounds"] = polygon_bounds
 	result["areas"] = cell_areas(result.pieces)
 	result["shapes"] = shapes
-	result["corners"] = UnderworldTerrain._corners(result.edges, result.pieces) if polygons.is_empty() else PackedVector4Array()
+	var corners := PackedVector4Array()
+	for corner: Vector4 in rect_corners:
+		if not touches_polygon(Rect2(corner.x, corner.y, 0, 0).grow(1), polygon_bounds):
+			corners.append(corner)
+	result["corners"] = corners
 	return result
+
+## Slope-adjacent cells use the exact boundary adapter. Other banks can use
+## the same atlas cells and corner trim as a purely rectangular room.
+static func touches_polygon(area: Rect2, polygon_bounds: Array) -> bool:
+	for bounds: Rect2 in polygon_bounds:
+		if area.intersects(bounds, true):
+			return true
+	return false
 
 static func paint_rect(groups: Array[Dictionary], region: Rect2, material_id: String, bare := false) -> void:
 	var painted: Array[Rect2] = []

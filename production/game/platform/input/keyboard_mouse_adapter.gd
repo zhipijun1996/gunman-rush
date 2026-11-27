@@ -38,7 +38,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.echo:
 			return
-		var code: Key = event.physical_keycode
+		# Some desktop drivers report navigation keys only by their logical code.
+		var code: Key = event.physical_keycode if event.physical_keycode != KEY_NONE else event.keycode
 		if code in [KEY_F,KEY_Q,KEY_R]:
 			if event.pressed and not _held.get(code,false) and not _blocked_until_release.has(code):
 				router.activate_device(&"keyboard_mouse")

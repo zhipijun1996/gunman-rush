@@ -14,6 +14,7 @@ var heal_base: Dictionary
 var focus_heal: WorldFocusHeal
 var audio_service: PlayerWeaponFeelAudioV2
 signal sign_read(text: String)
+signal respawn_requested
 var sign_reader: RoomSignReader
 var recovery := RoomRecovery.new()
 var room: FixedWorldRoom
@@ -30,6 +31,7 @@ var retry_delay := 0.0
 var content_catalog: WorldContentCatalog
 var content_context: Dictionary = {}
 var content_enemy_gold: Dictionary = {}
+var passage_discoveries: Array = []
 
 class RoomMemory extends WorldSaveService:
 	func commit(_payload: Dictionary, _revision: int) -> bool:
@@ -47,7 +49,7 @@ func _ready() -> void:
 		var error := open(WorldRoomDocument.read(document_path), storage)
 		if not error.is_empty(): push_error(error)
 
-func open_content(room_id: String, lock_path := "res://config/imported_world/current.lock.json", bindings_path := "res://config/imported_world/bindings.json", storage: WorldSaveService = null, allow_test_bindings := false, previous: OrdinaryRoomSession = null) -> String:
+func open_content(room_id: String, lock_path := "res://config/imported_world/current.lock.json", bindings_path := "res://config/imported_world/bindings.json", storage: WorldSaveService = null, allow_test_bindings := false, previous: OrdinaryRoomSession = null, entry_door_id := "") -> String:
 	if room != null: return "room_already_open"
 	var catalog := WorldContentCatalog.new()
 	var result := catalog.load_locked(lock_path)
@@ -56,15 +58,19 @@ func open_content(room_id: String, lock_path := "res://config/imported_world/cur
 	if not result.get("ok", false): return str(result.error)
 	result = catalog.room_document(room_id)
 	if not result.get("ok", false): return str(result.error)
-	return open(WorldRoomDocument.read(result.path), storage, previous, catalog)
+	return open(WorldRoomDocument.read(result.path), storage, previous, catalog, entry_door_id)
 
-func open(document: Dictionary, storage: WorldSaveService = null, previous: OrdinaryRoomSession = null, catalog: WorldContentCatalog = null) -> String:
+func open(document: Dictionary, storage: WorldSaveService = null, previous: OrdinaryRoomSession = null, catalog: WorldContentCatalog = null, entry_door_id := "", respawning := false) -> String:
 	if room != null: return "room_already_open"
 	if document.has("error"): return str(document.error)
 	if previous != null:
 		var before := previous.content_catalog.bundle_sha256 if previous.content_catalog != null else ""
 		var after := catalog.bundle_sha256 if catalog != null else ""
 		if before != after: return "room_content_version_mismatch"
+	if not document.get("exits", {}) is Dictionary: return "room_exits_invalid"
+	var exits: Dictionary = document.get("exits", {})
+	if not entry_door_id.is_empty() and not exits.has(entry_door_id):
+		return "room_entry_unknown"
 	var prepared := {}
 	if catalog != null:
 		prepared = WorldContentRoomBridge.prepare(document, catalog)
@@ -81,19 +87,28 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	if result.has("error"): return str(result.error)
 	room = result.room
 	var at := room.start_point
+	if not entry_door_id.is_empty():
+		at = FixedWorldProvider.point(exits[entry_door_id].spawn)
+	if respawning:
+		if previous == null or previous.lifetime.active or not previous.controller.actor_resources.health.terminal or previous.state.value.rest.room != room.room_id or not entry_door_id.is_empty():
+			room.free()
+			room = null
+			return "room_respawn_unavailable"
+		at = FixedWorldProvider.point(previous.state.value.rest.point)
 	var bounds := FixedWorldProvider.rect(bounds_data)
 	if not bounds.has_point(at):
 		room.free()
 		room = null
 		return "spawn_outside_room"
-	var row := {"doors":[],"camera":{},"world_geometry":{"boundary":[],"bounds_world_units":bounds_data,"space_rects":[bounds_data]}}
+	var row := {"doors":[],"camera":{},"world_geometry":WorldRoomSpace.document_geometry(bounds_data,exits)}
+	row["exits"] = exits
 	room.configure(row)
 	state.content = FixedWorldProvider.new()
 	var content_identity := JSON.stringify(document) + (":" + catalog.bundle_sha256 if catalog != null else "")
 	state.content.data = {"rooms":{room.room_id:row},"actions":document.get("actions",[]),
-		"start_room":room.room_id,"start_point":[at.x,at.y],"content_version":content_identity.sha256_text()}
+		"start_room":room.room_id,"start_point":[room.start_point.x,room.start_point.y],"content_version":content_identity.sha256_text()}
 	if previous != null:
-		if previous.room == null or not previous.lifetime.active or previous.room.room_id == room.room_id or not previous.pending_defeats.is_empty() or previous.controller.has_pending_damage():
+		if not respawning and (previous.room == null or not previous.lifetime.active or previous.room.room_id == room.room_id or not previous.pending_defeats.is_empty() or previous.controller.has_pending_damage()):
 			room.free()
 			room = null
 			return "room_transition_unavailable"
@@ -106,12 +121,22 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		var next := previous.state.candidate()
 		var rooms: Dictionary = next.get("visited_states",{})
 		rooms[previous.room.room_id] = {"enemies":previous.room.snapshot(),"mechanisms":next.mechanisms}
+		if respawning:
+			# Advancing the cycle refreshes regular enemies in every visited room.
+			# The dead controller already cleared its summons and combat energy.
+			previous.equipment.stage(next,"rest","")
+			next = previous._stage_defeats(next)
+			next.cycle += 1
+			for visit: Dictionary in rooms.values():
+				visit.enemies = {}
 		var destination: Dictionary = rooms.get(room.room_id,{})
 		next.visited_states = rooms
 		next.enemies = destination.get("enemies",{}).duplicate(true)
 		next.mechanisms = destination.get("mechanisms",{}).duplicate(true)
 		next.room = room.room_id
-		next.entry = ""
+		next.entry = entry_door_id
+		if not exits.is_empty() and room.room_id not in next.explored:
+			next.explored.append(room.room_id)
 		next.content_version = state.content.data.content_version
 		var effects: Dictionary = next.services.effects
 		effects.erase("field")
@@ -140,8 +165,16 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 			room.free()
 			room = null
 			return "room_save_unavailable"
+	if previous == null and state.value.get("entry","") in exits:
+		var saved_spawn := FixedWorldProvider.point(exits[state.value.entry].spawn)
+		if not bounds.has_point(saved_spawn):
+			room.free()
+			room = null
+			return "spawn_outside_room"
+		at = saved_spawn
 	content_catalog = catalog
 	content_enemy_gold = prepared.get("enemy_gold", {})
+	passage_discoveries = prepared.get("passage_discoveries", [])
 	content_context = prepared.get("room_context", {})
 
 	services.state = state
@@ -153,7 +186,11 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	add_child(player)
 	controller = player.get_node("Controller")
 	controller.enable_shot_energy()
-	if state.value.is_empty(): state.value = state.fresh(controller.actor_resources.health.capacity)
+	if state.value.is_empty():
+		state.value = state.fresh(controller.actor_resources.health.capacity)
+		if not exits.is_empty():
+			state.value.entry = entry_door_id
+			state.value.explored.append(room.room_id)
 	var health_definition := controller.actor_resources.health_definition.duplicate(true) as HealthDefinition
 	health_definition.initial_current = clampf(state.value.hp, 1, health_definition.max_health)
 	controller.actor_resources.health.configure(health_definition)
@@ -332,8 +369,7 @@ func _defeated(actor: EnemyActor, id: String) -> void:
 	pending_defeats[id] = {"source":source, "base_gold":base_gold, "bonus":equipment.p("P39","gold_bonus"),"position":actor.motor.position, "enemy":room.snapshot()[id]}
 	_settle_defeats()
 
-func _settle_defeats() -> void:
-	var candidate := state.candidate()
+func _stage_defeats(candidate: Dictionary) -> Dictionary:
 	for id: String in pending_defeats:
 		var defeat: Dictionary = pending_defeats[id]
 		if not candidate.receipts.has("income:"+str(defeat.source)):
@@ -342,6 +378,10 @@ func _settle_defeats() -> void:
 			candidate = services.drop_candidate(candidate, defeat.source, units)
 			candidate.services.effects.gold_fraction = total - floorf(total)
 		candidate.enemies[id] = defeat.enemy
+	return candidate
+
+func _settle_defeats() -> void:
+	var candidate := _stage_defeats(state.candidate())
 	if state.commit(candidate, state.revision):
 		equipment.fx.gold_fraction = state.value.services.effects.get("gold_fraction",0.0)
 		pending_defeats.clear()
@@ -351,6 +391,9 @@ func _settle_defeats() -> void:
 
 func _player_died() -> void:
 	controller.die()
+	if respawn_requested.has_connections():
+		respawn_requested.emit()
+		return
 	# Reload at the last living checkpoint, with the death's resource and summon state.
 	pending_death = state.value.duplicate(true)
 	pending_death.services.effects = equipment.snapshot()
@@ -361,7 +404,22 @@ func _settle_death() -> void:
 	if state.commit(pending_death,state.revision): pending_death = {}
 	else: retry_delay = 1.0
 
+func _observe_passages() -> void:
+	for site: Dictionary in passage_discoveries:
+		if state.has(site.id): continue
+		var at := player.position
+		var reached: bool = site.passage.has_point(at)
+		for point: Vector2 in site.points:
+			if at.distance_squared_to(point) <= site.radius * site.radius:
+				reached = true
+				break
+		if reached and content_catalog.condition_match(site.event, state.value.flags).matches:
+			var next := state.action_candidate(site.id, room.room_id, room.section_at(at))
+			if not next.is_empty(): state.commit(next, state.revision)
+
 func _physics_process(delta: float) -> void:
+	if not passage_discoveries.is_empty() and lifetime.active and controller.active:
+		_observe_passages()
 	if room != null and controller != null and controller.active and not room.retry_anchors.is_empty(): recovery.observe(room,player)
 	if not pending_death.is_empty():
 		retry_delay -= delta

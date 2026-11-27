@@ -1,0 +1,357 @@
+{
+  "schema": 3,
+  "room_id": "P19",
+  "bounds": [
+    -208,
+    203,
+    928,
+    520
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windchime_plains",
+      "terrain_material": "windchime_plains",
+      "start_point": [
+        320,
+        270
+      ],
+      "terrain_paint": {
+        "version": 1,
+        "regions": [
+          {
+            "id": "west_iron_masonry",
+            "material_id": "mill_masonry",
+            "bounds": [
+              240,
+              188,
+              32,
+              100
+            ]
+          },
+          {
+            "id": "east_iron_masonry",
+            "material_id": "mill_masonry",
+            "bounds": [
+              368,
+              188,
+              32,
+              100
+            ]
+          },
+          {
+            "id": "dry_catwalk",
+            "material_id": "mill_masonry",
+            "bounds": [
+              45,
+              288,
+              506,
+              22
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "entities": {
+    "landing": {
+      "id": "landing",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -240,
+          288,
+          1000,
+          24
+        ]
+      }
+    },
+    "west_retain": {
+      "id": "west_retain",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -254,
+          -140,
+          20,
+          600
+        ]
+      }
+    },
+    "east_retain": {
+      "id": "east_retain",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          760,
+          -140,
+          20,
+          600
+        ]
+      }
+    },
+    "west_bank_crown": {
+      "id": "west_bank_crown",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -240,
+            -144
+          ],
+          [
+            272,
+            -144
+          ],
+          [
+            272,
+            224
+          ],
+          [
+            236,
+            224
+          ],
+          [
+            216,
+            235
+          ],
+          [
+            56,
+            235
+          ],
+          [
+            24,
+            252
+          ],
+          [
+            -240,
+            252
+          ]
+        ]
+      }
+    },
+    "east_bank_crown": {
+      "id": "east_bank_crown",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            368,
+            -144
+          ],
+          [
+            760,
+            -144
+          ],
+          [
+            760,
+            255
+          ],
+          [
+            536,
+            255
+          ],
+          [
+            515,
+            238
+          ],
+          [
+            414,
+            238
+          ],
+          [
+            397,
+            224
+          ],
+          [
+            368,
+            224
+          ]
+        ]
+      }
+    },
+    "west_sluice_wall": {
+      "id": "west_sluice_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -240,
+          224,
+          289,
+          81
+        ]
+      }
+    },
+    "east_sluice_wall": {
+      "id": "east_sluice_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          533,
+          230,
+          227,
+          75
+        ]
+      }
+    },
+    "inspection_west_pier": {
+      "id": "inspection_west_pier",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -240,
+          312,
+          385,
+          147
+        ]
+      }
+    },
+    "inspection_east_pier": {
+      "id": "inspection_east_pier",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          451,
+          312,
+          309,
+          150
+        ]
+      }
+    },
+    "tail_drain_invert": {
+      "id": "tail_drain_invert",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -240,
+            439
+          ],
+          [
+            145,
+            439
+          ],
+          [
+            183,
+            460
+          ],
+          [
+            223,
+            476
+          ],
+          [
+            260,
+            487
+          ],
+          [
+            342,
+            492
+          ],
+          [
+            382,
+            479
+          ],
+          [
+            415,
+            461
+          ],
+          [
+            452,
+            444
+          ],
+          [
+            760,
+            444
+          ],
+          [
+            760,
+            744
+          ],
+          [
+            -240,
+            744
+          ]
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d330": {
+      "point": [
+        320,
+        205
+      ],
+      "spawn": [
+        320,
+        270
+      ],
+      "direction": [
+        0,
+        -1
+      ],
+      "span": [
+        272,
+        368
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://rooms/world/p02_connections/stone.png",
+        "at": [
+          124,
+          288
+        ]
+      },
+      {
+        "texture": "res://assets/scenery/p02/p02_well_lining.png",
+        "source_rect": [
+          40,
+          152,
+          96,
+          160
+        ],
+        "at": [
+          320,
+          223
+        ]
+      }
+    ],
+    "wall": {
+      "texture": "res://rooms/world/p02_connections/well_back.png",
+      "points": [
+        [
+          -240,
+          173
+        ],
+        [
+          760,
+          173
+        ],
+        [
+          760,
+          520
+        ],
+        [
+          -240,
+          520
+        ]
+      ],
+      "tint": "b8c4be"
+    }
+  },
+  "actions": []
+}

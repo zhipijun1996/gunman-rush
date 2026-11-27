@@ -63,6 +63,8 @@ static func view(source: Dictionary) -> Dictionary:
 	for field:String in reserved:
 		if source.root.properties.has(field):return {"error":"root_field_owned_by_instance:"+field}
 	if source.has("bounds") and not WorldRoomValidation.rectangle(source.bounds): return {"error":"invalid_room_bounds"}
+	var passage_error := WorldRoomValidation.passage_error(source.get("exits", {}))
+	if not passage_error.is_empty(): return {"error":passage_error}
 	if source.has("actions") and not source.actions is Array: return {"error":"invalid_room_actions"}
 	if source.has("content_bindings") and not source.content_bindings is Dictionary: return {"error":"invalid_content_bindings"}
 	var document := source.duplicate(true)
@@ -318,7 +320,7 @@ static func apply(room: Node, document: Dictionary) -> String:
 	error = WorldElementCatalog.document_error(document,control_order)
 	if not error.is_empty(): return error
 	var header := {}
-	for key: String in ["bounds", "actions", "content_bindings"]:
+	for key: String in ["bounds", "actions", "content_bindings", "exits", "sites", "lesson", "scenery"]:
 		if document.has(key): header[key] = document[key].duplicate(true)
 	room.set_meta("mechanism_control_order",control_order)
 	room.set_meta("editor_room_header",header)
