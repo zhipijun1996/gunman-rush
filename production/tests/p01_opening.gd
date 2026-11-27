@@ -5,6 +5,7 @@ const TouchInput := preload("res://tests/plains_touch_driver.gd")
 var failures := 0
 var checks := 0
 var shots := 0
+var retired_playbacks: Array[WeakRef] = []
 var catalog := WorldContentCatalog.new()
 
 class Storage extends WorldSaveService:
@@ -42,12 +43,27 @@ func open_room(store: Storage) -> OrdinaryRoomSession:
 	return session
 
 func close_session(session: OrdinaryRoomSession) -> void:
-	if session.audio_service!=null: await session.audio_service.shutdown()
+	if session.audio_service!=null:
+		check(await session.audio_service.shutdown(),"standalone room releases its audio")
 	session.free()
 	await frames(2)
 
+# A previous room can be gone before the separate audio thread finishes its
+# final mix. Keep the service's existing weak playback handles across handoffs.
+func observe_room_audio(node: Node) -> void:
+	if node is GameAudio or node is GameAmbience:
+		retired_playbacks.append_array(node._playbacks)
+
+func wait_for_room_audio() -> bool:
+	var deadline:=Time.get_ticks_msec()+2000
+	while retired_playbacks.any(func(track: WeakRef) -> bool: return track.get_ref()!=null):
+		if Time.get_ticks_msec()>=deadline: return false
+		await process_frame
+	return true
+
 func route_and_respawn() -> void:
 	var pilot: FieldTerracePilot=load("res://rooms/world/P02.tscn").instantiate()
+	node_removed.connect(observe_room_audio)
 	root.add_child(pilot)
 	var source:=pilot.active
 	await frames(110)
@@ -88,8 +104,10 @@ func route_and_respawn() -> void:
 		await physics_frame
 		if pilot.active!=source and not pilot.crossing: break
 	check(pilot.active!=source and pilot.active.state.value.cycle==2 and pilot.active.state.has("gun") and pilot.active.controller.shoot_ability.enabled and pilot.active.opening==null,"real death returns to standing armed spawn without another pickup")
-	await pilot.active.audio_service.shutdown()
+	check(await pilot.active.audio_service.shutdown(),"respawned room releases its audio")
 	pilot.free()
+	node_removed.disconnect(observe_room_audio)
+	check(await wait_for_room_audio(),"previous P01 and P02 room playbacks have left the mixer")
 	await frames(3)
 
 func run() -> void:
