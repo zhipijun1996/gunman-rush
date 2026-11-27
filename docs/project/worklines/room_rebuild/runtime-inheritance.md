@@ -1,14 +1,42 @@
-# 旧 demo 与新世界的默认入口
+# 冻结 demo 的通用系统在新世界的去留
 
-对照冻结平原根工程和重做版 `production/project.godot`。使用同一 Godot 4.7.2、1280×720 逻辑视口与独立空存档，分别启动各自配置的主场景，查看实际场景树和玩家能操作的界面。另行核对物理房间中的观察输入。桌面引擎的横屏触控布局用于画面对照，Android 真机显示和物理手柄需分别验收。
+用 Godot 4.7.2 启动 `production/project.godot`。F5 先显示标题。新游戏进入 P01，继续游戏恢复新世界专用存档；暂停可回到标题。单独运行普通房只验证房内装配。复玩旧世界使用仓库根目录的 Godot 工程。
 
-| 体验 | 冻结平原 | 新世界与核对依据 |
+## 游戏实际调用
+
+| 系统 | 保留的实现与新世界的职责 | 核对入口 |
 | --- | --- | --- |
-| 标题与存档 | 标题插画、Logo、新游戏、继续、设定、操作说明、逐房试玩 | 新档直接到 P01，续读和重开确认已经接入独立存档。标题和 Logo 尚未挂载。[旧标题](../../../../game/presentation/ui/world/world_title.gd) · [新入口](../../../../production/rooms/world/world_game_host.gd) · [存档](../../../../production/game/platform/persistence/playable_world_save.gd) |
-| 游玩 UI | HUD 绑定玩家状态，带小地图、互动提示、通用暂停菜单 | 已有触控、房名、区域地图、装备和场景互动面板。旧常驻 HUD 与通用暂停页尚未挂载，Esc 进入装备面板。[旧 HUD 宿主](../../../../game/presentation/ui/world/world_ui.gd) · [装备面板](../../../../production/game/equipment/equipment_menu.gd) · [区域地图](../../../../production/rooms/world/world_map.gd) |
-| 设置、输入及声音 | 独立保存音量、减效与输入偏好；手柄、操作说明、标题与区域音乐有真实消费者 | 新房已挂键鼠、横屏触控、射击与受击音效；玩家设置页、手柄适配器及旧配乐调度尚未接入。[旧设置](../../../../game/platform/settings/world_settings.gd) · [旧手柄接线](../../../../game/platform/input/input_setup.gd) · [新输入](../../../../production/game/platform/input/room_touch_controls.gd) |
-| 动作、战斗和恢复 | 玩家运动、反冲、受击判定、治疗、伤害和资源各有独立实现 | 普通房实例化玩家并挂载伤害策略、治疗、声音和能力同步。复活和进度持久化通过真实跨房、独立进程读档检查。[普通房会话](../../../../production/rooms/ordinary_room_session.gd) · [存档回归](../../../../production/tests/world_persistence.gd) |
-| 镜头与跨房 | WorldCamera 读取玩家、参数与当前房间，负责死区跟随、前瞻、上下观察、区域缩放和遮挡 | 普通房把真实玩家、控制器、当房边界及分区交给旧版 WorldCamera。通常为 1.60 倍；开场三房有各自 1.40 倍构图。门线与安全接收继续取自新世界。[旧镜头](../../../../game/presentation/ui/world/world_camera.gd) · [新宿主](../../../../production/rooms/world/world_game_host.gd) · [接收端物理验证](../../../../production/rooms/world/world_passage.gd) |
+| 标题、菜单和存档 | 复用原画、Logo、像素字体和钟表界面。标题负责新游戏、继续、设定和操作说明。覆盖已有进度前先确认；暂停回标题先写当前房间，失败可原地重试。 | [主场景](../../../../production/game/application/world_shell.tscn) · [标题流程回归](../../../../production/tests/world_shell_flow.gd) |
+| HUD、地图与提示 | 沿用旧 HUD 的生命格、共鸣、时间能量与能力图标，跟随当前玩家与钱包；小地图及区域地图读取 v27 房号、到访与发现。大地图可拖动或双指缩放，显示房内玩家位置、已到访的休息点与已启用的钟站。房间和地图切换时由世界宿主更新，同一层只显示一次。 | [正式 HUD](../../../../production/game/presentation/ui/demo_ui_01/game_hud.gd) · [游玩 HUD 回归](../../../../production/tests/world_play_hud.gd) |
+| 键鼠、手柄与横屏触控 | 复用同一玩家动作路由、手柄适配器、校准与设备图示。触控含移动、瞄准射击及暂停。返回键按照当前打开的页面处理，操作说明跟随设备及绑定。 | [输入接线](../../../../production/game/platform/input/world_shell_input.gd) · [手柄与返回键回归](../../../../production/tests/world_gamepad.gd) |
+| 玩家偏好 | 沿用旧设置封包，独立保存总音量、减效、触控移动方式及手柄校准。原生平台读取有效旧偏好后写入新工程的设置槽。总音量作用于 Master，减效应用到治疗、慢瞄画面、受击镜震与落地。 | [偏好读取与应用](../../../../production/game/platform/settings/world_settings.gd) · [测试](../../../../production/tests/player_settings.gd) |
+| 人物与战斗 | 复用玩家碰撞和运动、跳跃、瞄准、射击反冲、慢瞄、攀墙、钩索、二段跳、受击与死亡、战斗资源和聚焦治疗。获得枪和能力的时刻由新世界进度决定。随身灯、瞄准线和聚焦暗角随当前玩家重建。 | [普通房会话](../../../../production/rooms/ordinary_room_session.gd) · [玩家](../../../../production/game/player/player.tscn) |
+| 镜头与过门 | 沿用 WorldCamera、参数与分区求解。新门提供过线方向、接收几何和房间边界，黑幕内完成机位交接。 | [房间镜头合同](../../../../production/tests/room_camera_contract.gd) · [跨房](../../../../production/rooms/world/world_passage.gd) |
+| 地形受伤、休息与复活 | 有局部重试点的房按触发区和有效站位返回。没有局部点时，尖刺、地形边界及无保护穿越光幕等地形失败使用本次进房的可站位置；热区持续暴露、水位与普通机械接触保留各自的伤害节奏，复用原控制器的局部重置并保留已消耗的空中动作。休息站用旧靠近、入站、充电和退出时间线，只在充电成功时结算。死亡按新世界最近的休息点开启下一周期。P08 广场休息与交通分开互动，Y23 的休息台归入领奖区。 | [地形恢复](../../../../production/game/world/levels/room_recovery.gd) · [充电演出](../../../../production/game/application/world_rest_sequence.gd) · [休息及失败重试](../../../../production/tests/world_recovery_presentation.gd) |
+| 音乐、环境音、战斗音效与特效 | 五首已有音乐按标题、探索和实战调度，16 区共用平原、森林两套探索／战斗曲。两条原有环境底音按区域选择。角色、怪物、机关和恢复的音效继续从对应事件发出。 | [曲目、区域和来源](../../../data/audio/playable_world.md) · [音频回归](../../../../production/tests/playable_world_audio.gd) |
+| 怪物、区域首领、奖励 | 公用怪物运动、攻击、伤害仲裁、掉落和拾取；房间配置物种和站位。战区负责进入、结束与确认，状态账本记录胜利、奖励及已拾取物。死亡重开周期刷新普通怪。 | [遭遇](../../../../production/game/content/world_room_encounter.gd) · [死亡及复活](../../../../production/tests/p02_death_recovery.gd) |
+| 武器、装备与经济 | 保留三类基础武器及已有分支动作。工坊从 v27 读取材料、费用、等级和门槛；G08、G12、Y11 可办理共用成长，六种分支在 G12 铸造。60 件永久装备另有领取、负荷、互斥、装配、强化及战斗效果。 | [工坊](../../../../production/game/content/world_weapon_workshop.gd) · [装备](../../../../production/game/equipment/equipment_catalog.gd) |
+| 地形、机关与房间美术 | 沿用 32px／47 邻接 TileSet、16 区外观、通用机关与合适的角色／怪物动画。房间用自己的几何与实例构图。46 个基本件和 8 个可选预组分别维护定义、说明和测试。 | [机关目录](../../../data/world_objects.md) · [房间制作规范](../../../bible/room_authoring.md) |
+| NPC、商店、任务、交通与结局 | 新房用 v27 实体 ID 绑定对白、交易、齿轮交付、站钟、永久事件、结局资格及收据。交通接入实际跨房；无房源的站点与任务仍需随对应房间施工验收。 | [交互与结算](../../../../production/game/content/world_content_sites.gd) · [跨房宿主](../../../../production/rooms/world/world_game_host.gd) |
+
+## 退出正式游戏的内容
+
+| 旧内容 | 去留与替代 |
+| --- | --- |
+| 固定平原房号、旧地图小格、固定房序、门表、能力授予和奖励坐标 | 只在冻结根工程复现。正式世界的房号、路网、能力与奖励取自 v27 锁包，几何与实际接收点取自已绑定房间。 |
+| 旧剧情和逐房教程、旧首领胜利写法、旧平原临时脚本 | 保留经认可的起身拾枪体验与人物素材。P01 拾枪、P02 田埂和其他挑战使用各自的房间事件，旧标记不参与新存档。 |
+| 旧装备清单、旧商店价格、旧锻造材料和固定升级倍率 | 采用正式 60 件装备目录，以及 v27 的报价、材料与进度。技能芯一阶采用已有冰弹，二阶启用所铸分支的终招；这是一项动作映射，地图给出了芯片层级与来源。 |
+| 家园／局外养成、随机跑图、旧战役会话、旧世界存档 | 归档随原游戏保存。正式世界独立记录到访、状态、永久收据与复活周期；可复用的玩家偏好单独迁移。 |
+| 逐房试玩选择、调试发装备、旧地图生成器、工作台桥接、旧美术候选与审核切换 | 正式标题只提供玩家入口。制作与回归使用仓库工具、测试夹具和历史样板。根工程仍能打开归档。 |
+| 旧全局 FixedWorldApp、整份 WorldUI、旧地图和硬编码服务页 | 正式入口按标题、世界、普通房分工，复用原组件与素材，旧全局单例及其旧世界数据留在根工程。 |
+
+本轮从 `production/` 实际移除了 9 个无消费者文件，包括旧门接收脚本和 UID、旧角色网页预览清单、孤立的首领咆哮屏幕预览及其时间线和 shader。现役咆哮音效仍由战斗播放。带 `.gdignore` 的源画目录供制作取材，动态加载的运动资源仍供游戏使用。
+
+此前重做版已存在的 G08、P08、Y23 存档，按房号、v27 包以及变更前后确认过的文档摘要兼容。读取只恢复内存状态，下次成功保存才升级文件；原生备份保留此前数据。[变更前存档回归](../../../../production/tests/world_save_compatibility.gd)
+
+已登记 272 房、682 个门端。该数量是装配与接收点覆盖。T、S 两区仍有 38 个规划房待制作。实体手柄、Android 真机和真实浏览器的体验需与桌面 Godot 事件回归分别记录。
+
+## 旧镜头与新房构图对照
 
 冻结版 P-R23 作为观察对照。在可操作的稳定平台按住上看，角色位置不变，40 帧后镜头中心上移 68.74 世界单位，90 帧后上移 86.77。松开 90 帧后与起点的垂直误差为 0.32。正式新房沿用当前世界包的房号、门向和空间，旧房坐标与审核入口保留在冻结工程。
 
@@ -19,3 +47,11 @@
 P02 的分岔局部取景同时保留下井肩和上路；P03 井底仍可同时看到角色、可攀墙和待领取的齿轮。P01 的水平前瞻会比样板多裁少量左侧树冠。
 
 新房可沿用默认取景，确需分区时按房间里的真实触发区、展示范围和通道写入 schema 3。旧房序和旧地图标识不参与当前关卡的取景。[镜头回归](../../../../production/tests/world_camera_migration.gd) · [房间镜头合同](../../../../production/tests/room_camera_contract.gd) · [实机对照片](https://clock-world-v27-review.zhipijun1996.chatgpt.site)
+
+### Android 工程与回归
+
+正式重做版打开 `production/project.godot`。其 Android 预设采用 arm64、横屏、沉浸显示和独立应用 ID `org.gunmanrush.rebuild`，启动世界标题。导出时仅保留锁文件指定的世界版本、已绑定房间和运行资源，测试场景与 P02 单房评审入口从导出物剔除。根工程的冻结 Android 发布继续使用 `org.gunmanrush.game`。[重做版预设](../../../../production/export_presets.cfg) · [冻结版预设](../../../../export_presets.cfg)
+
+横屏菜单、HUD 与双摇杆根据系统安全区布局。挂起应用会取消未完成的手势、静音并暂停配乐和环境底床。恢复时沿用原曲目、用户音量及菜单状态。Android 系统返回键逐层关闭菜单；在标题按返回会退出应用。[运行时专项](../../../../production/tests/android_foundation.gd)
+
+`python3 tools/check_production_android.py` 使用锁定的编辑器导出 Android 数据包，在隔离目录直接启动游戏，核对门房数据与资源。该检查无需 Android SDK 或导出模板。设置回归另以两个独立进程验证首次迁移、写入及重启后的读回。[数据包检查](../../../../tools/check_production_android.py) · [偏好重启检查](../../../../production/tests/player_settings_restart.gd)

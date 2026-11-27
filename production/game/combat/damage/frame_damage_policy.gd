@@ -11,6 +11,7 @@ var clock := 0.0
 # Only player protection uses real activity during a world freeze. The legacy
 # world clock remains unchanged for attack/hazard simulation cadence.
 var _player_clock_offset := 0.0
+var has_retry_anchors := false
 var transient_protection: Callable
 var _targets: Dictionary = {}
 var _queue: Array[DamageRequest] = []
@@ -176,10 +177,12 @@ func resolve_batch() -> Array[DamageResult]:
 			if committed != null: results.append(committed)
 	var fatal := false
 	var return_needed := false
+	var terrain_failure := false
 	for result: DamageResult in results:
 		if _targets[result.request.target_id].player:
 			fatal = result.lethal
 			return_needed = not fatal and result.request.kind == DamageRequest.Kind.ENVIRONMENT
+			terrain_failure = has_retry_anchors or result.request.return_to_safety or result.request.fall or result.request.forced_failure
 			if not fatal and not return_needed and (not result.blocked or result.barrier_absorbed > 0.0 or result.rescued):
 				var iframe := monster_iframe
 				var runtime := _item_runtime()
@@ -200,7 +203,7 @@ func resolve_batch() -> Array[DamageResult]:
 		# Invalidate before any consumer can claim a reward in batch_resolved.
 		lifetime.end()
 		player_fatal.emit()
-	elif return_needed:
+	elif return_needed and terrain_failure:
 		environment_return_requested.emit()
 	for result: DamageResult in results:
 		if result.hp_lost > 0.0 and result.request.on_damage_applied.is_valid(): result.request.on_damage_applied.call()

@@ -167,6 +167,6 @@ static func install(room: FixedWorldRoom, controller: PlayerController, policy: 
 	for placement: Dictionary in room.enemy_placements:
 		room.spawn_enemy(placement,controller,policy,lifetime,saved_enemies.get(str(placement.id),{}),entry_anchor)
 	for index: int in room.hazards.size():
-		room.add_child(DemoContactEmitter.environment_rect(room.hazards[index],policy,controller,StringName(room.room_id+":terrain:"+str(index))))
+		room.add_child(DemoContactEmitter.environment_rect(room.hazards[index],policy,controller,StringName(room.room_id+":terrain:"+str(index)),true))
 	for strip: Dictionary in room.spike_strips:
-		room.add_child(DemoContactEmitter.environment_rect(FixedWorldProvider.rect(strip.bounds),policy,controller,StringName(room.room_id+":spikes:"+str(strip.id))))
+		room.add_child(DemoContactEmitter.environment_rect(FixedWorldProvider.rect(strip.bounds),policy,controller,StringName(room.room_id+":spikes:"+str(strip.id)),true))

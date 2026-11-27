@@ -5,6 +5,7 @@
 | 所有者 | 输入与结果 |
 | --- | --- |
 | 内容生产者 / sync.py / WorldContentCatalog | 网页导出有版本的设计定义；开发期校验后原子切换锁，运行时离线读取同一包。错误更新保留旧锁，未绑定对象不能静默实例化 |
+| [WorldShell](../../production/game/application/world_shell.gd) | 默认入口、游戏存档选择、暂停与返回标题。玩家偏好使用独立存储，音乐随标题与游玩切换 |
 | [WorldGameHost](../../production/rooms/world/world_game_host.gd) / [PlayableWorldSave](../../production/game/platform/persistence/playable_world_save.gd) | 从锁定包和房间绑定打开实体房间，连续切换活动会话，共用独立世界存档。新进度从 P01 开始 |
 | WorldContentRoomBridge | schema 3 的实例引用稳定物种与掉币档案；不从网页轮廓生成碰撞，不限制候选敌群的数量或组合。逐只金币交给现有掉落事务，候选总额仅供预算复核 |
 | WorldRoomDocument / WorldElementCatalog | 解析带版本的稳定定义和实例，校验引用、字段、端口类型、作用域和连线；依据房间区域校验机关和组合来源，装配前报告错误 |

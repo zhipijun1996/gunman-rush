@@ -1,11 +1,15 @@
 """Check the rebuild's catalog, documentation and real standalone Godot room."""
 from pathlib import Path
 import hashlib
+import os
+import tempfile
 import struct
 import json
 import re
 import subprocess
 import sys
+
+from check_production_android import run as check_production_android
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT / "production"
@@ -97,13 +101,24 @@ def check_mechanism_libraries():
                 raise ValueError(f"Unknown visual field or resource {key}.{field} in {region}")
 
 
-def godot(*args):
+def godot(*args, env=None):
     result = subprocess.run(["bash", "tools/godot.sh", "--headless", "--path", str(PROJECT), *args],
-                            cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=180)
+                            cwd=ROOT, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=180)
     errors = re.findall(r"^(?:SCRIPT ERROR|ERROR|FAIL).*$", result.stdout, re.MULTILINE)
     if result.returncode or errors:
         raise RuntimeError(result.stdout[-12000:])
     return result.stdout
+
+
+def check_player_settings_restart():
+    with tempfile.TemporaryDirectory(prefix="gunman-settings-restart-") as home:
+        env = {**os.environ, "GUNMAN_DATA_HOME": home}
+        for stage in ("write", "read"):
+            result = godot("--fixed-fps", "60", "--script", "res://tests/player_settings_restart.gd",
+                           "--", stage, home, env=env)
+            if "SETTINGS RESTART failures=0" not in result:
+                raise RuntimeError(result)
+            print(result.strip())
 
 
 if __name__ == "__main__":
@@ -111,18 +126,30 @@ if __name__ == "__main__":
         check_catalog()
         check_mechanism_libraries()
         godot("--import")
+        check_player_settings_restart()
+        check_production_android()
         suites = {
+            "world_shell_flow": "WORLD SHELL",
+            "world_gamepad": "WORLD GAMEPAD",
+            "world_play_hud": "WORLD PLAY HUD",
+            "playable_world_audio": "PLAYABLE WORLD AUDIO",
+            "player_settings": "PLAYER SETTINGS",
+            "world_recovery_presentation": "WORLD RECOVERY PRESENTATION",
             "ordinary_room": "ORDINARY ROOM",
             "room_camera_contract": "ROOM CAMERA CONTRACT",
             "world_camera_migration": "WORLD CAMERA MIGRATION",
             "world_room_passages": "WORLD ROOM PASSAGES",
             "authored_world_rooms": "AUTHORED WORLD",
             "world_persistence": "WORLD PERSISTENCE",
+            "world_save_compatibility": "WORLD SAVE COMPATIBILITY",
+            "world_station_travel": "WORLD STATION travel",
+            "thorn_forest_routes": "THORN FOREST ROUTES",
             "world_encounters": "WORLD ENCOUNTERS",
             "sky_world_trials": "SKY WORLD TRIALS",
             "gear_city": "GEAR CITY",
             "machine_bosses": "MACHINE BOSSES",
             "world_content_sites": "WORLD CONTENT SITES",
+            "world_weapon_workshop": "WORLD WEAPON WORKSHOP",
             "world_interior_doors": "WORLD INTERIOR DOORS",
             "plains_p02_terrace": "P02 TERRACE",
             "p02_death_recovery": "P02 DEATH RECOVERY",
@@ -149,7 +176,7 @@ if __name__ == "__main__":
         }
         for script, label in suites.items():
             output = godot("--fixed-fps", "60", "--script", f"res://tests/{script}.gd")
-            if f"{label} failures=0" not in output:
+            if not re.search(rf"^{re.escape(label)} (?:checks=\d+ )?failures=0\b", output, re.MULTILINE):
                 raise RuntimeError(output)
             print(output.strip())
         touch = godot("--fixed-fps", "60", "--script", "res://tests/plains_intro_rooms.gd", "--", "--touch")

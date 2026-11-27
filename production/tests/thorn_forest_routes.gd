@@ -39,9 +39,12 @@ func run() -> void:
 	await frames(5)
 	host.active.controller.router.request_action(&"interact")
 	await frames(4)
-	host.active.equipment_menu.submit("rest","")
-	host.active.equipment_menu.close()
-	await frames(4)
+	check(host.active.equipment_menu.panel.visible and host.active.equipment_menu.mode=="rest","open the veranda station")
+	host.active.equipment_menu.rest.pressed.emit()
+	for tick in 300:
+		await frames(1)
+		if not is_instance_valid(host.active.rest_sequence) or not host.active.rest_sequence.active: break
+	check(host.active.state.value.rest.room=="F19" and not paused,"veranda charge completed and gameplay resumed")
 	check(host.active.controller.actor_resources.health.current==host.active.controller.actor_resources.health.capacity,"rest at the actual practice-house veranda")
 	await duel("F_IN01","reed_mentor")
 	print("THORN FOREST ROUTES checks=",checks," failures=",errors)

@@ -17,4 +17,4 @@ python3 tools/check_ordinary_rooms.py
 bash tools/godot.sh --path production
 ```
 
-最后一条运行重做版的 [world.tscn](production/rooms/world/world.tscn)。新进度从 P01 开始。组件组装夹具单独使用 `res://tests/assembly_room.tscn`。复玩冻结平原使用 `bash tools/godot.sh --path .`。
+最后一条运行重做版的[标题场景](production/game/application/world_shell.tscn)。选择「新游戏」从 P01 开始，「继续游戏」读取专用存档。组件组装夹具单独使用 `res://tests/assembly_room.tscn`。复玩冻结平原使用 `bash tools/godot.sh --path .`。

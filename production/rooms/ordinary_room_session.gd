@@ -16,6 +16,8 @@ var heal_base: Dictionary
 @export_file("*.json") var content_bindings_path := "res://config/imported_world/bindings.json"
 var encounters: Array[WorldRoomEncounter] = []
 var opening: PlainsOpening
+var focus_vignette: FocusVignette
+var rest_sequence: WorldRestSequence
 var focus_heal: WorldFocusHeal
 var audio_service: PlayerWeaponFeelAudioV2
 signal sign_read(text: String)
@@ -41,6 +43,7 @@ var content_context: Dictionary = {}
 var content_enemy_gold: Dictionary = {}
 var passage_discoveries: Array = []
 var blast_passages: Dictionary = {}
+var weapon_growth: Dictionary = {}
 
 class RoomMemory extends WorldSaveService:
 	func commit(_payload: Dictionary, _revision: int) -> bool:
@@ -128,6 +131,9 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		sections.append({"id":zone,"bounds":document.zone_areas[zone]})
 	row["sections"] = sections
 	room.configure(row)
+	if catalog != null:
+		weapon_growth=catalog.object("growth").value
+		state.maximum_attack_rank=weapon_growth.shared_attack.levels.size()-1
 	state.content = FixedWorldProvider.new()
 	var content_identity := JSON.stringify(document) + (":" + catalog.bundle_sha256 if catalog != null else "")
 	state.content.data = {"rooms":{room.room_id:row},"actions":document.get("actions",[]),
@@ -145,7 +151,9 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		state.revision = previous.state.revision
 		var next := previous.state.candidate()
 		var rooms: Dictionary = next.get("visited_states",{})
-		rooms[previous.room.room_id] = {"enemies":previous.room.snapshot(),"mechanisms":next.mechanisms}
+		var departing: Dictionary = rooms.get(previous.room.room_id,{})
+		var remaining := {} if departing.get("refresh_on_leave",false) else previous.room.snapshot()
+		rooms[previous.room.room_id] = {"enemies":remaining,"mechanisms":next.mechanisms}
 		if respawning:
 			# Advancing the cycle refreshes regular enemies in every visited room.
 			# The dead controller already cleared its summons and combat energy.
@@ -183,10 +191,13 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		previous.queue_free()
 	elif storage != null:
 		var saved := storage.load_profile()
-		if catalog != null and saved.get("payload") is Dictionary and not saved.payload.is_empty() and saved.payload.get("content_version") != state.content.data.content_version:
-			room.free()
-			room = null
-			return "room_content_save_version_mismatch"
+		if catalog != null and saved.get("payload") is Dictionary and not saved.payload.is_empty():
+			var saved_version: String=str(saved.payload.get("content_version",""))
+			var current_version: String=state.content.data.content_version
+			if saved_version!=current_version and not (storage is PlayableWorldSave and PlayableWorldSave.accepts_previous_room(room.room_id,catalog.bundle_sha256,saved_version,current_version)):
+				room.free()
+				room = null
+				return "room_content_save_version_mismatch"
 		if not saved.get("accepted", false) or (not saved.payload.is_empty() and (saved.payload.get("room") != room.room_id or not state.restore_profile(saved,catalog))):
 			room.free()
 			room = null
@@ -230,6 +241,15 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	player.get_node("PlayerVisualAdapter").process_mode = Node.PROCESS_MODE_DISABLED
 	player.add_child(PlayerPresentationRuntime.make_body(player, controller, "PlayerBody"))
 	PlayerPresentationRuntime.attach(player)
+	var carry := PlayerCarryLight.new()
+	carry.settings = preload("res://config/player_carry_light.json").data
+	player.add_child(carry)
+	var aim := PlayerAimGuide.new()
+	aim.controller = controller
+	player.add_child(aim)
+	focus_vignette = FocusVignette.new()
+	focus_vignette.ability = controller.air_focus_ability
+	add_child(focus_vignette)
 	focus_heal = WorldFocusHeal.new()
 	focus_heal.controller = controller
 	heal_base = JSON.parse_string(FileAccess.get_file_as_string("res://config/focus_heal.json"))
@@ -241,6 +261,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	touch_controls = RoomTouchControls.mount(self)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime
+	policy.has_retry_anchors = not room.retry_anchors.is_empty()
 	add_child(policy)
 	policy.register_target(&"player",controller.actor_resources.health,true)
 	policy.register_player_controller(controller)
@@ -288,7 +309,8 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		sign_reader.session = self
 		add_child(sign_reader)
 		sign_read.connect(sign_reader.open)
-	if not room.retry_anchors.is_empty(): policy.environment_return_requested.connect(func(): recovery.retry(self))
+	recovery.entry_point = at
+	policy.environment_return_requested.connect(func(): recovery.retry(self))
 	for node: Node in room.find_children("*","",true,false):
 		if node is WorldResourcePickup: node.bind(self)
 		if node is WorldMovingPlatform: node.bind_activation(state)
@@ -378,12 +400,20 @@ func _sync_world_abilities(_revision: int) -> void:
 	recoil_guard.owned=state.has("Q")
 	controller.shoot_ability.behavior().intro_pulse_owned=state.has("intro_active_skill")
 	var selected: String=state.value.story_hosts.get("selected_weapon","gun")
-	if WORLD_WEAPONS.has(selected) and state.has(selected) and controller.shoot_ability.weapon!=WORLD_WEAPONS[selected]:
-		controller.shoot_ability.equip(WORLD_WEAPONS[selected])
+	var rank:=WorldWeaponWorkshop.rank(state,"attack")
+	controller.motor.tuning.projectile_damage=weapon_growth.shared_attack.levels[rank].damage
+	var available:=world_weapon_loadouts()
+	var chosen: WeaponDefinition=available.get(selected,WORLD_WEAPONS.gun)
+	if chosen!=controller.shoot_ability.weapon: controller.shoot_ability.equip(chosen)
+	controller.shoot_ability.behavior().shared_skill_owned=state.has("skill_tier_1")
 	equipment.sync_resources()
 
+func world_weapon_loadouts() -> Dictionary:
+	if weapon_growth.is_empty(): return {}
+	return WorldWeaponWorkshop.loadouts(state,weapon_growth,WORLD_WEAPONS)
+
 func select_world_weapon(id: String, revision: int) -> bool:
-	if content_catalog==null or not WORLD_WEAPONS.has(id) or not state.has(id) or revision!=state.revision: return false
+	if content_catalog==null or not world_weapon_loadouts().has(id) or revision!=state.revision: return false
 	if not controller.active or controller.has_pending_damage() or not pending_defeats.is_empty(): return false
 	var next:=state.candidate()
 	next.story_hosts["selected_weapon"]=id
@@ -402,7 +432,8 @@ func checkpoint() -> bool:
 	return state.commit(next,state.revision)
 
 func _equipment_access(kind: String, id: String) -> bool:
-	if not controller.active or controller.has_pending_damage(): return false
+	var charging := kind == "rest" and is_instance_valid(rest_sequence) and rest_sequence.active and rest_sequence.attempted
+	if (not controller.active and not charging) or controller.has_pending_damage(): return false
 	if kind in ["equip","unequip","rest"]:
 		return room.station_animation != null and player.position.distance_to(room.rest_point) <= 52
 	if kind == "select": return true
@@ -416,8 +447,23 @@ func _equipment_access(kind: String, id: String) -> bool:
 func _stage_station_transaction(candidate: Dictionary, kind: String, id: String) -> void:
 	equipment.stage(candidate,kind,id)
 	if kind=="rest":
+		var visits: Dictionary = candidate.get("visited_states",{})
+		for visit: Dictionary in visits.values():
+			visit.enemies = {}
+		var current: Dictionary = visits.get(room.room_id,{})
+		current["refresh_on_leave"] = true
+		visits[room.room_id] = current
+		candidate.visited_states = visits
 		candidate.rest = {"room":room.room_id,"entry":"","point":[room.rest_point.x,room.rest_point.y]}
 		candidate.entry = ""
+
+func begin_station_rest(revision: int) -> bool:
+	if is_instance_valid(rest_sequence) and rest_sequence.active: return false
+	rest_sequence = WorldRestSequence.new()
+	add_child(rest_sequence)
+	if rest_sequence.begin(self, revision): return true
+	rest_sequence.queue_free()
+	return false
 
 func equipment_transaction(kind: String,id: String,revision: int) -> bool:
 	var receipt := "%s/%s/%s" % [kind,id,revision]
@@ -566,7 +612,9 @@ func _physics_process(delta: float) -> void:
 	if not blast_passages.is_empty(): WorldBlastPassage.observe(self)
 	if not passage_discoveries.is_empty() and lifetime.active and controller.active:
 		_observe_passages()
-	if room != null and controller != null and controller.active and not room.retry_anchors.is_empty(): recovery.observe(room,player)
+	if room != null and controller != null and controller.active:
+		if not room.retry_anchors.is_empty(): recovery.observe(room,player)
+		elif not recovery.entry_verified: recovery.observe_arrival(room,player)
 	if not pending_death.is_empty():
 		retry_delay -= delta
 		if retry_delay <= 0: _settle_death()

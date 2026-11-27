@@ -2,7 +2,7 @@
 
 ## 固定世界接续施工
 
-在 #166 的 P02 样板和 #167 的开场三房基础上，使用[世界版本锁](../../../../production/config/imported_world/current.lock.json)内的房号、门线、分区能力与事件。世界输入覆盖 16 区、310 房和 392 条连接。[运行绑定](../../../../production/config/imported_world/bindings.json)列出正式房间文档，按绑定核对实际地形、门端、交互和回访验证。新进度在 [world.tscn](../../../../production/rooms/world/world.tscn) 从 P01 开始。整房质量认可保留对应的历史提交。
+在 #166 的 P02 样板和 #167 的开场三房基础上，使用[世界版本锁](../../../../production/config/imported_world/current.lock.json)内的房号、门线、分区能力与事件。世界输入覆盖 16 区、310 房和 392 条连接。[运行绑定](../../../../production/config/imported_world/bindings.json)列出正式房间文档，按绑定核对实际地形、门端、交互和回访验证。[标题页](../../../../production/game/application/world_shell.tscn)的「新游戏」打开 [World](../../../../production/rooms/world/world.tscn)，从 P01 开始。整房质量认可保留对应的历史提交。
 
 ## 本轮施工冻结点
 

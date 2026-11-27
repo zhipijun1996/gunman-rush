@@ -1,6 +1,8 @@
 class_name RoomRecovery
 extends RefCounted
 
+var entry_point := Vector2.INF
+var entry_verified := false
 var selected := {}
 var section := ""
 var occupied := {}
@@ -28,6 +30,13 @@ func observe(room: FixedWorldRoom,player: PlayerMotor) -> void:
 				marker.selected = id == current
 				marker.queue_redraw()
 
+func observe_arrival(room: FixedWorldRoom, player: PlayerMotor) -> void:
+	if entry_verified or not player.is_on_floor(): return
+	if not safe(room, player, entry_point):
+		if not safe(room, player, player.position): return
+		entry_point = player.position
+	entry_verified = true
+
 func safe(room: FixedWorldRoom, player: PlayerMotor, point: Vector2, check_approach := false) -> bool:
 	var shape := player.get_node("CollisionShape2D") as CollisionShape2D
 	var space := player.get_world_2d().direct_space_state
@@ -44,6 +53,10 @@ func safe(room: FixedWorldRoom, player: PlayerMotor, point: Vector2, check_appro
 	var rest_box := Rect2(query.transform.origin-half,half*2)
 	for danger: Rect2 in room.hazards:
 		if rest_box.intersects(room.global_transform * danger): return false
+	for strip: Dictionary in room.spike_strips:
+		if rest_box.intersects(room.global_transform * FixedWorldProvider.rect(strip.bounds)): return false
+	for zone: Dictionary in room.environment_zones:
+		if zone.mode in ["phase_light","thorns","water","gas"] and rest_box.intersects(room.global_transform * FixedWorldProvider.rect(zone.bounds)): return false
 	for component: Node in room.element_runtime.nodes.values():
 		if component is WorldHazardArea and rest_box.intersects(component.global_transform * component.rect): return false
 	# Both feet must be supported. A narrow corner cannot serve as a safe restart.
@@ -61,9 +74,17 @@ func safe(room: FixedWorldRoom, player: PlayerMotor, point: Vector2, check_appro
 	return true
 
 func retry(session: OrdinaryRoomSession) -> void:
-	if selected.is_empty() or not session.controller.active or session.controller.actor_resources.health.terminal: return
-	var point := FixedWorldProvider.point(selected.point)
-	if session.room.section_at(session.player.position) != section or session.room.section_at(point) != section or not safe(session.room,session.player,point): return
-	session.lifetime.invalidate_actor()
+	if not session.controller.active or session.controller.actor_resources.health.terminal: return
+	var point := entry_point
+	var reset_section := session.room.section_at(session.player.position)
+	if not selected.is_empty():
+		point = FixedWorldProvider.point(selected.point)
+		if reset_section != section or session.room.section_at(point) != section: return
+	elif not session.room.retry_anchors.is_empty():
+		# Authored segments choose their own safe side.
+		return
+	if not point.is_finite() or not safe(session.room,session.player,point): return
 	if session.controller.return_to_segment(point):
-		session.room.element_runtime.reset_section(section)
+		session.lifetime.invalidate_actor()
+		session.room.element_runtime.reset_section(reset_section)
+		session.policy.protect_player()

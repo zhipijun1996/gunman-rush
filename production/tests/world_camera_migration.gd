@@ -275,9 +275,9 @@ func run() -> void:
 	root.size = Vector2i(1280,720)
 	node_removed.connect(func(node:Node)->void:
 		if node is GameAudio or node is GameAmbience: audio_tracks.append_array(node._playbacks))
-	var scene: PackedScene = load(ProjectSettings.get_setting("application/run/main_scene"))
+	var scene := preload("res://rooms/world/world.tscn")
 	host = scene.instantiate() as WorldGameHost
-	check(host!=null,"default startup mounts the continuous world host")
+	check(host!=null,"play mounts the continuous world host")
 	if host==null:
 		quit(1)
 		return
@@ -285,7 +285,7 @@ func run() -> void:
 	host.room_changed.connect(on_room_changed)
 	root.add_child(host)
 	await ticks(6)
-	check(host.active!=null and host.active.room.room_id=="P01" and camera()!=null and camera()==host.follow_camera and camera().target==host.active.player,"default P01 starts with the original WorldCamera following the live player")
+	check(host.active!=null and host.active.room.room_id=="P01" and camera()!=null and camera()==host.follow_camera and camera().target==host.active.player,"the world opens P01 with the original WorldCamera following the live player")
 	if camera()!=null:
 		host.enter_room("G12","")
 		await inspection(false)

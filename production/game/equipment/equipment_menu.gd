@@ -4,6 +4,7 @@ extends CanvasLayer
 const UI_FONT := preload("res://assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proportional-zh_hans.otf")
 var session: OrdinaryRoomSession
 var mode := ""
+var shortcut := Button.new()
 var panel := PanelContainer.new()
 var list := ItemList.new()
 var detail := Label.new()
@@ -90,20 +91,23 @@ func _ready() -> void:
 	actions.add_child(close_button)
 	close_button.pressed.connect(close)
 	panel.hide()
-	var shortcut := Button.new()
 	shortcut.theme = theme
 	shortcut.text = "装备"; shortcut.position = Vector2(12,12); add_child(shortcut)
 	shortcut.pressed.connect(func(): if not panel.visible: open("select"))
 	shortcut.focus_mode = Control.FOCUS_NONE
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_I):
-		if panel.visible: close()
-		elif not get_tree().paused: open("select")
-		get_viewport().set_input_as_handled()
+	var toggle: bool = event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_I
+	if panel.visible and (toggle or event.is_action_pressed("ui_cancel")):
+		close()
+	elif toggle and not get_tree().paused:
+		open("select")
+	else:
+		return
+	get_viewport().set_input_as_handled()
 
 func open(context: String) -> void:
-	if not session.controller.active: return
+	if not session.controller.active or (get_tree().paused and not panel.visible): return
 	mode = context
 	panel.show()
 	session.controller.router.clear("equipment")
@@ -111,6 +115,7 @@ func open(context: String) -> void:
 	refresh(); list.grab_focus()
 
 func close() -> void:
+	if not panel.visible: return
 	panel.hide()
 	get_tree().paused = false
 	session.controller.router.clear("equipment")
@@ -122,9 +127,9 @@ func refresh() -> void:
 	ledger_summary.text = "负荷 %d / %d    金币 %d" % [EquipmentCatalog.load_used(services.ledger().equipped),services.capacity(),services.ledger().gold]
 	weapons.clear()
 	if session.content_catalog!=null:
-		for flag: String in session.WORLD_WEAPONS:
-			if not session.state.has(flag): continue
-			var definition: WeaponDefinition=session.WORLD_WEAPONS[flag]
+		var available:=session.world_weapon_loadouts()
+		for flag: String in available:
+			var definition: WeaponDefinition=available[flag]
 			weapons.add_item(definition.display_name)
 			weapons.set_item_metadata(weapons.item_count-1,flag)
 			if definition==session.controller.shoot_ability.weapon: weapons.select(weapons.item_count-1)
@@ -189,6 +194,9 @@ func accept() -> void:
 	submit(kind,selected)
 
 func submit(kind: String, id: String) -> void:
+	if kind == "rest":
+		if not session.begin_station_rest(quote): detail.text = "请在充电站旁站稳后休息。"
+		return
 	var accepted := session.equipment_transaction(kind,id,quote)
 	refresh()
 	if not accepted: detail.text += "\n操作未完成，请检查负荷、互斥装备或金币。"
