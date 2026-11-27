@@ -27,7 +27,7 @@ description: 为《失序之钟》/ gunman-rush 及 Godot 类银河恶魔城规�
 
 读仓库 `AGENTS.md`、当前工作线与模块导航，核对分支、未提交改动、实际运行入口和引擎版本。以本次用户指令确定范围；按项目现行权威关系读取世界、区域、动作、敌人及状态规则。核实文档所称“已接入/未接入”是否与真实消费者一致。
 
-在 gunman-rush 中，新房使用 `production/` 的 Godot 资源根。按[房间制作](../../../docs/bible/room_authoring.md)选择 TileSet、机关定义和物种，检查实例 ID、来源、位置、状态及端口。启动宿主为 OrdinaryRoomSession；参考 `production/tests/assembly_room.json` 与 `tools/check_ordinary_rooms.py`。新地图存在后，只提取本次设计指定的邻接和授予关系。
+在 gunman-rush 中，新房使用 `production/` 的 Godot 资源根。按[房间制作](../../../docs/bible/room_authoring.md)选择 TileSet、机关定义和物种，检查实例 ID、来源、位置、状态及端口。启动宿主为 OrdinaryRoomSession；参考 `production/tests/assembly_room.json` 与 `tools/check_ordinary_rooms.py`。从项目锁定的世界包提取本房及直接邻房的门线、房形、通行条件和能力授予。灰盒阶段即按世界门号检查实际越界方向。
 
 ### 2. 编排整个区域
 
@@ -53,7 +53,7 @@ description: 为《失序之钟》/ gunman-rush 及 Godot 类银河恶魔城规�
 
 并行时按房间或连接簇隔离写集，指定施工总表、共用接口和规则的单写者。先把代表房接进正式装载与相邻房，再按职责表完成剩余内容，每批都保留可运行的连通路线。
 
-第一版可玩房同时放入影响判断的背景轮廓、明暗或前景占位。按同一条路线试玩，观察动作是否成立、线索出现的时机与动作结果是否清楚，再细化素材。调整几何后重跑受影响的动作。
+第一版可玩房按[布局与构图](../../../docs/bible/room_authoring.md#布局与构图)从邻房走进来，带上影响判断的前后景，试一次关键选择和一次失误恢复。把最早读错路线或无法继续的位置反馈给布局与美术。新遭遇接入后，沿用这条路线复查它对观察、通行与回程的影响。
 
 ## 验证与交付
 
