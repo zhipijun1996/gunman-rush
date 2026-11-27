@@ -16,15 +16,17 @@ def ffmpeg(*args):
 
 def export(raw, out):
     data = []
-    for door in ["d001","d002","d009","d330"]:
+    document = Path(__file__).resolve().parents[3] / "production/rooms/world/P02.json"
+    doors = sorted(json.loads(document.read_text())["exits"])
+    for door in doors:
         for direction in ["to-field","from-field"]:
             base = raw / f"{door}-{direction}"
             log = base.with_suffix(".log")
             if not log.exists():
-                continue
+                raise ValueError(f"Missing recording or completed passage in {log}")
             record = MARKER.search(log.read_text())
             if record is None or "Done recording movie" not in log.read_text():
-                continue
+                raise ValueError(f"Missing recording or completed passage in {log}")
             src, edge, dst, started, swapped, finished, jump = record.groups()
             a,b,c = map(int, (started,swapped,finished))
             avi = base.with_suffix(".avi")
@@ -50,7 +52,7 @@ def export(raw, out):
                          "covered_and_landing":c-a,"room_swap_frame_in_cut":b-start,
                          "panorama_crop_change_px":float(jump),"screen_section_y":heights,"file":out_name+".mp4"})
     (out/"frames.json").write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n")
-    if len(data)==8:
+    if len(data)==2*len(doors):
         listing=out/"concat.txt"
         listing.write_text("".join(f"file '{row['file']}'\n" for row in data))
         ffmpeg("-f","concat","-safe","0","-i",listing,"-c","copy","-movflags","+faststart",out/"all-passages.mp4")
@@ -65,6 +67,4 @@ if __name__=="__main__":
     args=parser.parse_args()
     args.output.mkdir(parents=True,exist_ok=True)
     records=export(args.raw,args.output)
-    print(f"Exported {len(records)}/8 directions")
-    if len(records) != 8:
-        raise SystemExit("An input recording is missing its completed crossing or Godot movie footer.")
+    print(f"Exported {len(records)} directed crossings")

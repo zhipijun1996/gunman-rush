@@ -57,18 +57,18 @@ def field_grasses(output):
 
 def inner_bank(output):
     """A rear cut in the grass passage. Foreground solids draw their own tile faces."""
-    width, height = 460, 184
+    width, height = 460, 202
     left, top = 0, 426
     y, x = np.indices((height,width))
     world_y = y+top
     native = Image.open(ROOT/"assets/plains_v3/terrain/organic_cliff_fill.png").convert("L")
-    archive = native.crop((86,203,1152,640)).resize((width,height),Image.Resampling.LANCZOS)
+    archive = native.crop((86,203,1152,683)).resize((width,height),Image.Resampling.LANCZOS)
     rock = np.asarray(archive, dtype=float)
     lo,hi = np.quantile(rock,[.03,.96])
     relief = np.clip((rock-lo)/(hi-lo),0,1)
     colors = np.array([[22,25,32],[34,35,40],[44,44,46],[56,52,48],[64,60,52]])
     rgb = np.stack([np.interp(relief,[0,.25,.5,.78,1],colors[:,i]) for i in range(3)],axis=-1)
-    floor_y = np.interp(x,[0,144,240,460],[608,608,576,576])
+    floor_y = np.interp(x,[0,144,192,240,460],[608,608,624,576,576])
     ceiling_y = np.where(x<152,476,448)
     ceiling = np.clip((world_y-ceiling_y)/45,0,1)
     side_light = np.exp(-x/106) + .95*np.exp(-(width-x)/68)
@@ -90,39 +90,49 @@ def inner_bank(output):
     profile=[(0,426),(430,426),(430,447),(423,452),(419,457),(409,465),
              (409,472),(403,477),(399,488),(399,509),(405,524),(413,533),
              (419,543),(429,551),(430,555),(442,560),(450,568),(460,573)]
-    path=profile+[(460,577),(242,577),(143,609),(0,609)]
+    path=profile+[(460,577),(243,578),(191,625),(144,609),(0,609)]
     ImageDraw.Draw(mask).polygon([(px-left,py-top) for px,py in path],fill=255)
     bank.putalpha(mask)
     bank.save(output / "p02_grass_bank.png",optimize=True)
 
 
-    # Continue the same donor coordinates across d009. P16's local x716 maps to
-    # P02's x0; the last four columns overlap the published bank exactly.
-    length = 240
-    grain_scale = 1066 / width
-    pad = 600
-    padded = Image.new("L",(native.width+pad,native.height))
-    padded.paste(ImageOps.mirror(native.crop((0,0,pad,native.height))),(0,0))
-    padded.paste(native,(pad,0))
-    west = padded.resize((length+4,height),Image.Resampling.LANCZOS,
-                         box=(pad+86-length*grain_scale,203,pad+86+4*grain_scale,640))
-    west_y,west_x=np.indices((height,length+4))
-    west_relief=np.clip((np.asarray(west,dtype=float)-lo)/(hi-lo),0,1)
-    west_rgb=np.stack([np.interp(west_relief,[0,.25,.5,.78,1],colors[:,i]) for i in range(3)],axis=-1)
-    w_ceiling=np.clip((west_y + top-476)/45,0,1)
-    w_light=np.exp(-np.abs(west_x-length)/106) + .18*np.exp(-west_x/68)
-    w_bounce=.8*np.exp(-((west_y+top-608+17)/24)**2)
-    west_rgb*= (.68+.29*w_ceiling+.17*w_light)[:,:,None]
-    west_rgb+=(w_light*w_ceiling+w_bounce*.23)[:,:,None]*np.array([17,12,6])
-    west=Image.fromarray(np.uint8(np.clip(west_rgb,0,255))).convert("RGBA")
-    left_mask=Image.new("L",west.size)
-    # Broken edge overlaps the receiving bank, exposing daylight at the west toe.
-    ImageDraw.Draw(left_mask).polygon([(24,0),(244,0),(244,184),(0,184),(1,163),
-        (10,151),(17,145),(16,131),(24,117),(29,94),(25,82),(16,73),(12,59),
-        (18,46),(23,38)],fill=255)
-    west.putalpha(left_mask)
-    west.paste(bank.crop((0,0,4,height)),(length,0))
-    west.save(output/"p02_grass_bank_west.png",optimize=True)
+def grass_throat(output):
+    """The same rear soil section spans the two rooms from P02 y572 to P16 y289."""
+    width, height = 96, 262
+    y, x = np.indices((height,width))
+    native = Image.open(ROOT / "assets/plains_v3/terrain/organic_cliff_fill.png").convert("L")
+    sample = native.crop((350,219,539,654)).resize((width,height),Image.Resampling.LANCZOS)
+    grain = np.asarray(sample,dtype=float)
+    low, high = np.quantile(grain,[.02,.98])
+    relief = np.clip((grain-low)/(high-low),0,1)
+    palette = np.array([[24,24,27],[41,35,33],[63,50,39],[83,63,46]])
+    rgb = np.stack([np.interp(relief,[0,.36,.74,1],palette[:,i]) for i in range(3)],axis=-1)
+    side = np.minimum(x,width-1-x)
+    # Curved side light at the two banks. Root fibers taper into softer earth below.
+    light = .91 + .23*np.exp(-side/12) + .22*np.exp(-y/72)
+    wall = Image.fromarray(np.uint8(np.clip(rgb*light[:,:,None],0,255))).convert("RGBA")
+    for px,py,w,flip in [(-11,2,43,False),(63,4,47,True),(-17,54,42,True),(82,118,31,False)]:
+        moss = Image.open(NATIVE/"bank_moss.png").convert("RGBA")
+        spr = moss.resize((w,round(w*moss.height/moss.width)),Image.Resampling.LANCZOS)
+        if flip: spr = ImageOps.mirror(spr)
+        data = np.asarray(spr).copy()
+        luma = data[:,:,:3]@np.array([.33,.55,.12])
+        data[:,:,:3] = np.clip(luma[:,:,None]*[.46,.34,.21]+[25,19,17],0,255)
+        wall.alpha_composite(Image.fromarray(data),(px,py))
+    # The top disappears gently into the existing grass sill. Under it the two
+    # rooms show the exact same pixels at each side of the physical crossing.
+    surface = np.interp(x,[0,46,95],[16,2,1])
+    alpha = np.uint8(255*np.clip((y-surface+4)/7,0,1))
+    wall.putalpha(Image.fromarray(alpha))
+    # The inset of the three east-bank treads can be seen through the shaft.
+    # Its back soil fills that 36-pixel recess and continues behind solid tiles.
+    inset = ImageOps.mirror(wall.crop((60,0,96,height)))
+    inset_rgb = np.asarray(inset).copy()
+    inset_rgb[:,:,:3] = np.uint8(inset_rgb[:,:,:3]*.77)
+    whole = Image.new("RGBA",(width+36,height))
+    whole.paste(wall,(0,0))
+    whole.paste(Image.fromarray(inset_rgb),(width,0))
+    whole.save(output/"p02_root_throat.png",optimize=True)
 
 
 def drainage_well(output):
@@ -169,6 +179,7 @@ if __name__ == "__main__":
     irrigation_panorama(output)
     field_grasses(output)
     inner_bank(output)
+    grass_throat(output)
     drainage_well(output)
     bell = "windchime_plains_v2_chime_span.png"
     copyfile(REGIONAL / "v2" / bell, output / bell)

@@ -120,7 +120,13 @@ func p16() -> void:
 	await press_up(host)
 	expect(fragment.ok and fragment.row.formal_item_id=="HP01" and host.state.value.inventory.health_shard==fragment.row.quantity and host.state.value.receipts.has(Connection.SHARD),"HP01 lives in permanent fragment inventory")
 	expect(not site.claim(Connection.SHARD,host.state.revision),"fragment cannot issue twice")
-	expect(await walk(host,WorldRoomDocument.read(SEGMENTS+"P16.json").exits.d009.point[0]),"walk through the P16 threshold with both claims")
+	var throat:=FixedWorldProvider.point(WorldRoomDocument.read(SEGMENTS+"P16.json").exits.d009.point)
+	expect(await walk(host,throat.x) and host.player.is_on_floor(),"both claims can be carried to the planted foot of the upward return")
+	host.controller.router.request_action(&"jump")
+	for i: int in 30:
+		await physics_frame
+		if host.player.position.y<=throat.y: break
+	expect(host.player.position.y<=throat.y and absf(host.player.position.x-throat.x)<10,"real ground jump reaches the P16 ceiling opening with both claims")
 	await leave(host)
 	host=await enter("P16",storage)
 	if host.controller==null:
@@ -179,9 +185,14 @@ func paired_sections() -> void:
 		if receiver.controller!=null:
 			var a:=measured_section(field,side)
 			var b:=measured_section(receiver,other)
-			var expected:=PackedFloat32Array([-48,48,-48,48,-48,48]) if edge=="d330" else PackedFloat32Array([18,18,18])
+			var expected:=PackedFloat32Array([18,18,18])
+			if direction.y!=0:
+				expected.clear()
+				for row: int in 3:
+					expected.append(side.span[0]-side.point[0])
+					expected.append(side.span[1]-side.point[0])
 			expect(a==expected and b==expected,"%s matched actual floor/walls over both adjacent strips: %s and %s" % [edge,a,b])
-			if edge=="d330":
+			if direction.y!=0:
 				receiver.player.reset_at(receiver.player.position+Vector2(60,0))
 				await frames(2)
 				for host: OrdinaryRoomSession in [field,receiver]:
@@ -203,23 +214,49 @@ func wait_for_arrival(pilot: FieldTerracePilot, room: String) -> bool:
 			return pilot.last_error.is_empty() and pilot.active.player.is_on_floor()
 	return false
 
-func well_motion() -> void:
+func shaft_motion(id: String, edge: String) -> void:
 	var pilot:=FieldTerracePilot.new()
 	root.add_child(pilot)
 	pilot.enter_room("P02","d001")
-	var top:=WorldRoomDocument.read("res://rooms/world/P02.json").exits.d330 as Dictionary
-	var bottom:=WorldRoomDocument.read(SEGMENTS+"P19.json").exits.d330 as Dictionary
+	var field:=WorldRoomDocument.read("res://rooms/world/P02.json")
+	var top: Dictionary=field.exits[edge]
+	var bottom: Dictionary=WorldRoomDocument.read(SEGMENTS+id+".json").exits[edge]
 	var upper:=FixedWorldProvider.point(top.point)
 	var lower:=FixedWorldProvider.point(bottom.point)
-	for offset: float in [-34.0,0.0,34.0]:
+	if not catalog.condition_match(catalog.lookup("doors",edge).row,pilot.active.state.value.flags).matches:
+		# Start this independent fixture on the opposite bank, outside the
+		# observation area. Walk off the lip with the actual movement controller.
+		pilot.active.player.reset_at(Vector2(top.span[0]-26,560))
+		await frames(30)
+		expect(pilot.active.player.is_on_floor() and not pilot.active.state.has(pilot.DISCOVERY),"opposite grass bank starts outside the watch point")
+		pilot.active.controller.router.set_move_axis(1)
+		for i: int in 30:
+			await physics_frame
+			if pilot.active.player.position.x>=upper.x-18: break
+		pilot.active.controller.router.set_move_axis(0)
+		for i: int in 60:
+			await physics_frame
+			if pilot.active.state.has(pilot.DISCOVERY): break
+		expect(pilot.active.player.position.y<upper.y and pilot.active.room.room_id=="P02" and not pilot.crossing and pilot.active.state.has(pilot.DISCOVERY),"entering the actual root channel from the opposite bank records discovery before its door")
+		expect(not pilot.active.state.value.explored.has(id) and not pilot.active.state.value.receipts.has(Connection.SHARD),"seeing the hidden route grants no visit or reward")
+		expect(await wait_for_arrival(pilot,id),"gravity takes the discovered alternate approach to the hidden room")
+		pilot.active.controller.router.request_action(&"jump")
+		expect(await wait_for_arrival(pilot,"P02"),"alternate grass approach also has a supported return")
+		await frames(3)
+	var collider: CollisionShape2D=pilot.active.player.get_node("CollisionShape2D")
+	var half_body_width: float=(collider.shape as RectangleShape2D).size.x*.5
+	var wall_margin:=half_body_width+0.25
+	var leftmost: float=top.span[0]+wall_margin-upper.x
+	var rightmost: float=top.span[1]-wall_margin-upper.x
+	for offset: float in [leftmost,0.0,rightmost]:
 		# Start a full player body clear of both well cheeks. From this moment
 		# the unchanged production controller owns gravity, jump and reception.
 		pilot.active.player.reset_at(upper+Vector2(offset,-100))
-		expect(await wait_for_arrival(pilot,"P19"),"gravity carries the whole body through the lower seam at "+str(offset))
-		if pilot.active.room.room_id!="P19": break
+		expect(await wait_for_arrival(pilot,id),edge+" gravity carries the body through the seam at "+str(offset))
+		if pilot.active.room.room_id!=id: break
 		expect(absf(pilot.active.player.position.x-(lower.x+offset))<1 and absf(pilot.active.player.position.y-bottom.spawn[1])<1,"descent lands under its own lane")
 		pilot.active.controller.router.request_action(&"jump")
-		expect(await wait_for_arrival(pilot,"P02"),"jump returns to the actual near-side ledge")
+		expect(await wait_for_arrival(pilot,"P02"),edge+" jump returns to the actual near-side ledge at "+str(offset))
 		if pilot.active.room.room_id!="P02": break
 		var first: Vector2=pilot.entry_trace[0]
 		var continuous:=absf(first.x-(upper.x+offset))<1
@@ -240,7 +277,8 @@ func run() -> void:
 		for id: String in LANDINGS: await route(id)
 		await p16()
 		await paired_sections()
-		await well_motion()
-	expect(checks>=78,"four paired openings, permanent claims and three well lanes completed")
+		await shaft_motion("P16","d009")
+		await shaft_motion("P19","d330")
+	expect(checks>=99,"four paired openings, permanent claims and both shafts completed")
 	print("P02 CONNECTIONS failures=",failures," checks=",checks)
 	quit(0 if failures==0 else 1)

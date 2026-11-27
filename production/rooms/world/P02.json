@@ -48,7 +48,7 @@
     "introduce": "走过出生草坡接入段，在西田埂先读出断口和同高钟架落点。",
     "practice": "从西岸朝东跑跳，空中向左后方射击。未过断口会落到能走回的沟底。",
     "check": "从西岸完成反冲并站稳东岸，钟响一次。钟架后可普通跳直达东田，或下到井口前选择进田渠。",
-    "retry": "沿西岸实心田阶回到发射线；也可走进草缝短坡并原路回到平原。"
+    "retry": "未落上钟台可沿西岸田阶回到发射线。沟底东侧的草幕可走近查看，沿根间落口进入藏物窝；返回时从土壁凹阶跳回原路。"
   },
   "exits": {
     "d001": {
@@ -89,20 +89,20 @@
     },
     "d009": {
       "point": [
-        2,
-        590
+        240,
+        750
       ],
       "spawn": [
-        32,
-        590
+        304,
+        714
       ],
       "direction": [
-        -1,
-        0
+        0,
+        1
       ],
       "span": [
-        494,
-        608
+        192,
+        288
       ]
     },
     "d330": {
@@ -129,6 +129,12 @@
       "at": [
         317,
         558
+      ],
+      "passage_rect": [
+        192,
+        610,
+        96,
+        140
       ]
     }
   },
@@ -136,10 +142,18 @@
     "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
     "pieces": [
       {
+        "asset": "p02_root_throat",
+        "at": [
+          258,
+          834
+        ],
+        "layer": "attached"
+      },
+      {
         "asset": "p02_grass_bank",
         "at": [
           230,
-          610
+          628
         ],
         "layer": "attached"
       },
@@ -148,14 +162,6 @@
         "at": [
           817,
           385
-        ],
-        "layer": "attached"
-      },
-      {
-        "asset": "p02_slope_grass",
-        "at": [
-          155,
-          605
         ],
         "layer": "attached"
       },
@@ -173,6 +179,14 @@
         "at": [
           1149,
           768
+        ],
+        "layer": "attached"
+      },
+      {
+        "asset": "p02_slope_grass",
+        "at": [
+          146,
+          608
         ],
         "layer": "attached"
       }
@@ -255,11 +269,19 @@
             608
           ],
           [
-            240,
-            576
+            158,
+            608
           ],
           [
-            240,
+            181,
+            619
+          ],
+          [
+            192,
+            624
+          ],
+          [
+            192,
             768
           ],
           [
@@ -276,9 +298,9 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          240,
+          325,
           576,
-          480,
+          395,
           192
         ]
       }
@@ -444,19 +466,6 @@
         ]
       }
     },
-    "grass_floor_seam": {
-      "id": "grass_floor_seam",
-      "definition_id": "platform.solid",
-      "definition_version": 1,
-      "properties": {
-        "rect": [
-          -48,
-          608,
-          48,
-          160
-        ]
-      }
-    },
     "east_road_seam": {
       "id": "east_road_seam",
       "definition_id": "platform.solid",
@@ -468,6 +477,72 @@
           48,
           352
         ]
+      }
+    },
+    "grass_return_pockets": {
+      "id": "grass_return_pockets",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            288,
+            576
+          ],
+          [
+            326,
+            576
+          ],
+          [
+            326,
+            768
+          ],
+          [
+            288,
+            768
+          ],
+          [
+            288,
+            732
+          ],
+          [
+            323,
+            732
+          ],
+          [
+            323,
+            664
+          ],
+          [
+            295,
+            664
+          ],
+          [
+            288,
+            661
+          ],
+          [
+            288,
+            654
+          ],
+          [
+            323,
+            654
+          ],
+          [
+            323,
+            586
+          ],
+          [
+            298,
+            586
+          ],
+          [
+            288,
+            582
+          ]
+        ],
+        "material": "ground"
       }
     }
   },

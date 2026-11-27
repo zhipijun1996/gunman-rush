@@ -203,8 +203,10 @@ func update_field(delta: float) -> void:
 	if absf(active.player.velocity.x)>18:
 		look_direction = signf(active.player.velocity.x)
 	follow_camera.position.x = move_toward(follow_camera.position.x,look_direction*78,delta*180)
-	var site := FixedWorldProvider.point(active_doc.sites[DISCOVERY].at)
-	if not active.state.has(DISCOVERY) and at.distance_to(site)<=40:
+	var site: Dictionary = active_doc.sites[DISCOVERY]
+	var observing := at.distance_to(FixedWorldProvider.point(site.at))<=40
+	var inside_passage := FixedWorldProvider.rect(site.passage_rect).has_point(at)
+	if not active.state.has(DISCOVERY) and (observing or inside_passage):
 		var event := catalog.lookup("events",DISCOVERY)
 		if event.ok and catalog.condition_match(event.row,active.state.value.flags).matches:
 			var candidate := active.state.action_candidate(DISCOVERY,"P02")
@@ -256,9 +258,9 @@ func _physics_process(delta: float) -> void:
 		var gate: Dictionary = active_doc.exits[id]
 		if not gate.has("span") or waiting_for_clearance==id or not Passage.crossed(gate,before,at):
 			continue
-		var door := catalog.lookup("doors",id)
-		var destination: String = door.row.b if door.row.a==active.room.room_id else door.row.a
-		transfer(id,destination,door.row)
+		var passage := catalog.physical_passage(active.room.room_id,id)
+		if not passage.ok: continue
+		transfer(id,passage.destination,catalog.lookup("doors",id).row)
 		break
 
 func _lock_session(value: bool) -> void:
