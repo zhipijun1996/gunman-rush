@@ -2,7 +2,7 @@
 
 连续世界使用[独立存档](../../production/game/platform/persistence/playable_world_save.gd)。首次从 P01 开始，继续游戏读取保存的房号与进度；有效备份与重新开局分别由存档服务及宿主处理。房间服务按下列状态寿命提交，实际可使用的服务取决于[房间绑定](../../production/config/imported_world/bindings.json)及该房的实体。
 
-#168 的同版 v27 存档可从原门口继续进入 G08、P08 和 Y23。这三次改动分别在原有地形上增加工匠、休息站和分区。存档服务逐房核对改动前后的内容摘要和世界包；首次成功保存才更新主文件，并把原文件留作备份。[旧档实读回归](../../production/tests/world_save_compatibility.gd)
+v29 使用独立的本地槽和浏览器键。新开局从 P01 起身；继续游戏核对地图包与房间摘要。旧几何的进度留在原槽，可从对应历史版本复玩。[存档回归](../../production/tests/world_save_compatibility.gd)
 
 小站和地区安全区承载NPC、休息、交通与装配。交通抵达、进入安全房、对话、购物、锻造、强化、交付与自动保存均不是休息。重做版房间按[装备制作](../project/item_authoring.md)放置服务。
 

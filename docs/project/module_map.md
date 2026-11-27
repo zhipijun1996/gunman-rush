@@ -5,7 +5,7 @@
 | 要修改的内容 | 实现与数据 |
 | --- | --- |
 | 默认试玩与存档 | [标题、暂停与世界生命周期](../../production/game/application/world_shell.gd)、[游戏世界](../../production/rooms/world/world.tscn)、[跨房宿主](../../production/rooms/world/world_game_host.gd)、[世界存档](../../production/game/platform/persistence/playable_world_save.gd) |
-| 地图与实体关卡 | [世界输入](../data/world/README.md)、[房间路径绑定](../../production/config/imported_world/bindings.json)、[实体房间](../../production/rooms/world) |
+| 地图与实体关卡 | [世界输入](../data/world/README.md)、[房间路径绑定](../../production/config/imported_world/bindings.json)、[前三房](../../production/rooms/world)、[相邻接收段](../../production/rooms/world/receivers) |
 | 装配和试玩 | [OrdinaryRoomSession](../../production/rooms/ordinary_room_session.gd)、[房间编解码器](../../production/game/world/levels/world_room_document.gd)、[共享装配](../../production/game/world/elements/world_room_assembly.gd) |
 | 世界设计与内容版本 | [导入器](../../tools/content_channel/sync.py)、[内容目录](../../production/game/content/world_content_catalog.gd)、[实例绑定](../../production/game/content/world_content_room_bridge.gd)、[版本锁](../../production/config/imported_world/current.lock.json)、[接口规范](../data/world/content_channel.md) |
 | 机关、组合与状态 | [索引](../../production/config/world_elements/index.json)、[行为合同](../../production/config/world_elements/behaviors)、[定义](../../production/config/world_elements/definitions)、[状态分发器](../../production/game/world/elements/world_element_runtime.gd)、[逐项说明](../data/world_objects.md) |

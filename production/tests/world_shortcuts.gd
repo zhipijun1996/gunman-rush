@@ -1,7 +1,5 @@
 extends SceneTree
 ## The P01/F08 latch, receiving geometry and the consumption of a saved G08 right.
-const ROOT := "res://rooms/world/"
-const SIDES := "res://tests/fixtures/plains_receivers/"
 const FLAG := "forest_slope_return_open"
 var catalog := WorldContentCatalog.new()
 var failures := 0
@@ -34,7 +32,7 @@ func frames(n: int) -> void:
 func open_room(id: String, store: Storage, edge := "") -> OrdinaryRoomSession:
 	var s := OrdinaryRoomSession.new()
 	root.add_child(s)
-	var path := (ROOT if id in ["P01","P03"] else SIDES)+id+".json"
+	var path := str(catalog.room_document(id).path)
 	var error := s.open(WorldRoomDocument.read(path),store,null,catalog,edge)
 	check(error.is_empty(),id+" "+error)
 	await frames(3)
@@ -78,6 +76,8 @@ func forest_latch() -> void:
 	if s.controller==null: await close(s); return
 	var gate := s.room.get_node("ForestShortcutGate")
 	check(not gate.opened and not catalog.passage_access("F08","d223",s.state.value.flags).matches,"starting in the forest does not issue a shortcut")
+	s.player.reset_at(gate.latch + Vector2(-130,0))
+	await frames(6)
 	await press_up(s)
 	check(not gate.opened,"cannot release the latch from across the room")
 	s.controller.router.set_move_axis(1)
@@ -129,7 +129,7 @@ func ability_and_receivers() -> void:
 	await close(room)
 
 func run() -> void:
-	check(catalog.load_locked().ok and catalog.load_bindings("res://tests/fixtures/plains_receivers/bindings.json").ok,"load world contract")
+	check(catalog.load_locked().ok and catalog.load_bindings("res://config/imported_world/bindings.json").ok,"load world contract")
 	if failures==0:
 		await shut_from_plains()
 		await forest_latch()

@@ -1,6 +1,6 @@
 # Gunman Rush
 
-Godot 4.7.2 类银河恶魔城。重做开发从 `production/project.godot` 开始。玩家从风铃平原 P01 起身、拾枪，沿 P02 田埂进入 P03 沟谷。当前世界设计涵盖 16 区、310 房和 392 条连接。已施工范围按[运行绑定](production/config/imported_world/bindings.json)和[制作交接](docs/project/worklines/room_rebuild/scope.md)查询。
+Godot 4.7.2 类银河恶魔城。重做开发从 `production/project.godot` 开始。玩家从风铃平原 P01 起身、拾枪，沿 P02 田埂进入 P03 沟谷。当前采用 v29，完整重做 P01–P03，五个相邻房号仅接收和返回。地图设计涵盖 16 区、310 房和 392 条连接。已施工范围按[运行绑定](production/config/imported_world/bindings.json)和[制作交接](docs/project/worklines/room_rebuild/scope.md)查询。
 
 | 目的 | 从哪里开始 |
 | --- | --- |

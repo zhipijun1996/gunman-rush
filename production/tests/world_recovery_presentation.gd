@@ -2,6 +2,7 @@ extends SceneTree
 
 var failures := 0
 var checks := 0
+var catalog := WorldContentCatalog.new()
 
 class StationStore extends WorldSaveService:
 	var writable := true
@@ -22,13 +23,13 @@ func check(condition: bool, label: String) -> void:
 func ticks(count: int) -> void:
 	for frame in count: await physics_frame
 
-func check_authored_sites() -> void:
+func check_service_sites() -> void:
 	for id: String in ["P08","Y23","E03","E09"]:
 		var session := OrdinaryRoomSession.new()
 		root.add_child(session)
 		var edge := "d173" if id=="E09" else ""
-		var error := session.open_content(id,"res://config/imported_world/current.lock.json","res://config/imported_world/bindings.json",null,false,null,edge)
-		check(error.is_empty(),id+" opens")
+		var error := session.open(preload("service_chamber.gd").document(id),null,null,catalog,edge)
+		check(error.is_empty(),id+" opens "+error)
 		if not error.is_empty():
 			session.free()
 			continue
@@ -60,11 +61,12 @@ func check_authored_sites() -> void:
 		await ticks(3)
 
 func run() -> void:
+	check(catalog.load_locked().ok and catalog.load_bindings("res://config/imported_world/bindings.json").ok,"load current lock")
 	var session := OrdinaryRoomSession.new()
 	root.add_child(session)
 	var storage := StationStore.new()
-	var error := session.open_content("G12","res://config/imported_world/current.lock.json","res://config/imported_world/bindings.json",storage)
-	check(error.is_empty(),"open actual G12 station: "+error)
+	var error := session.open(preload("service_chamber.gd").document("G12"),storage,null,catalog)
+	check(error.is_empty(),"open station fixture: "+error)
 	if not error.is_empty():
 		quit(1)
 		return
@@ -107,6 +109,6 @@ func run() -> void:
 	check(await session.audio_service.shutdown(),"release presentation voices")
 	session.free()
 	await ticks(3)
-	await check_authored_sites()
+	await check_service_sites()
 	print("WORLD RECOVERY PRESENTATION failures=",failures," checks=",checks)
 	quit(1 if failures else 0)

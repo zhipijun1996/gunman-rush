@@ -42,7 +42,7 @@ func run() -> void:
 	var storage := Storage.new()
 	var session := OrdinaryRoomSession.new()
 	root.add_child(session)
-	var document := WorldRoomDocument.read("res://rooms/world/P07.json")
+	var document := preload("service_chamber.gd").document("P07")
 	var error := session.open(document,storage,null,catalog)
 	check(error.is_empty(),error)
 	if errors:

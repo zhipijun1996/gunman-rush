@@ -1,5 +1,5 @@
 extends SceneTree
-## A real G12 floor, ordinary input, the shipped terrain emitter and the
+## A flat test floor, ordinary input, the shipped terrain emitter and the
 ## production host. The extra strip makes hit/return timing deterministic.
 class Store extends WorldSaveService:
 	var writable := true
@@ -11,6 +11,10 @@ class Store extends WorldSaveService:
 	func load_profile() -> Dictionary:
 		return {"accepted":true,"payload":{},"revision":0}
 class Host extends WorldGameHost:
+	func has_room(id: String) -> bool: return id in ["G12","G08"] or super.has_room(id)
+	func read_destination(id: String) -> Dictionary:
+		if id in ["G12","G08"]: return preload("service_chamber.gd").document(id)
+		return super.read_destination(id)
 	func startup_destination() -> Dictionary: return {"ok":true,"room":"G12"}
 
 var host: Host

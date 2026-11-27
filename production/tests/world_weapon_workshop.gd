@@ -30,8 +30,8 @@ func enter(id: String) -> bool:
 	var before:=s
 	s=OrdinaryRoomSession.new()
 	root.add_child(s)
-	var err:=s.open(WorldRoomDocument.read("res://rooms/world/"+id+".json"),storage if before==null else null,before,catalog)
-	check(err.is_empty(),"authored "+id+" "+err)
+	var err:=s.open(preload("service_chamber.gd").document(id),storage if before==null else null,before,catalog)
+	check(err.is_empty(),"service chamber "+id+" "+err)
 	await frames(4)
 	return err.is_empty()
 

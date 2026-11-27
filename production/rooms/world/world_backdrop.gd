@@ -3,7 +3,7 @@ extends Node2D
 ## Retain the outgoing crop when the two connected rooms share a backdrop.
 const PARALLAX := Vector2(.26,.12)
 
-var panorama := Sprite2D.new()
+var panorama: Sprite2D
 var center_native := Vector2.ZERO
 var host: OrdinaryRoomSession
 var phase: Dictionary
@@ -31,6 +31,7 @@ static func mount(session: OrdinaryRoomSession, doc: Dictionary, sky_state: Dict
 		sky_state.erase("center_native")
 	sky_state.backdrop = backdrop
 	sky_state.offset = result.door_offset
+	result.panorama = Sprite2D.new()
 	result.panorama.texture = load(backdrop)
 	result.panorama.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	result.panorama.centered = false

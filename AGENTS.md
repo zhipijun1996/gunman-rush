@@ -7,7 +7,7 @@
 3. 按[模块导航](docs/project/module_map.md)修改真正消费内容的代码和资源。玩家运动归 PlayerMotor，伤害、掉落和存档由对应系统提交，特效只观察已接受事件。
 4. 在仓库根目录运行 `python3 tools/check_ordinary_rooms.py`。冻结试玩的检查单独运行 `python3 tools/ci.py`。文档链接运行 `python3 tools/check_docs.py`。
 
-世界设计输入来自[内容通道](docs/data/world/content_channel.md)。在[游戏版本锁](production/config/imported_world/current.lock.json)对应的内容包内取房号、区块、来向、能力条件和事件。按[运行绑定](production/config/imported_world/bindings.json)定位实机关卡。历史门侧接收段和测试夹具仅覆盖各自的验证路径。用 `python3 tools/content_channel/sync.py --check` 检查网页更新，再显式导入版本；游戏读取已锁定的本地包。房间 schema 3 持有实际地形、怪物组合、数量和位置，网页敌群只作规划预算。修改接入、绑定或掉落消费者后运行 `python3 tools/check_content_channel.py`。
+世界设计输入来自[内容通道](docs/data/world/content_channel.md)。v29 每个地图单位在横纵轴上均对应 300 世界单位。以房间 construction 的 bounds_world、opening_world 锁定实体边界与接缝，落脚和镜头按实机设计。在[游戏版本锁](production/config/imported_world/current.lock.json)对应的内容包内取房号、区块、来向、能力条件和事件。按[运行绑定](production/config/imported_world/bindings.json)定位实机关卡。历史门侧接收段和测试夹具仅覆盖各自的验证路径。用 `python3 tools/content_channel/sync.py --check` 检查网页更新，再显式导入版本；游戏读取已锁定的本地包。房间 schema 3 持有实际地形、怪物组合、数量和位置，网页敌群只作规划预算。修改接入、绑定或掉落消费者后运行 `python3 tools/check_content_channel.py`。
 
 ## 设计与交付
 

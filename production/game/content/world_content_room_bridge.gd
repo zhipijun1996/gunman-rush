@@ -1,7 +1,7 @@
 class_name WorldContentRoomBridge
 extends RefCounted
 ## Joins explicit room instances to imported design identities. No geometry is
-## generated from map coordinates, and no unbound instance receives a fallback.
+## generated from the envelope. Bound rooms use the locked local coordinate space.
 
 static func prepare(document: Dictionary, catalog: WorldContentCatalog) -> Dictionary:
 	var room_id := str(document.get("room_id", ""))
@@ -111,6 +111,28 @@ static func check_passages(document: Dictionary, catalog: WorldContentCatalog, c
 	var error := WorldRoomValidation.passage_error(exits)
 	if not error.is_empty(): return {"ok":false, "error":error}
 	var room_id: String = document.room_id
+	var openings := {}
+	var surveyed: bool = false
+	var binding := catalog.binding("rooms",room_id)
+	if binding.ok and binding.row.status in ["authored","placeholder"]:
+		surveyed = true
+		var room := catalog.lookup("rooms",room_id)
+		var construction: Variant = room.get("row",{}).get("authoring",{}).get("construction")
+		if not construction is Dictionary or not WorldRoomValidation.rectangle(construction.get("bounds_world")) or not construction.get("doors") is Array:
+			return {"ok":false,"error":"content_room_construction_invalid:" + room_id}
+		var scale: Variant = construction.get("scale")
+		if not scale is Dictionary or scale.get("x") != 300 or scale.get("y") != 300 or scale.get("isotropic") != true:
+			return {"ok":false,"error":"content_room_scale_mismatch:" + room_id}
+		var expected_bounds := FixedWorldProvider.rect(construction.bounds_world)
+		if not WorldRoomValidation.rectangle(document.get("bounds")) or not FixedWorldProvider.rect(document.bounds).is_equal_approx(expected_bounds):
+			return {"ok":false,"error":"content_room_bounds_mismatch:" + room_id}
+		for opening: Variant in construction.doors:
+			if not opening is Dictionary: return {"ok":false,"error":"content_room_opening_invalid:" + room_id}
+			if opening.get("kind") != "physical": continue
+			var line: Variant = opening.get("opening_world")
+			if not opening.get("id") is String or not line is Array or line.size()!=2 or not WorldRoomValidation.vector(line[0]) or not WorldRoomValidation.vector(line[1]):
+				return {"ok":false,"error":"content_room_opening_invalid:" + room_id}
+			openings[opening.id] = line
 	if complete:
 		for link: Dictionary in catalog.connections(room_id).rows:
 			if link.connection_type == "interior" or link.get("one_way_from") == room_id:
@@ -137,8 +159,13 @@ static func check_passages(document: Dictionary, catalog: WorldContentCatalog, c
 		var along := point[axis]
 		if along < gate.span[0] or along > gate.span[1]:
 			return {"ok":false, "error":"content_door_point_outside_span:" + room_id + "/" + id}
-		# Distinct openings along the same wall keep their world order even when
-		# platforms and camera space use a different local scale.
+		if surveyed:
+			if not openings.has(id): return {"ok":false,"error":"content_room_opening_missing:" + room_id + "/" + id}
+			var start := FixedWorldProvider.point(openings[id][0])
+			var end := FixedWorldProvider.point(openings[id][1])
+			var normal_axis := 1 - axis
+			if absf(point[normal_axis] - start[normal_axis]) > 0.01 or absf(float(gate.span[0]) - start[axis]) > 0.01 or absf(float(gate.span[1]) - end[axis]) > 0.01:
+				return {"ok":false,"error":"content_door_opening_mismatch:" + room_id + "/" + id}
 		for other: Dictionary in mouths:
 			if other.direction != expected.direction: continue
 			if (seam.end <= other.start and along >= other.along) or (seam.start >= other.end and along <= other.along):
