@@ -84,7 +84,7 @@ func _physics_process(delta: float) -> void:
 	if awake_time<1.0:
 		prompt.text = "我在哪？"
 	elif can_reach():
-		prompt.text = "地上的枪　·　点「互动」拾取" if session.controller.router.touch_enabled else "地上的枪　·　按 ↑ / W 拾取"
+		prompt.text = "地上的枪　·　"+session.controller.router.interact_prompt("拾取")
 	else:
 		prompt.text = "向左回到草地上的枪旁" if session.player.position.x>position.x+32 else "走近草地上的枪"
 	prompt.visible = session.player.position.distance_to(position)<265
@@ -99,7 +99,7 @@ func interact() -> bool:
 		if not next.is_empty() and session.state.commit(next,session.state.revision):
 			session.controller.router.clear("sidearm_picked_up")
 			GameAudio.cue(session,&"confirm")
-			prompt.text = "枪拿到了。跳起，向下瞄准后松手射击。" if session.controller.router.touch_enabled else "枪拿到了。跳起后朝脚下开枪，试试反冲。"
+			prompt.text = "枪拿到了。跳起，向下瞄准后松手射击。" if session.controller.router.touch_enabled and session.controller.router.current_device==&"touch" else "枪拿到了。跳起后朝脚下开枪，试试反冲。"
 			prompt.show()
 			pickup_feedback = 2.4
 			queue_redraw()
