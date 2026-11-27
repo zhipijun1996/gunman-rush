@@ -141,6 +141,12 @@ static func cue_cinematic(origin: Node, id: StringName) -> bool:
 	return service._play_original(id, null, false, origin, true) if service != null else false
 
 
+static func cue_rest(origin: WorldRestSequence, id: StringName) -> bool:
+	if not is_instance_valid(origin) or not origin.is_inside_tree() or not origin.active or not REST_CUES.has(id): return false
+	if id==&"rest_restore" and not origin.committed: return false
+	var service:=for_origin(origin) as GameAudio
+	return service._play_original(id,null,false,origin,true) if service!=null else false
+
 static func cue_focus(origin: WorldFocusHeal, id: StringName) -> bool:
 	if not is_instance_valid(origin) or not FOCUS_CUES.has(id):return false
 	if (id==&"heal_gather" and origin.elapsed<=0) or (id==&"heal_release" and origin.flash<=0):return false
@@ -410,7 +416,7 @@ func play_boss_cue(event_id: StringName, stream: AudioStream, origin: Node, prio
 func _play_original(id: StringName, stream_override: AudioStream = null, committed_reward: bool = false, origin: Node = null, cinematic: bool = false) -> bool:
 	if _shutting_down or not _streams.has(id) or volume <= 0: return false
 	var menu_reward := committed_reward and id in [&"confirm", &"note"]
-	var rest_cinematic: bool = false
+	var rest_cinematic: bool = cinematic and origin is WorldRestSequence and origin.active and REST_CUES.has(id)
 	var pause_safe: bool = menu_reward or rest_cinematic or (cinematic and id in [&"mechanism_bell", &"clock_resonance", &"armour"])
 	if get_tree().paused and not pause_safe and id not in [&"click", &"confirm", &"denied"]: return false
 	var interval := 0.16 if id in [&"step", &"denied", &"armour"] else 0.055
