@@ -74,17 +74,25 @@ func safe(room: FixedWorldRoom, player: PlayerMotor, point: Vector2, check_appro
 	return true
 
 func retry(session: OrdinaryRoomSession) -> void:
-	if not session.controller.active or session.controller.actor_resources.health.terminal: return
+	if session.controller.active and relocate(session):
+		session.policy.protect_player()
+
+## The world host calls this same verifier under its opaque curtain.
+func relocate(session: OrdinaryRoomSession) -> bool:
+	if session.controller.actor_resources.health.terminal: return false
 	var point := entry_point
 	var reset_section := session.room.section_at(session.player.position)
 	if not selected.is_empty():
 		point = FixedWorldProvider.point(selected.point)
-		if reset_section != section or session.room.section_at(point) != section: return
+		if reset_section != section or session.room.section_at(point) != section: return false
 	elif not session.room.retry_anchors.is_empty():
-		# Authored segments choose their own safe side.
-		return
-	if not point.is_finite() or not safe(session.room,session.player,point): return
-	if session.controller.return_to_segment(point):
+		return false
+	if not point.is_finite() or not safe(session.room,session.player,point): return false
+	var was_active := session.controller.active
+	session.controller.active = true
+	var moved := session.controller.return_to_segment(point)
+	session.controller.active = was_active
+	if moved:
 		session.lifetime.invalidate_actor()
 		session.room.element_runtime.reset_section(reset_section)
-		session.policy.protect_player()
+	return moved

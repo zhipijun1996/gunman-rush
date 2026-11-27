@@ -21,6 +21,7 @@ var rest_sequence: WorldRestSequence
 var focus_heal: WorldFocusHeal
 var audio_service: PlayerWeaponFeelAudioV2
 signal sign_read(text: String)
+signal terrain_return_requested
 signal respawn_requested
 var sign_reader: RoomSignReader
 var recovery := RoomRecovery.new()
@@ -310,7 +311,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		add_child(sign_reader)
 		sign_read.connect(sign_reader.open)
 	recovery.entry_point = at
-	policy.environment_return_requested.connect(func(): recovery.retry(self))
+	policy.environment_return_requested.connect(_on_terrain_failure)
 	for node: Node in room.find_children("*","",true,false):
 		if node is WorldResourcePickup: node.bind(self)
 		if node is WorldMovingPlatform: node.bind_activation(state)
@@ -425,10 +426,12 @@ func capture_live(candidate: Dictionary) -> void:
 	candidate.hp = controller.actor_resources.health.current
 	if room.loot != null: room.loot.persist_into(candidate)
 
-func checkpoint() -> bool:
-	if controller == null or controller.actor_resources.health.terminal or controller.has_pending_damage() or not pending_defeats.is_empty(): return false
+func checkpoint(include_accepted_defeats := false) -> bool:
+	if controller == null or controller.actor_resources.health.terminal or controller.has_pending_damage(): return false
 	var next := state.candidate()
 	next.enemies = room.snapshot()
+	if not pending_defeats.is_empty():
+		return include_accepted_defeats and _commit_defeats(next)
 	return state.commit(next,state.revision)
 
 func _equipment_access(kind: String, id: String) -> bool:
@@ -565,13 +568,18 @@ func _stage_defeats(candidate: Dictionary) -> Dictionary:
 	return candidate
 
 func _settle_defeats() -> void:
-	var candidate := _stage_defeats(state.candidate())
-	if state.commit(candidate, state.revision):
-		equipment.fx.gold_fraction = state.value.services.effects.get("gold_fraction",0.0)
-		pending_defeats.clear()
-		room.loot.sync()
-	else:
-		retry_delay = 1.0
+	if not _commit_defeats(state.candidate()): retry_delay = 1.0
+
+func _commit_defeats(candidate: Dictionary) -> bool:
+	if not state.commit(_stage_defeats(candidate),state.revision): return false
+	equipment.fx.gold_fraction = state.value.services.effects.get("gold_fraction",0.0)
+	pending_defeats.clear()
+	room.loot.sync()
+	return true
+
+func _on_terrain_failure() -> void:
+	if terrain_return_requested.has_connections(): terrain_return_requested.emit()
+	else: recovery.retry(self)
 
 func _player_died() -> void:
 	controller.die()

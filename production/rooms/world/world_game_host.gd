@@ -29,6 +29,7 @@ var room_title := Label.new()
 var title_remaining := 0.0
 var game_hud: DemoGameHud
 var route_map: Control
+var terrain_return: WorldTerrainReturn
 var crossing := false
 var curtain := ColorRect.new()
 var previous_center := Vector2.ZERO
@@ -154,8 +155,10 @@ func enter_room(id: String, edge: String, prepared: Dictionary = {}, received :=
 		else:
 			passage_sky.clear()
 		active.hide()
+	if is_instance_valid(terrain_return): terrain_return.cancel()
 	active = next
 	active.respawn_requested.connect(_respawn)
+	active.terrain_return_requested.connect(_terrain_failure)
 	if active.content_sites != null: active.content_sites.station_departure.connect(travel_station)
 	active_doc = doc
 	# Enter on the destination's receiving apron before its first physics tick.
@@ -226,6 +229,12 @@ func _uncover(seconds := Passage.REVEAL_SECONDS) -> void:
 	tween.tween_property(curtain,"color:a",0.0,seconds)
 	await tween.finished
 	curtain.hide()
+
+func _terrain_failure() -> void:
+	if crossing or not active.controller.active or active.controller.actor_resources.health.terminal: return
+	terrain_return = WorldTerrainReturn.new()
+	add_child(terrain_return)
+	terrain_return.begin(self)
 
 func _respawn() -> void:
 	crossing = true
@@ -326,6 +335,7 @@ func _transfer_to_site(from: String, departure: String, destination: String, arr
 	crossing_finished.emit(active.room.room_id,arrival,last_error.is_empty())
 
 func transfer(edge: String, destination: String) -> void:
+	if crossing: return
 	var from: String = active.room.room_id
 	var source_gate: Dictionary = active_doc.exits[edge]
 	var incoming := active.player.velocity
