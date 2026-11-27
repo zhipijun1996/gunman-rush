@@ -34,6 +34,12 @@ var _fall_blend := 0.0
 var _composition := Vector2.ZERO
 var _takeover: Dictionary = {}
 var _token := 0
+var reduced_effects := false:
+	set(value):
+		reduced_effects = value
+		if value:
+			_shake_time = 0.0
+			_shake_strength = 0.0
 var _shake_time := 0.0
 var _shake_duration := 0.0
 var _shake_strength := 0.0
@@ -102,6 +108,7 @@ func begin_takeover(owner: Node, point: Vector2, display: Rect2, seconds: float=
 func end_takeover(token: int) -> void:
 	if token==_token:_takeover.clear()
 func shake(strength: float, duration: float) -> void:
+	if reduced_effects: return
 	_shake_strength=minf(maxf(_shake_strength,strength),float(settings.shake_max))
 	_shake_duration=maxf(.01,duration);_shake_time=_shake_duration
 func _physics_process(delta: float) -> void:

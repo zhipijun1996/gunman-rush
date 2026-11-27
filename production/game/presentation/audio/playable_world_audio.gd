@@ -108,5 +108,9 @@ func _update_score() -> void:
 			return
 	music.request_track(exploration)
 
+func _notification(what: int) -> void:
+	if what in [NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_RESUMED] and is_inside_tree():
+		WorldSettings.current().set_application_suspended(what == NOTIFICATION_APPLICATION_PAUSED)
+
 func _exit_tree() -> void:
 	_detach_host()

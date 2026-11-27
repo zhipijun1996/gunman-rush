@@ -21,6 +21,7 @@ var _targets := PackedFloat32Array([0.0, 0.0])
 var _elapsed := CROSSFADE_SECONDS
 var _duck := 1.0
 var _menu_paused := false
+var _app_suspended := false
 var _unlocked := false
 var _shutting_down := false
 var _playbacks: Array[WeakRef] = []
@@ -79,14 +80,22 @@ func _transition(id: StringName) -> void:
 			_ids[chosen] = id
 			_gains[chosen] = 1.0 if initial_start else 0.0
 			voice.play()
+			if _app_suspended: voice.stream_paused = true
 			starts[id] = int(starts.get(id, 0)) + 1
 			if voice.has_stream_playback(): _playbacks.append(weakref(voice.get_stream_playback()))
 		_targets[chosen] = 1.0
 	_from = _gains.duplicate()
 	_elapsed = 0.0
 
+func _notification(what: int) -> void:
+	if what in [NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_RESUMED]:
+		_app_suspended = what == NOTIFICATION_APPLICATION_PAUSED
+		for voice: AudioStreamPlayer in _voices:
+			if voice.stream != null and voice.stream_paused != _app_suspended:
+				voice.stream_paused = _app_suspended
+
 func _process(delta: float) -> void:
-	if _shutting_down: return
+	if _shutting_down or _app_suspended: return
 	# Music pitch and transitions use real time, including gameplay slow aim.
 	var real_delta := delta / maxf(0.001, Engine.time_scale)
 	_elapsed = minf(CROSSFADE_SECONDS, _elapsed + real_delta)
