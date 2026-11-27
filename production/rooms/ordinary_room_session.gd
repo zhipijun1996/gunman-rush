@@ -237,6 +237,7 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	equipment_menu.session = self
 	add_child(equipment_menu)
 	if not room.signs.is_empty():
+		if catalog != null: controller.router.set_meta(&"world_up_interaction",true)
 		sign_reader = RoomSignReader.new()
 		sign_reader.session = self
 		add_child(sign_reader)
@@ -331,10 +332,14 @@ func _interact() -> void:
 			return
 	for mechanism: Node in room.element_runtime.nodes.values():
 		if mechanism is WorldMovingPlatform and mechanism.interact(): return
+	var nearby := readable_sign()
+	if not nearby.is_empty(): sign_read.emit(str(nearby.text))
+
+func readable_sign() -> Dictionary:
 	for sign_data: Dictionary in room.signs:
 		if player.position.distance_to(sign_data.interaction_point) <= 60:
-			sign_read.emit(str(sign_data.text))
-			return
+			return sign_data
+	return {}
 
 func _heal() -> void:
 	if not lifetime.active or not focus_heal.available() or not controller.router.focus_heal_held():

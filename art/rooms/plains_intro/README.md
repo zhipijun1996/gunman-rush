@@ -8,6 +8,8 @@
 
 P13 的远墙裁自 P03 的 1920 × 1024 沟谷背壁图。两侧门线对应原图横坐标 1686。接收段在原生像素比例下继续向东取样，抵达原图右缘后沿反向岩纹延展。门口两侧因此保留相同的岩脊剪影和纹理高度。[P03 远墙原图](../../../production/assets/scenery/p03/ravine_backwall.webp)
 
+更新 P03 远墙、移动两侧配景锚点或调整 d017 门线后，在仓库根目录运行 `python3 art/rooms/plains_intro/build_ridge_backwall.py` 重烘焙。传入 `--check` 会逐像素核对已保存的 P13 贴图。[烘焙脚本](build_ridge_backwall.py)
+
 ## 林缘栅门
 
 d223 两侧共享木桩和门扇。四根错高立木、两根横档和斜撑取自旧平原风铃门柱，铰件与横闩取自正式鸣钟闸的铁件图集。门脚的苔根取自林缘倒木。木桩和门扇分别输出透明 PNG，开门后保留固定木桩，门扇转至侧面。[木料原图](../../../production/assets/plains_v3/windchime_gate_beam.png) · [铁件原图](../../../production/assets/mechanisms/bell_gate/bell_gate.png) · [苔根原图](../../../production/assets/world_elements/forest_stage/thorn_forest_v2_thorn_log.png) · [门桩](../../../production/rooms/world/p02_connections/forest_gate_post.png) · [门扇](../../../production/rooms/world/p02_connections/forest_gate_leaf.png)

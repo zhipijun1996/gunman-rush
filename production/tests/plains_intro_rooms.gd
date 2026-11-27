@@ -88,13 +88,17 @@ func jump_toward(x: float, y: float, label: String, recoil := Vector2.ZERO, hold
 func p01_practice() -> void:
 	if not require(field.active.room.room_id=="P01" and await ground(270),"new play begins on the actual P01 field"): return
 	var hp:=field.active.controller.actor_resources.health.current
+	var sign_reader:=field.active.sign_reader
+	if not require(sign_reader!=null and not sign_reader.hint.visible,"the reading key does not appear at the distant spawn"): return
 	mark("p01_start")
 	await tick(65)
 	if not require(await go(162),"walk out from the registered birthplace"): return
-	await tick(28)
+	await tick(64)
+	mark("p01_read_prompt")
+	if not require(sign_reader.hint.visible and "↑" in sign_reader.hint.text and "W" in sign_reader.hint.text,"the nearby board shows the available reading keys before any interaction"): return
 	await interact()
-	var sign_reader:=field.active.sign_reader
-	if not require(sign_reader!=null and sign_reader.reading and "反冲" in sign_reader.message.text,"the sign teaches the downward shot at the first safe field"): return
+	if not require(sign_reader.reading and "反冲" in sign_reader.message.text,"the sign teaches the downward shot at the first safe field"): return
+	if not require(not sign_reader.hint.visible,"reading the open notice hides its approach prompt"): return
 	await tick(70)
 	var escape:=InputEventKey.new()
 	escape.keycode=KEY_ESCAPE

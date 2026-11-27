@@ -358,6 +358,11 @@ func transfer(edge: String, destination: String) -> void:
 		await _uncover()
 		issue_remaining = 2.5
 		notice.text = "入口暂不可通行。可离开门口，再走回来重试。"
+		if last_error == "passage_requirements_unmet":
+			var door: Dictionary = catalog.lookup("doors",edge).row
+			if door.get("one_way_from") != null and not active.state.has(door.unlock_flag):
+				var latch_side: Dictionary = catalog.lookup("rooms",door.one_way_from).row
+				notice.text = "门闩需要从「%s」一侧开启。" % latch_side.name
 		notice.modulate.a = 1.0
 		notice.show()
 		_lock_session(false)

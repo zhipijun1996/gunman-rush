@@ -1,8 +1,10 @@
 """Bake the recessed rear face and its fungal lip at the authored room scale."""
+import json
 from pathlib import Path
 from random import Random
 
-from PIL import Image, ImageDraw, ImageEnhance, ImageOps
+import numpy as np
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageOps
 
 
 HERE = Path(__file__).resolve().parent
@@ -51,9 +53,6 @@ bracket.save(DEST/'fungal_seam.png',optimize=True)
 
 # Aligned weathering on exposed backs and cliff faces. Masks come from the
 # same solid polygons as the collision and leave the native terrain rims visible.
-import json
-import numpy as np
-from PIL import ImageFilter
 room = json.loads((ROOT/'production/rooms/world/P03.json').read_text())
 left,top = -260,-440
 width,height = 2130,1032
