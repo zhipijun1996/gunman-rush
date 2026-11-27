@@ -33,14 +33,21 @@ jobs:
           set -eu
           sudo chmod 666 /dev/kvm
           mkdir -p build/intro-android/device
-          echo no | "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd --force -n opening -k 'system-images;android-30;google_apis;x86_64' --device pixel_2
+          export ANDROID_USER_HOME="$RUNNER_TEMP/plains-android-user"
+          export ANDROID_EMULATOR_HOME="$ANDROID_USER_HOME"
+          export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"
+          mkdir -p "$ANDROID_AVD_HOME"
+          echo no | "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd --force -n opening --path "$ANDROID_AVD_HOME/opening.avd" -k 'system-images;android-30;google_apis;x86_64' --device pixel_2
+          test -s "$ANDROID_AVD_HOME/opening.avd/config.ini"
+          printf 'avd.ini.encoding=UTF-8\npath=%s\ntarget=android-30\n' "$ANDROID_AVD_HOME/opening.avd" > "$ANDROID_AVD_HOME/opening.ini"
+          "$ANDROID_HOME/emulator/emulator" -list-avds | grep -Fx opening
           nohup "$ANDROID_HOME/emulator/emulator" -avd opening -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect -accel on > build/intro-android/device/emulator.log 2>&1 &
       - name: Build and verify signed production APK
         run: python tools/export_intro_android.py build/intro-android/Plains-review.apk
       - name: Verify ARM64 support, launch and touch
         run: |
           set -eu
-          timeout 280 bash -c 'until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = 1 ]; do sleep 3; done'
+          timeout 280 bash -c 'until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = 1 ]; do sleep 3; done' || { tail -80 build/intro-android/device/emulator.log; exit 1; }
           adb shell wm dismiss-keyguard
           adb shell wm size 540x960
           adb shell settings put global window_animation_scale 0

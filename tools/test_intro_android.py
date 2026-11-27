@@ -43,11 +43,12 @@ def main():
         raise RuntimeError("Device cannot install the locked ARM64 runtime: " + abi)
     print("Android", shell("getprop", "ro.build.version.release"), model, abi, flush=True)
     command("install", "-r", args.apk)
-    command("logcat", "-c")
+    start_second = shell("date", "+%s")
     component = shell("cmd", "package", "resolve-activity", "--brief", PACKAGE).splitlines()[-1]
     if not component.startswith(PACKAGE + "/"):
         raise RuntimeError("Android launcher not found: " + component)
     print(shell("am", "start", "-W", "-n", component), flush=True)
+    pid = shell("pidof", PACKAGE).split()[0]
     try:
         for _ in range(45):
             time.sleep(1)
@@ -130,7 +131,7 @@ def main():
         print(json.dumps(receipt, indent=2),flush=True)
         (evidence / "device.json").write_text(json.dumps(receipt, indent=2)+"\n")
     finally:
-        log = command("logcat", "-d", "-t", "4000")
+        log = command("logcat", "-d", "-T", start_second + ".000", "--pid=" + pid)
         (evidence / "logcat.txt").write_bytes(log)
         errors = [line.decode(errors="replace") for line in log.splitlines()
                   if b"FATAL EXCEPTION" in line or (b"godot" in line.lower() and

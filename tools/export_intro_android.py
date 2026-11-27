@@ -86,7 +86,7 @@ def main():
         run(godot + ["--export-debug", "Opening Android", unsigned], env)
         aligned = base / "aligned.apk"
         run([zipalign, "-f", "-P", "16", "4", unsigned, aligned], env)
-        # A developer-local review key allows later review builds to replace this app.
+        # This machine reuses its debug key. Ephemeral CI runners create independent review certificates.
         key_dir = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share")) / "gunman-review"
         key_dir.mkdir(parents=True, exist_ok=True)
         keystore = key_dir / "android-debug.keystore"
