@@ -17,6 +17,8 @@ var page_host := Control.new()
 var menu: VBoxContainer
 var notice: Label
 var subpage: Control
+var _frame_fit := Callable()
+var _frame_safe := Rect2()
 var _return_page: StringName
 var _map_from_pause := false
 var _focus_history := {}
@@ -49,6 +51,7 @@ func _ready() -> void:
 	show_title()
 
 func _clear(next: StringName) -> void:
+	_frame_fit = Callable()
 	var focus := get_viewport().gui_get_focus_owner()
 	if focus is Button and page_host.is_ancestor_of(focus):
 		_focus_history[page] = str(focus.name)
@@ -93,11 +96,14 @@ func _frame(heading: String, description := "", title := false) -> void:
 	var scroll := ScrollContainer.new()
 	panel.add_child(scroll)
 	var max_width := 360.0 if title else (770.0 if page == &"help" else 520.0)
-	var fit := _layout_frame.bind(margin,scroll,max_width)
-	margin.resized.connect(fit)
-	fit.call()
+	_frame_fit = _layout_frame.bind(margin,scroll,max_width)
+	margin.resized.connect(_frame_fit)
+	_frame_fit.call()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.follow_focus = true
+	var touch_scroll := preload("res://game/presentation/ui/menu_scroll_touch_adapter.gd").new()
+	touch_scroll.scroll = scroll
+	scroll.add_child(touch_scroll)
 	var scroll_touch := SCROLL_TOUCH.new()
 	scroll_touch.scroll = scroll
 	scroll.add_child(scroll_touch)
@@ -110,15 +116,8 @@ func _frame(heading: String, description := "", title := false) -> void:
 
 func _layout_frame(margin: MarginContainer, scroll: ScrollContainer, width: float) -> void:
 	var view := get_viewport().get_visible_rect().size
-	var safe := Rect2(Vector2.ZERO,view)
-	if OS.has_feature("android") or OS.has_feature("ios"):
-		var area := DisplayServer.get_display_safe_area()
-		if area.has_area():
-			var to_canvas := get_viewport().get_screen_transform().affine_inverse()
-			var origin := Vector2(DisplayServer.window_get_position())
-			var start := to_canvas*(Vector2(area.position)-origin)
-			var end := to_canvas*(Vector2(area.end)-origin)
-			safe = Rect2(start,end-start).intersection(safe)
+	var safe := DemoUiModalMetrics.safe_rect(get_viewport())
+	_frame_safe = safe
 	var side := 52 if safe.size.x >= 1000 else 22
 	var top := 42 if safe.size.y >= 650 else 18
 	margin.add_theme_constant_override("margin_left",side+roundi(safe.position.x))
@@ -126,6 +125,11 @@ func _layout_frame(margin: MarginContainer, scroll: ScrollContainer, width: floa
 	margin.add_theme_constant_override("margin_right",side+roundi(view.x-safe.end.x))
 	margin.add_theme_constant_override("margin_bottom",top+roundi(view.y-safe.end.y))
 	scroll.custom_minimum_size = Vector2(clampf(safe.size.x-2*side-48,100,width),clampf(safe.size.y-2*top-54,100,620))
+
+func _process(_delta: float) -> void:
+	if _frame_fit.is_valid() and (OS.has_feature("android") or OS.has_feature("ios")):
+		if _frame_safe != DemoUiModalMetrics.safe_rect(get_viewport()):
+			_frame_fit.call()
 
 func _button(id: String, label: String, callback: Callable, primary := false) -> Button:
 	var button := Button.new()
@@ -331,6 +335,7 @@ func handle_back() -> void:
 			if world.route_map.visible:
 				world.route_map.close()
 			elif world.active.equipment_menu.panel.visible: world.active.equipment_menu.close()
+			elif world.active.content_sites != null and is_instance_valid(world.active.content_sites.menu) and world.active.content_sites.menu.visible_panel(): world.active.content_sites.menu.close()
 			elif world.active.sign_reader != null and world.active.sign_reader.reading: world.active.sign_reader.close()
 			else: open_pause()
 		&"map": world.route_map.close()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://game/player/player_motor.gd" id="1"]
 [ext_resource type="Script" path="res://game/player/player_controller.gd" id="2"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" path="res://assets/characters/courier/courier_visual.tscn" id="12"]
 [ext_resource type="Script" path="res://game/presentation/actors/art/player_visual_adapter.gd" id="13"]
 [ext_resource type="Script" path="res://game/presentation/actors/art/player_feedback.gd" id="14"]
+[ext_resource type="Script" path="res://game/platform/input/gamepad_adapter.gd" id="gamepad"]
 [sub_resource type="RectangleShape2D" id="shape"]
 size = Vector2(24, 36)
 
@@ -52,6 +53,11 @@ actor_resources = NodePath("../ActorResources")
 [node name="KeyboardMouseAdapter" type="Node" parent="." node_paths=PackedStringArray("router")]
 script = ExtResource("5")
 router = NodePath("../InputRouter")
+[node name="GamepadAdapter" type="Node" parent="." node_paths=PackedStringArray("router", "aim_origin")]
+script = ExtResource("gamepad")
+router = NodePath("../InputRouter")
+aim_origin = NodePath("..")
+
 [node name="PlayerVisualAdapter" type="Node" parent="." node_paths=PackedStringArray("motor", "controller", "visual")]
 script = ExtResource("13")
 motor = NodePath("..")
