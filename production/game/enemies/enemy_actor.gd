@@ -8,6 +8,7 @@ signal defeated(actor: EnemyActor)
 @export var damageable: Damageable
 var health := HealthState.new()
 var attack_behavior: EnemyAttackBehavior
+var encounter_lifetime: DemoLifetime
 var _stagger_remaining := 0.0
 var _stagger_cooldown := 0.0
 var _spawn := Vector2.ZERO
@@ -76,7 +77,7 @@ func _physics_process(delta: float) -> void:
 	physics_tick(delta)
 
 func physics_tick(delta: float) -> void:
-	if health.terminal:
+	if health.terminal or (encounter_lifetime != null and not encounter_lifetime.active):
 		return
 	delta*=damageable.action_time_scale()
 	if delta <= 0: return
@@ -130,6 +131,7 @@ func _on_death() -> void:
 	defeated.emit(self)
 
 func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:
+	encounter_lifetime = scope
 	motor.add_collision_exception_with(target.motor)
 	target.motor.add_collision_exception_with(motor)
 	if definition.behavior_id == &"patrol" or attack_behavior != null: return

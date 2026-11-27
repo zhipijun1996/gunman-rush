@@ -110,13 +110,23 @@ static func build(room: FixedWorldRoom) -> void:
 		room.recovery_markers[anchor.id] = marker
 
 
+# Some placements and older saves use player-height references. Preserve x and
+# settle the actual enemy sole only when it already lies near a platform top.
+static func _settled_enemy_point(room: FixedWorldRoom, definition: EnemyDefinition, point: Vector2) -> Vector2:
+	if definition.aerial: return point
+	var half_height := definition.collision_size.y*.5
+	for surface: Rect2 in room.platforms:
+		if absf(point.y+half_height-surface.position.y)<=8 and point.x>=surface.position.x and point.x<=surface.end.x:
+			return Vector2(point.x,surface.position.y-half_height)
+	return point
+
+
 static func spawn_enemy(room: FixedWorldRoom, placement: Dictionary,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime,saved: Dictionary,entry_anchor: Vector2) -> EnemyActor:
 	var id := str(placement.id)
 	# Practice targets always return to their authored perch, including old saves
 	# that recorded a former combat flyer under the same placement identity.
 	if str(placement.behavior) == "chime_target": saved = {}
 	var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
-	body.position = FixedWorldProvider.point(saved.get("position",placement.point))
 	var actor := body.get_node("Actor") as EnemyActor
 	body.ground_recovery_enabled=true
 	actor.set_meta(&"world_persistent_corpse",true)
@@ -124,15 +134,12 @@ static func spawn_enemy(room: FixedWorldRoom, placement: Dictionary,controller: 
 		actor.definition=actor.definition.duplicate(true) as EnemyDefinition
 		actor.definition.health_definition.max_health=float(placement.max_health)
 		actor.definition.health_definition.initial_current=float(placement.max_health)
-	# Authored points and older saves can use player-height references; settle the actual enemy sole
-	# onto its nearby authored platform before home/AI/visual anchors are bound.
-	if not actor.definition.aerial:
-		var sole := body.position.y + actor.definition.collision_size.y*.5
-		for surface: Rect2 in room.platforms:
-			if absf(surface.position.y-sole)<=8 and body.position.x>=surface.position.x and body.position.x<=surface.end.x:
-				body.position.y=surface.position.y-actor.definition.collision_size.y*.5
-				break
+	# _ready binds the patrol's home. The persisted motor position describes
+	# where its current trip resumes, even after several visits to this room.
+	body.position = _settled_enemy_point(room,actor.definition,FixedWorldProvider.point(placement.point))
 	room.add_child(body)
+	if saved.has("position"):
+		body.position = _settled_enemy_point(room,actor.definition,FixedWorldProvider.point(saved.position))
 	EnemyPresentationBinding.replace(actor,&"underworld")
 	policy.bind_damageable(StringName(id),actor.damageable,actor.health)
 	actor.bind_encounter(controller,policy,lifetime,StringName(id),[entry_anchor])

@@ -70,7 +70,7 @@ func check_door_channels() -> void:
 
 func check_arrival_state() -> void:
 	var catalog := WorldContentCatalog.new()
-	check(catalog.load_locked().ok, "load world for doorway save")
+	check(catalog.load_locked().ok and catalog.load_bindings("res://config/imported_world/bindings.json").ok, "load world and species bindings for doorway save")
 	var store := TestStore.new()
 	var origin := OrdinaryRoomSession.new()
 	root.add_child(origin)
@@ -101,10 +101,53 @@ func check_arrival_state() -> void:
 	await restored.audio_service.shutdown()
 	restored.free()
 
+func check_live_patrol_revisits(doc: Dictionary) -> void:
+	var side := doc.duplicate(true)
+	side.room_id = "patrol-return-check"
+	side.entities.erase("patrol")
+	var current := OrdinaryRoomSession.new()
+	root.add_child(current)
+	check(current.open(doc).is_empty(),"open patrol fixture")
+	var actor: EnemyActor = current.room.enemies.patrol
+	var origin_x := actor.motor.global_position.x
+	var radius := actor.definition.patrol_half_width
+	actor.restore_instance_health(.5)
+	# Leave partway through one rightward and one leftward trip.
+	for facing: int in [1,-1]:
+		for i: int in 240:
+			await physics_frame
+			if actor.brain.direction==facing and (actor.motor.global_position.x-origin_x)*facing>radius*.4:
+				break
+		await process_frame
+		var position := actor.motor.global_position
+		check(actor.brain.direction==facing and absf(position.x-origin_x)>radius*.4,"patrol moves away from authored origin before saving")
+		var away := OrdinaryRoomSession.new()
+		root.add_child(away)
+		check(away.open(side,null,current).is_empty(),"visit adjacent room with moving enemy")
+		await ticks(2)
+		await process_frame
+		current = OrdinaryRoomSession.new()
+		root.add_child(current)
+		check(current.open(doc,null,away).is_empty(),"revisit patrol room")
+		actor = current.room.enemies.patrol
+		check(actor.motor.global_position.is_equal_approx(position) and actor.brain.direction==facing and actor.health.current==.5,
+				"revisit restores exact live position, direction and remaining health")
+		var edge := position.x
+		for i: int in 210:
+			await physics_frame
+			var x := actor.motor.global_position.x
+			edge = maxf(edge,x) if facing>0 else minf(edge,x)
+			if actor.brain.direction!=facing: break
+		check(absf(edge-(origin_x+facing*radius))<.1,"revisited patrol turns at authored boundary; x="+str(edge))
+	await current.audio_service.shutdown()
+	current.free()
+
+
 func run() -> void:
 	check_door_channels()
 	await check_arrival_state()
 	var doc := WorldRoomDocument.read("res://tests/assembly_room.json")
+	await check_live_patrol_revisits(doc)
 	await check_spike_materials(doc)
 	var store := TestStore.new()
 	var session := OrdinaryRoomSession.new()

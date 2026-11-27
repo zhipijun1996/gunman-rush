@@ -271,9 +271,10 @@ func shaft_motion(id: String, edge: String) -> void:
 	await frames(2)
 
 func run() -> void:
-	var locked:=catalog.load_locked()
-	expect(locked.ok,"locked world model")
-	if locked.ok:
+	var loaded := catalog.load_locked()
+	if loaded.ok: loaded = catalog.load_bindings("res://config/imported_world/bindings.json")
+	expect(loaded.ok,"locked world model and current species bindings")
+	if loaded.ok:
 		for id: String in LANDINGS: await route(id)
 		await p16()
 		await paired_sections()

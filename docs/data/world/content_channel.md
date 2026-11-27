@@ -102,7 +102,7 @@ production/config/imported_world/
 
 绑定的键为内容房间ID，目标文档必须为 schema 3 且 `room_id` 相同。用于验证的绑定使用 `status: integration_test`，只有显式允许测试绑定时可用。测试房不会自动成为正式地图。
 
-物种绑定使用 `definition_id`，例如 `enemy.patrol`；内容物种身份与显示名称分开。房内具体实例继续由 schema 3 数据摆放，文档的 `content_bindings.enemy_instances` 将实例ID映射为 `{species_id, drop_profile_id}`。接入桥核对实例实机定义、物种身份与掉落档案的物种一致性。该映射不引用规划敌群，不把宏观敌群锚点当成实机出生点。
+田埂小虫的世界物种绑定到 `enemy.patrol`，P02 的房内实例引用该物种及其基础掉落档案。物种身份与显示名称分开。房内具体实例继续由 schema 3 数据摆放，文档的 `content_bindings.enemy_instances` 将实例ID映射为 `{species_id, drop_profile_id}`。接入桥核对实例实机定义、物种身份与掉落档案的物种一致性。该映射不引用规划敌群，不把宏观敌群锚点当成实机出生点。
 
 掉落档案提供稳定的 `id`、`species_id`、`tier` 和 `coin_each`。规划敌群的每个敌人项通过 `drop_profile_id` 引用同一档案，其数量和总收益仍用于设计估算。房间可以使用任意已登记且绑定到正确实机定义的物种及其档案；增加新物种或新经济档位时明确增加内容定义，不从显示名称或金币数临时推断身份。实际布怪数量与估算的差异可以报告给设计者，不作为装载门槛。
 

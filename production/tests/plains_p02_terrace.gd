@@ -299,6 +299,84 @@ func grass_opacity(at: Vector2) -> float:
 	var amount := image.get_pixelv(Vector2i(uv * Vector2(image.get_size()))).r
 	return alpha * lerpf(1.0, cover.revealed_alpha, amount)
 
+func encounter_frame(label: String) -> void:
+	print("ENCOUNTER ",label," ",Engine.get_process_frames()," ",host.active.room.room_id," ",host.active.player.position)
+
+func shoot_grub(actor: EnemyActor, x: float) -> bool:
+	var knocked_back := false
+	for i: int in 6:
+		if actor.health.terminal or not await walk(x): break
+		var aim := (actor.motor.global_position-host.active.player.global_position+Vector2(0,5)).normalized()
+		host.active.controller.router.request_action(&"shoot_release",aim)
+		for tick: int in 29:
+			await ticks(1)
+			if actor.health.current<actor.health.capacity and -actor.motor.velocity.x>actor.definition.patrol_speed+1:
+				knocked_back=true
+	return knocked_back
+
+func encounter_route() -> void:
+	var insects := host.active.room.enemies
+	if not insects.has("east_road_grub") or not insects.has("grass_verge_grub"):
+		check(false,"both authored field patrols are present"); return
+	var west: EnemyActor = insects.grass_verge_grub
+	var east: EnemyActor = insects.east_road_grub
+	var hp := host.active.controller.actor_resources.health.current
+	check(not west.health.terminal and not east.health.terminal and insects.size()==2,"only the two live ground patrols occupy this field")
+	check(await walk(459) and await stand(558),"reach the grass lane without a forced battle")
+	check(await walk(307) and await stand(558),"stand on the rooted right bank with a clear shot")
+	encounter_frame("west")
+	await ticks(35)
+	check(await shoot_grub(west,307),"a surviving west grub recoils faster than its ordinary patrol along the supported ground")
+	check(west.health.terminal and not east.health.terminal,"real projectiles defeat the grass patrol independently")
+	encounter_frame("west_clear")
+	if not west.health.terminal: return
+	# A normal recoil jump crosses the shaft to the optional field verge for the physical drop.
+	check(await walk(404),"reach the westward launch")
+	host.active.controller.router.set_move_axis(-1)
+	jump()
+	await ticks(5)
+	host.active.controller.router.request_action(&"shoot_release",Vector2(1,.15).normalized())
+	check(await walk(140),"cross the grass opening to the optional bank")
+	release_jump()
+	check(await stand(590),"land safely on the defeated patrol's verge")
+	check(await walk(20) and await walk(155),"walk along the verge and back to collect the dropped coin")
+	var reward: int=host.active.content_enemy_gold.grass_verge_grub
+	check(host.active.services.ledger().gold==reward,"physical collection credits the grass patrol's authored coin value once")
+	encounter_frame("west_loot")
+	check(await walk(240) and await cross("P16",0) and await stand(270),"hidden lower passage opens with the east patrol still alive")
+	jump()
+	check(await cross("P02",0) and await stand(714),"return to the supported grass shelf")
+	release_jump()
+	check(host.active.room.enemies.grass_verge_grub.health.terminal and not host.active.room.enemies.east_road_grub.health.terminal and host.active.services.ledger().gold==reward,"the distinct defeated and live patrol states and payment survive the return")
+	await climb_recess(281,-1,304,636,4,7,"return to the middle grass step")
+	await climb_recess(281,-1,306,558,4,7,"regain the grass bank")
+	check(await walk(459),"reach western retry step")
+	await climb(508,462,"western return")
+	await climb(404,366,"western launch")
+	check(await walk(426),"approach the teaching jump")
+	await recoil_cross(1,817)
+	check(await walk(962),"reach the upper route")
+	await plain_cross(1,1240,398)
+	east=host.active.room.enemies.east_road_grub
+	check(await walk(1300) and await stand(398),"stand on wide field road outside the east patrol")
+	encounter_frame("east_approach")
+	for i: int in 280:
+		if east.motor.position.x-host.active.player.position.x<108 and east.brain.direction<0: break
+		await ticks(1)
+	encounter_frame("east")
+	var before:=shots
+	host.active.controller.router.set_move_axis(1)
+	jump()
+	await ticks(45)
+	release_jump()
+	check(await walk(1605) and await stand(398) and shots==before and not east.health.terminal,"ordinary jump passes the oncoming east patrol with a safe landing")
+	encounter_frame("east_clear")
+	check(host.active.controller.actor_resources.health.current==hp,"the optional battle and the vault both leave player health intact")
+	check(await cross("P03",1) and await stand(270),"east gate admits a player with the enemy alive")
+	check(await cross("P02",-1) and await stand(398),"actual east door returns to the road")
+	check(host.active.room.enemies.grass_verge_grub.health.terminal and not host.active.room.enemies.east_road_grub.health.terminal and host.active.services.ledger().gold==reward,"crossing the road twice creates no repeat kill or payout")
+	encounter_frame("end")
+
 func run() -> void:
 	film = "--film" in OS.get_cmdline_user_args()
 	host = SCENE.instantiate()
@@ -314,6 +392,13 @@ func run() -> void:
 	check(host.active.room.room_id=="P01" and await stand(270),"start inside the P01 receiving passage")
 	await mark("p01_approach")
 	check(await cross("P02",1) and await stand(366),"actually enter P02 from the west")
+	if "--encounters" in OS.get_cmdline_user_args():
+		await encounter_route()
+		print("P02 ENCOUNTERS failures=",failures," checks=",checks)
+		await host.active.audio_service.shutdown()
+		host.free()
+		quit(1 if failures else 0)
+		return
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--overview="):
 			await overview(arg.trim_prefix("--overview="))
@@ -437,6 +522,14 @@ func run() -> void:
 		check(completed.size()==8,"all four paired doors audited in both directions")
 		await alternate_crossing()
 		await refused_and_held_input()
+		await host.active.audio_service.shutdown()
+		host.free()
+		host = SCENE.instantiate()
+		root.add_child(host)
+		host.room_changed.connect(connect_shots)
+		await ticks(8)
+		check(await cross("P02",1),"enter the encounter route on a fresh save")
+		await encounter_route()
 
 	print("P02 TERRACE failures=",failures," checks=",checks," frames=",frame)
 	await host.active.audio_service.shutdown()

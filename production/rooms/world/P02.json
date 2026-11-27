@@ -48,7 +48,7 @@
     "introduce": "走过出生草坡接入段，在西田埂先读出断口和同高钟架落点。",
     "practice": "从西岸朝东跑跳，空中向左后方射击。未过断口会落到能走回的沟底。",
     "check": "从西岸完成反冲并站稳东岸，钟响一次。钟架后可普通跳直达东田，或下到井口前选择进田渠。",
-    "retry": "未落上钟台可沿西岸田阶回到发射线。沟底东侧的草幕可走近查看，沿根间落口进入藏物窝；返回时从土壁凹阶跳回原路。"
+    "retry": "未落上钟台可沿西岸田阶回到发射线。沟底西侧的草幕可走近查看，沿根间落口进入藏物窝；返回时从土壁凹阶跳回原路。"
   },
   "exits": {
     "d001": {
@@ -560,6 +560,28 @@
         "fade_out_s": 0.12,
         "restore_s": 0.32
       }
+    },
+    "grass_verge_grub": {
+      "id": "grass_verge_grub",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          60,
+          592
+        ]
+      }
+    },
+    "east_road_grub": {
+      "id": "east_road_grub",
+      "definition_id": "enemy.patrol",
+      "definition_version": 1,
+      "properties": {
+        "point": [
+          1448,
+          400
+        ]
+      }
     }
   },
   "actions": [
@@ -571,5 +593,17 @@
         "discover_p02_low_slope"
       ]
     }
-  ]
+  ],
+  "content_bindings": {
+    "enemy_instances": {
+      "grass_verge_grub": {
+        "species_id": "species.2411e8295a35",
+        "drop_profile_id": "drop.2411e8295a35.t0"
+      },
+      "east_road_grub": {
+        "species_id": "species.2411e8295a35",
+        "drop_profile_id": "drop.2411e8295a35.t0"
+      }
+    }
+  }
 }
