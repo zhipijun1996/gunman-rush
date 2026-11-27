@@ -6,6 +6,9 @@ extends RefCounted
 # remains in its Manifest; only the finite resolver selects retained bytes.
 const CHARGER_V2_REVISION := "1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0"
 const BEHAVIORS := {
+	&"clock_regulator": {"family":&"machine", "script":"res://game/bosses/machines/machine_behavior.gd", "definition":"res://resources/enemies/clock_regulator.tres", "scene":"res://game/bosses/machines/clock_regulator.tscn"},
+	&"traction_engine": {"family":&"machine", "script":"res://game/bosses/machines/machine_behavior.gd", "definition":"res://resources/enemies/traction_engine.tres", "scene":"res://game/bosses/machines/traction_engine.tscn"},
+	&"gear_overseer": {"family":&"machine", "script":"res://game/bosses/machines/machine_behavior.gd", "definition":"res://resources/enemies/gear_overseer.tres", "scene":"res://game/bosses/machines/gear_overseer.tscn"},
 	&"chime_target": {"family":&"base", "script":"res://game/enemies/behaviors/chime_target_behavior.gd", "definition":"res://resources/enemies/chime_target.tres", "scene":"res://game/enemies/scenes/chime_target.tscn"},
 	&"patrol": {"family":&"base", "script":"", "definition":"res://resources/enemies/patrol_drone.tres", "scene":"res://game/enemies/scenes/patrol_drone.tscn"},
 	&"charger": {"strategy":"res://game/enemies/behaviors/charger_attack_strategy.gd", "family":&"base", "script":"res://game/enemies/behaviors/enemy_attack_behavior.gd", "definition":"res://resources/enemies/plains_charger.tres", "revisions":{CHARGER_V2_REVISION:"res://resources/enemies/legacy/plains_charger_v2.tres"}, "scene":"res://game/enemies/scenes/patrol_drone.tscn"},

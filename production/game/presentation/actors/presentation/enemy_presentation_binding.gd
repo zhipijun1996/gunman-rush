@@ -9,6 +9,9 @@ const RENDERERS := {
 	&"underworld": "res://game/presentation/actors/underworld_plains/underworld_enemy.gd"
 }
 const BODY_KEYS := {
+	&"clock_regulator": &"clock_regulator",
+	&"traction_engine": &"traction_engine",
+	&"gear_overseer": &"gear_overseer",
 	&"chime_target": &"chime_target",
 	&"patrol": &"patrol", &"charger": &"charger", &"diver": &"aerial",
 	&"hopper": &"hopper", &"sentry": &"sentry", &"fan_sentry": &"aerial", &"ground_fan_sentry": &"sentry",
@@ -69,7 +72,7 @@ static func view(host: Node) -> Dictionary:
 static func replace(actor: Node, profile: StringName) -> bool:
 	if actor == null or not RENDERERS.has(profile): return false
 	var motor: Node = actor.motor
-	if actor.definition.behavior_id == &"chime_target":
+	if EnemyBehaviorRegistry.validation_family(actor.definition.behavior_id) == &"machine" or actor.definition.behavior_id == &"chime_target":
 		bind_existing(actor,motor.get_node("Presentation"),profile)
 		return false
 	var old := motor.get_node_or_null("Presentation")
