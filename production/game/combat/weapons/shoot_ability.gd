@@ -21,6 +21,7 @@ var _projectiles: Array[PlayerProjectile] = []
 var weapon: WeaponDefinition = preload("res://resources/weapons/pulse_gun.tres")
 var weapon_epoch := 0
 var packet_id := 0
+var packet_base_damage := 0.0
 var last_muzzle := Vector2.ZERO
 var rounds_remaining := 0
 var packet_direction := Vector2.RIGHT
@@ -86,6 +87,7 @@ func try_fire(direction: Vector2, grounded: bool) -> bool:
 		shot_rejected.emit(&"empty")
 		return false
 	packet_direction = controller.item_runtime.scene.direction(direction.normalized(),tuning.projectile_range * item_range_multiplier()) if controller.item_runtime != null else direction.normalized()
+	packet_base_damage = tuning.projectile_damage
 	packet_id = _shot_serial + 1
 	_packet_session = controller.session_id
 	_packet_grounded=grounded
@@ -127,7 +129,7 @@ func _emit_round(aim: Vector2, grounded: bool) -> void:
 	projectile.direction = aim
 	projectile.speed = tuning.projectile_speed
 	projectile.radius = tuning.projectile_radius
-	projectile.damage = tuning.projectile_damage * (0.5 if weapon.rounds == 3 else 1.0)
+	projectile.damage = packet_base_damage * (0.5 if weapon.rounds == 3 else 1.0)
 	projectile.base_lifetime = tuning.projectile_lifetime
 	projectile.lifetime = tuning.projectile_lifetime * item_range_multiplier()
 	projectile.max_distance=tuning.projectile_range*item_range_multiplier()
@@ -174,6 +176,7 @@ func reserve_packet(direction: Vector2, grounded: bool, skill: bool = false) -> 
 	if not enabled or not controller.active or cooldown_remaining>0 or rounds_remaining>0:return false
 	if controller.shot_energy!=null and not controller.shot_energy.can_fire():shot_rejected.emit(&"energy");return false
 	if not resources.try_consume_shot(grounded):shot_rejected.emit(&"empty");return false
+	packet_base_damage=tuning.projectile_damage
 	_shot_serial+=1;packet_id=_shot_serial;_packet_session=controller.session_id;packet_direction=direction
 	if controller.shot_energy!=null and not controller.shot_energy.consume(packet_id):return false
 	cooldown_remaining=tuning.shot_cooldown * item_cooldown_multiplier()
@@ -188,7 +191,7 @@ func emit_special_projectile(aim: Vector2, skill: bool, art_kind: StringName, so
 	projectile.shot_id=_shot_serial;projectile.energy_receipt_id=packet_id;projectile.owner_id=controller.motor.get_instance_id();projectile.session_id=controller.session_id
 	projectile.weapon_epoch=weapon_epoch
 	projectile.owner_controller=controller;projectile.owner_body=controller.motor;projectile.fired_airborne=not controller.motor.is_on_floor()
-	projectile.direction=aim;projectile.speed=definition.projectile_speed;projectile.damage=(definition.skill_damage if skill else definition.damage)*tuning.projectile_damage;projectile.lifetime=definition.range_limit/definition.projectile_speed
+	projectile.direction=aim;projectile.speed=definition.projectile_speed;projectile.damage=(definition.skill_damage if skill else definition.damage)*packet_base_damage;projectile.lifetime=definition.range_limit/definition.projectile_speed
 	projectile.art_kind=art_kind;projectile.skill_attack=skill;projectile.radius=5 if art_kind==&"blade" else tuning.projectile_radius
 	if art_kind==&"ice":
 		projectile.pierce_enemies=true;projectile.pierced_damage_ratio=1.0

@@ -35,6 +35,13 @@ func install(host: OrdinaryRoomSession, doc: Dictionary) -> void:
 			# Existing receipt IDs and visuals for these placed pickups remain authoritative.
 			if doc.has("scenery") and (table=="coin_caches" or row.get("reward_kind") in ["lost_gear","health_fragment"]): continue
 			add_site(row,table,sites[row.id])
+	# The traveling smith has a second, explicitly authorized encounter on G08's upper catwalk.
+	if sites.has("smith") and not rows.has("smith"):
+		var smith:=host.content_catalog.lookup("events","smith")
+		if smith.ok:
+			for place: Dictionary in smith.row.interaction_sites:
+				if place.room==doc.room_id and host.room.section_at(FixedWorldProvider.point(sites.smith.at))==place.zone:
+					add_site(smith.row,"events",sites.smith)
 	for station: Dictionary in host.content_catalog.object("transport").value.stations:
 		if station.room==host.room.room_id and sites.has(station.id): add_site(station,"stations",sites[station.id])
 	for id: String in npc_events:
@@ -68,7 +75,7 @@ func add_site(row: Dictionary, kind: String, site: Dictionary) -> void:
 	mark.position=positions[row.id]+Vector2(0,18)
 	add_child(mark)
 	markers[row.id]=mark
-	if kind=="npcs":
+	if kind=="npcs" or (row.id=="smith" and session.room.room_id=="G08"):
 		var npc:=Sprite2D.new()
 		npc.texture=UnderworldActors.icon_texture(&"merchant")
 		UnderworldActors.place_humanoid(npc,Vector2.ZERO)
@@ -176,6 +183,8 @@ func interact_site(id: String) -> void:
 	var row: Dictionary=rows[id].data
 	if not eligible(row):
 		menu.notice(title(row),"条件尚未满足。")
+	elif id=="smith" and done(id) and workshop_here(id):
+		menu.workshop(id)
 	elif rows[id].kind=="stations":
 		if not done(id) and not claim(id,session.state.revision):
 			menu.notice(title(row),"站钟暂未记下，请重试。")
@@ -270,6 +279,14 @@ func confirm_ending(site_id: String, id: String, revision: int) -> bool:
 		GameAudio.cue_committed_reward(self,&"item_get",&"confirm")
 		return true
 	return false
+
+func workshop_here(id: String) -> bool:
+	if not near(id) or not eligible(rows[id].data): return false
+	var room_id:=session.room.room_id
+	if room_id not in session.weapon_growth.workshop_rooms: return false
+	var zone: String=session.weapon_growth.workshop_zones.get(room_id,"")
+	if not zone.is_empty() and session.room.section_at(session.player.position)!=zone: return false
+	return id=="smith" or (rows[id].kind=="npcs" and "equipment_upgrade" in rows[id].data.services)
 
 func smith_available() -> bool:
 	for id: String in positions:

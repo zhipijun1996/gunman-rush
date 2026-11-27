@@ -88,7 +88,7 @@ func _phase(value: StringName) -> void:
 	elif value==&"singularity":
 		_sound(&"blackhole_start","blackhole_start/%s/%s" % [_epoch,packet],11)
 		_loop(&"blackhole_loop")
-	elif value==&"charge" and (controller.shoot_ability.weapon.mode==WeaponDefinition.Mode.LASER or controller.shoot_ability.weapon.branch==&"ice"):
+	elif value==&"shared_ice" or (value==&"charge" and (controller.shoot_ability.weapon.mode==WeaponDefinition.Mode.LASER or controller.shoot_ability.weapon.branch==&"ice")):
 		_sound(&"ion_start","charge/%s/%s" % [_epoch,packet],13,true)
 	if value==&"idle" and _previous_phase==&"beam":
 		_sound(&"ion_tail","ion_tail/%s/%s" % [_epoch,packet],15)

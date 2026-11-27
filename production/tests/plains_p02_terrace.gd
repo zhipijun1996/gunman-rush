@@ -302,18 +302,6 @@ func grass_opacity(at: Vector2) -> float:
 func encounter_frame(label: String) -> void:
 	print("ENCOUNTER ",label," ",Engine.get_process_frames()," ",host.active.room.room_id," ",host.active.player.position)
 
-func shoot_grub(actor: EnemyActor, x: float) -> bool:
-	var knocked_back := false
-	for i: int in 6:
-		if actor.health.terminal or not await walk(x): break
-		var aim := (actor.motor.global_position-host.active.player.global_position+Vector2(0,5)).normalized()
-		host.active.controller.router.request_action(&"shoot_release",aim)
-		for tick: int in 29:
-			await ticks(1)
-			if actor.health.current<actor.health.capacity and -actor.motor.velocity.x>actor.definition.patrol_speed+1:
-				knocked_back=true
-	return knocked_back
-
 func encounter_route() -> void:
 	var insects := host.active.room.enemies
 	if not insects.has("east_road_grub") or not insects.has("grass_verge_grub"):
@@ -326,7 +314,11 @@ func encounter_route() -> void:
 	check(await walk(307) and await stand(558),"stand on the rooted right bank with a clear shot")
 	encounter_frame("west")
 	await ticks(35)
-	check(await shoot_grub(west,307),"a surviving west grub recoils faster than its ordinary patrol along the supported ground")
+	var first_shot:=shots
+	var aim:=(west.motor.global_position-host.active.player.global_position+Vector2(0,5)).normalized()
+	host.active.controller.router.request_action(&"shoot_release",aim)
+	await ticks(29)
+	check(shots==first_shot+1 and west.health.terminal and west.health.capacity<=host.active.player.tuning.projectile_damage,"one ordinary starting shot defeats the optional west grub")
 	check(west.health.terminal and not east.health.terminal,"real projectiles defeat the grass patrol independently")
 	encounter_frame("west_clear")
 	if not west.health.terminal: return

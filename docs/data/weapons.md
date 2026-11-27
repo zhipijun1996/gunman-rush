@@ -1,10 +1,10 @@
 # 武器与技能
 
-同一时刻使用一种武器家族及其当前分支。武器本体、攻击等级、六种分支与两枚共用技能芯永久保存；NPC安装与材料拾取分开，成长规则见 [永久成长](../bible/rewards_and_builds.md)。现有Lv.3动作可复用，旧阶段演进授予尚待替换。射击、空中瞄准慢时和共鸣分别遵守 [资源合同](../bible/combat_and_recharge.md)。
+同一时刻使用一种武器家族及其当前分支。武器本体、攻击等级、六种分支与两枚共用技能芯永久保存；NPC安装与材料拾取分开，成长规则见 [永久成长](../bible/rewards_and_builds.md)。G08 的上层检修台、G12 和 Y11 接受合金与技能芯，六个分支在 G12 逐件锻造。射击、空中瞄准慢时和共鸣分别遵守 [资源合同](../bible/combat_and_recharge.md)。
 
 ## 完整攻击预算
 
-已确认：一枪为一次完整攻击。三连三弹合计、激光一次有限射线预算均为同档普通枪B的1.5倍，不是每弹/每tick各1.5B；小数精度不逐弹上取整。发射时长与节奏待实际动作校准，不靠延长照射抵消倍率。重做版基础弹伤害取自[人物调校](../../production/config/player_tuning.json)的 `projectile_damage`，武器与装备再结算各自倍率。冻结版首环采用的[试制档位](../../config/world/player.json)随原工程保留。
+已确认：一枪为一次完整攻击。三连三弹合计、激光一次有限射线预算均为同档普通枪B的1.5倍，不是每弹/每tick各1.5B；小数精度不逐弹上取整。发射时长与节奏待实际动作校准，不靠延长照射抵消倍率。正式世界从[锁定世界包](../../production/config/imported_world/current.lock.json)的 `growth.shared_attack` 将当前档写入该玩家的调校，武器与装备再结算各自倍率。独立运动夹具仍用默认人物调校。冻结版首环采用的[试制档位](../../config/world/player.json)随原工程保留。
 
 ## 攻击与移动
 
@@ -19,24 +19,24 @@
 
 ### 普通枪主动技能：冰弹
 
-冻结平原中，武器匠免费安装技能素材后，普通枪保留原单发普攻，并开放独立主动技能「冰弹」。冰弹复用现有技能键和主瞄准，作为独立主动大招：短暂屈身聚能，冰晶向枪口收拢，随后释放宽体冰晶贯穿弹，伴随发射展开环、晶体尾流和碎冰命中。蓄势与发射使用已校准同体动作帧，不旋转或放大整个人物。蓄势不冻结角色物理，换房、死亡与取消不遗留蓄能或延迟发射。弹丸贯穿敌人，同一目标每弹只结算一次，不因穿透衰减；实体墙和不接受伤害的实体护甲仍截止。一次命中造成当前普通枪完整单发伤害的3倍；只有实际伤害提交后，存活敌人才出现明亮的蓝色霜层并减速。重复命中刷新时长，不叠乘减速；到期、死亡或重置清除，暂停不计时。
+正式世界中，第一枚共用技能芯安装后，冰弹可随三类武器使用，当前普攻保持原分支。第二枚芯安装后，已铸分支使用各自的终招，基础本体继续使用冰弹。P18 调律台发放的共鸣脉冲在使用技能芯之前提供独立的主动攻击。冰弹复用现有技能键和主瞄准，作为独立主动大招：短暂屈身聚能，冰晶向枪口收拢，随后释放宽体冰晶贯穿弹，伴随发射展开环、晶体尾流和碎冰命中。蓄势与发射使用已校准同体动作帧，不旋转或放大整个人物。蓄势不冻结角色物理，换房、死亡与取消不遗留蓄能或延迟发射。弹丸贯穿敌人，同一目标每弹只结算一次，不因穿透衰减；实体墙和不接受伤害的实体护甲仍截止。一次命中造成当前普通枪完整单发伤害的3倍；只有实际伤害提交后，存活敌人才出现明亮的蓝色霜层并减速。重复命中刷新时长，不叠乘减速；到期、死亡或重置清除，暂停不计时。
 
-消耗、技能冷却、减速比例和持续时间唯一归 [冰弹定义](../../resources/weapons/pulse_ice.tres)。技能沿已有弹药、共鸣和反冲规则，技能伤害不自充共鸣；普通射击与空中命中补弹保持原行为。空中命中恢复一发空中弹药，不清空射击冷却，教程不得把两者混称。敌人行动按同一减速时钟推进，已射出的弹丸保持原速度；减速不是定身。
+消耗、技能冷却、减速比例和持续时间唯一归 [冰弹定义](../../production/resources/weapons/pulse_ice.tres)。技能沿已有弹药、共鸣和反冲规则，技能伤害不自充共鸣；普通射击与空中命中补弹保持原行为。空中命中恢复一发空中弹药，不清空射击冷却，教程不得把两者混称。敌人行动按同一减速时钟推进，已射出的弹丸保持原速度；减速不是定身。
 
 ### 三级主动技能
 
-下列技能已有动作实现，可在动作练习中选择；正式演进授予和全分支平衡仍按 [当前状态](../project/current_state.md) 判断。三级普通攻击沿对应二级分支，技能独立消耗共鸣并有冷却，技能伤害不自充共鸣。
+两枚技能芯都安装后，玩家可以在武器选择器切换已拥有并锻好的分支，在下一次使用技能键时释放对应终招。三级普通攻击沿对应二级分支，技能独立消耗共鸣并有冷却，技能伤害不自充共鸣。
 
 | 分支／技能 | 玩家感知的行为 | 数值配置 |
 | --- | --- | --- |
-| 三连机关枪／弹幕风暴 | 蓄力后连续发出多轮扇状弹幕，发射过程伴随反向推进，需规划持续出手后的落点 | [machine_storm](../../resources/weapons/machine_storm.tres) |
-| 恒流激光枪／日晷贯穿炮 | 蓄力后瞬间发出贯穿敌人的炮击并反向爆发位移；实体墙仍截止，区别于持续激光普攻 | [laser_cannon](../../resources/weapons/laser_cannon.tres) |
-| 散华手里剑／千刃绽放 | 向更宽扇面出刃并完成强化反向瞬闪，不追加普通散华的延迟二闪 | [blade_bloom](../../resources/weapons/blade_bloom.tres) |
-| 遥控回旋刃／噬月回刃 | 保留控刃、受阻与真实接刃，主动召回接住时产生强化第二段位移；未接住不凭空位移 | [moon_boomerang](../../resources/weapons/moon_boomerang.tres) |
-| 磁吸遥爆雷／磁暴猎杀雷 | 投出可附着的强化磁雷，可遥爆并在合法邻近目标间连锁；借爆仍受距离和遮挡限制 | [magnetic_storm](../../resources/weapons/magnetic_storm.tres) |
-| 坍缩奇点／吞星坍缩 | 在当前位置保持有限固定与扩大牵引，结束爆发并沿选择方向弹射；不能无限延长固定 | [star_collapse](../../resources/weapons/star_collapse.tres) |
+| 三连机关枪／弹幕风暴 | 蓄力后连续发出多轮扇状弹幕，发射过程伴随反向推进，需规划持续出手后的落点 | [machine_storm](../../production/resources/weapons/machine_storm.tres) |
+| 恒流激光枪／日晷贯穿炮 | 蓄力后瞬间发出贯穿敌人的炮击并反向爆发位移；实体墙仍截止，区别于持续激光普攻 | [laser_cannon](../../production/resources/weapons/laser_cannon.tres) |
+| 散华手里剑／千刃绽放 | 向更宽扇面出刃并完成强化反向瞬闪，不追加普通散华的延迟二闪 | [blade_bloom](../../production/resources/weapons/blade_bloom.tres) |
+| 遥控回旋刃／噬月回刃 | 保留控刃、受阻与真实接刃，主动召回接住时产生强化第二段位移；未接住不凭空位移 | [moon_boomerang](../../production/resources/weapons/moon_boomerang.tres) |
+| 磁吸遥爆雷／磁暴猎杀雷 | 投出可附着的强化磁雷，可遥爆并在合法邻近目标间连锁；借爆仍受距离和遮挡限制 | [magnetic_storm](../../production/resources/weapons/magnetic_storm.tres) |
+| 坍缩奇点／吞星坍缩 | 在当前位置保持有限固定与扩大牵引，结束爆发并沿选择方向弹射；不能无限延长固定 | [star_collapse](../../production/resources/weapons/star_collapse.tres) |
 
-基础与二级数值分别见 [普通枪](../../production/resources/weapons/pulse_gun.tres)、[影步](../../production/resources/weapons/shadow_shuriken.tres)、[反冲炸弹](../../production/resources/weapons/recoil_bomb.tres)、[三连](../../resources/weapons/triple_machine_gun.tres)、[激光](../../resources/weapons/sustained_laser.tres)、[散华](../../resources/weapons/fan_shuriken.tres)、[回旋刃](../../resources/weapons/remote_boomerang.tres)、[磁雷](../../resources/weapons/magnetic_mine.tres)、[奇点](../../resources/weapons/collapse_singularity.tres)。
+基础与二级数值分别见 [普通枪](../../production/resources/weapons/pulse_gun.tres)、[影步](../../production/resources/weapons/shadow_shuriken.tres)、[反冲炸弹](../../production/resources/weapons/recoil_bomb.tres)、[三连](../../production/resources/weapons/triple_machine_gun.tres)、[激光](../../production/resources/weapons/sustained_laser.tres)、[散华](../../production/resources/weapons/fan_shuriken.tres)、[回旋刃](../../production/resources/weapons/remote_boomerang.tres)、[磁雷](../../production/resources/weapons/magnetic_mine.tres)、[奇点](../../production/resources/weapons/collapse_singularity.tres)。
 
 ## 手感与输入
 
@@ -48,4 +48,4 @@
 
 预告、出手、弹体、真实命中、回收和爆发保持同一身体与武器身份，声音和运动时序对应实际结果。贴墙出手不能越墙生成实体，爆炸范围、激光截止和牵引停止可读。
 
-重做数值归[生产资源](../../production/resources/weapons)与 [ShootAbility](../../production/game/combat/weapons/shoot_ability.gd)使用的 Definition；本页指向根工程的技能资源用于复现对应历史实现，位移、时长、伤害、射程和共鸣成本不在多页重复设默认值。实现、练习入口和检查见 [模块导航](../project/module_map.md)。
+重做数值归[生产资源](../../production/resources/weapons)与 [ShootAbility](../../production/game/combat/weapons/shoot_ability.gd)使用的 Definition。工坊接受的材料、档位和价格均读取锁定世界包。[工坊实机回归](../../production/tests/world_weapon_workshop.gd)覆盖安装失败、六个分支技能、真实三连与有限激光的完整命中预算。实现、练习入口和检查见 [模块导航](../project/module_map.md)。

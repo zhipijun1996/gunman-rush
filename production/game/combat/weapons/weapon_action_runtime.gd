@@ -2,7 +2,10 @@ class_name WeaponActionRuntime
 extends Node2D
 ## Stateful behaviors for the single equipped weapon. Visual methods only read accepted state.
 const PULSE: WeaponDefinition=preload("res://resources/weapons/pulse_gun.tres")
+const ICE: WeaponDefinition=preload("res://resources/weapons/pulse_ice.tres")
 var intro_pulse_owned:=false
+var shared_skill_owned:=false
+var _beam_ticks:=0
 signal blast_fired(point: Vector2)
 signal phase_changed(phase: StringName)
 signal entity_transition(entity: WeaponEntity, action: StringName)
@@ -71,7 +74,7 @@ func occupied() -> bool:
 func locks_movement() -> bool:return phase==&"singularity"
 func visual_state() -> StringName:
 	if phase==&"singularity":return &"singularity_hold"
-	if phase in [&"charge",&"intro_pulse"]:return &"weapon_charge"
+	if phase in [&"charge",&"intro_pulse",&"shared_ice"]:return &"weapon_charge"
 	if phase==&"throw_windup":return &"blade_throw"
 	if phase==&"beam":return &"laser_fire"
 	if actor().motor.weapon_pause_remaining>0:return &"blade_throw"
@@ -95,20 +98,29 @@ func cancel(reason: StringName) -> void:
 		_base_bomb_session = -1
 		for item: WeaponEntity in current_entities():item.dispose()
 		entities.clear();_fx.clear()
-	if phase in [&"beam",&"charge",&"intro_pulse",&"storm",&"fan_wait",&"throw_windup",&"singularity"]:
+	if phase in [&"beam",&"charge",&"intro_pulse",&"shared_ice",&"storm",&"fan_wait",&"throw_windup",&"singularity"]:
 		_phase(&"idle");actor().motor.cancel_ability_motion()
 	pose_remaining=0
+func skill_definition() -> WeaponDefinition:
+	if definition().tier==3: return definition()
+	if shared_skill_owned: return ICE
+	return PULSE if intro_pulse_owned else null
+
 func begin(direction_value: Vector2, grounded: bool, skill: bool = false) -> bool:
 	var def := definition()
-	if skill and def.tier<3 and intro_pulse_owned:
-		if occupied() or skill_cooldown>0 or not direction_value.is_finite() or direction_value.is_zero_approx(): return false
+	if skill and def.tier<3:
+		var trained:=skill_definition()
+		if trained==null or occupied() or skill_cooldown>0 or not direction_value.is_finite() or direction_value.is_zero_approx(): return false
+		var cost:=float(ability.item_runtime().call("skill_cost",trained.skill_cost)) if ability.item_runtime()!=null else trained.skill_cost
+		if trained==ICE and not actor().combat_energy.can_consume(cost): return false
 		direction=direction_value.normalized()
 		if not ability.reserve_packet(direction,grounded,true): return false
 		_session=actor().session_id
 		_packet=ability.packet_id
-		skill_cooldown=PULSE.skill_cooldown
-		_phase(&"intro_pulse")
-		_pose(&"weapon_charge",PULSE.skill_charge)
+		if trained==ICE: actor().combat_energy.consume("%s/skill/%s"%[_session,_packet],cost)
+		skill_cooldown=trained.skill_cooldown
+		_phase(&"shared_ice" if trained==ICE else &"intro_pulse")
+		_pose(&"weapon_charge",trained.skill_charge)
 		_cue(&"focus_start")
 		return true
 	if not skill and actor().item_runtime != null:
@@ -126,7 +138,7 @@ func begin(direction_value: Vector2, grounded: bool, skill: bool = false) -> boo
 	if def.mode==WeaponDefinition.Mode.LASER and not skill:_beam_require_release=true
 	if not ability.reserve_packet(direction_value,grounded,skill):return false
 	_session=actor().session_id;_packet=ability.packet_id;_skill=skill;direction=direction_value.normalized()
-	_packet_damage=(def.skill_damage if skill else def.damage)*actor().motor.tuning.projectile_damage
+	_packet_damage=(def.skill_damage if skill else def.damage)*ability.packet_base_damage
 	if skill:
 		if def.mode==WeaponDefinition.Mode.LASER:_beam_require_release=true
 		var receipt := "%s/skill/%s" % [_session,_packet]
@@ -153,7 +165,7 @@ func _release(grounded: bool) -> void:
 			base_recoil();_pose(&"weapon_skill",.30);_phase(&"idle")
 		WeaponDefinition.Mode.LASER:
 			actor().motor.reset_motion();actor().motor.request_weapon_drive(Vector2.ZERO,Vector2.ZERO)
-			_beam_elapsed=0;_phase(&"beam");_timer=0;_pose(&"laser_fire",def.beam_duration)
+			_beam_elapsed=0;_beam_ticks=0;_phase(&"beam");_timer=0;_pose(&"laser_fire",def.beam_duration)
 			beam_damage(direction,_packet_damage,false,false,false)
 		WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN:
 			var count := 9 if _skill else 3 if def.mode==WeaponDefinition.Mode.FAN else 1
@@ -226,16 +238,17 @@ func advance(delta: float) -> void:
 	age+=delta
 	var aim := actor().router.aim_direction
 	if not actor().router.primary_aim_held() or actor().router.aim_mode==&"grapple":_beam_require_release=false
-	if phase!=&"intro_pulse" and not aim.is_zero_approx() and actor().router.aim_mode in [&"attack",&"singularity_launch"]:direction=aim
+	if phase not in [&"intro_pulse",&"shared_ice"] and not aim.is_zero_approx() and actor().router.aim_mode in [&"attack",&"singularity_launch"]:direction=aim
 	if actor().router.aim_mode!=&"grapple":
 		actor().router.aim_mode=&"singularity_launch" if phase==&"singularity" else &"steer_blade" if not current_entities().is_empty() and current_entities()[0].kind==&"boomerang" else &"attack"
 	var def := definition()
 	match phase:
-		&"intro_pulse":
-			if age>=PULSE.skill_charge:
+		&"intro_pulse", &"shared_ice":
+			var trained:=ICE if phase==&"shared_ice" else PULSE
+			if age>=trained.skill_charge:
 				actor().traversal.on_weapon_fired()
 				actor().jump_ability.cancel_ascent()
-				ability.emit_special_projectile(direction,true,&"bullet",PULSE)
+				ability.emit_special_projectile(direction,true,&"ice" if trained==ICE else &"bullet",trained)
 				ability.recoil.execute(direction,actor().motor.is_on_floor())
 				_pose(&"weapon_skill")
 				_phase(&"idle")
@@ -279,9 +292,13 @@ func advance(delta: float) -> void:
 					var distance := acceleration*(_beam_elapsed*step+.5*step*step)
 					_beam_elapsed+=step
 					actor().motor.request_weapon_drive(-direction*distance/delta,-direction*acceleration*_beam_elapsed,actor().motor.is_on_floor())
-					_timer-=step
-					beam_damage(direction,_packet_damage / maxf(1,ceilf(def.beam_duration/def.beam_tick)),false,false,_timer<=0)
-					if _timer<=0:_cue(&"focus_start");_timer+=def.beam_tick
+					var ticks:=maxi(1,ceili(def.beam_duration/def.beam_tick-0.00001))
+					var tick_damage:=_packet_damage/ticks
+					beam_damage(direction,tick_damage,false,false,false)
+					while _beam_ticks<ticks and _beam_elapsed>_beam_ticks*def.beam_tick:
+						beam_damage(direction,tick_damage,false,false,true)
+						_beam_ticks+=1
+						_cue(&"focus_start")
 					if _beam_elapsed>=def.beam_duration-1e-9:_end_beam(true)
 		&"singularity":
 			actor().motor.request_ability_velocity(Vector2.ZERO)

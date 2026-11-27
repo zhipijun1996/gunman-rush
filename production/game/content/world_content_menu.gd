@@ -110,6 +110,11 @@ func shop(id: String, feedback := "") -> void:
 		service.text="强化已有装备"
 		service.pressed.connect(func(): close(); sites.session.equipment_menu.open("smith"))
 		choices.add_child(service)
+	if sites.workshop_here(id) and sites.session.state.has("smith"):
+		var forge:=Button.new()
+		forge.text="武器工坊"
+		forge.pressed.connect(workshop.bind(id))
+		choices.add_child(forge)
 	var exchanges:=sites.exchange_offers(id)
 	if not exchanges.is_empty():
 		var carried: int=sites.session.state.value.gear_ids.carried.size()
@@ -138,6 +143,30 @@ func shop(id: String, feedback := "") -> void:
 		button.disabled=owned or quote.price>ledger.gold or not sites.eligible(offer) or not sites.eligible(source.row)
 		button.pressed.connect(_purchase.bind(id,str(offer.id),revision))
 		choices.add_child(button)
+
+func workshop(id: String, feedback := "") -> void:
+	if not sites.workshop_here(id): return
+	var s:=sites.session
+	var revision:=s.state.revision
+	var note: String=feedback+"\n" if not feedback.is_empty() else ""
+	note+="共享攻击 %d　共用技能 %d　恒时合金 %d　技能芯 %d" % [WorldWeaponWorkshop.rank(s.state,"attack"),WorldWeaponWorkshop.rank(s.state,"skill"),s.state.value.inventory.get("attack_alloy",0),s.state.value.inventory.get("skill_core",0)]
+	for clue: Dictionary in s.weapon_growth.discovery_clues:
+		if s.room.room_id in clue.show_in_rooms and s.state.has(clue.heard_event) and not s.state.value.receipts.has(clue.completed_by_reward): note+="\n"+str(clue.text)
+	notice("武器工坊",note)
+	for quote: Dictionary in WorldWeaponWorkshop.quotes(s.state,s.weapon_growth,s.room.room_id):
+		var button:=Button.new()
+		var material: String={"attack":"恒时合金","skill":"技能芯"}.get(quote.kind,"专属部件")
+		if quote.kind=="branch":
+			for reward: Dictionary in s.content_catalog.table("rewards").rows:
+				if reward.get("formal_item_id")==quote.item: material=reward.display_name; break
+		button.text="%s　%s ×%d" % [quote.label,material,quote.cost]
+		if quote.fee: button.text+="　%d 金币"%quote.fee
+		button.disabled=not WorldWeaponWorkshop.payable(s.state,quote)
+		button.pressed.connect(_install_weapon.bind(id,str(quote.id),revision))
+		choices.add_child(button)
+
+func _install_weapon(npc: String, recipe: String, revision: int) -> void:
+	workshop(npc,"已完成安装。" if WorldWeaponWorkshop.install(sites,npc,recipe,revision) else "安装未能保存。")
 
 func _exchange(npc: String, id: String, revision: int) -> void:
 	shop(npc,"已兑取。" if sites.exchange(npc,id,revision) else "这次未能兑取。")

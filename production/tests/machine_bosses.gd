@@ -122,10 +122,18 @@ func exercise(room: String, member: String, identity: String) -> void:
 	# Fire a travelling production bullet from just outside the hitbox.
 	var fire_direction := Vector2(actor.brain.direction,0) if identity=="borer_three" else Vector2.RIGHT
 	var from := actor.motor.global_position-fire_direction*(actor.definition.collision_size.x/2+56)
+	if identity=="thermal_bell_keeper":
+		# The western muzzle position is inside the live phase curtain. Stand on
+		# the eastern lip of the central basalt platform to hit the exposed core.
+		fire_direction=Vector2.LEFT
+		from=Vector2(b.home.x+110,floor_y-18)
+		check(session.recovery.safe(session.room,session.player,from),room+" supported firing stance outside lava and light")
 	session.player.reset_at(from)
 	var fired := session.controller.shoot_ability.try_fire(fire_direction,true)
 	await frames(14)
 	check(fired and actor.health.current<full,room+" recovery admits real sidearm shot")
+	if identity=="thermal_bell_keeper":
+		check(is_equal_approx(full-actor.health.current,session.player.tuning.projectile_damage),room+" a full base gun hit reaches the exposed core")
 	var phase_hit := shot_context(actor,room+"-phase",full*0.5)
 	phase_hit.hit_direction = fire_direction
 	if identity=="borer_three":
