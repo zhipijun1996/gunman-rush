@@ -21,90 +21,23 @@
         "version": 1,
         "regions": [
           {
-            "id": "return_step_stone",
+            "id": "west_shaft_coping",
             "material_id": "mill_masonry",
             "bounds": [
-              380,
-              448,
-              135,
-              68
+              1088,
+              608,
+              32,
+              160
             ]
           },
           {
-            "id": "sluice_step_stone",
+            "id": "east_shaft_coping",
             "material_id": "mill_masonry",
             "bounds": [
-              1058,
-              484,
-              149,
-              92
-            ]
-          },
-          {
-            "id": "sluice_bed",
-            "material_id": "mill_masonry",
-            "bounds": [
-              864,
-              640,
-              570,
-              27
-            ]
-          }
-        ],
-        "surfaces": [
-          {
-            "id": "west_upper_return_dry_lip",
-            "facing": "up",
-            "surface_id": "bare",
-            "bounds": [
-              380,
-              447,
-              98,
-              2
-            ]
-          },
-          {
-            "id": "west_lower_return_dry_lip",
-            "facing": "up",
-            "surface_id": "bare",
-            "bounds": [
-              410,
-              489,
-              105,
-              2
-            ]
-          },
-          {
-            "id": "drain_upper_return_dry_lip",
-            "facing": "up",
-            "surface_id": "bare",
-            "bounds": [
-              1092,
-              483,
-              115,
-              2
-            ]
-          },
-          {
-            "id": "drain_lower_return_dry_lip",
-            "facing": "up",
-            "surface_id": "bare",
-            "bounds": [
-              1058,
-              547,
-              140,
-              2
-            ]
-          },
-          {
-            "id": "drain_bed_dry_lip",
-            "facing": "up",
-            "surface_id": "bare",
-            "bounds": [
-              864,
-              639,
-              570,
-              2
+              1216,
+              608,
+              32,
+              160
             ]
           }
         ]
@@ -112,50 +45,82 @@
     }
   },
   "lesson": {
-    "introduce": "上一房向下射击练的是方向。第一道断埂把起跳、朝后开枪和落地连接起来；入场即能看见对岸。",
-    "practice": "在断口前起跳，空中朝左后方开枪，落到钟架的宽台。失足后可沿两级石阶返回起跳面。",
-    "check": "在东岸钟架下重新站稳。两侧田埂中的涵道各有独立入口，主路从田面通过。",
-    "retry": "沟底是连续草土。一组仅向西逐级抬高的残埂可回到原起跳面，东岸的深厚护脚阻断沟底直行。"
+    "introduce": "走过出生草坡接入段，在西田埂先读出断口和同高钟架落点。",
+    "practice": "从西岸朝东跑跳，空中向左后方射击。未过断口会落到能走回的沟底。",
+    "check": "从西岸完成反冲并站稳东岸，钟响一次。钟架后可普通跳直达东田，或下到井口前选择进田渠。",
+    "retry": "沿西岸实心田阶回到发射线；也可走进草缝短坡并原路回到平原。"
   },
   "exits": {
     "d001": {
       "point": [
-        51,
+        30,
         366
       ],
       "spawn": [
         139,
         366
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        -1024,
+        442
       ]
     },
     "d002": {
       "point": [
-        1593,
-        412
+        1616,
+        398
       ],
       "spawn": [
-        1507,
-        412
+        1512,
+        398
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        -1024,
+        480
       ]
     },
     "d009": {
       "point": [
-        197,
-        554
+        32,
+        590
       ],
       "spawn": [
-        273,
-        554
+        106,
+        590
+      ],
+      "direction": [
+        -1,
+        0
+      ],
+      "span": [
+        475,
+        640
       ]
     },
     "d330": {
       "point": [
-        1320,
-        622
+        1168,
+        704
       ],
       "spawn": [
-        1232,
-        622
+        1100,
+        590
+      ],
+      "direction": [
+        0,
+        1
+      ],
+      "span": [
+        1120,
+        1216
       ]
     }
   },
@@ -163,7 +128,7 @@
     "discover_p02_low_slope": {
       "at": [
         317,
-        554
+        558
       ]
     }
   },
@@ -171,72 +136,72 @@
     "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
     "pieces": [
       {
-        "asset": "p02_root_gallery",
+        "asset": "p02_grass_bank",
         "at": [
-          318.0,
-          573
-        ],
-        "layer": "attached"
-      },
-      {
-        "asset": "p02_sluice_gallery",
-        "at": [
-          1116.0,
-          642
-        ],
-        "layer": "attached"
-      },
-      {
-        "asset": "p02_terrace_facing",
-        "at": [
-          824.0,
-          768
+          230,
+          610
         ],
         "layer": "attached"
       },
       {
         "asset": "windchime_plains_v2_chime_span",
         "at": [
-          831,
-          409
+          817,
+          385
+        ],
+        "layer": "attached"
+      },
+      {
+        "asset": "p02_slope_grass",
+        "at": [
+          155,
+          605
         ],
         "layer": "attached"
       },
       {
         "asset": "p02_reed_screen",
         "at": [
-          310,
-          572
+          307,
+          577
         ],
         "layer": "front",
         "discover": "discover_p02_low_slope"
+      },
+      {
+        "asset": "p02_well_lining",
+        "at": [
+          1149,
+          768
+        ],
+        "layer": "attached"
       }
     ]
   },
   "entities": {
-    "west_pier": {
-      "id": "west_pier",
-      "definition_id": "platform.solid",
-      "definition_version": 1,
-      "properties": {
-        "rect": [
-          0,
-          384,
-          162,
-          384
-        ]
-      }
-    },
     "west_field": {
       "id": "west_field",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "properties": {
         "rect": [
-          162,
+          0,
           384,
-          270,
+          432,
           64
+        ]
+      }
+    },
+    "west_ridge_shoulder": {
+      "id": "west_ridge_shoulder",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          0,
+          448,
+          152,
+          28
         ]
       }
     },
@@ -246,10 +211,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          380,
-          448,
-          98,
-          42
+          488,
+          480,
+          38,
+          288
         ]
       }
     },
@@ -259,11 +224,50 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          410,
-          490,
-          105,
-          26
+          526,
+          528,
+          42,
+          240
         ]
+      }
+    },
+    "west_grass_apron": {
+      "id": "west_grass_apron",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          0,
+          608,
+          144,
+          160
+        ]
+      }
+    },
+    "grass_runoff": {
+      "id": "grass_runoff",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            144,
+            608
+          ],
+          [
+            240,
+            576
+          ],
+          [
+            240,
+            768
+          ],
+          [
+            144,
+            768
+          ]
+        ],
+        "material": "ground"
       }
     },
     "retry_basin_floor": {
@@ -272,10 +276,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          162,
-          572,
-          574,
-          196
+          240,
+          576,
+          480,
+          192
         ]
       }
     },
@@ -285,10 +289,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          736,
-          408,
-          128,
-          360
+          720,
+          384,
+          144,
+          384
         ]
       }
     },
@@ -299,22 +303,22 @@
       "properties": {
         "rect": [
           864,
-          408,
-          138,
-          56
+          384,
+          104,
+          384
         ]
       }
     },
-    "drain_bed": {
-      "id": "drain_bed",
+    "well_west_lip": {
+      "id": "well_west_lip",
       "definition_id": "platform.solid",
       "definition_version": 1,
       "properties": {
         "rect": [
-          864,
-          640,
-          570,
-          128
+          1080,
+          608,
+          40,
+          160
         ]
       }
     },
@@ -324,10 +328,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          1434,
-          430,
-          214,
-          338
+          1216,
+          416,
+          432,
+          352
         ]
       }
     },
@@ -337,10 +341,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          1136,
-          430,
-          298,
-          54
+          1144,
+          416,
+          72,
+          48
         ]
       }
     },
@@ -350,10 +354,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          1092,
-          484,
-          115,
-          64
+          968,
+          448,
+          40,
+          320
         ]
       }
     },
@@ -363,10 +367,23 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          1058,
-          548,
-          140,
-          28
+          1048,
+          552,
+          32,
+          216
+        ]
+      }
+    },
+    "drain_middle_return": {
+      "id": "drain_middle_return",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1008,
+          504,
+          40,
+          264
         ]
       }
     }

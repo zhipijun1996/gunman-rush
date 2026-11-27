@@ -105,6 +105,18 @@ func run() -> void:
 		await ticks(1)
 	check(session.services.ledger().gold == session.drop_rules.enemy_gold, "coin collected once")
 	check(session.player.has_node("WeaponFeel") and PixelVfx.CLIPS.size() == 18, "weapon feedback and imported effects")
+	# A single short slope must not switch distant banks to an unbatched skin.
+	var bank: Array[Rect2] = [Rect2(0, 0, 640, 320)]
+	var slope: Array[Dictionary] = [{"points":[[640,0],[736,64],[736,320],[640,320]]}]
+	var plains := TerrainMaterialRegistry.appearance("windchime_plains")
+	var level_bank := UnderworldTerrain.build(bank, {}, plains)
+	var sloped_bank := UnderworldTerrain.build_with_polygons(bank, slope, {}, plains)
+	var interior := Vector2i(5, 4)
+	check(sloped_bank.core_layer.get_cell_source_id(interior) == 0 and sloped_bank.core_layer.tile_set == plains.tileset, "slope room uses native plains atlas inside solid bank")
+	check(sloped_bank.core_layer.get_cell_atlas_coords(interior) == level_bank.core_layer.get_cell_atlas_coords(interior), "a distant slope preserves the flat bank's atlas variant")
+	check(sloped_bank.core_layer.get_cell_source_id(Vector2i(20,0)) == -1, "sloped outline stays exact")
+	level_bank.free()
+	sloped_bank.free()
 	var terrace := WorldRoomDocument.read("res://rooms/world/P02.json")
 	var terrace_model := WorldRoomDocument.instantiate(terrace)
 	var terrace_scene := PackedScene.new()

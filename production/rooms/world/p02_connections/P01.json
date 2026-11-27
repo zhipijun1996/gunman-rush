@@ -1,0 +1,119 @@
+{
+  "schema": 3,
+  "room_id": "P01",
+  "bounds": [
+    -208,
+    -112,
+    928,
+    520
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windchime_plains",
+      "terrain_material": "windchime_plains",
+      "start_point": [
+        110,
+        270
+      ]
+    }
+  },
+  "entities": {
+    "landing": {
+      "id": "landing",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -240,
+          288,
+          1000,
+          164
+        ]
+      }
+    },
+    "west_retain": {
+      "id": "west_retain",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -254,
+          -140,
+          20,
+          600
+        ]
+      }
+    },
+    "east_retain": {
+      "id": "east_retain",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          760,
+          -140,
+          20,
+          600
+        ]
+      }
+    },
+    "verge": {
+      "id": "verge",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -228,
+          270,
+          220,
+          18
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d001": {
+      "point": [
+        466,
+        270
+      ],
+      "spawn": [
+        376,
+        270
+      ],
+      "direction": [
+        1,
+        0
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://assets/scenery/p02/p02_reed_screen.png",
+        "at": [
+          95,
+          288
+        ]
+      },
+      {
+        "texture": "res://assets/scenery/p02/p02_slope_grass.png",
+        "at": [
+          310,
+          288
+        ]
+      }
+    ],
+    "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
+    "view": [
+      0,
+      70,
+      928,
+      520
+    ]
+  },
+  "actions": []
+}

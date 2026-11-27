@@ -1,0 +1,296 @@
+{
+  "schema": 3,
+  "room_id": "P19",
+  "bounds": [
+    -208,
+    -112,
+    928,
+    520
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windchime_plains",
+      "terrain_material": "windchime_plains",
+      "start_point": [
+        320,
+        270
+      ]
+    }
+  },
+  "entities": {
+    "landing": {
+      "id": "landing",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -240,
+          288,
+          1000,
+          164
+        ]
+      }
+    },
+    "west_retain": {
+      "id": "west_retain",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -254,
+          -140,
+          20,
+          600
+        ]
+      }
+    },
+    "east_retain": {
+      "id": "east_retain",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          760,
+          -140,
+          20,
+          600
+        ]
+      }
+    },
+    "west_bank_crown": {
+      "id": "west_bank_crown",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -240,
+            97
+          ],
+          [
+            -50,
+            97
+          ],
+          [
+            -40,
+            105
+          ],
+          [
+            127,
+            105
+          ],
+          [
+            139,
+            95
+          ],
+          [
+            272,
+            95
+          ],
+          [
+            272,
+            127
+          ],
+          [
+            222,
+            127
+          ],
+          [
+            199,
+            143
+          ],
+          [
+            53,
+            148
+          ],
+          [
+            24,
+            165
+          ],
+          [
+            -240,
+            165
+          ]
+        ]
+      }
+    },
+    "east_bank_crown": {
+      "id": "east_bank_crown",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            368,
+            95
+          ],
+          [
+            518,
+            95
+          ],
+          [
+            533,
+            106
+          ],
+          [
+            760,
+            106
+          ],
+          [
+            760,
+            166
+          ],
+          [
+            532,
+            166
+          ],
+          [
+            503,
+            146
+          ],
+          [
+            445,
+            144
+          ],
+          [
+            427,
+            129
+          ],
+          [
+            368,
+            129
+          ]
+        ]
+      }
+    },
+    "west_sluice_wall": {
+      "id": "west_sluice_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -240,
+          143,
+          289,
+          162
+        ]
+      }
+    },
+    "east_sluice_wall": {
+      "id": "east_sluice_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          533,
+          153,
+          227,
+          152
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d330": {
+      "point": [
+        320,
+        205
+      ],
+      "spawn": [
+        320,
+        270
+      ],
+      "direction": [
+        0,
+        -1
+      ]
+    }
+  },
+  "sites": {},
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://rooms/world/p02_connections/stone.png",
+        "at": [
+          124,
+          288
+        ]
+      },
+      {
+        "texture": "res://rooms/world/p02_connections/well_headgear.png",
+        "at": [
+          417,
+          95
+        ]
+      }
+    ],
+    "view": [
+      368,
+      66,
+      928,
+      520
+    ],
+    "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
+    "wall": {
+      "texture": "res://rooms/world/p02_connections/well_back.png",
+      "points": [
+        [
+          39,
+          120
+        ],
+        [
+          225,
+          118
+        ],
+        [
+          267,
+          118
+        ],
+        [
+          278,
+          125
+        ],
+        [
+          292,
+          139
+        ],
+        [
+          310,
+          150
+        ],
+        [
+          330,
+          152
+        ],
+        [
+          352,
+          139
+        ],
+        [
+          372,
+          116
+        ],
+        [
+          451,
+          122
+        ],
+        [
+          547,
+          136
+        ],
+        [
+          554,
+          299
+        ],
+        [
+          39,
+          299
+        ]
+      ],
+      "tint": "b8c4be"
+    }
+  },
+  "actions": []
+}

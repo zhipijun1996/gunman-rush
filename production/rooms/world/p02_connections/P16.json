@@ -1,0 +1,288 @@
+{
+  "schema": 3,
+  "room_id": "P16",
+  "bounds": [
+    -208,
+    -112,
+    928,
+    520
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windchime_plains",
+      "terrain_material": "windchime_plains",
+      "start_point": [
+        374,
+        270
+      ]
+    }
+  },
+  "entities": {
+    "landing": {
+      "id": "landing",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -240,
+          288,
+          1000,
+          164
+        ]
+      }
+    },
+    "west_retain": {
+      "id": "west_retain",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -254,
+          -140,
+          20,
+          600
+        ]
+      }
+    },
+    "east_retain": {
+      "id": "east_retain",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          760,
+          -140,
+          20,
+          600
+        ]
+      }
+    },
+    "root_ceiling": {
+      "id": "root_ceiling",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            -240,
+            124
+          ],
+          [
+            -40,
+            124
+          ],
+          [
+            -32,
+            114
+          ],
+          [
+            100,
+            114
+          ],
+          [
+            109,
+            105
+          ],
+          [
+            183,
+            105
+          ],
+          [
+            189,
+            119
+          ],
+          [
+            228,
+            119
+          ],
+          [
+            243,
+            139
+          ],
+          [
+            278,
+            143
+          ],
+          [
+            279,
+            154
+          ],
+          [
+            247,
+            163
+          ],
+          [
+            168,
+            166
+          ],
+          [
+            151,
+            173
+          ],
+          [
+            68,
+            176
+          ],
+          [
+            36,
+            206
+          ],
+          [
+            -240,
+            206
+          ]
+        ]
+      }
+    },
+    "root_west_wall": {
+      "id": "root_west_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          -240,
+          163,
+          285,
+          142
+        ]
+      }
+    }
+  },
+  "exits": {
+    "d009": {
+      "point": [
+        466,
+        270
+      ],
+      "spawn": [
+        374,
+        270
+      ],
+      "direction": [
+        1,
+        0
+      ]
+    }
+  },
+  "sites": {
+    "wr_P16_primary": {
+      "at": [
+        111,
+        270
+      ]
+    },
+    "coin20_P16": {
+      "at": [
+        239,
+        270
+      ]
+    }
+  },
+  "scenery": {
+    "pieces": [
+      {
+        "texture": "res://rooms/world/p02_connections/stone.png",
+        "at": [
+          62,
+          288
+        ]
+      },
+      {
+        "texture": "res://rooms/world/p02_connections/plains_arch.png",
+        "at": [
+          421,
+          288
+        ]
+      },
+      {
+        "texture": "res://rooms/world/p02_connections/seed_stems.png",
+        "at": [
+          355,
+          288
+        ]
+      },
+      {
+        "texture": "res://assets/scenery/p02/p02_slope_grass.png",
+        "at": [
+          150,
+          114
+        ]
+      },
+      {
+        "texture": "res://rooms/world/p02_connections/bank_moss.png",
+        "at": [
+          128,
+          207
+        ]
+      }
+    ],
+    "view": [
+      145,
+      112,
+      928,
+      520
+    ],
+    "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
+    "wall": {
+      "texture": "res://rooms/world/p02_connections/bank_subsoil.png",
+      "points": [
+        [
+          8,
+          140
+        ],
+        [
+          186,
+          135
+        ],
+        [
+          269,
+          144
+        ],
+        [
+          285,
+          167
+        ],
+        [
+          312,
+          173
+        ],
+        [
+          314,
+          192
+        ],
+        [
+          341,
+          202
+        ],
+        [
+          339,
+          221
+        ],
+        [
+          371,
+          231
+        ],
+        [
+          380,
+          254
+        ],
+        [
+          416,
+          264
+        ],
+        [
+          437,
+          289
+        ],
+        [
+          4,
+          300
+        ]
+      ],
+      "tint": "c8c1b8"
+    }
+  },
+  "actions": []
+}
