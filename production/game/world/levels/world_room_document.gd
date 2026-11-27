@@ -68,6 +68,9 @@ static func view(source: Dictionary) -> Dictionary:
 	for zone: Variant in zones:
 		if not zone is String or zone.is_empty() or not WorldRoomValidation.rectangle(zones[zone]):
 			return {"error":"room_zone_areas_invalid"}
+	if source.has("camera"):
+		var camera_error := preload("res://game/world/levels/room_camera_contract.gd").validate(source.camera,source.get("bounds"),source.get("sites",{}),source.entities)
+		if not camera_error.is_empty(): return {"error":camera_error}
 	var scenery: Variant = source.get("scenery",{})
 	if not scenery is Dictionary: return {"error":"room_scenery_invalid"}
 	if scenery.has("camera_landmark") and not WorldRoomValidation.valid_camera_landmark(scenery.camera_landmark,source.get("sites",{})):
@@ -329,7 +332,7 @@ static func apply(room: Node, document: Dictionary) -> String:
 	error = WorldElementCatalog.document_error(document,control_order)
 	if not error.is_empty(): return error
 	var header := {}
-	for key: String in ["bounds", "actions", "content_bindings", "exits", "sites", "lesson", "scenery", "zone_areas"]:
+	for key: String in ["bounds", "actions", "content_bindings", "exits", "sites", "lesson", "scenery", "zone_areas", "camera"]:
 		if document.has(key): header[key] = document[key].duplicate(true)
 	room.set_meta("mechanism_control_order",control_order)
 	room.set_meta("editor_room_header",header)

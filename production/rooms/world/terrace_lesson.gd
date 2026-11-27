@@ -5,9 +5,7 @@ var host: Node
 var session: OrdinaryRoomSession
 var config: Dictionary
 var entities: Dictionary
-var camera: Camera2D
 var bell_mount: Sprite2D
-var look_direction := 1.0
 var grounded_on_west := false
 var west_jump := false
 var west_recoil := false
@@ -15,18 +13,15 @@ var was_airborne := false
 var chime_time := 0.0
 var hint_remaining := 0.0
 
-func install(owner_node: Node, doc: Dictionary, edge: String) -> void:
+func install(owner_node: Node, doc: Dictionary) -> void:
 	host = owner_node
 	session = host.active
 	config = doc.scenery.terrace_lesson
 	entities = doc.entities
-	camera = host.follow_camera
 	bell_mount = session.room_dressing.get_node(NodePath(config.bell))
 	var material := ShaderMaterial.new()
 	material.shader = CHIME
 	bell_mount.material = material
-	look_direction = 1.0 if edge.is_empty() else -signf(float(doc.exits[edge].direction[0]))
-	camera.position.x = look_direction * 78
 	session.controller.jump_ability.accepted_jump.connect(_jumped)
 	session.controller.shoot_ability.shot_fired.connect(_shot)
 	session.add_child(self)
@@ -46,9 +41,6 @@ func _shot(direction: Vector2, _packet: int) -> void:
 
 func update_field(delta: float) -> void:
 	var at := session.player.position
-	if absf(session.player.velocity.x)>18:
-		look_direction = signf(session.player.velocity.x)
-	camera.position.x = move_toward(camera.position.x,look_direction*78,delta*180)
 	var west := FixedWorldProvider.rect(entities[config.takeoffs[0]].properties.rect)
 	var basin := FixedWorldProvider.rect(entities[config.retry_floor].properties.rect)
 	var pier := FixedWorldProvider.rect(entities[config.landing].properties.rect)

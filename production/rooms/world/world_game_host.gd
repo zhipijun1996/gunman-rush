@@ -15,8 +15,7 @@ var catalog := WorldContentCatalog.new()
 var active: OrdinaryRoomSession
 var active_doc := {}
 var last_error := ""
-var follow_camera: Camera2D
-var camera_landmark := {}
+var follow_camera: WorldCamera
 var passage_sky := {}
 var panorama: Sprite2D
 var terrace: TerraceLesson
@@ -156,29 +155,20 @@ func enter_room(id: String, edge: String, prepared: Dictionary = {}, received :=
 	active.respawn_requested.connect(_respawn)
 	if active.content_sites != null: active.content_sites.station_departure.connect(travel_station)
 	active_doc = doc
-	camera_landmark = doc.get("scenery",{}).get("camera_landmark",{})
 	# Enter on the destination's receiving apron before its first physics tick.
 	# Keep its document unchanged so every door has the same content identity.
 	if received.is_finite():
 		active.player.reset_at(received)
 	previous_center = active.player.position
 	active.player.repositioned.connect(_reset_sample)
-	var cameras := active.player.find_children("*","Camera2D",false,false)
-	follow_camera = cameras.front()
-	follow_camera.make_current()
-	var bounds := FixedWorldProvider.rect(doc.bounds)
-	follow_camera.limit_left = roundi(bounds.position.x)
-	follow_camera.limit_top = roundi(bounds.position.y)
-	follow_camera.limit_right = roundi(bounds.end.x)
-	follow_camera.limit_bottom = roundi(bounds.end.y)
-	follow_camera.zoom = Vector2.ONE * 1.40
+	follow_camera = active.camera
 	notice.hide()
 	terrace = null
 	var handles := preload("res://rooms/world/world_door_interaction.gd").new()
 	handles.install(self,doc)
 	if doc.get("scenery",{}).has("terrace_lesson"):
 		terrace = TerraceLesson.new()
-		terrace.install(self,doc,edge)
+		terrace.install(self,doc)
 	if crossing: _lock_session(true)
 	follow_camera.force_update_scroll()
 	panorama = preload("res://rooms/world/world_backdrop.gd").mount(active,doc,passage_sky,sky_offset).panorama
@@ -195,28 +185,12 @@ func _process(delta: float) -> void:
 		issue_remaining = maxf(0.0,issue_remaining-delta)
 		notice.visible = issue_remaining>0
 
-## Let a nearby collectible and the player share the frame as the player
-## approaches its overlook. Collision, movement and the camera zoom stay live.
-func frame_landmark(delta: float) -> void:
-	var body := active.player.position
-	var area := FixedWorldProvider.rect(camera_landmark.bounds)
-	var site: String = camera_landmark.site
-	var desired := Vector2.ZERO
-	if area.has_point(body) and not active.state.value.receipts.has(site):
-		var ahead := smoothstep(area.position.x,area.position.x+float(camera_landmark.approach_width),body.x)
-		var below := smoothstep(area.position.y,area.get_center().y,body.y)
-		var target := FixedWorldProvider.point(active_doc.sites[site].at)
-		desired = (target-body)*float(camera_landmark.framing)*ahead*below
-	var weight := 1.0-exp(-delta/float(camera_landmark.ease_seconds))
-	follow_camera.position = follow_camera.position.lerp(desired,weight)
-
 func _reset_sample() -> void:
 	previous_center = active.player.position
 
 func _physics_process(delta: float) -> void:
 	if active==null or crossing or not active.controller.active or active.controller.has_pending_damage(): return
 	if terrace != null: terrace.update_field(delta)
-	if not camera_landmark.is_empty(): frame_landmark(delta)
 	var before := previous_center
 	var at := active.player.position
 	previous_center = at

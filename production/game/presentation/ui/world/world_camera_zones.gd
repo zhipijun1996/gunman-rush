@@ -2,6 +2,7 @@ class_name WorldCameraZones
 extends RefCounted
 ## Pure room composition/portal resolver. Actor position selects zones, never camera position.
 var room: FixedWorldRoom
+var encounters: Dictionary = {}
 var zones: Array[Dictionary] = []
 var links: Array[Dictionary] = []
 var active_id := ""
@@ -17,13 +18,16 @@ func configure(value: FixedWorldRoom, settings: Dictionary) -> void:
 	var config: Dictionary=room.contract.camera
 	var extent:=FixedWorldProvider.rect(room.contract.world_geometry.bounds_world_units)
 	for raw: Dictionary in config.get("zones",[]):
-		zones.append(raw.duplicate(true))
+		var zone_data := raw.duplicate(true)
+		if zone_data.has("encounter"):
+			zone_data["arena"] = true
+			zone_data["look_up"] = false
+			zone_data["look_down"] = false
+		zones.append(zone_data)
 	if zones.is_empty():
 		zones.append({"id":"main","profile":config.get("profile","bounded_follow"),"trigger":pack(extent),"display":pack(extent),"priority":0})
 	for raw: Dictionary in config.get("links",[]): links.append(raw.duplicate(true))
-	# A real arena is a bounded composition, not a second camera controller.
-	if room.arena_bounds.has_area():
-		zones.append({"id":"arena","profile":"fixed_arena","trigger":pack(room.arena_bounds),"display":pack(room.arena_bounds.grow_individual(0,float(settings.arena_vertical_padding),0,float(settings.arena_vertical_padding))),"priority":100,"arena":true,"look_up":false,"look_down":false})
+	# Combat composition is authored with the fixed_arena profile in schema 3.
 	active_id=""
 
 static func pack(rect: Rect2) -> Array:
@@ -33,14 +37,23 @@ func zone(id: String) -> Dictionary:
 		if str(z.id)==id:return z
 	return zones[0]
 func available(row: Dictionary) -> bool:
-	if row.get("arena",false): return room.battle_started and not room.battle_finished
-	var requires: Array=row.get("requires",[])
-	if not requires.is_empty() and (room.services==null or not room.services.state.holds(requires)):return false
-	var mechanism:=str(row.get("mechanism",""))
-	if not mechanism.is_empty():
-		if room.services==null:return false
-		return bool(room.services.state.value.get("mechanisms",{}).get(mechanism,{}).get("is_open",false))
+	if row.has("requires") and (room.services == null or not room.services.state.holds(row.requires)):
+		return false
+	if row.has("mechanism"):
+		var source: Node = room.element_runtime.nodes.get(row.mechanism)
+		if source == null or not source.has_method("element_state"):
+			return false
+		# element_state is the accepted live state, including the restored save
+		# and any authored initial value before the first switch transaction.
+		var committed: Dictionary = source.element_state()
+		if committed.get("active") != true: return false
+	if row.has("encounter"):
+		var encounter := encounters.get(row.encounter) as WorldRoomEncounter
+		return encounter != null and encounter.battle_active()
 	return true
+func passage_available(link: Dictionary) -> bool:
+	return available(link) and available(zone(link.a)) and available(zone(link.b))
+
 func select_initial(point: Vector2) -> void:
 	var best:=-INF
 	for z: Dictionary in zones:
@@ -56,7 +69,7 @@ func update(point: Vector2, delta: float) -> Dictionary:
 	var current:=zone(active_id)
 	if not transition.is_empty():
 		# Reversal follows the same portal parameter. Opening alone never starts this.
-		if not available(transition):transition.clear()
+		if not passage_available(transition):transition.clear()
 		else:
 			var t:=portal_progress(transition,point)
 			var band:=FixedWorldProvider.rect(transition.band)
@@ -66,7 +79,7 @@ func update(point: Vector2, delta: float) -> Dictionary:
 			else:return {"a":zone(str(transition.a)),"b":zone(to_id),"blend":smoothstep(0,1,t),"portal":transition}
 	current=zone(active_id)
 	for link: Dictionary in links:
-		if active_id not in [str(link.a),str(link.b)] or not available(link):continue
+		if active_id not in [str(link.a),str(link.b)] or not passage_available(link):continue
 		if FixedWorldProvider.rect(link.band).has_point(point):
 			transition=link.duplicate(true)
 			return {"a":zone(str(link.a)),"b":zone(str(link.b)),"blend":smoothstep(0,1,portal_progress(link,point)),"portal":link}

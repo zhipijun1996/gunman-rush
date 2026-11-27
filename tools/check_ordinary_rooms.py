@@ -113,6 +113,8 @@ if __name__ == "__main__":
         godot("--import")
         suites = {
             "ordinary_room": "ORDINARY ROOM",
+            "room_camera_contract": "ROOM CAMERA CONTRACT",
+            "world_camera_migration": "WORLD CAMERA MIGRATION",
             "world_room_passages": "WORLD ROOM PASSAGES",
             "authored_world_rooms": "AUTHORED WORLD",
             "world_persistence": "WORLD PERSISTENCE",

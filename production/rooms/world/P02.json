@@ -1,6 +1,84 @@
 {
   "schema": 3,
   "room_id": "P02",
+  "camera": {
+    "zoom": 1.4,
+    "zones": [
+      {
+        "id": "terrace",
+        "trigger": [
+          0,
+          0,
+          1648,
+          768
+        ],
+        "display": [
+          0,
+          0,
+          1648,
+          768
+        ]
+      },
+      {
+        "id": "well_shoulder",
+        "trigger": [
+          780,
+          0,
+          400,
+          768
+        ],
+        "display": [
+          0,
+          0,
+          1648,
+          768
+        ],
+        "priority": 1,
+        "offset": [
+          0,
+          70
+        ]
+      }
+    ],
+    "links": [
+      {
+        "a": "terrace",
+        "b": "well_shoulder",
+        "band": [
+          722,
+          0,
+          118,
+          768
+        ],
+        "display": [
+          0,
+          0,
+          1648,
+          768
+        ],
+        "axis": "x",
+        "direction": 1
+      },
+      {
+        "a": "well_shoulder",
+        "b": "terrace",
+        "band": [
+          1090,
+          0,
+          146,
+          768
+        ],
+        "display": [
+          0,
+          0,
+          1648,
+          768
+        ],
+        "axis": "x",
+        "direction": 1
+      }
+    ]
+  },
   "bounds": [
     0,
     0,

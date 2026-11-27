@@ -26,6 +26,7 @@ var touch_controls: RoomTouchControls
 var room_dressing: Node2D
 var room: FixedWorldRoom
 var player: PlayerMotor
+var camera: WorldCamera
 var controller: PlayerController
 var policy: FrameDamagePolicy
 var lifetime := DemoLifetime.new()
@@ -119,7 +120,8 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 		room.free()
 		room = null
 		return "spawn_outside_room"
-	var row := {"doors":[],"camera":{},"world_geometry":WorldRoomSpace.document_geometry(bounds_data,exits)}
+	var room_camera := preload("res://game/world/levels/room_camera_contract.gd").resolve(document)
+	var row := {"doors":[],"camera":room_camera,"world_geometry":WorldRoomSpace.document_geometry(bounds_data,exits)}
 	row["exits"] = entries
 	var sections: Array[Dictionary] = []
 	for zone: String in document.get("zone_areas",{}):
@@ -236,8 +238,6 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	focus_heal.ready_to_heal.connect(_heal)
 	controller.interact_requested.connect(_interact)
 	player.reset_at(at)
-	var camera := Camera2D.new()
-	player.add_child(camera)
 	touch_controls = RoomTouchControls.mount(self)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime
@@ -334,7 +334,36 @@ func open(document: Dictionary, storage: WorldSaveService = null, previous: Ordi
 	if document.get("sites",{}).has(PlainsOpening.SITE) and not state.has("gun"):
 		opening = PlainsOpening.new()
 		opening.install(self,FixedWorldProvider.point(document.sites[PlainsOpening.SITE].at))
+	# The room, controller and restored state must be live before zone selection.
+	camera = WorldCamera.new()
+	camera.target = player
+	camera.controller = controller
+	camera.room = room
+	for encounter: WorldRoomEncounter in encounters:
+		camera.zones.encounters[encounter.encounter.id] = encounter
+	var entry_gate: Dictionary = exits.get(state.value.entry,{})
+	if entry_gate.has("direction"):
+		camera.arrival_direction = -float(entry_gate.direction[0])
+	camera.settings = preload("res://config/world_camera.json").data
+	camera.landmark = document.get("scenery",{}).get("camera_landmark",{})
+	if not camera.landmark.is_empty():
+		camera.landmark_point = FixedWorldProvider.point(document.sites[camera.landmark.site].at)
+	# Keep the node with its actor but let the solver own its world transform.
+	camera.top_level = true
+	player.add_child(camera)
+	camera.make_current()
+	camera.enter_room(bounds)
+	player.repositioned.connect(camera.reset_view)
+	policy.batch_resolved.connect(_camera_damage_feedback)
 	return ""
+
+func _camera_damage_feedback(results: Array[DamageResult]) -> void:
+	if not camera.is_current(): return
+	const IMPACT := preload("res://game/combat/damage/feedback.tres")
+	for result: DamageResult in results:
+		if result.request.target_id != &"player" or result.hp_lost <= 0: continue
+		camera.shake(IMPACT.death_shake if result.lethal else IMPACT.impact_shake,.18)
+		return
 
 func _sync_sidearm(_revision: int) -> void:
 	var armed := state.has("gun")

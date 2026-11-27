@@ -98,6 +98,10 @@ func _physics_process(_delta: float) -> void:
 	hint.text = session.controller.router.interact_prompt("确认胜利")
 	hint.visible = session.player.position.distance_to(position) <= 60.0
 
+## The first wave has entered the room; the world ledger owns victory.
+func battle_active() -> bool:
+	return next_wave > 0 and session.lifetime.active and not session.state.has(encounter.completion_flag)
+
 func confirm() -> bool:
 	if session.state.has(encounter.completion_flag): return false
 	if awaiting_challenge:

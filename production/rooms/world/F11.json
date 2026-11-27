@@ -1,6 +1,43 @@
 {
   "schema": 3,
   "room_id": "F11",
+  "camera": {
+    "zones": [
+      {
+        "id": "main",
+        "trigger": [
+          0,
+          0,
+          1680,
+          1110
+        ],
+        "display": [
+          0,
+          0,
+          1680,
+          1110
+        ]
+      },
+      {
+        "id": "antler_floor",
+        "profile": "fixed_arena",
+        "trigger": [
+          220,
+          600,
+          1105,
+          340
+        ],
+        "display": [
+          220,
+          457,
+          1105,
+          500
+        ],
+        "priority": 100,
+        "encounter": "enc_F11"
+      }
+    ]
+  },
   "bounds": [
     0,
     0,
