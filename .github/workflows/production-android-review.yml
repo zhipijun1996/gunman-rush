@@ -1,0 +1,57 @@
+name: Production opening Android review
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - review/plains-android-device
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      GUNMAN_TOOLCHAIN_ROOT: /tmp/gunman-android-toolchain
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: config/ci_python_version.txt
+      - name: Set up project engine and Android
+        run: |
+          bash tools/cloud_setup.sh --godot-only
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'build-tools;35.0.1' 'platform-tools' 'platforms;android-35' 'emulator' 'system-images;android-30;google_apis;x86_64'
+          python -m pip install Pillow
+      - name: Start Android 11 with KVM
+        run: |
+          set -eu
+          sudo chmod 666 /dev/kvm
+          mkdir -p build/intro-android/device
+          echo no | "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd --force -n opening -k 'system-images;android-30;google_apis;x86_64' --device pixel_2
+          nohup "$ANDROID_HOME/emulator/emulator" -avd opening -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect -accel on > build/intro-android/device/emulator.log 2>&1 &
+      - name: Build and verify signed production APK
+        run: python tools/export_intro_android.py build/intro-android/Plains-review.apk
+      - name: Verify ARM64 support, launch and touch
+        run: |
+          set -eu
+          timeout 280 bash -c 'until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = 1 ]; do sleep 3; done'
+          adb shell wm dismiss-keyguard
+          adb shell wm size 540x960
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
+          adb shell getprop ro.product.cpu.abilist
+          python tools/test_intro_android.py build/intro-android/Plains-review.apk build/intro-android/device
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: opening-android-review
+          path: build/intro-android/
+          retention-days: 7
+          if-no-files-found: error
