@@ -23,4 +23,4 @@
 
 ## 数值与设计来源
 
-具体参数取 [敌人配置](../../../resources/enemies/plains_charger.tres) 和 [生命配置](../../../resources/enemies/patrol_health.tres)。整体方向遵守 [平原圣经](../../bible/regions/windchime_plains.md) 与 [Visual Bible](../../bible/visual_bible.md)；通用伤害和恢复规则见 [伤害合同](../../bible/damage_and_respawn.md)。
+具体参数取 [敌人配置](../../../production/resources/enemies/plains_charger.tres) 和 [生命配置](../../../production/resources/enemies/patrol_health.tres)。整体方向遵守 [平原圣经](../../bible/regions/windchime_plains.md) 与 [Visual Bible](../../bible/visual_bible.md)；通用伤害和恢复规则见 [伤害合同](../../bible/damage_and_respawn.md)。

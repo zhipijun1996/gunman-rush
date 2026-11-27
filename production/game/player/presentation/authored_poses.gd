@@ -68,10 +68,10 @@ func advance(delta: float, body: UnderworldPlayer) -> void:
 			elapsed -= float(WAKE_HOLDS[i])
 	elif focus_frame>=0 and body.controller.active:
 		frame=30+focus_frame
-	elif body.controller.active and body.controller.shoot_ability.weapon.branch==&"ice" and (runtime.phase==&"charge" or (runtime.pose==&"weapon_skill" and runtime.pose_remaining>0)):
+	elif body.controller.active and runtime.skill_definition()==WeaponActionRuntime.ICE and (runtime.phase in [&"charge",&"shared_ice"] or (runtime.pose==&"weapon_skill" and runtime.pose_remaining>0)):
 		ice_cast=true
-		var progress:=clampf(runtime.age/body.controller.shoot_ability.weapon.skill_charge,0,1)
-		frame=30+mini(3,int(progress*4)) if runtime.phase==&"charge" else 34+mini(3,int((.30-runtime.pose_remaining)*4/.30))
+		var progress:=clampf(runtime.age/WeaponActionRuntime.ICE.skill_charge,0,1)
+		frame=30+mini(3,int(progress*4)) if runtime.phase in [&"charge",&"shared_ice"] else 34+mini(3,int((.30-runtime.pose_remaining)*4/.30))
 		if absf(runtime.direction.x)>.1:body.facing=signf(runtime.direction.x)
 	elif body.controller.active and body.controller.traversal.state == &"wall_attach":
 		var traversal := body.controller.traversal

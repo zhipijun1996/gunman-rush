@@ -4,7 +4,7 @@
 
 ## 运动权威
 
-`PlayerController`读取动作意图，动作能力更新运动请求，`PlayerMotor`每物理帧执行至多一次`move_and_slide`。基础参数来自`config/player_tuning.json`；武器运动来自实际`WeaponMotionDefinition`。世界采样、美术尺寸与物理碰撞分别维护。
+`PlayerController`读取动作意图，动作能力更新运动请求，`PlayerMotor`每物理帧执行至多一次`move_and_slide`。重做基础参数来自[人物调校](../../production/config/player_tuning.json)；武器运动来自实际`WeaponMotionDefinition`。世界采样、美术尺寸与物理碰撞分别维护。
 
 ## 跳跃与反冲
 

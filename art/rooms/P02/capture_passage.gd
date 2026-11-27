@@ -1,6 +1,6 @@
 extends SceneTree
 ## Real-time crossing from one controlled approach. Timestamps are rendered-frame indices.
-const SCENE := preload("res://rooms/world/P02.tscn")
+const SCENE := preload("res://tests/plains_test_host.tscn")
 var host: FieldTerracePilot
 var started := -1
 var swapped := -1

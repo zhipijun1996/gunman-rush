@@ -1,17 +1,23 @@
 # 平原起步区的邻房接收段
 
-| 接收段 | 门侧与构图 | 素材来源 |
+v29 在三个正式房的另一侧设置五处接收段。角色在各门台落稳后可沿同一门返回。下表使用接收段本地坐标，井口的出生点为站稳时的角色中心。
+
+| 邻房 | 连接 | 落脚与返回 |
 | --- | --- | --- |
-| F08 林缘回廊东口 | 门前是一段平坦林间道。低矮根冠和中景倒木让角色与地上的门闩保持可见。门两侧地表均为 y=336。 | [F08 房间](../../../production/rooms/world/p02_connections/F08.json) · [森林远景与近中景根木](../../../production/assets/world_elements/forest_stage) · [森林正式 TileSet](../../../production/terrain47/thorn_forest.tres) |
-| P04 折返旧路东口 | 从 P03 上层旧路向西踏上折返道，进入两级低矮田埂后可沿原路返回。田埂与门口齐高，路旁苇草在步行面上扎根。 | [P04 房间](../../../production/rooms/world/p02_connections/P04.json) · [平原苇丛与坡草](../../../production/assets/scenery/p02) · [平原正式 TileSet](../../../production/terrain47/windchime_plains.tres) |
-| P13 壁缝回访路西口 | 从 P03 东壁龛向东，先经过开阔的贴壁小路，再进入折返石檐。门口的风草和层石延续同一片平原背岩。 | [P13 房间](../../../production/rooms/world/p02_connections/P13.json) · [沟谷远墙和岩面](../../../production/assets/scenery/p03) · [接收段远墙](../../../production/rooms/world/p02_connections/ridge_backwall.webp) |
+| F08 | P01 西门 d223 | 林侧东门面 x=600，脚面 y=1140。门闩在 F08 一侧，开栅后两侧共享通行状态。 |
+| P04 | P03 西上门 d003 | 旧路东门面 x=2070，脚面 y=573。 |
+| P13 | P03 东门 d017 | 岩脊西门面 x=0，脚面 y=468。 |
+| P16 | P02 西草径 d009 | 下落至 [495,60]，原地起跳返回。 |
+| P19 | P02 东井 d330 | 下落至 [360,60]，原地起跳返回。 |
 
-P13 的远墙裁自 P03 的 1920 × 1024 沟谷背壁图。两侧门线对应原图横坐标 1686。接收段在原生像素比例下继续向东取样，抵达原图右缘后沿反向岩纹延展。门口两侧因此保留相同的岩脊剪影和纹理高度。[P03 远墙原图](../../../production/assets/scenery/p03/ravine_backwall.webp)
-
-更新 P03 远墙、移动两侧配景锚点或调整 d017 门线后，在仓库根目录运行 `python3 art/rooms/plains_intro/build_ridge_backwall.py` 重烘焙。传入 `--check` 会逐像素核对已保存的 P13 贴图。[烘焙脚本](build_ridge_backwall.py)
+五个门台的实际地形与区域材质见[接收段文档](../../../production/rooms/world/receivers)。旧版沟谷远墙、P13 的拼接方法与原始坐标随 [v27 制作记录](https://github.com/zhipijun1996/gunman-rush/blob/24e5957206d3e966e7c7a9e98ce4982fb28c2a8b/art/rooms/plains_intro/README.md)保存。
 
 ## 林缘栅门
 
-d223 两侧共享木桩和门扇。四根错高立木、两根横档和斜撑取自旧平原风铃门柱，铰件与横闩取自正式鸣钟闸的铁件图集。门脚的苔根取自林缘倒木。木桩和门扇分别输出透明 PNG，开门后保留固定木桩，门扇转至侧面。[木料原图](../../../production/assets/plains_v3/windchime_gate_beam.png) · [铁件原图](../../../production/assets/mechanisms/bell_gate/bell_gate.png) · [苔根原图](../../../production/assets/world_elements/forest_stage/thorn_forest_v2_thorn_log.png) · [门桩](../../../production/rooms/world/p02_connections/forest_gate_post.png) · [门扇](../../../production/rooms/world/p02_connections/forest_gate_leaf.png)
+d223 两侧共用栅门。四根错高立木及两根横档来自平原风铃门柱，铰件与横闩取自鸣钟闸图集，苔根裁自森林倒木。开门后木桩留在原位，门扇转向侧面。[木料原图](../../../production/assets/plains_v3/windchime_gate_beam.png) · [铰件原图](../../../production/assets/mechanisms/bell_gate/bell_gate.png) · [苔根原图](../../../production/assets/world_elements/forest_stage/thorn_forest_v2_thorn_log.png)
 
-玩家在 F08 侧接近横闩后按 ↑ 或 W 开门。门扇表现和实际碰撞共同读取已提交的捷径状态。P01 外侧可以看见门体和横闩提示，世界重新载入后两侧恢复同一状态。[门体表现与碰撞](../../../production/rooms/world/p02_connections/forest_shortcut_gate.gd) · [世界捷径回归](../../../production/tests/world_shortcuts.gd)
+[门桩](../../../production/rooms/world/p02_connections/forest_gate_post.png) · [门扇](../../../production/rooms/world/p02_connections/forest_gate_leaf.png) · [绘制、互动与碰撞](../../../production/rooms/world/world_shortcut_gate.gd)
+
+## v29 实机评审
+
+P01、P02、P03 的整图按正式世界单位逐像素输出。触控短片分别记录起身拾枪与高台宝箱、钟台与草间隐径、上下折返的真实路线。[三房成片与构图复现](v29/README.md)

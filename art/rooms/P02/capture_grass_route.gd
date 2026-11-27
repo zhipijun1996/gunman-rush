@@ -1,7 +1,7 @@
 extends SceneTree
 ## One uninterrupted first visit. Every move after the starting room entry
 ## goes through the same controller, discovery volume and doors as normal play.
-const SCENE := preload("res://rooms/world/P02.tscn")
+const SCENE := preload("res://tests/plains_test_host.tscn")
 var host: FieldTerracePilot
 var discovery_event := ""
 

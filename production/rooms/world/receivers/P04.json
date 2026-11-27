@@ -1,0 +1,73 @@
+{
+  "schema": 3,
+  "room_id": "P04",
+  "reception": true,
+  "bounds": [
+    0,
+    0,
+    2070,
+    795
+  ],
+  "root": {
+    "definition_id": "room.standard",
+    "definition_version": 1,
+    "properties": {
+      "region_id": "windchime_plains",
+      "terrain_material": "windchime_plains",
+      "start_point": [
+        1990,
+        555
+      ]
+    }
+  },
+  "exits": {
+    "d003": {
+      "point": [
+        2070,
+        555
+      ],
+      "direction": [
+        1,
+        0
+      ],
+      "span": [
+        435,
+        675
+      ],
+      "spawn": [
+        1990,
+        555
+      ]
+    }
+  },
+  "sites": {},
+  "entities": {
+    "landing": {
+      "id": "landing",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1700,
+          573,
+          402,
+          128
+        ]
+      }
+    },
+    "back_wall": {
+      "id": "back_wall",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1700,
+          0,
+          32,
+          573
+        ]
+      }
+    }
+  },
+  "actions": []
+}

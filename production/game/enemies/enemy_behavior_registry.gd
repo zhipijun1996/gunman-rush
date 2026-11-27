@@ -6,6 +6,27 @@ extends RefCounted
 # remains in its Manifest; only the finite resolver selects retained bytes.
 const CHARGER_V2_REVISION := "1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0"
 const BEHAVIORS := {
+	&"frost_echo_doll": {"family":&"depth_boss", "script":"res://game/bosses/crypt_and_frost/frost_echo_doll.gd", "definition":"res://resources/enemies/frost_echo_doll.tres", "scene":"res://game/bosses/crypt_and_frost/frost_echo_doll.tscn"},
+	&"mirror_bell_warden": {"family":&"depth_boss", "script":"res://game/bosses/crypt_and_frost/mirror_bell_warden.gd", "definition":"res://resources/enemies/mirror_bell_warden.tres", "scene":"res://game/bosses/crypt_and_frost/mirror_bell_warden.tscn"},
+	&"royal_bell_bearer": {"family":&"depth_boss", "script":"res://game/bosses/crypt_and_frost/royal_bell_bearer.gd", "definition":"res://resources/enemies/royal_bell_bearer.tres", "scene":"res://game/bosses/crypt_and_frost/royal_bell_bearer.tscn"},
+	&"thermal_bell_keeper": {"family":&"machine", "script":"res://game/bosses/harbor_ember/thermal_bell_keeper.gd", "definition":"res://resources/enemies/thermal_bell_keeper.tres", "scene":"res://game/bosses/harbor_ember/thermal_bell_keeper.tscn"},
+	&"harbor_warden": {"family":&"machine", "script":"res://game/bosses/harbor_ember/harbor_warden.gd", "definition":"res://resources/enemies/harbor_warden.tres", "scene":"res://game/bosses/harbor_ember/harbor_warden.tscn"},
+	&"ember_molter": {"family":&"depth_boss", "script":"res://game/bosses/tide_and_ember/molter_behavior.gd", "definition":"res://resources/enemies/ember_molter.tres", "scene":"res://game/bosses/tide_and_ember/ember_molter.tscn"},
+	&"tide_pump_bell": {"family":&"depth_boss", "script":"res://game/bosses/tide_and_ember/pump_keeper.gd", "definition":"res://resources/enemies/tide_pump_bell.tres", "scene":"res://game/bosses/tide_and_ember/tide_pump_bell.tscn"},
+	&"star_gatekeeper": {"family":&"depth_boss","script":"res://game/bosses/sky/star_gatekeeper.gd","definition":"res://resources/enemies/star_gatekeeper.tres","scene":"res://game/bosses/sky/star_gatekeeper.tscn"},
+	&"island_windbird": {"family":&"depth_boss","script":"res://game/bosses/sky/windbird.gd","definition":"res://resources/enemies/island_windbird.tres","scene":"res://game/bosses/sky/island_windbird.tscn"},
+	&"borer_three": {"family":&"depth_boss", "script":"res://game/bosses/depths/borer_behavior.gd", "definition":"res://resources/enemies/borer_three.tres", "scene":"res://game/bosses/depths/borer_three.tscn"},
+	&"stone_curtain_lord": {"family":&"depth_boss", "script":"res://game/bosses/depths/stone_curtain_behavior.gd", "definition":"res://resources/enemies/stone_curtain_lord.tres", "scene":"res://game/bosses/depths/stone_curtain_lord.tscn"},
+	&"spore_larva": {"family":&"base", "strategy":"res://game/enemies/behaviors/hopper_attack_strategy.gd", "script":"res://game/enemies/behaviors/enemy_attack_behavior.gd", "definition":"res://resources/enemies/spore_larva.tres", "scene":"res://game/enemies/species/scenes/spore_larva.tscn"},
+	&"mycelium_shell": {"family":&"base", "strategy":"res://game/enemies/behaviors/charger_attack_strategy.gd", "script":"res://game/enemies/behaviors/enemy_attack_behavior.gd", "definition":"res://resources/enemies/mycelium_shell.tres", "scene":"res://game/enemies/species/scenes/mycelium_shell.tscn"},
+	&"rail_crawler": {"family":&"base", "strategy":"res://game/enemies/behaviors/charger_attack_strategy.gd", "script":"res://game/enemies/behaviors/enemy_attack_behavior.gd", "definition":"res://resources/enemies/rail_crawler.tres", "scene":"res://game/enemies/species/scenes/rail_crawler.tscn"},
+	&"stray_excavator": {"family":&"base", "strategy":"res://game/enemies/behaviors/ground_fan_sentry_attack_strategy.gd", "script":"res://game/enemies/behaviors/enemy_attack_behavior.gd", "definition":"res://resources/enemies/stray_excavator.tres", "scene":"res://game/enemies/species/scenes/stray_excavator.tscn"},
+
+	&"crown_strider": {"family":&"machine", "script":"res://game/bosses/machines/machine_behavior.gd", "definition":"res://resources/enemies/crown_strider.tres", "scene":"res://game/bosses/machines/crown_strider.tscn"},
+	&"star_warden": {"family":&"machine", "strategy":"res://game/enemies/behaviors/fan_sentry_attack_strategy.gd","script":"res://game/bosses/machines/star_warden_behavior.gd", "definition":"res://resources/enemies/star_warden.tres", "scene":"res://game/bosses/machines/star_warden.tscn"},
+	&"clock_regulator": {"family":&"machine", "script":"res://game/bosses/machines/machine_behavior.gd", "definition":"res://resources/enemies/clock_regulator.tres", "scene":"res://game/bosses/machines/clock_regulator.tscn"},
+	&"traction_engine": {"family":&"machine", "script":"res://game/bosses/machines/machine_behavior.gd", "definition":"res://resources/enemies/traction_engine.tres", "scene":"res://game/bosses/machines/traction_engine.tscn"},
+	&"gear_overseer": {"family":&"machine", "script":"res://game/bosses/machines/machine_behavior.gd", "definition":"res://resources/enemies/gear_overseer.tres", "scene":"res://game/bosses/machines/gear_overseer.tscn"},
 	&"chime_target": {"family":&"base", "script":"res://game/enemies/behaviors/chime_target_behavior.gd", "definition":"res://resources/enemies/chime_target.tres", "scene":"res://game/enemies/scenes/chime_target.tscn"},
 	&"patrol": {"family":&"base", "script":"", "definition":"res://resources/enemies/patrol_drone.tres", "scene":"res://game/enemies/scenes/patrol_drone.tscn"},
 	&"charger": {"strategy":"res://game/enemies/behaviors/charger_attack_strategy.gd", "family":&"base", "script":"res://game/enemies/behaviors/enemy_attack_behavior.gd", "definition":"res://resources/enemies/plains_charger.tres", "revisions":{CHARGER_V2_REVISION:"res://resources/enemies/legacy/plains_charger_v2.tres"}, "scene":"res://game/enemies/scenes/patrol_drone.tscn"},
@@ -22,6 +43,8 @@ const BEHAVIORS := {
 	&"forest_thread_spider": {"family":&"forest", "script":"res://game/enemies/behaviors/forest_thread_spider_behavior.gd", "definition":"res://resources/enemies/forest_thread_spider.tres", "scene":"res://game/enemies/species/scenes/forest_thread_spider.tscn"},
 	&"forest_crossbranch": {"family":&"forest", "script":"res://game/enemies/behaviors/forest_crossbranch_behavior.gd", "definition":"res://resources/enemies/forest_crossbranch.tres", "scene":"res://game/enemies/species/scenes/forest_crossbranch.tscn"},
 	&"forest_bible_weaver": {"family":&"weaver", "script":"res://game/enemies/behaviors/forest_bible_weaver_behavior.gd", "definition":"res://resources/enemies/forest_bible_weaver.tres", "scene":"res://game/enemies/species/scenes/forest_bible_weaver.tscn"},
+	&"forest_antler": {"family":&"base", "strategy":"res://game/enemies/behaviors/forest_antler_strategy.gd", "script":"res://game/enemies/behaviors/enemy_attack_behavior.gd", "definition":"res://resources/enemies/forest_antler.tres", "scene":"res://game/enemies/species/scenes/forest_antler.tscn"},
+	&"forest_mentor": {"family":&"base", "strategy":"res://game/enemies/behaviors/forest_mentor_strategy.gd", "script":"res://game/enemies/behaviors/enemy_attack_behavior.gd", "definition":"res://resources/enemies/forest_mentor.tres", "scene":"res://game/enemies/species/scenes/forest_mentor.tscn"},
 }
 static func behavior_ids() -> Array[StringName]:
 	var result: Array[StringName] = []

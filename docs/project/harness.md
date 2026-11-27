@@ -2,7 +2,7 @@
 
 ## 日常验证
 
-[tools/ci.py](../../tools/ci.py) 和 [production.yml](../../.github/workflows/production.yml) 定义四项日常检查，唯一Actions context为`affected`。
+[tools/ci.py](../../tools/ci.py) 和 [production.yml](../../.github/workflows/production.yml) 中的 `affected` 作业验证冻结根工程。重做工程另由同一工作流的 `rebuild` 作业运行文档、质量、上下文导航、普通房间和内容通道检查。
 
 | 检查 | 范围 |
 | --- | --- |
@@ -17,7 +17,7 @@ python3 tools/ci.py
 python3 tools/ci.py --check import --check smoke
 ```
 
-PR、main push和手动CI使用同一套四项检查；自动CI不读取历史证据或手动测试表。发布与部署分别手动执行。
+PR、main push 和手动 CI 都运行上述 affected 作业和重做 rebuild 作业；自动CI不读取历史证据或手动测试表。发布与部署分别手动执行。
 
 ## 按任务选择专项
 
@@ -40,7 +40,7 @@ python3 tests/test_harness.py
 
 非零退出、超时、缺成功标记及脚本／Shader／资源退出错误均失败。测试、GUI、正常速度音画、独审、用户和设备分别记录实际覆盖；计划不代表通过。
 
-## 发布与试玩
+## 冻结根工程的发布与试玩
 
 `tools/deliver.py`先运行四项CI，再按正式世界的受控资源清单导出；发行不生成旧Foundry实验批次。Windows／Android由`tools/export_native.py`执行`--export-release`，共用现有世界闭包，只包含正式43房及实际运行依赖，不包含工作台试验房、制作参考图、报告或生成器。版本唯一来源为project.godot的config/version。
 

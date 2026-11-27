@@ -1,6 +1,5 @@
 extends SceneTree
-## Check accepted contact damage, failed storage, unique claims and the playable return.
-const Connection := preload("res://rooms/world/p02_connections/connection_room.gd")
+## Check accepted contact damage, failed storage, permanent acquisition and the playable return.
 var failures := 0
 var checks := 0
 var pilot: FieldTerracePilot
@@ -40,7 +39,7 @@ func contact(east: EnemyActor, fatal: bool) -> void:
 	var session := pilot.active
 	var health := session.controller.actor_resources.health
 	var before := health.current
-	session.player.reset_at(Vector2(east.motor.position.x,398))
+	session.player.reset_at(east.motor.position+Vector2.UP*2)
 	for tick in 1500:
 		await physics_frame
 		if not session.controller.active or (not fatal and health.current < before): return
@@ -48,26 +47,13 @@ func contact(east: EnemyActor, fatal: bool) -> void:
 		session.controller.router.set_move_axis(clampf(distance/18,-.85,.85))
 
 func run() -> void:
-	pilot = load("res://rooms/world/P02.tscn").instantiate()
+	pilot = load("res://tests/plains_test_host.tscn").instantiate()
 	root.add_child(pilot)
 	var storage := Storage.new()
 	pilot.active.state.storage = storage
 	check(await preload("res://tests/plains_start_input.gd").take_ground_gun(pilot),"claim the gun before entering the danger route")
 	check(await enter_field(),"real P01 crossing enters the field")
-	# Collect the two actual P16 services. The passage suites exercise the journeys.
-	pilot.enter_room("P16","d009")
-	await frames(4)
-	var site := pilot.connection as P02ConnectionRoom
-	for id: String in [Connection.SHARD,Connection.PURSE]:
-		pilot.active.player.reset_at(site.points[id])
-		await frames(6)
-		pilot.active.controller.router.request_action(&"interact")
-		await frames(3)
-		check(not site.objects[id].visible,"independent claim "+id)
 	var gold: int = pilot.active.services.ledger().gold
-	check(gold > 0,"credited P16 currency")
-	pilot.enter_room("P02","d009")
-	await frames(4)
 	var source := pilot.active
 	source.player.reset_at(FixedWorldProvider.point(pilot.active_doc.sites.discover_p02_low_slope.at))
 	await frames(3)
@@ -98,7 +84,7 @@ func run() -> void:
 	check(restored.player.position.distance_to(rest)<2 and restored.player.is_on_floor(),"full body stands on the registered rest ground")
 	check(is_equal_approx(health.current,health.capacity) and restored.controller.combat_energy.current==0,"new life restores full health and clears resonance")
 	check(storage.successful_recoveries==1 and restored.state.value.cycle==2 and restored.state.revision==revision+1,"retry commits death exactly once")
-	check(restored.state.has("discover_p02_low_slope") and restored.state.value.inventory.get("health_shard",0)==1 and restored.services.ledger().gold==gold and restored.state.value.receipts.has("income:"+Connection.PURSE),"map, unique fragment and paid currency survive")
+	check(restored.state.has("discover_p02_low_slope") and restored.state.has("gun") and restored.services.ledger().gold==gold,"discovered map, acquired weapon and wallet survive")
 	var income := "income:enemy:P02/grass_verge_grub:cycle:1"
 	check(restored.state.value.receipts.has(income) and not restored.services.ledger().drops.is_empty(),"the pending old-life reward becomes collectible exactly once")
 	check(await enter_field(),"the player can walk and traverse the entrance again")

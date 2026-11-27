@@ -128,7 +128,7 @@ static func spawn_enemy(room: FixedWorldRoom, placement: Dictionary,controller: 
 	if str(placement.behavior) == "chime_target": saved = {}
 	var body := EnemyFactory.create_for_behavior(StringName(placement.behavior))
 	var actor := body.get_node("Actor") as EnemyActor
-	body.ground_recovery_enabled=true
+	body.ground_recovery_enabled = actor.definition.behavior_id != &"forest_crossbranch"
 	actor.set_meta(&"world_persistent_corpse",true)
 	if placement.has("max_health"):
 		actor.definition=actor.definition.duplicate(true) as EnemyDefinition
@@ -145,7 +145,11 @@ static func spawn_enemy(room: FixedWorldRoom, placement: Dictionary,controller: 
 	actor.bind_encounter(controller,policy,lifetime,StringName(id),[entry_anchor])
 	if saved.has("direction"): actor.brain.direction=int(saved.direction)
 	if saved.has("health"): actor.restore_instance_health(float(saved.health))
-	if not saved.is_empty() and not actor.health.terminal and actor.attack_behavior != null:
+	if actor.attack_behavior is ForestCrossbranchBehavior:
+		var records := {id:saved} if saved.has("depth_state") else {}
+		var error := actor.configure_region_placement(placement,StringName(id),true,records,func(): return actor.attack_behavior.max_concurrent_attacks)
+		if not error.is_empty(): push_error(error + ": " + id)
+	elif not saved.is_empty() and not actor.health.terminal and actor.attack_behavior != null:
 		actor.attack_behavior.restore_region_state(saved)
 	EnemyPresentationBinding.synchronize(actor)
 	var contact:=DemoContactEmitter.attach(body,policy,controller,StringName(id+":contact"),DamageRequest.Kind.MONSTER,actor.definition.collision_size/2)
@@ -163,6 +167,6 @@ static func install(room: FixedWorldRoom, controller: PlayerController, policy: 
 	for placement: Dictionary in room.enemy_placements:
 		room.spawn_enemy(placement,controller,policy,lifetime,saved_enemies.get(str(placement.id),{}),entry_anchor)
 	for index: int in room.hazards.size():
-		room.add_child(DemoContactEmitter.environment_rect(room.hazards[index],policy,controller,StringName(room.room_id+":terrain:"+str(index))))
+		room.add_child(DemoContactEmitter.environment_rect(room.hazards[index],policy,controller,StringName(room.room_id+":terrain:"+str(index)),true))
 	for strip: Dictionary in room.spike_strips:
-		room.add_child(DemoContactEmitter.environment_rect(FixedWorldProvider.rect(strip.bounds),policy,controller,StringName(room.room_id+":spikes:"+str(strip.id))))
+		room.add_child(DemoContactEmitter.environment_rect(FixedWorldProvider.rect(strip.bounds),policy,controller,StringName(room.room_id+":spikes:"+str(strip.id)),true))

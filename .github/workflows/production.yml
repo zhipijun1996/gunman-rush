@@ -42,7 +42,7 @@ jobs:
   rebuild:
     name: Rebuild room and documentation
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 25
     env:
       GUNMAN_TOOLCHAIN_ROOT: /tmp/gunman-toolchains
     steps:

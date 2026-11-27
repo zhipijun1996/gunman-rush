@@ -4,6 +4,11 @@ extends Camera2D
 var target: PlayerMotor
 var controller: PlayerController
 var room: FixedWorldRoom
+var landmark: Dictionary = {}
+var landmark_point := Vector2.ZERO
+var _landmark_weight := 0.0
+var _doors: Array[Dictionary] = []
+var arrival_direction := 1.0
 var settings: Dictionary
 var bounds := Rect2()
 var zones := WorldCameraZones.new()
@@ -29,6 +34,12 @@ var _fall_blend := 0.0
 var _composition := Vector2.ZERO
 var _takeover: Dictionary = {}
 var _token := 0
+var reduced_effects := false:
+	set(value):
+		reduced_effects = value
+		if value:
+			_shake_time = 0.0
+			_shake_strength = 0.0
 var _shake_time := 0.0
 var _shake_duration := 0.0
 var _shake_strength := 0.0
@@ -57,11 +68,21 @@ func accepted_look_direction() -> float:
 	return _look_direction if looking else 0.0
 
 func enter_room(_physical_bounds: Rect2) -> void:
+	_doors.clear()
+	# Only physical boundary crossings constrain the view. Interior interactions
+	# and station arrivals have a spawn but no outward normal or opening.
+	for gate: Dictionary in room.contract.get("exits",{}).values():
+		if gate.has("span"):
+			_doors.append({"point":FixedWorldProvider.point(gate.point),"normal":FixedWorldProvider.point(gate.direction)})
+	for gate: Dictionary in room.doors:
+		if not gate.get("front_door",false):
+			var normals := {"up":Vector2.UP,"down":Vector2.DOWN,"left":Vector2.LEFT,"right":Vector2.RIGHT}
+			_doors.append({"point":FixedWorldProvider.point(gate.position_candidate.local_world_units),"normal":normals[gate.direction]})
 	zones.configure(room,settings)
 	reset_view()
 func reset_view() -> void:
 	zones.select_initial(target.global_position)
-	lead=0;observation_direction=1;action_offset=Vector2.ZERO;look_offset=0;looking=false
+	lead=0;observation_direction=arrival_direction;action_offset=Vector2.ZERO;look_offset=0;looking=false
 	_direction_candidate=0;_direction_age=0;_look_age=0;_look_direction=0;_look_blocked=false
 	fall_catchup=false;_fall_blend=0;_takeover.clear();_token+=1
 	_shake_time=0;_shake_strength=0;offset=Vector2.ZERO
@@ -71,6 +92,7 @@ func reset_view() -> void:
 	_composition=_zone_offset(frame.a)
 	vertical_focus=0;_rise_speed=1
 	base_center=target.global_position+_composition
+	_landmark_weight=0.0
 	_last_zone="";_zone_bias=Vector2.ZERO
 	_display_current=Rect2()
 	_initialized=true
@@ -86,6 +108,7 @@ func begin_takeover(owner: Node, point: Vector2, display: Rect2, seconds: float=
 func end_takeover(token: int) -> void:
 	if token==_token:_takeover.clear()
 func shake(strength: float, duration: float) -> void:
+	if reduced_effects: return
 	_shake_strength=minf(maxf(_shake_strength,strength),float(settings.shake_max))
 	_shake_duration=maxf(.01,duration);_shake_time=_shake_duration
 func _physics_process(delta: float) -> void:
@@ -109,6 +132,7 @@ func _step(delta: float, snap: bool) -> void:
 	_composition=composition if snap else _composition.lerp(composition,_weight(delta,float(settings.zone_seconds)))
 	_advance_vertical_focus(delta,half,snap)
 	var neutral:=follow_anchor+_composition+Vector2(lead,vertical_focus)+action_offset
+	neutral = _frame_landmark(neutral,delta,snap)
 	var ordinary:=_compose(a,neutral,half).lerp(_compose(b,neutral,half),t)
 	var display_a:=_display(a,half)
 	var display_b:=_display(b,half)
@@ -156,6 +180,20 @@ func _step(delta: float, snap: bool) -> void:
 	global_position=(base_center+tremor).clamp(legal_centers.position,legal_centers.end)
 	force_update_scroll()
 	room.update_camera_concealment(zones.active_id,frame)
+
+## Ease from ordinary follow to a shared player/collectible composition.
+## It still goes through the active zone, doors and final player-visibility clamp.
+func _frame_landmark(neutral: Vector2, delta: float, snap: bool) -> Vector2:
+	if landmark.is_empty(): return neutral
+	var area := FixedWorldProvider.rect(landmark.bounds)
+	var body := target.global_position
+	var influence := 0.0
+	if area.has_point(body) and not room.services.state.value.receipts.has(landmark.site):
+		var ahead := smoothstep(area.position.x,area.position.x+float(landmark.approach_width),body.x)
+		var below := smoothstep(area.position.y,area.get_center().y,body.y)
+		influence = ahead*below
+	_landmark_weight = influence if snap else lerpf(_landmark_weight,influence,_weight(delta,float(landmark.ease_seconds)))
+	return neutral.lerp(body.lerp(landmark_point,float(landmark.framing)),_landmark_weight)
 
 func _advance_observation(delta: float, half: Vector2) -> void:
 	var input_axis:=controller.router.axis if controller!=null else 0.0
@@ -222,31 +260,32 @@ func _display(zone: Dictionary, half: Vector2) -> Rect2:
 			result.size[axis]=2*half[axis]
 	return result
 func _door_goal(value: Vector2, half: Vector2) -> Vector2:
-	if str(frame.a.id)=="arena" or not _takeover.is_empty():return value
+	if frame.a.get("arena",false) or not _takeover.is_empty():return value
 	var result:=value
-	for door: Dictionary in room.doors:
-		if door.get("front_door",false):continue
-		var portal:=FixedWorldProvider.point(door.position_candidate.local_world_units)
-		var axis:=1 if str(door.direction) in ["up","down"] else 0
+	for door: Dictionary in _doors:
+		var portal: Vector2 = door.point
+		var normal: Vector2 = door.normal
+		var axis := 1 if normal.y != 0 else 0
 		if absf(target.global_position[1-axis]-portal[1-axis])>float(settings.door_across) or absf(target.global_position[axis]-portal[axis])>half[axis]*float(settings.door_approach):continue
 		var depth:=absf(target.global_position[axis]-portal[axis])
 		var across:=absf(target.global_position[1-axis]-portal[1-axis])
 		var influence:=(1.0-smoothstep(half[axis]*.6,half[axis]*float(settings.door_approach),depth))*(1.0-smoothstep(float(settings.door_across)*.5,float(settings.door_across),across))
-		var edge_center:=portal[axis]+half[axis]*(1 if str(door.direction) in ["up","left"] else -1)
+		var edge_center:=portal[axis]-half[axis]*normal[axis]
 		result[axis]=lerpf(result[axis],edge_center,influence)
 	return result
 func _door_constraints(limits: Rect2, half: Vector2) -> Rect2:
-	if str(frame.a.id)=="arena" or not _takeover.is_empty():return limits
+	if frame.a.get("arena",false) or not _takeover.is_empty():return limits
 	var low:=limits.position;var high:=limits.end
-	for door: Dictionary in room.doors:
-		if door.get("front_door",false):continue
-		var portal:=FixedWorldProvider.point(door.position_candidate.local_world_units)
-		var axis:=1 if str(door.direction) in ["up","down"] else 0
+	for door: Dictionary in _doors:
+		var portal: Vector2 = door.point
+		var normal: Vector2 = door.normal
+		var axis := 1 if normal.y != 0 else 0
 		var across:=absf(target.global_position[1-axis]-portal[1-axis])
 		var depth:=absf(target.global_position[axis]-portal[axis])
 		if across>float(settings.door_across) or depth>half[axis]*float(settings.door_approach):continue
-		var side:=1.0 if str(door.direction) in ["up","left"] else -1.0
-		var edge_center:=portal[axis]+side*half[axis]
+		var side := -normal[axis]
+		# A small-room display may already be a single legal center.
+		var edge_center:=clampf(portal[axis]+side*half[axis],limits.position[axis],limits.end[axis])
 		if side>0:low[axis]=maxf(low[axis],edge_center)
 		else:high[axis]=minf(high[axis],edge_center)
 		if low[axis]>high[axis]:low[axis]=edge_center;high[axis]=edge_center

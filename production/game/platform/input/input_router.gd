@@ -33,6 +33,8 @@ var touch_enabled := false
 var touch_mouse_guard_until_usec := 0
 var _touch_contact_ids: Dictionary = {}
 var has_application_focus := true
+var _window_focused := true
+var _app_suspended := false
 var profile: InputProfile = InputProfile.load_default()
 var _source_axes: Dictionary = {}
 var _jump_sources: Dictionary = {}
@@ -43,6 +45,7 @@ var _queue: Array[Dictionary] = []
 var _last_tick := -1
 
 func interact_prompt(action: String) -> String:
+	if current_device == &"gamepad": return "左摇杆 ↑　"+action
 	if touch_enabled and current_device == &"touch": return "互动　"+action
 	return ("↑ / W　" if get_meta(&"world_up_interaction",false) else "W　")+action
 
@@ -207,11 +210,17 @@ func clear(reason: String) -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		_window_focused = false
 		has_application_focus = false
 		clear("application_focus_out")
 	elif what == NOTIFICATION_APPLICATION_FOCUS_IN:
-		has_application_focus = true
+		_window_focused = true
+		has_application_focus = not _app_suspended
 		clear("application_focus_in")
+	elif what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_APPLICATION_RESUMED:
+		_app_suspended = what == NOTIFICATION_APPLICATION_PAUSED
+		has_application_focus = _window_focused and not _app_suspended
+		clear("application_suspended" if _app_suspended else "application_resumed")
 	elif what == NOTIFICATION_PAUSED:
 		clear("pause")
 

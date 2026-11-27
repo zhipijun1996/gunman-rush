@@ -75,6 +75,7 @@ func _physics_process(delta: float) -> void:
 	request.token=lifetime.token();request.actor_epoch=lifetime.actor_epoch
 	request.health_epoch=controller.actor_resources.health.epoch
 	request.kind=DamageRequest.Kind.ENVIRONMENT;request.amount=1
+	request.return_to_safety=mode in ["phase_light","thorns"]
 	request.hazard_category=&"phase_light" if mode=="phase_light" else &"solid"
 	if mode=="water":request.on_damage_applied=_water_accepted
 	policy.submit(request)

@@ -8,9 +8,9 @@
 | --- | --- |
 | 平原普通敌人 | [平原物种](enemies/plains.md)：巡逻、俯冲、跃击、单发／扇射哨兵、根铃、浮铃芽练习靶；[冲锋怪](enemies/plains_charger.md)：完整单对象样例 |
 | 森林普通敌人 | [森林物种](enemies/forest.md)：铃囊萤、棘籽哨、甲虫、摆锚、织棘蛛、跨枝移动体、圣经织者 |
-| 平原 Boss | [鸣铃巡游机](bosses/bellstrider.md)、[牧风者主动追压版](bosses/windkeeper.md) |
-| 森林 Boss | [根铃守卫](bosses/rootbell_guardian.md)、[棘冠女王迁巢织场](bosses/thorn_queen_weave.md)、[Canopy](bosses/thorn_queen_canopy.md)；版本采用见模块导航 |
-| 武器 | [武器与技能](weapons.md)：三个基础家族、六个二级分支与六个已实现三级技能；[动作入口](player_actions.md) 仅导航相关合同 |
+| 冻结平原 Boss | [鸣铃巡游机](bosses/bellstrider.md)、[牧风者主动追压版](bosses/windkeeper.md) |
+| 冻结森林 Boss | [根铃守卫](bosses/rootbell_guardian.md)、[棘冠女王迁巢织场](bosses/thorn_queen_weave.md)、[Canopy](bosses/thorn_queen_canopy.md)；冻结版本采用见各对象页，当前世界的遭遇身份取自锁定内容包 |
+| 武器 | [武器与技能](weapons.md)：三个基础家族、六个二级分支与冻结工程的六个三级技能；[动作入口](player_actions.md) 仅导航相关合同 |
 | 移动能力 | [H/W/D/Q](abilities.md)：永久解锁、行为与恢复；武器本体、攻击等级、分支材料和共用技能芯归 [永久成长](../bible/rewards_and_builds.md) |
 | 永久装备 | [60 件装备的效果与适用条件](items.md) · [运行目录](../../production/config/equipment.json) · [房间与美术接入](../project/item_authoring.md) |
 | 机关与交互 | [世界对象](world_objects.md)：铃锁、门、平台、索点、危险、检查点、补给、宝箱与出口 |
@@ -23,12 +23,12 @@
 
 | 范围 | 尚缺什么 | 补充位置与边界 |
 | --- | --- | --- |
-| 其余14个地区 | 固定房间、分区、视觉生态、敌人、机关与 Boss 的可开发设计 | 世界源提供房号、分区能力路线与永久事件；选中房间后补 `bible/regions/` 与实际对象，不批量创建空页 |
+| 平原／森林以外地区 | 按各区现有房间、分区和进度条件补齐具体路线、视觉生态、敌人、机关与 Boss 设计 | 世界源提供房号、分区能力路线与永久事件；选中房间后补 `bible/regions/` 与实际对象，不批量创建空页 |
 | 保留 Boss 身份 | clockwork_guardian、基础 windkeeper、thorn_guardian、thorn_queen 的独立行为／表现说明 | 消费者在模块导航；修改这些入口时先补一页合并规范，不套用现行重制版 |
 | 两个候选普通怪 | lure_guard、crosswind_moth 的正式身份、完整反制与采用决定 | 先在敌人工作线选择是否保留；注册候选不等于批准入池 |
 | 未来机关／Boss | 地区框架和叙事名字对应的真实招式、弱点、危险与解法 | 叙事提案不能代替对象规范，制作前补相关正文 |
-| 剧情交付 | 森林现行 Boss 的叙事动机，以及固定世界任务、修钟及结局的必要事实与可见呈现 | 选择由 STORY-DESIGN-03 交接，未定方案不覆盖对象设计 |
+| 剧情交付 | 森林现行 Boss 的叙事动机，以及固定世界任务、修钟及结局的必要事实与可见呈现 | 历史讨论见[剧情工作线](../project/worklines/story_design_03/scope.md)，现行事件核对锁定世界包，未定方案不覆盖对象设计 |
 
-剧情与地图候选的待决定项从 [当前任务](../project/tasks.md) 接续；不在本页复制进度。
+施工范围见[当前任务](../project/tasks.md)，使用的地图版本见[世界输入](world/README.md)。
 
 `creative_direction/` 是创作工具使用的当前来源与选择元数据，不再定义一套人类规则。必要原始来源独立保存在其 sources/，只在核对来源时读取；装备美术以[重做版图标与接入说明](../project/item_authoring.md)为准。创作工具中绑定的旧装备素材和配置用于复核历史画面。

@@ -96,7 +96,14 @@ func _draw() -> void:
 	var bounds := FixedWorldProvider.rect(contract.world_geometry.bounds_world_units)
 	for i: int in platforms.size():
 		if i in one_way_indices:
-			UnderworldTerrain.draw_one_way(self,platforms[i])
+			var platform_ids: Array = entity_ids.get("platforms",[])
+			var style := str(platform_appearances.get(platform_ids[i],"")) if i < platform_ids.size() else ""
+			if style in ["island_shelf","star_truss","clock_brace"]:
+				preload("res://game/presentation/world/art/sky_ledge.gd").paint(self,platforms[i],style)
+			elif style in ["forest_branch","forest_branch_left","forest_vine"]:
+				preload("res://game/presentation/world/art/forest_branch.gd").paint(self,platforms[i],style)
+			else:
+				UnderworldTerrain.draw_one_way(self,platforms[i])
 		elif i in illustrated_platform_indices:
 			UnderworldTerrain.draw_mechanism_beam(self,platforms[i])
 	for door: Dictionary in doors:
@@ -124,7 +131,7 @@ func snapshot() -> Dictionary:
 		var actor: EnemyActor = enemies[id]
 		if actor.get_meta("wave_attempt",false):continue
 		if actor.definition.behavior_id == &"chime_target": continue
-		result[id] = actor.region_snapshot()
+		result[id] = actor.region_snapshot(true,actor.attack_behavior is ForestCrossbranchBehavior)
 		var remains:=EnemyPresentationBinding.remains(actor.motor.get_node("Presentation"))
 		if actor.health.terminal and remains!=null:
 			var support:=remains.support_node()

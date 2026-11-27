@@ -13,6 +13,7 @@ func candidate() -> Dictionary:
 	if capture_live.is_valid(): capture_live.call(result)
 	return result
 var value: Dictionary = {}
+var maximum_attack_rank: int = -1
 
 func fresh(max_hp: float, armed := true) -> Dictionary:
 	return {"services":WorldServices.empty_ledger(),"gear_ids":{"carried":[],"delivered":[]},"story_hosts":{},"mechanisms":{},"flags":["gun"] if armed else [],"receipts":{},"inventory":{},"cycle":1,"enemies":{},
@@ -22,7 +23,7 @@ func fresh(max_hp: float, armed := true) -> Dictionary:
 func restore() -> bool:
 	return restore_profile(storage.load_profile())
 
-func restore_profile(loaded: Dictionary) -> bool:
+func restore_profile(loaded: Dictionary, catalog: WorldContentCatalog = null) -> bool:
 	if not loaded.get("accepted",false):
 		error = storage.status
 		return false
@@ -38,7 +39,7 @@ func restore_profile(loaded: Dictionary) -> bool:
 		return false
 	# Stable facts survive compatible content revisions; unavailable positions return
 	# to an implemented registered rest, then the campaign start. Never overwrite on read.
-	if content.room(str(candidate.rest.room)).is_empty():
+	if content.room(str(candidate.rest.room)).is_empty() and (catalog==null or not catalog.lookup("rooms",str(candidate.rest.room)).ok):
 		candidate.rest = fresh(float(candidate.hp)).rest
 	if content.room(str(candidate.room)).is_empty() or not valid_entry(str(candidate.room),str(candidate.entry)):
 		var rest: Dictionary = candidate.rest
@@ -92,6 +93,9 @@ func valid(candidate: Dictionary) -> bool:
 	for id: Variant in candidate.inventory:
 		var quantity: Variant=candidate.inventory[id]
 		if not id is String or not (quantity is int or quantity is float) or not is_finite(quantity) or quantity<0 or floorf(quantity)!=quantity: return false
+	if maximum_attack_rank>=0:
+		if int(candidate.inventory.get("attack_rank",0))>maximum_attack_rank: return false
+		if "skill_tier_2" in candidate.flags and "skill_tier_1" not in candidate.flags: return false
 	if candidate.has("services"):
 		var gear := WorldServices.normalize(candidate.services)
 		if not EquipmentCatalog.legal_loadout(gear.owned,gear.equipped,EquipmentCatalog.capacity(candidate.inventory)): return false

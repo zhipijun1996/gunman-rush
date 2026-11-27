@@ -82,9 +82,10 @@ func physics_tick(delta: float) -> void:
 		return
 	traversal.advance(delta)
 	router.grapple_available = traversal.hook_enabled
-	router.weapon_skill_available=shoot_ability.weapon.tier==3
-	router.weapon_skill_label=shoot_ability.weapon.skill_name
-	router.weapon_skill_cooldown_ratio=clampf(shoot_ability.behavior().skill_cooldown/shoot_ability.weapon.skill_cooldown,0,1)
+	var trained:=shoot_ability.behavior().skill_definition()
+	router.weapon_skill_available=trained!=null
+	router.weapon_skill_label=trained.skill_name if trained!=null and not trained.skill_name.is_empty() else "共鸣脉冲"
+	router.weapon_skill_cooldown_ratio=clampf(shoot_ability.behavior().skill_cooldown/trained.skill_cooldown,0,1) if trained!=null else 0.0
 	if item_runtime != null:
 		router.item_skill_available = not StringName(item_runtime.call("selected_active")).is_empty()
 		router.item_skill_label = EquipmentCatalog.item(item_runtime.selected_active()).get("name","主动装备")

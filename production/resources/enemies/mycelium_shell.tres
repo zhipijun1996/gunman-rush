@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_definition.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/enemies/patrol_health.tres" id="2"]
+[resource]
+script = ExtResource("1")
+stable_id = &"mycelium_shell"
+definition_version = 3
+health_definition = ExtResource("2")
+faction = &"enemy"
+patrol_speed = 25
+patrol_half_width = 103
+initial_direction = 1
+collision_size = Vector2(40, 34)
+
+behavior_id = &"mycelium_shell"
+telegraph_duration = 0.88
+attack_duration = 0.5
+recovery_duration = 0.48
+attack_speed = 450.0
+
+activation_range = 302.0

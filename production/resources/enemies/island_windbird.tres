@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ArenaBossDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/bosses/arena/arena_boss_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bosses/sky/island_windbird.png" id="3"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"island_windbird_health"
+max_health = 23.0
+initial_current = 23.0
+[resource]
+script = ExtResource("1")
+stable_id = &"island_windbird"
+behavior_id = &"island_windbird"
+health_definition = SubResource("health")
+collision_size = Vector2(88, 55)
+aerial = true
+telegraph_duration = 0.95
+attack_duration = 1.5
+recovery_duration = 1.95
+attack_speed = 485.0
+floor_offset = 230.0
+arena_half_width = 550.0
+reach = 435.0
+first_cycle = PackedStringArray("feathers", "dive")
+second_cycle = PackedStringArray("feathers", "dive", "crosswind")
+body_art = ExtResource("3")

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ArenaBossDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/bosses/arena/arena_boss_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bosses/crypt_and_frost/frost_echo_doll.png" id="3"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"frost_echo_doll_health"
+max_health = 36
+initial_current = 36
+[resource]
+script = ExtResource("1")
+stable_id = &"frost_echo_doll"
+behavior_id = &"frost_echo_doll"
+health_definition = SubResource("health")
+collision_size = Vector2(58, 80)
+aerial = false
+telegraph_duration = 0.94
+attack_duration = 1.55
+recovery_duration = 1.4
+attack_speed = 475.0
+floor_offset = 40.0
+arena_half_width = 530.0
+engagement_limits = Vector2(-468, 400)
+engagement_height = 310.0
+reach = 300.0
+first_cycle = PackedStringArray("echo_arm")
+second_cycle = PackedStringArray("upper_echo", "echo_arm", "echo_arm")
+body_art = ExtResource("3")

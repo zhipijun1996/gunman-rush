@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ArenaBossDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/bosses/arena/arena_boss_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bosses/machines/traction_engine.png" id="3"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"traction_engine_health"
+max_health = 24.0
+initial_current = 24.0
+[resource]
+script = ExtResource("1")
+stable_id = &"traction_engine"
+behavior_id = &"traction_engine"
+health_definition = SubResource("health")
+collision_size = Vector2(144, 88)
+aerial = true
+telegraph_duration = 0.91
+attack_duration = 1.25
+recovery_duration = 1.75
+attack_speed = 460.0
+floor_offset = 146.0
+arena_half_width = 562.0
+reach = 404.0
+first_cycle = PackedStringArray("gantry")
+second_cycle = PackedStringArray("left_weight", "gantry", "right_weight", "gantry")
+body_art = ExtResource("3")

@@ -380,7 +380,7 @@ func connections(room_id: String) -> Dictionary:
 func room_context(room_id: String) -> Dictionary:
 	var checked := lookup("rooms",room_id)
 	if not checked.ok: return checked
-	var result := {"ok":true,"room":checked.row,"connections":connections(room_id).rows,"coordinate_system":_bundle.coordinate_system.duplicate(true),"layout_authority":"planning_only","instance_placement_authority":"schema3_room_document","enemy_count_authority":"schema3_room_document","enemy_roster_authority":"schema3_room_document","enemy_gold_authority":"enemy_drop_profiles","bundle_sha256":bundle_sha256,"content_version":content_version}
+	var result := {"ok":true,"room":checked.row,"connections":connections(room_id).rows,"coordinate_system":_bundle.coordinate_system.duplicate(true),"layout_authority":"locked_construction_bounds_and_openings","instance_placement_authority":"schema3_room_document","enemy_count_authority":"schema3_room_document","enemy_roster_authority":"schema3_room_document","enemy_gold_authority":"enemy_drop_profiles","bundle_sha256":bundle_sha256,"content_version":content_version}
 	for table_name: String in ["abilities","rewards","encounters","events","npcs","dialogues","coin_caches","enemy_groups","observer_hints"]:
 		var rows: Array = []
 		for row: Dictionary in _tables[table_name].values():
@@ -505,13 +505,19 @@ static func _check_room_document(binding: Dictionary, room_id: String, allow_tes
 	if not path is String or not (path.begins_with("res://rooms/") or path.begins_with("res://tests/")) or not path.ends_with(".json") or not _relative(path.substr(6)):
 		return failure("room_binding_path_invalid",room_id)
 	var status: Variant = binding.get("status")
-	if status not in ["authored","integration_test"]: return failure("room_binding_status_invalid",room_id)
+	if status not in ["authored","placeholder","integration_test"]: return failure("room_binding_status_invalid",room_id)
 	if status == "integration_test" and not allow_tests: return failure("integration_test_binding_not_playable",room_id)
+	if status == "placeholder" and path != "res://rooms/world/receivers/%s.json" % room_id:
+		return failure("room_reception_path_invalid",room_id)
+	if status == "authored" and path != "res://rooms/world/%s.json" % room_id:
+		return failure("room_authored_path_invalid",room_id)
 	var read_document := _read(path)
 	if not read_document.ok: return read_document
 	var document: Dictionary = read_document.value
 	if document.get("schema") != 3 or document.get("room_id") != room_id or not document.get("root") is Dictionary or not document.get("entities") is Dictionary:
 		return failure("room_binding_document_invalid",room_id)
+	if document.get("reception",false) != (status == "placeholder"):
+		return failure("room_reception_status_mismatch",room_id)
 	return {"ok":true,"path":path,"status":status}
 
 func room_document(room_id: String) -> Dictionary:

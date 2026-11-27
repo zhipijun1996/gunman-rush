@@ -15,6 +15,7 @@ var physics_tick := 0
 # Explicit semantic exceptions; an environment spike is not automatically a
 # fall or forced run failure. Item defenses never cancel these exceptions.
 var contact := false
+var return_to_safety := false
 var fall := false
 var forced_failure := false
 # This flag alone grants no admission. FrameDamagePolicy only admits a derived
@@ -41,6 +42,7 @@ func copy() -> DamageRequest:
 	value.actor_epoch = actor_epoch
 	value.physics_tick = physics_tick
 	value.contact = contact
+	value.return_to_safety = return_to_safety
 	value.fall = fall
 	value.forced_failure = forced_failure
 	value.item_effect_damage = item_effect_damage

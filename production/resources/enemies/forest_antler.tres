@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"forest_antler_health"
+max_health = 18.0
+initial_current = 18.0
+[resource]
+script = ExtResource("1")
+stable_id = &"forest_antler"
+health_definition = SubResource("health")
+behavior_id = &"forest_antler"
+collision_size = Vector2(61, 54)
+telegraph_duration = 0.84
+attack_duration = 0.93
+recovery_duration = 1.33
+activation_range = 540.0
+patrol_half_width = 320.0
+projectile_speed = 288.0
+projectile_lifetime = 1.8
+projectile_muzzle_pivot = Vector2(10, 21)

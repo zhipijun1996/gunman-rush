@@ -1,5 +1,7 @@
 # 棘冠女王 · Canopy
 
+本页记录冻结工程的 Boss 设计与当时采用的资源。重做版对应房间的遭遇身份、完成条件和实体实现按[锁定世界包](../world/README.md)、[运行绑定](../../../production/config/imported_world/bindings.json)和[遭遇消费者](../../../production/game/content/world_room_encounter.gd)核对。
+
 女王穿梭两道实体树肋，持续横扫并用织结改变路线。玩家先决定下一次在哪里站，再选择借结、剪网或换岸；推进伤害会使最近真正站稳的岸承受持续压力。
 
 ## 行为与应对

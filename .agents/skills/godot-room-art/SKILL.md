@@ -11,7 +11,7 @@ description: 为失序之钟制作和审查整房空间美术：构图、Underwo
 
 在 `production/` 中处理地形尺度、材质、拼装与机关可读性。按新房数据确定几何，旧平原的配景只在复玩冻结版时使用。
 
-- 仓库 `AGENTS.md`、当前工作线、目标房及直接邻房的场景／合同。
+- 仓库 `AGENTS.md`、当前工作线、[世界输入](../../../docs/data/world/README.md)及目标房与直接邻房的实体场景。根据实际门侧与来向确定视觉接续。
 - 项目 [Visual Bible](../../../docs/bible/visual_bible.md) 和已确定的新区域设计：持有现行设计规则，本技能只定义执行方法。
 - 首次校准画风时读 [视觉基准](references/versioned-style-standard.md)，并查看 `assets/approved-five-regions.png`、`approved-tiles-and-props.png`、`current-plains-forest-v2.png`；以后按改动恢复对应参考。
 

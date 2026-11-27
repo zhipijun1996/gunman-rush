@@ -1,11 +1,70 @@
 {
   "schema": 3,
   "room_id": "P03",
+  "camera": {
+    "zoom": 1.6,
+    "zones": [
+      {
+        "id": "valley",
+        "trigger": [
+          0,
+          688,
+          840,
+          1022
+        ],
+        "display": [
+          0,
+          0,
+          840,
+          1710
+        ]
+      },
+      {
+        "id": "old_road",
+        "trigger": [
+          0,
+          0,
+          840,
+          688
+        ],
+        "display": [
+          0,
+          0,
+          840,
+          1230
+        ],
+        "offset": [
+          0,
+          -52
+        ]
+      }
+    ],
+    "links": [
+      {
+        "a": "valley",
+        "b": "old_road",
+        "band": [
+          0,
+          600,
+          840,
+          176
+        ],
+        "display": [
+          0,
+          0,
+          840,
+          1710
+        ],
+        "axis": "y",
+        "direction": -1
+      }
+    ]
+  },
   "bounds": [
-    -208,
-    -600,
-    2024,
-    1180
+    0,
+    0,
+    840,
+    1710
   ],
   "root": {
     "definition_id": "room.standard",
@@ -14,175 +73,171 @@
       "region_id": "windchime_plains",
       "terrain_material": "windchime_plains",
       "start_point": [
-        -126,
-        270
+        60,
+        1350
       ]
     }
   },
   "lesson": {
-    "introduce": "谷底的田埂虫在两道矮坎之间往返。先看准它的来向，再沿下方小路向东寻找折返点。",
-    "practice": "从东肩的长草台转身，隔着天光缺口看清西边整块落脚台。失控巡检机在台子深处抬炮。可留在东端射击，也可等单发过去再越过它。",
-    "check": "西上的旧路通往断桥；谷底东路的风草和裂石指向背后贴壁的收藏台，带着壁跳能力回访再去取。",
-    "retry": "主路失足会落回上一层或平坦沟底，壁龛下方也有连续的返回路。"
+    "introduce": "沿低处草路向东。旧石壁上的数道草冠一高一低，在东肩折回，能看见刚经过的田口。",
+    "practice": "先在宽处站定再反向。中段的巡检机守着西侧台腹，留出靠脊的落点；岩脊另一侧的反光属于低处另一条路。",
+    "check": "在最上层折回向西出谷。另一路要从沟底绕到岩脊背面，取得壁跳后沿岩缝上攀，再向右走到齿轮与东侧出口。",
+    "retry": "侧脚落空可回到下面的草台与石肩。底部的草沟和壁龛回落处均有平地通回入口。"
   },
   "exits": {
     "d002": {
       "point": [
-        -206,
-        270
+        0,
+        1350
       ],
       "spawn": [
-        -176,
-        270
+        60,
+        1350
       ],
       "direction": [
         -1,
         0
       ],
       "span": [
-        -128,
-        292
+        1230,
+        1470
       ]
     },
     "d003": {
       "point": [
-        -206,
-        -274
+        0,
+        150
       ],
       "spawn": [
-        -176,
-        -274
+        60,
+        150
       ],
       "direction": [
         -1,
         0
       ],
       "span": [
-        -372,
-        -253
+        30,
+        270
       ]
     },
     "d017": {
       "point": [
-        1814,
-        -46
+        840,
+        870
       ],
       "spawn": [
-        1784,
-        -46
+        780,
+        870
       ],
       "direction": [
         1,
         0
       ],
       "span": [
-        -142,
-        -25
+        750,
+        990
       ]
     }
   },
   "zone_areas": {
     "P03_switchback": [
-      -208,
-      -600,
-      1656,
-      1180
+      0,
+      0,
+      645,
+      1710
     ],
     "P03_east": [
-      1448,
-      -600,
-      368,
-      576
+      552,
+      450,
+      288,
+      540
     ]
   },
   "sites": {
     "scatter22_P03": {
       "at": [
-        494,
-        334
+        262,
+        1322
       ]
     },
     "wr_TG02": {
       "at": [
-        1584,
-        -46
+        718,
+        870
       ]
     }
   },
   "scenery": {
+    "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
     "pieces": [
       {
-        "texture": "res://assets/scenery/p03/ravine_backwall.webp",
+        "texture": "res://assets/scenery/p03/switchback_relief.webp",
         "at": [
-          1088,
-          592
+          420,
+          1710
         ],
-        "z_index": -58
+        "z_index": -54
       },
       {
-        "texture": "res://assets/scenery/p03/ravine_rock_faces.webp",
+        "texture": "res://assets/scenery/p03/switchback_strata.webp",
         "at": [
-          805,
-          592
+          420,
+          1710
         ],
         "z_index": 1
       },
       {
+        "name": "sunset_stalks",
         "texture": "res://rooms/world/p02_connections/seed_stems.png",
         "at": [
-          1148,
-          100
+          361,
+          847
         ],
         "flip": true,
-        "z_index": -3
+        "z_index": -4
       },
       {
+        "name": "summit_boulder",
         "texture": "res://rooms/world/p02_connections/stone.png",
         "at": [
-          1400,
-          354
+          434,
+          342
         ],
         "flip": false,
-        "z_index": -3
+        "z_index": -4
       },
       {
+        "name": "roadside_stalks",
         "texture": "res://rooms/world/p02_connections/seed_stems.png",
         "at": [
-          1416,
-          354
-        ],
-        "flip": false,
-        "z_index": -3
-      },
-      {
-        "texture": "res://rooms/world/p02_connections/stone.png",
-        "at": [
-          1509,
-          -26
+          69,
+          169
         ],
         "flip": true,
-        "z_index": -3
+        "z_index": -4
       },
       {
+        "name": "niche_grass",
         "texture": "res://rooms/world/p02_connections/seed_stems.png",
         "at": [
-          1525,
-          -26
+          761,
+          889
         ],
-        "flip": false,
-        "z_index": -3
+        "flip": true,
+        "z_index": -4
       }
     ],
     "camera_landmark": {
       "site": "wr_TG02",
       "bounds": [
-        920,
-        112,
-        526,
-        294
+        260,
+        842,
+        245,
+        260
       ],
-      "approach_width": 260,
-      "framing": 0.5,
+      "approach_width": 180,
+      "framing": 0.55,
       "ease_seconds": 0.22
     }
   },
@@ -194,498 +249,708 @@
       "properties": {
         "points": [
           [
-            -260,
-            288
+            -32,
+            1368
           ],
           [
-            80,
-            288
+            178,
+            1368
           ],
           [
-            80,
-            320
+            178,
+            1424
           ],
           [
-            204,
-            320
+            645,
+            1424
           ],
           [
-            204,
-            352
+            645,
+            888
           ],
           [
-            1448,
-            352
+            872,
+            888
           ],
           [
-            1448,
-            -28
+            872,
+            1730
           ],
           [
-            1870,
-            -28
-          ],
-          [
-            1870,
-            620
-          ],
-          [
-            -260,
-            620
+            -32,
+            1730
           ]
         ]
       }
     },
-    "east_switchback": {
-      "id": "east_switchback",
+    "west_road_cut": {
+      "id": "west_road_cut",
       "definition_id": "terrain.polygon",
       "definition_version": 1,
       "properties": {
         "points": [
           [
-            548,
-            286
+            0,
+            360
           ],
           [
-            710,
-            286
+            105,
+            360
           ],
           [
-            719,
-            275
+            114,
+            417
           ],
           [
-            716,
-            244
+            106,
+            528
           ],
           [
-            710,
-            218
+            105,
+            667
           ],
           [
-            838,
-            218
+            96,
+            738
           ],
           [
-            847,
-            205
+            109,
+            887
           ],
           [
-            845,
-            181
+            102,
+            994
           ],
           [
-            838,
-            162
+            111,
+            1083
           ],
           [
-            968,
-            162
+            105,
+            1140
           ],
           [
-            979,
-            150
-          ],
-          [
-            977,
-            119
-          ],
-          [
-            968,
-            98
-          ],
-          [
-            1210,
-            98
-          ],
-          [
-            1215,
-            64
-          ],
-          [
-            1204,
-            28
-          ],
-          [
-            1207,
-            -16
-          ],
-          [
-            1187,
-            -48
-          ],
-          [
-            1190,
-            -81
-          ],
-          [
-            1162,
-            -114
-          ],
-          [
-            1166,
-            -156
-          ],
-          [
-            1149,
-            -187
-          ],
-          [
-            1157,
-            -223
-          ],
-          [
-            1148,
-            -245
-          ],
-          [
-            1164,
-            -294
-          ],
-          [
-            1205,
-            -302
-          ],
-          [
-            1223,
-            -321
-          ],
-          [
-            1260,
-            -326
-          ],
-          [
-            1294,
-            -307
-          ],
-          [
-            1279,
-            -273
-          ],
-          [
-            1300,
-            -249
-          ],
-          [
-            1300,
-            156
-          ],
-          [
-            1250,
-            166
-          ],
-          [
-            1200,
-            165
-          ],
-          [
-            1140,
-            192
-          ],
-          [
-            1050,
-            201
-          ],
-          [
-            1004,
-            208
-          ],
-          [
-            921,
-            230
-          ],
-          [
-            859,
-            246
-          ],
-          [
-            776,
-            264
-          ],
-          [
-            730,
-            305
-          ],
-          [
-            626,
-            304
-          ],
-          [
-            548,
-            306
+            0,
+            1140
           ]
         ]
       }
     },
-    "old_road_brow": {
-      "id": "old_road_brow",
+    "limestone_divide": {
+      "id": "limestone_divide",
       "definition_id": "terrain.polygon",
       "definition_version": 1,
       "properties": {
         "points": [
           [
-            -260,
-            -256
+            496,
+            -24
           ],
           [
-            70,
-            -256
+            840,
+            -24
           ],
           [
-            75,
-            -247
+            840,
+            450
           ],
           [
-            70,
-            -218
+            585,
+            450
           ],
           [
-            190,
-            -218
+            554,
+            491
           ],
           [
-            201,
-            -205
+            554,
+            1146
           ],
           [
-            198,
-            -180
+            538,
+            1173
           ],
           [
-            190,
-            -164
+            530,
+            1204
+          ],
+          [
+            507,
+            1220
+          ],
+          [
+            496,
+            1204
+          ]
+        ]
+      }
+    },
+    "coin_outcrop": {
+      "id": "coin_outcrop",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            220,
+            1340
+          ],
+          [
+            323,
+            1340
+          ],
+          [
+            317,
+            1354
+          ],
+          [
+            300,
+            1416
+          ],
+          [
+            265,
+            1422
+          ],
+          [
+            234,
+            1361
+          ],
+          [
+            217,
+            1349
+          ]
+        ]
+      }
+    },
+    "rampside_marker": {
+      "id": "rampside_marker",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            328,
+            1240
+          ],
+          [
+            424,
+            1240
+          ],
+          [
+            418,
+            1254
+          ],
+          [
+            401,
+            1280
+          ],
+          [
+            370,
+            1286
+          ],
+          [
+            342,
+            1261
+          ],
+          [
+            325,
+            1249
+          ]
+        ]
+      }
+    },
+    "hawthorn_turn": {
+      "id": "hawthorn_turn",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            399,
+            1136
+          ],
+          [
+            500,
+            1136
+          ],
+          [
+            500,
+            1230
+          ],
+          [
+            464,
+            1223
+          ],
+          [
+            445,
+            1165
+          ],
+          [
+            410,
+            1158
+          ],
+          [
+            396,
+            1144
+          ]
+        ]
+      }
+    },
+    "quarry_crossing": {
+      "id": "quarry_crossing",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            273,
+            1040
+          ],
+          [
+            399,
+            1040
+          ],
+          [
+            393,
+            1054
+          ],
+          [
+            376,
+            1073
+          ],
+          [
+            330,
+            1079
+          ],
+          [
+            287,
+            1061
+          ],
+          [
+            270,
+            1049
+          ]
+        ]
+      }
+    },
+    "low_west_bench": {
+      "id": "low_west_bench",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            102,
+            943
           ],
           [
             316,
-            -164
+            943
           ],
           [
-            329,
-            -150
+            319,
+            950
           ],
           [
-            322,
-            -127
+            307,
+            964
+          ],
+          [
+            277,
+            969
+          ],
+          [
+            265,
+            1010
+          ],
+          [
+            102,
+            1017
+          ]
+        ]
+      }
+    },
+    "lookout_traverse": {
+      "id": "lookout_traverse",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            258,
+            846
+          ],
+          [
+            394,
+            846
+          ],
+          [
+            388,
+            860
+          ],
+          [
+            371,
+            879
+          ],
+          [
+            320,
+            885
+          ],
+          [
+            272,
+            867
+          ],
+          [
+            255,
+            855
+          ]
+        ]
+      }
+    },
+    "east_echo_bench": {
+      "id": "east_echo_bench",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            399,
+            743
+          ],
+          [
+            500,
+            743
+          ],
+          [
+            500,
+            812
+          ],
+          [
+            464,
+            805
+          ],
+          [
+            445,
+            772
+          ],
+          [
+            410,
+            765
+          ],
+          [
+            396,
+            751
+          ]
+        ]
+      }
+    },
+    "windcut_traverse": {
+      "id": "windcut_traverse",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            261,
+            645
+          ],
+          [
+            380,
+            645
+          ],
+          [
+            374,
+            659
+          ],
+          [
+            357,
+            685
+          ],
+          [
+            314,
+            691
+          ],
+          [
+            275,
+            666
+          ],
+          [
+            258,
+            654
+          ]
+        ]
+      }
+    },
+    "old_survey_rest": {
+      "id": "old_survey_rest",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            102,
+            540
+          ],
+          [
+            268,
+            540
+          ],
+          [
+            271,
+            547
+          ],
+          [
+            259,
+            561
+          ],
+          [
+            229,
+            566
+          ],
+          [
+            217,
+            613
+          ],
+          [
+            102,
+            620
+          ]
+        ]
+      }
+    },
+    "upper_crossing": {
+      "id": "upper_crossing",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            265,
+            442
+          ],
+          [
+            380,
+            442
+          ],
+          [
+            374,
+            456
+          ],
+          [
+            357,
+            479
           ],
           [
             316,
-            -98
+            485
           ],
           [
-            446,
-            -98
+            279,
+            463
           ],
           [
-            457,
-            -82
+            262,
+            451
+          ]
+        ]
+      }
+    },
+    "summit_turn": {
+      "id": "summit_turn",
+      "definition_id": "terrain.polygon",
+      "definition_version": 1,
+      "properties": {
+        "points": [
+          [
+            387,
+            341
+          ],
+          [
+            500,
+            341
+          ],
+          [
+            500,
+            419
           ],
           [
             452,
-            -50
+            412
           ],
           [
-            446,
-            -28
+            433,
+            370
           ],
           [
-            576,
-            -28
+            398,
+            363
           ],
           [
-            587,
-            -12
-          ],
-          [
-            582,
-            15
-          ],
-          [
-            576,
-            46
-          ],
-          [
-            890,
-            46
-          ],
-          [
-            890,
-            64
-          ],
-          [
-            866,
-            75
-          ],
-          [
-            811,
-            72
-          ],
-          [
-            777,
-            85
-          ],
-          [
-            685,
-            78
-          ],
-          [
-            627,
-            88
-          ],
-          [
-            581,
-            87
-          ],
-          [
-            532,
-            40
-          ],
-          [
-            486,
-            22
-          ],
-          [
-            429,
-            -5
-          ],
-          [
-            383,
-            -31
-          ],
-          [
-            324,
-            -59
-          ],
-          [
-            269,
-            -76
-          ],
-          [
-            205,
-            -106
-          ],
-          [
-            139,
-            -132
-          ],
-          [
-            82,
-            -150
-          ],
-          [
-            18,
-            -158
-          ],
-          [
-            -60,
-            -145
-          ],
-          [
-            -130,
-            -157
-          ],
-          [
-            -260,
-            -146
+            384,
+            349
           ]
         ]
       }
     },
-    "west_retainer": {
-      "id": "west_retainer",
-      "definition_id": "platform.solid",
+    "upper_grass_tongue": {
+      "id": "upper_grass_tongue",
+      "definition_id": "terrain.polygon",
       "definition_version": 1,
       "properties": {
-        "rect": [
-          -255,
-          -620,
-          22,
-          1200
+        "points": [
+          [
+            244,
+            249
+          ],
+          [
+            371,
+            249
+          ],
+          [
+            365,
+            263
+          ],
+          [
+            348,
+            281
+          ],
+          [
+            301,
+            287
+          ],
+          [
+            258,
+            270
+          ],
+          [
+            241,
+            258
+          ]
         ]
       }
     },
-    "east_retainer": {
-      "id": "east_retainer",
-      "definition_id": "platform.solid",
+    "west_road": {
+      "id": "west_road",
+      "definition_id": "terrain.polygon",
       "definition_version": 1,
       "properties": {
-        "rect": [
-          1840,
-          -620,
-          24,
-          1200
+        "points": [
+          [
+            -32,
+            168
+          ],
+          [
+            229,
+            168
+          ],
+          [
+            232,
+            175
+          ],
+          [
+            220,
+            189
+          ],
+          [
+            190,
+            194
+          ],
+          [
+            178,
+            248
+          ],
+          [
+            -32,
+            255
+          ]
         ]
       }
     },
-    "valley_anchor": {
-      "id": "valley_anchor",
-      "definition_id": "recovery.anchor",
+    "lower_catch": {
+      "id": "lower_catch",
+      "definition_id": "platform.timber",
       "definition_version": 1,
       "properties": {
-        "bounds": [
-          414,
-          305,
-          54,
-          38
-        ],
-        "point": [
-          441,
-          334
-        ],
-        "section": "main"
+        "rect": [
+          234,
+          1158,
+          173,
+          10
+        ]
       }
     },
-    "turning_anchor": {
-      "id": "turning_anchor",
-      "definition_id": "recovery.anchor",
+    "survey_saddle": {
+      "id": "survey_saddle",
+      "definition_id": "terrain.polygon",
       "definition_version": 1,
       "properties": {
-        "bounds": [
-          1010,
-          56,
-          64,
-          41
-        ],
-        "point": [
-          1042,
-          80
-        ],
-        "section": "main"
+        "points": [
+          [
+            99,
+            761
+          ],
+          [
+            247,
+            761
+          ],
+          [
+            250,
+            768
+          ],
+          [
+            238,
+            782
+          ],
+          [
+            208,
+            787
+          ],
+          [
+            196,
+            840
+          ],
+          [
+            99,
+            847
+          ]
+        ]
       }
     },
-    "old_road_anchor": {
-      "id": "old_road_anchor",
-      "definition_id": "recovery.anchor",
+    "high_retry_sill": {
+      "id": "high_retry_sill",
+      "definition_id": "terrain.polygon",
       "definition_version": 1,
       "properties": {
-        "bounds": [
-          -18,
-          -304,
-          54,
-          40
-        ],
-        "point": [
-          8,
-          -274
-        ],
-        "section": "main"
-      }
-    },
-    "east_niche_anchor": {
-      "id": "east_niche_anchor",
-      "definition_id": "recovery.anchor",
-      "definition_version": 1,
-      "properties": {
-        "bounds": [
-          1593,
-          -75,
-          54,
-          38
-        ],
-        "point": [
-          1620,
-          -46
-        ],
-        "section": "main"
+        "points": [
+          [
+            99,
+            358
+          ],
+          [
+            204,
+            358
+          ],
+          [
+            207,
+            365
+          ],
+          [
+            195,
+            379
+          ],
+          [
+            165,
+            384
+          ],
+          [
+            153,
+            426
+          ],
+          [
+            99,
+            433
+          ]
+        ]
       }
     },
     "ravine_floor_grub": {
@@ -694,8 +959,8 @@
       "definition_version": 1,
       "properties": {
         "point": [
-          327,
-          336
+          389,
+          1405
         ]
       }
     },
@@ -705,8 +970,8 @@
       "definition_version": 1,
       "properties": {
         "point": [
-          667,
-          30
+          143,
+          919
         ]
       }
     }

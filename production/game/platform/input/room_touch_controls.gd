@@ -6,8 +6,13 @@ const BRASS := Color("#e6bc72")
 const MOSS := Color("#c0d4b0")
 const INK := Color("#172423")
 const TEXT := Color("#f3edcf")
+signal pause_requested
 signal map_requested
 var map_button := Rect2()
+var map_drawn_by_hud := false
+var pause_button := Rect2()
+var healing_button := Rect2()
+var _heal_label := ""
 var session: OrdinaryRoomSession
 var interact_center := Vector2.ZERO
 var interaction_radius := 44.0
@@ -22,6 +27,7 @@ var hook_radius := 0.0
 var context_center := Vector2.ZERO
 var skill_center := Vector2.ZERO
 var item_skill_center := Vector2.ZERO
+var _last_weapon_skill := ""
 var _last_item_skill_available := false
 var _last_item_skill_label := ""
 var _hook_idle := Vector2.ZERO
@@ -66,31 +72,31 @@ func _ready() -> void:
 	set_enabled(OS.has_feature("android") or OS.has_feature("ios") or (OS.has_feature("web") and DisplayServer.is_touchscreen_available()))
 	update_layout()
 
+func _notification(what: int) -> void:
+	if what==NOTIFICATION_PAUSED:
+		hide()
+	elif what==NOTIFICATION_UNPAUSED:
+		visible=enabled
+		queue_redraw()
+
 func set_enabled(value: bool) -> void:
 	if enabled != value and is_instance_valid(router):
 		router.clear("touch_overlay_changed")
 	enabled = value
-	visible = value
+	visible = value and (not is_inside_tree() or not get_tree().paused)
 	if is_instance_valid(router):
 		router.touch_enabled = value
 		if value:
 			router.activate_device(&"touch")
 
+func safe_bounds() -> Rect2:
+	return _safe_rect
+
 func update_layout() -> void:
 	if not is_inside_tree(): return
 	var viewport_size := get_viewport_rect().size
 	_layout_size = viewport_size
-	var safe := Rect2(Vector2.ZERO, viewport_size)
-	if OS.has_feature("android") or OS.has_feature("ios"):
-		var physical := DisplayServer.get_display_safe_area()
-		var window_size := Vector2(DisplayServer.window_get_size())
-		if window_size.x > 0 and window_size.y > 0 and physical.size.x > 0 and physical.size.y > 0:
-			var screen_transform := get_viewport().get_screen_transform().affine_inverse()
-			var window_origin := Vector2(DisplayServer.window_get_position())
-			var start := screen_transform * (Vector2(physical.position) - window_origin)
-			var end := screen_transform * (Vector2(physical.end) - window_origin)
-			safe = Rect2(start, end - start).intersection(safe)
-	_configure_layout(safe, viewport_size)
+	_configure_layout(DemoUiModalMetrics.safe_rect(get_viewport()), viewport_size)
 
 func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
 	_safe_rect = safe
@@ -121,15 +127,39 @@ func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
 	_right_idle = Vector2(jump_center.x - jump_hit_radius - radius - gap, controls_y)
 	left_center = _left_idle
 	right_center = _right_idle
-	map_button = Rect2(safe.position+Vector2(110,12)*scale_factor,Vector2(98,52)*scale_factor)
+	var map_scale := clampf(scale_factor,0.70,1.30)
+	var map_size := Vector2(168,88)*map_scale
+	map_button = Rect2(Vector2(safe.end.x-map_size.x-16*map_scale,safe.position.y+14*map_scale),map_size)
+	pause_button = Rect2(map_button.position-Vector2(70,0)*scale_factor,Vector2(60,52)*scale_factor)
+	healing_button = Rect2(safe.position+Vector2(24*scale_factor,safe.size.y-280*scale_factor),Vector2(180,60)*scale_factor)
 	interaction_radius = jump_radius * .76
 	interact_center = _right_idle - Vector2(radius * .55, radius + interaction_radius + gap*.5)
 	_layout_size = viewport_size
 	queue_redraw()
 
+func healing_label() -> String:
+	var ability:=session.focus_heal
+	if ability==null: return ""
+	if ability.ratio()>0: return "回复　%d%%" % roundi(ability.ratio()*100)
+	var health:=session.controller.actor_resources.health
+	if health.current>=health.capacity: return "生命已满"
+	var cost:=int(ability.settings.cost)
+	if session.controller.combat_energy.current<cost: return "共鸣不足　%d" % cost
+	if router.aim_engaged: return "瞄准中"
+	return "按住回复　%d" % cost
+
 func _process(_delta: float) -> void:
-	if enabled and _layout_size != get_viewport_rect().size:
+	if enabled and is_instance_valid(session):
+		var healing:=healing_label()
+		if healing!=_heal_label:
+			_heal_label=healing
+			queue_redraw()
+	if enabled and (_layout_size != get_viewport_rect().size or _safe_rect != DemoUiModalMetrics.safe_rect(get_viewport())):
 		router.clear("touch_viewport_changed")
+	var weapon_label:=router.weapon_skill_label if router.weapon_skill_available else ""
+	if enabled and weapon_label!=_last_weapon_skill:
+		_last_weapon_skill=weapon_label
+		queue_redraw()
 	if enabled and (_last_item_skill_available != router.item_skill_available or _last_item_skill_label != router.item_skill_label):
 		_last_item_skill_available = router.item_skill_available
 		_last_item_skill_label = router.item_skill_label
@@ -165,7 +195,11 @@ func handle_touch(event: InputEvent) -> bool:
 			var region: StringName = &""
 			# GUI Controls consume their touches before this unhandled adapter. Jump
 			# and menu hit tests precede the floating sticks, even inside a ring.
-			if map_requested.has_connections() and map_button.has_point(event.position):
+			if healing_button.has_point(event.position):
+				region = &"heal"
+			elif pause_requested.has_connections() and pause_button.has_point(event.position):
+				region = &"pause"
+			elif map_requested.has_connections() and map_button.has_point(event.position):
 				region = &"map"
 			elif router.item_skill_available and event.position.distance_to(item_skill_center)<=hook_radius*.8:
 				region = &"item_skill"
@@ -187,6 +221,15 @@ func handle_touch(event: InputEvent) -> bool:
 				return false
 			_captures[event.index] = region
 			router.activate_device(&"touch")
+			if region == &"heal":
+				# A disabled button still owns this finger. It cannot become a movement
+				# stick, start healing after a shot, or aim on release.
+				if session.focus_heal.available() and not router.aim_engaged:
+					router.set_focus_heal_held(&"touch",true)
+				return true
+			if region == &"pause":
+				pause_requested.emit()
+				return true
 			if region == &"map":
 				map_requested.emit()
 			elif region==&"context":
@@ -215,7 +258,9 @@ func handle_touch(event: InputEvent) -> bool:
 			return true
 		elif _captures.has(event.index):
 			var region: StringName = _captures[event.index]
-			if region == &"item_skill":
+			if region == &"heal":
+				router.set_focus_heal_held(&"touch",false)
+			elif region == &"item_skill":
 				router.request_action(&"item_skill",router.skill_direction())
 				# This gesture consumes the held main aim. Releasing that separate
 				# finger later must not also produce a normal shot.
@@ -387,7 +432,7 @@ func _draw() -> void:
 				draw_line(skill_center+Vector2(0,-7)-arm,skill_center+Vector2(0,-7)+arm,Color("91d6ff"),2)
 			var size:=FONT.get_string_size("冰弹",HORIZONTAL_ALIGNMENT_LEFT,-1,11)
 			draw_string(FONT,skill_center+Vector2(-size.x*.5,15),"冰弹",HORIZONTAL_ALIGNMENT_LEFT,-1,11,TEXT)
-		else:draw_string(FONT,skill_center+Vector2(-16,4),"技能",HORIZONTAL_ALIGNMENT_LEFT,-1,11,TEXT)
+		else:draw_string(FONT,skill_center+Vector2(-16,4),"脉冲" if router.weapon_skill_label=="共鸣脉冲" else "技能",HORIZONTAL_ALIGNMENT_LEFT,-1,11,TEXT)
 		if router.weapon_skill_cooldown_ratio>0:
 			draw_arc(skill_center,hook_radius*.8-3,-PI/2,-PI/2+TAU*router.weapon_skill_cooldown_ratio,32,Color("91d6ff"),2)
 	if not enabled:
@@ -412,6 +457,14 @@ func _draw() -> void:
 	for stick: Dictionary in [{"at":_left_idle,"action":&"left","label":"移动"},{"at":_right_idle,"action":&"right","label":"瞄准"}]:
 		if not stick.action in _captures.values():
 			draw_string(font,stick.at+Vector2(-radius,7),stick.label,HORIZONTAL_ALIGNMENT_CENTER,radius*2,18,TEXT)
-	if map_requested.has_connections():
+	if not _heal_label.is_empty():
+		var active_heal:=session.focus_heal.available() and not router.aim_engaged
+		draw_rect(healing_button,Color(INK,.78 if active_heal else .54))
+		draw_rect(healing_button,Color(BRASS,.86 if active_heal else .36),false,2)
+		draw_string(font,healing_button.position+Vector2(0,healing_button.size.y*.63),_heal_label,HORIZONTAL_ALIGNMENT_CENTER,healing_button.size.x,18,TEXT if active_heal else MOSS.darkened(.16))
+	if pause_requested.has_connections():
+		draw_rect(pause_button,Color(INK,.72))
+		draw_string(font,pause_button.position+Vector2(0,pause_button.size.y*.64),"暂停",HORIZONTAL_ALIGNMENT_CENTER,pause_button.size.x,17,TEXT)
+	if map_requested.has_connections() and not map_drawn_by_hud:
 		draw_rect(map_button,Color(INK,.7))
 		draw_string(font,map_button.position+Vector2(0,map_button.size.y*.65),"地图",HORIZONTAL_ALIGNMENT_CENTER,map_button.size.x,20,TEXT)

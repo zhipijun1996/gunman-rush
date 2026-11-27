@@ -31,6 +31,7 @@ var _death_source: WeakRef
 var _death_callback: Callable
 var _unlocked := false
 var _shutting_down := false
+var _app_suspended := false
 var _playbacks: Array[WeakRef] = []
 
 func _ready() -> void:
@@ -144,7 +145,7 @@ func _transition() -> void:
 		voice.set_meta("source_path", row.path)
 		voice.set_meta("gain_db", row.gain_db)
 		voice.volume_db = -80.0
-		voice.stream_paused = get_tree().paused or session_volume <= 0.0
+		voice.stream_paused = _app_suspended or get_tree().paused or session_volume <= 0.0
 		_bed_ids[slot] = candidate
 		_gains[slot] = 0.0
 		voice.play()
@@ -167,12 +168,20 @@ func _valid_context() -> bool:
 	var listener := _listener.get_ref() as Node2D if _listener != null else null
 	return is_instance_valid(origin) and origin.is_inside_tree() and is_instance_valid(listener) and listener.is_inside_tree()
 
+func _notification(what: int) -> void:
+	if what in [NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_RESUMED] and is_inside_tree():
+		_app_suspended = what == NOTIFICATION_APPLICATION_PAUSED
+		var hold := _app_suspended or get_tree().paused or session_volume <= 0.0
+		for voice: AudioStreamPlayer in _beds + _details:
+			if voice.stream != null and voice.stream_paused != hold:
+				voice.stream_paused = hold
+
 func _process(delta: float) -> void:
 	if _shutting_down: return
 	if not candidate.is_empty() and not _valid_context():
 		clear()
 		return
-	var is_paused := get_tree().paused
+	var is_paused := _app_suspended or get_tree().paused
 	var should_pause := is_paused or session_volume <= 0.0
 	# Web Sample unpause restarts its native AudioBufferSourceNode, even if it
 	# was already playing. Apply only real pause/mute state transitions.
@@ -202,7 +211,7 @@ func _process(delta: float) -> void:
 	_playbacks = _playbacks.filter(func(reference: WeakRef) -> bool: return reference.get_ref() != null)
 
 func play_detail(id: String, world_position: Vector2) -> bool:
-	if _shutting_down or not _unlocked or candidate.is_empty() or not _valid_context() or get_tree().paused or session_volume <= 0.0 or not world_position.is_finite(): return false
+	if _shutting_down or _app_suspended or not _unlocked or candidate.is_empty() or not _valid_context() or get_tree().paused or session_volume <= 0.0 or not world_position.is_finite(): return false
 	var rows: Dictionary = _bank[region][profile].details
 	if not rows.has(id): return false
 	var row: Dictionary = rows[id]

@@ -2,4 +2,4 @@
 
 《失序之钟》采用固定世界类银河恶魔城结构。玩家以射击反冲、跳跃与已取得的能力探索、战斗和回访。项目保留真实控制器、物种、视觉尺度、可辨认的命中与反馈，以及由玩家实际行动改变机关和通路的方法。
 
-重做中的房间由作者选择地形、机关和怪物后进行实例化。地理关系、进入顺序、能力门与奖励分布随新地图设计确定。现行设计和运行范围分别见[普通房间制作](room_authoring.md)、[状态概览](../project/current_state.md)。旧世界的地区顺序与进程可从[冻结设计](https://github.com/zhipijun1996/gunman-rush/blob/4f2bb5e41573e930603789c64b52a0c15a6a3dc4/docs/bible/game_design.md)复现。
+重做中的房间由作者选择地形、机关和怪物后进行实例化。房间身份、邻接、分区资格、能力授予与奖励来源取自[锁定世界包](../data/world/README.md)。作者按真实来向把这些设计落到地形、机关、怪物和可交互点上。现行设计和运行范围分别见[普通房间制作](room_authoring.md)、[状态概览](../project/current_state.md)。旧世界的地区顺序与进程可从[冻结设计](https://github.com/zhipijun1996/gunman-rush/blob/4f2bb5e41573e930603789c64b52a0c15a6a3dc4/docs/bible/game_design.md)复现。

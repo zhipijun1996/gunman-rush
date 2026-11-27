@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ArenaBossDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/bosses/arena/arena_boss_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bosses/tide_and_ember/tide_pump_bell.png" id="3"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"tide_pump_bell_health"
+max_health = 30.0
+initial_current = 30.0
+[resource]
+script = ExtResource("1")
+stable_id = &"tide_pump_bell"
+behavior_id = &"tide_pump_bell"
+health_definition = SubResource("health")
+collision_size = Vector2(117, 104)
+aerial = false
+telegraph_duration = 0.86
+attack_duration = 1.16
+recovery_duration = 1.55
+attack_speed = 475.0
+floor_offset = 52.0
+arena_half_width = 535.0
+engagement_limits = Vector2(-535, 535)
+engagement_height = 334.0
+reach = 340.0
+third_cycle = PackedStringArray("keel", "port", "starboard", "port", "keel")
+phase_two_at = 0.67
+phase_three_at = 0.27
+first_cycle = PackedStringArray("port", "keel", "starboard")
+second_cycle = PackedStringArray("port", "keel", "starboard", "keel")
+body_art = ExtResource("3")

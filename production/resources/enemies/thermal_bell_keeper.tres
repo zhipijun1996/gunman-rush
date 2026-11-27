@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ArenaBossDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://game/bosses/arena/arena_boss_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bosses/harbor_ember/thermal_bell_keeper.png" id="3"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"thermal_bell_keeper_health"
+max_health = 24.0
+initial_current = 24.0
+[resource]
+script = ExtResource("1")
+stable_id = &"thermal_bell_keeper"
+behavior_id = &"thermal_bell_keeper"
+health_definition = SubResource("health")
+collision_size = Vector2(108, 78)
+aerial = false
+telegraph_duration = 0.82
+attack_duration = 0.85
+recovery_duration = 1.6
+attack_speed = 475.0
+floor_offset = 39.0
+arena_half_width = 524.0
+reach = 405.0
+first_cycle = PackedStringArray("clinker", "bellows")
+second_cycle = PackedStringArray("bellows", "clinker", "clinker")
+body_art = ExtResource("3")

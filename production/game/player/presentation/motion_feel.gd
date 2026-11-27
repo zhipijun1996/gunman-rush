@@ -11,6 +11,12 @@ var _remaining := 0.0
 var _owner := 0
 var _disconnected := false
 var shake_count := 0
+var reduced_effects := false:
+	set(value):
+		reduced_effects = value
+		if value:
+			_remaining = 0.0
+			if is_instance_valid(_screen): _screen.hide()
 
 func _ready() -> void:
 	_owner = visual.motor.get_instance_id()
@@ -53,7 +59,7 @@ func _land(drop: float, speed: float, heavy: bool, airborne: bool) -> void:
 	if not airborne or visual._dead or visual._hurt_remaining>0: return
 	var strength := clampf(speed/visual.motor.tuning.max_normal_fall_speed,0,1)
 	audio.motion_cue(&"heavy" if heavy else &"land",strength,_owner)
-	if heavy:
+	if heavy and not reduced_effects:
 		_age = 0
 		_remaining = visual.profile.heavy_shake_seconds
 		shake_count += 1

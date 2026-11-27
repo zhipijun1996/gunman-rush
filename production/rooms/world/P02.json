@@ -1,11 +1,89 @@
 {
   "schema": 3,
   "room_id": "P02",
+  "camera": {
+    "zoom": 1.4,
+    "zones": [
+      {
+        "id": "terrace",
+        "trigger": [
+          0,
+          0,
+          1650,
+          845.8593
+        ],
+        "display": [
+          0,
+          0,
+          1650,
+          845.8593
+        ]
+      },
+      {
+        "id": "well_shoulder",
+        "trigger": [
+          656,
+          0,
+          392,
+          845.8593
+        ],
+        "display": [
+          0,
+          0,
+          1650,
+          845.8593
+        ],
+        "priority": 1,
+        "offset": [
+          0,
+          94
+        ]
+      }
+    ],
+    "links": [
+      {
+        "a": "terrace",
+        "b": "well_shoulder",
+        "band": [
+          602,
+          0,
+          120,
+          845.8593
+        ],
+        "display": [
+          0,
+          0,
+          1650,
+          845.8593
+        ],
+        "axis": "x",
+        "direction": 1
+      },
+      {
+        "a": "well_shoulder",
+        "b": "terrace",
+        "band": [
+          965,
+          0,
+          124,
+          845.8593
+        ],
+        "display": [
+          0,
+          0,
+          1650,
+          845.8593
+        ],
+        "axis": "x",
+        "direction": 1
+      }
+    ]
+  },
   "bounds": [
     0,
     0,
-    1648,
-    768
+    1650,
+    845.8593
   ],
   "root": {
     "definition_id": "room.standard",
@@ -14,8 +92,8 @@
       "terrain_material": "windchime_plains",
       "region_id": "windchime_plains",
       "start_point": [
-        139,
-        366
+        60,
+        413.8593
       ],
       "terrain_paint": {
         "version": 1,
@@ -24,20 +102,20 @@
             "id": "west_shaft_coping",
             "material_id": "mill_masonry",
             "bounds": [
-              1088,
-              608,
+              880,
+              648,
               32,
-              160
+              198
             ]
           },
           {
             "id": "east_shaft_coping",
             "material_id": "mill_masonry",
             "bounds": [
-              1216,
-              608,
+              1008,
+              648,
               32,
-              160
+              198
             ]
           }
         ]
@@ -45,82 +123,82 @@
     }
   },
   "lesson": {
-    "introduce": "走过出生草坡接入段，在西田埂先读出断口和同高钟架落点。",
-    "practice": "从西岸朝东跑跳，空中向左后方射击。未过断口会落到能走回的沟底。",
-    "check": "从西岸完成反冲并站稳东岸，钟响一次。钟架后可普通跳直达东田，或下到井口前选择进田渠。",
-    "retry": "未落上钟台可沿西岸田阶回到发射线。沟底西侧的草幕可走近查看，沿根间落口进入藏物窝；返回时从土壁凹阶跳回原路。"
+    "introduce": "西田埂草岸面对悬铃的同高落台，断口下方可落到排水田沟。",
+    "practice": "从西岸跑跳，向身后偏下开枪；若陷入田沟，可沿错开的田阶重试。",
+    "check": "从西岸经反冲落稳钟台，铃响一次。右侧的低田容易越过；下方砖井通向较长的田渠。",
+    "retry": "沟底西侧的土壁封住旧田角，附近草叶掩着下通藏物窝的根洞。两座井口均有独立的回程壁龛。"
   },
   "exits": {
     "d001": {
       "point": [
-        2,
-        366
+        0,
+        413.8593
       ],
       "spawn": [
-        32,
-        366
+        60,
+        413.8593
       ],
       "direction": [
         -1,
         0
       ],
       "span": [
-        0,
-        390
+        215.8593,
+        455.8593
       ]
     },
     "d002": {
       "point": [
-        1646,
-        398
+        1650,
+        425.8593
       ],
       "spawn": [
-        1616,
-        398
+        1590,
+        425.8593
       ],
       "direction": [
         1,
         0
       ],
       "span": [
-        0,
-        420
+        305.8593,
+        545.8593
       ]
     },
     "d009": {
       "point": [
         240,
-        750
+        785.8593
       ],
       "spawn": [
         304,
-        714
+        732
       ],
       "direction": [
         0,
         1
       ],
       "span": [
-        192,
-        288
+        120,
+        360
       ]
     },
     "d330": {
       "point": [
-        1168,
-        750
+        960,
+        845.8593
       ],
       "spawn": [
-        1104,
-        714
+        896,
+        786.8593
       ],
       "direction": [
         0,
         1
       ],
       "span": [
-        1120,
-        1216
+        840,
+        1080
       ]
     }
   },
@@ -128,19 +206,19 @@
     "discover_p02_low_slope": {
       "at": [
         304,
-        558
+        576
       ],
       "passage_rect": [
         192,
-        610,
+        628,
         96,
-        140
+        157.8593
       ],
       "approach_radius": 20,
       "other_approaches": [
         [
           186,
-          604
+          622
         ]
       ]
     }
@@ -149,54 +227,93 @@
     "backdrop": "res://assets/scenery/p02/irrigation_panorama.webp",
     "pieces": [
       {
-        "asset": "p02_root_throat",
         "at": [
           258,
-          834
+          852
         ],
-        "layer": "attached"
+        "texture": "res://assets/scenery/p02/p02_root_throat.png",
+        "z_index": -3
       },
       {
-        "asset": "p02_grass_bank",
         "at": [
           230,
-          628
+          646
         ],
-        "layer": "attached"
+        "texture": "res://assets/scenery/p02/p02_grass_bank.png",
+        "z_index": -3
       },
       {
-        "asset": "p02_footwall",
         "at": [
-          59,
-          615
+          101,
+          633
         ],
-        "layer": "front"
+        "texture": "res://assets/scenery/p02/p02_footwall.png",
+        "z_index": 5
       },
       {
-        "asset": "windchime_plains_v2_chime_span",
         "at": [
-          817,
-          385
+          727,
+          432
         ],
-        "layer": "attached"
+        "texture": "res://assets/scenery/p02/windchime_plains_v2_chime_span.png",
+        "z_index": -3,
+        "name": "TerraceBell"
       },
       {
-        "asset": "p02_well_lining",
         "at": [
-          1149,
-          768
+          941,
+          845.8593
         ],
-        "layer": "attached"
+        "texture": "res://assets/scenery/p02/p02_well_lining.png",
+        "z_index": -3
       },
       {
-        "asset": "p02_slope_grass",
         "at": [
-          146,
-          608
+          155,
+          626
         ],
-        "layer": "attached"
+        "texture": "res://assets/scenery/p02/p02_slope_grass.png",
+        "z_index": -3
+      },
+      {
+        "name": "LayeredFieldBanks",
+        "at": [
+          825,
+          846
+        ],
+        "texture": "res://assets/scenery/p02/p02_terrace_strata.webp",
+        "z_index": 0
+      },
+      {
+        "name": "CanalReeds",
+        "at": [
+          905,
+          664
+        ],
+        "texture": "res://assets/scenery/p02/p02_reed_screen.png",
+        "z_index": -3
+      },
+      {
+        "name": "RoadWindbreak",
+        "at": [
+          1377,
+          444
+        ],
+        "texture": "res://assets/scenery/p01/p01_verge_fence.png",
+        "z_index": -3
       }
-    ]
+    ],
+    "terrace_lesson": {
+      "takeoffs": [
+        "west_field",
+        "west_upper_return",
+        "west_lower_return"
+      ],
+      "retry_floor": "retry_basin_floor",
+      "landing": "bell_terrace_pier",
+      "cap": "bell_terrace_cap",
+      "bell": "TerraceBell"
+    }
   },
   "entities": {
     "west_field": {
@@ -206,8 +323,8 @@
       "properties": {
         "rect": [
           0,
-          384,
-          432,
+          431.8593,
+          360,
           64
         ]
       }
@@ -219,9 +336,9 @@
       "properties": {
         "rect": [
           0,
-          448,
-          152,
-          28
+          495.8593,
+          140,
+          22
         ]
       }
     },
@@ -231,10 +348,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          488,
-          480,
+          416,
+          512,
           38,
-          288
+          153.8593
         ]
       }
     },
@@ -244,10 +361,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          526,
-          528,
+          454,
+          560,
           42,
-          240
+          105.8593
         ]
       }
     },
@@ -257,10 +374,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          0,
-          608,
-          144,
-          160
+          120,
+          626,
+          46,
+          159.8593
         ]
       }
     },
@@ -271,28 +388,36 @@
       "properties": {
         "points": [
           [
-            144,
-            608
+            166,
+            626
           ],
           [
-            158,
-            608
+            175,
+            626
           ],
           [
-            181,
-            619
-          ],
-          [
-            192,
-            624
+            185,
+            631
           ],
           [
             192,
-            768
+            636
           ],
           [
-            144,
-            768
+            192,
+            803
+          ],
+          [
+            120,
+            803
+          ],
+          [
+            120,
+            785.8593
+          ],
+          [
+            166,
+            785.8593
           ]
         ],
         "material": "ground"
@@ -305,9 +430,9 @@
       "properties": {
         "rect": [
           325,
-          576,
-          395,
-          192
+          594,
+          323,
+          71.8593
         ]
       }
     },
@@ -317,10 +442,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          720,
-          384,
-          144,
-          384
+          648,
+          431.8593,
+          117,
+          234
         ]
       }
     },
@@ -330,10 +455,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          864,
-          384,
-          104,
-          384
+          765,
+          431.8593,
+          25,
+          414
         ]
       }
     },
@@ -344,52 +469,52 @@
       "properties": {
         "points": [
           [
-            1080,
-            608
+            880,
+            664
           ],
           [
-            1120,
-            608
+            912,
+            664
           ],
           [
-            1120,
-            618
+            912,
+            674
           ],
           [
-            1086,
-            618
+            881,
+            674
           ],
           [
-            1086,
-            671
+            881,
+            736
           ],
           [
-            1120,
-            671
+            912,
+            736
           ],
           [
-            1120,
-            678
+            912,
+            743
           ],
           [
-            1086,
-            678
+            881,
+            743
           ],
           [
-            1086,
-            732
+            881,
+            804.8593
           ],
           [
-            1120,
-            732
+            912,
+            804.8593
           ],
           [
-            1120,
-            768
+            912,
+            864
           ],
           [
-            1080,
-            768
+            880,
+            864
           ]
         ]
       }
@@ -400,10 +525,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          1216,
-          416,
-          432,
-          352
+          1008,
+          467.8593,
+          192,
+          378
         ]
       }
     },
@@ -413,10 +538,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          1144,
-          416,
-          72,
-          48
+          976,
+          467.8593,
+          32,
+          44
         ]
       }
     },
@@ -426,10 +551,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          968,
-          448,
-          40,
-          320
+          790,
+          496,
+          30,
+          349.8593
         ]
       }
     },
@@ -439,10 +564,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          1048,
-          552,
-          32,
-          216
+          850,
+          600,
+          30,
+          245.8593
         ]
       }
     },
@@ -452,10 +577,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          1008,
-          504,
-          40,
-          264
+          820,
+          548,
+          30,
+          297.8593
         ]
       }
     },
@@ -466,9 +591,9 @@
       "properties": {
         "rect": [
           -48,
-          384,
+          431.8593,
           48,
-          92
+          86
         ]
       }
     },
@@ -478,10 +603,10 @@
       "definition_version": 1,
       "properties": {
         "rect": [
-          1648,
-          416,
+          1650,
+          443.8593,
           48,
-          352
+          222
         ]
       }
     },
@@ -493,59 +618,59 @@
         "points": [
           [
             288,
-            576
+            594
           ],
           [
             326,
-            576
+            594
           ],
           [
             326,
-            768
+            804
           ],
           [
             288,
-            768
+            804
           ],
           [
             288,
-            732
+            750
           ],
           [
             323,
-            732
+            750
           ],
           [
             323,
-            664
+            682
           ],
           [
             295,
-            664
+            682
           ],
           [
             288,
-            661
+            679
           ],
           [
             288,
-            654
+            672
           ],
           [
             323,
-            654
+            672
           ],
           [
             323,
-            586
+            604
           ],
           [
             298,
-            586
+            604
           ],
           [
             288,
-            582
+            600
           ]
         ],
         "material": "ground"
@@ -558,7 +683,7 @@
       "properties": {
         "bounds": [
           128,
-          544,
+          562,
           224,
           256
         ],
@@ -575,8 +700,8 @@
       "definition_version": 1,
       "properties": {
         "point": [
-          111,
-          567
+          404,
+          578
         ]
       }
     },
@@ -586,8 +711,8 @@
       "definition_version": 1,
       "properties": {
         "point": [
-          1448,
-          400
+          1432,
+          425.8593
         ]
       }
     },
@@ -599,82 +724,101 @@
         "points": [
           [
             0,
-            476
+            517.8593
           ],
           [
-            105,
-            476
+            140,
+            517.8593
           ],
           [
-            100,
-            484
-          ],
-          [
-            86,
-            492
-          ],
-          [
-            82,
-            500
-          ],
-          [
-            71,
-            508
-          ],
-          [
-            69,
-            522
-          ],
-          [
-            60,
+            140,
             529
           ],
           [
-            58,
-            546
+            131,
+            542
           ],
           [
-            61,
+            128,
             554
           ],
           [
-            62,
-            563
+            125,
+            572
           ],
           [
-            70,
-            575
-          ],
-          [
-            82,
-            581
-          ],
-          [
-            89,
+            128,
             590
           ],
           [
-            98,
-            595
+            135,
+            604
           ],
           [
-            105,
-            601
+            145,
+            614
           ],
           [
-            113,
-            605
+            156,
+            620
           ],
           [
-            118,
-            608
+            162,
+            626
+          ],
+          [
+            120,
+            626
+          ],
+          [
+            120,
+            560.8593
           ],
           [
             0,
-            608
+            560.8593
           ]
         ],
         "material": "ground"
+      }
+    },
+    "road_lower_shelf": {
+      "id": "road_lower_shelf",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1200,
+          467.8593,
+          84,
+          198
+        ]
+      }
+    },
+    "road_upper_field": {
+      "id": "road_upper_field",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1284,
+          443.8593,
+          366,
+          222
+        ]
+      }
+    },
+    "well_east_seam": {
+      "id": "well_east_seam",
+      "definition_id": "platform.solid",
+      "definition_version": 1,
+      "properties": {
+        "rect": [
+          1008,
+          845.8593,
+          40,
+          20
+        ]
       }
     }
   },

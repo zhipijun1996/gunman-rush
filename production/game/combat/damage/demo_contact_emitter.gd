@@ -18,6 +18,7 @@ var contact_rect_provider: Callable
 var contact_test_provider: Callable
 # Explicit connected-region legacy pit-plane semantic, not physical thorns.
 var fall_plane := false
+var terrain_boundary := false
 var _guard_touching := false
 var _guard_segment := 0
 var _guard_due := 0.0
@@ -47,11 +48,12 @@ static func attach(parent: Node2D, owner_policy: FrameDamagePolicy, actor: Playe
 
 # Construct an unparented local-space rectangle. Callers keep source identity,
 # insertion order, and any explicit cadence override before adding the node.
-static func environment_rect(rect: Rect2, owner_policy: FrameDamagePolicy, actor: PlayerController, exposure_source_id: StringName) -> DemoContactEmitter:
+static func environment_rect(rect: Rect2, owner_policy: FrameDamagePolicy, actor: PlayerController, exposure_source_id: StringName, boundary := false) -> DemoContactEmitter:
 	var emitter := DemoContactEmitter.new()
 	emitter.policy = owner_policy
 	emitter.controller = actor
 	emitter.source_id = exposure_source_id
+	emitter.terrain_boundary = boundary
 	emitter.kind = DamageRequest.Kind.ENVIRONMENT
 	emitter.position = rect.get_center()
 	emitter.half_size = rect.size / 2.0
@@ -134,6 +136,7 @@ func _physics_process(_delta: float) -> void:
 	request.source_id = source_id
 	request.event_id = StringName("%s:%d:%d:%d" % [source_id, life.actor_epoch, _exposure, _pulse])
 	request.kind = kind
+	request.return_to_safety = terrain_boundary or fall_plane
 	request.fall = fall_plane
 	request.amount = amount
 	request.physics_tick = Engine.get_physics_frames()

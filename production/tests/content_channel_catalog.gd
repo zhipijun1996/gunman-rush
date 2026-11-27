@@ -41,6 +41,20 @@ func _init() -> void:
 	check(actual_drop.ok and actual_drop.coin_each == int(profile.coin_each) and actual_drop.species_id == profile.species_id and actual_drop.tier == profile.tier,"independent profile supplies runtime drop without group or room")
 	check(not catalog.enemy_drop_profile("unknown_profile").ok,"unknown drop profile refused")
 	check(not catalog.enemy_drop(group.id,"unknown_species").ok,"unknown enemy refused")
+	check(catalog.load_bindings("res://config/imported_world/bindings.json").ok,"production room roles load from the checked lock")
+	var authored: Array[String] = []
+	var receivers: Array[String] = []
+	for room: Dictionary in source.data.rooms:
+		var binding := catalog.binding("rooms",room.id)
+		if not binding.ok: continue
+		var selected := catalog.room_document(room.id)
+		check(selected.ok, "valid room binding "+str(room.id))
+		if binding.row.status == "authored": authored.append(room.id)
+		elif binding.row.status == "placeholder": receivers.append(room.id)
+		else: check(false,"development binding in the playable world "+str(room.id))
+	authored.sort()
+	receivers.sort()
+	check(authored==["P01","P02","P03"] and receivers==["F08","P04","P13","P16","P19"],"published playable scope is three rooms plus five receiving aprons")
 	check(catalog.load_bindings("res://tests/content_channel_empty_bindings.json").ok,"empty authored bindings accepted")
 	check(not catalog.room_document(group.room).ok,"unbuilt room cannot instantiate")
 	check(not catalog.lookup("rooms","missing").ok,"unknown ID refused")
@@ -130,6 +144,6 @@ func put_json(path: String, value: Dictionary) -> void:
 	file.close()
 
 func finish() -> void:
-	print(JSON.stringify({"ok":failures.is_empty(),"checks":"pinned catalog, independent drop profiles, data queries, conditions, quest discovery, source-order dialogue, unbound rooms, atomic load","failures":failures}))
+	print(JSON.stringify({"ok":failures.is_empty(),"checks":"pinned catalog, independent drop profiles, data queries, conditions, quest discovery, source-order dialogue, playable rooms and receiving aprons, unbound rooms, atomic load","failures":failures}))
 	print("CONTENT CHANNEL CATALOG failures="+str(failures.size()))
 	quit(0 if failures.is_empty() else 1)

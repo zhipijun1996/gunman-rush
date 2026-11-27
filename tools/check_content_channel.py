@@ -1,4 +1,4 @@
-"""Check the locked offline package and its actual Godot room consumer."""
+"""Check content-lock fidelity, published room roles and isolated economy transactions."""
 from pathlib import Path
 import subprocess
 import sys
