@@ -33,7 +33,7 @@ func _decode(encoded: String) -> Dictionary:
 		return {"accepted":false,"reason":"future_content"}
 	if not accepts_payload(parsed.payload):
 		return {"accepted":false,"reason":"invalid_world_payload"}
-	return {"accepted":true,"payload":parsed.payload,"revision":int(parsed.profile_revision),"content_changed":parsed.content_version != content_version}
+	return {"accepted":true,"payload":parsed.payload,"revision":int(parsed.profile_revision),"envelope_content":parsed.content_version,"content_changed":parsed.content_version != content_version}
 
 func accepts_payload(payload: Dictionary) -> bool:
 	return not payload_validator.is_valid() or bool(payload_validator.call(payload))
