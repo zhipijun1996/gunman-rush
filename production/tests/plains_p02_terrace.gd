@@ -129,7 +129,7 @@ func refused_and_held_input() -> void:
 	var broken := FaultPilot.new()
 	host = broken
 	root.add_child(host)
-	await ticks(5)
+	check(await preload("res://tests/plains_start_input.gd").take_ground_gun(host),"prepare the live west road by picking up the P01 gun")
 	var original := host.active
 	var revision := original.state.revision
 	broken.bad_support=true
@@ -245,7 +245,7 @@ func alternate_crossing() -> void:
 	root.add_child(host)
 	host.room_changed.connect(connect_shots)
 	connect_shots(host.active.room.room_id)
-	await ticks(8)
+	check(await preload("res://tests/plains_start_input.gd").take_ground_gun(host),"collect the gun before the alternate recoil route")
 	check(await cross("P02",1),"enter fresh field for alternate west crossing")
 	check(await walk(426),"start at original lip")
 	host.active.controller.router.set_move_axis(1)
@@ -339,7 +339,19 @@ func encounter_route() -> void:
 	check(await walk(140),"cross the grass opening to the optional bank")
 	release_jump()
 	check(await stand(590),"land safely on the defeated patrol's verge")
-	check(await walk(20) and await walk(155),"walk along the verge and back to collect the dropped coin")
+	host.active.controller.router.set_move_axis(-1)
+	await ticks(45)
+	check(host.active.player.is_on_wall() and host.active.player.position.x>32 and host.active.room.room_id=="P02","the lower west verge terminates against solid hillside inside P02")
+	host.active.controller.router.set_move_axis(0)
+	check(await walk(155),"collect the coins left on the verge")
+	# A coin scattered into the chute returns to the bank where the shot was fired.
+	host.active.controller.router.set_move_axis(1)
+	jump()
+	await ticks(6)
+	host.active.controller.router.request_action(&"shoot_release",Vector2(-1,.15).normalized())
+	check(await walk(410),"cross back above the chute for the returning coin")
+	release_jump()
+	check(await stand(558) and await walk(370),"collect the returning coin on the bank")
 	var reward: int=host.active.content_enemy_gold.grass_verge_grub
 	check(host.active.services.ledger().gold==reward,"physical collection credits the grass patrol's authored coin value once")
 	encounter_frame("west_loot")
@@ -388,7 +400,7 @@ func run() -> void:
 	bind_audit()
 	host.room_changed.connect(connect_shots)
 	connect_shots(host.active.room.room_id)
-	await ticks(8)
+	check(await preload("res://tests/plains_start_input.gd").take_ground_gun(host),"pick up the ground gun before the field")
 	check(host.active.room.room_id=="P01" and await stand(270),"start inside the P01 receiving passage")
 	await mark("p01_approach")
 	check(await cross("P02",1) and await stand(366),"actually enter P02 from the west")
@@ -527,7 +539,7 @@ func run() -> void:
 		host = SCENE.instantiate()
 		root.add_child(host)
 		host.room_changed.connect(connect_shots)
-		await ticks(8)
+		check(await preload("res://tests/plains_start_input.gd").take_ground_gun(host),"collect the ground gun before the encounter route")
 		check(await cross("P02",1),"enter the encounter route on a fresh save")
 		await encounter_route()
 

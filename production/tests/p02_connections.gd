@@ -68,8 +68,8 @@ func enter(id: String, storage: TestStorage, viewport: Viewport=null) -> Ordinar
 	if not catalog.room_document(id).ok:
 		Connection.install(host,doc,catalog)
 	await frames(2)
-	for _i: int in 40:
-		if host.player.is_on_floor(): break
+	for _i: int in 180:
+		if host.controller.active and host.player.is_on_floor(): break
 		await physics_frame
 	return host
 
@@ -231,11 +231,11 @@ func shaft_motion(id: String, edge: String) -> void:
 	if not catalog.condition_match(catalog.lookup("doors",edge).row,pilot.active.state.value.flags).matches:
 		# Start this independent fixture on the opposite bank, outside the
 		# observation area. Walk off the lip with the actual movement controller.
-		pilot.active.player.reset_at(Vector2(top.span[0]-26,560))
+		pilot.active.player.reset_at(Vector2(82,557))
 		await frames(30)
 		expect(pilot.active.player.is_on_floor() and not pilot.active.state.has("discover_p02_low_slope"),"opposite grass bank starts outside the watch point")
 		pilot.active.controller.router.set_move_axis(1)
-		for i: int in 30:
+		for i: int in 75:
 			await physics_frame
 			if pilot.active.player.position.x>=upper.x-18: break
 		pilot.active.controller.router.set_move_axis(0)

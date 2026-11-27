@@ -74,6 +74,8 @@ func run() -> void:
 	edge = arg[0]
 	host = SCENE.instantiate()
 	root.add_child(host)
+	if not await preload("res://tests/plains_start_input.gd").take_ground_gun(host):
+		printerr("Cannot prepare the P01 ground weapon"); quit(1); return
 	await ticks(5)
 	var field := host.read_destination("P02")
 	var link := host.catalog.lookup("doors",edge)

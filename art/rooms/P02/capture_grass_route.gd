@@ -80,6 +80,10 @@ func vault_gap(side: float, end_x: float, fire_after: int) -> bool:
 func run() -> void:
 	host = SCENE.instantiate()
 	root.add_child(host)
+	if "--touch-hud" in OS.get_cmdline_user_args():
+		host.room_changed.connect(func(_id: String): host.active.touch_controls.set_enabled(true))
+	if not await preload("res://tests/plains_start_input.gd").take_ground_gun(host):
+		printerr("Cannot prepare the P01 ground weapon"); quit(1); return
 	host.enter_room("P02","d001")
 	await ticks(5)
 	if host.active.room.room_id!="P02": fail("P02 did not open"); return
@@ -95,8 +99,18 @@ func run() -> void:
 		fail("source mouth or fresh discovery state"); return
 	if not await walk(field.end.x+27) or not await supported("P02",558) or not await walk(404):
 		fail("drop from the western field to the lower lane"); return
-	if not await vault_gap(-1,145,5) or not await supported("P02",590) or not await walk(32):
+	if not await vault_gap(-1,145,5):
 		fail("approach the grass from the west"); return
+	host.active.controller.router.set_move_axis(-1)
+	await ticks(90)
+	var west_stop := host.active.player.position
+	var touched_wall := false
+	for i: int in 24:
+		await physics_frame
+		touched_wall = touched_wall or host.active.player.is_on_wall()
+	if not touched_wall or host.active.player.position.distance_to(west_stop)>3 or west_stop.x<=32 or host.active.room.room_id!="P02":
+		fail("westward movement must stop at the solid foot of the hill"); return
+	host.active.controller.router.set_move_axis(0)
 	await ticks(40)
 	if host.active.state.has(event): fail("looks from the west must leave the map hidden"); return
 	mark("west_far")
